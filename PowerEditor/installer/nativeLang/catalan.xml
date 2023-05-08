@@ -24,7 +24,7 @@ By Hiro5 <groccat at gmail>
 				</Entries>
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Obre la carpeta contenidora"/>
-					<Item subMenuId="file-closeMore" name = "&amp;Més tancaments"/>
+					<Item subMenuId="file-closeMore" name="&amp;Més tancaments"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Fitxers recents"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copia al porta&amp;-retalls"/>
 					<Item subMenuId="edit-indent" name="Tab&amp;ulació"/>
@@ -45,7 +45,7 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="view-showSymbol" name="Mostra sím&amp;bol"/>
 					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="M&amp;ou/clona el document actual"/>
-					<Item subMenuId="view-tab" name = "Pestanyes"/>
+					<Item subMenuId="view-tab" name="Pestanyes"/>
 					<Item subMenuId="view-collapseLevel" name="P&amp;lega el nivell..."/>
 					<Item subMenuId="view-uncollapseLevel" name="De&amp;splega el nivell..."/>
 					<Item subMenuId="view-project" name="Pro&amp;jectes"/>
@@ -94,7 +94,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="41012" name="Carre&amp;ga Sessió..."/>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
 					<Item id="41010" name="&amp;Imprimeix..."/>
-					<Item id="1001"  name="Im&amp;primeix ara!"/>
+					<Item id="1001" name="Im&amp;primeix ara!"/>
 					<Item id="41021" name="Restaura el darrer fitxer tancat"/>
 					<Item id="42040" name="Obre tots els fit&amp;xers recents"/>
 					<Item id="42041" name="Nete&amp;ja llista de fitxers recents"/>
@@ -341,34 +341,34 @@ By Hiro5 <groccat at gmail>
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0"  name="&amp;Tanca"/>
-				<Item CMID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
+				<Item CMID="0" name="&amp;Tanca"/>
+				<Item CMID="1" name="Tanca'ls tots m&amp;enys aquest"/>
 				<Item CMID="17" name="Tanca tots els de l'esquerra"/>
 				<Item CMID="18" name="Tanca tots els de la dreta"/>
 				<Item CMID="22" name="Tanca tots els no canviats"/>
-				<Item CMID="2"  name="&amp;Desa"/>
-				<Item CMID="3"  name="Desa &amp;com a..."/>
+				<Item CMID="2" name="&amp;Desa"/>
+				<Item CMID="3" name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
 				<Item CMID="11" name="Su&amp;primeix"/>
 				<Item CMID="16" name="Recarre&amp;ga"/>
-				<Item CMID="4"  name="&amp;Imprimeix..."/>
+				<Item CMID="4" name="&amp;Imprimeix..."/>
 				<Item CMID="19" name="Obre la carpeta contenidora amb l'Explorador"/>
 				<Item CMID="20" name="Obre la carpeta contenidora amb l'Indicador d'ordres"/>
 				<Item CMID="21" name="Obre amb el visualitzador per defecte"/>
 				<Item CMID="12" name="&amp;Mode de Només-Lectura"/>
 				<Item CMID="13" name="Treu m&amp;arca de Només-Lectura"/>
-				<Item CMID="7"  name="Copia el camí sence&amp;r d'aquest fitxer"/>
-				<Item CMID="8"  name="C&amp;opia el nom d'aquest fitxer"/>
-				<Item CMID="9"  name="Copia el camí del di&amp;rectori d'aquest fitxer"/>
-				<Item CMID="5"  name="Mou a una altra &amp;vista"/>
-				<Item CMID="6"  name="Clona a una altra vi&amp;sta"/>
+				<Item CMID="7" name="Copia el camí sence&amp;r d'aquest fitxer"/>
+				<Item CMID="8" name="C&amp;opia el nom d'aquest fitxer"/>
+				<Item CMID="9" name="Copia el camí del di&amp;rectori d'aquest fitxer"/>
+				<Item CMID="5" name="Mou a una altra &amp;vista"/>
+				<Item CMID="6" name="Clona a una altra vi&amp;sta"/>
 				<Item CMID="14" name="Mou a una nova &amp;finestra"/>
 				<Item CMID="15" name="C&amp;lona a una nova finestra"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
-				<Item id="1"    name="Cerca següent"/>
+				<Item id="1" name="Cerca següent"/>
 				<Item id="1722" name="Inverteix direcció"/>
 				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
@@ -378,7 +378,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1635" name="Reemplaça-ho tot als documents oberts"/>
 				<Item id="1656" name="Cerca'ls tots"/>
 				<Item id="1660" name="Reemplaça-ho als fitxers"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="2" name="Tanca"/>
 				<Item id="1620" name="Què voleu trobar?:"/>
 				<Item id="1611" name="Re&amp;emplaça amb:"/>
 				<Item id="1654" name="Filtres:"/>
@@ -406,7 +406,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Cerca següent"/>
 			</Find>
-			<FindCharsInRange title = "Cerca interval de caràcters...">
+			<FindCharsInRange title="Cerca interval de caràcters...">
 				<Item id="2910" name="Cerca"/>
 				<Item id="2" name="Tanca"/>
 				<Item id="2901" name="Caràcters no-ASCII (128-255)"/>
@@ -423,44 +423,44 @@ By Hiro5 <groccat at gmail>
 				<Item id="2004" name="Sou aquí:"/>
 				<Item id="2005" name="Voleu anar a:"/>
 				<Item id="2006" name="No podeu anar més enllà de:"/>
-				<Item id="1"    name="&amp;Vés-hi!"/>
-				<Item id="2"    name="No vaig enlloc!"/>
+				<Item id="1" name="&amp;Vés-hi!"/>
+				<Item id="2" name="No vaig enlloc!"/>
 			</GoToLine>
 			<Run title="Executa...">
 				<Item id="1903" name="Trieu el programa que voleu executar aquí"/>
-				<Item id="1"    name="Executa"/>
+				<Item id="1" name="Executa"/>
 				<Item id="1904" name="Desa..."/>
-				<Item id="2"    name="Atura"/>
+				<Item id="2" name="Atura"/>
 			</Run>
 			<MD5FromFilesDlg title="Genera resums MD5 dels fitxers">
 				<Item id="1922" name="Trieu els fitxers per generar els MD5..."/>
 				<Item id="1924" name="Copia al porta-retalls"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="2" name="Tanca"/>
 			</MD5FromFilesDlg>
 			<MD5FromTextDlg title="Genera resums MD5">
 				<Item id="1932" name="Tracta cada línia com un text per separat"/>
 				<Item id="1934" name="Copia al porta-retalls"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="2" name="Tanca"/>
 			</MD5FromTextDlg>
 			<SHA256FromFilesDlg title="Genera resums SHA-256 de fitxers">
 				<Item id="1922" name="Tria els fitxers per generar els SHA-256..."/>
 				<Item id="1924" name="Copia al porta-retalls"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="2" name="Tanca"/>
 			</SHA256FromFilesDlg>
 			<SHA256FromTextDlg title="Genera resums SHA-256">
 				<Item id="1932" name="Tracta cada línia com un text per separat"/>
 				<Item id="1934" name="Copia al porta-retalls"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="2" name="Tanca"/>
 			</SHA256FromTextDlg>
-			<PluginsAdminDlg title="Administrador de complements" titleAvailable = "Disponibles" titleUpdates = "Actualitzacions" titleInstalled = "Instal·lats">
-				<ColumnPlugin   name="Complement"/>
-				<ColumnVersion  name="Versió"/>
+			<PluginsAdminDlg title="Administrador de complements" titleAvailable="Disponibles" titleUpdates="Actualitzacions" titleInstalled="Instal·lats">
+				<ColumnPlugin name="Complement"/>
+				<ColumnVersion name="Versió"/>
 				<Item id="5501" name="Cerca:"/>
 				<Item id="5503" name="Instal·la"/>
 				<Item id="5504" name="Actualitza"/>
 				<Item id="5505" name="Esborra"/>
 				<Item id="5508" name="Següent"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="2" name="Tanca"/>
 			</PluginsAdminDlg>
 			<StyleConfig title="Configuració d'estil">
 				<Item id="2" name="Cancel·la"/>
@@ -961,8 +961,8 @@ By Hiro5 <groccat at gmail>
 				<Item id="2027" name="Binari"/>
 			</ColumnEditor>
 			<FindInFinder title="Cerca al cercador">
-				<Item id="1"    name="Cerca-ho tot"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="1" name="Cerca-ho tot"/>
+				<Item id="2" name="Tanca"/>
 				<Item id="1711" name="Cerca:"/>
 				<Item id="1713" name="Cerca només en línies trobades"/>
 				<Item id="1714" name="Cerca només &amp;paraula sencera"/>
@@ -998,7 +998,7 @@ By Hiro5 <groccat at gmail>
 			<SessionFileInvalidError title="No s'ha pogut carregar la sessió" message="El fitxer de sessió està malmès o no és vàlid."/>
 			<DroppingFolderAsProjectModeWarning title="Acció no vàlida" message="Podeu arrossegar fitxers o carpetes però no ambdues, perquè s'està arrossegant en mode de Carpeta com a projecte.&#xD;Heu d'activar &quot;Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball&quot; a la secció &quot;Directoris&quot; del diàleg de Preferències per fer que aquesta operació funcioni."/>
 			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $INT_REPLACE$."/>
-			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna." />
+			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna."/>
 			<BufferInvalidWarning title="El desat ha fallat" message="No es pot desar: El buffer no es vàlid."/>
 			<DoCloseOrNot title="Manté el fitxer inexistent" message="El fitxer &quot;$STR_REPLACE$&quot; ja no existeix.&#xD;El voleu mantenir en l'editor?"/>
 			<DoDeleteOrNot title="Suprimeix fitxer" message="El fitxer &quot;$STR_REPLACE$&quot;&#xD;es mourà a la Paperera i aquest document es tancarà.&#xD;Voleu continuar?"/>

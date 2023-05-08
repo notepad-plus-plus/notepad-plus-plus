@@ -24,7 +24,7 @@
 					<Item subMenuId="file-openFolder" name="Dobrir lo dorsièr parent"/>
 					<Item subMenuId="file-closeMore" name="Tampar mai"/>
 					<Item subMenuId="file-recentFiles" name="Fichièrs recents"/>
-					<Item subMenuId="edit-copyToClipboard"  name="Copiar dins lo quichapapièrs"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copiar dins lo quichapapièrs"/>
 					<Item subMenuId="edit-indent" name="Indentacion"/>
 					<Item subMenuId="edit-convertCaseTo" name="MAJUSCULA/minuscula"/>
 					<Item subMenuId="edit-lineOperations" name="Operacions de linhas"/>
@@ -39,31 +39,31 @@
 					<Item subMenuId="search-jumpUp" name="Anar al precedent"/>
 					<Item subMenuId="search-jumpDown" name="Anar al seguent"/>
 					<Item subMenuId="search-bookmark" name="Marca-paginas"/>
-					<Item subMenuId="view-showSymbol"  name="Mostrar los simbòls"/>
-					<Item subMenuId="view-zoom"  name="Zoom"/>
-					<Item subMenuId="view-moveCloneDocument"  name="Desplaçar/Clonar lo document actual"/>
-					<Item subMenuId="view-tab"  name="Onglet"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar los simbòls"/>
+					<Item subMenuId="view-zoom" name="Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="Desplaçar/Clonar lo document actual"/>
+					<Item subMenuId="view-tab" name="Onglet"/>
 					<Item subMenuId="view-collapseLevel" name="Plegar lo nivèl"/>
 					<Item subMenuId="view-uncollapseLevel" name="Desplegar lo nivèl"/>
 					<Item subMenuId="view-project" name="Projècte"/>
-					<Item subMenuId="encoding-characterSets"  name="Codatge de caractèrs"/>
-					<Item subMenuId="encoding-arabic"  name="Arab"/>
-					<Item subMenuId="encoding-baltic"  name="Baltic"/>
-					<Item subMenuId="encoding-celtic"  name="Celtic"/>
-					<Item subMenuId="encoding-cyrillic"  name="Cirillic"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Europèu central"/>
-					<Item subMenuId="encoding-chinese"  name="Chinés"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Europèu oriental"/>
-					<Item subMenuId="encoding-greek"  name="Grèc"/>
-					<Item subMenuId="encoding-hebrew"  name="Ebrèu"/>
-					<Item subMenuId="encoding-japanese"  name="Japonés"/>
+					<Item subMenuId="encoding-characterSets" name="Codatge de caractèrs"/>
+					<Item subMenuId="encoding-arabic" name="Arab"/>
+					<Item subMenuId="encoding-baltic" name="Baltic"/>
+					<Item subMenuId="encoding-celtic" name="Celtic"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirillic"/>
+					<Item subMenuId="encoding-centralEuropean" name="Europèu central"/>
+					<Item subMenuId="encoding-chinese" name="Chinés"/>
+					<Item subMenuId="encoding-easternEuropean" name="Europèu oriental"/>
+					<Item subMenuId="encoding-greek" name="Grèc"/>
+					<Item subMenuId="encoding-hebrew" name="Ebrèu"/>
+					<Item subMenuId="encoding-japanese" name="Japonés"/>
 					<Item subMenuId="encoding-korean" name="Corean"/>
 					<Item subMenuId="encoding-northEuropean" name="Europèu del nòrd"/>
 					<Item subMenuId="encoding-thai" name="Tai"/>
 					<Item subMenuId="encoding-turkish" name="Turc"/>
 					<Item subMenuId="encoding-westernEuropean" name="Europèu occidental"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamian"/>
-					<Item subMenuId="settings-import"  name="Importar"/>
+					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 				</SubEntries>
 
@@ -323,28 +323,28 @@
 			</Splitter>
 			
 			<TabBar>
-					<Item CMID="0" name="Tampar"/>
-					<Item CMID="1" name="Tampar totes levat aqueste"/>
-					<Item CMID="2" name="Salvar"/>
-					<Item CMID="3" name="Salvar coma..."/>
-					<Item CMID="4" name="estampar"/>
-					<Item CMID="5" name="Anar a una autra visualizacion"/>
-					<Item CMID="6" name="Clonar dins una autra visualizacion"/>
-					<Item CMID="7" name="Salvar lo camin de fichièr complet dins lo quichapapièrs"/>
-					<Item CMID="8" name="Salvar lo nom de fichièr dins lo quichapapièrs"/>
-					<Item CMID="9" name="Salvar lo camin del dorsièr dins lo quichapapièrs"/>
-					<Item CMID="10" name="Tornar nomenar"/>
-					<Item CMID="11" name="Suprimir"/>
-					<Item CMID="12" name="Lectura-Sola"/>
-					<Item CMID="13" name="Suprimir l'atribut Lectura-Sola"/>
-					<Item CMID="14" name="Desplaçar dins una novèla fenèstra"/>
-					<Item CMID="15" name="Dobrir dins una novèla fenèstra"/>
-					<Item CMID="16" name="Tornar cargar"/>
-					<Item CMID="17" name="Tampar tot a esquèrra"/>
-					<Item CMID="18" name="Tampar tot a dreita"/>
-					<Item CMID="19" name="Dobrir lo dorsièr parent dins l'explorator"/>
-					<Item CMID="20" name="Dobrir lo dorsièr parent dins cmd"/>
-					<Item CMID="21" name="Dobrir dins la visualizacion per defaut"/>
+				<Item CMID="0" name="Tampar"/>
+				<Item CMID="1" name="Tampar totes levat aqueste"/>
+				<Item CMID="2" name="Salvar"/>
+				<Item CMID="3" name="Salvar coma..."/>
+				<Item CMID="4" name="estampar"/>
+				<Item CMID="5" name="Anar a una autra visualizacion"/>
+				<Item CMID="6" name="Clonar dins una autra visualizacion"/>
+				<Item CMID="7" name="Salvar lo camin de fichièr complet dins lo quichapapièrs"/>
+				<Item CMID="8" name="Salvar lo nom de fichièr dins lo quichapapièrs"/>
+				<Item CMID="9" name="Salvar lo camin del dorsièr dins lo quichapapièrs"/>
+				<Item CMID="10" name="Tornar nomenar"/>
+				<Item CMID="11" name="Suprimir"/>
+				<Item CMID="12" name="Lectura-Sola"/>
+				<Item CMID="13" name="Suprimir l'atribut Lectura-Sola"/>
+				<Item CMID="14" name="Desplaçar dins una novèla fenèstra"/>
+				<Item CMID="15" name="Dobrir dins una novèla fenèstra"/>
+				<Item CMID="16" name="Tornar cargar"/>
+				<Item CMID="17" name="Tampar tot a esquèrra"/>
+				<Item CMID="18" name="Tampar tot a dreita"/>
+				<Item CMID="19" name="Dobrir lo dorsièr parent dins l'explorator"/>
+				<Item CMID="20" name="Dobrir lo dorsièr parent dins cmd"/>
+				<Item CMID="21" name="Dobrir dins la visualizacion per defaut"/>
 			</TabBar>
 		</Menu>
 		
@@ -365,20 +365,20 @@
 				<Item id="1611" name="Rem&amp;plaçar per :"/>
 				<Item id="1608" name="&amp;Remplaçar"/>
 				<Item id="1609" name="Remplaçar &amp;tot"/>
-			 	<Item id="1687" name="A la pèrda del focus"/>
-			 	<Item id="1688" name="Totjorn"/>
-			 	<Item id="1632" name="Dins la seleccion"/>
-			 	<Item id="1633" name="Voidar"/>
-			 	<Item id="1635" name="Remplaçar dins totes los documents dobèrts"/>
-			 	<Item id="1636" name="Recercar dins totes los documents dobèrts"/>
-			 	<Item id="1654" name="Filtres :"/>
-			 	<Item id="1655" name="Dorsièr :"/>
-			 	<Item id="1656" name="Los recercar totes"/>
-			 	<Item id="1658" name="Amb los sos-dorsièrs"/>
-			 	<Item id="1659" name="Dorsièrs amagats"/>
-			 	<Item id="1624" name="Mòde de recèrca"/>
-			 	<Item id="1625" name="Normal"/>
-			 	<Item id="1626" name="Espandit (\n, \r, \t, \0, \x...)"/>
+				<Item id="1687" name="A la pèrda del focus"/>
+				<Item id="1688" name="Totjorn"/>
+				<Item id="1632" name="Dins la seleccion"/>
+				<Item id="1633" name="Voidar"/>
+				<Item id="1635" name="Remplaçar dins totes los documents dobèrts"/>
+				<Item id="1636" name="Recercar dins totes los documents dobèrts"/>
+				<Item id="1654" name="Filtres :"/>
+				<Item id="1655" name="Dorsièr :"/>
+				<Item id="1656" name="Los recercar totes"/>
+				<Item id="1658" name="Amb los sos-dorsièrs"/>
+				<Item id="1659" name="Dorsièrs amagats"/>
+				<Item id="1624" name="Mòde de recèrca"/>
+				<Item id="1625" name="Normal"/>
+				<Item id="1626" name="Espandit (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Remplaçar dins los fichièrs"/>
 				<Item id="1661" name="Seguir lo document actiu"/>
 				<Item id="1641" name="Trobar tot dins lo document actiu"/>
@@ -416,16 +416,16 @@
 				<Item id="1904" name="Salvar..."/>
 			</Run>
 			
-			 <MD5FromFilesDlg title="Generar MD5 dempuèi los fichièrs">
+			<MD5FromFilesDlg title="Generar MD5 dempuèi los fichièrs">
 				<Item id="1922" name="Causir los fichièrs per generar lo MD5..."/>
 				<Item id="1924" name="Copiar dins lo quichapapièrs"/>
-				<Item id="2"    name="Tampar"/>
+				<Item id="2" name="Tampar"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Generar MD5">
 				<Item id="1932" name="Tractar cada linha coma una cadena de caractèrs diferenta"/>
 				<Item id="1934" name="Copiar dins la quichapapièrs"/>
-				<Item id="2"    name="Tampar"/>
+				<Item id="2" name="Tampar"/>
 			</MD5FromTextDlg>
 
 			<StyleConfig title="Configurator d'estil">
@@ -940,7 +940,7 @@
 				<Item id="2" name="Anullar"/>
 			</ColumnEditor>
 		</Dialog>
-		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Modificacion de contextMenu.xml" message="Modificar contextMenu.xml vos permet de modificar lo menú contextual de Notepad++.
 Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<NppHelpAbsentWarning title="Lo fichièr exista pas" message="
@@ -1039,8 +1039,8 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Tièra de fonccions"/>
-			<SortTip name="Ordenar" />
-			<ReloadTip name="Tornar cargar" />
+			<SortTip name="Ordenar"/>
+			<ReloadTip name="Tornar cargar"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Dorsièr coma espaci de trabalh"/>

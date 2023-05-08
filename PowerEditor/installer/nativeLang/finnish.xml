@@ -25,9 +25,9 @@ Updated to v8.0.0:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-				    <Item subMenuId="file-openFolder" name="Avaa kansio"/>
+					<Item subMenuId="file-openFolder" name="Avaa kansio"/>
 					<Item subMenuId="file-recentFiles" name="Viimeisimmät tiedostot"/>
-					<Item subMenuId="file-closeMore" name="Sulje useita" />
+					<Item subMenuId="file-closeMore" name="Sulje useita"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kopioi leikepöydälle"/>
 					<Item subMenuId="edit-indent" name="Sisennys"/>
 					<Item subMenuId="edit-convertCaseTo" name="Kirjainkoon muunnos"/>
@@ -35,50 +35,50 @@ Updated to v8.0.0:
 					<Item subMenuId="edit-comment" name="Kommentit"/>
 					<Item subMenuId="edit-autoCompletion" name="Automaattiset täydennykset"/>
 					<Item subMenuId="edit-eolConversion" name="Rivin loppumerkit (EOL)"/>
-                    <Item subMenuId="edit-blankOperations" name="Välilyöntien käsittely"/>
+					<Item subMenuId="edit-blankOperations" name="Välilyöntien käsittely"/>
 					<Item subMenuId="edit-pasteSpecial" name="Liitä erikoistekstiä"/>
 					<Item subMenuId="edit-onSelection" name="Valinnassa"/>
 					<Item subMenuId="search-markAll" name="Samanlaisten korostaminen"/>
 					<Item subMenuId="search-markOne" name="Korosta yksi"/>
-                    <Item subMenuId="search-unmarkAll" name="Korostusten poistaminen"/>
-                    <Item subMenuId="search-jumpUp" name="Eteenpäin korostustyyliin"/>
-                    <Item subMenuId="search-jumpDown" name="Taaksepäin korostustyyliin"/>
+					<Item subMenuId="search-unmarkAll" name="Korostusten poistaminen"/>
+					<Item subMenuId="search-jumpUp" name="Eteenpäin korostustyyliin"/>
+					<Item subMenuId="search-jumpDown" name="Taaksepäin korostustyyliin"/>
 					<Item subMenuId="search-copyStyledText" name="&amp;Kopioi tyylitelty teksti"/>
-                    <Item subMenuId="search-bookmark" name="Kirjanmerkit"/>
+					<Item subMenuId="search-bookmark" name="Kirjanmerkit"/>
 					<Item subMenuId="view-currentFileIn" name="Näytä selaimessa"/>
 					<Item subMenuId="view-showSymbol" name="Erityismerkit"/>
-                    <Item subMenuId="view-zoom" name="Suurennus"/>
-                    <Item subMenuId="view-moveCloneDocument" name="Siirrä/kahdenna nykyinen dokumentti"/>
-					<Item subMenuId="view-tab"  name="Välilehti"/>
-                    <Item subMenuId="view-collapseLevel" name="Tiivistä tasolle"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Laajenna tasolle"/>
-					<Item subMenuId="view-project" name="Projekti" />
+					<Item subMenuId="view-zoom" name="Suurennus"/>
+					<Item subMenuId="view-moveCloneDocument" name="Siirrä/kahdenna nykyinen dokumentti"/>
+					<Item subMenuId="view-tab" name="Välilehti"/>
+					<Item subMenuId="view-collapseLevel" name="Tiivistä tasolle"/>
+					<Item subMenuId="view-uncollapseLevel" name="Laajenna tasolle"/>
+					<Item subMenuId="view-project" name="Projekti"/>
 					<Item subMenuId="encoding-characterSets" name="Merkistökoodaus"/>
-          		    <Item subMenuId="encoding-arabic"  name="Arabialainen"/>
-     		        <Item subMenuId="encoding-baltic"  name="Balttilainen"/>
-     		        <Item subMenuId="encoding-celtic"  name="Kelttiläinen"/>
-      		        <Item subMenuId="encoding-cyrillic"  name="Kyrillinen"/>
-           		    <Item subMenuId="encoding-centralEuropean"  name="Keskieurooppalainen"/>
-		            <Item subMenuId="encoding-chinese"  name="Kiinalainen"/>
-              		<Item subMenuId="encoding-easternEuropean"  name="Itäeurooppalainen"/>
-                    <Item subMenuId="encoding-greek"  name="Kreikkalainen"/>
-                    <Item subMenuId="encoding-hebrew"  name="Heprealainen"/>
-                    <Item subMenuId="encoding-japanese"  name="Japanilainen"/>
-                    <Item subMenuId="encoding-korean" name="Korealainen"/>
-                    <Item subMenuId="encoding-northEuropean" name="Pohjoismaalainen"/>
-                    <Item subMenuId="encoding-thai" name="Thaimaalainen"/>
-                    <Item subMenuId="encoding-turkish" name="Turkkilainen"/>
-                    <Item subMenuId="encoding-westernEuropean" name="Länsimainen"/>
-                    <Item subMenuId="encoding-vietnamese" name="Vietnamilainen"/>
+					<Item subMenuId="encoding-arabic" name="Arabialainen"/>
+					<Item subMenuId="encoding-baltic" name="Balttilainen"/>
+					<Item subMenuId="encoding-celtic" name="Kelttiläinen"/>
+					<Item subMenuId="encoding-cyrillic" name="Kyrillinen"/>
+					<Item subMenuId="encoding-centralEuropean" name="Keskieurooppalainen"/>
+					<Item subMenuId="encoding-chinese" name="Kiinalainen"/>
+					<Item subMenuId="encoding-easternEuropean" name="Itäeurooppalainen"/>
+					<Item subMenuId="encoding-greek" name="Kreikkalainen"/>
+					<Item subMenuId="encoding-hebrew" name="Heprealainen"/>
+					<Item subMenuId="encoding-japanese" name="Japanilainen"/>
+					<Item subMenuId="encoding-korean" name="Korealainen"/>
+					<Item subMenuId="encoding-northEuropean" name="Pohjoismaalainen"/>
+					<Item subMenuId="encoding-thai" name="Thaimaalainen"/>
+					<Item subMenuId="encoding-turkish" name="Turkkilainen"/>
+					<Item subMenuId="encoding-westernEuropean" name="Länsimainen"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamilainen"/>
 					<Item subMenuId="language-userDefinedLanguage" name="Käyttäjän määrittämä kieli"/>
-                    <Item subMenuId="settings-import" name="Tuonti" />
+					<Item subMenuId="settings-import" name="Tuonti"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
-                    <Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 				
 				<!-- all menu item -->
 				<Commands>
-					<Item id="1001"  name="Tulosta heti"/>
+					<Item id="1001" name="Tulosta heti"/>
 					<Item id="10001" name="Yksi näkymä"/>
 					<Item id="10002" name="Kahdenna näkymä"/>
 					<Item id="10003" name="Siirrä uuteen istuntoon"/>
@@ -91,7 +91,7 @@ Updated to v8.0.0:
 					<Item id="41006" name="&amp;Tallenna"/>
 					<Item id="41007" name="Tallenna &amp;kaikki"/>
 					<Item id="41008" name="Tallenna n&amp;imellä..."/>
-					<Item id="41009" name="Sulje kaikki vasemmanpuoleiset" />
+					<Item id="41009" name="Sulje kaikki vasemmanpuoleiset"/>
 					<Item id="41010" name="Tulosta..."/>
 					<Item id="41011" name="&amp;Lopeta"/>
 					<Item id="41012" name="A&amp;vaa istunto..."/>
@@ -100,7 +100,7 @@ Updated to v8.0.0:
 					<Item id="41015" name="Tallenna k&amp;opio..."/>
 					<Item id="41016" name="&amp;Poista tiedosto"/>
 					<Item id="41017" name="&amp;Nimeä uudelleen"/>
-					<Item id="41018" name="Sulje kaikki oikeanpuoleiset"  />
+					<Item id="41018" name="Sulje kaikki oikeanpuoleiset"/>
 					<Item id="41019" name="Resurssienhallinnassa"/>
 					<Item id="41020" name="Komentokehotteessa"/>
 					<Item id="41021" name="Palauta äskettäin suljettu tiedosto"/>
@@ -126,7 +126,7 @@ Updated to v8.0.0:
 					<Item id="42017" name="-> pienet kirjaimet"/>
 					<Item id="42018" name="&amp;Aloita nauhoitus"/>
 					<Item id="42019" name="&amp;Lopeta nauhoitus"/>
-					<Item id="42020" name="Valitse alku/loppu" />
+					<Item id="42020" name="Valitse alku/loppu"/>
 					<Item id="42021" name="&amp;Toista nauhoitus"/>
 					<Item id="42022" name="Kommentointi päälle/pois (rivimoodi)"/>
 					<Item id="42023" name="Lohkon kommentointi"/>
@@ -159,38 +159,38 @@ Updated to v8.0.0:
 					<Item id="42050" name="Liitä binäärisisältö"/>
 					<Item id="42051" name="Merkkipaneeli"/>
 					<Item id="42052" name="Leikepöytähistoria"/>
-					<Item id="42053" name="Korvaa rivin alun välilyönnit tabuloinneilla" />
-					<Item id="42054" name="Korvaa kaikki välilyönnit tabuloinneilla" />
+					<Item id="42053" name="Korvaa rivin alun välilyönnit tabuloinneilla"/>
+					<Item id="42054" name="Korvaa kaikki välilyönnit tabuloinneilla"/>
 					<Item id="42054" name="Välilyönnit tabuloinneiksi (kaikki)"/>
-					<Item id="42055" name="Poista tyhjät rivit" />
-					<Item id="42056" name="Poista tyhjät rivit (myös välilyöntejä sisältävät)" />
-					<Item id="42057" name="Lisää tyhjä rivi nykyisen yläpuolelle" />
-					<Item id="42058" name="Lisää tyhjä rivi nykyisen alapuolelle" />
+					<Item id="42055" name="Poista tyhjät rivit"/>
+					<Item id="42056" name="Poista tyhjät rivit (myös välilyöntejä sisältävät)"/>
+					<Item id="42057" name="Lisää tyhjä rivi nykyisen yläpuolelle"/>
+					<Item id="42058" name="Lisää tyhjä rivi nykyisen alapuolelle"/>
 					<Item id="42059" name="Lajittele rivit sanastollisesti nousevasti"/>
 					<Item id="42060" name="Lajittele rivit sanastollisesti laskevasti"/>
-                    <Item id="42061" name="Lajittele rivit kokonaislukuina nousevasti"/>
-                    <Item id="42062" name="Lajittele rivit kokonaislukuina laskevasti"/>
-                    <Item id="42063" name="Lajittele rivit desimaaleina (pilkulla) nousevasti"/>
-                    <Item id="42064" name="Lajittele rivit desimaaleina (pilkulla) laskevasti"/>
-                    <Item id="42065" name="Lajittele rivit desimaaleina (pisteellä) nousevasti"/>
-                    <Item id="42066" name="Lajittele rivit desimaaleina (pisteellä) laskevasti"/>
+					<Item id="42061" name="Lajittele rivit kokonaislukuina nousevasti"/>
+					<Item id="42062" name="Lajittele rivit kokonaislukuina laskevasti"/>
+					<Item id="42063" name="Lajittele rivit desimaaleina (pilkulla) nousevasti"/>
+					<Item id="42064" name="Lajittele rivit desimaaleina (pilkulla) laskevasti"/>
+					<Item id="42065" name="Lajittele rivit desimaaleina (pisteellä) nousevasti"/>
+					<Item id="42066" name="Lajittele rivit desimaaleina (pisteellä) laskevasti"/>
 					<Item id="42067" name="&amp;Sanan Ensimmäinen Kirjain Isolla"/>
 					<Item id="42068" name="Sanan Ensimmäinen Kirjain Isolla (sekoitus)"/>
 					<Item id="42069" name="&amp;Virkkeen kirjainkoko"/>
-                    <Item id="42070" name="Virkkeen kirjainkoko (sekoitus)"/>
-                    <Item id="42071" name="&amp;vAIHDA kIRJAINKOKO"/>
-                    <Item id="42072" name="&amp;sATunNaInen kOko"/>
-                    <Item id="42073" name="Avaa tiedosto"/>
-                    <Item id="42074" name="Avaa kyseinen kansio Resurssienhallinnassa"/>
-                    <Item id="42075" name="Etsi internetistä"/>
-                    <Item id="42076" name="Vaihda hakukone..."/>
+					<Item id="42070" name="Virkkeen kirjainkoko (sekoitus)"/>
+					<Item id="42071" name="&amp;vAIHDA kIRJAINKOKO"/>
+					<Item id="42072" name="&amp;sATunNaInen kOko"/>
+					<Item id="42073" name="Avaa tiedosto"/>
+					<Item id="42074" name="Avaa kyseinen kansio Resurssienhallinnassa"/>
+					<Item id="42075" name="Etsi internetistä"/>
+					<Item id="42076" name="Vaihda hakukone..."/>
 					<Item id="42077" name="Poista peräkkäiset kaksinkertaiset rivit"/>
 					<Item id="42078" name="Satunnainen rivijärjestys"/>
 					<Item id="42079" name="Poista rivien kaksoiskappaleet"/>
-					<Item id="42080" name="Lajittele rivit sanastollisesti nousevasti, älä huomioi kirjainkokoa"/>					
-					<Item id="42081" name="Lajittele rivit sanastollisesti laskevasti, älä huomioi kirjainkokoa"/>	
+					<Item id="42080" name="Lajittele rivit sanastollisesti nousevasti, älä huomioi kirjainkokoa"/>
+					<Item id="42081" name="Lajittele rivit sanastollisesti laskevasti, älä huomioi kirjainkokoa"/>
 					<Item id="42082" name="Linkin kopioiminen"/>
-					<Item id="42083" name="Käänteinen rivijärjestys"/>						
+					<Item id="42083" name="Käänteinen rivijärjestys"/>
 					<Item id="43001" name="&amp;Etsi..."/>
 					<Item id="43002" name="Etsi &amp;seuraava"/>
 					<Item id="43003" name="&amp;Korvaa..."/>
@@ -210,16 +210,16 @@ Updated to v8.0.0:
 					<Item id="43020" name="Liitä kirjanmerkityille riveille (korvaten)"/>
 					<Item id="43021" name="Poista kirjanmerkityt rivit"/>
 					<Item id="43022" name="Käyttäen tyyliä 1"/>
-                    <Item id="43023" name="Tyhjennä tyyli 1"/>
-                    <Item id="43024" name="Käyttäen tyyliä 2"/>
-                    <Item id="43025" name="Tyhjennä tyyli 2"/>
-                    <Item id="43026" name="Käyttäen tyyliä 3"/>
-                    <Item id="43027" name="Tyhjennä tyyli 3"/>
-                    <Item id="43028" name="Käyttäen tyyliä 4"/>
-                    <Item id="43029" name="Tyhjennä tyyli 4"/>
-                    <Item id="43030" name="Käyttäen tyyliä 5"/>
-                    <Item id="43031" name="Tyhjennä tyyli 5"/>
-                    <Item id="43032" name="Tyhjennä kaikki tyylit"/>
+					<Item id="43023" name="Tyhjennä tyyli 1"/>
+					<Item id="43024" name="Käyttäen tyyliä 2"/>
+					<Item id="43025" name="Tyhjennä tyyli 2"/>
+					<Item id="43026" name="Käyttäen tyyliä 3"/>
+					<Item id="43027" name="Tyhjennä tyyli 3"/>
+					<Item id="43028" name="Käyttäen tyyliä 4"/>
+					<Item id="43029" name="Tyhjennä tyyli 4"/>
+					<Item id="43030" name="Käyttäen tyyliä 5"/>
+					<Item id="43031" name="Tyhjennä tyyli 5"/>
+					<Item id="43032" name="Tyhjennä kaikki tyylit"/>
 					<Item id="43033" name="Tyyli 1"/>
 					<Item id="43034" name="Tyyli 2"/>
 					<Item id="43035" name="Tyyli 3"/>
@@ -242,23 +242,23 @@ Updated to v8.0.0:
 					<Item id="43052" name="Etsi &amp;merkkejä alueelta…"/>
 					<Item id="43053" name="Valitse kaikki vastinparien väliset"/>
 					<Item id="43054" name="Mer&amp;kitse..."/>
-					<Item id="43055" name="Tyyli 1"/> 
+					<Item id="43055" name="Tyyli 1"/>
 					<Item id="43056" name="Tyyli 2"/>
 					<Item id="43057" name="Tyyli 3"/>
 					<Item id="43058" name="Tyyli 4"/>
 					<Item id="43059" name="Tyyli 5"/>
 					<Item id="43060" name="Kaikki tyylit"/>
 					<Item id="43061" name="Etsi tyyli (merkitty)"/>
-					<Item id="43062" name="Käyttäen tyyliä 1"/> 
+					<Item id="43062" name="Käyttäen tyyliä 1"/>
 					<Item id="43063" name="Käyttäen tyyliä 2"/>
 					<Item id="43064" name="Käyttäen tyyliä 3"/>
 					<Item id="43065" name="Käyttäen tyyliä 4"/>
 					<Item id="43066" name="Käyttäen tyyliä 5"/>
 					<Item id="44009" name="Ilman valikkoa ja välilehtiä"/>
-                    <Item id="44010" name="Taita kaikki"/>
-					<Item id="44011" name="Vain teksti-ikkuna"/>					
+					<Item id="44010" name="Taita kaikki"/>
+					<Item id="44011" name="Vain teksti-ikkuna"/>
 					<Item id="44019" name="Näytä kaikki merkit"/>
-					<Item id="44020" name="Näytä sisennyksen ohjain" />
+					<Item id="44020" name="Näytä sisennyksen ohjain"/>
 					<Item id="44022" name="Rivitys"/>
 					<Item id="44023" name="Lä&amp;hennä(Ctrl+Hiiren rulla ylös)"/>
 					<Item id="44024" name="Loito&amp;nna (Ctrl+Hiiren rulla alas)"/>
@@ -282,30 +282,30 @@ Updated to v8.0.0:
 					<Item id="44083" name="Projekti-ikkuna 3"/>
 					<Item id="44084" name="Funktioluettelo"/>
 					<Item id="44085" name="Kansio työtilana"/>
-					<Item id="44086" name="1. välilehti" />
-					<Item id="44087" name="2. välilehti" />
-					<Item id="44088" name="3. välilehti" />
-					<Item id="44089" name="4. välilehti" />
-					<Item id="44090" name="5. välilehti" />
-					<Item id="44091" name="6. välilehti" />
-					<Item id="44092" name="7. välilehti" />
-					<Item id="44093" name="8. välilehti" />
-					<Item id="44094" name="9. välilehti" />
-					<Item id="44095" name="Seuraava välilehti" />
-					<Item id="44096" name="Edellinen välilehti" />
+					<Item id="44086" name="1. välilehti"/>
+					<Item id="44087" name="2. välilehti"/>
+					<Item id="44088" name="3. välilehti"/>
+					<Item id="44089" name="4. välilehti"/>
+					<Item id="44090" name="5. välilehti"/>
+					<Item id="44091" name="6. välilehti"/>
+					<Item id="44092" name="7. välilehti"/>
+					<Item id="44093" name="8. välilehti"/>
+					<Item id="44094" name="9. välilehti"/>
+					<Item id="44095" name="Seuraava välilehti"/>
+					<Item id="44096" name="Edellinen välilehti"/>
 					<Item id="44097" name="Seuranta (tail -f)"/>
-                    <Item id="44098" name="Siirrä välilehti eteenpäin"/>
-                    <Item id="44099" name="Siirrä välilehti taaksepäin"/>
+					<Item id="44098" name="Siirrä välilehti eteenpäin"/>
+					<Item id="44099" name="Siirrä välilehti taaksepäin"/>
 					<Item id="44212" name="Piilota merkkijonon numeroiminen"/>
 					<Item id="44213" name="Piilota kirjanmerkkiruutu"/>
-					<Item id="44214" name="Piilota reunalohkojen rajat"/>	
+					<Item id="44214" name="Piilota reunalohkojen rajat"/>
 					<Item id="45001" name="Windows (CR LF)"/>
-                    <Item id="45002" name="Unix (LF)"/>
-                    <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="ANSI"/>
-                    <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UCS-2 BE BOM"/>
-                    <Item id="45007" name="UCS-2 LE BOM"/>
+					<Item id="45002" name="Unix (LF)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UCS-2 BE BOM"/>
+					<Item id="45007" name="UCS-2 LE BOM"/>
 					<Item id="45008" name="UTF-8 (ei BOM)"/>
 					<Item id="45009" name="Muunna koodaukseen ANSI"/>
 					<Item id="45010" name="Muunna koodaukseen UTF-8 (ei BOM)"/>
@@ -317,13 +317,13 @@ Updated to v8.0.0:
 					<Item id="45054" name="OEM 861: Islantilainen"/>
 					<Item id="45057" name="OEM 865: Pohjoismaalainen"/>
 					<Item id="45053" name="OEM 860: Portugalilainen"/>
-					<Item id="45056" name="OEM 863: Ranskalainen"/>											
-					<Item id="46001" name="Mukauta tyyliä..." />
+					<Item id="45056" name="OEM 863: Ranskalainen"/>
+					<Item id="46001" name="Mukauta tyyliä..."/>
 					<Item id="46015" name="MS-DOS -tiedosto"/>
 					<Item id="46016" name="Muotoilematon teksti"/>
-					<Item id="46019" name="INI-tiedosto"/>					
-					<Item id="46180" name="Käyttäjän määrittämä" />
-					<Item id="46250" name="Määrittele..." />
+					<Item id="46019" name="INI-tiedosto"/>
+					<Item id="46180" name="Käyttäjän määrittämä"/>
+					<Item id="46250" name="Määrittele..."/>
 					<Item id="46300" name="Omien kielien kansio..."/>
 					<Item id="47000" name="Tietoja ohjelmasta"/>
 					<Item id="47001" name="Notepad++ Kotisivu"/>
@@ -335,64 +335,64 @@ Updated to v8.0.0:
 					<Item id="47009" name="Päivitysten välityspalvelin..."/>
 					<Item id="47010" name="Komentoriviparametrit..."/>
 					<Item id="47011" name="Live-tuki"/>
-                    <Item id="47012" name="Virheenkorjauksen tiedot..."/>
+					<Item id="47012" name="Virheenkorjauksen tiedot..."/>
 					<Item id="48005" name="Tuo &amp;liitännäisiä.."/>
 					<Item id="48006" name="Tuo &amp;teemoja..."/>
 					<Item id="48009" name="Pikanäppäimet"/>
 					<Item id="48011" name="&amp;Asetukset..."/>
 					<Item id="48014" name="Avaa liitännäisten kansio..."/>
-                    <Item id="48015" name="Liitännäisten hallinta..."/>
+					<Item id="48015" name="Liitännäisten hallinta..."/>
 					<Item id="48016" name="Muokkaa pikanäppäimiä/Poista makro..."/>
 					<Item id="48017" name="Muokkaa pikanäppäimiä/Poista komento..."/>
 					<Item id="48018" name="Ponnahdusvalikon muokkaus"/>
 					<Item id="48501" name="Luo..."/>
-                    <Item id="48502" name="Luo tiedostoista..."/>
-                    <Item id="48503" name="Luo valinnasta leikepöydälle"/>
-                    <Item id="48504" name="Luo..."/>
-                    <Item id="48505" name="Luo tiedostoista..."/>
-                    <Item id="48506" name="Luo valinnasta leikepöydälle"/>
+					<Item id="48502" name="Luo tiedostoista..."/>
+					<Item id="48503" name="Luo valinnasta leikepöydälle"/>
+					<Item id="48504" name="Luo..."/>
+					<Item id="48505" name="Luo tiedostoista..."/>
+					<Item id="48506" name="Luo valinnasta leikepöydälle"/>
 					<Item id="49000" name="Suo&amp;rita..."/>
 					<Item id="50000" name="&amp;Funktion täydennys"/>
 					<Item id="50001" name="Sanan täydennys"/>
 					<Item id="50002" name="Funktion parametriohje"/>
 					<Item id="50003" name="Vaihda edelliseen asiakirjaan"/>
-                    <Item id="50004" name="Vaihda seuraavaan asiakirjaan"/>
-                    <Item id="50005" name="Makron nauhoitus päälle/pois"/>
+					<Item id="50004" name="Vaihda seuraavaan asiakirjaan"/>
+					<Item id="50005" name="Makron nauhoitus päälle/pois"/>
 					<Item id="50006" name="Polun täydennys"/>
-                </Commands>
+				</Commands>
 			</Main>
-			<Splitter />
+			<Splitter/>
 			<TabBar>
-					<Item CMID="0" name="Sulje"/>
-					<Item CMID="1" name="Sulje kaikki paitsi tämä"/>
-					<Item CMID="2" name="Tallenna"/>
-					<Item CMID="3" name="Tallenna nimellä..."/>
-					<Item CMID="4" name="Tulosta"/>
-					<Item CMID="5" name="Vaihda näkymää"/>
-					<Item CMID="6" name="Kahdenna näkymä"/>
-					<Item CMID="7" name="Koko tiedostopolku leikepöydälle"/>
-					<Item CMID="8" name="Tiedostonimi leikepöydälle"/>
-					<Item CMID="9" name="Nykyinen hakemistopolku leikepöydälle"/>
-					<Item CMID="10" name="Nimeä uudelleen"/>
-					<Item CMID="11" name="Siirrä roskakoriin"/>
-					<Item CMID="12" name="Aseta kirjoitussuojaus"/>
-					<Item CMID="13" name="Poista kirjoitussuojaus"/>
-					<Item CMID="14" name="Siirry uuteen esiintymään"/>
-					<Item CMID="15" name="Avaa uudessa esiintymässä"/>
-					<Item CMID="16" name="Lataa uudelleen" />
-					<Item CMID="17" name="Sulje kaikki vasemmanpuoleiset" />
-					<Item CMID="18" name="Sulje kaikki oikeanpuoleiset"  />
-					<Item CMID="19" name="Avaa kansio resurssienhallinnassa"/>
-					<Item CMID="20" name="Avaa kansio komentokehotteessa"/>
-					<Item CMID="21" name="Avaa oletuskatseluohjelmalla"/>
-                    <Item CMID="22" name="Sulje kaikki muuttamattomat"/>
-					<Item CMID="23" name="Avaa kansio työtilana"/>
+				<Item CMID="0" name="Sulje"/>
+				<Item CMID="1" name="Sulje kaikki paitsi tämä"/>
+				<Item CMID="2" name="Tallenna"/>
+				<Item CMID="3" name="Tallenna nimellä..."/>
+				<Item CMID="4" name="Tulosta"/>
+				<Item CMID="5" name="Vaihda näkymää"/>
+				<Item CMID="6" name="Kahdenna näkymä"/>
+				<Item CMID="7" name="Koko tiedostopolku leikepöydälle"/>
+				<Item CMID="8" name="Tiedostonimi leikepöydälle"/>
+				<Item CMID="9" name="Nykyinen hakemistopolku leikepöydälle"/>
+				<Item CMID="10" name="Nimeä uudelleen"/>
+				<Item CMID="11" name="Siirrä roskakoriin"/>
+				<Item CMID="12" name="Aseta kirjoitussuojaus"/>
+				<Item CMID="13" name="Poista kirjoitussuojaus"/>
+				<Item CMID="14" name="Siirry uuteen esiintymään"/>
+				<Item CMID="15" name="Avaa uudessa esiintymässä"/>
+				<Item CMID="16" name="Lataa uudelleen"/>
+				<Item CMID="17" name="Sulje kaikki vasemmanpuoleiset"/>
+				<Item CMID="18" name="Sulje kaikki oikeanpuoleiset"/>
+				<Item CMID="19" name="Avaa kansio resurssienhallinnassa"/>
+				<Item CMID="20" name="Avaa kansio komentokehotteessa"/>
+				<Item CMID="21" name="Avaa oletuskatseluohjelmalla"/>
+				<Item CMID="22" name="Sulje kaikki muuttamattomat"/>
+				<Item CMID="23" name="Avaa kansio työtilana"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Etsi" titleReplace="Korvaa" titleFindInFiles="Etsi tiedostoista" titleFindInProjects="Etsi projekteista" titleMark="Merkitse">
-				<Item id="1"	 name="Etsi seuraava"/>
-				<Item id="2"	 name="Sulje"/>
+				<Item id="1" name="Etsi seuraava"/>
+				<Item id="2" name="Sulje"/>
 				<Item id="1603" name="Vain &amp;kokonaiset sanat"/>
 				<Item id="1604" name="Sama &amp;kirjainkoko"/>
 				<Item id="1605" name="Säännöllinen &amp;lauseke (RegEx)"/>
@@ -423,19 +423,19 @@ Updated to v8.0.0:
 				<Item id="1662" name="Projektipaneeli 1"/>
 				<Item id="1663" name="Projektipaneeli 2"/>
 				<Item id="1664" name="Projektipaneeli 3"/>
-				<Item id="1665" name="Korvaa projekteissa"/>		
+				<Item id="1665" name="Korvaa projekteissa"/>
 				<Item id="1686" name="Läpinäky&amp;vyys"/>
 				<Item id="1687" name="Passiivisena"/>
 				<Item id="1688" name="Aina"/>
-				<Item id="1703" name="Uusilla riveillä" />
+				<Item id="1703" name="Uusilla riveillä"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1722" name="Taaksepäin"/>
-                <Item id="1723" name="▼ Etsi seuraava"/>
+				<Item id="1723" name="▼ Etsi seuraava"/>
 				<Item id="1725" name="Kopioi merkitty teksti"/>
 			</Find>
 		
 			<FindCharsInRange title="Etsi merkkejä">
-				<Item id="2" name="&amp;Sulje" />
+				<Item id="2" name="&amp;Sulje"/>
 				<Item id="2901" name="E&amp;i-ASCII -merkit (128-255)"/>
 				<Item id="2902" name="AS&amp;CII-merkit (0 - 127)"/>
 				<Item id="2903" name="&amp;Muu merkkialue:"/>
@@ -443,7 +443,7 @@ Updated to v8.0.0:
 				<Item id="2907" name="&amp;Alas"/>
 				<Item id="2908" name="Suunta"/>
 				<Item id="2909" name="Etsi ym&amp;päri"/>
-				<Item id="2910" name="&amp;Etsi" />
+				<Item id="2910" name="&amp;Etsi"/>
 			</FindCharsInRange>
 			
 			<GoToLine title="Siirry kohtaan">
@@ -457,46 +457,46 @@ Updated to v8.0.0:
 			</GoToLine>
 			
 			<Run title="Suorita...">
-				<Item id="1" name="Suorita" />
-				<Item id="2" name="Peruuta" />
-				<Item id="1903" name="Suoritettavan ohjelman nimi" />
-				<Item id="1904" name="Tallenna" />
+				<Item id="1" name="Suorita"/>
+				<Item id="2" name="Peruuta"/>
+				<Item id="1903" name="Suoritettavan ohjelman nimi"/>
+				<Item id="1904" name="Tallenna"/>
 			</Run>
 			
 			<MD5FromFilesDlg title="Luo MD5-kooste tiedostoista">
-                <Item id="1922" name="Luo MD5 valitsemalla tiedostot..."/>
-                <Item id="1924" name="Kopioi leikepöydälle"/>
-                <Item id="2"    name="Sulje"/>
-            </MD5FromFilesDlg>
+				<Item id="1922" name="Luo MD5 valitsemalla tiedostot..."/>
+				<Item id="1924" name="Kopioi leikepöydälle"/>
+				<Item id="2" name="Sulje"/>
+			</MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Luo MD5-kooste">
-                <Item id="1932" name="Käsittele kutakin riviä erillisenä merkkijonona"/>
-                <Item id="1934" name="Kopioi leikepöydälle"/>
-                <Item id="2"    name="Sulje"/>
-            </MD5FromTextDlg>
+			<MD5FromTextDlg title="Luo MD5-kooste">
+				<Item id="1932" name="Käsittele kutakin riviä erillisenä merkkijonona"/>
+				<Item id="1934" name="Kopioi leikepöydälle"/>
+				<Item id="2" name="Sulje"/>
+			</MD5FromTextDlg>
             
-            <SHA256FromFilesDlg title="Luo SHA-256-kooste tiedostoista">
-                <Item id="1922" name="Luo SHA-256 valitsemalla tiedostot..."/>
-                <Item id="1924" name="Kopioi leikepöydälle"/>
-                <Item id="2"    name="Sulje"/>
-            </SHA256FromFilesDlg>
+			<SHA256FromFilesDlg title="Luo SHA-256-kooste tiedostoista">
+				<Item id="1922" name="Luo SHA-256 valitsemalla tiedostot..."/>
+				<Item id="1924" name="Kopioi leikepöydälle"/>
+				<Item id="2" name="Sulje"/>
+			</SHA256FromFilesDlg>
 
-            <SHA256FromTextDlg title="Luo SHA-256-kooste">
-                <Item id="1932" name="Käsittele kutakin riviä erillisenä merkkijonona"/>
-                <Item id="1934" name="Kopioi leikepöydälle"/>
-                <Item id="2"    name="Sulje"/>
-            </SHA256FromTextDlg>
+			<SHA256FromTextDlg title="Luo SHA-256-kooste">
+				<Item id="1932" name="Käsittele kutakin riviä erillisenä merkkijonona"/>
+				<Item id="1934" name="Kopioi leikepöydälle"/>
+				<Item id="2" name="Sulje"/>
+			</SHA256FromTextDlg>
 			
-			<PluginsAdminDlg title="Liitännäisten hallinta" titleAvailable = "Käytettävissä" titleUpdates = "Päivitykset" titleInstalled = "Asennettu">
-                <ColumnPlugin   name="Liitännäinen"/>
-                <ColumnVersion  name="Versio"/>
-                <Item id="5501" name="Etsi:"/>
-                <Item id="5503" name="Asenna"/>
-                <Item id="5504" name="Päivitä"/>
-                <Item id="5505" name="Poista"/>
-                <Item id="5508" name="Seuraava"/>
-                <Item id="2"    name="Sulje"/>
-            </PluginsAdminDlg>
+			<PluginsAdminDlg title="Liitännäisten hallinta" titleAvailable="Käytettävissä" titleUpdates="Päivitykset" titleInstalled="Asennettu">
+				<ColumnPlugin name="Liitännäinen"/>
+				<ColumnVersion name="Versio"/>
+				<Item id="5501" name="Etsi:"/>
+				<Item id="5503" name="Asenna"/>
+				<Item id="5504" name="Päivitä"/>
+				<Item id="5505" name="Poista"/>
+				<Item id="5508" name="Seuraava"/>
+				<Item id="2" name="Sulje"/>
+			</PluginsAdminDlg>
 
 			<StyleConfig title="Tyyliasetukset">
 				<Item id="2" name="Peruuta"/>
@@ -530,110 +530,110 @@ Updated to v8.0.0:
 			</StyleConfig>
 			
 			<ShortcutMapper title="Pikanäppäimet">
-                <Item id="2602" name="Muokkaa"/>
-                <Item id="2603" name="Poista"/>
-                <Item id="2606" name="Tyhjennä"/>
-                <Item id="2607" name="Suodin: "/>
-                <Item id="1" 	name="Sulje"/>
-                <ColumnName 	name="Nimi"/>
-                <ColumnShortcut name="Pikanäppäin"/>
-                <ColumnCategory name="Luokka"/>
-                <ColumnPlugin 	name="Liitännäinen"/>
-                <MainMenuTab 	name="Päävalikko"/>
-                <MacrosTab 		name="Makrot"/>
-                <RunCommandsTab name="Suorituskomennot"/>
-                <PluginCommandsTab 		name="Liitännäiskomennot"/>
-                <ScintillaCommandsTab 	name="Scintilla-komennot"/>
-                <ConflictInfoOk 		name="Tälle kohteelle ei ole pikavalintaristiriitoja."/>
-                <ConflictInfoEditing 	name="Ei ristiriitoja ..."/>
-			<MainCommandNames>
-                    <Item id="41019" name="Avaa kansio resurssienhallinnassa"/>
-                    <Item id="41020" name="Avaa kansiossa komentokehote"/>
-                    <Item id="41021" name="Palauta viimeisimmät"/>
-                    <Item id="45001" name="Rivinvaihtomerkin muunto muotoon Windows (CR LF)"/>
-                    <Item id="45002" name="Rivinvaihtomerkin muunto muotoon Unix (LF)"/>
-                    <Item id="45003" name="Rivinvaihtomerkin muunto muotoon Macintosh (CR)"/>
-                    <Item id="43022" name="Merkitse kaikki käyttäen 1. tyyliä"/>
-                    <Item id="43024" name="Merkitse kaikki käyttäen 2. tyyliä"/>
-                    <Item id="43026" name="Merkitse kaikki käyttäen 3. tyyliä"/>
-                    <Item id="43028" name="Merkitse kaikki käyttäen 4. tyyliä"/>
-                    <Item id="43030" name="Merkitse kaikki käyttäen 5. tyyliä"/>
-                    <Item id="43062" name="Merkitse yksi käyttäen 1. tyyliä"/>
-                    <Item id="43063" name="Merkitse yksi käyttäen 2. tyyliä"/>
-                    <Item id="43064" name="Merkitse yksi käyttäen 3. tyyliä"/>
-                    <Item id="43065" name="Merkitse yksi käyttäen 4. tyyliä"/>
-                    <Item id="43066" name="Merkitse yksi käyttäen 5. tyyliä"/>
-                    <Item id="43023" name="Tyhjennä merkinnät, joissa käytössä 1. tyyli"/>
-                    <Item id="43025" name="Tyhjennä merkinnät, joissa käytössä 2. tyyli"/>
-                    <Item id="43027" name="Tyhjennä merkinnät, joissa käytössä 3. tyyli"/>
-                    <Item id="43029" name="Tyhjennä merkinnät, joissa käytössä 4. tyyli"/>
-                    <Item id="43031" name="Tyhjennä merkinnät, joissa käytössä 5. tyyli"/>
-                    <Item id="43032" name="Tyhjennä merkinnät, joissa käytössä mikä tahansa tyyli"/>
-                    <Item id="43033" name="Edellinen merkintä, jossa käytössä 1. tyyli"/>
-                    <Item id="43034" name="Edellinen merkintä, jossa käytössä 2. tyyli"/>
-                    <Item id="43035" name="Edellinen merkintä, jossa käytössä 3. tyyli"/>
-                    <Item id="43036" name="Edellinen merkintä, jossa käytössä 4. tyyli"/>
-                    <Item id="43037" name="Edellinen merkintä, jossa käytössä 5. tyyli"/>
-                    <Item id="43038" name="Edellinen merkintä, joka luotu merkintä-toiminnolla"/>
-                    <Item id="43039" name="Seuraava merkintä, jossa käytössä 1. tyyli"/>
-                    <Item id="43040" name="Seuraava merkintä, jossa käytössä 2. tyyli"/>
-                    <Item id="43041" name="Seuraava merkintä, jossa käytössä 3. tyyli"/>
-                    <Item id="43042" name="Seuraava merkintä, jossa käytössä 4. tyyli"/>
-                    <Item id="43043" name="Seuraava merkintä, jossa käytössä 5. tyyli"/>
-                    <Item id="43044" name="Seuraava merkintä, joka luotu merkintä-toiminnolla"/>
-                    <Item id="43055" name="Kopioi tyylitetty teksti - 1. tyyli"/>
-                    <Item id="43056" name="Kopioi tyylitetty teksti - 2. tyyli"/>
-                    <Item id="43057" name="Kopioi tyylitetty teksti - 3. tyyli"/>
-                    <Item id="43058" name="Kopioi tyylitetty teksti - 4. tyyli"/>
-                    <Item id="43059" name="Kopioi tyylitetty teksti - 5. tyyli"/>
-                    <Item id="43060" name="Kopioi tyylitetty teksti - kaikki tyylit"/>
-                    <Item id="43061" name="Kopioi tyylitetty teksti - etsi tyyli (merkitty)"/>
-                    <Item id="44100" name="Avaa nykyinen tiedosto sovelluksessa Firefox"/>
-                    <Item id="44101" name="Avaa nykyinen tiedosto sovelluksessa Chrome"/>
-                    <Item id="44103" name="Avaa nykyinen tiedosto sovelluksessa IE"/>
-                    <Item id="44102" name="Avaa nykyinen tiedosto sovelluksessa Edge"/>
-                    <Item id="50003" name="Vaihda edelliseen tiedostoon"/>
-                    <Item id="50004" name="Vaihda seuraavaan tiedostoon"/>
-                    <Item id="44051" name="Kutista taso 1"/>
-                    <Item id="44052" name="Kutista taso 2"/>
-                    <Item id="44053" name="Kutista taso 3"/>
-                    <Item id="44054" name="Kutista taso 4"/>
-                    <Item id="44055" name="Kutista taso 5"/>
-                    <Item id="44056" name="Kutista taso 6"/>
-                    <Item id="44057" name="Kutista taso 7"/>
-                    <Item id="44058" name="Kutista taso 8"/>
-                    <Item id="44061" name="Laajenna taso 1"/>
-                    <Item id="44062" name="Laajenna taso 2"/>
-                    <Item id="44063" name="Laajenna taso 3"/>
-                    <Item id="44064" name="Laajenna taso 4"/>
-                    <Item id="44065" name="Laajenna taso 5"/>
-                    <Item id="44066" name="Laajenna taso 6"/>
-                    <Item id="44067" name="Laajenna taso 7"/>
-                    <Item id="44068" name="Laajenna taso 8"/>
-                    <Item id="44081" name="Näytä/piilota projekti-ikkuna 1"/>
-                    <Item id="44082" name="Näytä/piilota projekti-ikkuna 2"/>
-                    <Item id="44083" name="Näytä/piilota projekti-ikkuna 3"/>
-                    <Item id="44085" name="Näytä/piilota kansio työtilana"/>
-                    <Item id="44080" name="Näytä/piilota tiedostokartta"/>
-                    <Item id="44084" name="Näytä/piilota toimintoluettelo"/>
-                    <Item id="50005" name="Näytä/piilota makronauhoitus"/>
-                    <Item id="44104" name="Vaihda projekti-ikkunaan 1"/>
-                    <Item id="44105" name="Vaihda projekti-ikkunaan 2"/>
-                    <Item id="44106" name="Vaihda projekti-ikkunaan 3"/>
-                    <Item id="44107" name="Vaihda moodiin kansio työtilana"/>
-                    <Item id="44108" name="Vaihda toimintoluetteloon"/>
-                </MainCommandNames>	
-            </ShortcutMapper>
-            <ShortcutMapperSubDialg title="Pikanäppäin">
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Peruuta"/>
-                <Item id="5006" name="Nimi"/>
-                <Item id="5008" name="Lisää"/>
-                <Item id="5009" name="Poista"/>
-                <Item id="5010" name="Käytä"/>
-                <Item id="5007" name="Tämä poistaa näppäimen tästä komennosta"/>
-                <Item id="5012" name="RISTIRIITA LÖYDETTY!"/>
-            </ShortcutMapperSubDialg>
+				<Item id="2602" name="Muokkaa"/>
+				<Item id="2603" name="Poista"/>
+				<Item id="2606" name="Tyhjennä"/>
+				<Item id="2607" name="Suodin: "/>
+				<Item id="1" name="Sulje"/>
+				<ColumnName name="Nimi"/>
+				<ColumnShortcut name="Pikanäppäin"/>
+				<ColumnCategory name="Luokka"/>
+				<ColumnPlugin name="Liitännäinen"/>
+				<MainMenuTab name="Päävalikko"/>
+				<MacrosTab name="Makrot"/>
+				<RunCommandsTab name="Suorituskomennot"/>
+				<PluginCommandsTab name="Liitännäiskomennot"/>
+				<ScintillaCommandsTab name="Scintilla-komennot"/>
+				<ConflictInfoOk name="Tälle kohteelle ei ole pikavalintaristiriitoja."/>
+				<ConflictInfoEditing name="Ei ristiriitoja ..."/>
+				<MainCommandNames>
+					<Item id="41019" name="Avaa kansio resurssienhallinnassa"/>
+					<Item id="41020" name="Avaa kansiossa komentokehote"/>
+					<Item id="41021" name="Palauta viimeisimmät"/>
+					<Item id="45001" name="Rivinvaihtomerkin muunto muotoon Windows (CR LF)"/>
+					<Item id="45002" name="Rivinvaihtomerkin muunto muotoon Unix (LF)"/>
+					<Item id="45003" name="Rivinvaihtomerkin muunto muotoon Macintosh (CR)"/>
+					<Item id="43022" name="Merkitse kaikki käyttäen 1. tyyliä"/>
+					<Item id="43024" name="Merkitse kaikki käyttäen 2. tyyliä"/>
+					<Item id="43026" name="Merkitse kaikki käyttäen 3. tyyliä"/>
+					<Item id="43028" name="Merkitse kaikki käyttäen 4. tyyliä"/>
+					<Item id="43030" name="Merkitse kaikki käyttäen 5. tyyliä"/>
+					<Item id="43062" name="Merkitse yksi käyttäen 1. tyyliä"/>
+					<Item id="43063" name="Merkitse yksi käyttäen 2. tyyliä"/>
+					<Item id="43064" name="Merkitse yksi käyttäen 3. tyyliä"/>
+					<Item id="43065" name="Merkitse yksi käyttäen 4. tyyliä"/>
+					<Item id="43066" name="Merkitse yksi käyttäen 5. tyyliä"/>
+					<Item id="43023" name="Tyhjennä merkinnät, joissa käytössä 1. tyyli"/>
+					<Item id="43025" name="Tyhjennä merkinnät, joissa käytössä 2. tyyli"/>
+					<Item id="43027" name="Tyhjennä merkinnät, joissa käytössä 3. tyyli"/>
+					<Item id="43029" name="Tyhjennä merkinnät, joissa käytössä 4. tyyli"/>
+					<Item id="43031" name="Tyhjennä merkinnät, joissa käytössä 5. tyyli"/>
+					<Item id="43032" name="Tyhjennä merkinnät, joissa käytössä mikä tahansa tyyli"/>
+					<Item id="43033" name="Edellinen merkintä, jossa käytössä 1. tyyli"/>
+					<Item id="43034" name="Edellinen merkintä, jossa käytössä 2. tyyli"/>
+					<Item id="43035" name="Edellinen merkintä, jossa käytössä 3. tyyli"/>
+					<Item id="43036" name="Edellinen merkintä, jossa käytössä 4. tyyli"/>
+					<Item id="43037" name="Edellinen merkintä, jossa käytössä 5. tyyli"/>
+					<Item id="43038" name="Edellinen merkintä, joka luotu merkintä-toiminnolla"/>
+					<Item id="43039" name="Seuraava merkintä, jossa käytössä 1. tyyli"/>
+					<Item id="43040" name="Seuraava merkintä, jossa käytössä 2. tyyli"/>
+					<Item id="43041" name="Seuraava merkintä, jossa käytössä 3. tyyli"/>
+					<Item id="43042" name="Seuraava merkintä, jossa käytössä 4. tyyli"/>
+					<Item id="43043" name="Seuraava merkintä, jossa käytössä 5. tyyli"/>
+					<Item id="43044" name="Seuraava merkintä, joka luotu merkintä-toiminnolla"/>
+					<Item id="43055" name="Kopioi tyylitetty teksti - 1. tyyli"/>
+					<Item id="43056" name="Kopioi tyylitetty teksti - 2. tyyli"/>
+					<Item id="43057" name="Kopioi tyylitetty teksti - 3. tyyli"/>
+					<Item id="43058" name="Kopioi tyylitetty teksti - 4. tyyli"/>
+					<Item id="43059" name="Kopioi tyylitetty teksti - 5. tyyli"/>
+					<Item id="43060" name="Kopioi tyylitetty teksti - kaikki tyylit"/>
+					<Item id="43061" name="Kopioi tyylitetty teksti - etsi tyyli (merkitty)"/>
+					<Item id="44100" name="Avaa nykyinen tiedosto sovelluksessa Firefox"/>
+					<Item id="44101" name="Avaa nykyinen tiedosto sovelluksessa Chrome"/>
+					<Item id="44103" name="Avaa nykyinen tiedosto sovelluksessa IE"/>
+					<Item id="44102" name="Avaa nykyinen tiedosto sovelluksessa Edge"/>
+					<Item id="50003" name="Vaihda edelliseen tiedostoon"/>
+					<Item id="50004" name="Vaihda seuraavaan tiedostoon"/>
+					<Item id="44051" name="Kutista taso 1"/>
+					<Item id="44052" name="Kutista taso 2"/>
+					<Item id="44053" name="Kutista taso 3"/>
+					<Item id="44054" name="Kutista taso 4"/>
+					<Item id="44055" name="Kutista taso 5"/>
+					<Item id="44056" name="Kutista taso 6"/>
+					<Item id="44057" name="Kutista taso 7"/>
+					<Item id="44058" name="Kutista taso 8"/>
+					<Item id="44061" name="Laajenna taso 1"/>
+					<Item id="44062" name="Laajenna taso 2"/>
+					<Item id="44063" name="Laajenna taso 3"/>
+					<Item id="44064" name="Laajenna taso 4"/>
+					<Item id="44065" name="Laajenna taso 5"/>
+					<Item id="44066" name="Laajenna taso 6"/>
+					<Item id="44067" name="Laajenna taso 7"/>
+					<Item id="44068" name="Laajenna taso 8"/>
+					<Item id="44081" name="Näytä/piilota projekti-ikkuna 1"/>
+					<Item id="44082" name="Näytä/piilota projekti-ikkuna 2"/>
+					<Item id="44083" name="Näytä/piilota projekti-ikkuna 3"/>
+					<Item id="44085" name="Näytä/piilota kansio työtilana"/>
+					<Item id="44080" name="Näytä/piilota tiedostokartta"/>
+					<Item id="44084" name="Näytä/piilota toimintoluettelo"/>
+					<Item id="50005" name="Näytä/piilota makronauhoitus"/>
+					<Item id="44104" name="Vaihda projekti-ikkunaan 1"/>
+					<Item id="44105" name="Vaihda projekti-ikkunaan 2"/>
+					<Item id="44106" name="Vaihda projekti-ikkunaan 3"/>
+					<Item id="44107" name="Vaihda moodiin kansio työtilana"/>
+					<Item id="44108" name="Vaihda toimintoluetteloon"/>
+				</MainCommandNames>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Pikanäppäin">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Peruuta"/>
+				<Item id="5006" name="Nimi"/>
+				<Item id="5008" name="Lisää"/>
+				<Item id="5009" name="Poista"/>
+				<Item id="5010" name="Käytä"/>
+				<Item id="5007" name="Tämä poistaa näppäimen tästä komennosta"/>
+				<Item id="5012" name="RISTIRIITA LÖYDETTY!"/>
+			</ShortcutMapperSubDialg>
 			<UserDefine title="Käyttäjän määrittämä">
 				<Item id="20001" name="Telakointi"/>
 				<Item id="20002" name="Nimeä uudelleen"/>
@@ -675,137 +675,137 @@ Updated to v8.0.0:
 					<Item id="25026" name="Operaattori 1"/>
 					<Item id="25027" name="Operaattori 2"/>
 					<Item id="25028" name="Numerot"/>
-					<Item id="25029" name="Sisäkkäisyys:" />
-					<Item id="25030" name="Fonttiasetukset:" />
-					<Item id="25031" name="Nimi:" />
-					<Item id="25032" name="Koko:" />
+					<Item id="25029" name="Sisäkkäisyys:"/>
+					<Item id="25030" name="Fonttiasetukset:"/>
+					<Item id="25031" name="Nimi:"/>
+					<Item id="25032" name="Koko:"/>
 				</StylerDialog>
 				<Folder title="Kansion &amp;oletusarvot">
-					<Item id="21101" name="Oletusmuotoilu" />
-					<Item id="21102" name="Muotoilu" />
-					<Item id="21104" name="Väliaikainen doc-sivusto:" />
-					<Item id="21105" name="Dokumentointi:" />
-					<Item id="21106" name="Tiivis &amp;taitto (myös tyhjät rivit)" />
-					<Item id="21220" name="Tyyli 1:n taitto:" />
-					<Item id="21224" name="Alku: " />
-					<Item id="21225" name="Väliosa: " />
-					<Item id="21226" name="Loppu: " />
-					<Item id="21227" name="Muotoilu" />
-					<Item id="21320" name="Tyyli 2:n taitto (vaatii erottimet):" />
-					<Item id="21324" name="Alku: " />
-					<Item id="21325" name="Väliosa: " />
-					<Item id="21326" name="Loppu: " />
-					<Item id="21327" name="Muotoilu" />
-					<Item id="21420" name="Taitto kommenttityyliin:" />
-					<Item id="21424" name="Alku:" />
-					<Item id="21425" name="Väliosa: " />
-					<Item id="21426" name="Loppu: " />
-					<Item id="21427" name="Muotoilu" />
+					<Item id="21101" name="Oletusmuotoilu"/>
+					<Item id="21102" name="Muotoilu"/>
+					<Item id="21104" name="Väliaikainen doc-sivusto:"/>
+					<Item id="21105" name="Dokumentointi:"/>
+					<Item id="21106" name="Tiivis &amp;taitto (myös tyhjät rivit)"/>
+					<Item id="21220" name="Tyyli 1:n taitto:"/>
+					<Item id="21224" name="Alku: "/>
+					<Item id="21225" name="Väliosa: "/>
+					<Item id="21226" name="Loppu: "/>
+					<Item id="21227" name="Muotoilu"/>
+					<Item id="21320" name="Tyyli 2:n taitto (vaatii erottimet):"/>
+					<Item id="21324" name="Alku: "/>
+					<Item id="21325" name="Väliosa: "/>
+					<Item id="21326" name="Loppu: "/>
+					<Item id="21327" name="Muotoilu"/>
+					<Item id="21420" name="Taitto kommenttityyliin:"/>
+					<Item id="21424" name="Alku:"/>
+					<Item id="21425" name="Väliosa: "/>
+					<Item id="21426" name="Loppu: "/>
+					<Item id="21427" name="Muotoilu"/>
 				</Folder>
 				<Keywords title="Avainsanaluettelo">
-					<Item id="22101" name="1. ryhmä" />
-					<Item id="22121" name="Etuliitetila" />
-					<Item id="22122" name="Muotoilu" />
-					<Item id="22201" name="2. ryhmä" />
-					<Item id="22221" name="Etuliitetila" />
-					<Item id="22222" name="Muotoilu" />
-					<Item id="22301" name="3. ryhmä" />
-					<Item id="22321" name="Etuliitetila" />
-					<Item id="22322" name="Muotoilu" />
-					<Item id="22401" name="4. ryhmä" />
-					<Item id="22421" name="Etuliitetila" />
-					<Item id="22422" name="Muotoilu" />
-					<Item id="22451" name="5. ryhmä" />
-					<Item id="22471" name="Etuliitetila" />
-					<Item id="22472" name="Muotoilu" />
-					<Item id="22501" name="6. ryhmä" />
-					<Item id="22521" name="Etuliitetila" />
-					<Item id="22522" name="Muotoilu" />
-					<Item id="22551" name="7. ryhmä" />
-					<Item id="22571" name="Etuliitetila" />
-					<Item id="22572" name="Muotoilu" />
-					<Item id="22601" name="8. ryhmä" />
-					<Item id="22621" name="Etuliitetila" />
-					<Item id="22622" name="Muotoilu" />
+					<Item id="22101" name="1. ryhmä"/>
+					<Item id="22121" name="Etuliitetila"/>
+					<Item id="22122" name="Muotoilu"/>
+					<Item id="22201" name="2. ryhmä"/>
+					<Item id="22221" name="Etuliitetila"/>
+					<Item id="22222" name="Muotoilu"/>
+					<Item id="22301" name="3. ryhmä"/>
+					<Item id="22321" name="Etuliitetila"/>
+					<Item id="22322" name="Muotoilu"/>
+					<Item id="22401" name="4. ryhmä"/>
+					<Item id="22421" name="Etuliitetila"/>
+					<Item id="22422" name="Muotoilu"/>
+					<Item id="22451" name="5. ryhmä"/>
+					<Item id="22471" name="Etuliitetila"/>
+					<Item id="22472" name="Muotoilu"/>
+					<Item id="22501" name="6. ryhmä"/>
+					<Item id="22521" name="Etuliitetila"/>
+					<Item id="22522" name="Muotoilu"/>
+					<Item id="22551" name="7. ryhmä"/>
+					<Item id="22571" name="Etuliitetila"/>
+					<Item id="22572" name="Muotoilu"/>
+					<Item id="22601" name="8. ryhmä"/>
+					<Item id="22621" name="Etuliitetila"/>
+					<Item id="22622" name="Muotoilu"/>
 				</Keywords>
 				<Comment title="Kommentit &amp;&amp; numerot">
-					<Item id="23001" name="Salli kommenttien ryhmittely" />
-					<Item id="23003" name="Rivikommenttien sijainti" />
-					<Item id="23004" name="Salli kaikkialla" />
-					<Item id="23005" name="Pakota rivin alkuun" />
-					<Item id="23006" name="Salli edeltävät välilyönnit" />
-					<Item id="23101" name="Kommentit" />
-					<Item id="23122" name="Alkaa" />
-					<Item id="23123" name="Päättyy" />
-					<Item id="23124" name="Muotoilu" />
-					<Item id="23201" name="Numerot" />
-					<Item id="23220" name="Muotoilu" />
-					<Item id="23230" name="Etuliite 1:" />
-					<Item id="23232" name="Etuliite 2:" />
-					<Item id="23234" name="Ekstra 1:" />
-					<Item id="23236" name="Ekstra 2:" />
-					<Item id="23238" name="Jälkiliite 1:" />
-					<Item id="23240" name="Jälkiliite 2:" />
-					<Item id="23242" name="Alue:" />
-					<Item id="23244" name="Desimaalierotin" />
-					<Item id="23245" name="Piste" />
-					<Item id="23246" name="Pilkku" />
-					<Item id="23247" name="Molemmat" />
-					<Item id="23301" name="Kommenttirivi" />
-					<Item id="23323" name="Alkaa" />
-					<Item id="23324" name="Jatkomerkki" />
-					<Item id="23325" name="Päättyy" />
-					<Item id="23326" name="Muotoilu" />
+					<Item id="23001" name="Salli kommenttien ryhmittely"/>
+					<Item id="23003" name="Rivikommenttien sijainti"/>
+					<Item id="23004" name="Salli kaikkialla"/>
+					<Item id="23005" name="Pakota rivin alkuun"/>
+					<Item id="23006" name="Salli edeltävät välilyönnit"/>
+					<Item id="23101" name="Kommentit"/>
+					<Item id="23122" name="Alkaa"/>
+					<Item id="23123" name="Päättyy"/>
+					<Item id="23124" name="Muotoilu"/>
+					<Item id="23201" name="Numerot"/>
+					<Item id="23220" name="Muotoilu"/>
+					<Item id="23230" name="Etuliite 1:"/>
+					<Item id="23232" name="Etuliite 2:"/>
+					<Item id="23234" name="Ekstra 1:"/>
+					<Item id="23236" name="Ekstra 2:"/>
+					<Item id="23238" name="Jälkiliite 1:"/>
+					<Item id="23240" name="Jälkiliite 2:"/>
+					<Item id="23242" name="Alue:"/>
+					<Item id="23244" name="Desimaalierotin"/>
+					<Item id="23245" name="Piste"/>
+					<Item id="23246" name="Pilkku"/>
+					<Item id="23247" name="Molemmat"/>
+					<Item id="23301" name="Kommenttirivi"/>
+					<Item id="23323" name="Alkaa"/>
+					<Item id="23324" name="Jatkomerkki"/>
+					<Item id="23325" name="Päättyy"/>
+					<Item id="23326" name="Muotoilu"/>
 				</Comment>
 				<Operator title="Operaattorit ja rajoittimet">
-					<Item id="24101" name="Operaattorit" />
-					<Item id="24113" name="Muotoilu" />
-					<Item id="24116" name="Operaattorit 1" />
-					<Item id="24117" name="Operaattorit 2 (vaatii rajoittimet)" />
-					<Item id="24201" name="Rajoitin 1" />
-					<Item id="24220" name="Alkaa: " />
-					<Item id="24221" name="Keskeytys: " />
-					<Item id="24222" name="Päättyy: " />
-					<Item id="24223" name="Muotoilu" />
-					<Item id="24301" name="Rajoitin 2" />
-					<Item id="24320" name="Alkaa: " />
-					<Item id="24321" name="Keskeytys: " />
-					<Item id="24322" name="Päättyy: " />
-					<Item id="24323" name="Muotoilu" />
-					<Item id="24401" name="Rajoitin 3" />
-					<Item id="24420" name="Alkaa: " />
-					<Item id="24421" name="Keskeytys: " />
-					<Item id="24422" name="Päättyy: " />
-					<Item id="24423" name="Muotoilu" />
-					<Item id="24451" name="Rajoitin 4" />
-					<Item id="24470" name="Alkaa: " />
-					<Item id="24471" name="Keskeytys: " />
-					<Item id="24472" name="Päättyy: " />
-					<Item id="24473" name="Muotoilu" />
-					<Item id="24501" name="Rajoitin 5" />
-					<Item id="24520" name="Alkaa: " />
-					<Item id="24521" name="Keskeytys: " />
-					<Item id="24522" name="Päättyy: " />
-					<Item id="24523" name="Muotoilu" />
-					<Item id="24551" name="Rajoitin 6" />
-					<Item id="24570" name="Alkaa: " />
-					<Item id="24571" name="Keskeytys: " />
-					<Item id="24572" name="Päättyy: " />
-					<Item id="24573" name="Muotoilu" />
-					<Item id="24601" name="Rajoitin 7" />
-					<Item id="24620" name="Alkaa: " />
-					<Item id="24621" name="Keskeytys: " />
-					<Item id="24622" name="Päättyy: " />
-					<Item id="24623" name="Muotoilu" />
-					<Item id="24651" name="Rajoitin 8" />
-					<Item id="24670" name="Alkaa: " />
-					<Item id="24671" name="Keskeytys: " />
-					<Item id="24672" name="Päättyy: " />
-					<Item id="24673" name="Muotoilu" />
+					<Item id="24101" name="Operaattorit"/>
+					<Item id="24113" name="Muotoilu"/>
+					<Item id="24116" name="Operaattorit 1"/>
+					<Item id="24117" name="Operaattorit 2 (vaatii rajoittimet)"/>
+					<Item id="24201" name="Rajoitin 1"/>
+					<Item id="24220" name="Alkaa: "/>
+					<Item id="24221" name="Keskeytys: "/>
+					<Item id="24222" name="Päättyy: "/>
+					<Item id="24223" name="Muotoilu"/>
+					<Item id="24301" name="Rajoitin 2"/>
+					<Item id="24320" name="Alkaa: "/>
+					<Item id="24321" name="Keskeytys: "/>
+					<Item id="24322" name="Päättyy: "/>
+					<Item id="24323" name="Muotoilu"/>
+					<Item id="24401" name="Rajoitin 3"/>
+					<Item id="24420" name="Alkaa: "/>
+					<Item id="24421" name="Keskeytys: "/>
+					<Item id="24422" name="Päättyy: "/>
+					<Item id="24423" name="Muotoilu"/>
+					<Item id="24451" name="Rajoitin 4"/>
+					<Item id="24470" name="Alkaa: "/>
+					<Item id="24471" name="Keskeytys: "/>
+					<Item id="24472" name="Päättyy: "/>
+					<Item id="24473" name="Muotoilu"/>
+					<Item id="24501" name="Rajoitin 5"/>
+					<Item id="24520" name="Alkaa: "/>
+					<Item id="24521" name="Keskeytys: "/>
+					<Item id="24522" name="Päättyy: "/>
+					<Item id="24523" name="Muotoilu"/>
+					<Item id="24551" name="Rajoitin 6"/>
+					<Item id="24570" name="Alkaa: "/>
+					<Item id="24571" name="Keskeytys: "/>
+					<Item id="24572" name="Päättyy: "/>
+					<Item id="24573" name="Muotoilu"/>
+					<Item id="24601" name="Rajoitin 7"/>
+					<Item id="24620" name="Alkaa: "/>
+					<Item id="24621" name="Keskeytys: "/>
+					<Item id="24622" name="Päättyy: "/>
+					<Item id="24623" name="Muotoilu"/>
+					<Item id="24651" name="Rajoitin 8"/>
+					<Item id="24670" name="Alkaa: "/>
+					<Item id="24671" name="Keskeytys: "/>
+					<Item id="24672" name="Päättyy: "/>
+					<Item id="24673" name="Muotoilu"/>
 				</Operator>
 			</UserDefine>
 			<Preference title="Asetukset">
-				<Item id="6001" name="&amp;Sulje" />
+				<Item id="6001" name="&amp;Sulje"/>
 				<Global title="Yleiset">
 					<Item id="6101" name="Työkalurivi"/>
 					<Item id="6102" name="Piilota"/>
@@ -826,14 +826,14 @@ Updated to v8.0.0:
 					<Item id="6121" name="Lopeta suljettaessa viimeinen välilehti"/>
 					<Item id="6122" name="Piilota valikkopalkki (Näytä/piilota: F10 tai Alt)"/>
 					<Item id="6123" name="Käyttöliittymän kieli"/>
-    				<Item id="6125" name="Dokumenttiluettelo"/>
-    				<Item id="6126" name="Näytä"/>
+					<Item id="6125" name="Dokumenttiluettelo"/>
+					<Item id="6126" name="Näytä"/>
 					<Item id="6127" name="Piilota tiedostopäätesarake"/>
 					<Item id="6128" name="Vaihtoehtoiset kuvakkeet"/>
-                    <Item id="6129" name="Pienet täytetyt kuvakkeet"/>
-                    <Item id="6130" name="Isot täytetyt kuvakkeet"/>					
+					<Item id="6129" name="Pienet täytetyt kuvakkeet"/>
+					<Item id="6130" name="Isot täytetyt kuvakkeet"/>
 				</Global>
-				<Scintillas title="Muokkaus">				
+				<Scintillas title="Muokkaus">
 					<Item id="6214" name="Käytä nykyisen rivin korostusta"/>
 					<Item id="6215" name="Käytä pehmennettyä fonttia"/>
 					<Item id="6216" name="Kursorin asetukset"/>
@@ -850,10 +850,10 @@ Updated to v8.0.0:
 					<Item id="6231" name="Reunaleveys"/>
 					<Item id="6234" name="Poista vieritysominaisuus (mikäli kosketuslevyn kanssa on ongelmia)"/>
 					<Item id="6235" name="Ei reunaa"/>
-                    <Item id="6236" name="Salli vieritys viimeisen rivin jälkeen"/>
+					<Item id="6236" name="Salli vieritys viimeisen rivin jälkeen"/>
 					<Item id="6239" name="Säilytä valinta napsautettaessa valitun alueen ulkopulelle"/>
-				</Scintillas>				
-	            <MarginsBorderEdge title="Reunat ja reunukset">
+				</Scintillas>
+				<MarginsBorderEdge title="Reunat ja reunukset">
 					<Item id="6201" name="Kansiomarginaalin tyyli"/>
 					<Item id="6202" name="Yksinkertainen"/>
 					<Item id="6203" name="Nuoli"/>
@@ -864,22 +864,22 @@ Updated to v8.0.0:
 					<Item id="6207" name="Näytä kirjanmerkit"/>
 					<Item id="6208" name="Näytä pystyreuna"/>
 					<Item id="6209" name="Sarakkeiden määrä::"/>
-                    <Item id="6210" name="Oikea"/>
+					<Item id="6210" name="Oikea"/>
 					<Item id="6211" name="Pystyreunan asetukset"/>
 					<Item id="6212" name="Viiva"/>
 					<Item id="6213" name="Tausta"/>
-                    <Item id="6231" name="Reunuksen leveys"/>
-                    <Item id="6235" name="Ei reunaa"/>	
-                    <Item id="6237" name="Lisää sarakemerkki kokonaisluvulla. Useita sarakerkkejä voi määrittää käyttäen väliyöntiä numeroiden väleissä."/>
+					<Item id="6231" name="Reunuksen leveys"/>
+					<Item id="6235" name="Ei reunaa"/>
+					<Item id="6237" name="Lisää sarakemerkki kokonaisluvulla. Useita sarakerkkejä voi määrittää käyttäen väliyöntiä numeroiden väleissä."/>
 					<Item id="6291" name="Rivinumero"/>
-                    <Item id="6292" name="Säätyvä leveys"/>
-                    <Item id="6293" name="Kiinteä leveys"/>
-                </MarginsBorderEdge>			
+					<Item id="6292" name="Säätyvä leveys"/>
+					<Item id="6293" name="Kiinteä leveys"/>
+				</MarginsBorderEdge>
 				
-                <DarkMode title="Tumma teema">
-                    <Item id="7101" name="Käytä tummaa teemaa"/>
-                    <Item id="7106" name="* Muutos vaatii sovelluksen uudelleenkäynnistyksen"/>
-                </DarkMode>				
+				<DarkMode title="Tumma teema">
+					<Item id="7101" name="Käytä tummaa teemaa"/>
+					<Item id="7106" name="* Muutos vaatii sovelluksen uudelleenkäynnistyksen"/>
+				</DarkMode>
 				
 				<NewDoc title="Uudet tiedostot">
 					<Item id="6401" name="Muoto (rivin loppu)"/>
@@ -902,42 +902,42 @@ Updated to v8.0.0:
 					<Item id="6414" name="Seuraa nykyistä asiakirjaa"/>
 					<Item id="6415" name="Muista viimeksi käytetty"/>
 					<Item id="6430" name="Käytä uutta tyyli-ikkunaa (ilman tiedostopäätettä ja Unix-tyylin polkukapasiteettia)"/>
-                    <Item id="6431" name="Avaa kaikki kansion tiedostot sen sijaan, että avaisit kansion työtilana kansiota pudotettaessa"/>
+					<Item id="6431" name="Avaa kaikki kansion tiedostot sen sijaan, että avaisit kansion työtilana kansiota pudotettaessa"/>
 				</DefaultDir>
 				
 				<FileAssoc title="Tiedostokytkennät">
 					<Item id="4008" name="Toiminnon käyttäminen edellyttää sovelluksen sulkemisen ja suorittamisen järjestelmänvalvojana."/>
-                    <Item id="4009" name="Tuetut päätteet:" />
-					<Item id="4010" name="Kytketyt päätteet:" />
+					<Item id="4009" name="Tuetut päätteet:"/>
+					<Item id="4010" name="Kytketyt päätteet:"/>
 				</FileAssoc>
 				<Language title="Kieli">
-                    <Item id="6301" name="Välilehtiasetukset"/>
-                    <Item id="6302" name="Korvaa välilyönnillä"/>
-                    <Item id="6303" name="Välilehden koko: "/>
+					<Item id="6301" name="Välilehtiasetukset"/>
+					<Item id="6302" name="Korvaa välilyönnillä"/>
+					<Item id="6303" name="Välilehden koko: "/>
 					<Item id="6505" name="Käytettävissä olevat"/>
-                    <Item id="6506" name="Käytöstä poistetut"/>
-                    <Item id="6507" name="Tiivistä"/>
-                    <Item id="6508" name="Kielivalikko"/>
-                    <Item id="6510" name="Käytä oletusarvoa"/>
-                    <Item id="6335" name="Käsittele kenoviivaa SQL:n poistumismerkkinä"/>
-                </Language>
+					<Item id="6506" name="Käytöstä poistetut"/>
+					<Item id="6507" name="Tiivistä"/>
+					<Item id="6508" name="Kielivalikko"/>
+					<Item id="6510" name="Käytä oletusarvoa"/>
+					<Item id="6335" name="Käsittele kenoviivaa SQL:n poistumismerkkinä"/>
+				</Language>
 
 				<Highlighting title="Korostus">
-                    <Item id="6326" name="Käytä"/>
-                    <Item id="6327" name="Käytä"/>
-                    <Item id="6328" name="Korosta tunnisteen attribuutit"/>
-                    <Item id="6329" name="Korosta vastaavat tagit"/>
-                    <Item id="6330" name="Korosta kommentti/php/asp-vyöhyke"/>
-                    <Item id="6332" name="Sama kirjainkoko"/>
-                    <Item id="6333" name="Älykäs korostus"/>
-                    <Item id="6338" name="Vain koko sana"/>
-                    <Item id="6339" name="Käytä hakuikkunan asetuksia"/>
-                    <Item id="6340" name="Korosta toinen näkymä"/>
+					<Item id="6326" name="Käytä"/>
+					<Item id="6327" name="Käytä"/>
+					<Item id="6328" name="Korosta tunnisteen attribuutit"/>
+					<Item id="6329" name="Korosta vastaavat tagit"/>
+					<Item id="6330" name="Korosta kommentti/php/asp-vyöhyke"/>
+					<Item id="6332" name="Sama kirjainkoko"/>
+					<Item id="6333" name="Älykäs korostus"/>
+					<Item id="6338" name="Vain koko sana"/>
+					<Item id="6339" name="Käytä hakuikkunan asetuksia"/>
+					<Item id="6340" name="Korosta toinen näkymä"/>
 					<Item id="6351" name="Merkitse kaikki"/>
-                    <Item id="6352" name="Kirjainkoko"/>
-                    <Item id="6353" name="Vain koko sana"/>
+					<Item id="6352" name="Kirjainkoko"/>
+					<Item id="6353" name="Vain koko sana"/>
 					<Item id="6354" name="Vastaavuus"/>
-                </Highlighting>
+				</Highlighting>
 				
 				<Print title="Tulostus">
 					<Item id="6601" name="Tulosta rivinumerot"/>
@@ -969,13 +969,13 @@ Updated to v8.0.0:
 					<Item id="6728" name="Ylä- ja alatunniste"/>
 				</Print>
 				
-		         <Searching title="Haku">
-                    <Item id="6901" name="Valitun sanan tuonti hakukenttään ei käytössä"/>
-                    <Item id="6902" name="Käytä hakuikkunassa tasalevyistä fonttia (Edellyttää sovelluksen uudelleenkäynnistämistä)"/>
-                    <Item id="6903" name="Hakuikkuna jää avoimeksi näytettäessä tulosikkuna"/>
-                    <Item id="6904" name="Vahvista korvaaminen kaikissa avoimissa tiedostoissa"/>
-                    <Item id="6905" name="Korvattaessa älä siirry seuraaviin esiintymiin"/>
-                </Searching>	
+				<Searching title="Haku">
+					<Item id="6901" name="Valitun sanan tuonti hakukenttään ei käytössä"/>
+					<Item id="6902" name="Käytä hakuikkunassa tasalevyistä fonttia (Edellyttää sovelluksen uudelleenkäynnistämistä)"/>
+					<Item id="6903" name="Hakuikkuna jää avoimeksi näytettäessä tulosikkuna"/>
+					<Item id="6904" name="Vahvista korvaaminen kaikissa avoimissa tiedostoissa"/>
+					<Item id="6905" name="Korvattaessa älä siirry seuraaviin esiintymiin"/>
+				</Searching>
 				
 				<RecentFilesHistory title="Tiedostohistoria">
 					<Item id="6304" name="Tiedostohistoria"/>
@@ -1034,8 +1034,8 @@ Updated to v8.0.0:
 								
 				<Delimiter title="Rajoittimet">
 					<Item id="6161" name="Sanan merkkiluettelo"/>
-                    <Item id="6162" name="Käytä oletussanamerkkiluetteloa sellaisenaan"/>
-                    <Item id="6163" name="Lisää merkki osana sanaan (älä valitse, ellet tiedä mitä teet)"/>
+					<Item id="6162" name="Käytä oletussanamerkkiluetteloa sellaisenaan"/>
+					<Item id="6163" name="Lisää merkki osana sanaan (älä valitse, ellet tiedä mitä teet)"/>
 					<Item id="6251" name="Rajoittimen valinta-asetukset (Ctrl + hiiren kaksoisnapsautus)"/>
 					<Item id="6252" name="Alkaen"/>
 					<Item id="6255" name="Päättyen"/>
@@ -1049,29 +1049,29 @@ Updated to v8.0.0:
 					<Item id="6263" name="Ei pilveä"/>
 					<Item id="6267" name="Aseta pilven sijaintipolku tähän:"/>
 					<Item id="6318" name="Hyperlinkin asetukset"/>
-                    <Item id="6319" name="Käytössä"/>
-                    <Item id="6320" name="Ei alleviivausta"/>
-                    <Item id="6350" name="Käytä kokolaatikkotilaa"/>
-                    <Item id="6264" name="Sivustokohtaisesti muokatut teemat:"/>
+					<Item id="6319" name="Käytössä"/>
+					<Item id="6320" name="Ei alleviivausta"/>
+					<Item id="6350" name="Käytä kokolaatikkotilaa"/>
+					<Item id="6264" name="Sivustokohtaisesti muokatut teemat:"/>
 				</Cloud>
 				
 				<SearchEngine title="Hakukone">
-                    <Item id="6271" name="Hakukone (komennolle &quot;Etsi internetistä&quot;)"/>
-                    <Item id="6272" name="DuckDuckGo"/>
-                    <Item id="6273" name="Google"/>
-                    <Item id="6274" name="Bing"/>
-                    <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="Mukautettu hakukone:"/>
-                    <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="Esimerkki: https://www.google.com/search?q=$(CURRENT_WORD)"/>
-                </SearchEngine>
+					<Item id="6271" name="Hakukone (komennolle &quot;Etsi internetistä&quot;)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Mukautettu hakukone:"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Esimerkki: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
 				
 				<MISC title="Sekalaiset">
 					<ComboBox id="6347">
-                        <Element name="Käytä"/>
-                        <Element name="Käytä kaikissa avatatuissa tiedostoissa"/>
-                        <Element name="Poista käytöstä"/>
-                    </ComboBox>
+						<Element name="Käytä"/>
+						<Element name="Käytä kaikissa avatatuissa tiedostoissa"/>
+						<Element name="Poista käytöstä"/>
+					</ComboBox>
 					<Item id="6114" name="Käytössä"/>
 					<Item id="6117" name="Ota käyttöön MRU-käyttäytyminen"/>
 					<Item id="6308" name="Pienennä ilmoitusalueelle"/>
@@ -1088,9 +1088,9 @@ Updated to v8.0.0:
 					<Item id="6331" name="Näytä otsikkopalkissa vain tiedostonimi"/>
 					<Item id="6334" name="Tunnista merkistökoodaus"/>
 					<Item id="6337" name="Työtilatiedoston pääte:"/>
-                    <Item id="6344" name="Asiakirjan kurkkija"/>
-                    <Item id="6345" name="Kurkista välilehteen"/>
-                    <Item id="6346" name="Kurkista asiakirjakarttaan"/>
+					<Item id="6344" name="Asiakirjan kurkkija"/>
+					<Item id="6345" name="Kurkista välilehteen"/>
+					<Item id="6346" name="Kurkista asiakirjakarttaan"/>
 					<Item id="6349" name="DirectWrite käytössä (Saattaa parantaa erikoismerkkien ulkoasua, sovellus on käynnistettävä uudelleen)"/>
 					<Item id="6360" name="Vaimenna kaikki äänet"/>
 				</MISC>
@@ -1105,315 +1105,315 @@ Updated to v8.0.0:
 				<Item id="8006" name="Makro:"/>
 			</MultiMacro>
 			<Window title="Ikkunat">
-				<Item id="1" name="&amp;Aktivoi" />
-				<Item id="2" name="OK" />
-				<Item id="7002" name="&amp;Tallenna" />
-				<Item id="7003" name="&amp;Sulje ikkunat" />
-				<Item id="7004" name="Laji&amp;ttele välilehdet" />
+				<Item id="1" name="&amp;Aktivoi"/>
+				<Item id="2" name="OK"/>
+				<Item id="7002" name="&amp;Tallenna"/>
+				<Item id="7003" name="&amp;Sulje ikkunat"/>
+				<Item id="7004" name="Laji&amp;ttele välilehdet"/>
 			</Window>
 			<ColumnEditor title="Sarakemuokkaus">
-				<Item id="1" name="OK" />
-				<Item id="2" name="Peruuta" />
-				<Item id="2023" name="Lisättävä teksti" />
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Peruuta"/>
+				<Item id="2023" name="Lisättävä teksti"/>
 				<Item id="2024" name="Desimaali"/>
 				<Item id="2025" name="Oktaali"/>
 				<Item id="2026" name="Heksadesimaali"/>
 				<Item id="2027" name="Binääri"/>
-				<Item id="2030" name="Aloitusluku:" />
-				<Item id="2031" name="Lisäys:" />
-				<Item id="2032" name="Formaatti" />
-				<Item id="2033" name="Lisättävä numero" />
-				<Item id="2035" name="Etunollat" />
+				<Item id="2030" name="Aloitusluku:"/>
+				<Item id="2031" name="Lisäys:"/>
+				<Item id="2032" name="Formaatti"/>
+				<Item id="2033" name="Lisättävä numero"/>
+				<Item id="2035" name="Etunollat"/>
 				<Item id="2036" name="Toista :"/>
 			</ColumnEditor>
 
 			<FindInFinder title="Etsi hakutuloksista">
-                <Item id="1"    name="Etsi kaikki"/>
-                <Item id="2"    name="Sulje"/>
-                <Item id="1711" name="&amp;Etsittävä:"/>
-                <Item id="1713" name="Etsi vain löytyneistä riveistä"/>
-                <Item id="1714" name="Vain kokonaiset sanat"/>
-                <Item id="1715" name="Sama kir&amp;jainkoko"/>
-                <Item id="1716" name="Hakutapa"/>
-                <Item id="1717" name="&amp;Normaali"/>
-                <Item id="1719" name="&amp;Säännöllinen lauseke"/>
-                <Item id="1718" name="&amp;Laajennettu (\n, \r, \t, \0, \x...)"/>
-                <Item id="1720" name="&amp;. vastaa uutta riviä"/>
-            </FindInFinder>
+				<Item id="1" name="Etsi kaikki"/>
+				<Item id="2" name="Sulje"/>
+				<Item id="1711" name="&amp;Etsittävä:"/>
+				<Item id="1713" name="Etsi vain löytyneistä riveistä"/>
+				<Item id="1714" name="Vain kokonaiset sanat"/>
+				<Item id="1715" name="Sama kir&amp;jainkoko"/>
+				<Item id="1716" name="Hakutapa"/>
+				<Item id="1717" name="&amp;Normaali"/>
+				<Item id="1719" name="&amp;Säännöllinen lauseke"/>
+				<Item id="1718" name="&amp;Laajennettu (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. vastaa uutta riviä"/>
+			</FindInFinder>
  
-			<DoSaveOrNot title="Tallenna"> 
-                <Item id="1761" name="Tallennetaanko tiedosto &quot;$STR_REPLACE$&quot; ?"/>
-                <Item id="6" name="&amp;Kyllä"/>
-                <Item id="7" name="&amp;Ei"/>
-                <Item id="2" name="&amp;Peruuta"/>
-                <Item id="4" name="Kyllä, k&amp;aikki"/>
-                <Item id="5" name="&amp;Ei kaikkiin"/>
-            </DoSaveOrNot>
+			<DoSaveOrNot title="Tallenna">
+				<Item id="1761" name="Tallennetaanko tiedosto &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="&amp;Kyllä"/>
+				<Item id="7" name="&amp;Ei"/>
+				<Item id="2" name="&amp;Peruuta"/>
+				<Item id="4" name="Kyllä, k&amp;aikki"/>
+				<Item id="5" name="&amp;Ei kaikkiin"/>
+			</DoSaveOrNot>
 
 		</Dialog>
-		<MessageBox> 
-			<ContextMenuXmlEditWarning 	title="Ponnahdusvalikon mukautus" 			message="Muokkaamalla tiedostoa 'contextMenu.xml' voit mukauttaa Notepad++:n ponnahdusvalikkoa. Tiedoston muokkauksen jälkeen ohjelma on uudelleenkäynnistettävä tehtyjen muutosten käyttöönottamiseksi."/>
-			<NppHelpAbsentWarning 		title="Tiedostoa ei löydy" 					message="Tiedostoa ei löydy, lataa se Notepad++:n kotisivustolta."/>
-			<SaveCurrentModifWarning 	title="Tallenna muutokset" 					message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
-			<LoseUndoAbilityWarning 	title="Varoitus muutosten peruuttaamattomuudesta" 	message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
-			<CannotMoveDoc 				title="Avaa uuteen Notepad++ -istuntoon" 			message="Tiedostoa on muokattu, tallenna se ja yritä sitten uudelleen."/>
-			<DocReloadWarning 			title="Uudelleenlataus" 							message="Avataanko tiedosto uudelleen hyläten edellisen avauksen jälkeiset muutokset?"/>
-			<FileLockedWarning 			title="Tallennus epäonnistui" 						message="Varmista, että muut sovellukset eivä käytä tätä tiedostoa"/>
-			<FileAlreadyOpenedInNpp 	title="" 											message="Tiedosto on jo avoimena sovelluksessa Notepad++."/>
-			<DeleteFileFailed 			title="Tiedoston poisto" 							message="Tiedoston poisto epäonnistui"/>
-			<RenameTabTemporaryNameAlreadyInUse title="Uudelleennimeäminen epäonnistui"    	message="Määritetty nimi on jo toisen välilehden käytössä."/>
-			<GUpConfNeedAdminMode               title="Välityspalvelimen asetukset"        	message="Välityspalvelimen määrittäminen edellyttää käynnistystä järjestelmänvalvojan oikeuksin"/>
-			<NbFileToOpenImportantWarning 	title="Avattavien tiedostojen määrä on liian suuri" 	message="Avataanko $INT_REPLACE$ tiedostoa?"/>
-			<SettingsOnCloudError 			title="Pilviasetukset" 						message="Pilviasetuksien polku on asetettu kirjoitussuojatulle asemalle tai kansiolle, joka tarvitsee kirjoitusoikeuden. Pilviasetukset peruutetaan. Palauta johdonmukainen arvo asetusikkunan kautta."/>
-            <FilePathNotFoundWarning 		title="Tiedoston avaus" 					message="Tiedostoa, jota yrität avata ei ole olemassa."/>
-            <SessionFileInvalidError 		title="Istuntoa ei voitu ladata" 			message="Istuntotiedosto on joko viallinen tai ei kelvollinen."/>
-            <DroppingFolderAsProjectModeWarning title="Virheellinen toiminto" 			message="Voit pudottaa tiedostoja tai kansioita, mutta et molempia, koska olet Kansio Projektitilassa pudotuksessa. Sinun täytyy mahdollistaa &quot;Avaa kaikki kansion tiedostot sijaan että, käynnistä Kansio Työtilana kansion pudotuksessa&quot;&quot;Oletushakemisto&quot; -osassa Asetukset-ikkunaa, jolloin voit tehdä tämän operaation toimivaksi."/>
-            <SortingError 					title="Lajitteluvirhe" 						message="Numeerista lajittelua ei voi suorittaa rivin $INT_REPLACE$ vuoksi."/>
-            <ColumnModeTip 					title="Saraketilan vihje" 					message="Käytä &quot;ALT+Hiirivalinta&quot; tai &quot;Alt+Shift+Nuoli-näppäin&quot; siirtyäksesi saraketilaan."/>
-            <BufferInvalidWarning 			title="Tallennus epäonnistui" 				message="Ei voitu tallentaa: Puskuri on virheellinen."/>
-            <DoCloseOrNot 					title="Säilytä ei olemassa oleva tiedosto" 	message="Tiedostoa &quot;$STR_REPLACE$&quot; ei ole enää. Pidetäänkö tämä tiedosto editorissa?"/>
-            <DoDeleteOrNot 					title="Poista tiedosto" 					message="Tiedosto &quot;$STR_REPLACE$&quot; siirretään roskakoriin ja tämä asiakirja suljetaan. Jatketaanko?"/>
-            <NoBackupDoSaveFile 			title="Tallenna" 							message="Varmuuskopiotiedostoa ei löydy (poistettu ulkopuolelta). Tallenna se, tai tietosi menetetään Tallennetaanko tiedosto &quot;$STR_REPLACE$&quot; ?"/>
-            <DoReloadOrNot 					title="Lataa uudelleen" 					message="&quot;$STR_REPLACE$&quot; Tiedostoa on muokattu toisessa sovelluksessa, avataanko uudelleen?"/>
-            <DoReloadOrNotAndLooseChange 	title="Lataa uudelleen" 					message="&quot;$STR_REPLACE$&quot; Tätä tiedostoa on muokattu toisella ohjelmalla. Haluatko ladata sen uudelleen ja hylätä Notepad++ tehdyt muutokset?"/>
-            <PrehistoricSystemDetected 		title="Vanhentunut järjestelmä havaittu" 	message="Käytät vanhentunutta järjestelmää. Haluttu ominaisuus toimii vain nykyaikaisessa järjestelmässä."/>
-            <XpUpdaterProblem 				title="Notepad++ päivitys" 					message="Sovelluksen päivitysmekanismi ei ole yhteensopiva XP:n kanssa vanhentuneen turvallisuustason vuoksi. Siirrytäänkö sovelluksen kotisivulle uusimman version lataamiseksi?"/>
-            <DocTooDirtyToMonitor 			title="Seurantaongelma" 					message="Asiakirja on sekainen (?). Tallenna muutokset ennen seurantaa."/>
-            <DocNoExistToMonitor 			title="Seurantaongelma" 					message="Tiedoston pitää olla olemassa, jotta sitä voitaisiin seurata."/>
-            <FileTooBigToOpen 				title="Tiedostokoko-ongelma" 				message="Tiedosto on liian suuri avattavaksi tässä sovelluksessa"/>
-            <CreateNewFileOrNot 			title="Luo uusi tiedosto" 					message="&quot;$STR_REPLACE$&quot; ei ole olemassa. Luodaanko?"/>
-            <CreateNewFileError 			title="Luo uusi tiedosto" 					message="Ei voi luoda tiedostoa &quot;$STR_REPLACE$&quot;."/>
-            <OpenFileError 					title="VIRHE" 								message="Ei voi avata tiedostoa &quot;$STR_REPLACE$&quot;."/>
-            <FileBackupFailed 				title="Tiedoston varmuuskopiointi epäonnistui" message="Tiedoston edellistä versiota ei voitu tallentaa varmuuskopiohakemistoon kohteessa &quot;$STR_REPLACE$&quot;. Tallennetaanko silti nykyinen tiedosto?"/>
-            <LoadStylersFailed 				title="stylers.xml lataaminen epäonnistui" 	message=" &quot;$STR_REPLACE$&quot; lataus epäonnistui!"/>
-            <LoadLangsFailed 				title="Asetukset" 							message="Tiedoston langs.xml lataus epäonnistui! Palautetaanko langs.xml -tiedosto?"/>
-            <LoadLangsFailedFinal 			title="Asetukset" 							message="Tiedostonlangs.xml lataus epäonnistui!"/>
-            <FolderAsWorspaceSubfolderExists title="Työtilakansioon lisäämisongelma" 	message="Lisättävän kansion alikansio on olemassa. Poista sen juuri paneelista ennen kansion lisäämistä &quot;$STR_REPLACE$&quot;."/>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="Ponnahdusvalikon mukautus" message="Muokkaamalla tiedostoa 'contextMenu.xml' voit mukauttaa Notepad++:n ponnahdusvalikkoa. Tiedoston muokkauksen jälkeen ohjelma on uudelleenkäynnistettävä tehtyjen muutosten käyttöönottamiseksi."/>
+			<NppHelpAbsentWarning title="Tiedostoa ei löydy" message="Tiedostoa ei löydy, lataa se Notepad++:n kotisivustolta."/>
+			<SaveCurrentModifWarning title="Tallenna muutokset" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
+			<LoseUndoAbilityWarning title="Varoitus muutosten peruuttaamattomuudesta" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
+			<CannotMoveDoc title="Avaa uuteen Notepad++ -istuntoon" message="Tiedostoa on muokattu, tallenna se ja yritä sitten uudelleen."/>
+			<DocReloadWarning title="Uudelleenlataus" message="Avataanko tiedosto uudelleen hyläten edellisen avauksen jälkeiset muutokset?"/>
+			<FileLockedWarning title="Tallennus epäonnistui" message="Varmista, että muut sovellukset eivä käytä tätä tiedostoa"/>
+			<FileAlreadyOpenedInNpp title="" message="Tiedosto on jo avoimena sovelluksessa Notepad++."/>
+			<DeleteFileFailed title="Tiedoston poisto" message="Tiedoston poisto epäonnistui"/>
+			<RenameTabTemporaryNameAlreadyInUse title="Uudelleennimeäminen epäonnistui" message="Määritetty nimi on jo toisen välilehden käytössä."/>
+			<GUpConfNeedAdminMode title="Välityspalvelimen asetukset" message="Välityspalvelimen määrittäminen edellyttää käynnistystä järjestelmänvalvojan oikeuksin"/>
+			<NbFileToOpenImportantWarning title="Avattavien tiedostojen määrä on liian suuri" message="Avataanko $INT_REPLACE$ tiedostoa?"/>
+			<SettingsOnCloudError title="Pilviasetukset" message="Pilviasetuksien polku on asetettu kirjoitussuojatulle asemalle tai kansiolle, joka tarvitsee kirjoitusoikeuden. Pilviasetukset peruutetaan. Palauta johdonmukainen arvo asetusikkunan kautta."/>
+			<FilePathNotFoundWarning title="Tiedoston avaus" message="Tiedostoa, jota yrität avata ei ole olemassa."/>
+			<SessionFileInvalidError title="Istuntoa ei voitu ladata" message="Istuntotiedosto on joko viallinen tai ei kelvollinen."/>
+			<DroppingFolderAsProjectModeWarning title="Virheellinen toiminto" message="Voit pudottaa tiedostoja tai kansioita, mutta et molempia, koska olet Kansio Projektitilassa pudotuksessa. Sinun täytyy mahdollistaa &quot;Avaa kaikki kansion tiedostot sijaan että, käynnistä Kansio Työtilana kansion pudotuksessa&quot;&quot;Oletushakemisto&quot; -osassa Asetukset-ikkunaa, jolloin voit tehdä tämän operaation toimivaksi."/>
+			<SortingError title="Lajitteluvirhe" message="Numeerista lajittelua ei voi suorittaa rivin $INT_REPLACE$ vuoksi."/>
+			<ColumnModeTip title="Saraketilan vihje" message="Käytä &quot;ALT+Hiirivalinta&quot; tai &quot;Alt+Shift+Nuoli-näppäin&quot; siirtyäksesi saraketilaan."/>
+			<BufferInvalidWarning title="Tallennus epäonnistui" message="Ei voitu tallentaa: Puskuri on virheellinen."/>
+			<DoCloseOrNot title="Säilytä ei olemassa oleva tiedosto" message="Tiedostoa &quot;$STR_REPLACE$&quot; ei ole enää. Pidetäänkö tämä tiedosto editorissa?"/>
+			<DoDeleteOrNot title="Poista tiedosto" message="Tiedosto &quot;$STR_REPLACE$&quot; siirretään roskakoriin ja tämä asiakirja suljetaan. Jatketaanko?"/>
+			<NoBackupDoSaveFile title="Tallenna" message="Varmuuskopiotiedostoa ei löydy (poistettu ulkopuolelta). Tallenna se, tai tietosi menetetään Tallennetaanko tiedosto &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Lataa uudelleen" message="&quot;$STR_REPLACE$&quot; Tiedostoa on muokattu toisessa sovelluksessa, avataanko uudelleen?"/>
+			<DoReloadOrNotAndLooseChange title="Lataa uudelleen" message="&quot;$STR_REPLACE$&quot; Tätä tiedostoa on muokattu toisella ohjelmalla. Haluatko ladata sen uudelleen ja hylätä Notepad++ tehdyt muutokset?"/>
+			<PrehistoricSystemDetected title="Vanhentunut järjestelmä havaittu" message="Käytät vanhentunutta järjestelmää. Haluttu ominaisuus toimii vain nykyaikaisessa järjestelmässä."/>
+			<XpUpdaterProblem title="Notepad++ päivitys" message="Sovelluksen päivitysmekanismi ei ole yhteensopiva XP:n kanssa vanhentuneen turvallisuustason vuoksi. Siirrytäänkö sovelluksen kotisivulle uusimman version lataamiseksi?"/>
+			<DocTooDirtyToMonitor title="Seurantaongelma" message="Asiakirja on sekainen (?). Tallenna muutokset ennen seurantaa."/>
+			<DocNoExistToMonitor title="Seurantaongelma" message="Tiedoston pitää olla olemassa, jotta sitä voitaisiin seurata."/>
+			<FileTooBigToOpen title="Tiedostokoko-ongelma" message="Tiedosto on liian suuri avattavaksi tässä sovelluksessa"/>
+			<CreateNewFileOrNot title="Luo uusi tiedosto" message="&quot;$STR_REPLACE$&quot; ei ole olemassa. Luodaanko?"/>
+			<CreateNewFileError title="Luo uusi tiedosto" message="Ei voi luoda tiedostoa &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileError title="VIRHE" message="Ei voi avata tiedostoa &quot;$STR_REPLACE$&quot;."/>
+			<FileBackupFailed title="Tiedoston varmuuskopiointi epäonnistui" message="Tiedoston edellistä versiota ei voitu tallentaa varmuuskopiohakemistoon kohteessa &quot;$STR_REPLACE$&quot;. Tallennetaanko silti nykyinen tiedosto?"/>
+			<LoadStylersFailed title="stylers.xml lataaminen epäonnistui" message=" &quot;$STR_REPLACE$&quot; lataus epäonnistui!"/>
+			<LoadLangsFailed title="Asetukset" message="Tiedoston langs.xml lataus epäonnistui! Palautetaanko langs.xml -tiedosto?"/>
+			<LoadLangsFailedFinal title="Asetukset" message="Tiedostonlangs.xml lataus epäonnistui!"/>
+			<FolderAsWorspaceSubfolderExists title="Työtilakansioon lisäämisongelma" message="Lisättävän kansion alikansio on olemassa. Poista sen juuri paneelista ennen kansion lisäämistä &quot;$STR_REPLACE$&quot;."/>
 
-			<ConfirmSaveAs               	title="Vahvistus &quot;Tallenna nimellä&quot;" message="$STR_REPLACE$ on jo olemassa. Korvataanko?"/>
+			<ConfirmSaveAs title="Vahvistus &quot;Tallenna nimellä&quot;" message="$STR_REPLACE$ on jo olemassa. Korvataanko?"/>
 
-            <ProjectPanelChanged 				title="$STR_REPLACE$" message="Työtilaa muokattu. Haluatko tallentaa sen?"/>
-            <ProjectPanelChangedSaveError 		title="$STR_REPLACE$" message="Työtilaa ei ole tallennettu."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Avaa työtila" message="Nykyistä työtilaa on muokattu. Tallennetaanko nykyinen projekti?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot 	title="Uusi työtila" message="Nykyistä työtilaa on muokattu. Tallennetaanko nykyinen projekti?"/>
-            <ProjectPanelOpenFailed 			title="Avaa työtila" message="Työtilan avaaminen ei onnistunut. Avattava tiedosto ei ilmeisesti ole kelvollinen projektitiedosto."/>
-            <ProjectPanelRemoveFolderFromProject title="Poista kansio projektista" message="Kaikki alakohteet poistetaan. Poistetaanko tämä kansio projektista?"/>
-            <ProjectPanelRemoveFileFromProject 	title="Poista tiedosto projektista" message="Poistetaanko tämä tiedosto projektista?"/>
-            <ProjectPanelReloadError 			title="Lataa työtila uudelleen" message="Ladattavaa tiedostoa ei löydy."/>
-            <ProjectPanelReloadDirty 			title="Lataa työtila uudelleen" message="Nykyistä työtilaa on muokattu. Uudelleenlataaminen hylkää kaikki muutokset. Jatketaanko?"/>
-            <UDLNewNameError 					title="UDL virhe" message="Tätä nimeä käytetään toisessa kielessä, anna toinen."/>
-            <UDLRemoveCurrentLang 				title="Poista nykyinen kieli" message="Poistetaanko?"/>
-            <SCMapperDoDeleteOrNot 				title="Varmistus" message="Poistetaanko tämä pikakuvake?"/>
-            <FindCharRangeValueError 			title="Alueen arvo-ongelma" message="Sinun pitäisi kirjoittaa luku välillä 0-255."/>
-            <OpenInAdminMode 					title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö Notepad++ järjestelmänvalvojana?"/>
-            <OpenInAdminModeWithoutCloseCurrent title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö Notepad++ järjestelmänvalvojana?"/>
-            <OpenInAdminModeFailed 				title="Käynnistäminen järjestelmänvalvojana epäonnistui" message="Sovellusta ei voi käynnistää järjestelmänvalvojana."/>
-            <ViewInBrowser 						title="Näytä nykyinen tiedosto selaimessa" message="Sovellusta ei löydy järjestelmästäsi."/>
-            <ExitToUpdatePlugins 				title="Notepad++ on sulkeutumassa" message="Jos vastaat Kyllä, Notepad++:n pysäytetään toimintojen jatkamiseksi. Notepad++ käynnistetään uudelleen, kun kaikki toiminnot ovat valmistuneet. Jatketaanko?"/>
-            <NeedToRestartToLoadPlugins 		title="Notepad++ on käynnistettävä uudelleen" message="Sovellus täytyy uudelleenkäynnistää asennettujen liitännäisten käyttöönottamiseksi."/>
-        </MessageBox>
-        <ClipboardHistory>
-            <PanelTitle name="Leikepöydän historia"/>
-        </ClipboardHistory>
-        <DocList>
-            <PanelTitle name="Dokumentin vaihtaminen"/>
-            <ColumnName name="Nimi"/>
-            <ColumnExt name="pääte"/>
-        </DocList>
-        <WindowsDlg>
-            <ColumnName name="Nimi"/>
-            <ColumnPath name="Polku"/>
-            <ColumnType name="Tyyppi"/>
-			<ColumnSize  name="Koko"/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Työtilaa muokattu. Haluatko tallentaa sen?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Työtilaa ei ole tallennettu."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Avaa työtila" message="Nykyistä työtilaa on muokattu. Tallennetaanko nykyinen projekti?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Uusi työtila" message="Nykyistä työtilaa on muokattu. Tallennetaanko nykyinen projekti?"/>
+			<ProjectPanelOpenFailed title="Avaa työtila" message="Työtilan avaaminen ei onnistunut. Avattava tiedosto ei ilmeisesti ole kelvollinen projektitiedosto."/>
+			<ProjectPanelRemoveFolderFromProject title="Poista kansio projektista" message="Kaikki alakohteet poistetaan. Poistetaanko tämä kansio projektista?"/>
+			<ProjectPanelRemoveFileFromProject title="Poista tiedosto projektista" message="Poistetaanko tämä tiedosto projektista?"/>
+			<ProjectPanelReloadError title="Lataa työtila uudelleen" message="Ladattavaa tiedostoa ei löydy."/>
+			<ProjectPanelReloadDirty title="Lataa työtila uudelleen" message="Nykyistä työtilaa on muokattu. Uudelleenlataaminen hylkää kaikki muutokset. Jatketaanko?"/>
+			<UDLNewNameError title="UDL virhe" message="Tätä nimeä käytetään toisessa kielessä, anna toinen."/>
+			<UDLRemoveCurrentLang title="Poista nykyinen kieli" message="Poistetaanko?"/>
+			<SCMapperDoDeleteOrNot title="Varmistus" message="Poistetaanko tämä pikakuvake?"/>
+			<FindCharRangeValueError title="Alueen arvo-ongelma" message="Sinun pitäisi kirjoittaa luku välillä 0-255."/>
+			<OpenInAdminMode title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö Notepad++ järjestelmänvalvojana?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Tallennus epäonnistui" message="Tiedostoa ei voi tallentaa, se on ehkä suojattu. Käynnistetäänkö Notepad++ järjestelmänvalvojana?"/>
+			<OpenInAdminModeFailed title="Käynnistäminen järjestelmänvalvojana epäonnistui" message="Sovellusta ei voi käynnistää järjestelmänvalvojana."/>
+			<ViewInBrowser title="Näytä nykyinen tiedosto selaimessa" message="Sovellusta ei löydy järjestelmästäsi."/>
+			<ExitToUpdatePlugins title="Notepad++ on sulkeutumassa" message="Jos vastaat Kyllä, Notepad++:n pysäytetään toimintojen jatkamiseksi. Notepad++ käynnistetään uudelleen, kun kaikki toiminnot ovat valmistuneet. Jatketaanko?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ on käynnistettävä uudelleen" message="Sovellus täytyy uudelleenkäynnistää asennettujen liitännäisten käyttöönottamiseksi."/>
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Leikepöydän historia"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="Dokumentin vaihtaminen"/>
+			<ColumnName name="Nimi"/>
+			<ColumnExt name="pääte"/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="Nimi"/>
+			<ColumnPath name="Polku"/>
+			<ColumnType name="Tyyppi"/>
+			<ColumnSize name="Koko"/>
 			<NbDocsTotal name="Yhteensä: "/>
-        </WindowsDlg>
-        <AsciiInsertion>
-            <PanelTitle name="ASCII-koodien lisäyspaneeli"/>
-            <ColumnVal name="Arvo"/>
-            <ColumnHex name="Hex"/>
-            <ColumnChar name="Merkki"/>
-            <ColumnHtmlNumber name="HTML-numero"/>
-            <ColumnHtmlName name="HTML-koodi"/>
-        </AsciiInsertion>
-        <DocumentMap>
-            <PanelTitle name="Asiakirjakartta"/>
-        </DocumentMap>
-        <FunctionList>
-            <PanelTitle name="Funktioluettelo"/>
-            <SortTip name="Lajittelu" />
-            <ReloadTip name="Uudelleenlataus" />
-        </FunctionList>
-        <FolderAsWorkspace>
-            <PanelTitle name="Kansio työtilana"/>
-            <SelectFolderFromBrowserString name="Valitse kansio lisättäväksi työtilakansioon"/>
-            <ExpandAllFoldersTip name="Laajenna kaikki kansiot"/>
-            <CollapseAllFoldersTip name="Tiivistä kaikki kansiot"/>
-            <LocateCurrentFileTip name="Paikallista nykyinen tiedosto"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII-koodien lisäyspaneeli"/>
+			<ColumnVal name="Arvo"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Merkki"/>
+			<ColumnHtmlNumber name="HTML-numero"/>
+			<ColumnHtmlName name="HTML-koodi"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Asiakirjakartta"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Funktioluettelo"/>
+			<SortTip name="Lajittelu"/>
+			<ReloadTip name="Uudelleenlataus"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Kansio työtilana"/>
+			<SelectFolderFromBrowserString name="Valitse kansio lisättäväksi työtilakansioon"/>
+			<ExpandAllFoldersTip name="Laajenna kaikki kansiot"/>
+			<CollapseAllFoldersTip name="Tiivistä kaikki kansiot"/>
+			<LocateCurrentFileTip name="Paikallista nykyinen tiedosto"/>
 			<Menu>
-                <Item id="3511" name="Poista"/>
-                <Item id="3512" name="Poista kaikki"/>
-                <Item id="3513" name="Lisää"/>
-                <Item id="3514" name="Suorita järjestelmän mukaan"/>
-                <Item id="3515" name="Avaa"/>
-                <Item id="3516" name="Kopioi polku"/>
-                <Item id="3517" name="Etsi tiedostoista..."/>
-                <Item id="3518" name="Avaa resurssienhallinnassa"/>
-                <Item id="3519" name="Avaa komentokehote"/>
-                <Item id="3520" name="Kopioi tiedostonimi"/>
-            </Menu>
-        </FolderAsWorkspace>
-        <ProjectManager>
-            <PanelTitle name="Projekti"/>
-            <WorkspaceRootName name="Työtila"/>
-            <NewProjectName name="Projektin nimi"/>
-            <NewFolderName name="Kansion nimi"/>
-            <Menus>
-                <Entries>
-                    <Item id="0" name="Työtila"/>
-                    <Item id="1" name="Muokkaa"/>
-                </Entries>
-                <WorkspaceMenu>
-                    <Item id="3122" name="Uusi työtila"/>
-                    <Item id="3123" name="Avaa työtila"/>
-                    <Item id="3124" name="Lataa työtila uudelleen"/>
-                    <Item id="3125" name="Tallenna"/>
-                    <Item id="3126" name="Tallenna nimellä..."/>
-                    <Item id="3127" name="Tallenna kopio nimellä..."/>
-                    <Item id="3121" name="Lisää uusi projekti"/>
+				<Item id="3511" name="Poista"/>
+				<Item id="3512" name="Poista kaikki"/>
+				<Item id="3513" name="Lisää"/>
+				<Item id="3514" name="Suorita järjestelmän mukaan"/>
+				<Item id="3515" name="Avaa"/>
+				<Item id="3516" name="Kopioi polku"/>
+				<Item id="3517" name="Etsi tiedostoista..."/>
+				<Item id="3518" name="Avaa resurssienhallinnassa"/>
+				<Item id="3519" name="Avaa komentokehote"/>
+				<Item id="3520" name="Kopioi tiedostonimi"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="Projekti"/>
+			<WorkspaceRootName name="Työtila"/>
+			<NewProjectName name="Projektin nimi"/>
+			<NewFolderName name="Kansion nimi"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Työtila"/>
+					<Item id="1" name="Muokkaa"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Uusi työtila"/>
+					<Item id="3123" name="Avaa työtila"/>
+					<Item id="3124" name="Lataa työtila uudelleen"/>
+					<Item id="3125" name="Tallenna"/>
+					<Item id="3126" name="Tallenna nimellä..."/>
+					<Item id="3127" name="Tallenna kopio nimellä..."/>
+					<Item id="3121" name="Lisää uusi projekti"/>
 					<Item id="3128" name="Etsi projekteista..."/>
-                </WorkspaceMenu>
-                <ProjectMenu>
-                    <Item id="3111" name="Nimeä uudelleen"/>
-                    <Item id="3112" name="Lisää kansio"/>
-                    <Item id="3113" name="Lisää tiedostoja..."/>
-                    <Item id="3117" name="Lisää tiedostoja hakemistosta..."/>
-                    <Item id="3114" name="Poista"/>
-                    <Item id="3118" name="Siirrä ylös"/>
-                    <Item id="3119" name="Siirrä alas"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3112" name="Lisää kansio"/>
+					<Item id="3113" name="Lisää tiedostoja..."/>
+					<Item id="3117" name="Lisää tiedostoja hakemistosta..."/>
+					<Item id="3114" name="Poista"/>
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
 					<Item id="3128" name="Etsi projekteista..."/>
-                </ProjectMenu>
-                <FolderMenu>
-                    <Item id="3111" name="Nimeä uudelleen"/>
-                    <Item id="3112" name="Lisää kansio"/>
-                    <Item id="3113" name="Lisää tiedostoja..."/>
-                    <Item id="3117" name="Lisää tiedostoja hakemistosta..."/>
-                    <Item id="3114" name="Poista"/>
-                    <Item id="3118" name="Siirrä ylös"/>
-                    <Item id="3119" name="Siirrä alas"/>
-                </FolderMenu>
-                <FileMenu>
-                    <Item id="3111" name="Nimeä uudelleen"/>
-                    <Item id="3115" name="Poista"/>
-                    <Item id="3116" name="Muokkaa tiedostopolkua"/>
-                    <Item id="3118" name="Siirrä ylös"/>
-                    <Item id="3119" name="Siirrä alas"/>
-                </FileMenu>
-            </Menus>
-        </ProjectManager>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3112" name="Lisää kansio"/>
+					<Item id="3113" name="Lisää tiedostoja..."/>
+					<Item id="3117" name="Lisää tiedostoja hakemistosta..."/>
+					<Item id="3114" name="Poista"/>
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3115" name="Poista"/>
+					<Item id="3116" name="Muokkaa tiedostopolkua"/>
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
 		
-        <MiscStrings>
-            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Näin voit sisällyttää lisää merkkejä nykyisiin sanamerkkeihin, kun kaksoisnapsautat valintaa tai etsit &quot;Täsmää vain koko sanaan&quot; -vaihtoehto on valittu"/>
-            <word-chars-list-warning-begin value="Ole varuillasi: "/>
-            <word-chars-list-space-warning value="$INT_REPLACE$ välilyönti(t)"/>
-            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(t)"/>
-            <word-chars-list-warning-end value="  merkkiluettelossa."/>
-            <cloud-invalid-warning value="Virheellinen polku."/>
-            <cloud-restart-warning value="Käynnistä Notepad++ uudelleen, jotta vaikutus tulisi voimaan."/>
-            <cloud-select-folder value="Valitse kansio mistä/mihin Notepad++ lukee/kirjoittaa asetuksensa"/>
-            <shift-change-direction-tip value="Käytä Shift+Enteriä etsiäksesi vastakkaiseen suuntaan"/>
-            <two-find-buttons-tip value="2 etsi painikkeet-tila"/>
-            <find-in-files-filter-tip value="Etsi seuraavista cpp, cxx, h, hxx &amp;&amp; hpp: *.cpp *.cxx *.h *.hxx *.hpp  Etsi kaikista tiedostoista paitsi exe, obj &amp;&amp; log: *.* !*.exe !*.obj !*.log"/>
-            <find-status-top-reached value="Haku: 1. esiintyminen löytyi lopusta. Asiakirjan alku on saavutettu."/>
-            <find-status-end-reached value="Haku: 1. esiintyminen löytyi alusta. Asiakirjan loppu on saavutettu."/>
-            <find-status-replaceinfiles-1-replaced value="Korvaa tiedostoissa: 1 esiintymä korvattiin"/>
-            <find-status-replaceinfiles-nb-replaced value="Korvaa tiedostoissa: $INT_REPLACE$ esiintymää korjattu"/>
-            <find-status-replaceinfiles-re-malformed value="Korvaa avatuissa tiedostoissa: Säännöllinen lauseke on virheellisesti muodostettu"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Korvaa avatuissa tiedostoissa: 1 esiintymä korjattu"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Korvaa avatuissa tiedostoissa: $INT_REPLACE$ esiintymää korjattu"/>
-			<find-status-replaced-without-continuing      value="Korvaa: yksi osuma"/>  		
+		<MiscStrings>
+			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
+			<word-chars-list-tip value="Näin voit sisällyttää lisää merkkejä nykyisiin sanamerkkeihin, kun kaksoisnapsautat valintaa tai etsit &quot;Täsmää vain koko sanaan&quot; -vaihtoehto on valittu"/>
+			<word-chars-list-warning-begin value="Ole varuillasi: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ välilyönti(t)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(t)"/>
+			<word-chars-list-warning-end value="  merkkiluettelossa."/>
+			<cloud-invalid-warning value="Virheellinen polku."/>
+			<cloud-restart-warning value="Käynnistä Notepad++ uudelleen, jotta vaikutus tulisi voimaan."/>
+			<cloud-select-folder value="Valitse kansio mistä/mihin Notepad++ lukee/kirjoittaa asetuksensa"/>
+			<shift-change-direction-tip value="Käytä Shift+Enteriä etsiäksesi vastakkaiseen suuntaan"/>
+			<two-find-buttons-tip value="2 etsi painikkeet-tila"/>
+			<find-in-files-filter-tip value="Etsi seuraavista cpp, cxx, h, hxx &amp;&amp; hpp: *.cpp *.cxx *.h *.hxx *.hpp  Etsi kaikista tiedostoista paitsi exe, obj &amp;&amp; log: *.* !*.exe !*.obj !*.log"/>
+			<find-status-top-reached value="Haku: 1. esiintyminen löytyi lopusta. Asiakirjan alku on saavutettu."/>
+			<find-status-end-reached value="Haku: 1. esiintyminen löytyi alusta. Asiakirjan loppu on saavutettu."/>
+			<find-status-replaceinfiles-1-replaced value="Korvaa tiedostoissa: 1 esiintymä korvattiin"/>
+			<find-status-replaceinfiles-nb-replaced value="Korvaa tiedostoissa: $INT_REPLACE$ esiintymää korjattu"/>
+			<find-status-replaceinfiles-re-malformed value="Korvaa avatuissa tiedostoissa: Säännöllinen lauseke on virheellisesti muodostettu"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Korvaa avatuissa tiedostoissa: 1 esiintymä korjattu"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Korvaa avatuissa tiedostoissa: $INT_REPLACE$ esiintymää korjattu"/>
+			<find-status-replaced-without-continuing value="Korvaa: yksi osuma"/>
 			<find-status-mark-re-malformed value="Merkitse: Säännöllinen lauseke on virheellisesti muodostettu"/>
-            <find-status-invalid-re value="Haku: Virheellinen säännöllinen lauseke"/>
+			<find-status-invalid-re value="Haku: Virheellinen säännöllinen lauseke"/>
 			<find-status-search-failed value="Haku: Haku epäonnistuid"/>
 			<find-status-mark-1-match value="Merkitse: yksi osuma"/>
-            <find-status-mark-nb-matches value="Merkitse: $INT_REPLACE$ osumaa"/>
-            <find-status-count-re-malformed value="Määrä: Säännöllinen lauseke on virheellisesti muodostettu"/>
-            <find-status-count-1-match value="Määrä: yksi osuma"/>
-            <find-status-count-nb-matches value="Määrä: $INT_REPLACE$ osumaa"/>
-            <find-status-replaceall-re-malformed value="Korvaa kaikki: Säännöllinen lauseke on virheellisesti muodostettu"/>
-            <find-status-replaceall-1-replaced value="Korvaa kaikki: Yksi esiintymä korvattu"/>
-            <find-status-replaceall-nb-replaced value="Korvaa kaikki: $INT_REPLACE$ esiintymää korvattu"/>
-            <find-status-replaceall-readonly value="Korvaa kaikki: Tekstiä ei voi korvata. Nykyinen asiakirja on kirjoitussuojattu"/>
-            <find-status-replace-end-reached value="Korvaa: Korvattu 1. esiintymä alusta. Asiakirjan loppu on saavutettu"/>
-            <find-status-replace-top-reached value="Korvaa: Korvattu 1. esiintymä lopusta. Asiakirjan alku on saavutettu"/>
-            <find-status-replaced-next-found value="Korvaa: Yksi esiintymä korvattu, seuraava löytyi"/>
+			<find-status-mark-nb-matches value="Merkitse: $INT_REPLACE$ osumaa"/>
+			<find-status-count-re-malformed value="Määrä: Säännöllinen lauseke on virheellisesti muodostettu"/>
+			<find-status-count-1-match value="Määrä: yksi osuma"/>
+			<find-status-count-nb-matches value="Määrä: $INT_REPLACE$ osumaa"/>
+			<find-status-replaceall-re-malformed value="Korvaa kaikki: Säännöllinen lauseke on virheellisesti muodostettu"/>
+			<find-status-replaceall-1-replaced value="Korvaa kaikki: Yksi esiintymä korvattu"/>
+			<find-status-replaceall-nb-replaced value="Korvaa kaikki: $INT_REPLACE$ esiintymää korvattu"/>
+			<find-status-replaceall-readonly value="Korvaa kaikki: Tekstiä ei voi korvata. Nykyinen asiakirja on kirjoitussuojattu"/>
+			<find-status-replace-end-reached value="Korvaa: Korvattu 1. esiintymä alusta. Asiakirjan loppu on saavutettu"/>
+			<find-status-replace-top-reached value="Korvaa: Korvattu 1. esiintymä lopusta. Asiakirjan alku on saavutettu"/>
+			<find-status-replaced-next-found value="Korvaa: Yksi esiintymä korvattu, seuraava löytyi"/>
 			<find-status-replaced-without-continuing value="Korvaa: Yksi esiintymä korvattu."/>
-            <find-status-replaced-next-not-found value="Korvaa: Yksi esiintymä korvattu, seuraavaa ei löydy"/>
-            <find-status-replace-not-found value="Korvaa: Esiintymää ei löytynyt"/>
-            <find-status-replace-readonly value="Korvaa: Tekstiä ei voi korvata. Nykyinen asiakirja on kirjoitussuojattu"/>
-            <find-status-cannot-find value="Haku: Tekstiä ei löydy  &quot;$STR_REPLACE$&quot;"/>
-	        <find-status-scope-selection value="valitussa tekstissä"/>
-            <find-status-scope-all value="koko tiedostossa"/>
-            <find-status-scope-backward value="tiedoston alusta kursoriin"/>
-            <find-status-scope-forward value="kursorista tiedoston loppuun"/>		
+			<find-status-replaced-next-not-found value="Korvaa: Yksi esiintymä korvattu, seuraavaa ei löydy"/>
+			<find-status-replace-not-found value="Korvaa: Esiintymää ei löytynyt"/>
+			<find-status-replace-readonly value="Korvaa: Tekstiä ei voi korvata. Nykyinen asiakirja on kirjoitussuojattu"/>
+			<find-status-cannot-find value="Haku: Tekstiä ei löydy  &quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection value="valitussa tekstissä"/>
+			<find-status-scope-all value="koko tiedostossa"/>
+			<find-status-scope-backward value="tiedoston alusta kursoriin"/>
+			<find-status-scope-forward value="kursorista tiedoston loppuun"/>
 			<finder-find-in-finder value="Etsi hakutuloksista..."/>
-            <finder-close-this value="Sulje tämä haku"/>
-            <finder-collapse-all value="Tiivistä kaikki"/>
-            <finder-uncollapse-all value="Laajenna kaikki"/>
-            <finder-copy value="Kopioi valitut rivit"/>
-            <finder-copy-verbatim value="Kopioi"/>
-            <finder-copy-paths value="Kopioi polut"/>	
-            <finder-select-all value="Valitse kaikki"/>
-            <finder-clear-all value="Tyhjennä kaikki"/>
-            <finder-open-all value="Avaa kaikki"/>
-	        <finder-purge-for-every-search value="Tyhjennä kutakin hakua varten"/>
-            <finder-wrap-long-lines value="Rivitä pitkät rivit"/>		
-	        <common-ok value="OK"/>
-            <common-cancel value="Peruuta"/>
-            <common-name value="Nimi: "/>
-            <tabrename-title value="Nimeä nykyinen välilehti uudelleen"/>
-            <tabrename-newname value="Uusi nimi: "/>
+			<finder-close-this value="Sulje tämä haku"/>
+			<finder-collapse-all value="Tiivistä kaikki"/>
+			<finder-uncollapse-all value="Laajenna kaikki"/>
+			<finder-copy value="Kopioi valitut rivit"/>
+			<finder-copy-verbatim value="Kopioi"/>
+			<finder-copy-paths value="Kopioi polut"/>
+			<finder-select-all value="Valitse kaikki"/>
+			<finder-clear-all value="Tyhjennä kaikki"/>
+			<finder-open-all value="Avaa kaikki"/>
+			<finder-purge-for-every-search value="Tyhjennä kutakin hakua varten"/>
+			<finder-wrap-long-lines value="Rivitä pitkät rivit"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Peruuta"/>
+			<common-name value="Nimi: "/>
+			<tabrename-title value="Nimeä nykyinen välilehti uudelleen"/>
+			<tabrename-newname value="Uusi nimi: "/>
 			<splitter-rotate-left value="Kierrä vasemmalle"/>
-            <splitter-rotate-right value="Kierrä oikealle"/>
-            <recent-file-history-maxfile value="Tiedostoja enintään: "/>
-            <language-tabsize value="Välilehden koko: "/>
-            <userdefined-title-new value="Luo uusi kieli..."/>
-            <userdefined-title-save value="Tallenna nykyinen kieli nimellä..."/>
-            <userdefined-title-rename value="Nimeä nykyinen kieli uudelleen"/>
-            <autocomplete-nb-char value="Nb merkki: "/>
-            <edit-verticaledge-nb-col value="Nb sarake:"/>
-            <summary value="Yhteenveto"/>
-            <summary-filepath value="Koko tiedostopolku: "/>
-            <summary-filecreatetime value="Luotu: "/>
-            <summary-filemodifytime value="Muokattu: "/>
-            <summary-nbchar value="Merkkejä (ilman rivin loppua): "/>
-            <summary-nbword value="Sanoja: "/>
-            <summary-nbline value="Rivejä: "/>
-            <summary-nbbyte value="Asiakirjan pituus: "/>
-            <summary-nbsel1 value=" valittua merkkiä ("/>
-            <summary-nbsel2 value=" tavua) / "/>
-            <summary-nbrange value=" aluetta"/>
+			<splitter-rotate-right value="Kierrä oikealle"/>
+			<recent-file-history-maxfile value="Tiedostoja enintään: "/>
+			<language-tabsize value="Välilehden koko: "/>
+			<userdefined-title-new value="Luo uusi kieli..."/>
+			<userdefined-title-save value="Tallenna nykyinen kieli nimellä..."/>
+			<userdefined-title-rename value="Nimeä nykyinen kieli uudelleen"/>
+			<autocomplete-nb-char value="Nb merkki: "/>
+			<edit-verticaledge-nb-col value="Nb sarake:"/>
+			<summary value="Yhteenveto"/>
+			<summary-filepath value="Koko tiedostopolku: "/>
+			<summary-filecreatetime value="Luotu: "/>
+			<summary-filemodifytime value="Muokattu: "/>
+			<summary-nbchar value="Merkkejä (ilman rivin loppua): "/>
+			<summary-nbword value="Sanoja: "/>
+			<summary-nbline value="Rivejä: "/>
+			<summary-nbbyte value="Asiakirjan pituus: "/>
+			<summary-nbsel1 value=" valittua merkkiä ("/>
+			<summary-nbsel2 value=" tavua) / "/>
+			<summary-nbrange value=" aluetta"/>
 			<find-in-files-progress-title value="Etsitään tiedostoista..."/>
-            <replace-in-files-confirm-title value="Korvataanko?"/>
-            <replace-in-files-confirm-directory value="Korvataanko kaikki esiintymät kohteessa:"/>
-            <replace-in-files-confirm-filetype value="Tiedostotyypeissä:"/>
-            <replace-in-files-progress-title value="Korvataan tiedostoista..."/>
-            <replace-in-projects-confirm-title value="Korvataanko?"/>
-            <replace-in-projects-confirm-message value="Korvataanko kaikki esiintymät valituiden projektien kaikissa tiedostoissa?"/>
-            <replace-in-open-docs-confirm-title value="Korvataanko?"/>
-            <replace-in-open-docs-confirm-message value="Korvataanko kaikki esiintymät kaikissa avoimissa tiedostoissa?"/>
-            <find-result-caption value="Hakutulokset"/>
-            <find-result-title value="Haku"/> <!-- Must not begin with space or tab character -->
-            <find-result-title-info value="($INT_REPLACE1$ osumaa $INT_REPLACE2$ tiedostossa, haettu $INT_REPLACE3$ tiedostosta)"/>
-            <find-result-title-info-selections value="($INT_REPLACE1$ osumaa $INT_REPLACE2$ valinnassa, haettu $INT_REPLACE3$ valinnasta)"/>
-            <find-result-title-info-extra value=" - Rivisuodatustila: näytetään vain suodatetut tulokset"/>
-            <find-result-hits value="($INT_REPLACE$ osumaa)"/>
-            <find-result-line-prefix value="Rivi"/> <!-- Must not begin with space or tab character -->
-            <find-regex-zero-length-match value="nollapituinen osuma" />
-            <session-save-folder-as-workspace value="Tallenna kansio työtilana" />
-            <tab-untitled-string value="uusi " />
-            <file-save-assign-type value="&amp;Lisää pääte" />
-            <close-panel-tip value="Sulje" />	
-        </MiscStrings>		
+			<replace-in-files-confirm-title value="Korvataanko?"/>
+			<replace-in-files-confirm-directory value="Korvataanko kaikki esiintymät kohteessa:"/>
+			<replace-in-files-confirm-filetype value="Tiedostotyypeissä:"/>
+			<replace-in-files-progress-title value="Korvataan tiedostoista..."/>
+			<replace-in-projects-confirm-title value="Korvataanko?"/>
+			<replace-in-projects-confirm-message value="Korvataanko kaikki esiintymät valituiden projektien kaikissa tiedostoissa?"/>
+			<replace-in-open-docs-confirm-title value="Korvataanko?"/>
+			<replace-in-open-docs-confirm-message value="Korvataanko kaikki esiintymät kaikissa avoimissa tiedostoissa?"/>
+			<find-result-caption value="Hakutulokset"/>
+			<find-result-title value="Haku"/><!-- Must not begin with space or tab character -->
+			<find-result-title-info value="($INT_REPLACE1$ osumaa $INT_REPLACE2$ tiedostossa, haettu $INT_REPLACE3$ tiedostosta)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ osumaa $INT_REPLACE2$ valinnassa, haettu $INT_REPLACE3$ valinnasta)"/>
+			<find-result-title-info-extra value=" - Rivisuodatustila: näytetään vain suodatetut tulokset"/>
+			<find-result-hits value="($INT_REPLACE$ osumaa)"/>
+			<find-result-line-prefix value="Rivi"/><!-- Must not begin with space or tab character -->
+			<find-regex-zero-length-match value="nollapituinen osuma"/>
+			<session-save-folder-as-workspace value="Tallenna kansio työtilana"/>
+			<tab-untitled-string value="uusi "/>
+			<file-save-assign-type value="&amp;Lisää pääte"/>
+			<close-panel-tip value="Sulje"/>
+		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

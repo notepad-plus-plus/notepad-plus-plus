@@ -9,70 +9,70 @@ Updated to v8.2.1:
 			<Main>
 				<!-- Амениу Хада -->
 				<Entries>
-					<Item menuId="file"     name="&amp;Афаил"/>
-					<Item menuId="edit"     name="&amp;Ариашара"/>
-					<Item menuId="search"   name="&amp;Аԥшаара"/>
-					<Item menuId="view"     name="&amp;Аԥшра"/>
+					<Item menuId="file" name="&amp;Афаил"/>
+					<Item menuId="edit" name="&amp;Ариашара"/>
+					<Item menuId="search" name="&amp;Аԥшаара"/>
+					<Item menuId="view" name="&amp;Аԥшра"/>
 					<Item menuId="encoding" name="&amp;Акодркрақәа"/>
 					<Item menuId="language" name="&amp;Асинтаксисқәа"/>
 					<Item menuId="settings" name="&amp;Аопциақәа"/>
-					<Item menuId="tools"    name="&amp;Амаругақәа"/>
-					<Item menuId="macro"    name="&amp;Амакросқәа"/>
-					<Item menuId="run"      name="&amp;Адәықәҵара"/>
-					<Item menuId="Plugins"  name="&amp;Аплагинқәа"/>
-					<Item menuId="Window"   name="&amp;Агәылаҵақәа"/>
+					<Item menuId="tools" name="&amp;Амаругақәа"/>
+					<Item menuId="macro" name="&amp;Амакросқәа"/>
+					<Item menuId="run" name="&amp;Адәықәҵара"/>
+					<Item menuId="Plugins" name="&amp;Аплагинқәа"/>
+					<Item menuId="Window" name="&amp;Агәылаҵақәа"/>
 				</Entries>
 				<SubEntries>
-					<Item subMenuId="file-openFolder"           name="&amp;Иаарттәуп адокумент акаталог"/>
-					<Item subMenuId="file-closeMore"            name="Иарктәуп Еиҳаны"/>
-					<Item subMenuId="file-recentFiles"          name="Аҵыхәтәантәи афаилқәа"/>
-					<Item subMenuId="edit-insert"               name="Аҭаргылара"/>
-					<Item subMenuId="edit-copyToClipboard"      name="Икопиатәуп Абуфер ахь"/>
-					<Item subMenuId="edit-indent"               name="Ахьаҵқәа (атабулиациа)"/>
-					<Item subMenuId="edit-convertCaseTo"        name="Арегистр Аиҭакра"/>
-					<Item subMenuId="edit-lineOperations"       name="Ацәаҳәақәа ирызку Аоперациақәа"/>
-					<Item subMenuId="edit-comment"              name="Акомментари аҿак./аҿых."/>
-					<Item subMenuId="edit-autoCompletion"       name="Автохыркәшара"/>
-					<Item subMenuId="edit-eolConversion"        name="Ацәаҳәақәа Рынҵәамҭа Аформат"/>
-					<Item subMenuId="edit-blankOperations"      name="Абжьажьқәа ирызку Аоперациақәа"/>
-					<Item subMenuId="edit-pasteSpecial"         name="Испециалу Аҭаргылара"/>
-					<Item subMenuId="edit-onSelection"          name="Иалкаау"/>
-					<Item subMenuId="search-markAll"            name="Иазгәаҭатәуп аиқәшәарақәа зегьы"/>
-					<Item subMenuId="search-markOne"            name="Иазгәаҭатәуп акы амацара"/>
-					<Item subMenuId="search-unmarkAll"          name="Иқәгатәуп азгәаҭарақәа"/>
-					<Item subMenuId="search-jumpUp"             name="Аԥхьатәи азгәаҭа"/>
-					<Item subMenuId="search-jumpDown"           name="Анаҩстәи азгәаҭа"/>
-					<Item subMenuId="search-copyStyledText"     name="Икопиатәуп иазгәаҭоу атекст"/>
-					<Item subMenuId="search-bookmark"           name="&amp;Агәылаҵақәа"/>
-					<Item subMenuId="view-currentFileIn"        name="Иаарттәуп ари афаил, аҟны..."/>
-					<Item subMenuId="view-showSymbol"           name="Асимволқәа раарԥшра"/>
-					<Item subMenuId="view-zoom"                 name="Атекст амасштаб"/>
-					<Item subMenuId="view-moveCloneDocument"    name="Адокумент аԥенџьыр"/>
-					<Item subMenuId="view-tab"                  name="Агәылаҵа алхра..."/>
-					<Item subMenuId="view-collapseLevel"        name="Еикәарҳәтәуп аҩаӡара"/>
-					<Item subMenuId="view-uncollapseLevel"      name="Еиҵыхтәуп аҩаӡара"/>
-					<Item subMenuId="view-project"              name="Апроект (апанель)"/>
-					<Item subMenuId="encoding-characterSets"    name="Акодркрақәа"/>
-					<Item subMenuId="encoding-arabic"           name="Арабтәи"/>
-					<Item subMenuId="encoding-baltic"           name="Балтикатәи"/>
-					<Item subMenuId="encoding-celtic"           name="Кельттәи"/>
-					<Item subMenuId="encoding-cyrillic"         name="Акириллица"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Ацентр-Европатәи"/>
-					<Item subMenuId="encoding-chinese"          name="Китаитәи"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Мрагылара-Европатәи"/>
-					<Item subMenuId="encoding-greek"            name="Абырзентәи"/>
-					<Item subMenuId="encoding-hebrew"           name="Иврит"/>
-					<Item subMenuId="encoding-japanese"         name="Иапониатәи"/>
-					<Item subMenuId="encoding-korean"           name="Кореатәи"/>
-					<Item subMenuId="encoding-northEuropean"    name="Аҩада-Европатәи"/>
-					<Item subMenuId="encoding-thai"             name="Таитәи"/>
-					<Item subMenuId="encoding-turkish"          name="Аҭырқәатәи"/>
-					<Item subMenuId="encoding-westernEuropean"  name="Мраҭашәара-Европатәи"/>
-					<Item subMenuId="encoding-vietnamese"       name="Виетнамтәи"/>
+					<Item subMenuId="file-openFolder" name="&amp;Иаарттәуп адокумент акаталог"/>
+					<Item subMenuId="file-closeMore" name="Иарктәуп Еиҳаны"/>
+					<Item subMenuId="file-recentFiles" name="Аҵыхәтәантәи афаилқәа"/>
+					<Item subMenuId="edit-insert" name="Аҭаргылара"/>
+					<Item subMenuId="edit-copyToClipboard" name="Икопиатәуп Абуфер ахь"/>
+					<Item subMenuId="edit-indent" name="Ахьаҵқәа (атабулиациа)"/>
+					<Item subMenuId="edit-convertCaseTo" name="Арегистр Аиҭакра"/>
+					<Item subMenuId="edit-lineOperations" name="Ацәаҳәақәа ирызку Аоперациақәа"/>
+					<Item subMenuId="edit-comment" name="Акомментари аҿак./аҿых."/>
+					<Item subMenuId="edit-autoCompletion" name="Автохыркәшара"/>
+					<Item subMenuId="edit-eolConversion" name="Ацәаҳәақәа Рынҵәамҭа Аформат"/>
+					<Item subMenuId="edit-blankOperations" name="Абжьажьқәа ирызку Аоперациақәа"/>
+					<Item subMenuId="edit-pasteSpecial" name="Испециалу Аҭаргылара"/>
+					<Item subMenuId="edit-onSelection" name="Иалкаау"/>
+					<Item subMenuId="search-markAll" name="Иазгәаҭатәуп аиқәшәарақәа зегьы"/>
+					<Item subMenuId="search-markOne" name="Иазгәаҭатәуп акы амацара"/>
+					<Item subMenuId="search-unmarkAll" name="Иқәгатәуп азгәаҭарақәа"/>
+					<Item subMenuId="search-jumpUp" name="Аԥхьатәи азгәаҭа"/>
+					<Item subMenuId="search-jumpDown" name="Анаҩстәи азгәаҭа"/>
+					<Item subMenuId="search-copyStyledText" name="Икопиатәуп иазгәаҭоу атекст"/>
+					<Item subMenuId="search-bookmark" name="&amp;Агәылаҵақәа"/>
+					<Item subMenuId="view-currentFileIn" name="Иаарттәуп ари афаил, аҟны..."/>
+					<Item subMenuId="view-showSymbol" name="Асимволқәа раарԥшра"/>
+					<Item subMenuId="view-zoom" name="Атекст амасштаб"/>
+					<Item subMenuId="view-moveCloneDocument" name="Адокумент аԥенџьыр"/>
+					<Item subMenuId="view-tab" name="Агәылаҵа алхра..."/>
+					<Item subMenuId="view-collapseLevel" name="Еикәарҳәтәуп аҩаӡара"/>
+					<Item subMenuId="view-uncollapseLevel" name="Еиҵыхтәуп аҩаӡара"/>
+					<Item subMenuId="view-project" name="Апроект (апанель)"/>
+					<Item subMenuId="encoding-characterSets" name="Акодркрақәа"/>
+					<Item subMenuId="encoding-arabic" name="Арабтәи"/>
+					<Item subMenuId="encoding-baltic" name="Балтикатәи"/>
+					<Item subMenuId="encoding-celtic" name="Кельттәи"/>
+					<Item subMenuId="encoding-cyrillic" name="Акириллица"/>
+					<Item subMenuId="encoding-centralEuropean" name="Ацентр-Европатәи"/>
+					<Item subMenuId="encoding-chinese" name="Китаитәи"/>
+					<Item subMenuId="encoding-easternEuropean" name="Мрагылара-Европатәи"/>
+					<Item subMenuId="encoding-greek" name="Абырзентәи"/>
+					<Item subMenuId="encoding-hebrew" name="Иврит"/>
+					<Item subMenuId="encoding-japanese" name="Иапониатәи"/>
+					<Item subMenuId="encoding-korean" name="Кореатәи"/>
+					<Item subMenuId="encoding-northEuropean" name="Аҩада-Европатәи"/>
+					<Item subMenuId="encoding-thai" name="Таитәи"/>
+					<Item subMenuId="encoding-turkish" name="Аҭырқәатәи"/>
+					<Item subMenuId="encoding-westernEuropean" name="Мраҭашәара-Европатәи"/>
+					<Item subMenuId="encoding-vietnamese" name="Виетнамтәи"/>
 					<Item subMenuId="language-userDefinedLanguage" name="Ишәхатәу Асинтаксис Азалхра"/>
-					<Item subMenuId="settings-import"           name="Аимпорт"/>
-					<Item subMenuId="tools-md5"                 name="MD5"/>
-					<Item subMenuId="tools-sha256"              name="SHA-256"/>
+					<Item subMenuId="settings-import" name="Аимпорт"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
 				<Commands>
 					<Item id="41001" name="Аҿыц"/>
@@ -102,7 +102,7 @@ Updated to v8.2.1:
 					<Item id="41012" name="&amp;Иҭагалатәуп асессиа..."/>
 					<Item id="41013" name="&amp;Еиқәырхатәуп асессиа..."/>
 					<Item id="41010" name="Акьыԥхьра..."/>
-					<Item id="1001"  name="&amp;Икьыԥхьтәуп!"/>
+					<Item id="1001" name="&amp;Икьыԥхьтәуп!"/>
 
 					<Item id="41021" name="Иаарттәуп аҵыхәтәан иаркыз афаил"/>
 					<Item id="42040" name="Иаарттәуп ааскьатәи афаилқәа зегьы"/>
@@ -243,21 +243,21 @@ Updated to v8.2.1:
 					<Item id="43031" name="Иқәгатәуп 5-тәи астиль"/>
 					<Item id="43032" name="Иқәгатәуп астильқәа зегьы"/>
 
-					<Item id="43033" name="1-тәи астиль"/> <!-- Аԥхьатәи -->
+					<Item id="43033" name="1-тәи астиль"/><!-- Аԥхьатәи -->
 					<Item id="43034" name="2-тәи астиль"/>
 					<Item id="43035" name="3-тәи астиль"/>
 					<Item id="43036" name="4-тәи астиль"/>
 					<Item id="43037" name="5-тәи астиль"/>
 					<Item id="43038" name="Амениу Азгәаҭақәа астиль"/>
 
-					<Item id="43039" name="1-тәи астиль"/> <!-- Анаҩстәи -->
+					<Item id="43039" name="1-тәи астиль"/><!-- Анаҩстәи -->
 					<Item id="43040" name="2-тәи астиль"/>
 					<Item id="43041" name="3-тәи астиль"/>
 					<Item id="43042" name="4-тәи астиль"/>
 					<Item id="43043" name="5-тәи астиль"/>
 					<Item id="43044" name="Амениу Азгәаҭақәа астиль"/>
 
-					<Item id="43055" name="1-тәи астиль"/> <!-- Икопиатәуп -->
+					<Item id="43055" name="1-тәи астиль"/><!-- Икопиатәуп -->
 					<Item id="43056" name="2-тәи астиль"/>
 					<Item id="43057" name="3-тәи астиль"/>
 					<Item id="43058" name="4-тәи астиль"/>
@@ -265,7 +265,7 @@ Updated to v8.2.1:
 					<Item id="43060" name="Астильқәа зегьы"/>
 					<Item id="43061" name="Амениу Азгәаҭақәа астиль"/>
 					
-					<Item id="43062" name="1-тәи астиль хархәаны"/> <!-- Акы амацара -->
+					<Item id="43062" name="1-тәи астиль хархәаны"/><!-- Акы амацара -->
 					<Item id="43063" name="2-тәи астиль хархәаны"/>
 					<Item id="43064" name="3-тәи астиль хархәаны"/>
 					<Item id="43065" name="4-тәи астиль хархәаны"/>
@@ -413,36 +413,36 @@ Updated to v8.2.1:
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0"  name="Иарктәуп"/>
-					<Item CMID="1"  name="Иарктәуп зегьы Иактиву ада"/>
-					<Item CMID="2"  name="Еиқәырхатәуп"/>
-					<Item CMID="3"  name="Еиқәырхатәуп абас..."/>
-					<Item CMID="4"  name="Акьыԥхьра..."/>
-					<Item CMID="5"  name="Ииагатәуп Егьи Аҭыԥ ахь"/>
-					<Item CMID="6"  name="Адубликат Егьи Аҭыԥ ахь"/>
-					<Item CMID="7"  name="Афаил ахь ихаҭәаау амҩа (абуфер ахь)"/>
-					<Item CMID="8"  name="Афаил ахьӡ (абуфер ахь)"/>
-					<Item CMID="9"  name="Афаил акаталог ахь амҩа амацара (абуфер ахь)"/>
-					<Item CMID="10" name="Ахьӡ ԥсахтәуп..."/>
-					<Item CMID="11" name="Ианыхтәуп афаил (аҵәахырҭахь)"/>
-					<Item CMID="12" name="Аԥхьара Мацара"/>
-					<Item CMID="13" name="Иқәгатәуп Аԥхьара Мацара азгәаҭага"/>
-					<Item CMID="14" name="Ииагатәуп Аекземплиар Ҿыц ахь"/>
-					<Item CMID="15" name="Иаарттәуп Аекземплиар Ҿыц аҟны"/>
-					<Item CMID="16" name="Ирҿыцтәуп адиск аҟынтәи"/>
-					<Item CMID="17" name="Иарктәуп зегьы Арымарахь"/>
-					<Item CMID="18" name="Иарктәуп зегьы Арыӷьарахь"/>
-					<Item CMID="19" name="Иаарттәуп Адокумент акаталог"/>
-					<Item CMID="20" name="Иаарттәуп адокумент акаталог cmd аҟны"/>
-					<Item CMID="21" name="Иаарттәуп истандарту апрограмма ала"/>
-					<Item CMID="22" name="Иарктәуп зегьы Ԥсахрада"/>
-					<Item CMID="23" name="Иаарттәуп Адокумент акаталог Проект ҳасабла"/>
+				<Item CMID="0" name="Иарктәуп"/>
+				<Item CMID="1" name="Иарктәуп зегьы Иактиву ада"/>
+				<Item CMID="2" name="Еиқәырхатәуп"/>
+				<Item CMID="3" name="Еиқәырхатәуп абас..."/>
+				<Item CMID="4" name="Акьыԥхьра..."/>
+				<Item CMID="5" name="Ииагатәуп Егьи Аҭыԥ ахь"/>
+				<Item CMID="6" name="Адубликат Егьи Аҭыԥ ахь"/>
+				<Item CMID="7" name="Афаил ахь ихаҭәаау амҩа (абуфер ахь)"/>
+				<Item CMID="8" name="Афаил ахьӡ (абуфер ахь)"/>
+				<Item CMID="9" name="Афаил акаталог ахь амҩа амацара (абуфер ахь)"/>
+				<Item CMID="10" name="Ахьӡ ԥсахтәуп..."/>
+				<Item CMID="11" name="Ианыхтәуп афаил (аҵәахырҭахь)"/>
+				<Item CMID="12" name="Аԥхьара Мацара"/>
+				<Item CMID="13" name="Иқәгатәуп Аԥхьара Мацара азгәаҭага"/>
+				<Item CMID="14" name="Ииагатәуп Аекземплиар Ҿыц ахь"/>
+				<Item CMID="15" name="Иаарттәуп Аекземплиар Ҿыц аҟны"/>
+				<Item CMID="16" name="Ирҿыцтәуп адиск аҟынтәи"/>
+				<Item CMID="17" name="Иарктәуп зегьы Арымарахь"/>
+				<Item CMID="18" name="Иарктәуп зегьы Арыӷьарахь"/>
+				<Item CMID="19" name="Иаарттәуп Адокумент акаталог"/>
+				<Item CMID="20" name="Иаарттәуп адокумент акаталог cmd аҟны"/>
+				<Item CMID="21" name="Иаарттәуп истандарту апрограмма ала"/>
+				<Item CMID="22" name="Иарктәуп зегьы Ԥсахрада"/>
+				<Item CMID="23" name="Иаарттәуп Адокумент акаталог Проект ҳасабла"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Иԥшаатәуп" titleReplace="Алаԥсахра" titleFindInFiles="Иԥшаатәуп афаилқәа рҟны" titleFindInProjects="Иԥшаатәуп апроектқәа рҟны" titleMark="Азгәаҭақәа">
-				<Item id="1"    name="Иԥшаатәуп анаҩс"/>
-				<Item id="2"    name="Иарктәуп"/>
+				<Item id="1" name="Иԥшаатәуп анаҩс"/>
+				<Item id="2" name="Иарктәуп"/>
 				<Item id="1603" name="Еибгоу ажәақәа мацара"/>
 				<Item id="1604" name="Арегистр иазхьаԥштәуп"/>
 				<Item id="1605" name="Ирегулиару аҵакҭаҩ"/>
@@ -488,8 +488,8 @@ Updated to v8.2.1:
 				<Item id="1685" name="Арегистр иазхьаԥштәуп"/>
 				<Item id="1690" name="Ицәырлашатәуп зегьы"/>
 			</IncrementalFind>
-			<FindCharsInRange title = "Иԥшаатәуп асимволқәа адиапазон аҟны....">
-				<Item id="2"    name="Иарктәуп"/>
+			<FindCharsInRange title="Иԥшаатәуп асимволқәа адиапазон аҟны....">
+				<Item id="2" name="Иарктәуп"/>
 				<Item id="2901" name="ASCII иасимволқәам (128-255)"/>
 				<Item id="2902" name="ASCII асимволқәа (0-127)"/>
 				<Item id="2903" name="сДиапазон:"/>
@@ -499,53 +499,53 @@ Updated to v8.2.1:
 				<Item id="2909" name="Ициклтәуп аԥшаара"/>
 				<Item id="2910" name="Иԥшаатәуп"/>
 			</FindCharsInRange>
-			<GoToLine title = "Ииастәуп ах...">
-				<Item id="1"    name="Ԥхьаҟа!"/>
-				<Item id="2"    name="Аҟәыхра"/>
+			<GoToLine title="Ииастәуп ах...">
+				<Item id="1" name="Ԥхьаҟа!"/>
+				<Item id="2" name="Аҟәыхра"/>
 				<Item id="2004" name="Шәара абра:"/>
 				<Item id="2005" name="Ииастәуп ахь:"/>
 				<Item id="2006" name="Имаксималу аҵакы:"/>
 				<Item id="2007" name="Ацәаҳәа"/>
 				<Item id="2008" name="Асимвол"/>
 			</GoToLine>
-			<Run title = "Адәықәҵара...">
-				<Item id="1"    name="Адәықәҵара!"/>
-				<Item id="2"    name="Аҟәыхра"/>
+			<Run title="Адәықәҵара...">
+				<Item id="1" name="Адәықәҵара!"/>
+				<Item id="2" name="Аҟәыхра"/>
 				<Item id="1904" name="Еиқәырхатәуп..."/>
 				<Item id="1903" name="Иҭажәгал апрограмма адәықәҵаразы апараметрқәа"/>
 			</Run>
 			<MD5FromFilesDlg title="MD5 агенерациа афаилқәа рыла">
 				<Item id="1922" name="Иалхтәуп афаилқәа MD5 агенерациа азы..."/>
 				<Item id="1924" name="Икопиатәуп Абуфер ахь"/>
-				<Item id="2"    name="Иарктәуп"/>
+				<Item id="2" name="Иарктәуп"/>
 			</MD5FromFilesDlg>
 			<MD5FromTextDlg title="MD5 агенерациа">
 				<Item id="1932" name="Цәаҳәацыԥхьаӡа ирыхәаԥшлатәуп ихазу акәны"/>
 				<Item id="1934" name="Икопиатәуп Абуфер ахь"/>
-				<Item id="2"    name="Иарктәуп"/>
+				<Item id="2" name="Иарктәуп"/>
 			</MD5FromTextDlg>
 			<SHA256FromFilesDlg title="SHA-256 агенерациа афаилқәа рыла">
 				<Item id="1922" name="Иалхтәуп афаилқәа SHA-256 агенерациа азы..."/>
 				<Item id="1924" name="Икопиатәуп Абуфер ахь"/>
-				<Item id="2"    name="Иарктәуп"/>
+				<Item id="2" name="Иарктәуп"/>
 			</SHA256FromFilesDlg>
 			<SHA256FromTextDlg title="SHA-256 агенерациа">
 				<Item id="1932" name="Цәаҳәацыԥхьаӡа ирыхәаԥшлатәуп ихазу акәны"/>
 				<Item id="1934" name="Икопиатәуп Абуфер ахь"/>
-				<Item id="2"    name="Иарктәуп"/>
+				<Item id="2" name="Иарктәуп"/>
 			</SHA256FromTextDlg>
-			<PluginsAdminDlg title="Аплагинқәа Рнапхгара" titleAvailable = "Имҩарту" titleUpdates = "Арҿыцрақәа" titleInstalled = "Иқәыргылақәоу">
-				<ColumnPlugin   name="Аплагинқәа"/>
-				<ColumnVersion  name="Аверсиа"/>
+			<PluginsAdminDlg title="Аплагинқәа Рнапхгара" titleAvailable="Имҩарту" titleUpdates="Арҿыцрақәа" titleInstalled="Иқәыргылақәоу">
+				<ColumnPlugin name="Аплагинқәа"/>
+				<ColumnVersion name="Аверсиа"/>
 				<Item id="5501" name="Аԥшаара:"/>
 				<Item id="5503" name="Иқәыргылатәуп"/>
 				<Item id="5504" name="Ирҿыцтәуп"/>
 				<Item id="5505" name="Иныхтәуп"/>
 				<Item id="5508" name="Анаҩс"/>
-				<Item id="2"    name="Иарктәуп"/>
+				<Item id="2" name="Иарктәуп"/>
 			</PluginsAdminDlg>
-			<StyleConfig    title="Астильқәа разалхра">
-				<Item id="2"    name="Аҟәыхра"/>
+			<StyleConfig title="Астильқәа разалхра">
+				<Item id="2" name="Аҟәыхра"/>
 				<Item id="2301" name="Еиқәырхатәуп"/>
 				<Item id="2303" name="Аҵәцара"/>
 				<Item id="2306" name="Иалхтәуп астиль:"/>
@@ -575,22 +575,22 @@ Updated to v8.2.1:
 				</SubDialog>
 			</StyleConfig>
 			<ShortcutMapper title="Арласра иазку Аклавишақәа разалхра">
-				<Item id="2602"       name="Иԥсахтәуп"/>
-				<Item id="2603"       name="Ианыхтәуп"/>
-				<Item id="2606"       name="Ирыцқьатәуп"/>
-				<Item id="2607"       name="Афильтр: "/>
-				<Item id="1"          name="Иарктәуп"/>
-				<ColumnName           name="Ахьӡ"/>
-				<ColumnShortcut       name="Аклавишақәа"/>
-				<ColumnCategory       name="Акатегориа"/>
-				<ColumnPlugin         name="Аплагинқәа"/>
-				<MainMenuTab          name="Ихадақәоу"/>
-				<MacrosTab            name="Амакросқәа"/>
-				<RunCommandsTab       name="Адәықәҵара Акомандақәа"/>
-				<PluginCommandsTab    name="Аплагинқәа"/>
+				<Item id="2602" name="Иԥсахтәуп"/>
+				<Item id="2603" name="Ианыхтәуп"/>
+				<Item id="2606" name="Ирыцқьатәуп"/>
+				<Item id="2607" name="Афильтр: "/>
+				<Item id="1" name="Иарктәуп"/>
+				<ColumnName name="Ахьӡ"/>
+				<ColumnShortcut name="Аклавишақәа"/>
+				<ColumnCategory name="Акатегориа"/>
+				<ColumnPlugin name="Аплагинқәа"/>
+				<MainMenuTab name="Ихадақәоу"/>
+				<MacrosTab name="Амакросқәа"/>
+				<RunCommandsTab name="Адәықәҵара Акомандақәа"/>
+				<PluginCommandsTab name="Аплагинқәа"/>
 				<ScintillaCommandsTab name="Scintilla"/>
-				<ConflictInfoOk       name="Аклавишақәа рконфликт ԥшаам."/>
-				<ConflictInfoEditing  name="Иҭацәуп азалхразы . . ."/>
+				<ConflictInfoOk name="Аклавишақәа рконфликт ԥшаам."/>
+				<ConflictInfoEditing name="Иҭацәуп азалхразы . . ."/>
 				<MainCommandNames>
 					<Item id="42018" name="Иалагатәуп Амакрос аҭаҩра"/>
 					<Item id="42019" name="Иаанкылатәуп Амакрос аҭаҩра"/>
@@ -675,8 +675,8 @@ Updated to v8.2.1:
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Арласра иазку Аклавишақәа разалхра">
-				<Item id="1"    name="ОК"/>
-				<Item id="2"    name="Аҟәыхра"/>
+				<Item id="1" name="ОК"/>
+				<Item id="2" name="Аҟәыхра"/>
 				<Item id="5006" name="Ахьӡ"/>
 				<Item id="5008" name="Иацҵатәуп"/>
 				<Item id="5009" name="Иқәгатәуп"/>
@@ -697,8 +697,8 @@ Updated to v8.2.1:
 				<Item id="20015" name="Аимпорт..."/>
 				<Item id="20016" name="Аекспорт..."/>
 				<StylerDialog title="Астилистика Архиара">
-					<Item id="1"     name="ОК"/>
-					<Item id="2"     name="Аҟәыхра"/>
+					<Item id="1" name="ОК"/>
+					<Item id="2" name="Аҟәыхра"/>
 					<Item id="25030" name="Ашрифт астиль:"/>
 					<Item id="25006" name="Аекст аԥштәы"/>
 					<Item id="25007" name="Атекст аҿаԥшыра аԥштәы"/>
@@ -861,9 +861,9 @@ Updated to v8.2.1:
 					<Item id="24301" name="Аиҟәшага 2"/>
 				</Operator>
 			</UserDefine>
-			<Preference title = "Архиарақәа">
+			<Preference title="Архиарақәа">
 				<Item id="6001" name="Иарктәуп"/>
-				<Global title = "Ихадақәоу">
+				<Global title="Ихадақәоу">
 					<Item id="6101" name="Амаругақәа Рпанель"/>
 					<Item id="6102" name="Иҵәахтәуп"/>
 
@@ -891,7 +891,7 @@ Updated to v8.2.1:
 					<Item id="6127" name="Ахкырбага аиҵагыла аҿыхтәуп"/>
 					<Item id="6128" name="Альтернативатә дыргаҷқәа"/>
 				</Global>
-				<Scintillas title = "Ариашара">
+				<Scintillas title="Ариашара">
 					<Item id="6214" name="Иаҿактәуп абри ацәаҳәа ацәырлашара"/>
 					<Item id="6215" name="Иаҿактәуп еибеиԥшу ашрифт"/>
 					<Item id="6216" name="Атексттә Курсор"/>
@@ -955,7 +955,7 @@ Updated to v8.2.1:
 					<Item id="6210" name="Арыӷьарахь"/>
 					<Item id="6212" name="'Аекран зегь аҟны'"/>
 				</MarginsBorderEdge>
-				<NewDoc title = "Адокумент Ҿыц">
+				<NewDoc title="Адокумент Ҿыц">
 					<Item id="6401" name="Ацәаҳәа Анҵәамҭа Аформат"/>
 					<Item id="6402" name="Windows  (CR LF)"/>
 					<Item id="6403" name="Unix  (LF)"/>
@@ -976,12 +976,12 @@ Updated to v8.2.1:
 					<Item id="6415" name="Игәынкылатәуп аҵыхәтәантәи акаталог"/>
 					<Item id="6431" name="Иаартлатәуп афаилқәеи акаталог афаилқәа зегьы, Notepad++ аԥенџьыр ахь рықәырҳәазара аан"/>
 				</DefaultDir>
-				<FileAssoc title = "Афаилқәа Рассоциациа">
+				<FileAssoc title="Афаилқәа Рассоциациа">
 					<Item id="4008" name="Ари афункциа ахархәаразы, Ҿыц идәықәышәҵа  Notepad++ Администратор ирежим ала."/>
 					<Item id="4009" name="Иаднакылақәо:"/>
 					<Item id="4010" name="Арегистрациа зызу:"/>
 				</FileAssoc>
-				<Print title = "Акьыԥхьра">
+				<Print title="Акьыԥхьра">
 					<Item id="6601" name="Икьыԥхьлатәуп ацәаҳәақәа рномерқәа"/>
 					<Item id="6602" name="Аԥштәы схема"/>
 					<Item id="6603" name="ԤСАХРАДА"/>
@@ -1054,7 +1054,7 @@ Updated to v8.2.1:
 					<Item id="6510" name="Ихархә. аҵакы ишыҟоу еиԥш"/>
 					<Item id="6335" name="Иаарҳәу слеш Escape-символуп SQL азы"/>
 				</Language>
-				<MISC title = "Даҽакқәа">
+				<MISC title="Даҽакқәа">
 					<ComboBox id="6347">
 						<Element name="Иаҿакуп"/>
 						<Element name="Иаҿакуп иаарту афаилқәа зегьы рзы"/>
@@ -1079,7 +1079,7 @@ Updated to v8.2.1:
 					<Item id="6360" name="Иаҿыхтәуп абжьқәа зегьы"/>
 					<Item id="6361" name="Иаҿактәуп Еиқәырхатәуп Зегьы ашьақәырӷәӷәара"/>
 				</MISC>
-				<MultiInstance title = "Аартра Арежими Арыцхәи">
+				<MultiInstance title="Аартра Арежими Арыцхәи">
 					<Item id="6151" name="Афаилқәа раартра арежим"/>
 					<Item id="6152" name="Асессиақәа рымацара роуп иаатуа аԥенџьыр ҿыц аҟны"/>
 					<Item id="6153" name="Фаилцԥхьаӡа аатуеит аԥенџьыр ҿыц аҟны"/>
@@ -1089,7 +1089,7 @@ Updated to v8.2.1:
 					<Item id="6175" name="Арыцхәи аамҭеи иаарҳәны реишьҭаргылара (икьаҿуи идууи аформатқәа)"/>
 					<Item id="6172" name="Ахархә. иформат:"/>
 				</MultiInstance>
-				<Delimiter title = "Аиҟәшага">
+				<Delimiter title="Аиҟәшага">
 					<Item id="6251" name="Аиҟәшага апараметрқәа (Ctrl + аҳәынаԥ 2 -нтә ақәыӷәӷәара)"/>
 					<Item id="6252" name="Аартра"/>
 					<Item id="6255" name="Аркра"/>
@@ -1119,7 +1119,7 @@ Updated to v8.2.1:
 					<!-- Иԥсахтәӡам акагьы ашьҭахь Аҿырԥштәы: -->
 					<Item id="6278" name="Аҿырԥштәы: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
-				<Backup title = "Арезервтә Копиахыхра">
+				<Backup title="Арезервтә Копиахыхра">
 					<Item id="6801" name="Арезервтә Копиахыхра (аиқәырхараан)"/>
 					<Item id="6817" name="Асессиа Аҭыхымҭеи Периодла Арезервтә Копиахыхреи "/>
 					<Item id="6309" name="Игәынкылатәуп ари асессиа анаҩстәи адәықәҵара азы"/>
@@ -1157,22 +1157,22 @@ Updated to v8.2.1:
 					<Item id="6866" name="Иазалху аихацлакы 3:"/>
 				</AutoCompletion>
 			</Preference>
-				<MultiMacro title = "Амакрос кырынтә адәықәҵара ...">
-				<Item id="1"    name="Адәықәҵара"/>
-				<Item id="2"    name="Аҟәыхра"/>
+			<MultiMacro title="Амакрос кырынтә адәықәҵара ...">
+				<Item id="1" name="Адәықәҵара"/>
+				<Item id="2" name="Аҟәыхра"/>
 				<Item id="8006" name="Амакрос:"/>
 				<Item id="8001" name="Инагӡатәуп"/>
 				<Item id="8005" name="нтә(ы)"/>
 				<Item id="8002" name="Инагӡалатәуп афаил анҵәамҭанӡа"/>
 			</MultiMacro>
-				<Window title = "Иаарту Афаилқәа Рсиа">
-				<Item id="1"    name="Иаарттәуп"/>
-				<Item id="2"    name="ОК"/>
+			<Window title="Иаарту Афаилқәа Рсиа">
+				<Item id="1" name="Иаарттәуп"/>
+				<Item id="2" name="ОК"/>
 				<Item id="7002" name="Еиқәырхатәуп"/>
 				<Item id="7003" name="Иарктәуп Аԥенџьыр(қәа)"/>
 				<Item id="7004" name="Исорттәуп"/>
 			</Window>
-				<ColumnEditor title = "Аиҵагыла Аԥҵага">
+			<ColumnEditor title="Аиҵагыла Аԥҵага">
 				<Item id="2023" name="Аҭаргылара азы атекст"/>
 				<Item id="2033" name="Аҭаргылара азы ахыԥхьаӡарақәа"/>
 				<Item id="2030" name="Алагамҭатә хыԥхьаӡара:"/>
@@ -1184,12 +1184,12 @@ Updated to v8.2.1:
 				<Item id="2025" name="Oct"/>
 				<Item id="2026" name="Hex"/>
 				<Item id="2027" name="Bin"/>
-				<Item id="1"    name="ОК"/>
-				<Item id="2"    name="Аҟәыхра"/>
+				<Item id="1" name="ОК"/>
+				<Item id="2" name="Аҟәыхра"/>
 			</ColumnEditor>
 			<FindInFinder title="Аԥшаара иԥшаау аҟны...">
-				<Item id="1"    name="Иԥшаатәуп Зегьы"/>
-				<Item id="2"    name="Иарктәуп"/>
+				<Item id="1" name="Иԥшаатәуп Зегьы"/>
+				<Item id="2" name="Иарктәуп"/>
 				<Item id="1711" name="Иԥшаатәуп :"/>
 				<Item id="1713" name="Иԥшаатәуп иԥшаау мацара аҟны"/>
 				<Item id="1714" name="Еибгоу ажәақәа рымацара"/>
@@ -1202,11 +1202,11 @@ Updated to v8.2.1:
 			</FindInFinder>
 			<DoSaveOrNot title="Аиқәырхара ...">
 				<Item id="1761" name="Еиқәырхатәума афаил $STR_REPLACE$?"/>
-				<Item id="6"    name="&amp;Ааи"/>
-				<Item id="7"    name="&amp;Мап"/>
-				<Item id="2"    name="&amp;Аҟәыхра"/>
-				<Item id="4"    name="А&amp;аи зегьы рзы"/>
-				<Item id="5"    name="М&amp;ап зегьы рзы"/>
+				<Item id="6" name="&amp;Ааи"/>
+				<Item id="7" name="&amp;Мап"/>
+				<Item id="2" name="&amp;Аҟәыхра"/>
+				<Item id="4" name="А&amp;аи зегьы рзы"/>
+				<Item id="5" name="М&amp;ап зегьы рзы"/>
 			</DoSaveOrNot>
 			<DoSaveAll title="Ашьақәырӷәӷәара - Еиқәырхатәуп зегьы">
 				<Item id="1766" name="Ишәҭахума еиқәшәырхарц иԥсаху афаилқәа зегьы?&#x0A;&#x0A;Иалышәх &quot;Еснагь Ааи&quot; ишәҭахымзар ари аԥенџьыр уаҳа абара.&#x0A; Шәара ишәылшоит ари аԥенџьыр ушьҭан активтәра Архиарақәа аҟны."/>
@@ -1216,64 +1216,64 @@ Updated to v8.2.1:
 			</DoSaveAll>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning  title="contextMenu Аредакциазура"              message="contextMenu.xml аԥсахра иалнаршоит ишәхатәу ицәырҵуа амениу архиара Notepad++ аконтексттә мениу аҟны.&#x0A;Ҿыц идәықәҵатәуп Notepad++, аԥсахрақәа амч роурц азы."/>
-			<SaveCurrentModifWarning    title="Уажәтәи Аԥсахрақәа Реиқәырхара"         message="Шәара еиқәшәырхароуп уажәтәи аԥсахрақәа.&#x0A;Еиқәырхоу аԥсахрақәа зегьы раԥыхра ауам.&#x0A;&#x0A;Иацҵатәума?"/>
-			<LoseUndoAbilityWarning     title="Шьҭахьҟа ахынҳәра Алшара Ацәыӡра"       message="Шәара еиқәшәырхароуп уажәтәи аԥсахрақәа.&#x0A;Еиқәырхоу аԥсахрақәа зегьы раԥыхра ауам.&#x0A;&#x0A;Иацҵатәума?"/>
-			<CannotMoveDoc              title="Notepad++ иҿыцу аекземплиар ахь аиасра" message="Адокумент ԥсахын, еиқәшәырха нас еиҭанашәыгӡа."/>
-			<DocReloadWarning           title="Аиҭадәықәҵара"                          message="Notepad++ аҟны иҟаҵаз аԥсахрақәа зегьы ырӡхоит!&#x0A;Иацҵатәума?"/>
-			<FileLockedWarning          title="Аиқәырхара амуӡеит"                     message="Игәашәҭ, ари афаил даҽа программак аҟны иаарту иаартыму."/>
-			<FileAlreadyOpenedInNpp     title=""                                       message="Афаил аартуп Notepad++ аҟны."/>
-			<DeleteFileFailed           title="Афаил Аныхра"                           message="Афаил аныхра амуӡеит"/>
+			<ContextMenuXmlEditWarning title="contextMenu Аредакциазура" message="contextMenu.xml аԥсахра иалнаршоит ишәхатәу ицәырҵуа амениу архиара Notepad++ аконтексттә мениу аҟны.&#x0A;Ҿыц идәықәҵатәуп Notepad++, аԥсахрақәа амч роурц азы."/>
+			<SaveCurrentModifWarning title="Уажәтәи Аԥсахрақәа Реиқәырхара" message="Шәара еиқәшәырхароуп уажәтәи аԥсахрақәа.&#x0A;Еиқәырхоу аԥсахрақәа зегьы раԥыхра ауам.&#x0A;&#x0A;Иацҵатәума?"/>
+			<LoseUndoAbilityWarning title="Шьҭахьҟа ахынҳәра Алшара Ацәыӡра" message="Шәара еиқәшәырхароуп уажәтәи аԥсахрақәа.&#x0A;Еиқәырхоу аԥсахрақәа зегьы раԥыхра ауам.&#x0A;&#x0A;Иацҵатәума?"/>
+			<CannotMoveDoc title="Notepad++ иҿыцу аекземплиар ахь аиасра" message="Адокумент ԥсахын, еиқәшәырха нас еиҭанашәыгӡа."/>
+			<DocReloadWarning title="Аиҭадәықәҵара" message="Notepad++ аҟны иҟаҵаз аԥсахрақәа зегьы ырӡхоит!&#x0A;Иацҵатәума?"/>
+			<FileLockedWarning title="Аиқәырхара амуӡеит" message="Игәашәҭ, ари афаил даҽа программак аҟны иаарту иаартыму."/>
+			<FileAlreadyOpenedInNpp title="" message="Афаил аартуп Notepad++ аҟны."/>
+			<DeleteFileFailed title="Афаил Аныхра" message="Афаил аныхра амуӡеит"/>
 
-			<RenameTabTemporaryNameAlreadyInUse title="Иамуӡеит ахьӡ аԥсахра"           message="Иарбоу ахьӡ ахархәара амоуп егьа агәылаҵа аҟны."/>
-			<GUpConfNeedAdminMode               title="Прокси Архиарақәа"               message="Иарбоу ахьӡ ахархәара амоуп егьа агәылаҵа аҟны."/>
-			<NbFileToOpenImportantWarning       title="Афаилқәа рыԥхьаӡа мыцхәцәоуп"    message="Афаил(қәа) $INT_REPLACE$ аартхоит.Ишəҭахыҵəҟьоума урҭраартра?"/>
-			<SettingsOnCloudError               title="Аԥсҭҳәа Апараметрқәа"            message="Аԥсҭҳәахь мҩас иарбоуп адиск ма акаталог, &quot;Аԥхьара Мацара ҳәа иазгәаҭоу. &quot;.&#x0A;Ихымԥадатәиуп амҩа аартра ма аҭаҩра азин аиура. &#x0A;Аԥсҭҳәа азы шәПараметрқәа ықәгахоит, иқәыжәга аҵакы аԥенџьыр Архиарақәа аҟны ..."/>
-			<FilePathNotFoundWarning            title="Афаил Аартра"                    message="Иаашәыртырц ишәҭаху афаил ыҟаӡам."/>
-			<SessionFileInvalidError            title="Иамуӡеит Асессиа аҭагалара"      message="Асессиа афаил ԥхасҭоуп ма ииашаӡам."/>
-			<DroppingFolderAsProjectModeWarning title="Ииашам аҟаҵара"           message="Шәхы иашәырхәар шәылшоит абарҭ руак: афаил ма акаталог, аха рыҩбагь ракәымкәа, избанзар, шәара иқәшәырҳәазоит арежим &quot;Акаталог Апроект ҳасабла ала&quot;.&#x0A;шәара иаҿашәкроуп &quot; Иаарттәуп акаталог афаилқәа зегьы ақәырҳәазараан, Акаталог Аусурҭа Аобласт ҳасабла аҭыԥан&quot;иҟоу Акаталог аҟны&quot;,ари аоперациа аус ауразы ихархәатәуп Архиарақәа."/>
-			<SortingError                title="Асортра агха"                    message="Иауам анагӡара хыԥхьаӡаратәла асортра ацәаҳәа $INT_REPLACE$ иахҟьаны."/>
-			<ColumnModeTip               title="Аиҵагыла Арежим"                 message="Аиҵагыла арежим ахь аиасразы шәхы иашәырхәа &quot;ALT+Ҳәынаԥла Алкаара&quot; ма &quot;Alt+Shift+Ахыцтә Клавишақәа."/>
-			<BufferInvalidWarning        title="Аиқәырхара Агха"                 message="Иауам аиқәырхара: Иақәнамго абуфер."/>
-			<DoCloseOrNot                title="Иҟам афаил аанкылара"            message="Афаил &quot;$STR_REPLACE$&quot; уаҳа иҟаӡам.&#x0A;Иаанкылатәума ари афаил аредактор аҟны?"/>
-			<DoDeleteOrNot               title="Афаил Аныхра"                    message="Афаил &quot;$STR_REPLACE$&quot;&#x0A;аркны ианыххоит Аҵәахырҭахь.&#x0A;Иацҵатәума?"/>
-			<NoBackupDoSaveFile          title="Аиқәырхара ..."                  message="Арезерв копиа афаил ԥшаам (ианыхуп дәныҟала).&#x0A;Еиқәшәырха иара, мамзар ишәхатәу адырқәа ыӡуеит.&#x0A;Еиқәырхатәума афаил &quot;$STR_REPLACE$&quot; ?"/>
-			<DoReloadOrNot               title="Афаил арҿыцра"                   message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Ари афаил ԥсахын даҽа программак ала.&#x0A;Ишәҭахума иара шәырҿыцыр?"/>
-			<DoReloadOrNotAndLooseChange title="Афаил арҿыцра"                   message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Ари афаил ԥсахын даҽа программак ала.&#x0A;Ишәҭахума иара шәырҿыцыр?&#x0A;Аха усҟан шәара ишәцәыӡуеит Notepad++ аҟны иҟашәҵаз аԥсахрақәа зегьы."/>
-			<PrehistoricSystemDetected   title="Иԥшаауп ижәытәӡатәиу асистема"       message="Шәхы иашәырхәо асистема ажәхьеит. Ари афункциа ахархәара ахьауа иҿыцу асистемақәа рҟны ауп."/>
-			<XpUpdaterProblem            title="Notepad++ Арҿыцра"                   message="Notepad++ Арҿыцра ауам XP аҟны, иажәыз ашәарҭадара аҩаӡара иахҟьаны.&#x0A;Ишәҭахума Notepad++ адаҟьа ахь аиасра, аҵыхәтәантәи аверсиа аҭагалара азы?"/>
-			<DocTooDirtyToMonitor        title="Амониторинг Апроблема"               message="Адокумент аус адулара цоит. Еиқәшәырха иҟаҵоу аԥсахрақәа, иара амониторинг аԥхьа."/>
-			<DocNoExistToMonitor         title="Амониторинг Апроблема"               message="Амониторинг азы афаил ыҟазароуп."/>
-			<FileTooBigToOpen            title="Афаил ашәагаа апроблема"             message="Афаил дуцәоуп, Notepad++ аҟны аартра азы"/>
-			<CreateNewFileOrNot          title="Афаил ҿыц аԥҵара"                    message="&quot;$STR_REPLACE$&quot; ыҟаӡам. Иаԥҵатәума?"/>
-			<CreateNewFileError          title="Афаил ҿыц аԥҵара"                    message="Иауам афаил &quot;$STR_REPLACE$&quot;аԥҵара."/>
-			<OpenFileError               title="АГХА"                                message="Иауам афаил &quot;$STR_REPLACE$&quot;аартра."/>
-			<FileBackupFailed            title="Арезервтә Копиа Афаил Агха"          message="Афаил аԥхьатәи аверсиа аиқәырхара ауам арезервтә копиақәа рКаталог &quot;$STR_REPLACE$&quot; аҟны.&#x0A;&#x0A;Ишабалакгьы ари афаил аиқәырхара шәҭахума?"/>
-			<LoadStylersFailed           title="tylers.xml аҭагалара агха"           message="&quot;$STR_REPLACE$&quot; аҭагалара агха!"/>
-			<LoadLangsFailed             title="Аконфигуратор"                       message="langs.xml аҭагалара агха!!&#x0A;Шәара ишәҭахума langs.xml аиҭашьақәыргылара?"/>
-			<LoadLangsFailedFinal        title="Аконфигуратор"                       message="langs.xml аҭагалара агха!"/>
+			<RenameTabTemporaryNameAlreadyInUse title="Иамуӡеит ахьӡ аԥсахра" message="Иарбоу ахьӡ ахархәара амоуп егьа агәылаҵа аҟны."/>
+			<GUpConfNeedAdminMode title="Прокси Архиарақәа" message="Иарбоу ахьӡ ахархәара амоуп егьа агәылаҵа аҟны."/>
+			<NbFileToOpenImportantWarning title="Афаилқәа рыԥхьаӡа мыцхәцәоуп" message="Афаил(қәа) $INT_REPLACE$ аартхоит.Ишəҭахыҵəҟьоума урҭраартра?"/>
+			<SettingsOnCloudError title="Аԥсҭҳәа Апараметрқәа" message="Аԥсҭҳәахь мҩас иарбоуп адиск ма акаталог, &quot;Аԥхьара Мацара ҳәа иазгәаҭоу. &quot;.&#x0A;Ихымԥадатәиуп амҩа аартра ма аҭаҩра азин аиура. &#x0A;Аԥсҭҳәа азы шәПараметрқәа ықәгахоит, иқәыжәга аҵакы аԥенџьыр Архиарақәа аҟны ..."/>
+			<FilePathNotFoundWarning title="Афаил Аартра" message="Иаашәыртырц ишәҭаху афаил ыҟаӡам."/>
+			<SessionFileInvalidError title="Иамуӡеит Асессиа аҭагалара" message="Асессиа афаил ԥхасҭоуп ма ииашаӡам."/>
+			<DroppingFolderAsProjectModeWarning title="Ииашам аҟаҵара" message="Шәхы иашәырхәар шәылшоит абарҭ руак: афаил ма акаталог, аха рыҩбагь ракәымкәа, избанзар, шәара иқәшәырҳәазоит арежим &quot;Акаталог Апроект ҳасабла ала&quot;.&#x0A;шәара иаҿашәкроуп &quot; Иаарттәуп акаталог афаилқәа зегьы ақәырҳәазараан, Акаталог Аусурҭа Аобласт ҳасабла аҭыԥан&quot;иҟоу Акаталог аҟны&quot;,ари аоперациа аус ауразы ихархәатәуп Архиарақәа."/>
+			<SortingError title="Асортра агха" message="Иауам анагӡара хыԥхьаӡаратәла асортра ацәаҳәа $INT_REPLACE$ иахҟьаны."/>
+			<ColumnModeTip title="Аиҵагыла Арежим" message="Аиҵагыла арежим ахь аиасразы шәхы иашәырхәа &quot;ALT+Ҳәынаԥла Алкаара&quot; ма &quot;Alt+Shift+Ахыцтә Клавишақәа."/>
+			<BufferInvalidWarning title="Аиқәырхара Агха" message="Иауам аиқәырхара: Иақәнамго абуфер."/>
+			<DoCloseOrNot title="Иҟам афаил аанкылара" message="Афаил &quot;$STR_REPLACE$&quot; уаҳа иҟаӡам.&#x0A;Иаанкылатәума ари афаил аредактор аҟны?"/>
+			<DoDeleteOrNot title="Афаил Аныхра" message="Афаил &quot;$STR_REPLACE$&quot;&#x0A;аркны ианыххоит Аҵәахырҭахь.&#x0A;Иацҵатәума?"/>
+			<NoBackupDoSaveFile title="Аиқәырхара ..." message="Арезерв копиа афаил ԥшаам (ианыхуп дәныҟала).&#x0A;Еиқәшәырха иара, мамзар ишәхатәу адырқәа ыӡуеит.&#x0A;Еиқәырхатәума афаил &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Афаил арҿыцра" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Ари афаил ԥсахын даҽа программак ала.&#x0A;Ишәҭахума иара шәырҿыцыр?"/>
+			<DoReloadOrNotAndLooseChange title="Афаил арҿыцра" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Ари афаил ԥсахын даҽа программак ала.&#x0A;Ишәҭахума иара шәырҿыцыр?&#x0A;Аха усҟан шәара ишәцәыӡуеит Notepad++ аҟны иҟашәҵаз аԥсахрақәа зегьы."/>
+			<PrehistoricSystemDetected title="Иԥшаауп ижәытәӡатәиу асистема" message="Шәхы иашәырхәо асистема ажәхьеит. Ари афункциа ахархәара ахьауа иҿыцу асистемақәа рҟны ауп."/>
+			<XpUpdaterProblem title="Notepad++ Арҿыцра" message="Notepad++ Арҿыцра ауам XP аҟны, иажәыз ашәарҭадара аҩаӡара иахҟьаны.&#x0A;Ишәҭахума Notepad++ адаҟьа ахь аиасра, аҵыхәтәантәи аверсиа аҭагалара азы?"/>
+			<DocTooDirtyToMonitor title="Амониторинг Апроблема" message="Адокумент аус адулара цоит. Еиқәшәырха иҟаҵоу аԥсахрақәа, иара амониторинг аԥхьа."/>
+			<DocNoExistToMonitor title="Амониторинг Апроблема" message="Амониторинг азы афаил ыҟазароуп."/>
+			<FileTooBigToOpen title="Афаил ашәагаа апроблема" message="Афаил дуцәоуп, Notepad++ аҟны аартра азы"/>
+			<CreateNewFileOrNot title="Афаил ҿыц аԥҵара" message="&quot;$STR_REPLACE$&quot; ыҟаӡам. Иаԥҵатәума?"/>
+			<CreateNewFileError title="Афаил ҿыц аԥҵара" message="Иауам афаил &quot;$STR_REPLACE$&quot;аԥҵара."/>
+			<OpenFileError title="АГХА" message="Иауам афаил &quot;$STR_REPLACE$&quot;аартра."/>
+			<FileBackupFailed title="Арезервтә Копиа Афаил Агха" message="Афаил аԥхьатәи аверсиа аиқәырхара ауам арезервтә копиақәа рКаталог &quot;$STR_REPLACE$&quot; аҟны.&#x0A;&#x0A;Ишабалакгьы ари афаил аиқәырхара шәҭахума?"/>
+			<LoadStylersFailed title="tylers.xml аҭагалара агха" message="&quot;$STR_REPLACE$&quot; аҭагалара агха!"/>
+			<LoadLangsFailed title="Аконфигуратор" message="langs.xml аҭагалара агха!!&#x0A;Шәара ишәҭахума langs.xml аиҭашьақәыргылара?"/>
+			<LoadLangsFailedFinal title="Аконфигуратор" message="langs.xml аҭагалара агха!"/>
 			<FolderAsWorspaceSubfolderExists title="Акаталог Аусурҭа А&quot;ҳасабла ацҵараан апроблема&quot;" message="Акаталог акаталоггәыла, иацышәҵарц ишәҭаху, ыҟоуп.&#x0A;Акаталог &quot;$STR_REPLACE$&quot; ацышәҵаанӡа ианышәх иара ашьагәыҭ."/>
-			<ConfirmSaveAs               title="Ашьақәырӷәӷәара &quot;Еиқәырхатәуп абас...&quot;" message="$STR_REPLACE$ ыҟоуп.&#x0A;Ишәҭахума иара алаԥсахра?"/>
+			<ConfirmSaveAs title="Ашьақәырӷәӷәара &quot;Еиқәырхатәуп абас...&quot;" message="$STR_REPLACE$ ыҟоуп.&#x0A;Ишәҭахума иара алаԥсахра?"/>
 
-			<ProjectPanelChanged                 title="$STR_REPLACE$"                   message="Аусурҭа аобласт ԥсахын Еиқәырхатәума?"/>
-			<ProjectPanelSaveError               title="$STR_REPLACE$"                   message="Аусурҭа аобласт афаил аҭаҩраан иҟалеит агха.&#x0A;Шәара Шәусурҭа аобласт еиқәырхаӡамызт."/>
-			<ProjectPanelOpenDoSaveDirtyWsOrNot  title="Аусурҭа Аобласт Аартра"          message="Ари аусурҭа аобласт ԥсахын. Еиқәырхатәума уажәтәи апроект?"/>
-			<ProjectPanelNewDoSaveDirtyWsOrNot   title="Аусурҭа Аобласт Ҿыц"             message="Ари аусурҭа аобласт ԥсахын. Еиқәырхатәума уажәтәи апроект?"/>
-			<ProjectPanelOpenFailed              title="Аусурҭа Аобласт Аартра"          message="Иамуӡеит аусурҭа аобласт аартра.&#x0A;Иҟалап иаарттәу афаил, апроект афаил иақәнамгозар."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Аусурҭа аобласт ԥсахын Еиқәырхатәума?"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="Аусурҭа аобласт афаил аҭаҩраан иҟалеит агха.&#x0A;Шәара Шәусурҭа аобласт еиқәырхаӡамызт."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Аусурҭа Аобласт Аартра" message="Ари аусурҭа аобласт ԥсахын. Еиқәырхатәума уажәтәи апроект?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Аусурҭа Аобласт Ҿыц" message="Ари аусурҭа аобласт ԥсахын. Еиқәырхатәума уажәтәи апроект?"/>
+			<ProjectPanelOpenFailed title="Аусурҭа Аобласт Аартра" message="Иамуӡеит аусурҭа аобласт аартра.&#x0A;Иҟалап иаарттәу афаил, апроект афаил иақәнамгозар."/>
 			<ProjectPanelRemoveFolderFromProject title="Акаталог апроект аҟынтәи ианых." message="Аелементгәылақәа зегьы аныххоит.&#x0A;Ишәҭахума ари акаталог апроект аҟынтәи аныхра?"/>
-			<ProjectPanelRemoveFileFromProject   title="Афаил апроект аҟынтәи ианыхтәуп" message="Шәара ишәҭахума ари афаил апроект аҟынтәи аныхра?"/>
-			<ProjectPanelReloadError             title="Аусурҭа Аобласт Аиҭаартра"       message="Ҿыц аҭагаларазы афаил аԥшаара ауам."/>
-			<ProjectPanelReloadDirty             title="Аусурҭа Аобласт Аиҭаартра"       message="Ари аусурҭа аобласт ԥсахын. Аиҭадәықәҵара иқәнагоит аԥсахрақәа зегьы.&#x0A;Ишәҭахума иацышәҵар?"/>
-			<UDLNewNameError                     title="Ахархәаҩ Ихьӡ Агха"              message="Ари ахьӡ хархәоуп даҽа бызшәак аҟны.&#x0A;Ишәыԥсах ахьӡ."/>
-			<UDLRemoveCurrentLang                title="Ахархәара змоу абызшәа аныхтәуп" message="Шәақәшаҳаҭума?"/>
-			<SCMapperDoDeleteOrNot               title="Акоманда аныхра"                 message="Ишәҭахума ари акоманда асиа аныхра?"/>
-			<FindCharRangeValueError             title="Адиапазон аҵакы апроблема"                  message="Шәара иҭажәгалароуп 0 инаркны 255 аҟынӡа."/>
-			<OpenInAdminMode                     title="Аиқәырхара Агха"                            message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума Notepad++ администратор ирежим ала адәықәҵара?"/>
-			<OpenInAdminModeWithoutCloseCurrent  title="Аиқәырхара Агха"                            message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума Notepad++ администратор ирежим ала адәықәҵара?"/>
-			<OpenInAdminModeFailed               title="Иамуӡеит аартра Администратор ирежим ала"   message="Notepad++ аартра ауам Администратор ирежим ала."/>
-			<ViewInBrowser                       title="Иаарттәуп абри афаил Абраузер аҟны"         message="Иаҭаху апрограмма шәсистемаҿ иԥшааӡам."/>
-			<ExitToUpdatePlugins                 title="Notepad++ аусура ахыркәшара"                message="Аоперациа ацҵара азы Notepad++ аусура хнаркәшоит.&#x0A;Аоперациақәа зегьы рынагӡара ашьҭахь апрограмма ҿыц идәықәҵахоит.&#x0A;Иацҵатәума?"/>
-			<NeedToRestartToLoadPlugins          title="Ихымԥадатәиуп Notepad++ аиҭадәықәҵара"      message="Иҭагалоу аплагинқәа рықәыргыларазы ихымԥадатәиуп Notepad++ аиҭадәықәҵара."/>
+			<ProjectPanelRemoveFileFromProject title="Афаил апроект аҟынтәи ианыхтәуп" message="Шәара ишәҭахума ари афаил апроект аҟынтәи аныхра?"/>
+			<ProjectPanelReloadError title="Аусурҭа Аобласт Аиҭаартра" message="Ҿыц аҭагаларазы афаил аԥшаара ауам."/>
+			<ProjectPanelReloadDirty title="Аусурҭа Аобласт Аиҭаартра" message="Ари аусурҭа аобласт ԥсахын. Аиҭадәықәҵара иқәнагоит аԥсахрақәа зегьы.&#x0A;Ишәҭахума иацышәҵар?"/>
+			<UDLNewNameError title="Ахархәаҩ Ихьӡ Агха" message="Ари ахьӡ хархәоуп даҽа бызшәак аҟны.&#x0A;Ишәыԥсах ахьӡ."/>
+			<UDLRemoveCurrentLang title="Ахархәара змоу абызшәа аныхтәуп" message="Шәақәшаҳаҭума?"/>
+			<SCMapperDoDeleteOrNot title="Акоманда аныхра" message="Ишәҭахума ари акоманда асиа аныхра?"/>
+			<FindCharRangeValueError title="Адиапазон аҵакы апроблема" message="Шәара иҭажәгалароуп 0 инаркны 255 аҟынӡа."/>
+			<OpenInAdminMode title="Аиқәырхара Агха" message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума Notepad++ администратор ирежим ала адәықәҵара?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Аиқәырхара Агха" message="Афаил аиқәырхара ауам, иҟалап ихьчазар.&#x0A;Ишәҭахума Notepad++ администратор ирежим ала адәықәҵара?"/>
+			<OpenInAdminModeFailed title="Иамуӡеит аартра Администратор ирежим ала" message="Notepad++ аартра ауам Администратор ирежим ала."/>
+			<ViewInBrowser title="Иаарттәуп абри афаил Абраузер аҟны" message="Иаҭаху апрограмма шәсистемаҿ иԥшааӡам."/>
+			<ExitToUpdatePlugins title="Notepad++ аусура ахыркәшара" message="Аоперациа ацҵара азы Notepad++ аусура хнаркәшоит.&#x0A;Аоперациақәа зегьы рынагӡара ашьҭахь апрограмма ҿыц идәықәҵахоит.&#x0A;Иацҵатәума?"/>
+			<NeedToRestartToLoadPlugins title="Ихымԥадатәиуп Notepad++ аиҭадәықәҵара" message="Иҭагалоу аплагинқәа рықәыргыларазы ихымԥадатәиуп Notepad++ аиҭадәықәҵара."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Абуфер Аҭоурых"/>
@@ -1281,40 +1281,40 @@ Updated to v8.2.1:
 		<DocList>
 			<PanelTitle name="Адокументқәа Рсиа"/>
 			<ColumnName name="Ахьӡ"/>
-			<ColumnExt  name="Арҭб."/>
+			<ColumnExt name="Арҭб."/>
 			<ColumnPath name="Амҩа"/>
 		</DocList>
 		<WindowsDlg>
-			<ColumnName   name="Ахьӡ"/>
-			<ColumnPath   name="Амҩа"/>
-			<ColumnType   name="Атип"/>
-			<ColumnSize   name="Ашәагаа"/>
-			<NbDocsTotal  name="зынӡа :"/>
+			<ColumnName name="Ахьӡ"/>
+			<ColumnPath name="Амҩа"/>
+			<ColumnType name="Атип"/>
+			<ColumnSize name="Ашәагаа"/>
+			<NbDocsTotal name="зынӡа :"/>
 			<MenuCopyName name="Икопиатәуп Ахьӡқәа"/>
 			<MenuCopyPath name="Икопиатәуп Амҩа"/>
 		</WindowsDlg>
 		<AsciiInsertion>
-			<PanelTitle       name="ASCII асимволқәа рТаблица"/>
-			<ColumnVal        name="Dec"/>
-			<ColumnHex        name="Hex"/>
-			<ColumnChar       name="Асимвол"/>
+			<PanelTitle name="ASCII асимволқәа рТаблица"/>
+			<ColumnVal name="Dec"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Асимвол"/>
 			<ColumnHtmlNumber name="HTML Аномер"/>
-			<ColumnHtmlName   name="HTML Акод"/>
+			<ColumnHtmlName name="HTML Акод"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Адокумент Ахсаала"/>
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Афункциақәа рсма"/>
-			<SortTip    name="Исорттәуп"/>
-			<ReloadTip  name="Ирҿыцтәуп"/>
+			<SortTip name="Исорттәуп"/>
+			<ReloadTip name="Ирҿыцтәуп"/>
 		</FunctionList>
 		<FolderAsWorkspace>
 			<PanelTitle name="Акаталог Апроект ҳасабла"/>
 			<SelectFolderFromBrowserString name="Иалышәх акаталог, Акаталог апанель ахь Апроект ҳасабла ацҵаразы"/>
-			<ExpandAllFoldersTip   name="Еиҵыхтәуп акаталогқәа зегьы"/>
+			<ExpandAllFoldersTip name="Еиҵыхтәуп акаталогқәа зегьы"/>
 			<CollapseAllFoldersTip name="Еикәарҳәтәуп акаталогқәа зегьы"/>
-			<LocateCurrentFileTip  name="Иалхтәуп абри афаил"/>
+			<LocateCurrentFileTip name="Иалхтәуп абри афаил"/>
 			<Menu>
 				<Item id="3511" name="Иқәгатәуп акаталог"/>
 				<Item id="3512" name="Иқәгатәуп зегьы"/>
@@ -1329,10 +1329,10 @@ Updated to v8.2.1:
 			</Menu>
 		</FolderAsWorkspace>
 		<ProjectManager>
-			<PanelTitle        name="Апроект"/>
+			<PanelTitle name="Апроект"/>
 			<WorkspaceRootName name="Аусурҭа аобласт"/>
-			<NewProjectName    name="Апроект ахьӡ"/>
-			<NewFolderName     name="Акаталог ахьӡ"/>
+			<NewProjectName name="Апроект ахьӡ"/>
+			<NewFolderName name="Акаталог ахьӡ"/>
 			<Menus>
 				<Entries>
 					<Item id="0" name="Апроект"/>
@@ -1377,19 +1377,19 @@ Updated to v8.2.1:
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ -и $STR_REPLACE$ -и реиҭагара аҭахӡам -->
-			<word-chars-list-tip           value="Ари иалнаршоит ажәа асимволқәа рыбжьара даҽа символк аҭаргылара, ҩынтә ақәыӷәӷәара - алхра ма аԥшаара &quot;Еибгоу ажәақәа мацара рзы.&quot;."/>
+			<word-chars-list-tip value="Ари иалнаршоит ажәа асимволқәа рыбжьара даҽа символк аҭаргылара, ҩынтә ақәыӷәӷәара - алхра ма аԥшаара &quot;Еибгоу ажәақәа мацара рзы.&quot;."/>
 			<word-chars-list-warning-begin value="Ишәгәалашәала: "/>
 			<word-chars-list-space-warning value="Абжьажь(қәа) $INT_REPLACE$"/>
-			<word-chars-list-tab-warning   value="а-TAB(қәа) $INT_REPLACE$"/>
-			<word-chars-list-warning-end   value="  шәара шәсимволқәа рсиа аҟны."/>
-			<backup-select-folder          value="Арезервтә копиазы иалышәх акаталог "/>
-			<cloud-invalid-warning         value="Ииашам амҩа."/>
-			<cloud-restart-warning         value="Ҿыц идәықәышәҵа  Notepad++, аԥсахрақәа амч роурц азы."/>
-			<cloud-select-folder           value="Иалышәх акаталог, архиарақәа аԥхьара/аҭаҩра рзы Notepad++ ахы ианархәо."/>
+			<word-chars-list-tab-warning value="а-TAB(қәа) $INT_REPLACE$"/>
+			<word-chars-list-warning-end value="  шәара шәсимволқәа рсиа аҟны."/>
+			<backup-select-folder value="Арезервтә копиазы иалышәх акаталог "/>
+			<cloud-invalid-warning value="Ииашам амҩа."/>
+			<cloud-restart-warning value="Ҿыц идәықәышәҵа  Notepad++, аԥсахрақәа амч роурц азы."/>
+			<cloud-select-folder value="Иалышәх акаталог, архиарақәа аԥхьара/аҭаҩра рзы Notepad++ ахы ианархәо."/>
 			<default-open-save-select-folder value="Иалышәх ихархәахоу акаталог"/>
-			<shift-change-direction-tip    value="Шәхы иашәырхәа Shift+Enter шьҭахьҟатәи аԥшаара азы."/>
-			<two-find-buttons-tip          value="Аԥшаара ахырхарҭақәа 2 арежим"/>
-			<find-in-files-filter-tip      value="Иԥшаатәуп cpp, cxx, h, hxx &amp;&amp; hpp:
+			<shift-change-direction-tip value="Шәхы иашәырхәа Shift+Enter шьҭахьҟатәи аԥшаара азы."/>
+			<two-find-buttons-tip value="Аԥшаара ахырхарҭақәа 2 арежим"/>
+			<find-in-files-filter-tip value="Иԥшаатәуп cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp рҟны
 
 Иԥшаатәуп афаилқәа зегьы рҟны, exe, obj, log аламҵакәа:
@@ -1400,107 +1400,107 @@ Updated to v8.2.1:
 
 Иԥшаатәуп афаилқәа зегьы рҟны, акаталогқәа log, logs аламҵакәа:
 *.* !+\log*"/>
-			<find-in-files-select-folder   value="Аԥшаара азы иалышәх акаталог"/>
-			<find-status-top-reached       value="Аԥшаара: Иԥшаауп актәи аиқәшәара, анҵәамҭа аҟынтәи. Инаӡоуп адокумент алагамҭа аҟынӡа."/>
-			<find-status-end-reached       value="ԥшаара: Иԥшаауп актәи аиқәшәара, алагамҭа аҟынтәи. Инаӡоуп адокумент анҵәамҭа  аҟынӡа."/>
-			<find-status-replaceinfiles-1-replaced        value="Алаԥсахра афаилқәа рҟны: иалаԥсахуп аиқәшәарақәа 1"/>
-			<find-status-replaceinfiles-nb-replaced       value="Алаԥсахра афаилқәа рҟны: иалаԥсахуп аиқәшәарақәа $INT_REPLACE$"/>
-			<find-status-replaceinfiles-re-malformed      value="Алаԥсахра иаарту афаилқәа рҟны: Арегулиартә ҵакҭаҩ еицакуп"/>
-			<find-status-replaceinopenedfiles-1-replaced  value="Алаԥсахра иаарту афаилқәа рҟны: иалаԥсахуп аиқәшәарақәа 1"/>
+			<find-in-files-select-folder value="Аԥшаара азы иалышәх акаталог"/>
+			<find-status-top-reached value="Аԥшаара: Иԥшаауп актәи аиқәшәара, анҵәамҭа аҟынтәи. Инаӡоуп адокумент алагамҭа аҟынӡа."/>
+			<find-status-end-reached value="ԥшаара: Иԥшаауп актәи аиқәшәара, алагамҭа аҟынтәи. Инаӡоуп адокумент анҵәамҭа  аҟынӡа."/>
+			<find-status-replaceinfiles-1-replaced value="Алаԥсахра афаилқәа рҟны: иалаԥсахуп аиқәшәарақәа 1"/>
+			<find-status-replaceinfiles-nb-replaced value="Алаԥсахра афаилқәа рҟны: иалаԥсахуп аиқәшәарақәа $INT_REPLACE$"/>
+			<find-status-replaceinfiles-re-malformed value="Алаԥсахра иаарту афаилқәа рҟны: Арегулиартә ҵакҭаҩ еицакуп"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Алаԥсахра иаарту афаилқәа рҟны: иалаԥсахуп аиқәшәарақәа 1"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Алаԥсахра иаарту афаилқәа рҟны: иалаԥсахуп аиқәшәарақәа $INT_REPLACE$"/>
-			<find-status-replaced-without-continuing      value="Алаԥсахра: Иалаԥсахуп аиқәшәарақәа 1."/>
-			<find-status-mark-re-malformed        value="Азгәаҭақәа: Аԥшаара азы арегулиартә ҵакҭаҩ еицакуп"/>
-			<find-status-search-failed            value="Аԥшаара: Аԥшаара агха"/>
-			<find-status-invalid-re               value="Аԥшаара: Изымуа арегулиартә ҵакҭаҩ"/>
-			<find-status-mark-1-match             value="Азгәаҭақәа: Аиқәшәарақәа 1"/>
-			<find-status-mark-nb-matches          value="Азгәаҭақәа: Аиқәшәарақәа $INT_REPLACE$"/>
-			<find-status-count-re-malformed       value="Аԥхьаӡара: Аԥшаара иазку арегулиартә ҵакҭаҩ (ҵакҳәага) ԥхасҭоуп"/>
-			<find-status-count-1-match            value="Аԥхьаӡара: Аиқәшәарақәа 1"/>
-			<find-status-count-nb-matches         value="Аԥхьаӡара: Аиқәшәарақәа $INT_REPLACE$"/>
-			<find-status-replaceall-re-malformed  value="Алаԥсахра зегьы: Арегулиартә ҵакҭаҩ еицакуп"/>
-			<find-status-replaceall-1-replaced    value="Алаԥсахра зегьы: Иалаԥсахуп аиқәшәарақәа 1"/>
-			<find-status-replaceall-nb-replaced   value="Алаԥсахра зегьы: Иалаԥсахуп аиқәшәарақәа $INT_REPLACE$"/>
-			<find-status-replaceall-readonly      value="Алаԥсахра зегьы: Иауам атекст алаԥсахра. Ари адокумент аԥхьара мацара иазкуп."/>
-			<find-status-replace-end-reached      value="Алаԥсахра: Иалаԥсахуп актәи аиқәшәара хыхьала.Инаӡоуп адокумент анҵәамҭахь."/>
-			<find-status-replace-top-reached      value="Алаԥсахра: Иалаԥсахуп актәи аиқәшәара ҵаҟала. Инаӡоуп адокумент алагамҭахь."/>
-			<find-status-replaced-next-found      value="Алаԥсахра: Иалаԥсахуп аиқәшәарақәа 1. Иԥшаауп анаҩстәи аиқәшәара."/>
-			<find-status-replaced-next-not-found  value="Алаԥсахра: Иалаԥсахуп аиқәшәарақәа 1. Аиқәшәарақәа уаҳа ԥшаам."/>
-			<find-status-replace-not-found        value="Алаԥсахра: Аиқәшәарақәа ԥшаам"/>
-			<find-status-replace-readonly         value="Алаԥсахра: Атекст алаԥсахра ауам. Ари адокумент аԥхьара мацара иазкуп."/>
-			<find-status-cannot-find              value="Аԥшаара: Иамуӡеит атекст &quot;$STR_REPLACE$&quot;аԥшаара"/>
-			<find-status-scope-selection          value="иалкаау атекст аҟны"/>
-			<find-status-scope-all                value="афаил зегь аҟны"/>
-			<find-status-scope-backward           value="афаил алагамҭантәи аҭаргыларҭа аҟынӡа"/>
-			<find-status-scope-forward            value="аҭаргыларҭантәи афаил анҵәамҭа аҟынӡа"/>
-			<finder-find-in-finder                value="Аԥшаара иԥшаау аҟны..."/>
-			<finder-close-this                    value="Иарктәуп абри аԥшаара"/>
-			<finder-purge-for-every-search        value="Ԥшаарацыԥхьаӡа арыцқьара"/>
-			<finder-collapse-all         value="Еикәарҳәтәуп зегьы"/>
-			<finder-uncollapse-all       value="Еиҵыхтәуп зегьы"/>
-			<finder-copy                 value="Икопиатәуп иалкаау ацәаҳәа(қәа)"/>
-			<finder-copy-verbatim        value="Икопиатәуп"/>
-			<finder-copy-paths           value="Икопиатәуп афаил амҩа(қәа)"/>
-			<finder-select-all           value="Иалкаатәуп зегьы"/>
-			<finder-clear-all            value="Ирыцқьатәуп иԥшаау зегьы"/>
-			<finder-open-all             value="Иаарттәуп афаилқәа зегьы"/>
-			<finder-wrap-long-lines      value="Иауу ацәаҳәақәа рҟны ажәақәа риагара"/>
-			<common-ok                   value="ОК"/>
-			<common-cancel               value="Аҟәыхра"/>
-			<common-name                 value="Ахьӡ: "/>
-			<tabrename-title             value="Иазалхтәуп Ахьӡ Ҿыц"/>
-			<tabrename-newname           value="Ахьӡ ҿыц: "/>
-			<splitter-rotate-left        value="Армарахь аргьежьра"/>
-			<splitter-rotate-right       value="Арӷьарахь аргьежьра"/>
+			<find-status-replaced-without-continuing value="Алаԥсахра: Иалаԥсахуп аиқәшәарақәа 1."/>
+			<find-status-mark-re-malformed value="Азгәаҭақәа: Аԥшаара азы арегулиартә ҵакҭаҩ еицакуп"/>
+			<find-status-search-failed value="Аԥшаара: Аԥшаара агха"/>
+			<find-status-invalid-re value="Аԥшаара: Изымуа арегулиартә ҵакҭаҩ"/>
+			<find-status-mark-1-match value="Азгәаҭақәа: Аиқәшәарақәа 1"/>
+			<find-status-mark-nb-matches value="Азгәаҭақәа: Аиқәшәарақәа $INT_REPLACE$"/>
+			<find-status-count-re-malformed value="Аԥхьаӡара: Аԥшаара иазку арегулиартә ҵакҭаҩ (ҵакҳәага) ԥхасҭоуп"/>
+			<find-status-count-1-match value="Аԥхьаӡара: Аиқәшәарақәа 1"/>
+			<find-status-count-nb-matches value="Аԥхьаӡара: Аиқәшәарақәа $INT_REPLACE$"/>
+			<find-status-replaceall-re-malformed value="Алаԥсахра зегьы: Арегулиартә ҵакҭаҩ еицакуп"/>
+			<find-status-replaceall-1-replaced value="Алаԥсахра зегьы: Иалаԥсахуп аиқәшәарақәа 1"/>
+			<find-status-replaceall-nb-replaced value="Алаԥсахра зегьы: Иалаԥсахуп аиқәшәарақәа $INT_REPLACE$"/>
+			<find-status-replaceall-readonly value="Алаԥсахра зегьы: Иауам атекст алаԥсахра. Ари адокумент аԥхьара мацара иазкуп."/>
+			<find-status-replace-end-reached value="Алаԥсахра: Иалаԥсахуп актәи аиқәшәара хыхьала.Инаӡоуп адокумент анҵәамҭахь."/>
+			<find-status-replace-top-reached value="Алаԥсахра: Иалаԥсахуп актәи аиқәшәара ҵаҟала. Инаӡоуп адокумент алагамҭахь."/>
+			<find-status-replaced-next-found value="Алаԥсахра: Иалаԥсахуп аиқәшәарақәа 1. Иԥшаауп анаҩстәи аиқәшәара."/>
+			<find-status-replaced-next-not-found value="Алаԥсахра: Иалаԥсахуп аиқәшәарақәа 1. Аиқәшәарақәа уаҳа ԥшаам."/>
+			<find-status-replace-not-found value="Алаԥсахра: Аиқәшәарақәа ԥшаам"/>
+			<find-status-replace-readonly value="Алаԥсахра: Атекст алаԥсахра ауам. Ари адокумент аԥхьара мацара иазкуп."/>
+			<find-status-cannot-find value="Аԥшаара: Иамуӡеит атекст &quot;$STR_REPLACE$&quot;аԥшаара"/>
+			<find-status-scope-selection value="иалкаау атекст аҟны"/>
+			<find-status-scope-all value="афаил зегь аҟны"/>
+			<find-status-scope-backward value="афаил алагамҭантәи аҭаргыларҭа аҟынӡа"/>
+			<find-status-scope-forward value="аҭаргыларҭантәи афаил анҵәамҭа аҟынӡа"/>
+			<finder-find-in-finder value="Аԥшаара иԥшаау аҟны..."/>
+			<finder-close-this value="Иарктәуп абри аԥшаара"/>
+			<finder-purge-for-every-search value="Ԥшаарацыԥхьаӡа арыцқьара"/>
+			<finder-collapse-all value="Еикәарҳәтәуп зегьы"/>
+			<finder-uncollapse-all value="Еиҵыхтәуп зегьы"/>
+			<finder-copy value="Икопиатәуп иалкаау ацәаҳәа(қәа)"/>
+			<finder-copy-verbatim value="Икопиатәуп"/>
+			<finder-copy-paths value="Икопиатәуп афаил амҩа(қәа)"/>
+			<finder-select-all value="Иалкаатәуп зегьы"/>
+			<finder-clear-all value="Ирыцқьатәуп иԥшаау зегьы"/>
+			<finder-open-all value="Иаарттәуп афаилқәа зегьы"/>
+			<finder-wrap-long-lines value="Иауу ацәаҳәақәа рҟны ажәақәа риагара"/>
+			<common-ok value="ОК"/>
+			<common-cancel value="Аҟәыхра"/>
+			<common-name value="Ахьӡ: "/>
+			<tabrename-title value="Иазалхтәуп Ахьӡ Ҿыц"/>
+			<tabrename-newname value="Ахьӡ ҿыц: "/>
+			<splitter-rotate-left value="Армарахь аргьежьра"/>
+			<splitter-rotate-right value="Арӷьарахь аргьежьра"/>
 			<recent-file-history-maxfile value="Афаилқәа: "/>
-			<language-tabsize            value="Атабулиациа: "/>
-			<userdefined-title-new       value="Иаԥҵатәуп Асинтаксис Ҿыц..."/>
-			<userdefined-title-save      value="Еиқәырхатәуп Асинтаксис Ахьӡ Абас..."/>
-			<userdefined-title-rename    value="Иԥсахтәуп Асинтаксис Ахьӡ"/>
-			<autocomplete-nb-char        value="Асимвол: "/>
-			<edit-verticaledge-nb-col    value="Асимвол аҟынтәи:"/>
-			<summary                     value="Афаил иазку аинформациа"/>
-			<summary-filepath            value="Афаил ахь ихаҭәаау амҩа :  "/>
-			<summary-filecreatetime      value="Иаԥҵан :  "/>
-			<summary-filemodifytime      value="Ирҿыцын :  "/>
-			<summary-nbchar              value="Асимволқәа (ацәаҳәа анҵәамҭа ада) :  "/>
-			<summary-nbword              value="Ажәақәа :  "/>
-			<summary-nbwordinsel         value="Ажәақәа (1-тәи алкаара аҟны) :  "/>
-			<summary-nbline              value="Ацәаҳәақәа :  "/>
-			<summary-nbbyte              value="Адокумент аураа :  "/>
-			<summary-nbsel1              value=" иалкаау асимволқәа ("/>
-			<summary-nbsel2              value=" баит) аҟны"/>
-			<summary-nbrange             value=" диапазон(қәа)"/>
-			<find-in-files-progress-title         value="Афаилқәа рҟны аԥшаара апрогресс..."/>
-			<replace-in-files-confirm-title       value="Шәақәшаҳаҭума?"/>
-			<replace-in-files-confirm-directory   value="Ишәҭахума алаԥсахра аиқәшәарақәа зегьы акаталог аҟны :"/>
-			<replace-in-files-confirm-filetype    value="Афаил(қәа) атип азы :"/>
-			<replace-in-files-progress-title      value="Афаилқәа рҟны алаԥсахра апрогресс..."/>
-			<replace-in-projects-confirm-title    value="Шәақәшаҳаҭума?"/>
-			<replace-in-projects-confirm-message  value="Ишәҭахума алаԥсахра аиқәшәарақәа зегьы иаарту зегь рҟны Апроект азы иалху апанельқәа рҟны?"/>
-			<replace-in-open-docs-confirm-title   value="Шәақәшаҳаҭума?"/>
+			<language-tabsize value="Атабулиациа: "/>
+			<userdefined-title-new value="Иаԥҵатәуп Асинтаксис Ҿыц..."/>
+			<userdefined-title-save value="Еиқәырхатәуп Асинтаксис Ахьӡ Абас..."/>
+			<userdefined-title-rename value="Иԥсахтәуп Асинтаксис Ахьӡ"/>
+			<autocomplete-nb-char value="Асимвол: "/>
+			<edit-verticaledge-nb-col value="Асимвол аҟынтәи:"/>
+			<summary value="Афаил иазку аинформациа"/>
+			<summary-filepath value="Афаил ахь ихаҭәаау амҩа :  "/>
+			<summary-filecreatetime value="Иаԥҵан :  "/>
+			<summary-filemodifytime value="Ирҿыцын :  "/>
+			<summary-nbchar value="Асимволқәа (ацәаҳәа анҵәамҭа ада) :  "/>
+			<summary-nbword value="Ажәақәа :  "/>
+			<summary-nbwordinsel value="Ажәақәа (1-тәи алкаара аҟны) :  "/>
+			<summary-nbline value="Ацәаҳәақәа :  "/>
+			<summary-nbbyte value="Адокумент аураа :  "/>
+			<summary-nbsel1 value=" иалкаау асимволқәа ("/>
+			<summary-nbsel2 value=" баит) аҟны"/>
+			<summary-nbrange value=" диапазон(қәа)"/>
+			<find-in-files-progress-title value="Афаилқәа рҟны аԥшаара апрогресс..."/>
+			<replace-in-files-confirm-title value="Шәақәшаҳаҭума?"/>
+			<replace-in-files-confirm-directory value="Ишәҭахума алаԥсахра аиқәшәарақәа зегьы акаталог аҟны :"/>
+			<replace-in-files-confirm-filetype value="Афаил(қәа) атип азы :"/>
+			<replace-in-files-progress-title value="Афаилқәа рҟны алаԥсахра апрогресс..."/>
+			<replace-in-projects-confirm-title value="Шәақәшаҳаҭума?"/>
+			<replace-in-projects-confirm-message value="Ишәҭахума алаԥсахра аиқәшәарақәа зегьы иаарту зегь рҟны Апроект азы иалху апанельқәа рҟны?"/>
+			<replace-in-open-docs-confirm-title value="Шәақәшаҳаҭума?"/>
 			<replace-in-open-docs-confirm-message value="Ишәҭахума алаԥсахра аиқәшәарақәа зегьы иаарту адокументқәа зегь рҟны?"/>
-			<find-result-caption                  value="Аԥшаара алҵшәақәа"/>
-			<find-result-title                    value="Аԥшаара"/>  <!-- Иаламгароуп абжьажь ма атабулиациа ала -->
-			<find-result-line-prefix              value="Ацәаҳәа"/> <!-- Иаламгароуп абжьажь ма атабулиациа ала -->
-			<find-result-title-info               value="($INT_REPLACE1$ аиқәшәарақәа $INT_REPLACE2$ аҟны афаилқәа $INT_REPLACE3$ иԥшаау рҟынтәи)"/>
-			<find-result-title-info-selections    value="($INT_REPLACE1$ аиқәшәарақәа $INT_REPLACE2$ аҟны иалкаақәоу $INT_REPLACE3$ рҟынтәи)"/>
-			<find-result-title-info-extra         value=" - Ацәаҳәақәа рФильтр Арежим: иаанарԥшуеит афильтрра алҵшәақәа мацара"/>
-			<find-result-hits                     value="(Аиқәшәарақәа $INT_REPLACE$)"/>
-			<find-result-hits-and-line-hits       value="($INT_REPLACE1$ аиқәшәарақәа ацәаҳәақәа $INT_REPLACE2$ рҟны)"/>
-			<find-regex-zero-length-match         value="ноль аура змоу аиқәшәара"/>
-			<session-save-folder-as-workspace     value="Еиқәырхатәуп Акаталог Апроект ҳасабла"/>
-			<tab-untitled-string                  value="аҿыц "/>
-			<file-save-assign-type                value="&amp;Иацҵалатәуп ахкырбага"/>
-			<file-rename-title                    value="Ахьӡ ԥсахтәуп"/>
-			<close-panel-tip                      value="Иарктәуп"/>
-			<IncrementalFind-FSFound              value="Аиқәшәарақәа $INT_REPLACE$"/>
-			<IncrementalFind-FSNotFound           value="Афраза ԥшаам"/>
-			<IncrementalFind-FSTopReached         value="Аҩадахьы аиқәшәарақәа ыҟаӡам, иацҵоуп аладахьы"/>
-			<IncrementalFind-FSEndReached         value="Аладахьы аиқәшәарақәа ыҟаӡам, иацҵоуп аҩадахьы"/>
+			<find-result-caption value="Аԥшаара алҵшәақәа"/>
+			<find-result-title value="Аԥшаара"/><!-- Иаламгароуп абжьажь ма атабулиациа ала -->
+			<find-result-line-prefix value="Ацәаҳәа"/><!-- Иаламгароуп абжьажь ма атабулиациа ала -->
+			<find-result-title-info value="($INT_REPLACE1$ аиқәшәарақәа $INT_REPLACE2$ аҟны афаилқәа $INT_REPLACE3$ иԥшаау рҟынтәи)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ аиқәшәарақәа $INT_REPLACE2$ аҟны иалкаақәоу $INT_REPLACE3$ рҟынтәи)"/>
+			<find-result-title-info-extra value=" - Ацәаҳәақәа рФильтр Арежим: иаанарԥшуеит афильтрра алҵшәақәа мацара"/>
+			<find-result-hits value="(Аиқәшәарақәа $INT_REPLACE$)"/>
+			<find-result-hits-and-line-hits value="($INT_REPLACE1$ аиқәшәарақәа ацәаҳәақәа $INT_REPLACE2$ рҟны)"/>
+			<find-regex-zero-length-match value="ноль аура змоу аиқәшәара"/>
+			<session-save-folder-as-workspace value="Еиқәырхатәуп Акаталог Апроект ҳасабла"/>
+			<tab-untitled-string value="аҿыц "/>
+			<file-save-assign-type value="&amp;Иацҵалатәуп ахкырбага"/>
+			<file-rename-title value="Ахьӡ ԥсахтәуп"/>
+			<close-panel-tip value="Иарктәуп"/>
+			<IncrementalFind-FSFound value="Аиқәшәарақәа $INT_REPLACE$"/>
+			<IncrementalFind-FSNotFound value="Афраза ԥшаам"/>
+			<IncrementalFind-FSTopReached value="Аҩадахьы аиқәшәарақәа ыҟаӡам, иацҵоуп аладахьы"/>
+			<IncrementalFind-FSEndReached value="Аладахьы аиқәшәарақәа ыҟаӡам, иацҵоуп аҩадахьы"/>
 			<contextMenu-styleAlloccurrencesOfToken value="Иазгәаҭатәуп Аиқәшәарақәа зегьы"/>
-			<contextMenu-styleOneToken              value="Иазгәаҭатәуп Акы амацара"/>
-			<contextMenu-clearStyle                 value="Иқәгатәуп Азгәаҭарақәа"/>
-			<contextMenu-PluginCommands             value="Алагин акомандақәа"/>
+			<contextMenu-styleOneToken value="Иазгәаҭатәуп Акы амацара"/>
+			<contextMenu-clearStyle value="Иқәгатәуп Азгәаҭарақәа"/>
+			<contextMenu-PluginCommands value="Алагин акомандақәа"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.5.2  2/Apr/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.3  9/May/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.2">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -315,6 +315,7 @@
 					<Item id="44114" name="Označit barvou 4"/>
 					<Item id="44115" name="Označit barvou 5"/>
 					<Item id="44130" name="Zobrazit netisknutelné znaky"/>
+					<Item id="44131" name="Zobrazit řídící znaky a &amp;Unicode EOLy"/>
 					<Item id="45001" name="Konvertovat do formátu Windows"/>
 					<Item id="45002" name="Konvertovat do formátu UNIX"/>
 					<Item id="45003" name="Konvertovat do formátu MAC"/>
@@ -367,7 +368,7 @@
 					<Item id="48014" name="Otevřít složku s pluginy..."/>
 					<Item id="48015" name="Správa pluginů..."/>
 					<Item id="48016" name="Upravit zástupce / Odstranit makro..."/>
-					<Item id="48017" name="Upravit zástupce / Odstranit povel..."/>
+					<Item id="48017" name="Upravit zástupce / Odstranit příkaz..."/>
 					<Item id="48018" name="Upravit vyskakovací kontextové menu..."/>
 					<Item id="48501" name="Generovat..."/>
 					<Item id="48502" name="Generovat ze souborů..."/>
@@ -501,15 +502,15 @@
 			</IncrementalFind>
 
 			<FindCharsInRange title="Najít znaky z rozsahu...">
-				<Item id="2910" name="Najít"/>
-				<Item id="2" name="Zavřít"/>
-				<Item id="2901" name="Ne-ASCII znaky (128-255)"/>
-				<Item id="2902" name="ASCII znaky (0-127)"/>
-				<Item id="2903" name="Jiný rozsah:"/>
-				<Item id="2906" name="Nahoru"/>
-				<Item id="2907" name="Dolů"/>
-				<Item id="2908" name="Směr"/>
-				<Item id="2909" name="Dokola"/>
+				<Item id="2" name="&amp;Zavřít"/>
+				<Item id="2901" name="N&amp;e-ASCII znaky (128 - 255)"/>
+				<Item id="2902" name="&amp;ASCII znaky (0 - 127)"/>
+				<Item id="2903" name="&amp;Vlastní rozsah (0 – 255):"/>
+				<Item id="2906" name="&amp;Nahoru"/>
+				<Item id="2907" name="&amp;Dolů"/>
+				<Item id="2908" name="&amp;Směr"/>
+				<Item id="2909" name="D&amp;okola"/>
+				<Item id="2910" name="Na&amp;jít"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Přejít na ...">
@@ -530,27 +531,27 @@
 			</Run>
 			
 			<MD5FromFilesDlg title="Generování MD5 otisku ze souborů">
-				<Item id="1922" name="Vyberte soubory pro generování MD5..."/>
-				<Item id="1924" name="Kopírovat do Schránky"/>
-				<Item id="2" name="Zavřít"/>
+				<Item id="1922" name="Vyberte soubory pro &amp;generování MD5..."/>
+				<Item id="1924" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Generování MD5 otisku">
-				<Item id="1932" name="Brát každý řádek jako samostatný textový řetězec"/>
-				<Item id="1934" name="Kopírovat do Schránky"/>
-				<Item id="2" name="Zavřít"/>
+				<Item id="1932" name="Brát každý řádek jako &amp;samostatný textový řetězec"/>
+				<Item id="1934" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</MD5FromTextDlg>
 			
 			<SHA256FromFilesDlg title="Generování SHA-256 otisku ze souborů">
-				<Item id="1922" name="Vyberte soubory pro generování SHA-256..."/>
-				<Item id="1924" name="Kopírovat do Schránky"/>
-				<Item id="2" name="Zavřít"/>
+				<Item id="1922" name="Vyberte soubory pro &amp;generování SHA-256..."/>
+				<Item id="1924" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Generování SHA-256 otisku">
-				<Item id="1932" name="Brát každý řádek jako samostatný textový řetězec"/>
-				<Item id="1934" name="Kopírovat do Schránky"/>
-				<Item id="2" name="Zavřít"/>
+				<Item id="1932" name="Brát každý řádek jako &amp;samostatný textový řetězec"/>
+				<Item id="1934" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</SHA256FromTextDlg>
 			
 			<PluginsAdminDlg title="Správa pluginů" titleAvailable="Dostupné" titleUpdates="Aktualizované" titleInstalled="Instalované" titleIncompatible="Nekompatibilní">
@@ -610,9 +611,9 @@
 				<ColumnPlugin name="Plugin"/>
 				<MainMenuTab name="Hlavní menu"/>
 				<MacrosTab name="Makra"/>
-				<RunCommandsTab name="Spouštěcí povely"/>
-				<PluginCommandsTab name="Pluginové povely"/>
-				<ScintillaCommandsTab name="Scintilla povely"/>
+				<RunCommandsTab name="Spouštěcí příkazy"/>
+				<PluginCommandsTab name="Pluginové příkazy"/>
+				<ScintillaCommandsTab name="Scintilla příkazy"/>
 				<ConflictInfoOk name="Nezjištěny žádné kolize pro tuto položku."/>
 				<ConflictInfoEditing name="Nekoliduje s ničím . . ."/>
 				<WindowCategory name="Okno"/>
@@ -729,13 +730,13 @@
 				<Item id="5012" name="NALEZENA KOLIZE!"/>
 			</ShortcutMapperSubDialg>
 
-			<UserDefine title="Uživatelské nastavení">
+			<UserDefine title="Uživatelsky definovaná syntaxe">
 				<Item id="20001" name="Připnout"/>
 				<Item id="20002" name="Přejmenovat"/>
 				<Item id="20003" name="Vytvořit novou..."/>
 				<Item id="20004" name="Odstranit"/>
 				<Item id="20005" name="Uložit jako..."/>
-				<Item id="20007" name="Uživatelská syntaxe: "/>
+				<Item id="20007" name="Už.syntaxe:"/>
 				<Item id="20009" name="Přípona:"/>
 				<Item id="20012" name="Nerozl. malá a VELKÁ písmena"/>
 				<Item id="20011" name="Průhlednost"/>
@@ -995,6 +996,7 @@
 					<Item id="6254" name="Zkratka"/>
 					<Item id="6255" name="Kód Unicode"/>
 					<Item id="6256" name="Vlastní barva"/>
+					<Item id="6258" name="Aplikovat na C0, C1 a &amp;Unicode EOLy"/>
 				</Scintillas>
 				<DarkMode title="Tmavý režim">
 					<Item id="7102" name="Černý"/>
@@ -1102,30 +1104,30 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id="6354" name="Rozlišování"/>
 				</Highlighting>
 				<Print title="Tisk">
-					<Item id="6601" name="Tisknout čísla řádků"/>
+					<Item id="6601" name="Tisknout čísla řá&amp;dků"/>
 					<Item id="6602" name="Možnosti barev"/>
-					<Item id="6603" name="WYSIWYG (tak jak to vidíte)"/>
-					<Item id="6604" name="Inverzně"/>
-					<Item id="6605" name="Černobíle"/>
-					<Item id="6606" name="Žádná barva na pozadí"/>
+					<Item id="6603" name="&amp;WYSIWYG (tak jak to vidíte)"/>
+					<Item id="6604" name="&amp;Inverzně"/>
+					<Item id="6605" name="Černo&amp;bíle"/>
+					<Item id="6606" name="Žádná barva na po&amp;zadí"/>
 					<Item id="6607" name="Nastavení okrajů (v milimetrech)"/>
-					<Item id="6612" name="Vlevo"/>
-					<Item id="6613" name="Nahoře"/>
-					<Item id="6614" name="Vpravo"/>
-					<Item id="6615" name="Dole"/>
-					<Item id="6706" name="Tučně"/>
-					<Item id="6707" name="Kurzíva"/>
+					<Item id="6612" name="Vle&amp;vo"/>
+					<Item id="6613" name="Na&amp;hoře"/>
+					<Item id="6614" name="V&amp;pravo"/>
+					<Item id="6615" name="Dol&amp;e"/>
+					<Item id="6706" name="&amp;Tučně"/>
+					<Item id="6707" name="&amp;Kurzíva"/>
 					<Item id="6708" name="Záhlaví"/>
-					<Item id="6709" name="Levá část"/>
-					<Item id="6710" name="Prostřední část"/>
-					<Item id="6711" name="Pravá část"/>
-					<Item id="6717" name="Tučně"/>
-					<Item id="6718" name="Kurzíva"/>
+					<Item id="6709" name="&amp;Levá část"/>
+					<Item id="6710" name="&amp;Prostřední část"/>
+					<Item id="6711" name="P&amp;ravá část"/>
+					<Item id="6717" name="T&amp;učně"/>
+					<Item id="6718" name="Kurzív&amp;a"/>
 					<Item id="6719" name="Zápatí"/>
-					<Item id="6720" name="Levá část"/>
-					<Item id="6721" name="Prostřední část"/>
-					<Item id="6722" name="Pravá část"/>
-					<Item id="6723" name="Přidat"/>
+					<Item id="6720" name="Levá čá&amp;st"/>
+					<Item id="6721" name="Pr&amp;ostřední část"/>
+					<Item id="6722" name="Pravá čás&amp;t"/>
+					<Item id="6723" name="Př&amp;idat"/>
 					<ComboBox id="6724">
 						<Element name="Název soub. s cestou"/>
 						<Element name="Název souboru"/>
@@ -1135,7 +1137,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 						<Element name="Datum - delší form."/>
 						<Element name="Čas"/>
 					</ComboBox>
-					<Item id="6725" name="Varianty:"/>
+					<Item id="6725" name="Variant&amp;y:"/>
 					<Item id="6727" name="Která část:"/>
 					<Item id="6728" name="Záhlaví a zápatí"/>
 				</Print>
@@ -1292,10 +1294,10 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 			<MultiMacro title="Spustit makro vícekrát">
 				<Item id="1" name="S&amp;pustit"/>
 				<Item id="2" name="&amp;Storno"/>
-				<Item id="8006" name="Makro:"/>
 				<Item id="8001" name="Spustit"/>
-				<Item id="8005" name="krát"/>
 				<Item id="8002" name="Až do &amp;konce souboru"/>
+				<Item id="8005" name="krát"/>
+				<Item id="8006" name="Makro"/>
 			</MultiMacro>
 
 			<Window title="Okna">
@@ -1433,7 +1435,7 @@ Vaše pracovní plocha nebyla uložena."/><!-- HowToReproduce: this message prev
 			<ProjectPanelReloadDirty title="Znovuotevření pracovní plochy" message="Nyní používaná pracovní plocha byla modifikována. Opětovným načtením přijdete o všechny provedené změny. Chcete pokračovat?"/>
 			<UDLNewNameError title="Chyba UDL" message="Tento název je již využíván jiným jazykem/syntaxí, prosím zadejte jiný."/>
 			<UDLRemoveCurrentLang title="Odstranění aktuální syntaxe" message="Jste si jisti?"/>
-			<SCMapperDoDeleteOrNot title="Jste si jisti?" message="Jste si jisti, že chcete smazat tuto klávesovou zkratku?"/>
+			<SCMapperDoDeleteOrNot title="Jste si jisti?" message="Jste si jisti, že chcete smazat tuto klávesovou zkratku / příkaz?"/>
 			<FindCharRangeValueError title="Problém s rozsahem hodnoty" message="Měli byste napsat hodnotu z rozsahu 0 až 255."/>
 			<OpenInAdminMode title="Uložení selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Uložení selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
@@ -1446,6 +1448,13 @@ Vaše pracovní plocha nebyla uložena."/><!-- HowToReproduce: this message prev
 			<LanguageMenuCompactWarning title="Kompaktní menu pro syntaxe" message="Ke změně dojde až při příštím spuštění."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené změny stylu budou zahozeny!
 Chcete své změny uložit před přepnutím stylu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Kompatibilita maker a příkazů nabídky Spustit" message="Vaše makra a příkazy nabídky Spustit uložené Notepadem++ verze 8.5.2 (anebo starším) nemusí být kompatibilní s aktuální verzí Notepadu++.
+			
+Vyzkoušejte si je prosím v aktuální verzi Notepadu++ a v případě potřeby upravte a znovu uložte.
+
+Jako alternativu můžete využít přechod zpět na nižší verzi Notepadu++ (v8.5.2-) a obnovit svoje předchozí data ze zálohy, která bude vytvořena. Notepad++ nyní zazálohuje Váš stávající soubor &quot;shortcuts.xml&quot; a uloží ho jako &quot;shortcuts.xml.v8.5.2.backup&quot;.
+
+Přejmenováním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; zpátky by se Vaše původní makra a příkazy měly obnovit a fungovat správně."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1684,7 +1693,7 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<contextMenu-styleAlloccurrencesOfToken value="Označit všechny výskyty tokenu stylem"/>
 			<contextMenu-styleOneToken value="Označit token (jeden) stylem"/>
 			<contextMenu-clearStyle value="Odstranit označení stylem u tokenů"/>
-			<contextMenu-PluginCommands value="Pluginové povely"/>
+			<contextMenu-PluginCommands value="Pluginové příkazy"/>
 			<largeFileRestriction-tip value="Některé funkce mohou u velkých souborů způsobit snížení výkonu. Tyto funkce je možné při otevření velkého souboru automaticky vypnout. Zde si můžete přizpůsobit jejich nastavení.
 
 POZN.:
@@ -1718,6 +1727,7 @@ Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživ
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Přejděte do Úpravy stylu a změňte výchozí vlastní barvu pro vybrané prázdné a netisknutelné znaky. (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Použije nastavení vzhledu netisknutelných znaků pro řídící znaky C0, C1 (reprezentují další informace o textu jako jsou další řádek, oddělovač řádků, oddělovač odstavců) a pro Unicode EOL znaky." />
 		</MiscStrings>
 
 	</Native-Langue>

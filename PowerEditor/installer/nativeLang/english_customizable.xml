@@ -913,26 +913,27 @@ Translation note:
 					<Item id="6108" name="Lock (no drag and drop)"/>
 					<Item id="6109" name="Darken inactive tabs"/>
 					<Item id="6110" name="Draw a colored bar on active tab"/>
-
-					<Item id="6111" name="Show status bar"/>
 					<Item id="6112" name="Show close button on each tab"/>
 					<Item id="6113" name="Double click to close document"/>
 					<Item id="6118" name="Hide"/>
 					<Item id="6119" name="Multi-line"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Exit on close the last tab"/>
+					<Item id="6128" name="Alternate icons"/>
+
+					<Item id="6133" name="Status Bar"/>
+					<Item id="6111" name="Show"/>
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
 					<Item id="6132" name="Hide right shortcuts ＋ ▼ ✕ from the menu bar (Need to restart Notepad++)"/>
-					<Item id="6123" name="Localization"/>
 
-					<Item id="6128" name="Alternate icons"/>
+					<Item id="6123" name="Localization"/>
 				</Global>
 				<Scintillas title="Editing">
 					<Item id="6216" name="Caret Settings"/>
-					<Item id="6217" name="Width :"/>
-					<Item id="6219" name="Blink rate :"/>
+					<Item id="6217" name="Width:"/>
+					<Item id="6219" name="Blink rate:"/>
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6246" name="Make current level folding/unfolding commands toggleable"/>
@@ -950,7 +951,7 @@ Translation note:
 					<Item id="6652" name="None"/>
 					<Item id="6653" name="Highlight Background"/>
 					<Item id="6654" name="Frame"/>
-					<Item id="6655" name="Width"/>
+					<Item id="6655" name="Width:"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Default"/>
 					<Item id="6249" name="Plain Text"/>

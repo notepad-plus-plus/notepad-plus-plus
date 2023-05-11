@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
+
 	German localization for Notepad++
 
 	Please report errors, suggestions etc. here: https://github.com/notepad-plus-plus/notepad-plus-plus/issues
@@ -9,8 +13,7 @@
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<!-- basiert auf english.xml vom 07.05.2023 -->
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.07">
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.11"><!-- basiert auf english.xml vom 11.05.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -438,7 +441,6 @@
 				<Item id="43013" name="In Dateien suchen …"/>
 				<Item id="43105" name="Taskleistensymbol schließen"/>
 			</TrayIcon>
-
 		</Menu>
 
 		<Dialog>
@@ -1336,7 +1338,8 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="4" name="Ja, immer"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
-		<MessageBox><!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+		<MessageBox>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei 'contextMenu.xml' können Sie das Kontextmenü von Notepad++ anpassen.
 Nach dem Bearbeiten müssen Sie Notepad++ neu starten, damit die Änderungen wirksam werden."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.
@@ -1717,9 +1720,11 @@ U+FEFF : geschütztes Leerzeichen ohne eigene Breite
 
 Die vollständige Liste finden Sie im Benutzerhandbuch.
 Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
+
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Wenden Sie die Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) an."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+

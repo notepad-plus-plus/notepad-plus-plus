@@ -2031,8 +2031,8 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const gene
 	int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
 	for (int i = 0; i < nbMenuEntry; ++i)
 	{
-		TCHAR menuEntryString[64];
-		::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
+		TCHAR menuEntryString[menuItemStrLenMax];
+		::GetMenuString(mainMenuHadle, i, menuEntryString, menuItemStrLenMax, MF_BYPOSITION);
 		if (wcsicmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 		{
 			vector< pair<HMENU, int> > parentMenuPos;
@@ -2056,8 +2056,8 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const gene
 				else
 				{
 					//  Check current menu position.
-					TCHAR cmdStr[256];
-					::GetMenuString(currMenu, currMenuPos, cmdStr, 256, MF_BYPOSITION);
+					TCHAR cmdStr[menuItemStrLenMax];
+					::GetMenuString(currMenu, currMenuPos, cmdStr, menuItemStrLenMax, MF_BYPOSITION);
 					if (wcsicmp(menuItemName.c_str(), purgeMenuItemString(cmdStr).c_str()) == 0)
 					{
 						return ::GetMenuItemID(currMenu, currMenuPos);
@@ -2091,16 +2091,16 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 	int nbPlugins = ::GetMenuItemCount(pluginsMenu);
 	for (int i = 0; i < nbPlugins; ++i)
 	{
-		TCHAR menuItemString[256];
-		::GetMenuString(pluginsMenu, i, menuItemString, 256, MF_BYPOSITION);
+		TCHAR menuItemString[menuItemStrLenMax];
+		::GetMenuString(pluginsMenu, i, menuItemString, menuItemStrLenMax, MF_BYPOSITION);
 		if (wcsicmp(pluginName.c_str(), purgeMenuItemString(menuItemString).c_str()) == 0)
 		{
 			HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
 			int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
 			for (int j = 0; j < nbPluginCmd; ++j)
 			{
-				TCHAR pluginCmdStr[256];
-				::GetMenuString(pluginMenu, j, pluginCmdStr, 256, MF_BYPOSITION);
+				TCHAR pluginCmdStr[menuItemStrLenMax];
+				::GetMenuString(pluginMenu, j, pluginCmdStr, menuItemStrLenMax, MF_BYPOSITION);
 				if (wcsicmp(pluginCmdName.c_str(), purgeMenuItemString(pluginCmdStr).c_str()) == 0)
 				{
 					return ::GetMenuItemID(pluginMenu, j);

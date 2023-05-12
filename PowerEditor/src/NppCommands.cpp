@@ -3936,8 +3936,8 @@ void Notepad_plus::command(int id)
 			}
 			else if ((id > IDM_LANG_USER) && (id < IDM_LANG_USER_LIMIT))
 			{
-				TCHAR langName[langNameLenMax];
-				::GetMenuString(_mainMenuHandle, id, langName, langNameLenMax, MF_BYCOMMAND);
+				TCHAR langName[menuItemStrLenMax];
+				::GetMenuString(_mainMenuHandle, id, langName, menuItemStrLenMax, MF_BYCOMMAND);
 				_pEditView->getCurrentBuffer()->setLangType(L_USER, langName);
 				if (_pDocMap)
 				{
@@ -3976,13 +3976,6 @@ void Notepad_plus::command(int id)
 			{
 				_pluginsManager.relayNppMessages(WM_COMMAND, id, 0);
 			}
-/*UNLOAD
-			else if ((id >= ID_PLUGINS_REMOVING) && (id < ID_PLUGINS_REMOVING_END))
-			{
-				int i = id - ID_PLUGINS_REMOVING;
-				_pluginsManager.unloadPlugin(i, _pPublicInterface->getHSelf());
-			}
-*/
 			else if ((id >= IDM_WINDOW_MRU_FIRST) && (id <= IDM_WINDOW_MRU_LIMIT))
 			{
 				activateDoc(id - IDM_WINDOW_MRU_FIRST);

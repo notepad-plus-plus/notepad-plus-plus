@@ -3434,9 +3434,18 @@ void NppParameters::insertScintKey(TiXmlNodeA *scintKeyRoot, const ScintillaKeyM
 
 void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 {
-	const TCHAR *pathName = fileName?fileName:_sessionPath.c_str();
+	const TCHAR *sessionPathName = fileName ? fileName : _sessionPath.c_str();
 
-	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(pathName);
+	// Backup session file before overriting it
+	TCHAR backupPathName[MAX_PATH]{};
+	if (PathFileExists(sessionPathName))
+	{
+		_tcscpy(backupPathName, sessionPathName);
+		_tcscat(backupPathName, TEXT(".inCaseOfCorruption.bak"));
+		CopyFile(sessionPathName, backupPathName, FALSE);
+	}
+
+	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(sessionPathName);
 
 	TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
 	pXmlSessionDoc->LinkEndChild(decl);
@@ -3530,7 +3539,36 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			}
 		}
 	}
-	pXmlSessionDoc->SaveFile();
+
+	bool sessionSaveOK = pXmlSessionDoc->SaveFile();
+
+	if (sessionSaveOK)
+	{
+		// Double checking: prevent written session file corrupted while writting
+		TiXmlDocument* pXmlSessionCheck = new TiXmlDocument(sessionPathName);
+		sessionSaveOK = pXmlSessionCheck->LoadFile();
+		delete pXmlSessionCheck;
+	}
+
+	if (!sessionSaveOK)
+	{
+		if (backupPathName[0]) // session backup file exists, restore it
+		{
+			_pNativeLangSpeaker->messageBox("ErrorOfSavingSessionFile",
+				nullptr,
+				TEXT("The old session file will be restored."),
+				TEXT("Error of saving session file"),
+				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			CopyFile(backupPathName, sessionPathName, FALSE);
+		}
+	}
+	else
+	{
+		if (backupPathName[0]) // session backup file not useful, delete it
+		{
+			::DeleteFile(backupPathName);
+		}
+	}
 
 	delete pXmlSessionDoc;
 }

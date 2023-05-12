@@ -23,7 +23,8 @@
 #include "Common.h"
 #include "menuCmdID.h"
 
-const size_t nameLenMax = 64;
+const size_t nameLenMax = 64 + 32;	// Add 32 "units" more for being compatible to the current localization file. See:
+									// https://github.com/notepad-plus-plus/notepad-plus-plus/issues/13556#issuecomment-1518197329
 
 class NppParameters;
 

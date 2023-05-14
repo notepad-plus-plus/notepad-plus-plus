@@ -23,7 +23,8 @@
 #include "Common.h"
 #include "menuCmdID.h"
 
-constexpr int menuItemStrLenMax = 64;
+constexpr int menuItemStrLenMax = 64 + 32;	// Add 32 "units" more for being compatible to the current localization file. See:
+											// https://github.com/notepad-plus-plus/notepad-plus-plus/issues/13556#issuecomment-1518197329
 
 class NppParameters;
 
@@ -176,13 +177,8 @@ protected :
 	KeyCombo _keyCombo;
 	virtual intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool _canModifyName = false;
-
-	char _name[menuItemStrLenMax * 2] {};		// normal name is plain text (for display purposes)
-	char _menuName[menuItemStrLenMax * 2] {};	// menu name has ampersands for quick keys
-												// Both single char arrays (_name and _menuName) should have double length of wide char array,
-												// because they could contain any UTF8 charcters which are in multi-byte form. See:
-												// https://github.com/notepad-plus-plus/notepad-plus-plus/issues/13556#issuecomment-1518197329
-
+	char _name[menuItemStrLenMax] {};		//normal name is plain text (for display purposes)
+	char _menuName[menuItemStrLenMax] {};	//menu name has ampersands for quick keys
 	void updateConflictState(const bool endSession = false) const;
 };
 		 

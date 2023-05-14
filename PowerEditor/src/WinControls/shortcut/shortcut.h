@@ -23,7 +23,7 @@
 #include "Common.h"
 #include "menuCmdID.h"
 
-constexpr int menuItemStrLenMax = 64 + 32;	// Add 32 "units" more for being compatible to the current localization file. See:
+constexpr int menuItemStrLenMax = 64 + 64;	// Add 64 "units" more for being compatible to the current localization file. See:
 											// https://github.com/notepad-plus-plus/notepad-plus-plus/issues/13556#issuecomment-1518197329
 
 class NppParameters;

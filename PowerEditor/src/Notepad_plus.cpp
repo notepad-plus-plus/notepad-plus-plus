@@ -521,9 +521,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len; ++i)
 		{
 			int cmdID = nppParam.langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
-			const int itemSize = 256;
-			TCHAR itemName[itemSize];
-			::GetMenuString(hLangMenu, cmdID, itemName, itemSize, MF_BYCOMMAND);
+			TCHAR itemName[menuItemStrLenMax];
+			::GetMenuString(hLangMenu, cmdID, itemName, menuItemStrLenMax, MF_BYCOMMAND);
 			nppGUI._excludedLangList[i]._cmdID = cmdID;
 			nppGUI._excludedLangList[i]._langName = itemName;
 			::DeleteMenu(hLangMenu, cmdID, MF_BYCOMMAND);
@@ -725,12 +724,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	if (nppGUI._hideMenuRightShortcuts)
 	{
 		int nbRemoved = 0;
-		const int bufferSize = 64;
-		TCHAR buffer[bufferSize];
+		TCHAR buffer[menuItemStrLenMax];
 		int nbItem = GetMenuItemCount(_mainMenuHandle);
 		for (int i = nbItem - 1; i >= 0; --i)
 		{
-			::GetMenuStringW(_mainMenuHandle, i, buffer, bufferSize, MF_BYPOSITION);
+			::GetMenuString(_mainMenuHandle, i, buffer, menuItemStrLenMax, MF_BYPOSITION);
 			if (lstrcmp(buffer, L"✕") == 0 || lstrcmp(buffer, L"▼") == 0 || lstrcmp(buffer, L"＋") == 0)
 			{
 				::RemoveMenu(_mainMenuHandle, i, MF_BYPOSITION);

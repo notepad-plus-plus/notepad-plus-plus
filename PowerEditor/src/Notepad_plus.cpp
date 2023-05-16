@@ -501,20 +501,54 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Add external languages to menu
 	for (int i = 0; i < nppParam.getNbExternalLang(); ++i)
 	{
+		HMENU subMenu = hLangMenu;
 		ExternalLangContainer & externalLangContainer = nppParam.getELCFromIndex(i);
 
-		int numLangs = ::GetMenuItemCount(hLangMenu);
-		TCHAR buffer[menuItemStrLenMax]{};
+		int nbItem = ::GetMenuItemCount(subMenu);
+		TCHAR buffer[MAX_EXTERNAL_LEXER_NAME_LEN]{TEXT('\0')};
 		const TCHAR* lexerNameW = wmc.char2wchar(externalLangContainer._name.c_str(), CP_ACP);
 
+		// Find the first separator which is between IDM_LANG_TEXT and languages
 		int x = 0;
-		for (; (x == 0 || lstrcmp(lexerNameW, buffer) > 0) && x < numLangs; ++x)
+		MENUITEMINFO menuItemInfo
 		{
-			::GetMenuString(hLangMenu, x, buffer, menuItemStrLenMax, MF_BYPOSITION);
+			.cbSize = sizeof(MENUITEMINFO),
+			.fMask = MIIM_FTYPE
+		};
+		for (; x < nbItem; ++x)
+		{
+			::GetMenuItemInfo(subMenu, x, TRUE, &menuItemInfo);
+			if (menuItemInfo.fType & MFT_SEPARATOR)
+			{
+				break;
+			}
 		}
 
-		::InsertMenu(hLangMenu, x - 1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, lexerNameW);
+		// Find the location in existing language menu to insert to. This includes submenu if using compact language menu.
+		TCHAR firstLetter = towupper(lexerNameW[0]);
+		menuItemInfo.fMask = MIIM_SUBMENU;
+		for (++x; x < nbItem; ++x)
+		{
+			::GetMenuItemInfo(subMenu, x, TRUE, &menuItemInfo);
+			::GetMenuString(subMenu, x, buffer, MAX_EXTERNAL_LEXER_NAME_LEN, MF_BYPOSITION);
+
+			// Check if using compact language menu.
+			if (menuItemInfo.hSubMenu && buffer[0] == firstLetter)
+			{
+				// Found the submenu for the language's first letter. Search in it instead.
+				subMenu = menuItemInfo.hSubMenu;
+				nbItem = ::GetMenuItemCount(subMenu);
+				x = -1;
+			}
+			else if (lstrcmp(lexerNameW, buffer) < 0)
+			{
+				break;
+			}
+		}
+
+		::InsertMenu(subMenu, x, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, lexerNameW);
 	}
+
 
 	if (nppGUI._excludedLangList.size() > 0)
 	{

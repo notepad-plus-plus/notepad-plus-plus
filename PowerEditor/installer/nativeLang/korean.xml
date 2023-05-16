@@ -3,7 +3,7 @@
   <localization work version="7.8.1~8.5.1" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
 -->
 <NotepadPlus>
-	<Native-Langue name="한국어" filename="korean.xml" version="8.5.1">
+	<Native-Langue name="한국어" filename="korean.xml" version="8.5.3">
 		<Menu>
 			<Main>
 				<!--  Main Menu Entries -->
@@ -296,6 +296,7 @@
 					<Item id="44114" name="색 4 적용"/>
 					<Item id="44115" name="색 5 적용"/>
 					<Item id="44130" name="출력 불가능 문자 표시"/>
+					<Item id="44131" name="제어 문자와 줄 끝 문자 보기"/>
 					<Item id="44032" name="전체화면 전환"/>
 					<Item id="44033" name="기본값 복원"/>
 					<Item id="44034" name="항상 위에 표시"/>
@@ -489,15 +490,15 @@
 			</IncrementalFind>
 
 			<FindCharsInRange title="범위에서 문자 찾기...">
-				<Item id="2" name="닫기"/>
-				<Item id="2901" name="Non-ASCII 문자 (128-255)"/>
-				<Item id="2902" name="ASCII 문자 (0-127)"/>
-				<Item id="2903" name="사용자 범위:"/>
+				<Item id="2" name="닫기(&amp;C)"/>
+				<Item id="2901" name="Non-ASCII 문자 (128-255)(&amp;N)"/>
+				<Item id="2902" name="ASCII 문자 (0-127)(&amp;A)"/>
+				<Item id="2903" name="사용자 범위 (0-255): (&amp;r)"/>
 				<Item id="2906" name="위로(&amp;U)"/>
 				<Item id="2907" name="아래로(&amp;D)"/>
 				<Item id="2908" name="방향"/>
 				<Item id="2909" name="반복(&amp;p)"/>
-				<Item id="2910" name="찾기"/>
+				<Item id="2910" name="찾기(&amp;F)"/>
 			</FindCharsInRange>
 
 			<GoToLine title="이동...">
@@ -518,27 +519,27 @@
 			</Run>
 
 			<MD5FromFilesDlg title="파일의 MD5 해시 생성">
-				<Item id="1922" name="MD5를 생성할 파일 선택..."/>
-				<Item id="1924" name="클립보드로 복사"/>
-				<Item id="2" name="닫기"/>
+				<Item id="1922" name="MD5를 생성할 파일 선택...(&amp;g)"/>
+				<Item id="1924" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="MD5 해시 생성">
-				<Item id="1932" name="각 줄을 분리된 문자열로 처리"/>
-				<Item id="1934" name="클립보드로 복사"/>
-				<Item id="2" name="닫기"/>
+				<Item id="1932" name="각 줄을 분리된 문자열로 처리(&amp;s)"/>
+				<Item id="1934" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="파일의 SHA-256 해시 생성">
-				<Item id="1922" name="SHA-256을 생성할 파일 선택..."/>
-				<Item id="1924" name="클립보드로 복사"/>
-				<Item id="2" name="닫기"/>
+				<Item id="1922" name="SHA-256을 생성할 파일 선택...(&amp;g)"/>
+				<Item id="1924" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="SHA-256 해시 생성">
-				<Item id="1932" name="각 줄을 분리된 문자열로 처리"/>
-				<Item id="1934" name="클립보드로 복사"/>
-				<Item id="2" name="닫기"/>
+				<Item id="1932" name="각 줄을 분리된 문자열로 처리(&amp;s)"/>
+				<Item id="1934" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
 			</SHA256FromTextDlg>
 
 			<PluginsAdminDlg title="플러그인 관리" titleAvailable="사용 가능" titleUpdates="업데이트" titleInstalled="설치됨" titleIncompatible="호환되지 않음">
@@ -727,7 +728,7 @@
 				<Item id="20003" name="새로 만들기..."/>
 				<Item id="20004" name="삭제"/>
 				<Item id="20005" name="새로 저장..."/>
-				<Item id="20007" name="사용자 언어: "/>
+				<Item id="20007" name="사용자 언어"/>
 				<Item id="20009" name="확장자:"/>
 				<Item id="20012" name="대소문자 무시"/>
 				<Item id="20011" name="투명도"/>
@@ -735,7 +736,7 @@
 				<Item id="20016" name="내보내기..."/>
 				<Item id="20017" name="독에서 분리"/>
 				<StylerDialog title="형식 옵션">
-					<Item id="25030" name="글꼴 옵션:"/>
+					<Item id="25030" name="글꼴 옵션"/>
 					<Item id="25006" name="글자색"/>
 					<Item id="25007" name="배경색"/>
 					<Item id="25031" name="이름:"/>
@@ -743,7 +744,7 @@
 					<Item id="25001" name="굵게"/>
 					<Item id="25002" name="기울임"/>
 					<Item id="25003" name="밑줄"/>
-					<Item id="25029" name="중첩:"/>
+					<Item id="25029" name="중첩"/>
 					<Item id="25008" name="구분 기호 1"/>
 					<Item id="25009" name="구분 기호 2"/>
 					<Item id="25010" name="구분 기호 3"/>
@@ -773,20 +774,20 @@
 				<Folder title="폴더 &amp;&amp; 기본값">
 					<Item id="21101" name="기본 형식"/>
 					<Item id="21102" name="스타일러"/>
-					<Item id="21105" name="설명서:"/>
+					<Item id="21105" name="설명서"/>
 					<Item id="21104" name="임시 웹사이트:"/>
 					<Item id="21106" name="최대 접기 (빈 줄 포함)(&amp;c)"/>
-					<Item id="21220" name="접기 형식 1:"/>
+					<Item id="21220" name="접기 형식 1"/>
 					<Item id="21224" name="열기:"/>
 					<Item id="21225" name="중간:"/>
 					<Item id="21226" name="닫기:"/>
 					<Item id="21227" name="스타일러"/>
-					<Item id="21320" name="접기 형식 2 (구분 필요):"/>
+					<Item id="21320" name="접기 형식 2 (구분자 필요)"/>
 					<Item id="21324" name="열기:"/>
 					<Item id="21325" name="중간:"/>
 					<Item id="21326" name="닫기:"/>
 					<Item id="21327" name="스타일러"/>
-					<Item id="21420" name="주석 접기 형식:"/>
+					<Item id="21420" name="주석 접기 형식"/>
 					<Item id="21424" name="열기:"/>
 					<Item id="21425" name="중간:"/>
 					<Item id="21426" name="닫기:"/>
@@ -956,6 +957,7 @@
 					<Item id="6254" name="약어"/>
 					<Item id="6255" name="부호점"/>
 					<Item id="6256" name="사용자 정의 색상"/>
+					<Item id="6258" name="C0, C1 과 줄 끝 문자에 적용"/>
 				</Scintillas>
 
 				<DarkMode title="다크모드">
@@ -1069,30 +1071,30 @@
 				</Highlighting>
 
 				<Print title="인쇄">
-					<Item id="6601" name="줄 번호 인쇄"/>
+					<Item id="6601" name="줄 번호 인쇄(&amp;u)"/>
 					<Item id="6602" name="컬러 옵션"/>
-					<Item id="6603" name="고급 편집기(WYSIWYG)"/>
-					<Item id="6604" name="반전"/>
-					<Item id="6605" name="흑백"/>
-					<Item id="6606" name="배경색 없음"/>
+					<Item id="6603" name="고급 편집기(WYSIWYG)(&amp;W)"/>
+					<Item id="6604" name="반전(&amp;n)"/>
+					<Item id="6605" name="흑백(&amp;w)"/>
+					<Item id="6606" name="배경색 없음(&amp;k)"/>
 					<Item id="6607" name="여백 설정 (단위: mm)"/>
-					<Item id="6612" name="왼쪽"/>
-					<Item id="6613" name="상단"/>
-					<Item id="6614" name="오른쪽"/>
-					<Item id="6615" name="하단"/>
-					<Item id="6706" name="굵게"/>
-					<Item id="6707" name="기울임꼴"/>
+					<Item id="6612" name="왼쪽(&amp;L)"/>
+					<Item id="6613" name="위(&amp;T)"/>
+					<Item id="6614" name="오른쪽(&amp;R)"/>
+					<Item id="6615" name="아래(&amp;m)"/>
+					<Item id="6706" name="굵게(&amp;B)"/>
+					<Item id="6707" name="기울임(&amp;I)"/>
 					<Item id="6708" name="머리글"/>
-					<Item id="6709" name="왼쪽 부분"/>
-					<Item id="6710" name="중간 부분"/>
-					<Item id="6711" name="오른쪽 부분"/>
-					<Item id="6717" name="굵게"/>
-					<Item id="6718" name="기울임꼴"/>
+					<Item id="6709" name="왼쪽 부분(&amp;e)"/>
+					<Item id="6710" name="중간 부분(&amp;M)"/>
+					<Item id="6711" name="오른쪽 부분(&amp;g)"/>
+					<Item id="6717" name="굵게(&amp;d)"/>
+					<Item id="6718" name="기울임꼴(&amp;c)"/>
 					<Item id="6719" name="바닥글"/>
-					<Item id="6720" name="왼쪽"/>
-					<Item id="6721" name="중간"/>
-					<Item id="6722" name="오른쪽"/>
-					<Item id="6723" name="추가"/>
+					<Item id="6720" name="왼쪽(&amp;a)"/>
+					<Item id="6721" name="중간(&amp;p)"/>
+					<Item id="6722" name="오른쪽(&amp;h)"/>
+					<Item id="6723" name="추가(&amp;A)"/>
 					<ComboBox id="6724">
 						<Element name="전체 파일 경로"/>
 						<Element name="파일 이름"/>
@@ -1102,7 +1104,7 @@
 						<Element name="긴 날짜 형식"/>
 						<Element name="시간"/>
 					</ComboBox>
-					<Item id="6725" name="변수:"/>
+					<Item id="6725" name="변수:(&amp;V)"/>
 					<Item id="6727" name="여기에 변수 설정 표시"/>
 					<Item id="6728" name="머리글 및 바닥글"/>
 				</Print>
@@ -1263,7 +1265,7 @@
 			<MultiMacro title="매크로 반복 실행">
 				<Item id="1" name="실행(&amp;R)"/>
 				<Item id="2" name="취소(&amp;C)"/>
-				<Item id="8006" name="매크로 실행 :"/>
+				<Item id="8006" name="실행할 매크로"/>
 				<Item id="8001" name="실행"/>
 				<Item id="8005" name="회"/>
 				<Item id="8002" name="파일끝까지 실행(&amp;e)"/>
@@ -1280,7 +1282,12 @@
 				<Item id="2033" name="숫자 삽입(&amp;N)"/>
 				<Item id="2030" name="초기 숫자(&amp;I):"/>
 				<Item id="2031" name="증가치(&amp;y):"/>
-				<Item id="2035" name="숫자 앞에 0 채우기(&amp;z)"/>
+				<Item id="2038" name="&amp;앞부분 :"/>
+				<ComboBox id="2039">
+					<Element name="없음"/>
+					<Element name="0들"/>
+					<Element name="공백"/>
+				</ComboBox>
 				<Item id="2036" name="반복(&amp;R):"/>
 				<Item id="2032" name="형식"/>
 				<Item id="2024" name="10진수(&amp;D)"/>
@@ -1437,6 +1444,12 @@ langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close Notep
 			<LanguageMenuCompactWarning title="언어 메뉴 간소화" message="이 설정은 다음 실행시에 변경됩니다"/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="저장되지 않은 변경 사항이 사라집니다!
 테마를 변경하기 전에 변경 사항을 저장하시겠습니까?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="매크로와 실행 명령어 호환성" message="Nodepad++ v8.5.2 (혹은 이전 버전)에 저장된 매크로와 실행 명령어가 현재 버전과 호환되지 않을 수 있습니다.
+테스트해 주세요. 편집이 필요할 수 있습니다.
+
+대신, v8.5.2 로 버전을 낮추고, 이전 자료를 복구할 수 있습니다.
+Nodepad++ 은 오래된 &quot;shortcuts.xml&quot;을 &quot;shortcuts.xml.v8.5.2.backup&quot;으로 백업할 것입니다.
+&quot;shortcuts.xml.v.8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; 같이 이름을 바꾸게 되면, 명령어가 저장되고 올바르게 동작할 것입니다."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="클립보드 사용 기록"/>
@@ -1462,8 +1475,9 @@ langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close Notep
 			<ColumnVal name="값"/>
 			<ColumnHex name="16진수"/>
 			<ColumnChar name="문자"/>
+			<ColumnHtmlName name="HTML 이름"/>
 			<ColumnHtmlNumber name="HTML 숫자"/>
-			<ColumnHtmlName name="HTML 코드"/>
+			<ColumnHtmlHexNb name="HTML 16진수"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="문서 구조"/>
@@ -1617,9 +1631,9 @@ log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾�
 			<finder-wrap-long-lines value="긴 줄을 단어 단위로 줄바꿈"/>
 			<common-ok value="확인"/>
 			<common-cancel value="취소"/>
-			<common-name value="이름: "/>
+			<common-name value="이름"/>
 			<tabrename-title value="현재 탭의 이름바꾸기"/>
-			<tabrename-newname value="새 이름: "/>
+			<tabrename-newname value="새 이름"/>
 			<splitter-rotate-left value="왼쪽으로 회전"/>
 			<splitter-rotate-right value="오른쪽으로 회전"/>
 			<userdefined-title-new value="새로운 언어 만들기..."/>
@@ -1636,6 +1650,7 @@ log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾�
 			<summary-nbsel1 value=" 선택된 글자 수("/>
 			<summary-nbsel2 value=" bytes) "/>
 			<summary-nbrange value=" 범위"/>
+			<progress-hits-title value="도달:"/>
 			<progress-cancel-button value="취소"/>
 			<progress-cancel-info value="작업 취소 중입니다. 기다려 주세요..."/>
 			<find-in-files-progress-title value="파일에서 찾기 진행중..."/>
@@ -1676,9 +1691,7 @@ NOTE:
 			<npcNote-tip value="선택된 &quot;비 ASCII&quot; 공백 출력 불가능(제어) 문자의 표현
 
 NOTE:
-일부 글자는 이미 표현법이 정해져 표시되고 있습니다. 줄 구분자와 단락 구분자는 축약 기호로 기본 표시되고 있습니다.
-
-이런 표현식을 사용하면 글자 효과를 표시할 수 없게 됩니다.
+표현식을 사용하면 글자 효과를 표시할 수 없게 됩니다.
 
 사용자 매뉴얼에서 선택된 공백 문자와 출력 불가능 문자의 목록을 확인할 수 있습니다.
 
@@ -1691,8 +1704,17 @@ ZWNBSP : 너비 0의 단어 잘림 방지 공백
 전체 목록은 사용자 매뉴얼에서 확인하세요.
 웹 사이트의 사용자 매뉴얼을 보시려면 &quot;?&quot;을 오른쪽 클릭하세요."/>
 
+			<npcCodepoint-tip value="Codepoint : 이름
+U+00A0 : 단어 잘림 방지 공백
+U+200B : 너비 0의 공백
+U+FEFF : 너비 0의 단어 잘림 방지 공백
+
+전체 목록은 사용자 매뉴얼에서 확인하세요.
+웹 사이트의 사용자 매뉴얼을 보시려면 &quot;?&quot;을 오른쪽 클릭하세요."/>
+
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="선택한 공백과 출력 불가능 문자의 사용자 정의 색깔을 변경하기 위해서는 스타일 편집기를 사용하세요. (&quot;출력 불가능 문자 사용자 정의 색&quot;)"/>
+			<npcIncludeCcUniEol-tip value="출력 불가능한 글자 모양 설정을 C0, c1 제어와 줄 끝 문자에 적용합니다. (다음 줄, 줄 분리자, 문단 분리자)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

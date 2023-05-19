@@ -13,7 +13,7 @@ Translation note:
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.11"><!-- basiert auf english.xml vom 11.05.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.19"><!-- basiert auf english.xml vom 19.05.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -555,13 +555,13 @@ Translation note:
 			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
-				<Item id="5501" name="Suchen:"/>
-				<Item id="5503" name="Installieren"/>
-				<Item id="5504" name="Aktualisieren"/>
-				<Item id="5505" name="Entfernen"/>
-				<Item id="5508" name="Nächstes finden"/>
-				<Item id="5509" name="Version der Plugin-Liste: "/>
-				<Item id="5511" name="Speicherort der Plugin-Liste"/>
+				<Item id="5501" name="&amp;Suchen:"/>
+				<Item id="5503" name="&amp;Installieren"/>
+				<Item id="5504" name="&amp;Aktualisieren"/>
+				<Item id="5505" name="&amp;Entfernen"/>
+				<Item id="5508" name="&amp;Nächstes finden"/>
+				<Item id="5509" name="&amp;Version der Plugin-Liste: "/>
+				<Item id="5511" name="Speicherort der &amp;Plugin-Liste"/>
 				<Item id="2" name="Schließen"/>
 			</PluginsAdminDlg>
 

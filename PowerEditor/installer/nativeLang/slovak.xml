@@ -545,12 +545,12 @@
 			<PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">
 				<ColumnPlugin name="Doplnok"/>
 				<ColumnVersion name="Verzia"/>
-				<Item id="5501" name="Hľadať:"/>
-				<Item id="5503" name="Inštalovať"/>
-				<Item id="5504" name="Aktualizovať"/>
-				<Item id="5505" name="Odstrániť"/>
-				<Item id="5508" name="Ďalší"/>
-				<Item id="5509" name="Verzia zoznamu doplnkov: "/>
+				<Item id="5501" name="&amp;Hľadať:"/>
+				<Item id="5503" name="&amp;Inštalovať"/>
+				<Item id="5504" name="&amp;Aktualizovať"/>
+				<Item id="5505" name="&amp;Odstrániť"/>
+				<Item id="5508" name="Ďa&amp;lší"/>
+				<Item id="5509" name="Verzia zoznamu doplnkov:"/>
 				<Item id="5511" name="Repozitár zoznamu doplnkov"/>
 				<Item id="2" name="Zavrieť"/>
 			</PluginsAdminDlg>
@@ -1300,8 +1300,8 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 			<FindInFinder title="Hľadať vo výsledkoch vyhľadávania">
 				<Item id="1" name="Hľadať všetko"/>
 				<Item id="2" name="Zavrieť"/>
-				<Item id="1711" name="Hľadať:"/>
-				<Item id="1713" name="Vyhľadávať iba v nájdených riadkoch"/>
+				<Item id="1711" name="&amp;Hľadať:"/>
+				<Item id="1713" name="Vyhľadávať &amp;iba v nájdených riadkoch"/>
 				<Item id="1714" name="Hľadať iba &amp;celé slová"/>
 				<Item id="1715" name="Rozlišovať &amp;malé/VEĽKÉ písmená"/>
 				<Item id="1716" name="Režim vyhľadávania"/>

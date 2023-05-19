@@ -46,7 +46,8 @@ public :
 		}
 		else
 		{
-			cleanLineEdit();
+			// clean Line Edit
+			::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));
 		}
 	};
 
@@ -59,10 +60,6 @@ protected :
 
 private :
 	ScintillaEditView **_ppEditView = nullptr;
-
-    void cleanLineEdit() const {
-        ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));
-    };
 
 	long long getLine() const {
 		constexpr int maxLen = 256;

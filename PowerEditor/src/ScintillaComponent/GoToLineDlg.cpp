@@ -26,7 +26,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, TRUE, 0);
+			setChecked(IDC_RADIO_GOTOLINE);
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
 		}
@@ -126,8 +126,6 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						_mode = go2offsset;
 					}
 
-					setChecked(IDC_RADIO_GOTOLINE, _mode == go2line);
-					setChecked(IDC_RADIO_GOTOOFFSET, _mode == go2offsset);
 					updateLinesNumbers();
 					return TRUE;
 				}

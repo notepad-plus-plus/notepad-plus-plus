@@ -13,7 +13,7 @@ Translation note:
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.11"><!-- basiert auf english.xml vom 11.05.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.24"><!-- basiert auf english.xml vom 24.05.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -306,7 +306,7 @@ Translation note:
 					<Item id="44114" name="Farbe 4 anwenden"/>
 					<Item id="44115" name="Farbe 5 anwenden"/>
 					<Item id="44130" name="Nicht druckbare Zeichen anzeigen"/>
-					<Item id="44131" name="Steuerzeichen &amp; Unicode EOL anzeigen"/>
+					<Item id="44131" name="Steuerzeichen &amp;&amp; Unicode EOL anzeigen"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -555,13 +555,13 @@ Translation note:
 			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
-				<Item id="5501" name="Suchen:"/>
-				<Item id="5503" name="Installieren"/>
-				<Item id="5504" name="Aktualisieren"/>
-				<Item id="5505" name="Entfernen"/>
-				<Item id="5508" name="Nächstes finden"/>
-				<Item id="5509" name="Version der Plugin-Liste: "/>
-				<Item id="5511" name="Speicherort der Plugin-Liste"/>
+				<Item id="5501" name="&amp;Suchen:"/>
+				<Item id="5503" name="&amp;Installieren"/>
+				<Item id="5504" name="&amp;Aktualisieren"/>
+				<Item id="5505" name="&amp;Entfernen"/>
+				<Item id="5508" name="&amp;Nächstes finden"/>
+				<Item id="5509" name="&amp;Version der Plugin-Liste: "/>
+				<Item id="5511" name="Speicherort der &amp;Plugin-Liste"/>
 				<Item id="2" name="Schließen"/>
 			</PluginsAdminDlg>
 
@@ -921,26 +921,27 @@ Translation note:
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Inaktive Tabs dunkler darstellen"/>
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
-
-					<Item id="6111" name="Statusleiste anzeigen"/>
 					<Item id="6112" name="Schließen-Kreuz auf jedem Tab"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
+					<Item id="6128" name="Alternative Symbole"/>
+
+					<Item id="6133" name="Statusleiste"/>
+					<Item id="6134" name="Ausblenden"/>
 
 					<Item id="6131" name="Menü"/>
 					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
 					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' der Menüleiste verbergen (Neustart von Notepad++ erforderlich)"/>
-					<Item id="6123" name="Sprache:"/>
 
-					<Item id="6128" name="Alternative Symbole"/>
+					<Item id="6123" name="Sprache:"/>
 				</Global>
 				<Scintillas title="Bearbeiten">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite:"/>
-					<Item id="6219" name="Geschwindigkeit"/>
+					<Item id="6219" name="Geschwindigkeit:"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Befehl zum Ein- und Ausfalten der aktuellen Ebene umschaltbar machen"/>
@@ -958,7 +959,7 @@ Translation note:
 					<Item id="6652" name="Keine"/>
 					<Item id="6653" name="Hintergrund hervorheben"/>
 					<Item id="6654" name="Rahmen"/>
-					<Item id="6655" name="Breite"/>
+					<Item id="6655" name="Breite:"/>
 					<Item id="6247" name="Zeilenende EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standard"/>
 					<Item id="6249" name="Klartext"/>
@@ -967,7 +968,7 @@ Translation note:
 					<Item id="6254" name="Abkürzung"/>
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Benutzerdefinierte Farbe"/>
-					<Item id="6258" name="Anwenden auf C0, C1 &amp; Unicode EOL"/>
+					<Item id="6258" name="Anwenden auf C0, C1 &amp;&amp; Unicode EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Dunkler Modus">
@@ -1335,7 +1336,7 @@ Wählen Sie &quot;Ja, immer&quot; um diesen Dialog nicht mehr anzuzeigen.
 Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nein"/>
-				<Item id="4" name="Ja, immer"/>
+				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
@@ -1669,7 +1670,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
 			<replace-in-files-progress-title value="Fortschritt für das Ersetzen in Dateien …"/>
 			<replace-in-projects-confirm-title value="Sind Sie sicher?"/>
-			<replace-in-projects-confirm-message value="Sollen wirklich alle Vorkommen in allen Dokumenten im gewählten Projekt ersetzt werden sollen?"/>
+			<replace-in-projects-confirm-message value="Sollen wirklich alle Vorkommen in allen Dokumenten im gewählten Projekt ersetzt werden?"/>
 			<replace-in-open-docs-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-open-docs-confirm-message value="Sind Sie sicher dass alle Vorkommen in allen offenen Dokumenten ersetzt werden sollen?"/>
 			<find-result-caption value="Suchergebnisse"/>

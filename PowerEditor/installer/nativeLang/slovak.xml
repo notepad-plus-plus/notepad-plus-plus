@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.3">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -545,12 +545,12 @@
 			<PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">
 				<ColumnPlugin name="Doplnok"/>
 				<ColumnVersion name="Verzia"/>
-				<Item id="5501" name="Hľadať:"/>
-				<Item id="5503" name="Inštalovať"/>
-				<Item id="5504" name="Aktualizovať"/>
-				<Item id="5505" name="Odstrániť"/>
-				<Item id="5508" name="Ďalší"/>
-				<Item id="5509" name="Verzia zoznamu doplnkov: "/>
+				<Item id="5501" name="&amp;Hľadať:"/>
+				<Item id="5503" name="&amp;Inštalovať"/>
+				<Item id="5504" name="&amp;Aktualizovať"/>
+				<Item id="5505" name="&amp;Odstrániť"/>
+				<Item id="5508" name="Ďa&amp;lší"/>
+				<Item id="5509" name="Verzia zoznamu doplnkov:"/>
 				<Item id="5511" name="Repozitár zoznamu doplnkov"/>
 				<Item id="2" name="Zavrieť"/>
 			</PluginsAdminDlg>
@@ -911,7 +911,6 @@
 					<Item id="6108" name="Zamknúť (Vypne Drag 'N' Drop)"/>
 					<Item id="6109" name="Stmaviť neaktívne karty"/>
 					<Item id="6110" name="Farebne zvýrazniť aktívnu kartu"/>
-
 					<Item id="6111" name="Zobraziť stavový riadok"/>
 					<Item id="6112" name="Zobraziť tlačidlo zatvorenia na karte"/>
 					<Item id="6113" name="Dvojklikom zavrieť dokument"/>
@@ -919,13 +918,16 @@
 					<Item id="6119" name="Viacriadkový"/>
 					<Item id="6120" name="Vertikálny"/>
 					<Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
+					<Item id="6128" name="Alternatívne ikony"/>
+					
+					<Item id="6133" name="Stavový riadok"/>
+					<Item id="6134" name="Skryť"/>
 
 					<Item id="6131" name="Ponuka"/>
 					<Item id="6122" name="Skryť panel ponuky (Prepínanie klávesom Alt alebo F10)"/>
 					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕ z panela ponuky (Vyžaduje reštart Notepad++)"/>
+                    
 					<Item id="6123" name="Lokalizácia"/>
-
-					<Item id="6128" name="Alternatívne ikony"/>
 				</Global>
 				<Scintillas title="Editor">
 					<Item id="6216" name="Nastavenie kurzora"/>
@@ -934,7 +936,7 @@
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="P"/>
 					<Item id="6246" name="Umožniť prepínanie príkazov na zbalenie/rozbalenie aktuálnej úrovne"/>
-					<Item id="6225" name="Povoliť viacnásobnú editáciu (Ctrl+myš kliknutie/výber)"/>
+					<Item id="6225" name="Povoliť viacnásobnú úpravu (Ctrl+myš kliknutie/výber)"/>
 					<Item id="6227" name="Zalomenie riadku"/>
 					<Item id="6228" name="Predvolené"/>
 					<Item id="6229" name="Zarovnané"/>
@@ -1027,6 +1029,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6411" name="Predvolený jazyk:"/>
 					<Item id="6419" name="Nový dokument"/>
 					<Item id="6420" name="Použiť pri otváraní ANSI súborov"/>
+					<Item id="6432" name="Pri spustení vždy otvoriť nový dokument"/>
 				</NewDoc>
 
 				<DefaultDir title="Predvolený priečinok">
@@ -1300,8 +1303,8 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 			<FindInFinder title="Hľadať vo výsledkoch vyhľadávania">
 				<Item id="1" name="Hľadať všetko"/>
 				<Item id="2" name="Zavrieť"/>
-				<Item id="1711" name="Hľadať:"/>
-				<Item id="1713" name="Vyhľadávať iba v nájdených riadkoch"/>
+				<Item id="1711" name="&amp;Hľadať:"/>
+				<Item id="1713" name="Vyhľadávať &amp;iba v nájdených riadkoch"/>
 				<Item id="1714" name="Hľadať iba &amp;celé slová"/>
 				<Item id="1715" name="Rozlišovať &amp;malé/VEĽKÉ písmená"/>
 				<Item id="1716" name="Režim vyhľadávania"/>
@@ -1325,7 +1328,7 @@ Zvoľte &quot;Áno všetky&quot; ak nechcete znova zobraziť tento dialóg.
 Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="6" name="&amp;Áno"/>
 				<Item id="7" name="&amp;Nie"/>
-				<Item id="4" name="Vždy áno"/>
+				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>

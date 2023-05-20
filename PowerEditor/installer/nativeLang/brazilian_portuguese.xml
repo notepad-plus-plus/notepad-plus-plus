@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 01 May 2023, for Notepad++ 8.5.3 
+     Last update by Marcello, 08 Jun 2023, for Notepad++ 8.5.4 
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.3">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -296,7 +296,7 @@
 					<Item id="44114" name="Aplicar Cor 4"/>
 					<Item id="44115" name="Aplicar Cor 5"/>
 					<Item id="44130" name="Mostrar caracteres sem representação"/>
-					<Item id="44131" name="Mostrar Caracteres de Controle &amp; EOL Unicode"/>
+					<Item id="44131" name="Mostrar Caracteres de Controle &amp;&amp; EOL Unicode"/>
 					<Item id="44032" name="Modo Tela Inteira"/>
 					<Item id="44033" name="Restaurar o zoom padrão"/>
 					<Item id="44034" name="Manter sobre as outras janelas"/>
@@ -912,25 +912,27 @@
 					<Item id="6109" name="Esmaecer abas inativas"/>
 					<Item id="6110" name="Destacar topo da aba ativa"/>
 
-					<Item id="6111" name="Exibir barra de estado"/>
-					<Item id="6112" name="Habilitar o botão fechar em cada aba"/>
+					<Item id="6112" name="Mostrar o botão fechar em cada aba"/>
 					<Item id="6113" name="Fechar documento com duplo clique"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Multilinhas"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Sair ao fechar a última aba"/>
+					<Item id="6128" name="Ícones alternativos"/>
+
+					<Item id="6133" name="Barra de Status"/>
+					<Item id="6134" name="Ocultar"/>
 
 					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Ocultar (use Alt ou F10 para alternar)"/>
+					<Item id="6122" name="Ocultar barra de menus (use Alt ou F10 para alternar)"/>
 					<Item id="6132" name="Esconder atalhos à direita ＋ ▼ ✕ da barra de menus (é necessário reiniciar o Notepad++)"/>
-					<Item id="6123" name="Idioma"/>
 
-					<Item id="6128" name="Ícones alternativos"/>
+					<Item id="6123" name="Localização"/>
 				</Global>
 				<Scintillas title="Edição">
 					<Item id="6216" name="Configurações do cursor"/>
-					<Item id="6217" name="Largura :"/>
-					<Item id="6219" name="Veloc. piscada :"/>
+					<Item id="6217" name="Largura:"/>
+					<Item id="6219" name="Veloc. piscada:"/>
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Tornar nível atual de comandos de expansão/recolhimento chaveáveis"/>
@@ -948,7 +950,7 @@
 					<Item id="6652" name="Nenhum"/>
 					<Item id="6653" name="Destacar fundo"/>
 					<Item id="6654" name="Enquadrado"/>
-					<Item id="6655" name="Largura"/>
+					<Item id="6655" name="Largura:"/>
 					<Item id="6247" name="Fim de Linha (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Padrão"/>
 					<Item id="6249" name="Texto comum"/>
@@ -957,7 +959,7 @@
 					<Item id="6254" name="Abreviação"/>
 					<Item id="6255" name="Ponto de Código"/>
 					<Item id="6256" name="Cor Personalizada"/>
-					<Item id="6258" name="Aplicar para caracteres C0, C1 e EOL Unicode"/>
+					<Item id="6258" name="Aplicar para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
 				</Scintillas>
 
 				<DarkMode title="Modo Escuro">
@@ -1027,6 +1029,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 					<Item id="6411" name="Linguagem padrão :"/>
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar ao abrir arquivos ANSI"/>
+					<Item id="6432" name="Sempre abrir um novo documento ao iniciar"/>
 				</NewDoc>
 
 				<DefaultDir title="Diretório padrão">
@@ -1280,15 +1283,15 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 			<ColumnEditor title="Editor de coluna">
 				<Item id="2023" name="Texto para inserir"/>
 				<Item id="2033" name="Número para inserir"/>
-				<Item id="2030" name="Número inicial :"/>
-				<Item id="2031" name="Incrementar em :"/>
-				<Item id="2038" name="&amp;Preenchimento à Esquerda :"/>
+				<Item id="2030" name="Número inicial:"/>
+				<Item id="2031" name="Incrementar em:"/>
+				<Item id="2038" name="&amp;Preenchimento à Esquerda:"/>
 				<ComboBox id="2039">
 					<Element name="Nada"/>
 					<Element name="Zeros"/>
 					<Element name="Espaços"/>
 				</ComboBox>
-				<Item id="2036" name="Repetir :"/>
+				<Item id="2036" name="Repetir:"/>
 				<Item id="2032" name="Formato"/>
 				<Item id="2024" name="&amp;Decimal"/>
 				<Item id="2025" name="&amp;Octal"/>

@@ -2552,15 +2552,17 @@ namespace NppDarkMode
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags)
 	{
 		// defined in Notepad_plus_msgs.h
-		//constexpr ULONG dmfSetParent =          0x00000001UL;
-		//constexpr ULONG dmfSetChildren =        0x00000002UL;
-		//constexpr ULONG dmfSubclassChildren =   0x00000004UL;
+		//constexpr ULONG dmfSubclassParent =     0x00000001UL;
+		//constexpr ULONG dmfSubclassChildren =   0x00000002UL;
+		//constexpr ULONG dmfSetThemeChildren =   0x00000004UL;
 		//constexpr ULONG dmfSetTitleBar =        0x00000008UL;
-		//constexpr ULONG dmfSetExplorerTheme =   0x00000010UL;
-		//constexpr ULONG dmfMainParent = dmfSetParent | dmfSetChildren | dmfSubclassChildren | dmfSetTitleBar;
-		//constexpr ULONG dmfRequiredMask = dmfSetParent | dmfSetChildren | dmfSetTitleBar | dmfSetExplorerTheme;
-		//constexpr ULONG dmfAllMask = dmfSetParent | dmfSetChildren | dmfSubclassChildren | dmfSetTitleBar;
+		//constexpr ULONG dmfSetThemeDirectly =   0x00000010UL;
+		//constexpr ULONG dmfAfterInitParent =    dmfSubclassParent | dmfSubclassChildren | dmfSetTitleBar; // 0x000000BUL
+		//constexpr ULONG dmfHandleChangeParent = dmfSetThemeChildren | dmfSetTitleBar;                     // 0x000000CUL
 
+		constexpr ULONG dmfRequiredMask = dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
+		//constexpr ULONG dmfAllMask = dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
+		
 		if (hwnd == nullptr || (dmFlags & dmfRequiredMask) == 0)
 		{
 			return 0;
@@ -2572,19 +2574,25 @@ namespace NppDarkMode
 
 		ULONG result = 0UL;
 
-		if (dmfBitwiseCheck(dmfSetParent))
+		if (dmfBitwiseCheck(dmfSubclassParent))
 		{
 			const bool success = ::SetWindowSubclass(hwnd, PluginDockWindowSubclass, g_pluginDockWindowSubclassID, 0) == TRUE;
 			if (success)
 			{
-				result |= dmfSetParent;
+				result |= dmfSubclassParent;
 			}
 		}
 
-		if (dmfBitwiseCheck(dmfSetChildren))
+		const bool subclassChildren = dmfBitwiseCheck(dmfSubclassChildren);
+		if (dmfBitwiseCheck(dmfSetThemeChildren) || subclassChildren)
 		{
-			NppDarkMode::autoSubclassAndThemeChildControls(hwnd, dmfBitwiseCheck(dmfSubclassChildren), g_isAtLeastWindows10);
-			result |= dmfSetChildren;
+			NppDarkMode::autoSubclassAndThemeChildControls(hwnd, subclassChildren, g_isAtLeastWindows10);
+			result |= dmfSetThemeChildren;
+
+			if (subclassChildren)
+			{
+				result |= dmfSubclassChildren;
+			}
 		}
 
 		if (dmfBitwiseCheck(dmfSetTitleBar))
@@ -2597,12 +2605,12 @@ namespace NppDarkMode
 			}
 		}
 
-		if (dmfBitwiseCheck(dmfSetExplorerTheme))
+		if (dmfBitwiseCheck(dmfSetThemeDirectly))
 		{
 			if (NppDarkMode::isWindows10())
 			{
 				NppDarkMode::setDarkExplorerTheme(hwnd);
-				result |= dmfSetExplorerTheme;
+				result |= dmfSetThemeDirectly;
 			}
 		}
 

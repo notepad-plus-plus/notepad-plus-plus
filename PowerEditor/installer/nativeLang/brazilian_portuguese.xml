@@ -1280,15 +1280,15 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 			<ColumnEditor title="Editor de coluna">
 				<Item id="2023" name="Texto para inserir"/>
 				<Item id="2033" name="Número para inserir"/>
-				<Item id="2030" name="Número inicial :"/>
-				<Item id="2031" name="Incrementar em :"/>
-				<Item id="2038" name="&amp;Preenchimento à Esquerda :"/>
+				<Item id="2030" name="Número inicial:"/>
+				<Item id="2031" name="Incrementar em:"/>
+				<Item id="2038" name="&amp;Preenchimento à Esquerda:"/>
 				<ComboBox id="2039">
 					<Element name="Nada"/>
 					<Element name="Zeros"/>
 					<Element name="Espaços"/>
 				</ComboBox>
-				<Item id="2036" name="Repetir :"/>
+				<Item id="2036" name="Repetir:"/>
 				<Item id="2032" name="Formato"/>
 				<Item id="2024" name="&amp;Decimal"/>
 				<Item id="2025" name="&amp;Octal"/>

@@ -574,7 +574,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
 		constexpr ULONG dmfSubclassChildren =   0x00000002UL;
 		// Will apply theme on buttons with style:
-		// BS_PUSHLIKE, BS_PUSHBUTTON, BS_DEFPUSHBUTTON, BS_SPLITBUTTON and BS_DEFSPLITBUTTON.
+		// BS_PUSHLIKE, BS_PUSHBUTTON, BS_DEFPUSHBUTTON, BS_SPLITBUTTON or BS_DEFSPLITBUTTON.
 		// Will apply theme for scrollbars on edit, listbox and rich edit controls.
 		// Will apply theme for tooltips on listview, treeview and toolbar buttons.
 		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
@@ -592,11 +592,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		constexpr ULONG dmfSetThemeDirectly =   0x00000010UL;
 
 		// Standard flags for main parent after its children are initialized.
-		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
-		// Should be used only one time on main control/window after initializations of all its children controls.
+		// Check individual flags for more information.
 		// 0x000000BUL
 		constexpr ULONG dmfAfterInitParent = dmfSubclassParent | dmfSubclassChildren | dmfSetTitleBar;
 		// Standard flags for main parent usually used in NPPN_DARKMODECHANGED.
+		// Check individual flags for more information.
 		// 0x000000CUL
 		constexpr ULONG dmfHandleChangeParent = dmfSetThemeChildren | dmfSetTitleBar;
 

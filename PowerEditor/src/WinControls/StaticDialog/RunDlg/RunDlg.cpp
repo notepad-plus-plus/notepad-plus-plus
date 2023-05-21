@@ -294,6 +294,16 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 			return TRUE;
 		}
 
+		case WM_CHANGEUISTATE:
+		{
+			if (NppDarkMode::isEnabled() && !NppDarkMode::isWindows11())
+			{
+				redrawDlgItem(IDC_MAINTEXT_STATIC);
+			}
+
+			return FALSE;
+		}
+
 		case WM_COMMAND:
 		{
 			switch (wParam)

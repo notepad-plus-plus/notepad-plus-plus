@@ -1,1367 +1,1369 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="8.5.2">
-        <Menu>
-            <Main>
-                <!-- Main Menu Entries -->
-                <Entries>
-                    <Item menuId="file" name="ファイル(&amp;F)"/>
-                    <Item menuId="edit" name="編集(&amp;E)"/>
-                    <Item menuId="search" name="検索(&amp;S)"/>
-                    <Item menuId="view" name="表示(&amp;V)"/>
-                    <Item menuId="encoding" name="エンコード(&amp;N)"/>
-                    <Item menuId="language" name="言語(&amp;L)"/>
-                    <Item menuId="settings" name="設定(&amp;T)"/>
-                    <Item menuId="tools" name="ツール(&amp;O)"/>
-                    <Item menuId="macro" name="マクロ(&amp;M)"/>
-                    <Item menuId="run" name="実行(&amp;R)"/>
-                    <Item menuId="Plugins" name="プラグイン(&amp;P)"/>
-                    <Item menuId="Window" name="ウィンドウ管理(&amp;W)"/>
-                </Entries>
-                <!-- Sub Menu Entries -->
-                <SubEntries>
-                    <Item subMenuId="file-openFolder" name="このファイルのあるフォルダーを開く(&amp;F)"/>
-                    <Item subMenuId="file-closeMore" name="複数のファイルを閉じる(&amp;M)"/>
-                    <Item subMenuId="file-recentFiles" name="最近使用したファイル(&amp;R)"/>
-                    <Item subMenuId="edit-insert" name="挿入"/>
-                    <Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー(&amp;Y)"/>
-                    <Item subMenuId="edit-indent" name="インデント(&amp;I)"/>
-                    <Item subMenuId="edit-convertCaseTo" name="大文字/小文字変換(&amp;V)"/>
-                    <Item subMenuId="edit-lineOperations" name="行の操作(&amp;L)"/>
-                    <Item subMenuId="edit-comment" name="コメント化/解除(&amp;M)"/>
-                    <Item subMenuId="edit-autoCompletion" name="自動補完(&amp;A)"/>
-                    <Item subMenuId="edit-eolConversion" name="改行コード変換(&amp;E)"/>
-                    <Item subMenuId="edit-blankOperations" name="空白文字の操作(&amp;B)"/>
-                    <Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け(&amp;P)"/>
-                    <Item subMenuId="edit-onSelection" name="選択した文字列を(&amp;O)"/>
-                    <Item subMenuId="search-markAll" name="選択した語をすべて色づけ(&amp;A)"/>
-                    <Item subMenuId="search-markOne" name="選択した語を一つだけ色づけ(&amp;O)"/>
-                    <Item subMenuId="search-unmarkAll" name="色づけを解除"/>
-                    <Item subMenuId="search-jumpUp" name="前の色づけ/マークに移動(&amp;J)"/>
-                    <Item subMenuId="search-jumpDown" name="次の色づけ/マークに移動(&amp;D)"/>
-                    <Item subMenuId="search-copyStyledText" name="色づけ/マークした文字列をコピー(&amp;C)"/>
-                    <Item subMenuId="search-bookmark" name="ブックマーク(&amp;B)"/>
-                    <Item subMenuId="view-currentFileIn" name="ブラウザーで開く"/>
-                    <Item subMenuId="view-showSymbol" name="制御文字の表示"/>
-                    <Item subMenuId="view-zoom" name="ズーム"/>
-                    <Item subMenuId="view-moveCloneDocument" name="文書を移動/複製"/>
-                    <Item subMenuId="view-tab" name="タブ"/>
-                    <Item subMenuId="view-collapseLevel" name="指定レベルで畳む"/>
-                    <Item subMenuId="view-uncollapseLevel" name="指定レベルで展開"/>
-                    <Item subMenuId="view-project" name="プロジェクト"/>
-                    <Item subMenuId="encoding-characterSets" name="文字セット"/>
-                    <Item subMenuId="encoding-arabic" name="アラビア語"/>
-                    <Item subMenuId="encoding-baltic" name="バルト語"/>
-                    <Item subMenuId="encoding-celtic" name="ケルト語"/>
-                    <Item subMenuId="encoding-cyrillic" name="キリル語"/>
-                    <Item subMenuId="encoding-centralEuropean" name="中央ヨーロッパ語圏"/>
-                    <Item subMenuId="encoding-chinese" name="中国語"/>
-                    <Item subMenuId="encoding-easternEuropean" name="東ヨーロッパ語圏"/>
-                    <Item subMenuId="encoding-greek" name="ギリシャ語"/>
-                    <Item subMenuId="encoding-hebrew" name="ヘブライ語"/>
-                    <Item subMenuId="encoding-japanese" name="日本語"/>
-                    <Item subMenuId="encoding-korean" name="韓国語"/>
-                    <Item subMenuId="encoding-northEuropean" name="北ヨーロッパ語圏"/>
-                    <Item subMenuId="encoding-thai" name="タイ語"/>
-                    <Item subMenuId="encoding-turkish" name="トルコ語"/>
-                    <Item subMenuId="encoding-westernEuropean" name="西ヨーロッパ語圏"/>
-                    <Item subMenuId="encoding-vietnamese" name="ベトナム語"/>
-                    <Item subMenuId="language-userDefinedLanguage" name="ユーザー定義"/>
-                    <Item subMenuId="settings-import" name="インポート"/>
-                    <Item subMenuId="tools-md5" name="MD5"/>
-                    <Item subMenuId="tools-sha256" name="SHA-256"/>
-                    <Item subMenuId="window-sortby" name="並べ替え"/>
-                </SubEntries>
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.3">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item menuId="file" name="ファイル(&amp;F)"/>
+					<Item menuId="edit" name="編集(&amp;E)"/>
+					<Item menuId="search" name="検索(&amp;S)"/>
+					<Item menuId="view" name="表示(&amp;V)"/>
+					<Item menuId="encoding" name="エンコード(&amp;N)"/>
+					<Item menuId="language" name="言語(&amp;L)"/>
+					<Item menuId="settings" name="設定(&amp;T)"/>
+					<Item menuId="tools" name="ツール(&amp;O)"/>
+					<Item menuId="macro" name="マクロ(&amp;M)"/>
+					<Item menuId="run" name="実行(&amp;R)"/>
+					<Item menuId="Plugins" name="プラグイン(&amp;P)"/>
+					<Item menuId="Window" name="ウィンドウ管理(&amp;W)"/>
+				</Entries>
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item subMenuId="file-openFolder" name="このファイルのあるフォルダーを開く(&amp;F)"/>
+					<Item subMenuId="file-closeMore" name="複数のファイルを閉じる(&amp;M)"/>
+					<Item subMenuId="file-recentFiles" name="最近使用したファイル(&amp;R)"/>
+					<Item subMenuId="edit-insert" name="挿入"/>
+					<Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー(&amp;Y)"/>
+					<Item subMenuId="edit-indent" name="インデント(&amp;I)"/>
+					<Item subMenuId="edit-convertCaseTo" name="大文字/小文字変換(&amp;V)"/>
+					<Item subMenuId="edit-lineOperations" name="行の操作(&amp;L)"/>
+					<Item subMenuId="edit-comment" name="コメント化/解除(&amp;M)"/>
+					<Item subMenuId="edit-autoCompletion" name="自動補完(&amp;A)"/>
+					<Item subMenuId="edit-eolConversion" name="改行コード変換(&amp;E)"/>
+					<Item subMenuId="edit-blankOperations" name="空白文字の操作(&amp;B)"/>
+					<Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け(&amp;P)"/>
+					<Item subMenuId="edit-onSelection" name="選択した文字列を(&amp;O)"/>
+					<Item subMenuId="search-markAll" name="選択した語をすべて色づけ(&amp;A)"/>
+					<Item subMenuId="search-markOne" name="選択した語を一つだけ色づけ(&amp;O)"/>
+					<Item subMenuId="search-unmarkAll" name="色づけを解除"/>
+					<Item subMenuId="search-jumpUp" name="前の色づけ/マークに移動(&amp;J)"/>
+					<Item subMenuId="search-jumpDown" name="次の色づけ/マークに移動(&amp;D)"/>
+					<Item subMenuId="search-copyStyledText" name="色づけ/マークした文字列をコピー(&amp;C)"/>
+					<Item subMenuId="search-bookmark" name="ブックマーク(&amp;B)"/>
+					<Item subMenuId="view-currentFileIn" name="ブラウザーで開く"/>
+					<Item subMenuId="view-showSymbol" name="制御文字の表示"/>
+					<Item subMenuId="view-zoom" name="ズーム"/>
+					<Item subMenuId="view-moveCloneDocument" name="文書を移動/複製"/>
+					<Item subMenuId="view-tab" name="タブ"/>
+					<Item subMenuId="view-collapseLevel" name="指定レベルで畳む"/>
+					<Item subMenuId="view-uncollapseLevel" name="指定レベルで展開"/>
+					<Item subMenuId="view-project" name="プロジェクト"/>
+					<Item subMenuId="encoding-characterSets" name="文字セット"/>
+					<Item subMenuId="encoding-arabic" name="アラビア語"/>
+					<Item subMenuId="encoding-baltic" name="バルト語"/>
+					<Item subMenuId="encoding-celtic" name="ケルト語"/>
+					<Item subMenuId="encoding-cyrillic" name="キリル語"/>
+					<Item subMenuId="encoding-centralEuropean" name="中央ヨーロッパ語圏"/>
+					<Item subMenuId="encoding-chinese" name="中国語"/>
+					<Item subMenuId="encoding-easternEuropean" name="東ヨーロッパ語圏"/>
+					<Item subMenuId="encoding-greek" name="ギリシャ語"/>
+					<Item subMenuId="encoding-hebrew" name="ヘブライ語"/>
+					<Item subMenuId="encoding-japanese" name="日本語"/>
+					<Item subMenuId="encoding-korean" name="韓国語"/>
+					<Item subMenuId="encoding-northEuropean" name="北ヨーロッパ語圏"/>
+					<Item subMenuId="encoding-thai" name="タイ語"/>
+					<Item subMenuId="encoding-turkish" name="トルコ語"/>
+					<Item subMenuId="encoding-westernEuropean" name="西ヨーロッパ語圏"/>
+					<Item subMenuId="encoding-vietnamese" name="ベトナム語"/>
+					<Item subMenuId="language-userDefinedLanguage" name="ユーザー定義"/>
+					<Item subMenuId="settings-import" name="インポート"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="window-sortby" name="並べ替え"/>
+				</SubEntries>
 
-                <!-- all menu item -->
-                <Commands>
-                    <Item id="41001" name="新規作成(&amp;N)"/>
-                    <Item id="41002" name="開く(&amp;O)..."/>
-                    <Item id="41019" name="エクスプローラー"/>
-                    <Item id="41020" name="コマンドプロンプト"/>
-                    <Item id="41025" name="フォルダーをワークスペースとして開く"/>
-                    <Item id="41003" name="閉じる(&amp;C)"/>
-                    <Item id="41004" name="すべて閉じる(&amp;E)"/>
-                    <Item id="41005" name="現在の文書以外を閉じる"/>
-                    <Item id="41009" name="左をすべて閉じる"/>
-                    <Item id="41018" name="右をすべて閉じる"/>
-                    <Item id="41024" name="未変更をすべて閉じる"/>
-                    <Item id="41006" name="上書き保存(&amp;S)"/>
-                    <Item id="41007" name="すべて保存(&amp;E)"/>
-                    <Item id="41008" name="名前を付けて保存(&amp;A)..."/>
-                    <Item id="41010" name="印刷(&amp;P)..."/>
-                    <Item id="1001"  name="今すぐ印刷(&amp;W)"/>
-                    <Item id="41011" name="終了(&amp;X)"/>
-                    <Item id="41012" name="セッションを読み込む(&amp;I)..."/>
-                    <Item id="41013" name="セッションを保存(&amp;I)..."/>
-                    <Item id="41014" name="再読み込み(&amp;L)"/>
-                    <Item id="41015" name="複製を別名で保存(&amp;Y)..."/>
-                    <Item id="41016" name="ごみ箱に移動(&amp;B)"/>
-                    <Item id="41017" name="名前の変更(&amp;R)..."/>
-                    <Item id="41021" name="直前に閉じたファイルを開く"/>
-                    <Item id="41022" name="フォルダーをワークスペースとして開く(&amp;W)..."/>
-                    <Item id="41023" name="既定のアプリで開く(&amp;D)"/>
-                    <Item id="42001" name="切り取り(&amp;T)"/>
-                    <Item id="42002" name="コピー(&amp;C)"/>
-                    <Item id="42003" name="元に戻す(&amp;U)"/>
-                    <Item id="42004" name="やり直し(&amp;R)"/>
-                    <Item id="42005" name="貼り付け(&amp;P)"/>
-                    <Item id="42006" name="削除(&amp;D)"/>
-                    <Item id="42007" name="すべて選択(&amp;S)"/>
-                    <Item id="42020" name="選択を開始/終了(&amp;S)"/>
-                    <Item id="42089" name="矩形モードで選択を開始/終了"/>
-                    <Item id="42084" name="日時(短い形式)"/>
-                    <Item id="42085" name="日時(長い形式)"/>
-                    <Item id="42086" name="日時(カスタム)"/>
-                    <Item id="42008" name="インデントを増やす"/>
-                    <Item id="42009" name="インデントを減らす"/>
-                    <Item id="42010" name="カーソル行を複製"/>
-                    <Item id="42079" name="重複行を削除"/>
-                    <Item id="42077" name="連続する重複行を削除"/>
-                    <Item id="42012" name="折り返し位置で分割"/>
-                    <Item id="42013" name="選択行を連結"/>
-                    <Item id="42014" name="上の行と入れ替え"/>
-                    <Item id="42015" name="下の行と入れ替え"/>
-                    <Item id="42059" name="選択行を　辞書順で昇順ソート"/>
-                    <Item id="42060" name="選択行を　辞書順で降順ソート"/>
-                    <Item id="42080" name="選択行を　辞書順で昇順ソート(大文字小文字を無視)"/>
-                    <Item id="42081" name="選択行を　辞書順で降順ソート(大文字小文字を無視)"/>
-                    <Item id="42061" name="選択行を　整数として昇順ソート"/>
-                    <Item id="42062" name="選択行を　整数として降順ソート"/>
-                    <Item id="42063" name="選択行を　実数(コンマが小数点)として昇順ソート"/>
-                    <Item id="42064" name="選択行を　実数(コンマが小数点)として降順ソート"/>
-                    <Item id="42065" name="選択行を　実数(ピリオドが小数点)として昇順ソート"/>
-                    <Item id="42066" name="選択行を　実数(ピリオドが小数点)として降順ソート"/>
-                    <Item id="42083" name="選択行を　上下逆の並びにする"/>
-                    <Item id="42078" name="選択行を　ランダムに入れ替える"/>
-                    <Item id="42016" name="大文字に変換(&amp;U)"/>
-                    <Item id="42017" name="小文字に変換(&amp;L)"/>
-                    <Item id="42067" name="語頭を大文字、他は小文字(Proper Case 強制)(&amp;P)"/>
-                    <Item id="42068" name="語頭を大文字、他はそのまま(Proper Case)"/>
-                    <Item id="42069" name="文頭を大文字、他は小文字(Sentence case 強制)(&amp;S)"/>
-                    <Item id="42070" name="文頭を大文字、他はそのまま(Sentence case)"/>
-                    <Item id="42071" name="大文字/小文字を反転する(&amp;I)"/>
-                    <Item id="42072" name="大文字/小文字をランダムにする(&amp;R)"/>
-                    <Item id="42073" name="ファイル名として開く"/>
-                    <Item id="42074" name="エクスプローラーで開く"/>
-                    <Item id="42075" name="インターネットで検索する"/>
-                    <Item id="42076" name="検索エンジンを変更..."/>
-                    <Item id="42018" name="記録開始(&amp;C)"/>
-                    <Item id="42019" name="記録終了(&amp;T)"/>
-                    <Item id="42021" name="再生(&amp;P)"/>
-                    <Item id="42022" name="行コメント化/解除の切り替え"/>
-                    <Item id="42023" name="ブロックコメント化"/>
-                    <Item id="42047" name="ブロックコメント解除"/>
-                    <Item id="42024" name="行末の空白を削除"/>
-                    <Item id="42042" name="行頭の空白を削除"/>
-                    <Item id="42043" name="行頭・行末の空白を削除"/>
-                    <Item id="42044" name="改行コードをスペースに"/>
-                    <Item id="42045" name="行頭・行末の空白を削除し、改行コードをスペースに"/>
-                    <Item id="42046" name="タブをスペースに"/>
-                    <Item id="42054" name="スペースをタブに(すべて)"/>
-                    <Item id="42053" name="スペースをタブに(行頭のみ)"/>
-                    <Item id="42038" name="HTMLコンテンツを貼り付ける"/>
-                    <Item id="42039" name="RTFコンテンツを貼り付ける"/>
-                    <Item id="42048" name="バイナリコンテンツをコピー"/>
-                    <Item id="42049" name="バイナリコンテンツを切り取り"/>
-                    <Item id="42050" name="バイナリコンテンツを貼り付け"/>
-                    <Item id="42082" name="リンクをコピー"/>
-                    <Item id="42037" name="矩形モード..."/>
-                    <Item id="42034" name="矩形編集(&amp;N)..."/>
-                    <Item id="42051" name="文字コード表(&amp;P)"/>
-                    <Item id="42052" name="クリップボード履歴(&amp;H)"/>
-                    <Item id="42025" name="記録したマクロを保存(&amp;S)..."/>
-                    <Item id="42026" name="書字方向を右から左へ"/>
-                    <Item id="42027" name="書字方向を左から右へ"/>
-                    <Item id="42028" name="読み取り専用モード(&amp;S)"/>
-                    <Item id="42029" name="現在の文書のフルパス"/>
-                    <Item id="42030" name="現在の文書のファイル名"/>
-                    <Item id="42031" name="現在の文書のディレクトリ"/>
-                    <Item id="42087" name="すべての文書のファイル名"/>
-                    <Item id="42088" name="すべての文書のフルパス"/>
-                    <Item id="42032" name="マクロを複数回実行(&amp;R)..."/>
-                    <Item id="42033" name="ファイルの読み取り専用を解除"/>
-                    <Item id="42035" name="行コメント化"/>
-                    <Item id="42036" name="行コメント解除"/>
-                    <Item id="42055" name="空行をすべて削除"/>
-                    <Item id="42056" name="空行をすべて削除(空白だけの行も含む)"/>
-                    <Item id="42057" name="現在行の上に空行を挿入"/>
-                    <Item id="42058" name="現在行の下に空行を挿入"/>
-                    <Item id="43001" name="検索(&amp;F)..."/>
-                    <Item id="43002" name="次を検索(&amp;N)"/>
-                    <Item id="43003" name="置換(&amp;R)..."/>
-                    <Item id="43004" name="指定位置へジャンプ(&amp;G)..."/>
-                    <Item id="43005" name="ブックマーク設定/解除の切り替え"/>
-                    <Item id="43006" name="次のブックマークへ"/>
-                    <Item id="43007" name="前のブックマークへ"/>
-                    <Item id="43008" name="すべてのブックマークを解除"/>
-                    <Item id="43018" name="ブックマークした行を切り取り"/>
-                    <Item id="43019" name="ブックマークした行をコピー"/>
-                    <Item id="43020" name="ブックマークした行に貼り付け(置換)"/>
-                    <Item id="43021" name="ブックマークした行を削除"/>
-                    <Item id="43051" name="ブックマークしていない行を削除"/>
-                    <Item id="43050" name="ブックマークを反転"/>
-                    <Item id="43052" name="文字範囲を指定して検索(&amp;E)..."/>
-                    <Item id="43053" name="対応する括弧内を選択(&amp;M)"/>
-                    <Item id="43009" name="対応する括弧へジャンプ(&amp;M)"/>
-                    <Item id="43010" name="前を検索(&amp;P)"/>
-                    <Item id="43011" name="インクリメンタルサーチ(&amp;I)"/>
-                    <Item id="43013" name="複数ファイル内を検索(&amp;L)"/>
-                    <Item id="43014" name="次を検索(カーソル位置の単語:記憶しない)(&amp;V)"/>
-                    <Item id="43015" name="前を検索(カーソル位置の単語:記憶しない)(&amp;V)"/>
-                    <Item id="43022" name="スタイル1を適用"/>
-                    <Item id="43023" name="スタイル1を解除"/>
-                    <Item id="43024" name="スタイル2を適用"/>
-                    <Item id="43025" name="スタイル2を解除"/>
-                    <Item id="43026" name="スタイル3を適用"/>
-                    <Item id="43027" name="スタイル3を解除"/>
-                    <Item id="43028" name="スタイル4を適用"/>
-                    <Item id="43029" name="スタイル4を解除"/>
-                    <Item id="43030" name="スタイル5を適用"/>
-                    <Item id="43031" name="スタイル5を解除"/>
-                    <Item id="43032" name="すべてのスタイルを解除"/>
-                    <Item id="43033" name="スタイル1"/>
-                    <Item id="43034" name="スタイル2"/>
-                    <Item id="43035" name="スタイル3"/>
-                    <Item id="43036" name="スタイル4"/>
-                    <Item id="43037" name="スタイル5"/>
-                    <Item id="43038" name="マーク"/>
-                    <Item id="43039" name="スタイル1"/>
-                    <Item id="43040" name="スタイル2"/>
-                    <Item id="43041" name="スタイル3"/>
-                    <Item id="43042" name="スタイル4"/>
-                    <Item id="43043" name="スタイル5"/>
-                    <Item id="43044" name="マーク"/>
-                    <Item id="43055" name="スタイル1"/>
-                    <Item id="43056" name="スタイル2"/>
-                    <Item id="43057" name="スタイル3"/>
-                    <Item id="43058" name="スタイル4"/>
-                    <Item id="43059" name="スタイル5"/>
-                    <Item id="43060" name="すべてのスタイル"/>
-                    <Item id="43061" name="マーク"/>
-                    <Item id="43062" name="スタイル1を適用"/>
-                    <Item id="43063" name="スタイル2を適用"/>
-                    <Item id="43064" name="スタイル3を適用"/>
-                    <Item id="43065" name="スタイル4を適用"/>
-                    <Item id="43066" name="スタイル5を適用"/>
-                    <Item id="43045" name="検索結果ウィンドウ(&amp;W)"/>
-                    <Item id="43046" name="次の検索結果(&amp;T)"/>
-                    <Item id="43047" name="前の検索結果(&amp;T)"/>
-                    <Item id="43048" name="次を検索(カーソル位置の単語)(&amp;S)"/>
-                    <Item id="43049" name="前を検索(カーソル位置の単語)(&amp;S)"/>
-                    <Item id="43054" name="マーク(&amp;K)..."/>
-                    <Item id="43501" name="選択した文書を閉じる"/>
-                    <Item id="43502" name="未選択の文書を閉じる"/>
-                    <Item id="43503" name="選択した文書のファイル名をコピー"/>
-                    <Item id="43504" name="選択した文書のフルパスをコピー"/>
-                    <Item id="44009" name="テキスト領域以外を非表示"/>
-                    <Item id="44010" name="すべて畳む"/>
-                    <Item id="44011" name="集中モード"/>
-                    <Item id="44019" name="制御文字をすべて表示"/>
-                    <Item id="44020" name="インデントガイドを表示"/>
-                    <Item id="44022" name="画面端で折り返す"/>
-                    <Item id="44023" name="拡大表示(Ctrl+マウスホイールを上へ)(&amp;I)"/>
-                    <Item id="44024" name="縮小表示(Ctrl+マウスホイールを下へ)(&amp;O)"/>
-                    <Item id="44025" name="半角スペースとタブを表示"/>
-                    <Item id="44026" name="改行コードを表示"/>
-                    <Item id="44029" name="すべて展開する"/>
-                    <Item id="44030" name="カーソル位置のレベルで畳む"/>
-                    <Item id="44031" name="カーソル位置のレベルで展開"/>
-                    <Item id="44049" name="概要..."/>
-                    <Item id="44080" name="文書マップ"/>
-                    <Item id="44070" name="文書一覧"/>
-                    <Item id="44084" name="関数リスト"/>
-                    <Item id="44085" name="ワークスペース フォルダー"/>
-                    <Item id="44086" name="タブ1"/>
-                    <Item id="44087" name="タブ2"/>
-                    <Item id="44088" name="タブ3"/>
-                    <Item id="44089" name="タブ4"/>
-                    <Item id="44090" name="タブ5"/>
-                    <Item id="44091" name="タブ6"/>
-                    <Item id="44092" name="タブ7"/>
-                    <Item id="44093" name="タブ8"/>
-                    <Item id="44094" name="タブ9"/>
-                    <Item id="44095" name="次のタブ"/>
-                    <Item id="44096" name="前のタブ"/>
-                    <Item id="44097" name="ファイル監視(tail -f)"/>
-                    <Item id="44098" name="タブを右へ移動"/>
-                    <Item id="44099" name="タブを左へ移動"/>
-                    <Item id="44110" name="色を外す"/>
-                    <Item id="44111" name="色1をつける"/>
-                    <Item id="44112" name="色2をつける"/>
-                    <Item id="44113" name="色3をつける"/>
-                    <Item id="44114" name="色4をつける"/>
-                    <Item id="44115" name="色5をつける"/>
-                    <Item id="44130" name="非表示文字を表示"/>
-                    <Item id="44032" name="全画面表示"/>
-                    <Item id="44033" name="標準倍率に戻す"/>
-                    <Item id="44034" name="常に手前に表示"/>
-                    <Item id="44035" name="縦スクロールを同期"/>
-                    <Item id="44036" name="横スクロールを同期"/>
-                    <Item id="44041" name="折り返し位置を表示"/>
-                    <Item id="44072" name="別のビューへフォーカス移動"/>
-                    <Item id="44081" name="プロジェクトパネル1"/>
-                    <Item id="44082" name="プロジェクトパネル2"/>
-                    <Item id="44083" name="プロジェクトパネル3"/>
-                    <Item id="45001" name="Windows (CR LF)"/>
-                    <Item id="45002" name="Unix (LF)"/>
-                    <Item id="45003" name="Macintosh (CR)"/>
-                    <Item id="45004" name="ANSI"/>
-                    <Item id="45005" name="UTF-8-BOM"/>
-                    <Item id="45006" name="UTF-16 BE BOM"/>
-                    <Item id="45007" name="UTF-16 LE BOM"/>
-                    <Item id="45008" name="UTF-8"/>
-                    <Item id="45009" name="ANSI に変換"/>
-                    <Item id="45010" name="UTF-8 に変換"/>
-                    <Item id="45011" name="UTF-8-BOM に変換"/>
-                    <Item id="45012" name="UTF-16 BE BOM に変換"/>
-                    <Item id="45013" name="UTF-16 LE BOM に変換"/>
-                    <Item id="45060" name="Big5(繁体字)"/>
-                    <Item id="45061" name="GB2312(簡体字)"/>
-                    <Item id="45054" name="OEM 861: アイスランド語"/>
-                    <Item id="45057" name="OEM 865: ノルウェー語"/>
-                    <Item id="45053" name="OEM 860: ポルトガル語"/>
-                    <Item id="45056" name="OEM 863: フランス語"/>
+				<!-- all menu item -->
+				<Commands>
+					<Item id="41001" name="新規作成(&amp;N)"/>
+					<Item id="41002" name="開く(&amp;O)..."/>
+					<Item id="41019" name="エクスプローラー"/>
+					<Item id="41020" name="コマンドプロンプト"/>
+					<Item id="41025" name="フォルダーをワークスペースとして開く"/>
+					<Item id="41003" name="閉じる(&amp;C)"/>
+					<Item id="41004" name="すべて閉じる(&amp;E)"/>
+					<Item id="41005" name="現在の文書以外を閉じる"/>
+					<Item id="41009" name="左をすべて閉じる"/>
+					<Item id="41018" name="右をすべて閉じる"/>
+					<Item id="41024" name="未変更をすべて閉じる"/>
+					<Item id="41006" name="上書き保存(&amp;S)"/>
+					<Item id="41007" name="すべて保存(&amp;E)"/>
+					<Item id="41008" name="名前を付けて保存(&amp;A)..."/>
+					<Item id="41010" name="印刷(&amp;P)..."/>
+					<Item id="1001" name="今すぐ印刷(&amp;W)"/>
+					<Item id="41011" name="終了(&amp;X)"/>
+					<Item id="41012" name="セッションを読み込む(&amp;I)..."/>
+					<Item id="41013" name="セッションを保存(&amp;I)..."/>
+					<Item id="41014" name="再読み込み(&amp;L)"/>
+					<Item id="41015" name="複製を別名で保存(&amp;Y)..."/>
+					<Item id="41016" name="ごみ箱に移動(&amp;B)"/>
+					<Item id="41017" name="名前の変更(&amp;R)..."/>
+					<Item id="41021" name="直前に閉じたファイルを開く"/>
+					<Item id="41022" name="フォルダーをワークスペースとして開く(&amp;W)..."/>
+					<Item id="41023" name="既定のアプリで開く(&amp;D)"/>
+					<Item id="42001" name="切り取り(&amp;T)"/>
+					<Item id="42002" name="コピー(&amp;C)"/>
+					<Item id="42003" name="元に戻す(&amp;U)"/>
+					<Item id="42004" name="やり直し(&amp;R)"/>
+					<Item id="42005" name="貼り付け(&amp;P)"/>
+					<Item id="42006" name="削除(&amp;D)"/>
+					<Item id="42007" name="すべて選択(&amp;S)"/>
+					<Item id="42020" name="選択を開始/終了(&amp;S)"/>
+					<Item id="42089" name="矩形モードで選択を開始/終了"/>
+					<Item id="42084" name="日時(短い形式)"/>
+					<Item id="42085" name="日時(長い形式)"/>
+					<Item id="42086" name="日時(カスタム)"/>
+					<Item id="42008" name="インデントを増やす"/>
+					<Item id="42009" name="インデントを減らす"/>
+					<Item id="42010" name="カーソル行を複製"/>
+					<Item id="42079" name="重複行を削除"/>
+					<Item id="42077" name="連続する重複行を削除"/>
+					<Item id="42012" name="折り返し位置で分割"/>
+					<Item id="42013" name="選択行を連結"/>
+					<Item id="42014" name="上の行と入れ替え"/>
+					<Item id="42015" name="下の行と入れ替え"/>
+					<Item id="42059" name="選択行を　辞書順で昇順ソート"/>
+					<Item id="42060" name="選択行を　辞書順で降順ソート"/>
+					<Item id="42080" name="選択行を　辞書順で昇順ソート(大文字小文字を無視)"/>
+					<Item id="42081" name="選択行を　辞書順で降順ソート(大文字小文字を無視)"/>
+					<Item id="42061" name="選択行を　整数として昇順ソート"/>
+					<Item id="42062" name="選択行を　整数として降順ソート"/>
+					<Item id="42063" name="選択行を　実数(コンマが小数点)として昇順ソート"/>
+					<Item id="42064" name="選択行を　実数(コンマが小数点)として降順ソート"/>
+					<Item id="42065" name="選択行を　実数(ピリオドが小数点)として昇順ソート"/>
+					<Item id="42066" name="選択行を　実数(ピリオドが小数点)として降順ソート"/>
+					<Item id="42083" name="選択行を　上下逆の並びにする"/>
+					<Item id="42078" name="選択行を　ランダムに入れ替える"/>
+					<Item id="42016" name="大文字に変換(&amp;U)"/>
+					<Item id="42017" name="小文字に変換(&amp;L)"/>
+					<Item id="42067" name="語頭を大文字、他は小文字(Proper Case 強制)(&amp;P)"/>
+					<Item id="42068" name="語頭を大文字、他はそのまま(Proper Case)"/>
+					<Item id="42069" name="文頭を大文字、他は小文字(Sentence case 強制)(&amp;S)"/>
+					<Item id="42070" name="文頭を大文字、他はそのまま(Sentence case)"/>
+					<Item id="42071" name="大文字/小文字を反転する(&amp;I)"/>
+					<Item id="42072" name="大文字/小文字をランダムにする(&amp;R)"/>
+					<Item id="42073" name="ファイル名として開く"/>
+					<Item id="42074" name="エクスプローラーで開く"/>
+					<Item id="42075" name="インターネットで検索する"/>
+					<Item id="42076" name="検索エンジンを変更..."/>
+					<Item id="42018" name="記録開始(&amp;C)"/>
+					<Item id="42019" name="記録終了(&amp;T)"/>
+					<Item id="42021" name="再生(&amp;P)"/>
+					<Item id="42022" name="行コメント化/解除の切り替え"/>
+					<Item id="42023" name="ブロックコメント化"/>
+					<Item id="42047" name="ブロックコメント解除"/>
+					<Item id="42024" name="行末の空白を削除"/>
+					<Item id="42042" name="行頭の空白を削除"/>
+					<Item id="42043" name="行頭・行末の空白を削除"/>
+					<Item id="42044" name="改行コードをスペースに"/>
+					<Item id="42045" name="行頭・行末の空白を削除し、改行コードをスペースに"/>
+					<Item id="42046" name="タブをスペースに"/>
+					<Item id="42054" name="スペースをタブに(すべて)"/>
+					<Item id="42053" name="スペースをタブに(行頭のみ)"/>
+					<Item id="42038" name="HTMLコンテンツを貼り付ける"/>
+					<Item id="42039" name="RTFコンテンツを貼り付ける"/>
+					<Item id="42048" name="バイナリコンテンツをコピー"/>
+					<Item id="42049" name="バイナリコンテンツを切り取り"/>
+					<Item id="42050" name="バイナリコンテンツを貼り付け"/>
+					<Item id="42082" name="リンクをコピー"/>
+					<Item id="42037" name="矩形モード..."/>
+					<Item id="42034" name="矩形編集(&amp;N)..."/>
+					<Item id="42051" name="文字コード表(&amp;P)"/>
+					<Item id="42052" name="クリップボード履歴(&amp;H)"/>
+					<Item id="42025" name="記録したマクロを保存(&amp;S)..."/>
+					<Item id="42026" name="書字方向を右から左へ"/>
+					<Item id="42027" name="書字方向を左から右へ"/>
+					<Item id="42028" name="読み取り専用モード(&amp;S)"/>
+					<Item id="42029" name="現在の文書のフルパス"/>
+					<Item id="42030" name="現在の文書のファイル名"/>
+					<Item id="42031" name="現在の文書のディレクトリ"/>
+					<Item id="42087" name="すべての文書のファイル名"/>
+					<Item id="42088" name="すべての文書のフルパス"/>
+					<Item id="42032" name="マクロを複数回実行(&amp;R)..."/>
+					<Item id="42033" name="ファイルの読み取り専用を解除"/>
+					<Item id="42035" name="行コメント化"/>
+					<Item id="42036" name="行コメント解除"/>
+					<Item id="42055" name="空行をすべて削除"/>
+					<Item id="42056" name="空行をすべて削除(空白だけの行も含む)"/>
+					<Item id="42057" name="現在行の上に空行を挿入"/>
+					<Item id="42058" name="現在行の下に空行を挿入"/>
+					<Item id="43001" name="検索(&amp;F)..."/>
+					<Item id="43002" name="次を検索(&amp;N)"/>
+					<Item id="43003" name="置換(&amp;R)..."/>
+					<Item id="43004" name="指定位置へジャンプ(&amp;G)..."/>
+					<Item id="43005" name="ブックマーク設定/解除の切り替え"/>
+					<Item id="43006" name="次のブックマークへ"/>
+					<Item id="43007" name="前のブックマークへ"/>
+					<Item id="43008" name="すべてのブックマークを解除"/>
+					<Item id="43018" name="ブックマークした行を切り取り"/>
+					<Item id="43019" name="ブックマークした行をコピー"/>
+					<Item id="43020" name="ブックマークした行に貼り付け(置換)"/>
+					<Item id="43021" name="ブックマークした行を削除"/>
+					<Item id="43051" name="ブックマークしていない行を削除"/>
+					<Item id="43050" name="ブックマークを反転"/>
+					<Item id="43052" name="文字範囲を指定して検索(&amp;E)..."/>
+					<Item id="43053" name="対応する括弧内を選択(&amp;M)"/>
+					<Item id="43009" name="対応する括弧へジャンプ(&amp;M)"/>
+					<Item id="43010" name="前を検索(&amp;P)"/>
+					<Item id="43011" name="インクリメンタルサーチ(&amp;I)"/>
+					<Item id="43013" name="複数ファイル内を検索(&amp;L)"/>
+					<Item id="43014" name="次を検索(カーソル位置の単語:記憶しない)(&amp;V)"/>
+					<Item id="43015" name="前を検索(カーソル位置の単語:記憶しない)(&amp;V)"/>
+					<Item id="43022" name="スタイル1を適用"/>
+					<Item id="43023" name="スタイル1を解除"/>
+					<Item id="43024" name="スタイル2を適用"/>
+					<Item id="43025" name="スタイル2を解除"/>
+					<Item id="43026" name="スタイル3を適用"/>
+					<Item id="43027" name="スタイル3を解除"/>
+					<Item id="43028" name="スタイル4を適用"/>
+					<Item id="43029" name="スタイル4を解除"/>
+					<Item id="43030" name="スタイル5を適用"/>
+					<Item id="43031" name="スタイル5を解除"/>
+					<Item id="43032" name="すべてのスタイルを解除"/>
+					<Item id="43033" name="スタイル1"/>
+					<Item id="43034" name="スタイル2"/>
+					<Item id="43035" name="スタイル3"/>
+					<Item id="43036" name="スタイル4"/>
+					<Item id="43037" name="スタイル5"/>
+					<Item id="43038" name="マーク"/>
+					<Item id="43039" name="スタイル1"/>
+					<Item id="43040" name="スタイル2"/>
+					<Item id="43041" name="スタイル3"/>
+					<Item id="43042" name="スタイル4"/>
+					<Item id="43043" name="スタイル5"/>
+					<Item id="43044" name="マーク"/>
+					<Item id="43055" name="スタイル1"/>
+					<Item id="43056" name="スタイル2"/>
+					<Item id="43057" name="スタイル3"/>
+					<Item id="43058" name="スタイル4"/>
+					<Item id="43059" name="スタイル5"/>
+					<Item id="43060" name="すべてのスタイル"/>
+					<Item id="43061" name="マーク"/>
+					<Item id="43062" name="スタイル1を適用"/>
+					<Item id="43063" name="スタイル2を適用"/>
+					<Item id="43064" name="スタイル3を適用"/>
+					<Item id="43065" name="スタイル4を適用"/>
+					<Item id="43066" name="スタイル5を適用"/>
+					<Item id="43045" name="検索結果ウィンドウ(&amp;W)"/>
+					<Item id="43046" name="次の検索結果(&amp;T)"/>
+					<Item id="43047" name="前の検索結果(&amp;T)"/>
+					<Item id="43048" name="次を検索(カーソル位置の単語)(&amp;S)"/>
+					<Item id="43049" name="前を検索(カーソル位置の単語)(&amp;S)"/>
+					<Item id="43054" name="マーク(&amp;K)..."/>
+					<Item id="43501" name="選択した文書を閉じる"/>
+					<Item id="43502" name="未選択の文書を閉じる"/>
+					<Item id="43503" name="選択した文書のファイル名をコピー"/>
+					<Item id="43504" name="選択した文書のフルパスをコピー"/>
+					<Item id="44009" name="テキスト領域以外を非表示"/>
+					<Item id="44010" name="すべて畳む"/>
+					<Item id="44011" name="集中モード"/>
+					<Item id="44019" name="制御文字をすべて表示"/>
+					<Item id="44020" name="インデントガイドを表示"/>
+					<Item id="44022" name="画面端で折り返す"/>
+					<Item id="44023" name="拡大表示(Ctrl+マウスホイールを上へ)(&amp;I)"/>
+					<Item id="44024" name="縮小表示(Ctrl+マウスホイールを下へ)(&amp;O)"/>
+					<Item id="44025" name="半角スペースとタブを表示"/>
+					<Item id="44026" name="改行コードを表示"/>
+					<Item id="44029" name="すべて展開する"/>
+					<Item id="44030" name="カーソル位置のレベルで畳む"/>
+					<Item id="44031" name="カーソル位置のレベルで展開"/>
+					<Item id="44049" name="概要..."/>
+					<Item id="44080" name="文書マップ"/>
+					<Item id="44070" name="文書一覧"/>
+					<Item id="44084" name="関数リスト"/>
+					<Item id="44085" name="ワークスペース フォルダー"/>
+					<Item id="44086" name="タブ1"/>
+					<Item id="44087" name="タブ2"/>
+					<Item id="44088" name="タブ3"/>
+					<Item id="44089" name="タブ4"/>
+					<Item id="44090" name="タブ5"/>
+					<Item id="44091" name="タブ6"/>
+					<Item id="44092" name="タブ7"/>
+					<Item id="44093" name="タブ8"/>
+					<Item id="44094" name="タブ9"/>
+					<Item id="44095" name="次のタブ"/>
+					<Item id="44096" name="前のタブ"/>
+					<Item id="44097" name="ファイル監視(tail -f)"/>
+					<Item id="44098" name="タブを右へ移動"/>
+					<Item id="44099" name="タブを左へ移動"/>
+					<Item id="44110" name="色を外す"/>
+					<Item id="44111" name="色1をつける"/>
+					<Item id="44112" name="色2をつける"/>
+					<Item id="44113" name="色3をつける"/>
+					<Item id="44114" name="色4をつける"/>
+					<Item id="44115" name="色5をつける"/>
+					<Item id="44130" name="非表示文字を表示"/>
+					<Item id="44131" name="制御文字とUnicode改行文字を表示"/>
+					<Item id="44032" name="全画面表示"/>
+					<Item id="44033" name="標準倍率に戻す"/>
+					<Item id="44034" name="常に手前に表示"/>
+					<Item id="44035" name="縦スクロールを同期"/>
+					<Item id="44036" name="横スクロールを同期"/>
+					<Item id="44041" name="折り返し位置を表示"/>
+					<Item id="44072" name="別のビューへフォーカス移動"/>
+					<Item id="44081" name="プロジェクトパネル1"/>
+					<Item id="44082" name="プロジェクトパネル2"/>
+					<Item id="44083" name="プロジェクトパネル3"/>
+					<Item id="45001" name="Windows (CR LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8-BOM"/>
+					<Item id="45006" name="UTF-16 BE BOM"/>
+					<Item id="45007" name="UTF-16 LE BOM"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45009" name="ANSI に変換"/>
+					<Item id="45010" name="UTF-8 に変換"/>
+					<Item id="45011" name="UTF-8-BOM に変換"/>
+					<Item id="45012" name="UTF-16 BE BOM に変換"/>
+					<Item id="45013" name="UTF-16 LE BOM に変換"/>
+					<Item id="45060" name="Big5(繁体字)"/>
+					<Item id="45061" name="GB2312(簡体字)"/>
+					<Item id="45054" name="OEM 861: アイスランド語"/>
+					<Item id="45057" name="OEM 865: ノルウェー語"/>
+					<Item id="45053" name="OEM 860: ポルトガル語"/>
+					<Item id="45056" name="OEM 863: フランス語"/>
 
-                    <Item id="10001" name="別のビューへ移動"/>
-                    <Item id="10002" name="別のビューへ複製"/>
-                    <Item id="10003" name="新しいウィンドウへ移動"/>
-                    <Item id="10004" name="新しいウィンドウで開く"/>
+					<Item id="10001" name="別のビューへ移動"/>
+					<Item id="10002" name="別のビューへ複製"/>
+					<Item id="10003" name="新しいウィンドウへ移動"/>
+					<Item id="10004" name="新しいウィンドウで開く"/>
 
-                    <Item id="46033" name="アセンブリ"/>
-                    <Item id="46019" name="MS INIファイル"/>
-                    <Item id="46015" name="MS-DOSスタイル"/>
-                    <Item id="46016" name="標準テキスト"/>
-                    <Item id="46017" name="リソースファイル"/>
+					<Item id="46033" name="アセンブリ"/>
+					<Item id="46019" name="MS INIファイル"/>
+					<Item id="46015" name="MS-DOSスタイル"/>
+					<Item id="46016" name="標準テキスト"/>
+					<Item id="46017" name="リソースファイル"/>
 
-                    <Item id="46001" name="スタイル設定..."/>
-                    <Item id="46250" name="言語を定義..."/>
-                    <Item id="46300" name="言語定義のフォルダーを開く..."/>
-                    <Item id="46301" name="Notepad++ ユーザー言語定義コレクション"/>
-                    <Item id="46180" name="ユーザー定義"/>
-                    <Item id="47000" name="Notepad++について"/>
-                    <Item id="47010" name="コマンドライン引数..."/>
-                    <Item id="47001" name="Notepad++のサイト"/>
-                    <Item id="47002" name="Notepad++のプロジェクトページ"/>
-                    <Item id="47003" name="Notepad++のオンラインマニュアル"/>
-                    <Item id="47004" name="Notepad++のコミュニティ(フォーラム)"/>
-                    <Item id="47012" name="デバッグ情報..."/>
-                    <Item id="47005" name="プラグインを探す"/>
-                    <Item id="47006" name="Notepad++をアップデート"/>
-                    <Item id="47009" name="アップデーターのプロキシを設定..."/>
-                    <Item id="48005" name="プラグインをインポート..."/>
-                    <Item id="48006" name="テーマをインポート..."/>
-                    <Item id="48018" name="コンテキストメニューを編集"/>
-                    <Item id="48009" name="ショートカット管理..."/>
-                    <Item id="48011" name="環境設定..."/>
-                    <Item id="48014" name="プラグインフォルダーを開く..."/>
-                    <Item id="48015" name="プラグイン管理..."/>
-                    <Item id="48501" name="生成..."/>
-                    <Item id="48502" name="ファイルから生成..."/>
-                    <Item id="48503" name="選択範囲から生成しクリップボードへ出力"/>
-                    <Item id="48504" name="生成..."/>
-                    <Item id="48505" name="ファイルから生成..."/>
-                    <Item id="48506" name="選択範囲から生成しクリップボードへ出力"/>
-                    <Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
+					<Item id="46001" name="スタイル設定..."/>
+					<Item id="46250" name="言語を定義..."/>
+					<Item id="46300" name="言語定義のフォルダーを開く..."/>
+					<Item id="46301" name="Notepad++ ユーザー言語定義コレクション"/>
+					<Item id="46180" name="ユーザー定義"/>
+					<Item id="47000" name="Notepad++について"/>
+					<Item id="47010" name="コマンドライン引数..."/>
+					<Item id="47001" name="Notepad++のサイト"/>
+					<Item id="47002" name="Notepad++のプロジェクトページ"/>
+					<Item id="47003" name="Notepad++のオンラインマニュアル"/>
+					<Item id="47004" name="Notepad++のコミュニティ(フォーラム)"/>
+					<Item id="47012" name="デバッグ情報..."/>
+					<Item id="47005" name="プラグインを探す"/>
+					<Item id="47006" name="Notepad++をアップデート"/>
+					<Item id="47009" name="アップデーターのプロキシを設定..."/>
+					<Item id="48005" name="プラグインをインポート..."/>
+					<Item id="48006" name="テーマをインポート..."/>
+					<Item id="48018" name="コンテキストメニューを編集"/>
+					<Item id="48009" name="ショートカット管理..."/>
+					<Item id="48011" name="環境設定..."/>
+					<Item id="48014" name="プラグインフォルダーを開く..."/>
+					<Item id="48015" name="プラグイン管理..."/>
+					<Item id="48501" name="生成..."/>
+					<Item id="48502" name="ファイルから生成..."/>
+					<Item id="48503" name="選択範囲から生成しクリップボードへ出力"/>
+					<Item id="48504" name="生成..."/>
+					<Item id="48505" name="ファイルから生成..."/>
+					<Item id="48506" name="選択範囲から生成しクリップボードへ出力"/>
+					<Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
 
-                    <Item id="50000" name="関数名補完"/>
-                    <Item id="50001" name="単語補完"/>
-                    <Item id="50002" name="関数パラメータのヒント"/>
-                    <Item id="50010" name="前の関数パラメータのヒントへ"/>
-                    <Item id="50011" name="次の関数パラメータのヒントへ"/>
-                    <Item id="50005" name="マクロの記録を開始・停止"/>
-                    <Item id="50006" name="パス補完"/>
-                    <Item id="44042" name="行を隠す"/>
-                    <Item id="42040" name="最近使用したファイルをすべて開く"/>
-                    <Item id="42041" name="最近使用したファイルのリストをクリア"/>
-                    <Item id="48016" name="ショートカットの変更/マクロの削除..."/>
-                    <Item id="48017" name="ショートカットの変更/コマンドの削除..."/>
+					<Item id="50000" name="関数名補完"/>
+					<Item id="50001" name="単語補完"/>
+					<Item id="50002" name="関数パラメータのヒント"/>
+					<Item id="50010" name="前の関数パラメータのヒントへ"/>
+					<Item id="50011" name="次の関数パラメータのヒントへ"/>
+					<Item id="50005" name="マクロの記録を開始・停止"/>
+					<Item id="50006" name="パス補完"/>
+					<Item id="44042" name="行を隠す"/>
+					<Item id="42040" name="最近使用したファイルをすべて開く"/>
+					<Item id="42041" name="最近使用したファイルのリストをクリア"/>
+					<Item id="48016" name="ショートカットの変更/マクロの削除..."/>
+					<Item id="48017" name="ショートカットの変更/コマンドの削除..."/>
 
-                    <Item id="11001" name="ウィンドウ(&amp;W)..."/>
-                    <Item id="11002" name="ファイル名・昇順"/>
-                    <Item id="11003" name="ファイル名・降順"/>
-                    <Item id="11004" name="パス・昇順"/>
-                    <Item id="11005" name="パス・降順"/>
-                    <Item id="11006" name="種類・昇順"/>
-                    <Item id="11007" name="種類・降順"/>
-                    <Item id="11008" name="サイズ・小さい順"/>
-                    <Item id="11009" name="サイズ・大きい順"/>
-                </Commands>
-            </Main>
-            <TabBar>
-                <Item CMDID="41003" name="閉じる"/>
-                <Item CMDID="0" name="複数のタブを閉じる"/>
-                <Item CMDID="41005" name="他のタブをすべて閉じる"/>
-                <Item CMDID="41009" name="左をすべて閉じる"/>
-                <Item CMDID="41018" name="右をすべて閉じる"/>
-                <Item CMDID="41024" name="未変更をすべて閉じる"/>
-                <Item CMDID="41006" name="上書き保存"/>
-                <Item CMDID="41008" name="名前を付けて保存..."/>
-                <Item CMDID="1" name="開く"/>
-                <Item CMDID="41019" name="ファイルの場所をエクスプローラーで開く"/>
-                <Item CMDID="41020" name="ファイルの場所をコマンドプロンプトで開く"/>
-                <Item CMDID="41025" name="ファイルを含むフォルダーをワークスペースとして開く"/>
-                <Item CMDID="41023" name="既定のアプリで開く"/>
-                <Item CMDID="41017" name="名前の変更..."/>
-                <Item CMDID="41016" name="ごみ箱に移動"/>
-                <Item CMDID="41014" name="再読み込み"/>
-                <Item CMDID="41010" name="印刷..."/>
-                <Item CMDID="42028" name="読み取り専用モード"/>
-                <Item CMDID="42033" name="ファイルの読み取り専用を解除"/>
-                <Item CMDID="2" name="クリップボードにコピー"/>
-                <Item CMDID="42029" name="フルパスをコピー"/>
-                <Item CMDID="42030" name="ファイル名をコピー"/>
-                <Item CMDID="42031" name="ディレクトリをコピー"/>
-                <Item CMDID="3" name="文書を移動"/>
-                <Item CMDID="10001" name="別のビューへ移動"/>
-                <Item CMDID="10002" name="別のビューへ複製"/>
-                <Item CMDID="10003" name="新しいウィンドウへ移動"/>
-                <Item CMDID="10004" name="新しいウィンドウで開く"/>
-                <Item CMDID="4" name="タブに色を付ける"/>
-                <Item CMDID="44111" name="色1"/>
-                <Item CMDID="44112" name="色2"/>
-                <Item CMDID="44113" name="色3"/>
-                <Item CMDID="44114" name="色4"/>
-                <Item CMDID="44115" name="色5"/>
-                <Item CMDID="44110" name="色を外す"/>
-            </TabBar>
-            <TrayIcon>
-                <Item id="43101" name="アクティブ化する"/>
-                <Item id="43102" name="新規作成"/>
-                <Item id="43103" name="新規作成して貼り付け"/>
-                <Item id="43104" name="開く..."/>
-                <Item id="43013" name="複数ファイル内を検索..."/>
-                <Item id="43105" name="トレイアイコンを閉じる"/>
-            </TrayIcon>
-        </Menu>
+					<Item id="11001" name="ウィンドウ(&amp;W)..."/>
+					<Item id="11002" name="ファイル名・昇順"/>
+					<Item id="11003" name="ファイル名・降順"/>
+					<Item id="11004" name="パス・昇順"/>
+					<Item id="11005" name="パス・降順"/>
+					<Item id="11006" name="種類・昇順"/>
+					<Item id="11007" name="種類・降順"/>
+					<Item id="11008" name="サイズ・小さい順"/>
+					<Item id="11009" name="サイズ・大きい順"/>
+				</Commands>
+			</Main>
+			<TabBar>
+				<Item CMDID="41003" name="閉じる"/>
+				<Item CMDID="0" name="複数のタブを閉じる"/>
+				<Item CMDID="41005" name="他のタブをすべて閉じる"/>
+				<Item CMDID="41009" name="左をすべて閉じる"/>
+				<Item CMDID="41018" name="右をすべて閉じる"/>
+				<Item CMDID="41024" name="未変更をすべて閉じる"/>
+				<Item CMDID="41006" name="上書き保存"/>
+				<Item CMDID="41008" name="名前を付けて保存..."/>
+				<Item CMDID="1" name="開く"/>
+				<Item CMDID="41019" name="ファイルの場所をエクスプローラーで開く"/>
+				<Item CMDID="41020" name="ファイルの場所をコマンドプロンプトで開く"/>
+				<Item CMDID="41025" name="ファイルを含むフォルダーをワークスペースとして開く"/>
+				<Item CMDID="41023" name="既定のアプリで開く"/>
+				<Item CMDID="41017" name="名前の変更..."/>
+				<Item CMDID="41016" name="ごみ箱に移動"/>
+				<Item CMDID="41014" name="再読み込み"/>
+				<Item CMDID="41010" name="印刷..."/>
+				<Item CMDID="42028" name="読み取り専用モード"/>
+				<Item CMDID="42033" name="ファイルの読み取り専用を解除"/>
+				<Item CMDID="2" name="クリップボードにコピー"/>
+				<Item CMDID="42029" name="フルパスをコピー"/>
+				<Item CMDID="42030" name="ファイル名をコピー"/>
+				<Item CMDID="42031" name="ディレクトリをコピー"/>
+				<Item CMDID="3" name="文書を移動"/>
+				<Item CMDID="10001" name="別のビューへ移動"/>
+				<Item CMDID="10002" name="別のビューへ複製"/>
+				<Item CMDID="10003" name="新しいウィンドウへ移動"/>
+				<Item CMDID="10004" name="新しいウィンドウで開く"/>
+				<Item CMDID="4" name="タブに色を付ける"/>
+				<Item CMDID="44111" name="色1"/>
+				<Item CMDID="44112" name="色2"/>
+				<Item CMDID="44113" name="色3"/>
+				<Item CMDID="44114" name="色4"/>
+				<Item CMDID="44115" name="色5"/>
+				<Item CMDID="44110" name="色を外す"/>
+			</TabBar>
+			<TrayIcon>
+				<Item id="43101" name="アクティブ化する"/>
+				<Item id="43102" name="新規作成"/>
+				<Item id="43103" name="新規作成して貼り付け"/>
+				<Item id="43104" name="開く..."/>
+				<Item id="43013" name="複数ファイル内を検索..."/>
+				<Item id="43105" name="トレイアイコンを閉じる"/>
+			</TrayIcon>
+		</Menu>
 
-        <Dialog>
-            <Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleFindInProjects="プロジェクト内検索" titleMark="マーク">
-                <Item id="1"    name="次を検索"/>
-                <Item id="1722" name="逆方向に検索する"/>
-                <Item id="2"    name="閉じる"/>
-                <Item id="1620" name="検索文字列(&amp;F):"/>
-                <Item id="1603" name="単語単位(&amp;W)"/>
-                <Item id="1604" name="大/小文字を区別(&amp;C)"/>
-                <Item id="1605" name="正規表現(&amp;G)"/>
-                <Item id="1606" name="先頭/末尾から再検索(&amp;P)"/>
-                <Item id="1614" name="数える(&amp;T)"/>
-                <Item id="1615" name="すべてマーク"/>
-                <Item id="1616" name="行をブックマーク(&amp;M)"/>
-                <Item id="1618" name="前回の検索結果をクリア"/>
-                <Item id="1611" name="置換文字列(&amp;L):"/>
-                <Item id="1608" name="置換(&amp;R)"/>
-                <Item id="1609" name="すべて置換(&amp;A)"/>
-                <Item id="1687" name="非選択時"/>
-                <Item id="1688" name="常に"/>
-                <Item id="1632" name="選択内のみ(&amp;I)"/>
-                <Item id="1633" name="すべて解除"/>
-                <Item id="1635" name="すべての文書で置換(&amp;O)"/>
-                <Item id="1636" name="すべての文書から検索(&amp;O)"/>
-                <Item id="1654" name="フィルタ(&amp;S):"/>
-                <Item id="1655" name="ﾃﾞｨﾚｸﾄﾘ(&amp;E):"/>
-                <Item id="1656" name="すべて検索"/>
-                <Item id="1658" name="サブフォルダーも検索(&amp;B)"/>
-                <Item id="1659" name="隠しフォルダーも検索(&amp;H)"/>
-                <Item id="1624" name="検索モード"/>
-                <Item id="1625" name="標準(&amp;N)"/>
-                <Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
-                <Item id="1660" name="ファイル内置換"/>
-                <Item id="1665" name="プロジェクト内置換"/>
-                <Item id="1661" name="現在のフォルダー"/>
-                <Item id="1662" name="プロジェクトパネル 1"/>
-                <Item id="1663" name="プロジェクトパネル 2"/>
-                <Item id="1664" name="プロジェクトパネル 3"/>
-                <Item id="1641" name="現在の文書内で検索"/>
-                <Item id="1686" name="透明化(&amp;Y)"/>
-                <Item id="1703" name="&amp;.は改行と一致"/>
-                <Item id="1721" name="▲"/>
-                <Item id="1723" name="▼ 次を検索"/>
-                <Item id="1725" name="マークした文字列をコピー"/>
-                <Menu>
-                    <Item id="1726" name="⇅ 検索文字列と置換文字列を入れ替える"/>
-                    <Item id="1727" name="⤵ 検索文字列を置換文字列にコピー"/>
-                    <Item id="1728" name="⤴ 置換文字列を検索文字列にコピー"/>
-                </Menu>
-            </Find>
+		<Dialog>
+			<Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleFindInProjects="プロジェクト内検索" titleMark="マーク">
+				<Item id="1" name="次を検索"/>
+				<Item id="1722" name="逆方向に検索する"/>
+				<Item id="2" name="閉じる"/>
+				<Item id="1620" name="検索文字列(&amp;F):"/>
+				<Item id="1603" name="単語単位(&amp;W)"/>
+				<Item id="1604" name="大/小文字を区別(&amp;C)"/>
+				<Item id="1605" name="正規表現(&amp;G)"/>
+				<Item id="1606" name="先頭/末尾から再検索(&amp;P)"/>
+				<Item id="1614" name="数える(&amp;T)"/>
+				<Item id="1615" name="すべてマーク"/>
+				<Item id="1616" name="行をブックマーク(&amp;M)"/>
+				<Item id="1618" name="前回の検索結果をクリア"/>
+				<Item id="1611" name="置換文字列(&amp;L):"/>
+				<Item id="1608" name="置換(&amp;R)"/>
+				<Item id="1609" name="すべて置換(&amp;A)"/>
+				<Item id="1687" name="非選択時"/>
+				<Item id="1688" name="常に"/>
+				<Item id="1632" name="選択内のみ(&amp;I)"/>
+				<Item id="1633" name="すべて解除"/>
+				<Item id="1635" name="すべての文書で置換(&amp;O)"/>
+				<Item id="1636" name="すべての文書から検索(&amp;O)"/>
+				<Item id="1654" name="フィルタ(&amp;S):"/>
+				<Item id="1655" name="ﾃﾞｨﾚｸﾄﾘ(&amp;E):"/>
+				<Item id="1656" name="すべて検索"/>
+				<Item id="1658" name="サブフォルダーも検索(&amp;B)"/>
+				<Item id="1659" name="隠しフォルダーも検索(&amp;H)"/>
+				<Item id="1624" name="検索モード"/>
+				<Item id="1625" name="標準(&amp;N)"/>
+				<Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
+				<Item id="1660" name="ファイル内置換"/>
+				<Item id="1665" name="プロジェクト内置換"/>
+				<Item id="1661" name="現在のフォルダー"/>
+				<Item id="1662" name="プロジェクトパネル 1"/>
+				<Item id="1663" name="プロジェクトパネル 2"/>
+				<Item id="1664" name="プロジェクトパネル 3"/>
+				<Item id="1641" name="現在の文書内で検索"/>
+				<Item id="1686" name="透明化(&amp;Y)"/>
+				<Item id="1703" name="&amp;.は改行と一致"/>
+				<Item id="1721" name="▲"/>
+				<Item id="1723" name="▼ 次を検索"/>
+				<Item id="1725" name="マークした文字列をコピー"/>
+				<Menu>
+					<Item id="1726" name="⇅ 検索文字列と置換文字列を入れ替える"/>
+					<Item id="1727" name="⤵ 検索文字列を置換文字列にコピー"/>
+					<Item id="1728" name="⤴ 置換文字列を検索文字列にコピー"/>
+				</Menu>
+			</Find>
 
-            <IncrementalFind title="">
-                <Item id="1681" name="検索文字列:"/>
-                <Item id="1685" name="大/小文字を区別"/>
-                <Item id="1690" name="すべてハイライト"/>
-            </IncrementalFind>
+			<IncrementalFind title="">
+				<Item id="1681" name="検索文字列:"/>
+				<Item id="1685" name="大/小文字を区別"/>
+				<Item id="1690" name="すべてハイライト"/>
+			</IncrementalFind>
 
-            <FindCharsInRange title="文字範囲を指定して検索...">
-                <Item id="2" name="閉じる"/>
-                <Item id="2901" name="非ASCII文字(128-255)"/>
-                <Item id="2902" name="ASCII文字(0-127)"/>
-                <Item id="2903" name="指定範囲:"/>
-                <Item id="2906" name="上へ(&amp;U)"/>
-                <Item id="2907" name="下へ(&amp;D)"/>
-                <Item id="2908" name="方向"/>
-                <Item id="2909" name="先頭/末尾から再検索(&amp;P)"/>
-                <Item id="2910" name="検索"/>
-            </FindCharsInRange>
+			<FindCharsInRange title="文字範囲を指定して検索...">
+				<Item id="2" name="閉じる(&amp;C)"/>
+				<Item id="2901" name="非ASCII文字(128-255) (&amp;N)"/>
+				<Item id="2902" name="ASCII文字(0-127) (&amp;A)"/>
+				<Item id="2903" name="指定範囲(0-255) (&amp;R):"/>
+				<Item id="2906" name="上へ(&amp;U)"/>
+				<Item id="2907" name="下へ(&amp;D)"/>
+				<Item id="2908" name="方向"/>
+				<Item id="2909" name="先頭/末尾から再検索(&amp;P)"/>
+				<Item id="2910" name="検索(&amp;F)"/>
+			</FindCharsInRange>
 
-            <GoToLine title="指定位置へジャンプ...">
-                <Item id="2007" name="行(&amp;L)"/>
-                <Item id="2008" name="オフセット値(&amp;O)"/>
-                <Item id="1"    name="ジャンプ"/>
-                <Item id="2"    name="キャンセル"/>
-                <Item id="2004" name="現在位置:"/>
-                <Item id="2005" name="ジャンプ先:"/>
-                <Item id="2006" name="最終位置:"/>
-            </GoToLine>
+			<GoToLine title="指定位置へジャンプ...">
+				<Item id="2007" name="行(&amp;L)"/>
+				<Item id="2008" name="オフセット値(&amp;O)"/>
+				<Item id="1" name="ジャンプ"/>
+				<Item id="2" name="キャンセル"/>
+				<Item id="2004" name="現在位置:"/>
+				<Item id="2005" name="ジャンプ先:"/>
+				<Item id="2006" name="最終位置:"/>
+			</GoToLine>
 
-            <Run title="実行...">
-                <Item id="1903" name="実行するファイル"/>
-                <Item id="1"    name="実行"/>
-                <Item id="2"    name="キャンセル"/>
-                <Item id="1904" name="登録..."/>
-            </Run>
+			<Run title="実行...">
+				<Item id="1903" name="実行するファイル"/>
+				<Item id="1" name="実行"/>
+				<Item id="2" name="キャンセル"/>
+				<Item id="1904" name="登録..."/>
+			</Run>
 
-            <MD5FromFilesDlg title="MD5値をファイルから生成">
-                <Item id="1922" name="ファイルを選択(複数可)..."/>
-                <Item id="1924" name="クリップボードへコピー"/>
-                <Item id="2"    name="閉じる"/>
-            </MD5FromFilesDlg>
+			<MD5FromFilesDlg title="MD5値をファイルから生成">
+				<Item id="1922" name="ファイルを選択(複数可)(&amp;G)..."/>
+				<Item id="1924" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="MD5値を生成">
-                <Item id="1932" name="行ごとに生成する"/>
-                <Item id="1934" name="クリップボードへコピー"/>
-                <Item id="2"    name="閉じる"/>
-            </MD5FromTextDlg>
+			<MD5FromTextDlg title="MD5値を生成">
+				<Item id="1932" name="行ごとに生成する(&amp;S)"/>
+				<Item id="1934" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</MD5FromTextDlg>
 
-            <SHA256FromFilesDlg title="SHA-256値をファイルから生成">
-                <Item id="1922" name="ファイルを選択(複数可)..."/>
-                <Item id="1924" name="クリップボードへコピー"/>
-                <Item id="2"    name="閉じる"/>
-            </SHA256FromFilesDlg>
+			<SHA256FromFilesDlg title="SHA-256値をファイルから生成">
+				<Item id="1922" name="ファイルを選択(複数可)(&amp;G)..."/>
+				<Item id="1924" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</SHA256FromFilesDlg>
 
-            <SHA256FromTextDlg title="SHA-256値を生成">
-                <Item id="1932" name="行ごとに生成する"/>
-                <Item id="1934" name="クリップボードへコピー"/>
-                <Item id="2"    name="閉じる"/>
-            </SHA256FromTextDlg>
+			<SHA256FromTextDlg title="SHA-256値を生成">
+				<Item id="1932" name="行ごとに生成する(&amp;S)"/>
+				<Item id="1934" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</SHA256FromTextDlg>
 
-            <PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない">
-                <ColumnPlugin   name="プラグイン"/>
-                <ColumnVersion  name="バージョン"/>
-                <Item id="5501" name="検索："/>
-                <Item id="5503" name="インストール"/>
-                <Item id="5504" name="更新"/>
-                <Item id="5505" name="削除"/>
-                <Item id="5508" name="次を検索"/>
-                <Item id="5509" name="プラグインリストのバージョン："/>
-                <Item id="5511" name="プラグインリストのレポジトリ"/>
-                <Item id="2"    name="閉じる"/>
-            </PluginsAdminDlg>
+			<PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない">
+				<ColumnPlugin name="プラグイン"/>
+				<ColumnVersion name="バージョン"/>
+				<Item id="5501" name="検索："/>
+				<Item id="5503" name="インストール"/>
+				<Item id="5504" name="更新"/>
+				<Item id="5505" name="削除"/>
+				<Item id="5508" name="次を検索"/>
+				<Item id="5509" name="プラグインリストのバージョン："/>
+				<Item id="5511" name="プラグインリストのレポジトリ"/>
+				<Item id="2" name="閉じる"/>
+			</PluginsAdminDlg>
 
-            <StyleConfig title="スタイル設定">
-                <Item id="2"    name="キャンセル"/>
-                <Item id="2301" name="保存して閉じる"/>
-                <Item id="2303" name="透明化"/>
-                <Item id="2306" name="テーマを選択:"/>
-                <SubDialog>
-                    <Item id="2204" name="太字"/>
-                    <Item id="2205" name="斜体"/>
-                    <Item id="2206" name="文字色"/>
-                    <Item id="2207" name="背景色"/>
-                    <Item id="2208" name="フォント名:"/>
-                    <Item id="2209" name="フォントサイズ:"/>
-                    <Item id="2211" name="スタイル詳細:"/>
-                    <Item id="2212" name="色"/>
-                    <Item id="2213" name="フォント"/>
-                    <Item id="2214" name="拡張子:"/>
-                    <Item id="2216" name="ユーザー設定拡張子:"/>
-                    <Item id="2218" name="下線"/>
-                    <Item id="2219" name="デフォルトのキーワード"/>
-                    <Item id="2221" name="ユーザー定義のキーワード"/>
-                    <Item id="2225" name="言語:"/>
-                    <Item id="2226" name="文字色を他のスタイルにも適用"/>
-                    <Item id="2227" name="背景色を他のスタイルにも適用"/>
-                    <Item id="2228" name="フォント名を他のスタイルにも適用"/>
-                    <Item id="2229" name="フォントサイズを他のスタイルにも適用"/>
-                    <Item id="2230" name="太字を他のスタイルにも適用"/>
-                    <Item id="2231" name="斜体を他のスタイルにも適用"/>
-                    <Item id="2232" name="下線を他のスタイルにも適用"/>
-                    <Item id="2234" name="関連する環境設定を開く"/>
-                </SubDialog>
-            </StyleConfig>
+			<StyleConfig title="スタイル設定">
+				<Item id="2" name="キャンセル"/>
+				<Item id="2301" name="保存して閉じる"/>
+				<Item id="2303" name="透明化"/>
+				<Item id="2306" name="テーマを選択:"/>
+				<SubDialog>
+					<Item id="2204" name="太字"/>
+					<Item id="2205" name="斜体"/>
+					<Item id="2206" name="文字色"/>
+					<Item id="2207" name="背景色"/>
+					<Item id="2208" name="フォント名:"/>
+					<Item id="2209" name="フォントサイズ:"/>
+					<Item id="2211" name="スタイル詳細:"/>
+					<Item id="2212" name="色"/>
+					<Item id="2213" name="フォント"/>
+					<Item id="2214" name="拡張子:"/>
+					<Item id="2216" name="ユーザー設定拡張子:"/>
+					<Item id="2218" name="下線"/>
+					<Item id="2219" name="デフォルトのキーワード"/>
+					<Item id="2221" name="ユーザー定義のキーワード"/>
+					<Item id="2225" name="言語:"/>
+					<Item id="2226" name="文字色を他のスタイルにも適用"/>
+					<Item id="2227" name="背景色を他のスタイルにも適用"/>
+					<Item id="2228" name="フォント名を他のスタイルにも適用"/>
+					<Item id="2229" name="フォントサイズを他のスタイルにも適用"/>
+					<Item id="2230" name="太字を他のスタイルにも適用"/>
+					<Item id="2231" name="斜体を他のスタイルにも適用"/>
+					<Item id="2232" name="下線を他のスタイルにも適用"/>
+					<Item id="2234" name="関連する環境設定を開く"/>
+				</SubDialog>
+			</StyleConfig>
 
-            <ShortcutMapper title="ショートカット管理">
-                <Item id="2602" name="変更"/>
-                <Item id="2603" name="行を削除"/>
-                <Item id="2606" name="解除"/>
-                <Item id="2607" name="フィルタ:"/>
-                <Item id="1" name="閉じる"/>
-                <ColumnName name="項目"/>
-                <ColumnShortcut name="ショートカット"/>
-                <ColumnCategory name="カテゴリー"/>
-                <ColumnPlugin name="プラグイン"/>
-                <MainMenuTab name="メインメニュー"/>
-                <MacrosTab name="マクロ"/>
-                <RunCommandsTab name="実行"/>
-                <PluginCommandsTab name="プラグイン"/>
-                <ScintillaCommandsTab name="エディター"/>
-                <ConflictInfoOk name="この項目と競合するショートカットはありません。"/>
-                <ConflictInfoEditing name="競合しません..."/>
-                <WindowCategory name="ウィンドウ管理"/>
-                <FileCategory name="ファイル"/>
-                <EditCategory name="編集"/>
-                <SearchCategory name="検索"/>
-                <ViewCategory name="表示"/>
-                <FormatCategory name="書式"/>
-                <LangCategory name="言語"/>
-                <AboutCategory name="情報"/>
-                <SettingCategory name="設定"/>
-                <ToolCategory name="ツール"/>
-                <ExecuteCategory name="実行"/>
-                <ModifyContextMenu name="編集"/>
-                <DeleteContextMenu name="行を削除"/>
-                <ClearContextMenu name="解除"/>
-                <MainCommandNames>
-                    <Item id="41019" name="このファイルのあるフォルダーをエクスプローラーで開く"/>
-                    <Item id="41020" name="このファイルのあるフォルダーをコマンドプロンプトで開く"/>
-                    <Item id="41021" name="直前に閉じたファイルを開く"/>
-                    <Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
-                    <Item id="45002" name="改行コードを Unix (LF) に変換"/>
-                    <Item id="45003" name="改行コードを Macintosh (CR) に変換"/>
-                    <Item id="43022" name="スタイル1ですべて色づけ"/>
-                    <Item id="43024" name="スタイル2ですべて色づけ"/>
-                    <Item id="43026" name="スタイル3ですべて色づけ"/>
-                    <Item id="43028" name="スタイル4ですべて色づけ"/>
-                    <Item id="43030" name="スタイル5ですべて色づけ"/>
-                    <Item id="43062" name="スタイル1で一つのみ色づけ"/>
-                    <Item id="43063" name="スタイル2で一つのみ色づけ"/>
-                    <Item id="43064" name="スタイル3で一つのみ色づけ"/>
-                    <Item id="43065" name="スタイル4で一つのみ色づけ"/>
-                    <Item id="43066" name="スタイル5で一つのみ色づけ"/>
-                    <Item id="43023" name="スタイル1を解除"/>
-                    <Item id="43025" name="スタイル2を解除"/>
-                    <Item id="43027" name="スタイル3を解除"/>
-                    <Item id="43029" name="スタイル4を解除"/>
-                    <Item id="43031" name="スタイル5を解除"/>
-                    <Item id="43032" name="すべてのスタイルを解除"/>
-                    <Item id="43033" name="前の スタイル1へ移動"/>
-                    <Item id="43034" name="前の スタイル2へ移動"/>
-                    <Item id="43035" name="前の スタイル3へ移動"/>
-                    <Item id="43036" name="前の スタイル4へ移動"/>
-                    <Item id="43037" name="前の スタイル5へ移動"/>
-                    <Item id="43038" name="前の マークへ移動"/>
-                    <Item id="43039" name="次の スタイル1へ移動"/>
-                    <Item id="43040" name="次の スタイル2へ移動"/>
-                    <Item id="43041" name="次の スタイル3へ移動"/>
-                    <Item id="43042" name="次の スタイル4へ移動"/>
-                    <Item id="43043" name="次の スタイル5へ移動"/>
-                    <Item id="43044" name="次の マークへ移動"/>
-                    <Item id="43055" name="スタイル1の文字列をコピー"/>
-                    <Item id="43056" name="スタイル2の文字列をコピー"/>
-                    <Item id="43057" name="スタイル3の文字列をコピー"/>
-                    <Item id="43058" name="スタイル4の文字列をコピー"/>
-                    <Item id="43059" name="スタイル5の文字列をコピー"/>
-                    <Item id="43060" name="すべてのスタイルの文字列をコピー"/>
-                    <Item id="43061" name="マークされた文字列をコピー"/>
-                    <Item id="44100" name="Firefox で開く"/>
-                    <Item id="44101" name="Chrome で開く"/>
-                    <Item id="44103" name="IE で開く"/>
-                    <Item id="44102" name="Edge で開く"/>
-                    <Item id="50003" name="前のドキュメントに切り替え"/>
-                    <Item id="50004" name="次のドキュメントに切り替え"/>
-                    <Item id="44051" name="レベル1で畳む"/>
-                    <Item id="44052" name="レベル2で畳む"/>
-                    <Item id="44053" name="レベル3で畳む"/>
-                    <Item id="44054" name="レベル4で畳む"/>
-                    <Item id="44055" name="レベル5で畳む"/>
-                    <Item id="44056" name="レベル6で畳む"/>
-                    <Item id="44057" name="レベル7で畳む"/>
-                    <Item id="44058" name="レベル8で畳む"/>
-                    <Item id="44061" name="レベル1で展開する"/>
-                    <Item id="44062" name="レベル2で展開する"/>
-                    <Item id="44063" name="レベル3で展開する"/>
-                    <Item id="44064" name="レベル4で展開する"/>
-                    <Item id="44065" name="レベル5で展開する"/>
-                    <Item id="44066" name="レベル6で展開する"/>
-                    <Item id="44067" name="レベル7で展開する"/>
-                    <Item id="44068" name="レベル8で展開する"/>
-                    <Item id="44081" name="プロジェクトパネル1を表示・非表示"/>
-                    <Item id="44082" name="プロジェクトパネル2を表示・非表示"/>
-                    <Item id="44083" name="プロジェクトパネル3を表示・非表示"/>
-                    <Item id="44085" name="ワークスペースフォルダーを表示・非表示"/>
-                    <Item id="44080" name="文書マップを表示・非表示"/>
-                    <Item id="44070" name="文書一覧を表示・非表示"/>
-                    <Item id="44084" name="関数リストを表示・非表示"/>
-                    <Item id="50005" name="マクロ記録を切り替え"/>
-                    <Item id="44104" name="プロジェクトパネル1を表示"/>
-                    <Item id="44105" name="プロジェクトパネル2を表示"/>
-                    <Item id="44106" name="プロジェクトパネル3を表示"/>
-                    <Item id="44107" name="ワークスペースフォルダーを表示"/>
-                    <Item id="44109" name="文書一覧を表示"/>
-                    <Item id="44108" name="関数リストを表示"/>
-                    <Item id="44110" name="タブの色を外す"/>
-                    <Item id="44111" name="タブに色1をつける"/>
-                    <Item id="44112" name="タブに色2をつける"/>
-                    <Item id="44113" name="タブに色3をつける"/>
-                    <Item id="44114" name="タブに色4をつける"/>
-                    <Item id="44115" name="タブに色5をつける"/>
-                    <Item id="11002" name="ファイル名・昇順 で並べ替え"/>
-                    <Item id="11003" name="ファイル名・降順 で並べ替え"/>
-                    <Item id="11004" name="パス・昇順 で並べ替え"/>
-                    <Item id="11005" name="パス・降順 で並べ替え"/>
-                    <Item id="11006" name="種類・昇順 で並べ替え"/>
-                    <Item id="11007" name="種類・降順 で並べ替え"/>
-                    <Item id="11008" name="サイズ・小さい順 で並べ替え"/>
-                    <Item id="11009" name="サイズ・大きい順 で並べ替え"/>
-                </MainCommandNames>
-            </ShortcutMapper>
-            <ShortcutMapperSubDialg title="ショートカット">
-                <Item id="1" name="OK"/>
-                <Item id="2" name="キャンセル"/>
-                <Item id="5006" name="項目"/>
-                <Item id="5008" name="追加"/>
-                <Item id="5009" name="削除"/>
-                <Item id="5010" name="適用"/>
-                <Item id="5007" name="ショートカットが解除されます"/>
-                <Item id="5012" name="競合します！"/>
-            </ShortcutMapperSubDialg>
-            <UserDefine title="ユーザー定義">
-                <Item id="20001" name="ドック"/>
-                <Item id="20002" name="名前の変更"/>
-                <Item id="20003" name="新規作成..."/>
-                <Item id="20004" name="削除"/>
-                <Item id="20005" name="保存..."/>
-                <Item id="20007" name="言語名: "/>
-                <Item id="20009" name="拡張子:"/>
-                <Item id="20012" name="大/小文字を無視"/>
-                <Item id="20011" name="透明化"/>
-                <Item id="20015" name="インポート..."/>
-                <Item id="20016" name="エクスポート..."/>
-                <Item id="20017" name="ドック解除"/>
-                <StylerDialog title="スタイル設定ダイアログ">
-                    <Item id="25030" name="フォント設定:"/>
-                    <Item id="25006" name="文字色"/>
-                    <Item id="25007" name="背景色"/>
-                    <Item id="25031" name="フォント名:"/>
-                    <Item id="25032" name="サイズ:"/>
-                    <Item id="25001" name="太字"/>
-                    <Item id="25002" name="斜体"/>
-                    <Item id="25003" name="下線"/>
-                    <Item id="25029" name="ネスト:"/>
-                    <Item id="25008" name="区切り1"/>
-                    <Item id="25009" name="区切り2"/>
-                    <Item id="25010" name="区切り3"/>
-                    <Item id="25011" name="区切り4"/>
-                    <Item id="25012" name="区切り5"/>
-                    <Item id="25013" name="区切り6"/>
-                    <Item id="25014" name="区切り7"/>
-                    <Item id="25015" name="区切り8"/>
-                    <Item id="25018" name="キーワード1"/>
-                    <Item id="25019" name="キーワード2"/>
-                    <Item id="25020" name="キーワード3"/>
-                    <Item id="25021" name="キーワード4"/>
-                    <Item id="25022" name="キーワード5"/>
-                    <Item id="25023" name="キーワード6"/>
-                    <Item id="25024" name="キーワード7"/>
-                    <Item id="25025" name="キーワード8"/>
-                    <Item id="25016" name="コメント"/>
-                    <Item id="25017" name="コメント行"/>
-                    <Item id="25026" name="演算子1"/>
-                    <Item id="25027" name="演算子2"/>
-                    <Item id="25028" name="数字"/>
-                    <Item id="25033" name="透明"/>
-                    <Item id="25034" name="透明"/>
-                    <Item id="1" name="OK"/>
-                    <Item id="2" name="キャンセル"/>
-                </StylerDialog>
-                <Folder title="デフォルト・折り畳み設定">
-                    <Item id="21101" name="デフォルトスタイル設定"/>
-                    <Item id="21102" name="スタイル設定"/>
-                    <Item id="21105" name="ドキュメンテーション:"/>
-                    <Item id="21104" name="一時ドキュメントサイト:"/>
-                    <Item id="21106" name="コンパクトに畳む(空行を含む)(&amp;C)"/>
-                    <Item id="21220" name="スタイル1で畳む:"/>
-                    <Item id="21224" name="開始:"/>
-                    <Item id="21225" name="中間:"/>
-                    <Item id="21226" name="終了:"/>
-                    <Item id="21227" name="スタイル設定"/>
-                    <Item id="21320" name="スタイル2で畳む(セパレーターが必要):"/>
-                    <Item id="21324" name="開始:"/>
-                    <Item id="21325" name="中間:"/>
-                    <Item id="21326" name="終了:"/>
-                    <Item id="21327" name="スタイル設定"/>
-                    <Item id="21420" name="コメントスタイルで畳む:"/>
-                    <Item id="21424" name="開始:"/>
-                    <Item id="21425" name="中間:"/>
-                    <Item id="21426" name="終了:"/>
-                    <Item id="21427" name="スタイル設定"/>
-                </Folder>
-                <Keywords title="キーワードリスト">
-                    <Item id="22101" name="グループ1"/>
-                    <Item id="22201" name="グループ2"/>
-                    <Item id="22301" name="グループ3"/>
-                    <Item id="22401" name="グループ4"/>
-                    <Item id="22451" name="グループ5"/>
-                    <Item id="22501" name="グループ6"/>
-                    <Item id="22551" name="グループ7"/>
-                    <Item id="22601" name="グループ8"/>
-                    <Item id="22121" name="接頭辞モード"/>
-                    <Item id="22221" name="接頭辞モード"/>
-                    <Item id="22321" name="接頭辞モード"/>
-                    <Item id="22421" name="接頭辞モード"/>
-                    <Item id="22471" name="接頭辞モード"/>
-                    <Item id="22521" name="接頭辞モード"/>
-                    <Item id="22571" name="接頭辞モード"/>
-                    <Item id="22621" name="接頭辞モード"/>
-                    <Item id="22122" name="スタイル設定"/>
-                    <Item id="22222" name="スタイル設定"/>
-                    <Item id="22322" name="スタイル設定"/>
-                    <Item id="22422" name="スタイル設定"/>
-                    <Item id="22472" name="スタイル設定"/>
-                    <Item id="22522" name="スタイル設定"/>
-                    <Item id="22572" name="スタイル設定"/>
-                    <Item id="22622" name="スタイル設定"/>
-                </Keywords>
-                <Comment title="コメント・数値設定">
-                    <Item id="23003" name="行コメント位置"/>
-                    <Item id="23004" name="どこでも可能"/>
-                    <Item id="23005" name="行頭のみ"/>
-                    <Item id="23006" name="行頭に空白が先行しても可能"/>
-                    <Item id="23001" name="コメントの折り畳みを許可"/>
-                    <Item id="23326" name="スタイル設定"/>
-                    <Item id="23323" name="開始"/>
-                    <Item id="23324" name="継続"/>
-                    <Item id="23325" name="終了"/>
-                    <Item id="23301" name="コメント行スタイル"/>
-                    <Item id="23124" name="スタイル設定"/>
-                    <Item id="23122" name="開始"/>
-                    <Item id="23123" name="終了"/>
-                    <Item id="23101" name="コメントスタイル"/>
-                    <Item id="23201" name="数値スタイル"/>
-                    <Item id="23220" name="スタイル設定"/>
-                    <Item id="23230" name="接頭辞1"/>
-                    <Item id="23232" name="接頭辞2"/>
-                    <Item id="23234" name="追加1"/>
-                    <Item id="23236" name="追加2"/>
-                    <Item id="23238" name="接尾辞1"/>
-                    <Item id="23240" name="接尾辞2"/>
-                    <Item id="23242" name="範囲:"/>
-                    <Item id="23244" name="小数点"/>
-                    <Item id="23245" name="ピリオド"/>
-                    <Item id="23246" name="コンマ"/>
-                    <Item id="23247" name="両方"/>
-                </Comment>
-                <Operator title="演算子・区切り記号">
-                    <Item id="24101" name="演算子スタイル"/>
-                    <Item id="24113" name="スタイル設定"/>
-                    <Item id="24116" name="演算子1"/>
-                    <Item id="24117" name="演算子2(セパレーターが必要)"/>
-                    <Item id="24201" name="区切り記号1のスタイル"/>
-                    <Item id="24220" name="開始:"/>
-                    <Item id="24221" name="エスケープ:"/>
-                    <Item id="24222" name="終了:"/>
-                    <Item id="24223" name="スタイル設定"/>
-                    <Item id="24301" name="区切り記号2のスタイル"/>
-                    <Item id="24320" name="開始:"/>
-                    <Item id="24321" name="エスケープ:"/>
-                    <Item id="24322" name="終了:"/>
-                    <Item id="24323" name="スタイル設定"/>
-                    <Item id="24401" name="区切り記号3のスタイル"/>
-                    <Item id="24420" name="開始:"/>
-                    <Item id="24421" name="エスケープ:"/>
-                    <Item id="24422" name="終了:"/>
-                    <Item id="24423" name="スタイル設定"/>
-                    <Item id="24451" name="区切り記号4のスタイル"/>
-                    <Item id="24470" name="開始:"/>
-                    <Item id="24471" name="エスケープ:"/>
-                    <Item id="24472" name="終了:"/>
-                    <Item id="24473" name="スタイル設定"/>
-                    <Item id="24501" name="区切り記号5のスタイル"/>
-                    <Item id="24520" name="開始:"/>
-                    <Item id="24521" name="エスケープ:"/>
-                    <Item id="24522" name="終了:"/>
-                    <Item id="24523" name="スタイル設定"/>
-                    <Item id="24551" name="区切り記号6のスタイル"/>
-                    <Item id="24570" name="開始:"/>
-                    <Item id="24571" name="エスケープ:"/>
-                    <Item id="24572" name="終了:"/>
-                    <Item id="24573" name="スタイル設定"/>
-                    <Item id="24601" name="区切り記号7のスタイル"/>
-                    <Item id="24620" name="開始:"/>
-                    <Item id="24621" name="エスケープ:"/>
-                    <Item id="24622" name="終了:"/>
-                    <Item id="24623" name="スタイル設定"/>
-                    <Item id="24651" name="区切り記号8のスタイル"/>
-                    <Item id="24670" name="開始:"/>
-                    <Item id="24671" name="エスケープ:"/>
-                    <Item id="24672" name="終了:"/>
-                    <Item id="24673" name="スタイル設定"/>
-                </Operator>
-            </UserDefine>
-            <Preference title="環境設定">
-                <Item id="6001" name="閉じる"/>
-                <Global title="全般設定">
-                    <Item id="6101" name="ツールバー"/>
-                    <Item id="6102" name="隠す"/>
-                    <Item id="6103" name="Fluent UI 小"/>
-                    <Item id="6104" name="Fluent UI 大"/>
-                    <Item id="6129" name="Filled Fluent UI 小"/>
-                    <Item id="6130" name="Filled Fluent UI 大"/>
-                    <Item id="6105" name="標準アイコン 小"/>
+			<ShortcutMapper title="ショートカット管理">
+				<Item id="2602" name="変更"/>
+				<Item id="2603" name="行を削除"/>
+				<Item id="2606" name="解除"/>
+				<Item id="2607" name="フィルタ:"/>
+				<Item id="1" name="閉じる"/>
+				<ColumnName name="項目"/>
+				<ColumnShortcut name="ショートカット"/>
+				<ColumnCategory name="カテゴリー"/>
+				<ColumnPlugin name="プラグイン"/>
+				<MainMenuTab name="メインメニュー"/>
+				<MacrosTab name="マクロ"/>
+				<RunCommandsTab name="実行"/>
+				<PluginCommandsTab name="プラグイン"/>
+				<ScintillaCommandsTab name="エディター"/>
+				<ConflictInfoOk name="この項目と競合するショートカットはありません。"/>
+				<ConflictInfoEditing name="競合しません..."/>
+				<WindowCategory name="ウィンドウ管理"/>
+				<FileCategory name="ファイル"/>
+				<EditCategory name="編集"/>
+				<SearchCategory name="検索"/>
+				<ViewCategory name="表示"/>
+				<FormatCategory name="書式"/>
+				<LangCategory name="言語"/>
+				<AboutCategory name="情報"/>
+				<SettingCategory name="設定"/>
+				<ToolCategory name="ツール"/>
+				<ExecuteCategory name="実行"/>
+				<ModifyContextMenu name="編集"/>
+				<DeleteContextMenu name="行を削除"/>
+				<ClearContextMenu name="解除"/>
+				<MainCommandNames>
+					<Item id="41019" name="このファイルのあるフォルダーをエクスプローラーで開く"/>
+					<Item id="41020" name="このファイルのあるフォルダーをコマンドプロンプトで開く"/>
+					<Item id="41021" name="直前に閉じたファイルを開く"/>
+					<Item id="45001" name="改行コードを Windows (CR LF) に変換"/>
+					<Item id="45002" name="改行コードを Unix (LF) に変換"/>
+					<Item id="45003" name="改行コードを Macintosh (CR) に変換"/>
+					<Item id="43022" name="スタイル1ですべて色づけ"/>
+					<Item id="43024" name="スタイル2ですべて色づけ"/>
+					<Item id="43026" name="スタイル3ですべて色づけ"/>
+					<Item id="43028" name="スタイル4ですべて色づけ"/>
+					<Item id="43030" name="スタイル5ですべて色づけ"/>
+					<Item id="43062" name="スタイル1で一つのみ色づけ"/>
+					<Item id="43063" name="スタイル2で一つのみ色づけ"/>
+					<Item id="43064" name="スタイル3で一つのみ色づけ"/>
+					<Item id="43065" name="スタイル4で一つのみ色づけ"/>
+					<Item id="43066" name="スタイル5で一つのみ色づけ"/>
+					<Item id="43023" name="スタイル1を解除"/>
+					<Item id="43025" name="スタイル2を解除"/>
+					<Item id="43027" name="スタイル3を解除"/>
+					<Item id="43029" name="スタイル4を解除"/>
+					<Item id="43031" name="スタイル5を解除"/>
+					<Item id="43032" name="すべてのスタイルを解除"/>
+					<Item id="43033" name="前の スタイル1へ移動"/>
+					<Item id="43034" name="前の スタイル2へ移動"/>
+					<Item id="43035" name="前の スタイル3へ移動"/>
+					<Item id="43036" name="前の スタイル4へ移動"/>
+					<Item id="43037" name="前の スタイル5へ移動"/>
+					<Item id="43038" name="前の マークへ移動"/>
+					<Item id="43039" name="次の スタイル1へ移動"/>
+					<Item id="43040" name="次の スタイル2へ移動"/>
+					<Item id="43041" name="次の スタイル3へ移動"/>
+					<Item id="43042" name="次の スタイル4へ移動"/>
+					<Item id="43043" name="次の スタイル5へ移動"/>
+					<Item id="43044" name="次の マークへ移動"/>
+					<Item id="43055" name="スタイル1の文字列をコピー"/>
+					<Item id="43056" name="スタイル2の文字列をコピー"/>
+					<Item id="43057" name="スタイル3の文字列をコピー"/>
+					<Item id="43058" name="スタイル4の文字列をコピー"/>
+					<Item id="43059" name="スタイル5の文字列をコピー"/>
+					<Item id="43060" name="すべてのスタイルの文字列をコピー"/>
+					<Item id="43061" name="マークされた文字列をコピー"/>
+					<Item id="44100" name="Firefox で開く"/>
+					<Item id="44101" name="Chrome で開く"/>
+					<Item id="44103" name="IE で開く"/>
+					<Item id="44102" name="Edge で開く"/>
+					<Item id="50003" name="前のドキュメントに切り替え"/>
+					<Item id="50004" name="次のドキュメントに切り替え"/>
+					<Item id="44051" name="レベル1で畳む"/>
+					<Item id="44052" name="レベル2で畳む"/>
+					<Item id="44053" name="レベル3で畳む"/>
+					<Item id="44054" name="レベル4で畳む"/>
+					<Item id="44055" name="レベル5で畳む"/>
+					<Item id="44056" name="レベル6で畳む"/>
+					<Item id="44057" name="レベル7で畳む"/>
+					<Item id="44058" name="レベル8で畳む"/>
+					<Item id="44061" name="レベル1で展開する"/>
+					<Item id="44062" name="レベル2で展開する"/>
+					<Item id="44063" name="レベル3で展開する"/>
+					<Item id="44064" name="レベル4で展開する"/>
+					<Item id="44065" name="レベル5で展開する"/>
+					<Item id="44066" name="レベル6で展開する"/>
+					<Item id="44067" name="レベル7で展開する"/>
+					<Item id="44068" name="レベル8で展開する"/>
+					<Item id="44081" name="プロジェクトパネル1を表示・非表示"/>
+					<Item id="44082" name="プロジェクトパネル2を表示・非表示"/>
+					<Item id="44083" name="プロジェクトパネル3を表示・非表示"/>
+					<Item id="44085" name="ワークスペースフォルダーを表示・非表示"/>
+					<Item id="44080" name="文書マップを表示・非表示"/>
+					<Item id="44070" name="文書一覧を表示・非表示"/>
+					<Item id="44084" name="関数リストを表示・非表示"/>
+					<Item id="50005" name="マクロ記録を切り替え"/>
+					<Item id="44104" name="プロジェクトパネル1を表示"/>
+					<Item id="44105" name="プロジェクトパネル2を表示"/>
+					<Item id="44106" name="プロジェクトパネル3を表示"/>
+					<Item id="44107" name="ワークスペースフォルダーを表示"/>
+					<Item id="44109" name="文書一覧を表示"/>
+					<Item id="44108" name="関数リストを表示"/>
+					<Item id="44110" name="タブの色を外す"/>
+					<Item id="44111" name="タブに色1をつける"/>
+					<Item id="44112" name="タブに色2をつける"/>
+					<Item id="44113" name="タブに色3をつける"/>
+					<Item id="44114" name="タブに色4をつける"/>
+					<Item id="44115" name="タブに色5をつける"/>
+					<Item id="11002" name="ファイル名・昇順 で並べ替え"/>
+					<Item id="11003" name="ファイル名・降順 で並べ替え"/>
+					<Item id="11004" name="パス・昇順 で並べ替え"/>
+					<Item id="11005" name="パス・降順 で並べ替え"/>
+					<Item id="11006" name="種類・昇順 で並べ替え"/>
+					<Item id="11007" name="種類・降順 で並べ替え"/>
+					<Item id="11008" name="サイズ・小さい順 で並べ替え"/>
+					<Item id="11009" name="サイズ・大きい順 で並べ替え"/>
+				</MainCommandNames>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="ショートカット">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="キャンセル"/>
+				<Item id="5006" name="項目"/>
+				<Item id="5008" name="追加"/>
+				<Item id="5009" name="削除"/>
+				<Item id="5010" name="適用"/>
+				<Item id="5007" name="ショートカットが解除されます"/>
+				<Item id="5012" name="競合します！"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="ユーザー定義">
+				<Item id="20001" name="ドック"/>
+				<Item id="20002" name="名前の変更"/>
+				<Item id="20003" name="新規作成..."/>
+				<Item id="20004" name="削除"/>
+				<Item id="20005" name="保存..."/>
+				<Item id="20007" name="言語名: "/>
+				<Item id="20009" name="拡張子:"/>
+				<Item id="20012" name="大/小文字を無視"/>
+				<Item id="20011" name="透明化"/>
+				<Item id="20015" name="インポート..."/>
+				<Item id="20016" name="エクスポート..."/>
+				<Item id="20017" name="ドック解除"/>
+				<StylerDialog title="スタイル設定ダイアログ">
+					<Item id="25030" name="フォント設定:"/>
+					<Item id="25006" name="文字色"/>
+					<Item id="25007" name="背景色"/>
+					<Item id="25031" name="フォント名:"/>
+					<Item id="25032" name="サイズ:"/>
+					<Item id="25001" name="太字"/>
+					<Item id="25002" name="斜体"/>
+					<Item id="25003" name="下線"/>
+					<Item id="25029" name="ネスト:"/>
+					<Item id="25008" name="区切り1"/>
+					<Item id="25009" name="区切り2"/>
+					<Item id="25010" name="区切り3"/>
+					<Item id="25011" name="区切り4"/>
+					<Item id="25012" name="区切り5"/>
+					<Item id="25013" name="区切り6"/>
+					<Item id="25014" name="区切り7"/>
+					<Item id="25015" name="区切り8"/>
+					<Item id="25018" name="キーワード1"/>
+					<Item id="25019" name="キーワード2"/>
+					<Item id="25020" name="キーワード3"/>
+					<Item id="25021" name="キーワード4"/>
+					<Item id="25022" name="キーワード5"/>
+					<Item id="25023" name="キーワード6"/>
+					<Item id="25024" name="キーワード7"/>
+					<Item id="25025" name="キーワード8"/>
+					<Item id="25016" name="コメント"/>
+					<Item id="25017" name="コメント行"/>
+					<Item id="25026" name="演算子1"/>
+					<Item id="25027" name="演算子2"/>
+					<Item id="25028" name="数字"/>
+					<Item id="25033" name="透明"/>
+					<Item id="25034" name="透明"/>
+					<Item id="1" name="OK"/>
+					<Item id="2" name="キャンセル"/>
+				</StylerDialog>
+				<Folder title="デフォルト・折り畳み設定">
+					<Item id="21101" name="デフォルトスタイル設定"/>
+					<Item id="21102" name="スタイル設定"/>
+					<Item id="21105" name="ドキュメンテーション:"/>
+					<Item id="21104" name="一時ドキュメントサイト:"/>
+					<Item id="21106" name="コンパクトに畳む(空行を含む)(&amp;C)"/>
+					<Item id="21220" name="スタイル1で畳む:"/>
+					<Item id="21224" name="開始:"/>
+					<Item id="21225" name="中間:"/>
+					<Item id="21226" name="終了:"/>
+					<Item id="21227" name="スタイル設定"/>
+					<Item id="21320" name="スタイル2で畳む(セパレーターが必要):"/>
+					<Item id="21324" name="開始:"/>
+					<Item id="21325" name="中間:"/>
+					<Item id="21326" name="終了:"/>
+					<Item id="21327" name="スタイル設定"/>
+					<Item id="21420" name="コメントスタイルで畳む:"/>
+					<Item id="21424" name="開始:"/>
+					<Item id="21425" name="中間:"/>
+					<Item id="21426" name="終了:"/>
+					<Item id="21427" name="スタイル設定"/>
+				</Folder>
+				<Keywords title="キーワードリスト">
+					<Item id="22101" name="グループ1"/>
+					<Item id="22201" name="グループ2"/>
+					<Item id="22301" name="グループ3"/>
+					<Item id="22401" name="グループ4"/>
+					<Item id="22451" name="グループ5"/>
+					<Item id="22501" name="グループ6"/>
+					<Item id="22551" name="グループ7"/>
+					<Item id="22601" name="グループ8"/>
+					<Item id="22121" name="接頭辞モード"/>
+					<Item id="22221" name="接頭辞モード"/>
+					<Item id="22321" name="接頭辞モード"/>
+					<Item id="22421" name="接頭辞モード"/>
+					<Item id="22471" name="接頭辞モード"/>
+					<Item id="22521" name="接頭辞モード"/>
+					<Item id="22571" name="接頭辞モード"/>
+					<Item id="22621" name="接頭辞モード"/>
+					<Item id="22122" name="スタイル設定"/>
+					<Item id="22222" name="スタイル設定"/>
+					<Item id="22322" name="スタイル設定"/>
+					<Item id="22422" name="スタイル設定"/>
+					<Item id="22472" name="スタイル設定"/>
+					<Item id="22522" name="スタイル設定"/>
+					<Item id="22572" name="スタイル設定"/>
+					<Item id="22622" name="スタイル設定"/>
+				</Keywords>
+				<Comment title="コメント・数値設定">
+					<Item id="23003" name="行コメント位置"/>
+					<Item id="23004" name="どこでも可能"/>
+					<Item id="23005" name="行頭のみ"/>
+					<Item id="23006" name="行頭に空白が先行しても可能"/>
+					<Item id="23001" name="コメントの折り畳みを許可"/>
+					<Item id="23326" name="スタイル設定"/>
+					<Item id="23323" name="開始"/>
+					<Item id="23324" name="継続"/>
+					<Item id="23325" name="終了"/>
+					<Item id="23301" name="コメント行スタイル"/>
+					<Item id="23124" name="スタイル設定"/>
+					<Item id="23122" name="開始"/>
+					<Item id="23123" name="終了"/>
+					<Item id="23101" name="コメントスタイル"/>
+					<Item id="23201" name="数値スタイル"/>
+					<Item id="23220" name="スタイル設定"/>
+					<Item id="23230" name="接頭辞1"/>
+					<Item id="23232" name="接頭辞2"/>
+					<Item id="23234" name="追加1"/>
+					<Item id="23236" name="追加2"/>
+					<Item id="23238" name="接尾辞1"/>
+					<Item id="23240" name="接尾辞2"/>
+					<Item id="23242" name="範囲:"/>
+					<Item id="23244" name="小数点"/>
+					<Item id="23245" name="ピリオド"/>
+					<Item id="23246" name="コンマ"/>
+					<Item id="23247" name="両方"/>
+				</Comment>
+				<Operator title="演算子・区切り記号">
+					<Item id="24101" name="演算子スタイル"/>
+					<Item id="24113" name="スタイル設定"/>
+					<Item id="24116" name="演算子1"/>
+					<Item id="24117" name="演算子2(セパレーターが必要)"/>
+					<Item id="24201" name="区切り記号1のスタイル"/>
+					<Item id="24220" name="開始:"/>
+					<Item id="24221" name="エスケープ:"/>
+					<Item id="24222" name="終了:"/>
+					<Item id="24223" name="スタイル設定"/>
+					<Item id="24301" name="区切り記号2のスタイル"/>
+					<Item id="24320" name="開始:"/>
+					<Item id="24321" name="エスケープ:"/>
+					<Item id="24322" name="終了:"/>
+					<Item id="24323" name="スタイル設定"/>
+					<Item id="24401" name="区切り記号3のスタイル"/>
+					<Item id="24420" name="開始:"/>
+					<Item id="24421" name="エスケープ:"/>
+					<Item id="24422" name="終了:"/>
+					<Item id="24423" name="スタイル設定"/>
+					<Item id="24451" name="区切り記号4のスタイル"/>
+					<Item id="24470" name="開始:"/>
+					<Item id="24471" name="エスケープ:"/>
+					<Item id="24472" name="終了:"/>
+					<Item id="24473" name="スタイル設定"/>
+					<Item id="24501" name="区切り記号5のスタイル"/>
+					<Item id="24520" name="開始:"/>
+					<Item id="24521" name="エスケープ:"/>
+					<Item id="24522" name="終了:"/>
+					<Item id="24523" name="スタイル設定"/>
+					<Item id="24551" name="区切り記号6のスタイル"/>
+					<Item id="24570" name="開始:"/>
+					<Item id="24571" name="エスケープ:"/>
+					<Item id="24572" name="終了:"/>
+					<Item id="24573" name="スタイル設定"/>
+					<Item id="24601" name="区切り記号7のスタイル"/>
+					<Item id="24620" name="開始:"/>
+					<Item id="24621" name="エスケープ:"/>
+					<Item id="24622" name="終了:"/>
+					<Item id="24623" name="スタイル設定"/>
+					<Item id="24651" name="区切り記号8のスタイル"/>
+					<Item id="24670" name="開始:"/>
+					<Item id="24671" name="エスケープ:"/>
+					<Item id="24672" name="終了:"/>
+					<Item id="24673" name="スタイル設定"/>
+				</Operator>
+			</UserDefine>
+			<Preference title="環境設定">
+				<Item id="6001" name="閉じる"/>
+				<Global title="全般設定">
+					<Item id="6101" name="ツールバー"/>
+					<Item id="6102" name="隠す"/>
+					<Item id="6103" name="Fluent UI 小"/>
+					<Item id="6104" name="Fluent UI 大"/>
+					<Item id="6129" name="Filled Fluent UI 小"/>
+					<Item id="6130" name="Filled Fluent UI 大"/>
+					<Item id="6105" name="標準アイコン 小"/>
 
 
-                    <Item id="6106" name="タブバー"/>
-                    <Item id="6107" name="小さく表示"/>
-                    <Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
-                    <Item id="6109" name="非アクティブのタブを暗くする"/>
-                    <Item id="6110" name="アクティブタブにオレンジの線を表示"/>
+					<Item id="6106" name="タブバー"/>
+					<Item id="6107" name="小さく表示"/>
+					<Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
+					<Item id="6109" name="非アクティブのタブを暗くする"/>
+					<Item id="6110" name="アクティブタブにオレンジの線を表示"/>
 
-                    <Item id="6111" name="ステータスバーを表示"/>
-                    <Item id="6112" name="タブに「閉じる」ボタンを表示"/>
-                    <Item id="6113" name="ダブルクリックでドキュメントを閉じる"/>
-                    <Item id="6118" name="隠す"/>
-                    <Item id="6119" name="多段表示"/>
-                    <Item id="6120" name="縦に表示する"/>
-                    <Item id="6121" name="最後のタブを閉じると終了する"/>
+					<Item id="6111" name="ステータスバーを表示"/>
+					<Item id="6112" name="タブに「閉じる」ボタンを表示"/>
+					<Item id="6113" name="ダブルクリックでドキュメントを閉じる"/>
+					<Item id="6118" name="隠す"/>
+					<Item id="6119" name="多段表示"/>
+					<Item id="6120" name="縦に表示する"/>
+					<Item id="6121" name="最後のタブを閉じると終了する"/>
 
-                    <Item id="6131" name="メニュー"/>
-                    <Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
-                    <Item id="6132" name="メインメニュー右端の ＋ ▼ ✕ ボタンを非表示にする(Notepad++ の再起動が必要)"/>
-                    <Item id="6123" name="言語"/>
+					<Item id="6131" name="メニュー"/>
+					<Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
+					<Item id="6132" name="メインメニュー右端の ＋ ▼ ✕ ボタンを非表示にする(Notepad++ の再起動が必要)"/>
+					<Item id="6123" name="言語"/>
 
-                    <Item id="6128" name="別デザインのアイコンを使用する"/>
-                </Global>
-                <Scintillas title="編集画面">
-                    <Item id="6216" name="カーソル設定"/>
-                    <Item id="6217" name="幅:"/>
-                    <Item id="6219" name="点滅速度:"/>
-                    <Item id="6221" name="速く"/>
-                    <Item id="6222" name="遅く"/>
-                    <Item id="6246" name="「カーソル位置のレベルで畳む/展開」をトグル動作にする"/>
-                    <Item id="6225" name="一括編集を有効(Ctrl+クリック/選択)"/>
-                    <Item id="6227" name="行折り返し"/>
-                    <Item id="6228" name="デフォルト"/>
-                    <Item id="6229" name="端揃え"/>
-                    <Item id="6230" name="インデント"/>
-                    <Item id="6234" name="スクロールの拡張機能を無効にする(タッチパッドで問題になる場合)"/>
-                    <Item id="6215" name="フォントスムージングを有効にする"/>
-                    <Item id="6236" name="最終行を画面上端までスクロールできる"/>
-                    <Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
-                    <Item id="6245" name="仮想空白を有効にする"/>
-                    <Item id="6651" name="現在行の強調表示"/>
-                    <Item id="6652" name="なし"/>
-                    <Item id="6653" name="背景を色付け"/>
-                    <Item id="6654" name="枠を表示"/>
-                    <Item id="6655" name="線幅"/>
-                    <Item id="6247" name="改行文字(CRLF)の装飾"/> <!-- Don't translate "(CRLF)" -->
-                    <Item id="6248" name="デフォルト"/>
-                    <Item id="6249" name="装飾なし"/>
-                    <Item id="6250" name="カスタム色"/>
-                    <Item id="6252" name="非表示文字"/>
-                    <Item id="6254" name="略称"/>
-                    <Item id="6255" name="コードポイント"/>
-                    <Item id="6256" name="カスタム色"/>
-                </Scintillas>
+					<Item id="6128" name="別デザインのアイコンを使用する"/>
+				</Global>
+				<Scintillas title="編集画面">
+					<Item id="6216" name="カーソル設定"/>
+					<Item id="6217" name="幅:"/>
+					<Item id="6219" name="点滅速度:"/>
+					<Item id="6221" name="速く"/>
+					<Item id="6222" name="遅く"/>
+					<Item id="6246" name="「カーソル位置のレベルで畳む/展開」をトグル動作にする"/>
+					<Item id="6225" name="一括編集を有効(Ctrl+クリック/選択)"/>
+					<Item id="6227" name="行折り返し"/>
+					<Item id="6228" name="デフォルト"/>
+					<Item id="6229" name="端揃え"/>
+					<Item id="6230" name="インデント"/>
+					<Item id="6234" name="スクロールの拡張機能を無効にする(タッチパッドで問題になる場合)"/>
+					<Item id="6215" name="フォントスムージングを有効にする"/>
+					<Item id="6236" name="最終行を画面上端までスクロールできる"/>
+					<Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
+					<Item id="6245" name="仮想空白を有効にする"/>
+					<Item id="6651" name="現在行の強調表示"/>
+					<Item id="6652" name="なし"/>
+					<Item id="6653" name="背景を色付け"/>
+					<Item id="6654" name="枠を表示"/>
+					<Item id="6655" name="線幅"/>
+					<Item id="6247" name="改行文字(CRLF)の装飾"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="デフォルト"/>
+					<Item id="6249" name="装飾なし"/>
+					<Item id="6250" name="カスタム色"/>
+					<Item id="6252" name="非表示文字"/>
+					<Item id="6254" name="略称"/>
+					<Item id="6255" name="コードポイント"/>
+					<Item id="6256" name="カスタム色"/>
+					<Item id="6258" name="C0、C1、Unicode改行文字にも適用"/>
+				</Scintillas>
 
-                <DarkMode title="ダークモード">
-                    <Item id="7131" name="ライトモード"/>
-                    <Item id="7132" name="ダークモード"/>
-                    <Item id="7133" name="システム設定に従う"/>
-                    <Item id="7102" name="黒"/>
-                    <Item id="7103" name="赤"/>
-                    <Item id="7104" name="緑"/>
-                    <Item id="7105" name="青"/>
-                    <Item id="7107" name="紫"/>
-                    <Item id="7108" name="シアン"/>
-                    <Item id="7109" name="オリーブ"/>
-                    <Item id="7115" name="カスタム"/>
-                    <Item id="7116" name="上部"/>
-                    <Item id="7117" name="注目中のメニュー"/>
-                    <Item id="7118" name="アクティブ タブ"/>
-                    <Item id="7119" name="背景"/>
-                    <Item id="7120" name="エラー"/>
-                    <Item id="7121" name="文字"/>
-                    <Item id="7122" name="濃い文字"/>
-                    <Item id="7123" name="無効部分の文字"/>
-                    <Item id="7124" name="フチ"/>
-                    <Item id="7125" name="リンク"/>
-                    <Item id="7126" name="フチのハイライト"/>
-                    <Item id="7127" name="無効部分のフチ"/>
-                    <Item id="7130" name="リセット"/>
-                    <Item id="7135" name="色調"/>
-                </DarkMode>
+				<DarkMode title="ダークモード">
+					<Item id="7131" name="ライトモード"/>
+					<Item id="7132" name="ダークモード"/>
+					<Item id="7133" name="システム設定に従う"/>
+					<Item id="7102" name="黒"/>
+					<Item id="7103" name="赤"/>
+					<Item id="7104" name="緑"/>
+					<Item id="7105" name="青"/>
+					<Item id="7107" name="紫"/>
+					<Item id="7108" name="シアン"/>
+					<Item id="7109" name="オリーブ"/>
+					<Item id="7115" name="カスタム"/>
+					<Item id="7116" name="上部"/>
+					<Item id="7117" name="注目中のメニュー"/>
+					<Item id="7118" name="アクティブ タブ"/>
+					<Item id="7119" name="背景"/>
+					<Item id="7120" name="エラー"/>
+					<Item id="7121" name="文字"/>
+					<Item id="7122" name="濃い文字"/>
+					<Item id="7123" name="無効部分の文字"/>
+					<Item id="7124" name="フチ"/>
+					<Item id="7125" name="リンク"/>
+					<Item id="7126" name="フチのハイライト"/>
+					<Item id="7127" name="無効部分のフチ"/>
+					<Item id="7130" name="リセット"/>
+					<Item id="7135" name="色調"/>
+				</DarkMode>
 
-                <MarginsBorderEdge title="余白部/枠線/ガイド線">
-                    <Item id="6201" name="折り畳み表示スタイル"/>
-                    <Item id="6202" name="シンプル"/>
-                    <Item id="6203" name="矢印"/>
-                    <Item id="6204" name="丸とツリー"/>
-                    <Item id="6205" name="四角とツリー"/>
-                    <Item id="6226" name="なし"/>
-                    <Item id="6291" name="行番号"/>
-                    <Item id="6206" name="表示する"/>
-                    <Item id="6292" name="表示に応じて幅を調整"/>
-                    <Item id="6293" name="最大桁数で幅を固定"/>
-                    <Item id="6207" name="ブックマークを表示"/>
-                    <Item id="6223" name="編集履歴マーカーを表示する"/>
-                    <Item id="6211" name="ガイド線の表示設定"/>
-                    <Item id="6213" name="背景色で表示"/>
-                    <Item id="6237" name="線を表示したい桁位置を指定してください。
+				<MarginsBorderEdge title="余白部/枠線/ガイド線">
+					<Item id="6201" name="折り畳み表示スタイル"/>
+					<Item id="6202" name="シンプル"/>
+					<Item id="6203" name="矢印"/>
+					<Item id="6204" name="丸とツリー"/>
+					<Item id="6205" name="四角とツリー"/>
+					<Item id="6226" name="なし"/>
+					<Item id="6291" name="行番号"/>
+					<Item id="6206" name="表示する"/>
+					<Item id="6292" name="表示に応じて幅を調整"/>
+					<Item id="6293" name="最大桁数で幅を固定"/>
+					<Item id="6207" name="ブックマークを表示"/>
+					<Item id="6223" name="編集履歴マーカーを表示する"/>
+					<Item id="6211" name="ガイド線の表示設定"/>
+					<Item id="6213" name="背景色で表示"/>
+					<Item id="6237" name="線を表示したい桁位置を指定してください。
 複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
-                    <Item id="6231" name="枠線幅"/>
-                    <Item id="6235" name="枠を非表示"/>
-                    <Item id="6208" name="余白"/>
-                    <Item id="6209" name="左"/>
-                    <Item id="6210" name="右"/>
-                    <Item id="6212" name="集中モード時"/>
-                </MarginsBorderEdge>
+					<Item id="6231" name="枠線幅"/>
+					<Item id="6235" name="枠を非表示"/>
+					<Item id="6208" name="余白"/>
+					<Item id="6209" name="左"/>
+					<Item id="6210" name="右"/>
+					<Item id="6212" name="集中モード時"/>
+				</MarginsBorderEdge>
 
-                <NewDoc title="新規文書">
-                    <Item id="6401" name="フォーマット(改行コード)"/>
-                    <Item id="6402" name="Windows (CR LF)"/>
-                    <Item id="6403" name="Unix (LF)"/>
-                    <Item id="6404" name="Macintosh (CR)"/>
-                    <Item id="6405" name="エンコード"/>
-                    <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8"/>
-                    <Item id="6408" name="UTF-8 (BOM付)"/>
-                    <Item id="6409" name="UTF-16 Big Endian (BOM付)"/>
-                    <Item id="6410" name="UTF-16 Little Endian (BOM付)"/>
-                    <Item id="6411" name="デフォルトの言語:"/>
-                    <Item id="6419" name="新規文書"/>
-                    <Item id="6420" name="開いているANSIファイルに適用"/>
-                </NewDoc>
+				<NewDoc title="新規文書">
+					<Item id="6401" name="フォーマット(改行コード)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
+					<Item id="6405" name="エンコード"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 (BOM付)"/>
+					<Item id="6409" name="UTF-16 Big Endian (BOM付)"/>
+					<Item id="6410" name="UTF-16 Little Endian (BOM付)"/>
+					<Item id="6411" name="デフォルトの言語:"/>
+					<Item id="6419" name="新規文書"/>
+					<Item id="6420" name="開いているANSIファイルに適用"/>
+				</NewDoc>
 
-                <DefaultDir title="既定のディレクトリ">
-                    <Item id="6413" name="開く/保存する時の既定のディレクトリ"/>
-                    <Item id="6414" name="現在の文書に従う"/>
-                    <Item id="6415" name="最後に使ったディレクトリ"/>
-                    <Item id="6431" name="フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く"/>
-                </DefaultDir>
+				<DefaultDir title="既定のディレクトリ">
+					<Item id="6413" name="開く/保存する時の既定のディレクトリ"/>
+					<Item id="6414" name="現在の文書に従う"/>
+					<Item id="6415" name="最後に使ったディレクトリ"/>
+					<Item id="6431" name="フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く"/>
+				</DefaultDir>
 
-                <FileAssoc title="ファイルの関連付け">
-                    <Item id="4008" name="この機能を使うには、Notepad++ をいったん終了し、管理者権限で起動し直してください。"/>
-                    <Item id="4009" name="サポート形式:"/>
-                    <Item id="4010" name="登録済み形式:"/>
-                </FileAssoc>
-                <Language title="言語メニュー">
-                    <Item id="6505" name="利用する"/>
-                    <Item id="6506" name="利用しない"/>
-                    <Item id="6507" name="言語メニューをまとめる"/>
-                    <Item id="6508" name="言語メニュー"/>
-                    <Item id="6301" name="タブ設定"/>
-                    <Item id="6302" name="スペースで置換"/>
-                    <Item id="6303" name="タブ幅:"/>
-                    <Item id="6510" name="デフォルト値を使用"/>
-                    <Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
-                </Language>
+				<FileAssoc title="ファイルの関連付け">
+					<Item id="4008" name="この機能を使うには、Notepad++ をいったん終了し、管理者権限で起動し直してください。"/>
+					<Item id="4009" name="サポート形式:"/>
+					<Item id="4010" name="登録済み形式:"/>
+				</FileAssoc>
+				<Language title="言語メニュー">
+					<Item id="6505" name="利用する"/>
+					<Item id="6506" name="利用しない"/>
+					<Item id="6507" name="言語メニューをまとめる"/>
+					<Item id="6508" name="言語メニュー"/>
+					<Item id="6301" name="タブ設定"/>
+					<Item id="6302" name="スペースで置換"/>
+					<Item id="6303" name="タブ幅:"/>
+					<Item id="6510" name="デフォルト値を使用"/>
+					<Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
+				</Language>
 
-                <Highlighting title="強調表示">
-                    <Item id="6351" name="選択した語をすべて色づけ"/>
-                    <Item id="6352" name="大/小文字を区別"/>
-                    <Item id="6353" name="単語単位"/>
-                    <Item id="6333" name="スマート強調表示"/>
-                    <Item id="6326" name="有効"/>
-                    <Item id="6354" name="一致させる条件"/>
-                    <Item id="6332" name="大/小文字を区別"/>
-                    <Item id="6338" name="単語単位"/>
-                    <Item id="6339" name="検索ダイアログの設定に従う"/>
-                    <Item id="6340" name="他のビューも強調する"/>
-                    <Item id="6329" name="一致するタグの強調表示"/>
-                    <Item id="6327" name="有効"/>
-                    <Item id="6328" name="タグの属性を強調表示"/>
-                    <Item id="6330" name="コメント/PHP/ASP 領域を強調表示"/>
-                </Highlighting>
+				<Highlighting title="強調表示">
+					<Item id="6351" name="選択した語をすべて色づけ"/>
+					<Item id="6352" name="大/小文字を区別"/>
+					<Item id="6353" name="単語単位"/>
+					<Item id="6333" name="スマート強調表示"/>
+					<Item id="6326" name="有効"/>
+					<Item id="6354" name="一致させる条件"/>
+					<Item id="6332" name="大/小文字を区別"/>
+					<Item id="6338" name="単語単位"/>
+					<Item id="6339" name="検索ダイアログの設定に従う"/>
+					<Item id="6340" name="他のビューも強調する"/>
+					<Item id="6329" name="一致するタグの強調表示"/>
+					<Item id="6327" name="有効"/>
+					<Item id="6328" name="タグの属性を強調表示"/>
+					<Item id="6330" name="コメント/PHP/ASP 領域を強調表示"/>
+				</Highlighting>
 
-                <Print title="印刷">
-                    <Item id="6601" name="行番号を印刷する"/>
-                    <Item id="6602" name="色"/>
-                    <Item id="6603" name="WYSIWYG(見た目をそのまま印刷)"/>
-                    <Item id="6604" name="反転"/>
-                    <Item id="6605" name="モノクロ(白地に黒文字)"/>
-                    <Item id="6606" name="背景色なし"/>
-                    <Item id="6607" name="余白設定(単位 mm)"/>
-                    <Item id="6612" name="左"/>
-                    <Item id="6613" name="上"/>
-                    <Item id="6614" name="右"/>
-                    <Item id="6615" name="下"/>
-                    <Item id="6706" name="太字"/>
-                    <Item id="6707" name="斜体"/>
-                    <Item id="6708" name="ヘッダー"/>
-                    <Item id="6709" name="左側"/>
-                    <Item id="6710" name="中央"/>
-                    <Item id="6711" name="右側"/>
-                    <Item id="6717" name="太字"/>
-                    <Item id="6718" name="斜体"/>
-                    <Item id="6719" name="フッター"/>
-                    <Item id="6720" name="左側"/>
-                    <Item id="6721" name="中央"/>
-                    <Item id="6722" name="右側"/>
-                    <Item id="6723" name="追加"/>
-                    <ComboBox id="6724">
-                        <Element name="ファイル名のフルパス"/>
-                        <Element name="ファイル名"/>
-                        <Element name="ファイルのディレクトリ"/>
-                        <Element name="ページ"/>
-                        <Element name="日付・短い形式"/>
-                        <Element name="日付・長い形式"/>
-                        <Element name="時刻"/>
-                    </ComboBox>
-                    <Item id="6725" name="特殊変数:"/>
-                    <Item id="6727" name="表示場所:"/>
-                    <Item id="6728" name="ヘッダーとフッター"/>
-                </Print>
+				<Print title="印刷">
+					<Item id="6601" name="行番号を印刷する(&amp;U)"/>
+					<Item id="6602" name="色"/>
+					<Item id="6603" name="編集画面の表示のまま(&amp;Y)"/>
+					<Item id="6604" name="反転(&amp;N)"/>
+					<Item id="6605" name="白地に黒文字(&amp;W)"/>
+					<Item id="6606" name="背景色なし(&amp;K)"/>
+					<Item id="6607" name="余白設定(単位 mm)"/>
+					<Item id="6612" name="左(&amp;L)"/>
+					<Item id="6613" name="上(&amp;T)"/>
+					<Item id="6614" name="右(&amp;R)"/>
+					<Item id="6615" name="下(&amp;M)"/>
+					<Item id="6706" name="太字(&amp;B)"/>
+					<Item id="6707" name="斜体(&amp;I)"/>
+					<Item id="6708" name="ヘッダー"/>
+					<Item id="6709" name="左側(&amp;E)"/>
+					<Item id="6710" name="中央(&amp;M)"/>
+					<Item id="6711" name="右側(&amp;G)"/>
+					<Item id="6717" name="太字(&amp;D)"/>
+					<Item id="6718" name="斜体(&amp;C)"/>
+					<Item id="6719" name="フッター"/>
+					<Item id="6720" name="左側(&amp;F)"/>
+					<Item id="6721" name="中央(&amp;P)"/>
+					<Item id="6722" name="右側(&amp;H)"/>
+					<Item id="6723" name="追加(&amp;A)"/>
+					<ComboBox id="6724">
+						<Element name="ファイル名のフルパス"/>
+						<Element name="ファイル名"/>
+						<Element name="ファイルのディレクトリ"/>
+						<Element name="ページ"/>
+						<Element name="日付・短い形式"/>
+						<Element name="日付・長い形式"/>
+						<Element name="時刻"/>
+					</ComboBox>
+					<Item id="6725" name="特殊変数(&amp;V):"/>
+					<Item id="6727" name="編集内容がここにも表示されます"/>
+					<Item id="6728" name="ヘッダーとフッター"/>
+				</Print>
                 
-                <Searching title="検索">
-                    <Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
-                    <Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
-                    <Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
-                    <Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
-                    <Item id="6906" name="検索結果画面：複数回一致した行を 1行にまとめて表示する"/>
-                    <Item id="6907" name="検索画面を開くときの動作"/>
-                    <Item id="6908" name="検索文字列欄に、選択中の文字列を自動入力する"/>
-                    <Item id="6909" name="何も選択されていないときは、カーソル位置の単語を自動入力する"/>
-                </Searching>
+				<Searching title="検索">
+					<Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
+					<Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
+					<Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
+					<Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
+					<Item id="6906" name="検索結果画面：複数回一致した行を 1行にまとめて表示する"/>
+					<Item id="6907" name="検索画面を開くときの動作"/>
+					<Item id="6908" name="検索文字列欄に、選択中の文字列を自動入力する"/>
+					<Item id="6909" name="何も選択されていないときは、カーソル位置の単語を自動入力する"/>
+				</Searching>
 
 
-                <RecentFilesHistory title="ファイル履歴">
-                    <Item id="6304" name="ファイル履歴"/>
-                    <Item id="6306" name="最大保持数:"/>
-                    <Item id="6305" name="起動時にチェックしない"/>
-                    <Item id="6429" name="表示"/>
-                    <Item id="6424" name="サブメニューに入れる"/>
-                    <Item id="6425" name="ファイル名のみ"/>
-                    <Item id="6426" name="完全ファイルパス名"/>
-                    <Item id="6427" name="最大長を指定:"/>
-                </RecentFilesHistory>
+				<RecentFilesHistory title="ファイル履歴">
+					<Item id="6304" name="ファイル履歴"/>
+					<Item id="6306" name="最大保持数:"/>
+					<Item id="6305" name="起動時にチェックしない"/>
+					<Item id="6429" name="表示"/>
+					<Item id="6424" name="サブメニューに入れる"/>
+					<Item id="6425" name="ファイル名のみ"/>
+					<Item id="6426" name="完全ファイルパス名"/>
+					<Item id="6427" name="最大長を指定:"/>
+				</RecentFilesHistory>
 
-                <Backup title="自動バックアップ">
-                    <Item id="6817" name="セッションスナップショットと定期的なバックアップ"/>
-                    <Item id="6818" name="セッションスナップショットと定期的なバックアップを有効にする"/>
-                    <Item id="6819" name="バックアップを"/>
-                    <Item id="6821" name="秒ごとに行う"/>
-                    <Item id="6822" name="バックアップパス:"/>
-                    <Item id="6309" name="現在のセッションを次回起動時に復元"/>
-                    <Item id="6801" name="保存時のバックアップ"/>
-                    <Item id="6315" name="なし"/>
-                    <Item id="6316" name="単純バックアップ"/>
-                    <Item id="6317" name="日時バックアップ"/>
-                    <Item id="6804" name="バックアップディレクトリを指定"/>
-                    <Item id="6803" name="ディレクトリ:"/>
-                </Backup>
+				<Backup title="自動バックアップ">
+					<Item id="6817" name="セッションスナップショットと定期的なバックアップ"/>
+					<Item id="6818" name="セッションスナップショットと定期的なバックアップを有効にする"/>
+					<Item id="6819" name="バックアップを"/>
+					<Item id="6821" name="秒ごとに行う"/>
+					<Item id="6822" name="バックアップパス:"/>
+					<Item id="6309" name="現在のセッションを次回起動時に復元"/>
+					<Item id="6801" name="保存時のバックアップ"/>
+					<Item id="6315" name="なし"/>
+					<Item id="6316" name="単純バックアップ"/>
+					<Item id="6317" name="日時バックアップ"/>
+					<Item id="6804" name="バックアップディレクトリを指定"/>
+					<Item id="6803" name="ディレクトリ:"/>
+				</Backup>
 
-                <AutoCompletion title="自動補完">
-                    <Item id="6115" name="自動インデント"/>
-                    <Item id="6807" name="自動補完"/>
-                    <Item id="6808" name="入力毎に補完を行う"/>
-                    <Item id="6809" name="関数名補完"/>
-                    <Item id="6810" name="単語補完"/>
-                    <Item id="6816" name="関数名と単語の補完"/>
-                    <Item id="6869" name="補完の確定"/>
-                    <Item id="6870" name="TAB"/>
-                    <Item id="6871" name="ENTER"/>
-                    <Item id="6824" name="数字は補完しない"/>
-                    <Item id="6811" name=" "/>
-                    <Item id="6813" name="文字目から"/>
-                    <Item id="6872" name="入力するにつれ候補を絞り込む"/>
-                    <Item id="6815" name="入力時の関数パラメータヒント"/>
-                    <Item id="6851" name="自動挿入"/>
-                    <Item id="6857" name=" html/xmlの終了タグ"/>
-                    <Item id="6858" name="開始"/>
-                    <Item id="6859" name="終了"/>
-                    <Item id="6860" name="一致させるペア1:"/>
-                    <Item id="6863" name="一致させるペア2:"/>
-                    <Item id="6866" name="一致させるペア3:"/>
-                </AutoCompletion>
+				<AutoCompletion title="自動補完">
+					<Item id="6115" name="自動インデント"/>
+					<Item id="6807" name="自動補完"/>
+					<Item id="6808" name="入力毎に補完を行う"/>
+					<Item id="6809" name="関数名補完"/>
+					<Item id="6810" name="単語補完"/>
+					<Item id="6816" name="関数名と単語の補完"/>
+					<Item id="6869" name="補完の確定"/>
+					<Item id="6870" name="TAB"/>
+					<Item id="6871" name="ENTER"/>
+					<Item id="6824" name="数字は補完しない"/>
+					<Item id="6811" name=" "/>
+					<Item id="6813" name="文字目から"/>
+					<Item id="6872" name="入力するにつれ候補を絞り込む"/>
+					<Item id="6815" name="入力時の関数パラメータヒント"/>
+					<Item id="6851" name="自動挿入"/>
+					<Item id="6857" name=" html/xmlの終了タグ"/>
+					<Item id="6858" name="開始"/>
+					<Item id="6859" name="終了"/>
+					<Item id="6860" name="一致させるペア1:"/>
+					<Item id="6863" name="一致させるペア2:"/>
+					<Item id="6866" name="一致させるペア3:"/>
+				</AutoCompletion>
 
-                <MultiInstance title="複数起動、日時書式">
-                    <Item id="6151" name="複数起動（マルチインスタンス）の設定 *"/>
-                    <Item id="6152" name="セッションを新しいインスタンスで開く（セッションは終了時に自動保存）"/>
-                    <Item id="6153" name="常にマルチインスタンスモードとする"/>
-                    <Item id="6154" name="デフォルト（1つのインスタンス）"/>
-                    <Item id="6155" name="* この変更を有効にするにはNotepad++の再起動が必要です"/>
-                    <Item id="6171" name="挿入する日時の書式設定"/>
-                    <Item id="6175" name="日付と時刻の順序を逆にする（短い形式、長い形式の場合）"/>
-                    <Item id="6172" name="カスタム書式:"/>
-                    <Item id="6181" name="パネルの表示状態と -nosession *"/>
-                    <Item id="6182" name="ほかのインスタンス（複数起動）のパネルの表示状態や、コマンドラインで -nosession を指定したときの表示状態を、保存するかを設定します"/>
-                    <Item id="6183" name="クリップボード履歴"/>
-                    <Item id="6184" name="文書一覧"/>
-                    <Item id="6185" name="文字コード表"/>
-                    <Item id="6186" name="ワークスペース フォルダー"/>
-                    <Item id="6187" name="プロジェクトパネル"/>
-                    <Item id="6188" name="文書マップ"/>
-                    <Item id="6189" name="関数リスト"/>
-                    <Item id="6190" name="プラグイン"/>
-                </MultiInstance>
+				<MultiInstance title="複数起動、日時書式">
+					<Item id="6151" name="複数起動（マルチインスタンス）の設定 *"/>
+					<Item id="6152" name="セッションを新しいインスタンスで開く（セッションは終了時に自動保存）"/>
+					<Item id="6153" name="常にマルチインスタンスモードとする"/>
+					<Item id="6154" name="デフォルト（1つのインスタンス）"/>
+					<Item id="6155" name="* この変更を有効にするにはNotepad++の再起動が必要です"/>
+					<Item id="6171" name="挿入する日時の書式設定"/>
+					<Item id="6175" name="日付と時刻の順序を逆にする（短い形式、長い形式の場合）"/>
+					<Item id="6172" name="カスタム書式:"/>
+					<Item id="6181" name="パネルの表示状態と -nosession *"/>
+					<Item id="6182" name="ほかのインスタンス（複数起動）のパネルの表示状態や、コマンドラインで -nosession を指定したときの表示状態を、保存するかを設定します"/>
+					<Item id="6183" name="クリップボード履歴"/>
+					<Item id="6184" name="文書一覧"/>
+					<Item id="6185" name="文字コード表"/>
+					<Item id="6186" name="ワークスペース フォルダー"/>
+					<Item id="6187" name="プロジェクトパネル"/>
+					<Item id="6188" name="文書マップ"/>
+					<Item id="6189" name="関数リスト"/>
+					<Item id="6190" name="プラグイン"/>
+				</MultiInstance>
 
-                <Delimiter title="区切り記号">
-                    <Item id="6251" name="区切り記号選択設定(Ctrl+マウスダブルクリック)"/>
-                    <Item id="6252" name="開始"/>
-                    <Item id="6255" name="終了"/>
-                    <Item id="6256" name="複数行を許可する"/>
-                    <Item id="6161" name="単語を構成する文字"/>
-                    <Item id="6162" name="標準の 単語を構成する文字 を使う"/>
-                    <Item id="6163" name="単語の一部と見なす文字を追加する
+				<Delimiter title="区切り記号">
+					<Item id="6251" name="区切り記号選択設定(Ctrl+マウスダブルクリック)"/>
+					<Item id="6252" name="開始"/>
+					<Item id="6255" name="終了"/>
+					<Item id="6256" name="複数行を許可する"/>
+					<Item id="6161" name="単語を構成する文字"/>
+					<Item id="6162" name="標準の 単語を構成する文字 を使う"/>
+					<Item id="6163" name="単語の一部と見なす文字を追加する
 (意味がわからないならば、標準のままにすべきです)"/>
-                </Delimiter>
+				</Delimiter>
 
-                <Performance title="パフォーマンス">
-                    <Item id="7141" name="大きなファイルでの制約"/>
-                    <Item id="7143" name="大きなファイルで制約をかける（強調表示なし）"/>
-                    <Item id="7144" name="ファイルサイズのしきい値："/>
-                    <Item id="7146" name="MB   (1 - 4096)"/>
-                    <Item id="7147" name="対応する括弧の強調表示を利用する"/>
-                    <Item id="7148" name="自動補完を利用する"/>
-                    <Item id="7149" name="スマート強調表示を利用する"/>
-                    <Item id="7150" name="画面端での折り返しをすべての文書でオフにする"/>
-                    <Item id="7151" name="URIのハイパーリンク化を利用する"/>
-                </Performance>
+				<Performance title="パフォーマンス">
+					<Item id="7141" name="大きなファイルでの制約"/>
+					<Item id="7143" name="大きなファイルで制約をかける（強調表示なし）"/>
+					<Item id="7144" name="ファイルサイズのしきい値："/>
+					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7147" name="対応する括弧の強調表示を利用する"/>
+					<Item id="7148" name="自動補完を利用する"/>
+					<Item id="7149" name="スマート強調表示を利用する"/>
+					<Item id="7150" name="画面端での折り返しをすべての文書でオフにする"/>
+					<Item id="7151" name="URIのハイパーリンク化を利用する"/>
+				</Performance>
 
-                <Cloud title="クラウド、ハイパーリンク">
-                    <Item id="6262" name="クラウド設定"/>
-                    <Item id="6263" name="クラウドを使用しない"/>
-                    <Item id="6267" name="クラウドのパスを指定:"/>
-                    <Item id="6318" name="URIのハイパーリンク化"/>
-                    <Item id="6319" name="有効"/>
-                    <Item id="6320" name="下線を引かない"/>
-                    <Item id="6350" name="注目時に背景色を変える"/>
-                    <Item id="6264" name="カスタムURIスキーム："/>
-                </Cloud>
+				<Cloud title="クラウド、ハイパーリンク">
+					<Item id="6262" name="クラウド設定"/>
+					<Item id="6263" name="クラウドを使用しない"/>
+					<Item id="6267" name="クラウドのパスを指定:"/>
+					<Item id="6318" name="URIのハイパーリンク化"/>
+					<Item id="6319" name="有効"/>
+					<Item id="6320" name="下線を引かない"/>
+					<Item id="6350" name="注目時に背景色を変える"/>
+					<Item id="6264" name="カスタムURIスキーム："/>
+				</Cloud>
 
-                <SearchEngine title="検索エンジン">
-                    <Item id="6271" name="検索エンジン(「インターネットで検索する」コマンド用)"/>
-                    <Item id="6272" name="DuckDuckGo"/>
-                    <Item id="6273" name="Google"/>
-                    <Item id="6274" name="Bing"/>
-                    <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="ユーザー設定:"/>
-                    <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="例: https://www.google.com/search?q=$(CURRENT_WORD)"/>
-                </SearchEngine>
+				<SearchEngine title="検索エンジン">
+					<Item id="6271" name="検索エンジン(「インターネットで検索する」コマンド用)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="ユーザー設定:"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="例: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
 
-                <MISC title="その他">
-                    <ComboBox id="6347">
-                        <Element name="有効"/>
-                        <Element name="開いている全ファイルで有効"/>
-                        <Element name="無効"/>
-                    </ComboBox>
-                    <Item id="6308" name="タスクトレイに格納"/>
-                    <Item id="6312" name="ファイルの状態監視"/>
-                    <Item id="6313" name="自動で最新状態に更新"/>
-                    <Item id="6325" name="更新後最後の行にスクロール"/>
-                    <Item id="6322" name="セッションファイルの拡張子:"/>
-                    <Item id="6323" name="Notepad++の自動アップデートを有効にする"/>
-                    <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
-                    <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
-                    <Item id="6334" name="文字コードを自動判別"/>
-                    <Item id="6349" name="DirectWriteを使用する（特殊な文字の描画が改善されます。Notepad++ の再起動が必要）"/>
-                    <Item id="6337" name="ワークスペースファイルの拡張子:"/>
-                    <Item id="6114" name="有効"/>
-                    <Item id="6117" name="最近使用した順で切り替える"/>
-                    <Item id="6344" name="タブのプレビュー"/>
-                    <Item id="6345" name="タブの近くに表示する"/>
-                    <Item id="6346" name="文書マップに表示する"/>
-                    <Item id="6360" name="音を鳴らさないようにする"/>
-                    <Item id="6361" name="「すべて保存」時に確認ダイアログを表示する"/>
-                </MISC>
-            </Preference>
-            <MultiMacro title="指定マクロを複数回実行">
-                <Item id="1" name="実行(&amp;R)"/>
-                <Item id="2" name="キャンセル(&amp;C)"/>
-                <Item id="8006" name="マクロ指定:"/>
-                <Item id="8001" name="実行"/>
-                <Item id="8005" name="回"/>
-                <Item id="8002" name="ファイル終端まで実行する(&amp;E)"/>
-            </MultiMacro>
-            <Window title="ウィンドウ管理">
-                <Item id="1" name="アクティブ化(&amp;A)"/>
-                <Item id="2" name="OK(&amp;O)"/>
-                <Item id="7002" name="保存(&amp;S)"/>
-                <Item id="7003" name="閉じる(&amp;C)"/>
-                <Item id="7004" name="タブをソート(&amp;T)"/>
-            </Window>
-            <ColumnEditor title="矩形編集">
-                <Item id="2023" name="挿入する文字列(&amp;T)"/>
-                <Item id="2033" name="挿入する数値(&amp;N)"/>
-                <Item id="2030" name="初期値(&amp;I):"/>
-                <Item id="2031" name="増分(&amp;Y):"/>
-                <Item id="2038" name="右詰め(&amp;L):"/>
-                <ComboBox id="2039">
-                    <Element name="しない"/>
-                    <Element name="ゼロ埋め"/>
-                    <Element name="空白埋め"/>
-                </ComboBox>
-                <Item id="2036" name="反復(&amp;R):"/>
-                <Item id="2032" name="フォーマット"/>
-                <Item id="2024" name="10進数(&amp;D)"/>
-                <Item id="2025" name="8進数(&amp;O)"/>
-                <Item id="2026" name="16進数(&amp;H)"/>
-                <Item id="2027" name="2進数(&amp;B)"/>
-                <Item id="1" name="OK"/>
-                <Item id="2" name="キャンセル"/>
-            </ColumnEditor>
-            <FindInFinder title="検索結果から検索">
-                <Item id="1"    name="すべて検索"/>
-                <Item id="2"    name="閉じる"/>
-                <Item id="1711" name="検索文字列(&amp;F):"/>
-                <Item id="1713" name="ヒットした行の中から検索する"/>
-                <Item id="1714" name="単語単位(&amp;W)"/>
-                <Item id="1715" name="大/小文字を区別(&amp;C)"/>
-                <Item id="1716" name="検索モード"/>
-                <Item id="1717" name="標準(&amp;N)"/>
-                <Item id="1719" name="正規表現(&amp;G)"/>
-                <Item id="1718" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
-                <Item id="1720" name="&amp;.は改行と一致"/>
-            </FindInFinder>
-            <DoSaveOrNot title="保存">
-                <Item id="1761" name="&quot;$STR_REPLACE$&quot; を保存しますか？"/>
-                <Item id="6" name="はい(&amp;Y)"/>
-                <Item id="7" name="いいえ(&amp;N)"/>
-                <Item id="2" name="キャンセル(&amp;C)"/>
-                <Item id="4" name="すべて はい(&amp;A)"/>
-                <Item id="5" name="すべて いいえ(&amp;O)"/>
-            </DoSaveOrNot>
-            <DoSaveAll title="すべて保存">
-                <Item id="1766" name="すべての編集済み文書が保存されます。よろしいですか？
+				<MISC title="その他">
+					<ComboBox id="6347">
+						<Element name="有効"/>
+						<Element name="開いている全ファイルで有効"/>
+						<Element name="無効"/>
+					</ComboBox>
+					<Item id="6308" name="タスクトレイに格納"/>
+					<Item id="6312" name="ファイルの状態監視"/>
+					<Item id="6313" name="自動で最新状態に更新"/>
+					<Item id="6325" name="更新後最後の行にスクロール"/>
+					<Item id="6322" name="セッションファイルの拡張子:"/>
+					<Item id="6323" name="Notepad++の自動アップデートを有効にする"/>
+					<Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
+					<Item id="6331" name="タイトルバーにファイル名のみ表示"/>
+					<Item id="6334" name="文字コードを自動判別"/>
+					<Item id="6349" name="DirectWriteを使用する（特殊な文字の描画が改善されます。Notepad++ の再起動が必要）"/>
+					<Item id="6337" name="ワークスペースファイルの拡張子:"/>
+					<Item id="6114" name="有効"/>
+					<Item id="6117" name="最近使用した順で切り替える"/>
+					<Item id="6344" name="タブのプレビュー"/>
+					<Item id="6345" name="タブの近くに表示する"/>
+					<Item id="6346" name="文書マップに表示する"/>
+					<Item id="6360" name="音を鳴らさないようにする"/>
+					<Item id="6361" name="「すべて保存」時に確認ダイアログを表示する"/>
+				</MISC>
+			</Preference>
+			<MultiMacro title="指定マクロを複数回実行">
+				<Item id="1" name="実行(&amp;R)"/>
+				<Item id="2" name="キャンセル(&amp;C)"/>
+				<Item id="8006" name="マクロ指定"/>
+				<Item id="8001" name="実行"/>
+				<Item id="8005" name="回"/>
+				<Item id="8002" name="ファイル終端まで実行する(&amp;E)"/>
+			</MultiMacro>
+			<Window title="ウィンドウ管理">
+				<Item id="1" name="アクティブ化(&amp;A)"/>
+				<Item id="2" name="OK(&amp;O)"/>
+				<Item id="7002" name="保存(&amp;S)"/>
+				<Item id="7003" name="閉じる(&amp;C)"/>
+				<Item id="7004" name="タブをソート(&amp;T)"/>
+			</Window>
+			<ColumnEditor title="矩形編集">
+				<Item id="2023" name="挿入する文字列(&amp;T)"/>
+				<Item id="2033" name="挿入する数値(&amp;N)"/>
+				<Item id="2030" name="初期値(&amp;I):"/>
+				<Item id="2031" name="増分(&amp;Y):"/>
+				<Item id="2038" name="右詰め(&amp;L):"/>
+				<ComboBox id="2039">
+					<Element name="しない"/>
+					<Element name="ゼロ埋め"/>
+					<Element name="空白埋め"/>
+				</ComboBox>
+				<Item id="2036" name="反復(&amp;R):"/>
+				<Item id="2032" name="フォーマット"/>
+				<Item id="2024" name="10進数(&amp;D)"/>
+				<Item id="2025" name="8進数(&amp;O)"/>
+				<Item id="2026" name="16進数(&amp;H)"/>
+				<Item id="2027" name="2進数(&amp;B)"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="キャンセル"/>
+			</ColumnEditor>
+			<FindInFinder title="検索結果から検索">
+				<Item id="1" name="すべて検索"/>
+				<Item id="2" name="閉じる"/>
+				<Item id="1711" name="検索文字列(&amp;F):"/>
+				<Item id="1713" name="ヒットした行の中から検索する"/>
+				<Item id="1714" name="単語単位(&amp;W)"/>
+				<Item id="1715" name="大/小文字を区別(&amp;C)"/>
+				<Item id="1716" name="検索モード"/>
+				<Item id="1717" name="標準(&amp;N)"/>
+				<Item id="1719" name="正規表現(&amp;G)"/>
+				<Item id="1718" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
+				<Item id="1720" name="&amp;.は改行と一致"/>
+			</FindInFinder>
+			<DoSaveOrNot title="保存">
+				<Item id="1761" name="&quot;$STR_REPLACE$&quot; を保存しますか？"/>
+				<Item id="6" name="はい(&amp;Y)"/>
+				<Item id="7" name="いいえ(&amp;N)"/>
+				<Item id="2" name="キャンセル(&amp;C)"/>
+				<Item id="4" name="すべて はい(&amp;A)"/>
+				<Item id="5" name="すべて いいえ(&amp;O)"/>
+			</DoSaveOrNot>
+			<DoSaveAll title="すべて保存">
+				<Item id="1766" name="すべての編集済み文書が保存されます。よろしいですか？
 
 「常にはい」を選ぶと、次回以降、この画面は表示されません。
 環境設定から、再度、この画面を表示するよう変更できます。"/>
-                <Item id="6" name="はい(&amp;Y)"/>
-                <Item id="7" name="いいえ(&amp;N)"/>
-                <Item id="4" name="常に はい"/>
-            </DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-        </Dialog>
-        <MessageBox>
-            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-            <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
+				<Item id="6" name="はい(&amp;Y)"/>
+				<Item id="7" name="いいえ(&amp;N)"/>
+				<Item id="4" name="常に はい"/>
+			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+		</Dialog>
+		<MessageBox>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+			<ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
 変更を適用するには、保存後、Notepad++を再起動して下さい。"/>
-            <SaveCurrentModifWarning title="警告: 現在の変更を保存" message="現在の変更を保存する必要があります。
+			<SaveCurrentModifWarning title="警告: 現在の変更を保存" message="現在の変更を保存する必要があります。
 保存したすべての変更は取り消すことはできません。
 
 続行しますか?"/>
-            <LoseUndoAbilityWarning title="警告: 元に戻すの履歴が失われます" message="現在の変更を保存する必要があります。
+			<LoseUndoAbilityWarning title="警告: 元に戻すの履歴が失われます" message="現在の変更を保存する必要があります。
 保存したすべての変更は取り消すことはできません。
 
 続行しますか?"/>
-            <CannotMoveDoc title="新しいウィンドウに移動" message="ドキュメントが変更されました。保存してやり直してください。"/>
-            <DocReloadWarning title="再読み込み" message="変更が失われますが、このドキュメントを本当に開き直しますか?"/>
-            <FileLockedWarning title="警告: 保存失敗" message="このファイルを別のプログラムで開いていないか確認してください。"/>
-            <FileAlreadyOpenedInNpp title="" message="そのファイルは既にNotepad++で開かれています。"/>
-            <RenameTabTemporaryNameAlreadyInUse title="名前の変更に失敗" message="指定された名前は、ほかのタブで使用されています。"/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-            <DeleteFileFailed title="削除失敗" message="ファイルの削除に失敗しました。"/>
+			<CannotMoveDoc title="新しいウィンドウに移動" message="ドキュメントが変更されました。保存してやり直してください。"/>
+			<DocReloadWarning title="再読み込み" message="変更が失われますが、このドキュメントを本当に開き直しますか?"/>
+			<FileLockedWarning title="警告: 保存失敗" message="このファイルを別のプログラムで開いていないか確認してください。"/>
+			<FileAlreadyOpenedInNpp title="" message="そのファイルは既にNotepad++で開かれています。"/>
+			<RenameTabTemporaryNameAlreadyInUse title="名前の変更に失敗" message="指定された名前は、ほかのタブで使用されています。"/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<DeleteFileFailed title="削除失敗" message="ファイルの削除に失敗しました。"/>
 
-            <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。
+			<NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。
 本当に開きますか?"/>
-            <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダーに設定されています。
+			<SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダーに設定されています。
 クラウドの設定はキャンセルされます。環境設定画面で正しい場所を指定し直して下さい。"/>
 
-            <FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
-            <SessionFileInvalidError title="セッションを読み込めません" message="セッションファイルが破損しているか、正しい形式ではありません。"/>
-            <DroppingFolderAsProjectModeWarning title="無効な操作です" message="「フォルダーをプロジェクトとして開く」設定になっているため、ファイルとフォルダーを同時にドロップして開くことはできません。
+			<FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
+			<SessionFileInvalidError title="セッションを読み込めません" message="セッションファイルが破損しているか、正しい形式ではありません。"/>
+			<DroppingFolderAsProjectModeWarning title="無効な操作です" message="「フォルダーをプロジェクトとして開く」設定になっているため、ファイルとフォルダーを同時にドロップして開くことはできません。
 この操作を使いたい場合、「環境設定」を開き、「既定のディレクトリ」の「フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く」を有効にして下さい。"/>
-            <SortingError title="ソートエラー" message="行番号 $INT_REPLACE$ が原因でソートを実行できませんでした。"/>
+			<SortingError title="ソートエラー" message="行番号 $INT_REPLACE$ が原因でソートを実行できませんでした。"/>
 
-            <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、次の3つの方法があります：
+			<ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、次の3つの方法があります：
 1.（キーボードとマウス）Altキーを押しながら左ボタンでドラッグ
 2.（キーボード）Alt＋Shiftキーを押しながら矢印キーを押す
 3.（キーボードかマウス）
@@ -1370,204 +1372,210 @@
 　　続いて矩形の終わりの位置にカーソルを移動し、
 　　もう一度「矩形モードで選択を開始/終了」を実行します。"/>
 
-            <BufferInvalidWarning title="保存に失敗しました" message="バッファーが不正のため保存できませんでした。"/>
-            <DoCloseOrNot title="存在しないファイル" message="&quot;$STR_REPLACE$&quot; は存在しません。
+			<BufferInvalidWarning title="保存に失敗しました" message="バッファーが不正のため保存できませんでした。"/>
+			<DoCloseOrNot title="存在しないファイル" message="&quot;$STR_REPLACE$&quot; は存在しません。
 このファイルをエディターで保持し続けますか？"/>
-            <DoDeleteOrNot title="ファイルを削除" message="&quot;$STR_REPLACE$&quot;
+			<DoDeleteOrNot title="ファイルを削除" message="&quot;$STR_REPLACE$&quot;
 は ごみ箱 に移動され、この文書も閉じられます。
 処理を続けてもよろしいですか？"/>
-            <NoBackupDoSaveFile title="保存" message="ファイルのバックアップが見つかりません(外部で削除されました)。
+			<NoBackupDoSaveFile title="保存" message="ファイルのバックアップが見つかりません(外部で削除されました)。
 保存しない場合、この文書は失われます。
 &quot;$STR_REPLACE$&quot; を保存しますか？"/>
-            <DoReloadOrNot title="再読み込み" message="&quot;$STR_REPLACE$&quot;
+			<DoReloadOrNot title="再読み込み" message="&quot;$STR_REPLACE$&quot;
 
 このファイルは他のプログラムによって変更されました。
 再読み込みしますか？"/>
-            <DoReloadOrNotAndLooseChange title="再読み込み" message="&quot;$STR_REPLACE$&quot;
+			<DoReloadOrNotAndLooseChange title="再読み込み" message="&quot;$STR_REPLACE$&quot;
 
 このファイルは他のプログラムによって変更されました。
 Notepad++ で行った変更は破棄されますが、再読み込みしますか？"/>
-            <PrehistoricSystemDetected title="古いシステムです" message="システムが古いため、この機能は利用できません。"/>
-            <XpUpdaterProblem title="Notepad++ アップデーター" message="Notepad++ アップデーターは XP では利用できません。これは XP のセキュリティー機能が古いためです。
+			<PrehistoricSystemDetected title="古いシステムです" message="システムが古いため、この機能は利用できません。"/>
+			<XpUpdaterProblem title="Notepad++ アップデーター" message="Notepad++ アップデーターは XP では利用できません。これは XP のセキュリティー機能が古いためです。
 Notepad++ のダウンロードページを開きますか？"/>
-            <GUpProxyConfNeedAdminMode title="プロキシ設定" message="プロキシ設定を変更するには、Notepad++ を管理者権限で実行してください。"/>
-            <DocTooDirtyToMonitor title="ファイル監視" message="この文書は変更されています。監視を始める前に保存をして下さい。"/>
-            <DocNoExistToMonitor title="ファイル監視" message="監視対象のファイルが存在しません。"/>
-            <FileTooBigToOpen title="ファイルサイズ" message="ファイルサイズが大きいため Notepad++ で開けません。"/>
-            <FileLoadingException title="例外コード：$STR_REPLACE$" message="ファイルの読み込み中にエラーが発生しました。"/>
-            <WantToOpenHugeFile title="大きなファイルを開こうとしています" message="2GBより大きなファイルを開くには何分かかかるかもしれません。
+			<GUpProxyConfNeedAdminMode title="プロキシ設定" message="プロキシ設定を変更するには、Notepad++ を管理者権限で実行してください。"/>
+			<DocTooDirtyToMonitor title="ファイル監視" message="この文書は変更されています。監視を始める前に保存をして下さい。"/>
+			<DocNoExistToMonitor title="ファイル監視" message="監視対象のファイルが存在しません。"/>
+			<FileTooBigToOpen title="ファイルサイズ" message="ファイルサイズが大きいため Notepad++ で開けません。"/>
+			<FileLoadingException title="例外コード：$STR_REPLACE$" message="ファイルの読み込み中にエラーが発生しました。"/>
+			<WantToOpenHugeFile title="大きなファイルを開こうとしています" message="2GBより大きなファイルを開くには何分かかかるかもしれません。
 ファイルを開きますか？"/>
-            <CreateNewFileOrNot title="新しいファイルを作成" message="&quot;$STR_REPLACE$&quot; は存在しません。作成しますか？"/>
-            <CreateNewFileError title="新しいファイルを作成" message="ファイルを作成できませんでした：&quot;$STR_REPLACE$&quot;"/>
-            <OpenFileError title="エラー" message="ファイルを開けませんでした：&quot;$STR_REPLACE$&quot;"/>
-            <OpenFileNoFolderError title="ファイルを開けませんでした" message="&quot;$STR_REPLACE1$&quot; を開けませんでした。
+			<CreateNewFileOrNot title="新しいファイルを作成" message="&quot;$STR_REPLACE$&quot; は存在しません。作成しますか？"/>
+			<CreateNewFileError title="新しいファイルを作成" message="ファイルを作成できませんでした：&quot;$STR_REPLACE$&quot;"/>
+			<OpenFileError title="エラー" message="ファイルを開けませんでした：&quot;$STR_REPLACE$&quot;"/>
+			<OpenFileNoFolderError title="ファイルを開けませんでした" message="&quot;$STR_REPLACE1$&quot; を開けませんでした。
 フォルダー &quot;$STR_REPLACE2$&quot; が存在しません。"/>
-            <FileBackupFailed title="バックアップに失敗" message="前の版のファイルをバックアップディレクトリーに保存できませんでした：&quot;$STR_REPLACE$&quot;
+			<FileBackupFailed title="バックアップに失敗" message="前の版のファイルをバックアップディレクトリーに保存できませんでした：&quot;$STR_REPLACE$&quot;
 
 現在のファイルを保存してもよろしいですか？"/>
-            <LoadStylersFailed title="stylers.xml の読み込みに失敗" message="&quot;$STR_REPLACE$&quot; の読み込みに失敗しました。"/>
-            <LoadLangsFailed title="ユーザー定義" message="langs.xml の読み込みに失敗しました。
+			<LoadStylersFailed title="stylers.xml の読み込みに失敗" message="&quot;$STR_REPLACE$&quot; の読み込みに失敗しました。"/>
+			<LoadLangsFailed title="ユーザー定義" message="langs.xml の読み込みに失敗しました。
 langs.xml を復元しますか？"/>
-            <LoadLangsFailedFinal title="ユーザー定義" message="langs.xml の読み込みに失敗しました。"/>
-            <FolderAsWorspaceSubfolderExists title="フォルダーをワークスペースとして開く" message="追加しようとしているフォルダーのサブフォルダーが、すでにワークスペースに存在します。
+			<LoadLangsFailedFinal title="ユーザー定義" message="langs.xml の読み込みに失敗しました。"/>
+			<FolderAsWorspaceSubfolderExists title="フォルダーをワークスペースとして開く" message="追加しようとしているフォルダーのサブフォルダーが、すでにワークスペースに存在します。
 該当フォルダーのルートをパネルから取り除いてから、フォルダー &quot;$STR_REPLACE$&quot; を追加して下さい。"/>
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="ワークスペースは変更されています。保存しますか？"/>
-            <ProjectPanelSaveError title="$STR_REPLACE$" message="ワークスペースファイルを保存中にエラーが発生しました。
+			<ProjectPanelChanged title="$STR_REPLACE$" message="ワークスペースは変更されています。保存しますか？"/>
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="ワークスペースファイルを保存中にエラーが発生しました。
 ワークスペースは保存されませんでした。"/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="ワークスペースを開く" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="新規ワークスペース" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
-            <ProjectPanelOpenFailed title="ワークスペースを開く" message="ワークスペースを開くことができませんでした。
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="ワークスペースを開く" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="新規ワークスペース" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
+			<ProjectPanelOpenFailed title="ワークスペースを開く" message="ワークスペースを開くことができませんでした。
 開こうとしているファイルが正常なプロジェクトファイルではないようです。"/>
-            <ProjectPanelRemoveFolderFromProject title="プロジェクトからフォルダーを取り除く" message="フォルダー内のすべての要素が取り除かれます。
+			<ProjectPanelRemoveFolderFromProject title="プロジェクトからフォルダーを取り除く" message="フォルダー内のすべての要素が取り除かれます。
 プロジェクトから本当にこのフォルダーを取り除いてよろしいですか？"/>
-            <ProjectPanelRemoveFileFromProject title="ファイルをプロジェクトから取り除く" message="プロジェクトから本当にこのファイルを取り除いてよろしいですか？"/>
-            <ProjectPanelReloadError title="ワークスペースを再読み込み" message="再読み込みするファイルが見つかりません。"/>
-            <ProjectPanelReloadDirty title="ワークスペースを再読み込み" message="現在のワークスペースは変更されています。再読み込みをするとすべての変更が失われます。
+			<ProjectPanelRemoveFileFromProject title="ファイルをプロジェクトから取り除く" message="プロジェクトから本当にこのファイルを取り除いてよろしいですか？"/>
+			<ProjectPanelReloadError title="ワークスペースを再読み込み" message="再読み込みするファイルが見つかりません。"/>
+			<ProjectPanelReloadDirty title="ワークスペースを再読み込み" message="現在のワークスペースは変更されています。再読み込みをするとすべての変更が失われます。
 処理を続けてもよろしいですか？"/>
-            <UDLNewNameError title="ユーザー定義 エラー" message="この名前は他の言語に使用されています。
+			<UDLNewNameError title="ユーザー定義 エラー" message="この名前は他の言語に使用されています。
 違う名前にして下さい。"/>
-            <UDLRemoveCurrentLang title="現在の言語を削除" message="よろしいですか？"/>
-            <SCMapperDoDeleteOrNot title="よろしいですか？" message="このショートカットを削除してよろしいですか？"/>
-            <FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/>
-            <OpenInAdminMode title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
+			<UDLRemoveCurrentLang title="現在の言語を削除" message="よろしいですか？"/>
+			<SCMapperDoDeleteOrNot title="よろしいですか？" message="このショートカットを削除してよろしいですか？"/>
+			<FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/>
+			<OpenInAdminMode title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
 Notepad++ を管理者権限で立ち上げますか？"/>
-            <OpenInAdminModeWithoutCloseCurrent title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
+			<OpenInAdminModeWithoutCloseCurrent title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
 Notepad++ を管理者権限で立ち上げますか？"/>
-            <OpenInAdminModeFailed title="管理者権限で立ち上げることに失敗" message="Notepad++ を管理者権限で立ち上げられませんでした。"/>
-            <ViewInBrowser title="ブラウザーで開く" message="アプリケーションが見つかりませんでした。"/>
-            <ExitToUpdatePlugins title="Notepad++ を終了しようとしています" message="「はい」を選択すると、Notepad++ を終了して更新作業を行います。
+			<OpenInAdminModeFailed title="管理者権限で立ち上げることに失敗" message="Notepad++ を管理者権限で立ち上げられませんでした。"/>
+			<ViewInBrowser title="ブラウザーで開く" message="アプリケーションが見つかりませんでした。"/>
+			<ExitToUpdatePlugins title="Notepad++ を終了しようとしています" message="「はい」を選択すると、Notepad++ を終了して更新作業を行います。
 すべての作業が完了すると Notepad++ は再起動します。
 処理を続けますか？"/>
-            <NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
-            <ChangeHistoryEnabledWarning title="Notepad++ を再起動してください" message="編集履歴マーカーを有効にするには、Notepad++ を再起動してください。"/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-            <WindowsSessionExit title="Notepad++ - Windows セッションの終了" message="Windows セッションを終了しようとしていますが、保存されていない文書があります。Notepad++ を終了してもよろしいですか？"/>
-            <LanguageMenuCompactWarning title="言語メニューをまとめる" message="この設定は次回の起動時に反映されます"/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
-            <SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="テーマへの変更が保存されていません。
-テーマを切り替える前に、変更を保存しますか？"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-        </MessageBox>
-        <ClipboardHistory>
-            <PanelTitle name="クリップボード履歴"/>
-        </ClipboardHistory>
-        <DocList>
-            <PanelTitle name="文書一覧"/>
-            <ColumnName name="名前"/>
-            <ColumnExt name="拡張子"/>
-            <ColumnPath name="パス"/>
-            <ListGroups name="ビューでグループ化"/>
-        </DocList>
-        <WindowsDlg>
-            <ColumnName name="ファイル名"/>
-            <ColumnPath name="パス"/>
-            <ColumnType name="種類"/>
-            <ColumnSize name="サイズ"/>
-            <NbDocsTotal name="文書数："/>
-            <MenuCopyName name="ファイル名をコピー"/>
-            <MenuCopyPath name="パスをコピー"/>
-        </WindowsDlg>
-        <AsciiInsertion>
-            <PanelTitle name="ASCII文字挿入パネル"/>
-            <ColumnVal name="10進数"/>
-            <ColumnHex name="16進数"/>
-            <ColumnChar name="文字"/>
-            <ColumnHtmlName name="HTML 名称"/>
-            <ColumnHtmlNumber name="HTML 10進数"/>
-            <ColumnHtmlHexNb name="HTML 16進数"/>
-        </AsciiInsertion>
-        <DocumentMap>
-            <PanelTitle name="文書マップ"/>
-        </DocumentMap>
-        <FunctionList>
-            <PanelTitle name="関数リスト"/>
-            <SortTip name="ソート"/>
-            <ReloadTip name="再読み込み"/>
-            <PreferencesTip name="設定"/>
-            <PreferencesInitialSort name="標準で関数を昇順に並べる"/>
-        </FunctionList>
-        <FolderAsWorkspace>
-            <PanelTitle name="ワークスペース フォルダー"/>
-            <SelectFolderFromBrowserString name="ワークスペース フォルダーに追加するフォルダーを選択"/>
-            <ExpandAllFoldersTip name="すべてのフォルダーを展開する"/>
-            <CollapseAllFoldersTip name="すべてのフォルダーを畳む"/>
-            <LocateCurrentFileTip name="現在のファイルを見つける"/>
-            <Menu>
-                <Item id="3511" name="取り除く"/>
-                <Item id="3512" name="すべて取り除く"/>
-                <Item id="3513" name="追加"/>
-                <Item id="3514" name="システムで実行する"/>
-                <Item id="3515" name="開く"/>
-                <Item id="3516" name="パスをコピー"/>
-                <Item id="3517" name="複数ファイル内を検索..."/>
-                <Item id="3518" name="エクスプローラーを開く"/>
-                <Item id="3519" name="コマンドプロンプトを開く"/>
-                <Item id="3520" name="ファイル名をコピー"/>
-            </Menu>
-        </FolderAsWorkspace>
-        <ProjectManager>
-            <PanelTitle name="プロジェクト"/>
-            <WorkspaceRootName name="ワークスペース"/>
-            <NewProjectName name="プロジェクト名"/>
-            <NewFolderName name="フォルダー名"/>
-            <Menus>
-                <Entries>
-                    <Item id="0" name="ワークスペース"/>
-                    <Item id="1" name="編集"/>
-                </Entries>
-                <WorkspaceMenu>
-                    <Item id="3122" name="新規ワークスペース"/>
-                    <Item id="3123" name="ワークスペースを開く"/>
-                    <Item id="3124" name="ワークスペースを開き直す"/>
-                    <Item id="3125" name="上書き保存"/>
-                    <Item id="3126" name="名前を付けて保存..."/>
-                    <Item id="3127" name="複製を別名で保存..."/>
-                    <Item id="3121" name="新規プロジェクトを追加"/>
-                    <Item id="3128" name="プロジェクト内を検索..."/>
-                </WorkspaceMenu>
-                <ProjectMenu>
-                    <Item id="3111" name="名前の変更"/>
-                    <Item id="3112" name="フォルダーを追加"/>
-                    <Item id="3113" name="ファイルを追加..."/>
-                    <Item id="3117" name="ディレクトリからファイルを追加..."/>
-                    <Item id="3114" name="取り除く"/>
-                    <Item id="3118" name="上へ移動"/>
-                    <Item id="3119" name="下へ移動"/>
-                </ProjectMenu>
-                <FolderMenu>
-                    <Item id="3111" name="名前の変更"/>
-                    <Item id="3112" name="フォルダーを追加"/>
-                    <Item id="3113" name="ファイルを追加..."/>
-                    <Item id="3117" name="ディレクトリからファイルを追加..."/>
-                    <Item id="3114" name="取り除く"/>
-                    <Item id="3118" name="上へ移動"/>
-                    <Item id="3119" name="下へ移動"/>
-                </FolderMenu>
-                <FileMenu>
-                    <Item id="3111" name="名前の変更"/>
-                    <Item id="3115" name="取り除く"/>
-                    <Item id="3116" name="ファイルのパスを変更"/>
-                    <Item id="3118" name="上へ移動"/>
-                    <Item id="3119" name="下へ移動"/>
-                </FileMenu>
-            </Menus>
-        </ProjectManager>
-        <MiscStrings>
-            <!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-            <word-chars-list-tip value="この機能を使うと、標準の 単語を構成する文字 のリストに文字を追加できます。ダブルクリックでの単語選択や、「単語単位」での検索に影響します。"/>
-            <!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-            <eol-custom-color-tip value="スタイル設定を開き、改行文字の色(&quot;EOL custom color&quot;)を変更します"/>
-            <word-chars-list-warning-begin value="注意："/>
-            <word-chars-list-space-warning value="$INT_REPLACE$個の半角スペース"/>
-            <word-chars-list-tab-warning value="$INT_REPLACE$個のタブ"/>
-            <word-chars-list-warning-end value=" が含まれています。"/>
-            <backup-select-folder value="バックアップ先を選択してください"/>
-            <cloud-invalid-warning value="無効なパスです。"/>
-            <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
-            <cloud-select-folder value="Notepad++ が設定を読み書きするフォルダーを選択してください。"/>
-            <default-open-save-select-folder value="既定のディレクトリを選択してください"/>
-            <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
-            <two-find-buttons-tip value="検索ボタンを2個に分ける"/>
-            <file-rename-title value="名前の変更"/>
-            <find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイル内を検索する：
+			<NeedToRestartToLoadPlugins title="Notepad++ を再起動してください" message="インストールしたプラグインを読み込むには、Notepad++ を再起動してください。"/>
+			<ChangeHistoryEnabledWarning title="Notepad++ を再起動してください" message="編集履歴マーカーを有効にするには、Notepad++ を再起動してください。"/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="Notepad++ - Windows セッションの終了" message="Windows セッションを終了しようとしていますが、保存されていない文書があります。Notepad++ を終了してもよろしいですか？"/>
+			<LanguageMenuCompactWarning title="言語メニューをまとめる" message="この設定は次回の起動時に反映されます"/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="テーマへの変更が保存されていません。
+テーマを切り替える前に、変更を保存しますか？"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="「マクロ」「実行」の互換性について" message="Notepad++ 8.5.2 以前で作成された「マクロ」「実行」の各項目は、このバージョンの Notepad++ とは互換性がない場合があります。
+各項目をテストしていただき、適宜修正をお願いします。
+
+代案として、Notepad++ 8.5.2 に戻し、以前のデータを復元することもできます。
+以前の「shortcuts.xml」は「shortcuts.xml.v8.5.2.backup」としてバックアップされています。
+復元されるときは、「shortcuts.xml.v8.5.2.backup」を「shortcuts.xml」にリネームしてください。"/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="クリップボード履歴"/>
+		</ClipboardHistory>
+		<DocList>
+			<PanelTitle name="文書一覧"/>
+			<ColumnName name="名前"/>
+			<ColumnExt name="拡張子"/>
+			<ColumnPath name="パス"/>
+			<ListGroups name="ビューでグループ化"/>
+		</DocList>
+		<WindowsDlg>
+			<ColumnName name="ファイル名"/>
+			<ColumnPath name="パス"/>
+			<ColumnType name="種類"/>
+			<ColumnSize name="サイズ"/>
+			<NbDocsTotal name="文書数："/>
+			<MenuCopyName name="ファイル名をコピー"/>
+			<MenuCopyPath name="パスをコピー"/>
+		</WindowsDlg>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII文字挿入パネル"/>
+			<ColumnVal name="10進数"/>
+			<ColumnHex name="16進数"/>
+			<ColumnChar name="文字"/>
+			<ColumnHtmlName name="HTML 名称"/>
+			<ColumnHtmlNumber name="HTML 10進数"/>
+			<ColumnHtmlHexNb name="HTML 16進数"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="文書マップ"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="関数リスト"/>
+			<SortTip name="ソート"/>
+			<ReloadTip name="再読み込み"/>
+			<PreferencesTip name="設定"/>
+			<PreferencesInitialSort name="標準で関数を昇順に並べる"/>
+		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="ワークスペース フォルダー"/>
+			<SelectFolderFromBrowserString name="ワークスペース フォルダーに追加するフォルダーを選択"/>
+			<ExpandAllFoldersTip name="すべてのフォルダーを展開する"/>
+			<CollapseAllFoldersTip name="すべてのフォルダーを畳む"/>
+			<LocateCurrentFileTip name="現在のファイルを見つける"/>
+			<Menu>
+				<Item id="3511" name="取り除く"/>
+				<Item id="3512" name="すべて取り除く"/>
+				<Item id="3513" name="追加"/>
+				<Item id="3514" name="システムで実行する"/>
+				<Item id="3515" name="開く"/>
+				<Item id="3516" name="パスをコピー"/>
+				<Item id="3517" name="複数ファイル内を検索..."/>
+				<Item id="3518" name="エクスプローラーを開く"/>
+				<Item id="3519" name="コマンドプロンプトを開く"/>
+				<Item id="3520" name="ファイル名をコピー"/>
+			</Menu>
+		</FolderAsWorkspace>
+		<ProjectManager>
+			<PanelTitle name="プロジェクト"/>
+			<WorkspaceRootName name="ワークスペース"/>
+			<NewProjectName name="プロジェクト名"/>
+			<NewFolderName name="フォルダー名"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="ワークスペース"/>
+					<Item id="1" name="編集"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="新規ワークスペース"/>
+					<Item id="3123" name="ワークスペースを開く"/>
+					<Item id="3124" name="ワークスペースを開き直す"/>
+					<Item id="3125" name="上書き保存"/>
+					<Item id="3126" name="名前を付けて保存..."/>
+					<Item id="3127" name="複製を別名で保存..."/>
+					<Item id="3121" name="新規プロジェクトを追加"/>
+					<Item id="3128" name="プロジェクト内を検索..."/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="名前の変更"/>
+					<Item id="3112" name="フォルダーを追加"/>
+					<Item id="3113" name="ファイルを追加..."/>
+					<Item id="3117" name="ディレクトリからファイルを追加..."/>
+					<Item id="3114" name="取り除く"/>
+					<Item id="3118" name="上へ移動"/>
+					<Item id="3119" name="下へ移動"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="名前の変更"/>
+					<Item id="3112" name="フォルダーを追加"/>
+					<Item id="3113" name="ファイルを追加..."/>
+					<Item id="3117" name="ディレクトリからファイルを追加..."/>
+					<Item id="3114" name="取り除く"/>
+					<Item id="3118" name="上へ移動"/>
+					<Item id="3119" name="下へ移動"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="名前の変更"/>
+					<Item id="3115" name="取り除く"/>
+					<Item id="3116" name="ファイルのパスを変更"/>
+					<Item id="3118" name="上へ移動"/>
+					<Item id="3119" name="下へ移動"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+		<MiscStrings>
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
+			<word-chars-list-tip value="この機能を使うと、標準の 単語を構成する文字 のリストに文字を追加できます。ダブルクリックでの単語選択や、「単語単位」での検索に影響します。"/>
+			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
+			<eol-custom-color-tip value="スタイル設定を開き、改行文字の色(&quot;EOL custom color&quot;)を変更します"/>
+			<word-chars-list-warning-begin value="注意："/>
+			<word-chars-list-space-warning value="$INT_REPLACE$個の半角スペース"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$個のタブ"/>
+			<word-chars-list-warning-end value=" が含まれています。"/>
+			<backup-select-folder value="バックアップ先を選択してください"/>
+			<cloud-invalid-warning value="無効なパスです。"/>
+			<cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
+			<cloud-select-folder value="Notepad++ が設定を読み書きするフォルダーを選択してください。"/>
+			<default-open-save-select-folder value="既定のディレクトリを選択してください"/>
+			<shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
+			<two-find-buttons-tip value="検索ボタンを2個に分ける"/>
+			<file-rename-title value="名前の変更"/>
+			<find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイル内を検索する：
 *.cpp *.cxx *.h *.hxx *.hpp
 
 例）exe, obj, log 以外のファイル内を検索する：
@@ -1578,130 +1586,130 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 
 例）階層にかかわらず log や logs といったフォルダー内を除き、すべてのファイル内を検索する：
 *.* !+\log*"/>
-            <find-in-files-select-folder value="検索するディレクトリを選択してください"/>
-            <find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
-            <find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
-            <find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>
-            <find-status-replaceinfiles-nb-replaced value="複数ファイル内を検索：$INT_REPLACE$ 件を置換しました"/>
-            <find-status-replaceinfiles-re-malformed value="すべての文書で置換：正規表現が不正な形式です"/>
-            <find-status-replaceinopenedfiles-1-replaced value="すべての文書で置換：1 件を置換しました"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
-            <find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
-            <find-status-invalid-re value="検索：不正な正規表現です"/>
-            <find-status-search-failed value="検索：検索に失敗しました"/>
-            <find-status-mark-1-match value="マーク：1 件の一致"/>
-            <find-status-mark-nb-matches value="マーク：$INT_REPLACE$ 件の一致"/>
-            <find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>
-            <find-status-count-1-match value="数える：1 件の一致"/>
-            <find-status-count-nb-matches value="数える：$INT_REPLACE$ 件の一致"/>
-            <find-status-replaceall-re-malformed value="すべて置換：正規表現が不正な形式です"/>
-            <find-status-replaceall-1-replaced value="すべて置換：1 件を置換しました"/>
-            <find-status-replaceall-nb-replaced value="すべて置換：$INT_REPLACE$ 件を置換しました"/>
-            <find-status-replaceall-readonly value="すべて置換：置換できません。この文書は読み取り専用です"/>
-            <find-status-replace-end-reached value="置換：先頭からの最初の一致を置換しました。文書の末尾を通過しました"/>
-            <find-status-replace-top-reached value="置換：末尾からの最初の一致を置換しました。文書の先頭を通過しました"/>
-            <find-status-replaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
-            <find-status-replaced-without-continuing value="置換：1 件を置換しました。"/>
-            <find-status-replaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
-            <find-status-replace-not-found value="置換：一致するものはありません"/>
-            <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
-            <find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
-            <find-status-scope-selection value="（選択範囲内）"/>
-            <find-status-scope-all value="（ファイル全体）"/>
-            <find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>
-            <find-status-scope-forward value="（カーソル位置から ファイル末尾まで）"/>
-            <finder-find-in-finder value="この検索結果から検索..."/>
-            <finder-close-this value="この検索結果を閉じる"/>
-            <finder-collapse-all value="すべて畳む"/>
-            <finder-uncollapse-all value="すべて展開する"/>
-            <finder-copy value="選択行をコピー"/>
-            <finder-copy-verbatim value="コピー"/>
-            <finder-copy-paths value="すべてのパスをコピー"/>
-            <finder-select-all value="すべて選択"/>
-            <finder-clear-all value="すべてクリア"/>
-            <finder-open-all value="すべて開く"/>
-            <finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
-            <finder-wrap-long-lines value="長い行を折り返す"/>
-            <common-ok value="OK"/>
-            <common-cancel value="ｷｬﾝｾﾙ"/>
-            <common-name value="名前: "/>
-            <tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
-            <tabrename-newname value="新ﾌｧｲﾙ名: "/>
-            <splitter-rotate-left value="左回りに回す"/>
-            <splitter-rotate-right value="右回りに回す"/>
-            <userdefined-title-new value="新しい言語定義を作成..."/>
-            <userdefined-title-save value="言語定義に名前をつけて保存..."/>
-            <userdefined-title-rename value="言語定義の名前を変更"/>
-            <summary value="概要"/>
-            <summary-filepath value="フルパス: "/>
-            <summary-filecreatetime value="作成日時: "/>
-            <summary-filemodifytime value="更新日時: "/>
-            <summary-nbchar value="文字数（改行含まず）: "/>
-            <summary-nbword value="語数: "/>
-            <summary-nbline value="行数: "/>
-            <summary-nbbyte value="文書長さ: "/>
-            <summary-nbsel1 value=" 文字を選択（"/>
-            <summary-nbsel2 value=" バイト）/ "/>
-            <summary-nbrange value=" 個の選択範囲"/>
-            <progress-hits-title value="一致件数:"/>
-            <progress-cancel-button value="キャンセル"/>
-            <progress-cancel-info value="キャンセルしています。お待ちください..."/>
-            <find-in-files-progress-title value="複数ファイル内を検索中..."/>
-            <replace-in-files-confirm-title value="本当によろしいですか？"/>
-            <replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
-            <replace-in-files-confirm-filetype value="ファイルの種類："/>
-            <replace-in-files-progress-title value="複数ファイル内で置換中..."/>
-            <replace-in-projects-confirm-title value="本当によろしいですか？"/>
-            <replace-in-projects-confirm-message value="選択したプロジェクトパネル内のすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
-            <replace-in-open-docs-confirm-title value="本当によろしいですか？"/>
-            <replace-in-open-docs-confirm-message value="開いているすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
-            <find-result-caption value="検索結果"/>
-            <find-result-title value="検索文字列"/>
-            <find-result-title-info value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個のファイル内で一致しました。検索ファイル数は $INT_REPLACE3$ 個)"/>
-            <find-result-title-info-selections value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個の選択範囲内で一致しました。検索した選択範囲は $INT_REPLACE3$ 個)"/>
-            <find-result-title-info-extra value=" - 絞り込まれた検索結果のみを表示しています"/>
-            <find-result-hits value="($INT_REPLACE$ 件の一致)"/>
-            <find-result-line-prefix value="行番号"/> <!-- Must not begin with space or tab character -->
-            <find-regex-zero-length-match value="長さ0で一致しました" />
-            <session-save-folder-as-workspace value="「フォルダーをワークスペースとして開く」の状態を保存" />
-            <tab-untitled-string value="新規" />
-            <file-save-assign-type value="拡張子をつける(&amp;A)" />
-            <close-panel-tip value="閉じる" />
-            <IncrementalFind-FSFound value="$INT_REPLACE$ 件の一致" />
-            <IncrementalFind-FSNotFound value="見つかりません" />
-            <IncrementalFind-FSTopReached value="文書の先頭に達したため、末尾から検索しました" />
-            <IncrementalFind-FSEndReached value="文書の末尾に達したため、先頭から検索しました" />
-            <contextMenu-styleAlloccurrencesOfToken value="選択した語をすべて色づけ" />
-            <contextMenu-styleOneToken value="選択した語を一つだけ色づけ" />
-            <contextMenu-clearStyle value="色づけを解除" />
-            <contextMenu-PluginCommands value="プラグイン" />
-            <largeFileRestriction-tip value="機能によっては、大きなファイルを扱うときのパフォーマンスに影響が出ることがあります。そのため大きなファイルを開くときに、これらの機能を自動でオフにできます。ここでその設定を行います。
+			<find-in-files-select-folder value="検索するディレクトリを選択してください"/>
+			<find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
+			<find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
+			<find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>
+			<find-status-replaceinfiles-nb-replaced value="複数ファイル内を検索：$INT_REPLACE$ 件を置換しました"/>
+			<find-status-replaceinfiles-re-malformed value="すべての文書で置換：正規表現が不正な形式です"/>
+			<find-status-replaceinopenedfiles-1-replaced value="すべての文書で置換：1 件を置換しました"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
+			<find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
+			<find-status-invalid-re value="検索：不正な正規表現です"/>
+			<find-status-search-failed value="検索：検索に失敗しました"/>
+			<find-status-mark-1-match value="マーク：1 件の一致"/>
+			<find-status-mark-nb-matches value="マーク：$INT_REPLACE$ 件の一致"/>
+			<find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>
+			<find-status-count-1-match value="数える：1 件の一致"/>
+			<find-status-count-nb-matches value="数える：$INT_REPLACE$ 件の一致"/>
+			<find-status-replaceall-re-malformed value="すべて置換：正規表現が不正な形式です"/>
+			<find-status-replaceall-1-replaced value="すべて置換：1 件を置換しました"/>
+			<find-status-replaceall-nb-replaced value="すべて置換：$INT_REPLACE$ 件を置換しました"/>
+			<find-status-replaceall-readonly value="すべて置換：置換できません。この文書は読み取り専用です"/>
+			<find-status-replace-end-reached value="置換：先頭からの最初の一致を置換しました。文書の末尾を通過しました"/>
+			<find-status-replace-top-reached value="置換：末尾からの最初の一致を置換しました。文書の先頭を通過しました"/>
+			<find-status-replaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
+			<find-status-replaced-without-continuing value="置換：1 件を置換しました。"/>
+			<find-status-replaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
+			<find-status-replace-not-found value="置換：一致するものはありません"/>
+			<find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
+			<find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection value="（選択範囲内）"/>
+			<find-status-scope-all value="（ファイル全体）"/>
+			<find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>
+			<find-status-scope-forward value="（カーソル位置から ファイル末尾まで）"/>
+			<finder-find-in-finder value="この検索結果から検索..."/>
+			<finder-close-this value="この検索結果を閉じる"/>
+			<finder-collapse-all value="すべて畳む"/>
+			<finder-uncollapse-all value="すべて展開する"/>
+			<finder-copy value="選択行をコピー"/>
+			<finder-copy-verbatim value="コピー"/>
+			<finder-copy-paths value="すべてのパスをコピー"/>
+			<finder-select-all value="すべて選択"/>
+			<finder-clear-all value="すべてクリア"/>
+			<finder-open-all value="すべて開く"/>
+			<finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
+			<finder-wrap-long-lines value="長い行を折り返す"/>
+			<common-ok value="OK"/>
+			<common-cancel value="ｷｬﾝｾﾙ"/>
+			<common-name value="名前: "/>
+			<tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
+			<tabrename-newname value="新ﾌｧｲﾙ名: "/>
+			<splitter-rotate-left value="左回りに回す"/>
+			<splitter-rotate-right value="右回りに回す"/>
+			<userdefined-title-new value="新しい言語定義を作成..."/>
+			<userdefined-title-save value="言語定義に名前をつけて保存..."/>
+			<userdefined-title-rename value="言語定義の名前を変更"/>
+			<summary value="概要"/>
+			<summary-filepath value="フルパス: "/>
+			<summary-filecreatetime value="作成日時: "/>
+			<summary-filemodifytime value="更新日時: "/>
+			<summary-nbchar value="文字数（改行含まず）: "/>
+			<summary-nbword value="語数: "/>
+			<summary-nbline value="行数: "/>
+			<summary-nbbyte value="文書長さ: "/>
+			<summary-nbsel1 value=" 文字を選択（"/>
+			<summary-nbsel2 value=" バイト）/ "/>
+			<summary-nbrange value=" 個の選択範囲"/>
+			<progress-hits-title value="一致件数:"/>
+			<progress-cancel-button value="キャンセル"/>
+			<progress-cancel-info value="キャンセルしています。お待ちください..."/>
+			<find-in-files-progress-title value="複数ファイル内を検索中..."/>
+			<replace-in-files-confirm-title value="本当によろしいですか？"/>
+			<replace-in-files-confirm-directory value="下記ディレクトリ内の該当箇所をすべて置換しようとしています。よろしいですか？"/>
+			<replace-in-files-confirm-filetype value="ファイルの種類："/>
+			<replace-in-files-progress-title value="複数ファイル内で置換中..."/>
+			<replace-in-projects-confirm-title value="本当によろしいですか？"/>
+			<replace-in-projects-confirm-message value="選択したプロジェクトパネル内のすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
+			<replace-in-open-docs-confirm-title value="本当によろしいですか？"/>
+			<replace-in-open-docs-confirm-message value="開いているすべての文書にて、すべての該当箇所を置換しようとしています。よろしいですか？"/>
+			<find-result-caption value="検索結果"/>
+			<find-result-title value="検索文字列"/>
+			<find-result-title-info value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個のファイル内で一致しました。検索ファイル数は $INT_REPLACE3$ 個)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個の選択範囲内で一致しました。検索した選択範囲は $INT_REPLACE3$ 個)"/>
+			<find-result-title-info-extra value=" - 絞り込まれた検索結果のみを表示しています"/>
+			<find-result-hits value="($INT_REPLACE$ 件の一致)"/>
+			<find-result-line-prefix value="行番号"/><!-- Must not begin with space or tab character -->
+			<find-regex-zero-length-match value="長さ0で一致しました"/>
+			<session-save-folder-as-workspace value="「フォルダーをワークスペースとして開く」の状態を保存"/>
+			<tab-untitled-string value="新規"/>
+			<file-save-assign-type value="拡張子をつける(&amp;A)"/>
+			<close-panel-tip value="閉じる"/>
+			<IncrementalFind-FSFound value="$INT_REPLACE$ 件の一致"/>
+			<IncrementalFind-FSNotFound value="見つかりません"/>
+			<IncrementalFind-FSTopReached value="文書の先頭に達したため、末尾から検索しました"/>
+			<IncrementalFind-FSEndReached value="文書の末尾に達したため、先頭から検索しました"/>
+			<contextMenu-styleAlloccurrencesOfToken value="選択した語をすべて色づけ"/>
+			<contextMenu-styleOneToken value="選択した語を一つだけ色づけ"/>
+			<contextMenu-clearStyle value="色づけを解除"/>
+			<contextMenu-PluginCommands value="プラグイン"/>
+			<largeFileRestriction-tip value="機能によっては、大きなファイルを扱うときのパフォーマンスに影響が出ることがあります。そのため大きなファイルを開くときに、これらの機能を自動でオフにできます。ここでその設定を行います。
 
 注意：
 １．すでに大きなファイルを開いている場合、設定変更を適用するにはファイルを開きなおす必要があります。
 
-２．「画面端での折り返しをすべての文書でオフにする」を有効にすると、大きなファイルを開いたとき、すべての文書で折り返しがオフになります。メニューの「表示」→「画面端で折り返す」からオンにできます。" />
-            <npcNote-tip value="非ASCIIの空白文字と非表示文字（制御文字）の表示について
+２．「画面端での折り返しをすべての文書でオフにする」を有効にすると、大きなファイルを開いたとき、すべての文書で折り返しがオフになります。メニューの「表示」→「画面端で折り返す」からオンにできます。"/>
+			<npcNote-tip value="非ASCIIの空白文字と非表示文字（制御文字）の表示について
 注意：
-いくつかの文字はすでに何らかの形で表示されているかもしれません。デフォルトで、行区切りや段落区切りはすでに略称で表示されます。
 非表示文字を表示させると、非表示文字としての作用はなくなります。
 対象となる空白文字と非表示文字の一覧は、オンラインマニュアルで確認できます。
-このボタンを押すとオンラインマニュアルが開きます。" />
-            <npcAbbreviation-tip value="略称：名称
+このボタンを押すとオンラインマニュアルが開きます。"/>
+			<npcAbbreviation-tip value="略称：名称
 NBSP : no-break space（改行をしないスペース）
 ZWSP : zero-width space（ゼロ幅スペース）
 ZWNBSP : zero-width no-break space（ゼロ幅改行なしスペース）
 完全な一覧表はオンラインマニュアルで確認できます。
-右にある「？」を押すとオンラインマニュアルが開きます。" />
-            <npcCodepoint-tip value="コードポイント：名称
+右にある「？」を押すとオンラインマニュアルが開きます。"/>
+			<npcCodepoint-tip value="コードポイント：名称
 U+00A0 : no-break space（改行をしないスペース）
 U+200B : zero-width space（ゼロ幅スペース）
 U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 完全な一覧表はオンラインマニュアルで確認できます。
-右にある「？」を押すとオンラインマニュアルが開きます。" />
+右にある「？」を押すとオンラインマニュアルが開きます。"/>
 
-            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-            <npcCustomColor-tip value="色を変更したい場合は、スタイル設定から変更してください (&quot;Non-printing characters custom color&quot;)。" />
-        </MiscStrings>
-    </Native-Langue>
+			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcCustomColor-tip value="色を変更したい場合は、スタイル設定から変更してください (&quot;Non-printing characters custom color&quot;)。"/>
+			<npcIncludeCcUniEol-tip value="非表示文字の表示設定を、C0、C1制御コードと、Unicode改行文字（Next Line、Line Separator、Paragraph Separator）にも適用します。"/>
+		</MiscStrings>
+	</Native-Langue>
 </NotepadPlus>

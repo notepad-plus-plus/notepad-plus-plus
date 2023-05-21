@@ -93,7 +93,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="41007" name="Spara &amp;alla"/>
 					<Item id="41008" name="Spara so&amp;m..."/>
 					<Item id="41010" name="Skriv &amp;ut..."/>
-					<Item id="1001"  name="Sna&amp;bbutskrift"/>
+					<Item id="1001" name="Sna&amp;bbutskrift"/>
 					<Item id="41011" name="A&amp;vsluta"/>
 					<Item id="41012" name="&amp;Ladda session..."/>
 					<Item id="41013" name="S&amp;para session..."/>
@@ -428,9 +428,9 @@ The comments are here for explanation, it's not necessary to translate them.
 
 		<Dialog>
 			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleFindInProjects="Sök i projekt" titleMark="Markera">
-				<Item id="1"    name="Sök nästa"/>
+				<Item id="1" name="Sök nästa"/>
 				<Item id="1722" name="Sök föregående"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="2" name="Stäng"/>
 				<Item id="1620" name="&amp;Sök efter: "/>
 				<Item id="1603" name="Matcha &amp;hela ord"/>
 				<Item id="1604" name="&amp;Matcha skiftläge"/>
@@ -492,8 +492,8 @@ The comments are here for explanation, it's not necessary to translate them.
 			<GoToLine title="Gå till...">
 				<Item id="2007" name="&amp;Rad"/>
 				<Item id="2008" name="&amp;Kolumn"/>
-				<Item id="1"    name="Gå"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="1" name="Gå"/>
+				<Item id="2" name="Stäng"/>
 				<Item id="2004" name="Du är på rad:"/>
 				<Item id="2005" name="Du vill gå till:"/>
 				<Item id="2006" name="Du kan inte gå längre än till:"/>
@@ -501,38 +501,38 @@ The comments are here for explanation, it's not necessary to translate them.
 
 			<Run title="Kör...">
 				<Item id="1903" name="Program att köra"/>
-				<Item id="1"    name="Kör"/>
-				<Item id="2"    name="Avbryt"/>
+				<Item id="1" name="Kör"/>
+				<Item id="2" name="Avbryt"/>
 				<Item id="1904" name="Spara..."/>
 			</Run>
 
 			<MD5FromFilesDlg title="Generera MD5-summa från fil">
 				<Item id="1922" name="Välj filer att generera MD5..."/>
 				<Item id="1924" name="Kopiera till urklipp"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="2" name="Stäng"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Generera MD5-summa">
 				<Item id="1932" name="Behandla varje rad som en separat sträng"/>
 				<Item id="1934" name="Kopiera till urklipp"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="2" name="Stäng"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="Generera SHA-256-summa från filer">
 				<Item id="1922" name="Välj filer att generera SHA-256..."/>
 				<Item id="1924" name="Kopiera till urklipp"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="2" name="Stäng"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Generera SHA-256-summa">
 				<Item id="1932" name="Behandla varje rad som separat sträng"/>
 				<Item id="1934" name="Kopiera till urklipp"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="2" name="Stäng"/>
 			</SHA256FromTextDlg>
 
 			<PluginsAdminDlg title="Hantera insticksprogram" titleAvailable="Tillgängliga" titleUpdates="Uppdateringar" titleInstalled="Installerade" titleIncompatible="Inkompatibla">
-				<ColumnPlugin   name="Insticksprogram"/>
-				<ColumnVersion  name="Version"/>
+				<ColumnPlugin name="Insticksprogram"/>
+				<ColumnVersion name="Version"/>
 				<Item id="5501" name="Sök:"/>
 				<Item id="5503" name="Installera"/>
 				<Item id="5504" name="Uppdatera"/>
@@ -540,11 +540,11 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="5508" name="Nästa"/>
 				<Item id="5509" name="Version av insticksmodullista: "/>
 				<Item id="5511" name="Kodförvar för insticksmodullista"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="2" name="Stäng"/>
 			</PluginsAdminDlg>
 
 			<StyleConfig title="Stilkonfigurering">
-				<Item id="2"    name="Avbryt"/>
+				<Item id="2" name="Avbryt"/>
 				<Item id="2301" name="Spara och stäng"/>
 				<Item id="2303" name="Genomskinlighet"/>
 				<Item id="2306" name="Välj tema: "/>
@@ -937,7 +937,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6653" name="Markerad bakgrund"/>
 					<Item id="6654" name="Kontur"/>
 					<Item id="6655" name="Bredd"/>
-					<Item id="6247" name="Radslut (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+					<Item id="6247" name="Radslut (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standard"/>
 					<Item id="6249" name="Vanlig text"/>
 					<Item id="6250" name="Anpassad färg"/>
@@ -1141,8 +1141,8 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6810" name="Ordkomplettering"/>
 					<Item id="6816" name="Funktion- och ordkomplettering"/>
 					<Item id="6869" name="Tangent för att infoga"/>
-					<Item id="6870" name="Tabb"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
-					<Item id="6871" name="Enter"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6870" name="Tabb"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="Enter"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6824" name="Ignorera siffror"/>
 					<Item id="6811" name="Efter"/>
 					<Item id="6813" name="tecken"/>
@@ -1280,8 +1280,8 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 				<Item id="2" name="Avbryt"/>
 			</ColumnEditor>
 			<FindInFinder title="Sök i sökresultat">
-				<Item id="1"    name="Hitta alla"/>
-				<Item id="2"    name="Stäng"/>
+				<Item id="1" name="Hitta alla"/>
+				<Item id="2" name="Stäng"/>
 				<Item id="1711" name="Hitta &amp;vad:"/>
 				<Item id="1713" name="Sök bara i hittade rader"/>
 				<Item id="1714" name="Matcha bara &amp;hela ord"/>
@@ -1308,7 +1308,7 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="N&amp;ej"/>
 				<Item id="4" name="Alltid"/>
-			</DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1317,28 +1317,28 @@ Du måste starta om Notepad++ för att ändringarna i contextMenu.xml ska gälla
 			<SaveCurrentModifWarning title="Spara aktuella ändringar" message="Du bör spara dina aktuella ändringar.
 Det går inte att ångra ändringar som har sparats.
 
-Vill du fortsätta?"/> <!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
+Vill du fortsätta?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
 			<LoseUndoAbilityWarning title="Förlora möjligheten att ångra" message="Du bör spara dina aktuella ändringar.
 Det går inte att ångra ändringar som har sparats.
 
-Vill du fortsätta?"/> <!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Flytta till en ny instans av Notepad++" message="Dokumentet har ändrats. Spara det och försök igen."/> <!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+Vill du fortsätta?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+			<CannotMoveDoc title="Flytta till en ny instans av Notepad++" message="Dokumentet har ändrats. Spara det och försök igen."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Ladda om" message="Är du säker på att du vill ladda om aktuell fil och förlora de ändringar som gjorts i Notepad++?"/>
 			<FileLockedWarning title="Misslyckades att spara" message="Kontrollera om denna fil är öppen i ett annat program"/>
-			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppen i Notepad++."/>  <!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
-			<RenameTabTemporaryNameAlreadyInUse title="Misslyckades att byta namn" message="Det angivna filnamnet används redan i en annan flik."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<DeleteFileFailed title="Radera fil" message="Misslyckades att radera filen"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppen i Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Misslyckades att byta namn" message="Det angivna filnamnet används redan i en annan flik."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<DeleteFileFailed title="Radera fil" message="Misslyckades att radera filen"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="För många filer att öppna" message="$INT_REPLACE$ filer håller på att öppnas.
-Är du säker på att du vill öppna dem?"/>  <!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+Är du säker på att du vill öppna dem?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
 			<SettingsOnCloudError title="Molninställningar" message="Det ser ut som att sökvägen för molnet leder till en skrivskyddad hårddisk
 eller en mapp som kräver rättigheter för skrivåtkomst.
 Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inställningarna."/>
-			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna finns inte."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<SessionFileInvalidError title="Kunde inte läsa in sessionen" message="Sessionsfilen är antingen skadad eller ogiltig."/> <!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna finns inte."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SessionFileInvalidError title="Kunde inte läsa in sessionen" message="Sessionsfilen är antingen skadad eller ogiltig."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan endast släppa filer eller mappar men inte båda eftersom du är i läget för att släppa mappar som projekt.
 Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps istället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
-			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Tips för kolumnläge" message="
 Det finns 3 sätt att växla till kolumnmarkeringsläget:
 
@@ -1351,7 +1351,7 @@ Det finns 3 sätt att växla till kolumnmarkeringsläget:
        sedan kommandot &quot;Start/slut på markering i kolumnläge&quot;;
       Flytta markören vid önskat slut på kolumnblockets position, kör
        sedan kommandot &quot;Start/slut på markering i kolumnläge&quot; igen"/>
-			<BufferInvalidWarning title="Misslyckades att spara" message="Kan inte spara: Bufferten är felaktig."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<BufferInvalidWarning title="Misslyckades att spara" message="Kan inte spara: Bufferten är felaktig."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Behålla fil som inte längre finns" message="Filen &quot;$STR_REPLACE$&quot; finns inte längre.
 Ska filen behållas i Notepad++?"/>
 			<DoDeleteOrNot title="Radera fil" message="Filen &quot;$STR_REPLACE$&quot;
@@ -1368,34 +1368,34 @@ Vill du ladda om den?"/>
 
 Denna fil har ändrats av ett annat program.
 Vill du ladda om den och förlora ändringarna som gjordes i Notepad++?"/>
-			<PrehistoricSystemDetected title="Förhistoriskt system upptäcktes" message="Det verkar som om du fortfarande använder ett uråldrigt system. Tyvärr fungerar endast denna funktion på ett modernt system."/> <!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<PrehistoricSystemDetected title="Förhistoriskt system upptäcktes" message="Det verkar som om du fortfarande använder ett uråldrigt system. Tyvärr fungerar endast denna funktion på ett modernt system."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Uppdateringsprogram för Notepad++" message="Uppdateringsprogrammet för Notepad++ är inte kompatibelt med XP på grund av ett föråldrat säkerhetslager i XP.
-Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/>  <!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="Proxyinställningar" message="Var god starta om Notepad++ som administratör för att konfigurera proxyn."/>
 			<DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet har ändrats. Spara ändringarna innan du övervakar den."/>
 			<DocNoExistToMonitor title="Övervakningsproblem" message="Filen måste finnas för att kunna övervakas."/>
-			<FileTooBigToOpen title="Problem med filstorleken" message="Filen är för stor för att öppnas med Notepad++"/> <!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<FileTooBigToOpen title="Problem med filstorleken" message="Filen är för stor för att öppnas med Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Felkod: $STR_REPLACE$" message="Ett fel uppstod när filen lästes in!"/>
 			<WantToOpenHugeFile title="Varning om att öppna stor fil" message="Det kan ta flera minuter att öppna en stor fil på över 2GB.
 Vill du öppna den?"/>
 			<CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot; finns inte. Vill du skapa den?"/>
-			<CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="FEL" message="Kan inte öppna filen &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileNoFolderError title="Kan inte öppna filen" message="&quot;$STR_REPLACE1$&quot; kan inte öppnas:
 Mappen &quot;$STR_REPLACE2$&quot; finns inte."/>
 			<FileBackupFailed title="Misslyckades att säkerhetskopiera fil" message="Den föregående versionen av filen kunde inte sparas i säkerhetskopieringsmappen &quot;$STR_REPLACE$&quot;.
 
-Vill du spara aktuell fil ändå?"/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Vill du spara aktuell fil ändå?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Misslyckades att läsa in stylers.xml" message="Misslyckades att läsa in &quot;$STR_REPLACE$&quot;!"/>
 			<LoadLangsFailed title="Konfigurering" message="Misslyckades att läsa in langs.xml!
-Vill du återskapa din langs.xml?"/> <!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Konfigurering" message="Misslyckades att läsa in langs.xml!"/> <!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+Vill du återskapa din langs.xml?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
+			<LoadLangsFailedFinal title="Konfigurering" message="Misslyckades att läsa in langs.xml!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
 			<FolderAsWorspaceSubfolderExists title="Problem med att lägga till mappen i Mapp som arbetsyta" message="En undermapp av mappen du vill lägga till finns redan där.
-Ta bort dess rot från panelen innan du lägger till mappen &quot;$STR_REPLACE$&quot;."/> <!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
+Ta bort dess rot från panelen innan du lägger till mappen &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Arbetsytan har ändrats. Vill du spara den?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Ett fel uppstod när filen till din arbetsyta skulle skrivas.
-Din arbetsyta har inte sparats."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Din arbetsyta har inte sparats."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Öppna arbetsyta" message="Den aktuella arbetsytan har ändrats. Vill du spara det aktuella projektet?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Ny arbetsyta" message="Den aktuella arbetsytan har ändrats. Vill du spara det aktuella projektet?"/>
 			<ProjectPanelOpenFailed title="Öppna arbetsyta" message="Arbetsytan kunde inte öppnas.
@@ -1415,17 +1415,17 @@ Använd ett annat namn."/>
 Vill du starta Notepad++ som administratör?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Misslyckades att spara" message="Filen kunde inte sparas och kan vara skrivskyddad.
 Vill du starta Notepad++ som administratör?"/>
-			<OpenInAdminModeFailed title="Misslyckades att starta som administratör" message="Notepad++ kan inte öppnas som administratör."/> <!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+			<OpenInAdminModeFailed title="Misslyckades att starta som administratör" message="Notepad++ kan inte öppnas som administratör."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Visa aktuell fil i webbläsaren" message="Programmet hittas inte på din dator."/>
 			<ExitToUpdatePlugins title="Notepad++ håller på att avslutas" message="Om du klickar på &quot;Ja&quot; kommer Notepad++ avslutas för att slutföra åtgärderna.
 Notepad++ kommer att startas om när alla åtgärder är avslutade.
 Vill du fortsätta?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att läsa in de insticksprogram du har installerat."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera ändringshistoriken."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<NeedToRestartToLoadPlugins title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att läsa in de insticksprogram du har installerat."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera ändringshistoriken."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Windows-session avslutas" message="Windows-sessionen håller på att avslutas men du har osparad data. Vill du avsluta Notepad++ nu?"/>
-			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer ändras vid nästa uppstart."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer ändras vid nästa uppstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Osparade ändringar håller på att ignoreras!
-Vill du spara dina ändringar innan du byter tema?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+Vill du spara dina ändringar innan du byter tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1532,7 +1532,7 @@ Vill du spara dina ändringar innan du byter tema?"/> <!-- HowToReproduce: In th
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders.  -->
-			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; valt."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; valt."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för radslut (&quot;EOL custom color&quot;)."/>
@@ -1540,12 +1540,12 @@ Vill du spara dina ändringar innan du byter tema?"/> <!-- HowToReproduce: In th
 			<word-chars-list-warning-begin value="Observera: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ mellanslag"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabb(ar)"/>
-			<word-chars-list-warning-end value="  i din teckenlista."/> <!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
-			<backup-select-folder value="Välj en mapp för säkerhetskopior"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<word-chars-list-warning-end value="  i din teckenlista."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<backup-select-folder value="Välj en mapp för säkerhetskopior"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Felaktig sökväg."/>
 			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska börja gälla."/>
-			<cloud-select-folder value="Välj en mapp som Notepad++ ska läsa/skriva sina inställningar"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
-			<default-open-save-select-folder value="Välj en standardmapp"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<cloud-select-folder value="Välj en mapp som Notepad++ ska läsa/skriva sina inställningar"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Välj en standardmapp"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Använd Shift + Enter för att söka i omvänd riktning"/>
 			<two-find-buttons-tip value="Sök med två knappar"/>
 			<file-rename-title value="Byt namn"/>
@@ -1559,8 +1559,8 @@ Hitta i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och
 *.* !\tests !\bin*
 
 Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
-*.* !+\log*"/> <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
-			<find-in-files-select-folder value="Välj en mapp att söka från"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
+*.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
+			<find-in-files-select-folder value="Välj en mapp att söka från"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value="Sök: Hittade första förekomsten från slutet. Början av dokumentet har passerats."/>
 			<find-status-end-reached value="Sök: Hittade första förekomsten från början. Slutet av dokumentet har passerats."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>
@@ -1640,32 +1640,32 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<replace-in-open-docs-confirm-title value="Är du säker?"/>
 			<replace-in-open-docs-confirm-message value="Är du säker på att du vill ersätta alla förekomster i alla öppna dokument?"/>
 			<find-result-caption value="Sökresultat"/>
-			<find-result-title value="Sökning efter"/> <!-- Must not begin with space or tab character -->
+			<find-result-title value="Sökning efter"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ träff(ar) i $INT_REPLACE2$ fil(er) utav $INT_REPLACE3$ genomsökt(a))"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ träff(ar) i $INT_REPLACE2$ markering(ar) utav $INT_REPLACE3$ genomsökt(a))"/>
 			<find-result-title-info-extra value=" - Radfiltreringsläge: Visa endast filtrerade resultat"/>
 			<find-result-hits value="($INT_REPLACE$ träffar)"/>
-			<find-result-line-prefix value="Rad"/> <!-- Must not begin with space or tab character -->
-			<find-regex-zero-length-match value="Inga matchningar" />
-			<session-save-folder-as-workspace value="Sparningsmapp som arbetsyta" />
-			<tab-untitled-string value="nytt " />
-			<file-save-assign-type value="&amp;Lägg till filändelse" />
-			<close-panel-tip value="Stäng" />
-			<IncrementalFind-FSFound value="$INT_REPLACE$ matchningar" />
-			<IncrementalFind-FSNotFound value="Frasen hittades inte" />
-			<IncrementalFind-FSTopReached value="Nådde början på sidan, fortsätter från slutet" />
-			<IncrementalFind-FSEndReached value="Nådde slutet på sidan, fortsätter från början" />
-			<contextMenu-styleAlloccurrencesOfToken value="Stilsätt alla förekomster" />
-			<contextMenu-styleOneToken value="Stilsätt en förekomst" />
-			<contextMenu-clearStyle value="Rensa stilsättning" />
-			<contextMenu-PluginCommands value="Kommandon från insticksprogram" />
+			<find-result-line-prefix value="Rad"/><!-- Must not begin with space or tab character -->
+			<find-regex-zero-length-match value="Inga matchningar"/>
+			<session-save-folder-as-workspace value="Sparningsmapp som arbetsyta"/>
+			<tab-untitled-string value="nytt "/>
+			<file-save-assign-type value="&amp;Lägg till filändelse"/>
+			<close-panel-tip value="Stäng"/>
+			<IncrementalFind-FSFound value="$INT_REPLACE$ matchningar"/>
+			<IncrementalFind-FSNotFound value="Frasen hittades inte"/>
+			<IncrementalFind-FSTopReached value="Nådde början på sidan, fortsätter från slutet"/>
+			<IncrementalFind-FSEndReached value="Nådde slutet på sidan, fortsätter från början"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Stilsätt alla förekomster"/>
+			<contextMenu-styleOneToken value="Stilsätt en förekomst"/>
+			<contextMenu-clearStyle value="Rensa stilsättning"/>
+			<contextMenu-PluginCommands value="Kommandon från insticksprogram"/>
 			<largeFileRestriction-tip value="Vissa funktioner kan förminska prestandan i stora filer. Dessa funktioner kan inaktiveras automatiskt när en stor fil öppnas. Du kan anpassa de här.
 
 OBS:
 1. När dessa alternativ modifieras måste de öppnade stora filer stängas och öppnas igen för att fungera ordentligt.
 
-2. Om &quot;Inaktivera radbrytning globalt&quot; markeras och du öppnar en stor fil kommer &quot;Radbrytning&quot; inaktiveras för alla filer. Du kan återaktivera detta via menyn &quot;Visa-&gt;Radbrytning&quot;." />
-<npcNote-tip value="Representation av utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII.
+2. Om &quot;Inaktivera radbrytning globalt&quot; markeras och du öppnar en stor fil kommer &quot;Radbrytning&quot; inaktiveras för alla filer. Du kan återaktivera detta via menyn &quot;Visa-&gt;Radbrytning&quot;."/>
+			<npcNote-tip value="Representation av utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII.
 
 OBS:
 Vissa tecken kanske redan representeras och är därför synliga. Rad- och styckeavgränsare representeras redan med förkortningar som standard.
@@ -1674,24 +1674,24 @@ När representationer används inaktiveras teckeneffekter hos text.
 
 Se användarmanualen för den fullständiga listan över utvalda blanksteg och icke utskrivbara tecken.
 
-Klicka på denna knapp för att öppna webbplatsen med användarmanualen." />
+Klicka på denna knapp för att öppna webbplatsen med användarmanualen."/>
 			<npcAbbreviation-tip value="Förkortning : namn
 NBSP : hårt blanksteg
 ZWSP : breddlöst mellanslag
 ZWNBSP : breddlöst hårt blanksteg
 
 Se användarmanualen för den fullständiga listan.
-Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen." />
+Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen."/>
 			<npcCodepoint-tip value="Kodpunkt : namn
 U+00A0 : hårt blanksteg
 U+200B : breddlöst mellanslag
 U+FEFF : breddlöst hårt blanksteg
 
 Se användarmanualen för den fullständiga listan.
-Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen." />
+Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)." />
+			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

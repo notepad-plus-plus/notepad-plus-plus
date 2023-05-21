@@ -157,10 +157,10 @@ string Shortcut::toString() const
 
 void Shortcut::setName(const char* menuName, const char* shortcutName)
 {
-	lstrcpynA(_menuName, menuName, nameLenMax);
+	lstrcpynA(_menuName, menuName, menuItemStrLenMax);
 	char const * name = shortcutName ? shortcutName : menuName;
 	size_t i = 0, j = 0;
-	while (name[j] != 0 && i < (nameLenMax - 1))
+	while (name[j] != 0 && i < (menuItemStrLenMax - 1))
 	{
 		if (name[j] != '&')
 		{
@@ -318,10 +318,9 @@ void getNameStrFromCmd(DWORD cmd, wstring & str)
 	else
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
-		const int commandSize = 64;
-		TCHAR cmdName[commandSize];
+		TCHAR cmdName[menuItemStrLenMax];
 		HMENU m = reinterpret_cast<HMENU>(::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0));
-		int nbChar = ::GetMenuString(m, cmd, cmdName, commandSize, MF_BYCOMMAND);
+		int nbChar = ::GetMenuString(m, cmd, cmdName, menuItemStrLenMax, MF_BYCOMMAND);
 		if (!nbChar)
 			return;
 		bool fin = false;
@@ -485,8 +484,8 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 					if (_canModifyName)
 					{
-						TCHAR editName[nameLenMax]{};
-						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, reinterpret_cast<LPARAM>(editName));
+						TCHAR editName[menuItemStrLenMax]{};
+						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, menuItemStrLenMax, reinterpret_cast<LPARAM>(editName));
 						setName(wstring2string(editName, CP_UTF8).c_str());
 					}
 					::EndDialog(_hSelf, 0);
@@ -958,9 +957,8 @@ void ScintillaAccelerator::updateKeys()
 
 void ScintillaAccelerator::updateMenuItemByID(const ScintillaKeyMap& skm, int id)
 {
-	const int commandSize = 64;
-	TCHAR cmdName[commandSize];
-	::GetMenuString(_hAccelMenu, id, cmdName, commandSize, MF_BYCOMMAND);
+	TCHAR cmdName[menuItemStrLenMax];
+	::GetMenuString(_hAccelMenu, id, cmdName, menuItemStrLenMax, MF_BYCOMMAND);
 	int i = 0;
 	while (cmdName[i] != 0)
 	{

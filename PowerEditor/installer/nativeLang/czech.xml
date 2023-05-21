@@ -1,1385 +1,1387 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.5.2  2/Apr/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.3  9/May/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="8.5.2">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId = "file" name = "&amp;Soubor"/>
-					<Item menuId = "edit" name = "Ú&amp;pravy"/>
-					<Item menuId = "search" name = "&amp;Najít"/>
-					<Item menuId = "view" name = "&amp;Zobrazit"/>
-					<Item menuId = "encoding" name = "&amp;Formát"/>
-					<Item menuId = "language" name = "Synta&amp;xe"/>
-					<Item menuId = "settings" name = "Nas&amp;tavení"/>
-					<Item menuId = "tools" name = "Nástro&amp;je"/>
-					<Item menuId = "macro" name = "&amp;Makro"/>
-					<Item menuId = "run" name = "Sp&amp;ustit"/>
-					<Item menuId = "Plugins" name = "Plu&amp;giny"/>
-					<Item menuId = "Window" name = "&amp;Okna"/>
+					<Item menuId="file" name="&amp;Soubor"/>
+					<Item menuId="edit" name="Ú&amp;pravy"/>
+					<Item menuId="search" name="&amp;Najít"/>
+					<Item menuId="view" name="&amp;Zobrazit"/>
+					<Item menuId="encoding" name="&amp;Formát"/>
+					<Item menuId="language" name="Synta&amp;xe"/>
+					<Item menuId="settings" name="Nas&amp;tavení"/>
+					<Item menuId="tools" name="Nástro&amp;je"/>
+					<Item menuId="macro" name="&amp;Makro"/>
+					<Item menuId="run" name="Sp&amp;ustit"/>
+					<Item menuId="Plugins" name="Plu&amp;giny"/>
+					<Item menuId="Window" name="&amp;Okna"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId = "file-openFolder" name = "Otevřít složku obsahující akt. &amp;soubor v"/>
-					<Item subMenuId = "file-closeMore" name = "Zavřít vícero sou&amp;borů"/>
-					<Item subMenuId = "file-recentFiles" name = "&amp;Historie posledních souborů"/>
-					<Item subMenuId = "edit-insert" name = "Vložení"/>
-					<Item subMenuId = "edit-copyToClipboard" name = "Kopírovat do S&amp;chránky"/>
-					<Item subMenuId = "edit-indent" name = "Odsazen&amp;í"/>
-					<Item subMenuId = "edit-convertCaseTo" name = "Konverze velikosti pís&amp;ma"/>
-					<Item subMenuId = "edit-lineOperations" name = "Řádkové ope&amp;race"/>
-					<Item subMenuId = "edit-comment" name = "Zakomentovat/O&amp;dkomentovat"/>
-					<Item subMenuId = "edit-autoCompletion" name = "&amp;Automatické dokončování"/>
-					<Item subMenuId = "edit-eolConversion" name = "Konverze konců řádků (&amp;EOL)"/>
-					<Item subMenuId = "edit-blankOperations" name = "Operace s &amp;prázdnými znaky"/>
-					<Item subMenuId = "edit-pasteSpecial" name = "Vložit &amp;nestandardně"/>
-					<Item subMenuId = "edit-onSelection" name = "Vybraný te&amp;xt"/>
-					<Item subMenuId = "search-markAll" name = "Ozn&amp;ačit všechny výskyty tokenu stylem"/>
-					<Item subMenuId = "search-markOne" name = "&amp;Označit token (jeden) stylem"/>
-					<Item subMenuId = "search-unmarkAll" name = "Odstranit označení stylem u všech tokenů"/>
-					<Item subMenuId = "search-jumpUp" name = "S&amp;kočit nahoru"/>
-					<Item subMenuId = "search-jumpDown" name = "S&amp;kočit dolů"/>
-					<Item subMenuId = "search-copyStyledText" name = "Kopírovat te&amp;xt označený stylem"/>
-					<Item subMenuId = "search-bookmark" name = "Zá&amp;ložky"/>
-					<Item subMenuId = "view-currentFileIn" name = "Zobrazit aktuální soubor v"/>
-					<Item subMenuId = "view-showSymbol" name = "Ukázat symboly"/>
-					<Item subMenuId = "view-zoom" name = "Lupa"/>
-					<Item subMenuId = "view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
-					<Item subMenuId = "view-tab" name = "Karta dokumentu (tab)"/>
-					<Item subMenuId = "view-collapseLevel" name = "Sbalit úroveň"/>
-					<Item subMenuId = "view-uncollapseLevel" name = "Rozbalit úroveň"/>
-					<Item subMenuId = "view-project" name = "Projekt"/>
-					<Item subMenuId = "encoding-characterSets" name = "Výběr znakové sady"/>
-					<Item subMenuId = "encoding-arabic" name = "arabština"/>
-					<Item subMenuId = "encoding-baltic" name = "baltské jazyky"/>
-					<Item subMenuId = "encoding-celtic" name = "keltština"/>
-					<Item subMenuId = "encoding-cyrillic" name = "azbuka"/>
-					<Item subMenuId = "encoding-centralEuropean" name = "středoevropské jazyky (CE)"/>
-					<Item subMenuId = "encoding-chinese" name = "čínština"/>
-					<Item subMenuId = "encoding-easternEuropean"  name = "východoevropské jazyky (EE)"/>
-					<Item subMenuId = "encoding-greek" name = "řečtina"/>
-					<Item subMenuId = "encoding-hebrew" name = "hebrejština"/>
-					<Item subMenuId = "encoding-japanese" name = "japonština"/>
-					<Item subMenuId = "encoding-korean" name = "korejština"/>
-					<Item subMenuId = "encoding-northEuropean" name = "severoevropské jazyky (NE)"/>
-					<Item subMenuId = "encoding-thai" name = "thajština"/>
-					<Item subMenuId = "encoding-turkish" name = "turečtina"/>
-					<Item subMenuId = "encoding-westernEuropean" name = "západoevropské jazyky (WE)"/>
-					<Item subMenuId = "encoding-vietnamese" name = "vietnamština"/>
-					<Item subMenuId = "language-userDefinedLanguage" name = "Uživatelem definovaná syntaxe"/>
-					<Item subMenuId = "settings-import" name = "Import"/>
-					<Item subMenuId = "tools-md5" name = "MD5"/>
-					<Item subMenuId = "tools-sha256" name = "SHA-256"/>
-					<Item subMenuId = "window-sortby" name = "Setřídit podle"/>
+					<Item subMenuId="file-openFolder" name="Otevřít složku obsahující akt. &amp;soubor v"/>
+					<Item subMenuId="file-closeMore" name="Zavřít vícero sou&amp;borů"/>
+					<Item subMenuId="file-recentFiles" name="&amp;Historie posledních souborů"/>
+					<Item subMenuId="edit-insert" name="Vložení"/>
+					<Item subMenuId="edit-copyToClipboard" name="Kopírovat do S&amp;chránky"/>
+					<Item subMenuId="edit-indent" name="Odsazen&amp;í"/>
+					<Item subMenuId="edit-convertCaseTo" name="Konverze velikosti pís&amp;ma"/>
+					<Item subMenuId="edit-lineOperations" name="Řádkové ope&amp;race"/>
+					<Item subMenuId="edit-comment" name="Zakomentovat/O&amp;dkomentovat"/>
+					<Item subMenuId="edit-autoCompletion" name="&amp;Automatické dokončování"/>
+					<Item subMenuId="edit-eolConversion" name="Konverze konců řádků (&amp;EOL)"/>
+					<Item subMenuId="edit-blankOperations" name="Operace s &amp;prázdnými znaky"/>
+					<Item subMenuId="edit-pasteSpecial" name="Vložit &amp;nestandardně"/>
+					<Item subMenuId="edit-onSelection" name="Vybraný te&amp;xt"/>
+					<Item subMenuId="search-markAll" name="Ozn&amp;ačit všechny výskyty tokenu stylem"/>
+					<Item subMenuId="search-markOne" name="&amp;Označit token (jeden) stylem"/>
+					<Item subMenuId="search-unmarkAll" name="Odstranit označení stylem u všech tokenů"/>
+					<Item subMenuId="search-jumpUp" name="S&amp;kočit nahoru"/>
+					<Item subMenuId="search-jumpDown" name="S&amp;kočit dolů"/>
+					<Item subMenuId="search-copyStyledText" name="Kopírovat te&amp;xt označený stylem"/>
+					<Item subMenuId="search-bookmark" name="Zá&amp;ložky"/>
+					<Item subMenuId="view-currentFileIn" name="Zobrazit aktuální soubor v"/>
+					<Item subMenuId="view-showSymbol" name="Ukázat symboly"/>
+					<Item subMenuId="view-zoom" name="Lupa"/>
+					<Item subMenuId="view-moveCloneDocument" name="Přesunout/duplikovat aktuální dokument"/>
+					<Item subMenuId="view-tab" name="Karta dokumentu (tab)"/>
+					<Item subMenuId="view-collapseLevel" name="Sbalit úroveň"/>
+					<Item subMenuId="view-uncollapseLevel" name="Rozbalit úroveň"/>
+					<Item subMenuId="view-project" name="Projekt"/>
+					<Item subMenuId="encoding-characterSets" name="Výběr znakové sady"/>
+					<Item subMenuId="encoding-arabic" name="arabština"/>
+					<Item subMenuId="encoding-baltic" name="baltské jazyky"/>
+					<Item subMenuId="encoding-celtic" name="keltština"/>
+					<Item subMenuId="encoding-cyrillic" name="azbuka"/>
+					<Item subMenuId="encoding-centralEuropean" name="středoevropské jazyky (CE)"/>
+					<Item subMenuId="encoding-chinese" name="čínština"/>
+					<Item subMenuId="encoding-easternEuropean" name="východoevropské jazyky (EE)"/>
+					<Item subMenuId="encoding-greek" name="řečtina"/>
+					<Item subMenuId="encoding-hebrew" name="hebrejština"/>
+					<Item subMenuId="encoding-japanese" name="japonština"/>
+					<Item subMenuId="encoding-korean" name="korejština"/>
+					<Item subMenuId="encoding-northEuropean" name="severoevropské jazyky (NE)"/>
+					<Item subMenuId="encoding-thai" name="thajština"/>
+					<Item subMenuId="encoding-turkish" name="turečtina"/>
+					<Item subMenuId="encoding-westernEuropean" name="západoevropské jazyky (WE)"/>
+					<Item subMenuId="encoding-vietnamese" name="vietnamština"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Uživatelem definovaná syntaxe"/>
+					<Item subMenuId="settings-import" name="Import"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="window-sortby" name="Setřídit podle"/>
 				</SubEntries>
 
 				<!-- all menu item -->
 				<Commands>
-					<Item id = "41001" name = "&amp;Nový"/>
-					<Item id = "41002" name = "&amp;Otevřít..."/>
-					<Item id = "41003" name = "Zavřít &amp;aktuální"/>
-					<Item id = "41004" name = "Za&amp;vřít vše"/>
-					<Item id = "41005" name = "Zavřít vše KROMĚ aktuálního dokumentu"/>
-					<Item id = "41006" name = "&amp;Uložit"/>
-					<Item id = "41007" name = "Uložit v&amp;še"/>
-					<Item id = "41008" name = "Uložit &amp;jako..."/>
-					<Item id = "41010" name = "&amp;Tisk..."/>
-					<Item id = "1001"  name = "Tisknout t&amp;eď"/>
-					<Item id = "41011" name = "Kone&amp;c"/>
-					<Item id = "41012" name = "Na&amp;hrát relaci..."/>
-					<Item id = "41013" name = "Uložit &amp;relaci..."/>
-					<Item id = "41014" name = "&amp;Znovu načíst z disku"/>
-					<Item id = "41015" name = "Uložit kopii jak&amp;o..."/>
-					<Item id = "41016" name = "Přesunout do &amp;Koše"/>
-					<Item id = "41017" name = "P&amp;řejmenovat..."/>
-					<Item id = "41009" name = "Zavřít vše nalevo"/>
-					<Item id = "41018" name = "Zavřít vše napravo"/>
-					<Item id = "41019" name = "Průzkumník"/>
-					<Item id = "41020" name = "cmd"/>
-					<Item id = "41021" name = "Znovuotevřít aktuálně zavřený soubor"/>
-					<Item id = "41022" name = "Otevřít složku jako &amp;pracovní plochu"/>
-					<Item id = "41023" name = "Otevřít v &amp;implicitním prohlížeči"/>
-					<Item id = "41024" name = "Zavřít všechny nezměněné"/>
-					<Item id = "41025" name = "Složka jako Pracovní plocha"/>
-					<Item id = "42001" name = "Vyjmou&amp;t"/>
-					<Item id = "42002" name = "&amp;Kopírovat"/>
-					<Item id = "42003" name = "&amp;Zpět"/>
-					<Item id = "42004" name = "Z&amp;novu"/>
-					<Item id = "42005" name = "&amp;Vložit"/>
-					<Item id = "42006" name = "&amp;Odstranit"/>
-					<Item id = "42007" name = "V&amp;ybrat vše"/>
-					<Item id = "42008" name = "Vložit tabulátor (zvětšit odsazení)"/>
-					<Item id = "42009" name = "Odstranit tabulátor (zmenšit odsazení)"/>
-					<Item id = "42010" name = "Duplikovat aktuální řádek"/>
-					<Item id = "42012" name = "Rozdělit řádky"/>
-					<Item id = "42013" name = "Sloučit řádky"/>
-					<Item id = "42014" name = "Posunout aktuální řádek nahoru"/>
-					<Item id = "42015" name = "Posunout aktuální řádek dolů"/>
-					<Item id = "42016" name = "&amp;VELKÁ PÍSMENA"/>
-					<Item id = "42017" name = "&amp;malá písmena"/>
-					<Item id = "42018" name = "&amp;Začít nahrávání"/>
-					<Item id = "42019" name = "&amp;Ukončit nahrávání"/>
-					<Item id = "42020" name = "Vy&amp;ber začátek/konec bloku"/>
-					<Item id = "42021" name = "&amp;Přehrát"/>
-					<Item id = "42022" name = "Zakomentovat/odkomentovat jednotlivé řádky"/>
-					<Item id = "42023" name = "Zakomentovat/odkomentovat blok"/>
-					<Item id = "42024" name = "Odstranit koncové mezery"/>
-					<Item id = "42025" name = "U&amp;ložit aktuálně zaznamenané makro"/>
-					<Item id = "42026" name = "Směr textu zprava doleva"/>
-					<Item id = "42027" name = "Směr textu zleva doprava"/>
-					<Item id = "42028" name = "Nastavit p&amp;říznak Pouze pro čtení"/>
-					<Item id = "42029" name = "Kopírovat název (i s cestou) aktuálního souboru"/>
-					<Item id = "42030" name = "Kopírovat název aktuálního souboru"/>
-					<Item id = "42031" name = "Kopírovat název (i s cestou) aktuálního adresáře souboru"/>
-					<Item id = "42032" name = "Spustit makro více&amp;krát..."/>
-					<Item id = "42033" name = "Zrušit p&amp;říznak Pouze pro čtení"/>
-					<Item id = "42034" name = "Editor s&amp;loupce..."/>
-					<Item id = "42035" name = "Zakomentovat blok"/>
-					<Item id = "42036" name = "Odkomentovat blok"/>
-					<Item id = "42037" name = "Sloupcový režim..."/>
-					<Item id = "42038" name = "Vložit HTML-obsah"/>
-					<Item id = "42039" name = "Vložit RTF-obsah"/>
-					<Item id = "42040" name = "Otevřít všechny nedávné soubory"/>
-					<Item id = "42041" name = "Vymazat seznam nedávno otevřených"/> 
-					<Item id = "42042" name = "Odstranit úvodní mezery"/>
-					<Item id = "42043" name = "Odstranit úvodní i koncové mezery"/>
-					<Item id = "42044" name = "Konce řádků (EOL) konvertovat na mezery"/>
-					<Item id = "42045" name = "Odstranit úvodní i koncové mezery, EOLy konvertovat na mezery"/>
-					<Item id = "42046" name = "Tabulátory na mezery"/>
-					<Item id = "42047" name = "Odstranit blokové komentáře"/>
-					<Item id = "42048" name = "Kopírovat binární obsah"/>
-					<Item id = "42049" name = "Vyjmout binární obsah"/>
-					<Item id = "42050" name = "Vložit binární obsah"/>
-					<Item id = "42051" name = "Panel ASCII &amp;znaků"/>
-					<Item id = "42052" name = "&amp;Historie Schránky"/>
-					<Item id = "42053" name = "Mezery na tabulátory (úvodní)"/>
-					<Item id = "42054" name = "Mezery na tabulátory (všechny)"/>
-					<Item id = "42055" name = "Odstranit prázdné řádky"/>
-					<Item id = "42056" name = "Odstranit prázdné řádky (obsahující prázdné znaky)"/>
-					<Item id = "42057" name = "Vložit prázdný řádek nad aktuální"/>
-					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>
-					<Item id = "42059" name = "Setřídit řádky vzestupně"/>
-					<Item id = "42060" name = "Setřídit řádky sestupně"/>
-					<Item id = "42061" name = "Setřídit řádky (podle celých čísel) vzestupně"/>
-					<Item id = "42062" name = "Setřídit řádky (podle celých čísel) sestupně"/>
-					<Item id = "42063" name = "Setřídit řádky (podle desetinných čísel s čárkou) vzestupně"/>
-					<Item id = "42064" name = "Setřídit řádky (podle desetinných čísel s čárkou) sestupně"/>
-					<Item id = "42065" name = "Setřídit řádky (podle desetinných čísel s tečkou) vzestupně"/>
-					<Item id = "42066" name = "Setřídit řádky (podle desetinných čísel s tečkou) sestupně"/>
-					<Item id = "42067" name = "Jen &amp;První Velká"/>
-					<Item id = "42068" name = "První Velká (ostatní pozice beze změny)"/>
-					<Item id = "42069" name = "Jen první ve větách v&amp;elká."/>
-					<Item id = "42070" name = "První ve větách velká. (ostatní pozice beze změny)"/>
-					<Item id = "42071" name = "&amp;iNVERTOVANÁ VELIKOST"/>
-					<Item id = "42072" name = "&amp;nÁHOdNá VeLIKOsT"/>
-					<Item id = "42073" name = "Otevřít jako soubor"/>
-					<Item id = "42074" name = "Otevřít jako složku v Průzkumníkovi"/>
-					<Item id = "42075" name = "Vyhledat na Internetu"/>
-					<Item id = "42076" name = "Změnit vyhledávač..."/>
-					<Item id = "42077" name = "Odstranit následující za sebou jdoucí duplicitní řádky"/>
-					<Item id = "42078" name = "Promíchat náhodně řádky"/>
-					<Item id = "42079" name = "Odstranit duplicitní řádky"/>
-					<Item id = "42080" name = "Setřídit řádky (ignorovat velikost písmen) vzestupně"/>
-					<Item id = "42081" name = "Setřídit řádky (ignorovat velikost písmen) sestupně"/>
-					<Item id = "42082" name = "Kopírovat odkaz"/>
-					<Item id = "42083" name = "Obrátit pořadí řádků"/>
-					<Item id = "42084" name = "Aktuální čas a datum (kratší verze)"/>
-					<Item id = "42085" name = "Aktuální čas a datum (delší verze)"/>
-					<Item id = "42086" name = "Aktuální čas a datum (přizpůsobený)"/>
-					<Item id = "42087" name = "Kopírovat všechny názvy souborů"/>
-					<Item id = "42088" name = "Kopírovat všechny cesty souborů"/>
-					<Item id = "42089" name = "Vyber začátek/konec bloku v Sloupcovém režimu"/>
-					<Item id = "43001" name = "&amp;Najít..."/>
-					<Item id = "43002" name = "Najít &amp;další"/>
-					<Item id = "43003" name = "Nah&amp;radit..."/>
-					<Item id = "43004" name = "Pře&amp;jít na ..."/>
-					<Item id = "43005" name = "Záložka"/>
-					<Item id = "43006" name = "Další záložka"/>
-					<Item id = "43007" name = "Předchozí záložka"/>
-					<Item id = "43008" name = "Vymazat všechny záložky"/>
-					<Item id = "43009" name = "Jdi na párovou &amp;závorku"/>
-					<Item id = "43010" name = "Najít pře&amp;dchozí"/>
-					<Item id = "43011" name = "&amp;Postupné vyhledávání..."/>
-					<Item id = "43013" name = "Najít v so&amp;uborech"/>
-					<Item id = "43014" name = "Najít další (&amp;volatile)"/>
-					<Item id = "43015" name = "Najít předchozí (&amp;volatile)"/>
-					<Item id = "43016" name = "Označit vše"/>
-					<Item id = "43017" name = "Odznačit vše"/>
-					<Item id = "43018" name = "Vyjmout řádky označené záložkami"/>
-					<Item id = "43019" name = "Kopírovat řádky označené záložkami"/>
-					<Item id = "43020" name = "Vložit do (zaměnit) řádků označených záložkami"/>
-					<Item id = "43021" name = "Odstranit řádky označené záložkami"/>
-					<Item id = "43022" name = "Použít 1. styl"/>
-					<Item id = "43024" name = "Použít 2. styl"/>
-					<Item id = "43026" name = "Použít 3. styl"/>
-					<Item id = "43028" name = "Použít 4. styl"/>
-					<Item id = "43030" name = "Použít 5. styl"/>
-					<Item id = "43023" name = "Odstranit 1. styl"/>
-					<Item id = "43025" name = "Odstranit 2. styl"/>
-					<Item id = "43027" name = "Odstranit 3. styl"/>
-					<Item id = "43029" name = "Odstranit 4. styl"/>
-					<Item id = "43031" name = "Odstranit 5. styl"/>
-					<Item id = "43032" name = "Odstranit všechny styly"/>
-					<Item id = "43033" name = "1. styl"/>
-					<Item id = "43034" name = "2. styl"/>
-					<Item id = "43035" name = "3. styl"/>
-					<Item id = "43036" name = "4. styl"/>
-					<Item id = "43037" name = "5. styl"/>
-					<Item id = "43038" name = "Styl značení dialogu 'Označit'"/>
-					<Item id = "43039" name = "1. styl"/>
-					<Item id = "43040" name = "2. styl"/>
-					<Item id = "43041" name = "3. styl"/>
-					<Item id = "43042" name = "4. styl"/>
-					<Item id = "43043" name = "5. styl"/>
-					<Item id = "43044" name = "Styl značení dialogu 'Označit'"/>
-					<Item id = "43045" name = "Okno &amp;s výsledky vyhledávání"/>
-					<Item id = "43046" name = "D&amp;alší vyhledaný výsledek"/>
-					<Item id = "43047" name = "Př&amp;edchozí vyhledaný výsledek"/>
-					<Item id = "43048" name = "&amp;Vybrat a najít další"/>
-					<Item id = "43049" name = "&amp;Vybrat a najít předchozí"/>
-					<Item id = "43050" name = "Inverze záložky"/>
-					<Item id = "43051" name = "Odstranit řádky neoznačené záložkami"/>
-					<Item id = "43052" name = "Najít znaky z rozsa&amp;hu..."/>
-					<Item id = "43053" name = "Vybrat vše &amp;mezi souvisejícími závorkami"/>
-					<Item id = "43054" name = "&amp;Označit..."/>
-					<Item id = "43055" name = "1. stylem"/>
-					<Item id = "43056" name = "2. stylem"/>
-					<Item id = "43057" name = "3. stylem"/>
-					<Item id = "43058" name = "4. stylem"/>
-					<Item id = "43059" name = "5. stylem"/>
-					<Item id = "43060" name = "Všemi styly"/>
-					<Item id = "43061" name = "Stylem značení dialogu 'Označit'"/>
-					<Item id = "43062" name = "Použít 1. styl"/>
-					<Item id = "43063" name = "Použít 2. styl"/>
-					<Item id = "43064" name = "Použít 3. styl"/>
-					<Item id = "43065" name = "Použít 4. styl"/>
-					<Item id = "43066" name = "Použít 5. styl"/>
-					<Item id = "43501" name = "Zavřít vybrané"/>
-					<Item id = "43502" name = "Zavřít ostatní"/>
-					<Item id = "43503" name = "Kopírovat názvy vybraných souborů"/>
-					<Item id = "43504" name = "Kopírovat cesty vybraných souborů"/>
-					<Item id = "44009" name = "Zobrazit pouze okno dokumentu (Post-It mód)"/>
-					<Item id = "44010" name = "Sbalit vše"/>
-					<Item id = "44011" name = "Zobrazit pouze čistý text (nerušivý mód)"/>
-					<Item id = "44019" name = "Zobrazit všechny znaky"/>
-					<Item id = "44020" name = "Zobrazit odsazovací pomocné čáry"/>
-					<Item id = "44022" name = "Zalomit řádky"/>
-					<Item id = "44023" name = "Zvětši&amp;t Ctrl-Myš kolečko nahoru"/>
-					<Item id = "44024" name = "Zme&amp;nšit Ctrl-Myš kolečko dolu"/>
-					<Item id = "44025" name = "Zobrazit prázdné znaky a tabulátory"/>
-					<Item id = "44026" name = "Zobrazit konce řádků"/>
-					<Item id = "44029" name = "Rozbalit vše"/>
-					<Item id = "44030" name = "Sbalit aktuální úroveň"/>
-					<Item id = "44031" name = "Rozbalit aktuální úroveň"/>
-					<Item id = "44032" name = "Přepnout zobrazení na celou obrazovku"/>
-					<Item id = "44033" name = "Obnovit původní měřítko"/>
-					<Item id = "44034" name = "Vždy navrchu"/>
-					<Item id = "44035" name = "Synchronizovat vertikální posouvání"/>
-					<Item id = "44036" name = "Synchronizovat horizontální posouvání"/>
-					<Item id = "44041" name = "Zobrazit zalamovací znaky"/>
-					<Item id = "44042" name = "Skrýt řádky"/>
-					<Item id = "44049" name = "Souhrnné informace..."/>
-					<Item id = "44070" name = "Seznam dokumentů"/>
-					<Item id = "44072" name = "Přejít na další náhled"/>
-					<Item id = "44080" name = "Přehledná mapa dokumentu"/>
-					<Item id = "44081" name = "Panel 1"/>
-					<Item id = "44082" name = "Panel 2"/>
-					<Item id = "44083" name = "Panel 3"/>
-					<Item id = "44084" name = "Seznam funkcí"/>
-					<Item id = "44085" name = "Složka jako pracovní plocha"/>
-					<Item id = "44086" name = "1. karta"/>
-					<Item id = "44087" name = "2. karta"/>
-					<Item id = "44088" name = "3. karta"/>
-					<Item id = "44089" name = "4. karta"/>
-					<Item id = "44090" name = "5. karta"/>
-					<Item id = "44091" name = "6. karta"/>
-					<Item id = "44092" name = "7. karta"/>
-					<Item id = "44093" name = "8. karta"/>
-					<Item id = "44094" name = "9. karta"/>
-					<Item id = "44095" name = "Další karta"/>
-					<Item id = "44096" name = "Předchozí karta"/>
-					<Item id = "44097" name = "Monitorování změn (tail -f)"/>
-					<Item id = "44098" name = "Přesunout kartu dopředu"/>
-					<Item id = "44099" name = "Přesunout kartu dozadu"/>
-					<Item id = "44110" name = "Odstranit barevné označení"/>
-					<Item id = "44111" name = "Označit barvou 1"/>
-					<Item id = "44112" name = "Označit barvou 2"/>
-					<Item id = "44113" name = "Označit barvou 3"/>
-					<Item id = "44114" name = "Označit barvou 4"/>
-					<Item id = "44115" name = "Označit barvou 5"/>
-					<Item id = "44130" name = "Zobrazit netisknutelné znaky"/>
-					<Item id = "45001" name = "Konvertovat do formátu Windows"/>
-					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>
-					<Item id = "45003" name = "Konvertovat do formátu MAC"/>
-					<Item id = "45004" name = "ANSI"/>
-					<Item id = "45005" name = "UTF-8 s BOM"/>
-					<Item id = "45006" name = "UTF-16 BE s BOM"/>
-					<Item id = "45007" name = "UTF-16 LE s BOM"/>
-					<Item id = "45008" name = "UTF-8"/>
-					<Item id = "45009" name = "Konvertovat do ANSI"/>
-					<Item id = "45010" name = "Konvertovat do UTF-8"/>
-					<Item id = "45011" name = "Konvertovat do UTF-8 s BOM"/>
-					<Item id = "45012" name = "Konvertovat do UTF-16 BE s BOM"/>
-					<Item id = "45013" name = "Konvertovat do UTF-16 LE s BOM"/>
-					<Item id = "45060" name = "Big5 (tradiční)"/>
-					<Item id = "45061" name = "GB2312 (zjednodušená)"/>
-					<Item id = "45054" name = "OEM 861: Islandština"/>
-					<Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
-					<Item id = "45053" name = "OEM 860: Portugalština"/>
-					<Item id = "45056" name = "OEM 863: Francouzština"/>
-					<Item id = "10001" name = "Přesunout do druhého náhledu"/>
-					<Item id = "10002" name = "Vytvořit kopii v druhém náhledu"/>
-					<Item id = "10003" name = "Přesunout do nové instance"/>
-					<Item id = "10004" name = "Otevřít v nové instanci"/>
-					<Item id = "46001" name = "Upravit styl..."/>
-					<Item id = "46015" name = "MS-DOS styl"/>
-					<Item id = "46016" name = "Normální text"/>
-					<Item id = "46017" name = "Resource soubor"/>
-					<Item id = "46019" name = "MS INI soubor"/>
-					<Item id = "46033" name = "Sestavení"/>
-					<Item id = "46180" name = "Vlastní"/>
-					<Item id = "46250" name = "Definovat vlastní syntaxi..."/>
-					<Item id = "46300" name = "Otevřít složku s uživatelsky definovanými syntaxemi..."/>
-					<Item id = "46301" name = "Sbírka uživatelsky definovaných syntaxí Notepadu++ (GitHub)"/>
-					<Item id = "47000" name = "O Notepadu++ ..."/>
-					<Item id = "47001" name = "N++ - domovská stránka"/>
-					<Item id = "47002" name = "N++ - stránka projektu"/>
-					<Item id = "47003" name = "N++ - online příručka pro uživatele"/>
-					<Item id = "47004" name = "N++ - Community (diskuzní fórum)"/>
-					<Item id = "47005" name = "Získat další pluginy"/>
-					<Item id = "47006" name = "Aktualizovat Notepad++"/>
-					<Item id = "47007" name = "Wiki FAQ"/>
-					<Item id = "47008" name = "Obsah nápovědy"/>
-					<Item id = "47009" name = "Nastavit proxy-server pro aktualizace ..."/>
-					<Item id = "47010" name = "Parametry příkazové řádky"/>
-					<Item id = "47012" name = "Informace k ladění"/>
-					<Item id = "48005" name = "Importovat plugin(y) ..."/>
-					<Item id = "48006" name = "Importovat styl(y) ..."/>
-					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
-					<Item id = "48011" name = "Volby..."/>
-					<Item id = "48014" name = "Otevřít složku s pluginy..."/>
-					<Item id = "48015" name = "Správa pluginů..."/>
-					<Item id = "48016" name = "Upravit zástupce / Odstranit makro..."/>
-					<Item id = "48017" name = "Upravit zástupce / Odstranit povel..."/>
-					<Item id = "48018" name = "Upravit vyskakovací kontextové menu..."/>
-					<Item id = "48501" name = "Generovat..."/>
-					<Item id = "48502" name = "Generovat ze souborů..."/>
-					<Item id = "48503" name = "Generovat z dat ve Schránce"/>
-					<Item id = "48504" name = "Generovat..."/>
-					<Item id = "48505" name = "Generovat ze souborů..."/>
-					<Item id = "48506" name = "Generovat z dat ve Schránce"/>
-					<Item id = "49000" name = "&amp;Spustit..."/>
-					<Item id = "50000" name = "Dokončování funkcí"/>
-					<Item id = "50001" name = "Dokončování slov"/>
-					<Item id = "50002" name = "Nápověda k parametrům funkcí"/>
-					<Item id = "50003" name = "Přejít na předchozí dokument"/>
-					<Item id = "50004" name = "Přejít na další dokument"/>
-					<Item id = "50005" name = "Přepnout záznam makra"/>
-					<Item id = "50006" name = "Dokončování cest k souborům a adresářům"/>
-					<Item id = "50010" name = "Předchozí nápověda k parametrům funkce"/>
-					<Item id = "50011" name = "Následující nápověda k parametrům funkce"/>
-					<Item id = "11001" name = "Otevřené &amp;dokumenty..."/>
-					<Item id = "11002" name = "Názvu - od A do Z"/>
-					<Item id = "11003" name = "Názvu - od Z do A"/>
-					<Item id = "11004" name = "Cesty - od A do Z"/>
-					<Item id = "11005" name = "Cesty - od Z do A"/>
-					<Item id = "11006" name = "Typu - od A do Z"/>
-					<Item id = "11007" name = "Typu - od Z do A"/>
-					<Item id = "11008" name = "Velikosti - od menších k větším"/>
-					<Item id = "11009" name = "Velikosti - od větších k menším"/>
+					<Item id="41001" name="&amp;Nový"/>
+					<Item id="41002" name="&amp;Otevřít..."/>
+					<Item id="41003" name="Zavřít &amp;aktuální"/>
+					<Item id="41004" name="Za&amp;vřít vše"/>
+					<Item id="41005" name="Zavřít vše KROMĚ aktuálního dokumentu"/>
+					<Item id="41006" name="&amp;Uložit"/>
+					<Item id="41007" name="Uložit v&amp;še"/>
+					<Item id="41008" name="Uložit &amp;jako..."/>
+					<Item id="41010" name="&amp;Tisk..."/>
+					<Item id="1001" name="Tisknout t&amp;eď"/>
+					<Item id="41011" name="Kone&amp;c"/>
+					<Item id="41012" name="Na&amp;hrát relaci..."/>
+					<Item id="41013" name="Uložit &amp;relaci..."/>
+					<Item id="41014" name="&amp;Znovu načíst z disku"/>
+					<Item id="41015" name="Uložit kopii jak&amp;o..."/>
+					<Item id="41016" name="Přesunout do &amp;Koše"/>
+					<Item id="41017" name="P&amp;řejmenovat..."/>
+					<Item id="41009" name="Zavřít vše nalevo"/>
+					<Item id="41018" name="Zavřít vše napravo"/>
+					<Item id="41019" name="Průzkumník"/>
+					<Item id="41020" name="cmd"/>
+					<Item id="41021" name="Znovuotevřít aktuálně zavřený soubor"/>
+					<Item id="41022" name="Otevřít složku jako &amp;pracovní plochu"/>
+					<Item id="41023" name="Otevřít v &amp;implicitním prohlížeči"/>
+					<Item id="41024" name="Zavřít všechny nezměněné"/>
+					<Item id="41025" name="Složka jako Pracovní plocha"/>
+					<Item id="42001" name="Vyjmou&amp;t"/>
+					<Item id="42002" name="&amp;Kopírovat"/>
+					<Item id="42003" name="&amp;Zpět"/>
+					<Item id="42004" name="Z&amp;novu"/>
+					<Item id="42005" name="&amp;Vložit"/>
+					<Item id="42006" name="&amp;Odstranit"/>
+					<Item id="42007" name="V&amp;ybrat vše"/>
+					<Item id="42008" name="Vložit tabulátor (zvětšit odsazení)"/>
+					<Item id="42009" name="Odstranit tabulátor (zmenšit odsazení)"/>
+					<Item id="42010" name="Duplikovat aktuální řádek"/>
+					<Item id="42012" name="Rozdělit řádky"/>
+					<Item id="42013" name="Sloučit řádky"/>
+					<Item id="42014" name="Posunout aktuální řádek nahoru"/>
+					<Item id="42015" name="Posunout aktuální řádek dolů"/>
+					<Item id="42016" name="&amp;VELKÁ PÍSMENA"/>
+					<Item id="42017" name="&amp;malá písmena"/>
+					<Item id="42018" name="&amp;Začít nahrávání"/>
+					<Item id="42019" name="&amp;Ukončit nahrávání"/>
+					<Item id="42020" name="Vy&amp;ber začátek/konec bloku"/>
+					<Item id="42021" name="&amp;Přehrát"/>
+					<Item id="42022" name="Zakomentovat/odkomentovat jednotlivé řádky"/>
+					<Item id="42023" name="Zakomentovat/odkomentovat blok"/>
+					<Item id="42024" name="Odstranit koncové mezery"/>
+					<Item id="42025" name="U&amp;ložit aktuálně zaznamenané makro"/>
+					<Item id="42026" name="Směr textu zprava doleva"/>
+					<Item id="42027" name="Směr textu zleva doprava"/>
+					<Item id="42028" name="Nastavit p&amp;říznak Pouze pro čtení"/>
+					<Item id="42029" name="Kopírovat název (i s cestou) aktuálního souboru"/>
+					<Item id="42030" name="Kopírovat název aktuálního souboru"/>
+					<Item id="42031" name="Kopírovat název (i s cestou) aktuálního adresáře souboru"/>
+					<Item id="42032" name="Spustit makro více&amp;krát..."/>
+					<Item id="42033" name="Zrušit p&amp;říznak Pouze pro čtení"/>
+					<Item id="42034" name="Editor s&amp;loupce..."/>
+					<Item id="42035" name="Zakomentovat blok"/>
+					<Item id="42036" name="Odkomentovat blok"/>
+					<Item id="42037" name="Sloupcový režim..."/>
+					<Item id="42038" name="Vložit HTML-obsah"/>
+					<Item id="42039" name="Vložit RTF-obsah"/>
+					<Item id="42040" name="Otevřít všechny nedávné soubory"/>
+					<Item id="42041" name="Vymazat seznam nedávno otevřených"/>
+					<Item id="42042" name="Odstranit úvodní mezery"/>
+					<Item id="42043" name="Odstranit úvodní i koncové mezery"/>
+					<Item id="42044" name="Konce řádků (EOL) konvertovat na mezery"/>
+					<Item id="42045" name="Odstranit úvodní i koncové mezery, EOLy konvertovat na mezery"/>
+					<Item id="42046" name="Tabulátory na mezery"/>
+					<Item id="42047" name="Odstranit blokové komentáře"/>
+					<Item id="42048" name="Kopírovat binární obsah"/>
+					<Item id="42049" name="Vyjmout binární obsah"/>
+					<Item id="42050" name="Vložit binární obsah"/>
+					<Item id="42051" name="Panel ASCII &amp;znaků"/>
+					<Item id="42052" name="&amp;Historie Schránky"/>
+					<Item id="42053" name="Mezery na tabulátory (úvodní)"/>
+					<Item id="42054" name="Mezery na tabulátory (všechny)"/>
+					<Item id="42055" name="Odstranit prázdné řádky"/>
+					<Item id="42056" name="Odstranit prázdné řádky (obsahující prázdné znaky)"/>
+					<Item id="42057" name="Vložit prázdný řádek nad aktuální"/>
+					<Item id="42058" name="Vložit prázdný řádek pod aktuální"/>
+					<Item id="42059" name="Setřídit řádky vzestupně"/>
+					<Item id="42060" name="Setřídit řádky sestupně"/>
+					<Item id="42061" name="Setřídit řádky (podle celých čísel) vzestupně"/>
+					<Item id="42062" name="Setřídit řádky (podle celých čísel) sestupně"/>
+					<Item id="42063" name="Setřídit řádky (podle desetinných čísel s čárkou) vzestupně"/>
+					<Item id="42064" name="Setřídit řádky (podle desetinných čísel s čárkou) sestupně"/>
+					<Item id="42065" name="Setřídit řádky (podle desetinných čísel s tečkou) vzestupně"/>
+					<Item id="42066" name="Setřídit řádky (podle desetinných čísel s tečkou) sestupně"/>
+					<Item id="42067" name="Jen &amp;První Velká"/>
+					<Item id="42068" name="První Velká (ostatní pozice beze změny)"/>
+					<Item id="42069" name="Jen první ve větách v&amp;elká."/>
+					<Item id="42070" name="První ve větách velká. (ostatní pozice beze změny)"/>
+					<Item id="42071" name="&amp;iNVERTOVANÁ VELIKOST"/>
+					<Item id="42072" name="&amp;nÁHOdNá VeLIKOsT"/>
+					<Item id="42073" name="Otevřít jako soubor"/>
+					<Item id="42074" name="Otevřít jako složku v Průzkumníkovi"/>
+					<Item id="42075" name="Vyhledat na Internetu"/>
+					<Item id="42076" name="Změnit vyhledávač..."/>
+					<Item id="42077" name="Odstranit následující za sebou jdoucí duplicitní řádky"/>
+					<Item id="42078" name="Promíchat náhodně řádky"/>
+					<Item id="42079" name="Odstranit duplicitní řádky"/>
+					<Item id="42080" name="Setřídit řádky (ignorovat velikost písmen) vzestupně"/>
+					<Item id="42081" name="Setřídit řádky (ignorovat velikost písmen) sestupně"/>
+					<Item id="42082" name="Kopírovat odkaz"/>
+					<Item id="42083" name="Obrátit pořadí řádků"/>
+					<Item id="42084" name="Aktuální čas a datum (kratší verze)"/>
+					<Item id="42085" name="Aktuální čas a datum (delší verze)"/>
+					<Item id="42086" name="Aktuální čas a datum (přizpůsobený)"/>
+					<Item id="42087" name="Kopírovat všechny názvy souborů"/>
+					<Item id="42088" name="Kopírovat všechny cesty souborů"/>
+					<Item id="42089" name="Vyber začátek/konec bloku v Sloupcovém režimu"/>
+					<Item id="43001" name="&amp;Najít..."/>
+					<Item id="43002" name="Najít &amp;další"/>
+					<Item id="43003" name="Nah&amp;radit..."/>
+					<Item id="43004" name="Pře&amp;jít na ..."/>
+					<Item id="43005" name="Záložka"/>
+					<Item id="43006" name="Další záložka"/>
+					<Item id="43007" name="Předchozí záložka"/>
+					<Item id="43008" name="Vymazat všechny záložky"/>
+					<Item id="43009" name="Jdi na párovou &amp;závorku"/>
+					<Item id="43010" name="Najít pře&amp;dchozí"/>
+					<Item id="43011" name="&amp;Postupné vyhledávání..."/>
+					<Item id="43013" name="Najít v so&amp;uborech"/>
+					<Item id="43014" name="Najít další (&amp;volatile)"/>
+					<Item id="43015" name="Najít předchozí (&amp;volatile)"/>
+					<Item id="43016" name="Označit vše"/>
+					<Item id="43017" name="Odznačit vše"/>
+					<Item id="43018" name="Vyjmout řádky označené záložkami"/>
+					<Item id="43019" name="Kopírovat řádky označené záložkami"/>
+					<Item id="43020" name="Vložit do (zaměnit) řádků označených záložkami"/>
+					<Item id="43021" name="Odstranit řádky označené záložkami"/>
+					<Item id="43022" name="Použít 1. styl"/>
+					<Item id="43024" name="Použít 2. styl"/>
+					<Item id="43026" name="Použít 3. styl"/>
+					<Item id="43028" name="Použít 4. styl"/>
+					<Item id="43030" name="Použít 5. styl"/>
+					<Item id="43023" name="Odstranit 1. styl"/>
+					<Item id="43025" name="Odstranit 2. styl"/>
+					<Item id="43027" name="Odstranit 3. styl"/>
+					<Item id="43029" name="Odstranit 4. styl"/>
+					<Item id="43031" name="Odstranit 5. styl"/>
+					<Item id="43032" name="Odstranit všechny styly"/>
+					<Item id="43033" name="1. styl"/>
+					<Item id="43034" name="2. styl"/>
+					<Item id="43035" name="3. styl"/>
+					<Item id="43036" name="4. styl"/>
+					<Item id="43037" name="5. styl"/>
+					<Item id="43038" name="Styl značení dialogu 'Označit'"/>
+					<Item id="43039" name="1. styl"/>
+					<Item id="43040" name="2. styl"/>
+					<Item id="43041" name="3. styl"/>
+					<Item id="43042" name="4. styl"/>
+					<Item id="43043" name="5. styl"/>
+					<Item id="43044" name="Styl značení dialogu 'Označit'"/>
+					<Item id="43045" name="Okno &amp;s výsledky vyhledávání"/>
+					<Item id="43046" name="D&amp;alší vyhledaný výsledek"/>
+					<Item id="43047" name="Př&amp;edchozí vyhledaný výsledek"/>
+					<Item id="43048" name="&amp;Vybrat a najít další"/>
+					<Item id="43049" name="&amp;Vybrat a najít předchozí"/>
+					<Item id="43050" name="Inverze záložky"/>
+					<Item id="43051" name="Odstranit řádky neoznačené záložkami"/>
+					<Item id="43052" name="Najít znaky z rozsa&amp;hu..."/>
+					<Item id="43053" name="Vybrat vše &amp;mezi souvisejícími závorkami"/>
+					<Item id="43054" name="&amp;Označit..."/>
+					<Item id="43055" name="1. stylem"/>
+					<Item id="43056" name="2. stylem"/>
+					<Item id="43057" name="3. stylem"/>
+					<Item id="43058" name="4. stylem"/>
+					<Item id="43059" name="5. stylem"/>
+					<Item id="43060" name="Všemi styly"/>
+					<Item id="43061" name="Stylem značení dialogu 'Označit'"/>
+					<Item id="43062" name="Použít 1. styl"/>
+					<Item id="43063" name="Použít 2. styl"/>
+					<Item id="43064" name="Použít 3. styl"/>
+					<Item id="43065" name="Použít 4. styl"/>
+					<Item id="43066" name="Použít 5. styl"/>
+					<Item id="43501" name="Zavřít vybrané"/>
+					<Item id="43502" name="Zavřít ostatní"/>
+					<Item id="43503" name="Kopírovat názvy vybraných souborů"/>
+					<Item id="43504" name="Kopírovat cesty vybraných souborů"/>
+					<Item id="44009" name="Zobrazit pouze okno dokumentu (Post-It mód)"/>
+					<Item id="44010" name="Sbalit vše"/>
+					<Item id="44011" name="Zobrazit pouze čistý text (nerušivý mód)"/>
+					<Item id="44019" name="Zobrazit všechny znaky"/>
+					<Item id="44020" name="Zobrazit odsazovací pomocné čáry"/>
+					<Item id="44022" name="Zalomit řádky"/>
+					<Item id="44023" name="Zvětši&amp;t Ctrl-Myš kolečko nahoru"/>
+					<Item id="44024" name="Zme&amp;nšit Ctrl-Myš kolečko dolu"/>
+					<Item id="44025" name="Zobrazit prázdné znaky a tabulátory"/>
+					<Item id="44026" name="Zobrazit konce řádků"/>
+					<Item id="44029" name="Rozbalit vše"/>
+					<Item id="44030" name="Sbalit aktuální úroveň"/>
+					<Item id="44031" name="Rozbalit aktuální úroveň"/>
+					<Item id="44032" name="Přepnout zobrazení na celou obrazovku"/>
+					<Item id="44033" name="Obnovit původní měřítko"/>
+					<Item id="44034" name="Vždy navrchu"/>
+					<Item id="44035" name="Synchronizovat vertikální posouvání"/>
+					<Item id="44036" name="Synchronizovat horizontální posouvání"/>
+					<Item id="44041" name="Zobrazit zalamovací znaky"/>
+					<Item id="44042" name="Skrýt řádky"/>
+					<Item id="44049" name="Souhrnné informace..."/>
+					<Item id="44070" name="Seznam dokumentů"/>
+					<Item id="44072" name="Přejít na další náhled"/>
+					<Item id="44080" name="Přehledná mapa dokumentu"/>
+					<Item id="44081" name="Panel 1"/>
+					<Item id="44082" name="Panel 2"/>
+					<Item id="44083" name="Panel 3"/>
+					<Item id="44084" name="Seznam funkcí"/>
+					<Item id="44085" name="Složka jako pracovní plocha"/>
+					<Item id="44086" name="1. karta"/>
+					<Item id="44087" name="2. karta"/>
+					<Item id="44088" name="3. karta"/>
+					<Item id="44089" name="4. karta"/>
+					<Item id="44090" name="5. karta"/>
+					<Item id="44091" name="6. karta"/>
+					<Item id="44092" name="7. karta"/>
+					<Item id="44093" name="8. karta"/>
+					<Item id="44094" name="9. karta"/>
+					<Item id="44095" name="Další karta"/>
+					<Item id="44096" name="Předchozí karta"/>
+					<Item id="44097" name="Monitorování změn (tail -f)"/>
+					<Item id="44098" name="Přesunout kartu dopředu"/>
+					<Item id="44099" name="Přesunout kartu dozadu"/>
+					<Item id="44110" name="Odstranit barevné označení"/>
+					<Item id="44111" name="Označit barvou 1"/>
+					<Item id="44112" name="Označit barvou 2"/>
+					<Item id="44113" name="Označit barvou 3"/>
+					<Item id="44114" name="Označit barvou 4"/>
+					<Item id="44115" name="Označit barvou 5"/>
+					<Item id="44130" name="Zobrazit netisknutelné znaky"/>
+					<Item id="44131" name="Zobrazit řídící znaky a &amp;Unicode EOLy"/>
+					<Item id="45001" name="Konvertovat do formátu Windows"/>
+					<Item id="45002" name="Konvertovat do formátu UNIX"/>
+					<Item id="45003" name="Konvertovat do formátu MAC"/>
+					<Item id="45004" name="ANSI"/>
+					<Item id="45005" name="UTF-8 s BOM"/>
+					<Item id="45006" name="UTF-16 BE s BOM"/>
+					<Item id="45007" name="UTF-16 LE s BOM"/>
+					<Item id="45008" name="UTF-8"/>
+					<Item id="45009" name="Konvertovat do ANSI"/>
+					<Item id="45010" name="Konvertovat do UTF-8"/>
+					<Item id="45011" name="Konvertovat do UTF-8 s BOM"/>
+					<Item id="45012" name="Konvertovat do UTF-16 BE s BOM"/>
+					<Item id="45013" name="Konvertovat do UTF-16 LE s BOM"/>
+					<Item id="45060" name="Big5 (tradiční)"/>
+					<Item id="45061" name="GB2312 (zjednodušená)"/>
+					<Item id="45054" name="OEM 861: Islandština"/>
+					<Item id="45057" name="OEM 865: Skandinávské jazyky"/>
+					<Item id="45053" name="OEM 860: Portugalština"/>
+					<Item id="45056" name="OEM 863: Francouzština"/>
+					<Item id="10001" name="Přesunout do druhého náhledu"/>
+					<Item id="10002" name="Vytvořit kopii v druhém náhledu"/>
+					<Item id="10003" name="Přesunout do nové instance"/>
+					<Item id="10004" name="Otevřít v nové instanci"/>
+					<Item id="46001" name="Upravit styl..."/>
+					<Item id="46015" name="MS-DOS styl"/>
+					<Item id="46016" name="Normální text"/>
+					<Item id="46017" name="Resource soubor"/>
+					<Item id="46019" name="MS INI soubor"/>
+					<Item id="46033" name="Sestavení"/>
+					<Item id="46180" name="Vlastní"/>
+					<Item id="46250" name="Definovat vlastní syntaxi..."/>
+					<Item id="46300" name="Otevřít složku s uživatelsky definovanými syntaxemi..."/>
+					<Item id="46301" name="Sbírka uživatelsky definovaných syntaxí Notepadu++ (GitHub)"/>
+					<Item id="47000" name="O Notepadu++ ..."/>
+					<Item id="47001" name="N++ - domovská stránka"/>
+					<Item id="47002" name="N++ - stránka projektu"/>
+					<Item id="47003" name="N++ - online příručka pro uživatele"/>
+					<Item id="47004" name="N++ - Community (diskuzní fórum)"/>
+					<Item id="47005" name="Získat další pluginy"/>
+					<Item id="47006" name="Aktualizovat Notepad++"/>
+					<Item id="47007" name="Wiki FAQ"/>
+					<Item id="47008" name="Obsah nápovědy"/>
+					<Item id="47009" name="Nastavit proxy-server pro aktualizace ..."/>
+					<Item id="47010" name="Parametry příkazové řádky"/>
+					<Item id="47012" name="Informace k ladění"/>
+					<Item id="48005" name="Importovat plugin(y) ..."/>
+					<Item id="48006" name="Importovat styl(y) ..."/>
+					<Item id="48009" name="Asociace klávesových zkratek..."/>
+					<Item id="48011" name="Volby..."/>
+					<Item id="48014" name="Otevřít složku s pluginy..."/>
+					<Item id="48015" name="Správa pluginů..."/>
+					<Item id="48016" name="Upravit zástupce / Odstranit makro..."/>
+					<Item id="48017" name="Upravit zástupce / Odstranit příkaz..."/>
+					<Item id="48018" name="Upravit vyskakovací kontextové menu..."/>
+					<Item id="48501" name="Generovat..."/>
+					<Item id="48502" name="Generovat ze souborů..."/>
+					<Item id="48503" name="Generovat z dat ve Schránce"/>
+					<Item id="48504" name="Generovat..."/>
+					<Item id="48505" name="Generovat ze souborů..."/>
+					<Item id="48506" name="Generovat z dat ve Schránce"/>
+					<Item id="49000" name="&amp;Spustit..."/>
+					<Item id="50000" name="Dokončování funkcí"/>
+					<Item id="50001" name="Dokončování slov"/>
+					<Item id="50002" name="Nápověda k parametrům funkcí"/>
+					<Item id="50003" name="Přejít na předchozí dokument"/>
+					<Item id="50004" name="Přejít na další dokument"/>
+					<Item id="50005" name="Přepnout záznam makra"/>
+					<Item id="50006" name="Dokončování cest k souborům a adresářům"/>
+					<Item id="50010" name="Předchozí nápověda k parametrům funkce"/>
+					<Item id="50011" name="Následující nápověda k parametrům funkce"/>
+					<Item id="11001" name="Otevřené &amp;dokumenty..."/>
+					<Item id="11002" name="Názvu - od A do Z"/>
+					<Item id="11003" name="Názvu - od Z do A"/>
+					<Item id="11004" name="Cesty - od A do Z"/>
+					<Item id="11005" name="Cesty - od Z do A"/>
+					<Item id="11006" name="Typu - od A do Z"/>
+					<Item id="11007" name="Typu - od Z do A"/>
+					<Item id="11008" name="Velikosti - od menších k větším"/>
+					<Item id="11009" name="Velikosti - od větších k menším"/>
 				</Commands>
 			</Main>
 			<TabBar>
-				<Item CMDID = "41003" name = "Zavřít"/>
-				<Item CMDID = "0" name = "Zavřít vícero souborů/karet"/>
-				<Item CMDID = "41005" name = "Zavřít vše kromě aktuálního"/>
-				<Item CMDID = "41009" name = "Zavřít vše nalevo"/>
-				<Item CMDID = "41018" name = "Zavřít vše napravo"/>
-				<Item CMDID = "41024" name = "Zavřít všechny nezměněné"/>
-				<Item CMDID = "41006" name = "Uložit"/>
-				<Item CMDID = "41008" name = "Uložit jako..."/>
-				<Item CMDID = "1" name = "Otevřít v"/>
-				<Item CMDID = "41019" name = "Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
-				<Item CMDID = "41020" name = "Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
-				<Item CMDID = "41025" name = "Otevřít složku obsahující akt. soubor jako Pracovní plochu"/>
-				<Item CMDID = "41023" name = "Otevřít v implicitním prohlížeči"/>
-				<Item CMDID = "41017" name = "Přejmenovat..."/>
-				<Item CMDID = "41016" name = "Přesunout do Koše"/>
-				<Item CMDID = "41014" name = "Znovu načíst"/>
-				<Item CMDID = "41010" name = "Tisk..."/>
-				<Item CMDID = "42028" name = "Pouze pro čtení"/>
-				<Item CMDID = "42033" name = "Vymazat příznak 'Pouze pro čtení'"/>
-				<Item CMDID = "2" name = "Kopírovat do Schránky"/>
-				<Item CMDID = "42029" name = "Kopírovat název souboru i s cestou"/>
-				<Item CMDID = "42030" name = "Kopírovat název souboru"/>
-				<Item CMDID = "42031" name = "Kopírovat název aktuálního adresáře souboru"/>
-				<Item CMDID = "3" name = "Přesunout dokument/kartu"/>
-				<Item CMDID = "10001" name = "Přesunout do druhého náhledu"/>
-				<Item CMDID = "10002" name = "Vytvořit kopii v druhém náhledu"/>
-				<Item CMDID = "10003" name = "Přesunout do nové instance"/>
-				<Item CMDID = "10004" name = "Otevřít v nové instanci"/>
-				<Item CMDID = "4" name = "Označit kartu barvou"/>
-				<Item CMDID = "44111" name = "Označit barvou 1"/>
-				<Item CMDID = "44112" name = "Označit barvou 2"/>
-				<Item CMDID = "44113" name = "Označit barvou 3"/>
-				<Item CMDID = "44114" name = "Označit barvou 4"/>
-				<Item CMDID = "44115" name = "Označit barvou 5"/>
-				<Item CMDID = "44110" name = "Odstranit barevné označení"/>
+				<Item CMDID="41003" name="Zavřít"/>
+				<Item CMDID="0" name="Zavřít vícero souborů/karet"/>
+				<Item CMDID="41005" name="Zavřít vše kromě aktuálního"/>
+				<Item CMDID="41009" name="Zavřít vše nalevo"/>
+				<Item CMDID="41018" name="Zavřít vše napravo"/>
+				<Item CMDID="41024" name="Zavřít všechny nezměněné"/>
+				<Item CMDID="41006" name="Uložit"/>
+				<Item CMDID="41008" name="Uložit jako..."/>
+				<Item CMDID="1" name="Otevřít v"/>
+				<Item CMDID="41019" name="Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
+				<Item CMDID="41020" name="Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
+				<Item CMDID="41025" name="Otevřít složku obsahující akt. soubor jako Pracovní plochu"/>
+				<Item CMDID="41023" name="Otevřít v implicitním prohlížeči"/>
+				<Item CMDID="41017" name="Přejmenovat..."/>
+				<Item CMDID="41016" name="Přesunout do Koše"/>
+				<Item CMDID="41014" name="Znovu načíst"/>
+				<Item CMDID="41010" name="Tisk..."/>
+				<Item CMDID="42028" name="Pouze pro čtení"/>
+				<Item CMDID="42033" name="Vymazat příznak 'Pouze pro čtení'"/>
+				<Item CMDID="2" name="Kopírovat do Schránky"/>
+				<Item CMDID="42029" name="Kopírovat název souboru i s cestou"/>
+				<Item CMDID="42030" name="Kopírovat název souboru"/>
+				<Item CMDID="42031" name="Kopírovat název aktuálního adresáře souboru"/>
+				<Item CMDID="3" name="Přesunout dokument/kartu"/>
+				<Item CMDID="10001" name="Přesunout do druhého náhledu"/>
+				<Item CMDID="10002" name="Vytvořit kopii v druhém náhledu"/>
+				<Item CMDID="10003" name="Přesunout do nové instance"/>
+				<Item CMDID="10004" name="Otevřít v nové instanci"/>
+				<Item CMDID="4" name="Označit kartu barvou"/>
+				<Item CMDID="44111" name="Označit barvou 1"/>
+				<Item CMDID="44112" name="Označit barvou 2"/>
+				<Item CMDID="44113" name="Označit barvou 3"/>
+				<Item CMDID="44114" name="Označit barvou 4"/>
+				<Item CMDID="44115" name="Označit barvou 5"/>
+				<Item CMDID="44110" name="Odstranit barevné označení"/>
 			</TabBar>
-			 <TrayIcon>
-				<Item id = "43101" name = "Aktivovat Notepad++"/>
-				<Item id = "43102" name = "Nový soubor/tab"/>
-				<Item id = "43103" name = "Vložit do nového souboru/tabu"/>
-				<Item id = "43104" name = "Otevřít soubor..."/>
-				<Item id = "43013" name = "Najít v souborech..."/>
-				<Item id = "43105" name = "Zavřít Notepad++"/>
+			<TrayIcon>
+				<Item id="43101" name="Aktivovat Notepad++"/>
+				<Item id="43102" name="Nový soubor/tab"/>
+				<Item id="43103" name="Vložit do nového souboru/tabu"/>
+				<Item id="43104" name="Otevřít soubor..."/>
+				<Item id="43013" name="Najít v souborech..."/>
+				<Item id="43105" name="Zavřít Notepad++"/>
 			</TrayIcon>
 		</Menu>
 
 		<Dialog>
 
-			<Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleFindInProjects = "Najít v projektech" titleMark = "Označit">
-				<Item id = "1" name = "Najít >>"/>
-				<Item id = "2" name = "Zavřít"/>
-				<Item id = "1603" name = "Hledat &amp;pouze celá slova"/>
-				<Item id = "1604" name = "Rozlišovat &amp;malá a VELKÁ písmena"/>
-				<Item id = "1605" name = "Regulární výraz"/>
-				<Item id = "1606" name = "Na konci &amp;znovu od začátku"/>
-				<Item id = "1608" name = "&amp;Nahradit"/>
-				<Item id = "1609" name = "Nahra&amp;dit vše"/>
-				<Item id = "1611" name = "&amp;Nahradit:"/>
-				<Item id = "1614" name = "Počet"/>
-				<Item id = "1615" name = "Najít vše"/>
-				<Item id = "1616" name = "Označit řádek"/>
-				<Item id = "1618" name = "Zrušit stávající označení při novém hledání"/>
-				<Item id = "1620" name = "Najít:"/>
-				<Item id = "1624" name = "Mód vyhledávání"/>
-				<Item id = "1625" name = "Normální"/>
-				<Item id = "1626" name = "Rozšířený (\n, \r, \t, \x..., \0)"/>
-				<Item id = "1632" name = "Ve vybraném"/>
-				<Item id = "1633" name = "Vymazat"/>
-				<Item id = "1635" name = "Nahradit vše ve všech otevřených dokumentech"/>
-				<Item id = "1636" name = "Najít vše ve všech otevřených dokumentech"/>
-				<Item id = "1641" name = "Najít vše v aktuálním dokumentu"/>
-				<Item id = "1654" name = "Filtry:"/>
-				<Item id = "1655" name = "Adresář:"/>
-				<Item id = "1656" name = "Najít vše"/>
-				<Item id = "1658" name = "Ve všech podadresářích"/>
-				<Item id = "1659" name = "Ve skrytých adresářích"/>
-				<Item id = "1660" name = "Nahradit v souborech"/>
-				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
-				<Item id = "1662" name = "Projektový panel 1"/>
-				<Item id = "1663" name = "Projektový panel 2"/>
-				<Item id = "1664" name = "Projektový panel 3"/>
-				<Item id = "1665" name = "Nahradit v projektech"/>
-				<Item id = "1686" name = "Průhle&amp;dnost"/>
-				<Item id = "1687" name = "Při ztrátě fokusu"/>
-				<Item id = "1688" name = "Vždy"/>
-				<Item id = "1703" name = "&amp;. označuje nový ř."/>
-				<Item id = "1721" name = "▲"/> 
-				<Item id = "1722" name = "Zpětný směr"/>
-				<Item id = "1723" name = "▼ Najít další"/>
-				<Item id = "1725" name = "Kopírovat označený text"/>
+			<Find title="" titleFind="Najít" titleReplace="Nahradit" titleFindInFiles="Najít v souborech" titleFindInProjects="Najít v projektech" titleMark="Označit">
+				<Item id="1" name="Najít >>"/>
+				<Item id="2" name="Zavřít"/>
+				<Item id="1603" name="Hledat &amp;pouze celá slova"/>
+				<Item id="1604" name="Rozlišovat &amp;malá a VELKÁ písmena"/>
+				<Item id="1605" name="Regulární výraz"/>
+				<Item id="1606" name="Na konci &amp;znovu od začátku"/>
+				<Item id="1608" name="&amp;Nahradit"/>
+				<Item id="1609" name="Nahra&amp;dit vše"/>
+				<Item id="1611" name="&amp;Nahradit:"/>
+				<Item id="1614" name="Počet"/>
+				<Item id="1615" name="Najít vše"/>
+				<Item id="1616" name="Označit řádek"/>
+				<Item id="1618" name="Zrušit stávající označení při novém hledání"/>
+				<Item id="1620" name="Najít:"/>
+				<Item id="1624" name="Mód vyhledávání"/>
+				<Item id="1625" name="Normální"/>
+				<Item id="1626" name="Rozšířený (\n, \r, \t, \x..., \0)"/>
+				<Item id="1632" name="Ve vybraném"/>
+				<Item id="1633" name="Vymazat"/>
+				<Item id="1635" name="Nahradit vše ve všech otevřených dokumentech"/>
+				<Item id="1636" name="Najít vše ve všech otevřených dokumentech"/>
+				<Item id="1641" name="Najít vše v aktuálním dokumentu"/>
+				<Item id="1654" name="Filtry:"/>
+				<Item id="1655" name="Adresář:"/>
+				<Item id="1656" name="Najít vše"/>
+				<Item id="1658" name="Ve všech podadresářích"/>
+				<Item id="1659" name="Ve skrytých adresářích"/>
+				<Item id="1660" name="Nahradit v souborech"/>
+				<Item id="1661" name="Podle aktuál. dokumentu"/>
+				<Item id="1662" name="Projektový panel 1"/>
+				<Item id="1663" name="Projektový panel 2"/>
+				<Item id="1664" name="Projektový panel 3"/>
+				<Item id="1665" name="Nahradit v projektech"/>
+				<Item id="1686" name="Průhle&amp;dnost"/>
+				<Item id="1687" name="Při ztrátě fokusu"/>
+				<Item id="1688" name="Vždy"/>
+				<Item id="1703" name="&amp;. označuje nový ř."/>
+				<Item id="1721" name="▲"/>
+				<Item id="1722" name="Zpětný směr"/>
+				<Item id="1723" name="▼ Najít další"/>
+				<Item id="1725" name="Kopírovat označený text"/>
 				<Menu>
-					<Item id = "1726" name = "⇅ Prohodit Najít a Nahradit"/>
-					<Item id = "1727" name = "⤵ Kopírovat Najít do Nahradit"/>
-					<Item id = "1728" name = "⤴ Kopírovat Nahradit do Najít"/>
+					<Item id="1726" name="⇅ Prohodit Najít a Nahradit"/>
+					<Item id="1727" name="⤵ Kopírovat Najít do Nahradit"/>
+					<Item id="1728" name="⤴ Kopírovat Nahradit do Najít"/>
 				</Menu>
 			</Find>
 
-			<IncrementalFind title = "">
-				<Item id = "1681" name = "Najít"/>
-				<Item id = "1685" name = "Rozlišovat velká a malá p."/>
-				<Item id = "1690" name = "Zvýraznit všechny"/>
+			<IncrementalFind title="">
+				<Item id="1681" name="Najít"/>
+				<Item id="1685" name="Rozlišovat velká a malá p."/>
+				<Item id="1690" name="Zvýraznit všechny"/>
 			</IncrementalFind>
 
-			<FindCharsInRange title = "Najít znaky z rozsahu...">
-				<Item id = "2910" name = "Najít"/>
-				<Item id = "2" name = "Zavřít"/>
-				<Item id = "2901" name = "Ne-ASCII znaky (128-255)"/>
-				<Item id = "2902" name = "ASCII znaky (0-127)"/>
-				<Item id = "2903" name = "Jiný rozsah:"/>
-				<Item id = "2906" name = "Nahoru"/>
-				<Item id = "2907" name = "Dolů"/>
-				<Item id = "2908" name = "Směr"/>
-				<Item id = "2909" name = "Dokola"/>
+			<FindCharsInRange title="Najít znaky z rozsahu...">
+				<Item id="2" name="&amp;Zavřít"/>
+				<Item id="2901" name="N&amp;e-ASCII znaky (128 - 255)"/>
+				<Item id="2902" name="&amp;ASCII znaky (0 - 127)"/>
+				<Item id="2903" name="&amp;Vlastní rozsah (0 – 255):"/>
+				<Item id="2906" name="&amp;Nahoru"/>
+				<Item id="2907" name="&amp;Dolů"/>
+				<Item id="2908" name="&amp;Směr"/>
+				<Item id="2909" name="D&amp;okola"/>
+				<Item id="2910" name="Na&amp;jít"/>
 			</FindCharsInRange>
 
-			<GoToLine title = "Přejít na ...">
-				<Item id = "2007" name = "Řádek"/>
-				<Item id = "2008" name = "Pozici (file-offset)"/>
-				<Item id = "1" name = "&amp;Přejít"/>
-				<Item id = "2" name = "Nepřecházet nikam"/>
-				<Item id = "2004" name = "Jste na řádku č. / pozici:"/>
-				<Item id = "2005" name = "Přejít na řádek č. / pozici:"/>
-				<Item id = "2006" name = "Nemůžete jít dále než na:"/>
+			<GoToLine title="Přejít na ...">
+				<Item id="2007" name="Řádek"/>
+				<Item id="2008" name="Pozici (file-offset)"/>
+				<Item id="1" name="&amp;Přejít"/>
+				<Item id="2" name="Nepřecházet nikam"/>
+				<Item id="2004" name="Jste na řádku č. / pozici:"/>
+				<Item id="2005" name="Přejít na řádek č. / pozici:"/>
+				<Item id="2006" name="Nemůžete jít dále než na:"/>
 			</GoToLine>
 
-			<Run title = "Spustit...">
-				<Item id = "1" name = "Spustit!"/>
-				<Item id = "2" name = "Storno"/>
-				<Item id = "1903" name = "Program ke spuštění"/>
-				<Item id = "1904" name = "Uložit..."/>
+			<Run title="Spustit...">
+				<Item id="1" name="Spustit!"/>
+				<Item id="2" name="Storno"/>
+				<Item id="1903" name="Program ke spuštění"/>
+				<Item id="1904" name="Uložit..."/>
 			</Run>
 			
-			<MD5FromFilesDlg title = "Generování MD5 otisku ze souborů">
-				<Item id = "1922" name = "Vyberte soubory pro generování MD5..."/>
-				<Item id = "1924" name = "Kopírovat do Schránky"/>
-				<Item id = "2"    name = "Zavřít"/>
+			<MD5FromFilesDlg title="Generování MD5 otisku ze souborů">
+				<Item id="1922" name="Vyberte soubory pro &amp;generování MD5..."/>
+				<Item id="1924" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</MD5FromFilesDlg>
 
-			<MD5FromTextDlg title = "Generování MD5 otisku">
-				<Item id = "1932" name = "Brát každý řádek jako samostatný textový řetězec"/>
-				<Item id = "1934" name = "Kopírovat do Schránky"/>
-				<Item id = "2"    name = "Zavřít"/>
+			<MD5FromTextDlg title="Generování MD5 otisku">
+				<Item id="1932" name="Brát každý řádek jako &amp;samostatný textový řetězec"/>
+				<Item id="1934" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</MD5FromTextDlg>
 			
 			<SHA256FromFilesDlg title="Generování SHA-256 otisku ze souborů">
-				<Item id = "1922" name = "Vyberte soubory pro generování SHA-256..."/>
-				<Item id = "1924" name = "Kopírovat do Schránky"/>
-				<Item id = "2"    name = "Zavřít"/>
+				<Item id="1922" name="Vyberte soubory pro &amp;generování SHA-256..."/>
+				<Item id="1924" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Generování SHA-256 otisku">
-				<Item id = "1932" name = "Brát každý řádek jako samostatný textový řetězec"/>
-				<Item id = "1934" name = "Kopírovat do Schránky"/>
-				<Item id = "2"    name = "Zavřít"/>
+				<Item id="1932" name="Brát každý řádek jako &amp;samostatný textový řetězec"/>
+				<Item id="1934" name="&amp;Kopírovat do Schránky"/>
+				<Item id="2" name="&amp;Zavřít"/>
 			</SHA256FromTextDlg>
 			
-			<PluginsAdminDlg title="Správa pluginů" titleAvailable = "Dostupné" titleUpdates = "Aktualizované" titleInstalled = "Instalované" titleIncompatible = "Nekompatibilní">
-				<ColumnPlugin   name = "Plugin"/>
-				<ColumnVersion  name = "Verze"/>
-				<Item id = "5501" name = "Rešerše:"/>
-				<Item id = "5503" name = "Instalovat"/>
-				<Item id = "5504" name = "Aktualizovat"/>
-				<Item id = "5505" name = "Odstranit"/>
-				<Item id = "5508" name = "Pokračovat"/>
-				<Item id = "5509" name = "Verze seznamu pluginů: "/>
-				<Item id = "5511" name = "Repozitář seznamu pluginů"/>
-				<Item id = "2"    name = "Ukončit"/>
+			<PluginsAdminDlg title="Správa pluginů" titleAvailable="Dostupné" titleUpdates="Aktualizované" titleInstalled="Instalované" titleIncompatible="Nekompatibilní">
+				<ColumnPlugin name="Plugin"/>
+				<ColumnVersion name="Verze"/>
+				<Item id="5501" name="Rešerše:"/>
+				<Item id="5503" name="Instalovat"/>
+				<Item id="5504" name="Aktualizovat"/>
+				<Item id="5505" name="Odstranit"/>
+				<Item id="5508" name="Pokračovat"/>
+				<Item id="5509" name="Verze seznamu pluginů: "/>
+				<Item id="5511" name="Repozitář seznamu pluginů"/>
+				<Item id="2" name="Ukončit"/>
 			</PluginsAdminDlg>
 
-			<StyleConfig title = "Upravit styl">
-				<Item id = "2" name = "Storno"/>
-				<Item id = "2301" name = "Uložit a zavřít"/>
-				<Item id = "2303" name = "Průhlednost"/>
-				<Item id = "2306" name = "Změnit styl na: "/>
+			<StyleConfig title="Upravit styl">
+				<Item id="2" name="Storno"/>
+				<Item id="2301" name="Uložit a zavřít"/>
+				<Item id="2303" name="Průhlednost"/>
+				<Item id="2306" name="Změnit styl na: "/>
 				<SubDialog>
-					<Item id = "2204" name = "Tučné"/>
-					<Item id = "2205" name = "Kurzíva"/>
-					<Item id = "2206" name = "Barva popředí"/>
-					<Item id = "2207" name = "Barva pozadí"/>
-					<Item id = "2208" name = "Písmo:"/>
-					<Item id = "2209" name = "Velikost písma:"/>
-					<Item id = "2211" name = "Styl:"/>
-					<Item id = "2212" name = "Styl barev"/>
-					<Item id = "2213" name = "Styl písma"/>
-					<Item id = "2214" name = "Standardní příp.:"/>
-					<Item id = "2216" name = "Vlastní přípona:"/>
-					<Item id = "2218" name = "Podtrhnout"/>
-					<Item id = "2219" name = "Standardní klíčová slova"/>
-					<Item id = "2221" name = "Vlastní klíčová slova"/>
-					<Item id = "2225" name = "Syntaxe:"/>
-					<Item id = "2226" name = "Povolit globálně barvu popředí"/>
-					<Item id = "2227" name = "Povolit globálně barvu pozadí"/>
-					<Item id = "2228" name = "Povolit globálně font"/>
-					<Item id = "2229" name = "Povolit globálně velikost písma"/>
-					<Item id = "2230" name = "Povolit globálně tučný styl písma"/>
-					<Item id = "2231" name = "Povolit globálně ležatý styl písma"/>
-					<Item id = "2232" name = "Povolit globálně podtržený styl písma"/>
-					<Item id = "2234" name = "Přejít do nastavení"/>
+					<Item id="2204" name="Tučné"/>
+					<Item id="2205" name="Kurzíva"/>
+					<Item id="2206" name="Barva popředí"/>
+					<Item id="2207" name="Barva pozadí"/>
+					<Item id="2208" name="Písmo:"/>
+					<Item id="2209" name="Velikost písma:"/>
+					<Item id="2211" name="Styl:"/>
+					<Item id="2212" name="Styl barev"/>
+					<Item id="2213" name="Styl písma"/>
+					<Item id="2214" name="Standardní příp.:"/>
+					<Item id="2216" name="Vlastní přípona:"/>
+					<Item id="2218" name="Podtrhnout"/>
+					<Item id="2219" name="Standardní klíčová slova"/>
+					<Item id="2221" name="Vlastní klíčová slova"/>
+					<Item id="2225" name="Syntaxe:"/>
+					<Item id="2226" name="Povolit globálně barvu popředí"/>
+					<Item id="2227" name="Povolit globálně barvu pozadí"/>
+					<Item id="2228" name="Povolit globálně font"/>
+					<Item id="2229" name="Povolit globálně velikost písma"/>
+					<Item id="2230" name="Povolit globálně tučný styl písma"/>
+					<Item id="2231" name="Povolit globálně ležatý styl písma"/>
+					<Item id="2232" name="Povolit globálně podtržený styl písma"/>
+					<Item id="2234" name="Přejít do nastavení"/>
 				</SubDialog>
 			</StyleConfig>
 			
-			<ShortcutMapper title = "Asociace klávesových zkratek">
-				<Item id = "2602" name = "Změnit"/>
-				<Item id = "2603" name = "Odstranit"/>
-				<Item id = "2606" name = "Vypnout"/>
-				<Item id = "2607" name = "Filtr: "/>
-				<Item id = "1" name = "Zavřít"/>
-				<ColumnName name = "Název"/>
-				<ColumnShortcut name = "Zkratka"/>
-				<ColumnCategory name = "Kategorie"/>
-				<ColumnPlugin name = "Plugin"/>
-				<MainMenuTab name = "Hlavní menu"/>
-				<MacrosTab name = "Makra"/>
-				<RunCommandsTab name = "Spouštěcí povely"/>
-				<PluginCommandsTab name = "Pluginové povely"/>
-				<ScintillaCommandsTab name = "Scintilla povely"/>
-				<ConflictInfoOk name = "Nezjištěny žádné kolize pro tuto položku."/>
-				<ConflictInfoEditing name = "Nekoliduje s ničím . . ."/>
-				<WindowCategory name = "Okno"/>
-				<FileCategory name = "Soubor"/>
-				<EditCategory name = "Editace"/>
-				<SearchCategory name = "Vyhledávání"/>
-				<ViewCategory name = "Zobrazení"/>
-				<FormatCategory name = "Formát"/>
-				<LangCategory name = "Syntaxe"/>
-				<AboutCategory name = "O/Nápověda (?)"/>
-				<SettingCategory name = "Nastavení"/>
-				<ToolCategory name = "Nástroj"/>
-				<ExecuteCategory name = "Spuštění"/>
-				<ModifyContextMenu name = "Upravit"/>
-				<DeleteContextMenu name = "Odstranit"/>
-				<ClearContextMenu name = "Vymazat"/>
+			<ShortcutMapper title="Asociace klávesových zkratek">
+				<Item id="2602" name="Změnit"/>
+				<Item id="2603" name="Odstranit"/>
+				<Item id="2606" name="Vypnout"/>
+				<Item id="2607" name="Filtr: "/>
+				<Item id="1" name="Zavřít"/>
+				<ColumnName name="Název"/>
+				<ColumnShortcut name="Zkratka"/>
+				<ColumnCategory name="Kategorie"/>
+				<ColumnPlugin name="Plugin"/>
+				<MainMenuTab name="Hlavní menu"/>
+				<MacrosTab name="Makra"/>
+				<RunCommandsTab name="Spouštěcí příkazy"/>
+				<PluginCommandsTab name="Pluginové příkazy"/>
+				<ScintillaCommandsTab name="Scintilla příkazy"/>
+				<ConflictInfoOk name="Nezjištěny žádné kolize pro tuto položku."/>
+				<ConflictInfoEditing name="Nekoliduje s ničím . . ."/>
+				<WindowCategory name="Okno"/>
+				<FileCategory name="Soubor"/>
+				<EditCategory name="Editace"/>
+				<SearchCategory name="Vyhledávání"/>
+				<ViewCategory name="Zobrazení"/>
+				<FormatCategory name="Formát"/>
+				<LangCategory name="Syntaxe"/>
+				<AboutCategory name="O/Nápověda (?)"/>
+				<SettingCategory name="Nastavení"/>
+				<ToolCategory name="Nástroj"/>
+				<ExecuteCategory name="Spuštění"/>
+				<ModifyContextMenu name="Upravit"/>
+				<DeleteContextMenu name="Odstranit"/>
+				<ClearContextMenu name="Vymazat"/>
 				<MainCommandNames>
-					<Item id = "41019" name = "Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
-					<Item id = "41020" name = "Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
-					<Item id = "41021" name = "Znovuotevřít právě zavřený soubor"/>
-					<Item id = "45001" name = "Konverze konců řádků (EOL) na CR LF (Windows)"/>
-					<Item id = "45002" name = "Konverze konců řádků (EOL) na LF (Unix)"/>
-					<Item id = "45003" name = "Konverze konců řádků (EOL) na CR (Macintosh)"/>
-					<Item id = "43022" name = "Označit vše 1. stylem"/>
-					<Item id = "43024" name = "Označit vše 2. stylem"/>
-					<Item id = "43026" name = "Označit vše 3. stylem"/>
-					<Item id = "43028" name = "Označit vše 4. stylem"/>
-					<Item id = "43030" name = "Označit vše 5. stylem"/>
-					<Item id = "43023" name = "Odstranit označení 1. stylem"/>
-					<Item id = "43025" name = "Odstranit označení 2. stylem"/>
-					<Item id = "43027" name = "Odstranit označení 3. stylem"/>
-					<Item id = "43029" name = "Odstranit označení 4. stylem"/>
-					<Item id = "43031" name = "Odstranit označení 5. stylem"/>
-					<Item id = "43032" name = "Odstranit označení jakýmkoliv stylem"/>
-					<Item id = "43033" name = "Předchozí označení 1. stylem"/>
-					<Item id = "43034" name = "Předchozí označení 2. stylem"/>
-					<Item id = "43035" name = "Předchozí označení 3. stylem"/>
-					<Item id = "43036" name = "Předchozí označení 4. stylem"/>
-					<Item id = "43037" name = "Předchozí označení 5. stylem"/>
-					<Item id = "43038" name = "Předchozí označení stylem z dialogu 'Označit'"/>
-					<Item id = "43039" name = "Další označení 1. stylem"/>
-					<Item id = "43040" name = "Další označení 2. stylem"/>
-					<Item id = "43041" name = "Další označení 3. stylem"/>
-					<Item id = "43042" name = "Další označení 4. stylem"/>
-					<Item id = "43043" name = "Další označení 5. stylem"/>
-					<Item id = "43044" name = "Další označení stylem z dialogu 'Označit'"/>
-					<Item id = "43055" name = "Kopírovat text označený 1. stylem"/>
-					<Item id = "43056" name = "Kopírovat text označený 2. stylem"/>
-					<Item id = "43057" name = "Kopírovat text označený 3. stylem"/>
-					<Item id = "43058" name = "Kopírovat text označený 4. stylem"/>
-					<Item id = "43059" name = "Kopírovat text označený 5. stylem"/>
-					<Item id = "43060" name = "Kopírovat text označený všemi styly"/>
-					<Item id = "43061" name = "Kopírovat text označený stylem dialogu 'Označit'"/>
-					<Item id = "43062" name = "Označit jeden 1. stylem"/>
-					<Item id = "43063" name = "Označit jeden 2. stylem"/>
-					<Item id = "43064" name = "Označit jeden 3. stylem"/>
-					<Item id = "43065" name = "Označit jeden 4. stylem"/>
-					<Item id = "43066" name = "Označit jeden 5. stylem"/>
-					<Item id = "44100" name = "Zobrazit aktuální soubor ve Firefoxu"/>
-					<Item id = "44101" name = "Zobrazit aktuální soubor v Chrome"/>
-					<Item id = "44103" name = "Zobrazit aktuální soubor v IE"/>
-					<Item id = "44102" name = "Zobrazit aktuální soubor v Edge"/>
-					<Item id = "50003" name = "Přejít na předchozí dokument"/>
-					<Item id = "50004" name = "Přejít na další dokument"/>
-					<Item id = "44051" name = "Sbalit Úroveň 1"/>
-					<Item id = "44052" name = "Sbalit Úroveň 2"/>
-					<Item id = "44053" name = "Sbalit Úroveň 3"/>
-					<Item id = "44054" name = "Sbalit Úroveň 4"/>
-					<Item id = "44055" name = "Sbalit Úroveň 5"/>
-					<Item id = "44056" name = "Sbalit Úroveň 6"/>
-					<Item id = "44057" name = "Sbalit Úroveň 7"/>
-					<Item id = "44058" name = "Sbalit Úroveň 8"/>
-					<Item id = "44061" name = "Rozbalit Úroveň 1"/>
-					<Item id = "44062" name = "Rozbalit Úroveň 2"/>
-					<Item id = "44063" name = "Rozbalit Úroveň 3"/>
-					<Item id = "44064" name = "Rozbalit Úroveň 4"/>
-					<Item id = "44065" name = "Rozbalit Úroveň 5"/>
-					<Item id = "44066" name = "Rozbalit Úroveň 6"/>
-					<Item id = "44067" name = "Rozbalit Úroveň 7"/>
-					<Item id = "44068" name = "Rozbalit Úroveň 8"/>
-					<Item id = "44070" name = "Přepnout Seznam dokumentů"/>
-					<Item id = "44081" name = "Přepnout Projektový panel 1"/>
-					<Item id = "44082" name = "Přepnout Projektový panel 2"/>
-					<Item id = "44083" name = "Přepnout Projektový panel 3"/>
-					<Item id = "44085" name = "Přepnout Složka jako Pracovní plocha"/>
-					<Item id = "44080" name = "Přepnout Mapu dokumentů"/>
-					<Item id = "44084" name = "Přepnout Seznam funkcí"/>
-					<Item id = "50005" name = "Přepnout Nahrávání makra"/>
-					<Item id = "44104" name = "Přejít na Projektový panel 1"/>
-					<Item id = "44105" name = "Přejít na Projektový panel 2"/>
-					<Item id = "44106" name = "Přejít na Projektový panel 3"/>
-					<Item id = "44107" name = "Přejít na Složka jako Pracovní plocha"/>
-					<Item id = "44108" name = "Přejít na Seznam funkcí"/>
-					<Item id = "44109" name = "Přejít na Seznam dokumentů"/>
-					<Item id = "11002" name = "Setřídit podle: Názvu - od A do Z"/>
-					<Item id = "11003" name = "Setřídit podle: Názvu - od Z do A"/>
-					<Item id = "11004" name = "Setřídit podle: Cesty - od A do Z"/>
-					<Item id = "11005" name = "Setřídit podle: Cesty - od Z do A"/>
-					<Item id = "11006" name = "Setřídit podle: Typu - od A do Z"/>
-					<Item id = "11007" name = "Setřídit podle: Typu - od Z do A"/>
-					<Item id = "11008" name = "Setřídit podle: Velikosti - od menších k větším"/>
-					<Item id = "11009" name = "Setřídit podle: Velikosti - od větších k menším"/>
+					<Item id="41019" name="Otevřít složku obsahující akt. soubor v Průzkumníkovi"/>
+					<Item id="41020" name="Otevřít složku obsahující akt. soubor v okně s příkaz. řádkem"/>
+					<Item id="41021" name="Znovuotevřít právě zavřený soubor"/>
+					<Item id="45001" name="Konverze konců řádků (EOL) na CR LF (Windows)"/>
+					<Item id="45002" name="Konverze konců řádků (EOL) na LF (Unix)"/>
+					<Item id="45003" name="Konverze konců řádků (EOL) na CR (Macintosh)"/>
+					<Item id="43022" name="Označit vše 1. stylem"/>
+					<Item id="43024" name="Označit vše 2. stylem"/>
+					<Item id="43026" name="Označit vše 3. stylem"/>
+					<Item id="43028" name="Označit vše 4. stylem"/>
+					<Item id="43030" name="Označit vše 5. stylem"/>
+					<Item id="43023" name="Odstranit označení 1. stylem"/>
+					<Item id="43025" name="Odstranit označení 2. stylem"/>
+					<Item id="43027" name="Odstranit označení 3. stylem"/>
+					<Item id="43029" name="Odstranit označení 4. stylem"/>
+					<Item id="43031" name="Odstranit označení 5. stylem"/>
+					<Item id="43032" name="Odstranit označení jakýmkoliv stylem"/>
+					<Item id="43033" name="Předchozí označení 1. stylem"/>
+					<Item id="43034" name="Předchozí označení 2. stylem"/>
+					<Item id="43035" name="Předchozí označení 3. stylem"/>
+					<Item id="43036" name="Předchozí označení 4. stylem"/>
+					<Item id="43037" name="Předchozí označení 5. stylem"/>
+					<Item id="43038" name="Předchozí označení stylem z dialogu 'Označit'"/>
+					<Item id="43039" name="Další označení 1. stylem"/>
+					<Item id="43040" name="Další označení 2. stylem"/>
+					<Item id="43041" name="Další označení 3. stylem"/>
+					<Item id="43042" name="Další označení 4. stylem"/>
+					<Item id="43043" name="Další označení 5. stylem"/>
+					<Item id="43044" name="Další označení stylem z dialogu 'Označit'"/>
+					<Item id="43055" name="Kopírovat text označený 1. stylem"/>
+					<Item id="43056" name="Kopírovat text označený 2. stylem"/>
+					<Item id="43057" name="Kopírovat text označený 3. stylem"/>
+					<Item id="43058" name="Kopírovat text označený 4. stylem"/>
+					<Item id="43059" name="Kopírovat text označený 5. stylem"/>
+					<Item id="43060" name="Kopírovat text označený všemi styly"/>
+					<Item id="43061" name="Kopírovat text označený stylem dialogu 'Označit'"/>
+					<Item id="43062" name="Označit jeden 1. stylem"/>
+					<Item id="43063" name="Označit jeden 2. stylem"/>
+					<Item id="43064" name="Označit jeden 3. stylem"/>
+					<Item id="43065" name="Označit jeden 4. stylem"/>
+					<Item id="43066" name="Označit jeden 5. stylem"/>
+					<Item id="44100" name="Zobrazit aktuální soubor ve Firefoxu"/>
+					<Item id="44101" name="Zobrazit aktuální soubor v Chrome"/>
+					<Item id="44103" name="Zobrazit aktuální soubor v IE"/>
+					<Item id="44102" name="Zobrazit aktuální soubor v Edge"/>
+					<Item id="50003" name="Přejít na předchozí dokument"/>
+					<Item id="50004" name="Přejít na další dokument"/>
+					<Item id="44051" name="Sbalit Úroveň 1"/>
+					<Item id="44052" name="Sbalit Úroveň 2"/>
+					<Item id="44053" name="Sbalit Úroveň 3"/>
+					<Item id="44054" name="Sbalit Úroveň 4"/>
+					<Item id="44055" name="Sbalit Úroveň 5"/>
+					<Item id="44056" name="Sbalit Úroveň 6"/>
+					<Item id="44057" name="Sbalit Úroveň 7"/>
+					<Item id="44058" name="Sbalit Úroveň 8"/>
+					<Item id="44061" name="Rozbalit Úroveň 1"/>
+					<Item id="44062" name="Rozbalit Úroveň 2"/>
+					<Item id="44063" name="Rozbalit Úroveň 3"/>
+					<Item id="44064" name="Rozbalit Úroveň 4"/>
+					<Item id="44065" name="Rozbalit Úroveň 5"/>
+					<Item id="44066" name="Rozbalit Úroveň 6"/>
+					<Item id="44067" name="Rozbalit Úroveň 7"/>
+					<Item id="44068" name="Rozbalit Úroveň 8"/>
+					<Item id="44070" name="Přepnout Seznam dokumentů"/>
+					<Item id="44081" name="Přepnout Projektový panel 1"/>
+					<Item id="44082" name="Přepnout Projektový panel 2"/>
+					<Item id="44083" name="Přepnout Projektový panel 3"/>
+					<Item id="44085" name="Přepnout Složka jako Pracovní plocha"/>
+					<Item id="44080" name="Přepnout Mapu dokumentů"/>
+					<Item id="44084" name="Přepnout Seznam funkcí"/>
+					<Item id="50005" name="Přepnout Nahrávání makra"/>
+					<Item id="44104" name="Přejít na Projektový panel 1"/>
+					<Item id="44105" name="Přejít na Projektový panel 2"/>
+					<Item id="44106" name="Přejít na Projektový panel 3"/>
+					<Item id="44107" name="Přejít na Složka jako Pracovní plocha"/>
+					<Item id="44108" name="Přejít na Seznam funkcí"/>
+					<Item id="44109" name="Přejít na Seznam dokumentů"/>
+					<Item id="11002" name="Setřídit podle: Názvu - od A do Z"/>
+					<Item id="11003" name="Setřídit podle: Názvu - od Z do A"/>
+					<Item id="11004" name="Setřídit podle: Cesty - od A do Z"/>
+					<Item id="11005" name="Setřídit podle: Cesty - od Z do A"/>
+					<Item id="11006" name="Setřídit podle: Typu - od A do Z"/>
+					<Item id="11007" name="Setřídit podle: Typu - od Z do A"/>
+					<Item id="11008" name="Setřídit podle: Velikosti - od menších k větším"/>
+					<Item id="11009" name="Setřídit podle: Velikosti - od větších k menším"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			
 			<ShortcutMapperSubDialg title="Zkratka">
-				<Item id = "1" name = "OK"/>
-				<Item id = "2" name = "Storno"/>
-				<Item id = "5006" name = "Název"/>
-				<Item id = "5008" name = "Přidat"/>
-				<Item id = "5009" name = "Odebrat"/>
-				<Item id = "5010" name = "Použít"/>
-				<Item id = "5007" name = "Toto odstraní klávesovou zkratku příkazu"/>
-				<Item id = "5012" name = "NALEZENA KOLIZE!"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Storno"/>
+				<Item id="5006" name="Název"/>
+				<Item id="5008" name="Přidat"/>
+				<Item id="5009" name="Odebrat"/>
+				<Item id="5010" name="Použít"/>
+				<Item id="5007" name="Toto odstraní klávesovou zkratku příkazu"/>
+				<Item id="5012" name="NALEZENA KOLIZE!"/>
 			</ShortcutMapperSubDialg>
 
-			<UserDefine title = "Uživatelské nastavení">
-				<Item id = "20001" name = "Připnout"/>
-				<Item id = "20002" name = "Přejmenovat"/>
-				<Item id = "20003" name = "Vytvořit novou..."/>
-				<Item id = "20004" name = "Odstranit"/>
-				<Item id = "20005" name = "Uložit jako..."/>
-				<Item id = "20007" name = "Uživatelská syntaxe: "/>
-				<Item id = "20009" name = "Přípona:"/>
-				<Item id = "20012" name = "Nerozl. malá a VELKÁ písmena"/>
-				<Item id = "20011" name = "Průhlednost"/>
-				<Item id = "20015" name = "Import..."/>
-				<Item id = "20016" name = "Export..."/>
-				<Item id = "20017" name = "Odepnout"/>
-				<Item id = "0" name = "Styl barev"/>
-				<Item id = "1" name = "Barva popředí"/>
-				<Item id = "2" name = "Barva pozadí"/>
-				<Item id = "3" name = "Styl fontu"/>
-				<Item id = "4" name = "Název písma:"/>
-				<Item id = "5" name = "Velikost písma:"/>
-				<Item id = "6" name = "Tučné"/>
-				<Item id = "7" name = "Kurzíva"/>
-				<Item id = "8" name = "Podtrhnout"/>
-				<StylerDialog title = "Dialog pro návrh">
-					<Item id = "1" name = "OK"/>
-					<Item id = "2" name = "Storno"/>
-					<Item id = "25030" name = "Možnosti písma:"/>
-					<Item id = "25006" name = "Barva popředí"/>
-					<Item id = "25007" name = "Barva pozadí"/>
-					<Item id = "25031" name = "Název:"/>
-					<Item id = "25032" name = "Velikost:"/>
-					<Item id = "25001" name = "Tučné"/>
-					<Item id = "25002" name = "Kurzíva"/>
-					<Item id = "25003" name = "Podtržené"/>
-					<Item id = "25029" name = "Vnoření:"/>
-					<Item id = "25008" name = "Oddělovač 1"/>
-					<Item id = "25009" name = "Oddělovač 2"/>
-					<Item id = "25010" name = "Oddělovač 3"/>
-					<Item id = "25011" name = "Oddělovač 4"/>
-					<Item id = "25012" name = "Oddělovač 5"/>
-					<Item id = "25013" name = "Oddělovač 6"/>
-					<Item id = "25014" name = "Oddělovač 7"/>
-					<Item id = "25015" name = "Oddělovač 8"/>
-					<Item id = "25018" name = "Klíčové slovo 1"/>
-					<Item id = "25019" name = "Klíčové slovo 2"/>
-					<Item id = "25020" name = "Klíčové slovo 3"/>
-					<Item id = "25021" name = "Klíčové slovo 4"/>
-					<Item id = "25022" name = "Klíčové slovo 5"/>
-					<Item id = "25023" name = "Klíčové slovo 6"/>
-					<Item id = "25024" name = "Klíčové slovo 7"/>
-					<Item id = "25025" name = "Klíčové slovo 8"/>
-					<Item id = "25016" name = "Komentář"/>
-					<Item id = "25017" name = "Komentář řádku"/>
-					<Item id = "25026" name = "Operátor 1"/>
-					<Item id = "25027" name = "Operátor 2"/>
-					<Item id = "25028" name = "Číslice"/>
-					<Item id = "25033" name = "Průhledné"/>
-					<Item id = "25034" name = "Průhledné"/>
+			<UserDefine title="Uživatelsky definovaná syntaxe">
+				<Item id="20001" name="Připnout"/>
+				<Item id="20002" name="Přejmenovat"/>
+				<Item id="20003" name="Vytvořit novou..."/>
+				<Item id="20004" name="Odstranit"/>
+				<Item id="20005" name="Uložit jako..."/>
+				<Item id="20007" name="Už.syntaxe:"/>
+				<Item id="20009" name="Přípona:"/>
+				<Item id="20012" name="Nerozl. malá a VELKÁ písmena"/>
+				<Item id="20011" name="Průhlednost"/>
+				<Item id="20015" name="Import..."/>
+				<Item id="20016" name="Export..."/>
+				<Item id="20017" name="Odepnout"/>
+				<Item id="0" name="Styl barev"/>
+				<Item id="1" name="Barva popředí"/>
+				<Item id="2" name="Barva pozadí"/>
+				<Item id="3" name="Styl fontu"/>
+				<Item id="4" name="Název písma:"/>
+				<Item id="5" name="Velikost písma:"/>
+				<Item id="6" name="Tučné"/>
+				<Item id="7" name="Kurzíva"/>
+				<Item id="8" name="Podtrhnout"/>
+				<StylerDialog title="Dialog pro návrh">
+					<Item id="1" name="OK"/>
+					<Item id="2" name="Storno"/>
+					<Item id="25030" name="Možnosti písma:"/>
+					<Item id="25006" name="Barva popředí"/>
+					<Item id="25007" name="Barva pozadí"/>
+					<Item id="25031" name="Název:"/>
+					<Item id="25032" name="Velikost:"/>
+					<Item id="25001" name="Tučné"/>
+					<Item id="25002" name="Kurzíva"/>
+					<Item id="25003" name="Podtržené"/>
+					<Item id="25029" name="Vnoření:"/>
+					<Item id="25008" name="Oddělovač 1"/>
+					<Item id="25009" name="Oddělovač 2"/>
+					<Item id="25010" name="Oddělovač 3"/>
+					<Item id="25011" name="Oddělovač 4"/>
+					<Item id="25012" name="Oddělovač 5"/>
+					<Item id="25013" name="Oddělovač 6"/>
+					<Item id="25014" name="Oddělovač 7"/>
+					<Item id="25015" name="Oddělovač 8"/>
+					<Item id="25018" name="Klíčové slovo 1"/>
+					<Item id="25019" name="Klíčové slovo 2"/>
+					<Item id="25020" name="Klíčové slovo 3"/>
+					<Item id="25021" name="Klíčové slovo 4"/>
+					<Item id="25022" name="Klíčové slovo 5"/>
+					<Item id="25023" name="Klíčové slovo 6"/>
+					<Item id="25024" name="Klíčové slovo 7"/>
+					<Item id="25025" name="Klíčové slovo 8"/>
+					<Item id="25016" name="Komentář"/>
+					<Item id="25017" name="Komentář řádku"/>
+					<Item id="25026" name="Operátor 1"/>
+					<Item id="25027" name="Operátor 2"/>
+					<Item id="25028" name="Číslice"/>
+					<Item id="25033" name="Průhledné"/>
+					<Item id="25034" name="Průhledné"/>
 				</StylerDialog>
-				<Folder title = "Složka &amp;&amp; Výchozí">
-					<Item id = "21101" name = "Výchozí nastavení návrhu"/>
-					<Item id = "21104" name = "Prozatímní dokumentace zde: "/>
-					<Item id = "21105" name = "Dokumentace:"/>
-					<Item id = "21102" name = "Návrhář"/>
-					<Item id = "21106" name = "Sbalit do kompaktní formy (i prázdné řádky)"/>
-					<Item id = "21201" name = "Nastavení klíčových slov pro otevření složky"/>
-					<Item id = "21301" name = "Nastavení klíčových slov pro uzavření složky"/>
-					<Item id = "21427" name = "Návrhář"/>
-					<Item id = "21424" name = "Úvod:"/>
-					<Item id = "21425" name = "Prostředek: "/>
-					<Item id = "21426" name = "Konec: "/>
-					<Item id = "21227" name = "Návrhář"/>
-					<Item id = "21224" name = "Úvod: "/>
-					<Item id = "21225" name = "Prostředek: "/>
-					<Item id = "21226" name = "Konec: "/>
-					<Item id = "21420" name = "Sbalení ve stylu komentáře: "/>
-					<Item id = "21220" name = "Sbalení ve stylu kód 1: "/>
-					<Item id = "21320" name = "Sbalení ve stylu kód 2 (oddělovače nezbytné):"/>
-					<Item id = "21327" name = "Návrhář"/>
-					<Item id = "21324" name = "Úvod: "/>
-					<Item id = "21325" name = "Prostředek: "/>
-					<Item id = "21326" name = "Konec: "/>
+				<Folder title="Složka &amp;&amp; Výchozí">
+					<Item id="21101" name="Výchozí nastavení návrhu"/>
+					<Item id="21104" name="Prozatímní dokumentace zde: "/>
+					<Item id="21105" name="Dokumentace:"/>
+					<Item id="21102" name="Návrhář"/>
+					<Item id="21106" name="Sbalit do kompaktní formy (i prázdné řádky)"/>
+					<Item id="21201" name="Nastavení klíčových slov pro otevření složky"/>
+					<Item id="21301" name="Nastavení klíčových slov pro uzavření složky"/>
+					<Item id="21427" name="Návrhář"/>
+					<Item id="21424" name="Úvod:"/>
+					<Item id="21425" name="Prostředek: "/>
+					<Item id="21426" name="Konec: "/>
+					<Item id="21227" name="Návrhář"/>
+					<Item id="21224" name="Úvod: "/>
+					<Item id="21225" name="Prostředek: "/>
+					<Item id="21226" name="Konec: "/>
+					<Item id="21420" name="Sbalení ve stylu komentáře: "/>
+					<Item id="21220" name="Sbalení ve stylu kód 1: "/>
+					<Item id="21320" name="Sbalení ve stylu kód 2 (oddělovače nezbytné):"/>
+					<Item id="21327" name="Návrhář"/>
+					<Item id="21324" name="Úvod: "/>
+					<Item id="21325" name="Prostředek: "/>
+					<Item id="21326" name="Konec: "/>
 				</Folder>
-				<Keywords title = "Seznamy klíčových slov">
-					<Item id = "22101" name = "1. skupina"/>
-					<Item id = "22201" name = "2. skupina"/>
-					<Item id = "22301" name = "3. skupina"/>
-					<Item id = "22401" name = "4. skupina"/>
-					<Item id = "22451" name = "5. skupina"/>
-					<Item id = "22501" name = "6. skupina"/>
-					<Item id = "22551" name = "7. skupina"/>
-					<Item id = "22601" name = "8. skupina"/>
-					<Item id = "22122" name = "Návrhář"/>
-					<Item id = "22222" name = "Návrhář"/>
-					<Item id = "22322" name = "Návrhář"/>
-					<Item id = "22422" name = "Návrhář"/>
-					<Item id = "22472" name = "Návrhář"/>
-					<Item id = "22522" name = "Návrhář"/>
-					<Item id = "22572" name = "Návrhář"/>
-					<Item id = "22622" name = "Návrhář"/>
-					<Item id = "22121" name = "Režim s prefixem"/>
-					<Item id = "22221" name = "Režim s prefixem"/>
-					<Item id = "22321" name = "Režim s prefixem"/>
-					<Item id = "22421" name = "Režim s prefixem"/>
-					<Item id = "22471" name = "Režim s prefixem"/>
-					<Item id = "22521" name = "Režim s prefixem"/>
-					<Item id = "22571" name = "Režim s prefixem"/>
-					<Item id = "22621" name = "Režim s prefixem"/>
-					<Item id = "22113" name = "Předpony"/>
-					<Item id = "22213" name = "Předpony"/>
-					<Item id = "22313" name = "Předpony"/>
-					<Item id = "22413" name = "Předpony"/>
+				<Keywords title="Seznamy klíčových slov">
+					<Item id="22101" name="1. skupina"/>
+					<Item id="22201" name="2. skupina"/>
+					<Item id="22301" name="3. skupina"/>
+					<Item id="22401" name="4. skupina"/>
+					<Item id="22451" name="5. skupina"/>
+					<Item id="22501" name="6. skupina"/>
+					<Item id="22551" name="7. skupina"/>
+					<Item id="22601" name="8. skupina"/>
+					<Item id="22122" name="Návrhář"/>
+					<Item id="22222" name="Návrhář"/>
+					<Item id="22322" name="Návrhář"/>
+					<Item id="22422" name="Návrhář"/>
+					<Item id="22472" name="Návrhář"/>
+					<Item id="22522" name="Návrhář"/>
+					<Item id="22572" name="Návrhář"/>
+					<Item id="22622" name="Návrhář"/>
+					<Item id="22121" name="Režim s prefixem"/>
+					<Item id="22221" name="Režim s prefixem"/>
+					<Item id="22321" name="Režim s prefixem"/>
+					<Item id="22421" name="Režim s prefixem"/>
+					<Item id="22471" name="Režim s prefixem"/>
+					<Item id="22521" name="Režim s prefixem"/>
+					<Item id="22571" name="Režim s prefixem"/>
+					<Item id="22621" name="Režim s prefixem"/>
+					<Item id="22113" name="Předpony"/>
+					<Item id="22213" name="Předpony"/>
+					<Item id="22313" name="Předpony"/>
+					<Item id="22413" name="Předpony"/>
 				</Keywords>
-				<Comment title = "Komentáře &amp;&amp; Číslice">
-					<Item id = "23001" name = "Povolit sbalování komentářů"/>
-					<Item id = "23002" name = "Komentáře řádků musí být na začátku řádku"/>
-					<Item id = "23003" name = "Pozice komentáře řádku"/>
-					<Item id = "23004" name = "Povolit kdekoliv"/>
-					<Item id = "23005" name = "Vynutit na začátku řádku"/>
-					<Item id = "23006" name = "Povolit předcházející prázdné znaky"/>
-					<Item id = "23101" name = "Komentář bloku"/>
-					<Item id = "23113" name = "Začátek komentáře:"/>
-					<Item id = "23115" name = "Ukončení komentáře:"/>
-					<Item id = "23116" name = "Použít klíčové slovo jako symbol"/>
-					<Item id = "23117" name = "Použít klíčová slova jako symboly"/>
-					<Item id = "23122" name = "Úvodní"/>
-					<Item id = "23123" name = "Koncový"/>
-					<Item id = "23124" name = "Návrhář"/>
-					<Item id = "23201" name = "Číslice"/>
-					<Item id = "23220" name = "Návrhář"/>
-					<Item id = "23221" name = "Prefixy číslic (hex, oct, ...): "/>
-					<Item id = "23223" name = "Symboly rozsahu: "/>
-					<Item id = "23225" name = "Možné přípony pro číslice: "/>
-					<Item id = "23227" name = "Znaky navíc v číslicích s prefixy: "/>
-					<Item id = "23230" name = "Prefix 1:"/>
-					<Item id = "23232" name = "Prefix 2:"/>
-					<Item id = "23234" name = "Extra 1:"/>
-					<Item id = "23236" name = "Extra 2:"/>
-					<Item id = "23238" name = "Sufix 1:"/>
-					<Item id = "23240" name = "Sufix 2:"/>
-					<Item id = "23242" name = "Rozsah: "/>
-					<Item id = "23244" name = "Oddělovač desetinných míst"/>
-					<Item id = "23245" name = "Tečka"/>
-					<Item id = "23246" name = "Čárka"/>
-					<Item id = "23247" name = "Oba dva"/>
-					<Item id = "23301" name = "Komentář řádku"/>
-					<Item id = "23326" name = "Návrhář"/>
-					<Item id = "23323" name = "Úvodní"/>
-					<Item id = "23324" name = "Pokračovací znak"/>
-					<Item id = "23325" name = "Koncový"/>
+				<Comment title="Komentáře &amp;&amp; Číslice">
+					<Item id="23001" name="Povolit sbalování komentářů"/>
+					<Item id="23002" name="Komentáře řádků musí být na začátku řádku"/>
+					<Item id="23003" name="Pozice komentáře řádku"/>
+					<Item id="23004" name="Povolit kdekoliv"/>
+					<Item id="23005" name="Vynutit na začátku řádku"/>
+					<Item id="23006" name="Povolit předcházející prázdné znaky"/>
+					<Item id="23101" name="Komentář bloku"/>
+					<Item id="23113" name="Začátek komentáře:"/>
+					<Item id="23115" name="Ukončení komentáře:"/>
+					<Item id="23116" name="Použít klíčové slovo jako symbol"/>
+					<Item id="23117" name="Použít klíčová slova jako symboly"/>
+					<Item id="23122" name="Úvodní"/>
+					<Item id="23123" name="Koncový"/>
+					<Item id="23124" name="Návrhář"/>
+					<Item id="23201" name="Číslice"/>
+					<Item id="23220" name="Návrhář"/>
+					<Item id="23221" name="Prefixy číslic (hex, oct, ...): "/>
+					<Item id="23223" name="Symboly rozsahu: "/>
+					<Item id="23225" name="Možné přípony pro číslice: "/>
+					<Item id="23227" name="Znaky navíc v číslicích s prefixy: "/>
+					<Item id="23230" name="Prefix 1:"/>
+					<Item id="23232" name="Prefix 2:"/>
+					<Item id="23234" name="Extra 1:"/>
+					<Item id="23236" name="Extra 2:"/>
+					<Item id="23238" name="Sufix 1:"/>
+					<Item id="23240" name="Sufix 2:"/>
+					<Item id="23242" name="Rozsah: "/>
+					<Item id="23244" name="Oddělovač desetinných míst"/>
+					<Item id="23245" name="Tečka"/>
+					<Item id="23246" name="Čárka"/>
+					<Item id="23247" name="Oba dva"/>
+					<Item id="23301" name="Komentář řádku"/>
+					<Item id="23326" name="Návrhář"/>
+					<Item id="23323" name="Úvodní"/>
+					<Item id="23324" name="Pokračovací znak"/>
+					<Item id="23325" name="Koncový"/>
 				</Comment>
-				<Operator title = "Operátory">
-					<Item id = "24101" name = "Aktivované operátory"/>
-					<Item id = "24103" name = "Dostupné operátory"/>
-					<Item id = "24107" name = "Operátor"/>
-					<Item id = "24113" name = "Návrhář"/>
-					<Item id = "24116" name = "Operátor1"/>
-					<Item id = "24117" name = "Operátor2 (oddělovače nezbytné)"/>
-					<Item id = "24201" name = "Oddělovač 1"/>
-					<Item id = "24211" name = "Začátek ohraničení:"/>
-					<Item id = "24214" name = "Ukončení ohraničení:"/>
-					<Item id = "24223" name = "Návrhář"/>
-					<Item id = "24220" name = "Úvod: "/>
-					<Item id = "24221" name = "Oddělovač: "/>
-					<Item id = "24222" name = "Konec: "/>
-					<Item id = "24301" name = "Oddělovač 2"/>
-					<Item id = "24311" name = "Začátek ohraničení:"/>
-					<Item id = "24314" name = "Ukončení ohraničení:"/>
-					<Item id = "24323" name = "Návrhář"/>
-					<Item id = "24320" name = "Úvod: "/>
-					<Item id = "24321" name = "Oddělovač: "/>
-					<Item id = "24322" name = "Konec: "/>
-					<Item id = "24423" name = "Návrhář"/>
-					<Item id = "24420" name = "Úvod: "/>
-					<Item id = "24421" name = "Oddělovač: "/>
-					<Item id = "24422" name = "Konec: "/>
-					<Item id = "24473" name = "Návrhář"/>
-					<Item id = "24470" name = "Úvod: "/>
-					<Item id = "24471" name = "Oddělovač: "/>
-					<Item id = "24472" name = "Konec: "/>
-					<Item id = "24523" name = "Návrhář"/>
-					<Item id = "24520" name = "Úvod: "/>
-					<Item id = "24521" name = "Oddělovač: "/>
-					<Item id = "24522" name = "Konec: "/>
-					<Item id = "24573" name = "Návrhář"/>
-					<Item id = "24570" name = "Úvod: "/>
-					<Item id = "24571" name = "Oddělovač: "/>
-					<Item id = "24572" name = "Konec: "/>
-					<Item id = "24623" name = "Návrhář"/>
-					<Item id = "24620" name = "Úvod: "/>
-					<Item id = "24621" name = "Oddělovač: "/>
-					<Item id = "24622" name = "Konec: "/>
-					<Item id = "24673" name = "Návrhář"/>
-					<Item id = "24670" name = "Úvod: "/>
-					<Item id = "24671" name = "Oddělovač: "/>
-					<Item id = "24672" name = "Konec: "/>
-					<Item id = "24401" name = "Oddělovač 3 stylu"/>
-					<Item id = "24451" name = "Oddělovač 4 stylu"/>
-					<Item id = "24501" name = "Oddělovač 5 stylu"/>
-					<Item id = "24551" name = "Oddělovač 6 stylu"/>
-					<Item id = "24601" name = "Oddělovač 7 stylu"/>
-					<Item id = "24651" name = "Oddělovač 8 stylu"/>
+				<Operator title="Operátory">
+					<Item id="24101" name="Aktivované operátory"/>
+					<Item id="24103" name="Dostupné operátory"/>
+					<Item id="24107" name="Operátor"/>
+					<Item id="24113" name="Návrhář"/>
+					<Item id="24116" name="Operátor1"/>
+					<Item id="24117" name="Operátor2 (oddělovače nezbytné)"/>
+					<Item id="24201" name="Oddělovač 1"/>
+					<Item id="24211" name="Začátek ohraničení:"/>
+					<Item id="24214" name="Ukončení ohraničení:"/>
+					<Item id="24223" name="Návrhář"/>
+					<Item id="24220" name="Úvod: "/>
+					<Item id="24221" name="Oddělovač: "/>
+					<Item id="24222" name="Konec: "/>
+					<Item id="24301" name="Oddělovač 2"/>
+					<Item id="24311" name="Začátek ohraničení:"/>
+					<Item id="24314" name="Ukončení ohraničení:"/>
+					<Item id="24323" name="Návrhář"/>
+					<Item id="24320" name="Úvod: "/>
+					<Item id="24321" name="Oddělovač: "/>
+					<Item id="24322" name="Konec: "/>
+					<Item id="24423" name="Návrhář"/>
+					<Item id="24420" name="Úvod: "/>
+					<Item id="24421" name="Oddělovač: "/>
+					<Item id="24422" name="Konec: "/>
+					<Item id="24473" name="Návrhář"/>
+					<Item id="24470" name="Úvod: "/>
+					<Item id="24471" name="Oddělovač: "/>
+					<Item id="24472" name="Konec: "/>
+					<Item id="24523" name="Návrhář"/>
+					<Item id="24520" name="Úvod: "/>
+					<Item id="24521" name="Oddělovač: "/>
+					<Item id="24522" name="Konec: "/>
+					<Item id="24573" name="Návrhář"/>
+					<Item id="24570" name="Úvod: "/>
+					<Item id="24571" name="Oddělovač: "/>
+					<Item id="24572" name="Konec: "/>
+					<Item id="24623" name="Návrhář"/>
+					<Item id="24620" name="Úvod: "/>
+					<Item id="24621" name="Oddělovač: "/>
+					<Item id="24622" name="Konec: "/>
+					<Item id="24673" name="Návrhář"/>
+					<Item id="24670" name="Úvod: "/>
+					<Item id="24671" name="Oddělovač: "/>
+					<Item id="24672" name="Konec: "/>
+					<Item id="24401" name="Oddělovač 3 stylu"/>
+					<Item id="24451" name="Oddělovač 4 stylu"/>
+					<Item id="24501" name="Oddělovač 5 stylu"/>
+					<Item id="24551" name="Oddělovač 6 stylu"/>
+					<Item id="24601" name="Oddělovač 7 stylu"/>
+					<Item id="24651" name="Oddělovač 8 stylu"/>
 				</Operator>
-				<Item id = "24001" name = "Povolit oddělovací znak:"/>
+				<Item id="24001" name="Povolit oddělovací znak:"/>
 			</UserDefine>
 
-			<Preference title = "Volby">
-				<Item id = "6001" name = "Zavřít"/>
-				<Global title = "Obecné">
-					<Item id = "6101" name = "Nástrojová lišta"/>
-					<Item id = "6102" name = "Skrýt"/>
-					<Item id = "6103" name = "Fluent UI: malé ikony"/>
-					<Item id = "6104" name = "Fluent UI: velké ikony"/>
-					<Item id = "6105" name = "Standardní: malé ikony"/>
-					<Item id = "6106" name = "Lišta záložek"/>
-					<Item id = "6107" name = "Zmenšit"/>
-					<Item id = "6108" name = "Uzamknout (nelze přetahovat záložky)"/>
-					<Item id = "6109" name = "Znevýraznit neaktivní záložky"/>
-					<Item id = "6110" name = "Zobrazovat barevný pruh na aktivní záložce"/>
-					<Item id = "6111" name = "Zobrazovat stavový řádek"/>
-					<Item id = "6112" name = "Přidat zavírací tlačítko každé záložce"/>
-					<Item id = "6113" name = "Dvojité kliknutí zavře záložku"/>
-					<Item id = "6114" name = "Povolit přepínání mezi dokumenty"/>
-					<Item id = "6116" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6117" name = "Používat historii dokumentů"/>
-					<Item id = "6118" name = "Skrýt"/>
-					<Item id = "6119" name = "Více řad"/>
-					<Item id = "6120" name = "Vertikální"/>
-					<Item id = "6121" name = "Ukončit při uzavření poslední karty"/>
-					<Item id = "6122" name = "Skrýt menu (klávesa Alt nebo F10 slouží jako přepínač)"/>
-					<Item id = "6123" name = "Lokalizace"/>
-					<Item id = "6128" name = "Alternativní ikony"/>
-					<Item id = "6129" name = "Fluent UI: malé ikony s výplní"/>
-					<Item id = "6130" name = "Fluent UI: velké ikony s výplní"/>
-					<Item id = "6131" name = "Hlavní menu"/>
-					<Item id = "6132" name = "Skrýt ovládací prvky ＋ ▼ ✕ menu vpravo nahoře (vyžaduje restart Notepadu++)"/>
+			<Preference title="Volby">
+				<Item id="6001" name="Zavřít"/>
+				<Global title="Obecné">
+					<Item id="6101" name="Nástrojová lišta"/>
+					<Item id="6102" name="Skrýt"/>
+					<Item id="6103" name="Fluent UI: malé ikony"/>
+					<Item id="6104" name="Fluent UI: velké ikony"/>
+					<Item id="6105" name="Standardní: malé ikony"/>
+					<Item id="6106" name="Lišta záložek"/>
+					<Item id="6107" name="Zmenšit"/>
+					<Item id="6108" name="Uzamknout (nelze přetahovat záložky)"/>
+					<Item id="6109" name="Znevýraznit neaktivní záložky"/>
+					<Item id="6110" name="Zobrazovat barevný pruh na aktivní záložce"/>
+					<Item id="6111" name="Zobrazovat stavový řádek"/>
+					<Item id="6112" name="Přidat zavírací tlačítko každé záložce"/>
+					<Item id="6113" name="Dvojité kliknutí zavře záložku"/>
+					<Item id="6114" name="Povolit přepínání mezi dokumenty"/>
+					<Item id="6116" name="Zapamatovat si poslední používaný adresář"/>
+					<Item id="6117" name="Používat historii dokumentů"/>
+					<Item id="6118" name="Skrýt"/>
+					<Item id="6119" name="Více řad"/>
+					<Item id="6120" name="Vertikální"/>
+					<Item id="6121" name="Ukončit při uzavření poslední karty"/>
+					<Item id="6122" name="Skrýt menu (klávesa Alt nebo F10 slouží jako přepínač)"/>
+					<Item id="6123" name="Lokalizace"/>
+					<Item id="6128" name="Alternativní ikony"/>
+					<Item id="6129" name="Fluent UI: malé ikony s výplní"/>
+					<Item id="6130" name="Fluent UI: velké ikony s výplní"/>
+					<Item id="6131" name="Hlavní menu"/>
+					<Item id="6132" name="Skrýt ovládací prvky ＋ ▼ ✕ menu vpravo nahoře (vyžaduje restart Notepadu++)"/>
 				</Global>
-				<Scintillas title = "Editace">
-					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
-					<Item id = "6216" name = "Nastavení kurzoru"/>
-					<Item id = "6217" name = "Šířka: "/>
-					<Item id = "6219" name = "Rychlost blikání: "/>
-					<Item id = "6221" name = "R"/>
-					<Item id = "6222" name = "P"/>
-					<Item id = "6225" name = "Povolit vícenásobnou editaci (Ctrl+Myš kliknutí/výběr)"/>
-					<Item id = "6227" name = "Zalomení řádky"/>
-					<Item id = "6228" name = "Implicitní"/>
-					<Item id = "6229" name = "Jen zarovnání"/>
-					<Item id = "6230" name = "S odsazením"/>
-					<Item id = "6234" name = "Zakázat funkci vylepšeného rolování (jestliže máte problém s touchpadem)"/>
-					<Item id = "6236" name = "Povolit rolování za poslední řádku"/>
-					<Item id = "6239" name = "Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
-					<Item id = "6245" name = "Povolit virtuální prostor"/>
-					<Item id = "6246" name = "Přepínací režim pro příkaz sbalování/rozbalování aktuální úrovně (Ctrl+Alt+F)"/>
-					<Item id = "6651" name = "Indikátor aktuálního řádku"/>
-					<Item id = "6652" name = "Žádný"/>
-					<Item id = "6653" name = "Zvýrazněné pozadí"/>
-					<Item id = "6654" name = "Orámování"/>
-					<Item id = "6655" name = "tloušťka: "/>
-					<Item id = "6247" name = "Konce řádků (CRLF)"/> <!-- Don't translate "(CRLF)" -->
-					<Item id = "6248" name = "Implicitní"/>
-					<Item id = "6249" name = "Barva prostého textu"/>
-					<Item id = "6250" name = "Vlastní barva"/>
-					<Item id = "6252" name = "Netisknutelné znaky"/>
-					<Item id = "6254" name = "Zkratka"/>
-					<Item id = "6255" name = "Kód Unicode"/>
-					<Item id = "6256" name = "Vlastní barva"/>
+				<Scintillas title="Editace">
+					<Item id="6215" name="Povolit vyhlazování fontu"/>
+					<Item id="6216" name="Nastavení kurzoru"/>
+					<Item id="6217" name="Šířka: "/>
+					<Item id="6219" name="Rychlost blikání: "/>
+					<Item id="6221" name="R"/>
+					<Item id="6222" name="P"/>
+					<Item id="6225" name="Povolit vícenásobnou editaci (Ctrl+Myš kliknutí/výběr)"/>
+					<Item id="6227" name="Zalomení řádky"/>
+					<Item id="6228" name="Implicitní"/>
+					<Item id="6229" name="Jen zarovnání"/>
+					<Item id="6230" name="S odsazením"/>
+					<Item id="6234" name="Zakázat funkci vylepšeného rolování (jestliže máte problém s touchpadem)"/>
+					<Item id="6236" name="Povolit rolování za poslední řádku"/>
+					<Item id="6239" name="Ponechat výběr, když kliknete pravým tlačítkem mimo výběr"/>
+					<Item id="6245" name="Povolit virtuální prostor"/>
+					<Item id="6246" name="Přepínací režim pro příkaz sbalování/rozbalování aktuální úrovně (Ctrl+Alt+F)"/>
+					<Item id="6651" name="Indikátor aktuálního řádku"/>
+					<Item id="6652" name="Žádný"/>
+					<Item id="6653" name="Zvýrazněné pozadí"/>
+					<Item id="6654" name="Orámování"/>
+					<Item id="6655" name="tloušťka: "/>
+					<Item id="6247" name="Konce řádků (CRLF)"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Implicitní"/>
+					<Item id="6249" name="Barva prostého textu"/>
+					<Item id="6250" name="Vlastní barva"/>
+					<Item id="6252" name="Netisknutelné znaky"/>
+					<Item id="6254" name="Zkratka"/>
+					<Item id="6255" name="Kód Unicode"/>
+					<Item id="6256" name="Vlastní barva"/>
+					<Item id="6258" name="Aplikovat na C0, C1 a &amp;Unicode EOLy"/>
 				</Scintillas>
-				<DarkMode title = "Tmavý režim">
-					<Item id = "7102" name = "Černý"/>
-					<Item id = "7103" name = "Červený"/>
-					<Item id = "7104" name = "Zelený"/>
-					<Item id = "7105" name = "Modrý"/>
-					<Item id = "7107" name = "Fialový"/>
-					<Item id = "7108" name = "Modrozelený"/>
-					<Item id = "7109" name = "Olivový"/>
-					<Item id = "7115" name = "Vlastní"/>
-					<Item id = "7116" name = "Horní panel"/>
-					<Item id = "7117" name = "Hot-track položka menu"/>
-					<Item id = "7118" name = "Aktivní položky"/>
-					<Item id = "7119" name = "Hlavní položky"/>
-					<Item id = "7120" name = "Chyby"/>
-					<Item id = "7121" name = "Text"/>
-					<Item id = "7122" name = "Tmavší text"/>
-					<Item id = "7123" name = "Dezaktivovaný text"/>
-					<Item id = "7124" name = "Okraje"/>
-					<Item id = "7125" name = "Odkazy"/>
-					<Item id = "7126" name = "Zvýraznění okrajů"/>
-					<Item id = "7127" name = "Deaktivované okraje"/>
-					<Item id = "7130" name = "Obnovit"/>
-					<Item id = "7131" name = "Světlý režim"/> 
-					<Item id = "7132" name = "Tmavý režim"/> 
-					<Item id = "7133" name = "Podle systému Windows"/> 
-					<Item id = "7135" name = "Odstíny"/>
+				<DarkMode title="Tmavý režim">
+					<Item id="7102" name="Černý"/>
+					<Item id="7103" name="Červený"/>
+					<Item id="7104" name="Zelený"/>
+					<Item id="7105" name="Modrý"/>
+					<Item id="7107" name="Fialový"/>
+					<Item id="7108" name="Modrozelený"/>
+					<Item id="7109" name="Olivový"/>
+					<Item id="7115" name="Vlastní"/>
+					<Item id="7116" name="Horní panel"/>
+					<Item id="7117" name="Hot-track položka menu"/>
+					<Item id="7118" name="Aktivní položky"/>
+					<Item id="7119" name="Hlavní položky"/>
+					<Item id="7120" name="Chyby"/>
+					<Item id="7121" name="Text"/>
+					<Item id="7122" name="Tmavší text"/>
+					<Item id="7123" name="Dezaktivovaný text"/>
+					<Item id="7124" name="Okraje"/>
+					<Item id="7125" name="Odkazy"/>
+					<Item id="7126" name="Zvýraznění okrajů"/>
+					<Item id="7127" name="Deaktivované okraje"/>
+					<Item id="7130" name="Obnovit"/>
+					<Item id="7131" name="Světlý režim"/>
+					<Item id="7132" name="Tmavý režim"/>
+					<Item id="7133" name="Podle systému Windows"/>
+					<Item id="7135" name="Odstíny"/>
 				</DarkMode>
-				<MarginsBorderEdge title = "Okraje/Lem/Hrana">
-					<Item id = "6201" name = "Styl sbalovače na okraji"/>
-					<Item id = "6202" name = "Jednoduchý"/>
-					<Item id = "6203" name = "Se šipkami"/>
-					<Item id = "6204" name = "S kruhy"/>
-					<Item id = "6205" name = "Se čtverci"/>
-					<Item id = "6206" name = "Zobrazit"/>
-					<Item id = "6207" name = "Zobrazit záložky"/>
-					<Item id = "6208" name = "Tloušťka ohraničující výplně"/>
-					<Item id = "6209" name = "Vlevo"/>
-					<Item id = "6210" name = "Vpravo"/>
-					<Item id = "6211" name = "Nastavení svislé vodící čáry"/>
-					<Item id = "6212" name = "Nerušivý mód"/>
-					<Item id = "6213" name = "Režim s pozadím"/>
-					<Item id = "6223" name = "Zobrazit historii změn"/> 
-					<Item id = "6226" name = "Žádný"/>
-					<Item id = "6231" name = "Šířka okraje"/>
-					<Item id = "6235" name = "Bez okraje"/>
-					<Item id = "6237" name = "Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
+				<MarginsBorderEdge title="Okraje/Lem/Hrana">
+					<Item id="6201" name="Styl sbalovače na okraji"/>
+					<Item id="6202" name="Jednoduchý"/>
+					<Item id="6203" name="Se šipkami"/>
+					<Item id="6204" name="S kruhy"/>
+					<Item id="6205" name="Se čtverci"/>
+					<Item id="6206" name="Zobrazit"/>
+					<Item id="6207" name="Zobrazit záložky"/>
+					<Item id="6208" name="Tloušťka ohraničující výplně"/>
+					<Item id="6209" name="Vlevo"/>
+					<Item id="6210" name="Vpravo"/>
+					<Item id="6211" name="Nastavení svislé vodící čáry"/>
+					<Item id="6212" name="Nerušivý mód"/>
+					<Item id="6213" name="Režim s pozadím"/>
+					<Item id="6223" name="Zobrazit historii změn"/>
+					<Item id="6226" name="Žádný"/>
+					<Item id="6231" name="Šířka okraje"/>
+					<Item id="6235" name="Bez okraje"/>
+					<Item id="6237" name="Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
 Můžete definovat více značek sloupců použitím více čísel oddělených prázdnými znaky."/>
-					<Item id = "6291" name = "Číslo řádku"/>
-					<Item id = "6292" name = "Dynamická šířka"/>
-					<Item id = "6293" name = "Konstantní šířka"/>
+					<Item id="6291" name="Číslo řádku"/>
+					<Item id="6292" name="Dynamická šířka"/>
+					<Item id="6293" name="Konstantní šířka"/>
 				</MarginsBorderEdge>
-				<NewDoc title = "Nový dokument">
-					<Item id = "6401" name = "Formát"/>
-					<Item id = "6402" name = "Windows"/>
-					<Item id = "6403" name = "Unix"/>
-					<Item id = "6404" name = "Mac"/>
-					<Item id = "6405" name = "Kódování"/>
-					<Item id = "6406" name = "ANSI"/>
-					<Item id = "6407" name = "UTF-8"/>
-					<Item id = "6408" name = "UTF-8 s BOM"/>
-					<Item id = "6409" name = "UTF-16 Big Endian s BOM"/>
-					<Item id = "6410" name = "UTF-16 Little Endian s BOM"/>
-					<Item id = "6411" name = "Implicitní syntaxe:"/>
-					<Item id = "6419" name = "Nový dokument"/>
-					<Item id = "6420" name = "Aplikovat při otevř. ANSI-souboru"/>
-					<Item id = "-1" name = "Zobrazení"/>
+				<NewDoc title="Nový dokument">
+					<Item id="6401" name="Formát"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Kódování"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 s BOM"/>
+					<Item id="6409" name="UTF-16 Big Endian s BOM"/>
+					<Item id="6410" name="UTF-16 Little Endian s BOM"/>
+					<Item id="6411" name="Implicitní syntaxe:"/>
+					<Item id="6419" name="Nový dokument"/>
+					<Item id="6420" name="Aplikovat při otevř. ANSI-souboru"/>
+					<Item id="-1" name="Zobrazení"/>
 				</NewDoc>
-				<DefaultDir title = "Implicitní adresář">
-					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
-					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
-					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
+				<DefaultDir title="Implicitní adresář">
+					<Item id="6413" name="Implicitní adresář pro otevírání/ukládání souborů"/>
+					<Item id="6414" name="Podle aktuálního dokumentu"/>
+					<Item id="6415" name="Zapamatovat si poslední používaný adresář"/>
+					<Item id="6431" name="Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
-				<FileAssoc title = "Asociovat se soubory">
-					<Item id = "4008" name = "Abyste mohli použít tuto vlastnost, restartujte prosím Notepad++ pod účtem administrátora."/>
-					<Item id = "4009" name = "Podporované přípony:"/>
-					<Item id = "4010" name = "Zaregistr. přípony:"/>
+				<FileAssoc title="Asociovat se soubory">
+					<Item id="4008" name="Abyste mohli použít tuto vlastnost, restartujte prosím Notepad++ pod účtem administrátora."/>
+					<Item id="4009" name="Podporované přípony:"/>
+					<Item id="4010" name="Zaregistr. přípony:"/>
 				</FileAssoc>
-				<Language title = "Syntaxe">
-					<Item id = "6505" name = "Používané syntaxe"/>
-					<Item id = "6506" name = "Nepoužívané syntaxe"/>
-					<Item id = "6507" name = "Použít kompaktní menu pro syntaxe"/>
-					<Item id = "6508" name = "Nabídka syntaxí"/>
-					<Item id = "6301" name = "Nastavení tabulátoru"/>
-					<Item id = "6302" name = "Zaměnit za mezery"/>
-					<Item id = "6303" name = "Velikost tabulátoru:"/>
-					<Item id = "6510" name = "Použít implicitní"/>
-					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
+				<Language title="Syntaxe">
+					<Item id="6505" name="Používané syntaxe"/>
+					<Item id="6506" name="Nepoužívané syntaxe"/>
+					<Item id="6507" name="Použít kompaktní menu pro syntaxe"/>
+					<Item id="6508" name="Nabídka syntaxí"/>
+					<Item id="6301" name="Nastavení tabulátoru"/>
+					<Item id="6302" name="Zaměnit za mezery"/>
+					<Item id="6303" name="Velikost tabulátoru:"/>
+					<Item id="6510" name="Použít implicitní"/>
+					<Item id="6335" name="Zpětné lomítko je escape znak pro SQL"/>
 				</Language>
-				<Highlighting title = "Zvýrazňování">
-					<Item id = "6326" name = "Povolit"/>
-					<Item id = "6327" name = "Povolit"/>
-					<Item id = "6329" name = "Zvýrazňování odpovídajících značek"/>
-					<Item id = "6332" name = "Rozlišovat velká a malá písmena"/>
-					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
-					<Item id = "6338" name = "Rozlišovat pouze celá slova"/>
-					<Item id = "6339" name = "Užívat nastavení dialogu Najít"/>
-					<Item id = "6340" name = "Zvýraznění v jiném pohledu"/>
-					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
-					<Item id = "6330" name = "Zvýrazňování zón komentářů/php/asp"/>
-					<Item id = "6351" name = "Označování výskytů tokenů styly"/>
-					<Item id = "6352" name = "Rozlišovat velká a malá písmena"/>
-					<Item id = "6353" name = "Rozlišovat pouze celá slova"/>
-					<Item id = "6354" name = "Rozlišování"/>
+				<Highlighting title="Zvýrazňování">
+					<Item id="6326" name="Povolit"/>
+					<Item id="6327" name="Povolit"/>
+					<Item id="6329" name="Zvýrazňování odpovídajících značek"/>
+					<Item id="6332" name="Rozlišovat velká a malá písmena"/>
+					<Item id="6333" name="Inteligentní zvýrazňování"/>
+					<Item id="6338" name="Rozlišovat pouze celá slova"/>
+					<Item id="6339" name="Užívat nastavení dialogu Najít"/>
+					<Item id="6340" name="Zvýraznění v jiném pohledu"/>
+					<Item id="6328" name="Zvýrazňování atributů značek"/>
+					<Item id="6330" name="Zvýrazňování zón komentářů/php/asp"/>
+					<Item id="6351" name="Označování výskytů tokenů styly"/>
+					<Item id="6352" name="Rozlišovat velká a malá písmena"/>
+					<Item id="6353" name="Rozlišovat pouze celá slova"/>
+					<Item id="6354" name="Rozlišování"/>
 				</Highlighting>
-				<Print title = "Tisk">
-					<Item id = "6601" name = "Tisknout čísla řádků"/>
-					<Item id = "6602" name = "Možnosti barev"/>
-					<Item id = "6603" name = "WYSIWYG (tak jak to vidíte)"/>
-					<Item id = "6604" name = "Inverzně"/>
-					<Item id = "6605" name = "Černobíle"/>
-					<Item id = "6606" name = "Žádná barva na pozadí"/>
-					<Item id = "6607" name = "Nastavení okrajů (v milimetrech)"/>
-					<Item id = "6612" name = "Vlevo"/>
-					<Item id = "6613" name = "Nahoře"/>
-					<Item id = "6614" name = "Vpravo"/>
-					<Item id = "6615" name = "Dole"/>
-					<Item id = "6706" name = "Tučně"/>
-					<Item id = "6707" name = "Kurzíva"/>
-					<Item id = "6708" name = "Záhlaví"/>
-					<Item id = "6709" name = "Levá část"/>
-					<Item id = "6710" name = "Prostřední část"/>
-					<Item id = "6711" name = "Pravá část"/>
-					<Item id = "6717" name = "Tučně"/>
-					<Item id = "6718" name = "Kurzíva"/>
-					<Item id = "6719" name = "Zápatí"/>
-					<Item id = "6720" name = "Levá část"/>
-					<Item id = "6721" name = "Prostřední část"/>
-					<Item id = "6722" name = "Pravá část"/>
-					<Item id = "6723" name = "Přidat"/>
-					<ComboBox id = "6724">
-						<Element name = "Název soub. s cestou"/>
-						<Element name = "Název souboru"/>
-						<Element name = "Adresář souboru"/>
-						<Element name = "Stránka"/>
-						<Element name = "Datum - kratší form."/>
-						<Element name = "Datum - delší form."/>
-						<Element name = "Čas"/>
+				<Print title="Tisk">
+					<Item id="6601" name="Tisknout čísla řá&amp;dků"/>
+					<Item id="6602" name="Možnosti barev"/>
+					<Item id="6603" name="&amp;WYSIWYG (tak jak to vidíte)"/>
+					<Item id="6604" name="&amp;Inverzně"/>
+					<Item id="6605" name="Černo&amp;bíle"/>
+					<Item id="6606" name="Žádná barva na po&amp;zadí"/>
+					<Item id="6607" name="Nastavení okrajů (v milimetrech)"/>
+					<Item id="6612" name="Vle&amp;vo"/>
+					<Item id="6613" name="Na&amp;hoře"/>
+					<Item id="6614" name="V&amp;pravo"/>
+					<Item id="6615" name="Dol&amp;e"/>
+					<Item id="6706" name="&amp;Tučně"/>
+					<Item id="6707" name="&amp;Kurzíva"/>
+					<Item id="6708" name="Záhlaví"/>
+					<Item id="6709" name="&amp;Levá část"/>
+					<Item id="6710" name="&amp;Prostřední část"/>
+					<Item id="6711" name="P&amp;ravá část"/>
+					<Item id="6717" name="T&amp;učně"/>
+					<Item id="6718" name="Kurzív&amp;a"/>
+					<Item id="6719" name="Zápatí"/>
+					<Item id="6720" name="Levá čá&amp;st"/>
+					<Item id="6721" name="Pr&amp;ostřední část"/>
+					<Item id="6722" name="Pravá čás&amp;t"/>
+					<Item id="6723" name="Př&amp;idat"/>
+					<ComboBox id="6724">
+						<Element name="Název soub. s cestou"/>
+						<Element name="Název souboru"/>
+						<Element name="Adresář souboru"/>
+						<Element name="Stránka"/>
+						<Element name="Datum - kratší form."/>
+						<Element name="Datum - delší form."/>
+						<Element name="Čas"/>
 					</ComboBox>
-					<Item id = "6725" name = "Varianty:"/>
-					<Item id = "6727" name = "Která část:"/>
-					<Item id = "6728" name = "Záhlaví a zápatí"/>
+					<Item id="6725" name="Variant&amp;y:"/>
+					<Item id="6727" name="Která část:"/>
+					<Item id="6728" name="Záhlaví a zápatí"/>
 				</Print>
-				<Searching title = "Vyhledávání">
-					<Item id = "6902" name = "Použít monospace font v dialogu Najít (vyžadován restart Notepadu++)"/>
-					<Item id = "6903" name = "Dialog Najít zůstane otevřen po vyhledávání s výstupem do okna s výsledky"/>
-					<Item id = "6904" name = "Potvrzovat příkaz Zaměnit vše ve všech otevřených dokumentech"/>
-					<Item id = "6905" name = "Nahradit: Nepřesunovat se při nahrazení výrazu k následujícímu výskytu"/>
-					<Item id = "6906" name = "Okno s výsledky vyhledávání: zobrazovat pouze jeden záznam s nálezy na řádku"/>
-					<Item id = "6907" name = "Při vyvolání dialogového okna 'Najít'"/> 
-					<Item id = "6908" name = "Předvyplnit vyhledávací pole označeným textem"/> 
-					<Item id = "6909" name = "Když není nic označeno, předvyplnit slovem na pozici kurzoru"/> 
+				<Searching title="Vyhledávání">
+					<Item id="6902" name="Použít monospace font v dialogu Najít (vyžadován restart Notepadu++)"/>
+					<Item id="6903" name="Dialog Najít zůstane otevřen po vyhledávání s výstupem do okna s výsledky"/>
+					<Item id="6904" name="Potvrzovat příkaz Zaměnit vše ve všech otevřených dokumentech"/>
+					<Item id="6905" name="Nahradit: Nepřesunovat se při nahrazení výrazu k následujícímu výskytu"/>
+					<Item id="6906" name="Okno s výsledky vyhledávání: zobrazovat pouze jeden záznam s nálezy na řádku"/>
+					<Item id="6907" name="Při vyvolání dialogového okna 'Najít'"/>
+					<Item id="6908" name="Předvyplnit vyhledávací pole označeným textem"/>
+					<Item id="6909" name="Když není nic označeno, předvyplnit slovem na pozici kurzoru"/>
 				</Searching>
-				<RecentFilesHistory title = "Historie posl. souborů">
-					<Item id = "6304" name = "Historie posledních souborů"/>
-					<Item id = "6305" name = "Nekontrolovat při startu"/>
-					<Item id = "6306" name = "Max. počet položek:"/>
-					<Item id = "6424" name = "Podmenu"/>
-					<Item id = "6425" name = "Jenom název souboru"/>
-					<Item id = "6426" name = "Název souboru i s cestou"/>
-					<Item id = "6427" name = "Přizpůsobit max. délku položky:"/>
-					<Item id = "6429" name = "Zobrazení"/>
+				<RecentFilesHistory title="Historie posl. souborů">
+					<Item id="6304" name="Historie posledních souborů"/>
+					<Item id="6305" name="Nekontrolovat při startu"/>
+					<Item id="6306" name="Max. počet položek:"/>
+					<Item id="6424" name="Podmenu"/>
+					<Item id="6425" name="Jenom název souboru"/>
+					<Item id="6426" name="Název souboru i s cestou"/>
+					<Item id="6427" name="Přizpůsobit max. délku položky:"/>
+					<Item id="6429" name="Zobrazení"/>
 				</RecentFilesHistory>
-				<MISC title = "Různé">
-					<ComboBox id = "6347">
-						<Element name = "Povoleno (pro aktivní tab/soubor)"/>
-						<Element name = "Povoleno pro všechny otevřené soubory"/>
-						<Element name = "Zakázáno"/>
+				<MISC title="Různé">
+					<ComboBox id="6347">
+						<Element name="Povoleno (pro aktivní tab/soubor)"/>
+						<Element name="Povoleno pro všechny otevřené soubory"/>
+						<Element name="Zakázáno"/>
 					</ComboBox>
-					<Item id = "6114" name = "Povolit přepínání"/>
-					<Item id = "6115" name = "Automatické odsazování"/>
-					<Item id = "6117" name = "Povolit MRU (nedávno použité)"/>
-					<Item id = "6307" name = "Povolit pro všechny TABy"/>
-					<Item id = "6308" name = "Minimalizovat do oznamovací oblasti"/>
-					<Item id = "6312" name = "Automatická detekce stavu souboru"/>
-					<Item id = "6313" name = "Aktualizovat skrytě"/>
-					<Item id = "6322" name = "Přípona souboru relace:"/>
-					<Item id = "6323" name = "Povolit autom. aktualizaci Notepadu++"/>
-					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
-					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
-					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
-					<Item id = "6334" name = "Automatická detekce kódování znaků"/>
-					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
-					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
-					<Item id = "6345" name = "Na kartě (tab) dokumentu"/>
-					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
-					<Item id = "6349" name = "Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
-					<Item id = "6360" name = "Ztlumit všechny zvuky"/>
-					<Item id = "6361" name = "Povolit potvrzovací dialog 'Uložit všechny'"/>
+					<Item id="6114" name="Povolit přepínání"/>
+					<Item id="6115" name="Automatické odsazování"/>
+					<Item id="6117" name="Povolit MRU (nedávno použité)"/>
+					<Item id="6307" name="Povolit pro všechny TABy"/>
+					<Item id="6308" name="Minimalizovat do oznamovací oblasti"/>
+					<Item id="6312" name="Automatická detekce stavu souboru"/>
+					<Item id="6313" name="Aktualizovat skrytě"/>
+					<Item id="6322" name="Přípona souboru relace:"/>
+					<Item id="6323" name="Povolit autom. aktualizaci Notepadu++"/>
+					<Item id="6324" name="Přepínač dokumentů (Ctrl+TAB)"/>
+					<Item id="6325" name="Přejít na poslední řádek po aktualizaci"/>
+					<Item id="6331" name="V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
+					<Item id="6334" name="Automatická detekce kódování znaků"/>
+					<Item id="6337" name="Přípona souboru pracovní plochy:"/>
+					<Item id="6344" name="Náhled na neaktivní dokument"/>
+					<Item id="6345" name="Na kartě (tab) dokumentu"/>
+					<Item id="6346" name="Na přehledné mapě dokumentu"/>
+					<Item id="6349" name="Používat DirectWrite (může zlepšit zobrazení speciálních znaků, vyžadován restart Notepadu++)"/>
+					<Item id="6360" name="Ztlumit všechny zvuky"/>
+					<Item id="6361" name="Povolit potvrzovací dialog 'Uložit všechny'"/>
 				</MISC>
-				<Backup title = "Zálohování">
-					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
-					<Item id = "6309" name = "Zapamatovat aktuální relaci pro spuštění příště"/>
-					<Item id = "6315" name = "Vypnuto"/>
-					<Item id = "6316" name = "Základní zálohování"/>
-					<Item id = "6317" name = "Zálohování s hlášeními"/>
-					<Item id = "6801" name = "Zálohování při ukládání"/>
-					<Item id = "6803" name = "Adresář:"/>
-					<Item id = "6804" name = "Uživatelský adresář pro zálohy"/>
-					<Item id = "6817" name = "Body obnovení a periodické zálohování"/>
-					<Item id = "6818" name = "Aktivovat ukládání bodů pro obnovení relace a periodické zálohování"/>
-					<Item id = "6819" name = "Zálohovat každých"/>
-					<Item id = "6821" name = "sekund"/>
-					<Item id = "6822" name = "Cesta k zálohám:"/>
+				<Backup title="Zálohování">
+					<Item id="6219" name="Uživatelsky definovaný adresář pro zálohování"/>
+					<Item id="6309" name="Zapamatovat aktuální relaci pro spuštění příště"/>
+					<Item id="6315" name="Vypnuto"/>
+					<Item id="6316" name="Základní zálohování"/>
+					<Item id="6317" name="Zálohování s hlášeními"/>
+					<Item id="6801" name="Zálohování při ukládání"/>
+					<Item id="6803" name="Adresář:"/>
+					<Item id="6804" name="Uživatelský adresář pro zálohy"/>
+					<Item id="6817" name="Body obnovení a periodické zálohování"/>
+					<Item id="6818" name="Aktivovat ukládání bodů pro obnovení relace a periodické zálohování"/>
+					<Item id="6819" name="Zálohovat každých"/>
+					<Item id="6821" name="sekund"/>
+					<Item id="6822" name="Cesta k zálohám:"/>
 				</Backup>
-				<AutoCompletion title = "Automat. dokončování">
-					<Item id = "6115" name = "Automatické odsazování"/>
-					<Item id = "6807" name = "Automatické dokončování"/>
-					<Item id = "6808" name = "Povolit autom. dokončování každého vstupu"/>
-					<Item id = "6809" name = "Dokončování funkcí"/>
-					<Item id = "6810" name = "Dokončování slov"/>
-					<Item id = "6811" name = "Od"/>
-					<Item id = "6813" name = ". znaku"/>
-					<Item id = "6815" name = "Nápověda k parametrům funkcí při zadávaní"/>
-					<Item id = "6816" name = "Dokončování funkcí i slov"/>
-					<Item id = "6824" name = "Ignorovat čísla"/>
-					<Item id = "6851" name = "Automatické vkládání"/>
-					<Item id = "6857" name = "html/xml uzavír. tag"/>
-					<Item id = "6858" name = "Úvodní"/>
-					<Item id = "6859" name = "Koncový"/>
-					<Item id = "6860" name = "Párové znaky 1:"/>
-					<Item id = "6863" name = "Párové znaky 2:"/>
-					<Item id = "6866" name = "Párové znaky 3:"/>
-					<Item id = "6869" name = "Vložit vybraný návrh"/>
-					<Item id = "6870" name = "TAB"/> <!-- TAB key on the keyboard, it's not necessary to translate it normally -->
-					<Item id = "6871" name = "ENTER"/> <!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
-					<Item id = "6872" name = "Zkracovat seznam automat. dokončování"/>
+				<AutoCompletion title="Automat. dokončování">
+					<Item id="6115" name="Automatické odsazování"/>
+					<Item id="6807" name="Automatické dokončování"/>
+					<Item id="6808" name="Povolit autom. dokončování každého vstupu"/>
+					<Item id="6809" name="Dokončování funkcí"/>
+					<Item id="6810" name="Dokončování slov"/>
+					<Item id="6811" name="Od"/>
+					<Item id="6813" name=". znaku"/>
+					<Item id="6815" name="Nápověda k parametrům funkcí při zadávaní"/>
+					<Item id="6816" name="Dokončování funkcí i slov"/>
+					<Item id="6824" name="Ignorovat čísla"/>
+					<Item id="6851" name="Automatické vkládání"/>
+					<Item id="6857" name="html/xml uzavír. tag"/>
+					<Item id="6858" name="Úvodní"/>
+					<Item id="6859" name="Koncový"/>
+					<Item id="6860" name="Párové znaky 1:"/>
+					<Item id="6863" name="Párové znaky 2:"/>
+					<Item id="6866" name="Párové znaky 3:"/>
+					<Item id="6869" name="Vložit vybraný návrh"/>
+					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6872" name="Zkracovat seznam automat. dokončování"/>
 				</AutoCompletion>
-				<MultiInstance title = "Více instancí &amp; Datum">
-					<Item id = "6151" name = "Nastavení víceinstančního módu *"/>
-					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++ (a při ukončení ji automaticky uložit)"/>
-					<Item id = "6153" name = "Vždy ve víceinstančním módu"/>
-					<Item id = "6154" name = "Implicitní (jedno-instanční) mód"/>
-					<Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
-					<Item id = "6171" name = "Přizpůsobení vkládaného aktuálního datumu a času"/>
-					<Item id = "6175" name = "Obrátit implicitní pořadí vkládaných údajů (pro kratší i delší verzi)"/>
-					<Item id = "6172" name = "Přizpůsobený formát:"/>
-					<Item id = "6181" name = "Stav panelů a [-nosession] *"/>
-					<Item id = "6182" name = "Pamatovat si stav panelu (otevření panelu) v dalších instancích (víceinstanční mód) nebo při použití parametru přík. řádky [-nosession]"/>
-					<Item id = "6183" name = "Historie Schránky"/>
-					<Item id = "6184" name = "Seznam dokumentů"/>
-					<Item id = "6185" name = "Panel ASCII znaků"/>
-					<Item id = "6186" name = "Složka jako pracovní plocha"/>
-					<Item id = "6187" name = "Panely projektu"/>
-					<Item id = "6188" name = "Přehledná mapa dokumentu"/>
-					<Item id = "6189" name = "Seznam funkcí"/>
-					<Item id = "6190" name = "Panely pluginů"/>
+				<MultiInstance title="Více instancí &amp; Datum">
+					<Item id="6151" name="Nastavení víceinstančního módu *"/>
+					<Item id="6152" name="Otevírat relaci v nové instanci Notepadu++ (a při ukončení ji automaticky uložit)"/>
+					<Item id="6153" name="Vždy ve víceinstančním módu"/>
+					<Item id="6154" name="Implicitní (jedno-instanční) mód"/>
+					<Item id="6155" name="* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
+					<Item id="6171" name="Přizpůsobení vkládaného aktuálního datumu a času"/>
+					<Item id="6175" name="Obrátit implicitní pořadí vkládaných údajů (pro kratší i delší verzi)"/>
+					<Item id="6172" name="Přizpůsobený formát:"/>
+					<Item id="6181" name="Stav panelů a [-nosession] *"/>
+					<Item id="6182" name="Pamatovat si stav panelu (otevření panelu) v dalších instancích (víceinstanční mód) nebo při použití parametru přík. řádky [-nosession]"/>
+					<Item id="6183" name="Historie Schránky"/>
+					<Item id="6184" name="Seznam dokumentů"/>
+					<Item id="6185" name="Panel ASCII znaků"/>
+					<Item id="6186" name="Složka jako pracovní plocha"/>
+					<Item id="6187" name="Panely projektu"/>
+					<Item id="6188" name="Přehledná mapa dokumentu"/>
+					<Item id="6189" name="Seznam funkcí"/>
+					<Item id="6190" name="Panely pluginů"/>
 				</MultiInstance>
-				<Delimiter title = "Ohraničení">
-					<Item id = "6251" name = "Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
-					<Item id = "6252" name = "Úvod"/>
-					<Item id = "6255" name = "Konec"/>
-					<Item id = "6256" name = "Povolit přes více řádků"/>
-					<Item id = "6257" name = "bla bla bla bla bla bla"/>
-					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
-					<Item id = "6161" name = "Seznam znaků pro Slova"/>
-					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
-					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást Slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
+				<Delimiter title="Ohraničení">
+					<Item id="6251" name="Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
+					<Item id="6252" name="Úvod"/>
+					<Item id="6255" name="Konec"/>
+					<Item id="6256" name="Povolit přes více řádků"/>
+					<Item id="6257" name="bla bla bla bla bla bla"/>
+					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>
+					<Item id="6161" name="Seznam znaků pro Slova"/>
+					<Item id="6162" name="Použít implicitní seznam znaků pro Slova tak, jak je"/>
+					<Item id="6163" name="Přidat Váš vlastní znak jako součást Slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
-				<Performance title = "Výkon"> 
-					<Item id = "7141" name = "Omezení funkcí pro velké soubory"/> 
-					<Item id = "7143" name = "Povolit vypnutí zvýrazňování syntaxe pro velké soubory"/> 
-					<Item id = "7144" name = "Velký soubor je >= "/> 
-					<Item id = "7146" name = "MB   (1 - 4096)"/> 
-					<Item id = "7147" name = "Povolit párování závorek"/> 
-					<Item id = "7148" name = "Povolit automatické dokončování"/> 
-					<Item id = "7149" name = "Povolit inteligentní zvýrazňování"/> 
-					<Item id = "7150" name = "Deaktivovat (globálně) zalamování řádků"/> 
-					<Item id = "7151" name = "Povolit klikatelné URL odkazy"/> 
-				</Performance> 
-				<Cloud title = "Cloud a odkazy">
-					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
-					<Item id = "6262" name = "Nastavení internetového úložiště"/>
-					<Item id = "6263" name = "Bez cloudu"/>
-					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>
-					<Item id = "6318" name = "Nastavení klikatelných odkazů"/>
-					<Item id = "6319" name = "Povolit"/>
-					<Item id = "6320" name = "Bez podtržení"/>
-					<Item id = "6350" name = "Povolit fullbox mód"/>
-					<Item id = "6264" name = "Přizpůsobené URI vzory:"/>
+				<Performance title="Výkon">
+					<Item id="7141" name="Omezení funkcí pro velké soubory"/>
+					<Item id="7143" name="Povolit vypnutí zvýrazňování syntaxe pro velké soubory"/>
+					<Item id="7144" name="Velký soubor je >= "/>
+					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7147" name="Povolit párování závorek"/>
+					<Item id="7148" name="Povolit automatické dokončování"/>
+					<Item id="7149" name="Povolit inteligentní zvýrazňování"/>
+					<Item id="7150" name="Deaktivovat (globálně) zalamování řádků"/>
+					<Item id="7151" name="Povolit klikatelné URL odkazy"/>
+				</Performance>
+				<Cloud title="Cloud a odkazy">
+					<Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/>
+					<Item id="6262" name="Nastavení internetového úložiště"/>
+					<Item id="6263" name="Bez cloudu"/>
+					<Item id="6267" name="Zde nastavte cestu k Vašemu i-úložišti:"/>
+					<Item id="6318" name="Nastavení klikatelných odkazů"/>
+					<Item id="6319" name="Povolit"/>
+					<Item id="6320" name="Bez podtržení"/>
+					<Item id="6350" name="Povolit fullbox mód"/>
+					<Item id="6264" name="Přizpůsobené URI vzory:"/>
 				</Cloud>
-				<SearchEngine title = "Vyhledávač">
-					<Item id = "6271" name = "Vyhledávač (pro příkaz “Vyhledat na Internetu”)"/>
-					<Item id = "6272" name = "DuckDuckGo"/>
-					<Item id = "6273" name = "Google"/>
-					<Item id = "6274" name = "Bing"/>
-					<Item id = "6275" name = "Yahoo!"/>
-					<Item id = "6276" name = "Nastavit Váš vyhledávač zde:"/>
+				<SearchEngine title="Vyhledávač">
+					<Item id="6271" name="Vyhledávač (pro příkaz “Vyhledat na Internetu”)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Nastavit Váš vyhledávač zde:"/>
 					<!-- Don’t change anything after Example: -->
-					<Item id = "6278" name = "Příklad: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+					<Item id="6278" name="Příklad: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 			</Preference>
 
-			<MultiMacro title = "Spustit makro vícekrát">
-				<Item id = "1" name = "S&amp;pustit"/>
-				<Item id = "2" name = "&amp;Storno"/>
-				<Item id = "8006" name = "Makro:"/>
-				<Item id = "8001" name = "Spustit"/>
-				<Item id = "8005" name = "krát"/>
-				<Item id = "8002" name = "Až do &amp;konce souboru"/>
+			<MultiMacro title="Spustit makro vícekrát">
+				<Item id="1" name="S&amp;pustit"/>
+				<Item id="2" name="&amp;Storno"/>
+				<Item id="8001" name="Spustit"/>
+				<Item id="8002" name="Až do &amp;konce souboru"/>
+				<Item id="8005" name="krát"/>
+				<Item id="8006" name="Makro"/>
 			</MultiMacro>
 
-			<Window title = "Okna">
-				<Item id = "1" name = "&amp;Aktivovat"/>
-				<Item id = "2" name = "&amp;OK"/>
-				<Item id = "7002" name = "&amp;Uložit"/>
-				<Item id = "7003" name = "&amp;Zavřít okno(a)"/>
-				<Item id = "7004" name = "&amp;Setřídit"/>
+			<Window title="Okna">
+				<Item id="1" name="&amp;Aktivovat"/>
+				<Item id="2" name="&amp;OK"/>
+				<Item id="7002" name="&amp;Uložit"/>
+				<Item id="7003" name="&amp;Zavřít okno(a)"/>
+				<Item id="7004" name="&amp;Setřídit"/>
 			</Window>
 
-			<ColumnEditor title = "Editor sloupce">
-				<Item id = "2023" name = "&amp;Text ke vložení"/>
-				<Item id = "2024" name = "&amp;Dec"/>
-				<Item id = "2025" name = "&amp;Oct"/>
-				<Item id = "2026" name = "&amp;Hex"/>
-				<Item id = "2027" name = "&amp;Bin"/>
-				<Item id = "2030" name = "&amp;Počáteční číslo:"/>
-				<Item id = "2031" name = "&amp;Inkrementace po:"/>
-				<Item id = "2032" name = "&amp;Formát"/>
-				<Item id = "2033" name = "&amp;Číslo ke vložení"/>
-				<Item id = "2038" name = "&amp;Uvozující znaky:"/>
-				<ComboBox id = "2039">
+			<ColumnEditor title="Editor sloupce">
+				<Item id="2023" name="&amp;Text ke vložení"/>
+				<Item id="2024" name="&amp;Dec"/>
+				<Item id="2025" name="&amp;Oct"/>
+				<Item id="2026" name="&amp;Hex"/>
+				<Item id="2027" name="&amp;Bin"/>
+				<Item id="2030" name="&amp;Počáteční číslo:"/>
+				<Item id="2031" name="&amp;Inkrementace po:"/>
+				<Item id="2032" name="&amp;Formát"/>
+				<Item id="2033" name="&amp;Číslo ke vložení"/>
+				<Item id="2038" name="&amp;Uvozující znaky:"/>
+				<ComboBox id="2039">
 					<Element name="Žádné"/>
 					<Element name="Nuly"/>
 					<Element name="Mezery"/>
 				</ComboBox>
-				<Item id = "2036" name = "Opa&amp;kování:"/>
-				<Item id = "1" name = "OK"/>
-				<Item id = "2" name = "Storno"/>
+				<Item id="2036" name="Opa&amp;kování:"/>
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Storno"/>
 			</ColumnEditor>
 
-			<FindInFinder title = "Najít ve výsledcích vyhledávání">
-				<Item id = "1" name = "N&amp;ajít vše"/>
-				<Item id = "2" name = "&amp;Zavřít"/>
-				<Item id = "1711" name = "Najít &amp;co:"/>
-				<Item id = "1713" name = "Vyhledat pouze v nalezených &amp;řádcích"/>
-				<Item id = "1714" name = "Rozlišovat &amp;pouze celá slova"/>
-				<Item id = "1715" name = "Rozlišovat &amp;velká a malá písmena"/>
-				<Item id = "1716" name = "Vyhledávací &amp;mód"/>
-				<Item id = "1717" name = "&amp;Normální"/>
-				<Item id = "1719" name = "Re&amp;gulární výrazy"/>
-				<Item id = "1718" name = "&amp;Rozšířený (\n, \r, \t, \0, \x...)"/>
-				<Item id = "1720" name = "&amp;. označuje nový ř."/>
+			<FindInFinder title="Najít ve výsledcích vyhledávání">
+				<Item id="1" name="N&amp;ajít vše"/>
+				<Item id="2" name="&amp;Zavřít"/>
+				<Item id="1711" name="Najít &amp;co:"/>
+				<Item id="1713" name="Vyhledat pouze v nalezených &amp;řádcích"/>
+				<Item id="1714" name="Rozlišovat &amp;pouze celá slova"/>
+				<Item id="1715" name="Rozlišovat &amp;velká a malá písmena"/>
+				<Item id="1716" name="Vyhledávací &amp;mód"/>
+				<Item id="1717" name="&amp;Normální"/>
+				<Item id="1719" name="Re&amp;gulární výrazy"/>
+				<Item id="1718" name="&amp;Rozšířený (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. označuje nový ř."/>
 			</FindInFinder>
 			
-			<DoSaveOrNot title = "Ukládání"> 
-				<Item id = "1761" name = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
-				<Item id = "6" name = "&amp;Ano"/>
-				<Item id = "7" name = "&amp;Ne"/>
-				<Item id = "2" name = "&amp;Storno"/>
-				<Item id = "4" name = "Ano pro &amp;všechny"/>
-				<Item id = "5" name = "N&amp;e pro všechny"/>
+			<DoSaveOrNot title="Ukládání">
+				<Item id="1761" name="Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="&amp;Ano"/>
+				<Item id="7" name="&amp;Ne"/>
+				<Item id="2" name="&amp;Storno"/>
+				<Item id="4" name="Ano pro &amp;všechny"/>
+				<Item id="5" name="N&amp;e pro všechny"/>
 			</DoSaveOrNot>
 			
-			<DoSaveAll title = "Potvrzení pro 'Uložit všechny'">
-				<Item id = "1766" name = "Jste si jistí, že chcete uložit všechny modifikované dokumenty?
+			<DoSaveAll title="Potvrzení pro 'Uložit všechny'">
+				<Item id="1766" name="Jste si jistí, že chcete uložit všechny modifikované dokumenty?
 
 Vyberte &quot;Pokaždé ano&quot;, jestliže nechcete znovu vidět tento dialog.
 Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
-				<Item id = "6" name = "&amp;Ano"/>
-				<Item id = "7" name = "&amp;Ne"/>
-				<Item id = "4" name = "Pokaždé ano"/>
-			</DoSaveAll> <!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+				<Item id="6" name="&amp;Ano"/>
+				<Item id="7" name="&amp;Ne"/>
+				<Item id="4" name="Pokaždé ano"/>
+			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 
 		</Dialog>
 
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<ContextMenuXmlEditWarning title = "Úprava kontextové nabídky" message = "Úpravou souboru contextMenu.xml můžete modifikovat chování vyskakovacího kontextového menu Notepadu++. Po případné změně musíte restartovat Notepad++, aby se změny projevily."/>
-			<SaveCurrentModifWarning title = "Uložit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
-			<LoseUndoAbilityWarning title = "Varování před ztrátou možnosti vrátit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
-			<CannotMoveDoc title = "Přejít k nové instanci Notepadu++" message = "Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
-			<DocReloadWarning title = "Znovu otevřít" message = "Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
-			<FileLockedWarning title = "Uložení selhalo" message = "Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
-			<FileAlreadyOpenedInNpp title = "" message = "Tento soubor je již otevřen v Notepadu++."/>
-			<RenameTabTemporaryNameAlreadyInUse title = "Přejmenování selhalo" message = "Specifikovaný název je již použit na jiné záložce."/> <!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<DeleteFileFailed title = "Odstranit Soubor" message = "Odstranění souboru selhalo"/>
-			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
-			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
-			<FilePathNotFoundWarning title = "Otevření souboru" message = "Soubor, který se pokoušíte otevřít, neexistuje."/>
-			<SessionFileInvalidError title = "Relace nemohla být zavedena" message = "Soubor relace je buďto poškozen nebo je neplatný."/>
-			<DroppingFolderAsProjectModeWarning title = "Neplatná akce" message = "Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
-			<SortingError title = "Chyba třídění" message = "Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
-			<ColumnModeTip title = "Tip pro Sloupcový režim" message = "
+			<ContextMenuXmlEditWarning title="Úprava kontextové nabídky" message="Úpravou souboru contextMenu.xml můžete modifikovat chování vyskakovacího kontextového menu Notepadu++. Po případné změně musíte restartovat Notepad++, aby se změny projevily."/>
+			<SaveCurrentModifWarning title="Uložit změny" message="Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
+			<LoseUndoAbilityWarning title="Varování před ztrátou možnosti vrátit změny" message="Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
+			<CannotMoveDoc title="Přejít k nové instanci Notepadu++" message="Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
+			<DocReloadWarning title="Znovu otevřít" message="Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
+			<FileLockedWarning title="Uložení selhalo" message="Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
+			<FileAlreadyOpenedInNpp title="" message="Tento soubor je již otevřen v Notepadu++."/>
+			<RenameTabTemporaryNameAlreadyInUse title="Přejmenování selhalo" message="Specifikovaný název je již použit na jiné záložce."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<DeleteFileFailed title="Odstranit Soubor" message="Odstranění souboru selhalo"/>
+			<NbFileToOpenImportantWarning title="Velmi mnoho souborů k otevření" message="$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
+			<SettingsOnCloudError title="Nastavení cloudu" message="Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
+			<FilePathNotFoundWarning title="Otevření souboru" message="Soubor, který se pokoušíte otevřít, neexistuje."/>
+			<SessionFileInvalidError title="Relace nemohla být zavedena" message="Soubor relace je buďto poškozen nebo je neplatný."/>
+			<DroppingFolderAsProjectModeWarning title="Neplatná akce" message="Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
+			<SortingError title="Chyba třídění" message="Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
+			<ColumnModeTip title="Tip pro Sloupcový režim" message="
 Existují 3 způsoby přepnutí do režimu výběru sloupce:
 
 1. (Klávesnice a myš)
@@ -1395,189 +1397,196 @@ Existují 3 způsoby přepnutí do režimu výběru sloupce:
     Přesuňte kurzor na požadovanou pozici konce sloupcového bloku,
     potom znovu vykonejte příkaz:
       &quot;Začít/Ukončit výběr v Sloupcovém režimu&quot;."/>
-			<BufferInvalidWarning title = "Ukládání selhalo" message = "Nelze uložit: Neplatná vyrovnávací paměť."/>
-			<DoSaveOrNot title = "Ukládání" message = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
-			<DoCloseOrNot title = "Zachování neexistujícího souboru" message = "Soubor &quot;$STR_REPLACE$&quot; již neexistuje (na disku). Chcete zachovat tento soubor v editoru?"/>
-			<DoDeleteOrNot title = "Smazání souboru" message = "Soubor &quot;$STR_REPLACE$&quot; bude přemístěn do Koše a tento dokument bude uzavřen. Pokračovat?"/>
-			<NoBackupDoSaveFile title = "Ukládání" message = "Váš soubor pro zálohu není k nalezení (byl smazán z vnějšku). Vytvořte zálohu, jinak budou Vaše data ztracena. Chcete uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
-			<DoReloadOrNot title = "Znovuotevření" message = "&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst?"/>
-			<DoReloadOrNotAndLooseChange title = "Znovuotevření" message = "&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst a ztratit tak všechny změny provedené v Notepadu++?"/>
-			<PrehistoricSystemDetected title = "Detekován příliš starý systém" message = "Vypadá to, že používáte příliš starý operační systém. Je nám líto, ale tato funkce je podporována pouze na novějších systémech."/>
-			<XpUpdaterProblem title = "Aktualizační program Notepadu++" message = "Aktualizační program Notepadu++ není kompatibilní s Windows XP vzhledem k zastaralé bezpečnostní vrstvě tohoto systému. Chcete místo toho přejít na webové stránky Notepadu++, odkud si můžete sami stáhnout poslední verzi Notepadu++?"/>
-			<GUpProxyConfNeedAdminMode title = "Nastavení proxy-serveru" message = "Pro nastavení proxy-serveru spusťte prosím znovu Notepad++ pod účtem administrátora."/>
-			<DocTooDirtyToMonitor title = "Chyba sledování stavu" message = "Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
-			<DocNoExistToMonitor title = "Problém se sledováním stavu" message = "Soubor musí existovat, aby jej bylo možné sledovat."/>
-			<FileTooBigToOpen title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
-			<FileLoadingException title = "Kód výjimky: $STR_REPLACE$" message = "Při načítání souboru došlo k chybě!"/>
-			<WantToOpenHugeFile title = "Varování při otevírání velikého souboru" message = "Otevření velikého souboru (2GB+) může trvat i několik minut.
+			<BufferInvalidWarning title="Ukládání selhalo" message="Nelze uložit: Neplatná vyrovnávací paměť."/>
+			<DoSaveOrNot title="Ukládání" message="Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title="Zachování neexistujícího souboru" message="Soubor &quot;$STR_REPLACE$&quot; již neexistuje (na disku). Chcete zachovat tento soubor v editoru?"/>
+			<DoDeleteOrNot title="Smazání souboru" message="Soubor &quot;$STR_REPLACE$&quot; bude přemístěn do Koše a tento dokument bude uzavřen. Pokračovat?"/>
+			<NoBackupDoSaveFile title="Ukládání" message="Váš soubor pro zálohu není k nalezení (byl smazán z vnějšku). Vytvořte zálohu, jinak budou Vaše data ztracena. Chcete uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Znovuotevření" message="&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst?"/>
+			<DoReloadOrNotAndLooseChange title="Znovuotevření" message="&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst a ztratit tak všechny změny provedené v Notepadu++?"/>
+			<PrehistoricSystemDetected title="Detekován příliš starý systém" message="Vypadá to, že používáte příliš starý operační systém. Je nám líto, ale tato funkce je podporována pouze na novějších systémech."/>
+			<XpUpdaterProblem title="Aktualizační program Notepadu++" message="Aktualizační program Notepadu++ není kompatibilní s Windows XP vzhledem k zastaralé bezpečnostní vrstvě tohoto systému. Chcete místo toho přejít na webové stránky Notepadu++, odkud si můžete sami stáhnout poslední verzi Notepadu++?"/>
+			<GUpProxyConfNeedAdminMode title="Nastavení proxy-serveru" message="Pro nastavení proxy-serveru spusťte prosím znovu Notepad++ pod účtem administrátora."/>
+			<DocTooDirtyToMonitor title="Chyba sledování stavu" message="Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
+			<DocNoExistToMonitor title="Problém se sledováním stavu" message="Soubor musí existovat, aby jej bylo možné sledovat."/>
+			<FileTooBigToOpen title="Problém s velikostí souboru" message="Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
+			<FileLoadingException title="Kód výjimky: $STR_REPLACE$" message="Při načítání souboru došlo k chybě!"/>
+			<WantToOpenHugeFile title="Varování při otevírání velikého souboru" message="Otevření velikého souboru (2GB+) může trvat i několik minut.
 Opravdu chcete soubor otevřít?"/>
-			<CreateNewFileOrNot title = "Vytvoření nového souboru" message = "&quot;$STR_REPLACE$&quot; neexistuje. Chcete jej vytvořit?"/>
-			<CreateNewFileError title = "Vytvoření nového souboru" message = "Není možné vytvořit soubor &quot;$STR_REPLACE$&quot;."/>
-			<OpenFileError title = "CHYBA" message = "Není možné otevřít soubor &quot;$STR_REPLACE$&quot;."/>
-			<OpenFileNoFolderError title = "Soubor nelze otevřít" message = "Soubor &quot;$STR_REPLACE1$&quot; nemůže být otevřen:
+			<CreateNewFileOrNot title="Vytvoření nového souboru" message="&quot;$STR_REPLACE$&quot; neexistuje. Chcete jej vytvořit?"/>
+			<CreateNewFileError title="Vytvoření nového souboru" message="Není možné vytvořit soubor &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileError title="CHYBA" message="Není možné otevřít soubor &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileNoFolderError title="Soubor nelze otevřít" message="Soubor &quot;$STR_REPLACE1$&quot; nemůže být otevřen:
 Složka &quot;$STR_REPLACE2$&quot; neexistuje."/>
-			<FileBackupFailed title = "Selhání zálohování souboru" message = "Předchozí verzi souboru se nepodařilo uložit do adresáře se zálohami &quot;$STR_REPLACE$&quot;. Budete chtít přesto uložit aktuální verzi souboru?"/>
-			<LoadStylersFailed title = "Selhání načtení stylers.xml" message = "Nepodařilo se načíst &quot;$STR_REPLACE$&quot;!"/>
-			<LoadLangsFailed title = "Konfigurátor" message = "Nepodařilo se načíst langs.xml! Chcete obnovit Váš soubor langs.xml?"/>
-			<LoadLangsFailedFinal title = "Konfigurátor" message = "Nepodařilo se načíst soubor langs.xml!"/>
-			<FolderAsWorspaceSubfolderExists title = "Problém s přidáváním složek do Složky jako pracovní plochy" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
-			<ProjectPanelChanged title = "$STR_REPLACE$" message = "Pracovní plocha byla modifikována. Přejete si ji uložit?"/>
+			<FileBackupFailed title="Selhání zálohování souboru" message="Předchozí verzi souboru se nepodařilo uložit do adresáře se zálohami &quot;$STR_REPLACE$&quot;. Budete chtít přesto uložit aktuální verzi souboru?"/>
+			<LoadStylersFailed title="Selhání načtení stylers.xml" message="Nepodařilo se načíst &quot;$STR_REPLACE$&quot;!"/>
+			<LoadLangsFailed title="Konfigurátor" message="Nepodařilo se načíst langs.xml! Chcete obnovit Váš soubor langs.xml?"/>
+			<LoadLangsFailedFinal title="Konfigurátor" message="Nepodařilo se načíst soubor langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title="Problém s přidáváním složek do Složky jako pracovní plochy" message="Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Pracovní plocha byla modifikována. Přejete si ji uložit?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Při ukládání souboru Vaší pracovní plochy došlo k chybě. 
-Vaše pracovní plocha nebyla uložena."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<ProjectPanelOpenDoSaveDirtyWsOrNot title = "Otevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
-			<ProjectPanelNewDoSaveDirtyWsOrNot title = "Nová pracovní plocha" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
-			<ProjectPanelOpenFailed title = "Otevření pracovní plochy" message = "Pracovní plocha nemohla být načtena. Vypadá to, že soubor k otevření není platnou pracovní plochou."/>
-			<ProjectPanelRemoveFolderFromProject title = "Odebrání složky z projektu" message = "Všechny podsložky budou odebrány. Jste si jisti, že chcete odebrat tuto složku z projektu?"/>
-			<ProjectPanelRemoveFileFromProject title = "Odebrání souboru z projektu" message = "Jste si jisti, že chcete odebrat tento soubor z projektu?"/>
-			<ProjectPanelReloadError title = "Znovuotevření pracovní plochy" message = "Soubor k opětovnému načtení nebyl nalezen."/>
-			<ProjectPanelReloadDirty title = "Znovuotevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Opětovným načtením přijdete o všechny provedené změny. Chcete pokračovat?"/>
-			<UDLNewNameError title = "Chyba UDL" message = "Tento název je již využíván jiným jazykem/syntaxí, prosím zadejte jiný."/>
-			<UDLRemoveCurrentLang title = "Odstranění aktuální syntaxe" message = "Jste si jisti?"/>
-			<SCMapperDoDeleteOrNot title = "Jste si jisti?" message = "Jste si jisti, že chcete smazat tuto klávesovou zkratku?"/>
-			<FindCharRangeValueError title = "Problém s rozsahem hodnoty" message = "Měli byste napsat hodnotu z rozsahu 0 až 255."/>
-			<OpenInAdminMode title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
-			<OpenInAdminModeWithoutCloseCurrent title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
-			<OpenInAdminModeFailed title = "Otevření s administrátorskými právy selhalo" message = "Notepad++ nemůže být spuštěn s právy administrátora."/>
-			<ViewInBrowser title = "Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
-			<ExitToUpdatePlugins title = "Notepad++ má být ukončen" message = "Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
-			<NeedToRestartToLoadPlugins title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro zavedení nainstalovaných zásuvných modulů musíte restartovat Notepad++."/>
-			<ChangeHistoryEnabledWarning title = "Notepad++ potřebuje být znovu spuštěn" message = "Pro aktivaci historie změn souborů musíte restartovat Notepad++."/> <!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title = "Notepad++ - Ukončení relace Windows" message = "Relace systému Windows má být ukončena, ale některá data nemáte uložena. Chcete nyní ukončit Notepad++?"/>
-			<LanguageMenuCompactWarning title = "Kompaktní menu pro syntaxe" message = "Ke změně dojde až při příštím spuštění."/> <!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
-			<SwitchUnsavedThemeWarning title = "$STR_REPLACE$" message = "Neuložené změny stylu budou zahozeny!
-Chcete své změny uložit před přepnutím stylu?"/> <!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+Vaše pracovní plocha nebyla uložena."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Otevření pracovní plochy" message="Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nová pracovní plocha" message="Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
+			<ProjectPanelOpenFailed title="Otevření pracovní plochy" message="Pracovní plocha nemohla být načtena. Vypadá to, že soubor k otevření není platnou pracovní plochou."/>
+			<ProjectPanelRemoveFolderFromProject title="Odebrání složky z projektu" message="Všechny podsložky budou odebrány. Jste si jisti, že chcete odebrat tuto složku z projektu?"/>
+			<ProjectPanelRemoveFileFromProject title="Odebrání souboru z projektu" message="Jste si jisti, že chcete odebrat tento soubor z projektu?"/>
+			<ProjectPanelReloadError title="Znovuotevření pracovní plochy" message="Soubor k opětovnému načtení nebyl nalezen."/>
+			<ProjectPanelReloadDirty title="Znovuotevření pracovní plochy" message="Nyní používaná pracovní plocha byla modifikována. Opětovným načtením přijdete o všechny provedené změny. Chcete pokračovat?"/>
+			<UDLNewNameError title="Chyba UDL" message="Tento název je již využíván jiným jazykem/syntaxí, prosím zadejte jiný."/>
+			<UDLRemoveCurrentLang title="Odstranění aktuální syntaxe" message="Jste si jisti?"/>
+			<SCMapperDoDeleteOrNot title="Jste si jisti?" message="Jste si jisti, že chcete smazat tuto klávesovou zkratku / příkaz?"/>
+			<FindCharRangeValueError title="Problém s rozsahem hodnoty" message="Měli byste napsat hodnotu z rozsahu 0 až 255."/>
+			<OpenInAdminMode title="Uložení selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Uložení selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminModeFailed title="Otevření s administrátorskými právy selhalo" message="Notepad++ nemůže být spuštěn s právy administrátora."/>
+			<ViewInBrowser title="Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
+			<ExitToUpdatePlugins title="Notepad++ má být ukončen" message="Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
+			<NeedToRestartToLoadPlugins title="Notepad++ potřebuje být znovu spuštěn" message="Pro zavedení nainstalovaných zásuvných modulů musíte restartovat Notepad++."/>
+			<ChangeHistoryEnabledWarning title="Notepad++ potřebuje být znovu spuštěn" message="Pro aktivaci historie změn souborů musíte restartovat Notepad++."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<WindowsSessionExit title="Notepad++ - Ukončení relace Windows" message="Relace systému Windows má být ukončena, ale některá data nemáte uložena. Chcete nyní ukončit Notepad++?"/>
+			<LanguageMenuCompactWarning title="Kompaktní menu pro syntaxe" message="Ke změně dojde až při příštím spuštění."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené změny stylu budou zahozeny!
+Chcete své změny uložit před přepnutím stylu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Kompatibilita maker a příkazů nabídky Spustit" message="Vaše makra a příkazy nabídky Spustit uložené Notepadem++ verze 8.5.2 (anebo starším) nemusí být kompatibilní s aktuální verzí Notepadu++.
+			
+Vyzkoušejte si je prosím v aktuální verzi Notepadu++ a v případě potřeby upravte a znovu uložte.
+
+Jako alternativu můžete využít přechod zpět na nižší verzi Notepadu++ (v8.5.2-) a obnovit svoje předchozí data ze zálohy, která bude vytvořena. Notepad++ nyní zazálohuje Váš stávající soubor &quot;shortcuts.xml&quot; a uloží ho jako &quot;shortcuts.xml.v8.5.2.backup&quot;.
+
+Přejmenováním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; zpátky by se Vaše původní makra a příkazy měly obnovit a fungovat správně."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 		</MessageBox>
 		
 		<ClipboardHistory>
-			<PanelTitle name = "Historie Schránky"/>
+			<PanelTitle name="Historie Schránky"/>
 		</ClipboardHistory>
 		
 		<DocList>
-			<PanelTitle name = "Seznam dokumentů"/>
-			<ColumnName name = "Název"/>
-			<ColumnExt name = "Příp."/>
-			<ColumnPath name = "Cesta"/>
-			<ListGroups name = "Seskupovat podle náhledu"/>
+			<PanelTitle name="Seznam dokumentů"/>
+			<ColumnName name="Název"/>
+			<ColumnExt name="Příp."/>
+			<ColumnPath name="Cesta"/>
+			<ListGroups name="Seskupovat podle náhledu"/>
 		</DocList>
 		
 		<WindowsDlg>
-			<ColumnName name = "Název"/>
-			<ColumnPath name = "Cesta"/>
-			<ColumnType name = "Typ"/>
-			<ColumnSize name = "Velikost"/>
-			<NbDocsTotal name = "celkem dokumentů:"/>
-			<MenuCopyName name = "Kopírovat název(y)"/>
-			<MenuCopyPath name = "Kopírovat cestu(y)"/>
+			<ColumnName name="Název"/>
+			<ColumnPath name="Cesta"/>
+			<ColumnType name="Typ"/>
+			<ColumnSize name="Velikost"/>
+			<NbDocsTotal name="celkem dokumentů:"/>
+			<MenuCopyName name="Kopírovat název(y)"/>
+			<MenuCopyPath name="Kopírovat cestu(y)"/>
 		</WindowsDlg>
 		
 		<AsciiInsertion>
-			<PanelTitle name = "Panel ke vkládání ASCII znaků"/>
-			<ColumnVal name = "Dec"/>
-			<ColumnHex name = "Hex"/>
-			<ColumnChar name = "Znak"/>
-			<ColumnHtmlName name = "HTML"/>
-			<ColumnHtmlNumber name = "HTML Dec"/>
+			<PanelTitle name="Panel ke vkládání ASCII znaků"/>
+			<ColumnVal name="Dec"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Znak"/>
+			<ColumnHtmlName name="HTML"/>
+			<ColumnHtmlNumber name="HTML Dec"/>
 			<ColumnHtmlHexNb name="HTML Hex"/>
 		</AsciiInsertion>
 		
 		<DocumentMap>
-			<PanelTitle name = "Mapa dokumentu"/>
+			<PanelTitle name="Mapa dokumentu"/>
 		</DocumentMap>
 		
 		<FunctionList>
-			<PanelTitle name = "Seznam funkcí"/>
-			<SortTip name = "Setřídit" />
-			<ReloadTip name = "Znovu načíst" />
-			<PreferencesTip name = "Volby"/>
-			<PreferencesInitialSort name = "Implicitně třídit funkce (od A do Z)"/>
+			<PanelTitle name="Seznam funkcí"/>
+			<SortTip name="Setřídit"/>
+			<ReloadTip name="Znovu načíst"/>
+			<PreferencesTip name="Volby"/>
+			<PreferencesInitialSort name="Implicitně třídit funkce (od A do Z)"/>
 		</FunctionList>
 		
 		<FolderAsWorkspace>
-			<PanelTitle name = "Složka jako Pracovní plocha"/>
-			<SelectFolderFromBrowserString name = "Vyberte složku, kterou chcete přidat do Pracovní plochy"/>
-			<ExpandAllFoldersTip name = "Rozbalit všechny složky"/>
-			<CollapseAllFoldersTip name = "Sbalit všechny složky"/>
-			<LocateCurrentFileTip name = "Zjistit, kde je aktuální soubor"/>
+			<PanelTitle name="Složka jako Pracovní plocha"/>
+			<SelectFolderFromBrowserString name="Vyberte složku, kterou chcete přidat do Pracovní plochy"/>
+			<ExpandAllFoldersTip name="Rozbalit všechny složky"/>
+			<CollapseAllFoldersTip name="Sbalit všechny složky"/>
+			<LocateCurrentFileTip name="Zjistit, kde je aktuální soubor"/>
 			<Menu>
-				<Item id = "3511" name = "Odebrat"/>
-				<Item id = "3512" name = "Odebrat vše"/>
-				<Item id = "3513" name = "Přidat"/>
-				<Item id = "3514" name = "Spustit systémem"/>
-				<Item id = "3515" name = "Otevřít"/>
-				<Item id = "3516" name = "Kopírovat cestu"/>
-				<Item id = "3517" name = "Najít v souborech..."/>
-				<Item id = "3518" name = "Průzkumník zde"/>
-				<Item id = "3519" name = "cmd zde"/>
-				<Item id = "3520" name = "Kopírovat název souboru"/>
+				<Item id="3511" name="Odebrat"/>
+				<Item id="3512" name="Odebrat vše"/>
+				<Item id="3513" name="Přidat"/>
+				<Item id="3514" name="Spustit systémem"/>
+				<Item id="3515" name="Otevřít"/>
+				<Item id="3516" name="Kopírovat cestu"/>
+				<Item id="3517" name="Najít v souborech..."/>
+				<Item id="3518" name="Průzkumník zde"/>
+				<Item id="3519" name="cmd zde"/>
+				<Item id="3520" name="Kopírovat název souboru"/>
 			</Menu>
 		</FolderAsWorkspace>
 
 		<ProjectManager>
-			<PanelTitle name = "Projekt"/>
-			<WorkspaceRootName name = "Pracovní plocha"/>
-			<NewProjectName name = "Název projektu"/>
-			<NewFolderName name = "Název složky"/>
+			<PanelTitle name="Projekt"/>
+			<WorkspaceRootName name="Pracovní plocha"/>
+			<NewProjectName name="Název projektu"/>
+			<NewFolderName name="Název složky"/>
 			<Menus>
 				<Entries>
-					<Item id = "0" name = "Pracovní plocha"/>
-					<Item id = "1" name = "Úpravy"/>
+					<Item id="0" name="Pracovní plocha"/>
+					<Item id="1" name="Úpravy"/>
 				</Entries>
 				<WorkspaceMenu>
-					<Item id = "3122" name = "Nová pracovní plocha"/>
-					<Item id = "3123" name = "Otevřít pracovní plochu"/>
-					<Item id = "3124" name = "Znovu načíst pracovní plochu"/>
-					<Item id = "3125" name = "Uložit"/>
-					<Item id = "3126" name = "Uložit jako..."/>
-					<Item id = "3127" name = "Uložit kopii jako..."/>
-					<Item id = "3121" name = "Přidat nový projekt"/>
-					<Item id = "3128" name = "Najít v projektech..."/>
+					<Item id="3122" name="Nová pracovní plocha"/>
+					<Item id="3123" name="Otevřít pracovní plochu"/>
+					<Item id="3124" name="Znovu načíst pracovní plochu"/>
+					<Item id="3125" name="Uložit"/>
+					<Item id="3126" name="Uložit jako..."/>
+					<Item id="3127" name="Uložit kopii jako..."/>
+					<Item id="3121" name="Přidat nový projekt"/>
+					<Item id="3128" name="Najít v projektech..."/>
 				</WorkspaceMenu>
 				<ProjectMenu>
-					<Item id = "3111" name = "Přejmenovat"/>
-					<Item id = "3112" name = "Přidat složku"/>
-					<Item id = "3113" name = "Přidat soubory..."/>
-					<Item id = "3114" name = "Odstranit"/>
-					<Item id = "3117" name = "Přidat soubory ze složky..." />
-					<Item id = "3118" name = "Posunout nahoru"/>
-					<Item id = "3119" name = "Posunout dolů"/>
+					<Item id="3111" name="Přejmenovat"/>
+					<Item id="3112" name="Přidat složku"/>
+					<Item id="3113" name="Přidat soubory..."/>
+					<Item id="3114" name="Odstranit"/>
+					<Item id="3117" name="Přidat soubory ze složky..."/>
+					<Item id="3118" name="Posunout nahoru"/>
+					<Item id="3119" name="Posunout dolů"/>
 				</ProjectMenu>
 				<FolderMenu>
-					<Item id = "3111" name = "Přejmenovat"/>
-					<Item id = "3112" name = "Přidat složku"/>
-					<Item id = "3113" name = "Přidat soubory..."/>
-					<Item id = "3114" name = "Odstranit"/>
-					<Item id = "3117" name = "Přidat soubory ze složky..." />
-					<Item id = "3118" name = "Posunout nahoru"/>
-					<Item id = "3119" name = "Posunout dolů"/>
+					<Item id="3111" name="Přejmenovat"/>
+					<Item id="3112" name="Přidat složku"/>
+					<Item id="3113" name="Přidat soubory..."/>
+					<Item id="3114" name="Odstranit"/>
+					<Item id="3117" name="Přidat soubory ze složky..."/>
+					<Item id="3118" name="Posunout nahoru"/>
+					<Item id="3119" name="Posunout dolů"/>
 				</FolderMenu>
 				<FileMenu>
-					<Item id = "3111" name = "Přejmenovat"/>
-					<Item id = "3115" name = "Odstranit"/>
-					<Item id = "3116" name = "Změnit cestu k souboru"/>
-					<Item id = "3118" name = "Posunout nahoru"/>
-					<Item id = "3119" name = "Posunout dolů"/>
+					<Item id="3111" name="Přejmenovat"/>
+					<Item id="3115" name="Odstranit"/>
+					<Item id="3116" name="Změnit cestu k souboru"/>
+					<Item id="3118" name="Posunout nahoru"/>
+					<Item id="3119" name="Posunout dolů"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
 		
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<word-chars-list-tip value = "Toto nastavení Vám dovolí začlenit další znak ke stávajícím znakům slova při výběru dvojklikem nebo při vyhledávání se zaškrtnutou možností &quot;Hledat pouze celá slova&quot;."/>
+			<word-chars-list-tip value="Toto nastavení Vám dovolí začlenit další znak ke stávajícím znakům slova při výběru dvojklikem nebo při vyhledávání se zaškrtnutou možností &quot;Hledat pouze celá slova&quot;."/>
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-			<eol-custom-color-tip value = "Pro změnu předvolené vlastní barvy přejděte do úpravy stylů (&quot;EOL custom color&quot;)."/>
-			<word-chars-list-warning-begin value = "Berte na vědomí: "/>
-			<word-chars-list-space-warning value = "$INT_REPLACE$ mezeru(y)"/>
-			<word-chars-list-tab-warning value = "$INT_REPLACE$ tabulátor(y)"/>
-			<word-chars-list-warning-end value = "  ve Vašem seznamu znaků."/>
-			<backup-select-folder value = "Vyberte složku pro zálohy"/> <!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
-			<cloud-invalid-warning value = "Neplatná cesta."/>
-			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
-			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
-			<default-open-save-select-folder value = "Vyberte výchozí složku"/> <!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
-			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
-			<two-find-buttons-tip value = "Mód se dvěma vyhledávacími tlačítky"/>
-			<file-rename-title value = "Přejmenovat"/>
-			<find-in-files-filter-tip value = "Hledat v cpp, cxx, h, hxx &amp;&amp; hpp souborech:
+			<eol-custom-color-tip value="Pro změnu předvolené vlastní barvy přejděte do úpravy stylů (&quot;EOL custom color&quot;)."/>
+			<word-chars-list-warning-begin value="Berte na vědomí: "/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ mezeru(y)"/>
+			<word-chars-list-tab-warning value="$INT_REPLACE$ tabulátor(y)"/>
+			<word-chars-list-warning-end value="  ve Vašem seznamu znaků."/>
+			<backup-select-folder value="Vyberte složku pro zálohy"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<cloud-invalid-warning value="Neplatná cesta."/>
+			<cloud-restart-warning value="Pro aktivaci změn prosím restartujte Notepad++."/>
+			<cloud-select-folder value="Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
+			<default-open-save-select-folder value="Vyberte výchozí složku"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<shift-change-direction-tip value="Pro změnu směru vyhledávání použijte Shift + Enter."/>
+			<two-find-buttons-tip value="Mód se dvěma vyhledávacími tlačítky"/>
+			<file-rename-title value="Přejmenovat"/>
+			<find-in-files-filter-tip value="Hledat v cpp, cxx, h, hxx &amp;&amp; hpp souborech:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Hledat ve všech souborech mimo exe, obj &amp;&amp; log:
@@ -1587,111 +1596,111 @@ Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
 *.* !\\tests !\\bin*
 
 Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
-*.* !\\log*+"/>  <!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
-			<find-in-files-select-folder value = "Vyberte složku, kde chcete vyhledávat"/> <!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
-			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
-			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>
-			<find-status-replaceinfiles-nb-replaced value = "Nahrazování v souborech: $INT_REPLACE$ výskytů nahrazeno"/>
-			<find-status-replaceinfiles-re-malformed value = "Nahrazování v otevřených souborech: Regulární výraz je vadný"/>
-			<find-status-replaceinopenedfiles-1-replaced value = "Nahrazování v otevřených souborech: 1 výskyt nahrazen"/>
-			<find-status-replaceinopenedfiles-nb-replaced value = "Nahrazování v otevřených souborech: $INT_REPLACE$ výskytů nahrazeno"/>
-			<find-status-mark-re-malformed value = "Označování: Regulární výraz pro vyhledávání je vadný"/>
-			<find-status-invalid-re value = "Vyhledávání: Neplatný regulární výraz"/>
+*.* !\\log*+"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
+			<find-in-files-select-folder value="Vyberte složku, kde chcete vyhledávat"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-status-top-reached value="Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
+			<find-status-end-reached value="Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
+			<find-status-replaceinfiles-1-replaced value="Nahrazování v souborech: 1 výskyt nahrazen"/>
+			<find-status-replaceinfiles-nb-replaced value="Nahrazování v souborech: $INT_REPLACE$ výskytů nahrazeno"/>
+			<find-status-replaceinfiles-re-malformed value="Nahrazování v otevřených souborech: Regulární výraz je vadný"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Nahrazování v otevřených souborech: 1 výskyt nahrazen"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Nahrazování v otevřených souborech: $INT_REPLACE$ výskytů nahrazeno"/>
+			<find-status-mark-re-malformed value="Označování: Regulární výraz pro vyhledávání je vadný"/>
+			<find-status-invalid-re value="Vyhledávání: Neplatný regulární výraz"/>
 			<find-status-search-failed value="Vyhledávání: Hledání bylo neúspěšné"/>
-			<find-status-mark-1-match value = "Označení: 1 výskyt"/>
-			<find-status-mark-nb-matches value = "Označení: $INT_REPLACE$ výskytů"/>
-			<find-status-count-re-malformed value = "Počet: Regulární výraz pro vyhledávání je vadný"/>
-			<find-status-count-1-match value = "Počet: 1 výskyt"/>
-			<find-status-count-nb-matches value = "Počet: $INT_REPLACE$ výskytů"/>
-			<find-status-replaceall-re-malformed value = "Nahradit vše: Regulární výraz je vadný"/>
-			<find-status-replaceall-1-replaced value = "Nahrazování všeho: 1 výskyt nahrazen"/>
-			<find-status-replaceall-nb-replaced value = "Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
-			<find-status-replaceall-readonly value = "Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
-			<find-status-replace-end-reached value = "Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
-			<find-status-replace-top-reached value = "Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
-			<find-status-replaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
-			<find-status-replaced-without-continuing value = "Nahrazování: 1 výskyt byl nahrazen."/>
-			<find-status-replaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen."/>
-			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
-			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
-			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
-			<find-status-scope-selection value = "ve vybraném textu"/>
-			<find-status-scope-all value = "v celém souboru"/>
-			<find-status-scope-backward value = "od začátku souboru až ke kurzoru"/>
-			<find-status-scope-forward value = "od kurzoru až do konce souboru"/>
-			<finder-find-in-finder value = "Nalézt v těchto výsledcích hledání..."/>
-			<finder-close-this value = "Zavřít tyto vyhledané výsledky"/>
-			<finder-collapse-all value = "Sbalit vše"/>
-			<finder-uncollapse-all value = "Rozbalit vše"/>
-			<finder-copy value = "Kopírovat vybrané řádky"/>
-			<finder-copy-verbatim value = "Kopírovat"/>
-			<finder-copy-paths value = "Kopírovat souborovou cestu(y)"/>
-			<finder-select-all value = "Vybrat vše"/>
-			<finder-clear-all value = "Smazat vše"/>
-			<finder-open-all value = "Otevřít vše"/>
+			<find-status-mark-1-match value="Označení: 1 výskyt"/>
+			<find-status-mark-nb-matches value="Označení: $INT_REPLACE$ výskytů"/>
+			<find-status-count-re-malformed value="Počet: Regulární výraz pro vyhledávání je vadný"/>
+			<find-status-count-1-match value="Počet: 1 výskyt"/>
+			<find-status-count-nb-matches value="Počet: $INT_REPLACE$ výskytů"/>
+			<find-status-replaceall-re-malformed value="Nahradit vše: Regulární výraz je vadný"/>
+			<find-status-replaceall-1-replaced value="Nahrazování všeho: 1 výskyt nahrazen"/>
+			<find-status-replaceall-nb-replaced value="Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
+			<find-status-replaceall-readonly value="Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
+			<find-status-replace-end-reached value="Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
+			<find-status-replace-top-reached value="Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
+			<find-status-replaced-next-found value="Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
+			<find-status-replaced-without-continuing value="Nahrazování: 1 výskyt byl nahrazen."/>
+			<find-status-replaced-next-not-found value="Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen."/>
+			<find-status-replace-not-found value="Nahrazování: žádný výskyt nebyl nalezen"/>
+			<find-status-replace-readonly value="Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
+			<find-status-cannot-find value="Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
+			<find-status-scope-selection value="ve vybraném textu"/>
+			<find-status-scope-all value="v celém souboru"/>
+			<find-status-scope-backward value="od začátku souboru až ke kurzoru"/>
+			<find-status-scope-forward value="od kurzoru až do konce souboru"/>
+			<finder-find-in-finder value="Nalézt v těchto výsledcích hledání..."/>
+			<finder-close-this value="Zavřít tyto vyhledané výsledky"/>
+			<finder-collapse-all value="Sbalit vše"/>
+			<finder-uncollapse-all value="Rozbalit vše"/>
+			<finder-copy value="Kopírovat vybrané řádky"/>
+			<finder-copy-verbatim value="Kopírovat"/>
+			<finder-copy-paths value="Kopírovat souborovou cestu(y)"/>
+			<finder-select-all value="Vybrat vše"/>
+			<finder-clear-all value="Smazat vše"/>
+			<finder-open-all value="Otevřít vše"/>
 			<finder-purge-for-every-search value="Vymazat před každým vyhledáváním"/>
-			<finder-wrap-long-lines value = "Zalomit dlouhé řádky"/>
-			<common-ok value = "OK"/>
-			<common-cancel value = "Storno"/>
-			<common-name value = "Název: "/>
-			<tabrename-title value = "Přejmenovat aktuální záložku (Tab)"/>
-			<tabrename-newname value = "Nový název: "/>
+			<finder-wrap-long-lines value="Zalomit dlouhé řádky"/>
+			<common-ok value="OK"/>
+			<common-cancel value="Storno"/>
+			<common-name value="Název: "/>
+			<tabrename-title value="Přejmenovat aktuální záložku (Tab)"/>
+			<tabrename-newname value="Nový název: "/>
 			<splitter-rotate-left value="Otočit doleva"/>
 			<splitter-rotate-right value="Otočit doprava"/>
-			<userdefined-title-new value = "Vytvořit novou syntaxi..."/>
-			<userdefined-title-save value = "Uložit název aktuální syntaxe jako..."/>
-			<userdefined-title-rename value = "Přejmenovat název aktuální syntaxe"/>
-			<summary value = "Souhrn"/>
-			<summary-filepath value = "Úplná cesta k souboru: "/>
-			<summary-filecreatetime value = "Vytvořeno: "/>
-			<summary-filemodifytime value = "Modifikováno: "/>
-			<summary-nbchar value = "Znaky (bez konců řádek): "/>
-			<summary-nbword value = "Slova: "/>	
-			<summary-nbline value = "Řádky: "/>
-			<summary-nbbyte value = "Délka dokumentu: "/>
-			<summary-nbsel1 value = " vybraných znaků ("/>
-			<summary-nbsel2 value = " bytů) v "/>
-			<summary-nbrange value = " oblastech"/>
-			<progress-hits-title value = "Výskytů:"/>
-			<progress-cancel-button value = "Storno"/>
-			<progress-cancel-info value = "Ruším operaci, počkejte prosím ..."/>
-			<find-in-files-progress-title value = "Průběh hledání v souborech ..."/>
-			<replace-in-files-confirm-title value = "Jste si jistí?"/>
-			<replace-in-files-confirm-directory value = "Jste si jistí, že chcete nahradit všechny výskyty v:"/>
-			<replace-in-files-confirm-filetype value = "Pro typ souboru:"/>
-			<replace-in-files-progress-title value = "Průběh zaměňování v souborech ..."/>
-			<replace-in-projects-confirm-title value = "Jste si jistí?"/>
-			<replace-in-projects-confirm-message value = "Chcete zaměnit všechny výskyty ve všech dokumentech vybraných projektových panelů?"/>
-			<replace-in-open-docs-confirm-title value = "Jste si jistí?"/>
-			<replace-in-open-docs-confirm-message value = "Opravdu chcete zaměnit všechny výskyty ve všech otevřených dokumentech?"/>
-			<find-result-caption value = "Výsledky vyhledávání"/>
-			<find-result-title value = "Vyhledávání"/> <!-- Must not begin with space or tab character -->
-			<find-result-title-info value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ souborech z $INT_REPLACE3$ prohledaných)"/>
-			<find-result-title-info-selections value = "($INT_REPLACE1$ výskytů v $INT_REPLACE2$ výběrech z $INT_REPLACE3$ prohledávaných)"/>
-			<find-result-title-info-extra value = " - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
-			<find-result-hits value = "(výskytů: $INT_REPLACE$)"/>
-			<find-result-line-prefix value = "Řádek"/> <!-- Must not begin with space or tab character -->
-			<find-regex-zero-length-match value = "shoda nulové délky"/>
-			<session-save-folder-as-workspace value = "Uložit složku jako pracovní plochu"/>
-			<tab-untitled-string value = "nový "/>
-			<file-save-assign-type value = "Přid&amp;at příponu."/>
-			<close-panel-tip value = "Zavřít" />
-			<IncrementalFind-FSFound value = "výskytů: $INT_REPLACE$"/>
-			<IncrementalFind-FSNotFound value = "Výraz nenalezen."/>
-			<IncrementalFind-FSTopReached value = "Bylo dosaženo začátku stránky, pokračování odspodu"/>
-			<IncrementalFind-FSEndReached value = "Bylo dosaženo konce stránky, pokračování odshora"/>
-			<contextMenu-styleAlloccurrencesOfToken value = "Označit všechny výskyty tokenu stylem"/>
-			<contextMenu-styleOneToken value = "Označit token (jeden) stylem"/>
-			<contextMenu-clearStyle value = "Odstranit označení stylem u tokenů"/>
-			<contextMenu-PluginCommands value = "Pluginové povely"/>
-			<largeFileRestriction-tip value = "Některé funkce mohou u velkých souborů způsobit snížení výkonu. Tyto funkce je možné při otevření velkého souboru automaticky vypnout. Zde si můžete přizpůsobit jejich nastavení.
+			<userdefined-title-new value="Vytvořit novou syntaxi..."/>
+			<userdefined-title-save value="Uložit název aktuální syntaxe jako..."/>
+			<userdefined-title-rename value="Přejmenovat název aktuální syntaxe"/>
+			<summary value="Souhrn"/>
+			<summary-filepath value="Úplná cesta k souboru: "/>
+			<summary-filecreatetime value="Vytvořeno: "/>
+			<summary-filemodifytime value="Modifikováno: "/>
+			<summary-nbchar value="Znaky (bez konců řádek): "/>
+			<summary-nbword value="Slova: "/>
+			<summary-nbline value="Řádky: "/>
+			<summary-nbbyte value="Délka dokumentu: "/>
+			<summary-nbsel1 value=" vybraných znaků ("/>
+			<summary-nbsel2 value=" bytů) v "/>
+			<summary-nbrange value=" oblastech"/>
+			<progress-hits-title value="Výskytů:"/>
+			<progress-cancel-button value="Storno"/>
+			<progress-cancel-info value="Ruším operaci, počkejte prosím ..."/>
+			<find-in-files-progress-title value="Průběh hledání v souborech ..."/>
+			<replace-in-files-confirm-title value="Jste si jistí?"/>
+			<replace-in-files-confirm-directory value="Jste si jistí, že chcete nahradit všechny výskyty v:"/>
+			<replace-in-files-confirm-filetype value="Pro typ souboru:"/>
+			<replace-in-files-progress-title value="Průběh zaměňování v souborech ..."/>
+			<replace-in-projects-confirm-title value="Jste si jistí?"/>
+			<replace-in-projects-confirm-message value="Chcete zaměnit všechny výskyty ve všech dokumentech vybraných projektových panelů?"/>
+			<replace-in-open-docs-confirm-title value="Jste si jistí?"/>
+			<replace-in-open-docs-confirm-message value="Opravdu chcete zaměnit všechny výskyty ve všech otevřených dokumentech?"/>
+			<find-result-caption value="Výsledky vyhledávání"/>
+			<find-result-title value="Vyhledávání"/><!-- Must not begin with space or tab character -->
+			<find-result-title-info value="($INT_REPLACE1$ výskytů v $INT_REPLACE2$ souborech z $INT_REPLACE3$ prohledaných)"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ výskytů v $INT_REPLACE2$ výběrech z $INT_REPLACE3$ prohledávaných)"/>
+			<find-result-title-info-extra value=" - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
+			<find-result-hits value="(výskytů: $INT_REPLACE$)"/>
+			<find-result-line-prefix value="Řádek"/><!-- Must not begin with space or tab character -->
+			<find-regex-zero-length-match value="shoda nulové délky"/>
+			<session-save-folder-as-workspace value="Uložit složku jako pracovní plochu"/>
+			<tab-untitled-string value="nový "/>
+			<file-save-assign-type value="Přid&amp;at příponu."/>
+			<close-panel-tip value="Zavřít"/>
+			<IncrementalFind-FSFound value="výskytů: $INT_REPLACE$"/>
+			<IncrementalFind-FSNotFound value="Výraz nenalezen."/>
+			<IncrementalFind-FSTopReached value="Bylo dosaženo začátku stránky, pokračování odspodu"/>
+			<IncrementalFind-FSEndReached value="Bylo dosaženo konce stránky, pokračování odshora"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Označit všechny výskyty tokenu stylem"/>
+			<contextMenu-styleOneToken value="Označit token (jeden) stylem"/>
+			<contextMenu-clearStyle value="Odstranit označení stylem u tokenů"/>
+			<contextMenu-PluginCommands value="Pluginové příkazy"/>
+			<largeFileRestriction-tip value="Některé funkce mohou u velkých souborů způsobit snížení výkonu. Tyto funkce je možné při otevření velkého souboru automaticky vypnout. Zde si můžete přizpůsobit jejich nastavení.
 
 POZN.:
 1. Pro správnou funkčnost musíte po modifikaci nastavení znovuotevřít aktuálně otevřené velké soubory.
 
-2. Jestliže je povolena možnost &quot;Deaktivovat (globálně) zalamování řádků&quot; a vy otevřete velký soubor, volba &quot;Zalomit řádky&quot; bude vypnuta pro všechny soubory. Můžete ji znovu zapnout v menu &quot;Zobrazit-&gt;Zalomit řádky&quot;." />
-			<npcNote-tip value = "Zobrazení vybraných &quot;ne-ASCII&quot; prázdných a netisknutelných (řídících) znaků.
+2. Jestliže je povolena možnost &quot;Deaktivovat (globálně) zalamování řádků&quot; a vy otevřete velký soubor, volba &quot;Zalomit řádky&quot; bude vypnuta pro všechny soubory. Můžete ji znovu zapnout v menu &quot;Zobrazit-&gt;Zalomit řádky&quot;."/>
+			<npcNote-tip value="Zobrazení vybraných &quot;ne-ASCII&quot; prázdných a netisknutelných (řídících) znaků.
 
 POZN:
 Některé znaky již mohou mít určitou reprezentaci a jsou tedy viditelné. Oddělovač řádků a oddělovač odstavců jsou již ve výchozím nastavení reprezentovány zkratkou.
@@ -1700,24 +1709,25 @@ Použití grafické reprezentace těchto znaků deaktivuje jejich případné ef
 
 Úplný seznam těchto vybraných znaků naleznete v Uživatelské příručce.
 
-Kliknutím na toto tlačítko otevřete webovou stránku s Uživatelskou příručkou." />
-			<npcAbbreviation-tip value = "Zkratka : název
+Kliknutím na toto tlačítko otevřete webovou stránku s Uživatelskou příručkou."/>
+			<npcAbbreviation-tip value="Zkratka : název
 NBSP : no-break space
 ZWSP : zero-width space
 ZWNBSP : zero-width no-break space
 
 Úplný seznam naleznete v Uživatelské příručce.
-Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživatelskou příručkou." />
-            <npcCodepoint-tip value = "Kód : název
+Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživatelskou příručkou."/>
+			<npcCodepoint-tip value="Kód : název
 U+00A0 : no-break space
 U+200B : zero-width space
 U+FEFF : zero-width no-break space
 
 Úplný seznam naleznete v Uživatelské příručce.
-Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživatelskou příručkou." />
+Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživatelskou příručkou."/>
 
-            <!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-            <npcCustomColor-tip value="Přejděte do Úpravy stylu a změňte výchozí vlastní barvu pro vybrané prázdné a netisknutelné znaky. (&quot;Non-printing characters custom color&quot;)." />
+			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcCustomColor-tip value="Přejděte do Úpravy stylu a změňte výchozí vlastní barvu pro vybrané prázdné a netisknutelné znaky. (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Použije nastavení vzhledu netisknutelných znaků pro řídící znaky C0, C1 (reprezentují další informace o textu jako jsou další řádek, oddělovač řádků, oddělovač odstavců) a pro Unicode EOL znaky." />
 		</MiscStrings>
 
 	</Native-Langue>

@@ -562,6 +562,8 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_ROTATESELECTION"),         SCI_ROTATESELECTION,         false, false, false, 0,           0}
 };
 
+#define NONEEDSHORTCUTSXMLBACKUP_FILENAME L"v852NoNeedShortcutsBackup.xml"
+#define SHORTCUTSXML_FILENAME L"shortcuts.xml"
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
@@ -1460,15 +1462,22 @@ bool NppParameters::load()
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//
-	_shortcutsPath = _userPath;
-	pathAppend(_shortcutsPath, TEXT("shortcuts.xml"));
+	wstring v852NoNeedShortcutsBackup;
+	_shortcutsPath = v852NoNeedShortcutsBackup = _userPath;
+	pathAppend(_shortcutsPath, SHORTCUTSXML_FILENAME);
+	pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
 
 	if (!PathFileExists(_shortcutsPath.c_str()))
 	{
 		generic_string srcShortcutsPath(_nppPath);
-		pathAppend(srcShortcutsPath, TEXT("shortcuts.xml"));
+		pathAppend(srcShortcutsPath, SHORTCUTSXML_FILENAME);
 
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
+
+		// Creat empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
+		HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		::FlushFileBuffers(hFile);
+		::CloseHandle(hFile);
 	}
 
 	_pXmlShortcutDocA = new TiXmlDocumentA();
@@ -2022,8 +2031,8 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const gene
 	int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
 	for (int i = 0; i < nbMenuEntry; ++i)
 	{
-		TCHAR menuEntryString[64];
-		::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
+		TCHAR menuEntryString[menuItemStrLenMax];
+		::GetMenuString(mainMenuHadle, i, menuEntryString, menuItemStrLenMax, MF_BYPOSITION);
 		if (wcsicmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 		{
 			vector< pair<HMENU, int> > parentMenuPos;
@@ -2047,8 +2056,8 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const gene
 				else
 				{
 					//  Check current menu position.
-					TCHAR cmdStr[256];
-					::GetMenuString(currMenu, currMenuPos, cmdStr, 256, MF_BYPOSITION);
+					TCHAR cmdStr[menuItemStrLenMax];
+					::GetMenuString(currMenu, currMenuPos, cmdStr, menuItemStrLenMax, MF_BYPOSITION);
 					if (wcsicmp(menuItemName.c_str(), purgeMenuItemString(cmdStr).c_str()) == 0)
 					{
 						return ::GetMenuItemID(currMenu, currMenuPos);
@@ -2082,16 +2091,16 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 	int nbPlugins = ::GetMenuItemCount(pluginsMenu);
 	for (int i = 0; i < nbPlugins; ++i)
 	{
-		TCHAR menuItemString[256];
-		::GetMenuString(pluginsMenu, i, menuItemString, 256, MF_BYPOSITION);
+		TCHAR menuItemString[menuItemStrLenMax];
+		::GetMenuString(pluginsMenu, i, menuItemString, menuItemStrLenMax, MF_BYPOSITION);
 		if (wcsicmp(pluginName.c_str(), purgeMenuItemString(menuItemString).c_str()) == 0)
 		{
 			HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
 			int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
 			for (int j = 0; j < nbPluginCmd; ++j)
 			{
-				TCHAR pluginCmdStr[256];
-				::GetMenuString(pluginMenu, j, pluginCmdStr, 256, MF_BYPOSITION);
+				TCHAR pluginCmdStr[menuItemStrLenMax];
+				::GetMenuString(pluginMenu, j, pluginCmdStr, menuItemStrLenMax, MF_BYPOSITION);
 				if (wcsicmp(pluginCmdName.c_str(), purgeMenuItemString(pluginCmdStr).c_str()) == 0)
 				{
 					return ::GetMenuItemID(pluginMenu, j);
@@ -3186,7 +3195,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 
 	// shortcuts.xml
 	generic_string cloudShortcutsPath = cloudSettingsPath;
-	pathAppend(cloudShortcutsPath, TEXT("shortcuts.xml"));
+	pathAppend(cloudShortcutsPath, SHORTCUTSXML_FILENAME);
 	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDocA)
 	{
 		isOK = _pXmlShortcutDocA->SaveUnicodeFilePath(cloudShortcutsPath.c_str());
@@ -3425,9 +3434,18 @@ void NppParameters::insertScintKey(TiXmlNodeA *scintKeyRoot, const ScintillaKeyM
 
 void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 {
-	const TCHAR *pathName = fileName?fileName:_sessionPath.c_str();
+	const TCHAR *sessionPathName = fileName ? fileName : _sessionPath.c_str();
 
-	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(pathName);
+	// Backup session file before overriting it
+	TCHAR backupPathName[MAX_PATH]{};
+	if (PathFileExists(sessionPathName))
+	{
+		_tcscpy(backupPathName, sessionPathName);
+		_tcscat(backupPathName, TEXT(".inCaseOfCorruption.bak"));
+		CopyFile(sessionPathName, backupPathName, FALSE);
+	}
+
+	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(sessionPathName);
 
 	TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
 	pXmlSessionDoc->LinkEndChild(decl);
@@ -3521,7 +3539,36 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			}
 		}
 	}
-	pXmlSessionDoc->SaveFile();
+
+	bool sessionSaveOK = pXmlSessionDoc->SaveFile();
+
+	if (sessionSaveOK)
+	{
+		// Double checking: prevent written session file corrupted while writting
+		TiXmlDocument* pXmlSessionCheck = new TiXmlDocument(sessionPathName);
+		sessionSaveOK = pXmlSessionCheck->LoadFile();
+		delete pXmlSessionCheck;
+	}
+
+	if (!sessionSaveOK)
+	{
+		if (backupPathName[0]) // session backup file exists, restore it
+		{
+			_pNativeLangSpeaker->messageBox("ErrorOfSavingSessionFile",
+				nullptr,
+				TEXT("The old session file will be restored."),
+				TEXT("Error of saving session file"),
+				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			CopyFile(backupPathName, sessionPathName, FALSE);
+		}
+	}
+	else
+	{
+		if (backupPathName[0]) // session backup file not useful, delete it
+		{
+			::DeleteFile(backupPathName);
+		}
+	}
 
 	delete pXmlSessionDoc;
 }
@@ -3537,6 +3584,36 @@ void NppParameters::writeShortcuts()
 		_pXmlShortcutDocA = new TiXmlDocumentA();
 		TiXmlDeclarationA* decl = new TiXmlDeclarationA("1.0", "UTF-8", "");
 		_pXmlShortcutDocA->LinkEndChild(decl);
+	}
+	else
+	{
+		wchar_t v852NoNeedShortcutsBackup[MAX_PATH]{};
+		::wcscpy_s(v852NoNeedShortcutsBackup, _shortcutsPath.c_str());
+		::PathRemoveFileSpec(v852NoNeedShortcutsBackup);
+		::PathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
+
+		if (!::PathFileExists(v852NoNeedShortcutsBackup))
+		{
+			// Creat empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
+			HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			::FlushFileBuffers(hFile);
+			::CloseHandle(hFile);
+
+			// backup shortcuts file "shortcuts.xml" to "shortcuts.xml.v8.5.2.backup"
+			// if the backup file already exists, it will not be overwritten.
+			wstring v852ShortcutsBackupPath = _shortcutsPath;
+			v852ShortcutsBackupPath += L".v8.5.2.backup";
+			::CopyFile(_shortcutsPath.c_str(), v852ShortcutsBackupPath.c_str(), TRUE);
+
+			// Warn User about the current shortcut will be changed and it has been backup. If users' the shortcuts.xml has been corrupted
+			// due to recoded macro under v8.5.2 (or previous versions) being modified by v8.5.3 (or later versions),
+			// user can always go back to Notepad++ v8.5.2 and use the backup of shortcuts.xml 
+			_pNativeLangSpeaker->messageBox("MacroAndRunCmdlWarning",
+				nullptr,
+				TEXT("Your Macro and Run commands saved in Notepad++ v.8.5.2 (or older) may not be compatible with the current version of Notepad++.\nPlease test those commands and, if needed, re-edit them.\n\nAlternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.\nNotepad++ will backup your old \"shortcuts.xml\" and save it as \"shortcuts.xml.v8.5.2.backup\".\nRenaming \"shortcuts.xml.v8.5.2.backup\" -> \"shortcuts.xml\", your commands should be restored and work properly."),
+				TEXT("Macro and Run Commands Compatibility"),
+				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+		}
 	}
 
 	TiXmlNodeA *root = _pXmlShortcutDocA->FirstChild("NotepadPlus");

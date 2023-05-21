@@ -1581,7 +1581,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					{
 						case CPN_COLOURPICKED:
 						{
-							COLORREF c;
+							COLORREF c = 0;
 							if (reinterpret_cast<HWND>(lParam) == _pBackgroundColorPicker->getHSelf())
 							{
 								c = _pBackgroundColorPicker->getColour();
@@ -3522,7 +3522,7 @@ intptr_t CALLBACK HighlightingSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	return FALSE;
 }
 
-intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -3563,7 +3563,7 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SetDlgItemText(_hSelf, IDC_EDIT_FMIDDLE, nppGUI._printSettings._footerMiddle.c_str());
 			::SetDlgItemText(_hSelf, IDC_EDIT_FRIGHT, nppGUI._printSettings._footerRight.c_str());
 
-			TCHAR intStr[5];
+			TCHAR intStr[5]{};
 			for (int i = 6 ; i < 15 ; ++i)
 			{
 				wsprintf(intStr, TEXT("%d"), i);
@@ -3631,9 +3631,19 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		}
 
 		case WM_CTLCOLORDLG:
-		case WM_CTLCOLORSTATIC:
 		{
 			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_EDIT_VIEWPANEL)
+			{
+				return NppDarkMode::onCtlColor(hdcStatic);
+			}
+			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:
@@ -3645,9 +3655,9 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
-			if (HIWORD(wParam) == EN_CHANGE)
+			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) != IDC_EDIT_VIEWPANEL)
 			{
 				switch (LOWORD(wParam))
 				{
@@ -3667,13 +3677,13 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						nppGUI._printSettings._marge.bottom = ::GetDlgItemInt(_hSelf, IDC_EDIT_MB, NULL, FALSE);
 						return TRUE;
 
-					default :
+					default:
 					{
-						const int stringSize = 256;
-						TCHAR str[stringSize];
+						constexpr int stringSize = 256;
+						TCHAR str[stringSize]{};
 						_focusedEditCtrl = LOWORD(wParam);
 						::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
-						::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+						::SendDlgItemMessage(_hSelf, IDC_EDIT_VIEWPANEL, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 						switch (LOWORD(wParam))
 						{
 							case  IDC_EDIT_HLEFT:
@@ -3712,10 +3722,10 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					}
 				}
 			}
-			else if (HIWORD(wParam) == EN_SETFOCUS)
+			else if (HIWORD(wParam) == EN_SETFOCUS && LOWORD(wParam) != IDC_EDIT_VIEWPANEL)
 			{
-				const int stringSize = 256;
-				TCHAR str[stringSize];
+				constexpr int stringSize = 256;
+				TCHAR str[stringSize]{};
 				_focusedEditCtrl = LOWORD(wParam);
 				
 				int focusedEditStatic = 0;
@@ -3731,15 +3741,15 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					default : return TRUE;
 				}
 				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
-				::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
+				::SendDlgItemMessage(_hSelf, IDC_EDIT_VIEWPANEL, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 				::GetDlgItemText(_hSelf, groupStatic, str, stringSize);
 				generic_string title = str;
 				title += TEXT(" ");
 				::GetDlgItemText(_hSelf, focusedEditStatic, str, stringSize);
 				title += str;
-				title += TEXT(" : ");
-					
+				title = purgeMenuItemString(title.c_str()); // use purgeMenuItemString to clean '&'
 				::SendDlgItemMessage(_hSelf, IDC_WHICHPART_STATIC, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(title.c_str()));
+				redrawDlgItem(IDC_WHICHPART_STATIC);
 				return TRUE;
 			}
 			else if (HIWORD(wParam) == CBN_SELCHANGE)
@@ -3763,8 +3773,8 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					case IDC_COMBO_HFONTSIZE :
 					case IDC_COMBO_FFONTSIZE :
 					{
-						const size_t intStrLen = 3;
-						TCHAR intStr[intStrLen];
+						constexpr size_t intStrLen = 3;
+						TCHAR intStr[intStrLen]{};
 
 						auto lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXTLEN, iSel, 0);
 						if (static_cast<size_t>(lbTextLen) >= intStrLen)
@@ -3781,10 +3791,15 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					}
 					break;
 
-					case IDC_COMBO_VARLIST :
+					case IDC_COMBO_VARLIST:
 					{
+						break;
 					}
-					break;
+
+					default:
+					{
+						break;
+					}
 				}
 				return TRUE;
 			
@@ -3842,8 +3857,8 @@ intptr_t CALLBACK PrintSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						size_t selEnd = 0;
 						::SendDlgItemMessage(_hSelf, _focusedEditCtrl, EM_GETSEL, reinterpret_cast<WPARAM>(&selStart), reinterpret_cast<LPARAM>(&selEnd));
 
-						const int stringSize = 256;
-						TCHAR str[stringSize];
+						constexpr int stringSize = 256;
+						TCHAR str[stringSize]{};
 						::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, stringSize, reinterpret_cast<LPARAM>(str));
 
 						generic_string str2Set(str);
@@ -3977,8 +3992,8 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					case IDC_BACKUPDIR_RESTORESESSION_EDIT:
 					{
 						
-						const int stringSize = 16;
-						TCHAR str[stringSize];
+						constexpr int stringSize = 16;
+						TCHAR str[stringSize]{};
 
 						::GetDlgItemText(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, str, stringSize);
 
@@ -4002,8 +4017,8 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					case  IDC_BACKUPDIR_RESTORESESSION_EDIT:
 					{
 						//printStr(TEXT(""));
-						const int stringSize = 16;
-						TCHAR str[stringSize];
+						constexpr int stringSize = 16;
+						TCHAR str[stringSize]{};
 
 						::GetDlgItemText(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, str, stringSize);
 
@@ -4453,7 +4468,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 				case IDD_AUTOC_QUOTESCHECK :
 				{
 					bool isChecked = isCheckedOrNot(static_cast<int32_t>(wParam));
-					const TCHAR *label;
+					const TCHAR *label = nullptr;
 					if (wParam == IDD_AUTOCPARENTHESES_CHECK)
 					{
 						nppGUI._matchedPairConf._doParentheses = isChecked;
@@ -4558,8 +4573,8 @@ intptr_t CALLBACK MultiInstanceSubDlg::run_dlgProc(UINT message, WPARAM wParam, 
 		{
 			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_DATETIMEFORMAT_EDIT)
 			{
-				const size_t inputLen = 256;
-				TCHAR input[inputLen];
+				constexpr size_t inputLen = 256;
+				TCHAR input[inputLen]{};
 				::GetDlgItemText(_hSelf, IDC_DATETIMEFORMAT_EDIT, input, inputLen);
 
 				nppGUI._dateTimeFormat = input;
@@ -4775,10 +4790,10 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			//
 			// Delimiter
 			//
-			TCHAR opener[2];
+			TCHAR opener[2]{};
 			opener[0] = nppGUI._leftmostDelimiter;
 			opener[1] = '\0';
-			TCHAR closer[2];
+			TCHAR closer[2]{};
 			closer[0] = nppGUI._rightmostDelimiter;
 			closer[1] = '\0';
 			bool onSeveralLines = nppGUI._delimiterSelectionOnEntireDocument;
@@ -5185,8 +5200,8 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 		{
 			case  IDC_EDIT_PERFORMANCE_FILESIZE:
 			{
-				const int stringSize = 16;
-				TCHAR str[stringSize];
+				constexpr int stringSize = 16;
+				TCHAR str[stringSize]{};
 
 				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
 
@@ -5212,8 +5227,8 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 		{
 			case  IDC_EDIT_PERFORMANCE_FILESIZE:
 			{
-				const int stringSize = 16;
-				TCHAR str[stringSize];
+				constexpr int stringSize = 16;
+				TCHAR str[stringSize]{};
 				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
 
 				if (lstrcmp(str, TEXT("")) == 0)

@@ -47,7 +47,15 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
-			msg += " is opened.";
+			if (_hFile != INVALID_HANDLE_VALUE)
+			{
+				msg += " is opened.";
+			}
+			else
+			{
+				msg += " failed to open, CreateFileW ErrorCode: ";
+				msg += std::to_string(::GetLastError());
+			}
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 	}

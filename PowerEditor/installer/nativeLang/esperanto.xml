@@ -8,7 +8,7 @@
 	*********** BONAN LABORADON KUN NP++! :) ***********
 -->
 <NotepadPlus>
-	<Native-Langue name="Esperanto" filename="esperanto.xml" >
+	<Native-Langue name="Esperanto" filename="esperanto.xml">
 		<Menu>
 			<Main>
 				<!-- Ĉefaj menuoj -->
@@ -31,7 +31,7 @@
 					<Item subMenuId="file-openFolder" name="Malfermu aktualan dosierujon"/>
 					<Item subMenuId="file-closeMore" name="Fermu ..."/>
 					<Item subMenuId="file-recentFiles" name="PLU (Plej Laste Uzitaj)"/>
-					<Item subMenuId="edit-copyToClipboard"  name="Kopiu en la tondejon"/>
+					<Item subMenuId="edit-copyToClipboard" name="Kopiu en la tondejon"/>
 					<Item subMenuId="edit-indent" name="Krommarĝeno"/>
 					<Item subMenuId="edit-convertCaseTo" name="Uskleco"/>
 					<Item subMenuId="edit-lineOperations" name="Operacioj pri linioj"/>
@@ -45,31 +45,31 @@
 					<Item subMenuId="search-jumpUp" name="Saltu supren"/>
 					<Item subMenuId="search-jumpDown" name="Saltu suben"/>
 					<Item subMenuId="search-bookmark" name="Legosignoj"/>
-					<Item subMenuId="view-showSymbol"  name="Montru signojn..."/>
-					<Item subMenuId="view-zoom"  name="Zomo (tekstogrando)..."/>
-					<Item subMenuId="view-moveCloneDocument"  name="Deloku/Montru la aktivan dokumenton..."/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja, bazita sur PIV) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ŝanĝi lokon al io; do openoffice eraras(?) -->
+					<Item subMenuId="view-showSymbol" name="Montru signojn..."/>
+					<Item subMenuId="view-zoom" name="Zomo (tekstogrando)..."/>
+					<Item subMenuId="view-moveCloneDocument" name="Deloku/Montru la aktivan dokumenton..."/><!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja, bazita sur PIV) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ŝanĝi lokon al io; do openoffice eraras(?) -->
 					<Item subMenuId="view-tab" name="Langeto..."/>
 					<Item subMenuId="view-collapseLevel" name="[-] Faldu blokojn je nivelo..."/>
 					<Item subMenuId="view-uncollapseLevel" name="[+]Malfaldu blokojn je nivelo..."/>
 					<Item subMenuId="view-project" name="Projektoj"/>
-					<Item subMenuId="encoding-characterSets"  name="Regionaj signaroj"/>
-					<Item subMenuId="encoding-arabic"  name="Araba"/>
-					<Item subMenuId="encoding-baltic"  name="Balta"/>
-					<Item subMenuId="encoding-celtic"  name="Kelta"/>
-					<Item subMenuId="encoding-cyrillic"  name="Cirila"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Centreŭropa"/>
-					<Item subMenuId="encoding-chinese"  name="Ĉina"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Orienteŭropa"/>
-					<Item subMenuId="encoding-greek"  name="Greka"/>
-					<Item subMenuId="encoding-hebrew"  name="Hebrea"/>
-					<Item subMenuId="encoding-japanese"  name="Japana"/>
+					<Item subMenuId="encoding-characterSets" name="Regionaj signaroj"/>
+					<Item subMenuId="encoding-arabic" name="Araba"/>
+					<Item subMenuId="encoding-baltic" name="Balta"/>
+					<Item subMenuId="encoding-celtic" name="Kelta"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirila"/>
+					<Item subMenuId="encoding-centralEuropean" name="Centreŭropa"/>
+					<Item subMenuId="encoding-chinese" name="Ĉina"/>
+					<Item subMenuId="encoding-easternEuropean" name="Orienteŭropa"/>
+					<Item subMenuId="encoding-greek" name="Greka"/>
+					<Item subMenuId="encoding-hebrew" name="Hebrea"/>
+					<Item subMenuId="encoding-japanese" name="Japana"/>
 					<Item subMenuId="encoding-korean" name="Korea"/>
 					<Item subMenuId="encoding-northEuropean" name="Nordeŭropa"/>
 					<Item subMenuId="encoding-thai" name="Tajlanda"/>
 					<Item subMenuId="encoding-turkish" name="Turka"/>
 					<Item subMenuId="encoding-westernEuropean" name="Okcidenteŭropa"/>
 					<Item subMenuId="encoding-vietnamese" name="Vjetnama"/>
-					<Item subMenuId="settings-import"  name="Importu"/>
+					<Item subMenuId="settings-import" name="Importu"/>
 				</SubEntries>
 
 				<!-- Ĉiuj menueroj -->
@@ -89,8 +89,8 @@
 					<Item id="41007" name="Kons&amp;ervu ĉiujn"/>
 					<Item id="41008" name="Konservu &amp;kiel..."/>
 					<Item id="41010" name="Presu..."/>
-					<Item id="1001"  name="Presu nun!"/>
-					<Item id="41011" name="Eli&amp;ro"/> <!-- Kial ne "eliru"? Ĉar uzanto ne volas peti al Np++ eliri: la uzanto mem volas eliri de programo -->
+					<Item id="1001" name="Presu nun!"/>
+					<Item id="41011" name="Eli&amp;ro"/><!-- Kial ne "eliru"? Ĉar uzanto ne volas peti al Np++ eliri: la uzanto mem volas eliri de programo -->
 					<Item id="41012" name="Malfermu dosierojn de konservita seanco..."/>
 					<Item id="41013" name="Konservu la dosierliston de tiu ĉi seanco..."/>
 					<Item id="41014" name="Reŝargu el la disko"/>
@@ -120,7 +120,7 @@
 					<Item id="42021" name="&amp;Lanĉu makroon"/>
 					<Item id="42022" name="(Mal)komentigu la linion"/>
 					<Item id="42023" name="Komentigu la elektaĵon"/>
-					<Item id="42047" name="Malkomentigu la elektaĵon"/> <!--<Item id="42047" name="Transformu spacojn en TABojn"/>-->
+					<Item id="42047" name="Malkomentigu la elektaĵon"/><!--<Item id="42047" name="Transformu spacojn en TABojn"/>-->
 					<Item id="42024" name="Forigu finajn blanksignojn"/>
 					<Item id="42042" name="Forigu komencajn blanksignojn"/>
 					<Item id="42043" name="Forigu blanksignojn kaj komencajn kaj finajn"/>
@@ -146,7 +146,7 @@
 					<Item id="42030" name="... la nomon de la aktiva dosiero"/>
 					<Item id="42031" name="... la vojon de la dosierujo de la aktiva dosiero"/>
 					<Item id="42032" name="Lanĉu makroon plurfoje..."/>
-					<Item id="42033" name="Purigu la indikilon de nurlego"/> <!-- Indikilo kontraŭ flago: flago estas rekonata per la angla, alie necesas lerni novan signifon de la fundamenta radiko "flago"; indiko estas el la 3a "Baza Radikaro Oficiala", tamen estas memdesplikanta (do pli bonlingva)-->
+					<Item id="42033" name="Purigu la indikilon de nurlego"/><!-- Indikilo kontraŭ flago: flago estas rekonata per la angla, alie necesas lerni novan signifon de la fundamenta radiko "flago"; indiko estas el la 3a "Baza Radikaro Oficiala", tamen estas memdesplikanta (do pli bonlingva)-->
 					<Item id="42035" name="Komentigu blokon"/>
 					<Item id="42036" name="Malkomentigu blokon"/>
 					<Item id="42055" name="Forigu maplenajn liniojn"/>
@@ -213,7 +213,7 @@
 					<Item id="44010" name="[-] Faldu la tutan strukturon"/>
 					<Item id="44019" name="Montru ĉiujn signojn"/>
 					<Item id="44020" name="Montru krommarĝenan gvidilon"/>
-					<Item id="44022" name="Rompu la liniojn (laŭ la fenestra larĝo)"/> <!-- Rompi kontraŭ faldi: "faldi" estas uzata por alia celo (en menuo "vido") -->
+					<Item id="44022" name="Rompu la liniojn (laŭ la fenestra larĝo)"/><!-- Rompi kontraŭ faldi: "faldi" estas uzata por alia celo (en menuo "vido") -->
 					<Item id="44023" name="Pligrandigu  (Ctrl + Musrulumilo Antaŭen)"/>
 					<Item id="44024" name="Malpligrandigu  (Ctrl + Musrulumilo Malantaŭen)"/>
 					<Item id="44025" name="Montru blanksignojn"/>
@@ -266,7 +266,7 @@
 					<Item id="10004" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
 
 					<Item id="46001" name="Stilakordilo..."/>
-					<Item id="46250" name="Difinu vian lingvaĵon..."/> <!--estis: 44011-->
+					<Item id="46250" name="Difinu vian lingvaĵon..."/><!--estis: 44011-->
 					<Item id="46180" name="Propre difinita lingvaĵo"/>
 					<Item id="47000" name="Pri Notepad++..."/>
 					<Item id="47001" name="Hejmpaĝo de Notepad++"/>
@@ -277,7 +277,7 @@
 					<Item id="47006" name="Ĝisdatigo de Notepad++"/>
 					<Item id="47008" name="Loka helpo"/>
 					<Item id="47009" name="Agordu ĝisdatiga prokurilo..."/>
-                    <Item id="47010" name="Argumentoj de komandlinio" />
+					<Item id="47010" name="Argumentoj de komandlinio"/>
 					<Item id="48005" name="Importu kromaĵo(j)n..."/>
 					<Item id="48006" name="Importu etoso(j)n..."/>
 					<Item id="48018" name="Modifu kuntekstan menuon..."/>
@@ -306,32 +306,32 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item CMID="0" name="Fermu"/>
-					<Item CMID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
-					<Item CMID="2" name="Konservu"/>
-					<Item CMID="3" name="Konservu kiel..."/>
-					<Item CMID="4" name="Presu"/>
-					<Item CMID="5" name="Deloku al alia vido"/>
-					<Item CMID="6" name="Montru ankaŭ en alia vido"/>
-					<Item CMID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
-					<Item CMID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
-					<Item CMID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
-					<Item CMID="10" name="Alinomu"/>
-					<Item CMID="11" name="Forigu"/>
-					<Item CMID="12" name="Nurlegigu"/>
-					<Item CMID="13" name="Purigu la indikilon de nurlego"/>
-					<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
-					<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
-					<Item CMID="16" name="Reŝargu"/>
-					<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
-					<Item CMID="18" name="Fermu ĉiujn dekstre"/>
+				<Item CMID="0" name="Fermu"/>
+				<Item CMID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
+				<Item CMID="2" name="Konservu"/>
+				<Item CMID="3" name="Konservu kiel..."/>
+				<Item CMID="4" name="Presu"/>
+				<Item CMID="5" name="Deloku al alia vido"/>
+				<Item CMID="6" name="Montru ankaŭ en alia vido"/>
+				<Item CMID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
+				<Item CMID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
+				<Item CMID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
+				<Item CMID="10" name="Alinomu"/>
+				<Item CMID="11" name="Forigu"/>
+				<Item CMID="12" name="Nurlegigu"/>
+				<Item CMID="13" name="Purigu la indikilon de nurlego"/>
+				<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
+				<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
+				<Item CMID="16" name="Reŝargu"/>
+				<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
+				<Item CMID="18" name="Fermu ĉiujn dekstre"/>
 			</TabBar>
 		</Menu>
 
 		<Dialog>
 			<Find title="Serĉado" titleFind="Serĉu" titleReplace="Anstataŭigu" titleFindInFiles="Serĉu en dosierujo" titleMark="Marku">
-				<Item id="1"	name="Serĉu la sekvantan"/>
-				<Item id="2"	name="Fermu"/>
+				<Item id="1" name="Serĉu la sekvantan"/>
+				<Item id="2" name="Fermu"/>
 				<Item id="1620" name="Serĉu:"/>
 				<Item id="1603" name="&amp;Tutaj vortoj"/>
 				<Item id="1604" name="&amp;Uskleca kongruo"/>
@@ -366,7 +366,7 @@
 				<Item id="1703" name="&amp;. kaptas linifinon"/>
 			</Find>
 
-			<FindCharsInRange title = "Serĉu signojn...">
+			<FindCharsInRange title="Serĉu signojn...">
 				<Item id="2910" name="Serĉu"/>
 				<Item id="2" name="Fermu"/>
 				<Item id="2901" name="Ne-ASCII-aj signoj (128-255)"/>
@@ -381,8 +381,8 @@
 			<GoToLine title="Al linio...">
 				<Item id="2007" name="Linion"/>
 				<Item id="2008" name="Deŝovo"/>
-				<Item id="1"	name="E&amp;k!"/>
-				<Item id="2"	name="Rezignu"/>
+				<Item id="1" name="E&amp;k!"/>
+				<Item id="2" name="Rezignu"/>
 				<Item id="2004" name="Vi estas ĉi tie:"/>
 				<Item id="2005" name="Vi volas atingi:"/>
 				<Item id="2006" name="Vi ne rajtas transpasi:"/>
@@ -390,13 +390,13 @@
 
 			<Run title="Lanĉu...">
 				<Item id="1903" name="Lanĉenda programo:"/>
-				<Item id="1"	name="Lanĉu"/>
-				<Item id="2"	name="Rezignu"/>
+				<Item id="1" name="Lanĉu"/>
+				<Item id="2" name="Rezignu"/>
 				<Item id="1904" name="Kunservu..."/>
 			</Run>
 
 			<StyleConfig title="Stilagordilo">
-				<Item id="2"	name="Rezignu"/>
+				<Item id="2" name="Rezignu"/>
 				<Item id="2301" name="Konservu"/>
 				<Item id="2303" name="Travidebla"/>
 				<Item id="2306" name="Elektu etoson:"/>
@@ -595,7 +595,7 @@
 					<Item id="24672" name="Fermu:"/>
 					<Item id="24673" name="Stildefino"/>
 				</Operator>
-				<Item id="24001" name="Ŝaltu kodŝanĝan signon:"/> <!--enable escape character -->
+				<Item id="24001" name="Ŝaltu kodŝanĝan signon:"/><!--enable escape character -->
 			</UserDefine>
 			<Preference title="Agordoj">
 				<Item id="6001" name="Bone"/>
@@ -694,7 +694,7 @@
 					<Item id="6510" name="Uzu defaŭltan valoron"/>
 				</LangMenu>
 
-				<TabSettings title="TABa klavo"> <!-- Tie ĉi temas pri la Taba klavo, ne pri la Taba signo -->
+				<TabSettings title="TABa klavo"><!-- Tie ĉi temas pri la Taba klavo, ne pri la Taba signo -->
 					<Item id="6301" name="TABklavaj Agordoj"/>
 					<Item id="6302" name="Anstataŭigu per spacetoj"/>
 					<Item id="6303" name="TABlongo:"/>
@@ -762,21 +762,21 @@
 					<Item id="6330" name="Evid. regionojn kun komentoj/php/asp"/>
 
 					<Item id="6331" name="Montru nur dosiernomon en titola breto"/>
-                    <Item id="6332" name="Uskleca kongruo"/>
-                    <Item id="6333" name="Inteligenta evidentigo"/>
-                    <Item id="6334" name="Aŭtomata rekono de signarkodo"/>
-                    <Item id="6335" name="Malsuprenstreko estas kodŝanĝa signo de SQL"/> FCO -->
+					<Item id="6332" name="Uskleca kongruo"/>
+					<Item id="6333" name="Inteligenta evidentigo"/>
+					<Item id="6334" name="Aŭtomata rekono de signarkodo"/>
+					<Item id="6335" name="Malsuprenstreko estas kodŝanĝa signo de SQL"/>FCO -->
 					<Item id="6114" name="Ŝaltu"/>
 					<Item id="6117" name="Ordigu laŭ lasta uzo"/>
 
 				</MISC>
 
 				<Backup title="Sekurkopiado">
-					<Item id="6817" name="Perioda sekurkopiado kaj Ekkonservado" />
-                    <Item id="6309" name="Memoru la seancdosierojn por estonta lanĉo"/>
-					<Item id="6818" name="Ŝaltu sekurkopiadon" />
-					<Item id="6819" name="... ĉiun" />
-					<Item id="6821" name="-an sekundon" />
+					<Item id="6817" name="Perioda sekurkopiado kaj Ekkonservado"/>
+					<Item id="6309" name="Memoru la seancdosierojn por estonta lanĉo"/>
+					<Item id="6818" name="Ŝaltu sekurkopiadon"/>
+					<Item id="6819" name="... ĉiun"/>
+					<Item id="6821" name="-an sekundon"/>
 
 					<Item id="6801" name="Sekurkopiado"/>
 					<Item id="6315" name="Nenia sekurkopio"/>
@@ -788,8 +788,8 @@
 				</Backup>
 
 				<AutoCompletion title="Vortkompletigo">
- 					<Item id="6115" name="Aŭtomata krommarĝeno"/>
- 					<Item id="6807" name="Aŭtomata vortkompletiĝo"/>
+					<Item id="6115" name="Aŭtomata krommarĝeno"/>
+					<Item id="6807" name="Aŭtomata vortkompletiĝo"/>
 					<Item id="6808" name="Ŝaltu vortkompletiĝon por ĉiu enigo"/>
 					<Item id="6809" name="Kompletigu funkciojn"/>
 					<Item id="6810" name="Kompletigu vortojn"/>
@@ -806,21 +806,21 @@
 					<Item id="6866" name="Kongrua duopo 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title = "Plurekzempleco">
-					<Item id = "6151" name = "Agordoj de plurekzempla maniero"/>
-					<Item id = "6152" name = "Malfermu seancon en nova ekzemplo de Notepadu++"/>
-					<Item id = "6153" name = "Ĉiam en plurekzempla maniero"/>
-					<Item id = "6154" name = "Defaŭlte (unu ekzemplo)"/>
-					<Item id="6155" name = "* Modifo de ĉi agordoj postulos restartigon de Notepad++"/>
+				<MultiInstance title="Plurekzempleco">
+					<Item id="6151" name="Agordoj de plurekzempla maniero"/>
+					<Item id="6152" name="Malfermu seancon en nova ekzemplo de Notepadu++"/>
+					<Item id="6153" name="Ĉiam en plurekzempla maniero"/>
+					<Item id="6154" name="Defaŭlte (unu ekzemplo)"/>
+					<Item id="6155" name="* Modifo de ĉi agordoj postulos restartigon de Notepad++"/>
 				</MultiInstance>
 
-				<Delimiter title = "Limmarkoj">
-					<Item id = "6251" name = "Elekto de teksto limmarkita (Ctrl + duobla musklako)"/>
-					<Item id = "6252" name = "Malf."/>
-					<Item id = "6255" name = "Fermo"/>
-					<Item id = "6256" name = "Permesu plurlinie"/>
-					<Item id = "6257" name = "bla bla bla bla bla bla"/>
-					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+				<Delimiter title="Limmarkoj">
+					<Item id="6251" name="Elekto de teksto limmarkita (Ctrl + duobla musklako)"/>
+					<Item id="6252" name="Malf."/>
+					<Item id="6255" name="Fermo"/>
+					<Item id="6256" name="Permesu plurlinie"/>
+					<Item id="6257" name="bla bla bla bla bla bla"/>
+					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>
 				</Delimiter>
 
 			</Preference>

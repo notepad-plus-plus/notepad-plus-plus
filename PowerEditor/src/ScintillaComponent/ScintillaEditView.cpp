@@ -3675,7 +3675,7 @@ void ScintillaEditView::hideLines()
 	size_t endMarker = endLine + 1;
 
 	// Remove all previous markers in between new ones
-	for (size_t i = startMarker; i <= endMarker; ++i)
+	for (size_t i = startMarker + 1; i < endMarker; ++i)
 		removeMarker(i);
 
 	// When hiding lines just below/above other hidden lines,
@@ -3718,10 +3718,11 @@ bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 
 	if (!openPresent && !closePresent)
 		return false;
-
+		
 	//Special func on buffer. First call show with location of opening marker. Then remove the marker manually
 	if (openPresent)
 	{
+		closePresent = false; // when there are two overlapping markers, always open the lower section
 		_currentBuffer->setHideLineChanged(false, lineNumber);
 	}
 
@@ -3815,7 +3816,19 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 		for (auto i = searchStart; i < maxLines; ++i)
 		{
 			auto state = execute(SCI_MARKERGET, i);
-			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
+			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
+			{
+				isInSection = true;
+				if (doDelete)
+				{
+					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+				}
+				else
+				{
+					startShowing = i + 1;
+				}
+			}
+			else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
 			{
 				if (doDelete)
 				{
@@ -3824,9 +3837,10 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 					{
 						return;	//done, only single section requested
 					}	//otherwise keep going
+					isInSection = false;
 				}
-				 else if (isInSection)
-				 {
+				else if (isInSection)
+				{
 					if (startShowing >= i)
 					{	//because of fold skipping, we passed the close tag. In that case we cant do anything
 						if (!endOfDoc)
@@ -3835,6 +3849,7 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 						}
 						else
 						{
+							isInSection = false; // assume we passed the close tag
 							continue;
 						}
 					}
@@ -3844,18 +3859,6 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 						return;	//done, only single section requested
 					}	//otherwise keep going
 					isInSection = false;
-				}
-			}
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
-			{
-				if (doDelete)
-				{
-					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
-				}
-				else
-				{
-					isInSection = true;
-					startShowing = i+1;
 				}
 			}
 

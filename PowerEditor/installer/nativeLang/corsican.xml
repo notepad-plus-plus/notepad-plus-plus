@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <!--
-The latest update of Corsican translation file is available here:
+Additionnal information about Corsican localization:
+
+1. The latest update of Corsican translation file is available here:
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 
-History of Corsican translation for Notepad++
+2. History of Corsican translation for Notepad++:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
-			  May 7th (v8.5.3)
+			  May 7th (v8.5.3), May 21st (v8.5.4)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -23,11 +27,11 @@ History of Corsican translation for Notepad++
 	- Updated in 2017 by Patriccollu di Santa Maria è Sichè: April 30th (v7.3.3), August 19th (v7.5)
 	- Created on September 14th, 2016 for version 6.9.2 by Patriccollu di Santa Maria è Sichè
 
-An additionnal information about Corsican translation for Notepad++ is available here:
+3. An additionnal information about Corsican translation for Notepad++ is available here:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.5.3">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -376,8 +380,8 @@ An additionnal information about Corsican translation for Notepad++ is available
 					<Item id="48018" name="&amp;Mudificà l’ozzioni di u listinu cuntestuale"/>
 					<Item id="48009" name="&amp;Definizione di l’accurtatoghji di tastera…"/>
 					<Item id="48011" name="&amp;Preferenze…"/>
-					<Item id="48014" name="Apre u cartulare di l’estensioni…"/>
-					<Item id="48015" name="Ghjestione di l’estensioni…"/>
+					<Item id="48014" name="Apre u cartulare di i moduli d’estensione…"/>
+					<Item id="48015" name="Ghjestione di i moduli d’estensione…"/>
 					<Item id="48501" name="Ingenerà…"/>
 					<Item id="48502" name="Ingenerà per certi schedarii…"/>
 					<Item id="48503" name="Ingenerà in u preme’papei per a selezzione"/>
@@ -564,16 +568,16 @@ An additionnal information about Corsican translation for Notepad++ is available
 				<Item id="2" name="C&amp;hjode"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="Ghjestione di l’estensioni" titleAvailable="Dispunibule" titleUpdates="Rinnovi" titleInstalled="Installate" titleIncompatible="Incumpatibile">
-				<ColumnPlugin name="Estensione"/>
+			<PluginsAdminDlg title="Ghjestione di i moduli d’estensione" titleAvailable="Dispunibule" titleUpdates="Rinnovi" titleInstalled="Installati" titleIncompatible="Incumpatibile">
+				<ColumnPlugin name="Moduli d’estensione"/>
 				<ColumnVersion name="Versione"/>
-				<Item id="5501" name="Circà :"/>
-				<Item id="5503" name="Installà"/>
-				<Item id="5504" name="Rinnovà"/>
-				<Item id="5505" name="Caccià"/>
-				<Item id="5508" name="Seguente"/>
-				<Item id="5509" name="Versione di u modulu di lista di l’estensioni : "/>
-				<Item id="5511" name="Dipositu di u modulu di lista di l’estensioni"/>
+				<Item id="5501" name="&amp;Circà :"/>
+				<Item id="5503" name="&amp;Installà"/>
+				<Item id="5504" name="&amp;Rinnovà"/>
+				<Item id="5505" name="C&amp;accià"/>
+				<Item id="5508" name="&amp;Seguente"/>
+				<Item id="5509" name="Versione di a lista di moduli :"/>
+				<Item id="5511" name="Dipositu di a lista di i moduli"/>
 				<Item id="2" name="Chjode"/>
 			</PluginsAdminDlg>
 
@@ -750,7 +754,7 @@ An additionnal information about Corsican translation for Notepad++ is available
 				<Item id="20003" name="Creà novu…"/>
 				<Item id="20004" name="Caccià"/>
 				<Item id="20005" name="Arregistrà cù n…"/>
-				<Item id="20007" name="Linguaghju : "/>
+				<Item id="20007" name="Linguaghju"/>
 				<Item id="20009" name="Est. :"/>
 				<Item id="20012" name="Rispettà MAIU/minu"/>
 				<Item id="20011" name="Trasparenza"/>
@@ -758,7 +762,7 @@ An additionnal information about Corsican translation for Notepad++ is available
 				<Item id="20016" name="Espurtà…"/>
 				<Item id="20017" name="Staccà"/>
 				<StylerDialog title="Dialogu di u stilu">
-					<Item id="25030" name="Ozzioni di grafia :"/>
+					<Item id="25030" name="Ozzioni di grafia"/>
 					<Item id="25006" name="Culore di primu pianu"/>
 					<Item id="25007" name="Culore di fondu"/>
 					<Item id="25031" name="Nome :"/>
@@ -766,7 +770,7 @@ An additionnal information about Corsican translation for Notepad++ is available
 					<Item id="25001" name="Grassu"/>
 					<Item id="25002" name="Italicu"/>
 					<Item id="25003" name="Sottulineatu"/>
-					<Item id="25029" name="Incastramentu :"/>
+					<Item id="25029" name="Incastramentu"/>
 					<Item id="25008" name="Delimitatore 1"/>
 					<Item id="25009" name="Delimitatore 2"/>
 					<Item id="25010" name="Delimitatore 3"/>
@@ -796,20 +800,20 @@ An additionnal information about Corsican translation for Notepad++ is available
 				<Folder title="Stilu di piegatura è predefinizione">
 					<Item id="21101" name="Stilu predefinitu"/>
 					<Item id="21102" name="Stilu"/>
-					<Item id="21105" name="Documentazione :"/>
+					<Item id="21105" name="Documentazione"/>
 					<Item id="21104" name="Situ timpurariu di documentazione :"/>
 					<Item id="21106" name="Piegatura &amp;cumpatta (piegà linee viote dinù)"/>
-					<Item id="21220" name="Stilu 1 di piegatura di codice :"/>
+					<Item id="21220" name="Stilu 1 di piegatura di codice"/>
 					<Item id="21224" name="Apertura :"/>
 					<Item id="21225" name="Mezu :"/>
 					<Item id="21226" name="Chjusura :"/>
 					<Item id="21227" name="Stilu"/>
-					<Item id="21320" name="Stilu 2 di piegatura di codice (separadori richiesti) :"/>
+					<Item id="21320" name="Stilu 2 di piegatura di codice (separadori richiesti)"/>
 					<Item id="21324" name="Apertura :"/>
 					<Item id="21325" name="Mezu :"/>
 					<Item id="21326" name="Chjusura :"/>
 					<Item id="21327" name="Stilu"/>
-					<Item id="21420" name="Stilu di piegatura di cummentu :"/>
+					<Item id="21420" name="Stilu di piegatura di cummentu"/>
 					<Item id="21424" name="Apertura :"/>
 					<Item id="21425" name="Mezu :"/>
 					<Item id="21426" name="Chjusura :"/>
@@ -1034,7 +1038,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="6212" name="Senza distrazzione"/>
 				</MarginsBorderEdge>
 
-				<NewDoc title="Novu ducumentu">
+				<NewDoc title="Ducumentu novu">
 					<Item id="6401" name="Furmatu (fine di linea)"/>
 					<Item id="6402" name="Windows (CR LF)"/>
 					<Item id="6403" name="Unix (LF)"/>
@@ -1046,7 +1050,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="6409" name="UTF-16 Big Endian cù BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian cù BOM"/>
 					<Item id="6411" name="Linguaghju predefinitu :"/>
-					<Item id="6419" name="Novu ducumentu"/>
+					<Item id="6419" name="Ducumentu novu"/>
 					<Item id="6420" name="Appiecà à i schedarii ANSI aperti"/>
 				</NewDoc>
 
@@ -1302,7 +1306,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 			<ColumnEditor title="Mudificazione in modu culonna">
 				<Item id="2023" name="&amp;Testu à framette"/>
 				<Item id="2033" name="&amp;Numeru à framette"/>
-				<Item id="2030" name="Numeru di &amp;principiu :"/>
+				<Item id="2030" name="Numeru &amp;iniziale :"/>
 				<Item id="2031" name="&amp;Cresce da :"/>
 				<Item id="2038" name="D&amp;avanti :"/>
 				<ComboBox id="2039">
@@ -1323,7 +1327,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 				<Item id="1" name="Circalle tutte"/>
 				<Item id="2" name="Chjode"/>
 				<Item id="1711" name="&amp;Cosa à circà :"/>
-				<Item id="1713" name="Circà solu in e linee truvate"/>
+				<Item id="1713" name="Circà solu in e linee &amp;truvate"/>
 				<Item id="1714" name="&amp;Parolla sana deve currisponde"/>
 				<Item id="1715" name="Rispettà &amp;Maiuscule è minuscule"/>
 				<Item id="1716" name="Modu di ricerca"/>
@@ -1436,7 +1440,7 @@ Ci vole à caccià a so radica da u pannellu nanzu d’aghjunghje u cartulare «
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Un sbagliu hè accadutu à a scrittura di u schedariu di u spaziu di travagliu.
 U vostru spaziu di travagliu ùn hè micca statu arregistratu."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Apre u spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
-			<ProjectPanelNewDoSaveDirtyWsOrNot title="Novu spaziu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Spaziu novu di travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
 			<ProjectPanelOpenFailed title="Apre u spaziu di travagliu" message="U spaziu di travagliu ùn pò micca esse apertu.
 Pare chì u schedariu à apre ùn hè micca un schedariu di prughjettu accettevule."/>
 			<ProjectPanelRemoveFolderFromProject title="Caccià u cartulare da u prughjettu" message="Tutti i sottu-elementi seranu cacciati.
@@ -1540,7 +1544,7 @@ Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vost
 					<Item id="1" name="Mudificà"/>
 				</Entries>
 				<WorkspaceMenu>
-					<Item id="3122" name="Novu spaziu di travagliu"/>
+					<Item id="3122" name="Spaziu novu di travagliu"/>
 					<Item id="3123" name="Apre u spaziu di travagliu"/>
 					<Item id="3124" name="Ricaricà u spaziu di travagliu"/>
 					<Item id="3125" name="Arregistrà"/>
@@ -1652,9 +1656,9 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<finder-wrap-long-lines value="Ritornu autumaticu à a linea per e linee longhe"/>
 			<common-ok value="Vai"/>
 			<common-cancel value="Abbandunà"/>
-			<common-name value="Nome : "/>
+			<common-name value="Nome"/>
 			<tabrename-title value="Rinuminà l’unghjetta attuale"/>
-			<tabrename-newname value="Novu nome : "/>
+			<tabrename-newname value="Nome novu"/>
 			<splitter-rotate-left value="Girà à manca"/>
 			<splitter-rotate-right value="Girà à diritta"/>
 			<userdefined-title-new value="Creà un novu linguaghju…"/>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
 	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.3">
@@ -296,7 +298,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44114" name="Aplicar cor 4"/>
 					<Item id="44115" name="Aplicar cor 5"/>
 					<Item id="44130" name="Mostrar caracteres sem representação"/>
-					<Item id="44131" name="Mostrar caracteres de controlo &amp; EOL Unicode"/>
+					<Item id="44131" name="Mostrar caracteres de controlo &amp;e EOL Unicode"/>
 					<Item id="44032" name="Alternar para modo de ecrã inteiro"/>
 					<Item id="44033" name="Restaurar zoom predefinido"/>
 					<Item id="44034" name="Sempre no topo"/>
@@ -545,12 +547,12 @@ The comments are here for explanation, it's not necessary to translate them.
 			<PluginsAdminDlg title="Admin de plugins" titleAvailable="Disponível" titleUpdates="Atualizações" titleInstalled="Instalado" titleIncompatible="Incompatível">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versão"/>
-				<Item id="5501" name="Pesquisa:"/>
-				<Item id="5503" name="Instalar"/>
-				<Item id="5504" name="Atualizar"/>
-				<Item id="5505" name="Remover"/>
-				<Item id="5508" name="Seguinte"/>
-				<Item id="5509" name="Versão da lista de plugins: "/>
+				<Item id="5501" name="&amp;Pesquisa:"/>
+				<Item id="5503" name="&amp;Instalar"/>
+				<Item id="5504" name="&amp;Atualizar"/>
+				<Item id="5505" name="&amp;Remover"/>
+				<Item id="5508" name="&amp;Seguinte"/>
+				<Item id="5509" name="Versão da lista de plugins:"/>
 				<Item id="5511" name="Repositório de listas de plugins"/>
 				<Item id="2" name="Fechar"/>
 			</PluginsAdminDlg>
@@ -911,21 +913,22 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6108" name="Bloquear (sem arrastar e largar)"/>
 					<Item id="6109" name="Escurecer separadores inativos"/>
 					<Item id="6110" name="Barra colorida no separador ativo"/>
-
-					<Item id="6111" name="Mostrar barra de estado"/>
 					<Item id="6112" name="Botão de fechar em cada separador"/>
 					<Item id="6113" name="Clique duplo para fechar documento"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Múltiplas linhas"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Sair ao fechar o último separador"/>
+					<Item id="6128" name="Ícones alternativos"/>
+
+					<Item id="6133" name="Barra de estado"/>
+					<Item id="6134" name="Ocultar"/>
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Ocultar barra de menu (utilizar Alt ou F10 para alternar)"/>
 					<Item id="6132" name="Ocultar atalhos ＋ ▼ ✕ da barra de menu (é necessário reiniciar)"/>
-					<Item id="6123" name="Idioma"/>
 
-					<Item id="6128" name="Ícones alternativos"/>
+					<Item id="6123" name="Idioma"/>
 				</Global>
 				<Scintillas title="Edição">
 					<Item id="6216" name="Definições do cursor"/>
@@ -948,7 +951,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6652" name="Nenhum"/>
 					<Item id="6653" name="Realçar fundo"/>
 					<Item id="6654" name="Contorno"/>
-					<Item id="6655" name="Espessura"/>
+					<Item id="6655" name="Espessura:"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinição"/>
 					<Item id="6249" name="Texto simples"/>
@@ -957,7 +960,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Ponto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar a caracteres C0, C1 e EOL Unicode"/>
+					<Item id="6258" name="Aplicar a caracteres C0, C1 &amp;e EOL Unicode"/>
 				</Scintillas>
 
 				<DarkMode title="Modo Escuro">
@@ -1017,7 +1020,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6401" name="Formato (Fim da linha)"/>
 					<Item id="6402" name="Windows (CR LF)"/>
 					<Item id="6403" name="Unix (LF)"/>
-					<Item id="6404" name="Mac (CR)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
 					<Item id="6405" name="Codificação"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
@@ -1037,7 +1040,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 				</DefaultDir>
 
 				<FileAssoc title="Associação de ficheiro">
-					<Item id="4008" name="Saia do Notepad ++ e reinicie o Notepad ++ no modo Administrador para utilizar esta funcionalidade."/>
+					<Item id="4008" name="Saia do Notepad++ e reinicie o Notepad++ no modo Administrador para utilizar esta funcionalidade."/>
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registadas:"/>
 				</FileAssoc>
@@ -1288,7 +1291,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Element name="Zeros"/>
 					<Element name="Espaços"/>
 				</ComboBox>
-				<Item id="2036" name="&amp;Repetir :"/>
+				<Item id="2036" name="&amp;Repetir:"/>
 				<Item id="2032" name="Formato"/>
 				<Item id="2024" name="&amp;Dec"/>
 				<Item id="2025" name="&amp;Oct"/>
@@ -1300,8 +1303,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 			<FindInFinder title="Localizar em resultados de pesquisa">
 				<Item id="1" name="Localizar tudo"/>
 				<Item id="2" name="Fechar"/>
-				<Item id="1711" name="Localizar o quê :"/>
-				<Item id="1713" name="Pesquisar apenas em linhas encontradas"/>
+				<Item id="1711" name="Localizar o quê:"/>
+				<Item id="1713" name="Pesquisar &amp;apenas em linhas encontradas"/>
 				<Item id="1714" name="Corresponder apenas a palavra inteira"/>
 				<Item id="1715" name="Letra correspondente"/>
 				<Item id="1716" name="Modo Pesquisa"/>
@@ -1574,16 +1577,16 @@ A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quo
 			<shift-change-direction-tip value="Use Shift+Enter para pesquisar na direção oposta"/>
 			<two-find-buttons-tip value="Modo de 2 botões de localização"/>
 			<file-rename-title value="Renomear"/>
-			<find-in-files-filter-tip value="Pesquisar em cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value="Localizar em cpp, cxx, h, hxx &amp;e hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Pesquisar em todos os ficheiros, exceto exe, obj &amp;&amp; log:
+Localizar em todos os ficheiros, exceto exe, obj &amp;e log:
 *.* !*.exe !*.obj !*.log
 
-Pesquisar em todos os ficheiros mas excluir testes de pastas, bin &amp;&amp; bin64:
+Localizar em todos os ficheiros mas excluir testes de pastas, bin &amp;e bin64:
 *.* !\tests !\bin*
 
-Pesquisar em todos os ficheiros mas excluir todos os registos de pastas ou registos recursivamente:
+Localizar em todos os ficheiros mas excluir todos os registos de pastas ou registos recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selecione uma pasta para pesquisar dentro"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value="Localizar: Encontrada a 1ª ocorrência a partir do final. O início do documento foi alcançado."/>
@@ -1743,7 +1746,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 02 May 2023 by Hugo Carvalho
+Last modified: 22 May 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

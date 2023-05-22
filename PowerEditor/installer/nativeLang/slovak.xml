@@ -911,7 +911,6 @@
 					<Item id="6108" name="Zamknúť (Vypne Drag 'N' Drop)"/>
 					<Item id="6109" name="Stmaviť neaktívne karty"/>
 					<Item id="6110" name="Farebne zvýrazniť aktívnu kartu"/>
-
 					<Item id="6111" name="Zobraziť stavový riadok"/>
 					<Item id="6112" name="Zobraziť tlačidlo zatvorenia na karte"/>
 					<Item id="6113" name="Dvojklikom zavrieť dokument"/>
@@ -919,13 +918,16 @@
 					<Item id="6119" name="Viacriadkový"/>
 					<Item id="6120" name="Vertikálny"/>
 					<Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
+					<Item id="6128" name="Alternatívne ikony"/>
+                    
+                    <Item id="6133" name="Stavový riadok"/>
+                    <Item id="6134" name="Skryť"/>
 
 					<Item id="6131" name="Ponuka"/>
 					<Item id="6122" name="Skryť panel ponuky (Prepínanie klávesom Alt alebo F10)"/>
 					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕ z panela ponuky (Vyžaduje reštart Notepad++)"/>
+                    
 					<Item id="6123" name="Lokalizácia"/>
-
-					<Item id="6128" name="Alternatívne ikony"/>
 				</Global>
 				<Scintillas title="Editor">
 					<Item id="6216" name="Nastavenie kurzora"/>
@@ -934,7 +936,7 @@
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="P"/>
 					<Item id="6246" name="Umožniť prepínanie príkazov na zbalenie/rozbalenie aktuálnej úrovne"/>
-					<Item id="6225" name="Povoliť viacnásobnú editáciu (Ctrl+myš kliknutie/výber)"/>
+					<Item id="6225" name="Povoliť viacnásobnú úpravu (Ctrl+myš kliknutie/výber)"/>
 					<Item id="6227" name="Zalomenie riadku"/>
 					<Item id="6228" name="Predvolené"/>
 					<Item id="6229" name="Zarovnané"/>

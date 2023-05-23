@@ -1148,7 +1148,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 
 				<RecentFilesHistory title="Schedarii recenti">
 					<Item id="6304" name="Cronolugia di i schedarii recenti"/>
-                    <Item id="6306" name="Numeru massimu d’elementi :"/>
+					<Item id="6306" name="Numeru massimu d’elementi :"/>
 					<Item id="6305" name="Ùn verificà micca à u lanciu"/>
 					<Item id="6429" name="Affissera"/>
 					<Item id="6424" name="In sottulistinu"/>

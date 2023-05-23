@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.3">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1327,7 +1327,7 @@ Zvoľte &quot;Áno všetky&quot; ak nechcete znova zobraziť tento dialóg.
 Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="6" name="&amp;Áno"/>
 				<Item id="7" name="&amp;Nie"/>
-				<Item id="4" name="Vždy áno"/>
+				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>

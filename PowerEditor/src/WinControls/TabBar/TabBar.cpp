@@ -79,19 +79,31 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 void TabBar::destroy()
 {
 	if (_hFont)
-		DeleteObject(_hFont);
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
 
 	if (_hLargeFont)
-		DeleteObject(_hLargeFont);
+	{
+		::DeleteObject(_hLargeFont);
+		_hLargeFont = nullptr;
+	}
 
 	if (_hVerticalFont)
-		DeleteObject(_hVerticalFont);
+	{
+		::DeleteObject(_hVerticalFont);
+		_hVerticalFont = nullptr;
+	}
 
 	if (_hVerticalLargeFont)
-		DeleteObject(_hVerticalLargeFont);
+	{
+		::DeleteObject(_hVerticalLargeFont);
+		_hVerticalLargeFont = nullptr;
+	}
 
 	::DestroyWindow(_hSelf);
-	_hSelf = NULL;
+	_hSelf = nullptr;
 }
 
 
@@ -325,25 +337,21 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
 
-	LOGFONT LogFont{};
+	auto& dpiManager = NppParameters::getInstance()._dpiManager;
 
-	_hFont = (HFONT)::SendMessage(_hSelf, WM_GETFONT, 0, 0);
+	LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+	LOGFONT lfVer{ lf };
+	_hFont = ::CreateFontIndirect(&lf);
+	lf.lfWeight = FW_HEAVY;
+	lf.lfHeight = -dpiManager.pointsToPixels(12);
+	_hLargeFont = ::CreateFontIndirect(&lf);
 
-	if (_hFont == NULL)
-		_hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+	lfVer.lfEscapement = 900;
+	lfVer.lfOrientation = 900;
+	_hVerticalFont = CreateFontIndirect(&lfVer);
 
-	if (_hLargeFont == NULL)
-		_hLargeFont = (HFONT)::GetStockObject(SYSTEM_FONT);
-
-	if (::GetObject(_hFont, sizeof(LOGFONT), &LogFont) != 0)
-	{
-		LogFont.lfEscapement  = 900;
-		LogFont.lfOrientation = 900;
-		_hVerticalFont = CreateFontIndirect(&LogFont);
-
-		LogFont.lfWeight = 900;
-		_hVerticalLargeFont = CreateFontIndirect(&LogFont);
-	}
+	lfVer.lfWeight = FW_HEAVY;
+	_hVerticalLargeFont = CreateFontIndirect(&lfVer);
 }
 
 
@@ -1336,10 +1344,21 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		// center text vertically
 		Flags |= DT_LEFT;
-		Flags |= DT_VCENTER;
+		Flags |= isStandardSize || (!hasMultipleLines && !isDarkMode) ? DT_VCENTER : DT_TOP;
 
 		// ignoring the descent when centering (text elements below the base line) is more pleasing to the eye
-		rect.top += textDescent / 2;
+		if (!isDarkMode && !isStandardSize)
+		{
+			rect.top = pDrawItemStruct->rcItem.top;
+			if (hasMultipleLines && isSelected)
+			{
+				rect.top -= _drawTopBar ? 0 : paddingDynamicTwoY;
+			}
+		}
+		else
+		{
+			rect.top += textDescent / 2;
+		}
 		rect.bottom += textDescent / 2;
 
 		// 1 space distance to save icon

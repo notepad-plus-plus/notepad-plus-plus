@@ -1821,6 +1821,62 @@ HFONT NppParameters::getDefaultUIFont()
 	return g_defaultMessageFont;
 }
 
+LOGFONT NppParameters::getDefaultGUIFont(DefaultFontType type)
+{
+	LOGFONT lf{};
+	NONCLIENTMETRICS ncm{};
+	ncm.cbSize = sizeof(NONCLIENTMETRICS);
+	if (::SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0) != FALSE)
+	{
+		switch (type)
+		{
+			case DefaultFontType::menu:
+			{
+				lf = ncm.lfMenuFont;
+				break;
+			}
+
+			case DefaultFontType::status:
+			{
+				lf = ncm.lfStatusFont;
+				break;
+			}
+
+			case DefaultFontType::message:
+			{
+				lf = ncm.lfMessageFont;
+				break;
+			}
+
+			case DefaultFontType::caption:
+			{
+				lf = ncm.lfCaptionFont;
+				break;
+			}
+
+			case DefaultFontType::smcaption:
+			{
+				lf = ncm.lfSmCaptionFont;
+				break;
+			}
+
+			// case DefaultFontType::none
+			default:
+			{
+				auto hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
+				::GetObject(hf, sizeof(LOGFONT), &lf);
+				break;
+			}
+		}
+	}
+	else
+	{
+		auto hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
+		::GetObject(hf, sizeof(LOGFONT), &lf);
+	}
+	return lf;
+}
+
 void NppParameters::getLangKeywordsFromXmlTree()
 {
 	TiXmlNode *root =

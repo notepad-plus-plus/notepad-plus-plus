@@ -1526,6 +1526,8 @@ public:
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
 
 	HFONT getDefaultUIFont();
+	enum class DefaultFontType { none, menu, status, message, caption, smcaption };
+	static LOGFONT getDefaultGUIFont(DefaultFontType type = DefaultFontType::message);
 
 	int getNbUserLang() const {return _nbUserLang;}
 	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};

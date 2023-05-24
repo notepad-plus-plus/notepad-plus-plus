@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
+-->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.3">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -548,11 +553,11 @@
 			<PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない">
 				<ColumnPlugin name="プラグイン"/>
 				<ColumnVersion name="バージョン"/>
-				<Item id="5501" name="検索："/>
-				<Item id="5503" name="インストール"/>
-				<Item id="5504" name="更新"/>
-				<Item id="5505" name="削除"/>
-				<Item id="5508" name="次を検索"/>
+				<Item id="5501" name="検索(&amp;S)："/>
+				<Item id="5503" name="インストール(&amp;I)"/>
+				<Item id="5504" name="更新(&amp;U)"/>
+				<Item id="5505" name="削除(&amp;R)"/>
+				<Item id="5508" name="次を検索(&amp;N)"/>
 				<Item id="5509" name="プラグインリストのバージョン："/>
 				<Item id="5511" name="プラグインリストのレポジトリ"/>
 				<Item id="2" name="閉じる"/>
@@ -731,7 +736,7 @@
 				<Item id="20003" name="新規作成..."/>
 				<Item id="20004" name="削除"/>
 				<Item id="20005" name="保存..."/>
-				<Item id="20007" name="言語名: "/>
+				<Item id="20007" name="言語名"/>
 				<Item id="20009" name="拡張子:"/>
 				<Item id="20012" name="大/小文字を無視"/>
 				<Item id="20011" name="透明化"/>
@@ -739,7 +744,7 @@
 				<Item id="20016" name="エクスポート..."/>
 				<Item id="20017" name="ドック解除"/>
 				<StylerDialog title="スタイル設定ダイアログ">
-					<Item id="25030" name="フォント設定:"/>
+					<Item id="25030" name="フォント設定"/>
 					<Item id="25006" name="文字色"/>
 					<Item id="25007" name="背景色"/>
 					<Item id="25031" name="フォント名:"/>
@@ -747,7 +752,7 @@
 					<Item id="25001" name="太字"/>
 					<Item id="25002" name="斜体"/>
 					<Item id="25003" name="下線"/>
-					<Item id="25029" name="ネスト:"/>
+					<Item id="25029" name="ネスト"/>
 					<Item id="25008" name="区切り1"/>
 					<Item id="25009" name="区切り2"/>
 					<Item id="25010" name="区切り3"/>
@@ -777,20 +782,20 @@
 				<Folder title="デフォルト・折り畳み設定">
 					<Item id="21101" name="デフォルトスタイル設定"/>
 					<Item id="21102" name="スタイル設定"/>
-					<Item id="21105" name="ドキュメンテーション:"/>
+					<Item id="21105" name="ドキュメンテーション"/>
 					<Item id="21104" name="一時ドキュメントサイト:"/>
 					<Item id="21106" name="コンパクトに畳む(空行を含む)(&amp;C)"/>
-					<Item id="21220" name="スタイル1で畳む:"/>
+					<Item id="21220" name="スタイル1で畳む"/>
 					<Item id="21224" name="開始:"/>
 					<Item id="21225" name="中間:"/>
 					<Item id="21226" name="終了:"/>
 					<Item id="21227" name="スタイル設定"/>
-					<Item id="21320" name="スタイル2で畳む(セパレーターが必要):"/>
+					<Item id="21320" name="スタイル2で畳む(セパレーターが必要)"/>
 					<Item id="21324" name="開始:"/>
 					<Item id="21325" name="中間:"/>
 					<Item id="21326" name="終了:"/>
 					<Item id="21327" name="スタイル設定"/>
-					<Item id="21420" name="コメントスタイルで畳む:"/>
+					<Item id="21420" name="コメントスタイルで畳む"/>
 					<Item id="21424" name="開始:"/>
 					<Item id="21425" name="中間:"/>
 					<Item id="21426" name="終了:"/>
@@ -909,27 +914,28 @@
 					<Item id="6130" name="Filled Fluent UI 大"/>
 					<Item id="6105" name="標準アイコン 小"/>
 
-
 					<Item id="6106" name="タブバー"/>
 					<Item id="6107" name="小さく表示"/>
 					<Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
 					<Item id="6109" name="非アクティブのタブを暗くする"/>
 					<Item id="6110" name="アクティブタブにオレンジの線を表示"/>
 
-					<Item id="6111" name="ステータスバーを表示"/>
 					<Item id="6112" name="タブに「閉じる」ボタンを表示"/>
 					<Item id="6113" name="ダブルクリックでドキュメントを閉じる"/>
 					<Item id="6118" name="隠す"/>
 					<Item id="6119" name="多段表示"/>
 					<Item id="6120" name="縦に表示する"/>
 					<Item id="6121" name="最後のタブを閉じると終了する"/>
+					<Item id="6128" name="別デザインのアイコンを使用する"/>
+
+					<Item id="6133" name="ステータスバー"/>
+					<Item id="6134" name="隠す"/>
 
 					<Item id="6131" name="メニュー"/>
 					<Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
 					<Item id="6132" name="メインメニュー右端の ＋ ▼ ✕ ボタンを非表示にする(Notepad++ の再起動が必要)"/>
-					<Item id="6123" name="言語"/>
 
-					<Item id="6128" name="別デザインのアイコンを使用する"/>
+					<Item id="6123" name="言語"/>
 				</Global>
 				<Scintillas title="編集画面">
 					<Item id="6216" name="カーソル設定"/>
@@ -952,7 +958,7 @@
 					<Item id="6652" name="なし"/>
 					<Item id="6653" name="背景を色付け"/>
 					<Item id="6654" name="枠を表示"/>
-					<Item id="6655" name="線幅"/>
+					<Item id="6655" name="線幅:"/>
 					<Item id="6247" name="改行文字(CRLF)の装飾"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="デフォルト"/>
 					<Item id="6249" name="装飾なし"/>
@@ -1031,6 +1037,7 @@
 					<Item id="6411" name="デフォルトの言語:"/>
 					<Item id="6419" name="新規文書"/>
 					<Item id="6420" name="開いているANSIファイルに適用"/>
+					<Item id="6432" name="起動時に新規文書を開く"/>
 				</NewDoc>
 
 				<DefaultDir title="既定のディレクトリ">
@@ -1306,7 +1313,7 @@
 				<Item id="1" name="すべて検索"/>
 				<Item id="2" name="閉じる"/>
 				<Item id="1711" name="検索文字列(&amp;F):"/>
-				<Item id="1713" name="ヒットした行の中から検索する"/>
+				<Item id="1713" name="ヒットした行の中から検索する(&amp;O)"/>
 				<Item id="1714" name="単語単位(&amp;W)"/>
 				<Item id="1715" name="大/小文字を区別(&amp;C)"/>
 				<Item id="1716" name="検索モード"/>
@@ -1330,7 +1337,7 @@
 環境設定から、再度、この画面を表示するよう変更できます。"/>
 				<Item id="6" name="はい(&amp;Y)"/>
 				<Item id="7" name="いいえ(&amp;N)"/>
-				<Item id="4" name="常に はい"/>
+				<Item id="4" name="常に はい(&amp;A)"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
@@ -1632,9 +1639,9 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<finder-wrap-long-lines value="長い行を折り返す"/>
 			<common-ok value="OK"/>
 			<common-cancel value="ｷｬﾝｾﾙ"/>
-			<common-name value="名前: "/>
+			<common-name value="名前"/>
 			<tabrename-title value="現ﾀﾌﾞのﾌｧｲﾙ名を変更"/>
-			<tabrename-newname value="新ﾌｧｲﾙ名: "/>
+			<tabrename-newname value="新ﾌｧｲﾙ名"/>
 			<splitter-rotate-left value="左回りに回す"/>
 			<splitter-rotate-right value="右回りに回す"/>
 			<userdefined-title-new value="新しい言語定義を作成..."/>

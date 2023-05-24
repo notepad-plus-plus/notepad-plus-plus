@@ -227,7 +227,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	int tabBarStatus = nppGUI._tabStatus;
 
 	_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
-	int iconDpiDynamicalSize = nppParam._dpiManager.scaleY(_toReduceTabBar ? 13 : 20);
+	int iconDpiDynamicalSize = nppParam._dpiManager.scaleY(_toReduceTabBar ? g_TabIconSize : g_TabIconSizeLarge);
 	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs) / sizeof(int));
 	_docTabIconListAlt.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_alt, sizeof(docTabIconIDs_alt) / sizeof(int));
 	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
@@ -375,20 +375,18 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	TabBarPlus::doDragNDrop(true);
 
-	if (_toReduceTabBar)
+	const auto& hf = _mainDocTab.getFont(_toReduceTabBar);
+	if (hf)
 	{
-		HFONT hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
-
-		if (hf)
-		{
-			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		}
-		int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(22);
-		int tabDpiDynamicalWidth = nppParam._dpiManager.scaleX(45);
-		TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-		TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+		::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 	}
+
+	int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
+	int tabDpiDynamicalWidth = nppParam._dpiManager.scaleX(g_TabWidth);
+	TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+	TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
 	_mainDocTab.display();
 
 

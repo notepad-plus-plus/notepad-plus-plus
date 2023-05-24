@@ -266,9 +266,19 @@ bool IsWindows10() // or later OS version
 	return (g_buildNumber >= 17763);
 }
 
+bool IsWindows10(DWORD build)
+{
+	return (IsWindows10() && g_buildNumber >= build);
+}
+
 bool IsWindows11() // or later OS version
 {
 	return (g_buildNumber >= 22000);
+}
+
+bool IsWindows11(DWORD build)
+{
+	return (IsWindows11() && g_buildNumber >= build);
 }
 
 void InitDarkMode()

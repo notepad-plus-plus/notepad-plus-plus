@@ -20,6 +20,7 @@
 #include "DarkMode/DarkMode.h"
 #include "DarkMode/UAHMenuBar.h"
 
+#include <dwmapi.h>
 #include <uxtheme.h>
 #include <vssym32.h>
 
@@ -33,6 +34,9 @@
 #ifdef __GNUC__
 #include <cmath>
 #define WINAPI_LAMBDA WINAPI
+#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
+#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
+#endif
 #else
 #define WINAPI_LAMBDA
 #endif
@@ -40,6 +44,7 @@
 // already added in project files
 // keep for plugin authors
 //#ifdef _MSC_VER
+//#pragma comment(lib, "dwmapi.lib")
 //#pragma comment(lib, "uxtheme.lib")
 //#endif
 
@@ -543,9 +548,19 @@ namespace NppDarkMode
 		return IsWindows10();
 	}
 
+	bool isWindows10(DWORD build)
+	{
+		return IsWindows10(build);
+	}
+
 	bool isWindows11()
 	{
 		return IsWindows11();
+	}
+
+	bool isWindows11(DWORD build)
+	{
+		return IsWindows10(build);
 	}
 
 	COLORREF invertLightness(COLORREF c)
@@ -2827,8 +2842,16 @@ namespace NppDarkMode
 
 	void setDarkTitleBar(HWND hwnd)
 	{
-		NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
-		NppDarkMode::setTitleBarThemeColor(hwnd);
+		if (NppDarkMode::isWindows10(19041U))
+		{
+			BOOL value = NppDarkMode::isEnabled() ? TRUE : FALSE;
+			::DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+		}
+		else
+		{
+			NppDarkMode::allowDarkModeForWindow(hwnd, NppDarkMode::isEnabled());
+			NppDarkMode::setTitleBarThemeColor(hwnd);
+		}
 	}
 
 	void setDarkExplorerTheme(HWND hwnd)

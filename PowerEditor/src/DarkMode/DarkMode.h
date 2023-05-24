@@ -16,4 +16,6 @@ void EnableDarkScrollBarForWindowAndChildren(HWND hwnd);
 void InitDarkMode();
 void SetDarkMode(bool useDarkMode, bool fixDarkScrollbar);
 bool IsWindows10();
+bool IsWindows10(DWORD build);
 bool IsWindows11();
+bool IsWindows11(DWORD build);

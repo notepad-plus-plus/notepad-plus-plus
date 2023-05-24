@@ -558,65 +558,23 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//
 	// Might not work properly in C# plugins.
 	//
-	// Returns succesful combinations from dmfRequiredMask.
+	// Returns succesful combinations of flags.
 	//
 
 	namespace NppDarkMode
 	{
-		// Used on parent of edit, listbox, static text, treeview, listview and toolbar controls.
-		// Should be used only one time on parent control after its creation
-		// even when starting in light mode.
-		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
-		constexpr ULONG dmfSubclassParent =     0x00000001UL;
-		// Should be used only one time on main control/window after initializations of all its children controls
-		// even when starting in light mode.
-		// Will also use dmfSetThemeChildren flag.
-		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
-		constexpr ULONG dmfSubclassChildren =   0x00000002UL;
-		// Will apply theme on buttons with style:
-		// BS_PUSHLIKE, BS_PUSHBUTTON, BS_DEFPUSHBUTTON, BS_SPLITBUTTON or BS_DEFSPLITBUTTON.
-		// Will apply theme for scrollbars on edit, listbox and rich edit controls.
-		// Will apply theme for tooltips on listview, treeview and toolbar buttons.
-		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
-		// Requires at least Windows 10 to work properly.
-		constexpr ULONG dmfSetThemeChildren =   0x00000004UL;
-		// Set dark title bar.
-		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
-		// Requires at least Windows 10 and WS_CAPTION style to work properly.
-		constexpr ULONG dmfSetTitleBar =        0x00000008UL;
-		// Will apply dark explorer theme.
-		// Used mainly for scrollbars and tooltips not handled with dmfSetThemeChildren.
-		// Might also change style for other elements.
-		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
-		// Requires at least Windows 10 to work properly.
-		constexpr ULONG dmfSetThemeDirectly =   0x00000010UL;
-
 		// Standard flags for main parent after its children are initialized.
-		// Check individual flags for more information.
-		// 0x000000BUL
-		constexpr ULONG dmfAfterInitParent = dmfSubclassParent | dmfSubclassChildren | dmfSetTitleBar;
+		constexpr ULONG dmfInit =               0x0000000BUL;
+
 		// Standard flags for main parent usually used in NPPN_DARKMODECHANGED.
-		// Check individual flags for more information.
-		// 0x000000CUL
-		constexpr ULONG dmfHandleChangeParent = dmfSetThemeChildren | dmfSetTitleBar;
-
-		// At least one of these flags should be used.
-		// currently same as dmfAllMask
-		// used internally
-		// 0x0000001FUL
-		//constexpr ULONG dmfRequiredMask = dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
-
-		// every flags
-		// currently not used
-		// 0x0000001FUL
-		//constexpr ULONG dmfAllMask = dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
+		constexpr ULONG dmfHandleChange =       0x0000000CUL;
 	};
 
 	// Examples:
 	//
 	// - after controls initializations in WM_INITDIALOG, in WM_CREATE or after CreateWindow:
 	//
-	//auto success = static_cast<ULONG>(::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfAfterInitParent), reinterpret_cast<LPARAM>(mainHwnd)));
+	//auto success = static_cast<ULONG>(::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfInit), reinterpret_cast<LPARAM>(mainHwnd)));
 	//
 	// - handling dark mode change:
 	//
@@ -626,8 +584,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//	{
 	//		case NPPN_DARKMODECHANGED:
 	//		{
-	//			::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(dmfHandleChangeParent), reinterpret_cast<LPARAM>(mainHwnd));
-	//			::SetWindowPos(mainHwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED); // to redraw titlebar
+	//			::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(dmfHandleChange), reinterpret_cast<LPARAM>(mainHwnd));
+	//			::SetWindowPos(mainHwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED); // to redraw titlebar and window
 	//			break;
 	//		}
 	//	}

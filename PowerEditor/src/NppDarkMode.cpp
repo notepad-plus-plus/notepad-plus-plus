@@ -2566,17 +2566,40 @@ namespace NppDarkMode
 
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags)
 	{
-		// defined in Notepad_plus_msgs.h
-		//constexpr ULONG dmfSubclassParent =     0x00000001UL;
-		//constexpr ULONG dmfSubclassChildren =   0x00000002UL;
-		//constexpr ULONG dmfSetThemeChildren =   0x00000004UL;
-		//constexpr ULONG dmfSetTitleBar =        0x00000008UL;
-		//constexpr ULONG dmfSetThemeDirectly =   0x00000010UL;
-		//constexpr ULONG dmfAfterInitParent =    dmfSubclassParent | dmfSubclassChildren | dmfSetTitleBar; // 0x000000BUL
-		//constexpr ULONG dmfHandleChangeParent = dmfSetThemeChildren | dmfSetTitleBar;                     // 0x000000CUL
+		// Used on parent of edit, listbox, static text, treeview, listview and toolbar controls.
+		// Should be used only one time on parent control after its creation
+		// even when starting in light mode.
+		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
+		constexpr ULONG dmfSubclassParent =     0x00000001UL;
+		// Should be used only one time on main control/window after initializations of all its children controls
+		// even when starting in light mode.
+		// Will also use dmfSetThemeChildren flag.
+		// e.g. in WM_INITDIALOG, in WM_CREATE or after CreateWindow.
+		constexpr ULONG dmfSubclassChildren =   0x00000002UL;
+		// Will apply theme on buttons with style:
+		// BS_PUSHLIKE, BS_PUSHBUTTON, BS_DEFPUSHBUTTON, BS_SPLITBUTTON or BS_DEFSPLITBUTTON.
+		// Will apply theme for scrollbars on edit, listbox and rich edit controls.
+		// Will apply theme for tooltips on listview, treeview and toolbar buttons.
+		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
+		// Requires at least Windows 10 to work properly.
+		constexpr ULONG dmfSetThemeChildren =   0x00000004UL;
+		// Set dark title bar.
+		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
+		// Requires at least Windows 10 and WS_CAPTION style to work properly.
+		constexpr ULONG dmfSetTitleBar =        0x00000008UL;
+		// Will apply dark explorer theme.
+		// Used mainly for scrollbars and tooltips not handled with dmfSetThemeChildren.
+		// Might also change style for other elements.
+		// Should be handled after controls initializations and in NPPN_DARKMODECHANGED.
+		// Requires at least Windows 10 to work properly.
+		constexpr ULONG dmfSetThemeDirectly =   0x00000010UL;
 
-		constexpr ULONG dmfRequiredMask = dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
-		//constexpr ULONG dmfAllMask = dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
+		// defined in Notepad_plus_msgs.h
+		//constexpr ULONG dmfInit =             dmfSubclassParent | dmfSubclassChildren | dmfSetTitleBar; // 0x000000BUL
+		//constexpr ULONG dmfHandleChange =     dmfSetThemeChildren | dmfSetTitleBar;                     // 0x000000CUL
+
+		constexpr ULONG dmfRequiredMask =       dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
+		//constexpr ULONG dmfAllMask =          dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
 		
 		if (hwnd == nullptr || (dmFlags & dmfRequiredMask) == 0)
 		{

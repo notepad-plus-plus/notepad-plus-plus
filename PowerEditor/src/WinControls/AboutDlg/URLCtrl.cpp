@@ -17,6 +17,7 @@
 
 #include "URLCtrl.h"
 #include "NppDarkMode.h"
+#include "Parameters.h"
 
 
 void URLCtrl::create(HWND itemHandle, const TCHAR * link, COLORREF linkColor)
@@ -157,20 +158,16 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
             ::SetBkColor(hdc, getCtrlBgColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
 
-		    // Create an underline font
-		    if (_hfUnderlined == nullptr)
-		    {
-			    // Get the default GUI font
-				LOGFONT lf{};
-                HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+			// Create an underline font
+			if (_hfUnderlined == nullptr)
+			{
+				// Get the default GUI font
+				LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+				lf.lfUnderline = TRUE;
 
-			    // Add UNDERLINE attribute
-			    GetObject(hf, sizeof lf, &lf);
-                lf.lfUnderline = TRUE;
-
-			    // Create a new font
-                _hfUnderlined = ::CreateFontIndirect(&lf);
-		    }
+				// Create a new font
+				_hfUnderlined = ::CreateFontIndirect(&lf);
+			}
 
 		    HANDLE hOld = SelectObject(hdc, _hfUnderlined);
 

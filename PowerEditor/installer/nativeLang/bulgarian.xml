@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 05.05.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 09.06.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -306,7 +306,7 @@
 					<Item id="44025" name="Интервали и табулации"/>
 					<Item id="44026" name="Край на ред"/>
 					<Item id="44130" name="Знаци, които не се печатат"/>
-					<Item id="44131" name="Контролни знаци и Unicode край на ред"/>
+					<Item id="44131" name="&amp;Контролни знаци и Unicode край на ред"/>
 					<Item id="44019" name="Всички знаци"/>
 					<Item id="44020" name="Линии за табулация"/>
 					<Item id="44041" name="Пренесени редове"/>
@@ -598,7 +598,7 @@
 				<Item id="1" name="Намиране на всички"/>
 				<Item id="2" name="Затваряне"/>
 				<Item id="1711" name="&amp;Търсене на:"/>
-				<Item id="1713" name="Търсене само в намерените редове"/>
+				<Item id="1713" name="Търсене само в &amp;намерените редове"/>
 				<Item id="1714" name="Само &amp;цели думи"/>
 				<Item id="1715" name="Главни / малки букви"/>
 				<Item id="1716" name="Режим на търсене"/>
@@ -650,7 +650,7 @@
 			</FindCharsInRange>
 			<!-- Меню "Синтаксис" - "Дефиниране на синтаксис" -->
 			<UserDefine title="Дефиниране от потребителя">
-				<Item id="20007" name="Синтаксис: "/>
+				<Item id="20007" name="Синтаксис"/>
 				<Item id="20003" name="Нов..."/>
 				<Item id="20005" name="Запис като..."/>
 				<Item id="20015" name="Внасяне..."/>
@@ -664,7 +664,7 @@
 				<Item id="20011" name="Прозрачност"/>
 				<!-- Настройки на стила -->
 				<StylerDialog title="Настройки на стила">
-					<Item id="25030" name="Стил на шрифта"/>
+					<Item id="25030" name="Настройки на шрифта"/>
 					<Item id="25031" name="Име:"/>
 					<Item id="25032" name="Размер:"/>
 					<Item id="25001" name="Получер"/>
@@ -834,6 +834,8 @@
 				<!-- Основни -->
 				<Global title="Основни">
 					<Item id="6123" name="Език на интерфейса"/>
+					<Item id="6133" name="Лента на състоянието"/>
+					<Item id="6134" name="Скриване"/>
 					<Item id="6101" name="Лента с инструменти"/>
 					<Item id="6102" name="Скриване"/>
 					<Item id="6103" name="Fluent UI: малки икони"/>
@@ -841,7 +843,6 @@
 					<Item id="6129" name="Fluent UI: малки запълнени"/>
 					<Item id="6130" name="Fluent UI: големи запълнени"/>
 					<Item id="6105" name="Стандартни: малки икони"/>
-					<Item id="6111" name="Показване лента на състоянието"/>
 					<Item id="6106" name="Лента с отворени раздели"/>
 					<Item id="6118" name="Скриване"/>
 					<Item id="6119" name="На повече редове"/>
@@ -860,24 +861,24 @@
 				</Global>
 				<!-- Редактиране -->
 				<Scintillas title="Редактиране">
-					<Item id="6252" name="Знаци, които не се печатат"/>
-					<Item id="6254" name="Съкращение"/>
-					<Item id="6255" name="Кодова точка"/>
-					<Item id="6256" name="Цвят по избор"/>
-					<Item id="6258" name="Прилагане за C0, C1 и Unicode край на ред"/>
-					<Item id="6247" name="Край на ред (CR LF)"/><!-- "(CR LF)" не се превежда -->
-					<Item id="6248" name="Стандартно"/>
-					<Item id="6249" name="Обикновен текст"/>
-					<Item id="6250" name="Цвят по избор"/>
-					<Item id="6227" name="Пренасяне на нов ред"/>
-					<Item id="6228" name="Стандартно"/>
-					<Item id="6229" name="Подравнено"/>
-					<Item id="6230" name="С отстъп"/>
 					<Item id="6651" name="Индикация на текущият ред"/>
 					<Item id="6652" name="Няма"/>
 					<Item id="6653" name="Открояващ фон"/>
 					<Item id="6654" name="Рамка"/>
-					<Item id="6655" name="Ширина"/>
+					<Item id="6655" name="Ширина:"/>
+					<Item id="6252" name="Знаци, които не се печатат"/>
+					<Item id="6254" name="Съкращение"/>
+					<Item id="6255" name="Кодова точка"/>
+					<Item id="6256" name="Цвят по избор"/>
+					<Item id="6258" name="&amp;Прилагане за C0, C1 и Unicode край на ред"/>
+					<Item id="6227" name="Пренасяне на нов ред"/>
+					<Item id="6228" name="Стандартно"/>
+					<Item id="6229" name="Подравнено"/>
+					<Item id="6230" name="С отстъп"/>
+					<Item id="6247" name="Край на ред (CR LF)"/><!-- "(CR LF)" не се превежда -->
+					<Item id="6248" name="Стандартно"/>
+					<Item id="6249" name="Обикновен текст"/>
+					<Item id="6250" name="Цвят по избор"/>
 					<Item id="6216" name="Текстов курсор"/>
 					<Item id="6217" name="Ширина:"/>
 					<Item id="6219" name="Премигване:"/>
@@ -960,6 +961,7 @@
 					<Item id="6409" name="UTF-16 Big Endian BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian BOM"/>
 					<Item id="6411" name="Основен синтаксис:"/>
+					<Item id="6432" name="Винаги да се отваря нов документ в допълнение при стартиране"/>
 				</NewDoc>
 				<!-- Път по подразбиране -->
 				<DefaultDir title="Път по подразбиране">
@@ -1145,7 +1147,7 @@
 					<Item id="7141" name="Ограничение за големи файлове"/>
 					<Item id="7143" name="Включване на ограничението за големи файлове (без открояване на синтаксис)"/>
 					<Item id="7144" name="Задаване на размер за голям файл:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 – 4096)"/>
 					<Item id="7147" name="Разрешаване на съвпадение на скобите"/>
 					<Item id="7148" name="Разрешаване на &quot;Автоматично завършване&quot;"/>
 					<Item id="7149" name="Разрешаване на &quot;Интелигентно открояване&quot;"/>
@@ -1437,11 +1439,11 @@
 			<PluginsAdminDlg title="Управление на добавки" titleAvailable="Налични" titleUpdates="Актуализации" titleInstalled="Инсталирани" titleIncompatible="Несъвместими">
 				<ColumnPlugin name="Добавка"/>
 				<ColumnVersion name="Версия"/>
-				<Item id="5501" name="Търсене:"/>
-				<Item id="5503" name="Инсталиране"/>
-				<Item id="5504" name="Обновяване"/>
-				<Item id="5505" name="Премахване"/>
-				<Item id="5508" name="Следващ"/>
+				<Item id="5501" name="&amp;Търсене:"/>
+				<Item id="5503" name="&amp;Инсталиране"/>
+				<Item id="5504" name="&amp;Обновяване"/>
+				<Item id="5505" name="&amp;Премахване"/>
+				<Item id="5508" name="&amp;Следващ"/>
 				<Item id="5509" name="Версия на списъка с добавки: "/>
 				<Item id="5511" name="Хранилище на списъкa с добавки"/>
 				<Item id="2" name="Затваряне"/>
@@ -1644,7 +1646,7 @@
 			<userdefined-title-new value="Създаване на нов синтаксис..."/>
 			<userdefined-title-save value="Запазване на синтаксиса като..."/>
 			<userdefined-title-rename value="Преименуване на синтаксиса"/>
-			<common-name value="Име:"/>
+			<common-name value="Име"/>
 			<!-- Меню "Настройки" - "Предпочитания..." -->
 			<!-- "Редактиране" -->
 			<!-- "(&quot;EOL custom color&quot;)" не се превежда -->

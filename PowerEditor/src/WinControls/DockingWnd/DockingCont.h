@@ -180,6 +180,7 @@ private:
 
 	// horizontal font for caption and tab
 	HFONT _hFont = nullptr;
+	HFONT _hFontCaption = nullptr;
 
 	// caption params
 	BOOL _isTopCaption = FALSE;
@@ -188,7 +189,7 @@ private:
 	BOOL _isMouseDown = FALSE;
 	BOOL _isMouseClose = FALSE;
 	BOOL _isMouseOver = FALSE;
-	RECT _rcCaption = {};
+	RECT _rcCaption{};
 	
 	// tab style
 	BOOL _bDrawOgLine = FALSE;

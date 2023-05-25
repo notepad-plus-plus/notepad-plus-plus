@@ -35,6 +35,12 @@ FunctionListPanel::~FunctionListPanel()
 	{
 		delete s;
 	}
+
+	if (_hFontSearchEdit != nullptr)
+	{
+		::DeleteObject(_hFontSearchEdit);
+		_hFontSearchEdit = nullptr;
+	}
 }
 
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
@@ -155,7 +161,7 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 	}
 	else // only one processed element, so we conclude the result
 	{
-		TCHAR foundStr[1024];
+		TCHAR foundStr[1024]{};
 
 		(*_ppEditView)->getGenericText(foundStr, 1024, targetStart, targetEnd);
 
@@ -890,9 +896,16 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			oldFunclstSearchEditProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSearchEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstSearchEditProc)));
 
-			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
-			if (hf)
-				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+			if (_hFontSearchEdit == nullptr)
+			{
+				LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+				_hFontSearchEdit = ::CreateFontIndirect(&lf);
+			}
+
+			if (_hFontSearchEdit != nullptr)
+			{
+				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSearchEdit), MAKELPARAM(TRUE, 0));
+			}
 
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
 			_treeView.setImageList(CX_BITMAP, CY_BITMAP, 3, IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);

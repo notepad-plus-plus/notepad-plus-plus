@@ -49,10 +49,16 @@ void StatusBar::init(HINSTANCE, HWND)
 struct StatusBarSubclassInfo
 {
 	HTHEME hTheme = nullptr;
+	HFONT _hFont = nullptr;
+
+	StatusBarSubclassInfo() = default;
+	StatusBarSubclassInfo(const HFONT& hFont)
+		: _hFont(hFont) {}
 
 	~StatusBarSubclassInfo()
 	{
 		closeTheme();
+		destroyFont();
 	}
 
 	bool ensureTheme(HWND hwnd)
@@ -72,6 +78,21 @@ struct StatusBarSubclassInfo
 			hTheme = nullptr;
 		}
 	}
+
+	void setFont(const HFONT& hFont)
+	{
+		destroyFont();
+		_hFont = hFont;
+	}
+
+	void destroyFont()
+	{
+		if (_hFont != nullptr)
+		{
+			::DeleteObject(_hFont);
+			_hFont = nullptr;
+		}
+	}
 };
 
 
@@ -80,8 +101,6 @@ constexpr UINT_PTR g_statusBarSubclassID = 42;
 
 LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
-	UNREFERENCED_PARAMETER(uIdSubclass);
-
 	StatusBarSubclassInfo* pStatusBarInfo = reinterpret_cast<StatusBarSubclassInfo*>(dwRefData);
 
 	switch (uMsg)
@@ -90,10 +109,10 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 		{
 			if (!NppDarkMode::isEnabled())
 			{
-				return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				break;
 			}
 
-			RECT rc;
+			RECT rc{};
 			GetClientRect(hWnd, &rc);
 			FillRect((HDC)wParam, &rc, NppDarkMode::getBackgroundBrush());
 			return TRUE;
@@ -103,28 +122,28 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 		{
 			if (!NppDarkMode::isEnabled())
 			{
-				return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				break;
 			}
 
 			struct {
-				int horizontal;
-				int vertical;
-				int between;
-			} borders = {};
+				int horizontal = 0;
+				int vertical = 0;
+				int between = 0;
+			} borders{};
 
 			SendMessage(hWnd, SB_GETBORDERS, 0, (LPARAM)&borders);
 
-			DWORD style = GetWindowLong(hWnd, GWL_STYLE);
+			const auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 			bool isSizeGrip = style & SBARS_SIZEGRIP;
 
-			PAINTSTRUCT ps;
+			PAINTSTRUCT ps{};
 			HDC hdc = BeginPaint(hWnd, &ps);
 
 			auto holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getEdgePen()));
 
-			HFONT holdFont = (HFONT)::SelectObject(hdc, NppParameters::getInstance().getDefaultUIFont());
+			auto holdFont = static_cast<HFONT>(::SelectObject(hdc, pStatusBarInfo->_hFont));
 
-			RECT rcClient;
+			RECT rcClient{};
 			GetClientRect(hWnd, &rcClient);
 
 			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
@@ -133,9 +152,9 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			std::wstring str;
 			for (int i = 0; i < nParts; ++i)
 			{
-				RECT rcPart = {};
+				RECT rcPart{};
 				SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
-				RECT rcIntersect = {};
+				RECT rcIntersect{};
 				if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
 				{
 					continue;
@@ -200,7 +219,7 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			if (isSizeGrip)
 			{
 				pStatusBarInfo->ensureTheme(hWnd);
-				SIZE gripSize = {};
+				SIZE gripSize{};
 				GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rcClient, TS_DRAW, &gripSize);
 				RECT rc = rcClient;
 				rc.left = rc.right - gripSize.cx;
@@ -212,16 +231,22 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			::SelectObject(hdc, holdPen);
 
 			EndPaint(hWnd, &ps);
-			return FALSE;
+			return 0;
 		}
 
 		case WM_NCDESTROY:
-			RemoveWindowSubclass(hWnd, StatusBarSubclass, g_statusBarSubclassID);
+		{
+			::RemoveWindowSubclass(hWnd, StatusBarSubclass, uIdSubclass);
 			break;
+		}
 
 		case WM_THEMECHANGED:
+		{
 			pStatusBarInfo->closeTheme();
+			LOGFONT lf{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::status) };
+			pStatusBarInfo->setFont(::CreateFontIndirect(&lf));
 			break;
+		}
 	}
 	return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
@@ -244,7 +269,8 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (!_hSelf)
 		throw std::runtime_error("StatusBar::init : CreateWindowEx() function return null");
 
-	StatusBarSubclassInfo* pStatusBarInfo = new StatusBarSubclassInfo();
+	LOGFONT lf{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::status) };
+	StatusBarSubclassInfo* pStatusBarInfo = new StatusBarSubclassInfo(::CreateFontIndirect(&lf));
 	_pStatusBarInfo = pStatusBarInfo;
 
 	SetWindowSubclass(_hSelf, StatusBarSubclass, g_statusBarSubclassID, reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
@@ -257,7 +283,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (_partWidthArray.size())
 		_lpParts = new int[_partWidthArray.size()];
 
-	RECT rc;
+	RECT rc{};
 	::GetClientRect(_hParent, &rc);
 	adjustParts(rc.right);
 }

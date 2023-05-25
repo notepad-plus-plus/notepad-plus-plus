@@ -13,7 +13,7 @@ Translation note:
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.23"><!-- basiert auf english.xml vom 23.05.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.24"><!-- basiert auf english.xml vom 24.05.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1336,7 +1336,7 @@ Wählen Sie &quot;Ja, immer&quot; um diesen Dialog nicht mehr anzuzeigen.
 Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nein"/>
-				<Item id="4" name="Ja, immer"/>
+				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
@@ -1670,7 +1670,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
 			<replace-in-files-progress-title value="Fortschritt für das Ersetzen in Dateien …"/>
 			<replace-in-projects-confirm-title value="Sind Sie sicher?"/>
-			<replace-in-projects-confirm-message value="Sollen wirklich alle Vorkommen in allen Dokumenten im gewählten Projekt ersetzt werden sollen?"/>
+			<replace-in-projects-confirm-message value="Sollen wirklich alle Vorkommen in allen Dokumenten im gewählten Projekt ersetzt werden?"/>
 			<replace-in-open-docs-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-open-docs-confirm-message value="Sind Sie sicher dass alle Vorkommen in allen offenen Dokumenten ersetzt werden sollen?"/>
 			<find-result-caption value="Suchergebnisse"/>

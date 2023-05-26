@@ -17,4 +17,4 @@ void InitDarkMode();
 void SetDarkMode(bool useDarkMode, bool fixDarkScrollbar);
 bool IsWindows10();
 bool IsWindows11();
-const DWORD GetWindowsBuildNumber();
+DWORD GetWindowsBuildNumber();

@@ -68,14 +68,6 @@ bool IconList::changeIcon(size_t index, const TCHAR *iconLocation) const
 	return (i == index);
 }
 
-// used by tabbar only
-void IconList::addIcons(int size) const
-{
-	ImageList_SetIconSize(_hImglst, size, size);
-	for (int i = 0 ; i < _iconIDArraySize ; ++i)
-		addIcon(_pIconIDArray[i]);
-}
-
 void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize, std::vector<DynamicCmdIcoBmp> moreCmds)
 {
 	for (int i = 0 ; i < arraySize ; ++i)

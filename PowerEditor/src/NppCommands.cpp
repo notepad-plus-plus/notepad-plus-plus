@@ -2143,17 +2143,11 @@ void Notepad_plus::command(int id)
 			_toReduceTabBar = !_toReduceTabBar;
 			auto& dpiManager = NppParameters::getInstance()._dpiManager;
 
-			//Resize the  icon
-			int iconDpiDynamicalSize = dpiManager.scaleY(_toReduceTabBar ? g_TabIconSize : g_TabIconSizeLarge);
-
 			//Resize the tab height
 			int tabDpiDynamicalWidth = dpiManager.scaleX(g_TabWidth);
 			int tabDpiDynamicalHeight = dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			_docTabIconList.addIcons(iconDpiDynamicalSize);
-			_docTabIconListAlt.addIcons(iconDpiDynamicalSize);
-			_docTabIconListDarkMode.addIcons(iconDpiDynamicalSize);
 
 			//change the font
 			const auto& hf = _mainDocTab.getFont(_toReduceTabBar);

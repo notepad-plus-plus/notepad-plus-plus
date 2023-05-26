@@ -46,12 +46,12 @@ const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = TEXT("Active tab unfocused indi
 const TCHAR TABBAR_ACTIVETEXT[64] = TEXT("Active tab text");
 const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
 
-constexpr int g_TabIconSize = 13;
-constexpr int g_TabIconSizeLarge = 20;
+constexpr int g_TabIconSize = 16;
 constexpr int g_TabHeight = 22;
 constexpr int g_TabHeightLarge = 25;
 constexpr int g_TabWidth = 45;
 constexpr int g_TabWidthCloseBtn = 60;
+constexpr int g_TabCloseBtnSize = 11;
 
 struct TBHDR
 {

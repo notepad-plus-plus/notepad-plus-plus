@@ -1243,13 +1243,16 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		BITMAP bmp{};
 		::GetObject(hBmp, sizeof(bmp), &bmp);
 
-		int bmDpiDynamicalWidth = dpiManager.scaleX(bmp.bmWidth);
-		int bmDpiDynamicalHeight = dpiManager.scaleY(bmp.bmHeight);
+		_closeButtonZone._width = dpiManager.scaleX(bmp.bmWidth);
+		_closeButtonZone._height = dpiManager.scaleY(bmp.bmHeight);
 
 		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
-
+		
+		// StretchBlt will crop image in RTL if there is no stretching, thus move image by -1 
+		const bool isRTL = (::GetWindowLongPtr(::GetParent(_hSelf), GWL_EXSTYLE) & WS_EX_LAYOUTRTL) == WS_EX_LAYOUTRTL;
+		const int offset = isRTL && (_closeButtonZone._width == bmp.bmWidth) ? -1 : 0;
 		::SelectObject(hdcMemory, hBmp);
-		::StretchBlt(hDC, buttonRect.left, buttonRect.top, bmDpiDynamicalWidth, bmDpiDynamicalHeight, hdcMemory, 0, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
+		::StretchBlt(hDC, buttonRect.left + offset, buttonRect.top, _closeButtonZone._width, _closeButtonZone._height, hdcMemory, offset, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
 		::DeleteDC(hdcMemory);
 		::DeleteObject(hBmp);
 	}
@@ -1492,8 +1495,8 @@ void TabBarPlus::exchangeItemData(POINT point)
 CloseButtonZone::CloseButtonZone()
 {
 	// TODO: get width/height of close button dynamically
-	_width = NppParameters::getInstance()._dpiManager.scaleX(11);
-	_height = NppParameters::getInstance()._dpiManager.scaleY(11);
+	_width = NppParameters::getInstance()._dpiManager.scaleX(g_TabCloseBtnSize);
+	_height = _width;
 }
 
 bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const
@@ -1510,7 +1513,7 @@ RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) c
 {
 	RECT buttonRect{};
 
-	int fromBorder;
+	int fromBorder = 0;
 	if (isVertical)
 	{
 		fromBorder = (tabRect.right - tabRect.left - _width + 1) / 2;

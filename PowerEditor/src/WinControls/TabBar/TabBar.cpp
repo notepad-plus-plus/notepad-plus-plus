@@ -1347,23 +1347,16 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		// center text vertically
 		Flags |= DT_LEFT;
-		Flags |= DT_VCENTER;
+		Flags |= DT_TOP;
 
-		rect.top = pDrawItemStruct->rcItem.top + ::GetSystemMetrics(SM_CYEDGE);
-		rect.bottom = pDrawItemStruct->rcItem.bottom - ::GetSystemMetrics(SM_CYEDGE);
+		const int paddingText = ((pDrawItemStruct->rcItem.bottom - pDrawItemStruct->rcItem.top) - (textHeight + textDescent)) / 2;
+		const int paddingDescent = !hasMultipleLines ? textDescent / 2 : 0;
+		rect.top = pDrawItemStruct->rcItem.top + paddingText + paddingDescent;
+		rect.bottom = pDrawItemStruct->rcItem.bottom - paddingText + paddingDescent;
 
-		const int paddingText = (rect.bottom - rect.top - textHeight) / 2;
-		rect.top += paddingText;
-		rect.bottom -= paddingText;
-
-		if (isDarkMode || !isSelected)
+		if (isDarkMode || !isSelected || _drawTopBar)
 		{
 			rect.top += paddingDynamicTwoY;
-		}
-		else
-		{
-			rect.top += _drawTopBar && !hasMultipleLines ? paddingDynamicTwoY : 0;
-			rect.bottom -= _drawTopBar ? 0 : paddingDynamicTwoY;
 		}
 
 		// 1 space distance to save icon

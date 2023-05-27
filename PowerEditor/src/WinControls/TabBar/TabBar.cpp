@@ -343,7 +343,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	LOGFONT lfVer{ lf };
 	_hFont = ::CreateFontIndirect(&lf);
 	lf.lfWeight = FW_HEAVY;
-	lf.lfHeight = -dpiManager.pointsToPixels(12);
+	lf.lfHeight = -(dpiManager.pointsToPixels(10));
 	_hLargeFont = ::CreateFontIndirect(&lf);
 
 	lfVer.lfEscapement = 900;
@@ -1347,22 +1347,24 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		// center text vertically
 		Flags |= DT_LEFT;
-		Flags |= isStandardSize || (!hasMultipleLines && !isDarkMode) ? DT_VCENTER : DT_TOP;
+		Flags |= DT_VCENTER;
 
-		// ignoring the descent when centering (text elements below the base line) is more pleasing to the eye
-		if (!isDarkMode && !isStandardSize)
+		rect.top = pDrawItemStruct->rcItem.top + ::GetSystemMetrics(SM_CYEDGE);
+		rect.bottom = pDrawItemStruct->rcItem.bottom - ::GetSystemMetrics(SM_CYEDGE);
+
+		const int paddingText = (rect.bottom - rect.top - textHeight) / 2;
+		rect.top += paddingText;
+		rect.bottom -= paddingText;
+
+		if (isDarkMode || !isSelected)
 		{
-			rect.top = pDrawItemStruct->rcItem.top;
-			if (hasMultipleLines && isSelected)
-			{
-				rect.top -= _drawTopBar ? 0 : paddingDynamicTwoY;
-			}
+			rect.top += paddingDynamicTwoY;
 		}
 		else
 		{
-			rect.top += textDescent / 2;
+			rect.top += _drawTopBar && !hasMultipleLines ? paddingDynamicTwoY : 0;
+			rect.bottom -= _drawTopBar ? 0 : paddingDynamicTwoY;
 		}
-		rect.bottom += textDescent / 2;
 
 		// 1 space distance to save icon
 		rect.left += spaceUnit;

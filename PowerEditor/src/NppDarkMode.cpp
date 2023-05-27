@@ -548,19 +548,14 @@ namespace NppDarkMode
 		return IsWindows10();
 	}
 
-	bool isWindows10(DWORD build)
-	{
-		return IsWindows10(build);
-	}
-
 	bool isWindows11()
 	{
 		return IsWindows11();
 	}
 
-	bool isWindows11(DWORD build)
+	const DWORD getWindowsBuildNumber()
 	{
-		return IsWindows10(build);
+		return GetWindowsBuildNumber();
 	}
 
 	COLORREF invertLightness(COLORREF c)
@@ -2865,7 +2860,8 @@ namespace NppDarkMode
 
 	void setDarkTitleBar(HWND hwnd)
 	{
-		if (NppDarkMode::isWindows10(19041U))
+		constexpr DWORD win10Build2004 = 19041;
+		if (NppDarkMode::getWindowsBuildNumber() >= win10Build2004)
 		{
 			BOOL value = NppDarkMode::isEnabled() ? TRUE : FALSE;
 			::DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));

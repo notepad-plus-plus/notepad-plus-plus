@@ -118,9 +118,8 @@ namespace NppDarkMode
 	void setAdvancedOptions();
 
 	bool isWindows10();
-	bool isWindows10(DWORD build);
 	bool isWindows11();
-	bool isWindows11(DWORD build);
+	const DWORD getWindowsBuildNumber();
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);

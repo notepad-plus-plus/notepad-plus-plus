@@ -1,13 +1,13 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.5.1
-    Last modified Tho, May 04th, 2023.
+    Italian translation for Notepad++ 8.5.4
+    Last modified Sun, May 28th, 2023.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 
 
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.5.1">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -550,11 +550,11 @@
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versione"/>
 				<Item id="5501" name="Trova:"/>
-				<Item id="5503" name="Installa"/>
+				<Item id="5503" name="&amp;Installa"/>
 				<Item id="5504" name="Aggiorna"/>
-				<Item id="5505" name="Rimuovi"/>
+				<Item id="5505" name="&amp;Rimuovi"/>
 				<Item id="5508" name="Successivo"/>
-				<Item id="5509" name="Elenco versioni Plugin: "/>
+				<Item id="5509" name="Elenco versioni Plugin:"/>
 				<Item id="5511" name="Archivio Elenco Plugin"/>
 				<Item id="2" name="Chiudi"/>
 			</PluginsAdminDlg>
@@ -916,20 +916,21 @@
 					<Item id="6109" name="Oscura le schede inattive"/>
 					<Item id="6110" name="Barra colorata sulla scheda attiva"/>
 
-					<Item id="6111" name="Attiva la barra di stato"/>
 					<Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
 					<Item id="6113" name="Chiudere una scheda con Doppio clic"/>
 					<Item id="6118" name="Nascondi"/>
 					<Item id="6119" name="Utilizza più righe"/>
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esci alla chiusura dell&apos;ultima scheda"/>
+					<Item id="6128" name="Icone alternative"/>
+                    <Item id="6133" name="Barra di stato"/>
+					<Item id="6134" name="Nascondi"/>
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Nascondi la barra dei menu (Alt o F10 per visualizzare)"/>
 					<Item id="6132" name="Nascondi ＋ ▼ ✕ dalla barra dei menu (Richiede il riavvio di Notepad++)"/>
 					<Item id="6123" name="Lingua"/>
 
-					<Item id="6128" name="Icone alternative"/>
 				</Global>
 				<Scintillas title="Visualizzazione">
 					<Item id="6216" name="Cursore"/>
@@ -952,7 +953,7 @@
 					<Item id="6652" name="Nessuno"/>
 					<Item id="6653" name="Evidenzia sfondo"/>
 					<Item id="6654" name="Cornice"/>
-					<Item id="6655" name="Larghezza"/>
+					<Item id="6655" name="Larghezza:"/>
 					<Item id="6247" name="Fine Riga (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinito"/>
 					<Item id="6249" name="Testo Normale"/>
@@ -1284,15 +1285,15 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
 			<ColumnEditor title="Editor a colonne">
 				<Item id="2023" name="&amp;Testo da inserire"/>
 				<Item id="2033" name="&amp;Numero da inserire"/>
-				<Item id="2030" name="Numero &amp;iniziale: "/>
-				<Item id="2031" name="Incrementa di: "/>
+				<Item id="2030" name="Numero &amp;iniziale:"/>
+				<Item id="2031" name="Incrementa di:"/>
 				<Item id="2038" name="Inizia&amp;li:"/>
 				<ComboBox id="2039">
 					<Element name="Niente"/>
 					<Element name="Zeri"/>
 					<Element name="Spazi"/>
 				</ComboBox>
-				<Item id="2036" name="&amp;Ripeti: "/>
+				<Item id="2036" name="&amp;Ripeti:"/>
 				<Item id="2032" name="Formato"/>
 				<Item id="2024" name="&amp;Decimale"/>
 				<Item id="2025" name="&amp;Ottale"/>
@@ -1305,7 +1306,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
 				<Item id="1" name="Trova tutti"/>
 				<Item id="2" name="Chiudi"/>
 				<Item id="1711" name="&amp;Trova:"/>
-				<Item id="1713" name="Cerca solo nelle righe trovate"/>
+				<Item id="1713" name="Cerca s&amp;olo nelle righe trovate"/>
 				<Item id="1714" name="Solo parole intere"/>
 				<Item id="1715" name="Distingui tra maius&amp;cole e minuscole"/>
 				<Item id="1716" name="Tipo di ricerca"/>

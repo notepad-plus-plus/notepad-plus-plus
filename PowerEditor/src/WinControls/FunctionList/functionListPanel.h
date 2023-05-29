@@ -110,7 +110,7 @@ protected:
 private:
 	HWND _hToolbarMenu = nullptr;
 	HWND _hSearchEdit = nullptr;
-	HFONT _hFont = nullptr;
+	HFONT _hFontSearchEdit = nullptr;
 
 	TreeView *_pTreeView = nullptr;
 	TreeView _treeView;

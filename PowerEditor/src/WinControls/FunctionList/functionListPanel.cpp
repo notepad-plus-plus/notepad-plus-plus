@@ -36,10 +36,10 @@ FunctionListPanel::~FunctionListPanel()
 		delete s;
 	}
 
-	if (_hFont != nullptr)
+	if (_hFontSearchEdit != nullptr)
 	{
-		::DeleteObject(_hFont);
-		_hFont = nullptr;
+		::DeleteObject(_hFontSearchEdit);
+		_hFontSearchEdit = nullptr;
 	}
 }
 
@@ -896,15 +896,15 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			oldFunclstSearchEditProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSearchEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstSearchEditProc)));
 
-			if (_hFont == nullptr)
+			if (_hFontSearchEdit == nullptr)
 			{
 				LOGFONT lf{ NppParameters::getDefaultGUIFont() };
-				_hFont = ::CreateFontIndirect(&lf);
+				_hFontSearchEdit = ::CreateFontIndirect(&lf);
 			}
 
-			if (_hFont != nullptr)
+			if (_hFontSearchEdit != nullptr)
 			{
-				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), MAKELPARAM(TRUE, 0));
+				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSearchEdit), MAKELPARAM(TRUE, 0));
 			}
 
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);

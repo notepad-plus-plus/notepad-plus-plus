@@ -1148,11 +1148,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		if (_isVertical)
 		{
-			rect.left -= isDarkMode ? paddingDynamicTwoX : 2;
+			rect.left -= paddingDynamicTwoX;
 		}
 		else
 		{
-			rect.top -= isDarkMode ? paddingDynamicTwoY : 2;
+			rect.top -= paddingDynamicTwoY;
 		}
 	}
 
@@ -1350,7 +1350,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		Flags |= DT_TOP;
 
 		const int paddingText = ((pDrawItemStruct->rcItem.bottom - pDrawItemStruct->rcItem.top) - (textHeight + textDescent)) / 2;
-		const int paddingDescent = !hasMultipleLines ? ((textDescent + (isDarkMode ? 1 : 0)) / 2) : 0;
+		const int paddingDescent = !hasMultipleLines ? ((textDescent + ((isDarkMode || !isSelected) ? 1 : 0)) / 2) : 0;
 		rect.top = pDrawItemStruct->rcItem.top + paddingText + paddingDescent;
 		rect.bottom = pDrawItemStruct->rcItem.bottom - paddingText + paddingDescent;
 

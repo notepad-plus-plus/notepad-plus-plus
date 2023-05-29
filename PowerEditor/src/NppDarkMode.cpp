@@ -553,7 +553,7 @@ namespace NppDarkMode
 		return IsWindows11();
 	}
 
-	const DWORD getWindowsBuildNumber()
+	DWORD getWindowsBuildNumber()
 	{
 		return GetWindowsBuildNumber();
 	}

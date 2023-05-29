@@ -119,7 +119,7 @@ namespace NppDarkMode
 
 	bool isWindows10();
 	bool isWindows11();
-	const DWORD getWindowsBuildNumber();
+	DWORD getWindowsBuildNumber();
 
 	COLORREF invertLightness(COLORREF c);
 	COLORREF invertLightnessSofter(COLORREF c);

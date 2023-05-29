@@ -372,7 +372,7 @@ void TabBarPlus::doOwnerDrawTab()
 			::InvalidateRect(_hwndArray[i], NULL, TRUE);
 
 			const int paddingSizeDynamicW = NppParameters::getInstance()._dpiManager.scaleX(6);
-			const int paddingSizePlusClosebuttonDynamicW = NppParameters::getInstance()._dpiManager.scaleX(9);
+			const int paddingSizePlusClosebuttonDynamicW = NppParameters::getInstance()._dpiManager.scaleX(10);
 			::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton ? paddingSizePlusClosebuttonDynamicW : paddingSizeDynamicW, 0));
 		}
 	}
@@ -1350,7 +1350,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		Flags |= DT_TOP;
 
 		const int paddingText = ((pDrawItemStruct->rcItem.bottom - pDrawItemStruct->rcItem.top) - (textHeight + textDescent)) / 2;
-		const int paddingDescent = !hasMultipleLines ? textDescent / 2 : 0;
+		const int paddingDescent = !hasMultipleLines ? ((textDescent + (isDarkMode ? 1 : 0)) / 2) : 0;
 		rect.top = pDrawItemStruct->rcItem.top + paddingText + paddingDescent;
 		rect.bottom = pDrawItemStruct->rcItem.bottom - paddingText + paddingDescent;
 

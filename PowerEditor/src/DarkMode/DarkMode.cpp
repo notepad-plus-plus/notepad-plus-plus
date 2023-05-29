@@ -271,7 +271,7 @@ bool IsWindows11() // or later OS version
 	return (g_buildNumber >= 22000);
 }
 
-const DWORD GetWindowsBuildNumber()
+DWORD GetWindowsBuildNumber()
 {
 	return g_buildNumber;
 }

@@ -1525,8 +1525,7 @@ public:
 	bool isInFontList(const generic_string& fontName2Search) const;
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
 
-	HFONT getDefaultUIFont();
-	enum class DefaultFontType { none, menu, status, message, caption, smcaption };
+	enum class DefaultFontType { menu, status, message, caption, smcaption };
 	static LOGFONT getDefaultGUIFont(DefaultFontType type = DefaultFontType::message);
 
 	int getNbUserLang() const {return _nbUserLang;}

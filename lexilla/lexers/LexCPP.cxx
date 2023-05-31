@@ -162,7 +162,7 @@ void highlightTaskMarker(StyleContext &sc, LexAccessor &styler,
 
 class EscapeSequence {
 	const CharacterSet setHexDigits = CharacterSet(CharacterSet::setDigits, "ABCDEFabcdef");
-	const CharacterSet setOctDigits = CharacterSet(CharacterSet::setNone, "01234567");
+	const CharacterSet setOctDigits = CharacterSet("01234567");
 	const CharacterSet setNoneNumeric;
 	const CharacterSet *escapeSetValid = nullptr;
 	int digitsLeft = 0;
@@ -537,11 +537,11 @@ public:
 	explicit LexerCPP(bool caseSensitive_) :
 		caseSensitive(caseSensitive_),
 		setWord(CharacterSet::setAlphaNum, "._", true),
-		setNegationOp(CharacterSet::setNone, "!"),
-		setAddOp(CharacterSet::setNone, "+-"),
-		setMultOp(CharacterSet::setNone, "*/%"),
-		setRelOp(CharacterSet::setNone, "=!<>"),
-		setLogicalOp(CharacterSet::setNone, "|&"),
+		setNegationOp("!"),
+		setAddOp("+-"),
+		setMultOp("*/%"),
+		setRelOp("=!<>"),
+		setLogicalOp("|&"),
 		subStyles(styleSubable, 0x80, 0x40, inactiveFlag) {
 	}
 	// Deleted so LexerCPP objects can not be copied.
@@ -770,14 +770,14 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 	const StyleContext::Transform transform = caseSensitive ?
 		StyleContext::Transform::none : StyleContext::Transform::lower;
 
-	const CharacterSet setOKBeforeRE(CharacterSet::setNone, "([{=,:;!%^&*|?~+-");
-	const CharacterSet setCouldBePostOp(CharacterSet::setNone, "+-");
+	const CharacterSet setOKBeforeRE("([{=,:;!%^&*|?~+-");
+	const CharacterSet setCouldBePostOp("+-");
 
 	const CharacterSet setDoxygen(CharacterSet::setAlpha, "$@\\&<>#{}[]");
 
 	setWordStart = CharacterSet(CharacterSet::setAlpha, "_", true);
 
-	const CharacterSet setInvalidRawFirst(CharacterSet::setNone, " )\\\t\v\f\n");
+	const CharacterSet setInvalidRawFirst(" )\\\t\v\f\n");
 
 	if (options.identifiersAllowDollars) {
 		setWordStart.Add('$');

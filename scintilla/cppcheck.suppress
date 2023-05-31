@@ -1,0 +1,71 @@
+// File to suppress cppcheck warnings for files that will not be fixed.
+// Does not suppress warnings where an additional occurrence of the warning may be of interest.
+
+// Coding style is to use assignments in constructor when there are many
+// members to initialize or the initialization is complex or has comments.
+useInitializationList
+
+// These may be interesting but its not clear without examining each instance closely
+// Would have to ensure that any_of/all_of has same early/late exits as current code and
+// produces same result on empty collections
+useStlAlgorithm
+
+// Written with variable for consistency
+knownArgument:scintilla/src/SparseVector.h
+
+// The cast converts from 'unsigned char ' to 'char' so isn't unused.
+// Redundant code: Found unused cast of expression 'leadByte'
+constStatement:scintilla/src/Document.cxx
+
+// Some non-explicit constructors are used for conversions or are private to lexers
+noExplicitConstructor
+
+// MarginView access to all bits is safe and is better defined in later versions of C++
+shiftTooManyBitsSigned:scintilla/src/MarginView.cxx
+
+// DLL entry points are unused inside Scintilla
+unusedFunction:scintilla/win32/ScintillaDLL.cxx
+
+// ScintillaDocument is providing an API and there are no consumers of the API inside Scintilla
+unusedFunction:scintilla/qt/ScintillaEdit/ScintillaDocument.cpp
+
+// Doesn't understand changing dropWentOutside in Editor
+knownConditionTrueFalse:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
+knownConditionTrueFalse:scintilla/win32/ScintillaWin.cxx
+
+// G_DEFINE_TYPE is too complex to pass to cppcheck
+unknownMacro:scintilla/gtk/PlatGTK.cxx
+
+// maskSmooth set depending on preprocessor allowing Wayland definition
+badBitmaskCheck:scintilla/gtk/ScintillaGTK.cxx
+
+// Difficult to test accessibility so don't change
+constVariable:scintilla/gtk/ScintillaGTKAccessible.cxx
+
+// Have no way of testing ScintillaEdit so don't fix even simple warnings
+cstyleCast:scintilla/qt/ScintillaEdit/ScintillaEdit.cpp
+shadowFunction:scintilla/qt/ScintillaEdit/ScintillaEdit.cpp
+
+// cppcheck fails emit from Qt
+shadowFunction:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
+shadowFunction:scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp
+
+// moc_ files show #error as they are not built with standard context
+preprocessorErrorDirective:scintilla/qt/*.cpp
+
+// moc_ files are not understood by cppcheck
+noValidConfiguration
+
+// The performance cost of by-value passing is often small and using a reference decreases
+// code legibility.
+passedByValue
+
+// Suppress everything in catch.hpp as won't be changing
+*:scintilla/test/unit/catch.hpp
+
+// Checks for moves move to variables that are not read but the moved from is checked
+unreadVariable:scintilla/test/unit/*.cxx
+accessMoved:scintilla/test/unit/*.cxx
+
+// cppcheck fails REQUIRE from Catch
+comparisonOfFuncReturningBoolError:scintilla/test/unit/*.cxx

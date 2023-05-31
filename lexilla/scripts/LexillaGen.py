@@ -105,7 +105,7 @@ def RegenerateAll(rootDirectory):
 
     # Discover version information
     version = (lexillaDir / "version.txt").read_text().strip()
-    versionDotted = version[0] + '.' + version[1] + '.' + version[2]
+    versionDotted = version[0:-2] + '.' + version[-2] + '.' + version[-1]
     versionCommad = versionDotted.replace(".", ", ") + ', 0'
 
     rcPath = srcDir / "LexillaVersion.rc"
@@ -116,7 +116,7 @@ def RegenerateAll(rootDirectory):
     UpdateLineInFile(docDir / "LexillaDownload.html", "       Release",
         "       Release " + versionDotted)
     ReplaceREInFile(docDir / "LexillaDownload.html",
-        r"/www.scintilla.org/([a-zA-Z]+)\d\d\d",
+        r"/www.scintilla.org/([a-zA-Z]+)\d{3,5}",
         r"/www.scintilla.org/\g<1>" +  version,
         0)
 

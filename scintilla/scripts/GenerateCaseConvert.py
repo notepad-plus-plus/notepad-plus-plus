@@ -21,11 +21,11 @@ import itertools, string, sys
 
 from FileGenerator import Regenerate
 
-def contiguousRanges(l, diff):
-    # l is s list of lists
+def contiguousRanges(ll, diff):
+    # ll is a list of lists
     # group into lists where first element of each element differs by diff
-    out = [[l[0]]]
-    for s in l[1:]:
+    out = [[ll[0]]]
+    for s in ll[1:]:
         if s[0] != out[-1][-1][0] + diff:
             out.append([])
         out[-1].append(s)
@@ -99,7 +99,7 @@ def groupRanges(symmetrics):
 
     rangeCoverage = list(flatten([range(r[0], r[0]+r[2]*r[3], r[3]) for r in rangeGroups]))
 
-    nonRanges = [(l, u) for l, u, _d in symmetrics if l not in rangeCoverage]
+    nonRanges = [(x, u) for x, u, _d in symmetrics if x not in rangeCoverage]
 
     return rangeGroups, nonRanges
 

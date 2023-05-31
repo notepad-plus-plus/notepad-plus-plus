@@ -31,4 +31,9 @@ while read -r f; do
   } >> $OUT_FILE
 done
 
+# Issue 137, should be shift but here-doc was detected
+echo $(( x << END ))
+pwd
+END
+
 INVALID_NUMBER=0#0000

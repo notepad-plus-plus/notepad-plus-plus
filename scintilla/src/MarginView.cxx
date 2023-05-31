@@ -92,7 +92,7 @@ void DrawWrapMarker(Surface *surface, PRectangle rcPlace,
 		}
 	};
 
-	Relative rel = { x0, isEndMarker ? 1 : -1, y0, 1, widthStroke / 2.0f };
+	const Relative rel = { x0, isEndMarker ? 1 : -1, y0, 1, widthStroke / 2.0f };
 
 	// arrow head
 	const Point head[] = {

@@ -72,6 +72,10 @@ static void ColouriseVBDoc(Sci_PositionU startPos, Sci_Position length, int init
 	int visibleChars = 0;
 	int fileNbDigits = 0;
 
+	// property lexer.vb.strings.multiline
+	//  Set to 1 to allow strings to continue over line ends.
+	bool allowMultilineStr = styler.GetPropertyInt("lexer.vb.strings.multiline", 0) != 0;
+
 	// Do not leak onto next line
 	if (initStyle == SCE_B_STRINGEOL || initStyle == SCE_B_COMMENT || initStyle == SCE_B_PREPROCESSOR) {
 		initStyle = SCE_B_DEFAULT;
@@ -134,7 +138,7 @@ static void ColouriseVBDoc(Sci_PositionU startPos, Sci_Position length, int init
 					}
 					sc.ForwardSetState(SCE_B_DEFAULT);
 				}
-			} else if (sc.atLineEnd) {
+			} else if (sc.atLineEnd && !allowMultilineStr) {
 				visibleChars = 0;
 				sc.ChangeState(SCE_B_STRINGEOL);
 				sc.ForwardSetState(SCE_B_DEFAULT);

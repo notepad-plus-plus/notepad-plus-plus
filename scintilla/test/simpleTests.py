@@ -414,7 +414,7 @@ class TestSimple(unittest.TestCase):
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
-		text = b"x\xe2\x80\xa9y";
+		text = b"x\xe2\x80\xa9y"
 		self.ed.AddText(5, text)
 		self.assertEquals(self.ed.LineCount, 2)
 
@@ -501,7 +501,7 @@ class TestSimple(unittest.TestCase):
 		self.xite.ChooseLexer(b"cpp")
 		self.ed.SetCodePage(65001)
 		self.ed.SetLineEndTypesAllowed(1)
-		text = b"x\xc2\x85y";
+		text = b"x\xc2\x85y"
 		self.ed.AddText(4, text)
 		self.assertEquals(self.ed.LineCount, 2)
 
@@ -1165,8 +1165,10 @@ class TestMarkers(unittest.TestCase):
 
 	def testTwiceAddedDelete(self):
 		handle = self.ed.MarkerAdd(1,1)
+		self.assertNotEqual(handle, -1)
 		self.assertEquals(self.ed.MarkerGet(1), 2)
 		handle2 = self.ed.MarkerAdd(1,1)
+		self.assertNotEqual(handle2, -1)
 		self.assertEquals(self.ed.MarkerGet(1), 2)
 		self.ed.MarkerDelete(1,1)
 		self.assertEquals(self.ed.MarkerGet(1), 2)
@@ -1207,7 +1209,9 @@ class TestMarkers(unittest.TestCase):
 	def testMarkerNext(self):
 		self.assertEquals(self.ed.MarkerNext(0, 2), -1)
 		h1 = self.ed.MarkerAdd(0,1)
+		self.assertNotEqual(h1, -1)
 		h2 = self.ed.MarkerAdd(2,1)
+		self.assertNotEqual(h2, -1)
 		self.assertEquals(self.ed.MarkerNext(0, 2), 0)
 		self.assertEquals(self.ed.MarkerNext(1, 2), 2)
 		self.assertEquals(self.ed.MarkerNext(2, 2), 2)
@@ -2448,8 +2452,6 @@ class TestIndices(unittest.TestCase):
 
 	def testUTF16(self):
 		self.assertEquals(self.ed.GetLineCharacterIndex(), self.ed.SC_LINECHARACTERINDEX_NONE)
-		t = "aå\U00010348ﬂﬔ-"
-		tv = t.encode("UTF-8")
 		self.ed.SetContents(self.tv)
 		self.ed.AllocateLineCharacterIndex(self.ed.SC_LINECHARACTERINDEX_UTF16)
 		self.assertEquals(self.ed.IndexPositionFromLine(0, self.ed.SC_LINECHARACTERINDEX_UTF16), 0)
@@ -2821,7 +2823,8 @@ class TestSubStyles(unittest.TestCase):
 
 	def testSecondary(self):
 		inactiveDistance = self.ed.DistanceToSecondaryStyles()
-		self.assertEquals(self.ed.GetPrimaryStyleFromStyle(self.ed.SCE_C_IDENTIFIER+inactiveDistance), self.ed.SCE_C_IDENTIFIER)
+		inactiveIdentifier = self.ed.SCE_C_IDENTIFIER+inactiveDistance
+		self.assertEquals(self.ed.GetPrimaryStyleFromStyle(inactiveIdentifier), self.ed.SCE_C_IDENTIFIER)
 
 class TestCallTip(unittest.TestCase):
 

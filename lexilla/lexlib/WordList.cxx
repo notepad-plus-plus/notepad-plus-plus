@@ -134,7 +134,7 @@ bool WordList::Set(const char *s) {
 	len = lenTemp;
 	std::fill(starts, std::end(starts), -1);
 	for (int l = static_cast<int>(len - 1); l >= 0; l--) {
-		unsigned char indexChar = words[l][0];
+		unsigned char const indexChar = words[l][0];
 		starts[indexChar] = l;
 	}
 	return true;

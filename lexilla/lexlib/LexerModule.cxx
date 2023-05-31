@@ -116,7 +116,7 @@ void LexerModule::Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initS
 			startPos = newStartPos;
 			initStyle = 0;
 			if (startPos > 0) {
-				initStyle = styler.StyleAt(startPos - 1);
+				initStyle = styler.StyleIndexAt(startPos - 1);
 			}
 		}
 		fnFolder(startPos, lengthDoc, initStyle, keywordlists, styler);

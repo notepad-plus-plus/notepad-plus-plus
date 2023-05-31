@@ -266,7 +266,7 @@ void RGBAImage::SetPixel(int x, int y, ColourRGBA colour) noexcept {
 
 namespace {
 
-unsigned char AlphaMultiplied(unsigned char value, unsigned char alpha) {
+constexpr unsigned char AlphaMultiplied(unsigned char value, unsigned char alpha) noexcept {
 	return (value * alpha / UCHAR_MAX) & 0xffU;
 }
 

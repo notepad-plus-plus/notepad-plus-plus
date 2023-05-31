@@ -265,7 +265,7 @@ void ScintillaBase::AutoCompleteStart(Sci::Position lenEntered, const char *list
 		}
 	}
 
-	ListOptions options{
+	const ListOptions options{
 		vs.ElementColour(Element::List),
 		vs.ElementColour(Element::ListBack),
 		vs.ElementColour(Element::ListSelected),

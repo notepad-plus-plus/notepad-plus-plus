@@ -144,7 +144,7 @@ void DrawTail(Surface *surface, XYPOSITION leftLine, XYPOSITION rightTail, XYPOS
 	const XYPOSITION strokeTop = centreY + slopeLength;
 	const XYPOSITION halfWidth = widthSymbolStroke / 2.0f;
 	const XYPOSITION strokeMiddle = strokeTop + halfWidth;
-	Point lines[] = {
+	const Point lines[] = {
 		// Stick
 		Point(rightTail, strokeMiddle),
 		Point(leftLine + halfWidth + slopeLength, strokeMiddle),
@@ -396,7 +396,7 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 		break;
 
 	case MarkerSymbol::Arrow: {
-			Point pts[] = {
+			const Point pts[] = {
 				Point(centreX - dimOn4, centreY - dimOn2),
 				Point(centreX - dimOn4, centreY + dimOn2),
 				Point(centreX + dimOn2 - dimOn4, centreY),
@@ -406,7 +406,7 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 		break;
 
 	case MarkerSymbol::ArrowDown: {
-			Point pts[] = {
+			const Point pts[] = {
 				Point(centreX - dimOn2, centreY - dimOn4),
 				Point(centreX + dimOn2, centreY - dimOn4),
 				Point(centreX, centreY + dimOn2 - dimOn4),
@@ -416,7 +416,7 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 		break;
 
 	case MarkerSymbol::Plus: {
-			Point pts[] = {
+			const Point pts[] = {
 				Point(centreX - armSize, centreY - 1),
 				Point(centreX - 1, centreY - 1),
 				Point(centreX - 1, centreY - armSize),
@@ -435,7 +435,7 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 		break;
 
 	case MarkerSymbol::Minus: {
-			Point pts[] = {
+			const Point pts[] = {
 				Point(centreX - armSize, centreY - 1),
 				Point(centreX + armSize, centreY - 1),
 				Point(centreX + armSize, centreY + 1),
@@ -489,7 +489,7 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 		break;
 
 	case MarkerSymbol::ShortArrow: {
-			Point pts[] = {
+			const Point pts[] = {
 				Point(centreX, centreY + dimOn2),
 				Point(centreX + dimOn2, centreY),
 				Point(centreX, centreY - dimOn2),
@@ -547,7 +547,7 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 
 	case MarkerSymbol::Bookmark: {
 			const XYPOSITION halfHeight = std::floor(minDim / 3);
-			Point pts[] = {
+			const Point pts[] = {
 				Point(rcWhole.left, centreY - halfHeight),
 				Point(rcWhole.right - strokeWidth - 2, centreY - halfHeight),
 				Point(rcWhole.right - strokeWidth - 2 - halfHeight, centreY),
@@ -560,7 +560,7 @@ void LineMarker::Draw(Surface *surface, const PRectangle &rcWhole, const Font *f
 
 	case MarkerSymbol::VerticalBookmark: {
 			const XYPOSITION halfWidth = std::floor(minDim / 3);
-			Point pts[] = {
+			const Point pts[] = {
 				Point(centreX - halfWidth, centreY - dimOn2),
 				Point(centreX + halfWidth, centreY - dimOn2),
 				Point(centreX + halfWidth, centreY + dimOn2),

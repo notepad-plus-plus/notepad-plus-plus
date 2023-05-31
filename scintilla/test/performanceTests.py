@@ -5,7 +5,7 @@
 from __future__ import with_statement
 from __future__ import unicode_literals
 
-import os, string, sys, time, unittest
+import string, time, unittest
 
 try:
 	start = time.perf_counter()

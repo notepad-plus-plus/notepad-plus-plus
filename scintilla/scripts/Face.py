@@ -5,7 +5,8 @@
 # Requires Python 2.7 or later
 
 def sanitiseLine(line):
-	if line[-1:] == '\n': line = line[:-1]
+	if line[-1:] == '\n':
+		line = line[:-1]
 	if line.find("##") != -1:
 		line = line[:line.find("##")]
 	line = line.strip()

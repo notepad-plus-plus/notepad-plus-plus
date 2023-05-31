@@ -6,11 +6,11 @@
 // Adapted from LexPerl by Kein-Hong Man 2004
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
@@ -35,6 +35,8 @@
 using namespace Scintilla;
 using namespace Lexilla;
 
+namespace {
+
 #define HERE_DELIM_MAX			256
 
 // define this if you want 'invalid octals' to be marked as errors
@@ -50,27 +52,50 @@ using namespace Lexilla;
 #endif
 
 // state constants for parts of a bash command segment
-#define	BASH_CMD_BODY			0
-#define BASH_CMD_START			1
-#define BASH_CMD_WORD			2
-#define BASH_CMD_TEST			3
-#define BASH_CMD_ARITH			4
-#define BASH_CMD_DELIM			5
+enum class CmdState {
+	Body,
+	Start,
+	Word,
+	Test,
+	Arithmetic,
+	Delimiter,
+};
+
+enum class TestExprType {
+	Test,			// test
+	DoubleBracket,	// [[]]
+	SingleBracket,	// []
+};
+
+enum class CommandSubstitution {
+	Backtick,
+	Inside,
+	InsideTrack,
+};
 
 // state constants for nested delimiter pairs, used by
-// SCE_SH_STRING and SCE_SH_BACKTICKS processing
-#define BASH_DELIM_LITERAL		0
-#define BASH_DELIM_STRING		1
-#define BASH_DELIM_CSTRING		2
-#define BASH_DELIM_LSTRING		3
-#define BASH_DELIM_COMMAND		4
-#define BASH_DELIM_BACKTICK		5
+// SCE_SH_STRING, SCE_SH_PARAM and SCE_SH_BACKTICKS processing
+enum class QuoteStyle {
+	Literal,		// ''
+	CString,		// $''
+	String,			// ""
+	LString,		// $""
+	HereDoc,		// here document
+	Backtick,		// ``, $``
+	Parameter,		// ${}
+	Command,		// $()
+	CommandInside,	// $() with styling inside
+	Arithmetic,		// $(()), $[]
+};
 
-#define BASH_DELIM_STACK_MAX	7
+#define BASH_QUOTE_STACK_MAX	7
 
-namespace {
+constexpr int commandSubstitutionFlag = 0x40;
+constexpr int MaskCommand(int state) noexcept {
+	return state & ~commandSubstitutionFlag;
+}
 
-inline int translateBashDigit(int ch) {
+constexpr int translateBashDigit(int ch) noexcept {
 	if (ch >= '0' && ch <= '9') {
 		return ch - '0';
 	} else if (ch >= 'a' && ch <= 'z') {
@@ -85,7 +110,7 @@ inline int translateBashDigit(int ch) {
 	return BASH_BASE_ERROR;
 }
 
-inline int getBashNumberBase(char *s) {
+int getBashNumberBase(char *s) noexcept {
 	int i = 0;
 	int base = 0;
 	while (*s) {
@@ -98,7 +123,7 @@ inline int getBashNumberBase(char *s) {
 	return base;
 }
 
-int opposite(int ch) {
+constexpr int opposite(int ch) noexcept {
 	if (ch == '(') return ')';
 	if (ch == '[') return ']';
 	if (ch == '{') return '}';
@@ -109,7 +134,8 @@ int opposite(int ch) {
 int GlobScan(StyleContext &sc) {
 	// forward scan for zsh globs, disambiguate versus bash arrays
 	// complex expressions may still fail, e.g. unbalanced () '' "" etc
-	int c, sLen = 0;
+	int c = 0;
+	int sLen = 0;
 	int pCount = 0;
 	int hash = 0;
 	while ((c = sc.GetRelativeCharacter(++sLen)) != 0) {
@@ -133,10 +159,10 @@ int GlobScan(StyleContext &sc) {
 }
 
 bool IsCommentLine(Sci_Position line, LexAccessor &styler) {
-	Sci_Position pos = styler.LineStart(line);
-	Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
+	const Sci_Position pos = styler.LineStart(line);
+	const Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
 	for (Sci_Position i = pos; i < eol_pos; i++) {
-		char ch = styler[i];
+		const char ch = styler[i];
 		if (ch == '#')
 			return true;
 		else if (ch != ' ' && ch != '\t')
@@ -146,20 +172,34 @@ bool IsCommentLine(Sci_Position line, LexAccessor &styler) {
 }
 
 struct OptionsBash {
-	bool fold;
-	bool foldComment;
-	bool foldCompact;
+	bool fold = false;
+	bool foldComment = false;
+	bool foldCompact = true;
+	bool stylingInsideString = false;
+	bool stylingInsideBackticks = false;
+	bool stylingInsideParameter = false;
+	bool stylingInsideHeredoc = false;
+	int commandSubstitution = static_cast<int>(CommandSubstitution::Backtick);
 
-	OptionsBash() {
-		fold = false;
-		foldComment = false;
-		foldCompact = true;
+	[[nodiscard]] bool stylingInside(int state) const noexcept {
+		switch (state) {
+		case SCE_SH_STRING:
+			return stylingInsideString;
+		case SCE_SH_BACKTICKS:
+			return stylingInsideBackticks;
+		case SCE_SH_PARAM:
+			return stylingInsideParameter;
+		case SCE_SH_HERE_Q:
+			return stylingInsideHeredoc;
+		default:
+			return false;
+		}
 	}
 };
 
 const char * const bashWordListDesc[] = {
 	"Keywords",
-	0
+	nullptr
 };
 
 struct OptionSetBash : public OptionSet<OptionsBash> {
@@ -170,13 +210,173 @@ struct OptionSetBash : public OptionSet<OptionsBash> {
 
 		DefineProperty("fold.compact", &OptionsBash::foldCompact);
 
+		DefineProperty("lexer.bash.styling.inside.string", &OptionsBash::stylingInsideString,
+			"Set this property to 1 to highlight shell expansions inside string.");
+
+		DefineProperty("lexer.bash.styling.inside.backticks", &OptionsBash::stylingInsideBackticks,
+			"Set this property to 1 to highlight shell expansions inside backticks.");
+
+		DefineProperty("lexer.bash.styling.inside.parameter", &OptionsBash::stylingInsideParameter,
+			"Set this property to 1 to highlight shell expansions inside ${} parameter expansion.");
+
+		DefineProperty("lexer.bash.styling.inside.heredoc", &OptionsBash::stylingInsideHeredoc,
+			"Set this property to 1 to highlight shell expansions inside here document.");
+
+		DefineProperty("lexer.bash.command.substitution", &OptionsBash::commandSubstitution,
+			"Set how to highlight $() command substitution. "
+			"0 (the default) highlighted as backticks. "
+			"1 highlighted inside. "
+			"2 highlighted inside with extra scope tracking.");
+
 		DefineWordListSets(bashWordListDesc);
+	}
+};
+
+class QuoteCls {	// Class to manage quote pairs (simplified vs LexPerl)
+public:
+	int Count = 0;
+	int Up = '\0';
+	int Down = '\0';
+	QuoteStyle Style = QuoteStyle::Literal;
+	int Outer = SCE_SH_DEFAULT;
+	void Clear() noexcept {
+		Count = 0;
+		Up	  = '\0';
+		Down  = '\0';
+		Style = QuoteStyle::Literal;
+		Outer = SCE_SH_DEFAULT;
+	}
+	void Start(int u, QuoteStyle s, int outer) noexcept {
+		Count = 1;
+		Up    = u;
+		Down  = opposite(Up);
+		Style = s;
+		Outer = outer;
+	}
+};
+
+class QuoteStackCls {	// Class to manage quote pairs that nest
+public:
+	int Depth = 0;
+	int State = SCE_SH_DEFAULT;
+	CommandSubstitution commandSubstitution = CommandSubstitution::Backtick;
+	int insideCommand = 0;
+	QuoteCls Current;
+	QuoteCls Stack[BASH_QUOTE_STACK_MAX];
+	[[nodiscard]] bool Empty() const noexcept {
+		return Current.Up == '\0';
+	}
+	void Start(int u, QuoteStyle s, int outer) noexcept {
+		if (Empty()) {
+			Current.Start(u, s, outer);
+		} else {
+			Push(u, s, outer);
+		}
+	}
+	void Push(int u, QuoteStyle s, int outer) noexcept {
+		if (Depth >= BASH_QUOTE_STACK_MAX) {
+			return;
+		}
+		Stack[Depth] = Current;
+		Depth++;
+		Current.Start(u, s, outer);
+	}
+	void Pop() noexcept {
+		if (Depth == 0) {
+			Clear();
+			return;
+		}
+		if (insideCommand != 0) {
+			insideCommand = 0;
+			for (int i = 0; i < Depth; i++) {
+				if (Stack[i].Style == QuoteStyle::CommandInside) {
+					insideCommand = commandSubstitutionFlag;
+					break;
+				}
+			}
+		}
+		Depth--;
+		Current = Stack[Depth];
+	}
+	void Clear() noexcept {
+		Depth = 0;
+		State = SCE_SH_DEFAULT;
+		insideCommand = 0;
+		Current.Clear();
+	}
+	bool CountDown(StyleContext &sc, CmdState &cmdState) {
+		Current.Count--;
+		if (Current.Count == 1 && sc.Match(')', ')')) {
+			Current.Count--;
+			sc.Forward();
+		}
+		if (Current.Count == 0) {
+			cmdState = CmdState::Body;
+			const int outer = Current.Outer;
+			Pop();
+			sc.ForwardSetState(outer | insideCommand);
+			return true;
+		}
+		return false;
+	}
+	void Expand(StyleContext &sc, CmdState &cmdState, bool stylingInside) {
+		const int state = sc.state;
+		QuoteStyle style = QuoteStyle::Literal;
+		State = state;
+		sc.SetState(SCE_SH_SCALAR);
+		sc.Forward();
+		if (sc.ch == '{') {
+			style = QuoteStyle::Parameter;
+			sc.ChangeState(SCE_SH_PARAM);
+		} else if (sc.ch == '\'') {
+			style = QuoteStyle::CString;
+			sc.ChangeState(SCE_SH_STRING);
+		} else if (sc.ch == '"') {
+			style = QuoteStyle::LString;
+			sc.ChangeState(SCE_SH_STRING);
+		} else if (sc.ch == '(' || sc.ch == '[') {
+			if (sc.ch == '[' || sc.chNext == '(') {
+				style = QuoteStyle::Arithmetic;
+				cmdState = CmdState::Arithmetic;
+				sc.ChangeState(SCE_SH_OPERATOR);
+			} else {
+				if (stylingInside && commandSubstitution >= CommandSubstitution::Inside) {
+					style = QuoteStyle::CommandInside;
+					cmdState = CmdState::Delimiter;
+					sc.ChangeState(SCE_SH_OPERATOR);
+					if (commandSubstitution == CommandSubstitution::InsideTrack) {
+						insideCommand = commandSubstitutionFlag;
+					}
+				} else {
+					style = QuoteStyle::Command;
+					sc.ChangeState(SCE_SH_BACKTICKS);
+				}
+			}
+			if (sc.Match('(', '(') && state == SCE_SH_DEFAULT && Depth == 0) {
+				// optimized to avoid track nested delimiter pairs
+				style = QuoteStyle::Literal;
+			}
+		} else if (sc.ch == '`') {	// $` seen in a configure script, valid?
+			style = QuoteStyle::Backtick;
+			sc.ChangeState(SCE_SH_BACKTICKS);
+		} else {
+			// scalar has no delimiter pair
+		}
+		if (!stylingInside) {
+			sc.ChangeState(state);
+		} else {
+			sc.ChangeState(sc.state | insideCommand);
+		}
+		if (style != QuoteStyle::Literal) {
+			Start(sc.ch, style, state);
+			sc.Forward();
+		}
 	}
 };
 
 const char styleSubable[] = { SCE_SH_IDENTIFIER, SCE_SH_SCALAR, 0 };
 
-LexicalClass lexicalClasses[] = {
+const LexicalClass lexicalClasses[] = {
 	// Lexer Bash SCLEX_BASH SCE_SH_:
 	0, "SCE_SH_DEFAULT", "default", "White space",
 	1, "SCE_SH_ERROR", "error", "Error",
@@ -196,8 +396,11 @@ LexicalClass lexicalClasses[] = {
 
 }
 
-class LexerBash : public DefaultLexer {
+class LexerBash final : public DefaultLexer {
 	WordList keywords;
+	WordList cmdDelimiter;
+	WordList bashStruct;
+	WordList bashStruct_in;
 	OptionsBash options;
 	OptionSetBash osBash;
 	enum { ssIdentifier, ssScalar };
@@ -206,8 +409,9 @@ public:
 	LexerBash() :
 		DefaultLexer("bash", SCLEX_BASH, lexicalClasses, ELEMENTS(lexicalClasses)),
 		subStyles(styleSubable, 0x80, 0x40, 0) {
-	}
-	virtual ~LexerBash() {
+		cmdDelimiter.Set("| || |& & && ; ;; ( ) { }");
+		bashStruct.Set("if elif fi while until else then do done esac eval");
+		bashStruct_in.Set("for case select");
 	}
 	void SCI_METHOD Release() override {
 		delete this;
@@ -236,7 +440,7 @@ public:
 	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 
 	void * SCI_METHOD PrivateCall(int, void *) override {
-		return 0;
+		return nullptr;
 	}
 
 	int SCI_METHOD AllocateSubStyles(int styleBase, int numberStyles) override {
@@ -281,7 +485,7 @@ Sci_Position SCI_METHOD LexerBash::PropertySet(const char *key, const char *val)
 }
 
 Sci_Position SCI_METHOD LexerBash::WordListSet(int n, const char *wl) {
-	WordList *wordListN = 0;
+	WordList *wordListN = nullptr;
 	switch (n) {
 	case 0:
 		wordListN = &keywords;
@@ -289,10 +493,7 @@ Sci_Position SCI_METHOD LexerBash::WordListSet(int n, const char *wl) {
 	}
 	Sci_Position firstModification = -1;
 	if (wordListN) {
-		WordList wlNew;
-		wlNew.Set(wl);
-		if (*wordListN != wlNew) {
-			wordListN->Set(wl);
+		if (wordListN->Set(wl)) {
 			firstModification = 0;
 		}
 	}
@@ -300,127 +501,48 @@ Sci_Position SCI_METHOD LexerBash::WordListSet(int n, const char *wl) {
 }
 
 void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
-	WordList cmdDelimiter, bashStruct, bashStruct_in;
-	cmdDelimiter.Set("| || |& & && ; ;; ( ) { }");
-	bashStruct.Set("if elif fi while until else then do done esac eval");
-	bashStruct_in.Set("for case select");
-
-	CharacterSet setWordStart(CharacterSet::setAlpha, "_");
+	const CharacterSet setWordStart(CharacterSet::setAlpha, "_");
 	// note that [+-] are often parts of identifiers in shell scripts
-	CharacterSet setWord(CharacterSet::setAlphaNum, "._+-");
+	const CharacterSet setWord(CharacterSet::setAlphaNum, "._+-");
 	CharacterSet setMetaCharacter(CharacterSet::setNone, "|&;()<> \t\r\n");
 	setMetaCharacter.Add(0);
-	CharacterSet setBashOperator(CharacterSet::setNone, "^&%()-+=|{}[]:;>,*/<?!.~@");
-	CharacterSet setSingleCharOp(CharacterSet::setNone, "rwxoRWXOezsfdlpSbctugkTBMACahGLNn");
-	CharacterSet setParam(CharacterSet::setAlphaNum, "$_");
-	CharacterSet setHereDoc(CharacterSet::setAlpha, "_\\-+!%*,./:?@[]^`{}~");
-	CharacterSet setHereDoc2(CharacterSet::setAlphaNum, "_-+!%*,./:=?@[]^`{}~");
-	CharacterSet setLeftShift(CharacterSet::setDigits, "$");
+	const CharacterSet setBashOperator(CharacterSet::setNone, "^&%()-+=|{}[]:;>,*/<?!.~@");
+	const CharacterSet setSingleCharOp(CharacterSet::setNone, "rwxoRWXOezsfdlpSbctugkTBMACahGLNn");
+	const CharacterSet setParam(CharacterSet::setAlphaNum, "_");
+	const CharacterSet setHereDoc(CharacterSet::setAlpha, "_\\-+!%*,./:?@[]^`{}~");
+	const CharacterSet setHereDoc2(CharacterSet::setAlphaNum, "_-+!%*,./:=?@[]^`{}~");
+	const CharacterSet setLeftShift(CharacterSet::setDigits, "$");
 
 	class HereDocCls {	// Class to manage HERE document elements
 	public:
-		int State;		// 0: '<<' encountered
+		int State = 0;			// 0: '<<' encountered
 		// 1: collect the delimiter
 		// 2: here doc text (lines after the delimiter)
-		int Quote;		// the char after '<<'
-		bool Quoted;		// true if Quote in ('\'','"','`')
-		bool Indent;		// indented delimiter (for <<-)
-		int DelimiterLength;	// strlen(Delimiter)
-		char Delimiter[HERE_DELIM_MAX];	// the Delimiter
-		HereDocCls() {
-			State = 0;
-			Quote = 0;
-			Quoted = false;
-			Indent = 0;
-			DelimiterLength = 0;
-			Delimiter[0] = '\0';
-		}
+		int Quote = '\0';		// the char after '<<'
+		bool Quoted = false;		// true if Quote in ('\'','"','`')
+		bool Escaped = false;		// backslash in delimiter, common in configure script
+		bool Indent = false;		// indented delimiter (for <<-)
+		int DelimiterLength = 0;	// strlen(Delimiter)
+		char Delimiter[HERE_DELIM_MAX]{};	// the Delimiter
+		HereDocCls() noexcept = default;
 		void Append(int ch) {
 			Delimiter[DelimiterLength++] = static_cast<char>(ch);
 			Delimiter[DelimiterLength] = '\0';
 		}
-		~HereDocCls() {
-		}
 	};
 	HereDocCls HereDoc;
 
-	class QuoteCls {	// Class to manage quote pairs (simplified vs LexPerl)
-		public:
-		int Count;
-		int Up, Down;
-		QuoteCls() {
-			Count = 0;
-			Up    = '\0';
-			Down  = '\0';
-		}
-		void Open(int u) {
-			Count++;
-			Up    = u;
-			Down  = opposite(Up);
-		}
-		void Start(int u) {
-			Count = 0;
-			Open(u);
-		}
-	};
-	QuoteCls Quote;
-
-	class QuoteStackCls {	// Class to manage quote pairs that nest
-		public:
-		int Count;
-		int Up, Down;
-		int Style;
-		int Depth;			// levels pushed
-		int CountStack[BASH_DELIM_STACK_MAX];
-		int UpStack   [BASH_DELIM_STACK_MAX];
-		int StyleStack[BASH_DELIM_STACK_MAX];
-		QuoteStackCls() {
-			Count = 0;
-			Up    = '\0';
-			Down  = '\0';
-			Style = 0;
-			Depth = 0;
-		}
-		void Start(int u, int s) {
-			Count = 1;
-			Up    = u;
-			Down  = opposite(Up);
-			Style = s;
-		}
-		void Push(int u, int s) {
-			if (Depth >= BASH_DELIM_STACK_MAX)
-				return;
-			CountStack[Depth] = Count;
-			UpStack   [Depth] = Up;
-			StyleStack[Depth] = Style;
-			Depth++;
-			Count = 1;
-			Up    = u;
-			Down  = opposite(Up);
-			Style = s;
-		}
-		void Pop(void) {
-			if (Depth <= 0)
-				return;
-			Depth--;
-			Count = CountStack[Depth];
-			Up    = UpStack   [Depth];
-			Style = StyleStack[Depth];
-			Down  = opposite(Up);
-		}
-		~QuoteStackCls() {
-		}
-	};
 	QuoteStackCls QuoteStack;
+	QuoteStack.commandSubstitution = static_cast<CommandSubstitution>(options.commandSubstitution);
 
 	const WordClassifier &classifierIdentifiers = subStyles.Classifier(SCE_SH_IDENTIFIER);
 	const WordClassifier &classifierScalars = subStyles.Classifier(SCE_SH_SCALAR);
 
 	int numBase = 0;
-	int digit;
-	Sci_PositionU endPos = startPos + length;
-	int cmdState = BASH_CMD_START;
-	int testExprType = 0;
+	int digit = 0;
+	const Sci_PositionU endPos = startPos + length;
+	CmdState cmdState = CmdState::Start;
+	TestExprType testExprType = TestExprType::Test;
 	LexAccessor styler(pAccess);
 
 	// Always backtracks to the start of a line that is not a continuation
@@ -430,7 +552,7 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 		ln--;
 	for (;;) {
 		startPos = styler.LineStart(ln);
-		if (ln == 0 || styler.GetLineState(ln) == BASH_CMD_START)
+		if (ln == 0 || styler.GetLineState(ln) == static_cast<int>(CmdState::Start))
 			break;
 		ln--;
 	}
@@ -438,45 +560,47 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 
 	StyleContext sc(startPos, endPos - startPos, initStyle, styler);
 
-	for (; sc.More(); sc.Forward()) {
+	while (sc.More()) {
 
 		// handle line continuation, updates per-line stored state
 		if (sc.atLineStart) {
-			ln = styler.GetLine(sc.currentPos);
-			if (sc.state == SCE_SH_STRING
-			 || sc.state == SCE_SH_BACKTICKS
-			 || sc.state == SCE_SH_CHARACTER
-			 || sc.state == SCE_SH_HERE_Q
-			 || sc.state == SCE_SH_COMMENTLINE
-			 || sc.state == SCE_SH_PARAM) {
+			if (MaskCommand(sc.state) == SCE_SH_STRING
+			 || MaskCommand(sc.state) == SCE_SH_BACKTICKS
+			 || MaskCommand(sc.state) == SCE_SH_CHARACTER
+			 || MaskCommand(sc.state) == SCE_SH_HERE_Q
+			 || MaskCommand(sc.state) == SCE_SH_COMMENTLINE
+			 || MaskCommand(sc.state) == SCE_SH_PARAM) {
 				// force backtrack while retaining cmdState
-				styler.SetLineState(ln, BASH_CMD_BODY);
+				styler.SetLineState(sc.currentLine, static_cast<int>(CmdState::Body));
 			} else {
-				if (ln > 0) {
+				if (sc.currentLine > 0) {
 					if ((sc.GetRelative(-3) == '\\' && sc.GetRelative(-2) == '\r' && sc.chPrev == '\n')
 					 || sc.GetRelative(-2) == '\\') {	// handle '\' line continuation
 						// retain last line's state
 					} else
-						cmdState = BASH_CMD_START;
+						cmdState = CmdState::Start;
 				}
-				styler.SetLineState(ln, cmdState);
+				// force backtrack when nesting
+				const CmdState state = QuoteStack.Empty() ? cmdState : CmdState::Body;
+				styler.SetLineState(sc.currentLine, static_cast<int>(state));
 			}
 		}
 
 		// controls change of cmdState at the end of a non-whitespace element
-		// states BODY|TEST|ARITH persist until the end of a command segment
-		// state WORD persist, but ends with 'in' or 'do' construct keywords
-		int cmdStateNew = BASH_CMD_BODY;
-		if (cmdState == BASH_CMD_TEST || cmdState == BASH_CMD_ARITH || cmdState == BASH_CMD_WORD)
+		// states Body|Test|Arithmetic persist until the end of a command segment
+		// state Word persist, but ends with 'in' or 'do' construct keywords
+		CmdState cmdStateNew = CmdState::Body;
+		if (cmdState == CmdState::Test || cmdState == CmdState::Arithmetic || cmdState == CmdState::Word)
 			cmdStateNew = cmdState;
-		int stylePrev = sc.state;
+		const int stylePrev = MaskCommand(sc.state);
+		const int insideCommand = QuoteStack.insideCommand;
 
 		// Determine if the current state should terminate.
-		switch (sc.state) {
+		switch (MaskCommand(sc.state)) {
 			case SCE_SH_OPERATOR:
-				sc.SetState(SCE_SH_DEFAULT);
-				if (cmdState == BASH_CMD_DELIM)		// if command delimiter, start new command
-					cmdStateNew = BASH_CMD_START;
+				sc.SetState(SCE_SH_DEFAULT | insideCommand);
+				if (cmdState == CmdState::Delimiter)		// if command delimiter, start new command
+					cmdStateNew = CmdState::Start;
 				else if (sc.chPrev == '\\')			// propagate command state if line continued
 					cmdStateNew = cmdState;
 				break;
@@ -484,77 +608,76 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				// "." never used in Bash variable names but used in file names
 				if (!setWord.Contains(sc.ch)) {
 					char s[500];
-					char s2[10];
 					sc.GetCurrent(s, sizeof(s));
-					int identifierStyle = SCE_SH_IDENTIFIER;
-					int subStyle = classifierIdentifiers.ValueFor(s);
+					int identifierStyle = SCE_SH_IDENTIFIER | insideCommand;
+					const int subStyle = classifierIdentifiers.ValueFor(s);
 					if (subStyle >= 0) {
-						identifierStyle = subStyle;
+						identifierStyle = subStyle | insideCommand;
 					}
 					// allow keywords ending in a whitespace or command delimiter
+					char s2[10];
 					s2[0] = static_cast<char>(sc.ch);
 					s2[1] = '\0';
-					bool keywordEnds = IsASpace(sc.ch) || cmdDelimiter.InList(s2);
+					const bool keywordEnds = IsASpace(sc.ch) || cmdDelimiter.InList(s2);
 					// 'in' or 'do' may be construct keywords
-					if (cmdState == BASH_CMD_WORD) {
+					if (cmdState == CmdState::Word) {
 						if (strcmp(s, "in") == 0 && keywordEnds)
-							cmdStateNew = BASH_CMD_BODY;
+							cmdStateNew = CmdState::Body;
 						else if (strcmp(s, "do") == 0 && keywordEnds)
-							cmdStateNew = BASH_CMD_START;
+							cmdStateNew = CmdState::Start;
 						else
 							sc.ChangeState(identifierStyle);
-						sc.SetState(SCE_SH_DEFAULT);
+						sc.SetState(SCE_SH_DEFAULT | insideCommand);
 						break;
 					}
 					// a 'test' keyword starts a test expression
 					if (strcmp(s, "test") == 0) {
-						if (cmdState == BASH_CMD_START && keywordEnds) {
-							cmdStateNew = BASH_CMD_TEST;
-							testExprType = 0;
+						if (cmdState == CmdState::Start && keywordEnds) {
+							cmdStateNew = CmdState::Test;
+							testExprType = TestExprType::Test;
 						} else
 							sc.ChangeState(identifierStyle);
 					}
 					// detect bash construct keywords
 					else if (bashStruct.InList(s)) {
-						if (cmdState == BASH_CMD_START && keywordEnds)
-							cmdStateNew = BASH_CMD_START;
+						if (cmdState == CmdState::Start && keywordEnds)
+							cmdStateNew = CmdState::Start;
 						else
 							sc.ChangeState(identifierStyle);
 					}
 					// 'for'|'case'|'select' needs 'in'|'do' to be highlighted later
 					else if (bashStruct_in.InList(s)) {
-						if (cmdState == BASH_CMD_START && keywordEnds)
-							cmdStateNew = BASH_CMD_WORD;
+						if (cmdState == CmdState::Start && keywordEnds)
+							cmdStateNew = CmdState::Word;
 						else
 							sc.ChangeState(identifierStyle);
 					}
 					// disambiguate option items and file test operators
 					else if (s[0] == '-') {
-						if (cmdState != BASH_CMD_TEST)
+						if (cmdState != CmdState::Test)
 							sc.ChangeState(identifierStyle);
 					}
 					// disambiguate keywords and identifiers
-					else if (cmdState != BASH_CMD_START
+					else if (cmdState != CmdState::Start
 						  || !(keywords.InList(s) && keywordEnds)) {
 						sc.ChangeState(identifierStyle);
 					}
-					sc.SetState(SCE_SH_DEFAULT);
+					sc.SetState(SCE_SH_DEFAULT | insideCommand);
 				}
 				break;
 			case SCE_SH_IDENTIFIER:
 				if (sc.chPrev == '\\' || !setWord.Contains(sc.ch) ||
-					  (cmdState == BASH_CMD_ARITH && !setWordStart.Contains(sc.ch))) {
+					  (cmdState == CmdState::Arithmetic && !setWordStart.Contains(sc.ch))) {
 					char s[500];
 					sc.GetCurrent(s, sizeof(s));
-					int subStyle = classifierIdentifiers.ValueFor(s);
+					const int subStyle = classifierIdentifiers.ValueFor(s);
 					if (subStyle >= 0) {
-						sc.ChangeState(subStyle);
+						sc.ChangeState(subStyle | insideCommand);
 					}
 					if (sc.chPrev == '\\') {	// for escaped chars
-						sc.ForwardSetState(SCE_SH_DEFAULT);
-					} else {
-						sc.SetState(SCE_SH_DEFAULT);
+						sc.Forward();
 					}
+					sc.SetState(SCE_SH_DEFAULT | insideCommand);
 				}
 				break;
 			case SCE_SH_NUMBER:
@@ -604,13 +727,13 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					|| numBase == BASH_BASE_OCTAL_ERROR
 #endif
 				) {
-					sc.ChangeState(SCE_SH_ERROR);
+					sc.ChangeState(SCE_SH_ERROR | insideCommand);
 				}
-				sc.SetState(SCE_SH_DEFAULT);
+				sc.SetState(SCE_SH_DEFAULT | insideCommand);
 				break;
 			case SCE_SH_COMMENTLINE:
 				if (sc.MatchLineEnd() && sc.chPrev != '\\') {
-					sc.SetState(SCE_SH_DEFAULT);
+					sc.SetState(SCE_SH_DEFAULT | insideCommand);
 				}
 				break;
 			case SCE_SH_HERE_DELIM:
@@ -623,6 +746,7 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				if (HereDoc.State == 0) { // '<<' encountered
 					HereDoc.Quote = sc.chNext;
 					HereDoc.Quoted = false;
+					HereDoc.Escaped = false;
 					HereDoc.DelimiterLength = 0;
 					HereDoc.Delimiter[HereDoc.DelimiterLength] = '\0';
 					if (sc.chNext == '\'' || sc.chNext == '\"') {	// a quoted here-doc delimiter (' or ")
@@ -630,19 +754,19 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 						HereDoc.Quoted = true;
 						HereDoc.State = 1;
 					} else if (setHereDoc.Contains(sc.chNext) ||
-					           (sc.chNext == '=' && cmdState != BASH_CMD_ARITH)) {
+					           (sc.chNext == '=' && cmdState != CmdState::Arithmetic)) {
 						// an unquoted here-doc delimiter, no special handling
 						HereDoc.State = 1;
 					} else if (sc.chNext == '<') {	// HERE string <<<
 						sc.Forward();
-						sc.ForwardSetState(SCE_SH_DEFAULT);
+						sc.ForwardSetState(SCE_SH_DEFAULT | insideCommand);
 					} else if (IsASpace(sc.chNext)) {
 						// eat whitespace
 					} else if (setLeftShift.Contains(sc.chNext) ||
-					           (sc.chNext == '=' && cmdState == BASH_CMD_ARITH)) {
+					           (sc.chNext == '=' && cmdState == CmdState::Arithmetic)) {
 						// left shift <<$var or <<= cases
-						sc.ChangeState(SCE_SH_OPERATOR);
-						sc.ForwardSetState(SCE_SH_DEFAULT);
+						sc.ChangeState(SCE_SH_OPERATOR | insideCommand);
+						sc.ForwardSetState(SCE_SH_DEFAULT | insideCommand);
 					} else {
 						// symbols terminates; deprecated zero-length delimiter
 						HereDoc.State = 1;
@@ -658,6 +782,7 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					} else if (HereDoc.Quoted && sc.ch == HereDoc.Quote) {	// closing quote => end of delimiter
 						sc.ForwardSetState(SCE_SH_DEFAULT);
 					} else if (sc.ch == '\\') {
+						HereDoc.Escaped = true;
 						if (HereDoc.Quoted && sc.chNext != HereDoc.Quote && sc.chNext != '\\') {
 							// in quoted prefixes only \ and the quote eat the escape
 							HereDoc.Append(sc.ch);
@@ -665,44 +790,11 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 							// skip escape prefix
 						}
 					} else if (!HereDoc.Quoted) {
-						sc.SetState(SCE_SH_DEFAULT);
+						sc.SetState(SCE_SH_DEFAULT | insideCommand);
 					}
 					if (HereDoc.DelimiterLength >= HERE_DELIM_MAX - 1) {	// force blowup
-						sc.SetState(SCE_SH_ERROR);
+						sc.SetState(SCE_SH_ERROR | insideCommand);
 						HereDoc.State = 0;
-					}
-				}
-				break;
-			case SCE_SH_HERE_Q:
-				// HereDoc.State == 2
-				if (sc.atLineStart) {
-					sc.SetState(SCE_SH_HERE_Q);
-					int prefixws = 0;
-					while (sc.ch == '\t' && !sc.MatchLineEnd()) {	// tabulation prefix
-						sc.Forward();
-						prefixws++;
-					}
-					if (prefixws > 0)
-						sc.SetState(SCE_SH_HERE_Q);
-					while (!sc.MatchLineEnd()) {
-						sc.Forward();
-					}
-					char s[HERE_DELIM_MAX];
-					sc.GetCurrent(s, sizeof(s));
-					if (sc.LengthCurrent() == 0) {  // '' or "" delimiters
-						if ((prefixws == 0 || HereDoc.Indent) &&
-							HereDoc.Quoted && HereDoc.DelimiterLength == 0)
-							sc.SetState(SCE_SH_DEFAULT);
-						break;
-					}
-					if (s[strlen(s) - 1] == '\r')
-						s[strlen(s) - 1] = '\0';
-					if (strcmp(HereDoc.Delimiter, s) == 0) {
-						if ((prefixws == 0) ||	// indentation rule
-							(prefixws > 0 && HereDoc.Indent)) {
-							sc.SetState(SCE_SH_DEFAULT);
-							break;
-						}
 					}
 				}
 				break;
@@ -710,85 +802,102 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				if (!setParam.Contains(sc.ch)) {
 					char s[500];
 					sc.GetCurrent(s, sizeof(s));
-					int subStyle = classifierScalars.ValueFor(&s[1]); // skip the $
+					const int subStyle = classifierScalars.ValueFor(&s[1]); // skip the $
 					if (subStyle >= 0) {
-						sc.ChangeState(subStyle);
+						sc.ChangeState(subStyle | insideCommand);
 					}
 					if (sc.LengthCurrent() == 1) {
 						// Special variable: $(, $_ etc.
-						sc.ForwardSetState(SCE_SH_DEFAULT);
-					} else {
-						sc.SetState(SCE_SH_DEFAULT);
-					}
-				}
-				break;
-			case SCE_SH_STRING:	// delimited styles, can nest
-			case SCE_SH_BACKTICKS:
-				if (sc.ch == '\\' && QuoteStack.Up != '\\') {
-					if (QuoteStack.Style != BASH_DELIM_LITERAL)
 						sc.Forward();
-				} else if (sc.ch == QuoteStack.Down) {
-					QuoteStack.Count--;
-					if (QuoteStack.Count == 0) {
-						if (QuoteStack.Depth > 0) {
-							QuoteStack.Pop();
-						} else
-							sc.ForwardSetState(SCE_SH_DEFAULT);
 					}
-				} else if (sc.ch == QuoteStack.Up) {
-					QuoteStack.Count++;
-				} else {
-					if (QuoteStack.Style == BASH_DELIM_STRING ||
-						QuoteStack.Style == BASH_DELIM_LSTRING
-					) {	// do nesting for "string", $"locale-string"
-						if (sc.ch == '`') {
-							QuoteStack.Push(sc.ch, BASH_DELIM_BACKTICK);
-						} else if (sc.ch == '$' && sc.chNext == '(') {
-							sc.Forward();
-							QuoteStack.Push(sc.ch, BASH_DELIM_COMMAND);
-						}
-					} else if (QuoteStack.Style == BASH_DELIM_COMMAND ||
-							   QuoteStack.Style == BASH_DELIM_BACKTICK
-					) {	// do nesting for $(command), `command`
-						if (sc.ch == '\'') {
-							QuoteStack.Push(sc.ch, BASH_DELIM_LITERAL);
-						} else if (sc.ch == '\"') {
-							QuoteStack.Push(sc.ch, BASH_DELIM_STRING);
-						} else if (sc.ch == '`') {
-							QuoteStack.Push(sc.ch, BASH_DELIM_BACKTICK);
-						} else if (sc.ch == '$') {
-							if (sc.chNext == '\'') {
-								sc.Forward();
-								QuoteStack.Push(sc.ch, BASH_DELIM_CSTRING);
-							} else if (sc.chNext == '\"') {
-								sc.Forward();
-								QuoteStack.Push(sc.ch, BASH_DELIM_LSTRING);
-							} else if (sc.chNext == '(') {
-								sc.Forward();
-								QuoteStack.Push(sc.ch, BASH_DELIM_COMMAND);
-							}
-						}
-					}
+					sc.SetState(QuoteStack.State | insideCommand);
+					continue;
 				}
 				break;
-			case SCE_SH_PARAM: // ${parameter}
-				if (sc.ch == '\\' && Quote.Up != '\\') {
-					sc.Forward();
-				} else if (sc.ch == Quote.Down) {
-					Quote.Count--;
-					if (Quote.Count == 0) {
-						sc.ForwardSetState(SCE_SH_DEFAULT);
+			case SCE_SH_HERE_Q:
+				// HereDoc.State == 2
+				if (sc.atLineStart && QuoteStack.Current.Style == QuoteStyle::HereDoc) {
+					sc.SetState(SCE_SH_HERE_Q | insideCommand);
+					if (HereDoc.Indent) { // tabulation prefix
+						while (sc.ch == '\t') {
+							sc.Forward();
+						}
 					}
-				} else if (sc.ch == Quote.Up) {
-					Quote.Count++;
+					if ((static_cast<Sci_Position>(sc.currentPos + HereDoc.DelimiterLength) == sc.lineEnd) &&
+						(HereDoc.DelimiterLength == 0 || sc.Match(HereDoc.Delimiter))) {
+						while (!sc.MatchLineEnd()) {
+							sc.Forward();
+						}
+						QuoteStack.Pop();
+						sc.SetState(SCE_SH_DEFAULT | QuoteStack.insideCommand);
+						break;
+					}
+				}
+				if (HereDoc.Quoted || HereDoc.Escaped) {
+					break;
+				}
+				// fall through to handle nested shell expansions
+				[[fallthrough]];
+			case SCE_SH_STRING:	// delimited styles, can nest
+			case SCE_SH_PARAM: // ${parameter}
+			case SCE_SH_BACKTICKS:
+				if (sc.ch == '\\') {
+					if (QuoteStack.Current.Style != QuoteStyle::Literal)
+						sc.Forward();
+				} else if (sc.ch == QuoteStack.Current.Down) {
+					if (QuoteStack.CountDown(sc, cmdState)) {
+						continue;
+					}
+				} else if (sc.ch == QuoteStack.Current.Up) {
+					QuoteStack.Current.Count++;
+				} else {
+					if (QuoteStack.Current.Style == QuoteStyle::String ||
+						QuoteStack.Current.Style == QuoteStyle::HereDoc ||
+						QuoteStack.Current.Style == QuoteStyle::LString
+					) {	// do nesting for "string", $"locale-string", heredoc
+						const bool stylingInside = options.stylingInside(MaskCommand(sc.state));
+						if (sc.ch == '`') {
+							QuoteStack.Push(sc.ch, QuoteStyle::Backtick, sc.state);
+							if (stylingInside) {
+								sc.SetState(SCE_SH_BACKTICKS | insideCommand);
+							}
+						} else if (sc.ch == '$') {
+							QuoteStack.Expand(sc, cmdState, stylingInside);
+							continue;
+						}
+					} else if (QuoteStack.Current.Style == QuoteStyle::Command ||
+							   QuoteStack.Current.Style == QuoteStyle::Parameter ||
+							   QuoteStack.Current.Style == QuoteStyle::Backtick
+					) {	// do nesting for $(command), `command`, ${parameter}
+						const bool stylingInside = options.stylingInside(MaskCommand(sc.state));
+						if (sc.ch == '\'') {
+							if (stylingInside) {
+								QuoteStack.State = sc.state;
+								sc.SetState(SCE_SH_CHARACTER | insideCommand);
+							} else {
+								QuoteStack.Push(sc.ch, QuoteStyle::Literal, sc.state);
+							}
+						} else if (sc.ch == '\"') {
+							QuoteStack.Push(sc.ch, QuoteStyle::String, sc.state);
+							if (stylingInside) {
+								sc.SetState(SCE_SH_STRING | insideCommand);
+							}
+						} else if (sc.ch == '`') {
+							QuoteStack.Push(sc.ch, QuoteStyle::Backtick, sc.state);
+							if (stylingInside) {
+								sc.SetState(SCE_SH_BACKTICKS | insideCommand);
+							}
+						} else if (sc.ch == '$') {
+							QuoteStack.Expand(sc, cmdState, stylingInside);
+							continue;
+						}
+					}
 				}
 				break;
 			case SCE_SH_CHARACTER: // singly-quoted strings
-				if (sc.ch == Quote.Down) {
-					Quote.Count--;
-					if (Quote.Count == 0) {
-						sc.ForwardSetState(SCE_SH_DEFAULT);
-					}
+				if (sc.ch == '\'') {
+					sc.ForwardSetState(QuoteStack.State | insideCommand);
+					continue;
 				}
 				break;
 		}
@@ -800,37 +909,39 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			// first line of here-doc seem to follow the style of the last EOL sequence
 			HereDoc.State = 2;
 			if (HereDoc.Quoted) {
-				if (sc.state == SCE_SH_HERE_DELIM) {
+				if (MaskCommand(sc.state) == SCE_SH_HERE_DELIM) {
 					// Missing quote at end of string! Syntax error in bash 4.3
 					// Mark this bit as an error, do not colour any here-doc
-					sc.ChangeState(SCE_SH_ERROR);
-					sc.SetState(SCE_SH_DEFAULT);
+					sc.ChangeState(SCE_SH_ERROR | insideCommand);
+					sc.SetState(SCE_SH_DEFAULT | insideCommand);
 				} else {
 					// HereDoc.Quote always == '\''
-					sc.SetState(SCE_SH_HERE_Q);
+					sc.SetState(SCE_SH_HERE_Q | insideCommand);
+					QuoteStack.Start(-1, QuoteStyle::HereDoc, SCE_SH_DEFAULT);
 				}
 			} else if (HereDoc.DelimiterLength == 0) {
 				// no delimiter, illegal (but '' and "" are legal)
-				sc.ChangeState(SCE_SH_ERROR);
-				sc.SetState(SCE_SH_DEFAULT);
+				sc.ChangeState(SCE_SH_ERROR | insideCommand);
+				sc.SetState(SCE_SH_DEFAULT | insideCommand);
 			} else {
-				sc.SetState(SCE_SH_HERE_Q);
+				sc.SetState(SCE_SH_HERE_Q | insideCommand);
+				QuoteStack.Start(-1, QuoteStyle::HereDoc, SCE_SH_DEFAULT);
 			}
 		}
 
 		// update cmdState about the current command segment
-		if (stylePrev != SCE_SH_DEFAULT && sc.state == SCE_SH_DEFAULT) {
+		if (stylePrev != SCE_SH_DEFAULT && MaskCommand(sc.state) == SCE_SH_DEFAULT) {
 			cmdState = cmdStateNew;
 		}
 		// Determine if a new state should be entered.
-		if (sc.state == SCE_SH_DEFAULT) {
+		if (MaskCommand(sc.state) == SCE_SH_DEFAULT) {
 			if (sc.ch == '\\') {
 				// Bash can escape any non-newline as a literal
-				sc.SetState(SCE_SH_IDENTIFIER);
+				sc.SetState(SCE_SH_IDENTIFIER | insideCommand);
 				if (sc.chNext == '\r' || sc.chNext == '\n')
-					sc.SetState(SCE_SH_OPERATOR);
+					sc.SetState(SCE_SH_OPERATOR | insideCommand);
 			} else if (IsADigit(sc.ch)) {
-				sc.SetState(SCE_SH_NUMBER);
+				sc.SetState(SCE_SH_NUMBER | insideCommand);
 				numBase = BASH_BASE_DECIMAL;
 				if (sc.ch == '0') {	// hex,octal
 					if (sc.chNext == 'x' || sc.chNext == 'X') {
@@ -845,67 +956,45 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					}
 				}
 			} else if (setWordStart.Contains(sc.ch)) {
-				sc.SetState(SCE_SH_WORD);
+				sc.SetState(SCE_SH_WORD | insideCommand);
 			} else if (sc.ch == '#') {
 				if (stylePrev != SCE_SH_WORD && stylePrev != SCE_SH_IDENTIFIER &&
 					(sc.currentPos == 0 || setMetaCharacter.Contains(sc.chPrev))) {
-					sc.SetState(SCE_SH_COMMENTLINE);
+					sc.SetState(SCE_SH_COMMENTLINE | insideCommand);
 				} else {
-					sc.SetState(SCE_SH_WORD);
+					sc.SetState(SCE_SH_WORD | insideCommand);
 				}
 				// handle some zsh features within arithmetic expressions only
-				if (cmdState == BASH_CMD_ARITH) {
+				if (cmdState == CmdState::Arithmetic) {
 					if (sc.chPrev == '[') {	// [#8] [##8] output digit setting
-						sc.SetState(SCE_SH_WORD);
+						sc.SetState(SCE_SH_WORD | insideCommand);
 						if (sc.chNext == '#') {
 							sc.Forward();
 						}
 					} else if (sc.Match("##^") && IsUpperCase(sc.GetRelative(3))) {	// ##^A
-						sc.SetState(SCE_SH_IDENTIFIER);
+						sc.SetState(SCE_SH_IDENTIFIER | insideCommand);
 						sc.Forward(3);
 					} else if (sc.chNext == '#' && !IsASpace(sc.GetRelative(2))) {	// ##a
-						sc.SetState(SCE_SH_IDENTIFIER);
+						sc.SetState(SCE_SH_IDENTIFIER | insideCommand);
 						sc.Forward(2);
 					} else if (setWordStart.Contains(sc.chNext)) {	// #name
-						sc.SetState(SCE_SH_IDENTIFIER);
+						sc.SetState(SCE_SH_IDENTIFIER | insideCommand);
 					}
 				}
 			} else if (sc.ch == '\"') {
-				sc.SetState(SCE_SH_STRING);
-				QuoteStack.Start(sc.ch, BASH_DELIM_STRING);
+				sc.SetState(SCE_SH_STRING | insideCommand);
+				QuoteStack.Start(sc.ch, QuoteStyle::String, SCE_SH_DEFAULT);
 			} else if (sc.ch == '\'') {
-				sc.SetState(SCE_SH_CHARACTER);
-				Quote.Start(sc.ch);
+				QuoteStack.State = SCE_SH_DEFAULT;
+				sc.SetState(SCE_SH_CHARACTER | insideCommand);
 			} else if (sc.ch == '`') {
-				sc.SetState(SCE_SH_BACKTICKS);
-				QuoteStack.Start(sc.ch, BASH_DELIM_BACKTICK);
+				sc.SetState(SCE_SH_BACKTICKS | insideCommand);
+				QuoteStack.Start(sc.ch, QuoteStyle::Backtick, SCE_SH_DEFAULT);
 			} else if (sc.ch == '$') {
-				if (sc.Match("$((")) {
-					sc.SetState(SCE_SH_OPERATOR);	// handle '((' later
-					continue;
-				}
-				sc.SetState(SCE_SH_SCALAR);
-				sc.Forward();
-				if (sc.ch == '{') {
-					sc.ChangeState(SCE_SH_PARAM);
-					Quote.Start(sc.ch);
-				} else if (sc.ch == '\'') {
-					sc.ChangeState(SCE_SH_STRING);
-					QuoteStack.Start(sc.ch, BASH_DELIM_CSTRING);
-				} else if (sc.ch == '"') {
-					sc.ChangeState(SCE_SH_STRING);
-					QuoteStack.Start(sc.ch, BASH_DELIM_LSTRING);
-				} else if (sc.ch == '(') {
-					sc.ChangeState(SCE_SH_BACKTICKS);
-					QuoteStack.Start(sc.ch, BASH_DELIM_COMMAND);
-				} else if (sc.ch == '`') {	// $` seen in a configure script, valid?
-					sc.ChangeState(SCE_SH_BACKTICKS);
-					QuoteStack.Start(sc.ch, BASH_DELIM_BACKTICK);
-				} else {
-					continue;	// scalar has no delimiter pair
-				}
-			} else if (sc.Match('<', '<')) {
-				sc.SetState(SCE_SH_HERE_DELIM);
+				QuoteStack.Expand(sc, cmdState, true);
+				continue;
+			} else if (cmdState != CmdState::Arithmetic && sc.Match('<', '<')) {
+				sc.SetState(SCE_SH_HERE_DELIM | insideCommand);
 				HereDoc.State = 0;
 				if (sc.GetRelative(2) == '-') {	// <<- indent case
 					HereDoc.Indent = true;
@@ -917,47 +1006,57 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					   setSingleCharOp.Contains(sc.chNext) &&
 					   !setWord.Contains(sc.GetRelative(2)) &&
 					   IsASpace(sc.chPrev)) {
-				sc.SetState(SCE_SH_WORD);
+				sc.SetState(SCE_SH_WORD | insideCommand);
 				sc.Forward();
 			} else if (setBashOperator.Contains(sc.ch)) {
-				char s[10];
 				bool isCmdDelim = false;
-				sc.SetState(SCE_SH_OPERATOR);
+				sc.SetState(SCE_SH_OPERATOR | insideCommand);
+				// arithmetic expansion and command substitution
+				if (QuoteStack.Current.Style == QuoteStyle::Arithmetic || QuoteStack.Current.Style == QuoteStyle::CommandInside) {
+					if (sc.ch == QuoteStack.Current.Down) {
+						if (QuoteStack.CountDown(sc, cmdState)) {
+							continue;
+						}
+					} else if (sc.ch == QuoteStack.Current.Up) {
+						QuoteStack.Current.Count++;
+					}
+				}
 				// globs have no whitespace, do not appear in arithmetic expressions
-				if (cmdState != BASH_CMD_ARITH && sc.ch == '(' && sc.chNext != '(') {
-					int i = GlobScan(sc);
+				if (cmdState != CmdState::Arithmetic && sc.ch == '(' && sc.chNext != '(') {
+					const int i = GlobScan(sc);
 					if (i > 1) {
-						sc.SetState(SCE_SH_IDENTIFIER);
-						sc.Forward(i);
+						sc.SetState(SCE_SH_IDENTIFIER | insideCommand);
+						sc.Forward(i + 1);
 						continue;
 					}
 				}
 				// handle opening delimiters for test/arithmetic expressions - ((,[[,[
-				if (cmdState == BASH_CMD_START
-				 || cmdState == BASH_CMD_BODY) {
+				if (cmdState == CmdState::Start
+				 || cmdState == CmdState::Body) {
 					if (sc.Match('(', '(')) {
-						cmdState = BASH_CMD_ARITH;
+						cmdState = CmdState::Arithmetic;
 						sc.Forward();
 					} else if (sc.Match('[', '[') && IsASpace(sc.GetRelative(2))) {
-						cmdState = BASH_CMD_TEST;
-						testExprType = 1;
+						cmdState = CmdState::Test;
+						testExprType = TestExprType::DoubleBracket;
 						sc.Forward();
 					} else if (sc.ch == '[' && IsASpace(sc.chNext)) {
-						cmdState = BASH_CMD_TEST;
-						testExprType = 2;
+						cmdState = CmdState::Test;
+						testExprType = TestExprType::SingleBracket;
 					}
 				}
 				// special state -- for ((x;y;z)) in ... looping
-				if (cmdState == BASH_CMD_WORD && sc.Match('(', '(')) {
-					cmdState = BASH_CMD_ARITH;
-					sc.Forward();
+				if (cmdState == CmdState::Word && sc.Match('(', '(')) {
+					cmdState = CmdState::Arithmetic;
+					sc.Forward(2);
 					continue;
 				}
-				// handle command delimiters in command START|BODY|WORD state, also TEST if 'test'
-				if (cmdState == BASH_CMD_START
-				 || cmdState == BASH_CMD_BODY
-				 || cmdState == BASH_CMD_WORD
-				 || (cmdState == BASH_CMD_TEST && testExprType == 0)) {
+				// handle command delimiters in command Start|Body|Word state, also Test if 'test'
+				if (cmdState == CmdState::Start
+				 || cmdState == CmdState::Body
+				 || cmdState == CmdState::Word
+				 || (cmdState == CmdState::Test && testExprType == TestExprType::Test)) {
+					char s[10];
 					s[0] = static_cast<char>(sc.ch);
 					if (setBashOperator.Contains(sc.chNext)) {
 						s[1] = static_cast<char>(sc.chNext);
@@ -971,27 +1070,30 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 						isCmdDelim = cmdDelimiter.InList(s);
 					}
 					if (isCmdDelim) {
-						cmdState = BASH_CMD_DELIM;
+						cmdState = CmdState::Delimiter;
+						sc.Forward();
 						continue;
 					}
 				}
 				// handle closing delimiters for test/arithmetic expressions - )),]],]
-				if (cmdState == BASH_CMD_ARITH && sc.Match(')', ')')) {
-					cmdState = BASH_CMD_BODY;
+				if (cmdState == CmdState::Arithmetic && sc.Match(')', ')')) {
+					cmdState = CmdState::Body;
 					sc.Forward();
-				} else if (cmdState == BASH_CMD_TEST && IsASpace(sc.chPrev)) {
-					if (sc.Match(']', ']') && testExprType == 1) {
+				} else if (cmdState == CmdState::Test && IsASpace(sc.chPrev)) {
+					if (sc.Match(']', ']') && testExprType == TestExprType::DoubleBracket) {
 						sc.Forward();
-						cmdState = BASH_CMD_BODY;
-					} else if (sc.ch == ']' && testExprType == 2) {
-						cmdState = BASH_CMD_BODY;
+						cmdState = CmdState::Body;
+					} else if (sc.ch == ']' && testExprType == TestExprType::SingleBracket) {
+						cmdState = CmdState::Body;
 					}
 				}
 			}
 		}// sc.state
+
+		sc.Forward();
 	}
 	sc.Complete();
-	if (sc.state == SCE_SH_HERE_Q) {
+	if (MaskCommand(sc.state) == SCE_SH_HERE_Q) {
 		styler.ChangeLexerState(sc.currentPos, styler.Length());
 	}
 	sc.Complete();
@@ -1003,22 +1105,22 @@ void SCI_METHOD LexerBash::Fold(Sci_PositionU startPos, Sci_Position length, int
 
 	LexAccessor styler(pAccess);
 
-	Sci_PositionU endPos = startPos + length;
+	const Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
 	int skipHereCh = 0;
 	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
-	int styleNext = styler.StyleAt(startPos);
+	int styleNext = MaskCommand(styler.StyleIndexAt(startPos));
 	char word[8] = { '\0' }; // we're not interested in long words anyway
 	unsigned int wordlen = 0;
 	for (Sci_PositionU i = startPos; i < endPos; i++) {
-		char ch = chNext;
+		const char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
-		int style = styleNext;
-		styleNext = styler.StyleAt(i + 1);
-		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+		const int style = styleNext;
+		styleNext = MaskCommand(styler.StyleIndexAt(i + 1));
+		const bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 		// Comment folding
 		if (options.foldComment && atEOL && IsCommentLine(lineCurrent, styler))
 		{
@@ -1082,7 +1184,7 @@ void SCI_METHOD LexerBash::Fold(Sci_PositionU startPos, Sci_Position length, int
 			visibleChars++;
 	}
 	// Fill in the real level of the next line, keeping the current flags as they will be filled in later
-	int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
+	const int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
 	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
 }
 

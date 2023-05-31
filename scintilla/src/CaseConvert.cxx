@@ -580,7 +580,7 @@ constexpr std::string_view complexCaseConversions =
 // Maximum length of a case conversion result is 6 bytes in UTF-8
 constexpr size_t maxConversionLength = 6;
 
-class CaseConverter : public ICaseConverter {
+class CaseConverter final : public ICaseConverter {
 	struct ConversionString {
 		char conversion[maxConversionLength+1]{};
 	};
@@ -605,7 +605,6 @@ class CaseConverter : public ICaseConverter {
 			return character < other.character;
 		}
 	};
-	CaseConversion conversion;
 	typedef std::vector<CharacterConversion> CharacterToConversion;
 	CharacterToConversion characterToConversion;
 	// The parallel arrays
@@ -613,14 +612,7 @@ class CaseConverter : public ICaseConverter {
 	std::vector<ConversionString> conversions;
 
 public:
-	explicit CaseConverter(CaseConversion conversion_) : conversion(conversion_) {
-	};
-	// Deleted so CaseConverter objects can not be copied.
-	CaseConverter(const CaseConverter &) = delete;
-	CaseConverter(CaseConverter &&) = delete;
-	CaseConverter &operator=(const CaseConverter &) = delete;
-	CaseConverter &operator=(CaseConverter &&) = delete;
-	virtual ~CaseConverter() noexcept = default;
+	CaseConverter() noexcept = default;
 	bool Initialised() const noexcept {
 		return !characters.empty();
 	}
@@ -690,15 +682,13 @@ public:
 		// Empty the original calculated data completely
 		CharacterToConversion().swap(characterToConversion);
 	}
-	void AddSymmetric(int lower, int upper);
-	void SetupConversions();
+	void AddSymmetric(CaseConversion conversion, int lower, int upper);
+	void SetupConversions(CaseConversion conversion);
 };
 
-CaseConverter caseConvFold(CaseConversion::fold);
-CaseConverter caseConvUp(CaseConversion::upper);
-CaseConverter caseConvLow(CaseConversion::lower);
+CaseConverter caseConvList[3];
 
-void CaseConverter::AddSymmetric(int lower, int upper) {
+void CaseConverter::AddSymmetric(CaseConversion conversion, int lower, int upper) {
 	const int character = (conversion == CaseConversion::upper) ? lower : upper;
 	const int source = (conversion == CaseConversion::upper) ? upper : lower;
 	char converted[maxConversionLength+1]{};
@@ -720,7 +710,7 @@ std::string_view NextField(std::string_view &view) {
 	return field;
 }
 
-void CaseConverter::SetupConversions() {
+void CaseConverter::SetupConversions(CaseConversion conversion) {
 	// First initialize for the symmetric ranges
 	for (size_t i=0; i<std::size(symmetricCaseConversionRanges);) {
 		const int lower = symmetricCaseConversionRanges[i++];
@@ -728,14 +718,14 @@ void CaseConverter::SetupConversions() {
 		const int length = symmetricCaseConversionRanges[i++];
 		const int pitch = symmetricCaseConversionRanges[i++];
 		for (int j=0; j<length*pitch; j+=pitch) {
-			AddSymmetric(lower+j, upper+j);
+			AddSymmetric(conversion, lower+j, upper+j);
 		}
 	}
 	// Add the symmetric singletons
 	for (size_t i=0; i<std::size(symmetricCaseConversions);) {
 		const int lower = symmetricCaseConversions[i++];
 		const int upper = symmetricCaseConversions[i++];
-		AddSymmetric(lower, upper);
+		AddSymmetric(conversion, lower, upper);
 	}
 	// Add the complex cases
 	std::string_view sComplex = complexCaseConversions;
@@ -768,21 +758,11 @@ void CaseConverter::SetupConversions() {
 }
 
 CaseConverter *ConverterForConversion(CaseConversion conversion) {
-	CaseConverter *pCaseConv = &caseConvFold;
-	switch (conversion) {
-	case CaseConversion::fold:
-		pCaseConv = &caseConvFold;
-		break;
-	case CaseConversion::upper:
-		pCaseConv = &caseConvUp;
-		break;
-	case CaseConversion::lower:
-	default:
-		pCaseConv = &caseConvLow;
-		break;
-	}
+	const unsigned index = static_cast<unsigned>(conversion);
+	assert(index < std::size(caseConvList));
+	CaseConverter *pCaseConv = &caseConvList[index];
 	if (!pCaseConv->Initialised()) {
-		pCaseConv->SetupConversions();
+		pCaseConv->SetupConversions(conversion);
 	}
 	return pCaseConv;
 }

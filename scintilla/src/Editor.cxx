@@ -26,6 +26,7 @@
 #include <memory>
 #include <chrono>
 #include <atomic>
+#include <mutex>
 #include <thread>
 #include <future>
 
@@ -1510,7 +1511,7 @@ bool Editor::WrapBlock(Surface *surface, Sci::Line lineToWrap, Sci::Line lineToW
 	// Lines that are less likely to be re-examined should not be read from or written to the cache.
 	const SignificantLines significantLines {
 		pdoc->SciLineFromPosition(sel.MainCaret()),
-		topLine,
+		pcs->DocFromDisplay(topLine),
 		LinesOnScreen() + 1,
 		view.llc.GetLevel(),
 	};
@@ -1914,7 +1915,7 @@ Sci::Position Editor::FormatRange(Scintilla::Message iMessage, Scintilla::uptr_t
 	void *ptr = PtrFromSPtr(lParam);
 	if (iMessage == Message::FormatRange) {
 		RangeToFormat *pfr = static_cast<RangeToFormat *>(ptr);
-		CharacterRangeFull chrg{ pfr->chrg.cpMin,pfr->chrg.cpMax };
+		const CharacterRangeFull chrg{ pfr->chrg.cpMin,pfr->chrg.cpMax };
 		AutoSurface surface(pfr->hdc, this, Technology::Default);
 		AutoSurface surfaceMeasure(pfr->hdcTarget, this, Technology::Default);
 		if (!surface || !surfaceMeasure) {

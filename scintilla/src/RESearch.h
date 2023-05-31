@@ -14,8 +14,6 @@ namespace Scintilla::Internal {
 class CharacterIndexer {
 public:
 	virtual char CharAt(Sci::Position index) const=0;
-	virtual ~CharacterIndexer() {
-	}
 };
 
 class RESearch {

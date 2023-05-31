@@ -172,6 +172,7 @@ PRectangle PixelAlignOutside(const PRectangle &rc, int pixelDivisions) noexcept;
 */
 constexpr const float componentMaximum = 255.0f;
 class ColourRGBA {
+	static constexpr int rgbMask = 0xffffff;
 	int co;
 public:
 	constexpr explicit ColourRGBA(int co_ = 0) noexcept : co(co_) {
@@ -190,11 +191,11 @@ public:
 	}
 
 	static constexpr ColourRGBA FromIpRGB(intptr_t co_) noexcept {
-		return ColourRGBA(static_cast<int>(co_) | (0xffu << 24));
+		return ColourRGBA((co_ & rgbMask) | (0xffu << 24));
 	}
 
 	constexpr ColourRGBA WithoutAlpha() const noexcept {
-		return ColourRGBA(co & 0xffffff);
+		return ColourRGBA(co & rgbMask);
 	}
 
 	constexpr ColourRGBA Opaque() const noexcept {
@@ -206,7 +207,7 @@ public:
 	}
 
 	constexpr int OpaqueRGB() const noexcept {
-		return co & 0xffffff;
+		return co & rgbMask;
 	}
 
 	// Red, green and blue values as bytes 0..255

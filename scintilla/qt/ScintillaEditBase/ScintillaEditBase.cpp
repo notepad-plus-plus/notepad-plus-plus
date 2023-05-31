@@ -268,8 +268,15 @@ void ScintillaEditBase::keyPressEvent(QKeyEvent *event)
 
 		QString text = event->text();
 		if (input && !text.isEmpty() && text[0].isPrint()) {
-			QByteArray utext = sqt->BytesForDocument(text);
-			sqt->InsertCharacter(std::string_view(utext.data(), utext.size()), CharacterSource::DirectInput);
+			const int strLen = text.length();
+			for (int i = 0; i < strLen;) {
+				const int ucWidth = text.at(i).isHighSurrogate() ? 2 : 1;
+				const QString oneCharUTF16 = text.mid(i, ucWidth);
+				const QByteArray oneChar = sqt->BytesForDocument(oneCharUTF16);
+
+				sqt->InsertCharacter(std::string_view(oneChar.data(), oneChar.length()), CharacterSource::DirectInput);
+				i += ucWidth;
+			}
 		} else {
 			event->ignore();
 		}
@@ -478,8 +485,6 @@ static std::vector<int> MapImeIndicators(QInputMethodEvent *event)
 			int indicator = IndicatorUnknown;
 			switch (charFormat.underlineStyle()) {
 				case QTextCharFormat::NoUnderline: // win32, linux
-					indicator = IndicatorTarget;
-					break;
 				case QTextCharFormat::SingleUnderline: // osx
 				case QTextCharFormat::DashUnderline: // win32, linux
 					indicator = IndicatorInput;
@@ -535,6 +540,7 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 	}
 
 	sqt->view.imeCaretBlockOverride = false;
+	preeditPos = -1; // reset not to interrupt Qt::ImCursorRectangle.
 
 	if (!event->commitString().isEmpty()) {
 		const QString &commitStr = event->commitString();
@@ -560,6 +566,9 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 		if (initialCompose)
 			sqt->ClearBeforeTentativeStart();
 		sqt->pdoc->TentativeStart(); // TentativeActive() from now on.
+
+		// Fix candidate window position at the start of preeditString.
+		preeditPos = sqt->CurrentPosition();
 
 		std::vector<int> imeIndicator = MapImeIndicators(event);
 
@@ -592,10 +601,14 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 			sqt->view.imeCaretBlockOverride = true;
 		}
 
-		// Set candidate box position for Qt::ImMicroFocus.
-		preeditPos = sqt->CurrentPosition();
+		// Set Candidate window position again at imeCaret when target input.
+		const bool targetAny = std::any_of(imeIndicator.begin(), imeIndicator.end(), [](int i) noexcept {
+			return i == IndicatorTarget;
+		});
+		if (targetAny)
+			preeditPos = sqt->CurrentPosition();
+
 		sqt->EnsureCaretVisible();
-		updateMicroFocus();
 	}
 	sqt->ShowCaretAtCurrentPosition();
 }
@@ -642,7 +655,7 @@ QVariant ScintillaEditBase::inputMethodQuery(Qt::InputMethodQuery query) const
 		case Qt::ImCursorPosition:
 		{
 			const Scintilla::Position paraStart = sqt->pdoc->ParaUp(pos);
-			return QVariant(static_cast<int>(pos - paraStart));
+			return static_cast<int>(sqt->pdoc->CountUTF16(paraStart, pos));
 		}
 
 		case Qt::ImSurroundingText:

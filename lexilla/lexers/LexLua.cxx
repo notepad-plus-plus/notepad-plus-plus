@@ -65,9 +65,9 @@ static void ColouriseLuaDoc(
 	// Not exactly following number definition (several dots are seen as OK, etc.)
 	// but probably enough in most cases. [pP] is for hex floats.
 	CharacterSet setNumber(CharacterSet::setDigits, ".-+abcdefpABCDEFP");
-	CharacterSet setExponent(CharacterSet::setNone, "eEpP");
-	CharacterSet setLuaOperator(CharacterSet::setNone, "*/-+()={}~[];<>,.^%:#&|");
-	CharacterSet setEscapeSkip(CharacterSet::setNone, "\"'\\");
+	CharacterSet setExponent("eEpP");
+	CharacterSet setLuaOperator("*/-+()={}~[];<>,.^%:#&|");
+	CharacterSet setEscapeSkip("\"'\\");
 
 	Sci_Position currentLine = styler.GetLine(startPos);
 	// Initialize long string [[ ... ]] or block comment --[[ ... ]],

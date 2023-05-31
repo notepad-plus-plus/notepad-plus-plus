@@ -25,15 +25,15 @@ def FindCredits(historyFile, removeLinks=True):
     credits = []
     stage = 0
     with historyFile.open(encoding="utf-8") as f:
-        for l in f.readlines():
-            l = l.strip()
-            if stage == 0 and l == "<table>":
+        for line in f.readlines():
+            line = line.strip()
+            if stage == 0 and line == "<table>":
                 stage = 1
-            elif stage == 1 and l == "</table>":
+            elif stage == 1 and line == "</table>":
                 stage = 2
-            if stage == 1 and l.startswith("<td>"):
-                credit = l[4:-5]
-                if removeLinks and "<a" in l:
+            if stage == 1 and line.startswith("<td>"):
+                credit = line[4:-5]
+                if removeLinks and "<a" in line:
                     title, _a, rest = credit.partition("<a href=")
                     urlplus, _bracket, end = rest.partition(">")
                     name = end.split("<")[0]
@@ -49,12 +49,12 @@ class ScintillaData:
     def __init__(self, scintillaRoot):
         # Discover version information
         self.version = (scintillaRoot / "version.txt").read_text().strip()
-        self.versionDotted = self.version[0] + '.' + self.version[1] + '.' + \
-            self.version[2]
+        self.versionDotted = self.version[0:-2] + '.' + self.version[-2] + '.' + \
+            self.version[-1]
         self.versionCommad = self.versionDotted.replace(".", ", ") + ', 0'
 
         with (scintillaRoot / "doc" / "index.html").open() as f:
-            self.dateModified = [l for l in f.readlines() if "Date.Modified" in l]\
+            self.dateModified = [d for d in f.readlines() if "Date.Modified" in d]\
                 [0].split('\"')[3]
             # 20130602
             # index.html, SciTE.html

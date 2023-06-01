@@ -8,10 +8,10 @@
 |           OS            | can be run (version can be run)  |      supported            |
 |-------------------------|----------------------------------|---------------------------|
 | **Windows 95**          | NO (v3.9 & previous versions)    |          NO               |
-| **Windows 98**          | NO (v6.0\*\* & previous versions) |         NO               |
-| **Windows ME**          | NO (v6.0\*\* & previous versions) |         NO               |
-| **Windows NT 4.0**      | NO (v4.7.3\*\* & previous versions) |       NO               |
-| **Windows 2000**        | NO (v6.6.9\*\* & previous versions) |       NO               |
+| **Windows 98**          | NO (v6.0 & previous versions)    |          NO               |
+| **Windows ME**          | NO (v6.0 & previous versions)    |          NO               |
+| **Windows NT 4.0**      | NO (v4.7.3 & previous versions)  |          NO               |
+| **Windows 2000**        | NO (v6.6.9 & previous versions)  |          NO               |
 | **Windows XP**          | NO (v7.9.2 & previous versions)  |          NO               |
 | **Windows Server 2003** | NO (v7.9.2 & previous versions)  |          NO               |
 | **Windows Vista**       | NO\* (v8.4.6 & previous versions)|          NO               |
@@ -23,7 +23,5 @@
 | **Windows 11**          | YES                              |          YES              |
 
 \* The current version of Notepad++ built by GCC can be run under Vista & Server 2008
-
-\*\* You need to disable unworking plugins.
 
 *Note that the list is meant for the last SP of each version*

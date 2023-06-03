@@ -1027,6 +1027,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 					<Item id="6411" name="Langage par défaut :"/>
 					<Item id="6419" name="Nouveau document"/>
 					<Item id="6420" name="Appliquer aux fichiers ANSI ouverts"/>
+					<Item id="6432" name="Toujours ouvrir un nouveau document en plus au démarrage"/>
 				</NewDoc>
 
 				<DefaultDir title="Dossier par défaut">

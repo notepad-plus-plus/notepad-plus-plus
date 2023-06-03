@@ -571,6 +571,7 @@ struct NewDocDefaultSettings final
 	bool _openAnsiAsUtf8 = true;
 	LangType _lang = L_TEXT;
 	int _codepage = -1; // -1 when not using
+	bool _addNewDocumentOnStartup = false;
 };
 
 

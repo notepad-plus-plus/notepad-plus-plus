@@ -986,6 +986,7 @@
 					<Item id="6411" name="預設程式語言："/>
 					<Item id="6419" name="新文件預設設定"/>
 					<Item id="6420" name="套用至 ANSI 檔案"/>
+					<Item id="6432" name="在啟動時另外打開一個新文件"/>
 				</NewDoc>
 
 				<DefaultDir title="預設資料夾">

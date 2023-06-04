@@ -3596,6 +3596,10 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				TEXT("The old session file will be restored."),
 				TEXT("Error of saving session file"),
 				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+
+			wstring sessionPathNameFail2Load = sessionPathName;
+			sessionPathNameFail2Load += L".fail2Load";
+			MoveFileEx(sessionPathName, sessionPathNameFail2Load.c_str(), MOVEFILE_REPLACE_EXISTING);
 			CopyFile(backupPathName, sessionPathName, FALSE);
 		}
 	}

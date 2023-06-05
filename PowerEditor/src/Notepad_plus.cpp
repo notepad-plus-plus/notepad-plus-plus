@@ -6072,8 +6072,24 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 					continue;
 
 
-			generic_string	languageName = getLangFromMenu(buf);
-			const TCHAR *langName = languageName.c_str();
+			wstring	languageName = getLangFromMenu(buf);
+
+			if (languageName.empty()) // The lang menu item in question is hidden
+			{
+				NppParameters& nppParam = NppParameters::getInstance();
+				const NppGUI& nppGUI = nppParam.getNppGUI();
+
+				for (size_t k = 0; k < nppGUI._excludedLangList.size(); ++k) // try to find it in exclude lang list
+				{
+					if (buf->getLangType() == nppGUI._excludedLangList[k]._langType)
+					{
+						languageName = nppGUI._excludedLangList[k]._langName;
+						break;
+					}
+				}
+			}
+
+			const wchar_t* langName = languageName.c_str();
 			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
 
 			sfi._isMonitoring = buf->isMonitoringOn();
@@ -6788,7 +6804,6 @@ int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
 
 generic_string Notepad_plus::getLangFromMenu(const Buffer * buf)
 {
-
 	int	id;
 	generic_string userLangName;
 	TCHAR menuLangName[menuItemStrLenMax]{};

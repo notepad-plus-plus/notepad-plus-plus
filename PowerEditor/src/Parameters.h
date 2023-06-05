@@ -190,7 +190,7 @@ public:
 
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, bool userReadOnly, const Position& pos, const TCHAR *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
+	sessionFileInfo(const wchar_t* fn, const TCHAR *ln, int encoding, bool userReadOnly, const Position& pos, const TCHAR *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
 		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
@@ -198,10 +198,10 @@ struct sessionFileInfo : public Position
 		if (backupFilePath) _backupFilePath = backupFilePath;
 	}
 
-	sessionFileInfo(generic_string fn) : _fileName(fn) {}
+	sessionFileInfo(std::wstring fn) : _fileName(fn) {}
 
-	generic_string _fileName;
-	generic_string	_langName;
+	std::wstring _fileName;
+	std::wstring _langName;
 	std::vector<size_t> _marks;
 	std::vector<size_t> _foldStates;
 	int	_encoding = -1;
@@ -209,8 +209,8 @@ struct sessionFileInfo : public Position
 	bool _isMonitoring = false;
 	int _individualTabColour = -1;
 
-	generic_string _backupFilePath;
-	FILETIME _originalFileLastModifTimestamp = {};
+	std::wstring _backupFilePath;
+	FILETIME _originalFileLastModifTimestamp {};
 
 	MapPosition _mapPos;
 };
@@ -578,9 +578,9 @@ struct LangMenuItem final
 {
 	LangType _langType = L_TEXT;
 	int	_cmdID = -1;
-	generic_string _langName;
+	std::wstring _langName;
 
-	LangMenuItem(LangType lt, int cmdID = 0, const generic_string& langName = TEXT("")):
+	LangMenuItem(LangType lt, int cmdID = 0, const std::wstring& langName = TEXT("")):
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
@@ -588,17 +588,17 @@ struct PrintSettings final {
 	bool _printLineNumber = true;
 	int _printOption = SC_PRINT_COLOURONWHITE;
 
-	generic_string _headerLeft;
-	generic_string _headerMiddle;
-	generic_string _headerRight;
-	generic_string _headerFontName;
+	std::wstring _headerLeft;
+	std::wstring _headerMiddle;
+	std::wstring _headerRight;
+	std::wstring _headerFontName;
 	int _headerFontStyle = 0;
 	int _headerFontSize = 0;
 
-	generic_string _footerLeft;
-	generic_string _footerMiddle;
-	generic_string _footerRight;
-	generic_string _footerFontName;
+	std::wstring _footerLeft;
+	std::wstring _footerMiddle;
+	std::wstring _footerRight;
+	std::wstring _footerFontName;
 	int _footerFontStyle = 0;
 	int _footerFontSize = 0;
 

@@ -2141,8 +2141,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(MAIN_VIEW);
-			const TCHAR* pLn = nullptr;
-			LangType typeToSet = L_TEXT;
+			const wchar_t* pLn = nullptr;
+			LangType langTypeToSet = L_TEXT;
 			Buffer* buf = MainFileManager.getBufferByID(lastOpened);
 
 			if (!buf->isLargeFile())
@@ -2151,10 +2151,24 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 
 				int id = getLangFromMenuName(pLn);
 				
-				if (id != 0 && id != IDM_LANG_USER)
-					typeToSet = menuID2LangType(id);
-				if (typeToSet == L_EXTERNAL)
-					typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
+				if (!id) // it could be due to the hidden language from the sub-menu "Languages"
+				{
+					const NppGUI& nppGUI = nppParam.getNppGUI();
+
+					for (size_t k = 0; k < nppGUI._excludedLangList.size(); ++k) // try to find it in exclude lang list
+					{
+						if (nppGUI._excludedLangList[k]._langName == pLn)
+						{
+							langTypeToSet = nppGUI._excludedLangList[k]._langType;
+							break;
+						}
+					}
+				}
+				else if (id != IDM_LANG_USER)
+					langTypeToSet = menuID2LangType(id);
+
+				if (langTypeToSet == L_EXTERNAL)
+					langTypeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 			}
 			
 
@@ -2170,7 +2184,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
 			buf->setMapPosition(session._mainViewFiles[i]._mapPos);
-			buf->setLangType(typeToSet, pLn);
+			buf->setLangType(langTypeToSet, pLn);
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 

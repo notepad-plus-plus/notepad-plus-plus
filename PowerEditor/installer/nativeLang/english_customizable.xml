@@ -1030,6 +1030,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="6411" name="Default language :"/>
 					<Item id="6419" name="New Document"/>
 					<Item id="6420" name="Apply to opened ANSI files"/>
+					<Item id="6432" name="Always open a new document in addition at startup"/>
 				</NewDoc>
 
 				<DefaultDir title="Default Directory">

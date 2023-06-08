@@ -5257,6 +5257,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (val)
 				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = (lstrcmp(val, TEXT("yes")) == 0);
 
+			val = element->Attribute(TEXT("addNewDocumentOnStartup"));
+			if (val)
+				_nppGUI._newDocDefaultSettings._addNewDocumentOnStartup = (lstrcmp(val, TEXT("yes")) == 0);
 		}
 
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
@@ -6996,6 +6999,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("lang"), _nppGUI._newDocDefaultSettings._lang);
 		GUIConfigElement->SetAttribute(TEXT("codepage"), _nppGUI._newDocDefaultSettings._codepage);
 		GUIConfigElement->SetAttribute(TEXT("openAnsiAsUTF8"), _nppGUI._newDocDefaultSettings._openAnsiAsUtf8 ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("addNewDocumentOnStartup"), _nppGUI._newDocDefaultSettings._addNewDocumentOnStartup ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name = "langsExcluded" gr0 = "0" gr1 = "0" gr2 = "0" gr3 = "0" gr4 = "0" gr5 = "0" gr6 = "0" gr7 = "0" langMenuCompact = "yes" / >

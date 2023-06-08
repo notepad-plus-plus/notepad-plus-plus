@@ -2347,6 +2347,8 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_SETCURSEL, j, 0);
 
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ADDNEWDOCONSTARTUP, BM_SETCHECK, ndds._addNewDocumentOnStartup, 0);
+
 			return TRUE;
 		}
 
@@ -2435,6 +2437,12 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 				case IDC_RADIO_F_WIN:
 				{
 					ndds._format = EolType::windows;
+					return TRUE;
+				}
+
+				case IDC_CHECK_ADDNEWDOCONSTARTUP:
+				{
+					ndds._addNewDocumentOnStartup = isCheckedOrNot(IDC_CHECK_ADDNEWDOCONSTARTUP);
 					return TRUE;
 				}
 

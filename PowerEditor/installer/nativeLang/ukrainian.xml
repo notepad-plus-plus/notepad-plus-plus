@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.5.1">
+	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.5.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -296,6 +298,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44114" name="Застосувати колір 4"/>
 					<Item id="44115" name="Застосувати колір 5"/>
 					<Item id="44130" name="Показувати символи, що не друкуються"/>
+					<Item id="44131" name="Показати символи керування &amp;&amp; Unicode EOL"/>
 					<Item id="44032" name="На весь екран"/>
 					<Item id="44033" name="Відновити масштаб"/>
 					<Item id="44034" name="Завжди вгорі"/>
@@ -328,7 +331,7 @@ The comments are here for explanation, it's not necessary to translate them.
 
 					<Item id="10001" name="Відкрити в іншому вікні"/>
 					<Item id="10002" name="Копіювати в інше вікно"/>
-					<Item id="10003" name="Перейти до нового екземпляра"/>
+					<Item id="10003" name="Перемістити до нового екземпляра"/>
 					<Item id="10004" name="Відкрити в новому екземплярі"/>
 
 					<Item id="46001" name="Конфігуратор стилю..."/>
@@ -490,9 +493,9 @@ The comments are here for explanation, it's not necessary to translate them.
 
 			<FindCharsInRange title="Знайти символи в діапазоні...">
 				<Item id="2" name="Закрити"/>
-				<Item id="2901" name="Не ASCII символи (128-255)"/>
-				<Item id="2902" name="ASCII символи (0-127)"/>
-				<Item id="2903" name="Мій діапазон:"/>
+				<Item id="2901" name="Не ASCII символи (128–255)"/>
+				<Item id="2902" name="ASCII символи (0–127)"/>
+				<Item id="2903" name="Власний діапазон (0–255):"/>
 				<Item id="2906" name="Вгору"/>
 				<Item id="2907" name="Вниз"/>
 				<Item id="2908" name="Напрямок"/>
@@ -518,7 +521,7 @@ The comments are here for explanation, it's not necessary to translate them.
 			</Run>
 
 			<MD5FromFilesDlg title="Згенерувати MD5 з файлів">
-				<Item id="1922" name="Вибрати файли для генерації MD5..."/>
+				<Item id="1922" name="Оберіть файли для генерування MD5..."/>
 				<Item id="1924" name="Копіювати в буфер обміну"/>
 				<Item id="2" name="Закрити"/>
 			</MD5FromFilesDlg>
@@ -549,7 +552,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="5504" name="Оновити"/>
 				<Item id="5505" name="Вилучити"/>
 				<Item id="5508" name="Далі"/>
-				<Item id="5509" name="Версія списку плагінів: "/>
+				<Item id="5509" name="Версія списку плагінів:"/>
 				<Item id="5511" name="Репозиторій списку плагінів"/>
 				<Item id="2" name="Закрити"/>
 			</PluginsAdminDlg>
@@ -727,7 +730,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="20003" name="Створити..."/>
 				<Item id="20004" name="Вилучити"/>
 				<Item id="20005" name="Зберегти як..."/>
-				<Item id="20007" name="Мова користувача: "/>
+				<Item id="20007" name="Мова користувача"/>
 				<Item id="20009" name="Розширення:"/>
 				<Item id="20012" name="Будь-який регістр"/>
 				<Item id="20011" name="Прозорість"/>
@@ -735,7 +738,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="20016" name="Експорт..."/>
 				<Item id="20017" name="Розстикувати"/>
 				<StylerDialog title="Стиль">
-					<Item id="25030" name="Налаштування шрифту:"/>
+					<Item id="25030" name="Налаштування шрифту"/>
 					<Item id="25006" name="Колір переднього плану"/>
 					<Item id="25007" name="Колір тла"/>
 					<Item id="25031" name="Назва:"/>
@@ -743,7 +746,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="25001" name="Жирний"/>
 					<Item id="25002" name="Курсив"/>
 					<Item id="25003" name="Підкреслений"/>
-					<Item id="25029" name="Вкладення:"/>
+					<Item id="25029" name="Успадкування"/>
 					<Item id="25008" name="Розділювач 1"/>
 					<Item id="25009" name="Розділювач 2"/>
 					<Item id="25010" name="Розділювач 3"/>
@@ -773,20 +776,20 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Folder title="Стандартний">
 					<Item id="21101" name="Типовий стиль"/>
 					<Item id="21102" name="Налаштувати"/>
-					<Item id="21105" name="Документація:"/>
+					<Item id="21105" name="Документація"/>
 					<Item id="21104" name="Тимчасовий сайт документації:"/>
 					<Item id="21106" name="Компактне згорт. (пусті рядки також)"/>
-					<Item id="21220" name="Згортання в коді стилю 1:"/>
+					<Item id="21220" name="Згортання в коді стилю 1"/>
 					<Item id="21224" name="Відкривати:"/>
 					<Item id="21225" name="Середина:"/>
 					<Item id="21226" name="Закривати:"/>
 					<Item id="21227" name="Стиль"/>
-					<Item id="21320" name="Згортання в коді стилю 2 (потрібні розділювачі):"/>
+					<Item id="21320" name="Згортання в коді стилю 2 (потрібні розділювачі)"/>
 					<Item id="21324" name="Відкривати:"/>
 					<Item id="21325" name="Середина:"/>
 					<Item id="21326" name="Закривати:"/>
 					<Item id="21327" name="Стиль"/>
-					<Item id="21420" name="Згортання в стилі коментаря:"/>
+					<Item id="21420" name="Згортання в стилі коментаря"/>
 					<Item id="21424" name="Відкривати:"/>
 					<Item id="21425" name="Середина:"/>
 					<Item id="21426" name="Закривати:"/>
@@ -910,21 +913,22 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6108" name="Заборонити перетягування"/>
 					<Item id="6109" name="Затемнені неактивні вкладки"/>
 					<Item id="6110" name="Кольорова панель активної вкладки"/>
-
-					<Item id="6111" name="Рядок стану"/>
 					<Item id="6112" name="Кнопка закриття на кожній вкладці"/>
 					<Item id="6113" name="Закривати подвійним клацанням"/>
 					<Item id="6118" name="Приховати"/>
 					<Item id="6119" name="Каскадом"/>
-					<Item id="6120" name="Вертикальна"/>
-					<Item id="6121" name="Вихід при закритті останньої вкладки"/>
+					<Item id="6120" name="Вертикально"/>
+					<Item id="6121" name="Виходити після закриття останньої вкладки"/>
+					<Item id="6128" name="Змінювати піктограми"/>
+
+					<Item id="6133" name="Рядок стану"/>
+					<Item id="6134" name="Приховати"/>
 
 					<Item id="6131" name="Меню"/>
 					<Item id="6122" name="Приховати панель меню (Alt чи F10)"/>
 					<Item id="6132" name="Приховати ярлики ＋ ▼ ✕ у правій частині панелі меню (Необхідно перезапустити Notepad++)"/>
-					<Item id="6123" name="Локалізація"/>
 
-					<Item id="6128" name="Змінювати піктограми"/>
+					<Item id="6123" name="Локалізація"/>
 				</Global>
 				<Scintillas title="Редагування">
 					<Item id="6216" name="Налаштування вставки"/>
@@ -947,7 +951,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6652" name="Немає"/>
 					<Item id="6653" name="Підсвічувати задній план"/>
 					<Item id="6654" name="Рамка"/>
-					<Item id="6655" name="Ширина"/>
+					<Item id="6655" name="Ширина:"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Типово"/>
 					<Item id="6249" name="Звичайний текст"/>
@@ -956,6 +960,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6254" name="Абревіатура"/>
 					<Item id="6255" name="Точка коду"/>
 					<Item id="6256" name="Власний колір"/>
+					<Item id="6258" name="Застосувати до C0, C1 &amp;&amp; Unicode EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Темний режим">
@@ -1023,7 +1028,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6410" name="UTF-16 Little Endian з BOM"/>
 					<Item id="6411" name="Синтаксис:"/>
 					<Item id="6419" name="Створити документ"/>
-					<Item id="6420" name="При відкритті ANSI-файла"/>
+					<Item id="6420" name="Застосувати до відкритих файлів ANSI"/>
+					<Item id="6432" name="Завжди відкривати новий документ при запуску"/>
 				</NewDoc>
 
 				<DefaultDir title="Типова тека">
@@ -1070,15 +1076,15 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Print title="Друк">
 					<Item id="6601" name="Друкувати номери рядків"/>
 					<Item id="6602" name="Параметри кольору"/>
-					<Item id="6603" name="WYSIWYG"/>
-					<Item id="6604" name="Інверсія"/>
+					<Item id="6603" name="Візуальний редактор"/>
+					<Item id="6604" name="Інвертувати"/>
 					<Item id="6605" name="Чорним по білому"/>
 					<Item id="6606" name="Без кольору тла"/>
 					<Item id="6607" name="Відступи (в міліметрах)"/>
 					<Item id="6612" name="Зліва"/>
 					<Item id="6613" name="Вгорі"/>
 					<Item id="6614" name="Справа"/>
-					<Item id="6615" name="Знизу"/>
+					<Item id="6615" name="Внизу"/>
 					<Item id="6706" name="Жирний"/>
 					<Item id="6707" name="Курсив"/>
 					<Item id="6708" name="Верхній колонтитул"/>
@@ -1261,7 +1267,7 @@ The comments are here for explanation, it's not necessary to translate them.
 			<MultiMacro title="Багаторазовий запуск макросу">
 				<Item id="1" name="Запустити"/>
 				<Item id="2" name="Скасувати"/>
-				<Item id="8006" name="Макрос:"/>
+				<Item id="8006" name="Макрос"/>
 				<Item id="8001" name="Запустити"/>
 				<Item id="8005" name="разів"/>
 				<Item id="8002" name="Виконувати до кінця файлу"/>
@@ -1276,15 +1282,15 @@ The comments are here for explanation, it's not necessary to translate them.
 			<ColumnEditor title="Редактор стовпців">
 				<Item id="2023" name="Текст для вставлення"/>
 				<Item id="2033" name="Число для вставлення"/>
-				<Item id="2030" name="Початковий номер :"/>
-				<Item id="2031" name="Збільшити на :"/>
-				<Item id="2038" name="Початкові :"/>
+				<Item id="2030" name="Початковий номер:"/>
+				<Item id="2031" name="Збільшити на:"/>
+				<Item id="2038" name="Початкові:"/>
 				<ComboBox id="2039">
 					<Element name="Немає"/>
 					<Element name="Нулі"/>
 					<Element name="Пробіли"/>
 				</ComboBox>
-				<Item id="2036" name="Повторити :"/>
+				<Item id="2036" name="Повторити:"/>
 				<Item id="2032" name="Формат"/>
 				<Item id="2024" name="Десятковий"/>
 				<Item id="2025" name="Вісімковий"/>
@@ -1296,7 +1302,7 @@ The comments are here for explanation, it's not necessary to translate them.
 			<FindInFinder title="Знайти в результатах пошуку">
 				<Item id="1" name="Знайти все"/>
 				<Item id="2" name="Закрити"/>
-				<Item id="1711" name="Що шукати:"/>
+				<Item id="1711" name="Що знайти:"/>
 				<Item id="1713" name="Шукати лише в знайдених рядках"/>
 				<Item id="1714" name="Лише &amp;цілі слова"/>
 				<Item id="1715" name="Враховувати &amp;регістр"/>
@@ -1387,6 +1393,7 @@ The comments are here for explanation, it's not necessary to translate them.
 			<WindowsSessionExit title="Notepad++ - вихід із сеансу Windows" message="Сеанс Windows невдовзі буде завершено, але у вас є незбережені дані. Хочете вийти з Notepad++ зараз?"/>
 			<LanguageMenuCompactWarning title="Компактне меню мови" message="Цей параметр буде змінено під час наступного запуску."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Незбережені зміни будуть скасовані! Ви хочете зберегти зміни перед зміною теми?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Сумісність макросів і команд виконання" message="Ваші макроси й команди виконання, збережені в Notepad++ v.8.5.2 (чи старіше), можуть бути несумісними з поточною версією Notepad++. Випробуйте ці команди та, за потреби, відредагуйте їх.  Або ж ви можете встановити старішу версію Notepad++ v8.5.2 та відновити свої попередні дані. Notepad++ збереже резервну копію вашого файлу &quot;shortcuts.xml&quot; з назвою &quot;shortcuts.xml.v8.5.2.backup&quot;. Перейменувавши файл &quot;shortcuts.xml.v8.5.2.backup&quot; на -&gt; &quot;shortcuts.xml&quot;, ваші команди мають відновитися і працювати правильно."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Історія буфера"/>
@@ -1435,7 +1442,7 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Menu>
 				<Item id="3511" name="Вилучити"/>
 				<Item id="3512" name="Вилучити все"/>
-				<Item id="3513" name="Додати"/>
+				<Item id="3513" name="Долучити"/>
 				<Item id="3514" name="Виконується системою"/>
 				<Item id="3515" name="Відкрити"/>
 				<Item id="3516" name="Копіювати шлях"/>
@@ -1558,9 +1565,9 @@ The comments are here for explanation, it's not necessary to translate them.
 			<finder-wrap-long-lines value="Обтинати слова в довгих рядках"/>
 			<common-ok value="Гаразд"/>
 			<common-cancel value="Скасувати"/>
-			<common-name value="Назва: "/>
+			<common-name value="Назва"/>
 			<tabrename-title value="Перейменувати поточну вкладку"/>
-			<tabrename-newname value="Нова назва: "/>
+			<tabrename-newname value="Нова назва"/>
 			<splitter-rotate-left value="Обернути вліво"/>
 			<splitter-rotate-right value="Обернути вправо"/>
 			<userdefined-title-new value="Створити нову мову..."/>
@@ -1610,12 +1617,13 @@ The comments are here for explanation, it's not necessary to translate them.
 			<contextMenu-clearStyle value="Очистити стиль"/>
 			<contextMenu-PluginCommands value="Команди плагіну"/>
 			<largeFileRestriction-tip value="Деякі функції можуть сповільнити роботу з великими файлами. Ці функції можна автоматично вимикати після відкриття такого файлу. Ви можете налаштувати ці опції тут.  ПРИМІТКА: 1. Для застосування змін потрібно повторно відкрити великі файли.  2. Якщо позначено параметр &quot;Глобальне вимкнення перенесення слів&quot; під час відкриття великого файлу, &quot;Перенесення слів&quot; буде деактивовано для всіх файлів. Ви можете знову ввімкнути його в меню &quot;Вигляд-&gt;Перенесення слів&quot;."/>
-			<npcNote-tip value="Представлення вибраного &quot;не ASCII&quot; пропуску та не друкованих (контрольних) символів.  ПРИМІТКА: Деякі символи можуть вже мати певне представлення, тому вони видимі. Розділювач рядків і параграфів вже типово представлені абревіатурою.  Використання представлення вимкне ефекти символів у тексті.  Для повного списку вибраних символів пропуску та не друкованих символів перегляньте настанови для користувачів.  Натисніть цю кнопку, щоб відкрити вебсайт із настановами користувача."/>
+			<npcNote-tip value="Представлення вибраного &quot;не ASCII&quot; пропуску та не друкованих (контрольних) символів.  ПРИМІТКА: Використання представлення вимкне ефекти символів у тексті.  Для повного списку вибраних символів пропуску та не друкованих символів перегляньте настанови для користувачів.  Натисніть цю кнопку, щоб відкрити вебсайт із настановами користувача."/>
 			<npcAbbreviation-tip value="Абревіатура : назва NBSP : нерозривний пропуск ZWSP : пропуск із нульовою шириною ZWNBSP : нерозривний пропуск із нульовою  Для повного списку перегляньте настанови для користувачів. Натисніть кнопку &quot;?&quot; праворуч, щоб відкрити вебсайт із настановами для користувачів."/>
 			<npcCodepoint-tip value="Точка коду : назва U+00A0 : нерозривний пропуск U+200B : пропуск із нульовою шириною U+FEFF : нерозривний пропуск із нульовою шириною  Для повного списку перегляньте настанови для користувачів. Натисніть кнопку &quot;?&quot; праворуч, щоб відкрити вебсайт із настановами для користувачів."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Відкрийте конфігуратор стилю, щоб змінити типовий власний колір для вибраних пропусків та не друкованих символів (&quot;Власний колір символів, що не друкуються&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Застосувати налаштування вигляду символів, що не друкуються, до символів C0, C1 control і Unicode EOL (наступний рядок, роздільник рядків та роздільник абзаців)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

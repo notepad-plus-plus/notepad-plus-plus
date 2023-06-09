@@ -10,11 +10,10 @@
 from __future__ import with_statement
 from __future__ import unicode_literals
 
-import codecs, ctypes, os, sys, unittest
+import ctypes, unittest
 
-from MessageNumbers import msgs, sgsm
+from MessageNumbers import msgs
 
-import ctypes
 user32 = ctypes.windll.user32
 
 import XiteWin as Xite
@@ -32,8 +31,8 @@ class TestWins(unittest.TestCase):
 
 	# Helper methods
 
-	def Send(self, msg, w, l):
-		return user32.SendMessageW(self.sciHwnd, msgs[msg], w, l)
+	def Send(self, msg, wp, lp):
+		return user32.SendMessageW(self.sciHwnd, msgs[msg], wp, lp)
 
 	def GetTextLength(self):
 		return self.Send("WM_GETTEXTLENGTH", 0, 0)

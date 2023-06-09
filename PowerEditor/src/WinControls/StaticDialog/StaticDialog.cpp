@@ -36,12 +36,23 @@ void StaticDialog::destroy()
 	::DestroyWindow(_hSelf);
 }
 
+void StaticDialog::getMappedChildRect(HWND hChild, RECT& rcChild) const
+{
+	::GetClientRect(hChild, &rcChild);
+	::MapWindowPoints(hChild, _hSelf, reinterpret_cast<LPPOINT>(&rcChild), 2);
+}
+
+void StaticDialog::getMappedChildRect(int idChild, RECT& rcChild) const
+{
+	const HWND hChild = ::GetDlgItem(_hSelf, idChild);
+	getMappedChildRect(hChild, rcChild);
+}
+
 void StaticDialog::redrawDlgItem(const int nIDDlgItem, bool forceUpdate) const
 {
 	RECT rcDlgItem{};
 	const HWND hDlgItem = ::GetDlgItem(_hSelf, nIDDlgItem);
-	::GetClientRect(hDlgItem, &rcDlgItem);
-	::MapWindowPoints(hDlgItem, _hSelf, reinterpret_cast<LPPOINT>(&rcDlgItem), 2);
+	getMappedChildRect(hDlgItem, rcDlgItem);
 	::InvalidateRect(_hSelf, &rcDlgItem, TRUE);
 
 	if (forceUpdate)

@@ -43,10 +43,12 @@ public :
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
 
-    virtual bool isCreated() const {
-		return (_hSelf != NULL);
+	virtual bool isCreated() const {
+		return (_hSelf != nullptr);
 	}
 
+	void getMappedChildRect(HWND hChild, RECT& rcChild) const;
+	void getMappedChildRect(int idChild, RECT& rcChild) const;
 	void redrawDlgItem(const int nIDDlgItem, bool forceUpdate = false) const;
 
 	void goToCenter(UINT swpFlags = SWP_SHOWWINDOW);

@@ -586,6 +586,63 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla525.zip">Release 5.2.5</a>
+    </h3>
+    <ul>
+	<li>
+	Released 31 May 2023.
+	</li>
+	<li>
+	Add CharacterSetArray constructor without setBase initial argument for common case
+	where this is setNone and the initialSet argument completely defines the characters.
+	This shortens and clarifies use of CharacterSetArray.
+	</li>
+	<li>
+	Bash: implement highlighting inside quoted elements and here-docs.
+	Controlled with properties lexer.bash.styling.inside.string, lexer.bash.styling.inside.backticks,
+	lexer.bash.styling.inside.parameter, and lexer.bash.styling.inside.heredoc.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/154">Issue #154</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/153">Issue #153</a>,
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1033/">Feature #1033</a>.
+	</li>
+	<li>
+	Bash: add property lexer.bash.command.substitution to choose how to style command substitutions.
+	0 &rarr; SCE_SH_BACKTICKS;
+	1 &rarr; surrounding "$(" and ")" as operators and contents styled as bash code;
+	2 &rarr; use distinct styles (base style + 64) for contents.
+	Choice (2) is a provisional feature and details may change before it is finalized.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/153">Issue #153</a>.
+	</li>
+	<li>
+	Bash: fix nesting of parameters (SCE_SH_PARAM) like ${var/$sub/"${rep}}"}.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/154">Issue #154</a>.
+	</li>
+	<li>
+	Bash: fix single character special parameters like $? by limiting style.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/154">Issue #154</a>.
+	</li>
+	<li>
+	Bash: treat "$$" as special parameter and end scalars before "$".
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/154">Issue #154</a>.
+	</li>
+	<li>
+	Bash: treat "&lt;&lt;" in arithmetic contexts as left bitwise shift operator instead of here-doc.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/137">Issue #137</a>.
+	</li>
+	<li>
+	Batch: style SCE_BAT_AFTER_LABEL used for rest of line after label which is not executed.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/148">Issue #148</a>.
+	</li>
+	<li>
+	F#: Lex interpolated verbatim strings as verbatim.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/156">Issue #156</a>.
+	</li>
+	<li>
+	VB: allow multiline strings when lexer.vb.strings.multiline set.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/151">Issue #151</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla524.zip">Release 5.2.4</a>
     </h3>
     <ul>

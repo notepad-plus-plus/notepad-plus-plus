@@ -3,6 +3,9 @@
  0 400   0   Dim b As String = "hello    world"
  0 400   0   Dim c As String = "Joe said ""Hello"" to me"
  0 400   0   Dim d As String = "\\\\server\\share\\file.txt"
+ 0 400   0   Dim e As String = "The brown fox
+ 0 400   0   jumps over
+ 0 400   0   the lazy dog"
  0 400   0   ' Character
  0 400   0   ""C "c"C "cc"C
  0 400   0   ' Date

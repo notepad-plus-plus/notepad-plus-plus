@@ -43,8 +43,6 @@ public :
 	void addIcon(HICON hIcon) const;
 
 	bool changeIcon(size_t index, const TCHAR *iconLocation) const;
-	void addIcons(int size) const;
-
 
 private :
 	HIMAGELIST _hImglst = nullptr;

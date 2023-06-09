@@ -54,6 +54,7 @@ echo %%0
 echo %%%0
 echo %%%%~-abcd
 
+:TEST that after label style works
 :: Bug 2304: "::" comments not recognised when second command on line
 Set /A xxx=%xxx%+1 & :: Increment
 Set /A xxx=%xxx%+1 & ::Increment

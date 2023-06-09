@@ -29,27 +29,26 @@ public :
 	ColumnEditorDlg() = default;
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override {
 		StaticDialog::create(dialogID, isRTL, msgDestParent);
 	};
 
 	void doDialog(bool isRTL = false) {
 		if (!isCreated())
 			create(IDD_COLUMNEDIT, isRTL);
-		bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
+		const bool isTextMode = isCheckedOrNot(IDC_COL_TEXT_RADIO);
 		display();
 		::SetFocus(::GetDlgItem(_hSelf, isTextMode?IDC_COL_TEXT_EDIT:IDC_COL_INITNUM_EDIT));
 	};
 
-    virtual void display(bool toShow = true) const;
+	void display(bool toShow = true) const override;
 	void switchTo(bool toText);
 	UCHAR getFormat();
 	ColumnEditorParam::leadingChoice getLeading();
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
-    ScintillaEditView **_ppEditView = nullptr;
+	ScintillaEditView **_ppEditView = nullptr;
 };
-

@@ -43,17 +43,17 @@ public :
 
 	void doDialog();
 
-    virtual void destroy() {
-        _emailLink.destroy();
-        _pageLink.destroy();
-    };
+	void destroy() override {
+		//_emailLink.destroy();
+		_pageLink.destroy();
+	};
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
-    URLCtrl _emailLink;
-    URLCtrl _pageLink;
+	//URLCtrl _emailLink;
+	URLCtrl _pageLink;
 };
 
 
@@ -72,12 +72,10 @@ public:
 
 	void refreshDebugInfo();
 
-	virtual void destroy() {
-		_copyToClipboardLink.destroy();
-	};
+	void destroy() override {};
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	typedef const CHAR * (__cdecl * PWINEGETVERSION)();
@@ -86,7 +84,6 @@ private:
 	const generic_string _cmdLinePlaceHolder { L"$COMMAND_LINE_PLACEHOLDER$" };
 	bool _isAdmin = false;
 	generic_string _loadedPlugins;
-	URLCtrl _copyToClipboardLink;
 };
 
 class DoSaveOrNotBox : public StaticDialog
@@ -104,7 +101,7 @@ public:
 
 	void doDialog(bool isRTL = false);
 
-	virtual void destroy() {};
+	void destroy() override {};
 
 	int getClickedButtonId() const {
 		return clickedButtonId;
@@ -113,7 +110,7 @@ public:
 	void changeLang();
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	int clickedButtonId = -1;
@@ -128,7 +125,7 @@ public:
 
 	void doDialog(bool isRTL = false);
 
-	virtual void destroy() {};
+	void destroy() override {};
 
 	int getClickedButtonId() const {
 		return clickedButtonId;
@@ -137,7 +134,7 @@ public:
 	void changeLang();
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	int clickedButtonId = -1;

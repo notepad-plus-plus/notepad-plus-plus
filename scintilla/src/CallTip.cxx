@@ -108,14 +108,14 @@ void DrawArrow(Surface *surface, const PRectangle &rc, bool upArrow, ColourRGBA 
 
 	constexpr XYPOSITION pixelMove = 0.0f;
 	if (upArrow) {      // Up arrow
-		Point pts[] = {
+		const Point pts[] = {
 			Point(centreX - halfWidth + pixelMove, centreY + quarterWidth + 0.5f),
 			Point(centreX + halfWidth + pixelMove, centreY + quarterWidth + 0.5f),
 			Point(centreX + pixelMove, centreY - halfWidth + quarterWidth + 0.5f),
 		};
 		surface->Polygon(pts, std::size(pts), FillStroke(colourBG));
 	} else {            // Down arrow
-		Point pts[] = {
+		const Point pts[] = {
 			Point(centreX - halfWidth + pixelMove, centreY - quarterWidth + 0.5f),
 			Point(centreX + halfWidth + pixelMove, centreY - quarterWidth + 0.5f),
 			Point(centreX + pixelMove, centreY + halfWidth - quarterWidth + 0.5f),

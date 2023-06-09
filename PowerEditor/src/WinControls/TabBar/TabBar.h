@@ -46,10 +46,17 @@ const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = TEXT("Active tab unfocused indi
 const TCHAR TABBAR_ACTIVETEXT[64] = TEXT("Active tab text");
 const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
 
+constexpr int g_TabIconSize = 16;
+constexpr int g_TabHeight = 22;
+constexpr int g_TabHeightLarge = 25;
+constexpr int g_TabWidth = 45;
+constexpr int g_TabWidthCloseBtn = 60;
+constexpr int g_TabCloseBtnSize = 11;
+
 struct TBHDR
 {
-	NMHDR _hdr;
-	int _tabOrigin;
+	NMHDR _hdr{};
+	int _tabOrigin = 0;
 };
 
 
@@ -59,9 +66,9 @@ class TabBar : public Window
 public:
 	TabBar() = default;
 	virtual ~TabBar() = default;
-	virtual void destroy();
+	void destroy() override;
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
-	virtual void reSizeTo(RECT & rc2Ajust);
+	void reSizeTo(RECT& rc2Ajust) override;
 	int insertAtEnd(const TCHAR *subTabName);
 	void activateAt(int index) const;
 	void getCurrentTitle(TCHAR *title, int titleLen);
@@ -97,6 +104,9 @@ public:
 		_isMultiLine = b;
 	};
 
+	HFONT& getFont(bool isReduced = true) {
+		return isReduced ? _hFont : _hLargeFont;
+	}
 
 protected:
 	size_t _nbItem = 0;
@@ -141,9 +151,9 @@ public :
         _doDragNDrop = justDoIt;
     };
 
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
+	void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false) override;
 
-	virtual void destroy();
+	void destroy() override;
 
     static bool doDragNDropOrNot() {
         return _doDragNDrop;
@@ -221,10 +231,10 @@ protected:
     int _nSrcTab = -1;
 	int _nTabDragged = -1;
 	int _previousTabSwapped = -1;
-	POINT _draggingPoint = {}; // coordinate of Screen
+	POINT _draggingPoint{}; // coordinate of Screen
 	WNDPROC _tabBarDefaultProc = nullptr;
 
-	RECT _currentHoverTabRect;
+	RECT _currentHoverTabRect{};
 	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
 	CloseButtonZone _closeButtonZone;
@@ -270,7 +280,7 @@ protected:
 
 	int32_t getTabIndexAt(int x, int y)
 	{
-		TCHITTESTINFO hitInfo;
+		TCHITTESTINFO hitInfo{};
 		hitInfo.pt.x = x;
 		hitInfo.pt.y = y;
 		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
@@ -278,7 +288,7 @@ protected:
 
 	bool isPointInParentZone(POINT screenPoint) const
 	{
-        RECT parentZone;
+		RECT parentZone{};
         ::GetWindowRect(_hParent, &parentZone);
 	    return (((screenPoint.x >= parentZone.left) && (screenPoint.x <= parentZone.right)) &&
 			    (screenPoint.y >= parentZone.top) && (screenPoint.y <= parentZone.bottom));

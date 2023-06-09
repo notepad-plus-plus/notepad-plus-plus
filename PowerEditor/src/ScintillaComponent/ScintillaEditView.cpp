@@ -2808,12 +2808,22 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETMARGINTYPEN, _SC_MARGE_SYMBOL, SC_MARGIN_COLOUR);
 	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYMBOL, bookmarkMarginColor);
 
+	COLORREF changeHistoryMarginColor = veryLiteGrey;
 	pStyle = stylers.findByName(TEXT("Change History margin"));
-	if (pStyle)
+	if (!pStyle)
 	{
-		execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
-		execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, pStyle->_bgColor);
+		pStyle = stylers.findByName(TEXT("Line number margin"));
+		if (pStyle)
+		{
+			changeHistoryMarginColor = pStyle->_bgColor;
+		}
 	}
+	else
+	{
+		changeHistoryMarginColor = pStyle->_bgColor;
+	}
+	execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
+	execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, changeHistoryMarginColor);
 
 	COLORREF urlHoveredFG = grey;
 	pStyle = stylers.findByName(TEXT("URL hovered"));

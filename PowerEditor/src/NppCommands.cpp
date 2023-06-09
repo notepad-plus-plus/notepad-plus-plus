@@ -2145,24 +2145,19 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_REDUCETABBAR :
+		case IDM_VIEW_REDUCETABBAR:
 		{
 			_toReduceTabBar = !_toReduceTabBar;
-
-			//Resize the  icon
-			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleY(_toReduceTabBar?12:18);
+			auto& dpiManager = NppParameters::getInstance()._dpiManager;
 
 			//Resize the tab height
-			int tabDpiDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(45);
-			int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(_toReduceTabBar?22:25);
+			int tabDpiDynamicalWidth = dpiManager.scaleX(g_TabWidth);
+			int tabDpiDynamicalHeight = dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			_docTabIconList.addIcons(iconDpiDynamicalSize);
 
 			//change the font
-			int stockedFont = _toReduceTabBar?DEFAULT_GUI_FONT:SYSTEM_FONT;
-			HFONT hf = (HFONT)::GetStockObject(stockedFont);
-
+			const auto& hf = _mainDocTab.getFont(_toReduceTabBar);
 			if (hf)
 			{
 				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
@@ -2197,13 +2192,14 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN :
+		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN:
 		{
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());
+			auto& dpiManager = NppParameters::getInstance()._dpiManager;
 
 			// This part is just for updating (redraw) the tabs
-			int tabDpiDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(22);
-			int tabDpiDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? 60 : 45);
+			int tabDpiDynamicalHeight = dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
@@ -3943,8 +3939,8 @@ void Notepad_plus::command(int id)
 			}
 			else if ((id > IDM_LANG_USER) && (id < IDM_LANG_USER_LIMIT))
 			{
-				TCHAR langName[langNameLenMax];
-				::GetMenuString(_mainMenuHandle, id, langName, langNameLenMax, MF_BYCOMMAND);
+				TCHAR langName[menuItemStrLenMax];
+				::GetMenuString(_mainMenuHandle, id, langName, menuItemStrLenMax, MF_BYCOMMAND);
 				_pEditView->getCurrentBuffer()->setLangType(L_USER, langName);
 				if (_pDocMap)
 				{
@@ -3983,13 +3979,6 @@ void Notepad_plus::command(int id)
 			{
 				_pluginsManager.relayNppMessages(WM_COMMAND, id, 0);
 			}
-/*UNLOAD
-			else if ((id >= ID_PLUGINS_REMOVING) && (id < ID_PLUGINS_REMOVING_END))
-			{
-				int i = id - ID_PLUGINS_REMOVING;
-				_pluginsManager.unloadPlugin(i, _pPublicInterface->getHSelf());
-			}
-*/
 			else if ((id >= IDM_WINDOW_MRU_FIRST) && (id <= IDM_WINDOW_MRU_LIMIT))
 			{
 				activateDoc(id - IDM_WINDOW_MRU_FIRST);

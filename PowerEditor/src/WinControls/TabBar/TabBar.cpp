@@ -79,19 +79,31 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 void TabBar::destroy()
 {
 	if (_hFont)
-		DeleteObject(_hFont);
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
 
 	if (_hLargeFont)
-		DeleteObject(_hLargeFont);
+	{
+		::DeleteObject(_hLargeFont);
+		_hLargeFont = nullptr;
+	}
 
 	if (_hVerticalFont)
-		DeleteObject(_hVerticalFont);
+	{
+		::DeleteObject(_hVerticalFont);
+		_hVerticalFont = nullptr;
+	}
 
 	if (_hVerticalLargeFont)
-		DeleteObject(_hVerticalLargeFont);
+	{
+		::DeleteObject(_hVerticalLargeFont);
+		_hVerticalLargeFont = nullptr;
+	}
 
 	::DestroyWindow(_hSelf);
-	_hSelf = NULL;
+	_hSelf = nullptr;
 }
 
 
@@ -325,25 +337,21 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
 
-	LOGFONT LogFont{};
+	auto& dpiManager = NppParameters::getInstance()._dpiManager;
 
-	_hFont = (HFONT)::SendMessage(_hSelf, WM_GETFONT, 0, 0);
+	LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+	LOGFONT lfVer{ lf };
+	_hFont = ::CreateFontIndirect(&lf);
+	lf.lfWeight = FW_HEAVY;
+	lf.lfHeight = -(dpiManager.pointsToPixels(10));
+	_hLargeFont = ::CreateFontIndirect(&lf);
 
-	if (_hFont == NULL)
-		_hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+	lfVer.lfEscapement = 900;
+	lfVer.lfOrientation = 900;
+	_hVerticalFont = CreateFontIndirect(&lfVer);
 
-	if (_hLargeFont == NULL)
-		_hLargeFont = (HFONT)::GetStockObject(SYSTEM_FONT);
-
-	if (::GetObject(_hFont, sizeof(LOGFONT), &LogFont) != 0)
-	{
-		LogFont.lfEscapement  = 900;
-		LogFont.lfOrientation = 900;
-		_hVerticalFont = CreateFontIndirect(&LogFont);
-
-		LogFont.lfWeight = 900;
-		_hVerticalLargeFont = CreateFontIndirect(&LogFont);
-	}
+	lfVer.lfWeight = FW_HEAVY;
+	_hVerticalLargeFont = CreateFontIndirect(&lfVer);
 }
 
 
@@ -364,7 +372,7 @@ void TabBarPlus::doOwnerDrawTab()
 			::InvalidateRect(_hwndArray[i], NULL, TRUE);
 
 			const int paddingSizeDynamicW = NppParameters::getInstance()._dpiManager.scaleX(6);
-			const int paddingSizePlusClosebuttonDynamicW = NppParameters::getInstance()._dpiManager.scaleX(9);
+			const int paddingSizePlusClosebuttonDynamicW = NppParameters::getInstance()._dpiManager.scaleX(10);
 			::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton ? paddingSizePlusClosebuttonDynamicW : paddingSizeDynamicW, 0));
 		}
 	}
@@ -1140,11 +1148,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		if (_isVertical)
 		{
-			rect.left -= isDarkMode ? paddingDynamicTwoX : 2;
+			rect.left -= paddingDynamicTwoX;
 		}
 		else
 		{
-			rect.top -= isDarkMode ? paddingDynamicTwoY : 2;
+			rect.top -= paddingDynamicTwoY;
 		}
 	}
 
@@ -1235,13 +1243,16 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		BITMAP bmp{};
 		::GetObject(hBmp, sizeof(bmp), &bmp);
 
-		int bmDpiDynamicalWidth = dpiManager.scaleX(bmp.bmWidth);
-		int bmDpiDynamicalHeight = dpiManager.scaleY(bmp.bmHeight);
+		_closeButtonZone._width = dpiManager.scaleX(bmp.bmWidth);
+		_closeButtonZone._height = dpiManager.scaleY(bmp.bmHeight);
 
 		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
-
+		
+		// StretchBlt will crop image in RTL if there is no stretching, thus move image by -1 
+		const bool isRTL = (::GetWindowLongPtr(::GetParent(_hSelf), GWL_EXSTYLE) & WS_EX_LAYOUTRTL) == WS_EX_LAYOUTRTL;
+		const int offset = isRTL && (_closeButtonZone._width == bmp.bmWidth) ? -1 : 0;
 		::SelectObject(hdcMemory, hBmp);
-		::StretchBlt(hDC, buttonRect.left, buttonRect.top, bmDpiDynamicalWidth, bmDpiDynamicalHeight, hdcMemory, 0, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
+		::StretchBlt(hDC, buttonRect.left + offset, buttonRect.top, _closeButtonZone._width, _closeButtonZone._height, hdcMemory, offset, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
 		::DeleteDC(hdcMemory);
 		::DeleteObject(hBmp);
 	}
@@ -1336,11 +1347,17 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		// center text vertically
 		Flags |= DT_LEFT;
-		Flags |= DT_VCENTER;
+		Flags |= DT_TOP;
 
-		// ignoring the descent when centering (text elements below the base line) is more pleasing to the eye
-		rect.top += textDescent / 2;
-		rect.bottom += textDescent / 2;
+		const int paddingText = ((pDrawItemStruct->rcItem.bottom - pDrawItemStruct->rcItem.top) - (textHeight + textDescent)) / 2;
+		const int paddingDescent = !hasMultipleLines ? ((textDescent + ((isDarkMode || !isSelected) ? 1 : 0)) / 2) : 0;
+		rect.top = pDrawItemStruct->rcItem.top + paddingText + paddingDescent;
+		rect.bottom = pDrawItemStruct->rcItem.bottom - paddingText + paddingDescent;
+
+		if (isDarkMode || !isSelected || _drawTopBar)
+		{
+			rect.top += paddingDynamicTwoY;
+		}
 
 		// 1 space distance to save icon
 		rect.left += spaceUnit;
@@ -1473,8 +1490,8 @@ void TabBarPlus::exchangeItemData(POINT point)
 CloseButtonZone::CloseButtonZone()
 {
 	// TODO: get width/height of close button dynamically
-	_width = NppParameters::getInstance()._dpiManager.scaleX(11);
-	_height = NppParameters::getInstance()._dpiManager.scaleY(11);
+	_width = NppParameters::getInstance()._dpiManager.scaleX(g_TabCloseBtnSize);
+	_height = _width;
 }
 
 bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const
@@ -1491,7 +1508,7 @@ RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) c
 {
 	RECT buttonRect{};
 
-	int fromBorder;
+	int fromBorder = 0;
 	if (isVertical)
 	{
 		fromBorder = (tabRect.right - tabRect.left - _width + 1) / 2;

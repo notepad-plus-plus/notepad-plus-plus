@@ -1471,6 +1471,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				int indexMacro = _runMacroDlg.getMacro2Exec();
 				intptr_t deltaLastLine = 0;
 				intptr_t deltaCurrLine = 0;
+				bool cursorMovedUp = false;
 
 				Macro m = _macro;
 
@@ -1492,7 +1493,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					}
 					else // run until eof
 					{
-						bool cursorMovedUp = deltaCurrLine < 0;
+						if (counter > 2 && cursorMovedUp != (deltaCurrLine < 0) && deltaLastLine >= 0)
+						{
+							// the current line must be monotonically increasing or monotonically
+							// decreasing. Otherwise we don't know that the loop will end,
+							// unless the number of lines is decreasing with every iteration.
+							break;
+						}
+						cursorMovedUp = deltaCurrLine < 0;
 						deltaLastLine = _pEditView->execute(SCI_GETLINECOUNT) - 1 - lastLine;
 						deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
 
@@ -2160,7 +2168,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// and defer any cleanup operations until it receives WM_ENDSESSION (with WPARAM TRUE)
 
 			// for a bigger tidy-up/save operations we can kick off a background thread here to prepare for shutdown
-			// and when we get the WM_END­SESSION TRUE, we wait there until that background operation completes
+			// and when we get the WM_ENDSESSION TRUE, we wait there until that background operation completes
 			// before telling the system, "ok, you can shut down now...", i.e. returning 0 there
 
 			// whatever we do from here - make sure that it is ok for the operation to occur even if the shutdown
@@ -3108,6 +3116,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 
 			return static_cast<LRESULT>(false);
+		}
+
+		case NPPM_DARKMODESUBCLASSANDTHEME:
+		{
+			return static_cast<LRESULT>(NppDarkMode::autoSubclassAndThemePlugin(reinterpret_cast<HWND>(lParam), static_cast<ULONG>(wParam)));
 		}
 
 		case NPPM_DOCLISTDISABLEPATHCOLUMN:

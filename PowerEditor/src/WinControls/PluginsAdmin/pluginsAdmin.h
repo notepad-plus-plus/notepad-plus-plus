@@ -99,7 +99,7 @@ public:
 	PluginViewList() = default;
 	~PluginViewList() {
 		_ui.destroy();
-		for (auto i : _list)
+		for (auto& i : _list)
 		{
 			delete i;
 		}
@@ -114,7 +114,7 @@ public:
 	void setSelection(int index) const { _ui.setSelection(index); };
 	void initView(HINSTANCE hInst, HWND parent) { _ui.init(hInst, parent); };
 	void addColumn(const columnInfo & column2Add) { _ui.addColumn(column2Add); };
-	void reSizeView(RECT & rc) { _ui.reSizeTo(rc); }
+	void reSizeView(RECT & rc) { _ui.reSizeToWH(rc); }
 	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); };
 	size_t nbItem() const { return _ui.nbItem(); };
 	PluginUpdateInfo* getPluginInfoFromUiIndex(size_t index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(static_cast<int>(index))); };
@@ -145,24 +145,15 @@ public :
 	PluginsAdminDlg();
 	~PluginsAdminDlg() = default;
 
-    void init(HINSTANCE hInst, HWND parent)	{
-        Window::init(hInst, parent);
-	};
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
 
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
-
-    void doDialog(bool isRTL = false) {
-    	if (!isCreated())
+	void doDialog(bool isRTL = false) {
+		if (!isCreated())
 		{
 			create(IDD_PLUGINSADMIN_DLG, isRTL);
 		}
-
-		if (!::IsWindowVisible(_hSelf))
-		{
-
-		}
-	    display();
-    };
+		display();
+	};
 
 	bool initFromJson();
 
@@ -188,7 +179,7 @@ public :
 	};
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
 	generic_string _updaterDir;

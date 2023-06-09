@@ -84,12 +84,15 @@ struct OptionSetFSharp : public OptionSet<OptionsFSharp> {
 
 struct FSharpString {
 	Sci_Position startPos = INVALID_POSITION;
-	int startChar = '"';
+	int startChar = '"', nextChar = '\0';
 	constexpr bool HasLength() const {
 		return startPos > INVALID_POSITION;
 	}
 	constexpr bool CanInterpolate() const {
-		return startChar == '$';
+		return startChar == '$' || (startChar == '@' && nextChar == '$');
+	}
+	constexpr bool IsVerbatim() const {
+		return startChar == '@' || (startChar == '$' && nextChar == '@');
 	}
 };
 
@@ -207,8 +210,9 @@ inline bool MatchQuotedExpressionEnd(const StyleContext &cxt) {
 	return (cxt.ch == '>' && cxt.chPrev == '@');
 }
 
-inline bool MatchStringStart(const StyleContext &cxt) {
-	return (cxt.ch == '"' || cxt.Match('@', '"') || cxt.Match('$', '"') || cxt.Match('`', '`'));
+inline bool MatchStringStart(StyleContext &cxt) {
+	return (cxt.ch == '"' || cxt.Match("@\"") || cxt.Match("$\"") || cxt.Match("@$\"") || cxt.Match("$@\"") ||
+		cxt.Match("``"));
 }
 
 inline bool FollowsEscapedBackslash(StyleContext &cxt) {
@@ -223,21 +227,21 @@ inline bool MatchStringEnd(StyleContext &cxt, const FSharpString &fsStr) {
 		// end of quoted identifier?
 		((cxt.ch == '`' && cxt.chPrev == '`') ||
 		// end of literal or interpolated triple-quoted string?
-		 ((fsStr.startChar == '"' || (fsStr.CanInterpolate() && cxt.chPrev != '$')) &&
+		 ((fsStr.startChar == '"' || (fsStr.CanInterpolate() && !(fsStr.IsVerbatim() || cxt.chPrev == '$'))) &&
 		  cxt.MatchIgnoreCase("\"\"\"")) ||
 		// end of verbatim string?
-		(fsStr.startChar == '@' &&
+		(fsStr.IsVerbatim() &&
 			// embedded quotes must be in pairs
 			cxt.ch == '"' && cxt.chNext != '"' &&
-			(cxt.chPrev != '"' || (cxt.chPrev == '"' &&
+			(cxt.chPrev != '"' ||
 				// empty verbatim string?
-				(cxt.GetRelative(-2) == '@' ||
+				((cxt.GetRelative(-2) == '@' || cxt.GetRelative(-2) == '$') ||
 				// pair of quotes at end of string?
-				(cxt.GetRelative(-2) == '"' && cxt.GetRelative(-3) != '@'))))))) ||
+				(cxt.GetRelative(-2) == '"' && !(cxt.GetRelative(-3) == '@' || cxt.GetRelative(-3) == '$'))))))) ||
 		(!fsStr.HasLength() && cxt.ch == '"' &&
 			((cxt.chPrev != '\\' || (cxt.GetRelative(-2) == '\\' && !FollowsEscapedBackslash(cxt))) ||
 			// treat backslashes as char literals in verbatim strings
-			(fsStr.startChar == '@' && cxt.chPrev == '\\')));
+			(fsStr.IsVerbatim() && cxt.chPrev == '\\')));
 }
 
 inline bool MatchCharacterStart(StyleContext &cxt) {
@@ -251,8 +255,8 @@ inline bool CanEmbedQuotes(StyleContext &cxt) {
 	// - https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/strings
 	// - https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/interpolated-strings#syntax
 	// - https://fsharp.org/specs/language-spec/4.1/FSharpSpec-4.1-latest.pdf#page=25&zoom=auto,-98,600
-	return cxt.MatchIgnoreCase("$\"\"\"") || cxt.MatchIgnoreCase("\"\"\"") || cxt.Match('@', '"') ||
-	       cxt.Match('`', '`');
+	return cxt.Match("$\"\"\"") || cxt.Match("\"\"\"") || cxt.Match("@$\"\"\"") || cxt.Match("$@\"\"\"") ||
+	       cxt.Match('@', '"') || cxt.Match('`', '`');
 }
 
 inline bool IsLineEnd(StyleContext &cxt, const Sci_Position offset) {
@@ -407,6 +411,7 @@ void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int i
 					state = SCE_FSHARP_CHARACTER;
 				} else if (MatchStringStart(sc)) {
 					fsStr.startChar = sc.ch;
+					fsStr.nextChar = sc.chNext;
 					fsStr.startPos = INVALID_POSITION;
 					if (CanEmbedQuotes(sc)) {
 						// double quotes after this position should be non-terminating
@@ -414,7 +419,7 @@ void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int i
 					}
 					if (sc.ch == '`') {
 						state = SCE_FSHARP_QUOT_IDENTIFIER;
-					} else if (sc.ch == '@') {
+					} else if (fsStr.IsVerbatim()) {
 						state = SCE_FSHARP_VERBATIM;
 					} else {
 						state = SCE_FSHARP_STRING;
@@ -542,7 +547,7 @@ void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int i
 					} else if (sc.chNext == '}') {
 						isInterpolated = false;
 						sc.Forward();
-						state = SCE_FSHARP_STRING;
+						state = fsStr.IsVerbatim() ? SCE_FSHARP_VERBATIM : SCE_FSHARP_STRING;
 					}
 				} else if (fsStr.CanInterpolate() && sc.ch == '{') {
 					isInterpolated = true;
@@ -607,7 +612,7 @@ void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int i
 				    !(setFormatFlags.Contains(sc.ch) || IsADigit(sc.ch)) ||
 				    (setFormatFlags.Contains(sc.ch) && sc.ch == sc.chNext))) {
 					colorSpan++;
-					state = (fsStr.startChar == '@') ? SCE_FSHARP_VERBATIM : SCE_FSHARP_STRING;
+					state = fsStr.IsVerbatim() ? SCE_FSHARP_VERBATIM : SCE_FSHARP_STRING;
 				}
 				break;
 		}

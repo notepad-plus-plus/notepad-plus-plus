@@ -31,10 +31,10 @@ LRESULT CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Messag
 	{
 		case WM_PAINT:
 		{
-			RECT rect;
+			RECT rect{};
 			::GetClientRect(hwnd, &rect);
 
-			PAINTSTRUCT ps;
+			PAINTSTRUCT ps{};
 			HDC hdc = ::BeginPaint(hwnd, &ps);
 
 			::SetTextColor(hdc, _colour);
@@ -45,17 +45,17 @@ LRESULT CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Messag
 			}
 
 			// Get the default GUI font
-			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+			LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+			HFONT hf = ::CreateFontIndirect(&lf);
 
 			HANDLE hOld = SelectObject(hdc, hf);
 
 			// Draw the text!
-			TCHAR text[MAX_PATH];
+			TCHAR text[MAX_PATH]{};
 			::GetWindowText(hwnd, text, MAX_PATH);
 			::DrawText(hdc, text, -1, &rect, DT_LEFT);
 
-			::SelectObject(hdc, hOld);
-
+			::DeleteObject(::SelectObject(hdc, hOld));
 			::EndPaint(hwnd, &ps);
 
 			return TRUE;
@@ -159,44 +159,30 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			goToCenter();
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 
 			return TRUE;
 		}
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
+			auto hdcStatic = reinterpret_cast<HDC>(wParam);
+			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_USER_EXT_EDIT || dlgCtrlID == IDC_USER_KEYWORDS_EDIT)
 			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_USER_EXT_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_USER_KEYWORDS_EDIT))
-				{
-					return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-				}
-				else
-				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-				}
+				return NppDarkMode::onCtlColorSofter(hdcStatic);
 			}
-			break;
+			return NppDarkMode::onCtlColor(hdcStatic);
 		}
 
 		case WM_CTLCOLORLISTBOX:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorListbox(wParam, lParam);
-			}
-			break;
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
@@ -240,15 +226,11 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
 
-			if (NppDarkMode::isEnabled())
+			if (dlgCtrlID == IDC_DEF_EXT_EDIT || dlgCtrlID == IDC_DEF_KEYWORDS_EDIT)
 			{
-				if (dlgCtrlID == IDC_DEF_EXT_EDIT || dlgCtrlID == IDC_DEF_KEYWORDS_EDIT)
-				{
-					return NppDarkMode::onCtlColor(hdcStatic);
-				}
-				return NppDarkMode::onCtlColorDarker(hdcStatic);
+				return NppDarkMode::onCtlColor(hdcStatic);
 			}
-			return FALSE;
+			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:
@@ -697,8 +679,8 @@ void WordStyleDlg::updateFontSize()
 
 	if (iFontSizeSel != 0)
 	{
-		const size_t intStrLen = 3;
-		TCHAR intStr[intStrLen];
+		constexpr size_t intStrLen = 3;
+		TCHAR intStr[intStrLen]{};
 
 		auto lbTextLen = ::SendMessage(_hFontSizeCombo, CB_GETLBTEXTLEN, iFontSizeSel, 0);
 		if (static_cast<size_t>(lbTextLen) >= intStrLen)
@@ -710,7 +692,7 @@ void WordStyleDlg::updateFontSize()
 			style._fontSize = STYLE_NOT_USED;
 		else
 		{
-			TCHAR *finStr;
+			TCHAR *finStr = nullptr;
 			style._fontSize = wcstol(intStr, &finStr, 10);
 			if (*finStr != '\0')
 				style._fontSize = STYLE_NOT_USED;
@@ -722,8 +704,8 @@ void WordStyleDlg::updateFontSize()
 
 void WordStyleDlg::updateExtension()
 {
-	const int NB_MAX = 256;
-	TCHAR ext[NB_MAX];
+	constexpr int NB_MAX = 256;
+	TCHAR ext[NB_MAX]{};
 	::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_GETTEXT, NB_MAX, reinterpret_cast<LPARAM>(ext));
 	_lsArray.getLexerFromIndex(_currentLexerIndex - 1).setLexerUserExt(ext);
 }
@@ -795,7 +777,7 @@ void WordStyleDlg::switchToTheme()
 
 	if (_isThemeDirty)
 	{
-		TCHAR themeFileName[MAX_PATH];
+		TCHAR themeFileName[MAX_PATH]{};
 		wcscpy_s(themeFileName, prevThemeName.c_str());
 		PathStripPath(themeFileName);
 		PathRemoveExtension(themeFileName);
@@ -1077,24 +1059,21 @@ void WordStyleDlg::setVisualFromStyleList()
 	InvalidateRect(_hBgColourStaticText, NULL, FALSE);
 
 	//-- font name
-	LRESULT iFontName;
+	LRESULT iFontName = 0;
 	if (!style._fontName.empty())
 	{
 		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName.c_str()));
 		if (iFontName == CB_ERR)
 			iFontName = 0;
 	}
-	else
-	{
-		iFontName = 0;
-	}
+
 	::SendMessage(_hFontNameCombo, CB_SETCURSEL, iFontName, 0);
 	::EnableWindow(_hFontNameCombo, style._isFontEnabled);
 	InvalidateRect(_hFontNameStaticText, NULL, FALSE);
 
 	//-- font size
-	const size_t intStrLen = 3;
-	TCHAR intStr[intStrLen];
+	constexpr size_t intStrLen = 3;
+	TCHAR intStr[intStrLen]{};
 	LRESULT iFontSize = 0;
 	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
 	{

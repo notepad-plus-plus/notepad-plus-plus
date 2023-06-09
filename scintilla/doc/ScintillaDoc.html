@@ -148,10 +148,6 @@
      GTK sample which can be used to find bugs or prototype new features.</a><br />
      <a class="jump" href="Lexer.txt">A detailed description of how to write a lexer, including a
     discussion of folding</a>.<br />
-     <a class="jump" href="http://sphere.sourceforge.net/flik/docs/scintilla-container_lexer.html">
-     How to implement a lexer in the container</a>.<br />
-     <a class="jump" href="http://sphere.sourceforge.net/flik/docs/scintilla-folding.html">
-     How to implement folding</a>.<br />
      <a class="jump" href="https://github.com/geany/geany/files/5204338/Scintilla-var.aq-Tutorial.pdf">
      Beginner's Guide to lexing and folding</a>.<br />
      The <a class="jump" href="SciCoding.html">coding style</a> used in Scintilla and SciTE is
@@ -4883,7 +4879,74 @@ struct Sci_TextToFindFull {
      A windowed IME <code>SC_IME_WINDOWED</code> (0) may be more similar in appearance and
      behaviour to the IME in other applications.
      An inline IME <code>SC_IME_INLINE</code> (1) may work better with some Scintilla features such as
-     rectangular and multiple selection.</p>
+     rectangular and multiple selection, with IME interactions such as retrieve-surrounding or reconversion feature.</p>
+
+    <table class="standard" summary="IME input method">
+      <caption>IME input method support (O=present, X=absent)</caption>
+      <thead align="left">
+        <tr>
+          <th>IME input method</th>
+          <th>Windows</th>
+          <th>Gtk</th>
+          <th>Qt</th>
+          <th>macOS</th>
+        </tr>
+      </thead>
+      <tbody valign="top">
+        <tr>
+          <th align="left"><code>SC_IME_WINDOWED</code></th>
+          <td>O</td>
+          <td>O</td>
+          <td>X</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_IME_INLINE</code></th>
+          <td>O</td>
+          <td>O</td>
+          <td>O</td>
+          <td>O</td>
+       </tr>
+      </tbody>
+    </table>
+    <p></p>
+
+    <table class="standard" summary="IME interaction">
+      <caption>IME interaction support</caption>
+      <thead align="left">
+        <tr>
+          <th>IME interaction</th>
+          <th>Windows</th>
+          <th>Gtk</th>
+          <th>Qt</th>
+          <th>macOS</th>
+        </tr>
+      </thead>
+      <tbody valign="top">
+        <tr>
+          <th align="left">Retrieve Surrounding</th>
+          <td>O</td>
+          <td>O</td>
+          <td>O</td>
+          <td>O</td>
+        </tr>
+        <tr>
+          <th align="left">Reconversion</th>
+          <td>O</td>
+          <td>O</td>
+          <td>O</td>
+          <td>O</td>
+        </tr>
+        <tr>
+          <th align="left">Delete Surrounding</th>
+          <td>O</td>
+          <td>O</td>
+          <td>X</td>
+          <td>O</td>
+        </tr>
+      </tbody>
+    </table>
+
      <p>The windowed behaviour can be chosen with <code>SCI_SETIMEINTERACTION(SC_IME_WINDOWED)</code>
      and the inline behaviour with <code>SCI_SETIMEINTERACTION(SC_IME_INLINE)</code>.
      Scintilla may ignore this call in some cases. For example, the inline behaviour might only be supported for some languages.</p>

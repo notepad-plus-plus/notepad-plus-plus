@@ -31,4 +31,9 @@ EOF{0}
   {7}}{0} {7}>>{0} {9}$OUT_FILE{0}
 {4}done{0}
 
+{2}# Issue 137, should be shift but here-doc was detected{0}
+{4}echo{0} {7}$(({0} {8}x{0} {7}<<{0} {8}END{0} {7})){0}
+{8}pwd{0}
+{8}END{0}
+
 {8}INVALID_NUMBER{7}={1}0#0000{0}

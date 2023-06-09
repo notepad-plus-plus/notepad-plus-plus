@@ -576,9 +576,37 @@
 	<td>Ferdinand Oeinck</td>
 	<td>Michael Heath</td>
 	<td>Enrico Tröger</td>
+      </tr><tr>
+	<td>Chengzhi Li</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla535.zip">Release 5.3.5</a>
+    </h3>
+    <ul>
+	<li>
+	Released 31 May 2023.
+	</li>
+	<li>
+	On Win32, implement IME context sensitivity with IMR_DOCUMENTFEED.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1310/">Feature #1310</a>.
+	</li>
+	<li>
+	On Win32 remove dependence on MSIMG32.DLL  by replacing AlphaBlend
+	by GdiAlphaBlend.
+	<a href="https://sourceforge.net/p/scintilla/bugs/1923/">Bug #1923</a>.
+	</li>
+	<li>
+	On Qt, stop movement of IME candidate box.
+	</li>
+	<li>
+	On Qt, report correct caret position within paragraph for IME retrieve surrounding text.
+	</li>
+	<li>
+	On Qt for Cocoa, fix crash in entry of multi-character strings with IME.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla534.zip">Release 5.3.4</a>
     </h3>

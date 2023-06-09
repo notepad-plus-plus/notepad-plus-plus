@@ -61,11 +61,7 @@ class WordStyleDlg : public StaticDialog
 public :
 	WordStyleDlg() = default;
 
-    void init(HINSTANCE hInst, HWND parent)	{
-        Window::init(hInst, parent);
-	};
-
-	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
+	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
 
     void doDialog(bool isRTL = false) {
     	if (!isCreated())
@@ -87,13 +83,13 @@ public :
 		_gOverride2restored = (NppParameters::getInstance()).getGlobalOverrideStyle();
 	};
 
-    virtual void redraw(bool forceUpdate = false) const {
-        _pFgColour->redraw(forceUpdate);
+	void redraw(bool forceUpdate = false) const override {
+		_pFgColour->redraw(forceUpdate);
 		_pBgColour->redraw(forceUpdate);
 		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
 		::UpdateWindow(_hStyleInfoStaticText);
-    };
-	
+	};
+
 	void restoreGlobalOverrideValues() {
 		GlobalOverride & gOverride = (NppParameters::getInstance()).getGlobalOverrideStyle();
 		gOverride = _gOverride2restored;
@@ -151,7 +147,7 @@ private :
 	bool _isShownGOCtrls = false;
 
 
-	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 
 
 	Style & getCurrentStyler() {

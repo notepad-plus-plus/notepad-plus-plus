@@ -33,6 +33,9 @@ public:
 		if (base & setDigits)
 			AddString("0123456789");
 	}
+	CharacterSetArray(const char *initialSet, bool valueAfter_=false) noexcept :
+		CharacterSetArray(setNone, initialSet, valueAfter_) {
+	}
 	// For compatibility with previous version but should not be used in new code.
 	CharacterSetArray(setBase base, const char *initialSet, [[maybe_unused]]int size_, bool valueAfter_=false) noexcept :
 		CharacterSetArray(base, initialSet, valueAfter_) {

@@ -316,6 +316,12 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	::SendMessage(_hSelf, NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
 
+
+	if (nppGUI._newDocDefaultSettings._addNewDocumentOnStartup)
+	{
+		::SendMessage(_hSelf, WM_COMMAND, IDM_FILE_NEW, 0);
+	}
+
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_READY;

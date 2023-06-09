@@ -50,26 +50,20 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT))
+				const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+				const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_HASH_PATH_EDIT || dlgCtrlID == IDC_HASH_RESULT_EDIT)
 				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					return NppDarkMode::onCtlColor(hdcStatic);
 				}
-				else
-				{
-					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-				}
+				return NppDarkMode::onCtlColorDarker(hdcStatic);
 			}
 			break;
 		}
@@ -89,7 +83,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -137,7 +131,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 							{
 								std::string content = getFileContent(it.c_str());
 
-								uint8_t sha2hash[32];
+								uint8_t sha2hash[32]{};
 								calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
 
 								wchar_t sha2hashStr[65] = { '\0' };
@@ -186,7 +180,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			}
 		}
 	}
-	return FALSE;	
+	return FALSE;
 }
 
 LRESULT run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -230,13 +224,13 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 			generic_string title = TEXT("Generate SHA-256 digest from files");
 			::SetWindowText(_hSelf, title.c_str());
 
-			generic_string buttonText = TEXT("Choose files to generate SHA-256...");
+			generic_string buttonText = TEXT("Choose files to &generate SHA-256...");
 			::SetDlgItemText(_hSelf, IDC_HASH_FILEBROWSER_BUTTON, buttonText.c_str());
 		}
 	}
 
 	// Adjust the position in the center
-	goToCenter();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
 void HashFromTextDlg::generateHash()
@@ -261,7 +255,7 @@ void HashFromTextDlg::generateHash()
 		}
 		else if (_ht == hash_sha256)
 		{
-			uint8_t sha2hash[32];
+			uint8_t sha2hash[32]{};
 			calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
 
 			wchar_t sha2hashStr[65] = { '\0' };
@@ -359,43 +353,25 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT))
-				{
-					return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-				}
-				else
-				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-				}
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT))
+				const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+				const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_HASH_RESULT_FOMTEXT_EDIT)
 				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					return NppDarkMode::onCtlColor(hdcStatic);
 				}
-				else
-				{
-					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-				}
+				return NppDarkMode::onCtlColorDarker(hdcStatic);
 			}
 			break;
 		}
@@ -415,7 +391,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_HASH_TEXT_EDIT)
 			{
@@ -471,7 +447,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			}
 		}
 	}
-	return FALSE;	
+	return FALSE;
 }
 
 void HashFromTextDlg::setHashType(hashType hashType2set)
@@ -493,5 +469,5 @@ void HashFromTextDlg::doDialog(bool isRTL)
 	}
 
 	// Adjust the position in the center
-	goToCenter();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }

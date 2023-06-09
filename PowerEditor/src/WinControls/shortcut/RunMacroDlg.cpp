@@ -103,6 +103,16 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			return TRUE;
 		}
 
+		case WM_CHANGEUISTATE:
+		{
+			if (NppDarkMode::isEnabled() && !NppDarkMode::isWindows11())
+			{
+				redrawDlgItem(IDC_MACRO2RUN_STATIC);
+			}
+
+			return FALSE;
+		}
+
 		case WM_COMMAND:
 		{
 			switch (wParam)
@@ -130,17 +140,62 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					return TRUE;
 
 				case IDOK:
+				{
 					if (::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCOUNT, 0, 0) > 0)
 						::SendMessage(_hParent, WM_MACRODLGRUNMACRO, 0, 0);
 
 					return TRUE;
+				}
 
 				default:
-					if ((HIWORD(wParam) == CBN_SELCHANGE) && (LOWORD(wParam) == IDC_MACRO_COMBO))
+				{
+					switch (LOWORD(wParam))
 					{
-						_macroIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0));
-						return TRUE;
+						case IDC_MACRO_COMBO:
+						{
+							if (HIWORD(wParam) == CBN_SELCHANGE)
+							{
+								_macroIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0));
+								return TRUE;
+							}
+							return FALSE;
+						}
+
+						case IDC_M_RUN_TIMES:
+						{
+							switch (HIWORD(wParam))
+							{
+								case EN_KILLFOCUS:
+								{
+									const int times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, nullptr, FALSE);
+									if (times < 1)
+									{
+										::SetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, 1, FALSE);
+										return TRUE;
+									}
+
+									return FALSE;
+								}
+
+								case EN_CHANGE:
+								{
+									_times = std::max<int>(::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, nullptr, FALSE), 1);
+									return TRUE;
+								}
+
+								default:
+								{
+									return FALSE;
+								}
+							}
+						}
+
+						default:
+						{
+							return FALSE;
+						}
 					}
+				}
 			}
 		}
 	}

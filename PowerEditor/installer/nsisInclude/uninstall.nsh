@@ -243,7 +243,6 @@ Section Uninstall
 	Delete "$INSTDIR\langs.model.xml"
 	Delete "$INSTDIR\stylers.model.xml"
 	Delete "$INSTDIR\tabContextMenu_example.xml"
-	Delete "$APPDATA\${APPNAME}\tabContextMenu_example.xml"
 	Delete "$INSTDIR\stylers_remove.xml"
 	Delete "$INSTDIR\localization\english.xml"
 	Delete "$INSTDIR\LINEDRAW.TTF"
@@ -277,6 +276,7 @@ Section Uninstall
 		Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
 		Delete "$APPDATA\${APPNAME}\insertExt.ini"
 		Delete "$APPDATA\${APPNAME}\nppLogNulContentCorruptionIssue.log"
+		Delete "$APPDATA\${APPNAME}\tabContextMenu_example.xml"
 		Delete "$APPDATA\${APPNAME}\toolbarIcons.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\userDefinedLang-markdown.default.modern.xml"
 		Delete "$APPDATA\${APPNAME}\userDefineLangs\markdown._preinstalled.udl.xml"
@@ -292,7 +292,8 @@ Section Uninstall
 	
 	; In order to not delete context menu binary before we unregistered it,
 	; we delete them at the end, using the CleanupDll function, since it can be locked by explorer.
-	ExecWait 'rundll32.exe "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
+	IfFileExists "$INSTDIR\contextmenu\NppShell.dll" 0 +2
+		ExecWait 'rundll32.exe "$INSTDIR\contextmenu\NppShell.dll",CleanupDll'
 	Delete "$INSTDIR\contextmenu\NppShell.msix"
 	
 	

@@ -127,7 +127,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	StaticDialog::create(dialogID, isRTL, msgDestParent);
 
-	RECT rect;
+	RECT rect{};
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
@@ -146,124 +146,53 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_tab.insertAtEnd(installed);
 	_tab.insertAtEnd(incompatible);
 
-	rect.bottom -= dpiManager.scaleY(105);
+	RECT rcDesc{};
+	getMappedChildRect(IDC_PLUGINADM_EDIT, rcDesc);
+
+	const long margeX = ::GetSystemMetrics(SM_CXEDGE);
+	const long margeY = tabDpiDynamicalHeight;
+
+	rect.bottom = rcDesc.bottom + margeY;
 	_tab.reSizeTo(rect);
 	_tab.display();
 
-	const long marge = dpiManager.scaleX(10);
-	const int topMarge = dpiManager.scaleY(42);
+	RECT rcSearch{};
+	getMappedChildRect(IDC_PLUGINADM_SEARCH_EDIT, rcSearch);
 
-	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_STATIC);
-	RECT researchLabelRect;
-	::GetClientRect(hResearchLabel, &researchLabelRect);
-	researchLabelRect.left = rect.left + marge;
-	long leftCusor = researchLabelRect.left + researchLabelRect.right;
-	researchLabelRect.top = topMarge + dpiManager.scaleY(4);
-	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
-	::InvalidateRect(hResearchLabel, nullptr, TRUE);
-
-	HWND hResearchEdit = ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT);
-	RECT researchEditRect;
-	::GetClientRect(hResearchEdit, &researchEditRect);
-	researchEditRect.left = leftCusor;
-	leftCusor += researchEditRect.right;
-	researchEditRect.top = topMarge + dpiManager.scaleX(1);
-	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
-	::InvalidateRect(hResearchEdit, nullptr, TRUE);
-
-	HWND hNextButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_NEXT);
-	RECT researchNextRect;
-	::GetClientRect(hNextButton, &researchNextRect);
-	researchNextRect.left = leftCusor + marge;
-	leftCusor = researchNextRect.left + researchNextRect.right;
-	researchNextRect.top = topMarge;
-	::MoveWindow(hNextButton, researchNextRect.left, researchNextRect.top, researchNextRect.right, researchNextRect.bottom, TRUE);
-	::InvalidateRect(hNextButton, nullptr, TRUE);
-
-	HWND hActionButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_INSTALL);
-	RECT actionRect;
-	::GetClientRect(hActionButton, &actionRect);
-	long w = actionRect.right - actionRect.left;
-	actionRect.left = rect.right - w - marge;
-	actionRect.top = topMarge;
-	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
-	::InvalidateRect(hActionButton, nullptr, TRUE);
-
-	hActionButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_UPDATE);
-	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
-	::InvalidateRect(hActionButton, nullptr, TRUE);
-
-	hActionButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_REMOVE);
-	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
-	::InvalidateRect(hActionButton, nullptr, TRUE);
-
-	long actionZoneHeight = dpiManager.scaleY(50);
-	rect.top += actionZoneHeight;
-	rect.bottom -= actionZoneHeight;
-
-	RECT listRect = rect;
-	RECT descRect = rect;
-
-	long descHeight = rect.bottom / 3 - marge;
-	long listHeight = (rect.bottom / 3) * 2 - marge * 3;
-
-	listRect.top += marge;
-	listRect.bottom = listHeight;
-	listRect.left += marge;
-	listRect.right -= marge * 2;
-
-	descRect.top += listHeight + marge * 3;
-	descRect.bottom = descHeight;
-	descRect.left += marge;
-	descRect.right -= marge * 2;
+	RECT listRect{
+		rcDesc.left - margeX,
+		rcSearch.bottom + margeY,
+		rcDesc.right + ::GetSystemMetrics(SM_CXVSCROLL) + margeX,
+		rcDesc.top - margeY
+	};
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 	generic_string pluginStr = pNativeSpeaker->getAttrNameStr(TEXT("Plugin"), "PluginAdmin", "Plugin");
 	generic_string vesionStr = pNativeSpeaker->getAttrNameStr(TEXT("Version"), "PluginAdmin", "Version");
 
-	COLORREF fgColor = (NppParameters::getInstance()).getCurrentDefaultFgColor();
-	COLORREF bgColor = (NppParameters::getInstance()).getCurrentDefaultBgColor();
+	const COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
+	const COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
-	_availableList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
-	_availableList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	_availableList.setViewStyleOption(LVS_EX_CHECKBOXES);
-	_availableList.initView(_hInst, _hSelf);
-	ListView_SetBkColor(_availableList.getViewHwnd(), bgColor);
-	ListView_SetTextBkColor(_availableList.getViewHwnd(), bgColor);
-	ListView_SetTextColor(_availableList.getViewHwnd(), fgColor);
-	_availableList.reSizeView(listRect);
-	
-	_updateList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
-	_updateList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	_updateList.setViewStyleOption(LVS_EX_CHECKBOXES);
-	_updateList.initView(_hInst, _hSelf);
-	ListView_SetBkColor(_updateList.getViewHwnd(), bgColor);
-	ListView_SetTextBkColor(_updateList.getViewHwnd(), bgColor);
-	ListView_SetTextColor(_updateList.getViewHwnd(), fgColor);
-	_updateList.reSizeView(listRect);
+	const size_t szColVer = dpiManager.scaleX(100);
+	const size_t szColName = szColVer * 2;
 
-	_installedList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
-	_installedList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	_installedList.setViewStyleOption(LVS_EX_CHECKBOXES);
-	_installedList.initView(_hInst, _hSelf);
-	ListView_SetBkColor(_installedList.getViewHwnd(), bgColor);
-	ListView_SetTextBkColor(_installedList.getViewHwnd(), bgColor);
-	ListView_SetTextColor(_installedList.getViewHwnd(), fgColor);
-	_installedList.reSizeView(listRect);
+	auto initListView = [&](PluginViewList& list) -> void {
+		list.addColumn(columnInfo(pluginStr, szColName));
+		list.addColumn(columnInfo(vesionStr, szColVer));
+		list.setViewStyleOption(LVS_EX_CHECKBOXES);
+		list.initView(_hInst, _hSelf);
+		const HWND hList = list.getViewHwnd();
+		ListView_SetBkColor(hList, bgColor);
+		ListView_SetTextBkColor(hList, bgColor);
+		ListView_SetTextColor(hList, fgColor);
+		list.reSizeView(listRect);
+	};
 
-	_incompatibleList.addColumn(columnInfo(pluginStr, nppParam._dpiManager.scaleX(200)));
-	_incompatibleList.addColumn(columnInfo(vesionStr, nppParam._dpiManager.scaleX(100)));
-	_incompatibleList.initView(_hInst, _hSelf);
-	ListView_SetBkColor(_incompatibleList.getViewHwnd(), bgColor);
-	ListView_SetTextBkColor(_incompatibleList.getViewHwnd(), bgColor);
-	ListView_SetTextColor(_incompatibleList.getViewHwnd(), fgColor);
-	_incompatibleList.reSizeView(listRect);
-
-
-	HWND hDesc = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
-	::MoveWindow(hDesc, descRect.left, descRect.top, descRect.right, descRect.bottom, TRUE);
-	::InvalidateRect(hDesc, nullptr, TRUE);
+	initListView(_availableList);
+	initListView(_updateList);
+	initListView(_installedList);
+	initListView(_incompatibleList);
 
 	switchDialog(0);
 
@@ -276,7 +205,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	_repoLink.init(_hInst, _hSelf);
 	_repoLink.create(::GetDlgItem(_hSelf, IDC_PLUGINLIST_ADDR), TEXT("https://github.com/notepad-plus-plus/nppPluginList"));
 
-	goToCenter();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
 void PluginsAdminDlg::collectNppCurrentStatusInfos()
@@ -296,7 +225,7 @@ vector<PluginUpdateInfo*> PluginViewList::fromUiIndexesToPluginInfos(const std::
 	std::vector<PluginUpdateInfo*> r;
 	size_t nb = _ui.nbItem();
 
-	for (auto i : uiIndexes)
+	for (const auto &i : uiIndexes)
 	{
 		if (i < nb)
 		{
@@ -353,7 +282,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 
 	generic_string updaterParams = opStr;
 
-	TCHAR nppFullPath[MAX_PATH];
+	TCHAR nppFullPath[MAX_PATH]{};
 	::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 	updaterParams += TEXT("\"");
 	updaterParams += nppFullPath;
@@ -363,7 +292,7 @@ bool PluginsAdminDlg::exitToInstallRemovePlugins(Operation op, const vector<Plug
 	updaterParams += nppParameters.getPluginRootDir();
 	updaterParams += TEXT("\"");
 
-	for (auto i : puis)
+	for (const auto &i : puis)
 	{
 		if (op == pa_install || op == pa_update)
 		{
@@ -458,12 +387,12 @@ bool PluginsAdminDlg::removePlugins()
 
 void PluginsAdminDlg::changeTabName(LIST_TYPE index, const TCHAR *name2change)
 {
-	TCITEM tie;
+	TCITEM tie{};
 	tie.mask = TCIF_TEXT;
 	tie.pszText = (TCHAR *)name2change;
 	TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
 
-	TCHAR label[MAX_PATH];
+	TCHAR label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 }
@@ -815,7 +744,7 @@ bool PluginsAdminDlg::updateList()
 
 bool PluginsAdminDlg::initAvailablePluginsViewFromList()
 {
-	TCHAR nppFullPathName[MAX_PATH];
+	TCHAR nppFullPathName[MAX_PATH]{};
 	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
 
 	Version nppVer;
@@ -844,7 +773,7 @@ bool PluginsAdminDlg::initAvailablePluginsViewFromList()
 
 bool PluginsAdminDlg::initIncompatiblePluginList()
 {
-	TCHAR nppFullPathName[MAX_PATH];
+	TCHAR nppFullPathName[MAX_PATH]{};
 	GetModuleFileName(NULL, nppFullPathName, MAX_PATH);
 
 	Version nppVer;
@@ -878,7 +807,7 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 			continue;
 
 		// user file name (without ext. to find whole info in available list
-		TCHAR fnNoExt[MAX_PATH];
+		TCHAR fnNoExt[MAX_PATH]{};
 		wcscpy_s(fnNoExt, i._fileName.c_str());
 		::PathRemoveExtension(fnNoExt);
 
@@ -1020,7 +949,7 @@ bool PluginViewList::hideFromPluginInfoPtr(PluginUpdateInfo* pluginInfo2hide)
 
 bool PluginViewList::restore(const generic_string& folderName)
 {
-	for (auto i : _list)
+	for (const auto &i : _list)
 	{
 		if (i->_folderName == folderName)
 		{
@@ -1066,8 +995,8 @@ bool PluginsAdminDlg::checkUpdates()
 // begin insentive-case search from the second key-in character
 bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 {
-	const int maxLen = 256;
-	TCHAR txt2search[maxLen];
+	constexpr int maxLen = 256;
+	TCHAR txt2search[maxLen]{};
 	::GetDlgItemText(_hSelf, IDC_PLUGINADM_SEARCH_EDIT, txt2search, maxLen);
 	if (lstrlen(txt2search) < 2)
 		return false;
@@ -1210,35 +1139,24 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 	{
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT))
+				const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_PLUGINADM_EDIT)
 				{
 					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 				}
-				else
-				{
-					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-				}
+				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 			}
 			break;
 		}
@@ -1319,13 +1237,13 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					switchDialog(indexClicked);
 				}
 			}
-			else if (pnmh->hwndFrom == _availableList.getViewHwnd() || 
+			else if (pnmh->hwndFrom == _availableList.getViewHwnd() ||
                      pnmh->hwndFrom == _updateList.getViewHwnd() ||
                      pnmh->hwndFrom == _installedList.getViewHwnd() ||
                      pnmh->hwndFrom == _incompatibleList.getViewHwnd())
 			{
-				PluginViewList* pViewList;
-				int buttonID;
+				PluginViewList* pViewList = nullptr;
+				int buttonID = 0;
 
 				if (pnmh->hwndFrom == _availableList.getViewHwnd())
 				{

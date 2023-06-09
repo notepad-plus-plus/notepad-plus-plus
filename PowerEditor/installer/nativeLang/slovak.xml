@@ -1029,6 +1029,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6411" name="Predvolený jazyk:"/>
 					<Item id="6419" name="Nový dokument"/>
 					<Item id="6420" name="Použiť pri otváraní ANSI súborov"/>
+					<Item id="6432" name="Pri spustení vždy otvoriť nový dokument"/>
 				</NewDoc>
 
 				<DefaultDir title="Predvolený priečinok">

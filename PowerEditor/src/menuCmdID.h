@@ -256,6 +256,8 @@
     #define    IDM_DOCLIST_FILESCLOSEOTHERS       (IDM_MISC + 2)
     #define    IDM_DOCLIST_COPYNAMES              (IDM_MISC + 3)
     #define    IDM_DOCLIST_COPYPATHS              (IDM_MISC + 4)
+    #define    IDM_DOCLIST_FILESCLOSENOSAVE       (IDM_MISC + 5)
+    #define    IDM_DOCLIST_FILESCLOSEOTHERSNOSAVE (IDM_MISC + 6)
 
 
 #define IDM_VIEW    (IDM + 4000)                

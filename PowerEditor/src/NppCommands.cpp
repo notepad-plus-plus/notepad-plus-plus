@@ -246,6 +246,24 @@ void Notepad_plus::command(int id)
 			}
 			break;
 
+		case IDM_DOCLIST_FILESCLOSENOSAVE:
+		case IDM_DOCLIST_FILESCLOSEOTHERSNOSAVE:
+			if (_pDocumentListPanel)
+			{
+				vector<SwitcherFileInfo> files = _pDocumentListPanel->getSelectedFiles(id == IDM_DOCLIST_FILESCLOSEOTHERSNOSAVE);
+				for (size_t i = 0, len = files.size(); i < len; ++i)
+				{
+					bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+					doClose(files[i]._bufID, files[i]._iView, isSnapshotMode);
+				}
+				if (id == IDM_DOCLIST_FILESCLOSEOTHERS)
+				{
+					// Get current buffer and its view
+					_pDocumentListPanel->activateItem(_pEditView->getCurrentBufferID(), currentView());
+				}
+			}
+			break;
+
 		case IDM_DOCLIST_COPYNAMES:
 		case IDM_DOCLIST_COPYPATHS:
 			if (_pDocumentListPanel)

@@ -494,8 +494,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (!_fileSwitcherMultiFilePopupMenu.isCreated())
 					{
 						vector<MenuItemUnit> itemUnitArray;
-						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSE, TEXT("Close Selected files")));
-						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, TEXT("Close Other files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSE, TEXT("Close Selected Files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSENOSAVE, TEXT("Close Selected Files Without Saving")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, TEXT("Close Other Files")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERSNOSAVE, TEXT("Close Other Files Without Saving")));
 						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYNAMES, TEXT("Copy Selected Names")));
 						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYPATHS, TEXT("Copy Selected Pathnames")));
 

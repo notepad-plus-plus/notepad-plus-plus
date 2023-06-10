@@ -982,18 +982,15 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
-	int res;
-
-	//process the fileNamePath into LRF
-	const TCHAR *fileNamePath = buf->getFullPathName();
-
 	if (buf->isUntitled() && buf->docLength() == 0)
 	{
 		// Do nothing
 	}
 	else if (buf->isDirty())
 	{
-		res = doSaveOrNot(fileNamePath);
+		const TCHAR* fileNamePath = buf->getFullPathName();
+		int res = doSaveOrNot(fileNamePath);
+
 		if (res == IDYES)
 		{
 			if (!fileSave(id)) // the cancel button of savedialog is pressed, aborts closing

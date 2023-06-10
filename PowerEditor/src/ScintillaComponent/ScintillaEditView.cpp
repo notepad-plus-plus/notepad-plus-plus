@@ -2882,6 +2882,10 @@ void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 		{
 			setNpcAndCcUniEOL();
 		}
+
+		// in some case npc representation is not redrawn correctly on first line
+		// therefore use of showEOL(isShownEol()) instead of redraw()
+		showEOL(isShownEol());
 	}
 	else
 	{
@@ -2895,10 +2899,6 @@ void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 
 		showCcUniEol(svp._ccUniEolShow);
 	}
-
-	// in some case npc representation is not redrawn correctly on first line
-	// therefore use of showEOL(isShownEol()) instead of redraw()
-	showEOL(isShownEol());
 }
 
 void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
@@ -2937,6 +2937,7 @@ void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
 		if (svp._npcShow)
 		{
 			showNpc();
+			return; // showEOL(isShownEol()) already in showNpc()
 		}
 	}
 

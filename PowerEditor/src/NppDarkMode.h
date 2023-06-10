@@ -201,6 +201,8 @@ namespace NppDarkMode
 	void subclassTabControl(HWND hwnd);
 	void subclassComboBoxControl(HWND hwnd);
 
+	bool subclassTabUpDownControl(HWND hwnd);
+
 	void subclassAndThemeButton(HWND hwnd, NppDarkModeParams p);
 	void subclassAndThemeComboBox(HWND hwnd, NppDarkModeParams p);
 	void subclassAndThemeListBoxOrEditControl(HWND hwnd, NppDarkModeParams p, bool isListBox);
@@ -219,8 +221,6 @@ namespace NppDarkMode
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags);
 	void autoSubclassAndThemeWindowNotify(HWND hwnd);
-
-	bool subclassTabUpDownControl(HWND hwnd);
 
 	void setDarkTitleBar(HWND hwnd);
 	void setDarkExplorerTheme(HWND hwnd);

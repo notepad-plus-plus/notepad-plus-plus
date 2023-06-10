@@ -714,7 +714,7 @@ recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam)
 			case IDD_FINDINFILES_FILTERS_COMBO:
 			{
 				char *ch = reinterpret_cast<char *>(_lParameter);
-				_sParameter = *ch;
+				_sParameter = ch;
 				_macroType = mtUseSParameter;
 				_lParameter = 0;
 			}

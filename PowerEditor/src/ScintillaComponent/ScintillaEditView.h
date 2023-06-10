@@ -497,15 +497,26 @@ public:
 	void maintainStateForNpc() {
 		const auto& svp = NppParameters::getInstance().getSVP();
 		const bool isShownNpc = svp._npcShow;
-		const bool isNpcIncCcUniEol = svp._npcIncludeCcUniEol;
 		const bool isShownCcUniEol = svp._ccUniEolShow;
 
-		if (isShownNpc || isNpcIncCcUniEol)
+		if (isShownNpc && isShownCcUniEol)
 		{
-			showNpc(isShownNpc);
-		}
+			showNpc(true);
+			showCcUniEol(true);
 
-		showCcUniEol(isShownCcUniEol);
+			if (svp._eolMode != svp.roundedRectangleText)
+			{
+				setCRLF();
+			}
+		}
+		else if (!isShownNpc && isShownCcUniEol)
+		{
+			showNpc(false);
+		}
+		else
+		{
+			showCcUniEol(false);
+		}
 	}
 
 	void showCcUniEol(bool willBeShowed = true, bool isSearchResult = false);

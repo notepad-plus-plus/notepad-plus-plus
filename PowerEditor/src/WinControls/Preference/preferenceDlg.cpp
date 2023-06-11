@@ -3255,11 +3255,9 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						// Find the first separator which is between IDM_LANG_TEXT and languages
 						int nbItem = ::GetMenuItemCount(subMenu);
 						int x = 0;
-						MENUITEMINFO menuItemInfo
-						{
-							.cbSize = sizeof(MENUITEMINFO),
-							.fMask = MIIM_FTYPE
-						};
+						MENUITEMINFO menuItemInfo{};
+						menuItemInfo.cbSize = sizeof(MENUITEMINFO);
+						menuItemInfo.fMask = MIIM_FTYPE;
 						for (; x < nbItem; ++x)
 						{
 							::GetMenuItemInfo(subMenu, x, TRUE, &menuItemInfo);

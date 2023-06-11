@@ -5564,6 +5564,12 @@ void Progress::close()
 		::CloseHandle(_hThread);
 		::CloseHandle(_hActiveState);
 	}
+
+	if (_hFont != nullptr)
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
 }
 
 
@@ -5676,7 +5682,7 @@ int Progress::createProgressWindow()
 	_hRunningHitsText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE,
 		xStartPos + 75 + 2, yTextPos + textHeight * 2,
-		70, textHeight, 
+		dpiManager.scaleX(70), textHeight,
 		_hwnd, NULL, _hInst, NULL);
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
@@ -5705,13 +5711,19 @@ int Progress::createProgressWindow()
 		cBTNwidth, cBTNheight,
 		_hwnd, NULL, _hInst, NULL);
 
-	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
-	if (hf)
+	if (_hFont == nullptr)
 	{
-		::SendMessage(_hPathText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hRunningHitsStaticText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hRunningHitsText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hBtn, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+		_hFont = ::CreateFontIndirect(&lf);
+	}
+
+	if (_hFont != nullptr)
+	{
+		const auto& wpFont = reinterpret_cast<WPARAM>(_hFont);
+		::SendMessage(_hPathText, WM_SETFONT, wpFont, TRUE);
+		::SendMessage(_hRunningHitsStaticText, WM_SETFONT, wpFont, TRUE);
+		::SendMessage(_hRunningHitsText, WM_SETFONT, wpFont, TRUE);
+		::SendMessage(_hBtn, WM_SETFONT, wpFont, TRUE);
 	}
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);

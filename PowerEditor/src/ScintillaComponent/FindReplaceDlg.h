@@ -600,5 +600,6 @@ private:
 	HWND _hRunningHitsText = nullptr;
 	HWND _hPBar = nullptr;
 	HWND _hBtn = nullptr;
+	HFONT _hFont = nullptr;
 };
 

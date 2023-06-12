@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.5.3  9/May/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.4  12/Jun/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.3">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -315,7 +315,7 @@
 					<Item id="44114" name="Označit barvou 4"/>
 					<Item id="44115" name="Označit barvou 5"/>
 					<Item id="44130" name="Zobrazit netisknutelné znaky"/>
-					<Item id="44131" name="Zobrazit řídící znaky a &amp;Unicode EOLy"/>
+					<Item id="44131" name="Zobrazit řídící znaky a &amp;&amp; Unicode EOLy"/>
 					<Item id="45001" name="Konvertovat do formátu Windows"/>
 					<Item id="45002" name="Konvertovat do formátu UNIX"/>
 					<Item id="45003" name="Konvertovat do formátu MAC"/>
@@ -344,7 +344,7 @@
 					<Item id="46016" name="Normální text"/>
 					<Item id="46017" name="Resource soubor"/>
 					<Item id="46019" name="MS INI soubor"/>
-					<Item id="46033" name="Sestavení"/>
+					<Item id="46033" name="Assembler"/>
 					<Item id="46180" name="Vlastní"/>
 					<Item id="46250" name="Definovat vlastní syntaxi..."/>
 					<Item id="46300" name="Otevřít složku s uživatelsky definovanými syntaxemi..."/>
@@ -557,12 +557,12 @@
 			<PluginsAdminDlg title="Správa pluginů" titleAvailable="Dostupné" titleUpdates="Aktualizované" titleInstalled="Instalované" titleIncompatible="Nekompatibilní">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Verze"/>
-				<Item id="5501" name="Rešerše:"/>
-				<Item id="5503" name="Instalovat"/>
-				<Item id="5504" name="Aktualizovat"/>
-				<Item id="5505" name="Odstranit"/>
-				<Item id="5508" name="Pokračovat"/>
-				<Item id="5509" name="Verze seznamu pluginů: "/>
+				<Item id="5501" name="&amp;Rešerše:"/>
+				<Item id="5503" name="&amp;Instalovat"/>
+				<Item id="5504" name="&amp;Aktualizovat"/>
+				<Item id="5505" name="&amp;Odstranit"/>
+				<Item id="5508" name="&amp;Pokračovat"/>
+				<Item id="5509" name="Verze seznamu pluginů:"/>
 				<Item id="5511" name="Repozitář seznamu pluginů"/>
 				<Item id="2" name="Ukončit"/>
 			</PluginsAdminDlg>
@@ -736,7 +736,7 @@
 				<Item id="20003" name="Vytvořit novou..."/>
 				<Item id="20004" name="Odstranit"/>
 				<Item id="20005" name="Uložit jako..."/>
-				<Item id="20007" name="Už.syntaxe:"/>
+				<Item id="20007" name="Uživ. syntaxe"/>
 				<Item id="20009" name="Přípona:"/>
 				<Item id="20012" name="Nerozl. malá a VELKÁ písmena"/>
 				<Item id="20011" name="Průhlednost"/>
@@ -755,7 +755,7 @@
 				<StylerDialog title="Dialog pro návrh">
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Storno"/>
-					<Item id="25030" name="Možnosti písma:"/>
+					<Item id="25030" name="Možnosti písma"/>
 					<Item id="25006" name="Barva popředí"/>
 					<Item id="25007" name="Barva pozadí"/>
 					<Item id="25031" name="Název:"/>
@@ -763,7 +763,7 @@
 					<Item id="25001" name="Tučné"/>
 					<Item id="25002" name="Kurzíva"/>
 					<Item id="25003" name="Podtržené"/>
-					<Item id="25029" name="Vnoření:"/>
+					<Item id="25029" name="Vnoření"/>
 					<Item id="25008" name="Oddělovač 1"/>
 					<Item id="25009" name="Oddělovač 2"/>
 					<Item id="25010" name="Oddělovač 3"/>
@@ -791,7 +791,7 @@
 				<Folder title="Složka &amp;&amp; Výchozí">
 					<Item id="21101" name="Výchozí nastavení návrhu"/>
 					<Item id="21104" name="Prozatímní dokumentace zde: "/>
-					<Item id="21105" name="Dokumentace:"/>
+					<Item id="21105" name="Dokumentace"/>
 					<Item id="21102" name="Návrhář"/>
 					<Item id="21106" name="Sbalit do kompaktní formy (i prázdné řádky)"/>
 					<Item id="21201" name="Nastavení klíčových slov pro otevření složky"/>
@@ -804,9 +804,9 @@
 					<Item id="21224" name="Úvod: "/>
 					<Item id="21225" name="Prostředek: "/>
 					<Item id="21226" name="Konec: "/>
-					<Item id="21420" name="Sbalení ve stylu komentáře: "/>
-					<Item id="21220" name="Sbalení ve stylu kód 1: "/>
-					<Item id="21320" name="Sbalení ve stylu kód 2 (oddělovače nezbytné):"/>
+					<Item id="21420" name="Sbalení ve stylu komentáře"/>
+					<Item id="21220" name="Sbalení ve stylu kód 1"/>
+					<Item id="21320" name="Sbalení ve stylu kód 2 (oddělovače nezbytné)"/>
 					<Item id="21327" name="Návrhář"/>
 					<Item id="21324" name="Úvod: "/>
 					<Item id="21325" name="Prostředek: "/>
@@ -948,7 +948,6 @@
 					<Item id="6108" name="Uzamknout (nelze přetahovat záložky)"/>
 					<Item id="6109" name="Znevýraznit neaktivní záložky"/>
 					<Item id="6110" name="Zobrazovat barevný pruh na aktivní záložce"/>
-					<Item id="6111" name="Zobrazovat stavový řádek"/>
 					<Item id="6112" name="Přidat zavírací tlačítko každé záložce"/>
 					<Item id="6113" name="Dvojité kliknutí zavře záložku"/>
 					<Item id="6114" name="Povolit přepínání mezi dokumenty"/>
@@ -965,12 +964,14 @@
 					<Item id="6130" name="Fluent UI: velké ikony s výplní"/>
 					<Item id="6131" name="Hlavní menu"/>
 					<Item id="6132" name="Skrýt ovládací prvky ＋ ▼ ✕ menu vpravo nahoře (vyžaduje restart Notepadu++)"/>
+					<Item id="6133" name="Stavový řádek"/>
+					<Item id="6134" name="Skrýt"/>
 				</Global>
 				<Scintillas title="Editace">
 					<Item id="6215" name="Povolit vyhlazování fontu"/>
 					<Item id="6216" name="Nastavení kurzoru"/>
-					<Item id="6217" name="Šířka: "/>
-					<Item id="6219" name="Rychlost blikání: "/>
+					<Item id="6217" name="Šířka:"/>
+					<Item id="6219" name="Rychlost blikání:"/>
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="P"/>
 					<Item id="6225" name="Povolit vícenásobnou editaci (Ctrl+Myš kliknutí/výběr)"/>
@@ -987,7 +988,7 @@
 					<Item id="6652" name="Žádný"/>
 					<Item id="6653" name="Zvýrazněné pozadí"/>
 					<Item id="6654" name="Orámování"/>
-					<Item id="6655" name="tloušťka: "/>
+					<Item id="6655" name="tloušťka:"/>
 					<Item id="6247" name="Konce řádků (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Implicitní"/>
 					<Item id="6249" name="Barva prostého textu"/>
@@ -996,7 +997,7 @@
 					<Item id="6254" name="Zkratka"/>
 					<Item id="6255" name="Kód Unicode"/>
 					<Item id="6256" name="Vlastní barva"/>
-					<Item id="6258" name="Aplikovat na C0, C1 a &amp;Unicode EOLy"/>
+					<Item id="6258" name="Aplikovat na C0, C1 a &amp;&amp; Unicode EOLy"/>
 				</Scintillas>
 				<DarkMode title="Tmavý režim">
 					<Item id="7102" name="Černý"/>
@@ -1063,6 +1064,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id="6411" name="Implicitní syntaxe:"/>
 					<Item id="6419" name="Nový dokument"/>
 					<Item id="6420" name="Aplikovat při otevř. ANSI-souboru"/>
+					<Item id="6432" name="Vždy otevři při startu nový dokument navíc"/>
 					<Item id="-1" name="Zobrazení"/>
 				</NewDoc>
 				<DefaultDir title="Implicitní adresář">
@@ -1359,7 +1361,7 @@ Vyberte &quot;Pokaždé ano&quot;, jestliže nechcete znovu vidět tento dialog.
 Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 				<Item id="6" name="&amp;Ano"/>
 				<Item id="7" name="&amp;Ne"/>
-				<Item id="4" name="Pokaždé ano"/>
+				<Item id="4" name="&amp;Pokaždé ano"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 
 		</Dialog>
@@ -1643,9 +1645,9 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<finder-wrap-long-lines value="Zalomit dlouhé řádky"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Storno"/>
-			<common-name value="Název: "/>
+			<common-name value="Název"/>
 			<tabrename-title value="Přejmenovat aktuální záložku (Tab)"/>
-			<tabrename-newname value="Nový název: "/>
+			<tabrename-newname value="Nový název"/>
 			<splitter-rotate-left value="Otočit doleva"/>
 			<splitter-rotate-right value="Otočit doprava"/>
 			<userdefined-title-new value="Vytvořit novou syntaxi..."/>

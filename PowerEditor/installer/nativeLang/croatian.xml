@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 10 May 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 9 June 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 
 	All the comments are for explanation, they are not for translation.
-	Svi komentari su objašnjenja, nisu za prevođenje.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.3">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -300,7 +299,7 @@
 					<Item id="44114" name="Primijeni boju 4"/>
 					<Item id="44115" name="Primijeni boju 5"/>
 					<Item id="44130" name="Prikaži neispisive znakove"/>
-					<Item id="44131" name="Prikaži kontrolne znakove i Unicode EOL"/>
+					<Item id="44131" name="Prikaži kontrolne znakove &amp;i Unicode EOL"/>
 					<Item id="44032" name="&amp;Cijeli zaslon"/>
 					<Item id="44033" name="Vrati &amp;zadane postavke uvećavanja"/>
 					<Item id="44034" name="Uvijek na vr&amp;hu"/>
@@ -558,11 +557,11 @@
 			<PluginsAdminDlg title="Uređivanje dodataka" titleAvailable="Dostupno" titleUpdates="Ažuriranja" titleInstalled="Instalirano" titleIncompatible="Nekompatibilno">
 				<ColumnPlugin name="Dodatak"/>
 				<ColumnVersion name="Verzija"/>
-				<Item id="5501" name="Traži:"/>
-				<Item id="5503" name="Instaliraj"/>
-				<Item id="5504" name="Ažuriraj"/>
-				<Item id="5505" name="Ukloni"/>
-				<Item id="5508" name="Sljedeće"/>
+				<Item id="5501" name="&amp;Traži:"/>
+				<Item id="5503" name="&amp;Instaliraj"/>
+				<Item id="5504" name="&amp;Ažuriraj"/>
+				<Item id="5505" name="&amp;Ukloni"/>
+				<Item id="5508" name="&amp;Sljedeće"/>
 				<Item id="5509" name="Verzija popisa dodataka: "/>
 				<Item id="5511" name="Spremište popisa dodataka"/>
 				<Item id="2" name="Zatvori"/>
@@ -924,7 +923,6 @@
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
 					<Item id="6109" name="Zatamni neaktivne jezičke"/>
 					<Item id="6110" name="Vrh aktivnog jezička u boji"/>
-
 					<Item id="6111" name="Prikaži statusnu vrpcu"/>
 					<Item id="6112" name="Gumb zatvaranja na svakom jezičku"/>
 					<Item id="6113" name="Zatvori dokument dvoklikom"/>
@@ -932,13 +930,16 @@
 					<Item id="6119" name="U više redaka"/>
 					<Item id="6120" name="Okomito"/>
 					<Item id="6121" name="Izlaz iz programa pri zatvaranju zadnje kartice"/>
+					<Item id="6128" name="Alternativne ikone"/>
+
+					<Item id="6133" name="Statusna vrpca"/>
+					<Item id="6134" name="Sakrij"/>
 
 					<Item id="6131" name="Izbornik"/>
 					<Item id="6122" name="Sakrij izborničku vrpcu (za prikaz koristite Alt ili F10)"/>
 					<Item id="6132" name="Sakrij prečace ＋ ▼ ✕ s desne strane izborničke vrpce (potreban je restart Notepada++)"/>
-					<Item id="6123" name="Jezik sučelja:"/>
 
-					<Item id="6128" name="Alternativne ikone"/>
+					<Item id="6123" name="Jezik sučelja:"/>
 				</Global>
 				<Scintillas title="Uređivanje">
 					<Item id="6216" name="Postavke kursora"/>
@@ -961,7 +962,7 @@
 					<Item id="6652" name="Ništa"/>
 					<Item id="6653" name="Istaknuta pozadina"/>
 					<Item id="6654" name="Okvir"/>
-					<Item id="6655" name="Širina"/>
+					<Item id="6655" name="Širina:"/>
 					<Item id="6247" name="Kraj retka (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Zadano"/>
 					<Item id="6249" name="Obični tekst"/>
@@ -970,7 +971,7 @@
 					<Item id="6254" name="Skraćenica"/>
 					<Item id="6255" name="Kod"/>
 					<Item id="6256" name="Prilagođena boja"/>
-					<Item id="6258" name="Primijeni na C0, C1 i Unicode EOL"/>
+					<Item id="6258" name="Primijeni na C0, C1 &amp;i Unicode EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Tamni način">
@@ -1040,6 +1041,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 					<Item id="6411" name="Zadani jezik:"/>
 					<Item id="6419" name="Novi dokument"/>
 					<Item id="6420" name="Primijeni na otvorene ANSI datoteke"/>
+					<Item id="6432" name="Uvijek otvori dodatni novi dokument pri pokretanju"/>
 				</NewDoc>
 
 				<DefaultDir title="Zadana mapa">
@@ -1316,10 +1318,10 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 				<Item id="2" name="Poništi"/>
 			</ColumnEditor>
 			<FindInFinder title="Nađi u rezultatima pretraživanja">
-				<Item id="1" name="Nađi sve"/>
-				<Item id="2" name="Zatvori"/>
+				<Item id="1" name="Nađi &amp;sve"/>
+				<Item id="2" name="&amp;Zatvori"/>
 				<Item id="1711" name="&amp;Nađi:"/>
-				<Item id="1713" name="Samo u nađenim redcima"/>
+				<Item id="1713" name="Samo &amp;u nađenim redcima"/>
 				<Item id="1714" name="Samo &amp;cijela riječ"/>
 				<Item id="1715" name="Razlikuj &amp;velika i mala slova"/>
 				<Item id="1716" name="Način pretraživanja"/>
@@ -1463,8 +1465,8 @@ Nastaviti?"/>
 			<LanguageMenuCompactWarning title="Kompaktni izbornik jezika" message="Ova opcija će biti promijenjena pri sljedećem pokretanju."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Nespremljene izmjene će biti odbačene!
 Želite li spremiti izmjene prije promjene teme?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilnost naredbi Makro i Pokretanje" message="Vaše naredbe Makro i Pokretanje spremljene u Notepadu++ v.8.5.2 (ili starijem) možda nisu kompatibilne s trenutnom verzijom Notepada++.
-Testirajte te naredbe i, ako je potrebno, ponovno ih uredite.
+			<MacroAndRunCmdlWarning title="Kompatibilnost Makro i Pokretanje naredbi" message="Vaše Makro i Pokretanje naredbe spremljene u Notepadu++ v.8.5.2 (ili starijem) možda nisu kompatibilne s aktualnom verzijom Notepada++.
+Testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, ispravite ih i ponovno spremite.
 
 Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
 Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.

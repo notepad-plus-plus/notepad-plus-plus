@@ -947,15 +947,19 @@ struct ScintillaViewParams
 	intptr_t _zoom = 0;
 	intptr_t _zoom2 = 0;
 	bool _whiteSpaceShow = false;
+	bool _previousWhiteSpaceShow = false;
 	bool _eolShow = false;
+	bool _previousEolShow = false;
 	enum crlfMode {plainText = 0, roundedRectangleText = 1, plainTextCustomColor = 2, roundedRectangleTextCustomColor = 3};
 	crlfMode _eolMode = roundedRectangleText;
 	bool _npcShow = false;
+	bool _previousNpcShow = false;
 	enum npcMode { identity = 0, abbreviation = 1, codepoint = 2 };
 	npcMode _npcMode = abbreviation;
 	bool _npcCustomColor = false;
 	bool _npcIncludeCcUniEol = false;
 	bool _ccUniEolShow = true;
+	bool _previousCcUniEolShow = true;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;
@@ -980,6 +984,13 @@ struct ScintillaViewParams
 			paddingLen = editViewWidth / defaultDiviser;
 		return paddingLen;
 	};
+
+	void updatePreviousSettings() {
+		_previousCcUniEolShow = _ccUniEolShow;
+		_previousEolShow = _eolShow;
+		_previousNpcShow = _npcShow;
+		_previousWhiteSpaceShow = _whiteSpaceShow;
+	}
 };
 
 const int NB_LIST = 20;

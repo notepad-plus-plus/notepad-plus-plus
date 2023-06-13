@@ -2321,6 +2321,7 @@ void Notepad_plus::command(int id)
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._whiteSpaceShow = isChecked;
+			svp1.updatePreviousSettings();
 
 			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && svp1._npcShow && svp1._ccUniEolShow;
 
@@ -2340,6 +2341,7 @@ void Notepad_plus::command(int id)
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._eolShow = isChecked;
+			svp1.updatePreviousSettings();
 
 			const bool allChecked = svp1._whiteSpaceShow && svp1._eolShow && svp1._npcShow && svp1._ccUniEolShow;
 
@@ -2356,6 +2358,7 @@ void Notepad_plus::command(int id)
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._npcShow = isChecked;
+			svp1.updatePreviousSettings();
 
 			// setNpcAndCcUniEOL() in showNpc() uses svp1._npcShow
 			_mainEditView.showNpc(isChecked);
@@ -2378,6 +2381,7 @@ void Notepad_plus::command(int id)
 
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			svp1._ccUniEolShow = isChecked;
+			svp1.updatePreviousSettings();
 
 			// setNpcAndCcUniEOL() in showCcUniEol() uses svp1._ccUniEolShow
 			_mainEditView.showCcUniEol(isChecked);
@@ -2395,21 +2399,28 @@ void Notepad_plus::command(int id)
 		{
 			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
 			checkMenuItem(id, isChecked);
-			checkMenuItem(IDM_VIEW_TAB_SPACE, isChecked);
-			checkMenuItem(IDM_VIEW_EOL, isChecked);
-			checkMenuItem(IDM_VIEW_NPC, isChecked);
-			checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, isChecked);
 			_toolBar.setCheck(id, isChecked);
-
+			
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
+			// when checking box, show all char types
+			// when unchecking box, show whatever char types were showed before the box was checked
+			bool whiteSpaceShow = isChecked || svp1._previousWhiteSpaceShow;
+			bool eolShow = isChecked || svp1._previousEolShow;
+			bool npcShow = isChecked || svp1._previousNpcShow;
+			bool ccUniEolShow = isChecked || svp1._previousCcUniEolShow;
+			checkMenuItem(IDM_VIEW_TAB_SPACE, whiteSpaceShow);
+			checkMenuItem(IDM_VIEW_EOL, eolShow);
+			checkMenuItem(IDM_VIEW_NPC, npcShow);
+			checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, ccUniEolShow);
 
-			svp1._whiteSpaceShow = isChecked;
-			svp1._eolShow = isChecked;
-			svp1._npcShow = isChecked;
-			svp1._ccUniEolShow = isChecked;
 
-			_mainEditView.showInvisibleChars(isChecked);
-			_subEditView.showInvisibleChars(isChecked);
+			svp1._whiteSpaceShow = whiteSpaceShow;
+			svp1._eolShow = eolShow;
+			svp1._npcShow = npcShow;
+			svp1._ccUniEolShow = ccUniEolShow;
+
+			_mainEditView.showInvisibleChars(npcShow, ccUniEolShow, whiteSpaceShow, eolShow);
+			_subEditView.showInvisibleChars(npcShow, ccUniEolShow, whiteSpaceShow, eolShow);
 
 			_findReplaceDlg.updateFinderScintillaForNpc();
 

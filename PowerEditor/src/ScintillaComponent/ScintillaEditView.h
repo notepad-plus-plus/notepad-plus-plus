@@ -526,11 +526,11 @@ public:
 		return svp._ccUniEolShow;
 	};
 
-	void showInvisibleChars(bool willBeShowed = true) {
-		showNpc(willBeShowed);
-		showCcUniEol(willBeShowed);
-		showWSAndTab(willBeShowed);
-		showEOL(willBeShowed);
+	void showInvisibleChars(bool npc, bool ccUniEol, bool whiteSpace, bool eol) {
+		showNpc(npc);
+		showCcUniEol(ccUniEol);
+		showWSAndTab(whiteSpace);
+		showEOL(eol);
 	};
 
 	//bool isShownInvisibleChars() {

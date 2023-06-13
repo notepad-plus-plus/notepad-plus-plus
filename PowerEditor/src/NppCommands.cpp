@@ -234,11 +234,10 @@ void Notepad_plus::command(int id)
 		case IDM_DOCLIST_FILESCLOSEOTHERS:
 			if (_pDocumentListPanel)
 			{
-				vector<SwitcherFileInfo> files = _pDocumentListPanel->getSelectedFiles(id == IDM_DOCLIST_FILESCLOSEOTHERS);
-				for (size_t i = 0, len = files.size(); i < len; ++i)
-				{
-					fileClose((BufferID)files[i]._bufID, files[i]._iView);
-				}
+				vector<BufferViewInfo> bufs2Close = _pDocumentListPanel->getSelectedFiles(id == IDM_DOCLIST_FILESCLOSEOTHERS);
+
+				fileCloseAllGiven(bufs2Close);
+
 				if (id == IDM_DOCLIST_FILESCLOSEOTHERS)
 				{
 					// Get current buffer and its view

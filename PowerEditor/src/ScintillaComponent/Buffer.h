@@ -56,6 +56,14 @@ enum SavingStatus {
 	SaveWritingFailed  = 2
 };
 
+struct BufferViewInfo {
+	BufferID _bufID = 0;
+	int _iView = 0;
+
+	BufferViewInfo() = delete;
+	BufferViewInfo(BufferID buf, int view) : _bufID(buf), _iView(view) {};
+};
+
 const TCHAR UNTITLED_STR[] = TEXT("new ");
 
 //File manager class maintains all buffers

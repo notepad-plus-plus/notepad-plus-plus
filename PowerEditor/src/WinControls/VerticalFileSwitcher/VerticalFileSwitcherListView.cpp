@@ -443,9 +443,9 @@ void VerticalFileSwitcherListView::resizeColumns(int totalWidth)
 	ListView_SetColumnWidth(_hSelf, 0, totalWidth - totalColWidthDynExceptName);
 }
 
-std::vector<SwitcherFileInfo> VerticalFileSwitcherListView::getSelectedFiles(bool reverse) const
+std::vector<BufferViewInfo> VerticalFileSwitcherListView::getSelectedFiles(bool reverse) const
 {
-	std::vector<SwitcherFileInfo> files;
+	std::vector<BufferViewInfo> files;
 	LVITEM item{};
 	int nbItem = ListView_GetItemCount(_hSelf);
 	int i = 0;
@@ -460,7 +460,7 @@ std::vector<SwitcherFileInfo> VerticalFileSwitcherListView::getSelectedFiles(boo
 			ListView_GetItem(_hSelf, &item);
 
 			TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
-			files.push_back(SwitcherFileInfo(static_cast<BufferID>(tlfs->_bufID), tlfs->_iView));
+			files.push_back(BufferViewInfo(static_cast<BufferID>(tlfs->_bufID), tlfs->_iView));
 		}
 	}
 

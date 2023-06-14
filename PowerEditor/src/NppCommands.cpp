@@ -2398,8 +2398,6 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_ALL_CHARACTERS:
 		{
 			const bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
-			checkMenuItem(id, isChecked);
-			_toolBar.setCheck(id, isChecked);
 			
 			auto& svp1 = const_cast<ScintillaViewParams&>(NppParameters::getInstance().getSVP());
 			// when checking box, show all char types
@@ -2408,11 +2406,13 @@ void Notepad_plus::command(int id)
 			bool eolShow = isChecked || svp1._previousEolShow;
 			bool npcShow = isChecked || svp1._previousNpcShow;
 			bool ccUniEolShow = isChecked || svp1._previousCcUniEolShow;
+			bool allChecked = whiteSpaceShow && eolShow && npcShow && ccUniEolShow;
 			checkMenuItem(IDM_VIEW_TAB_SPACE, whiteSpaceShow);
 			checkMenuItem(IDM_VIEW_EOL, eolShow);
 			checkMenuItem(IDM_VIEW_NPC, npcShow);
 			checkMenuItem(IDM_VIEW_NPC_CCUNIEOL, ccUniEolShow);
-
+			checkMenuItem(id, allChecked);
+			_toolBar.setCheck(id, allChecked);
 
 			svp1._whiteSpaceShow = whiteSpaceShow;
 			svp1._eolShow = eolShow;

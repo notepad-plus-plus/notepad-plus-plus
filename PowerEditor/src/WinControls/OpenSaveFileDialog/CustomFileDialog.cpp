@@ -252,7 +252,8 @@ public:
 	{
 		_lastUsedFolder = getDialogFolder(dlg);
 
-		// block this function when hangul status for finish letter composition
+		// Ignore OnFileOk() as OnPreFileOk() is not called when in Hangul mode.
+		// check KbdProcHook() for details.
 		if (_isHangul)
 			return S_FALSE;
 
@@ -499,7 +500,6 @@ private:
 		generic_string fileName = getDialogFileName(_dialog);
 		expandEnv(fileName);
 		bool nameChanged = transformPath(fileName);
-
 		// Update the controls.
 		if (!::PathIsDirectory(getAbsPath(fileName).c_str()))
 		{
@@ -654,7 +654,7 @@ private:
 
 					if (it->second->_isHangul)
 					{
-						// hangul mode to alphabet mode
+						// If IME is in Hangul mode, ignore VK_RETURN to complete the composition and change to alphabetical input mode to proceed to onPreFileOk() on the next VK_RETURN.
 						auto himc = ImmGetContext(hwnd);
 						ImmSetConversionStatus(himc, IME_CMODE_ALPHANUMERIC, IME_SMODE_NONE);
 						ImmReleaseContext(hwnd, himc);
@@ -701,7 +701,7 @@ private:
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
 	LANGID _keyboardLayoutLanguage;
-	bool _isHangul; // Korean IME specific
+	bool _isHangul; // Korean IME specific flag
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 

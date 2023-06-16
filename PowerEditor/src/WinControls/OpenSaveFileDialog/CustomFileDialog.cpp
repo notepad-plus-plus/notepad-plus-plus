@@ -252,6 +252,7 @@ public:
 	{
 		_lastUsedFolder = getDialogFolder(dlg);
 
+		// block this function when hangul status for finish letter composition
 		if (_isHangul)
 			return S_FALSE;
 
@@ -630,65 +631,33 @@ private:
 
 	static LRESULT CALLBACK KbdProcHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
-		static bool isCandidateMode = false;
-		static bool wasCandidateMode = false;
-		auto IsHangul = [](WCHAR locale[])
+		auto IsHangul = [](LANGID langid)
 		{
 			auto hwnd = GetFocus();
 			auto himc = ImmGetContext(hwnd);
-			auto isHangul = ImmGetOpenStatus(himc);
+			auto isImeActivated = ImmGetOpenStatus(himc); // return true if non-english(CJK) IME is turned on
 			ImmReleaseContext(hwnd, himc);
 
-			return !wcscmp(locale, L"ko-KR") && isHangul;
-		};
-		auto SendKey = [](WORD keyCode)
-		{
-			auto hwnd = GetFocus();
-			auto himc = ImmGetContext(hwnd);
-			ImmSetConversionStatus(himc, 0, 0);
-			INPUT enterInput[2] = {};
-			enterInput[0].type = INPUT_KEYBOARD;
-			enterInput[0].ki.wVk = keyCode;
-			enterInput[1].type = INPUT_KEYBOARD;
-			enterInput[1].ki.wVk = keyCode;
-			enterInput[1].ki.dwFlags = KEYEVENTF_KEYUP;
-			SendInput(ARRAYSIZE(enterInput), enterInput, sizeof(INPUT));
-			ImmReleaseContext(hwnd, himc);
+			return (langid == LANG_KOREAN) && isImeActivated;
 		};
 
 		if (nCode == HC_ACTION)
 		{
-			if (wParam == VK_HANJA)
+			if (wParam == VK_RETURN)
 			{
-				isCandidateMode = true;
-			}
-			else if (wParam == VK_RETURN)
-			{
-				// Enter event occurs twice(pressed and released) on CandidateMode
-				if (isCandidateMode)
-				{
-					isCandidateMode = false;
-					wasCandidateMode = true;
-					return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
-				}
 				// Handle return key passed to the file name edit box.
 				HWND hwnd = GetFocus();
 				auto it = s_handleMap.find(hwnd);
-				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit) 
+				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
 				{
-					it->second->_isHangul = IsHangul(it->second->_locale);
+					it->second->_isHangul = IsHangul(it->second->_keyboardLayoutLanguage);
 
 					if (it->second->_isHangul)
 					{
-						if (!wasCandidateMode)
-						{
-							// Send 1 more enter to end composition
-							SendKey(VK_RETURN);
-						}
-						else
-						{
-							wasCandidateMode = false;
-						}
+						// hangul mode to alphabet mode
+						auto himc = ImmGetContext(hwnd);
+						ImmSetConversionStatus(himc, IME_CMODE_ALPHANUMERIC, IME_SMODE_NONE);
+						ImmReleaseContext(hwnd, himc);
 					}
 					else
 					{
@@ -700,6 +669,7 @@ private:
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
 	}
 
+	// Dectect language layout of keyboard
 	static LRESULT CALLBACK LanguageDetectHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		if (nCode == HSHELL_LANGUAGE)
@@ -709,9 +679,7 @@ private:
 			if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
 			{
 				HKL hkl = (HKL)lParam;
-				LANGID langId = LOWORD(hkl);
-
-				LCIDToLocaleName(MAKELCID(langId, SORT_DEFAULT), it->second->_locale, LOCALE_NAME_MAX_LENGTH, 0);
+				it->second->_keyboardLayoutLanguage = PRIMARYLANGID(LOWORD(hkl));
 			}
 		}
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
@@ -732,8 +700,8 @@ private:
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
-	WCHAR _locale[LOCALE_NAME_MAX_LENGTH];
-	bool _isHangul;
+	LANGID _keyboardLayoutLanguage;
+	bool _isHangul; // Korean IME specific
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 

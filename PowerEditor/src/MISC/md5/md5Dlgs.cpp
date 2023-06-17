@@ -17,7 +17,7 @@
 #include "md5.h"
 #include <stdint.h>
 #include "sha-256.h"
-#include "cal_sha1.h"
+#include "calc_sha1.h"
 #include "md5Dlgs.h"
 #include "md5Dlgs_rc.h"
 #include "CustomFileDialog.h"

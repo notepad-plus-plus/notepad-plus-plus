@@ -127,7 +127,7 @@
     <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
-    <ClCompile Include="..\src\MISC\sha1\cal_sha1.cpp" />
+    <ClCompile Include="..\src\MISC\sha1\calc_sha1.cpp" />
     <ClCompile Include="..\src\MISC\sha1\sha1.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
     <ClCompile Include="..\src\NppDarkMode.cpp" />
@@ -266,7 +266,7 @@
     <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
-    <ClInclude Include="..\src\MISC\sha1\cal_sha1.h" />
+    <ClInclude Include="..\src\MISC\sha1\calc_sha1.h" />
     <ClInclude Include="..\src\MISC\sha1\sha1.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
     <ClInclude Include="..\src\NppDarkMode.h" />

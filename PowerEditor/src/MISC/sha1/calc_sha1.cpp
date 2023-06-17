@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "calc_sha1.h"
 #include "sha1.h"
+#include "calc_sha1.h"
 
 void calc_sha1(unsigned char hash[20], const void *input, size_t len)
 {

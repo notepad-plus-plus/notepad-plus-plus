@@ -33,7 +33,7 @@
 #include "verifySignedfile.h"
 #include "md5.h"
 #include "sha-256.h"
-#include "cal_sha1.h"
+#include "calc_sha1.h"
 
 using namespace std;
 

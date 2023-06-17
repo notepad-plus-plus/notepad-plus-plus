@@ -94,12 +94,24 @@
     <IntDir>arm64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\md5;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\MISC\sha1;..\src\MISC\sha2;..\src\MISC\SysMsg;..\src\ScintillaComponent;..\src\Win32Explr;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\DocumentMap;..\src\WinControls\FileBrowser;..\src\WinControls\FindCharsInRange;..\src\WinControls\FunctionList;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\PluginsAdmin;..\src\WinControls\Preference;..\src\WinControls\ProjectPanel;..\src\WinControls\ReadDirectoryChanges;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\TreeView;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\WindowsDlg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\md5;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\MISC\sha1;..\src\MISC\sha2;..\src\MISC\SysMsg;..\src\ScintillaComponent;..\src\Win32Explr;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\DocumentMap;..\src\WinControls\FileBrowser;..\src\WinControls\FindCharsInRange;..\src\WinControls\FunctionList;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\PluginsAdmin;..\src\WinControls\Preference;..\src\WinControls\ProjectPanel;..\src\WinControls\ReadDirectoryChanges;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\TreeView;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\WindowsDlg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\md5;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\MISC\sha1;..\src\MISC\sha2;..\src\MISC\SysMsg;..\src\ScintillaComponent;..\src\Win32Explr;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\DocumentMap;..\src\WinControls\FileBrowser;..\src\WinControls\FindCharsInRange;..\src\WinControls\FunctionList;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\PluginsAdmin;..\src\WinControls\Preference;..\src\WinControls\ProjectPanel;..\src\WinControls\ReadDirectoryChanges;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\TreeView;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\WindowsDlg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\md5;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\MISC\sha1;..\src\MISC\sha2;..\src\MISC\SysMsg;..\src\ScintillaComponent;..\src\Win32Explr;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\DocumentMap;..\src\WinControls\FileBrowser;..\src\WinControls\FindCharsInRange;..\src\WinControls\FunctionList;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\PluginsAdmin;..\src\WinControls\Preference;..\src\WinControls\ProjectPanel;..\src\WinControls\ReadDirectoryChanges;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\TreeView;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\WindowsDlg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -107,11 +119,15 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\md5;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\MISC\sha1;..\src\MISC\sha2;..\src\MISC\SysMsg;..\src\ScintillaComponent;..\src\Win32Explr;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\DocumentMap;..\src\WinControls\FileBrowser;..\src\WinControls\FindCharsInRange;..\src\WinControls\FunctionList;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\PluginsAdmin;..\src\WinControls\Preference;..\src\WinControls\ProjectPanel;..\src\WinControls\ReadDirectoryChanges;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\TreeView;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\WindowsDlg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
+    <ClCompile Include="..\src\MISC\sha1\cal_sha1.cpp" />
     <ClCompile Include="..\src\MISC\sha1\sha1.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
     <ClCompile Include="..\src\NppDarkMode.cpp" />
@@ -250,6 +266,7 @@
     <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
+    <ClInclude Include="..\src\MISC\sha1\cal_sha1.h" />
     <ClInclude Include="..\src\MISC\sha1\sha1.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
     <ClInclude Include="..\src\NppDarkMode.h" />

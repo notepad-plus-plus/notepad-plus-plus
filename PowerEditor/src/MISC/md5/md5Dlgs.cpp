@@ -17,6 +17,7 @@
 #include "md5.h"
 #include <stdint.h>
 #include "sha-256.h"
+#include "cal_sha1.h"
 #include "md5Dlgs.h"
 #include "md5Dlgs_rc.h"
 #include "CustomFileDialog.h"
@@ -127,29 +128,37 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 									hashResultStr += TEXT("\r\n");
 								}
 							}
-							else if (_ht == hashType::hash_sha256)
+							else
 							{
 								std::string content = getFileContent(it.c_str());
 
-								uint8_t sha2hash[32]{};
-								calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+								bool isSha256 = (_ht == hashType::hash_sha256);
 
-								wchar_t sha2hashStr[65] = { '\0' };
-								for (size_t i = 0; i < 32; i++)
-									wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
+								uint8_t hash[32]{}; // align to the longest hash (SHA-256)
+								wchar_t hashStr[65]{}; // align to the longest hash (SHA-256)
+								size_t hashLen = 0;
+								if (isSha256)
+								{
+									calc_sha_256(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+									hashLen = 32;
+								}
+								else
+								{
+									calc_sha1(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+									hashLen = 20;
+								}
+
+								for (size_t i = 0; i < hashLen; i++)
+									wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 								files2check += it;
 								files2check += TEXT("\r\n");
 
 								wchar_t* fileName = ::PathFindFileName(it.c_str());
-								hashResultStr += sha2hashStr;
+								hashResultStr += hashStr;
 								hashResultStr += TEXT("  ");
 								hashResultStr += fileName;
 								hashResultStr += TEXT("\r\n");
-							}
-							else
-							{
-								// unknown
 							}
 						}
 
@@ -227,6 +236,14 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 			generic_string buttonText = TEXT("Choose files to &generate SHA-256...");
 			::SetDlgItemText(_hSelf, IDC_HASH_FILEBROWSER_BUTTON, buttonText.c_str());
 		}
+		else if (_ht == hash_sha1)
+		{
+			generic_string title = TEXT("Generate SHA-1 digest from files");
+			::SetWindowText(_hSelf, title.c_str());
+
+			generic_string buttonText = TEXT("Choose files to &generate SHA-1...");
+			::SetDlgItemText(_hSelf, IDC_HASH_FILEBROWSER_BUTTON, buttonText.c_str());
+		}
 	}
 
 	// Adjust the position in the center
@@ -235,7 +252,7 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 
 void HashFromTextDlg::generateHash()
 {
-	if (_ht != hash_md5 && _ht != hash_sha256)
+	if (_ht != hash_md5 && _ht != hash_sha256 && _ht != hash_sha1)
 		return;
 
 	int len = static_cast<int>(::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), WM_GETTEXTLENGTH, 0, 0));
@@ -253,16 +270,28 @@ void HashFromTextDlg::generateHash()
 			char* md5Result = md5.digestString(newText);
 			::SetDlgItemTextA(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, md5Result);
 		}
-		else if (_ht == hash_sha256)
+		else
 		{
-			uint8_t sha2hash[32]{};
-			calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+			uint8_t hash[32]{}; // align to the longest hash (SHA-256)
+			wchar_t hashStr[65]{}; // align to the longest hash (SHA-256)
+			size_t hashLen = 0;
+			bool isSha256 = (_ht == hash_sha256);
 
-			wchar_t sha2hashStr[65] = { '\0' };
-			for (size_t i = 0; i < 32; i++)
-				wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
+			if (isSha256)
+			{
+				calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+				hashLen = 32;
+			}
+			else
+			{
+				calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+				hashLen = 20;
+			}
 
-			::SetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, sha2hashStr);
+			for (size_t i = 0; i < hashLen; i++)
+				wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
+
+			::SetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, hashStr);
 		}
 		delete[] text;
 	}
@@ -304,16 +333,28 @@ void HashFromTextDlg::generateHashPerLine()
 					result += md5Result;
 					result += "\r\n";
 				}
-				else if (_ht == hash_sha256)
+				else
 				{
-					uint8_t sha2hash[32];
-					calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+					uint8_t hash[32]{}; // align to the longest hash (SHA-256)
+					char hashStr[65]{}; // align to the longest hash (SHA-256)
+					size_t hashLen = 0;
+					bool isSha256 = (_ht == hash_sha256);
 
-					char sha2hashStr[65] = { '\0' };
+					if (isSha256)
+					{
+						calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+						hashLen = 32;
+					}
+					else
+					{
+						calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+						hashLen = 20;
+					}
+					
 					for (size_t i = 0; i < 32; i++)
-						sprintf(sha2hashStr + i * 2, "%02x", sha2hash[i]);
+						sprintf(hashStr + i * 2, "%02x", hash[i]);
 
-					result += sha2hashStr;
+					result += hashStr;
 					result += "\r\n";
 				}
 			}
@@ -464,6 +505,11 @@ void HashFromTextDlg::doDialog(bool isRTL)
 		if (_ht == hash_sha256)
 		{
 			generic_string title = TEXT("Generate SHA-256 digest");
+			::SetWindowText(_hSelf, title.c_str());
+		}
+		else if (_ht == hash_sha1)
+		{
+			generic_string title = TEXT("Generate SHA-1 digest");
 			::SetWindowText(_hSelf, title.c_str());
 		}
 	}

@@ -33,7 +33,7 @@
 #include "verifySignedfile.h"
 #include "md5.h"
 #include "sha-256.h"
-#include "sha1.h"
+#include "cal_sha1.h"
 
 using namespace std;
 
@@ -3233,7 +3233,26 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_TOOL_SHA1_GENERATE:
+		{
+			bool isFirstTime = !_sha1FromTextDlg.isCreated();
+			_sha1FromTextDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha1FromTextDlg.getHSelf(), "SHA1FromTextDlg");
+		}
+		break;
+
+		case IDM_TOOL_SHA1_GENERATEFROMFILE:
+		{
+			bool isFirstTime = !_sha1FromFilesDlg.isCreated();
+			_sha1FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha1FromFilesDlg.getHSelf(), "SHA1FromFilesDlg");
+		}
+		break;
+
 		case IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD:
+		case IDM_TOOL_SHA1_GENERATEINTOCLIPBOARD:
 		{
 			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
 			{
@@ -3247,17 +3266,26 @@ void Notepad_plus::command(int id)
 					char *selectedStr = new char[strSize];
 					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
 
-					//uint8_t sha2hash[32];
-					//calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
-					uint8_t sha1hash[20];
-					calc_sha1(sha1hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
+					bool isSha256 = (id == IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD);
 
-					wchar_t sha2hashStr[65] = { '\0' };
-					//for (size_t i = 0; i < 32; i++)
-					for (size_t i = 0; i < 20; i++)
-						wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha1hash[i]);
+					uint8_t hash[32] {}; // align to the longest hash (SHA-256)
+					wchar_t hashStr[65] {}; // align to the longest hash (SHA-256)
+					size_t hashLen = 0;
+					if (isSha256)
+					{
+						calc_sha_256(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
+						hashLen = 32;
+					}
+					else // SHA1
+					{
+						calc_sha1(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
+						hashLen = 20;
+					}
+					
+					for (size_t i = 0; i < hashLen; i++)
+						wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
-					str2Clipboard(sha2hashStr, _pPublicInterface->getHSelf());
+					str2Clipboard(hashStr, _pPublicInterface->getHSelf());
 
 					delete[] selectedStr;
 				}

@@ -314,6 +314,8 @@ private:
 	HashFromTextDlg _md5FromTextDlg;
 	HashFromFilesDlg _sha2FromFilesDlg;
 	HashFromTextDlg _sha2FromTextDlg;
+	HashFromFilesDlg _sha1FromFilesDlg;
+	HashFromTextDlg _sha1FromTextDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;

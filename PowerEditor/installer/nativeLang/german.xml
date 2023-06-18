@@ -13,7 +13,7 @@ Translation note:
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.05.24"><!-- basiert auf english.xml vom 24.05.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.06.18"><!-- basiert auf english.xml vom 18.06.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1038,6 +1038,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6411" name="Standardsprache"/>
 					<Item id="6419" name="Neues Dokument"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
+					<Item id="6432" name="Öffne beim Starten immer zusätzlich ein neues Dokument"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardverzeichnis">

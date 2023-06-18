@@ -1,21 +1,25 @@
- 1. Fix session file data loss issue.
- 2. Fix Explorer context menu "Edit with Notepad++" needs restarting os to appear issue under Win 8/10.
- 3. Fix Explorer context menu "Edit with Notepad++" not installed for multiple users issue.
- 4. Fix Explorer context menu "Edit with Notepad++" double entries in some applications (Winzip).
- 5. Make Explorer context menu "Edit with Notepad++" translatable.
- 6. Add the UTF8 character ability for Run & Macro menu.
- 7. Add hide/show ability of Control Characters (C0 & C1) and Unicode EOL.
- 8. Fix Change history margin in black color issue.
- 9. Improve "Remove consecutive duplicate lines" command performance.
-10. Project Workspace "Save a Copy As" confusion issue.
-11. Make "Remove consecutive duplicate lines" support more line break.
-12. Fix UDL deletion issue.
-13. Fix RTL not working on FindInFiles progress window.
-14. Fix search results output alignment for large file searches.
-15. Several GUI Enhancements.
+Notepad++ v8.5.4 bug-fixes and new features:
+
+ 1. Fix macro recording regression on Unicode character.
+ 2. Fix regression of defective detection for file read-only attribute removal via Explorer.
+ 3. Fix opening multi-files on multi-instance mode regression.
+ 4. Update: Scintilla 5.3.5 Lexilla 5.2.5
+ 5. Fix Notepad++ hanging issue running macro to EOF.
+ 6. Fix EOL symbol color/appearence being reset issue while changing encoding.
+ 7. Enable code folding in Assembly source files.
+ 8. Fix document language not remembered through sessions issue.
+ 9. Add SHA-1 hash features.
+10. Add "open new blank document in addition on startup" ability.
+11. Fix lexer plugin is sorted unconventionally in language menu issue.
+12. Add message NPPM_DARKMODESUBCLASSANDTHEME to allow plugin to use generic dark mode.
+13. Add the ability to close multiple files without saving in Document list.
+14. Several GUI Enhancements.
+15. Fix tabContextMenu_example.xml not being deleted while uninstallation.
+16. Fix error message on uninstallation.
+
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.5.3/
+https://notepad-plus-plus.org/downloads/v8.5.4/
 
 
 Included plugins:

@@ -69,6 +69,7 @@
 					<Item subMenuId="language-userDefinedLanguage" name="自訂程式語法"/>
 					<Item subMenuId="settings-import" name="匯入"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
 					<Item subMenuId="window-sortby" name="排序方式"/>
 				</SubEntries>

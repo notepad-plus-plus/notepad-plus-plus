@@ -98,7 +98,8 @@ MenuPosition menuPos[] = {
 	{ 6,   4, -1, "settings-import" },
 
 	{ 7,   0, -1, "tools-md5" },
-	{ 7,   1, -1, "tools-sha256" },
+	{ 7,   1, -1, "tools-sha1" },
+	{ 7,   2, -1, "tools-sha256" },
 
 	{ 11,  0, -1, "window-sortby"},
 

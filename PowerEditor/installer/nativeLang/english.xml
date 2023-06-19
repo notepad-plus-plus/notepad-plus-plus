@@ -74,6 +74,7 @@ Translation note:
 					<Item subMenuId="language-userDefinedLanguage" name="User Defined Language"/>
 					<Item subMenuId="settings-import" name="Import"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
 					<Item subMenuId="window-sortby" name="Sort By"/>
 				</SubEntries>

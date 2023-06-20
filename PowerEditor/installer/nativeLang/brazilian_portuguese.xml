@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 08 Jun 2023, for Notepad++ 8.5.4 
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 31 Jul 2023, for Notepad++ 8.5.5
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.4">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -37,6 +39,7 @@
 					<Item subMenuId="edit-blankOperations" name="Operações com espaços"/>
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
+					<Item subMenuId="search-changeHistory" name="Histórico de Alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar todos"/>
 					<Item subMenuId="search-markOne" name="Marcar um"/>
 					<Item subMenuId="search-unmarkAll" name="Desmarcar todos"/>
@@ -72,7 +75,9 @@
 					<Item subMenuId="language-userDefinedLanguage" name="Linguagem definida pelo usuário"/>
 					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Classificar por"/>
 				</SubEntries>
 
@@ -247,6 +252,9 @@
 					<Item id="43064" name="Usando o 3º estilo"/>
 					<Item id="43065" name="Usando o 4º estilo"/>
 					<Item id="43066" name="Usando o 5º estilo"/>
+					<Item id="43067" name="Próxima Alteração"/>
+					<Item id="43068" name="Alteração Anterior"/>
+					<Item id="43069" name="Limpar Histórico de Alterações"/>
 					<Item id="43045" name="Janela do resultado de pesquisa"/>
 					<Item id="43046" name="Próximo resultado da pesquisa"/>
 					<Item id="43047" name="Resultado anterior da pesquisa"/>
@@ -360,6 +368,12 @@
 					<Item id="48504" name="Gerar..."/>
 					<Item id="48505" name="Gerar dos arquivos..."/>
 					<Item id="48506" name="Gerar a partir da seleção na área de transferência"/>
+					<Item id="48507" name="Gerar..."/>
+					<Item id="48508" name="Gerar dos arquivos..."/>
+					<Item id="48509" name="Gerar a partir da seleção na área de transferência"/>
+					<Item id="48510" name="Gerar..."/>
+					<Item id="48511" name="Gerar dos arquivos..."/>
+					<Item id="48512" name="Gerar a partir da seleção na área de transferência"/>
 					<Item id="49000" name="Executa&amp;r..."/>
 
 					<Item id="50000" name="Completar função"/>
@@ -542,6 +556,30 @@
 				<Item id="2" name="&amp;Fechar"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Gerar SHA-1 dos arquivos">
+				<Item id="1922" name="Escolha arquivos para &amp;gerar o SHA-1..."/>
+				<Item id="1924" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Gerar SHA-1">
+				<Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+				<Item id="1934" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Gerar SHA-512 dos arquivos">
+				<Item id="1922" name="Escolha arquivos para &amp;gerar o SHA-512..."/>
+				<Item id="1924" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generate SHA-512">
+				<Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+				<Item id="1934" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA512FromTextDlg>			
+			
 			<PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versão"/>
@@ -775,7 +813,6 @@
 					<Item id="21101" name="Estilo padrão"/>
 					<Item id="21102" name="Estilo"/>
 					<Item id="21105" name="Documentação:"/>
-					<Item id="21104" name="Site temporário da documentação:"/>
 					<Item id="21106" name="Dobrar e compactar (dobrar linhas vazias também)"/>
 					<Item id="21220" name="Dobragem de código estilo 1:"/>
 					<Item id="21224" name="Abrir:"/>
@@ -1580,18 +1617,14 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-end-reached value="Localizar: Encontrada a primeira ocorrência a partir do início. O final do documento foi alcançado."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em Arquivos: $INT_REPLACE$ ocorrências foram substituídas."/>
-			<find-status-replaceinfiles-re-malformed value="Substituir em Arquivos Abertos: A expressão regular está mal formada."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em Arquivos Abertos: 1 ocorrência foi substituída."/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Substituir em Arquivos Abertos: $INT_REPLACE$ ocorrências foram substituídas."/>
-			<find-status-mark-re-malformed value="Marcar: A expressão regular da pesquisa está mal formada."/>
 			<find-status-invalid-re value="Localizar: Expressão regular inválida."/>
 			<find-status-search-failed value="Localizar: Falha ao pesquisar."/>
 			<find-status-mark-1-match value="Marcar: 1 correspondência."/>
 			<find-status-mark-nb-matches value="Marcar: $INT_REPLACE$ correspondências."/>
-			<find-status-count-re-malformed value="Total: A expressão regular da pesquisa está mal formada."/>
 			<find-status-count-1-match value="Total: 1 correspondência."/>
 			<find-status-count-nb-matches value="Total: $INT_REPLACE$ correspondências."/>
-			<find-status-replaceall-re-malformed value="Substituir todas: A expressão regular está mal formada."/>
 			<find-status-replaceall-1-replaced value="Substituir todas: 1 ocorrência foi substituída."/>
 			<find-status-replaceall-nb-replaced value="Substituir todas: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceall-readonly value="Substituir todas: Texto não substituído. O documento é somente leitura."/>

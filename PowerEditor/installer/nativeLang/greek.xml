@@ -238,18 +238,18 @@
 					<Item id="43052" name="Εύρεση χαρακτήρων στην περιοχή..."/>
 					<Item id="43053" name="Επιλογή Όλων Ανάμεσα Σε Αγκύλες Που Ταιριάζουν"/>
 					<Item id="43054" name="Μαρκάρισμα..."/>
-					<Item id="43055" name="1st Style"/>
-					<Item id="43056" name="2nd Style"/>
-					<Item id="43057" name="3rd Style"/>
-					<Item id="43058" name="4th Style"/>
-					<Item id="43059" name="5th Style"/>
-					<Item id="43060" name="All Styles"/>
-					<Item id="43061" name="Find Style (Marked)"/>
-					<Item id="43062" name="Using 1st Style"/>
-					<Item id="43063" name="Using 2nd Style"/>
-					<Item id="43064" name="Using 3rd Style"/>
-					<Item id="43065" name="Using 4th Style"/>
-					<Item id="43066" name="Using 5th Style"/>
+					<Item id="43055" name="1ο Στυλ"/>
+					<Item id="43056" name="2ο Στυλ"/>
+					<Item id="43057" name="3ο Στυλ"/>
+					<Item id="43058" name="4ο Στυλ"/>
+					<Item id="43059" name="5ο Στυλ"/>
+					<Item id="43060" name="Όλα τα Στυλ"/>
+					<Item id="43061" name="Εύρεση Στυλ (επισημασμένο)"/>
+					<Item id="43062" name="Χρήση 1ου Στυλ"/>
+					<Item id="43063" name="Χρήση 2ου Στυλ"/>
+					<Item id="43064" name="Χρήση 3ου Στυλ"/>
+					<Item id="43065" name="Χρήση 4ου Στυλ"/>
+					<Item id="43066" name="Χρήση 5ου Στυλ"/>
 					<Item id="44009" name="Δημοσίευση"/>
 					<Item id="44010" name="Σύμπτυξη όλων"/>
 					<Item id="44011" name="Ορισμός Διαλόγου Χρήστη"/>
@@ -273,9 +273,9 @@
 					<Item id="44049" name="Σύνοψη Αρχείου"/>
 					<Item id="44072" name="Εστίαση σε άλλη επισκόπηση"/>
 					<Item id="44080" name="Χάρτης εγγράφου"/>
-					<Item id="44081" name="Project Panel 1"/>
-					<Item id="44082" name="Project Panel 2"/>
-					<Item id="44083" name="Project Panel 3"/>
+					<Item id="44081" name="Πίνακας έργου 1"/>
+					<Item id="44082" name="Πίνακας έργου 2"/>
+					<Item id="44083" name="Πίνακας έργου 3"/>
 					<Item id="44084" name="Λίστα λειτουργιών"/>
 					<Item id="44085" name="Φάκελος ως χώρος εργασίας"/>
 					<Item id="44086" name="1st Tab"/>
@@ -287,11 +287,11 @@
 					<Item id="44092" name="7th Tab"/>
 					<Item id="44093" name="8th Tab"/>
 					<Item id="44094" name="9th Tab"/>
-					<Item id="44095" name="Next Tab"/>
-					<Item id="44096" name="Previous Tab"/>
+					<Item id="44095" name="Επόμενο καρτέλα"/>
+					<Item id="44096" name="Προηγούμενη καρτέλα"/>
 					<Item id="44097" name="Παρακολούθηση (ουρά -f)"/>
-					<Item id="44098" name="Move Tab Forward"/>
-					<Item id="44099" name="Move Tab Backward"/>
+					<Item id="44098" name="Μετακίνηση Καρτέλας Εμπρός"/>
+					<Item id="44099" name="Μετακίνηση Καρτέλας Πίσω"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
@@ -339,16 +339,16 @@
 					<Item id="48501" name="Δημιουργία..."/>
 					<Item id="48502" name="Δημιουργία από αρχεία..."/>
 
-					<Item id="48503" name="Generate from selection into clipboard"/>
-					<Item id="48504" name="Generate..."/>
-					<Item id="48505" name="Generate from files..."/>
-					<Item id="48506" name="Generate from selection into clipboard"/>
+					<Item id="48503" name="Δημιουργία από επιλογή στο πρόχειρο"/>
+					<Item id="48504" name="Δημιουργία..."/>
+					<Item id="48505" name="Δημιουργία από αρχεία..."/>
+					<Item id="48506" name="Δημιουργία από επιλογή στο πρόχειρο"/>
 					<Item id="49000" name="&amp;Εκτέλεση..."/>
 					<Item id="50000" name="Ολοκλήρωση λειτουργίας"/>
 					<Item id="50001" name="Ολοκλήρωση σύνταξης"/>
 					<Item id="50002" name="Υπόδειξη παραμέτρων λειτουργίας"/>
-					<Item id="50005" name="Toggle macro record"/>
-					<Item id="50006" name="Path Completion"/>
+					<Item id="50005" name="Εναλλαγή εγγραφής μακροεντολής"/>
+					<Item id="50006" name="Διαδρομή Ολοκλήρωσης"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -413,10 +413,10 @@
 				<Item id="1659" name="Σε κρυφούς φακέλους"/>
 				<Item id="1660" name="Αντικατάσταση σε αρχεία"/>
 				<Item id="1661" name="Και στο τρέχον doc."/>
-				<Item id="1662" name="Project Panel 1"/>
-				<Item id="1663" name="Project Panel 2"/>
-				<Item id="1664" name="Project Panel 3"/>
-				<Item id="1665" name="Replace in Projects"/>
+				<Item id="1662" name="Πίνακας έργου 1"/>
+				<Item id="1663" name="Πίνακας έργου 2"/>
+				<Item id="1664" name="Πίνακας έργου 3"/>
+				<Item id="1665" name="Αντικατάσταση σε έργα"/>
 				<Item id="1686" name="Διαφάνεια"/>
 				<Item id="1687" name="Στην εστίαση"/>
 				<Item id="1688" name="Πάντα"/>
@@ -428,7 +428,7 @@
 
 			<FindCharsInRange title="Εύρεση χαρακτήρων στην περιοχή...">
 				<Item id="2" name="Κλείσιμο"/>
-				<Item id="2901" name="Non-ASCII Χαρακτήρες (128-255)"/>
+				<Item id="2901" name="Μη-ASCII Χαρακτήρες (128-255)"/>
 				<Item id="2902" name="ASCII Χαρακτήρες (0-127)"/>
 				<Item id="2903" name="Η περιοχή μου:"/>
 				<Item id="2906" name="&amp;Επάνω"/>
@@ -467,27 +467,27 @@
 				<Item id="2" name="Κλείσιμο"/>
 			</MD5FromTextDlg>
             
-			<SHA256FromFilesDlg title="Generate SHA-256 digest from files">
-				<Item id="1922" name="Choose files to generate SHA-256..."/>
-				<Item id="1924" name="Copy to Clipboard"/>
-				<Item id="2" name="Close"/>
+			<SHA256FromFilesDlg title="Δημιουργία σύνοψης SHA-256 από αρχεία">
+				<Item id="1922" name="Επιλέξτε αρχεία προς δημιουργία SHA-256..."/>
+				<Item id="1924" name="Αντιγραφή στο Πρόχειρο"/>
+				<Item id="2" name="Κλείσιμο"/>
 			</SHA256FromFilesDlg>
 
-			<SHA256FromTextDlg title="Generate SHA-256 digest">
-				<Item id="1932" name="Treat each line as a separate string"/>
-				<Item id="1934" name="Copy to Clipboard"/>
-				<Item id="2" name="Close"/>
+			<SHA256FromTextDlg title="Δημιουργία σύνοψης SHA-256">
+				<Item id="1932" name="Χειρισμός κάθε γραμμής ως ξεχωριστής συμβολοσειράς"/>
+				<Item id="1934" name="Αντιγραφή στο Πρόχειρο"/>
+				<Item id="2" name="Κλείσιμο"/>
 			</SHA256FromTextDlg>
             
-			<PluginsAdminDlg title="Plugins Admin" titleAvailable="Available" titleUpdates="Updates" titleInstalled="Installed">
-				<ColumnPlugin name="Plugin"/>
-				<ColumnVersion name="Version"/>
-				<Item id="5501" name="Search:"/>
-				<Item id="5503" name="Install"/>
-				<Item id="5504" name="Update"/>
-				<Item id="5505" name="Remove"/>
-				<Item id="5508" name="Next"/>
-				<Item id="2" name="Close"/>
+			<PluginsAdminDlg title="Διαχείριση προσθέτων" titleAvailable="Διαθέσιμα" titleUpdates="Ενημερώσεις" titleInstalled="Εγκατεστημένα">
+				<ColumnPlugin name="Πρόσθετο"/>
+				<ColumnVersion name="Έκδοση"/>
+				<Item id="5501" name="Αναζήτηση:"/>
+				<Item id="5503" name="Εγκατάσταση"/>
+				<Item id="5504" name="Ενημέρωση"/>
+				<Item id="5505" name="Αφαίρεση"/>
+				<Item id="5508" name="Επόμενο"/>
+				<Item id="2" name="Κλείσιμο"/>
 			</PluginsAdminDlg>
 
 			<StyleConfig title="Διαμορφωτής Στυλ">
@@ -534,97 +534,97 @@
 				<MainMenuTab name="Κύριο μενού"/>
 				<MacrosTab name="Macros"/>
 				<RunCommandsTab name="Run commands"/>
-				<PluginCommandsTab name="Plugin commands"/>
-				<ScintillaCommandsTab name="Scintilla commands"/>
-				<ConflictInfoOk name="No shortcut conflicts for this item."/>
-				<ConflictInfoEditing name="No conflicts . . ."/>
+				<PluginCommandsTab name="Εντολές προσθέτου"/>
+				<ScintillaCommandsTab name="Scintilla Εντολές"/>
+				<ConflictInfoOk name="Δεν υπάρχουν διενέξεις συντομεύσεων για αυτό το στοιχείο."/>
+				<ConflictInfoEditing name="Δεν υπάρχουν διενέξεις . . ."/>
 				<MainCommandNames>
-					<Item id="41019" name="Open containing folder in Explorer"/>
-					<Item id="41020" name="Open containing folder in Command Prompt"/>
-					<Item id="41021" name="Restore Recent Closed File"/>
-					<Item id="45001" name="EOL Conversion to Windows (CR LF)"/>
-					<Item id="45002" name="EOL Conversion to Unix (LF)"/>
-					<Item id="45003" name="EOL Conversion to Macintosh (CR)"/>
-					<Item id="43022" name="Mark all using 1st style"/>
-					<Item id="43024" name="Mark all using 2nd style"/>
-					<Item id="43026" name="Mark all using 3rd style"/>
-					<Item id="43028" name="Mark all using 4th style"/>
-					<Item id="43030" name="Mark all using 5th style"/>
-					<Item id="43062" name="Mark one using 1st style"/>
-					<Item id="43063" name="Mark one using 2nd style"/>
-					<Item id="43064" name="Mark one using 3rd style"/>
-					<Item id="43065" name="Mark one using 4th style"/>
-					<Item id="43066" name="Mark one using 5th style"/>
-					<Item id="43023" name="Clear marks using 1st style"/>
-					<Item id="43025" name="Clear marks using 2nd style"/>
-					<Item id="43027" name="Clear marks using 3rd style"/>
-					<Item id="43029" name="Clear marks using 4th style"/>
-					<Item id="43031" name="Clear marks using 5th style"/>
-					<Item id="43032" name="Clear marks using any style"/>
-					<Item id="43033" name="Previous mark using 1st style"/>
-					<Item id="43034" name="Previous mark using 2nd style"/>
-					<Item id="43035" name="Previous mark using 3rd style"/>
-					<Item id="43036" name="Previous mark using 4th style"/>
-					<Item id="43037" name="Previous mark using 5th style"/>
-					<Item id="43038" name="Previous mark created with Mark"/>
-					<Item id="43039" name="Next mark using 1st style"/>
-					<Item id="43040" name="Next mark using 2nd style"/>
-					<Item id="43041" name="Next mark using 3rd style"/>
-					<Item id="43042" name="Next mark using 4th style"/>
-					<Item id="43043" name="Next mark using 5th style"/>
-					<Item id="43044" name="Next mark created with Mark"/>
-					<Item id="43055" name="Copy Styled Text - 1st Style"/>
-					<Item id="43056" name="Copy Styled Text - 2nd Style"/>
-					<Item id="43057" name="Copy Styled Text - 3rd Style"/>
-					<Item id="43058" name="Copy Styled Text - 4th Style"/>
-					<Item id="43059" name="Copy Styled Text - 5th Style"/>
-					<Item id="43060" name="Copy Styled Text - All Styles"/>
-					<Item id="43061" name="Copy Styled Text - Find Style (Marked)"/>
-					<Item id="44100" name="View current file in Firefox"/>
-					<Item id="44101" name="View current file in Chrome"/>
-					<Item id="44103" name="View current file in IE"/>
-					<Item id="44102" name="View current file in Edge"/>
-					<Item id="50003" name="Switch to previous document"/>
-					<Item id="50004" name="Switch to next document"/>
-					<Item id="44051" name="Collapse Level 1"/>
-					<Item id="44052" name="Collapse Level 2"/>
-					<Item id="44053" name="Collapse Level 3"/>
-					<Item id="44054" name="Collapse Level 4"/>
-					<Item id="44055" name="Collapse Level 5"/>
-					<Item id="44056" name="Collapse Level 6"/>
-					<Item id="44057" name="Collapse Level 7"/>
-					<Item id="44058" name="Collapse Level 8"/>
-					<Item id="44061" name="Uncollapse Level 1"/>
-					<Item id="44062" name="Uncollapse Level 2"/>
-					<Item id="44063" name="Uncollapse Level 3"/>
-					<Item id="44064" name="Uncollapse Level 4"/>
-					<Item id="44065" name="Uncollapse Level 5"/>
-					<Item id="44066" name="Uncollapse Level 6"/>
-					<Item id="44067" name="Uncollapse Level 7"/>
-					<Item id="44068" name="Uncollapse Level 8"/>
-					<Item id="44081" name="Toggle Project Panel 1"/>
-					<Item id="44082" name="Toggle Project Panel 2"/>
-					<Item id="44083" name="Toggle Project Panel 3"/>
-					<Item id="44085" name="Toggle Folder as Workspace"/>
-					<Item id="44080" name="Toggle Document Map"/>
-					<Item id="44084" name="Toggle Function List"/>
-					<Item id="50005" name="Toggle macro recording"/>
-					<Item id="44104" name="Switch to Project Panel 1"/>
-					<Item id="44105" name="Switch to Project Panel 2"/>
-					<Item id="44106" name="Switch to Project Panel 3"/>
-					<Item id="44107" name="Switch to Folder as Workspace"/>
-					<Item id="44108" name="Switch to Function List"/>
+					<Item id="41019" name="Άνοιγμα φακέλου που περιέχει το αρχείο στον Explorer"/>
+					<Item id="41020" name="Ανοίξτε το φάκελο που περιέχει στη γραμμή εντολών"/>
+					<Item id="41021" name="Επαναφορά πρόσφατου κλειστού αρχείου"/>
+					<Item id="45001" name="EOL Μετατροπή σε Windows (CR LF)"/>
+					<Item id="45002" name="EOL Μετατροπή σε Unix (LF)"/>
+					<Item id="45003" name="EOL Μετατροπή σε Macintosh (CR)"/>
+					<Item id="43022" name="Σημειώστε όλα με το 1ο στυλ"/>
+					<Item id="43024" name="Σημειώστε όλα με το 2ο στυλ"/>
+					<Item id="43026" name="Σημειώστε όλα με το 3ο στυλ"/>
+					<Item id="43028" name="Σημειώστε όλα με το 4ο στυλ"/>
+					<Item id="43030" name="Σημειώστε όλα με το 5ο στυλ"/>
+					<Item id="43062" name="Σημειώστε ένα με το 1ο στυλ"/>
+					<Item id="43063" name="Σημειώστε ένα με το 2ο στυλ"/>
+					<Item id="43064" name="Σημειώστε ένα με το 3ο στυλ"/>
+					<Item id="43065" name="Σημειώστε ένα με το 4ο στυλ"/>
+					<Item id="43066" name="Σημειώστε ένα με το 5ο στυλ"/>
+					<Item id="43023" name="Απαλοιφή σημαδιών με χρήση 1ου στυλ"/>
+					<Item id="43025" name="Απαλοιφή σημαδιών με χρήση 2ου στυλ"/>
+					<Item id="43027" name="Απαλοιφή σημαδιών με χρήση 3ου στυλ"/>
+					<Item id="43029" name="Απαλοιφή σημαδιών με χρήση 4ου στυλ"/>
+					<Item id="43031" name="Απαλοιφή σημαδιών με χρήση 5ου στυλ"/>
+					<Item id="43032" name="Απαλοιφή σημαδιών με χρήση οποιουδήποτε στυλ"/>
+					<Item id="43033" name="Προηγούμενο σημάδι με χρήση 1ου στυλ"/>
+					<Item id="43034" name="Προηγούμενο σημάδι με χρήση 2ου στυλ"/>
+					<Item id="43035" name="Προηγούμενο σημάδι με χρήση 3ου στυλ"/>
+					<Item id="43036" name="Προηγούμενο σημάδι με χρήση 4ου στυλ"/>
+					<Item id="43037" name="Προηγούμενο σημάδι με χρήση 5ου στυλ"/>
+					<Item id="43038" name="Το προηγούμενο σημάδι δημιουργήθηκε με Σημάδι"/>
+					<Item id="43039" name="Επόμενο σημάδι με χρήση του 1ου στιλ"/>
+					<Item id="43040" name="Επόμενο σημάδι με χρήση του 2ου στιλ"/>
+					<Item id="43041" name="Επόμενο σημάδι με χρήση του 3ου στιλ"/>
+					<Item id="43042" name="Επόμενο σημάδι με χρήση του 4ου στιλ"/>
+					<Item id="43043" name="Επόμενο σημάδι με χρήση του 5ου στιλ"/>
+					<Item id="43044" name="Το επόμενο σημάδι δημιουργήθηκε με Σημάδι"/>
+					<Item id="43055" name="Αντιγρ. στυλιζαρ/νου κειμένου - 1ο στυλ"/>
+					<Item id="43056" name="Αντιγρ. στυλιζαρ/νου κειμένου - 2ο στυλ"/>
+					<Item id="43057" name="Αντιγρ. στυλιζαρ/νου κειμένου - 3ο στυλ"/>
+					<Item id="43058" name="Αντιγρ. στυλιζαρ/νου κειμένου - 4ο στυλ"/>
+					<Item id="43059" name="Αντιγρ. στυλιζαρ/νου κειμένου - 5ο στυλ"/>
+					<Item id="43060" name="Αντιγρ. στυλιζαρ/νου κειμένου - Όλα τα στυλ"/>
+					<Item id="43061" name="Αντιγρ. στυλιζαρ/νου κειμένου - Εύρεση στυλ (επισημασμένο)"/>
+					<Item id="44100" name="Προβολή τρέχοντος αρχείου στο Firefox"/>
+					<Item id="44101" name="Προβολή τρέχοντος αρχείου στο Chrome"/>
+					<Item id="44103" name="Προβολή τρέχοντος αρχείου στο IE"/>
+					<Item id="44102" name="Προβολή τρέχοντος αρχείου στο Edge"/>
+					<Item id="50003" name="Μετάβαση στο προηγούμενο έγγραφο"/>
+					<Item id="50004" name="Μετάβαση στο επόμενο έγγραφο"/>
+					<Item id="44051" name="Σύμπτυξη επιπέδου 1"/>
+					<Item id="44052" name="Σύμπτυξη επιπέδου 2"/>
+					<Item id="44053" name="Σύμπτυξη επιπέδου 3"/>
+					<Item id="44054" name="Σύμπτυξη επιπέδου 4"/>
+					<Item id="44055" name="Σύμπτυξη επιπέδου 5"/>
+					<Item id="44056" name="Σύμπτυξη επιπέδου 6"/>
+					<Item id="44057" name="Σύμπτυξη επιπέδου 7"/>
+					<Item id="44058" name="Σύμπτυξη επιπέδου 8"/>
+					<Item id="44061" name="Αναίρ. Σύμπτυξης επιπέδου 1"/>
+					<Item id="44062" name="Αναίρ. Σύμπτυξης επιπέδου 2"/>
+					<Item id="44063" name="Αναίρ. Σύμπτυξης επιπέδου 3"/>
+					<Item id="44064" name="Αναίρ. Σύμπτυξης επιπέδου 4"/>
+					<Item id="44065" name="Αναίρ. Σύμπτυξης επιπέδου 5"/>
+					<Item id="44066" name="Αναίρ. Σύμπτυξης επιπέδου 6"/>
+					<Item id="44067" name="Αναίρ. Σύμπτυξης επιπέδου 7"/>
+					<Item id="44068" name="Αναίρ. Σύμπτυξης επιπέδου 8"/>
+					<Item id="44081" name="Εναλλαγή πίνακα έργου 1"/>
+					<Item id="44082" name="Εναλλαγή πίνακα έργου 2"/>
+					<Item id="44083" name="Εναλλαγή πίνακα έργου 3"/>
+					<Item id="44085" name="Εναλλαγή φακέλου ως χώρο εργασίας"/>
+					<Item id="44080" name="Εναλλαγή χάρτη εγγράφων"/>
+					<Item id="44084" name="Εναλλαγή λίστας λειτουργιών"/>
+					<Item id="50005" name="Εναλλαγή εγγραφής μακροεντολών"/>
+					<Item id="44104" name="Εναλλαγή στον Πίνακα Έργου 1"/>
+					<Item id="44105" name="Εναλλαγή στον Πίνακα Έργου 2"/>
+					<Item id="44106" name="Εναλλαγή στον Πίνακα Έργου 3"/>
+					<Item id="44107" name="Εναλλαγή σε φάκελο ως χώρο εργασίας"/>
+					<Item id="44108" name="Εναλλαγή στη λίστα λειτουργιών"/>
 				</MainCommandNames>
 			</ShortcutMapper>
-			<ShortcutMapperSubDialg title="Shortcut">
+			<ShortcutMapperSubDialg title="Συντόμευση">
 				<Item id="1" name="OK"/>
-				<Item id="2" name="Cancel"/>
-				<Item id="5006" name="Name"/>
-				<Item id="5008" name="Add"/>
-				<Item id="5009" name="Remove"/>
-				<Item id="5010" name="Apply"/>
-				<Item id="5007" name="This will remove shortcut from this command"/>
-				<Item id="5012" name="CONFLICT FOUND!"/>
+				<Item id="2" name="Ακύρωση"/>
+				<Item id="5006" name="Όνομα"/>
+				<Item id="5008" name="Προσθήκη"/>
+				<Item id="5009" name="Αφαίρεση"/>
+				<Item id="5010" name="Εφαρμογή"/>
+				<Item id="5007" name="Αυτό θα καταργήσει τη συντόμευση από αυτήν την εντολή"/>
+				<Item id="5012" name="ΒΡΕΘΗΚΕ ΔΙΕΝΕΞΗ!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Καθορισμός Χρήστη">
 				<Item id="20001" name="Dock"/>
@@ -638,39 +638,39 @@
 				<Item id="20012" name="Παράβλεψη πεζών"/>
 				<Item id="20015" name="Εισαγωγή..."/>
 				<Item id="20016" name="Εξαγωγή..."/>
-				<StylerDialog title="Styler Dialog">
-					<Item id="25030" name="Font options:"/>
-					<Item id="25006" name="Foreground colour"/>
-					<Item id="25007" name="Background colour"/>
-					<Item id="25031" name="Name:"/>
-					<Item id="25032" name="Size:"/>
-					<Item id="25001" name="Bold"/>
+				<StylerDialog title="Διάλογος Στυλίστα">
+					<Item id="25030" name="Επιλογές γραμματοσειράς:"/>
+					<Item id="25006" name="Χρώμα προσκηνίου"/>
+					<Item id="25007" name="Χρώμα παρασκηνίου"/>
+					<Item id="25031" name="Όνομα:"/>
+					<Item id="25032" name="Μέγεθος:"/>
+					<Item id="25001" name="Έντονη"/>
 					<Item id="25002" name="Italic"/>
-					<Item id="25003" name="Underline"/>
-					<Item id="25029" name="Nesting:"/>
-					<Item id="25008" name="Delimiter 1"/>
-					<Item id="25009" name="Delimiter 2"/>
-					<Item id="25010" name="Delimiter 3"/>
-					<Item id="25011" name="Delimiter 4"/>
-					<Item id="25012" name="Delimiter 5"/>
-					<Item id="25013" name="Delimiter 6"/>
-					<Item id="25014" name="Delimiter 7"/>
-					<Item id="25015" name="Delimiter 8"/>
-					<Item id="25018" name="Keyword 1"/>
-					<Item id="25019" name="Keyword 2"/>
-					<Item id="25020" name="Keyword 3"/>
-					<Item id="25021" name="Keyword 4"/>
-					<Item id="25022" name="Keyword 5"/>
-					<Item id="25023" name="Keyword 6"/>
-					<Item id="25024" name="Keyword 7"/>
-					<Item id="25025" name="Keyword 8"/>
-					<Item id="25016" name="Comment"/>
-					<Item id="25017" name="Comment line"/>
-					<Item id="25026" name="Operator 1"/>
-					<Item id="25027" name="Operator 2"/>
-					<Item id="25028" name="Numbers"/>
+					<Item id="25003" name="Υπογράμμιση"/>
+					<Item id="25029" name="Ένθεση:"/>
+					<Item id="25008" name="Οριοθέτης 1"/>
+					<Item id="25009" name="Οριοθέτης 2"/>
+					<Item id="25010" name="Οριοθέτης 3"/>
+					<Item id="25011" name="Οριοθέτης 4"/>
+					<Item id="25012" name="Οριοθέτης 5"/>
+					<Item id="25013" name="Οριοθέτης 6"/>
+					<Item id="25014" name="Οριοθέτης 7"/>
+					<Item id="25015" name="Οριοθέτης 8"/>
+					<Item id="25018" name="Λέξη-κλειδί 1"/>
+					<Item id="25019" name="Λέξη-κλειδί 2"/>
+					<Item id="25020" name="Λέξη-κλειδί 3"/>
+					<Item id="25021" name="Λέξη-κλειδί 4"/>
+					<Item id="25022" name="Λέξη-κλειδί 5"/>
+					<Item id="25023" name="Λέξη-κλειδί 6"/>
+					<Item id="25024" name="Λέξη-κλειδί 7"/>
+					<Item id="25025" name="Λέξη-κλειδί 8"/>
+					<Item id="25016" name="Σχόλιο"/>
+					<Item id="25017" name="Γραμμή σχολίου"/>
+					<Item id="25026" name="Χειριστής 1"/>
+					<Item id="25027" name="Χειριστής 2"/>
+					<Item id="25028" name="Αριθμοί"/>
 					<Item id="1" name="OK"/>
-					<Item id="2" name="Cancel"/>
+					<Item id="2" name="Ακύρωση"/>
 				</StylerDialog>
 				<Folder title="Φάκελος &amp;&amp; Προεπιλογή">
 					<Item id="21101" name="Στυλ Προεπιλογής"/>
@@ -699,101 +699,101 @@
 					<Item id="22201" name="2η Ομάδα"/>
 					<Item id="22301" name="3η Ομάδα"/>
 					<Item id="22401" name="4η Ομάδα"/>
-					<Item id="22451" name="5th Group"/>
-					<Item id="22501" name="6th Group"/>
-					<Item id="22551" name="7th Group"/>
-					<Item id="22601" name="8th Group"/>
-					<Item id="22121" name="Prefix mode"/>
-					<Item id="22221" name="Prefix mode"/>
-					<Item id="22321" name="Prefix mode"/>
-					<Item id="22421" name="Prefix mode"/>
-					<Item id="22471" name="Prefix mode"/>
-					<Item id="22521" name="Prefix mode"/>
-					<Item id="22571" name="Prefix mode"/>
-					<Item id="22621" name="Prefix mode"/>
-					<Item id="22122" name="Styler"/>
-					<Item id="22222" name="Styler"/>
-					<Item id="22322" name="Styler"/>
-					<Item id="22422" name="Styler"/>
-					<Item id="22472" name="Styler"/>
-					<Item id="22522" name="Styler"/>
-					<Item id="22572" name="Styler"/>
-					<Item id="22622" name="Styler"/>
+					<Item id="22451" name="5η Ομάδα"/>
+					<Item id="22501" name="6η Ομάδα"/>
+					<Item id="22551" name="7η Ομάδα"/>
+					<Item id="22601" name="8η Ομάδα"/>
+					<Item id="22121" name="Λειτουργία προθέματος"/>
+					<Item id="22221" name="Λειτουργία προθέματος"/>
+					<Item id="22321" name="Λειτουργία προθέματος"/>
+					<Item id="22421" name="Λειτουργία προθέματος"/>
+					<Item id="22471" name="Λειτουργία προθέματος"/>
+					<Item id="22521" name="Λειτουργία προθέματος"/>
+					<Item id="22571" name="Λειτουργία προθέματος"/>
+					<Item id="22621" name="Λειτουργία προθέματος"/>
+					<Item id="22122" name="Στυλίστας"/>
+					<Item id="22222" name="Στυλίστας"/>
+					<Item id="22322" name="Στυλίστας"/>
+					<Item id="22422" name="Στυλίστας"/>
+					<Item id="22472" name="Στυλίστας"/>
+					<Item id="22522" name="Στυλίστας"/>
+					<Item id="22572" name="Στυλίστας"/>
+					<Item id="22622" name="Στυλίστας"/>
 				</Keywords>
 				<Comment title="Αριθμός &amp;&amp; Σχόλιο">
-					<Item id="23001" name="Allow folding of comments"/>
-					<Item id="23003" name="Line comment position"/>
-					<Item id="23004" name="Allow anywhere"/>
-					<Item id="23005" name="Force at beginning of line"/>
-					<Item id="23006" name="Allow preceding whitespace"/>
+					<Item id="23001" name="Αποδοχή αναδίπλωσης των σχολίων"/>
+					<Item id="23003" name="Θέση σχολίου γραμμής"/>
+					<Item id="23004" name="Επιτρέψτε οπουδήποτε"/>
+					<Item id="23005" name="Εξαναγκασμός στην αρχή της γραμμής"/>
+					<Item id="23006" name="Επιτρέψτε το προηγούμενο λευκό διάστημα"/>
 					<Item id="23101" name="Παράγραφος Σχολίου"/>
-					<Item id="23122" name="Open"/>
-					<Item id="23123" name="Close"/>
-					<Item id="23124" name="Styler"/>
+					<Item id="23122" name="Άνοιγμα"/>
+					<Item id="23123" name="Κλείσιμο"/>
+					<Item id="23124" name="Στυλίστας"/>
 					<Item id="23201" name="Αριθμός"/>
-					<Item id="23220" name="Styler"/>
-					<Item id="23230" name="Prefix 1"/>
-					<Item id="23232" name="Prefix 2"/>
-					<Item id="23234" name="Extras 1"/>
-					<Item id="23236" name="Extras 2"/>
-					<Item id="23238" name="Suffix 1"/>
-					<Item id="23240" name="Suffix 2"/>
-					<Item id="23242" name="Range:"/>
-					<Item id="23244" name="Decimal separator"/>
-					<Item id="23245" name="Dot"/>
-					<Item id="23246" name="Comma"/>
-					<Item id="23247" name="Both"/>
+					<Item id="23220" name="Στυλίστας"/>
+					<Item id="23230" name="Στυλίστας 1"/>
+					<Item id="23232" name="Στυλίστας 2"/>
+					<Item id="23234" name="Πρόσθετα 1"/>
+					<Item id="23236" name="Πρόσθετα 2"/>
+					<Item id="23238" name="Κατάληξη 1"/>
+					<Item id="23240" name="Κατάληξη 2"/>
+					<Item id="23242" name="Εύρος:"/>
+					<Item id="23244" name="Δεκαδικός διαχωριστής"/>
+					<Item id="23245" name="Τελεία"/>
+					<Item id="23246" name="Κόμμα"/>
+					<Item id="23247" name="Και τα δύο"/>
 					<Item id="23301" name="Γραμμή Σχολίου"/>
-					<Item id="23323" name="Open"/>
-					<Item id="23324" name="Continue character"/>
-					<Item id="23325" name="Close"/>
-					<Item id="23326" name="Styler"/>
+					<Item id="23323" name="Άνοιγμα"/>
+					<Item id="23324" name="Συνέχιση χαρακτήρα"/>
+					<Item id="23325" name="Κλείσιμο"/>
+					<Item id="23326" name="Στυλίστας"/>
 				</Comment>
 				<Operator title="Χειριστές Οριοθέτη">
 					<Item id="24101" name="Στύλ Χειριστές"/>
-					<Item id="24113" name="Styler"/>
-					<Item id="24116" name="Operators 1"/>
-					<Item id="24117" name="Operators 2 (separators required)"/>
-					<Item id="24201" name="Delimiter 1 style"/>
-					<Item id="24220" name="Open:"/>
-					<Item id="24221" name="Escape:"/>
-					<Item id="24222" name="Close:"/>
-					<Item id="24223" name="Styler"/>
-					<Item id="24301" name="Delimiter 2 style"/>
-					<Item id="24320" name="Open:"/>
-					<Item id="24321" name="Escape:"/>
-					<Item id="24322" name="Close:"/>
-					<Item id="24323" name="Styler"/>
-					<Item id="24401" name="Delimiter 3 style"/>
-					<Item id="24420" name="Open:"/>
-					<Item id="24421" name="Escape:"/>
-					<Item id="24422" name="Close:"/>
-					<Item id="24423" name="Styler"/>
-					<Item id="24451" name="Delimiter 4 style"/>
-					<Item id="24470" name="Open:"/>
-					<Item id="24471" name="Escape:"/>
-					<Item id="24472" name="Close:"/>
+					<Item id="24113" name="Στυλίστας"/>
+					<Item id="24116" name="Χειριστές 1"/>
+					<Item id="24117" name="Χειριστές 2 (απαιτούμενοι διαχωριστές)"/>
+					<Item id="24201" name="Διαχωριστής 1 στυλ"/>
+					<Item id="24220" name="Άνοιγμα:"/>
+					<Item id="24221" name="Διαφυγή:"/>
+					<Item id="24222" name="Κλείσιμο:"/>
+					<Item id="24223" name="Στυλίστας"/>
+					<Item id="24301" name="Διαχωριστής 2 στυλ"/>
+					<Item id="24320" name="Άνοιγμα:"/>
+					<Item id="24321" name="Διαφυγή:"/>
+					<Item id="24322" name="Κλείσιμο:"/>
+					<Item id="24323" name="Στυλίστας"/>
+					<Item id="24401" name="Διαχωριστής 3 στυλ"/>
+					<Item id="24420" name="Άνοιγμα:"/>
+					<Item id="24421" name="Διαφυγή:"/>
+					<Item id="24422" name="Κλείσιμο:"/>
+					<Item id="24423" name="Στυλίστας"/>
+					<Item id="24451" name="Διαχωριστής 4 στυλ"/>
+					<Item id="24470" name="Άνοιγμα:"/>
+					<Item id="24471" name="Διαφυγή:"/>
+					<Item id="24472" name="Κλείσιμο:"/>
 					<Item id="24473" name="Styler"/>
-					<Item id="24501" name="Delimiter 5 style"/>
-					<Item id="24520" name="Open:"/>
-					<Item id="24521" name="Escape:"/>
-					<Item id="24522" name="Close:"/>
-					<Item id="24523" name="Styler"/>
-					<Item id="24551" name="Delimiter 6 style"/>
-					<Item id="24570" name="Open:"/>
-					<Item id="24571" name="Escape:"/>
-					<Item id="24572" name="Close:"/>
+					<Item id="24501" name="Διαχωριστής 5 στυλ"/>
+					<Item id="24520" name="Άνοιγμα:"/>
+					<Item id="24521" name="Διαφυγή:"/>
+					<Item id="24522" name="Κλείσιμο:"/>
+					<Item id="24523" name="Στυλίστας"/>
+					<Item id="24551" name="Διαχωριστής 6 στυλ"/>
+					<Item id="24570" name="Άνοιγμα:"/>
+					<Item id="24571" name="Διαφυγή:"/>
+					<Item id="24572" name="Κλείσιμο:"/>
 					<Item id="24573" name="Styler"/>
-					<Item id="24601" name="Delimiter 7 style"/>
-					<Item id="24620" name="Open:"/>
-					<Item id="24621" name="Escape:"/>
-					<Item id="24622" name="Close:"/>
-					<Item id="24623" name="Styler"/>
-					<Item id="24651" name="Delimiter 8 style"/>
-					<Item id="24670" name="Open:"/>
-					<Item id="24671" name="Escape:"/>
-					<Item id="24672" name="Close:"/>
-					<Item id="24673" name="Styler"/>
+					<Item id="24601" name="Διαχωριστής 7 στυλ"/>
+					<Item id="24620" name="Άνοιγμα:"/>
+					<Item id="24621" name="Διαφυγή:"/>
+					<Item id="24622" name="Κλείσιμο:"/>
+					<Item id="24623" name="Στυλίστας"/>
+					<Item id="24651" name="Διαχωριστής 8 στυλ"/>
+					<Item id="24670" name="Άνοιγμα:"/>
+					<Item id="24671" name="Διαφυγή:"/>
+					<Item id="24672" name="Κλείσιμο:"/>
+					<Item id="24673" name="Στυλίστας"/>
 				</Operator>
 			</UserDefine>
 			<Preference title="Προτιμήσεις">
@@ -826,9 +826,9 @@
 
 					<Item id="6127" name="Απενεργοποίηση επέκτασης στήλης"/>
 					<Item id="6128" name="Εναλλακτικά εικονίδια"/>
-					<Item id="6129" name="Filled Fluent UI: small"/>
+					<Item id="6129" name="Πλήρης Fluent UI: μικρό"/>
                     
-					<Item id="6130" name="Filled Fluent UI: large"/>
+					<Item id="6130" name="Πλήρης Fluent UI: μεγάλο"/>
 				</Global>
 				<Scintillas title="Επεξεργ. Τμημάτων">
 					<Item id="6214" name="Ενεργό σημάδι τρέχουσας γραμμής"/>
@@ -1085,7 +1085,7 @@
 					<Item id="6360" name="Σίγαση όλων των ήχων"/>
 				</MISC>
 			</Preference>
-			<MultiMacro title="Εκτέλεση Μακροεντολής Πολλές Φορές">
+			<MultiMacro title="Εκτέλεση Πολλαπλής Μακροεντολής">
 				<Item id="1" name="Εκτέλεση"/>
 				<Item id="2" name="Ακύρωση"/>
 				<Item id="8006" name="Μακροεντολή για εκτέλεση: "/>
@@ -1115,85 +1115,85 @@
 				<Item id="1" name="OK"/>
 				<Item id="2" name="Ακύρωση"/>
 			</ColumnEditor>
-			<FindInFinder title="Find in search results">
-				<Item id="1" name="Find All"/>
-				<Item id="2" name="Close"/>
-				<Item id="1711" name="&amp;Find what :"/>
-				<Item id="1713" name="Search only in found lines"/>
-				<Item id="1714" name="Match &amp;whole word only"/>
-				<Item id="1715" name="Match &amp;case"/>
-				<Item id="1716" name="Search Mode"/>
-				<Item id="1717" name="&amp;Normal"/>
-				<Item id="1719" name="Re&amp;gular expression"/>
-				<Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
-				<Item id="1720" name="&amp;. matches newline"/>
+			<FindInFinder title="Εύρεση στα αποτελέσματα αναζήτησης">
+				<Item id="1" name="Εύρεση όλων"/>
+				<Item id="2" name="Κλείσιμο"/>
+				<Item id="1711" name="&amp;Εύρεση του :"/>
+				<Item id="1713" name="Αναζήτηση μόνο στις γραμμές που βρέθηκαν"/>
+				<Item id="1714" name="Ταίριασμα &amp;μόνο με ολόκληρη λέξη"/>
+				<Item id="1715" name="Ταίριασμα &amp;περίπτωσης"/>
+				<Item id="1716" name="Λειτουργία Αναζήτησης"/>
+				<Item id="1717" name="&amp;Κανονική"/>
+				<Item id="1719" name="Κα&amp;νονική έκφραση"/>
+				<Item id="1718" name="Ε&amp;κτεταμένη (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. ταίριασμα νέα γραμμή"/>
 			</FindInFinder>
-			<DoSaveOrNot title="Save">
-				<Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
-				<Item id="6" name="&amp;Yes"/>
-				<Item id="7" name="&amp;No"/>
-				<Item id="2" name="&amp;Cancel"/>
-				<Item id="4" name="Yes to &amp;all"/>
-				<Item id="5" name="N&amp;o to all"/>
+			<DoSaveOrNot title="Αποθήκευση">
+				<Item id="1761" name="Αποθήκευση αρχείου &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="6" name="&amp;ΝΑΙ"/>
+				<Item id="7" name="&amp;ΟΧΙ"/>
+				<Item id="2" name="&amp;Ακύρωση"/>
+				<Item id="4" name="Ναι σε &amp;όλα"/>
+				<Item id="5" name="Ο&amp;χι σε όλα"/>
 			</DoSaveOrNot>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Επεξεργασία μενού περιβάλλοντος" message="Η Επεξεργασία contextMenu.xml σάς επιτρέπει να τροποποιήσετε το αναδυόμενο μενού περιβάλλοντος
 Πρέπει να επανεκκινήσετε το Notepad++ για να ισχύσει η τροποποίηση του contextMenu.xml."/>
-			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
-All the saved modifications can not be undone.
+			<SaveCurrentModifWarning title="Αποθήκευση τρέχουσας τροποποίησης" message="Θα πρέπει να αποθηκεύσετε την τρέχουσα τροποποίηση.
+Όλες οι αποθηκευμένες τροποποιήσεις δεν μπορούν να αναιρεθούν.
 
-Continue?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
-			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
-All the saved modifications can not be undone.
+Συνέχεια;"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
+			<LoseUndoAbilityWarning title="Προειδοποίηση απώλειας δυνατότητας αναίρεσης" message="Θα πρέπει να αποθηκεύσετε την τρέχουσα τροποποίηση.
+Όλες οι αποθηκευμένες τροποποιήσεις δεν μπορούν να αναιρεθούν.
 
-Continue?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
-			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
-			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
-			<RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="The specified name is already in use on another tab."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<DeleteFileFailed title="Delete File" message="Delete File failed"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Συνέχεια;"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
+			<CannotMoveDoc title="Μετακίνηση σε νέα περίπτωση Notepad++" message="Το έγγραφο έχει τροποποιηθεί, αποθηκεύστε το και δοκιμάστε ξανά."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+			<DocReloadWarning title="Επαναφόρτωση" message="Είστε σίγουροι ότι θέλετε να επαναφορτώσετε το τρέχον αρχείο και να χάσετε τις αλλαγές που έγιναν στο Notepad++?"/>
+			<FileLockedWarning title="Αποτυχία αποθήκευσης" message="Ελέγξτε εάν αυτό το αρχείο ανοίγει σε άλλο πρόγραμμα"/>
+			<FileAlreadyOpenedInNpp title="" message="Το αρχείο είναι ήδη ανοιχτό στο Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Η μετονομασία απέτυχε" message="Το καθορισμένο όνομα χρησιμοποιείται ήδη σε άλλη καρτέλα."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<DeleteFileFailed title="Διαγραφή αρχείου" message="Αποτυχία διαγραφής αρχείου"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
-			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
-Are you sure you want to open them?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
-or on a folder needed privilege right for writing access.
-Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
-			<DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
-you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
-			<SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
-			<BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
-Keep this file in editor?"/>
-			<DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
-will be moved to your Recycle Bin and this document will be closed.
-Continue?"/>
-			<NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
-Save it otherwise your data will be lost
-Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
-			<DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
+			<NbFileToOpenImportantWarning title="Ο αριθμός των αρχείων προς άνοιγμα είναι πολύ μεγάλος" message="$INT_REPLACE$ αρχεία πρόκειται να ανοίξουν.
+Είστε σίγουροι ότι θέλετε να τα ανοίξετε;"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
+			<SettingsOnCloudError title="Ρυθμίσεις στο Cloud" message="Φαίνεται ότι η διαδρομή των ρυθμίσεων στο cloud έχει οριστεί σε μια μονάδα δίσκου μόνο για ανάγνωση,
+ή σε έναν φάκελο που χρειάζεται δικαίωμα προνομίου για πρόσβαση εγγραφής.
+Οι ρυθμίσεις σας στο cloud θα ακυρωθούν. Παρακαλούμε επαναφέρετε μια συνεκτική τιμή μέσω του διαλόγου προτιμήσεων."/>
+			<FilePathNotFoundWarning title="Άνοιγμα αρχείου" message="Το αρχείο που προσπαθείτε να ανοίξετε δεν υπάρχει."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SessionFileInvalidError title="Δεν ήταν δυνατή η φόρτωση συνεδρίας" message="Το αρχείο συνεδρίας είναι είτε κατεστραμμένο είτε μη έγκυρο."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
+			<DroppingFolderAsProjectModeWarning title="Άκυρη ενέργεια" message="Μπορείτε να αποθέσετε μόνο αρχεία ή φακέλους, αλλά όχι και τα δύο, επειδή βρίσκεστε στη λειτουργία αποθέματος φακέλου ως έργου.
+πρέπει να ενεργοποιήσετε το &quot;Άνοιγμα όλων των αρχείων του φακέλου αντί για την εκκίνηση του φακέλου ως χώρου εργασίας κατά την πτώση φακέλου στο &quot;Προεπιλεγμένος κατάλογος&quot; τμήμα του διαλόγου Προτιμήσεις για να λειτουργήσει αυτή η λειτουργία."/>
+			<SortingError title="Σφάλμα ταξινόμησης" message="Αδυναμία εκτέλεσης αριθμητικής ταξινόμησης λόγω γραμμής $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<ColumnModeTip title="Συμβουλή λειτουργίας στήλης" message="Παρακαλώ χρησιμοποιήστε &quot;ALT+Mouse επιλογή&quot; ή &quot;Alt+Shift+Arrow key&quot; για μετάβαση σε λειτουργία στήλης."/>
+			<BufferInvalidWarning title="Αποτυχία αποθήκευσης" message="Δεν είναι δυνατή η αποθήκευση: Το buffer δεν είναι έγκυρο."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<DoCloseOrNot title="Διατήρηση αρχείου που δεν υπάρχει" message="Το αρχείο &quot;$STR_REPLACE$&quot; δεν υπάρχει πια.
+Διατήρηση αυτού του αρχείου στο πρόγραμμα επεξεργασίας;"/>
+			<DoDeleteOrNot title="Διαγραφή αρχείου" message="Το αρχείο &quot;$STR_REPLACE$&quot;
+θα μεταφερθεί στον Κάδο Ανακύκλωσης και το έγγραφο θα κλείσει.
+Συνέχεια;"/>
+			<NoBackupDoSaveFile title="Αποθήκευση" message="Το αρχείο αντιγράφων ασφαλείας σας δεν μπορεί να βρεθεί (διαγράφηκε εξωτερικά).
+Αποθηκεύστε το, διαφορετικά τα δεδομένα σας θα χαθούν.
+Θέλετε να αποθηκεύσετε το αρχείο &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Επαναφόρτωση" message="&quot;$STR_REPLACE$&quot;
 
-This file has been modified by another program.
-Do you want to reload it?"/>
-			<DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
+Αυτό το αρχείο έχει τροποποιηθεί από άλλο πρόγραμμα.
+Θέλετε να το επαναφορτώσετε;"/>
+			<DoReloadOrNotAndLooseChange title="Επαναφόρτωση" message="&quot;$STR_REPLACE$&quot;
 
-This file has been modified by another program.
-Do you want to reload it and lose the changes made in Notepad++?"/>
-			<PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
-Do you want to go to Notepad++ page to download the latest version?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxy Settings" message="Please relaunch Notepad++ in Admin mode to configure proxy."/>
-			<DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
-			<DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
-			<FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
-			<CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
-			<CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
-			<FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
+Αυτό το αρχείο έχει τροποποιηθεί από άλλο πρόγραμμα.
+Θέλετε να το επαναφορτώσετε και να χάσετε τις αλλαγές που έγιναν στο Notepad++?"/>
+			<PrehistoricSystemDetected title="Εντοπίστηκε προϊστορικό σύστημα" message="Φαίνεται ότι εξακολουθείτε να χρησιμοποιείτε ένα προϊστορικό σύστημα. Αυτή η λειτουργία λειτουργεί μόνο σε ένα σύγχρονο σύστημα, συγγνώμη."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<XpUpdaterProblem title="Notepad++ Ενημερωτής" message="Notepad++ το πρόγραμμα ενημέρωσης δεν είναι συμβατό με τα XP λόγω του απαρχαιωμένου στρώματος ασφαλείας των XP.
+Θέλετε να μεταβείτε στη σελίδα του Notepad++ για να κατεβάσετε την τελευταία έκδοση;"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+			<GUpProxyConfNeedAdminMode title="Ρυθμίσεις proxy" message="Παρακαλούμε επανεκκινήστε το Notepad++ σε λειτουργία διαχειριστή για να ρυθμίσετε το διακομιστή μεσολάβησης."/>
+			<DocTooDirtyToMonitor title="Πρόβλημα παρακολούθησης" message="Το έγγραφο είναι βρώμικο. Αποθηκεύστε την τροποποίηση πριν την παρακολουθήσετε."/>
+			<DocNoExistToMonitor title="Πρόβλημα παρακολούθησης" message="Το αρχείο πρέπει να υπάρχει για να παρακολουθείται."/>
+			<FileTooBigToOpen title="Πρόβλημα μεγέθους αρχείου" message="Το αρχείο είναι πολύ μεγάλο για να ανοιχτεί στο Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
+			<CreateNewFileOrNot title="Δημιουργία νέου αρχείου" message="&quot;$STR_REPLACE$&quot; δεν υπάρχει. Να το δημιουργήσετε;"/>
+			<CreateNewFileError title="Δημιουργία νέου αρχείου" message="Δεν είναι δυνατή η δημιουργία του αρχείου &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<OpenFileError title="ERROR" message="Δεν μπορεί να ανοίξει το αρχείο &quot;$STR_REPLACE$&quot;."/>
+			<FileBackupFailed title="Αποτυχία δημιουργίας αντιγράφου αρχείου" message="Η προηγούμενη έκδοση του αρχείου δεν μπόρεσε να αποθηκευτεί στον κατάλογο αντιγράφων ασφαλείας στο &quot;$STR_REPLACE$&quot;.
 
 Do you want to save the current file anyways?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>

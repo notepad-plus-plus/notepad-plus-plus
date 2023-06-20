@@ -3311,7 +3311,7 @@ void Notepad_plus::command(int id)
 						default:
 							return;
 					}
-					for (size_t i = 0; i < id; i++)
+					for (int i = 0; i < id; i++)
 						wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 					str2Clipboard(hashStr, _pPublicInterface->getHSelf());

@@ -161,7 +161,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 								}
 
-								for (size_t i = 0; i < _ht; i++)
+								for (int i = 0; i < _ht; i++)
 									wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 								files2check += it;
@@ -326,7 +326,7 @@ void HashFromTextDlg::generateHash()
 					return;
 			}
 
-			for (size_t i = 0; i < _ht; i++)
+			for (int i = 0; i < _ht; i++)
 				wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 			::SetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, hashStr);
@@ -350,65 +350,78 @@ void HashFromTextDlg::generateHashPerLine()
 		std::wstringstream ss(text);
 		std::wstring aLine;
 		std::string result;
-		MD5 md5;
+
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
 		while (std::getline(ss, aLine))
 		{
-			// getline() detect only '\n' but not "\r\n" under windows
-			// this hack is to walk around such bug
-			if (aLine.back() == '\r')
-				aLine = aLine.substr(0, aLine.size() - 1);
-
-			if (aLine.empty())
+			if (aLine.empty()) // in case of UNIX EOL
+			{
 				result += "\r\n";
+			}
 			else
 			{
-				const char *newText = wmc.wchar2char(aLine.c_str(), SC_CP_UTF8);
+				// getline() detect only '\n' but not "\r\n" under Windows
+				// this hack is to walk around such bug
+				if (aLine.back() == '\r')
+					aLine = aLine.substr(0, aLine.size() - 1);
 
-				if (_ht == hash_md5)
+				if (aLine.empty()) // Windows EOL, both \n & \r are removed
 				{
-					char* md5Result = md5.digestString(newText);
-					result += md5Result;
 					result += "\r\n";
 				}
 				else
 				{
-					uint8_t hash[HASH_MAX_LENGTH]{};
-					char hashStr[HASH_STR_MAX_LENGTH]{};
+					const char* newText = wmc.wchar2char(aLine.c_str(), SC_CP_UTF8);
 
-					switch (_ht)
+					if (_ht == hash_md5)
 					{
-						case hash_sha1:
-						{
-							calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-						}
-						break;
-
-						case hash_sha256:
-						{
-							calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-						}
-						break;
-
-						case hash_sha512:
-						{
-							calc_sha_512(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-						}
-						break;
-
-						default:
-							return;
+						MD5 md5;
+						char* md5Result = md5.digestString(newText);
+						result += md5Result;
+						result += "\r\n";
 					}
+					else
+					{
+						uint8_t hash[HASH_MAX_LENGTH]{};
+						char hashStr[HASH_STR_MAX_LENGTH]{};
 
-					for (size_t i = 0; i < _ht; i++)
-						sprintf(hashStr + i * 2, "%02x", hash[i]);
+						switch (_ht)
+						{
+							case hash_sha1:
+							{
+								calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+							}
+							break;
 
-					result += hashStr;
-					result += "\r\n";
+							case hash_sha256:
+							{
+								calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+							}
+							break;
+
+							case hash_sha512:
+							{
+								calc_sha_512(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+							}
+							break;
+
+							default:
+								return;
+						}
+
+						for (int i = 0; i < _ht; i++)
+							sprintf(hashStr + i * 2, "%02x", hash[i]);
+
+						result += hashStr;
+						result += "\r\n";
+					}
 				}
 			}
 		}
+		
 		delete[] text;
+
 		::SetDlgItemTextA(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, result.c_str());
 	}
 	else

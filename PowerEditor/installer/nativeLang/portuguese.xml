@@ -74,6 +74,7 @@ Translation note:
 					<Item subMenuId="language-userDefinedLanguage" name="Linguagem do utilizador"/>
 					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
 					<Item subMenuId="window-sortby" name="Ordenar por"/>
 				</SubEntries>
@@ -1029,7 +1030,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6410" name="UTF-16 Little Endian com BOM"/>
 					<Item id="6411" name="Linguagem predefinida:"/>
 					<Item id="6419" name="Novo documento"/>
-					<Item id="6420" name="Aplicar aos ficheiros abertos ANSI"/>
+					<Item id="6420" name="Aplicar a ficheiros ANSI abertos"/>
+					<Item id="6432" name="Abrir sempre um novo documento adicionalmente ao arranque"/>
 				</NewDoc>
 
 				<DefaultDir title="Pasta Predefinida">
@@ -1745,7 +1747,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 22 May 2023 by Filipe Mota / Hugo Carvalho
+Last modified: 20 June 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

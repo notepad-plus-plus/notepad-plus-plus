@@ -469,6 +469,11 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ 查找下一个"/>
 				<Item id="1725" name="复制标记文本"/>
+				<Menu>
+					<Item id="1726" name="⇅ 交换 查找目标 和 替换为"/>
+					<Item id="1727" name="⤵ 复制 查找目标 到 替换为"/>
+					<Item id="1728" name="⤴ 复制 替换为 到 查找目标"/>
+				</Menu>
 			</Find>
 
 			<IncrementalFind title="">

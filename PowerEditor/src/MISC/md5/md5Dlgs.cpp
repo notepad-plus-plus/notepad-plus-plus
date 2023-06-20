@@ -135,28 +135,24 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 								uint8_t hash[HASH_MAX_LENGTH]{};
 								wchar_t hashStr[HASH_STR_MAX_LENGTH]{};
-								size_t hashLen = 0;
 
 								switch (_ht)
 								{
 									case hash_sha1:
 									{
 										calc_sha1(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
-										hashLen = 20;
 									}
 									break;
 
 									case hash_sha256:
 									{
 										calc_sha_256(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
-										hashLen = 32;
 									}
 									break;
 
 									case hash_sha512:
 									{
 										calc_sha_512(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
-										hashLen = 64;
 									}
 									break;
 
@@ -165,7 +161,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 								}
 
-								for (size_t i = 0; i < hashLen; i++)
+								for (size_t i = 0; i < _ht; i++)
 									wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 								files2check += it;
@@ -305,28 +301,24 @@ void HashFromTextDlg::generateHash()
 		{
 			uint8_t hash[HASH_MAX_LENGTH]{};
 			wchar_t hashStr[HASH_STR_MAX_LENGTH]{};
-			size_t hashLen = 0;
 
 			switch (_ht)
 			{
 				case hash_sha1:
 				{
 					calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-					hashLen = 20;
 				}
 				break;
 
 				case hash_sha256:
 				{
 					calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-					hashLen = 32;
 				}
 				break;
 
 				case hash_sha512:
 				{
 					calc_sha_512(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-					hashLen = 64;
 				}
 				break;
 
@@ -334,7 +326,7 @@ void HashFromTextDlg::generateHash()
 					return;
 			}
 
-			for (size_t i = 0; i < hashLen; i++)
+			for (size_t i = 0; i < _ht; i++)
 				wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 			::SetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, hashStr);
@@ -383,28 +375,24 @@ void HashFromTextDlg::generateHashPerLine()
 				{
 					uint8_t hash[HASH_MAX_LENGTH]{};
 					char hashStr[HASH_STR_MAX_LENGTH]{};
-					size_t hashLen = 0;
 
 					switch (_ht)
 					{
 						case hash_sha1:
 						{
 							calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-							hashLen = 20;
 						}
 						break;
 
 						case hash_sha256:
 						{
 							calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-							hashLen = 32;
 						}
 						break;
 
 						case hash_sha512:
 						{
 							calc_sha_512(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
-							hashLen = 64;
 						}
 						break;
 
@@ -412,7 +400,7 @@ void HashFromTextDlg::generateHashPerLine()
 							return;
 					}
 
-					for (size_t i = 0; i < 32; i++)
+					for (size_t i = 0; i < _ht; i++)
 						sprintf(hashStr + i * 2, "%02x", hash[i]);
 
 					result += hashStr;
@@ -562,33 +550,32 @@ void HashFromTextDlg::doDialog(bool isRTL)
 	if (!isCreated())
 	{
 		create(IDD_HASHFROMTEXT_DLG, isRTL);
-
+		std::wstring title;
 		switch (_ht)
 		{
 			case hash_sha1:
 			{
-				generic_string title = TEXT("Generate SHA-1 digest");
-				::SetWindowText(_hSelf, title.c_str());
+				title = TEXT("Generate SHA-1 digest");
 			}
 			break;
 
 			case hash_sha256:
 			{
-				generic_string title = TEXT("Generate SHA-256 digest");
-				::SetWindowText(_hSelf, title.c_str());
+				title = TEXT("Generate SHA-256 digest");
 			}
 			break;
 
 			case hash_sha512:
 			{
-				generic_string title = TEXT("Generate SHA-512 digest");
-				::SetWindowText(_hSelf, title.c_str());
+				title = TEXT("Generate SHA-512 digest");
 			}
 			break;
 
 			default:
 				break;
 		}
+
+		::SetWindowText(_hSelf, title.c_str());
 	}
 
 	// Adjust the position in the center

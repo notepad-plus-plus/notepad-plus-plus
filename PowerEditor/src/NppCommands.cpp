@@ -3287,35 +3287,31 @@ void Notepad_plus::command(int id)
 
 					uint8_t hash[HASH_MAX_LENGTH] {};
 					wchar_t hashStr[HASH_STR_MAX_LENGTH] {};
-					size_t hashLen = 0;
 
 					switch (id)
 					{
 						case IDM_TOOL_SHA1_GENERATEINTOCLIPBOARD:
 						{
 							calc_sha1(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
-							hashLen = 20;
 						}
 						break;
 
 						case IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD:
 						{
 							calc_sha_256(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
-							hashLen = 32;
 						}
 						break;
 						
 						case IDM_TOOL_SHA512_GENERATEINTOCLIPBOARD:
 						{
 							calc_sha_512(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
-							hashLen = 64;
 						}
 						break;
 
 						default:
-							break;
+							return;
 					}
-					for (size_t i = 0; i < hashLen; i++)
+					for (size_t i = 0; i < id; i++)
 						wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 					str2Clipboard(hashStr, _pPublicInterface->getHSelf());

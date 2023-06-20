@@ -3,62 +3,62 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="简体中文" filename="chineseSimplified.xml" version="8.4.8">
+	<Native-Langue 名字="简体中文" filename="chineseSimplified.xml" version="8.4.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name="文件(&amp;F)"/>
-					<Item menuId="edit" name="编辑(&amp;E)"/>
-					<Item menuId="search" name="搜索(&amp;S)"/>
-					<Item menuId="view" name="视图(&amp;V)"/>
-					<Item menuId="encoding" name="编码(&amp;N)"/>
-					<Item menuId="language" name="语言(&amp;L)"/>
-					<Item menuId="settings" name="设置(&amp;T)"/>
-					<Item menuId="tools" name="工具(&amp;O)"/>
-					<Item menuId="macro" name="宏(&amp;M)"/>
-					<Item menuId="run" name="运行(&amp;R)"/>
-					<Item menuId="Plugins" name="插件(&amp;P)"/>
-					<Item menuId="Window" name="窗口(&amp;W)"/>
+					<Item menuId="file" 名字="文件(&amp;F)"/>
+					<Item menuId="edit" 名字="编辑(&amp;E)"/>
+					<Item menuId="search" 名字="搜索(&amp;S)"/>
+					<Item menuId="view" 名字="视图(&amp;V)"/>
+					<Item menuId="encoding" 名字="编码(&amp;N)"/>
+					<Item menuId="language" 名字="语言(&amp;L)"/>
+					<Item menuId="settings" 名字="设置(&amp;T)"/>
+					<Item menuId="tools" 名字="工具(&amp;O)"/>
+					<Item menuId="macro" 名字="宏(&amp;M)"/>
+					<Item menuId="run" 名字="运行(&amp;R)"/>
+					<Item menuId="Plugins" 名字="插件(&amp;P)"/>
+					<Item menuId="Window" 名字="窗口(&amp;W)"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="打开所在文件夹(&amp;F)"/>
-					<Item subMenuId="file-closeMore" name="关闭多个文档(&amp;M)"/>
-					<Item subMenuId="file-recentFiles" name="近期文件(&amp;R)"/>
-					<Item subMenuId="edit-insert" name="插入"/>
-					<Item subMenuId="edit-copyToClipboard" name="复制到剪切板(&amp;Y)"/>
-					<Item subMenuId="edit-indent" name="缩进(&amp;I)"/>
-					<Item subMenuId="edit-convertCaseTo" name="转换大小写(&amp;V)"/>
-					<Item subMenuId="edit-lineOperations" name="行操作(&amp;L)"/>
-					<Item subMenuId="edit-comment" name="注释/取消注释(&amp;M)"/>
-					<Item subMenuId="edit-autoCompletion" name="自动完成(&amp;A)"/>
-					<Item subMenuId="edit-eolConversion" name="文档格式转换(&amp;E)"/>
-					<Item subMenuId="edit-blankOperations" name="空白字符操作(&amp;B)"/>
-					<Item subMenuId="edit-pasteSpecial" name="选择性粘贴(&amp;P)"/>
-					<Item subMenuId="edit-onSelection" name="对选中内容操作(&amp;O)"/>
-					<Item subMenuId="search-markAll" name="用格式标记全部(&amp;A)"/>
-					<Item subMenuId="search-markOne" name="用格式标记一处(&amp;O)"/>
-					<Item subMenuId="search-unmarkAll" name="清除格式标记"/>
-					<Item subMenuId="search-jumpUp" name="到上一个格式标记(&amp;J)"/>
-					<Item subMenuId="search-jumpDown" name="到下一个格式标记(&amp;D)"/>
-					<Item subMenuId="search-copyStyledText" name="复制格式标记文本(&amp;C)"/>
-					<Item subMenuId="search-bookmark" name="书签(&amp;B)"/>
-					<Item subMenuId="view-currentFileIn" name="将当前文件显示到"/>
-					<Item subMenuId="view-showSymbol" name="显示符号"/>
-					<Item subMenuId="view-zoom" name="缩放"/>
-					<Item subMenuId="view-moveCloneDocument" name="移动/复制当前文档"/>
-					<Item subMenuId="view-tab" name="标签页(Tab)"/>
-					<Item subMenuId="view-collapseLevel" name="折叠层次"/>
-					<Item subMenuId="view-uncollapseLevel" name="展开层次"/>
-					<Item subMenuId="view-project" name="工程"/>
-					<Item subMenuId="encoding-characterSets" name="编码字符集"/>
-					<Item subMenuId="encoding-arabic" name="阿拉伯文"/>
-					<Item subMenuId="encoding-baltic" name="波罗的语"/>
-					<Item subMenuId="encoding-celtic" name="塞尔特文"/>
-					<Item subMenuId="encoding-cyrillic" name="斯拉夫语"/>
-					<Item subMenuId="encoding-centralEuropean" name="中欧语系"/>
-					<Item subMenuId="encoding-chinese" name="中文"/>
+					<Item subMenuId="file-openFolder" 名字="打开所在文件夹(&amp;F)"/>
+					<Item subMenuId="file-closeMore" 名字="关闭多个文档(&amp;M)"/>
+					<Item subMenuId="file-recentFiles" 名字="近期文件(&amp;R)"/>
+					<Item subMenuId="edit-insert" 名字="插入"/>
+					<Item subMenuId="edit-copyToClipboard" 名字="复制到剪切板(&amp;Y)"/>
+					<Item subMenuId="edit-indent" 名字="缩进(&amp;I)"/>
+					<Item subMenuId="edit-convertCaseTo" 名字="转换大小写(&amp;V)"/>
+					<Item subMenuId="edit-lineOperations" 名字="行操作(&amp;L)"/>
+					<Item subMenuId="edit-comment" 名字="注释/取消注释(&amp;M)"/>
+					<Item subMenuId="edit-autoCompletion" 名字="自动完成(&amp;A)"/>
+					<Item subMenuId="edit-eolConversion" 名字="文档格式转换(&amp;E)"/>
+					<Item subMenuId="edit-blankOperations" 名字="空白字符操作(&amp;B)"/>
+					<Item subMenuId="edit-pasteSpecial" 名字="选择性粘贴(&amp;P)"/>
+					<Item subMenuId="edit-onSelection" 名字="对选中内容操作(&amp;O)"/>
+					<Item subMenuId="search-markAll" 名字="用格式标记全部(&amp;A)"/>
+					<Item subMenuId="search-markOne" 名字="用格式标记一处(&amp;O)"/>
+					<Item subMenuId="search-unmarkAll" 名字="清除格式标记"/>
+					<Item subMenuId="search-jumpUp" 名字="到上一个格式标记(&amp;J)"/>
+					<Item subMenuId="search-jumpDown" 名字="到下一个格式标记(&amp;D)"/>
+					<Item subMenuId="search-copyStyledText" 名字="复制格式标记文本(&amp;C)"/>
+					<Item subMenuId="search-bookmark" 名字="书签(&amp;B)"/>
+					<Item subMenuId="view-currentFileIn" 名字="将当前文件显示到"/>
+					<Item subMenuId="view-showSymbol" 名字="显示符号"/>
+					<Item subMenuId="view-zoom" 名字="缩放"/>
+					<Item subMenuId="view-moveCloneDocument" 名字="移动/复制当前文档"/>
+					<Item subMenuId="view-tab" 名字="标签页(Tab)"/>
+					<Item subMenuId="view-collapseLevel" 名字="折叠层次"/>
+					<Item subMenuId="view-uncollapseLevel" 名字="展开层次"/>
+					<Item subMenuId="view-project" 名字="工程"/>
+					<Item subMenuId="encoding-characterSets" 名字="编码字符集"/>
+					<Item subMenuId="encoding-arabic" 名字="阿拉伯文"/>
+					<Item subMenuId="encoding-baltic" 名字="波罗的语"/>
+					<Item subMenuId="encoding-celtic" 名字="塞尔特文"/>
+					<Item subMenuId="encoding-cyrillic" 名字="斯拉夫语"/>
+					<Item subMenuId="encoding-centralEuropean" 名字="中欧语系"/>
+					<Item subMenuId="encoding-chinese" 名字="中文"/>
 					<Item subMenuId="encoding-easternEuropean" name="东欧语系"/>
 					<Item subMenuId="encoding-greek" name="希腊文"/>
 					<Item subMenuId="encoding-hebrew" name="希伯来文"/>
@@ -364,241 +364,246 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="50000" name="函数补全"/>
 					<Item id="50001" name="单词补全"/>
 					<Item id="50002" name="函数参数提示"/>
-					<Item id="50010" name="函数参数上一个提示"/>
-					<Item id="50011" name="函数参数下一个提示"/>
-					<Item id="50005" name="启动/停止宏录制"/>
-					<Item id="50006" name="路径补全"/>
-					<Item id="44042" name="隐藏行"/>
-					<Item id="42040" name="打开文件列表"/>
-					<Item id="42041" name="清除文件列表"/>
-					<Item id="48016" name="管理快捷键..."/>
-					<Item id="48017" name="管理快捷键..."/>
+					<Item id="50010" 名字="函数参数上一个提示"/>
+					<Item id="50011" 名字="函数参数下一个提示"/>
+					<Item id="50005" 名字="启动/停止宏录制"/>
+					<Item id="50006" 名字="路径补全"/>
+					<Item id="44042" 名字="隐藏行"/>
+					<Item id="42040" 名字="打开文件列表"/>
+					<Item id="42041" 名字="清除文件列表"/>
+					<Item id="48016" 名字="管理快捷键..."/>
+					<Item id="48017" 名字="管理快捷键..."/>
 
-					<Item id="11001" name="文件窗口(&amp;W)..."/>
-					<Item id="11002" name="名称正序"/>
-					<Item id="11003" name="名称倒序"/>
-					<Item id="11004" name="路径正序"/>
-					<Item id="11005" name="路径倒序"/>
-					<Item id="11006" name="类型正序"/>
-					<Item id="11007" name="类型倒序"/>
-					<Item id="11008" name="体积从小到大"/>
-					<Item id="11009" name="体积从大到小"/>
+					<Item id="11001" 名字="文件窗口(&amp;W)..."/>
+					<Item id="11002" 名字="名称正序"/>
+					<Item id="11003" 名字="名称倒序"/>
+					<Item id="11004" 名字="路径正序"/>
+					<Item id="11005" 名字="路径倒序"/>
+					<Item id="11006" 名字="类型正序"/>
+					<Item id="11007" 名字="类型倒序"/>
+					<Item id="11008" 名字="体积从小到大"/>
+					<Item id="11009" 名字="体积从大到小"/>
 				</Commands>
 			</Main>
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMDID="41003" name="关闭当前文件"/>
-				<Item CMDID="0" name="关闭多个标签"/>
-				<Item CMDID="41005" name="关闭非当前文件"/>
-				<Item CMDID="41009" name="关闭左边所有"/>
-				<Item CMDID="41018" name="关闭右边所有"/>
-				<Item CMDID="41024" name="关闭所有未修改"/>
-				<Item CMDID="41006" name="保存当前文件"/>
-				<Item CMDID="41008" name="当前文件另存为..."/>
-				<Item CMDID="1" name="打开至"/>
-				<Item CMDID="41019" name="打开所在文件夹"/>
-				<Item CMDID="41020" name="打开所在文件夹(命令行)"/>
-				<Item CMDID="41025" name="打开所在文件夹工作区"/>
-				<Item CMDID="41023" name="使用默认查看器打开"/>
-				<Item CMDID="41017" name="当前文件重命名..."/>
-				<Item CMDID="41016" name="当前文件移至回收站"/>
-				<Item CMDID="41014" name="重新载入"/>
-				<Item CMDID="41010" name="打印当前文件..."/>
-				<Item CMDID="42028" name="设置为只读"/>
-				<Item CMDID="42033" name="清除只读属性"/>
-				<Item CMDID="2" name="复制到剪贴板"/>
-				<Item CMDID="42029" name="复制文件路径"/>
-				<Item CMDID="42030" name="复制文件名"/>
-				<Item CMDID="42031" name="复制当前路径"/>
-				<Item CMDID="3" name="移动文档"/>
-				<Item CMDID="10001" name="移动到另一视图"/>
-				<Item CMDID="10002" name="复制到另一视图"/>
-				<Item CMDID="10003" name="打开新窗口"/>
-				<Item CMDID="10004" name="在新视图中打开"/>
-				<Item CMDID="4" name="对标签使用颜色"/>
-				<Item CMDID="44111" name="使用颜色1"/>
-				<Item CMDID="44112" name="使用颜色2"/>
-				<Item CMDID="44113" name="使用颜色3"/>
-				<Item CMDID="44114" name="使用颜色4"/>
-				<Item CMDID="44115" name="使用颜色5"/>
-				<Item CMDID="44110" name="移除颜色"/>
+				<Item CMDID="41003" 名字="关闭当前文件"/>
+				<Item CMDID="0" 名字="关闭多个标签"/>
+				<Item CMDID="41005" 名字="关闭非当前文件"/>
+				<Item CMDID="41009" 名字="关闭左边所有"/>
+				<Item CMDID="41018" 名字="关闭右边所有"/>
+				<Item CMDID="41024" 名字="关闭所有未修改"/>
+				<Item CMDID="41006" 名字="保存当前文件"/>
+				<Item CMDID="41008" 名字="当前文件另存为..."/>
+				<Item CMDID="1" 名字="打开至"/>
+				<Item CMDID="41019" 名字="打开所在文件夹"/>
+				<Item CMDID="41020" 名字="打开所在文件夹(命令行)"/>
+				<Item CMDID="41025" 名字="打开所在文件夹工作区"/>
+				<Item CMDID="41023" 名字="使用默认查看器打开"/>
+				<Item CMDID="41017" 名字="当前文件重命名..."/>
+				<Item CMDID="41016" 名字="当前文件移至回收站"/>
+				<Item CMDID="41014" 名字="重新载入"/>
+				<Item CMDID="41010" 名字="打印当前文件..."/>
+				<Item CMDID="42028" 名字="设置为只读"/>
+				<Item CMDID="42033" 名字="清除只读属性"/>
+				<Item CMDID="2" 名字="复制到剪贴板"/>
+				<Item CMDID="42029" 名字="复制文件路径"/>
+				<Item CMDID="42030" 名字="复制文件名"/>
+				<Item CMDID="42031" 名字="复制当前路径"/>
+				<Item CMDID="3" 名字="移动文档"/>
+				<Item CMDID="10001" 名字="移动到另一视图"/>
+				<Item CMDID="10002" 名字="复制到另一视图"/>
+				<Item CMDID="10003" 名字="打开新窗口"/>
+				<Item CMDID="10004" 名字="在新视图中打开"/>
+				<Item CMDID="4" 名字="对标签使用颜色"/>
+				<Item CMDID="44111" 名字="使用颜色1"/>
+				<Item CMDID="44112" 名字="使用颜色2"/>
+				<Item CMDID="44113" 名字="使用颜色3"/>
+				<Item CMDID="44114" 名字="使用颜色4"/>
+				<Item CMDID="44115" 名字="使用颜色5"/>
+				<Item CMDID="44110" 名字="移除颜色"/>
 			</TabBar>
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleFindInProjects="工程中查找" titleMark="标记">
-				<Item id="1" name="查找下一个"/>
-				<Item id="1722" name="反向查找"/>
-				<Item id="2" name="取消"/>
-				<Item id="1620" name="查找目标(&amp;F) :"/>
-				<Item id="1603" name="全词匹配(&amp;W)"/>
-				<Item id="1604" name="匹配大小写(&amp;C)"/>
-				<Item id="1605" name="正则表达式(&amp;G)"/>
-				<Item id="1606" name="循环查找(&amp;P)"/>
-				<Item id="1614" name="计数(&amp;T)"/>
-				<Item id="1615" name="全部标记"/>
-				<Item id="1616" name="标记所在行(&amp;M)"/>
-				<Item id="1618" name="清除上次标记"/>
-				<Item id="1611" name="替换为(&amp;L) :"/>
-				<Item id="1608" name="替换(&amp;R)"/>
-				<Item id="1609" name="全部替换(&amp;A)"/>
-				<Item id="1687" name="失去焦点后"/>
-				<Item id="1688" name="始终"/>
-				<Item id="1632" name="选取范围内(&amp;I)"/>
-				<Item id="1633" name="清除"/>
-				<Item id="1635" name="替换所有打开文件(&amp;O)"/>
-				<Item id="1636" name="查找所有打开文件(&amp;O)"/>
-				<Item id="1654" name="文件类型(&amp;S) :"/>
-				<Item id="1655" name="目录(&amp;E) :"/>
-				<Item id="1656" name="全部查找"/>
-				<Item id="1658" name="包含子目录(&amp;B)"/>
-				<Item id="1659" name="包含隐藏目录(&amp;H)"/>
-				<Item id="1624" name="查找模式"/>
-				<Item id="1625" name="普通(&amp;N)"/>
-				<Item id="1626" name="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
-				<Item id="1660" name="在文件中替换"/>
-				<Item id="1665" name="在工程中替换"/>
-				<Item id="1661" name="当前文件夹。"/>
-				<Item id="1662" name="工程面板1"/>
-				<Item id="1663" name="工程面板2"/>
-				<Item id="1664" name="工程面板3"/>
-				<Item id="1641" name="在当前文件中查找"/>
-				<Item id="1686" name="透明度(&amp;Y)"/>
-				<Item id="1703" name="&amp;. 匹配新行"/>
-				<Item id="1721" name="▲"/>
-				<Item id="1723" name="▼ 查找下一个"/>
-				<Item id="1725" name="复制标记文本"/>
+			<Find 标题="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleFindInProjects="工程中查找" titleMark="标记">
+				<Item id="1" 名字="查找下一个"/>
+				<Item id="1722" 名字="反向查找"/>
+				<Item id="2" 名字="取消"/>
+				<Item id="1620" 名字="查找目标(&amp;F) :"/>
+				<Item id="1603" 名字="全词匹配(&amp;W)"/>
+				<Item id="1604" 名字="匹配大小写(&amp;C)"/>
+				<Item id="1605" 名字="正则表达式(&amp;G)"/>
+				<Item id="1606" 名字="循环查找(&amp;P)"/>
+				<Item id="1614" 名字="计数(&amp;T)"/>
+				<Item id="1615" 名字="全部标记"/>
+				<Item id="1616" 名字="标记所在行(&amp;M)"/>
+				<Item id="1618" 名字="清除上次标记"/>
+				<Item id="1611" 名字="替换为(&amp;L) :"/>
+				<Item id="1608" 名字="替换(&amp;R)"/>
+				<Item id="1609" 名字="全部替换(&amp;A)"/>
+				<Item id="1687" 名字="失去焦点后"/>
+				<Item id="1688" 名字="始终"/>
+				<Item id="1632" 名字="选取范围内(&amp;I)"/>
+				<Item id="1633" 名字="清除"/>
+				<Item id="1635" 名字="替换所有打开文件(&amp;O)"/>
+				<Item id="1636" 名字="查找所有打开文件(&amp;O)"/>
+				<Item id="1654" 名字="文件类型(&amp;S) :"/>
+				<Item id="1655" 名字="目录(&amp;E) :"/>
+				<Item id="1656" 名字="全部查找"/>
+				<Item id="1658" 名字="包含子目录(&amp;B)"/>
+				<Item id="1659" 名字="包含隐藏目录(&amp;H)"/>
+				<Item id="1624" 名字="查找模式"/>
+				<Item id="1625" 名字="普通(&amp;N)"/>
+				<Item id="1626" 名字="扩展(&amp;X) (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" 名字="在文件中替换"/>
+				<Item id="1665" 名字="在工程中替换"/>
+				<Item id="1661" 名字="当前文件夹。"/>
+				<Item id="1662" 名字="工程面板1"/>
+				<Item id="1663" 名字="工程面板2"/>
+				<Item id="1664" 名字="工程面板3"/>
+				<Item id="1641" 名字="在当前文件中查找"/>
+				<Item id="1686" 名字="透明度(&amp;Y)"/>
+				<Item id="1703" 名字="&amp;. 匹配新行"/>
+				<Item id="1721" 名字="▲"/>
+				<Item id="1723" 名字="▼ 查找下一个"/>
+				<Item id="1725" 名字="复制标记文本"/>
+				<Menu>
+					<Item id="1726" 名字="⇅ 交换 查找目标 和 替换为"/>
+					<Item id="1727" 名字="⤵ 复制 查找目标 到 替换为"/>
+					<Item id="1728" 名字="⤴ 复制 替换为 到 查找目标"/>
+				</Menu>
 			</Find>
 
-			<IncrementalFind title="">
-				<Item id="1681" name="查找"/>
-				<Item id="1685" name="匹配大小写"/>
-				<Item id="1690" name="全部高亮"/>
+			<IncrementalFind 标题="">
+				<Item id="1681" 名字="查找"/>
+				<Item id="1685" 名字="匹配大小写"/>
+				<Item id="1690" 名字="全部高亮"/>
 			</IncrementalFind>
 
-			<FindCharsInRange title="查找范围内的字符...">
-				<Item id="2" name="关闭"/>
-				<Item id="2901" name="非 ASCII 字符 (128-255)"/>
-				<Item id="2902" name="ASCII 字符 (0-127)"/>
-				<Item id="2903" name="自定义范围："/>
-				<Item id="2906" name="向上(&amp;U)"/>
-				<Item id="2907" name="向下(&amp;D)"/>
-				<Item id="2908" name="方向"/>
-				<Item id="2909" name="循环查找(&amp;P)"/>
-				<Item id="2910" name="查找"/>
+			<FindCharsInRange 标题="查找范围内的字符...">
+				<Item id="2" 名字="关闭"/>
+				<Item id="2901" 名字="非 ASCII 字符 (128-255)"/>
+				<Item id="2902" 名字="ASCII 字符 (0-127)"/>
+				<Item id="2903" 名字="自定义范围："/>
+				<Item id="2906" 名字="向上(&amp;U)"/>
+				<Item id="2907" 名字="向下(&amp;D)"/>
+				<Item id="2908" 名字="方向"/>
+				<Item id="2909" 名字="循环查找(&amp;P)"/>
+				<Item id="2910" 名字="查找"/>
 			</FindCharsInRange>
 
-			<GoToLine title="转至...">
-				<Item id="2007" name="行(&amp;L)"/>
-				<Item id="2008" name="偏移量(&amp;O)"/>
-				<Item id="1" name="定位(&amp;G)"/>
-				<Item id="2" name="取消"/>
-				<Item id="2004" name="当前位置:"/>
-				<Item id="2005" name="目标位置:"/>
-				<Item id="2006" name="截止位置:"/>
+			<GoToLine 标题="转至...">
+				<Item id="2007" 名字="行(&amp;L)"/>
+				<Item id="2008" 名字="偏移量(&amp;O)"/>
+				<Item id="1" 名字="定位(&amp;G)"/>
+				<Item id="2" 名字="取消"/>
+				<Item id="2004" 名字="当前位置:"/>
+				<Item id="2005" 名字="目标位置:"/>
+				<Item id="2006" 名字="截止位置:"/>
 			</GoToLine>
 
-			<Run title="运行...">
-				<Item id="1903" name="输入运行程序名"/>
-				<Item id="1" name="运行"/>
-				<Item id="2" name="取消"/>
-				<Item id="1904" name="保存..."/>
+			<Run 标题="运行...">
+				<Item id="1903" 名字="输入运行程序名"/>
+				<Item id="1" 名字="运行"/>
+				<Item id="2" 名字="取消"/>
+				<Item id="1904" 名字="保存..."/>
 			</Run>
 
-			<MD5FromFilesDlg title="从文件生成MD5">
-				<Item id="1922" name="选择生成MD5的文件..."/>
-				<Item id="1924" name="复制到剪贴板"/>
-				<Item id="2" name="关闭"/>
+			<MD5FromFilesDlg 标题="从文件生成MD5">
+				<Item id="1922" 名字="选择生成MD5的文件..."/>
+				<Item id="1924" 名字="复制到剪贴板"/>
+				<Item id="2" 名字="关闭"/>
 			</MD5FromFilesDlg>
 
-			<MD5FromTextDlg title="生成MD5值">
-				<Item id="1932" name="按行分别生成"/>
-				<Item id="1934" name="复制到剪贴板"/>
-				<Item id="2" name="关闭"/>
+			<MD5FromTextDlg 标题="生成MD5值">
+				<Item id="1932" 名字="按行分别生成"/>
+				<Item id="1934" 名字="复制到剪贴板"/>
+				<Item id="2" 名字="关闭"/>
 			</MD5FromTextDlg>
 
-			<SHA256FromFilesDlg title="从文件生成SHA-256">
-				<Item id="1922" name="选择生成SHA-256的文件..."/>
-				<Item id="1924" name="复制到剪贴板"/>
-				<Item id="2" name="关闭"/>
+			<SHA256FromFilesDlg 标题="从文件生成SHA-256">
+				<Item id="1922" 名字="选择生成SHA-256的文件..."/>
+				<Item id="1924" 名字="复制到剪贴板"/>
+				<Item id="2" 名字="关闭"/>
 			</SHA256FromFilesDlg>
 
-			<SHA256FromTextDlg title="生成SHA-256值">
-				<Item id="1932" name="按行分别生成"/>
-				<Item id="1934" name="复制到剪贴板"/>
-				<Item id="2" name="关闭"/>
+			<SHA256FromTextDlg 标题="生成SHA-256值">
+				<Item id="1932" 名字="按行分别生成"/>
+				<Item id="1934" 名字="复制到剪贴板"/>
+				<Item id="2" 名字="关闭"/>
 			</SHA256FromTextDlg>
 
-			<PluginsAdminDlg title="插件管理" titleAvailable="可用" titleUpdates="更新" titleInstalled="已安装" titleIncompatible="不兼容">
-				<ColumnPlugin name="插件"/>
-				<ColumnVersion name="版本"/>
-				<Item id="5501" name="搜索："/>
-				<Item id="5503" name="安装"/>
-				<Item id="5504" name="更新"/>
-				<Item id="5505" name="移除"/>
-				<Item id="5508" name="下一个"/>
-				<Item id="5509" name="插件列表版本："/>
-				<Item id="5511" name="插件列表仓库"/>
-				<Item id="2" name="关闭"/>
+			<PluginsAdminDlg 标题="插件管理" titleAvailable="可用" titleUpdates="更新" titleInstalled="已安装" titleIncompatible="不兼容">
+				<ColumnPlugin 名字="插件"/>
+				<ColumnVersion 名字="版本"/>
+				<Item id="5501" 名字="搜索："/>
+				<Item id="5503" 名字="安装"/>
+				<Item id="5504" 名字="更新"/>
+				<Item id="5505" 名字="移除"/>
+				<Item id="5508" 名字="下一个"/>
+				<Item id="5509" 名字="插件列表版本："/>
+				<Item id="5511" 名字="插件列表仓库"/>
+				<Item id="2" 名字="关闭"/>
 			</PluginsAdminDlg>
 
-			<StyleConfig title="语言格式设置">
-				<Item id="2" name="取消"/>
-				<Item id="2301" name="保存并关闭"/>
-				<Item id="2303" name="透明度"/>
-				<Item id="2306" name="选择主题："/>
+			<StyleConfig 标题="语言格式设置">
+				<Item id="2" 名字="取消"/>
+				<Item id="2301" 名字="保存并关闭"/>
+				<Item id="2303" 名字="透明度"/>
+				<Item id="2306" 名字="选择主题："/>
 				<SubDialog>
-					<Item id="2204" name="粗体"/>
-					<Item id="2205" name="斜体"/>
-					<Item id="2206" name="前景色"/>
-					<Item id="2207" name="背景色"/>
-					<Item id="2208" name="字体名称:"/>
-					<Item id="2209" name="字体大小:"/>
-					<Item id="2211" name="样式:"/>
-					<Item id="2212" name="色彩样式"/>
-					<Item id="2213" name="字体样式"/>
-					<Item id="2214" name="默认扩展名:"/>
-					<Item id="2216" name="自定义扩展名:"/>
-					<Item id="2218" name="下划线"/>
-					<Item id="2219" name="默认关键字"/>
-					<Item id="2221" name="自定义关键字"/>
-					<Item id="2225" name="语言:"/>
-					<Item id="2226" name="使用全局前景色"/>
-					<Item id="2227" name="使用全局背景色"/>
-					<Item id="2228" name="使用全局字体"/>
-					<Item id="2229" name="使用全局字体大小"/>
-					<Item id="2230" name="使用全局粗体样式"/>
-					<Item id="2231" name="使用全局斜体样式"/>
-					<Item id="2232" name="使用全局下划线样式"/>
-					<Item id="2234" name="前往设置"/>
+					<Item id="2204" 名字="粗体"/>
+					<Item id="2205" 名字="斜体"/>
+					<Item id="2206" 名字="前景色"/>
+					<Item id="2207" 名字="背景色"/>
+					<Item id="2208" 名字="字体名称:"/>
+					<Item id="2209" 名字="字体大小:"/>
+					<Item id="2211" 名字="样式:"/>
+					<Item id="2212" 名字="色彩样式"/>
+					<Item id="2213" 名字="字体样式"/>
+					<Item id="2214" 名字="默认扩展名:"/>
+					<Item id="2216" 名字="自定义扩展名:"/>
+					<Item id="2218" 名字="下划线"/>
+					<Item id="2219" 名字="默认关键字"/>
+					<Item id="2221" 名字="自定义关键字"/>
+					<Item id="2225" 名字="语言:"/>
+					<Item id="2226" 名字="使用全局前景色"/>
+					<Item id="2227" 名字="使用全局背景色"/>
+					<Item id="2228" 名字="使用全局字体"/>
+					<Item id="2229" 名字="使用全局字体大小"/>
+					<Item id="2230" 名字="使用全局粗体样式"/>
+					<Item id="2231" 名字="使用全局斜体样式"/>
+					<Item id="2232" 名字="使用全局下划线样式"/>
+					<Item id="2234" 名字="前往设置"/>
 				</SubDialog>
 			</StyleConfig>
 
-			<ShortcutMapper title="快捷键管理">
-				<Item id="2602" name="修改"/>
-				<Item id="2603" name="删除"/>
-				<Item id="2606" name="清空"/>
-				<Item id="2607" name="过滤: "/>
-				<Item id="1" name="关闭"/>
-				<ColumnName name="名称"/>
-				<ColumnShortcut name="快捷键"/>
-				<ColumnCategory name="类别"/>
-				<ColumnPlugin name="插件"/>
-				<MainMenuTab name="主菜单"/>
-				<MacrosTab name="宏"/>
-				<RunCommandsTab name="运行命令"/>
-				<PluginCommandsTab name="插件命令"/>
-				<ScintillaCommandsTab name="Scintilla命令"/>
-				<ConflictInfoOk name="此条无快捷键冲突。"/>
-				<ConflictInfoEditing name="无冲突……"/>
-				<WindowCategory name="窗口"/>
-				<FileCategory name="文件"/>
-				<EditCategory name="编辑"/>
-				<SearchCategory name="搜索"/>
-				<ViewCategory name="查看"/>
-				<FormatCategory name="格式"/>
-				<LangCategory name="语言"/>
+			<ShortcutMapper 标题="快捷键管理">
+				<Item id="2602" 名字="修改"/>
+				<Item id="2603" 名字="删除"/>
+				<Item id="2606" 名字="清空"/>
+				<Item id="2607" 名字="过滤: "/>
+				<Item id="1" 名字="关闭"/>
+				<ColumnName 名字="名称"/>
+				<ColumnShortcut 名字="快捷键"/>
+				<ColumnCategory 名字="类别"/>
+				<ColumnPlugin 名字="插件"/>
+				<MainMenuTab 名字="主菜单"/>
+				<MacrosTab 名字="宏"/>
+				<RunCommandsTab 名字="运行命令"/>
+				<PluginCommandsTab 名字="插件命令"/>
+				<ScintillaCommandsTab 名字="Scintilla命令"/>
+				<ConflictInfoOk 名字="此条无快捷键冲突。"/>
+				<ConflictInfoEditing 名字="无冲突……"/>
+				<WindowCategory 名字="窗口"/>
+				<FileCategory 名字="文件"/>
+				<EditCategory 名字="编辑"/>
+				<SearchCategory 名字="搜索"/>
+				<ViewCategory 名字="查看"/>
+				<FormatCategory 名字="格式"/>
+				<LangCategory 名字="语言"/>
 				<AboutCategory name="关于"/>
 				<SettingCategory name="设置"/>
 				<ToolCategory name="工具"/>

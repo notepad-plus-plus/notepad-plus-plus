@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 08 Jun 2023, for Notepad++ 8.5.4 
+     Last update by Marcello, 19 Jun 2023, for Notepad++ 8.5.5
 -->
 <NotepadPlus>
 	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.4">
@@ -72,6 +72,7 @@
 					<Item subMenuId="language-userDefinedLanguage" name="Linguagem definida pelo usuário"/>
 					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
 					<Item subMenuId="window-sortby" name="Classificar por"/>
 				</SubEntries>

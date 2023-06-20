@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.3">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Operação em branco"/>
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
+					<Item subMenuId="search-changeHistory" name="Histórico de alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar tudo"/>
 					<Item subMenuId="search-markOne" name="Marcar uma"/>
 					<Item subMenuId="search-unmarkAll" name="Desmarcar tudo"/>
@@ -74,7 +75,9 @@ Translation note:
 					<Item subMenuId="language-userDefinedLanguage" name="Linguagem do utilizador"/>
 					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Ordenar por"/>
 				</SubEntries>
 
@@ -249,6 +252,9 @@ Translation note:
 					<Item id="43064" name="Usar 3º Estilo"/>
 					<Item id="43065" name="Usar 4º Estilo"/>
 					<Item id="43066" name="Usar 5º Estilo"/>
+					<Item id="43067" name="Ir para a alteração seguinte"/>
+					<Item id="43068" name="Ir para a alteração anterior"/>
+					<Item id="43069" name="Limpar histórico de alterações"/>
 					<Item id="43045" name="Janela de resultados da pesquisa"/>
 					<Item id="43046" name="Resultados da pesquisa - seguinte"/>
 					<Item id="43047" name="Resultados da pesquisa - anterior"/>
@@ -362,6 +368,12 @@ Translation note:
 					<Item id="48504" name="Gerar..."/>
 					<Item id="48505" name="Gerar dos ficheiros..."/>
 					<Item id="48506" name="Gerar da seleção para a área de transferência"/>
+					<Item id="48507" name="Gerar..."/>
+					<Item id="48508" name="Gerar dos ficheiros..."/>
+					<Item id="48509" name="Gerar da seleção para a área de transferência"/>
+					<Item id="48510" name="Gerar..."/>
+					<Item id="48511" name="Gerar dos ficheiros..."/>
+					<Item id="48512" name="Gerar da seleção para a área de transferência"/>
 					<Item id="49000" name="&amp;Executar..."/>
 
 					<Item id="50000" name="Preenchimento da função"/>
@@ -544,6 +556,29 @@ Translation note:
 				<Item id="2" name="&amp;Fechar"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Gerar resumo SHA-1 de ficheiros">
+				<Item id="1922" name="Escolher ficheiros para &amp;gerar SHA-1..."/>
+				<Item id="1924" name="Co&amp;piar p/ a área de transferência"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Gerar resumo SHA-1">
+				<Item id="1932" name="Tratar cada linha como uma frase &amp;separada"/>
+				<Item id="1934" name="Co&amp;piar p/ a área de transferência"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Gerar resumo SHA-512 de ficheiros">
+				<Item id="1922" name="Escolher ficheiros para &amp;gerar SHA-512..."/>
+				<Item id="1924" name="Co&amp;piar p/ a área de transferência"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Gerar resumo SHA-512">
+				<Item id="1932" name="Tratar cada linha como uma frase &amp;separada"/>
+				<Item id="1934" name="Co&amp;piar p/ a área de transferência"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Admin de plugins" titleAvailable="Disponível" titleUpdates="Atualizações" titleInstalled="Instalado" titleIncompatible="Incompatível">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versão"/>
@@ -777,7 +812,6 @@ Translation note:
 					<Item id="21101" name="Estilo predefinido"/>
 					<Item id="21102" name="Estilizar"/>
 					<Item id="21105" name="Documentação:"/>
-					<Item id="21104" name="Site do doc. temporário:"/>
 					<Item id="21106" name="Dobrar compacto (também dobrar linhas sem dados)"/>
 					<Item id="21220" name="Dobrar no código estilo 1:"/>
 					<Item id="21224" name="Abrir:"/>
@@ -927,7 +961,7 @@ Translation note:
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Ocultar barra de menu (utilizar Alt ou F10 para alternar)"/>
 					<Item id="6132" name="Ocultar atalhos ＋ ▼ ✕ da barra de menu (é necessário reiniciar)"/>
-					
+
 					<Item id="6123" name="Idioma"/>
 				</Global>
 				<Scintillas title="Edição">
@@ -1029,7 +1063,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6410" name="UTF-16 Little Endian com BOM"/>
 					<Item id="6411" name="Linguagem predefinida:"/>
 					<Item id="6419" name="Novo documento"/>
-					<Item id="6420" name="Aplicar aos ficheiros abertos ANSI"/>
+					<Item id="6420" name="Aplicar a ficheiros ANSI abertos"/>
+					<Item id="6432" name="Abrir sempre um novo documento adicionalmente ao arranque"/>
 				</NewDoc>
 
 				<DefaultDir title="Pasta Predefinida">
@@ -1593,18 +1628,14 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<find-status-end-reached value="Localizar: Encontrada a 1ª ocorrência a partir do início. O final do documento foi alcançado.."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Ficheiros: 1 ocorrência foi substituída"/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em Ficheiros: $INT_REPLACE$ ocorrências foram substituídas"/>
-			<find-status-replaceinfiles-re-malformed value="Substituir em ficheiros abertos: A expressão regular está mal formada"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em ficheiros abertos: 1 ocorrência foi substituída"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Substituir em ficheiros abertos: $INT_REPLACE$ ocorrências foram substituídas"/>
-			<find-status-mark-re-malformed value="Marcar: A expressão regular da pesquisa está mal formada"/>
 			<find-status-invalid-re value="Localizar: Expressão regular inválida"/>
 			<find-status-search-failed value="Localizar: Falha ao pesquisar"/>
 			<find-status-mark-1-match value="Marcar: 1 correspondência"/>
 			<find-status-mark-nb-matches value="Marcar: $INT_REPLACE$ correspondências"/>
-			<find-status-count-re-malformed value="Total: A expressão regular da pesquisa está mal formada"/>
 			<find-status-count-1-match value="Total: 1 correspondência"/>
 			<find-status-count-nb-matches value="Total: $INT_REPLACE$ correspondências"/>
-			<find-status-replaceall-re-malformed value="Substituir tudo: A expressão regular está mal formada"/>
 			<find-status-replaceall-1-replaced value="Substituir tudo: 1 ocorrência foi substituída"/>
 			<find-status-replaceall-nb-replaced value="Substituir tudo: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-replaceall-readonly value="Substituir tudo: Texto não substituído. O documento é apenas de leitura"/>
@@ -1745,7 +1776,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 22 May 2023 by Filipe Mota / Hugo Carvalho
+Last modified: 01 August 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

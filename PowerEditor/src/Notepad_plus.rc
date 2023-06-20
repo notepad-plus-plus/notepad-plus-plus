@@ -1185,6 +1185,12 @@ BEGIN
             MENUITEM "Generate from files...", IDM_TOOL_SHA256_GENERATEFROMFILE
             MENUITEM "Generate from selection into clipboard", IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD
         END
+        POPUP "SHA-512"
+        BEGIN
+            MENUITEM "Generate...", IDM_TOOL_SHA512_GENERATE
+            MENUITEM "Generate from files...", IDM_TOOL_SHA512_GENERATEFROMFILE
+            MENUITEM "Generate from selection into clipboard", IDM_TOOL_SHA512_GENERATEINTOCLIPBOARD
+        END
     END
     
     POPUP "&Macro"

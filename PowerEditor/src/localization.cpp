@@ -100,6 +100,7 @@ MenuPosition menuPos[] = {
 	{ 7,   0, -1, "tools-md5" },
 	{ 7,   1, -1, "tools-sha1" },
 	{ 7,   2, -1, "tools-sha256" },
+	{ 7,   3, -1, "tools-sha512" },
 
 	{ 11,  0, -1, "window-sortby"},
 

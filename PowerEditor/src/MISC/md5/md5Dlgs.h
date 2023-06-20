@@ -18,7 +18,10 @@
 
 #include "StaticDialog.h"
 
-enum hashType {hash_md5, hash_sha256, hash_sha1};
+enum hashType {hash_md5, hash_sha1, hash_sha256, hash_sha512};
+
+#define HASH_MAX_LENGTH 64 // SHA-512
+#define HASH_STR_MAX_LENGTH 129 // SHA-512
 
 LRESULT run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 

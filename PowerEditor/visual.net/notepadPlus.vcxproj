@@ -112,6 +112,7 @@
     <ClCompile Include="..\src\MISC\sha1\calc_sha1.cpp" />
     <ClCompile Include="..\src\MISC\sha1\sha1.cpp" />
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
+    <ClCompile Include="..\src\MISC\sha512\sha512.cpp" />
     <ClCompile Include="..\src\NppDarkMode.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="..\src\MISC\sha1\calc_sha1.h" />
     <ClInclude Include="..\src\MISC\sha1\sha1.h" />
     <ClInclude Include="..\src\MISC\sha2\sha-256.h" />
+    <ClInclude Include="..\src\MISC\sha512\sha512.h" />
     <ClInclude Include="..\src\NppDarkMode.h" />
     <ClInclude Include="..\src\ScintillaComponent\columnEditor_rc.h" />
     <ClInclude Include="..\src\ScintillaComponent\FindReplaceDlg_rc.h" />

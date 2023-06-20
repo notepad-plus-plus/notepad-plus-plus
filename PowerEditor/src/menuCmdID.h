@@ -596,6 +596,9 @@
     #define    IDM_TOOL_SHA1_GENERATE                   (IDM_TOOL + 7)
     #define    IDM_TOOL_SHA1_GENERATEFROMFILE           (IDM_TOOL + 8)
     #define    IDM_TOOL_SHA1_GENERATEINTOCLIPBOARD      (IDM_TOOL + 9)
+    #define    IDM_TOOL_SHA512_GENERATE                 (IDM_TOOL + 10)
+    #define    IDM_TOOL_SHA512_GENERATEFROMFILE         (IDM_TOOL + 11)
+    #define    IDM_TOOL_SHA512_GENERATEINTOCLIPBOARD    (IDM_TOOL + 12)
 
 #define    IDM_EXECUTE  (IDM + 9000)
 

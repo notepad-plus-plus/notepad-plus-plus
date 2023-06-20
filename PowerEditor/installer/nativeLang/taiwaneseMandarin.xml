@@ -518,6 +518,30 @@
 				<Item id="1934" name="複製到剪貼簿"/>
 				<Item id="2" name="關閉"/>
 			</SHA256FromTextDlg>
+
+			<SHA1FromFilesDlg title="從檔案產生 SHA-1">
+				<Item id="1922" name="從檔案產生 SHA-1..."/>
+				<Item id="1924" name="複製到剪貼簿"/>
+				<Item id="2" name="關閉"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="產生 SHA-1">
+				<Item id="1932" name="將每一行視為獨立的字串"/>
+				<Item id="1934" name="複製到剪貼簿"/>
+				<Item id="2" name="關閉"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="從檔案產生 SHA-512">
+				<Item id="1922" name="從檔案產生 SHA-512..."/>
+				<Item id="1924" name="複製到剪貼簿"/>
+				<Item id="2" name="關閉"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="產生 SHA-512">
+				<Item id="1932" name="將每一行視為獨立的字串"/>
+				<Item id="1934" name="複製到剪貼簿"/>
+				<Item id="2" name="關閉"/>
+			</SHA512FromTextDlg>
             
 			<PluginsAdminDlg title="外掛模組管理" titleAvailable="可安裝" titleUpdates="更新" titleInstalled="已安裝" titleIncompatible="不相容">
 				<ColumnPlugin name="外掛模組"/>

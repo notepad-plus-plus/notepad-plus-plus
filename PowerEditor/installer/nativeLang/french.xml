@@ -542,6 +542,30 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1934" name="Copier dans le presse-papiers"/>
 				<Item id="2" name="Fermer"/>
 			</SHA256FromTextDlg>
+			
+			<SHA1FromFilesDlg title="Calculer les empreintes de SHA-1 depuis les fichiers">
+				<Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
+				<Item id="1924" name="Copier dans le presse-papiers"/>
+				<Item id="2" name="Fermer"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Calculer l'empreinte de SHA-1">
+				<Item id="1932" name="Traiter chaque ligne comme une chaîne de caractères"/>
+				<Item id="1934" name="Copier dans le presse-papiers"/>
+				<Item id="2" name="Fermer"/>
+			</SHA1FromTextDlg>
+			
+			<SHA512FromFilesDlg title="Calculer les empreintes de SHA-512 depuis les fichiers">
+				<Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
+				<Item id="1924" name="Copier dans le presse-papiers"/>
+				<Item id="2" name="Fermer"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Calculer l'empreinte de SHA-512">
+				<Item id="1932" name="Traiter chaque ligne comme une chaîne de caractères"/>
+				<Item id="1934" name="Copier dans le presse-papiers"/>
+				<Item id="2" name="Fermer"/>
+			</SHA512FromTextDlg>
 
 			<PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable="Disponibles" titleUpdates="Mises à jour" titleInstalled="Installés" titleIncompatible="Incompatibilité">
 				<ColumnPlugin name="Modules d'extension"/>

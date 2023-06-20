@@ -34,6 +34,7 @@
 #include "md5.h"
 #include "sha-256.h"
 #include "calc_sha1.h"
+#include "sha512.h"
 
 using namespace std;
 
@@ -3214,24 +3215,6 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_TOOL_SHA256_GENERATE:
-		{
-			bool isFirstTime = !_sha2FromTextDlg.isCreated();
-			_sha2FromTextDlg.doDialog(_nativeLangSpeaker.isRTL());
-			if (isFirstTime)
-				_nativeLangSpeaker.changeDlgLang(_sha2FromTextDlg.getHSelf(), "SHA256FromTextDlg");
-		}
-		break;
-
-		case IDM_TOOL_SHA256_GENERATEFROMFILE:
-		{
-			bool isFirstTime = !_sha2FromFilesDlg.isCreated();
-			_sha2FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
-			if (isFirstTime)
-				_nativeLangSpeaker.changeDlgLang(_sha2FromFilesDlg.getHSelf(), "SHA256FromFilesDlg");
-		}
-		break;
-
 		case IDM_TOOL_SHA1_GENERATE:
 		{
 			bool isFirstTime = !_sha1FromTextDlg.isCreated();
@@ -3250,8 +3233,45 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD:
+		case IDM_TOOL_SHA256_GENERATE:
+		{
+			bool isFirstTime = !_sha2FromTextDlg.isCreated();
+			_sha2FromTextDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha2FromTextDlg.getHSelf(), "SHA256FromTextDlg");
+		}
+		break;
+
+		case IDM_TOOL_SHA256_GENERATEFROMFILE:
+		{
+			bool isFirstTime = !_sha2FromFilesDlg.isCreated();
+			_sha2FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha2FromFilesDlg.getHSelf(), "SHA256FromFilesDlg");
+		}
+		break;
+
+		case IDM_TOOL_SHA512_GENERATE:
+		{
+			bool isFirstTime = !_sha512FromTextDlg.isCreated();
+			_sha512FromTextDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha512FromTextDlg.getHSelf(), "SHA512FromTextDlg");
+		}
+		break;
+
+		case IDM_TOOL_SHA512_GENERATEFROMFILE:
+		{
+			bool isFirstTime = !_sha512FromFilesDlg.isCreated();
+			_sha512FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_sha512FromFilesDlg.getHSelf(), "SHA512FromFilesDlg");
+		}
+		break;
+
 		case IDM_TOOL_SHA1_GENERATEINTOCLIPBOARD:
+		case IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD:
+		case IDM_TOOL_SHA512_GENERATEINTOCLIPBOARD:
 		{
 			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
 			{
@@ -3265,23 +3285,33 @@ void Notepad_plus::command(int id)
 					char *selectedStr = new char[strSize];
 					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
 
-					bool isSha256 = (id == IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD);
+					uint8_t hash[HASH_MAX_LENGTH] {};
+					wchar_t hashStr[HASH_STR_MAX_LENGTH] {};
 
-					uint8_t hash[32] {}; // align to the longest hash (SHA-256)
-					wchar_t hashStr[65] {}; // align to the longest hash (SHA-256)
-					size_t hashLen = 0;
-					if (isSha256)
+					switch (id)
 					{
-						calc_sha_256(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
-						hashLen = 32;
+						case IDM_TOOL_SHA1_GENERATEINTOCLIPBOARD:
+						{
+							calc_sha1(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
+						}
+						break;
+
+						case IDM_TOOL_SHA256_GENERATEINTOCLIPBOARD:
+						{
+							calc_sha_256(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
+						}
+						break;
+						
+						case IDM_TOOL_SHA512_GENERATEINTOCLIPBOARD:
+						{
+							calc_sha_512(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
+						}
+						break;
+
+						default:
+							return;
 					}
-					else // SHA1
-					{
-						calc_sha1(hash, reinterpret_cast<const uint8_t*>(selectedStr), strlen(selectedStr));
-						hashLen = 20;
-					}
-					
-					for (size_t i = 0; i < hashLen; i++)
+					for (int i = 0; i < id; i++)
 						wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 					str2Clipboard(hashStr, _pPublicInterface->getHSelf());

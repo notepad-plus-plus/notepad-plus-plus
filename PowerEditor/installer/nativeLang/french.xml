@@ -361,6 +361,12 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="48504" name="Générer..."/>
 					<Item id="48505" name="Générer depuis les fichiers..."/>
 					<Item id="48506" name="Générer dans le presse-papiers depuis la sélection"/>
+					<Item id="48507" name="Générer..."/>
+					<Item id="48508" name="Générer depuis les fichiers..."/>
+					<Item id="48509" name="Générer dans le presse-papiers depuis la sélection"/>
+					<Item id="48510" name="Générer..."/>
+					<Item id="48511" name="Générer depuis les fichiers..."/>
+					<Item id="48512" name="Générer dans le presse-papiers depuis la sélection"/>
 					<Item id="49000" name="&amp;Exécuter..."/>
 
 					<Item id="50000" name="Complétion de fonction"/>

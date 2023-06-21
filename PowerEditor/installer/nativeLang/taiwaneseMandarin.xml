@@ -350,6 +350,12 @@
 					<Item id="48504" name="產生..."/>
 					<Item id="48505" name="從檔案產生..."/>
 					<Item id="48506" name="從選取區產生至剪貼簿"/>
+					<Item id="48507" name="產生..."/>
+					<Item id="48508" name="從檔案產生..."/>
+					<Item id="48509" name="從選取區產生至剪貼簿"/>
+					<Item id="48510" name="產生..."/>
+					<Item id="48511" name="從檔案產生..."/>
+					<Item id="48512" name="從選取區產生至剪貼簿"/>
 					<Item id="49000" name="執行(&amp;R)..."/>
 
 					<Item id="50000" name="函式自動完成"/>

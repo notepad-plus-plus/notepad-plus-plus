@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.4">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="空白文字の操作(&amp;B)"/>
 					<Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け(&amp;P)"/>
 					<Item subMenuId="edit-onSelection" name="選択した文字列を(&amp;O)"/>
+					<Item subMenuId="search-changeHistory" name="編集履歴"/>
 					<Item subMenuId="search-markAll" name="選択した語をすべて色づけ(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="選択した語を一つだけ色づけ(&amp;O)"/>
 					<Item subMenuId="search-unmarkAll" name="色づけを解除"/>
@@ -74,7 +75,9 @@ Translation note:
 					<Item subMenuId="language-userDefinedLanguage" name="ユーザー定義"/>
 					<Item subMenuId="settings-import" name="インポート"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="並べ替え"/>
 				</SubEntries>
 
@@ -249,6 +252,9 @@ Translation note:
 					<Item id="43064" name="スタイル3を適用"/>
 					<Item id="43065" name="スタイル4を適用"/>
 					<Item id="43066" name="スタイル5を適用"/>
+					<Item id="43067" name="次の編集箇所へ移動"/>
+					<Item id="43068" name="前の編集箇所へ移動"/>
+					<Item id="43069" name="編集履歴を削除"/>
 					<Item id="43045" name="検索結果ウィンドウ(&amp;W)"/>
 					<Item id="43046" name="次の検索結果(&amp;T)"/>
 					<Item id="43047" name="前の検索結果(&amp;T)"/>
@@ -368,6 +374,12 @@ Translation note:
 					<Item id="48504" name="生成..."/>
 					<Item id="48505" name="ファイルから生成..."/>
 					<Item id="48506" name="選択範囲から生成しクリップボードへ出力"/>
+					<Item id="48507" name="生成..."/>
+					<Item id="48508" name="ファイルから生成..."/>
+					<Item id="48509" name="選択範囲から生成しクリップボードへ出力"/>
+					<Item id="48510" name="生成..."/>
+					<Item id="48511" name="ファイルから生成..."/>
+					<Item id="48512" name="選択範囲から生成しクリップボードへ出力"/>
 					<Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
 
 					<Item id="50000" name="関数名補完"/>
@@ -549,6 +561,30 @@ Translation note:
 				<Item id="1934" name="クリップボードへコピー(&amp;P)"/>
 				<Item id="2" name="閉じる(&amp;C)"/>
 			</SHA256FromTextDlg>
+
+			<SHA1FromFilesDlg title="SHA-1値をファイルから生成">
+				<Item id="1922" name="ファイルを選択(複数可)(&amp;G)..."/>
+				<Item id="1924" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="SHA-1値を生成">
+				<Item id="1932" name="行ごとに生成する(&amp;S)"/>
+				<Item id="1934" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="SHA-512値をファイルから生成">
+				<Item id="1922" name="ファイルを選択(複数可)(&amp;G)..."/>
+				<Item id="1924" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="SHA-512値を生成">
+				<Item id="1932" name="行ごとに生成する(&amp;S)"/>
+				<Item id="1934" name="クリップボードへコピー(&amp;P)"/>
+				<Item id="2" name="閉じる(&amp;C)"/>
+			</SHA512FromTextDlg>
 
 			<PluginsAdminDlg title="プラグイン管理" titleAvailable="利用可能" titleUpdates="アップデート" titleInstalled="インストール済み" titleIncompatible="互換性がない">
 				<ColumnPlugin name="プラグイン"/>
@@ -783,7 +819,6 @@ Translation note:
 					<Item id="21101" name="デフォルトスタイル設定"/>
 					<Item id="21102" name="スタイル設定"/>
 					<Item id="21105" name="ドキュメンテーション"/>
-					<Item id="21104" name="一時ドキュメントサイト:"/>
 					<Item id="21106" name="コンパクトに畳む(空行を含む)(&amp;C)"/>
 					<Item id="21220" name="スタイル1で畳む"/>
 					<Item id="21224" name="開始:"/>
@@ -1598,18 +1633,14 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
 			<find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>
 			<find-status-replaceinfiles-nb-replaced value="複数ファイル内を検索：$INT_REPLACE$ 件を置換しました"/>
-			<find-status-replaceinfiles-re-malformed value="すべての文書で置換：正規表現が不正な形式です"/>
 			<find-status-replaceinopenedfiles-1-replaced value="すべての文書で置換：1 件を置換しました"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
-			<find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
 			<find-status-invalid-re value="検索：不正な正規表現です"/>
 			<find-status-search-failed value="検索：検索に失敗しました"/>
 			<find-status-mark-1-match value="マーク：1 件の一致"/>
 			<find-status-mark-nb-matches value="マーク：$INT_REPLACE$ 件の一致"/>
-			<find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>
 			<find-status-count-1-match value="数える：1 件の一致"/>
 			<find-status-count-nb-matches value="数える：$INT_REPLACE$ 件の一致"/>
-			<find-status-replaceall-re-malformed value="すべて置換：正規表現が不正な形式です"/>
 			<find-status-replaceall-1-replaced value="すべて置換：1 件を置換しました"/>
 			<find-status-replaceall-nb-replaced value="すべて置換：$INT_REPLACE$ 件を置換しました"/>
 			<find-status-replaceall-readonly value="すべて置換：置換できません。この文書は読み取り専用です"/>

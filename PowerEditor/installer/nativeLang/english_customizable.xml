@@ -364,6 +364,12 @@ Translation note:
 					<Item id="48504" name="Generate..."/>
 					<Item id="48505" name="Generate from files..."/>
 					<Item id="48506" name="Generate from selection into clipboard"/>
+					<Item id="48507" name="Generate..."/>
+					<Item id="48508" name="Generate from files..."/>
+					<Item id="48509" name="Generate from selection into clipboard"/>
+					<Item id="48510" name="Generate..."/>
+					<Item id="48511" name="Generate from files..."/>
+					<Item id="48512" name="Generate from selection into clipboard"/>
 					<Item id="49000" name="&amp;Run..."/>
 
 					<Item id="50000" name="Function Completion"/>

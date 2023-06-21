@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 19 Jun 2023, for Notepad++ 8.5.5
+     Last update by Marcello, 21 Jun 2023, for Notepad++ 8.5.5
 -->
 <NotepadPlus>
 	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.4">
@@ -74,6 +74,7 @@
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Classificar por"/>
 				</SubEntries>
 
@@ -543,6 +544,30 @@
 				<Item id="2" name="&amp;Fechar"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Gerar SHA-1 dos arquivos">
+				<Item id="1922" name="Escolha arquivos para &amp;gerar o SHA-1..."/>
+				<Item id="1924" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Gerar SHA-1">
+				<Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+				<Item id="1934" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Gerar SHA-512 dos arquivos">
+				<Item id="1922" name="Escolha arquivos para &amp;gerar o SHA-512..."/>
+				<Item id="1924" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generate SHA-512">
+				<Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
+				<Item id="1934" name="Co&amp;piar"/>
+				<Item id="2" name="&amp;Fechar"/>
+			</SHA512FromTextDlg>			
+			
 			<PluginsAdminDlg title="Gerenciador de plugins" titleAvailable="Disponíveis" titleUpdates="Atualizações" titleInstalled="Instalados" titleIncompatible="Incompatíveis">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versão"/>

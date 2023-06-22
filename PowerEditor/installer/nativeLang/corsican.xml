@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
-			  May 7th (v8.5.3), June 9th (v8.5.4)
+			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -31,7 +31,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.5.4">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -65,6 +65,7 @@ Additionnal information about Corsican localization:
 					<Item subMenuId="edit-blankOperations" name="&amp;Operazioni nant’à u spaziu"/>
 					<Item subMenuId="edit-pasteSpecial" name="Incullatura spe&amp;ziale"/>
 					<Item subMenuId="edit-onSelection" name="Per &amp;a selezzione"/>
+					<Item subMenuId="search-changeHistory" name="Cronolugia di i cambiamenti"/>
 					<Item subMenuId="search-markAll" name="Marcà &amp;tutte l’occurenze di testu"/>
 					<Item subMenuId="search-markOne" name="Stilizà una occu&amp;renza di testu"/>
 					<Item subMenuId="search-unmarkAll" name="Nettà tutti i stili"/>
@@ -100,7 +101,9 @@ Additionnal information about Corsican localization:
 					<Item subMenuId="language-userDefinedLanguage" name="Linguaghju definitu da l’utilizatore"/>
 					<Item subMenuId="settings-import" name="Impurtà"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Ordinà da"/>
 				</SubEntries>
 
@@ -275,6 +278,9 @@ Additionnal information about Corsican localization:
 					<Item id="43064" name="Impieghendu u 3ᵘ stilu"/>
 					<Item id="43065" name="Impieghendu u 4ᵘ stilu"/>
 					<Item id="43066" name="Impieghendu u 5ᵘ stilu"/>
+					<Item id="43067" name="Andà à u cambiamentu prossimu"/>
+					<Item id="43068" name="Andà à u cambiamentu precedente"/>
+					<Item id="43069" name="Squassà a cronolugia di i cambiamenti"/>
 					<Item id="43045" name="&amp;Finestra di risultatu di ricerca"/>
 					<Item id="43046" name="Prossimu risu&amp;ltatu di ricerca"/>
 					<Item id="43047" name="Precedente risu&amp;ltatu di ricerca"/>
@@ -388,6 +394,12 @@ Additionnal information about Corsican localization:
 					<Item id="48504" name="Ingenerà…"/>
 					<Item id="48505" name="Ingenerà per certi schedarii…"/>
 					<Item id="48506" name="Ingenerà in u preme’papei per a selezzione"/>
+					<Item id="48507" name="Ingenerà…"/>
+					<Item id="48508" name="Ingenerà per certi schedarii…"/>
+					<Item id="48509" name="Ingenerà in u preme’papei per a selezzione"/>
+					<Item id="48510" name="Ingenerà…"/>
+					<Item id="48511" name="Ingenerà per certi schedarii…"/>
+					<Item id="48512" name="Ingenerà in u preme’papei per a selezzione"/>
 					<Item id="49000" name="&amp;Lancià…"/>
 
 					<Item id="50000" name="Cumpiimentu di funzione"/>
@@ -567,6 +579,30 @@ Additionnal information about Corsican localization:
 				<Item id="1934" name="&amp;Cupià in u preme’papei"/>
 				<Item id="2" name="C&amp;hjode"/>
 			</SHA256FromTextDlg>
+
+			<SHA1FromFilesDlg title="Ingenerà l’impronta numerica SHA-1 per certi schedarii">
+				<Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+				<Item id="1924" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Ingenerà l’impronta numerica SHA-1 per un testu">
+				<Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+				<Item id="1934" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Ingenerà l’impronta numerica SHA-512 per certi schedarii">
+				<Item id="1922" name="&amp;Sceglie i schedarii à trattà…"/>
+				<Item id="1924" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Ingenerà l’impronta numerica SHA-512 per un testu">
+				<Item id="1932" name="&amp;Trattà ogni linea cum’è una catena separata"/>
+				<Item id="1934" name="&amp;Cupià in u preme’papei"/>
+				<Item id="2" name="C&amp;hjode"/>
+			</SHA512FromTextDlg>
 
 			<PluginsAdminDlg title="Ghjestione di i moduli d’estensione" titleAvailable="Dispunibule" titleUpdates="Rinnovi" titleInstalled="Installati" titleIncompatible="Incumpatibile">
 				<ColumnPlugin name="Moduli d’estensione"/>
@@ -801,7 +837,6 @@ Additionnal information about Corsican localization:
 					<Item id="21101" name="Stilu predefinitu"/>
 					<Item id="21102" name="Stilu"/>
 					<Item id="21105" name="Documentazione"/>
-					<Item id="21104" name="Situ timpurariu di documentazione :"/>
 					<Item id="21106" name="Piegatura &amp;cumpatta (piegà linee viote dinù)"/>
 					<Item id="21220" name="Stilu 1 di piegatura di codice"/>
 					<Item id="21224" name="Apertura :"/>
@@ -1621,18 +1656,14 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-status-end-reached value="Circà : 1ᵃ occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
 			<find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>
 			<find-status-replaceinfiles-nb-replaced value="Rimpiazzà in schedarii : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
-			<find-status-replaceinfiles-re-malformed value="Rimpiazzà in schedarii aperti : A spressione regulare hè mal’cuncilia"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Rimpiazzà in schedarii aperti : 1 occurrenza hè stata rimpiazzata"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Rimpiazzà in schedarii aperti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
-			<find-status-mark-re-malformed value="Marcà : A spressione regulare per ricercà hè mal’cuncilia"/>
 			<find-status-invalid-re value="Circà : Espressione regulare inaccettevule"/>
 			<find-status-search-failed value="Circà : Ricerca fiascata"/>
 			<find-status-mark-1-match value="Marca : 1 cuncurdanza"/>
 			<find-status-mark-nb-matches value="Marca : $INT_REPLACE$ cuncurdanze"/>
-			<find-status-count-re-malformed value="Cuntà : A spressione regulare per ricercà hè mal’cuncilia"/>
 			<find-status-count-1-match value="Cuntà : 1 cuncurdanza"/>
 			<find-status-count-nb-matches value="Cuntà : $INT_REPLACE$ cuncurdanze"/>
-			<find-status-replaceall-re-malformed value="Rimpiazzalle tutte : A spressione regulare hè mal’cuncilia"/>
 			<find-status-replaceall-1-replaced value="Rimpiazzalle tutte : 1 occurrenza hè stata rimpiazzata"/>
 			<find-status-replaceall-nb-replaced value="Rimpiazzalle tutte : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
 			<find-status-replaceall-readonly value="Rimpiazzalle tutte : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>

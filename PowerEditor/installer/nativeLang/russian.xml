@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.5.4:
+Updated to v8.5.5:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.5.4">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -37,6 +37,7 @@ Updated to v8.5.4:
 					<Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
 					<Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
 					<Item subMenuId="edit-onSelection" name="Выделенное"/>
+					<Item subMenuId="search-changeHistory" name="История Изменений"/>
 					<Item subMenuId="search-markAll" name="Пометить все совпадения"/>
 					<Item subMenuId="search-markOne" name="Пометить только одно"/>
 					<Item subMenuId="search-unmarkAll" name="Очистить пометки"/>
@@ -72,7 +73,9 @@ Updated to v8.5.4:
 					<Item subMenuId="language-userDefinedLanguage" name="Польз. Синтаксис"/>
 					<Item subMenuId="settings-import" name="Импортировать"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha256" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Сортировка вкладок"/>
 				</SubEntries>
 				<Commands>
@@ -275,6 +278,10 @@ Updated to v8.5.4:
 					<Item id="43065" name="Используя 4-й стиль"/>
 					<Item id="43066" name="Используя 5-й стиль"/>
 
+					<Item id="43067" name="К Следующему Изменению"/>
+					<Item id="43068" name="К Предыдущему Изменению"/>
+					<Item id="43069" name="Очистить Историю Изменений"/>
+
 					<Item id="43005" name="Закладка (поставить / снять)"/>
 					<Item id="43006" name="К следующей закладке"/>
 					<Item id="43007" name="К предыдущей закладке"/>
@@ -392,6 +399,12 @@ Updated to v8.5.4:
 					<Item id="48504" name="Сгенерировать..."/>
 					<Item id="48505" name="Сгенерировать из файлов..."/>
 					<Item id="48506" name="Сген. из копированного в буфер"/>
+					<Item id="48507" name="Сгенерировать..."/>
+					<Item id="48508" name="Сгенерировать из файлов..."/>
+					<Item id="48509" name="Сген. из копированного в буфер"/>
+					<Item id="48510" name="Сгенерировать..."/>
+					<Item id="48511" name="Сгенерировать из файлов..."/>
+					<Item id="48512" name="Сген. из копированного в буфер"/>
 
 					<Item id="42018" name="Начать запись"/>
 					<Item id="42019" name="Остановить запись"/>
@@ -576,6 +589,27 @@ Updated to v8.5.4:
 				<Item id="1934" name="Копировать в Буфер"/>
 				<Item id="2" name="Закрыть"/>
 			</SHA256FromTextDlg>
+			<SHA1FromFilesDlg title="Сгенерировать SHA-1 из файлов">
+				<Item id="1922" name="Выбрать файлы для генерации SHA-1..."/>
+				<Item id="1924" name="Копировать в Буфер"/>
+				<Item id="2" name="Закрыть"/>
+			</SHA1FromFilesDlg>
+			<SHA1FromTextDlg title="Сгенерировать SHA-1">
+				<Item id="1932" name="Рассматривать каждую строку как отдельную"/>
+				<Item id="1934" name="Копировать в Буфер"/>
+				<Item id="2" name="Закрыть"/>
+			</SHA1FromTextDlg>
+			<SHA512FromFilesDlg title="Сгенерировать SHA-512 из файлов">
+				<Item id="1922" name="Выбрать файлы для генерации SHA-512..."/>
+				<Item id="1924" name="Копировать в Буфер"/>
+				<Item id="2" name="Закрыть"/>
+			</SHA512FromFilesDlg>
+			<SHA512FromTextDlg title="Сгенерировать SHA-512">
+				<Item id="1932" name="Рассматривать каждую строку как отдельную"/>
+				<Item id="1934" name="Копировать в Буфер"/>
+				<Item id="2" name="Закрыть"/>
+			</SHA512FromTextDlg>
+
 			<PluginsAdminDlg title="Управление Плагинами" titleAvailable="Доступные" titleUpdates="Обновления" titleInstalled="Установленные" titleIncompatible="Несовместимые">
 				<ColumnPlugin name="Плагины"/>
 				<ColumnVersion name="Версия"/>

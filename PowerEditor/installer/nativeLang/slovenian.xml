@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.5.2
-        Last modified 08. Apr 2023 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.5.4
+        Last modified 19. Jun 2023 by dr. Vinko Kastelic
         
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.5.2">
+	<Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -298,6 +298,7 @@
 					<Item id="44114" name="Uporabi barvo 4"/>
 					<Item id="44115" name="Uporabi barvo 5"/>
 					<Item id="44130" name="Prikaži nenatisljive znake"/>
+					<Item id="44131" name="Prikaži kontrolne znake &amp;&amp; Unicode EOL"/>			
 					<Item id="44032" name="Preklopi celozaslonski način"/>
 					<Item id="44033" name="Povrni privzeto povečavo"/>
 					<Item id="44034" name="Vedno na vrhu"/>
@@ -546,12 +547,12 @@
 			<PluginsAdminDlg title="Skrbnik vtičnikov" titleAvailable="Na voljo" titleUpdates="Posodobitve" titleInstalled="Nameščeno" titleIncompatible="Nezdružljivo">
 				<ColumnPlugin name="Vtičnik"/>
 				<ColumnVersion name="Različica"/>
-				<Item id="5501" name="Išči:"/>
-				<Item id="5503" name="Namesti"/>
-				<Item id="5504" name="Posodobi"/>
-				<Item id="5505" name="Odstrani"/>
-				<Item id="5508" name="Naslednji"/>
-				<Item id="5509" name="Različica seznama vtičnikov: "/>
+				<Item id="5501" name="&amp;Išči:"/>
+				<Item id="5503" name="&amp;Namesti"/>
+				<Item id="5504" name="&amp;Posodobi"/>
+				<Item id="5505" name="&amp;Odstrani"/>
+				<Item id="5508" name="&amp;Naslednji"/>
+				<Item id="5509" name="Različica seznama vtičnikov:"/>
 				<Item id="5511" name="Odlagališče seznama vtičnikov"/>
 				<Item id="2" name="Zapri"/>
 			</PluginsAdminDlg>
@@ -912,21 +913,22 @@
 					<Item id="6108" name="Zakleni (brez povleci-in-spusti)"/>
 					<Item id="6109" name="Potemni neaktivne zavihke"/>
 					<Item id="6110" name="Nariši obarvano vrstico na aktivnem zavihku"/>
-					
-					<Item id="6111" name="Prikaži vrstico stanja"/>
 					<Item id="6112" name="Prikaži gumb za zapiranje na vsakem zavihku"/>
 					<Item id="6113" name="Dvokliknite za zaprtje dokumenta"/>
 					<Item id="6118" name="Skrij"/>
 					<Item id="6119" name="Večvrstično"/>
 					<Item id="6120" name="Navpično"/>
 					<Item id="6121" name="Izhod ko zaprete zadnji zavihek"/>
+					<Item id="6128" name="Nadomestne ikone"/>
 
+					<Item id="6133" name="Statusna vrstica"/>
+					<Item id="6134" name="Skrij"/>
+					
 					<Item id="6131" name="Meni"/>
 					<Item id="6122" name="Skrij menijsko vrstico (uporabite tipko Alt ali F10 za preklop)"/>
 					<Item id="6132" name="Skrij desne bližnjice ＋ ▼ ✕ v menijski vrstici (potrebno je znova zagnati Notepad++)"/>
+
 					<Item id="6123" name="Lokalizacija"/>
-					
-					<Item id="6128" name="Nadomestne ikone"/>
 				</Global>
 				<Scintillas title="Urejanje">
 					<Item id="6216" name="Nastavitve kazalca"/>
@@ -949,7 +951,7 @@
 					<Item id="6652" name="Nobena"/>
 					<Item id="6653" name="Označi ozadje"/>
 					<Item id="6654" name="Okvir"/>
-					<Item id="6655" name="Širina"/>
+					<Item id="6655" name="Širina:"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Privzeto"/>
 					<Item id="6249" name="Golo besedilo"/>
@@ -958,6 +960,7 @@
 					<Item id="6254" name="Kratica"/>
 					<Item id="6255" name="Kodna točka"/>
 					<Item id="6256" name="Barva po meri"/>
+					<Item id="6258" name="Uporabi za C0, C1 &amp;&amp; Unicode EOL"/>
 				</Scintillas>
 				
 				<DarkMode title="Temni način">
@@ -1027,6 +1030,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6411" name="Privzeti jezik:"/>
 					<Item id="6419" name="Nov dokument"/>
 					<Item id="6420" name="Uporabi za odprte ANSI datoteke"/>
+					<Item id="6432" name="Ob zagonu poleg tega vedno odprite nov dokument"/>
 				</NewDoc>
                     
 				<DefaultDir title="Privzeti imenik">
@@ -1301,7 +1305,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 				<Item id="1" name="Poišči vse"/>
 				<Item id="2" name="Zapri"/>
 				<Item id="1711" name="&amp;Poišči:"/>
-				<Item id="1713" name="Išči samo v najdenih vrsticah"/>
+				<Item id="1713" name="Išči &amp;samo v najdenih vrsticah"/>
 				<Item id="1714" name="Upoštevaj samo &amp;cele besede"/>
 				<Item id="1715" name="Upoštevaj &amp;VELIKE/male črke"/>
 				<Item id="1716" name="Način iskanja"/>
@@ -1325,7 +1329,7 @@ Izberite &quot;Vedno da&quot; če ne želite več videti tega pogovornega okna.
 To pogovorno okno lahko pozneje znova aktivirate v nastavitvah."/>
 				<Item id="6" name="&amp;Da"/>
 				<Item id="7" name="&amp;Ne"/>
-				<Item id="4" name="Vedno da"/>
+				<Item id="4" name="&amp;Vedno da"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>

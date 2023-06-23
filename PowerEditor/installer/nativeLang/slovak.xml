@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.4">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -37,6 +37,7 @@
 					<Item subMenuId="edit-blankOperations" name="Operácie s &amp;prázdnym znakom"/>
 					<Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciá&amp;lne"/>
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
+					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
 					<Item subMenuId="search-unmarkAll" name="Vymazať štýl"/>
@@ -72,7 +73,9 @@
 					<Item subMenuId="language-userDefinedLanguage" name="Používateľom definovaný jazyk"/>
 					<Item subMenuId="settings-import" name="Import"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Zoradiť podľa"/>
 				</SubEntries>
 
@@ -247,6 +250,9 @@
 					<Item id="43064" name="Pomocou 3. štýlu"/>
 					<Item id="43065" name="Pomocou 4. štýlu"/>
 					<Item id="43066" name="Pomocou 5. štýlu"/>
+					<Item id="43067" name="Prejsť na ďalšiu zmenu"/>
+					<Item id="43068" name="Prejsť na predchádzajúcu zmenu"/>
+					<Item id="43069" name="Vymazať históriu zmien"/>
 					<Item id="43045" name="O&amp;kno s výsledkami hľadania"/>
 					<Item id="43046" name="Ď&amp;alší výsledok hľadania"/>
 					<Item id="43047" name="Pr&amp;edchádzajúci výsledok hľadania"/>
@@ -360,6 +366,12 @@
 					<Item id="48504" name="Vytvoriť…"/>
 					<Item id="48505" name="Vytvoriť zo súborov…"/>
 					<Item id="48506" name="Vytvoriť z výberu do schránky"/>
+					<Item id="48507" name="Vytvoriť…"/>
+					<Item id="48508" name="Vytvoriť zo súborov…"/>
+					<Item id="48509" name="Vytvoriť z výberu do schránky"/>
+					<Item id="48510" name="Vytvoriť…"/>
+					<Item id="48511" name="Vytvoriť zo súborov…"/>
+					<Item id="48512" name="Vytvoriť z výberu do schránky"/>
 					<Item id="49000" name="&amp;Spustiť…"/>
 
 					<Item id="50000" name="Dokončovanie funkcií"/>
@@ -542,6 +554,29 @@
 				<Item id="2" name="&amp;Zavrieť"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Vytvoriť SHA-1 kontrolný súčet zo súborov">
+				<Item id="1922" name="Vyberte súbory na &amp;generovanie hašu…"/>
+				<Item id="1924" name="Sko&amp;pírovať do schránky"/>
+				<Item id="2" name="&amp;Close"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Vytvoriť SHA-1 kontrolný súčet">
+				<Item id="1932" name="Každý riadok ako &amp;samostatný textový reťazec"/>
+				<Item id="1934" name="Sko&amp;pírovať do schránky"/>
+				<Item id="2" name="&amp;Close"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Vytvoriť SHA-512 kontrolný súčet zo súborov">
+				<Item id="1922" name="Vyberte súbory na &amp;generovanie hašu…"/>
+				<Item id="1924" name="Sko&amp;pírovať do schránky"/>
+				<Item id="2" name="&amp;Close"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Vytvoriť SHA-512 kontrolný súčet">
+				<Item id="1932" name="Každý riadok ako &amp;samostatný textový reťazec"/>
+				<Item id="1934" name="Sko&amp;pírovať do schránky"/>
+				<Item id="2" name="&amp;Close"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Správa doplnkov" titleAvailable="Dostupné" titleUpdates="Aktualizácie" titleInstalled="Nainštalované" titleIncompatible="Nekompatibilné">
 				<ColumnPlugin name="Doplnok"/>
 				<ColumnVersion name="Verzia"/>
@@ -775,7 +810,6 @@
 					<Item id="21101" name="Predvolený štýl"/>
 					<Item id="21102" name="Nastaviť štýl…"/>
 					<Item id="21105" name="Dokumentácia"/>
-					<Item id="21104" name="Dočasná stránka s dokumentáciou:"/>
 					<Item id="21106" name="Zbaliť kompaktne (zbaliť aj prázdne riadky)"/>
 					<Item id="21220" name="Zbalenie v štýle kódu 1"/>
 					<Item id="21224" name="Začiatok:"/>
@@ -1594,18 +1628,14 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
 			<find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
-			<find-status-replaceinfiles-re-malformed value="Nahradiť v otvorených súboroch: Neplatný regulárny výraz"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahradiť v otvorených súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Nahradiť v otvorených súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
-			<find-status-mark-re-malformed value="Označiť: Neplatný regulárny výraz vyhľadávania"/>
 			<find-status-invalid-re value="Hľadať: Neplatný regulárny výraz"/>
 			<find-status-search-failed value="Hľadať: Hľadanie zlyhalo"/>
 			<find-status-mark-1-match value="Označiť: 1 výskyt"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ výskytov"/>
-			<find-status-count-re-malformed value="Spočítať: Neplatný regulárny výraz vyhľadávania"/>
 			<find-status-count-1-match value="Spočítať: 1 výskyt"/>
 			<find-status-count-nb-matches value="Spočítať: $INT_REPLACE$ výskytov"/>
-			<find-status-replaceall-re-malformed value="Nahradiť všetko: Neplatný regulárny výraz"/>
 			<find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
 			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>

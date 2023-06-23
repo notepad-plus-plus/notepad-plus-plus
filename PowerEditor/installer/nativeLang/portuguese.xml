@@ -553,7 +553,7 @@ Translation note:
 			</SHA256FromTextDlg>
 
 			<SHA1FromFilesDlg title="Gerar resumo SHA-1 de ficheiros">
-				<Item id="1922" name="Escolher ficheiros para &amp;gerar  SHA-1..."/>
+				<Item id="1922" name="Escolher ficheiros para &amp;gerar SHA-1..."/>
 				<Item id="1924" name="Co&amp;piar p/ a área de transferência"/>
 				<Item id="2" name="&amp;Fechar"/>
 			</SHA1FromFilesDlg>

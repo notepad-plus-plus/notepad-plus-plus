@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.5.3">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -12,37 +14,37 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item menuId="edit" name="&amp;Editar"/>
 					<Item menuId="search" name="&amp;Buscar"/>
 					<Item menuId="view" name="&amp;Vista"/>
-					<Item menuId="encoding" name="&amp;Codificación"/>
+					<Item menuId="encoding" name="Co&amp;dificación"/>
 					<Item menuId="language" name="&amp;Linguaxe"/>
 					<Item menuId="settings" name="C&amp;onfiguración"/>
 					<Item menuId="tools" name="&amp;Ferramentas"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;xecutar"/>
 					<Item menuId="Plugins" name="Complemen&amp;tos"/>
-					<Item menuId="Window" name="Pesta&amp;nas"/>
+					<Item menuId="Window" name="&amp;Pestanas"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Abrir carpeta con&amp;tedora"/>
+					<Item subMenuId="file-openFolder" name="A&amp;brir carpeta contedora en"/>
 					<Item subMenuId="file-closeMore" name="Pechado especia&amp;l"/>
 					<Item subMenuId="file-recentFiles" name="Arquivos &amp;recentes"/>
 					<Item subMenuId="edit-insert" name="Insertar"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copiar ao &amp;portapapeis"/>
-					<Item subMenuId="edit-indent" name="Tabulac&amp;ión"/>
+					<Item subMenuId="edit-indent" name="Tab&amp;ulación"/>
 					<Item subMenuId="edit-convertCaseTo" name="Conversión de &amp;maiúsculas e minúsculas"/>
-					<Item subMenuId="edit-lineOperations" name="Operacións con &amp;liñas"/>
+					<Item subMenuId="edit-lineOperations" name="Operacións con li&amp;ñas"/>
 					<Item subMenuId="edit-comment" name="Comen&amp;tar / Descomentar"/>
 					<Item subMenuId="edit-autoCompletion" name="&amp;Autocompletar"/>
 					<Item subMenuId="edit-eolConversion" name="Con&amp;versión fin de liña"/>
 					<Item subMenuId="edit-blankOperations" name="Operacións de limpe&amp;za"/>
-					<Item subMenuId="edit-pasteSpecial" name="&amp;Pegado especial"/>
+					<Item subMenuId="edit-pasteSpecial" name="Pe&amp;gado especial"/>
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
 					<Item subMenuId="search-markAll" name="Resaltar tódalas coincidencias &amp;buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar unha coinci&amp;dencia"/>
 					<Item subMenuId="search-unmarkAll" name="Limpar estilo"/>
 					<Item subMenuId="search-jumpUp" name="&amp;Subir"/>
-					<Item subMenuId="search-jumpDown" name="&amp;Baixar"/>
-					<Item subMenuId="search-copyStyledText" name="Copiar te&amp;xto con estilo"/>
+					<Item subMenuId="search-jumpDown" name="Bai&amp;xar"/>
+					<Item subMenuId="search-copyStyledText" name="Co&amp;piar texto con estilo"/>
 					<Item subMenuId="search-bookmark" name="Marcad&amp;ores"/>
 					<Item subMenuId="view-currentFileIn" name="Ver arquivo actual en"/>
 					<Item subMenuId="view-showSymbol" name="Mostrar opcións de liñas"/>
@@ -72,7 +74,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="language-userDefinedLanguage" name="Definida polo usuario"/>
 					<Item subMenuId="settings-import" name="Importar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Ordenar por"/>
 				</SubEntries>
 
@@ -83,26 +87,26 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="41019" name="Explorador de arquivos"/>
 					<Item id="41020" name="CMD"/>
 					<Item id="41025" name="Carpeta como espazo de traballo"/>
-					<Item id="41003" name="&amp;Pechar actual"/>
-					<Item id="41004" name="P&amp;echar todas"/>
+					<Item id="41003" name="&amp;Pechar pestana activa"/>
+					<Item id="41004" name="P&amp;echar tódalas pestanas"/>
 					<Item id="41005" name="Pechar as outras pestanas"/>
 					<Item id="41009" name="Pechar todo á esquerda"/>
 					<Item id="41018" name="Pechar todo á dereita"/>
 					<Item id="41024" name="Pechar todo sen cambios"/>
 					<Item id="41006" name="&amp;Gardar"/>
 					<Item id="41007" name="Gardar &amp;todo"/>
-					<Item id="41008" name="Gardar co&amp;mo..."/>
+					<Item id="41008" name="Gardar c&amp;omo..."/>
 					<Item id="41010" name="&amp;Imprimir..."/>
 					<Item id="1001" name="I&amp;mprimir agora"/>
 					<Item id="41011" name="&amp;Saír"/>
-					<Item id="41012" name="Car&amp;gar sesión..."/>
+					<Item id="41012" name="Cargar sesi&amp;ón..."/>
 					<Item id="41013" name="Gar&amp;dar sesión..."/>
-					<Item id="41014" name="Recargar desde disc&amp;o"/>
+					<Item id="41014" name="Re&amp;cargar desde disco"/>
 					<Item id="41015" name="Gardar &amp;unha copia como..."/>
 					<Item id="41016" name="Mover á Papeleira de recicla&amp;xe"/>
 					<Item id="41017" name="&amp;Renomear..."/>
 					<Item id="41021" name="Restaurar arquivo pechado recentemente"/>
-					<Item id="41022" name="Abrir carpeta como espazo &amp;de traballo"/>
+					<Item id="41022" name="Abrir carpeta como espa&amp;zo de traballo"/>
 					<Item id="41023" name="Abrir no &amp;visualizador predeterminado"/>
 					<Item id="42001" name="C&amp;ortar"/>
 					<Item id="42002" name="&amp;Copiar"/>
@@ -110,7 +114,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42004" name="&amp;Refacer"/>
 					<Item id="42005" name="&amp;Pegar"/>
 					<Item id="42006" name="&amp;Borrar"/>
-					<Item id="42007" name="Seleccionar t&amp;odo"/>
+					<Item id="42007" name="Selecc&amp;ionar todo"/>
 					<Item id="42020" name="Selección de inicio/&amp;fin"/>
 					<Item id="42089" name="Selección de inicio/fin en modo columna"/>
 					<Item id="42084" name="Data e hora (curta)"/>
@@ -171,7 +175,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42082" name="Copiar ligazón"/>
 					<Item id="42037" name="Modo de columna..."/>
 					<Item id="42034" name="&amp;Editor de columna..."/>
-					<Item id="42051" name="Panel de &amp;caracteres"/>
+					<Item id="42051" name="Pane&amp;l de caracteres"/>
 					<Item id="42052" name="&amp;Historial do portapapeis"/>
 					<Item id="42025" name="&amp;Gardar macro actualmente gravada"/>
 					<Item id="42026" name="Texto dereita-esquerda"/>
@@ -191,9 +195,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42057" name="Inserir liña en branco arriba da actual"/>
 					<Item id="42058" name="Inserir liña en branco debaixo da actual"/>
 					<Item id="43001" name="&amp;Buscar..."/>
-					<Item id="43002" name="Buscar &amp;seguinte"/>
+					<Item id="43002" name="Buscar se&amp;guinte"/>
 					<Item id="43003" name="S&amp;ubstituír..."/>
-					<Item id="43004" name="Ir á &amp;liña..."/>
+					<Item id="43004" name="Ir á li&amp;ña..."/>
 					<Item id="43005" name="Activar/Desactivar marcadores"/>
 					<Item id="43006" name="Marcador seguinte"/>
 					<Item id="43007" name="Marcador anterior"/>
@@ -208,10 +212,10 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43053" name="Selecci&amp;onar todo o coincidente"/>
 					<Item id="43009" name="Ir ao delimi&amp;tador simétrico"/>
 					<Item id="43010" name="Buscar a&amp;nterior"/>
-					<Item id="43011" name="&amp;Busca incremental"/>
-					<Item id="43013" name="Buscar en arqui&amp;vos"/>
+					<Item id="43011" name="Busca &amp;incremental"/>
+					<Item id="43013" name="Buscar en ar&amp;quivos"/>
 					<Item id="43014" name="Bus&amp;ca (volátil) seguinte"/>
-					<Item id="43015" name="Busca (&amp;volátil) anterior"/>
+					<Item id="43015" name="Busca (vo&amp;látil) anterior"/>
 					<Item id="43022" name="Aplicar o estilo 1"/>
 					<Item id="43023" name="Non aplicar o estilo 1"/>
 					<Item id="43024" name="Aplicar o estilo 2"/>
@@ -251,7 +255,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43046" name="Resultados da busca &amp;seguinte"/>
 					<Item id="43047" name="Resultados da busca &amp;anterior"/>
 					<Item id="43048" name="&amp;Seleccionar e buscar seguinte"/>
-					<Item id="43049" name="Sele&amp;ccionar e buscar anterior"/>
+					<Item id="43049" name="Selecciona&amp;r e buscar anterior"/>
 					<Item id="43054" name="&amp;Marcar..."/>
 					<Item id="43501" name="Pechar seleccionados"/>
 					<Item id="43502" name="Pechar outros"/>
@@ -296,7 +300,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44114" name="Aplicar cor 4"/>
 					<Item id="44115" name="Aplicar cor 5"/>
 					<Item id="44130" name="Mostrar caracteres non imprimibles"/>
-					<Item id="44131" name="Mostrar caracteres de control &amp; EOL de Unicode"/>
+					<Item id="44131" name="Mostrar caracteres de control &amp; &amp; EOL de Unicode"/>
 					<Item id="44032" name="Activar o modo de pantalla completa"/>
 					<Item id="44033" name="Restaurar zoom 100%"/>
 					<Item id="44034" name="Sempre visible"/>
@@ -354,12 +358,18 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="48011" name="Preferencias..."/>
 					<Item id="48014" name="Abrir carpeta de complementos..."/>
 					<Item id="48015" name="Administrar complementos..."/>
-					<Item id="48501" name="Xerar MD5"/>
-					<Item id="48502" name="Xerar desde arquivos"/>
-					<Item id="48503" name="Xerar desde a selección ao portapapeis"/>
-					<Item id="48504" name="Xerar SHA-256"/>
+					<Item id="48501" name="Xerar..."/>
+					<Item id="48502" name="Xerar desde arquivos..."/>
+					<Item id="48503" name="Xerar desde a selección do portapapeis"/>
+					<Item id="48504" name="Xerar..."/>
 					<Item id="48505" name="Xerar desde arquivos..."/>
-					<Item id="48506" name="Xerar desde a selección ao portapapeis"/>
+					<Item id="48506" name="Xerar desde a selección do portapapeis"/>
+					<Item id="48507" name="Xerar..."/>
+					<Item id="48508" name="Xerar desde arquivos..."/>
+					<Item id="48509" name="Xerar desde a selección do portapapeis"/>
+					<Item id="48510" name="Xerar..."/>
+					<Item id="48511" name="Xerar desde arquivos..."/>
+					<Item id="48512" name="Xerar desde a selección do portapapeis"/>
 					<Item id="49000" name="E&amp;xecutar..."/>
 
 					<Item id="50000" name="Completar función"/>
@@ -508,7 +518,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="2" name="Cancelar"/>
 				<Item id="2004" name="Liña actual:"/>
 				<Item id="2005" name="Ir á liña:"/>
-				<Item id="2006" name="Última liña:"/>
+				<Item id="2006" name="Derradeira liña:"/>
 			</GoToLine>
 
 			<Run title="Executar...">
@@ -519,29 +529,52 @@ The comments are here for explanation, it's not necessary to translate them.
 			</Run>
 
 			<MD5FromFilesDlg title="Xerar resumo MD5 desde os arquivos">
-				<Item id="1922" name="Seleccione os arquivos para xerar MD5..."/>
-				<Item id="1924" name="Copiar ao portapapeis"/>
-				<Item id="2" name="Pechar"/>
+				<Item id="1922" name="Seleccione os arquivos para &amp;xerar MD5..."/>
+				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Xerar resumo MD5">
-				<Item id="1932" name="Tratar cada liña coma unha cadea separada"/>
-				<Item id="1934" name="Copiar ao portapapeis"/>
-				<Item id="2" name="Pechar"/>
+				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
+				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="Xerar resumo SHA-256 desde os arquivos">
-				<Item id="1922" name="Seleccione arquivos para xerar SHA-256..."/>
-				<Item id="1924" name="Copiar ao portapapeis"/>
-				<Item id="2" name="Pechar"/>
+				<Item id="1922" name="Seleccione os arquivos para &amp;xerar SHA-256..."/>
+				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Xerar resumo SHA-256">
-				<Item id="1932" name="Tratar a cada liña coma unha cadea separada"/>
-				<Item id="1934" name="Copiar ao portapapeis"/>
-				<Item id="2" name="Pechar"/>
+				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
+				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Xerar resumo SHA-1 desde os arquivos">
+				<Item id="1922" name="Seleccione os arquivos para &amp;xerar SHA-1..."/>
+				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Xerar resumo SHA-1">
+				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
+				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Xerar resumo SHA-512 desde os arquivos">
+				<Item id="1922" name="Seleccione os arquivos para &amp;xerar SHA-512..."/>
+				<Item id="1924" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Xerar resumo SHA-512">
+				<Item id="1932" name="Tratar cada liña coma unha cadea &amp;separada"/>
+				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
+				<Item id="2" name="Pe&amp;char"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Administrar complementos" titleAvailable="Dispoñible" titleUpdates="Actualizar" titleInstalled="Instalado" titleIncompatible="Incompatible">
 				<ColumnPlugin name="Complemento"/>
 				<ColumnVersion name="Versión"/>
@@ -911,25 +944,26 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6108" name="Bloquear (impedir arrastrar e soltar)"/>
 					<Item id="6109" name="Oscurecer pestanas inactivas"/>
 					<Item id="6110" name="Barra de cor na pestana activa"/>
-
-					<Item id="6111" name="Mostrar barra de estado"/>
 					<Item id="6112" name="Botón de peche en cada pestana"/>
 					<Item id="6113" name="Dobre clic para pechar pestana"/>
 					<Item id="6118" name="Oculta"/>
 					<Item id="6119" name="Multiliña"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Saír ao pechar a derradeira"/>
+					<Item id="6128" name="Iconas alternativas"/>
+
+					<Item id="6133" name="Barra de estado"/>
+					<Item id="6134" name="Ocultar"/>
 
 					<Item id="6131" name="Menú"/>
 					<Item id="6122" name="Ocultar barra de opcións (Alt ou F10 para activar/desactivar)"/>
 					<Item id="6132" name="Ocultar atallos ＋ ▼ ✕ na dereita da barra de menús (é necesario reiniciar Notepad++)"/>
-					<Item id="6123" name="Idioma"/>
 
-					<Item id="6128" name="Iconas alternativas"/>
+					<Item id="6123" name="Idioma"/>
 				</Global>
 				<Scintillas title="Edición">
 					<Item id="6216" name="Configuración do cursor"/>
-					<Item id="6217" name="Ancho:"/>
+					<Item id="6217" name="Anchura:"/>
 					<Item id="6219" name="Intermitencia:"/>
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="L"/>
@@ -957,7 +991,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Punto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar a C0, C1 &amp; EOL de Unicode"/>
+					<Item id="6258" name="Aplicar a C0, C1 &amp; &amp; EOL de Unicode"/>
 				</Scintillas>
 
 				<DarkMode title="Modo escuro">
@@ -1027,6 +1061,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="6411" name="Linguaxe predet.:"/>
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar aos arquivos ANSI abertos"/>
+					<Item id="6432" name="Abrir sempre un novo documento adicional ao inicio"/>
 				</NewDoc>
 
 				<DefaultDir title="Carpeta predeterminada">
@@ -1203,8 +1238,8 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 				</Delimiter>
 
 				<Performance title="Rendemento">
-					<Item id="7141" name="Restricción de arquivos de gran tamaño"/>
-					<Item id="7143" name="Activar a restricción de arquivos grandes (sin resaltado de sintaxis)"/>
+					<Item id="7141" name="Restriccións para arquivos de gran tamaño"/>
+					<Item id="7143" name="Activar restriccións para arquivos grandes (sin resaltado de sintaxe)"/>
 					<Item id="7144" name="Defina o tamaño de arquivo grande:"/>
 					<Item id="7146" name="MB (1 - 4096)"/>
 					<Item id="7147" name="Permitir a coincidencia de corchetes"/>
@@ -1282,7 +1317,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 				<Item id="2033" name="&amp;Número a inserir"/>
 				<Item id="2030" name="Número &amp;inicial:"/>
 				<Item id="2031" name="Incre&amp;mentar en:"/>
-				<Item id="2038" name="&amp;Dirección:"/>
+				<Item id="2038" name="Dire&amp;cción:"/>
 				<ComboBox id="2039">
 					<Element name="Ningún"/>
 					<Element name="Ceros"/>
@@ -1301,7 +1336,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 				<Item id="1" name="Buscar todo"/>
 				<Item id="2" name="Pechar"/>
 				<Item id="1711" name="&amp;Buscar:"/>
-				<Item id="1713" name="Buscar só nas liñas encontradas"/>
+				<Item id="1713" name="Buscar só nas liñas enc&amp;ontradas"/>
 				<Item id="1714" name="Buscar &amp;só palabra completa"/>
 				<Item id="1715" name="Buscar &amp;tamaño"/>
 				<Item id="1716" name="Modo de busca"/>
@@ -1325,11 +1360,11 @@ Marque &quot;Sempre si&quot; se non desexa ver de novo este diálogo.
 Pode reactivalo en Preferencias se o desexa."/>
 				<Item id="6" name="&amp;Si"/>
 				<Item id="7" name="&amp;Non"/>
-				<Item id="4" name="Sempre si"/>
+				<Item id="4" name="Sem&amp;pre si"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
-			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders -->
+			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Editar menú emerxente" message="Editar &quot;contextMenu.xml&quot; permítelle modificar o menú contextual emerxente de Notepad++.
 Ten que reiniciar Notepad++ para que teña efecto despois de modificalo."/>
 			<SaveCurrentModifWarning title="Gardar modificación actual" message="Debe gardar a modificación actual.
@@ -1360,15 +1395,19 @@ Debe habilitar &quot;Abrir tódolos arquivos da carpeta&quot; en vez de iniciar 
 			<ColumnModeTip title="Suxerencia do modo de columna" message="
 Hai 3 formas de cambiar ao modo de selección de columnas:
 
-1. (Teclado e rato)  Manter Alt mentras arrastra co botón esquerdo do rato
+1- Co teclado e o rato
+ Manter pulsado Alt mentras arrastra co botón esquerdo do rato.
 
-2. (So teclado) Manter Alt+Maiúsculas mentras se usan as teclas de frechas
+2- So co teclado
+ Manter pulsado Alt+Maiúsculas mentras se usan as teclas de frechas.
 
-3. (Teclado o rato)
-      Coloque o cursor na posición desexada de inicio do bloque de columna e
-       execute o comando &quot;Selección de inicio/fin en modo columna&quot;
-      Mova o cursor á posición desexada ao final do bloque de columnas e
-       a continuación execute de novo eo comando &quot;Selección de inicio/fin en modo columna&quot;"/>
+3- Co teclado ou co rato
+ Marque co cursor a posición desexada do inicio do bloque de
+ columnas e aplique a opción
+ &quot;Selección de inicio/fin en modo columna&quot;.
+ Mova o cursor á posición desexada ao final do bloque de columnas,
+ marque e a continuación aplique de novo a opción
+ &quot;Selección de inicio/fin en modo columna&quot;."/>
 			<BufferInvalidWarning title="Erro ao gardar" message="Non se pode gardar: o búfer no é válido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Conservar arquivo non existente" message="O arquivo &quot;$STR_REPLACE$&quot; non existe.
 ¿Manter este arquivo no editor?"/>

@@ -20,25 +20,22 @@
 #include "clipboardFormats.h"
 
 
-#define CLIPBOARD_TEXTFORMAT CF_UNICODETEXT
 #define MAX_DISPLAY_LENGTH 64
 
 ClipboardData ClipboardHistoryPanel::getClipboadData()
 {
 	ClipboardData clipboardData;
-	if (!IsClipboardFormatAvailable(CLIPBOARD_TEXTFORMAT))
+	if (!IsClipboardFormatAvailable(CF_UNICODETEXT))
 		return clipboardData;
 
 	if (!OpenClipboard(NULL))
 		return clipboardData;
 	 
-	HGLOBAL hglb = GetClipboardData(CLIPBOARD_TEXTFORMAT); 
+	HGLOBAL hglb = GetClipboardData(CF_UNICODETEXT);
 	if (hglb != NULL) 
 	{ 
-		char *lpchar = (char *)GlobalLock(hglb);
-		wchar_t *lpWchar = (wchar_t *)GlobalLock(hglb);
-		
-		if (lpchar != NULL) 
+		unsigned char* pData = static_cast<unsigned char*>(GlobalLock(hglb));
+		if (pData != NULL)
 		{
 			UINT cf_nppTextLen = RegisterClipboardFormat(CF_NPPTEXTLEN);
 			if (IsClipboardFormatAvailable(cf_nppTextLen))
@@ -49,20 +46,22 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 					unsigned long *lpLen = (unsigned long *)GlobalLock(hglbLen); 
 					if (lpLen != NULL) 
 					{
-						for (size_t i = 0 ; i < (*lpLen) ; ++i)
+						size_t nbBytes = (*lpLen + 1) * sizeof(wchar_t);
+						for (size_t i = 0 ; i < nbBytes; ++i)
 						{
-							clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
+							clipboardData.push_back(static_cast<unsigned char>(pData[i]));
 						}
 						GlobalUnlock(hglbLen); 
 					}
 				}
 			}
-			else if (lpWchar != nullptr)
+			else
 			{
-				int nbBytes = (lstrlenW(lpWchar) + 1) * sizeof(wchar_t);
-				for (int i = 0 ; i < nbBytes ; ++i)
+				wchar_t* lpwchar = (wchar_t*)pData;
+				size_t nbBytes = (lstrlenW(lpwchar) + 1) * sizeof(wchar_t);
+				for (size_t i = 0 ; i < nbBytes ; ++i)
 				{
-					clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
+					clipboardData.push_back(static_cast<unsigned char>(pData[i]));
 				}
 			}
 			GlobalUnlock(hglb);

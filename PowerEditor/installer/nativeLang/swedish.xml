@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.5">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.5.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -72,7 +72,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="language-userDefinedLanguage" name="Användardefinierat språk"/>
 					<Item subMenuId="settings-import" name="Importera"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Sortera efter"/>
 				</SubEntries>
 
@@ -296,6 +298,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44114" name="Tillämpa färg 4"/>
 					<Item id="44115" name="Tillämpa färg 5"/>
 					<Item id="44130" name="Visa icke utskrivbara tecken"/>
+					<Item id="44131" name="Visa kontrolltecken och Unicode-radslut"/>
 					<Item id="44032" name="Helskärmsläge"/>
 					<Item id="44033" name="Återställ zoom"/>
 					<Item id="44034" name="Alltid överst"/>
@@ -358,8 +361,14 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="48503" name="Generera från markering till urklipp"/>
 					<Item id="48504" name="Generera..."/>
 					<Item id="48505" name="Generera från filer..."/>
-					<Item id="49000" name="&amp;Kör..."/>
 					<Item id="48506" name="Generera från markering till urklipp"/>
+					<Item id="48507" name="Generera..."/>
+					<Item id="48508" name="Generera från filer..."/>
+					<Item id="48509" name="Generera från markering till urklipp"/>
+					<Item id="48510" name="Generera..."/>
+					<Item id="48511" name="Generera från filer..."/>
+					<Item id="48512" name="Generera från markering till urklipp"/>
+					<Item id="49000" name="&amp;Kör..."/>
 
 					<Item id="50000" name="Funktionskomplettering"/>
 					<Item id="50001" name="Ordkomplettering"/>
@@ -385,8 +394,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="11009" name="Storlek, större till mindre"/>
 				</Commands>
 			</Main>
-			<Splitter>
-			</Splitter>
 			<TabBar>
 				<Item CMDID="41003" name="Stäng"/>
 				<Item CMDID="0" name="Stäng flera flikar"/>
@@ -424,6 +431,14 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item CMDID="44115" name="Tillämpa färg 5"/>
 				<Item CMDID="44110" name="Ta bort färg"/>
 			</TabBar>
+			<TrayIcon>
+				<Item id="43101" name="Aktivera"/>
+				<Item id="43102" name="Ny"/>
+				<Item id="43103" name="Ny och klistra in"/>
+				<Item id="43104" name="Öppna..."/>
+				<Item id="43013" name="Hitta i filer..."/>
+				<Item id="43105" name="Stäng systemfältsikon"/>
+			</TrayIcon>
 		</Menu>
 
 		<Dialog>
@@ -469,6 +484,11 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Hitta nästa"/>
 				<Item id="1725" name="Kopiera markerad text"/>
+				<Menu>
+					<Item id="1726" name="⇅ Byt Sök med Ersätt"/>
+					<Item id="1727" name="⤵ Kopiera från Sök till Ersätt"/>
+					<Item id="1728" name="⤴ Kopiera från Ersätt till Sök"/>
+				</Menu>
 			</Find>
 
 			<IncrementalFind title="">
@@ -478,15 +498,15 @@ The comments are here for explanation, it's not necessary to translate them.
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hitta tecken i intervall...">
-				<Item id="2" name="Stäng"/>
-				<Item id="2901" name="Icke ASCII-tecken (128-255)"/>
-				<Item id="2902" name="ASCII-tecken (0-127)"/>
-				<Item id="2903" name="Mitt intervall:"/>
+				<Item id="2" name="&amp;Stäng"/>
+				<Item id="2901" name="&amp;Icke ASCII-tecken (128–255)"/>
+				<Item id="2902" name="&amp;ASCII-tecken (0–127)"/>
+				<Item id="2903" name="A&amp;npassat intervall (0–255):"/>
 				<Item id="2906" name="&amp;Upp"/>
 				<Item id="2907" name="&amp;Ned"/>
 				<Item id="2908" name="Riktning"/>
 				<Item id="2909" name="&amp;Loopa"/>
-				<Item id="2910" name="Sök"/>
+				<Item id="2910" name="&amp;Sök"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Gå till...">
@@ -507,38 +527,61 @@ The comments are here for explanation, it's not necessary to translate them.
 			</Run>
 
 			<MD5FromFilesDlg title="Generera MD5-summa från fil">
-				<Item id="1922" name="Välj filer att generera MD5..."/>
-				<Item id="1924" name="Kopiera till urklipp"/>
-				<Item id="2" name="Stäng"/>
+				<Item id="1922" name="Välj filer att &amp;generera MD5..."/>
+				<Item id="1924" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Generera MD5-summa">
-				<Item id="1932" name="Behandla varje rad som en separat sträng"/>
-				<Item id="1934" name="Kopiera till urklipp"/>
-				<Item id="2" name="Stäng"/>
+				<Item id="1932" name="Behandla varje rad som en &amp;separat sträng"/>
+				<Item id="1934" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="Generera SHA-256-summa från filer">
-				<Item id="1922" name="Välj filer att generera SHA-256..."/>
-				<Item id="1924" name="Kopiera till urklipp"/>
-				<Item id="2" name="Stäng"/>
+				<Item id="1922" name="Välj filer att &amp;generera SHA-256..."/>
+				<Item id="1924" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Generera SHA-256-summa">
-				<Item id="1932" name="Behandla varje rad som separat sträng"/>
-				<Item id="1934" name="Kopiera till urklipp"/>
-				<Item id="2" name="Stäng"/>
+				<Item id="1932" name="Behandla varje rad som &amp;separat sträng"/>
+				<Item id="1934" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Generera SHA-1-summa från filer">
+				<Item id="1922" name="Välj filer att &amp;generera SHA-1..."/>
+				<Item id="1924" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generera SHA-1-summa">
+				<Item id="1932" name="Behandla varje rad som &amp;separat sträng"/>
+				<Item id="1934" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generera SHA-512-summa från filer">
+				<Item id="1922" name="Välj filer att &amp;generera SHA-512..."/>
+				<Item id="1924" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generera SHA-512-summa">
+				<Item id="1932" name="Behandla varje rad som &amp;separat sträng"/>
+				<Item id="1934" name="Ko&amp;piera till urklipp"/>
+				<Item id="2" name="St&amp;äng"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Hantera insticksprogram" titleAvailable="Tillgängliga" titleUpdates="Uppdateringar" titleInstalled="Installerade" titleIncompatible="Inkompatibla">
 				<ColumnPlugin name="Insticksprogram"/>
 				<ColumnVersion name="Version"/>
-				<Item id="5501" name="Sök:"/>
-				<Item id="5503" name="Installera"/>
-				<Item id="5504" name="Uppdatera"/>
-				<Item id="5505" name="Ta bort"/>
-				<Item id="5508" name="Nästa"/>
-				<Item id="5509" name="Version av insticksmodullista: "/>
+				<Item id="5501" name="&amp;Sök:"/>
+				<Item id="5503" name="&amp;Installera"/>
+				<Item id="5504" name="&amp;Uppdatera"/>
+				<Item id="5505" name="&amp;Ta bort"/>
+				<Item id="5508" name="&amp;Nästa"/>
+				<Item id="5509" name="Version av insticksmodullista"/>
 				<Item id="5511" name="Kodförvar för insticksmodullista"/>
 				<Item id="2" name="Stäng"/>
 			</PluginsAdminDlg>
@@ -716,7 +759,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="20003" name="Skapa nytt..."/>
 				<Item id="20004" name="Ta bort"/>
 				<Item id="20005" name="Spara som..."/>
-				<Item id="20007" name="Användarspråk: "/>
+				<Item id="20007" name="Användarspråk"/>
 				<Item id="20009" name="Filändelse:"/>
 				<Item id="20012" name="Ignorera skiftläge"/>
 				<Item id="20011" name="Genomskinlighet"/>
@@ -724,7 +767,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="20016" name="Exportera..."/>
 				<Item id="20017" name="Frigör"/>
 				<StylerDialog title="Stilinställning">
-					<Item id="25030" name="Teckensnitt:"/>
+					<Item id="25030" name="Teckensnitt"/>
 					<Item id="25006" name="Förgrundsfärg"/>
 					<Item id="25007" name="Bakgrundsfärg"/>
 					<Item id="25031" name="Namn:"/>
@@ -732,7 +775,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="25001" name="Fet"/>
 					<Item id="25002" name="Kursiv"/>
 					<Item id="25003" name="Understruken"/>
-					<Item id="25029" name="Nästling:"/>
+					<Item id="25029" name="Nästling"/>
 					<Item id="25008" name="Avgränsare 1"/>
 					<Item id="25009" name="Avgränsare 2"/>
 					<Item id="25010" name="Avgränsare 3"/>
@@ -762,20 +805,20 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Folder title="Gruppering och standard">
 					<Item id="21101" name="Standardformat"/>
 					<Item id="21102" name="Format"/>
-					<Item id="21105" name="Dokumentation:"/>
+					<Item id="21105" name="Dokumentation"/>
 					<Item id="21104" name="Tillfällig dokumentation:"/>
 					<Item id="21106" name="&amp;Kompakt gruppering (gruppera tomma rader)"/>
-					<Item id="21220" name="Stil för gruppering i kod 1:"/>
+					<Item id="21220" name="Stil för gruppering i kod 1"/>
 					<Item id="21224" name="Början:"/>
 					<Item id="21225" name="Mitten:"/>
 					<Item id="21226" name="Slutet:"/>
 					<Item id="21227" name="Format"/>
-					<Item id="21320" name="Stil för gruppering i kod 2 (avgränsare behövs):"/>
+					<Item id="21320" name="Stil för gruppering i kod 2 (avgränsare behövs)"/>
 					<Item id="21324" name="Början:"/>
 					<Item id="21325" name="Mitten:"/>
 					<Item id="21326" name="Slutet:"/>
 					<Item id="21327" name="Format"/>
-					<Item id="21420" name="Stil för gruppering i kommentarer:"/>
+					<Item id="21420" name="Stil för gruppering i kommentarer"/>
 					<Item id="21424" name="Början:"/>
 					<Item id="21425" name="Mitten:"/>
 					<Item id="21426" name="Slutet:"/>
@@ -899,21 +942,22 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6108" name="Lås positioner (inget drag-och-släpp)"/>
 					<Item id="6109" name="Gör inaktiva flikar mörkare"/>
 					<Item id="6110" name="Markera aktiv flik med en färgad linje"/>
-
-					<Item id="6111" name="Visa statusfältet"/>
 					<Item id="6112" name="Visa flikstängningsknapp på varje flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
 					<Item id="6118" name="Dölj"/>
 					<Item id="6119" name="Flera rader"/>
 					<Item id="6120" name="Vertikalt"/>
 					<Item id="6121" name="Avsluta när sista fliken stängs"/>
+					<Item id="6128" name="Alternativa ikoner"/>
+					
+					<Item id="6133" name="Statusfält"/>
+					<Item id="6134" name="Dölj"/>
 
 					<Item id="6131" name="Meny"/>
 					<Item id="6122" name="Dölj menyraden (använd Alt eller F10 för att visa)"/>
 					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan i menyfältet (kräver omstart av Notepad++)"/>
+
 					<Item id="6123" name="Gränssnittsspråk"/>
-					
-					<Item id="6128" name="Alternativa ikoner"/>
 				</Global>
 				<Scintillas title="Redigering">
 					<Item id="6216" name="Inställningar för textmarkör"/>
@@ -945,6 +989,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6254" name="Förkortning"/>
 					<Item id="6255" name="Kodpunkt"/>
 					<Item id="6256" name="Anpassad färg"/>
+					<Item id="6258" name="Tillämpa på C0, C1 och Unicode-radslut"/>
 				</Scintillas>
 
 				<DarkMode title="Mörkt läge">
@@ -1014,6 +1059,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6411" name="Standardspråk:"/>
 					<Item id="6419" name="Nytt dokument"/>
 					<Item id="6420" name="Tillämpa på öppnade filer med ANSI"/>
+					<Item id="6432" name="Öppna alltid ett nytt dokument vid uppstart"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardmapp">
@@ -1058,30 +1104,30 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 				</Highlighting>
 
 				<Print title="Utskrift">
-					<Item id="6601" name="Skriv ut radnummer"/>
+					<Item id="6601" name="Skriv ut radn&amp;ummer"/>
 					<Item id="6602" name="Färginställningar"/>
-					<Item id="6603" name="WYSIWYG"/>
-					<Item id="6604" name="Invertera"/>
-					<Item id="6605" name="Svart på vitt"/>
-					<Item id="6606" name="Ingen bakgrundsfärg"/>
+					<Item id="6603" name="W&amp;YSIWYG"/>
+					<Item id="6604" name="I&amp;nvertera"/>
+					<Item id="6605" name="Svart på &amp;vitt"/>
+					<Item id="6606" name="Ingen ba&amp;kgrundsfärg"/>
 					<Item id="6607" name="Marginalinställningar (enhet: mm)"/>
-					<Item id="6612" name="Vänster"/>
-					<Item id="6613" name="Överkant"/>
-					<Item id="6614" name="Höger"/>
-					<Item id="6615" name="Nederkant"/>
-					<Item id="6706" name="Fet"/>
-					<Item id="6707" name="Kursiv"/>
+					<Item id="6612" name="&amp;Vänster"/>
+					<Item id="6613" name="&amp;Överkant"/>
+					<Item id="6614" name="&amp;Höger"/>
+					<Item id="6615" name="&amp;Nederkant"/>
+					<Item id="6706" name="&amp;Fet"/>
+					<Item id="6707" name="&amp;Kursiv"/>
 					<Item id="6708" name="Sidhuvud"/>
-					<Item id="6709" name="Vänsterkant"/>
-					<Item id="6710" name="Mitten"/>
-					<Item id="6711" name="Högerkant"/>
-					<Item id="6717" name="Fet"/>
-					<Item id="6718" name="Kursiv"/>
+					<Item id="6709" name="V&amp;änsterkant"/>
+					<Item id="6710" name="M&amp;itten"/>
+					<Item id="6711" name="H&amp;ögerkant"/>
+					<Item id="6717" name="F&amp;et"/>
+					<Item id="6718" name="K&amp;ursiv"/>
 					<Item id="6719" name="Sidfot"/>
-					<Item id="6720" name="Vänsterkant"/>
-					<Item id="6721" name="Mitten"/>
-					<Item id="6722" name="Högerkant"/>
-					<Item id="6723" name="Lägg till"/>
+					<Item id="6720" name="Vä&amp;nsterkant"/>
+					<Item id="6721" name="Mi&amp;tten"/>
+					<Item id="6722" name="Hö&amp;gerkant"/>
+					<Item id="6723" name="&amp;Lägg till"/>
 					<ComboBox id="6724">
 						<Element name="Full filsökväg"/>
 						<Element name="Filnamn"/>
@@ -1091,7 +1137,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 						<Element name="Långt datum"/>
 						<Element name="Klockslag"/>
 					</ComboBox>
-					<Item id="6725" name="Variabel:"/>
+					<Item id="6725" name="&amp;Variabel:"/>
 					<Item id="6727" name="Här visas dina variabelinställningar"/>
 					<Item id="6728" name="Sidhuvud och sidfot"/>
 				</Print>
@@ -1232,11 +1278,11 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6308" name="Minimera till systemfältet"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>
-					<Item id="6325" name="Gå till den sista raden efter uppdatering"/>
+					<Item id="6325" name="Gå till sista raden efter uppdatering"/>
 					<Item id="6322" name="Filändelse för sessionsfil:"/>
 					<Item id="6323" name="Uppdatera Notepad++ automatiskt"/>
 					<Item id="6324" name="Byt dokument (Ctrl + tabb)"/>
-					<Item id="6331" name="Visa endast filnamnet i namnlisten"/>
+					<Item id="6331" name="Visa endast filnamn i namnlisten"/>
 					<Item id="6334" name="Identifiera teckenkodning automatiskt"/>
 					<Item id="6349" name="Använd DirectWrite (kan förbättra renderingen av specialtecken, kräver omstart av Notepad++)"/>
 					<Item id="6337" name="Filändelse för arbetsytafil:"/>
@@ -1252,7 +1298,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 			<MultiMacro title="Kör ett makro flera gånger">
 				<Item id="1" name="&amp;Kör"/>
 				<Item id="2" name="&amp;Stäng"/>
-				<Item id="8006" name="Makro att köra:"/>
+				<Item id="8006" name="Makro att köra"/>
 				<Item id="8001" name="Kör"/>
 				<Item id="8005" name="gånger"/>
 				<Item id="8002" name="Kör &amp;till filens slut"/>
@@ -1269,7 +1315,12 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 				<Item id="2033" name="&amp;Siffra att infoga"/>
 				<Item id="2030" name="&amp;Första siffran:"/>
 				<Item id="2031" name="&amp;Öka med:"/>
-				<Item id="2035" name="&amp;Inledande nollor"/>
+				<Item id="2038" name="&amp;Inledande:"/>
+				<ComboBox id="2039">
+					<Element name="Ingenting"/>
+					<Element name="Nollor"/>
+					<Element name="Mellanrum"/>
+				</ComboBox>
 				<Item id="2036" name="&amp;Upprepa:"/>
 				<Item id="2032" name="Format"/>
 				<Item id="2024" name="&amp;Dec"/>
@@ -1283,7 +1334,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 				<Item id="1" name="Hitta alla"/>
 				<Item id="2" name="Stäng"/>
 				<Item id="1711" name="Hitta &amp;vad:"/>
-				<Item id="1713" name="Sök bara i hittade rader"/>
+				<Item id="1713" name="Sök &amp;bara i hittade rader"/>
 				<Item id="1714" name="Matcha bara &amp;hela ord"/>
 				<Item id="1715" name="Matcha &amp;skiftläge"/>
 				<Item id="1716" name="Sökläge"/>
@@ -1307,7 +1358,7 @@ Välj &quot;Alltid&quot; om du inte vill se denna dialogruta igen.
 Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="N&amp;ej"/>
-				<Item id="4" name="Alltid"/>
+				<Item id="4" name="&amp;Alltid"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
@@ -1347,10 +1398,10 @@ Det finns 3 sätt att växla till kolumnmarkeringsläget:
 2. (Endast tangentbord)  Håll ned Alt + Shift och använd piltangenterna
 
 3. (Tangentbord eller mus)
-      Placera markören vid önskad start på kolumnblockets position, kör
-       sedan kommandot &quot;Start/slut på markering i kolumnläge&quot;;
-      Flytta markören vid önskat slut på kolumnblockets position, kör
-       sedan kommandot &quot;Start/slut på markering i kolumnläge&quot; igen"/>
+	  Placera markören vid önskad start på kolumnblockets position, kör
+	   sedan kommandot &quot;Start/slut på markering i kolumnläge&quot;;
+	  Flytta markören vid önskat slut på kolumnblockets position, kör
+	   sedan kommandot &quot;Start/slut på markering i kolumnläge&quot; igen"/>
 			<BufferInvalidWarning title="Misslyckades att spara" message="Kan inte spara: Bufferten är felaktig."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Behålla fil som inte längre finns" message="Filen &quot;$STR_REPLACE$&quot; finns inte längre.
 Ska filen behållas i Notepad++?"/>
@@ -1426,6 +1477,12 @@ Vill du fortsätta?"/>
 			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer ändras vid nästa uppstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Osparade ändringar håller på att ignoreras!
 Vill du spara dina ändringar innan du byter tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Kompatibilitet för makron och körbara kommandon" message="Dina makron och körbara kommandon som har sparats i Notepad++ v.8.5.2 (eller äldre) kanske inte är kompatibla med den nuvarande versionen av Notepad++.
+Var god testa dessa kommandon och redigera dem vid behov.
+
+Annars kan du nedgradera till Notepad++ v8.5.2 och återställa din föregående data.
+Notepad++ kommer att säkerhetskopiera din gamla &quot;shortcuts.xml&quot; och spara den som &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Byt namn på &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; så bör dina kommandon återställas och fungera ordentligt."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1451,8 +1508,9 @@ Vill du spara dina ändringar innan du byter tema?"/><!-- HowToReproduce: In the
 			<ColumnVal name="Värde"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Tecken"/>
-			<ColumnHtmlNumber name="HTML-nummer"/>
-			<ColumnHtmlName name="HTML-kod"/>
+			<ColumnHtmlName name="HTML-namn"/>
+			<ColumnHtmlNumber name="HTML-decimal"/>
+			<ColumnHtmlHexNb name="HTML-hexadecimal"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Dokumentvy"/>
@@ -1606,17 +1664,14 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<finder-wrap-long-lines value="Radbryt långa rader"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Avbryt"/>
-			<common-name value="Namn: "/>
+			<common-name value="Namn"/>
 			<tabrename-title value="Döp om aktuell flik"/>
-			<tabrename-newname value="Nytt namn: "/>
+			<tabrename-newname value="Nytt namn"/>
 			<splitter-rotate-left value="Rotera åt vänster"/>
 			<splitter-rotate-right value="Rotera åt höger"/>
-			<recent-file-history-maxfile value="Max. filer:"/>
-			<recent-file-history-customlength value="Längd: "/>
 			<userdefined-title-new value="Skapa nytt språk..."/>
 			<userdefined-title-save value="Spara aktuellt språknamn som..."/>
 			<userdefined-title-rename value="Byt namn på aktuellt språknamn"/>
-			<edit-verticaledge-nb-col value="Antal kolumner:"/>
 			<summary value="Sammanfattning"/>
 			<summary-filepath value="Fullständig filsökväg: "/>
 			<summary-filecreatetime value="Skapades: "/>
@@ -1628,6 +1683,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<summary-nbsel1 value=" markerade tecken ("/>
 			<summary-nbsel2 value=" byte) i "/>
 			<summary-nbrange value=" intervall"/>
+			<progress-hits-title value="Träffar:"/>
 			<progress-cancel-button value="Avbryt"/>
 			<progress-cancel-info value="Avbryter åtgärd, var god vänta..."/>
 			<find-in-files-progress-title value="Förlopp för &quot;Sök i filer&quot;..."/>
@@ -1668,8 +1724,6 @@ OBS:
 			<npcNote-tip value="Representation av utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII.
 
 OBS:
-Vissa tecken kanske redan representeras och är därför synliga. Rad- och styckeavgränsare representeras redan med förkortningar som standard.
-
 När representationer används inaktiveras teckeneffekter hos text.
 
 Se användarmanualen för den fullständiga listan över utvalda blanksteg och icke utskrivbara tecken.
@@ -1692,6 +1746,7 @@ Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med anv
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Tillämpa utseendeinställningar för icke utskrivbara tecken på C0- och C1-kontrolltecken samt Unicode-radslutstecken (nästa rad, radavgränsare och paragrafavgränsare)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -22,9 +22,9 @@
 
 #define MAX_DISPLAY_LENGTH 64
 
-ClipboardData ClipboardHistoryPanel::getClipboadData()
+ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 {
-	ClipboardData clipboardData;
+	ClipboardDataInfo clipboardData;
 	if (!IsClipboardFormatAvailable(CF_UNICODETEXT))
 		return clipboardData;
 
@@ -42,29 +42,39 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 			{
 				HGLOBAL hglbLen = GetClipboardData(cf_nppTextLen); 
 				if (hglbLen != NULL) 
-				{ 
-					unsigned long *lpLen = (unsigned long *)GlobalLock(hglbLen); 
-					if (lpLen != NULL) 
+				{
+					HGLOBAL hglb_binText = GetClipboardData(CF_TEXT);
+					if (hglb_binText != NULL)
 					{
-						size_t nbBytes = (*lpLen + 1) * sizeof(wchar_t);
-						for (size_t i = 0 ; i < nbBytes; ++i)
+						unsigned char* pData_bin = static_cast<unsigned char*>(GlobalLock(hglb_binText));
+						if (pData_bin != NULL)
 						{
-							clipboardData.push_back(static_cast<unsigned char>(pData[i]));
+							unsigned long* lpLen = (unsigned long*)GlobalLock(hglbLen);
+							if (lpLen != NULL) // Special copy-paste: Binary data
+							{
+								size_t nbBytes = (*lpLen);
+								for (size_t i = 0; i < nbBytes; ++i)
+								{
+									clipboardData._data.push_back(static_cast<unsigned char>(pData_bin[i]));
+								}
+								clipboardData._isBinaryContained = true;
+								GlobalUnlock(hglbLen);
+							}
+
 						}
-						GlobalUnlock(hglbLen); 
+						GlobalUnlock(hglb_binText);
 					}
 				}
 			}
-			else
+			else // Not internal binary clipboard data
 			{
 				wchar_t* lpwchar = (wchar_t*)pData;
 				size_t nbBytes = (lstrlenW(lpwchar) + 1) * sizeof(wchar_t);
 				for (size_t i = 0 ; i < nbBytes ; ++i)
 				{
-					clipboardData.push_back(static_cast<unsigned char>(pData[i]));
+					clipboardData._data.push_back(static_cast<unsigned char>(pData[i]));
 				}
 			}
-			GlobalUnlock(hglb);
 			GlobalUnlock(hglb);
 		}
 	}
@@ -72,9 +82,9 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 	return clipboardData;
 }
 
-ByteArray::ByteArray(ClipboardData cd)
+ByteArray::ByteArray(ClipboardDataInfo cd)
 {
-	_length = cd.size();
+	_length = cd._data.size();
 	if (!_length)
 	{
 		_pBytes = NULL;
@@ -83,20 +93,22 @@ ByteArray::ByteArray(ClipboardData cd)
 	_pBytes = new unsigned char[_length];
 	for (size_t i = 0 ; i < _length ; ++i)
 	{
-		_pBytes[i] = cd[i];
+		_pBytes[i] = cd._data[i];
 	}
 }
 
-StringArray::StringArray(ClipboardData cd, size_t maxLen)
+StringArray::StringArray(ClipboardDataInfo cd, size_t maxLen)
 {
-	if (!cd.size())
+	size_t len = cd._data.size();
+
+	if (!len)
 	{
 		_pBytes = NULL;
 		return;
 	}
 
-	bool isCompleted = (cd.size() <= maxLen);
-	_length = isCompleted?cd.size():maxLen;
+	bool isCompleted = (len <= maxLen);
+	_length = isCompleted?len:maxLen;
 
 	
 	_pBytes = new unsigned char[_length+(isCompleted?0:2)];
@@ -108,7 +120,7 @@ StringArray::StringArray(ClipboardData cd, size_t maxLen)
 		else if (!isCompleted && (i == _length-6 || i == _length-4 || i == _length-2))
 			_pBytes[i] = '.';
 		else
-			_pBytes[i] = cd[i];
+			_pBytes[i] = cd._data[i];
 	}
 
 	if (!isCompleted)
@@ -120,17 +132,17 @@ StringArray::StringArray(ClipboardData cd, size_t maxLen)
 
 // Search clipboard data in internal storage
 // return -1 if not found, else return the index of internal array
-int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
+int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardDataInfo cbd)
 {
 	int iFound = -1;
 	bool found = false; 
-	for (size_t i = 0, len = _clipboardDataVector.size() ; i < len ; ++i)
+	for (size_t i = 0, len = _clipboardDataInfos.size() ; i < len ; ++i)
 	{
-		if (cbd.size() == _clipboardDataVector[i].size())
+		if (cbd._data.size() == _clipboardDataInfos[i]._data.size())
 		{
-			for (size_t j = 0, len2 = cbd.size(); j < len2 ; ++j)
+			for (size_t j = 0, len2 = cbd._data.size(); j < len2 ; ++j)
 			{
-				if (cbd[j] == _clipboardDataVector[i][j])
+				if (cbd._data[j] == _clipboardDataInfos[i]._data[j])
 					found = true;
 				else
 				{
@@ -149,40 +161,49 @@ int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
 	return iFound;
 }
 
-void ClipboardHistoryPanel::addToClipboadHistory(ClipboardData cbd)
+void ClipboardHistoryPanel::addToClipboadHistory(ClipboardDataInfo cbd)
 {
 	int i = getClipboardDataIndex(cbd);
 	if (i == 0) return;
 	if (i != -1)
 	{
-		_clipboardDataVector.erase(_clipboardDataVector.begin() + i);
+		_clipboardDataInfos.erase(_clipboardDataInfos.begin() + i);
 		::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_DELETESTRING, i, 0);
 	}
-	_clipboardDataVector.insert(_clipboardDataVector.begin(), cbd);
+	_clipboardDataInfos.insert(_clipboardDataInfos.begin(), cbd);
 
-	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
-	TCHAR *displayStr = (TCHAR *)sa.getPointer();
-	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, reinterpret_cast<LPARAM>(displayStr));
+	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, reinterpret_cast<LPARAM>(L"")); // String will be added in drawItem()
 }
 
 
 void ClipboardHistoryPanel::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
-	if (lpDrawItemStruct->itemID >= _clipboardDataVector.size())
+	UINT i = lpDrawItemStruct->itemID;
+	if (i >= _clipboardDataInfos.size())
 		return;
 
 	//printStr(TEXT("OK"));
 	COLORREF fgColor = _lbFgColor == -1?black:_lbFgColor; // fg black by default
 	COLORREF bgColor = _lbBgColor == -1?white:_lbBgColor; // bg white by default
 	
-	StringArray sa(_clipboardDataVector[lpDrawItemStruct->itemID], MAX_DISPLAY_LENGTH);
-	TCHAR *ptStr = (TCHAR *)sa.getPointer();
+	ClipboardDataInfo& cbd = _clipboardDataInfos[i];
+	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
+	TCHAR* displayStr = nullptr;
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	if (cbd._isBinaryContained)
+	{
+		char* displayStrA = (char*)sa.getPointer();
+		displayStr = (TCHAR*)wmc.char2wchar(displayStrA, SC_CP_UTF8);
+	}
+	else
+	{
+		displayStr = (TCHAR*)sa.getPointer();
+	}
 
-	//printStr(ptStr);
 	::SetTextColor(lpDrawItemStruct->hDC, fgColor);
 	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
 	
-	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &(lpDrawItemStruct->rcItem), DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+	::DrawText(lpDrawItemStruct->hDC, displayStr, lstrlen(displayStr), &(lpDrawItemStruct->rcItem), DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }
 
 intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -211,9 +232,11 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 
 		case WM_DRAWCLIPBOARD :
 		{
-			ClipboardData clipboardData = getClipboadData();
-			if (clipboardData.size())
+			ClipboardDataInfo clipboardData = getClipboadData();
+			if (clipboardData._data.size())
+			{
 				addToClipboadHistory(clipboardData);
+			}
 			if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
 			return TRUE;
@@ -243,18 +266,27 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 							else
 								codepage = SC_CP_UTF8;
 
-							ByteArray ba(_clipboardDataVector[i]);
+							
 							char* c = nullptr;
 							try {
-								int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), static_cast<int32_t>(ba.getLength()), NULL, 0, NULL, NULL);
+								if (_clipboardDataInfos[i]._isBinaryContained)
+								{
+									(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+									(*_ppEditView)->execute(SCI_ADDTEXT, _clipboardDataInfos[i]._data.size(), reinterpret_cast<LPARAM>(&(_clipboardDataInfos[i]._data[0])));
+								}
+								else
+								{
+									ByteArray ba(_clipboardDataInfos[i]);
+									int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), static_cast<int32_t>(ba.getLength()), NULL, 0, NULL, NULL);
 
-								c = new char[nbChar + 1];
-								WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), static_cast<int32_t>(ba.getLength()), c, nbChar + 1, NULL, NULL);
+									c = new char[nbChar + 1];
+									WideCharToMultiByte(codepage, 0, (wchar_t*)ba.getPointer(), static_cast<int32_t>(ba.getLength()), c, nbChar + 1, NULL, NULL);
 
-								(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-								(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), reinterpret_cast<LPARAM>(c));
-								(*_ppEditView)->getFocus();
-								delete[] c;
+									(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+									(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), reinterpret_cast<LPARAM>(c));
+									(*_ppEditView)->getFocus();
+									delete[] c;
+								}
 							}
 							catch (...)
 							{

@@ -163,7 +163,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 		tie.pszText = encodedLabel;
 
 		{
-			const TCHAR* in = buffer->getFileName();
+			const TCHAR* in = buffer->getDisambiguatedFileName();
 			TCHAR* out = encodedLabel;
 
 			//This code will read in one character at a time and duplicate every first ampersand(&).

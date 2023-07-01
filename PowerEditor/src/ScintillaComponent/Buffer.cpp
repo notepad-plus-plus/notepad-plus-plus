@@ -661,6 +661,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 	if (!refs) // buffer can be deallocated
 	{
+		removeDisambiguatedBufferName(buf);
 		_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);	//release for FileManager, Document is now gone
 		_buffers.erase(_buffers.begin() + index);
 		delete buf;
@@ -772,6 +773,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		if (res != 0) // res == 1 or res == -1
 			newBuf->_timeStamp = fileNameTimestamp;
 
+		addDisambiguatedBufferName(newBuf);
 		_buffers.push_back(newBuf);
 		++_nbBufs;
 		Buffer* buf = _buffers.at(_nbBufs - 1);
@@ -1335,6 +1337,7 @@ BufferID FileManager::newEmptyDocument()
 
 	BufferID id = newBuf;
 	newBuf->_id = id;
+	addDisambiguatedBufferName(newBuf);
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 	++_nextBufferID;
@@ -1356,9 +1359,9 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	newBuf->_id = id;
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
 	newBuf->_lang = ndds._lang;
+	addDisambiguatedBufferName(newBuf);
 	_buffers.push_back(newBuf);
 	++_nbBufs;
-
 	if (!dontIncrease)
 		++_nextBufferID;
 	return id;
@@ -1764,4 +1767,96 @@ size_t FileManager::docLength(Buffer* buffer) const
 	size_t docLen = _pscratchTilla->getCurrentDocLen();
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
 	return docLen;
+}
+
+// BEFORE adding a new buffer newBuf
+// for index in indicesOfBuffersToCheck:
+//   otherBuf = _buffers[index]
+//   if otherBuf's name is the same as newBuf's name:
+//     paddedFileNames = directory name + '\\' + filename
+//     newBuf._disambiguatedFileName, otherBuf._disambiguatedFileName = paddedFileNames
+// EXAMPLE:
+// existing buffer names = ["foo/bar1/baz1/blah.txt", "foo/bar2/baz1/blah.txt", "foo/bar2/baz1/silly.txt"]
+// new buffer name = "foo/bar2/baz2/blah.txt"
+// new disambiguated buffer names for existing buffers: ["baz1/blah.txt", "baz1/blah.txt", "silly.txt"]
+// new disambiguated buffer name for new buffer: "baz2/blah.txt"
+void FileManager::addDisambiguatedBufferName(Buffer * newBuf)
+{
+
+	if (_pNotepadPlus != NULL && _pNotepadPlus->_isAttemptingCloseOnQuit)
+		return; // don't waste time recalculating buffer names when quitting
+
+	generic_string fileName = generic_string(newBuf->_fileName);
+	auto sameNameIterator = _bufferNameCollisions.find(fileName);
+	std::vector<Buffer*> bufsWithSameName;
+	if (sameNameIterator == _bufferNameCollisions.end())
+	{
+		// no other files with same name yet
+		bufsWithSameName.push_back(newBuf);
+		_bufferNameCollisions[fileName] = bufsWithSameName;
+	}
+	else
+	{
+		sameNameIterator->second.push_back(newBuf);
+		bufsWithSameName = sameNameIterator->second;
+	}
+	disambiguateBufferNames(&bufsWithSameName);
+}
+
+// on removing the buffer at index idx:
+// for otherBuf in other buffers with same name:
+//   if otherBuf collides with any other buffers as well:
+//     recalculate otherBuf's _disambiguatedFileName based on other collisions
+//   else:
+//     set otherBuf's _disambiguatedFileName to its filename
+void FileManager::removeDisambiguatedBufferName(Buffer * oldBuf)
+{
+	if (_pNotepadPlus != NULL && _pNotepadPlus->_isAttemptingCloseOnQuit)
+		return;
+	generic_string fileName = generic_string(oldBuf->_fileName);
+	auto sameNameIterator = _bufferNameCollisions.find(fileName);
+	if (sameNameIterator == _bufferNameCollisions.end())
+		return;
+	removeFirstInstanceOfVal(&sameNameIterator->second, oldBuf);
+	if (sameNameIterator->second.size() == 0)
+		_bufferNameCollisions.erase(fileName);
+	else
+		disambiguateBufferNames(&sameNameIterator->second);
+}
+
+// get the _disambiguatedFileName for each buffer in bufsWithSameName
+// if there's only one file, it's the filename
+// otherwise, it's directory name + "\\" + filename
+void FileManager::disambiguateBufferNames(std::vector<Buffer*> * bufsWithSameName)
+{
+	size_t nBufsSameName = bufsWithSameName->size();
+	if (nBufsSameName == 1)
+	{
+		Buffer * onlyBuf = bufsWithSameName->at(0);
+		setDisambiguatedBufferNameAndUpdateTabBar(onlyBuf, generic_string(onlyBuf->_fileName));
+		return;
+	}
+	for (Buffer * buf : *bufsWithSameName)
+	{
+		generic_string filename = generic_string(buf->_fileName);
+		std::vector<generic_string> parts = stringSplit(buf->_fullPathName, TEXT("\\"));
+		if (parts.size() < 2)
+			setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
+		else
+		{
+			generic_string dirname = parts.at(parts.size() - 2);
+			setDisambiguatedBufferNameAndUpdateTabBar(buf, dirname + TEXT("\\") + filename);
+		}
+	}
+}
+
+void FileManager::setDisambiguatedBufferNameAndUpdateTabBar(Buffer* buf, generic_string newDisambiguatedName)
+{
+	if (buf->_disambiguatedFileName == newDisambiguatedName)
+		return;
+	buf->_disambiguatedFileName = newDisambiguatedName;
+	if (_pNotepadPlus != NULL)
+	{
+		_pNotepadPlus->_pDocTab->bufferUpdated(buf, BufferChangeFilename);
+	}
 }

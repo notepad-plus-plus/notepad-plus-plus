@@ -56,6 +56,31 @@ void printInt(int int2print);
 void printStr(const TCHAR *str2print);
 generic_string commafyInt(size_t n);
 
+// for elt in vec:
+//   if elt == val: // uses == comparator!
+//      remove elt from vec
+//      return True
+// return False // no elements in vec equal val
+template<class T>
+bool removeFirstInstanceOfVal(std::vector<T>* vec, T val)
+{
+	size_t indexInVec = SIZE_MAX;
+	for (size_t ii = 0; ii < vec->size(); ii++)
+	{
+		if (vec->at(ii) == val)
+		{
+			indexInVec = ii;
+			break;
+		}
+	}
+	if (indexInVec != SIZE_MAX)
+	{
+		vec->erase(vec->begin() + indexInVec);
+		return true;
+	}
+	return false; // vec contains nothing equal to val
+}
+
 void writeLog(const TCHAR *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
 generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand = false);

@@ -17,6 +17,7 @@
 #pragma once
 
 #include <mutex>
+#include <unordered_map>
 #include "Utf8_16.h"
 
 
@@ -112,6 +113,17 @@ public:
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
+	// two buffers may have the same file name but different absolute paths
+	// a disambiguated buffer name is just the filename padded with its directory name
+	// EXAMPLE:
+	// three files: ["c:\users\blah\bar\duplicate.txt", "c:\users\blah\baz\duplicate.txt", "c:\users\unique.md"]
+	// in the above example, "duplicate.txt" is a duplicate name, but "unique.md" is unique
+	// so the disambiguated file names would be ["bar\duplicate.txt", "baz\duplicate.txt", "unique.md"]
+	void removeDisambiguatedBufferName(Buffer * oldBuf);
+	void addDisambiguatedBufferName(Buffer * newBuf);
+	void disambiguateBufferNames(std::vector<Buffer *> * buffers);
+	void setDisambiguatedBufferNameAndUpdateTabBar(Buffer * buf, generic_string newDisambiguatedName);
+	
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;
@@ -141,6 +153,8 @@ private:
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
 	size_t _nbBufs = 0;
+	// if _bufferNameCollisions[name] contains a and b, a._fileName = name = b._fileName
+	std::unordered_map<generic_string, std::vector<Buffer *>> _bufferNameCollisions;
 };
 
 #define MainFileManager FileManager::getInstance()
@@ -165,6 +179,12 @@ public:
 	const TCHAR * getFullPathName() const { return _fullPathName.c_str(); }
 
 	const TCHAR * getFileName() const { return _fileName; }
+
+	const TCHAR* getDisambiguatedFileName() const {
+		if (_disambiguatedFileName.empty())
+			return _fileName;
+		return _disambiguatedFileName.data();
+	}
 
 	BufferID getID() const { return _id; }
 
@@ -380,6 +400,7 @@ private:
 	bool _isFileReadOnly = false;
 	generic_string _fullPathName;
 	TCHAR * _fileName = nullptr; // points to filename part in _fullPathName
+	generic_string _disambiguatedFileName; // set by MainFileManager during addDisambiguatedBufferName 
 	bool _needReloading = false; // True if Buffer needs to be reloaded on activation
 
 	long _recentTag = -1;

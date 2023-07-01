@@ -1844,7 +1844,7 @@ bool Notepad_plus::fileRename(BufferID id)
 	if (id == BUFFER_INVALID)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
-
+	MainFileManager.removeDisambiguatedBufferName(buf);
 	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_FILEBEFORERENAME;
 	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
@@ -1927,6 +1927,7 @@ bool Notepad_plus::fileRename(BufferID id)
 	}
 
 	scnN.nmhdr.code = success ? NPPN_FILERENAMED : NPPN_FILERENAMECANCEL;
+	MainFileManager.addDisambiguatedBufferName(buf);
 	_pluginsManager.notify(&scnN);
 
 	return success;

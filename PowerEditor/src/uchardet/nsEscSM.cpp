@@ -196,7 +196,7 @@ PCK4BITS(eError,eError,eError,eItsMe,eError,eError,eError,eError),//38-3f
 PCK4BITS(eError,eError,eError,eError,eItsMe,eError,eStart,eStart) //40-47 
 };
 
-static const PRUint32 ISO2022JPCharLenTable[] = {0, 0, 0, 0, 0, 0, 0, 0};
+static const PRUint32 ISO2022JPCharLenTable[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 const SMModel ISO2022JPSMModel(
   nsPkgInt(eIdxSft4bits, eSftMsk4bits, eBitSft4bits, eUnitMsk4bits, ISO2022JP_cls),

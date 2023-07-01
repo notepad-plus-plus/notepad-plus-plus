@@ -4821,7 +4821,9 @@ void Finder::copy()
 			}
 		}
 	}
-	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n")) + TEXT("\r\n");
+	generic_string toClipboard;
+	stringJoin(lines, TEXT("\r\n"), toClipboard);
+	toClipboard += TEXT("\r\n");
 	if (!toClipboard.empty())
 	{
 		if (!str2Clipboard(toClipboard, _hSelf))

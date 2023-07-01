@@ -53,7 +53,7 @@ public:
 	bool get(utf8 *c);
 	void operator++();
 	eState getState() { return m_eState; };
-	operator bool() { return (m_pRead < m_pEnd) || (m_out1st != m_outLst); };
+	operator bool() { return (m_pRead + 1 < m_pEnd) || (m_out1st != m_outLst); };
 
 protected:
 	void read();

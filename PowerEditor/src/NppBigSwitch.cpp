@@ -1447,6 +1447,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return (LRESULT) CreateLexer(lexer_name);
 		}
 
+		case NPPM_GETDISAMBIGUATIONDUPLICATEFILENAMES:
+		{
+			return (LRESULT)MainFileManager.getDisambiguationType();
+		}
+
+		case NPPM_SETDISAMBIGUATIONDUPLICATEFILENAMES:
+		{
+			auto disambigutationType = (DisambiguationDuplicateFileNames)wParam;
+			MainFileManager.setDisambiguationType(disambigutationType);
+			return (LRESULT)0;
+		}
+
 		case WM_FRSAVE_INT:
 		{
 			_macro.push_back(recordedMacroStep(static_cast<int32_t>(wParam), 0, lParam, NULL, recordedMacroStep::mtSavedSnR));

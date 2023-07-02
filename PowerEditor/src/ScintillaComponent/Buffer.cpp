@@ -1838,15 +1838,7 @@ void FileManager::disambiguateBufferNames(std::vector<Buffer*> * bufsWithSameNam
 	}
 	for (Buffer * buf : *bufsWithSameName)
 	{
-		generic_string filename = generic_string(buf->_fileName);
-		std::vector<generic_string> parts = stringSplit(buf->_fullPathName, TEXT("\\"));
-		if (parts.size() < 2)
-			setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
-		else
-		{
-			generic_string dirname = parts.at(parts.size() - 2);
-			setDisambiguatedBufferNameAndUpdateTabBar(buf, dirname + TEXT("\\") + filename);
-		}
+		recalculateDisambigutatedFilename(buf);
 	}
 }
 
@@ -1859,4 +1851,43 @@ void FileManager::setDisambiguatedBufferNameAndUpdateTabBar(Buffer* buf, generic
 	{
 		_pNotepadPlus->_pDocTab->bufferUpdated(buf, BufferChangeFilename);
 	}
+}
+
+// get the disambiguated filename for a buffer with a non-unique name
+// based on the _disambiguationType setting
+void FileManager::recalculateDisambigutatedFilename(Buffer* buf)
+{
+	generic_string filename = generic_string(buf->_fileName);
+	std::vector<generic_string> parts;
+	switch (_disambiguationType)
+	{
+	case DisambiguationFileNameOnly:
+		setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
+		break;
+	case DisambiguationParentDirectory:
+		parts = stringSplit(buf->_fullPathName, TEXT("\\"));
+		if (parts.size() < 2)
+			setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
+		else
+		{
+			generic_string dirname = parts.at(parts.size() - 2);
+			setDisambiguatedBufferNameAndUpdateTabBar(buf, dirname + TEXT("\\") + filename);
+		}
+		break;
+	case DisambiguationFullPath:
+		setDisambiguatedBufferNameAndUpdateTabBar(buf, buf->_fullPathName);
+		break;
+	}
+}
+
+// recalculatedDisambiguatedFilename IF the buffer's name is not unique.
+// otherwise, set the disambiguated filename to its filename
+void FileManager::recalculateDisambiguatedFilenameAfterCheckingUniqueness(Buffer* buf)
+{
+	generic_string filename = generic_string(buf->_fileName);
+	auto bufsSameName = _bufferNameCollisions.find(filename);
+	if (bufsSameName->second.size() <= 1)
+		setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
+	else
+		recalculateDisambigutatedFilename(buf);
 }

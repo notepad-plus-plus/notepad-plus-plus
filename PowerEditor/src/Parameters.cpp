@@ -4780,6 +4780,19 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					isFailed = true;
 			}
 
+			val = element->Attribute(TEXT("disambiguationDuplicateFileNames"));
+			if (val)
+			{
+				if (!lstrcmp(val, TEXT("0")))
+					MainFileManager.setDisambiguationType(DisambiguationFileNameOnly);
+				else if (!lstrcmp(val, TEXT("1")))
+					MainFileManager.setDisambiguationType(DisambiguationParentDirectory);
+				else if (!lstrcmp(val, TEXT("2")))
+					MainFileManager.setDisambiguationType(DisambiguationFullPath);
+				else
+					isFailed = true;
+			}
+
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
 		}
@@ -6842,6 +6855,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_ALTICONS) ? TEXT("1") : TEXT("0");
 		GUIConfigElement->SetAttribute(TEXT("iconSetNumber"), pStr);
+		
+		auto disambiguationType = (int)MainFileManager.getDisambiguationType();
+		GUIConfigElement->SetAttribute(TEXT("disambiguationDuplicateFileNames"), disambiguationType);
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>

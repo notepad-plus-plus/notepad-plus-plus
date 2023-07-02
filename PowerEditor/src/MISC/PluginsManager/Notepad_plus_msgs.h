@@ -561,6 +561,18 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Returns succesful combinations of flags.
 	//
 
+	#define NPPM_GETDISAMBIGUATIONDUPLICATEFILENAMES (NPPMSG + 113)
+	// int NPPM_GETDISAMBIGUATIONDUPLICATEFILENAMES(0, 0)
+	// determines how files with duplicate names are shown in tab bar
+	// returns value from DisambiguationDuplicateFileNames enum (see Buffer.h)
+	// 0: filename only, 1: parent directory/filename, 2: full path
+
+	#define NPPM_SETDISAMBIGUATIONDUPLICATEFILENAMES (NPPMSG + 114)
+	// void* NPPM_SETDISAMBIGUATIONDUPLICATEFILENAMES(int disambiguationType, 0)
+	// disambiguationType param must be value from DisambiguationDuplicateFileNames enum
+	// (see NPPM_GETDISAMBIGUATIONDUPLICATEFILENAMES above)
+	// 0: filename only, 1: parent directory/filename, 2: full path
+
 	namespace NppDarkMode
 	{
 		// Standard flags for main parent after its children are initialized.

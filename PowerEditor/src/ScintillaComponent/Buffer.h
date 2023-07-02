@@ -57,6 +57,12 @@ enum SavingStatus {
 	SaveWritingFailed  = 2
 };
 
+enum DisambiguationDuplicateFileNames {
+	DisambiguationFileNameOnly    = 0, // same as other files: "C:foo\bar\baz.txt" -> "baz.txt"
+	DisambiguationParentDirectory = 1, // "C:\foo\bar\baz.txt" -> "bar\baz.txt"
+	DisambiguationFullPath        = 2,
+};
+
 struct BufferViewInfo {
 	BufferID _bufID = 0;
 	int _iView = 0;
@@ -114,15 +120,28 @@ public:
 	size_t nextUntitledNewNumber() const;
 
 	// two buffers may have the same file name but different absolute paths
-	// a disambiguated buffer name is just the filename padded with its directory name
-	// EXAMPLE:
+	// a disambiguated buffer name is either:
+	// 0. the filename (same as NPP's old behavior)
+	// 1. the filename padded with its directory name
+	// 2. the full path to that file
+	// EXAMPLE (assuming disambiguationType = 1)
 	// three files: ["c:\users\blah\bar\duplicate.txt", "c:\users\blah\baz\duplicate.txt", "c:\users\unique.md"]
 	// in the above example, "duplicate.txt" is a duplicate name, but "unique.md" is unique
 	// so the disambiguated file names would be ["bar\duplicate.txt", "baz\duplicate.txt", "unique.md"]
-	void removeDisambiguatedBufferName(Buffer * oldBuf);
-	void addDisambiguatedBufferName(Buffer * newBuf);
-	void disambiguateBufferNames(std::vector<Buffer *> * buffers);
-	void setDisambiguatedBufferNameAndUpdateTabBar(Buffer * buf, generic_string newDisambiguatedName);
+	DisambiguationDuplicateFileNames getDisambiguationType() const { return _disambiguationType; }
+	void setDisambiguationType(DisambiguationDuplicateFileNames disambiguationType)
+	{
+		if (disambiguationType != this->_disambiguationType)
+		{
+			this->_disambiguationType = disambiguationType;
+			for (BufferID buf : _buffers)
+			{
+				recalculateDisambiguatedFilenameAfterCheckingUniqueness(buf);
+			}
+		}
+	}
+	void removeDisambiguatedBufferName(Buffer* oldBuf);
+	void addDisambiguatedBufferName(Buffer* newBuf);
 	
 private:
 	struct LoadedFileFormat {
@@ -155,6 +174,12 @@ private:
 	size_t _nbBufs = 0;
 	// if _bufferNameCollisions[name] contains a and b, a._fileName = name = b._fileName
 	std::unordered_map<generic_string, std::vector<Buffer *>> _bufferNameCollisions;
+	DisambiguationDuplicateFileNames _disambiguationType = DisambiguationFileNameOnly;
+
+	void disambiguateBufferNames(std::vector<Buffer*>* buffers);
+	void recalculateDisambigutatedFilename(Buffer* buf);
+	void setDisambiguatedBufferNameAndUpdateTabBar(Buffer* buf, generic_string newDisambiguatedName);
+	void recalculateDisambiguatedFilenameAfterCheckingUniqueness(Buffer* buf);
 };
 
 #define MainFileManager FileManager::getInstance()

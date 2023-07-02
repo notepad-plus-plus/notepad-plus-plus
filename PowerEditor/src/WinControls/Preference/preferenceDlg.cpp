@@ -565,6 +565,12 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_MULTILINE, BM_SETCHECK, tabBarStatus & TAB_MULTILINE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_LAST_EXIT, BM_SETCHECK, tabBarStatus & TAB_QUITONEMPTY, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, tabBarStatus & TAB_ALTICONS, 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_DISAMBIGUATION_DUP_FNAME, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("File name")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_DISAMBIGUATION_DUP_FNAME, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Directory + name")));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_DISAMBIGUATION_DUP_FNAME, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Full path")));
+			LRESULT disambiguationType = ::SendMessage(::GetParent(_hParent), NPPM_GETDISAMBIGUATIONDUPLICATEFILENAMES, 0, 0);
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_DISAMBIGUATION_DUP_FNAME, CB_SETCURSEL, disambiguationType, 0);
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HIDE, BM_SETCHECK, tabBarStatus & TAB_HIDE, 0);
 			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
@@ -772,6 +778,13 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 									}
 								}
 								return TRUE;
+
+								case IDC_COMBO_DISAMBIGUATION_DUP_FNAME:
+								{
+									auto disambiguationType = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DISAMBIGUATION_DUP_FNAME, CB_GETCURSEL, 0, 0);
+									::SendMessage(::GetParent(_hParent), NPPM_SETDISAMBIGUATIONDUPLICATEFILENAMES, disambiguationType, 0);
+									return TRUE;
+								}
 								default:
 									break;
 							}

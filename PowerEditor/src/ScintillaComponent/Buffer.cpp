@@ -1865,7 +1865,7 @@ void FileManager::recalculateDisambigutatedFilename(Buffer* buf)
 		setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
 		break;
 	case DisambiguationParentDirectory:
-		parts = stringSplit(buf->_fullPathName, TEXT("\\"));
+		stringSplit(buf->_fullPathName, TEXT("\\"), parts);
 		if (parts.size() < 2)
 			setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
 		else

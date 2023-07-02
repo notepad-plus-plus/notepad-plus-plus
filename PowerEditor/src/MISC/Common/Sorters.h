@@ -67,7 +67,7 @@ public:
 		assert(_fromColumn <= _toColumn);
 	};
 	virtual ~ISorter() { };
-	virtual std::vector<generic_string> sort(std::vector<generic_string> lines) = 0;
+	virtual void sort(std::vector<generic_string>& lines) = 0;
 };
 
 // Implementation of lexicographic sorting of lines.
@@ -76,7 +76,7 @@ class LexicographicSorter : public ISorter
 public:
 	LexicographicSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
 	
-	std::vector<generic_string> sort(std::vector<generic_string> lines) override {
+	void sort(std::vector<generic_string>& lines) override {
 		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
@@ -109,7 +109,6 @@ public:
 				}
 			});
 		}
-		return lines;
 	};
 };
 
@@ -119,7 +118,7 @@ class LexicographicCaseInsensitiveSorter : public ISorter
 public:
 	LexicographicCaseInsensitiveSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
 
-	std::vector<generic_string> sort(std::vector<generic_string> lines) override {
+	void sort(std::vector<generic_string>& lines) override {
 		// Note that both branches here are equivalent in the sense that they always give the same answer.
 		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
 		// getSortKey() so many times.
@@ -151,7 +150,6 @@ public:
 					}
 				});
 		}
-		return lines;
 	};
 };
 
@@ -160,7 +158,7 @@ class IntegerSorter : public ISorter
 public:
 	IntegerSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
 
-	std::vector<generic_string> sort(std::vector<generic_string> lines) override {
+	void sort(std::vector<generic_string>& lines) override {
 		if (isSortingSpecificColumns())
 		{
 			std::stable_sort(lines.begin(), lines.end(), [this](generic_string aIn, generic_string bIn)
@@ -496,8 +494,6 @@ public:
 				}
 			});
 		}
-	
-		return lines;
 	};
 };
 
@@ -523,7 +519,7 @@ public:
 #endif
 	}
 	
-	std::vector<generic_string> sort(std::vector<generic_string> lines) override {
+	void sort(std::vector<generic_string>& lines) override {
 		// Note that empty lines are filtered out and added back manually to the output at the end.
 		std::vector<std::pair<size_t, T_Num>> nonEmptyInputAsNumbers;
 		std::vector<generic_string> empties;
@@ -581,7 +577,7 @@ public:
 		}
 
 		assert(output.size() == lines.size());
-		return output;
+		lines = output;
 	};
 
 protected:
@@ -640,9 +636,8 @@ class ReverseSorter : public ISorter
 public:
 	ReverseSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
 
-	std::vector<generic_string> sort(std::vector<generic_string> lines) override {
+	void sort(std::vector<generic_string>& lines) override {
 		std::reverse(lines.begin(), lines.end());
-		return lines;
 	};
 };
 
@@ -655,9 +650,8 @@ public:
 		seed = static_cast<unsigned>(time(NULL));
 	};
 
-	std::vector<generic_string> sort(std::vector<generic_string> lines) override {
+	void sort(std::vector<generic_string>& lines) override {
 		std::shuffle(lines.begin(), lines.end(), std::default_random_engine(seed));
-		return lines;
 	};
 };
 

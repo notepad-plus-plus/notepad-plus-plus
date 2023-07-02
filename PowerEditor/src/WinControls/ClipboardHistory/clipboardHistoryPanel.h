@@ -23,14 +23,17 @@
 
 #define CH_PROJECTPANELTITLE		TEXT("Clipboard History")
 
-typedef std::vector<unsigned char> ClipboardData;
-
 class ScintillaEditView;
+
+struct ClipboardDataInfo {
+	std::vector<unsigned char> _data;
+	bool _isBinaryContained = false;
+};
 
 class ByteArray {
 public:
 	ByteArray() = default;
-	explicit ByteArray(ClipboardData cd);
+	explicit ByteArray(ClipboardDataInfo cd);
 	
 	~ByteArray() {
 		if (_pBytes)
@@ -45,7 +48,7 @@ protected:
 
 class StringArray : public ByteArray {
 public:
-	StringArray(ClipboardData cd, size_t maxLen);
+	StringArray(ClipboardDataInfo cd, size_t maxLen);
 };
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
@@ -61,9 +64,9 @@ public:
         _hParent = parent2set;
     };
 
-	ClipboardData getClipboadData();
-	void addToClipboadHistory(ClipboardData cbd);
-	int getClipboardDataIndex(ClipboardData cbd);
+	ClipboardDataInfo getClipboadData();
+	void addToClipboadHistory(ClipboardDataInfo cbd);
+	int getClipboardDataIndex(ClipboardDataInfo cbd);
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		_lbBgColor = bgColour;
@@ -79,7 +82,7 @@ protected:
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;
-	std::vector<ClipboardData> _clipboardDataVector;
+	std::vector<ClipboardDataInfo> _clipboardDataInfos;
 	HWND _hwndNextCbViewer = nullptr;
 	int _lbBgColor = -1;
 	int _lbFgColor= -1;

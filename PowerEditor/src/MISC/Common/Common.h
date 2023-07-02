@@ -182,9 +182,9 @@ COLORREF getCtrlBgColor(HWND hWnd);
 generic_string stringToUpper(generic_string strToConvert);
 generic_string stringToLower(generic_string strToConvert);
 generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace);
-std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter);
+void stringSplit(const generic_string& input, const generic_string& delimiter, std::vector<generic_string>& output);
 bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect);
-generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator);
+void stringJoin(const std::vector<generic_string>& strings, const generic_string& separator, generic_string& joinedString);
 generic_string stringTakeWhileAdmissable(const generic_string& input, const generic_string& admissable);
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 

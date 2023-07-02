@@ -3943,7 +3943,8 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
-	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
+	std::vector<generic_string> splitText;
+	stringSplit(text, getEOLString(), splitText);
 	const size_t lineCount = execute(SCI_GETLINECOUNT);
 	const bool sortEntireDocument = toLine == lineCount - 1;
 	if (!sortEntireDocument)
@@ -3954,8 +3955,10 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 		}
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
-	const std::vector<generic_string> sortedText = pSort->sort(splitText);
-	generic_string joined = stringJoin(sortedText, getEOLString());
+	pSort->sort(splitText);
+	generic_string joined;
+	stringJoin(splitText, getEOLString(), joined);
+
 	if (sortEntireDocument)
 	{
 		assert(joined.length() == text.length());
@@ -4272,7 +4275,8 @@ void ScintillaEditView::removeAnyDuplicateLines()
 	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
-	std::vector<generic_string> linesVect = stringSplit(text, getEOLString());
+	std::vector<generic_string> linesVect;
+	stringSplit(text, getEOLString(), linesVect);
 	const size_t lineCount = execute(SCI_GETLINECOUNT);
 
 	const bool doingEntireDocument = toLine == lineCount - 1;
@@ -4288,7 +4292,8 @@ void ScintillaEditView::removeAnyDuplicateLines()
 	size_t newSize = vecRemoveDuplicates(linesVect);
 	if (origSize != newSize)
 	{
-		generic_string joined = stringJoin(linesVect, getEOLString());
+		generic_string joined;
+		stringJoin(linesVect, getEOLString(), joined);
 		if (!doingEntireDocument)
 		{
 			joined += getEOLString();

@@ -567,7 +567,7 @@ Translation note:
 			</SHA1FromFilesDlg>
 
 			<SHA1FromTextDlg title="Erstelle SHA-1-Auszug">
-				<Item id="1932" name="TJede &amp;Zeile als eigene Zeichenkette behandeln"/>
+				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
 				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA1FromTextDlg>

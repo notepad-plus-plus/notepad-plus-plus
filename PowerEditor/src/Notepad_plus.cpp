@@ -8656,3 +8656,16 @@ HBITMAP Notepad_plus::generateSolidColourMenuItemIcon(COLORREF colour)
 
 	return hNewBitmap;
 }
+
+
+void Notepad_plus::clearChangesHistory()
+{
+	Sci_Position pos = (Sci_Position)::SendMessage(_pEditView->getHSelf(), SCI_GETCURRENTPOS, 0, 0);
+	int chFlags = (int)::SendMessage(_pEditView->getHSelf(), SCI_GETCHANGEHISTORY, 0, 0);
+
+	SendMessage(_pEditView->getHSelf(), SCI_EMPTYUNDOBUFFER, 0, 0);
+	SendMessage(_pEditView->getHSelf(), SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_DISABLED, 0);
+
+	SendMessage(_pEditView->getHSelf(), SCI_SETCHANGEHISTORY, chFlags, 0);
+	SendMessage(_pEditView->getHSelf(), SCI_GOTOPOS, pos, 0);
+}

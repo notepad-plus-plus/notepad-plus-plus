@@ -4667,6 +4667,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		}
 	}
 
+	MainFileManager.setIsTransferringBuffersBetweenViews(true);
 	//First put the doc in the other view if not present (if it is, activate it).
 	//Then if needed close in the original tab
 	BufferID current = _pEditView->getCurrentBufferID();
@@ -4729,6 +4730,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		Buffer* buf = MainFileManager.getBufferByID(current);
 		_pDocumentListPanel->setItemColor(buf);
 	}
+	MainFileManager.setIsTransferringBuffersBetweenViews(false);
 }
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHilite)

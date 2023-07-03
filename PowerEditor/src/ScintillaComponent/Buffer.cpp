@@ -1783,9 +1783,9 @@ size_t FileManager::docLength(Buffer* buffer) const
 void FileManager::addDisambiguatedBufferName(Buffer * newBuf)
 {
 
-	if (_pNotepadPlus != NULL && _pNotepadPlus->_isAttemptingCloseOnQuit)
-		return; // don't waste time recalculating buffer names when quitting
-
+	if (_pNotepadPlus != NULL && _pNotepadPlus->_isAttemptingCloseOnQuit // don't waste time recalculating buffer names when quitting
+		|| _isTransferringBuffersBetweenViews)
+		return;
 	generic_string fileName = generic_string(newBuf->_fileName);
 	auto sameNameIterator = _bufferNameCollisions.find(fileName);
 	std::vector<Buffer*> bufsWithSameName;
@@ -1811,7 +1811,8 @@ void FileManager::addDisambiguatedBufferName(Buffer * newBuf)
 //     set otherBuf's _disambiguatedFileName to its filename
 void FileManager::removeDisambiguatedBufferName(Buffer * oldBuf)
 {
-	if (_pNotepadPlus != NULL && _pNotepadPlus->_isAttemptingCloseOnQuit)
+	if (_pNotepadPlus != NULL && _pNotepadPlus->_isAttemptingCloseOnQuit
+		|| _isTransferringBuffersBetweenViews)
 		return;
 	generic_string fileName = generic_string(oldBuf->_fileName);
 	auto sameNameIterator = _bufferNameCollisions.find(fileName);
@@ -1838,7 +1839,7 @@ void FileManager::disambiguateBufferNames(std::vector<Buffer*> * bufsWithSameNam
 	}
 	for (Buffer * buf : *bufsWithSameName)
 	{
-		recalculateDisambigutatedFilename(buf);
+		recalculateDisambiguatedFilename(buf);
 	}
 }
 
@@ -1850,12 +1851,13 @@ void FileManager::setDisambiguatedBufferNameAndUpdateTabBar(Buffer* buf, generic
 	if (_pNotepadPlus != NULL)
 	{
 		_pNotepadPlus->_pDocTab->bufferUpdated(buf, BufferChangeFilename);
+		_pNotepadPlus->_pNonDocTab->bufferUpdated(buf, BufferChangeFilename);
 	}
 }
 
 // get the disambiguated filename for a buffer with a non-unique name
 // based on the _disambiguationType setting
-void FileManager::recalculateDisambigutatedFilename(Buffer* buf)
+void FileManager::recalculateDisambiguatedFilename(Buffer* buf)
 {
 	generic_string filename = generic_string(buf->_fileName);
 	std::vector<generic_string> parts;
@@ -1889,5 +1891,5 @@ void FileManager::recalculateDisambiguatedFilenameAfterCheckingUniqueness(Buffer
 	if (bufsSameName->second.size() <= 1)
 		setDisambiguatedBufferNameAndUpdateTabBar(buf, filename);
 	else
-		recalculateDisambigutatedFilename(buf);
+		recalculateDisambiguatedFilename(buf);
 }

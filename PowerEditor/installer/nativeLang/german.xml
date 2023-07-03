@@ -13,7 +13,7 @@ Translation note:
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.06.18"><!-- basiert auf english.xml vom 18.06.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.03"><!-- basiert auf english.xml vom 03.07.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -82,7 +82,9 @@ Translation note:
 					<Item subMenuId="language-userDefinedLanguage" name="Benutzerdefinierte Sprache"/>
 					<Item subMenuId="settings-import" name="&amp;Importieren"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Sortieren nach"/>
 				</SubEntries>
 
@@ -370,6 +372,12 @@ Translation note:
 					<Item id="48504" name="Erstellen …"/>
 					<Item id="48505" name="Aus Dateien erstellen …"/>
 					<Item id="48506" name="Aus Auswahl in der Zwischenablage erstellen"/>
+					<Item id="48507" name="Erstelle …"/>
+					<Item id="48508" name="Erstelle aus Dateien …"/>
+					<Item id="48509" name="Erstelle aus der Auswahl in die Zwischenablage"/>
+					<Item id="48510" name="Erstelle …"/>
+					<Item id="48511" name="Erstelle aus Dateien …"/>
+					<Item id="48512" name="Erstelle aus der Auswahl in die Zwischenablage"/>
 					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
 
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
@@ -552,6 +560,29 @@ Translation note:
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Erstelle SHA-1-Auszug aus Dateien">
+				<Item id="1922" name="Wähle Dateien um SHA-1 zu &amp;generieren …"/>
+				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2" name="S&amp;chließen"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Erstelle SHA-1-Auszug">
+				<Item id="1932" name="TJede &amp;Zeile als eigene Zeichenkette behandeln"/>
+				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2" name="S&amp;chließen"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Erstelle SHA-512-Auszug aus Dateien">
+				<Item id="1922" name="Wähle Dateien um SHA-512 zu &amp;generieren …"/>
+				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2" name="S&amp;chließen"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Erstelle SHA-512-Auszug">
+				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
+				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="2" name="S&amp;chließen"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>

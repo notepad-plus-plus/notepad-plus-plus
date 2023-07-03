@@ -374,6 +374,8 @@ public:
 		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
 		installHooks();
+		_keyboardLayoutLanguage = getKeyboardLayout();
+		_isHangul = isHangul(_keyboardLayoutLanguage);
 	}
 
 	~FileDialogEventHandler()
@@ -518,6 +520,21 @@ private:
 		}
 	}
 
+	LANGID getKeyboardLayout() 
+	{
+		return PRIMARYLANGID(LOWORD(HandleToLong(GetKeyboardLayout(0))));
+	}
+
+	static bool isHangul(LANGID lang)
+	{
+		auto hwnd = GetFocus();
+		auto himc = ImmGetContext(hwnd);
+		auto isImeActivated = ImmGetOpenStatus(himc); // return true when CJK IME is in local language input mode
+		ImmReleaseContext(hwnd, himc);
+
+		return (lang == LANG_KOREAN) && isImeActivated;
+	};
+
 	// Transforms a forward-slash path to a canonical Windows path.
 	static bool transformPath(generic_string& fileName)
 	{
@@ -631,16 +648,6 @@ private:
 
 	static LRESULT CALLBACK KbdProcHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
-		auto IsHangul = [](LANGID langid)
-		{
-			auto hwnd = GetFocus();
-			auto himc = ImmGetContext(hwnd);
-			auto isImeActivated = ImmGetOpenStatus(himc); // return true if non-english(CJK) IME is turned on
-			ImmReleaseContext(hwnd, himc);
-
-			return (langid == LANG_KOREAN) && isImeActivated;
-		};
-
 		if (nCode == HC_ACTION)
 		{
 			if (wParam == VK_RETURN)
@@ -650,11 +657,13 @@ private:
 				auto it = s_handleMap.find(hwnd);
 				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
 				{
-					it->second->_isHangul = IsHangul(it->second->_keyboardLayoutLanguage);
+					// Capture the state at this point because of the OnFileOk()
+					it->second->_isHangul = isHangul(it->second->_keyboardLayoutLanguage);
 
 					if (it->second->_isHangul)
 					{
-						// If IME is in Hangul mode, ignore VK_RETURN to complete the composition and change to alphabetical input mode to proceed to onPreFileOk() on the next VK_RETURN.
+						// If IME is in Hangul mode, ignore VK_RETURN to complete the composition and change 
+						// to alphabetical input mode to proceed to onPreFileOk() on the next VK_RETURN.
 						auto himc = ImmGetContext(hwnd);
 						ImmSetConversionStatus(himc, IME_CMODE_ALPHANUMERIC, IME_SMODE_NONE);
 						ImmReleaseContext(hwnd, himc);
@@ -669,7 +678,7 @@ private:
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
 	}
 
-	// Dectect language layout of keyboard
+	// Dectect language layout of keyboard when it changed
 	static LRESULT CALLBACK LanguageDetectHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		if (nCode == HSHELL_LANGUAGE)

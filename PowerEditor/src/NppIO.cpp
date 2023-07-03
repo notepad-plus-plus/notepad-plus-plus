@@ -588,6 +588,10 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	// Once reload is complete, activate buffer which will take care of
 	// many settings such as update status bar, clickable link etc.
 	activateBuffer(id, currentView(), true);
+
+	if (NppParameters::getInstance().getSVP()._isChangeHistoryEnabled4NextSession)
+		clearChangesHistory();
+
 	return res;
 }
 

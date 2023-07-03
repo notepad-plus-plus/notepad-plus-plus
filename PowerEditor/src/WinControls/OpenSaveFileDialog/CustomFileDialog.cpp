@@ -529,10 +529,10 @@ private:
 	{
 		auto hwnd = GetFocus();
 		auto himc = ImmGetContext(hwnd);
-		auto isImeActivated = ImmGetOpenStatus(himc); // return true when CJK IME is in local language input mode
+		auto isLocalInputMode = ImmGetOpenStatus(himc); // return true when CJK IME is in local language input mode
 		ImmReleaseContext(hwnd, himc);
 
-		return (lang == LANG_KOREAN) && isImeActivated;
+		return (lang == LANG_KOREAN) && isLocalInputMode;
 	};
 
 	// Transforms a forward-slash path to a canonical Windows path.

@@ -38,29 +38,29 @@ public:
 		_ppEditView = ppEditView;
 	};
 
-    void setParent(HWND parent2set){
-        _hParent = parent2set;
-    };
+	void setParent(HWND parent2set){
+		_hParent = parent2set;
+	};
 
 	void switchEncoding();
 	void insertChar(unsigned char char2insert) const;
 	void insertString(LPWSTR string2insert) const;
 
-	virtual void setBackgroundColor(int bgColour) const {
+	void setBackgroundColor(COLORREF bgColour) override {
 		ListView_SetBkColor(_listView.getHSelf(), bgColour);
 		ListView_SetTextBkColor(_listView.getHSelf(), bgColour);
 		_listView.redraw(true);
-    };
-	virtual void setForegroundColor(int fgColour) const {
+	};
+
+	void setForegroundColor(COLORREF fgColour) override {
 		ListView_SetTextColor(_listView.getHSelf(), fgColour);
 		_listView.redraw(true);
-    };
-	
+	};
+
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;
 	AsciiListView _listView;
 };
-

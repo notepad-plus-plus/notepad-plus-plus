@@ -18,7 +18,9 @@
 #include <wincrypt.h>
 #include "sha512.h"
 
-#pragma comment(lib, "crypt32.lib")
+//#if defined(_MSC_VER)
+//#pragma comment(lib, "crypt32.lib")
+//#endif
 
 void calc_sha_512(unsigned char hash[64], const void *input, size_t len) {
     HCRYPTPROV hProv = 0;

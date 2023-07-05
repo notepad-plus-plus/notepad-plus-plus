@@ -8682,7 +8682,7 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	intptr_t blockIndicator = _pEditView->getCurrentLineNumber();
 	intptr_t lastLine = _pEditView->execute(SCI_GETLINECOUNT);
 
-	bool isSilent = NppParameters::getInstance().getNppGUI()._muteSounds;
+	//bool isSilent = NppParameters::getInstance().getNppGUI()._muteSounds;
 
 	if (idGoTo != IDM_SEARCH_CHANGED_PREV)		// Next or First.
 	{
@@ -8716,13 +8716,17 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 					line = i;
 					if (idGoTo == IDM_SEARCH_CHANGED_NEXT)
 					{
+						/* Do nothing
 						if (!isSilent)
 							::MessageBeep(MB_OK);
+						*/
 					}
 					else if (i == currentLine)
 					{
+						/* Do nothing
 						if (!isSilent)
 							::MessageBeep(MB_ICONINFORMATION);
+						*/
 					}
 					break;
 				}
@@ -8746,8 +8750,10 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 			line = _pEditView->execute(SCI_MARKERPREVIOUS, lastLine - 1, mask);
 			if (line != -1)
 			{
+				/* Do nothing
 				if (!isSilent)
 					::MessageBeep(MB_OK);
+				*/
 			}
 		}
 	}
@@ -8759,8 +8765,10 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	}
 	else
 	{
+		/* Do nothing
 		if (!isSilent)
 			::MessageBeep(MB_ICONEXCLAMATION);
+		*/
 	}
 
 }

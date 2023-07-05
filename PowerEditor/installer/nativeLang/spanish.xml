@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.5.4">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Operaciones de limpie&amp;za"/>
 					<Item subMenuId="edit-pasteSpecial" name="Pe&amp;gado especial"/>
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
+					<Item subMenuId="search-changeHistory" name="Historial de cambios"/>
 					<Item subMenuId="search-markAll" name="Resaltar todas las coincid&amp;encias buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar una coinci&amp;dencia"/>
 					<Item subMenuId="search-unmarkAll" name="Limpiar estilo"/>
@@ -251,6 +252,9 @@ Translation note:
 					<Item id="43064" name="Usar el tercer estilo"/>
 					<Item id="43065" name="Usar el cuarto estilo"/>
 					<Item id="43066" name="Usar el quinto estilo"/>
+					<Item id="43067" name="Ir al siguiente cambio"/>
+					<Item id="43068" name="Ir al cambio anterior"/>
+					<Item id="43069" name="Borrar el historial de cambios"/>
 					<Item id="43045" name="&amp;Ventana de resultados de búsqueda"/>
 					<Item id="43046" name="Resultados de búsqueda sig&amp;uiente"/>
 					<Item id="43047" name="Resultados de búsqueda &amp;anterior"/>

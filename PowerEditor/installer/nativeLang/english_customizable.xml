@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.5.3">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="&amp;Blank Operations"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
 					<Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
+					<Item subMenuId="search-changeHistory" name="Change History"/>
 					<Item subMenuId="search-markAll" name="Style &amp;All Occurrences of Token"/>
 					<Item subMenuId="search-markOne" name="Style &amp;One Token"/>
 					<Item subMenuId="search-unmarkAll" name="Clear Style"/>
@@ -251,6 +252,9 @@ Translation note:
 					<Item id="43064" name="Using 3rd Style"/>
 					<Item id="43065" name="Using 4th Style"/>
 					<Item id="43066" name="Using 5th Style"/>
+					<Item id="43067" name="Go to Next Change"/>
+					<Item id="43068" name="Go to Previous Change"/>
+					<Item id="43069" name="Clear Change History"/>
 					<Item id="43045" name="Search Results &amp;Window"/>
 					<Item id="43046" name="Next Search Resul&amp;t"/>
 					<Item id="43047" name="Previous Search Resul&amp;t"/>

@@ -545,17 +545,17 @@ BEGIN
             MENUITEM "Open File",           IDM_EDIT_OPENASFILE
             MENUITEM "Open Containing Folder in Explorer",         IDM_EDIT_OPENINFOLDER
             MENUITEM SEPARATOR
-            MENUITEM "Search on Internet",     IDM_EDIT_SEARCHONINTERNET
+            MENUITEM "Search on Internet",      IDM_EDIT_SEARCHONINTERNET
             MENUITEM "Change Search Engine...", IDM_EDIT_CHANGESEARCHENGINE
         END
         MENUITEM SEPARATOR
-        MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP
+        MENUITEM "Column Mode...",           IDM_EDIT_COLUMNMODETIP
         MENUITEM "Colum&n Editor...",        IDM_EDIT_COLUMNMODE
-        MENUITEM "Character &Panel",        IDM_EDIT_CHAR_PANEL
-        MENUITEM "Clipboard &History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
+        MENUITEM "Character &Panel",         IDM_EDIT_CHAR_PANEL
+        MENUITEM "Clipboard &History",       IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
         MENUITEM "&Set Read-Only",           IDM_EDIT_SETREADONLY
-        MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARREADONLY
+        MENUITEM "Clear Read-Only Flag",     IDM_EDIT_CLEARREADONLY
     END
 
     POPUP "&Search"
@@ -578,7 +578,13 @@ BEGIN
         MENUITEM "Select All Between &Matching Braces", IDM_SEARCH_SELECTMATCHINGBRACES
         MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
         MENUITEM SEPARATOR
-
+        POPUP "Change History"
+        BEGIN
+            MENUITEM "Go to Next Change",           IDM_SEARCH_CHANGED_NEXT
+            MENUITEM "Go to Previous Change",       IDM_SEARCH_CHANGED_PREV
+            MENUITEM "Clear Change History",        IDM_SEARCH_CLEAR_CHANGE_HISTORY
+        END
+        MENUITEM SEPARATOR
         POPUP "Style &All Occurrences of Token"
         BEGIN
             MENUITEM "Using 1st Style",    IDM_SEARCH_MARKALLEXT1

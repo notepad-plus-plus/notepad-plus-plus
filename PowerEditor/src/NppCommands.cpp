@@ -1680,6 +1680,15 @@ void Notepad_plus::command(int id)
 			bookmarkClearAll();
 		    break;
 
+	    case IDM_SEARCH_CHANGED_PREV:
+	    case IDM_SEARCH_CHANGED_NEXT:
+			changedHistoryGoTo(id);
+		    break;
+			
+	    case IDM_SEARCH_CLEAR_CHANGE_HISTORY:
+			clearChangesHistory();
+		    break;
+
         case IDM_LANG_USER_DLG :
         {
 		    bool isUDDlgVisible = false;

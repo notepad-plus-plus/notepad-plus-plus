@@ -646,4 +646,5 @@ private:
 	HBITMAP generateSolidColourMenuItemIcon(COLORREF colour);
 
 	void clearChangesHistory();
+	void changedHistoryGoTo(int idGoTo);
 };

@@ -199,6 +199,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_G,       IDM_SEARCH_GOTOLINE,                          true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_GOTOMATCHINGBRACE,                 true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_SELECTMATCHINGBRACES,              true,  true,  false, nullptr },
+	{ VK_C,       IDM_SEARCH_CHANGED_PREV,                      true,  true,  true,  nullptr },
+	{ VK_C,       IDM_SEARCH_CHANGED_NEXT,                      true,  true,  false, nullptr },
 	{ VK_M,       IDM_SEARCH_MARK,                              true,  false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT1,                       false, false, false, TEXT("Style all using 1st style") },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT2,                       false, false, false, TEXT("Style all using 2nd style") },

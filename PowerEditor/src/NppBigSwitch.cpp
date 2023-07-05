@@ -2982,6 +2982,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			_mainEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
 			_subEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
+
+			enableCommand(IDM_SEARCH_CHANGED_PREV, svp._isChangeHistoryEnabled, MENU);
+			enableCommand(IDM_SEARCH_CHANGED_NEXT, svp._isChangeHistoryEnabled, MENU);
+			enableCommand(IDM_SEARCH_CLEAR_CHANGE_HISTORY, svp._isChangeHistoryEnabled, MENU);
+
 			return TRUE;
 		}
 

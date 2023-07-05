@@ -8669,3 +8669,98 @@ void Notepad_plus::clearChangesHistory()
 	SendMessage(_pEditView->getHSelf(), SCI_SETCHANGEHISTORY, chFlags, 0);
 	SendMessage(_pEditView->getHSelf(), SCI_GOTOPOS, pos, 0);
 }
+
+// Based on https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12248#issuecomment-1258561261.
+void Notepad_plus::changedHistoryGoTo(int idGoTo)
+{
+	int mask =	(1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) | 
+				(1 << SC_MARKNUM_HISTORY_SAVED) |
+				(1 << SC_MARKNUM_HISTORY_MODIFIED) |
+				(1 << SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED);
+
+	intptr_t line = -1;
+	intptr_t blockIndicator = _pEditView->getCurrentLineNumber();
+	intptr_t lastLine = _pEditView->execute(SCI_GETLINECOUNT);
+
+	bool isSilent = NppParameters::getInstance().getNppGUI()._muteSounds;
+
+	if (idGoTo != IDM_SEARCH_CHANGED_PREV)		// Next or First.
+	{
+		intptr_t currentLine = blockIndicator;
+
+		if (idGoTo == IDM_SEARCH_CHANGED_NEXT)
+		{
+			// Start from currentLine (not currentLine + 1) in case currentLine is not-changed and the next line IS changed. lastLine is at least *1*.
+			for (intptr_t i = currentLine; i < lastLine; i++)
+			{
+				if (_pEditView->execute(SCI_MARKERGET, i) & mask)
+				{
+					if (i != blockIndicator)		// Changed-line found in a different block.
+					{
+						line = i;
+						break;
+					}
+					else
+						blockIndicator++;
+				}
+			}
+		}
+
+		if (line == -1)		// Wrap around.
+		{
+			intptr_t endRange = (idGoTo == IDM_SEARCH_CHANGED_NEXT) ? currentLine + 1 : lastLine;		//	"+ 1": currentLine might be *0*.
+			for (intptr_t i = 0; i < endRange; i++)
+			{
+				if (_pEditView->execute(SCI_MARKERGET, i) & mask)
+				{
+					line = i;
+					if (idGoTo == IDM_SEARCH_CHANGED_NEXT)
+					{
+						if (!isSilent)
+							::MessageBeep(MB_OK);
+					}
+					else if (i == currentLine)
+					{
+						if (!isSilent)
+							::MessageBeep(MB_ICONINFORMATION);
+					}
+					break;
+				}
+			}
+		}
+	}
+	else	// Prev.
+	{
+		while (true)
+		{
+			line = _pEditView->execute(SCI_MARKERPREVIOUS, blockIndicator, mask);
+			// "line == -1": no changed-line found. "line != blockIndicator": changed-line found in a different block.
+			if (line == -1 || line != blockIndicator)
+				break;
+			else
+				blockIndicator--;
+		}
+
+		if (line == -1)	// Wrap around.
+		{
+			line = _pEditView->execute(SCI_MARKERPREVIOUS, lastLine - 1, mask);
+			if (line != -1)
+			{
+				if (!isSilent)
+					::MessageBeep(MB_OK);
+			}
+		}
+	}
+
+	if (line != -1)
+	{
+		_pEditView->execute(SCI_ENSUREVISIBLEENFORCEPOLICY, line);
+		_pEditView->execute(SCI_GOTOLINE, line);
+	}
+	else
+	{
+		if (!isSilent)
+			::MessageBeep(MB_ICONEXCLAMATION);
+	}
+
+}

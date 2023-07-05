@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.5.4">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Operacións de limpe&amp;za"/>
 					<Item subMenuId="edit-pasteSpecial" name="Pe&amp;gado especial"/>
 					<Item subMenuId="edit-onSelection" name="Selecció&amp;n"/>
+					<Item subMenuId="search-changeHistory" name="Historial de cambios"/>
 					<Item subMenuId="search-markAll" name="Resaltar tódalas coincidencias &amp;buscadas"/>
 					<Item subMenuId="search-markOne" name="Resaltar unha coinci&amp;dencia"/>
 					<Item subMenuId="search-unmarkAll" name="Limpar estilo"/>
@@ -251,6 +252,9 @@ Translation note:
 					<Item id="43064" name="Usando terceiro estilo"/>
 					<Item id="43065" name="Usando cuarto estilo"/>
 					<Item id="43066" name="Usando quinto estilo"/>
+					<Item id="43067" name="Ir ao seguinte cambio"/>
+					<Item id="43068" name="Ir ao cambio anterior"/>
+					<Item id="43069" name="Borrar o historial de cambios"/>
 					<Item id="43045" name="&amp;Ventá de resultados de busca"/>
 					<Item id="43046" name="Resultados da busca &amp;seguinte"/>
 					<Item id="43047" name="Resultados da busca &amp;anterior"/>

@@ -709,8 +709,8 @@ private:
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
-	LANGID _keyboardLayoutLanguage;
-	bool _isHangul; // Korean IME specific flag
+	LANGID _keyboardLayoutLanguage = LANG_NEUTRAL;
+	bool _isHangul = false; // Korean IME specific flag
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 

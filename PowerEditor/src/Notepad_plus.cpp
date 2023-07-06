@@ -2537,8 +2537,16 @@ void Notepad_plus::checkDocState()
 
 void Notepad_plus::checkUndoState()
 {
-	enableCommand(IDM_EDIT_UNDO, _pEditView->execute(SCI_CANUNDO) != 0, MENU | TOOLBAR);
-	enableCommand(IDM_EDIT_REDO, _pEditView->execute(SCI_CANREDO) != 0, MENU | TOOLBAR);
+	bool canUndo = _pEditView->execute(SCI_CANUNDO) != 0;
+	bool canRedo = _pEditView->execute(SCI_CANREDO) != 0;
+	bool isChangeHistoryEnabled = NppParameters::getInstance().getSVP()._isChangeHistoryEnabled;
+
+	enableCommand(IDM_EDIT_UNDO, canUndo, MENU | TOOLBAR);
+	enableCommand(IDM_EDIT_REDO, canRedo, MENU | TOOLBAR);
+
+	enableCommand(IDM_SEARCH_CHANGED_PREV, isChangeHistoryEnabled && canUndo, MENU);
+	enableCommand(IDM_SEARCH_CHANGED_NEXT, isChangeHistoryEnabled && canUndo, MENU);
+	enableCommand(IDM_SEARCH_CLEAR_CHANGE_HISTORY, isChangeHistoryEnabled && canUndo, MENU);
 }
 
 void Notepad_plus::checkMacroState()
@@ -8668,6 +8676,8 @@ void Notepad_plus::clearChangesHistory()
 
 	SendMessage(_pEditView->getHSelf(), SCI_SETCHANGEHISTORY, chFlags, 0);
 	SendMessage(_pEditView->getHSelf(), SCI_GOTOPOS, pos, 0);
+
+	checkUndoState();
 }
 
 // Based on https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12248#issuecomment-1258561261.

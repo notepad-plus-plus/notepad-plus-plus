@@ -251,8 +251,8 @@
     #define    IDM_SEARCH_MARKONEEXT4          (IDM_SEARCH + 65)
     #define    IDM_SEARCH_MARKONEEXT5          (IDM_SEARCH + 66)
 
-    #define    IDM_SEARCH_CHANGED_PREV         (IDM_SEARCH + 67)
-    #define    IDM_SEARCH_CHANGED_NEXT         (IDM_SEARCH + 68)
+    #define    IDM_SEARCH_CHANGED_NEXT         (IDM_SEARCH + 67)
+    #define    IDM_SEARCH_CHANGED_PREV         (IDM_SEARCH + 68)
     #define    IDM_SEARCH_CLEAR_CHANGE_HISTORY (IDM_SEARCH + 69)
 
 #define    IDM_MISC    (IDM + 3500)

@@ -2537,16 +2537,8 @@ void Notepad_plus::checkDocState()
 
 void Notepad_plus::checkUndoState()
 {
-	bool canUndo = _pEditView->execute(SCI_CANUNDO) != 0;
-	bool canRedo = _pEditView->execute(SCI_CANREDO) != 0;
-	bool isChangeHistoryEnabled = NppParameters::getInstance().getSVP()._isChangeHistoryEnabled;
-
-	enableCommand(IDM_EDIT_UNDO, canUndo, MENU | TOOLBAR);
-	enableCommand(IDM_EDIT_REDO, canRedo, MENU | TOOLBAR);
-
-	enableCommand(IDM_SEARCH_CHANGED_PREV, isChangeHistoryEnabled && canUndo, MENU);
-	enableCommand(IDM_SEARCH_CHANGED_NEXT, isChangeHistoryEnabled && canUndo, MENU);
-	enableCommand(IDM_SEARCH_CLEAR_CHANGE_HISTORY, isChangeHistoryEnabled && canUndo, MENU);
+	enableCommand(IDM_EDIT_UNDO, _pEditView->execute(SCI_CANUNDO) != 0, MENU | TOOLBAR);
+	enableCommand(IDM_EDIT_REDO, _pEditView->execute(SCI_CANREDO) != 0, MENU | TOOLBAR);
 }
 
 void Notepad_plus::checkMacroState()
@@ -8683,7 +8675,7 @@ void Notepad_plus::clearChangesHistory()
 // Based on https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12248#issuecomment-1258561261.
 void Notepad_plus::changedHistoryGoTo(int idGoTo)
 {
-	int mask =	(1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) | 
+	int mask =	(1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) |
 				(1 << SC_MARKNUM_HISTORY_SAVED) |
 				(1 << SC_MARKNUM_HISTORY_MODIFIED) |
 				(1 << SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED);
@@ -8692,52 +8684,35 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	intptr_t blockIndicator = _pEditView->getCurrentLineNumber();
 	intptr_t lastLine = _pEditView->execute(SCI_GETLINECOUNT);
 
-	//bool isSilent = NppParameters::getInstance().getNppGUI()._muteSounds;
-
-	if (idGoTo != IDM_SEARCH_CHANGED_PREV)		// Next or First.
+	if (idGoTo == IDM_SEARCH_CHANGED_NEXT)		// Next.
 	{
 		intptr_t currentLine = blockIndicator;
 
-		if (idGoTo == IDM_SEARCH_CHANGED_NEXT)
+		// Start from currentLine (not currentLine + 1) in case currentLine is not-changed and the next line IS changed. lastLine is at least *1*.
+		for (intptr_t i = currentLine; i < lastLine; i++)
 		{
-			// Start from currentLine (not currentLine + 1) in case currentLine is not-changed and the next line IS changed. lastLine is at least *1*.
-			for (intptr_t i = currentLine; i < lastLine; i++)
+			if (_pEditView->execute(SCI_MARKERGET, i) & mask)
 			{
-				if (_pEditView->execute(SCI_MARKERGET, i) & mask)
+				if (i != blockIndicator)		// Changed-line found in a different block.
 				{
-					if (i != blockIndicator)		// Changed-line found in a different block.
-					{
-						line = i;
-						break;
-					}
-					else
-						blockIndicator++;
+					line = i;
+					break;
+				}
+				else
+				{
+					blockIndicator++;
 				}
 			}
 		}
 
 		if (line == -1)		// Wrap around.
 		{
-			intptr_t endRange = (idGoTo == IDM_SEARCH_CHANGED_NEXT) ? currentLine + 1 : lastLine;		//	"+ 1": currentLine might be *0*.
+			intptr_t endRange = currentLine + 1;		//	"+ 1": currentLine might be *0*.
 			for (intptr_t i = 0; i < endRange; i++)
 			{
 				if (_pEditView->execute(SCI_MARKERGET, i) & mask)
 				{
 					line = i;
-					if (idGoTo == IDM_SEARCH_CHANGED_NEXT)
-					{
-						/* Do nothing
-						if (!isSilent)
-							::MessageBeep(MB_OK);
-						*/
-					}
-					else if (i == currentLine)
-					{
-						/* Do nothing
-						if (!isSilent)
-							::MessageBeep(MB_ICONINFORMATION);
-						*/
-					}
 					break;
 				}
 			}
@@ -8758,13 +8733,6 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 		if (line == -1)	// Wrap around.
 		{
 			line = _pEditView->execute(SCI_MARKERPREVIOUS, lastLine - 1, mask);
-			if (line != -1)
-			{
-				/* Do nothing
-				if (!isSilent)
-					::MessageBeep(MB_OK);
-				*/
-			}
 		}
 	}
 
@@ -8775,10 +8743,9 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	}
 	else
 	{
-		/* Do nothing
+		bool isSilent = NppParameters::getInstance().getNppGUI()._muteSounds;
+
 		if (!isSilent)
 			::MessageBeep(MB_ICONEXCLAMATION);
-		*/
 	}
-
 }

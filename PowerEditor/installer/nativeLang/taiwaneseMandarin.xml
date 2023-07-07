@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.1">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -34,6 +34,7 @@
 					<Item subMenuId="edit-blankOperations" name="空格處理(&amp;B)"/>
 					<Item subMenuId="edit-pasteSpecial" name="特殊貼上(&amp;P)"/>
 					<Item subMenuId="edit-onSelection" name="選取字元(&amp;O)"/>
+					<Item subMenuId="search-changeHistory" name="文件修改紀錄"/>
 					<Item subMenuId="search-markAll" name="全部標記(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="僅標記選取(&amp;O)"/>
 					<Item subMenuId="search-unmarkAll" name="去除標記(&amp;U)"/>
@@ -244,6 +245,9 @@
 					<Item id="43064" name="使用樣式3"/>
 					<Item id="43065" name="使用樣式4"/>
 					<Item id="43066" name="使用樣式5"/>
+					<Item id="43067" name="前往下一個更改"/>
+					<Item id="43068" name="前往上一個更改"/>
+					<Item id="43069" name="清除修改紀錄"/>
 					<Item id="43045" name="搜尋結果視窗(&amp;W)"/>
 					<Item id="43046" name="下個搜尋結果(&amp;T)"/>
 					<Item id="43047" name="上個搜尋結果(&amp;T)"/>

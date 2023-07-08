@@ -1081,8 +1081,9 @@ void AutoCompletion::callTipClick(size_t direction)
 
 bool AutoCompletion::setLanguage(LangType language)
 {
-	if (_curLang == language)
+	if (_curLang == language && _pXmlFile)
 		return true;
+
 	_curLang = language;
 
 	TCHAR path[MAX_PATH];
@@ -1092,7 +1093,8 @@ bool AutoCompletion::setLanguage(LangType language)
 	wcscat_s(path, getApiFileName());
 	wcscat_s(path, TEXT(".xml"));
 
-	delete _pXmlFile;
+	if (_pXmlFile)
+		delete _pXmlFile;
 
 	_pXmlFile = new TiXmlDocument(path);
 	_funcCompletionActive = _pXmlFile->LoadFile();

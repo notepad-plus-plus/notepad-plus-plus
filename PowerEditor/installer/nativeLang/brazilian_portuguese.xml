@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 21 Jun 2023, for Notepad++ 8.5.5
+     Last update by Marcello, 07 Jul 2023, for Notepad++ 8.5.5
 -->
 <NotepadPlus>
 	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.4">
@@ -37,6 +37,7 @@
 					<Item subMenuId="edit-blankOperations" name="Operações com espaços"/>
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
+					<Item subMenuId="search-changeHistory" name="Histórico de Alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar todos"/>
 					<Item subMenuId="search-markOne" name="Marcar um"/>
 					<Item subMenuId="search-unmarkAll" name="Desmarcar todos"/>
@@ -249,6 +250,9 @@
 					<Item id="43064" name="Usando o 3º estilo"/>
 					<Item id="43065" name="Usando o 4º estilo"/>
 					<Item id="43066" name="Usando o 5º estilo"/>
+					<Item id="43067" name="Próxima Alteração"/>
+					<Item id="43068" name="Alteração Anterior"/>
+					<Item id="43069" name="Limpar Histórico de Alterações"/>
 					<Item id="43045" name="Janela do resultado de pesquisa"/>
 					<Item id="43046" name="Próximo resultado da pesquisa"/>
 					<Item id="43047" name="Resultado anterior da pesquisa"/>

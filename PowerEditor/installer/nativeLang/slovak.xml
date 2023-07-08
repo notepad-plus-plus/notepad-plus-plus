@@ -37,6 +37,7 @@
 					<Item subMenuId="edit-blankOperations" name="Operácie s &amp;prázdnym znakom"/>
 					<Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciá&amp;lne"/>
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
+					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
 					<Item subMenuId="search-unmarkAll" name="Vymazať štýl"/>
@@ -249,6 +250,9 @@
 					<Item id="43064" name="Pomocou 3. štýlu"/>
 					<Item id="43065" name="Pomocou 4. štýlu"/>
 					<Item id="43066" name="Pomocou 5. štýlu"/>
+					<Item id="43067" name="Prejsť na ďalšiu zmenu"/>
+					<Item id="43068" name="Prejsť na predchádzajúcu zmenu"/>
+					<Item id="43069" name="Vymazať históriu zmien"/>
 					<Item id="43045" name="O&amp;kno s výsledkami hľadania"/>
 					<Item id="43046" name="Ď&amp;alší výsledok hľadania"/>
 					<Item id="43047" name="Pr&amp;edchádzajúci výsledok hľadania"/>

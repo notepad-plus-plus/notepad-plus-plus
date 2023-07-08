@@ -37,6 +37,7 @@ Updated to v8.5.5:
 					<Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
 					<Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
 					<Item subMenuId="edit-onSelection" name="Выделенное"/>
+					<Item subMenuId="search-changeHistory" name="История Изменений"/>
 					<Item subMenuId="search-markAll" name="Пометить все совпадения"/>
 					<Item subMenuId="search-markOne" name="Пометить только одно"/>
 					<Item subMenuId="search-unmarkAll" name="Очистить пометки"/>
@@ -276,6 +277,10 @@ Updated to v8.5.5:
 					<Item id="43064" name="Используя 3-й стиль"/>
 					<Item id="43065" name="Используя 4-й стиль"/>
 					<Item id="43066" name="Используя 5-й стиль"/>
+
+					<Item id="43067" name="К Следующему Изменению"/>
+					<Item id="43068" name="К Предыдущему Изменению"/>
+					<Item id="43069" name="Очистить История Изменений"/>
 
 					<Item id="43005" name="Закладка (поставить / снять)"/>
 					<Item id="43006" name="К следующей закладке"/>
@@ -599,7 +604,7 @@ Updated to v8.5.5:
 				<Item id="1924" name="Копировать в Буфер"/>
 				<Item id="2" name="Закрыть"/>
 			</SHA512FromFilesDlg>
-			<SHA512FromTextDlg title="Сгенерировать SHA-512">
+			<SHA512FromTextDlg title="Сгенерировать SHA-512 digest">
 				<Item id="1932" name="Рассматривать каждую строку как отдельную"/>
 				<Item id="1934" name="Копировать в Буфер"/>
 				<Item id="2" name="Закрыть"/>

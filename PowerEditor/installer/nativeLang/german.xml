@@ -13,7 +13,7 @@ Translation note:
 	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.03"><!-- basiert auf english.xml vom 03.07.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.08"><!-- basiert auf english.xml vom 08.07.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -47,6 +47,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="edit-pasteSpecial" name="Einf&amp;ügen speziell"/>
 					<Item subMenuId="edit-onSelection" name="Mit Auswahl"/>
+					<Item subMenuId="search-changeHistory" name="Änderungs-Historie"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle Vorkommen hervorheben"/>
 					<Item subMenuId="search-markOne" name="Di&amp;eses Vorkommen hervorheben"/>
 					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
@@ -258,6 +259,9 @@ Translation note:
 					<Item id="43063" name="Markierung &amp;2"/>
 					<Item id="43064" name="Markierung &amp;3"/>
 					<Item id="43065" name="Markierung &amp;4"/>
+					<Item id="43067" name="Gehe zur nächsten Änderung"/>
+					<Item id="43068" name="Gehe zur vorherigen Änderung"/>
+					<Item id="43069" name="Änderungs-Historie löschen"/>
 					<Item id="43066" name="Markierung &amp;5"/>
 					<Item id="43045" name="Suchergebnis-&amp;Fenster"/>
 					<Item id="43046" name="Zum n&amp;ächsten Suchergebnis springen"/>

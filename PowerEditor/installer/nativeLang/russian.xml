@@ -604,7 +604,7 @@ Updated to v8.5.5:
 				<Item id="1924" name="Копировать в Буфер"/>
 				<Item id="2" name="Закрыть"/>
 			</SHA512FromFilesDlg>
-			<SHA512FromTextDlg title="Сгенерировать SHA-512 digest">
+			<SHA512FromTextDlg title="Сгенерировать SHA-512">
 				<Item id="1932" name="Рассматривать каждую строку как отдельную"/>
 				<Item id="1934" name="Копировать в Буфер"/>
 				<Item id="2" name="Закрыть"/>

@@ -40,6 +40,7 @@
                     <Item subMenuId="edit-blankOperations" name="Operații spații libere"/>
                     <Item subMenuId="edit-pasteSpecial" name="Lipire specială"/>
                     <Item subMenuId="edit-onSelection" name="Pe selecție"/>
+		    <Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
                     <Item subMenuId="search-markAll" name="Marcare tot"/>
                     <Item subMenuId="search-markOne" name="Marcare &amp;unică a selecției"/>
                     <Item subMenuId="search-unmarkAll" name="Demarcare tot"/>
@@ -75,7 +76,9 @@
                     <Item subMenuId="language-userDefinedLanguage" name="Limbaj definit de utilizator"/>
                     <Item subMenuId="settings-import"  name="Importare"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
+		    <Item subMenuId="tools-sha1" name="SHA-1"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>  
+		    <Item subMenuId="tools-sha512" name="SHA-512"/>
                     <Item subMenuId="window-sortby" name="Sortare ca"/>					
                 </SubEntries>
 				
@@ -250,6 +253,9 @@
                     <Item id="43064" name="Folosirea stilului 3"/>
                     <Item id="43065" name="Folosirea stilului 4"/>
                     <Item id="43066" name="Folosirea stilului 5"/>
+		    <Item id="43067" name="Du-te la următoarea schimbare"/>
+		    <Item id="43068" name="Du-te la schimbarea anterioară"/>
+		    <Item id="43069" name="Golește istoricul schimbărilor"/>
                     <Item id="43045" name="Fereastră rezultate căutare"/>
                     <Item id="43046" name="Următorul rezultat găsit"/>
                     <Item id="43047" name="Rezultat anterior găsit"/>
@@ -362,7 +368,13 @@
                     <Item id="48503" name="Generare din selecție în memorie"/>
                     <Item id="48504" name="Generare..."/>
                     <Item id="48505" name="Generare din fișiere..."/>
-                    <Item id="48506" name="Generare din selecție în memorie"/>            		
+                    <Item id="48506" name="Generare din selecție în memorie"/>        
+		    <Item id="48507" name="Generare..."/>
+		    <Item id="48508" name="Generare din fișiere..."/>
+                    <Item id="48509" name="Generare din selecție în memorie"/>
+		    <Item id="48510" name="Generare..."/>
+		    <Item id="48511" name="Generare din fișiere..."/>
+		    <Item id="48512" name="Generare din selecție în memorie"/>
                     <Item id="49000" name="&amp;Executare..."/>
 
                     <Item id="50000" name="Completare funcții"/>
@@ -522,28 +534,52 @@
             </Run>
 
             <MD5FromFilesDlg title="Generare sumă de control MD5 din fișiere">
-                <Item id="1922" name="Alegere fișiere pentru generare MD5..."/>
+                <Item id="1922" name="Alegere fișiere pentru vgenerare MD5..."/>
                 <Item id="1924" name="Copiere în memorie"/>
-                <Item id="2"    name="Închidere"/>
+                <Item id="2"    name="&amp;Închidere"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generate sumă de control MD5">
-                <Item id="1932" name="Consideră fiecare linie ca un șir separat"/>
+                <Item id="1932" name="Consideră fiecare linie ca un &amp;șir separat"/>
                 <Item id="1934" name="Copiere în memorie"/>
-                <Item id="2"    name="Închidere"/>
+                <Item id="2"    name="&amp;Închidere"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Generare sumă de control SHA-256 din fișiere">
-                <Item id="1922" name="Alegere fișiere pentru gemerare SHA-256..."/>
-                <Item id="1924" name="Copiere în memorie"/>
-                <Item id="2"    name="Închidere"/>
+                <Item id="1922" name="Alegere fișiere pentru &amp;generare SHA-256..."/>
+                <Item id="1924" name="Co&amp;piere în memorie"/>
+                <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromFilesDlg>
 
-            <SHA256FromTextDlg title="Generare sună de control SHA-256">
-                <Item id="1932" name="Consideră fiecare linie ca șir separat"/>
-                <Item id="1934" name="Copiere în memorie"/>
-                <Item id="2"    name="Închidere"/>
+            <SHA256FromTextDlg title="Generare sumă de control SHA-256">
+                <Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
+                <Item id="1934" name="Co&amp;piere în memorie"/>
+                <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromTextDlg>
+
+			<SHA1FromFilesDlg title="Generare sumă de control SHA-1 din fișiere">
+				<Item id="1922" name="Alegere fișiere pentru &amp;generare SHA-1..."/>
+				<Item id="1924" name="Co&amp;piere în memorie"/>
+				<Item id="2" name="&amp;Închidere"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generare sumă de control SHA-1">
+				<Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
+				<Item id="1934" name="Co&amp;piere în memorie"/>
+				<Item id="2" name="&amp;Închidere"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generare sumă de control SHA-512 din fișiere">
+				<Item id="1922" name="Alegere fișiere pentru &amp;generare SHA-512..."/>
+				<Item id="1924" name="Co&amp;piere în memorie"/>
+				<Item id="2" name="&amp;Închidere"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generare sumă de control SHA-512">
+				<Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
+				<Item id="1934" name="Co&amp;piere în memorie"/>
+				<Item id="2" name="&amp;Închidere"/>
+			</SHA512FromTextDlg>
             
             <PluginsAdminDlg title="Administrare module" titleAvailable = "Disponibile" titleUpdates = "Actualizări" titleInstalled = "Instalate">
                 <ColumnPlugin   name="Modul"/>

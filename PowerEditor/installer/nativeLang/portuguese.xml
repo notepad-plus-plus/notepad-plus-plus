@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.4">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Operação em branco"/>
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
+					<Item subMenuId="search-changeHistory" name="Histórico de alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar tudo"/>
 					<Item subMenuId="search-markOne" name="Marcar uma"/>
 					<Item subMenuId="search-unmarkAll" name="Desmarcar tudo"/>
@@ -251,6 +252,9 @@ Translation note:
 					<Item id="43064" name="Usar 3º Estilo"/>
 					<Item id="43065" name="Usar 4º Estilo"/>
 					<Item id="43066" name="Usar 5º Estilo"/>
+					<Item id="43067" name="Ir para a alteração seguinte"/>
+					<Item id="43068" name="Ir para a alteração anterior"/>
+					<Item id="43069" name="Limpar histórico de alterações"/>
 					<Item id="43045" name="Janela de resultados da pesquisa"/>
 					<Item id="43046" name="Resultados da pesquisa - seguinte"/>
 					<Item id="43047" name="Resultados da pesquisa - anterior"/>
@@ -1777,7 +1781,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 23 June 2023 by Hugo Carvalho
+Last modified: 10 July 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

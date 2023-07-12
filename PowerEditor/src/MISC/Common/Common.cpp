@@ -1549,7 +1549,11 @@ bool isUnsupportedFileName(const generic_string& fileName)
 		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the Notepad++ advanced
 		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well
 		// (but e.g. direct Notepad++ Ctrl+S works ok even with these filenames)
-		if (!fileName.ends_with(_T('.')) && !fileName.ends_with(_T(' ')))
+		// 
+		// Exception for the standard filenames ending with the dot-char:
+		// - when someone tries to open e.g. the 'C:\file.', we will accept that as this is the way how to work with filenames
+		//   without an extension (some of the WINAPI calls used later trim that dot-char automatically ...)
+		if (!(fileName.ends_with(_T('.')) && isWin32NamespacePrefixedFileName(fileName)) && !fileName.ends_with(_T(' ')))
 		{
 			bool invalidASCIIChar = false;
 

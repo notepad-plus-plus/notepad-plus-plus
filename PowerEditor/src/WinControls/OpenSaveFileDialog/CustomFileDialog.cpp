@@ -876,10 +876,12 @@ public:
 			okPressed = SUCCEEDED(hr);
 
 			NppParameters& params = NppParameters::getInstance();
-			if (okPressed && params.getNppGUI()._openSaveDir == dir_last)
+			NppGUI& nppGUI = params.getNppGUI();
+			if (okPressed && nppGUI._openSaveDir == dir_last)
 			{
 				// Note: IFileDialog doesn't modify the current directory.
 				// At least, after it is hidden, the current directory is the same as before it was shown.
+				lstrcpyn(nppGUI._lastUsedDir, _events->getLastUsedFolder().c_str(), MAX_PATH);
 				params.setWorkingDir(_events->getLastUsedFolder().c_str());
 			}
 		}
@@ -986,7 +988,8 @@ CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{ std::make_unique<Impl>() 
 	_impl->_hwndOwner = hwnd;
 
 	NppParameters& params = NppParameters::getInstance();
-	const TCHAR* workDir = params.getWorkingDir();
+	NppGUI& nppGUI = params.getNppGUI();
+	const TCHAR* workDir = nppGUI._openSaveDir == dir_last ? nppGUI._lastUsedDir : params.getWorkingDir();
 	if (workDir)
 		_impl->_fallbackFolder = workDir;
 }

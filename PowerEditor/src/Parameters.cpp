@@ -5743,6 +5743,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
 			}
+
+			const TCHAR* path2 = element->Attribute(TEXT("lastUsedDirPath"));
+			if (path2 && path2[0])
+			{
+				lstrcpyn(_nppGUI._lastUsedDir, path2, MAX_PATH);
+			}
  		}
 
 		else if (!lstrcmp(nm, TEXT("titleBar")))
@@ -7171,6 +7177,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("openSaveDir"));
 		GUIConfigElement->SetAttribute(TEXT("value"), _nppGUI._openSaveDir);
 		GUIConfigElement->SetAttribute(TEXT("defaultDirPath"), _nppGUI._defaultDir);
+		GUIConfigElement->SetAttribute(TEXT("lastUsedDirPath"), _nppGUI._lastUsedDir);
 	}
 
 	// <GUIConfig name="titleBar" short="no" />

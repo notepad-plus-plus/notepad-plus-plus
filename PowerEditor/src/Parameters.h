@@ -758,6 +758,7 @@ struct NppGUI final
 
 		_defaultDir[0] = 0;
 		_defaultDirExp[0] = 0;
+		_lastUsedDir[0] = 0;
 	}
 
 	toolBarStatusType _toolBarStatus = TB_STANDARD;
@@ -887,6 +888,8 @@ struct NppGUI final
 
 	TCHAR _defaultDir[MAX_PATH];
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
+	TCHAR _lastUsedDir[MAX_PATH];
+	
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting = monoInst;
 	bool _clipboardHistoryPanelKeepState = false;

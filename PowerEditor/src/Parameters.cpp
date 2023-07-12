@@ -3478,11 +3478,16 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 	// Backup session file before overriting it
 	TCHAR backupPathName[MAX_PATH]{};
+	BOOL doesBackupCopyExist = FALSE;
 	if (PathFileExists(sessionPathName))
 	{
 		_tcscpy(backupPathName, sessionPathName);
 		_tcscat(backupPathName, TEXT(".inCaseOfCorruption.bak"));
-		CopyFile(sessionPathName, backupPathName, FALSE);
+		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
+		if (!doesBackupCopyExist)
+		{
+			::MessageBox(nullptr, GetLastErrorAsString(0).c_str(), L"Session file backup error", MB_OK);
+		}
 	}
 
 	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(sessionPathName);
@@ -3582,7 +3587,11 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 	bool sessionSaveOK = pXmlSessionDoc->SaveFile();
 
-	if (sessionSaveOK)
+	if (!sessionSaveOK)
+	{
+		::MessageBox(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+	}
+	else
 	{
 		// Double checking: prevent written session file corrupted while writting
 		TiXmlDocument* pXmlSessionCheck = new TiXmlDocument(sessionPathName);
@@ -3592,13 +3601,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 	if (!sessionSaveOK)
 	{
-		if (backupPathName[0]) // session backup file exists, restore it
+		if (doesBackupCopyExist) // session backup file exists, restore it
 		{
-			_pNativeLangSpeaker->messageBox("ErrorOfSavingSessionFile",
-				nullptr,
-				TEXT("The old session file will be restored."),
-				TEXT("Error of saving session file"),
-				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			::MessageBox(nullptr, backupPathName, L"Saving session error - restore backup", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
 			wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";

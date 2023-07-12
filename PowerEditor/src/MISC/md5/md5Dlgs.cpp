@@ -245,6 +245,13 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 
 		switch (_ht)
 		{
+			case hash_md5:
+			{
+				title = TEXT("Generate MD5 digest from files");
+				buttonText = TEXT("Choose files to &generate MD5...");
+			}
+			break;
+
 			case hash_sha1:
 			{
 				title = TEXT("Generate SHA-1 digest from files");

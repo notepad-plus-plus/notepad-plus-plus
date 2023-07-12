@@ -5,7 +5,7 @@ Notepad++ v8.5.4 bug-fixes and new features:
  3. Fix opening multi-files on multi-instance mode regression.
  4. Update: Scintilla 5.3.5 Lexilla 5.2.5
  5. Fix Notepad++ hanging issue running macro to EOF.
- 6. Fix EOL symbol color/appearence being reset issue while changing encoding.
+ 6. Fix EOL symbol color/appearance being reset issue while changing encoding.
  7. Enable code folding in Assembly source files.
  8. Fix document language not remembered through sessions issue.
  9. Add SHA-1 hash features.

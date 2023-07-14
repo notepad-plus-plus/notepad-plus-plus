@@ -3486,7 +3486,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
 		if (!doesBackupCopyExist)
 		{
-			::MessageBox(nullptr, GetLastErrorAsString(0).c_str(), L"Session file backup error", MB_OK);
+			wstring errTitle = L"Session file backup error: ";
+			errTitle += GetLastErrorAsString(0);
+			::MessageBox(nullptr, sessionPathName, errTitle.c_str(), MB_OK);
 		}
 	}
 

@@ -2644,7 +2644,8 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	{
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", TEXT("Replace: no occurrence was found."));
-		setStatusbarMessage(msg, FSNotFound);
+		// reuse the tooltip from processFindNext
+		setStatusbarMessage(msg, FSNotFound, ws2s(_statusbarTooltipMsg).data());
 	}
 
 	return moreMatches;

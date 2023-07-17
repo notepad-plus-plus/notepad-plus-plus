@@ -724,6 +724,8 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.escape.sequence"), reinterpret_cast<LPARAM>("1"));
+
 	if (j == L_JSON5)
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.allow.comments"), reinterpret_cast<LPARAM>("1"));
 }

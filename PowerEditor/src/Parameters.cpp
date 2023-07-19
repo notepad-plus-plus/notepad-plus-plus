@@ -5735,8 +5735,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
-				if (_nppGUI._openSaveDir == dir_last)
-					_currentDirectory = path;
+			}
+
+			const TCHAR* path2 = element->Attribute(TEXT("lastUsedDirPath"));
+			if (path2 && path2[0])
+			{
+				lstrcpyn(_nppGUI._lastUsedDir, path2, MAX_PATH);
 			}
  		}
 
@@ -7165,10 +7169,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("openSaveDir"));
 		GUIConfigElement->SetAttribute(TEXT("value"), _nppGUI._openSaveDir);
-		const TCHAR* defaultDir = _nppGUI._openSaveDir == dir_last
-			? _currentDirectory.c_str()
-			: _nppGUI._defaultDir;
-		GUIConfigElement->SetAttribute(TEXT("defaultDirPath"), defaultDir);
+		GUIConfigElement->SetAttribute(TEXT("defaultDirPath"), _nppGUI._defaultDir);
+		GUIConfigElement->SetAttribute(TEXT("lastUsedDirPath"), _nppGUI._lastUsedDir);
 	}
 
 	// <GUIConfig name="titleBar" short="no" />

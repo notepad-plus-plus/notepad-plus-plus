@@ -758,6 +758,7 @@ struct NppGUI final
 
 		_defaultDir[0] = 0;
 		_defaultDirExp[0] = 0;
+		_lastUsedDir[0] = 0;
 	}
 
 	toolBarStatusType _toolBarStatus = TB_STANDARD;
@@ -923,6 +924,8 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 
 	LargeFileRestriction _largeFileRestriction;
+
+	TCHAR _lastUsedDir[MAX_PATH];
 };
 
 
@@ -1635,7 +1638,11 @@ public:
 	const TCHAR * getPluginRootDir() const { return _pluginRootDir.c_str(); };
 	const TCHAR * getPluginConfDir() const { return _pluginConfDir.c_str(); };
 	const TCHAR * getUserPluginConfDir() const { return _userPluginConfDir.c_str(); };
-	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
+	const TCHAR* getWorkingDir() const {
+		return _nppGUI._openSaveDir == dir_last
+			? _nppGUI._lastUsedDir
+			: _currentDirectory.c_str();
+	};
 	const TCHAR * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePathes[i].c_str();

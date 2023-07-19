@@ -888,6 +888,8 @@ struct NppGUI final
 
 	TCHAR _defaultDir[MAX_PATH];
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
+	TCHAR _lastUsedDir[MAX_PATH];
+	
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting = monoInst;
 	bool _clipboardHistoryPanelKeepState = false;
@@ -924,8 +926,6 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 
 	LargeFileRestriction _largeFileRestriction;
-
-	TCHAR _lastUsedDir[MAX_PATH];
 };
 
 
@@ -1638,11 +1638,7 @@ public:
 	const TCHAR * getPluginRootDir() const { return _pluginRootDir.c_str(); };
 	const TCHAR * getPluginConfDir() const { return _pluginConfDir.c_str(); };
 	const TCHAR * getUserPluginConfDir() const { return _userPluginConfDir.c_str(); };
-	const TCHAR* getWorkingDir() const {
-		return _nppGUI._openSaveDir == dir_last
-			? _nppGUI._lastUsedDir
-			: _currentDirectory.c_str();
-	};
+	const TCHAR* getWorkingDir() const { return _currentDirectory.c_str(); };
 	const TCHAR * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePathes[i].c_str();

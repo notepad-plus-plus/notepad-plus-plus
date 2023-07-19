@@ -987,7 +987,10 @@ CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{ std::make_unique<Impl>() 
 	_impl->_hwndOwner = hwnd;
 
 	NppParameters& params = NppParameters::getInstance();
-	const TCHAR* workDir = params.getWorkingDir();
+	NppGUI& nppGUI = params.getNppGUI();
+	const TCHAR* workDir = nppGUI._openSaveDir == dir_last
+		? nppGUI._lastUsedDir
+		: params.getWorkingDir();
 	if (workDir)
 		_impl->_fallbackFolder = workDir;
 }

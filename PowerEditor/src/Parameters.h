@@ -1638,7 +1638,7 @@ public:
 	const TCHAR * getPluginRootDir() const { return _pluginRootDir.c_str(); };
 	const TCHAR * getPluginConfDir() const { return _pluginConfDir.c_str(); };
 	const TCHAR * getUserPluginConfDir() const { return _userPluginConfDir.c_str(); };
-	const TCHAR* getWorkingDir() const {return _currentDirectory.c_str();};
+	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
 	const TCHAR * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePathes[i].c_str();

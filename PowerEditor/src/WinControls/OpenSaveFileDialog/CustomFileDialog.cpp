@@ -882,6 +882,7 @@ public:
 				// Note: IFileDialog doesn't modify the current directory.
 				// At least, after it is hidden, the current directory is the same as before it was shown.
 				lstrcpyn(nppGUI._lastUsedDir, _events->getLastUsedFolder().c_str(), MAX_PATH);
+				params.setWorkingDir(_events->getLastUsedFolder().c_str());
 			}
 		}
 
@@ -988,9 +989,7 @@ CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{ std::make_unique<Impl>() 
 
 	NppParameters& params = NppParameters::getInstance();
 	NppGUI& nppGUI = params.getNppGUI();
-	const TCHAR* workDir = nppGUI._openSaveDir == dir_last
-		? nppGUI._lastUsedDir
-		: params.getWorkingDir();
+	const TCHAR* workDir = nppGUI._openSaveDir == dir_last ? nppGUI._lastUsedDir : params.getWorkingDir();
 	if (workDir)
 		_impl->_fallbackFolder = workDir;
 }

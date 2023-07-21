@@ -7,13 +7,14 @@ Translation note:
 	German localization for Notepad++
 
 	Please report errors, suggestions etc. here: https://github.com/notepad-plus-plus/notepad-plus-plus/issues
+	Check actual pull requests here too: https://github.com/notepad-plus-plus/notepad-plus-plus/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc+german
 
-	The most recent version of this file can usually be downloaded from
+	The most recent version of this file can usually be downloaded from:
 	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/german.xml
-	or a copy at http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
+	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.08"><!-- basiert auf english.xml vom 08.07.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.21"><!-- basiert auf english.xml vom 20.07.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

@@ -773,7 +773,7 @@ struct NppGUI final
 
 	bool _checkHistoryFiles = false;
 
-	RECT _appPos {0, 0, 1500, 1000};
+	RECT _appPos {0, 0, 1024, 700};
 
 	RECT _findWindowPos {};
 	bool _findWindowLessMode = false;

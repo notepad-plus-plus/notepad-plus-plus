@@ -111,7 +111,7 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 		{
 			case '\"': //quoted filename, ignore any following whitespace
 			{
-				if (!isStringInArg && i > 0 && cmdLinePtr[i-1] == '=')
+				if (!isStringInArg && !isInFile && i > 0 && cmdLinePtr[i-1] == '=')
 				{
 					isStringInArg = true;
 				}

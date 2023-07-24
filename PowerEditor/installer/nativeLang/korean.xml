@@ -1,9 +1,9 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-  <localization work version="7.8.1~8.5.1" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
+  <localization work version="7.8.1~8.5.5" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
 -->
 <NotepadPlus>
-	<Native-Langue name="한국어" filename="korean.xml" version="8.5.3">
+	<Native-Langue name="한국어" filename="korean.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!--  Main Menu Entries -->
@@ -37,6 +37,7 @@
 					<Item subMenuId="edit-blankOperations" name="공백 기능(&amp;B)"/>
 					<Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능(&amp;P)"/>
 					<Item subMenuId="edit-onSelection" name="선택시(&amp;O)"/>
+					<Item subMenuId="search-changeHistory" name="변경 이력"/>
 					<Item subMenuId="search-markAll" name="모든 토큰에 형식 적용(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="한 개 토큰에 형식 적용(&amp;O)"/>
 					<Item subMenuId="search-unmarkAll" name="형식 해제"/>
@@ -72,7 +73,9 @@
 					<Item subMenuId="language-userDefinedLanguage" name="사용자 정의 언어"/>
 					<Item subMenuId="settings-import" name="가져오기"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="정렬하기"/>
 				</SubEntries>
 
@@ -247,6 +250,9 @@
 					<Item id="43064" name="3번째 형식 사용"/>
 					<Item id="43065" name="4번째 형식 사용"/>
 					<Item id="43066" name="5번째 형식 사용"/>
+					<Item id="43067" name="다음 변경으로 이동"/>
+					<Item id="43068" name="이전 변경으로 이동"/>
+					<Item id="43069" name="변경 이력 삭제"/>
 					<Item id="43045" name="찾기 결과 창(&amp;W)"/>
 					<Item id="43046" name="다음 찾기 결과(&amp;t)"/>
 					<Item id="43047" name="이전 찾기 결과(&amp;t)"/>
@@ -296,7 +302,7 @@
 					<Item id="44114" name="색 4 적용"/>
 					<Item id="44115" name="색 5 적용"/>
 					<Item id="44130" name="출력 불가능 문자 표시"/>
-					<Item id="44131" name="제어 문자와 줄 끝 문자 보기"/>
+					<Item id="44131" name="제어 문자 &amp;&amp; 유니코드 줄 끝 문자 보기"/>
 					<Item id="44032" name="전체화면 전환"/>
 					<Item id="44033" name="기본값 복원"/>
 					<Item id="44034" name="항상 위에 표시"/>
@@ -360,6 +366,12 @@
 					<Item id="48504" name="생성..."/>
 					<Item id="48505" name="파일에서 생성..."/>
 					<Item id="48506" name="선택영역을 클립보드에 생성"/>
+					<Item id="48507" name="생성..."/>
+					<Item id="48508" name="파일에서 생성..."/>
+					<Item id="48509" name="선택영역을 클립보드에 생성"/>
+					<Item id="48510" name="생성..."/>
+					<Item id="48511" name="파일에서 생성..."/>
+					<Item id="48512" name="선택영역을 클립보드에 생성"/>
 					<Item id="49000" name="실행...(&amp;R)"/>
 
 					<Item id="50000" name="함수 자동 완성"/>
@@ -542,15 +554,38 @@
 				<Item id="2" name="닫기(&amp;C)"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="파일의 SHA-1 해시 생성">
+				<Item id="1922" name="SHA-1을 생성할 파일 선택...(&amp;g)"/>
+				<Item id="1924" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="SHA-1 해시 생성">
+				<Item id="1932" name="각 줄을 분리된 문자열로 처리(&amp;s)"/>
+				<Item id="1934" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="파일의 SHA-512 해시 생성">
+				<Item id="1922" name="SHA-512을 생성할 파일 선택...(&amp;g)"/>
+				<Item id="1924" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="SHA-512 해시 생성">
+				<Item id="1932" name="각 줄을 분리된 문자열로 처리(&amp;s)"/>
+				<Item id="1934" name="클립보드로 복사(&amp;p)"/>
+				<Item id="2" name="닫기(&amp;C)"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="플러그인 관리" titleAvailable="사용 가능" titleUpdates="업데이트" titleInstalled="설치됨" titleIncompatible="호환되지 않음">
 				<ColumnPlugin name="플러그인"/>
 				<ColumnVersion name="버전"/>
-				<Item id="5501" name="찾기:"/>
-				<Item id="5503" name="설치"/>
-				<Item id="5504" name="업데이트"/>
-				<Item id="5505" name="삭제"/>
-				<Item id="5508" name="다음"/>
-				<Item id="5509" name="플러그인 목록 버전: "/>
+				<Item id="5501" name="찾기:(&amp;S)"/>
+				<Item id="5503" name="설치(&amp;I)"/>
+				<Item id="5504" name="업데이트(&amp;U)"/>
+				<Item id="5505" name="삭제(&amp;R)"/>
+				<Item id="5508" name="다음&amp;N)"/>
+				<Item id="5509" name="플러그인 목록 버전:"/>
 				<Item id="5511" name="플러그인 목록 저장소"/>
 				<Item id="2" name="닫기"/>
 			</PluginsAdminDlg>
@@ -911,26 +946,27 @@
 					<Item id="6108" name="잠금 (끌어넣기 불가)"/>
 					<Item id="6109" name="비활성 탭 어둡게 표시"/>
 					<Item id="6110" name="활성 탭에 색 선 표시"/>
-
-					<Item id="6111" name="상태 표시줄 표시"/>
 					<Item id="6112" name="각 탭에 닫기 단추 표시"/>
 					<Item id="6113" name="더블 클릭으로 문서 닫기"/>
 					<Item id="6118" name="숨기기"/>
 					<Item id="6119" name="여러 줄로 표시"/>
 					<Item id="6120" name="수직 배열"/>
 					<Item id="6121" name="마지막 탭 닫을 시 종료"/>
+					<Item id="6128" name="대체 아이콘"/>
+
+					<Item id="6133" name="상태 표시줄"/>
+					<Item id="6134" name="숨기기"/>
 
 					<Item id="6131" name="메뉴"/>
 					<Item id="6122" name="메뉴 숨기기 (Alt 또는 F10키로 전환)"/>
 					<Item id="6132" name="메뉴바에서 우측 단축기 ＋ ▼ ✕ 숨기기 (Notepad++ 재시작 필요)"/>
-					<Item id="6123" name="표시 언어"/>
 
-					<Item id="6128" name="대체 아이콘"/>
+					<Item id="6123" name="표시 언어"/>
 				</Global>
 				<Scintillas title="편집">
 					<Item id="6216" name="커서 설정"/>
-					<Item id="6217" name="넓이 :"/>
-					<Item id="6219" name="깜빡임 속도 :"/>
+					<Item id="6217" name="너비:"/>
+					<Item id="6219" name="깜빡임 속도:"/>
 					<Item id="6221" name="빠름"/>
 					<Item id="6222" name="느림"/>
 					<Item id="6246" name="현재 레벨 접기/펼치기 명령어 전환 가능하게 만들기"/>
@@ -948,7 +984,7 @@
 					<Item id="6652" name="없음"/>
 					<Item id="6653" name="배경 강조"/>
 					<Item id="6654" name="틀"/>
-					<Item id="6655" name=""/>
+					<Item id="6655" name="너비:"/>
 					<Item id="6247" name="줄 끝 (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="기본값"/>
 					<Item id="6249" name="일반 텍스트"/>
@@ -957,7 +993,7 @@
 					<Item id="6254" name="약어"/>
 					<Item id="6255" name="부호점"/>
 					<Item id="6256" name="사용자 정의 색상"/>
-					<Item id="6258" name="C0, C1 과 줄 끝 문자에 적용"/>
+					<Item id="6258" name="C0, C1 &amp;&amp; 유니코드 줄 끝 문자에 적용"/>
 				</Scintillas>
 
 				<DarkMode title="다크모드">
@@ -1027,6 +1063,7 @@
 					<Item id="6411" name="기본 언어 :"/>
 					<Item id="6419" name="새 문서"/>
 					<Item id="6420" name="모든 열려있는 ANSI 파일에 적용"/>
+					<Item id="6432" name="시작할 때 항상 새 문서 추가로 열기"/>
 				</NewDoc>
 
 				<DefaultDir title="기본 디렉토리">
@@ -1282,7 +1319,7 @@
 				<Item id="2033" name="숫자 삽입(&amp;N)"/>
 				<Item id="2030" name="초기 숫자(&amp;I):"/>
 				<Item id="2031" name="증가치(&amp;y):"/>
-				<Item id="2038" name="&amp;앞부분 :"/>
+				<Item id="2038" name="앞부분(&amp;L):"/>
 				<ComboBox id="2039">
 					<Element name="없음"/>
 					<Element name="0들"/>
@@ -1300,8 +1337,8 @@
 			<FindInFinder title="찾기 결과에서 찾기">
 				<Item id="1" name="모두 찾기"/>
 				<Item id="2" name="닫기"/>
-				<Item id="1711" name="찾을 단어: (&amp;F)"/>
-				<Item id="1713" name="찾은 줄에서만 다시 찾기"/>
+				<Item id="1711" name="찾을 단어(&amp;F):"/>
+				<Item id="1713" name="찾은 줄에서만 다시 찾기(&amp;o)"/>
 				<Item id="1714" name="단어 완전 일치(&amp;w)"/>
 				<Item id="1715" name="대소문자 구분(&amp;c)"/>
 				<Item id="1716" name="찾기 모드"/>
@@ -1321,11 +1358,11 @@
 			<DoSaveAll title="전체 저장 확인">
 				<Item id="1766" name="모든 변경된 문서를 저장하는 것이 맞습니까?
 
-이 창을 다시 보지 않으려면 &quot;항상 예s&quot;를 선택하세요.
+이 창을 다시 보지 않으려면 &quot;항상 예&quot;를 선택하세요.
 설정 창에서 이 대화상자를 다시 활성화할 수 있습니다.."/>
 				<Item id="6" name="예(&amp;Y)"/>
 				<Item id="7" name="아니오(&amp;N)"/>
-				<Item id="4" name="항상 예"/>
+				<Item id="4" name="항상 예(&amp;A)"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>

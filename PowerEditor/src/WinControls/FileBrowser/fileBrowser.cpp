@@ -327,6 +327,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 void FileBrowser::initPopupMenus()
 {
+    winVer ver = (NppParameters::getInstance()).getWinVersion();
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	generic_string addRoot = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_ADDROOT, FB_ADDROOT);
@@ -337,6 +338,7 @@ void FileBrowser::initPopupMenus()
 	generic_string findInFile = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_FINDINFILES, FB_FINDINFILES);
 	generic_string explorerHere = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_EXPLORERHERE, FB_EXPLORERHERE);
 	generic_string cmdHere = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_CMDHERE, FB_CMDHERE);
+	generic_string psHere = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_CMDHERE, FB_PSHERE);
 	generic_string wtHere = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_CMDHERE, FB_WTHERE);
 	generic_string openInNpp = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_OPENINNPP, FB_OPENINNPP);
 	generic_string shellExecute = pNativeSpeaker->getDlgLangMenuStr(FOLDERASWORKSPACE_NODE, nullptr, IDM_FILEBROWSER_SHELLEXECUTE, FB_SHELLEXECUTE);
@@ -353,7 +355,12 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_WTHERE, wtHere.c_str());
+    if (ver >= WV_WIN7) {
+        ::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_PSHERE, psHere.c_str());
+    }
+    if (ver >= WV_WIN10) {
+        ::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_WTHERE, wtHere.c_str());
+    }
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYPATH, copyPath.c_str());
@@ -361,7 +368,12 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_WTHERE, wtHere.c_str());
+    if (ver >= WV_WIN7) {
+        ::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_PSHERE, psHere.c_str());
+    }
+    if (ver >= WV_WIN10) {
+        ::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_WTHERE, wtHere.c_str());
+    }
 	
 	_hFileMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, openInNpp.c_str());
@@ -372,7 +384,12 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorerHere.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmdHere.c_str());
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_WTHERE, wtHere.c_str());
+    if (ver >= WV_WIN7) {
+        ::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_PSHERE, psHere.c_str());
+    }
+    if (ver >= WV_WIN10) {
+        ::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_WTHERE, wtHere.c_str());
+    }
 }
 
 bool FileBrowser::selectItemFromPath(const generic_string& itemPath) const
@@ -802,6 +819,21 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			{
 				Command cmd(NppParameters::getInstance().getNppGUI()._commandLineInterpreter.c_str());
 				cmd.run(nullptr, path.c_str());
+			}
+		}
+		break;
+
+		case IDM_FILEBROWSER_PSHERE:
+		{
+			if (!selectedNode) return;
+
+			generic_string path = getNodePath(selectedNode);
+			if (::PathFileExists(path.c_str()))
+			{
+				TCHAR cmdStr[1024] = {};
+                wsprintf(cmdStr, TEXT("powershell -NoExit -Command cd \"%s\""), path.c_str());
+				Command cmd(cmdStr);
+				cmd.run(nullptr);
 			}
 		}
 		break;

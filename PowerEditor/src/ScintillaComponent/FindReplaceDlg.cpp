@@ -594,35 +594,8 @@ std::pair<intptr_t, intptr_t> Finder::gotoFoundLine(size_t nOccurrence)
 	const FoundInfo& fInfo = *(_pMainFoundInfos->begin() + lno);
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
-	Buffer * finderFormBuffer = _scintView.getCurrentBuffer();
-	generic_string finderFormBufferOldName(finderFormBuffer->getFullPathName());
-	const TCHAR * targetBufferName = fInfo._fullPath.c_str();
-	bool targetBufferHasFinderBufferName = !lstrcmp(finderFormBufferOldName.c_str(), targetBufferName);
-	if (targetBufferHasFinderBufferName)
-	{
-		// the target buffer has the same name as the search results buffer
-		// this could cause problems, so temporarily change the name of the finder form buffer to avoid this collision
-		generic_string finderFormBufferNewName = finderFormBufferOldName;
-		size_t oldNameLen = finderFormBufferOldName.size();
-		for (size_t i = 0; i < oldNameLen; i++)
-		{
-			if (finderFormBufferOldName[i] != '_')
-			{
-				finderFormBufferNewName[i] = '_';
-				break;
-			}
-		}
-		finderFormBuffer->setFileName(finderFormBufferNewName.c_str());
-	}
-	// Switch to another document
-	if (!::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(targetBufferName))) return emptyResult;
-
-	if (targetBufferHasFinderBufferName)
-	{
-		// revert the hack we did earlier
-		finderFormBuffer->setFileName(finderFormBufferOldName.c_str());
-	}
-	assert(!lstrcmp(finderFormBuffer->getFullPathName(), finderFormBufferOldName.c_str()));
+	// Switch to another document in the edit views (use 1 as the WPARAM for this call)
+	if (!::SendMessage(_hParent, WM_DOOPEN, 1, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()))) return emptyResult;
 
 	(*_ppEditView)->_positionRestoreNeeded = false;
 

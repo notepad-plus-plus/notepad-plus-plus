@@ -1268,25 +1268,12 @@ size_t FileManager::nextUntitledNewNumber() const
 		Buffer *buf = _buffers.at(i);
 		if (buf->isUntitled())
 		{
-			bool isVisible = false;
-			for (size_t k = 0; k < buf->_referees.size(); k++)
+			if (isVisibleInEditViews(buf))
 			{
-				if (buf->_referees[k]->isVisible())
-				{
-					isVisible = true;
-					break;
-				}
-			}
-
-			if (isVisible)
-			{
-				if (buf->indexOfReference(_pNotepadPlus->_pEditView) > -1 || buf->indexOfReference(_pNotepadPlus->_pNonEditView) > -1)
-				{
-					generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
-					TCHAR* numberStr = buf->_fileName + newTitle.length();
-					int usedNumber = _wtoi(numberStr);
-					usedNumbers.push_back(usedNumber);
-				}
+				generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+				TCHAR* numberStr = buf->_fileName + newTitle.length();
+				int usedNumber = _wtoi(numberStr);
+				usedNumbers.push_back(usedNumber);
 			}
 		}
 	}
@@ -1316,6 +1303,18 @@ size_t FileManager::nextUntitledNewNumber() const
 	} while (!numberAvailable);
 
 	return newNumber;
+}
+
+bool FileManager::isVisibleInEditViews(BufferID buf) const
+{
+	for (size_t k = 0; k < buf->_referees.size(); k++)
+	{
+		if (buf->_referees[k]->isVisible())
+		{
+			return (buf->indexOfReference(_pNotepadPlus->_pEditView) > -1 || buf->indexOfReference(_pNotepadPlus->_pNonEditView) > -1);
+		}
+	}
+	return false;
 }
 
 BufferID FileManager::newEmptyDocument()
@@ -1709,13 +1708,18 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 }
 
 
-BufferID FileManager::getBufferFromName(const TCHAR* name)
+BufferID FileManager::getBufferFromName(const TCHAR* name, bool onlyInEditViews)
 {
 	for (auto buf : _buffers)
 	{
 		if (OrdinalIgnoreCaseCompareStrings(name, buf->getFullPathName()) == 0)
 		{
-			if (buf->_referees[0]->isVisible())
+			if (onlyInEditViews)
+			{
+				if (isVisibleInEditViews(buf))
+					return buf->getID();
+			}
+			else if (buf->_referees[0]->isVisible())
 			{
 				return buf->getID();
 			}

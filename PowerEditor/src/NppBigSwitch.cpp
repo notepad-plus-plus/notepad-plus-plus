@@ -437,7 +437,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DOOPEN:
 		case WM_DOOPEN:
 		{
-			BufferID id = doOpen(reinterpret_cast<const TCHAR *>(lParam));
+			bool onlyInEditViews = wParam == 1;
+			BufferID id = doOpen(reinterpret_cast<const TCHAR*>(lParam), false, false, -1, NULL, {}, onlyInEditViews);
 			if (id != BUFFER_INVALID)
 				return switchToFile(id);
 			break;

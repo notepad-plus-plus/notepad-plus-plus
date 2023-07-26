@@ -92,7 +92,9 @@ public:
 	//If dontRef = false, then no extra reference is added for the doc. Its the responsibility of the caller to do so
 	BufferID bufferFromDocument(Document doc,  bool dontIncrease = false, bool dontRef = false);
 
-	BufferID getBufferFromName(const TCHAR * name);
+	// onlyInEditViews means to only get a buffer with the given name if it's in an edit view
+	// (not a buffer associated with some form like the search results form)
+	BufferID getBufferFromName(const TCHAR * name, bool onlyInEditViews = false);
 	BufferID getBufferFromDocument(Document doc);
 
 	void setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat);
@@ -111,6 +113,10 @@ public:
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
+	// returns true if the buffer is visible AND in an edit view,
+	// as opposed to the buffers associated with some forms like the document map
+	// and the search results form.
+	bool isVisibleInEditViews(BufferID buf) const;
 
 private:
 	struct LoadedFileFormat {

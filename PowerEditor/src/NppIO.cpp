@@ -166,7 +166,7 @@ bool resolveLinkFile(generic_string& linkFilePath)
 	return isResolved;
 }
 
-BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
+BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp, bool onlyInEditViews)
 {
 	const rsize_t longFileNameBufferSize = MAX_PATH; // TODO stop using fixed-size buffer
 	if (fileName.size() >= longFileNameBufferSize - 1) // issue with all other sub-routines
@@ -261,14 +261,14 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	// 3. a file name with relative path to open or create
 
 	// Search case 1 & 2 firstly
-	BufferID foundBufID = MainFileManager.getBufferFromName(targetFileName.c_str());
+	BufferID foundBufID = MainFileManager.getBufferFromName(targetFileName.c_str(), onlyInEditViews);
 
 	if (foundBufID == BUFFER_INVALID)
 		fileName2Find = longFileName;
 
 	// if case 1 & 2 not found, search case 3
 	if (foundBufID == BUFFER_INVALID)
-		foundBufID = MainFileManager.getBufferFromName(fileName2Find.c_str());
+		foundBufID = MainFileManager.getBufferFromName(fileName2Find.c_str(), onlyInEditViews);
 
 	// If we found the document, then we don't open the existing doc. We return the found buffer ID instead.
     if (foundBufID != BUFFER_INVALID && !isSnapshotMode)

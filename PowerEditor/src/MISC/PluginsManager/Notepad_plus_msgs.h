@@ -346,8 +346,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// returned value : TRUE if this function call is successful and shortcut is enable, otherwise FALSE
 
 	#define NPPM_DOOPEN (NPPMSG + 77)
-	// BOOL NPPM_DOOPEN(0, const TCHAR *fullPathName2Open)
+	// BOOL NPPM_DOOPEN(BOOL onlyInEditViews, const TCHAR *fullPathName2Open)
 	// fullPathName2Open indicates the full file path name to be opened.
+	// if onlyInEditViews is true, only files in the two main edit views (not buffers associated with some forms) should be considered.
 	// The return value is TRUE (1) if the operation is successful, otherwise FALSE (0).
 
 	#define NPPM_SAVECURRENTFILEAS (NPPMSG + 78)

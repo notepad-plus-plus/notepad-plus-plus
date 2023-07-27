@@ -586,6 +586,80 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla526.zip">Release 5.2.6</a>
+    </h3>
+    <ul>
+	<li>
+	Released 26 July 2023.
+	</li>
+	<li>
+	Include empty word list names in value returned by DescribeWordListSets and SCI_DESCRIBEKEYWORDSETS.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/175">Issue #175</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/176">Pull request #176</a>.
+	</li>
+	<li>
+	Bash: style here-doc end delimiters as SCE_SH_HERE_DELIM instead of SCE_SH_HERE_Q.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/177">Issue #177</a>.
+	</li>
+	<li>
+	Bash: allow '$' as last character in string.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/180">Issue #180</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/181">Pull request #181</a>.
+	</li>
+	<li>
+	Bash: fix state after expansion. Highlight all numeric and file test operators.
+	Don't highlight dash in long option as operator.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/182">Issue #182</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/183">Pull request #183</a>.
+	</li>
+	<li>
+	Bash: strict checking of special parameters ($*, $@, $$, ...) with property lexer.bash.special.parameter to specify
+	valid parameters.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/184">Issue #184</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/186">Pull request #186</a>.
+	</li>
+	<li>
+	Bash: recognize keyword before redirection operators (&lt; and &gt;).
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/188">Issue #188</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/189">Pull request #189</a>.
+	</li>
+	<li>
+	Errorlist: recognize Bash diagnostic messages.
+	</li>
+	<li>
+	HTML: allow ASP block to terminate inside line comment.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/185">Issue #185</a>.
+	</li>
+	<li>
+	HTML: fix folding with JSP/ASP.NET &lt;%-- comment.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/191">Issue #191</a>.
+	</li>
+	<li>
+	HTML: fix incremental styling of multi-line ASP.NET directive.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/191">Issue #191</a>.
+	</li>
+	<li>
+	Matlab: improve arguments blocks.
+	Add support for multiple arguments blocks.
+	Prevent "arguments" from being keyword in function declaration line.
+	Fix semicolon handling.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/179">Pull request #179</a>.
+	</li>
+	<li>
+	Visual Prolog: add support for embedded syntax with SCE_VISUALPROLOG_EMBEDDED
+	and SCE_VISUALPROLOG_PLACEHOLDER.<br />
+	Styling of string literals changed with no differentiation between literals with quotes and those
+	that are prefixed with "@".
+	Quote characters are in a separate style (SCE_VISUALPROLOG_STRING_QUOTE)
+	to contents (SCE_VISUALPROLOG_STRING).<br />
+	SCE_VISUALPROLOG_CHARACTER, SCE_VISUALPROLOG_CHARACTER_TOO_MANY,
+	SCE_VISUALPROLOG_CHARACTER_ESCAPE_ERROR, SCE_VISUALPROLOG_STRING_EOL_OPEN,
+	and SCE_VISUALPROLOG_STRING_VERBATIM_SPECIAL were removed (replaced with
+	SCE_VISUALPROLOG_UNUSED[1-5]).
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/178">Pull request #178</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla525.zip">Release 5.2.5</a>
     </h3>
     <ul>

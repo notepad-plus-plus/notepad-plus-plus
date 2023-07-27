@@ -23,12 +23,16 @@ lambda = {
 }.
 
 % SCE_VISUALPROLOG_COMMENT_LINE (5)
-% @detail
-% @unknown
+% comment line
 
-% SCE_VISUALPROLOG_STRING (16)
+% SCE_VISUALPROLOG_STRING_QUOTE (16)
+""
+
+% SCE_VISUALPROLOG_STRING (20)
 "string"
 'string'
+@"verbatim string"
+@[<div class="test">]
 
 % SCE_VISUALPROLOG_STRING_ESCAPE (17)
 "\n"
@@ -36,17 +40,31 @@ lambda = {
 
 % SCE_VISUALPROLOG_STRING_ESCAPE_ERROR (18)
 "\ "
-
-% SCE_VISUALPROLOG_STRING_EOL_OPEN (19)
 "open string
 
-% SCE_VISUALPROLOG_STRING_VERBATIM (20)
-@"verbatim string"
-
-% SCE_VISUALPROLOG_STRING_VERBATIM_SPECIAL (21)
-@"""special"" verbatim string"
-
-% SCE_VISUALPROLOG_STRING_VERBATIM_EOL (22)
-@"multi-line
+% SCE_VISUALPROLOG_STRING_EOL (22)
+@#multi-line
   verbatim
-  string"
+  string#
+
+% SCE_VISUALPROLOG_EMBEDDED (23)
+[| |]
+% SCE_VISUALPROLOG_PLACEHOLDER (24)
+{| |}:test
+% line state & nesting
+[|
+    {|
+        /*
+            % /* 
+            */ 
+        % */
+        [|
+            {|
+                @!string!
+                %
+                /*
+                */
+            |}
+        |]
+    |}
+|]

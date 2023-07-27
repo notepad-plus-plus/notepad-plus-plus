@@ -40,7 +40,7 @@
 	$((1+2))
 	$(pwd)
 	`pwd`
-EOF{0}
+{12}EOF{0}
 
 {2}# Quoted delimiter treats here-doc as simple string{0}
 {4}cat{0} {12}<<"EOF"{13}
@@ -49,12 +49,12 @@ EOF{0}
 	$((1+2))
 	$(pwd)
 	`pwd`
-EOF{0}
+{12}EOF{0}
 
 {2}# Escaped same as quoted{0}
 {4}cat{0} {12}<<\EOF{13}
 	$scalar
-EOF{0}
+{12}EOF{0}
 
 {2}# Nesting{0}
 {4}echo{0} {5}"$((1 + 2))"{0} {2}#{0}

@@ -541,7 +541,7 @@ gint ScintillaGTK::FocusOut(GtkWidget *widget, GdkEventFocus * /*event*/) {
 }
 
 void ScintillaGTK::SizeRequest(GtkWidget *widget, GtkRequisition *requisition) {
-	ScintillaGTK *sciThis = FromWidget(widget);
+	const ScintillaGTK *sciThis = FromWidget(widget);
 	requisition->width = 1;
 	requisition->height = 1;
 	GtkRequisition child_requisition;
@@ -1168,7 +1168,7 @@ void ScintillaGTK::SetScrollBars() {
 	// On GTK, unlike other platforms, modifying scrollbars inside some events including
 	// resizes causes problems. Deferring the modification to a lower priority (125) idle
 	// event avoids the problems. This code did not always work when the priority was
-	// higher than GTK's resize (GTK_PRIORITY_RESIZE=110) or redraw 
+	// higher than GTK's resize (GTK_PRIORITY_RESIZE=110) or redraw
 	// (GDK_PRIORITY_REDRAW=120) idle tasks.
 	scrollBarIdleID = gdk_threads_add_idle_full(priorityScrollBar,
 		[](gpointer pSci) -> gboolean {

@@ -16,12 +16,15 @@
 
 {8}OUT_FILE{7}={10}${PROJECT_PATH}{7}/{8}testing.txt{0}
 
-{7}({8}cat{12}<<EOF{13}
+{7}({4}cat{12}<<EOF{13}
   Last run $(date +'%Y-%m-%d') at $(date +'%H:%M:%S.%2N')
-EOF{0}
+{12}EOF{0}
 {7}){0} {7}>{0} {9}$OUT_FILE{0}
 
-{4}find{0} {5}"$PROJECT_PATH/src"{0} {7}-{8}maxdepth{0} {3}1{0} {7}-{8}type{0} {8}f{0} {7}|\{0}
+{2}# Issue 188, keyword before redirection operator{0}
+{4}pwd{7}>>{9}$OUT_FILE{0}
+
+{4}find{0} {5}"$PROJECT_PATH/src"{0} {8}-maxdepth{0} {3}1{0} {8}-type{0} {8}f{0} {7}|\{0}
 {4}while{0} {8}read{0} {8}-r{0} {8}f{7};{0} {4}do{0}
   {7}{{0}
     {8}python3{0} {8}-c{0} {5}"print();print('='*50)"{7};\{0}
@@ -33,7 +36,7 @@ EOF{0}
 
 {2}# Issue 137, should be shift but here-doc was detected{0}
 {4}echo{0} {7}$(({0} {8}x{0} {7}<<{0} {8}END{0} {7})){0}
-{8}pwd{0}
+{4}pwd{0}
 {8}END{0}
 
 {8}INVALID_NUMBER{7}={1}0#0000{0}

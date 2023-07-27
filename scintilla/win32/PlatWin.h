@@ -46,7 +46,7 @@ void SetWindowPointer(HWND hWnd, void *ptr) noexcept;
 HMONITOR MonitorFromWindowHandleScaling(HWND hWnd) noexcept;
 
 UINT DpiForWindow(WindowID wid) noexcept;
-int GetDeviceScaleFactorWhenGdiScalingActive(HWND hWnd) noexcept;
+float GetDeviceScaleFactorWhenGdiScalingActive(HWND hWnd) noexcept;
 
 int SystemMetricsForDpi(int nIndex, UINT dpi) noexcept;
 

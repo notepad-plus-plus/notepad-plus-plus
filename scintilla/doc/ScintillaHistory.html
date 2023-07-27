@@ -582,6 +582,43 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla536.zip">Release 5.3.6</a>
+    </h3>
+    <ul>
+	<li>
+	Released 26 July 2023.
+	</li>
+	<li>
+	Redraw calltip after showing as didn't update when size of new text exactly same as
+	previous.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1486/">Feature #1486</a>.
+	</li>
+	<li>
+	On Win32 fix reverse arrow cursor when scaled.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2382/">Bug #2382</a>.
+	</li>
+	<li>
+	On Win32 hide cursor when typing if that system preference has been chosen.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2333/">Bug #2333</a>.
+	</li>
+	<li>
+	On Win32 and Qt, stop aligning IME candidate window to target.
+	It is now always aligned to start of composition string.
+	This undoes part of feature #1300.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1488/">Feature #1488</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/2391/">Bug #2391</a>,
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1300/">Feature #1300</a>.
+	</li>
+	<li>
+	On Qt, for IMEs, update micro focus when selection changes.
+	This may move the location of IME popups to align with the caret.
+	</li>
+	<li>
+	On Qt, implement replacement for IMEs which may help with actions like reconversion.
+	This is similar to delete-surrounding on GTK.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla535.zip">Release 5.3.5</a>
     </h3>
     <ul>

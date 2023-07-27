@@ -39,7 +39,7 @@
 {2}# here-doc-delimiter=12, here-doc=13{0}
 {12}<<EOF{13}
   Here-doc.
-EOF{0}
+{12}EOF{0}
 
 {2}# other quoted types are mapped to current classes{0}
 

@@ -182,7 +182,7 @@ void ScintillaDocument::insert_string(int position, QByteArray &str) {
 }
 
 QByteArray ScintillaDocument::get_char_range(int position, int length) {
-    Document *doc = static_cast<Document *>(pdoc);
+    const Document *doc = static_cast<Document *>(pdoc);
 
     if (position < 0 || length <= 0 || position + length > doc->Length())
         return QByteArray();

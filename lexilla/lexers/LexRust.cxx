@@ -55,7 +55,7 @@ struct OptionsRust {
 	std::string foldExplicitEnd;
 	bool foldExplicitAnywhere;
 	bool foldCompact;
-	int  foldAtElseInt;
+	int  foldAtElseInt;	// This variable is not used
 	bool foldAtElse;
 	OptionsRust() {
 		fold = false;

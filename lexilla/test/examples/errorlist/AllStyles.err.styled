@@ -95,6 +95,10 @@ GCC Pointer 25
       |                                                                ^
 {0}
 
+Bash Diagnostic 26
+{26}echoer153.sh: line 22: [: missing `]'
+{0}
+
 Escape Sequence 23
 {23}[K{0}
 

@@ -105,11 +105,13 @@ static bool IsSpaceToEOL(Sci_Position startPos, Accessor &styler) {
 #define MATLAB_STATE_COMM_DEPTH_MASK     (0xFF)
 #define MATLAB_STATE_EXPECTING_ARG_BLOCK (1 << MATLAB_STATE_FLAGS_OFFSET)
 #define MATLAB_STATE_IN_CLASS_SCOPE      (1 <<(MATLAB_STATE_FLAGS_OFFSET+1))
+#define MATLAB_STATE_IN_ARGUMENTS_SCOPE  (1 <<(MATLAB_STATE_FLAGS_OFFSET+2))
 
 static int ComposeLineState(int commentDepth,
 							int foldingLevel,
 							int expectingArgumentsBlock,
-							int inClassScope) {
+							int inClassScope,
+							int inArgumentsScope) {
 
 	return  ((commentDepth << MATLAB_STATE_COMM_DEPTH_OFFSET)
 				& MATLAB_STATE_COMM_DEPTH_MASK)					|
@@ -118,7 +120,9 @@ static int ComposeLineState(int commentDepth,
 			(expectingArgumentsBlock
 				& MATLAB_STATE_EXPECTING_ARG_BLOCK)				|
 			(inClassScope
-				& MATLAB_STATE_IN_CLASS_SCOPE);
+				& MATLAB_STATE_IN_CLASS_SCOPE)					|
+			(inArgumentsScope
+				& MATLAB_STATE_IN_ARGUMENTS_SCOPE);
 }
 
 static void ColouriseMatlabOctaveDoc(
@@ -148,6 +152,8 @@ static void ColouriseMatlabOctaveDoc(
 	// We've just seen "function" keyword, so now we may expect the "arguments"
 	// keyword opening the corresponding code block
 	int expectingArgumentsBlock = 0;
+    // We saw "arguments" keyword, but not the closing "end"
+    int inArgumentsScope = 0;
 	// Current line's folding level
 	int foldingLevel = 0;
 	// Current line in in class scope
@@ -165,6 +171,7 @@ static void ColouriseMatlabOctaveDoc(
 							>> MATLAB_STATE_FOLD_LVL_OFFSET;
 		expectingArgumentsBlock = prevState & MATLAB_STATE_EXPECTING_ARG_BLOCK;
 		inClassScope = prevState & MATLAB_STATE_IN_CLASS_SCOPE;
+		inArgumentsScope = prevState & MATLAB_STATE_IN_ARGUMENTS_SCOPE;
 	}
 
 
@@ -176,7 +183,7 @@ static void ColouriseMatlabOctaveDoc(
 			// set the line state to the current commentDepth
 			curLine = styler.GetLine(sc.currentPos);
 			styler.SetLineState(curLine, ComposeLineState(
-				commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope));
+				commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope, inArgumentsScope));
 
 			// reset the column to 0, nonSpace to -1 (not set)
 			column = 0;
@@ -186,18 +193,25 @@ static void ColouriseMatlabOctaveDoc(
 			funcDeclarationLine = false;
 		}
 
+		// Semicolon ends function declaration
+		// This condition is for one line functions support
+		if (sc.chPrev == ';') {
+			funcDeclarationLine = false;
+		}
+
 		// Only comments allowed between the function declaration and the
 		// arguments code block
-		if (expectingArgumentsBlock && !funcDeclarationLine) {
+		if (expectingArgumentsBlock && !(funcDeclarationLine || inArgumentsScope)) {
 			if ((sc.state != SCE_MATLAB_KEYWORD) &&
 					(sc.state != SCE_MATLAB_COMMENT) &&
-					(sc.state != SCE_MATLAB_DEFAULT)) {
+					(sc.state != SCE_MATLAB_DEFAULT) &&
+					!(sc.state == SCE_MATLAB_OPERATOR && sc.chPrev == ';')) {
 				expectingArgumentsBlock = 0;
 				styler.SetLineState(curLine, ComposeLineState(
-					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope));
+					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope, inArgumentsScope));
 			}
 		}
-		
+
 		// We've just left the class scope
 		if ((foldingLevel ==0) && inClassScope) {
 			inClassScope = 0;
@@ -235,9 +249,14 @@ static void ColouriseMatlabOctaveDoc(
 				transpose = false;
 
 				if (keywords.InList(s)) {
+
+					expectingArgumentsBlock = (funcDeclarationLine || inArgumentsScope) ? expectingArgumentsBlock : 0;
+
 					if (strcmp ("end", s) == 0 && allow_end_op) {
 						sc.ChangeState(SCE_MATLAB_NUMBER);
 						notKeyword = true;
+					} else if (strcmp("end", s) == 0 && !allow_end_op) {
+						inArgumentsScope = 0;
 					} else if (strcmp("function", s) == 0) {
 						// Need this flag to handle "arguments" block correctly
 						funcDeclarationLine = true;
@@ -246,17 +265,16 @@ static void ColouriseMatlabOctaveDoc(
 						// Need this flag to process "events", "methods" and "properties" blocks
 						inClassScope = MATLAB_STATE_IN_CLASS_SCOPE;
 					}
-					expectingArgumentsBlock = funcDeclarationLine ? expectingArgumentsBlock : 0;
 				} else {
 					// "arguments" is a keyword here, despite not being in the keywords list
-					if (expectingArgumentsBlock && (strcmp("arguments", s) == 0)) {
-						// No need to expect another arguments block
-						expectingArgumentsBlock = 0;
+					if (expectingArgumentsBlock && !(funcDeclarationLine || inArgumentsScope) && (strcmp("arguments", s) == 0)) {
+						// We've entered an "arguments" block
+						inArgumentsScope = MATLAB_STATE_IN_ARGUMENTS_SCOPE;
 					} else {
 						// Found an identifier or a keyword after the function declaration
 						// No need to wait for the arguments block anymore
-						expectingArgumentsBlock = funcDeclarationLine ? expectingArgumentsBlock : 0;
-						
+						expectingArgumentsBlock = (funcDeclarationLine || inArgumentsScope) ? expectingArgumentsBlock : 0;
+
 						// "properties", "methods" and "events" are not keywords if they're declared
 						// inside some function in methods block
 						// To avoid tracking possible nested functions scopes, lexer considers everything
@@ -265,7 +283,7 @@ static void ColouriseMatlabOctaveDoc(
 						// a separate file, function - only in methods block. However, in case of the invalid
 						// syntax lexer may erroneously ignore a keyword.
 						if (!((inClassScope) && (foldingLevel <= 2) && (
-								strcmp("properties", s) == 0 || 
+								strcmp("properties", s) == 0 ||
 								strcmp("methods",    s) == 0 ||
 								strcmp("events",     s) == 0 ))) {
 							sc.ChangeState(SCE_MATLAB_IDENTIFIER);
@@ -274,15 +292,15 @@ static void ColouriseMatlabOctaveDoc(
 						}
 					}
 				}
-				
+
 				sc.SetState(SCE_MATLAB_DEFAULT);
 				if (!notKeyword) {
 					foldingLevel += CheckKeywordFoldPoint(s);
 				}
 			}
-			
+
 			styler.SetLineState(curLine, ComposeLineState(
-				commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope));
+				commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope, inArgumentsScope));
 		} else if (sc.state == SCE_MATLAB_NUMBER) {
 			if (!isdigit(sc.ch) && sc.ch != '.'
 			        && !(sc.ch == 'e' || sc.ch == 'E')
@@ -324,7 +342,7 @@ static void ColouriseMatlabOctaveDoc(
 
 				curLine = styler.GetLine(sc.currentPos);
 				styler.SetLineState(curLine, ComposeLineState(
-					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope));
+					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope, inArgumentsScope));
 				sc.Forward();
 
 				if (commentDepth == 0) {
@@ -336,7 +354,7 @@ static void ColouriseMatlabOctaveDoc(
 
 				curLine = styler.GetLine(sc.currentPos);
 				styler.SetLineState(curLine, ComposeLineState(
-					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope));
+					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope, inArgumentsScope));
 				sc.Forward();
 				transpose = false;
 
@@ -360,7 +378,7 @@ static void ColouriseMatlabOctaveDoc(
 				}
 				curLine = styler.GetLine(sc.currentPos);
 				styler.SetLineState(curLine, ComposeLineState(
-					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope));
+					commentDepth, foldingLevel, expectingArgumentsBlock, inClassScope, inArgumentsScope));
 				sc.SetState(SCE_MATLAB_COMMENT);
 			} else if (sc.ch == '!' && sc.chNext != '=' ) {
 				if(ismatlab) {

@@ -1,0 +1,7 @@
+echo '$'
+echo "$"
+echo "$"
+echo "$"x""
+echo x$'\t'y
+echo "x$'\t'y"
+echo "x\ty"

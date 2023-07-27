@@ -99,7 +99,7 @@
     <code>void <span class="name">SetLibraryProperty</span>(const char *key, const char *value)</code><br />
     <code>const char *<span class="name">GetNameSpace</span>()</code>
     </p>
-  
+
     <p><span class="name">ILexer5</span> is defined by Scintilla in include/ILexer.h as the interface provided by lexers which is called by Scintilla.
     Many clients do not actually need to call methods on <span class="name">ILexer5</span> - they just take the return from CreateLexer and plug it
     straight into Scintilla so it can be treated as a machine pointer (void *).
@@ -109,22 +109,22 @@
     <code>ILexer5 *(*LexerFactoryFunction)()</code> but this can be ignored by most client code.
     </p>
 
-    <p>The Lexilla protocol is a superset of the earlier external lexer protocol that defined the first 3 functions 
+    <p>The Lexilla protocol is a superset of the earlier external lexer protocol that defined the first 3 functions
     (<span class="name">GetLexerCount</span>, <span class="name">GetLexerName</span>, <span class="name">GetLexerFactory</span>)
     so Lexilla can be loaded by applications that support that protocol.
     <span class="name">GetLexerFactory</span> will rarely be used now as it is easier to call <span class="name">CreateLexer</span>.
     </p>
-  
+
     <p><span class="name">CreateLexer</span> is the main call that will create a lexer for a particular language. The returned lexer can then be
     set as the current lexer in Scintilla by calling
     <a class="seealso" href="ScintillaDoc.html#SCI_SETILEXER">SCI_SETILEXER</a>.</p>
-  
+
     <p><span class="name">LexerNameFromID</span> is an optional function that returns the name for a lexer identifier.
     <code>LexerNameFromID(SCLEX_CPP) &rarr; "cpp"</code>.
     This is a temporary affordance to make it easier to convert applications to using Lexilla.
     Applications should move to using lexer names instead of IDs.
     This function is deprecated, showing warnings with some compilers, and will be removed in a future version of Lexilla.</p>
-  
+
     <p><span class="name">SetLibraryProperty</span> and <span class="name">GetLibraryPropertyNames</span>
     are optional functions that can be
     defined if a library requires initialisation before calling other methods.
@@ -134,12 +134,12 @@
     If a library implements SetLibraryProperty then it may also provide a set of valid property names with
     GetLibraryPropertyNames that can then be used by the application to define configuration file property
     names or user interface elements for options dialogs.</p>
-  
+
     <p><span class="name">GetNameSpace</span> is an optional function that returns a namespace string
     that can be used to disambiguate lexers with the same name from different providers.
     If Lexilla and XMLLexers both provide a "cpp" lexer than a request for "cpp" may be satisfied by either but "xmllexers.cpp"
     unambiguously refers to the "cpp" lexer from XMLLexers.</p>
-  
+
     <h2>Building Lexilla</h2>
 
     <p>Before using Lexilla it must be built or downloaded.</p>
@@ -161,7 +161,7 @@
     a difference between the actual and expected result:<br>
     <code>C:\u\hg\lexilla\test\examples\python\x.py:1: is different</code>
     </div>
-    
+
     <p>There are also RunTest.sh / RunTest.bat scripts in the scripts directory to build Lexilla and then build and run the tests.
     These both use gcc/clang, not MSVC.</p>
 
@@ -170,7 +170,7 @@
     There is also test/TestLexers.vcxproj to build the tests with Visual C++.</p>
 
     <h2>Using Lexilla</h2>
-    
+
     <p>Definitions for using Lexilla from C and C++ are included in lexilla/include/Lexilla.h.
     For C++, scintilla/include/ILexer.h should be included before Lexilla.h as the
     <code>ILexer5</code> type is used.
@@ -227,7 +227,7 @@
     and configuration files.</p>
 
     <h2>Modifying or adding lexers</h2>
- 
+
     <p>Lexilla can be modified or a new library created that can be used to replace or augment Lexilla.</p>
 
     <p>Lexer libraries that provide the same functions as Lexilla may provide lexers for use by Scintilla,

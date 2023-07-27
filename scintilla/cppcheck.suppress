@@ -1,5 +1,6 @@
 // File to suppress cppcheck warnings for files that will not be fixed.
 // Does not suppress warnings where an additional occurrence of the warning may be of interest.
+// Configured for cppcheck 2.11
 
 // Coding style is to use assignments in constructor when there are many
 // members to initialize or the initialization is complex or has comments.
@@ -12,6 +13,12 @@ useStlAlgorithm
 
 // Written with variable for consistency
 knownArgument:scintilla/src/SparseVector.h
+
+// cppcheck 2.11 can't find system headers on Win32.
+missingIncludeSystem
+
+// cppcheck 2.11 limits checking of complex functions unless --check-level=exhaustive
+checkLevelNormal:scintilla/src/Editor.cxx
 
 // The cast converts from 'unsigned char ' to 'char' so isn't unused.
 // Redundant code: Found unused cast of expression 'leadByte'
@@ -30,8 +37,21 @@ unusedFunction:scintilla/win32/ScintillaDLL.cxx
 unusedFunction:scintilla/qt/ScintillaEdit/ScintillaDocument.cpp
 
 // Doesn't understand changing dropWentOutside in Editor
-knownConditionTrueFalse:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
 knownConditionTrueFalse:scintilla/win32/ScintillaWin.cxx
+
+// GetData is implementing interface so shouldn't add const
+constParameterPointer:scintilla/win32/ScintillaWin.cxx
+
+// Doesn't handle intptr_t (long long) being signed
+knownConditionTrueFalse:scintilla/src/Editor.cxx
+knownConditionTrueFalse:scintilla/src/EditView.cxx
+
+// cppcheck seems to believe that unique_ptr<T *[]>::get returns void* instead of T**
+arithOperationsOnVoidPointer:scintilla/src/PerLine.cxx
+arithOperationsOnVoidPointer:scintilla/src/PositionCache.cxx
+
+// Cppcheck wrongly assumes string_view::remove_prefix can not empty the view
+knownConditionTrueFalse:scintilla/src/CallTip.cxx
 
 // G_DEFINE_TYPE is too complex to pass to cppcheck
 unknownMacro:scintilla/gtk/PlatGTK.cxx
@@ -39,22 +59,20 @@ unknownMacro:scintilla/gtk/PlatGTK.cxx
 // maskSmooth set depending on preprocessor allowing Wayland definition
 badBitmaskCheck:scintilla/gtk/ScintillaGTK.cxx
 
+// Changing events to const pointers changes signature and would require casts when hooking up
+constParameterPointer:scintilla/gtk/ScintillaGTK.cxx
+constParameterCallback:scintilla/gtk/ScintillaGTK.cxx
+
 // Difficult to test accessibility so don't change
-constVariable:scintilla/gtk/ScintillaGTKAccessible.cxx
-
-// Have no way of testing ScintillaEdit so don't fix even simple warnings
-cstyleCast:scintilla/qt/ScintillaEdit/ScintillaEdit.cpp
-shadowFunction:scintilla/qt/ScintillaEdit/ScintillaEdit.cpp
-
-// cppcheck fails emit from Qt
-shadowFunction:scintilla/qt/ScintillaEditBase/ScintillaQt.cpp
-shadowFunction:scintilla/qt/ScintillaEditBase/ScintillaEditBase.cpp
+constParameterPointer:scintilla/gtk/ScintillaGTKAccessible.cxx
+constVariableReference:scintilla/gtk/ScintillaGTKAccessible.cxx
+constVariablePointer:scintilla/gtk/ScintillaGTKAccessible.cxx
 
 // moc_ files show #error as they are not built with standard context
 preprocessorErrorDirective:scintilla/qt/*.cpp
 
-// moc_ files are not understood by cppcheck
-noValidConfiguration
+// Doesn't understand Qt slots macro
+unknownMacro:scintilla/qt/ScintillaEditBase/*.h
 
 // The performance cost of by-value passing is often small and using a reference decreases
 // code legibility.

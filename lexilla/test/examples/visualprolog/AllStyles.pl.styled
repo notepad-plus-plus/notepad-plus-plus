@@ -1,10 +1,13 @@
 {5}% SCE_VISUALPROLOG_KEY_MAJOR (1){0}
+{5}% No keywords in ISO/SWI-Prolog{0}
 {1}goal{0}
 
 {5}% SCE_VISUALPROLOG_KEY_MINOR (2){0}
+{5}% No minor keywords in ISO/SWI-Prolog{0}
 {2}procedure{0}
 
 {5}% SCE_VISUALPROLOG_KEY_DIRECTIVE (3){0}
+{5}% No directives in ISO/SWI-Prolog{0}
 {3}#include{0}
 
 {5}% SCE_VISUALPROLOG_COMMENT_BLOCK (4){0}
@@ -27,14 +30,17 @@
     {12}}.{0}
 
 {5}% SCE_VISUALPROLOG_COMMENT_LINE (5){0}
-{5}% {6}@detail{0}
-{5}% {7}@unknown{0}
+{5}% comment line{0}
 
-{5}% SCE_VISUALPROLOG_STRING (16){0}
-{16}"string"{0}
-{16}'string'{0}
+{5}% SCE_VISUALPROLOG_STRING_QUOTE (16){0}
+{16}""{0}
+
+{5}% SCE_VISUALPROLOG_STRING (20){0}
+{16}"{20}string{16}"{0}
+{16}'{20}string{16}'{0}
+
 {5}% ISO Prolog back-quoted string{0}
-{16}`string`{0}
+{16}`{20}string{16}`{0}
 
 {5}% SCE_VISUALPROLOG_STRING_ESCAPE (17){0}
 {16}"{17}\n{16}"{0}
@@ -42,16 +48,18 @@
 
 {5}% SCE_VISUALPROLOG_STRING_ESCAPE_ERROR (18){0}
 {16}"{18}\ {16}"{0}
-
-{5}% SCE_VISUALPROLOG_STRING_EOL_OPEN (19){0}
-{16}"open string{19}
+{16}"{20}open string{18}
 {0}
 {5}% Not implemented for ISO/SWI-Prolog:{0}
-{5}% SCE_VISUALPROLOG_STRING_VERBATIM{0}
-{5}% SCE_VISUALPROLOG_STRING_VERBATIM_SPECIAL{0}
-{5}% SCE_VISUALPROLOG_STRING_VERBATIM_EOL{0}
-{12}@{16}"verbatim string"{0}
-{12}@{16}"""special"" verbatim string"{0}
-{12}@{16}"multi-line{19}
-{0}  {8}verbatim{0}
-  {8}string{16}"{19}
+{12}@{16}"{20}verbatim string{16}"{0}
+{12}@[<{2}div{0} {1}class{12}={16}"{20}test{16}"{12}>]{0}
+
+{5}% SCE_VISUALPROLOG_STRING_EOL (22){0}
+{12}@{8}#multi{12}-{8}line{0}
+  {8}verbatim{0}
+  {8}string#{0}
+
+{5}% SCE_VISUALPROLOG_EMBEDDED (23){0}
+{23}[| |]{0}
+{5}% SCE_VISUALPROLOG_PLACEHOLDER (24){0}
+{24}{|{0} {24}|}:test{0}

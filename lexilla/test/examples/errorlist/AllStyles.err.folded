@@ -95,6 +95,10 @@
  0 400   0         |                                                                ^
  0 400   0   
  0 400   0   
+ 0 400   0   Bash Diagnostic 26
+ 0 400   0   echoer153.sh: line 22: [: missing `]'
+ 0 400   0   
+ 0 400   0   
  0 400   0   Escape Sequence 23
  0 400   0   [K
  0 400   0   

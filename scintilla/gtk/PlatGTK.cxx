@@ -370,7 +370,7 @@ UniquePangoContext SurfaceImpl::MeasuringContext() {
 	pango_context_set_base_dir(contextMeasure.get(), direction);
 	pango_cairo_context_set_font_options(contextMeasure.get(), fontOptions);
 	pango_context_set_language(contextMeasure.get(), language);
-	
+
 	return contextMeasure;
 }
 

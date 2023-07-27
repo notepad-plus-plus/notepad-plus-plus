@@ -1,10 +1,13 @@
 % SCE_VISUALPROLOG_KEY_MAJOR (1)
+% No keywords in ISO/SWI-Prolog
 goal
 
 % SCE_VISUALPROLOG_KEY_MINOR (2)
+% No minor keywords in ISO/SWI-Prolog
 procedure
 
 % SCE_VISUALPROLOG_KEY_DIRECTIVE (3)
+% No directives in ISO/SWI-Prolog
 #include
 
 % SCE_VISUALPROLOG_COMMENT_BLOCK (4)
@@ -27,12 +30,15 @@ singleton -->
     }.
 
 % SCE_VISUALPROLOG_COMMENT_LINE (5)
-% @detail
-% @unknown
+% comment line
 
-% SCE_VISUALPROLOG_STRING (16)
+% SCE_VISUALPROLOG_STRING_QUOTE (16)
+""
+
+% SCE_VISUALPROLOG_STRING (20)
 "string"
 'string'
+
 % ISO Prolog back-quoted string
 `string`
 
@@ -42,16 +48,18 @@ singleton -->
 
 % SCE_VISUALPROLOG_STRING_ESCAPE_ERROR (18)
 "\ "
-
-% SCE_VISUALPROLOG_STRING_EOL_OPEN (19)
 "open string
 
 % Not implemented for ISO/SWI-Prolog:
-% SCE_VISUALPROLOG_STRING_VERBATIM
-% SCE_VISUALPROLOG_STRING_VERBATIM_SPECIAL
-% SCE_VISUALPROLOG_STRING_VERBATIM_EOL
 @"verbatim string"
-@"""special"" verbatim string"
-@"multi-line
+@[<div class="test">]
+
+% SCE_VISUALPROLOG_STRING_EOL (22)
+@#multi-line
   verbatim
-  string"
+  string#
+
+% SCE_VISUALPROLOG_EMBEDDED (23)
+[| |]
+% SCE_VISUALPROLOG_PLACEHOLDER (24)
+{| |}:test

@@ -251,6 +251,9 @@ void FoldYAMLDoc(Sci_PositionU startPos, Sci_Position length, int /*initStyle - 
 	const Sci_Position maxPos = startPos + length;
 	const Sci_Position maxLines = styler.GetLine(maxPos - 1);             // Requested last line
 	const Sci_Position docLines = styler.GetLine(styler.Length() - 1);  // Available last line
+
+	// property fold.comment.yaml
+	// Set to 1 to allow folding of comment blocks in YAML.
 	const bool foldComment = styler.GetPropertyInt("fold.comment.yaml") != 0;
 
 	// Backtrack to previous non-blank line so we can determine indent level

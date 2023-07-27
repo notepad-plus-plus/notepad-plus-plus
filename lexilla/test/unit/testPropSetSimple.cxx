@@ -2,11 +2,8 @@
  ** Unit Tests for Lexilla internal data structures
  **/
 
-#include <cassert>
-#include <cstring>
-
+#include <string>
 #include <string_view>
-#include <iostream>
 
 #include "PropSetSimple.h"
 
@@ -16,22 +13,26 @@ using namespace Lexilla;
 
 // Test PropSetSimple.
 
+namespace {
+
 constexpr const char *propertyName = "lexer.tex.comment.process";
 constexpr const char *propertyValue = "1";
+
+}
 
 TEST_CASE("PropSetSimple") {
 
 	SECTION("IsEmptyInitially") {
 		PropSetSimple pss;
 		const char *value = pss.Get(propertyName);
-		REQUIRE(strcmp("", value) == 0);
+		REQUIRE_THAT(value, Catch::Matchers::Equals(""));
 	}
 
 	SECTION("SetAndGet") {
 		PropSetSimple pss;
 		pss.Set(propertyName, propertyValue);
 		const char *value = pss.Get(propertyName);
-		REQUIRE(strcmp(propertyValue, value) == 0);
+		REQUIRE_THAT(value, Catch::Matchers::Equals(propertyValue));
 	}
 
 	SECTION("GetInt") {

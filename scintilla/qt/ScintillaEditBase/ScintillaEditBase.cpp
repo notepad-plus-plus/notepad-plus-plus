@@ -542,6 +542,17 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 	sqt->view.imeCaretBlockOverride = false;
 	preeditPos = -1; // reset not to interrupt Qt::ImCursorRectangle.
 
+	const int rpLength = event->replacementLength();
+	if (rpLength != 0) {
+		// Qt has called setCommitString().
+		// Make room for the string to sit in.
+		const int rpStart = event->replacementStart();
+		const Scintilla::Position rpBase = sqt->CurrentPosition();
+		const Scintilla::Position start = sqt->pdoc->GetRelativePositionUTF16(rpBase, rpStart);
+		const Scintilla::Position end = sqt->pdoc->GetRelativePositionUTF16(start, rpLength);
+		sqt->pdoc->DeleteChars(start, end - start);
+	}
+
 	if (!event->commitString().isEmpty()) {
 		const QString &commitStr = event->commitString();
 		const int commitStrLen = commitStr.length();
@@ -600,14 +611,6 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 #endif
 			sqt->view.imeCaretBlockOverride = true;
 		}
-
-		// Set Candidate window position again at imeCaret when target input.
-		const bool targetAny = std::any_of(imeIndicator.begin(), imeIndicator.end(), [](int i) noexcept {
-			return i == IndicatorTarget;
-		});
-		if (targetAny)
-			preeditPos = sqt->CurrentPosition();
-
 		sqt->EnsureCaretVisible();
 	}
 	sqt->ShowCaretAtCurrentPosition();
@@ -712,6 +715,9 @@ void ScintillaEditBase::notifyParent(NotificationData scn)
 			break;
 
 		case Notification::UpdateUI:
+			if (FlagSet(scn.updated, Update::Selection)) {
+				updateMicroFocus();
+			}
 			emit updateUi(scn.updated);
 			break;
 

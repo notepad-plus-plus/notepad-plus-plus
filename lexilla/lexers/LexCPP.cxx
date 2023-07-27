@@ -1076,7 +1076,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 						assert(!currentText.empty());
 						std::string currentSuffix = currentText.substr(1);
 						if (!keywords3.InList(currentSuffix) && !keywords3.InList(currentText)) {
-							const int subStyleCDKW = classifierDocKeyWords.ValueFor(currentSuffix.c_str());
+							const int subStyleCDKW = classifierDocKeyWords.ValueFor(currentSuffix);
 							if (subStyleCDKW >= 0) {
 								sc.ChangeState(subStyleCDKW | activitySet);
 							} else {

@@ -79,6 +79,8 @@ static void ColourisePSDoc(
 
     StyleContext sc(startPos, length, initStyle, styler);
 
+    // property ps.level
+    // Define level (0..3) of PostScript handled and thus set of keywords. Default is 3.
     int pslevel = styler.GetPropertyInt("ps.level", 3);
     Sci_Position lineCurrent = styler.GetLine(startPos);
     int nestTextCurrent = 0;

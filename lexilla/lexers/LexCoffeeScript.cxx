@@ -367,6 +367,7 @@ static void FoldCoffeeScriptDoc(Sci_PositionU startPos, Sci_Position length, int
 	const Sci_Position docLines = styler.GetLine(styler.Length() - 1);  // Available last line
 
 	// property fold.coffeescript.comment
+	// Set to 1 to allow folding of comment blocks in CoffeeScript.
 	const bool foldComment = styler.GetPropertyInt("fold.coffeescript.comment") != 0;
 
 	const bool foldCompact = styler.GetPropertyInt("fold.compact") != 0;

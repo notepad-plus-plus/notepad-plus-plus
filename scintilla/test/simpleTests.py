@@ -598,7 +598,7 @@ class TestSimple(unittest.TestCase):
 		self.ed.SetSel(3, 3)
 		# Duplicates the second line containing 'b'
 		self.ed.LineDuplicate()
-		# Same as above but end of duplicated line is \r\n 
+		# Same as above but end of duplicated line is \r\n
 		self.assertEquals(self.ed.Contents(), b"1\nb\r\nb\n2")
 
 	def testTransposeLines(self):
@@ -2419,7 +2419,7 @@ class TestElements(unittest.TestCase):
 		self.assertEquals(self.ed.SelectionHidden, True)
 		self.ed.HideSelection(False)	# Restore
 		self.assertEquals(self.ed.SelectionHidden, False)
-		
+
 class TestIndices(unittest.TestCase):
 	def setUp(self):
 		self.xite = Xite.xiteFrame

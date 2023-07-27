@@ -23,12 +23,16 @@
 {12}}.{0}
 
 {5}% SCE_VISUALPROLOG_COMMENT_LINE (5){0}
-{5}% {6}@detail{0}
-{5}% {7}@unknown{0}
+{5}% comment line{0}
 
-{5}% SCE_VISUALPROLOG_STRING (16){0}
-{16}"string"{0}
-{16}'string'{0}
+{5}% SCE_VISUALPROLOG_STRING_QUOTE (16){0}
+{16}""{0}
+
+{5}% SCE_VISUALPROLOG_STRING (20){0}
+{16}"{20}string{16}"{0}
+{16}'{20}string{16}'{0}
+{16}@"{20}verbatim string{16}"{0}
+{16}@[{20}<div class="test">{16}]{0}
 
 {5}% SCE_VISUALPROLOG_STRING_ESCAPE (17){0}
 {16}"{17}\n{16}"{0}
@@ -36,17 +40,31 @@
 
 {5}% SCE_VISUALPROLOG_STRING_ESCAPE_ERROR (18){0}
 {16}"{18}\ {16}"{0}
-
-{5}% SCE_VISUALPROLOG_STRING_EOL_OPEN (19){0}
-{16}"open string{19}
+{16}"{20}open string{18}
 {0}
-{5}% SCE_VISUALPROLOG_STRING_VERBATIM (20){0}
-{20}@"verbatim string"{0}
-
-{5}% SCE_VISUALPROLOG_STRING_VERBATIM_SPECIAL (21){0}
-{20}@"{21}""{20}special{21}""{20} verbatim string"{0}
-
-{5}% SCE_VISUALPROLOG_STRING_VERBATIM_EOL (22){0}
-{20}@"multi-line{22}
+{5}% SCE_VISUALPROLOG_STRING_EOL (22){0}
+{16}@#{20}multi-line{22}
 {20}  verbatim{22}
-{20}  string"{0}
+{20}  string{16}#{0}
+
+{5}% SCE_VISUALPROLOG_EMBEDDED (23){0}
+{23}[| |]{0}
+{5}% SCE_VISUALPROLOG_PLACEHOLDER (24){0}
+{24}{|{0} {24}|}:test{0}
+{5}% line state & nesting{0}
+{23}[|
+    {24}{|{0}
+        {4}/*
+            % /* 
+            */ 
+        % */{0}
+        {23}[|
+            {24}{|{0}
+                {16}@!{20}string{16}!{0}
+                {5}%{0}
+                {4}/*
+                */{0}
+            {24}|}{23}
+        |]{0}
+    {24}|}{23}
+|]{0}

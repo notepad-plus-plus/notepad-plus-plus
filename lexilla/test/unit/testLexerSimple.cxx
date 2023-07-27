@@ -3,10 +3,9 @@
  **/
 
 #include <cassert>
-#include <cstring>
 
+#include <string>
 #include <string_view>
-#include <iostream>
 
 #include "ILexer.h"
 #include "Scintilla.h"
@@ -22,14 +21,18 @@ using namespace Lexilla;
 
 // Test LexerSimple.
 
+namespace {
+
 constexpr const char *propertyName = "lexer.tex.comment.process";
 constexpr const char *propertyValue = "1";
 
-static void ColouriseDocument(Sci_PositionU, Sci_Position, int,	WordList *[], Accessor &) {
+void ColouriseDocument(Sci_PositionU, Sci_Position, int, WordList *[], Accessor &) {
 	// Do no styling
 }
 
 LexerModule lmSimpleExample(123456, ColouriseDocument, "simpleexample");
+
+}
 
 TEST_CASE("LexerNoExceptions") {
 
@@ -40,7 +43,7 @@ TEST_CASE("LexerNoExceptions") {
 
 	SECTION("Identifier") {
 		LexerSimple lexSimple(&lmSimpleExample);
-		REQUIRE(strcmp(lexSimple.GetName(), "simpleexample") == 0);
+		REQUIRE_THAT(lexSimple.GetName(), Catch::Matchers::Equals("simpleexample"));
 	}
 
 	SECTION("SetAndGet") {
@@ -57,7 +60,7 @@ TEST_CASE("LexerNoExceptions") {
 		REQUIRE(pos2 == -1);
 
 		const char *value = lexSimple.PropertyGet(propertyName);
-		REQUIRE(strcmp(propertyValue, value) == 0);
+		REQUIRE_THAT(propertyValue, Catch::Matchers::Equals(value));
 	}
 
 }

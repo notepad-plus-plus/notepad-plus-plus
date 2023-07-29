@@ -2506,22 +2506,9 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			return false;
 		}
 	}
-	else if (posFind < -1)
+	else if (posFind == FIND_INVALID_REGULAR_EXPRESSION)
 	{ // error
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-		generic_string  msgGeneral;
-		if (posFind == FIND_INVALID_REGULAR_EXPRESSION)
-		{
-			 msgGeneral = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
-		}
-		else
-		{
-			msgGeneral = pNativeSpeaker->getLocalizedStrFromID("find-status-search-failed", TEXT("Find: Search failed"));
-		}
-
-		char szMsg [511] = "";
-		(*_ppEditView)->execute (SCI_GETBOOSTREGEXERRMSG, _countof (szMsg), reinterpret_cast<LPARAM>(szMsg));
-		setStatusbarMessage(msgGeneral, FSNotFound, szMsg);
+		setStatusbarMessageWithRegExprErr(*_ppEditView);
 		return false;
 	}
 
@@ -3670,11 +3657,11 @@ void FindReplaceDlg::setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditV
 	if (!pEditView)
 		return;
 
-	char msg[511] = "";
+	char msg[511] {};
 	pEditView->execute(SCI_GETBOOSTREGEXERRMSG, _countof(msg), reinterpret_cast<LPARAM>(msg));
 
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	std::wstring result = pNativeSpeaker->getLocalizedStrFromID("find-dlg-status-invalid-regexpr", TEXT("Invalid Regular Expression"));
+	std::wstring result = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid Regular Expression"));
 
 	setStatusbarMessage(result, FSNotFound, msg);
 }

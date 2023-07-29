@@ -27,6 +27,8 @@
 #define FIND_RECURSIVE 1
 #define FIND_INHIDDENDIR 2
 
+#define FIND_INVALID_REGULAR_EXPRESSION -2
+
 #define FINDREPLACE_MAXLENGTH 2048
 #define FINDREPLACE_INSEL_TEXTSIZE_THRESHOLD 1024
 
@@ -386,6 +388,7 @@ public :
 	void execSavedCommand(int cmd, uptr_t intValue, const generic_string& stringValue);
 	void clearMarks(const FindOption& opt);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus, char const *pTooltipMsg = NULL);
+	void setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView);
 	generic_string getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
@@ -425,7 +428,7 @@ private :
 	RECT _collapseButtonPos = {};
 	RECT _uncollapseButtonPos = {};
 
-	ScintillaEditView **_ppEditView = nullptr;
+	ScintillaEditView** _ppEditView = nullptr;
 	Finder  *_pFinder = nullptr;
 	generic_string _findResTitle;
 

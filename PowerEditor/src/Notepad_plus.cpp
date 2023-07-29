@@ -1250,6 +1250,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 	int nbTotal = 0;
 	const bool isEntireDoc = true;
+	bool hasInvalidRegExpr = false;
 
     if (_mainWindowStatus & WindowMainActive)
     {
@@ -1265,12 +1266,21 @@ bool Notepad_plus::replaceInOpenedFiles()
 			_invisibleEditView.setCurrentBuffer(pBuf);
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
-	if (_mainWindowStatus & WindowSubActive)
+	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
 	{
 		for (size_t i = 0, len = _subDocTab.nbItem(); i < len; ++i)
 		{
@@ -1284,7 +1294,16 @@ bool Notepad_plus::replaceInOpenedFiles()
 			_invisibleEditView.setCurrentBuffer(pBuf);
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
@@ -1293,11 +1312,9 @@ bool Notepad_plus::replaceInOpenedFiles()
 	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 
-
-	if (nbTotal < 0)
+	if (hasInvalidRegExpr)
 	{
-		generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinfiles-re-malformed", TEXT("Replace in Opened Files: The regular expression is malformed."));
-		_findReplaceDlg.setStatusbarMessage(msg, FSNotFound);
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
 	}
 	else
 	{
@@ -1952,6 +1969,8 @@ bool Notepad_plus::replaceInFilelist(std::vector<generic_string> & fileNames)
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 
+	bool hasInvalidRegExpr = false;
+
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
@@ -1977,12 +1996,20 @@ bool Notepad_plus::replaceInFilelist(std::vector<generic_string> & fileNames)
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
 			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, &findersInfo);
-			nbTotal += nbReplaced;
-			if (nbReplaced)
-			{
-				MainFileManager.saveBuffer(id, pBuf->getFullPathName());
-			}
 
+			if (nbReplaced == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;;
+			}
+			else
+			{
+				nbTotal += nbReplaced;
+				if (nbReplaced)
+				{
+					MainFileManager.saveBuffer(id, pBuf->getFullPathName());
+				}
+			}
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
 		}
@@ -2013,7 +2040,11 @@ bool Notepad_plus::replaceInFilelist(std::vector<generic_string> & fileNames)
 		result = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinfiles-nb-replaced", TEXT("Replace in Files: $INT_REPLACE$ occurrences were replaced."));
 		result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbTotal));
 	}
-	_findReplaceDlg.setStatusbarMessage(result, FSMessage);
+
+	if (!hasInvalidRegExpr)
+		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
+	else
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
 
 	return true;
 }
@@ -2066,11 +2097,20 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 
 			findInFolderInfo->_pFileName = fileNames.at(i).c_str();
 			
-			nbTotal += _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
-			
+			int nb = _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
+
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
 		}
+
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
@@ -2135,6 +2175,7 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 	}
 
 	const bool isEntireDoc = true;
+	bool hasInvalidRegExpr = false;
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
@@ -2158,7 +2199,15 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
 
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+
+			nbTotal += nb;
 
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
@@ -2183,7 +2232,13 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	if (nbTotal != 0)
+	if (hasInvalidRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+
+	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGui = nppParam.getNppGUI();
@@ -2207,6 +2262,7 @@ bool Notepad_plus::findInOpenedFiles()
 	Buffer * pBuf = NULL;
 
 	const bool isEntireDoc = true;
+	bool hasInvalidRegExpr = false;
 
 	_findReplaceDlg.beginNewFilesSearch();
 
@@ -2222,7 +2278,16 @@ bool Notepad_plus::findInOpenedFiles()
 			FindersInfo findersInfo;
 			findersInfo._pFileName = pBuf->getFullPathName();
 			
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 		}
 	}
 
@@ -2244,7 +2309,16 @@ bool Notepad_plus::findInOpenedFiles()
 			FindersInfo findersInfo;
 			findersInfo._pFileName = pBuf->getFullPathName();
 
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 
 			++nbUniqueBuffers;
 		}
@@ -2257,7 +2331,13 @@ bool Notepad_plus::findInOpenedFiles()
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	if (nbTotal != 0)
+	if (hasInvalidRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+
+	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGui = nppParam.getNppGUI();
@@ -2305,7 +2385,17 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	FindersInfo findersInfo;
 	findersInfo._pFileName = pBuf->getFullPathName();
-	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+	bool hasInvalidRegExpr = false;
+
+	int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+	if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+	{
+		hasInvalidRegExpr = true;
+	}
+	else
+	{
+		nbTotal += nb;
+	}
 
 	_findReplaceDlg.finishFilesSearch(nbTotal, 1, isEntireDoc);
 
@@ -2314,7 +2404,13 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	if (nbTotal != 0)
+	if (hasInvalidRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+
+	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGui = nppParam.getNppGUI();

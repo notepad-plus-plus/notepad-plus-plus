@@ -1715,7 +1715,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 	{
 		if (OrdinalIgnoreCaseCompareStrings(name, buf->getFullPathName()) == 0)
 		{
-			if (buf->_referees[0]->isVisible())
+			if (!(buf->_referees.empty()) && buf->_referees[0]->isVisible())
 			{
 				return buf->getID();
 			}

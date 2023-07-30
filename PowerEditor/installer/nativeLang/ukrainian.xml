@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.5.3">
+	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Порожні операції"/>
 					<Item subMenuId="edit-pasteSpecial" name="Спеціальна вставка"/>
 					<Item subMenuId="edit-onSelection" name="У вибраному"/>
+					<Item subMenuId="search-changeHistory" name="Історія змін"/>
 					<Item subMenuId="search-markAll" name="Стиль до всіх випадків токену"/>
 					<Item subMenuId="search-markOne" name="Стиль до одного токену"/>
 					<Item subMenuId="search-unmarkAll" name="Очистити стиль"/>
@@ -46,7 +47,7 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="Вниз"/>
 					<Item subMenuId="search-copyStyledText" name="Копіювати стиль тексту"/>
 					<Item subMenuId="search-bookmark" name="Закладка"/>
-					<Item subMenuId="view-currentFileIn" name="Перегляд поточного файлу в"/>
+					<Item subMenuId="view-currentFileIn" name="Переглянути цей файл у"/>
 					<Item subMenuId="view-showSymbol" name="Показати символ"/>
 					<Item subMenuId="view-zoom" name="Масштаб"/>
 					<Item subMenuId="view-moveCloneDocument" name="Перемістити/Клонувати поточний документ"/>
@@ -74,7 +75,9 @@ Translation note:
 					<Item subMenuId="language-userDefinedLanguage" name="Користувацька мова"/>
 					<Item subMenuId="settings-import" name="Імпортувати"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Сортувати за"/>
 				</SubEntries>
 
@@ -249,6 +252,9 @@ Translation note:
 					<Item id="43064" name="Використання стилю 3"/>
 					<Item id="43065" name="Використання стилю 4"/>
 					<Item id="43066" name="Використання стилю 5"/>
+					<Item id="43067" name="Перейти до наступної зміни"/>
+					<Item id="43068" name="Перейти до попередньої зміни"/>
+					<Item id="43069" name="Очистити історію змін"/>
 					<Item id="43045" name="Вікно результатів пошуку"/>
 					<Item id="43046" name="Наступний результат пошуку"/>
 					<Item id="43047" name="Попередній результат пошуку"/>
@@ -349,8 +355,8 @@ Translation note:
 					<Item id="47005" name="Отримати більше плагінів"/>
 					<Item id="47006" name="Оновити Notepad++"/>
 					<Item id="47009" name="Встановити проксі оновлення..."/>
-					<Item id="48005" name="Імпорт плагінів..."/>
-					<Item id="48006" name="Імпорт тем стилів..."/>
+					<Item id="48005" name="Імпортувати плагіни..."/>
+					<Item id="48006" name="Імпортувати теми стилів..."/>
 					<Item id="48018" name="Змінити контекстне меню"/>
 					<Item id="48009" name="Гарячі клавіші..."/>
 					<Item id="48011" name="Налаштування..."/>
@@ -362,7 +368,13 @@ Translation note:
 					<Item id="48504" name="Генерувати..."/>
 					<Item id="48505" name="Генерувати з файлів..."/>
 					<Item id="48506" name="Генерувати з вибраного в буфер обміну"/>
-					<Item id="49000" name="Виконати..."/>
+					<Item id="48507" name="Генерувати..."/>
+					<Item id="48508" name="Генерувати з файлів..."/>
+					<Item id="48509" name="Генерувати з вибраного в буфер обміну"/>
+					<Item id="48510" name="Генерувати..."/>
+					<Item id="48511" name="Генерувати з файлів..."/>
+					<Item id="48512" name="Генерувати з вибраного в буфер обміну"/>
+					<Item id="49000" name="Запустити..."/>
 
 					<Item id="50000" name="Завершення функцій"/>
 					<Item id="50001" name="Завершення слів"/>
@@ -544,6 +556,29 @@ Translation note:
 				<Item id="2" name="Закрити"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Згенерувати дайджест SHA-1 з файлів">
+				<Item id="1922" name="Оберіть файли для генерування SHA-1..."/>
+				<Item id="1924" name="Копіювати в буфер обміну"/>
+				<Item id="2" name="Закрити"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Згенерувати дайджест SHA-1">
+				<Item id="1932" name="Обробити кожен рядок як окремий"/>
+				<Item id="1934" name="Копіювати в буфер обміну"/>
+				<Item id="2" name="Закрити"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Згенерувати дайджест SHA-512 з файлів">
+				<Item id="1922" name="Оберіть файли для генерування SHA-512..."/>
+				<Item id="1924" name="Копіювати в буфер обміну"/>
+				<Item id="2" name="Закрити"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Згенерувати дайджест SHA-512">
+				<Item id="1932" name="Обробити кожен рядок як окремий"/>
+				<Item id="1934" name="Копіювати в буфер обміну"/>
+				<Item id="2" name="Закрити"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Адміністрування плагінів" titleAvailable="Доступно" titleUpdates="Оновлення" titleInstalled="Встановлено" titleIncompatible="Несумісно">
 				<ColumnPlugin name="Плагін"/>
 				<ColumnVersion name="Версія"/>

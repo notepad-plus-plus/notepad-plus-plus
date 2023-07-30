@@ -2293,7 +2293,7 @@ bool Notepad_plus::findInOpenedFiles()
 
 	size_t nbUniqueBuffers = _mainDocTab.nbItem();
 
-	if (_mainWindowStatus & WindowSubActive)
+	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
 	{
 		for (size_t i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
 		{

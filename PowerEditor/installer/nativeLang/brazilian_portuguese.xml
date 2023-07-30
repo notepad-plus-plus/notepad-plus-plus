@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2
-     Last update by Marcello, 07 Jul 2023, for Notepad++ 8.5.5
+     Last update by Marcello, 30 Jul 2023, for Notepad++ 8.5.5
 -->
 <NotepadPlus>
 	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.4">
@@ -1616,18 +1616,14 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-end-reached value="Localizar: Encontrada a primeira ocorrência a partir do início. O final do documento foi alcançado."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em Arquivos: $INT_REPLACE$ ocorrências foram substituídas."/>
-			<find-status-replaceinfiles-re-malformed value="Substituir em Arquivos Abertos: A expressão regular está mal formada."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em Arquivos Abertos: 1 ocorrência foi substituída."/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Substituir em Arquivos Abertos: $INT_REPLACE$ ocorrências foram substituídas."/>
-			<find-status-mark-re-malformed value="Marcar: A expressão regular da pesquisa está mal formada."/>
 			<find-status-invalid-re value="Localizar: Expressão regular inválida."/>
 			<find-status-search-failed value="Localizar: Falha ao pesquisar."/>
 			<find-status-mark-1-match value="Marcar: 1 correspondência."/>
 			<find-status-mark-nb-matches value="Marcar: $INT_REPLACE$ correspondências."/>
-			<find-status-count-re-malformed value="Total: A expressão regular da pesquisa está mal formada."/>
 			<find-status-count-1-match value="Total: 1 correspondência."/>
 			<find-status-count-nb-matches value="Total: $INT_REPLACE$ correspondências."/>
-			<find-status-replaceall-re-malformed value="Substituir todas: A expressão regular está mal formada."/>
 			<find-status-replaceall-1-replaced value="Substituir todas: 1 ocorrência foi substituída."/>
 			<find-status-replaceall-nb-replaced value="Substituir todas: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceall-readonly value="Substituir todas: Texto não substituído. O documento é somente leitura."/>

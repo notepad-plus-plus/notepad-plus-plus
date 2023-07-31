@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+t<?xml version="1.0" encoding="utf-8" ?>
 <!--
 The comments are here for explanation, it's not necessary to translate them.
 -->
@@ -810,7 +810,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="21101" name="Style par défaut"/>
 					<Item id="21102" name="Style"/>
 					<Item id="21105" name="Documentation"/>
-					<Item id="21104" name="Site web temporaire :"/>
 					<Item id="21106" name="Compacter le relief (pliage des lignes vides)"/>
 					<Item id="21220" name="Relief syntaxique mode 1"/>
 					<Item id="21224" name="Ouvrant :"/>

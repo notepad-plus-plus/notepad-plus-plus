@@ -810,7 +810,6 @@
 					<Item id="21101" name="Predvolený štýl"/>
 					<Item id="21102" name="Nastaviť štýl…"/>
 					<Item id="21105" name="Dokumentácia"/>
-					<Item id="21104" name="Dočasná stránka s dokumentáciou:"/>
 					<Item id="21106" name="Zbaliť kompaktne (zbaliť aj prázdne riadky)"/>
 					<Item id="21220" name="Zbalenie v štýle kódu 1"/>
 					<Item id="21224" name="Začiatok:"/>
@@ -1629,18 +1628,14 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
 			<find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
-			<find-status-replaceinfiles-re-malformed value="Nahradiť v otvorených súboroch: Neplatný regulárny výraz"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahradiť v otvorených súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Nahradiť v otvorených súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
-			<find-status-mark-re-malformed value="Označiť: Neplatný regulárny výraz vyhľadávania"/>
 			<find-status-invalid-re value="Hľadať: Neplatný regulárny výraz"/>
 			<find-status-search-failed value="Hľadať: Hľadanie zlyhalo"/>
 			<find-status-mark-1-match value="Označiť: 1 výskyt"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ výskytov"/>
-			<find-status-count-re-malformed value="Spočítať: Neplatný regulárny výraz vyhľadávania"/>
 			<find-status-count-1-match value="Spočítať: 1 výskyt"/>
 			<find-status-count-nb-matches value="Spočítať: $INT_REPLACE$ výskytov"/>
-			<find-status-replaceall-re-malformed value="Nahradiť všetko: Neplatný regulárny výraz"/>
 			<find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
 			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>

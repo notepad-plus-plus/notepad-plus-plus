@@ -746,11 +746,10 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 }
 
 
-std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter)
+void stringSplit(const generic_string& input, const generic_string& delimiter, std::vector<generic_string>& output)
 {
 	size_t start = 0U;
 	size_t end = input.find(delimiter);
-	std::vector<generic_string> output;
 	const size_t delimiterLength = delimiter.length();
 	while (end != std::string::npos)
 	{
@@ -759,7 +758,6 @@ std::vector<generic_string> stringSplit(const generic_string& input, const gener
 		end = input.find(delimiter, start);
 	}
 	output.push_back(input.substr(start, end));
-	return output;
 }
 
 
@@ -784,7 +782,8 @@ bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
 		}
 	}
 
-	std::vector<generic_string> v = stringSplit(str2convert, TEXT(" "));
+	std::vector<generic_string> v;
+	stringSplit(str2convert, TEXT(" "), v);
 	for (const auto& i : v)
 	{
 		// Don't treat empty string and the number greater than 9999
@@ -796,19 +795,17 @@ bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
 	return true;
 }
 
-generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator)
+void stringJoin(const std::vector<generic_string>& strings, const generic_string& separator, generic_string& joinedString)
 {
-	generic_string joined;
 	size_t length = strings.size();
 	for (size_t i = 0; i < length; ++i)
 	{
-		joined += strings.at(i);
+		joinedString += strings.at(i);
 		if (i != length - 1)
 		{
-			joined += separator;
+			joinedString += separator;
 		}
 	}
-	return joined;
 }
 
 
@@ -1552,7 +1549,11 @@ bool isUnsupportedFileName(const generic_string& fileName)
 		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the Notepad++ advanced
 		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well
 		// (but e.g. direct Notepad++ Ctrl+S works ok even with these filenames)
-		if (!fileName.ends_with(_T('.')) && !fileName.ends_with(_T(' ')))
+		// 
+		// Exception for the standard filenames ending with the dot-char:
+		// - when someone tries to open e.g. the 'C:\file.', we will accept that as this is the way how to work with filenames
+		//   without an extension (some of the WINAPI calls used later trim that dot-char automatically ...)
+		if (!(fileName.ends_with(_T('.')) && isWin32NamespacePrefixedFileName(fileName)) && !fileName.ends_with(_T(' ')))
 		{
 			bool invalidASCIIChar = false;
 

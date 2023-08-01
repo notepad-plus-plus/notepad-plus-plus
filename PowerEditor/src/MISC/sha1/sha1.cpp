@@ -39,9 +39,11 @@
 #define S_R3(v,w,x,y,z,i) {z+=(((w|x)&y)|(w&x))+SHABLK(i)+0x8F1BBCDC+ROL32(v,5);w=ROL32(w,30);}
 #define S_R4(v,w,x,y,z,i) {z+=(w^x^y)+SHABLK(i)+0xCA62C1D6+ROL32(v,5);w=ROL32(w,30);}
 
+#if defined(_MSC_VER)
 #pragma warning(push)
 // Disable compiler warning 'Conditional expression is constant'
 #pragma warning(disable: 4127)
+#endif
 
 CSHA1::CSHA1()
 {
@@ -172,9 +174,9 @@ bool CSHA1::HashFile(const TCHAR* tszFileName)
 
 void CSHA1::Final()
 {
-	UINT_32 i;
+	UINT_32 i = 0;
 
-	UINT_8 pbFinalCount[8];
+	UINT_8 pbFinalCount[8]{};
 	for(i = 0; i < 8; ++i)
 		pbFinalCount[i] = static_cast<UINT_8>((m_count[((i >= 4) ? 0 : 1)] >>
 			((3 - (i & 3)) * 8) ) & 0xFF); // Endian independent
@@ -205,7 +207,7 @@ bool CSHA1::ReportHash(TCHAR* tszReport, REPORT_TYPE rtReportType) const
 {
 	if(tszReport == NULL) return false;
 
-	TCHAR tszTemp[16];
+	TCHAR tszTemp[16]{};
 
 	if((rtReportType == REPORT_HEX) || (rtReportType == REPORT_HEX_SHORT))
 	{
@@ -239,7 +241,7 @@ bool CSHA1::ReportHash(TCHAR* tszReport, REPORT_TYPE rtReportType) const
 #ifdef SHA1_STL_FUNCTIONS
 bool CSHA1::ReportHashStl(std::basic_string<TCHAR>& strOut, REPORT_TYPE rtReportType) const
 {
-	TCHAR tszOut[84];
+	TCHAR tszOut[84]{};
 	const bool bResult = ReportHash(tszOut, rtReportType);
 	if(bResult) strOut = tszOut;
 	return bResult;
@@ -253,4 +255,6 @@ bool CSHA1::GetHash(UINT_8* pbDest20) const
 	return true;
 }
 
+#if defined(_MSC_VER)
 #pragma warning(pop)
+#endif

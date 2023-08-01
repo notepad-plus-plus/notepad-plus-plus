@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.5.3">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="&amp;Blank Operations"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
 					<Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
+					<Item subMenuId="search-changeHistory" name="Change History"/>
 					<Item subMenuId="search-markAll" name="Style &amp;All Occurrences of Token"/>
 					<Item subMenuId="search-markOne" name="Style &amp;One Token"/>
 					<Item subMenuId="search-unmarkAll" name="Clear Style"/>
@@ -251,6 +252,9 @@ Translation note:
 					<Item id="43064" name="Using 3rd Style"/>
 					<Item id="43065" name="Using 4th Style"/>
 					<Item id="43066" name="Using 5th Style"/>
+					<Item id="43067" name="Go to Next Change"/>
+					<Item id="43068" name="Go to Previous Change"/>
+					<Item id="43069" name="Clear Change History"/>
 					<Item id="43045" name="Search Results &amp;Window"/>
 					<Item id="43046" name="Next Search Resul&amp;t"/>
 					<Item id="43047" name="Previous Search Resul&amp;t"/>
@@ -809,7 +813,6 @@ Translation note:
 					<Item id="21101" name="Default style"/>
 					<Item id="21102" name="Styler"/>
 					<Item id="21105" name="Documentation"/>
-					<Item id="21104" name="Temporary doc site:"/>
 					<Item id="21106" name="Fold &amp;compact (fold empty lines too)"/>
 					<Item id="21220" name="Folding in code 1 style"/>
 					<Item id="21224" name="Open:"/>
@@ -1626,18 +1629,13 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
 			<find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
-			<find-status-replaceinfiles-re-malformed value="Replace in Opened Files: The regular expression is malformed"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
-			<find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
 			<find-status-invalid-re value="Find: Invalid regular expression"/>
-			<find-status-search-failed value="Find: Search failed"/>
 			<find-status-mark-1-match value="Mark: 1 match"/>
 			<find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
-			<find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
 			<find-status-count-1-match value="Count: 1 match"/>
 			<find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>
-			<find-status-replaceall-re-malformed value="Replace All: The regular expression is malformed"/>
 			<find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
 			<find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>

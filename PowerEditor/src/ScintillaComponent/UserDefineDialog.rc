@@ -23,9 +23,8 @@ IDD_FOLDER_STYLE_DLG DIALOGEX 36, 44, 466, 415
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    CTEXT           "https://ivan-radic.github.io/udl-documentation/",IDC_WEB_HELP_LINK,19,45,200,13
-    CTEXT           "Temporary doc site:",IDC_WEB_HELP_STATIC,19,31,200,13
-    GROUPBOX        "Documentation",IDC_WEB_HELP_DESCGROUP_STATIC,12,14,210,49
+    GROUPBOX        "Documentation", IDC_WEB_HELP_DESCGROUP_STATIC, 12, 14, 210, 49
+    CTEXT           "https://ivan-radic.github.io/udl-documentation/",IDC_WEB_HELP_LINK,19,35,200,13
     PUSHBUTTON      "Styler",IDC_DEFAULT_STYLER,87,94,54,13
     GROUPBOX        "Default style",IDC_DEFAULT_DESCGROUP_STATIC,12,71,210,49
     CONTROL         "Fold &compact (fold empty lines too)",IDC_FOLDER_FOLD_COMPACT,

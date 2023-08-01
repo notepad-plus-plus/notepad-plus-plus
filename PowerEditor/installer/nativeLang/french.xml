@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="français" filename="french.xml" version="8.5.1">
+	<Native-Langue name="français" filename="french.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -37,6 +37,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="edit-blankOperations" name="Traitement des espacements"/>
 					<Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
 					<Item subMenuId="edit-onSelection" name="Pour la sélection"/>
+					<Item subMenuId="search-changeHistory" name="Historique de Modification"/>
 					<Item subMenuId="search-markAll" name="Marquer tout"/>
 					<Item subMenuId="search-markOne" name="Marquer uniquement la sélection"/>
 					<Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
@@ -248,6 +249,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43064" name="Appliquer le style 3"/>
 					<Item id="43065" name="Appliquer le style 4"/>
 					<Item id="43066" name="Appliquer le style 5"/>
+					<Item id="43067" name="Aller à la prochaine modification"/>
+					<Item id="43068" name="Aller à la modification précédente"/>
+					<Item id="43069" name="Vider l'Historique de Modification"/>
 					<Item id="43045" name="Fenêtre des résultats de recherche"/>
 					<Item id="43046" name="Résultat de recherche suivant"/>
 					<Item id="43047" name="Résultat de recherche précédent"/>
@@ -806,7 +810,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="21101" name="Style par défaut"/>
 					<Item id="21102" name="Style"/>
 					<Item id="21105" name="Documentation"/>
-					<Item id="21104" name="Site web temporaire :"/>
 					<Item id="21106" name="Compacter le relief (pliage des lignes vides)"/>
 					<Item id="21220" name="Relief syntaxique mode 1"/>
 					<Item id="21224" name="Ouvrant :"/>
@@ -1622,18 +1625,13 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-end-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
 			<find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
 			<find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichiers : $INT_REPLACE$ occurrences ont été remplacées"/>
-			<find-status-replaceinfiles-re-malformed value="Remplacer dans les fichiers ouverts : l'expression régulière est malformée"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichiers ouverts : 1 occurrence a été remplacée"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Remplacer dans les fichiers ouverts : $INT_REPLACE$ occurrences ont été remplacées"/>
-			<find-status-mark-re-malformed value="Marquer : l'expression régulière est malformée"/>
 			<find-status-invalid-re value="Rechercher : Expression régulière invalide"/>
-			<find-status-search-failed value="Rechercher: échec de la recherche"/>
 			<find-status-mark-1-match value="1 résultat"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ résultats"/>
-			<find-status-count-re-malformed value="Compter : l'expression régulière est malformée"/>
 			<find-status-count-1-match value="Compter : 1 résultat"/>
 			<find-status-count-nb-matches value="Compter : $INT_REPLACE$ résultats"/>
-			<find-status-replaceall-re-malformed value="Remplacer tout : l'expression régulière est malformée"/>
 			<find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
 			<find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
 			<find-status-replaceall-readonly value="Remplacer tout : l'opération a échoué. Le fichier est en lecture seule"/>

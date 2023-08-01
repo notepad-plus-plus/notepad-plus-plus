@@ -199,6 +199,9 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_G,       IDM_SEARCH_GOTOLINE,                          true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_GOTOMATCHINGBRACE,                 true,  false, false, nullptr },
 	{ VK_B,       IDM_SEARCH_SELECTMATCHINGBRACES,              true,  true,  false, nullptr },
+	{ VK_NULL,    IDM_SEARCH_CHANGED_PREV,                      false, false, false, nullptr },
+	{ VK_NULL,    IDM_SEARCH_CHANGED_NEXT,                      false, false, false, nullptr },
+	{ VK_NULL,    IDM_SEARCH_CLEAR_CHANGE_HISTORY,              false, false, false, nullptr },
 	{ VK_M,       IDM_SEARCH_MARK,                              true,  false, false, nullptr },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT1,                       false, false, false, TEXT("Style all using 1st style") },
 	{ VK_NULL,    IDM_SEARCH_MARKALLEXT2,                       false, false, false, TEXT("Style all using 2nd style") },
@@ -612,7 +615,7 @@ int getKwClassFromName(const TCHAR *str)
 } // anonymous namespace
 
 
-void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
+void cutString(const TCHAR* str2cut, vector<std::wstring>& patternVect)
 {
 	if (str2cut == nullptr) return;
 
@@ -635,7 +638,7 @@ void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
 		patternVect.emplace_back(pBegin, pEnd);
 }
 
-void cutStringBy(const TCHAR* str2cut, vector<generic_string>& patternVect, char byChar, bool allowEmptyStr)
+void cutStringBy(const TCHAR* str2cut, vector<std::wstring>& patternVect, char byChar, bool allowEmptyStr)
 {
 	if (str2cut == nullptr) return;
 
@@ -707,11 +710,11 @@ bool LocalizationSwitcher::switchToLang(const wchar_t *lang2switch) const
 }
 
 
-generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) const
+std::wstring ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) const
 {
 	if (!xmlFullPath || !xmlFullPath[0])
-		return generic_string();
-	generic_string fn(::PathFindFileName(xmlFullPath));
+		return std::wstring();
+	std::wstring fn(::PathFindFileName(xmlFullPath));
 	PathRemoveExtension(const_cast<TCHAR *>(fn.c_str()));
 	return fn;
 }
@@ -719,7 +722,7 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 int DynamicMenu::getTopLevelItemNumber() const
 {
 	int nb = 0;
-	generic_string previousFolderName;
+	std::wstring previousFolderName;
 	for (const MenuItemUnit& i : _menuItems)
 	{
 		if (i._parentFolderName.empty())
@@ -756,7 +759,7 @@ int DynamicMenu::getTopLevelItemNumber() const
 	return nb;
 }
 
-bool DynamicMenu::attach(HMENU hMenu, unsigned int posBase, int lastCmd, const generic_string& lastCmdLabel)
+bool DynamicMenu::attach(HMENU hMenu, unsigned int posBase, int lastCmd, const std::wstring& lastCmdLabel)
 {
 	if (!hMenu) return false;
 
@@ -787,7 +790,7 @@ bool DynamicMenu::createMenu() const
 
 	bool lastIsSep = false;
 	HMENU hParentFolder = NULL;
-	generic_string currentParentFolderStr;
+	std::wstring currentParentFolderStr;
 	int j = 0;
 
 	size_t nb = _menuItems.size();
@@ -977,7 +980,7 @@ NppParameters::NppParameters()
 	_currentDirectory = curDir;
 
 	_appdataNppDir.clear();
-	generic_string notepadStylePath(_nppPath);
+	std::wstring notepadStylePath(_nppPath);
 	pathAppend(notepadStylePath, notepadStyleFile);
 
 	_asNotepadStyle = (PathFileExists(notepadStylePath.c_str()) == TRUE);
@@ -1048,13 +1051,13 @@ bool NppParameters::reloadStylers(const TCHAR* stylePath)
 bool NppParameters::reloadLang()
 {
 	// use user path
-	generic_string nativeLangPath(_localizationSwitcher._nativeLangPath);
+	std::wstring nativeLangPath(_localizationSwitcher._nativeLangPath);
 
 	// if "nativeLang.xml" does not exist, use npp path
 	if (!PathFileExists(nativeLangPath.c_str()))
 	{
 		nativeLangPath = _nppPath;
-		pathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));
+		pathAppend(nativeLangPath, std::wstring(TEXT("nativeLang.xml")));
 		if (!PathFileExists(nativeLangPath.c_str()))
 			return false;
 	}
@@ -1073,12 +1076,12 @@ bool NppParameters::reloadLang()
 	return loadOkay;
 }
 
-generic_string NppParameters::getSpecialFolderLocation(int folderKind)
+std::wstring NppParameters::getSpecialFolderLocation(int folderKind)
 {
 	TCHAR path[MAX_PATH];
 	const HRESULT specialLocationResult = SHGetFolderPath(nullptr, folderKind, nullptr, SHGFP_TYPE_CURRENT, path);
 
-	generic_string result;
+	std::wstring result;
 	if (SUCCEEDED(specialLocationResult))
 	{
 		result = path;
@@ -1087,12 +1090,12 @@ generic_string NppParameters::getSpecialFolderLocation(int folderKind)
 }
 
 
-generic_string NppParameters::getSettingsFolder()
+std::wstring NppParameters::getSettingsFolder()
 {
 	if (_isLocal)
 		return _nppPath;
 
-	generic_string settingsFolderPath = getSpecialFolderLocation(CSIDL_APPDATA);
+	std::wstring settingsFolderPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 	if (settingsFolderPath.empty())
 		return _nppPath;
@@ -1110,7 +1113,7 @@ bool NppParameters::load()
 	_isx64 = sizeof(void *) == 8;
 
 	// Make localConf.xml path
-	generic_string localConfPath(_nppPath);
+	std::wstring localConfPath(_nppPath);
 	pathAppend(localConfPath, localConfFile);
 
 	// Test if localConf.xml exist
@@ -1123,7 +1126,7 @@ bool NppParameters::load()
 		// We check if OS is Vista or greater version
 		if (_winVersion >= WV_VISTA)
 		{
-			generic_string progPath = getSpecialFolderLocation(CSIDL_PROGRAM_FILES);
+			std::wstring progPath = getSpecialFolderLocation(CSIDL_PROGRAM_FILES);
 			TCHAR nppDirLocation[MAX_PATH];
 			wcscpy_s(nppDirLocation, _nppPath.c_str());
 			::PathRemoveFileSpec(nppDirLocation);
@@ -1139,7 +1142,7 @@ bool NppParameters::load()
 	//
 	// the 3rd priority: general default configuration
 	//
-	generic_string nppPluginRootParent;
+	std::wstring nppPluginRootParent;
 	if (_isLocal)
 	{
 		_userPath = nppPluginRootParent = _nppPath;
@@ -1177,7 +1180,7 @@ bool NppParameters::load()
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
 
 	// Detection cloud settings
-	generic_string cloudChoicePath{_userPath};
+	std::wstring cloudChoicePath{_userPath};
 	cloudChoicePath += TEXT("\\cloud\\choice");
 
 	//
@@ -1212,7 +1215,7 @@ bool NppParameters::load()
 		{
 			// The following text is not translatable.
 			// _pNativeLangSpeaker is initialized AFTER _userPath being dterminated because nativeLang.xml is from from _userPath.
-			generic_string errMsg = TEXT("The given path\r");
+			std::wstring errMsg = TEXT("The given path\r");
 			errMsg += _cmdSettingsDir;
 			errMsg += TEXT("\nvia command line \"-settingsDir=\" is not a valid directory.\rThis argument will be ignored.");
 			::MessageBox(NULL, errMsg.c_str(), TEXT("Invalid directory"), MB_OK);
@@ -1227,7 +1230,7 @@ bool NppParameters::load()
 	//--------------------------//
 	// langs.xml : for per user //
 	//--------------------------//
-	generic_string langs_xml_path(_userPath);
+	std::wstring langs_xml_path(_userPath);
 	pathAppend(langs_xml_path, TEXT("langs.xml"));
 
 	BOOL doRecover = FALSE;
@@ -1259,7 +1262,7 @@ bool NppParameters::load()
 
 	if (doRecover)
 	{
-		generic_string srcLangsPath(_nppPath);
+		std::wstring srcLangsPath(_nppPath);
 		pathAppend(srcLangsPath, TEXT("langs.model.xml"));
 		::CopyFile(srcLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
 	}
@@ -1293,10 +1296,10 @@ bool NppParameters::load()
 	//---------------------------//
 	// config.xml : for per user //
 	//---------------------------//
-	generic_string configPath(_userPath);
+	std::wstring configPath(_userPath);
 	pathAppend(configPath, TEXT("config.xml"));
 
-	generic_string srcConfigPath(_nppPath);
+	std::wstring srcConfigPath(_nppPath);
 	pathAppend(srcConfigPath, TEXT("config.model.xml"));
 
 	if (!::PathFileExists(configPath.c_str()))
@@ -1324,7 +1327,7 @@ bool NppParameters::load()
 
 	if (!PathFileExists(_stylerPath.c_str()))
 	{
-		generic_string srcStylersPath(_nppPath);
+		std::wstring srcStylersPath(_nppPath);
 		pathAppend(srcStylersPath, TEXT("stylers.model.xml"));
 
 		::CopyFile(srcStylersPath.c_str(), _stylerPath.c_str(), TRUE);
@@ -1370,7 +1373,7 @@ bool NppParameters::load()
 	pathAppend(_userDefineLangPath, TEXT("userDefineLang.xml"));
 	pathAppend(_userDefineLangsFolderPath, TEXT("userDefineLangs"));
 
-	std::vector<generic_string> udlFiles;
+	std::vector<std::wstring> udlFiles;
 	getFilesInFolder(udlFiles, TEXT("*.xml"), _userDefineLangsFolderPath);
 
 	_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
@@ -1410,7 +1413,7 @@ bool NppParameters::load()
 	// We'll look in the Notepad++ Dir.			 //
 	//----------------------------------------------//
 
-	generic_string nativeLangPath;
+	std::wstring nativeLangPath;
 	nativeLangPath = _userPath;
 	pathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 
@@ -1447,7 +1450,7 @@ bool NppParameters::load()
 	//---------------------------------//
 	// toolbarIcons.xml : for per user //
 	//---------------------------------//
-	generic_string toolbarIconsPath(_userPath);
+	std::wstring toolbarIconsPath(_userPath);
 	pathAppend(toolbarIconsPath, TEXT("toolbarIcons.xml"));
 
 	_pXmlToolIconsDoc = new TiXmlDocument(toolbarIconsPath);
@@ -1469,7 +1472,7 @@ bool NppParameters::load()
 
 	if (!PathFileExists(_shortcutsPath.c_str()))
 	{
-		generic_string srcShortcutsPath(_nppPath);
+		std::wstring srcShortcutsPath(_nppPath);
 		pathAppend(srcShortcutsPath, SHORTCUTSXML_FILENAME);
 
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
@@ -1507,7 +1510,7 @@ bool NppParameters::load()
 
 	if (!PathFileExists(_contextMenuPath.c_str()))
 	{
-		generic_string srcContextMenuPath(_nppPath);
+		std::wstring srcContextMenuPath(_nppPath);
 		pathAppend(srcContextMenuPath, TEXT("contextMenu.xml"));
 
 		::CopyFile(srcContextMenuPath.c_str(), _contextMenuPath.c_str(), TRUE);
@@ -1566,7 +1569,7 @@ bool NppParameters::load()
 	// This empty xml file is optional - user adds this empty file //
 	// manually in order to set selected text's foreground color.  //
 	//-------------------------------------------------------------//
-	generic_string enableSelectFgColorPath = _userPath;
+	std::wstring enableSelectFgColorPath = _userPath;
 	pathAppend(enableSelectFgColorPath, TEXT("enableSelectFgColor.xml"));
 
 	if (PathFileExists(enableSelectFgColorPath.c_str()))
@@ -1575,7 +1578,7 @@ bool NppParameters::load()
 	}
 
 
-	generic_string filePath, filePath2, issueFileName;
+	std::wstring filePath, filePath2, issueFileName;
 
 	filePath = _nppPath;
 	issueFileName = nppLogNetworkDriveIssue;
@@ -1681,7 +1684,7 @@ const TCHAR* NppParameters::getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *ful
 	if ((!ext) || (!ext[0]))
 		return nullptr;
 
-	std::vector<generic_string> extVect;
+	std::vector<std::wstring> extVect;
 	int iMatched = -1;
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 	{
@@ -1760,7 +1763,7 @@ void NppParameters::setCurLineHilitingColour(COLORREF colour2Set)
 
 static int CALLBACK EnumFontFamExProc(const LOGFONT* lpelfe, const TEXTMETRIC*, DWORD, LPARAM lParam)
 {
-	std::vector<generic_string>& strVect = *(std::vector<generic_string> *)lParam;
+	std::vector<std::wstring>& strVect = *(std::vector<std::wstring> *)lParam;
 	const int32_t vectSize = static_cast<int32_t>(strVect.size());
 	const TCHAR* lfFaceName = ((ENUMLOGFONTEX*)lpelfe)->elfLogFont.lfFaceName;
 
@@ -1787,7 +1790,7 @@ void NppParameters::setFontList(HWND hWnd)
 	LOGFONT lf{};
 	_fontlist.clear();
 	_fontlist.reserve(64); // arbitrary
-	_fontlist.push_back(generic_string());
+	_fontlist.push_back(std::wstring());
 
 	lf.lfCharSet = DEFAULT_CHARSET;
 	lf.lfFaceName[0]='\0';
@@ -1796,7 +1799,7 @@ void NppParameters::setFontList(HWND hWnd)
 	::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, reinterpret_cast<LPARAM>(&_fontlist), 0);
 }
 
-bool NppParameters::isInFontList(const generic_string& fontName2Search) const
+bool NppParameters::isInFontList(const std::wstring& fontName2Search) const
 {
 	if (fontName2Search.empty())
 		return false;
@@ -2063,7 +2066,7 @@ bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plug
 	return getContextMenuFromXmlTree(mainMenuHadle, pluginsMenu);
 }
 
-int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const generic_string& menuEntryName, const generic_string& menuItemName)
+int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const std::wstring& menuEntryName, const std::wstring& menuItemName)
 {
 	int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
 	for (int i = 0; i < nbMenuEntry; ++i)
@@ -2123,7 +2126,7 @@ int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const gene
 	return -1;
 }
 
-int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const generic_string& pluginName, const generic_string& pluginCmdName)
+int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const std::wstring& pluginName, const std::wstring& pluginCmdName)
 {
 	int nbPlugins = ::GetMenuItemCount(pluginsMenu);
 	for (int i = 0; i < nbPlugins; ++i)
@@ -2174,8 +2177,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 			const char *folderNameTranslateID_A = (childNode->ToElement())->Attribute("TranslateID");
 			const char *displayAsA = (childNode->ToElement())->Attribute("ItemNameAs");
 
-			generic_string folderName;
-			generic_string displayAs;
+			std::wstring folderName;
+			std::wstring displayAs;
 			folderName = folderNameDefaultA ? wmc.char2wchar(folderNameDefaultA, SC_CP_UTF8) : TEXT("");
 			displayAs = displayAsA ? wmc.char2wchar(displayAsA, SC_CP_UTF8) : TEXT("");
 
@@ -2195,8 +2198,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 				const char *menuEntryNameA = (childNode->ToElement())->Attribute("MenuEntryName");
 				const char *menuItemNameA = (childNode->ToElement())->Attribute("MenuItemName");
 
-				generic_string menuEntryName;
-				generic_string menuItemName;
+				std::wstring menuEntryName;
+				std::wstring menuItemName;
 				menuEntryName = menuEntryNameA?wmc.char2wchar(menuEntryNameA, SC_CP_UTF8):TEXT("");
 				menuItemName = menuItemNameA?wmc.char2wchar(menuItemNameA, SC_CP_UTF8):TEXT("");
 
@@ -2211,8 +2214,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 					const char *pluginNameA = (childNode->ToElement())->Attribute("PluginEntryName");
 					const char *pluginCmdNameA = (childNode->ToElement())->Attribute("PluginCommandItemName");
 
-					generic_string pluginName;
-					generic_string pluginCmdName;
+					std::wstring pluginName;
+					std::wstring pluginCmdName;
 					pluginName = pluginNameA?wmc.char2wchar(pluginNameA, SC_CP_UTF8):TEXT("");
 					pluginCmdName = pluginCmdNameA?wmc.char2wchar(pluginCmdNameA, SC_CP_UTF8):TEXT("");
 
@@ -2469,7 +2472,7 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("filename"));
 		if (filePath)
 		{
-			_LRFileList[_nbRecentFile] = new generic_string(filePath);
+			_LRFileList[_nbRecentFile] = new std::wstring(filePath);
 			++_nbRecentFile;
 		}
 	}
@@ -2605,7 +2608,7 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 			const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (filePath)
 			{
-				_findHistory._findHistoryPaths.push_back(generic_string(filePath));
+				_findHistory._findHistoryPaths.push_back(std::wstring(filePath));
 			}
 		}
 	}
@@ -2624,7 +2627,7 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 			const TCHAR *fileFilter = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (fileFilter)
 			{
-				_findHistory._findHistoryFilters.push_back(generic_string(fileFilter));
+				_findHistory._findHistoryFilters.push_back(std::wstring(fileFilter));
 			}
 		}
 	}
@@ -2643,7 +2646,7 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 			const TCHAR *fileFind = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (fileFind)
 			{
-				_findHistory._findHistoryFinds.push_back(generic_string(fileFind));
+				_findHistory._findHistoryFinds.push_back(std::wstring(fileFind));
 			}
 		}
 	}
@@ -2662,7 +2665,7 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 			const TCHAR *fileReplace = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (fileReplace)
 			{
-				_findHistory._findHistoryReplaces.push_back(generic_string(fileReplace));
+				_findHistory._findHistoryReplaces.push_back(std::wstring(fileReplace));
 			}
 		}
 	}
@@ -3058,7 +3061,7 @@ std::pair<unsigned char, unsigned char> NppParameters::feedUserLang(TiXmlNode *n
 	return pair<unsigned char, unsigned char>(static_cast<unsigned char>(iBegin), static_cast<unsigned char>(iEnd));
 }
 
-bool NppParameters::importUDLFromFile(const generic_string& sourceFile)
+bool NppParameters::importUDLFromFile(const std::wstring& sourceFile)
 {
 	TiXmlDocument *pXmlUserLangDoc = new TiXmlDocument(sourceFile);
 
@@ -3079,7 +3082,7 @@ bool NppParameters::importUDLFromFile(const generic_string& sourceFile)
 	return loadOkay;
 }
 
-bool NppParameters::exportUDLToFile(size_t langIndex2export, const generic_string& fileName2save)
+bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring& fileName2save)
 {
 	if (langIndex2export >= NB_MAX_USER_LANG)
 		return false;
@@ -3115,7 +3118,7 @@ LangType NppParameters::getLangFromExt(const TCHAR *ext)
 		if (pLS)
 			userList = pLS->getLexerUserExt();
 
-		generic_string list;
+		std::wstring list;
 		if (defList)
 			list += defList;
 
@@ -3132,7 +3135,7 @@ LangType NppParameters::getLangFromExt(const TCHAR *ext)
 
 void NppParameters::setCloudChoice(const TCHAR *pathChoice)
 {
-	generic_string cloudChoicePath = getSettingsFolder();
+	std::wstring cloudChoicePath = getSettingsFolder();
 	cloudChoicePath += TEXT("\\cloud\\");
 
 	if (!PathFileExists(cloudChoicePath.c_str()))
@@ -3149,7 +3152,7 @@ void NppParameters::setCloudChoice(const TCHAR *pathChoice)
 
 void NppParameters::removeCloudChoice()
 {
-	generic_string cloudChoicePath = getSettingsFolder();
+	std::wstring cloudChoicePath = getSettingsFolder();
 
 	cloudChoicePath += TEXT("\\cloud\\choice");
 	if (PathFileExists(cloudChoicePath.c_str()))
@@ -3183,7 +3186,7 @@ bool NppParameters::isCloudPathChanged() const
 	return true;
 }
 
-bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string & cloudSettingsPath)
+bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & cloudSettingsPath)
 {
 	bool isOK = false;
 
@@ -3191,7 +3194,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 		return false;
 
 	// config.xml
-	generic_string cloudConfigPath = cloudSettingsPath;
+	std::wstring cloudConfigPath = cloudSettingsPath;
 	pathAppend(cloudConfigPath, TEXT("config.xml"));
 	if (!::PathFileExists(cloudConfigPath.c_str()) && _pXmlUserDoc)
 	{
@@ -3201,7 +3204,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	}
 
 	// stylers.xml
-	generic_string cloudStylersPath = cloudSettingsPath;
+	std::wstring cloudStylersPath = cloudSettingsPath;
 	pathAppend(cloudStylersPath, TEXT("stylers.xml"));
 	if (!::PathFileExists(cloudStylersPath.c_str()) && _pXmlUserStylerDoc)
 	{
@@ -3211,7 +3214,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	}
 
 	// langs.xml
-	generic_string cloudLangsPath = cloudSettingsPath;
+	std::wstring cloudLangsPath = cloudSettingsPath;
 	pathAppend(cloudLangsPath, TEXT("langs.xml"));
 	if (!::PathFileExists(cloudLangsPath.c_str()) && _pXmlUserDoc)
 	{
@@ -3221,7 +3224,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	}
 
 	// userDefineLang.xml
-	generic_string cloudUserLangsPath = cloudSettingsPath;
+	std::wstring cloudUserLangsPath = cloudSettingsPath;
 	pathAppend(cloudUserLangsPath, TEXT("userDefineLang.xml"));
 	if (!::PathFileExists(cloudUserLangsPath.c_str()) && _pXmlUserLangDoc)
 	{
@@ -3231,7 +3234,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	}
 
 	// shortcuts.xml
-	generic_string cloudShortcutsPath = cloudSettingsPath;
+	std::wstring cloudShortcutsPath = cloudSettingsPath;
 	pathAppend(cloudShortcutsPath, SHORTCUTSXML_FILENAME);
 	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDocA)
 	{
@@ -3241,7 +3244,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	}
 
 	// contextMenu.xml
-	generic_string cloudContextMenuPath = cloudSettingsPath;
+	std::wstring cloudContextMenuPath = cloudSettingsPath;
 	pathAppend(cloudContextMenuPath, TEXT("contextMenu.xml"));
 	if (!::PathFileExists(cloudContextMenuPath.c_str()) && _pXmlContextMenuDocA)
 	{
@@ -3251,7 +3254,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 	}
 
 	// nativeLang.xml
-	generic_string cloudNativeLangPath = cloudSettingsPath;
+	std::wstring cloudNativeLangPath = cloudSettingsPath;
 	pathAppend(cloudNativeLangPath, TEXT("nativeLang.xml"));
 	if (!::PathFileExists(cloudNativeLangPath.c_str()) && _pXmlNativeLangDocA)
 	{
@@ -3475,11 +3478,18 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 	// Backup session file before overriting it
 	TCHAR backupPathName[MAX_PATH]{};
+	BOOL doesBackupCopyExist = FALSE;
 	if (PathFileExists(sessionPathName))
 	{
 		_tcscpy(backupPathName, sessionPathName);
 		_tcscat(backupPathName, TEXT(".inCaseOfCorruption.bak"));
-		CopyFile(sessionPathName, backupPathName, FALSE);
+		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
+		if (!doesBackupCopyExist)
+		{
+			wstring errTitle = L"Session file backup error: ";
+			errTitle += GetLastErrorAsString(0);
+			::MessageBox(nullptr, sessionPathName, errTitle.c_str(), MB_OK);
+		}
 	}
 
 	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(sessionPathName);
@@ -3579,7 +3589,11 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 	bool sessionSaveOK = pXmlSessionDoc->SaveFile();
 
-	if (sessionSaveOK)
+	if (!sessionSaveOK)
+	{
+		::MessageBox(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+	}
+	else
 	{
 		// Double checking: prevent written session file corrupted while writting
 		TiXmlDocument* pXmlSessionCheck = new TiXmlDocument(sessionPathName);
@@ -3589,13 +3603,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 	if (!sessionSaveOK)
 	{
-		if (backupPathName[0]) // session backup file exists, restore it
+		if (doesBackupCopyExist) // session backup file exists, restore it
 		{
-			_pNativeLangSpeaker->messageBox("ErrorOfSavingSessionFile",
-				nullptr,
-				TEXT("The old session file will be restored."),
-				TEXT("Error of saving session file"),
-				MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			::MessageBox(nullptr, backupPathName, L"Saving session error - restore backup", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
 			wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
@@ -4224,7 +4234,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	return true;
 }
 
-bool NppParameters::writeFileBrowserSettings(const vector<generic_string> & rootPaths, const generic_string & latestSelectedItemPath) const
+bool NppParameters::writeFileBrowserSettings(const vector<std::wstring> & rootPaths, const std::wstring & latestSelectedItemPath) const
 {
 	if (!_pXmlUserDoc) return false;
 
@@ -4328,7 +4338,7 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	return L_TEXT;
 }
 
-generic_string NppParameters::getLocPathFromStr(const generic_string & localizationCode)
+std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationCode)
 {
 	if (localizationCode == TEXT("en") || localizationCode == TEXT("en-au") || localizationCode == TEXT("en-bz") || localizationCode == TEXT("en-ca") || localizationCode == TEXT("en-cb") || localizationCode == TEXT("en-gb") || localizationCode == TEXT("en-ie") || localizationCode == TEXT("en-jm") || localizationCode == TEXT("en-nz") || localizationCode == TEXT("en-ph") || localizationCode == TEXT("en-tt") || localizationCode == TEXT("en-us") || localizationCode == TEXT("en-za") || localizationCode == TEXT("en-zw"))
 		return TEXT("english.xml");
@@ -4515,7 +4525,7 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 	if (localizationCode == TEXT("ab") || localizationCode == TEXT("abk"))
 		return TEXT("abkhazian.xml");
 
-	return generic_string();
+	return std::wstring();
 }
 
 
@@ -5733,6 +5743,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
 			}
+
+			path = element->Attribute(TEXT("lastUsedDirPath"));
+			if (path && path[0])
+			{
+				lstrcpyn(_nppGUI._lastUsedDir, path, MAX_PATH);
+			}
  		}
 
 		else if (!lstrcmp(nm, TEXT("titleBar")))
@@ -6084,8 +6100,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			// Windows mode is handled later in Notepad_plus_Window::init from Notepad_plus_Window.cpp
 			if (!windowsMode)
 			{
-				generic_string themePath;
-				generic_string xmlFileName = _nppGUI._darkmode._isEnabled ? darkThemeName : lightThemeName;
+				std::wstring themePath;
+				std::wstring xmlFileName = _nppGUI._darkmode._isEnabled ? darkThemeName : lightThemeName;
 				const bool isLocalOnly = _isLocal && !_isCloud;
 
 				if (!xmlFileName.empty() && lstrcmp(xmlFileName.c_str(), TEXT("stylers.xml")) != 0)
@@ -6703,11 +6719,11 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), _svp._doWrap?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderEdge"), _svp._showBorderEdge ? TEXT("yes") : TEXT("no"));
 
-	generic_string edgeColumnPosStr;
+	std::wstring edgeColumnPosStr;
 	for (auto i : _svp._edgeMultiColumnPos)
 	{
 		std::string s = std::to_string(i);
-		edgeColumnPosStr += generic_string(s.begin(), s.end());
+		edgeColumnPosStr += std::wstring(s.begin(), s.end());
 		edgeColumnPosStr += TEXT(" ");
 	}
 	(scintNode->ToElement())->SetAttribute(TEXT("isEdgeBgMode"), _svp._isEdgeBgMode ? TEXT("yes") : TEXT("no"));
@@ -7161,6 +7177,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("openSaveDir"));
 		GUIConfigElement->SetAttribute(TEXT("value"), _nppGUI._openSaveDir);
 		GUIConfigElement->SetAttribute(TEXT("defaultDirPath"), _nppGUI._defaultDir);
+		GUIConfigElement->SetAttribute(TEXT("lastUsedDirPath"), _nppGUI._lastUsedDir);
 	}
 
 	// <GUIConfig name="titleBar" short="no" />
@@ -7856,7 +7873,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 	return id;
 }
 
-generic_string NppParameters:: getWinVersionStr() const
+std::wstring NppParameters:: getWinVersionStr() const
 {
 	switch (_winVersion)
 	{
@@ -7879,7 +7896,7 @@ generic_string NppParameters:: getWinVersionStr() const
 	}
 }
 
-generic_string NppParameters::getWinVerBitStr() const
+std::wstring NppParameters::getWinVerBitStr() const
 {
 	switch (_platForm)
 	{
@@ -7896,7 +7913,7 @@ generic_string NppParameters::getWinVerBitStr() const
 	}
 }
 
-generic_string NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
+std::wstring NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
 {
 	TiXmlNode *lexersRoot = (_pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 	for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -8078,7 +8095,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 	TiXmlElement *rootElement = (node->InsertEndChild(TiXmlElement(TEXT("UserLang"))))->ToElement();
 
 	TCHAR temp[32];
-	generic_string udlVersion;
+	std::wstring udlVersion;
 	udlVersion += _itow(SCE_UDL_VERSION_MAJOR, temp, 10);
 	udlVersion += TEXT(".");
 	udlVersion += _itow(SCE_UDL_VERSION_MINOR, temp, 10);
@@ -8327,10 +8344,10 @@ Date::Date(const TCHAR *dateStr)
 
 	if ( 8==D )
 	{
-		generic_string ds(dateStr);
-		generic_string yyyy(ds, 0, 4);
-		generic_string mm(ds, 4, 2);
-		generic_string dd(ds, 6, 2);
+		std::wstring ds(dateStr);
+		std::wstring yyyy(ds, 0, 4);
+		std::wstring mm(ds, 4, 2);
+		std::wstring dd(ds, 6, 2);
 
 		int y = _wtoi(yyyy.c_str());
 		int m = _wtoi(mm.c_str());

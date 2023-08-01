@@ -14,11 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <Windows.h>
+#include <windows.h>
 #include <wincrypt.h>
 #include "sha512.h"
 
-#pragma comment(lib, "crypt32.lib")
+//#if defined(_MSC_VER)
+//#pragma comment(lib, "crypt32.lib")
+//#endif
 
 void calc_sha_512(unsigned char hash[64], const void *input, size_t len) {
     HCRYPTPROV hProv = 0;

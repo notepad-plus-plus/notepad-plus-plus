@@ -33,7 +33,9 @@
 
 using namespace std;
 
+#ifndef WM_DPICHANGED
 #define WM_DPICHANGED 0x02E0
+#endif
 
 
 struct SortTaskListPred final
@@ -374,8 +376,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_LAUNCHFINDINFILESDLG:
 		{
 			// Find in files function code should be here due to the number of parameters (2) cannot be passed via WM_COMMAND
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			constexpr int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize]{};
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
@@ -397,8 +399,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_FINDINPROJECTS:
 		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			constexpr int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize]{};
 
 			bool isFirstTime = not _findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
@@ -414,8 +416,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_FINDINFINDERDLG:
 		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR str[strSize];
+			constexpr int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize]{};
 			Finder *launcher = reinterpret_cast<Finder *>(wParam);
 
 			bool isFirstTime = !_findInFinderDlg.isCreated();
@@ -558,7 +560,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_RELOADFILE:
 		{
-			TCHAR longNameFullpath[MAX_PATH];
+			TCHAR longNameFullpath[MAX_PATH]{};
 			const TCHAR* pFilePath = reinterpret_cast<const TCHAR*>(lParam);
 			wcscpy_s(longNameFullpath, MAX_PATH, pFilePath);
 			if (wcschr(longNameFullpath, '~'))
@@ -949,12 +951,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETFILENAMEATCURSOR: // wParam = buffer length, lParam = (TCHAR*)buffer
 		{
-			const int strSize = CURRENTWORD_MAXLENGTH;
-			TCHAR str[strSize];
-			TCHAR strLine[strSize];
-			size_t lineNumber;
-			intptr_t col;
-			int hasSlash;
+			constexpr int strSize = CURRENTWORD_MAXLENGTH;
+			TCHAR str[strSize]{};
+			TCHAR strLine[strSize]{};
+			size_t lineNumber = 0;
+			intptr_t col = 0;
+			int hasSlash = 0;
 			TCHAR *pTchar = reinterpret_cast<TCHAR *>(lParam);
 
 			_pEditView->getGenericSelectedText(str, strSize); // this is either the selected text, or the word under the cursor if there is no selection
@@ -966,8 +968,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (hasSlash == FALSE)
 			{
 				// it's not a full file name so try to find the beginning and ending of it
-				intptr_t start;
-				intptr_t end;
+				intptr_t start = 0;
+				intptr_t end = 0;
 				const TCHAR *delimiters;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
@@ -1004,8 +1006,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETNPPFULLFILEPATH:
 		case NPPM_GETNPPDIRECTORY:
 		{
-			const int strSize = MAX_PATH;
-			TCHAR str[strSize];
+			constexpr int strSize = MAX_PATH;
+			TCHAR str[strSize]{};
 
 			::GetModuleFileName(NULL, str, strSize);
 
@@ -1222,7 +1224,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DECODESCI:
 		{
 			// convert to ASCII
-			ScintillaEditView *pSci;
+			ScintillaEditView *pSci = nullptr;
 			if (wParam == MAIN_VIEW)
 				pSci = &_mainEditView;
 			else if (wParam == SUB_VIEW)
@@ -1260,7 +1262,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_ENCODESCI:
 		{
 			// convert
-			ScintillaEditView *pSci;
+			ScintillaEditView *pSci = nullptr;
 			if (wParam == MAIN_VIEW)
 				pSci = &_mainEditView;
 			else if (wParam == SUB_VIEW)
@@ -1891,8 +1893,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (notification->nmhdr.code == SCN_UPDATEUI)
 			{
-				checkClipboard(); //6
-				checkUndoState(); //4
+				checkClipboard();
+				checkUndoState();
 			}
 
 			if (wParam == LINKTRIGGERED)
@@ -2982,6 +2984,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			_mainEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
 			_subEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
+
+			enableCommand(IDM_SEARCH_CHANGED_PREV, svp._isChangeHistoryEnabled, MENU);
+			enableCommand(IDM_SEARCH_CHANGED_NEXT, svp._isChangeHistoryEnabled, MENU);
+			enableCommand(IDM_SEARCH_CLEAR_CHANGE_HISTORY, svp._isChangeHistoryEnabled, MENU);
+
 			return TRUE;
 		}
 

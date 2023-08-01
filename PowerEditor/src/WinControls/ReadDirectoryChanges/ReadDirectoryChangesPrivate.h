@@ -26,6 +26,8 @@
 //	http://qualapps.blogspot.com/2010/05/understanding-readdirectorychangesw.html
 //	See ReadMe.txt for overview information.
 
+#include <string>
+
 class CReadDirectoryChanges;
 
 namespace ReadDirectoryChangesPrivate

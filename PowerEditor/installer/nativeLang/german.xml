@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.21"><!-- basiert auf english.xml vom 20.07.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.31"><!-- basiert auf english.xml vom 31.07.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -821,7 +821,6 @@ Translation note:
 					<Item id="21101" name="Standardschrift"/>
 					<Item id="21102" name="Stil …"/>
 					<Item id="21105" name="Dokumentation:"/>
-					<Item id="21104" name="Dokumentation online:"/>
 					<Item id="21106" name="Leerzeilen mit einfalten (kompakte Faltung)"/>
 					<Item id="21220" name="Textblöcke im Code 1:"/>
 					<Item id="21224" name="Anfang:"/>
@@ -1638,18 +1637,14 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
-			<find-status-replaceinfiles-re-malformed value="Ersetzen in geöffneten Dateien: Der Ausdruck ist nicht passend"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
-			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
 			<find-status-search-failed value="Suche: Fehlgeschlagen"/>
 			<find-status-mark-1-match value="Hervorheben: 1 Treffer"/>
 			<find-status-mark-nb-matches value="Hervorheben: $INT_REPLACE$ Treffer"/>
-			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
 			<find-status-count-1-match value="Zähler: 1 Treffer"/>
 			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
-			<find-status-replaceall-re-malformed value="Alle ersetzen: Der Ausdruck ist nicht passend"/>
 			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-replaceall-readonly value="Alle ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>

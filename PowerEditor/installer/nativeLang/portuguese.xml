@@ -812,7 +812,6 @@ Translation note:
 					<Item id="21101" name="Estilo predefinido"/>
 					<Item id="21102" name="Estilizar"/>
 					<Item id="21105" name="Documentação:"/>
-					<Item id="21104" name="Site do doc. temporário:"/>
 					<Item id="21106" name="Dobrar compacto (também dobrar linhas sem dados)"/>
 					<Item id="21220" name="Dobrar no código estilo 1:"/>
 					<Item id="21224" name="Abrir:"/>
@@ -1629,18 +1628,14 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<find-status-end-reached value="Localizar: Encontrada a 1ª ocorrência a partir do início. O final do documento foi alcançado.."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Ficheiros: 1 ocorrência foi substituída"/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em Ficheiros: $INT_REPLACE$ ocorrências foram substituídas"/>
-			<find-status-replaceinfiles-re-malformed value="Substituir em ficheiros abertos: A expressão regular está mal formada"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em ficheiros abertos: 1 ocorrência foi substituída"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Substituir em ficheiros abertos: $INT_REPLACE$ ocorrências foram substituídas"/>
-			<find-status-mark-re-malformed value="Marcar: A expressão regular da pesquisa está mal formada"/>
 			<find-status-invalid-re value="Localizar: Expressão regular inválida"/>
 			<find-status-search-failed value="Localizar: Falha ao pesquisar"/>
 			<find-status-mark-1-match value="Marcar: 1 correspondência"/>
 			<find-status-mark-nb-matches value="Marcar: $INT_REPLACE$ correspondências"/>
-			<find-status-count-re-malformed value="Total: A expressão regular da pesquisa está mal formada"/>
 			<find-status-count-1-match value="Total: 1 correspondência"/>
 			<find-status-count-nb-matches value="Total: $INT_REPLACE$ correspondências"/>
-			<find-status-replaceall-re-malformed value="Substituir tudo: A expressão regular está mal formada"/>
 			<find-status-replaceall-1-replaced value="Substituir tudo: 1 ocorrência foi substituída"/>
 			<find-status-replaceall-nb-replaced value="Substituir tudo: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-replaceall-readonly value="Substituir tudo: Texto não substituído. O documento é apenas de leitura"/>
@@ -1781,7 +1776,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 10 July 2023 by Hugo Carvalho
+Last modified: 01 August 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

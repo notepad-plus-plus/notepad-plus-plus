@@ -1368,7 +1368,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 			<DoSaveAll title="Bestätigung für 'Alle Dateien speichern'">
 				<Item id="1766" name="Sollen wirklich alle geänderten Dokumente gespeichert werden?
 
-Wählen Sie &quot;Ja, immer&quot; um diesen Dialog nicht mehr anzuzeigen.
+Wählen Sie &quot;Immer Ja&quot; um diesen Dialog nicht mehr anzuzeigen.
 Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nein"/>

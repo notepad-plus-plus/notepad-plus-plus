@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <!--
     History of Polish translation for Notepad++:
 
-        - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.3 (08.05.2023)
+        - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.5 (02.08.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 
@@ -13,7 +15,7 @@ The comments are here for explanation, it's not necessary to translate them.
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.5.3">
+	<Native-Langue name="polski" filename="polish.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -47,6 +49,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="edit-blankOperations" name="Działania na białych znakach"/>
 					<Item subMenuId="edit-pasteSpecial" name="Wklej specjalnie"/>
 					<Item subMenuId="edit-onSelection" name="Z zaznaczenia"/>
+					<Item subMenuId="search-changeHistory" name="Historia zmian"/>
 					<Item subMenuId="search-markAll" name="Wyróżnij każde"/>
 					<Item subMenuId="search-markOne" name="Wyróżnij jedno"/>
 					<Item subMenuId="search-unmarkAll" name="Usuń wyróżnienia"/>
@@ -82,7 +85,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="language-userDefinedLanguage" name="Język zdefiniowany przez użytkownika"/>
 					<Item subMenuId="settings-import" name="Importuj"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Sortuj karty względem"/>
 				</SubEntries>
 
@@ -257,6 +262,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43064" name="Wyróżnienie 3."/>
 					<Item id="43065" name="Wyróżnienie 4."/>
 					<Item id="43066" name="Wyróżnienie 5."/>
+					<Item id="43067" name="Przejdź do następnej zmiany"/>
+					<Item id="43068" name="Przejdź do poprzedniej zmiany"/>
+					<Item id="43069" name="Wyczyść historię zmian"/>
 					<Item id="43045" name="Okno wyników wyszukiwania"/>
 					<Item id="43046" name="Następny wynik wyszukiwania"/>
 					<Item id="43047" name="Poprzedni wynik wyszukiwania"/>
@@ -370,6 +378,12 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="48504" name="Generuj..."/>
 					<Item id="48505" name="Generuj z plików..."/>
 					<Item id="48506" name="Generuj z zaznaczenia do schowka"/>
+					<Item id="48507" name="Generuj..."/>
+					<Item id="48508" name="Generuj z plików..."/>
+					<Item id="48509" name="Generuj z zaznaczenia do schowka"/>
+					<Item id="48510" name="Generuj..."/>
+					<Item id="48511" name="Generuj z plików..."/>
+					<Item id="48512" name="Generuj z zaznaczenia do schowka"/>
 					<Item id="49000" name="&amp;Uruchom..."/>
 
 					<Item id="50000" name="Uzupełnianie funkcji"/>
@@ -552,16 +566,39 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="2" name="&amp;Zamknij"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Generowanie skrótu SHA-1 z plików">
+				<Item id="1922" name="&amp;Wybierz pliki..."/>
+				<Item id="1924" name="&amp;Kopiuj do schowka"/>
+				<Item id="2" name="&amp;Zamknij"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generowanie skrótu SHA-1">
+				<Item id="1932" name="&amp;Generuj dla każdej linii osobny skrót"/>
+				<Item id="1934" name="&amp;Kopiuj do schowka"/>
+				<Item id="2" name="&amp;Zamknij"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generowanie skrótu SHA-512 z plików">
+				<Item id="1922" name="&amp;Wybierz pliki..."/>
+				<Item id="1924" name="&amp;Kopiuj do schowka"/>
+				<Item id="2" name="&amp;Zamknij"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generowanie skrótu SHA-512">
+				<Item id="1932" name="&amp;Generuj dla każdej linii osobny skrót"/>
+				<Item id="1934" name="Co&amp;py to Clipboard"/>
+				<Item id="2" name="&amp;Close"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable="Dostępne" titleUpdates="Aktualizacje" titleInstalled="Zainstalowane" titleIncompatible="Niekompatybilne">
 				<ColumnPlugin name="Wtyczka"/>
 				<ColumnVersion name="Wersja"/>
-				<Item id="5501" name="Wyszukaj:"/>
-				<Item id="5503" name="Instaluj"/>
-				<Item id="5504" name="Aktualizuj"/>
-				<Item id="5505" name="Usuń"/>
-				<Item id="5508" name="Następna"/>
+				<Item id="5501" name="&amp;Wyszukaj:"/>
+				<Item id="5503" name="&amp;Instaluj"/>
+				<Item id="5504" name="&amp;Aktualizuj"/>
+				<Item id="5505" name="&amp;Usuń"/>
+				<Item id="5508" name="&amp;Następna"/>
 				<Item id="2" name="Zamknij"/>
-				<Item id="5509" name="Wersja listy wtyczek: "/>
+				<Item id="5509" name="Wersja listy wtyczek:"/>
 				<Item id="5511" name="Repozytorium z listą wtyczek"/>
 			</PluginsAdminDlg>
 
@@ -785,7 +822,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="21101" name="Domyślny styl"/>
 					<Item id="21102" name="Stylizuj"/>
 					<Item id="21105" name="Dokumentacja"/>
-					<Item id="21104" name="Tymczasowa strona dok.:"/>
 					<Item id="21106" name="Zawijaj &amp;zwięźle (również puste linie)"/>
 					<Item id="21220" name="Styl zawijania kodu nr 1"/>
 					<Item id="21224" name="Otwarcie:"/>
@@ -921,21 +957,22 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6108" name="Zablokowany (bez przeciągania)"/>
 					<Item id="6109" name="Przyciemniaj nieaktywne karty"/>
 					<Item id="6110" name="Pokazuj kolorową belkę na aktywnej karcie"/>
-
-					<Item id="6111" name="Pokazuj pasek stanu"/>
 					<Item id="6112" name="Pokazuj przycisk zamknięcia na kartach"/>
 					<Item id="6113" name="Podwójne kliknięcie zamyka kartę"/>
 					<Item id="6118" name="Ukryty"/>
 					<Item id="6119" name="Wieloliniowy"/>
 					<Item id="6120" name="Pionowy"/>
 					<Item id="6121" name="Zamknięcie ostatniej karty zamyka Notepad++"/>
+					<Item id="6128" name="Alternatywne ikony"/>
+
+					<Item id="6133" name="Pasek stanu"/>
+					<Item id="6134" name="Ukryj"/>
 
 					<Item id="6131" name="Pasek menu"/>
 					<Item id="6122" name="Ukryj pasek menu (Alt lub F10 przełączają)"/>
 					<Item id="6132" name="Ukryj przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu (wymagany restart Notepad++)"/>
-					<Item id="6123" name="Język interfejsu:"/>
 
-					<Item id="6128" name="Alternatywne ikony"/>
+					<Item id="6123" name="Język interfejsu"/>
 				</Global>
 				<Scintillas title="Edycja">
 					<Item id="6216" name="Kursor"/>
@@ -1037,6 +1074,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
 					<Item id="6411" name="Domyślny język:"/>
 					<Item id="6419" name="Nowy dokument"/>
 					<Item id="6420" name="Stosuj do otwartych plików ANSI"/>
+					<Item id="6432" name="Zawsze otwieraj dodatkowy nowy dokument podczas uruchamiania"/>
 				</NewDoc>
 
 				<DefaultDir title="Domyślna ścieżka">
@@ -1292,7 +1330,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
 				<Item id="2033" name="Wstaw liczb&amp;y"/>
 				<Item id="2030" name="Z&amp;acznij od:"/>
 				<Item id="2031" name="Z&amp;większaj o:"/>
-				<Item id="2038" name="&amp;Poprzedzaj :"/>
+				<Item id="2038" name="&amp;Poprzedzaj:"/>
 				<ComboBox id="2039">
 					<Element name="Brak"/>
 					<Element name="Zerami"/>
@@ -1311,7 +1349,7 @@ Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych lic
 				<Item id="1" name="Znajdź wszystko"/>
 				<Item id="2" name="Zamknij"/>
 				<Item id="1711" name="Szukany &amp;tekst:"/>
-				<Item id="1713" name="Szukaj tylko wśród znalezionych wierszy"/>
+				<Item id="1713" name="&amp;Szukaj tylko wśród znalezionych wierszy"/>
 				<Item id="1714" name="Znajdź tylko &amp;całe wyrazy"/>
 				<Item id="1715" name="Uwzględnij &amp;wielkość liter"/>
 				<Item id="1716" name="Tryb szukania"/>
@@ -1335,7 +1373,7 @@ Wybierz „Zawsze tak”, jeśli nie chcesz widzieć tego pytania ponownie.
 W oknie ustawień możesz przywrócić to potwierdzenie w dowolnym momencie."/>
 				<Item id="6" name="&amp;Tak"/>
 				<Item id="7" name="&amp;Nie"/>
-				<Item id="4" name="Zawsze tak"/>
+				<Item id="4" name="&amp;Zawsze tak"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
@@ -1600,18 +1638,14 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<find-status-end-reached value="Szukanie: Plik przeszukano do dołu. Znaleziono 1. wystąpienie od góry."/>
 			<find-status-replaceinfiles-1-replaced value="Zamienianie w plikach: Zamieniono 1 wystąpienie"/>
 			<find-status-replaceinfiles-nb-replaced value="Liczba zamienionych wystąpień w plikach: $INT_REPLACE$"/>
-			<find-status-replaceinfiles-re-malformed value="Zamienianie w otwartych plikach: Wyrażenie jest zniekształcone"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Zamienianie w otwartych plikach: Zamieniono 1 wystąpienie"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Liczba zamienionych wystąpień w otwartych plikach: $INT_REPLACE$"/>
-			<find-status-mark-re-malformed value="Oznaczanie: Wyrażenie jest zniekształcone"/>
 			<find-status-invalid-re value="Szukanie: Nieprawidłowe wyrażenie"/>
 			<find-status-search-failed value="Szukanie: Nie powiodło się"/>
 			<find-status-mark-1-match value="Oznaczanie: 1 trafienie"/>
 			<find-status-mark-nb-matches value="Liczba trafnych oznaczeń: $INT_REPLACE$"/>
-			<find-status-count-re-malformed value="Wystąpienia: Wyrażenie jest zniekształcone"/>
 			<find-status-count-1-match value="Wystąpienia: 1 trafienie"/>
 			<find-status-count-nb-matches value="Liczba trafnych wystąpień: $INT_REPLACE$"/>
-			<find-status-replaceall-re-malformed value="Zamienianie wszystkiego: Wyrażenie jest zniekształcone"/>
 			<find-status-replaceall-1-replaced value="Zamienianie wszystkiego: Zamieniono 1 wystąpienie"/>
 			<find-status-replaceall-nb-replaced value="Liczba wszystkich zamienionych wystąpień: $INT_REPLACE$"/>
 			<find-status-replaceall-readonly value="Zamienianie wszystkiego: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
@@ -1727,3 +1761,4 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+

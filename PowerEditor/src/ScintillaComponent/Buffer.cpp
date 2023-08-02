@@ -1329,7 +1329,7 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
-BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)
+BufferID FileManager::bufferFromDocument(Document doc)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	generic_string newTitle = (nppParamInst.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
@@ -1337,8 +1337,6 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
 	newTitle += nb;
 
-	if (!dontRef)
-		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 	BufferID id = newBuf;
 	newBuf->_id = id;
@@ -1347,8 +1345,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 
-	if (!dontIncrease)
-		++_nextBufferID;
+	++_nextBufferID;
 	return id;
 }
 

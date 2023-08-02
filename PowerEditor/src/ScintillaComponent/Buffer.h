@@ -87,10 +87,9 @@ public:
 
 	BufferID loadFile(const TCHAR * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const TCHAR *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
-	//create Buffer from existing Scintilla, used from new Scintillas. If dontIncrease = true, then the new document number isnt increased afterwards.
-	//usefull for temporary but neccesary docs
-	//If dontRef = false, then no extra reference is added for the doc. Its the responsibility of the caller to do so
-	BufferID bufferFromDocument(Document doc,  bool dontIncrease = false, bool dontRef = false);
+
+	//create Buffer from existing Scintilla, used from new Scintillas.
+	BufferID bufferFromDocument(Document doc);
 
 	BufferID getBufferFromName(const TCHAR * name);
 	BufferID getBufferFromDocument(Document doc);

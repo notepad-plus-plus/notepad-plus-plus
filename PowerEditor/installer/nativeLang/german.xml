@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.07.31"><!-- basiert auf english.xml vom 31.07.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.08.03"><!-- basiert auf english.xml vom 31.07.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1368,7 +1368,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 			<DoSaveAll title="Bestätigung für 'Alle Dateien speichern'">
 				<Item id="1766" name="Sollen wirklich alle geänderten Dokumente gespeichert werden?
 
-Wählen Sie &quot;Ja, immer&quot; um diesen Dialog nicht mehr anzuzeigen.
+Wählen Sie &quot;Immer Ja&quot; um diesen Dialog nicht mehr anzuzeigen.
 Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nein"/>

@@ -89,7 +89,7 @@ public:
 	BufferID newEmptyDocument();
 
 	//create Buffer from existing Scintilla, used from new Scintillas.
-	BufferID bufferFromDocument(Document doc);
+	BufferID bufferFromDocument(Document doc, bool isMainEditZone);
 
 	BufferID getBufferFromName(const TCHAR * name);
 	BufferID getBufferFromDocument(Document doc);

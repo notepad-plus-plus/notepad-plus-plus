@@ -50,6 +50,8 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
+#define MAIN_EDIT_ZONE true
+
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02
@@ -278,8 +280,8 @@ private:
     DocTabView* _pDocTab = nullptr;
 	DocTabView* _pNonDocTab = nullptr;
 
-    ScintillaEditView _subEditView;
-    ScintillaEditView _mainEditView;
+    ScintillaEditView _subEditView = ScintillaEditView(MAIN_EDIT_ZONE);  // only _mainEditView and _subEditView are MAIN_EDIT_ZONE comparing with other Scintilla controls
+    ScintillaEditView _mainEditView = ScintillaEditView(MAIN_EDIT_ZONE); // only _mainEditView and _subEditView are MAIN_EDIT_ZONE comparing with other Scintilla controls
 	ScintillaEditView _invisibleEditView; // for searches
 	ScintillaEditView _fileEditView;      // for FileManager
     ScintillaEditView* _pEditView = nullptr;

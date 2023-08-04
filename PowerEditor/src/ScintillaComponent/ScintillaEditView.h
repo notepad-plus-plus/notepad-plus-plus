@@ -309,6 +309,11 @@ public:
 	ScintillaEditView(): Window() {
 		++_refCount;
 	};
+	
+	ScintillaEditView(bool isMainEditZone) : Window() {
+		_isMainEditZone = isMainEditZone;
+		++_refCount;
+	};
 
 	virtual ~ScintillaEditView()
 	{
@@ -782,6 +787,7 @@ protected:
 	static LRESULT CALLBACK scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
+	bool _isMainEditZone = false;
 	SCINTILLA_FUNC _pScintillaFunc = nullptr;
 	SCINTILLA_PTR  _pScintillaPtr = nullptr;
 	static WNDPROC _scintillaDefaultProc;

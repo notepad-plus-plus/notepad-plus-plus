@@ -1332,7 +1332,8 @@ BufferID FileManager::newEmptyDocument()
 BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
-	std::wstring newTitle = L"new";
+	std::wstring newTitle = L"newNonMainEditZoneInvisibleTitle "; // This title is invisible for "Document map", "Find result" or other Scintilla controls other than _mainEditView and _subEditView.
+                                                                  // Its strong length and the space at the end are for preventing the tab name modification from the collision with it.
 
 	if (isMainEditZone) // only _mainEditView or _subEditView is main edit zone, so we count new number of doc only for these 2 scintilla edit views.
 	{

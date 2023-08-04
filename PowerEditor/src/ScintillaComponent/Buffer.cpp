@@ -1332,10 +1332,12 @@ BufferID FileManager::newEmptyDocument()
 BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
-	generic_string newTitle = (nppParamInst.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+	std::wstring newTitle = L"new";
+
 	if (isMainEditZone) // only _mainEditView or _subEditView is main edit zone, so we count new number of doc only for these 2 scintilla edit views.
 	{
-		TCHAR nb[10];
+		newTitle = (nppParamInst.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+		wchar_t nb[10];
 		wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
 		newTitle += nb;
 	}

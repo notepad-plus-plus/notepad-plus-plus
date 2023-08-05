@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 9 June 2023 by Elvis Gambiraža (el.gambo@gmail.com)
-
+	Updated 5 August 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.4">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -40,6 +39,7 @@
 					<Item subMenuId="edit-blankOperations" name="&amp;Praznine"/>
 					<Item subMenuId="edit-pasteSpecial" name="Um&amp;etanje posebno"/>
 					<Item subMenuId="edit-onSelection" name="&amp;Označeni tekst"/>
+					<Item subMenuId="search-changeHistory" name="Povijest promjena"/>
 					<Item subMenuId="search-markAll" name="Ozna&amp;či stilom sva pojavljivanja"/>
 					<Item subMenuId="search-markOne" name="Označi stilom &amp;jednom"/>
 					<Item subMenuId="search-unmarkAll" name="Poni&amp;šti oznake stilom"/>
@@ -72,10 +72,12 @@
 					<Item subMenuId="encoding-turkish" name="Turski"/>
 					<Item subMenuId="encoding-westernEuropean" name="Zapadna Europa"/>
 					<Item subMenuId="encoding-vietnamese" name="Vijetnamski"/>
-					<Item subMenuId="language-userDefinedLanguage" name="Korisnički definirani jezik"/>
+					<Item subMenuId="language-userDefinedLanguage" name="Korisnički &amp;definirani jezik"/>
 					<Item subMenuId="settings-import" name="&amp;Uvoz"/>
 					<Item subMenuId="tools-md5" name="&amp;MD5"/>
-					<Item subMenuId="tools-sha256" name="&amp;SHA-256"/>
+					<Item subMenuId="tools-sha1" name="SHA-&amp;1"/>
+					<Item subMenuId="tools-sha256" name="SHA-&amp;256"/>
+					<Item subMenuId="tools-sha512" name="SHA-&amp;512"/>
 					<Item subMenuId="window-sortby" name="&amp;Sortiraj prema"/>
 				</SubEntries>
 
@@ -250,6 +252,9 @@
 					<Item id="43064" name="Koristi &amp;3. stil"/>
 					<Item id="43065" name="Koristi &amp;4. stil"/>
 					<Item id="43066" name="Koristi &amp;5. stil"/>
+					<Item id="43067" name="Idi na sljedeću promjenu"/>
+					<Item id="43068" name="Idi na prethodnu promjenu"/>
+					<Item id="43069" name="Isprazni povijest promjena"/>
 					<Item id="43045" name="Prozor rezultata pretraži&amp;vanja"/>
 					<Item id="43046" name="&amp;Sljedeći rezultat pretraživanja"/>
 					<Item id="43047" name="Prethod&amp;ni rezultat pretraživanja"/>
@@ -371,6 +376,12 @@
 					<Item id="48504" name="&amp;Generiraj..."/>
 					<Item id="48505" name="Generiraj iz &amp;datoteka..."/>
 					<Item id="48506" name="Generiraj iz &amp;izbora u međuspremnik"/>
+					<Item id="48507" name="Generiraj..."/>
+					<Item id="48508" name="Generiraj iz datoteka..."/>
+					<Item id="48509" name="Generiraj iz izbora u međuspremnik"/>
+					<Item id="48510" name="Generiraj..."/>
+					<Item id="48511" name="Generiraj iz datoteka..."/>
+					<Item id="48512" name="Generiraj iz izbora u međuspremnik"/>
 					<Item id="49000" name="&amp;Pokreni..."/>
 
 					<Item id="50000" name="Dopuna &amp;funkcija"/>
@@ -554,6 +565,29 @@
 				<Item id="2" name="&amp;Zatvori"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Generiraj SHA-1 certifikat iz datoteka">
+				<Item id="1922" name="Izaberi datoteke za izračun SHA-1..."/>
+				<Item id="1924" name="&amp;Kopiraj u međuspremnik"/>
+				<Item id="2" name="&amp;Zatvori"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generiraj SHA-1 certifikat">
+				<Item id="1932" name="&amp;Tretiraj svaki redak kao posebni string"/>
+				<Item id="1934" name="&amp;Kopiraj u međuspremnik"/>
+				<Item id="2" name="&amp;Zatvori"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generiraj SHA-512 certifikat iz datoteka">
+				<Item id="1922" name="Izaberi datoteke za izračun SHA-512..."/>
+				<Item id="1924" name="&amp;Kopiraj u međuspremnik"/>
+				<Item id="2" name="&amp;Zatvori"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generiraj SHA-512 certifikat">
+				<Item id="1932" name="&amp;Tretiraj svaki redak kao posebni string"/>
+				<Item id="1934" name="&amp;Kopiraj u međuspremnik"/>
+				<Item id="2" name="&amp;Zatvori"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Uređivanje dodataka" titleAvailable="Dostupno" titleUpdates="Ažuriranja" titleInstalled="Instalirano" titleIncompatible="Nekompatibilno">
 				<ColumnPlugin name="Dodatak"/>
 				<ColumnVersion name="Verzija"/>
@@ -787,7 +821,6 @@
 					<Item id="21101" name="Zadani stil:"/>
 					<Item id="21102" name="Stilovi"/>
 					<Item id="21105" name="Dokumentacija"/>
-					<Item id="21104" name="Privremeni site s dokumentacijom:"/>
 					<Item id="21106" name="Smotaj &amp;kompaktno (smotaj i prazne retke)"/>
 					<Item id="21220" name="Smotati kod u 1. stilu"/>
 					<Item id="21224" name="Otvaranje:"/>
@@ -914,8 +947,8 @@
 					<Item id="6102" name="Sakrij"/>
 					<Item id="6103" name="Fluent UI ikone: male"/>
 					<Item id="6104" name="Fluent UI ikone: velike"/>
-					<Item id="6129" name="Pune fluent UI ikone: male"/>
-					<Item id="6130" name="Pune fluent UI ikone: velike"/>
+					<Item id="6129" name="Fluent UI ikone: ispunjene male"/>
+					<Item id="6130" name="Fluent UI ikone: ispunjene velike"/>
 					<Item id="6105" name="Klasične ikone: male"/>
 
 					<Item id="6106" name="Vrpca s kartičnim jezičcima"/>
@@ -923,7 +956,6 @@
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
 					<Item id="6109" name="Zatamni neaktivne jezičke"/>
 					<Item id="6110" name="Vrh aktivnog jezička u boji"/>
-					<Item id="6111" name="Prikaži statusnu vrpcu"/>
 					<Item id="6112" name="Gumb zatvaranja na svakom jezičku"/>
 					<Item id="6113" name="Zatvori dokument dvoklikom"/>
 					<Item id="6118" name="Sakrij"/>
@@ -939,7 +971,7 @@
 					<Item id="6122" name="Sakrij izborničku vrpcu (za prikaz koristite Alt ili F10)"/>
 					<Item id="6132" name="Sakrij prečace ＋ ▼ ✕ s desne strane izborničke vrpce (potreban je restart Notepada++)"/>
 
-					<Item id="6123" name="Jezik sučelja:"/>
+					<Item id="6123" name="Lokalizacija:"/>
 				</Global>
 				<Scintillas title="Uređivanje">
 					<Item id="6216" name="Postavke kursora"/>
@@ -1365,6 +1397,7 @@ Nastaviti?"/><!-- HowToReproduce: when you openned file is modified and saved, t
 			<FileLockedWarning title="Neuspjelo spremanje" message="Molim provjerite da ta datoteka nije otvorena u nekom drugom programu"/>
 			<FileAlreadyOpenedInNpp title="" message="Ta datoteka je već otvorena u Notepadu++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Neuspjelo preimenovanje" message="To ime je već u upotrebi u drugoj kartici."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Neuspjelo preimenovanje" message="Ime ne može biti prazno, odnosno ne može sadržavati samo razmak(e) ili tab(ove)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Neuspjelo brisanje" message="Brisanje datoteke nije uspjelo"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Broj datoteka za otvaranje je prevelik" message="$INT_REPLACE$ datoteka će se otvoriti.
@@ -1611,18 +1644,14 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<find-status-end-reached value="Pronađi: Nađeno prvo pojavljivanje od vrha. Dostignut je kraj dokumenta."/>
 			<find-status-replaceinfiles-1-replaced value="Zamijeni u datotekama: 1 podudaranje je zamijenjeno"/>
 			<find-status-replaceinfiles-nb-replaced value="Zamijeni u datotekama: $INT_REPLACE$ podudaranja je zamijenjeno"/>
-			<find-status-replaceinfiles-re-malformed value="Zamijeni u otvorenim datotekama: Regularni izraz je loše formiran"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Zamijeni u otvorenim datotekama: 1 podudaranje je zamijenjeno"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Zamijeni u otvorenim datotekama: $INT_REPLACE$ podudaranja je zamijenjeno"/>
-			<find-status-mark-re-malformed value="Označi: Regularni izraz za pretraživanje je loše formiran"/>
 			<find-status-invalid-re value="Pronađi: Pogrešan regularni izraz"/>
 			<find-status-search-failed value="Pronađi: Pretraživanje nije uspjelo"/>
 			<find-status-mark-1-match value="Označi: 1 podudaranje"/>
 			<find-status-mark-nb-matches value="Označi: $INT_REPLACE$ podudaranja"/>
-			<find-status-count-re-malformed value="Brojanje: Regularni izraz za pretraživanje je loše formiran"/>
 			<find-status-count-1-match value="Brojanje: 1 podudaranje"/>
 			<find-status-count-nb-matches value="Brojanje: $INT_REPLACE$ podudaranja"/>
-			<find-status-replaceall-re-malformed value="Zamijeni sve: Regularni izraz je loše formiran"/>
 			<find-status-replaceall-1-replaced value="Zamijeni sve: 1 podudaranje je zamijenjeno"/>
 			<find-status-replaceall-nb-replaced value="Zamijeni sve: $INT_REPLACE$ podudaranja je zamijenjeno"/>
 			<find-status-replaceall-readonly value="Zamijeni sve: Ne mogu zamijeniti tekst. Trenutni dokument je samo za čitanje"/>

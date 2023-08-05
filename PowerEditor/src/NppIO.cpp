@@ -1909,6 +1909,14 @@ bool Notepad_plus::fileRename(BufferID id)
 					L"Rename failed",
 					MB_OK | MB_ICONSTOP);
 			}
+			else if (tabNewNameStr.empty())
+			{
+				_nativeLangSpeaker.messageBox("RenameTabTemporaryNameIsEmpty",
+					_pPublicInterface->getHSelf(),
+					L"The specified name cannot be empty, or it cannot contain only space(s) or TAB(s).",
+					L"Rename failed",
+					MB_OK | MB_ICONSTOP);
+			}
 			else
 			{
 				success = true;

@@ -1316,6 +1316,8 @@
 			<DocReloadWarning title="重新載入" message="你確定要重新載入目前文件，並捨棄在 Notepad++ 中所做的修改嗎？"/>
 			<FileLockedWarning title="儲存失敗" message="請檢查其他應用程式是否已開啟此檔案。"/>
 			<FileAlreadyOpenedInNpp title="已開啟" message="這個檔案已在 Notepad++ 中開啟。"/>
+			<RenameTabTemporaryNameAlreadyInUse title="命名失敗" message="指定的名稱已在另一個頁籤上使用。"/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="命名失敗" message="指定的名稱不能為空字串，或者不能只包含空白字元。"/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="刪除失敗" message="檔案刪除失敗。"/>
 			<NbFileToOpenImportantWarning title="開啟檔案" message="你確定要開啟全數 $INT_REPLACE$ 個檔案嗎？"/>
 			<SettingsOnCloudError title="雲端設定" message="設定的雲端路徑位於一個唯讀的磁碟或未擁有寫入權限的資料夾，因此你的「雲端」設定將被清除。

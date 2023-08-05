@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 31 Jul 2023, for Notepad++ 8.5.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 05 Aug 2023, for Notepad++ 8.5.5
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1382,6 +1382,7 @@ Deseja continuar?"/><!-- HowToReproduce: when you openned file is modified and s
 			<FileLockedWarning title="Falha ao salvar" message="Por favor, verifique se este arquivo está aberto em outro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="O arquivo já está aberto no Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Falha ao renomear" message="O nome especificado já está em uso em outra aba."/>
+			<RenameTabTemporaryNameIsEmpty title="Falha ao renomear" message="O nome especificado não pode estar vazio, ou não pode conter apenas espaço(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white spaces. -->
 			<DeleteFileFailed title="Excluir Arquivo" message="Falha ao excluir arquivo"/>
 
 			<NbFileToOpenImportantWarning title="A quantidade de arquivos a serem abertos é muito grande" message="$INT_REPLACE$ arquivos estão prestes a serem abertos.

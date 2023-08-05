@@ -1383,6 +1383,7 @@ Continue?"/><!-- HowToReproduce: when you openned file is modified and saved, th
 			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
 			<FileAlreadyOpenedInNpp title="" message="The file is already opened in Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Rename failed" message="The specified name is already in use on another tab."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Rename failed" message="The specified name cannot be empty, or it cannot contain only space(s) or TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Delete File" message="Delete File failed"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.

@@ -1866,10 +1866,10 @@ bool Notepad_plus::fileRename(BufferID id)
 		fDlg.setFolder(buf->getFullPathName());
 		fDlg.setDefFileName(buf->getFileName());
 
-		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", TEXT("Rename"));
+		std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", L"Rename");
 		fDlg.setTitle(title.c_str());
 
-		generic_string fn = fDlg.doSaveDlg();
+		std::wstring fn = fDlg.doSaveDlg();
 
 		if (!fn.empty())
 			success = MainFileManager.moveFile(bufferID, fn.c_str());
@@ -1883,37 +1883,48 @@ bool Notepad_plus::fileRename(BufferID id)
 		// Reserved characters: < > : " / \ | ? *
 		std::wstring reservedChars = TEXT("<>:\"/\\|\?*");
 
-		generic_string staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", TEXT("New name"));
+		std::wstring staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", L"New name");
 
 		StringDlg strDlg;
-		generic_string title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", TEXT("Rename Current Tab"));
+		std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", L"Rename Current Tab");
 		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, reservedChars.c_str(), true);
 
-		TCHAR *tabNewName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
+		wchar_t *tabNewName = reinterpret_cast<wchar_t *>(strDlg.doDialog());
 		if (tabNewName)
 		{
-			BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewName);
+			std::wstring tabNewNameStr = tabNewName;
+			trim(tabNewNameStr); // No leading and tailing space allowed
+
+			BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewNameStr.c_str());
 			if (sameNamedBufferId == BUFFER_INVALID)
 			{
-				sameNamedBufferId = _pNonDocTab->findBufferByName(tabNewName);
+				sameNamedBufferId = _pNonDocTab->findBufferByName(tabNewNameStr.c_str());
 			}
 			
 			if (sameNamedBufferId != BUFFER_INVALID)
 			{
 				_nativeLangSpeaker.messageBox("RenameTabTemporaryNameAlreadyInUse",
 					_pPublicInterface->getHSelf(),
-					TEXT("The specified name is already in use on another tab."),
-					TEXT("Rename failed"),
+					L"The specified name is already in use on another tab.",
+					L"Rename failed",
+					MB_OK | MB_ICONSTOP);
+			}
+			else if (tabNewNameStr.empty())
+			{
+				_nativeLangSpeaker.messageBox("RenameTabTemporaryNameIsEmpty",
+					_pPublicInterface->getHSelf(),
+					L"The specified name cannot be empty, or it cannot contain only space(s) or TAB(s).",
+					L"Rename failed",
 					MB_OK | MB_ICONSTOP);
 			}
 			else
 			{
 				success = true;
-				buf->setFileName(tabNewName);
+				buf->setFileName(tabNewNameStr.c_str());
 				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 				{
-					generic_string oldBackUpFile = buf->getBackupFileName();
+					std::wstring oldBackUpFile = buf->getBackupFileName();
 
 					// Change the backup file name and let MainFileManager decide the new filename
 					buf->setBackupFileName(TEXT(""));

@@ -1380,6 +1380,7 @@ Continuer ?"/><!-- HowToReproduce: when you opened file is modified and saved, t
 			<FileLockedWarning title="Échec de la sauvegarde" message="Veuillez vérifier si ce fichier est ouvert par un autre programme"/>
 			<FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Échec du renommage" message="Le nom spécifié est déjà utilisé dans un autre onglet."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Échec du renommage" message="Le nom spécifié ne peut pas être vide, ou il ne peut pas contenir uniquement des espaces ou des tabulations."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Nombre de fichiers à ouvrir trop grand." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts.

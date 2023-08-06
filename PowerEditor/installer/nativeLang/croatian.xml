@@ -1397,6 +1397,7 @@ Nastaviti?"/><!-- HowToReproduce: when you openned file is modified and saved, t
 			<FileLockedWarning title="Neuspjelo spremanje" message="Molim provjerite da ta datoteka nije otvorena u nekom drugom programu"/>
 			<FileAlreadyOpenedInNpp title="" message="Ta datoteka je već otvorena u Notepadu++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Neuspjelo preimenovanje" message="To ime je već u upotrebi u drugoj kartici."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Neuspjelo preimenovanje" message="Ime ne može biti prazno, odnosno ne može sadržavati samo razmak(e) ili tab(ove)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Neuspjelo brisanje" message="Brisanje datoteke nije uspjelo"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Broj datoteka za otvaranje je prevelik" message="$INT_REPLACE$ datoteka će se otvoriti.

@@ -1382,6 +1382,7 @@ Pokračovať?"/>
 			<FileLockedWarning title="Uloženie zlyhalo" message="Skontrolujte, prosím, či súbor nie je otvorený v inom programe."/>
 			<FileAlreadyOpenedInNpp title="" message="Súbor je už otvorený v programe Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Premenovanie zlyhalo" message="Tento názov je už použitý pre inú kartu."/>
+			<RenameTabTemporaryNameIsEmpty title="Premenovanie zlyhalo" message="Názov nemôže byť prázdny alebo nesmie obsahovať iba medzeru(-y) alebo tabulátor(-y)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Odstrániť súbor" message="Odstránenie súboru zlyhalo."/>
 
 			<NbFileToOpenImportantWarning title="Príliš veľa súborov k otvoreniu" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.

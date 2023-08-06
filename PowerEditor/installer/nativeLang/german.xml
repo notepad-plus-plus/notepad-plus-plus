@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.08.03"><!-- basiert auf english.xml vom 31.07.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.08.05"><!-- basiert auf english.xml vom 04.08.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1392,6 +1392,7 @@ Fortfahren?"/><!-- HowToReproduce: when you openned file is modified but unsaved
 			<FileLockedWarning title="Speichern fehlgeschlagen!" message="Datei konnte von Notepad++ nicht gespeichert werden. &#x0A;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
 			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Umbenennen fehlgeschlagen!" message="Der angegebene Name wird bereits in einem anderen Tab verwendet."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Umbenennen fehlgeschlagen!" message="Der angegebene Name darf nicht leer sein oder nur Leerzeichen oder nur TAB's enthalten."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
 
 			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.

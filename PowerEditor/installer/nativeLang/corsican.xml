@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
-			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5)
+			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.5)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -1263,7 +1263,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="6161" name="Lista di caratteri delimitatori di parolla"/>
 					<Item id="6162" name="Impiegà a lista predefinita di caratteri delimitatori di parolla tale è quale"/>
 					<Item id="6163" name="Aghjunghje u vostru caratteru cum’è una parte di parolla
-(solu s’è voi site sicuri di ciò chì voi fate)"/>
+(sciglite què solu s’è vo sapete ciò chì vo fate)"/>
 				</Delimiter>
 
 				<Performance title="Perfurmenze">
@@ -1409,6 +1409,7 @@ Cuntinuà ?"/><!-- HowToReproduce: when you opened file is modified and saved, 
 			<FileLockedWarning title="Arregistramentu fiascatu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>
 			<FileAlreadyOpenedInNpp title="" message="U schedariu hè dighjà apertu in Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Rinuminazione fiascata" message="U nome specificatu hè dighjà impiegatu in un’altra unghjetta."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Fiascu per cambià u nome" message="U nome specificatu ùn pò micca esse viotu, o ùn pò micca cuntene solu spaziu(i) o tabulazione(i)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white spaces. -->
 			<DeleteFileFailed title="Squassatura di schedariu" message="Fiascu di a squassatura di u schedariu"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii stanu per esse aperti.

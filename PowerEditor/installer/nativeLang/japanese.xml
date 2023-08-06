@@ -1392,6 +1392,7 @@ Translation note:
 			<FileLockedWarning title="警告: 保存失敗" message="このファイルを別のプログラムで開いていないか確認してください。"/>
 			<FileAlreadyOpenedInNpp title="" message="そのファイルは既にNotepad++で開かれています。"/>
 			<RenameTabTemporaryNameAlreadyInUse title="名前の変更に失敗" message="指定された名前は、ほかのタブで使用されています。"/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="名前の変更に失敗" message="名前が指定されなかったか、半角スペースやタブ文字だけの名前でした。"/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="削除失敗" message="ファイルの削除に失敗しました。"/>
 
 			<NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。

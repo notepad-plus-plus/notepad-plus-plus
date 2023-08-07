@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 10.07.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 07.08.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -1595,10 +1595,8 @@
 			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
 			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: Заменено е 1 повторение"/>
 			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: Заменени са $INT_REPLACE$ повторения"/>
-			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: Регулярният израз е неправилно формиран"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: Заменено е 1 повторение"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: Заменени са $INT_REPLACE$ повторения"/>
-			<find-status-replaceall-re-malformed value="Замяна на всичко: Регулярният израз е неправилно формиран"/>
 			<find-status-replaceall-1-replaced value="Замяна на всичко: Заменено е 1 повторение"/>
 			<find-status-replaceall-nb-replaced value="Замяна на всичко: Заменени са $INT_REPLACE$ повторения"/>
 			<find-status-replaceall-readonly value="Замяна на всичко: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
@@ -1609,10 +1607,8 @@
 			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 повторение. Не бяха намерени повече повторения"/>
 			<find-status-replace-not-found value="Замяна: Не е намерено повторение"/>
 			<find-status-replace-readonly value="Замяна: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
-			<find-status-mark-re-malformed value="Маркиране: Регулярният израз за търсене е неправилно формиран"/>
 			<find-status-mark-1-match value="Маркиране: 1 повторение"/>
 			<find-status-mark-nb-matches value="Маркиране: $INT_REPLACE$ повторения"/>
-			<find-status-count-re-malformed value="Брой: Регулярният израз за търсене е неправилно формиран"/>
 			<find-status-count-1-match value="Брой повторения: 1"/>
 			<find-status-count-nb-matches value="Брой повторения: $INT_REPLACE$"/>
 			<find-status-scope-selection value="в избраният текст"/>
@@ -1810,6 +1806,7 @@ U+FEFF : пространство с нулева ширина без прекъ
 			<FileLockedWarning title="Неуспешно записване" message="Проверете дали файлът не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Преименуването е неуспешно" message="Посоченото име вече се използва в друг раздел"/>
+			<RenameTabTemporaryNameIsEmpty title="Неуспешно преименуване" message="Името не може да бъде празно и не може да съдържа само интервали или табулации."/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.
 

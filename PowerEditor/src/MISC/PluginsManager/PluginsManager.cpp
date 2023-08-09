@@ -833,6 +833,18 @@ bool PluginsManager::allocateMarker(int numberRequired, int* start)
 	return retVal;
 }
 
+bool PluginsManager::allocateIndicator(int numberRequired, int* start)
+{
+	bool retVal = false;
+	int possibleStart = _indicatorAlloc.allocate(numberRequired);
+	if (possibleStart != -1)
+	{
+		*start = possibleStart;
+		retVal = true;
+	}
+	return retVal;
+}
+
 generic_string PluginsManager::getLoadedPluginNames() const
 {
 	generic_string pluginPaths;

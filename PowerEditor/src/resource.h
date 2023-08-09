@@ -418,6 +418,9 @@
 #define MARKER_PLUGINS          1
 #define MARKER_PLUGINS_LIMIT   15
 
+#define INDICATOR_PLUGINS          9  // indicators 8 and below are reserved by Notepad++ (URL_INDIC=8)
+#define INDICATOR_PLUGINS_LIMIT   20  // indicators 21 and up are reserved by Notepad++ (SCE_UNIVERSAL_FOUND_STYLE_EXT5=21)
+
 
 
 //#define IDM 40000

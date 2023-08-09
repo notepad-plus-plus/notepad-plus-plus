@@ -368,7 +368,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
     // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
-    // sets startNumber to the initial command ID if successful
+    // sets startNumber to the initial marker ID if successful
     // Allocates a marker number to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
 	// it has to use this message to get marker number, in order to prevent from the conflict with the other plugins.
     // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
@@ -591,6 +591,12 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//	}
 	//}
 
+	#define NPPM_ALLOCATEINDICATOR  (NPPMSG + 113)
+	// BOOL NPPM_ALLOCATEINDICATOR(int numberRequested, int* startNumber)
+	// sets startNumber to the initial indicator ID if successful
+	// Allocates an indicator number to a plugin: if a plugin needs to add an indicator,
+	// it has to use this message to get the indicator number, in order to prevent a conflict with the other plugins.
+	// Returns: TRUE if successful, FALSE otherwise.
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

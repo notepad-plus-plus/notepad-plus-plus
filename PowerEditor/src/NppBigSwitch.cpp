@@ -2811,6 +2811,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pluginsManager.allocateMarker(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
 		}
 
+		case NPPM_ALLOCATEINDICATOR:
+		{
+			return _pluginsManager.allocateIndicator(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
+		}
+
 		case NPPM_GETBOOKMARKID:
 		{
 			return MARK_BOOKMARK;

@@ -5,7 +5,7 @@
 2. Tüm yorumlar açıklama içindir, çeviri için değil.
 -->
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.5.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -39,6 +39,7 @@
 					<Item subMenuId="edit-blankOperations" name="Boşluk İşlemleri"/>
 					<Item subMenuId="edit-pasteSpecial" name="Özel Yapıştır"/>
 					<Item subMenuId="edit-onSelection" name="Seçilen Üzerinde"/>
+					<Item subMenuId="search-changeHistory" name="Değişim Geçmişi"/>
 					<Item subMenuId="search-markAll" name="Eşleşen Tüm İşaretleri Stillendir"/>
 					<Item subMenuId="search-markOne" name="Eşleşen İşareti Stillendir"/>
 					<Item subMenuId="search-unmarkAll" name="Stili Temizle"/>
@@ -74,7 +75,9 @@
 					<Item subMenuId="language-userDefinedLanguage" name="Kullanıcı Tanımlı Dil"/>
 					<Item subMenuId="settings-import" name="İçe Aktar"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Sırala"/>
 				</SubEntries>
 
@@ -249,6 +252,9 @@
 					<Item id="43064" name="3. Stili Kullanarak"/>
 					<Item id="43065" name="4. Stili Kullanarak"/>
 					<Item id="43066" name="5. Stili Kullanarak"/>
+					<Item id="43067" name="Sonraki Değişime Git"/>
+					<Item id="43068" name="Önceki Değişime Git"/>
+					<Item id="43069" name="Değişim Geçmişinin Temizle"/>
 					<Item id="43045" name="Arama Sonuçları Penceresi"/>
 					<Item id="43046" name="Sonraki Arama Sonucu"/>
 					<Item id="43047" name="Önceki Arama Sonucu"/>
@@ -362,6 +368,12 @@
 					<Item id="48504" name="Üret..."/>
 					<Item id="48505" name="Dosyalardan Üret..."/>
 					<Item id="48506" name="Seçimlerden Panoya Üret"/>
+					<Item id="48507" name="Üret..."/>
+					<Item id="48508" name="Dosyalardan Üret..."/>
+					<Item id="48509" name="Seçimlerden Panoya Üret"/>
+					<Item id="48510" name="Üret..."/>
+					<Item id="48511" name="Dosyalardan Üret..."/>
+					<Item id="48512" name="Seçimlerden Panoya Üret"/>
 					<Item id="49000" name="&amp;Çalıştır…"/>
 
 					<Item id="50000" name="Fonksiyonu Tamamla"/>
@@ -546,7 +558,30 @@
 				<Item id="1934" name="Panoya Ko&amp;pyala"/>
 				<Item id="2" name="&amp;Kapat"/>
 			</SHA256FromTextDlg>
-	
+			
+			<SHA1FromFilesDlg title="Dosyalardan SHA-1 Özeti Üret">
+				<Item id="1922" name="SHA-1 &amp;üretilecek dosyaları seç..."/>
+				<Item id="1924" name="Panoya Ko&amp;pyala"/>
+				<Item id="2" name="&amp;Kapat"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generate SHA-1 digest">
+				<Item id="1932" name="Her bir satıra &amp;ayrı bir dize muamelesi yap"/>
+				<Item id="1934" name="Panoya Ko&amp;pyala"/>
+				<Item id="2" name="&amp;Kapat"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generate SHA-512 digest from files">
+				<Item id="1922" name="SHA-512 &amp;üretilecek dosyaları seç..."/>
+				<Item id="1924" name="Panoya Ko&amp;pyala"/>
+				<Item id="2" name="&amp;Kapat"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generate SHA-512 digest">
+				<Item id="1932" name="Her bir satıra &amp;ayrı bir dize muamelesi yap"/>
+				<Item id="1934" name="Panoya Ko&amp;pyala"/>
+				<Item id="2" name="&amp;Kapat"/>
+			</SHA512FromTextDlg>	
 			<PluginsAdminDlg title="Eklentiler Yöneticisi" titleAvailable="Uygun" titleUpdates="Güncellemeler" titleInstalled="Yüklü" titleIncompatible="Uyumsuz">
 				<ColumnPlugin name="Eklenti"/>
 				<ColumnVersion name="Versiyon"/>
@@ -780,7 +815,6 @@
 					<Item id="21101" name="Varsayılan Stil"/>
 					<Item id="21102" name="Stilci…"/>
 					<Item id="21105" name="Belgelendirme"/>
-					<Item id="21104" name="Geçici belgelendirme sitesi:"/>
 					<Item id="21106" name="&amp;Sıkı kapat (boş satırları da kapat)"/>
 					<Item id="21220" name="Kod 1 Stilinde Kapat"/>
 					<Item id="21224" name="Aç:"/>
@@ -1035,6 +1069,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6411" name="Varsayılan dil :"/>
 					<Item id="6419" name="Yeni Belge"/>
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula"/>
+					<Item id="6432" name="Başlangıçta her zaman yeni bir belge aç"/>
 				</NewDoc>
 
 				<DefaultDir title="Varsayılan Dizin">
@@ -1353,6 +1388,7 @@ Devam etmek istiyor musunuz?"/>
 			<FileLockedWarning title="Kaydedilemedi" message="Dosyanın başka bir yazılım tarafından kullanılmadığından emin olun."/>
 			<FileAlreadyOpenedInNpp title="Dosya Aç" message="Dosya zaten Notepad++ içinde açık."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Yeniden Adlandırma Başarısız" message="Belirtilen ad başka bir sekmede kullanımda."/>
+			<RenameTabTemporaryNameIsEmpty title="Yeniden Adlandırma Başarısız" message="Belirtilen isim boş olamaz, ya da sadece boşluklar veya atlamalar (TAB) içeremez."/><!--  NasılTekrarlanır: İsimsiz belge sekme yeniden adlandırın ve boş bir dizi ya da biraz boşluk girin. -->
 			<DeleteFileFailed title="Dosya Sil" message="Dosya silinemedi"/>
 
 			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. 
@@ -1593,18 +1629,14 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<find-status-end-reached value="Bulma: Baştan 1. eşleşme bulundu. Dosyanın sonuna ulaşıldı."/>
 			<find-status-replaceinfiles-1-replaced value="Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
 			<find-status-replaceinfiles-nb-replaced value="Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
-			<find-status-replaceinfiles-re-malformed value="Açılmış Dosyalarda Değiştir: Düzenli ifade kötü biçimlendirilmiş"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Açılmış Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Açılmış Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
-			<find-status-mark-re-malformed value="İşaretle: Aramak için kullanılan düzenli ifade kötü biçimlendirilmiş"/>
 			<find-status-invalid-re value="Bulma: Geçersiz düzenli ifade"/>
 			<find-status-search-failed value="Bul: Başarısızları ara"/>
 			<find-status-mark-1-match value="İşaretle: 1 eşleşme"/>
 			<find-status-mark-nb-matches value="İşaretle: $INT_REPLACE$ eşleşme"/>
-			<find-status-count-re-malformed value="Hesapla: Aramak için düzenli ifade kötü biçimlemdirilmiş"/>
 			<find-status-count-1-match value="Hesapla: 1 eşleşme"/>
 			<find-status-count-nb-matches value="Hesapla: $INT_REPLACE$ eşleşme"/>
-			<find-status-replaceall-re-malformed value="Tümünü Değiştir: Düzenli ifade kötü biçimlemdirilmiş"/>
 			<find-status-replaceall-1-replaced value="Tümünü Değiştir: 1 eşleşme değiştirildi"/>
 			<find-status-replaceall-nb-replaced value="Tümünü Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
 			<find-status-replaceall-readonly value="Tümünü Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>

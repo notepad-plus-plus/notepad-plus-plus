@@ -8766,6 +8766,7 @@ void Notepad_plus::clearChangesHistory()
 	SendMessage(_pEditView->getHSelf(), SCI_GOTOPOS, pos, 0);
 
 	checkUndoState();
+	_pNonEditView->redraw();
 }
 
 // Based on https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12248#issuecomment-1258561261.

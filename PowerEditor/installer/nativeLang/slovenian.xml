@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.5.4
-        Last modified 19. Jun 2023 by dr. Vinko Kastelic
-        
+        Slovenian localization for Notepad++ v8.5.5
+        Last modified 13. Aug 2023 by dr. Vinko Kastelic
+		
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.5.4">
+	<Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -25,7 +25,7 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Odpri vsebino mape"/>
+					<Item subMenuId="file-openFolder" name="Odpri vsebino &amp;mape"/>
 					<Item subMenuId="file-closeMore" name="Zapri &amp;več dokumentov"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Nedavne datoteke"/>
 					<Item subMenuId="edit-insert" name="Vstavi"/>
@@ -39,9 +39,10 @@
 					<Item subMenuId="edit-blankOperations" name="&amp;Obravnava praznin"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Posebno lepljenje"/>
 					<Item subMenuId="edit-onSelection" name="&amp;Na izbiro"/>
+					<Item subMenuId="search-changeHistory" name="Zgodovina sprememb"/>
 					<Item subMenuId="search-markAll" name="Oblikuj &amp;vse pojavnosti žetona"/>
 					<Item subMenuId="search-markOne" name="Oblikuj &amp;en žeton"/>
-					<Item subMenuId="search-unmarkAll" name="Počisti &amp;slog"/>
+					<Item subMenuId="search-unmarkAll" name="Počisti slog"/>
 					<Item subMenuId="search-jumpUp" name="&amp;Skoči navzgor"/>
 					<Item subMenuId="search-jumpDown" name="Skoči &amp;navzdol"/>
 					<Item subMenuId="search-copyStyledText" name="&amp;Kopiraj stilizirano besedilo"/>
@@ -74,7 +75,9 @@
 					<Item subMenuId="language-userDefinedLanguage" name="Uporabniško določen jezik"/>
 					<Item subMenuId="settings-import" name="Uvozi"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>					
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>					
 					<Item subMenuId="window-sortby" name="Razvrsti po"/>
 				</SubEntries>
 
@@ -83,7 +86,7 @@
 					<Item id="41001" name="&amp;Nova"/>
 					<Item id="41002" name="&amp;Odpri..."/>
 					<Item id="41019" name="Raziskovalec"/>
-					<Item id="41020" name="cmd.exe"/>
+					<Item id="41020" name="cmd"/>
 					<Item id="41025" name="Mapa kot delovni prostor"/>
 					<Item id="41003" name="&amp;Zapri"/>
 					<Item id="41004" name="Zapr&amp;i vse"/>
@@ -249,6 +252,9 @@
 					<Item id="43064" name="Uporabi 3. slog"/>
 					<Item id="43065" name="Uporabi 4. slog"/>
 					<Item id="43066" name="Uporabi 5. slog"/>
+					<Item id="43067" name="Pojdi na naslednjo spremembo"/>
+					<Item id="43068" name="Pojdi na prejšnjo spremembo"/>
+					<Item id="43069" name="Počisti Zgodovino sprememb"/>					
 					<Item id="43045" name="&amp;Okno z rezultati iskanja"/>
 					<Item id="43046" name="Naslednji &amp;rezultat iskanja"/>
 					<Item id="43047" name="Prejšnji rezultat &amp;iskanja"/>
@@ -362,6 +368,12 @@
 					<Item id="48504" name="Generiraj..."/>
 					<Item id="48505" name="Generiraj iz datoteke..."/>
 					<Item id="48506" name="Generiraj iz izbire v odložišče"/>
+					<Item id="48507" name="Generiraj..."/>
+					<Item id="48508" name="Generiraj iz datoteke..."/>
+					<Item id="48509" name="Generiraj iz izbire v odložišče"/>
+					<Item id="48510" name="Generiraj..."/>
+					<Item id="48511" name="Generiraj iz datoteke..."/>
+					<Item id="48512" name="Generiraj iz izbire v odložišče"/>				
 					<Item id="49000" name="&amp;Poženi ..."/>
 					
 					<Item id="50000" name="Dopolnjevanje funkcij"/>
@@ -479,9 +491,9 @@
 				<Item id="1723" name="▼ Najdi naprej"/>
 				<Item id="1725" name="Kopiraj označeno besedilo"/>
 				<Menu>
-					<Item id="1726" name="⇅ Swap Find with Replace"/>
-					<Item id="1727" name="⤵ Copy from Find to Replace"/>
-					<Item id="1728" name="⤴ Copy from Replace to Find"/>
+					<Item id="1726" name="⇅ Zamenjaj Najdi z Zamenjaj"/>
+					<Item id="1727" name="⤵ Kopiraj iz Najdi v Zamenjaj"/>
+					<Item id="1728" name="⤴ Kopiraj iz Zamenjaj v Najdi"/>
 				</Menu>
 			</Find>
 
@@ -492,15 +504,15 @@
 			</IncrementalFind>
 				
 			<FindCharsInRange title="Najdi znake v območju...">
-				<Item id="2" name="Zapri"/>
-				<Item id="2901" name="Niso-ASCII znaki (128-255)"/>
-				<Item id="2902" name="ASCII znaki (0-127)"/>
-				<Item id="2903" name="Moje območje:"/>
+				<Item id="2" name="&amp;Zapri"/>
+				<Item id="2901" name="&amp;Niso-ASCII znaki (128-255)"/>
+				<Item id="2902" name="&amp;ASCII znaki (0-127)"/>
+				<Item id="2903" name="Moje &amp;območje:"/>
 				<Item id="2906" name="&amp;Navzgor"/>
 				<Item id="2907" name="&amp;Navzdol"/>
 				<Item id="2908" name="Smer"/>
 				<Item id="2909" name="Oklepaj&amp;oče"/>
-				<Item id="2910" name="Najdi"/>
+				<Item id="2910" name="&amp;Najdi"/>
 			</FindCharsInRange>
 				
 			<GoToLine title="Pojdi v vrstico ...">
@@ -521,29 +533,52 @@
 			</Run>
 			 
 			<MD5FromFilesDlg title="Generiraj MD5 povzetek iz datotek">
-				<Item id="1922" name="Izberite datoteke za generiranje MD5..."/>
-				<Item id="1924" name="Kopiraj v odložišče"/>
-				<Item id="2" name="Zapri"/>
+				<Item id="1922" name="Izberite datoteke za&amp; generiranje MD5..."/>
+				<Item id="1924" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Zapri"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Generiraj MD5 povzetek">
-				<Item id="1932" name="Obravnavaj vsako vrstico kot ločen niz"/>
-				<Item id="1934" name="Kopiraj v odložišče"/>
-				<Item id="2" name="Zapri"/>
+				<Item id="1932" name="Obravnavaj vsako vrstico kot&amp; ločen niz"/>
+				<Item id="1934" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Zapri"/>
 			</MD5FromTextDlg>
 			
 			<SHA256FromFilesDlg title="Generiraj SHA-256 povzetek iz datotek">
-				<Item id="1922" name="Izberite datoteke za generiranje SHA-256..."/>
-				<Item id="1924" name="Kopiraj v odložišče"/>
-				<Item id="2" name="Zapri"/>
+				<Item id="1922" name="Izberite datoteke za&amp;generiranje SHA-256..."/>
+				<Item id="1924" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Zapri"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Generiraj SHA-256 povzetek">
-				<Item id="1932" name="Vsako vrstico obravnavaj kot ločen niz"/>
-				<Item id="1934" name="Kopiraj v odložišče"/>
-				<Item id="2" name="Zapri"/>
+				<Item id="1932" name="Vsako vrstico obravnavaj kot &amp;ločen niz"/>
+				<Item id="1934" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Zapri"/>
 			</SHA256FromTextDlg>
-            
+			
+			<SHA1FromFilesDlg title="Generiraj SHA-1 povzetek iz datotek">
+				<Item id="1922" name="Izberite datoteke za&amp;generiranje SHA-1..."/>
+				<Item id="1924" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Zapri"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generiraj SHA-1 povzetek">
+				<Item id="1932" name="Vsako vrstico obravnavaj kot &amp;ločen niz"/>
+				<Item id="1934" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Zapri"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generiraj SHA-512 povzetek iz datotek">
+				<Item id="1922" name="Izberite datoteke za&amp;generiranje SHA-512..."/>
+				<Item id="1924" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Close"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generiraj SHA-512 povzetek">
+				<Item id="1932" name="Vsako vrstico obravnavaj kot &amp;ločen niz"/>
+				<Item id="1934" name="Ko&amp;piraj v odložišče"/>
+				<Item id="2" name="&amp;Zapri"/>
+			</SHA512FromTextDlg>		            
 			<PluginsAdminDlg title="Skrbnik vtičnikov" titleAvailable="Na voljo" titleUpdates="Posodobitve" titleInstalled="Nameščeno" titleIncompatible="Nezdružljivo">
 				<ColumnPlugin name="Vtičnik"/>
 				<ColumnVersion name="Različica"/>
@@ -559,7 +594,7 @@
 
 			<StyleConfig title="Prilagoditev sloga">
 				<Item id="2" name="Prekliči"/>
-				<Item id="2301" name="Shrani in zapri"/>
+				<Item id="2301" name="Shrani &amp;&amp; in zapri"/>
 				<Item id="2303" name="Prosojnost"/>
 				<Item id="2306" name="Izberite temo: "/>
 				<SubDialog>
@@ -777,7 +812,6 @@
 					<Item id="21101" name="Privzete nastavitve sloga"/>
 					<Item id="21102" name="Slogovnik"/>
 					<Item id="21105" name="Dokumentacija:"/>
-					<Item id="21104" name="Začasna stran dok:"/>
 					<Item id="21106" name="Zloži &amp;kompaktno (zloži tudi prazne vrstice)"/>
 					<Item id="21220" name="Zlaganje v kodi 1 sloga:"/>
 					<Item id="21224" name="Odpri:"/>
@@ -1075,30 +1109,30 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 				</Highlighting>
 				
 				<Print title="Tiskanje">
-					<Item id="6601" name="Natisni številko vrstice"/>
+					<Item id="6601" name="Natisni š&amp;tevilko vrstice"/>
 					<Item id="6602" name="Barvne možnosti"/>
-					<Item id="6603" name="WYSIWYG"/>
-					<Item id="6604" name="Obrni"/>
-					<Item id="6605" name="Črno na belem"/>
-					<Item id="6606" name="Brez barve ozadja"/>
+					<Item id="6603" name="W&amp;YSIWYG"/>
+					<Item id="6604" name="O&amp;brni"/>
+					<Item id="6605" name="Črno na &amp;belem"/>
+					<Item id="6606" name="Brez barve o&amp;zadja"/>
 					<Item id="6607" name="Nastavitve margin (enota: mm)"/>
-					<Item id="6612" name="Levo"/>
-					<Item id="6613" name="Na vrhu"/>
-					<Item id="6614" name="Desno"/>
-					<Item id="6615" name="Na dnu"/>
-					<Item id="6706" name="Krepko"/>
-					<Item id="6707" name="Ležeče"/>
+					<Item id="6612" name="&amp;Levo"/>
+					<Item id="6613" name="&amp;Na vrhu"/>
+					<Item id="6614" name="&amp;Desno"/>
+					<Item id="6615" name="Na d&amp;nu"/>
+					<Item id="6706" name="&amp;Krepko"/>
+					<Item id="6707" name="&amp;Ležeče"/>
 					<Item id="6708" name="Glava"/>
-					<Item id="6709" name="Levi del"/>
-					<Item id="6710" name="Srednji del"/>
-					<Item id="6711" name="Desni del"/>
-					<Item id="6717" name="Krepko"/>
-					<Item id="6718" name="Ležeče"/>
+					<Item id="6709" name="L&amp;evi del"/>
+					<Item id="6710" name="&amp;Srednji del"/>
+					<Item id="6711" name="D&amp;esni del"/>
+					<Item id="6717" name="Kr&amp;epko"/>
+					<Item id="6718" name="Leže&amp;če"/>
 					<Item id="6719" name="Noga"/>
-					<Item id="6720" name="Levi del"/>
-					<Item id="6721" name="Srednji del"/>
-					<Item id="6722" name="Desni del"/>
-					<Item id="6723" name="Dodaj"/>
+					<Item id="6720" name="Le&amp;vi del"/>
+					<Item id="6721" name="Srednji &amp;del"/>
+					<Item id="6722" name="Des&amp;ni del"/>
+					<Item id="6723" name="&amp;Dodaj"/>
 					<ComboBox id="6724">
 						<Element name="Celotna pot imena datoteke"/>
 						<Element name="Ime datoteke"/>
@@ -1108,7 +1142,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 						<Element name="Dolg format datuma"/>
 						<Element name="Čas"/>
 					</ComboBox>
-					<Item id="6725" name="Spremenljivka:"/>
+					<Item id="6725" name="&amp;Spremenljivka:"/>
 					<Item id="6727" name="Tukaj so prikazane vaše variabilne nastavitve"/>
 					<Item id="6728" name="Glava in noga"/>
 				</Print>
@@ -1349,6 +1383,7 @@ Nadaljujem?"/><!-- HowToReproduce: when you openned file is modified and saved, 
 			<FileLockedWarning title="Shranjevanje ni uspelo" message="Prosimo, preverite, ali je ta datoteka odprta v drugem programu"/>
 			<FileAlreadyOpenedInNpp title="" message="Datoteka je že odprta v Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Preimenovanje ni uspelo" message="Navedeno ime je že uporabljeno za drugi zavihek."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Preimenovanje ni uspelo" message="Podano ime ne sme biti prazno ali ne sme vsebovati samo presledkov ali TAB(ov)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->			
 			<DeleteFileFailed title="Brisanje datoteke" message="Brisanje datoteke ni uspelo"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Število datotek za odpiranje je preveliko" message="$INT_REPLACE$ datoteke so na tem, da se odprejo.
@@ -1448,6 +1483,12 @@ Nadaljujem?"/>
 			<LanguageMenuCompactWarning title="Kompakten jezikovni meni" message="Ta možnost bo spremenjena ob naslednjem zagonu."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neshranjene spremembe bodo kmalu zavržene!
 Ali želite shraniti spremembe, preden zamenjate temo?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Združljivost ukazov za makre in zagon" message="Vaši ukazi za makre in zagon, shranjeni v Notepad++ v.8.5.2 (ali starejši), morda niso združljivi s trenutno različico Notepad++.
+Preizkusite te ukaze in jih po potrebi ponovno uredite.
+
+Lahko pa preidete na Notepad++ v8.5.2 in obnovite prejšnje podatke.
+Notepad++ bo varnostno kopiral vaše stare &quot;shortcuts.xml&quot; in ga shranite kot &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Preimenovanje &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vaši ukazi morajo biti obnovljeni in pravilno delovati."/><!-- HowToReproduce: Zaprite Notepad++, odstranite shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml, če je prisoten, znova zaženite Notepad++, izbrišite ali spremenite bližnjice prek Shortcut Mapper, zaprite Notepad++, nato se prikaže sporočilo -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zgodovina odložišča"/>
@@ -1588,18 +1629,14 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
 			<find-status-end-reached value="Najdi: Najdena je 1. pojavitev od zgoraj. Konec dokumenta je bil dosežen."/>
 			<find-status-replaceinfiles-1-replaced value="Zamenjaj v datotekah: 1 pojavitev je bila zamenjana"/>
 			<find-status-replaceinfiles-nb-replaced value="Zamenjaj v datotekah: $INT_REPLACE$ pojavitve so bile zamenjane"/>
-			<find-status-replaceinfiles-re-malformed value="Zamenjaj v odprtih datotekah: Regularni izraz je napačen"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Zamenjaj v odprtih datotekah: 1 pojavitev je bila zamenjana"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Zamenjaj v odprtih datotekah: $INT_REPLACE$ pojavitve so bile zamenjane"/>
-			<find-status-mark-re-malformed value="Označi: Regularni izraz je napačen"/>
 			<find-status-invalid-re value="Najdi: Neveljaven regularni izraz"/>
 			<find-status-search-failed value="Najdi: iskanje ni uspelo"/>
 			<find-status-mark-1-match value="Označi: 1 zadetek"/>
 			<find-status-mark-nb-matches value="Označi: $INT_REPLACE$ zadetkov"/>
-			<find-status-count-re-malformed value="Števec: Regularni izraz za iskanje je napačen"/>
 			<find-status-count-1-match value="Števec: 1 zadetek"/>
 			<find-status-count-nb-matches value="Števec: $INT_REPLACE$ zadetkov"/>
-			<find-status-replaceall-re-malformed value="Zamenjaj vse: Regularni izraz je napačen"/>
 			<find-status-replaceall-1-replaced value="Zamenjaj vse: 1 pojavitev je bila zamenjana"/>
 			<find-status-replaceall-nb-replaced value="Zamenjaj vse: $INT_REPLACE$ pojavitve so bile zamenjane"/>
 			<find-status-replaceall-readonly value="Zamenjaj vse: Besedilo ni mogoče zamenjati. Trenutni dokument je samo za branje"/>
@@ -1689,8 +1726,6 @@ OPOMBA:
 			<npcNote-tip value="Predstavitev izbranih &quot;non-ASCII&quot; presledkov in nenatisljivih (kontrolnih) znakov.
 
 OPOMBA:
-Nekateri znaki morda že imajo določeno predstavitev in so zato vidni. Ločilo vrstic in ločilo odstavkov sta že privzeto predstavljena s kratico.
-
 Uporaba predstavitve bo onemogočila učinke znakov na besedilo.
 
 Za celoten seznam izbranih presledkov in nenatisljivih znakov preverite uporabniški priročnik.
@@ -1712,7 +1747,8 @@ Za celoten seznam preverite uporabniški priročnik.
 Kliknite na &quot;?&quot; gumb na desni, da odprete spletno mesto z uporabniškim priročnikom."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Pojdite v konfigurator sloga, da spremenite privzeto barvo po meri za izbrane presledke in nenatisljive znake (&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip value="Pojdite v konfigurator sloga, da spremenite privzeto barvo po meri za izbrane presledke in nenatisljive znake (&quot;Barva po meri nenatisljivih znakov&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Uporabi nastavitve videza nenatisljivih znakov za kontrolne znake C0, C1 in znake Unicode EOL (naslednja vrstica, ločilo vrstic in ločilo odstavkov)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

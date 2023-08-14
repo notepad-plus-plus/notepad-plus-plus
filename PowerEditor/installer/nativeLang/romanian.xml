@@ -41,7 +41,7 @@
                     <Item subMenuId="edit-pasteSpecial" name="Lipire specială"/>
                     <Item subMenuId="edit-onSelection" name="Pe selecție"/>
 					<Item subMenuId="search-changeHistory" name="Schimbă istoricul"/>
-		    <Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
+					<Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
                     <Item subMenuId="search-markAll" name="Marcare tot"/>
                     <Item subMenuId="search-markOne" name="Marcare &amp;unică a selecției"/>
                     <Item subMenuId="search-unmarkAll" name="Demarcare tot"/>

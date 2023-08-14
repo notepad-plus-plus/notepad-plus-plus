@@ -136,7 +136,7 @@ copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
-      <CETCompat>true</CETCompat>
+      <CETCompat>false</CETCompat>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='x64'">
@@ -144,7 +144,7 @@ copy "..\src\contextMenu.xml" "$(OutDir)contextMenu.xml"
       <TargetMachine>MachineX64</TargetMachine>
       <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
       <LargeAddressAware>true</LargeAddressAware>
-      <CETCompat>true</CETCompat>
+      <CETCompat>false</CETCompat>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='ARM64'">

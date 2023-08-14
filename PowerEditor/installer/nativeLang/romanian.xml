@@ -77,9 +77,9 @@
                     <Item subMenuId="language-userDefinedLanguage" name="Limbaj definit de utilizator"/>
                     <Item subMenuId="settings-import"  name="Importare"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
-		    <Item subMenuId="tools-sha1" name="SHA-1"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>  
-		    <Item subMenuId="tools-sha512" name="SHA-512"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
                     <Item subMenuId="window-sortby" name="Sortare ca"/>					
                 </SubEntries>
 				

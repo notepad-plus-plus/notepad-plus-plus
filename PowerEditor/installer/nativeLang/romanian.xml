@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.5.5
--    Ultima modificare 30 iunie 2023 de către Miloiu Andrei 	 
+-    Traducerea în română pentru Notepad++ 8.5.6
+-    Ultima modificare 14 august 2023 de către Miloiu Andrei 	 
 	 Modificările din 30 Ianuarie 2019 a fost făcută de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
@@ -40,7 +40,8 @@
                     <Item subMenuId="edit-blankOperations" name="Operații spații libere"/>
                     <Item subMenuId="edit-pasteSpecial" name="Lipire specială"/>
                     <Item subMenuId="edit-onSelection" name="Pe selecție"/>
-		    <Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
+					<Item subMenuId="search-changeHistory" name="Schimbă istoricul"/>
+					<Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
                     <Item subMenuId="search-markAll" name="Marcare tot"/>
                     <Item subMenuId="search-markOne" name="Marcare &amp;unică a selecției"/>
                     <Item subMenuId="search-unmarkAll" name="Demarcare tot"/>
@@ -76,9 +77,9 @@
                     <Item subMenuId="language-userDefinedLanguage" name="Limbaj definit de utilizator"/>
                     <Item subMenuId="settings-import"  name="Importare"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
-		    <Item subMenuId="tools-sha1" name="SHA-1"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>  
-		    <Item subMenuId="tools-sha512" name="SHA-512"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
                     <Item subMenuId="window-sortby" name="Sortare ca"/>					
                 </SubEntries>
 				
@@ -253,9 +254,9 @@
                     <Item id="43064" name="Folosirea stilului 3"/>
                     <Item id="43065" name="Folosirea stilului 4"/>
                     <Item id="43066" name="Folosirea stilului 5"/>
-		    <Item id="43067" name="Du-te la următoarea schimbare"/>
-		    <Item id="43068" name="Du-te la schimbarea anterioară"/>
-		    <Item id="43069" name="Golește istoricul schimbărilor"/>
+					<Item id="43067" name="Du-te la următoarea schimbare"/>
+					<Item id="43068" name="Du-te la schimbarea anterioară"/>
+					<Item id="43069" name="Golește istoricul schimbărilor"/>
                     <Item id="43045" name="Fereastră rezultate căutare"/>
                     <Item id="43046" name="Următorul rezultat găsit"/>
                     <Item id="43047" name="Rezultat anterior găsit"/>
@@ -1403,6 +1404,7 @@ Continuați?"/>
             <FileLockedWarning title="Salvare eșuată" message="Verificați dacă acest fișier nu este accesat și de un alt program."/>
             <FileAlreadyOpenedInNpp title="" message="Fișierul este deja deschis în Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Redenumire eșuată" message="Numele specificat este deja folosit într-o altă filă."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Redenumire eșuată" message="Numele specificat nu poate fi gol sau nu poate conține numai spațiu(i) sau tabulație(i)/TAB(-uri)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
             <DeleteFileFailed title="Ștergerea fișierului" message="Ștergerea fișierului eșuată."/>
 
             <NbFileToOpenImportantWarning title="Numărul fișierelor de deschis este prea mare" message="$INT_REPLACE$ fișiere sunt pe cale să fie deschise.

@@ -3368,7 +3368,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 			}
 		}
-
+		[[fallthrough]];
 		default:
 		{
 			break;

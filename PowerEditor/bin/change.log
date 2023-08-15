@@ -1,3 +1,11 @@
+Notepad++ v8.5.6 bug-fixes and new features:
+
+1.  Fix plugin crash regression due to CET enhancement.
+2.  Add new API: indicator allocation for plugins.
+3.  Fix hide lines merging to avoid merging across a visible line.
+4.  Fix "Clear Change History" issue: cloned document markers are not cleared.
+
+
 Notepad++ v8.5.5 bug-fixes and new features:
 
  1. Update to Scintilla 5.3.6 and Lexilla 5.2.6.
@@ -12,7 +20,7 @@ Notepad++ v8.5.5 bug-fixes and new features:
 10. Add SHA-512 hash features.
 11. Fix normal.xml for Normal text auto-completion not working issue.
 12. Fix Korean IME append file extension issue in save dialog.    
-13. Make find/replace in files result more inaccurate while used RegExpr is invalid.
+13. Make find/replace in files result more accurate while used RegExpr is invalid.
 14. Fix Project panel's inaccurate initialized path in save dialog.
 15. Fix wrong syntax highlighting of URLs with quotes in JSON.
 16. Fix Clipboard History panel shows corrupted data issue.
@@ -34,4 +42,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGup (for Notepad++) v5.2.5
+* WinGup (for Notepad++) v5.2.6

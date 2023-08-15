@@ -1756,3 +1756,19 @@ size_t FileManager::docLength(Buffer* buffer) const
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
 	return docLen;
 }
+
+
+bool FileManager::bufferHasClone(BufferID buf) const
+{
+	if (buf == BUFFER_INVALID || buf->_references < 2)
+		return false;
+	bool isInEditView = false;
+	bool isInNonEditView = false;
+	for (ScintillaEditView* referee : buf->_referees) {
+		if (referee == _pNotepadPlus->_pNonEditView)
+			isInNonEditView = true;
+		else if (referee == _pNotepadPlus->_pEditView)
+			isInEditView = true;
+	}
+	return isInEditView && isInNonEditView;
+}

@@ -207,6 +207,7 @@ struct sessionFileInfo : public Position
 	int	_encoding = -1;
 	bool _isUserReadOnly = false;
 	bool _isMonitoring = false;
+	bool _hasClone = false;
 	int _individualTabColour = -1;
 
 	std::wstring _backupFilePath;

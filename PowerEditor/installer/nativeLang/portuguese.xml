@@ -1250,6 +1250,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="7149" name="Permitir destaque inteligente"/>
 					<Item id="7150" name="Desativar Quebra de linha globalmente"/>
 					<Item id="7151" name="Permitir ligação URL clicável"/>
+					<Item id="7152" name="Suprimir o aviso ao abrir ficheiros com mais de 2GB"/>
 				</Performance>
 
 				<Cloud title="Nuvem e Ligação">
@@ -1382,7 +1383,8 @@ Continuar?"/><!-- HowToReproduce: when you openned file is modified and saved, t
 			<DocReloadWarning title="Recarregar" message="Tem a certeza que quer recarregar o ficheiro atual e perder as alterações efetuadas no Notepad++?"/>
 			<FileLockedWarning title="Falha ao Guardar" message="Por favor, verifique se o ficheiro está aberto noutro programa."/>
 			<FileAlreadyOpenedInNpp title="" message="O ficheiro já está aberto no Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
-			<RenameTabTemporaryNameAlreadyInUse title="Falha ao Renomear" message="O nome especificado já está a ser utilizado noutro separador."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Falha ao renomear" message="O nome especificado já está a ser utilizado noutro separador."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Falha ao renomear" message="O nome especificado não pode estar em branco ou conter apenas espaço(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Eliminar ficheiro" message="Falha ao eliminar o ficheiro."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Está a tentar abrir demasiados ficheiros." message="Está prestes a abrir $INT_REPLACE$ ficheiros.
@@ -1776,7 +1778,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 01 August 2023 by Hugo Carvalho
+Last modified: 01 September 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

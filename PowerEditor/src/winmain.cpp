@@ -617,7 +617,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	std::wstring updaterFullPath = updaterDir + TEXT("gup.exe");
 
 	std::wstring updaterParams = TEXT("-v");
-	updaterParams += VERSION_VALUE;
+	updaterParams += VERSION_INTERNAL_VALUE;
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 

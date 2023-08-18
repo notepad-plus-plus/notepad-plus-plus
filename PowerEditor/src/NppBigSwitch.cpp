@@ -1358,7 +1358,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		// 13.6.6.6 | 13     | 666
 		case NPPM_GETNPPVERSION:
 		{
-			const TCHAR* verStr = VERSION_VALUE;
+			const TCHAR* verStr = VERSION_INTERNAL_VALUE;
 			TCHAR mainVerStr[16]{};
 			TCHAR auxVerStr[16]{};
 			bool isDot = false;

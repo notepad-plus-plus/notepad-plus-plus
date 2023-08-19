@@ -20,6 +20,7 @@
 #include <locale>
 #include <codecvt>
 #include <sys/stat.h>
+#include <filesystem>
 #include "Buffer.h"
 #include "Scintilla.h"
 #include "ILexer.h"
@@ -1711,6 +1712,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 				return buf->getID();
 			}
 		}
+		if (std::error_code ec; std::filesystem::equivalent(name, buf->getFullPathName(), ec)) return buf->getID();
 	}
 	return BUFFER_INVALID;
 }

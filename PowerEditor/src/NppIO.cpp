@@ -28,6 +28,7 @@
 #include "fileBrowser.h"
 #include <tchar.h>
 #include <unordered_set>
+#include <filesystem>
 #include "Common.h"
 
 using namespace std;
@@ -123,6 +124,11 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 bool resolveLinkFile(generic_string& linkFilePath)
 {
+	if (std::error_code symlink_error; std::filesystem::is_symlink(linkFilePath, symlink_error)) {
+		generic_string target = std::filesystem::read_symlink(linkFilePath, symlink_error);
+		if (!symlink_error) linkFilePath = target;
+	}
+
 	bool isResolved = false;
 
 	IShellLink* psl = nullptr;

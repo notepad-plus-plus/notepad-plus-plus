@@ -2353,11 +2353,21 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	_mainEditView.restoreCurrentPosPreStep();
 	_subEditView.restoreCurrentPosPreStep();
 
-	if (session._activeMainIndex < _mainDocTab.nbItem())//session.nbMainFiles())
-		activateBuffer(_mainDocTab.getBufferByIndex(session._activeMainIndex), MAIN_VIEW);
+	if (session._activeMainIndex < session._mainViewFiles.size())
+	{
+		const wchar_t* fileName = session._mainViewFiles[session._activeMainIndex]._fileName.c_str();
+		BufferID buf = _mainDocTab.findBufferByName(fileName);
+		if (buf != BUFFER_INVALID)
+			activateBuffer(buf, MAIN_VIEW);
+	}
 
-	if (session._activeSubIndex < _subDocTab.nbItem())//session.nbSubFiles())
-		activateBuffer(_subDocTab.getBufferByIndex(session._activeSubIndex), SUB_VIEW);
+	if (session._activeSubIndex < session._subViewFiles.size())
+	{
+		const wchar_t* fileName = session._subViewFiles[session._activeSubIndex]._fileName.c_str();
+		BufferID buf = _subDocTab.findBufferByName(fileName);
+		if (buf != BUFFER_INVALID)
+			activateBuffer(buf, SUB_VIEW);
+	}
 
 	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
 		switchEditViewTo(static_cast<int32_t>(session._activeView));

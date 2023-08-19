@@ -19,12 +19,39 @@
 #include "FileInterface.h"
 #include "Parameters.h"
 
+// This function must be called "directly" after the call to CreateFile(A/W).
+// Because this function will get the last error code.
+// Returns whether the file was truncated. false can be returned if there is no need to truncate or if truncate failed.
+// But if truncate failed then the file handle will be closed (and set to invalid).
+bool Win32_IO_File::truncateFileAfterOpen()
+{
+	if (_hFile != INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		// the file pointer will be at the beginning after open
+		// so this call will truncate the file
+		BOOL result = SetEndOfFile(_hFile);
+		// last error might be changed here if the above function fails
+		// but that is more meaningful than the ERROR_ALREADY_EXISTS anyways since that value is not actually an error
+		if (!result)
+		{
+			// truncate failed
+			// we treat that as if opening the file failed
+			::CloseHandle(_hFile);
+			_hFile = INVALID_HANDLE_VALUE;
+			return false;
+		}
+		return true;
+	}
+	return false;
+}
+
 Win32_IO_File::Win32_IO_File(const char *fname)
 {
 	if (fname)
 	{
 		_path = fname;
 		_hFile = ::CreateFileA(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
+		truncateFileAfterOpen();
 	}
 }
 
@@ -37,6 +64,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		_path = converter.to_bytes(fn);
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
+		truncateFileAfterOpen();
 
 		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())

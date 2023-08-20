@@ -220,6 +220,7 @@ int nbDigitsFromNbLines(size_t nbLines);
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);
 
 HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent);
+bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath);
 
 bool isWin32NamespacePrefixedFileName(const generic_string& fileName);
 bool isWin32NamespacePrefixedFileName(const TCHAR* szFileName);

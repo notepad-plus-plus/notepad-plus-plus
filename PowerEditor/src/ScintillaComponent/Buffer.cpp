@@ -1023,12 +1023,8 @@ bool FileManager::backupCurrentBuffer()
 			}
 
 			// Make sure the backup file is not read only
-			DWORD dwFileAttribs = ::GetFileAttributes(fullpath);
-			if (dwFileAttribs & FILE_ATTRIBUTE_READONLY) // if file is read only, remove read only attribute
-			{
-				dwFileAttribs ^= FILE_ATTRIBUTE_READONLY;
-				::SetFileAttributes(fullpath, dwFileAttribs);
-			}
+			removeReadOnlyFlagFromFileAttributes(fullpath);
+
 
 			if (UnicodeConvertor.openFile(fullpath))
 			{

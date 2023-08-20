@@ -3476,6 +3476,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 {
 	const TCHAR *sessionPathName = fileName ? fileName : _sessionPath.c_str();
 
+	// Make sure session file is not read-only
+	removeReadOnlyFlagFromFileAttributes(sessionPathName);
+
 	// Backup session file before overriting it
 	TCHAR backupPathName[MAX_PATH]{};
 	BOOL doesBackupCopyExist = FALSE;
@@ -3483,6 +3486,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 	{
 		_tcscpy(backupPathName, sessionPathName);
 		_tcscat(backupPathName, TEXT(".inCaseOfCorruption.bak"));
+		
+		// Make sure backup file is not read-only, if it exists
+		removeReadOnlyFlagFromFileAttributes(backupPathName);
 		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
 		if (!doesBackupCopyExist)
 		{

@@ -2110,44 +2110,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 
 	int mainIndex2Update = -1;
 
-	size_t mainNbItemBeforeLoading = 0;
-	if (_mainDocTab.nbItem() == 1)
-	{
-		Buffer* buf = _mainEditView.getCurrentBuffer();
-		if (buf->isDirty())
-		{
-			mainNbItemBeforeLoading = 1;
-		}
-		else if (!buf->isUntitled())
-		{
-			mainNbItemBeforeLoading = 1;
-		}
-		// else buffer is untitled & not dirty, this buffer will be erased. So we can ignore it
-	}
-	else // _mainDocTab.nbItem() > 1
-	{
-		mainNbItemBeforeLoading = _mainDocTab.nbItem();
-	}
-
-	size_t subNbItemBeforeLoading = 0;
-	if (_subDocTab.nbItem() == 1)
-	{
-		Buffer* buf = _subEditView.getCurrentBuffer();
-		if (buf->isDirty())
-		{
-			subNbItemBeforeLoading = 1;
-		}
-		else if (!buf->isUntitled())
-		{
-			subNbItemBeforeLoading = 1;
-		}
-		// else buffer is untitled & not dirty, this buffer will be erased. So we can ignore it
-	}
-	else // _subDocTab.nbItem() > 1
-	{
-		subNbItemBeforeLoading = _subDocTab.nbItem();
-	}
-
 	for (size_t i = 0; i < session.nbMainFiles() ; )
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
@@ -2391,13 +2353,21 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	_mainEditView.restoreCurrentPosPreStep();
 	_subEditView.restoreCurrentPosPreStep();
 
-	size_t activeMainIndex = session._activeMainIndex + mainNbItemBeforeLoading;
-	if (activeMainIndex < _mainDocTab.nbItem())
-		activateBuffer(_mainDocTab.getBufferByIndex(activeMainIndex), MAIN_VIEW);
+	if (session._activeMainIndex < session._mainViewFiles.size())
+	{
+		const wchar_t* fileName = session._mainViewFiles[session._activeMainIndex]._fileName.c_str();
+		BufferID buf = _mainDocTab.findBufferByName(fileName);
+		if (buf != BUFFER_INVALID)
+			activateBuffer(buf, MAIN_VIEW);
+	}
 
-	size_t activeSubIndex = session._activeSubIndex + subNbItemBeforeLoading;
-	if (activeSubIndex < _subDocTab.nbItem())
-		activateBuffer(_subDocTab.getBufferByIndex(activeSubIndex), SUB_VIEW);
+	if (session._activeSubIndex < session._subViewFiles.size())
+	{
+		const wchar_t* fileName = session._subViewFiles[session._activeSubIndex]._fileName.c_str();
+		BufferID buf = _subDocTab.findBufferByName(fileName);
+		if (buf != BUFFER_INVALID)
+			activateBuffer(buf, SUB_VIEW);
+	}
 
 	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
 		switchEditViewTo(static_cast<int32_t>(session._activeView));

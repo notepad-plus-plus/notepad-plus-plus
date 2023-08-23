@@ -16,17 +16,9 @@
 
 #include <locale>
 #include <codecvt>
+#include <shlwapi.h>
 #include "FileInterface.h"
 #include "Parameters.h"
-
-Win32_IO_File::Win32_IO_File(const char *fname)
-{
-	if (fname)
-	{
-		_path = fname;
-		_hFile = ::CreateFileA(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
-	}
-}
 
 
 Win32_IO_File::Win32_IO_File(const wchar_t *fname)
@@ -36,7 +28,9 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		std::wstring fn = fname;
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		_path = converter.to_bytes(fn);
-		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, _dispParam, _attribParam, NULL);
+
+		DWORD dispParam = ::PathFileExistsW(fname) ? TRUNCATE_EXISTING : CREATE_ALWAYS;
+		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 
 		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
@@ -104,31 +98,6 @@ void Win32_IO_File::close()
 	}
 }
 
-/*
-int_fast64_t Win32_IO_File::getSize()
-{
-	LARGE_INTEGER r;
-	r.QuadPart = -1;
-
-	if (isOpened())
-		::GetFileSizeEx(_hFile, &r);
-
-	return static_cast<int_fast64_t>(r.QuadPart);
-}
-
-unsigned long Win32_IO_File::read(void *rbuf, unsigned long buf_size)
-{
-	if (!isOpened() || (rbuf == nullptr) || (buf_size == 0))
-		return 0;
-
-	DWORD bytes_read = 0;
-
-	if (::ReadFile(_hFile, rbuf, buf_size, &bytes_read, NULL) == FALSE)
-		return 0;
-
-	return bytes_read;
-}
-*/
 
 bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 {

@@ -2246,17 +2246,12 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
-		if (session._subViewFiles[k]._hasClone)
+		BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
+		if (clonedBuf != BUFFER_INVALID)
 		{
-			// it appears that the user had this document cloned when they last saved the session
-			// if it's already open in the main edit view, we'll just clone it over from there.
-			BufferID copyInMainView = _mainDocTab.findBufferByName(pFn);
-			if (copyInMainView != BUFFER_INVALID)
-			{
-				loadBufferIntoView(copyInMainView, SUB_VIEW);
-				++k;
-				continue;
-			}
+			loadBufferIntoView(clonedBuf, SUB_VIEW);
+			++k;
+			continue;
 		}
 
 		bool isWow64Off = false;

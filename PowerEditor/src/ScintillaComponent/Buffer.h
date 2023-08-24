@@ -111,10 +111,6 @@ public:
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
-	// is the buffer buf in both edit views?
-	// returns false if buf is null (BUFFER_INVALID)
-	bool bufferHasClone(BufferID buf) const;
-
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;

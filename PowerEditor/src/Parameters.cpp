@@ -2409,11 +2409,6 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 							sfi._foldStates.push_back(static_cast<size_t>(_ttoi64(lineNumberStr)));
 						}
 					}
-
-					const TCHAR* yesNoStrHasClone = (childNode->ToElement())->Attribute(TEXT("hasClone"));
-					if (yesNoStrHasClone)
-						sfi._hasClone = (lstrcmp(yesNoStrHasClone, TEXT("yes")) == 0);
-
 					if (k == 0)
 						session._mainViewFiles.push_back(sfi);
 					else // k == 1
@@ -3550,7 +3545,6 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("tabColourId"), static_cast<int32_t>(viewSessionFiles[i]._individualTabColour));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("hasClone"), viewSessionFiles[i]._hasClone ? TEXT("yes") : TEXT("no"));
 
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));

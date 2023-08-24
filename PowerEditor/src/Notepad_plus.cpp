@@ -6195,7 +6195,6 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			const wchar_t* langName = languageName.c_str();
 			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
 
-			sfi._hasClone = MainFileManager.bufferHasClone(buf);
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColour(static_cast<int>(i));
 

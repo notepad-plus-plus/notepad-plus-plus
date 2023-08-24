@@ -2253,7 +2253,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 			++k;
 			continue;
 		}
-
 		bool isWow64Off = false;
 		if (!PathFileExists(pFn))
 		{

@@ -1023,12 +1023,8 @@ bool FileManager::backupCurrentBuffer()
 			}
 
 			// Make sure the backup file is not read only
-			DWORD dwFileAttribs = ::GetFileAttributes(fullpath);
-			if (dwFileAttribs & FILE_ATTRIBUTE_READONLY) // if file is read only, remove read only attribute
-			{
-				dwFileAttribs ^= FILE_ATTRIBUTE_READONLY;
-				::SetFileAttributes(fullpath, dwFileAttribs);
-			}
+			removeReadOnlyFlagFromFileAttributes(fullpath);
+
 
 			if (UnicodeConvertor.openFile(fullpath))
 			{
@@ -1268,25 +1264,13 @@ size_t FileManager::nextUntitledNewNumber() const
 		Buffer *buf = _buffers.at(i);
 		if (buf->isUntitled())
 		{
-			bool isVisible = false;
-			for (size_t k = 0; k < buf->_referees.size(); k++)
+			// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
+			if ((buf->_referees[0])->isVisible())
 			{
-				if (buf->_referees[k]->isVisible())
-				{
-					isVisible = true;
-					break;
-				}
-			}
-
-			if (isVisible)
-			{
-				if (buf->indexOfReference(_pNotepadPlus->_pEditView) > -1 || buf->indexOfReference(_pNotepadPlus->_pNonEditView) > -1)
-				{
-					generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
-					TCHAR* numberStr = buf->_fileName + newTitle.length();
-					int usedNumber = _wtoi(numberStr);
-					usedNumbers.push_back(usedNumber);
-				}
+				generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+				TCHAR *numberStr = buf->_fileName + newTitle.length();
+				int usedNumber = _wtoi(numberStr);
+				usedNumbers.push_back(usedNumber);
 			}
 		}
 	}
@@ -1341,16 +1325,20 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
-BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)
+BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
-	generic_string newTitle = (nppParamInst.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
-	TCHAR nb[10];
-	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
-	newTitle += nb;
+	std::wstring newTitle = L"newNonMainEditZoneInvisibleTitle "; // This title is invisible for "Document map", "Find result" or other Scintilla controls other than _mainEditView and _subEditView.
+                                                                  // Its strong length and the space at the end are for preventing the tab name modification from the collision with it.
 
-	if (!dontRef)
-		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
+	if (isMainEditZone) // only _mainEditView or _subEditView is main edit zone, so we count new number of doc only for these 2 scintilla edit views.
+	{
+		newTitle = (nppParamInst.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+		wchar_t nb[10];
+		wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
+		newTitle += nb;
+	}
+
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 	BufferID id = newBuf;
 	newBuf->_id = id;
@@ -1359,8 +1347,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 
-	if (!dontIncrease)
-		++_nextBufferID;
+	++_nextBufferID;
 	return id;
 }
 
@@ -1716,7 +1703,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 	{
 		if (OrdinalIgnoreCaseCompareStrings(name, buf->getFullPathName()) == 0)
 		{
-			if (buf->_referees[0]->isVisible())
+			if (!(buf->_referees.empty()) && buf->_referees[0]->isVisible())
 			{
 				return buf->getID();
 			}

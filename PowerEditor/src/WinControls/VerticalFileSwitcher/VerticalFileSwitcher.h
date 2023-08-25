@@ -82,7 +82,7 @@ public:
 		return _fileListView.nbSelectedFiles();
 	};
 
-	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const {
+	std::vector<BufferViewInfo> getSelectedFiles(bool reverse = false) const {
 		return _fileListView.getSelectedFiles(reverse);
 	};
 

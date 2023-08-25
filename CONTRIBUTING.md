@@ -292,7 +292,7 @@ In short: The easier the code review is, the better the chance your pull request
     if (not ::PathFileExists(dir2Search))
     ```
 
-14. Always initializatize local and global variables
+14. Always initialize local and global variables
 
     * For primitive types and enum prefer initialization with `=`.
     * For other prefer `{}`-initializer syntax.
@@ -421,7 +421,7 @@ In short: The easier the code review is, the better the chance your pull request
 
 9. Prefer `constexpr` over `const` if value can be evaluated at compile time.
 
-10. Check if there are helper functions in headers or lambda fuctions to reuse them instead of writing new code.
+10. Check if there are helper functions in headers or lambda functions to reuse them instead of writing new code.
 
     * Example
 

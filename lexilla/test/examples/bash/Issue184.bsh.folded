@@ -1,0 +1,12 @@
+ 0 400   0   echo $*
+ 0 400   0   echo $@
+ 0 400   0   echo $?
+ 0 400   0   echo $-
+ 0 400   0   echo $$
+ 0 400   0   echo $!
+ 0 400   0   echo $_
+ 0 400   0   echo $%
+ 0 400   0   echo $<
+ 1 400   0   
+ 0 400   0   ifeth=$(ls /sys/class/net | grep ^"$intf" | grep "$intf"$)
+ 0 400   0   

@@ -79,7 +79,8 @@ class PluginsManager
 friend class PluginsAdminDlg;
 public:
 	PluginsManager() : _dynamicIDAlloc(ID_PLUGINS_CMD_DYNAMIC, ID_PLUGINS_CMD_DYNAMIC_LIMIT),
-					   _markerAlloc(MARKER_PLUGINS, MARKER_PLUGINS_LIMIT)	{}
+					   _markerAlloc(MARKER_PLUGINS, MARKER_PLUGINS_LIMIT),
+					   _indicatorAlloc(INDICATOR_PLUGINS, INDICATOR_PLUGINS_LIMIT + 1)	{}
 	~PluginsManager()
 	{
 		for (size_t i = 0, len = _pluginInfos.size(); i < len; ++i)
@@ -117,6 +118,7 @@ public:
 	bool inDynamicRange(int id) { return _dynamicIDAlloc.isInRange(id); }
 
 	bool allocateMarker(int numberRequired, int* start);
+	bool allocateIndicator(int numberRequired, int* start);
 	generic_string getLoadedPluginNames() const;
 
 private:
@@ -129,6 +131,7 @@ private:
 	bool _isDisabled = false;
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;
+	IDAllocator _indicatorAlloc;
 	bool _noMoreNotification = false;
 
 	int loadPluginFromPath(const TCHAR* pluginFilePath);

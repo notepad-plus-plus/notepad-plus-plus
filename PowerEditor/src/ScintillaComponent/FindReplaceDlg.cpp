@@ -1022,27 +1022,25 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			initFromOptions();
+
+			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 		}
 		return TRUE;
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1058,7 +1056,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -1211,22 +1209,18 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1242,7 +1236,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				getClientRect(rc);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -1810,10 +1804,10 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDD_FINDINFILES_FIND_BUTTON:
 				{
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 512;
+					constexpr int filterSize = 512;
 					TCHAR filters[filterSize + 1] = { '\0' };
 					filters[filterSize] = '\0';
-					TCHAR directory[MAX_PATH];
+					TCHAR directory[MAX_PATH]{};
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 					_options._filters = filters;
@@ -1859,9 +1853,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 512;
-					TCHAR filters[filterSize];
-					TCHAR directory[MAX_PATH];
+					constexpr int filterSize = 512;
+					TCHAR filters[filterSize]{};
+					TCHAR directory[MAX_PATH]{};
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 					_options._filters = filters;
@@ -1900,8 +1894,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					std::lock_guard<std::mutex> lock(findOps_mutex);
 
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 512;
-					TCHAR filters[filterSize];
+					constexpr int filterSize = 512;
+					TCHAR filters[filterSize]{};
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 					_options._filters = filters;
@@ -1976,14 +1970,15 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 						nppParamInst._isFindReplacing = false;
 
-						generic_string result;
+						
 						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-						if (nbReplaced < 0)
+						if (nbReplaced == FIND_INVALID_REGULAR_EXPRESSION)
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-re-malformed", TEXT("Replace All: The regular expression is malformed."));
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
 						else
 						{
+							wstring result;
 							if (nbReplaced == 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-1-replaced", TEXT("Replace All: 1 occurrence was replaced"));
@@ -1995,8 +1990,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							}
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(&_options);
+
+							setStatusbarMessage(result, FSMessage);
 						}
-						setStatusbarMessage(result, FSMessage);
 						getFocus();
 					}
 				}
@@ -2013,29 +2009,32 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 						int nbCounted = processAll(ProcessCountAll, &_options);
 
-						generic_string result;
 						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-						if (nbCounted < 0)
+						if (nbCounted == FIND_INVALID_REGULAR_EXPRESSION)
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-re-malformed", TEXT("Count: The regular expression to search is malformed."));
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
 						else
 						{
+							wstring result;
 							if (nbCounted == 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-1-match", TEXT("Count: 1 match"));
 							}
-							else
+							else //if (nbCounted == 0 || nbCounted > 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", TEXT("Count: $INT_REPLACE$ matches"));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
 							}
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(&_options);
+							
+							setStatusbarMessage(result, FSMessage);
 						}
 
-						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
-						setStatusbarMessage(result, FSMessage);
+						if (isMacroRecording)
+							saveInMacro(wParam, FR_OP_FIND);
+						
 						getFocus();
 					}
 				}
@@ -2055,27 +2054,30 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						int nbMarked = processAll(ProcessMarkAll, &_options);
 						nppParamInst._isFindReplacing = false;
 
-						generic_string result;
+						
 						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-						if (nbMarked < 0)
+						if (nbMarked == FIND_INVALID_REGULAR_EXPRESSION)
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-re-malformed", TEXT("Mark: The regular expression to search is malformed."));
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
 						else
 						{
+							std::wstring result;
 							if (nbMarked == 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("Mark: 1 match"));
 							}
-							else
+							else //if (nbMarked == 0 || nbMarked > 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("Mark: $INT_REPLACE$ matches"));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
 							}
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(&_options);
+							
+							setStatusbarMessage(result, FSMessage);
 						}
-						setStatusbarMessage(result, FSMessage);
+						
 						getFocus();
 					}
 				}
@@ -2504,22 +2506,9 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			return false;
 		}
 	}
-	else if (posFind < -1)
+	else if (posFind == FIND_INVALID_REGULAR_EXPRESSION)
 	{ // error
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-		generic_string  msgGeneral;
-		if (posFind == -2)
-		{
-			 msgGeneral = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
-		}
-		else
-		{
-			msgGeneral = pNativeSpeaker->getLocalizedStrFromID("find-status-search-failed", TEXT("Find: Search failed"));
-		}
-
-		char szMsg [511] = "";
-		(*_ppEditView)->execute (SCI_GETBOOSTREGEXERRMSG, _countof (szMsg), reinterpret_cast<LPARAM>(szMsg));
-		setStatusbarMessage(msgGeneral, FSNotFound, szMsg);
+		setStatusbarMessageWithRegExprErr(*_ppEditView);
 		return false;
 	}
 
@@ -2650,7 +2639,9 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	{
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", TEXT("Replace: no occurrence was found."));
-		setStatusbarMessage(msg, FSNotFound);
+
+		if (_statusbarTooltipMsg.empty()) // Tooltip message non-empty means there's a find problem - so we keep the message as it is and not erase it
+			setStatusbarMessage(msg, FSNotFound);
 	}
 
 	return moreMatches;
@@ -2749,6 +2740,9 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	findReplaceInfo._endRange = endPosition;
 
 	int nbProcessed = processRange(op, findReplaceInfo, pFindersInfo, pOptions, colourStyleID);
+
+	if (nbProcessed == FIND_INVALID_REGULAR_EXPRESSION)
+		return FIND_INVALID_REGULAR_EXPRESSION;
 
 	if (nbProcessed > 0 && op == ProcessReplaceAll && pOptions->_isInSelection)
 	{
@@ -2875,8 +2869,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		targetStart = pEditView->searchInTarget(pTextFind, stringSizeFind, findReplaceInfo._startRange, findReplaceInfo._endRange);
 
 		// If we've not found anything, just break out of the loop
-		if (targetStart == -1 || targetStart == -2)
+		if (targetStart == -1)
 			break;
+
+		if (targetStart == FIND_INVALID_REGULAR_EXPRESSION)
+			return FIND_INVALID_REGULAR_EXPRESSION;
 
 		targetEnd = pEditView->execute(SCI_GETTARGETEND);
 
@@ -2911,7 +2908,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				intptr_t nbChar = lend - lstart;
 
 				// use the static buffer
-				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
+				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
@@ -2952,7 +2949,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				intptr_t nbChar = lend - lstart;
 
 				// use the static buffer
-				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
+				TCHAR lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
@@ -3655,6 +3652,20 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 	}
 }
 
+void FindReplaceDlg::setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView)
+{
+	if (!pEditView)
+		return;
+
+	char msg[511] {};
+	pEditView->execute(SCI_GETBOOSTREGEXERRMSG, _countof(msg), reinterpret_cast<LPARAM>(msg));
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	std::wstring result = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid Regular Expression"));
+
+	setStatusbarMessage(result, FSNotFound, msg);
+}
+
 generic_string FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) const
 {
 	generic_string scope;
@@ -3844,42 +3855,46 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 						nppParamInst._isFindReplacing = false;
 
-						generic_string result;
-						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-						if (nbReplaced < 0)
-						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-re-malformed", TEXT("Replace All: The regular expression is malformed."));
+						if (nbReplaced == FIND_INVALID_REGULAR_EXPRESSION)
+						{	
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
 						else
 						{
+							wstring result;
+							NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
 							if (nbReplaced == 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-1-replaced", TEXT("Replace All: 1 occurrence was replaced"));
 							}
-							else
+							else //if (nbReplaced == 0 || nbReplaced > 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-nb-replaced", TEXT("Replace All: $INT_REPLACE$ occurrences were replaced"));
 								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbReplaced));
 							}
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(_env);
+
+							setStatusbarMessage(result, FSMessage);
 						}
 
-						setStatusbarMessage(result, FSMessage);
 						break;
 					}
 
 					case IDCCOUNTALL:
 					{
 						int nbCounted = processAll(ProcessCountAll, _env);
-						generic_string result;
-						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-						if (nbCounted < 0)
+
+						if (nbCounted == FIND_INVALID_REGULAR_EXPRESSION)
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-re-malformed", TEXT("Count: The regular expression to search is malformed."));
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
 						else
 						{
+							wstring result;
+							NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
 							if (nbCounted == 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-1-match", TEXT("Count: 1 match"));
@@ -3891,8 +3906,9 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							}
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(_env);
+
+							setStatusbarMessage(result, FSMessage);
 						}
-						setStatusbarMessage(result, FSMessage);
 						break;
 					}
 
@@ -3901,15 +3917,15 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 						nppParamInst._isFindReplacing = true;
 						int nbMarked = processAll(ProcessMarkAll, _env);
 						nppParamInst._isFindReplacing = false;
-						generic_string result;
 
-						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-						if (nbMarked < 0)
+						if (nbMarked == FIND_INVALID_REGULAR_EXPRESSION)
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-re-malformed", TEXT("Mark: The regular expression to search is malformed."));
+							setStatusbarMessageWithRegExprErr(*_ppEditView);
 						}
 						else
 						{
+							wstring result;
+							NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 							if (nbMarked == 1)
 							{
 								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("Mark: 1 match"));
@@ -3921,9 +3937,10 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							}
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(_env);
+
+							setStatusbarMessage(result, FSMessage);
 						}
 
-						setStatusbarMessage(result, FSMessage);
 						break;
 					}
 
@@ -4231,7 +4248,7 @@ void FindReplaceDlg::enableFindInFilesFunc()
 	_currentStatus = FINDINFILES_DLG;
 	gotoCorrectTab();
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
-	TCHAR label[MAX_PATH];
+	TCHAR label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
@@ -4245,7 +4262,7 @@ void FindReplaceDlg::enableFindInProjectsFunc()
 	_currentStatus = FINDINPROJECTS_DLG;
 	gotoCorrectTab();
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
-	TCHAR label[MAX_PATH];
+	TCHAR label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
@@ -4285,7 +4302,7 @@ void FindReplaceDlg::enableMarkFunc()
 	::MoveWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), _replaceInSelFramePos.left + _deltaWidth, _replaceInSelFramePos.top, _replaceInSelFramePos.right, _replaceInSelFramePos.bottom, TRUE);
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _markClosePos.left + _deltaWidth, _markClosePos.top, _markClosePos.right, _markClosePos.bottom, TRUE);
 
-	TCHAR label[MAX_PATH];
+	TCHAR label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 	setDefaultButton(IDCMARKALL);
@@ -4395,7 +4412,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		bgColor = getCtrlBgColor(_statusBar.getHSelf());
 	}
 	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
-	RECT rect;
+	RECT rect{};
 	_statusBar.getClientRect(rect);
 
 	if (NppDarkMode::isEnabled())
@@ -4407,7 +4424,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if (_statusbarTooltipMsg.length() == 0) return;
 
-	SIZE size;
+	SIZE size{};
 	::GetTextExtentPoint32(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &size);
 	int s = (rect.bottom - rect.top) & 0x70; // limit s to available icon sizes and avoid uneven scalings
 	if (s > 0)
@@ -4800,7 +4817,7 @@ void Finder::copy()
 		return;
 	}
 
-	size_t fromLine, toLine;
+	size_t fromLine = 0, toLine = 0;
 	{
 		const pair<size_t, size_t> lineRange = _scintView.getSelectionLinesRange();
 		fromLine = lineRange.first;
@@ -4827,7 +4844,9 @@ void Finder::copy()
 			}
 		}
 	}
-	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n")) + TEXT("\r\n");
+	generic_string toClipboard;
+	stringJoin(lines, TEXT("\r\n"), toClipboard);
+	toClipboard += TEXT("\r\n");
 	if (!toClipboard.empty())
 	{
 		if (!str2Clipboard(toClipboard, _hSelf))
@@ -5121,7 +5140,7 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 		case WM_SIZE :
 		{
-			RECT rc;
+			RECT rc{};
 			getClientRect(rc);
 			_scintView.reSizeTo(rc);
 			break;
@@ -5335,7 +5354,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rcClient = {};
+				RECT rcClient{};
 				GetClientRect(_hSelf, &rcClient);
 				::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
@@ -5371,7 +5390,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	if (range.cpMin == range.cpMax)
 		return;
 
-	TCHAR text2Find[FINDREPLACE_MAXLENGTH];
+	TCHAR text2Find[FINDREPLACE_MAXLENGTH]{};
 	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find, FINDREPLACE_MAXLENGTH, false);	//do not expand selection (false)
 	opt->_str2Search = text2Find;
 	_pFRDlg->markAllInc(opt);
@@ -5570,6 +5589,12 @@ void Progress::close()
 		::CloseHandle(_hThread);
 		::CloseHandle(_hActiveState);
 	}
+
+	if (_hFont != nullptr)
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
 }
 
 
@@ -5579,7 +5604,7 @@ void Progress::setPercent(unsigned percent, const TCHAR* fileName, int nbHitsSoF
 	{
 		::PostMessage(_hPBar, PBM_SETPOS, percent, 0);
 		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(fileName));
-		TCHAR str[16];
+		TCHAR str[16]{};
 		_itow(nbHitsSoFar, str, 10);
 		::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 	}
@@ -5593,7 +5618,7 @@ void Progress::setInfo(const TCHAR* info, int nbHitsSoFar) const
 		::SendMessage(_hPathText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
 		if (nbHitsSoFar != -1)
 		{
-			TCHAR str[16];
+			TCHAR str[16]{};
 			_itow(nbHitsSoFar, str, 10);
 			::SendMessage(_hRunningHitsText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(str));
 		}
@@ -5682,7 +5707,7 @@ int Progress::createProgressWindow()
 	_hRunningHitsText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE,
 		xStartPos + 75 + 2, yTextPos + textHeight * 2,
-		70, textHeight, 
+		dpiManager.scaleX(70), textHeight,
 		_hwnd, NULL, _hInst, NULL);
 
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
@@ -5711,13 +5736,19 @@ int Progress::createProgressWindow()
 		cBTNwidth, cBTNheight,
 		_hwnd, NULL, _hInst, NULL);
 
-	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
-	if (hf)
+	if (_hFont == nullptr)
 	{
-		::SendMessage(_hPathText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hRunningHitsStaticText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hRunningHitsText, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		::SendMessage(_hBtn, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+		_hFont = ::CreateFontIndirect(&lf);
+	}
+
+	if (_hFont != nullptr)
+	{
+		const auto& wpFont = reinterpret_cast<WPARAM>(_hFont);
+		::SendMessage(_hPathText, WM_SETFONT, wpFont, TRUE);
+		::SendMessage(_hRunningHitsStaticText, WM_SETFONT, wpFont, TRUE);
+		::SendMessage(_hRunningHitsText, WM_SETFONT, wpFont, TRUE);
+		::SendMessage(_hBtn, WM_SETFONT, wpFont, TRUE);
 	}
 
 	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);
@@ -5773,7 +5804,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				GetClientRect(hwnd, &rc);
 				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 			}

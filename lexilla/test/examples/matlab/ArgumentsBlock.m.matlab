@@ -59,6 +59,15 @@ arguments = 10;
 y = x + arguments;
 end
 
+% Semicolon is equivalent to a comment
+function y = foo(x)
+;;;;;;;
+arguments
+    x
+end
+y = x + 2;
+end
+
 % Arguments block is illegal in nested functions,
 % but lexer should process it anyway
 function y = foo (x)
@@ -70,6 +79,7 @@ end
     arguments
         x (1,2) {mustBeReal(x)}
     end
+    var = 0;
     arguments = 5;
     y = arguments + x;
     end
@@ -87,3 +97,41 @@ arguments
 end
 y = x;
 end
+
+% "arguments" is an argument name too
+function r = foo(x, arguments)
+arguments
+    x
+    arguments
+end
+r = bar(x, arguments{:});
+end
+
+% Multiple arguments blocks
+function [a, b] = foo(x, y, varargin)
+
+arguments(Input)
+    x (1,4) {mustBeReal}
+    y (1,:) {mustBeInteger} = x(2:end);
+end
+
+arguments(Input, Repeating)
+    varargin
+end
+
+arguments(Output)
+    a (1,1) {mustBeReal}
+    b (1,1) {mustBeNonNegative}
+end
+
+var = 10;
+arguments = {"now", "it's", "variable"};
+
+[a, b] = bar(x, y, arguments);
+
+end
+
+% One line function with arguments block.
+% This code style is rarely used (if at all), but the
+% lexer shouldn't break
+function y = foo(x); arguments; x; end; y = bar(x); end

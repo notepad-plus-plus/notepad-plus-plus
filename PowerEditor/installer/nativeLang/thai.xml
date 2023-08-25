@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="thai" filename="thai.xml" >
+	<Native-Langue name="thai" filename="thai.xml">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -20,7 +20,7 @@
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="edit-copyToClipboard"  name="คัดลอกไปยังคลิปบอร์ด"/>
+					<Item subMenuId="edit-copyToClipboard" name="คัดลอกไปยังคลิปบอร์ด"/>
 					<Item subMenuId="edit-indent" name="ย่อหน้า"/>
 					<Item subMenuId="edit-convertCaseTo" name="แปลงตัวอักษร"/>
 					<Item subMenuId="edit-lineOperations" name="การทำงานกับบรรทัด"/>
@@ -33,29 +33,29 @@
 					<Item subMenuId="search-jumpUp" name="กระโดดขึ้นไปยัง"/>
 					<Item subMenuId="search-jumpDown" name="กระโดดลงไปยัง"/>
 					<Item subMenuId="search-bookmark" name="บุ๊คมาร์ค"/>
-					<Item subMenuId="view-showSymbol"  name="แสดงสัญลักษณ์"/>
-					<Item subMenuId="view-zoom"  name="ซูม"/>
-					<Item subMenuId="view-moveCloneDocument"  name="ย้าย/สำเนา เอกสารปัจจุบัน"/>
+					<Item subMenuId="view-showSymbol" name="แสดงสัญลักษณ์"/>
+					<Item subMenuId="view-zoom" name="ซูม"/>
+					<Item subMenuId="view-moveCloneDocument" name="ย้าย/สำเนา เอกสารปัจจุบัน"/>
 					<Item subMenuId="view-collapseLevel" name="ย่อชั้นนี้"/>
 					<Item subMenuId="view-uncollapseLevel" name="ยืดชั้นนี้"/>
-					<Item subMenuId="encoding-characterSets"  name="ชุดอักขระ"/>
-					<Item subMenuId="encoding-arabic"  name="Arabic"/>
-					<Item subMenuId="encoding-baltic"  name="Baltic"/>
-					<Item subMenuId="encoding-celtic"  name="Celtic"/>
-					<Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Central European"/>
-					<Item subMenuId="encoding-chinese"  name="Chinese"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
-					<Item subMenuId="encoding-greek"  name="Greek"/>
-					<Item subMenuId="encoding-hebrew"  name="Hebrew"/>
-					<Item subMenuId="encoding-japanese"  name="Japanese"/>
+					<Item subMenuId="encoding-characterSets" name="ชุดอักขระ"/>
+					<Item subMenuId="encoding-arabic" name="Arabic"/>
+					<Item subMenuId="encoding-baltic" name="Baltic"/>
+					<Item subMenuId="encoding-celtic" name="Celtic"/>
+					<Item subMenuId="encoding-cyrillic" name="Cyrillic"/>
+					<Item subMenuId="encoding-centralEuropean" name="Central European"/>
+					<Item subMenuId="encoding-chinese" name="Chinese"/>
+					<Item subMenuId="encoding-easternEuropean" name="Eastern European"/>
+					<Item subMenuId="encoding-greek" name="Greek"/>
+					<Item subMenuId="encoding-hebrew" name="Hebrew"/>
+					<Item subMenuId="encoding-japanese" name="Japanese"/>
 					<Item subMenuId="encoding-korean" name="Korean"/>
 					<Item subMenuId="encoding-northEuropean" name="North European"/>
 					<Item subMenuId="encoding-thai" name="ไทย"/>
 					<Item subMenuId="encoding-turkish" name="Turkish"/>
 					<Item subMenuId="encoding-westernEuropean" name="Western European"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-					<Item subMenuId="settings-import"  name="นำเข้า"/>
+					<Item subMenuId="settings-import" name="นำเข้า"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -69,7 +69,7 @@
 					<Item id="41007" name="บันทึกทั้งหมด (&amp;E)"/>
 					<Item id="41008" name="บันทึกเป็น... (&amp;A)"/>
 					<Item id="41010" name="พิมพ์..."/>
-					<Item id="1001"  name="พิมพ์เดี๋ยวนี้"/>
+					<Item id="1001" name="พิมพ์เดี๋ยวนี้"/>
 					<Item id="41011" name="ออก (&amp;X)"/>
 					<Item id="41012" name="โหลดเซสชั่น..."/>
 					<Item id="41013" name="บันทึกเซสชั่น..."/>
@@ -268,17 +268,17 @@
 
 		<Dialog>
 			<Find title="" titleFind="ค้นหา" titleReplace="แทนที่" titleFindInFiles="ค้นหาในไฟล์" titleMark="มาร์ค">
-				<Item id="1"    name="ค้นหาถัดไป"/>
-				<Item id="2"    name="ปิด"/>
+				<Item id="1" name="ค้นหาถัดไป"/>
+				<Item id="2" name="ปิด"/>
 				<Item id="1620" name="สิ่งที่ค้นหา:"/>
 				<Item id="1603" name="ตรงกับทั้งคำเท่านั้น (&amp;W)"/>
 				<Item id="1604" name="ตรงกับตัวอักษรเล็ก/ใหญ่ (&amp;C)"/>
-                <Item id="1605" name="Regular &amp;expression"/>
-                <Item id="1606" name="Wrap aroun&amp;d"/>
+				<Item id="1605" name="Regular &amp;expression"/>
+				<Item id="1606" name="Wrap aroun&amp;d"/>
 				<Item id="1614" name="นับ"/>
 				<Item id="1615" name="ค้นหาทั้งหมด"/>
 				<Item id="1616" name="มาร์คบรรทัด"/>
-                <Item id="1618" name="ล้างแต่ละการค้นหา"/>
+				<Item id="1618" name="ล้างแต่ละการค้นหา"/>
 				<Item id="1611" name="แทนที่ด้วย (&amp;P):"/>
 				<Item id="1608" name="แทนที่ (&amp;R)"/>
 				<Item id="1609" name="แทนที่ทั้งหมด (&amp;A)"/>
@@ -305,8 +305,8 @@
 			<GoToLine title="ไปที่...">
 				<Item id="2007" name="บรรทัด"/>
 				<Item id="2008" name="ออฟเซ็ต"/>
-				<Item id="1"    name="ไป (&amp;G)"/>
-				<Item id="2"    name="ยกเลิก"/>
+				<Item id="1" name="ไป (&amp;G)"/>
+				<Item id="2" name="ยกเลิก"/>
 				<Item id="2004" name="คุณอยู่ที่:"/>
 				<Item id="2005" name="คุณจะไปที่:"/>
 				<Item id="2006" name="คุณไปได้ไม่เกิน:"/>
@@ -314,13 +314,13 @@
 
 			<Run title="เรียก...">
 				<Item id="1903" name="โปรแกรมที่เรียก"/>
-				<Item id="1"    name="เรียก"/>
-				<Item id="2"    name="ยกเลิก"/>
+				<Item id="1" name="เรียก"/>
+				<Item id="2" name="ยกเลิก"/>
 				<Item id="1904" name="บันทึก..."/>
 			</Run>
 
 			<StyleConfig title="ตั้งค่ารูปแบบ">
-				<Item id="2"    name="ยกเลิก"/>
+				<Item id="2" name="ยกเลิก"/>
 				<Item id="2301" name="บันทึกและปิด"/>
 				<Item id="2303" name="ความโปร่งแสง"/>
 				<Item id="2306" name="เลือกธีม: "/>
@@ -360,15 +360,15 @@
 				<Item id="20011" name="ความโปร่งแสง"/>
 				<Item id="20016" name="นำเข้า..."/>
 				<Item id="20015" name="ส่งออก..."/>
-				<Item id="0"     name="รูปแบบสี"/>
-				<Item id="1"     name="สีพื้นหน้า"/>
-				<Item id="2"     name="สีพื้นหลัง"/>
-				<Item id="3"     name="รูปแบบฟอนท์"/>
-				<Item id="4"     name="ชื่อฟอนท์:"/>
-				<Item id="5"     name="ขนาดฟอนท์:"/>
-				<Item id="6"     name="ตัวหนา"/>
-				<Item id="7"     name="ตัวเอียง"/>
-				<Item id="8"     name="ขีดเส้นใต้"/>
+				<Item id="0" name="รูปแบบสี"/>
+				<Item id="1" name="สีพื้นหน้า"/>
+				<Item id="2" name="สีพื้นหลัง"/>
+				<Item id="3" name="รูปแบบฟอนท์"/>
+				<Item id="4" name="ชื่อฟอนท์:"/>
+				<Item id="5" name="ขนาดฟอนท์:"/>
+				<Item id="6" name="ตัวหนา"/>
+				<Item id="7" name="ตัวเอียง"/>
+				<Item id="8" name="ขีดเส้นใต้"/>
 				<Folder title="โฟลเดอร์และค่าเริ่มต้น">
 					<Item id="21101" name="การตั้งค่าค่าเริ่มต้นรูปแบบ"/>
 					<Item id="21201" name="การตั้งค่าคีย์เวิร์ดเปิดโฟลเดอร์"/>

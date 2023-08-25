@@ -1,0 +1,24 @@
+{15}<%@{16} register tagprefix="uc1" 
+    tagname="CalendarUserControl" 
+    src="~/CalendarUserControl.ascx" {15}%>{0}
+{21}<!{26}DOCTYPE html{21}>{0}
+{1}<html>{0}
+{15}<%@{16}language=VBScript{15}%>{0}
+{15}<%--{20} comment --{15}%>{0}
+{1}<script{8} {3}type{8}={6}"text/vbscript"{1}>{70}
+{72}'1%>2{71}
+{72}'1?>2{71}
+{72}'%>{71}
+{72}'?>{71}
+{1}</script>{0}
+{1}<script{8} {3}type{8}={6}"text/vbscript"{1}>{70}
+{74}dim{71} {76}e{71}={75}"%>"{71}
+{74}dim{71} {76}f{71}={75}"?>"{71}
+{1}</script>{0}
+Start
+{15}<%{86}response.write{81}({85}"1"{81}){15}%>{0}
+{15}<%{81} {82}'comment{15}%>{0}
+{15}<%{84}dim{81} {86}x{81}={85}"2"{82}'comment{15}%>{0}
+{15}<%{86}response.write{81}({86}x{81}){15}%>{0}
+End
+{1}</html>{0}

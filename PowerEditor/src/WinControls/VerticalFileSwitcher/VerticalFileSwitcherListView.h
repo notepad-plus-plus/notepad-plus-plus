@@ -19,9 +19,7 @@
 
 #include "Window.h"
 #include "TaskListDlg.h"
-
-class Buffer;
-typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrieved
+#include "Buffer.h"
 
 #define SORT_DIRECTION_NONE     -1
 #define SORT_DIRECTION_UP     0
@@ -33,13 +31,6 @@ typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrie
 #define FS_CLMNPATH					"ColumnPath"
 #define FS_LVGROUPS					"ListGroups"
 
-struct SwitcherFileInfo {
-	BufferID _bufID = 0;
-	int _iView = 0;
-
-	SwitcherFileInfo() = delete;
-	SwitcherFileInfo(BufferID buf, int view) : _bufID(buf), _iView(view){};
-};
 
 class VerticalFileSwitcherListView : public Window
 {
@@ -70,7 +61,7 @@ public:
 		return static_cast<int32_t>(SendMessage(_hSelf, LVM_GETSELECTEDCOUNT, 0, 0));
 	};
 
-	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const;
+	std::vector<BufferViewInfo> getSelectedFiles(bool reverse = false) const;
 	void reload();
 	void ensureVisibleCurrentItem() const {
 		ListView_EnsureVisible(_hSelf, _currentIndex, false);

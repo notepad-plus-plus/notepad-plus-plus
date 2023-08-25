@@ -461,7 +461,7 @@ bool SignificantLines::LineMayCache(Sci::Line line) const noexcept {
 	case LineCache::Caret:
 		return line == lineCaret;
 	case LineCache::Page:
-		return (abs(line - lineCaret) < linesOnScreen) ||
+		return (std::abs(line - lineCaret) < linesOnScreen) ||
 			((line >= lineTop) && (line <= (lineTop + linesOnScreen)));
 	case LineCache::Document:
 	default:

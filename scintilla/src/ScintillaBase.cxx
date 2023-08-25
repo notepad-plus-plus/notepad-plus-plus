@@ -265,7 +265,7 @@ void ScintillaBase::AutoCompleteStart(Sci::Position lenEntered, const char *list
 		}
 	}
 
-	ListOptions options{
+	const ListOptions options{
 		vs.ElementColour(Element::List),
 		vs.ElementColour(Element::ListBack),
 		vs.ElementColour(Element::ListSelected),
@@ -515,6 +515,7 @@ void ScintillaBase::CallTipShow(Point pt, const char *defn) {
 	CreateCallTipWindow(rc);
 	ct.wCallTip.SetPositionRelative(rc, &wMain);
 	ct.wCallTip.Show();
+	ct.wCallTip.InvalidateAll();
 }
 
 void ScintillaBase::CallTipClick() {

@@ -2,9 +2,9 @@
 
 from __future__ import unicode_literals
 
-import ctypes, os, sys
+import ctypes
 
-from ctypes import c_int, c_ulong, c_char_p, c_wchar_p, c_ushort, c_uint, c_long, c_ssize_t
+from ctypes import c_int, c_char_p, c_long, c_ssize_t
 
 def IsEnumeration(t):
 	return t[:1].isupper()
@@ -52,7 +52,7 @@ class SciCall:
 		self._ptr = ptr
 		self._msg = msg
 		self._stringResult = stringResult
-	def __call__(self, w=0, l=0):
+	def __call__(self, w=0, lp=0):
 		ww = ctypes.cast(w, c_char_p)
 		if self._stringResult:
 			lengthBytes = self._fn(self._ptr, self._msg, ww, None)
@@ -63,7 +63,7 @@ class SciCall:
 			assert lengthBytes == lengthBytes2
 			return bytearray(result)[:lengthBytes]
 		else:
-			ll = ctypes.cast(l, c_char_p)
+			ll = ctypes.cast(lp, c_char_p)
 			return self._fn(self._ptr, self._msg, ww, ll)
 
 sciFX = ctypes.CFUNCTYPE(c_ssize_t, c_char_p, c_int, c_char_p, c_char_p)

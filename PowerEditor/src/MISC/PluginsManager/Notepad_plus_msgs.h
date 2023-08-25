@@ -368,7 +368,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
     // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
-    // sets startNumber to the initial command ID if successful
+    // sets startNumber to the initial marker ID if successful
     // Allocates a marker number to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
 	// it has to use this message to get marker number, in order to prevent from the conflict with the other plugins.
     // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
@@ -549,7 +549,54 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// void* NPPM_GETBOOKMARKID(0, 0)
 	// Returns the bookmark ID
 
+	#define NPPM_DARKMODESUBCLASSANDTHEME (NPPMSG + 112)
+	// ULONG NPPM_DARKMODESUBCLASSANDTHEME(ULONG dmFlags, HWND hwnd)
+	// Add support for generic dark mode.
+	//
+	// Docking panels don't need to call NPPM_DARKMODESUBCLASSANDTHEME for main hwnd.
+	// Subclassing is applied automatically unless DWS_USEOWNDARKMODE flag is used.
+	//
+	// Might not work properly in C# plugins.
+	//
+	// Returns succesful combinations of flags.
+	//
 
+	namespace NppDarkMode
+	{
+		// Standard flags for main parent after its children are initialized.
+		constexpr ULONG dmfInit =               0x0000000BUL;
+
+		// Standard flags for main parent usually used in NPPN_DARKMODECHANGED.
+		constexpr ULONG dmfHandleChange =       0x0000000CUL;
+	};
+
+	// Examples:
+	//
+	// - after controls initializations in WM_INITDIALOG, in WM_CREATE or after CreateWindow:
+	//
+	//auto success = static_cast<ULONG>(::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(NppDarkMode::dmfInit), reinterpret_cast<LPARAM>(mainHwnd)));
+	//
+	// - handling dark mode change:
+	//
+	//extern "C" __declspec(dllexport) void beNotified(SCNotification * notifyCode)
+	//{
+	//	switch (notifyCode->nmhdr.code)
+	//	{
+	//		case NPPN_DARKMODECHANGED:
+	//		{
+	//			::SendMessage(nppData._nppHandle, NPPM_DARKMODESUBCLASSANDTHEME, static_cast<WPARAM>(dmfHandleChange), reinterpret_cast<LPARAM>(mainHwnd));
+	//			::SetWindowPos(mainHwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED); // to redraw titlebar and window
+	//			break;
+	//		}
+	//	}
+	//}
+
+	#define NPPM_ALLOCATEINDICATOR  (NPPMSG + 113)
+	// BOOL NPPM_ALLOCATEINDICATOR(int numberRequested, int* startNumber)
+	// sets startNumber to the initial indicator ID if successful
+	// Allocates an indicator number to a plugin: if a plugin needs to add an indicator,
+	// it has to use this message to get the indicator number, in order to prevent a conflict with the other plugins.
+	// Returns: TRUE if successful, FALSE otherwise.
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

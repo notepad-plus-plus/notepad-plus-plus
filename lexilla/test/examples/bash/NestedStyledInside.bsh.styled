@@ -1,0 +1,77 @@
+{2}# Nested elements and other complex cases{0}
+
+{2}# String with backtick inclusion{0}
+{5}"x{11}`ls`{5}"{0}
+{2}# Nested string{0}
+{5}"x{11}`ls {5}"*.c"{11}`{5}"{0}
+{2}# Not terminated at first "{0}
+{5}"x{11}`ls{5}" # "{11}`{5}"{0} {2}#{0}
+
+{2}# String with command inclusion{0}
+{5}"x{7}$({8}ls{7}){5}"{0}
+
+{2}# Nested command{0}
+{7}$({8}ls{0} {8}-la{7}$({8}ls{0} {7}*.{8}c{7})){0}
+
+{2}# Check strings and backticks in command{0}
+{4}echo{0} {7}$({6}'ls'{0} {5}"."{0} {11}`ls`{0} {5}$'.'{0} {5}$"."{7}){0}
+
+{2}# $( not terminated by ) if contains unterminated string{0}
+{7}$({6}'x) # '{7}){0} {2}#{0}
+{7}$({5}"x) # "{7}){0} {2}#{0}
+{7}$({11}`x) # `{7}){0} {2}# Bash doesn't like this{0}
+{7}$({5}$'x) # '{7}){0} {2}#{0}
+{7}$({5}$"x) # "{7}){0} {2}#{0}
+
+{2}# Parameter expansion{0}
+{8}var{7}={8}abcdef{0}
+{8}sub{7}={8}abc{0}
+{8}rep{7}={6}'& '{0}
+{4}echo{0} {10}${var/{9}$sub{10}/{5}"{10}${rep}{5}}"{10}}{0} {2}#{0}
+
+{2}# '$' in variable{0}
+{4}echo{0} {9}$${8}PID{0}
+{4}echo{0} {9}$var{10}${var}{0}
+
+{2}# Here-doc with internal elements{0}
+{4}cat{0} {12}<<EOF{13}
+	{9}$scalar{13}
+	{10}${var}{13}
+	{7}$(({3}1{7}+{3}2{7})){13}
+	{7}$({4}pwd{7}){13}
+	{11}`pwd`{13}
+{12}EOF{0}
+
+{2}# Quoted delimiter treats here-doc as simple string{0}
+{4}cat{0} {12}<<"EOF"{13}
+	$scalar
+	${var}
+	$((1+2))
+	$(pwd)
+	`pwd`
+{12}EOF{0}
+
+{2}# Escaped same as quoted{0}
+{4}cat{0} {12}<<\EOF{13}
+	$scalar
+{12}EOF{0}
+
+{2}# Nesting{0}
+{4}echo{0} {5}"{7}$(({3}1{0} {7}+{0} {3}2{7})){5}"{0} {2}#{0}
+{4}echo{0} {5}"{7}$[{3}1{0} {7}+{0} {3}2{7}]{5}"{0} {2}#{0}
+
+{2}# Multiple nesting levels{0}
+{7}$({8}ls{0} {8}-la{7}$({8}ls{0} {7}$({8}c{7}){0} {5}$'*.c'{0} {11}` {7}$({10}${s}{7}){11}`{7})){0}
+
+{2}# Multi-line{0}
+{7}$({8}ls{0} {7}|{0}
+{8}more{7}){0}
+
+{7}$({0}
+{11}`x`{0}
+{5}"x"{0}
+{11}`ls`{0}
+{5}$'x'{0}
+{5}$"x"{0}
+{7}){0}
+{2}#end -- checks termination of previous{0}

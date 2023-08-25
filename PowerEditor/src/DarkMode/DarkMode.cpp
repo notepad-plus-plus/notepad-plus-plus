@@ -271,6 +271,11 @@ bool IsWindows11() // or later OS version
 	return (g_buildNumber >= 22000);
 }
 
+DWORD GetWindowsBuildNumber()
+{
+	return g_buildNumber;
+}
+
 void InitDarkMode()
 {
 	fnRtlGetNtVersionNumbers RtlGetNtVersionNumbers = nullptr;

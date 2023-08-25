@@ -87,7 +87,17 @@ DockingCont::DockingCont()
 
 DockingCont::~DockingCont()
 {
-	::DeleteObject(_hFont);
+	if (_hFont != nullptr)
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
+
+	if (_hFontCaption != nullptr)
+	{
+		::DeleteObject(_hFontCaption);
+		_hFontCaption = nullptr;
+	}
 }
 
 
@@ -114,7 +124,11 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 		}
 
 		//If you want defualt GUI font
-		_hFont = (HFONT)GetStockObject(DEFAULT_GUI_FONT);
+		LOGFONT lfTab{ NppParameters::getDefaultGUIFont() };
+		_hFont = ::CreateFontIndirect(&lfTab);
+
+		LOGFONT lfCaption{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::smcaption) };
+		_hFontCaption = ::CreateFontIndirect(&lfCaption);
 	}
 
 	display(willBeShown);
@@ -520,7 +534,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		rc.left		+= 2;
 		rc.top		+= 1;
 		rc.right	-= 16;
-		hOldFont = (HFONT)::SelectObject(hDc, _hFont);
+		hOldFont = static_cast<HFONT>(::SelectObject(hDc, _hFontCaption));
 		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
 
 		// calculate text size and if its trankated...
@@ -564,12 +578,18 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		rc.right	= rc.bottom - rc.top;
 		rc.bottom	+= 14;
 
-		hFont = ::CreateFont(12, 0, 90 * 10, 0,
-			 FW_NORMAL, FALSE, FALSE, FALSE,
-			 ANSI_CHARSET, OUT_DEFAULT_PRECIS,
-			 CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-			 DEFAULT_PITCH | FF_ROMAN,
-			 TEXT("MS Shell Dlg"));
+		LOGFONT lf{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::smcaption) };
+		lf.lfEscapement = 900;
+		hFont = ::CreateFontIndirect(&lf);
+		if (hFont == nullptr)
+		{
+			hFont = ::CreateFont(12, 0, 90 * 10, 0,
+				FW_NORMAL, FALSE, FALSE, FALSE,
+				ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+				CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+				DEFAULT_PITCH | FF_ROMAN,
+				TEXT("MS Shell Dlg"));
+		}
 
 		hOldFont = (HFONT)::SelectObject(hDc, hFont);
 		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_BOTTOM | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
@@ -590,7 +610,12 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 	if (NppDarkMode::isEnabled())
 	{
-		::SelectObject(hDc, NppParameters::getInstance().getDefaultUIFont());
+		if (_hFont == nullptr)
+		{
+			LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+			_hFont = ::CreateFontIndirect(&lf);
+		}
+		auto hOld = static_cast<HFONT>(::SelectObject(hDc, _hFont));
 
 		rc = pDrawItemStruct->rcItem;
 		if (_isTopCaption == TRUE)
@@ -607,7 +632,8 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			::SetTextColor(hDc, RGB(0xFF, 0xFF, 0xFF));
 		}
 
-		::DrawText(hDc, L"x", 1, &rc, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
+		::DrawText(hDc, L"✕", 1, &rc, DT_VCENTER | DT_CENTER | DT_SINGLELINE);
+		::SelectObject(hDc, hOld);
 	}
 	else
 	{
@@ -1632,7 +1658,7 @@ void DockingCont::selectTab(int iTab)
 			if (iItem == iTab && pszMaxTxt)
 			{
 				// fake here an icon before text ...
-				szText = TEXT("    ");
+				szText = TEXT("        ");
 				szText += pszMaxTxt;
 			}
 			tcItem.pszText = (TCHAR *)szText.c_str();

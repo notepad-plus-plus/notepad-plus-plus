@@ -134,7 +134,7 @@ public:
 	void DefineWordListSets(const char * const wordListDescriptions[]) {
 		if (wordListDescriptions) {
 			for (size_t wl = 0; wordListDescriptions[wl]; wl++) {
-				if (!wordLists.empty())
+				if (wl > 0)
 					wordLists += "\n";
 				wordLists += wordListDescriptions[wl];
 			}

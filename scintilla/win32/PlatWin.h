@@ -19,7 +19,7 @@ extern void Platform_Initialise(void *hInstance) noexcept;
 extern void Platform_Finalise(bool fromDllMain) noexcept;
 
 constexpr RECT RectFromPRectangle(PRectangle prc) noexcept {
-	RECT rc = { static_cast<LONG>(prc.left), static_cast<LONG>(prc.top),
+	const RECT rc = { static_cast<LONG>(prc.left), static_cast<LONG>(prc.top),
 		static_cast<LONG>(prc.right), static_cast<LONG>(prc.bottom) };
 	return rc;
 }
@@ -46,7 +46,7 @@ void SetWindowPointer(HWND hWnd, void *ptr) noexcept;
 HMONITOR MonitorFromWindowHandleScaling(HWND hWnd) noexcept;
 
 UINT DpiForWindow(WindowID wid) noexcept;
-int GetDeviceScaleFactorWhenGdiScalingActive(HWND hWnd) noexcept;
+float GetDeviceScaleFactorWhenGdiScalingActive(HWND hWnd) noexcept;
 
 int SystemMetricsForDpi(int nIndex, UINT dpi) noexcept;
 

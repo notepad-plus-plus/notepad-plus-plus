@@ -57,7 +57,9 @@ SET(projIncludDir	../../scintilla/include/
 					./WinControls/FileBrowser/
 					./WinControls/ReadDirectoryChanges/
 					./MISC/md5/
+					./MISC/sha1/
 					./MISC/sha2/
+					./MISC/sha512/
 					./WinControls/PluginsAdmin/
 					./json/)
 
@@ -67,7 +69,10 @@ SET(src_files
 			./DarkMode/DarkMode.cpp
 			./MISC/Common/verifySignedfile.cpp
 			./MISC/md5/md5Dlgs.cpp
+			./MISC/sha1/calc_sha1.cpp
+			./MISC/sha1/sha1.cpp
 			./MISC/sha2/sha-256.cpp
+			./MISC/sha512/sha512.cpp
 			./NppDarkMode.cpp
 			./MISC/Process/Processus.cpp
 			./WinControls/AboutDlg/AboutDlg.cpp
@@ -205,7 +210,10 @@ SET(include_files
 			./MISC/md5/md5.h
 			./MISC/md5/md5Dlgs.h
 			./MISC/md5/md5Dlgs_rc.h
+			./MISC/sha1/calc_sha1.h
+			./MISC/sha1/sha1.h
 			./MISC/sha2/sha-256.h
+			./MISC/sha512/sha512.h
 			./NppDarkMode.h
 			./ScintillaComponent/columnEditor_rc.h
 			./ScintillaComponent/FindReplaceDlg_rc.h
@@ -380,7 +388,7 @@ SET(rcFiles
 
 IF (WIN32)
 	SET(option WIN32)
-	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi wininet imm32 msimg32 uxtheme)
+	SET(win32_LIBRARIES comctl32 shlwapi dbghelp version crypt32 wintrust sensapi wininet imm32 msimg32 uxtheme dwmapi)
 	set(CMAKE_CXX_STANDARD 20)
 if ( MSVC )
 	#do not use for mingw builds

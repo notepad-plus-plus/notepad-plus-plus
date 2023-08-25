@@ -209,7 +209,7 @@ void ChangeLog::SetSavePoint() {
 		}
 		startRun = endRun;
 	}
-	
+
 	for (Sci::Position positionDeletion = 0; positionDeletion <= length;) {
 		const EditionSetOwned &editions = deleteEdition.ValueAt(positionDeletion);
 		if (editions) {

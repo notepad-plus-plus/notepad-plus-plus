@@ -3,8 +3,6 @@
  ** Tests WordList, WordClassifier, and SubStyles
  **/
 
-#include <string.h>
-
 #include <string>
 #include <string_view>
 #include <vector>
@@ -71,7 +69,7 @@ TEST_CASE("WordList") {
 
 	SECTION("WordAt") {
 		wl.Set("else struct");
-		REQUIRE(0 == strcmp(wl.WordAt(0), "else"));
+		REQUIRE_THAT(wl.WordAt(0), Catch::Matchers::Equals("else"));
 	}
 
 	SECTION("InListAbbreviated") {

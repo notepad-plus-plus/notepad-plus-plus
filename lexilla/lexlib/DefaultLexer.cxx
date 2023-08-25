@@ -35,8 +35,7 @@ DefaultLexer::DefaultLexer(const char *languageName_, int language_,
 	nClasses(nClasses_) {
 }
 
-DefaultLexer::~DefaultLexer() {
-}
+DefaultLexer::~DefaultLexer() = default;
 
 void SCI_METHOD DefaultLexer::Release() {
 	delete this;

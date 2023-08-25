@@ -885,9 +885,10 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 	}
 
 	if (propertyMap.GetPropertyValue("testlexers.list.styles").value_or(0)) {
-		std::vector<bool> used(0x80);
+		std::vector<bool> used(0x100);
 		for (Sci_Position pos = 0; pos < pdoc->Length(); pos++) {
-			const unsigned style = pdoc->StyleAt(pos);
+			const unsigned char uchStyle = pdoc->StyleAt(pos);
+			const unsigned style = uchStyle;
 			used.at(style) = true;
 		}
 		PrintRanges(used);

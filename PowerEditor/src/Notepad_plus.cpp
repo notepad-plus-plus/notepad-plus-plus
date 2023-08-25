@@ -227,7 +227,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	int tabBarStatus = nppGUI._tabStatus;
 
 	_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
-	int iconDpiDynamicalSize = nppParam._dpiManager.scaleY(_toReduceTabBar ? 13 : 20);
+	int iconDpiDynamicalSize = nppParam._dpiManager.scaleX(g_TabIconSize);
 	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs) / sizeof(int));
 	_docTabIconListAlt.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_alt, sizeof(docTabIconIDs_alt) / sizeof(int));
 	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
@@ -375,20 +375,18 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	TabBarPlus::doDragNDrop(true);
 
-	if (_toReduceTabBar)
+	const auto& hf = _mainDocTab.getFont(_toReduceTabBar);
+	if (hf)
 	{
-		HFONT hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
-
-		if (hf)
-		{
-			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-		}
-		int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(22);
-		int tabDpiDynamicalWidth = nppParam._dpiManager.scaleX(45);
-		TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-		TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+		::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+		::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 	}
+
+	int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
+	int tabDpiDynamicalWidth = nppParam._dpiManager.scaleX(g_TabWidth);
+	TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+	TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
 	_mainDocTab.display();
 
 
@@ -501,21 +499,53 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Add external languages to menu
 	for (int i = 0; i < nppParam.getNbExternalLang(); ++i)
 	{
+		HMENU subMenu = hLangMenu;
 		ExternalLangContainer & externalLangContainer = nppParam.getELCFromIndex(i);
 
-		int numLangs = ::GetMenuItemCount(hLangMenu);
-		const int bufferSize = 100;
-		TCHAR buffer[bufferSize] = { '\0' };
+		int nbItem = ::GetMenuItemCount(subMenu);
+		TCHAR buffer[MAX_EXTERNAL_LEXER_NAME_LEN]{TEXT('\0')};
 		const TCHAR* lexerNameW = wmc.char2wchar(externalLangContainer._name.c_str(), CP_ACP);
 
+		// Find the first separator which is between IDM_LANG_TEXT and languages
 		int x = 0;
-		for (; (x == 0 || lstrcmp(lexerNameW, buffer) > 0) && x < numLangs; ++x)
+		MENUITEMINFO menuItemInfo{};
+		menuItemInfo.cbSize = sizeof(MENUITEMINFO);
+		menuItemInfo.fMask = MIIM_FTYPE;
+
+		for (; x < nbItem; ++x)
 		{
-			::GetMenuString(hLangMenu, x, buffer, bufferSize, MF_BYPOSITION);
+			::GetMenuItemInfo(subMenu, x, TRUE, &menuItemInfo);
+			if (menuItemInfo.fType & MFT_SEPARATOR)
+			{
+				break;
+			}
 		}
 
-		::InsertMenu(hLangMenu, x - 1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, lexerNameW);
+		// Find the location in existing language menu to insert to. This includes submenu if using compact language menu.
+		TCHAR firstLetter = towupper(lexerNameW[0]);
+		menuItemInfo.fMask = MIIM_SUBMENU;
+		for (++x; x < nbItem; ++x)
+		{
+			::GetMenuItemInfo(subMenu, x, TRUE, &menuItemInfo);
+			::GetMenuString(subMenu, x, buffer, MAX_EXTERNAL_LEXER_NAME_LEN, MF_BYPOSITION);
+
+			// Check if using compact language menu.
+			if (menuItemInfo.hSubMenu && buffer[0] == firstLetter)
+			{
+				// Found the submenu for the language's first letter. Search in it instead.
+				subMenu = menuItemInfo.hSubMenu;
+				nbItem = ::GetMenuItemCount(subMenu);
+				x = -1;
+			}
+			else if (lstrcmp(lexerNameW, buffer) < 0)
+			{
+				break;
+			}
+		}
+
+		::InsertMenu(subMenu, x, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, lexerNameW);
 	}
+
 
 	if (nppGUI._excludedLangList.size() > 0)
 	{
@@ -587,12 +617,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Update Scintilla context menu strings (translated)
 	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
 	size_t len = tmp.size();
-	TCHAR menuName[64];
+	TCHAR menuName[menuItemStrLenMax];
 	for (size_t i = 0; i < len; ++i)
 	{
 		if (tmp[i]._itemName.empty())
 		{
-			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
+			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, menuItemStrLenMax, MF_BYCOMMAND);
 			tmp[i]._itemName = purgeMenuItemString(menuName);
 		}
 	}
@@ -605,7 +635,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	{
 		if (tmp2[i]._itemName.empty())
 		{
-			::GetMenuString(_mainMenuHandle, tmp2[i]._cmdID, menuName, 64, MF_BYCOMMAND);
+			::GetMenuString(_mainMenuHandle, tmp2[i]._cmdID, menuName, menuItemStrLenMax, MF_BYCOMMAND);
 			tmp2[i]._itemName = purgeMenuItemString(menuName);
 		}
 	}
@@ -682,6 +712,14 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_sha2FromFilesDlg.setHashType(hash_sha256);
 	_sha2FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_sha2FromTextDlg.setHashType(hash_sha256);
+	_sha1FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_sha1FromFilesDlg.setHashType(hash_sha1);
+	_sha1FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_sha1FromTextDlg.setHashType(hash_sha1);
+	_sha512FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_sha512FromFilesDlg.setHashType(hash_sha512);
+	_sha512FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_sha512FromTextDlg.setHashType(hash_sha512);
 
 
 	//--User Define Dialog Section--//
@@ -1212,6 +1250,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 	int nbTotal = 0;
 	const bool isEntireDoc = true;
+	bool hasInvalidRegExpr = false;
 
     if (_mainWindowStatus & WindowMainActive)
     {
@@ -1227,12 +1266,21 @@ bool Notepad_plus::replaceInOpenedFiles()
 			_invisibleEditView.setCurrentBuffer(pBuf);
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
-	if (_mainWindowStatus & WindowSubActive)
+	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
 	{
 		for (size_t i = 0, len = _subDocTab.nbItem(); i < len; ++i)
 		{
@@ -1246,7 +1294,16 @@ bool Notepad_plus::replaceInOpenedFiles()
 			_invisibleEditView.setCurrentBuffer(pBuf);
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
@@ -1255,11 +1312,9 @@ bool Notepad_plus::replaceInOpenedFiles()
 	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 
-
-	if (nbTotal < 0)
+	if (hasInvalidRegExpr)
 	{
-		generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinfiles-re-malformed", TEXT("Replace in Opened Files: The regular expression is malformed."));
-		_findReplaceDlg.setStatusbarMessage(msg, FSNotFound);
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
 	}
 	else
 	{
@@ -1676,22 +1731,81 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 
 void Notepad_plus::removeDuplicateLines()
 {
-	// whichPart : line head or line tail
-	FindOption env;
+	intptr_t mainSelAnchor = _pEditView->execute(SCI_GETANCHOR);
+	intptr_t mainSelCaretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	bool isEntireDoc = (mainSelAnchor == mainSelCaretPos);
 
-	env._str2Search = TEXT("^([^\\r\\n]*(?>\\r?\\n|\\r))(?>\\1)+");
-	env._str4Replace = TEXT("\\1");
-	env._searchType = FindRegex;
-	auto mainSelStart = _pEditView->execute(SCI_GETSELECTIONSTART);
-	auto mainSelEnd = _pEditView->execute(SCI_GETSELECTIONEND);
-	auto mainSelLength = mainSelEnd - mainSelStart;
-	bool isEntireDoc = mainSelLength == 0;
-	env._isInSelection = !isEntireDoc;
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	intptr_t startLine = 0;
+	intptr_t endLine = _pEditView->lastZeroBasedLineNumber();
 
-	// remove the last line if it's a duplicate line.
-	env._str2Search = TEXT("^([^\\r\\n]+)(?>\\r?\\n|\\r)(?>\\1)$");
-	_findReplaceDlg.processAll(ProcessReplaceAll, &env, isEntireDoc);
+	if (!isEntireDoc)
+	{
+		intptr_t startPos = _pEditView->execute(SCI_GETSELECTIONSTART);
+		startLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
+		intptr_t endPos = _pEditView->execute(SCI_GETSELECTIONEND);
+		endLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
+		if (endPos == _pEditView->execute(SCI_POSITIONFROMLINE, endLine))
+			endLine -= 1;
+	}
+
+	if (startLine == endLine)
+		return;
+
+	intptr_t firstMatchLineNr = 0;
+	intptr_t lastMatchLineNr = 0;
+	generic_string firstMatchLineStr;
+	generic_string lastMatchLineStr;
+
+	for (intptr_t i = startLine; i <= endLine; i++)
+	{
+		if (firstMatchLineStr.empty())
+		{
+			firstMatchLineNr = lastMatchLineNr = i;
+			firstMatchLineStr = _pEditView->getLine(i);
+			continue;
+		}
+		else
+			lastMatchLineStr = _pEditView->getLine(i);
+
+		if (firstMatchLineStr == lastMatchLineStr)
+		{
+			lastMatchLineNr = i;
+			if (i != endLine)
+				continue;
+		}
+
+		if (firstMatchLineNr != lastMatchLineNr)
+		{
+			intptr_t startPos = _pEditView->execute(SCI_POSITIONFROMLINE, firstMatchLineNr + 1);
+			intptr_t endPos = _pEditView->execute(SCI_POSITIONFROMLINE, lastMatchLineNr) + _pEditView->execute(SCI_LINELENGTH, lastMatchLineNr);
+			_pEditView->execute(SCI_DELETERANGE, startPos, endPos - startPos);
+			intptr_t removedLines = lastMatchLineNr - firstMatchLineNr;
+			i -= removedLines;
+			endLine -= removedLines;
+		}
+
+		firstMatchLineStr = lastMatchLineStr;
+		firstMatchLineNr = lastMatchLineNr = i;
+
+	}
+
+	// correct the last line (without EOL) if it's a duplicate line
+	intptr_t endLineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, endLine);
+	intptr_t endLineEndPos = _pEditView->execute(SCI_GETLINEENDPOSITION, endLine);
+	intptr_t endLineLength = _pEditView->execute(SCI_LINELENGTH, endLine);
+
+	if (endLine == _pEditView->lastZeroBasedLineNumber() && endLineLength && ((endLineEndPos - endLineStartPos) == endLineLength))
+	{
+		intptr_t prevLine = endLine - 1;
+		intptr_t prevLineStartPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+		intptr_t prevLineEndPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+		intptr_t prevLineLength = _pEditView->execute(SCI_LINELENGTH, prevLine);
+		const generic_string endLineStr = _pEditView->getLine(endLine);
+		const generic_string prevLineStr = _pEditView->getGenericTextAsString(prevLineStartPos, prevLineEndPos);
+		if (endLineStr == prevLineStr)
+			_pEditView->execute(SCI_DELETERANGE, prevLineStartPos, prevLineLength);
+	}
+
 }
 
 void Notepad_plus::getMatchedFileNames(const TCHAR *dir, size_t level, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
@@ -1855,6 +1969,8 @@ bool Notepad_plus::replaceInFilelist(std::vector<generic_string> & fileNames)
 		progress.open(_findReplaceDlg.getHSelf(), msg.c_str());
 	}
 
+	bool hasInvalidRegExpr = false;
+
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
@@ -1880,12 +1996,20 @@ bool Notepad_plus::replaceInFilelist(std::vector<generic_string> & fileNames)
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
 			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, &findersInfo);
-			nbTotal += nbReplaced;
-			if (nbReplaced)
-			{
-				MainFileManager.saveBuffer(id, pBuf->getFullPathName());
-			}
 
+			if (nbReplaced == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;;
+			}
+			else
+			{
+				nbTotal += nbReplaced;
+				if (nbReplaced)
+				{
+					MainFileManager.saveBuffer(id, pBuf->getFullPathName());
+				}
+			}
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
 		}
@@ -1916,7 +2040,11 @@ bool Notepad_plus::replaceInFilelist(std::vector<generic_string> & fileNames)
 		result = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinfiles-nb-replaced", TEXT("Replace in Files: $INT_REPLACE$ occurrences were replaced."));
 		result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbTotal));
 	}
-	_findReplaceDlg.setStatusbarMessage(result, FSMessage);
+
+	if (!hasInvalidRegExpr)
+		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
+	else
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
 
 	return true;
 }
@@ -1969,11 +2097,20 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 
 			findInFolderInfo->_pFileName = fileNames.at(i).c_str();
 			
-			nbTotal += _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
-			
+			int nb = _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
+
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
 		}
+
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
@@ -2038,6 +2175,7 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 	}
 
 	const bool isEntireDoc = true;
+	bool hasInvalidRegExpr = false;
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
@@ -2061,7 +2199,15 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
 
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+
+			nbTotal += nb;
 
 			if (closeBuf)
 				MainFileManager.closeBuffer(id, _pEditView);
@@ -2086,7 +2232,13 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	if (nbTotal != 0)
+	if (hasInvalidRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+
+	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGui = nppParam.getNppGUI();
@@ -2110,6 +2262,7 @@ bool Notepad_plus::findInOpenedFiles()
 	Buffer * pBuf = NULL;
 
 	const bool isEntireDoc = true;
+	bool hasInvalidRegExpr = false;
 
 	_findReplaceDlg.beginNewFilesSearch();
 
@@ -2125,13 +2278,22 @@ bool Notepad_plus::findInOpenedFiles()
 			FindersInfo findersInfo;
 			findersInfo._pFileName = pBuf->getFullPathName();
 			
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 		}
 	}
 
 	size_t nbUniqueBuffers = _mainDocTab.nbItem();
 
-	if (_mainWindowStatus & WindowSubActive)
+	if (!hasInvalidRegExpr && (_mainWindowStatus & WindowSubActive))
 	{
 		for (size_t i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
 		{
@@ -2147,7 +2309,16 @@ bool Notepad_plus::findInOpenedFiles()
 			FindersInfo findersInfo;
 			findersInfo._pFileName = pBuf->getFullPathName();
 
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+			{
+				hasInvalidRegExpr = true;
+				break;
+			}
+			else
+			{
+				nbTotal += nb;
+			}
 
 			++nbUniqueBuffers;
 		}
@@ -2160,7 +2331,13 @@ bool Notepad_plus::findInOpenedFiles()
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	if (nbTotal != 0)
+	if (hasInvalidRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+
+	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGui = nppParam.getNppGUI();
@@ -2208,7 +2385,17 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	FindersInfo findersInfo;
 	findersInfo._pFileName = pBuf->getFullPathName();
-	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+	bool hasInvalidRegExpr = false;
+
+	int nb = _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
+	if (nb == FIND_INVALID_REGULAR_EXPRESSION)
+	{
+		hasInvalidRegExpr = true;
+	}
+	else
+	{
+		nbTotal += nb;
+	}
 
 	_findReplaceDlg.finishFilesSearch(nbTotal, 1, isEntireDoc);
 
@@ -2217,7 +2404,13 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
-	if (nbTotal != 0)
+	if (hasInvalidRegExpr)
+	{
+		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
+		return false;
+	}
+
+	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGui = nppParam.getNppGUI();
@@ -2554,11 +2747,11 @@ void Notepad_plus::checkLangsMenu(int id) const
 			if (curBuf->isUserDefineLangExt())
 			{
 				const TCHAR *userLangName = curBuf->getUserDefineLangName();
-				TCHAR menuLangName[langNameLenMax];
+				TCHAR menuLangName[menuItemStrLenMax];
 
 				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; ++i)
 				{
-					if (::GetMenuString(_mainMenuHandle, i, menuLangName, langNameLenMax, MF_BYCOMMAND))
+					if (::GetMenuString(_mainMenuHandle, i, menuLangName, menuItemStrLenMax, MF_BYCOMMAND))
 					{
 						if (!lstrcmp(userLangName, menuLangName))
 						{
@@ -2869,9 +3062,8 @@ void Notepad_plus::setUniModeText()
 		}
 		cmdID += IDM_FORMAT_ENCODE;
 
-		const int itemSize = 64;
-		TCHAR uniModeText[itemSize] = {};
-		::GetMenuString(_mainMenuHandle, cmdID, uniModeText, itemSize, MF_BYCOMMAND);
+		TCHAR uniModeText[menuItemStrLenMax]{};
+		::GetMenuString(_mainMenuHandle, cmdID, uniModeText, menuItemStrLenMax, MF_BYCOMMAND);
 		uniModeTextString = uniModeText;
 		// Remove the shortcut text from the menu text.
 		const size_t tabPos = uniModeTextString.find_last_of('\t');
@@ -5983,8 +6175,24 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 					continue;
 
 
-			generic_string	languageName = getLangFromMenu(buf);
-			const TCHAR *langName = languageName.c_str();
+			wstring	languageName = getLangFromMenu(buf);
+
+			if (languageName.empty()) // The lang menu item in question is hidden
+			{
+				NppParameters& nppParam = NppParameters::getInstance();
+				const NppGUI& nppGUI = nppParam.getNppGUI();
+
+				for (size_t k = 0; k < nppGUI._excludedLangList.size(); ++k) // try to find it in exclude lang list
+				{
+					if (buf->getLangType() == nppGUI._excludedLangList[k]._langType)
+					{
+						languageName = nppGUI._excludedLangList[k]._langName;
+						break;
+					}
+				}
+			}
+
+			const wchar_t* langName = languageName.c_str();
 			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
 
 			sfi._isMonitoring = buf->isMonitoringOn();
@@ -6673,11 +6881,10 @@ void Notepad_plus::setWorkingDir(const TCHAR *dir)
 int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
 {
 	int	id	= 0;
-	const int menuSize = 64;
-	TCHAR menuLangName[menuSize];
+	TCHAR menuLangName[menuItemStrLenMax];
 
 	for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; ++i )
-		if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
+		if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuItemStrLenMax, MF_BYCOMMAND ) )
 			if ( !lstrcmp( langName, menuLangName ) )
 			{
 				id	= i;
@@ -6687,7 +6894,7 @@ int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
 	if ( id == 0 )
 	{
 		for ( int i = IDM_LANG_USER + 1; i <= IDM_LANG_USER_LIMIT; ++i )
-			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
+			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuItemStrLenMax, MF_BYCOMMAND ) )
 				if ( !lstrcmp( langName, menuLangName ) )
 				{
 					id	= i;
@@ -6700,16 +6907,14 @@ int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
 
 generic_string Notepad_plus::getLangFromMenu(const Buffer * buf)
 {
-
 	int	id;
 	generic_string userLangName;
-	const int nbChar = 32;
-	TCHAR menuLangName[nbChar];
+	TCHAR menuLangName[menuItemStrLenMax]{};
 
 	id = (NppParameters::getInstance()).langTypeToCommandID( buf->getLangType() );
 	if ( ( id != IDM_LANG_USER ) || !( buf->isUserDefineLangExt() ) )
 	{
-		::GetMenuString(_mainMenuHandle, id, menuLangName, nbChar-1, MF_BYCOMMAND);
+		::GetMenuString(_mainMenuHandle, id, menuLangName, menuItemStrLenMax, MF_BYCOMMAND);
 		userLangName = menuLangName;
 	}
 	else
@@ -6763,12 +6968,12 @@ bool Notepad_plus::reloadLang()
 	// Update scintilla context menu strings
 	vector<MenuItemUnit> & tmp = nppParam.getContextMenuItems();
 	size_t len = tmp.size();
-	TCHAR menuName[64];
+	TCHAR menuName[menuItemStrLenMax];
 	for (size_t i = 0 ; i < len ; ++i)
 	{
 		if (tmp[i]._itemName == TEXT(""))
 		{
-			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
+			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, menuItemStrLenMax, MF_BYCOMMAND);
 			tmp[i]._itemName = purgeMenuItemString(menuName);
 		}
 	}
@@ -7583,6 +7788,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #203"), QuoteParams::rapid , false, SC_CP_UTF8, L_TEXT, TEXT("My gynecologist follows me on Instagram, I really do not know what else he want to see.\n\n") },
 	{TEXT("Anonymous #204"), QuoteParams::slow , false, SC_CP_UTF8, L_TEXT, TEXT("The greatest security vulnerability in any computer system is located between the keyboard and the chair.\n\n") },
 	{TEXT("Anonymous #205"), QuoteParams::slow , false, SC_CP_UTF8, L_TEXT, TEXT("Courage is knowing it might hurt, and doing it anyway.\nStupidity is the same.\nAnd that's why life is hard.\n\n") },
+	{TEXT("Anonymous #206"), QuoteParams::rapid , false, SC_CP_UTF8, L_TEXT, TEXT("RegEx can save 30 minutes of your dev time with only 10 characters.\nBut you have to spend more than 40 minutes to figure out what these 10 characters need to be.\n\n") },
 	{TEXT("xkcd"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never have I felt so close to another soul\nAnd yet so helplessly alone\nAs when I Google an error\nAnd there's one result\nA thread by someone with the same problem\nAnd no answer\nLast posted to in 2003\n\n\"Who were you, DenverCoder9?\"\n\"What did you see?!\"\n\n(ref: https://xkcd.com/979/)") },
 	{TEXT("A developer"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No hugs & kisses.\nOnly bugs & fixes.") },
 	{TEXT("Elon Musk"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Don't set your password as your child's name.\nName your child after your password.") },
@@ -7612,7 +7818,8 @@ static const QuoteParams quotes[] =
 	{TEXT("Freddy Krueger"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Never stop dreaming.\n")},
 	{TEXT("Word of the Day"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("DEBUGGING\n\n/diːˈbʌɡɪŋ/ noun\n\nThe classic mystery game where you are the detective, the victim and the murderer.\n\n")},
 	{TEXT("Ricky Gervais"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Feel free to mock my lack of belief in any Gods.\nIt won't hurt my feelings.\nIt won't damage my faith in reason.\nAnd I won't kill you for it.")},
-	{TEXT("Francis bacon"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Knowledge is power. France is bacon.\n\nWhen I was young my father said to me: \"Knowledge is power, Francis Bacon.\" I understood it as \"Knowledge is power, France is bacon.\"\n\nFor more than a decade I wondered over the meaning of the second part and what was the surreal linkage between the two. If I said the quote to someone, \"Knowledge is power, France is Bacon\", they nodded knowingly. Or someone might say, \"Knowledge is power\" and I'd finish the quote \"France is Bacon\" and they wouldn't look at me like I'd said something very odd, but thoughtfully agree. I did ask a teacher what did \"Knowledge is power, France is bacon\" mean and got a full 10-minute explanation of the \"knowledge is power\" bit but nothing on \"France is bacon\". When I prompted further explanation by saying \"France is bacon?\" in a questioning tone I just got a \"yes\". At 12 I didn't have the confidence to press it further. I just accepted it as something I'd never understand.\n\nIt wasn't until years later I saw it written down that the penny dropped.\n")},
+	{TEXT("Kahlil Gibran"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Your children are not your children.\nThey are the sons and daughters of Life's longing for itself.\nThey come through you but not from you,\nAnd though they are with you, yet they belong not to you.\n\nYou may give them your love but not your thoughts,\nFor they have their own thoughts.\nYou may house their bodies but not their souls,\nFor their souls dwell in the house of tomorrow,\nwhich you cannot visit, not even in your dreams.\nYou may strive to be like them, but seek not to make them like you.\nFor life goes not backward nor tarries with yesterday.\n\nYou are the bows from which your children as living arrows are sent forth.\nThe archer sees the mark upon the path of the infinite,\nand He bends you with His might that His arrows may go swift and far.\nLet your bending in the archer's hand be for gladness;\nFor even as He loves the arrow that flies, so He loves also the bow that is stable.\n")},
+	{TEXT("Francis Bacon"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Knowledge is power. France is bacon.\n\nWhen I was young my father said to me: \"Knowledge is power, Francis Bacon.\" I understood it as \"Knowledge is power, France is bacon.\"\n\nFor more than a decade I wondered over the meaning of the second part and what was the surreal linkage between the two. If I said the quote to someone, \"Knowledge is power, France is Bacon\", they nodded knowingly. Or someone might say, \"Knowledge is power\" and I'd finish the quote \"France is Bacon\" and they wouldn't look at me like I'd said something very odd, but thoughtfully agree. I did ask a teacher what did \"Knowledge is power, France is bacon\" mean and got a full 10-minute explanation of the \"knowledge is power\" bit but nothing on \"France is bacon\". When I prompted further explanation by saying \"France is bacon?\" in a questioning tone I just got a \"yes\". At 12 I didn't have the confidence to press it further. I just accepted it as something I'd never understand.\n\nIt wasn't until years later I saw it written down that the penny dropped.\n")},
 	{TEXT("Space Invaders"), QuoteParams::speedOfLight, false, SC_CP_UTF8, L_TEXT, TEXT("\n\n       ▄██▄\n     ▄██████▄           █   █  █▀▀▀\n     ██▄██▄██           █   █  █▄▄\n      ▄▀▄▄▀▄            █ █ █  █\n     ▀ ▀  ▀ ▀           ▀▀ ▀▀  ▀▀▀▀\n\n      ▀▄   ▄▀           ▄█▀▀▀  ▄█▀▀█▄  █▀▄▀█  █▀▀▀\n     ▄█▀███▀█▄          █      █    █  █ ▀ █  █▄▄\n    █ █▀▀▀▀▀█ █         █▄     █▄  ▄█  █   █  █\n       ▀▀ ▀▀             ▀▀▀▀   ▀▀▀▀   ▀   ▀  ▀▀▀▀\n\n     ▄▄█████▄▄          ▀█▀  █▀▄  █\n    ██▀▀███▀▀██          █   █ ▀▄ █\n    ▀▀██▀▀▀██▀▀          █   █  ▀▄█\n    ▄█▀ ▀▀▀ ▀█▄         ▀▀▀  ▀   ▀▀\n\n      ▄▄████▄▄          █▀▀█  █▀▀▀  ▄▀▀▄  ▄█▀▀▀  █▀▀▀\n    ▄██████████▄        █▄▄█  █▄▄   █▄▄█  █      █▄▄ \n  ▄██▄██▄██▄██▄██▄      █     █     █  █  █▄     █   \n    ▀█▀  ▀▀  ▀█▀        ▀     ▀▀▀▀  ▀  ▀   ▀▀▀▀  ▀▀▀▀\n\n") },
 	{TEXT("#JeSuisCharlie"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Freedom of expression is like the air we breathe, we don't feel it, until people take it away from us.\n\nFor this reason, Je suis Charlie, not because I endorse everything they published, but because I cherish the right to speak out freely without risk even when it offends others.\nAnd no, you cannot just take someone's life for whatever he/she expressed.\n\nHence this \"Je suis Charlie\" edition.\n")}
 };
@@ -8498,8 +8705,8 @@ void Notepad_plus::updateCommandShortcuts()
 
 		if (menuName.length() == 0)
 		{
-			TCHAR szMenuName[64];
-			if (::GetMenuString(_mainMenuHandle, csc.getID(), szMenuName, _countof(szMenuName), MF_BYCOMMAND))
+			TCHAR szMenuName[menuItemStrLenMax];
+			if (::GetMenuString(_mainMenuHandle, csc.getID(), szMenuName, menuItemStrLenMax, MF_BYCOMMAND))
 				menuName = purgeMenuItemString(szMenuName, true);
 			else
 				menuName = csc.getShortcutName();
@@ -8545,4 +8752,97 @@ HBITMAP Notepad_plus::generateSolidColourMenuItemIcon(COLORREF colour)
 	DeleteDC(hDCn);
 
 	return hNewBitmap;
+}
+
+
+void Notepad_plus::clearChangesHistory()
+{
+	Sci_Position pos = (Sci_Position)::SendMessage(_pEditView->getHSelf(), SCI_GETCURRENTPOS, 0, 0);
+	int chFlags = (int)::SendMessage(_pEditView->getHSelf(), SCI_GETCHANGEHISTORY, 0, 0);
+
+	_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+	_pEditView->execute(SCI_SETCHANGEHISTORY, SC_CHANGE_HISTORY_DISABLED);
+	_pEditView->execute(SCI_SETCHANGEHISTORY, chFlags);
+	_pEditView->execute(SCI_GOTOPOS, pos);
+
+	checkUndoState();
+	_pNonEditView->redraw(); // Prevent clonned document visual glichy on another view
+}
+
+// Based on https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12248#issuecomment-1258561261.
+void Notepad_plus::changedHistoryGoTo(int idGoTo)
+{
+	int mask =	(1 << SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN) |
+				(1 << SC_MARKNUM_HISTORY_SAVED) |
+				(1 << SC_MARKNUM_HISTORY_MODIFIED) |
+				(1 << SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED);
+
+	intptr_t line = -1;
+	intptr_t blockIndicator = _pEditView->getCurrentLineNumber();
+	intptr_t lastLine = _pEditView->execute(SCI_GETLINECOUNT);
+
+	if (idGoTo == IDM_SEARCH_CHANGED_NEXT)		// Next.
+	{
+		intptr_t currentLine = blockIndicator;
+
+		// Start from currentLine (not currentLine + 1) in case currentLine is not-changed and the next line IS changed. lastLine is at least *1*.
+		for (intptr_t i = currentLine; i < lastLine; i++)
+		{
+			if (_pEditView->execute(SCI_MARKERGET, i) & mask)
+			{
+				if (i != blockIndicator)		// Changed-line found in a different block.
+				{
+					line = i;
+					break;
+				}
+				else
+				{
+					blockIndicator++;
+				}
+			}
+		}
+
+		if (line == -1)		// Wrap around.
+		{
+			intptr_t endRange = currentLine + 1;		//	"+ 1": currentLine might be *0*.
+			for (intptr_t i = 0; i < endRange; i++)
+			{
+				if (_pEditView->execute(SCI_MARKERGET, i) & mask)
+				{
+					line = i;
+					break;
+				}
+			}
+		}
+	}
+	else	// Prev.
+	{
+		while (true)
+		{
+			line = _pEditView->execute(SCI_MARKERPREVIOUS, blockIndicator, mask);
+			// "line == -1": no changed-line found. "line != blockIndicator": changed-line found in a different block.
+			if (line == -1 || line != blockIndicator)
+				break;
+			else
+				blockIndicator--;
+		}
+
+		if (line == -1)	// Wrap around.
+		{
+			line = _pEditView->execute(SCI_MARKERPREVIOUS, lastLine - 1, mask);
+		}
+	}
+
+	if (line != -1)
+	{
+		_pEditView->execute(SCI_ENSUREVISIBLEENFORCEPOLICY, line);
+		_pEditView->execute(SCI_GOTOLINE, line);
+	}
+	else
+	{
+		bool isSilent = NppParameters::getInstance().getNppGUI()._muteSounds;
+
+		if (!isSilent)
+			::MessageBeep(MB_ICONEXCLAMATION);
+	}
 }

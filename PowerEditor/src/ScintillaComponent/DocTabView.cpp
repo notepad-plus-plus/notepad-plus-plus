@@ -195,7 +195,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 
 void DocTabView::setBuffer(size_t index, BufferID id)
 {
-	if (index < 0 || index >= _nbItem)
+	if (index >= _nbItem)
 		return;
 
 	TCITEM tie{};

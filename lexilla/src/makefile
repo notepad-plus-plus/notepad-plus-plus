@@ -131,8 +131,12 @@ $(LEXILLA): $(LEXILLA_OBJS) $(VERSION_RESOURCE)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
 $(LIBLEXILLA):  $(LEXILLA_OBJS)
+ifeq ($(SHAREDEXTENSION),dylib)
+	libtool -static -o $@ $^
+else
 	$(AR) rc $@ $^
 	$(RANLIB) $@
+endif
 
 # Automatically generate dependencies for most files with "make deps"
 include deps.mak

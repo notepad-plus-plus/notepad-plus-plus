@@ -251,6 +251,12 @@ public:
 	IFACEMETHODIMP OnFileOk(IFileDialog* dlg) override
 	{
 		_lastUsedFolder = getDialogFolder(dlg);
+
+		// Ignore OnFileOk() as OnPreFileOk() is not called when in Hangul mode.
+		// check KbdProcHook() for details.
+		if (_isHangul)
+			return S_FALSE;
+
 		return S_OK;
 	}
 	IFACEMETHODIMP OnFolderChange(IFileDialog*) override
@@ -368,6 +374,8 @@ public:
 		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
 		installHooks();
+		_keyboardLayoutLanguage = getKeyboardLayout();
+		_isHangul = isHangul(_keyboardLayoutLanguage);
 	}
 
 	~FileDialogEventHandler()
@@ -418,6 +426,11 @@ private:
 			nullptr,
 			::GetCurrentThreadId()
 		);
+		_langaugeDetectHook = ::SetWindowsHookEx(WH_SHELL,
+			reinterpret_cast<HOOKPROC>(&FileDialogEventHandler::LanguageDetectHook),
+			nullptr,
+			::GetCurrentThreadId()
+		);
 	}
 
 	void removeHooks()
@@ -426,8 +439,11 @@ private:
 			::UnhookWindowsHookEx(_prevKbdHook);
 		if (_prevCallHook)
 			::UnhookWindowsHookEx(_prevCallHook);
+		if (_langaugeDetectHook)
+			::UnhookWindowsHookEx(_langaugeDetectHook);
 		_prevKbdHook = nullptr;
 		_prevCallHook = nullptr;
+		_langaugeDetectHook = nullptr;
 	}
 
 	void eraseHandles()
@@ -503,6 +519,21 @@ private:
 			_dialog->SetFileName(fileName.c_str());
 		}
 	}
+
+	LANGID getKeyboardLayout() 
+	{
+		return PRIMARYLANGID(LOWORD(HandleToLong(GetKeyboardLayout(0))));
+	}
+
+	static bool isHangul(LANGID lang)
+	{
+		auto hwnd = GetFocus();
+		auto himc = ImmGetContext(hwnd);
+		auto isLocalInputMode = ImmGetOpenStatus(himc); // return true when CJK IME is in local language input mode
+		ImmReleaseContext(hwnd, himc);
+
+		return (lang == LANG_KOREAN) && isLocalInputMode;
+	};
 
 	// Transforms a forward-slash path to a canonical Windows path.
 	static bool transformPath(generic_string& fileName)
@@ -625,7 +656,39 @@ private:
 				HWND hwnd = GetFocus();
 				auto it = s_handleMap.find(hwnd);
 				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
-					it->second->onPreFileOk();
+				{
+					// Capture the state at this point because of the OnFileOk()
+					it->second->_isHangul = isHangul(it->second->_keyboardLayoutLanguage);
+
+					if (it->second->_isHangul)
+					{
+						// If IME is in Hangul mode, ignore VK_RETURN to complete the composition and change 
+						// to alphabetical input mode to proceed to onPreFileOk() on the next VK_RETURN.
+						auto himc = ImmGetContext(hwnd);
+						ImmSetConversionStatus(himc, IME_CMODE_ALPHANUMERIC, IME_SMODE_NONE);
+						ImmReleaseContext(hwnd, himc);
+					}
+					else
+					{
+						it->second->onPreFileOk();
+					}
+				}
+			}
+		}
+		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
+	}
+
+	// Dectect language layout of keyboard when it changed
+	static LRESULT CALLBACK LanguageDetectHook(int nCode, WPARAM wParam, LPARAM lParam)
+	{
+		if (nCode == HSHELL_LANGUAGE)
+		{
+			HWND hwnd = GetFocus();
+			auto it = s_handleMap.find(hwnd);
+			if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
+			{
+				HKL hkl = (HKL)lParam;
+				it->second->_keyboardLayoutLanguage = PRIMARYLANGID(LOWORD(hkl));
 			}
 		}
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
@@ -640,11 +703,14 @@ private:
 	generic_string _lastUsedFolder;
 	HHOOK _prevKbdHook = nullptr;
 	HHOOK _prevCallHook = nullptr;
+	HHOOK _langaugeDetectHook = nullptr;
 	HWND _hwndNameEdit = nullptr;
 	HWND _hwndButton = nullptr;
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
+	LANGID _keyboardLayoutLanguage = LANG_NEUTRAL;
+	bool _isHangul = false; // Korean IME specific flag
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 
@@ -810,10 +876,12 @@ public:
 			okPressed = SUCCEEDED(hr);
 
 			NppParameters& params = NppParameters::getInstance();
-			if (okPressed && params.getNppGUI()._openSaveDir == dir_last)
+			NppGUI& nppGUI = params.getNppGUI();
+			if (nppGUI._openSaveDir == dir_last)
 			{
 				// Note: IFileDialog doesn't modify the current directory.
 				// At least, after it is hidden, the current directory is the same as before it was shown.
+				lstrcpyn(nppGUI._lastUsedDir, _events->getLastUsedFolder().c_str(), MAX_PATH);
 				params.setWorkingDir(_events->getLastUsedFolder().c_str());
 			}
 		}
@@ -920,7 +988,8 @@ CustomFileDialog::CustomFileDialog(HWND hwnd) : _impl{ std::make_unique<Impl>() 
 	_impl->_hwndOwner = hwnd;
 
 	NppParameters& params = NppParameters::getInstance();
-	const TCHAR* workDir = params.getWorkingDir();
+	NppGUI& nppGUI = params.getNppGUI();
+	const TCHAR* workDir = nppGUI._openSaveDir == dir_last ? nppGUI._lastUsedDir : params.getWorkingDir();
 	if (workDir)
 		_impl->_fallbackFolder = workDir;
 }

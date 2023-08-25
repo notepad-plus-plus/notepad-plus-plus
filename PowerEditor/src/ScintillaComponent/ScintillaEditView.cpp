@@ -182,6 +182,12 @@ int getNbDigits(int aNum, int base)
 	return nbChiffre;
 }
 
+bool isCharSingleQuote(__inout wchar_t const c)
+{
+    if (c == L'\'' || c == L'\u2019' || c == L'\u2018') return true;
+    else return false;
+}
+
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
 	if (!_SciInit)
@@ -723,6 +729,8 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.escape.sequence"), reinterpret_cast<LPARAM>("1"));
 
 	if (j == L_JSON5)
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.allow.comments"), reinterpret_cast<LPARAM>("1"));
@@ -1879,7 +1887,7 @@ BufferID ScintillaEditView::attachDefaultDoc()
 	// get the doc pointer attached (by default) on the view Scintilla
 	Document doc = execute(SCI_GETDOCPOINTER, 0, 0);
 	execute(SCI_ADDREFDOCUMENT, 0, doc);
-	BufferID id = MainFileManager.bufferFromDocument(doc, false, true);//true, true);	//keep counter on 1
+	BufferID id = MainFileManager.bufferFromDocument(doc, _isMainEditZone);
 	Buffer * buf = MainFileManager.getBufferByID(id);
 
 	MainFileManager.addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar
@@ -2808,12 +2816,22 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETMARGINTYPEN, _SC_MARGE_SYMBOL, SC_MARGIN_COLOUR);
 	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYMBOL, bookmarkMarginColor);
 
+	COLORREF changeHistoryMarginColor = veryLiteGrey;
 	pStyle = stylers.findByName(TEXT("Change History margin"));
-	if (pStyle)
+	if (!pStyle)
 	{
-		execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
-		execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, pStyle->_bgColor);
+		pStyle = stylers.findByName(TEXT("Line number margin"));
+		if (pStyle)
+		{
+			changeHistoryMarginColor = pStyle->_bgColor;
+		}
 	}
+	else
+	{
+		changeHistoryMarginColor = pStyle->_bgColor;
+	}
+	execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
+	execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, changeHistoryMarginColor);
 
 	COLORREF urlHoveredFG = grey;
 	pStyle = stylers.findByName(TEXT("URL hovered"));
@@ -2872,6 +2890,10 @@ void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 		{
 			setNpcAndCcUniEOL();
 		}
+
+		// in some case npc representation is not redrawn correctly on first line
+		// therefore use of showEOL(isShownEol()) instead of redraw()
+		showEOL(isShownEol());
 	}
 	else
 	{
@@ -2885,10 +2907,6 @@ void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 
 		showCcUniEol(svp._ccUniEolShow);
 	}
-
-	// in some case npc representation is not redrawn correctly on first line
-	// therefore use of showEOL(isShownEol()) instead of redraw()
-	showEOL(isShownEol());
 }
 
 void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
@@ -2927,6 +2945,7 @@ void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
 		if (svp._npcShow)
 		{
 			showNpc();
+			return; // showEOL(isShownEol()) already in showNpc()
 		}
 	}
 
@@ -3154,24 +3173,28 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 			}
 			break; 
 		} //case LOWERCASE
-		case TITLECASE_FORCE:
-		case TITLECASE_BLEND:
+		case PROPERCASE_FORCE:
+		case PROPERCASE_BLEND:
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
 				if (::IsCharAlphaW(strWToConvert[i]))
 				{
-					if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
+					// Exception for single quote and smart single quote
+					if ((i < 2) ? false :
+						(isCharSingleQuote(strWToConvert[i - 1]) && ::IsCharAlphaNumericW(strWToConvert[i - 2])))
+					{
+						if (caseToConvert == PROPERCASE_FORCE)
+							strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+					}
+					else if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
 						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
-					else if (caseToConvert == TITLECASE_FORCE)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
-					//An exception
-					if ((i < 2) ? false : (strWToConvert[i - 1] == L'\'' && ::IsCharAlphaW(strWToConvert[i - 2])))
+					else if (caseToConvert == PROPERCASE_FORCE)
 						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
-			break; 
-		} //case TITLECASE
+			break;
+		} //case PROPERCASE
 		case SENTENCECASE_FORCE:
 		case SENTENCECASE_BLEND:
 		{
@@ -3665,7 +3688,7 @@ void ScintillaEditView::hideLines()
 	size_t endMarker = endLine + 1;
 
 	// Remove all previous markers in between new ones
-	for (size_t i = startMarker; i <= endMarker; ++i)
+	for (size_t i = startMarker + 1; i < endMarker; ++i)
 		removeMarker(i);
 
 	// When hiding lines just below/above other hidden lines,
@@ -3708,10 +3731,11 @@ bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 
 	if (!openPresent && !closePresent)
 		return false;
-
+		
 	//Special func on buffer. First call show with location of opening marker. Then remove the marker manually
 	if (openPresent)
 	{
+		closePresent = false; // when there are two overlapping markers, always open the lower section
 		_currentBuffer->setHideLineChanged(false, lineNumber);
 	}
 
@@ -3805,7 +3829,19 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 		for (auto i = searchStart; i < maxLines; ++i)
 		{
 			auto state = execute(SCI_MARKERGET, i);
-			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
+			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
+			{
+				isInSection = true;
+				if (doDelete)
+				{
+					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+				}
+				else
+				{
+					startShowing = i + 1;
+				}
+			}
+			else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
 			{
 				if (doDelete)
 				{
@@ -3814,9 +3850,10 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 					{
 						return;	//done, only single section requested
 					}	//otherwise keep going
+					isInSection = false;
 				}
-				 else if (isInSection)
-				 {
+				else if (isInSection)
+				{
 					if (startShowing >= i)
 					{	//because of fold skipping, we passed the close tag. In that case we cant do anything
 						if (!endOfDoc)
@@ -3825,6 +3862,7 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 						}
 						else
 						{
+							isInSection = false; // assume we passed the close tag
 							continue;
 						}
 					}
@@ -3834,18 +3872,6 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 						return;	//done, only single section requested
 					}	//otherwise keep going
 					isInSection = false;
-				}
-			}
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
-			{
-				if (doDelete)
-				{
-					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
-				}
-				else
-				{
-					isInSection = true;
-					startShowing = i+1;
 				}
 			}
 
@@ -3932,7 +3958,8 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
-	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
+	std::vector<generic_string> splitText;
+	stringSplit(text, getEOLString(), splitText);
 	const size_t lineCount = execute(SCI_GETLINECOUNT);
 	const bool sortEntireDocument = toLine == lineCount - 1;
 	if (!sortEntireDocument)
@@ -3943,8 +3970,10 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 		}
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
-	const std::vector<generic_string> sortedText = pSort->sort(splitText);
-	generic_string joined = stringJoin(sortedText, getEOLString());
+	pSort->sort(splitText);
+	generic_string joined;
+	stringJoin(splitText, getEOLString(), joined);
+
 	if (sortEntireDocument)
 	{
 		assert(joined.length() == text.length());
@@ -4261,7 +4290,8 @@ void ScintillaEditView::removeAnyDuplicateLines()
 	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
-	std::vector<generic_string> linesVect = stringSplit(text, getEOLString());
+	std::vector<generic_string> linesVect;
+	stringSplit(text, getEOLString(), linesVect);
 	const size_t lineCount = execute(SCI_GETLINECOUNT);
 
 	const bool doingEntireDocument = toLine == lineCount - 1;
@@ -4277,7 +4307,8 @@ void ScintillaEditView::removeAnyDuplicateLines()
 	size_t newSize = vecRemoveDuplicates(linesVect);
 	if (origSize != newSize)
 	{
-		generic_string joined = stringJoin(linesVect, getEOLString());
+		generic_string joined;
+		stringJoin(linesVect, getEOLString(), joined);
 		if (!doingEntireDocument)
 		{
 			joined += getEOLString();

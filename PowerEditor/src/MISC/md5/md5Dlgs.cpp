@@ -17,6 +17,8 @@
 #include "md5.h"
 #include <stdint.h>
 #include "sha-256.h"
+#include "sha512.h"
+#include "calc_sha1.h"
 #include "md5Dlgs.h"
 #include "md5Dlgs_rc.h"
 #include "CustomFileDialog.h"
@@ -50,26 +52,20 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_PATH_EDIT) || hwnd == ::GetDlgItem(_hSelf, IDC_HASH_RESULT_EDIT))
+				const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+				const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_HASH_PATH_EDIT || dlgCtrlID == IDC_HASH_RESULT_EDIT)
 				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					return NppDarkMode::onCtlColor(hdcStatic);
 				}
-				else
-				{
-					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-				}
+				return NppDarkMode::onCtlColorDarker(hdcStatic);
 			}
 			break;
 		}
@@ -89,7 +85,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -133,29 +129,49 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 									hashResultStr += TEXT("\r\n");
 								}
 							}
-							else if (_ht == hashType::hash_sha256)
+							else
 							{
 								std::string content = getFileContent(it.c_str());
 
-								uint8_t sha2hash[32];
-								calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+								uint8_t hash[HASH_MAX_LENGTH]{};
+								wchar_t hashStr[HASH_STR_MAX_LENGTH]{};
 
-								wchar_t sha2hashStr[65] = { '\0' };
-								for (size_t i = 0; i < 32; i++)
-									wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
+								switch (_ht)
+								{
+									case hash_sha1:
+									{
+										calc_sha1(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+									}
+									break;
+
+									case hash_sha256:
+									{
+										calc_sha_256(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+									}
+									break;
+
+									case hash_sha512:
+									{
+										calc_sha_512(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+									}
+									break;
+
+									default:
+										return FALSE;
+
+								}
+
+								for (int i = 0; i < _ht; i++)
+									wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
 
 								files2check += it;
 								files2check += TEXT("\r\n");
 
 								wchar_t* fileName = ::PathFindFileName(it.c_str());
-								hashResultStr += sha2hashStr;
+								hashResultStr += hashStr;
 								hashResultStr += TEXT("  ");
 								hashResultStr += fileName;
 								hashResultStr += TEXT("\r\n");
-							}
-							else
-							{
-								// unknown
 							}
 						}
 
@@ -186,7 +202,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			}
 		}
 	}
-	return FALSE;	
+	return FALSE;
 }
 
 LRESULT run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -224,24 +240,53 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 	if (!isCreated())
 	{
 		create(IDD_HASHFROMFILES_DLG, isRTL);
+		std::wstring title;
+		std::wstring buttonText;
 
-		if (_ht == hash_sha256)
+		switch (_ht)
 		{
-			generic_string title = TEXT("Generate SHA-256 digest from files");
-			::SetWindowText(_hSelf, title.c_str());
+			case hash_md5:
+			{
+				title = TEXT("Generate MD5 digest from files");
+				buttonText = TEXT("Choose files to &generate MD5...");
+			}
+			break;
 
-			generic_string buttonText = TEXT("Choose files to generate SHA-256...");
-			::SetDlgItemText(_hSelf, IDC_HASH_FILEBROWSER_BUTTON, buttonText.c_str());
+			case hash_sha1:
+			{
+				title = TEXT("Generate SHA-1 digest from files");
+				buttonText = TEXT("Choose files to &generate SHA-1...");
+			}
+			break;
+
+			case hash_sha256:
+			{
+				title = TEXT("Generate SHA-256 digest from files");
+				buttonText = TEXT("Choose files to &generate SHA-256...");
+			}
+			break;
+
+			case hash_sha512:
+			{
+				title = TEXT("Generate SHA-1 digest from files");
+				buttonText = TEXT("Choose files to &generate SHA-512...");
+			}
+			break;
+
+			default:
+				return;
 		}
+		::SetWindowText(_hSelf, title.c_str());
+		::SetDlgItemText(_hSelf, IDC_HASH_FILEBROWSER_BUTTON, buttonText.c_str());
 	}
 
 	// Adjust the position in the center
-	goToCenter();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
 void HashFromTextDlg::generateHash()
 {
-	if (_ht != hash_md5 && _ht != hash_sha256)
+	if (_ht != hash_md5 && _ht != hash_sha1 && _ht != hash_sha256 && _ht != hash_sha512)
 		return;
 
 	int len = static_cast<int>(::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), WM_GETTEXTLENGTH, 0, 0));
@@ -259,16 +304,39 @@ void HashFromTextDlg::generateHash()
 			char* md5Result = md5.digestString(newText);
 			::SetDlgItemTextA(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, md5Result);
 		}
-		else if (_ht == hash_sha256)
+		else
 		{
-			uint8_t sha2hash[32];
-			calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+			uint8_t hash[HASH_MAX_LENGTH]{};
+			wchar_t hashStr[HASH_STR_MAX_LENGTH]{};
 
-			wchar_t sha2hashStr[65] = { '\0' };
-			for (size_t i = 0; i < 32; i++)
-				wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
+			switch (_ht)
+			{
+				case hash_sha1:
+				{
+					calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+				}
+				break;
 
-			::SetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, sha2hashStr);
+				case hash_sha256:
+				{
+					calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+				}
+				break;
+
+				case hash_sha512:
+				{
+					calc_sha_512(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+				}
+				break;
+
+				default:
+					return;
+			}
+
+			for (int i = 0; i < _ht; i++)
+				wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
+
+			::SetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, hashStr);
 		}
 		delete[] text;
 	}
@@ -289,42 +357,78 @@ void HashFromTextDlg::generateHashPerLine()
 		std::wstringstream ss(text);
 		std::wstring aLine;
 		std::string result;
-		MD5 md5;
+
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
 		while (std::getline(ss, aLine))
 		{
-			// getline() detect only '\n' but not "\r\n" under windows
-			// this hack is to walk around such bug
-			if (aLine.back() == '\r')
-				aLine = aLine.substr(0, aLine.size() - 1);
-
-			if (aLine.empty())
+			if (aLine.empty()) // in case of UNIX EOL
+			{
 				result += "\r\n";
+			}
 			else
 			{
-				const char *newText = wmc.wchar2char(aLine.c_str(), SC_CP_UTF8);
+				// getline() detect only '\n' but not "\r\n" under Windows
+				// this hack is to walk around such bug
+				if (aLine.back() == '\r')
+					aLine = aLine.substr(0, aLine.size() - 1);
 
-				if (_ht == hash_md5)
+				if (aLine.empty()) // Windows EOL, both \n & \r are removed
 				{
-					char* md5Result = md5.digestString(newText);
-					result += md5Result;
 					result += "\r\n";
 				}
-				else if (_ht == hash_sha256)
+				else
 				{
-					uint8_t sha2hash[32];
-					calc_sha_256(sha2hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+					const char* newText = wmc.wchar2char(aLine.c_str(), SC_CP_UTF8);
 
-					char sha2hashStr[65] = { '\0' };
-					for (size_t i = 0; i < 32; i++)
-						sprintf(sha2hashStr + i * 2, "%02x", sha2hash[i]);
+					if (_ht == hash_md5)
+					{
+						MD5 md5;
+						char* md5Result = md5.digestString(newText);
+						result += md5Result;
+						result += "\r\n";
+					}
+					else
+					{
+						uint8_t hash[HASH_MAX_LENGTH]{};
+						char hashStr[HASH_STR_MAX_LENGTH]{};
 
-					result += sha2hashStr;
-					result += "\r\n";
+						switch (_ht)
+						{
+							case hash_sha1:
+							{
+								calc_sha1(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+							}
+							break;
+
+							case hash_sha256:
+							{
+								calc_sha_256(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+							}
+							break;
+
+							case hash_sha512:
+							{
+								calc_sha_512(hash, reinterpret_cast<const uint8_t*>(newText), strlen(newText));
+							}
+							break;
+
+							default:
+								return;
+						}
+
+						for (int i = 0; i < _ht; i++)
+							sprintf(hashStr + i * 2, "%02x", hash[i]);
+
+						result += hashStr;
+						result += "\r\n";
+					}
 				}
 			}
 		}
+		
 		delete[] text;
+
 		::SetDlgItemTextA(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, result.c_str());
 	}
 	else
@@ -359,43 +463,25 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT))
-				{
-					return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-				}
-				else
-				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-				}
-			}
-			break;
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			if (NppDarkMode::isEnabled())
-			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-			}
-			break;
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				HWND hwnd = reinterpret_cast<HWND>(lParam);
-				if (hwnd == ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT))
+				const auto hdcStatic = reinterpret_cast<HDC>(wParam);
+				const auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+				if (dlgCtrlID == IDC_HASH_RESULT_FOMTEXT_EDIT)
 				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+					return NppDarkMode::onCtlColor(hdcStatic);
 				}
-				else
-				{
-					return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-				}
+				return NppDarkMode::onCtlColorDarker(hdcStatic);
 			}
 			break;
 		}
@@ -415,7 +501,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_HASH_TEXT_EDIT)
 			{
@@ -471,7 +557,7 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			}
 		}
 	}
-	return FALSE;	
+	return FALSE;
 }
 
 void HashFromTextDlg::setHashType(hashType hashType2set)
@@ -484,14 +570,40 @@ void HashFromTextDlg::doDialog(bool isRTL)
 	if (!isCreated())
 	{
 		create(IDD_HASHFROMTEXT_DLG, isRTL);
-
-		if (_ht == hash_sha256)
+		std::wstring title;
+		switch (_ht)
 		{
-			generic_string title = TEXT("Generate SHA-256 digest");
-			::SetWindowText(_hSelf, title.c_str());
+			case hash_md5:
+			{
+				title = TEXT("Generate MD5 digest");
+			}
+			break;
+			
+			case hash_sha1:
+			{
+				title = TEXT("Generate SHA-1 digest");
+			}
+			break;
+
+			case hash_sha256:
+			{
+				title = TEXT("Generate SHA-256 digest");
+			}
+			break;
+
+			case hash_sha512:
+			{
+				title = TEXT("Generate SHA-512 digest");
+			}
+			break;
+
+			default:
+				break;
 		}
+
+		::SetWindowText(_hSelf, title.c_str());
 	}
 
 	// Adjust the position in the center
-	goToCenter();
+	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }

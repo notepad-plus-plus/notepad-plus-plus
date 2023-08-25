@@ -58,13 +58,14 @@ MenuPosition menuPos[] = {
 	{ 1,  20, -1, "edit-pasteSpecial" },
 	{ 1,  21, -1, "edit-onSelection" },
 
-	{ 2,  18, -1, "search-markAll" },
-	{ 2,  19, -1, "search-markOne" },
-	{ 2,  20, -1, "search-unmarkAll" },
-	{ 2,  21, -1, "search-jumpUp" },
-	{ 2,  22, -1, "search-jumpDown" },
-	{ 2,  23, -1, "search-copyStyledText" },
-	{ 2,  25, -1, "search-bookmark" },
+	{ 2,  18, -1, "search-changeHistory" },
+	{ 2,  20, -1, "search-markAll" },
+	{ 2,  21, -1, "search-markOne" },
+	{ 2,  22, -1, "search-unmarkAll" },
+	{ 2,  23, -1, "search-jumpUp" },
+	{ 2,  24, -1, "search-jumpDown" },
+	{ 2,  25, -1, "search-copyStyledText" },
+	{ 2,  27, -1, "search-bookmark" },
 
 	{ 3,   5, -1, "view-currentFileIn" },
 	{ 3,   7, -1, "view-showSymbol" },
@@ -98,7 +99,9 @@ MenuPosition menuPos[] = {
 	{ 6,   4, -1, "settings-import" },
 
 	{ 7,   0, -1, "tools-md5" },
-	{ 7,   1, -1, "tools-sha256" },
+	{ 7,   1, -1, "tools-sha1" },
+	{ 7,   2, -1, "tools-sha256" },
+	{ 7,   3, -1, "tools-sha512" },
 
 	{ 11,  0, -1, "window-sortby"},
 

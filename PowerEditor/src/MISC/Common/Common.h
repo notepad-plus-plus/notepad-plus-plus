@@ -157,9 +157,9 @@ COLORREF getCtrlBgColor(HWND hWnd);
 generic_string stringToUpper(generic_string strToConvert);
 generic_string stringToLower(generic_string strToConvert);
 generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace);
-std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter);
+void stringSplit(const generic_string& input, const generic_string& delimiter, std::vector<generic_string>& output);
 bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect);
-generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator);
+void stringJoin(const std::vector<generic_string>& strings, const generic_string& separator, generic_string& joinedString);
 generic_string stringTakeWhileAdmissable(const generic_string& input, const generic_string& admissable);
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 
@@ -213,13 +213,14 @@ template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSort
 	return vec.size();
 }
 
-void trim(generic_string& str);
+void trim(std::wstring& str);
 
 int nbDigitsFromNbLines(size_t nbLines);
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);
 
 HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent);
+bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath);
 
 bool isWin32NamespacePrefixedFileName(const generic_string& fileName);
 bool isWin32NamespacePrefixedFileName(const TCHAR* szFileName);

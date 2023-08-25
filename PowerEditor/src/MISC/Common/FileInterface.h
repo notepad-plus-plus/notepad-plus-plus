@@ -26,7 +26,6 @@
 class Win32_IO_File final
 {
 public:
-	Win32_IO_File(const char *fname);
 	Win32_IO_File(const wchar_t *fname);
 
 	Win32_IO_File() = delete;
@@ -37,13 +36,11 @@ public:
 		close();
 	};
 
-	bool isOpened() {
+	inline bool isOpened() {
 		return (_hFile != INVALID_HANDLE_VALUE);
 	};
 
 	void close();
-	//int_fast64_t getSize();
-	//unsigned long read(void *rbuf, unsigned long buf_size);
 
 	bool write(const void *wbuf, size_t buf_size);
 
@@ -52,12 +49,7 @@ public:
 	};
 
 private:
-	HANDLE	_hFile		{INVALID_HANDLE_VALUE};
-	bool	_written	{false};
-	std::string _path;
-
-	const DWORD _accessParam  { GENERIC_READ | GENERIC_WRITE };
-	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };
-	const DWORD _dispParam    { CREATE_ALWAYS };
-	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL };
+	HANDLE		_hFile		{INVALID_HANDLE_VALUE};
+	bool		_written	{false};
+	std::string	_path;
 };

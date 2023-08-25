@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
 	<Native-Langue name="français" filename="french.xml" version="8.5.5">
@@ -317,14 +319,14 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="45003" name="Convertir en format Mac (CR)"/>
 					<Item id="45004" name="ANSI"/>
 					<Item id="45005" name="UTF-8-BOM"/>
-					<Item id="45006" name="UCS-2 BE BOM"/>
-					<Item id="45007" name="UCS-2 LE BOM"/>
+					<Item id="45006" name="UTF-16 BE BOM"/>
+					<Item id="45007" name="UTF-16 LE BOM"/>
 					<Item id="45008" name="UTF-8"/>
 					<Item id="45009" name="Convertir en ANSI"/>
 					<Item id="45010" name="Convertir en UTF-8"/>
 					<Item id="45011" name="Convertir en UTF-8-BOM"/>
-					<Item id="45012" name="Convertir en UCS-2 BE BOM"/>
-					<Item id="45013" name="Convertir en UCS-2 LE BOM"/>
+					<Item id="45012" name="Convertir en UTF-16 BE BOM"/>
+					<Item id="45013" name="Convertir en UTF-16 LE BOM"/>
 					<Item id="45060" name="Big5 (traditionnel)"/>
 					<Item id="45061" name="GB2312 (simplifié)"/>
 					<Item id="45054" name="OEM 861 : islandais"/>
@@ -945,21 +947,22 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
 					<Item id="6109" name="Colorer les onglets inactifs"/>
 					<Item id="6110" name="Barre colorée sur l’onglet actif"/>
-
-					<Item id="6111" name="Afficher la barre d'état"/>
 					<Item id="6112" name="Bouton de fermeture sur chaque onglet"/>
 					<Item id="6113" name="Fermer l'onglet par double clic"/>
 					<Item id="6118" name="Cacher"/>
 					<Item id="6119" name="Multiligne"/>
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Quitter lors de la fermeture du dernier onglet"/>
+					<Item id="6128" name="Icônes alternatives"/>
+
+					<Item id="6133" name="Barre d'état"/>
+					<Item id="6134" name="Masquer"/>
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Cacher (Alt ou F10 pour basculer)"/>
 					<Item id="6132" name="Cacher ＋ ▼ ✕ depuis le menu (nécessité de redémarrage)"/>
-					<Item id="6123" name="Langue"/>
 
-					<Item id="6128" name="Icônes alternatives"/>
+					<Item id="6123" name="Langue"/>
 				</Global>
 				<Scintillas title="Zones d'édition">
 					<Item id="6216" name="Curseur"/>
@@ -1041,23 +1044,23 @@ The comments are here for explanation, it's not necessary to translate them.
 Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
 					<Item id="6231" name="Largeur de la bordure"/>
 					<Item id="6235" name="Pas de bordure"/>
-					<Item id="6208" name="Padding"/>
+					<Item id="6208" name="Remplissage"/>
 					<Item id="6209" name="Gauche"/>
 					<Item id="6210" name="Droite"/>
 					<Item id="6212" name="Sans distraction"/>
 				</MarginsBorderEdge>
 
 				<NewDoc title="Nouveau document">
-					<Item id="6401" name="Format des sauts de ligne"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6403" name="Unix"/>
-					<Item id="6404" name="Mac"/>
+					<Item id="6401" name="Format (fin de ligne)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
 					<Item id="6405" name="Encodage"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
 					<Item id="6408" name="UTF-8-BOM"/>
-					<Item id="6409" name="UCS-2 BE BOM"/>
-					<Item id="6410" name="UCS-2 LE BOM"/>
+					<Item id="6409" name="UTF-16 BE BOM"/>
+					<Item id="6410" name="UTF-16 LE BOM"/>
 					<Item id="6411" name="Langage par défaut :"/>
 					<Item id="6419" name="Nouveau document"/>
 					<Item id="6420" name="Appliquer aux fichiers ANSI ouverts"/>
@@ -1247,6 +1250,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 					<Item id="7149" name="Permettre d'activer le coloriage automatique"/>
 					<Item id="7150" name="Désactiver le retour automatique à la ligne globalement"/>
 					<Item id="7151" name="Permettre d'activer le lien cliquable"/>
+					<Item id="7152" name="Supprimer l'avertissement à l'ouverture des fichiers ≥2GB"/>
 				</Performance>
 
 				<Cloud title="Cloud &amp; Lien">
@@ -1629,6 +1633,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichiers ouverts : 1 occurrence a été remplacée"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Remplacer dans les fichiers ouverts : $INT_REPLACE$ occurrences ont été remplacées"/>
 			<find-status-invalid-re value="Rechercher : Expression régulière invalide"/>
+			<find-status-search-failed value="Rechercher : Échec de la recherche"/>
 			<find-status-mark-1-match value="1 résultat"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ résultats"/>
 			<find-status-count-1-match value="Compter : 1 résultat"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.5.6
--    Ultima modificare 14 august 2023 de către Miloiu Andrei 	 
-	 Modificările din 30 Ianuarie 2019 a fost făcută de către Barna Cosmin Marian
+-    Traducerea în română pentru Notepad++ 8.5.7
+-    Ultima modificare 2 septembrie 2023 de către Miloiu Andrei 	 
+	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
@@ -322,14 +322,14 @@
                     <Item id="45003" name="Macintoch (CR)"/>
                     <Item id="45004" name="Codificare în ANSI"/>
                     <Item id="45005" name="Codificare în UTF-8-BOM"/>
-                    <Item id="45006" name="Codificare în UCS-2 BE BOM"/>
-                    <Item id="45007" name="Codificare în UCS-2 LE BOM"/>
+                    <Item id="45006" name="Codificare în UTF-16 BE BOM"/>
+                    <Item id="45007" name="Codificare în UTF-16 LE BOM"/>
                     <Item id="45008" name="Codificare în UTF-8"/>
                     <Item id="45009" name="Convertire în ANSI"/>
                     <Item id="45010" name="Convertire în UTF-8"/>
                     <Item id="45011" name="Convertire în UTF-8-BOM"/>
-                    <Item id="45012" name="Convertire în UCS-2 BE BOM"/>
-                    <Item id="45013" name="Convertire în UCS-2 LE BOM"/>
+                    <Item id="45012" name="Convertire în UTF-16 BE BOM"/>
+                    <Item id="45013" name="Convertire în UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (Tradițional)"/>
                     <Item id="45061" name="GB2312 (Simplificat)"/>
                     <Item id="45054" name="OEM 861: Islandez"/>
@@ -1077,8 +1077,8 @@ Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a 
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 cu BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian"/>
-                    <Item id="6410" name="UCS-2 Little Endian"/>
+                    <Item id="6409" name="UTF-16 Big Endian"/>
+                    <Item id="6410" name="UTF-16 Little Endian"/>
                     <Item id="6411" name="Limbaj implicit:"/>
                     <Item id="6419" name="Document nou"/>
                     <Item id="6420" name="Aplicare la fișierele ANSI deschise"/>
@@ -1269,6 +1269,7 @@ Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a 
                     <Item id="7149" name="Permite evidențierea inteligentă"/>
                     <Item id="7150" name="Dezactivarea globală a încadrării cuvintelor"/>
                     <Item id="7151" name="Permite legăturile apăsabile de URL-uri"/>
+                    <Item id="7152" name="Înlătură avertismentul de deschidere a fișierelor (de peste) ≥2GB"/>
                 </Performance>
 
                  <Cloud title="Cloud și legături">

@@ -628,153 +628,153 @@
             </StyleConfig>
 
             <ShortcutMapper title="Listă combinații taste">
-                <Item id="2602" name="Modificare"/>
-                <Item id="2603" name="Ștergere"/>
-                <Item id="2606" name="Golire"/>
-                <Item id="2607" name="Filtrare: "/>
-                <Item id="1" name="Închidere"/>
-                <ColumnName name="Nume"/>
-                <ColumnShortcut name="Combinație"/>
-                <ColumnCategory name="Categorie"/>
-                <ColumnPlugin name="Modul"/>
-                <MainMenuTab name="Meniu"/>
-                <MacrosTab name="Macro"/>
-                <RunCommandsTab name="Comenzi lansare"/>
-                <PluginCommandsTab name="Comenzi module"/>
-                <ScintillaCommandsTab name="Comenzi Scintilla"/>
-                <ConflictInfoOk name="Nu sunt conflicte pentru acest element."/>
-                <ConflictInfoEditing name="Nu sunt conflicte ..."/>
-                <WindowCategory name="Fereastră"/>
-                <FileCategory name="Fișier"/>
-                <EditCategory name="Editare"/>
-                <SearchCategory name="Căutare"/>
-                <ViewCategory name="Vizualizare"/>
-                <FormatCategory name="Formatare"/>
-                <LangCategory name="Limbă"/>
-                <AboutCategory name="Despre"/>
-                <SettingCategory name="Setări"/>
-                <ToolCategory name="Unelte"/>
-                <ExecuteCategory name="Execută"/>
-                <ModifyContextMenu name="Modifică"/>
-                <DeleteContextMenu name="Șterge"/>
-                <ClearContextMenu name="Curăță"/>
-                <MainCommandNames>
-                    <Item id="41019" name="Deschide dosarul conținător în Explorator (Explorer)"/>
-                    <Item id="41020" name="Deschide dosarul conținător în Panoul de comandă (Command Prompt)"/>
-                    <Item id="41021" name="Restaurează fișierul închis recent"/>
-                    <Item id="45001" name="Conversie EOL la Windows (CR LF)"/>
-                    <Item id="45002" name="Conversie EOL la Unix (LF)"/>
-                    <Item id="45003" name="Conversie EOL la Macintosh (CR)"/>
-                    <Item id="43022" name="Style all using 1st style"/>
-                    <Item id="43024" name="Style all using 2nd style"/>
-                    <Item id="43026" name="Style all using 3rd style"/>
-                    <Item id="43028" name="Style all using 4th style"/>
-                    <Item id="43030" name="Style all using 5th style"/>
-                    <Item id="43062" name="Style one using 1st style"/>
-                    <Item id="43063" name="Style one using 2nd style"/>
-                    <Item id="43064" name="Style one using 3rd style"/>
-                    <Item id="43065" name="Style one using 4th style"/>
-                    <Item id="43066" name="Style one using 5th style"/>
-                    <Item id="43023" name="Clear 1st style"/>
-                    <Item id="43025" name="Clear 2nd style"/>
-                    <Item id="43027" name="Clear 3rd style"/>
-                    <Item id="43029" name="Clear 4th style"/>
-                    <Item id="43031" name="Clear 5th style"/>
-                    <Item id="43032" name="Clear all styles"/>
-                    <Item id="43033" name="Previous style of 1st style"/>
-                    <Item id="43034" name="Previous style of 2nd style"/>
-                    <Item id="43035" name="Previous style of 3rd style"/>
-                    <Item id="43036" name="Previous style of 4th style"/>
-                    <Item id="43037" name="Previous style of 5th style"/>
-                    <Item id="43038" name="Previous style of Find Mark style"/>
-                    <Item id="43039" name="Next style of 1st style"/>
-                    <Item id="43040" name="Next style of 2nd style"/>
-                    <Item id="43041" name="Next style of 3rd style"/>
-                    <Item id="43042" name="Next style of 4th style"/>
-                    <Item id="43043" name="Next style of 5th style"/>
-                    <Item id="43044" name="Next style of Find Mark style"/>
-                    <Item id="43055" name="Copy Styled Text of 1st Style"/>
-                    <Item id="43056" name="Copy Styled Text of 2nd Style"/>
-                    <Item id="43057" name="Copy Styled Text of 3rd Style"/>
-                    <Item id="43058" name="Copy Styled Text of 4th Style"/>
-                    <Item id="43059" name="Copy Styled Text of 5th Style"/>
-                    <Item id="43060" name="Copy Styled Text of All Styles"/>
-                    <Item id="43061" name="Copy Styled Text of Find Mark style"/>
-                    <Item id="44100" name="View current file in Firefox"/>
-                    <Item id="44101" name="View current file in Chrome"/>
-                    <Item id="44103" name="View current file in IE"/>
-                    <Item id="44102" name="View current file in Edge"/>
-                    <Item id="50003" name="Switch to previous document"/>
-                    <Item id="50004" name="Switch to next document"/>
-                    <Item id="44051" name="Fold Level 1"/>
-                    <Item id="44052" name="Fold Level 2"/>
-                    <Item id="44053" name="Fold Level 3"/>
-                    <Item id="44054" name="Fold Level 4"/>
-                    <Item id="44055" name="Fold Level 5"/>
-                    <Item id="44056" name="Fold Level 6"/>
-                    <Item id="44057" name="Fold Level 7"/>
-                    <Item id="44058" name="Fold Level 8"/>
-                    <Item id="44061" name="Unfold Level 1"/>
-                    <Item id="44062" name="Unfold Level 2"/>
-                    <Item id="44063" name="Unfold Level 3"/>
-                    <Item id="44064" name="Unfold Level 4"/>
-                    <Item id="44065" name="Unfold Level 5"/>
-                    <Item id="44066" name="Unfold Level 6"/>
-                    <Item id="44067" name="Unfold Level 7"/>
-                    <Item id="44068" name="Unfold Level 8"/>
-                    <Item id="44081" name="Toggle Project Panel 1"/>
-                    <Item id="44082" name="Toggle Project Panel 2"/>
-                    <Item id="44083" name="Toggle Project Panel 3"/>
-                    <Item id="44085" name="Toggle Folder as Workspace"/>
-                    <Item id="44080" name="Toggle Document Map"/>
-                    <Item id="44070" name="Toggle Document List"/>
-                    <Item id="44084" name="Toggle Function List"/>
-                    <Item id="50005" name="Toggle macro recording"/>
-                    <Item id="44104" name="Switch to Project Panel 1"/>
-                    <Item id="44105" name="Switch to Project Panel 2"/>
-                    <Item id="44106" name="Switch to Project Panel 3"/>
-                    <Item id="44107" name="Switch to Folder as Workspace"/>
-                    <Item id="44109" name="Switch to Document List"/>
-                    <Item id="44108" name="Switch to Function List"/>
-                    <Item id="44110" name="Remove Tab Color"/>
-                    <Item id="44111" name="Apply Tab Color 1"/>
-                    <Item id="44112" name="Apply Tab Color 2"/>
-                    <Item id="44113" name="Apply Tab Color 3"/>
-                    <Item id="44114" name="Apply Tab Color 4"/>
-                    <Item id="44115" name="Apply Tab Color 5"/>
-                    <Item id="11002" name="Sort By Name A to Z"/>
-                    <Item id="11003" name="Sort By Name Z to A"/>
-                    <Item id="11004" name="Sort By Path A to Z"/>
-                    <Item id="11005" name="Sort By Path Z to A"/>
-                    <Item id="11006" name="Sort By Type A to Z"/>
-                    <Item id="11007" name="Sort By Type Z to A"/>
-                    <Item id="11008" name="Sort By Size Smaller to Larger"/>
-                    <Item id="11009" name="Sort By Size Larger to Smaller"/>
-                </MainCommandNames>
-            </ShortcutMapper>
-            <ShortcutMapperSubDialg title="Combinație">
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Anulare"/>
-                <Item id="5006" name="Nume"/>
-                <Item id="5008" name="Adăugare"/>
-                <Item id="5009" name="Eliminare"/>
-                <Item id="5010" name="Aplicare"/>
-                <Item id="5007" name="Se va elimina combinația de la această comandă"/>
-                <Item id="5012" name="CONFLICT APĂRUT!"/>
-            </ShortcutMapperSubDialg>        
-            <UserDefine title="Definit de utilizator">
-                <Item id="20001" name="Alipire"/>
-                <Item id="20002" name="Redenumire"/>
-                <Item id="20003" name="Creare nou..."/>
-                <Item id="20004" name="Eliminare"/>
-                <Item id="20005" name="Salvare ca..."/>
-                <Item id="20007" name="Limbaj utilizator: "/>
-                <Item id="20009" name="Ext.:"/>
-                <Item id="20012" name="Ignoră tip litere"/>
-                <Item id="20011" name="Transparență"/>
-                <Item id="20015" name="Importare..."/>
-                <Item id="20016" name="Export..."/>
-				<Item id="20017" name="Deconectează"/>
+				<Item id="2602" name="Modificare"/>
+				<Item id="2603" name="Ștergere"/>
+				<Item id="2606" name="Golire"/>
+				<Item id="2607" name="Filtrare: "/>
+				<Item id="1" name="Închidere"/>
+				<ColumnName name="Nume"/>
+				<ColumnShortcut name="Combinație"/>
+				<ColumnCategory name="Categorie"/>
+				<ColumnPlugin name="Modul"/>
+				<MainMenuTab name="Meniu"/>
+				<MacrosTab name="Macro"/>
+				<RunCommandsTab name="Comenzi lansare"/>
+				<PluginCommandsTab name="Comenzi module"/>
+				<ScintillaCommandsTab name="Comenzi Scintilla"/>
+				<ConflictInfoOk name="Nu există conflicte pentru acest element."/>
+				<ConflictInfoEditing name="Nu există conflicte ..."/>
+				<WindowCategory name="Fereastră"/>
+				<FileCategory name="Fișier"/>
+				<EditCategory name="Editare"/>
+				<SearchCategory name="Căutare"/>
+				<ViewCategory name="Vizualizare"/>
+				<FormatCategory name="Formatare"/>
+				<LangCategory name="Limba"/>
+				<AboutCategory name="Despre"/>
+				<SettingCategory name="Setări"/>
+				<ToolCategory name="Unelte"/>
+				<ExecuteCategory name="Executare"/>
+				<ModifyContextMenu name="Modificare"/>
+				<DeleteContextMenu name="Ștergere"/>
+				<ClearContextMenu name="Golire"/>
+				<MainCommandNames>
+					<Item id="41019" name="Deschidere folder gazdă în Explorer"/>
+					<Item id="41020" name="Deschidere folder gazdă Command Prompt"/>
+					<Item id="41021" name="Restaurare fișier închis recent"/>
+					<Item id="45001" name="Convertire sfârșit linii la Windows (CR LF)"/>
+					<Item id="45002" name="Convertire sfârșit linii la Unix (LF)"/>
+					<Item id="45003" name="Convertire sfârșit linii la Macintosh (CR)"/>
+					<Item id="43022" name="Stilizare toate cu stilul 1"/>
+					<Item id="43024" name="Stilizare toate cu stilul 2"/>
+					<Item id="43026" name="Stilizare toate cu stilul 3"/>
+					<Item id="43028" name="Stilizare toate cu stilul 4"/>
+					<Item id="43030" name="Stilizare toate cu stilul 5"/>
+					<Item id="43062" name="Stilizare unul cu stilul 1"/>
+					<Item id="43063" name="Stilizare unul cu stilul 2"/>
+					<Item id="43064" name="Stilizare unul cu stilul 3"/>
+					<Item id="43065" name="Stilizare unul cu stilul 4"/>
+					<Item id="43066" name="Stilizare unul cu stilul 5"/>
+					<Item id="43023" name="Eliminare stil 1"/>
+					<Item id="43025" name="Eliminare stil 2"/>
+					<Item id="43027" name="Eliminare stil 3"/>
+					<Item id="43029" name="Eliminare stil 4"/>
+					<Item id="43031" name="Eliminare stil 5"/>
+					<Item id="43032" name="Eliminare toate stilurile"/>
+					<Item id="43033" name="Stilul anterior al stilului 1"/>
+					<Item id="43034" name="Stilul anterior al stilului 2"/>
+					<Item id="43035" name="Stilul anterior al stilului 3"/>
+					<Item id="43036" name="Stilul anterior al stilului 4"/>
+					<Item id="43037" name="Stilul anterior al stilului 5"/>
+					<Item id="43038" name="Stilul anterior al „Căutare stil marcare”"/>
+					<Item id="43039" name="Stilul următor al stilului 1"/>
+					<Item id="43040" name="Stilul următor al stilului 2"/>
+					<Item id="43041" name="Stilul următor al stilului 3"/>
+					<Item id="43042" name="Stilul următor al stilului 4"/>
+					<Item id="43043" name="Stilul următor al stilului 5"/>
+					<Item id="43044" name="Stilul următor al „Căutare stil marcare”"/>
+					<Item id="43055" name="Copiere text stilizat al stilului 1"/>
+					<Item id="43056" name="Copiere text stilizat al stilului 2"/>
+					<Item id="43057" name="Copiere text stilizat al stilului 3"/>
+					<Item id="43058" name="Copiere text stilizat al stilului 4"/>
+					<Item id="43059" name="Copiere text stilizat al stilului 5"/>
+					<Item id="43060" name="Copiere text stilizat al tuturor stilurilor"/>
+					<Item id="43061" name="Copiere text stilizat al „Căutare stil marcare”"/>
+					<Item id="44100" name="Afișare fișier curent în Firefox"/>
+					<Item id="44101" name="Afișare fișier curent în Chrome"/>
+					<Item id="44103" name="Afișare fișier curent în IE"/>
+					<Item id="44102" name="Afișare fișier curent în Edge"/>
+					<Item id="50003" name="Comutare la document anterior"/>
+					<Item id="50004" name="Comutare la document următor"/>
+					<Item id="44051" name="Pliere nivel 1"/>
+					<Item id="44052" name="Pliere nivel 2"/>
+					<Item id="44053" name="Pliere nivel 3"/>
+					<Item id="44054" name="Pliere nivel 4"/>
+					<Item id="44055" name="Pliere nivel 5"/>
+					<Item id="44056" name="Pliere nivel 6"/>
+					<Item id="44057" name="Pliere nivel 7"/>
+					<Item id="44058" name="Pliere nivel 8"/>
+					<Item id="44061" name="Depliere nivel 1"/>
+					<Item id="44062" name="Depliere nivel 2"/>
+					<Item id="44063" name="Depliere nivel 3"/>
+					<Item id="44064" name="Depliere nivel 4"/>
+					<Item id="44065" name="Depliere nivel 5"/>
+					<Item id="44066" name="Depliere nivel 6"/>
+					<Item id="44067" name="Depliere nivel 7"/>
+					<Item id="44068" name="Depliere nivel 8"/>
+					<Item id="44081" name="Comutare panou proiect 1"/>
+					<Item id="44082" name="Comutare panou proiect 2"/>
+					<Item id="44083" name="Comutare panou proiect 3"/>
+					<Item id="44085" name="Comutare folder ca spațiu de lucru"/>
+					<Item id="44080" name="Comutare hartă document"/>
+					<Item id="44070" name="Comutare listă documente"/>
+					<Item id="44084" name="Comutare listă funcții"/>
+					<Item id="50005" name="Comutare înregistrare macro"/>
+					<Item id="44104" name="Focalizare pe panou priect 1"/>
+					<Item id="44105" name="Focalizare pe panou priect 2"/>
+					<Item id="44106" name="Focalizare pe panou priect 3"/>
+					<Item id="44107" name="Focalizare pe folder ca spațiu de lucru"/>
+					<Item id="44109" name="Focalizare pe listă documente"/>
+					<Item id="44108" name="Focalizare pe listă funcții"/>
+					<Item id="44110" name="Eliminare culoare nume filă"/>
+					<Item id="44111" name="Aplicare culoare 1 pe nume filă"/>
+					<Item id="44112" name="Aplicare culoare 2 pe nume filă"/>
+					<Item id="44113" name="Aplicare culoare 3 pe nume filă"/>
+					<Item id="44114" name="Aplicare culoare 4 pe nume filă"/>
+					<Item id="44115" name="Aplicare culoare 5 pe nume filă"/>
+					<Item id="11002" name="Sortare după nume - A la Z"/>
+					<Item id="11003" name="Sortare după nume - Z la A"/>
+					<Item id="11004" name="Sortare după cale - A la Z"/>
+					<Item id="11005" name="Sortare după cale - Z la A"/>
+					<Item id="11006" name="Sortare după tip - A la Z"/>
+					<Item id="11007" name="Sortare după tip - Z la A"/>
+					<Item id="11008" name="Sortare după mărime - ascendent"/>
+					<Item id="11009" name="Sortare după mărime - descendent"/>
+				</MainCommandNames>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Combinație taste">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Anulare"/>
+				<Item id="5006" name="Nume"/>
+				<Item id="5008" name="Adăugare"/>
+				<Item id="5009" name="Eliminare"/>
+				<Item id="5010" name="Aplicare"/>
+				<Item id="5007" name="Se va elimina combinația de la această comandă"/>
+				<Item id="5012" name="A APĂRUT UN CONFLICT!"/>
+			</ShortcutMapperSubDialg>
+			<UserDefine title="Definit de utilizator">
+				<Item id="20001" name="Alipire"/>
+				<Item id="20002" name="Redenumire"/>
+				<Item id="20003" name="Creare nou..."/>
+				<Item id="20004" name="Eliminare"/>
+				<Item id="20005" name="Salvare ca..."/>
+				<Item id="20007" name="Limbaj utilizator: "/>
+				<Item id="20009" name="Extensie:"/>
+				<Item id="20012" name="Ignorare tip litere"/>
+				<Item id="20011" name="Transparență"/>
+				<Item id="20015" name="Importare..."/>
+				<Item id="20016" name="Exportare..."/>
+				<Item id="20017" name="Dezlipire"/>
 				<StylerDialog title="Dialog stilizare">
 					<Item id="25030" name="Opțiuni font:"/>
 					<Item id="25006" name="Culoare prim-plan"/>
@@ -784,7 +784,7 @@
 					<Item id="25001" name="Îngroșat"/>
 					<Item id="25002" name="Înclinat"/>
 					<Item id="25003" name="Subliniere"/>
-					<Item id="25029" name="Stiluri integrate:"/>
+					<Item id="25029" name="Grupare"/>
 					<Item id="25008" name="Delimitator 1"/>
 					<Item id="25009" name="Delimitator 2"/>
 					<Item id="25010" name="Delimitator 3"/>
@@ -810,86 +810,85 @@
 					<Item id="25034" name="Transparent"/>
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Anulare"/>
-                </StylerDialog>
-                <Folder title="Foldere &amp;&amp; Implicite">
-                    <Item id="21101" name="Stil implicit"/>
-                    <Item id="21102" name="Stilizare"/>
-                    <Item id="21105" name="Documentație:"/>
-                    <Item id="21104" name="Documentație online:"/>
-                    <Item id="21106" name="Pliere &amp;compactă (pliere și linii goale)"/>
-                    <Item id="21220" name="Stil 1 pliere în cod:"/>
-                    <Item id="21224" name="Deschidere:"/>
-                    <Item id="21225" name="Mijloc:"/>
-                    <Item id="21226" name="Închidere:"/>
-                    <Item id="21227" name="Stilizare"/>
-                    <Item id="21320" name="Stil 2 pliere în cod (separatori necesari):"/>
-                    <Item id="21324" name="Deschidere:"/>
-                    <Item id="21325" name="Mijloc:"/>
-                    <Item id="21326" name="Închidere:"/>
-                    <Item id="21327" name="Stilizare"/>
-                    <Item id="21420" name="Stil pliere în comentarii bloc:"/>
-                    <Item id="21424" name="Deschidere:"/>
-                    <Item id="21425" name="Mijloc:"/>
-                    <Item id="21426" name="Închidere:"/>
-                    <Item id="21427" name="Stilizare"/>
-                </Folder>
-                <Keywords title="Listă cuvinte-cheie">
-                    <Item id="22101" name="Grup 1"/>
-                    <Item id="22201" name="Grup 2"/>
-                    <Item id="22301" name="Grup 3"/>
-                    <Item id="22401" name="Grup 4"/>
-                    <Item id="22451" name="Grup 5"/>
-                    <Item id="22501" name="Grup 6"/>
-                    <Item id="22551" name="Grup 7"/>
-                    <Item id="22601" name="Grup 8"/>
-                    <Item id="22121" name="Mod prefix"/>
-                    <Item id="22221" name="Mod prefix"/>
-                    <Item id="22321" name="Mod prefix"/>
-                    <Item id="22421" name="Mod prefix"/>
-                    <Item id="22471" name="Mod prefix"/>
-                    <Item id="22521" name="Mod prefix"/>
-                    <Item id="22571" name="Mod prefix"/>
-                    <Item id="22621" name="Mod prefix"/>
+				</StylerDialog>
+				<Folder title="Foldere &amp;&amp; Implicite">
+					<Item id="21101" name="Stil implicit"/>
+					<Item id="21102" name="Stilizare"/>
+					<Item id="21105" name="Documentație"/>
+					<Item id="21106" name="Pliere &amp;compactă (pliere și linii goale)"/>
+					<Item id="21220" name="Stil 1 pliere cod"/>
+					<Item id="21224" name="Deschidere:"/>
+					<Item id="21225" name="Mijloc:"/>
+					<Item id="21226" name="Închidere:"/>
+					<Item id="21227" name="Stilizare"/>
+					<Item id="21320" name="Stil 2 pliere cod (separatori necesari)"/>
+					<Item id="21324" name="Deschidere:"/>
+					<Item id="21325" name="Mijloc:"/>
+					<Item id="21326" name="Închidere:"/>
+					<Item id="21327" name="Stilizare"/>
+					<Item id="21420" name="Stil pliere în bloc comentarii"/>
+					<Item id="21424" name="Deschidere:"/>
+					<Item id="21425" name="Mijloc:"/>
+					<Item id="21426" name="Închidere:"/>
+					<Item id="21427" name="Stilizare"/>
+				</Folder>
+				<Keywords title="Listă cuvinte-cheie">
+					<Item id="22101" name="Grup 1"/>
+					<Item id="22201" name="Grup 2"/>
+					<Item id="22301" name="Grup 3"/>
+					<Item id="22401" name="Grup 4"/>
+					<Item id="22451" name="Grup 5"/>
+					<Item id="22501" name="Grup 6"/>
+					<Item id="22551" name="Grup 7"/>
+					<Item id="22601" name="Grup 8"/>
+					<Item id="22121" name="Mod prefix"/>
+					<Item id="22221" name="Mod prefix"/>
+					<Item id="22321" name="Mod prefix"/>
+					<Item id="22421" name="Mod prefix"/>
+					<Item id="22471" name="Mod prefix"/>
+					<Item id="22521" name="Mod prefix"/>
+					<Item id="22571" name="Mod prefix"/>
+					<Item id="22621" name="Mod prefix"/>
 					<Item id="22122" name="Stilizare"/>
-                    <Item id="22222" name="Stilizare"/>
-                    <Item id="22322" name="Stilizare"/>
-                    <Item id="22422" name="Stilizare"/>
-                    <Item id="22472" name="Stilizare"/>
-                    <Item id="22522" name="Stilizare"/>
-                    <Item id="22572" name="Stilizare"/>
-                    <Item id="22622" name="Stilizare"/>
-                </Keywords>
-                <Comment title="Comentarii &amp;&amp; Numere">
-                    <Item id="23003" name="Poziție comentariu pe linie"/>
-                    <Item id="23004" name="Permite oriunde"/>
-                    <Item id="23005" name="Forțare la început de linie"/>
-                    <Item id="23006" name="Permite precedare cu spații"/>
-                    <Item id="23001" name="Permite pliere comentarii"/>
-                    <Item id="23326" name="Stilizare"/>
-                    <Item id="23323" name="Început"/>
-                    <Item id="23324" name="Caracter continuare"/>
-                    <Item id="23325" name="Sfârșit"/>
-                    <Item id="23301" name="Stil comentariu pe linie"/>
-                    <Item id="23124" name="Stilizare"/>
-                    <Item id="23122" name="Început"/>
-                    <Item id="23123" name="Sfârșit"/>
-                    <Item id="23101" name="Stil comentariu bloc"/>
-                    <Item id="23201" name="Stil numere"/>
-                    <Item id="23220" name="Stilizare"/>
-                    <Item id="23230" name="Prefix 1"/>
-                    <Item id="23232" name="Prefix 2"/>
-                    <Item id="23234" name="Extras 1"/>
-                    <Item id="23236" name="Extras 2"/>
-                    <Item id="23238" name="Sufix 1"/>
-                    <Item id="23240" name="Sufix 2"/>
-                    <Item id="23242" name="Interval:"/>
-                    <Item id="23244" name="Separator zecimal"/>
-                    <Item id="23245" name="Punct"/>
-                    <Item id="23246" name="Virgulă"/>
-                    <Item id="23247" name="Ambele"/>
-                </Comment>
-                <Operator title="Operatori &amp;&amp; Separatori">
-                    <Item id="24101" name="Stil operatori"/>
+					<Item id="22222" name="Stilizare"/>
+					<Item id="22322" name="Stilizare"/>
+					<Item id="22422" name="Stilizare"/>
+					<Item id="22472" name="Stilizare"/>
+					<Item id="22522" name="Stilizare"/>
+					<Item id="22572" name="Stilizare"/>
+					<Item id="22622" name="Stilizare"/>
+				</Keywords>
+				<Comment title="Comentarii &amp;&amp; Numere">
+					<Item id="23003" name="Poziție comentariu pe linie"/>
+					<Item id="23004" name="Permitere oriunde"/>
+					<Item id="23005" name="Forțare la început de linie"/>
+					<Item id="23006" name="Permitere precedare cu spații"/>
+					<Item id="23001" name="Permitere pliere comentarii"/>
+					<Item id="23326" name="Stilizare"/>
+					<Item id="23323" name="Început"/>
+					<Item id="23324" name="Caracter continuare"/>
+					<Item id="23325" name="Sfârșit"/>
+					<Item id="23301" name="Stil linie comentariu"/>
+					<Item id="23124" name="Stilizare"/>
+					<Item id="23122" name="Început"/>
+					<Item id="23123" name="Sfârșit"/>
+					<Item id="23101" name="Stil bloc comentariu"/>
+					<Item id="23201" name="Stil numere"/>
+					<Item id="23220" name="Stilizare"/>
+					<Item id="23230" name="Prefix 1"/>
+					<Item id="23232" name="Prefix 2"/>
+					<Item id="23234" name="Extras 1"/>
+					<Item id="23236" name="Extras 2"/>
+					<Item id="23238" name="Sufix 1"/>
+					<Item id="23240" name="Sufix 2"/>
+					<Item id="23242" name="Interval:"/>
+					<Item id="23244" name="Separator zecimal"/>
+					<Item id="23245" name="Punct"/>
+					<Item id="23246" name="Virgulă"/>
+					<Item id="23247" name="Ambele"/>
+				</Comment>
+				<Operator title="Operatori &amp;&amp; Separatori">
+					<Item id="24101" name="Stil operatori"/>
 					<Item id="24113" name="Stilizare"/>
 					<Item id="24116" name="Operatori 1"/>
 					<Item id="24117" name="Operatori 2 (separatori necesari)"/>
@@ -933,301 +932,286 @@
 					<Item id="24671" name="Escape:"/>
 					<Item id="24672" name="Închidere:"/>
 					<Item id="24673" name="Stilizare"/>
-                </Operator>
-            </UserDefine>
-            <Preference title="Preferințe">
-                <Item id="6001" name="Închidere"/>
-                <Global title="Generale">
-                    <Item id="6101" name="Bara de unelte"/>
-                    <Item id="6102" name="Ascundere"/>
-                    <Item id="6103" name="Pictograme mici"/>
-                    <Item id="6104" name="Pictograme mari"/>
-                    <Item id="6129" name="UI fluent umplut: mic"/>
-                    <Item id="6130" name="UI fluent umplut: mare"/>
-                    <Item id="6105" name="Pictograme standard"/>
-                   
-                    <Item id="6106" name="Bara de file"/>
-                    <Item id="6107" name="Micșorată"/>
-                    <Item id="6108" name="Blocare (filele nu se pot muta)"/>
-                    <Item id="6109" name="Întunecare file inactive"/>
-                    <Item id="6110" name="Desenare linie colorată pe fila activă"/>                  
-                    <Item id="6112" name="Afișare buton închidere pe fiecare filă"/>
-                    <Item id="6113" name="Închidere document cu dublu clic"/>
-                    <Item id="6118" name="Ascundere"/>
-                    <Item id="6119" name="Multilinie"/>
-                    <Item id="6120" name="Verticală"/>
-                    <Item id="6121" name="Ieșire la închiderea ultimei file"/>
-                    <Item id="6128" name="Iconițe alternative"/>
-					
-                    <Item id="6133" name="Bara de stare"/>
-					<Item id="6134" name="Ascunde"/>
-                 
-                    <Item id="6131" name="Meniu"/>
-                    <Item id="6122" name="Ascunderea barei de meniu (comutare cu Alt sau F10)"/>
-                    <Item id="6132" name="Ascunderea butoanelor din dreapta ＋ ▼ ✕ din bara de meniu (necesită repornirea Notepad++)"/>
-					
-                    <Item id="6123" name="Limba"/>
-					<Item id="6125" name="Panou listă documente"/>
-                    <Item id="6126" name="Afișare"/>
-                    <Item id="6127" name="Dezactivare coloană module"/>
-                </Global>
-                <Scintillas title="Editare">
-                    <Item id="6216" name="Setările cursorului"/>
-                    <Item id="6217" name="Lățime:"/>
-                    <Item id="6219" name="Viteză de clipire:"/>
-                    <Item id="6221" name="100"/>
-                    <Item id="6222" name="0"/>
-                    <Item id="6224" name="Setări editare multiplă"/>	
-                    <Item id="6246" name="Facerea comutabilă a comenzilor de pliere/desfășurare la nivelul actual"/>
-                    <Item id="6225" name="Activare (Ctrl+clic maus pe selecție)"/>
-                    <Item id="6227" name="Limitare linie"/>
-                    <Item id="6228" name="Implicit"/>
-                    <Item id="6229" name="Aliniere"/>
-                    <Item id="6230" name="Indentare"/>
-                    <Item id="6206" name="Afișare numere linii"/>
-                    <Item id="6207" name="Afișare semne de carte"/>
-                    <Item id="6208" name="Afișare margine verticală"/>
-                    <Item id="6209" name="Număr de coloane: "/>
-                    <Item id="6234" name="Dezactivare funcție derulare avansată (dacă aveți probleme cu touchpad-ul)"/>		
-                    <Item id="6215" name="Activare font finisat"/>
-                    <Item id="6211" name="Setări margine verticală"/>
-                    <Item id="6212" name="Mod linie"/>
-                    <Item id="6213" name="Mod în fundal"/>
-                    <Item id="6214" name="Activare evidențiere linie curentă"/>
-                    <Item id="6231" name="Lățime bordură"/>
-                    <Item id="6235" name="Fără bordură" />					
-                    <Item id="6236" name="Activare derulare dincolo de ultima linie"/>
-                    <Item id="6239" name="Activarea selecției când se dă clic dreapta în afara selecției"/>		
-                    <Item id="6245" name="Activarea spațiului virtual"/>
-                    <Item id="6651" name="Indicatorul liniei curente"/>
-                    <Item id="6652" name="Niciunul"/>
-                    <Item id="6653" name="Fundal evidențiat"/>
-                    <Item id="6654" name="Cadru"/>
-                    <Item id="6655" name="Lățime"/>			
-                    <Item id="6247" name="EOL- Sârșit de linie (CRLF)"/> <!-- Don't translate "(CRLF)" -->
-                    <Item id="6248" name="Implicit"/>
-                    <Item id="6249" name="Text simplu"/>
-                    <Item id="6250" name="Culoare personalizată"/>	
-                    <Item id="6252" name="Caractere neafișabile"/>
-                    <Item id="6254" name="Abreviere"/>
-                    <Item id="6255" name="Punct de cod"/>
-                    <Item id="6256" name="Culoare personalizată"/>
-					<Item id="6258" name="Aplicarea la C0, C1 &amp;&amp; Unicode EOL"/>
-                </Scintillas>
-				
-                <DarkMode title="Modul întunecat">
-                    <Item id="7131" name="Modul luminos"/>
-                    <Item id="7132" name="Modul întunecat"/>
-                    <Item id="7133" name="Urmarea ferestrelor"/>
-                    <Item id="7102" name="Negru"/>
-                    <Item id="7103" name="Roșu"/>
-                    <Item id="7104" name="Verde"/>
-                    <Item id="7105" name="Albastru"/>
-                    <Item id="7107" name="Violet"/>
-                    <Item id="7108" name="Cyan"/>
-                    <Item id="7109" name="Măsliniu"/>
-                    <Item id="7115" name="Personalizat"/>
-                    <Item id="7116" name="Sus"/>
-                    <Item id="7117" name="Evidențierea meniurilor"/>
-                    <Item id="7118" name="Activ"/>
-                    <Item id="7119" name="Principal"/>
-                    <Item id="7120" name="Eroare"/>
-                    <Item id="7121" name="Text"/>
-                    <Item id="7122" name="Text mai întunecat"/>
-                    <Item id="7123" name="Text dezactivat"/>
-                    <Item id="7124" name="Vârf"/>
-                    <Item id="7125" name="Legătură"/>
-                    <Item id="7126" name="Evidențierea vârfului"/>
-                    <Item id="7127" name="Dezactivarea vârfului"/>
-                    <Item id="7130" name="Resetare"/>
-                    <Item id="7135" name="Tonuri"/>
-                </DarkMode>
-                
-                <MarginsBorderEdge title="Margini/Chenar/Vârf">
-                    <Item id="6201" name="Stilul marginilor pliate"/>
-                    <Item id="6202" name="Simplu"/>
-                    <Item id="6203" name="Săgeată"/>
-                    <Item id="6204" name="Arbore de cerc"/>
-                    <Item id="6205" name="Arbore de cutie"/>
-                    <Item id="6226" name="Nimic"/>
-                    <Item id="6291" name="Numărul liniei"/>
-                    <Item id="6206" name="Afișaj"/>
-                    <Item id="6292" name="Lățimea afișajului"/>
-                    <Item id="6293" name="Lățime constantă"/>
-                    <Item id="6207" name="Semn de carte pentru afișaj"/>
-                    <Item id="6223" name="Istoricul schimbărilor afișajului"/>
-                    <Item id="6211" name="Setările vârfurilor verticale"/>
-                    <Item id="6213" name="Modul fundal"/>
-                    <Item id="6237" name="Se adaugă marcatorul de coloană indicând poziția acestuia cu un număr zecimal.
-Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a separa diferitele numere."/>
-                    <Item id="6231" name="Lățimea chenarului"/>
-                    <Item id="6235" name="Fără vârf"/>
-                    <Item id="6208" name="Umplutură"/>
-                    <Item id="6209" name="Stânga"/>
-                    <Item id="6210" name="Dreapta"/>
-                    <Item id="6212" name="Fără distracție"/>
-                </MarginsBorderEdge>
-				
-                <NewDoc title="Document nou">
-                    <Item id="6401" name="Formatare (Sfârșit linie)"/>
-                    <Item id="6402" name="Windows (CR LF)"/>
-                    <Item id="6403" name="Unix (LF)"/>
-                    <Item id="6404" name="Macintoch (CR)"/>
-                    <Item id="6405" name="Codificare"/>
-                    <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8"/>
-                    <Item id="6408" name="UTF-8 cu BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian"/>
-                    <Item id="6410" name="UCS-2 Little Endian"/>
-                    <Item id="6411" name="Limbaj implicit:"/>
-                    <Item id="6419" name="Document nou"/>
-                    <Item id="6420" name="Aplicare la fișierele ANSI deschise"/>
-					<Item id="6432" name="Deschide întotdeauna un document nou în plus la pornire"/>
-                </NewDoc>
+				</Operator>
+			</UserDefine>
+			<Preference title="Preferințe">
+				<Item id="6001" name="Închidere"/>
+				<Global title="Generale">
+					<Item id="6101" name="Bara de unelte"/>
+					<Item id="6102" name="Ascundere"/>
+					<Item id="6103" name="Pictograme mici"/>
+					<Item id="6104" name="Pictograme mari"/>
+					<Item id="6129" name="Pictograme mici pline"/>
+					<Item id="6130" name="Pictograme mari pline"/>
+					<Item id="6105" name="Pictograme standard mici"/>
 
-                <DefaultDir title="Folder implicit">
-                    <Item id="6413" name="Folder implicit (Deschidere/Salvare)"/>
-                    <Item id="6414" name="Folder document curent"/>
-                    <Item id="6415" name="Memorare ultimul folder folosit"/>
-                    <Item id="6431" name="La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru"/>
-                </DefaultDir>
+					<Item id="6106" name="Bara de file"/>
+					<Item id="6107" name="Micșorată"/>
+					<Item id="6108" name="Blocare (filele nu se pot muta)"/>
+					<Item id="6109" name="Întunecare file inactive"/>
+					<Item id="6110" name="Desenare linie colorată pe fila activă"/>
+					<Item id="6112" name="Afișare buton închidere pe fiecare filă"/>
+					<Item id="6113" name="Închidere document cu clic dublu"/>
+					<Item id="6118" name="Ascundere"/>
+					<Item id="6119" name="Multilinie"/>
+					<Item id="6120" name="Verticală"/>
+					<Item id="6121" name="Ieșire la închiderea ultimei file"/>
+					<Item id="6128" name="Pictograme alternative"/>
 
-                <FileAssoc title="Asociere fișiere">
-					<Item id="4008" name="Te rugăm să închizi Notepad++ și să repornești Notepad++ în modul Administrator pentru a folosi această funcție."/>
-                    <Item id="4009" name="Extensii asociate:"/>
-                    <Item id="4010" name="Extensii înregistrate:"/>
-                </FileAssoc>
-                <Language title="Limbaje">
-                    <Item id="6505" name="Articole disponibile"/>
-                    <Item id="6506" name="Articole dezactivate"/>
-                    <Item id="6507" name="Compactare meniu limbaje"/>
-                    <Item id="6508" name="Meniu limbaje"/>
-                    <Item id="6301" name="Setări Tab"/>
-                    <Item id="6302" name="Înlocuire cu spațiu"/>
-                    <Item id="6303" name="Mărime Tab: "/>
-                    <Item id="6510" name="Aplicare valoare implicită" />
-                    <Item id="6335" name="Consideră '\' ca și caracter escape pentru SQL"/>
-                </Language>
+					<Item id="6133" name="Bara de stare"/>
+					<Item id="6134" name="Ascundere"/>
 
-                <Highlighting title="Evidențiere">
-                    <Item id="6351" name="Stilarea tuturor aparițiilor unice"/>
-                    <Item id="6352" name="Potrivire litere MARI/mici"/>
-                    <Item id="6353" name="Potrivie cuvânt întreg"/>
-                    <Item id="6333" name="Evidențiere inteligentă"/>
-                    <Item id="6326" name="Activare"/>
+					<Item id="6131" name="Meniu"/>
+					<Item id="6122" name="Ascundere bară meniu (comutare cu Alt sau F10)"/>
+					<Item id="6132" name="Ascundere butoane „＋ ▼ ✕” din dreapta barei de meniu (se aplică după repornirea Notepad++)"/>
+
+					<Item id="6123" name="Limba"/>
+				</Global>
+				<Scintillas title="Editare">
+					<Item id="6216" name="Setări cursor"/>
+					<Item id="6217" name="Lățime:"/>
+					<Item id="6219" name="Viteză clipire:"/>
+					<Item id="6221" name="100"/>
+					<Item id="6222" name="0"/>
+					<Item id="6246" name="Nivel curent comenzi de pliere / depliere comutabil"/>
+					<Item id="6225" name="Activare editare multiplă (Ctrl + clic pe selecție)"/>
+					<Item id="6227" name="Limitare linie"/>
+					<Item id="6228" name="Implicit"/>
+					<Item id="6229" name="Aliniere"/>
+					<Item id="6230" name="Indentare"/>
+					<Item id="6234" name="Dezactivare funcție derulare avansată (dacă aveți probleme cu touchpad-ul)"/>
+					<Item id="6215" name="Activare font finisat"/>
+					<Item id="6236" name="Activare derulare dincolo de ultima linie"/>
+					<Item id="6239" name="Păstrare selecție când se dă clic dreapta în afara acesteia"/>
+					<Item id="6245" name="Activare spațiu virtual"/>
+					<Item id="6651" name="Indicator linie curentă"/>
+					<Item id="6652" name="Niciunul"/>
+					<Item id="6653" name="Evidențiere fundal"/>
+					<Item id="6654" name="Chenar"/>
+					<Item id="6655" name="Lățime:"/>
+					<Item id="6247" name="Sârșit de linie (CRLF)"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Implicit"/>
+					<Item id="6249" name="Text simplu"/>
+					<Item id="6250" name="Culoare personală"/>
+					<Item id="6252" name="Caractere netipăribile"/>
+					<Item id="6254" name="Abreviere"/>
+					<Item id="6255" name="Cod Unicode"/>
+					<Item id="6256" name="Culoare personală"/>
+					<Item id="6258" name="Aplicare la C0, C1 și sfârșit de linie Unicode"/>
+				</Scintillas>
+
+				<DarkMode title="Mod întunecat">
+					<Item id="7131" name="Mod luminos"/>
+					<Item id="7132" name="Mod întunecat"/>
+					<Item id="7133" name="Ca cel din Windows"/>
+					<Item id="7102" name="Negru"/>
+					<Item id="7103" name="Roșu"/>
+					<Item id="7104" name="Verde"/>
+					<Item id="7105" name="Albastru"/>
+					<Item id="7107" name="Violet"/>
+					<Item id="7108" name="Cyan"/>
+					<Item id="7109" name="Măsliniu"/>
+					<Item id="7115" name="Personal"/>
+					<Item id="7116" name="Sus"/>
+					<Item id="7117" name="Meniu activ"/>
+					<Item id="7118" name="Activ"/>
+					<Item id="7119" name="Principal"/>
+					<Item id="7120" name="Eroare"/>
+					<Item id="7121" name="Text"/>
+					<Item id="7122" name="Text întunecat"/>
+					<Item id="7123" name="Text dezactivat"/>
+					<Item id="7124" name="Bordură"/>
+					<Item id="7125" name="Legătură"/>
+					<Item id="7126" name="Bordură activă"/>
+					<Item id="7127" name="Bordură dezactivată"/>
+					<Item id="7130" name="Resetare"/>
+					<Item id="7135" name="Nuanțe culori"/>
+				</DarkMode>
+
+				<MarginsBorderEdge title="Margini / Borduri / Coloane">
+					<Item id="6201" name="Stil buton pliere"/>
+					<Item id="6202" name="Simplu"/>
+					<Item id="6203" name="Săgeată"/>
+					<Item id="6204" name="Cerc"/>
+					<Item id="6205" name="Pătrat"/>
+					<Item id="6226" name="Fără"/>
+					<Item id="6291" name="Număr linii"/>
+					<Item id="6206" name="Afișare"/>
+					<Item id="6292" name="Lățime dinamică"/>
+					<Item id="6293" name="Lățime constantă"/>
+					<Item id="6207" name="Afișare semne de carte"/>
+					<Item id="6223" name="Afișare istoric modificări"/>
+					<Item id="6211" name="Setări margini coloane"/>
+					<Item id="6213" name="În fundal"/>
+					<Item id="6237" name="Stabiliți pozițiile de marcare a coloanelor indicându-le cu numărul zecima al coloanei.
+Se pot defini mai mulți marcatori. Folosiți spațiul pentru a-i delimita (ex.:4 10 15)."/>
+					<Item id="6231" name="Lățime chenar"/>
+					<Item id="6235" name="Fără bordură"/>
+					<Item id="6208" name="Spațiere"/>
+					<Item id="6209" name="Stânga"/>
+					<Item id="6210" name="Dreapta"/>
+					<Item id="6212" name="Fără distragere"/>
+				</MarginsBorderEdge>
+
+				<NewDoc title="Document nou">
+					<Item id="6401" name="Formatare (Sfârșit linie)"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintoch (CR)"/>
+					<Item id="6405" name="Codificare"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8"/>
+					<Item id="6408" name="UTF-8 cu BOM"/>
+					<Item id="6409" name="UTF-16 Big Endian"/>
+					<Item id="6410" name="UTF-16 Little Endian"/>
+					<Item id="6411" name="Limbaj implicit:"/>
+					<Item id="6419" name="Document nou"/>
+					<Item id="6420" name="Aplicare la fișierele ANSI deschise"/>
+					<Item id="6432" name="Deschidere întotdeauna încă un document nou la pornire"/>
+				</NewDoc>
+
+				<DefaultDir title="Folder implicit">
+					<Item id="6413" name="Folder implicit deschidere / salvare fișier"/>
+					<Item id="6414" name="Folder fișier curent"/>
+					<Item id="6415" name="Memorare ultimul folder folosit"/>
+					<Item id="6431" name="La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru."/>
+				</DefaultDir>
+
+				<FileAssoc title="Asociere fișiere">
+					<Item id="4008" name="Închideți și reporniți Notepad++ ca administrator pentru a folosi această funcție."/>
+					<Item id="4009" name="Extensii asociate:"/>
+					<Item id="4010" name="Extensii înregistrate:"/>
+				</FileAssoc>
+				<Language title="Limbaje">
+					<Item id="6505" name="Articole disponibile"/>
+					<Item id="6506" name="Articole dezactivate"/>
+					<Item id="6507" name="Compactare meniu limbaje"/>
+					<Item id="6508" name="Meniu limbaje"/>
+					<Item id="6301" name="Setări Tab"/>
+					<Item id="6302" name="Înlocuire cu spațiu"/>
+					<Item id="6303" name="Mărime Tab: "/>
+					<Item id="6510" name="Aplică valoare implicită"/>
+					<Item id="6335" name="Considerare „\” ca și caracter escape pentru SQL"/>
+				</Language>
+
+				<Highlighting title="Evidențiere">
+					<Item id="6351" name="Stilizare toate aparițiile selecției"/>
+					<Item id="6352" name="Potrivire litere MARI / mici"/>
+					<Item id="6353" name="Potrivire cuvânt întreg"/>
+					<Item id="6333" name="Evidențiere inteligentă"/>
+					<Item id="6326" name="Activare"/>
 					<Item id="6354" name="Potrivire"/>
-                    <Item id="6332" name="Potrivire litere MARI/mici"/>
-                    <Item id="6338" name="Potrivie cuvânt întreg"/>
-                    <Item id="6339" name="Folosire setări din dialogul Căutare"/>
-                    <Item id="6340" name="Evidențiere cealaltă afișare"/>
-                    <Item id="6329" name="Evidențiere etichete pereche"/>
-                    <Item id="6327" name="Activare"/>
-                    <Item id="6328" name="Evidențiere atribute etichete"/>
-                    <Item id="6330" name="Evidențiere zone comentarii/php/asp"/>
-                </Highlighting>
+					<Item id="6332" name="Potrivire litere MARI / mici"/>
+					<Item id="6338" name="Potrivie cuvânt întreg"/>
+					<Item id="6339" name="Folosire setări din dialogul de căutare"/>
+					<Item id="6340" name="Evidențiere și în celălalt panou"/>
+					<Item id="6329" name="Evidențiere etichete pereche"/>
+					<Item id="6327" name="Activare"/>
+					<Item id="6328" name="Evidențiere atribute etichete"/>
+					<Item id="6330" name="Evidențiere zone comentarii / php / asp"/>
+				</Highlighting>
 
-                <Print title="Tipărire">
-                    <Item id="6601" name="Tipărire număr linie"/>
-                    <Item id="6602" name="Opțiuni culoare"/>
-                    <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Inversare"/>
-                    <Item id="6605" name="Alb și negru"/>
-                    <Item id="6606" name="Fără culoare fundal"/>
-                    <Item id="6607" name="Setări margine (unitate:mm)"/>
-                    <Item id="6612" name="Stânga"/>
-                    <Item id="6613" name="Sus"/>
-                    <Item id="6614" name="Dreapta"/>
-                    <Item id="6615" name="Jos"/>
-                    <Item id="6706" name="Îngroșat"/>
-                    <Item id="6707" name="Înclinat"/>
-                    <Item id="6708" name="Antet"/>
-                    <Item id="6709" name="Partea stângă"/>
-                    <Item id="6710" name="Partea de mijloc"/>
-                    <Item id="6711" name="Partea dreaptă"/>
-                    <Item id="6717" name="Îngroșat"/>
-                    <Item id="6718" name="Înclinat"/>
-                    <Item id="6719" name="Subsol"/>
-                    <Item id="6720" name="Partea stângă"/>
-                    <Item id="6721" name="Partea de mijloc"/>
-                    <Item id="6722" name="Partea dreaptă"/>
-                    <Item id="6723" name="Adăugare"/>
-                    <ComboBox id="6724">
-                        <Element name="Calea numelui fișierului întreg"/>
-                        <Element name="Numele fișierului"/>
-                        <Element name="Directorul fișierului"/>
-                        <Element name="Pagină"/>
-                        <Element name="Formatul de dată scurtă"/>
-                        <Element name="Formatul de dată lungă"/>
-                        <Element name="Timp"/>
-                    </ComboBox>
-                    <Item id="6725" name="Variabilă:"/>
+				<Print title="Tipărire">
+					<Item id="6601" name="Tipărire &amp;număr linie"/>
+					<Item id="6602" name="Opțiuni culoare"/>
+					<Item id="6603" name="W&amp;YSIWYG"/>
+					<Item id="6604" name="I&amp;nversare"/>
+					<Item id="6605" name="Negru pe al&amp;b"/>
+					<Item id="6606" name="Fără &amp;culoare fundal"/>
+					<Item id="6607" name="Setări margine (unitate:mm)"/>
+					<Item id="6612" name="&amp;Stânga"/>
+					<Item id="6613" name="S&amp;us"/>
+					<Item id="6614" name="&amp;Dreapta"/>
+					<Item id="6615" name="&amp;Jos"/>
+					<Item id="6706" name="În&amp;groșat"/>
+					<Item id="6707" name="Înc&amp;linat"/>
+					<Item id="6708" name="Antet"/>
+					<Item id="6709" name="partea stâ&amp;ngă"/>
+					<Item id="6710" name="partea de &amp;mijloc"/>
+					<Item id="6711" name="partea d&amp;reaptă"/>
+					<Item id="6717" name="Îngr&amp;oșat"/>
+					<Item id="6718" name="Încl&amp;inat"/>
+					<Item id="6719" name="Subsol"/>
+					<Item id="6720" name="part&amp;ea stângă"/>
+					<Item id="6721" name="partea de m&amp;ijloc"/>
+					<Item id="6722" name="partea dreap&amp;tă"/>
+					<Item id="6723" name="&amp;Adăugare"/>
+					<ComboBox id="6724">
+						<Element name="Cale completă fișier"/>
+						<Element name="Nume fișier"/>
+						<Element name="Folder fișier"/>
+						<Element name="Pagina"/>
+						<Element name="Format scurt dată"/>
+						<Element name="Format lung dată"/>
+						<Element name="Ora"/>
+					</ComboBox>
+					<Item id="6725" name="&amp;Variabila:"/>
 					<Item id="6727" name="Aici se afișează setările variabilelor"/>
-                    <Item id="6728" name="Antet și subsol"/>
-                </Print>
+					<Item id="6728" name="Antet și subsol"/>
+				</Print>
 
-                <Searching title="Căutare">
-                    <Item id="6902" name="Folosirea scrisului monospațiat în caseta de dialog Căutare (necesită repornirea Notepad++)"/>
-                    <Item id="6903" name="Dialogul de căutare rămâne deschis după căutarea care iese în fereastra cu rezultate"/>
-                    <Item id="6904" name="Confirmă înlocuire tot în toate documentele deschise"/>
-                    <Item id="6905" name="Înlocuire: Nu trece la următoarea apariție"/>
-                    <Item id="6906" name="Fereastra rezultatelor căutării: afișarea unei singure intrări în fereastra găsită"/>
-                    <Item id="6907" name="Când căsuța de dialog căutare este invocată"/>
-                    <Item id="6908" name="Umplerea câmpului de căutare în textul selectat"/>
-                    <Item id="6909" name="Selectare cuvântului sub semnul de omisiune când nimic nu e selectat"/>
-                </Searching>
+				<Searching title="Căutare">
+					<Item id="6902" name="Folosire font monospațiat în caseta „Căutare” (se aplică după repornirea Notepad++)."/>
+					<Item id="6903" name="Caseta de căutare rămâne deschisă după afișarea rezultatelor în fereastra cu rezultate."/>
+					<Item id="6904" name="Confirmare înlocuire toate în toate documentele deschise."/>
+					<Item id="6905" name="Înlocuire: fără salt la următoarea apariție după înlocuire."/>
+					<Item id="6906" name="Fereastră rezultate căutare: se afișează o singură linie pentru potriviri multiple găsite pe aceeași linie."/>
+					<Item id="6907" name="Când se invocă funcția de căutare..."/>
+					<Item id="6908" name="se completează câmpul de căutare cu textul selectat."/>
+					<Item id="6909" name="dacă nu e nimic selectat, se selectează cuvântul din dreptul cursorului."/>
+				</Searching>
 
-                <RecentFilesHistory title="Istoric fișiere recente">
-                    <Item id="6304" name="Istoric fișiere recente"/>
-                    <Item id="6306" name="Număr maxim intrări:"/>
-                    <Item id="6305" name="Nu verifica la pornire"/>
-                    <Item id="6429" name="Afișare"/>
-                    <Item id="6424" name="În submeniu"/>
-                    <Item id="6425" name="Numai nume fișiere"/>
-                    <Item id="6426" name="Cale completă fișiere"/>
-                    <Item id="6427" name="Lungime maximă personalizată:"/>
-                </RecentFilesHistory>
+				<RecentFilesHistory title="Istoric fișiere recente">
+					<Item id="6304" name="Istoric fișiere recente"/>
+					<Item id="6306" name="Număr maxim intrări:"/>
+					<Item id="6305" name="Fără verificare la pornire"/>
+					<Item id="6429" name="Afișare"/>
+					<Item id="6424" name="În submeniu"/>
+					<Item id="6425" name="Numai nume fișier"/>
+					<Item id="6426" name="Cale completă fișier"/>
+					<Item id="6427" name="Definire lungime maximă:"/>
+				</RecentFilesHistory>
 
-                <Backup title="Conservări">
-                    <Item id="6817" name="Capturare sesiuni și conservare periodică"/>
-                    <Item id="6818" name="Activare capturare sesiune și conservare periodică"/>
-                    <Item id="6819" name="Conservare la fiecare"/>
-                    <Item id="6821" name="secunde"/>
-                    <Item id="6822" name="Cale conservări:"/>
-                    <Item id="6309" name="Memorare sesiune curentă pentru următoarea pornire"/>
-                    <Item id="6801" name="Conservare la salvare"/>
-                    <Item id="6315" name="Fără conservare"/>
-                    <Item id="6316" name="Conservare simplă"/>
-                    <Item id="6317" name="Conservare cu detalii"/>
-                    <Item id="6804" name="Folder personal conservări"/>
-                    <Item id="6803" name="Folder:"/>
-                </Backup>
+				<Backup title="Conservări">
+					<Item id="6817" name="Capturare sesiuni și conservare periodică"/>
+					<Item id="6818" name="Activare capturare sesiune și conservare periodică"/>
+					<Item id="6819" name="Conservare la fiecare"/>
+					<Item id="6821" name="secunde"/>
+					<Item id="6822" name="Cale conservări:"/>
+					<Item id="6309" name="Memorare sesiune curentă pentru următoarea pornire"/>
+					<Item id="6801" name="Conservare la salvare"/>
+					<Item id="6315" name="Fără conservare"/>
+					<Item id="6316" name="Conservare simplă"/>
+					<Item id="6317" name="Conservare cu detalii"/>
+					<Item id="6804" name="Folder personal conservări"/>
+					<Item id="6803" name="Folder:"/>
+				</Backup>
 
-                <AutoCompletion title="Autocompletare">
-                    <Item id="6115" name="Autoindentare"/>
-                    <Item id="6807" name="Autocompletare"/>
-                    <Item id="6808" name="Activare autocompletare la tastare"/>
-                    <Item id="6809" name="Completare funcții"/>
-                    <Item id="6810" name="Completare cuvinte"/>
-                    <Item id="6814" name="Valoare validă: 1 - 9"/>
-                    <Item id="6816" name="Completare funcții și cuvinte"/>
-					<Item id="6869" name="Inserarea selecției"/>
+				<AutoCompletion title="Autocompletare">
+					<Item id="6115" name="Autoindentare"/>
+					<Item id="6807" name="Autocompletare"/>
+					<Item id="6808" name="Activare autocompletare la tastare"/>
+					<Item id="6809" name="Completare funcții"/>
+					<Item id="6810" name="Completare cuvinte"/>
+					<Item id="6816" name="Completare funcții și cuvinte"/>
+					<Item id="6869" name="Inserare selecție"/>
 					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
-                    <Item id="6824" name="Ignorare cifre"/>
-                    <Item id="6811" name="De la"/>
-                    <Item id="6813" name="al n-ulea caracter"/>
-                    <Item id="6872" name="Facerea listei de completare automată scurtă"/>
-                    <Item id="6815" name="Sugestii parametri funcții la tastare"/>
-                    <Item id="6851" name="Autoinserare"/>
-                    <Item id="6857" name="etichete html/xml"/>
-                    <Item id="6858" name="Deschis"/>
-                    <Item id="6859" name="Închis"/>
-                    <Item id="6860" name="Pereche caractere 1:"/>
-                    <Item id="6863" name="Pereche caractere 2:"/>
-                    <Item id="6866" name="Pereche caractere 3:"/>
-                </AutoCompletion>
+					<Item id="6824" name="Ignorare cifre"/>
+					<Item id="6811" name="După"/>
+					<Item id="6813" name="caractere tastate"/>
+					<Item id="6872" name="Comprimare listă de completare automată"/>
+					<Item id="6815" name="Sugestii parametri funcții la tastare"/>
+					<Item id="6851" name="Autoinserare"/>
+					<Item id="6857" name="etichete html / xml"/>
+					<Item id="6858" name="Început"/>
+					<Item id="6859" name="Sfârșit"/>
+					<Item id="6860" name="Pereche caractere 1:"/>
+					<Item id="6863" name="Pereche caractere 2:"/>
+					<Item id="6866" name="Pereche caractere 3:"/>
+				</AutoCompletion>
 
-                <MultiInstance title="Instanțe multiple">
+				<MultiInstance title="Instanțe și dată">
                     <Item id="6151" name="Setări instanțe multiple"/>
                     <Item id="6152" name="Deschidere sesiune în instanță nouă Notepad++"/>
                     <Item id="6153" name="Totdeauna în mod instanță multiplă"/>

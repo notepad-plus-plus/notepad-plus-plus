@@ -3367,6 +3367,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					break;
 				}
 			}
+			[[fallthrough]];
 		}
 
 		default:
@@ -5229,6 +5230,7 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, LPARAM lParam)
 {
+	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
 	if (HIWORD(wParam) == EN_CHANGE)
@@ -5299,7 +5301,10 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWSMARTHILITE, BM_SETCHECK, nppGUI._largeFileRestriction._allowSmartHilite ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWCLICKABLELINK, BM_SETCHECK, nppGUI._largeFileRestriction._allowClickableLink ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_PERFORMANCE_DEACTIVATEWORDWRAP, BM_SETCHECK, nppGUI._largeFileRestriction._deactivateWordWrap ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SUPPRESS2GBWARNING, BM_SETCHECK, nppGUI._suppress2GBWarning ? BST_CHECKED : BST_UNCHECKED, 0);
 			
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_SUPPRESS2GBWARNING), nppParam.archType() != IMAGE_FILE_MACHINE_I386 ? SW_SHOW : SW_HIDE);
+
 			bool largeFileRestrictionEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE), largeFileRestrictionEnabled);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PERFORMANCE_ALLOWBRACEMATCH), largeFileRestrictionEnabled);
@@ -5422,6 +5427,13 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				{
 					bool isDeactivated = isCheckedOrNot(int(wParam));
 					nppGUI._largeFileRestriction._deactivateWordWrap = isDeactivated;
+				}
+				return TRUE;
+
+				case IDC_CHECK_SUPPRESS2GBWARNING:
+				{
+					bool isDeactivated = isCheckedOrNot(int(wParam));
+					nppGUI._suppress2GBWarning = isDeactivated;
 				}
 				return TRUE;
 

@@ -1251,6 +1251,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="7149" name="Allow Smart Highlighting"/>
 					<Item id="7150" name="Deactivate Word Wrap globally"/>
 					<Item id="7151" name="Allow URL Clickable Link"/>
+					<Item id="7152" name="Suppress warning when opening ≥2GB files"/>
 				</Performance>
 
 				<Cloud title="Cloud &amp; Link">

@@ -740,6 +740,8 @@ struct LargeFileRestriction final
 	bool _allowAutoCompletion = false;
 	bool _allowSmartHilite = false;
 	bool _allowClickableLink = false;
+	
+	bool _suppress2GBWarning = false;
 };
 
 struct NppGUI final

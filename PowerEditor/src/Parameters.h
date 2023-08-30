@@ -253,6 +253,8 @@ struct CmdLineParams
 	bool _openFoldersAsWorkspace = false;
 	bool _monitorFiles = false;
 
+	bool _isRestartedByOS = false;
+
 	LangType _langType = L_EXTERNAL;
 	std::wstring _localizationPath;
 	std::wstring _udlName;
@@ -283,6 +285,7 @@ struct CmdLineParamsDTO
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
 	bool _monitorFiles = false;
+	bool _isRestartedByOS = false;
 
 	intptr_t _line2go = 0;
 	intptr_t _column2go = 0;
@@ -301,6 +304,7 @@ struct CmdLineParamsDTO
 		dto._isRecursive = params._isRecursive;
 		dto._openFoldersAsWorkspace = params._openFoldersAsWorkspace;
 		dto._monitorFiles = params._monitorFiles;
+		dto._isRestartedByOS = params._isRestartedByOS;
 
 		dto._line2go = params._line2go;
 		dto._column2go = params._column2go;
@@ -909,6 +913,8 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 
 	LargeFileRestriction _largeFileRestriction;
+
+	bool _registerForOSAppRestart = false;
 };
 
 

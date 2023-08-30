@@ -566,6 +566,7 @@ BEGIN
     CONTROL         "Show only filename in title bar",IDC_CHECK_SHORTTITLE,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,37,154,217,10
     CONTROL         "Use DirectWrite (May improve rendering special characters, need to restart Notepad++)",IDC_CHECK_DIRECTWRITE_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,169,377,10
     CONTROL         "Enable Save All confirm dialog", IDC_CHECK_SAVEALLCONFIRM, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 184, 217, 10
+    CONTROL         "Register Notepad++ for system app-restart",IDC_CHECK_REGISTER_FOR_OS_APP_RESTART,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,269,95,179,10
 
     RTEXT           "Session file ext.:",IDC_SESSIONFILEEXT_STATIC,270,130,108,8
     EDITTEXT        IDC_EDIT_SESSIONFILEEXT,380,127,34,14,ES_AUTOHSCROLL

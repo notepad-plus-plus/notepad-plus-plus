@@ -27,8 +27,17 @@ class MiscSubDlg : public StaticDialog
 {
 public :
 	MiscSubDlg() = default;
+	~MiscSubDlg() {
+		if (_tipRegForOSAppRestart != nullptr)
+		{
+			::DestroyWindow(_tipRegForOSAppRestart);
+			_tipRegForOSAppRestart = nullptr;
+		}
+	};
 
 private :
+	HWND _tipRegForOSAppRestart = nullptr;
+
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

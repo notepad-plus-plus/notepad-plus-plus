@@ -4886,21 +4886,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
-		else if (!lstrcmp(nm, TEXT("Suppress2GBWarning")))
-		{
-			TiXmlNode* n = childNode->FirstChild();
-			if (n)
-			{
-				const TCHAR* val = n->Value();
-				if (val)
-				{
-					if (lstrcmp(val, TEXT("yes")) == 0)
-						_nppGUI._largeFileRestriction._suppress2GBWarning = true;
-					else
-						_nppGUI._largeFileRestriction._suppress2GBWarning = false;
-				}
-			}
-		}
 		else if (lstrcmp(nm, TEXT("MaitainIndent")) == 0)
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -5879,6 +5864,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._largeFileRestriction._deactivateWordWrap = false;
 			else
 				_nppGUI._largeFileRestriction._deactivateWordWrap = true;
+
+			boolVal = element->Attribute(TEXT("suppress2GBWarning"));
+			if (boolVal != NULL && !lstrcmp(boolVal, TEXT("yes")))
+				_nppGUI._largeFileRestriction._suppress2GBWarning = true;
+			else
+				_nppGUI._largeFileRestriction._suppress2GBWarning = false;
 		}
 		else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
@@ -7031,11 +7022,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("SaveAllConfirm"), _nppGUI._saveAllConfirm);
 	}
 
-	// <GUIConfig name = "Suppress2GBWarning">yes< / GUIConfig>
-	{
-		insertGUIConfigBoolNode(newGUIRoot, TEXT("Suppress2GBWarning"), _nppGUI._largeFileRestriction._suppress2GBWarning);
-	}
-
 	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" / >
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
@@ -7242,7 +7228,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" deactivateWordWrap="yes" allowClickableLink="no" />
+	// <GUIConfig name="largeFileRestriction" fileSizeMB="200" isEnabled="yes" allowAutoCompletion="no" allowBraceMatch="no" deactivateWordWrap="yes" allowClickableLink="no" suppress2GBWarning="no" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("largeFileRestriction"));
@@ -7253,6 +7239,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("allowSmartHilite"), _nppGUI._largeFileRestriction._allowSmartHilite ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("allowClickableLink"), _nppGUI._largeFileRestriction._allowClickableLink ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("deactivateWordWrap"), _nppGUI._largeFileRestriction._deactivateWordWrap ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("suppress2GBWarning"), _nppGUI._largeFileRestriction._suppress2GBWarning ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />

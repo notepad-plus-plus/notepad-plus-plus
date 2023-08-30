@@ -1484,7 +1484,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		else // x64
 		{
 			NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-			if (!nppGui._suppress2GBWarning) 
+			if (!nppGui._largeFileRestriction._suppress2GBWarning) 
 			{
 				int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
 					_pNotepadPlus->_pEditView->getHSelf(),

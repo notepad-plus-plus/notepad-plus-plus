@@ -4895,9 +4895,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				if (val)
 				{
 					if (lstrcmp(val, TEXT("yes")) == 0)
-						_nppGUI._suppress2GBWarning = true;
+						_nppGUI._largeFileRestriction._suppress2GBWarning = true;
 					else
-						_nppGUI._suppress2GBWarning = false;
+						_nppGUI._largeFileRestriction._suppress2GBWarning = false;
 				}
 			}
 		}
@@ -7033,7 +7033,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name = "Suppress2GBWarning">yes< / GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, TEXT("Suppress2GBWarning"), _nppGUI._suppress2GBWarning);
+		insertGUIConfigBoolNode(newGUIRoot, TEXT("Suppress2GBWarning"), _nppGUI._largeFileRestriction._suppress2GBWarning);
 	}
 
 	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" / >

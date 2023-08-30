@@ -740,6 +740,8 @@ struct LargeFileRestriction final
 	bool _allowAutoCompletion = false;
 	bool _allowSmartHilite = false;
 	bool _allowClickableLink = false;
+	
+	bool _suppress2GBWarning = false;
 };
 
 struct NppGUI final
@@ -784,7 +786,6 @@ struct NppGUI final
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
 	bool _saveAllConfirm = true;
-	bool _suppress2GBWarning = false;
 	bool _setSaveDlgExtFiltToAllTypes = false;
 	bool _doTaskList = true;
 	bool _maitainIndent = true;

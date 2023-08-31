@@ -1390,8 +1390,11 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 			break;
 	}
 
+	if (i == dataLen)
+		return L_TEXT;
+
 	// Create the buffer to need to test
-	const size_t longestLength = 40; // shebangs can be large
+	const size_t longestLength = std::min<size_t>(40, dataLen - i); // shebangs can be large
 	std::string buf2Test = std::string((const char *)data + i, longestLength);
 
 	// Is there a \r or \n in the buffer? If so, truncate it

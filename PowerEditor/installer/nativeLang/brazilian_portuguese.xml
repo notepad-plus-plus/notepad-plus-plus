@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 05 Aug 2023, for Notepad++ 8.5.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 30 Aug 2023, for Notepad++ 8.5.7
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1252,6 +1252,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 					<Item id="7149" name="Permitir Destaque Inteligente"/>
 					<Item id="7150" name="Desativar quebras de linhas automáticas de forma global"/>
 					<Item id="7151" name="Permitir URL como link clicável"/>
+					<Item id="7152" name="Suprime aviso ao abrir arquivos com mais de 2GB"/>
 				</Performance>
 
 				<Cloud title="Nuvem e link">

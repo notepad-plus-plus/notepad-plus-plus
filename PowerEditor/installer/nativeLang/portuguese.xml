@@ -1250,6 +1250,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="7149" name="Permitir destaque inteligente"/>
 					<Item id="7150" name="Desativar Quebra de linha globalmente"/>
 					<Item id="7151" name="Permitir ligação URL clicável"/>
+					<Item id="7152" name="Suprimir o aviso ao abrir ficheiros com mais de 2GB"/>
 				</Performance>
 
 				<Cloud title="Nuvem e Ligação">
@@ -1777,7 +1778,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1)
 
-Last modified: 16 August 2023 by Hugo Carvalho
+Last modified: 01 September 2023 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

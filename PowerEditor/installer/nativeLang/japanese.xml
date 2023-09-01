@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.5">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1259,6 +1259,7 @@ Translation note:
 					<Item id="7149" name="スマート強調表示を利用する"/>
 					<Item id="7150" name="画面端での折り返しをすべての文書でオフにする"/>
 					<Item id="7151" name="URIのハイパーリンク化を利用する"/>
+					<Item id="7152" name="2GB以上のファイルを開くときに警告を表示しない"/>
 				</Performance>
 
 				<Cloud title="クラウド、ハイパーリンク">

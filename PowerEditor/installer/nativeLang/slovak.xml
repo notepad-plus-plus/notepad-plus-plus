@@ -1249,6 +1249,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="7149" name="Povoliť inteligentné zvýrazňovanie"/>
 					<Item id="7150" name="Globálne zakázať zalamovanie riadkov"/>
 					<Item id="7151" name="Povoliť klikateľné odkazy URL"/>
+					<Item id="7152" name="Nezobrazovať upozornenie pri otváraní ≥2 GB súborov"/>
 				</Performance>
 
 				<Cloud title="Odkaz na cloud">

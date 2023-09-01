@@ -352,7 +352,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 }
 
 
-void VerticalFileSwitcherListView::remove(int index)
+void VerticalFileSwitcherListView::remove(int index, bool del)
 {
 	LVITEM item{};
 	item.mask = LVIF_PARAM;
@@ -360,7 +360,9 @@ void VerticalFileSwitcherListView::remove(int index)
 	ListView_GetItem(_hSelf, &item);
 	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 	delete tlfs;
-	ListView_DeleteItem(_hSelf, index);
+	
+	if (del)
+		ListView_DeleteItem(_hSelf, index);
 }
 
 void VerticalFileSwitcherListView::removeAll()
@@ -369,8 +371,9 @@ void VerticalFileSwitcherListView::removeAll()
 	
 	for (int i = nbItem - 1; i >= 0 ; --i)
 	{
-		remove(i);
+		remove(i, false);
 	}
+	ListView_DeleteAllItems(_hSelf);
 
 	HWND colHeader = reinterpret_cast<HWND>(SendMessage(_hSelf, LVM_GETHEADER, 0, 0));
 	int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));

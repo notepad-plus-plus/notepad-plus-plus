@@ -53,6 +53,8 @@ public:
 	bool get(utf8 *c);
 	void operator++();
 	eState getState() { return m_eState; };
+        // Utf8_16::read always consumes two bytes,
+        // thus the bool operator checks if m_pRead is less than m_pEnd by two bytes.
 	operator bool() { return (m_pRead + 1 < m_pEnd) || (m_out1st != m_outLst); };
 
 protected:

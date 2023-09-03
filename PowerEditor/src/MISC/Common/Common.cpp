@@ -20,6 +20,7 @@
 #include <cassert>
 #include <codecvt>
 #include <locale>
+#include <fstream>
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
 
@@ -53,24 +54,32 @@ generic_string commafyInt(size_t n)
 std::string getFileContent(const TCHAR *file2read)
 {
 	if (!::PathFileExists(file2read))
-		return "";
-
-	const size_t blockSize = 1024;
-	char data[blockSize];
-	std::string wholeFileContent = "";
-	FILE *fp = _wfopen(file2read, TEXT("rb"));
-
-	size_t lenFile = 0;
-	do
 	{
-		lenFile = fread(data, 1, blockSize, fp);
-		if (lenFile <= 0) break;
-		wholeFileContent.append(data, lenFile);
+		return {};
 	}
-	while (lenFile > 0);
+		
+	std::ifstream file(file2read, std::ios::binary);
+	if (!file.is_open()) 
+	{
+		return {};
+	}
 
-	fclose(fp);
-	return wholeFileContent;
+	// Get file size
+	file.seekg(0, std::ios::end);
+	const auto fileSize = file.tellg();
+	file.seekg(0, std::ios::beg);
+
+	// Read file content
+	std::string content;
+	content.resize(fileSize);
+	file.read(&content[0], fileSize);
+
+	if (file.fail())
+	{
+		return {};
+	}
+
+	return content;
 }
 
 char getDriveLetter()

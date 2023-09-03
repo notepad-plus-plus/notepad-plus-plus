@@ -446,4 +446,4 @@ In short: The easier the code review is, the better the chance your pull request
     ...
     ```
 
-13. Check [C++ Core Guidlines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md) for additional guidelines.
+13. Check [C++ Core Guidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md) for additional guidelines.

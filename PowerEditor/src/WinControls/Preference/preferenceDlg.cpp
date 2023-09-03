@@ -5362,6 +5362,10 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 		{
 			switch (wParam)
 			{
+				case IDD_PERFORMANCE_TIP_QUESTION_BUTTON:
+					SendMessage(_largeFileRestrictionTip, TTM_POPUP, 0, 0);
+				break;
+
 				case IDC_CHECK_PERFORMANCE_ENABLE:
 				{
 					bool largeFileRestrictionEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);

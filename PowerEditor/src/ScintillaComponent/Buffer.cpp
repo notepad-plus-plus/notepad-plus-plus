@@ -29,7 +29,7 @@
 #include "ScintillaEditView.h"
 #include "EncodingMapper.h"
 #include "uchardet.h"
-#include "FileInterface.h"
+#include "FileSystemHelper.hpp"
 
 
 static const int blockSize = 128 * 1024 + 4;
@@ -146,7 +146,7 @@ void Buffer::updateTimeStamp()
 	LONG res = CompareFileTime(&_timeStamp, &timeStampLive);
 	if (res == -1 || res == 1)
 	// (res == -1) => timeStampLive is later, it means the file has been modified outside of Notepad++ - usual case
-	// 
+	//
 	// (res == 1) => timeStampLive (get directly from the file on disk) is earlier than buffer's timestamp - unusual case
 	//               It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
 	//               Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
@@ -305,7 +305,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 
 		if (res == -1 || res == 1)
 		// (res == -1) => attributes.ftLastWriteTime is later, it means the file has been modified outside of Notepad++ - usual case
-		// 
+		//
 		// (res == 1)  => The timestamp get directly from the file on disk is earlier than buffer's timestamp - unusual case
 		//                It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
 		//                Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
@@ -693,7 +693,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 			fclose(fp);
 		}
 	}
-	
+
 	// * the auto-completion feature will be disabled for large files
 	// * the session snapshotsand periodic backups feature will be disabled for large files
 	// * the backups on save feature will be disabled for large files
@@ -819,7 +819,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	_fseeki64(fp, 0, SEEK_END);
 	int64_t fileSize = _ftelli64(fp);
 	fclose(fp);
-	
+
 	char* data = new char[blockSize + 8]; // +8 for incomplete multibyte char
 
 	buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
@@ -958,6 +958,60 @@ For untitled document (new  4)
 
 std::mutex backup_mutex;
 
+static SavingStatus saveBufferToFile(TCHAR fullpath[MAX_PATH], int encoding, char* buf, size_t lengthDoc)
+{
+	std::wstring filePath{fullpath};
+	FileSystemHelper::WriteFileResult writeResult;
+	if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
+	{
+		writeResult = FileSystemHelper::writeFileContentUnbuffered(filePath, {reinterpret_cast<std::byte*>(buf), lengthDoc}, lengthDoc);
+	}
+	else
+	{
+		// we need to convert the data first ...
+
+		// it would be better if we could determine the size of the data after conversion before creating the buffer/vector
+		// if we knew the size we would not even need a buffer. We could directly create the aligned buffer and reduce allocating and copying buffers
+		std::vector<char> content;
+		if (lengthDoc > 0)
+		{
+			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+			size_t grabSize;
+			for (size_t i = 0; i < lengthDoc; i += grabSize)
+			{
+				grabSize = lengthDoc - i;
+				if (grabSize > blockSize)
+					grabSize = blockSize;
+
+				int newDataLen = 0;
+				int incompleteMultibyteChar = 0;
+				const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
+				grabSize -= incompleteMultibyteChar;
+
+				// copy converted data to the content vector
+				BufferInfo<const char> convertedDataBuffer{newData, static_cast<size_t>(newDataLen)};
+				std::copy(convertedDataBuffer.begin(), convertedDataBuffer.end(), std::back_inserter(content));
+			}
+		}
+
+		// ... then we can write the content to the file
+		writeResult = FileSystemHelper::writeFileContentUnbuffered(filePath, {reinterpret_cast<std::byte*>(content.data()), content.size()}, content.size());
+	}
+
+	switch (writeResult)
+	{
+		case FileSystemHelper::WriteFileResult::SUCCESS:
+			return SavingStatus::SaveOK;
+		case FileSystemHelper::WriteFileResult::FAILED_OPEN_FILE:
+			return SavingStatus::SaveFailedOpen;
+		case FileSystemHelper::WriteFileResult::FAILED_SET_ALLOCATION_INFO:
+			return SavingStatus::SaveFailedNotEnoughRoom4Saving;
+		default:
+			return SavingStatus::SaveFailedOtherError;
+	}
+}
+
 bool FileManager::backupCurrentBuffer()
 {
 	Buffer* buffer = _pNotepadPlus->getCurrentBuffer();
@@ -1026,44 +1080,14 @@ bool FileManager::backupCurrentBuffer()
 			removeReadOnlyFlagFromFileAttributes(fullpath);
 
 
-			if (UnicodeConvertor.openFile(fullpath))
+			size_t lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
+			char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+
+			auto saveResult = saveBufferToFile(fullpath, encoding, buf, lengthDoc);
+			if (saveResult == SavingStatus::SaveOK) // backup file has been saved
 			{
-				size_t lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
-				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
-				boolean isWrittenSuccessful = false;
-
-				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
-				{
-					isWrittenSuccessful = UnicodeConvertor.writeFile(buf, lengthDoc);
-					if (lengthDoc == 0)
-						isWrittenSuccessful = true;
-				}
-				else
-				{
-					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-					size_t grabSize;
-					for (size_t i = 0; i < lengthDoc; i += grabSize)
-					{
-						grabSize = lengthDoc - i;
-						if (grabSize > blockSize)
-							grabSize = blockSize;
-
-						int newDataLen = 0;
-						int incompleteMultibyteChar = 0;
-						const char *newData = wmc.encode(SC_CP_UTF8, encoding, buf+i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
-						grabSize -= incompleteMultibyteChar;
-						isWrittenSuccessful = UnicodeConvertor.writeFile(newData, newDataLen);
-					}
-					if (lengthDoc == 0)
-						isWrittenSuccessful = true;
-				}
-				UnicodeConvertor.closeFile();
-
-				if (isWrittenSuccessful) // backup file has been saved
-				{
-					buffer->setModifiedStatus(false);
-					result = true;	//all done
-				}
+				buffer->setModifiedStatus(false);
+				result = true;	//all done
 			}
 		}
 		else // buffer dirty but unmodified
@@ -1158,102 +1182,62 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 
 	int encoding = buffer->getEncoding();
 
-	if (UnicodeConvertor.openFile(fullpath))
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
+
+	size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
+	char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+
+	auto saveResult = saveBufferToFile(fullpath, encoding, buf, lengthDoc);
+	if (saveResult != SavingStatus::SaveOK)
 	{
-		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
+		// TODO: @Reviewer Why was this SETDOCPOINTER call there (if saveResult = SaveWritingFailed)? Is it required? What is the difference to OpenFailed? Why are we not setting the doc pointer there?
+		// _pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+		return saveResult;
+	}
 
-		size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
-		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
-		boolean isWrittenSuccessful = false;
+	if (isHiddenOrSys)
+		::SetFileAttributes(fullpath, attrib);
 
-		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
-		{
-			isWrittenSuccessful = UnicodeConvertor.writeFile(buf, lengthDoc);
-			if (lengthDoc == 0)
-				isWrittenSuccessful = true;
-		}
-		else
-		{
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-			if (lengthDoc == 0)
-			{
-				isWrittenSuccessful = UnicodeConvertor.writeFile(buf, 0);
-			}
-			else
-			{
-				size_t grabSize;
-				for (size_t i = 0; i < lengthDoc; i += grabSize)
-				{
-					grabSize = lengthDoc - i;
-					if (grabSize > blockSize)
-						grabSize = blockSize;
-
-					int newDataLen = 0;
-					int incompleteMultibyteChar = 0;
-					const char* newData = wmc.encode(SC_CP_UTF8, encoding, buf + i, static_cast<int>(grabSize), &newDataLen, &incompleteMultibyteChar);
-					grabSize -= incompleteMultibyteChar;
-					isWrittenSuccessful = UnicodeConvertor.writeFile(newData, newDataLen);
-				}
-			}
-		}
-
-		UnicodeConvertor.closeFile();
-
-		// Error, we didn't write the entire document to disk.
-		if (!isWrittenSuccessful)
-		{
-			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			return SavingStatus::SaveWritingFailed;
-		}
-
-		if (isHiddenOrSys)
-			::SetFileAttributes(fullpath, attrib);
-
-		if (isCopy) // Save As command
-		{
-			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			return SavingStatus::SaveOK;	//all done
-		}
-
-		buffer->setFileName(fullpath);
-
-		// if not a large file and language is normal text (not defined)
-		// we may try determinate its language from its content 
-		if (!buffer->isLargeFile() && buffer->_lang == L_TEXT)
-		{
-			LangType detectedLang = detectLanguageFromTextBegining((unsigned char*)buf, lengthDoc);
-
-			// if a language is detected from the content
-			if (detectedLang != L_TEXT)
-			{
-				buffer->_lang = detectedLang;
-				buffer->doNotify(BufferChangeFilename | BufferChangeTimestamp | BufferChangeLanguage);
-			}
-		}
-		buffer->setDirty(false);
-		buffer->setUnsync(false);
-		buffer->setSavePointDirty(false);
-		buffer->setStatus(DOC_REGULAR);
-		buffer->checkFileState();
-
-
-		_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	if (isCopy) // Save As command
+	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-
-		generic_string backupFilePath = buffer->getBackupFileName();
-		if (!backupFilePath.empty())
-		{
-			// delete backup file
-			buffer->setBackupFileName(generic_string());
-			::DeleteFile(backupFilePath.c_str());
-		}
-
-		return SavingStatus::SaveOK;
+		return SavingStatus::SaveOK;	//all done
 	}
-	else
+
+	buffer->setFileName(fullpath);
+
+	// if not a large file and language is normal text (not defined)
+	// we may try determinate its language from its content
+	if (!buffer->isLargeFile() && buffer->_lang == L_TEXT)
 	{
-		return SavingStatus::SaveOpenFailed;
+		LangType detectedLang = detectLanguageFromTextBegining((unsigned char*)buf, lengthDoc);
+
+		// if a language is detected from the content
+		if (detectedLang != L_TEXT)
+		{
+			buffer->_lang = detectedLang;
+			buffer->doNotify(BufferChangeFilename | BufferChangeTimestamp | BufferChangeLanguage);
+		}
 	}
+	buffer->setDirty(false);
+	buffer->setUnsync(false);
+	buffer->setSavePointDirty(false);
+	buffer->setStatus(DOC_REGULAR);
+	buffer->checkFileState();
+
+
+	_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+
+	generic_string backupFilePath = buffer->getBackupFileName();
+	if (!backupFilePath.empty())
+	{
+		// delete backup file
+		buffer->setBackupFileName(generic_string());
+		::DeleteFile(backupFilePath.c_str());
+	}
+
+	return SavingStatus::SaveOK;
 }
 
 size_t FileManager::nextUntitledNewNumber() const
@@ -1463,7 +1447,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	int64_t bufferSizeRequested = fileSize + std::min<int64_t>(1LL << 20, fileSize / 6);
-	
+
 	NppParameters& nppParam = NppParameters::getInstance();
 	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 
@@ -1573,7 +1557,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 					if (nppGui._detectEncoding)
 						fileFormat._encoding = detectCodepage(data, lenFile);
                 }
-				
+
 				bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
 				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
@@ -1723,10 +1707,11 @@ BufferID FileManager::getBufferFromDocument(Document doc)
 }
 
 
-bool FileManager::createEmptyFile(const TCHAR * path)
+bool FileManager::ensureFileExists(const TCHAR * path)
 {
-	Win32_IO_File file(path);
-	return file.isOpened();
+	std::wstring filePath{path};
+	// return success if the file already existed or if it was created just now
+	return FileSystemHelper::createEmptyFile(filePath) != FileSystemHelper::CreateEmptyFileResult::FAILED_UNABLE_TO_CREATE;
 }
 
 

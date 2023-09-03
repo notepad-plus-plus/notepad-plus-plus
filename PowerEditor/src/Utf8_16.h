@@ -11,9 +11,9 @@
 // Notes: Used the UTF information I found at:
 //   http://www.cl.cam.ac.uk/~mgk25/unicode.html
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 // Modificated 2006 Jens Lorenz
-// 
+//
 // - Clean up the sources
 // - Removing UCS-Bug in Utf8_Iter
 // - Add convert function in Utf8_16_Write
@@ -28,7 +28,9 @@
 #endif
 
 #include <memory>
-#include "FileInterface.h"
+#include <string>
+#include <tchar.h>
+#include <cstdint>
 
 
 class Utf8_16 {
@@ -139,18 +141,12 @@ public:
 
 	void setEncoding(UniMode eType);
 
-	bool openFile(const TCHAR *name);
-	bool writeFile(const void* p, size_t _size);
-	void closeFile();
-
 	size_t convert(char* p, size_t _size);
 	char* getNewBuf() { return reinterpret_cast<char*>(m_pNewBuf); }
 
 protected:
 	UniMode m_eEncoding;
-	std::unique_ptr<Win32_IO_File> m_pFile;
 	ubyte* m_pNewBuf;
 	size_t m_nBufSize;
-	bool m_bFirstWrite;
 };
 

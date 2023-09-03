@@ -89,7 +89,7 @@ SET(src_files
 			./WinControls/ColourPicker/ColourPopup.cpp
 			./ScintillaComponent/columnEditor.cpp
 			./MISC/Common/Common.cpp
-			./MISC/Common/FileInterface.cpp
+			./MISC/Common/FileSystemHelper.cpp
 			./WinControls/ContextMenu/ContextMenu.cpp
 			./WinControls/OpenSaveFileDialog/CustomFileDialog.cpp
 			./WinControls/PluginsAdmin/pluginsAdmin.cpp
@@ -240,8 +240,11 @@ SET(include_files
 			./WinControls/ColourPicker/ColourPicker.h
 			./WinControls/ColourPicker/ColourPopup.h
 			./ScintillaComponent/columnEditor.h
+			./MISC/Common/BufferInfo.hpp
 			./MISC/Common/Common.h
-			./MISC/Common/FileInterface.h
+			./MISC/Common/FileSystemHelper.hpp
+			./MISC/Common/MathHelper.hpp
+			./MISC/Common/UniqueBuffer.hpp
 			./WinControls/ContextMenu/ContextMenu.h
 			./WinControls/OpenSaveFileDialog/CustomFileDialog.h
 			./WinControls/PluginsAdmin/pluginsAdmin.h
@@ -393,13 +396,13 @@ IF (WIN32)
 if ( MSVC )
 	#do not use for mingw builds
 	SET(CMAKE_CXX_FLAGS "/EHa /MP /W4")
-	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_VISTA -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL -DNOMINMAX -DOEMRESOURCE -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING )
+	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_WIN8 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL -DNOMINMAX -DOEMRESOURCE -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING )
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 else ( MSVC )
 	# For possible MinGW compilation
 	SET(CMAKE_CXX_FLAGS "-include../gcc/gcc-fixes.h -std=c++20 -fpermissive -municode")
-	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_VISTA -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL -DNOMINMAX -DOEMRESOURCE)
+	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=_WIN32_WINNT_WIN8 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL -DNOMINMAX -DOEMRESOURCE)
 endif ( MSVC )
 ENDIF (WIN32)
 

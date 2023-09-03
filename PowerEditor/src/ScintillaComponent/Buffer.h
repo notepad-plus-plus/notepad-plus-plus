@@ -51,9 +51,10 @@ enum BufferStatusInfo {
 };
 
 enum SavingStatus {
-	SaveOK             = 0,
-	SaveOpenFailed     = 1,
-	SaveWritingFailed  = 2
+	SaveOK                         = 0,
+	SaveFailedOpen                 = 1,
+	SaveFailedOtherError           = 2,
+	SaveFailedNotEnoughRoom4Saving = 3
 };
 
 struct BufferViewInfo {
@@ -102,7 +103,7 @@ public:
 	bool deleteBufferBackup(BufferID id);
 	bool deleteFile(BufferID id);
 	bool moveFile(BufferID id, const TCHAR * newFilename);
-	bool createEmptyFile(const TCHAR * path);
+	bool ensureFileExists(const TCHAR * path);
 	static FileManager& getInstance() {
 		static FileManager instance;
 		return instance;
@@ -351,7 +352,7 @@ private:
 
 private:
 	FileManager * _pManager = nullptr;
-	bool _canNotify = false; // All the notification should be disabled at the beginning 
+	bool _canNotify = false; // All the notification should be disabled at the beginning
 	int _references = 0; // if no references file inaccessible, can be closed
 	BufferID _id = nullptr;
 
@@ -400,7 +401,7 @@ private:
 	bool _isLargeFile = false; // The loading of huge files will disable automatically 1. auto-completion 2. snapshot periode backup 3. backup on save 4. word wrap
 
 	bool _isSavePointDirty = false; // After converting document to another ecoding, the document becomes dirty, and all the undo states are emptied.
-	                                // This variable member keeps this situation in memory and when the undo state back to the save_point_reached, it'll still be dirty (its original state) 
+	                                // This variable member keeps this situation in memory and when the undo state back to the save_point_reached, it'll still be dirty (its original state)
 
 	// For the monitoring
 	HANDLE _eventHandle = nullptr;

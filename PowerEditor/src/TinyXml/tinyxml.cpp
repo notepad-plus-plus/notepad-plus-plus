@@ -26,6 +26,8 @@ distribution.
 #include <memory>
 #include "tinyxml.h"
 
+#include "FileSystemHelper.hpp"
+
 bool TiXmlBase::condenseWhiteSpace = true;
 
 void TiXmlBase::PutString( const TIXML_STRING& str, TIXML_OSTREAM* stream )
@@ -43,7 +45,7 @@ void TiXmlBase::PutString( const TIXML_STRING& str, TIXML_STRING* outString )
 	{
 		int c = str[i];
 
-		if (c == '&' 
+		if (c == '&'
 		     && i < ( str.length() - 2 )
 			 && str[i+1] == '#'
 			 && str[i+2] == 'x' )
@@ -144,7 +146,7 @@ TiXmlNode::~TiXmlNode()
 		temp = node;
 		node = node->next;
 		delete temp;
-	}	
+	}
 }
 
 
@@ -158,7 +160,7 @@ void TiXmlNode::Clear()
 		temp = node;
 		node = node->next;
 		delete temp;
-	}	
+	}
 
 	firstChild = 0;
 	lastChild = 0;
@@ -193,7 +195,7 @@ TiXmlNode* TiXmlNode::InsertEndChild( const TiXmlNode& addThis )
 
 
 TiXmlNode* TiXmlNode::InsertBeforeChild( TiXmlNode* beforeThis, const TiXmlNode& addThis )
-{	
+{
 	if ( !beforeThis || beforeThis->parent != this )
 		return 0;
 
@@ -275,7 +277,7 @@ TiXmlNode* TiXmlNode::ReplaceChild( TiXmlNode* replaceThis, const TiXmlNode& wit
 bool TiXmlNode::RemoveChild( TiXmlNode* removeThis )
 {
 	if ( removeThis->parent != this )
-	{	
+	{
 		assert( 0 );
 		return false;
 	}
@@ -524,7 +526,7 @@ int TiXmlElement::QueryDoubleAttribute( const TCHAR* name, double* dval ) const
 
 
 void TiXmlElement::SetAttribute( const TCHAR * name, int val )
-{	
+{
 	TCHAR buf[64];
 	wsprintf( buf, TEXT("%d"), val );
 	SetAttribute( name, buf );
@@ -618,7 +620,7 @@ void TiXmlElement::StreamOut( TIXML_OSTREAM * stream ) const
 
 	TiXmlAttribute* attrib;
 	for ( attrib = attributeSet.First(); attrib; attrib = attrib->Next() )
-	{	
+	{
 		(*stream) << TEXT(" ");
 		attrib->StreamOut( stream );
 	}
@@ -627,7 +629,7 @@ void TiXmlElement::StreamOut( TIXML_OSTREAM * stream ) const
 	// make it an empty tag.
 	TiXmlNode* node;
 	if ( firstChild )
-	{ 		
+	{
 		(*stream) << TEXT(">");
 
 		for ( node = firstChild; node; node=node->NextSibling() )
@@ -764,27 +766,13 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 
 bool TiXmlDocument::SaveFile( const TCHAR * filename ) const
 {
-	/*
-	// The old c stuff lives on...
-	FILE* fp = _wfopen( filename, TEXT("wc") );
-	if ( fp )
+	std::string outputStr;
+	Print(outputStr, 0);
+	if (!outputStr.empty())
 	{
-		Print( fp, 0 );
-		fflush( fp );
-		fclose( fp );
-		return true;
-	}
-	return false;
-	*/
-
-	Win32_IO_File file(filename);
-
-	if (file.isOpened())
-	{
-		std::unique_ptr<std::string> outputStr = std::make_unique<std::string>();
-		Print(*outputStr, 0);
-		if (!outputStr->empty())
-			return file.writeStr(*outputStr);
+		std::wstring filePath{filename};
+		auto result = FileSystemHelper::writeFileContentUnbuffered(filePath, std::string_view{outputStr});
+		return result == FileSystemHelper::WriteFileResult::SUCCESS;
 	}
 
 	return false;
@@ -985,7 +973,7 @@ void TiXmlText::StreamOut( TIXML_OSTREAM * stream ) const
 
 
 TiXmlNode* TiXmlText::Clone() const
-{	
+{
 	TiXmlText* clone = 0;
 	clone = new TiXmlText( TEXT("") );
 
@@ -1061,7 +1049,7 @@ void TiXmlDeclaration::StreamOut( TIXML_OSTREAM * stream ) const
 }
 
 TiXmlNode* TiXmlDeclaration::Clone() const
-{	
+{
 	TiXmlDeclaration* clone = new TiXmlDeclaration();
 
 	if ( !clone )
@@ -1156,7 +1144,7 @@ TiXmlAttribute*	TiXmlAttributeSet::Find( const TCHAR * name ) const
 }
 
 
-#ifdef TIXML_USE_STL	
+#ifdef TIXML_USE_STL
 TIXML_ISTREAM & operator >> (TIXML_ISTREAM & in, TiXmlNode & base)
 {
 	TIXML_STRING tag;
@@ -1176,14 +1164,14 @@ TIXML_OSTREAM & operator<< (TIXML_OSTREAM & out, const TiXmlNode & base)
 }
 
 
-#ifdef TIXML_USE_STL	
+#ifdef TIXML_USE_STL
 generic_string & operator<< (generic_string& out, const TiXmlNode& base )
 {
-	
+
    //std::ostringstream os_stream( std::ostringstream::out );
 	std::basic_ostringstream<TCHAR> os_stream( std::ostringstream::out );
    base.StreamOut( &os_stream );
-   
+
    out.append( os_stream.str() );
    return out;
 }

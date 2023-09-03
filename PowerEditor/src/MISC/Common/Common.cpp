@@ -23,7 +23,7 @@
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
 
-#include "FileInterface.h"
+#include "FileSystemHelper.hpp"
 #include "Common.h"
 #include "Utf8.h"
 #include <Parameters.h>
@@ -115,10 +115,8 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)
 {
-	Win32_IO_File file(file2write);
-
-	if (file.isOpened())
-		file.writeStr(content2write);
+	std::wstring filePath{file2write};
+	FileSystemHelper::writeFileContentUnbuffered(filePath, std::string_view{content2write});
 }
 
 
@@ -721,7 +719,7 @@ COLORREF getCtrlBgColor(HWND hWnd)
 
 generic_string stringToUpper(generic_string strToConvert)
 {
-    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), 
+    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(),
         [](wchar_t ch){ return static_cast<wchar_t>(towupper(ch)); }
     );
     return strToConvert;
@@ -979,7 +977,7 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 				return false;
 
 			continue;
-		} 
+		}
 
 		if (PathMatchSpec(fileName, patterns[i].c_str()))
 			is_matched = true;
@@ -1201,7 +1199,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 			throw errorMessage;
 		}
 
-		// Search for the signer certificate in the temporary 
+		// Search for the signer certificate in the temporary
 		// certificate store.
 		CertInfo.Issuer = pSignerInfo->Issuer;
 		CertInfo.SerialNumber = pSignerInfo->SerialNumber;
@@ -1332,7 +1330,7 @@ bool deleteFileOrFolder(const generic_string& f2delete)
 	return (res == 0);
 }
 
-// Get a vector of full file paths in a given folder. File extension type filter should be *.*, *.xml, *.dll... according the type of file you want to get.  
+// Get a vector of full file paths in a given folder. File extension type filter should be *.*, *.xml, *.dll... according the type of file you want to get.
 void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder)
 {
 	generic_string filter = inFolder;
@@ -1477,7 +1475,7 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	ret = GetTimeFormatEx(localeName, flags, &st, newFormat.c_str(), buffer, bufferSize);
 	if (ret != 0)
 	{
-		// 3. Format the date (d/y/g/M). 
+		// 3. Format the date (d/y/g/M).
 		// Now use the buffer as a format string to process the format specifiers not recognized by GetTimeFormatEx().
 		ret = GetDateFormatEx(localeName, flags, &st, buffer, buffer, bufferSize, nullptr);
 	}
@@ -1558,7 +1556,7 @@ bool isUnsupportedFileName(const generic_string& fileName)
 		// possible raw filenames can contain space(s) or dot(s) at its end (e.g. "\\?\C:\file."), but the Notepad++ advanced
 		// Open/SaveAs IFileOpenDialog/IFileSaveDialog COM-interface based dialogs currently do not handle this well
 		// (but e.g. direct Notepad++ Ctrl+S works ok even with these filenames)
-		// 
+		//
 		// Exception for the standard filenames ending with the dot-char:
 		// - when someone tries to open e.g. the 'C:\file.', we will accept that as this is the way how to work with filenames
 		//   without an extension (some of the WINAPI calls used later trim that dot-char automatically ...)
@@ -1791,13 +1789,13 @@ int Version::compareTo(const Version& v2c) const
 bool Version::isCompatibleTo(const Version& from, const Version& to) const
 {
 	// This method determinates if Version object is in between "from" version and "to" version, it's useful for testing compatibility of application.
-	// test in versions <from, to> example: 
-	// 1. <0.0.0.0, 0.0.0.0>: both from to versions are empty, so it's 
+	// test in versions <from, to> example:
+	// 1. <0.0.0.0, 0.0.0.0>: both from to versions are empty, so it's
 	// 2. <6.9, 6.9>: plugin is compatible to only v6.9
 	// 3. <4.2, 6.6.6>: from v4.2 (included) to v6.6.6 (included)
 	// 4. <0.0.0.0, 8.2.1>: all version until v8.2.1 (included)
 	// 5. <8.3, 0.0.0.0>: from v8.3 (included) to the latest verrsion
-	
+
 	if (empty()) // if this version is empty, then no compatible to all version
 		return false;
 
@@ -1810,7 +1808,7 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 	{
 		return true;
 	}
-		
+
 	if (from <= *this && to.empty()) // from_ver <= this_ver (match to 5)
 	{
 		return true;

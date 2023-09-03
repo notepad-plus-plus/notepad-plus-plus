@@ -45,7 +45,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	wcscpy_s(folderToMonitor, fullFileName);
 
 	::PathRemoveFileSpecW(folderToMonitor);
-	
+
 	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_SIZE;
 
 	// Create the monitor and add directory to watch.
@@ -139,15 +139,15 @@ bool resolveLinkFile(generic_string& linkFilePath)
 			hres = psl->QueryInterface(IID_IPersistFile, (void**)&ppf);
 			if (SUCCEEDED(hres))
 			{
-				// Load the shortcut. 
+				// Load the shortcut.
 				hres = ppf->Load(linkFilePath.c_str(), STGM_READ);
 				if (SUCCEEDED(hres) && hres != S_FALSE)
 				{
-					// Resolve the link. 
+					// Resolve the link.
 					hres = psl->Resolve(NULL, 0);
 					if (SUCCEEDED(hres) && hres != S_FALSE)
 					{
-						// Get the path to the link target. 
+						// Get the path to the link target.
 						hres = psl->GetPath(targetFilePath, MAX_PATH, (WIN32_FIND_DATA*)&wfd, SLGP_SHORTPATH);
 						if (SUCCEEDED(hres) && hres != S_FALSE)
 						{
@@ -334,7 +334,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 
 				if (res == IDYES)
 				{
-					bool isOK = MainFileManager.createEmptyFile(longFileName);
+					bool isOK = MainFileManager.ensureFileExists(longFileName);
 					if (isOK)
 					{
 						isCreateFileSuccessful = true;
@@ -628,15 +628,23 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 		_pluginsManager.notify(&scnN);
 	}
 
-	if (res == SavingStatus::SaveWritingFailed)
+	if (res == SavingStatus::SaveFailedOtherError)
 	{
-		_nativeLangSpeaker.messageBox("NotEnoughRoom4Saving",
+		_nativeLangSpeaker.messageBox("SaveFailedOtherError",
 			_pPublicInterface->getHSelf(),
-			TEXT("Failed to save file.\nIt seems there's not enough space on disk to save file."),
+			TEXT("Failed to save file.\nWe don't know what exactly went wrong."),
 			TEXT("Save failed"),
 			MB_OK);
 	}
-	else if (res == SavingStatus::SaveOpenFailed)
+	else if (res == SavingStatus::SaveFailedNotEnoughRoom4Saving)
+	{
+		_nativeLangSpeaker.messageBox("NotEnoughRoom4Saving",
+			_pPublicInterface->getHSelf(),
+			TEXT("Failed to save file.\nThere's not enough space on disk to save file."),
+			TEXT("Save failed"),
+			MB_OK);
+	}
+	else if (res == SavingStatus::SaveFailedOpen)
 	{
 		if (_isAdministrator)
 		{
@@ -1264,7 +1272,7 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<BufferViewInfo>& fileInfo
 			*	IDNO		: No
 			*	IDIGNORE	: No To All
 			*	IDCANCEL	: Cancel Opration
-			*/			
+			*/
 
 			int res = saveToAll ? IDYES : doSaveOrNot(buf->getFullPathName(), nbDirtyFiles > 1);
 
@@ -1488,7 +1496,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 				saveToAll = true;
 			}
 
-			
+
 			if (res == IDCANCEL)
 			{
 				for (int32_t j = static_cast<int32_t>(mainSaveOpIndex.size()) - 1; j >= 0; j--) 	//close all from right to left
@@ -1526,7 +1534,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	const int viewNo = currentView();
 	size_t nbItems = _pDocTab->nbItem();
 	activateBuffer(_pDocTab->getBufferByIndex(0), viewNo);
-	
+
 	// After activateBuffer() call, if file is deleteed, user will decide to keep or not the tab
 	// So here we check if the 1st tab is closed or not
 	size_t newNbItems = _pDocTab->nbItem();
@@ -1659,7 +1667,7 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
 	{
 		idToSave = _subDocTab.findBufferByName(fileNameToSave.c_str());
 	}
-    //do not use else syntax, id might be taken from sub doc tab, 
+    //do not use else syntax, id might be taken from sub doc tab,
     //in which case fileSave needs to be executed also
 	if (idToSave != BUFFER_INVALID)
 	{
@@ -1778,7 +1786,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	const bool defaultAllTypes = NppParameters::getInstance().getNppGUI()._setSaveDlgExtFiltToAllTypes;
 	const int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, false, langType);
-	
+
 	fDlg.setDefFileName(buf->getFileName());
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
@@ -1900,7 +1908,7 @@ bool Notepad_plus::fileRename(BufferID id)
 			{
 				sameNamedBufferId = _pNonDocTab->findBufferByName(tabNewNameStr.c_str());
 			}
-			
+
 			if (sameNamedBufferId != BUFFER_INVALID)
 			{
 				_nativeLangSpeaker.messageBox("RenameTabTemporaryNameAlreadyInUse",
@@ -2160,7 +2168,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 				pLn = session._mainViewFiles[i]._langName.c_str();
 
 				int id = getLangFromMenuName(pLn);
-				
+
 				if (!id) // it could be due to the hidden language from the sub-menu "Languages"
 				{
 					const NppGUI& nppGUI = nppParam.getNppGUI();
@@ -2180,7 +2188,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 				if (langTypeToSet == L_EXTERNAL)
 					langTypeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 			}
-			
+
 
 			if (session._mainViewFiles[i]._foldStates.size() > 0)
 			{

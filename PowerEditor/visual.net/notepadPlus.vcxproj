@@ -127,7 +127,7 @@
     <ClCompile Include="..\src\WinControls\ColourPicker\ColourPopup.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\columnEditor.cpp" />
     <ClCompile Include="..\src\MISC\Common\Common.cpp" />
-    <ClCompile Include="..\src\MISC\Common\FileInterface.cpp" />
+    <ClCompile Include="..\src\MISC\Common\FileSystemHelper.cpp" />
     <ClCompile Include="..\src\WinControls\ContextMenu\ContextMenu.cpp" />
     <ClCompile Include="..\src\WinControls\OpenSaveFileDialog\CustomFileDialog.cpp" />
     <ClCompile Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.cpp" />
@@ -279,7 +279,7 @@
     <ClInclude Include="..\src\WinControls\ColourPicker\ColourPopup.h" />
     <ClInclude Include="..\src\ScintillaComponent\columnEditor.h" />
     <ClInclude Include="..\src\MISC\Common\Common.h" />
-    <ClInclude Include="..\src\MISC\Common\FileInterface.h" />
+    <ClInclude Include="..\src\MISC\Common\FileSystemHelper.hpp" />
     <ClInclude Include="..\src\WinControls\ContextMenu\ContextMenu.h" />
     <ClInclude Include="..\src\WinControls\OpenSaveFileDialog\CustomFileDialog.h" />
     <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.h" />

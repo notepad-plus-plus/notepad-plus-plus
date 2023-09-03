@@ -43,7 +43,7 @@ public:
 	static T roundUpToPowerOf2(T numToRound, T multiple) noexcept
 	{
 		assert(isPowerOf2(multiple));
-		return numToRound == 0 ? multiple : ((numToRound + multiple - 1) & -multiple);
+		return numToRound == 0 ? multiple : ((numToRound + multiple - 1) & (0 - multiple));
 	}
 
 	template<std::unsigned_integral  T>
@@ -59,7 +59,7 @@ public:
 	static T roundDownToPowerOf2(T numToRound, T multiple) noexcept
 	{
 		assert(isPowerOf2(multiple));
-		return numToRound == 0 ? multiple : (numToRound & -multiple);
+		return numToRound == 0 ? multiple : (numToRound & (0 - multiple));
 	}
 
 	template<std::unsigned_integral  T>
@@ -70,7 +70,5 @@ public:
 		return numToRound == 0 ? 0 : (numToRound - 1 - (numToRound - 1) % multiple);
 	}
 };
-
-
 
 

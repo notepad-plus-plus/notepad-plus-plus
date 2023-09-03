@@ -77,7 +77,7 @@ std::tuple<FileSystemHelper::PrepareAlignedBufferForUnbufferedAccessResult, std:
 		return {PrepareAlignedBufferForUnbufferedAccessResult::SUCCESS, std::optional<FileSystemHelper::UnbufferedFileAccessBuffer>{}};
 	}
 
-	UnbufferedFileAccessBuffer newBuffer{requiredSize, physicalSectorAlignment};
+	UnbufferedFileAccessBuffer newBuffer{static_cast<size_t>(requiredSize), static_cast<size_t>(physicalSectorAlignment)};
 	if (!newBuffer)
 	{
 		return {PrepareAlignedBufferForUnbufferedAccessResult::FAILED_BUFFER_ALLOCATION, std::optional<FileSystemHelper::UnbufferedFileAccessBuffer>{}};
@@ -220,7 +220,7 @@ FileSystemHelper::WriteFileResult FileSystemHelper::writeFileContentUnbuffered(c
 		uint64_t physicalSectorAlignment = storageInfo.PhysicalBytesPerSectorForAtomicity;
 		// - get physicalSectorAlignment
 
-		uint64_t sectorAlignedWriteSize = MathHelper::roundUpToPowerOf2(dataSize, physicalSectorAlignment);
+		uint64_t sectorAlignedWriteSize = MathHelper::roundUpToPowerOf2(static_cast<uint64_t>(dataSize), physicalSectorAlignment);
 		if (preallocate)
 		{
 			uint64_t preallocationSize = sectorAlignedWriteSize;
@@ -269,7 +269,7 @@ FileSystemHelper::WriteFileResult FileSystemHelper::writeFileContentUnbuffered(c
 			// copy the data to our new buffer
 			std::memcpy(newBuffer.data(), dataBuffer.data(), dataSize);
 			// fill the reset of our buffer with zeros to ensure we do not leak any (possible sensitive) data to the file
-			auto overShotSize = sectorAlignedWriteSize - dataSize;
+			auto overShotSize = static_cast<size_t>(sectorAlignedWriteSize - dataSize);
 			std::memset(newBuffer.data() + dataSize, 0, overShotSize);
 		}
 

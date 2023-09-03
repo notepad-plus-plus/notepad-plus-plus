@@ -178,11 +178,12 @@ std::tuple<FileSystemHelper::ReadFileResult, size_t, std::optional<FileSystemHel
 		return {ReadFileResult::FAILED_READ, 0, std::optional<UnbufferedFileAccessBuffer>{}};
 	}
 
+	// casting totalBytesRead down to size_t is fine because we can not have a buffer that is bigger than size_t and if the file is bigger we would have returned an error above
 	if (newBuffer)
 	{
-		return {ReadFileResult::SUCCESS, totalBytesRead, std::optional<UnbufferedFileAccessBuffer>{std::move(newBuffer)}};
+		return {ReadFileResult::SUCCESS, static_cast<size_t>(totalBytesRead), std::optional<UnbufferedFileAccessBuffer>{std::move(newBuffer)}};
 	}
-	return {ReadFileResult::SUCCESS, totalBytesRead, std::optional<UnbufferedFileAccessBuffer>{}};
+	return {ReadFileResult::SUCCESS, static_cast<size_t>(totalBytesRead), std::optional<UnbufferedFileAccessBuffer>{}};
 }
 
 FileSystemHelper::WriteFileResult FileSystemHelper::writeFileContentUnbuffered(const std::wstring &filePath, const BufferInfo<std::byte> dataBuffer, size_t actualDataSize, bool allowOverwrite, bool preallocate, bool writeThrough, bool allowCreateNewBuffer) noexcept

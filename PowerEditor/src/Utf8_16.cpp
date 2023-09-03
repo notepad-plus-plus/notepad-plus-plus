@@ -152,7 +152,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
         case uni16LE_NoBOM:
         case uni16BE:
         case uni16LE: {
-            size_t newSize = len + len / 2 + 1;
+            size_t newSize = (len + len % 2) + (len + len % 2) / 2;
 
 			if (m_nAllocatedBufSize != newSize)
             {

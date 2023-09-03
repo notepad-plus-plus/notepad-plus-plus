@@ -1374,8 +1374,11 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 			break;
 	}
 
+	if (i == dataLen)
+		return L_TEXT;
+
 	// Create the buffer to need to test
-	const size_t longestLength = 40; // shebangs can be large
+	const size_t longestLength = std::min<size_t>(40, dataLen - i); // shebangs can be large
 	std::string buf2Test = std::string((const char *)data + i, longestLength);
 
 	// Is there a \r or \n in the buffer? If so, truncate it
@@ -1467,21 +1470,24 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		}
 		else // x64
 		{
-
-			int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
-				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?"),
-				TEXT("Opening huge file warning"),
-				MB_YESNO | MB_APPLMODAL);
-
-			if (res == IDYES)
+			NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+			if (!nppGui._largeFileRestriction._suppress2GBWarning) 
 			{
-				// Do nothing
-			}
-			else
-			{
-				fclose(fp);
-				return false;
+				int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
+					_pNotepadPlus->_pEditView->getHSelf(),
+					TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?"),
+					TEXT("Opening huge file warning"),
+					MB_YESNO | MB_APPLMODAL);
+
+				if (res == IDYES)
+				{
+					// Do nothing
+				}
+				else
+				{
+					fclose(fp);
+					return false;
+				}
 			}
 		}
 	}

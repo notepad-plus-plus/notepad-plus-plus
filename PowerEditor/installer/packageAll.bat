@@ -542,14 +542,6 @@ ren npp.portable.minimalist.7z !7zvarMin!
 ren npp.portable.minimalist.x64.7z !7zvarMin64!
 ren npp.portable.minimalist.arm64.7z !7zvarMinArm64!
 
-if %SIGN% == 0 goto NoSignInstaller
-%signBinary% !nppInstallerVar!
-If ErrorLevel 1 goto End
-%signBinary% !nppInstallerVar64!
-If ErrorLevel 1 goto End
-%signArmBinary% !nppInstallerVarArm64!
-If ErrorLevel 1 goto End
-:NoSignInstaller
 
 cd ..
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.5.5  12/Jul/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.7  6/Sep/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.5">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -826,7 +826,6 @@
 				</StylerDialog>
 				<Folder title="Složka &amp;&amp; Výchozí">
 					<Item id="21101" name="Výchozí nastavení návrhu"/>
-					<Item id="21104" name="Prozatímní dokumentace zde: "/>
 					<Item id="21105" name="Dokumentace"/>
 					<Item id="21102" name="Návrhář"/>
 					<Item id="21106" name="Sbalit do kompaktní formy (i prázdné řádky)"/>
@@ -1305,6 +1304,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id="7149" name="Povolit inteligentní zvýrazňování"/>
 					<Item id="7150" name="Deaktivovat (globálně) zalamování řádků"/>
 					<Item id="7151" name="Povolit klikatelné URL odkazy"/>
+					<Item id="7152" name="Nezobrazovat varování při otevírání souborů ≥ 2GB"/>
 				</Performance>
 				<Cloud title="Cloud a odkazy">
 					<Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/>
@@ -1411,7 +1411,8 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<DocReloadWarning title="Znovu otevřít" message="Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
 			<FileLockedWarning title="Uložení selhalo" message="Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
 			<FileAlreadyOpenedInNpp title="" message="Tento soubor je již otevřen v Notepadu++."/>
-			<RenameTabTemporaryNameAlreadyInUse title="Přejmenování selhalo" message="Specifikovaný název je již použit na jiné záložce."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Přejmenování selhalo" message="Zadaný název je již použit na jiné záložce."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Přejmenování selhalo" message="Zadaný název nemůže být prázdný nebo nemůže být tvořen pouze mezerami či tabulátory."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Odstranit Soubor" message="Odstranění souboru selhalo"/>
 			<NbFileToOpenImportantWarning title="Velmi mnoho souborů k otevření" message="$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
 			<SettingsOnCloudError title="Nastavení cloudu" message="Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
@@ -1640,18 +1641,14 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-status-end-reached value="Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value="Nahrazování v souborech: 1 výskyt nahrazen"/>
 			<find-status-replaceinfiles-nb-replaced value="Nahrazování v souborech: $INT_REPLACE$ výskytů nahrazeno"/>
-			<find-status-replaceinfiles-re-malformed value="Nahrazování v otevřených souborech: Regulární výraz je vadný"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahrazování v otevřených souborech: 1 výskyt nahrazen"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Nahrazování v otevřených souborech: $INT_REPLACE$ výskytů nahrazeno"/>
-			<find-status-mark-re-malformed value="Označování: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-invalid-re value="Vyhledávání: Neplatný regulární výraz"/>
 			<find-status-search-failed value="Vyhledávání: Hledání bylo neúspěšné"/>
 			<find-status-mark-1-match value="Označení: 1 výskyt"/>
 			<find-status-mark-nb-matches value="Označení: $INT_REPLACE$ výskytů"/>
-			<find-status-count-re-malformed value="Počet: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-count-1-match value="Počet: 1 výskyt"/>
 			<find-status-count-nb-matches value="Počet: $INT_REPLACE$ výskytů"/>
-			<find-status-replaceall-re-malformed value="Nahradit vše: Regulární výraz je vadný"/>
 			<find-status-replaceall-1-replaced value="Nahrazování všeho: 1 výskyt nahrazen"/>
 			<find-status-replaceall-nb-replaced value="Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-replaceall-readonly value="Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>

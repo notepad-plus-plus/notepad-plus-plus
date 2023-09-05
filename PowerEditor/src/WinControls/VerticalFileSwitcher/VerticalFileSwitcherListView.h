@@ -88,7 +88,7 @@ protected:
 
 	int find(BufferID bufferID, int iView) const;
 	int add(BufferID bufferID, int iView);
-	void remove(int index, bool del = true);
+	void remove(int index, bool removeFromListview = true);
 	void removeAll();
 	void selectCurrentItem() const {
 		ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);

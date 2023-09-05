@@ -352,7 +352,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 }
 
 
-void VerticalFileSwitcherListView::remove(int index, bool del)
+void VerticalFileSwitcherListView::remove(int index, bool removeFromListview)
 {
 	LVITEM item{};
 	item.mask = LVIF_PARAM;
@@ -361,7 +361,7 @@ void VerticalFileSwitcherListView::remove(int index, bool del)
 	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 	delete tlfs;
 	
-	if (del)
+	if (removeFromListview)
 		ListView_DeleteItem(_hSelf, index);
 }
 

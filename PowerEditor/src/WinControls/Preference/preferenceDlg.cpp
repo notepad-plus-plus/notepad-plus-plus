@@ -2024,17 +2024,6 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MUTE_SOUNDS, BM_SETCHECK, nppGUI._muteSounds ? BST_CHECKED : BST_UNCHECKED, 0);
-			if (nppParam.getWinVersion() >= WV_WIN10)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_REGISTER_FOR_OS_APP_RESTART, BM_SETCHECK, nppGUI._registerForOSAppRestart ? BST_CHECKED : BST_UNCHECKED, 0);
-			}
-			else
-			{
-				// disable (Win10 20H1 and above needed)
-				nppGUI._registerForOSAppRestart = false; // ensure
-				::SendDlgItemMessage(_hSelf, IDC_CHECK_REGISTER_FOR_OS_APP_RESTART, BM_SETCHECK, BST_UNCHECKED, 0);
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REGISTER_FOR_OS_APP_RESTART), FALSE);
-			}
 
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 
@@ -2044,31 +2033,6 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHORTTITLE, BM_SETCHECK, nppGUI._shortTitlebar, 0);
-			
-			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-
-			generic_string tipRegForOSAppRestart2Show;
-			// TODO: as the NppParameters.setCmdlineParam method has not been called inside the N++ wWinMain at all (like the NppParameters.setCmdLineString
-			//       there - is this intended or an oversight?), the following simpler code cannot be used
-			//if (nppParam.getCmdLineParams()._isRestartedByOS)
-			if (wcsstr(nppParam.getCmdLineString().c_str(), L"-restartedByOS") != NULL)
-			{
-				tipRegForOSAppRestart2Show = pNativeSpeaker->getLocalizedStrFromID("misc-AppRestartedByOS-tip",
-					L"Notepad++ has been successfully restarted by OS.");
-			}
-			else
-			{
-				tipRegForOSAppRestart2Show = pNativeSpeaker->getLocalizedStrFromID("misc-RegisterForOSAppRestart-tip",
-					L"To use this feature you have to: \n\n"\
-					L"- run at least the Windows 10 (20H1) operation system\n\n"\
-					L"- enable the \"Restart apps\" option in the Windows OS Settings dialogue (in subsection Accounts > Sign-in options)");
-			}
-			_tipRegForOSAppRestart = CreateToolTip(IDC_CHECK_REGISTER_FOR_OS_APP_RESTART, _hSelf, _hInst, const_cast<PTSTR>(tipRegForOSAppRestart2Show.c_str()), pNativeSpeaker->isRTL());
-			if (_tipRegForOSAppRestart != nullptr)
-			{
-				::SendMessage(_tipRegForOSAppRestart, TTM_SETMAXTIPWIDTH, 0, 320);
-				::SendMessage(_tipRegForOSAppRestart, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((25000), (0))); // 25 secs
-			}
 
 			return TRUE;
 		}
@@ -2218,14 +2182,6 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_SAVEALLCONFIRM:
 				{
 					nppGUI._saveAllConfirm = isCheckedOrNot(IDC_CHECK_SAVEALLCONFIRM);
-					return TRUE;
-				}
-
-				case IDC_CHECK_REGISTER_FOR_OS_APP_RESTART:
-				{
-					nppGUI._registerForOSAppRestart = isCheckedOrNot(IDC_CHECK_REGISTER_FOR_OS_APP_RESTART);
-					HWND grandParent = ::GetParent(_hParent);
-					::SendMessage(grandParent, NPPM_INTERNAL_HANDLE_OS_APP_RESTART, (WPARAM)true, 0); // (WPARAM)true ... log the request (optional)
 					return TRUE;
 				}
 

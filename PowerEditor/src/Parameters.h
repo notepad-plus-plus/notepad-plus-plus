@@ -48,6 +48,8 @@
 
 #define CMD_INTERPRETER TEXT("%COMSPEC%")
 
+#define DEFAULT_OS_APP_RESTART_FLAGS (RESTART_NO_CRASH | RESTART_NO_HANG) // -1 ... disable (unregister)
+
 class NativeLangSpeaker;
 
 const bool POS_VERTICAL = true;
@@ -853,7 +855,9 @@ struct NppGUI final
 	std::wstring _definedSessionExt;
 	std::wstring _definedWorkspaceExt;
 
+	// items with no Notepad++ GUI to set
 	std::wstring _commandLineInterpreter = CMD_INTERPRETER;
+	int _registerForOSAppRestart = DEFAULT_OS_APP_RESTART_FLAGS; // -1 ... disable (unregister)
 
 	struct AutoUpdateOptions
 	{
@@ -913,8 +917,6 @@ struct NppGUI final
 	DarkModeConf _darkmode;
 
 	LargeFileRestriction _largeFileRestriction;
-
-	bool _registerForOSAppRestart = false;
 };
 
 

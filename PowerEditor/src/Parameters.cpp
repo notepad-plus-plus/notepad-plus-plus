@@ -5984,10 +5984,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * hideMenuRightShortcuts = element->Attribute(TEXT("hideMenuRightShortcuts"));
 			if (hideMenuRightShortcuts)
 				_nppGUI._hideMenuRightShortcuts = lstrcmp(hideMenuRightShortcuts, TEXT("yes")) == 0;
-
-			const TCHAR* optRegisterForOSAppRestart = element->Attribute(TEXT("registerForOSAppRestart"));
-			if (optRegisterForOSAppRestart)
-				_nppGUI._registerForOSAppRestart = lstrcmp(optRegisterForOSAppRestart, TEXT("yes")) == 0;
 		}
 		else if (!lstrcmp(nm, TEXT("commandLineInterpreter")))
 		{
@@ -5997,6 +5993,20 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const TCHAR *cli = node->Value();
 				if (cli && cli[0])
 					_nppGUI._commandLineInterpreter.assign(cli);
+			}
+		}
+		else if (!lstrcmp(nm, TEXT("registerForOSAppRestart")))
+		{
+			TiXmlNode* node = childNode->FirstChild();
+			if (node)
+			{
+				const TCHAR* val = node->Value();
+				if (val)
+				{
+					int const i = _wtoi(val);
+					if ((i >= -1) && (i <= (RESTART_NO_CRASH | RESTART_NO_HANG | RESTART_NO_PATCH | RESTART_NO_REBOOT)))
+						_nppGUI._registerForOSAppRestart = i;
+				}
 			}
 		}
 		else if (!lstrcmp(nm, TEXT("DarkMode")))
@@ -7285,7 +7295,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("muteSounds"), _nppGUI._muteSounds ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("enableFoldCmdToggable"), _nppGUI._enableFoldCmdToggable ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("hideMenuRightShortcuts"), _nppGUI._hideMenuRightShortcuts ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("registerForOSAppRestart"), _nppGUI._registerForOSAppRestart ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no"/>
@@ -7332,6 +7341,15 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("commandLineInterpreter"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
+	}
+
+	// <GUIConfig name="registerForOSAppRestart">3</GUIConfig>
+	if (_nppGUI._registerForOSAppRestart != DEFAULT_OS_APP_RESTART_FLAGS)
+	{
+		std::wstring str = std::to_wstring(_nppGUI._registerForOSAppRestart);
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("registerForOSAppRestart"));
+		GUIConfigElement->InsertEndChild(TiXmlText(str.c_str()));
 	}
 
 	// <GUIConfig name="DarkMode" enable="no" colorTone="0" />

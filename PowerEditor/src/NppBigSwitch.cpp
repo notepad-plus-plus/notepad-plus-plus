@@ -154,10 +154,7 @@ bool SetOSAppRestart(bool bLog)
 		return false; // unsupported
 
 	bool bRet = false;
-	bool bRegister = nppParam.getNppGUI()._registerForOSAppRestart;
-	WCHAR wszCmdLine[RESTART_MAX_CMD_LINE + 1] = { 0 };
-	DWORD cchCmdLine = _countof(wszCmdLine);
-	DWORD dwFlags = 0;
+	bool bRegister = (nppParam.getNppGUI()._registerForOSAppRestart >= 0);
 
 	generic_string nppIssueLog;
 	if (nppParam.doNppLogNulContentCorruptionIssue())
@@ -176,10 +173,13 @@ bool SetOSAppRestart(bool bLog)
 		}
 	}
 
-	HRESULT hr = ::GetApplicationRestartSettings(::GetCurrentProcess(), wszCmdLine, &cchCmdLine, &dwFlags);
+	WCHAR wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
+	DWORD cchCmdLine = _countof(wszCmdLine);
+	DWORD dwPreviousFlags = 0;
+	HRESULT hr = ::GetApplicationRestartSettings(::GetCurrentProcess(), wszCmdLine, &cchCmdLine, &dwPreviousFlags);
 	if (!bRegister)
 	{
-		// unregistering request
+		// unregistering (disabling) request
 
 		if (hr == HRESULT_FROM_WIN32(ERROR_NOT_FOUND))
 		{
@@ -259,38 +259,48 @@ bool SetOSAppRestart(bool bLog)
 				}
 			}
 
-			// is there already our 'restarted-sign'?
-			if (wcsstr(wszCmdLine, NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM) != NULL)
-				j = 0; // already there (so we are running an already restarted N++ instance...)
-			else
-				j = swprintf_s(wszCmdLine + nLen, _countof(wszCmdLine) - nLen, L" %ls", NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM);
-
-			if (j == -1)
+			if (j != -1)
 			{
-				if (nppParam.doNppLogNulContentCorruptionIssue())
-					writeLog(nppIssueLog.c_str(), "ERROR: Could not append the NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM to the cmdline prepared for the RegisterApplicationRestart WINAPI, swprintf_s failed!");
-			}
-			else
-			{
-				nLen += j;
+				// is there already our 'restarted-sign'?
+				if (wcsstr(wszCmdLine, NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM) != NULL)
+					j = 0; // already there (so we are running an already restarted N++ instance...)
+				else
+					j = swprintf_s(wszCmdLine + nLen, _countof(wszCmdLine) - nLen, L" %ls", NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM);
 
-				// flags RESTART_NO_PATCH and RESTART_NO_REBOOT are not set, so we should be restarted
-				// if terminated by an update or restart but not when a crash or hang of the N++ occurs
-				hr = ::RegisterApplicationRestart(wszCmdLine, RESTART_NO_CRASH | RESTART_NO_HANG);
-				if (hr == S_OK)
+				if (j == -1)
 				{
-					bRet = true;
+					if (nppParam.doNppLogNulContentCorruptionIssue())
+						writeLog(nppIssueLog.c_str(), "ERROR: Could not append the NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM to the cmdline prepared for the RegisterApplicationRestart WINAPI, swprintf_s failed!");
 				}
 				else
 				{
-					if (nppParam.doNppLogNulContentCorruptionIssue())
+					// do not restart the process:
+					// RESTART_NO_CRASH  (1) ... for termination due to application crashes
+					// RESTART_NO_HANG   (2) ... for termination due to application hangs
+					// RESTART_NO_PATCH  (4) ... for termination due to patch installations
+					// RESTART_NO_REBOOT (8) ... when the system is rebooted due to patch installations
+					// our default is (RESTART_NO_CRASH | RESTART_NO_HANG) (3 ... 0b11)
+					DWORD dwCurrentFlags;
+					if (nppParam.getNppGUI()._registerForOSAppRestart <= (RESTART_NO_CRASH | RESTART_NO_HANG | RESTART_NO_PATCH | RESTART_NO_REBOOT))
+						dwCurrentFlags = (DWORD)nppParam.getNppGUI()._registerForOSAppRestart;
+					else
+						dwCurrentFlags = DEFAULT_OS_APP_RESTART_FLAGS; // correct a nonsense param
+					hr = ::RegisterApplicationRestart(wszCmdLine, dwCurrentFlags);
+					if (hr == S_OK)
+					{
+						bRet = true;
+					}
+					else
 					{
 						if (nppParam.doNppLogNulContentCorruptionIssue())
 						{
-							std::string msg = "ERROR: RegisterApplicationRestart WINAPI failed! (HRESULT: ";
-							msg += std::format("{:#010x}", hr);
-							msg += ")";
-							writeLog(nppIssueLog.c_str(), msg.c_str());
+							if (nppParam.doNppLogNulContentCorruptionIssue())
+							{
+								std::string msg = "ERROR: RegisterApplicationRestart WINAPI failed! (HRESULT: ";
+								msg += std::format("{:#010x}", hr);
+								msg += ")";
+								writeLog(nppIssueLog.c_str(), msg.c_str());
+							}
 						}
 					}
 				}

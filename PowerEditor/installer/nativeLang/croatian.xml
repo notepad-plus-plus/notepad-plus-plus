@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 5 August 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 1 September 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.5">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,7 +39,7 @@
 					<Item subMenuId="edit-blankOperations" name="&amp;Praznine"/>
 					<Item subMenuId="edit-pasteSpecial" name="Um&amp;etanje posebno"/>
 					<Item subMenuId="edit-onSelection" name="&amp;Označeni tekst"/>
-					<Item subMenuId="search-changeHistory" name="Povijest promjena"/>
+					<Item subMenuId="search-changeHistory" name="Po&amp;vijest promjena"/>
 					<Item subMenuId="search-markAll" name="Ozna&amp;či stilom sva pojavljivanja"/>
 					<Item subMenuId="search-markOne" name="Označi stilom &amp;jednom"/>
 					<Item subMenuId="search-unmarkAll" name="Poni&amp;šti oznake stilom"/>
@@ -198,7 +198,7 @@
 					<Item id="43001" name="&amp;Pronađi..."/>
 					<Item id="43002" name="Pronađi s&amp;ljedeće"/>
 					<Item id="43003" name="&amp;Zamijeni..."/>
-					<Item id="43004" name="&amp;Idi na redak/poziciju..."/>
+					<Item id="43004" name="Idi na redak/pozi&amp;ciju..."/>
 					<Item id="43005" name="S&amp;tavi/odstrani oznaku"/>
 					<Item id="43006" name="&amp;Sljedeća oznaka"/>
 					<Item id="43007" name="&amp;Prethodna oznaka"/>
@@ -252,9 +252,9 @@
 					<Item id="43064" name="Koristi &amp;3. stil"/>
 					<Item id="43065" name="Koristi &amp;4. stil"/>
 					<Item id="43066" name="Koristi &amp;5. stil"/>
-					<Item id="43067" name="Idi na sljedeću promjenu"/>
-					<Item id="43068" name="Idi na prethodnu promjenu"/>
-					<Item id="43069" name="Isprazni povijest promjena"/>
+					<Item id="43067" name="Idi na &amp;sljedeću promjenu"/>
+					<Item id="43068" name="Idi na &amp;prethodnu promjenu"/>
+					<Item id="43069" name="Iz&amp;briši povijest promjena"/>
 					<Item id="43045" name="Prozor rezultata pretraži&amp;vanja"/>
 					<Item id="43046" name="&amp;Sljedeći rezultat pretraživanja"/>
 					<Item id="43047" name="Prethod&amp;ni rezultat pretraživanja"/>
@@ -1263,6 +1263,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 					<Item id="7149" name="Omogući pametno označavanje"/>
 					<Item id="7150" name="Isključi prijelom teksta globalno"/>
 					<Item id="7151" name="Omogući klikabilne URL poveznice"/>
+					<Item id="7152" name="Spriječi upozorenje prilikom otvaranja datoteka ≥2 GB"/>
 				</Performance>
 
 				<Cloud title="Oblak i poveznice">

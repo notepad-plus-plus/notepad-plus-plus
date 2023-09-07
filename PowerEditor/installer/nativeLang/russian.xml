@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.5.5:
+Updated to v8.5.7:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.5.5">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.5.7">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1270,6 +1270,7 @@ Updated to v8.5.5:
 					<Item id="7149" name="Разрешить Подсветку слов"/>
 					<Item id="7150" name="Выключить Перенос строк (глобально)"/>
 					<Item id="7151" name="Разрешить Обработку Веб-ссылок"/>
+					<Item id="7152" name="Не показывать предупреждение о файле больше ≥2GB"/>
 				</Performance>
 				<Cloud title="Облако и Ссылки">
 					<Item id="6262" name="Настройки Облачного Хранения"/>

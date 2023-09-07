@@ -304,7 +304,7 @@ Translation note:
 					<Item id="44114" name="Aplicar cor 4"/>
 					<Item id="44115" name="Aplicar cor 5"/>
 					<Item id="44130" name="Mostrar caracteres non imprimibles"/>
-					<Item id="44131" name="Mostrar caracteres de control &amp; &amp; EOL de Unicode"/>
+					<Item id="44131" name="Mostrar caracteres de control &amp;&amp; EOL de Unicode"/>
 					<Item id="44032" name="Activar o modo de pantalla completa"/>
 					<Item id="44033" name="Restaurar zoom 100%"/>
 					<Item id="44034" name="Sempre visible"/>
@@ -504,15 +504,15 @@ Translation note:
 			</IncrementalFind>
 
 			<FindCharsInRange title="Rango de busca de caracteres">
-				<Item id="2" name="Pechar"/>
-				<Item id="2901" name="Caracteres no-ASCII (128-255)"/>
-				<Item id="2902" name="Caracteres ASCII (0-127)"/>
-				<Item id="2903" name="Especifique rango:"/>
+				<Item id="2" name="&amp;Pechar"/>
+				<Item id="2901" name="Caracteres &amp;no-ASCII (128-255)"/>
+				<Item id="2902" name="Carac&amp;teres ASCII (0-127)"/>
+				<Item id="2903" name="Especifique &amp;rango:"/>
 				<Item id="2906" name="&amp;Arriba"/>
-				<Item id="2907" name="A&amp;baixo"/>
+				<Item id="2907" name="Abai&amp;xo"/>
 				<Item id="2908" name="Dirección"/>
 				<Item id="2909" name="&amp;En bucle"/>
-				<Item id="2910" name="Buscar"/>
+				<Item id="2910" name="&amp;Buscar"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Ir a unha liña...">
@@ -582,11 +582,11 @@ Translation note:
 			<PluginsAdminDlg title="Administrar complementos" titleAvailable="Dispoñible" titleUpdates="Actualizar" titleInstalled="Instalado" titleIncompatible="Incompatible">
 				<ColumnPlugin name="Complemento"/>
 				<ColumnVersion name="Versión"/>
-				<Item id="5501" name="Buscar:"/>
-				<Item id="5503" name="Instalar"/>
-				<Item id="5504" name="Actualizar"/>
-				<Item id="5505" name="Borrar"/>
-				<Item id="5508" name="Seguinte"/>
+				<Item id="5501" name="&amp;Buscar:"/>
+				<Item id="5503" name="&amp;Instalar"/>
+				<Item id="5504" name="&amp;Actualizar"/>
+				<Item id="5505" name="B&amp;orrar"/>
+				<Item id="5508" name="&amp;Seguinte"/>
 				<Item id="5509" name="Versión da lista de complementos:"/>
 				<Item id="5511" name="Repositorio da lista de complementos"/>
 				<Item id="2" name="Pechar"/>
@@ -594,7 +594,7 @@ Translation note:
 
 			<StyleConfig title="Configurador de estilos">
 				<Item id="2" name="Cancelar"/>
-				<Item id="2301" name="Gardar &amp;&amp; Pechar"/>
+				<Item id="2301" name="Gardar &amp; Pechar"/>
 				<Item id="2303" name="Transparencia"/>
 				<Item id="2306" name="Seleccionar tema:"/>
 				<SubDialog>
@@ -808,11 +808,10 @@ Translation note:
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
-				<Folder title="Carpeta &amp;&amp; Predeterminado">
+				<Folder title="Carpeta &amp; Predeterminado">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21102" name="Estilo"/>
 					<Item id="21105" name="Documentación:"/>
-					<Item id="21104" name="Sitio de documentación temporal:"/>
 					<Item id="21106" name="Pregado &amp;compacto (liñas baleiras tamén)"/>
 					<Item id="21220" name="Pregado en estilo código 1:"/>
 					<Item id="21224" name="Abrir:"/>
@@ -856,7 +855,7 @@ Translation note:
 					<Item id="22572" name="Estilo"/>
 					<Item id="22622" name="Estilo"/>
 				</Keywords>
-				<Comment title="Comentario &amp;&amp; Número">
+				<Comment title="Comentario &amp; Número">
 					<Item id="23003" name="Posición do comentario da liña"/>
 					<Item id="23004" name="Sen límite"/>
 					<Item id="23005" name="Sempre ao inicio de liña"/>
@@ -885,7 +884,7 @@ Translation note:
 					<Item id="23246" name="Coma"/>
 					<Item id="23247" name="Ambos"/>
 				</Comment>
-				<Operator title="Operadores &amp;&amp; Delimitador">
+				<Operator title="Operadores &amp; Delimitador">
 					<Item id="24101" name="Estilo dos operadores"/>
 					<Item id="24113" name="Estilo"/>
 					<Item id="24116" name="Operador 1"/>
@@ -995,7 +994,7 @@ Translation note:
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Punto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar a C0, C1 &amp; &amp; EOL de Unicode"/>
+					<Item id="6258" name="Aplicar a C0, C1 &amp;&amp; EOL de Unicode"/>
 				</Scintillas>
 
 				<DarkMode title="Modo escuro">
@@ -1110,30 +1109,30 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 				</Highlighting>
 
 				<Print title="Impresión">
-					<Item id="6601" name="Imprimir número de liña"/>
+					<Item id="6601" name="Im&amp;primir número de liña"/>
 					<Item id="6602" name="Opcións de cor"/>
-					<Item id="6603" name="Sen modificar"/>
-					<Item id="6604" name="Invertir"/>
-					<Item id="6605" name="Negro sobre branco"/>
-					<Item id="6606" name="Sen cor de fondo"/>
-					<Item id="6607" name="Marxes (milímetros)"/>
-					<Item id="6612" name="Esquerdo"/>
-					<Item id="6613" name="Superior"/>
-					<Item id="6614" name="Dereito"/>
-					<Item id="6615" name="Inferior"/>
-					<Item id="6706" name="Grosa"/>
-					<Item id="6707" name="Cursiva"/>
+					<Item id="6603" name="Sen &amp;modificar"/>
+					<Item id="6604" name="In&amp;vertir"/>
+					<Item id="6605" name="Negro sobre &amp;branco"/>
+					<Item id="6606" name="Sen cor de &amp;fondo"/>
+					<Item id="6607" name="Mar&amp;xes (milímetros)"/>
+					<Item id="6612" name="Esquerd&amp;o"/>
+					<Item id="6613" name="&amp;Superior"/>
+					<Item id="6614" name="&amp;Dereito"/>
+					<Item id="6615" name="I&amp;nferior"/>
+					<Item id="6706" name="&amp;Grosa"/>
+					<Item id="6707" name="&amp;Cursiva"/>
 					<Item id="6708" name="Encabezamento"/>
-					<Item id="6709" name="Parte esquerda"/>
-					<Item id="6710" name="Parte central"/>
+					<Item id="6709" name="Part&amp;e esquerda"/>
+					<Item id="6710" name="Parte centra&amp;l"/>
 					<Item id="6711" name="Parte dereita"/>
-					<Item id="6717" name="Grosa"/>
-					<Item id="6718" name="Cursiva"/>
+					<Item id="6717" name="Gros&amp;a"/>
+					<Item id="6718" name="C&amp;ursiva"/>
 					<Item id="6719" name="Pé de páxina"/>
-					<Item id="6720" name="Parte esquerda"/>
-					<Item id="6721" name="Parte central"/>
-					<Item id="6722" name="Parte dereita"/>
-					<Item id="6723" name="Engadir"/>
+					<Item id="6720" name="Parte es&amp;querda"/>
+					<Item id="6721" name="Parte cen&amp;tral"/>
+					<Item id="6722" name="Pa&amp;rte dereita"/>
+					<Item id="6723" name="Engad&amp;ir"/>
 					<ComboBox id="6724">
 						<Element name="Ruta do arquivo"/>
 						<Element name="Nome do arquivo"/>
@@ -1219,7 +1218,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="6175" name="Orden inverso de data e hora predeterminada (formatos curto &amp;&amp; longo)"/>
 					<Item id="6172" name="Formato personalizado:"/>
 					<Item id="6181" name="Estado do panel e [-nosesión] *"/>
-					<Item id="6182" name="Recordar o estado do panel (o panel está aberto) en outras instancias (modo múltiples instancias) ou cando use o comando [-nosession]"/>
+					<Item id="6182" name="Recordar o estado do panel (se está aberto) en outras instancias (modo múltiples instancias) ou cando use o comando [-nosession]"/>
 					<Item id="6183" name="Historial do portapapeis"/>
 					<Item id="6184" name="Lista de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
@@ -1251,6 +1250,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="7149" name="Permitir o resaltado intelixente"/>
 					<Item id="7150" name="Desactivar globalmente o axuste do texto"/>
 					<Item id="7151" name="Permitir ligazón clicable na URL"/>
+					<Item id="7152" name="Suprimir advertencia ao abrir arquivos ≥2 GB"/>
 				</Performance>
 
 				<Cloud title="Nube &amp; Ligazóns">
@@ -1384,6 +1384,7 @@ As modificacións gardadas non se poden desfacer.
 			<FileLockedWarning title="Imposible gardalo" message="Comprobe si este arquivo está aberto por outro programa"/>
 			<FileAlreadyOpenedInNpp title="Información" message="O arquivo xa está aberto en Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Non se puido cambiar o nome" message="O nome especificado xa está en uso noutra pestana."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="No se puido cambiar o nome" message="O nome non pode estar baleiro ou non pode ser só espazo(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Borrar arquivo" message="Erro ao borrar o arquivo"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="A cantidade de arquivos para abrir é demasiado grande" message="Abriranse $INT_REPLACE$ arquivos.
@@ -1443,9 +1444,9 @@ Desexa abrilo?"/>
 			<CreateNewFileError title="Crear un arquivo novo" message="Non se pode crear o arquivo &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="Erro" message="Non se pode abrir o arquivo &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileNoFolderError title="Non se pode abrir o arquivo" message="&quot;$STR_REPLACE1$&quot; non se pode abrir:
-            A carpeta &quot;$STR_REPLACE2$&quot; non existe."/>
+			A carpeta &quot;$STR_REPLACE2$&quot; non existe."/>
 			<FileBackupFailed title="Erro na copia de seguridade do arquivo" message="A versión anterior do arquivo non se puido gardar no directorio de copia de seguridade en &quot;$STR_REPLACE$&quot;.
-            
+			
 ¿Desexa gardar o arquivo actual de todos modos?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Erro ao cargar stylers.xml" message="A carga de &quot;$STR_REPLACE$&quot; fallou"/>
 			<LoadLangsFailed title="Configurador" message="A carga de langs.xml fallou.

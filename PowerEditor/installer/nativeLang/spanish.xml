@@ -304,7 +304,7 @@ Translation note:
 					<Item id="44114" name="Aplicar color 4"/>
 					<Item id="44115" name="Aplicar color 5"/>
 					<Item id="44130" name="Mostrar caracteres no imprimibles"/>
-					<Item id="44131" name="Mostrar caracteres de control &amp; &amp; EOL de Unicode"/>
+					<Item id="44131" name="Mostrar caracteres de control &amp;&amp; EOL de Unicode"/>
 					<Item id="44032" name="Activar el modo de pantalla completa"/>
 					<Item id="44033" name="Restaurar zoom 100%"/>
 					<Item id="44034" name="Siempre visible"/>
@@ -504,15 +504,15 @@ Translation note:
 			</IncrementalFind>
 
 			<FindCharsInRange title="Rango de búsqueda de caracteres">
-				<Item id="2" name="Cerrar"/>
-				<Item id="2901" name="Caracteres no-ASCII (128-255)"/>
-				<Item id="2902" name="Caracteres ASCII (0-127)"/>
-				<Item id="2903" name="Indique rango:"/>
+				<Item id="2" name="&amp;Cerrar"/>
+				<Item id="2901" name="Caracteres &amp;no-ASCII (128-255)"/>
+				<Item id="2902" name="Carac&amp;teres ASCII (0-127)"/>
+				<Item id="2903" name="Indique &amp;rango:"/>
 				<Item id="2906" name="&amp;Arriba"/>
 				<Item id="2907" name="A&amp;bajo"/>
 				<Item id="2908" name="Dirección"/>
 				<Item id="2909" name="&amp;En bucle"/>
-				<Item id="2910" name="Buscar"/>
+				<Item id="2910" name="&amp;Buscar"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Ir a una línea...">
@@ -545,7 +545,7 @@ Translation note:
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="Generar resumen SHA-256 desde los archivos">
-				<Item id="1922" name="Seleccione los archivos para generar SHA-256..."/>
+				<Item id="1922" name="Seleccione los archivos para &amp;generar SHA-256..."/>
 				<Item id="1924" name="Co&amp;piar al portapapeles"/>
 				<Item id="2" name="&amp;Cerrar"/>
 			</SHA256FromFilesDlg>
@@ -582,19 +582,19 @@ Translation note:
 			<PluginsAdminDlg title="Administrar complementos" titleAvailable="Disponible" titleUpdates="Actualizar" titleInstalled="Instalado" titleIncompatible="Incompatible">
 				<ColumnPlugin name="Complemento"/>
 				<ColumnVersion name="Versión"/>
-				<Item id="5501" name="Buscar:"/>
-				<Item id="5503" name="Instalar"/>
-				<Item id="5504" name="Actualizar"/>
-				<Item id="5505" name="Borrar"/>
-				<Item id="5508" name="Siguiente"/>
+				<Item id="5501" name="&amp;Buscar:"/>
+				<Item id="5503" name="&amp;Instalar"/>
+				<Item id="5504" name="&amp;Actualizar"/>
+				<Item id="5505" name="B&amp;orrar"/>
+				<Item id="5508" name="&amp;Siguiente"/>
 				<Item id="5509" name="Versión de la lista de complementos:"/>
-				<Item id="5511" name="Repositorio de la lista de complementos"/>
+				<Item id="5511" name="Repositorio de lista de complementos"/>
 				<Item id="2" name="Cerrar"/>
 			</PluginsAdminDlg>
 
 			<StyleConfig title="Configurador de estilos">
 				<Item id="2" name="Cancelar"/>
-				<Item id="2301" name="Guardar &amp;&amp; Cerrar"/>
+				<Item id="2301" name="Guardar &amp; Cerrar"/>
 				<Item id="2303" name="Transparencia"/>
 				<Item id="2306" name="Seleccionar tema:"/>
 				<SubDialog>
@@ -808,11 +808,10 @@ Translation note:
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
-				<Folder title="Carpeta &amp;&amp; Predeterminado">
+				<Folder title="Carpeta &amp; Predeterminado">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21102" name="Estilo"/>
 					<Item id="21105" name="Documentación:"/>
-					<Item id="21104" name="Sitio de documentación temporal:"/>
 					<Item id="21106" name="Plegado &amp;compacto (líneas vacías también)"/>
 					<Item id="21220" name="Plegado en estilo código 1:"/>
 					<Item id="21224" name="Abrir:"/>
@@ -856,7 +855,7 @@ Translation note:
 					<Item id="22572" name="Estilo"/>
 					<Item id="22622" name="Estilo"/>
 				</Keywords>
-				<Comment title="Comentario &amp;&amp; Número">
+				<Comment title="Comentario &amp; Número">
 					<Item id="23003" name="Posición del comentario de línea"/>
 					<Item id="23004" name="Sin límite"/>
 					<Item id="23005" name="Siempre al inicio de línea"/>
@@ -885,7 +884,7 @@ Translation note:
 					<Item id="23246" name="Coma"/>
 					<Item id="23247" name="Ambos"/>
 				</Comment>
-				<Operator title="Operadores &amp;&amp; Delimitador">
+				<Operator title="Operadores &amp; Delimitador">
 					<Item id="24101" name="Estilo de los operadores"/>
 					<Item id="24113" name="Estilo"/>
 					<Item id="24116" name="Operador 1"/>
@@ -995,7 +994,7 @@ Translation note:
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Punto de código"/>
 					<Item id="6256" name="Color personalizado"/>
-					<Item id="6258" name="Aplicar a C0, C1 &amp; &amp; EOL de Unicode"/>
+					<Item id="6258" name="Aplicar a C0, C1 &amp;&amp; EOL de Unicode"/>
 				</Scintillas>
 
 				<DarkMode title="Modo oscuro">
@@ -1110,30 +1109,30 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 				</Highlighting>
 
 				<Print title="Impresión">
-					<Item id="6601" name="Imprimir número de línea"/>
+					<Item id="6601" name="Im&amp;primir número de línea"/>
 					<Item id="6602" name="Opciones de color"/>
-					<Item id="6603" name="Sin modificar"/>
-					<Item id="6604" name="Invertir"/>
-					<Item id="6605" name="Negro sobre blanco"/>
-					<Item id="6606" name="Sin color de fondo"/>
-					<Item id="6607" name="Márgenes (milímetros)"/>
-					<Item id="6612" name="Izquierdo"/>
-					<Item id="6613" name="Superior"/>
-					<Item id="6614" name="Derecho"/>
-					<Item id="6615" name="Inferior"/>
-					<Item id="6706" name="Negrita"/>
-					<Item id="6707" name="Cursiva"/>
+					<Item id="6603" name="Sin &amp;modificar"/>
+					<Item id="6604" name="In&amp;vertir"/>
+					<Item id="6605" name="Negro sobre &amp;blanco"/>
+					<Item id="6606" name="Sin color de &amp;fondo"/>
+					<Item id="6607" name="Már&amp;genes (milímetros)"/>
+					<Item id="6612" name="&amp;Izquierdo"/>
+					<Item id="6613" name="&amp;Superior"/>
+					<Item id="6614" name="&amp;Derecho"/>
+					<Item id="6615" name="I&amp;nferior"/>
+					<Item id="6706" name="N&amp;egrita"/>
+					<Item id="6707" name="&amp;Cursiva"/>
 					<Item id="6708" name="Encabezado"/>
-					<Item id="6709" name="Parte izquierda"/>
-					<Item id="6710" name="Parte central"/>
-					<Item id="6711" name="Parte derecha"/>
-					<Item id="6717" name="Negrita"/>
-					<Item id="6718" name="Cursiva"/>
+					<Item id="6709" name="Parte i&amp;zquierda"/>
+					<Item id="6710" name="Parte centra&amp;l"/>
+					<Item id="6711" name="Parte derec&amp;ha"/>
+					<Item id="6717" name="Negrit&amp;a"/>
+					<Item id="6718" name="C&amp;ursiva"/>
 					<Item id="6719" name="Pie de página"/>
-					<Item id="6720" name="Parte izquierda"/>
-					<Item id="6721" name="Parte central"/>
-					<Item id="6722" name="Parte derecha"/>
-					<Item id="6723" name="Añadir"/>
+					<Item id="6720" name="Parte iz&amp;quierda"/>
+					<Item id="6721" name="Parte cen&amp;tral"/>
+					<Item id="6722" name="Pa&amp;rte derecha"/>
+					<Item id="6723" name="A&amp;ñadir"/>
 					<ComboBox id="6724">
 						<Element name="Ruta del archivo"/>
 						<Element name="Nombre del archivo"/>
@@ -1211,7 +1210,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 
 				<MultiInstance title="Multi instancia &amp; Fecha">
 					<Item id="6151" name="Configuración *"/>
-					<Item id="6152" name="Abrir sesión en nueva instancia de Notepad++**"/>
+					<Item id="6152" name="Abrir sesión en nueva instancia de Notepad++ **"/>
 					<Item id="6153" name="Usar siempre en modo de múltiples instancias"/>
 					<Item id="6154" name="Instancia única por defecto"/>
 					<Item id="6155" name="* Si modifica estos ajustes tiene que reiniciar Notepad++&#xA;** y guardar la sesión automáticamente al salir"/>
@@ -1219,7 +1218,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 					<Item id="6175" name="Orden inverso de fecha y hora predeterminada (formatos corto &amp;&amp; largo)"/>
 					<Item id="6172" name="Formato personalizado:"/>
 					<Item id="6181" name="Estado del panel y [-nosesión] *"/>
-					<Item id="6182" name="Recordar el estado del panel (el panel está abierto) en otras instancias (modo múltiples instancias) o cuando use el comando [-nosession]"/>
+					<Item id="6182" name="Recordar el estado del panel (si está abierto) en otras instancias (modo múltiples instancias) o cuando use el comando [-nosession]"/>
 					<Item id="6183" name="Historial del portapapeles"/>
 					<Item id="6184" name="Lista de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
@@ -1251,6 +1250,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 					<Item id="7149" name="Permitir el resaltado inteligente"/>
 					<Item id="7150" name="Desactivar globalmente el ajuste del texto"/>
 					<Item id="7151" name="Permitir enlace clicable en la URL"/>
+					<Item id="7152" name="Suprimir advertencia al abrir archivos ≥2 GB"/>
 				</Performance>
 
 				<Cloud title="Nube &amp; Enlaces">
@@ -1384,6 +1384,7 @@ Las modificaciones guardadas no se pueden deshacer.
 			<FileLockedWarning title="Imposible guardarlo" message="Compruebe si este archivo está abierto por otro programa"/>
 			<FileAlreadyOpenedInNpp title="Información" message="El archivo ya está abierto en Notepad++"/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="No se pudo cambiar el nombre" message="El nombre especificado ya está en uso en otra pestaña."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="No se pudo cambiar el nombre" message="El nombre no puede estar vacío o no puede ser solo espacio(s) o TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Borrar archivo" message="Error al borrar el archivo"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="La cantidad de archivos para abrir es demasiado grande" message="Se abrirán $INT_REPLACE$ archivos.
@@ -1445,7 +1446,7 @@ Este archivo ha sido modificado por otro programa.
 			<CreateNewFileError title="Crear un archivo nuevo" message="No se puede crear el archivo &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="Error" message="No se puede abrir el archivo &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileNoFolderError title="No se puede abrir el archivo" message="Es imposible abrir &quot;$STR_REPLACE1$&quot;:
-            La carpeta &quot;$STR_REPLACE2$&quot; no existe."/>
+			La carpeta &quot;$STR_REPLACE2$&quot; no existe."/>
 			<FileBackupFailed title="Error en la copia de seguridad del archivo" message="La versión anterior del archivo no se pudo guardar en el directorio de copia de seguridad en &quot;$STR_REPLACE$&quot;.
 
 ¿Desea guardar el archivo actual de todos modos?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1635,18 +1636,14 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
 			<find-status-end-reached value="Encontrada la primera coincidencia empezando por el inicio. Se ha llegado al final del documento."/>
 			<find-status-replaceinfiles-1-replaced value="Sustituir en archivos: se cambió 1 elemento."/>
 			<find-status-replaceinfiles-nb-replaced value="Sustituir en archivos: $INT_REPLACE$ coincidencias cambiadas."/>
-			<find-status-replaceinfiles-re-malformed value="Sustituir en archivos abiertos: la expresión regular tiene un formato incorrecto."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Sustituir en archivos abiertos: se cambió 1 coincidencia."/>
-			<find-status-replaceinopenedfiles-nb-replaced value="Sustituir en archivos abiertos: $INT_REPLACE$ coincidencias cambiadas"/>
-			<find-status-mark-re-malformed value="Atención: la expresión regular para buscar tiene un formato incorrecto."/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Sustituir en archivos abiertos: $INT_REPLACE$ coincidencias cambiadas."/>
 			<find-status-invalid-re value="Atención: expresión regular no válida."/>
 			<find-status-search-failed value="Atención: la búsqueda falló."/>
 			<find-status-mark-1-match value="1 coincidencia"/>
 			<find-status-mark-nb-matches value=" $INT_REPLACE$ coincidencias"/>
-			<find-status-count-re-malformed value="Atención: la expresión regular para buscar tiene un formato incorrecto."/>
 			<find-status-count-1-match value="Encontrada 1 coincidencia"/>
 			<find-status-count-nb-matches value="Encontradas $INT_REPLACE$ coincidencias"/>
-			<find-status-replaceall-re-malformed value="Atención: la expresión regular tiene un formato incorrecto."/>
 			<find-status-replaceall-1-replaced value="1 coincidencia cambiada"/>
 			<find-status-replaceall-nb-replaced value=" $INT_REPLACE$ coincidencias cambiadas"/>
 			<find-status-replaceall-readonly value="Atención: no se puede sustituir el texto. El documento actual es de solo lectura."/>

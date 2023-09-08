@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.08.05"><!-- basiert auf english.xml vom 04.08.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.10.06"><!-- basiert auf english.xml vom 06.10.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -650,17 +650,7 @@ Translation note:
 				<ScintillaCommandsTab name="Scintilla-Befehle"/>
 				<ConflictInfoOk name="Keine Konflikte mit dieser Tastenkombination."/>
 				<ConflictInfoEditing name="Keine Konflikte."/>
-				<WindowCategory name="Fenster"/>
-				<FileCategory name="Datei"/>
-				<EditCategory name="Bearbeiten"/>
-				<SearchCategory name="Suchen"/>
-				<ViewCategory name="Ansicht"/>
-				<FormatCategory name="Codierung"/>
-				<LangCategory name="Sprache"/>
 				<AboutCategory name="?"/>
-				<SettingCategory name="Einstellungen"/>
-				<ToolCategory name="Werkzeuge"/>
-				<ExecuteCategory name="Ausführen"/>
 				<ModifyContextMenu name="Ändern"/>
 				<DeleteContextMenu name="Löschen"/>
 				<ClearContextMenu name="Entfernen"/>
@@ -1165,6 +1155,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6907" name="Wenn der Suchdialog aufgerufen wird"/>
 					<Item id="6908" name="Im Suchfeld gewählten Text einsetzen"/>
 					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>
+					<Item id="6910" name="Mindestgröße für die automatische Prüfung 'In Auswahl'"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1259,6 +1250,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="7149" name="Intelligente Hervorhebung zulassen"/>
 					<Item id="7150" name="Wortumbruch global deaktivieren"/>
 					<Item id="7151" name="URL anklickbaren Link zulassen"/>
+					<Item id="7152" name="Unterdrücke Warnung beim Öffnen von Dateien ≥2GB"/>
 				</Performance>
 
 				<Cloud title="Cloud &amp; Links">
@@ -1498,6 +1490,8 @@ Bitte die Kommandos daher testen und falls nötig editieren.
 Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
 Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
 Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Konnte Datei nicht speichern.
+Es ist nicht genug Speicherplatz vorhanden, daher wurde die Datei nicht gespeichert."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1758,6 +1752,7 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Wenden Sie die Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) an."/>
+			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Setzen Sie den Wert auf 0, um die automatische Markierung zu deaktivieren."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

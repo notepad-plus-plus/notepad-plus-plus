@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.5.7
--    Ultima modificare 2 septembrie 2023 de către Miloiu Andrei 	 
+-    Traducerea în română pentru Notepad++ 8.5.8
+-    Ultima modificare 12 septembrie 2023 de către Miloiu Andrei 	 
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
@@ -1269,7 +1269,7 @@ Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a 
                     <Item id="7149" name="Permite evidențierea inteligentă"/>
                     <Item id="7150" name="Dezactivarea globală a încadrării cuvintelor"/>
                     <Item id="7151" name="Permite legăturile apăsabile de URL-uri"/>
-                    <Item id="7152" name="Înlătură avertismentul de deschidere a fișierelor (de peste) ≥2GB"/>
+                    <Item id="7152" name="Înlătură avertismentul de deschidere a fișierelor de cel puțin 2GB (≥2GB)"/>
                 </Performance>
 
                  <Cloud title="Cloud și legături">
@@ -1513,6 +1513,8 @@ Te rugăm să testezi comenzile și dacă e nevoie, să le re-editezi.
 Alternativ, poți să revii la Notepad++ v8.5.2 și poți restaura datele anterioare.
 Notepad++ îți va restaura vechiul &quot;shortcuts.xml&quot; și îl va salva ca &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Redenumind &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, comenzile tale ar trebui restaurate și să lucreze perfect."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Salvare eșuată" message="Nu s-a putut salva fișierul.
+Se pare că nu este suficient spațiu pe disc pentru a salva fișierul. Fișierul tău (dvs.) nu este salvat."/>		
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>

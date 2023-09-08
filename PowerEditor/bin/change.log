@@ -1,36 +1,20 @@
-Notepad++ v8.5.6 bug-fixes and new features:
+Notepad++ v8.5.7 bug-fixes and new features:
 
-1.  Fix plugin crash regression due to CET enhancement.
-2.  Add new API: indicator allocation for plugins.
-3.  Fix hide lines merging to avoid merging across a visible line.
-4.  Fix "Clear Change History" issue: cloned document markers are not cleared.
+ 1. Fix 4 security issues CVE-2023-40031, CVE-2023-40036, CVE-2023-40164 & CVE-2023-40166.
+ 2. Security enhancement: Sign uninstall.exe.
+ 3. Change the slogan in installer.
+ 4. Fix eventual memory leak while reading Utf8-16 files.
+ 5. Fix dragging tab performance issue while Document List is displayed.
+ 6. Add supperss 2GB file warning option for x64.
+ 7. Fix cloned document disassociated issue after Notepad++ being relaunched.
+ 8. Fix session file saving problem if it's read-only.
+ 9. Fix activating wrong file(s) issue after loading session file.
+10. Fix wrong product version value displayed in file's properties.
 
-
-Notepad++ v8.5.5 bug-fixes and new features:
-
- 1. Update to Scintilla 5.3.6 and Lexilla 5.2.6.
- 2. Add change history navigation commands: Go to next/prev change & Clear change history.
- 3. Fix Change History incorrect display after "Reload from Disk" command.
- 4. Remember through sessions the directory of "Remember last used directory".
- 5. Fix regression of double clicking on find result not going to the document.
- 6. Fix regression of opening file rejection if file name contains dot at the end.
- 7. Fix error message of opening file with '=' as end of file name.	
- 8. Fix menu Tools contains 2 SHA-256 item while using localization.
- 9. Fix SHA-1 hash result wrong length bug while "Treat each line as a separate string" enabled.	
-10. Add SHA-512 hash features.
-11. Fix normal.xml for Normal text auto-completion not working issue.
-12. Fix Korean IME append file extension issue in save dialog.    
-13. Make find/replace in files result more accurate while used RegExpr is invalid.
-14. Fix Project panel's inaccurate initialized path in save dialog.
-15. Fix wrong syntax highlighting of URLs with quotes in JSON.
-16. Fix Clipboard History panel shows corrupted data issue.
-17. Improve lines sorting memory consumption.
-18. Enhance "Add new document at startup": add new document only when the session is remembered.
-19. Enhance "Convert case to Proper Case" command: fix the error conversion after quote.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.5.5/
+https://notepad-plus-plus.org/downloads/v8.5.7/
 
 
 Included plugins:

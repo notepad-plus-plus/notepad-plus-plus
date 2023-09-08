@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
-			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.5)
+			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -31,7 +31,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.5.5">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.5.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -207,14 +207,14 @@ Additionnal information about Corsican localization:
 					<Item id="42025" name="&amp;Arregistrà a prucedura arricurdata…"/>
 					<Item id="42026" name="Testu da diritta à manca"/>
 					<Item id="42027" name="Testu da manca à diritta"/>
-					<Item id="42028" name="&amp;Lettura-sola per u schedariu attuale"/>
+					<Item id="42028" name="&amp;Lettura sola per u schedariu attuale"/>
 					<Item id="42029" name="Cupià u chjassu cumpletu di u schedariu attuale"/>
 					<Item id="42030" name="Cupià u nome di schedariu di u schedariu attuale"/>
 					<Item id="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
 					<Item id="42087" name="Cupià tutti i nomi di schedariu"/>
 					<Item id="42088" name="Cupià tutti i chjassi di schedariu"/>
 					<Item id="42032" name="&amp;Lancià una prucedura parechje volte…"/>
-					<Item id="42033" name="Caccià a marca di lettura-sola da u schedariu"/>
+					<Item id="42033" name="Caccià a marca di lettura sola da u schedariu"/>
 					<Item id="42035" name="Mette in cummentu a linea sola"/>
 					<Item id="42036" name="Caccià u cummentu da a linea sola"/>
 					<Item id="42055" name="Caccià e linee viote"/>
@@ -363,8 +363,8 @@ Additionnal information about Corsican localization:
 
 					<Item id="10001" name="Dispiazzà in l’altra vista"/>
 					<Item id="10002" name="Duppià in l’altra vista"/>
-					<Item id="10003" name="Dispiazzà in una nova finestra"/>
-					<Item id="10004" name="Apre in una nova finestra"/>
+					<Item id="10003" name="Dispiazzà in una finestra nova"/>
+					<Item id="10004" name="Apre in una finestra nova"/>
 
 					<Item id="46001" name="&amp;Cunfiguratore di stilu…"/>
 					<Item id="46250" name="Definisce u vostru linguaghju…"/>
@@ -444,8 +444,8 @@ Additionnal information about Corsican localization:
 				<Item CMDID="41016" name="Dispiazzà in a curbella"/>
 				<Item CMDID="41014" name="Ricaricà"/>
 				<Item CMDID="41010" name="Stampà…"/>
-				<Item CMDID="42028" name="Lettura-sola"/>
-				<Item CMDID="42033" name="Caccià a marca di lettura-sola da u ducumentu"/>
+				<Item CMDID="42028" name="Lettura sola"/>
+				<Item CMDID="42033" name="Caccià a marca di lettura sola da u ducumentu"/>
 				<Item CMDID="2" name="Cupià in u preme’papei"/>
 				<Item CMDID="42029" name="Cupià u chjassu cumpletu di schedariu"/>
 				<Item CMDID="42030" name="Cupià u nome di schedariu"/>
@@ -453,8 +453,8 @@ Additionnal information about Corsican localization:
 				<Item CMDID="3" name="Dispiazzà u ducumentu"/>
 				<Item CMDID="10001" name="Dispiazzà in l’altra vista"/>
 				<Item CMDID="10002" name="Duppià in l’altra vista"/>
-				<Item CMDID="10003" name="Dispiazzà in una nova finestra"/>
-				<Item CMDID="10004" name="Apre in una nova finestra"/>
+				<Item CMDID="10003" name="Dispiazzà in una finestra nova"/>
+				<Item CMDID="10004" name="Apre in una finestra nova"/>
 				<Item CMDID="4" name="Appiecà un culore à l’unghjetta"/>
 				<Item CMDID="44111" name="Appiecà u culore 1"/>
 				<Item CMDID="44112" name="Appiecà u culore 2"/>
@@ -531,7 +531,7 @@ Additionnal information about Corsican localization:
 				<Item id="2" name="C&amp;hjode"/>
 				<Item id="2901" name="Caratteri &amp;micca ASCII (128-255)"/>
 				<Item id="2902" name="Caratteri &amp;ASCII (0-127)"/>
-				<Item id="2903" name="Seria &amp;persunalizata (0–255) :"/>
+				<Item id="2903" name="Seria &amp;persunalizata (0-255) :"/>
 				<Item id="2906" name="In&amp;sù"/>
 				<Item id="2907" name="In&amp;ghjò"/>
 				<Item id="2908" name="Direzzione"/>
@@ -666,17 +666,7 @@ Additionnal information about Corsican localization:
 				<ScintillaCommandsTab name="Cumande Scintilla"/>
 				<ConflictInfoOk name="Nisunu cunflittu d’accurtatoghju per st’elementu."/>
 				<ConflictInfoEditing name="Nisunu cunflittu . . ."/>
-				<WindowCategory name="Finestra"/>
-				<FileCategory name="Schedariu"/>
-				<EditCategory name="Mudificazione"/>
-				<SearchCategory name="Ricerca"/>
-				<ViewCategory name="Affissera"/>
-				<FormatCategory name="Cudificazione"/>
-				<LangCategory name="Linguaghju"/>
 				<AboutCategory name="Apprupositu"/>
-				<SettingCategory name="Preferenze"/>
-				<ToolCategory name="Attrezzi"/>
-				<ExecuteCategory name="Lanciu"/>
 				<ModifyContextMenu name="Mudificà"/>
 				<DeleteContextMenu name="Squassà"/>
 				<ClearContextMenu name="Viutà"/>
@@ -972,9 +962,9 @@ Additionnal information about Corsican localization:
 					<Item id="6109" name="Abbughjà l’unghjette inattive"/>
 					<Item id="6110" name="Barra culurita nant’à l’unghjetta attiva"/>
 					<Item id="6112" name="Buttonu di chjusura per ogni unghjetta"/>
-					<Item id="6113" name="Doppiu-cliccu per chjode u ducumentu"/>
+					<Item id="6113" name="Doppiu cliccu per chjode u ducumentu"/>
 					<Item id="6118" name="Piattà"/>
-					<Item id="6119" name="Multi-linea"/>
+					<Item id="6119" name="Multilinea"/>
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esce quandu l’ultima unghjetta si chjode"/>
 					<Item id="6128" name="Icone alternative"/>
@@ -995,7 +985,7 @@ Additionnal information about Corsican localization:
 					<Item id="6221" name="10"/><!-- Prestu (3 caratteri à u più) -->
 					<Item id="6222" name="0"/><!-- Lentu (3 caratteri à u più) -->
 					<Item id="6246" name="Rende cummutevule e cumande di piegatura è spiegatura di u livellu attuale"/>
-					<Item id="6225" name="Attivà a multi-mudificazione (Ctrl+cliccu/selez. cù topu)"/>
+					<Item id="6225" name="Attivà a mudificazione multiple (Ctrl+cliccu/selez. cù topu)"/>
 					<Item id="6227" name="Ritornu à a linea"/>
 					<Item id="6228" name="Predefinitu"/>
 					<Item id="6229" name="Aliniatu"/>
@@ -1180,6 +1170,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="6907" name="Quandu u dialogu di ricerca hè chjamatu"/>
 					<Item id="6908" name="Riempie u campu di ricerca cù u testu selezziunatu"/>
 					<Item id="6909" name="Selezziunà a parolla sottu à u cursore s’è nunda hè selezziunatu"/>
+					<Item id="6910" name="Dimensione minima per a verificazione autumatica di l’ozzione « In a selezzione »"/>
 				</Searching>
 
 				<RecentFilesHistory title="Schedarii recenti">
@@ -1232,17 +1223,17 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="6866" name="Paghju 3 :"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Multi-finestra è data">
-					<Item id="6151" name="Preferenze di multi-finestra *"/>
-					<Item id="6152" name="Apre una sessione in una nova finestra (è arregistralla autumaticamente à l’esce)"/>
-					<Item id="6153" name="Sempre in modu multi-finestra"/>
-					<Item id="6154" name="Predefinitu (mono-finestra)"/>
+				<MultiInstance title="Finestre multiple è data">
+					<Item id="6151" name="Preferenze di e finestre multiple *"/>
+					<Item id="6152" name="Apre una sessione in una finestra nova (è arregistralla autumaticamente à l’esce)"/>
+					<Item id="6153" name="Sempre in modu à finestre multiple"/>
+					<Item id="6154" name="Modu predefinitu (finestra unica)"/>
 					<Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
 					<Item id="6171" name="Persunalizazione d’inserzione di a data è l’ora"/>
 					<Item id="6175" name="Invertisce l’ordine predefinitu di a data è l’ora (furmatu cortu è longu)"/>
 					<Item id="6172" name="Furmatu persunalizatu :"/>
 					<Item id="6181" name="Statu di u pannellu è [-nosession] *"/>
-					<Item id="6182" name="Arricurdassi di u statu di u pannellu (pannellu hè apertu) in d’altre istanze (modu multi-finestra) o quandu s’impiega u parametru di linea di cumanda [-nosession]"/>
+					<Item id="6182" name="Arricurdassi di u statu di u pannellu (pannellu hè apertu) in d’altre istanze (modu à finestre multiple) o quandu s’impiega u parametru di linea di cumanda [-nosession]"/>
 					<Item id="6183" name="Cronolugia di u preme’papei"/>
 					<Item id="6184" name="Lista di i ducumenti"/>
 					<Item id="6185" name="Pannellu di i caratteri"/>
@@ -1270,12 +1261,13 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="7141" name="Ristrizzione di i schedarii tamanti"/>
 					<Item id="7143" name="Attivà a ristrizzione di i schedarii tamanti (senza messa in evidenza di a sintassa)"/>
 					<Item id="7144" name="Definisce a dimensione d’un schedariu tamantu :"/>
-					<Item id="7146" name="Mo   (1 - 4096)"/>
+					<Item id="7146" name="Mo   (da 1 à 4096)"/>
 					<Item id="7147" name="Permette d’attivà a currispundenza trà e parentesi"/>
 					<Item id="7148" name="Permette d’attivà di l’empiimentu autumaticu"/>
 					<Item id="7149" name="Permette d’attivà u sopralineamentu astutu"/>
 					<Item id="7150" name="Disattivà di manera glubale u ritornu autumaticu à a linea"/>
 					<Item id="7151" name="Permette d’attivà u liame clicchevule"/>
+					<Item id="7152" name="Caccià l’avertimentu quandu s’aprenu schedarii più maiò chè 2Go"/>
 				</Performance>
 
 				<Cloud title="Nivulu è liame">
@@ -1404,7 +1396,7 @@ Cuntinuà ?"/><!-- HowToReproduce: when you opened file is modified but unsaved
 Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
 
 Cuntinuà ?"/><!-- HowToReproduce: when you opened file is modified and saved, then you are changing file encoding. -->
-			<CannotMoveDoc title="Dispiazzà in una nova finestra Notepad++" message="U ducumentu hè mudificatu, arregistratelu è pruvate torna."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
+			<CannotMoveDoc title="Dispiazzà in una finestra Notepad++ nova" message="U ducumentu hè mudificatu, arregistratelu è pruvate torna."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Ricaricà" message="Da veru, vulete ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
 			<FileLockedWarning title="Arregistramentu fiascatu" message="Ci vole à verificà s’è stu schedariu hè dighjà apertu in un altru prugramma"/>
 			<FileAlreadyOpenedInNpp title="" message="U schedariu hè dighjà apertu in Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
@@ -1463,8 +1455,8 @@ Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?
 			<FileLoadingException title="Codice di sbagliu : $STR_REPLACE$" message="Un sbagliu hè accadutu durante u caricamentu di u schedariu !"/>
 			<WantToOpenHugeFile title="Avertimentu d’apertura di schedariu maiò" message="L’apertura d’un schedariu più maiò chè 2 Go pò piglià parechji minuti.
 Vulete aprelu ?"/>
-			<CreateNewFileOrNot title="Creà un novu schedariu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
-			<CreateNewFileError title="Creà un novu schedariu" message="Ùn si pò micca creà u schedariu « $STR_REPLACE$ »."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<CreateNewFileOrNot title="Creà un schedariu novu" message="« $STR_REPLACE$ » ùn esiste. Creallu ?"/>
+			<CreateNewFileError title="Creà un schedariu novu" message="Ùn si pò micca creà u schedariu « $STR_REPLACE$ »."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<OpenFileError title="SBAGLIU" message="Ùn si pò micca apre u schedariu « $STR_REPLACE$ »."/>
 			<OpenFileNoFolderError title="Ùn si pò micca apre u schedariu" message="« $STR_REPLACE1$ » ùn pò micca esse apertu :
 U cartulare « $STR_REPLACE2$ » ùn esiste micca."/>
@@ -1517,6 +1509,8 @@ Ci vole à pruvà ste cumande è, s’ella hè bisognu, à mudificalle.
 Un altra pussibilità hè di rivene à a versione Notepad++ v8.5.2 è risturà i vostri dati anteriore.
 Notepad++ hà da fà una salvaguardia di u vostru « shortcuts.xml » è arregistrallu cù u nome « shortcuts.xml.v8.5.2.backup ».
 Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vostre cumande duverianu funziunà currettamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Fiascu di l’arregistramentu" message="Fiascu à l’arregistramentu di u schedariu.
+Pare ch’ella ùn ci sia abbastanza piazza nant’à u discu per arregistrà u schedariu. U vostru schedariu ùn hè micca arregistratu."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1592,7 +1586,7 @@ Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vost
 					<Item id="3125" name="Arregistrà"/>
 					<Item id="3126" name="Arregistrà cù u nome…"/>
 					<Item id="3127" name="Arregistrà una copia cù u nome…"/>
-					<Item id="3121" name="Aghjunghje un novu prughjettu"/>
+					<Item id="3121" name="Aghjunghje un prughjettu novu"/>
 					<Item id="3128" name="Circà in i prughjetti…"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
@@ -1699,7 +1693,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<tabrename-newname value="Nome novu"/>
 			<splitter-rotate-left value="Girà à manca"/>
 			<splitter-rotate-right value="Girà à diritta"/>
-			<userdefined-title-new value="Creà un novu linguaghju…"/>
+			<userdefined-title-new value="Creà un linguaghju novu…"/>
 			<userdefined-title-save value="Arregistrà u nome di u linguaghju attuale cum’è…"/>
 			<userdefined-title-rename value="Rinuminà u linguaghju attuale"/>
 			<summary value="Statistiche"/>
@@ -1768,6 +1762,7 @@ Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
 Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web."/>
 			<npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/><!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcIncludeCcUniEol-tip value="Appiecà e preferenze d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
+			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definisce u valore à 0 per disattivà a verificazione autumatica."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

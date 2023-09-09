@@ -187,6 +187,8 @@ updaterDone:
 		StrCpy $LANGUAGE "$tempLng" ; set default language
 	${EndIf}
 	
+	Call unsupportedLanguageToEnglish
+
 	!insertmacro MUI_LANGDLL_DISPLAY
 
 	; save selected language to registry

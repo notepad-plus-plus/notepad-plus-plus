@@ -1269,7 +1269,7 @@ Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a 
                     <Item id="7149" name="Permite evidențierea inteligentă"/>
                     <Item id="7150" name="Dezactivarea globală a încadrării cuvintelor"/>
                     <Item id="7151" name="Permite legăturile apăsabile de URL-uri"/>
-                    <Item id="7152" name="Înlătură avertismentul de deschidere a fișierelor (de cel puțin) ≥2GB"/>
+                    <Item id="7152" name="Înlătură avertismentul de deschidere a fișierelor de cel puțin 2GB (≥2GB)"/>
                 </Performance>
 
                  <Cloud title="Cloud și legături">

@@ -1114,7 +1114,7 @@ bool FileManager::deleteBufferBackup(BufferID id)
 
 std::mutex save_mutex;
 
-SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy)
+SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool isCopy)
 {
 	std::lock_guard<std::mutex> lock(save_mutex);
 
@@ -1135,6 +1135,28 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		{
 			::GetLongPathName(fullpath, fullpath, MAX_PATH);
 		}
+	}
+	
+	wchar_t dirDest[MAX_PATH];
+	wcscpy_s(dirDest, MAX_PATH, fullpath);
+	::PathRemoveFileSpecW(dirDest);
+
+	const wchar_t* currentBufFilePath = buffer->getFullPathName();
+	ULARGE_INTEGER freeBytesForUser;
+	 
+	BOOL getFreeSpaceRes = ::GetDiskFreeSpaceExW(dirDest, &freeBytesForUser, nullptr, nullptr);
+	if (getFreeSpaceRes != FALSE)
+	{
+		int64_t fileSize = buffer->getFileLength();
+		if (fileSize >= 0 && lstrcmp(fullpath, currentBufFilePath) == 0) // if file to save does exist, and it's an operation "Save" but not "Save As"
+		{
+			// if file exists and the operation "Save" but not "Save As", its current length should be considered as part of free room space since the file itself will be overrrided 
+			freeBytesForUser.QuadPart += fileSize;
+		}
+
+		// determinate if free space is enough
+		if (freeBytesForUser.QuadPart < buffer->docLength())
+			return SavingStatus::NotEnoughRoom;
 	}
 
 	if (PathFileExists(fullpath))

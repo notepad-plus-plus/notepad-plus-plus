@@ -1491,6 +1491,9 @@ Please test those commands and, if needed, re-edit them.
 Alternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.
 Notepad++ will backup your old &quot;shortcuts.xml&quot; and save it as &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Renaming &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, your commands should be restored and work properly."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Save failed" message="Failed to save file.
+It seems there's not enough space on disk to save file. Your file is not saved."/>
+
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

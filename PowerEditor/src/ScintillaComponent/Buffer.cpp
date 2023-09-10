@@ -1114,7 +1114,7 @@ bool FileManager::deleteBufferBackup(BufferID id)
 
 std::mutex save_mutex;
 
-SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy)
+SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool isCopy)
 {
 	std::lock_guard<std::mutex> lock(save_mutex);
 
@@ -1135,6 +1135,29 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool i
 		{
 			::GetLongPathName(fullpath, fullpath, MAX_PATH);
 		}
+	}
+
+	const wchar_t* filePath = buffer->getFullPathName();
+	wchar_t dir[MAX_PATH];
+	wcscpy_s(dir, MAX_PATH, filePath);
+	::PathRemoveFileSpecW(dir);
+	ULARGE_INTEGER freeBytesForUser;
+	ULARGE_INTEGER totalBytesForUser;
+	 
+	BOOL getFreeSpaceRes = ::GetDiskFreeSpaceExW(dir, &freeBytesForUser, &totalBytesForUser, nullptr);
+	if (getFreeSpaceRes != FALSE)
+	{
+		int64_t fileSize = buffer->getFileLength();
+		if (fileSize >= 0)
+		{
+			freeBytesForUser.QuadPart += fileSize;
+		}
+		// else file doesn't exist
+		
+
+		// determinate if free space is enough
+		if (freeBytesForUser.QuadPart <= buffer->docLength())
+			return SavingStatus::NotEnoughRoom;
 	}
 
 	if (PathFileExists(fullpath))

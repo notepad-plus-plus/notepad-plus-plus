@@ -1142,14 +1142,14 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 	wcscpy_s(dir, MAX_PATH, filePath);
 	::PathRemoveFileSpecW(dir);
 	ULARGE_INTEGER freeBytesForUser;
-	ULARGE_INTEGER totalBytesForUser;
 	 
-	BOOL getFreeSpaceRes = ::GetDiskFreeSpaceExW(dir, &freeBytesForUser, &totalBytesForUser, nullptr);
+	BOOL getFreeSpaceRes = ::GetDiskFreeSpaceExW(dir, &freeBytesForUser, nullptr, nullptr);
 	if (getFreeSpaceRes != FALSE)
 	{
 		int64_t fileSize = buffer->getFileLength();
 		if (fileSize >= 0)
 		{
+			// if file exists, its current length should be considered as part of free room space since the file itself will be overrrided 
 			freeBytesForUser.QuadPart += fileSize;
 		}
 		// else file doesn't exist

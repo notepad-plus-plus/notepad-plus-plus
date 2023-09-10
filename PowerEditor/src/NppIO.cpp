@@ -632,7 +632,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	{
 		_nativeLangSpeaker.messageBox("NotEnoughRoom4Saving",
 			_pPublicInterface->getHSelf(),
-			TEXT("Failed to save file.\nIt seems there's not enough space on disk to save file. Your file is not saved"),
+			TEXT("Failed to save file.\nIt seems there's not enough space on disk to save file. Your file is not saved."),
 			TEXT("Save failed"),
 			MB_OK);
 	}

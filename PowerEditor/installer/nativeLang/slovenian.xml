@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.5.5
-        Last modified 13. Aug 2023 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.5.7
+        Last modified 09. Sep 2023 by dr. Vinko Kastelic
 		
 -->
 <NotepadPlus>
@@ -1250,6 +1250,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="7149" name="Dovoli pametno označevanje"/>
 					<Item id="7150" name="Globalno deaktiviraj prelom besed"/>
 					<Item id="7151" name="Dovoli URL, ki jo je mogoče klikniti"/>
+					<Item id="7152" name="Izloči opozorilo pri odpiranju datotek velikosti ≥2 GB"/>					
 				</Performance>
 				
 				<Cloud title="Oblak &amp; Povezava">

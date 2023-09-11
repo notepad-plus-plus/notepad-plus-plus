@@ -1137,9 +1137,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 		}
 	}
 
-	const wchar_t* filePath = buffer->getFullPathName();
 	wchar_t dir[MAX_PATH];
-	wcscpy_s(dir, MAX_PATH, filePath);
+	wcscpy_s(dir, MAX_PATH, fullpath);
 	::PathRemoveFileSpecW(dir);
 	ULARGE_INTEGER freeBytesForUser;
 	 

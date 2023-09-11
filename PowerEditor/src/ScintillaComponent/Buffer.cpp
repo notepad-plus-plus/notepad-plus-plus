@@ -1155,7 +1155,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 		}
 
 		// determinate if free space is enough
-		if (freeBytesForUser.QuadPart <= buffer->docLength())
+		if (freeBytesForUser.QuadPart < buffer->docLength())
 			return SavingStatus::NotEnoughRoom;
 	}
 

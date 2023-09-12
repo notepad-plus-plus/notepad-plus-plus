@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 31.08.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 06.10.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -1072,6 +1072,7 @@
 				<!-- Търсене -->
 				<Searching title="Търсене">
 					<Item id="6907" name="Когато прозорецът за &quot;Търсене&quot; е извикан"/>
+					<Item id="6910" name="Минимален размер за авто-проверка на &quot;В избраното&quot;"/>
 					<Item id="6908" name="Попълване на полето за търсене с избрания текст"/>
 					<Item id="6909" name="Избиране на думата под курсора, когато не е избрано нищо"/>
 					<Item id="6902" name="Равноширок шрифт в диалога за търсене (изисква се рестартиране на Notepad++)"/>
@@ -1167,7 +1168,7 @@
 					<Item id="7149" name="Разрешаване на &quot;Интелигентно открояване&quot;"/>
 					<Item id="7147" name="Разрешаване на съвпадение на скобите"/>
 					<Item id="7151" name="Разрешаване на отваряне на връзка"/>
-					<Item id="7152" name="Премахване на предупреждението при отваряне на огромни файлове ≥2GB"/>
+					<Item id="7152" name="Без предупреждение при отваряне на огромни файлове ≥2GB"/>
 				</Performance>
 				<!-- Облак и връзка-->
 				<Cloud title="Облак и връзка">
@@ -1268,17 +1269,7 @@
 				<ScintillaCommandsTab name="Scintilla команди"/>
 				<ConflictInfoOk name="Няма конфликти с бързи клавиши за този елемент."/>
 				<ConflictInfoEditing name="Няма конфликти . . ."/>
-				<WindowCategory name="Прозорец"/>
-				<FileCategory name="Файл"/>
-				<EditCategory name="Редактиране"/>
-				<SearchCategory name="Търсене"/>
-				<ViewCategory name="Изглед"/>
-				<FormatCategory name="Формат"/>
-				<LangCategory name="Синтаксис"/>
 				<AboutCategory name="Относно"/>
-				<SettingCategory name="Настройки"/>
-				<ToolCategory name="Инструмент"/>
-				<ExecuteCategory name="Стартиране"/>
 				<ModifyContextMenu name="Промяна"/>
 				<DeleteContextMenu name="Изтриване"/>
 				<ClearContextMenu name="Изчистване"/>
@@ -1718,6 +1709,8 @@ U+FEFF : пространство с нулева ширина без прекъ
 			<eol-custom-color-tip value="Отиване в &quot;Конфигуриране на стилове&quot;, за избор на цвят по подразбиране за край на ред (&quot;EOL custom color&quot;)..."/>
 			<!-- "Път по подразбиране" -->
 			<default-open-save-select-folder value="Избиране на папка като директория по подразбиране"/>
+			<!-- "Търсене" -->
+			<searchingInSelThresh-tip value="Брой на избраните символи в зоната за редактиране за автоматично активиране на опцията &quot;В избраното&quot; когато диалога за търсене е активен. Максималната стойност е 1024. Стойност 0 деактивира автоматичната проверка"/>
 			<!-- "Резервно копие" -->
 			<backup-select-folder value="Избиране на папка като директория за архивиране"/>
 			<!-- "Разделител" -->
@@ -1930,6 +1923,9 @@ U+FEFF : пространство с нулева ширина без прекъ
 Като алтернатива, можете да понижите версията си до Notepad++ v8.5.2 и да възстановите предишните си данни.
 Notepad++ ще направи резервно копие на стария файл &quot;shortcuts.xml&quot; и ще го запише като &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Преименувайки &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, вашите команди трябва да бъдат възстановени и да работят правилно."/>
+			<NotEnoughRoom4Saving title="Неуспешно запазване" message="Неуспешно запазване на файл.
+
+Изглежда, че на носителя няма достатъчно място за запазване на файла. Файлът не е запазен."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

@@ -1995,6 +1995,7 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			removeReadOnlyFlagFromFileAttributes(buf->getFullPathName());
+			buf->setFileReadOnly(false);
 		}
 		break;
 

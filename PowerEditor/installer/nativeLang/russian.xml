@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.5.7:
+Updated to v8.5.8:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.5.7">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.5.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1480,6 +1480,7 @@ Updated to v8.5.7:
 Как альтернатива, вы можете перейти на Notepad++ v8.5.2 и восстановить свои предыдущие данные.
 Notepad++ сделает резервную копию вашего старого &quot;shortcuts.xml&quot; и сохранит его как &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Переименование &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, ваши команды будут восстановлены и работать правильно."/>
+			<NotEnoughRoom4Saving title="Не удалось сохранить" message="Не удалось сохранить файл.&#x0A;Кажется, на диске недостаточно места для сохранения файла. Ваш файл не сохранен."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

@@ -32,6 +32,14 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		DWORD dispParam = ::PathFileExistsW(fname) ? TRUNCATE_EXISTING : CREATE_ALWAYS;
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 
+		// Race condition management:
+		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
+		//  If file did exist while calling PathFileExistsW, but before calling CreateFileW, file is deleted:  use TRUNCATE_EXISTING will cause the error
+		if (_hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
+		{
+			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, CREATE_ALWAYS, _attribParam, NULL);
+		}
+
 		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{

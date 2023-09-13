@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.5">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -960,7 +960,7 @@
 					<Item id="6131" name="Ponuka"/>
 					<Item id="6122" name="Skryť panel ponuky (Prepínanie klávesom Alt alebo F10)"/>
 					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕ z panela ponuky (Vyžaduje reštart Notepad++)"/>
-                    
+
 					<Item id="6123" name="Lokalizácia"/>
 				</Global>
 				<Scintillas title="Editor">
@@ -1238,7 +1238,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6163" name="Pridať vlastný znak ako časť slova
 (zvoľte, iba ak viete, čo robíte)"/>
 				</Delimiter>
-                
+
 				<Performance title="Výkon">
 					<Item id="7141" name="Obmedzenie veľkých súborov"/>
 					<Item id="7143" name="Povoliť obmedzenie veľkých súborov (bez zvýraznenia syntaxe)"/>
@@ -1358,7 +1358,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 			</DoSaveOrNot>
 			<DoSaveAll title="Potvrdenie Uložiť všetko">
 				<Item id="1766" name="Naozaj chcete uložiť všetky upravené dokumenty?
-                
+
 Zvoľte &quot;Áno všetky&quot; ak nechcete znova zobraziť tento dialóg.
 Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="6" name="&amp;Áno"/>
@@ -1484,12 +1484,14 @@ Pokračovať?"/>
 			<WindowsSessionExit title="Notepad++ - Ukončenie relácie Windowsu" message="Relácia systému Windows sa má ukončiť, ale niektoré údaje nemáte uložené. Chcete Notepad++ ukončiť teraz?"/>
 			<LanguageMenuCompactWarning title="Kompaktná jazyková ponuka" message="Táto možnosť sa zmení pri ďalšom spustení."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Neuložené zmeny budú odstránené!
-            Chcete uložiť zmeny pred prepnutím motívu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+Chcete uložiť zmeny pred prepnutím motívu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v Notepad++ v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu Notepad++.
 Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
 Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
 Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+		<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
+Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1598,7 +1600,7 @@ Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Toto nastavenie vám umožní zahrnúť dodatočný znak medzi aktuálne znaky slova pri výbere dvojklikom alebo pri vyhľadávaní so zapnutou voľbou &quot;Hľadať iba celé slová&quot;."/>
-            
+
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;).."/>
 

@@ -169,12 +169,14 @@ void VerticalFileSwitcherListView::initList()
 
 void VerticalFileSwitcherListView::reload()
 {
+	::SendMessage(_hParent, WM_SETREDRAW, false, 0);
 	removeAll();
 	initList();
 
 	RECT rc{};
 	::GetClientRect(_hParent, &rc);
 	resizeColumns(rc.right - rc.left);
+	::SendMessage(_hParent, WM_SETREDRAW, true, 0);
 }
 
 BufferID VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) const
@@ -298,6 +300,8 @@ int VerticalFileSwitcherListView::closeItem(BufferID bufferID, int iView)
 
 void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 {
+	::SendMessage(_hParent, WM_SETREDRAW, false, 0);
+
 	// Clean all selection
 	int nbItem = ListView_GetItemCount(_hSelf);
 	for (int i = 0; i < nbItem; ++i)
@@ -305,7 +309,9 @@ void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 
 	_currentIndex = newItem(bufferID, iView);
 	selectCurrentItem();
+	::SendMessage(_hParent, WM_SETREDRAW, true, 0);
 	ensureVisibleCurrentItem();
+	::SendMessage(_hSelf, WM_PAINT, 0, 0);
 }
 
 int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)

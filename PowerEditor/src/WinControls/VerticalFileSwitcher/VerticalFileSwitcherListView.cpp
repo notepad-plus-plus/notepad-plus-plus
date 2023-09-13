@@ -169,12 +169,23 @@ void VerticalFileSwitcherListView::initList()
 
 void VerticalFileSwitcherListView::reload()
 {
+	// Suppress redraws for performance. We target _hParent to prevent scroll bar flickering.
+	::SendMessage(_hParent, WM_SETREDRAW, false, 0);
 	removeAll();
 	initList();
 
 	RECT rc{};
 	::GetClientRect(_hParent, &rc);
 	resizeColumns(rc.right - rc.left);
+	::SendMessage(_hParent, WM_SETREDRAW, true, 0);
+	redrawItems();
+}
+
+void VerticalFileSwitcherListView::redrawItems()
+{
+	int nbItem = ListView_GetItemCount(_hSelf);
+	::SendMessage(_hSelf, WM_PAINT, 0, 0);
+	ListView_RedrawItems(_hSelf, 0, nbItem - 1);
 }
 
 BufferID VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) const
@@ -298,6 +309,9 @@ int VerticalFileSwitcherListView::closeItem(BufferID bufferID, int iView)
 
 void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 {
+	// Suppress redraws while we're resetting states
+	::SendMessage(_hSelf, WM_SETREDRAW, false, 0);
+
 	// Clean all selection
 	int nbItem = ListView_GetItemCount(_hSelf);
 	for (int i = 0; i < nbItem; ++i)
@@ -305,7 +319,10 @@ void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 
 	_currentIndex = newItem(bufferID, iView);
 	selectCurrentItem();
+	// Have to enable redraw to be able to move selection to the current item
+	::SendMessage(_hSelf, WM_SETREDRAW, true, 0);
 	ensureVisibleCurrentItem();
+	redrawItems();
 }
 
 int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)

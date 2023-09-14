@@ -42,8 +42,6 @@ public:
 	};
 
 	void close();
-	//int_fast64_t getSize();
-	//unsigned long read(void *rbuf, unsigned long buf_size);
 
 	bool write(const void *wbuf, size_t buf_size);
 
@@ -58,6 +56,5 @@ private:
 
 	const DWORD _accessParam  { GENERIC_READ | GENERIC_WRITE };
 	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };
-	const DWORD _dispParam    { CREATE_ALWAYS };
 	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL };
 };

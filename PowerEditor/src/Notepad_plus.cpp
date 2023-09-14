@@ -4940,6 +4940,7 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 
     _pEditView->execute(SCI_ENSUREVISIBLEENFORCEPOLICY, nextLine);
 	_pEditView->execute(SCI_GOTOLINE, nextLine);
+	_pEditView->execute(SCI_CHOOSECARETX);
 }
 
 void Notepad_plus::staticCheckMenuAndTB() const

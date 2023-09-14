@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.09.08"><!-- basiert auf english.xml vom 07.09.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.09.14"><!-- basiert auf english.xml vom 13.09.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1499,6 +1499,8 @@ Bitte die Kommandos daher testen und falls nötig editieren.
 Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
 Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
 Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Konnte Datei nicht speichern.
+Es ist nicht genug Speicherplatz vorhanden, daher wurde die Datei nicht gespeichert."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

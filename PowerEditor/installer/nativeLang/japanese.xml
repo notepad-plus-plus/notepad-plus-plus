@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.7">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -648,17 +648,7 @@ Translation note:
 				<ScintillaCommandsTab name="エディター"/>
 				<ConflictInfoOk name="この項目と競合するショートカットはありません。"/>
 				<ConflictInfoEditing name="競合しません..."/>
-				<WindowCategory name="ウィンドウ管理"/>
-				<FileCategory name="ファイル"/>
-				<EditCategory name="編集"/>
-				<SearchCategory name="検索"/>
-				<ViewCategory name="表示"/>
-				<FormatCategory name="書式"/>
-				<LangCategory name="言語"/>
 				<AboutCategory name="情報"/>
-				<SettingCategory name="設定"/>
-				<ToolCategory name="ツール"/>
-				<ExecuteCategory name="実行"/>
 				<ModifyContextMenu name="編集"/>
 				<DeleteContextMenu name="行を削除"/>
 				<ClearContextMenu name="解除"/>
@@ -1164,6 +1154,7 @@ Translation note:
 					<Item id="6907" name="検索画面を開くときの動作"/>
 					<Item id="6908" name="検索文字列欄に、選択中の文字列を自動入力する"/>
 					<Item id="6909" name="何も選択されていないときは、カーソル位置の単語を自動入力する"/>
+					<Item id="6910" name="この文字数以上を選択時に「選択内のみ」を自動でオン"/>
 				</Searching>
 
 
@@ -1497,6 +1488,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 代案として、Notepad++ 8.5.2 に戻し、以前のデータを復元することもできます。
 以前の「shortcuts.xml」は「shortcuts.xml.v8.5.2.backup」としてバックアップされています。
 復元されるときは、「shortcuts.xml.v8.5.2.backup」を「shortcuts.xml」にリネームしてください。"/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="保存に失敗しました" message="保存に失敗しました。
+保存先に十分な空き容量がないようです。ファイルは保存されませんでした。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>
@@ -1750,6 +1743,7 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="色を変更したい場合は、スタイル設定から変更してください (&quot;Non-printing characters custom color&quot;)。"/>
 			<npcIncludeCcUniEol-tip value="非表示文字の表示設定を、C0、C1制御コードと、Unicode改行文字（Next Line、Line Separator、Paragraph Separator）にも適用します。"/>
+			<searchingInSelThresh-tip value="編集画面でこの文字数以上を選択したまま検索画面を開くと、「選択内のみ」を自動でオンにします。最大値は 1024 です。0 にするとこの動作を無効にできます。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

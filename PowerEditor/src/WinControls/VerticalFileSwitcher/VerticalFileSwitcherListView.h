@@ -63,6 +63,7 @@ public:
 
 	std::vector<BufferViewInfo> getSelectedFiles(bool reverse = false) const;
 	void reload();
+	void redrawItems();
 	void ensureVisibleCurrentItem() const {
 		ListView_EnsureVisible(_hSelf, _currentIndex, false);
 	};

@@ -2140,7 +2140,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = BUFFER_INVALID;
+			// file doesn't exist and has no backup; probably it's a file that was deleted while NPP was closed
+			// as a hack to ensure that the file can be restored without issues, we will create an empty file
+			// with that name, open it normally, and then delete it. This way the user gets a missing file prompt for the file.
+			if (!PathFileExists(pFn) && MainFileManager.createEmptyFile(pFn))
+			{
+				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+				if (lastOpened->docLength() == 0 && PathFileExists(pFn))
+				{
+					MainFileManager.deleteFile(lastOpened);
+				}
+			}
 		}
 		if (isWow64Off)
 		{
@@ -2278,7 +2288,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = BUFFER_INVALID;
+			// file doesn't exist and has no backup; probably it's a file that was deleted while NPP was closed
+			// as a hack to ensure that the file can be restored without issues, we will create an empty file
+			// with that name, open it normally, and then delete it. This way the user gets a missing file prompt for the file.
+			if (!PathFileExists(pFn) && MainFileManager.createEmptyFile(pFn))
+			{
+				lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
+				if (lastOpened->docLength() == 0 && PathFileExists(pFn))
+				{
+					MainFileManager.deleteFile(lastOpened);
+				}
+			}
 		}
 		if (isWow64Off)
 		{

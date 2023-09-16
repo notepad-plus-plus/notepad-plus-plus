@@ -3430,9 +3430,27 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	pView->execute(SCI_SETINDICATORVALUE, indicFore);
 
 	UINT cp = static_cast<UINT>(pView->execute(SCI_GETCODEPAGE));
-	char *encodedText = new char[endPos - startPos + 1];
+	char* encodedText = nullptr;
+	try {
+		encodedText = new char[endPos - startPos + 1];
+	}
+	catch (const std::bad_alloc&)
+	{
+		return;
+	}
+
 	pView->getText(encodedText, startPos, endPos);
-	TCHAR *wideText = new TCHAR[endPos - startPos + 1];
+	TCHAR* wideText = nullptr;
+	try
+	{
+		wideText = new TCHAR[endPos - startPos + 1];
+	}
+	catch (const std::bad_alloc&)
+	{
+		delete[] encodedText;
+		return;
+	}
+
 	int wideTextLen = MultiByteToWideChar(cp, 0, encodedText, static_cast<int>(endPos - startPos + 1), (LPWSTR) wideText, static_cast<int>(endPos - startPos + 1)) - 1;
 	delete[] encodedText;
 	if (wideTextLen > 0)
@@ -4922,6 +4940,7 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 
     _pEditView->execute(SCI_ENSUREVISIBLEENFORCEPOLICY, nextLine);
 	_pEditView->execute(SCI_GOTOLINE, nextLine);
+	_pEditView->execute(SCI_CHOOSECARETX);
 }
 
 void Notepad_plus::staticCheckMenuAndTB() const

@@ -254,7 +254,7 @@
 					<Item id="43066" name="5. Stili Kullanarak"/>
 					<Item id="43067" name="Sonraki Değişime Git"/>
 					<Item id="43068" name="Önceki Değişime Git"/>
-					<Item id="43069" name="Değişim Geçmişinin Temizle"/>
+					<Item id="43069" name="Değişim Geçmişini Temizle"/>
 					<Item id="43045" name="Arama Sonuçları Penceresi"/>
 					<Item id="43046" name="Sonraki Arama Sonucu"/>
 					<Item id="43047" name="Önceki Arama Sonucu"/>
@@ -1255,6 +1255,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="7149" name="Akıllı Vurgulamaya İzin Ver"/>
 					<Item id="7150" name="Sözcük Kaydırmayı Tümden Etkisizleştir"/>
 					<Item id="7151" name="Tıklanabilir URL Linklere İzin Ver"/>
+					<Item id="7152" name="2GB Üstü Dosyaları Açarken Uyarıları Önle"/>
 				</Performance>
 
 				<Cloud title="Bulut &amp; Linki">
@@ -1489,6 +1490,8 @@ Lütfen o komutları test edin ve eğer lazımsa, tekrar düzenleyin.
 Alternatif olarak, Notepad++ v8.5.2 sürümüne düşürebilir ve önceki verilerinizi geri alabilirsiniz.
 Notepad++, eski &quot;shortcuts.xml&quot; dosyasını yedekleyip &quot;shortcuts.xml.v8.5.2.backup&quot; olarak kaydedecektir.
 &quot;shortcuts.xml.v8.5.2.backup&quot; dosyasını -&gt; &quot;shortcuts.xml&quot; olarak yeniden adlandırarak, komutlarınız geri gelecek ve düzgün olarak çalışacaktır."/><!-- NasılTekrarlanır: Notepad++'i kapatın, shortcuts.xml.v8.5.2.backup & eğer varsa v852ShortcutsCompatibilityWarning.xml dosyalarını silin, Notepad++'ı yeniden başlatın, Kısayol Eşleyicisi ile bazı kısayolları silin veya düzenleyin, Notepad++'ı kapatın, mesaj görünecektir -->	
+			<NotEnoughRoom4Saving title="Kaydetme Başarısız" message="Dosya kaydetme başarısız.
+Görünüşe göre, diskinizde dosyayı kaydetmek için yeterli alan yok. Dosyanız kaydedilemedi."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>

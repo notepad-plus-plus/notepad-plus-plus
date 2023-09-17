@@ -507,7 +507,7 @@ Translation note:
 				<Item id="2" name="&amp;Pechar"/>
 				<Item id="2901" name="Caracteres &amp;no-ASCII (128-255)"/>
 				<Item id="2902" name="Carac&amp;teres ASCII (0-127)"/>
-				<Item id="2903" name="Especifique &amp;rango:"/>
+				<Item id="2903" name="Especifique &amp;rango (0–255):"/>
 				<Item id="2906" name="&amp;Arriba"/>
 				<Item id="2907" name="Abai&amp;xo"/>
 				<Item id="2908" name="Dirección"/>
@@ -588,13 +588,13 @@ Translation note:
 				<Item id="5505" name="B&amp;orrar"/>
 				<Item id="5508" name="&amp;Seguinte"/>
 				<Item id="5509" name="Versión da lista de complementos:"/>
-				<Item id="5511" name="Repositorio da lista de complementos"/>
+				<Item id="5511" name="Repositorio lista de complementos"/>
 				<Item id="2" name="Pechar"/>
 			</PluginsAdminDlg>
 
 			<StyleConfig title="Configurador de estilos">
 				<Item id="2" name="Cancelar"/>
-				<Item id="2301" name="Gardar &amp; Pechar"/>
+				<Item id="2301" name="Gardar &amp;&amp; Pechar"/>
 				<Item id="2303" name="Transparencia"/>
 				<Item id="2306" name="Seleccionar tema:"/>
 				<SubDialog>
@@ -808,7 +808,7 @@ Translation note:
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
-				<Folder title="Carpeta &amp; Predeterminado">
+				<Folder title="Carpeta &amp;&amp; Predeterminado">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21102" name="Estilo"/>
 					<Item id="21105" name="Documentación:"/>
@@ -855,7 +855,7 @@ Translation note:
 					<Item id="22572" name="Estilo"/>
 					<Item id="22622" name="Estilo"/>
 				</Keywords>
-				<Comment title="Comentario &amp; Número">
+				<Comment title="Comentario &amp;&amp; Número">
 					<Item id="23003" name="Posición do comentario da liña"/>
 					<Item id="23004" name="Sen límite"/>
 					<Item id="23005" name="Sempre ao inicio de liña"/>
@@ -884,7 +884,7 @@ Translation note:
 					<Item id="23246" name="Coma"/>
 					<Item id="23247" name="Ambos"/>
 				</Comment>
-				<Operator title="Operadores &amp; Delimitador">
+				<Operator title="Operadores &amp;&amp; Delimitador">
 					<Item id="24101" name="Estilo dos operadores"/>
 					<Item id="24113" name="Estilo"/>
 					<Item id="24116" name="Operador 1"/>
@@ -1208,7 +1208,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="6866" name="3ª parella:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Multi instancia &amp; Data">
+				<MultiInstance title="Multi instancia &amp;&amp; Data">
 					<Item id="6151" name="Configuración *"/>
 					<Item id="6152" name="Abrir sesión nunha nova instancia de Notepad++ **"/>
 					<Item id="6153" name="Usar sempre en modo de múltiples instancias"/>
@@ -1250,10 +1250,10 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="7149" name="Permitir o resaltado intelixente"/>
 					<Item id="7150" name="Desactivar globalmente o axuste do texto"/>
 					<Item id="7151" name="Permitir ligazón clicable na URL"/>
-					<Item id="7152" name="Suprimir advertencia ao abrir arquivos ≥2 GB"/>
+					<Item id="7152" name="Suprimir advertencia ao abrir arquivos de 2 GB ou maiores"/>
 				</Performance>
 
-				<Cloud title="Nube &amp; Ligazóns">
+				<Cloud title="Nube &amp;&amp; Ligazóns">
 					<Item id="6262" name="Axustes da nube"/>
 					<Item id="6263" name="Sen nube"/>
 					<Item id="6267" name="Indique abaixo a ruta da ubicación da nube:"/>
@@ -1494,6 +1494,8 @@ Probe estes comandos e, si é necesario, volva a editalos.
 Alternativamente, pode reinstalar Notepad++ v8.5.2 e restaurar os seus datos anteriores.
 Notepad++ fará unha copia de seguridade do seu antigo &quot;shortcuts.xml&quot; e gardarao como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Cambie o nome de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; e os comandos serán restaurados e funcionales de novo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Gardado fallido" message="Non se  pode gardar o arquivo.
+Parece que non hai espazo suficiente no disco e non é posible gardalo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial do portapapeis"/>
@@ -1606,7 +1608,7 @@ Cambie o nome de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.x
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Ir ao &quot;Configurador de estilos&quot; para cambiar a cor personalizada EOL por defecto (&quot;EOL custom color&quot;)."/>
 
-			<word-chars-list-warning-begin value="Cuidado:"/>
+			<word-chars-list-warning-begin value="Cuidado: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ espazo(s)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="na súa lista de caracteres."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
@@ -1675,26 +1677,26 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<finder-wrap-long-lines value="Axustar lonxitude do texto"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Cancelar"/>
-			<common-name value="Nome:"/>
+			<common-name value="Nome"/>
 			<tabrename-title value="Renomear pestana actual"/>
-			<tabrename-newname value="Novo nome:"/>
+			<tabrename-newname value="Novo nome"/>
 			<splitter-rotate-left value="Xirar á esquerda"/>
 			<splitter-rotate-right value="Xirar á dereita"/>
 			<userdefined-title-new value="Crear nova linguaxe..."/>
 			<userdefined-title-save value="Gardar linguaxe actual como..."/>
 			<userdefined-title-rename value="Renomear o arquivo de linguaxe"/>
 			<summary value="Resumo"/>
-			<summary-filepath value="Ruta completa do arquivo:"/>
-			<summary-filecreatetime value="Creado:"/>
-			<summary-filemodifytime value="Modificado:"/>
-			<summary-nbchar value="Caracteres (sen terminacións de liña):"/>
-			<summary-nbword value="Palabras:"/>
-			<summary-nbline value="Liñas:"/>
-			<summary-nbbyte value="Lonxitude do documento:"/>
+			<summary-filepath value="Ruta completa do arquivo: "/>
+			<summary-filecreatetime value="Creado: "/>
+			<summary-filemodifytime value="Modificado: "/>
+			<summary-nbchar value="Caracteres (sen terminacións de liña): "/>
+			<summary-nbword value="Palabras: "/>
+			<summary-nbline value="Liñas: "/>
+			<summary-nbbyte value="Lonxitude do documento: "/>
 			<summary-nbsel1 value=" caracteres seleccionados ("/>
 			<summary-nbsel2 value=" bytes) en "/>
 			<summary-nbrange value=" rangos"/>
-			<progress-hits-title value="Coincidencias:"/>
+			<progress-hits-title value="Coincidencias: "/>
 			<progress-cancel-button value="Cancelar"/>
 			<progress-cancel-info value="Cancelando operación, por favor espere..."/>
 			<find-in-files-progress-title value="Progreso da busca en arquivos..."/>

@@ -507,7 +507,7 @@ Translation note:
 				<Item id="2" name="&amp;Cerrar"/>
 				<Item id="2901" name="Caracteres &amp;no-ASCII (128-255)"/>
 				<Item id="2902" name="Carac&amp;teres ASCII (0-127)"/>
-				<Item id="2903" name="Indique &amp;rango:"/>
+				<Item id="2903" name="Indique &amp;rango (0–255):"/>
 				<Item id="2906" name="&amp;Arriba"/>
 				<Item id="2907" name="A&amp;bajo"/>
 				<Item id="2908" name="Dirección"/>
@@ -588,13 +588,13 @@ Translation note:
 				<Item id="5505" name="B&amp;orrar"/>
 				<Item id="5508" name="&amp;Siguiente"/>
 				<Item id="5509" name="Versión de la lista de complementos:"/>
-				<Item id="5511" name="Repositorio de lista de complementos"/>
+				<Item id="5511" name="Repositorio lista de complementos"/>
 				<Item id="2" name="Cerrar"/>
 			</PluginsAdminDlg>
 
 			<StyleConfig title="Configurador de estilos">
 				<Item id="2" name="Cancelar"/>
-				<Item id="2301" name="Guardar &amp; Cerrar"/>
+				<Item id="2301" name="Guardar &amp;&amp; Cerrar"/>
 				<Item id="2303" name="Transparencia"/>
 				<Item id="2306" name="Seleccionar tema:"/>
 				<SubDialog>
@@ -808,7 +808,7 @@ Translation note:
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
-				<Folder title="Carpeta &amp; Predeterminado">
+				<Folder title="Carpeta &amp;&amp; Predeterminado">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21102" name="Estilo"/>
 					<Item id="21105" name="Documentación:"/>
@@ -855,7 +855,7 @@ Translation note:
 					<Item id="22572" name="Estilo"/>
 					<Item id="22622" name="Estilo"/>
 				</Keywords>
-				<Comment title="Comentario &amp; Número">
+				<Comment title="Comentario &amp;&amp; Número">
 					<Item id="23003" name="Posición del comentario de línea"/>
 					<Item id="23004" name="Sin límite"/>
 					<Item id="23005" name="Siempre al inicio de línea"/>
@@ -884,7 +884,7 @@ Translation note:
 					<Item id="23246" name="Coma"/>
 					<Item id="23247" name="Ambos"/>
 				</Comment>
-				<Operator title="Operadores &amp; Delimitador">
+				<Operator title="Operadores &amp;&amp; Delimitador">
 					<Item id="24101" name="Estilo de los operadores"/>
 					<Item id="24113" name="Estilo"/>
 					<Item id="24116" name="Operador 1"/>
@@ -1208,7 +1208,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 					<Item id="6866" name="3ª pareja:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Multi instancia &amp; Fecha">
+				<MultiInstance title="Multi instancia &amp;&amp; Fecha">
 					<Item id="6151" name="Configuración *"/>
 					<Item id="6152" name="Abrir sesión en nueva instancia de Notepad++ **"/>
 					<Item id="6153" name="Usar siempre en modo de múltiples instancias"/>
@@ -1250,10 +1250,10 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 					<Item id="7149" name="Permitir el resaltado inteligente"/>
 					<Item id="7150" name="Desactivar globalmente el ajuste del texto"/>
 					<Item id="7151" name="Permitir enlace clicable en la URL"/>
-					<Item id="7152" name="Suprimir advertencia al abrir archivos ≥2 GB"/>
+					<Item id="7152" name="Suprimir advertencia al abrir archivos de 2 GB o mayores"/>
 				</Performance>
 
-				<Cloud title="Nube &amp; Enlaces">
+				<Cloud title="Nube &amp;&amp; Enlaces">
 					<Item id="6262" name="Ajustes de la nube"/>
 					<Item id="6263" name="Sin nube"/>
 					<Item id="6267" name="Especifique abajo la ruta de ubicación de la nube:"/>
@@ -1496,6 +1496,8 @@ Pruebe estos comandos y, si es necesario, vuelva a editarlos.
 Alternativamente, puede reinstalar Notepad++ v8.5.2 y restaurar sus datos anteriores.
 Notepad++ hará una copia de seguridad de su antiguo &quot;shortcuts.xml&quot; y lo guardará como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Cambie el nombre de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; y sus comandos serán restaurados y funcionales de nuevo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Guardado fallido" message="No se ha podido guardar el archivo.
+Parece que no hay espacio suficiente en el disco y no es posible guardarlo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del portapapeles"/>
@@ -1608,7 +1610,7 @@ Cambie el nombre de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcut
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Ir al &quot;Configurador de estilos&quot; para cambiar el color personalizado EOL por defecto (&quot;EOL custom color&quot;)."/>
 
-			<word-chars-list-warning-begin value="Cuidado:"/>
+			<word-chars-list-warning-begin value="Cuidado: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ espacio(s)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value=" en su lista de caracteres."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
@@ -1673,26 +1675,26 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
 			<finder-wrap-long-lines value="Ajustar longitud del texto"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Cancelar"/>
-			<common-name value="Nombre:"/>
+			<common-name value="Nombre"/>
 			<tabrename-title value="Renombrar pestaña actual"/>
-			<tabrename-newname value="Nuevo nombre:"/>
+			<tabrename-newname value="Nuevo nombre"/>
 			<splitter-rotate-left value="Girar a la izquierda"/>
 			<splitter-rotate-right value="Girar a la derecha"/>
 			<userdefined-title-new value="Crear nuevo lenguaje..."/>
 			<userdefined-title-save value="Guardar lenguaje actual como..."/>
 			<userdefined-title-rename value="Renombrar el archivo de lenguaje"/>
 			<summary value="Resumen"/>
-			<summary-filepath value="Ruta completa del archivo:"/>
-			<summary-filecreatetime value="Creado:"/>
-			<summary-filemodifytime value="Modificado:"/>
-			<summary-nbchar value="Caracteres (sin terminaciones de línea):"/>
-			<summary-nbword value="Palabras:"/>
-			<summary-nbline value="Líneas:"/>
-			<summary-nbbyte value="Longitud del documento:"/>
+			<summary-filepath value="Ruta completa del archivo: "/>
+			<summary-filecreatetime value="Creado: "/>
+			<summary-filemodifytime value="Modificado: "/>
+			<summary-nbchar value="Caracteres (sin terminaciones de línea): "/>
+			<summary-nbword value="Palabras: "/>
+			<summary-nbline value="Líneas: "/>
+			<summary-nbbyte value="Longitud del documento: "/>
 			<summary-nbsel1 value=" caracteres seleccionados ("/>
 			<summary-nbsel2 value=" bytes) en "/>
 			<summary-nbrange value=" rangos"/>
-			<progress-hits-title value="Coincidencias:"/>
+			<progress-hits-title value="Coincidencias: "/>
 			<progress-cancel-button value="Cancelar"/>
 			<progress-cancel-info value="Cancelando operación, por favor espere..."/>
 			<find-in-files-progress-title value="Progreso de búsqueda en archivos..."/>
@@ -1720,7 +1722,7 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
 			<IncrementalFind-FSNotFound value="Frase no encontrada"/>
 			<IncrementalFind-FSTopReached value="Se llegó al principio de la página, continúa desde el final"/>
 			<IncrementalFind-FSEndReached value="Se llegó al final de la página, continúa desde el principio"/>
-			<contextMenu-styleAlloccurrencesOfToken value="Dar estilo a todas las coincidencias"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Dar estilo a todas las coincidencias"/>
 			<contextMenu-styleOneToken value="Dar estilo a una coincidencia"/>
 			<contextMenu-clearStyle value="Borrar estilo"/>
 			<contextMenu-PluginCommands value="Comandos de complementos"/>

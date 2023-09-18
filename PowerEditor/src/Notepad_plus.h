@@ -52,8 +52,6 @@
 
 #define MAIN_EDIT_ZONE true
 
-#define NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM (L"-restartedByOS")
-
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02

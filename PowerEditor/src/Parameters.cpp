@@ -1604,8 +1604,22 @@ bool NppParameters::load()
 		_doNppLogNulContentCorruptionIssue = (PathFileExists(filePath2.c_str()) == TRUE);
 	}
 
-
-
+	//-------------------------------------------------------------//
+	// noRestartAutomatically.xml                                  //
+	// This empty xml file is optional - user adds this empty file //
+	// manually in order to prevent Notepad++ registration         //
+	// for the Win10+ OS app-restart feature.                      //
+	//-------------------------------------------------------------//
+	filePath = _nppPath;
+	std::wstring noRegForOSAppRestartTrigger = L"noRestartAutomatically.xml";
+	pathAppend(filePath, noRegForOSAppRestartTrigger);
+	_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
+	if (!_isRegForOSAppRestartDisabled)
+	{
+		filePath = _userPath;
+		pathAppend(filePath, noRegForOSAppRestartTrigger);
+		_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
+	}
 
 	return isAllLaoded;
 }
@@ -5995,20 +6009,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._commandLineInterpreter.assign(cli);
 			}
 		}
-		else if (!lstrcmp(nm, TEXT("registerForOSAppRestart")))
-		{
-			TiXmlNode* node = childNode->FirstChild();
-			if (node)
-			{
-				const TCHAR* val = node->Value();
-				if (val)
-				{
-					int const i = _wtoi(val);
-					if ((i >= -1) && (i <= (RESTART_NO_CRASH | RESTART_NO_HANG | RESTART_NO_PATCH | RESTART_NO_REBOOT)))
-						_nppGUI._registerForOSAppRestart = i;
-				}
-			}
-		}
 		else if (!lstrcmp(nm, TEXT("DarkMode")))
 		{
 			_nppGUI._darkmode._isEnabled = parseYesNoBoolAttribute(TEXT("enable"));
@@ -7341,15 +7341,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("commandLineInterpreter"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._commandLineInterpreter.c_str()));
-	}
-
-	// <GUIConfig name="registerForOSAppRestart">3</GUIConfig>
-	if (_nppGUI._registerForOSAppRestart != DEFAULT_OS_APP_RESTART_FLAGS)
-	{
-		std::wstring str = std::to_wstring(_nppGUI._registerForOSAppRestart);
-		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("registerForOSAppRestart"));
-		GUIConfigElement->InsertEndChild(TiXmlText(str.c_str()));
 	}
 
 	// <GUIConfig name="DarkMode" enable="no" colorTone="0" />

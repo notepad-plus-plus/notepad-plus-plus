@@ -48,8 +48,6 @@
 
 #define CMD_INTERPRETER TEXT("%COMSPEC%")
 
-#define DEFAULT_OS_APP_RESTART_FLAGS (RESTART_NO_CRASH | RESTART_NO_HANG) // -1 ... disable (unregister)
-
 class NativeLangSpeaker;
 
 const bool POS_VERTICAL = true;
@@ -255,8 +253,6 @@ struct CmdLineParams
 	bool _openFoldersAsWorkspace = false;
 	bool _monitorFiles = false;
 
-	bool _isRestartedByOS = false;
-
 	LangType _langType = L_EXTERNAL;
 	std::wstring _localizationPath;
 	std::wstring _udlName;
@@ -306,7 +302,6 @@ struct CmdLineParamsDTO
 		dto._isRecursive = params._isRecursive;
 		dto._openFoldersAsWorkspace = params._openFoldersAsWorkspace;
 		dto._monitorFiles = params._monitorFiles;
-		dto._isRestartedByOS = params._isRestartedByOS;
 
 		dto._line2go = params._line2go;
 		dto._column2go = params._column2go;
@@ -857,7 +852,6 @@ struct NppGUI final
 
 	// items with no Notepad++ GUI to set
 	std::wstring _commandLineInterpreter = CMD_INTERPRETER;
-	int _registerForOSAppRestart = DEFAULT_OS_APP_RESTART_FLAGS; // -1 ... disable (unregister)
 
 	struct AutoUpdateOptions
 	{
@@ -1869,6 +1863,7 @@ public:
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
+	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1935,6 +1930,7 @@ private:
 	bool _isAdminMode = false;
 
 	bool _isSelectFgColorEnabled = false;
+	bool _isRegForOSAppRestartDisabled = false;
 
 	bool _doNppLogNetworkDriveIssue = false;
 

@@ -58,6 +58,114 @@ struct SortTaskListPred final
 	}
 };
 
+// app-restart feature needs Win10 20H1+ (builds 18963+), but it was quietly introduced earlier in the Fall Creators Update (b1709+)
+bool SetOSAppRestart()
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	if (nppParam.getWinVersion() < WV_WIN10)
+		return false; // unsupported
+
+	bool bRet = false;
+	bool bUnregister = nppParam.isRegForOSAppRestartDisabled();
+
+	generic_string nppIssueLog;
+	if (nppParam.doNppLogNulContentCorruptionIssue())
+	{
+		generic_string issueFn = nppLogNulContentCorruptionIssue;
+		issueFn += TEXT(".log");
+		nppIssueLog = nppParam.getUserPath();
+		pathAppend(nppIssueLog, issueFn);
+	}
+
+	WCHAR wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
+	DWORD cchCmdLine = _countof(wszCmdLine);
+	DWORD dwPreviousFlags = 0;
+	HRESULT hr = ::GetApplicationRestartSettings(::GetCurrentProcess(), wszCmdLine, &cchCmdLine, &dwPreviousFlags);
+	if (bUnregister)
+	{
+		// unregistering (disabling) request
+
+		if (hr == HRESULT_FROM_WIN32(ERROR_NOT_FOUND))
+		{
+			// has not been registered before, nothing to do here
+			bRet = true;
+		}
+		else
+		{
+			if (hr == S_OK)
+			{
+				// has been already registered before, try to unregister
+				if (::UnregisterApplicationRestart() == S_OK)
+				{
+					bRet = true;
+				}
+				else
+				{
+					if (nppParam.doNppLogNulContentCorruptionIssue())
+					{
+						std::string msg = "ERROR: UnregisterApplicationRestart WINAPI failed! (HRESULT: ";
+						msg += std::format("{:#010x}", hr);
+						msg += ")";
+						writeLog(nppIssueLog.c_str(), msg.c_str());
+					}
+				}
+			}
+			else
+			{
+				if (nppParam.doNppLogNulContentCorruptionIssue())
+				{
+					std::string msg = "ERROR: GetApplicationRestartSettings WINAPI failed! (HRESULT: ";
+					msg += std::format("{:#010x}", hr);
+					msg += ")";
+					writeLog(nppIssueLog.c_str(), msg.c_str());
+				}
+			}
+		}
+	}
+	else
+	{
+		// registering request
+
+		if (hr == S_OK)
+			::UnregisterApplicationRestart(); // remove a previous registration 1st
+
+		if (nppParam.getCmdLineString().length() >= RESTART_MAX_CMD_LINE)
+		{
+			if (nppParam.doNppLogNulContentCorruptionIssue())
+			{
+				std::string msg = "WARNING: Skipping the RegisterApplicationRestart WINAPI call because of the cmdline length exceeds the RESTART_MAX_CMD_LINE! \n(current cmdline length: ";
+				msg += std::to_string(nppParam.getCmdLineString().length());
+				msg += " chars)";
+				writeLog(nppIssueLog.c_str(), msg.c_str());
+			}
+		}
+		else
+		{
+			// do not restart the process:
+			// RESTART_NO_CRASH  (1) ... for termination due to application crashes
+			// RESTART_NO_HANG   (2) ... for termination due to application hangs
+			// RESTART_NO_PATCH  (4) ... for termination due to patch installations
+			// RESTART_NO_REBOOT (8) ... when the system is rebooted
+			hr = ::RegisterApplicationRestart(nppParam.getCmdLineString().c_str(), RESTART_NO_CRASH | RESTART_NO_HANG | RESTART_NO_PATCH);
+			if (hr == S_OK)
+			{
+				bRet = true;
+			}
+			else
+			{
+				if (nppParam.doNppLogNulContentCorruptionIssue())
+				{
+					std::string msg = "ERROR: RegisterApplicationRestart WINAPI failed! (HRESULT: ";
+					msg += std::format("{:#010x}", hr);
+					msg += ")";
+					writeLog(nppIssueLog.c_str(), msg.c_str());
+				}
+			}
+		}
+	}
+
+	return bRet;
+}
 
 LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -116,7 +224,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 						SWP_FRAMECHANGED);
 				}
 
-				::SendMessage(hwnd, NPPM_INTERNAL_HANDLE_OS_APP_RESTART, (WPARAM)false, 0);
+				SetOSAppRestart();
 
 				return lRet;
 			}
@@ -143,174 +251,6 @@ int CharacterIs(TCHAR c, const TCHAR *any)
 		if (any[i] == c) return TRUE;
 	}
 	return FALSE;
-}
-
-// Used by NPPM_INTERNAL_HANDLE_OS_APP_RESTART
-// - app-restart feature needs Win10 20H1+ (builds 18963+), but it was quietly introduced earlier in the Fall Creators Update (b1709+)
-bool SetOSAppRestart(bool bLog)
-{
-	NppParameters& nppParam = NppParameters::getInstance();
-	if (nppParam.getWinVersion() < WV_WIN10)
-		return false; // unsupported
-
-	bool bRet = false;
-	bool bRegister = (nppParam.getNppGUI()._registerForOSAppRestart >= 0);
-
-	generic_string nppIssueLog;
-	if (nppParam.doNppLogNulContentCorruptionIssue())
-	{
-		generic_string issueFn = nppLogNulContentCorruptionIssue;
-		issueFn += TEXT(".log");
-		nppIssueLog = nppParam.getUserPath();
-		pathAppend(nppIssueLog, issueFn);
-
-		if (bLog)
-		{
-			if (bRegister)
-				writeLog(nppIssueLog.c_str(), "Notepad++ is going to be registered for the Windows OS app-restart.");
-			else
-				writeLog(nppIssueLog.c_str(), "Notepad++ is going to be unregistered from the Windows OS app-restart.");
-		}
-	}
-
-	WCHAR wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
-	DWORD cchCmdLine = _countof(wszCmdLine);
-	DWORD dwPreviousFlags = 0;
-	HRESULT hr = ::GetApplicationRestartSettings(::GetCurrentProcess(), wszCmdLine, &cchCmdLine, &dwPreviousFlags);
-	if (!bRegister)
-	{
-		// unregistering (disabling) request
-
-		if (hr == HRESULT_FROM_WIN32(ERROR_NOT_FOUND))
-		{
-			// has not been registered before, nothing to do here
-			bRet = true;
-		}
-		else
-		{
-			if (hr == S_OK)
-			{
-				// has been already registered before, try to unregister
-				if (::UnregisterApplicationRestart() == S_OK)
-				{
-					bRet = true;
-				}
-				else
-				{
-					if (nppParam.doNppLogNulContentCorruptionIssue())
-					{
-						std::string msg = "ERROR: UnregisterApplicationRestart WINAPI failed! (HRESULT: ";
-						msg += std::format("{:#010x}", hr);
-						msg += ")";
-						writeLog(nppIssueLog.c_str(), msg.c_str());
-					}
-				}
-			}
-			else
-			{
-				if (nppParam.doNppLogNulContentCorruptionIssue())
-				{
-					std::string msg = "ERROR: GetApplicationRestartSettings WINAPI failed! (HRESULT: ";
-					msg += std::format("{:#010x}", hr);
-					msg += ")";
-					writeLog(nppIssueLog.c_str(), msg.c_str());
-				}
-			}
-		}
-	}
-	else
-	{
-		// registering request
-
-		if (hr == S_OK)
-			::UnregisterApplicationRestart(); // remove a previous registration 1st
-
-		int nArgs = 0;
-		LPWSTR* wszArglist = ::CommandLineToArgvW(::GetCommandLineW(), &nArgs);
-		if (!wszArglist)
-		{
-			if (nppParam.doNppLogNulContentCorruptionIssue())
-			{
-				std::string msg = "ERROR: The CommandLineToArgvW WINAPI failed! (ErrorCode: ";
-				msg += std::to_string(::GetLastError());
-				msg += ")";
-				writeLog(nppIssueLog.c_str(), msg.c_str());
-			}
-		}
-		else
-		{
-			int nLen = 0;
-			int j = 0;
-
-			// intentionally skipping argv[0] because of the RegisterApplicationRestart WINAPI
-			// will add the executable name itself later
-			for (int i = 1; i < nArgs; i++)
-			{
-				j = swprintf_s(wszCmdLine + nLen, _countof(wszCmdLine) - nLen, L" %ls", wszArglist[i]);
-				if (j == -1)
-				{
-					if (nppParam.doNppLogNulContentCorruptionIssue())
-						writeLog(nppIssueLog.c_str(), "ERROR: Could not complete the cmdline params preparation for the RegisterApplicationRestart WINAPI, swprintf_s failed!");
-					break;
-				}
-				else
-				{
-					nLen += j;
-				}
-			}
-
-			if (j != -1)
-			{
-				// is there already our 'restarted-sign'?
-				if (wcsstr(wszCmdLine, NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM) != NULL)
-					j = 0; // already there (so we are running an already restarted N++ instance...)
-				else
-					j = swprintf_s(wszCmdLine + nLen, _countof(wszCmdLine) - nLen, L" %ls", NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM);
-
-				if (j == -1)
-				{
-					if (nppParam.doNppLogNulContentCorruptionIssue())
-						writeLog(nppIssueLog.c_str(), "ERROR: Could not append the NPP_APP_RESTARTED_BY_OS_CMDLINE_PARAM to the cmdline prepared for the RegisterApplicationRestart WINAPI, swprintf_s failed!");
-				}
-				else
-				{
-					// do not restart the process:
-					// RESTART_NO_CRASH  (1) ... for termination due to application crashes
-					// RESTART_NO_HANG   (2) ... for termination due to application hangs
-					// RESTART_NO_PATCH  (4) ... for termination due to patch installations
-					// RESTART_NO_REBOOT (8) ... when the system is rebooted due to patch installations
-					// our default is (RESTART_NO_CRASH | RESTART_NO_HANG) (3 ... 0b11)
-					DWORD dwCurrentFlags;
-					if (nppParam.getNppGUI()._registerForOSAppRestart <= (RESTART_NO_CRASH | RESTART_NO_HANG | RESTART_NO_PATCH | RESTART_NO_REBOOT))
-						dwCurrentFlags = (DWORD)nppParam.getNppGUI()._registerForOSAppRestart;
-					else
-						dwCurrentFlags = DEFAULT_OS_APP_RESTART_FLAGS; // correct a nonsense param
-					hr = ::RegisterApplicationRestart(wszCmdLine, dwCurrentFlags);
-					if (hr == S_OK)
-					{
-						bRet = true;
-					}
-					else
-					{
-						if (nppParam.doNppLogNulContentCorruptionIssue())
-						{
-							if (nppParam.doNppLogNulContentCorruptionIssue())
-							{
-								std::string msg = "ERROR: RegisterApplicationRestart WINAPI failed! (HRESULT: ";
-								msg += std::format("{:#010x}", hr);
-								msg += ")";
-								writeLog(nppIssueLog.c_str(), msg.c_str());
-							}
-						}
-					}
-				}
-			}
-
-			::LocalFree(wszArglist); // allocated by the CommandLineToArgvW
-		}
-	}
-
-	return bRet;
 }
 
 LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -2332,12 +2272,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			scnN.nmhdr.hwndFrom = hwnd;
 			scnN.nmhdr.idFrom = lParam;
 			_pluginsManager.notify(&scnN);
-			return TRUE;
-		}
-
-		case NPPM_INTERNAL_HANDLE_OS_APP_RESTART:
-		{
-			SetOSAppRestart(wParam ? true : false);
 			return TRUE;
 		}
 

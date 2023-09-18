@@ -1722,7 +1722,7 @@ Buscar en todos los archivos pero excluir todas las carpetas de registro o regis
 			<IncrementalFind-FSNotFound value="Frase no encontrada"/>
 			<IncrementalFind-FSTopReached value="Se llegó al principio de la página, continúa desde el final"/>
 			<IncrementalFind-FSEndReached value="Se llegó al final de la página, continúa desde el principio"/>
-			<contextMenu-styleAlloccurrencesOfToken value="Dar estilo a todas las coincidencias"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Dar estilo a todas las coincidencias"/>
 			<contextMenu-styleOneToken value="Dar estilo a una coincidencia"/>
 			<contextMenu-clearStyle value="Borrar estilo"/>
 			<contextMenu-PluginCommands value="Comandos de complementos"/>

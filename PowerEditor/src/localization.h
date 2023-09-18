@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <map>
 #include "Common.h"
 #include "tinyxmlA.h"
 
@@ -83,6 +84,11 @@ public:
 	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name = "name") const;
 	generic_string getAttrNameByIdStr(const TCHAR *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name = "id", const char *nodeL2Name = "name") const;
 	generic_string getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const;
+	void getMainMenuEntryName(std::wstring& dest, HMENU hMenu, const char* menuIdStr, const wchar_t* defaultDest);
+
+	void resetShortcutMenuNameMap() {
+		_shortcutMenuEntryNameMap.clear();
+	};
 
 	int messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *message, const TCHAR *title, int msgBoxType, int intInfo = 0, const TCHAR *strInfo = NULL);
 private:
@@ -90,6 +96,7 @@ private:
 	int _nativeLangEncoding;
 	bool _isRTL;
 	const char *_fileName;
+	std::map<std::string, std::wstring> _shortcutMenuEntryNameMap;
 };
 
 

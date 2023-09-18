@@ -284,6 +284,43 @@ MenuPosition & getMenuPosition(const char *id)
 	return menuPos[nbSubMenuPos-1];
 }
 
+// Get string from map.
+// If string not found, get string from menu, then put it into map for the next use.
+void NativeLangSpeaker::getMainMenuEntryName(std::wstring& dest, HMENU hMenu, const char* menuId, const wchar_t* defaultDest)
+{
+	const auto iter = _shortcutMenuEntryNameMap.find(menuId);
+	if (iter == _shortcutMenuEntryNameMap.end())
+	{
+		MenuPosition& menuPos = getMenuPosition(menuId);
+		if (menuPos._x != -1 && menuPos._y == -1 && menuPos._z == -1)
+		{
+			wchar_t str[MAX_PATH];
+			GetMenuString(hMenu, menuPos._x, str, MAX_PATH, MF_BYPOSITION);
+			dest = str;
+			dest.erase(std::remove(dest.begin(), dest.end(), '&'), dest.end());
+			_shortcutMenuEntryNameMap[menuId] = dest;
+
+		}
+		else
+		{
+			if (strcmp(menuId, "about") == 0)
+			{
+				dest = getShortcutMapperLangStr("AboutCategory", defaultDest);
+			}
+			else
+			{
+				_shortcutMenuEntryNameMap[menuId] = defaultDest;
+				dest = defaultDest;
+			}
+		}
+	}
+	else
+	{
+		dest = iter->second;
+	}
+}
+
+
 void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 {
 	if (nullptr == _nativeLangA)

@@ -641,17 +641,7 @@ Translation note:
 				<ScintillaCommandsTab name="Scintilla commands"/>
 				<ConflictInfoOk name="No shortcut conflicts for this item."/>
 				<ConflictInfoEditing name="No conflicts . . ."/>
-				<WindowCategory name="Window"/>
-				<FileCategory name="File"/>
-				<EditCategory name="Edit"/>
-				<SearchCategory name="Search"/>
-				<ViewCategory name="View"/>
-				<FormatCategory name="Format"/>
-				<LangCategory name="Lang"/>
 				<AboutCategory name="About"/>
-				<SettingCategory name="Setting"/>
-				<ToolCategory name="Tool"/>
-				<ExecuteCategory name="Execute"/>
 				<ModifyContextMenu name="Modify"/>
 				<DeleteContextMenu name="Delete"/>
 				<ClearContextMenu name="Clear"/>

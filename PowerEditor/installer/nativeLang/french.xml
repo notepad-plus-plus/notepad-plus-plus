@@ -641,17 +641,7 @@ Translation note:
 				<ScintillaCommandsTab name="Commandes de Scintilla "/>
 				<ConflictInfoOk name="Pas de conflit pour cet élément."/>
 				<ConflictInfoEditing name="Pas de conflit . . ."/>
-				<WindowCategory name="Fenêtre"/>
-				<FileCategory name="Fichier"/>
-				<EditCategory name="Édition"/>
-				<SearchCategory name="Recherche"/>
-				<ViewCategory name="Affichage"/>
-				<FormatCategory name="Encodage"/>
-				<LangCategory name="Langage"/>
 				<AboutCategory name="À propos"/>
-				<SettingCategory name="Paramètres"/>
-				<ToolCategory name="Outils"/>
-				<ExecuteCategory name="Exécution"/>
 				<ModifyContextMenu name="Modifier"/>
 				<DeleteContextMenu name="Supprimer"/>
 				<ClearContextMenu name="Effacer"/>

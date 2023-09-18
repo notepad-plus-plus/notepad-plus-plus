@@ -1227,31 +1227,43 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
 {
 	_shortcutName = string2wstring(sc.getName(), CP_UTF8);
+
 	if ( _id >= IDM_WINDOW_SORT_FN_ASC and _id <= IDM_WINDOW_SORT_FS_DSC)
 		_category = TEXT("Window");
+	else if ( _id >= IDM_VIEW_GOTO_ANOTHER_VIEW and _id <= IDM_VIEW_LOAD_IN_NEW_INSTANCE)
+		_category = TEXT("View");
+	else if (_id == IDM_EDIT_LTR || _id == IDM_EDIT_RTL)
+		_category = TEXT("View");
+	else if (_id == IDM_FORMAT_TODOS || _id == IDM_FORMAT_TOUNIX || _id == IDM_FORMAT_TOMAC)
+		_category = TEXT("Edit");
+	else if (_id == IDM_EDIT_AUTOCOMPLETE || _id == IDM_EDIT_AUTOCOMPLETE_CURRENTFILE || _id == IDM_EDIT_FUNCCALLTIP ||
+		_id == IDM_EDIT_AUTOCOMPLETE_PATH || _id == IDM_EDIT_FUNCCALLTIP_PREVIOUS || _id == IDM_EDIT_FUNCCALLTIP_NEXT)
+		_category = TEXT("Edit");
+	else if (_id == IDM_LANGSTYLE_CONFIG_DLG)
+		_category = TEXT("Setting");
+	else if (_id == IDM_MACRO_STARTRECORDINGMACRO  ||_id == IDM_MACRO_STOPRECORDINGMACRO  || _id == IDM_MACRO_RUNMULTIMACRODLG ||
+		_id == IDM_MACRO_PLAYBACKRECORDEDMACRO  ||_id == IDM_MACRO_SAVECURRENTMACRO || _id == IDC_EDIT_TOGGLEMACRORECORDING)
+		_category = TEXT("Macro");
+
+
 	else if ( _id < IDM_EDIT)
 		_category = TEXT("File");
 	else if ( _id < IDM_SEARCH)
-		_category = TEXT("Edit");
-	else if (((_id >= IDM_EDIT_AUTOCOMPLETE) && (_id <= IDM_EDIT_AUTOCOMPLETE_PATH)) || 
-			 ((_id >= IDM_EDIT_FUNCCALLTIP_PREVIOUS) && (_id <= IDM_EDIT_FUNCCALLTIP_NEXT)))
 		_category = TEXT("Edit");
 	else if ( _id < IDM_VIEW)
 		_category = TEXT("Search");
 	else if ( _id < IDM_FORMAT)
 		_category = TEXT("View");
-	else if ( _id >= IDM_VIEW_GOTO_ANOTHER_VIEW and _id <= IDM_VIEW_LOAD_IN_NEW_INSTANCE)
-		_category = TEXT("View");
 	else if ( _id < IDM_LANG)
-		_category = TEXT("Format");
+		_category = TEXT("Encoding");
 	else if ( _id < IDM_ABOUT)
-		_category = TEXT("Lang");
+		_category = TEXT("Language");
 	else if ( _id < IDM_SETTING)
 		_category = TEXT("About");
 	else if ( _id < IDM_TOOL)
-		_category = TEXT("Setting");
+		_category = TEXT("Settings");
 	else if ( _id < IDM_EXECUTE)
 		_category = TEXT("Tool");
 	else
-		_category = TEXT("Execute");
+		_category = TEXT("Run");
 }

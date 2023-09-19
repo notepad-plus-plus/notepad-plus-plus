@@ -184,7 +184,10 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(const Shortcut& sc, long id);
+	CommandShortcut(const Shortcut& sc, long id) : Shortcut(sc), _id(id){
+		_shortcutName = string2wstring(getName(), CP_UTF8);
+	};
+	void setCategoryFromMenu(HMENU hMenu);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
 	const TCHAR * getCategory() const { return _category.c_str(); };

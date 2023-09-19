@@ -35,6 +35,7 @@ public:
 	char _id[64] = { '\0' }; // a unique string defined in localization XML file
 };
 
+void getMainMenuEntryName(std::wstring& dest, HMENU hMenu, const char* menuIdStr, const wchar_t* defaultDest);
 
 class NativeLangSpeaker {
 public:

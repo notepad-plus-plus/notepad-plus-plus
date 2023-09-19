@@ -8711,12 +8711,9 @@ void Notepad_plus::createMonitoringThread(Buffer* pBuf)
 void Notepad_plus::updateCommandShortcuts()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	vector<CommandShortcut> & shortcuts = nppParam.getUserShortcuts();
-	size_t len = shortcuts.size();
 
-	for (size_t i = 0; i < len; ++i)
+	for (CommandShortcut& csc : nppParam.getUserShortcuts())
 	{
-		CommandShortcut & csc = shortcuts[i];
 		unsigned long id = csc.getID();
 		generic_string localizedMenuName = _nativeLangSpeaker.getNativeLangMenuString(id);
 		generic_string menuName = localizedMenuName;
@@ -8742,6 +8739,8 @@ void Notepad_plus::updateCommandShortcuts()
 		}
 
 		csc.setName(wstring2string(menuName, CP_UTF8).c_str(), wstring2string(shortcutName, CP_UTF8).c_str());
+
+		csc.setCategoryFromMenu(_mainMenuHandle);
 	}
 }
 

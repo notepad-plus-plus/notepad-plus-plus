@@ -284,6 +284,23 @@ MenuPosition & getMenuPosition(const char *id)
 	return menuPos[nbSubMenuPos-1];
 }
 
+// Get string from menu directly.
+void getMainMenuEntryName(std::wstring& dest, HMENU hMenu, const char* menuId, const wchar_t* defaultDest)
+{
+	MenuPosition& menuPos = getMenuPosition(menuId);
+	if (menuPos._x != -1 && menuPos._y == -1 && menuPos._z == -1)
+	{
+		wchar_t str[MAX_PATH];
+		GetMenuString(hMenu, menuPos._x, str,MAX_PATH, MF_BYPOSITION);
+		dest = str;
+		dest.erase(std::remove(dest.begin(), dest.end(), '&'), dest.end());
+	}
+	else
+	{
+		dest = defaultDest;
+	}
+}
+
 void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 {
 	if (nullptr == _nativeLangA)

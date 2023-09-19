@@ -303,8 +303,15 @@ void NativeLangSpeaker::getMainMenuEntryName(std::wstring& dest, HMENU hMenu, co
 		}
 		else
 		{
-			_shortcutMenuEntryNameMap[menuId] = defaultDest;
-			dest = defaultDest;
+			if (strcmp(menuId, "about") == 0)
+			{
+				dest = getShortcutMapperLangStr("AboutCategory", defaultDest);
+			}
+			else
+			{
+				_shortcutMenuEntryNameMap[menuId] = defaultDest;
+				dest = defaultDest;
+			}
 		}
 	}
 	else

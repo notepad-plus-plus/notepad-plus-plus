@@ -614,7 +614,7 @@
 				<ScintillaCommandsTab name="Scintilla 指令"/>
 				<ConflictInfoOk name="沒有與此項目衝突的快捷鍵。"/>
 				<ConflictInfoEditing name="沒有與此項目衝突的快捷鍵..."/>
-
+				<AboutCategory name="關於"/>
 				<MainCommandNames>
 					<Item id="41019" name="在檔案總管內開啟檔案位置"/>
 					<Item id="41020" name="在 CMD 內開啟檔案位置"/>

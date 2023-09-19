@@ -6997,6 +6997,7 @@ bool Notepad_plus::reloadLang()
 		}
 	}
 
+	_nativeLangSpeaker.resetShortcutMenuNameMap();
 	updateCommandShortcuts();
 
 	_accelerator.updateFullMenu();

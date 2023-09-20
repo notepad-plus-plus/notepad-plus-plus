@@ -1146,6 +1146,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 					<Item id="6907" name="Quand la boîte de dialogue &quot;Rechercher&quot; est invoquée"/>
 					<Item id="6908" name="Remplir le champ de recherche avec le texte sélectionné"/>
 					<Item id="6909" name="Sélectionner le mot sous le curseur si rien n'est sélectionné"/>
+					<Item id="6910" name="Taille minimale pour l'auto-coche de 'Dans la sélection'"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fichiers récents">
@@ -1480,6 +1481,8 @@ Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
 Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
 Notepad++ va sauvegarder votre ancien &quot;shortcuts.xml&quot; et l'enregistrer sous &quot;shortcuts.xml.v8.5.2.backup&quot;.
 En renommant &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vos commandes devraient être proprement restaurées."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Échec de l'enregistrement" message="Échec de l'enregistrement du fichier.
+Il semblerait qu'il n'y a pas assez d'espace disque pour enregistrer le fichier. Votre fichier n'est pas enregistré."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>
@@ -1740,6 +1743,7 @@ Cliquez sur le bouton &quot;?&quot; à droite pour ouvrir le site web du Manuel 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Aller dans le Configurateur de style pour changer la couleur personnalisée par défaut pour la sélection de caractères blancs et de caractères non-imprimables (&quot;Couleur personnalisée des caractères non-imprimables&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Applique les paramètres d'apparence des caractères non-imprimables aux contrôles C0, C1 et aux caractères Unicode EOL (ligne suivante, séparateur de ligne et séparateur de paragraphe)."/>
+			<searchingInSelThresh-tip value="Nombre de caractères sélectionnés dans la zone d'édition pour cocher automatiquement la case 'Dans la sélection' quand la fenêtre Rechercher est activée. La valeur maximale est 1024. Mettre la valeur à 0 pour désactiver l'auto-coche."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

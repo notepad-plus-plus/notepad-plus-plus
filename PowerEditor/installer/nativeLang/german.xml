@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.09.14"><!-- basiert auf english.xml vom 13.09.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.09.21"><!-- basiert auf english.xml vom 21.09.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -650,17 +650,7 @@ Translation note:
 				<ScintillaCommandsTab name="Scintilla-Befehle"/>
 				<ConflictInfoOk name="Keine Konflikte mit dieser Tastenkombination."/>
 				<ConflictInfoEditing name="Keine Konflikte."/>
-				<WindowCategory name="Fenster"/>
-				<FileCategory name="Datei"/>
-				<EditCategory name="Bearbeiten"/>
-				<SearchCategory name="Suchen"/>
-				<ViewCategory name="Ansicht"/>
-				<FormatCategory name="Codierung"/>
-				<LangCategory name="Sprache"/>
 				<AboutCategory name="?"/>
-				<SettingCategory name="Einstellungen"/>
-				<ToolCategory name="Werkzeuge"/>
-				<ExecuteCategory name="Ausführen"/>
 				<ModifyContextMenu name="Ändern"/>
 				<DeleteContextMenu name="Löschen"/>
 				<ClearContextMenu name="Entfernen"/>

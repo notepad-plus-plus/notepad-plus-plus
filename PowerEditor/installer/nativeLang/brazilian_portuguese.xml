@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 12 Sep 2023, for Notepad++ 8.5.8
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 20 Sep 2023, for Notepad++ 8.5.8
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -642,17 +642,7 @@ Translation note:
 				<ScintillaCommandsTab name="Comandos Scintilla"/>
 				<ConflictInfoOk name="Não há conflitos de atalho para este item."/>
 				<ConflictInfoEditing name="Sem conflitos . . ."/>
-				<WindowCategory name="Janela"/>
-				<FileCategory name="Arquivo"/>
-				<EditCategory name="Editar"/>
-				<SearchCategory name="Localizar"/>
-				<ViewCategory name="Visualizar"/>
-				<FormatCategory name="Formatar"/>
-				<LangCategory name="Linguagem"/>
 				<AboutCategory name="Sobre"/>
-				<SettingCategory name="Configurações"/>
-				<ToolCategory name="Ferramentas"/>
-				<ExecuteCategory name="Executar"/>
 				<ModifyContextMenu name="Modificar"/>
 				<DeleteContextMenu name="Apagar"/>
 				<ClearContextMenu name="Limpar"/>

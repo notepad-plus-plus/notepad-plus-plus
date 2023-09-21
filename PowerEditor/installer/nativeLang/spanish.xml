@@ -358,7 +358,7 @@ Translation note:
 					<Item id="48005" name="Importar complemento(s)..."/>
 					<Item id="48006" name="Importar tema(s)..."/>
 					<Item id="48018" name="Editar menú contextual emergente"/>
-					<Item id="48009" name="Atajos de teclado..."/>
+					<Item id="48009" name="Configurador de accesos directos..."/>
 					<Item id="48011" name="Preferencias..."/>
 					<Item id="48014" name="Abrir carpeta de complementos..."/>
 					<Item id="48015" name="Administrar complementos..."/>
@@ -641,17 +641,7 @@ Translation note:
 				<ScintillaCommandsTab name="Comandos Scintilla"/>
 				<ConflictInfoOk name="No hay conflictos de acceso para este elemento."/>
 				<ConflictInfoEditing name="Sin conflictos..."/>
-				<WindowCategory name="Ventana"/>
-				<FileCategory name="Archivo"/>
-				<EditCategory name="Editar"/>
-				<SearchCategory name="Buscar"/>
-				<ViewCategory name="Vista"/>
-				<FormatCategory name="Formato"/>
-				<LangCategory name="Idioma"/>
 				<AboutCategory name="Acerca de"/>
-				<SettingCategory name="Configuración"/>
-				<ToolCategory name="Herramientas"/>
-				<ExecuteCategory name="Ejecutar"/>
 				<ModifyContextMenu name="Modificar"/>
 				<DeleteContextMenu name="Eliminar"/>
 				<ClearContextMenu name="Borrar"/>

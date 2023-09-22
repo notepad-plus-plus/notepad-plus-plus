@@ -137,6 +137,8 @@ const int COPYDATA_FULL_CMDLINE = 3;
 
 #define NPP_STYLING_FILESIZE_LIMIT_DEFAULT (200 * 1024 * 1024) // 200MB+ file won't be styled
 
+const int FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT = 1024;
+
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
@@ -814,6 +816,7 @@ struct NppGUI final
 	bool _findDlgAlwaysVisible = false;
 	bool _confirmReplaceInAllOpenDocs = true;
 	bool _replaceStopsWithoutFindingNext = false;
+	int _inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;
 	bool _hideMenuRightShortcuts = false;

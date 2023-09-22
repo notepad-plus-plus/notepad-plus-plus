@@ -5946,6 +5946,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR* optReplaceStopsWithoutFindingNext = element->Attribute(TEXT("replaceStopsWithoutFindingNext"));
 			if (optReplaceStopsWithoutFindingNext)
 				_nppGUI._replaceStopsWithoutFindingNext = (lstrcmp(optReplaceStopsWithoutFindingNext, TEXT("yes")) == 0);
+
+			int inSelThresh;
+			if (element->Attribute(TEXT("inSelectionAutocheckThreshold"), &inSelThresh) &&
+				(inSelThresh >= 0 && inSelThresh <= FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT))
+			{
+				_nppGUI._inSelectionAutocheckThreshold = inSelThresh;
+			}
+			else
+			{
+				_nppGUI._inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
+			}
 		}
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{
@@ -7305,7 +7316,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("hideMenuRightShortcuts"), _nppGUI._hideMenuRightShortcuts ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no"/>
+	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no" inSelectionAutocheckThreshold="1024" />
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Searching"));
@@ -7316,6 +7327,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("findDlgAlwaysVisible"), _nppGUI._findDlgAlwaysVisible ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("confirmReplaceInAllOpenDocs"), _nppGUI._confirmReplaceInAllOpenDocs ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("replaceStopsWithoutFindingNext"), _nppGUI._replaceStopsWithoutFindingNext ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("inSelectionAutocheckThreshold"), _nppGUI._inSelectionAutocheckThreshold);
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />

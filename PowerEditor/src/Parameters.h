@@ -283,7 +283,6 @@ struct CmdLineParamsDTO
 	bool _isRecursive = false;
 	bool _openFoldersAsWorkspace = false;
 	bool _monitorFiles = false;
-	bool _isRestartedByOS = false;
 
 	intptr_t _line2go = 0;
 	intptr_t _column2go = 0;

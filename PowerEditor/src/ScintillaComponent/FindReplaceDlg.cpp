@@ -1493,9 +1493,19 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
 				Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
-				intptr_t nbSelected = cr.cpMax - cr.cpMin;
+				LRESULT nbSelected = (*_ppEditView)->execute(SCI_COUNTCHARACTERS, cr.cpMin, cr.cpMax);
 
-				_options._isInSelection = nbSelected >= FINDREPLACE_INSEL_TEXTSIZE_THRESHOLD;
+				const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
+
+				_options._isInSelection = false;
+
+				if (nppGui._inSelectionAutocheckThreshold != 0)
+				{
+					if (nbSelected >= nppGui._inSelectionAutocheckThreshold)
+					{
+						_options._isInSelection = true;
+					}
+				}
 
 				// Searching/replacing in multiple selections or column selection is not allowed
 				if (((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || ((*_ppEditView)->execute(SCI_GETSELECTIONS) > 1))
@@ -1503,14 +1513,15 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					_options._isInSelection = false;
 					nbSelected = 0;
 				}
-
+				
 				enableFindDlgItem(IDC_IN_SELECTION_CHECK, nbSelected != 0);
-
+				
 				// uncheck if the control is disable
-				if (!nbSelected)
+				if (nbSelected == 0)
 				{
 					_options._isInSelection = false;
 				}
+
 				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, _options._isInSelection ? BST_CHECKED : BST_UNCHECKED, 0);
 			}
 

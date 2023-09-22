@@ -178,8 +178,16 @@ class SearchingSubDlg : public StaticDialog
 {
 public:
 	SearchingSubDlg() = default;
+	~SearchingSubDlg() {
+		if (_tipInSelThresh != nullptr)
+		{
+			::DestroyWindow(_tipInSelThresh);
+			_tipInSelThresh = nullptr;
+		}
+	};
 
 private:
+	HWND _tipInSelThresh = nullptr;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

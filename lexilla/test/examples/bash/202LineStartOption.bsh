@@ -1,0 +1,41 @@
+-a
+#
+-b
+#
+
+declare -A optionSet=([--help]=0)
+for option in {-h,--help,--version,--verbose,-,--}; do
+case $option in
+	-h|--help)
+		optionSet[--help]=1
+		echo help: $option
+		;;
+	-*-version)
+		echo version: $option
+		;;
+	--)
+		echo stop
+		;;
+	-)
+		echo stdin
+		;;
+	-*[-a-zA-Z0-9])
+		echo other: $option
+		;;
+esac
+done
+
+option=--help
+[[ $option == *-h* ]] && echo $option=${optionSet[$option]}
+
+for gcc in gcc{,-1{4..0..-1}}; do
+	echo $gcc
+done
+
+for gcc in gcc{,{-14..-10}}; do
+	echo $gcc
+done
+
+# Tilde-refix ~
+~+/foo
+~-/foo

@@ -48,6 +48,7 @@ $"string"
 $'str'
 
 # back-ticks=11
+`ls`
 $`ls`
 $(ls)
 

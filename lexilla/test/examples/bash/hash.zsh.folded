@@ -1,0 +1,52 @@
+ 2 400   0 + #!/bin/zsh
+ 0 401   0 | # Tests for zsh extensions
+ 0 401   0 | # Can be executed by zsh with reasonable results
+ 0 401   0 | # Some of these were implemented by commit [87286d] for Scintilla bug #1794
+ 0 401   0 | # https://zsh.sourceforge.io/Doc/Release/Expansion.html
+ 1 400   0   
+ 0 400   0   # Where # does not start a comment
+ 1 400   0   
+ 1 400   0   
+ 0 400   0   ## Formatting base
+ 0 400   0   print $(( [#8] y = 33 ))
+ 0 400   0   print $(( [##8] 32767 ))
+ 1 400   0   
+ 0 400   0   # Formatting base and grouping
+ 0 400   0   print $(( [#16_4] 65536 ** 2 ))
+ 1 400   0   
+ 1 400   0   
+ 0 400   0   ## Character values
+ 0 400   0   print $(( ##T+0 ))
+ 0 400   0   print $(( ##^G+0 ))
+ 0 400   0   # Failure: does not work when - included for bindkey syntax. \M-\C-x means Meta+Ctrl+x.
+ 0 400   0   print $(( ##\M-\C-x+0 ))
+ 1 400   0   
+ 0 400   0   # Value of first character of variable in expression
+ 0 400   0   var=Tree
+ 0 400   0   print $(( #var+0 ))
+ 1 400   0   
+ 1 400   0   
+ 0 400   0   ## Extended glob
+ 0 400   0   setopt extended_glob
+ 1 400   0   
+ 0 400   0   # # is similar to *, ## similar to +
+ 0 400   0   echo [A-Za-z]#.bsh
+ 0 400   0   echo [A-Za-z]##.bsh
+ 1 400   0   
+ 0 400   0   # 13 character file names
+ 0 400   0   echo **/[a-zA-Z.](#c13)
+ 0 400   0   # 13-15 character file names
+ 0 400   0   echo **/[a-zA-Z.](#c13,15)
+ 1 400   0   
+ 1 400   0   
+ 0 400   0   ## Glob flag
+ 1 400   0   
+ 0 400   0   # i=case-insensitive
+ 0 400   0   echo (#i)a*
+ 1 400   0   
+ 0 400   0   # b=back-references
+ 0 400   0   foo="a_string_with_a_message"
+ 2 400   0 + if [[ $foo = (a|an)_(#b)(*) ]]; then
+ 0 401   0 |   print ${foo[$mbegin[1],$mend[1]]}
+ 0 401   0 | fi
+ 0 400   0   

@@ -1,4 +1,4 @@
-name: "Build and check Lexilla"
+name: "Build and check Lexilla on Linux"
 
 on: [push]
 
@@ -21,6 +21,10 @@ jobs:
           run: (cd test/unit && make DEBUG=1 CXX=${{matrix.cpp_compiler}} test)
         - name: Build Lexilla
           run: (cd src && make DEBUG=1 CXX=${{matrix.cpp_compiler}})
+        - uses: actions/upload-artifact@v3
+          with:
+              name: liblexilla.so
+              path: bin/liblexilla.so
         - name: Test lexing and folding
           run: (cd test && make DEBUG=1 CXX=${{matrix.cpp_compiler}} test)
         - name: CheckLexilla C Example

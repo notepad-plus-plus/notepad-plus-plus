@@ -28,22 +28,22 @@ class OptionSet {
 		std::string value;
 		std::string description;
 		Option() :
-			opType(SC_TYPE_BOOLEAN), pb(0), description("") {
+			opType(SC_TYPE_BOOLEAN), pb(nullptr) {
 		}
-		Option(plcob pb_, std::string description_="") :
+		Option(plcob pb_, std::string_view description_="") :
 			opType(SC_TYPE_BOOLEAN), pb(pb_), description(description_) {
 		}
-		Option(plcoi pi_, std::string description_) :
+		Option(plcoi pi_, std::string_view description_) :
 			opType(SC_TYPE_INTEGER), pi(pi_), description(description_) {
 		}
-		Option(plcos ps_, std::string description_) :
+		Option(plcos ps_, std::string_view description_) :
 			opType(SC_TYPE_STRING), ps(ps_), description(description_) {
 		}
 		bool Set(T *base, const char *val) {
 			value = val;
 			switch (opType) {
 			case SC_TYPE_BOOLEAN: {
-					bool option = atoi(val) != 0;
+					const bool option = atoi(val) != 0;
 					if ((*base).*pb != option) {
 						(*base).*pb = option;
 						return true;
@@ -51,7 +51,7 @@ class OptionSet {
 					break;
 				}
 			case SC_TYPE_INTEGER: {
-					int option = atoi(val);
+					const int option = atoi(val);
 					if ((*base).*pi != option) {
 						(*base).*pi = option;
 						return true;
@@ -85,30 +85,30 @@ class OptionSet {
 		names += name;
 	}
 public:
-	void DefineProperty(const char *name, plcob pb, std::string description="") {
+	void DefineProperty(const char *name, plcob pb, std::string_view description="") {
 		nameToDef[name] = Option(pb, description);
 		AppendName(name);
 	}
-	void DefineProperty(const char *name, plcoi pi, std::string description="") {
+	void DefineProperty(const char *name, plcoi pi, std::string_view description="") {
 		nameToDef[name] = Option(pi, description);
 		AppendName(name);
 	}
-	void DefineProperty(const char *name, plcos ps, std::string description="") {
+	void DefineProperty(const char *name, plcos ps, std::string_view description="") {
 		nameToDef[name] = Option(ps, description);
 		AppendName(name);
 	}
 	const char *PropertyNames() const noexcept {
 		return names.c_str();
 	}
-	int PropertyType(const char *name) {
-		typename OptionMap::iterator it = nameToDef.find(name);
+	int PropertyType(const char *name) const {
+		typename OptionMap::const_iterator const it = nameToDef.find(name);
 		if (it != nameToDef.end()) {
 			return it->second.opType;
 		}
 		return SC_TYPE_BOOLEAN;
 	}
-	const char *DescribeProperty(const char *name) {
-		typename OptionMap::iterator it = nameToDef.find(name);
+	const char *DescribeProperty(const char *name) const {
+		typename OptionMap::const_iterator const it = nameToDef.find(name);
 		if (it != nameToDef.end()) {
 			return it->second.description.c_str();
 		}
@@ -116,15 +116,15 @@ public:
 	}
 
 	bool PropertySet(T *base, const char *name, const char *val) {
-		typename OptionMap::iterator it = nameToDef.find(name);
+		typename OptionMap::iterator const it = nameToDef.find(name);
 		if (it != nameToDef.end()) {
 			return it->second.Set(base, val);
 		}
 		return false;
 	}
 
-	const char *PropertyGet(const char *name) {
-		typename OptionMap::iterator it = nameToDef.find(name);
+	const char *PropertyGet(const char *name) const {
+		typename OptionMap::const_iterator const it = nameToDef.find(name);
 		if (it != nameToDef.end()) {
 			return it->second.Get();
 		}

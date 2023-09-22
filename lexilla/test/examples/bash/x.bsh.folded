@@ -39,5 +39,15 @@
  0 400   0   pwd
  0 400   0   END
  1 400   0   
+ 0 400   0   # Issue 194, failed to understand character escaping so string unterminated
+ 0 400   0   echo "foo `echo foo \\" bar` bar"
+ 0 400   0   echo "xinput set-prop bla \"blub\" `grep bla $WRITE_APPENDIX/var/lib/path.txt | cut -d \\" -f 4`" >/some_file.sh
+ 1 400   0   
+ 0 400   0   # Issue 194, $ before end of backticks is literal
+ 0 400   0   echo `echo \$`
+ 0 400   0   echo `echo \$bar\$`
+ 0 400   0   echo `echo $`
+ 0 400   0   echo `echo $bar$`
+ 1 400   0   
  0 400   0   INVALID_NUMBER=0#0000
  0 400   0   

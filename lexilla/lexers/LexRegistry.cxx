@@ -40,12 +40,8 @@ static const char *const RegistryWordListDesc[] = {
 };
 
 struct OptionsRegistry {
-	bool foldCompact;
-	bool fold;
-	OptionsRegistry() {
-		foldCompact = false;
-		fold = false;
-	}
+	bool foldCompact = false;
+	bool fold = false;
 };
 
 struct OptionSetRegistry : public OptionSet<OptionsRegistry> {

@@ -607,6 +607,8 @@ void SurfaceImpl::GradientRectangle(PRectangle rc, const std::vector<ColourStop>
 
 void SurfaceImpl::DrawRGBAImage(PRectangle rc, int width, int height, const unsigned char *pixelsImage) {
 	PLATFORM_ASSERT(context);
+	if (width == 0)
+		return;
 	if (rc.Width() > width)
 		rc.left += (rc.Width() - width) / 2;
 	rc.right = rc.left + width;
@@ -1622,6 +1624,7 @@ void ListBoxX::Create(Window &parent, int, Point, int, bool, Technology) {
 #endif
 
 	wid = widCached = gtk_window_new(GTK_WINDOW_POPUP);
+	gtk_window_set_type_hint(GTK_WINDOW(wid), GDK_WINDOW_TYPE_HINT_POPUP_MENU);
 
 	frame = gtk_frame_new(nullptr);
 	gtk_widget_show(PWidget(frame));

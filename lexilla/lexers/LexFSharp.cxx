@@ -672,25 +672,23 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 		const int stylePrev = style;
 		const char ch = chNext;
 		const bool inLineComment = (stylePrev == SCE_FSHARP_COMMENTLINE);
-		const bool inOpenStatement = LineContains(styler, "open ", lineCurrent, SCE_FSHARP_KEYWORD);
 		style = styleNext;
 		styleNext = styler.StyleAt(currentPos + 1);
 		chNext = styler.SafeGetCharAt(currentPos + 1);
 
 		if (options.foldComment) {
-			if (options.foldCommentMultiLine && inLineComment && atEOL &&
-			    (lineCurrent > 0 || LineContains(styler, "//", lineNext, SCE_FSHARP_COMMENTLINE))) {
+			if (options.foldCommentMultiLine && inLineComment && atEOL) {
 				FoldLexicalGroup(styler, levelNext, lineCurrent, "//", SCE_FSHARP_COMMENTLINE);
 			}
 
 			if (options.foldCommentStream && style == SCE_FSHARP_COMMENT && !inLineComment) {
 				if (stylePrev != SCE_FSHARP_COMMENT ||
 				    (styler.Match(currentPos, "(*") &&
-				     !LineContains(styler, "*)", lineCurrent, SCE_FSHARP_COMMENT))) {
+				     !LineContains(styler, "*)", currentPos + 2, SCE_FSHARP_COMMENT))) {
 					levelNext++;
 				} else if ((styleNext != SCE_FSHARP_COMMENT ||
 					    ((styler.Match(currentPos, "*)") &&
-					      !LineContains(styler, "(*", lineCurrent, SCE_FSHARP_COMMENT)) &&
+					      !LineContains(styler, "(*", styler.LineStart(lineCurrent), SCE_FSHARP_COMMENT)) &&
 					     styler.GetLineState(lineCurrent - 1) > 0)) &&
 					   !atEOL) {
 					levelNext--;
@@ -706,7 +704,7 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 			}
 		}
 
-		if (options.foldImports && inOpenStatement && atEOL) {
+		if (options.foldImports && styler.Match(currentPos, "open ") && styleNext == SCE_FSHARP_KEYWORD) {
 			FoldLexicalGroup(styler, levelNext, lineCurrent, "open ", SCE_FSHARP_KEYWORD);
 		}
 
@@ -744,7 +742,7 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 bool LineContains(LexAccessor &styler, const char *word, const Sci_Position start, const int chAttr) {
 	bool found = false;
 	bool requireStyle = (chAttr > SCE_FSHARP_DEFAULT);
-	for (Sci_Position i = styler.LineStart(start); i < styler.LineStart(start + 1) - 1; i++) {
+	for (Sci_Position i = start; i < styler.LineStart(styler.GetLine(start) + 1) - 1; i++) {
 		if (styler.Match(i, word)) {
 			found = requireStyle ? styler.StyleAt(i) == chAttr : true;
 			break;
@@ -755,9 +753,9 @@ bool LineContains(LexAccessor &styler, const char *word, const Sci_Position star
 
 void FoldLexicalGroup(LexAccessor &styler, int &levelNext, const Sci_Position lineCurrent, const char *word,
 		      const int chAttr) {
-	const Sci_Position linePrev = lineCurrent - 1;
-	const Sci_Position lineNext = lineCurrent + 1;
-	const bool follows = LineContains(styler, word, linePrev, chAttr);
+	const Sci_Position linePrev = styler.LineStart(lineCurrent - 1);
+	const Sci_Position lineNext = styler.LineStart(lineCurrent + 1);
+	const bool follows = (lineCurrent > 0) && LineContains(styler, word, linePrev, chAttr);
 	const bool isFollowed = LineContains(styler, word, lineNext, chAttr);
 
 	if (isFollowed && !follows) {

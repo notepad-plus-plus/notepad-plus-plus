@@ -51,7 +51,7 @@ public:
 	}
 
 	int ValueFor(std::string_view s) const {
-		WordStyleMap::const_iterator it = wordToStyle.find(s);
+		WordStyleMap::const_iterator const it = wordToStyle.find(s);
 		if (it != wordToStyle.end())
 			return it->second;
 		else
@@ -82,7 +82,7 @@ public:
 			while (*cpSpace && !(*cpSpace == ' ' || *cpSpace == '\t' || *cpSpace == '\r' || *cpSpace == '\n'))
 				cpSpace++;
 			if (cpSpace > identifiers) {
-				std::string word(identifiers, cpSpace - identifiers);
+				const std::string word(identifiers, cpSpace - identifiers);
 				wordToStyle[word] = style;
 			}
 			identifiers = cpSpace;

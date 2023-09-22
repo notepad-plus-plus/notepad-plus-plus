@@ -15,6 +15,7 @@
 **.html text
 **.bat text
 **.bsh text
+**.zsh text
 **.mak text
 **.def text
 **.manifest text
@@ -56,6 +57,7 @@
 **.mms text
 **.tex text
 **.fs text
+**.vh text
 **.vhd text
 **.x12 text
 **.yaml text

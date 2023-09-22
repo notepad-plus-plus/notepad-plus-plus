@@ -42,16 +42,16 @@ namespace {
 enum script_type { eScriptNone = 0, eScriptJS, eScriptVBS, eScriptPython, eScriptPHP, eScriptXML, eScriptSGML, eScriptSGMLblock, eScriptComment };
 enum script_mode { eHtml = 0, eNonHtmlScript, eNonHtmlPreProc, eNonHtmlScriptPreProc };
 
-bool IsAWordChar(const int ch) noexcept {
-	return (ch < 0x80) && (isalnum(ch) || ch == '.' || ch == '_');
+constexpr bool IsAWordChar(int ch) noexcept {
+	return IsAlphaNumeric(ch) || ch == '.' || ch == '_';
 }
 
-bool IsAWordStart(const int ch) noexcept {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_');
+constexpr bool IsAWordStart(int ch) noexcept {
+	return IsAlphaNumeric(ch) || ch == '_';
 }
 
 bool IsOperator(int ch) noexcept {
-	if (IsASCII(ch) && isalnum(ch))
+	if (IsAlphaNumeric(ch))
 		return false;
 	// '.' left out as it is used to make up numbers
 	if (ch == '%' || ch == '^' || ch == '&' || ch == '*' ||
@@ -62,6 +62,10 @@ bool IsOperator(int ch) noexcept {
 	        ch == '?' || ch == '!' || ch == '.' || ch == '~')
 		return true;
 	return false;
+}
+
+unsigned char SafeGetUnsignedCharAt(Accessor &styler, Sci_Position position, char chDefault = ' ') {
+	return styler.SafeGetCharAt(position, chDefault);
 }
 
 void GetTextSegment(Accessor &styler, Sci_PositionU start, Sci_PositionU end, char *s, size_t len) {
@@ -472,16 +476,16 @@ int StateForScript(script_type scriptLanguage) noexcept {
 	return Result;
 }
 
-bool issgmlwordchar(int ch) noexcept {
+constexpr bool issgmlwordchar(int ch) noexcept {
 	return !IsASCII(ch) ||
-		(isalnum(ch) || ch == '.' || ch == '_' || ch == ':' || ch == '!' || ch == '#' || ch == '[');
+		(IsAlphaNumeric(ch) || ch == '.' || ch == '_' || ch == ':' || ch == '!' || ch == '#' || ch == '[');
 }
 
-bool IsPhpWordStart(int ch) noexcept {
-	return (IsASCII(ch) && (isalpha(ch) || (ch == '_'))) || (ch >= 0x7f);
+constexpr bool IsPhpWordStart(int ch) noexcept {
+	return (IsUpperOrLowerCase(ch) || (ch == '_')) || (ch >= 0x7f);
 }
 
-bool IsPhpWordChar(int ch) noexcept {
+constexpr bool IsPhpWordChar(int ch) noexcept {
 	return IsADigit(ch) || IsPhpWordStart(ch);
 }
 
@@ -502,7 +506,7 @@ bool IsScriptCommentState(const int state) noexcept {
 		   state == SCE_HJA_COMMENTLINE || state == SCE_HB_COMMENTLINE || state == SCE_HBA_COMMENTLINE;
 }
 
-bool isLineEnd(int ch) noexcept {
+constexpr bool isLineEnd(int ch) noexcept {
 	return ch == '\r' || ch == '\n';
 }
 
@@ -1162,10 +1166,12 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 	const CharacterSet setAttributeContinue(CharacterSet::setAlphaNum, ".-_:!#/", true);
 	// TODO: also handle + and - (except if they're part of ++ or --) and return keywords
 	const CharacterSet setOKBeforeJSRE(CharacterSet::setNone, "([{=,:;!%^&*|?~");
+	// Only allow [A-Za-z0-9.#-_:] in entities
+	const CharacterSet setEntity(CharacterSet::setAlphaNum, ".#-_:");
 
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
-	int visibleChars = 0;
+	Sci_Position visibleChars = 0;
 	int lineStartVisibleChars = 0;
 
 	int chPrev = ' ';
@@ -1182,7 +1188,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				break;
 		}
 		if (style == SCE_HJ_SYMBOLS) {
-			chPrevNonWhite = static_cast<unsigned char>(styler.SafeGetCharAt(back));
+			chPrevNonWhite = SafeGetUnsignedCharAt(styler, back);
 		}
 	}
 
@@ -1195,8 +1201,8 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			state != SCE_HJ_COMMENTLINE && state != SCE_HJ_COMMENTDOC)
 			chPrevNonWhite = ch;
 		ch = static_cast<unsigned char>(styler[i]);
-		int chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
-		const int chNext2 = static_cast<unsigned char>(styler.SafeGetCharAt(i + 2));
+		int chNext = SafeGetUnsignedCharAt(styler, i + 1);
+		const int chNext2 = SafeGetUnsignedCharAt(styler, i + 2);
 
 		// Handle DBCS codepages
 		if (styler.IsLeadByte(static_cast<char>(ch))) {
@@ -1410,7 +1416,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				levelCurrent++;
 			}
 			// should be better
-			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+			ch = SafeGetUnsignedCharAt(styler, i);
 			continue;
 		}
 
@@ -1447,14 +1453,14 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			styler.ColourTo(i, SCE_H_ASP);
 			if (ch != '%' && ch != '$' && ch != '/') {
 				i += makoBlockType.length();
-				visibleChars += static_cast<int>(makoBlockType.length());
+				visibleChars += makoBlockType.length();
 				if (keywords4.InList(makoBlockType.c_str()))
 					styler.ColourTo(i, SCE_HP_WORD);
 				else
 					styler.ColourTo(i, SCE_H_TAGUNKNOWN);
 			}
 
-			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+			ch = SafeGetUnsignedCharAt(styler, i);
 			continue;
 		}
 
@@ -1472,7 +1478,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			scriptLanguage = eScriptComment;
 			state = SCE_H_COMMENT;
 			styler.ColourTo(i, SCE_H_ASP);
-			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+			ch = SafeGetUnsignedCharAt(styler, i);
 			continue;
 		} else if (isDjango && state == SCE_H_COMMENT && (ch == '#' && chNext == '}')) {
 			styler.ColourTo(i - 1, StateToPrint);
@@ -1508,7 +1514,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			scriptLanguage = eScriptPython;
 			styler.ColourTo(i, SCE_H_ASP);
 
-			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+			ch = SafeGetUnsignedCharAt(styler, i);
 			continue;
 		}
 
@@ -1547,7 +1553,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			}
 			styler.ColourTo(i, SCE_H_ASP);
 			// should be better
-			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+			ch = SafeGetUnsignedCharAt(styler, i);
 			continue;
 		}
 
@@ -1731,7 +1737,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					styler.ColourTo(i - 2, StateToPrint);
 				}
 				state = SCE_H_SGML_COMMENT;
-			} else if (IsASCII(ch) && isalpha(ch) && (chPrev == '%')) {
+			} else if (IsUpperOrLowerCase(ch) && (chPrev == '%')) {
 				styler.ColourTo(i - 2, StateToPrint);
 				state = SCE_H_SGML_ENTITY;
 			} else if (ch == '#') {
@@ -1790,13 +1796,13 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					styler.ColourTo(i - 1, SCE_H_SGML_DEFAULT);
 				}
 				// find the length of the word
-				int size = 1;
-				while (setHTMLWord.Contains(static_cast<unsigned char>(styler.SafeGetCharAt(i + size))))
+				Sci_Position size = 1;
+				while (setHTMLWord.Contains(SafeGetUnsignedCharAt(styler, i + size)))
 					size++;
 				styler.ColourTo(i + size - 1, StateToPrint);
 				i += size - 1;
 				visibleChars += size - 1;
-				ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+				ch = SafeGetUnsignedCharAt(styler, i);
 				if (scriptLanguage == eScriptSGMLblock) {
 					state = SCE_H_SGML_BLOCK_DEFAULT;
 				} else {
@@ -1850,9 +1856,9 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			}
 			break;
 		case SCE_H_SGML_SPECIAL:
-			if (!(IsASCII(ch) && isupper(ch))) {
+			if (!IsUpperCase(ch)) {
 				styler.ColourTo(i - 1, StateToPrint);
-				if (isalnum(ch)) {
+				if (IsAlphaNumeric(ch)) {
 					state = SCE_H_SGML_ERROR;
 				} else {
 					state = SCE_H_SGML_DEFAULT;
@@ -1863,7 +1869,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			if (ch == ';') {
 				styler.ColourTo(i, StateToPrint);
 				state = SCE_H_SGML_DEFAULT;
-			} else if (!(IsASCII(ch) && isalnum(ch)) && ch != '-' && ch != '.') {
+			} else if (!(IsAlphaNumeric(ch)) && ch != '-' && ch != '.') {
 				styler.ColourTo(i, SCE_H_SGML_ERROR);
 				state = SCE_H_SGML_DEFAULT;
 			}
@@ -1872,14 +1878,15 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			if (ch == ';') {
 				styler.ColourTo(i, StateToPrint);
 				state = SCE_H_DEFAULT;
-			}
-			if (ch != '#' && !(IsASCII(ch) && isalnum(ch))	// Should check that '#' follows '&', but it is unlikely anyway...
-				&& ch != '.' && ch != '-' && ch != '_' && ch != ':') { // valid in XML
-				if (!IsASCII(ch))	// Possibly start of a multibyte character so don't allow this byte to be in entity style
-					styler.ColourTo(i-1, SCE_H_TAGUNKNOWN);
-				else
-					styler.ColourTo(i, SCE_H_TAGUNKNOWN);
+			} else if (!setEntity.Contains(ch)) {
+				styler.ColourTo(i-1, SCE_H_TAGUNKNOWN);
 				state = SCE_H_DEFAULT;
+				if (!isLineEnd(ch)) {
+					// Retreat one byte so the character that is invalid inside entity
+					// may start something else like a tag.
+					--i;
+					continue;
+				}
 			}
 			break;
 		case SCE_H_TAGUNKNOWN:
@@ -2197,10 +2204,10 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 		case SCE_HJ_REGEX:
 			if (ch == '\r' || ch == '\n' || ch == '/') {
 				if (ch == '/') {
-					while (IsASCII(chNext) && islower(chNext)) {   // gobble regex flags
+					while (IsLowerCase(chNext)) {   // gobble regex flags
 						i++;
 						ch = chNext;
-						chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+						chNext = SafeGetUnsignedCharAt(styler, i + 1);
 					}
 				}
 				styler.ColourTo(i, StateToPrint);
@@ -2210,7 +2217,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				if (chNext == '\\' || chNext == '/') {
 					i++;
 					ch = chNext;
-					chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+					chNext = SafeGetUnsignedCharAt(styler, i + 1);
 				}
 			}
 			break;
@@ -2298,7 +2305,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					state = SCE_HP_TRIPLEDOUBLE;
 					ch = ' ';
 					chPrev = ' ';
-					chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+					chNext = SafeGetUnsignedCharAt(styler, i + 1);
 				} else {
 					//					state = statePrintForState(SCE_HP_STRING,inScriptType);
 					state = SCE_HP_STRING;
@@ -2310,7 +2317,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					state = SCE_HP_TRIPLE;
 					ch = ' ';
 					chPrev = ' ';
-					chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+					chNext = SafeGetUnsignedCharAt(styler, i + 1);
 				} else {
 					state = SCE_HP_CHARACTER;
 				}
@@ -2336,7 +2343,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 						state = SCE_HP_TRIPLEDOUBLE;
 						ch = ' ';
 						chPrev = ' ';
-						chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+						chNext = SafeGetUnsignedCharAt(styler, i + 1);
 					} else {
 						state = SCE_HP_STRING;
 					}
@@ -2346,7 +2353,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 						state = SCE_HP_TRIPLE;
 						ch = ' ';
 						chPrev = ' ';
-						chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+						chNext = SafeGetUnsignedCharAt(styler, i + 1);
 					} else {
 						state = SCE_HP_CHARACTER;
 					}
@@ -2366,7 +2373,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				if (chNext == '\"' || chNext == '\'' || chNext == '\\') {
 					i++;
 					ch = chNext;
-					chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+					chNext = SafeGetUnsignedCharAt(styler, i + 1);
 				}
 			} else if (ch == '\"') {
 				styler.ColourTo(i, StateToPrint);
@@ -2378,7 +2385,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				if (chNext == '\"' || chNext == '\'' || chNext == '\\') {
 					i++;
 					ch = chNext;
-					chNext = static_cast<unsigned char>(styler.SafeGetCharAt(i + 1));
+					chNext = SafeGetUnsignedCharAt(styler, i + 1);
 				}
 			} else if (ch == '\'') {
 				styler.ColourTo(i, StateToPrint);

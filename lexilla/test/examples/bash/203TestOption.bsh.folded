@@ -1,0 +1,25 @@
+ 0 400   0   [[ $1 == -e* ]] && echo e
+ 1 400   0   
+ 2 400   0 + if [[ -d /usr/bin &&
+ 0 401   0 | 	-e /usr/bin/bash ]]; then
+ 0 401   0 | 	echo find bash
+ 0 401   0 | fi
+ 1 400   0   
+ 2 400   0 + if [[ -d /usr/bin &&	-e /usr/bin/bash ]]; then
+ 0 401   0 | 	echo find bash
+ 0 401   0 | fi
+ 1 400   0   
+ 2 400   0 + if [ -d /usr/bin && -e /usr/bin/bash ]; then
+ 0 401   0 | 	echo find bash
+ 0 401   0 | fi
+ 1 400   0   
+ 2 400   0 + if [ -d /usr/bin &&
+ 0 401   0 | 	-e /usr/bin/bash ]; then
+ 0 401   0 | 	echo find bash
+ 0 401   0 | fi
+ 1 400   0   
+ 2 400   0 + if [ -d /usr/bin && \
+ 0 401   0 | 	-e /usr/bin/bash ]; then
+ 0 401   0 | 	echo find bash
+ 0 401   0 | fi
+ 0 400   0   

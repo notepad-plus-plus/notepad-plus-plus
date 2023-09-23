@@ -30,7 +30,7 @@ FindOption FindReplaceDlg::_options;
 
 #define SHIFTED 0x8000
 
-void addText2Combo(const TCHAR * txt2add, HWND hCombo)
+void addText2Combo(const TCHAR * txt2add, HWND hCombo, bool moveToTopIfFound = true)
 {
 	if (!hCombo) return;
 	if (!lstrcmp(txt2add, TEXT(""))) return;
@@ -38,6 +38,7 @@ void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 	auto i = ::SendMessage(hCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(txt2add));
 	if (i != CB_ERR) // found
 	{
+		if (!moveToTopIfFound) return;
 		::SendMessage(hCombo, CB_DELETESTRING, i, 0);
 	}
 
@@ -4208,6 +4209,10 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 	{
 		delLeftWordInEdit(hwnd);
 		return 0;
+	}
+	else if ((message == WM_KEYDOWN) && ((wParam == VK_DOWN) || (wParam == VK_UP)))
+	{
+		addText2Combo(getTextFromCombo(hwndCombo).c_str(), hwndCombo, false);
 	}
 	return CallWindowProc(originalComboEditProc, hwnd, message, wParam, lParam);
 }

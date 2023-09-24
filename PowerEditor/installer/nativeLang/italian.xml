@@ -1,13 +1,16 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.5.4
-    Last modified Sun, May 28th, 2023.
+    Italian translation for Notepad++ 8.5.8
+    Last modified Sun, Sep 24th, 2023.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
-
-
+<!--
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
+-->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.5.4">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.5.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -41,6 +44,7 @@
 					<Item subMenuId="edit-blankOperations" name="Operazioni sugli spazi"/>
 					<Item subMenuId="edit-pasteSpecial" name="Incolla speciale"/>
 					<Item subMenuId="edit-onSelection" name="Testo selezionato"/>
+					<Item subMenuId="search-changeHistory" name="Modifica Cronologia"/>
 					<Item subMenuId="search-markAll" name="&amp;Applica Stile per tutte le corrispondenze"/>
 					<Item subMenuId="search-markOne" name="Applica Stile s&amp;olo per la selezione"/>
 					<Item subMenuId="search-unmarkAll" name="Rimuovi applicazione Stile"/>
@@ -76,7 +80,9 @@
 					<Item subMenuId="language-userDefinedLanguage" name="Linguaggio definito dall&apos;utente"/>
 					<Item subMenuId="settings-import" name="Importa"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Ordina per"/>
 				</SubEntries>
 
@@ -251,11 +257,14 @@
 					<Item id="43064" name="Applica lo stile 3"/>
 					<Item id="43065" name="Applica lo stile 4"/>
 					<Item id="43066" name="Applica lo stile 5"/>
+					<Item id="43067" name="Vai alla modifica successiva"/>
+					<Item id="43068" name="Vai alla modifica precedente"/>
+					<Item id="43069" name="Pulisci la cronologia delle modifiche"/>
 					<Item id="43045" name="Finestra dei risultati di ricerca"/>
 					<Item id="43046" name="Vai al successivo risultato di ricerca"/>
 					<Item id="43047" name="Vai al precedente risultato di ricerca"/>
-					<Item id="43048" name="Seleziona e trova successivo"/>
-					<Item id="43049" name="Seleziona e trova precedente"/>
+					<Item id="43048" name="&amp;Seleziona e trova successivo"/>
+					<Item id="43049" name="&amp;Seleziona e trova precedente"/>
 					<Item id="43054" name="Evidenzia..."/>
 					<Item id="43501" name="Chiudi i selezionati"/>
 					<Item id="43502" name="Chiudi gli altri"/>
@@ -364,6 +373,12 @@
 					<Item id="48504" name="Genera..."/>
 					<Item id="48505" name="Genera da file..."/>
 					<Item id="48506" name="Genera da selezione negli Appunti"/>
+					<Item id="48507" name="Genera..."/>
+					<Item id="48508" name="Genera da file..."/>
+					<Item id="48509" name="Genera dalla selezione agli Appunti"/>
+					<Item id="48510" name="Genera..."/>
+					<Item id="48511" name="Genera da file..."/>
+					<Item id="48512" name="Genera dalla selezione agli Appunti"/>
 					<Item id="49000" name="E&amp;segui..."/>
 
 					<Item id="50000" name="Completa funzione"/>
@@ -523,7 +538,7 @@
 			</Run>
 
 			<MD5FromFilesDlg title="Genera firma MD5 di file">
-				<Item id="1922" name="Scegli i file di cui &amp;generare MD5..."/>
+				<Item id="1922" name="Scegli i file da cui &amp;generare MD5..."/>
 				<Item id="1924" name="Co&amp;pia negli Appunti"/>
 				<Item id="2" name="&amp;Chiudi"/>
 			</MD5FromFilesDlg>
@@ -535,17 +550,40 @@
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="Genera firma SHA-256 da file">
-				<Item id="1922" name="Scegli i file da cui generare SHA-256..."/>
+				<Item id="1922" name="Scegli i file da cui &amp;generare SHA-256..."/>
 				<Item id="1924" name="Co&amp;pia negli Appunti"/>
 				<Item id="2" name="&amp;Chiudi"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Genera firma SHA-256">
-				<Item id="1932" name="Considera ogni riga come una stringa separata"/>
-				<Item id="1934" name="Copia negli Appunti"/>
-				<Item id="2" name="Chiudi"/>
+				<Item id="1932" name="Considera ogni riga come una stringa &amp;separata"/>
+				<Item id="1934" name="Co&amp;pia negli Appunti"/>
+				<Item id="2" name="&amp;Chiudi"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Genera firma SHA-1 da file">
+				<Item id="1922" name="Scegli i file da cui &amp;generare SHA-1..."/>
+				<Item id="1924" name="Co&amp;pia negli Appunti"/>
+				<Item id="2" name="&amp;Chiudi"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generate SHA-1 digest">
+				<Item id="1932" name="Considera ogni riga come una stringa &amp;separata"/>
+				<Item id="1934" name="Co&amp;pia negli Appunti"/>
+				<Item id="2" name="&amp;Chiudi"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generate SHA-512 digest from files">
+				<Item id="1922" name="Scegli i file da cui &amp;generare  SHA-512..."/>
+				<Item id="1924" name="Co&amp;pia negli Appunti"/>
+				<Item id="2" name="&amp;Chiudi"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generate SHA-512 digest">
+				<Item id="1932" name="Considera ogni riga come una stringa &amp;separata"/>
+				<Item id="1934" name="Co&amp;pia negli Appunti"/>
+				<Item id="2" name="&amp;Chiudi"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Gestione plugin" titleAvailable="Disponibili" titleUpdates="Aggiornamenti" titleInstalled="Installati" titleIncompatible="Incompatibili">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versione"/>
@@ -608,17 +646,7 @@
 				<ScintillaCommandsTab name="Comandi Scintilla"/>
 				<ConflictInfoOk name="Nessun conflitto per questo elemento."/>
 				<ConflictInfoEditing name="Nessun conflitto..."/>
-				<WindowCategory name="Finestra"/>
-				<FileCategory name="File"/>
-				<EditCategory name="Modifica"/>
-				<SearchCategory name="Ricerca"/>
-				<ViewCategory name="Visualizza"/>
-				<FormatCategory name="Formato"/>
-				<LangCategory name="Linguaggio"/>
 				<AboutCategory name="Informazioni"/>
-				<SettingCategory name="Configurazione"/>
-				<ToolCategory name="Strumenti"/>
-				<ExecuteCategory name="Esegui"/>
 				<ModifyContextMenu name="Modifica"/>
 				<DeleteContextMenu name="Elimina"/>
 				<ClearContextMenu name="Pulisci"/>
@@ -779,7 +807,6 @@
 					<Item id="21101" name="Impostazioni stile predefinito"/>
 					<Item id="21102" name="Stile"/>
 					<Item id="21105" name="Documentazione:"/>
-					<Item id="21104" name="Sito temporaneo documentazione:"/>
 					<Item id="21106" name="Delimita compatto (racchiudi righe vuote)"/>
 					<Item id="21220" name="Delimitatori nel codice 1° stile:"/>
 					<Item id="21224" name="Apri:"/>
@@ -915,7 +942,6 @@
 					<Item id="6108" name="Blocca schede (no trascinamento)"/>
 					<Item id="6109" name="Oscura le schede inattive"/>
 					<Item id="6110" name="Barra colorata sulla scheda attiva"/>
-
 					<Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
 					<Item id="6113" name="Chiudere una scheda con Doppio clic"/>
 					<Item id="6118" name="Nascondi"/>
@@ -923,14 +949,15 @@
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esci alla chiusura dell&apos;ultima scheda"/>
 					<Item id="6128" name="Icone alternative"/>
-                    <Item id="6133" name="Barra di stato"/>
+
+					<Item id="6133" name="Barra di stato"/>
 					<Item id="6134" name="Nascondi"/>
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Nascondi la barra dei menu (Alt o F10 per visualizzare)"/>
 					<Item id="6132" name="Nascondi ＋ ▼ ✕ dalla barra dei menu (Richiede il riavvio di Notepad++)"/>
-					<Item id="6123" name="Lingua"/>
 
+					<Item id="6123" name="Lingua"/>
 				</Global>
 				<Scintillas title="Visualizzazione">
 					<Item id="6216" name="Cursore"/>
@@ -1032,6 +1059,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
 					<Item id="6411" name="Linguaggio predefinito:"/>
 					<Item id="6419" name="Nuovo Documento"/>
 					<Item id="6420" name="Applica all&apos;apertura di file ANSI"/>
+					<Item id="6432" name="Aggiungi un nuovo documento all'avvio"/>
 				</NewDoc>
 
 				<DefaultDir title="Cartella predefinita">
@@ -1217,6 +1245,7 @@ Puoi indicare serie di delimitatori di colonna usando degli spazi per separare i
 					<Item id="7149" name="Permetti l&apos;attivazione della colorazione automatica"/>
 					<Item id="7150" name="Disattiva il Ritorno A capo automatico globalmente"/>
 					<Item id="7151" name="Permetti di cliccare sui collegamenti ipertestuali (link)"/>
+					<Item id="7152" name="Rimuovi gli avvisi quando vengono aperti file ≥2GB"/>
 				</Performance>
 
 +				<Cloud title="Cloud e link">
@@ -1350,6 +1379,7 @@ Continuare?"/><!-- HowToReproduce: when you openned file is modified and saved, 
 			<FileLockedWarning title="Salvataggio fallito" message="Verificare che il file non sia aperto con un altro programma."/>
 			<FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un&apos;altra scheda."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Rename failed" message="Il nome inserito non può rimanere vuoto, e non può contenere soltanto spazi o TAB."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Eliminazione file" message="Eliminazione del file fallita."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Il numero di file da aprire è troppo grande" message="Si stanno aprendo $INT_REPLACE$ file.
@@ -1374,7 +1404,8 @@ Esistono 3 modi per passare alla modalità Selezione-Colonna:
        selezionare la funzione &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;;
       Spostare il cursore all&apos;estremità del blocco di colonna desiderato, quindi
        eseguire nuovamente il comando &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;"/>
-			<BufferInvalidWarning title="Salvataggio fallito" message="Impossibile salvare: il buffer non è valido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<BufferInvalidWarning title="Salvataggio fallito" message="Impossibile salvare: il buffer non è valido."/>
+			<!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Mantenere file inesistente" message="Il file &quot;$STR_REPLACE$&quot; è inesistente.
 Mantenere il file aperto?"/>
 			<DoDeleteOrNot title="Elimina file" message="Il file &quot;$STR_REPLACE$&quot;
@@ -1415,7 +1446,6 @@ Vuoi ripristinare il file langs.xml?"/>
 			<LoadLangsFailedFinal title="Configurazione" message="Il caricamento di langs.xml è fallito!"/>
 			<FolderAsWorspaceSubfolderExists title="Problema per Cartella come Area di Lavoro" message="Una sotto cartella della cartella che vuoi aggiungere esiste già.
 Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."/>
-
 			<ProjectPanelChanged title="$STR_REPLACE$" message="L&apos;Area di Lavoro è stata modificata. Vuoi salvarla?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Si è verificato un errore durante la scrittura del file Area di Lavoro.
 Il file Area di Lavoro non è stato salvato."/>
@@ -1455,7 +1485,8 @@ Testa questi comandi e, se necessario, rimodificali.
 Alternativamente, è possibile tornare a Notepad++ v8.5.2 e ripristinare i dati precedenti.
 Notepad++ salverà il vecchio &quot;shortcuts.xml&quot; e salvarlo come &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Rinominando &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i comandi saranno ripristinati e funzioneranno correttamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-
+			<NotEnoughRoom4Saving title="Salvataggio fallito" message="Il salvataggio del file è fallito.
+Sembra non ci sia abbastanza spazio nel disco per salvare il file. Il file non è stato salvato."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>
@@ -1596,18 +1627,14 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<find-status-end-reached value="Trova: è stata trovata la prima corrispondenza dall&apos;alto. È stata raggiunta la fine del documento."/>
 			<find-status-replaceinfiles-1-replaced value="Sostituisci: 1 corrispondenza è stata sostituita"/>
 			<find-status-replaceinfiles-nb-replaced value="Sostituisci: $INT_REPLACE$ corrispondenze sono state sostituite"/>
-			<find-status-replaceinfiles-re-malformed value="Sostituisci nei file aperti: l&apos;espressione regolare non è valida"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Sostituisci nei file aperti: 1 corrispondenza è stata sostituita"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Sostituisci nei file aperti: $INT_REPLACE$ corrispondenze sono state sostituite"/>
-			<find-status-mark-re-malformed value="Evidenzia: l&apos;espressione regolare da cercare non è valida"/>
 			<find-status-invalid-re value="Trova: espressione regolare non valida"/>
 			<find-status-search-failed value="Trova: ricerca fallita"/>
 			<find-status-mark-1-match value="Evidenzia: 1 corrispondenza trovata"/>
 			<find-status-mark-nb-matches value="Evidenzia: $INT_REPLACE$ corrispondenze trovate"/>
-			<find-status-count-re-malformed value="Conta: l&apos;espressione regolare da cercare non è valida"/>
 			<find-status-count-1-match value="Conta: 1 corrispondenza trovata"/>
 			<find-status-count-nb-matches value="Conta: $INT_REPLACE$ corrispondenze trovate"/>
-			<find-status-replaceall-re-malformed value="Sostituisci tutti: l&apos;espressione regolare non è valida"/>
 			<find-status-replaceall-1-replaced value="Sostituisci tutti: 1 corrispondenza è stata sostituita"/>
 			<find-status-replaceall-nb-replaced value="Sostituisci tutti: $INT_REPLACE$ corrispondenze sono state sostituite"/>
 			<find-status-replaceall-readonly value="Sostituisci tutti: impossibile sostituire il testo. Il documento corrente è in sola lettura"/>
@@ -1719,7 +1746,7 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Vai a Configura gli Stili per personalizzare il colore predefinito degli spazi e i caratteri non stampabili selezionati"/>
-			<npcIncludeCcUniEol-tip value="Applicare le impostazioni dell'aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)."/>
+			<npcIncludeCcUniEol-tip value="Applicare le impostazioni dell&apos;aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1227,7 +1227,9 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
 {
 	_shortcutName = string2wstring(sc.getName(), CP_UTF8);
-	if ( _id >= IDM_WINDOW_SORT_FN_ASC and _id <= IDM_WINDOW_SORT_FS_DSC)
+	if (_id == IDM_WINDOW_WINDOWS)
+		_category = TEXT("Window");
+	else if ((_id >= IDM_WINDOW_SORT_FN_ASC) && (_id <= IDM_WINDOW_SORT_FS_DSC))
 		_category = TEXT("Window");
 	else if ( _id < IDM_EDIT)
 		_category = TEXT("File");

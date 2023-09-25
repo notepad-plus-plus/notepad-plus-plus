@@ -421,6 +421,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 
 	{ VK_F5,      IDM_EXECUTE,                                  false, false, false, nullptr },
 
+	{ VK_NULL,    IDM_WINDOW_WINDOWS,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_WINDOW_SORT_FN_ASC,                       false, false, false, TEXT("Sort By Name A to Z") },
 	{ VK_NULL,    IDM_WINDOW_SORT_FN_DSC,                       false, false, false, TEXT("Sort By Name Z to A") },
 	{ VK_NULL,    IDM_WINDOW_SORT_FP_ASC,                       false, false, false, TEXT("Sort By Path A to Z") },

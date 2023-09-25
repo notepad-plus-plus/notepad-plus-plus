@@ -1228,9 +1228,9 @@ void CommandShortcut::setCategoryFromMenu(HMENU hMenu)
 {
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	if ( _id >= IDM_WINDOW_SORT_FN_ASC and _id <= IDM_WINDOW_SORT_FS_DSC)
+	if (_id >= IDM_WINDOW_WINDOWS && _id <= IDM_WINDOW_SORT_FS_DSC)
 		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "Window", L"Window");
-	else if ( _id >= IDM_VIEW_GOTO_ANOTHER_VIEW and _id <= IDM_VIEW_LOAD_IN_NEW_INSTANCE)
+	else if ( _id >= IDM_VIEW_GOTO_ANOTHER_VIEW && _id <= IDM_VIEW_LOAD_IN_NEW_INSTANCE)
 		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "view", L"View");
 	else if (_id == IDM_EDIT_LTR || _id == IDM_EDIT_RTL)
 		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "view", L"View");

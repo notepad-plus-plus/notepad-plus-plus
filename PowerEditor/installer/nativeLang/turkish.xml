@@ -644,17 +644,7 @@
 				<ScintillaCommandsTab name="Scintilla Komutları"/>
 				<ConflictInfoOk name="Bu içerik için hiçbir kısayol çakışması yok."/>
 				<ConflictInfoEditing name="Hiçbir çakışma yok . . ."/>
-				<WindowCategory name="Pencere"/>
-				<FileCategory name="Dosya"/>
-				<EditCategory name="Düzenle"/>
-				<SearchCategory name="Ara"/>
-				<ViewCategory name="Görünüm"/>
-				<FormatCategory name="Biçim"/>
-				<LangCategory name="Dil"/>
 				<AboutCategory name="Hakkında"/>
-				<SettingCategory name="Ayarlar"/>
-				<ToolCategory name="Araç"/>
-				<ExecuteCategory name="Çalıştır"/>
 				<ModifyContextMenu name="Değiştir"/>
 				<DeleteContextMenu name="Sil"/>
 				<ClearContextMenu name="Temizle"/>

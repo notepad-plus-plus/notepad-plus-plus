@@ -1495,37 +1495,23 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
 				intptr_t nbSelected = cr.cpMax - cr.cpMin;
 
-				_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK)?1:0;
-				int checkVal = _options._isInSelection?BST_CHECKED:BST_UNCHECKED;
+				_options._isInSelection = nbSelected >= FINDREPLACE_INSEL_TEXTSIZE_THRESHOLD;
 
-				if (!_options._isInSelection)
-				{
-					if (nbSelected <= FINDREPLACE_INSEL_TEXTSIZE_THRESHOLD)
-					{
-						checkVal = BST_UNCHECKED;
-						_options._isInSelection = false;
-					}
-					else
-					{
-						checkVal = BST_CHECKED;
-						_options._isInSelection = true;
-					}
-				}
 				// Searching/replacing in multiple selections or column selection is not allowed
 				if (((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || ((*_ppEditView)->execute(SCI_GETSELECTIONS) > 1))
 				{
-					checkVal = BST_UNCHECKED;
 					_options._isInSelection = false;
 					nbSelected = 0;
 				}
+
 				enableFindDlgItem(IDC_IN_SELECTION_CHECK, nbSelected != 0);
+
 				// uncheck if the control is disable
 				if (!nbSelected)
 				{
-					checkVal = BST_UNCHECKED;
 					_options._isInSelection = false;
 				}
-				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
+				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, _options._isInSelection ? BST_CHECKED : BST_UNCHECKED, 0);
 			}
 
 			if (isCheckedOrNot(IDC_TRANSPARENT_LOSSFOCUS_RADIO))

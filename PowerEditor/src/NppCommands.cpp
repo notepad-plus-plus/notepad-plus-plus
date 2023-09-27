@@ -1248,22 +1248,14 @@ void Notepad_plus::command(int id)
 
 			const NppGUI & nppGui = (NppParameters::getInstance()).getNppGUI();
 			
-			bool filling = nppGui._fillFindFieldWithSelected;
-			if (filling)
-			{
-				_pEditView->getGenericSelectedText(str, strSize, false);
-				if (nppGui._inSelectionAutocheckThreshold != 0)
-				{
-					if (lstrlen(str) >= nppGui._inSelectionAutocheckThreshold)
-					{
-						filling = false;
-					}
-				}
-			}
-			if (filling)
+			if (nppGui._fillFindFieldWithSelected)
 			{
 				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
-				_findReplaceDlg.setSearchText(str);
+				if ((nppGui._inSelectionAutocheckThreshold == 0) ||
+					(lstrlen(str) < nppGui._inSelectionAutocheckThreshold))
+				{
+					_findReplaceDlg.setSearchText(str);
+				}
 			}
 
 			setFindReplaceFolderFilter(NULL, NULL);

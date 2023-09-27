@@ -5579,7 +5579,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			generic_string tipText = pNativeSpeaker->getLocalizedStrFromID("searchingInSelThresh-tip", L"Number of selected characters in edit zone to automatically check the 'In selection' checkbox when the Find dialog is activated. Set the value to 0 to disable auto-checking; enabled range is 1 - $INT_REPLACE$.");
-			tipText = stringReplace(tipText, TEXT("$INT_REPLACE$"), std::to_wstring(FINDREPLACE_INSELECTION_THRESHOLD_MAX));
+			tipText = stringReplace(tipText, TEXT("$INT_REPLACE$"), std::to_wstring(FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT));
 
 			_tipInSelThresh = CreateToolTip(IDC_INSELECTION_THRESHOLD_EDIT, _hSelf, _hInst, const_cast<PTSTR>(tipText.c_str()), pNativeSpeaker->isRTL());
 
@@ -5611,100 +5611,96 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_COMMAND:
 		{
-			if (LOWORD(wParam) == IDC_INSELECTION_THRESHOLD_EDIT)
+			if ((LOWORD(wParam) == IDC_INSELECTION_THRESHOLD_EDIT) &&
+				(HIWORD(wParam) == EN_CHANGE))
 			{
-				if (HIWORD(wParam) == EN_KILLFOCUS)
+				constexpr int stringSize = 5;
+				wchar_t str[stringSize]{};
+				::GetDlgItemText(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, str, stringSize);
+
+				if (lstrcmp(str, L"") == 0)
 				{
-					constexpr int stringSize = 5;
-					wchar_t str[stringSize]{};
-					::GetDlgItemText(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, str, stringSize);
-
-					if (lstrcmp(str, L"") == 0)
-					{
-						::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nppGUI._inSelectionAutocheckThreshold, FALSE);
-						return FALSE;
-					}
-
-					UINT newValue = ::GetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nullptr, FALSE);
-
-					if (static_cast<int>(newValue) == nppGUI._inSelectionAutocheckThreshold)
-					{
-						return FALSE;
-					}
-
-					if (newValue > FINDREPLACE_INSELECTION_THRESHOLD_MAX)
-					{
-						::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, FINDREPLACE_INSELECTION_THRESHOLD_MAX, FALSE);
-						newValue = FINDREPLACE_INSELECTION_THRESHOLD_MAX;
-					}
-
-					nppGUI._inSelectionAutocheckThreshold = newValue;
+					::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nppGUI._inSelectionAutocheckThreshold, FALSE);
+					return FALSE;
 				}
+
+				UINT newValue = ::GetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nullptr, FALSE);
+
+				if (static_cast<int>(newValue) == nppGUI._inSelectionAutocheckThreshold)
+				{
+					return FALSE;
+				}
+
+				if (newValue > FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT)
+				{
+					::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, FALSE);
+					newValue = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
+				}
+
+				nppGUI._inSelectionAutocheckThreshold = newValue;
 
 				return TRUE;
 			}
-			else
+
+			switch (wParam)
 			{
-				switch (wParam)
+				case IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED:
 				{
-					case IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED:
+					nppGUI._fillFindFieldWithSelected = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+					if (!nppGUI._fillFindFieldWithSelected)
 					{
-						nppGUI._fillFindFieldWithSelected = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
-						if (!nppGUI._fillFindFieldWithSelected)
-						{
-							::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, BST_UNCHECKED, 0);
-							nppGUI._fillFindFieldSelectCaret = false;
-						}
-						return TRUE;
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, BST_UNCHECKED, 0);
+						nppGUI._fillFindFieldSelectCaret = false;
 					}
-					break;
-
-					case IDC_CHECK_MONOSPACEDFONT_FINDDLG:
-					{
-						nppGUI._monospacedFontFindDlg = isCheckedOrNot(IDC_CHECK_MONOSPACEDFONT_FINDDLG);
-						return TRUE;
-					}
-					break;
-
-					case IDC_CHECK_FINDDLG_ALWAYS_VISIBLE:
-					{
-						nppGUI._findDlgAlwaysVisible = isCheckedOrNot(IDC_CHECK_FINDDLG_ALWAYS_VISIBLE);
-						return TRUE;
-					}
-					break;
-
-					case IDC_CHECK_CONFIRMREPLOPENDOCS:
-					{
-						nppGUI._confirmReplaceInAllOpenDocs = isCheckedOrNot(IDC_CHECK_CONFIRMREPLOPENDOCS);
-						return TRUE;
-					}
-					break;
-
-					case IDC_CHECK_REPLACEANDSTOP:
-					{
-						nppGUI._replaceStopsWithoutFindingNext = isCheckedOrNot(IDC_CHECK_REPLACEANDSTOP);
-						return TRUE;
-					}
-					break;
-
-					case IDC_CHECK_SHOWONCEPERFOUNDLINE:
-					{
-						nppGUI._finderShowOnlyOneEntryPerFoundLine = isCheckedOrNot(IDC_CHECK_SHOWONCEPERFOUNDLINE);
-						return TRUE;
-					}
-					break;
-
-					case IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET:
-					{
-						nppGUI._fillFindFieldSelectCaret = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET);
-						return TRUE;
-					}
-					break;
-
-					default:
-						return FALSE;
+					return TRUE;
 				}
+				break;
+
+				case IDC_CHECK_MONOSPACEDFONT_FINDDLG:
+				{
+					nppGUI._monospacedFontFindDlg = isCheckedOrNot(IDC_CHECK_MONOSPACEDFONT_FINDDLG);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_FINDDLG_ALWAYS_VISIBLE:
+				{
+					nppGUI._findDlgAlwaysVisible = isCheckedOrNot(IDC_CHECK_FINDDLG_ALWAYS_VISIBLE);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_CONFIRMREPLOPENDOCS:
+				{
+					nppGUI._confirmReplaceInAllOpenDocs = isCheckedOrNot(IDC_CHECK_CONFIRMREPLOPENDOCS);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_REPLACEANDSTOP:
+				{
+					nppGUI._replaceStopsWithoutFindingNext = isCheckedOrNot(IDC_CHECK_REPLACEANDSTOP);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_SHOWONCEPERFOUNDLINE:
+				{
+					nppGUI._finderShowOnlyOneEntryPerFoundLine = isCheckedOrNot(IDC_CHECK_SHOWONCEPERFOUNDLINE);
+					return TRUE;
+				}
+				break;
+
+				case IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET:
+				{
+					nppGUI._fillFindFieldSelectCaret = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET);
+					return TRUE;
+				}
+				break;
+
+				default:
+					return FALSE;
 			}
 		}
 		break;

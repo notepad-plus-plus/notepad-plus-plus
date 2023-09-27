@@ -5948,7 +5948,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			int inSelThresh;
 			if (element->Attribute(TEXT("inSelectionAutocheckThreshold"), &inSelThresh) &&
-				(inSelThresh >= 0 && inSelThresh <= FINDREPLACE_INSELECTION_THRESHOLD_MAX))
+				(inSelThresh >= 0 && inSelThresh <= FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT))
 			{
 				_nppGUI._inSelectionAutocheckThreshold = inSelThresh;
 			}

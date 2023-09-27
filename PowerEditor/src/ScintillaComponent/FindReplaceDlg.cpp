@@ -4170,6 +4170,8 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 
 	bool isDropped = ::SendMessage(hwndCombo, CB_GETDROPPEDSTATE, 0, 0) != 0;
 
+	static TCHAR draftString[FINDREPLACE_MAXLENGTH] = { '\0' };
+
 	if (isDropped && (message == WM_KEYDOWN) && (wParam == VK_DELETE))
 	{
 		auto curSel = ::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0);
@@ -4194,6 +4196,26 @@ LRESULT FAR PASCAL FindReplaceDlg::comboEditProc(HWND hwnd, UINT message, WPARAM
 	{
 		delLeftWordInEdit(hwnd);
 		return 0;
+	}
+	else if ((message == WM_KEYDOWN) && (wParam == VK_DOWN) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == CB_ERR))
+	{
+		// down key on unselected combobox item -> store current edit text as draft
+		::SendMessage(hwndCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(draftString));
+	}
+	else if ((message == WM_KEYDOWN) && (wParam == VK_UP) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == CB_ERR))
+	{
+		// up key on unselected combobox item -> no change but select current edit text
+		::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
+		return 0;
+	}
+	else if ((message == WM_KEYDOWN) && (wParam == VK_UP) && (::SendMessage(hwndCombo, CB_GETCURSEL, 0, 0) == 0))
+	{
+		// up key on top selected combobox item -> restore draft to edit text
+		::SendMessage(hwndCombo, CB_SETCURSEL, WPARAM(-1), 0);
+		::SendMessage(hwndCombo, WM_SETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(draftString));
+		::SendMessage(hwndCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1));
+		return 0;
+
 	}
 	return CallWindowProc(originalComboEditProc, hwnd, message, wParam, lParam);
 }

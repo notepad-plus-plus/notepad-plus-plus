@@ -106,6 +106,7 @@
 		<KeyWord name="-width=>" />
 		<KeyWord name="-wrap=>" />
 		<KeyWord name="-xbase=>" />
+		<KeyWord name="ADJUST" />
 		<KeyWord name="ARGV" />
 		<KeyWord name="AUTOLOAD" />
 		<KeyWord name="Accept" />
@@ -149,6 +150,7 @@
 		<KeyWord name="autodie" />
 		<KeyWord name="autouse" />
 		<KeyWord name="base" />
+		<KeyWord name="bigfloat" />
 		<KeyWord name="bigint" />
 		<KeyWord name="bignum" />
 		<KeyWord name="bigrat" />
@@ -158,10 +160,12 @@
 		<KeyWord name="blib" />
 		<KeyWord name="br" />
 		<KeyWord name="break" func="yes"><Overload retVal="" descr="break out of a given block"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="builtin" />
 		<KeyWord name="button" />
 		<KeyWord name="bytes" />
 		<KeyWord name="caller" func="yes"><Overload retVal="" descr="get context of the current subroutine call"><Param name="EXPR" /></Overload><Overload retVal="" descr="get context of the current subroutine call"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="caption" />
+		<KeyWord name="catch" func="yes"><Overload retVal="" descr="exception handling: catch an exception"><Param name="BLOCK" /></Overload></KeyWord>
 		<KeyWord name="charnames" />
 		<KeyWord name="chdir" func="yes"><Overload retVal="" descr="change your current working directory"><Param name="DIRHANDLE" /></Overload><Overload retVal="" descr="change your current working directory"><Param name="EXPR" /></Overload><Overload retVal="" descr="change your current working directory"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="change your current working directory"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="checkbox" />
@@ -172,6 +176,7 @@
 		<KeyWord name="chown" func="yes"><Overload retVal="" descr="change the ownership on a list of files"><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="chr" func="yes"><Overload retVal="" descr="get character this number represents"><Param name="NUMBER" /></Overload><Overload retVal="" descr="get character this number represents"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="chroot" func="yes"><Overload retVal="" descr="make directory new root for path lookups"><Param name="FILENAME" /></Overload><Overload retVal="" descr="make directory new root for path lookups"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="class" />
 		<KeyWord name="close" func="yes"><Overload retVal="" descr="close file (or pipe or socket) handle"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="close file (or pipe or socket) handle"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="closedir" func="yes"><Overload retVal="" descr="close directory handle"><Param name="DIRHANDLE" /></Overload></KeyWord>
 		<KeyWord name="cmp" />
@@ -187,6 +192,7 @@
 		<KeyWord name="dbmopen" func="yes"><Overload retVal="" descr="create binding on a tied dbm file"><Param name="HASH" /><Param name="DBNAME" /><Param name="MASK" /></Overload></KeyWord>
 		<KeyWord name="default" />
 		<KeyWord name="defaults" />
+		<KeyWord name="defer" func="yes"><Overload retVal="" descr="provides a section of code which runs at a later time during scope exit"><Param name="BLOCK" /></Overload></KeyWord>
 		<KeyWord name="defined" func="yes"><Overload retVal="" descr="test whether a value, variable, or function is defined"><Param name="EXPR" /></Overload><Overload retVal="" descr="test whether a value, variable, or function is defined"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="deiconify" />
 		<KeyWord name="delete" func="yes"><Overload retVal="" descr="deletes a value from a hash"><Param name="EXPR" /></Overload></KeyWord>
@@ -229,10 +235,12 @@
 		<KeyWord name="fc" func="yes"><Overload retVal="" descr="return casefolded version of a string"><Param name="EXPR" /></Overload><Overload retVal="" descr="return casefolded version of a string"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="fcntl" func="yes"><Overload retVal="" descr="file control system call"><Param name="FILEHANDLE" /><Param name="FUNCTION" /><Param name="SCALAR" /></Overload></KeyWord>
 		<KeyWord name="feature" />
+		<KeyWord name="field" />
 		<KeyWord name="fields" />
 		<KeyWord name="filefield" />
 		<KeyWord name="fileno" func="yes"><Overload retVal="" descr="return file descriptor from filehandle"><Param name="DIRHANDLE" /></Overload><Overload retVal="" descr="return file descriptor from filehandle"><Param name="FILEHANDLE" /></Overload></KeyWord>
 		<KeyWord name="filetest" />
+		<KeyWord name="finally" func="yes"><Overload retVal="" descr="exception handling: runs block after try/catch"><Param name="BLOCK" /></Overload></KeyWord>
 		<KeyWord name="flock" func="yes"><Overload retVal="" descr="lock an entire file with an advisory lock"><Param name="FILEHANDLE" /><Param name="OPERATION" /></Overload></KeyWord>
 		<KeyWord name="font" />
 		<KeyWord name="for" />
@@ -296,6 +304,7 @@
 		<KeyWord name="int" func="yes"><Overload retVal="" descr="get the integer portion of a number"><Param name="EXPR" /></Overload><Overload retVal="" descr="get the integer portion of a number"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="integer" />
 		<KeyWord name="ioctl" func="yes"><Overload retVal="" descr="system-dependent device control system call"><Param name="FILEHANDLE" /><Param name="FUNCTION" /><Param name="SCALAR" /></Overload></KeyWord>
+		<KeyWord name="isa" />
 		<KeyWord name="isindex" />
 		<KeyWord name="join" func="yes"><Overload retVal="" descr="join a list into a string using a separator"><Param name="EXPR" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="keys" func="yes"><Overload retVal="" descr="retrieve list of indices from a hash"><Param name="ARRAY" /></Overload><Overload retVal="" descr="retrieve list of indices from a hash"><Param name="HASH" /></Overload></KeyWord>
@@ -317,8 +326,10 @@
 		<KeyWord name="log" func="yes"><Overload retVal="" descr="retrieve the natural logarithm for a number"><Param name="EXPR" /></Overload><Overload retVal="" descr="retrieve the natural logarithm for a number"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="lstat" func="yes"><Overload retVal="" descr="stat a symbolic link"><Param name="DIRHANDLE" /></Overload><Overload retVal="" descr="stat a symbolic link"><Param name="EXPR" /></Overload><Overload retVal="" descr="stat a symbolic link"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="stat a symbolic link"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="lt" />
+		<KeyWord name="m" func="yes"><Overload retVal="" descr="quotes string as substitution regex"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="map" func="yes"><Overload retVal="" descr="apply a change to a list to get back a new list with the changes"><Param name="BLOCK LIST" /></Overload><Overload retVal="" descr="apply a change to a list to get back a new list with the changes"><Param name="EXPR" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="maxsize" />
+		<KeyWord name="method" />
 		<KeyWord name="minsize" />
 		<KeyWord name="mkdir" func="yes"><Overload retVal="" descr="create a directory"><Param name="FILENAME" /></Overload><Overload retVal="" descr="create a directory"><Param name="FILENAME" /><Param name="MODE" /></Overload><Overload retVal="" descr="create a directory"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="mro" />
@@ -342,6 +353,7 @@
 		<KeyWord name="ops" />
 		<KeyWord name="or" />
 		<KeyWord name="ord" func="yes"><Overload retVal="" descr="find a character's numeric representation"><Param name="EXPR" /></Overload><Overload retVal="" descr="find a character's numeric representation"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="order" />
 		<KeyWord name="our" func="yes"><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="TYPE VARLIST" /></Overload><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="TYPE VARLIST : ATTRS" /></Overload><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="VARLIST" /></Overload><Overload retVal="" descr="declare and assign a package variable (lexical scoping)"><Param name="VARLIST : ATTRS" /></Overload></KeyWord>
 		<KeyWord name="overload" />
 		<KeyWord name="overloading" />
@@ -361,7 +373,9 @@
 		<KeyWord name="printf" func="yes"><Overload retVal="" descr="output a formatted list to a filehandle"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="output a formatted list to a filehandle"><Param name="FILEHANDLE FORMAT" /><Param name="LIST" /></Overload><Overload retVal="" descr="output a formatted list to a filehandle"><Param name="FORMAT" /><Param name="LIST" /></Overload><Overload retVal="" descr="output a formatted list to a filehandle"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="prototype" func="yes"><Overload retVal="" descr="get the prototype (if any) of a subroutine"><Param name="FUNCTION" /></Overload><Overload retVal="" descr="get the prototype (if any) of a subroutine"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="push" func="yes"><Overload retVal="" descr="append one or more elements to an array"><Param name="ARRAY" /><Param name="LIST" /></Overload></KeyWord>
+		<KeyWord name="q" func="yes"><Overload retVal="" descr="singly quote a string"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="qq" func="yes"><Overload retVal="" descr="doubly quote a string"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="qr" func="yes"><Overload retVal="" descr="quotes string as regular expression"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="query_string" />
 		<KeyWord name="quotemeta" func="yes"><Overload retVal="" descr="quote regular expression magic characters"><Param name="EXPR" /></Overload><Overload retVal="" descr="quote regular expression magic characters"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="qw" func="yes"><Overload retVal="" descr="quote a list of words"><Param name="" /></Overload></KeyWord>
@@ -395,6 +409,7 @@
 		<KeyWord name="rewinddir" func="yes"><Overload retVal="" descr="reset directory handle"><Param name="DIRHANDLE" /></Overload></KeyWord>
 		<KeyWord name="rindex" func="yes"><Overload retVal="" descr="right-to-left substring search"><Param name="STR" /><Param name="SUBSTR" /></Overload><Overload retVal="" descr="right-to-left substring search"><Param name="STR" /><Param name="SUBSTR" /><Param name="POSITION" /></Overload></KeyWord>
 		<KeyWord name="rmdir" func="yes"><Overload retVal="" descr="remove a directory"><Param name="FILENAME" /></Overload><Overload retVal="" descr="remove a directory"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="s" func="yes"><Overload retVal="" descr="quotes string as substitution regex"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="say" func="yes"><Overload retVal="" descr="output a list to a filehandle, appending a newline"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="output a list to a filehandle, appending a newline"><Param name="FILEHANDLE LIST" /></Overload><Overload retVal="" descr="output a list to a filehandle, appending a newline"><Param name="LIST" /></Overload><Overload retVal="" descr="output a list to a filehandle, appending a newline"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="scalar" func="yes"><Overload retVal="" descr="force a scalar context"><Param name="EXPR" /></Overload></KeyWord>
 		<KeyWord name="script_name" />
@@ -428,6 +443,7 @@
 		<KeyWord name="shutdown" func="yes"><Overload retVal="" descr="close down just half of a socket connection"><Param name="SOCKET" /><Param name="HOW" /></Overload></KeyWord>
 		<KeyWord name="sigtrap" />
 		<KeyWord name="sin" func="yes"><Overload retVal="" descr="return the sine of a number"><Param name="EXPR" /></Overload><Overload retVal="" descr="return the sine of a number"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="size" />
 		<KeyWord name="sleep" func="yes"><Overload retVal="" descr="block for some number of seconds"><Param name="EXPR" /></Overload><Overload retVal="" descr="block for some number of seconds"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="socket" func="yes"><Overload retVal="" descr="create a socket"><Param name="SOCKET" /><Param name="DOMAIN" /><Param name="TYPE" /><Param name="PROTOCOL" /></Overload></KeyWord>
 		<KeyWord name="socketpair" func="yes"><Overload retVal="" descr="create a pair of sockets"><Param name="SOCKET1" /><Param name="SOCKET2" /><Param name="DOMAIN" /><Param name="TYPE,PROTOCOL" /></Overload></KeyWord>
@@ -438,6 +454,7 @@
 		<KeyWord name="sprintf" func="yes"><Overload retVal="" descr="formatted print into a string"><Param name="FORMAT" /><Param name="LIST" /></Overload></KeyWord>
 		<KeyWord name="sqrt" func="yes"><Overload retVal="" descr="square root function"><Param name="EXPR" /></Overload><Overload retVal="" descr="square root function"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="srand" func="yes"><Overload retVal="" descr="seed the random number generator"><Param name="EXPR" /></Overload><Overload retVal="" descr="seed the random number generator"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="stable" />
 		<KeyWord name="start_form" />
 		<KeyWord name="start_h1" />
 		<KeyWord name="start_html" />
@@ -478,6 +495,7 @@
 		<KeyWord name="tmpFileName" />
 		<KeyWord name="top" />
 		<KeyWord name="tr" func="yes"><Overload retVal="" descr="transliterate a string"><Param name="" /></Overload></KeyWord>
+		<KeyWord name="try" func="yes"><Overload retVal="" descr="exception handling: try a block"><Param name="BLOCK" /></Overload></KeyWord>
 		<KeyWord name="truncate" func="yes"><Overload retVal="" descr="shorten a file"><Param name="EXPR" /><Param name="LENGTH" /></Overload><Overload retVal="" descr="shorten a file"><Param name="FILEHANDLE" /><Param name="LENGTH" /></Overload></KeyWord>
 		<KeyWord name="uc" func="yes"><Overload retVal="" descr="return upper-case version of a string"><Param name="EXPR" /></Overload><Overload retVal="" descr="return upper-case version of a string"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="ucfirst" func="yes"><Overload retVal="" descr="return a string with just the next letter in upper case"><Param name="EXPR" /></Overload><Overload retVal="" descr="return a string with just the next letter in upper case"><Param name="" /></Overload></KeyWord>
@@ -521,5 +539,6 @@
 		<KeyWord name="write" func="yes"><Overload retVal="" descr="print a picture record"><Param name="EXPR" /></Overload><Overload retVal="" descr="print a picture record"><Param name="FILEHANDLE" /></Overload><Overload retVal="" descr="print a picture record"><Param name="" /></Overload></KeyWord>
 		<KeyWord name="x" />
 		<KeyWord name="xor" />
+		<KeyWord name="y" func="yes"><Overload retVal="" descr="transliterate a string (alternate form for tr//)"><Param name="" /></Overload></KeyWord>
 	</AutoComplete>
 </NotepadPlus>

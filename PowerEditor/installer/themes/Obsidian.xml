@@ -8,7 +8,9 @@ Notepad++ Custom Style
    Languages:    php, html, css, xml, javascript, python, sql, c, c++, 
                    assembly, bash, batch, lua at least for detail. Everything else more or less...
         Info:    Inspired by Oblivion theme for gedit.
--->
+
+				 2023-09-30: update Perl support.
+ -->
 <NotepadPlus>
     <LexerStyles>
         <LexerType name="actionscript" desc="ActionScript" ext="">
@@ -473,26 +475,47 @@ Notepad++ Custom Style
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="6C788C" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">
-            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DEFAULT" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="NUMBER" styleID="4" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING" styleID="6" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="CHARACTER" styleID="7" fgColor="FF8409" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="OPERATOR" styleID="10" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="REGEX" styleID="17" fgColor="D39745" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SCALAR" styleID="12" fgColor="678CB1" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ARRAY" styleID="13" fgColor="5899C0" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HASH" styleID="14" fgColor="5AB9BE" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SYMBOL TABLE" styleID="15" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="PUNCTUATION" styleID="8" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="POD" styleID="3" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ERROR" styleID="1" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="LONGQUOTE" styleID="19" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DATASECTION" styleID="21" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="REGSUBST" styleID="18" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="BACKTICKS" styleID="20" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="93C763" bgColor="293134" fontName="" fontStyle="" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="SCALAR" styleID="12" fgColor="678CB1" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="ARRAY" styleID="13" fgColor="5899C0" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="HASH" styleID="14" fgColor="5AB9BE" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="SYMBOL TABLE" styleID="15" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="PROTOTYPE" styleID="40" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="STRING SINGLEQUOTE" styleID="7" fgColor="FF8409" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="STRING DOUBLEQUOTE" styleID="6" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="STRING BACKTICKS" styleID="20" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="STRING Q" styleID="26" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="STRING QQ" styleID="27" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING QX" styleID="28" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING QR" styleID="29" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING QW" styleID="30" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="REGEX MATCH" styleID="17" fgColor="D39745" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="REGEX SUBSTITUTION" styleID="18" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="TRANSLATION" styleID="44" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC DELIMITER" styleID="22" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="HEREDOC SINGLEQUOTE" styleID="23" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="HEREDOC DOUBLEQUOTE" styleID="24" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC BACKTICK" styleID="25" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="VAR IN STRING" styleID="43" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN REGEX" styleID="54" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN REGEX SUBSTITUTION" styleID="55" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN BACKTICKS" styleID="57" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN HEREDOC DOUBLEQUOTE" styleID="61" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN HEREDOC BACKTICK" styleID="62" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN STRING QQ" styleID="64" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN STRING QX" styleID="65" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN STRING QR" styleID="66" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="FORMAT IDENTIFIER" styleID="41" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="FORMAT BODY" styleID="42" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DATA SECTION" styleID="21" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="POD" styleID="3" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="POD VERBATIM" styleID="31" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ERROR" styleID="1" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
         </LexerType>
         <LexerType name="php" desc="php" ext="">
             <WordsStyle name="QUESTION MARK" styleID="18" fgColor="D955C1" bgColor="293134" fontName="" fontStyle="1" fontSize="" />

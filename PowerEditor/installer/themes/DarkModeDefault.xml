@@ -924,26 +924,47 @@ License:             GPL2
             <WordsStyle name="ASM" styleID="14" fgColor="FFEBDD" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">
-            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FFCFAF" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="DFC47D" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="DFC47D" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING" styleID="6" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="CHARACTER" styleID="7" fgColor="DCA3A3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="OPERATOR" styleID="10" fgColor="9F9D6D" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="REGEX" styleID="17" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="9F9D6D" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="CEDF99" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SCALAR" styleID="12" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ARRAY" styleID="13" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HASH" styleID="14" fgColor="FFCFAF" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="SYMBOL TABLE" styleID="15" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="PUNCTUATION" styleID="8" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="POD" styleID="3" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="SYMBOL TABLE" styleID="15" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PROTOTYPE" styleID="40" fgColor="CEDF99" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING SINGLEQUOTE" styleID="7" fgColor="DCA3A3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING DOUBLEQUOTE" styleID="6" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING BACKTICKS" styleID="20" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING Q" styleID="26" fgColor="DCA3A3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING QQ" styleID="27" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING QX" styleID="28" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING QR" styleID="29" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING QW" styleID="30" fgColor="FFC3C3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="REGEX MATCH" styleID="17" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="REGEX SUBSTITUTION" styleID="18" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TRANSLATION" styleID="44" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC DELIMITER" styleID="22" fgColor="FFC3C3" bgColor="303030" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="HEREDOC SINGLEQUOTE" styleID="23" fgColor="DCA3A3" bgColor="303030" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC DOUBLEQUOTE" styleID="24" fgColor="CC9393" bgColor="303030" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC BACKTICK" styleID="25" fgColor="DCDCCC" bgColor="303030" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="VAR IN STRING" styleID="43" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN REGEX" styleID="54" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN REGEX SUBSTITUTION" styleID="55" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN BACKTICKS" styleID="57" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN HEREDOC DOUBLEQUOTE" styleID="61" fgColor="CC9393" bgColor="303030" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN HEREDOC BACKTICK" styleID="62" fgColor="DCDCCC" bgColor="303030" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN STRING QQ" styleID="64" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN STRING QX" styleID="65" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VAR IN STRING QR" styleID="66" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="FORMAT IDENTIFIER" styleID="41" fgColor="9FBF9F" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="FORMAT BODY" styleID="42" fgColor="9FBF9F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DATASECTION" styleID="21" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="POD" styleID="3" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="POD VERBATIM" styleID="31" fgColor="9FBF9F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ERROR" styleID="1" fgColor="EBD6EB" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="LONGQUOTE" styleID="19" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DATASECTION" styleID="21" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="REGSUBST" styleID="18" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="BACKTICKS" styleID="20" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
         <LexerType name="php" desc="php" ext="">
             <WordsStyle name="QUESTION MARK" styleID="18" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />

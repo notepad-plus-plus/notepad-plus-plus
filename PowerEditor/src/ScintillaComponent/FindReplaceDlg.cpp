@@ -1511,14 +1511,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					// code is allowed to change checkmark status of In-selection checkbox
 
-					if (!inSelEnabled)
-					{
-						inSelChecked = false;
-					}
-					else if (nbSelected >= nppGui._inSelectionAutocheckThreshold)
-					{
-						inSelChecked = true;
-					}
+					inSelChecked = inSelEnabled && (nbSelected >= nppGui._inSelectionAutocheckThreshold);
 
 					::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK,
 						inSelChecked ? BST_CHECKED : BST_UNCHECKED, 0);

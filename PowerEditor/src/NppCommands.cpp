@@ -1237,6 +1237,12 @@ void Notepad_plus::command(int id)
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize] = { '\0' };
 
+			const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
+			if (nppGui._fillFindFieldWithSelected)
+			{
+				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
+			}
+
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
 			DIALOG_TYPE dlgID = FIND_DLG;
@@ -1246,11 +1252,8 @@ void Notepad_plus::command(int id)
 				dlgID = MARK_DLG;
 			_findReplaceDlg.doDialog(dlgID, _nativeLangSpeaker.isRTL());
 
-			const NppGUI & nppGui = (NppParameters::getInstance()).getNppGUI();
-			
 			if (nppGui._fillFindFieldWithSelected)
 			{
-				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
 				if ((nppGui._inSelectionAutocheckThreshold == 0) ||
 					(lstrlen(str) < nppGui._inSelectionAutocheckThreshold))
 				{

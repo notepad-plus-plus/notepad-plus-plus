@@ -1052,7 +1052,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		{
 			if (isSnapshotMode)
 			{
-				if (buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
+				if ((buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) && !buf->isInaccessible()) //backup file has been deleted from outside
 				{
 					// warning user and save it if user want it.
 					activateBuffer(id, MAIN_VIEW);
@@ -1083,6 +1083,9 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				activateBuffer(id, MAIN_VIEW);
 				if (!activateBuffer(id, SUB_VIEW))
 					switchEditViewTo(MAIN_VIEW);
+
+				if (buf->isInaccessible())
+					continue;
 
 				int res = -1;
 				if (saveToAll)
@@ -1136,7 +1139,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		{
 			if (isSnapshotMode)
 			{
-				if (buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
+				if ((buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) && !buf->isInaccessible()) //backup file has been deleted from outside
 				{
 					// warning user and save it if user want it.
 					activateBuffer(id, SUB_VIEW);
@@ -2470,8 +2473,8 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
 					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
-			if (!isAllSuccessful)
-				nppParam.writeSession(session2Load, sessionFileName.c_str());
+			//if (!isAllSuccessful)
+				//nppParam.writeSession(session2Load, sessionFileName.c_str());
 		}
 		if (result == false)
 		{

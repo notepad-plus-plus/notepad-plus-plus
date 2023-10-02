@@ -1353,6 +1353,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
 	buf->setFileName(missingFilename);
 	buf->_currentStatus = DOC_REGULAR;
+	buf->setInaccessible(true);
 	return buf;
 }
 

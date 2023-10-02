@@ -185,6 +185,9 @@ public:
 
 	bool isUntitled() const { return ((_currentStatus & DOC_UNNAMED) == DOC_UNNAMED); }
 
+	bool isInaccessible() const { return _isInaccessible; }
+	void setInaccessible(bool isInaccessible) { _isInaccessible = isInaccessible; };
+
 	bool getFileReadOnly() const { return _isFileReadOnly; }
 
 	void setFileReadOnly(bool ro) {
@@ -414,4 +417,6 @@ private:
 	MapPosition _mapPosition;
 
 	std::mutex _reloadFromDiskRequestGuard;
+
+	bool _isInaccessible = false;
 };

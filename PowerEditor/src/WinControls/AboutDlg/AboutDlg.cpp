@@ -442,17 +442,16 @@ void DoSaveOrNotBox::changeLang()
 	generic_string defaultMessage = (_boxType == t_default) ? L"Save file \"$STR_REPLACE$\" ?" :  L"The file \"$STR_REPLACE$\" doesn't exist anymore.\rKeep this file in Notepad++ ?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	const size_t titleLen = 128;
-	wchar_t title[titleLen];
-	if (nativeLangSpeaker->changeDlgLang(_hSelf, (_boxType == t_default) ? "DoSaveOrNot" : "DoCloseOrNot"), title, titleLen)
+	if (_boxType == t_keepFiles)
+		::SetWindowText(_hSelf, L"Keep non existing file");
+
+	if (nativeLangSpeaker->changeDlgLang(_hSelf, (_boxType == t_default) ? "DoSaveOrNot" : "DoCloseOrNot"))
 	{
 		constexpr unsigned char len = 255;
 		TCHAR text[len]{};
 		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, text, len);
 		msg = text;
 	}
-
-	::SetWindowText(_hSelf, (title[0] != '\0') ? title : (_boxType == t_default) ? L"Save" : L"Keep non existing file");
 
 	if (msg.empty())
 		msg = defaultMessage;

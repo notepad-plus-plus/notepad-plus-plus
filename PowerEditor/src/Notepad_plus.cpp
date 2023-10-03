@@ -6488,7 +6488,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					if (yesToAll)
 					{
 						buffer->setUnsync(true);
-
 					}
 					else if (noToAll)
 					{
@@ -6505,14 +6504,14 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 						int buttonID = keepFileOrNotBox.getClickedButtonId();
 						keepFileOrNotBox.destroy();
 						
-						if (buttonID == ID_YES_ALL)
+						if (buttonID == IDYES || buttonID == ID_YES_ALL)
 						{
-							yesToAll = true;
+							yesToAll = (buttonID == ID_YES_ALL);
 							buffer->setUnsync(true);
 						}
-						else if (buttonID == ID_NO_ALL)
+						else if (buttonID == IDNO || buttonID == ID_NO_ALL)
 						{
-							noToAll = true;
+							noToAll = (buttonID == ID_NO_ALL);
 
 							//close in both views, doing current view last since that has to remain opened
 							bool isSnapshotMode = nppGUI.isSnapshotMode();

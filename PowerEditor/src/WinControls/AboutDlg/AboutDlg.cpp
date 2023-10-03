@@ -439,16 +439,20 @@ void DoSaveOrNotBox::doDialog(bool isRTL)
 void DoSaveOrNotBox::changeLang()
 {
 	generic_string msg;
-	generic_string defaultMessage = TEXT("Save file \"$STR_REPLACE$\" ?");
+	generic_string defaultMessage = (_boxType == t_default) ? L"Save file \"$STR_REPLACE$\" ?" :  L"The file \"$STR_REPLACE$\" doesn't exist anymore.\rKeep this file in Notepad++ ?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
-	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
+	const size_t titleLen = 128;
+	wchar_t title[titleLen];
+	if (nativeLangSpeaker->changeDlgLang(_hSelf, (_boxType == t_default) ? "DoSaveOrNot" : "DoCloseOrNot"), title, titleLen)
 	{
 		constexpr unsigned char len = 255;
 		TCHAR text[len]{};
 		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, text, len);
 		msg = text;
 	}
+
+	::SetWindowText(_hSelf, (title[0] != '\0') ? title : (_boxType == t_default) ? L"Save" : L"Keep non existing file");
 
 	if (msg.empty())
 		msg = defaultMessage;
@@ -468,6 +472,8 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			changeLang();
 			::EnableWindow(::GetDlgItem(_hSelf, IDRETRY), _isMulti);
 			::EnableWindow(::GetDlgItem(_hSelf, IDIGNORE), _isMulti);
+			::EnableWindow(::GetDlgItem(_hSelf, IDCANCEL), _boxType == t_default);
+			::ShowWindow(::GetDlgItem(_hSelf, IDCANCEL), _boxType == t_default ? SW_SHOW : SW_HIDE);
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 			return TRUE;
 		}
@@ -494,35 +500,35 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDCANCEL:
 				{
 					::EndDialog(_hSelf, -1);
-					clickedButtonId = IDCANCEL;
+					_clickedButtonId = IDCANCEL;
 					return TRUE;
 				}
 
 				case IDYES:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDYES;
+					_clickedButtonId = IDYES;
 					return TRUE;
 				}
 
 				case IDNO:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDNO;
+					_clickedButtonId = IDNO;
 					return TRUE;
 				}
 
 				case IDIGNORE:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDIGNORE;
+					_clickedButtonId = ID_NO_ALL;
 					return TRUE;
 				}
 
 				case IDRETRY:
 				{
 					::EndDialog(_hSelf, 0);
-					clickedButtonId = IDRETRY;
+					_clickedButtonId = ID_YES_ALL;
 					return TRUE;
 				}
 			}
@@ -604,28 +610,28 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			case IDCANCEL:
 			{
 				::EndDialog(_hSelf, -1);
-				clickedButtonId = IDCANCEL;
+				_clickedButtonId = IDCANCEL;
 				return TRUE;
 			}
 
 			case IDYES:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDYES;
+				_clickedButtonId = IDYES;
 				return TRUE;
 			}
 
 			case IDNO:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDNO;
+				_clickedButtonId = IDNO;
 				return TRUE;
 			}
 
 			case IDRETRY:
 			{
 				::EndDialog(_hSelf, 0);
-				clickedButtonId = IDRETRY;
+				_clickedButtonId = ID_YES_ALL;
 				return TRUE;
 			}
 		}

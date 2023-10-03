@@ -6410,6 +6410,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			{
 				break;
 			}
+
 			case DOC_MODIFIED:	//ask for reloading
 			{
 				// Since it is being monitored DOC_NEEDRELOAD is going to handle the change.
@@ -6446,6 +6447,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				}
 				break;
 			}
+
 			case DOC_NEEDRELOAD: // by log monitoring
 			{
 				doReload(buffer->getID(), false);
@@ -6465,6 +6467,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 				break;
 			}
+
 			case DOC_DELETED: 	//ask for keep
 			{
 				prepareBufferChangedDialog(buffer);
@@ -6475,21 +6478,66 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
 				_pluginsManager.notify(&scnN);
 
-				int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
-				if (doCloseDoc)
+				if (buffer->isInaccessible())
 				{
-					//close in both views, doing current view last since that has to remain opened
-					bool isSnapshotMode = nppGUI.isSnapshotMode();
-					doClose(buffer->getID(), otherView(), isSnapshotMode);
-					doClose(buffer->getID(), currentView(), isSnapshotMode);
-					return;
+					static bool yesToAll = false;
+					static bool noToAll = false;
+
+					// Keep the file(s)?
+
+					if (yesToAll)
+					{
+						buffer->setUnsync(true);
+
+					}
+					else if (noToAll)
+					{
+						//close in both views, doing current view last since that has to remain opened
+						bool isSnapshotMode = nppGUI.isSnapshotMode();
+						doClose(buffer->getID(), otherView(), isSnapshotMode);
+						doClose(buffer->getID(), currentView(), isSnapshotMode);	
+					}
+					else
+					{
+						DoSaveOrNotBox keepFileOrNotBox;
+						keepFileOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), buffer->getFileName(), true, DoSaveOrNotBox::t_keepFiles);
+						keepFileOrNotBox.doDialog(_nativeLangSpeaker.isRTL());
+						int buttonID = keepFileOrNotBox.getClickedButtonId();
+						keepFileOrNotBox.destroy();
+						
+						if (buttonID == ID_YES_ALL)
+						{
+							yesToAll = true;
+							buffer->setUnsync(true);
+						}
+						else if (buttonID == ID_NO_ALL)
+						{
+							noToAll = true;
+
+							//close in both views, doing current view last since that has to remain opened
+							bool isSnapshotMode = nppGUI.isSnapshotMode();
+							doClose(buffer->getID(), otherView(), isSnapshotMode);
+							doClose(buffer->getID(), currentView(), isSnapshotMode);
+						}
+					}
 				}
 				else
 				{
-					// buffer in Notepad++ is not syncronized anymore with the file on disk
-					buffer->setUnsync(true);
+					int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
+					if (doCloseDoc)
+					{
+						//close in both views, doing current view last since that has to remain opened
+						bool isSnapshotMode = nppGUI.isSnapshotMode();
+						doClose(buffer->getID(), otherView(), isSnapshotMode);
+						doClose(buffer->getID(), currentView(), isSnapshotMode);
+						return;
+					}
+					else
+					{
+						// buffer in Notepad++ is not syncronized anymore with the file on disk
+						buffer->setUnsync(true);
+					}
 				}
-
 				break;
 			}
 		}

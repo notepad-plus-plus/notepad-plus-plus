@@ -265,7 +265,17 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	}
 
 	bool isOK = false;
-	if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	if (_currentStatus == DOC_INACCESSIBLE && !PathFileExists(_fullPathName.c_str()))	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
+	{
+		_currentStatus = DOC_DELETED;//DOC_INACCESSIBLE;
+		_isInaccessible = true;
+		_isFileReadOnly = true;
+		_isDirty = false;
+		_timeStamp = {};
+		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+		isOK = true;
+	}
+	else if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -1352,8 +1362,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 	BufferID buf = MainFileManager.newEmptyDocument();
 	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
 	buf->setFileName(missingFilename);
-	buf->_currentStatus = DOC_REGULAR;
-	buf->setInaccessible(true);
+	buf->_currentStatus = DOC_INACCESSIBLE;
 	return buf;
 }
 

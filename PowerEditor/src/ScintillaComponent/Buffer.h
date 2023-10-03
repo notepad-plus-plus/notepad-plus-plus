@@ -28,11 +28,12 @@ typedef Buffer* BufferID;	//each buffer has unique ID by which it can be retriev
 typedef sptr_t Document;
 
 enum DocFileStatus {
-	DOC_REGULAR    = 0x01, // should not be combined with anything
-	DOC_UNNAMED    = 0x02, // not saved (new ##)
-	DOC_DELETED    = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
-	DOC_MODIFIED   = 0x08, // File in environment has changed
-	DOC_NEEDRELOAD = 0x10  // File is modified & needed to be reload (by log monitoring)
+	DOC_REGULAR      = 0x01, // should not be combined with anything
+	DOC_UNNAMED      = 0x02, // not saved (new ##)
+	DOC_DELETED      = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
+	DOC_MODIFIED     = 0x08, // File in environment has changed
+	DOC_NEEDRELOAD   = 0x10, // File is modified & needed to be reload (by log monitoring)
+	DOC_INACCESSIBLE = 0x20  // File is absent on its load; this status is temporay for setting file not dirty & readonly; and it will be replaced to DOC_DELETED
 };
 
 enum BufferStatusInfo {
@@ -186,7 +187,6 @@ public:
 	bool isUntitled() const { return ((_currentStatus & DOC_UNNAMED) == DOC_UNNAMED); }
 
 	bool isInaccessible() const { return _isInaccessible; }
-	void setInaccessible(bool isInaccessible) { _isInaccessible = isInaccessible; };
 
 	bool getFileReadOnly() const { return _isFileReadOnly; }
 

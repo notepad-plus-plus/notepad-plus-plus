@@ -118,7 +118,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (buf->isSavePointDirty())
 				isDirty = true;
-
+			
 			buf->setDirty(isDirty);
 			break;
 		}

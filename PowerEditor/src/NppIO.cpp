@@ -2107,6 +2107,8 @@ void Notepad_plus::loadLastSession()
 bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shouldLoadFileBrowser)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
+	const NppGUI& nppGUI = nppParam.getNppGUI();
+
 	bool allSessionFilesLoaded = true;
 	BufferID lastOpened = BUFFER_INVALID;
 	//size_t i = 0;
@@ -2145,7 +2147,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW);
+			lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2168,8 +2170,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 				
 				if (!id) // it could be due to the hidden language from the sub-menu "Languages"
 				{
-					const NppGUI& nppGUI = nppParam.getNppGUI();
-
 					for (size_t k = 0; k < nppGUI._excludedLangList.size(); ++k) // try to find it in exclude lang list
 					{
 						if (nppGUI._excludedLangList[k]._langName == pLn)
@@ -2283,7 +2283,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW);
+			lastOpened = nppGUI._keepSessionAbsentFileEntries ?  MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{

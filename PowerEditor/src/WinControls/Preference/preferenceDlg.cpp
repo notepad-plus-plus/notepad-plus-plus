@@ -3937,6 +3937,7 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			generic_string backupFilePath = NppParameters::getInstance().getUserPath();
 			backupFilePath += TEXT("\\backup\\");
 			::SetDlgItemText(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATH_EDIT, backupFilePath.c_str());
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPABSENTFILESINSESSION, BM_SETCHECK, nppGUI._keepSessionAbsentFileEntries, 0);
 
 			int ID2CheckBackupOnSave = 0;
 
@@ -4080,6 +4081,13 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					updateBackupSessionGUI();
 					return TRUE;
 				}
+
+				case IDC_CHECK_KEEPABSENTFILESINSESSION:
+				{
+					nppGUI._keepSessionAbsentFileEntries = isCheckedOrNot(IDC_CHECK_KEEPABSENTFILESINSESSION);
+					return TRUE;
+				}
+
 				case IDC_BACKUPDIR_RESTORESESSION_CHECK:
 				{
 					nppGUI._isSnapshotMode = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK, BM_GETCHECK, 0, 0);

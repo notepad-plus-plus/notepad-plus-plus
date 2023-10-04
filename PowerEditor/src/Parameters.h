@@ -783,6 +783,7 @@ struct NppGUI final
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
+	bool _keepSessionAbsentFileEntries = false;
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
 	bool _saveAllConfirm = true;

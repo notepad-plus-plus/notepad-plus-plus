@@ -1131,6 +1131,7 @@
 					<Item id="6821" name="秒備份一次"/>
 					<Item id="6822" name="備份資料夾："/>
 					<Item id="6309" name="開啟程式時繼續上次的工作階段"/>
+					<Item id="6825" name="保存上次的工作階段中無法讀取的文件"/>
 					<Item id="6801" name="備份"/>
 					<Item id="6315" name="無"/>
 					<Item id="6316" name="簡易備份"/>

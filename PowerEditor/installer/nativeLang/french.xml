@@ -1166,6 +1166,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 					<Item id="6821" name="secondes"/>
 					<Item id="6822" name="dans le dossier"/>
 					<Item id="6309" name="Mémoriser la session actuelle"/>
+					<Item id="6825" name="Mémoriser les fichiers inaccessibles de la session précédante"/>
 					<Item id="6801" name="Sauvegarde"/>
 					<Item id="6315" name="Aucune"/>
 					<Item id="6316" name="Simple"/>

@@ -2713,6 +2713,20 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 		startPosition = cr.cpMin;
 		endPosition = cr.cpMax;
 	}
+	else if (op == ProcessCountAll && !pOptions->_isInSelection && !pOptions->_isWrapAround && !isEntire)
+	{
+		size_t caretPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+		if (direction == DIR_UP)
+		{
+			startPosition = 0;
+			endPosition = caretPos;
+		}
+		else
+		{
+			startPosition = caretPos;
+			endPosition = docLength;
+		}
+	}
 	else if (pOptions->_isWrapAround || isEntire)	//entire document needs to be scanned
 	{
 		startPosition = 0;

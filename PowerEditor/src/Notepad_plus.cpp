@@ -6480,6 +6480,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 				if (buffer->isInaccessible())
 				{
+					buffer->setUnsync(true);
+
+					/*
 					static bool yesToAll = false;
 					static bool noToAll = false;
 
@@ -6499,11 +6502,14 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					else
 					{
 						DoSaveOrNotBox keepFileOrNotBox;
-						keepFileOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), buffer->getFileName(), true, DoSaveOrNotBox::t_keepFiles);
+						keepFileOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), buffer->getFullPathName(), true, DoSaveOrNotBox::t_keepFiles);
 						keepFileOrNotBox.doDialog(_nativeLangSpeaker.isRTL());
 						int buttonID = keepFileOrNotBox.getClickedButtonId();
 						keepFileOrNotBox.destroy();
-						
+
+						//MessageBox(_pPublicInterface->getHSelf(), buffer->getFullPathName(), L"Blocked", MB_OK);
+						//int buttonID = ID_YES_ALL;
+
 						if (buttonID == IDYES || buttonID == ID_YES_ALL)
 						{
 							yesToAll = (buttonID == ID_YES_ALL);
@@ -6519,6 +6525,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 							doClose(buffer->getID(), currentView(), isSnapshotMode);
 						}
 					}
+					*/
 				}
 				else
 				{

@@ -1496,12 +1496,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				intptr_t nbSelected = cr.cpMax - cr.cpMin;
 
 				bool inSelEnabled = nbSelected != 0;
+
 				// Searching/replacing in multiple selections or column selection is not allowed
 				if (((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) ||
 					((*_ppEditView)->execute(SCI_GETSELECTIONS) > 1))
 				{
 					inSelEnabled = false;
 				}
+
 				enableFindDlgItem(IDC_IN_SELECTION_CHECK, inSelEnabled);
 
 				bool inSelChecked = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
@@ -1513,8 +1515,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					inSelChecked = inSelEnabled && (nbSelected >= nppGui._inSelectionAutocheckThreshold);
 
-					::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK,
-						inSelChecked ? BST_CHECKED : BST_UNCHECKED, 0);
+					setChecked(IDC_IN_SELECTION_CHECK, inSelChecked);
 				}
 
 				_options._isInSelection = inSelEnabled && inSelChecked;
@@ -2747,7 +2748,11 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 		(*_ppEditView)->execute(SCI_SCROLLRANGE, startPosition, endPosition);
 		if (startPosition == endPosition)
 		{
-			setChecked(IDC_IN_SELECTION_CHECK, false);
+			const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
+			if (nppGui._inSelectionAutocheckThreshold != 0)
+			{
+				setChecked(IDC_IN_SELECTION_CHECK, false);
+			}
 			enableFindDlgItem(IDC_IN_SELECTION_CHECK, false);
 		}
 	}

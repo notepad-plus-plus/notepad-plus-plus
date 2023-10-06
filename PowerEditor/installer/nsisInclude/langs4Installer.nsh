@@ -15,11 +15,12 @@
 ; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-; Set languages (first is default language)
-;!insertmacro MUI_LANGUAGE "English"
+!define MUI_LANGDLL_ALWAYSSHOW
 !define MUI_LANGDLL_ALLLANGUAGES
 ;Languages
 
+  ; Set the Notepad++ static languages list
+  !insertmacro MUI_LANGUAGE "English" ; first is the default language (important for a possible language preselection failure...)
   !insertmacro MUI_LANGUAGE "Afrikaans"
   !insertmacro MUI_LANGUAGE "Albanian"
   !insertmacro MUI_LANGUAGE "Arabic"
@@ -35,7 +36,6 @@
   !insertmacro MUI_LANGUAGE "Czech"
   !insertmacro MUI_LANGUAGE "Danish"
   !insertmacro MUI_LANGUAGE "Dutch"
-  !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "Farsi"
   !insertmacro MUI_LANGUAGE "Finnish"
   !insertmacro MUI_LANGUAGE "Estonian"

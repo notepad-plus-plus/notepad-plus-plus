@@ -1493,7 +1493,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
 				Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
-				intptr_t nbSelected = cr.cpMax - cr.cpMin;
+				intptr_t nbSelected = (*_ppEditView)->execute(SCI_COUNTCHARACTERS, cr.cpMin, cr.cpMax);
 
 				bool inSelEnabled = nbSelected != 0;
 

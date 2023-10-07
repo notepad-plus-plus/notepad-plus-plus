@@ -247,6 +247,8 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				NppDarkMode::setDarkTooltips(_delimiterSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 			if (_performanceSubDlg._largeFileRestrictionTip != nullptr)
 				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
+			if (_searchingSubDlg._tipInSelThresh != nullptr)
+				NppDarkMode::setDarkTooltips(_searchingSubDlg._tipInSelThresh, NppDarkMode::ToolTipsType::tooltip);
 
 			// groupbox label in dark mode support disabled text color
 			if (NppDarkMode::isEnabled())
@@ -5603,6 +5605,7 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
+		case WM_CTLCOLOREDIT:
 		{
 			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}

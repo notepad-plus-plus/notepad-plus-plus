@@ -176,6 +176,7 @@ private :
 
 class SearchingSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public:
 	SearchingSubDlg() = default;
 	~SearchingSubDlg() {

@@ -184,23 +184,18 @@ updaterDone:
 	Var /GLOBAL tempLng
 	ReadRegStr $tempLng HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage'
 	${IfNot} ${Errors}
-		${If} "$tempLng" == "Installer Language" ; check for the possible previous inappropriate value (from some of the 'Afrikaans' issues...)
-			WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '${LANG_ENGLISH}' ; bad, so repair that with our factory default
-			StrCpy $LANGUAGE "${LANG_ENGLISH}" ; and preset accordingly to the above
-		${Else}
-			StrCpy $LANGUAGE "$tempLng" ; ok, so offer that previously used language as the installer default
-		${EndIf}
+		StrCpy $LANGUAGE "$tempLng" ; set default language
 	${EndIf}
+	
+	Call unsupportedLanguageToEnglish
 	
 	!insertmacro MUI_LANGDLL_DISPLAY
 	
 	; check for the possible NSIS lang-engine fault
 	; - some users (maybe with some Windows server editions?) reported a complete omission of the installer language-selection dlg
 	;   (the Welcome Screen is then shown directly instead and the $LANGUAGE var is filled up with the "Installer Language" nonsense)
-	${If} "$LANGUAGE" == "Installer Language"
-		StrCpy $LANGUAGE "${LANG_ENGLISH}" ; a NSIS inherent failure(?!), at least repair that to our factory default
-	${EndIf}
-
+	Call unsupportedLanguageToEnglish
+	
 	; save selected language to registry
 	WriteRegStr HKLM "SOFTWARE\${APPNAME}" 'InstallerLanguage' '$Language'
 

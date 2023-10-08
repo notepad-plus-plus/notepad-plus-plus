@@ -143,3 +143,73 @@ LangString langFileName ${LANG_VIETNAMESE} "vietnamese.xml"
 LangString langFileName ${LANG_WELSH} "welsh.xml"
 LangString langFileName ${LANG_KURDISH} "kurdish.xml"
 LangString langFileName ${LANG_IRISH} "irish.xml"
+
+
+Function unsupportedLanguageToEnglish
+  ${Switch} $LANGUAGE
+    ${Case} ${LANG_AFRIKAANS}
+    ${Case} ${LANG_ALBANIAN}
+    ${Case} ${LANG_ARABIC}
+    ${Case} ${LANG_BASQUE}
+    ${Case} ${LANG_BELARUSIAN}
+    ${Case} ${LANG_BOSNIAN}
+    ${Case} ${LANG_BRETON}
+    ${Case} ${LANG_BULGARIAN}
+    ${Case} ${LANG_CATALAN}
+    ${Case} ${LANG_CORSICAN}
+    ${Case} ${LANG_CROATIAN}
+    ${Case} ${LANG_CZECH}
+    ${Case} ${LANG_DANISH}
+    ${Case} ${LANG_DUTCH}
+    ${Case} ${LANG_ENGLISH}
+    ${Case} ${LANG_ESTONIAN}
+    ${Case} ${LANG_FARSI}
+    ${Case} ${LANG_FINNISH}
+    ${Case} ${LANG_FRENCH}
+    ${Case} ${LANG_GALICIAN}
+    ${Case} ${LANG_GEORGIAN}
+    ${Case} ${LANG_GERMAN}
+    ${Case} ${LANG_GREEK}
+    ${Case} ${LANG_HEBREW}
+    ${Case} ${LANG_HINDI}
+    ${Case} ${LANG_HUNGARIAN}
+    ${Case} ${LANG_INDONESIAN}
+    ${Case} ${LANG_IRISH}
+    ${Case} ${LANG_ITALIAN}
+    ${Case} ${LANG_JAPANESE}
+    ${Case} ${LANG_KOREAN}
+    ${Case} ${LANG_KURDISH}
+    ${Case} ${LANG_LATVIAN}
+    ${Case} ${LANG_LITHUANIAN}
+    ${Case} ${LANG_LUXEMBOURGISH}
+    ${Case} ${LANG_MACEDONIAN}
+    ${Case} ${LANG_MALAY}
+    ${Case} ${LANG_MONGOLIAN}
+    ${Case} ${LANG_NORWEGIANNYNORSK}
+    ${Case} ${LANG_NORWEGIAN}
+    ${Case} ${LANG_POLISH}
+    ${Case} ${LANG_PORTUGUESEBR}
+    ${Case} ${LANG_PORTUGUESE}
+    ${Case} ${LANG_ROMANIAN}
+    ${Case} ${LANG_RUSSIAN}
+    ${Case} ${LANG_SERBIAN}
+    ${Case} ${LANG_SIMPCHINESE}
+    ${Case} ${LANG_SLOVAK}
+    ${Case} ${LANG_SLOVENIAN}
+    ${Case} ${LANG_SPANISH}
+    ${Case} ${LANG_SWEDISH}
+    ${Case} ${LANG_THAI}
+    ${Case} ${LANG_TRADCHINESE}
+    ${Case} ${LANG_TURKISH}
+    ${Case} ${LANG_UKRAINIAN}
+    ${Case} ${LANG_UZBEK}
+    ${Case} ${LANG_VIETNAMESE}
+    ${Case} ${LANG_WELSH}
+      ; Ok, the current $LANGUAGE is supported, nothing to do
+      ${Break}
+    ${Default}
+      ; unsupported or invalid, so reset to our 'factory default'
+      StrCpy $LANGUAGE "${LANG_ENGLISH}"
+      ${Break}
+  ${EndSwitch}
+FunctionEnd

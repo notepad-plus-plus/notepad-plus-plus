@@ -703,8 +703,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 
 void ScintillaEditView::setJsonLexer(bool isJson5)
 {
-	LangType j = isJson5 ? L_JSON5 : L_JSON;
-	setLexerFromLangID(j);
+	setLexerFromLangID(isJson5 ? L_JSON5 : L_JSON);
 
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
@@ -724,15 +723,15 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 		keywordList2 = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, j, LANG_INDEX_INSTR)));
-	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList2, j, LANG_INDEX_INSTR2)));
+	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList2, L_JSON, LANG_INDEX_INSTR2)));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.escape.sequence"), reinterpret_cast<LPARAM>("1"));
 
-	if (j == L_JSON5)
+	if (isJson5)
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.allow.comments"), reinterpret_cast<LPARAM>("1"));
 }
 

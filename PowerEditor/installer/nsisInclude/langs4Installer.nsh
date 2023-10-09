@@ -16,7 +16,7 @@
 
 
 ; Set languages (first is default language)
-;!insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "English"
 !define MUI_LANGDLL_ALLLANGUAGES
 ;Languages
 
@@ -35,7 +35,7 @@
   !insertmacro MUI_LANGUAGE "Czech"
   !insertmacro MUI_LANGUAGE "Danish"
   !insertmacro MUI_LANGUAGE "Dutch"
-  !insertmacro MUI_LANGUAGE "English"
+; !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "Farsi"
   !insertmacro MUI_LANGUAGE "Finnish"
   !insertmacro MUI_LANGUAGE "Estonian"

@@ -439,7 +439,7 @@ void DoSaveOrNotBox::doDialog(bool isRTL)
 void DoSaveOrNotBox::changeLang()
 {
 	generic_string msg;
-	generic_string defaultMessage = (_boxType == t_default) ? L"Save file \"$STR_REPLACE$\" ?" :  L"Some files are inaccessible of your past session. They can be opened as empty & read-only files as place holder on your choice. If you don't keep or close these files, your session file will be modified on exit. We suggest you to backup the session file now.\r\rThe file \"$STR_REPLACE$\" doesn't exist anymore.\rKeep this file in Notepad++ ?";
+	generic_string defaultMessage = (_boxType == t_default) ? L"Save file \"$STR_REPLACE$\" ?" :  L"The file \"$STR_REPLACE$\" doesn't exist anymore.\rKeep this file in Notepad++ ?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (_boxType == t_keepFiles)

@@ -356,12 +356,6 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SETFILEUPDATECHOICEENABLE:
-		{
-			_miscSubDlg.setFileUpdateChoiceToEnable();
-			return TRUE;
-		}
-
 		case WM_COMMAND :
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
@@ -2239,11 +2233,6 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-void MiscSubDlg::setFileUpdateChoiceToEnable()
-{
-	::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_SETCURSEL, fileUpdateChoiceEnable, 0);
-}
-
 intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -4095,40 +4084,7 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 				case IDC_CHECK_KEEPABSENTFILESINSESSION:
 				{
-					bool keepInaccessibleFiles = isCheckedOrNot(IDC_CHECK_KEEPABSENTFILESINSESSION);
-					if (keepInaccessibleFiles)
-					{
-						// In order to walkaround the issue of 2 modal dialogs displayed simutanously (race condition due to PosrMessage in WM_ACTIVATEAPP message)
-						// see https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12079#issuecomment-1753007800
-						//
-						// in case of activating this option, we will force to swich File detection status behaviour from "Enable for all opened files" to "Enable".
-						// see https://github.com/notepad-plus-plus/notepad-plus-plus/issues/12079#issuecomment-1753687930
-						if (nppGUI._fileAutoDetection & cdEnabledOld)
-						{
-							int r = ::MessageBox(_hSelf, L"To enable this option, you have to switch \"File Status Auto-detection\" setting from \"Enable for all opened file\" to \"Enable\". Do you want to change this settings?", L"", MB_YESNO);
-							if (r == IDYES)
-							{
-								nppGUI._keepSessionAbsentFileEntries = true;
-
-								nppGUI._fileAutoDetection &= ~cdEnabledOld;
-								nppGUI._fileAutoDetection |= cdEnabledNew;
-								::SendMessage(_hParent, NPPM_INTERNAL_SETFILEUPDATECHOICEENABLE, 0, 0);
-							}
-							else
-							{
-								// reset checkbox to unchecked state
-								::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPABSENTFILESINSESSION, BM_SETCHECK, BST_UNCHECKED, 0);
-							}
-						}
-						else
-						{
-							nppGUI._keepSessionAbsentFileEntries = true;
-						}
-					}
-					else
-					{
-						nppGUI._keepSessionAbsentFileEntries = false;
-					}
+					nppGUI._keepSessionAbsentFileEntries = isCheckedOrNot(IDC_CHECK_KEEPABSENTFILESINSESSION);
 					return TRUE;
 				}
 

@@ -1363,14 +1363,6 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
 	buf->setFileName(missingFilename);
 	buf->_currentStatus = DOC_INACCESSIBLE;
-
-	static bool theWarningHasBeenGiven = false;
-
-	if (!theWarningHasBeenGiven)
-	{
-		MessageBox(_pNotepadPlus->_pEditView->getHSelf(), L"Some files are inaccessible of your past session. They will be opened as empty & read-only files. If you close these files, your session file will be modified on exit. We suggest you to backup the session file now.", L"File inaccessinble", MB_OK);
-		theWarningHasBeenGiven = true;
-	}
 	return buf;
 }
 

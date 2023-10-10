@@ -27,6 +27,7 @@ class MiscSubDlg : public StaticDialog
 {
 public :
 	MiscSubDlg() = default;
+	void setFileUpdateChoiceToEnable();
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;

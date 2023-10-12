@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 1 September 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 6 October 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.7">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.5.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -650,17 +650,7 @@
 				<ScintillaCommandsTab name="Scintilla naredbe"/>
 				<ConflictInfoOk name="Nema konflikata prečaca za ovu stavku."/>
 				<ConflictInfoEditing name="Nema konflikata . . ."/>
-				<WindowCategory name="Prozor"/>
-				<FileCategory name="Datoteka"/>
-				<EditCategory name="Uređivanje"/>
-				<SearchCategory name="Pretraga"/>
-				<ViewCategory name="Prikaz"/>
-				<FormatCategory name="Format"/>
-				<LangCategory name="Jezici"/>
 				<AboutCategory name="O programu"/>
-				<SettingCategory name="Postavke"/>
-				<ToolCategory name="Alati"/>
-				<ExecuteCategory name="Pokretanje"/>
 				<ModifyContextMenu name="Izmijeni"/>
 				<DeleteContextMenu name="Izbriši"/>
 				<ClearContextMenu name="Očisti"/>
@@ -1163,9 +1153,10 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 					<Item id="6904" name="Potvrdi Zamijeni sve u svim otvorenim dokumentima"/>
 					<Item id="6905" name="Zamijeni: Ne prelazi na sljedeće pojavljivanje"/>
 					<Item id="6906" name="Prozor rezultata pretraživanja: prikaži samo jedan rezultat po pronađenom retku"/>
-					<Item id="6907" name="Kada se pozove dijaloški okvir za traženje"/>
-					<Item id="6908" name="Ispunite polje za traženje odabranim tekstom"/>
+					<Item id="6907" name="Kada se pozove dijaloški okvir za pretraživanje"/>
+					<Item id="6908" name="Ispunite polje za pretraživanje odabranim tekstom"/>
 					<Item id="6909" name="Odaberite riječ pod kursorom kada ništa nije odabrano"/>
+					<Item id="6910" name="Minimalna veličina označenog teksta za automatsko uključivanje 'U označenom'"/>
 				</Searching>
 
 				<RecentFilesHistory title="Povijest datoteka">
@@ -1337,9 +1328,9 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 				<Item id="2031" name="P&amp;ovećavanje za:"/>
 				<Item id="2038" name="&amp;Vodeći znakovi:"/>
 				<ComboBox id="2039">
-					<Element name="N&amp;išta"/>
-					<Element name="N&amp;ule"/>
-					<Element name="&amp;Razmaci"/>
+					<Element name="Ništa"/>
+					<Element name="Nule"/>
+					<Element name="Razmaci"/>
 				</ComboBox>
 				<Item id="2036" name="Ponovi:"/>
 				<Item id="2032" name="Format"/>
@@ -1505,6 +1496,8 @@ Testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, ispravi
 Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
 Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Promjenite ime datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i vaše bi naredbe trebale biti vraćene i ispravno raditi."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Neuspjelo snimanje" message="Snimanje datoteke nije uspjelo.
+Izgleda da nema dovoljno mjesta na disku za snimanje datoteke. Vaša datoteka nije snimljena."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>
@@ -1626,8 +1619,8 @@ Promjenite ime datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shor
 			<cloud-restart-warning value="Za aktiviranje ponovno pokrenite Notepad++."/>
 			<cloud-select-folder value="Odaberite mapu iz koje/u koju Notepad++ čita/piše svoje postavke"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Odaberite mapu za otvaranje/spremanje"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
-			<shift-change-direction-tip value="Upotrijebite Shift + Enter za traženje u suprotnom smjeru."/>
-			<two-find-buttons-tip value="Dva gumba za traženje"/>
+			<shift-change-direction-tip value="Upotrijebite Shift + Enter za pretraživanje u suprotnom smjeru."/>
+			<two-find-buttons-tip value="Dva gumba za pretraživanje"/>
 			<file-rename-title value="Preimenuj"/>
 			<find-in-files-filter-tip value="Nađi u datotekama cpp, cxx, h, hxx i hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
@@ -1714,7 +1707,7 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<replace-in-open-docs-confirm-title value="Jeste li sigurni?"/>
 			<replace-in-open-docs-confirm-message value="Jeste li sigurni da želite zamijeniti sva pojavljivanja u svim otvorenim dokumentima?"/>
 			<find-result-caption value="Rezultati pretraživanja"/>
-			<find-result-title value="Traženje"/><!-- Must not begin with space or tab character -->
+			<find-result-title value="Pretraživanje"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ pronađeno u $INT_REPLACE2$ datoteka od $INT_REPLACE3$ pretraženih)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ pronađeno u $INT_REPLACE2$ odabira od $INT_REPLACE3$ pretraženih)"/>
 			<find-result-title-info-extra value=" - Način linijskog filtra: prikaži samo filtrirane rezultate"/>
@@ -1765,6 +1758,7 @@ Kliknite &quot;?&quot; gumb s desne strane za otvaranje web stranice s Korisnič
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Idite na Prilagodbu izgleda kako bi promijenili zadanu prilagođenu boju za odabrane razmake i neispisive znakove (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Primijeni postavke izgleda neispisivih znakova na znakove C0, C1 kontrole i Unicode EOL (sljedeći redak, razdjelnik retka i razdjelnik odlomka)."/>
+			<searchingInSelThresh-tip value="Broj odabranih znakova u zoni uređivanja potreban da bi se automatski uključio potvrdni okvir 'U označenom' kad se aktivira dijaloški okvir za pretraživanje. Maksimalna vrijednost je 1024. Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

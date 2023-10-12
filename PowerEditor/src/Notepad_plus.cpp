@@ -6706,11 +6706,11 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		if (nppParams.loadSession(session2Load, fnss.getFileName(0)))
 		{
 			const bool isSnapshotMode = false;
-			const bool shouldLoadFileBrowser = true;
+			const bool userCreatedSessionAndLoadFileBrowser = true;
 
 			if ((nppGUI._multiInstSetting == multiInstOnSession) || (nppGUI._multiInstSetting == multiInst))
 				nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
-			loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
+			loadSession(session2Load, isSnapshotMode, userCreatedSessionAndLoadFileBrowser);
 		}
 		return std::vector<generic_string>();
 	}

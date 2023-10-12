@@ -2104,7 +2104,7 @@ void Notepad_plus::loadLastSession()
 	_isFolding = false;
 }
 
-bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shouldLoadFileBrowser)
+bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool userCreatedSessionAndLoadFileBrowser)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI& nppGUI = nppParam.getNppGUI();
@@ -2147,7 +2147,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW) : BUFFER_INVALID;
+			lastOpened = (!userCreatedSessionAndLoadFileBrowser && nppGUI._keepSessionAbsentFileEntries) ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2283,7 +2283,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = nppGUI._keepSessionAbsentFileEntries ?  MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW) : BUFFER_INVALID;
+			lastOpened = (!userCreatedSessionAndLoadFileBrowser && nppGUI._keepSessionAbsentFileEntries) ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2396,7 +2396,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	if (_pDocumentListPanel)
 		_pDocumentListPanel->reload();
 
-	if (shouldLoadFileBrowser && !session._fileBrowserRoots.empty())
+	if (userCreatedSessionAndLoadFileBrowser && !session._fileBrowserRoots.empty())
 	{
 		// Force launch file browser and add roots
 		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
@@ -2464,8 +2464,8 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			if (nppParam.loadSession(session2Load, sessionFileName.c_str()))
 			{
 				const bool isSnapshotMode = false;
-				const bool shouldLoadFileBrowser = true;
-				isAllSuccessful = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
+				const bool userCreatedSessionAndLoadFileBrowser = true;
+				isAllSuccessful = loadSession(session2Load, isSnapshotMode, userCreatedSessionAndLoadFileBrowser);
 				result = true;
 				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
 					nppParam.setLoadedSessionFilePath(sessionFileName);

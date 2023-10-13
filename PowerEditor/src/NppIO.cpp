@@ -2470,8 +2470,6 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
 					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
-			if (!isAllSuccessful)
-				nppParam.writeSession(session2Load, sessionFileName.c_str());
 		}
 		if (result == false)
 		{

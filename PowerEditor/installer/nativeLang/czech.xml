@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.5.7  6/Sep/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.5.8  13/Oct/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.7">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.5.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -652,17 +652,7 @@
 				<ScintillaCommandsTab name="Scintilla příkazy"/>
 				<ConflictInfoOk name="Nezjištěny žádné kolize pro tuto položku."/>
 				<ConflictInfoEditing name="Nekoliduje s ničím . . ."/>
-				<WindowCategory name="Okno"/>
-				<FileCategory name="Soubor"/>
-				<EditCategory name="Editace"/>
-				<SearchCategory name="Vyhledávání"/>
-				<ViewCategory name="Zobrazení"/>
-				<FormatCategory name="Formát"/>
-				<LangCategory name="Syntaxe"/>
 				<AboutCategory name="O/Nápověda (?)"/>
-				<SettingCategory name="Nastavení"/>
-				<ToolCategory name="Nástroj"/>
-				<ExecuteCategory name="Spuštění"/>
 				<ModifyContextMenu name="Upravit"/>
 				<DeleteContextMenu name="Odstranit"/>
 				<ClearContextMenu name="Vymazat"/>
@@ -1187,6 +1177,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id="6907" name="Při vyvolání dialogového okna 'Najít'"/>
 					<Item id="6908" name="Předvyplnit vyhledávací pole označeným textem"/>
 					<Item id="6909" name="Když není nic označeno, předvyplnit slovem na pozici kurzoru"/>
+					<Item id="6910" name="Minimální délka pro automatické zaškrtávaní 'Ve vybraném'"/>
 				</Searching>
 				<RecentFilesHistory title="Historie posl. souborů">
 					<Item id="6304" name="Historie posledních souborů"/>
@@ -1409,7 +1400,7 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v 'Nastavení'."/>
 			<LoseUndoAbilityWarning title="Varování před ztrátou možnosti vrátit změny" message="Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
 			<CannotMoveDoc title="Přejít k nové instanci Notepadu++" message="Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
 			<DocReloadWarning title="Znovu otevřít" message="Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
-			<FileLockedWarning title="Uložení selhalo" message="Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
+			<FileLockedWarning title="Ukládání selhalo" message="Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
 			<FileAlreadyOpenedInNpp title="" message="Tento soubor je již otevřen v Notepadu++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Přejmenování selhalo" message="Zadaný název je již použit na jiné záložce."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Přejmenování selhalo" message="Zadaný název nemůže být prázdný nebo nemůže být tvořen pouze mezerami či tabulátory."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
@@ -1476,8 +1467,8 @@ Vaše pracovní plocha nebyla uložena."/><!-- HowToReproduce: this message prev
 			<UDLRemoveCurrentLang title="Odstranění aktuální syntaxe" message="Jste si jisti?"/>
 			<SCMapperDoDeleteOrNot title="Jste si jisti?" message="Jste si jisti, že chcete smazat tuto klávesovou zkratku / příkaz?"/>
 			<FindCharRangeValueError title="Problém s rozsahem hodnoty" message="Měli byste napsat hodnotu z rozsahu 0 až 255."/>
-			<OpenInAdminMode title="Uložení selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Uložení selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminMode title="Ukládání selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Ukládání selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
 			<OpenInAdminModeFailed title="Otevření s administrátorskými právy selhalo" message="Notepad++ nemůže být spuštěn s právy administrátora."/>
 			<ViewInBrowser title="Zobrazit aktuální soubor v prohlížeči" message="Není možno nalézt aplikaci ve Vašem systému."/>
 			<ExitToUpdatePlugins title="Notepad++ má být ukončen" message="Jestliže kliknete na ANO, ukončíte tím Notepad++ kvůli provedení naplánovaných operací. Notepad++ bude po dokončení všech operací restartován. Pokračovat?"/>
@@ -1494,6 +1485,8 @@ Vyzkoušejte si je prosím v aktuální verzi Notepadu++ a v případě potřeby
 Jako alternativu můžete využít přechod zpět na nižší verzi Notepadu++ (v8.5.2-) a obnovit svoje předchozí data ze zálohy, která bude vytvořena. Notepad++ nyní zazálohuje Váš stávající soubor &quot;shortcuts.xml&quot; a uloží ho jako &quot;shortcuts.xml.v8.5.2.backup&quot;.
 
 Přejmenováním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; zpátky by se Vaše původní makra a příkazy měly obnovit a fungovat správně."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Ukládání selhalo" message="Soubor se nepodařilo uložit.
+Zdá se, že na disku není dostatek místa pro uložení souboru. Váš soubor není uložen."/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1763,6 +1756,7 @@ Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživ
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Přejděte do Úpravy stylu a změňte výchozí vlastní barvu pro vybrané prázdné a netisknutelné znaky. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použije nastavení vzhledu netisknutelných znaků pro řídící znaky C0, C1 (reprezentují další informace o textu jako jsou další řádek, oddělovač řádků, oddělovač odstavců) a pro Unicode EOL znaky." />
+			<searchingInSelThresh-tip value="Minimální počet vybraných znaků editační zóny, aby došlo k automatickému zaškrtnutí políčka 'Ve vybraném' při aktivaci dialogu 'Najít'. Nejvyšší možná hodnota je 1024. Pokud chcete toto automatické zaškrtávání zcela vypnout, nastavte hodnotu na 0."/>
 		</MiscStrings>
 
 	</Native-Langue>

@@ -2449,7 +2449,6 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			sessionFileName = fn;
 	}
 
-
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = nppParam.getNppGUI();
 	if (!sessionFileName.empty())
@@ -2466,35 +2465,25 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			TCHAR nppFullPath[MAX_PATH]{};
 			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
-
 			generic_string args = TEXT("-multiInst -nosession -openSession ");
 			args += TEXT("\"");
 			args += sessionFileName;
 			args += TEXT("\"");
-			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
-			result = true;
+			if (::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW) > (HINSTANCE)32)
+				result = true;
 		}
 		else
 		{
-			bool isAllSuccessful = true;
 			Session session2Load;
 
 			if (nppParam.loadSession(session2Load, sessionFileName.c_str()))
 			{
 				const bool isSnapshotMode = false;
-				isAllSuccessful = loadSession(session2Load, isSnapshotMode, sessionFileName.c_str());
-				result = true;
+				result = loadSession(session2Load, isSnapshotMode, sessionFileName.c_str());
+
 				if (isEmptyNpp && nppGUI._multiInstSetting == multiInstOnSession)
 					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
-		}
-		if (result == false)
-		{
-			_nativeLangSpeaker.messageBox("SessionFileInvalidError",
-				NULL,
-				TEXT("Session file is either corrupted or not valid."),
-				TEXT("Could not Load Session"),
-				MB_OK);
 		}
 	}
 

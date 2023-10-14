@@ -1295,13 +1295,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETNBSESSIONFILES:
 		{
-			const TCHAR *sessionFileName = reinterpret_cast<const TCHAR *>(lParam);
-			if ((!sessionFileName) || (sessionFileName[0] == '\0'))
-				return 0;
-			Session session2Load;
-			if (nppParam.loadSession(session2Load, sessionFileName))
-				return session2Load.nbMainFiles() + session2Load.nbSubFiles();
-			return 0;
+			size_t nbSessionFiles = 0;
+			const TCHAR* sessionFileName = reinterpret_cast<const TCHAR*>(lParam);
+			BOOL* pbIsValidXML = reinterpret_cast<BOOL*>(wParam);
+			if (pbIsValidXML)
+				*pbIsValidXML = false;
+			if (sessionFileName && (sessionFileName[0] != '\0'))
+			{
+				Session session2Load;
+				if (nppParam.loadSession(session2Load, sessionFileName, true))
+				{
+					if (pbIsValidXML)
+						*pbIsValidXML = true;
+					nbSessionFiles = session2Load.nbMainFiles() + session2Load.nbSubFiles();
+				}
+			}
+			return nbSessionFiles;
 		}
 
 		case NPPM_GETSESSIONFILES:
@@ -1313,7 +1322,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 
 			Session session2Load;
-			if (nppParam.loadSession(session2Load, sessionFileName))
+			if (nppParam.loadSession(session2Load, sessionFileName, true))
 			{
 				size_t i = 0;
 				for ( ; i < session2Load.nbMainFiles() ; )

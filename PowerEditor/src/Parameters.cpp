@@ -2271,6 +2271,15 @@ bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
 	if (loadOkay)
 		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, session);
 
+	if (!loadOkay)
+	{
+		_pNativeLangSpeaker->messageBox("SessionFileInvalidError",
+			NULL,
+			TEXT("Session file is either corrupted or not valid."),
+			TEXT("Could not Load Session"),
+			MB_OK);
+	}
+
 	delete pXmlSessionDocument;
 	return loadOkay;
 }

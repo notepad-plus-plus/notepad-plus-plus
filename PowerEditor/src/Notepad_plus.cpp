@@ -6673,7 +6673,7 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 			const bool isSnapshotMode = false;
 			const bool isUserCreatedSession = true; // it's user's created session but not session.xml
 
-			if ((nppGUI._multiInstSetting == multiInstOnSession) || (nppGUI._multiInstSetting == multiInst))
+			if (nppGUI._multiInstSetting == multiInstOnSession)
 				nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
 			loadSession(session2Load, isSnapshotMode, isUserCreatedSession);
 		}

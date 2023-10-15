@@ -2467,7 +2467,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 				const bool shouldLoadFileBrowser = true;
 				isAllSuccessful = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
 				result = true;
-				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
+				if (isEmptyNpp && nppGUI._multiInstSetting == multiInstOnSession)
 					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
 		}

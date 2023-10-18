@@ -2463,7 +2463,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 				const bool isSnapshotMode = false;
 				const bool shouldLoadFileBrowser = true;
 				result = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
-				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
+				if (isEmptyNpp && nppGUI._multiInstSetting == multiInstOnSession)
 					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
 		}
@@ -2474,7 +2474,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 
 const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser)
 {
-	if (sessionFile2save)
+	if (sessionFile2save && (lstrlen(sessionFile2save) > 0))
 	{
 		Session currentSession;
 		if ((nbFile) && (fileNames))
@@ -2526,7 +2526,10 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	fDlg.setCheckbox(checkboxLabel.c_str(), isCheckboxActive);
 	generic_string sessionFileName = fDlg.doSaveDlg();
 
-	return fileSaveSession(nbFile, fileNames, sessionFileName.c_str(), fDlg.getCheckboxState());
+	if (!sessionFileName.empty())
+		return fileSaveSession(nbFile, fileNames, sessionFileName.c_str(), fDlg.getCheckboxState());
+
+	return NULL;
 }
 
 

@@ -1658,7 +1658,7 @@ public:
 		return _doPrintAndExit;
 	};
 
-	bool loadSession(Session & session, const TCHAR *sessionFileName);
+	bool loadSession(Session& session, const TCHAR* sessionFileName, const bool bSuppressErrorMsg = false);
 
 	void setLoadedSessionFilePath(const std::wstring & loadedSessionFilePath) {
 		_loadedSessionFullFilePath = loadedSessionFilePath;

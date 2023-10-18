@@ -2264,14 +2264,14 @@ void NppParameters::setWorkingDir(const TCHAR * newPath)
 	}
 }
 
-bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
+bool NppParameters::loadSession(Session& session, const TCHAR* sessionFileName, const bool bSuppressErrorMsg)
 {
-	TiXmlDocument *pXmlSessionDocument = new TiXmlDocument(sessionFileName);
+	TiXmlDocument* pXmlSessionDocument = new TiXmlDocument(sessionFileName);
 	bool loadOkay = pXmlSessionDocument->LoadFile();
 	if (loadOkay)
 		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, session);
 
-	if (!loadOkay)
+	if (!loadOkay && !bSuppressErrorMsg)
 	{
 		_pNativeLangSpeaker->messageBox("SessionFileInvalidError",
 			NULL,

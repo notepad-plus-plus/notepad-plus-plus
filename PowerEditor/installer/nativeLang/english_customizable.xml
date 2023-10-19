@@ -1358,14 +1358,6 @@ You can define several column markers by using white space to separate the diffe
 				<Item id="4" name="Yes to &amp;all"/>
 				<Item id="5" name="N&amp;o to all"/>
 			</DoSaveOrNot>
-			<DoCloseOrNot title="Keep non existing file">
-				<Item id="1761" name="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
-Keep this file in editor?"/>
-				<Item id="6" name="&amp;Yes"/>
-				<Item id="7" name="&amp;No"/>
-				<Item id="4" name="Yes to &amp;all"/>
-				<Item id="5" name="N&amp;o to all"/>
-			</DoCloseOrNot>
 			<DoSaveAll title="Save All Confirmation">
 				<Item id="1766" name="Are you sure you want to save all modified documents?
 

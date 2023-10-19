@@ -1939,6 +1939,7 @@ private:
 	bool _doNppLogNulContentCorruptionIssue = false;
 	bool _isEndSessionStarted = false;
 	bool _isEndSessionCritical = false;
+	bool _isPlaceHolderEnabled = false;
 
 public:
 	std::wstring getWingupFullPath() const { return _wingupFullPath; };
@@ -1950,12 +1951,14 @@ public:
 	void setWingupDir(const std::wstring& val2set) { _wingupDir = val2set; };
 	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; };
 
-	bool doNppLogNetworkDriveIssue() { return _doNppLogNetworkDriveIssue; };
-	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
+	bool doNppLogNetworkDriveIssue() const { return _doNppLogNetworkDriveIssue; };
+	bool doNppLogNulContentCorruptionIssue() const { return _doNppLogNulContentCorruptionIssue; };
 	void endSessionStart() { _isEndSessionStarted = true; };
-	bool isEndSessionStarted() { return _isEndSessionStarted; };
+	bool isEndSessionStarted() const { return _isEndSessionStarted; };
 	void makeEndSessionCritical() { _isEndSessionCritical = true; };
-	bool isEndSessionCritical() { return _isEndSessionCritical; };
+	bool isEndSessionCritical() const { return _isEndSessionCritical; };
+	void setPlaceHolderEnable(bool isEnabled) { _isPlaceHolderEnabled = isEnabled; };
+	bool isPlaceHolderEnabled() const { return _isPlaceHolderEnabled; }
 
 private:
 	void getLangKeywordsFromXmlTree();

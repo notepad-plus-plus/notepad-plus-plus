@@ -1348,14 +1348,6 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 				<Item id="4" name="Oui pour &amp;tout"/>
 				<Item id="5" name="Non &amp;pour tout"/>
 			</DoSaveOrNot>
-			<DoCloseOrNot title="Conserver le(s) fichier(s) non existant(s)">
-				<Item id="1761" name="Conserver le fichier &quot;$STR_REPLACE$&quot; ?"/>
-				<Item id="6" name="&amp;Oui"/>
-				<Item id="7" name="&amp;Non"/>
-				<Item id="2" name="&amp;Annuler"/>
-				<Item id="4" name="Oui pour &amp;tout"/>
-				<Item id="5" name="Non &amp;pour tout"/>
-			</DoCloseOrNot>
 			<DoSaveAll title="Confirmer de tout enregistrer">
 				<Item id="1766" name="Voulez-vous vraiment enregistrer tous les documents modifiés?
 

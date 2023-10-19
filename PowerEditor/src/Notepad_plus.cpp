@@ -6480,52 +6480,17 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 				if (buffer->isInaccessible())
 				{
-					buffer->setUnsync(true);
-
-					/*
-					static bool yesToAll = false;
-					static bool noToAll = false;
-
-					// Keep the file(s)?
-
-					if (yesToAll)
+					if (nppParam.isPlaceHolderEnabled())
 					{
 						buffer->setUnsync(true);
 					}
-					else if (noToAll)
+					else
 					{
 						//close in both views, doing current view last since that has to remain opened
 						bool isSnapshotMode = nppGUI.isSnapshotMode();
 						doClose(buffer->getID(), otherView(), isSnapshotMode);
-						doClose(buffer->getID(), currentView(), isSnapshotMode);	
+						doClose(buffer->getID(), currentView(), isSnapshotMode);
 					}
-					else
-					{
-						DoSaveOrNotBox keepFileOrNotBox;
-						keepFileOrNotBox.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), buffer->getFullPathName(), true, DoSaveOrNotBox::t_keepFiles);
-						keepFileOrNotBox.doDialog(_nativeLangSpeaker.isRTL());
-						int buttonID = keepFileOrNotBox.getClickedButtonId();
-						keepFileOrNotBox.destroy();
-
-						//MessageBox(_pPublicInterface->getHSelf(), buffer->getFullPathName(), L"Blocked", MB_OK);
-						//int buttonID = ID_YES_ALL;
-
-						if (buttonID == IDYES || buttonID == ID_YES_ALL)
-						{
-							yesToAll = (buttonID == ID_YES_ALL);
-							buffer->setUnsync(true);
-						}
-						else if (buttonID == IDNO || buttonID == ID_NO_ALL)
-						{
-							noToAll = (buttonID == ID_NO_ALL);
-
-							//close in both views, doing current view last since that has to remain opened
-							bool isSnapshotMode = nppGUI.isSnapshotMode();
-							doClose(buffer->getID(), otherView(), isSnapshotMode);
-							doClose(buffer->getID(), currentView(), isSnapshotMode);
-						}
-					}
-					*/
 				}
 				else
 				{
@@ -6706,11 +6671,11 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		if (nppParams.loadSession(session2Load, fnss.getFileName(0)))
 		{
 			const bool isSnapshotMode = false;
-			const bool userCreatedSessionAndLoadFileBrowser = true;
+			const bool isUserCreatedSession = true; // it's user's created session but not session.xml
 
 			if ((nppGUI._multiInstSetting == multiInstOnSession) || (nppGUI._multiInstSetting == multiInst))
 				nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
-			loadSession(session2Load, isSnapshotMode, userCreatedSessionAndLoadFileBrowser);
+			loadSession(session2Load, isSnapshotMode, isUserCreatedSession);
 		}
 		return std::vector<generic_string>();
 	}

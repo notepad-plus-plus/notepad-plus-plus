@@ -1359,18 +1359,18 @@ BufferID FileManager::newEmptyDocument()
 
 BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne)
 {
+	static bool theWarningHasBeenGiven = false;
+	if (!theWarningHasBeenGiven)
+	{
+		int res = MessageBox(_pNotepadPlus->_pEditView->getHSelf(), L"Some files are inaccessible of your past session. They can be opened as empty & read-only files as place-holder.\nNote that if you close these place-holders, your session file will be modified on exit. We suggest you to backup the session file now.\n\nWould you like to create place-holders for them ?", L"File inaccessinble", MB_YESNO);
+		theWarningHasBeenGiven = true;
+		NppParameters::getInstance().setPlaceHolderEnable(res == IDYES);
+	}
+
 	BufferID buf = MainFileManager.newEmptyDocument();
 	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
 	buf->setFileName(missingFilename);
 	buf->_currentStatus = DOC_INACCESSIBLE;
-
-	static bool theWarningHasBeenGiven = false;
-
-	if (!theWarningHasBeenGiven)
-	{
-		MessageBox(_pNotepadPlus->_pEditView->getHSelf(), L"Some files are inaccessible of your past session. They will be opened as empty & read-only files. If you close these files, your session file will be modified on exit. We suggest you to backup the session file now.", L"File inaccessinble", MB_OK);
-		theWarningHasBeenGiven = true;
-	}
 	return buf;
 }
 

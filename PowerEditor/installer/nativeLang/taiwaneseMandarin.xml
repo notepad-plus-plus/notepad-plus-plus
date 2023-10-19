@@ -1296,14 +1296,6 @@
 				<Item id="4" name="全部存檔(&amp;A)"/>
 				<Item id="5" name="全部棄存(&amp;O)"/>
 			</DoSaveOrNot>
-			<DoCloseOrNot title="保留文件">
-				<Item id="1761" name="檔案「$STR_REPLACE$」已不存在。
-你要在 Notepad++ 中保留這個文件嗎？"/>
-				<Item id="6" name="好吧(&amp;Y)"/>
-				<Item id="7" name="不要啦(&amp;N)"/>
-				<Item id="4" name="全部保留(&amp;A)"/>
-				<Item id="5" name="全部關閉(&amp;O)"/>
-			</DoCloseOrNot>
 			<DoSaveAll title="確認全部儲存">
 				<Item id="1766" name="你確定要儲存所有尚未儲存的檔案嗎？
 

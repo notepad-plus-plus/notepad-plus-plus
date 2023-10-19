@@ -35,8 +35,6 @@ GNU General Public License for more details. \r\n\
 You should have received a copy of the GNU General Public License \
 along with this program. If not, see <https://www.gnu.org/licenses/>.")
 
-#define ID_YES_ALL IDRETRY
-#define ID_NO_ALL IDIGNORE
 
 class AboutDlg : public StaticDialog
 {
@@ -93,14 +91,12 @@ class DoSaveOrNotBox : public StaticDialog
 public:
 	DoSaveOrNotBox() = default;
 
-	enum BoxType { t_default, t_keepFiles };
-	void init(HINSTANCE hInst, HWND parent, const TCHAR* fn, bool isMulti, BoxType boxType = t_default) {
+	void init(HINSTANCE hInst, HWND parent, const TCHAR* fn, bool isMulti) {
 		Window::init(hInst, parent);
 		if (fn)
 			_fn = fn;
 
 		_isMulti = isMulti;
-		_boxType = boxType;
 	};
 
 	void doDialog(bool isRTL = false);
@@ -108,7 +104,7 @@ public:
 	void destroy() override {};
 
 	int getClickedButtonId() const {
-		return _clickedButtonId;
+		return clickedButtonId;
 	};
 
 	void changeLang();
@@ -117,10 +113,9 @@ protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
-	int _clickedButtonId = -1;
+	int clickedButtonId = -1;
 	generic_string _fn;
 	bool _isMulti = false;
-	BoxType _boxType = t_default;
 };
 
 class DoSaveAllBox : public StaticDialog
@@ -133,7 +128,7 @@ public:
 	void destroy() override {};
 
 	int getClickedButtonId() const {
-		return _clickedButtonId;
+		return clickedButtonId;
 	};
 
 	void changeLang();
@@ -142,5 +137,5 @@ protected:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
-	int _clickedButtonId = -1;
+	int clickedButtonId = -1;
 };

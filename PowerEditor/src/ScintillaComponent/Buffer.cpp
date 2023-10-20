@@ -1387,6 +1387,9 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 		nppParamInst.setPlaceHolderEnable(res == IDYES);
 	}
 
+	if (!nppParamInst.isPlaceHolderEnabled())
+		return BUFFER_INVALID;
+
 	BufferID buf = MainFileManager.newEmptyDocument();
 	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
 	buf->setFileName(missingFilename);

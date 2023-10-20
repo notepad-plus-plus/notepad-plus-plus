@@ -150,6 +150,16 @@ Function .onInit
 	;
 	; --- PATCH END ---
 
+	; handle the possible Silent Mode (/S) & already running Notepad++ (without this an incorrect partial installation is possible)
+	IfSilent 0 notInSilentMode
+	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
+	IntCmp $R0 0 nppNotRunning
+	System::Call 'kernel32::CloseHandle(i $R0)' ; a Notepad++ instance is running, tidy-up the opened mutex handle only
+	SetErrorLevel 5 ; set an exit code > 0 otherwise the installer returns 0 aka SUCCESS ('5' means here the future ERROR_ACCESS_DENIED when trying to overwrite the notepad++.exe file...)
+	Quit ; silent installation is silent, currently we cannot continue without a user interaction (TODO: a new "/closeRunningNppAutomatically" installer optional param...)
+nppNotRunning:
+notInSilentMode:
+
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
 	IfErrors withUpdater withoutUpdater

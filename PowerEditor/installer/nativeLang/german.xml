@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.10.06"><!-- basiert auf english.xml vom 06.10.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.10.20"><!-- basiert auf english.xml vom 06.10.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1155,7 +1155,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6907" name="Wenn der Suchdialog aufgerufen wird"/>
 					<Item id="6908" name="Im Suchfeld gewählten Text einsetzen"/>
 					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>
-					<Item id="6910" name="Mindestgröße für die automatische Prüfung 'In Auswahl'"/>
+					<Item id="6910" name="Mindestgröße für die automatische Aktivierung von 'In Auswahl'"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1752,7 +1752,7 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Wenden Sie die Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) an."/>
-			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Setzen Sie den Wert auf 0, um die automatische Markierung zu deaktivieren."/>
+			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Den Wert auf 0 setzen, um die automatische Markierung zu deaktivieren."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

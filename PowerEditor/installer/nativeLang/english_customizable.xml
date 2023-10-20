@@ -1496,7 +1496,7 @@ Renaming &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;
 It seems there's not enough space on disk to save file. Your file is not saved."/>
 			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
 Are you sure you want to open them?"/>
-			<FileInaccessible title="File inaccessinble" message="Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.
+			<FileInaccessible title="File inaccessible" message="Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.
 Note that if you close these placeholders, your session file will be modified on exit. We suggest that you backup the session file now.
 
 Would you like to create placeholders for them?"/>

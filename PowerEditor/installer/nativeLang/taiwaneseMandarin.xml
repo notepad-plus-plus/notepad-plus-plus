@@ -1379,6 +1379,10 @@
 繼續嗎？"/>
 			<NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
 			<ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能啟動文件修改紀錄。"/>
+			<FileInaccessible title="檔案不存在" message="過去的工作階段中有一些已不存在的文件。它們可以以空白唯讀文件的形式作為占位符而創建。
+請注意，如果你關閉這些占位符，工作階段檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份工作階段檔案。
+
+你想為它們創建占位符嗎？"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

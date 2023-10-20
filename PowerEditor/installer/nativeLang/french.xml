@@ -1481,6 +1481,12 @@ Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
 Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
 Notepad++ va sauvegarder votre ancien &quot;shortcuts.xml&quot; et l'enregistrer sous &quot;shortcuts.xml.v8.5.2.backup&quot;.
 En renommant &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vos commandes devraient être proprement restaurées."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
+Are you sure you want to open them?"/>
+			<FileInaccessible title="Fichier inaccessinble" message="Certains fichiers de votre session précédente sont inaccessibles. Ils peuvent être ouverts comme des fichiers vides et en lecture seule en tant que espaces réservés.
+Notez que si vous fermez ces espaces réservés, votre fichier de session sera modifié à la sortie. Nous vous suggérons de sauvegarder le fichier de session maintenant.
+
+Voulez-vous créer des espaces réservés pour eux ?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

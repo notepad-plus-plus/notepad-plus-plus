@@ -785,6 +785,7 @@ struct NppGUI final
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
+	bool _keepSessionAbsentFileEntries = false;
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
 	bool _saveAllConfirm = true;
@@ -1942,6 +1943,9 @@ private:
 	bool _isEndSessionStarted = false;
 	bool _isEndSessionCritical = false;
 
+	bool _isPlaceHolderEnabled = false;
+	bool _theWarningHasBeenGiven = false;
+
 public:
 	std::wstring getWingupFullPath() const { return _wingupFullPath; };
 	std::wstring getWingupParams() const { return _wingupParams; };
@@ -1952,12 +1956,17 @@ public:
 	void setWingupDir(const std::wstring& val2set) { _wingupDir = val2set; };
 	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; };
 
-	bool doNppLogNetworkDriveIssue() { return _doNppLogNetworkDriveIssue; };
-	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
+	bool doNppLogNetworkDriveIssue() const { return _doNppLogNetworkDriveIssue; };
+	bool doNppLogNulContentCorruptionIssue() const { return _doNppLogNulContentCorruptionIssue; };
 	void endSessionStart() { _isEndSessionStarted = true; };
-	bool isEndSessionStarted() { return _isEndSessionStarted; };
+	bool isEndSessionStarted() const { return _isEndSessionStarted; };
 	void makeEndSessionCritical() { _isEndSessionCritical = true; };
-	bool isEndSessionCritical() { return _isEndSessionCritical; };
+	bool isEndSessionCritical() const { return _isEndSessionCritical; };
+
+	void setPlaceHolderEnable(bool isEnabled) { _isPlaceHolderEnabled = isEnabled; };
+	bool isPlaceHolderEnabled() const { return _isPlaceHolderEnabled; }
+	void setTheWarningHasBeenGiven(bool isEnabled) { _theWarningHasBeenGiven = isEnabled; };
+	bool theWarningHasBeenGiven() const { return _theWarningHasBeenGiven; }
 
 private:
 	void getLangKeywordsFromXmlTree();

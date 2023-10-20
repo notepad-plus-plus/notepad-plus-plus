@@ -28,11 +28,12 @@ typedef Buffer* BufferID;	//each buffer has unique ID by which it can be retriev
 typedef sptr_t Document;
 
 enum DocFileStatus {
-	DOC_REGULAR    = 0x01, // should not be combined with anything
-	DOC_UNNAMED    = 0x02, // not saved (new ##)
-	DOC_DELETED    = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
-	DOC_MODIFIED   = 0x08, // File in environment has changed
-	DOC_NEEDRELOAD = 0x10  // File is modified & needed to be reload (by log monitoring)
+	DOC_REGULAR      = 0x01, // should not be combined with anything
+	DOC_UNNAMED      = 0x02, // not saved (new ##)
+	DOC_DELETED      = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
+	DOC_MODIFIED     = 0x08, // File in environment has changed
+	DOC_NEEDRELOAD   = 0x10, // File is modified & needed to be reload (by log monitoring)
+	DOC_INACCESSIBLE = 0x20  // File is absent on its load; this status is temporay for setting file not dirty & readonly; and it will be replaced to DOC_DELETED
 };
 
 enum BufferStatusInfo {
@@ -89,7 +90,7 @@ public:
 	BufferID loadFile(const TCHAR * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const TCHAR *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
 	// create an empty placeholder for a missing file when loading session
-	BufferID newPlaceholderDocument(const TCHAR * missingFilename, int whichOne);
+	BufferID newPlaceholderDocument(const TCHAR * missingFilename, int whichOne, bool isUserCreatedSession);
 
 	//create Buffer from existing Scintilla, used from new Scintillas.
 	BufferID bufferFromDocument(Document doc, bool isMainEditZone);
@@ -184,6 +185,8 @@ public:
 	bool isReadOnly() const { return (_isUserReadOnly || _isFileReadOnly); }
 
 	bool isUntitled() const { return ((_currentStatus & DOC_UNNAMED) == DOC_UNNAMED); }
+
+	bool isInaccessible() const { return _isInaccessible; }
 
 	bool getFileReadOnly() const { return _isFileReadOnly; }
 
@@ -414,4 +417,6 @@ private:
 	MapPosition _mapPosition;
 
 	std::mutex _reloadFromDiskRequestGuard;
+
+	bool _isInaccessible = false;
 };

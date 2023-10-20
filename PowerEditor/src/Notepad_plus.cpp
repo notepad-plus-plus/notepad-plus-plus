@@ -6410,6 +6410,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			{
 				break;
 			}
+
 			case DOC_MODIFIED:	//ask for reloading
 			{
 				// Since it is being monitored DOC_NEEDRELOAD is going to handle the change.
@@ -6446,6 +6447,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				}
 				break;
 			}
+
 			case DOC_NEEDRELOAD: // by log monitoring
 			{
 				doReload(buffer->getID(), false);
@@ -6465,6 +6467,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 				break;
 			}
+
 			case DOC_DELETED: 	//ask for keep
 			{
 				prepareBufferChangedDialog(buffer);
@@ -6475,21 +6478,37 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
 				_pluginsManager.notify(&scnN);
 
-				int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
-				if (doCloseDoc)
+				if (buffer->isInaccessible())
 				{
-					//close in both views, doing current view last since that has to remain opened
-					bool isSnapshotMode = nppGUI.isSnapshotMode();
-					doClose(buffer->getID(), otherView(), isSnapshotMode);
-					doClose(buffer->getID(), currentView(), isSnapshotMode);
-					return;
+					if (nppParam.isPlaceHolderEnabled())
+					{
+						buffer->setUnsync(true);
+					}
+					else
+					{
+						//close in both views, doing current view last since that has to remain opened
+						bool isSnapshotMode = nppGUI.isSnapshotMode();
+						doClose(buffer->getID(), otherView(), isSnapshotMode);
+						doClose(buffer->getID(), currentView(), isSnapshotMode);
+					}
 				}
 				else
 				{
-					// buffer in Notepad++ is not syncronized anymore with the file on disk
-					buffer->setUnsync(true);
+					int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
+					if (doCloseDoc)
+					{
+						//close in both views, doing current view last since that has to remain opened
+						bool isSnapshotMode = nppGUI.isSnapshotMode();
+						doClose(buffer->getID(), otherView(), isSnapshotMode);
+						doClose(buffer->getID(), currentView(), isSnapshotMode);
+						return;
+					}
+					else
+					{
+						// buffer in Notepad++ is not syncronized anymore with the file on disk
+						buffer->setUnsync(true);
+					}
 				}
-
 				break;
 			}
 		}
@@ -6652,11 +6671,11 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 		if (nppParams.loadSession(session2Load, fnss.getFileName(0)))
 		{
 			const bool isSnapshotMode = false;
-			const bool shouldLoadFileBrowser = true;
+			const bool isUserCreatedSession = true; // it's user's created session but not session.xml
 
 			if (nppGUI._multiInstSetting == multiInstOnSession)
 				nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
-			loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
+			loadSession(session2Load, isSnapshotMode, isUserCreatedSession);
 		}
 		return std::vector<generic_string>();
 	}

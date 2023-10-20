@@ -1177,6 +1177,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="6821" name="seconds"/>
 					<Item id="6822" name="Backup path:"/>
 					<Item id="6309" name="Remember current session for next launch"/>
+					<Item id="6825" name="Remember inaccessible files from past session"/>
 					<Item id="6801" name="Backup on save"/>
 					<Item id="6315" name="None"/>
 					<Item id="6316" name="Simple backup"/>
@@ -1493,7 +1494,15 @@ Notepad++ will backup your old &quot;shortcuts.xml&quot; and save it as &quot;sh
 Renaming &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, your commands should be restored and work properly."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Save failed" message="Failed to save file.
 It seems there's not enough space on disk to save file. Your file is not saved."/>
+			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
+Are you sure you want to open them?"/>
+			<FileInaccessibleUserSession title="File inaccessible" message="Some files from your saved session are inaccessible. They can be opened as empty and read-only files as placeholders.
 
+Would you like to create placeholders for them?"/>
+			<FileInaccessibleDefaultSessionXml title="File inaccessible" message="Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.
+Note that if you close these placeholders, your session file will be modified on exit. We suggest that you backup the session file now.
+
+Would you like to create placeholders for them?"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

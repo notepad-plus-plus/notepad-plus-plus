@@ -1347,6 +1347,15 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
+BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne)
+{
+	BufferID buf = MainFileManager.newEmptyDocument();
+	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
+	buf->setFileName(missingFilename);
+	buf->_currentStatus = DOC_REGULAR;
+	return buf;
+}
+
 BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();

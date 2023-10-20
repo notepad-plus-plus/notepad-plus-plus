@@ -2145,7 +2145,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = BUFFER_INVALID;
+			lastOpened = MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW);
 		}
 		if (isWow64Off)
 		{
@@ -2283,7 +2283,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = BUFFER_INVALID;
+			lastOpened = MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW);
 		}
 		if (isWow64Off)
 		{

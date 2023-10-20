@@ -1942,7 +1942,9 @@ private:
 	bool _doNppLogNulContentCorruptionIssue = false;
 	bool _isEndSessionStarted = false;
 	bool _isEndSessionCritical = false;
+
 	bool _isPlaceHolderEnabled = false;
+	bool _theWarningHasBeenGiven = false;
 
 public:
 	std::wstring getWingupFullPath() const { return _wingupFullPath; };
@@ -1960,8 +1962,11 @@ public:
 	bool isEndSessionStarted() const { return _isEndSessionStarted; };
 	void makeEndSessionCritical() { _isEndSessionCritical = true; };
 	bool isEndSessionCritical() const { return _isEndSessionCritical; };
+
 	void setPlaceHolderEnable(bool isEnabled) { _isPlaceHolderEnabled = isEnabled; };
 	bool isPlaceHolderEnabled() const { return _isPlaceHolderEnabled; }
+	void setTheWarningHasBeenGiven(bool isEnabled) { _theWarningHasBeenGiven = isEnabled; };
+	bool theWarningHasBeenGiven() const { return _theWarningHasBeenGiven; }
 
 private:
 	void getLangKeywordsFromXmlTree();

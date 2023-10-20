@@ -1357,21 +1357,33 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
-BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne)
+BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne, bool isUserCreatedSession)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 
-	static bool theWarningHasBeenGiven = false;
-	if (!theWarningHasBeenGiven)
+	if (!nppParamInst.theWarningHasBeenGiven())
 	{
-		int res = (nppParamInst.getNativeLangSpeaker())->messageBox(
-			"FileInaccessible",
-			_pNotepadPlus->_pEditView->getHSelf(),
-			L"Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.\nNote that if you close these placeholders, your session file will be modified on exit. We suggest that you backup the session file now.\n\nWould you like to create placeholders for them?",
-			L"File inaccessinble",
-			MB_YESNO | MB_APPLMODAL);
+		int res = 0;
+		if (isUserCreatedSession)
+		{
+			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
+				"FileInaccessibleUserSession",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				L"Some files from your saved session are inaccessible. They can be opened as empty and read-only files as placeholders.\n\nWould you like to create placeholders for them?",
+				L"File inaccessinble",
+				MB_YESNO | MB_APPLMODAL);
+		}
+		else
+		{
+			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
+				"FileInaccessibleSessionXml",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				L"Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.\nNote that if you close these placeholders, your session file will be modified on exit. We suggest that you backup the session file now.\n\nWould you like to create placeholders for them?",
+				L"File inaccessinble",
+				MB_YESNO | MB_APPLMODAL);
+		}
 
-		theWarningHasBeenGiven = true;
+		nppParamInst.setTheWarningHasBeenGiven(true);
 		nppParamInst.setPlaceHolderEnable(res == IDYES);
 	}
 

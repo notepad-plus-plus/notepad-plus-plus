@@ -2149,7 +2149,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool isUs
 		}
 		else
 		{
-			lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, isUserCreatedSession) : BUFFER_INVALID;
+			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
+			if (foundBufID == BUFFER_INVALID)
+				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, isUserCreatedSession) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2285,7 +2287,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool isUs
 		}
 		else
 		{
-			lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, isUserCreatedSession) : BUFFER_INVALID;
+			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
+			if (foundBufID == BUFFER_INVALID)
+				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, isUserCreatedSession) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{

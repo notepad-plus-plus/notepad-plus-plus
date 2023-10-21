@@ -6478,19 +6478,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
 				_pluginsManager.notify(&scnN);
 
-				if (buffer->isInaccessible())
+				if (buffer->isInaccessible() && nppParam.isPlaceHolderEnabled())
 				{
-					if (nppParam.isPlaceHolderEnabled())
-					{
-						buffer->setUnsync(true);
-					}
-					else
-					{
-						//close in both views, doing current view last since that has to remain opened
-						bool isSnapshotMode = nppGUI.isSnapshotMode();
-						doClose(buffer->getID(), otherView(), isSnapshotMode);
-						doClose(buffer->getID(), currentView(), isSnapshotMode);
-					}
+					buffer->setUnsync(true);
 				}
 				else
 				{

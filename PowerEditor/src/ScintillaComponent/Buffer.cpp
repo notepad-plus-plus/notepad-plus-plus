@@ -1357,28 +1357,30 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
-BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne, bool isUserCreatedSession)
+BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne, const wchar_t* userCreatedSessionName)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 
 	if (!nppParamInst.theWarningHasBeenGiven())
 	{
 		int res = 0;
-		if (isUserCreatedSession)
+		if (userCreatedSessionName)
 		{
 			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
 				"FileInaccessibleUserSession",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				L"Some files from your saved session are inaccessible. They can be opened as empty and read-only files as placeholders.\n\nWould you like to create placeholders for them?",
+				L"Some files from your manually-saved session \"$STR_REPLACE$\" are inaccessible. They can be opened as empty and read-only files as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit.",
 				L"File inaccessinble",
-				MB_YESNO | MB_APPLMODAL);
+				MB_YESNO | MB_APPLMODAL,
+				0,
+				userCreatedSessionName);
 		}
 		else
 		{
 			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
 				"FileInaccessibleDefaultSessionXml",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				L"Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.\nNote that if you close these placeholders, your session file will be modified on exit. We suggest that you backup the session file now.\n\nWould you like to create placeholders for them?",
+				L"Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your \"session.xml\" now.",
 				L"File inaccessinble",
 				MB_YESNO | MB_APPLMODAL);
 		}

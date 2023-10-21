@@ -1167,7 +1167,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 					<Item id="6821" name="secondes"/>
 					<Item id="6822" name="dans le dossier"/>
 					<Item id="6309" name="Mémoriser la session actuelle"/>
-					<Item id="6825" name="Mémoriser les fichiers inaccessibles de la session précédante"/>
+					<Item id="6825" name="Mémoriser les fichiers inaccessibles de la session précédente"/>
 					<Item id="6801" name="Sauvegarde"/>
 					<Item id="6315" name="Aucune"/>
 					<Item id="6316" name="Simple"/>
@@ -1482,10 +1482,10 @@ Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
 Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
 Notepad++ va sauvegarder votre ancien &quot;shortcuts.xml&quot; et l'enregistrer sous &quot;shortcuts.xml.v8.5.2.backup&quot;.
 En renommant &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vos commandes devraient être proprement restaurées."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<FileInaccessibleUserSession title="Fichier inaccessible" message="Certains fichiers de votre session sauvegardée sont inaccessibles. Ils peuvent être ouverts comme des fichiers vides et en lecture seule en tant que espaces réservés.
+			<FileInaccessibleUserSession title="Fichier inaccessible" message="Certains fichiers de votre session sauvegardée sont inaccessibles. Ils peuvent être ouverts comme des fichiers vides et en lecture seule en tant qu'espaces réservés.
 
 Voulez-vous créer des espaces réservés pour eux ?"/>
-			<FileInaccessibleDefaultSessionXml title="Fichier inaccessible" message="Certains fichiers de votre session précédente sont inaccessibles. Ils peuvent être ouverts comme des fichiers vides et en lecture seule en tant que espaces réservés.
+			<FileInaccessibleDefaultSessionXml title="Fichier inaccessible" message="Certains fichiers de votre session précédente sont inaccessibles. Ils peuvent être ouverts comme des fichiers vides et en lecture seule en tant qu'espaces réservés.
 Notez que si vous fermez ces espaces réservés, votre fichier de session sera modifié à la sortie. Nous vous suggérons de sauvegarder le fichier de session maintenant.
 
 Voulez-vous créer des espaces réservés pour eux ?"/>

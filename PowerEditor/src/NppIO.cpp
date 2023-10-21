@@ -2104,7 +2104,7 @@ void Notepad_plus::loadLastSession()
 	_isFolding = false;
 }
 
-bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool isUserCreatedSession)
+bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wchar_t* userCreatedSessionName)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI& nppGUI = nppParam.getNppGUI();
@@ -2151,7 +2151,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool isUs
 		{
 			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
 			if (foundBufID == BUFFER_INVALID)
-				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, isUserCreatedSession) : BUFFER_INVALID;
+				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2289,7 +2289,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool isUs
 		{
 			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
 			if (foundBufID == BUFFER_INVALID)
-				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, isUserCreatedSession) : BUFFER_INVALID;
+				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2402,7 +2402,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool isUs
 	if (_pDocumentListPanel)
 		_pDocumentListPanel->reload();
 
-	if (isUserCreatedSession && !session._fileBrowserRoots.empty())
+	if (userCreatedSessionName && !session._fileBrowserRoots.empty())
 	{
 		// If the session is user's created session but not session.xml, we force to launch Folder as Workspace and add roots
 		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
@@ -2410,12 +2410,12 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool isUs
 
 	// Especially File status auto-detection set on "Enable for all opened files":  nppGUI._fileAutoDetection & cdEnabledOld
 	// when "Remember inaccessible files from past session" is enabled:             nppGUI._keepSessionAbsentFileEntries
-	// and while loading a user session:                                            isUserCreatedSession
+	// and while loading a user session:                                            userCreatedSessionName != nullptr
 	// there are some (or 1) absent files:                                          nppParam.theWarningHasBeenGiven()
 	// and user want to create the placeholders for these files:                    nppParam.isPlaceHolderEnabled()
 	//
 	// When above conditions are true, the created placeholders are not read-only, due to the lack of file-detection on them.
-	if (nppGUI._keepSessionAbsentFileEntries && nppParam.theWarningHasBeenGiven() && nppParam.isPlaceHolderEnabled() && isUserCreatedSession && (nppGUI._fileAutoDetection & cdEnabledOld))
+	if (nppGUI._keepSessionAbsentFileEntries && nppParam.theWarningHasBeenGiven() && nppParam.isPlaceHolderEnabled() && userCreatedSessionName && (nppGUI._fileAutoDetection & cdEnabledOld))
 	{
 		checkModifiedDocument(false); // so here we launch file-detection for all placeholders manually
 	}
@@ -2482,8 +2482,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			if (nppParam.loadSession(session2Load, sessionFileName.c_str()))
 			{
 				const bool isSnapshotMode = false;
-				const bool isUserCreatedSession = true; // it's user's created session but not session.xml
-				isAllSuccessful = loadSession(session2Load, isSnapshotMode, isUserCreatedSession);
+				isAllSuccessful = loadSession(session2Load, isSnapshotMode, sessionFileName.c_str());
 				result = true;
 				if (isEmptyNpp && nppGUI._multiInstSetting == multiInstOnSession)
 					nppParam.setLoadedSessionFilePath(sessionFileName);

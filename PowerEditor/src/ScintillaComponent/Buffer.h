@@ -90,7 +90,7 @@ public:
 	BufferID loadFile(const TCHAR * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const TCHAR *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
 	// create an empty placeholder for a missing file when loading session
-	BufferID newPlaceholderDocument(const TCHAR * missingFilename, int whichOne, bool isUserCreatedSession);
+	BufferID newPlaceholderDocument(const TCHAR * missingFilename, int whichOne, const wchar_t* userCreatedSessionName);
 
 	//create Buffer from existing Scintilla, used from new Scintillas.
 	BufferID bufferFromDocument(Document doc, bool isMainEditZone);

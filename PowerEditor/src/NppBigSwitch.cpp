@@ -1297,16 +1297,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			size_t nbSessionFiles = 0;
 			const TCHAR* sessionFileName = reinterpret_cast<const TCHAR*>(lParam);
-			BOOL* pbOut = reinterpret_cast<BOOL*>(wParam);
-			if (pbOut)
-				*pbOut = false;
+			BOOL* pbIsValidXML = reinterpret_cast<BOOL*>(wParam);
+			if (pbIsValidXML)
+				*pbIsValidXML = false;
 			if (sessionFileName && (sessionFileName[0] != '\0'))
 			{
 				Session session2Load;
 				if (nppParam.loadSession(session2Load, sessionFileName, true))
 				{
-					if (pbOut)
-						*pbOut = true;
+					if (pbIsValidXML)
+						*pbIsValidXML = true;
 					nbSessionFiles = session2Load.nbMainFiles() + session2Load.nbSubFiles();
 				}
 			}

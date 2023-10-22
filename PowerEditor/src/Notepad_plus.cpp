@@ -6410,6 +6410,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			{
 				break;
 			}
+
 			case DOC_MODIFIED:	//ask for reloading
 			{
 				// Since it is being monitored DOC_NEEDRELOAD is going to handle the change.
@@ -6446,6 +6447,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				}
 				break;
 			}
+
 			case DOC_NEEDRELOAD: // by log monitoring
 			{
 				doReload(buffer->getID(), false);
@@ -6465,6 +6467,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 				break;
 			}
+
 			case DOC_DELETED: 	//ask for keep
 			{
 				prepareBufferChangedDialog(buffer);
@@ -6475,21 +6478,27 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
 				_pluginsManager.notify(&scnN);
 
-				int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
-				if (doCloseDoc)
+				if (buffer->isInaccessible() && nppParam.isPlaceHolderEnabled())
 				{
-					//close in both views, doing current view last since that has to remain opened
-					bool isSnapshotMode = nppGUI.isSnapshotMode();
-					doClose(buffer->getID(), otherView(), isSnapshotMode);
-					doClose(buffer->getID(), currentView(), isSnapshotMode);
-					return;
+					buffer->setUnsync(true);
 				}
 				else
 				{
-					// buffer in Notepad++ is not syncronized anymore with the file on disk
-					buffer->setUnsync(true);
+					int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
+					if (doCloseDoc)
+					{
+						//close in both views, doing current view last since that has to remain opened
+						bool isSnapshotMode = nppGUI.isSnapshotMode();
+						doClose(buffer->getID(), otherView(), isSnapshotMode);
+						doClose(buffer->getID(), currentView(), isSnapshotMode);
+						return;
+					}
+					else
+					{
+						// buffer in Notepad++ is not syncronized anymore with the file on disk
+						buffer->setUnsync(true);
+					}
 				}
-
 				break;
 			}
 		}
@@ -6649,14 +6658,14 @@ std::vector<generic_string> Notepad_plus::loadCommandlineParams(const TCHAR * co
 	if (pCmdParams->_isSessionFile && fnss.size() == 1)
 	{
 		Session session2Load;
-		if (nppParams.loadSession(session2Load, fnss.getFileName(0)))
+		const wchar_t* sessionFileName = fnss.getFileName(0);
+		if (nppParams.loadSession(session2Load, sessionFileName))
 		{
 			const bool isSnapshotMode = false;
-			const bool shouldLoadFileBrowser = true;
 
 			if (nppGUI._multiInstSetting == multiInstOnSession)
-				nppParams.setLoadedSessionFilePath(fnss.getFileName(0));
-			loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
+				nppParams.setLoadedSessionFilePath(sessionFileName);
+			loadSession(session2Load, isSnapshotMode, sessionFileName);
 		}
 		return std::vector<generic_string>();
 	}

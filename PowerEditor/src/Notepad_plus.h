@@ -220,7 +220,7 @@ public:
 	void macroPlayback(Macro);
 
     void loadLastSession();
-	bool loadSession(Session & session, bool isSnapshotMode = false, bool shouldLoadFileBrowser = false);
+	bool loadSession(Session & session, bool isSnapshotMode = false, const wchar_t* userCreatedSessionName = nullptr);
 
 	void prepareBufferChangedDialog(Buffer * buffer);
 	void notifyBufferChanged(Buffer * buffer, int mask);

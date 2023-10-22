@@ -4871,6 +4871,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("KeepSessionAbsentFileEntries")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				if (val)
+				{
+					if (lstrcmp(val, TEXT("yes")) == 0)
+						_nppGUI._keepSessionAbsentFileEntries = true;
+					else
+						_nppGUI._keepSessionAbsentFileEntries = false;
+				}
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("DetectEncoding")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -7036,6 +7051,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name = "RememberLastSession">yes< / GUIConfig>
 	{
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("RememberLastSession"), _nppGUI._rememberLastSession);
+	}
+
+	// <GUIConfig name = "RememberLastSession">yes< / GUIConfig>
+	{
+		insertGUIConfigBoolNode(newGUIRoot, TEXT("KeepSessionAbsentFileEntries"), _nppGUI._keepSessionAbsentFileEntries);
 	}
 
 	// <GUIConfig name = "DetectEncoding">yes< / GUIConfig>

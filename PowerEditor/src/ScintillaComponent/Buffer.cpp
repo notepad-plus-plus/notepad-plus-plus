@@ -265,7 +265,17 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	}
 
 	bool isOK = false;
-	if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	if (_currentStatus == DOC_INACCESSIBLE && !PathFileExists(_fullPathName.c_str()))	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
+	{
+		_currentStatus = DOC_DELETED;//DOC_INACCESSIBLE;
+		_isInaccessible = true;
+		_isFileReadOnly = true;
+		_isDirty = false;
+		_timeStamp = {};
+		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+		isOK = true;
+	}
+	else if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -1347,12 +1357,45 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
-BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne)
+BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne, const wchar_t* userCreatedSessionName)
 {
+	NppParameters& nppParamInst = NppParameters::getInstance();
+
+	if (!nppParamInst.theWarningHasBeenGiven())
+	{
+		int res = 0;
+		if (userCreatedSessionName)
+		{
+			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
+				"FileInaccessibleUserSession",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				L"Some files from your manually-saved session \"$STR_REPLACE$\" are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit.",
+				L"File inaccessinble",
+				MB_YESNO | MB_APPLMODAL,
+				0,
+				userCreatedSessionName);
+		}
+		else
+		{
+			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
+				"FileInaccessibleDefaultSessionXml",
+				_pNotepadPlus->_pEditView->getHSelf(),
+				L"Some files from your past session are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your \"session.xml\" now.",
+				L"File inaccessinble",
+				MB_YESNO | MB_APPLMODAL);
+		}
+
+		nppParamInst.setTheWarningHasBeenGiven(true);
+		nppParamInst.setPlaceHolderEnable(res == IDYES);
+	}
+
+	if (!nppParamInst.isPlaceHolderEnabled())
+		return BUFFER_INVALID;
+
 	BufferID buf = MainFileManager.newEmptyDocument();
 	_pNotepadPlus->loadBufferIntoView(buf, whichOne);
 	buf->setFileName(missingFilename);
-	buf->_currentStatus = DOC_REGULAR;
+	buf->_currentStatus = DOC_INACCESSIBLE;
 	return buf;
 }
 

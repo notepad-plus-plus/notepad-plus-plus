@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.5.5">
+	<Native-Langue name="English" filename="english.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1167,6 +1167,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="6821" name="seconds"/>
 					<Item id="6822" name="Backup path:"/>
 					<Item id="6309" name="Remember current session for next launch"/>
+					<Item id="6825" name="Remember inaccessible files from past session"/>
 					<Item id="6801" name="Backup on save"/>
 					<Item id="6315" name="None"/>
 					<Item id="6316" name="Simple backup"/>
@@ -1481,8 +1482,20 @@ Please test those commands and, if needed, re-edit them.
 Alternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.
 Notepad++ will backup your old &quot;shortcuts.xml&quot; and save it as &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Renaming &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, your commands should be restored and work properly."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
+Are you sure you want to open them?"/>
 			<NotEnoughRoom4Saving title="Save failed" message="Failed to save file.
 It seems there's not enough space on disk to save file. Your file is not saved."/>
+			<FileInaccessibleUserSession title="File inaccessible" message="Some files from your manually-saved session &quot;$STR_REPLACE$&quot; are inaccessible. They can be opened as empty and read-only documents as placeholders.
+
+Would you like to create those placeholders?
+
+NOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit."/>
+			<FileInaccessibleDefaultSessionXml title="File inaccessible" message="Some files from your past session are inaccessible. They can be opened as empty and read-only documents as placeholders.
+
+Would you like to create those placeholders?
+
+NOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your &quot;session.xml&quot; now."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

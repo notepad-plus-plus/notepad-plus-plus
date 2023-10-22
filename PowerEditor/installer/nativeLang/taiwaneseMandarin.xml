@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.5">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1131,6 +1131,7 @@
 					<Item id="6821" name="秒備份一次"/>
 					<Item id="6822" name="備份資料夾："/>
 					<Item id="6309" name="開啟程式時繼續上次的工作階段"/>
+					<Item id="6825" name="保存上次的工作階段中無法讀取的文件"/>
 					<Item id="6801" name="備份"/>
 					<Item id="6315" name="無"/>
 					<Item id="6316" name="簡易備份"/>
@@ -1378,6 +1379,17 @@
 繼續嗎？"/>
 			<NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
 			<ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能啟動文件修改紀錄。"/>
+			<FileInaccessibleUserSession title="檔案不存在" message="儲存的工作階段 &quot;$STR_REPLACE$&quot; 中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
+
+你想為它們創建佔位欄嗎？
+
+請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將不會在 Notepad++ 關閉時被修改。
+"/>
+			<FileInaccessibleDefaultSessionXml title="檔案不存在" message="過去的工作階段中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
+
+你想為它們創建佔位欄嗎？
+
+請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份工作階段檔案 &quot;session.xml&quot; 。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

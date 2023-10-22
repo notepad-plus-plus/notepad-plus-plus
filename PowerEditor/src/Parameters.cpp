@@ -479,7 +479,7 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_ZOOMIN"),                  SCI_ZOOMIN,                  true,  false, false, VK_ADD,      IDM_VIEW_ZOOMIN},
 	{TEXT("SCI_ZOOMOUT"),                 SCI_ZOOMOUT,                 true,  false, false, VK_SUBTRACT, IDM_VIEW_ZOOMOUT},
 	{TEXT("SCI_SETZOOM"),                 SCI_SETZOOM,                 true,  false, false, VK_DIVIDE,   IDM_VIEW_ZOOMRESTORE},
-	{TEXT("SCI_SELECTIONDUPLICATE"),      SCI_SELECTIONDUPLICATE,      true,  false, false, VK_D,        IDM_EDIT_DUP_LINE},
+	{TEXT("SCI_SELECTIONDUPLICATE"),      SCI_SELECTIONDUPLICATE,      true,  false, false, VK_D,        0},
 	{TEXT("SCI_LINESJOIN"),               SCI_LINESJOIN,               false, false, false, 0,           0},
 	{TEXT("SCI_SCROLLCARET"),             SCI_SCROLLCARET,             false, false, false, 0,           0},
 	{TEXT("SCI_EDITTOGGLEOVERTYPE"),      SCI_EDITTOGGLEOVERTYPE,      false, false, false, VK_INSERT,   0},
@@ -560,7 +560,7 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_LINECUT"),                 SCI_LINECUT,                 true,  false, false, VK_L,        0},
 	{TEXT("SCI_LINECOPY"),                SCI_LINECOPY,                true,  false, true,  VK_X,        0},
 	{TEXT("SCI_LINETRANSPOSE"),           SCI_LINETRANSPOSE,           true,  false, false, VK_T,        0},
-	{TEXT("SCI_LINEDUPLICATE"),           SCI_LINEDUPLICATE,           false, false, false, 0,           0},
+	{TEXT("SCI_LINEDUPLICATE"),           SCI_LINEDUPLICATE,           false, false, false, 0,           IDM_EDIT_DUP_LINE},
 	{TEXT("SCI_CANCEL"),                  SCI_CANCEL,                  false, false, false, VK_ESCAPE,   0},
 	{TEXT("SCI_SWAPMAINANCHORCARET"),     SCI_SWAPMAINANCHORCARET,     false, false, false, 0,           0},
 	{TEXT("SCI_ROTATESELECTION"),         SCI_ROTATESELECTION,         false, false, false, 0,           0}

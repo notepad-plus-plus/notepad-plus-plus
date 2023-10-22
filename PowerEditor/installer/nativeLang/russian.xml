@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.5.8:
+Updated to v8.5.9:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.5.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -37,6 +37,8 @@ Updated to v8.5.8:
 					<Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
 					<Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
 					<Item subMenuId="edit-onSelection" name="Выделенное"/>
+					<Item subMenuId="edit-multiSelectALL" name="Мультивыбор Все"/>
+					<Item subMenuId="edit-multiSelectNext" name="Мультивыбор Далее"/>
 					<Item subMenuId="search-changeHistory" name="История Изменений"/>
 					<Item subMenuId="search-markAll" name="Пометить все совпадения"/>
 					<Item subMenuId="search-markOne" name="Пометить только одно"/>
@@ -127,6 +129,18 @@ Updated to v8.5.8:
 					<Item id="42007" name="Выделить всё"/>
 					<Item id="42020" name="Задать выделение (начало/конец)"/>
 					<Item id="42089" name="Выделение Столбцом (начало/конец)"/>
+
+					<Item id="42090" name="Игнорировать Регистр и Целые Слова"/>
+					<Item id="42091" name="Учитывать Только Регистр"/>
+					<Item id="42092" name="Учитывать Только Целые Слова"/>
+					<Item id="42093" name="Учитывать Регистр и Целые Слова"/>
+
+					<Item id="42094" name="Игнорировать Регистр и Целые Слова"/>
+					<Item id="42095" name="Учитывать Только Регистр"/>
+					<Item id="42096" name="Учитывать Только Целые Слова"/>
+					<Item id="42097" name="Учитывать Регистр и Целые Слова"/>
+					<Item id="42098" name="Отменить Последний Добавленный"/>
+					<Item id="42099" name="Пропустить Текущий и Перейти к След."/>
 
 					<Item id="42029" name="&amp;Путь и Имя файла в буфер"/>
 					<Item id="42030" name="&amp;Имя файла в буфер"/>
@@ -1010,7 +1024,6 @@ Updated to v8.5.8:
 					<Item id="6219" name="Частота мерц. :"/>
 					<Item id="6221" name="Ч"/>
 					<Item id="6222" name="Р"/>
-					<Item id="6225" name="Мультиредактирование  (Ctrl + Клик / Выделение)"/>
 					<Item id="6227" name="Стиль Переноса Строк"/>
 					<Item id="6228" name="Стандартный"/>
 					<Item id="6229" name="Выровненный"/>
@@ -1163,7 +1176,7 @@ Updated to v8.5.8:
 					<Item id="6907" name="При вызове Окна Поиска"/>
 					<Item id="6908" name="Заполнять поле поиска выделенным текстом"/>
 					<Item id="6909" name="Выделять слово под курсором, когда ничего не выбрано"/>
-					<Item id="6910" name="Минимальный размер для автоматической проверки 'В выбранном'"/>
+					<Item id="6910" name="Миним. размер для автоматич. установки 'В выделенном'"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
@@ -1389,13 +1402,6 @@ Updated to v8.5.8:
 				<Item id="4" name="Д&amp;а, для всех"/>
 				<Item id="5" name="Н&amp;ет, для всех"/>
 			</DoSaveOrNot>
-			<DoCloseOrNot title="Сохранить несуществующий файл">
-				<Item id="1761" name="Файл &quot;$STR_REPLACE$&quot; больше не существует.&#x0A;Удержать этот файл в редакторе?"/>
-				<Item id="6" name="&amp;Да"/>
-				<Item id="7" name="&amp;Нет"/>
-				<Item id="4" name="Да, для &amp;все"/>
-				<Item id="5" name="Н&amp;ет, для всех"/>
-			</DoCloseOrNot>
 			<DoSaveAll title="Подтверждение - Сохранить Все">
 				<Item id="1766" name="Вы уверены, что хотите сохранить все изменённые файлы?&#x0A;&#x0A;Выберите &quot;Всегда Да&quot; если вы больше не хотите видеть это окно.&#x0A;Вы можете повторно активировать это окно позже в Настройках."/>
 				<Item id="6" name="&amp;Да"/>
@@ -1416,7 +1422,7 @@ Updated to v8.5.8:
 			<RenameTabTemporaryNameAlreadyInUse title="Не удалось переименовать" message="Указанное имя уже используется другой вкладкой."/>
 			<RenameTabTemporaryNameIsEmpty title="Не удалось переименовать" message="Имя не может быть пустым и не может содержать только пробелы или табуляции."/>
 			<GUpConfNeedAdminMode title="Настройки Прокси" message="Пожалуйста, перезапустите Notepad++ в режиме администратора для настройки прокси."/>
-			<NbFileToOpenImportantWarning title="Очень большое количество файлов" message="Вы точно хотите открыть $INT_REPLACE$ файла(ов)?"/>
+			<NbFileToOpenImportantWarning title="Большое количество файлов" message="$INT_REPLACE$ файлов будут открыты.&#x0A;Вы уверены, что хотите их открыть?"/>
 			<SettingsOnCloudError title="Параметры Облака" message="Похоже, что путь облака указан на диск или папку, с пометкой &quot;Только Чтение&quot;.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста, сбросьте значение в окне Настройки..."/>
 			<FilePathNotFoundWarning title="Открытие Файла" message="Файл, который вы пытаетесь открыть, не существует."/>
 			<SessionFileInvalidError title="Не удалось загрузить Сессию" message="Файл сессии поврежден или недействителен."/>
@@ -1482,13 +1488,15 @@ Updated to v8.5.8:
 			<WindowsSessionExit title="Notepad++ - Завершение работы Windows" message="Windows завершает свою работу и у вас есть несохраненные данные. Вы хотите выйти из Notepad++ сейчас?"/>
 			<LanguageMenuCompactWarning title="Компактное меню Синтаксисов" message="Этот параметр будет изменен при следующем запуске Notepad++."/>
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Несохраненные изменения будут потеряны!&#x0A;Вы хотите сохранить изменения перед переключением тем?"/>
-			<MacroAndRunCmdlWarning title="Macro and Run Commands Compatibility" message="Ваши команды Макросы и Запуск сохранённые в Notepad++ v.8.5.2 (и старше) могут быть несовместимы с текущей версией Notepad++.
+			<MacroAndRunCmdlWarning title="Совместимость Макросов и Команд Запуска" message="Ваши сохранённые команды Макросов и Запуска в Notepad++ v.8.5.2 (и старше) могут быть несовместимы с текущей версией Notepad++.
 Пожалуйста, протестируйте эти команды и при необходимости отредактируйте их.
 
 Как альтернатива, вы можете перейти на Notepad++ v8.5.2 и восстановить свои предыдущие данные.
 Notepad++ сделает резервную копию вашего старого &quot;shortcuts.xml&quot; и сохранит его как &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Переименование &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, ваши команды будут восстановлены и работать правильно."/>
 			<NotEnoughRoom4Saving title="Не удалось сохранить" message="Не удалось сохранить файл.&#x0A;Кажется, на диске недостаточно места для сохранения файла. Ваш файл не сохранен."/>
+			<FileInaccessibleUserSession title="Файл недоступен" message="Некоторые файлы из сохраненной вручную сессии &quot;$STR_REPLACE$&quot; недоступны. Их можно открыть как пустые файлы, доступные только для чтения, в качестве заполнителей.&#x0A;&#x0A;Хотите создать эти заполнители?&#x0A;&#x0A;ПРИМЕЧАНИЕ: Если вы не будете создавать заполнители или закроете их позже, ваша сессия, сохраненная вручную, НЕ будет изменена при выходе."/>
+			<FileInaccessibleDefaultSessionXml title="Файл недоступен" message="Некоторые файлы из вашей прошлой сессии недоступны. Их можно открыть как пустые файлы, доступные только для чтения, в качестве заполнителей.&#x0A;&#x0A;Хотите создать эти заполнители?&#x0A;&#x0A;ПРИМЕЧАНИЕ: Если вы не будете создавать заполнители или закроете их позже, ваша сессия БУДЕТ ИЗМЕНЕНА ПРИ ВЫХОДЕ! Предлагаем вам сделать резервную копию вашего файла &quot;session.xml&quot; сейчас."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1625,19 +1633,15 @@ Notepad++ сделает резервную копию вашего старог
 			<find-status-end-reached value="Поиск: Найдено одно совпадение сверху. Достигнут конец документа."/>
 			<find-status-replaceinfiles-1-replaced value="Замена в файлах: заменено 1 совпадение"/>
 			<find-status-replaceinfiles-nb-replaced value="Замена в файлах: заменено $INT_REPLACE$ совпадений"/>
-			<find-status-replaceinfiles-re-malformed value="Замена в открытых файлах: Регулярное выражение искажено"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замена в открытых файлах: заменено 1 совпадение"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Замена в открытых файлах: заменено $INT_REPLACE$ совпадений"/>
 			<find-status-replaced-without-continuing value="Замена: 1 заменённое совпадение."/>
-			<find-status-mark-re-malformed value="Пометки: Регулярное выражение для поиска искажено"/>
 			<find-status-search-failed value="Поиск: Ошибка поиска"/>
 			<find-status-invalid-re value="Поиск: Недопустимое регулярное выражение"/>
 			<find-status-mark-1-match value="Пометки: 1 совпадение"/>
 			<find-status-mark-nb-matches value="Пометки: $INT_REPLACE$ совпадений"/>
-			<find-status-count-re-malformed value="Подсчёт: Регулярное выражение для поиска искажено"/>
 			<find-status-count-1-match value="Подсчёт: 1 совпадение"/>
 			<find-status-count-nb-matches value="Подсчёт: $INT_REPLACE$ совпадений"/>
-			<find-status-replaceall-re-malformed value="Замена всех: Регулярное выражение искажено"/>
 			<find-status-replaceall-1-replaced value="Замена всех: заменено 1 совпадение"/>
 			<find-status-replaceall-nb-replaced value="Замена всех: заменено $INT_REPLACE$ совпадений"/>
 			<find-status-replaceall-readonly value="Замена всех: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
@@ -1648,6 +1652,7 @@ Notepad++ сделает резервную копию вашего старог
 			<find-status-replace-not-found value="Замена: совпадений не найдено"/>
 			<find-status-replace-readonly value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
 			<find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="Данное совпадение не может быть найдено. Возможно, вы забыли установить флажок &quot;Зациклить поиск&quot; (на ВКЛ), &quot;Учитывать регистр&quot; (на ВЫКЛ), или &quot;Только целые слова&quot; (на ВЫКЛ)."/>
 			<find-status-scope-selection value="в выделенном тексте"/>
 			<find-status-scope-all value="во всем файле"/>
 			<find-status-scope-backward value="от начала файла до знак вставки"/>
@@ -1661,7 +1666,7 @@ Notepad++ сделает резервную копию вашего старог
 			<finder-copy-verbatim value="Копировать"/>
 			<finder-copy-paths value="Путь и Имя файла в буфер"/>
 			<finder-select-all value="Выделить всё"/>
-			<finder-clear-all value="Очистить поле поиска"/>
+			<finder-clear-all value="Очистить всё поле поиска"/>
 			<finder-open-all value="Открыть все файлы"/>
 			<finder-wrap-long-lines value="Перенос слов длинных строк"/>
 			<common-ok value="ОК"/>

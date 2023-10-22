@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.5.5">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1496,13 +1496,16 @@ Renaming &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;
 It seems there's not enough space on disk to save file. Your file is not saved."/>
 			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
 Are you sure you want to open them?"/>
-			<FileInaccessibleUserSession title="File inaccessible" message="Some files from your saved session are inaccessible. They can be opened as empty and read-only files as placeholders.
+			<FileInaccessibleUserSession title="File inaccessible" message="Some files from your manually-saved session &quot;$STR_REPLACE$&quot; are inaccessible. They can be opened as empty and read-only documents as placeholders.
 
-Would you like to create placeholders for them?"/>
-			<FileInaccessibleDefaultSessionXml title="File inaccessible" message="Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.
-Note that if you close these placeholders, your session file will be modified on exit. We suggest that you backup the session file now.
+Would you like to create those placeholders?
 
-Would you like to create placeholders for them?"/>
+NOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit."/>
+			<FileInaccessibleDefaultSessionXml title="File inaccessible" message="Some files from your past session are inaccessible. They can be opened as empty and read-only documents as placeholders.
+
+Would you like to create those placeholders?
+
+NOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your &quot;session.xml&quot; now."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

@@ -1369,7 +1369,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
 				"FileInaccessibleUserSession",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				L"Some files from your manually-saved session \"$STR_REPLACE$\" are inaccessible. They can be opened as empty and read-only files as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit.",
+				L"Some files from your manually-saved session \"$STR_REPLACE$\" are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit.",
 				L"File inaccessinble",
 				MB_YESNO | MB_APPLMODAL,
 				0,
@@ -1380,7 +1380,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 			res = (nppParamInst.getNativeLangSpeaker())->messageBox(
 				"FileInaccessibleDefaultSessionXml",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				L"Some files from your past session are inaccessible. They can be opened as empty and read-only files as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your \"session.xml\" now.",
+				L"Some files from your past session are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your \"session.xml\" now.",
 				L"File inaccessinble",
 				MB_YESNO | MB_APPLMODAL);
 		}

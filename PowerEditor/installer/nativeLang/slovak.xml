@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.8">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1176,6 +1176,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6821" name="sekúnd"/>
 					<Item id="6822" name="Cesta k zálohám:"/>
 					<Item id="6309" name="Pamätať si aktuálnu reláciu pre ďalšie spustenie"/>
+					<Item id="6825" name="Zapamätať si nedostupné súbory z poslednej relácie"/>
 					<Item id="6801" name="Záloha pri uložení"/>
 					<Item id="6315" name="Žiadna"/>
 					<Item id="6316" name="Jednoduchá záloha"/>
@@ -1491,8 +1492,16 @@ Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
 Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
 Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-		<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
+			<NbFileToOpenImportantWarning title="Počet otváraných súborov je príliš veľký" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
+Naozaj ich chcete otvoriť?"/>
+			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
+			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+Chcete vytvoriť tieto zástupné karty?
+POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatvoríte, vaša ručne uložená relácia sa pri ukončení NEzmení."/>
+			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+Chcete vytvoriť tieto zástupné karty?
+POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

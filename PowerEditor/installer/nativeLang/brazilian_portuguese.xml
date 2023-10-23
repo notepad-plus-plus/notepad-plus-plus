@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 05 Oct 2023, for Notepad++ 8.5.8
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 23 Oct 2023, for Notepad++ 8.5.9
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.8">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1169,6 +1169,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Caminho do backup:"/>
 					<Item id="6309" name="Lembrar sessão atual para a próxima inicialização"/>
+					<Item id="6825" name="Lembrar de arquivos inaccessíveis da última sessão"/>
 					<Item id="6801" name="Backup ao salvar"/>
 					<Item id="6315" name="Nenhum"/>
 					<Item id="6316" name="Backup simples"/>
@@ -1473,8 +1474,16 @@ Por favor, teste estes comandos e, se necessário, altere-os.
 Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
 O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="A quantidade de arquivos a abrir é grande demais" message="$INT_REPLACE$ arquivos estão prestes a serem abertos.
+Tem certeza de que deseja abri-los?"/>
 			<NotEnoughRoom4Saving title="Falha ao salvar" message="Não foi possível salvar o arquivo.
 É possível que não haja espaço em disco suficiente para salvar o arquivo. Seu arquivo não foi salvo."/>
+			<FileInaccessibleUserSession title="Arquivo inacessível" message="Alguns arquivos da sua sessão salva &quot;$STR_REPLACE$&quot; não podem ser acessados. Eles podem ser abertos como arquivos vazios e apenas leitura para que permaneçam na lista de documentos.
+Deseja criar estes substitutos?
+OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua sessão salva NÃO será modificada ao sair."/>
+			<FileInaccessibleDefaultSessionXml title="Arquivo inacessível" message="Alguns arquivos da sua sessão anterior não podem ser acessados. Eles podem ser abertos como arquivos vazios e apenas leitura para que permaneçam na lista de documentos.
+Deseja criar estes substitutos?
+OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua sessão SERÁ MODIFICADA QUANDO SAIR! É recomendável que você faça backup do seu arquivo &quot;session.xml&quot; agora."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

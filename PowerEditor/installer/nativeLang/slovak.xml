@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.8">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -37,6 +37,8 @@
 					<Item subMenuId="edit-blankOperations" name="Operácie s &amp;prázdnym znakom"/>
 					<Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciá&amp;lne"/>
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
+					<Item subMenuId="edit-multiSelectALL" name="Viacnásobný výber VŠETKO"/>
+					<Item subMenuId="edit-multiSelectNext" name="Viacnásobný výber Ďalší"/>
 					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
@@ -152,6 +154,16 @@
 					<Item id="42074" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
 					<Item id="42075" name="Hľadať na Internete"/>
 					<Item id="42076" name="Zmeniť vyhľadávač…"/>
+					<Item id="42090" name="Nerozlišovať veľkosť písmen a celé slovo"/>
+					<Item id="42091" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42092" name="Iba celé slová"/>
+					<Item id="42093" name="Rovnaká veľkosť písmen a celé slovo"/>
+					<Item id="42094" name="Nerozlišovať veľkosť písmen a celé slovo"/>
+					<Item id="42095" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42096" name="Iba celé slová"/>
+					<Item id="42097" name="Rovnaká veľkosť písmen a celé slovo"/>
+					<Item id="42098" name="Vrátiť naposledy pridaný viacnásobný výber"/>
+					<Item id="42099" name="Preskočiť aktuálny a prejsť na ďalší viacnásobný výber"/>
 					<Item id="42018" name="&amp;Spustiť nahrávanie"/>
 					<Item id="42019" name="&amp;Zastaviť nahrávanie"/>
 					<Item id="42021" name="S&amp;pustiť makro"/>
@@ -970,7 +982,6 @@
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="P"/>
 					<Item id="6246" name="Umožniť prepínanie príkazov na zbalenie/rozbalenie aktuálnej úrovne"/>
-					<Item id="6225" name="Povoliť viacnásobnú úpravu (Ctrl+myš kliknutie/výber)"/>
 					<Item id="6227" name="Zalomenie riadku"/>
 					<Item id="6228" name="Predvolené"/>
 					<Item id="6229" name="Zarovnané"/>
@@ -1155,7 +1166,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6907" name="Pri vyvolaní dialógového okna Hľadať"/>
 					<Item id="6908" name="Vložiť označený text do vyhľadávacieho poľa"/>
 					<Item id="6909" name="Ak nie je nič označené, označiť slovo na pozícii kurzora"/>
-					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie 'Vo výbere'"/>
+					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie &quot;Vo výbere&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="História súborov">
@@ -1176,6 +1187,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6821" name="sekúnd"/>
 					<Item id="6822" name="Cesta k zálohám:"/>
 					<Item id="6309" name="Pamätať si aktuálnu reláciu pre ďalšie spustenie"/>
+					<Item id="6825" name="Zapamätať si nedostupné súbory z poslednej relácie"/>
 					<Item id="6801" name="Záloha pri uložení"/>
 					<Item id="6315" name="Žiadna"/>
 					<Item id="6316" name="Jednoduchá záloha"/>
@@ -1365,7 +1377,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="6" name="&amp;Áno"/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1491,8 +1503,16 @@ Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
 Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
 Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-		<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
+			<NbFileToOpenImportantWarning title="Počet otváraných súborov je príliš veľký" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
+Naozaj ich chcete otvoriť?"/>
+			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
+			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+Chcete vytvoriť tieto zástupné karty?
+POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatvoríte, vaša ručne uložená relácia sa pri ukončení NEzmení."/>
+			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+Chcete vytvoriť tieto zástupné karty?
+POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1652,6 +1672,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
 			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
 			<find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť."/>
+			<find-status-cannot-find-pebkac-maybe value="Uvedený výskyt sa nedá nájsť. Možno ste zabudli skontrolovať &quot;Cyklicky&quot; (začiarknuté), &quot;Rozlišovať malé/VEĽKÉ písmená&quot; (nezačiarknuté), alebo &quot;Hľadať iba celé slová&quot; (nezačiarknuté)."/>
 			<find-status-scope-selection value="v označenom texte"/>
 			<find-status-scope-all value="v celom súbore"/>
 			<find-status-scope-backward value="od začiatku súboru po kurzor"/>
@@ -1751,7 +1772,7 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)."/>
-			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka 'Vo výbere' pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
+			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

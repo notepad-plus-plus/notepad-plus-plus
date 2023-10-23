@@ -1169,7 +1169,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Caminho do backup:"/>
 					<Item id="6309" name="Lembrar sessão atual para a próxima inicialização"/>
-					<Item id="6825" name="Lembrar de arquivos inaccessíveis da última sessão"/>
+					<Item id="6825" name="Lembrar de arquivos inacessíveis da última sessão"/>
 					<Item id="6801" name="Backup ao salvar"/>
 					<Item id="6315" name="Nenhum"/>
 					<Item id="6316" name="Backup simples"/>

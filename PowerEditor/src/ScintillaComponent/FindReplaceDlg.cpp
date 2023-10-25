@@ -5115,6 +5115,7 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				generic_string collapseAll = pNativeSpeaker->getLocalizedStrFromID("finder-collapse-all", TEXT("Fold all"));
 				generic_string uncollapseAll = pNativeSpeaker->getLocalizedStrFromID("finder-uncollapse-all", TEXT("Unfold all"));
 				generic_string copyLines = pNativeSpeaker->getLocalizedStrFromID("finder-copy", TEXT("Copy Selected Line(s)"));
+				copyLines += TEXT("\tCtrl+Shift+X");
 				generic_string copyVerbatim = pNativeSpeaker->getLocalizedStrFromID("finder-copy-verbatim", TEXT("Copy"));
 				copyVerbatim += TEXT("\tCtrl+C");
 				generic_string copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", TEXT("Copy Pathname(s)"));

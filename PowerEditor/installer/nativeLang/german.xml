@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.10.20"><!-- basiert auf english.xml vom 06.10.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.10.25"><!-- basiert auf english.xml vom 24.10.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1176,6 +1176,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6821" name="Sekunden"/>
 					<Item id="6822" name="Verzeichnis:"/>
 					<Item id="6309" name="Aktuelle Sitzung für den nächsten Start merken"/>
+					<Item id="6825" name="Nicht zugängliche Dateien aus der letzten Sitzung merken"/>
 					<Item id="6801" name="Sicherheitskopie beim Speichern von Dateien"/>
 					<Item id="6315" name="Keine"/>
 					<Item id="6316" name="Einfach"/>
@@ -1490,8 +1491,20 @@ Bitte die Kommandos daher testen und falls nötig editieren.
 Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
 Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
 Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="Anzahl der Dateien zum Öffnen ist zu groß" message="$INT_REPLACE$ Dateien wären zu Öffnen.
+Sollen wirklich alle diese Dateien geöffnet werden?"/>
 			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Konnte Datei nicht speichern.
 Es ist nicht genug Speicherplatz vorhanden, daher wurde die Datei nicht gespeichert."/>
+			<FileInaccessibleUserSession title="Datei nicht zugänglich" message="Einige Dateien der manuell gespeicherten Sitzung &quot;$STR_REPLACE$&quot; sind nicht zugänglich. Sie können aber als leere Datei und schreibgeschützt als Platzhalter geöffnet werden.
+
+Sollen diese Datei-Platzhalter erstellt werden?
+
+HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wird die manuell gespeicherte Sitzung beim Beenden NICHT MODIFIZIERT."/>
+			<FileInaccessibleDefaultSessionXml title="Datei nicht zugänglich" message="Einige Dateien der letzten Sitzung sind nicht zugänglich. Sie können aber als leere Datei und schreibgeschützt als Platzhalter geöffnet werden.
+
+Sollen diese Dateil-Platzhalter erstellt werden?
+
+HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wird die Sitzung beim Beenden MODIFIZIERT! Es wird empfohlen jetzt eine Sicherung der Sitzung &quot;session.xml&quot; zu machen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

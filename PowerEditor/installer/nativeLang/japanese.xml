@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.8">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="空白文字の操作(&amp;B)"/>
 					<Item subMenuId="edit-pasteSpecial" name="特殊な貼り付け(&amp;P)"/>
 					<Item subMenuId="edit-onSelection" name="選択した文字列を(&amp;O)"/>
+					<Item subMenuId="edit-multiSelectALL" name="すべての一致を 選択する"/>
+					<Item subMenuId="edit-multiSelectNext" name="次の一致を 選択に追加"/>
 					<Item subMenuId="search-changeHistory" name="編集履歴"/>
 					<Item subMenuId="search-markAll" name="選択した語をすべて色づけ(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="選択した語を一つだけ色づけ(&amp;O)"/>
@@ -154,6 +156,16 @@ Translation note:
 					<Item id="42074" name="エクスプローラーで開く"/>
 					<Item id="42075" name="インターネットで検索する"/>
 					<Item id="42076" name="検索エンジンを変更..."/>
+					<Item id="42090" name="大文字/小文字を無視"/>
+					<Item id="42091" name="大文字/小文字を区別"/>
+					<Item id="42092" name="大文字/小文字を無視し、単語単位"/>
+					<Item id="42093" name="大文字/小文字を区別し、単語単位"/>
+					<Item id="42094" name="大文字/小文字を無視"/>
+					<Item id="42095" name="大文字/小文字を区別"/>
+					<Item id="42096" name="大文字/小文字を無視し、単語単位"/>
+					<Item id="42097" name="大文字/小文字を区別し、単語単位"/>
+					<Item id="42098" name="最後の選択追加を取り消す"/>
+					<Item id="42099" name="現在の選択を飛ばして次に進む"/>
 					<Item id="42018" name="記録開始(&amp;C)"/>
 					<Item id="42019" name="記録終了(&amp;T)"/>
 					<Item id="42021" name="再生(&amp;P)"/>
@@ -969,7 +981,6 @@ Translation note:
 					<Item id="6221" name="速く"/>
 					<Item id="6222" name="遅く"/>
 					<Item id="6246" name="「カーソル位置のレベルで畳む/展開」をトグル動作にする"/>
-					<Item id="6225" name="一括編集を有効(Ctrl+クリック/選択)"/>
 					<Item id="6227" name="行折り返し"/>
 					<Item id="6228" name="デフォルト"/>
 					<Item id="6229" name="端揃え"/>
@@ -1176,6 +1187,7 @@ Translation note:
 					<Item id="6821" name="秒ごとに行う"/>
 					<Item id="6822" name="バックアップパス:"/>
 					<Item id="6309" name="現在のセッションを次回起動時に復元"/>
+					<Item id="6825" name="セッションを開く際、アクセスできないファイルを保持する"/>
 					<Item id="6801" name="保存時のバックアップ"/>
 					<Item id="6315" name="なし"/>
 					<Item id="6316" name="単純バックアップ"/>
@@ -1488,8 +1500,20 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 代案として、Notepad++ 8.5.2 に戻し、以前のデータを復元することもできます。
 以前の「shortcuts.xml」は「shortcuts.xml.v8.5.2.backup」としてバックアップされています。
 復元されるときは、「shortcuts.xml.v8.5.2.backup」を「shortcuts.xml」にリネームしてください。"/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="多数のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。
+開いてもよろしいですか？"/>
 			<NotEnoughRoom4Saving title="保存に失敗しました" message="保存に失敗しました。
 保存先に十分な空き容量がないようです。ファイルは保存されませんでした。"/>
+			<FileInaccessibleUserSession title="ファイルにアクセスできません" message="手動で保存されたセッション「$STR_REPLACE$」の中に、アクセスできないファイルがあります。これらを、読み取り専用の空文書（プレースホルダー）として残しておくことができます。
+
+プレースホルダーとして残しますか？
+
+注意：プレースホルダーとして残さない場合や残した後に閉じた場合、プログラム終了時に、手動で保存されたセッションには反映されません。"/>
+			<FileInaccessibleDefaultSessionXml title="ファイルにアクセスできません" message="セッションの中に、アクセスできないファイルがあります。これらを、読み取り専用の空文書（プレースホルダー）として残しておくことができます。
+
+プレースホルダーとして残しますか？
+
+注意：プレースホルダーとして残さない場合や残した後に閉じた場合、プログラム終了時にセッションに反映されます！　ファイル「session.xml」のバックアップを今すぐ作成することをお勧めします。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>
@@ -1647,6 +1671,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<find-status-replace-not-found value="置換：一致するものはありません"/>
 			<find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
 			<find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="一致するものはありません。「先頭/末尾から再検索」をオンにし忘れたり、「大/小文字を区別」をオフにし忘れたり、「単語単位」をオフにし忘れたりしていませんか？"/>
 			<find-status-scope-selection value="（選択範囲内）"/>
 			<find-status-scope-all value="（ファイル全体）"/>
 			<find-status-scope-backward value="（ファイル先頭から カーソル位置まで）"/>

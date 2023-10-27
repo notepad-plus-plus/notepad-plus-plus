@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.5.8
--    Ultima modificare 12 septembrie 2023 de către Miloiu Andrei 	 
+-    Traducerea în română pentru Notepad++ 8.5.9
+-    Ultima modificare 27 octombrie 2023 de către Miloiu Andrei 	 
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.5.3">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.5.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -219,29 +219,29 @@
                     <Item id="43013" name="Căutare în fișiere"/>
                     <Item id="43014" name="Căutare (volatilă) următor"/>
                     <Item id="43015" name="Căutare (volatilă) anterior"/>
-                    <Item id="43022" name="Utilizare stil 1"/>
-                    <Item id="43023" name="Eliminare stil 1"/>
-                    <Item id="43024" name="Utilizare stil 2"/>
-                    <Item id="43025" name="Eliminare stil 2"/>
-                    <Item id="43026" name="Utilizare stil 3"/>
-                    <Item id="43027" name="Eliminare stil 3"/>
-                    <Item id="43028" name="Utilizare stil 4"/>
-                    <Item id="43029" name="Eliminare stil 4"/>
-                    <Item id="43030" name="Utilizare stil 5"/>
-                    <Item id="43031" name="Eliminare stil 5"/>
+                    <Item id="43022" name="Folosirea stilului 1"/>
+                    <Item id="43023" name="Eliminarea stilului 1"/>
+                    <Item id="43024" name="Folosirea stilului 2"/>
+                    <Item id="43025" name="Eliminarea stilului 2"/>
+                    <Item id="43026" name="Folosirea stilului 3"/>
+                    <Item id="43027" name="Eliminarea stilului 3"/>
+                    <Item id="43028" name="Folosirea stilului 4"/>
+                    <Item id="43029" name="Eliminarea stilului 4"/>
+                    <Item id="43030" name="Folosirea stilului 5"/>
+                    <Item id="43031" name="Eliminarea stilului 5"/>
                     <Item id="43032" name="Eliminare toate stilurile"/>
                     <Item id="43033" name="stilul 1"/>
                     <Item id="43034" name="stilul 2"/>
                     <Item id="43035" name="stilul 3"/>
                     <Item id="43036" name="stilul 4"/>
                     <Item id="43037" name="stilul 5"/>
-                    <Item id="43038" name="Căutare stil"/>
+                    <Item id="43038" name="Căutarea unui stil"/>
                     <Item id="43039" name="stilul 1"/>
                     <Item id="43040" name="stilul 2"/>
                     <Item id="43041" name="stilul 3"/>
                     <Item id="43042" name="stilul 4"/>
                     <Item id="43043" name="stilul 5"/>
-                    <Item id="43044" name="Căutare stil"/>
+                    <Item id="43044" name="Căutarea unui stil"/>
                     <Item id="43055" name="Stilul 1"/>
                     <Item id="43056" name="Stilul 2"/>
                     <Item id="43057" name="Stilul 3"/>
@@ -1194,6 +1194,7 @@ Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a 
                     <Item id="6821" name="secunde"/>
                     <Item id="6822" name="Cale conservări:"/>
                     <Item id="6309" name="Memorare sesiune curentă pentru următoarea pornire"/>
+					<Item id="6825" name="Memorează fișierele inaccesibile din sesiunea anterioară"/>
                     <Item id="6801" name="Conservare la salvare"/>
                     <Item id="6315" name="Fără conservare"/>
                     <Item id="6316" name="Conservare simplă"/>
@@ -1513,8 +1514,16 @@ Te rugăm să testezi comenzile și dacă e nevoie, să le re-editezi.
 Alternativ, poți să revii la Notepad++ v8.5.2 și poți restaura datele anterioare.
 Notepad++ îți va restaura vechiul &quot;shortcuts.xml&quot; și îl va salva ca &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Redenumind &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, comenzile tale ar trebui restaurate și să lucreze perfect."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="Numărul de fișiere ce urmează să fie deschise este prea mare" message="Fișierele $INT_REPLACE$ urmează să fie deschise.
+Ești sigur că vrei să le deschizi?"/>
 			<NotEnoughRoom4Saving title="Salvare eșuată" message="Nu s-a putut salva fișierul.
 Se pare că nu este suficient spațiu pe disc pentru a salva fișierul. Fișierul tău (dvs.) nu este salvat."/>		
+			<FileInaccessibleUserSession title="Fișier inaccesibil" message="Unele fișiere din sesiunea ta &quot;$STR_REPLACE$&quot; salvată manual sunt inaccesibile. Ele pot fi deschise ca documente goale sau în modul doar citire ca și substituenți.
+Vrei să creezi acei subsituenți?
+NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta salvată manual NU va fi modificată la ieșire."/>
+			<FileInaccessibleDefaultSessionXml title="Fișier inaccesibil" message="Unele fișiere din sesiunea ta anterioară sunt inaccesbilie. Ele pot fi deschise ca documente goale sau în modul doar citire ca și substituenți.
+Dorești să creezi acei substituenți?
+NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta VA FI MODIFICATĂ LA IEȘIRE! Îți sugerăm să-ți faci acum o copie de rezervă a fișierului tău &quot;sesiune.xml&quot;."/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>
@@ -1522,7 +1531,7 @@ Se pare că nu este suficient spațiu pe disc pentru a salva fișierul. Fișieru
         <DocList>
             <PanelTitle name="Comutare document"/>
             <ColumnName name="Nume"/>
-            <ColumnExt name="Ext."/>
+            <ColumnExt name="Extern"/>
 			<ColumnPath name="Cale"/>
 			<ListGroups name="Grupare după vizualizare"/>
         </DocList>

@@ -187,6 +187,7 @@ public:
 	bool isUntitled() const { return ((_currentStatus & DOC_UNNAMED) == DOC_UNNAMED); }
 
 	bool isInaccessible() const { return _isInaccessible; }
+	void setInaccessibility(bool val) { _isInaccessible = val; }
 
 	bool getFileReadOnly() const { return _isFileReadOnly; }
 

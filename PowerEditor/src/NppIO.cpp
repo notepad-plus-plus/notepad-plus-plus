@@ -2410,12 +2410,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	// Especially File status auto-detection set on "Enable for all opened files":  nppGUI._fileAutoDetection & cdEnabledOld
 	// when "Remember inaccessible files from past session" is enabled:             nppGUI._keepSessionAbsentFileEntries
-	// and while loading a user session:                                            userCreatedSessionName != nullptr
 	// there are some (or 1) absent files:                                          nppParam.theWarningHasBeenGiven()
 	// and user want to create the placeholders for these files:                    nppParam.isPlaceHolderEnabled()
 	//
 	// When above conditions are true, the created placeholders are not read-only, due to the lack of file-detection on them.
-	if (nppGUI._keepSessionAbsentFileEntries && nppParam.theWarningHasBeenGiven() && nppParam.isPlaceHolderEnabled() && userCreatedSessionName && (nppGUI._fileAutoDetection & cdEnabledOld))
+	if (nppGUI._keepSessionAbsentFileEntries && nppParam.theWarningHasBeenGiven() && nppParam.isPlaceHolderEnabled() && (nppGUI._fileAutoDetection & cdEnabledOld))
 	{
 		checkModifiedDocument(false); // so here we launch file-detection for all placeholders manually
 	}

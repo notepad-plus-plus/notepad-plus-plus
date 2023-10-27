@@ -2606,7 +2606,6 @@ void Notepad_plus::checkDocState()
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
-	//enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
@@ -2628,6 +2627,16 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_VIEW_MONITORING, !curBuf->isUntitled(), MENU | TOOLBAR);
 	checkMenuItem(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
 	_toolBar.setCheck(IDM_VIEW_MONITORING, curBuf->isMonitoringOn());
+
+	enableCommand(IDM_FILE_SAVEAS, !curBuf->isInaccessible(), MENU);
+	enableCommand(IDM_FILE_CONTAININGFOLDERASWORKSPACE, !curBuf->isInaccessible(), MENU);
+	enableCommand(IDM_FILE_RENAME, !curBuf->isInaccessible(), MENU);
+	if (curBuf->isInaccessible())
+		enableCommand(IDM_EDIT_CLEARREADONLY, false, MENU);
+	enableCommand(IDM_VIEW_GOTO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
+	enableCommand(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, !curBuf->isInaccessible(), MENU);
+	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !curBuf->isInaccessible() && !curBuf->isDirty() && !curBuf->isUntitled(), MENU);
+	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !curBuf->isInaccessible() && !curBuf->isDirty() && !curBuf->isUntitled(), MENU);
 }
 
 void Notepad_plus::checkUndoState()
@@ -6423,7 +6432,11 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					prepareBufferChangedDialog(buffer);
 
 					// Then we ask user to update
-					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
+					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) == IDYES)
+					{
+						buffer->setInaccessibility(false); // it's accessible in any way
+					}
+					else
 					{
 						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
 						buffer->setDirty(true);

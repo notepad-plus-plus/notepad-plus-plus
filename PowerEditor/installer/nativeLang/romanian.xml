@@ -219,29 +219,29 @@
                     <Item id="43013" name="Căutare în fișiere"/>
                     <Item id="43014" name="Căutare (volatilă) următor"/>
                     <Item id="43015" name="Căutare (volatilă) anterior"/>
-                    <Item id="43022" name="Utilizare stil 1"/>
-                    <Item id="43023" name="Eliminare stil 1"/>
-                    <Item id="43024" name="Utilizare stil 2"/>
-                    <Item id="43025" name="Eliminare stil 2"/>
-                    <Item id="43026" name="Utilizare stil 3"/>
-                    <Item id="43027" name="Eliminare stil 3"/>
-                    <Item id="43028" name="Utilizare stil 4"/>
-                    <Item id="43029" name="Eliminare stil 4"/>
-                    <Item id="43030" name="Utilizare stil 5"/>
-                    <Item id="43031" name="Eliminare stil 5"/>
+                    <Item id="43022" name="Folosirea stilului 1"/>
+                    <Item id="43023" name="Eliminarea stilului 1"/>
+                    <Item id="43024" name="Folosirea stilului 2"/>
+                    <Item id="43025" name="Eliminarea stilului 2"/>
+                    <Item id="43026" name="Folosirea stilului 3"/>
+                    <Item id="43027" name="Eliminarea stilului 3"/>
+                    <Item id="43028" name="Folosirea stilului 4"/>
+                    <Item id="43029" name="Eliminarea stilului 4"/>
+                    <Item id="43030" name="Folosirea stilului 5"/>
+                    <Item id="43031" name="Eliminarea stilului 5"/>
                     <Item id="43032" name="Eliminare toate stilurile"/>
                     <Item id="43033" name="stilul 1"/>
                     <Item id="43034" name="stilul 2"/>
                     <Item id="43035" name="stilul 3"/>
                     <Item id="43036" name="stilul 4"/>
                     <Item id="43037" name="stilul 5"/>
-                    <Item id="43038" name="Căutare stil"/>
+                    <Item id="43038" name="Căutarea unui stil"/>
                     <Item id="43039" name="stilul 1"/>
                     <Item id="43040" name="stilul 2"/>
                     <Item id="43041" name="stilul 3"/>
                     <Item id="43042" name="stilul 4"/>
                     <Item id="43043" name="stilul 5"/>
-                    <Item id="43044" name="Căutare stil"/>
+                    <Item id="43044" name="Căutarea unui stil"/>
                     <Item id="43055" name="Stilul 1"/>
                     <Item id="43056" name="Stilul 2"/>
                     <Item id="43057" name="Stilul 3"/>
@@ -1531,7 +1531,7 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
         <DocList>
             <PanelTitle name="Comutare document"/>
             <ColumnName name="Nume"/>
-            <ColumnExt name="Ext."/>
+            <ColumnExt name="Extern"/>
 			<ColumnPath name="Cale"/>
 			<ListGroups name="Grupare după vizualizare"/>
         </DocList>

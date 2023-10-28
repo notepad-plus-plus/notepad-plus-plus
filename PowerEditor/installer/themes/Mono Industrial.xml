@@ -417,6 +417,7 @@ Credits:
             <WordsStyle name="COMMAND" styleID="5" fgColor="C87500" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="648BD2" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="A8B3AB" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="AFTER LABEL" styleID="8" fgColor="666C68" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
         <LexerType name="lua" desc="Lua" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />

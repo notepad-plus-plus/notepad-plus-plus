@@ -140,6 +140,7 @@ Installation:
             <WordsStyle name="COMMAND" styleID="5" fgColor="FFBBAA" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="efc53d" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="ffee88" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="AFTER LABEL" styleID="8" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="c" desc="C" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FFBBAA" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />

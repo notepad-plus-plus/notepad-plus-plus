@@ -107,6 +107,7 @@
             <WordsStyle name="COMMAND" styleID="5" fgColor="FF80FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="AFTER LABEL" styleID="8" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="c" desc="C" ext="pmc">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

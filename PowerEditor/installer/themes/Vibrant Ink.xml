@@ -393,6 +393,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="COMMAND" styleID="5" fgColor="339999" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="FF8000" bgColor="FCFFF0" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="AFTER LABEL" styleID="8" fgColor="C68DE3" bgColor="FFFF80" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="lua" desc="Lua" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

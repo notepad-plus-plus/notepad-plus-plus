@@ -111,6 +111,7 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="COMMAND" styleID="5" fgColor="0080FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="6" fgColor="FF8000" bgColor="FCFFF0" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="7" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="AFTER LABEL" styleID="8" fgColor="008000" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
         <LexerType name="c" desc="C" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />

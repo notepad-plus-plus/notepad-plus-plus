@@ -6582,12 +6582,11 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 		const TCHAR *idStr = dlgElement->Attribute(TEXT("id"), &id);
 		if (name && idStr)
 		{
-			int curr = 0; // on left
+			int current = 0; // on left
 			int prev = 0; // on left
 
-			dlgElement->Attribute(TEXT("curr"), &curr);
+			dlgElement->Attribute(TEXT("curr"), &current);
 			dlgElement->Attribute(TEXT("prev"), &prev);
-
 			bool isVisible = false;
 			const TCHAR *val = dlgElement->Attribute(TEXT("isVisible"));
 			if (val)
@@ -6595,7 +6594,7 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 				isVisible = (lstrcmp(val, TEXT("yes")) == 0);
 			}
 
-			_nppGUI._dockingData._pluginDockInfo.push_back(PluginDlgDockingInfo(name, id, curr, prev, isVisible));
+			_nppGUI._dockingData._pluginDockInfo.push_back(PluginDlgDockingInfo(name, id, current, prev, isVisible));
 		}
 	}
 

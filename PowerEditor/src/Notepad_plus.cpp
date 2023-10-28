@@ -1063,9 +1063,9 @@ void Notepad_plus::saveDockingParams()
 		{
 			int floatCont	= 0;
 
-			if (nppGUI._dockingData._pluginDockInfo[i]._currContainer >= DOCKCONT_MAX)
+			if (nppGUI._dockingData._pluginDockInfo[i]._currContainer <= DOCKCONT_MAX)
 				floatCont = nppGUI._dockingData._pluginDockInfo[i]._currContainer;
-			else
+			else if (nppGUI._dockingData._pluginDockInfo[i]._prevContainer <= DOCKCONT_MAX)
 				floatCont = nppGUI._dockingData._pluginDockInfo[i]._prevContainer;
 
 			if (floatCont >= 0)

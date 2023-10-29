@@ -1,6 +1,6 @@
 $testRoot = ".\"
 
-Get-ChildItem -Path $testRoot -Attribute Directory | 
+Get-ChildItem -Path $testRoot -Attribute Directory -Name |
 Foreach-Object {
 
 		$dirName = (Get-Item $testRoot$_).Name
@@ -10,13 +10,13 @@ Foreach-Object {
 		$sw.Stop()
 		"Test: " + $sw.Elapsed.TotalMilliseconds + " ms"
 
-		
+
 		if ($result -eq 0)
 		{
 			"$dirName ... OK"
 		}
 		elseif ($result -eq 1)
-		{		
+		{
 			"$dirName ... unitTest file not found. Test skipped."
 		}
 		elseif ($result -eq -1)
@@ -36,9 +36,9 @@ Foreach-Object {
 			"It should not happen - check your script."
 			exit -1
 		}
-		
+
 		# Check all Sub-directories for other unit-tests
-		Get-ChildItem -Path $testRoot\$dirName -Attribute Directory | 
+		Get-ChildItem -Path $testRoot\$dirName -Attribute Directory -Name |
 		Foreach-Object {
 
 				$subDirName = (Get-Item $testRoot$dirName\$_).Name
@@ -51,7 +51,7 @@ Foreach-Object {
 					"$dirName-$subDirName ... OK"
 				}
 				elseif ($subResult -eq 1)
-				{		
+				{
 					"$dirName-$subDirName ... unitTest file not found. Test skipped."
 				}
 				else

@@ -579,7 +579,6 @@ Translation note:
 				<Item id="1934" name="Co&amp;py to Clipboard"/>
 				<Item id="2" name="&amp;Close"/>
 			</SHA512FromTextDlg>
-
 			<PluginsAdminDlg title="Plugins Admin" titleAvailable="Available" titleUpdates="Updates" titleInstalled="Installed" titleIncompatible="Incompatible">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
@@ -642,17 +641,7 @@ Translation note:
 				<ScintillaCommandsTab name="Scintilla commands"/>
 				<ConflictInfoOk name="No shortcut conflicts for this item."/>
 				<ConflictInfoEditing name="No conflicts . . ."/>
-				<WindowCategory name="Window"/>
-				<FileCategory name="File"/>
-				<EditCategory name="Edit"/>
-				<SearchCategory name="Search"/>
-				<ViewCategory name="View"/>
-				<FormatCategory name="Format"/>
-				<LangCategory name="Lang"/>
 				<AboutCategory name="About"/>
-				<SettingCategory name="Setting"/>
-				<ToolCategory name="Tool"/>
-				<ExecuteCategory name="Execute"/>
 				<ModifyContextMenu name="Modify"/>
 				<DeleteContextMenu name="Delete"/>
 				<ClearContextMenu name="Clear"/>
@@ -1157,6 +1146,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="6907" name="When Find Dialog is Invoked"/>
 					<Item id="6908" name="Fill Find Field with Selected Text"/>
 					<Item id="6909" name="Select Word Under Caret when Nothing Selected"/>
+					<Item id="6910" name="Minimum Size for Auto-Checking &quot;In selection&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recent Files History">
@@ -1367,7 +1357,7 @@ You can re-activate this dialog in Preferences later."/>
 				<Item id="6" name="&amp;Yes"/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="&amp;Always yes"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1492,10 +1482,10 @@ Please test those commands and, if needed, re-edit them.
 Alternatively, you can downgrade to Notepad++ v8.5.2 and restore your previous data.
 Notepad++ will backup your old &quot;shortcuts.xml&quot; and save it as &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Renaming &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, your commands should be restored and work properly."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Save failed" message="Failed to save file.
-It seems there's not enough space on disk to save file. Your file is not saved."/>
 			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
 Are you sure you want to open them?"/>
+			<NotEnoughRoom4Saving title="Save failed" message="Failed to save file.
+It seems there's not enough space on disk to save file. Your file is not saved."/>
 			<FileInaccessibleUserSession title="File inaccessible" message="Some files from your manually-saved session &quot;$STR_REPLACE$&quot; are inaccessible. They can be opened as empty and read-only documents as placeholders.
 
 Would you like to create those placeholders?
@@ -1649,6 +1639,7 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-invalid-re value="Find: Invalid regular expression"/>
+			<find-status-search-failed value="Find: Search failed"/>
 			<find-status-mark-1-match value="Mark: 1 match"/>
 			<find-status-mark-nb-matches value="Mark: $INT_REPLACE$ matches"/>
 			<find-status-count-1-match value="Count: 1 match"/>
@@ -1765,6 +1756,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
+			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1155,7 +1155,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6907" name="Pri vyvolaní dialógového okna Hľadať"/>
 					<Item id="6908" name="Vložiť označený text do vyhľadávacieho poľa"/>
 					<Item id="6909" name="Ak nie je nič označené, označiť slovo na pozícii kurzora"/>
-					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie 'Vo výbere'"/>
+					<Item id="6910" name="Minimálna dĺžka na automatické začiarknutie &quot;Vo výbere&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="História súborov">
@@ -1366,7 +1366,7 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="6" name="&amp;Áno"/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1760,7 +1760,7 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)."/>
-			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka 'Vo výbere' pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
+			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

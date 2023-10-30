@@ -961,7 +961,6 @@ Translation note:
 					<Item id="6221" name="Vif"/><!-- Rapide -->
 					<Item id="6222" name="Zen"/><!-- Lent -->
 					<Item id="6246" name="Rendre les commandes de pliage/dépliage du niveau actuel commutables"/>
-					<Item id="6225" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
 					<Item id="6227" name="Ligne pliée"/>
 					<Item id="6228" name="Défaut"/>
 					<Item id="6229" name="Aligné"/>

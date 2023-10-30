@@ -870,7 +870,6 @@ struct NppGUI final
 	bool _doesExistUpdater = false;
 	int _caretBlinkRate = 600;
 	int _caretWidth = 1;
-	bool _enableMultiSelection = false;
 
 	bool _shortTitlebar = false;
 

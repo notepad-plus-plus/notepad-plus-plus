@@ -5177,18 +5177,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._caretBlinkRate = i;
 		}
 
-		else if (!lstrcmp(nm, TEXT("ScintillaGlobalSettings")))
-		{
-			const TCHAR* val = element->Attribute(TEXT("enableMultiSelection"));
-			if (val)
-			{
-				if (lstrcmp(val, TEXT("yes")) == 0)
-					_nppGUI._enableMultiSelection = true;
-				else if (lstrcmp(val, TEXT("no")) == 0)
-					_nppGUI._enableMultiSelection = false;
-			}
-		}
-
 		else if (!lstrcmp(nm, TEXT("AppPosition")))
 		{
 			RECT oldRect = _nppGUI._appPos;
@@ -7228,13 +7216,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Caret"));
 		GUIConfigElement->SetAttribute(TEXT("width"), _nppGUI._caretWidth);
 		GUIConfigElement->SetAttribute(TEXT("blinkRate"), _nppGUI._caretBlinkRate);
-	}
-
-	// <GUIConfig name="ScintillaGlobalSettings" enableMultiSelection="no" />
-	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ScintillaGlobalSettings"));
-		GUIConfigElement->SetAttribute(TEXT("enableMultiSelection"), _nppGUI._enableMultiSelection ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="openSaveDir" value="0" defaultDirPath="" />

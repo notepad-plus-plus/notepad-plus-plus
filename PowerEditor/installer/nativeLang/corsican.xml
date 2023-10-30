@@ -14,7 +14,7 @@ Additionnal information about Corsican localization:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
-			  Oct. 29th (v8.5.9)
+			  Oct. 30th (v8.5.9)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -986,7 +986,6 @@ Additionnal information about Corsican localization:
 					<Item id="6221" name="10"/><!-- Prestu (3 caratteri à u più) -->
 					<Item id="6222" name="0"/><!-- Lentu (3 caratteri à u più) -->
 					<Item id="6246" name="Rende cummutevule e cumande di piegatura è spiegatura di u livellu attuale"/>
-					<Item id="6225" name="Attivà a mudificazione multiple (Ctrl+cliccu/selez. cù topu)"/>
 					<Item id="6227" name="Ritornu à a linea"/>
 					<Item id="6228" name="Predefinitu"/>
 					<Item id="6229" name="Aliniatu"/>

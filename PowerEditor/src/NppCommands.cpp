@@ -2003,6 +2003,63 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_MULTISELECTALL:
+		case IDM_EDIT_MULTISELECTALLMATCHCASE:
+		case IDM_EDIT_MULTISELECTALLWHOLEWORD:
+		case IDM_EDIT_MULTISELECTALLMATCHCASEWHOLEWORD:
+		{
+			_multiSelectFlag = id == IDM_EDIT_MULTISELECTALL ? 0 :
+				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
+					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD: SCFIND_MATCHCASE| SCFIND_WHOLEWORD));
+
+			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
+
+			// Firstly do a selection of the word on which the cursor is
+			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);
+			_pEditView->execute(SCI_MULTIPLESELECTADDEACH);
+
+			// Secondely select all
+			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);
+			_pEditView->execute(SCI_MULTIPLESELECTADDEACH);
+		}
+		break;
+
+		case IDM_EDIT_MULTISELECTNEXT:
+		case IDM_EDIT_MULTISELECTNEXTMATCHCASE:
+		case IDM_EDIT_MULTISELECTNEXTWHOLEWORD:
+		case IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD:
+		{
+			_multiSelectFlag = id == IDM_EDIT_MULTISELECTALL ? 0 :
+				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
+					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD : SCFIND_MATCHCASE | SCFIND_WHOLEWORD));
+
+			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
+			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);
+			_pEditView->execute(SCI_MULTIPLESELECTADDNEXT);
+		}
+		break;
+
+		case IDM_EDIT_MULTISELECTUNDO:
+		{
+			LRESULT n = _pEditView->execute(SCI_GETSELECTIONS);
+			if (n > 0)
+				_pEditView->execute(SCI_DROPSELECTIONN, n - 1);
+		}
+		break;
+
+		case IDM_EDIT_MULTISELECTSSKIP:
+		{
+			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
+			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag); // use the last used flag to select the next one
+			_pEditView->execute(SCI_MULTIPLESELECTADDNEXT);
+
+			LRESULT n = _pEditView->execute(SCI_GETSELECTIONS);
+			if (n > 1)
+				_pEditView->execute(SCI_DROPSELECTIONN, n - 2);
+		}
+		break;
+
+
 		case IDM_SEARCH_CUTMARKEDLINES :
 			cutMarkedLines();
 			break;

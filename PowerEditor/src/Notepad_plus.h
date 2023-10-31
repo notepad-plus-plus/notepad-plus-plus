@@ -418,6 +418,8 @@ private:
 	UCHAR _mainWindowStatus = 0; //For 2 views and user dialog if docked
 	int _activeView = MAIN_VIEW;
 
+	int _multiSelectFlag = 0; // For sktpping current Multi-select comment 
+
 	//User dialog docking
 	void dockUserDlg();
     void undockUserDlg();

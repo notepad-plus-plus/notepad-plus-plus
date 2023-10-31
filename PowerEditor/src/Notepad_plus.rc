@@ -564,7 +564,7 @@ BEGIN
             MENUITEM "Match Case && Whole Word",    IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD
         END
         MENUITEM "Undo Last Multi-select",   IDM_EDIT_MULTISELECTUNDO
-        MENUITEM "Skip Current Multi-select",IDM_EDIT_MULTISELECTSSKIP
+        MENUITEM "Skip Current && Go to Next Multi-select",IDM_EDIT_MULTISELECTSSKIP
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",           IDM_EDIT_COLUMNMODETIP
         MENUITEM "Colum&n Editor...",        IDM_EDIT_COLUMNMODE

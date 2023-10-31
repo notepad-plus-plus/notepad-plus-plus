@@ -2012,13 +2012,11 @@ void Notepad_plus::command(int id)
 				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
 					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD: SCFIND_MATCHCASE| SCFIND_WHOLEWORD));
 
+			_pEditView->expandWordSelection();
+
 			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
 
 			// Firstly do a selection of the word on which the cursor is
-			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);
-			_pEditView->execute(SCI_MULTIPLESELECTADDEACH);
-
-			// Secondely select all
 			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);
 			_pEditView->execute(SCI_MULTIPLESELECTADDEACH);
 		}
@@ -2029,9 +2027,9 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_MULTISELECTNEXTWHOLEWORD:
 		case IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD:
 		{
-			_multiSelectFlag = id == IDM_EDIT_MULTISELECTALL ? 0 :
-				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
-					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD : SCFIND_MATCHCASE | SCFIND_WHOLEWORD));
+			_multiSelectFlag = id == IDM_EDIT_MULTISELECTNEXT ? 0 :
+				(id == IDM_EDIT_MULTISELECTNEXTMATCHCASE ? SCFIND_MATCHCASE :
+					(id == IDM_EDIT_MULTISELECTNEXTWHOLEWORD ? SCFIND_WHOLEWORD : SCFIND_MATCHCASE | SCFIND_WHOLEWORD));
 
 			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
 			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);

@@ -3324,7 +3324,7 @@ pair<size_t, size_t> ScintillaEditView::getWordRange()
 
 bool ScintillaEditView::expandWordSelection()
 {
-    pair<size_t, size_t> wordRange = 	getWordRange();
+    pair<size_t, size_t> wordRange = getWordRange();
     if (wordRange.first != wordRange.second)
 	{
         execute(SCI_SETSELECTIONSTART, wordRange.first);

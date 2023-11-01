@@ -484,7 +484,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
-		case WM_KEYUP :
+		case WM_KEYUP:
 		{
 			if (wParam == VK_PRIOR || wParam == VK_NEXT)
 			{
@@ -498,11 +498,14 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			}
 			break;
 		}
-
-		case WM_KEYDOWN :
+		
+		case WM_KEYDOWN:
 		{
 			if ((execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN))
 			{
+				//
+				// Transform the column selection to multi-edit
+				//
 				switch (wParam)
 				{
 					case VK_LEFT:
@@ -524,8 +527,51 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				}
 
 			}
+			else
+			{
+				//
+				// Add 3 shortcuts:
+				// Shift + Delete: without selected text, it will delete the whole line.
+				// Ctrl + C: without selected text, it will copy the whole line.
+				// Ctrl + X: without selected text, it will cut the whole line.
+				//
+				switch (wParam)
+				{
+					case VK_DELETE:
+					{
+						SHORT shift = GetKeyState(VK_SHIFT);
+						if (shift & 0x8000)
+						{
+							bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
+							if (!hasSelection)
+							{
+								execute(SCI_LINEDELETE);
+								return TRUE;
+							}
+						}
+					}
+					break;
+
+					case 'C':
+					case 'X':
+					{
+						SHORT ctrl = GetKeyState(VK_CONTROL);
+						if (ctrl & 0x8000)
+						{
+							bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
+							if (!hasSelection)
+							{
+								execute(wParam == 'C' ? SCI_LINECOPY : SCI_LINECUT);
+								//return TRUE;
+								// No return and let Scintilla procedure to continue
+							}
+						}
+					}
+					break;
+				}
+			}
 			break;
-		}
+		}		
 
 		case WM_VSCROLL :
 		{

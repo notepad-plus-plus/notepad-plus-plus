@@ -498,7 +498,58 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			}
 			break;
 		}
+		
+		case WM_KEYDOWN:
+		{
+			bool visualStudioLineShortcuts = true;
 
+			if (visualStudioLineShortcuts)
+			{
+				if (wParam == VK_DELETE)
+				{
+					SHORT shift = GetKeyState(VK_SHIFT);
+					if (shift & 0x8000)
+					{
+						bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
+						if (!hasSelection)
+						{
+							execute(SCI_LINEDELETE);
+							return TRUE;
+						}
+					}
+				}
+				else if (wParam == 'C')
+				{
+					SHORT ctrl = GetKeyState(VK_CONTROL);
+					if (ctrl & 0x8000)
+					{
+						bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
+						if (!hasSelection)
+						{
+							execute(SCI_LINECOPY);
+							//return TRUE;
+							// No return and let Scintilla procedure to continue
+						}
+					}
+				}
+				else if (wParam == 'X')
+				{
+					SHORT ctrl = GetKeyState(VK_CONTROL);
+					if (ctrl & 0x8000)
+					{
+						bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
+						if (!hasSelection)
+						{
+							execute(SCI_LINECUT);
+							//return TRUE;
+							// No return and let Scintilla procedure to continue
+						}
+					}
+				}
+			}
+			break;
+		}
+		
 		case WM_VSCROLL :
 		{
 			break;

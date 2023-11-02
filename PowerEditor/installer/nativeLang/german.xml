@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.10.25"><!-- basiert auf english.xml vom 24.10.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.11.02"><!-- basiert auf english.xml vom 30.10.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -970,7 +970,6 @@ Translation note:
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Befehl zum Ein- und Ausfalten der aktuellen Ebene umschaltbar machen"/>
-					<Item id="6225" name="Multi-Editing aktivieren (Strg+Mausklick/Auswahl)"/>
 					<Item id="6227" name="Zeilenumbruch"/>
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Ausgerichtet"/>

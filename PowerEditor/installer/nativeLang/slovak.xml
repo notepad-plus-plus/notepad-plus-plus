@@ -37,6 +37,8 @@
 					<Item subMenuId="edit-blankOperations" name="Operácie s &amp;prázdnym znakom"/>
 					<Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciá&amp;lne"/>
 					<Item subMenuId="edit-onSelection" name="V&amp;ybraný text"/>
+					<Item subMenuId="edit-multiSelectALL" name="Viacnásobný výber VŠETKO"/>
+					<Item subMenuId="edit-multiSelectNext" name="Viacnásobný výber Ďalší"/>
 					<Item subMenuId="search-changeHistory" name="História zmien"/>
 					<Item subMenuId="search-markAll" name="Použiť štýl na vše&amp;tky tokeny"/>
 					<Item subMenuId="search-markOne" name="Použiť štýl na &amp;jeden token"/>
@@ -152,6 +154,16 @@
 					<Item id="42074" name="Otvoriť priečinok súboru v Prieskumníkovi"/>
 					<Item id="42075" name="Hľadať na Internete"/>
 					<Item id="42076" name="Zmeniť vyhľadávač…"/>
+					<Item id="42090" name="Nerozlišovať veľkosť písmen a celé slovo"/>
+					<Item id="42091" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42092" name="Iba celé slová"/>
+					<Item id="42093" name="Rovnaká veľkosť písmen a celé slovo"/>
+					<Item id="42094" name="Nerozlišovať veľkosť písmen a celé slovo"/>
+					<Item id="42095" name="Iba rovanká veľkosť písmen"/>
+					<Item id="42096" name="Iba celé slová"/>
+					<Item id="42097" name="Rovnaká veľkosť písmen a celé slovo"/>
+					<Item id="42098" name="Vrátiť naposledy pridaný viacnásobný výber"/>
+					<Item id="42099" name="Preskočiť aktuálny a prejsť na ďalší viacnásobný výber"/>
 					<Item id="42018" name="&amp;Spustiť nahrávanie"/>
 					<Item id="42019" name="&amp;Zastaviť nahrávanie"/>
 					<Item id="42021" name="S&amp;pustiť makro"/>

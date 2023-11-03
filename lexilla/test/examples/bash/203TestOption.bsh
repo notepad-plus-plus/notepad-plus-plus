@@ -1,0 +1,24 @@
+[[ $1 == -e* ]] && echo e
+
+if [[ -d /usr/bin &&
+	-e /usr/bin/bash ]]; then
+	echo find bash
+fi
+
+if [[ -d /usr/bin &&	-e /usr/bin/bash ]]; then
+	echo find bash
+fi
+
+if [ -d /usr/bin && -e /usr/bin/bash ]; then
+	echo find bash
+fi
+
+if [ -d /usr/bin &&
+	-e /usr/bin/bash ]; then
+	echo find bash
+fi
+
+if [ -d /usr/bin && \
+	-e /usr/bin/bash ]; then
+	echo find bash
+fi

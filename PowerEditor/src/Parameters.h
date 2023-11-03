@@ -137,6 +137,8 @@ const int COPYDATA_FULL_CMDLINE = 3;
 
 #define NPP_STYLING_FILESIZE_LIMIT_DEFAULT (200 * 1024 * 1024) // 200MB+ file won't be styled
 
+const int FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT = 1024;
+
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
@@ -783,6 +785,7 @@ struct NppGUI final
 	bool _isMaximized = false;
 	bool _isMinimizedToTray = false;
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
+	bool _keepSessionAbsentFileEntries = false;
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
 	bool _saveAllConfirm = true;
@@ -814,6 +817,7 @@ struct NppGUI final
 	bool _findDlgAlwaysVisible = false;
 	bool _confirmReplaceInAllOpenDocs = true;
 	bool _replaceStopsWithoutFindingNext = false;
+	int _inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;
 	bool _hideMenuRightShortcuts = false;
@@ -851,6 +855,7 @@ struct NppGUI final
 	std::wstring _definedSessionExt;
 	std::wstring _definedWorkspaceExt;
 
+	// items with no Notepad++ GUI to set
 	std::wstring _commandLineInterpreter = CMD_INTERPRETER;
 
 	struct AutoUpdateOptions
@@ -865,7 +870,6 @@ struct NppGUI final
 	bool _doesExistUpdater = false;
 	int _caretBlinkRate = 600;
 	int _caretWidth = 1;
-	bool _enableMultiSelection = false;
 
 	bool _shortTitlebar = false;
 
@@ -1654,7 +1658,7 @@ public:
 		return _doPrintAndExit;
 	};
 
-	bool loadSession(Session & session, const TCHAR *sessionFileName);
+	bool loadSession(Session& session, const TCHAR* sessionFileName, const bool bSuppressErrorMsg = false);
 
 	void setLoadedSessionFilePath(const std::wstring & loadedSessionFilePath) {
 		_loadedSessionFullFilePath = loadedSessionFilePath;
@@ -1863,6 +1867,7 @@ public:
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
+	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1929,12 +1934,16 @@ private:
 	bool _isAdminMode = false;
 
 	bool _isSelectFgColorEnabled = false;
+	bool _isRegForOSAppRestartDisabled = false;
 
 	bool _doNppLogNetworkDriveIssue = false;
 
 	bool _doNppLogNulContentCorruptionIssue = false;
 	bool _isEndSessionStarted = false;
 	bool _isEndSessionCritical = false;
+
+	bool _isPlaceHolderEnabled = false;
+	bool _theWarningHasBeenGiven = false;
 
 public:
 	std::wstring getWingupFullPath() const { return _wingupFullPath; };
@@ -1946,12 +1955,17 @@ public:
 	void setWingupDir(const std::wstring& val2set) { _wingupDir = val2set; };
 	void setElevationRequired(bool val2set) { _isElevationRequired = val2set; };
 
-	bool doNppLogNetworkDriveIssue() { return _doNppLogNetworkDriveIssue; };
-	bool doNppLogNulContentCorruptionIssue() { return _doNppLogNulContentCorruptionIssue; };
+	bool doNppLogNetworkDriveIssue() const { return _doNppLogNetworkDriveIssue; };
+	bool doNppLogNulContentCorruptionIssue() const { return _doNppLogNulContentCorruptionIssue; };
 	void endSessionStart() { _isEndSessionStarted = true; };
-	bool isEndSessionStarted() { return _isEndSessionStarted; };
+	bool isEndSessionStarted() const { return _isEndSessionStarted; };
 	void makeEndSessionCritical() { _isEndSessionCritical = true; };
-	bool isEndSessionCritical() { return _isEndSessionCritical; };
+	bool isEndSessionCritical() const { return _isEndSessionCritical; };
+
+	void setPlaceHolderEnable(bool isEnabled) { _isPlaceHolderEnabled = isEnabled; };
+	bool isPlaceHolderEnabled() const { return _isPlaceHolderEnabled; }
+	void setTheWarningHasBeenGiven(bool isEnabled) { _theWarningHasBeenGiven = isEnabled; };
+	bool theWarningHasBeenGiven() const { return _theWarningHasBeenGiven; }
 
 private:
 	void getLangKeywordsFromXmlTree();

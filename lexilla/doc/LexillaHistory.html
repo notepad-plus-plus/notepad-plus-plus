@@ -582,9 +582,54 @@
 	<td>Knut Leimbert</td>
       </tr><tr>
 	<td>German Aizek</td>
+	<td>Tsuyoshi Miyake</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/lexilla527.zip">Release 5.2.7</a>
+    </h3>
+    <ul>
+	<li>
+	Released 22 September 2023.
+	</li>
+	<li>
+	Fix building on Windows with non-English environment.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/200">Pull request #200</a>.
+	</li>
+	<li>
+	Bash: fix line continuation for comments and when multiple backslashes at line end.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/195">Issue #195</a>.
+	</li>
+	<li>
+	Bash: treat  += as operator and, inside arithmetic expressions, treat ++ and -- as operators.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/197">Issue #197</a>.
+	</li>
+	<li>
+	Bash: improve backslash handling inside backquoted command substitution and fix $ at end of backtick expression.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/194">Issue #194</a>.
+	</li>
+	<li>
+	Bash: treat words that are similar to numbers but invalid wholly as identifiers.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/199">Issue #199</a>.
+	</li>
+	<li>
+	Bash: consistently handle '-' options at line start and after '|' as identifiers.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/202">Issue #202</a>.
+	</li>
+	<li>
+	Bash: handle '-' options differently in [ single ] and [[ double ]] bracket constructs.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/203">Issue #203</a>.
+	</li>
+	<li>
+	F#: improve speed of folding long lines.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/198">Issue #198</a>.
+	</li>
+	<li>
+	HTML: fix invalid entity at line end and terminate invalid entity before invalid character.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/192">Issue #192</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/lexilla526.zip">Release 5.2.6</a>
     </h3>

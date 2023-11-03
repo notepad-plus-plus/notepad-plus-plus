@@ -92,8 +92,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FILE_SAVESESSION,                         false, false, false, nullptr },
 	{ VK_P,       IDM_FILE_PRINT,                               true,  false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_PRINTNOW,                            false, false, false, nullptr },
-	{ VK_F4,      IDM_FILE_EXIT,                                false, true,  false, nullptr },
 	{ VK_T,       IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false, true,  TEXT("Restore Recent Closed File")},
+	{ VK_F4,      IDM_FILE_EXIT,                                false, true,  false, nullptr },
 
 //	{ VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr },
@@ -177,6 +177,16 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_EDIT_OPENINFOLDER,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_SEARCHONINTERNET,                    false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_CHANGESEARCHENGINE,                  false, false, false, nullptr },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTALL,                      false, false, false, TEXT("Multi-select All: Ignore Case and Whole Word") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTALLMATCHCASE,             false, false, false, TEXT("Multi-select All: Match Case Only") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTALLWHOLEWORD,             false, false, false, TEXT("Multi-select All: Match Whole Word Only") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTALLMATCHCASEWHOLEWORD,    false, false, false, TEXT("Multi-select All: Match Case and Whole Word") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTNEXT,                     false, false, false, TEXT("Multi-select Next: Ignore Case and Whole Word") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTNEXTMATCHCASE,            false, false, false, TEXT("Multi-select Next: Match Case Only") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTNEXTWHOLEWORD,            false, false, false, TEXT("Multi-select Next: Match Whole Word Only") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD,   false, false, false, TEXT("Multi-select Next: Match Case and Whole Word") },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTUNDO,                     false, false, false, nullptr },
+	{ VK_NULL,    IDM_EDIT_MULTISELECTSSKIP,                    false, false, false, nullptr },
 //  { VK_NULL,    IDM_EDIT_COLUMNMODETIP,                       false, false, false, nullptr },
 	{ VK_C,       IDM_EDIT_COLUMNMODE,                          false, true,  false, nullptr },
 	{ VK_NULL,    IDM_EDIT_CHAR_PANEL,                          false, false, false, TEXT("Toggle Character Panel") },
@@ -421,6 +431,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 
 	{ VK_F5,      IDM_EXECUTE,                                  false, false, false, nullptr },
 
+	{ VK_NULL,    IDM_WINDOW_WINDOWS,                           false, false, false, nullptr },
 	{ VK_NULL,    IDM_WINDOW_SORT_FN_ASC,                       false, false, false, TEXT("Sort By Name A to Z") },
 	{ VK_NULL,    IDM_WINDOW_SORT_FN_DSC,                       false, false, false, TEXT("Sort By Name Z to A") },
 	{ VK_NULL,    IDM_WINDOW_SORT_FP_ASC,                       false, false, false, TEXT("Sort By Path A to Z") },
@@ -478,7 +489,7 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_ZOOMIN"),                  SCI_ZOOMIN,                  true,  false, false, VK_ADD,      IDM_VIEW_ZOOMIN},
 	{TEXT("SCI_ZOOMOUT"),                 SCI_ZOOMOUT,                 true,  false, false, VK_SUBTRACT, IDM_VIEW_ZOOMOUT},
 	{TEXT("SCI_SETZOOM"),                 SCI_SETZOOM,                 true,  false, false, VK_DIVIDE,   IDM_VIEW_ZOOMRESTORE},
-	{TEXT("SCI_SELECTIONDUPLICATE"),      SCI_SELECTIONDUPLICATE,      true,  false, false, VK_D,        IDM_EDIT_DUP_LINE},
+	{TEXT("SCI_SELECTIONDUPLICATE"),      SCI_SELECTIONDUPLICATE,      true,  false, false, VK_D,        0},
 	{TEXT("SCI_LINESJOIN"),               SCI_LINESJOIN,               false, false, false, 0,           0},
 	{TEXT("SCI_SCROLLCARET"),             SCI_SCROLLCARET,             false, false, false, 0,           0},
 	{TEXT("SCI_EDITTOGGLEOVERTYPE"),      SCI_EDITTOGGLEOVERTYPE,      false, false, false, VK_INSERT,   0},
@@ -559,7 +570,7 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_LINECUT"),                 SCI_LINECUT,                 true,  false, false, VK_L,        0},
 	{TEXT("SCI_LINECOPY"),                SCI_LINECOPY,                true,  false, true,  VK_X,        0},
 	{TEXT("SCI_LINETRANSPOSE"),           SCI_LINETRANSPOSE,           true,  false, false, VK_T,        0},
-	{TEXT("SCI_LINEDUPLICATE"),           SCI_LINEDUPLICATE,           false, false, false, 0,           0},
+	{TEXT("SCI_LINEDUPLICATE"),           SCI_LINEDUPLICATE,           false, false, false, 0,           IDM_EDIT_DUP_LINE},
 	{TEXT("SCI_CANCEL"),                  SCI_CANCEL,                  false, false, false, VK_ESCAPE,   0},
 	{TEXT("SCI_SWAPMAINANCHORCARET"),     SCI_SWAPMAINANCHORCARET,     false, false, false, 0,           0},
 	{TEXT("SCI_ROTATESELECTION"),         SCI_ROTATESELECTION,         false, false, false, 0,           0}
@@ -1604,8 +1615,22 @@ bool NppParameters::load()
 		_doNppLogNulContentCorruptionIssue = (PathFileExists(filePath2.c_str()) == TRUE);
 	}
 
-
-
+	//-------------------------------------------------------------//
+	// noRestartAutomatically.xml                                  //
+	// This empty xml file is optional - user adds this empty file //
+	// manually in order to prevent Notepad++ registration         //
+	// for the Win10+ OS app-restart feature.                      //
+	//-------------------------------------------------------------//
+	filePath = _nppPath;
+	std::wstring noRegForOSAppRestartTrigger = L"noRestartAutomatically.xml";
+	pathAppend(filePath, noRegForOSAppRestartTrigger);
+	_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
+	if (!_isRegForOSAppRestartDisabled)
+	{
+		filePath = _userPath;
+		pathAppend(filePath, noRegForOSAppRestartTrigger);
+		_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
+	}
 
 	return isAllLaoded;
 }
@@ -2249,12 +2274,21 @@ void NppParameters::setWorkingDir(const TCHAR * newPath)
 	}
 }
 
-bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
+bool NppParameters::loadSession(Session& session, const TCHAR* sessionFileName, const bool bSuppressErrorMsg)
 {
-	TiXmlDocument *pXmlSessionDocument = new TiXmlDocument(sessionFileName);
+	TiXmlDocument* pXmlSessionDocument = new TiXmlDocument(sessionFileName);
 	bool loadOkay = pXmlSessionDocument->LoadFile();
 	if (loadOkay)
 		loadOkay = getSessionFromXmlTree(pXmlSessionDocument, session);
+
+	if (!loadOkay && !bSuppressErrorMsg)
+	{
+		_pNativeLangSpeaker->messageBox("SessionFileInvalidError",
+			NULL,
+			TEXT("Session file is either corrupted or not valid."),
+			TEXT("Could not Load Session"),
+			MB_OK);
+	}
 
 	delete pXmlSessionDocument;
 	return loadOkay;
@@ -4856,6 +4890,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("KeepSessionAbsentFileEntries")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				if (val)
+				{
+					if (lstrcmp(val, TEXT("yes")) == 0)
+						_nppGUI._keepSessionAbsentFileEntries = true;
+					else
+						_nppGUI._keepSessionAbsentFileEntries = false;
+				}
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("DetectEncoding")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -5136,18 +5185,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(TEXT("blinkRate"), &i);
 			if (val)
 				_nppGUI._caretBlinkRate = i;
-		}
-
-		else if (!lstrcmp(nm, TEXT("ScintillaGlobalSettings")))
-		{
-			const TCHAR* val = element->Attribute(TEXT("enableMultiSelection"));
-			if (val)
-			{
-				if (lstrcmp(val, TEXT("yes")) == 0)
-					_nppGUI._enableMultiSelection = true;
-				else if (lstrcmp(val, TEXT("no")) == 0)
-					_nppGUI._enableMultiSelection = false;
-			}
 		}
 
 		else if (!lstrcmp(nm, TEXT("AppPosition")))
@@ -5931,6 +5968,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR* optReplaceStopsWithoutFindingNext = element->Attribute(TEXT("replaceStopsWithoutFindingNext"));
 			if (optReplaceStopsWithoutFindingNext)
 				_nppGUI._replaceStopsWithoutFindingNext = (lstrcmp(optReplaceStopsWithoutFindingNext, TEXT("yes")) == 0);
+
+			int inSelThresh;
+			if (element->Attribute(TEXT("inSelectionAutocheckThreshold"), &inSelThresh) &&
+				(inSelThresh >= 0 && inSelThresh <= FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT))
+			{
+				_nppGUI._inSelectionAutocheckThreshold = inSelThresh;
+			}
+			else
+			{
+				_nppGUI._inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
+			}
 		}
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{
@@ -6532,12 +6580,11 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 		const TCHAR *idStr = dlgElement->Attribute(TEXT("id"), &id);
 		if (name && idStr)
 		{
-			int curr = 0; // on left
+			int current = 0; // on left
 			int prev = 0; // on left
 
-			dlgElement->Attribute(TEXT("curr"), &curr);
+			dlgElement->Attribute(TEXT("curr"), &current);
 			dlgElement->Attribute(TEXT("prev"), &prev);
-
 			bool isVisible = false;
 			const TCHAR *val = dlgElement->Attribute(TEXT("isVisible"));
 			if (val)
@@ -6545,7 +6592,7 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 				isVisible = (lstrcmp(val, TEXT("yes")) == 0);
 			}
 
-			_nppGUI._dockingData._pluginDockInfo.push_back(PluginDlgDockingInfo(name, id, curr, prev, isVisible));
+			_nppGUI._dockingData._pluginDockInfo.push_back(PluginDlgDockingInfo(name, id, current, prev, isVisible));
 		}
 	}
 
@@ -7012,6 +7059,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("RememberLastSession"), _nppGUI._rememberLastSession);
 	}
 
+	// <GUIConfig name = "RememberLastSession">yes< / GUIConfig>
+	{
+		insertGUIConfigBoolNode(newGUIRoot, TEXT("KeepSessionAbsentFileEntries"), _nppGUI._keepSessionAbsentFileEntries);
+	}
+
 	// <GUIConfig name = "DetectEncoding">yes< / GUIConfig>
 	{
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("DetectEncoding"), _nppGUI._detectEncoding);
@@ -7176,13 +7228,6 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("blinkRate"), _nppGUI._caretBlinkRate);
 	}
 
-	// <GUIConfig name="ScintillaGlobalSettings" enableMultiSelection="no" />
-	{
-		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ScintillaGlobalSettings"));
-		GUIConfigElement->SetAttribute(TEXT("enableMultiSelection"), _nppGUI._enableMultiSelection ? TEXT("yes") : TEXT("no"));
-	}
-
 	// <GUIConfig name="openSaveDir" value="0" defaultDirPath="" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
@@ -7290,7 +7335,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("hideMenuRightShortcuts"), _nppGUI._hideMenuRightShortcuts ? TEXT("yes") : TEXT("no"));
 	}
 
-	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no"/>
+	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no" inSelectionAutocheckThreshold="1024" />
 	{
 		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Searching"));
@@ -7301,6 +7346,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("findDlgAlwaysVisible"), _nppGUI._findDlgAlwaysVisible ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("confirmReplaceInAllOpenDocs"), _nppGUI._confirmReplaceInAllOpenDocs ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("replaceStopsWithoutFindingNext"), _nppGUI._replaceStopsWithoutFindingNext ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("inSelectionAutocheckThreshold"), _nppGUI._inSelectionAutocheckThreshold);
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />

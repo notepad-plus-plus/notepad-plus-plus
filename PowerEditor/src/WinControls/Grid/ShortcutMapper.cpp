@@ -300,9 +300,7 @@ void ShortcutMapper::fillOutBabyGrid()
 					if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
 						_babygrid.setText(cs_index, 2, string2wstring(cshortcuts[i].toString(), CP_UTF8).c_str());
 
-					const TCHAR* category = cshortcuts[i].getCategory();
-					generic_string categoryStr = nativeLangSpeaker->getShortcutMapperLangStr((std::string(wstring2string(category, CP_UTF8)) + "Category").c_str(), category);
-					_babygrid.setText(cs_index, 3, categoryStr.c_str());
+					_babygrid.setText(cs_index, 3, cshortcuts[i].getCategory());
 
 					if (isMarker)
 						isMarker = _babygrid.setMarker(false);

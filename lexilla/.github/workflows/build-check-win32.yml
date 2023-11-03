@@ -31,6 +31,10 @@ jobs:
               cd src
               nmake -f lexilla.mak DEBUG=1
               cd ..
+        - uses: actions/upload-artifact@v3
+          with:
+              name: lexilla.dll
+              path: bin/lexilla.dll
         - name: Test lexing and folding
           run: |
               cd test

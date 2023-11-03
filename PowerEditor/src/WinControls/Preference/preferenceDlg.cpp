@@ -247,6 +247,8 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				NppDarkMode::setDarkTooltips(_delimiterSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 			if (_performanceSubDlg._largeFileRestrictionTip != nullptr)
 				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
+			if (_searchingSubDlg._tipInSelThresh != nullptr)
+				NppDarkMode::setDarkTooltips(_searchingSubDlg._tipInSelThresh, NppDarkMode::ToolTipsType::tooltip);
 
 			// groupbox label in dark mode support disabled text color
 			if (NppDarkMode::isEnabled())
@@ -870,7 +872,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			::SendMessage(::GetDlgItem(_hSelf, IDC_WIDTH_COMBO), CB_SETCURSEL, nppGUI._caretWidth, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FOLDINGTOGGLE, BM_SETCHECK, nppGUI._enableFoldCmdToggable, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_SETCHECK, nppGUI._enableMultiSelection, 0);
 			
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMIN, TRUE, BLINKRATE_FASTEST);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMAX, TRUE, BLINKRATE_SLOWEST);
@@ -1172,11 +1173,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDC_CHECK_DISABLEADVANCEDSCROLL:
 					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
 					return TRUE;
-
-                case IDC_CHECK_MULTISELECTION :
-                    nppGUI._enableMultiSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_GETCHECK, 0, 0));
-                    ::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
-                    return TRUE;
 
 				case IDC_CHECK_FOLDINGTOGGLE:
 					nppGUI._enableFoldCmdToggable = isCheckedOrNot(IDC_CHECK_FOLDINGTOGGLE);
@@ -3937,6 +3933,7 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			generic_string backupFilePath = NppParameters::getInstance().getUserPath();
 			backupFilePath += TEXT("\\backup\\");
 			::SetDlgItemText(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATH_EDIT, backupFilePath.c_str());
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPABSENTFILESINSESSION, BM_SETCHECK, nppGUI._keepSessionAbsentFileEntries, 0);
 
 			int ID2CheckBackupOnSave = 0;
 
@@ -4080,6 +4077,13 @@ intptr_t CALLBACK BackupSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					updateBackupSessionGUI();
 					return TRUE;
 				}
+
+				case IDC_CHECK_KEEPABSENTFILESINSESSION:
+				{
+					nppGUI._keepSessionAbsentFileEntries = isCheckedOrNot(IDC_CHECK_KEEPABSENTFILESINSESSION);
+					return TRUE;
+				}
+
 				case IDC_BACKUPDIR_RESTORESESSION_CHECK:
 				{
 					nppGUI._isSnapshotMode = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK, BM_GETCHECK, 0, 0);
@@ -5575,12 +5579,27 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CONFIRMREPLOPENDOCS, BM_SETCHECK, nppGUI._confirmReplaceInAllOpenDocs, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEANDSTOP, BM_SETCHECK, nppGUI._replaceStopsWithoutFindingNext, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWONCEPERFOUNDLINE, BM_SETCHECK, nppGUI._finderShowOnlyOneEntryPerFoundLine, 0);
+			::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nppGUI._inSelectionAutocheckThreshold, 0);
+
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			generic_string tipText = pNativeSpeaker->getLocalizedStrFromID("searchingInSelThresh-tip", L"Number of selected characters in edit zone to automatically check the \"In selection\" checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking.");
+
+			_tipInSelThresh = CreateToolTip(IDC_INSELECTION_THRESHOLD_EDIT, _hSelf, _hInst, const_cast<PTSTR>(tipText.c_str()), pNativeSpeaker->isRTL());
+
+			if (_tipInSelThresh != nullptr)
+			{
+				::SendMessage(_tipInSelThresh, TTM_SETMAXTIPWIDTH, 0, 260);
+
+				// Make tip stay 30 seconds
+				::SendMessage(_tipInSelThresh, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
 
 			return TRUE;
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
+		case WM_CTLCOLOREDIT:
 		{
 			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}
@@ -5596,13 +5615,44 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_COMMAND:
 		{
+			if ((LOWORD(wParam) == IDC_INSELECTION_THRESHOLD_EDIT) &&
+				(HIWORD(wParam) == EN_CHANGE))
+			{
+				constexpr int stringSize = 5;
+				wchar_t str[stringSize]{};
+				::GetDlgItemText(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, str, stringSize);
+
+				if (lstrcmp(str, L"") == 0)
+				{
+					::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nppGUI._inSelectionAutocheckThreshold, FALSE);
+					return FALSE;
+				}
+
+				UINT newValue = ::GetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, nullptr, FALSE);
+
+				if (static_cast<int>(newValue) == nppGUI._inSelectionAutocheckThreshold)
+				{
+					return FALSE;
+				}
+
+				if (newValue > FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT)
+				{
+					::SetDlgItemInt(_hSelf, IDC_INSELECTION_THRESHOLD_EDIT, FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT, FALSE);
+					newValue = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
+				}
+
+				nppGUI._inSelectionAutocheckThreshold = newValue;
+
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED:
 				{
 					nppGUI._fillFindFieldWithSelected = isCheckedOrNot(IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE :FALSE);
-					if (!nppGUI._fillFindFieldWithSelected) 
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET), nppGUI._fillFindFieldWithSelected ? TRUE : FALSE);
+					if (!nppGUI._fillFindFieldWithSelected)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, BM_SETCHECK, BST_UNCHECKED, 0);
 						nppGUI._fillFindFieldSelectCaret = false;

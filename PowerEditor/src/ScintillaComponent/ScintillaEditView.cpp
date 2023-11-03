@@ -703,8 +703,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 
 void ScintillaEditView::setJsonLexer(bool isJson5)
 {
-	LangType j = isJson5 ? L_JSON5 : L_JSON;
-	setLexerFromLangID(j);
+	setLexerFromLangID(isJson5 ? L_JSON5 : L_JSON);
 
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
@@ -724,15 +723,15 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 		keywordList2 = wstring2string(kwlW, CP_ACP);
 	}
 
-	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, j, LANG_INDEX_INSTR)));
-	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList2, j, LANG_INDEX_INSTR2)));
+	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR)));
+	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList2, L_JSON, LANG_INDEX_INSTR2)));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.escape.sequence"), reinterpret_cast<LPARAM>("1"));
 
-	if (j == L_JSON5)
+	if (isJson5)
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.json.allow.comments"), reinterpret_cast<LPARAM>("1"));
 }
 
@@ -3325,7 +3324,7 @@ pair<size_t, size_t> ScintillaEditView::getWordRange()
 
 bool ScintillaEditView::expandWordSelection()
 {
-    pair<size_t, size_t> wordRange = 	getWordRange();
+    pair<size_t, size_t> wordRange = getWordRange();
     if (wordRange.first != wordRange.second)
 	{
         execute(SCI_SETSELECTIONSTART, wordRange.first);
@@ -3663,9 +3662,9 @@ void ScintillaEditView::hideLines()
 	int scope = 0;
 	bool recentMarkerWasOpen = false;
 
-	auto removeMarker = [this, &scope, &recentMarkerWasOpen](size_t line)
+	auto removeMarker = [this, &scope, &recentMarkerWasOpen](size_t line, int markerMask)
 	{
-		auto state = execute(SCI_MARKERGET, line);
+		auto state = execute(SCI_MARKERGET, line) & markerMask;
 		bool closePresent = (state & (1 << MARK_HIDELINESEND)) != 0;
 		bool openPresent = (state & (1 << MARK_HIDELINESBEGIN)) != 0;
 
@@ -3688,8 +3687,8 @@ void ScintillaEditView::hideLines()
 	size_t endMarker = endLine + 1;
 
 	// Remove all previous markers in between new ones
-	for (size_t i = startMarker + 1; i < endMarker; ++i)
-		removeMarker(i);
+	for (size_t i = startLine; i <= endLine; ++i)
+		removeMarker(i, (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND));
 
 	// When hiding lines just below/above other hidden lines,
 	// merge them into one hidden section:
@@ -3700,10 +3699,10 @@ void ScintillaEditView::hideLines()
 		// Both "while" loops are executed (merge with above AND below hidden section):
 
 		while (scope == 0)
-			removeMarker(--startMarker);
+			removeMarker(--startMarker, 1 << MARK_HIDELINESBEGIN);
 
 		while (scope != 0)
-			removeMarker(++endMarker);
+			removeMarker(++endMarker, 1 << MARK_HIDELINESEND);
 	}
 	else
 	{
@@ -3711,10 +3710,10 @@ void ScintillaEditView::hideLines()
 		// If true, only one "while" loop is executed (merge with adjacent hidden section):
 
 		while (scope < 0)
-			removeMarker(--startMarker);
+			removeMarker(--startMarker, 1 << MARK_HIDELINESBEGIN);
 
 		while (scope > 0)
-			removeMarker(++endMarker);
+			removeMarker(++endMarker, 1 << MARK_HIDELINESEND);
 	}
 
 	execute(SCI_MARKERADD, startMarker, MARK_HIDELINESBEGIN);

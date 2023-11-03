@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.5">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -614,7 +614,7 @@
 				<ScintillaCommandsTab name="Scintilla 指令"/>
 				<ConflictInfoOk name="沒有與此項目衝突的快捷鍵。"/>
 				<ConflictInfoEditing name="沒有與此項目衝突的快捷鍵..."/>
-
+				<AboutCategory name="關於"/>
 				<MainCommandNames>
 					<Item id="41019" name="在檔案總管內開啟檔案位置"/>
 					<Item id="41020" name="在 CMD 內開啟檔案位置"/>
@@ -933,7 +933,6 @@
 					<Item id="6221" name="快"/>
 					<Item id="6222" name="慢"/>
 					<Item id="6246" name="使折疊/展開當前層級命令可切換"/>
-					<Item id="6225" name="啟用多個位置同時編輯（Ctrl + 滑鼠點擊/選取）"/>
 					<Item id="6227" name="換行設定"/>
 					<Item id="6228" name="預設"/>
 					<Item id="6229" name="對齊"/>
@@ -1111,6 +1110,7 @@
 					<Item id="6907" name="當尋找對話方塊被觸發引出時"/>
 					<Item id="6908" name="用選取詞填充尋找與取代對話方塊中的尋找內容"/>
 					<Item id="6909" name="在沒有任何選取時，選取游標下的字串"/>
+					<Item id="6910" name="啟動自動勾選核取方塊「僅尋找選取範圍」的最小值："/>
 				</Searching>
 
 				<RecentFilesHistory title="最近使用的檔案">
@@ -1131,6 +1131,7 @@
 					<Item id="6821" name="秒備份一次"/>
 					<Item id="6822" name="備份資料夾："/>
 					<Item id="6309" name="開啟程式時繼續上次的工作階段"/>
+					<Item id="6825" name="保存上次的工作階段中無法讀取的文件"/>
 					<Item id="6801" name="備份"/>
 					<Item id="6315" name="無"/>
 					<Item id="6316" name="簡易備份"/>
@@ -1378,6 +1379,17 @@
 繼續嗎？"/>
 			<NeedToRestartToLoadPlugins title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能載入已安裝的外掛模組。"/>
 			<ChangeHistoryEnabledWarning title="重新啟動 Notepad++" message="你必須重新啟動 Notepad++ 才能啟動文件修改紀錄。"/>
+			<FileInaccessibleUserSession title="檔案不存在" message="儲存的工作階段 &quot;$STR_REPLACE$&quot; 中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
+
+你想為它們創建佔位欄嗎？
+
+請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將不會在 Notepad++ 關閉時被修改。
+"/>
+			<FileInaccessibleDefaultSessionXml title="檔案不存在" message="過去的工作階段中有一些已不存在的檔案。它們可以以空白唯讀文件的形式作為佔位欄而創建。
+
+你想為它們創建佔位欄嗎？
+
+請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份工作階段檔案 &quot;session.xml&quot; 。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>
@@ -1593,6 +1605,7 @@
 1. 修改這些選項需要重新開啟已開啟的大型文件以達到預期的效果。
 
 2. 如果「停用自動換行」被啟動，在開啟一個大型文件時，「自動換行」將對所有文件停用。 你可以通過選單「檢視-&gt;自動換行」重新啟動這個功能。"/>
+			<searchingInSelThresh-tip value="在尋找與取代對話方塊啟動時，為啟動自動勾選核取方塊「僅尋找選取範圍」在編輯區中選取的字符數量。 最大值為 1024。 將值設置為 0 將停止自動勾選功能。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

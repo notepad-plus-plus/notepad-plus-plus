@@ -326,50 +326,27 @@ public:
 
 // Options used for LexerCPP
 struct OptionsCPP {
-	bool stylingWithinPreprocessor;
-	bool identifiersAllowDollars;
-	bool trackPreprocessor;
-	bool updatePreprocessor;
-	bool verbatimStringsAllowEscapes;
-	bool triplequotedStrings;
-	bool hashquotedStrings;
-	bool backQuotedStrings;
-	bool escapeSequence;
-	bool fold;
-	bool foldSyntaxBased;
-	bool foldComment;
-	bool foldCommentMultiline;
-	bool foldCommentExplicit;
+	bool stylingWithinPreprocessor = false;
+	bool identifiersAllowDollars = true;
+	bool trackPreprocessor = true;
+	bool updatePreprocessor = true;
+	bool verbatimStringsAllowEscapes = false;
+	bool triplequotedStrings = false;
+	bool hashquotedStrings = false;
+	bool backQuotedStrings = false;
+	bool escapeSequence = false;
+	bool fold = false;
+	bool foldSyntaxBased = true;
+	bool foldComment = false;
+	bool foldCommentMultiline = true;
+	bool foldCommentExplicit = true;
 	std::string foldExplicitStart;
 	std::string foldExplicitEnd;
-	bool foldExplicitAnywhere;
-	bool foldPreprocessor;
-	bool foldPreprocessorAtElse;
-	bool foldCompact;
-	bool foldAtElse;
-	OptionsCPP() {
-		stylingWithinPreprocessor = false;
-		identifiersAllowDollars = true;
-		trackPreprocessor = true;
-		updatePreprocessor = true;
-		verbatimStringsAllowEscapes = false;
-		triplequotedStrings = false;
-		hashquotedStrings = false;
-		backQuotedStrings = false;
-		escapeSequence = false;
-		fold = false;
-		foldSyntaxBased = true;
-		foldComment = false;
-		foldCommentMultiline = true;
-		foldCommentExplicit = true;
-		foldExplicitStart = "";
-		foldExplicitEnd = "";
-		foldExplicitAnywhere = false;
-		foldPreprocessor = false;
-		foldPreprocessorAtElse = false;
-		foldCompact = false;
-		foldAtElse = false;
-	}
+	bool foldExplicitAnywhere = false;
+	bool foldPreprocessor = false;
+	bool foldPreprocessorAtElse = false;
+	bool foldCompact = false;
+	bool foldAtElse = false;
 };
 
 const char *const cppWordLists[] = {

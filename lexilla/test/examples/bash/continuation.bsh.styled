@@ -1,0 +1,15 @@
+{2}# Tests for line continuation.{0}
+{2}# Issue #195.{0}
+
+{2}#backslash1\{0}
+{4}echo{0} {3}1{0}
+{2}#backslash2\\{0}
+{4}echo{0} {3}2{0}
+
+{4}if{0} {7}[{0} {3}1{0} {7}];{0} {4}then{0}
+    {8}backslash1{7}={8}A{7}\{0}
+{8}fi{0}
+    {8}backslash2{7}={8}B\\{0}
+{4}fi{0}
+
+{4}echo{0} {9}$backslash1{7},{0} {9}$backslash2{0}

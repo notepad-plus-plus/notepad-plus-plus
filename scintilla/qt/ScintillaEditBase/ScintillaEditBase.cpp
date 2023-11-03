@@ -372,6 +372,9 @@ void ScintillaEditBase::contextMenuEvent(QContextMenuEvent *event)
 	}
 	if (sqt->ShouldDisplayPopup(pt)) {
 		sqt->ContextMenu(pos);
+		event->accept();
+	} else {
+		event->ignore();
 	}
 }
 
@@ -671,7 +674,7 @@ QVariant ScintillaEditBase::inputMethodQuery(Qt::InputMethodQuery query) const
 
 		case Qt::ImCurrentSelection:
 		{
-			QVarLengthArray<char,1024> buffer(send(SCI_GETSELTEXT));
+			QVarLengthArray<char,1024> buffer(send(SCI_GETSELTEXT)+1);
 			sends(SCI_GETSELTEXT, 0, buffer.data());
 
 			return sqt->StringFromDocument(buffer.constData());

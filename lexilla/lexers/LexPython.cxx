@@ -268,35 +268,19 @@ bool IsMatchOrCaseIdentifier(const StyleContext &sc, Accessor &styler, const cha
 
 // Options used for LexerPython
 struct OptionsPython {
-	int whingeLevel;
-	bool base2or8Literals;
-	bool stringsU;
-	bool stringsB;
-	bool stringsF;
-	bool stringsOverNewline;
-	bool keywords2NoSubIdentifiers;
-	bool fold;
-	bool foldQuotes;
-	bool foldCompact;
-	bool unicodeIdentifiers;
-	int identifierAttributes;
-	int decoratorAttributes;
-
-	OptionsPython() noexcept {
-		whingeLevel = 0;
-		base2or8Literals = true;
-		stringsU = true;
-		stringsB = true;
-		stringsF = true;
-		stringsOverNewline = false;
-		keywords2NoSubIdentifiers = false;
-		fold = false;
-		foldQuotes = false;
-		foldCompact = false;
-		unicodeIdentifiers = true;
-		identifierAttributes = 0;
-		decoratorAttributes = 0;
-	}
+	int whingeLevel = 0;
+	bool base2or8Literals = true;
+	bool stringsU = true;
+	bool stringsB = true;
+	bool stringsF = true;
+	bool stringsOverNewline = false;
+	bool keywords2NoSubIdentifiers = false;
+	bool fold = false;
+	bool foldQuotes = false;
+	bool foldCompact = false;
+	bool unicodeIdentifiers = true;
+	int identifierAttributes = 0;
+	int decoratorAttributes = 0;
 
 	literalsAllowed AllowedLiterals() const noexcept {
 		literalsAllowed allowedLiterals = stringsU ? litU : litNone;

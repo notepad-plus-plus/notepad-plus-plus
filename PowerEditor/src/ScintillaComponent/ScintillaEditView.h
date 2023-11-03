@@ -774,6 +774,7 @@ public:
 	void setPositionRestoreNeeded(bool val) { _positionRestoreNeeded = val; };
 	void markedTextToClipboard(int indiStyle, bool doAll = false);
 	void removeAnyDuplicateLines();
+	bool expandWordSelection();
 
 protected:
 	static bool _SciInit;
@@ -1183,7 +1184,6 @@ protected:
 	};
 
 	std::pair<size_t, size_t> getWordRange();
-	bool expandWordSelection();
 	void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
 };
 

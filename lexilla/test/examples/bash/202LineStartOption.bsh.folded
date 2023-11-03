@@ -1,0 +1,42 @@
+ 0 400   0   -a
+ 0 400   0   #
+ 0 400   0   -b
+ 0 400   0   #
+ 1 400   0   
+ 0 400   0   declare -A optionSet=([--help]=0)
+ 2 400   0 + for option in {-h,--help,--version,--verbose,-,--}; do
+ 2 401   0 + case $option in
+ 0 402   0 | 	-h|--help)
+ 0 402   0 | 		optionSet[--help]=1
+ 0 402   0 | 		echo help: $option
+ 0 402   0 | 		;;
+ 0 402   0 | 	-*-version)
+ 0 402   0 | 		echo version: $option
+ 0 402   0 | 		;;
+ 0 402   0 | 	--)
+ 0 402   0 | 		echo stop
+ 0 402   0 | 		;;
+ 0 402   0 | 	-)
+ 0 402   0 | 		echo stdin
+ 0 402   0 | 		;;
+ 0 402   0 | 	-*[-a-zA-Z0-9])
+ 0 402   0 | 		echo other: $option
+ 0 402   0 | 		;;
+ 0 402   0 | esac
+ 0 401   0 | done
+ 1 400   0   
+ 0 400   0   option=--help
+ 0 400   0   [[ $option == *-h* ]] && echo $option=${optionSet[$option]}
+ 1 400   0   
+ 2 400   0 + for gcc in gcc{,-1{4..0..-1}}; do
+ 0 401   0 | 	echo $gcc
+ 0 401   0 | done
+ 1 400   0   
+ 2 400   0 + for gcc in gcc{,{-14..-10}}; do
+ 0 401   0 | 	echo $gcc
+ 0 401   0 | done
+ 1 400   0   
+ 0 400   0   # Tilde-refix ~
+ 0 400   0   ~+/foo
+ 0 400   0   ~-/foo
+ 0 400   0   

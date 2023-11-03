@@ -1237,6 +1237,12 @@ void Notepad_plus::command(int id)
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize] = { '\0' };
 
+			const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
+			if (nppGui._fillFindFieldWithSelected)
+			{
+				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
+			}
+
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
 			DIALOG_TYPE dlgID = FIND_DLG;
@@ -1246,11 +1252,9 @@ void Notepad_plus::command(int id)
 				dlgID = MARK_DLG;
 			_findReplaceDlg.doDialog(dlgID, _nativeLangSpeaker.isRTL());
 
-			const NppGUI & nppGui = (NppParameters::getInstance()).getNppGUI();
 			if (nppGui._fillFindFieldWithSelected)
 			{
-				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
-				if (lstrlen(str) <= FINDREPLACE_INSEL_TEXTSIZE_THRESHOLD)
+				if (lstrlen(str) <= FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT)
 				{
 					_findReplaceDlg.setSearchText(str);
 				}
@@ -1998,6 +2002,63 @@ void Notepad_plus::command(int id)
 			buf->setFileReadOnly(false);
 		}
 		break;
+
+		case IDM_EDIT_MULTISELECTALL:
+		case IDM_EDIT_MULTISELECTALLMATCHCASE:
+		case IDM_EDIT_MULTISELECTALLWHOLEWORD:
+		case IDM_EDIT_MULTISELECTALLMATCHCASEWHOLEWORD:
+		{
+			_multiSelectFlag = id == IDM_EDIT_MULTISELECTALL ? 0 :
+				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
+					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD: SCFIND_MATCHCASE| SCFIND_WHOLEWORD));
+
+			bool hasSelection = (_pEditView->execute(SCI_GETSELECTIONSTART) != _pEditView->execute(SCI_GETSELECTIONEND));
+			if (!hasSelection)
+				_pEditView->expandWordSelection();
+
+			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
+
+			// Firstly do a selection of the word on which the cursor is
+			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);
+			_pEditView->execute(SCI_MULTIPLESELECTADDEACH);
+		}
+		break;
+
+		case IDM_EDIT_MULTISELECTNEXT:
+		case IDM_EDIT_MULTISELECTNEXTMATCHCASE:
+		case IDM_EDIT_MULTISELECTNEXTWHOLEWORD:
+		case IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD:
+		{
+			_multiSelectFlag = id == IDM_EDIT_MULTISELECTNEXT ? 0 :
+				(id == IDM_EDIT_MULTISELECTNEXTMATCHCASE ? SCFIND_MATCHCASE :
+					(id == IDM_EDIT_MULTISELECTNEXTWHOLEWORD ? SCFIND_WHOLEWORD : SCFIND_MATCHCASE | SCFIND_WHOLEWORD));
+
+			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
+			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag);
+			_pEditView->execute(SCI_MULTIPLESELECTADDNEXT);
+		}
+		break;
+
+		case IDM_EDIT_MULTISELECTUNDO:
+		{
+			LRESULT n = _pEditView->execute(SCI_GETSELECTIONS);
+			if (n > 0)
+				_pEditView->execute(SCI_DROPSELECTIONN, n - 1);
+		}
+		break;
+
+		case IDM_EDIT_MULTISELECTSSKIP:
+		{
+			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
+			_pEditView->execute(SCI_SETSEARCHFLAGS, _multiSelectFlag); // use the last used flag to select the next one
+			_pEditView->execute(SCI_MULTIPLESELECTADDNEXT);
+
+			LRESULT n = _pEditView->execute(SCI_GETSELECTIONS);
+			if (n > 1)
+				_pEditView->execute(SCI_DROPSELECTIONN, n - 2);
+		}
+		break;
+
 
 		case IDM_SEARCH_CUTMARKEDLINES :
 			cutMarkedLines();
@@ -4230,6 +4291,14 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_IN_IE      :
 			case IDM_EDIT_COPY_ALL_NAMES:
 			case IDM_EDIT_COPY_ALL_PATHS:
+			case IDM_EDIT_MULTISELECTALLWHOLEWORD:
+			case IDM_EDIT_MULTISELECTALLMATCHCASEWHOLEWORD:
+			case IDM_EDIT_MULTISELECTNEXT:
+			case IDM_EDIT_MULTISELECTNEXTMATCHCASE:
+			case IDM_EDIT_MULTISELECTNEXTWHOLEWORD:
+			case IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD:
+			case IDM_EDIT_MULTISELECTUNDO:
+			case IDM_EDIT_MULTISELECTSSKIP:
 				_macro.push_back(recordedMacroStep(id));
 				break;
 

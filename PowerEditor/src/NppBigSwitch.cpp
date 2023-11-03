@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <shlwapi.h>
 #include <uxtheme.h> // for EnableThemeDialogTexture
+#include <format>
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
@@ -57,6 +58,114 @@ struct SortTaskListPred final
 	}
 };
 
+// app-restart feature needs Win10 20H1+ (builds 18963+), but it was quietly introduced earlier in the Fall Creators Update (b1709+)
+bool SetOSAppRestart()
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	if (nppParam.getWinVersion() < WV_WIN10)
+		return false; // unsupported
+
+	bool bRet = false;
+	bool bUnregister = nppParam.isRegForOSAppRestartDisabled();
+
+	generic_string nppIssueLog;
+	if (nppParam.doNppLogNulContentCorruptionIssue())
+	{
+		generic_string issueFn = nppLogNulContentCorruptionIssue;
+		issueFn += TEXT(".log");
+		nppIssueLog = nppParam.getUserPath();
+		pathAppend(nppIssueLog, issueFn);
+	}
+
+	WCHAR wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
+	DWORD cchCmdLine = _countof(wszCmdLine);
+	DWORD dwPreviousFlags = 0;
+	HRESULT hr = ::GetApplicationRestartSettings(::GetCurrentProcess(), wszCmdLine, &cchCmdLine, &dwPreviousFlags);
+	if (bUnregister)
+	{
+		// unregistering (disabling) request
+
+		if (hr == HRESULT_FROM_WIN32(ERROR_NOT_FOUND))
+		{
+			// has not been registered before, nothing to do here
+			bRet = true;
+		}
+		else
+		{
+			if (hr == S_OK)
+			{
+				// has been already registered before, try to unregister
+				if (::UnregisterApplicationRestart() == S_OK)
+				{
+					bRet = true;
+				}
+				else
+				{
+					if (nppParam.doNppLogNulContentCorruptionIssue())
+					{
+						std::string msg = "ERROR: UnregisterApplicationRestart WINAPI failed! (HRESULT: ";
+						msg += std::format("{:#010x}", hr);
+						msg += ")";
+						writeLog(nppIssueLog.c_str(), msg.c_str());
+					}
+				}
+			}
+			else
+			{
+				if (nppParam.doNppLogNulContentCorruptionIssue())
+				{
+					std::string msg = "ERROR: GetApplicationRestartSettings WINAPI failed! (HRESULT: ";
+					msg += std::format("{:#010x}", hr);
+					msg += ")";
+					writeLog(nppIssueLog.c_str(), msg.c_str());
+				}
+			}
+		}
+	}
+	else
+	{
+		// registering request
+
+		if (hr == S_OK)
+			::UnregisterApplicationRestart(); // remove a previous registration 1st
+
+		if (nppParam.getCmdLineString().length() >= RESTART_MAX_CMD_LINE)
+		{
+			if (nppParam.doNppLogNulContentCorruptionIssue())
+			{
+				std::string msg = "WARNING: Skipping the RegisterApplicationRestart WINAPI call because of the cmdline length exceeds the RESTART_MAX_CMD_LINE! \n(current cmdline length: ";
+				msg += std::to_string(nppParam.getCmdLineString().length());
+				msg += " chars)";
+				writeLog(nppIssueLog.c_str(), msg.c_str());
+			}
+		}
+		else
+		{
+			// do not restart the process:
+			// RESTART_NO_CRASH  (1) ... for termination due to application crashes
+			// RESTART_NO_HANG   (2) ... for termination due to application hangs
+			// RESTART_NO_PATCH  (4) ... for termination due to patch installations
+			// RESTART_NO_REBOOT (8) ... when the system is rebooted
+			hr = ::RegisterApplicationRestart(nppParam.getCmdLineString().c_str(), RESTART_NO_CRASH | RESTART_NO_HANG | RESTART_NO_PATCH);
+			if (hr == S_OK)
+			{
+				bRet = true;
+			}
+			else
+			{
+				if (nppParam.doNppLogNulContentCorruptionIssue())
+				{
+					std::string msg = "ERROR: RegisterApplicationRestart WINAPI failed! (HRESULT: ";
+					msg += std::format("{:#010x}", hr);
+					msg += ")";
+					writeLog(nppIssueLog.c_str(), msg.c_str());
+				}
+			}
+		}
+	}
+
+	return bRet;
+}
 
 LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -114,6 +223,8 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 						rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
 						SWP_FRAMECHANGED);
 				}
+
+				SetOSAppRestart();
 
 				return lRet;
 			}
@@ -1184,13 +1295,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETNBSESSIONFILES:
 		{
-			const TCHAR *sessionFileName = reinterpret_cast<const TCHAR *>(lParam);
-			if ((!sessionFileName) || (sessionFileName[0] == '\0'))
-				return 0;
-			Session session2Load;
-			if (nppParam.loadSession(session2Load, sessionFileName))
-				return session2Load.nbMainFiles() + session2Load.nbSubFiles();
-			return 0;
+			size_t nbSessionFiles = 0;
+			const TCHAR* sessionFileName = reinterpret_cast<const TCHAR*>(lParam);
+			BOOL* pbIsValidXML = reinterpret_cast<BOOL*>(wParam);
+			if (pbIsValidXML)
+				*pbIsValidXML = false;
+			if (sessionFileName && (sessionFileName[0] != '\0'))
+			{
+				Session session2Load;
+				if (nppParam.loadSession(session2Load, sessionFileName, true))
+				{
+					if (pbIsValidXML)
+						*pbIsValidXML = true;
+					nbSessionFiles = session2Load.nbMainFiles() + session2Load.nbSubFiles();
+				}
+			}
+			return nbSessionFiles;
 		}
 
 		case NPPM_GETSESSIONFILES:
@@ -1202,7 +1322,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 
 			Session session2Load;
-			if (nppParam.loadSession(session2Load, sessionFileName))
+			if (nppParam.loadSession(session2Load, sessionFileName, true))
 			{
 				size_t i = 0;
 				for ( ; i < session2Load.nbMainFiles() ; )
@@ -1783,14 +1903,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SETMULTISELCTION:
-		{
-			const NppGUI & nppGUI = nppParam.getNppGUI();
-			_mainEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
-			_subEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
-			return TRUE;
-		}
-
 		case NPPM_INTERNAL_SETCARETBLINKRATE:
 		{
 			const NppGUI & nppGUI = nppParam.getNppGUI();
@@ -2303,10 +2415,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			// TODO: here is the last opportunity to call the following WINAPI in a possible future version of the Notepad++
-			// 
-			// flags RESTART_NO_PATCH and RESTART_NO_REBOOT are not set, so we should be restarted if terminated by an update or restart
-			//::RegisterApplicationRestart(restartCommandLine.c_str(), RESTART_NO_CRASH | RESTART_NO_HANG);
+			// NOTE: This should be the last possible place to eventually register Notepad++ for the app-restart OS feature,
+			//       but unfortunately it doesn't work here.
 
 			return TRUE; // nowadays, with the monstrous Win10+ Windows Update behind, is futile to try to interrupt the shutdown by returning FALSE here
 						 // (if one really needs so, there is the ShutdownBlockReasonCreate WINAPI for the rescue ...)

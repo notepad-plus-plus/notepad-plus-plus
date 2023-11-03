@@ -39,4 +39,14 @@
 {4}pwd{0}
 {8}END{0}
 
+{2}# Issue 194, failed to understand character escaping so string unterminated{0}
+{4}echo{0} {5}"foo `echo foo \\" bar` bar"{0}
+{4}echo{0} {5}"xinput set-prop bla \"blub\" `grep bla $WRITE_APPENDIX/var/lib/path.txt | cut -d \\" -f 4`"{0} {7}>/{8}some_file.sh{0}
+
+{2}# Issue 194, $ before end of backticks is literal{0}
+{4}echo{0} {11}`echo \$`{0}
+{4}echo{0} {11}`echo \$bar\$`{0}
+{4}echo{0} {11}`echo $`{0}
+{4}echo{0} {11}`echo $bar$`{0}
+
 {8}INVALID_NUMBER{7}={1}0#0000{0}

@@ -123,7 +123,7 @@ void TestDocument::Set(std::string_view sv) {
 	if (lineStarts.back() != Length()) {
 		lineStarts.push_back(Length());
 	}
-	lineStates.resize(lineStarts.size());
+	lineStates.resize(lineStarts.size() + 1);
 	lineLevels.resize(lineStarts.size(), 0x400);
 }
 
@@ -271,7 +271,7 @@ Sci_Position SCI_METHOD TestDocument::GetRelativePosition(Sci_Position positionS
 	if (characterOffset < 0) {
 		while (characterOffset < 0) {
 			if (pos <= 0) {
-				return 0;
+				return -1;
 			}
 			unsigned char previousByte = text.at(pos - 1);
 			if (previousByte < 0x80) {
@@ -302,8 +302,8 @@ Sci_Position SCI_METHOD TestDocument::GetRelativePosition(Sci_Position positionS
 
 int SCI_METHOD TestDocument::GetCharacterAndWidth(Sci_Position position, Sci_Position *pWidth) const {
 	// TODO: invalid UTF-8
-	if (position >= Length()) {
-		// Return NULs after document end
+	if ((position < 0) || (position >= Length())) {
+		// Return NULs before document start and after document end
 		if (pWidth) {
 			*pWidth = 1;
 		}

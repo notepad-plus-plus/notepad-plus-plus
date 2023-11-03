@@ -97,6 +97,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

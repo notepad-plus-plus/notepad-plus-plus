@@ -2104,9 +2104,13 @@ void Notepad_plus::loadLastSession()
 	_isFolding = false;
 }
 
-bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shouldLoadFileBrowser)
+bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wchar_t* userCreatedSessionName)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
+	const NppGUI& nppGUI = nppParam.getNppGUI();
+
+	nppParam.setTheWarningHasBeenGiven(false);
+
 	bool allSessionFilesLoaded = true;
 	BufferID lastOpened = BUFFER_INVALID;
 	//size_t i = 0;
@@ -2145,7 +2149,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = BUFFER_INVALID;
+			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
+			if (foundBufID == BUFFER_INVALID)
+				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2168,8 +2174,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 				
 				if (!id) // it could be due to the hidden language from the sub-menu "Languages"
 				{
-					const NppGUI& nppGUI = nppParam.getNppGUI();
-
 					for (size_t k = 0; k < nppGUI._excludedLangList.size(); ++k) // try to find it in exclude lang list
 					{
 						if (nppGUI._excludedLangList[k]._langName == pLn)
@@ -2283,7 +2287,9 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 		}
 		else
 		{
-			lastOpened = BUFFER_INVALID;
+			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
+			if (foundBufID == BUFFER_INVALID)
+				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName) : BUFFER_INVALID;
 		}
 		if (isWow64Off)
 		{
@@ -2396,10 +2402,21 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, bool shou
 	if (_pDocumentListPanel)
 		_pDocumentListPanel->reload();
 
-	if (shouldLoadFileBrowser && !session._fileBrowserRoots.empty())
+	if (userCreatedSessionName && !session._fileBrowserRoots.empty())
 	{
-		// Force launch file browser and add roots
+		// If the session is user's created session but not session.xml, we force to launch Folder as Workspace and add roots
 		launchFileBrowser(session._fileBrowserRoots, session._fileBrowserSelectedItem, true);
+	}
+
+	// Especially File status auto-detection set on "Enable for all opened files":  nppGUI._fileAutoDetection & cdEnabledOld
+	// when "Remember inaccessible files from past session" is enabled:             nppGUI._keepSessionAbsentFileEntries
+	// there are some (or 1) absent files:                                          nppParam.theWarningHasBeenGiven()
+	// and user want to create the placeholders for these files:                    nppParam.isPlaceHolderEnabled()
+	//
+	// When above conditions are true, the created placeholders are not read-only, due to the lack of file-detection on them.
+	if (nppGUI._keepSessionAbsentFileEntries && nppParam.theWarningHasBeenGiven() && nppParam.isPlaceHolderEnabled() && (nppGUI._fileAutoDetection & cdEnabledOld))
+	{
+		checkModifiedDocument(false); // so here we launch file-detection for all placeholders manually
 	}
 
 	return allSessionFilesLoaded;
@@ -2431,7 +2448,6 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			sessionFileName = fn;
 	}
 
-
 	NppParameters& nppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = nppParam.getNppGUI();
 	if (!sessionFileName.empty())
@@ -2448,38 +2464,25 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			TCHAR nppFullPath[MAX_PATH]{};
 			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
-
 			generic_string args = TEXT("-multiInst -nosession -openSession ");
 			args += TEXT("\"");
 			args += sessionFileName;
 			args += TEXT("\"");
-			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
-			result = true;
+			if (::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW) > (HINSTANCE)32)
+				result = true;
 		}
 		else
 		{
-			bool isAllSuccessful = true;
 			Session session2Load;
 
 			if (nppParam.loadSession(session2Load, sessionFileName.c_str()))
 			{
 				const bool isSnapshotMode = false;
-				const bool shouldLoadFileBrowser = true;
-				isAllSuccessful = loadSession(session2Load, isSnapshotMode, shouldLoadFileBrowser);
-				result = true;
-				if (isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
+				result = loadSession(session2Load, isSnapshotMode, sessionFileName.c_str());
+
+				if (isEmptyNpp && nppGUI._multiInstSetting == multiInstOnSession)
 					nppParam.setLoadedSessionFilePath(sessionFileName);
 			}
-			if (!isAllSuccessful)
-				nppParam.writeSession(session2Load, sessionFileName.c_str());
-		}
-		if (result == false)
-		{
-			_nativeLangSpeaker.messageBox("SessionFileInvalidError",
-				NULL,
-				TEXT("Session file is either corrupted or not valid."),
-				TEXT("Could not Load Session"),
-				MB_OK);
 		}
 	}
 
@@ -2488,7 +2491,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 
 const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser)
 {
-	if (sessionFile2save)
+	if (sessionFile2save && (lstrlen(sessionFile2save) > 0))
 	{
 		Session currentSession;
 		if ((nbFile) && (fileNames))
@@ -2540,7 +2543,10 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	fDlg.setCheckbox(checkboxLabel.c_str(), isCheckboxActive);
 	generic_string sessionFileName = fDlg.doSaveDlg();
 
-	return fileSaveSession(nbFile, fileNames, sessionFileName.c_str(), fDlg.getCheckboxState());
+	if (!sessionFileName.empty())
+		return fileSaveSession(nbFile, fileNames, sessionFileName.c_str(), fDlg.getCheckboxState());
+
+	return NULL;
 }
 
 

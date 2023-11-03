@@ -1224,34 +1224,48 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 	return FALSE;
 }
 
-CommandShortcut::CommandShortcut(const Shortcut& sc, long id) :	Shortcut(sc), _id(id)
+void CommandShortcut::setCategoryFromMenu(HMENU hMenu)
 {
-	_shortcutName = string2wstring(sc.getName(), CP_UTF8);
-	if ( _id >= IDM_WINDOW_SORT_FN_ASC and _id <= IDM_WINDOW_SORT_FS_DSC)
-		_category = TEXT("Window");
+	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+
+	if (_id >= IDM_WINDOW_WINDOWS && _id <= IDM_WINDOW_SORT_FS_DSC)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "Window", L"Window");
+	else if ( _id >= IDM_VIEW_GOTO_ANOTHER_VIEW && _id <= IDM_VIEW_LOAD_IN_NEW_INSTANCE)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "view", L"View");
+	else if (_id == IDM_EDIT_LTR || _id == IDM_EDIT_RTL)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "view", L"View");
+	else if (_id == IDC_PREV_DOC || _id == IDC_NEXT_DOC)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "view", L"View");
+	else if (_id == IDM_FORMAT_TODOS || _id == IDM_FORMAT_TOUNIX || _id == IDM_FORMAT_TOMAC)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "edit", L"Edit");
+	else if (_id == IDM_EDIT_AUTOCOMPLETE || _id == IDM_EDIT_AUTOCOMPLETE_CURRENTFILE || _id == IDM_EDIT_FUNCCALLTIP ||
+		_id == IDM_EDIT_AUTOCOMPLETE_PATH || _id == IDM_EDIT_FUNCCALLTIP_PREVIOUS || _id == IDM_EDIT_FUNCCALLTIP_NEXT)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "edit", L"Edit");
+	else if (_id == IDM_LANGSTYLE_CONFIG_DLG)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "settings", L"Settings");
+	else if (_id == IDM_MACRO_STARTRECORDINGMACRO  ||_id == IDM_MACRO_STOPRECORDINGMACRO  || _id == IDM_MACRO_RUNMULTIMACRODLG ||
+		_id == IDM_MACRO_PLAYBACKRECORDEDMACRO  ||_id == IDM_MACRO_SAVECURRENTMACRO || _id == IDC_EDIT_TOGGLEMACRORECORDING)
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "macro", L"Macro");
+
+
 	else if ( _id < IDM_EDIT)
-		_category = TEXT("File");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "file", L"File");
 	else if ( _id < IDM_SEARCH)
-		_category = TEXT("Edit");
-	else if (((_id >= IDM_EDIT_AUTOCOMPLETE) && (_id <= IDM_EDIT_AUTOCOMPLETE_PATH)) || 
-			 ((_id >= IDM_EDIT_FUNCCALLTIP_PREVIOUS) && (_id <= IDM_EDIT_FUNCCALLTIP_NEXT)))
-		_category = TEXT("Edit");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "edit",L"Edit");
 	else if ( _id < IDM_VIEW)
-		_category = TEXT("Search");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "search", L"Search");
 	else if ( _id < IDM_FORMAT)
-		_category = TEXT("View");
-	else if ( _id >= IDM_VIEW_GOTO_ANOTHER_VIEW and _id <= IDM_VIEW_LOAD_IN_NEW_INSTANCE)
-		_category = TEXT("View");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "view", L"View");
 	else if ( _id < IDM_LANG)
-		_category = TEXT("Format");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "encoding", L"Encoding");
 	else if ( _id < IDM_ABOUT)
-		_category = TEXT("Lang");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "language", L"Language");
 	else if ( _id < IDM_SETTING)
-		_category = TEXT("About");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "about", L"About");
 	else if ( _id < IDM_TOOL)
-		_category = TEXT("Setting");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "settings", L"Settings");
 	else if ( _id < IDM_EXECUTE)
-		_category = TEXT("Tool");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "tools", L"Tools");
 	else
-		_category = TEXT("Execute");
+		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "run", L"Run");
 }

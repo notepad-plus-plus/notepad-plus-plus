@@ -17,6 +17,7 @@ SOURCES += \
 
 HEADERS  += \
     ../include/Lexilla.h \
+    $$files(../lexlib/*.h, false) \
     $$files(../lexers/*.h, false)
 
 INCLUDEPATH += ../include ../lexlib ../../scintilla/include

@@ -40,6 +40,8 @@ StyleContext::StyleContext(Sci_PositionU startPos, Sci_PositionU length,
 	styler.StartAt(startPos /*, chMask*/);
 	styler.StartSegment(startPos);
 
+	chPrev = GetRelativeCharacter(-1);
+
 	// Variable width is now 0 so GetNextChar gets the char at currentPos into chNext/widthNext
 	GetNextChar();
 	ch = chNext;

@@ -2012,7 +2012,9 @@ void Notepad_plus::command(int id)
 				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
 					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD: SCFIND_MATCHCASE| SCFIND_WHOLEWORD));
 
-			_pEditView->expandWordSelection();
+			bool hasSelection = (_pEditView->execute(SCI_GETSELECTIONSTART) != _pEditView->execute(SCI_GETSELECTIONEND));
+			if (!hasSelection)
+				_pEditView->expandWordSelection();
 
 			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);
 
@@ -4289,6 +4291,14 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_IN_IE      :
 			case IDM_EDIT_COPY_ALL_NAMES:
 			case IDM_EDIT_COPY_ALL_PATHS:
+			case IDM_EDIT_MULTISELECTALLWHOLEWORD:
+			case IDM_EDIT_MULTISELECTALLMATCHCASEWHOLEWORD:
+			case IDM_EDIT_MULTISELECTNEXT:
+			case IDM_EDIT_MULTISELECTNEXTMATCHCASE:
+			case IDM_EDIT_MULTISELECTNEXTWHOLEWORD:
+			case IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD:
+			case IDM_EDIT_MULTISELECTUNDO:
+			case IDM_EDIT_MULTISELECTSSKIP:
 				_macro.push_back(recordedMacroStep(id));
 				break;
 

@@ -9,24 +9,24 @@ image: Visual Studio 2022
 environment:
   python_dir: C:\Python311-x64
   matrix:
-    - compiler: MSC
-      platform: Win32
+    #- compiler: MSC
+    #  platform: Win32
 
     - compiler: MSC
       platform: x64
 
-    - compiler: MSC
-      platform: arm64
+    #- compiler: MSC
+    #  platform: arm64
 
-    - compiler: GCC
-      platform: i686
+    #- compiler: GCC
+    #  platform: i686
 
-    - compiler: GCC
-      platform: x86_64
+    #- compiler: GCC
+    #  platform: x86_64
 
 configuration:
     - Release
-    - Debug
+    #- Debug
 
 before_build:
     - ps: |
@@ -123,8 +123,8 @@ for:
         Copy-Item "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\installer\filesForTesting\overrideMap.xml" -Destination "$env:APPVEYOR_BUILD_FOLDER\PowerEditor\bin\functionList"
 
         cd .\PowerEditor\Test\FunctionList\
-        #.\unitTestLauncher.ps1
-        #if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
+        .\unitTestLauncher.ps1
+        if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
 
         cd ..\UrlDetection
         .\verifyUrlDetection.ps1

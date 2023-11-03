@@ -39,6 +39,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="&amp;Blank Operations"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
 					<Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multi-select ALL"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multi-select Next"/>
 					<Item subMenuId="search-changeHistory" name="Change History"/>
 					<Item subMenuId="search-markAll" name="Style &amp;All Occurrences of Token"/>
 					<Item subMenuId="search-markOne" name="Style &amp;One Token"/>
@@ -118,6 +120,16 @@ Translation note:
 					<Item id="42007" name="&amp;Select All"/>
 					<Item id="42020" name="Begin/End &amp;Select"/>
 					<Item id="42089" name="Begin/End Select in Column Mode"/>
+					<Item id="42090" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42091" name="Match Case Only"/>
+					<Item id="42092" name="Match Whole Word Only"/>
+					<Item id="42093" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42094" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42095" name="Match Case Only"/>
+					<Item id="42096" name="Match Whole Word Only"/>
+					<Item id="42097" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42098" name="Undo the Latest Added Multi-Select"/>
+					<Item id="42099" name="Skip Current &amp;&amp; Go to Next Multi-select"/>
 					<Item id="42084" name="Date Time (short)"/>
 					<Item id="42085" name="Date Time (long)"/>
 					<Item id="42086" name="Date Time (customized)"/>

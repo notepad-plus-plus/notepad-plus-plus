@@ -57,6 +57,8 @@ MenuPosition menuPos[] = {
 	{ 1,  19, -1, "edit-blankOperations" },
 	{ 1,  20, -1, "edit-pasteSpecial" },
 	{ 1,  21, -1, "edit-onSelection" },
+	{ 1,  23, -1, "edit-multiSelectALL" },
+	{ 1,  24, -1, "edit-multiSelectNext" },
 
 	{ 2,  18, -1, "search-changeHistory" },
 	{ 2,  20, -1, "search-markAll" },

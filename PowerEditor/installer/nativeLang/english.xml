@@ -39,6 +39,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="&amp;Blank Operations"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Paste Special"/>
 					<Item subMenuId="edit-onSelection" name="&amp;On Selection"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multi-select ALL"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multi-select Next"/>
 					<Item subMenuId="search-changeHistory" name="Change History"/>
 					<Item subMenuId="search-markAll" name="Style &amp;All Occurrences of Token"/>
 					<Item subMenuId="search-markOne" name="Style &amp;One Token"/>
@@ -154,6 +156,16 @@ Translation note:
 					<Item id="42074" name="Open Containing Folder in Explorer"/>
 					<Item id="42075" name="Search on Internet"/>
 					<Item id="42076" name="Change Search Engine..."/>
+					<Item id="42090" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42091" name="Match Case Only"/>
+					<Item id="42092" name="Match Whole Word Only"/>
+					<Item id="42093" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42094" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42095" name="Match Case Only"/>
+					<Item id="42096" name="Match Whole Word Only"/>
+					<Item id="42097" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42098" name="Undo the Latest Added Multi-Select"/>
+					<Item id="42099" name="Skip Current &amp;&amp; Go to Next Multi-select"/>
 					<Item id="42018" name="Start Re&amp;cording"/>
 					<Item id="42019" name="S&amp;top Recording"/>
 					<Item id="42021" name="&amp;Playback"/>

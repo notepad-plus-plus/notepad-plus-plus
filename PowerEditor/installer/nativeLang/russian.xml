@@ -37,6 +37,8 @@ Updated to v8.5.9:
 					<Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
 					<Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
 					<Item subMenuId="edit-onSelection" name="Выделенное"/>
+					<Item subMenuId="edit-multiSelectALL" name="Мультивыбор Все"/>
+					<Item subMenuId="edit-multiSelectNext" name="Мультивыбор Далее"/>
 					<Item subMenuId="search-changeHistory" name="История Изменений"/>
 					<Item subMenuId="search-markAll" name="Пометить все совпадения"/>
 					<Item subMenuId="search-markOne" name="Пометить только одно"/>
@@ -127,6 +129,18 @@ Updated to v8.5.9:
 					<Item id="42007" name="Выделить всё"/>
 					<Item id="42020" name="Задать выделение (начало/конец)"/>
 					<Item id="42089" name="Выделение Столбцом (начало/конец)"/>
+
+					<Item id="42090" name="Игнорировать Регистр и Целые Слова"/>
+					<Item id="42091" name="Учитывать Только Регистр"/>
+					<Item id="42092" name="Учитывать Только Целые Слова"/>
+					<Item id="42093" name="Учитывать Регистр и Целые Слова"/>
+
+					<Item id="42094" name="Игнорировать Регистр и Целые Слова"/>
+					<Item id="42095" name="Учитывать Только Регистр"/>
+					<Item id="42096" name="Учитывать Только Целые Слова"/>
+					<Item id="42097" name="Учитывать Регистр и Целые Слова"/>
+					<Item id="42098" name="Отменить Последний Добавленный"/>
+					<Item id="42099" name="Пропустить Текущий и Перейти к След."/>
 
 					<Item id="42029" name="&amp;Путь и Имя файла в буфер"/>
 					<Item id="42030" name="&amp;Имя файла в буфер"/>
@@ -1010,7 +1024,6 @@ Updated to v8.5.9:
 					<Item id="6219" name="Частота мерц. :"/>
 					<Item id="6221" name="Ч"/>
 					<Item id="6222" name="Р"/>
-					<Item id="6225" name="Мультиредактирование  (Ctrl + Клик / Выделение)"/>
 					<Item id="6227" name="Стиль Переноса Строк"/>
 					<Item id="6228" name="Стандартный"/>
 					<Item id="6229" name="Выровненный"/>
@@ -1656,7 +1669,7 @@ Notepad++ сделает резервную копию вашего старог
 			<finder-copy-verbatim value="Копировать"/>
 			<finder-copy-paths value="Путь и Имя файла в буфер"/>
 			<finder-select-all value="Выделить всё"/>
-			<finder-clear-all value="Очистить поле поиска"/>
+			<finder-clear-all value="Очистить всё поле поиска"/>
 			<finder-open-all value="Открыть все файлы"/>
 			<finder-wrap-long-lines value="Перенос слов длинных строк"/>
 			<common-ok value="ОК"/>

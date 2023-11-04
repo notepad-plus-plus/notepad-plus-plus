@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 30 Oct 2023, for Notepad++ 8.5.9
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 03 Nov 2023, for Notepad++ 8.5.9
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -39,6 +39,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Operações com espaços"/>
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multi-seleciona TODOS"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multi-seleciona Próximo"/>	
 					<Item subMenuId="search-changeHistory" name="Histórico de Alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar todos"/>
 					<Item subMenuId="search-markOne" name="Marcar um"/>
@@ -154,6 +156,16 @@ Translation note:
 					<Item id="42074" name="Abrir pasta que os contém no Explorer"/>
 					<Item id="42075" name="Pesquisar na Internet"/>
 					<Item id="42076" name="Alterar mecanismo de pesquisa..."/>
+					<Item id="42090" name="Ignorar Maiúsculas-Minúsculas &amp;&amp; Palavra Inteira"/>
+					<Item id="42091" name="Correspondência apenas de Maiúsculas-Minúsculas"/>
+					<Item id="42092" name="Correspondência apenas da Palavra Inteira"/>
+					<Item id="42093" name="Correspondência de Maiúsculas-Minúsculas &amp;&amp; Palavra Inteira"/>
+					<Item id="42094" name="Ignorar Maiúsculas-Minúsculas &amp;&amp; Palavra Inteira"/>
+					<Item id="42095" name="Correspondência apenas de Maiúsculas-Minúsculas"/>
+					<Item id="42096" name="Correspondência apenas da Palavra Inteira"/>
+					<Item id="42097" name="Correspondência de Maiúsculas-Minúsculas &amp;&amp; Palavra Inteira"/>
+					<Item id="42098" name="Desfazer a Multi-Seleção mais recente"/>
+					<Item id="42099" name="Desprezar a atual &amp;&amp;Ir para próxima Multi-Seleção"/>
 					<Item id="42018" name="Iniciar gravação"/>
 					<Item id="42019" name="Parar gravação"/>
 					<Item id="42021" name="&amp;Reproduzir"/>

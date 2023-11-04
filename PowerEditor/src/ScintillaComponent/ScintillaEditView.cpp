@@ -499,6 +499,34 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
+		case WM_KEYDOWN :
+		{
+			if ((execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN))
+			{
+				switch (wParam)
+				{
+					case VK_LEFT:
+					case VK_RIGHT:
+					case VK_UP:
+					case VK_DOWN:
+					case VK_HOME:
+					case VK_END:
+						execute(SCI_SETSELECTIONMODE, SC_SEL_STREAM); // When it's rectangular selection and the arrow keys are pressed, we switch the mode for having multiple carets.
+
+						execute(SCI_SETSELECTIONMODE, SC_SEL_STREAM); // the 2nd call for removing the unwanted selection while moving carets.
+						                                              // Solution suggested by Neil Hodgson. See:
+						                                              // https://sourceforge.net/p/scintilla/bugs/2412/
+						break;
+
+					default:
+						break;
+
+				}
+
+			}
+			break;
+		}
+
 		case WM_VSCROLL :
 		{
 			break;

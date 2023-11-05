@@ -443,7 +443,8 @@ struct StyleArray
 	void clear() { _styleVect.clear(); };
 
 	Style& getStyler(size_t index) {
-		assert(index < _styleVect.size());
+		if (index >=  _styleVect.size())
+			throw std::out_of_range("Styler index out of range");
 		return _styleVect[index];
 	};
 

@@ -62,50 +62,13 @@ public :
 	WordStyleDlg() = default;
 
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
-
-    void doDialog(bool isRTL = false) {
-    	if (!isCreated())
-		{
-			create(IDD_STYLER_DLG, isRTL);
-			prepare2Cancel();
-		}
-
-		if (!::IsWindowVisible(_hSelf))
-		{
-			prepare2Cancel();
-		}
-	    display();
-    };
-
-	void prepare2Cancel() {
-		_styles2restored = (NppParameters::getInstance()).getLStylerArray();
-		_gstyles2restored = (NppParameters::getInstance()).getGlobalStylers();
-		_gOverride2restored = (NppParameters::getInstance()).getGlobalOverrideStyle();
-	};
-
-	void redraw(bool forceUpdate = false) const override {
-		_pFgColour->redraw(forceUpdate);
-		_pBgColour->redraw(forceUpdate);
-		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
-		::UpdateWindow(_hStyleInfoStaticText);
-	};
-
-	void restoreGlobalOverrideValues() {
-		GlobalOverride & gOverride = (NppParameters::getInstance()).getGlobalOverrideStyle();
-		gOverride = _gOverride2restored;
-	};
-
+    void doDialog(bool isRTL = false);
+	void prepare2Cancel();
+	void redraw(bool forceUpdate = false) const override;
+	void restoreGlobalOverrideValues();
 	void apply();
-
-	void addLastThemeEntry() {
-        NppParameters& nppParamInst = NppParameters::getInstance();
-        ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
-		std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
-	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
-    };
-
+	void addLastThemeEntry();
 	bool selectThemeByName(const TCHAR* themeName);
-
 	bool goToSection(const TCHAR* sectionNames); // sectionNames is formed as following: "Language name:Style name"
 	                                             // ex: "Global Styles:EOL custom color" will set Language on "Global Styles", then set Style on "EOL custom color" if both are found.
 
@@ -146,25 +109,11 @@ private :
 	bool _isThemeDirty = false;
 	bool _isShownGOCtrls = false;
 
+	std::pair<intptr_t, intptr_t> goToPreferencesSettings();
 
 	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 
-
-	Style & getCurrentStyler() {
-		int32_t styleIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0));
-		if (styleIndex == LB_ERR)
-			styleIndex = 0;
-
-        if (_currentLexerIndex == 0)
-		{
-            return _globalStyles.getStyler(styleIndex);
-		}
-        else
-        {
-		    LexerStyler & lexerStyler = _lsArray.getLexerFromIndex(_currentLexerIndex - 1);
-		    return lexerStyler.getStyler(styleIndex);
-        }
-	};
+	Style& getCurrentStyler();
 
 	bool getStyleName(TCHAR *styleName, const size_t styleNameLen);
 
@@ -179,40 +128,12 @@ private :
 	void updateUserKeywords();
 	void switchToTheme();
 	void updateThemeName(const generic_string& themeName);
-	std::pair<intptr_t, intptr_t> goToPreferencesSettings();
-
 	void loadLangListFromNppParam();
-
-	void enableFontStyle(bool isEnable) {
-		::EnableWindow(_hCheckBold, isEnable);
-		::EnableWindow(_hCheckItalic, isEnable);
-		::EnableWindow(_hCheckUnderline, isEnable);
-	};
-    long notifyDataModified() {
-		_isDirty = true;
-		_isThemeDirty = true;
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), TRUE);
-		return TRUE;
-    };
+	void enableFontStyle(bool isEnable);
+	long notifyDataModified();
 	void setStyleListFromLexer(int index);
     void setVisualFromStyleList();
-
 	void updateGlobalOverrideCtrls();
-
-	void showGlobalOverrideCtrls(bool show)	{
-		if (show)
-		{
-			updateGlobalOverrideCtrls();
-		}
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FG_CHECK), show?SW_SHOW:SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BG_CHECK), show?SW_SHOW:SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FONT_CHECK), show?SW_SHOW:SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FONTSIZE_CHECK), show?SW_SHOW:SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BOLD_CHECK), show?SW_SHOW:SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_ITALIC_CHECK), show?SW_SHOW:SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show?SW_SHOW:SW_HIDE);
-		_isShownGOCtrls = show;
-	};
-
+	void showGlobalOverrideCtrls(bool show);
 	void applyCurrentSelectedThemeAndUpdateUI();
 };

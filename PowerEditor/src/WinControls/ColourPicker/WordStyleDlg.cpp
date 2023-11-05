@@ -1162,6 +1162,42 @@ void WordStyleDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	}
 }
 
+void WordStyleDlg::doDialog(bool isRTL)
+{
+	if (!isCreated())
+	{
+		create(IDD_STYLER_DLG, isRTL);
+		prepare2Cancel();
+	}
+
+	if (!::IsWindowVisible(_hSelf))
+	{
+		prepare2Cancel();
+	}
+	display();
+}
+
+void WordStyleDlg::prepare2Cancel()
+{
+	_styles2restored = (NppParameters::getInstance()).getLStylerArray();
+	_gstyles2restored = (NppParameters::getInstance()).getGlobalStylers();
+	_gOverride2restored = (NppParameters::getInstance()).getGlobalOverrideStyle();
+}
+
+void WordStyleDlg::redraw(bool forceUpdate) const
+{
+	_pFgColour->redraw(forceUpdate);
+	_pBgColour->redraw(forceUpdate);
+	::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
+	::UpdateWindow(_hStyleInfoStaticText);
+}
+
+void WordStyleDlg::restoreGlobalOverrideValues()
+{
+	GlobalOverride& gOverride = (NppParameters::getInstance()).getGlobalOverrideStyle();
+	gOverride = _gOverride2restored;
+}
+
 
 void WordStyleDlg::apply()
 {
@@ -1174,4 +1210,66 @@ void WordStyleDlg::apply()
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 	::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+}
+
+void WordStyleDlg::addLastThemeEntry()
+{
+	NppParameters& nppParamInst = NppParameters::getInstance();
+	ThemeSwitcher& themeSwitcher = nppParamInst.getThemeSwitcher();
+	std::pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
+	::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
+}
+
+Style& WordStyleDlg::getCurrentStyler()
+{
+	int32_t styleIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0));
+	if (styleIndex == LB_ERR)
+		styleIndex = 0;
+
+	try {
+		if (_currentLexerIndex == 0)
+		{
+			return _globalStyles.getStyler(styleIndex);
+		}
+		else
+		{
+			LexerStyler& lexerStyler = _lsArray.getLexerFromIndex(_currentLexerIndex - 1);
+			return lexerStyler.getStyler(styleIndex);
+		}
+	}
+	catch (...)
+	{
+		return _globalStyles.getStyler(0);
+	}
+}
+
+void WordStyleDlg::enableFontStyle(bool isEnable)
+{
+	::EnableWindow(_hCheckBold, isEnable);
+	::EnableWindow(_hCheckItalic, isEnable);
+	::EnableWindow(_hCheckUnderline, isEnable);
+}
+
+long WordStyleDlg::notifyDataModified()
+{
+	_isDirty = true;
+	_isThemeDirty = true;
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), TRUE);
+	return TRUE;
+}
+
+void WordStyleDlg::showGlobalOverrideCtrls(bool show)
+{
+	if (show)
+	{
+		updateGlobalOverrideCtrls();
+	}
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FG_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BG_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FONT_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FONTSIZE_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BOLD_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_ITALIC_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show ? SW_SHOW : SW_HIDE);
+	_isShownGOCtrls = show;
 }

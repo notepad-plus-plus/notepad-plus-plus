@@ -116,6 +116,8 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
     }
   }
 
+  [mEditor suspendDrawing: TRUE];
+
   // Keywords to highlight. Indices are:
   // 0 - Major keywords (reserved keywords)
   // 1 - Normal keywords (everything not reserved but integral part of the language)
@@ -218,6 +220,8 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
 
   // Uncomment if you wanna see auto wrapping in action.
   //[mEditor setGeneralProperty: SCI_SETWRAPMODE parameter: SC_WRAP_WORD value: 0];
+
+  [mEditor suspendDrawing: FALSE];
 
   InfoBar* infoBar = [[[InfoBar alloc] initWithFrame: NSMakeRect(0, 0, 400, 0)] autorelease];
   [infoBar setDisplay: IBShowAll];

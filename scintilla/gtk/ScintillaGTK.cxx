@@ -704,10 +704,11 @@ void ScintillaGTK::Init() {
 		timers[tr].reason = static_cast<TickReason>(tr);
 		timers[tr].scintilla = this;
 	}
-	vs.indicators[SC_INDICATOR_UNKNOWN] = Indicator(IndicatorStyle::Hidden, ColourRGBA(0, 0, 0xff));
-	vs.indicators[SC_INDICATOR_INPUT] = Indicator(IndicatorStyle::Dots, ColourRGBA(0, 0, 0xff));
-	vs.indicators[SC_INDICATOR_CONVERTED] = Indicator(IndicatorStyle::CompositionThick, ColourRGBA(0, 0, 0xff));
-	vs.indicators[SC_INDICATOR_TARGET] = Indicator(IndicatorStyle::StraightBox, ColourRGBA(0, 0, 0xff));
+
+	vs.indicators[SC_INDICATOR_UNKNOWN] = Indicator(IndicatorStyle::Hidden, colourIME);
+	vs.indicators[SC_INDICATOR_INPUT] = Indicator(IndicatorStyle::Dots, colourIME);
+	vs.indicators[SC_INDICATOR_CONVERTED] = Indicator(IndicatorStyle::CompositionThick, colourIME);
+	vs.indicators[SC_INDICATOR_TARGET] = Indicator(IndicatorStyle::StraightBox, colourIME);
 
 	fontOptionsPrevious = FontOptions(PWidget(wText));
 }

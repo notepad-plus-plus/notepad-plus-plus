@@ -848,6 +848,33 @@ Sci::Position CellBuffer::LineStart(Sci::Line line) const noexcept {
 		return plv->LineStart(line);
 }
 
+Sci::Position CellBuffer::LineEnd(Sci::Line line) const noexcept {
+	if (line >= Lines() - 1) {
+		return LineStart(line + 1);
+	} else {
+		Sci::Position position = LineStart(line + 1);
+		if (LineEndType::Unicode == GetLineEndTypes()) {
+			const unsigned char bytes[] = {
+				UCharAt(position - 3),
+				UCharAt(position - 2),
+				UCharAt(position - 1),
+			};
+			if (UTF8IsSeparator(bytes)) {
+				return position - UTF8SeparatorLength;
+			}
+			if (UTF8IsNEL(bytes + 1)) {
+				return position - UTF8NELLength;
+			}
+		}
+		position--; // Back over CR or LF
+		// When line terminator is CR+LF, may need to go back one more
+		if ((position > LineStart(line)) && (CharAt(position - 1) == '\r')) {
+			position--;
+		}
+		return position;
+	}
+}
+
 Sci::Line CellBuffer::LineFromPosition(Sci::Position pos) const noexcept {
 	return plv->LineFromPosition(pos);
 }

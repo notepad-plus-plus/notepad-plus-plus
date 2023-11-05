@@ -22,9 +22,6 @@
 
 using namespace Scintilla::Internal;
 
-constexpr int lengthTestArray = 8;
-static const int testArray[lengthTestArray] = {3, 4, 5, 6, 7, 8, 9, 10};
-
 // Test Partitioning.
 
 TEST_CASE("CompileCopying Partitioning") {

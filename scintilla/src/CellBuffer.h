@@ -186,6 +186,7 @@ public:
 	Sci::Line Lines() const noexcept;
 	void AllocateLines(Sci::Line lines);
 	Sci::Position LineStart(Sci::Line line) const noexcept;
+	Sci::Position LineEnd(Sci::Line line) const noexcept;
 	Sci::Position IndexLineStart(Sci::Line line, Scintilla::LineCharacterIndexType lineCharacterIndex) const noexcept;
 	Sci::Line LineFromPosition(Sci::Position pos) const noexcept;
 	Sci::Line LineFromPositionIndex(Sci::Position pos, Scintilla::LineCharacterIndexType lineCharacterIndex) const noexcept;

@@ -72,6 +72,58 @@ TEST_CASE("CellBuffer") {
 		REQUIRE(!cb.CanRedo());
 	}
 
+	SECTION("LineEnds") {
+		// Check that various line ends produce correct result from LineEnd.
+		cb.SetLineEndTypes(LineEndType::Unicode);
+		bool startSequence = false;
+		{
+			// Unix \n
+			const char sText2[] = "Two\nLines";
+			const Sci::Position sLength2 = static_cast<Sci::Position>(strlen(sText2));
+			cb.InsertString(0, sText2, strlen(sText2), startSequence);
+			REQUIRE(3 == cb.LineEnd(0));
+			REQUIRE(sLength2 == cb.LineEnd(1));
+			cb.DeleteChars(0, sLength2, startSequence);
+		}
+		{
+			// Windows \r\n
+			const char sText2[] = "Two\r\nLines";
+			const Sci::Position sLength2 = static_cast<Sci::Position>(strlen(sText2));
+			cb.InsertString(0, sText2, sLength2, startSequence);
+			REQUIRE(3 == cb.LineEnd(0));
+			REQUIRE(sLength2 == cb.LineEnd(1));
+			cb.DeleteChars(0, sLength2, startSequence);
+		}
+		{
+			// Old macOS \r
+			const char sText2[] = "Two\rLines";
+			const Sci::Position sLength2 = static_cast<Sci::Position>(strlen(sText2));
+			cb.InsertString(0, sText2, strlen(sText2), startSequence);
+			REQUIRE(3 == cb.LineEnd(0));
+			REQUIRE(sLength2 == cb.LineEnd(1));
+			cb.DeleteChars(0, sLength2, startSequence);
+		}
+		{
+			// Unicode NEL is U+0085 \xc2\x85
+			const char sText2[] = "Two\xc2\x85Lines";
+			const Sci::Position sLength2 = static_cast<Sci::Position>(strlen(sText2));
+			cb.InsertString(0, sText2, sLength2, startSequence);
+			REQUIRE(3 == cb.LineEnd(0));
+			REQUIRE(sLength2 == cb.LineEnd(1));
+			cb.DeleteChars(0, sLength2, startSequence);
+		}
+		{
+			// Unicode LS line separator is U+2028 \xe2\x80\xa8
+			const char sText2[] = "Two\xe2\x80\xa8Lines";
+			const Sci::Position sLength2 = static_cast<Sci::Position>(strlen(sText2));
+			cb.InsertString(0, sText2, sLength2, startSequence);
+			REQUIRE(3 == cb.LineEnd(0));
+			REQUIRE(sLength2 == cb.LineEnd(1));
+			cb.DeleteChars(0, sLength2, startSequence);
+		}
+		cb.SetLineEndTypes(LineEndType::Default);
+	}
+
 	SECTION("UndoOff") {
 		REQUIRE(cb.IsCollectingUndo());
 		cb.SetUndoCollection(false);
@@ -586,14 +638,14 @@ TEST_CASE("ChangeHistory") {
 		REQUIRE(il.DeletionCount(0, 2) == 0);
 		il.DeleteRangeSavingHistory(1, 1, true, false);
 		REQUIRE(il.DeletionCount(0,2) == 1);
-		const EditionSet at1 = {2};
+		const EditionSet at1 = { {2, 1} };
 		REQUIRE(il.DeletionsAt(1) == at1);
 		il.DeleteRangeSavingHistory(1, 1, false, false);
 		REQUIRE(il.DeletionCount(0,1) == 2);
-		const EditionSet at2 = { 2, 3 };
+		const EditionSet at2 = { {2, 1}, {3, 1} };
 		REQUIRE(il.DeletionsAt(1) == at2);
 		il.DeleteRangeSavingHistory(0, 1, false, false);
-		const EditionSet at3 = { 2, 3, 3 };
+		const EditionSet at3 = { {2, 1}, {3, 2} };
 		REQUIRE(il.DeletionsAt(0) == at3);
 		REQUIRE(il.DeletionCount(0,0) == 3);
 
@@ -633,6 +685,55 @@ TEST_CASE("ChangeHistory") {
 		}
 		REQUIRE(il.DeletionCount(0, 10) == 0);
 		REQUIRE(il.Length() == 10);
+
+	}
+
+	SECTION("Delete Contiguous Backward") {
+		// Deletes that touch
+		constexpr size_t length = 20;
+		constexpr size_t rounds = 8;
+		il.Insert(0, length, false, true);
+		REQUIRE(il.Length() == length);
+		il.SetSavePoint();
+		for (size_t i = 0; i < rounds; i++) {
+			il.DeleteRangeSavingHistory(9-i, 1, false, false);
+		}
+
+		constexpr size_t lengthAfterDeletions = length - rounds;
+		REQUIRE(il.Length() == lengthAfterDeletions);
+		REQUIRE(il.DeletionCount(0, lengthAfterDeletions) == rounds);
+
+		for (size_t j = 0; j < rounds; j++) {
+			il.UndoDeleteStep(2+j, 1, false);
+		}
+
+		// Restored to original
+		REQUIRE(il.DeletionCount(0, length) == 0);
+		REQUIRE(il.Length() == length);
+	}
+
+	SECTION("Delete Contiguous Forward") {
+		// Deletes that touch
+		constexpr size_t length = 20;
+		constexpr size_t rounds = 8;
+		il.Insert(0, length, false, true);
+		REQUIRE(il.Length() == length);
+		il.SetSavePoint();
+		for (size_t i = 0; i < rounds; i++) {
+			il.DeleteRangeSavingHistory(2,1, false, false);
+		}
+
+		constexpr size_t lengthAfterDeletions = length - rounds;
+		REQUIRE(il.Length() == lengthAfterDeletions);
+		REQUIRE(il.DeletionCount(0, lengthAfterDeletions) == rounds);
+
+		for (size_t j = 0; j < rounds; j++) {
+			il.UndoDeleteStep(2, 1, false);
+		}
+
+		// Restored to original
+		REQUIRE(il.Length() == length);
+		REQUIRE(il.DeletionCount(0, length) == 0);
 	}
 }
 

@@ -15,6 +15,9 @@
 #     mdyModified
 #     dmyModified
 #     myModified
+#
+# List of contributors
+#     credits
 
 # This file can be run to see the data it provides.
 # Requires Python 3.6 or later

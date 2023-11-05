@@ -138,7 +138,7 @@ void MarginView::RefreshPixMaps(Surface *surfaceWindow, const ViewStyle &vsDraw)
 		ColourRGBA colourFMFill = vsDraw.selbar;
 		ColourRGBA colourFMStripes = vsDraw.selbarlight;
 
-		if (!(vsDraw.selbarlight == ColourRGBA(0xff, 0xff, 0xff))) {
+		if (!(vsDraw.selbarlight == white)) {
 			// User has chosen an unusual chrome colour scheme so just use the highlight edge colour.
 			// (Typically, the highlight colour is white.)
 			colourFMFill = vsDraw.selbarlight;

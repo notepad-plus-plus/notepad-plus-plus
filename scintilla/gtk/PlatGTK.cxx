@@ -2149,7 +2149,7 @@ ColourRGBA Platform::Chrome() {
 }
 
 ColourRGBA Platform::ChromeHighlight() {
-	return ColourRGBA(0xff, 0xff, 0xff);
+	return white;
 }
 
 const char *Platform::DefaultFont() {

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00D544CC992062D2E3CD4BF6 /* LexGDScript.cxx in Sources */ = {isa = PBXBuildFile; fileRef = A383409E9A994F461550FEC1 /* LexGDScript.cxx */; };
 		283639BC268FD4EA009D58A1 /* LexAccessor.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 283639BB268FD4EA009D58A1 /* LexAccessor.cxx */; };
 		28BA72AB24E34D5B00272C2D /* LexerBase.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA728F24E34D5A00272C2D /* LexerBase.cxx */; };
 		28BA72AC24E34D5B00272C2D /* LexAccessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729024E34D5A00272C2D /* LexAccessor.h */; };
@@ -152,10 +153,9 @@
 		28BA73AA24E34D9700272C2D /* LexRust.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA733824E34D9700272C2D /* LexRust.cxx */; };
 		28BA73AD24E34DBC00272C2D /* Lexilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA73AB24E34DBC00272C2D /* Lexilla.h */; };
 		28BA73AE24E34DBC00272C2D /* Lexilla.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA73AC24E34DBC00272C2D /* Lexilla.cxx */; };
+		510D44AFB91EE873E86ABDD4 /* LexAsciidoc.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14420BFC43876F16C5995 /* LexAsciidoc.cxx */; };
 		70BF497C8D265026B77C97DA /* LexJulia.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 315E4E969868C52C125686B2 /* LexJulia.cxx */; };
 		B32D4A2A9CEC222A5140E99F /* LexFSharp.cxx in Sources */ = {isa = PBXBuildFile; fileRef = F8E54626B22BD9493090F40B /* LexFSharp.cxx */; };
-		510D44AFB91EE873E86ABDD4 /* LexAsciidoc.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14420BFC43876F16C5995 /* LexAsciidoc.cxx */; };
-		00D544CC992062D2E3CD4BF6 /* LexGDScript.cxx in Sources */ = {isa = PBXBuildFile; fileRef = A383409E9A994F461550FEC1 /* LexGDScript.cxx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -307,9 +307,9 @@
 		28BA73AC24E34DBC00272C2D /* Lexilla.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Lexilla.cxx; path = ../Lexilla.cxx; sourceTree = "<group>"; };
 		28BA73B024E3510900272C2D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		315E4E969868C52C125686B2 /* LexJulia.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexJulia.cxx; path = ../../lexers/LexJulia.cxx; sourceTree = SOURCE_ROOT; };
-		F8E54626B22BD9493090F40B /* LexFSharp.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexFSharp.cxx; path = ../../lexers/LexFSharp.cxx; sourceTree = SOURCE_ROOT; };
 		3AF14420BFC43876F16C5995 /* LexAsciidoc.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexAsciidoc.cxx; path = ../../lexers/LexAsciidoc.cxx; sourceTree = SOURCE_ROOT; };
 		A383409E9A994F461550FEC1 /* LexGDScript.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexGDScript.cxx; path = ../../lexers/LexGDScript.cxx; sourceTree = SOURCE_ROOT; };
+		F8E54626B22BD9493090F40B /* LexFSharp.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexFSharp.cxx; path = ../../lexers/LexFSharp.cxx; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -566,7 +566,8 @@
 		2802629D246DF655000DF3B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "Neil Hodgson";
 				TargetAttributes = {
 					280262A4246DF655000DF3B8 = {
@@ -772,6 +773,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -786,7 +788,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -832,6 +834,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
@@ -841,7 +844,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -853,7 +856,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.2.7;
+				CURRENT_PROJECT_VERSION = 5.2.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -869,6 +872,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Lexilla/Info.plist";
 				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = org.scintilla.Lexilla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -880,7 +884,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.2.7;
+				CURRENT_PROJECT_VERSION = 5.2.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -896,6 +900,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Lexilla/Info.plist";
 				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = org.scintilla.Lexilla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-# ScintillaData.py - implemented 2013 by Neil Hodgson neilh@scintilla.org
+# LexillaData.py - implemented 2013 by Neil Hodgson neilh@scintilla.org
 # Released to the public domain.
+# Requires FileGenerator from Scintilla so scintilla must be a peer directory of lexilla.
 
-# Common code used by Scintilla and SciTE for source file regeneration.
-# The ScintillaData object exposes information about Scintilla as properties:
+# Common code used by Lexilla and SciTE for source file regeneration.
+# The LexillaData object exposes information about Lexilla as properties:
 # Version properties
 #     version
 #     versionDotted
@@ -18,17 +19,23 @@
 #
 # Information about lexers and properties defined in lexers
 #     lexFiles
-#         sorted list of lexer files
+#         sorted list of lexer file stems like LexAbaqus
 #     lexerModules
-#         sorted list of module names
+#         sorted list of module names like lmAbaqus
 #     lexerProperties
-#         sorted list of lexer properties
+#         sorted list of lexer properties like lexer.bash.command.substitution
 #     propertyDocuments
 #         dictionary of property documentation { name: document string }
+#         like lexer.bash.special.parameter: Set shell (default is Bash) special parameters.
 #     sclexFromName
-#         dictionary of SCLEX_* IDs { name: SCLEX_ID }
+#         dictionary of SCLEX_* IDs { name: SCLEX_ID } like ave: SCLEX_AVE
 #     fileFromSclex
-#         dictionary of file names { SCLEX_ID: file name }
+#         dictionary of file names { SCLEX_ID: file name } like SCLEX_AU3: LexAU3.cxx
+#     lexersXcode
+#         dictionary of project file UUIDs { file name: [build UUID, file UUID] }
+#         like  LexTCL: [28BA733B24E34D9700272C2D,28BA72C924E34D9100272C2D]
+#     credits
+#         list of names of contributors like Atsuo Ishimoto
 
 # This file can be run to see the data it provides.
 # Requires Python 3.6 or later
@@ -73,6 +80,8 @@ def FindModules(lexFile):
 def FindLexersInXcode(xCodeProject):
     lines = FileGenerator.ReadFileAsList(xCodeProject)
 
+    # PBXBuildFile section is a list of all buildable files in the project so extract the file basename and
+    # its build and file IDs
     uidsOfBuild = {}
     markersPBXBuildFile = ["Begin PBXBuildFile section", "", "End PBXBuildFile section"]
     for buildLine in lines[FileGenerator.FindSectionInList(lines, markersPBXBuildFile)]:
@@ -84,6 +93,7 @@ def FindLexersInXcode(xCodeProject):
         uid2 = pieces[12]
         uidsOfBuild[filename] = [uid1, uid2]
 
+    # PBXGroup section contains the folders (Lexilla, Lexers, LexLib, ...) so is used to find the lexers
     lexers = {}
     markersLexers = ["/* Lexers */ =", "children", ");"]
     for lexerLine in lines[FileGenerator.FindSectionInList(lines, markersLexers)]:

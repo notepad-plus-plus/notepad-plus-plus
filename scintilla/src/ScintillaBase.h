@@ -10,6 +10,10 @@
 
 namespace Scintilla::Internal {
 
+// For most platforms (not Cocoa) all IME indicators are drawn in same colour,
+// blue, with different patterns.
+constexpr ColourRGBA colourIME(0x0, 0x0, 0xffU);
+
 class LexState;
 /**
  */

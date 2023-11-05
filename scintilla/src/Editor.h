@@ -491,9 +491,12 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void ParaUpOrDown(int direction, Selection::SelTypes selt);
 	Range RangeDisplayLine(Sci::Line lineVisible);
 	Sci::Position StartEndDisplayLine(Sci::Position pos, bool start);
+	Sci::Position HomeWrapPosition(Sci::Position position);
 	Sci::Position VCHomeDisplayPosition(Sci::Position position);
 	Sci::Position VCHomeWrapPosition(Sci::Position position);
 	Sci::Position LineEndWrapPosition(Sci::Position position);
+	SelectionPosition PositionMove(Scintilla::Message iMessage, SelectionPosition spCaretNow);
+	SelectionRange SelectionMove(Scintilla::Message iMessage, size_t r);
 	int HorizontalMove(Scintilla::Message iMessage);
 	int DelWordOrLine(Scintilla::Message iMessage);
 	virtual int KeyCommand(Scintilla::Message iMessage);

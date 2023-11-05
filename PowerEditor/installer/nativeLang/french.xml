@@ -39,6 +39,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Traitement des espacements"/>
 					<Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
 					<Item subMenuId="edit-onSelection" name="Pour la sélection"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multi-sélection TOUS"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multi-sélection Suivant"/>
 					<Item subMenuId="search-changeHistory" name="Historique de Modification"/>
 					<Item subMenuId="search-markAll" name="Marquer tout"/>
 					<Item subMenuId="search-markOne" name="Marquer uniquement la sélection"/>
@@ -77,6 +79,7 @@ Translation note:
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Trier par"/>
 				</SubEntries>
 
@@ -153,6 +156,16 @@ Translation note:
 					<Item id="42074" name="Ouvrir le répertoire dans l'explorateur"/>
 					<Item id="42075" name="Rechercher sur Internet"/>
 					<Item id="42076" name="Changer le moteur de recherche..."/>
+					<Item id="42090" name="Ignorer la casse &amp;&amp; le mot entier"/>
+					<Item id="42091" name="Respecter la casse seulement"/>
+					<Item id="42092" name="Respecter le mot entier seulement"/>
+					<Item id="42093" name="Respecter la casse &amp;&amp; le mot entier"/>
+					<Item id="42094" name="Ignorer la casse &amp;&amp; le mot entier"/>
+					<Item id="42095" name="Respecter la casse seulement"/>
+					<Item id="42096" name="Respecter le mot entier seulement"/>
+					<Item id="42097" name="Respecter la casse &amp;&amp; le mot entier"/>
+					<Item id="42098" name="Annuler le dernier ajout à la multi-sélection"/>
+					<Item id="42099" name="Sauter la courante &amp;&amp; aller à la prochaine multi-sélection"/>
 					<Item id="42018" name="Démarrer l’enregistrement"/>
 					<Item id="42019" name="Arrêter l’enregistrement"/>
 					<Item id="42021" name="Rejouer la macro"/>
@@ -578,7 +591,6 @@ Translation note:
 				<Item id="1934" name="Copier dans le presse-papiers"/>
 				<Item id="2" name="Fermer"/>
 			</SHA512FromTextDlg>
-
 			<PluginsAdminDlg title="Gestionnaire des modules d'extension" titleAvailable="Disponibles" titleUpdates="Mises à jour" titleInstalled="Installés" titleIncompatible="Incompatibilité">
 				<ColumnPlugin name="Modules d'extension"/>
 				<ColumnVersion name="Version"/>
@@ -1481,6 +1493,10 @@ Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
 Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
 Notepad++ va sauvegarder votre ancien &quot;shortcuts.xml&quot; et l'enregistrer sous &quot;shortcuts.xml.v8.5.2.backup&quot;.
 En renommant &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vos commandes devraient être proprement restaurées."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="Nombre de fichiers à ouvrir trop important" message="$INT_REPLACE$ fichiers vont être ouverts.
+Êtes-vous sûr de vouloir les ouvrir ?"/>
+			<NotEnoughRoom4Saving title="Échec de l'enregistrement" message="Échec de l'enregistrement du fichier.
+Il semblerait qu'il n'y a pas assez d'espace sur le disque. Votre fichier n'est pas enregistré."/>
 			<FileInaccessibleUserSession title="Fichier inaccessible" message="Certains fichiers de votre session sauvegardée manuellement &quot;$STR_REPLACE$&quot; sont inaccessibles. Ils peuvent être ouverts comme des documents vides et en lecture seule en tant qu'espaces réservés.
 
 Voulez-vous créer des espaces réservés pour eux ?
@@ -1490,9 +1506,7 @@ Notez que si vous choisissez de ne pas créer d'espaces réservés ou de les fer
 
 Voulez-vous créer des espaces réservés pour eux ?
 
-Notez que si vous choisissez de ne pas créer d'espaces réservés ou de les fermer plus tard, votre fichier de session sera modifié à la sortie. Nous vous suggérons de faire une sauvegarde du fichier de session &quot;session.xml&quot; maintenant."/>
-			<NotEnoughRoom4Saving title="Échec de l'enregistrement" message="Échec de l'enregistrement du fichier.
-Il semblerait qu'il n'y a pas assez d'espace disque pour enregistrer le fichier. Votre fichier n'est pas enregistré."/>
+NOTE : Si vous choisissez de ne pas créer d'espaces réservés ou de les fermer plus tard, votre fichier de session sera modifié à la sortie. Nous vous suggérons de faire une sauvegarde du fichier de session &quot;session.xml&quot; maintenant."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.5.5">
+	<Native-Langue name="Українська" filename="ukrainian.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Порожні операції"/>
 					<Item subMenuId="edit-pasteSpecial" name="Спеціальна вставка"/>
 					<Item subMenuId="edit-onSelection" name="У вибраному"/>
+					<Item subMenuId="edit-multiSelectALL" name="Множинний вибір УСЕ"/>
+					<Item subMenuId="edit-multiSelectNext" name="Множинний вибір Далі"/>
 					<Item subMenuId="search-changeHistory" name="Історія змін"/>
 					<Item subMenuId="search-markAll" name="Стиль до всіх випадків токену"/>
 					<Item subMenuId="search-markOne" name="Стиль до одного токену"/>
@@ -154,6 +156,16 @@ Translation note:
 					<Item id="42074" name="Відкрити теку в провіднику"/>
 					<Item id="42075" name="Пошук в Інтернеті"/>
 					<Item id="42076" name="Змінити пошуковий засіб..."/>
+					<Item id="42090" name="Ігнорувати регістр і ціле слово"/>
+					<Item id="42091" name="Враховувати лише регістр"/>
+					<Item id="42092" name="Враховувати лише ціле слово"/>
+					<Item id="42093" name="Враховувати регістр і ціле слово"/>
+					<Item id="42094" name="Ігнорувати регістр і ціле слово"/>
+					<Item id="42095" name="Враховувати лише регістр"/>
+					<Item id="42096" name="Враховувати лише ціле слово"/>
+					<Item id="42097" name="Враховувати регістр і ціле слово"/>
+					<Item id="42098" name="Скасувати останній доданий множинний вибір"/>
+					<Item id="42099" name="Пропустити поточний і перейти до наступного множинного вибору"/>
 					<Item id="42018" name="Почати запис"/>
 					<Item id="42019" name="Зупинити запис"/>
 					<Item id="42021" name="Відтворити"/>
@@ -641,17 +653,7 @@ Translation note:
 				<ScintillaCommandsTab name="Команди Scintilla"/>
 				<ConflictInfoOk name="Для цього елемента немає конфліктів гарячих клавіш."/>
 				<ConflictInfoEditing name="Конфліктів немає . . ."/>
-				<WindowCategory name="Вікно"/>
-				<FileCategory name="Файл"/>
-				<EditCategory name="Редагувати"/>
-				<SearchCategory name="Пошук"/>
-				<ViewCategory name="Вигляд"/>
-				<FormatCategory name="Формат"/>
-				<LangCategory name="Мова"/>
 				<AboutCategory name="Про програму"/>
-				<SettingCategory name="Налаштування"/>
-				<ToolCategory name="Інструмент"/>
-				<ExecuteCategory name="Виконати"/>
 				<ModifyContextMenu name="Змінити"/>
 				<DeleteContextMenu name="Видалити"/>
 				<ClearContextMenu name="Очистити"/>
@@ -812,22 +814,21 @@ Translation note:
 					<Item id="21101" name="Типовий стиль"/>
 					<Item id="21102" name="Налаштувати"/>
 					<Item id="21105" name="Документація"/>
-					<Item id="21104" name="Тимчасовий сайт документації:"/>
 					<Item id="21106" name="Компактне згорт. (пусті рядки також)"/>
 					<Item id="21220" name="Згортання в коді стилю 1"/>
-					<Item id="21224" name="Відкривати:"/>
+					<Item id="21224" name="Відкриття:"/>
 					<Item id="21225" name="Середина:"/>
-					<Item id="21226" name="Закривати:"/>
+					<Item id="21226" name="Закриття:"/>
 					<Item id="21227" name="Стиль"/>
 					<Item id="21320" name="Згортання в коді стилю 2 (потрібні розділювачі)"/>
-					<Item id="21324" name="Відкривати:"/>
+					<Item id="21324" name="Відкриття:"/>
 					<Item id="21325" name="Середина:"/>
-					<Item id="21326" name="Закривати:"/>
+					<Item id="21326" name="Закриття:"/>
 					<Item id="21327" name="Стиль"/>
 					<Item id="21420" name="Згортання в стилі коментаря"/>
-					<Item id="21424" name="Відкривати:"/>
+					<Item id="21424" name="Відкриття:"/>
 					<Item id="21425" name="Середина:"/>
-					<Item id="21426" name="Закривати:"/>
+					<Item id="21426" name="Закриття:"/>
 					<Item id="21427" name="Стиль"/>
 				</Folder>
 				<Keywords title="Списки ключових слів">
@@ -972,7 +973,6 @@ Translation note:
 					<Item id="6221" name="Ч"/>
 					<Item id="6222" name="Р"/>
 					<Item id="6246" name="Перемикати команди згортання/розгортання поточного рівня"/>
-					<Item id="6225" name="Увімкнути мультиредагування (Ctrl+Клік миші/вибір)"/>
 					<Item id="6227" name="Перенесення рядків"/>
 					<Item id="6228" name="Типово"/>
 					<Item id="6229" name="Вирівняний"/>
@@ -1156,6 +1156,7 @@ Translation note:
 					<Item id="6907" name="Коли викликано діалогове вікно &quot;Знайти&quot;"/>
 					<Item id="6908" name="Заповнити поле для пошуку вибраним текстом"/>
 					<Item id="6909" name="Вибрати слово під узгодженим, якщо нічого не вибрано"/>
+					<Item id="6910" name="Мінімальний розмір для автоматичної перевірки &quot;у виборі&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="Історія файлів">
@@ -1176,6 +1177,7 @@ Translation note:
 					<Item id="6821" name="секунд"/>
 					<Item id="6822" name="Розташування резервної копії:"/>
 					<Item id="6309" name="Пам'ятати поточний сеанс для наступного запуску"/>
+					<Item id="6825" name="Запам'ятати недоступні файли з минулого сеансу"/>
 					<Item id="6801" name="Резервна копія при збереженні"/>
 					<Item id="6315" name="Немає"/>
 					<Item id="6316" name="Проста резервна копія"/>
@@ -1249,6 +1251,7 @@ Translation note:
 					<Item id="7149" name="Дозволити розумне підсвічування"/>
 					<Item id="7150" name="Глобальне вимкнення перенесення слів"/>
 					<Item id="7151" name="Дозволити активні URL-посилання"/>
+					<Item id="7152" name="Не попереджати при відкритті файлів розміром понад 2ГБ"/>
 				</Performance>
 
 				<Cloud title="Хмарне посилання">
@@ -1360,7 +1363,7 @@ Translation note:
 				<Item id="6" name="Так"/>
 				<Item id="7" name="Ні"/>
 				<Item id="4" name="Завжди так"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1372,6 +1375,7 @@ Translation note:
 			<FileLockedWarning title="Збереження невдале" message="Перевірте, чи цей файл не відкритий в іншій програмі"/>
 			<FileAlreadyOpenedInNpp title="" message="Файл вже відкрито в Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Не вдалося перейменувати" message="Вказана назва вже використовується в іншій вкладці."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Не вдалося перейменувати" message="Зазначена назва не може бути порожньою, або містити лише символи пробілу чи TAB."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Видалити файл" message="Не вдалося видалити файл"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті. Ви дійсно хочете відкрити їх?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
@@ -1429,6 +1433,10 @@ Translation note:
 			<LanguageMenuCompactWarning title="Компактне меню мови" message="Цей параметр буде змінено під час наступного запуску."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Незбережені зміни будуть скасовані! Ви хочете зберегти зміни перед зміною теми?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Сумісність макросів і команд виконання" message="Ваші макроси й команди виконання, збережені в Notepad++ v.8.5.2 (чи старіше), можуть бути несумісними з поточною версією Notepad++. Випробуйте ці команди та, за потреби, відредагуйте їх.  Або ж ви можете встановити старішу версію Notepad++ v8.5.2 та відновити свої попередні дані. Notepad++ збереже резервну копію вашого файлу &quot;shortcuts.xml&quot; з назвою &quot;shortcuts.xml.v8.5.2.backup&quot;. Перейменувавши файл &quot;shortcuts.xml.v8.5.2.backup&quot; на -&gt; &quot;shortcuts.xml&quot;, ваші команди мають відновитися і працювати правильно."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті. Ви дійсно хочете відкрити їх?"/>
+			<NotEnoughRoom4Saving title="Не вдалося зберегти" message="Не вдалося зберегти файл. Схоже, на диску недостатньо вільного місця."/>
+			<FileInaccessibleUserSession title="Файл недоступний" message="Деякі файли з вашого збереженого вручну сеансу &quot;$STR_REPLACE$&quot; недоступні. Їх можна відкрити як заповнювачі –  порожні та доступні лише для читання документи.  Бажаєте створити ці заповнювачі?  ПРИМІТКА: якщо ви вирішите не створювати заповнювачі або закрити їх згодом, ваш збережений вручну сеанс НЕ буде змінено при виході."/>
+			<FileInaccessibleDefaultSessionXml title="Файл недоступний" message="Деякі файли з вашого минулого сеансу недоступні. Їх можна відкрити як заповнювачі – порожні та доступні лише для читання документи.  Бажаєте створити ці заповнювачі?  ПРИМІТКА: якщо ви вирішите не створювати заповнювачі або закрити їх згодом, ваш сеанс БУДЕ ЗМІНЕНО ПРИ ВИХОДІ! Пропонуємо вам створити резервну копію &quot;session.xml&quot; зараз."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Історія буфера"/>
@@ -1559,18 +1567,14 @@ Translation note:
 			<find-status-end-reached value="Знайти: Знайдено 1-й збіг згори. Було досягнуто кінця документа."/>
 			<find-status-replaceinfiles-1-replaced value="Замінити у файлах: Виконано 1 заміну"/>
 			<find-status-replaceinfiles-nb-replaced value="Замінити у файлах: Виконано $INT_REPLACE$ замін"/>
-			<find-status-replaceinfiles-re-malformed value="Замінити у Відкритих файлах: Неправильний регулярний вираз"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замінити у Відкритих файлах: Виконано 1 заміну"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Замінити у Відкритих файлах: Виконано $INT_REPLACE$ замін"/>
-			<find-status-mark-re-malformed value="Позначити: Неправильний регулярний вираз для пошуку"/>
 			<find-status-invalid-re value="Знайти: Неправильний регулярний вираз"/>
 			<find-status-search-failed value="Знайти: Пошук невдалий"/>
 			<find-status-mark-1-match value="Позначка: 1 збіг"/>
 			<find-status-mark-nb-matches value="Позначка: $INT_REPLACE$ збігів"/>
-			<find-status-count-re-malformed value="Підрахунок: Неправильний регулярний вираз для пошуку"/>
 			<find-status-count-1-match value="Підрахунок: 1 збіг"/>
 			<find-status-count-nb-matches value="Підрахунок: $INT_REPLACE$ збігів"/>
-			<find-status-replaceall-re-malformed value="Замінити все: Неправильний регулярний вираз"/>
 			<find-status-replaceall-1-replaced value="Замінити все: Замінено 1 випадок"/>
 			<find-status-replaceall-nb-replaced value="Замінити все: Замінено $INT_REPLACE$ випадків"/>
 			<find-status-replaceall-readonly value="Замінити все: Неможливо замінити текст. Цей документ призначений тільки для читання"/>
@@ -1659,6 +1663,7 @@ Translation note:
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Відкрийте конфігуратор стилю, щоб змінити типовий власний колір для вибраних пропусків та не друкованих символів (&quot;Власний колір символів, що не друкуються&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Застосувати налаштування вигляду символів, що не друкуються, до символів C0, C1 control і Unicode EOL (наступний рядок, роздільник рядків та роздільник абзаців)."/>
+			<searchingInSelThresh-tip value="Кількість вибраних символів у зоні редагування для автоматичного встановлення прапорця &quot;у виборі&quot;, коли активовано діалогове вікно Знайти. Максимальне значення – 1024. Встановіть значення 0, щоб вимкнути автоматичну перевірку."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

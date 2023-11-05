@@ -2671,7 +2671,7 @@ void SurfaceD2D::FlushDrawing() {
 }
 
 void SurfaceD2D::SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) {
-	renderingParams = renderingParams_;
+	renderingParams = std::move(renderingParams_);
 }
 
 #endif

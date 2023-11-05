@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 14 January 2023 NH</p>
+    <p>Last edited 1 November 2023 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -322,158 +322,116 @@
     <table class="categories" summary="Message categories">
       <tbody>
         <tr>
-          <td>&cir; <a class="toc" href="#TextRetrievalAndModification">Text retrieval and
-          modification</a></td>
-
-          <td>&cir; <a class="toc" href="#Searching">Searching and replacing</a></td>
-
-          <td>&cir; <a class="toc" href="#Overtype">Overtype</a></td>
-
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#CutCopyAndPaste">Cut, copy and paste</a></td>
-
-          <td>&cir; <a class="toc" href="#ErrorHandling">Error handling</a></td>
-
-          <td>&cir; <a class="toc" href="#UndoAndRedo">Undo and Redo</a></td>
-
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#ChangeHistory">Change history</a></td>
-
-          <td>&cir; <a class="toc" href="#SelectionAndInformation">Selection and information</a></td>
-
+          <td>&cir; <a class="toc" href="#TextRetrievalAndModification">Text retrieval and modification</a></td>
+          <td>&cir; <a class="toc" href="#Information">Information</a></td>
           <td>&cir; <a class="toc" href="#ByCharacterOrCodeUnit">By character or UTF-16 code unit</a></td>
-
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#ErrorHandling">Error handling</a></td>
+          <td>&cir; <a class="toc" href="#Selection">Selection</a></td>
           <td>&cir; <a class="toc" href="#MultipleSelectionAndVirtualSpace">Multiple Selection and Virtual Space</a></td>
+        </tr>
 
+        <tr>
+          <td>&cir; <a class="toc" href="#Overtype">Overtype</a></td>
+          <td>&cir; <a class="toc" href="#Searching">Searching and replacing</a></td>
+          <td>&cir; <a class="toc" href="#CutCopyAndPaste">Cut, copy and paste</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#UndoAndRedo">Undo and Redo</a></td>
+          <td>&cir; <a class="toc" href="#ChangeHistory">Change history</a></td>
           <td>&cir; <a class="toc" href="#ScrollingAndAutomaticScrolling">Scrolling and automatic scrolling</a></td>
+        </tr>
 
+        <tr>
           <td>&cir; <a class="toc" href="#WhiteSpace">White space</a></td>
-        </tr>
-
-        <tr>
           <td>&cir; <a class="toc" href="#Cursor">Cursor</a></td>
-
           <td>&cir; <a class="toc" href="#MouseCapture">Mouse capture</a></td>
+        </tr>
 
+        <tr>
           <td>&cir; <a class="toc" href="#LineEndings">Line endings</a></td>
-
-        </tr>
-
-        <tr>
           <td>&cir; <a class="toc" href="#Words">Words</a></td>
-
           <td>&cir; <a class="toc" href="#Styling">Styling</a></td>
+        </tr>
 
+        <tr>
           <td>&cir; <a class="toc" href="#StyleDefinition">Style definition</a></td>
-        </tr>
-
-        <tr>
           <td>&cir; <a class="toc" href="#ElementColours">Element colours</a></td>
-
           <td>&cir; <a class="toc" href="#CaretAndSelectionStyles">Selection, caret, and hotspot styles</a></td>
+        </tr>
 
+        <tr>
           <td>&cir; <a class="toc" href="#CharacterRepresentations">Character representations</a></td>
-        </tr>
-
-        <tr>
           <td>&cir; <a class="toc" href="#Margins">Margins</a></td>
-
           <td>&cir; <a class="toc" href="#Annotations">Annotations</a></td>
-
-          <td>&cir; <a class="toc" href="#OtherSettings">Other settings</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#BraceHighlighting">Brace highlighting</a></td>
-
-          <td>&cir; <a class="toc" href="#TabsAndIndentationGuides">Tabs and Indentation
-          Guides</a></td>
-
-          <td>&cir; <a class="toc" href="#Markers">Markers</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#Indicators">Indicators</a></td>
-
-          <td>&cir; <a class="toc" href="#Autocompletion">Autocompletion</a></td>
-
-          <td>&cir; <a class="toc" href="#UserLists">User lists</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#CallTips">Call tips</a></td>
-
-          <td>&cir; <a class="toc" href="#KeyboardCommands">Keyboard commands</a></td>
-
-          <td>&cir; <a class="toc" href="#KeyBindings">Key bindings</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#PopupEditMenu">Popup edit menu</a></td>
-
-          <td>&cir; <a class="toc" href="#MacroRecording">Macro recording</a></td>
-
-          <td>&cir; <a class="toc" href="#Printing">Printing</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#DirectAccess">Direct access</a></td>
-
-          <td>&cir; <a class="toc" href="#MultipleViews">Multiple views</a></td>
-
-          <td>&cir; <a class="toc" href="#BackgroundLoadSave">Background loading and saving</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#Folding">Folding</a></td>
-
-          <td>&cir; <a class="toc" href="#LineWrapping">Line wrapping</a></td>
-
-          <td>&cir; <a class="toc" href="#Zooming">Zooming</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#LongLines">Long lines</a></td>
-
-          <td>&cir; <a class="toc" href="#Accessibility">Accessibility</a></td>
-
-          <td>&cir; <a class="toc" href="#Lexer">Lexer</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#LexerObjects">Lexer objects</a></td>
-
-          <td>&cir; <a class="toc" href="#Notifications">Notifications</a></td>
-
-          <td>&cir; <a class="toc" href="#Images">Images</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#GTK">GTK</a></td>
-
-          <td>&cir; <a class="toc" href="#ProvisionalMessages"><span class="provisional">Provisional messages</span></a></td>
-
-          <td>&cir; <a class="toc" href="#DeprecatedMessages">Deprecated messages</a></td>
-        </tr>
-
-        <tr>
-          <td>&cir; <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never
-          supported by Scintilla</a></td>
-
-          <td>&cir; <a class="toc" href="#RemovedFeatures">Removed features</a></td>
-
-          <td>&cir; <a class="toc" href="#BuildingScintilla">Building Scintilla</a></td>
         </tr>
 
         <tr>
           <td>&cir; <a class="toc" href="#EndOfLineAnnotations">End of Line Annotations</a></td>
+          <td>&cir; <a class="toc" href="#OtherSettings">Other settings</a></td>
+          <td>&cir; <a class="toc" href="#BraceHighlighting">Brace highlighting</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#TabsAndIndentationGuides">Tabs and Indentation Guides</a></td>
+          <td>&cir; <a class="toc" href="#Markers">Markers</a></td>
+          <td>&cir; <a class="toc" href="#Indicators">Indicators</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#Autocompletion">Autocompletion</a></td>
+          <td>&cir; <a class="toc" href="#UserLists">User lists</a></td>
+          <td>&cir; <a class="toc" href="#CallTips">Call tips</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#KeyboardCommands">Keyboard commands</a></td>
+          <td>&cir; <a class="toc" href="#KeyBindings">Key bindings</a></td>
+          <td>&cir; <a class="toc" href="#PopupEditMenu">Popup edit menu</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#MacroRecording">Macro recording</a></td>
+          <td>&cir; <a class="toc" href="#Printing">Printing</a></td>
+          <td>&cir; <a class="toc" href="#DirectAccess">Direct access</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#MultipleViews">Multiple views</a></td>
+          <td>&cir; <a class="toc" href="#BackgroundLoadSave">Background loading and saving</a></td>
+          <td>&cir; <a class="toc" href="#Folding">Folding</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#LineWrapping">Line wrapping</a></td>
+          <td>&cir; <a class="toc" href="#Zooming">Zooming</a></td>
+          <td>&cir; <a class="toc" href="#LongLines">Long lines</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#Accessibility">Accessibility</a></td>
+          <td>&cir; <a class="toc" href="#Lexer">Lexer</a></td>
+          <td>&cir; <a class="toc" href="#LexerObjects">Lexer objects</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#Notifications">Notifications</a></td>
+          <td>&cir; <a class="toc" href="#Images">Images</a></td>
+          <td>&cir; <a class="toc" href="#GTK">GTK</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#ProvisionalMessages"><span class="provisional">Provisional messages</span></a></td>
+          <td>&cir; <a class="toc" href="#DeprecatedMessages">Deprecated messages</a></td>
+          <td>&cir; <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never supported by Scintilla</a></td>
+        </tr>
+
+        <tr>
+          <td>&cir; <a class="toc" href="#RemovedFeatures">Removed features</a></td>
+          <td>&cir; <a class="toc" href="#BuildingScintilla">Building Scintilla</a></td>
         </tr>
       </tbody>
     </table>
@@ -591,7 +549,7 @@
     <a class="seealso" href="#SCI_GETTEXT">SCI_GETTEXT</a></code></p>
 
     <p><b id="SCI_REPLACESEL">SCI_REPLACESEL(&lt;unused&gt;, const char *text)</b><br />
-     The currently selected text between the <a class="jump" href="#SelectionAndInformation">anchor
+     The currently selected text between the <a class="jump" href="#Selection">anchor
     and the current position</a> is replaced by the 0 terminated text string. If the anchor and
     current position are the same, the text is inserted at the caret position. The caret is
     positioned after the inserted text and the caret is scrolled into view.</p>
@@ -771,6 +729,733 @@ struct Sci_TextRangeFull {
      The length of the converted string is returned.
     </p>
 
+    <h2 id="Information">Information</h2>
+
+     <a class="message" href="#SCI_GETTEXTLENGTH">SCI_GETTEXTLENGTH &rarr; position</a><br />
+     <a class="message" href="#SCI_GETLENGTH">SCI_GETLENGTH &rarr; position</a><br />
+     <a class="message" href="#SCI_GETLINECOUNT">SCI_GETLINECOUNT &rarr; line</a><br />
+     <a class="message" href="#SCI_LINESONSCREEN">SCI_LINESONSCREEN &rarr; line</a><br />
+     <a class="message" href="#SCI_GETMODIFY">SCI_GETMODIFY &rarr; bool</a><br />
+     <a class="message" href="#SCI_LINEFROMPOSITION">SCI_LINEFROMPOSITION(position pos) &rarr; line</a><br />
+     <a class="message" href="#SCI_POSITIONFROMLINE">SCI_POSITIONFROMLINE(line line) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETLINEENDPOSITION">SCI_GETLINEENDPOSITION(line line) &rarr; position</a><br />
+     <a class="message" href="#SCI_LINELENGTH">SCI_LINELENGTH(line line) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETCOLUMN">SCI_GETCOLUMN(position pos) &rarr; position</a><br />
+     <a class="message" href="#SCI_FINDCOLUMN">SCI_FINDCOLUMN(line line, position column) &rarr; position</a><br />
+     <a class="message" href="#SCI_POSITIONBEFORE">SCI_POSITIONBEFORE(position pos) &rarr; position</a><br />
+     <a class="message" href="#SCI_POSITIONAFTER">SCI_POSITIONAFTER(position pos) &rarr; position</a><br />
+     <a class="message" href="#SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; int</a><br />
+     <a class="message" href="#SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; int</a><br />
+     <a class="message" href="#SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(int x, int y) &rarr; position</a><br />
+     <a class="message" href="#SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</a><br />
+     <a class="message" href="#SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(int x, int y) &rarr; position</a><br />
+     <a class="message" href="#SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</a><br />
+     <a class="message" href="#SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</a><br />
+     <a class="message" href="#SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</a><br />
+
+    <p>
+     <b id="SCI_GETTEXTLENGTH">SCI_GETTEXTLENGTH &rarr; position</b><br />
+     <b id="SCI_GETLENGTH">SCI_GETLENGTH &rarr; position</b><br />
+     Both these messages return the length of the document in bytes.</p>
+
+    <p><b id="SCI_GETLINECOUNT">SCI_GETLINECOUNT &rarr; line</b><br />
+     This returns the number of lines in the document. An empty document contains 1 line. A
+    document holding only an end of line sequence has 2 lines.</p>
+
+    <p><b id="SCI_LINESONSCREEN">SCI_LINESONSCREEN &rarr; line</b><br />
+     This returns the number of complete lines visible on the screen. With a constant line height,
+    this is the vertical space available divided by the line separation. Unless you arrange to size
+    your window to an integral number of lines, there may be a partial line visible at the bottom
+    of the view.</p>
+
+    <p><b id="SCI_GETMODIFY">SCI_GETMODIFY &rarr; bool</b><br />
+     This returns non-zero if the document is modified and 0 if it is unmodified. The modified
+    status of a document is determined by the undo position relative to the save point. The save
+    point is set by <a class="message" href="#SCI_SETSAVEPOINT"><code>SCI_SETSAVEPOINT</code></a>,
+    usually when you have saved data to a file.</p>
+
+    <p>If you need to be notified when the document becomes modified, Scintilla notifies the
+    container that it has entered or left the save point with the <a class="message"
+    href="#SCN_SAVEPOINTREACHED"><code>SCN_SAVEPOINTREACHED</code></a> and <a class="message"
+    href="#SCN_SAVEPOINTLEFT"><code>SCN_SAVEPOINTLEFT</code></a> <a class="jump"
+    href="#Notifications">notification messages</a>.</p>
+    
+    <p><b id="SCI_LINEFROMPOSITION">SCI_LINEFROMPOSITION(position pos) &rarr; line</b><br />
+     This message returns the line that contains the position <code class="parameter">pos</code> in the document. The
+    return value is 0 if <code class="parameter">pos</code> &lt;= 0. The return value is the last line if
+    <code class="parameter">pos</code> is beyond the end of the document.</p>
+
+    <p><b id="SCI_POSITIONFROMLINE">SCI_POSITIONFROMLINE(line line) &rarr; position</b><br />
+     This returns the document position that corresponds with the start of the line. If
+    <code class="parameter">line</code> is negative, the position of the line holding the start of the selection is
+    returned. If <code class="parameter">line</code> is greater than the lines in the document, the return value is
+    -1. If <code class="parameter">line</code> is equal to the number of lines in the document (i.e. 1 line past the
+    last line), the return value is the end of the document.</p>
+
+    <p><b id="SCI_GETLINEENDPOSITION">SCI_GETLINEENDPOSITION(line line) &rarr; position</b><br />
+     This returns the position at the end of the line, before any line end characters. If <code class="parameter">line</code>
+    is the last line in the document (which does not have any end of line characters) or greater,
+    the result is the size of the document.
+    If <code class="parameter">line</code> is negative the result is undefined.</p>
+
+    <p><b id="SCI_LINELENGTH">SCI_LINELENGTH(line line) &rarr; position</b><br />
+     This returns the length of the line, including any line end characters. If <code class="parameter">line</code>
+    is negative or beyond the last line in the document, the result is 0. If you want the length of
+    the line not including any end of line characters, use <a class="message"
+    href="#SCI_GETLINEENDPOSITION"><code>SCI_GETLINEENDPOSITION(line)</code></a> - <a class="message"
+    href="#SCI_POSITIONFROMLINE"><code>SCI_POSITIONFROMLINE(line)</code></a>.</p>
+
+    <p><b id="SCI_GETCOLUMN">SCI_GETCOLUMN(position pos) &rarr; position</b><br />
+     This message returns the column number of a position <code class="parameter">pos</code> within the document
+    taking the width of tabs into account. This returns the column number of the last tab on the
+    line before <code class="parameter">pos</code>, plus the number of characters between the last tab and
+    <code class="parameter">pos</code>. If there are no tab characters on the line, the return value is the number of
+    characters up to the position on the line. In both cases, double byte characters count as a
+    single character. This is probably only useful with monospaced fonts.</p>
+
+    <p><b id="SCI_FINDCOLUMN">SCI_FINDCOLUMN(line line, position column) &rarr; position</b><br />
+     This message returns the position of a <code class="parameter">column</code> on a <code class="parameter">line</code>
+    taking the width of tabs into account. It treats a multi-byte character as a single column.
+    Column numbers, like lines start at 0.</p>
+
+    <p><b id="SCI_POSITIONBEFORE">SCI_POSITIONBEFORE(position pos) &rarr; position</b><br />
+     <b id="SCI_POSITIONAFTER">SCI_POSITIONAFTER(position pos) &rarr; position</b><br />
+     These messages return the position before and after another position
+     in the document taking into account the current code page. The minimum
+     position returned is 0 and the maximum is the last position in the document.
+     If called with a position within a multi byte character will return the position
+     of the start/end of that character.</p>
+
+    <p><b id="SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; int</b><br />
+     This returns the pixel width of a string drawn in the given <code class="parameter">style</code> which can
+    be used, for example, to decide how wide to make the line number margin in order to display a
+    given number of numerals.</p>
+
+    <p><b id="SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; int</b><br />
+     This returns the height in pixels of a particular line. Currently all lines are the same
+    height.</p>
+
+    <p><b id="SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(int x, int y) &rarr; position</b><br />
+     <b id="SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</b><br />
+     <code>SCI_POSITIONFROMPOINT</code> finds the closest character position to a point and
+    <code>SCI_POSITIONFROMPOINTCLOSE</code> is similar but returns -1 if the point is outside the
+    window or not close to any characters.</p>
+
+    <p><b id="SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(int x, int y) &rarr; position</b><br />
+     <b id="SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</b><br />
+     <code>SCI_CHARPOSITIONFROMPOINT</code> finds the closest character to a point and
+    <code>SCI_CHARPOSITIONFROMPOINTCLOSE</code> is similar but returns -1 if the point is outside the
+    window or not close to any characters. This is similar to the previous methods but finds characters rather than
+    inter-character positions.</p>
+
+    <p><b id="SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</b><br />
+     <b id="SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</b><br />
+     These messages return the x and y display pixel location of text at position <code class="parameter">pos</code>
+    in the document.</p>
+
+    <h2 id="ByCharacterOrCodeUnit">By character or UTF-16 code unit</h2>
+
+    <p>Most Scintilla APIs use byte positions but some applications want to use positions based on counting
+    (UTF-32) characters or (UTF-16) code units
+    or need to communicate with other code written in terms of characters or code units.
+    With only byte positions, this may require examining many bytes to count characters or code units in the document
+    but this may be sped up in some cases by indexing the line starts by character or code unit.</p>
+
+     <a class="message" href="#SCI_POSITIONRELATIVE">SCI_POSITIONRELATIVE(position pos, position relative) &rarr; position</a><br />
+     <a class="message" href="#SCI_POSITIONRELATIVECODEUNITS">SCI_POSITIONRELATIVECODEUNITS(position pos, position relative) &rarr; position</a><br />
+     <a class="message" href="#SCI_COUNTCHARACTERS">SCI_COUNTCHARACTERS(position start, position end) &rarr; position</a><br />
+     <a class="message" href="#SCI_COUNTCODEUNITS">SCI_COUNTCODEUNITS(position start, position end) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETLINECHARACTERINDEX">SCI_GETLINECHARACTERINDEX &rarr; int</a><br />
+     <a class="message" href="#SCI_ALLOCATELINECHARACTERINDEX">SCI_ALLOCATELINECHARACTERINDEX(int lineCharacterIndex)</a><br />
+     <a class="message" href="#SCI_RELEASELINECHARACTERINDEX">SCI_RELEASELINECHARACTERINDEX(int lineCharacterIndex)</a><br />
+     <a class="message" href="#SCI_LINEFROMINDEXPOSITION">SCI_LINEFROMINDEXPOSITION(position pos, int lineCharacterIndex) &rarr; line</a><br />
+     <a class="message" href="#SCI_INDEXPOSITIONFROMLINE">SCI_INDEXPOSITIONFROMLINE(line line, int lineCharacterIndex) &rarr; position</a><br />
+
+    <p><b id="SCI_POSITIONRELATIVE">SCI_POSITIONRELATIVE(position pos, position relative) &rarr; position</b><br />
+     Count a number of whole characters before or after the argument position and return that position.
+     The minimum position returned is 0 and the maximum is the last position in the document.
+     If the position goes past the document end then 0 is returned.
+     </p>
+
+    <p><b id="SCI_COUNTCHARACTERS">SCI_COUNTCHARACTERS(position start, position end) &rarr; position</b><br />
+     Returns the number of whole characters between two positions.</p>
+
+    <p><b id="SCI_POSITIONRELATIVECODEUNITS">SCI_POSITIONRELATIVECODEUNITS(position pos, position relative) &rarr; position</b><br />
+    <b id="SCI_COUNTCODEUNITS">SCI_COUNTCODEUNITS(position start, position end) &rarr; position</b><br />
+     These are the UTF-16 versions of <code>SCI_POSITIONRELATIVE</code> and <code>SCI_COUNTCHARACTERS</code>
+     working in terms of UTF-16 code units.</p>
+
+    <p><b id="SCI_GETLINECHARACTERINDEX">SCI_GETLINECHARACTERINDEX &rarr; int</b><br />
+     Returns which if any indexes are active. It may be <code>SC_LINECHARACTERINDEX_NONE</code> (0) or one or more
+     of <code>SC_LINECHARACTERINDEX_UTF32</code> (1) if whole characters are indexed or
+     <code>SC_LINECHARACTERINDEX_UTF16</code> (2) if UTF-16 code units are indexed.
+     Character indexes are currently only supported for UTF-8 documents.</p>
+
+    <p><b id="SCI_ALLOCATELINECHARACTERINDEX">SCI_ALLOCATELINECHARACTERINDEX(int lineCharacterIndex)</b><br />
+    <b id="SCI_RELEASELINECHARACTERINDEX">SCI_RELEASELINECHARACTERINDEX(int lineCharacterIndex)</b><br />
+     Allocate or release one or more indexes using same enumeration as <code>SCI_GETLINECHARACTERINDEX</code>.
+     Different aspects of an application may need indexes for different periods and should allocate for those periods.
+     Indexes use additional memory so releasing them can help minimize memory but they also take time to recalculate.
+     Scintilla may also allocate indexes to support features like accessibility or input method editors.
+     Only one index of each type is created for a document at a time.</p>
+
+    <p><b id="SCI_LINEFROMINDEXPOSITION">SCI_LINEFROMINDEXPOSITION(position pos, int lineCharacterIndex) &rarr; line</b><br />
+    <b id="SCI_INDEXPOSITIONFROMLINE">SCI_INDEXPOSITIONFROMLINE(line line, int lineCharacterIndex) &rarr; position</b><br />
+     The document line of a particular character or code unit may be found by calling <code>SCI_LINEFROMINDEXPOSITION</code> with one of
+     <code>SC_LINECHARACTERINDEX_UTF32</code> (1) or <code>SC_LINECHARACTERINDEX_UTF16</code> (2).
+     The inverse action, finds the starting position of a document line either in characters or code units from the document start by calling
+     <code>SCI_INDEXPOSITIONFROMLINE</code> with the same <code class="parameter">lineCharacterIndex</code> argument.</p>
+
+    <h2 id="ErrorHandling">Error handling</h2>
+
+    <code><a class="message" href="#SCI_SETSTATUS">SCI_SETSTATUS(int status)</a><br />
+     <a class="message" href="#SCI_GETSTATUS">SCI_GETSTATUS &rarr; int</a><br />
+    </code>
+
+    <p><b id="SCI_SETSTATUS">SCI_SETSTATUS(int status)</b><br />
+     <b id="SCI_GETSTATUS">SCI_GETSTATUS &rarr; int</b><br />
+     If an error occurs, Scintilla may set an internal error number that can be retrieved with
+    <code>SCI_GETSTATUS</code>.
+    To clear the error status call <code>SCI_SETSTATUS(0)</code>.
+    Status values from 1 to 999 are errors and status <code>SC_STATUS_WARN_START</code> (1000)
+    and above are warnings.
+    The currently defined statuses are:
+    </p>
+
+    <table class="standard" summary="Status values">
+      <tbody valign="top">
+        <tr>
+          <th align="left"><code>SC_STATUS_OK</code></th>
+          <td>0</td>
+          <td>No failures</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>SC_STATUS_FAILURE</code></th>
+          <td>1</td>
+          <td>Generic failure</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>SC_STATUS_BADALLOC</code></th>
+          <td>2</td>
+          <td>Memory is exhausted</td>
+        </tr>
+
+        <tr>
+          <th align="left"><code>SC_STATUS_WARN_REGEX</code></th>
+          <td>1001</td>
+          <td>Regular expression is invalid</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <h2 id="Selection">Selection</h2>
+
+    <p>Scintilla maintains a selection that stretches between two points, the anchor and the
+    current position. If the anchor and the current position are the same, there is no selected
+    text. Positions in the document range from 0 (before the first character), to the document size
+    (after the last character). If you use messages, there is nothing to stop you setting a
+    position that is in the middle of a CRLF pair, or in the middle of a 2 byte character. However,
+    keyboard commands will not move the caret into such positions.</p>
+    <code>
+     <a class="message" href="#SCI_SETSEL">SCI_SETSEL(position anchor, position caret)</a><br />
+     <a class="message" href="#SCI_GOTOPOS">SCI_GOTOPOS(position caret)</a><br />
+     <a class="message" href="#SCI_GOTOLINE">SCI_GOTOLINE(line line)</a><br />
+     <a class="message" href="#SCI_SETCURRENTPOS">SCI_SETCURRENTPOS(position caret)</a><br />
+     <a class="message" href="#SCI_GETCURRENTPOS">SCI_GETCURRENTPOS &rarr; position</a><br />
+     <a class="message" href="#SCI_SETANCHOR">SCI_SETANCHOR(position anchor)</a><br />
+     <a class="message" href="#SCI_GETANCHOR">SCI_GETANCHOR &rarr; position</a><br />
+     <a class="message" href="#SCI_SETSELECTIONSTART">SCI_SETSELECTIONSTART(position anchor)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONSTART">SCI_GETSELECTIONSTART &rarr; position</a><br />
+     <a class="message" href="#SCI_SETSELECTIONEND">SCI_SETSELECTIONEND(position caret)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONEND">SCI_GETSELECTIONEND &rarr; position</a><br />
+     <a class="message" href="#SCI_SETEMPTYSELECTION">SCI_SETEMPTYSELECTION(position caret)</a><br />
+     <a class="message" href="#SCI_SELECTALL">SCI_SELECTALL</a><br />
+     <a class="message" href="#SCI_HIDESELECTION">SCI_HIDESELECTION(bool hide)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONHIDDEN">SCI_GETSELECTIONHIDDEN &rarr; bool</a><br />
+     <a class="message" href="#SCI_GETSELTEXT">SCI_GETSELTEXT(&lt;unused&gt;, char *text) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETCURLINE">SCI_GETCURLINE(position length, char *text) &rarr; position</a><br />
+     <a class="message" href="#SCI_SELECTIONISRECTANGLE">SCI_SELECTIONISRECTANGLE &rarr; bool</a><br />
+     <a class="message" href="#SCI_SETSELECTIONMODE">SCI_SETSELECTIONMODE(int selectionMode)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONMODE">SCI_GETSELECTIONMODE &rarr; int</a><br />
+     <a class="message" href="#SCI_GETMOVEEXTENDSSELECTION">SCI_GETMOVEEXTENDSSELECTION &rarr; bool</a><br />
+     <a class="message" href="#SCI_GETLINESELSTARTPOSITION">SCI_GETLINESELSTARTPOSITION(line line) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETLINESELENDPOSITION">SCI_GETLINESELENDPOSITION(line line) &rarr; position</a><br />
+     <a class="message" href="#SCI_MOVECARETINSIDEVIEW">SCI_MOVECARETINSIDEVIEW</a><br />
+     <a class="message" href="#SCI_CHOOSECARETX">SCI_CHOOSECARETX</a><br />
+     <a class="message" href="#SCI_MOVESELECTEDLINESUP">SCI_MOVESELECTEDLINESUP</a><br />
+     <a class="message" href="#SCI_MOVESELECTEDLINESDOWN">SCI_MOVESELECTEDLINESDOWN</a><br />
+     <a class="message" href="#SCI_SETMOUSESELECTIONRECTANGULARSWITCH">SCI_SETMOUSESELECTIONRECTANGULARSWITCH(bool mouseSelectionRectangularSwitch)</a><br />
+     <a class="message" href="#SCI_GETMOUSESELECTIONRECTANGULARSWITCH">SCI_GETMOUSESELECTIONRECTANGULARSWITCH &rarr; bool</a><br />
+    </code>
+
+    <p><b id="SCI_SETSEL">SCI_SETSEL(position anchor, position caret)</b><br />
+     This message sets both the anchor and the current position. If <code class="parameter">caret</code> is
+    negative, it means the end of the document. If <code class="parameter">anchor</code> is negative, it means
+    remove any selection (i.e. set the anchor to the same position as <code class="parameter">caret</code>). The
+    caret is scrolled into view after this operation.</p>
+
+    <p><b id="SCI_GOTOPOS">SCI_GOTOPOS(position caret)</b><br />
+     This removes any selection, sets the caret at <code class="parameter">caret</code> and scrolls the view to make
+    the caret visible, if necessary. It is equivalent to
+    <code>SCI_SETSEL(caret, caret)</code>. The anchor position is set the same as the current
+    position.</p>
+
+    <p><b id="SCI_GOTOLINE">SCI_GOTOLINE(line line)</b><br />
+     This removes any selection and sets the caret at the start of line number <code class="parameter">line</code>
+    and scrolls the view (if needed) to make it visible. The anchor position is set the same as the
+    current position. If <code class="parameter">line</code> is outside the lines in the document (first line is 0),
+    the line set is the first or last.</p>
+
+    <p><b id="SCI_SETCURRENTPOS">SCI_SETCURRENTPOS(position caret)</b><br />
+     This sets the current position and creates a selection between the anchor and the current
+    position. The caret is not scrolled into view.</p>
+
+    <p>See also: <a class="message" href="#SCI_SCROLLCARET"><code>SCI_SCROLLCARET</code></a></p>
+
+    <p><b id="SCI_GETCURRENTPOS">SCI_GETCURRENTPOS &rarr; position</b><br />
+     This returns the current position.</p>
+
+    <p><b id="SCI_SETANCHOR">SCI_SETANCHOR(position anchor)</b><br />
+     This sets the anchor position and creates a selection between the anchor position and the
+    current position. The caret is not scrolled into view.</p>
+
+    <p>See also: <a class="message" href="#SCI_SCROLLCARET"><code>SCI_SCROLLCARET</code></a></p>
+
+    <p><b id="SCI_GETANCHOR">SCI_GETANCHOR &rarr; position</b><br />
+     This returns the current anchor position.</p>
+
+    <p><b id="SCI_SETSELECTIONSTART">SCI_SETSELECTIONSTART(position anchor)</b><br />
+     <b id="SCI_SETSELECTIONEND">SCI_SETSELECTIONEND(position caret)</b><br />
+     These set the selection based on the assumption that the anchor position is less than the
+    current position. They do not make the caret visible. The table shows the positions of the
+    anchor and the current position after using these messages.</p>
+
+    <table class="standard" summary="SetSelection caret positioning">
+      <thead align="center">
+        <tr>
+          <th>
+	  New value for
+          </th>
+
+          <th>anchor</th>
+
+          <th>caret</th>
+        </tr>
+      </thead>
+
+      <tbody align="center">
+        <tr>
+          <th><code>SCI_SETSELECTIONSTART</code></th>
+
+          <td><code class="parameter">anchor</code></td>
+
+          <td><code>Max(</code><code class="parameter">anchor</code><code>, current)</code></td>
+        </tr>
+
+        <tr>
+          <th><code>SCI_SETSELECTIONEND</code></th>
+
+          <td><code>Min(anchor, </code><code class="parameter">caret</code><code>)</code></td>
+
+          <td><code class="parameter">caret</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>See also: <a class="message" href="#SCI_SCROLLCARET"><code>SCI_SCROLLCARET</code></a></p>
+
+    <p><b id="SCI_GETSELECTIONSTART">SCI_GETSELECTIONSTART &rarr; position</b><br />
+     <b id="SCI_GETSELECTIONEND">SCI_GETSELECTIONEND &rarr; position</b><br />
+     These return the start and end of the selection without regard to which end is the current
+    position and which is the anchor. <code>SCI_GETSELECTIONSTART</code> returns the smaller of the
+    current position or the anchor position. <code>SCI_GETSELECTIONEND</code> returns the larger of
+    the two values.</p>
+
+    <p><b id="SCI_SETEMPTYSELECTION">SCI_SETEMPTYSELECTION(position caret)</b><br />
+     This removes any selection and sets the caret at <code class="parameter">caret</code>. The caret is not scrolled into view.</p>
+
+    <p><b id="SCI_SELECTALL">SCI_SELECTALL</b><br />
+     This selects all the text in the document. The current position is not scrolled into view.</p>
+
+    <p><b id="SCI_HIDESELECTION">SCI_HIDESELECTION(bool hide)</b><br />
+     <b id="SCI_GETSELECTIONHIDDEN">SCI_GETSELECTIONHIDDEN &rarr; bool</b><br />
+     The normal state is to make the selection visible by drawing it as set by <a class="message"
+    href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>, <a class="message"
+    href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a>, and related calls.
+    However, if you hide the selection, it is drawn as normal text.</p>
+
+    <p><b id="SCI_GETSELTEXT">SCI_GETSELTEXT(&lt;unused&gt;, char *text NUL-terminated) &rarr; position</b><br />
+     This copies the currently selected text and a terminating NUL(0) byte to the <code class="parameter">text</code>
+    buffer. The buffer size should be determined by calling with a NULL pointer for the <code class="parameter">text</code> argument:
+    <code>1 + SCI_GETSELTEXT(0, NULL)</code>.
+    This allows for rectangular and discontiguous selections as well as simple selections.
+    See <a class="toc" href="#MultipleSelectionAndVirtualSpace">Multiple Selection</a> for information on
+    how multiple and rectangular selections and virtual space are copied.</p>
+
+    <p>See also: <code><a class="seealso" href="#SCI_GETCURLINE">SCI_GETCURLINE</a>,
+    <a class="seealso" href="#SCI_GETLINE">SCI_GETLINE</a>,
+    <a class="seealso" href="#SCI_GETTEXT">SCI_GETTEXT</a>,
+    <a class="seealso" href="#SCI_GETSTYLEDTEXT">SCI_GETSTYLEDTEXT</a>,
+    <a class="seealso" href="#SCI_GETTEXTRANGE">SCI_GETTEXTRANGE</a>
+    </code></p>
+
+    <p><b id="SCI_GETCURLINE">SCI_GETCURLINE(position length, char *text NUL-terminated) &rarr; position</b><br />
+     This retrieves the text of the line containing the caret and returns the position within the
+    line of the caret. Pass in <code>char* text</code> pointing at a buffer large enough to hold
+    the text you wish to retrieve and a terminating NUL(0) character.
+    Set <code class="parameter">length</code> to the
+    length of the buffer not including the terminating NUL character.
+    If the text argument is NULL(0) then the length that should be allocated
+    to store the entire current line is returned.</p>
+
+    <p>See also: <code
+    <a class="seealso" href="#SCI_GETSELTEXT">SCI_GETSELTEXT</a>,
+    <a class="seealso" href="#SCI_GETLINE">SCI_GETLINE</a>,
+    <a class="seealso" href="#SCI_GETTEXT">SCI_GETTEXT</a>,
+    <a class="seealso" href="#SCI_GETSTYLEDTEXT">SCI_GETSTYLEDTEXT</a>,
+    <a class="seealso" href="#SCI_GETTEXTRANGE">SCI_GETTEXTRANGE</a></code></p>
+
+    <p><b id="SCI_SELECTIONISRECTANGLE">SCI_SELECTIONISRECTANGLE &rarr; bool</b><br />
+     This returns 1 if the current selection is in rectangle mode, 0 if not.</p>
+
+    <p><b id="SCI_SETSELECTIONMODE">SCI_SETSELECTIONMODE(int selectionMode)</b><br />
+    <b id="SCI_GETSELECTIONMODE">SCI_GETSELECTIONMODE &rarr; int</b><br />
+    The two functions set and get the selection mode, which can be
+     stream (<code>SC_SEL_STREAM</code>=0) or
+     rectangular (<code>SC_SEL_RECTANGLE</code>=1) or
+     by lines (<code>SC_SEL_LINES</code>=2)
+     or thin rectangular (<code>SC_SEL_THIN</code>=3).
+     When set in these modes, regular caret moves will extend or reduce the selection,
+     until the mode is cancelled by a call with same value or with <code>SCI_CANCEL</code>.
+     The get function returns the current mode even if the selection was made by mouse
+     or with regular extended moves.
+     <code>SC_SEL_THIN</code> is the mode after a rectangular selection has been typed into and ensures
+     that no characters are selected.</p>
+
+    <p><b id="SCI_GETMOVEEXTENDSSELECTION">SCI_GETMOVEEXTENDSSELECTION &rarr; bool</b><br />
+     This returns 1 if regular caret moves will extend or reduce the selection, 0 if not.
+     <code>SCI_SETSELECTIONMODE</code> toggles this setting between on and off.</p>
+
+    <p><b id="SCI_GETLINESELSTARTPOSITION">SCI_GETLINESELSTARTPOSITION(line line) &rarr; position</b><br />
+    <b id="SCI_GETLINESELENDPOSITION">SCI_GETLINESELENDPOSITION(line line) &rarr; position</b><br />
+    Retrieve the position of the start and end of the selection at the given line with
+    <code>INVALID_POSITION</code> returned if no selection on this line.</p>
+
+    <p><b id="SCI_MOVECARETINSIDEVIEW">SCI_MOVECARETINSIDEVIEW</b><br />
+     If the caret is off the top or bottom of the view, it is moved to the nearest line that is
+    visible to its current position. Any selection is lost.</p>
+
+    <p><b id="SCI_CHOOSECARETX">SCI_CHOOSECARETX</b><br />
+     Scintilla remembers the x value of the last position horizontally moved to explicitly by the
+    user and this value is then used when moving vertically such as by using the up and down keys.
+    This message sets the current x position of the caret as the remembered value.</p>
+
+    <p><b id="SCI_MOVESELECTEDLINESUP">SCI_MOVESELECTEDLINESUP</b><br />
+     Move the selected lines up one line, shifting the line above after the selection.
+     The selection will be automatically extended to the beginning of the selection's first line and the end of the selection's last line.
+     If nothing was selected, the line the cursor is currently at will be selected.</p>
+
+    <p><b id="SCI_MOVESELECTEDLINESDOWN">SCI_MOVESELECTEDLINESDOWN</b><br />
+     Move the selected lines down one line, shifting the line below before the selection.
+     The selection will be automatically extended to the beginning of the selection's first line and the end of the selection's last line.
+     If nothing was selected, the line the cursor is currently at will be selected.</p>
+
+    <p><b id="SCI_SETMOUSESELECTIONRECTANGULARSWITCH">SCI_SETMOUSESELECTIONRECTANGULARSWITCH(bool
+     mouseSelectionRectangularSwitch)</b><br />
+    <b id="SCI_GETMOUSESELECTIONRECTANGULARSWITCH">SCI_GETMOUSESELECTIONRECTANGULARSWITCH &rarr; bool</b><br />
+     Enable or disable the ability to switch to rectangular selection mode while making a selection with the mouse.
+     When this option is turned on, mouse selections in stream mode can be switched to rectangular mode by pressing
+     the corresponding modifier key. They then stick to rectangular mode even when the modifier key is released again.
+     When this option is turned off, mouse selections will always stick to the mode the selection was started in. It
+     is off by default.</p>
+
+    <h2 id="MultipleSelectionAndVirtualSpace">Multiple Selection and Virtual Space</h2>
+
+    <code>
+     <a class="message" href="#SCI_SETMULTIPLESELECTION">SCI_SETMULTIPLESELECTION(bool multipleSelection)</a><br />
+     <a class="message" href="#SCI_GETMULTIPLESELECTION">SCI_GETMULTIPLESELECTION &rarr; bool</a><br />
+     <a class="message" href="#SCI_SETADDITIONALSELECTIONTYPING">SCI_SETADDITIONALSELECTIONTYPING(bool additionalSelectionTyping)</a><br />
+     <a class="message" href="#SCI_GETADDITIONALSELECTIONTYPING">SCI_GETADDITIONALSELECTIONTYPING &rarr; bool</a><br />
+     <a class="message" href="#SCI_SETMULTIPASTE">SCI_SETMULTIPASTE(int multiPaste)</a><br />
+     <a class="message" href="#SCI_GETMULTIPASTE">SCI_GETMULTIPASTE &rarr; int</a><br />
+     <a class="message" href="#SCI_SETVIRTUALSPACEOPTIONS">SCI_SETVIRTUALSPACEOPTIONS(int virtualSpaceOptions)</a><br />
+     <a class="message" href="#SCI_GETVIRTUALSPACEOPTIONS">SCI_GETVIRTUALSPACEOPTIONS &rarr; int</a><br />
+     <a class="message" href="#SCI_SETRECTANGULARSELECTIONMODIFIER">SCI_SETRECTANGULARSELECTIONMODIFIER(int modifier)</a><br />
+     <a class="message" href="#SCI_GETRECTANGULARSELECTIONMODIFIER">SCI_GETRECTANGULARSELECTIONMODIFIER &rarr; int</a><br />
+     <br />
+
+     <a class="message" href="#SCI_GETSELECTIONS">SCI_GETSELECTIONS &rarr; int</a><br />
+     <a class="message" href="#SCI_GETSELECTIONEMPTY">SCI_GETSELECTIONEMPTY &rarr; bool</a><br />
+     <a class="message" href="#SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</a><br />
+     <a class="message" href="#SCI_SETSELECTION">SCI_SETSELECTION(position caret, position anchor)</a><br />
+     <a class="message" href="#SCI_ADDSELECTION">SCI_ADDSELECTION(position caret, position anchor)</a><br />
+     <a class="message" href="#SCI_DROPSELECTIONN">SCI_DROPSELECTIONN(int selection)</a><br />
+     <a class="message" href="#SCI_SETMAINSELECTION">SCI_SETMAINSELECTION(int selection)</a><br />
+     <a class="message" href="#SCI_GETMAINSELECTION">SCI_GETMAINSELECTION &rarr; int</a><br />
+     <br />
+
+     <a class="message" href="#SCI_SETSELECTIONNCARET">SCI_SETSELECTIONNCARET(int selection, position caret)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNCARET">SCI_GETSELECTIONNCARET(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_SETSELECTIONNCARETVIRTUALSPACE">SCI_SETSELECTIONNCARETVIRTUALSPACE(int selection, position space)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNCARETVIRTUALSPACE">SCI_GETSELECTIONNCARETVIRTUALSPACE(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_SETSELECTIONNANCHOR">SCI_SETSELECTIONNANCHOR(int selection, position anchor)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNANCHOR">SCI_GETSELECTIONNANCHOR(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_SETSELECTIONNANCHORVIRTUALSPACE">SCI_SETSELECTIONNANCHORVIRTUALSPACE(int selection, position space)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNANCHORVIRTUALSPACE">SCI_GETSELECTIONNANCHORVIRTUALSPACE(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_SETSELECTIONNSTART">SCI_SETSELECTIONNSTART(int selection, position anchor)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNSTART">SCI_GETSELECTIONNSTART(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNSTARTVIRTUALSPACE">SCI_GETSELECTIONNSTARTVIRTUALSPACE(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_SETSELECTIONNEND">SCI_SETSELECTIONNEND(int selection, position caret)</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNEND">SCI_GETSELECTIONNEND(int selection) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETSELECTIONNENDVIRTUALSPACE">SCI_GETSELECTIONNENDVIRTUALSPACE(int selection) &rarr; position</a><br />
+     <br />
+
+     <a class="message" href="#SCI_SETRECTANGULARSELECTIONCARET">SCI_SETRECTANGULARSELECTIONCARET(position caret)</a><br />
+     <a class="message" href="#SCI_GETRECTANGULARSELECTIONCARET">SCI_GETRECTANGULARSELECTIONCARET &rarr; position</a><br />
+     <a class="message" href="#SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE(position space)</a><br />
+     <a class="message" href="#SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE &rarr; position</a><br />
+     <a class="message" href="#SCI_SETRECTANGULARSELECTIONANCHOR">SCI_SETRECTANGULARSELECTIONANCHOR(position anchor)</a><br />
+     <a class="message" href="#SCI_GETRECTANGULARSELECTIONANCHOR">SCI_GETRECTANGULARSELECTIONANCHOR &rarr; position</a><br />
+     <a class="message" href="#SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE(position space)</a><br />
+     <a class="message" href="#SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE &rarr; position</a><br />
+     <br />
+
+     <a class="element" href="#SC_ELEMENT_SELECTION_ADDITIONAL_TEXT">SC_ELEMENT_SELECTION_ADDITIONAL_TEXT : colouralpha</a><br />
+     <a class="element" href="#SC_ELEMENT_SELECTION_ADDITIONAL_BACK">SC_ELEMENT_SELECTION_ADDITIONAL_BACK : colouralpha</a><br />
+     <a class="discouraged message" href="#SCI_SETADDITIONALSELALPHA">SCI_SETADDITIONALSELALPHA(alpha alpha)</a><br />
+     <a class="discouraged message" href="#SCI_GETADDITIONALSELALPHA">SCI_GETADDITIONALSELALPHA &rarr; int</a><br />
+     <a class="discouraged message" href="#SCI_SETADDITIONALSELFORE">SCI_SETADDITIONALSELFORE(colour fore)</a><br />
+     <a class="discouraged message" href="#SCI_SETADDITIONALSELBACK">SCI_SETADDITIONALSELBACK(colour back)</a><br />
+     <a class="element" href="#SC_ELEMENT_CARET_ADDITIONAL">SC_ELEMENT_CARET_ADDITIONAL : colouralpha</a><br />
+     <a class="discouraged message" href="#SCI_SETADDITIONALCARETFORE">SCI_SETADDITIONALCARETFORE(colour fore)</a><br />
+     <a class="discouraged message" href="#SCI_GETADDITIONALCARETFORE">SCI_GETADDITIONALCARETFORE &rarr; colour</a><br />
+     <a class="message" href="#SCI_SETADDITIONALCARETSBLINK">SCI_SETADDITIONALCARETSBLINK(bool additionalCaretsBlink)</a><br />
+     <a class="message" href="#SCI_GETADDITIONALCARETSBLINK">SCI_GETADDITIONALCARETSBLINK &rarr; bool</a><br />
+     <a class="message" href="#SCI_SETADDITIONALCARETSVISIBLE">SCI_SETADDITIONALCARETSVISIBLE(bool additionalCaretsVisible)</a><br />
+     <a class="message" href="#SCI_GETADDITIONALCARETSVISIBLE">SCI_GETADDITIONALCARETSVISIBLE &rarr; bool</a><br />
+     <br />
+
+     <a class="message" href="#SCI_SWAPMAINANCHORCARET">SCI_SWAPMAINANCHORCARET</a><br />
+     <a class="message" href="#SCI_ROTATESELECTION">SCI_ROTATESELECTION</a><br />
+     <a class="message" href="#SCI_MULTIPLESELECTADDNEXT">SCI_MULTIPLESELECTADDNEXT</a><br />
+     <a class="message" href="#SCI_MULTIPLESELECTADDEACH">SCI_MULTIPLESELECTADDEACH</a><br />
+    </code>
+
+    <p>
+    There may be multiple selections active at one time.
+    More selections are made by holding down the Ctrl key while dragging with the mouse.
+    The most recent selection is the main selection and determines which part of the document is shown automatically.
+    Any selection apart from the main selection is called an additional selection.
+    The calls in the previous section operate on the main selection.
+    There is always at least one selection.
+    The selection can be simplified down to just the main selection by
+    <a class="message" href="#SCI_CANCEL"><code>SCI_CANCEL</code></a>
+    which is normally mapped to the Esc key.
+    </p>
+
+    <p>
+    Rectangular selections are handled as multiple selections although the original rectangular range is remembered so that
+    subsequent operations may be handled differently for rectangular selections. For example, pasting a rectangular selection
+    places each piece in a vertical column.
+    </p>
+
+    <p>
+    Virtual space is space beyond the end of each line. The caret may be moved into virtual space but no real space will be
+    added to the document until there is some text typed or some other text insertion command is used.
+    </p>
+
+    <p>When discontiguous selections are copied to the clipboard, each selection is added to the clipboard text
+    in order with no delimiting characters.
+    For rectangular selections the document's line end is added after each line's text. Rectangular selections
+    are always copied from top line to bottom, not in the in order of selection.Virtual space is not copied.</p>
+
+    <p>
+    <b id="SCI_SETMULTIPLESELECTION">SCI_SETMULTIPLESELECTION(bool multipleSelection)</b><br />
+    <b id="SCI_GETMULTIPLESELECTION">SCI_GETMULTIPLESELECTION &rarr; bool</b><br />
+     Enable or disable multiple selection. When multiple selection is disabled, it is not possible to select
+     multiple ranges by holding down the Ctrl key while dragging with the mouse.</p>
+
+    <p>
+    <b id="SCI_SETADDITIONALSELECTIONTYPING">SCI_SETADDITIONALSELECTIONTYPING(bool additionalSelectionTyping)</b><br />
+    <b id="SCI_GETADDITIONALSELECTIONTYPING">SCI_GETADDITIONALSELECTIONTYPING &rarr; bool</b><br />
+     Whether typing, new line, cursor left/right/up/down, backspace, delete, home, and end work
+     with multiple selections simultaneously.
+     Also allows selection and word and line deletion commands.</p>
+
+    <p>
+    <b id="SCI_SETMULTIPASTE">SCI_SETMULTIPASTE(int multiPaste)</b><br />
+    <b id="SCI_GETMULTIPASTE">SCI_GETMULTIPASTE &rarr; int</b><br />
+     When pasting into multiple selections, the pasted text can go into just the main selection with <code>SC_MULTIPASTE_ONCE</code>=0
+     or into each selection with <code>SC_MULTIPASTE_EACH</code>=1. <code>SC_MULTIPASTE_ONCE</code> is the default.</p>
+
+    <p>
+    <b id="SCI_SETVIRTUALSPACEOPTIONS">SCI_SETVIRTUALSPACEOPTIONS(int virtualSpaceOptions)</b><br />
+    <b id="SCI_GETVIRTUALSPACEOPTIONS">SCI_GETVIRTUALSPACEOPTIONS &rarr; int</b><br />
+     Virtual space can be enabled or disabled for rectangular selections or in other circumstances or in both.
+     There are three bit flags <code>SCVS_RECTANGULARSELECTION</code>=1,
+     <code>SCVS_USERACCESSIBLE</code>=2, and
+     <code>SCVS_NOWRAPLINESTART</code>=4 which can be set independently.
+     <code>SCVS_NONE</code>=0, the default, disables all use of virtual space.</p>
+     <p><code>SCVS_NOWRAPLINESTART</code> prevents left arrow movement and selection
+     from wrapping to the previous line.
+     This is most commonly desired in conjunction with virtual space but is an independent
+     setting so works without virtual space.</p>
+
+    <p>
+    <b id="SCI_SETRECTANGULARSELECTIONMODIFIER">SCI_SETRECTANGULARSELECTIONMODIFIER(int modifier)</b><br />
+    <b id="SCI_GETRECTANGULARSELECTIONMODIFIER">SCI_GETRECTANGULARSELECTIONMODIFIER &rarr; int</b><br />
+     On GTK and Qt, the key used to indicate that a rectangular selection should be created when combined with a mouse drag can be set.
+     The three possible values are <code>SCMOD_CTRL</code>=2, <code>SCMOD_ALT</code>=4 (default) or <code>SCMOD_SUPER</code>=8.
+     Since <code>SCMOD_ALT</code> may already be used by a window manager, the window manager may need configuring to allow this choice.
+     <code>SCMOD_SUPER</code> is often a system dependent modifier key such as the Left Windows key on a Windows keyboard or the
+     Command key on a Mac.</p>
+
+    <p>
+    <b id="SCI_GETSELECTIONS">SCI_GETSELECTIONS &rarr; int</b><br />
+     Return the number of selections currently active. There is always at least one selection.</p>
+
+    <p>
+    <b id="SCI_GETSELECTIONEMPTY">SCI_GETSELECTIONEMPTY &rarr; bool</b><br />
+     Return 1 if every selected range is empty else 0.</p>
+
+    <p>
+    <b id="SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</b><br />
+     Set a single empty selection at 0 as the only selection.</p>
+
+    <p>
+    <b id="SCI_SETSELECTION">SCI_SETSELECTION(position caret, position anchor)</b><br />
+     Set a single selection from <code class="parameter">anchor</code> to <code class="parameter">caret</code> as the only selection.</p>
+
+    <p>
+    <b id="SCI_ADDSELECTION">SCI_ADDSELECTION(position caret, position anchor)</b><br />
+     Add a new selection from <code class="parameter">anchor</code> to <code class="parameter">caret</code> as the main selection retaining all other
+     selections as additional selections.
+     Since there is always at least one selection, to set a list of selections, the first selection should be
+     added with <code>SCI_SETSELECTION</code> and later selections added with <code>SCI_ADDSELECTION</code></p>
+
+    <p>
+    <b id="SCI_DROPSELECTIONN">SCI_DROPSELECTIONN(int selection)</b><br />
+     If there are multiple selections, remove the indicated selection.
+     If this was the main selection then make the previous selection the main and if it was the first then the last selection becomes main.
+     If there is only one selection, or there is no selection <code class="parameter">selection</code>, then there is no effect.</p>
+
+    <p>
+    <b id="SCI_SETMAINSELECTION">SCI_SETMAINSELECTION(int selection)</b><br />
+    <b id="SCI_GETMAINSELECTION">SCI_GETMAINSELECTION &rarr; int</b><br />
+     One of the selections is the main selection which is used to determine what range of text is automatically visible.
+     The main selection may be displayed in different colours or with a differently styled caret.
+     Only an already existing selection can be made main.</p>
+
+    <p>
+     <b id="SCI_SETSELECTIONNCARET">SCI_SETSELECTIONNCARET(int selection, position caret)</b><br />
+     <b id="SCI_GETSELECTIONNCARET">SCI_GETSELECTIONNCARET(int selection) &rarr; position</b><br />
+     <b id="SCI_SETSELECTIONNCARETVIRTUALSPACE">SCI_SETSELECTIONNCARETVIRTUALSPACE(int selection, position space)</b><br />
+     <b id="SCI_GETSELECTIONNCARETVIRTUALSPACE">SCI_GETSELECTIONNCARETVIRTUALSPACE(int selection) &rarr; position</b><br />
+     <b id="SCI_SETSELECTIONNANCHOR">SCI_SETSELECTIONNANCHOR(int selection, position anchor)</b><br />
+     <b id="SCI_GETSELECTIONNANCHOR">SCI_GETSELECTIONNANCHOR(int selection) &rarr; position</b><br />
+     <b id="SCI_SETSELECTIONNANCHORVIRTUALSPACE">SCI_SETSELECTIONNANCHORVIRTUALSPACE(int selection, position space)</b><br />
+     <b id="SCI_GETSELECTIONNANCHORVIRTUALSPACE">SCI_GETSELECTIONNANCHORVIRTUALSPACE(int selection) &rarr; position</b><br />
+     Set or query the position and amount of virtual space for the caret and anchor of each already existing selection.</p>
+
+    <p>
+     <b id="SCI_SETSELECTIONNSTART">SCI_SETSELECTIONNSTART(int selection, position anchor)</b><br />
+     <b id="SCI_GETSELECTIONNSTART">SCI_GETSELECTIONNSTART(int selection) &rarr; position</b><br />
+     <b id="SCI_GETSELECTIONNSTARTVIRTUALSPACE">SCI_GETSELECTIONNSTARTVIRTUALSPACE(int selection) &rarr; position</b><br />
+     <b id="SCI_SETSELECTIONNEND">SCI_SETSELECTIONNEND(int selection, position caret)</b><br />
+     <b id="SCI_GETSELECTIONNEND">SCI_GETSELECTIONNEND(int selection) &rarr; position</b><br />
+     <b id="SCI_GETSELECTIONNENDVIRTUALSPACE">SCI_GETSELECTIONNENDVIRTUALSPACE(int selection) &rarr; position</b><br />
+     Set or query the start and end position of each already existing selection.
+     Query the virtual space at start and end of each selection.
+     Mostly of use to query each range for its text. The <code class="parameter">selection</code> parameter is zero-based. </p>
+
+    <p>
+     <b id="SCI_SETRECTANGULARSELECTIONCARET">SCI_SETRECTANGULARSELECTIONCARET(position caret)</b><br />
+     <b id="SCI_GETRECTANGULARSELECTIONCARET">SCI_GETRECTANGULARSELECTIONCARET &rarr; position</b><br />
+     <b id="SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE(position space)</b><br />
+     <b id="SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE &rarr; position</b><br />
+     <b id="SCI_SETRECTANGULARSELECTIONANCHOR">SCI_SETRECTANGULARSELECTIONANCHOR(position anchor)</b><br />
+     <b id="SCI_GETRECTANGULARSELECTIONANCHOR">SCI_GETRECTANGULARSELECTIONANCHOR &rarr; position</b><br />
+     <b id="SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE(position space)</b><br />
+     <b id="SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE &rarr; position</b><br />
+     Set or query the position and amount of virtual space for the caret and anchor of the rectangular selection.
+     After setting the rectangular selection, this is broken down into multiple selections, one for each line.</p>
+
+    <p>
+     <b id="SC_ELEMENT_SELECTION_ADDITIONAL_TEXT">SC_ELEMENT_SELECTION_ADDITIONAL_TEXT : colouralpha</b><br />
+     <b id="SC_ELEMENT_SELECTION_ADDITIONAL_BACK">SC_ELEMENT_SELECTION_ADDITIONAL_BACK : colouralpha</b><br />
+     <b id="SCI_SETADDITIONALSELALPHA">SCI_SETADDITIONALSELALPHA(<a class="jump" href="#alpha">alpha</a> alpha)</b><br />
+     <b id="SCI_GETADDITIONALSELALPHA">SCI_GETADDITIONALSELALPHA &rarr; int</b><br />
+     <b id="SCI_SETADDITIONALSELFORE">SCI_SETADDITIONALSELFORE(<a class="jump" href="#colour">colour</a> fore)</b><br />
+     <b id="SCI_SETADDITIONALSELBACK">SCI_SETADDITIONALSELBACK(<a class="jump" href="#colour">colour</a> back)</b><br />
+     Modify the appearance of additional selections so that they can be differentiated from the main selection which has its appearance set with
+     <a class="element" href="#SC_ELEMENT_SELECTION_TEXT"><code>SC_ELEMENT_SELECTION_TEXT</code></a>,
+     <a class="element" href="#SC_ELEMENT_SELECTION_BACK"><code>SC_ELEMENT_SELECTION_BACK</code></a>,
+     <a class="message" href="#SCI_SETSELALPHA"><code>SCI_SETSELALPHA</code></a>,
+     <a class="message" href="#SCI_GETSELALPHA"><code>SCI_GETSELALPHA</code></a>,
+     <a class="message" href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>, and
+     <a class="message" href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a>.
+     The element APIs are preferred and the following messages discouraged.
+     The additional selection background is drawn on the layer defined for all selection backgrounds by
+     <a class="message" href="#SCI_SETSELECTIONLAYER"><code>SCI_SETSELECTIONLAYER</code></a>.
+     <code>SCI_SETADDITIONALSELFORE</code> and
+     <code>SCI_SETADDITIONALSELBACK</code> calls have no
+     effect until <a class="message" href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>
+     and <a class="message" href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a> are
+     called with <code class="parameter">useSetting</code> value set to true. Subsequent calls to
+     <a class="message" href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>,
+     and <a class="message" href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a> will
+     overwrite the values set by <code>SCI_SETADDITIONALSEL*</code> functions.</p>
+
+    <p>
+     <b id="SC_ELEMENT_CARET_ADDITIONAL">SC_ELEMENT_CARET_ADDITIONAL : colouralpha</b><br />
+     <b id="SCI_SETADDITIONALCARETFORE">SCI_SETADDITIONALCARETFORE(<a class="jump" href="#colour">colour</a> fore)</b><br />
+     <b id="SCI_GETADDITIONALCARETFORE">SCI_GETADDITIONALCARETFORE &rarr; colour</b><br />
+     <b id="SCI_SETADDITIONALCARETSBLINK">SCI_SETADDITIONALCARETSBLINK(bool additionalCaretsBlink)</b><br />
+     <b id="SCI_GETADDITIONALCARETSBLINK">SCI_GETADDITIONALCARETSBLINK &rarr; bool</b><br />
+     Modify the appearance of additional carets so that they can be differentiated from the main caret which has its appearance set with
+     <a class="element" href="#SC_ELEMENT_CARET"><code>SC_ELEMENT_CARET</code></a>,
+     <a class="message" href="#SCI_SETCARETFORE"><code>SCI_SETCARETFORE</code></a>,
+     <a class="message" href="#SCI_GETCARETFORE"><code>SCI_GETCARETFORE</code></a>,
+     <a class="message" href="#SCI_SETCARETPERIOD"><code>SCI_SETCARETPERIOD</code></a>, and
+     <a class="message" href="#SCI_GETCARETPERIOD"><code>SCI_GETCARETPERIOD</code></a>.</p>
+
+    <p>
+     <b id="SCI_SETADDITIONALCARETSVISIBLE">SCI_SETADDITIONALCARETSVISIBLE(bool additionalCaretsVisible)</b><br />
+     <b id="SCI_GETADDITIONALCARETSVISIBLE">SCI_GETADDITIONALCARETSVISIBLE &rarr; bool</b><br />
+     Determine whether to show additional carets (defaults to <code>true</code>).</p>
+
+    <p>
+     <b id="SCI_SWAPMAINANCHORCARET">SCI_SWAPMAINANCHORCARET</b><br />
+     <b id="SCI_ROTATESELECTION">SCI_ROTATESELECTION</b><br />
+     <b id="SCI_MULTIPLESELECTADDNEXT">SCI_MULTIPLESELECTADDNEXT</b><br />
+     <b id="SCI_MULTIPLESELECTADDEACH">SCI_MULTIPLESELECTADDEACH</b><br />
+     These commands may be assigned to keys to make it possible to manipulate multiple selections.
+     <code>SCI_SWAPMAINANCHORCARET</code> moves the caret to the opposite end of the main selection.
+     <code>SCI_ROTATESELECTION</code> makes the next selection be the main selection.<br />
+     <code>SCI_MULTIPLESELECTADDNEXT</code> adds the next occurrence of the main selection
+     within the target to the set of selections as main. If the current selection is empty then select word around caret.
+      The current <a class="jump" href="#searchFlags"><code>searchFlags</code></a>
+      are used so the application may choose case sensitivity and word search options.<br />
+     <code>SCI_MULTIPLESELECTADDEACH</code> is similar to
+     <code>SCI_MULTIPLESELECTADDNEXT</code> but adds multiple occurrences instead of just one.
+     </p>
+
+    <h2 id="Overtype">Overtype</h2>
+
+    <code><a class="message" href="#SCI_SETOVERTYPE">SCI_SETOVERTYPE(bool overType)</a><br />
+     <a class="message" href="#SCI_GETOVERTYPE">SCI_GETOVERTYPE &rarr; bool</a><br />
+    </code>
+
+    <p><b id="SCI_SETOVERTYPE">SCI_SETOVERTYPE(bool overType)</b><br />
+     <b id="SCI_GETOVERTYPE">SCI_GETOVERTYPE &rarr; bool</b><br />
+     When overtype is enabled, each typed character replaces the character to the right of the text
+    caret. When overtype is disabled, characters are inserted at the caret.
+    <code>SCI_GETOVERTYPE</code> returns <code>true</code> (1) if overtyping is active, otherwise
+    <code>false</code> (0) will be returned. Use <code>SCI_SETOVERTYPE</code> to set the overtype
+    mode.</p>
 
     <h2 id="Searching">Searching</h2>
     <p>
@@ -1139,20 +1824,6 @@ struct Sci_TextToFindFull {
     <p>See also: <a class="message" href="#SCI_SEARCHINTARGET"><code>SCI_SEARCHINTARGET</code></a>,
     <a class="message" href="#SCI_FINDTEXT"><code>SCI_FINDTEXT</code></a></p>
 
-    <h2 id="Overtype">Overtype</h2>
-
-    <code><a class="message" href="#SCI_SETOVERTYPE">SCI_SETOVERTYPE(bool overType)</a><br />
-     <a class="message" href="#SCI_GETOVERTYPE">SCI_GETOVERTYPE &rarr; bool</a><br />
-    </code>
-
-    <p><b id="SCI_SETOVERTYPE">SCI_SETOVERTYPE(bool overType)</b><br />
-     <b id="SCI_GETOVERTYPE">SCI_GETOVERTYPE &rarr; bool</b><br />
-     When overtype is enabled, each typed character replaces the character to the right of the text
-    caret. When overtype is disabled, characters are inserted at the caret.
-    <code>SCI_GETOVERTYPE</code> returns <code>true</code> (1) if overtyping is active, otherwise
-    <code>false</code> (0) will be returned. Use <code>SCI_SETOVERTYPE</code> to set the overtype
-    mode.</p>
-
     <h2 id="CutCopyAndPaste">Cut, copy and paste</h2>
 
     <code><a class="message" href="#SCI_CUT">SCI_CUT</a><br />
@@ -1210,51 +1881,6 @@ struct Sci_TextToFindFull {
       Replaces the selected text or empty selection with the given text.
       The insertion is performed similarly to rectangular pastes: new lines in the given text are interpreted as
       moving to the next line without inserting new lines unless at the end of the document.</p>
-
-    <h2 id="ErrorHandling">Error handling</h2>
-
-    <code><a class="message" href="#SCI_SETSTATUS">SCI_SETSTATUS(int status)</a><br />
-     <a class="message" href="#SCI_GETSTATUS">SCI_GETSTATUS &rarr; int</a><br />
-    </code>
-
-    <p><b id="SCI_SETSTATUS">SCI_SETSTATUS(int status)</b><br />
-     <b id="SCI_GETSTATUS">SCI_GETSTATUS &rarr; int</b><br />
-     If an error occurs, Scintilla may set an internal error number that can be retrieved with
-    <code>SCI_GETSTATUS</code>.
-    To clear the error status call <code>SCI_SETSTATUS(0)</code>.
-    Status values from 1 to 999 are errors and status <code>SC_STATUS_WARN_START</code> (1000)
-    and above are warnings.
-    The currently defined statuses are:
-    </p>
-
-    <table class="standard" summary="Status values">
-      <tbody valign="top">
-        <tr>
-          <th align="left"><code>SC_STATUS_OK</code></th>
-          <td>0</td>
-          <td>No failures</td>
-        </tr>
-
-        <tr>
-          <th align="left"><code>SC_STATUS_FAILURE</code></th>
-          <td>1</td>
-          <td>Generic failure</td>
-        </tr>
-
-        <tr>
-          <th align="left"><code>SC_STATUS_BADALLOC</code></th>
-          <td>2</td>
-          <td>Memory is exhausted</td>
-        </tr>
-
-        <tr>
-          <th align="left"><code>SC_STATUS_WARN_REGEX</code></th>
-          <td>1001</td>
-          <td>Regular expression is invalid</td>
-        </tr>
-
-      </tbody>
-    </table>
 
     <h2 id="UndoAndRedo">Undo and Redo</h2>
 
@@ -1528,672 +2154,6 @@ struct Sci_TextToFindFull {
         </tr>
       </tbody>
     </table>
-
-    <h2 id="SelectionAndInformation">Selection and information</h2>
-
-    <p>Scintilla maintains a selection that stretches between two points, the anchor and the
-    current position. If the anchor and the current position are the same, there is no selected
-    text. Positions in the document range from 0 (before the first character), to the document size
-    (after the last character). If you use messages, there is nothing to stop you setting a
-    position that is in the middle of a CRLF pair, or in the middle of a 2 byte character. However,
-    keyboard commands will not move the caret into such positions.</p>
-    <code><a class="message" href="#SCI_GETTEXTLENGTH">SCI_GETTEXTLENGTH &rarr; position</a><br />
-     <a class="message" href="#SCI_GETLENGTH">SCI_GETLENGTH &rarr; position</a><br />
-     <a class="message" href="#SCI_GETLINECOUNT">SCI_GETLINECOUNT &rarr; line</a><br />
-     <a class="message" href="#SCI_LINESONSCREEN">SCI_LINESONSCREEN &rarr; line</a><br />
-     <a class="message" href="#SCI_GETMODIFY">SCI_GETMODIFY &rarr; bool</a><br />
-     <a class="message" href="#SCI_SETSEL">SCI_SETSEL(position anchor, position caret)</a><br />
-     <a class="message" href="#SCI_GOTOPOS">SCI_GOTOPOS(position caret)</a><br />
-     <a class="message" href="#SCI_GOTOLINE">SCI_GOTOLINE(line line)</a><br />
-     <a class="message" href="#SCI_SETCURRENTPOS">SCI_SETCURRENTPOS(position caret)</a><br />
-     <a class="message" href="#SCI_GETCURRENTPOS">SCI_GETCURRENTPOS &rarr; position</a><br />
-     <a class="message" href="#SCI_SETANCHOR">SCI_SETANCHOR(position anchor)</a><br />
-     <a class="message" href="#SCI_GETANCHOR">SCI_GETANCHOR &rarr; position</a><br />
-     <a class="message" href="#SCI_SETSELECTIONSTART">SCI_SETSELECTIONSTART(position anchor)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONSTART">SCI_GETSELECTIONSTART &rarr; position</a><br />
-     <a class="message" href="#SCI_SETSELECTIONEND">SCI_SETSELECTIONEND(position caret)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONEND">SCI_GETSELECTIONEND &rarr; position</a><br />
-     <a class="message" href="#SCI_SETEMPTYSELECTION">SCI_SETEMPTYSELECTION(position caret)</a><br />
-     <a class="message" href="#SCI_SELECTALL">SCI_SELECTALL</a><br />
-     <a class="message" href="#SCI_LINEFROMPOSITION">SCI_LINEFROMPOSITION(position pos) &rarr; line</a><br />
-     <a class="message" href="#SCI_POSITIONFROMLINE">SCI_POSITIONFROMLINE(line line) &rarr; position</a><br />
-     <a class="message" href="#SCI_GETLINEENDPOSITION">SCI_GETLINEENDPOSITION(line line) &rarr; position</a><br />
-     <a class="message" href="#SCI_LINELENGTH">SCI_LINELENGTH(line line) &rarr; position</a><br />
-     <a class="message" href="#SCI_GETCOLUMN">SCI_GETCOLUMN(position pos) &rarr; position</a><br />
-     <a class="message" href="#SCI_FINDCOLUMN">SCI_FINDCOLUMN(line line, position column) &rarr; position</a><br />
-     <a class="message" href="#SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</a><br />
-     <a class="message" href="#SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</a><br />
-     <a class="message" href="#SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</a><br />
-     <a class="message" href="#SCI_HIDESELECTION">SCI_HIDESELECTION(bool hide)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONHIDDEN">SCI_GETSELECTIONHIDDEN &rarr; bool</a><br />
-     <a class="message" href="#SCI_GETSELTEXT">SCI_GETSELTEXT(&lt;unused&gt;, char *text) &rarr; position</a><br />
-     <a class="message" href="#SCI_GETCURLINE">SCI_GETCURLINE(position length, char *text) &rarr; position</a><br />
-     <a class="message" href="#SCI_SELECTIONISRECTANGLE">SCI_SELECTIONISRECTANGLE &rarr; bool</a><br />
-     <a class="message" href="#SCI_SETSELECTIONMODE">SCI_SETSELECTIONMODE(int selectionMode)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONMODE">SCI_GETSELECTIONMODE &rarr; int</a><br />
-     <a class="message" href="#SCI_GETMOVEEXTENDSSELECTION">SCI_GETMOVEEXTENDSSELECTION &rarr; bool</a><br />
-     <a class="message" href="#SCI_GETLINESELSTARTPOSITION">SCI_GETLINESELSTARTPOSITION(line line) &rarr; position</a><br />
-     <a class="message" href="#SCI_GETLINESELENDPOSITION">SCI_GETLINESELENDPOSITION(line line) &rarr; position</a><br />
-     <a class="message" href="#SCI_MOVECARETINSIDEVIEW">SCI_MOVECARETINSIDEVIEW</a><br />
-     <a class="message" href="#SCI_POSITIONBEFORE">SCI_POSITIONBEFORE(position pos) &rarr; position</a><br />
-     <a class="message" href="#SCI_POSITIONAFTER">SCI_POSITIONAFTER(position pos) &rarr; position</a><br />
-     <a class="message" href="#SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; int</a><br />
-     <a class="message" href="#SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; int</a><br />
-     <a class="message" href="#SCI_CHOOSECARETX">SCI_CHOOSECARETX</a><br />
-     <a class="message" href="#SCI_MOVESELECTEDLINESUP">SCI_MOVESELECTEDLINESUP</a><br />
-     <a class="message" href="#SCI_MOVESELECTEDLINESDOWN">SCI_MOVESELECTEDLINESDOWN</a><br />
-     <a class="message" href="#SCI_SETMOUSESELECTIONRECTANGULARSWITCH">SCI_SETMOUSESELECTIONRECTANGULARSWITCH(bool mouseSelectionRectangularSwitch)</a><br />
-     <a class="message" href="#SCI_GETMOUSESELECTIONRECTANGULARSWITCH">SCI_GETMOUSESELECTIONRECTANGULARSWITCH &rarr; bool</a><br />
-    </code>
-
-    <p><b id="SCI_GETTEXTLENGTH">SCI_GETTEXTLENGTH &rarr; position</b><br />
-     <b id="SCI_GETLENGTH">SCI_GETLENGTH &rarr; position</b><br />
-     Both these messages return the length of the document in bytes.</p>
-
-    <p><b id="SCI_GETLINECOUNT">SCI_GETLINECOUNT &rarr; line</b><br />
-     This returns the number of lines in the document. An empty document contains 1 line. A
-    document holding only an end of line sequence has 2 lines.</p>
-
-    <p><b id="SCI_LINESONSCREEN">SCI_LINESONSCREEN &rarr; line</b><br />
-     This returns the number of complete lines visible on the screen. With a constant line height,
-    this is the vertical space available divided by the line separation. Unless you arrange to size
-    your window to an integral number of lines, there may be a partial line visible at the bottom
-    of the view.</p>
-
-    <p><b id="SCI_GETMODIFY">SCI_GETMODIFY &rarr; bool</b><br />
-     This returns non-zero if the document is modified and 0 if it is unmodified. The modified
-    status of a document is determined by the undo position relative to the save point. The save
-    point is set by <a class="message" href="#SCI_SETSAVEPOINT"><code>SCI_SETSAVEPOINT</code></a>,
-    usually when you have saved data to a file.</p>
-
-    <p>If you need to be notified when the document becomes modified, Scintilla notifies the
-    container that it has entered or left the save point with the <a class="message"
-    href="#SCN_SAVEPOINTREACHED"><code>SCN_SAVEPOINTREACHED</code></a> and <a class="message"
-    href="#SCN_SAVEPOINTLEFT"><code>SCN_SAVEPOINTLEFT</code></a> <a class="jump"
-    href="#Notifications">notification messages</a>.</p>
-
-    <p><b id="SCI_SETSEL">SCI_SETSEL(position anchor, position caret)</b><br />
-     This message sets both the anchor and the current position. If <code class="parameter">caret</code> is
-    negative, it means the end of the document. If <code class="parameter">anchor</code> is negative, it means
-    remove any selection (i.e. set the anchor to the same position as <code class="parameter">caret</code>). The
-    caret is scrolled into view after this operation.</p>
-
-    <p><b id="SCI_GOTOPOS">SCI_GOTOPOS(position caret)</b><br />
-     This removes any selection, sets the caret at <code class="parameter">caret</code> and scrolls the view to make
-    the caret visible, if necessary. It is equivalent to
-    <code>SCI_SETSEL(caret, caret)</code>. The anchor position is set the same as the current
-    position.</p>
-
-    <p><b id="SCI_GOTOLINE">SCI_GOTOLINE(line line)</b><br />
-     This removes any selection and sets the caret at the start of line number <code class="parameter">line</code>
-    and scrolls the view (if needed) to make it visible. The anchor position is set the same as the
-    current position. If <code class="parameter">line</code> is outside the lines in the document (first line is 0),
-    the line set is the first or last.</p>
-
-    <p><b id="SCI_SETCURRENTPOS">SCI_SETCURRENTPOS(position caret)</b><br />
-     This sets the current position and creates a selection between the anchor and the current
-    position. The caret is not scrolled into view.</p>
-
-    <p>See also: <a class="message" href="#SCI_SCROLLCARET"><code>SCI_SCROLLCARET</code></a></p>
-
-    <p><b id="SCI_GETCURRENTPOS">SCI_GETCURRENTPOS &rarr; position</b><br />
-     This returns the current position.</p>
-
-    <p><b id="SCI_SETANCHOR">SCI_SETANCHOR(position anchor)</b><br />
-     This sets the anchor position and creates a selection between the anchor position and the
-    current position. The caret is not scrolled into view.</p>
-
-    <p>See also: <a class="message" href="#SCI_SCROLLCARET"><code>SCI_SCROLLCARET</code></a></p>
-
-    <p><b id="SCI_GETANCHOR">SCI_GETANCHOR &rarr; position</b><br />
-     This returns the current anchor position.</p>
-
-    <p><b id="SCI_SETSELECTIONSTART">SCI_SETSELECTIONSTART(position anchor)</b><br />
-     <b id="SCI_SETSELECTIONEND">SCI_SETSELECTIONEND(position caret)</b><br />
-     These set the selection based on the assumption that the anchor position is less than the
-    current position. They do not make the caret visible. The table shows the positions of the
-    anchor and the current position after using these messages.</p>
-
-    <table class="standard" summary="SetSelection caret positioning">
-      <thead align="center">
-        <tr>
-          <th>
-	  New value for
-          </th>
-
-          <th>anchor</th>
-
-          <th>caret</th>
-        </tr>
-      </thead>
-
-      <tbody align="center">
-        <tr>
-          <th><code>SCI_SETSELECTIONSTART</code></th>
-
-          <td><code class="parameter">anchor</code></td>
-
-          <td><code>Max(</code><code class="parameter">anchor</code><code>, current)</code></td>
-        </tr>
-
-        <tr>
-          <th><code>SCI_SETSELECTIONEND</code></th>
-
-          <td><code>Min(anchor, </code><code class="parameter">caret</code><code>)</code></td>
-
-          <td><code class="parameter">caret</code></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p>See also: <a class="message" href="#SCI_SCROLLCARET"><code>SCI_SCROLLCARET</code></a></p>
-
-    <p><b id="SCI_GETSELECTIONSTART">SCI_GETSELECTIONSTART &rarr; position</b><br />
-     <b id="SCI_GETSELECTIONEND">SCI_GETSELECTIONEND &rarr; position</b><br />
-     These return the start and end of the selection without regard to which end is the current
-    position and which is the anchor. <code>SCI_GETSELECTIONSTART</code> returns the smaller of the
-    current position or the anchor position. <code>SCI_GETSELECTIONEND</code> returns the larger of
-    the two values.</p>
-
-    <p><b id="SCI_SETEMPTYSELECTION">SCI_SETEMPTYSELECTION(position caret)</b><br />
-     This removes any selection and sets the caret at <code class="parameter">caret</code>. The caret is not scrolled into view.</p>
-
-    <p><b id="SCI_SELECTALL">SCI_SELECTALL</b><br />
-     This selects all the text in the document. The current position is not scrolled into view.</p>
-
-    <p><b id="SCI_LINEFROMPOSITION">SCI_LINEFROMPOSITION(position pos) &rarr; line</b><br />
-     This message returns the line that contains the position <code class="parameter">pos</code> in the document. The
-    return value is 0 if <code class="parameter">pos</code> &lt;= 0. The return value is the last line if
-    <code class="parameter">pos</code> is beyond the end of the document.</p>
-
-    <p><b id="SCI_POSITIONFROMLINE">SCI_POSITIONFROMLINE(line line) &rarr; position</b><br />
-     This returns the document position that corresponds with the start of the line. If
-    <code class="parameter">line</code> is negative, the position of the line holding the start of the selection is
-    returned. If <code class="parameter">line</code> is greater than the lines in the document, the return value is
-    -1. If <code class="parameter">line</code> is equal to the number of lines in the document (i.e. 1 line past the
-    last line), the return value is the end of the document.</p>
-
-    <p><b id="SCI_GETLINEENDPOSITION">SCI_GETLINEENDPOSITION(line line) &rarr; position</b><br />
-     This returns the position at the end of the line, before any line end characters. If <code class="parameter">line</code>
-    is the last line in the document (which does not have any end of line characters) or greater,
-    the result is the size of the document.
-    If <code class="parameter">line</code> is negative the result is undefined.</p>
-
-    <p><b id="SCI_LINELENGTH">SCI_LINELENGTH(line line) &rarr; position</b><br />
-     This returns the length of the line, including any line end characters. If <code class="parameter">line</code>
-    is negative or beyond the last line in the document, the result is 0. If you want the length of
-    the line not including any end of line characters, use <a class="message"
-    href="#SCI_GETLINEENDPOSITION"><code>SCI_GETLINEENDPOSITION(line)</code></a> - <a class="message"
-    href="#SCI_POSITIONFROMLINE"><code>SCI_POSITIONFROMLINE(line)</code></a>.</p>
-
-    <p><b id="SCI_GETSELTEXT">SCI_GETSELTEXT(&lt;unused&gt;, char *text NUL-terminated) &rarr; position</b><br />
-     This copies the currently selected text and a terminating NUL(0) byte to the <code class="parameter">text</code>
-    buffer. The buffer size should be determined by calling with a NULL pointer for the <code class="parameter">text</code> argument:
-    <code>1 + SCI_GETSELTEXT(0, NULL)</code>.
-    This allows for rectangular and discontiguous selections as well as simple selections.
-    See <a class="toc" href="#MultipleSelectionAndVirtualSpace">Multiple Selection</a> for information on
-    how multiple and rectangular selections and virtual space are copied.</p>
-
-    <p>See also: <code><a class="seealso" href="#SCI_GETCURLINE">SCI_GETCURLINE</a>,
-    <a class="seealso" href="#SCI_GETLINE">SCI_GETLINE</a>,
-    <a class="seealso" href="#SCI_GETTEXT">SCI_GETTEXT</a>,
-    <a class="seealso" href="#SCI_GETSTYLEDTEXT">SCI_GETSTYLEDTEXT</a>,
-    <a class="seealso" href="#SCI_GETTEXTRANGE">SCI_GETTEXTRANGE</a>
-    </code></p>
-
-    <p><b id="SCI_GETCURLINE">SCI_GETCURLINE(position length, char *text NUL-terminated) &rarr; position</b><br />
-     This retrieves the text of the line containing the caret and returns the position within the
-    line of the caret. Pass in <code>char* text</code> pointing at a buffer large enough to hold
-    the text you wish to retrieve and a terminating NUL(0) character.
-    Set <code class="parameter">length</code> to the
-    length of the buffer not including the terminating NUL character.
-    If the text argument is NULL(0) then the length that should be allocated
-    to store the entire current line is returned.</p>
-
-    <p>See also: <code
-    <a class="seealso" href="#SCI_GETSELTEXT">SCI_GETSELTEXT</a>,
-    <a class="seealso" href="#SCI_GETLINE">SCI_GETLINE</a>,
-    <a class="seealso" href="#SCI_GETTEXT">SCI_GETTEXT</a>,
-    <a class="seealso" href="#SCI_GETSTYLEDTEXT">SCI_GETSTYLEDTEXT</a>,
-    <a class="seealso" href="#SCI_GETTEXTRANGE">SCI_GETTEXTRANGE</a></code></p>
-
-    <p><b id="SCI_SELECTIONISRECTANGLE">SCI_SELECTIONISRECTANGLE &rarr; bool</b><br />
-     This returns 1 if the current selection is in rectangle mode, 0 if not.</p>
-
-    <p><b id="SCI_SETSELECTIONMODE">SCI_SETSELECTIONMODE(int selectionMode)</b><br />
-    <b id="SCI_GETSELECTIONMODE">SCI_GETSELECTIONMODE &rarr; int</b><br />
-    The two functions set and get the selection mode, which can be
-     stream (<code>SC_SEL_STREAM</code>=0) or
-     rectangular (<code>SC_SEL_RECTANGLE</code>=1) or
-     by lines (<code>SC_SEL_LINES</code>=2)
-     or thin rectangular (<code>SC_SEL_THIN</code>=3).
-     When set in these modes, regular caret moves will extend or reduce the selection,
-     until the mode is cancelled by a call with same value or with <code>SCI_CANCEL</code>.
-     The get function returns the current mode even if the selection was made by mouse
-     or with regular extended moves.
-     <code>SC_SEL_THIN</code> is the mode after a rectangular selection has been typed into and ensures
-     that no characters are selected.</p>
-
-    <p><b id="SCI_GETMOVEEXTENDSSELECTION">SCI_GETMOVEEXTENDSSELECTION &rarr; bool</b><br />
-     This returns 1 if regular caret moves will extend or reduce the selection, 0 if not.
-     <code>SCI_SETSELECTIONMODE</code> toggles this setting between on and off.</p>
-
-    <p><b id="SCI_GETLINESELSTARTPOSITION">SCI_GETLINESELSTARTPOSITION(line line) &rarr; position</b><br />
-    <b id="SCI_GETLINESELENDPOSITION">SCI_GETLINESELENDPOSITION(line line) &rarr; position</b><br />
-    Retrieve the position of the start and end of the selection at the given line with
-    <code>INVALID_POSITION</code> returned if no selection on this line.</p>
-
-    <p><b id="SCI_MOVECARETINSIDEVIEW">SCI_MOVECARETINSIDEVIEW</b><br />
-     If the caret is off the top or bottom of the view, it is moved to the nearest line that is
-    visible to its current position. Any selection is lost.</p>
-
-    <p><b id="SCI_POSITIONBEFORE">SCI_POSITIONBEFORE(position pos) &rarr; position</b><br />
-     <b id="SCI_POSITIONAFTER">SCI_POSITIONAFTER(position pos) &rarr; position</b><br />
-     These messages return the position before and after another position
-     in the document taking into account the current code page. The minimum
-     position returned is 0 and the maximum is the last position in the document.
-     If called with a position within a multi byte character will return the position
-     of the start/end of that character.</p>
-
-    <p><b id="SCI_TEXTWIDTH">SCI_TEXTWIDTH(int style, const char *text) &rarr; int</b><br />
-     This returns the pixel width of a string drawn in the given <code class="parameter">style</code> which can
-    be used, for example, to decide how wide to make the line number margin in order to display a
-    given number of numerals.</p>
-
-    <p><b id="SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(line line) &rarr; int</b><br />
-     This returns the height in pixels of a particular line. Currently all lines are the same
-    height.</p>
-
-    <p><b id="SCI_GETCOLUMN">SCI_GETCOLUMN(position pos) &rarr; position</b><br />
-     This message returns the column number of a position <code class="parameter">pos</code> within the document
-    taking the width of tabs into account. This returns the column number of the last tab on the
-    line before <code class="parameter">pos</code>, plus the number of characters between the last tab and
-    <code class="parameter">pos</code>. If there are no tab characters on the line, the return value is the number of
-    characters up to the position on the line. In both cases, double byte characters count as a
-    single character. This is probably only useful with monospaced fonts.</p>
-
-    <p><b id="SCI_FINDCOLUMN">SCI_FINDCOLUMN(line line, position column) &rarr; position</b><br />
-     This message returns the position of a <code class="parameter">column</code> on a <code class="parameter">line</code>
-    taking the width of tabs into account. It treats a multi-byte character as a single column.
-    Column numbers, like lines start at 0.</p>
-
-    <p><b id="SCI_POSITIONFROMPOINT">SCI_POSITIONFROMPOINT(int x, int y) &rarr; position</b><br />
-     <b id="SCI_POSITIONFROMPOINTCLOSE">SCI_POSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</b><br />
-     <code>SCI_POSITIONFROMPOINT</code> finds the closest character position to a point and
-    <code>SCI_POSITIONFROMPOINTCLOSE</code> is similar but returns -1 if the point is outside the
-    window or not close to any characters.</p>
-
-    <p><b id="SCI_CHARPOSITIONFROMPOINT">SCI_CHARPOSITIONFROMPOINT(int x, int y) &rarr; position</b><br />
-     <b id="SCI_CHARPOSITIONFROMPOINTCLOSE">SCI_CHARPOSITIONFROMPOINTCLOSE(int x, int y) &rarr; position</b><br />
-     <code>SCI_CHARPOSITIONFROMPOINT</code> finds the closest character to a point and
-    <code>SCI_CHARPOSITIONFROMPOINTCLOSE</code> is similar but returns -1 if the point is outside the
-    window or not close to any characters. This is similar to the previous methods but finds characters rather than
-    inter-character positions.</p>
-
-    <p><b id="SCI_POINTXFROMPOSITION">SCI_POINTXFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</b><br />
-     <b id="SCI_POINTYFROMPOSITION">SCI_POINTYFROMPOSITION(&lt;unused&gt;, position pos) &rarr; int</b><br />
-     These messages return the x and y display pixel location of text at position <code class="parameter">pos</code>
-    in the document.</p>
-
-    <p><b id="SCI_HIDESELECTION">SCI_HIDESELECTION(bool hide)</b><br />
-     <b id="SCI_GETSELECTIONHIDDEN">SCI_GETSELECTIONHIDDEN &rarr; bool</b><br />
-     The normal state is to make the selection visible by drawing it as set by <a class="message"
-    href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>, <a class="message"
-    href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a>, and related calls.
-    However, if you hide the selection, it is drawn as normal text.</p>
-
-    <p><b id="SCI_CHOOSECARETX">SCI_CHOOSECARETX</b><br />
-     Scintilla remembers the x value of the last position horizontally moved to explicitly by the
-    user and this value is then used when moving vertically such as by using the up and down keys.
-    This message sets the current x position of the caret as the remembered value.</p>
-
-    <p><b id="SCI_MOVESELECTEDLINESUP">SCI_MOVESELECTEDLINESUP</b><br />
-     Move the selected lines up one line, shifting the line above after the selection.
-     The selection will be automatically extended to the beginning of the selection's first line and the end of the selection's last line.
-     If nothing was selected, the line the cursor is currently at will be selected.</p>
-
-    <p><b id="SCI_MOVESELECTEDLINESDOWN">SCI_MOVESELECTEDLINESDOWN</b><br />
-     Move the selected lines down one line, shifting the line below before the selection.
-     The selection will be automatically extended to the beginning of the selection's first line and the end of the selection's last line.
-     If nothing was selected, the line the cursor is currently at will be selected.</p>
-
-    <p><b id="SCI_SETMOUSESELECTIONRECTANGULARSWITCH">SCI_SETMOUSESELECTIONRECTANGULARSWITCH(bool
-     mouseSelectionRectangularSwitch)</b><br />
-    <b id="SCI_GETMOUSESELECTIONRECTANGULARSWITCH">SCI_GETMOUSESELECTIONRECTANGULARSWITCH &rarr; bool</b><br />
-     Enable or disable the ability to switch to rectangular selection mode while making a selection with the mouse.
-     When this option is turned on, mouse selections in stream mode can be switched to rectangular mode by pressing
-     the corresponding modifier key. They then stick to rectangular mode even when the modifier key is released again.
-     When this option is turned off, mouse selections will always stick to the mode the selection was started in. It
-     is off by default.</p>
-
-    <h2 id="ByCharacterOrCodeUnit">By character or UTF-16 code unit</h2>
-
-    <p>Most Scintilla APIs use byte positions but some applications want to use positions based on counting
-    (UTF-32) characters or (UTF-16) code units
-    or need to communicate with other code written in terms of characters or code units.
-    With only byte positions, this may require examining many bytes to count characters or code units in the document
-    but this may be sped up in some cases by indexing the line starts by character or code unit.</p>
-
-    <code>
-     <a class="message" href="#SCI_POSITIONRELATIVE">SCI_POSITIONRELATIVE(position pos, position relative) &rarr; position</a><br />
-     <a class="message" href="#SCI_POSITIONRELATIVECODEUNITS">SCI_POSITIONRELATIVECODEUNITS(position pos, position relative) &rarr; position</a><br />
-     <a class="message" href="#SCI_COUNTCHARACTERS">SCI_COUNTCHARACTERS(position start, position end) &rarr; position</a><br />
-     <a class="message" href="#SCI_COUNTCODEUNITS">SCI_COUNTCODEUNITS(position start, position end) &rarr; position</a><br />
-     <a class="message" href="#SCI_GETLINECHARACTERINDEX">SCI_GETLINECHARACTERINDEX &rarr; int</a><br />
-     <a class="message" href="#SCI_ALLOCATELINECHARACTERINDEX">SCI_ALLOCATELINECHARACTERINDEX(int lineCharacterIndex)</a><br />
-     <a class="message" href="#SCI_RELEASELINECHARACTERINDEX">SCI_RELEASELINECHARACTERINDEX(int lineCharacterIndex)</a><br />
-     <a class="message" href="#SCI_LINEFROMINDEXPOSITION">SCI_LINEFROMINDEXPOSITION(position pos, int lineCharacterIndex) &rarr; line</a><br />
-     <a class="message" href="#SCI_INDEXPOSITIONFROMLINE">SCI_INDEXPOSITIONFROMLINE(line line, int lineCharacterIndex) &rarr; position</a><br />
-    </code>
-
-    <p><b id="SCI_POSITIONRELATIVE">SCI_POSITIONRELATIVE(position pos, position relative) &rarr; position</b><br />
-     Count a number of whole characters before or after the argument position and return that position.
-     The minimum position returned is 0 and the maximum is the last position in the document.
-     If the position goes past the document end then 0 is returned.
-     </p>
-
-    <p><b id="SCI_COUNTCHARACTERS">SCI_COUNTCHARACTERS(position start, position end) &rarr; position</b><br />
-     Returns the number of whole characters between two positions.</p>
-
-    <p><b id="SCI_POSITIONRELATIVECODEUNITS">SCI_POSITIONRELATIVECODEUNITS(position pos, position relative) &rarr; position</b><br />
-    <b id="SCI_COUNTCODEUNITS">SCI_COUNTCODEUNITS(position start, position end) &rarr; position</b><br />
-     These are the UTF-16 versions of <code>SCI_POSITIONRELATIVE</code> and <code>SCI_COUNTCHARACTERS</code>
-     working in terms of UTF-16 code units.</p>
-
-    <p><b id="SCI_GETLINECHARACTERINDEX">SCI_GETLINECHARACTERINDEX &rarr; int</b><br />
-     Returns which if any indexes are active. It may be <code>SC_LINECHARACTERINDEX_NONE</code> (0) or one or more
-     of <code>SC_LINECHARACTERINDEX_UTF32</code> (1) if whole characters are indexed or
-     <code>SC_LINECHARACTERINDEX_UTF16</code> (2) if UTF-16 code units are indexed.
-     Character indexes are currently only supported for UTF-8 documents.</p>
-
-    <p><b id="SCI_ALLOCATELINECHARACTERINDEX">SCI_ALLOCATELINECHARACTERINDEX(int lineCharacterIndex)</b><br />
-    <b id="SCI_RELEASELINECHARACTERINDEX">SCI_RELEASELINECHARACTERINDEX(int lineCharacterIndex)</b><br />
-     Allocate or release one or more indexes using same enumeration as <code>SCI_GETLINECHARACTERINDEX</code>.
-     Different aspects of an application may need indexes for different periods and should allocate for those periods.
-     Indexes use additional memory so releasing them can help minimize memory but they also take time to recalculate.
-     Scintilla may also allocate indexes to support features like accessibility or input method editors.
-     Only one index of each type is created for a document at a time.</p>
-
-    <p><b id="SCI_LINEFROMINDEXPOSITION">SCI_LINEFROMINDEXPOSITION(position pos, int lineCharacterIndex) &rarr; line</b><br />
-    <b id="SCI_INDEXPOSITIONFROMLINE">SCI_INDEXPOSITIONFROMLINE(line line, int lineCharacterIndex) &rarr; position</b><br />
-     The document line of a particular character or code unit may be found by calling <code>SCI_LINEFROMINDEXPOSITION</code> with one of
-     <code>SC_LINECHARACTERINDEX_UTF32</code> (1) or <code>SC_LINECHARACTERINDEX_UTF16</code> (2).
-     The inverse action, finds the starting position of a document line either in characters or code units from the document start by calling
-     <code>SCI_INDEXPOSITIONFROMLINE</code> with the same <code class="parameter">lineCharacterIndex</code> argument.</p>
-
-    <h2 id="MultipleSelectionAndVirtualSpace">Multiple Selection and Virtual Space</h2>
-
-    <code>
-     <a class="message" href="#SCI_SETMULTIPLESELECTION">SCI_SETMULTIPLESELECTION(bool multipleSelection)</a><br />
-     <a class="message" href="#SCI_GETMULTIPLESELECTION">SCI_GETMULTIPLESELECTION &rarr; bool</a><br />
-     <a class="message" href="#SCI_SETADDITIONALSELECTIONTYPING">SCI_SETADDITIONALSELECTIONTYPING(bool additionalSelectionTyping)</a><br />
-     <a class="message" href="#SCI_GETADDITIONALSELECTIONTYPING">SCI_GETADDITIONALSELECTIONTYPING &rarr; bool</a><br />
-     <a class="message" href="#SCI_SETMULTIPASTE">SCI_SETMULTIPASTE(int multiPaste)</a><br />
-     <a class="message" href="#SCI_GETMULTIPASTE">SCI_GETMULTIPASTE &rarr; int</a><br />
-     <a class="message" href="#SCI_SETVIRTUALSPACEOPTIONS">SCI_SETVIRTUALSPACEOPTIONS(int virtualSpaceOptions)</a><br />
-     <a class="message" href="#SCI_GETVIRTUALSPACEOPTIONS">SCI_GETVIRTUALSPACEOPTIONS &rarr; int</a><br />
-     <a class="message" href="#SCI_SETRECTANGULARSELECTIONMODIFIER">SCI_SETRECTANGULARSELECTIONMODIFIER(int modifier)</a><br />
-     <a class="message" href="#SCI_GETRECTANGULARSELECTIONMODIFIER">SCI_GETRECTANGULARSELECTIONMODIFIER &rarr; int</a><br />
-     <br />
-
-     <a class="message" href="#SCI_GETSELECTIONS">SCI_GETSELECTIONS &rarr; int</a><br />
-     <a class="message" href="#SCI_GETSELECTIONEMPTY">SCI_GETSELECTIONEMPTY &rarr; bool</a><br />
-     <a class="message" href="#SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</a><br />
-     <a class="message" href="#SCI_SETSELECTION">SCI_SETSELECTION(position caret, position anchor)</a><br />
-     <a class="message" href="#SCI_ADDSELECTION">SCI_ADDSELECTION(position caret, position anchor)</a><br />
-     <a class="message" href="#SCI_DROPSELECTIONN">SCI_DROPSELECTIONN(int selection)</a><br />
-     <a class="message" href="#SCI_SETMAINSELECTION">SCI_SETMAINSELECTION(int selection)</a><br />
-     <a class="message" href="#SCI_GETMAINSELECTION">SCI_GETMAINSELECTION &rarr; int</a><br />
-     <br />
-
-     <a class="message" href="#SCI_SETSELECTIONNCARET">SCI_SETSELECTIONNCARET(int selection, position caret)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNCARET">SCI_GETSELECTIONNCARET(int selection) &rarr; position</a><br />
-     <a class="message" href="#SCI_SETSELECTIONNCARETVIRTUALSPACE">SCI_SETSELECTIONNCARETVIRTUALSPACE(int selection, position space)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNCARETVIRTUALSPACE">SCI_GETSELECTIONNCARETVIRTUALSPACE(int selection) &rarr; position</a><br />
-     <a class="message" href="#SCI_SETSELECTIONNANCHOR">SCI_SETSELECTIONNANCHOR(int selection, position anchor)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNANCHOR">SCI_GETSELECTIONNANCHOR(int selection) &rarr; position</a><br />
-     <a class="message" href="#SCI_SETSELECTIONNANCHORVIRTUALSPACE">SCI_SETSELECTIONNANCHORVIRTUALSPACE(int selection, position space)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNANCHORVIRTUALSPACE">SCI_GETSELECTIONNANCHORVIRTUALSPACE(int selection) &rarr; position</a><br />
-     <a class="message" href="#SCI_SETSELECTIONNSTART">SCI_SETSELECTIONNSTART(int selection, position anchor)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNSTART">SCI_GETSELECTIONNSTART(int selection) &rarr; position</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNSTARTVIRTUALSPACE">SCI_GETSELECTIONNSTARTVIRTUALSPACE(int selection) &rarr; position</a><br />
-     <a class="message" href="#SCI_SETSELECTIONNEND">SCI_SETSELECTIONNEND(int selection, position caret)</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNEND">SCI_GETSELECTIONNEND(int selection) &rarr; position</a><br />
-     <a class="message" href="#SCI_GETSELECTIONNENDVIRTUALSPACE">SCI_GETSELECTIONNENDVIRTUALSPACE(int selection) &rarr; position</a><br />
-     <br />
-
-     <a class="message" href="#SCI_SETRECTANGULARSELECTIONCARET">SCI_SETRECTANGULARSELECTIONCARET(position caret)</a><br />
-     <a class="message" href="#SCI_GETRECTANGULARSELECTIONCARET">SCI_GETRECTANGULARSELECTIONCARET &rarr; position</a><br />
-     <a class="message" href="#SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE(position space)</a><br />
-     <a class="message" href="#SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE &rarr; position</a><br />
-     <a class="message" href="#SCI_SETRECTANGULARSELECTIONANCHOR">SCI_SETRECTANGULARSELECTIONANCHOR(position anchor)</a><br />
-     <a class="message" href="#SCI_GETRECTANGULARSELECTIONANCHOR">SCI_GETRECTANGULARSELECTIONANCHOR &rarr; position</a><br />
-     <a class="message" href="#SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE(position space)</a><br />
-     <a class="message" href="#SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE &rarr; position</a><br />
-     <br />
-
-     <a class="element" href="#SC_ELEMENT_SELECTION_ADDITIONAL_TEXT">SC_ELEMENT_SELECTION_ADDITIONAL_TEXT : colouralpha</a><br />
-     <a class="element" href="#SC_ELEMENT_SELECTION_ADDITIONAL_BACK">SC_ELEMENT_SELECTION_ADDITIONAL_BACK : colouralpha</a><br />
-     <a class="discouraged message" href="#SCI_SETADDITIONALSELALPHA">SCI_SETADDITIONALSELALPHA(alpha alpha)</a><br />
-     <a class="discouraged message" href="#SCI_GETADDITIONALSELALPHA">SCI_GETADDITIONALSELALPHA &rarr; int</a><br />
-     <a class="discouraged message" href="#SCI_SETADDITIONALSELFORE">SCI_SETADDITIONALSELFORE(colour fore)</a><br />
-     <a class="discouraged message" href="#SCI_SETADDITIONALSELBACK">SCI_SETADDITIONALSELBACK(colour back)</a><br />
-     <a class="element" href="#SC_ELEMENT_CARET_ADDITIONAL">SC_ELEMENT_CARET_ADDITIONAL : colouralpha</a><br />
-     <a class="discouraged message" href="#SCI_SETADDITIONALCARETFORE">SCI_SETADDITIONALCARETFORE(colour fore)</a><br />
-     <a class="discouraged message" href="#SCI_GETADDITIONALCARETFORE">SCI_GETADDITIONALCARETFORE &rarr; colour</a><br />
-     <a class="message" href="#SCI_SETADDITIONALCARETSBLINK">SCI_SETADDITIONALCARETSBLINK(bool additionalCaretsBlink)</a><br />
-     <a class="message" href="#SCI_GETADDITIONALCARETSBLINK">SCI_GETADDITIONALCARETSBLINK &rarr; bool</a><br />
-     <a class="message" href="#SCI_SETADDITIONALCARETSVISIBLE">SCI_SETADDITIONALCARETSVISIBLE(bool additionalCaretsVisible)</a><br />
-     <a class="message" href="#SCI_GETADDITIONALCARETSVISIBLE">SCI_GETADDITIONALCARETSVISIBLE &rarr; bool</a><br />
-     <br />
-
-     <a class="message" href="#SCI_SWAPMAINANCHORCARET">SCI_SWAPMAINANCHORCARET</a><br />
-     <a class="message" href="#SCI_ROTATESELECTION">SCI_ROTATESELECTION</a><br />
-     <a class="message" href="#SCI_MULTIPLESELECTADDNEXT">SCI_MULTIPLESELECTADDNEXT</a><br />
-     <a class="message" href="#SCI_MULTIPLESELECTADDEACH">SCI_MULTIPLESELECTADDEACH</a><br />
-    </code>
-
-    <p>
-    There may be multiple selections active at one time.
-    More selections are made by holding down the Ctrl key while dragging with the mouse.
-    The most recent selection is the main selection and determines which part of the document is shown automatically.
-    Any selection apart from the main selection is called an additional selection.
-    The calls in the previous section operate on the main selection.
-    There is always at least one selection.
-    The selection can be simplified down to just the main selection by
-    <a class="message" href="#SCI_CANCEL"><code>SCI_CANCEL</code></a>
-    which is normally mapped to the Esc key.
-    </p>
-
-    <p>
-    Rectangular selections are handled as multiple selections although the original rectangular range is remembered so that
-    subsequent operations may be handled differently for rectangular selections. For example, pasting a rectangular selection
-    places each piece in a vertical column.
-    </p>
-
-    <p>
-    Virtual space is space beyond the end of each line. The caret may be moved into virtual space but no real space will be
-    added to the document until there is some text typed or some other text insertion command is used.
-    </p>
-
-    <p>When discontiguous selections are copied to the clipboard, each selection is added to the clipboard text
-    in order with no delimiting characters.
-    For rectangular selections the document's line end is added after each line's text. Rectangular selections
-    are always copied from top line to bottom, not in the in order of selection.Virtual space is not copied.</p>
-
-    <p>
-    <b id="SCI_SETMULTIPLESELECTION">SCI_SETMULTIPLESELECTION(bool multipleSelection)</b><br />
-    <b id="SCI_GETMULTIPLESELECTION">SCI_GETMULTIPLESELECTION &rarr; bool</b><br />
-     Enable or disable multiple selection. When multiple selection is disabled, it is not possible to select
-     multiple ranges by holding down the Ctrl key while dragging with the mouse.</p>
-
-    <p>
-    <b id="SCI_SETADDITIONALSELECTIONTYPING">SCI_SETADDITIONALSELECTIONTYPING(bool additionalSelectionTyping)</b><br />
-    <b id="SCI_GETADDITIONALSELECTIONTYPING">SCI_GETADDITIONALSELECTIONTYPING &rarr; bool</b><br />
-     Whether typing, new line, cursor left/right/up/down, backspace, delete, home, and end work
-     with multiple selections simultaneously.
-     Also allows selection and word and line deletion commands.</p>
-
-    <p>
-    <b id="SCI_SETMULTIPASTE">SCI_SETMULTIPASTE(int multiPaste)</b><br />
-    <b id="SCI_GETMULTIPASTE">SCI_GETMULTIPASTE &rarr; int</b><br />
-     When pasting into multiple selections, the pasted text can go into just the main selection with <code>SC_MULTIPASTE_ONCE</code>=0
-     or into each selection with <code>SC_MULTIPASTE_EACH</code>=1. <code>SC_MULTIPASTE_ONCE</code> is the default.</p>
-
-    <p>
-    <b id="SCI_SETVIRTUALSPACEOPTIONS">SCI_SETVIRTUALSPACEOPTIONS(int virtualSpaceOptions)</b><br />
-    <b id="SCI_GETVIRTUALSPACEOPTIONS">SCI_GETVIRTUALSPACEOPTIONS &rarr; int</b><br />
-     Virtual space can be enabled or disabled for rectangular selections or in other circumstances or in both.
-     There are three bit flags <code>SCVS_RECTANGULARSELECTION</code>=1,
-     <code>SCVS_USERACCESSIBLE</code>=2, and
-     <code>SCVS_NOWRAPLINESTART</code>=4 which can be set independently.
-     <code>SCVS_NONE</code>=0, the default, disables all use of virtual space.</p>
-     <p><code>SCVS_NOWRAPLINESTART</code> prevents left arrow movement and selection
-     from wrapping to the previous line.
-     This is most commonly desired in conjunction with virtual space but is an independent
-     setting so works without virtual space.</p>
-
-    <p>
-    <b id="SCI_SETRECTANGULARSELECTIONMODIFIER">SCI_SETRECTANGULARSELECTIONMODIFIER(int modifier)</b><br />
-    <b id="SCI_GETRECTANGULARSELECTIONMODIFIER">SCI_GETRECTANGULARSELECTIONMODIFIER &rarr; int</b><br />
-     On GTK and Qt, the key used to indicate that a rectangular selection should be created when combined with a mouse drag can be set.
-     The three possible values are <code>SCMOD_CTRL</code>=2, <code>SCMOD_ALT</code>=4 (default) or <code>SCMOD_SUPER</code>=8.
-     Since <code>SCMOD_ALT</code> may already be used by a window manager, the window manager may need configuring to allow this choice.
-     <code>SCMOD_SUPER</code> is often a system dependent modifier key such as the Left Windows key on a Windows keyboard or the
-     Command key on a Mac.</p>
-
-    <p>
-    <b id="SCI_GETSELECTIONS">SCI_GETSELECTIONS &rarr; int</b><br />
-     Return the number of selections currently active. There is always at least one selection.</p>
-
-    <p>
-    <b id="SCI_GETSELECTIONEMPTY">SCI_GETSELECTIONEMPTY &rarr; bool</b><br />
-     Return 1 if every selected range is empty else 0.</p>
-
-    <p>
-    <b id="SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</b><br />
-     Set a single empty selection at 0 as the only selection.</p>
-
-    <p>
-    <b id="SCI_SETSELECTION">SCI_SETSELECTION(position caret, position anchor)</b><br />
-     Set a single selection from <code class="parameter">anchor</code> to <code class="parameter">caret</code> as the only selection.</p>
-
-    <p>
-    <b id="SCI_ADDSELECTION">SCI_ADDSELECTION(position caret, position anchor)</b><br />
-     Add a new selection from <code class="parameter">anchor</code> to <code class="parameter">caret</code> as the main selection retaining all other
-     selections as additional selections.
-     Since there is always at least one selection, to set a list of selections, the first selection should be
-     added with <code>SCI_SETSELECTION</code> and later selections added with <code>SCI_ADDSELECTION</code></p>
-
-    <p>
-    <b id="SCI_DROPSELECTIONN">SCI_DROPSELECTIONN(int selection)</b><br />
-     If there are multiple selections, remove the indicated selection.
-     If this was the main selection then make the previous selection the main and if it was the first then the last selection becomes main.
-     If there is only one selection, or there is no selection <code class="parameter">selection</code>, then there is no effect.</p>
-
-    <p>
-    <b id="SCI_SETMAINSELECTION">SCI_SETMAINSELECTION(int selection)</b><br />
-    <b id="SCI_GETMAINSELECTION">SCI_GETMAINSELECTION &rarr; int</b><br />
-     One of the selections is the main selection which is used to determine what range of text is automatically visible.
-     The main selection may be displayed in different colours or with a differently styled caret.
-     Only an already existing selection can be made main.</p>
-
-    <p>
-     <b id="SCI_SETSELECTIONNCARET">SCI_SETSELECTIONNCARET(int selection, position caret)</b><br />
-     <b id="SCI_GETSELECTIONNCARET">SCI_GETSELECTIONNCARET(int selection) &rarr; position</b><br />
-     <b id="SCI_SETSELECTIONNCARETVIRTUALSPACE">SCI_SETSELECTIONNCARETVIRTUALSPACE(int selection, position space)</b><br />
-     <b id="SCI_GETSELECTIONNCARETVIRTUALSPACE">SCI_GETSELECTIONNCARETVIRTUALSPACE(int selection) &rarr; position</b><br />
-     <b id="SCI_SETSELECTIONNANCHOR">SCI_SETSELECTIONNANCHOR(int selection, position anchor)</b><br />
-     <b id="SCI_GETSELECTIONNANCHOR">SCI_GETSELECTIONNANCHOR(int selection) &rarr; position</b><br />
-     <b id="SCI_SETSELECTIONNANCHORVIRTUALSPACE">SCI_SETSELECTIONNANCHORVIRTUALSPACE(int selection, position space)</b><br />
-     <b id="SCI_GETSELECTIONNANCHORVIRTUALSPACE">SCI_GETSELECTIONNANCHORVIRTUALSPACE(int selection) &rarr; position</b><br />
-     Set or query the position and amount of virtual space for the caret and anchor of each already existing selection.</p>
-
-    <p>
-     <b id="SCI_SETSELECTIONNSTART">SCI_SETSELECTIONNSTART(int selection, position anchor)</b><br />
-     <b id="SCI_GETSELECTIONNSTART">SCI_GETSELECTIONNSTART(int selection) &rarr; position</b><br />
-     <b id="SCI_GETSELECTIONNSTARTVIRTUALSPACE">SCI_GETSELECTIONNSTARTVIRTUALSPACE(int selection) &rarr; position</b><br />
-     <b id="SCI_SETSELECTIONNEND">SCI_SETSELECTIONNEND(int selection, position caret)</b><br />
-     <b id="SCI_GETSELECTIONNEND">SCI_GETSELECTIONNEND(int selection) &rarr; position</b><br />
-     <b id="SCI_GETSELECTIONNENDVIRTUALSPACE">SCI_GETSELECTIONNENDVIRTUALSPACE(int selection) &rarr; position</b><br />
-     Set or query the start and end position of each already existing selection.
-     Query the virtual space at start and end of each selection.
-     Mostly of use to query each range for its text. The <code class="parameter">selection</code> parameter is zero-based. </p>
-
-    <p>
-     <b id="SCI_SETRECTANGULARSELECTIONCARET">SCI_SETRECTANGULARSELECTIONCARET(position caret)</b><br />
-     <b id="SCI_GETRECTANGULARSELECTIONCARET">SCI_GETRECTANGULARSELECTIONCARET &rarr; position</b><br />
-     <b id="SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE(position space)</b><br />
-     <b id="SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE &rarr; position</b><br />
-     <b id="SCI_SETRECTANGULARSELECTIONANCHOR">SCI_SETRECTANGULARSELECTIONANCHOR(position anchor)</b><br />
-     <b id="SCI_GETRECTANGULARSELECTIONANCHOR">SCI_GETRECTANGULARSELECTIONANCHOR &rarr; position</b><br />
-     <b id="SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE(position space)</b><br />
-     <b id="SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE">SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE &rarr; position</b><br />
-     Set or query the position and amount of virtual space for the caret and anchor of the rectangular selection.
-     After setting the rectangular selection, this is broken down into multiple selections, one for each line.</p>
-
-    <p>
-     <b id="SC_ELEMENT_SELECTION_ADDITIONAL_TEXT">SC_ELEMENT_SELECTION_ADDITIONAL_TEXT : colouralpha</b><br />
-     <b id="SC_ELEMENT_SELECTION_ADDITIONAL_BACK">SC_ELEMENT_SELECTION_ADDITIONAL_BACK : colouralpha</b><br />
-     <b id="SCI_SETADDITIONALSELALPHA">SCI_SETADDITIONALSELALPHA(<a class="jump" href="#alpha">alpha</a> alpha)</b><br />
-     <b id="SCI_GETADDITIONALSELALPHA">SCI_GETADDITIONALSELALPHA &rarr; int</b><br />
-     <b id="SCI_SETADDITIONALSELFORE">SCI_SETADDITIONALSELFORE(<a class="jump" href="#colour">colour</a> fore)</b><br />
-     <b id="SCI_SETADDITIONALSELBACK">SCI_SETADDITIONALSELBACK(<a class="jump" href="#colour">colour</a> back)</b><br />
-     Modify the appearance of additional selections so that they can be differentiated from the main selection which has its appearance set with
-     <a class="element" href="#SC_ELEMENT_SELECTION_TEXT"><code>SC_ELEMENT_SELECTION_TEXT</code></a>,
-     <a class="element" href="#SC_ELEMENT_SELECTION_BACK"><code>SC_ELEMENT_SELECTION_BACK</code></a>,
-     <a class="message" href="#SCI_SETSELALPHA"><code>SCI_SETSELALPHA</code></a>,
-     <a class="message" href="#SCI_GETSELALPHA"><code>SCI_GETSELALPHA</code></a>,
-     <a class="message" href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>, and
-     <a class="message" href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a>.
-     The element APIs are preferred and the following messages discouraged.
-     The additional selection background is drawn on the layer defined for all selection backgrounds by
-     <a class="message" href="#SCI_SETSELECTIONLAYER"><code>SCI_SETSELECTIONLAYER</code></a>.
-     <code>SCI_SETADDITIONALSELFORE</code> and
-     <code>SCI_SETADDITIONALSELBACK</code> calls have no
-     effect until <a class="message" href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>
-     and <a class="message" href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a> are
-     called with <code class="parameter">useSetting</code> value set to true. Subsequent calls to
-     <a class="message" href="#SCI_SETSELFORE"><code>SCI_SETSELFORE</code></a>,
-     and <a class="message" href="#SCI_SETSELBACK"><code>SCI_SETSELBACK</code></a> will
-     overwrite the values set by <code>SCI_SETADDITIONALSEL*</code> functions.</p>
-
-    <p>
-     <b id="SC_ELEMENT_CARET_ADDITIONAL">SC_ELEMENT_CARET_ADDITIONAL : colouralpha</b><br />
-     <b id="SCI_SETADDITIONALCARETFORE">SCI_SETADDITIONALCARETFORE(<a class="jump" href="#colour">colour</a> fore)</b><br />
-     <b id="SCI_GETADDITIONALCARETFORE">SCI_GETADDITIONALCARETFORE &rarr; colour</b><br />
-     <b id="SCI_SETADDITIONALCARETSBLINK">SCI_SETADDITIONALCARETSBLINK(bool additionalCaretsBlink)</b><br />
-     <b id="SCI_GETADDITIONALCARETSBLINK">SCI_GETADDITIONALCARETSBLINK &rarr; bool</b><br />
-     Modify the appearance of additional carets so that they can be differentiated from the main caret which has its appearance set with
-     <a class="element" href="#SC_ELEMENT_CARET"><code>SC_ELEMENT_CARET</code></a>,
-     <a class="message" href="#SCI_SETCARETFORE"><code>SCI_SETCARETFORE</code></a>,
-     <a class="message" href="#SCI_GETCARETFORE"><code>SCI_GETCARETFORE</code></a>,
-     <a class="message" href="#SCI_SETCARETPERIOD"><code>SCI_SETCARETPERIOD</code></a>, and
-     <a class="message" href="#SCI_GETCARETPERIOD"><code>SCI_GETCARETPERIOD</code></a>.</p>
-
-    <p>
-     <b id="SCI_SETADDITIONALCARETSVISIBLE">SCI_SETADDITIONALCARETSVISIBLE(bool additionalCaretsVisible)</b><br />
-     <b id="SCI_GETADDITIONALCARETSVISIBLE">SCI_GETADDITIONALCARETSVISIBLE &rarr; bool</b><br />
-     Determine whether to show additional carets (defaults to <code>true</code>).</p>
-
-    <p>
-     <b id="SCI_SWAPMAINANCHORCARET">SCI_SWAPMAINANCHORCARET</b><br />
-     <b id="SCI_ROTATESELECTION">SCI_ROTATESELECTION</b><br />
-     <b id="SCI_MULTIPLESELECTADDNEXT">SCI_MULTIPLESELECTADDNEXT</b><br />
-     <b id="SCI_MULTIPLESELECTADDEACH">SCI_MULTIPLESELECTADDEACH</b><br />
-     These commands may be assigned to keys to make it possible to manipulate multiple selections.
-     <code>SCI_SWAPMAINANCHORCARET</code> moves the caret to the opposite end of the main selection.
-     <code>SCI_ROTATESELECTION</code> makes the next selection be the main selection.<br />
-     <code>SCI_MULTIPLESELECTADDNEXT</code> adds the next occurrence of the main selection
-     within the target to the set of selections as main. If the current selection is empty then select word around caret.
-      The current <a class="jump" href="#searchFlags"><code>searchFlags</code></a>
-      are used so the application may choose case sensitivity and word search options.<br />
-     <code>SCI_MULTIPLESELECTADDEACH</code> is similar to
-     <code>SCI_MULTIPLESELECTADDNEXT</code> but adds multiple occurrences instead of just one.
-     </p>
 
     <h2 id="ScrollingAndAutomaticScrolling">Scrolling and automatic scrolling</h2>
     <code>
@@ -10001,23 +9961,6 @@ EM_SETTARGETDEVICE
     <p>When producing a stand-alone Scintilla DLL, the ScintillaDLL.cxx file should be compiled and
     linked in to provide <code>DllMain</code> and <code>Scintilla_RegisterClasses</code>.</p>
 
-    <h3>Ensuring lexers are linked into Scintilla</h3>
-
-    <p>Depending on the compiler and linker used, the lexers may be stripped out. This is most
-    often caused when building a static library. To ensure the lexers are linked in, the
-    <code>Scintilla_LinkLexers()</code> function may be called.</p>
-
-    <h3>Changing set of lexers</h3>
-
-    <p>To change the set of lexers in Scintilla, add and remove lexer source files
-    (<code>Lex*.cxx</code>) from the <code>scintilla/lexers directory</code> and run the
-    <code>scripts/LexGen.py</code> script from the <code>scripts</code> directory to update the make files
-    and <code>Catalogue.cxx</code>. <code>LexGen.py</code> requires Python 3.6 or later. If you do
-    not have access to Python, you can hand edit <code>Catalogue.cxx</code> in a simple-minded way,
-    following the patterns of other lexers. The important thing is to include
-    <code>LINK_LEXER(lmMyLexer);</code> to correspond with the <code>LexerModule
-    lmMyLexer(...);</code> in your lexer source code.</p>
-
     <h3>Building with an alternative Regular Expression implementation</h3>
 
  <p id="AlternativeRegEx">A simple interface provides support for switching the Regular Expressions engine at
@@ -10027,7 +9970,7 @@ EM_SETTARGETDEVICE
  to create an instance of your class. You must disable the built-in implementation by defining
  <code>SCI_OWNREGEX</code>.</p>
 
-    <h3>Preprocessors affect building</h3>
+    <h3>Preprocessor definitions that affect building</h3>
 
     <table class="standard" summary="Building preprocessors">
       <tbody>

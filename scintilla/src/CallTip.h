@@ -71,7 +71,7 @@ public:
 
 	/// Setup the calltip and return a rectangle of the area required.
 	PRectangle CallTipStart(Sci::Position pos, Point pt, int textHeight, const char *defn,
-		int codePage_, Surface *surfaceMeasure, std::shared_ptr<Font> font_);
+		int codePage_, Surface *surfaceMeasure, const std::shared_ptr<Font> &font_);
 
 	void CallTipCancel() noexcept;
 

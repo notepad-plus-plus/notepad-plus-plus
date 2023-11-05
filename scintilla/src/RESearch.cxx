@@ -205,6 +205,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <array>
 #include <algorithm>
 #include <iterator>
 
@@ -260,23 +261,9 @@ RESearch::RESearch(CharClassify *charClassTable) {
 	Clear();
 }
 
-void RESearch::Clear() noexcept {
-	for (int i = 0; i < MAXTAG; i++) {
-		pat[i].clear();
-		bopat[i] = NOTFOUND;
-		eopat[i] = NOTFOUND;
-	}
-}
-
-void RESearch::GrabMatches(const CharacterIndexer &ci) {
-	for (unsigned int i = 0; i < MAXTAG; i++) {
-		if ((bopat[i] != NOTFOUND) && (eopat[i] != NOTFOUND)) {
-			const Sci::Position len = eopat[i] - bopat[i];
-			pat[i].resize(len);
-			for (Sci::Position j = 0; j < len; j++)
-				pat[i][j] = ci.CharAt(bopat[i] + j);
-		}
-	}
+void RESearch::Clear() {
+	bopat.fill(NOTFOUND);
+	eopat.fill(NOTFOUND);
 }
 
 void RESearch::ChSet(unsigned char c) noexcept {

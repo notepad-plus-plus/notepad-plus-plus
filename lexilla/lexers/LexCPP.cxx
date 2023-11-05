@@ -1664,8 +1664,9 @@ void LexerCPP::EvaluateTokens(Tokens &tokens, const SymbolTable &preprocessorDef
 		// The insertion is done before the removal because there were failures with the opposite approach
 		tokens.insert(bracketPair.itBracket, inBracket.begin(), inBracket.end());
 
-		bracketPair = FindBracketPair(tokens);
-		tokens.erase(bracketPair.itBracket, bracketPair.itEndBracket + 1);
+		// insert invalidated bracketPair. Use a new variable to avoid warning from Coverity.
+		const BracketPair pairToErase = FindBracketPair(tokens);
+		tokens.erase(pairToErase.itBracket, pairToErase.itEndBracket + 1);
 
 		bracketPair = FindBracketPair(tokens);
 	}

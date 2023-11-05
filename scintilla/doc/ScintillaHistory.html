@@ -584,6 +584,36 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla538.zip">Release 5.3.8</a>
+    </h3>
+    <ul>
+	<li>
+	Released 5 November 2023.
+	</li>
+	<li>
+	Fix excessive memory use when deleting contiguous ranges backwards.
+	<a href="https://github.com/notepad-plus-plus/notepad-plus-plus/issues/13442">Notepad++ Issue #13442</a>.
+	</li>
+	<li>
+	Fix incorrect substitution when searching for a regular expression backwards.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2405/">Bug #2405</a>.
+	</li>
+	<li>
+	Make SCI_MOVESELECTEDLINESUP and SCI_MOVESELECTEDLINESDOWN work for rectangular selections.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2078/">Bug #2078</a>.
+	</li>
+	<li>
+	For Cocoa, minimum supported macOS release increased to 10.13.
+	</li>
+	<li>
+	For Cocoa, fix invisible text on macOS 14 Sonoma.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2402/">Bug #2402</a>.
+	</li>
+	<li>
+	For Cocoa, do nothing for suspendDrawing on macOS 10.14+ as the underlying calls have been deprecated.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla537.zip">Release 5.3.7</a>
     </h3>
     <ul>

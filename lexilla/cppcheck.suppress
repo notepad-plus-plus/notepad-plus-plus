@@ -1,6 +1,6 @@
 // File to suppress cppcheck warnings for files that will not be fixed.
 // Does not suppress warnings where an additional occurrence of the warning may be of interest.
-// Configured for cppcheck 2.11
+// Configured for cppcheck 2.12
 
 // Coding style is to use assignments in constructor when there are many
 // members to initialize or the initialization is complex or has comments.
@@ -35,8 +35,8 @@ checkLevelNormal:lexilla/lexers/LexHTML.cxx
 checkLevelNormal:lexilla/lexers/LexPerl.cxx
 checkLevelNormal:lexilla/lexers/LexRuby.cxx
 
-// Cppcheck wrongly assumes string_view::remove_prefix can not empty the view
-knownConditionTrueFalse:lexilla/test/TestLexers.cxx
+// Physically but not logically const.
+constVariablePointer:lexilla/examples/CheckLexilla/CheckLexilla.c
 
 // Suppress most lexer warnings since the lexers are maintained by others
 redundantCondition:lexilla/lexers/LexA68k.cxx
@@ -62,13 +62,14 @@ constParameterPointer:lexilla/lexers/LexCoffeeScript.cxx
 knownConditionTrueFalse:lexilla/lexers/LexCoffeeScript.cxx
 constParameterReference:lexilla/lexers/LexCPP.cxx
 variableScope:lexilla/lexers/LexCSS.cxx
+knownConditionTrueFalse:lexilla/lexers/LexDataflex.cxx
 variableScope:lexilla/lexers/LexDataflex.cxx
 knownConditionTrueFalse:lexilla/lexers/LexECL.cxx
 variableScope:lexilla/lexers/LexECL.cxx
+constParameter:lexilla/lexers/LexEDIFACT.cxx
 constParameterPointer:lexilla/lexers/LexEDIFACT.cxx
 knownConditionTrueFalse:lexilla/lexers/LexEiffel.cxx
 variableScope:lexilla/lexers/LexErlang.cxx
-knownConditionTrueFalse:lexilla/lexers/LexErrorList.cxx
 knownConditionTrueFalse:lexilla/lexers/LexEScript.cxx
 constParameter:lexilla/lexers/LexFortran.cxx
 constParameterReference:lexilla/lexers/LexFortran.cxx
@@ -82,14 +83,17 @@ knownConditionTrueFalse:lexilla/lexers/LexHex.cxx
 constParameterReference:lexilla/lexers/LexHTML.cxx
 constVariable:lexilla/lexers/LexHollywood.cxx
 variableScope:lexilla/lexers/LexInno.cxx
+constParameterPointer:lexilla/lexers/LexJulia.cxx
 constParameterReference:lexilla/lexers/LexJulia.cxx
 knownConditionTrueFalse:lexilla/lexers/LexJulia.cxx
 unreadVariable:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexLaTeX.cxx
 constParameterReference:lexilla/lexers/LexLaTeX.cxx
+constParameterPointer:lexilla/lexers/LexMagik.cxx
 constParameterReference:lexilla/lexers/LexMagik.cxx
 constParameterReference:lexilla/lexers/LexMarkdown.cxx
+constParameterPointer:lexilla/lexers/LexMatlab.cxx
 constParameterReference:lexilla/lexers/LexMatlab.cxx
 unreadVariable:lexilla/lexers/LexMatlab.cxx
 variableScope:lexilla/lexers/LexMatlab.cxx
@@ -128,9 +132,7 @@ constParameterReference:lexilla/lexers/LexSTTXT.cxx
 knownConditionTrueFalse:lexilla/lexers/LexTACL.cxx
 clarifyCalculation:lexilla/lexers/LexTADS3.cxx
 constParameterReference:lexilla/lexers/LexTADS3.cxx
-unreadVariable:lexilla/lexers/LexTCL.cxx
 invalidscanf:lexilla/lexers/LexTCMD.cxx
-constParameterPointer:lexilla/lexers/LexTCMD.cxx
 constParameterReference:lexilla/lexers/LexTeX.cxx
 variableScope:lexilla/lexers/LexTeX.cxx
 knownConditionTrueFalse:lexilla/lexers/LexTxt2tags.cxx
@@ -166,7 +168,6 @@ constParameterCallback:lexilla/lexers/LexVB.cxx
 constVariableReference:lexilla/lexers/LexCSS.cxx
 constVariableReference:lexilla/lexers/LexCrontab.cxx
 constVariableReference:lexilla/lexers/LexGui4Cli.cxx
-constVariableReference:lexilla/lexers/LexKix.cxx
 constVariableReference:lexilla/lexers/LexMetapost.cxx
 constVariableReference:lexilla/lexers/LexOpal.cxx
 
@@ -178,6 +179,9 @@ constVariableReference:lexilla/lexers/LexOpal.cxx
 // cppcheck gives up inside catch.hpp
 *:lexilla/test/unit/UnitTester.cxx
 *:lexilla/test/unit/unitTest.cxx
+
+// Tests often test things that are always true
+knownConditionTrueFalse:lexilla/test/unit/testCharacterSet.cxx
 
 // cppcheck fails REQUIRE from Catch
 comparisonOfFuncReturningBoolError:lexilla/test/unit/*.cxx

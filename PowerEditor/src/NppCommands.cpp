@@ -2012,8 +2012,7 @@ void Notepad_plus::command(int id)
 				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
 					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD: SCFIND_MATCHCASE| SCFIND_WHOLEWORD));
 
-			bool hasSelection = (_pEditView->execute(SCI_GETSELECTIONSTART) != _pEditView->execute(SCI_GETSELECTIONEND));
-			if (!hasSelection)
+			if (!_pEditView->hasSelection())
 				_pEditView->expandWordSelection();
 
 			_pEditView->execute(SCI_TARGETWHOLEDOCUMENT);

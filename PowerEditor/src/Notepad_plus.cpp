@@ -2555,7 +2555,7 @@ void Notepad_plus::enableCommand(int cmdID, bool doEnable, int which) const
 
 void Notepad_plus::checkClipboard()
 {
-	bool hasSelection = (_pEditView->execute(SCI_GETSELECTIONSTART) != _pEditView->execute(SCI_GETSELECTIONEND));
+	bool hasSelection = _pEditView->hasSelection();
 	bool canPaste = (_pEditView->execute(SCI_CANPASTE) != 0);
 	enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);

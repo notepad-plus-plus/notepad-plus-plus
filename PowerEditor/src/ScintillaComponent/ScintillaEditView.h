@@ -717,6 +717,8 @@ public:
 	void notifyMarkers(Buffer * buf, bool isHide, size_t location, bool del);
 	void runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete);
 
+	bool hasSelection() const { return !execute(SCI_GETSELECTIONEMPTY); };
+
 	bool isSelecting() const {
 		static Sci_CharacterRangeFull previousSelRange = getSelection();
 		Sci_CharacterRangeFull currentSelRange = getSelection();

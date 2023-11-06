@@ -544,8 +544,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						SHORT shift = GetKeyState(VK_SHIFT);
 						if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000))
 						{
-							bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
-							if (!hasSelection)
+							if (!hasSelection())
 							{
 								execute(SCI_LINEDELETE);
 								return TRUE;
@@ -562,8 +561,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						SHORT shift = GetKeyState(VK_SHIFT);
 						if ((ctrl & 0x8000) && !(alt & 0x8000) && !(shift & 0x8000))
 						{
-							bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
-							if (!hasSelection)
+							if (!hasSelection())
 							{
 								execute(wParam == 'C' ? SCI_LINECOPY : SCI_LINECUT);
 								//return TRUE;

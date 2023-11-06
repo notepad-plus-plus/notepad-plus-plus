@@ -2012,6 +2012,9 @@ void Notepad_plus::command(int id)
 				(id == IDM_EDIT_MULTISELECTALLMATCHCASE ? SCFIND_MATCHCASE :
 					(id == IDM_EDIT_MULTISELECTALLWHOLEWORD ? SCFIND_WHOLEWORD: SCFIND_MATCHCASE| SCFIND_WHOLEWORD));
 
+			// Don't use _pEditView->hasSelection() because when multi-selection is active and main selection has no selection,
+			// it will cause an infinite loop on SCI_MULTIPLESELECTADDEACH. See:
+			// https://github.com/notepad-plus-plus/notepad-plus-plus/pull/14330#issuecomment-1797080251
 			bool hasSelection = (_pEditView->execute(SCI_GETSELECTIONSTART) != _pEditView->execute(SCI_GETSELECTIONEND));
 			if (!hasSelection)
 				_pEditView->expandWordSelection();

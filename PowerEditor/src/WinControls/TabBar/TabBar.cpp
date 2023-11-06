@@ -849,7 +849,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int xPos = LOWORD(lParam);
 			int yPos = HIWORD(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);
-			notify(TCN_TABDELETE, currentTabOn);
+			if (currentTabOn != -1)
+				notify(TCN_TABDELETE, currentTabOn);
 			return TRUE;
 		}
 

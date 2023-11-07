@@ -539,8 +539,10 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				{
 					case VK_DELETE:
 					{
+						SHORT ctrl = GetKeyState(VK_CONTROL);
+						SHORT alt = GetKeyState(VK_MENU);
 						SHORT shift = GetKeyState(VK_SHIFT);
-						if (shift & 0x8000)
+						if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000))
 						{
 							bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
 							if (!hasSelection)
@@ -556,7 +558,9 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					case 'X':
 					{
 						SHORT ctrl = GetKeyState(VK_CONTROL);
-						if (ctrl & 0x8000)
+						SHORT alt = GetKeyState(VK_MENU);
+						SHORT shift = GetKeyState(VK_SHIFT);
+						if ((ctrl & 0x8000) && !(alt & 0x8000) && !(shift & 0x8000))
 						{
 							bool hasSelection = (execute(SCI_GETSELECTIONSTART) != execute(SCI_GETSELECTIONEND));
 							if (!hasSelection)

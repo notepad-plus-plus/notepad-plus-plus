@@ -4345,7 +4345,7 @@ void Editor::CopySelectionRange(SelectionText *ss, bool allowLineCopy) {
 			//}
 		}
 		ss->Copy(text, pdoc->dbcsCodePage,
-			vs.styles[StyleDefault].characterSet, sel.IsRectangular(), sel.selType == Selection::SelTypes::lines);
+			vs.styles[StyleDefault].characterSet, rangesInOrder.size() > 1, sel.selType == Selection::SelTypes::lines);
 	}
 }
 

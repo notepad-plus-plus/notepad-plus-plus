@@ -496,6 +496,16 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				::SendMessage(_hParent, WM_NOTIFY, LINKTRIGGERED, reinterpret_cast<LPARAM>(&notification));
 
 			}
+			else if (wParam == 'V')
+			{
+				if (_isMultiPasteActive)
+				{
+					Buffer* buf = getCurrentBuffer();
+					buf->setUserReadOnly(false);
+					_isMultiPasteActive = false;
+					::SendMessage(_hParent, NPPM_INTERNAL_CHECKUNDOREDOSTATE, 0, 0);
+				}
+			}
 			break;
 		}
 		
@@ -566,6 +576,30 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 								execute(wParam == 'C' ? SCI_LINECOPY : SCI_LINECUT);
 								//return TRUE;
 								// No return and let Scintilla procedure to continue
+							}
+						}
+					}
+					break;
+
+					case 'V':
+					{
+						SHORT ctrl = GetKeyState(VK_CONTROL);
+						SHORT alt = GetKeyState(VK_MENU);
+						SHORT shift = GetKeyState(VK_SHIFT);
+						if ((ctrl & 0x8000) && !(alt & 0x8000) && !(shift & 0x8000))
+						{
+							Buffer* buf = getCurrentBuffer();
+							bool isRO = buf->isReadOnly();
+							size_t numSelections = execute(SCI_GETSELECTIONS);
+							if (numSelections > 1 && !isRO)
+							{
+								if (pasteToMultiSelection())
+								{
+									// Hack for preventing the char "SYN" (0x16) from being adding into edit zone 
+									buf->setUserReadOnly(true);
+
+									_isMultiPasteActive = true; // It will be set false with WM_KEYUP message
+								}
 							}
 						}
 					}
@@ -4106,7 +4140,7 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 	}
 }
 
-generic_string ScintillaEditView::getEOLString()
+generic_string ScintillaEditView::getEOLString() const
 {
 	intptr_t eol_mode = execute(SCI_GETEOLMODE);
 	if (eol_mode == SC_EOL_CRLF)
@@ -4393,4 +4427,47 @@ void ScintillaEditView::removeAnyDuplicateLines()
 			replaceTarget(joined.c_str(), startPos, endPos);
 		}
 	}
+}
+
+bool ScintillaEditView::pasteToMultiSelection() const
+{
+	size_t numSelections = execute(SCI_GETSELECTIONS);
+	if (numSelections <= 1)
+		return false;
+
+	// "MSDEVColumnSelect" is column format from Scintilla 
+	CLIPFORMAT cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormat(TEXT("MSDEVColumnSelect")));
+	if (IsClipboardFormatAvailable(cfColumnSelect) && OpenClipboard(NULL))
+	{
+		HANDLE clipboardData = ::GetClipboardData(CF_UNICODETEXT);
+		::GlobalSize(clipboardData);
+		LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+		if (clipboardDataPtr)
+		{
+			wstring clipboardStr = (const TCHAR*)clipboardDataPtr;
+			::GlobalUnlock(clipboardData);
+			::CloseClipboard();
+
+			vector<wstring> stringArray;
+			stringSplit(clipboardStr, getEOLString(), stringArray);
+			stringArray.erase(stringArray.cend() - 1); // remove the last empty string
+
+			if (numSelections == stringArray.size())
+			{
+				execute(SCI_BEGINUNDOACTION);
+				for (size_t i = 0; i < numSelections; ++i)
+				{
+					LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
+					LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
+					replaceTarget(stringArray[i].c_str(), posStart, posEnd);
+					posStart += stringArray[i].length();
+					execute(SCI_SETSELECTIONNSTART, i, posStart);
+					execute(SCI_SETSELECTIONNEND, i, posStart);
+				}
+				execute(SCI_ENDUNDOACTION);
+				return true;
+			}
+		}
+	}
+	return false;
 }

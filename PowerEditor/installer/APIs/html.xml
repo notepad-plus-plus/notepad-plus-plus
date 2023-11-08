@@ -538,6 +538,7 @@
 		<KeyWord name="src" />
 		<KeyWord name="srcdoc" />
 		<KeyWord name="srclang" />
+		<KeyWord name="srcset" />
 		<KeyWord name="start" />
 		<KeyWord name="static" />
 		<KeyWord name="status-bar" />

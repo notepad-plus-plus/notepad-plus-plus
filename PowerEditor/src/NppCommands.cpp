@@ -429,8 +429,8 @@ void Notepad_plus::command(int id)
 			GlobalUnlock(hglbLenCopy);
 
 			// Place the handle on the clipboard.
-			UINT f = RegisterClipboardFormat(CF_NPPTEXTLEN);
-			SetClipboardData(f, hglbLenCopy);
+			UINT cf_nppTextLen = RegisterClipboardFormat(CF_NPPTEXTLEN);
+			SetClipboardData(cf_nppTextLen, hglbLenCopy);
 
 			CloseClipboard();
 

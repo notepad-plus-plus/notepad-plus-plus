@@ -811,8 +811,8 @@ protected:
 	BufferStyleMap _hotspotStyles;
 
 	intptr_t _beginSelectPosition = -1;
-
 	static std::string _defaultCharList;
+	bool _isMultiPasteActive = false;
 
 //Lexers and Styling
 	void restyleBuffer();

@@ -609,7 +609,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 									if (numSelections > 1 && numSelections == stringArray.size())
 									{
 										execute(SCI_BEGINUNDOACTION);
-										for (int i = 0; i < numSelections; ++i)
+										for (size_t i = 0; i < numSelections; ++i)
 										{
 											LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
 											LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
@@ -620,11 +620,11 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 										}
 										execute(SCI_ENDUNDOACTION);
 										
-										// Hack for prevent 
-										//Buffer* buf = getCurrentBuffer();
-										//buf->setUserReadOnly(true);
+										// Hack for preventing the char "SYN" (0x16) from being adding into edit zone 
+										Buffer* buf = getCurrentBuffer();
+										buf->setUserReadOnly(true);
 
-										_isMultiPasteActive = true;
+										_isMultiPasteActive = true; // It will be set false with WM_KEYUP message
 										return TRUE;
 									}
 								}

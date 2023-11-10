@@ -29,15 +29,40 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		_path = converter.to_bytes(fn);
 
-		DWORD dispParam = ::PathFileExistsW(fname) ? TRUNCATE_EXISTING : CREATE_ALWAYS;
+		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
+		DWORD dispParam = CREATE_ALWAYS;
+		BOOL doesFileExist = ::PathFileExistsW(fname);
+		if (doesFileExist)
+		{
+			// Store the file creation date & attributes for a possible use later...
+			::GetFileAttributesExW(fname, GetFileExInfoStandard, &attributes_original);
+
+			// Check the existence of Alternate Data Streams
+			WIN32_FIND_STREAM_DATA findData;
+			HANDLE hFind = FindFirstStreamW(fname, FindStreamInfoStandard, &findData, 0);
+			if (hFind != INVALID_HANDLE_VALUE) // Alternate Data Streams found
+			{
+				dispParam = TRUNCATE_EXISTING;
+				FindClose(hFind);
+			}
+		}
+
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 
 		// Race condition management:
 		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
 		//  If file did exist while calling PathFileExistsW, but before calling CreateFileW, file is deleted:  use TRUNCATE_EXISTING will cause the error
-		if (_hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
+		if (dispParam == TRUNCATE_EXISTING && _hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
 		{
-			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, CREATE_ALWAYS, _attribParam, NULL);
+			dispParam = CREATE_ALWAYS;
+			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
+		}
+
+		if (doesFileExist && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))
+		{
+			// restore back the original creation date & attributes
+			::SetFileTime(_hFile, &(attributes_original.ftCreationTime), NULL, NULL);
+			::SetFileAttributesW(fname, (_attribParam | attributes_original.dwFileAttributes));
 		}
 
 		NppParameters& nppParam = NppParameters::getInstance();

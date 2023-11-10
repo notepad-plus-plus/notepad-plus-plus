@@ -502,8 +502,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				{
 					Buffer* buf = getCurrentBuffer();
 					buf->setUserReadOnly(false);
-
 					_isMultiPasteActive = false;
+					::SendMessage(_hParent, NPPM_INTERNAL_CHECKUNDOREDOSTATE, 0, 0);
 				}
 			}
 			break;

@@ -2276,6 +2276,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CHECKUNDOREDOSTATE:
+		{
+			checkClipboard();
+			checkUndoState();
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		{
 			// app should return TRUE or FALSE immediately upon receiving this message,

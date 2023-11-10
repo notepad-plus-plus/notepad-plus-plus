@@ -442,6 +442,17 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_PASTE:
 		{
 			std::lock_guard<std::mutex> lock(command_mutex);
+
+			size_t numSelections = _pEditView->execute(SCI_GETSELECTIONS);
+			Buffer* buf = getCurrentBuffer();
+			bool isRO = buf->isReadOnly();
+			if (numSelections > 1 && !isRO)
+			{
+				bool isPasteDone = _pEditView->pasteToMultiSelection();
+				if (isPasteDone)
+					return;
+			}
+
 			intptr_t eolMode = _pEditView->execute(SCI_GETEOLMODE);
 			_pEditView->execute(SCI_PASTE);
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);

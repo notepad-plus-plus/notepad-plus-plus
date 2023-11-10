@@ -768,7 +768,7 @@ public:
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 	void scrollPosToCenter(size_t pos);
-	generic_string getEOLString();
+	generic_string getEOLString() const;
 	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
@@ -777,6 +777,7 @@ public:
 	void markedTextToClipboard(int indiStyle, bool doAll = false);
 	void removeAnyDuplicateLines();
 	bool expandWordSelection();
+	bool pasteToMultiSelection() const;
 
 protected:
 	static bool _SciInit;

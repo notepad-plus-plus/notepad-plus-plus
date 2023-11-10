@@ -41,9 +41,10 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			WIN32_FIND_STREAM_DATA findData;
 			HANDLE hFind = FindFirstStreamW(fname, FindStreamInfoStandard, &findData, 0);
 			if (hFind != INVALID_HANDLE_VALUE) // Alternate Data Streams found
+			{
 				dispParam = TRUNCATE_EXISTING;
-			else
 				FindClose(hFind);
+			}
 		}
 
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);

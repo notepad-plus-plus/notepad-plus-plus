@@ -2480,13 +2480,23 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			if (oFindStatus)
 				*oFindStatus = FSNotFound;
 			//failed, or failed twice with wrap
-			if (NotIncremental == pOptions->_incrementalType) //incremental search doesnt trigger messages
+			if (pOptions->_incrementalType == NotIncremental) //incremental search doesnt trigger messages
 			{
 				generic_string newTxt2find = stringReplace(txt2find, TEXT("&"), TEXT("&&"));
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-				generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", TEXT("Find: Can't find the text \"$STR_REPLACE$\""));
-				msg = stringReplace(msg, TEXT("$STR_REPLACE$"), newTxt2find);
-				setStatusbarMessage(msg, FSNotFound);
+				wstring warningMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", L"Find: Can't find the text \"$STR_REPLACE$\"");
+
+				if (!pOptions->_isWrapAround)
+				{
+					wstring sep = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-separator", L": ");
+					wstring reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-no-wrap", L"turn on \"Wrap around\" maybe?");
+
+					warningMsg += sep;
+					warningMsg += reasonMsg;
+				}
+
+				warningMsg = stringReplace(warningMsg, L"$STR_REPLACE$", newTxt2find);
+				setStatusbarMessage(warningMsg, FSNotFound);
 
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))

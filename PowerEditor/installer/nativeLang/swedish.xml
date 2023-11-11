@@ -3,7 +3,7 @@
 The comments are here for explanation, it's not necessary to translate them.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.5.3">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -37,6 +37,8 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="edit-blankOperations" name="&amp;Blanksteg"/>
 					<Item subMenuId="edit-pasteSpecial" name="Klistra in s&amp;pecial"/>
 					<Item subMenuId="edit-onSelection" name="För markerad te&amp;xt"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multimarkera ALLA"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multimarkera nästkommande"/>
 					<Item subMenuId="search-markAll" name="Sti&amp;lsätt alla förekomster"/>
 					<Item subMenuId="search-markOne" name="S&amp;tilsätt en förekomst"/>
 					<Item subMenuId="search-unmarkAll" name="Rensa stil"/>
@@ -635,17 +637,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<ScintillaCommandsTab name="Scintilla-kommandon"/>
 				<ConflictInfoOk name="Inga kortkommandokonflikter hittades här."/>
 				<ConflictInfoEditing name="Inga konflikter..."/>
-				<WindowCategory name="Fönster"/>
-				<FileCategory name="Arkiv"/>
-				<EditCategory name="Redigera"/>
-				<SearchCategory name="Sök"/>
-				<ViewCategory name="Visa"/>
-				<FormatCategory name="Kodning"/>
-				<LangCategory name="Språk"/>
 				<AboutCategory name="Om"/>
-				<SettingCategory name="Inställningar"/>
-				<ToolCategory name="Verktyg"/>
-				<ExecuteCategory name="Kör"/>
 				<ModifyContextMenu name="Modifiera"/>
 				<DeleteContextMenu name="Radera"/>
 				<ClearContextMenu name="Rensa"/>
@@ -966,7 +958,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Möjliggör att styra kommandon för att gruppera/avgruppera nuvarande nivå"/>
-					<Item id="6225" name="Aktivera multiredigering (Ctrl + musklick/markering)"/>
 					<Item id="6227" name="Radbrytning"/>
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Justerad"/>
@@ -1095,7 +1086,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6354" name="Matchning"/>
 					<Item id="6332" name="Matcha skiftläge"/>
 					<Item id="6338" name="Matcha enbart hela ord"/>
-					<Item id="6339" name="Använd inställningar från sökfönstret"/>
+					<Item id="6339" name="Använd inställningar från sökdialogen"/>
 					<Item id="6340" name="Markera i annan vy"/>
 					<Item id="6329" name="Markera matchande taggar"/>
 					<Item id="6327" name="Aktivera"/>
@@ -1151,6 +1142,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6907" name="När sökdialogen öppnas"/>
 					<Item id="6908" name="Fyll sökfältet med markerad text"/>
 					<Item id="6909" name="Markera ord under textmarkören när ingenting är markerat"/>
+					<Item id="6910" name="Minimal storlek för att automatiskt markera &quot;I markering&quot;"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">
@@ -1171,6 +1163,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6821" name="sekund(er)"/>
 					<Item id="6822" name="Sökväg:"/>
 					<Item id="6309" name="Kom ihåg aktuell session vid nästa uppstart"/>
+					<Item id="6825" name="Kom ihåg otillgängliga filer från föregående session"/>
 					<Item id="6801" name="Säkerhetskopiera vid sparning"/>
 					<Item id="6315" name="Ingen"/>
 					<Item id="6316" name="Enkel säkerhetskopia"/>
@@ -1245,6 +1238,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="7149" name="Tillåt smart markering"/>
 					<Item id="7150" name="Inaktivera radbrytning globalt"/>
 					<Item id="7151" name="Tillåt klickbara webbadresslänkar"/>
+					<Item id="7152" name="Dölj varning när filer större än 2 GB öppnas"/>
 				</Performance>
 
 				<Cloud title="Moln och länkar">
@@ -1359,7 +1353,7 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="N&amp;ej"/>
 				<Item id="4" name="&amp;Alltid"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1483,6 +1477,16 @@ Var god testa dessa kommandon och redigera dem vid behov.
 Annars kan du nedgradera till Notepad++ v8.5.2 och återställa din föregående data.
 Notepad++ kommer att säkerhetskopiera din gamla &quot;shortcuts.xml&quot; och spara den som &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Byt namn på &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; så bör dina kommandon återställas och fungera ordentligt."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NbFileToOpenImportantWarning title="Antalet filer att öppna är för stort" message="$INT_REPLACE$ filer håller på att öppnas.
+Är du säker på att du vill öppna dem?"/>
+			<NotEnoughRoom4Saving title="Misslyckades att spara" message="Misslyckades att spara filen.
+Det verkar inte finnas tillräckligt mycket diskutrymme för att spara filen. Din fil sparades inte."/>
+			<FileInaccessibleUserSession title="Filen är otillgänglig" message="Vissa filer från din manuellt sparade session &quot;$STR_REPLACE$&quot; är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.
+Vill du skapa dessa platshållare?
+OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din manuellt sparade session INTE modifieras vid avslut."/>
+			<FileInaccessibleDefaultSessionXml title="Filen är otillgänglig" message="Vissa filer från din föregående session är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.
+Vill du skapa dessa platshållare?
+OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din session MODIFIERAS VID AVSLUT! Vi föreslår att du nu säkerhetskopierar din &quot;session.xml&quot;."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1747,6 +1751,7 @@ Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med anv
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Tillämpa utseendeinställningar för icke utskrivbara tecken på C0- och C1-kontrolltecken samt Unicode-radslutstecken (nästa rad, radavgränsare och paragrafavgränsare)."/>
+			<searchingInSelThresh-tip value="Antal markerade tecken i redigeringsområdet att automatiskt kontrollera kryssrutan &quot;I markering&quot; när sökdialogen aktiveras. Det maximala värdet är 1024. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

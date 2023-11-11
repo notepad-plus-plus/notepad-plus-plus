@@ -453,9 +453,7 @@ void Notepad_plus::command(int id)
 					return;
 			}
 
-			intptr_t eolMode = _pEditView->execute(SCI_GETEOLMODE);
 			_pEditView->execute(SCI_PASTE);
-			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
 		}
 		break;
 

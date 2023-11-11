@@ -37,7 +37,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			// Store the file creation date & attributes for a possible use later...
 			::GetFileAttributesExW(fname, GetFileExInfoStandard, &attributes_original);
 
-			// Test
+			// Check the existence of Alternate Data Streams
 			WIN32_FIND_STREAM_DATA findData;
 			HANDLE hFind = FindFirstStreamW(fname, FindStreamInfoStandard, &findData, 0);
 			if (hFind != INVALID_HANDLE_VALUE) // Alternate Data Streams found

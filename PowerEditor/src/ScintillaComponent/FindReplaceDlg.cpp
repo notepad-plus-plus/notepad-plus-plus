@@ -2486,17 +2486,15 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				wstring warningMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", L"Find: Can't find the text \"$STR_REPLACE$\"");
 
-				if (!pOptions->_isWrapAround)
+				wstring reasonMsg;
+				bool isTheMostLaxMode = pOptions->_isWrapAround && !pOptions->_isMatchCase && !pOptions->_isWholeWord;
+				if (!isTheMostLaxMode)
 				{
-					wstring sep = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-separator", L": ");
-					wstring reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-no-wrap", L"turn on \"Wrap around\" maybe?");
-
-					warningMsg += sep;
-					warningMsg += reasonMsg;
+					reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", L"The given occurence cannot be found. You may have forgotten to check \"Wrap around\" (to ON), \"Match case\" (to OFF), or \"Match whole word only\" (to OFF).");
 				}
 
 				warningMsg = stringReplace(warningMsg, L"$STR_REPLACE$", newTxt2find);
-				setStatusbarMessage(warningMsg, FSNotFound);
+				setStatusbarMessage(warningMsg, FSNotFound, reasonMsg);
 
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
@@ -3619,14 +3617,15 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
 }
 
-void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus staus, char const *pTooltipMsg)
+void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, wstring tooltipMsg)
 {
 	if (_statusbarTooltipWnd)
 	{
 		::DestroyWindow(_statusbarTooltipWnd);
 		_statusbarTooltipWnd = nullptr;
 	}
-	_statusbarTooltipMsg = (pTooltipMsg && (*pTooltipMsg)) ? s2ws(pTooltipMsg) : TEXT("");
+
+	_statusbarTooltipMsg = tooltipMsg;
 
 	if (staus == FSNotFound)
 	{
@@ -3672,8 +3671,9 @@ void FindReplaceDlg::setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditV
 
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 	std::wstring result = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid Regular Expression"));
-
-	setStatusbarMessage(result, FSNotFound, msg);
+	string s = msg;
+	
+	setStatusbarMessage(result, FSNotFound, s2ws(s));
 }
 
 generic_string FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) const

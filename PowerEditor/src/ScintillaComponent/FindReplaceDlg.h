@@ -386,7 +386,7 @@ public :
 
 	void execSavedCommand(int cmd, uptr_t intValue, const generic_string& stringValue);
 	void clearMarks(const FindOption& opt);
-	void setStatusbarMessage(const generic_string & msg, FindStatus staus, char const *pTooltipMsg = NULL);
+	void setStatusbarMessage(const std::wstring & msg, FindStatus staus, std::wstring tooltipMsg = L"");
 	void setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView);
 	generic_string getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();

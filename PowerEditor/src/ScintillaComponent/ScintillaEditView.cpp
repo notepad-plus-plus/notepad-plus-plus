@@ -2868,25 +2868,45 @@ void ScintillaEditView::performGlobalStyles()
 		selectColorBack = pStyle->_bgColor;
 		selectColorFore = pStyle->_fgColor;
 	}
-	execute(SCI_SETSELBACK, 1, selectColorBack);
-	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_BACK, selectColorBack);
+	//execute(SCI_SETSELBACK, 1, selectColorBack);
+	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_BACK, selectColorBack | 0xFF000000); // SCI_SETSELBACK is deprecated
+	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_BACK, selectColorBack | 0xFF000000);
+
+
+	COLORREF selectMultiSelectColorBack = liteGrey;
+	pStyle = stylers.findByName(TEXT("Multi-selected text colour"));
+	if (pStyle)
+	{
+		selectMultiSelectColorBack = pStyle->_bgColor;
+	}
+	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_ADDITIONAL_BACK, selectMultiSelectColorBack | 0xFF000000);
 
 	if (nppParams.isSelectFgColorEnabled())
 	{
-		execute(SCI_SETSELFORE, 1, selectColorFore);
-
 		long alphaSelectColorFore = selectColorFore;
 		alphaSelectColorFore |= 0xFF000000; // add alpha color to make DirectWrite mode work
+		//execute(SCI_SETSELFORE, 1, selectColorFore);
+		execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_TEXT, alphaSelectColorFore);  // SCI_SETSELFORE is deprecated
 		execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT, alphaSelectColorFore);
+		execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_SELECTION_ADDITIONAL_TEXT, alphaSelectColorFore);
 	}
 
 	COLORREF caretColor = black;
-	pStyle = stylers.findByID(SCI_SETCARETFORE);
+	pStyle = stylers.findByName(L"Caret colour");
 	if (pStyle)
 	{
 		caretColor = pStyle->_fgColor;
 	}
-	execute(SCI_SETCARETFORE, caretColor);
+	//execute(SCI_SETCARETFORE, caretColor);
+	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET, caretColor | 0xFF000000); // SCI_SETCARETFORE is deprecated
+
+	COLORREF multiEditCaretColor = darkGrey;
+	pStyle = stylers.findByName(L"Multi-edit carets color");
+
+	if (pStyle)
+		multiEditCaretColor = pStyle->_fgColor;
+
+	execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_ADDITIONAL, multiEditCaretColor | 0xFF000000);
 
 	COLORREF edgeColor = liteGrey;
 	pStyle = stylers.findByName(TEXT("Edge colour"));

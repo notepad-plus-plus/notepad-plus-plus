@@ -3081,7 +3081,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_subEditView.setCRLF();
 			return TRUE;
 		}
-		
+
 		case NPPM_INTERNAL_NPCFORMCHANGED:
 		{
 			_mainEditView.setNpcAndCcUniEOL();

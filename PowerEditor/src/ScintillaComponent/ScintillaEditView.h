@@ -422,11 +422,6 @@ public:
 
     static UserDefineDialog * getUserDefineDlg() {return &_userDefineDlg;};
 
-    void setCaretColorWidth(int color, int width = 1) const {
-        execute(SCI_SETCARETFORE, color);
-        execute(SCI_SETCARETWIDTH, width);
-    };
-
 	void beSwitched() {
 		_userDefineDlg.setScintilla(this);
 	};

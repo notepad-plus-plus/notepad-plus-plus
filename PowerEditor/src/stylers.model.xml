@@ -1493,7 +1493,9 @@
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="E8E8FF" />
         <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="C0C0C0" fgColor="000000" />
-        <WidgetStyle name="Caret colour" styleID="2069" fgColor="8000FF" />
+        <WidgetStyle name="Multi-selected text color" styleID="0" bgColor="C0C0C0" />
+        <WidgetStyle name="Caret colour" styleID="0" fgColor="8000FF" />
+        <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="404040" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="808080" bgColor="E4E4E4" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="E0E0E0" />

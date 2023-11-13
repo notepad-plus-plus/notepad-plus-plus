@@ -2874,7 +2874,7 @@ void ScintillaEditView::performGlobalStyles()
 
 
 	COLORREF selectMultiSelectColorBack = liteGrey;
-	pStyle = stylers.findByName(TEXT("Multi-selected text colour"));
+	pStyle = stylers.findByName(TEXT("Multi-selected text color"));
 	if (pStyle)
 	{
 		selectMultiSelectColorBack = pStyle->_bgColor;

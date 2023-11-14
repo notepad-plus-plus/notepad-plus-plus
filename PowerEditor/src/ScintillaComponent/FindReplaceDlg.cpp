@@ -30,6 +30,8 @@ FindOption FindReplaceDlg::_options;
 
 #define SHIFTED 0x8000
 
+const wstring noFoundPotentialReason = L"The given occurence cannot be found. You may have forgotten to check \"Wrap around\" (to ON), \"Match case\" (to OFF), or \"Match whole word only\" (to OFF).";
+
 void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 {
 	if (!hCombo) return;
@@ -1984,7 +1986,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(&_options);
 
-							setStatusbarMessage(result, FSMessage);
+							wstring reasonMsg;
+							bool isTheMostLaxMode = _options._isWrapAround && !_options._isMatchCase && !_options._isWholeWord;
+							if (nbReplaced == 0 && !isTheMostLaxMode)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
+							}
+
+							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
 						getFocus();
 					}
@@ -2021,8 +2030,15 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							}
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(&_options);
-							
-							setStatusbarMessage(result, FSMessage);
+
+							wstring reasonMsg;
+							bool isTheMostLaxMode = _options._isWrapAround && !_options._isMatchCase && !_options._isWholeWord;
+							if (nbCounted == 0 && !isTheMostLaxMode)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
+							}
+
+							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
 
 						if (isMacroRecording)
@@ -2068,7 +2084,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							result += TEXT(" ");
 							result += getScopeInfoForStatusBar(&_options);
 							
-							setStatusbarMessage(result, FSMessage);
+							wstring reasonMsg;
+							bool isTheMostLaxMode = _options._isWrapAround && !_options._isMatchCase && !_options._isWholeWord;
+							if (nbMarked == 0 && !isTheMostLaxMode)
+							{
+								reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
+							}
+
+							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
 						
 						getFocus();
@@ -2482,18 +2505,20 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			//failed, or failed twice with wrap
 			if (pOptions->_incrementalType == NotIncremental) //incremental search doesnt trigger messages
 			{
-				generic_string newTxt2find = stringReplace(txt2find, TEXT("&"), TEXT("&&"));
-				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+				NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				wstring warningMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", L"Find: Can't find the text \"$STR_REPLACE$\"");
+				wstring newTxt2find = stringReplace(txt2find, L"&", L"&&");
+				warningMsg = stringReplace(warningMsg, L"$STR_REPLACE$", newTxt2find);
+
+				warningMsg += TEXT(" ");
+				warningMsg += getScopeInfoForStatusBar(&_options);
 
 				wstring reasonMsg;
-				bool isTheMostLaxMode = pOptions->_isWrapAround && !pOptions->_isMatchCase && !pOptions->_isWholeWord;
+				bool isTheMostLaxMode = _options._isWrapAround && !_options._isMatchCase && !_options._isWholeWord;
 				if (!isTheMostLaxMode)
 				{
-					reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", L"The given occurence cannot be found. You may have forgotten to check \"Wrap around\" (to ON), \"Match case\" (to OFF), or \"Match whole word only\" (to OFF).");
+					reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
 				}
-
-				warningMsg = stringReplace(warningMsg, L"$STR_REPLACE$", newTxt2find);
 				setStatusbarMessage(warningMsg, FSNotFound, reasonMsg);
 
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
@@ -2641,11 +2666,22 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	}
 	else
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", TEXT("Replace: no occurrence was found."));
-
 		if (_statusbarTooltipMsg.empty()) // Tooltip message non-empty means there's a find problem - so we keep the message as it is and not erase it
-			setStatusbarMessage(msg, FSNotFound);
+		{
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", TEXT("Replace: no occurrence was found"));
+
+			msg += L" ";
+			msg += getScopeInfoForStatusBar(&_options);
+
+			wstring reasonMsg;
+			bool isTheMostLaxMode = _options._isWrapAround && !_options._isMatchCase && !_options._isWholeWord;
+			if (!isTheMostLaxMode)
+			{
+				reasonMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find-pebkac-maybe", noFoundPotentialReason);
+			}
+			setStatusbarMessage(msg, FSNotFound, reasonMsg);
+		}
 	}
 
 	return moreMatches;

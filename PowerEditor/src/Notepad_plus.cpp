@@ -4218,8 +4218,8 @@ void Notepad_plus::updateStatusBar()
 
 	TCHAR strSel[64];
 
-	size_t numSelections = _pEditView->execute(SCI_GETSELECTIONS);
-	if (numSelections == 1)
+	size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
+	if (nbSelections == 1)
 	{
 		if (_pEditView->execute(SCI_GETSELECTIONEMPTY))
 		{
@@ -4241,7 +4241,7 @@ void Notepad_plus::updateStatusBar()
 		bool sameCharCountOnEveryLine = true;
 		size_t maxLineCharCount = 0;
 
-		for (size_t sel = 0; sel < numSelections; ++sel)
+		for (size_t sel = 0; sel < nbSelections; ++sel)
 		{
 			size_t start = _pEditView->execute(SCI_GETSELECTIONNSTART, sel);
 			size_t end = _pEditView->execute(SCI_GETSELECTIONNEND, sel);
@@ -4265,7 +4265,7 @@ void Notepad_plus::updateStatusBar()
 		}
 
 		wsprintf(strSel, TEXT("Sel : %sx%s %s %s"),
-			commafyInt(numSelections).c_str(),  // lines (rows) in rectangular selection
+			commafyInt(nbSelections).c_str(),  // lines (rows) in rectangular selection
 			commafyInt(maxLineCharCount).c_str(),  // show maximum width for columns
 			sameCharCountOnEveryLine ? TEXT("=") : TEXT("->"),
 			commafyInt(rectSelCharsAndLines.first).c_str());
@@ -4276,9 +4276,9 @@ void Notepad_plus::updateStatusBar()
 		const std::pair<size_t, size_t> multipleSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount(maxSelsToProcessLineCount);
 
 		wsprintf(strSel, TEXT("Sel %s : %s | %s"),
-			commafyInt(numSelections).c_str(),
+			commafyInt(nbSelections).c_str(),
 			commafyInt(multipleSelCharsAndLines.first).c_str(),
-			numSelections <= maxSelsToProcessLineCount ?
+			nbSelections <= maxSelsToProcessLineCount ?
 				commafyInt(multipleSelCharsAndLines.second).c_str() :
 				TEXT("..."));  // show ellipsis for line count if too many selections are active
 	}

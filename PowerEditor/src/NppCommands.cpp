@@ -443,10 +443,10 @@ void Notepad_plus::command(int id)
 		{
 			std::lock_guard<std::mutex> lock(command_mutex);
 
-			size_t numSelections = _pEditView->execute(SCI_GETSELECTIONS);
+			size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
 			Buffer* buf = getCurrentBuffer();
 			bool isRO = buf->isReadOnly();
-			if (numSelections > 1 && !isRO)
+			if (nbSelections > 1 && !isRO)
 			{
 				bool isPasteDone = _pEditView->pasteToMultiSelection();
 				if (isPasteDone)
@@ -1783,10 +1783,10 @@ void Notepad_plus::command(int id)
 			bool forwards = id == IDM_EDIT_INS_TAB;
 			size_t selStartPos = _pEditView->execute(SCI_GETSELECTIONSTART);
 			size_t lineNumber = _pEditView->execute(SCI_LINEFROMPOSITION, selStartPos);
-			size_t numSelections = _pEditView->execute(SCI_GETSELECTIONS);
+			size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
 			size_t selEndPos = _pEditView->execute(SCI_GETSELECTIONEND);
 			size_t selEndLineNumber = _pEditView->execute(SCI_LINEFROMPOSITION, selEndPos);
-			if ((numSelections > 1) || (lineNumber != selEndLineNumber))
+			if ((nbSelections > 1) || (lineNumber != selEndLineNumber))
 			{
 				// multiple-selection or multi-line selection; use Scintilla SCI_TAB / SCI_BACKTAB behavior
 				_pEditView->execute(forwards ? SCI_TAB : SCI_BACKTAB);

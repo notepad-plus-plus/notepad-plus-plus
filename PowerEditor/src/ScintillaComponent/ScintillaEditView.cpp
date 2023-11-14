@@ -524,6 +524,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					case VK_DOWN:
 					case VK_HOME:
 					case VK_END:
+					case VK_RETURN:
 						execute(SCI_SETSELECTIONMODE, SC_SEL_STREAM); // When it's rectangular selection and the arrow keys are pressed, we switch the mode for having multiple carets.
 
 						execute(SCI_SETSELECTIONMODE, SC_SEL_STREAM); // the 2nd call for removing the unwanted selection while moving carets.
@@ -590,8 +591,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						{
 							Buffer* buf = getCurrentBuffer();
 							bool isRO = buf->isReadOnly();
-							size_t numSelections = execute(SCI_GETSELECTIONS);
-							if (numSelections > 1 && !isRO)
+							size_t nbSelections = execute(SCI_GETSELECTIONS);
+							if (nbSelections > 1 && !isRO)
 							{
 								if (pasteToMultiSelection())
 								{
@@ -3199,11 +3200,11 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 // specify selectionNumber = -1 for the MAIN selection
 pair<size_t, size_t> ScintillaEditView::getSelectionLinesRange(intptr_t selectionNumber /* = -1 */) const
 {
-	size_t numSelections = execute(SCI_GETSELECTIONS);
+	size_t nbSelections = execute(SCI_GETSELECTIONS);
 
 	size_t start_pos, end_pos;
 
-	if ((selectionNumber < 0) || (static_cast<size_t>(selectionNumber) >= numSelections))
+	if ((selectionNumber < 0) || (static_cast<size_t>(selectionNumber) >= nbSelections))
 	{
 		start_pos = execute(SCI_GETSELECTIONSTART);
 		end_pos = execute(SCI_GETSELECTIONEND);
@@ -4243,19 +4244,19 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 
 	selectedCharsAndLines.first = getUnicodeSelectedLength();
 
-	size_t numSelections = execute(SCI_GETSELECTIONS);
+	size_t nbSelections = execute(SCI_GETSELECTIONS);
 
-	if (numSelections == 1)
+	if (nbSelections == 1)
 	{
 		pair<size_t, size_t> lineRange = getSelectionLinesRange();
 		selectedCharsAndLines.second = lineRange.second - lineRange.first + 1;
 	}
 	else if (execute(SCI_SELECTIONISRECTANGLE))
 	{
-		selectedCharsAndLines.second = numSelections;
+		selectedCharsAndLines.second = nbSelections;
 	}
 	else if ((maxSelectionsForLineCount == -1) ||  // -1 means process ALL of the selections
-		(numSelections <= static_cast<size_t>(maxSelectionsForLineCount)))
+		(nbSelections <= static_cast<size_t>(maxSelectionsForLineCount)))
 	{
 		// selections are obtained from Scintilla in the order user creates them,
 		// not in a lowest-to-highest position-based order;
@@ -4264,7 +4265,7 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 		// by selection into low-to-high line number order before processing them further
 
 		vector< pair <size_t, size_t> > v;
-		for (size_t s = 0; s < numSelections; ++s)
+		for (size_t s = 0; s < nbSelections; ++s)
 		{
 			v.push_back(getSelectionLinesRange(s));
 		}
@@ -4287,9 +4288,9 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 size_t ScintillaEditView::getUnicodeSelectedLength() const
 {
 	size_t length = 0;
-	size_t numSelections = execute(SCI_GETSELECTIONS);
+	size_t nbSelections = execute(SCI_GETSELECTIONS);
 
-	for (size_t s = 0; s < numSelections; ++s)
+	for (size_t s = 0; s < nbSelections; ++s)
 	{
 		size_t start = execute(SCI_GETSELECTIONNSTART, s);
 		size_t end = execute(SCI_GETSELECTIONNEND, s);
@@ -4451,8 +4452,8 @@ void ScintillaEditView::removeAnyDuplicateLines()
 
 bool ScintillaEditView::pasteToMultiSelection() const
 {
-	size_t numSelections = execute(SCI_GETSELECTIONS);
-	if (numSelections <= 1)
+	size_t nbSelections = execute(SCI_GETSELECTIONS);
+	if (nbSelections <= 1)
 		return false;
 
 	// "MSDEVColumnSelect" is column format from Scintilla 
@@ -4468,19 +4469,50 @@ bool ScintillaEditView::pasteToMultiSelection() const
 			::GlobalUnlock(clipboardData);
 			::CloseClipboard();
 
-			vector<wstring> stringArray;
-			stringSplit(clipboardStr, getEOLString(), stringArray);
-			stringArray.erase(stringArray.cend() - 1); // remove the last empty string
+			vector<wstring> clipboardStrings;
+			stringSplit(clipboardStr, getEOLString(), clipboardStrings);
+			clipboardStrings.erase(clipboardStrings.cend() - 1); // remove the last empty string
+			size_t nbClipboardStr = clipboardStrings.size();
 
-			if (numSelections == stringArray.size())
+			if (nbSelections >= nbClipboardStr) // enough holes for every insertion, keep holes empty if there are some left
 			{
 				execute(SCI_BEGINUNDOACTION);
-				for (size_t i = 0; i < numSelections; ++i)
+				for (size_t i = 0; i < nbClipboardStr; ++i)
 				{
 					LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
 					LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
-					replaceTarget(stringArray[i].c_str(), posStart, posEnd);
-					posStart += stringArray[i].length();
+					replaceTarget(clipboardStrings[i].c_str(), posStart, posEnd);
+					posStart += clipboardStrings[i].length();
+					execute(SCI_SETSELECTIONNSTART, i, posStart);
+					execute(SCI_SETSELECTIONNEND, i, posStart);
+				}
+				execute(SCI_ENDUNDOACTION);
+				return true;
+			}
+			else if (nbSelections < nbClipboardStr) // not enough holes for insertion, every hole has several insertions
+			{
+				size_t nbStr2takeFromClipboard = nbClipboardStr / nbSelections;
+
+				execute(SCI_BEGINUNDOACTION);
+				size_t j = 0;
+				for (size_t i = 0; i < nbSelections; ++i)
+				{
+					LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
+					LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
+					wstring severalStr;
+					wstring eol = getEOLString();
+					for (size_t k = 0; k < nbStr2takeFromClipboard && j < nbClipboardStr; ++k)
+					{
+						severalStr += clipboardStrings[j];
+						severalStr += eol;
+						++j;
+					}
+
+					// remove the latest added EOL
+					severalStr.erase(severalStr.length() - eol.length());
+
+					replaceTarget(severalStr.c_str(), posStart, posEnd);
+					posStart += severalStr.length();
 					execute(SCI_SETSELECTIONNSTART, i, posStart);
 					execute(SCI_SETSELECTIONNEND, i, posStart);
 				}

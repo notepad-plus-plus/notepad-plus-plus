@@ -2508,6 +2508,13 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 				NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				wstring warningMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", L"Find: Can't find the text \"$STR_REPLACE$\"");
 				wstring newTxt2find = stringReplace(txt2find, L"&", L"&&");
+
+				if (newTxt2find.length() > 32) // truncate the search string to display, if the search string is too long
+				{
+					newTxt2find.erase(28);
+					newTxt2find += L"...";
+				}
+
 				warningMsg = stringReplace(warningMsg, L"$STR_REPLACE$", newTxt2find);
 
 				warningMsg += TEXT(" ");
@@ -4494,7 +4501,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 
-	if (_statusbarTooltipMsg.length() == 0) return;
+	if (_statusbarTooltipMsg.empty()) return;
 
 	SIZE size{};
 	::GetTextExtentPoint32(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &size);

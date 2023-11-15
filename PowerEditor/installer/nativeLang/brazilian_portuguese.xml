@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 03 Nov 2023, for Notepad++ 8.5.9
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 14 Nov 2023, for Notepad++ 8.5.9
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1666,6 +1666,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-replace-not-found value="Substituir: nenhuma ocorrência encontrada."/>
 			<find-status-replace-readonly value="Substituir: Texto não substituído. O documento é somente leitura."/>
 			<find-status-cannot-find value="Localizar: Texto &quot;$STR_REPLACE$&quot; não localizado."/>
+			<find-status-cannot-find-pebkac-maybe value="A ocorrência procurada não foi encontrada. Você pode ter se esquecido de marcar a opção &quot;Circular&quot; (para Ativado), &quot;Correspondência apenas de Maiúsculas-Minúsculas&quot; (para Desativado), ou &quot;Correspondência apenas da Palavra Inteira&quot; (para Desativado)."/>
 			<find-status-scope-selection value="no texto selecionado"/>
 			<find-status-scope-all value="no arquivo inteiro"/>
 			<find-status-scope-backward value="do começo do arquivo ao cursor"/>

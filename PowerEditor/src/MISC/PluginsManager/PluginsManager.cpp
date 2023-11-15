@@ -447,7 +447,7 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 				pathAppend(pluginsFullPathFilter2, dllName2);
 
 				// get plugin
-				if (hFindDll)
+				if (hFindDll && (hFindDll != INVALID_HANDLE_VALUE))
 				{
 					::FindClose(hFindDll);
 					hFindDll = INVALID_HANDLE_VALUE;
@@ -514,8 +514,10 @@ bool PluginsManager::loadPlugins(const TCHAR* dir, const PluginViewList* pluginU
 		}
 
 	}
-	::FindClose(hFindFolder);
-	::FindClose(hFindDll);
+	if (hFindFolder && (hFindFolder != INVALID_HANDLE_VALUE))
+		::FindClose(hFindFolder);
+	if (hFindDll && (hFindDll != INVALID_HANDLE_VALUE))
+		::FindClose(hFindDll);
 
 	for (size_t i = 0, len = dllNames.size(); i < len; ++i)
 	{

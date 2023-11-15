@@ -604,7 +604,6 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 							}
 						}
 					}
-					break;
 				}
 			}
 			break;
@@ -3093,43 +3092,101 @@ void ScintillaEditView::showIndentGuideLine(bool willBeShowed)
 
 void ScintillaEditView::setLineIndent(size_t line, size_t indent) const
 {
-	Sci_CharacterRangeFull crange = getSelection();
-	int64_t posBefore = execute(SCI_GETLINEINDENTPOSITION, line);
-	execute(SCI_SETLINEINDENTATION, line, indent);
-	int64_t posAfter = execute(SCI_GETLINEINDENTPOSITION, line);
-	long long posDifference = posAfter - posBefore;
-	if (posAfter > posBefore)
-	{
-		// Move selection on
-		if (crange.cpMin >= posBefore)
-		{
-			crange.cpMin += static_cast<Sci_Position>(posDifference);
-		}
-		if (crange.cpMax >= posBefore)
-		{
-			crange.cpMax += static_cast<Sci_Position>(posDifference);
-		}
-	}
-	else if (posAfter < posBefore)
-	{
-		// Move selection back
-		if (crange.cpMin >= posAfter)
-		{
-			if (crange.cpMin >= posBefore)
-				crange.cpMin += static_cast<Sci_Position>(posDifference);
-			else
-				crange.cpMin = static_cast<Sci_Position>(posAfter);
-		}
+	size_t nbSelections = execute(SCI_GETSELECTIONS);
 
-		if (crange.cpMax >= posAfter)
+	if (nbSelections == 1)
+	{
+		Sci_CharacterRangeFull crange = getSelection();
+		int64_t posBefore = execute(SCI_GETLINEINDENTPOSITION, line);
+		execute(SCI_SETLINEINDENTATION, line, indent);
+		int64_t posAfter = execute(SCI_GETLINEINDENTPOSITION, line);
+		long long posDifference = posAfter - posBefore;
+		if (posAfter > posBefore)
 		{
+			// Move selection on
+			if (crange.cpMin >= posBefore)
+			{
+				crange.cpMin += static_cast<Sci_Position>(posDifference);
+			}
 			if (crange.cpMax >= posBefore)
+			{
 				crange.cpMax += static_cast<Sci_Position>(posDifference);
-			else
-				crange.cpMax = static_cast<Sci_Position>(posAfter);
+			}
 		}
+		else if (posAfter < posBefore)
+		{
+			// Move selection back
+			if (crange.cpMin >= posAfter)
+			{
+				if (crange.cpMin >= posBefore)
+					crange.cpMin += static_cast<Sci_Position>(posDifference);
+				else
+					crange.cpMin = static_cast<Sci_Position>(posAfter);
+			}
+
+			if (crange.cpMax >= posAfter)
+			{
+				if (crange.cpMax >= posBefore)
+					crange.cpMax += static_cast<Sci_Position>(posDifference);
+				else
+					crange.cpMax = static_cast<Sci_Position>(posAfter);
+			}
+		}
+		execute(SCI_SETSEL, crange.cpMin, crange.cpMax);
 	}
-	execute(SCI_SETSEL, crange.cpMin, crange.cpMax);
+	else
+	{
+		execute(SCI_BEGINUNDOACTION);
+		for (size_t i = 0; i < nbSelections; ++i)
+		{
+			LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
+			LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
+			
+
+			size_t l = execute(SCI_LINEFROMPOSITION, posStart);
+			
+			int64_t posBefore = execute(SCI_GETLINEINDENTPOSITION, l);
+			execute(SCI_SETLINEINDENTATION, l, indent);
+			int64_t posAfter = execute(SCI_GETLINEINDENTPOSITION, l);
+
+			long long posDifference = posAfter - posBefore;
+			if (posAfter > posBefore)
+			{
+				// Move selection on
+				if (posStart >= posBefore)
+				{
+					posStart += static_cast<Sci_Position>(posDifference);
+				}
+				if (posEnd >= posBefore)
+				{
+					posEnd += static_cast<Sci_Position>(posDifference);
+				}
+			}
+			else if (posAfter < posBefore)
+			{
+				// Move selection back
+				if (posStart >= posAfter)
+				{
+					if (posStart >= posBefore)
+						posStart += static_cast<Sci_Position>(posDifference);
+					else
+						posStart = static_cast<Sci_Position>(posAfter);
+				}
+
+				if (posEnd >= posAfter)
+				{
+					if (posEnd >= posBefore)
+						posEnd += static_cast<Sci_Position>(posDifference);
+					else
+						posEnd = static_cast<Sci_Position>(posAfter);
+				}
+			}
+
+			execute(SCI_SETSELECTIONNSTART, i, posStart);
+			execute(SCI_SETSELECTIONNEND, i, posEnd);
+		}
+		execute(SCI_ENDUNDOACTION);
+	}
 }
 
 void ScintillaEditView::updateLineNumberWidth()

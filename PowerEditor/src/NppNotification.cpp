@@ -690,8 +690,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				const NppGUI & nppGui = NppParameters::getInstance().getNppGUI();
 				bool indentMaintain = nppGui._maitainIndent;
-				size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
-				if (indentMaintain && nbSelections <= 1) // No auto-indent if multi-edit is active
+				if (indentMaintain)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
 
 				Buffer* currentBuf = _pEditView->getCurrentBuffer();

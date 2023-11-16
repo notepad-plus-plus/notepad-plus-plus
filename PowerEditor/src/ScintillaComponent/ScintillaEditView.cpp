@@ -511,7 +511,58 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 		
 		case WM_KEYDOWN:
 		{
-			if ((execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN))
+			SHORT ctrl = GetKeyState(VK_CONTROL);
+			SHORT alt = GetKeyState(VK_MENU);
+			SHORT shift = GetKeyState(VK_SHIFT);
+			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
+
+			if (wParam == VK_DELETE)
+			{
+				// 1 shortcut:
+				// Shift + Delete: without selected text, it will delete the whole line.
+				//
+				if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000) && !hasSelection()) // Shift-DEL & no selection
+				{
+					execute(SCI_LINEDELETE);
+					return TRUE;
+				}
+				else if (!(shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // DEL & Multi-edit
+				{
+					size_t nbSelections = execute(SCI_GETSELECTIONS);
+					if (nbSelections > 1)
+					{
+						execute(SCI_BEGINUNDOACTION);
+						for (size_t i = 0; i < nbSelections; ++i)
+						{
+							LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
+							LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
+							if (posStart != posEnd)
+							{
+								replaceTarget(L"", posStart, posEnd);
+							}
+							else // posStart == posEnd)
+							{
+								char eolStr[3];
+								Sci_TextRange tr;
+								tr.chrg.cpMin = posStart;
+								tr.chrg.cpMax = posEnd + 2;
+								tr.lpstrText = eolStr;
+								execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
+
+								int len = (eolStr[0] == '\r' && eolStr[1] == '\n') ? 2 : 1;
+
+								replaceTarget(L"", posStart, posEnd + len);
+							}
+
+							execute(SCI_SETSELECTIONNSTART, i, posStart);
+							execute(SCI_SETSELECTIONNEND, i, posStart);
+						}
+						execute(SCI_ENDUNDOACTION);
+						return TRUE;
+					}
+				}
+			}
+			else if (isColumnSelection)
 			{
 				//
 				// Transform the column selection to multi-edit
@@ -541,35 +592,15 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			else
 			{
 				//
-				// Add 3 shortcuts:
-				// Shift + Delete: without selected text, it will delete the whole line.
+				// 2 shortcuts:
 				// Ctrl + C: without selected text, it will copy the whole line.
 				// Ctrl + X: without selected text, it will cut the whole line.
 				//
 				switch (wParam)
 				{
-					case VK_DELETE:
-					{
-						SHORT ctrl = GetKeyState(VK_CONTROL);
-						SHORT alt = GetKeyState(VK_MENU);
-						SHORT shift = GetKeyState(VK_SHIFT);
-						if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // Shift-DEL
-						{
-							if (!hasSelection())
-							{
-								execute(SCI_LINEDELETE);
-								return TRUE;
-							}
-						}
-					}
-					break;
-
 					case 'C':
 					case 'X':
 					{
-						SHORT ctrl = GetKeyState(VK_CONTROL);
-						SHORT alt = GetKeyState(VK_MENU);
-						SHORT shift = GetKeyState(VK_SHIFT);
 						if ((ctrl & 0x8000) && !(alt & 0x8000) && !(shift & 0x8000))
 						{
 							if (!hasSelection())
@@ -584,9 +615,6 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 					case 'V':
 					{
-						SHORT ctrl = GetKeyState(VK_CONTROL);
-						SHORT alt = GetKeyState(VK_MENU);
-						SHORT shift = GetKeyState(VK_SHIFT);
 						if ((ctrl & 0x8000) && !(alt & 0x8000) && !(shift & 0x8000))
 						{
 							Buffer* buf = getCurrentBuffer();

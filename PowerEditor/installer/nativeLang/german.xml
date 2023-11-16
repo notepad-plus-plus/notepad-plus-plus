@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.11.05"><!-- basiert auf english.xml vom 04.11.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.11.16"><!-- basiert auf english.xml vom 16.11.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1675,6 +1675,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
+			<find-status-cannot-find-pebkac-maybe value="Das angegebene Vorkommen kann nicht gefunden werden. Bitte überprüfen ob 'Am Ende von vorne beginnen' (auf EIN), 'Groß-/Kleinschreibung beachten' (auf AUS), oder 'Nur ganze Wörter suchen' (auf AUS) gesetzt sind."/>
 			<find-status-scope-selection value="im gewählten Text"/>
 			<find-status-scope-all value="in der gesamten Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>

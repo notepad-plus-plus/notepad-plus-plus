@@ -30,7 +30,7 @@ FindOption FindReplaceDlg::_options;
 
 #define SHIFTED 0x8000
 
-const wstring noFoundPotentialReason = L"The given occurence cannot be found. You may have forgotten to check \"Wrap around\" (to ON), \"Match case\" (to OFF), or \"Match whole word only\" (to OFF).";
+const wstring noFoundPotentialReason = L"The given occurrence cannot be found. You may have forgotten to check \"Wrap around\" (to ON), \"Match case\" (to OFF), or \"Match whole word only\" (to OFF).";
 
 void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 {

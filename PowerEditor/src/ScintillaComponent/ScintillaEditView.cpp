@@ -553,7 +553,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						SHORT ctrl = GetKeyState(VK_CONTROL);
 						SHORT alt = GetKeyState(VK_MENU);
 						SHORT shift = GetKeyState(VK_SHIFT);
-						if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000))
+						if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // Shift-DEL
 						{
 							if (!hasSelection())
 							{

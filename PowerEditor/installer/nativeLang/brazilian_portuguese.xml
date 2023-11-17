@@ -1493,8 +1493,6 @@ Por favor, teste estes comandos e, se necessário, altere-os.
 Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
 O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="A quantidade de arquivos a abrir é grande demais" message="$INT_REPLACE$ arquivos estão prestes a serem abertos.
-Tem certeza de que deseja abri-los?"/>
 			<NotEnoughRoom4Saving title="Falha ao salvar" message="Não foi possível salvar o arquivo.
 É possível que não haja espaço em disco suficiente para salvar o arquivo. Seu arquivo não foi salvo."/>
 			<FileInaccessibleUserSession title="Arquivo inacessível" message="Alguns arquivos da sua sessão salva &quot;$STR_REPLACE$&quot; não podem ser acessados. Eles podem ser abertos como arquivos vazios e apenas leitura para que permaneçam na lista de documentos.
@@ -1666,7 +1664,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-replace-not-found value="Substituir: nenhuma ocorrência encontrada."/>
 			<find-status-replace-readonly value="Substituir: Texto não substituído. O documento é somente leitura."/>
 			<find-status-cannot-find value="Localizar: Texto &quot;$STR_REPLACE$&quot; não localizado."/>
-			<find-status-cannot-find-pebkac-maybe value="A ocorrência procurada não foi encontrada. Você pode ter se esquecido de marcar a opção &quot;Circular&quot; (para Ativado), &quot;Correspondência apenas de Maiúsculas-Minúsculas&quot; (para Desativado), ou &quot;Correspondência apenas da Palavra Inteira&quot; (para Desativado)."/>
+			<find-status-cannot-find-pebkac-maybe value="A ocorrência procurada não foi encontrada. Você pode ter se esquecido de marcar a opção &quot;Pesquisa circular&quot; (para Ativado), &quot;Correspondência apenas de Maiúsculas-Minúsculas&quot; (para Desativado), ou &quot;Correspondência apenas da Palavra Inteira&quot; (para Desativado)."/>
 			<find-status-scope-selection value="no texto selecionado"/>
 			<find-status-scope-all value="no arquivo inteiro"/>
 			<find-status-scope-backward value="do começo do arquivo ao cursor"/>

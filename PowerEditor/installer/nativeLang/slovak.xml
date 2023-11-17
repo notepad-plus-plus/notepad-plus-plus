@@ -1398,8 +1398,7 @@ Pokračovať?"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Premenovanie zlyhalo" message="Tento názov je už použitý pre inú kartu."/>
 			<RenameTabTemporaryNameIsEmpty title="Premenovanie zlyhalo" message="Názov nemôže byť prázdny alebo nesmie obsahovať iba medzeru(-y) alebo tabulátor(-y)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Odstrániť súbor" message="Odstránenie súboru zlyhalo."/>
-
-			<NbFileToOpenImportantWarning title="Príliš veľa súborov k otvoreniu" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
+			<NbFileToOpenImportantWarning title="Počet otváraných súborov je príliš veľký" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
 Naozaj ich chcete otvoriť?"/>
 			<SettingsOnCloudError title="Úložisko s nastaveniami programu" message="Zdá sa, že cesta k úložisku s nastaveniami je nastavená na jednotku určenú len na čítanie
 alebo na priečinok bez oprávnenia na zápis.
@@ -1503,8 +1502,6 @@ Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
 Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
 Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="Počet otváraných súborov je príliš veľký" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
-Naozaj ich chcete otvoriť?"/>
 			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
 			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.

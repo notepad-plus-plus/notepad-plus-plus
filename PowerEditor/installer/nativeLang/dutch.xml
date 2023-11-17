@@ -5,10 +5,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
+Last modified on 2023-11-17 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.5.1">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.5.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -42,6 +42,9 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item subMenuId="edit-blankOperations" name="&amp;Witruimte-bewerkingen"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Plakken speciaal"/>
 					<Item subMenuId="edit-onSelection" name="&amp;Voor selectie"/>
+					<Item subMenuId="edit-multiSelectALL" name="ALLES multi-selecteren"/>
+					<Item subMenuId="edit-multiSelectNext" name="Volgende multi-selecteren"/>
+					<Item subMenuId="search-changeHistory" name="Geschiedenis wijzigen"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle overeenkomsten van token stileren"/>
 					<Item subMenuId="search-markOne" name="&amp;Eén token stileren"/>
 					<Item subMenuId="search-unmarkAll" name="Stijl wissen"/>
@@ -77,7 +80,9 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item subMenuId="language-userDefinedLanguage" name="Aangepaste syntaxis"/>
 					<Item subMenuId="settings-import" name="Importeren"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Sorteren op"/>
 				</SubEntries>
 
@@ -154,6 +159,16 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="42074" name="Bevattende map openen in Windows Verkenner"/>
 					<Item id="42075" name="Zoeken op internet"/>
 					<Item id="42076" name="Zoekmachine wijzigen..."/>
+					<Item id="42090" name="Niet hoofdlettergevoelig en volledige woorden negeren"/>
+					<Item id="42091" name="Alleen hoofdlettergevoelig"/>
+					<Item id="42092" name="Alleen volledige woorden"/>
+					<Item id="42093" name="Hoofdlettergevoelig en volledige woorden"/>
+					<Item id="42094" name="Niet hoofdlettergevoelig en volledige woorden negeren"/>
+					<Item id="42095" name="Alleen hoofdlettergevoelig"/>
+					<Item id="42096" name="Alleen volledige woorden"/>
+					<Item id="42097" name="Hoofdlettergevoelig en volledige woorden"/>
+					<Item id="42098" name="Laatst toegevoegde multi-selectie ongedaan maken"/>
+					<Item id="42099" name="Huidige overslaan en naar volgende multi-selectie gaan"/>
 					<Item id="42018" name="Opname &amp;starten"/>
 					<Item id="42019" name="Opname st&amp;oppen"/>
 					<Item id="42021" name="&amp;Afspelen"/>
@@ -252,6 +267,9 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="43064" name="Met stijl 3"/>
 					<Item id="43065" name="Met stijl 4"/>
 					<Item id="43066" name="Met stijl 5"/>
+					<Item id="43067" name="Naar volgende wijziging gaan"/>
+					<Item id="43068" name="Naar vorige wijziging gaan"/>
+					<Item id="43069" name="Wijzigingsgeschiedenis wissen"/>
 					<Item id="43045" name="Gevonden &amp;resultaten"/>
 					<Item id="43046" name="Volgend &amp;zoekresultaat"/>
 					<Item id="43047" name="Vorig &amp;zoekresultaat"/>
@@ -365,6 +383,12 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="48504" name="Genereren..."/>
 					<Item id="48505" name="Genereren van bestanden..."/>
 					<Item id="48506" name="Genereren van selectie naar klembord"/>
+					<Item id="48507" name="Genereren..."/>
+					<Item id="48508" name="Genereren van bestanden..."/>
+					<Item id="48509" name="Genereren van selectie naar klembord"/>
+					<Item id="48510" name="Genereren..."/>
+					<Item id="48511" name="Genereren van bestanden..."/>
+					<Item id="48512" name="Genereren van selectie naar klembord"/>
 					<Item id="49000" name="Uitvoe&amp;ren..."/>
 
 					<Item id="50000" name="Functies aanvullen"/>
@@ -496,9 +520,9 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 
 			<FindCharsInRange title="Tekens zoeken in bereik...">
 				<Item id="2" name="Sluiten"/>
-				<Item id="2901" name="Extended ASCII (128-255)"/>
-				<Item id="2902" name="ASCII (0-127)"/>
-				<Item id="2903" name="Aangepast:"/>
+				<Item id="2901" name="&amp;Niet-ASCII-tekens (128-255)"/>
+				<Item id="2902" name="&amp;ASCII-tekens (0-127)"/>
+				<Item id="2903" name="Aangepast be&amp;reik (0-255):"/>
 				<Item id="2906" name="Om&amp;hoog"/>
 				<Item id="2907" name="Om&amp;laag"/>
 				<Item id="2908" name="Richting"/>
@@ -524,38 +548,61 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 			</Run>
 
 			<MD5FromFilesDlg title="MD5-code voor bestanden genereren">
-				<Item id="1922" name="Bestanden selecteren..."/>
-				<Item id="1924" name="Naar klembord kopiëren"/>
-				<Item id="2" name="Sluiten"/>
+				<Item id="1922" name="Bestanden kiezen om MD5 te &amp;genereren..."/>
+				<Item id="1924" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="MD5-code genereren">
-				<Item id="1932" name="Elke regel als een aparte string behandelen"/>
-				<Item id="1934" name="Naar klembord kopiëren"/>
-				<Item id="2" name="Sluiten"/>
+				<Item id="1932" name="Elke regel als een aparte &amp;string behandelen"/>
+				<Item id="1934" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="SHA-256-code voor bestanden genereren">
-				<Item id="1922" name="Bestanden selecteren..."/>
-				<Item id="1924" name="Naar klembord kopiëren"/>
-				<Item id="2" name="Sluiten"/>
+				<Item id="1922" name="Bestanden kiezen om SHA-256 te &amp;genereren..."/>
+				<Item id="1924" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="SHA-256-code genereren">
-				<Item id="1932" name="Elke regel als een aparte string behandelen"/>
-				<Item id="1934" name="Naar klembord kopiëren"/>
-				<Item id="2" name="Sluiten"/>
+				<Item id="1932" name="Elke regel als een aparte &amp;string behandelen"/>
+				<Item id="1934" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="SHA-1 digest genereren van bestanden">
+				<Item id="1922" name="Bestanden kiezen om SHA-1 te &amp;genereren..."/>
+				<Item id="1924" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="SHA-1 digest genereren">
+				<Item id="1932" name="Elke regel als een aparte &amp;string behandelen"/>
+				<Item id="1934" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="SHA-512 digest genereren van bestanden">
+				<Item id="1922" name="Bestanden kiezen om SHA-512 te &amp;genereren..."/>
+				<Item id="1924" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="SHA-512 digest genereren">
+				<Item id="1932" name="Elke regel als een aparte &amp;string behandelen"/>
+				<Item id="1934" name="Naar klembord ko&amp;piëren"/>
+				<Item id="2" name="&amp;Sluiten"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Plugin-beheer" titleAvailable="Beschikbaar" titleUpdates="Updates" titleInstalled="Geïnstalleerd" titleIncompatible="Niet compatibel">>
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Versie"/>
-				<Item id="5501" name="Zoeken:"/>
-				<Item id="5503" name="Installeren"/>
-				<Item id="5504" name="Bijwerken"/>
-				<Item id="5505" name="Verwijderen"/>
-				<Item id="5508" name="Volgende"/>
-				<Item id="5509" name="Plugin-lijst versie: "/>
+				<Item id="5501" name="&amp;Zoeken:"/>
+				<Item id="5503" name="&amp;Installeren"/>
+				<Item id="5504" name="&amp;Bijwerken"/>
+				<Item id="5505" name="&amp;Verwijderen"/>
+				<Item id="5508" name="&amp;Volgende"/>
+				<Item id="5509" name="Plugin-lijst versie:"/>
 				<Item id="5511" name="Plugin-lijst repository"/>
 				<Item id="2" name="Sluiten"/>
 			</PluginsAdminDlg>
@@ -609,17 +656,7 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 				<ScintillaCommandsTab name="Scintilla-opdrachten"/>
 				<ConflictInfoOk name="Geen sneltoets-conflicten voor dit item."/>
 				<ConflictInfoEditing name="Geen conflicten..."/>
-				<WindowCategory name="Venster"/>
-				<FileCategory name="Bestand"/>
-				<EditCategory name="Bewerken"/>
-				<SearchCategory name="Zoeken"/>
-				<ViewCategory name="Beeld"/>
-				<FormatCategory name="Indeling"/>
-				<LangCategory name="Syntaxis"/>
 				<AboutCategory name="Over"/>
-				<SettingCategory name="Instelling"/>
-				<ToolCategory name="Gereedschap"/>
-				<ExecuteCategory name="Uitvoeren"/>
 				<ModifyContextMenu name="Wijzigen"/>
 				<DeleteContextMenu name="Verwijderen"/>
 				<ClearContextMenu name="Wissen"/>
@@ -733,7 +770,7 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 				<Item id="20003" name="Nieuw..."/>
 				<Item id="20004" name="Verwijderen"/>
 				<Item id="20005" name="Opslaan als..."/>
-				<Item id="20007" name="Opmaakprofiel:"/>
+				<Item id="20007" name="Opmaakprofiel"/>
 				<Item id="20009" name="Extensies:"/>
 				<Item id="20012" name="Hoofdletters negeren"/>
 				<Item id="20011" name="Transparantie"/>
@@ -749,7 +786,7 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="25001" name="Vet"/>
 					<Item id="25002" name="Cursief"/>
 					<Item id="25003" name="Onderstrepen"/>
-					<Item id="25029" name="Nesten:"/>
+					<Item id="25029" name="Nesten"/>
 					<Item id="25008" name="Scheidingsteken 1"/>
 					<Item id="25009" name="Scheidingsteken 2"/>
 					<Item id="25010" name="Scheidingsteken 3"/>
@@ -780,14 +817,13 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="21101" name="Standaardstijl"/>
 					<Item id="21102" name="Opmaak"/>
 					<Item id="21105" name="Documentatie"/>
-					<Item id="21104" name="Online handleiding:"/>
 					<Item id="21106" name="Lege regels samenvouwen"/>
 					<Item id="21220" name="Code samenvouwen (type 1)"/>
 					<Item id="21224" name="Begin:"/>
 					<Item id="21225" name="Midden:"/>
 					<Item id="21226" name="Einde:"/>
 					<Item id="21227" name="Opmaak"/>
-					<Item id="21320" name="Code samenvouwen (type 2)"/>
+					<Item id="21320" name="Code samenvouwen (type 2) (scheidingstekens nodig)"/>
 					<Item id="21324" name="Begin:"/>
 					<Item id="21325" name="Midden:"/>
 					<Item id="21326" name="Einde:"/>
@@ -916,21 +952,22 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="6108" name="Slepen en neerzetten uitschakelen"/>
 					<Item id="6109" name="Inactieve tabbladen camoufleren"/>
 					<Item id="6110" name="Actieve tabbladen accentueren"/>
-
-					<Item id="6111" name="Statusbalk weergeven"/>
 					<Item id="6112" name="Knop sluiten op elke tab weergeven"/>
 					<Item id="6113" name="Document sluiten door dubbelklikken"/>
 					<Item id="6118" name="Verbergen"/>
 					<Item id="6119" name="Tabs in meerdere rijen weergeven"/>
 					<Item id="6120" name="Verticale tabs"/>
 					<Item id="6121" name="Afsluiten bij sluiten van laatste tab"/>
+					<Item id="6128" name="Alternatieve pictogrammen"/>
+
+					<Item id="6133" name="Statusbalk"/>
+					<Item id="6134" name="Verbergen"/>
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Menubalk verbergen (tonen met Alt of F10)"/>
 					<Item id="6132" name="Snelkoppelingen ＋ ▼ ✕ rechts in menubalk verbergen (Notepad++ moet opnieuw worden gestart)"/>
-					<Item id="6123" name="Taal"/>
 
-					<Item id="6128" name="Alternatieve pictogrammen"/>
+					<Item id="6123" name="Taal"/>
 				</Global>
 				<Scintillas title="Bewerken">
 					<Item id="6216" name="Cursor-instellingen"/>
@@ -939,7 +976,6 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="6221" name="100"/>
 					<Item id="6222" name="0"/>
 					<Item id="6246" name="Opdrachten voor in-/uitvouwen van huidig niveau omschakelbaar maken"/>
-					<Item id="6225" name="Meervoudig bewerken inschakelen (Ctrl + klikken/selecteren)"/>
 					<Item id="6227" name="Automatische terugloop"/>
 					<Item id="6228" name="Standaard"/>
 					<Item id="6229" name="Uitgelijnd"/>
@@ -953,7 +989,7 @@ Last modified on 2023-04-14 by Thomas De Rocker (RockyTDR).
 					<Item id="6652" name="Geen"/>
 					<Item id="6653" name="Achtergrond markeren"/>
 					<Item id="6654" name="Frame"/>
-					<Item id="6655" name="Breedte"/>
+					<Item id="6655" name="Breedte:"/>
 					<Item id="6247" name="Regeleinde (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standaard"/>
 					<Item id="6249" name="Platte tekst"/>
@@ -1032,6 +1068,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 					<Item id="6411" name="Standaard syntaxis:"/>
 					<Item id="6419" name="Nieuw document"/>
 					<Item id="6420" name="Toepassen op geopende ANSI-bestanden"/>
+					<Item id="6432" name="Steeds een extra nieuw document openen bij opstarten"/>
 				</NewDoc>
 
 				<DefaultDir title="Standaardmap">
@@ -1109,7 +1146,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 						<Element name="Lang datumformaat"/>
 						<Element name="Tijd"/>
 					</ComboBox>
-					<Item id="6725" name="Variabele:"/>
+					<Item id="6725" name="&amp;Variabele:"/>
 					<Item id="6727" name="Instellingen voor variabele"/>
 					<Item id="6728" name="Kop- en voettekst"/>
 				</Print>
@@ -1123,6 +1160,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 					<Item id="6907" name="Wanneer het zoekvenster opgeroepen is"/>
 					<Item id="6908" name="Zoekveld vullen met geselecteerde tekst"/>
 					<Item id="6909" name="Woord onder 'dakje' selecteren wanneer niets geselecteerd is"/>
+					<Item id="6910" name="Minimale grootte voor automatisch controleren &quot;in selectie&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recente bestanden">
@@ -1143,6 +1181,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 					<Item id="6821" name="seconden bijwerken"/>
 					<Item id="6822" name="Map:"/>
 					<Item id="6309" name="Huidige sessie onthouden voor volgende start"/>
+					<Item id="6825" name="Niet-toegankelijke bestanden van vorige sessie onthouden"/>
 					<Item id="6801" name="Back-up bij opslaan"/>
 					<Item id="6315" name="Geen"/>
 					<Item id="6316" name="Eenvoudige back-up"/>
@@ -1217,6 +1256,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 					<Item id="7149" name="Slim markeren toestaan"/>
 					<Item id="7150" name="Automatische terugloop globaal uitschakelen"/>
 					<Item id="7151" name="URL-koppeling aanklikken toestaan"/>
+					<Item id="7152" name="Waarschuwing onderdrukken bij openen van bestanden groter dan 2 GB"/>
 				</Performance>
 
 				<Cloud title="Online opslag">
@@ -1270,7 +1310,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 			<MultiMacro title="Macro meerdere keren uitvoeren">
 				<Item id="1" name="Sta&amp;rt"/>
 				<Item id="2" name="St&amp;op"/>
-				<Item id="8006" name="Macro selecteren:"/>
+				<Item id="8006" name="Macro selecteren"/>
 				<Item id="8001" name="Macro"/>
 				<Item id="8005" name="keer uitvoeren"/>
 				<Item id="8002" name="Uitvoeren tot document&amp;einde"/>
@@ -1330,8 +1370,8 @@ Kies &quot;altijd ja&quot; als u dit dialoogvenster niet meer wilt zien.
 U kunt dit dialoogvenster later terug inschakelen via voorkeuren."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nee"/>
-				<Item id="4" name="Altijd ja"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+				<Item id="4" name="&amp;Altijd ja"/>
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1350,6 +1390,7 @@ Doorgaan?"/><!-- HowToReproduce: when you openned file is modified and saved, th
 			<FileLockedWarning title="Opslaan mislukt" message="Controleer of dit bestand in een ander programma is geopend"/>
 			<FileAlreadyOpenedInNpp title="" message="Het bestand is al geopend in Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Naam wijzigen mislukt" message="De opgegeven naam is al in gebruik op een ander tabblad."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Naam wijzigen mislukt" message="De opgegeven naam mag niet leeg zijn of alleen spaties of tabs bevatten."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Bestand verwijderen" message="Verwijderen van bestand mislukt"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Het aantal geopende bestanden is te groot" message="U staat op het punt om $INT_REPLACE$ bestanden te openen.
@@ -1449,6 +1490,24 @@ Doorgaan?"/>
 			<LanguageMenuCompactWarning title="Compact taalmenu" message="Deze optie zal bij de volgende start worden gewijzigd."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Niet opgeslagen wijzigingen worden weggegooid!
 Wilt u uw wijzigingen opslaan voordat u van thema wisselt?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Macro- en uitvoeren-opdrachtcompatibiliteit" message="Het is mogelijk dat uw macro- en uitvoeren-opdrachten opgeslagen in Notepad++ v.8.5.2 (of ouder) niet meer compatibel zijn met de huidige versie van Notepad++.
+Test deze opdrachten en bewerk ze indien nodig.
+
+Als alternatief kunt u downgraden naar Notepad++ v8.5.2 en uw vorige gegevens herstellen.
+Notepad++ zal een reservekopie maken van uw oude &quot;shortcuts.xml&quot; en het opslaan als &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Door de naam te wijzigen van &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, zouden uw opdrachten hersteld moeten worden en goed moeten werken."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Opslaan mislukt" message="Bestand opslaan is mislukt.
+Er lijkt niet voldoende ruimte op de schijf te zijn om het bestand op te slaan. Uw bestand is niet opgeslagen."/>
+			<FileInaccessibleUserSession title="Bestand niet toegankelijk" message="Sommige bestanden van uw handmatig opgeslagen sessie &quot;$STR_REPLACE$&quot; zijn niet toegankelijk. Ze kunnen worden geopend als lege en alleen-lezen-documenten als plaatshouders.
+
+Wilt u deze plaatshouders aanmaken?
+
+Opmerking: als u ervoor kiest de plaatshouders niet aan te maken of ze later sluit, wordt uw handmatig opgeslagen sessie NIET gewijzigd bij het afsluiten.."/>
+			<FileInaccessibleDefaultSessionXml title="Bestand niet toegankelijk" message="Sommige bestanden van uw vorige sessie zijn niet toegankelijk. Ze kunnen worden geopend als lege en alleen-lezen documenten als plaatshouders.
+
+Wilt u deze plaatshouders aanmaken?
+
+Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later te sluiten, zal uw sessie worden GEWIJZIGD BIJ HET AFSLUITEN! We raden u aan nu een back-up te maken van uw &quot;session.xml&quot;."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>
@@ -1589,18 +1648,14 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-end-reached value="Zoeken: eerste overeenkomst vanaf begin van document gevonden. Het einde van het document is bereikt."/>
 			<find-status-replaceinfiles-1-replaced value="Vervangen in bestanden: 1 overeenkomst vervangen"/>
 			<find-status-replaceinfiles-nb-replaced value="Vervangen in bestanden: $INT_REPLACE$ overeenkomsten vervangen"/>
-			<find-status-replaceinfiles-re-malformed value="Vervangen in geopende bestanden: de reguliere expressie is misvormd"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Vervangen in geopende bestanden: 1 overeenkomst vervangen"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Vervangen in geopende bestanden: $INT_REPLACE$ overeenkomsten vervangen"/>
-			<find-status-mark-re-malformed value="Markeren: de reguliere expressie om te zoeken is misvormd"/>
 			<find-status-invalid-re value="Zoeken: ongeldige reguliere expressie"/>
 			<find-status-search-failed value="Zoeken: zoeken mislukt"/>
 			<find-status-mark-1-match value="Markeren: 1 overeenkomst"/>
 			<find-status-mark-nb-matches value="Markeren: $INT_REPLACE$ overeenkomsten"/>
-			<find-status-count-re-malformed value="Tellen: de reguliere expressie om te zoeken is misvormd"/>
 			<find-status-count-1-match value="Tellen: 1 overeenkomst"/>
 			<find-status-count-nb-matches value="Tellen: $INT_REPLACE$ overeenkomsten"/>
-			<find-status-replaceall-re-malformed value="Alles vervangen: de reguliere expressie is misvormd"/>
 			<find-status-replaceall-1-replaced value="Alles vervangen: 1 overeenkomst vervangen"/>
 			<find-status-replaceall-nb-replaced value="Alles vervangen: $INT_REPLACE$ overeenkomsten vervangen"/>
 			<find-status-replaceall-readonly value="Alles vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
@@ -1612,6 +1667,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-status-replace-not-found value="Vervangen: geen overeenkomst gevonden"/>
 			<find-status-replace-readonly value="Vervangen: kan tekst niet vervangen. Huidig document is alleen-lezen"/>
 			<find-status-cannot-find value="Zoeken: kan tekst &quot;$STR_REPLACE$&quot; niet vinden"/>
+			<find-status-cannot-find-pebkac-maybe value="De opgegeven treffer kan niet worden gevonden. Misschien bent u vergeten om &quot;documenteinde negeren&quot; aan, &quot;hoofdlettergevoelig&quot; uit, of &quot;alleen volledige woorden&quot; uit te vinken."/>
 			<find-status-scope-selection value="in geselecteerde tekst"/>
 			<find-status-scope-all value="in volledig bestand"/>
 			<find-status-scope-backward value="vanaf begin van bestand tot cursor"/>
@@ -1630,9 +1686,9 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<finder-wrap-long-lines value="Lange regels laten teruglopen"/>
 			<common-ok value="Ok"/>
 			<common-cancel value="Annuleren"/>
-			<common-name value="Naam: "/>
+			<common-name value="Naam"/>
 			<tabrename-title value="Huidige tab hernoemen"/>
-			<tabrename-newname value="Nieuwe naam: "/>
+			<tabrename-newname value="Nieuwe naam"/>
 			<splitter-rotate-left value="Linksom draaien"/>
 			<splitter-rotate-right value="Rechtsom draaien"/>
 			<userdefined-title-new value="Nieuwe syntaxis aanmaken..."/>
@@ -1713,6 +1769,7 @@ Klik op de knop &quot;?&quot; rechts om de website met gebruikershandleiding te 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Ga naar de stijlconfigurator om de standaard aangepaste kleur voor geselecteerde witruimte en niet-afdrukbare tekens te wijzigen (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Instellingen voor weergave van niet-afdrukbare tekens toepassen op C0, C1 stuurtekens and Unicode-regeleindes (nieuwe regel, regelscheidingsteken en alinea-scheidingsteken)."/>
+			<searchingInSelThresh-tip value="Aantal geselecteerde tekens in de bewerkingszone zodat het selectievakje &quot;In selectie&quot; automatisch wordt ingeschakeld wanneer het dialoogvenster Zoeken wordt geactiveerd. De maximale waarde is 1024. Stel de waarde in op 0 om automatisch aanvinken uit te schakelen."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

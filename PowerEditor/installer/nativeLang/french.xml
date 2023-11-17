@@ -1493,8 +1493,6 @@ Veuillez tester ces commandes et, si besoin, ré-éditer celles-ci.
 Autrement, vous pouvez revenir vers Notepad++ v8.5.2 et restaurer les données précédentes.
 Notepad++ va sauvegarder votre ancien &quot;shortcuts.xml&quot; et l'enregistrer sous &quot;shortcuts.xml.v8.5.2.backup&quot;.
 En renommant &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vos commandes devraient être proprement restaurées."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="Nombre de fichiers à ouvrir trop important" message="$INT_REPLACE$ fichiers vont être ouverts.
-Êtes-vous sûr de vouloir les ouvrir ?"/>
 			<NotEnoughRoom4Saving title="Échec de l'enregistrement" message="Échec de l'enregistrement du fichier.
 Il semblerait qu'il n'y a pas assez d'espace sur le disque. Votre fichier n'est pas enregistré."/>
 			<FileInaccessibleUserSession title="Fichier inaccessible" message="Certains fichiers de votre session sauvegardée manuellement &quot;$STR_REPLACE$&quot; sont inaccessibles. Ils peuvent être ouverts comme des documents vides et en lecture seule en tant qu'espaces réservés.

@@ -312,10 +312,15 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT4, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT5, true);
 
-	if ((NppParameters::getInstance()).getNppGUI()._writeTechnologyEngine == directWriteTechnology)
+	HMODULE hNtdllModule = ::GetModuleHandle(L"ntdll.dll");
+	FARPROC isWINE = ::GetProcAddress(hNtdllModule, "wine_get_version");
+	if ((NppParameters::getInstance()).getNppGUI()._writeTechnologyEngine == directWriteTechnology && !isWINE) // There is a performance issue under WINE when DirectWright is ON,
+	                                                                                                           // so we turn it off if user uses Notepad++ under WINE
+	{
 		execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DIRECTWRITE);
-	// If useDirectWrite is turned off, leave the technology setting untouched,
-	// so that existing plugins using SCI_SETTECHNOLOGY behave like before
+		// If useDirectWrite is turned off, leave the technology setting untouched,
+		// so that existing plugins using SCI_SETTECHNOLOGY behave like before
+	}
 
 	_codepage = ::GetACP();
 

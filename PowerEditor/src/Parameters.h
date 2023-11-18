@@ -822,7 +822,7 @@ struct NppGUI final
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;
 	bool _hideMenuRightShortcuts = false;
-	writeTechnologyEngine _writeTechnologyEngine = defaultTechnology;
+	writeTechnologyEngine _writeTechnologyEngine = directWriteTechnology;
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
 	urlMode _styleURL = urlUnderLineFg;

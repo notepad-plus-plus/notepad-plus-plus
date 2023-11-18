@@ -1620,7 +1620,7 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavr
 			<word-chars-list-tip value="Toto nastavenie vám umožní zahrnúť dodatočný znak medzi aktuálne znaky slova pri výbere dvojklikom alebo pri vyhľadávaní so zapnutou voľbou &quot;Hľadať iba celé slová&quot;."/>
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-			<eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;).."/>
+			<eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;)."/>
 
 			<word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>
@@ -1665,7 +1665,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
 			<find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
 			<find-status-replaced-without-continuing value="Nahradiť: bol nahradený 1 výskyt."/>
-			<find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty.."/>
+			<find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty."/>
 			<find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
 			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
 			<find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť."/>

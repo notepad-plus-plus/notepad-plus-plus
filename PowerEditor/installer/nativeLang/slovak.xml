@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.9">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -302,6 +302,8 @@
 					<Item id="44092" name="7. karta"/>
 					<Item id="44093" name="8. karta"/>
 					<Item id="44094" name="9. karta"/>
+					<Item id="44116" name="Prvá karta"/>
+					<Item id="44117" name="Posledná karta"/>
 					<Item id="44095" name="Nasledujúca karta"/>
 					<Item id="44096" name="Predchádzajúca karta"/>
 					<Item id="44097" name="Sledovanie zmien (tail -f)"/>
@@ -508,9 +510,9 @@
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Hľadať"/>
-				<Item id="1685" name="Rozlišovať malé/VEĽKÉ písmená"/>
-				<Item id="1690" name="Zvýrazniť všetky"/>
+				<Item id="1681" name="Hľadať:"/>
+				<Item id="1685" name="&amp;Rozlišovať veľkosť písmen"/>
+				<Item id="1690" name="&amp;Zvýrazniť všetky"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hľadať znaky v rozsahu">
@@ -1162,7 +1164,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6903" name="Dialógové okno Hľadať zostáva otvorené po vyhľadaní s výstupom do okna s výsledkami hľadania"/>
 					<Item id="6904" name="Potvrdiť Nahradiť všetko vo všetkých otvorených dokumentoch"/>
 					<Item id="6905" name="Nahradiť: Neprechádzať na nasledujúci výskyt"/>
-					<Item id="6906" name="Okno s výsledkami hľadania: zobraziť len jednu položku na nájdený riadok"/>
+					<Item id="6906" name="Okno s výsledkami hľadania: zobraziť len jednu položku na nájdený riadok, ak je to možné"/>
 					<Item id="6907" name="Pri vyvolaní dialógového okna Hľadať"/>
 					<Item id="6908" name="Vložiť označený text do vyhľadávacieho poľa"/>
 					<Item id="6909" name="Ak nie je nič označené, označiť slovo na pozícii kurzora"/>
@@ -1510,6 +1512,8 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatv
 			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
 Chcete vytvoriť tieto zástupné karty?
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
+			<RTLvsDirectWrite title="Nie je možné prepnúť smer textu na sprava doľava (RTL)" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne a reštartujte Notepad++."/>
+			<FileMemoryAllocationFailed title="Výnimka: Pridelenie pamäte súboru zlyhalo" message="Pravdepodobne nie je dostatok súvislej voľnej pamäte pre súbor načítavaný programom Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1620,7 +1624,7 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavr
 			<word-chars-list-tip value="Toto nastavenie vám umožní zahrnúť dodatočný znak medzi aktuálne znaky slova pri výbere dvojklikom alebo pri vyhľadávaní so zapnutou voľbou &quot;Hľadať iba celé slová&quot;."/>
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-			<eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;).."/>
+			<eol-custom-color-tip value="Pre zmenu predvolenej vlastnej farby EOL prejdite do Nastavenia štýlov (&quot;EOL custom color&quot;)."/>
 
 			<word-chars-list-warning-begin value="Pozor: V zozname znakov máte "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ medzeru(-y)"/>
@@ -1665,10 +1669,10 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
 			<find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
 			<find-status-replaced-without-continuing value="Nahradiť: bol nahradený 1 výskyt."/>
-			<find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty.."/>
+			<find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty."/>
 			<find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
 			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
-			<find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť."/>
+			<find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť"/>
 			<find-status-cannot-find-pebkac-maybe value="Uvedený výskyt sa nedá nájsť. Možno ste zabudli skontrolovať &quot;Cyklicky&quot; (začiarknuté), &quot;Rozlišovať malé/VEĽKÉ písmená&quot; (nezačiarknuté), alebo &quot;Hľadať iba celé slová&quot; (nezačiarknuté)."/>
 			<find-status-scope-selection value="v označenom texte"/>
 			<find-status-scope-all value="v celom súbore"/>
@@ -1723,6 +1727,11 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-result-title value="Hľadať"/>
 			<find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ výberoch z $INT_REPLACE3$ nájdených)"/>
+			<find-result-title-info-options-searchmode-normal value="Normálne"/>
+			<find-result-title-info-options-searchmode-extended value="Rozšírené"/>
+			<find-result-title-info-options-searchmode-regexp value="Reg. výraz"/>
+			<find-result-title-info-options-case value="Veľkosť písmen"/>
+			<find-result-title-info-options-word value="Slovo"/>
 			<find-result-title-info-extra value=" - Režim filtrovania riadka: zobraziť iba filtrované výsledky"/>
 			<find-result-hits value="(Počet výskytov: $INT_REPLACE$)"/>
 			<find-result-line-prefix value="Riadok"/>
@@ -1744,7 +1753,7 @@ POZNÁMKA:
 1. Pri zmene týchto možností sa na správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.
 
 2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovanie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;."/>
-			<npcNote-tip value=" Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
+			<npcNote-tip value="Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
 POZNÁMKA:
 Použitím reprezentácie sa vypnú efekty znakov na texte.
 

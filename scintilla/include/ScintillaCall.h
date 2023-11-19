@@ -20,6 +20,8 @@ struct TextRangeFull;
 struct TextToFindFull;
 struct RangeToFormatFull;
 
+class IDocumentEditable;
+
 using FunctionDirect = intptr_t(*)(intptr_t ptr, unsigned int iMessage, uintptr_t wParam, intptr_t lParam, int *pStatus);
 
 struct Failure {
@@ -561,8 +563,8 @@ public:
 	Position BraceMatchNext(Position pos, Position startPos);
 	bool ViewEOL();
 	void SetViewEOL(bool visible);
-	void *DocPointer();
-	void SetDocPointer(void *doc);
+	IDocumentEditable *DocPointer();
+	void SetDocPointer(IDocumentEditable *doc);
 	void SetModEventMask(Scintilla::ModificationFlags eventMask);
 	Position EdgeColumn();
 	void SetEdgeColumn(Position column);
@@ -581,9 +583,9 @@ public:
 	bool SelectionIsRectangle();
 	void SetZoom(int zoomInPoints);
 	int Zoom();
-	void *CreateDocument(Position bytes, Scintilla::DocumentOption documentOptions);
-	void AddRefDocument(void *doc);
-	void ReleaseDocument(void *doc);
+	IDocumentEditable *CreateDocument(Position bytes, Scintilla::DocumentOption documentOptions);
+	void AddRefDocument(IDocumentEditable *doc);
+	void ReleaseDocument(IDocumentEditable *doc);
 	Scintilla::DocumentOption DocumentOptions();
 	Scintilla::ModificationFlags ModEventMask();
 	void SetCommandEvents(bool commandEvents);
@@ -634,7 +636,9 @@ public:
 	void CopyRange(Position start, Position end);
 	void CopyText(Position length, const char *text);
 	void SetSelectionMode(Scintilla::SelectionMode selectionMode);
+	void ChangeSelectionMode(Scintilla::SelectionMode selectionMode);
 	Scintilla::SelectionMode SelectionMode();
+	void SetMoveExtendsSelection(bool moveExtendsSelection);
 	bool MoveExtendsSelection();
 	Position GetLineSelStartPosition(Line line);
 	Position GetLineSelEndPosition(Line line);
@@ -763,6 +767,7 @@ public:
 	void ClearSelections();
 	void SetSelection(Position caret, Position anchor);
 	void AddSelection(Position caret, Position anchor);
+	int SelectionFromPoint(int x, int y);
 	void DropSelectionN(int selection);
 	void SetMainSelection(int selection);
 	int MainSelection();

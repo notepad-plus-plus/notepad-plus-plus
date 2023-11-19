@@ -38,7 +38,6 @@
 using namespace Scintilla;
 using namespace Scintilla::Internal;
 
-#if !defined(_WIN32) && !defined(NO_CXX11_REGEX)
 // set global locale to pass std::regex related tests
 // see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63776
 struct GlobalLocaleInitializer {
@@ -48,7 +47,6 @@ struct GlobalLocaleInitializer {
 		} catch (...) {}
 	}
 } globalLocaleInitializer;
-#endif
 
 // Test Document.
 
@@ -92,12 +90,28 @@ std::string ReadFile(std::string path) {
 	return content;
 }
 
+struct Match {
+	Sci::Position location = 0;
+	Sci::Position length = 0;
+	constexpr Match() = default;
+	constexpr Match(Sci::Position location_, Sci::Position length_=0) : location(location_), length(length_) {
+	}
+	constexpr bool operator==(const Match &other) const {
+		return location == other.location && length == other.length;
+	}
+};
+
+std::ostream &operator << (std::ostream &os, Match const &value) {
+	os << value.location << "," << value.length;
+	return os;
+}
+
 struct DocPlus {
 	Document document;
 
 	DocPlus(std::string_view svInitial, int codePage) : document(DocumentOption::Default) {
 		SetCodePage(codePage);
-		document.InsertString(0, svInitial.data(), svInitial.length());
+		document.InsertString(0, svInitial);
 	}
 
 	void SetCodePage(int codePage) {
@@ -122,14 +136,28 @@ struct DocPlus {
 		document.SetCaseFolder(std::move(pcft));
 	}
 
-	Sci::Position FindNeedle(const std::string &needle, FindOption options, Sci::Position *length) {
+	Sci::Position FindNeedle(std::string_view needle, FindOption options, Sci::Position *length) {
 		assert(*length == static_cast<Sci::Position>(needle.length()));
-		return document.FindText(0, document.Length(), needle.c_str(), options, length);
+		return document.FindText(0, document.Length(), needle.data(), options, length);
 	}
-	Sci::Position FindNeedleReverse(const std::string &needle, FindOption options, Sci::Position *length) {
+	Sci::Position FindNeedleReverse(std::string_view needle, FindOption options, Sci::Position *length) {
 		assert(*length == static_cast<Sci::Position>(needle.length()));
-		return document.FindText(document.Length(), 0, needle.c_str(), options, length);
+		return document.FindText(document.Length(), 0, needle.data(), options, length);
 	}
+
+	Match FindString(Sci::Position minPos, Sci::Position maxPos, std::string_view needle, FindOption flags) {
+		Sci::Position lengthFinding = needle.length();
+		const Sci::Position location = document.FindText(minPos, maxPos, needle.data(), flags, &lengthFinding);
+		return { location, lengthFinding };
+	}
+
+	std::string Substitute(std::string_view substituteText) {
+		Sci::Position lengthsubstitute = substituteText.length();
+		std::string substituted = document.SubstituteByPosition(substituteText.data(), &lengthsubstitute);
+		assert(lengthsubstitute == static_cast<Sci::Position>(substituted.length()));
+		return substituted;
+	}
+
 	void MoveGap(Sci::Position gapNew) {
 		// Move gap to gapNew by inserting
 		document.InsertString(gapNew, "!", 1);
@@ -144,12 +172,14 @@ void TimeTrace(std::string_view sv, const Catch::Timer &tikka) {
 
 TEST_CASE("Document") {
 
-	const char sText[] = "Scintilla";
-	const Sci::Position sLength = static_cast<Sci::Position>(strlen(sText));
+	constexpr std::string_view sText = "Scintilla";
+	constexpr Sci::Position sLength = sText.length();
+	constexpr FindOption rePosix = FindOption::RegExp | FindOption::Posix;
+	constexpr FindOption reCxx11 = FindOption::RegExp | FindOption::Cxx11RegEx;
 
 	SECTION("InsertOneLine") {
 		DocPlus doc("", 0);
-		const Sci::Position length = doc.document.InsertString(0, sText, sLength);
+		const Sci::Position length = doc.document.InsertString(0, sText);
 		REQUIRE(sLength == doc.document.Length());
 		REQUIRE(length == sLength);
 		REQUIRE(1 == doc.document.LinesTotal());
@@ -167,42 +197,42 @@ TEST_CASE("Document") {
 	// part way through a character.
 	SECTION("SearchInLatin") {
 		DocPlus doc("abcde", 0);	// a b c d e
-		std::string finding = "b";
+		constexpr std::string_view finding = "b";
 		Sci::Position lengthFinding = finding.length();
 		Sci::Position location = doc.FindNeedle(finding, FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 1);
 		location = doc.FindNeedleReverse(finding, FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 1);
-		location = doc.document.FindText(0, 2, finding.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(0, 2, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 1);
-		location = doc.document.FindText(0, 1, finding.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(0, 1, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == -1);
 	}
 
 	SECTION("SearchInBothSegments") {
 		DocPlus doc("ab-ab", 0);	// a b - a b
-		std::string finding = "ab";
+		constexpr std::string_view finding = "ab";
 		for (int gapPos = 0; gapPos <= 5; gapPos++) {
 			doc.MoveGap(gapPos);
 			Sci::Position lengthFinding = finding.length();
-			Sci::Position location = doc.document.FindText(0, doc.document.Length(), finding.c_str(), FindOption::MatchCase, &lengthFinding);
+			Sci::Position location = doc.document.FindText(0, doc.document.Length(), finding.data(), FindOption::MatchCase, &lengthFinding);
 			REQUIRE(location == 0);
-			location = doc.document.FindText(2, doc.document.Length(), finding.c_str(), FindOption::MatchCase, &lengthFinding);
+			location = doc.document.FindText(2, doc.document.Length(), finding.data(), FindOption::MatchCase, &lengthFinding);
 			REQUIRE(location == 3);
 		}
 	}
 
 	SECTION("InsensitiveSearchInLatin") {
 		DocPlus doc("abcde", 0);	// a b c d e
-		std::string finding = "B";
+		constexpr std::string_view finding = "B";
 		Sci::Position lengthFinding = finding.length();
 		Sci::Position location = doc.FindNeedle(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 1);
 		location = doc.FindNeedleReverse(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 1);
-		location = doc.document.FindText(0, 2, finding.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(0, 2, finding.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 1);
-		location = doc.document.FindText(0, 1, finding.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(0, 1, finding.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == -1);
 	}
 
@@ -212,11 +242,11 @@ TEST_CASE("Document") {
 		doc.SetSBCSFoldings(foldings1252, std::size(foldings1252));
 
 		// Search for upper-case AE
-		std::string finding = "\xc6";
+		std::string_view finding = "\xc6";
 		Sci::Position lengthFinding = finding.length();
 		Sci::Position location = doc.FindNeedle(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 3);
-		location = doc.document.FindText(4, doc.document.Length(), finding.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(4, doc.document.Length(), finding.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 5);
 		location = doc.FindNeedleReverse(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 5);
@@ -225,7 +255,7 @@ TEST_CASE("Document") {
 		finding = "\xe6";
 		location = doc.FindNeedle(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 3);
-		location = doc.document.FindText(4, doc.document.Length(), finding.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(4, doc.document.Length(), finding.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 5);
 		location = doc.FindNeedleReverse(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 5);
@@ -234,12 +264,12 @@ TEST_CASE("Document") {
 	SECTION("Search2InLatin") {
 		// Checks that the initial '_' and final 'f' are ignored since they are outside the search bounds
 		DocPlus doc("_abcdef", 0);	// _ a b c d e f
-		std::string finding = "cd";
+		constexpr std::string_view finding = "cd";
 		Sci::Position lengthFinding = finding.length();
 		size_t docLength = doc.document.Length() - 1;
-		Sci::Position location = doc.document.FindText(1, docLength, finding.c_str(), FindOption::MatchCase, &lengthFinding);
+		Sci::Position location = doc.document.FindText(1, docLength, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 3);
-		location = doc.document.FindText(docLength, 1, finding.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(docLength, 1, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 3);
 		location = doc.document.FindText(docLength, 1, "bc", FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 2);
@@ -258,46 +288,46 @@ TEST_CASE("Document") {
 
 	SECTION("SearchInUTF8") {
 		DocPlus doc("ab\xCE\x93" "d", CpUtf8);	// a b gamma d
-		const std::string finding = "b";
+		constexpr std::string_view finding = "b";
 		Sci::Position lengthFinding = finding.length();
 		Sci::Position location = doc.FindNeedle(finding, FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 1);
-		location = doc.document.FindText(doc.document.Length(), 0, finding.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(doc.document.Length(), 0, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 1);
-		location = doc.document.FindText(0, 1, finding.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(0, 1, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == -1);
 		// Check doesn't try to follow a lead-byte past the search end
-		const std::string findingUTF = "\xCE\x93";
+		constexpr std::string_view findingUTF = "\xCE\x93";
 		lengthFinding = findingUTF.length();
-		location = doc.document.FindText(0, 4, findingUTF.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(0, 4, findingUTF.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 2);
 		// Only succeeds as 3 is partway through character so adjusted to 4
-		location = doc.document.FindText(0, 3, findingUTF.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(0, 3, findingUTF.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 2);
-		location = doc.document.FindText(0, 2, findingUTF.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(0, 2, findingUTF.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == -1);
 	}
 
 	SECTION("InsensitiveSearchInUTF8") {
 		DocPlus doc("ab\xCE\x93" "d", CpUtf8);	// a b gamma d
-		const std::string finding = "b";
+		constexpr std::string_view finding = "b";
 		Sci::Position lengthFinding = finding.length();
 		Sci::Position location = doc.FindNeedle(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 1);
-		location = doc.document.FindText(doc.document.Length(), 0, finding.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(doc.document.Length(), 0, finding.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 1);
-		const std::string findingUTF = "\xCE\x93";
+		constexpr std::string_view findingUTF = "\xCE\x93";
 		lengthFinding = findingUTF.length();
 		location = doc.FindNeedle(findingUTF, FindOption::None, &lengthFinding);
 		REQUIRE(location == 2);
-		location = doc.document.FindText(doc.document.Length(), 0, findingUTF.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(doc.document.Length(), 0, findingUTF.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 2);
-		location = doc.document.FindText(0, 4, findingUTF.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(0, 4, findingUTF.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 2);
 		// Only succeeds as 3 is partway through character so adjusted to 4
-		location = doc.document.FindText(0, 3, findingUTF.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(0, 3, findingUTF.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 2);
-		location = doc.document.FindText(0, 2, findingUTF.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(0, 2, findingUTF.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == -1);
 	}
 
@@ -306,14 +336,14 @@ TEST_CASE("Document") {
 		// The 'b' can be incorrectly matched by the search string 'b' when the search
 		// does not iterate the text correctly.
 		DocPlus doc("ab\xe9" "b ", 932);	// a b {CJK UNIFIED IDEOGRAPH-9955} {space}
-		std::string finding = "b";
+		constexpr std::string_view finding = "b";
 		// Search forwards
 		Sci::Position lengthFinding = finding.length();
 		Sci::Position location = doc.FindNeedle(finding, FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 1);
 		// Search backwards
 		lengthFinding = finding.length();
-		location = doc.document.FindText(doc.document.Length(), 0, finding.c_str(), FindOption::MatchCase, &lengthFinding);
+		location = doc.document.FindText(doc.document.Length(), 0, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 1);
 	}
 
@@ -322,27 +352,27 @@ TEST_CASE("Document") {
 		// The 'b' can be incorrectly matched by the search string 'b' when the search
 		// does not iterate the text correctly.
 		DocPlus doc("ab\xe9" "b ", 932);	// a b {CJK UNIFIED IDEOGRAPH-9955} {space}
-		std::string finding = "b";
+		constexpr std::string_view finding = "b";
 		// Search forwards
 		Sci::Position lengthFinding = finding.length();
 		Sci::Position location = doc.FindNeedle(finding, FindOption::None, &lengthFinding);
 		REQUIRE(location == 1);
 		// Search backwards
 		lengthFinding = finding.length();
-		location = doc.document.FindText(doc.document.Length(), 0, finding.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(doc.document.Length(), 0, finding.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 1);
-		std::string finding932 = "\xe9" "b";
+		constexpr std::string_view finding932 = "\xe9" "b";
 		// Search forwards
 		lengthFinding = finding932.length();
 		location = doc.FindNeedle(finding932, FindOption::None, &lengthFinding);
 		REQUIRE(location == 2);
 		// Search backwards
 		lengthFinding = finding932.length();
-		location = doc.document.FindText(doc.document.Length(), 0, finding932.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(doc.document.Length(), 0, finding932.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 2);
-		location = doc.document.FindText(0, 3, finding932.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(0, 3, finding932.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == 2);
-		location = doc.document.FindText(0, 2, finding932.c_str(), FindOption::None, &lengthFinding);
+		location = doc.document.FindText(0, 2, finding932.data(), FindOption::None, &lengthFinding);
 		REQUIRE(location == -1);
 		// Can not test case mapping of double byte text as folder available here does not implement this
 	}
@@ -427,8 +457,8 @@ TEST_CASE("Document") {
 		// O p e n = U+958B Ku ( O ) U+7DE8 -
 		// U+958B open
 		// U+7DE8 arrange
-		const std::string japaneseText = "Open=\x8aJ\x82\xad(O)\x95\xd2-";
-		const Sci::Position length = doc.InsertString(0, japaneseText.c_str(), japaneseText.length());
+		constexpr std::string_view japaneseText = "Open=\x8aJ\x82\xad(O)\x95\xd2-";
+		const Sci::Position length = doc.InsertString(0, japaneseText);
 		REQUIRE(length == 15);
 		// Forwards
 		REQUIRE(doc.NextPosition( 0, 1) == 1);
@@ -468,50 +498,229 @@ TEST_CASE("Document") {
 
 	SECTION("RegexSearchAndSubstitution") {
 		DocPlus doc("\n\r\r\n 1a\xCE\x93z \n\r\r\n 2b\xCE\x93y \n\r\r\n", CpUtf8);// 1a gamma z 2b gamma y
-		const std::string finding = R"(\d+(\w+))";
-		Sci::Position lengthFinding = finding.length();
-		Sci::Position location = doc.FindNeedle(finding, FindOption::RegExp | FindOption::Posix, &lengthFinding);
-		REQUIRE(location == 5);
-		REQUIRE(lengthFinding == 5);
+		const Sci::Position docLength = doc.document.Length();
+		Match match;
 
-		const std::string_view substituteText = R"(\t\1\n)";
-		Sci::Position lengthsubstitute = substituteText.length();
-		std::string substituted = doc.document.SubstituteByPosition(substituteText.data(), &lengthsubstitute);
-		REQUIRE(lengthsubstitute == 6);
+		constexpr std::string_view finding = R"(\d+(\w+))";
+		constexpr std::string_view substituteText = R"(\t\1\n)";
+		constexpr std::string_view longest = "\\w+";
+		std::string substituted;
+
+		match = doc.FindString(0, docLength, finding, rePosix);
+		REQUIRE(match == Match(5, 5));
+		substituted = doc.Substitute(substituteText);
 		REQUIRE(substituted == "\ta\xCE\x93z\n");
 
-		lengthFinding = finding.length();
-		location = doc.FindNeedleReverse(finding, FindOption::RegExp | FindOption::Posix, &lengthFinding);
-		REQUIRE(location == 16);
-		REQUIRE(lengthFinding == 5);
-
-		lengthsubstitute = substituteText.length();
-		substituted = doc.document.SubstituteByPosition(substituteText.data(), &lengthsubstitute);
-		REQUIRE(lengthsubstitute == 6);
+		match = doc.FindString(docLength, 0, finding, rePosix);
+		REQUIRE(match == Match(16, 5));
+		substituted = doc.Substitute(substituteText);
 		REQUIRE(substituted == "\tb\xCE\x93y\n");
+
+		match = doc.FindString(docLength, 0, longest, rePosix);
+		REQUIRE(match == Match(16, 5));
 
 		#ifndef NO_CXX11_REGEX
-		lengthFinding = finding.length();
-		location = doc.FindNeedle(finding, FindOption::RegExp | FindOption::Cxx11RegEx, &lengthFinding);
-		REQUIRE(location == 5);
-		REQUIRE(lengthFinding == 5);
-
-		lengthsubstitute = substituteText.length();
-		substituted = doc.document.SubstituteByPosition(substituteText.data(), &lengthsubstitute);
-		REQUIRE(lengthsubstitute == 6);
+		match = doc.FindString(0, docLength, finding, reCxx11);
+		REQUIRE(match == Match(5, 5));
+		substituted = doc.Substitute(substituteText);
 		REQUIRE(substituted == "\ta\xCE\x93z\n");
 
-		lengthFinding = finding.length();
-		location = doc.FindNeedleReverse(finding, FindOption::RegExp | FindOption::Cxx11RegEx, &lengthFinding);
-		REQUIRE(location == 16);
-		REQUIRE(lengthFinding == 5);
-
-		lengthsubstitute = substituteText.length();
-		substituted = doc.document.SubstituteByPosition(substituteText.data(), &lengthsubstitute);
-		REQUIRE(lengthsubstitute == 6);
+		match = doc.FindString(docLength, 0, finding, reCxx11);
+		REQUIRE(match == Match(16, 5));
+		substituted = doc.Substitute(substituteText);
 		REQUIRE(substituted == "\tb\xCE\x93y\n");
+
+		match = doc.FindString(docLength, 0, longest, reCxx11);
+		REQUIRE(match == Match(16, 5));
 		#endif
 	}
+
+	SECTION("RegexAssertion") {
+		DocPlus doc("ab cd ef\r\ngh ij kl", CpUtf8);
+		const Sci::Position docLength = doc.document.Length();
+		Match match;
+
+		constexpr std::string_view findingBOL = "^";
+		match = doc.FindString(0, docLength, findingBOL, rePosix);
+		REQUIRE(match == Match(0));
+		match = doc.FindString(1, docLength, findingBOL, rePosix);
+		REQUIRE(match == Match(10));
+		match = doc.FindString(docLength, 0, findingBOL, rePosix);
+		REQUIRE(match == Match(10));
+		match = doc.FindString(docLength - 1, 0, findingBOL, rePosix);
+		REQUIRE(match == Match(10));
+
+		#ifndef NO_CXX11_REGEX
+		match = doc.FindString(0, docLength, findingBOL, reCxx11);
+		REQUIRE(match == Match(0));
+		match = doc.FindString(1, docLength, findingBOL, reCxx11);
+		REQUIRE(match == Match(10));
+		match = doc.FindString(docLength, 0, findingBOL, reCxx11);
+		REQUIRE(match == Match(10));
+		match = doc.FindString(docLength - 1, 0, findingBOL, reCxx11);
+		REQUIRE(match == Match(10));
+		#endif
+
+		constexpr std::string_view findingEOL = "$";
+		match = doc.FindString(0, docLength, findingEOL, rePosix);
+		REQUIRE(match == Match(8));
+		match = doc.FindString(1, docLength, findingEOL, rePosix);
+		REQUIRE(match == Match(8));
+		match = doc.FindString(docLength, 0, findingEOL, rePosix);
+		REQUIRE(match == Match(18));
+		match = doc.FindString(docLength - 1, 0, findingEOL, rePosix);
+		REQUIRE(match == Match(8));
+
+		#if !defined(NO_CXX11_REGEX) && !defined(_LIBCPP_VERSION)
+		match = doc.FindString(0, docLength, findingEOL, reCxx11);
+		REQUIRE(match == Match(8));
+		match = doc.FindString(1, docLength, findingEOL, reCxx11);
+		REQUIRE(match == Match(8));
+		match = doc.FindString(docLength, 0, findingEOL, reCxx11);
+		REQUIRE(match == Match(18));
+		match = doc.FindString(docLength - 1, 0, findingEOL, reCxx11);
+		REQUIRE(match == Match(8));
+		#endif
+
+		constexpr std::string_view findingBOW = "\\<";
+		match = doc.FindString(0, docLength, findingBOW, rePosix);
+		REQUIRE(match == Match(0));
+		match = doc.FindString(1, docLength, findingBOW, rePosix);
+		REQUIRE(match == Match(3));
+		match = doc.FindString(docLength, 0, findingBOW, rePosix);
+		REQUIRE(match == Match(16));
+		match = doc.FindString(docLength - 1, 0, findingBOW, rePosix);
+		REQUIRE(match == Match(16));
+
+		constexpr std::string_view findingEOW = "\\>";
+		match = doc.FindString(0, docLength, findingEOW, rePosix);
+		REQUIRE(match == Match(2));
+		match = doc.FindString(1, docLength, findingEOW, rePosix);
+		REQUIRE(match == Match(2));
+		match = doc.FindString(docLength, 0, findingEOW, rePosix);
+		REQUIRE(match == Match(18));
+		match = doc.FindString(docLength - 1, 0, findingEOW, rePosix);
+		REQUIRE(match == Match(15));
+
+		constexpr std::string_view findingEOWEOL = "\\>$";
+		match = doc.FindString(0, docLength, findingEOWEOL, rePosix);
+		REQUIRE(match == Match(8));
+		match = doc.FindString(10, docLength, findingEOWEOL, rePosix);
+		REQUIRE(match == Match(18));
+
+		#ifndef NO_CXX11_REGEX
+		constexpr std::string_view findingWB = "\\b";
+		match = doc.FindString(0, docLength, findingWB, reCxx11);
+		REQUIRE(match == Match(0));
+		match = doc.FindString(1, docLength, findingWB, reCxx11);
+		REQUIRE(match == Match(2));
+		match = doc.FindString(docLength, 0, findingWB, reCxx11);
+		#ifdef _LIBCPP_VERSION
+		REQUIRE(match == Match(16));
+		#else
+		REQUIRE(match == Match(18));
+		#endif
+		match = doc.FindString(docLength - 1, 0, findingWB, reCxx11);
+		REQUIRE(match == Match(16));
+
+		constexpr std::string_view findingNWB = "\\B";
+		match = doc.FindString(0, docLength, findingNWB, reCxx11);
+		REQUIRE(match == Match(1));
+		match = doc.FindString(1, docLength, findingNWB, reCxx11);
+		REQUIRE(match == Match(1));
+		#ifdef _LIBCPP_VERSION
+		match = doc.FindString(docLength, 0, findingNWB, reCxx11);
+		REQUIRE(match == Match(18));
+		match = doc.FindString(docLength - 1, 0, findingNWB, reCxx11);
+		REQUIRE(match == Match(14));
+		#else
+		match = doc.FindString(docLength, 0, findingNWB, reCxx11);
+		REQUIRE(match == Match(17));
+		match = doc.FindString(docLength - 1, 0, findingNWB, reCxx11);
+		REQUIRE(match == Match(17));
+		#endif
+		#endif
+	}
+
+	SECTION("RegexContextualAssertion") {
+		// For std::regex, check the use of assertions next to text in forward direction
+		// These are more common than empty assertions
+		DocPlus doc("ab cd ef\r\ngh ij kl", CpUtf8);
+		const Sci::Position docLength = doc.document.Length();
+		Match match;
+
+		#ifndef NO_CXX11_REGEX
+
+		match = doc.FindString(0, docLength, "^[a-z]", reCxx11);
+		REQUIRE(match == Match(0, 1));
+		match = doc.FindString(1, docLength, "^[a-z]", reCxx11);
+		REQUIRE(match == Match(10, 1));
+
+		match = doc.FindString(0, docLength, "[a-z]$", reCxx11);
+		REQUIRE(match == Match(7, 1));
+		match = doc.FindString(10, docLength, "[a-z]$", reCxx11);
+		REQUIRE(match == Match(17, 1));
+
+		match = doc.FindString(0, docLength, "\\b[a-z]", reCxx11);
+		REQUIRE(match == Match(0, 1));
+		match = doc.FindString(1, docLength, "\\b[a-z]", reCxx11);
+		REQUIRE(match == Match(3, 1));
+		match = doc.FindString(0, docLength, "[a-z]\\b", reCxx11);
+		REQUIRE(match == Match(1, 1));
+		match = doc.FindString(2, docLength, "[a-z]\\b", reCxx11);
+		REQUIRE(match == Match(4, 1));
+
+		match = doc.FindString(0, docLength, "\\B[a-z]", reCxx11);
+		REQUIRE(match == Match(1, 1));
+		match = doc.FindString(1, docLength, "\\B[a-z]", reCxx11);
+		REQUIRE(match == Match(1, 1));
+		match = doc.FindString(0, docLength, "[a-z]\\B", reCxx11);
+		REQUIRE(match == Match(0, 1));
+		match = doc.FindString(2, docLength, "[a-z]\\B", reCxx11);
+		REQUIRE(match == Match(3, 1));
+
+		#endif
+	}
+
+	SECTION("RESearchMovePositionOutsideCharUTF8") {
+		DocPlus doc(" a\xCE\x93\xCE\x93z ", CpUtf8);// a gamma gamma z
+		const Sci::Position docLength = doc.document.Length();
+		constexpr std::string_view finding = R"([a-z](\w)\1)";
+
+		Match match = doc.FindString(0, docLength, finding, rePosix);
+		REQUIRE(match == Match(1, 5));
+
+		constexpr std::string_view substituteText = R"(\t\1\n)";
+		std::string substituted = doc.Substitute(substituteText);
+		REQUIRE(substituted == "\t\xCE\x93\n");
+
+		#ifndef NO_CXX11_REGEX
+		match = doc.FindString(0, docLength, finding, reCxx11);
+		REQUIRE(match == Match(1, 5));
+
+		substituted = doc.Substitute(substituteText);
+		REQUIRE(substituted == "\t\xCE\x93\n");
+		#endif
+	}
+
+	SECTION("RESearchMovePositionOutsideCharDBCS") {
+		DocPlus doc(" \x98\x61xx 1aa\x83\xA1\x83\xA1z ", 932);// U+548C xx 1aa gamma gamma z
+		const Sci::Position docLength = doc.document.Length();
+
+		Match match = doc.FindString(0, docLength, R"([a-z](\w)\1)", rePosix);
+		REQUIRE(match == Match(8, 5));
+
+		constexpr std::string_view substituteText = R"(\t\1\n)";
+		std::string substituted = doc.Substitute(substituteText);
+		REQUIRE(substituted == "\t\x83\xA1\n");
+
+		match = doc.FindString(0, docLength, R"(\w([a-z])\1)", rePosix);
+		REQUIRE(match == Match(6, 3));
+
+		substituted = doc.Substitute(substituteText);
+		REQUIRE(substituted == "\ta\n");
+	}
+
 }
 
 TEST_CASE("Words") {
@@ -549,7 +758,7 @@ TEST_CASE("SafeSegment") {
 	SECTION("Short") {
 		const DocPlus doc("", 0);
 		// all encoding: break before or after last space
-		const std::string_view text = "12 ";
+		constexpr std::string_view text = "12 ";
 		size_t length = doc.document.SafeSegment(text);
 		REQUIRE(length <= text.length());
 		REQUIRE(text[length - 1] == '2');

@@ -2359,8 +2359,15 @@ val SC_SEL_THIN=3
 # by lines (SC_SEL_LINES).
 set void SetSelectionMode=2422(SelectionMode selectionMode,)
 
+# Set the selection mode to stream (SC_SEL_STREAM) or rectangular (SC_SEL_RECTANGLE/SC_SEL_THIN) or
+# by lines (SC_SEL_LINES) without changing MoveExtendsSelection.
+fun void ChangeSelectionMode=2659(SelectionMode selectionMode,)
+
 # Get the mode of the current selection.
 get SelectionMode GetSelectionMode=2423(,)
+
+# Set whether or not regular caret moves will extend or reduce the selection.
+set void SetMoveExtendsSelection=2719(bool moveExtendsSelection,)
 
 # Get whether or not regular caret moves will extend or reduce the selection.
 get bool GetMoveExtendsSelection=2706(,)
@@ -2789,6 +2796,9 @@ fun void SetSelection=2572(position caret, position anchor)
 
 # Add a selection
 fun void AddSelection=2573(position caret, position anchor)
+
+# Find the selection index for a point. -1 when not at a selection.
+fun int SelectionFromPoint=2474(int x, int y)
 
 # Drop one selection
 fun void DropSelectionN=2671(int selection,)

@@ -41,6 +41,9 @@ public:
 	char CharAt(Sci::Position index) const override {
 		return s.at(index);
 	}
+	Sci::Position MovePositionOutsideChar(Sci::Position pos, [[maybe_unused]] Sci::Position moveDir) const noexcept override {
+		return pos;
+	}
 	std::string GetCharRange(Sci::Position position, Sci::Position lengthRetrieve) const {
 		return s.substr(position, lengthRetrieve);
 	}
@@ -57,6 +60,17 @@ TEST_CASE("RESearch") {
 	SECTION("Compile") {
 		std::unique_ptr<RESearch> re = std::make_unique<RESearch>(&cc);
 		const char *msg = re->Compile(pattern.data(), pattern.length(), true, false);
+		REQUIRE(nullptr == msg);
+	}
+
+	SECTION("Bug2413") {
+		// Check for https://sourceforge.net/p/scintilla/bugs/2413/
+		std::unique_ptr<RESearch> re = std::make_unique<RESearch>(&cc);
+		constexpr std::string_view BOW = "\\<";
+		constexpr std::string_view EOW = "\\>";
+		const char *msg = re->Compile(BOW.data(), BOW.length(), true, false);
+		REQUIRE(nullptr == msg);
+		msg = re->Compile(EOW.data(), EOW.length(), true, false);
 		REQUIRE(nullptr == msg);
 	}
 

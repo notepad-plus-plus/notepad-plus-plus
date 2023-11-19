@@ -75,13 +75,13 @@ RANLIB ?= ranlib
 
 SCINTILLA_INCLUDE = ../../scintilla/include
 
-vpath %.h ../src ../include ../../scintilla/include ../lexlib
+vpath %.h ../include ../../scintilla/include ../lexlib
 vpath %.cxx ../src ../lexlib ../lexers
 
 DEFINES += -D$(if $(DEBUG),DEBUG,NDEBUG)
 BASE_FLAGS += $(if $(DEBUG),-g,-O3)
 
-INCLUDES = -I ../include -I $(SCINTILLA_INCLUDE) -I ../src -I ../lexlib
+INCLUDES = -I ../include -I $(SCINTILLA_INCLUDE) -I ../lexlib
 LDFLAGS += -shared
 
 BASE_FLAGS += $(WARNINGS)

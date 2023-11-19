@@ -22,7 +22,6 @@ CXX = clang++
 ifdef USELIBCPP
 # macOS, use libc++ but don't have sanitizers
 CXXFLAGS += --stdlib=libc++
-LINKFLAGS = -lc++
 else
 # Linux, have sanitizers
 SANITIZE = -fsanitize=address,undefined
@@ -40,22 +39,26 @@ DEL = rm -f
 EXE = unitTest
 endif
 
-INCLUDEDIRS = -I ../../include -I ../../src -I../../lexlib -I../../../scintilla/include
+vpath %.cxx ../../lexlib
+
+INCLUDEDIRS = -I ../../include -I../../lexlib -I../../../scintilla/include
 
 CPPFLAGS += $(INCLUDEDIRS)
 CXXFLAGS += -Wall -Wextra
 
 # Files in this directory containing tests
-TESTSRC=test*.cxx
-# Files being tested from scintilla/src directory
-TESTEDSRC=\
- ../../lexlib/Accessor.cxx \
- ../../lexlib/CharacterSet.cxx \
- ../../lexlib/LexerBase.cxx \
- ../../lexlib/LexerModule.cxx \
- ../../lexlib/LexerSimple.cxx \
- ../../lexlib/PropSetSimple.cxx \
- ../../lexlib/WordList.cxx
+TESTSRC=$(wildcard test*.cxx)
+TESTOBJ=$(TESTSRC:.cxx=.o)
+
+# Files being tested from lexilla/lexlib directory
+TESTEDOBJ=\
+ Accessor.o \
+ CharacterSet.o \
+ LexerBase.o \
+ LexerModule.o \
+ LexerSimple.o \
+ PropSetSimple.o \
+ WordList.o
 
 TESTS=$(EXE)
 
@@ -67,5 +70,8 @@ test: $(TESTS)
 clean:
 	$(DEL) $(TESTS) *.o *.obj *.exe
 
-$(EXE): $(TESTSRC) $(TESTEDSRC) unitTest.cxx
+%.o: %.cxx
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+$(EXE): $(TESTOBJ) $(TESTEDOBJ) unitTest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LINKFLAGS) $^ -o $@

@@ -23,7 +23,6 @@ CXX = clang++
 ifdef USELIBCPP
 # macOS, use libc++ but don't have sanitizers
 CXXFLAGS += --stdlib=libc++
-LINKFLAGS = -lc++
 else
 ifndef windir
 # Linux, have sanitizers
@@ -43,30 +42,34 @@ DEL = rm -f
 EXE = unitTest
 endif
 
+vpath %.cxx ../../src
+
 INCLUDEDIRS = -I ../../include -I ../../src
 
 CPPFLAGS += $(INCLUDEDIRS)
 CXXFLAGS += -Wall -Wextra
 
 # Files in this directory containing tests
-TESTSRC=test*.cxx
+TESTSRC=$(wildcard test*.cxx)
+TESTOBJ=$(TESTSRC:.cxx=.o)
+
 # Files being tested from scintilla/src directory
-TESTEDSRC=\
- ../../src/CaseConvert.cxx \
- ../../src/CaseFolder.cxx \
- ../../src/CellBuffer.cxx \
- ../../src/ChangeHistory.cxx \
- ../../src/CharacterCategoryMap.cxx \
- ../../src/CharClassify.cxx \
- ../../src/ContractionState.cxx \
- ../../src/Decoration.cxx \
- ../../src/Document.cxx \
- ../../src/Geometry.cxx \
- ../../src/PerLine.cxx \
- ../../src/RESearch.cxx \
- ../../src/RunStyles.cxx \
- ../../src/UniConversion.cxx \
- ../../src/UniqueString.cxx
+TESTEDOBJ=\
+CaseConvert.o \
+CaseFolder.o \
+CellBuffer.o \
+ChangeHistory.o \
+CharacterCategoryMap.o \
+CharClassify.o \
+ContractionState.o \
+Decoration.o \
+Document.o \
+Geometry.o \
+PerLine.o \
+RESearch.o \
+RunStyles.o \
+UniConversion.o \
+UniqueString.o
 
 TESTS=$(EXE)
 
@@ -78,5 +81,8 @@ test: $(TESTS)
 clean:
 	$(DEL) $(TESTS) *.o *.obj *.exe
 
-$(EXE): $(TESTSRC) $(TESTEDSRC) unitTest.cxx
+%.o: %.cxx
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+$(EXE): $(TESTOBJ) $(TESTEDOBJ) unitTest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LINKFLAGS) $^ -o $@

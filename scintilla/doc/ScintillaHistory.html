@@ -584,6 +584,76 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla541.zip">Release 5.4.1</a>
+    </h3>
+    <ul>
+	<li>
+	Released 27 December 2023.
+	</li>
+	<li>
+	Add IDocumentEditable interface to allow efficient interaction with document objects which may not be visible in
+	a Scintilla instance. This feature is provisonal and may change before being declared stable.
+	For better type-safety, the ScintillaCall C++ API uses IDocumentEditable* where void* was used before which may require
+	changes to client code that uses document pointer APIs
+	DocPointer, SetDocPointer, CreateDocument, AddRefDocument, and ReleaseDocument.
+	</li>
+	<li>
+	Ctrl-click on a selection deselects it in multiple selection mode.
+	</li>
+	<li>
+	Add SCI_SELECTIONFROMPOINT for modifying multiple selections.
+	</li>
+	<li>
+	Add SCI_SETMOVEEXTENDSSELECTION and SCI_CHANGESELECTIONMODE to
+	simplify selection mode manipulation.
+	</li>
+	<li>
+	Improve performance of global replace by reducing cache invalidation overhead.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1502/">Feature #1502</a>.
+	</li>
+	<li>
+	Fix regular expression search for "\&lt;" matching beginning of search when not beginning of word and
+	for "\&gt;" not matching line end.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2157/">Bug #2157</a>.
+	</li>
+	<li>
+	Fix regular expression search failure when search for "\&lt;" followed by search for "\&gt;".
+	<a href="https://sourceforge.net/p/scintilla/bugs/2413/">Bug #2413</a>.
+	</li>
+	<li>
+	Fix regular expression assertion (^, $, \b. \B) failures when using SCFIND_CXX11REGEX.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2405/">Bug #2405</a>.
+	</li>
+	<li>
+	Fix regular expression bug in reverse direction where shortened match returned.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2405/">Bug #2405</a>.
+	</li>
+	<li>
+	Avoid character fragments in regular expression search results.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2405/">Bug #2405</a>.
+	</li>
+	<li>
+	With a document that does not have the SC_DOCUMENTOPTION_TEXT_LARGE option set,
+	allocating more than 2G (calling SCI_ALLOCATE or similar) will now fail with SC_STATUS_FAILURE.
+	</li>
+	<li>
+	Protect SCI_REPLACETARGET, SCI_REPLACETARGETMINIMAL, and SCI_REPLACETARGETRE from
+	application changing target in notification handlers.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2289/">Bug #2289</a>.
+	</li>
+    </ul>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla540.zip">Release 5.4.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released 18 November 2023.
+	</li>
+	<li>
+	Fix crashes on macOS 12 and older when built with Xcode 15.0.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla538.zip">Release 5.3.8</a>
     </h3>
     <ul>

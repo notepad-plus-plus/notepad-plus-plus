@@ -123,6 +123,13 @@ bool SelectionRange::ContainsCharacter(Sci::Position posCharacter) const noexcep
 		return (posCharacter >= anchor.Position()) && (posCharacter < caret.Position());
 }
 
+bool SelectionRange::ContainsCharacter(SelectionPosition spCharacter) const noexcept {
+	if (anchor > caret)
+		return (spCharacter >= caret) && (spCharacter < anchor);
+	else
+		return (spCharacter >= anchor) && (spCharacter < caret);
+}
+
 SelectionSegment SelectionRange::Intersect(SelectionSegment check) const noexcept {
 	const SelectionSegment inOrder(caret, anchor);
 	if ((inOrder.start <= check.end) || (inOrder.end >= check.start)) {

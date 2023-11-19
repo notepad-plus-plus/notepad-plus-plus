@@ -804,10 +804,7 @@ const char *LexState::DescriptionOfStyle(int style) {
 
 void ScintillaBase::NotifyStyleToNeeded(Sci::Position endStyleNeeded) {
 	if (!DocumentLexState()->UseContainerLexing()) {
-		const Sci::Line lineEndStyled =
-			pdoc->SciLineFromPosition(pdoc->GetEndStyled());
-		const Sci::Position endStyled =
-			pdoc->LineStart(lineEndStyled);
+		const Sci::Position endStyled = pdoc->LineStartPosition(pdoc->GetEndStyled());
 		DocumentLexState()->Colourise(endStyled, endStyleNeeded);
 		return;
 	}

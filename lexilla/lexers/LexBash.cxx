@@ -333,7 +333,7 @@ public:
 	}
 	bool CountDown(StyleContext &sc, CmdState &cmdState) {
 		Current.Count--;
-		if (Current.Count == 1 && sc.Match(')', ')')) {
+		while (Current.Count > 0 && sc.chNext == Current.Down) {
 			Current.Count--;
 			sc.Forward();
 		}
@@ -379,10 +379,6 @@ public:
 					style = QuoteStyle::Command;
 					sc.ChangeState(SCE_SH_BACKTICKS);
 				}
-			}
-			if (current == CmdState::Body && sc.Match('(', '(') && state == SCE_SH_DEFAULT && Depth == 0) {
-				// optimized to avoid track nested delimiter pairs
-				style = QuoteStyle::Literal;
 			}
 		} else {
 			// scalar has no delimiter pair
@@ -939,7 +935,9 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 						continue;
 					}
 				} else if (sc.ch == QuoteStack.Current.Up) {
-					QuoteStack.Current.Count++;
+					if (QuoteStack.Current.Style != QuoteStyle::Parameter) {
+						QuoteStack.Current.Count++;
+					}
 				} else {
 					if (QuoteStack.Current.Style == QuoteStyle::String ||
 						QuoteStack.Current.Style == QuoteStyle::HereDoc ||

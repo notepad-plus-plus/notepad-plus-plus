@@ -4,6 +4,9 @@
 {47}var{41} {46}b{41} {50}={41} {52}/abc/i{46}.test{50}({49}'abc'{50});{41}
 {49}'x\
 </t>'{41}
+{43}// issue 214 fix to behave same as single quote escaped eol{41}
+{48}"x\
+</t>"{41}
 {1}</script>{0}
 {1}<head>{0}
     {1}<meta{8} {3}name{8}={6}"Date.Modified"{8} {3}content{8}={6}"20010515"{8} {11}/>{0}

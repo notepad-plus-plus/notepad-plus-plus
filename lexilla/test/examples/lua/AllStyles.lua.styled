@@ -1,0 +1,66 @@
+{2}-- Enumerate all styles: 0 to 20
+-- 3 (comment doc) is not currently produced by lexer
+{0}
+{1}--[[ comment=1 ]]{0}
+
+{1}--[[ whitespace=0 ]]{0}
+	{2}-- w
+{0}
+{2}-- comment line=2
+{0}
+{3}--- comment doc=3
+-- still comment doc
+{0}
+{3}-- still comment doc
+{4}3{0}	{2}-- comment doc broken only by code
+{0}
+{2}-- number=4
+{4}37{0}
+
+{2}-- keyword=5
+{5}local{0} {11}a{0}
+
+{2}-- double-quoted-string=6
+{6}"str"{0}
+
+{2}-- single-quoted-string=7
+{7}'str'{0}
+
+{2}-- literal string=8
+{8}[[ literal ]]{0}
+
+{2}-- unused preprocessor=9
+{9}$if
+{0}
+{2}-- operator=10
+{10}*{0}
+
+{2}-- identifier=11
+{11}identifier{10}={4}1{0}
+
+{2}-- string EOL=12
+{12}"unclosed
+{0}
+{2}-- keyword 2=13
+{13}print{0}
+
+{2}-- keyword 3=14
+{14}keyword3{0}
+
+{2}-- keyword 4=15
+{15}keyword4{0}
+
+{2}-- keyword 5=16
+{16}keyword5{0}
+
+{2}-- keyword 6=17
+{17}keyword6{0}
+
+{2}-- keyword 7=18
+{18}keyword7{0}
+
+{2}-- keyword 8=19
+{19}keyword8{0}
+
+{2}-- label=20
+{20}::label::{0}

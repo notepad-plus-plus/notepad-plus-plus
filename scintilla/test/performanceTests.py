@@ -28,24 +28,24 @@ class TestPerformance(unittest.TestCase):
 		start = timer()
 		for i in range(2000):
 			self.ed.AddText(len(data), data)
-			self.assertEquals(self.ed.LineCount, i + 2)
+			self.assertEqual(self.ed.LineCount, i + 2)
 		end = timer()
 		duration = end - start
 		print("%6.3f testAddLine" % duration)
 		self.xite.DoEvents()
-		self.assert_(self.ed.Length > 0)
+		self.assertTrue(self.ed.Length > 0)
 
 	def testAddLineMiddle(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
 		start = timer()
 		for i in range(2000):
 			self.ed.AddText(len(data), data)
-			self.assertEquals(self.ed.LineCount, i + 2)
+			self.assertEqual(self.ed.LineCount, i + 2)
 		end = timer()
 		duration = end - start
 		print("%6.3f testAddLineMiddle" % duration)
 		self.xite.DoEvents()
-		self.assert_(self.ed.Length > 0)
+		self.assertTrue(self.ed.Length > 0)
 
 	def testHuge(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
@@ -56,7 +56,7 @@ class TestPerformance(unittest.TestCase):
 		duration = end - start
 		print("%6.3f testHuge" % duration)
 		self.xite.DoEvents()
-		self.assert_(self.ed.Length > 0)
+		self.assertTrue(self.ed.Length > 0)
 
 	def testHugeInserts(self):
 		data = (string.ascii_letters + string.digits + "\n").encode('utf-8')
@@ -70,7 +70,7 @@ class TestPerformance(unittest.TestCase):
 		duration = end - start
 		print("%6.3f testHugeInserts" % duration)
 		self.xite.DoEvents()
-		self.assert_(self.ed.Length > 0)
+		self.assertTrue(self.ed.Length > 0)
 
 	def testHugeReplace(self):
 		oneLine = (string.ascii_letters + string.digits + "\n").encode('utf-8')
@@ -86,7 +86,7 @@ class TestPerformance(unittest.TestCase):
 		duration = end - start
 		print("%6.3f testHugeReplace" % duration)
 		self.xite.DoEvents()
-		self.assert_(self.ed.Length > 0)
+		self.assertTrue(self.ed.Length > 0)
 
 	def testUTF8CaseSearches(self):
 		self.ed.SetCodePage(65001)
@@ -101,7 +101,7 @@ class TestPerformance(unittest.TestCase):
 			self.ed.TargetEnd = self.ed.Length-1
 			self.ed.SearchFlags = self.ed.SCFIND_MATCHCASE
 			pos = self.ed.SearchInTarget(len(searchString), searchString)
-			self.assert_(pos > 0)
+			self.assertTrue(pos > 0)
 		end = timer()
 		duration = end - start
 		print("%6.3f testUTF8CaseSearches" % duration)
@@ -120,7 +120,7 @@ class TestPerformance(unittest.TestCase):
 			self.ed.TargetEnd = self.ed.Length-1
 			self.ed.SearchFlags = 0
 			pos = self.ed.SearchInTarget(len(searchString), searchString)
-			self.assert_(pos > 0)
+			self.assertTrue(pos > 0)
 		end = timer()
 		duration = end - start
 		print("%6.3f testUTF8Searches" % duration)
@@ -139,7 +139,7 @@ class TestPerformance(unittest.TestCase):
 			self.ed.TargetEnd = self.ed.Length-1
 			self.ed.SearchFlags = 0
 			pos = self.ed.SearchInTarget(len(searchString), searchString)
-			self.assert_(pos > 0)
+			self.assertTrue(pos > 0)
 		end = timer()
 		duration = end - start
 		print("%6.3f testUTF8AsciiSearches" % duration)

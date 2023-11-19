@@ -3802,6 +3802,18 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_LTR :
 		{
 			bool toRTL = id == IDM_EDIT_RTL;
+
+			if (toRTL && (NppParameters::getInstance()).getNppGUI()._writeTechnologyEngine == directWriteTechnology)
+			{
+				_nativeLangSpeaker.messageBox("RTLvsDirectWrite",
+					_pPublicInterface->getHSelf(),
+					TEXT("RTL is not compatible with Direct Write mode. Please disable Direct Write mode in MISC. section of Preferences dialog, restart Notepad++, and try this command again."),
+					TEXT("Cannot run RTL"),
+					MB_OK | MB_APPLMODAL);
+				return;
+				return;
+			}
+
 			bool isRTL = _pEditView->isTextDirectionRTL();
 
 			if ((toRTL && isRTL) || (!toRTL && !isRTL))

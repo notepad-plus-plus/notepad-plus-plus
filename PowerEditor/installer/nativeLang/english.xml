@@ -1720,6 +1720,11 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-result-title value="Search"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Extended"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Case"/>
+			<find-result-title-info-options-word value="Word"/>
 			<find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
 			<find-result-hits value="($INT_REPLACE$ hits)"/>
 			<find-result-line-prefix value="Line"/><!-- Must not begin with space or tab character -->

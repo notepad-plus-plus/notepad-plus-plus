@@ -2123,7 +2123,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	progress.close();
 
 	const bool searchedInSelection = false;
-	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), findInFolderInfo->_findOption._isMatchLineNumber, !searchedInSelection);
+	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), !searchedInSelection, &(findInFolderInfo->_findOption));
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;

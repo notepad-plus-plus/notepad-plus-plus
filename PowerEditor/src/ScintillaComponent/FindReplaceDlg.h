@@ -82,7 +82,7 @@ struct FindOption
 	bool _isProjectPanel_2 = false;
 	bool _isProjectPanel_3 = false;
 	bool _dotMatchesNewline = false;
-	bool _isMatchLineNumber = true; // only for Find in Folder
+	bool _isMatchLineNumber = false; // always false for main search
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -124,7 +124,7 @@ public:
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
-	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
+	void addSearchResultInfo(int count, int countSearched, bool searchedEntireNotSelection, const FindOption *pFindOpt);
 	const char* foundLine(FoundInfo fi, SearchResultMarkingLine mi, const TCHAR* foundline, size_t totalLineNumber);
 	void setFinderStyle();
 	void setFinderStyleForNpc(bool onlyColor = false);
@@ -135,7 +135,7 @@ public:
 	void copy();
 	void copyPathnames();
 	void beginNewFilesSearch();
-	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
+	void finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection, const FindOption *pFindOpt);
 	
 	void gotoNextFoundResult(int direction);
 	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value 0 means this argument is not used
@@ -232,6 +232,7 @@ public:
 	FindInFinderDlg() {
 		_options._isMatchCase = false;
 		_options._isWholeWord = false;
+		_options._isMatchLineNumber = true;
 	};
 
 private:
@@ -340,8 +341,7 @@ public :
 
 	void finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection)
 	{
-		const bool isMatchLines = false;
-		_pFinder->finishFilesSearch(count, searchedCount, isMatchLines, searchedEntireNotSelection);
+		_pFinder->finishFilesSearch(count, searchedCount, searchedEntireNotSelection, _env);
 	}
 
 	void focusOnFinder() {

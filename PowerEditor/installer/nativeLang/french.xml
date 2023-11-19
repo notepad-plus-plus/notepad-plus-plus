@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="français" filename="french.xml" version="8.5.9">
+	<Native-Langue name="français" filename="french.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1505,6 +1505,7 @@ Notez que si vous choisissez de ne pas créer d'espaces réservés ou de les fer
 Voulez-vous créer des espaces réservés pour eux ?
 
 NOTE : Si vous choisissez de ne pas créer d'espaces réservés ou de les fermer plus tard, votre fichier de session sera modifié à la sortie. Nous vous suggérons de faire une sauvegarde du fichier de session &quot;session.xml&quot; maintenant."/>
+			<RTLvsDirectWrite title="Exécution de la commande &quot;Texte de droite à gauche&quot; impossible" message="&quot;Texte de droite à gauche&quot; n'est pas compatible avec le mode &quot;DirectWrite&quot;. Veuillez désactiver ce mode dans la section &quot;Divers&quot; du dialogue Préférences, redémarer Notepad++, pour exécuter la commande de nouveau."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

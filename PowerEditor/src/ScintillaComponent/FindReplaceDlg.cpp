@@ -4676,13 +4676,21 @@ void Finder::addFileHitCount(int count)
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection)
+void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pfo)
 {
 	generic_string nbResStr = std::to_wstring(count);
 	generic_string nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
 	generic_string nbSearchedFilesStr = std::to_wstring(countSearched);
 
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	generic_string searchOptionsText = TEXT("[");
+	if (pfo->_isMatchCase) searchOptionsText += TEXT("c");
+	if (pfo->_isWholeWord) searchOptionsText += TEXT("w");
+	if (pfo->_searchType == FindNormal) searchOptionsText += TEXT("n");
+	else if (pfo->_searchType == FindExtended) searchOptionsText += TEXT("e");
+	else if (pfo->_searchType == FindRegex) searchOptionsText += TEXT("r");
+	searchOptionsText += TEXT("] ");
 
 	generic_string text = pNativeSpeaker->getLocalizedStrFromID(
 		searchedEntireNotSelection ? "find-result-title-info" : "find-result-title-info-selections",
@@ -4714,6 +4722,8 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 		text = stringReplace(text, TEXT("$INT_REPLACE2$"), nbFoundFilesStr);
 		text = stringReplace(text, TEXT("$INT_REPLACE3$"), nbSearchedFilesStr);
 	}
+
+	text = searchOptionsText + text;
 
 	if (isMatchLines)
 	{
@@ -4956,7 +4966,7 @@ void Finder::beginNewFilesSearch()
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
-void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection)
+void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pfo)
 {
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarkingLine>* _pOldMarkings;
@@ -4974,7 +4984,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCount(count, searchedCount, isMatchLines, searchedEntireNotSelection);
+	addSearchHitCount(count, searchedCount, isMatchLines, searchedEntireNotSelection, pfo);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	//SCI_SETILEXER resets the lexer property @MarkingsStruct and then no data could be exchanged with the searchResult lexer

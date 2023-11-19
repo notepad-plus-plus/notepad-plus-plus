@@ -124,7 +124,7 @@ public:
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
-	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection);
+	void addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption *pfo);
 	const char* foundLine(FoundInfo fi, SearchResultMarkingLine mi, const TCHAR* foundline, size_t totalLineNumber);
 	void setFinderStyle();
 	void setFinderStyleForNpc(bool onlyColor = false);
@@ -135,7 +135,7 @@ public:
 	void copy();
 	void copyPathnames();
 	void beginNewFilesSearch();
-	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection);
+	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection, const FindOption *pfo);
 	
 	void gotoNextFoundResult(int direction);
 	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value 0 means this argument is not used
@@ -336,7 +336,7 @@ public :
 	void finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection)
 	{
 		const bool isMatchLines = false;
-		_pFinder->finishFilesSearch(count, searchedCount, isMatchLines, searchedEntireNotSelection);
+		_pFinder->finishFilesSearch(count, searchedCount, isMatchLines, searchedEntireNotSelection, _env);
 	}
 
 	void focusOnFinder() {

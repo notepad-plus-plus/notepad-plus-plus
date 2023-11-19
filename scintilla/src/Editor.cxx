@@ -3750,7 +3750,7 @@ int Editor::DelWordOrLine(Message iMessage) {
 		case Message::DelLineRight:
 			rangeDelete = Range(
 				sel.Range(r).caret.Position(),
-				pdoc->LineEnd(pdoc->LineFromPosition(sel.Range(r).caret.Position())));
+				pdoc->LineEndPosition(sel.Range(r).caret.Position()));
 			break;
 		default:
 			break;
@@ -4337,7 +4337,7 @@ void Editor::CopySelectionRange(SelectionText *ss, bool allowLineCopy) {
 			std::sort(rangesInOrder.begin(), rangesInOrder.end());
 		for (const SelectionRange &current : rangesInOrder) {
 				text.append(RangeText(current.Start().Position(), current.End().Position()));
-			if (rangesInOrder.size() > 1) {
+			if (sel.selType == Selection::SelTypes::rectangle) {
 				if (pdoc->eolMode != EndOfLine::Lf)
 					text.push_back('\r');
 				if (pdoc->eolMode != EndOfLine::Cr)
@@ -4345,7 +4345,7 @@ void Editor::CopySelectionRange(SelectionText *ss, bool allowLineCopy) {
 			}
 		}
 		ss->Copy(text, pdoc->dbcsCodePage,
-			vs.styles[StyleDefault].characterSet, rangesInOrder.size() > 1, sel.selType == Selection::SelTypes::lines);
+			vs.styles[StyleDefault].characterSet, sel.IsRectangular(), sel.selType == Selection::SelTypes::lines);
 	}
 }
 

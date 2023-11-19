@@ -13,7 +13,7 @@ namespace Scintilla::Internal {
 struct StyleAndColour {
 	Scintilla::IndicatorStyle style;
 	ColourRGBA fore;
-	StyleAndColour() noexcept : style(Scintilla::IndicatorStyle::Plain), fore(0, 0, 0) {
+	StyleAndColour() noexcept : style(Scintilla::IndicatorStyle::Plain), fore(black) {
 	}
 	StyleAndColour(Scintilla::IndicatorStyle style_, ColourRGBA fore_ = black) noexcept : style(style_), fore(fore_) {
 	}

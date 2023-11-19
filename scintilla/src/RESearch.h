@@ -45,7 +45,7 @@ private:
 	void ChSetWithCase(unsigned char c, bool caseSensitive) noexcept;
 	int GetBackslashExpression(const char *pattern, int &incr) noexcept;
 
-	Sci::Position PMatch(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp, char *ap);
+	Sci::Position PMatch(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp, const char *ap);
 
 	Sci::Position bol;
 	Sci::Position tagstk[MAXTAG];  /* subpat tag stack */

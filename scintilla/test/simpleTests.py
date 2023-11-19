@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# @file simpleTests.py
 # Requires Python 2.7 or later
 
 from __future__ import with_statement
@@ -1741,6 +1742,11 @@ def selectionRangeRepresentation(selectionRange):
 	anchor, caret = selectionRange
 	return selectionPositionRepresentation(anchor) + "-" + selectionPositionRepresentation(caret)
 
+def selectionRepresentation(ed, n):
+	anchor = (ed.GetSelectionNAnchor(n), ed.GetSelectionNAnchorVirtualSpace(n))
+	caret = (ed.GetSelectionNCaret(n), ed.GetSelectionNCaretVirtualSpace(n))
+	return selectionRangeRepresentation((anchor, caret))
+
 class TestMultiSelection(unittest.TestCase):
 
 	def setUp(self):
@@ -1959,11 +1965,6 @@ class TestMultiSelection(unittest.TestCase):
 		self.assertEqual(self.textOfSelection(0), texts[1])
 		self.assertEqual(self.textOfSelection(1), texts[0])
 
-	def selectionRepresentation(self, n):
-		anchor = (self.ed.GetSelectionNAnchor(0), self.ed.GetSelectionNAnchorVirtualSpace(0))
-		caret = (self.ed.GetSelectionNCaret(0), self.ed.GetSelectionNCaretVirtualSpace(0))
-		return selectionRangeRepresentation((anchor, caret))
-
 	def testAdjacentSelections(self):
 		# For various permutations of selections, try swapping the text and ensure that the
 		# selections remain distinct
@@ -2007,14 +2008,14 @@ class TestMultiSelection(unittest.TestCase):
 		self.ed.SetSelection(1, 1)
 		self.ed.SetSelectionNAnchorVirtualSpace(0, 2)
 		self.ed.SetSelectionNCaretVirtualSpace(0, 2)
-		self.assertEqual(self.selectionRepresentation(0), "1+2v-1+2v")
+		self.assertEqual(selectionRepresentation(self.ed, 0), "1+2v-1+2v")
 		self.assertEqual(self.textOfSelection(0), b'')
 
 		# Append '1'
 		self.ed.SetTargetRange(1, 1)
 		self.ed.ReplaceTarget(1, b'1')
 		# Selection moved on 1, but still empty
-		self.assertEqual(self.selectionRepresentation(0), "2+1v-2+1v")
+		self.assertEqual(selectionRepresentation(self.ed, 0), "2+1v-2+1v")
 		self.assertEqual(self.ed.Contents(), b'a1')
 		self.assertEqual(self.textOfSelection(0), b'')
 
@@ -2023,7 +2024,7 @@ class TestMultiSelection(unittest.TestCase):
 		self.ed.SetSelection(1, 1)
 		self.ed.SetSelectionNAnchorVirtualSpace(0, 2)
 		self.ed.SetSelectionNCaretVirtualSpace(0, 3)
-		self.assertEqual(self.selectionRepresentation(0), "1+2v-1+3v")
+		self.assertEqual(selectionRepresentation(self.ed, 0), "1+2v-1+3v")
 		self.assertEqual(self.textOfSelection(0), b'')
 
 		# Append '1' past current virtual space
@@ -2032,7 +2033,7 @@ class TestMultiSelection(unittest.TestCase):
 		self.ed.SetTargetEndVirtualSpace(5)
 		self.ed.ReplaceTarget(1, b'1')
 		# Virtual space of selection all converted to real positions
-		self.assertEqual(self.selectionRepresentation(0), "3-4")
+		self.assertEqual(selectionRepresentation(self.ed, 0), "3-4")
 		self.assertEqual(self.ed.Contents(), b'a    1')
 		self.assertEqual(self.textOfSelection(0), b' ')
 

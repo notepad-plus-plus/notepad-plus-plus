@@ -745,7 +745,7 @@ const char *RESearch::Compile(const char *pattern, Sci::Position length, bool ca
 int RESearch::Execute(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp) {
 	unsigned char c = 0;
 	Sci::Position ep = NOTFOUND;
-	char *ap = nfa;
+	const char * const ap = nfa;
 
 	bol = lp;
 	failure = 0;
@@ -758,7 +758,7 @@ int RESearch::Execute(const CharacterIndexer &ci, Sci::Position lp, Sci::Positio
 		ep = PMatch(ci, lp, endp, ap);
 		break;
 	case EOL:			/* just searching for end of line normal path doesn't work */
-		if (*(ap+1) == END) {
+		if (ap[1] == END) {
 			lp = endp;
 			ep = lp;
 			break;
@@ -766,7 +766,7 @@ int RESearch::Execute(const CharacterIndexer &ci, Sci::Position lp, Sci::Positio
 			return 0;
 		}
 	case CHR:			/* ordinary char: locate it fast */
-		c = *(ap+1);
+		c = ap[1];
 		while ((lp < endp) && (static_cast<unsigned char>(ci.CharAt(lp)) != c))
 			lp++;
 		if (lp >= endp)	/* if EOS, fail, else fall through. */
@@ -830,7 +830,7 @@ int RESearch::Execute(const CharacterIndexer &ci, Sci::Position lp, Sci::Positio
 #define CHRSKIP 3	/* [CLO] CHR chr END      */
 #define CCLSKIP 34	/* [CLO] CCL 32 bytes END */
 
-Sci::Position RESearch::PMatch(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp, char *ap) {
+Sci::Position RESearch::PMatch(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp, const char *ap) {
 	int op = 0;
 	int c = 0;
 	int n = 0;
@@ -904,7 +904,7 @@ Sci::Position RESearch::PMatch(const CharacterIndexer &ci, Sci::Position lp, Sci
 				n = ANYSKIP;
 				break;
 			case CHR:
-				c = *(ap+1);
+				c = ap[1];
 				if (op == CLO || op == LCLO)
 					while ((lp < endp) && (c == ci.CharAt(lp)))
 						lp++;

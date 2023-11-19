@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.11.16"><!-- basiert auf english.xml vom 16.11.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.19"><!-- basiert auf english.xml vom 19.12.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -313,6 +313,8 @@ Translation note:
 					<Item id="44092" name="&amp;7. Tab"/>
 					<Item id="44093" name="&amp;8. Tab"/>
 					<Item id="44094" name="&amp;9. Tab"/>
+					<Item id="44116" name="&amp;Erster Tab"/>
+					<Item id="44117" name="&amp;Letzter Tab"/>
 					<Item id="44095" name="&amp;Nächster Tab"/>
 					<Item id="44096" name="&amp;Vorheriger Tab"/>
 					<Item id="44097" name="Überwachen (tail -f)"/>
@@ -355,12 +357,12 @@ Translation note:
 					<Item id="45057" name="OEM 865 (Nordisch)"/>
 					<Item id="45053" name="OEM 860 (Portugiesisch)"/>
 					<Item id="45056" name="OEM 863 (kanadisches Französisch)"/>
-
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
 					<Item id="10002" name="In zweite Ansicht &amp;duplizieren"/>
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>
 					<Item id="10004" name="In neue Instan&amp;z duplizieren"/>
-
+					<Item id="10005" name="Zum Anfang verschieben"/>
+					<Item id="10006" name="Ans Ende verschieben"/>
 					<Item id="46001" name="&amp;Stile konfigurieren …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
 					<Item id="46300" name="Verzeichnis mit benutzerdefinierten Sprachen öffnen …"/>
@@ -519,9 +521,9 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Suchen"/>
-				<Item id="1685" name="Groß-/Kleinschreibung"/>
-				<Item id="1690" name="Alle markieren"/>
+				<Item id="1681" name="Suchen:"/>
+				<Item id="1685" name="&amp;Groß-/Kleinschreibung"/>
+				<Item id="1690" name="&amp;Alle markieren"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
@@ -1502,8 +1504,6 @@ Bitte die Kommandos daher testen und falls nötig editieren.
 Alternativ dazu kann auch auf die ältere Version Notepad++ v8.5.2 gewechselt und dort die aktuellen Daten gesichert werden.
 Notepad++ wird ein Backup der alten &quot;shortcuts.xml&quot; machen und die Datei als &quot;shortcuts.xml.v8.5.2.backup&quot; speichern.
 Beim darauf folgenden Umbenennen der &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; sollten die Kommandos wiederhergestellt sein und wieder funktionieren."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="Anzahl der Dateien zum Öffnen ist zu groß" message="$INT_REPLACE$ Dateien wären zu Öffnen.
-Sollen wirklich alle diese Dateien geöffnet werden?"/>
 			<NotEnoughRoom4Saving title="Speichern fehlgeschlagen" message="Konnte Datei nicht speichern.
 Es ist nicht genug Speicherplatz vorhanden, daher wurde die Datei nicht gespeichert."/>
 			<FileInaccessibleUserSession title="Datei nicht zugänglich" message="Einige Dateien der manuell gespeicherten Sitzung &quot;$STR_REPLACE$&quot; sind nicht zugänglich. Sie können aber als leere Datei und schreibgeschützt als Platzhalter geöffnet werden.
@@ -1516,6 +1516,8 @@ HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wi
 Sollen diese Dateil-Platzhalter erstellt werden?
 
 HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wird die Sitzung beim Beenden MODIFIZIERT! Es wird empfohlen jetzt eine Sicherung der Sitzung &quot;session.xml&quot; zu machen."/>
+			<RTLvsDirectWrite title="Kann nicht auf 'Schreibrichtung von rechts nach links' (RTL) schalten" message="'RTL' ist nicht kompatibel mit dem 'DirectWrite' Modus. Bitte dazu 'DirectWrite' unter 'Diverses' in den Einstellungen deaktivieren und danach Notepad++ neu starten."/>
+			<FileMemoryAllocationFailed title="Ausnahmefehler: Dateispeicherzuweisung fehlgeschlagen" message="Eventuell gibt es nicht genügend zusammenhängenden freien Speicher für die von Notepad++ geladene Datei."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1729,6 +1731,11 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-result-title value="Suche"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Dateien von $INT_REPLACE3$ gesucht)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Auswahlen von $INT_REPLACE3$ gesucht)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Erweitert"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Fall"/>
+			<find-result-title-info-options-word value="Wort"/>
 			<find-result-title-info-extra value=" - Zeilenfilter-Modus: nur die Treffer anzeigen"/>
 			<find-result-hits value="($INT_REPLACE$ Treffer)"/>
 			<find-result-line-prefix value="Zeile"/><!-- Must not begin with space or tab character -->

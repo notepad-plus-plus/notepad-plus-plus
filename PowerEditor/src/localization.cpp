@@ -418,7 +418,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle)
 	}
 }
 
-
+// Important: these indexes must match itemUnitArray in `Notepad_plus::notify(SCNotification* notification)`.
 static const int tabCmSubMenuEntryPos[] =
 {
 //   +-------------- The submenu entry item position on the top level of tab context menu
@@ -427,11 +427,11 @@ static const int tabCmSubMenuEntryPos[] =
 //   |       |
 //   |       |
 //   |       |
-     1,   // 0  Close Multiple Tabs
-     4,   // 1  Open into
-    13,   // 2  Copy to Clipboard
-    14,   // 3  Move Document
-    15,   // 4  Apply Color to Tab
+     1,   // 0  Close Multiple Tabs - IDM_FILE_CLOSEALL_BUT_CURRENT
+     7,   // 1  Open into - IDM_FILE_OPEN_FOLDER
+    20,   // 2  Copy to Clipboard - (IDM_EDIT_FULLPATHTOCLIP
+    23,   // 3  Move Document - IDM_VIEW_GOTO_ANOTHER_VIEW
+    27,   // 4  Apply Color to Tab - IDM_VIEW_TAB_COLOUR_1
 };
 
 

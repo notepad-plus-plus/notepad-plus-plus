@@ -3810,7 +3810,7 @@ void Notepad_plus::command(int id)
 					TEXT("RTL is not compatible with Direct Write mode. Please disable Direct Write mode in MISC. section of Preferences dialog, restart Notepad++, and try this command again."),
 					TEXT("Cannot run RTL"),
 					MB_OK | MB_APPLMODAL);
-				return;
+
 				return;
 			}
 

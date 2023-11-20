@@ -3803,6 +3803,16 @@ void Notepad_plus::command(int id)
 		{
 			bool toRTL = id == IDM_EDIT_RTL;
 
+			bool isRTL = _pEditView->isTextDirectionRTL();
+
+			if ((toRTL && isRTL) || (!toRTL && !isRTL))
+			{
+				if (! ((NppParameters::getInstance()).getNppGUI())._muteSounds)
+					::MessageBeep(MB_OK);
+
+				return;
+			}
+
 			if (toRTL && (NppParameters::getInstance()).getNppGUI()._writeTechnologyEngine == directWriteTechnology)
 			{
 				_nativeLangSpeaker.messageBox("RTLvsDirectWrite",
@@ -3812,15 +3822,6 @@ void Notepad_plus::command(int id)
 					MB_OK | MB_APPLMODAL);
 
 				return;
-			}
-
-			bool isRTL = _pEditView->isTextDirectionRTL();
-
-			if ((toRTL && isRTL) || (!toRTL && !isRTL))
-			{
-				if (! ((NppParameters::getInstance()).getNppGUI())._muteSounds)
-					::MessageBeep(MB_OK);
-				break;
 			}
 
 			_pEditView->changeTextDirection(toRTL);

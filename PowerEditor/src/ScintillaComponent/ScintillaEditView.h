@@ -773,6 +773,7 @@ public:
 	void removeAnyDuplicateLines();
 	bool expandWordSelection();
 	bool pasteToMultiSelection() const;
+	void setElementColour(int element, COLORREF color) const { execute(SCI_SETELEMENTCOLOUR, element, color | 0xFF000000); };
 
 protected:
 	static bool _SciInit;

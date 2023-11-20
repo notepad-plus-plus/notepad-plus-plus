@@ -5004,7 +5004,7 @@ void Finder::setFinderStyle()
 		const Style * pStyle = pStyler->findByID(SCE_SEARCHRESULT_CURRENT_LINE);
 		if (pStyle)
 		{
-			_scintView.execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, pStyle->_bgColor);
+			_scintView.setElementColour(SC_ELEMENT_CARET_LINE_BACK, pStyle->_bgColor);
 			_scintView.execute(SCI_SETCARETLINEFRAME, 0);
 			_scintView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 		}

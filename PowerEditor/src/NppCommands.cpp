@@ -4039,8 +4039,8 @@ void Notepad_plus::command(int id)
 
 			if (svp._currentLineHiliteMode != LINEHILITE_NONE)
 			{
-				_mainEditView.execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, bgColour);
-				_subEditView.execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, bgColour);
+				_mainEditView.setElementColour(SC_ELEMENT_CARET_LINE_BACK, bgColour);
+				_subEditView.setElementColour(SC_ELEMENT_CARET_LINE_BACK, bgColour);
 			}
 			else
 			{

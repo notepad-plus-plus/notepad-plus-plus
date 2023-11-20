@@ -1299,10 +1299,10 @@ void AutoCompletion::setColour(COLORREF colour2Set, AutocompleteColorIndex i)
 
 void AutoCompletion::drawAutocomplete(ScintillaEditView* pEditView)
 {
-	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST, _autocompleteText);
-	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST_BACK, _autocompleteBg);
-	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST_SELECTED, _selectedText);
-	pEditView->execute(SCI_SETELEMENTCOLOUR, SC_ELEMENT_LIST_SELECTED_BACK, _selectedBg);
+	pEditView->setElementColour(SC_ELEMENT_LIST, _autocompleteText);
+	pEditView->setElementColour(SC_ELEMENT_LIST_BACK, _autocompleteBg);
+	pEditView->setElementColour(SC_ELEMENT_LIST_SELECTED, _selectedText);
+	pEditView->setElementColour(SC_ELEMENT_LIST_SELECTED_BACK, _selectedBg);
 
 	pEditView->execute(SCI_CALLTIPSETBACK, _calltipBg);
 	pEditView->execute(SCI_CALLTIPSETFORE, _calltipText);

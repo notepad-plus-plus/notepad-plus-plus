@@ -4684,14 +4684,6 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	generic_string searchOptionsText = TEXT("[");
-	if (pfo->_isMatchCase) searchOptionsText += TEXT("c");
-	if (pfo->_isWholeWord) searchOptionsText += TEXT("w");
-	if (pfo->_searchType == FindNormal) searchOptionsText += TEXT("n");
-	else if (pfo->_searchType == FindExtended) searchOptionsText += TEXT("e");
-	else if (pfo->_searchType == FindRegex) searchOptionsText += TEXT("r");
-	searchOptionsText += TEXT("] ");
-
 	generic_string text = pNativeSpeaker->getLocalizedStrFromID(
 		searchedEntireNotSelection ? "find-result-title-info" : "find-result-title-info-selections",
 		TEXT(""));
@@ -4723,7 +4715,35 @@ void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, 
 		text = stringReplace(text, TEXT("$INT_REPLACE3$"), nbSearchedFilesStr);
 	}
 
-	text = searchOptionsText + text;
+	generic_string searchOptionsText = TEXT(" [");
+	bool searchOptAdded = false;
+	if (pfo->_isWholeWord)
+	{
+		searchOptionsText += TEXT("Word");
+		searchOptAdded = true;
+	}
+	if (pfo->_isMatchCase)
+	{
+		if (searchOptAdded) searchOptionsText += TEXT("/");
+		searchOptionsText += TEXT("Case");
+		searchOptAdded = true;
+	}
+	if (searchOptAdded) searchOptionsText += TEXT("/");
+	if (pfo->_searchType == FindNormal)
+	{
+		searchOptionsText += TEXT("Norm");
+	}
+	else if (pfo->_searchType == FindExtended)
+	{
+		searchOptionsText += TEXT("Ext");
+	}
+	else if (pfo->_searchType == FindRegex)
+	{
+		searchOptionsText += TEXT("Regex");
+		if (pfo->_dotMatchesNewline) searchOptionsText += TEXT(".");
+	}
+	searchOptionsText += TEXT("]");
+	text += searchOptionsText;
 
 	if (isMatchLines)
 	{

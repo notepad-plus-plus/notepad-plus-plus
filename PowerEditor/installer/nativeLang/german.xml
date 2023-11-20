@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.11.19"><!-- basiert auf english.xml vom 17.11.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.11.20"><!-- basiert auf english.xml vom 17.11.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -48,8 +48,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="edit-pasteSpecial" name="Einf&amp;ügen speziell"/>
 					<Item subMenuId="edit-onSelection" name="Mit Auswahl"/>
-					<Item subMenuId="edit-multiSelectALL" name="Mehrfach-Auswahl ALLE"/>
-					<Item subMenuId="edit-multiSelectNext" name="Mehrfach-Auswahl Nächstes"/>
+					<Item subMenuId="edit-multiSelectALL" name="Mehrfachauswahl ALLE"/>
+					<Item subMenuId="edit-multiSelectNext" name="Mehrfachauswahl Nächstes"/>
 					<Item subMenuId="search-changeHistory" name="Änderungs-Historie"/>
 					<Item subMenuId="search-markAll" name="&amp;Alle Vorkommen hervorheben"/>
 					<Item subMenuId="search-markOne" name="Di&amp;eses Vorkommen hervorheben"/>
@@ -165,16 +165,16 @@ Translation note:
 					<Item id="42074" name="Verzeichnis im Explorer öffnen"/>
 					<Item id="42075" name="Im Internet suchen"/>
 					<Item id="42076" name="Andere Suchmaschine wählen …"/>
-					<Item id="42090" name="Ignoriere Übereinstimmung &amp;&amp; ganzes Wort"/>
-					<Item id="42091" name="Nur Übereinstimmung"/>
+					<Item id="42090" name="Ignoriere Groß- und Kleinschreibung &amp;&amp; ganzes Wort"/>
+					<Item id="42091" name="Nur Übereinstimmung Groß- und Kleinschreibung"/>
 					<Item id="42092" name="Nur Übereinstimmung ganzes Wort"/>
-					<Item id="42093" name="Übereinstimmung &amp;&amp; ganzes Wort"/>
-					<Item id="42094" name="Ignoriere Übereinstimmung &amp;&amp; ganzes Wort"/>
-					<Item id="42095" name="Nur Übereinstimmung"/>
+					<Item id="42093" name="Übereinstimmung Groß- und Kleinschreibung &amp;&amp; ganzes Wort"/>
+					<Item id="42094" name="Ignoriere Groß- und Kleinschreibung &amp;&amp; ganzes Wort"/>
+					<Item id="42095" name="Nur Übereinstimmung Groß- und Kleinschreibung"/>
 					<Item id="42096" name="Nur Übereinstimmung ganzes Wort"/>
-					<Item id="42097" name="Übereinstimmung &amp;&amp; ganzes Wort"/>
-					<Item id="42098" name="Letzte Mehrfach-Auswahl rückgängig machen"/>
-					<Item id="42099" name="Aktuelle überspringen &amp;&amp; zur nächsten Mehrfach-Auswahl gehen"/>
+					<Item id="42097" name="Übereinstimmung Groß- und Kleinschreibung &amp;&amp; ganzes Wort"/>
+					<Item id="42098" name="Letzte Mehrfachauswahl rückgängig machen"/>
+					<Item id="42099" name="Aktuelle überspringen &amp;&amp; zur nächsten Mehrfachauswahl gehen"/>
 					<Item id="42018" name="Aufzei&amp;chnung starten"/>
 					<Item id="42019" name="Aufzeichnung s&amp;toppen"/>
 					<Item id="42021" name="Makro ausfüh&amp;ren"/>

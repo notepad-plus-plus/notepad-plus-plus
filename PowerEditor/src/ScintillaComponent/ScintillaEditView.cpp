@@ -319,8 +319,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	if (hNtdllModule)
 		isWINE = ::GetProcAddress(hNtdllModule, "wine_get_version");
 
-	if (!isWINE && // There is a performance issue under WINE when DirectWright is ON, so we turn it off if user uses Notepad++ under WINE
-		!isTextDirectionRTL()) // RTL is not compatible with Direct Write Technology
+	if (isWINE || // There is a performance issue under WINE when DirectWright is ON, so we turn it off if user uses Notepad++ under WINE
+		isTextDirectionRTL()) // RTL is not compatible with Direct Write Technology
 		nppGui._writeTechnologyEngine = defaultTechnology;
 
 	if (nppGui._writeTechnologyEngine == directWriteTechnology)

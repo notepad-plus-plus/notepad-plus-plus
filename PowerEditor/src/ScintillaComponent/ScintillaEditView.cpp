@@ -513,7 +513,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			}
 			break;
 		}
-		
+
 		case WM_KEYDOWN:
 		{
 			SHORT ctrl = GetKeyState(VK_CONTROL);
@@ -534,7 +534,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				else if (!(shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // DEL & Multi-edit
 				{
 					size_t nbSelections = execute(SCI_GETSELECTIONS);
-					if (nbSelections > 1)
+					if (nbSelections > 1) // Multi-edit
 					{
 						execute(SCI_BEGINUNDOACTION);
 						for (size_t i = 0; i < nbSelections; ++i)
@@ -554,9 +554,18 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 								tr.lpstrText = eolStr;
 								execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
 
-								int len = (eolStr[0] == '\r' && eolStr[1] == '\n') ? 2 : 1;
+								// Treat only EOL
+								// The other char let Scintilla do its job
+								int len = -1;
+								if (eolStr[0] == '\r' && eolStr[1] == '\n')
+									len = 2;
+								else if (eolStr[0] == '\r' || eolStr[0] == '\n')
+									len = 1;
 
-								replaceTarget(L"", posStart, posEnd + len);
+								if (len == -1)
+									return _callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
+								else
+									replaceTarget(L"", posStart, posEnd + len);
 							}
 
 							execute(SCI_SETSELECTIONNSTART, i, posStart);
@@ -564,6 +573,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						}
 						execute(SCI_ENDUNDOACTION);
 						return TRUE;
+
 					}
 				}
 			}
@@ -641,7 +651,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				}
 			}
 			break;
-		}		
+		}
 
 		case WM_VSCROLL :
 		{

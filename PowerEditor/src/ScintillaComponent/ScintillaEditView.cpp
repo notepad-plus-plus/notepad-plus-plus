@@ -570,8 +570,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 								if (tr.chrg.cpMin != tr.chrg.cpMax)
 									execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
 
-								// Treat only EOL
-								// The other char let Scintilla do its job
+								// Remember EOL length
+								// in the case of other characters let Scintilla do its job
 								int len2remove = -1;
 
 								if (eolStr[0] == '\r' && eolStr[1] == '\n')
@@ -588,39 +588,21 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 						execute(SCI_BEGINUNDOACTION);
 
-						if (!nbCaseForScint) //all EolEdge cases
-						{
-							for (const auto& i : edgeOfEol)
-							{
-								// because the current caret modification will change the other caret positions,
-								// so we get them dynamically in the loop.
-								LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i._selIndex);
-								LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i._selIndex);
-
-								replaceTarget(L"", posStart, posEnd + i._len2remove);
-								execute(SCI_SETSELECTIONNSTART, i._selIndex, posStart);
-								execute(SCI_SETSELECTIONNEND, i._selIndex, posStart);
-							}
-						}
-						else if (!edgeOfEol.size()) //no EolEdge case
-						{
-							_callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
-						}
-						else // both
-						{
+						// Let Scitilla do its job, if any
+						if (nbCaseForScint)
 							_callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 
-							for (const auto& i : edgeOfEol)
-							{
-								// because the current caret modification will change the other caret positions,
-								// so we get them dynamically in the loop.
-								LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i._selIndex);
-								LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i._selIndex);
+						// then do our job, if any
+						for (const auto& i : edgeOfEol)
+						{
+							// because the current caret modification will change the other caret positions,
+							// so we get them dynamically in the loop.
+							LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i._selIndex);
+							LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i._selIndex);
 
-								replaceTarget(L"", posStart, posEnd + i._len2remove);
-								execute(SCI_SETSELECTIONNSTART, i._selIndex, posStart);
-								execute(SCI_SETSELECTIONNEND, i._selIndex, posStart);
-							}
+							replaceTarget(L"", posStart, posEnd + i._len2remove);
+							execute(SCI_SETSELECTIONNSTART, i._selIndex, posStart);
+							execute(SCI_SETSELECTIONNEND, i._selIndex, posStart);
 						}
 
 						execute(SCI_ENDUNDOACTION);

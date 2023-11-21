@@ -513,9 +513,15 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			}
 			break;
 		}
-		
+
 		case WM_KEYDOWN:
 		{
+			struct MultiCaretInfo {
+				int _len2remove;
+				size_t _selIndex;
+				MultiCaretInfo(int len, size_t n) : _len2remove(len), _selIndex(n) {};
+			};
+
 			SHORT ctrl = GetKeyState(VK_CONTROL);
 			SHORT alt = GetKeyState(VK_MENU);
 			SHORT shift = GetKeyState(VK_SHIFT);
@@ -534,36 +540,75 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				else if (!(shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // DEL & Multi-edit
 				{
 					size_t nbSelections = execute(SCI_GETSELECTIONS);
-					if (nbSelections > 1)
+					if (nbSelections > 1) // Multi-edit
 					{
-						execute(SCI_BEGINUNDOACTION);
+						vector<MultiCaretInfo> edgeOfEol; // parir <start, end>, pair <len2remove, selN>
+						int nbCaseForScint = 0;
+
 						for (size_t i = 0; i < nbSelections; ++i)
 						{
 							LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
 							LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
 							if (posStart != posEnd)
 							{
-								replaceTarget(L"", posStart, posEnd);
+								++nbCaseForScint;
 							}
 							else // posStart == posEnd)
 							{
+								size_t docLen = getCurrentDocLen();
+
 								char eolStr[3];
 								Sci_TextRange tr;
 								tr.chrg.cpMin = posStart;
 								tr.chrg.cpMax = posEnd + 2;
+								if (tr.chrg.cpMax > static_cast<Sci_PositionCR>(docLen))
+								{
+									tr.chrg.cpMax = docLen;
+								}
 								tr.lpstrText = eolStr;
-								execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
 
-								int len = (eolStr[0] == '\r' && eolStr[1] == '\n') ? 2 : 1;
+								if (tr.chrg.cpMin != tr.chrg.cpMax)
+									execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
 
-								replaceTarget(L"", posStart, posEnd + len);
+								// Remember EOL length
+								// in the case of other characters let Scintilla do its job
+								int len2remove = -1;
+
+								if (eolStr[0] == '\r' && eolStr[1] == '\n')
+									len2remove = 2;
+								else if (eolStr[0] == '\r' || eolStr[0] == '\n')
+									len2remove = 1;
+
+								if (len2remove == -1)
+									++nbCaseForScint;
+								else
+									edgeOfEol.push_back(MultiCaretInfo(len2remove, i));
 							}
-
-							execute(SCI_SETSELECTIONNSTART, i, posStart);
-							execute(SCI_SETSELECTIONNEND, i, posStart);
 						}
+
+						execute(SCI_BEGINUNDOACTION);
+
+						// Let Scitilla do its job, if any
+						if (nbCaseForScint)
+							_callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
+
+						// then do our job, if any
+						for (const auto& i : edgeOfEol)
+						{
+							// because the current caret modification will change the other caret positions,
+							// so we get them dynamically in the loop.
+							LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i._selIndex);
+							LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i._selIndex);
+
+							replaceTarget(L"", posStart, posEnd + i._len2remove);
+							execute(SCI_SETSELECTIONNSTART, i._selIndex, posStart);
+							execute(SCI_SETSELECTIONNEND, i._selIndex, posStart);
+						}
+
 						execute(SCI_ENDUNDOACTION);
+
 						return TRUE;
+
 					}
 				}
 			}
@@ -641,7 +686,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				}
 			}
 			break;
-		}		
+		}
 
 		case WM_VSCROLL :
 		{

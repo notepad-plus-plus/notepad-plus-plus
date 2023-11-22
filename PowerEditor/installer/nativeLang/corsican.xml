@@ -14,7 +14,7 @@ Additionnal information about Corsican localization:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
-			  Nov. 15th (v8.5.9)
+			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -32,7 +32,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.5.9">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1305,7 +1305,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="6278" name="Esempiu : https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 
-				<MISC title="Diversu">
+				<MISC title="Diversi">
 					<ComboBox id="6347">
 						<Element name="Attivà"/>
 						<Element name="Attivà per tutti i schedarii aperti"/>
@@ -1522,8 +1522,6 @@ Ci vole à pruvà ste cumande è, s’ella hè bisognu, à mudificalle.
 Un altra pussibilità hè di rivene à a versione Notepad++ v8.5.2 è risturà i vostri dati anteriore.
 Notepad++ hà da fà una salvaguardia di u vostru « shortcuts.xml » è arregistrallu cù u nome « shortcuts.xml.v8.5.2.backup ».
 Rinuminendu « shortcuts.xml.v8.5.2.backup » in « shortcuts.xml », e vostre cumande duverianu funziunà currettamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii stanu per esse aperti.
-Da veru, vulete apreli ?"/>
 			<NotEnoughRoom4Saving title="Fiascu di l’arregistramentu" message="Fiascu à l’arregistramentu di u schedariu.
 Pare ch’ella ùn ci sia abbastanza piazza nant’à u discu per arregistrà u schedariu. U vostru schedariu ùn hè micca arregistratu."/>
 			<FileInaccessibleUserSession title="Schedariu inaccessibile" message="Certi schedarii di a vostra sessione arregistrata manualmente « $STR_REPLACE$ » sò inaccessibile. Ponu esse aperti cum’è ducumenti vioti è in lettura sola tale spazii riservati.
@@ -1536,6 +1534,7 @@ NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli 
 Vulete creà sti spazii riservati per elli ?
 
 NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli dopu, u vostru schedariu di sessione serà mudificatu à l’esce. Vi ricumandemu di fà subitu una salvaguardia di u vostru schedariu di sessione « session.xml »."/>
+			<RTLvsDirectWrite title="Ùn si pò lancià a cumanda « Testu da diritta à manca »" message="« Testu da diritta à manca » ùn hè micca cumpatibile cù u modu « DirectWrite ». Ci vole à disattivà stu modu in a sezzione « Diversi » di e Preferenze, rilancià Notepad++ eppò torna à lancià sta cumanda."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>

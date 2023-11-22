@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 20 November 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 22 November 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1086,7 +1086,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 				</DefaultDir>
 
 				<FileAssoc title="Pridruživanje datoteka">
-					<Item id="4008" name="Kako bi koristili ovu mogućnost, zatvorite Notepad++ i pokrenite ga kao Administrator."/>
+					<Item id="4008" name="Kako bi koristili ovu mogućnost, molim zatvorite Notepad++ i pokrenite ga kao Administrator."/>
 					<Item id="4009" name="Podržani nastavci:"/>
 					<Item id="4010" name="Registrirani nastavci:"/>
 				</FileAssoc>
@@ -1446,7 +1446,7 @@ Ovu datoteku je izmijenio drugi program.
 			<PrehistoricSystemDetected title="Detektiran prapovijesni sistem" message="Izgleda da još koristite prapovijesni operativni sistem. Žao mi je, ali ova mogućnost radi samo na modernim sistemima."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++ ažuriranje" message="Notepad++ ažuriranje nije kompatibilno s XP zbog zastarjele sigurnosne zaštite pod XP.
 Želite li preuzeti najnoviju verziju s Notepad++ web stranica?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Postavke proxyja" message="Molim restartajte Notepad++ u administratorskom načinu
+			<GUpProxyConfNeedAdminMode title="Postavke proxyja" message="Molim zatvorite Notepad++ i pokrenite ga kao Administrator
 kako bi prilagodili proxy."/>
 			<DocTooDirtyToMonitor title="Problem nadgledanja" message="Dokument nije konzistentan. Molim spremite izmjene prije nadgledanja."/>
 			<DocNoExistToMonitor title="Problem nadgledanja" message="Datoteka mora postojati da bi se nadgledala."/>
@@ -1503,7 +1503,7 @@ Nastaviti?"/>
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Nespremljene izmjene će biti odbačene!
 Želite li spremiti izmjene prije promjene teme?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Kompatibilnost Makro i Pokretanje naredbi" message="Vaše Makro i Pokretanje naredbe spremljene u Notepadu++ v.8.5.2 (ili starijem) možda nisu kompatibilne s aktualnom verzijom Notepada++.
-Testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, ispravite ih i ponovno spremite.
+Molim, testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, ispravite ih i ponovno spremite.
 
 Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
 Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
@@ -1521,6 +1521,7 @@ NAPOMENA: Ako odaberete da ne želite kreirati rezervirana mjesta ili ih kasnije
 
 NAPOMENA: Ako odaberete da ne želite kreirati rezervirana mjesta ili ih kasnije zatvorite, vaša će sesija BITI IZMIJENJENA PRI IZLAZKU!
 Predlažemo da napravite sigurnosnu kopiju &quot;session.xml&quot; sada."/>
+			<RTLvsDirectWrite title="Ne mogu pokrenuti RTL" message="RTL nije kompatibilno sa DirectWrite načinom.  Molim, isključite DirectWrite način u Razno odjeljku dijaloga Postavki, restartajte Notepad++, i probajte ovu naredbu ponovo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>
@@ -1639,7 +1640,7 @@ Predlažemo da napravite sigurnosnu kopiju &quot;session.xml&quot; sada."/>
 			<word-chars-list-warning-end value="  u vašem popisu znakova."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Odaberite mapu za sigurnosnu kopiju"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Neispravan put."/>
-			<cloud-restart-warning value="Za aktiviranje ponovno pokrenite Notepad++."/>
+			<cloud-restart-warning value="Za aktiviranje trebate restartati Notepad++."/>
 			<cloud-select-folder value="Odaberite mapu iz koje/u koju Notepad++ čita/piše svoje postavke"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Odaberite zadanu mapu"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Upotrijebite Shift + Enter za pretraživanje u suprotnom smjeru."/>

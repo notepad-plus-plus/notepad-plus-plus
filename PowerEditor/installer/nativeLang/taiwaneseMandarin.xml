@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.5.9">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1233,7 +1233,7 @@
 					<Item id="6324" name="文件切換器（Ctrl + TAB）"/>
 					<Item id="6331" name="在標題列僅顯示檔案名稱（隱藏資料夾路徑）"/>
 					<Item id="6334" name="自動偵測檔案編碼"/>
-					<Item id="6349" name="使用 DirectWrite（可改善特殊字符的呈現，需要重新啟動 Notepad++）"/>
+					<Item id="6349" name="使用「直接寫入」模式（可改善特殊字符的呈現，需要重新啟動 Notepad++）"/>
 					<Item id="6337" name="資料夾工作區檔案副檔名："/>
 					<Item id="6114" name="啟動"/>
 					<Item id="6117" name="開啟「最近使用的檔案」功能"/>
@@ -1390,6 +1390,7 @@
 你想為它們創建佔位欄嗎？
 
 請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份工作階段檔案 &quot;session.xml&quot; 。"/>
+			<RTLvsDirectWrite title="無法執行「文字由右至左」指令" message="「文字由右至左」指令與「直接寫入」模式不相容。 請在偏好設定對話框的「其他」中停用「直接寫入」模式，然後重新​​啟動 Notepad++，重試此指令。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

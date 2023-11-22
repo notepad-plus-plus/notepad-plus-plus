@@ -778,7 +778,9 @@ so your enhanced file can be included in Notepad++ future release.
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="FF80C0" />
         <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="FFD5FF" fgColor="CC0000" />
+        <WidgetStyle name="Multi-selected text color" styleID="0" bgColor="FFD5FF" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" />
+        <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="FFFFFF" bgColor="FF80FF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="FF80FF" />

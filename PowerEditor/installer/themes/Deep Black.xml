@@ -806,7 +806,9 @@ https://notepad-plus-plus.org/donate/
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="333333" />
         <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="6699CC" fgColor="CC0000" />
+        <WidgetStyle name="Multi-selected text color" styleID="0" bgColor="6699CC" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFFFFF" />
+        <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="C0C0C0" bgColor="333333" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="333333" />

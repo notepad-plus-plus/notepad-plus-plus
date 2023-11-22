@@ -935,7 +935,9 @@ Installation:
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="717A39" />
         <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="8B6733" fgColor="000000" />
+        <WidgetStyle name="Multi-selected text color" styleID="0" bgColor="8B6733" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFC973" />
+        <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="FFC973" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="003709" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="603D13" bgColor="7E8A28" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="7E8A28" />

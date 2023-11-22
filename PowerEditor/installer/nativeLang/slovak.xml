@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.5.9">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1510,6 +1510,7 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatv
 			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
 Chcete vytvoriť tieto zástupné karty?
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
+			<RTLvsDirectWrite title="Nie je možné spustiť RTL" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne, reštartujte Notepad++ a skúste tento príkaz znova."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

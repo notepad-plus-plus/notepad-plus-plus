@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.5.9">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1500,8 +1500,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 代案として、Notepad++ 8.5.2 に戻し、以前のデータを復元することもできます。
 以前の「shortcuts.xml」は「shortcuts.xml.v8.5.2.backup」としてバックアップされています。
 復元されるときは、「shortcuts.xml.v8.5.2.backup」を「shortcuts.xml」にリネームしてください。"/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="多数のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。
-開いてもよろしいですか？"/>
 			<NotEnoughRoom4Saving title="保存に失敗しました" message="保存に失敗しました。
 保存先に十分な空き容量がないようです。ファイルは保存されませんでした。"/>
 			<FileInaccessibleUserSession title="ファイルにアクセスできません" message="手動で保存されたセッション「$STR_REPLACE$」の中に、アクセスできないファイルがあります。これらを、読み取り専用の空文書（プレースホルダー）として残しておくことができます。
@@ -1514,6 +1512,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 プレースホルダーとして残しますか？
 
 注意：プレースホルダーとして残さない場合や残した後に閉じた場合、プログラム終了時にセッションに反映されます！　ファイル「session.xml」のバックアップを今すぐ作成することをお勧めします。"/>
+			<RTLvsDirectWrite title="RTL を利用できません" message="右から左への書字方向（RTL）は DirectWrite と互換性がありません。「環境設定」の「その他」にて DirectWrite をオフにし、Notepad++ を再起動してください。その後、もう一度このコマンドを実行してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

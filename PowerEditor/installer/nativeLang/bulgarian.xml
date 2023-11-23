@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 17.11.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 17.12.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -350,10 +350,14 @@
 					<Item id="44092" name="7-ми раздел"/>
 					<Item id="44093" name="8-ми раздел"/>
 					<Item id="44094" name="9-ти раздел"/>
+					<Item id="44116" name="Първи раздел"/>
+					<Item id="44117" name="Последен раздел"/>
 					<Item id="44095" name="Следващ раздел"/>
 					<Item id="44096" name="Предходен раздел"/>
-					<Item id="44098" name="Преместване раздела напред"/>
-					<Item id="44099" name="Преместване раздела назад"/>
+					<Item id="10005" name="Преместване в началото"/>
+					<Item id="10006" name="Преместване в края"/>
+					<Item id="44098" name="Преместване напред"/>
+					<Item id="44099" name="Преместване назад"/>
 					<Item id="44111" name="Прилагане на цвят 1"/>
 					<Item id="44112" name="Прилагане на цвят 2"/>
 					<Item id="44113" name="Прилагане на цвят 3"/>
@@ -1652,6 +1656,11 @@
 			<find-result-title value="Търсене на"/>
 			<find-result-title-info value="($INT_REPLACE1$ повторения в $INT_REPLACE2$ файл(а) от $INT_REPLACE3$ претърсен(и))"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ повторения в $INT_REPLACE2$ избран(и) от $INT_REPLACE3$ претърсен(и))"/>
+			<find-result-title-info-options-searchmode-normal value="Нормален"/>
+			<find-result-title-info-options-searchmode-extended value="Разширен"/>
+			<find-result-title-info-options-searchmode-regexp value="Регулярен израз"/>
+			<find-result-title-info-options-case value="Главни / малки букви"/>
+			<find-result-title-info-options-word value="Само цели думи"/>
 			<find-result-title-info-extra value=" – Режим за филтриране на редове: показват се само филтрираните резултати"/>
 			<find-result-hits value="($INT_REPLACE$ повторения)"/>
 			<find-result-line-prefix value="Ред"/>
@@ -1830,7 +1839,7 @@ U+FEFF : пространство с нулева ширина без прекъ
 2. (Само клавиатура) – Задръжте Alt + Shift + клавиш стрелка
 
 3. (Клавиатура или мишка) –
-Поставете курсора на желаната позиция за начало на блокана колоната и изпълнете командата &quot;Начало / Край на маркиране в колонен режим&quot;
+Поставете курсора на желаната позиция за начало на блока на колоната и изпълнете командата &quot;Начало / Край на маркиране в колонен режим&quot;
 
 Преместете курсора до желаната позиция за край на блока на колоната и отново изпълнете командата &quot;Начало / Край на маркиране в колонен режим&quot;"/>
 			<SortingError title="Грешка при подреждане" message="Подреждането на числа не може да се изпълни заради ред $INT_REPLACE$"/>
@@ -1953,6 +1962,8 @@ Notepad++ ще направи резервно копие на стария фа
 
 ЗАБЕЛЕЖКА:
 Ако изберете да не създавате заместители или да ги затворите по-късно, сесията ЩЕ БЪДЕ МОДИФИЦИРАНА ПРИ ИЗХОД! Препоръчва се да направите резервно копие на &quot;session.xml&quot; сега."/>
+			<RTLvsDirectWrite title="Не може да се изпълни посока на текста отдясно наляво" message="Посоката на текста отдясно наляво не е съвместима с DirectWrite режима. Моля, изключете DirectWrite в раздел &quot;Разни&quot; от предпочитаните настройки и рестартирайте Notepad++."/>
+			<FileMemoryAllocationFailed title="Изключение: Неуспешно разпределение на паметта на файла" message="Вероятно няма достатъчно свободна съседна памет за файла, който се зарежда от Notepad++."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

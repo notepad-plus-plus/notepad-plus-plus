@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 22 November 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 23 November 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -1521,7 +1521,8 @@ NAPOMENA: Ako odaberete da ne želite kreirati rezervirana mjesta ili ih kasnije
 
 NAPOMENA: Ako odaberete da ne želite kreirati rezervirana mjesta ili ih kasnije zatvorite, vaša će sesija BITI IZMIJENJENA PRI IZLAZKU!
 Predlažemo da napravite sigurnosnu kopiju &quot;session.xml&quot; sada."/>
-			<RTLvsDirectWrite title="Ne mogu pokrenuti RTL" message="RTL nije kompatibilno sa DirectWrite načinom.  Molim, isključite DirectWrite način u Razno odjeljku dijaloga Postavki, restartajte Notepad++, i probajte ovu naredbu ponovo."/>
+			<RTLvsDirectWrite title="Ne mogu uključiti RTL smjer pisanja" message="Pisanje s desna na lijevo nije kompatibilno sa DirectWrite načinom.
+Molim, isključite DirectWrite način u odjeljku &quot;Razno&quot; u Postavkama, restartajte Notepad++, i probajte ovu naredbu ponovo."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>

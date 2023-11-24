@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Dansk" filename="danish.xml" version="8.5.2">
+	<Native-Langue name="Dansk" filename="danish.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -37,6 +39,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="edit-blankOperations" name="Blanktegn"/>
 					<Item subMenuId="edit-pasteSpecial" name="Indsæt speciel"/>
 					<Item subMenuId="edit-onSelection" name="Ved markering"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multimarkér ALLE"/>
+					<Item subMenuId="edit-multiSelectNext" name="MultiMarkér næste"/>
+					<Item subMenuId="search-changeHistory" name="Ændringshistorik"/>
 					<Item subMenuId="search-markAll" name="Mærk alle"/>
 					<Item subMenuId="search-markOne" name="Mærk enkelte"/>
 					<Item subMenuId="search-unmarkAll" name="Fjern alle mærker"/>
@@ -72,7 +77,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="language-userDefinedLanguage" name="Brugerdefineret sprog"/>
 					<Item subMenuId="settings-import" name="Importér"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
 					<Item subMenuId="window-sortby" name="Sortér efter"/>
 				</SubEntries>
 
@@ -88,7 +95,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="41005" name="Luk alle, undtagen aktuelt dokument"/>
 					<Item id="41009" name="Luk alle til venstre"/>
 					<Item id="41018" name="Luk alle til højre"/>
-					<Item id="41024" name="Luk alle som ikke er ændret"/>
+					<Item id="41024" name="Luk alle uændrede"/>
 					<Item id="41006" name="&amp;Gem"/>
 					<Item id="41007" name="Gem all&amp;e"/>
 					<Item id="41008" name="Gem &amp;som..."/>
@@ -144,11 +151,21 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42069" name="Sætning med stort"/>
 					<Item id="42070" name="Sætning med stort (bland)"/>
 					<Item id="42071" name="oMVENDT"/>
-					<Item id="42072" name="tilFÆldIG"/>
+					<Item id="42072" name="tilFÆldIGt"/>
 					<Item id="42073" name="Åbn fil"/>
 					<Item id="42074" name="Åbn kildemappe i stifinder"/>
 					<Item id="42075" name="Søg online"/>
 					<Item id="42076" name="Skift søgetjeneste..."/>
+					<Item id="42090" name="Ignorér versalfølsom (A/a) og hele ord"/>
+					<Item id="42091" name="Kun versalfølsom (A/a)"/>
+					<Item id="42092" name="Kun hele ord"/>
+					<Item id="42093" name="Versalfølsom (A/a) og hele ord"/>
+					<Item id="42094" name="Ignorér versalfølsom (A/a) og hele ord"/>
+					<Item id="42095" name="Kun versalfølsom (A/a)"/>
+					<Item id="42096" name="Kun hele ord"/>
+					<Item id="42097" name="Versalfølsom (A/a) og hele ord"/>
+					<Item id="42098" name="Fortryd seneste multimarkering"/>
+					<Item id="42099" name="Spring aktuel over og gå til næste multimarkering"/>
 					<Item id="42018" name="&amp;Start optagelse"/>
 					<Item id="42019" name="S&amp;top optagelse"/>
 					<Item id="42021" name="Afs&amp;pil"/>
@@ -247,6 +264,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43064" name="Med 3. stil"/>
 					<Item id="43065" name="Med 4. stil"/>
 					<Item id="43066" name="Med 5. stil"/>
+					<Item id="43067" name="Næste ændring"/>
+					<Item id="43068" name="Forrige ændring"/>
+					<Item id="43069" name="Ryd ændringshistorik"/>
 					<Item id="43045" name="Vis i resultatpanel"/>
 					<Item id="43046" name="Næste søgeresultat"/>
 					<Item id="43047" name="Forrige søgeresultat"/>
@@ -296,6 +316,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44114" name="Anvend farve 4"/>
 					<Item id="44115" name="Anvend farve 5"/>
 					<Item id="44130" name="Vis ikke printbare tegn"/>
+					<Item id="44131" name="Vis kontroltegn &amp; Unicode EOL"/>
 					<Item id="44032" name="Fuldskærm til/fra"/>
 					<Item id="44033" name="Nulstil zoom"/>
 					<Item id="44034" name="Altid øverst"/>
@@ -308,17 +329,17 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="44083" name="Projektpanel 3"/>
 					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
-					<Item id="45003" name="Mac (CR)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
 					<Item id="45004" name="ANSI"/>
 					<Item id="45005" name="UTF-8-BOM"/>
-					<Item id="45006" name="UCS-2 BE BOM"/>
-					<Item id="45007" name="UCS-2 LE BOM"/>
+					<Item id="45006" name="UTF-16 BE BOM"/>
+					<Item id="45007" name="UTF-16 LE BOM"/>
 					<Item id="45008" name="UTF-8"/>
 					<Item id="45009" name="Konvertér til ANSI"/>
 					<Item id="45010" name="Konvertér til UTF-8"/>
 					<Item id="45011" name="Konvertér til UTF-8-BOM"/>
-					<Item id="45012" name="Konvertér til UCS-2 BE BOM"/>
-					<Item id="45013" name="Konvertér til UCS-2 LE BOM"/>
+					<Item id="45012" name="Konvertér til UTF-16 BE BOM"/>
+					<Item id="45013" name="Konvertér til UTF-16 LE BOM"/>
 					<Item id="45060" name="Big5 (traditionel)"/>
 					<Item id="45061" name="GB2312 (forenklet)"/>
 					<Item id="45054" name="OEM 861: Islandsk"/>
@@ -359,6 +380,12 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="48504" name="Generér..."/>
 					<Item id="48505" name="Generér fra filer..."/>
 					<Item id="48506" name="Generér fra markering til udklipsholder"/>
+					<Item id="48507" name="Generér..."/>
+					<Item id="48508" name="Generér fra filer..."/>
+					<Item id="48509" name="Generér fra markering til udklipsholder"/>
+					<Item id="48510" name="Generér..."/>
+					<Item id="48511" name="Generér fra filer..."/>
+					<Item id="48512" name="Generér fra markering til udklipsholder"/>
 					<Item id="49000" name="&amp;Kør..."/>
 
 					<Item id="50000" name="Fuldfør funktioner"/>
@@ -406,7 +433,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item CMDID="42028" name="Skrivebeskyttet"/>
 				<Item CMDID="42033" name="Fjern skrivebeskyttelse"/>
 				<Item CMDID="2" name="Kopiér"/>
-				<Item CMDID="42029" name="Fuld fiisti"/>
+				<Item CMDID="42029" name="Fuld filsti"/>
 				<Item CMDID="42030" name="Filnavn"/>
 				<Item CMDID="42031" name="Mappesti"/>
 				<Item CMDID="3" name="Flyt"/>
@@ -518,29 +545,52 @@ The comments are here for explanation, it's not necessary to translate them.
 			</Run>
 
 			<MD5FromFilesDlg title="Generér MD5 aftryk fra filer">
-				<Item id="1922" name="Vælg filer til MD5 generering..."/>
-				<Item id="1924" name="Kopier til udklipsholder"/>
+				<Item id="1922" name="Vælg filer..."/>
+				<Item id="1924" name="Kopiér"/>
 				<Item id="2" name="Luk"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="Generér MD5 aftryk">
 				<Item id="1932" name="Behandl hver linie som separat streng"/>
-				<Item id="1934" name="Kopier til udklipsholder"/>
+				<Item id="1934" name="Kopiér"/>
 				<Item id="2" name="Luk"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="Generér SHA-256 aftryk fra filer">
-				<Item id="1922" name="Vælg filer til SHA-256 generering..."/>
-				<Item id="1924" name="Kopier til udklipsholder"/>
+				<Item id="1922" name="Vælg filer..."/>
+				<Item id="1924" name="Kopiér"/>
 				<Item id="2" name="Luk"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="Generér SHA-256 aftryk">
 				<Item id="1932" name="Behandl hver linie som en separat streng"/>
-				<Item id="1934" name="Kopier til udklipsholder"/>
+				<Item id="1934" name="Kopiér"/>
 				<Item id="2" name="Luk"/>
 			</SHA256FromTextDlg>
 
+			<SHA1FromFilesDlg title="Generér SHA-1 aftryk fra filer">
+				<Item id="1922" name="Vælg filer..."/>
+				<Item id="1924" name="Kopiér"/>
+				<Item id="2" name="Luk"/>
+			</SHA1FromFilesDlg>
+
+			<SHA1FromTextDlg title="Generér SHA-1 aftryk">
+				<Item id="1932" name="Behandl hver linie som en separat streng"/>
+				<Item id="1934" name="Kopiér"/>
+				<Item id="2" name="Luk"/>
+			</SHA1FromTextDlg>
+
+			<SHA512FromFilesDlg title="Generér SHA-512 aftryk fra filer">
+				<Item id="1922" name="Vælg filer..."/>
+				<Item id="1924" name="Kopiér"/>
+				<Item id="2" name="Luk"/>
+			</SHA512FromFilesDlg>
+
+			<SHA512FromTextDlg title="Generér SHA-512 aftryk">
+				<Item id="1932" name="Behandl hver linie som en separat streng"/>
+				<Item id="1934" name="Kopiér"/>
+				<Item id="2" name="Luk"/>
+			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Administrér plugins" titleAvailable="Tilgængelige" titleUpdates="Opdateringer" titleInstalled="Installerede">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
@@ -603,17 +653,7 @@ The comments are here for explanation, it's not necessary to translate them.
 				<ScintillaCommandsTab name="Scintilla kommandoer"/>
 				<ConflictInfoOk name="Punktet har ingen genvejskonflikter."/>
 				<ConflictInfoEditing name="Ingen konflikter . . ."/>
-				<WindowCategory name="Vindue"/>
-				<FileCategory name="Filer"/>
-				<EditCategory name="Redigér"/>
-				<SearchCategory name="Søg"/>
-				<ViewCategory name="Vis"/>
-				<FormatCategory name="Kodning"/>
-				<LangCategory name="Sprog"/>
 				<AboutCategory name="Om"/>
-				<SettingCategory name="Indstilling"/>
-				<ToolCategory name="Værktøj"/>
-				<ExecuteCategory name="Kør"/>
 				<ModifyContextMenu name="Tilpas"/>
 				<DeleteContextMenu name="Slet"/>
 				<ClearContextMenu name="Ryd"/>
@@ -774,7 +814,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="21101" name="Standardudseende"/>
 					<Item id="21102" name="Tilpas"/>
 					<Item id="21105" name="Dokumentation"/>
-					<Item id="21104" name="Online dokumentation:"/>
 					<Item id="21106" name="Sammenfold tomme linier (kompakt)"/>
 					<Item id="21220" name="Sammenfoldning i kode 1"/>
 					<Item id="21224" name="Åbn:"/>
@@ -906,25 +945,26 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6105" name="Standardikoner"/>
 
 					<Item id="6106" name="Fanelinie"/>
-					<Item id="6107" name="Lille"/>
+					<Item id="6107" name="Små faner"/>
 					<Item id="6108" name="Lås (deaktivér træk/slip)"/>
 					<Item id="6109" name="Nedton inaktive faner"/>
-					<Item id="6110" name="Vis farvet linie over aktiv fane"/>
-
-					<Item id="6111" name="Vis statuslinie"/>
+					<Item id="6110" name="Vis farvet linie på aktiv fane"/>
 					<Item id="6112" name="Vis luk på hver fane"/>
 					<Item id="6113" name="Dobbeltklik lukker dokument"/>
 					<Item id="6118" name="Skjul"/>
 					<Item id="6119" name="Multilinie"/>
-					<Item id="6120" name="Lodrette faner (venstre)"/>
+					<Item id="6120" name="Lodret"/>
 					<Item id="6121" name="Afslut når sidste fane lukkes"/>
+					<Item id="6128" name="Ekstra ikoner"/>
+
+					<Item id="6133" name="Statuslinie"/>
+					<Item id="6134" name="Skjul"/>
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Skjul menulinie (Alt eller F10 slår til/fra)"/>
 					<Item id="6132" name="Skjul ＋ ▼ ✕ fra menulinien (Notepad++ skal genstartes)"/>
-					<Item id="6123" name="Oversættelse"/>
 
-					<Item id="6128" name="Ekstra ikoner"/>
+					<Item id="6123" name="Oversættelse"/>
 				</Global>
 				<Scintillas title="Redigering">
 					<Item id="6216" name="Markørindstillinger"/>
@@ -933,7 +973,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6221" name="H"/>
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Tillad kommando at folde/udfolde aktuelt niveau"/>
-					<Item id="6225" name="Multiredigering (Ctrl+klik for at markere flere)"/>
 					<Item id="6227" name="Ombryd"/>
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Justeret"/>
@@ -956,6 +995,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6254" name="Forkortelse"/>
 					<Item id="6255" name="Kodepunkt"/>
 					<Item id="6256" name="Farve"/>
+					<Item id="6258" name="Anvend på C0, C1 &amp; Unicode EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Mørkt tema">
@@ -1025,6 +1065,7 @@ Brug mellemrum til at angive flere markører."/>
 					<Item id="6411" name="Standardsprog:"/>
 					<Item id="6419" name="Nyt dokument"/>
 					<Item id="6420" name="Anvend når ANSI-filer åbnes"/>
+					<Item id="6432" name="Åben ekstra nyt fokuseret dokument ved programstart"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardmappe">
@@ -1116,6 +1157,7 @@ Brug mellemrum til at angive flere markører."/>
 					<Item id="6907" name="Når søgedialogen åbner"/>
 					<Item id="6908" name="Udfyld søgefelt med valgt tekst"/>
 					<Item id="6909" name="Brug ord under markøren, hvis intet er valgt"/>
+					<Item id="6910" name="Min. antal tegn der automatisk aktiverer &quot;I markering&quot;"/>
 				</Searching>
 
 				<RecentFilesHistory title="Historik">
@@ -1136,6 +1178,7 @@ Brug mellemrum til at angive flere markører."/>
 					<Item id="6821" name="sekund"/>
 					<Item id="6822" name="Placering:"/>
 					<Item id="6309" name="Husk aktuel session ved næste opstart"/>
+					<Item id="6825" name="Husk utilgængelige filer fra sidste session"/>
 					<Item id="6801" name="Sikkerhedskopiér ved gem"/>
 					<Item id="6315" name="Ingen"/>
 					<Item id="6316" name="Simpel sikkerhedskopiering"/>
@@ -1210,6 +1253,7 @@ Brug mellemrum til at angive flere markører."/>
 					<Item id="7149" name="Tillad smart fremhævning"/>
 					<Item id="7150" name="Deaktivér ombrydning globalt"/>
 					<Item id="7151" name="Tillad klikbare internetlink"/>
+					<Item id="7152" name="Undertryk advarsel ved åbning af store (≥2GB) filer"/>
 				</Performance>
 
 				<Cloud title="Skyen">
@@ -1324,7 +1368,7 @@ Du kan altid fortryde i &quot;Indstillinger => Diverse&quot;."/>
 				<Item id="6" name="&amp;Ja"/>
 				<Item id="7" name="&amp;Nej"/>
 				<Item id="4" name="Altid"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click 'Save all' -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1343,6 +1387,7 @@ Fortsæt?"/><!-- HowToReproduce: when you openned file is modified and saved, th
 			<FileLockedWarning title="Gem mislykkedes" message="Kontrollér om filen er åbnet i et andet program"/>
 			<FileAlreadyOpenedInNpp title="" message="Filen er allerede åbnet i Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Omdøbning mislykkedes" message="Navnet bruges allerede i en anden fane."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Omdøbning mislykkedes" message="Navnet skal angives, og kan ikke kun indeholde mellemrum eller tabulator(er)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
 
 			<NbFileToOpenImportantWarning title="Du er ved at åbne mange filer" message="Der åbnes $INT_REPLACE$ filer.
@@ -1442,6 +1487,25 @@ Vil du fortsætte?"/>
 			<LanguageMenuCompactWarning title="Kompakt sprogmenu" message="Aktiveres ved næste programstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Ugemte ændringer kasseres!
 Vil du gemme før du skifter tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Mackro og Kør kompabilitet" message="Dine makro og kør kommandoer i Notepad++ v.8.5.2 (og tidligere) er muligvis ikke kompatible med den aktuelle Notepad++.
+Test kommandoerne og redigér dem, hvis nødvendigt.
+
+Alternativt kan du geninstallere Notepad++ v8.5.2 og gendanne dine tidligere data.
+Notepad++ vil gemme din gamle &quot;shortcuts.xml&quot; som &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Omdøb &quot;shortcuts.xml.v8.5.2.backup&quot; til &quot;shortcuts.xml&quot; for at gendanne dine kommandoer og bruge dem igen."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Gemmefejl" message="Filen kunne ikke gemmes.
+Der er tilsyneladende ikke nok ledig plads på disken, så filen blev ikke gemt."/>
+			<FileInaccessibleUserSession title="File inaccessible" message="Nogle filer fra den manuelt gemte session &quot;$STR_REPLACE$&quot; er utilgængelige. De kan åbnes som tomme og skrivebeskyttede som pladsholdere.
+
+Vil du oprette disse pladsholdere?
+
+BEMÆRK: Hvis du ikke opretter pladsholderne, eller lukker dem senere, ændres din manuelt gemte session IKKE ved lukning."/>
+			<FileInaccessibleDefaultSessionXml title="File inaccessible" message="Nogle filer fra den seneste session er utilgængelige. De kan åbnes som tomme og skrivebeskyttede som pladsholdere.
+
+Vil du oprette disse pladsholdere?
+
+BEMÆRK: Hvis du ikke opretter pladsholderne, eller lukker dem senere, ÆNDRES SESSIONEN ved lukning! Vi foreslår at sikkerhedskopierer din &quot;session.xml&quot; now."/>
+			<RTLvsDirectWrite title="Kan ikke køre RTL" message="RTL er ikke kompatibel med DirectWrite. Deaktivér DirectWrite i Indstillinger => Diverse, genstart Notepad++ og prøv igen."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Kopieringshistorik"/>
@@ -1582,18 +1646,14 @@ Find i alle filer, undtagen i mapperne log med undermapper:
 			<find-status-end-reached value="Fandt 1. forekomst fra toppen. Enden af dokumentet er nået."/>
 			<find-status-replaceinfiles-1-replaced value="1  forekomst blev erstattet"/>
 			<find-status-replaceinfiles-nb-replaced value="$INT_REPLACE$ forekomster blev erstattet"/>
-			<find-status-replaceinfiles-re-malformed value="Det regulære udtryk er forkert"/>
 			<find-status-replaceinopenedfiles-1-replaced value="1 forekomst blev erstattet"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="$INT_REPLACE$ forekomster blev erstattet"/>
-			<find-status-mark-re-malformed value="Det regulære udtryk er forkert"/>
 			<find-status-invalid-re value="Det regulære udtryk er ugyldigt"/>
 			<find-status-search-failed value="Søgningen mislykkedes"/>
 			<find-status-mark-1-match value="1 forekomst"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ forekomster"/>
-			<find-status-count-re-malformed value="Det regulære udtryk er forkert"/>
 			<find-status-count-1-match value="1 forekomst"/>
 			<find-status-count-nb-matches value="$INT_REPLACE$ forekomster"/>
-			<find-status-replaceall-re-malformed value="Det regulære udtryk er forkert"/>
 			<find-status-replaceall-1-replaced value="1 forekomst blev erstattet"/>
 			<find-status-replaceall-nb-replaced value="$INT_REPLACE$ forekomster blev erstattet"/>
 			<find-status-replaceall-readonly value="Kan ikke erstatte tekst. Dokumentet er skrivebeskyttet"/>
@@ -1605,6 +1665,7 @@ Find i alle filer, undtagen i mapperne log med undermapper:
 			<find-status-replace-not-found value="Der blev ikke fundet noget"/>
 			<find-status-replace-readonly value="Kan ikke erstatte tekst. Dokumentet er skrivebeskyttet"/>
 			<find-status-cannot-find value="Kan ikke finde &quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="Den givne forekomst kan ikke findes. Prøv at sætte flueben ved &quot;Forfra når slutningen er nået&quot;, og fjerne det fra &quot;Versalfølsom (a/A)&quot; og &quot;Søg kun hele ord&quot;."/>
 			<find-status-scope-selection value="i markeret tekst"/>
 			<find-status-scope-all value="i hele filen"/>
 			<find-status-scope-backward value="fra filens start til markør"/>
@@ -1683,8 +1744,6 @@ BEMÆRK:
 			<npcNote-tip value="Repræsentation af udvalgte &quot;ikke-ASCII&quot; mellemrum og ikke printbare (kontrol) tegn.
 
 BEMÆRK:
-Visse tegn kan allerede være repræsenteret og er derfor synlige. Linieskift og paragraffer er allerede repræsenteret med deres forkortelse.
-
 Repræsentering vil deaktivere tegneffekter i tekst.
 
 Se alle mellemrum og ikke printbare tegn i manualen.
@@ -1707,6 +1766,9 @@ Klik på &quot;?&quot; for at åbne online manualen."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Gå til  Indstillinger => Udseende... for at tilpasse farven for mellemrum og ikke printbare tegn (&quot;Non-printing characters custom color&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Anvend ikke printbare tegns effekter på C0, C1 kontroller og Unicode EOL (næste linie, linieskift og paragraffer) tegn."/>
+			<searchingInSelThresh-tip value="Antal valgte tegn i tekstvinduet, der automatisk sætter flueben ved &quot;I markering&quot; i søgedialogen. Maksimum er 1024. Sæt til 0 for at deaktivere."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
+

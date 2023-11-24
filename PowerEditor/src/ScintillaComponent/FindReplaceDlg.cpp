@@ -4676,7 +4676,7 @@ void Finder::addFileHitCount(int count)
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCount(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pfo)
+void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pfo)
 {
 	generic_string nbResStr = std::to_wstring(count);
 	generic_string nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
@@ -5004,7 +5004,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCount(count, searchedCount, isMatchLines, searchedEntireNotSelection, pfo);
+	addSearchHitCountAndOptionsInfo(count, searchedCount, isMatchLines, searchedEntireNotSelection, pfo);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	//SCI_SETILEXER resets the lexer property @MarkingsStruct and then no data could be exchanged with the searchResult lexer

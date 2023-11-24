@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Finnish translation for Notepad++
-Updated to v8.0.0:
-- added new lines
-- minor fix
+Updated to v8.6 fixed version
 -->
 <NotepadPlus>
-	<Native-Langue name="Finnish" filename="finnish.xml" version="8.0">
+	<Native-Langue name="Finnish" filename="finnish.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -73,7 +71,10 @@ Updated to v8.0.0:
 					<Item subMenuId="language-userDefinedLanguage" name="Käyttäjän määrittämä kieli"/>
 					<Item subMenuId="settings-import" name="Tuonti"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
+					<Item subMenuId="tools-sha1" name="SHA-1"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
+					<Item subMenuId="tools-sha512" name="SHA-512"/>
+					<Item subMenuId="window-sortby" name="Lajittelu"/>
 				</SubEntries>
 				
 				<!-- all menu item -->
@@ -191,6 +192,10 @@ Updated to v8.0.0:
 					<Item id="42081" name="Lajittele rivit sanastollisesti laskevasti, älä huomioi kirjainkokoa"/>
 					<Item id="42082" name="Linkin kopioiminen"/>
 					<Item id="42083" name="Käänteinen rivijärjestys"/>
+					<Item id="42084" name="Päivä aika (lyhyt)"/>
+					<Item id="42085" name="Päivä aika (pitkä)"/>
+					<Item id="42086" name="Päivä aika (muokattu)"/>
+					<Item id="42089" name="Aloita/lopeta valinta saraketilassa"/>			
 					<Item id="43001" name="&amp;Etsi..."/>
 					<Item id="43002" name="Etsi &amp;seuraava"/>
 					<Item id="43003" name="&amp;Korvaa..."/>
@@ -254,6 +259,21 @@ Updated to v8.0.0:
 					<Item id="43064" name="Käyttäen tyyliä 3"/>
 					<Item id="43065" name="Käyttäen tyyliä 4"/>
 					<Item id="43066" name="Käyttäen tyyliä 5"/>
+					
+					<Item id="43067" name="Siirry seuraavaan muutokseen"/>
+					<Item id="43068" name="Siirry edelliseen muutokseen"/>
+					<Item id="43069" name="Tyhjennä muutoshistoria"/>
+					<Item id="43045" name="Hakutulosikkuna"/>
+					<Item id="43046" name="Seuraava hakutulos"/>
+					<Item id="43047" name="Edellinen hakutulos"/>
+					<Item id="43048" name="Valitse ja etsi seuraava"/>
+					<Item id="43049" name="Valitse ja etsi edellinen"/>
+					<Item id="43054" name="Merkitse..."/>
+					<Item id="43501" name="Sulje valittu"/>
+					<Item id="43502" name="Sulje muut"/>
+					<Item id="43503" name="Kopioi valitut nimet"/>
+					<Item id="43504" name="Kopioi valitut polkunimet"/>	
+					
 					<Item id="44009" name="Ilman valikkoa ja välilehtiä"/>
 					<Item id="44010" name="Taita kaikki"/>
 					<Item id="44011" name="Vain teksti-ikkuna"/>
@@ -487,7 +507,7 @@ Updated to v8.0.0:
 				<Item id="2" name="Sulje"/>
 			</SHA256FromTextDlg>
 			
-			<PluginsAdminDlg title="Liitännäisten hallinta" titleAvailable="Käytettävissä" titleUpdates="Päivitykset" titleInstalled="Asennettu">
+			<PluginsAdminDlg title="Liitännäisten hallinta" titleAvailable="Käytettävissä" titleUpdates="Päivitettävissä" titleInstalled="Asennetut" titleIncompatible="Epäyhteensopivat">
 				<ColumnPlugin name="Liitännäinen"/>
 				<ColumnVersion name="Versio"/>
 				<Item id="5501" name="Etsi:"/>
@@ -622,7 +642,21 @@ Updated to v8.0.0:
 					<Item id="44106" name="Vaihda projekti-ikkunaan 3"/>
 					<Item id="44107" name="Vaihda moodiin kansio työtilana"/>
 					<Item id="44108" name="Vaihda toimintoluetteloon"/>
-				</MainCommandNames>
+					<Item id="44110" name="Välilehden väri ei käytössä"/>
+					<Item id="44111" name="Käytä välilehtiväriä 1"/>
+					<Item id="44112" name="Käytä välilehtiväriä 2"/>
+					<Item id="44113" name="Käytä välilehtiväriä 3"/>
+					<Item id="44114" name="Käytä välilehtiväriä 4"/>
+					<Item id="44115" name="Käytä välilehtiväriä 5"/>
+					<Item id="11002" name="Nimet aakkojärjestyksessä"/>
+					<Item id="11003" name="Nimet käänteisessä aakkojärjestyksessä"/>
+					<Item id="11004" name="Polut aakkojärjestyksessä"/>
+					<Item id="11005" name="Polut käänteisessä aakkojärjestyksessä"/>
+					<Item id="11006" name="Tyypit aakkojärjestyksessä"/>
+					<Item id="11007" name="Tyypit käänteisessä aakkojärjestyksessä"/>
+					<Item id="11008" name="Kokojärjestyksessä, pienin ensin"/>
+					<Item id="11009" name="Kokojärjestyksessä, suurin ensin"/>			
+					</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Pikanäppäin">
 				<Item id="1" name="OK"/>
@@ -832,6 +866,11 @@ Updated to v8.0.0:
 					<Item id="6128" name="Vaihtoehtoiset kuvakkeet"/>
 					<Item id="6129" name="Pienet täytetyt kuvakkeet"/>
 					<Item id="6130" name="Isot täytetyt kuvakkeet"/>
+					<Item id="6131" name="Valikko"/>
+					<Item id="6122" name="Piilota valikkorivi (Alt- tai F10-näppäimillä näkyviin/pois)"/>
+					<Item id="6132" name="Piilota pikavalikosta oikopolut ＋ ▼ ✕ (Vaatii sovelluksen uudelleenkäynnistyksen)"/>
+					<Item id="6133" name="Tilarivi"/>
+					<Item id="6134" name="Piilota"/>
 				</Global>
 				<Scintillas title="Muokkaus">
 					<Item id="6214" name="Käytä nykyisen rivin korostusta"/>
@@ -852,7 +891,23 @@ Updated to v8.0.0:
 					<Item id="6235" name="Ei reunaa"/>
 					<Item id="6236" name="Salli vieritys viimeisen rivin jälkeen"/>
 					<Item id="6239" name="Säilytä valinta napsautettaessa valitun alueen ulkopulelle"/>
-				</Scintillas>
+					<Item id="6245" name="Käytä näennäistä välilyöntiä"/>
+					<Item id="6246" name="Nykyisen tason kansiointi/kansioinnin purku -komentojen vaihtotila"/>
+					<Item id="6651" name="Nykyisen rivin ilmaisin"/>
+					<Item id="6652" name="Ei mitään"/>
+					<Item id="6653" name="Taustan korostus"/>
+					<Item id="6654" name="Kehys"/>
+					<Item id="6655" name="Leveys:"/>
+					<Item id="6247" name="Rivinvaihto (CRLF)"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Oletus"/>
+					<Item id="6249" name="Pelkkä teksti"/>
+					<Item id="6250" name="Oma väri"/>
+					<Item id="6252" name="Tulostumattomat merkit"/>
+					<Item id="6254" name="Lyhenne"/>
+					<Item id="6255" name="Koodipaikka"/>
+					<Item id="6256" name="Oma väri"/>
+					<Item id="6258" name="Käytä C0, C1 sekä Unicode rivinvaihto"/>
+		</Scintillas>
 				<MarginsBorderEdge title="Reunat ja reunukset">
 					<Item id="6201" name="Kansiomarginaalin tyyli"/>
 					<Item id="6202" name="Yksinkertainen"/>
@@ -868,6 +923,7 @@ Updated to v8.0.0:
 					<Item id="6211" name="Pystyreunan asetukset"/>
 					<Item id="6212" name="Viiva"/>
 					<Item id="6213" name="Tausta"/>
+					<Item id="6223" name="Näytä muutoshistoria"/>
 					<Item id="6231" name="Reunuksen leveys"/>
 					<Item id="6235" name="Ei reunaa"/>
 					<Item id="6237" name="Lisää sarakemerkki kokonaisluvulla. Useita sarakerkkejä voi määrittää käyttäen väliyöntiä numeroiden väleissä."/>
@@ -879,6 +935,31 @@ Updated to v8.0.0:
 				<DarkMode title="Tumma teema">
 					<Item id="7101" name="Käytä tummaa teemaa"/>
 					<Item id="7106" name="* Muutos vaatii sovelluksen uudelleenkäynnistyksen"/>
+					<Item id="7131" name="Vaalea teema"/>
+					<Item id="7132" name="Tumma teema"/>
+					<Item id="7133" name="Järjestelmän mukainen"/>
+					<Item id="7102" name="Musta"/>
+					<Item id="7103" name="Punainen"/>
+					<Item id="7104" name="Vihreä"/>
+					<Item id="7105" name="Sininen"/>
+					<Item id="7107" name="Violetti"/>
+					<Item id="7108" name="Sinivihreä"/>
+					<Item id="7109" name="Oliivinvihreä"/>
+					<Item id="7115" name="Mukautettu"/>
+					<Item id="7116" name="Yläreuna"/>
+					<Item id="7117" name="Valikko"/>
+					<Item id="7118" name="Aktiivinen"/>
+					<Item id="7119" name="Pää"/>
+					<Item id="7120" name="Virhe"/>
+					<Item id="7121" name="Teksti"/>
+					<Item id="7122" name="Tummennettu teksti"/>
+					<Item id="7123" name="Ei käytössäoleva teksti"/>
+					<Item id="7124" name="Reuna"/>
+					<Item id="7125" name="Linkki"/>
+					<Item id="7126" name="Reunan korostus"/>
+					<Item id="7127" name="Ei reunaa"/>
+					<Item id="7130" name="Palauta"/>
+					<Item id="7135" name="Sävyt"/>
 				</DarkMode>
 				
 				<NewDoc title="Uudet tiedostot">
@@ -895,6 +976,8 @@ Updated to v8.0.0:
 					<Item id="6411" name="Oletuskoodikieli:"/>
 					<Item id="6419" name="Uusi dokumentti"/>
 					<Item id="6420" name="Käytä avoimiin ANSI-tiedostoihin"/>
+					<Item id="6432" name="Avaa käynnistettäessä aina lisäksi uusi tiedosto"/>
+				
 				</NewDoc>
 				
 				<DefaultDir title="Oletushakemisto">
@@ -975,6 +1058,12 @@ Updated to v8.0.0:
 					<Item id="6903" name="Hakuikkuna jää avoimeksi näytettäessä tulosikkuna"/>
 					<Item id="6904" name="Vahvista korvaaminen kaikissa avoimissa tiedostoissa"/>
 					<Item id="6905" name="Korvattaessa älä siirry seuraaviin esiintymiin"/>
+					<Item id="6906" name="Hakutuloksissa vain yksi löydös rivittäin"/>
+					<Item id="6907" name="Käynnistettäessä hakuikkuna"/>
+					<Item id="6908" name="Täytä hakukenttä valitulla tekstillä"/>
+					<Item id="6909" name="Jos mitään ei ole valittuna käytetään kursorin kohdalla olevaa sanaa"/>
+					<Item id="6910" name="Automaattisen tarkistuksen vähimmäiskoko valinnassa"/>
+				
 				</Searching>
 				
 				<RecentFilesHistory title="Tiedostohistoria">
@@ -1001,6 +1090,8 @@ Updated to v8.0.0:
 					<Item id="6819" name="Kopiointiväli"/>
 					<Item id="6821" name="sekuntia"/>
 					<Item id="6822" name="Sijainti:"/>
+					<Item id="6825" name="Muista edellisestä istunnosta tiedostot jotka eivät olleet käytettävissä"/>
+				
 				</Backup>
 				
 				<AutoCompletion title="Automaattitäydennys">
@@ -1022,6 +1113,10 @@ Updated to v8.0.0:
 					<Item id="6860" name="Vastinpari 1:"/>
 					<Item id="6863" name="Vastinpari 2:"/>
 					<Item id="6866" name="Vastinpari 3:"/>
+					<Item id="6869" name="Lisäysvalinta"/>
+					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
+					<Item id="6872" name="Tiivistetty automaattisen täydennyksen luettelo"/>
 				</AutoCompletion>
 				
 				<MultiInstance title="Moniesiintymä">
@@ -1030,7 +1125,21 @@ Updated to v8.0.0:
 					<Item id="6153" name="Aina moniesiintymätilassa"/>
 					<Item id="6154" name="Oletus (vain yksi esiintymä)"/>
 					<Item id="6155" name="* Muutos vaatii sovelluksen uudelleenkäynnistyksen"/>
+					<Item id="6171" name="Mukautettu lisättävän päiväyksen muotoilu"/>
+					<Item id="6175" name="Oletuksiin nähden käänteinen päivä/aika"/>
+					<Item id="6172" name="Oma muotoilu:"/>
+					<Item id="6181" name="Ikkunoiden tila ja [-nosession] *"/>
+					<Item id="6182" name="Muista ikkunoiden tila muissa istunnoissa  (moni-istuntotila) tai käytettäessä komentokehotteessa parametria [-nosession]"/>
+					<Item id="6183" name="Leikepöydän historia"/>
+					<Item id="6184" name="Asiakirjaluettelo"/>
+					<Item id="6185" name="Merkki-ikkuna"/>
+					<Item id="6186" name="Kansio työtilana"/>
+					<Item id="6187" name="Projekti-ikkunat"/>
+					<Item id="6188" name="Asiakirjakartta"/>
+					<Item id="6189" name="Funktioluettelo"/>
+					<Item id="6190" name="Liitännäisikkunat"/>
 				</MultiInstance>
+								
 								
 				<Delimiter title="Rajoittimet">
 					<Item id="6161" name="Sanan merkkiluettelo"/>
@@ -1043,6 +1152,19 @@ Updated to v8.0.0:
 					<Item id="6257" name="Bla Bla Bla Bla Bla Bla"/>
 					<Item id="6258" name="Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"/>
 				</Delimiter>
+				
+				<Performance title="Suorituskyky">
+					<Item id="7141" name="Suurteen tiedostojen rajoitus"/>
+					<Item id="7143" name="Ota käyttöön suuri tiedostorajoitus (ei syntaksin korostusta)"/>
+					<Item id="7144" name="Määritä suuri tiedostokoko:"/>
+					<Item id="7146" name="Mb (1 - 4096)"/>
+					<Item id="7147" name="Salli aaltosulut vastinpareina"/>
+					<Item id="7148" name="Salli automaattinen täydennys"/>
+					<Item id="7149" name="Salli älykäs korostus"/>
+					<Item id="7150" name="Poista rivitys käytöstä"/>
+					<Item id="7151" name="Salli napsautettavat hyperlinkit"/>
+					<Item id="7152" name="Poista varoitus avattaessa yli 2 Gt tiedostoja"/>
+				</Performance>
 				
 				<Cloud title="Pilvipalvelut">
 					<Item id="6262" name="Pilvipalvelun asetukset"/>
@@ -1093,6 +1215,7 @@ Updated to v8.0.0:
 					<Item id="6346" name="Kurkista asiakirjakarttaan"/>
 					<Item id="6349" name="DirectWrite käytössä (Saattaa parantaa erikoismerkkien ulkoasua, sovellus on käynnistettävä uudelleen)"/>
 					<Item id="6360" name="Vaimenna kaikki äänet"/>
+					<Item id="6361" name="Käytä vahvistusikkunaa tallennettaessa kaikki"/>
 				</MISC>
 								
 			</Preference>
@@ -1414,6 +1537,13 @@ Updated to v8.0.0:
 			<tab-untitled-string value="uusi "/>
 			<file-save-assign-type value="&amp;Lisää pääte"/>
 			<close-panel-tip value="Sulje"/>
+			<largeFileRestriction-tip value="Jotkut ominaisuudet voivat hidastaa suorituskykyä suurissa tiedostoissa. Nämä ominaisuudet voidaan poistaa automaattisesti käytöstä, kun suuri tiedosto avataan. Voit muokata niitä täällä.
+
+HUOM:
+1. Asetusten muokkaaminen tässä edellyttää, että avatut suuret tiedostot on uudelleenavattava halutunlaisen toiminnan aikaansaamiseksi.
+
+2. Jos &quot;Poista rivitys käytöstä&quot; on valittuna avattassa suuri tiedosto, &quot;Rivitys&quot; poistetaan käytöstä kaikissa tiedostoissa. Se voidaan palauttaa käyttöön valikosta &quot;Näytä-&gt;Rivitys&quot;."/>
+<searchingInSelThresh-tip value="Valittujen merkkien lukumäärä muokkausvyöhykkeellä tarkistaa automaattisesti &quot;Valinnassa&quot; valintaruutu, kun Etsi-valintaikkuna on aktivoitu. Suurin arvo on 1024. Aseta arvoksi 0, jos haluat poistaa automaattisen tarkistuksen käytöstä."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

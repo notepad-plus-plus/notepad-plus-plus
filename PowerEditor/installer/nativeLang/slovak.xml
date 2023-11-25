@@ -1745,7 +1745,7 @@ POZNÁMKA:
 1. Pri zmene týchto možností sa na správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.
 
 2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovanie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;."/>
-			<npcNote-tip value=" Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
+			<npcNote-tip value="Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
 POZNÁMKA:
 Použitím reprezentácie sa vypnú efekty znakov na texte.
 

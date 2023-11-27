@@ -650,24 +650,21 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			}
 			else
 			{
-				//
-				// 2 shortcuts:
-				// Ctrl + C: without selected text, it will copy the whole line.
-				// Ctrl + X: without selected text, it will cut the whole line.
-				//
 				switch (wParam)
 				{
+					//
+					// 2 shortcuts:
+					// Ctrl + C: without selected text, it will copy the whole line.
+					// Ctrl + X: without selected text, it will cut the whole line.
+					//
 					case 'C':
 					case 'X':
 					{
-						if ((ctrl & 0x8000) && !(alt & 0x8000) && !(shift & 0x8000))
+						if (((ctrl & 0x8000) && !(alt & 0x8000) && !(shift & 0x8000)) && !hasSelection())
 						{
-							if (!hasSelection())
-							{
-								execute(wParam == 'C' ? SCI_LINECOPY : SCI_LINECUT);
-								//return TRUE;
-								// No return and let Scintilla procedure to continue
-							}
+							execute(wParam == 'C' ? SCI_LINECOPY : SCI_LINECUT);
+							//return TRUE;
+							// No return and let Scintilla procedure to continue
 						}
 					}
 					break;

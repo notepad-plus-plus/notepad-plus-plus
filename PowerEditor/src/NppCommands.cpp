@@ -354,15 +354,21 @@ void Notepad_plus::command(int id)
 			checkUndoState();
 			break;
 		}
-
+		
 		case IDM_EDIT_CUT:
-			_pEditView->execute(WM_CUT);
-			checkClipboard();
+			if (!_pEditView->hasSelection()) // Ctrl + X: without selected text, it will cut the whole line.
+				_pEditView->execute(SCI_LINECUT);
+			else
+				_pEditView->execute(WM_CUT);
+
 			break;
 
 		case IDM_EDIT_COPY:
-			_pEditView->execute(WM_COPY);
-			checkClipboard();
+			if (!_pEditView->hasSelection()) // Ctrl + C: without selected text, it will copy the whole line.
+				_pEditView->execute(SCI_LINECOPY);
+			else
+				_pEditView->execute(WM_COPY);
+
 			break;
 
 		case IDM_EDIT_COPY_LINK:

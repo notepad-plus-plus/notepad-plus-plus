@@ -124,7 +124,7 @@ public:
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
-	void addSearchHitCountAndOptionsInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption *pfo);
+	void addSearchHitCountAndOptionsInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption *pFindOpt);
 	const char* foundLine(FoundInfo fi, SearchResultMarkingLine mi, const TCHAR* foundline, size_t totalLineNumber);
 	void setFinderStyle();
 	void setFinderStyleForNpc(bool onlyColor = false);

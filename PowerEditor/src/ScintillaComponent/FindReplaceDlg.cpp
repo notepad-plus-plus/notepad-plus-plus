@@ -4676,7 +4676,7 @@ void Finder::addFileHitCount(int count)
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pfo)
+void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pFindOpt)
 {
 	generic_string nbResStr = std::to_wstring(count);
 	generic_string nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
@@ -4715,35 +4715,44 @@ void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool 
 		text = stringReplace(text, TEXT("$INT_REPLACE3$"), nbSearchedFilesStr);
 	}
 
-	generic_string searchOptionsText = TEXT(" [");
-	bool searchOptAdded = false;
-	if (pfo->_isWholeWord)
+	generic_string searchOptionsText = TEXT("[");
+	if (pFindOpt->_searchType == FindExtended)
 	{
-		searchOptionsText += TEXT("Word");
-		searchOptAdded = true;
+		generic_string extendedText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-extended", TEXT("Extended"));
+		searchOptionsText += extendedText;
 	}
-	if (pfo->_isMatchCase)
+	else if (pFindOpt->_searchType == FindRegex)
 	{
-		if (searchOptAdded) searchOptionsText += TEXT("/");
-		searchOptionsText += TEXT("Case");
-		searchOptAdded = true;
+		generic_string regexText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-regexp", TEXT("RegEx"));
+		searchOptionsText += regexText;
+		if (pFindOpt->_dotMatchesNewline) searchOptionsText += TEXT(".");
 	}
-	if (searchOptAdded) searchOptionsText += TEXT("/");
-	if (pfo->_searchType == FindNormal)
+	else
 	{
-		searchOptionsText += TEXT("Norm");
+		generic_string normalText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-normal", TEXT("Normal"));
+		searchOptionsText += normalText;
 	}
-	else if (pfo->_searchType == FindExtended)
+	generic_string searchOptionsCaseWordText;
+	if (pFindOpt->_isMatchCase)
 	{
-		searchOptionsText += TEXT("Ext");
+		generic_string caseText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-case", TEXT("Case"));
+		searchOptionsCaseWordText += caseText;
 	}
-	else if (pfo->_searchType == FindRegex)
+	if (pFindOpt->_isWholeWord)
 	{
-		searchOptionsText += TEXT("Regex");
-		if (pfo->_dotMatchesNewline) searchOptionsText += TEXT(".");
+		if (!searchOptionsCaseWordText.empty())
+		{
+			searchOptionsCaseWordText += TEXT("/");
+		}
+		generic_string wordText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-word", TEXT("Word"));
+		searchOptionsCaseWordText += wordText;
 	}
-	searchOptionsText += TEXT("]");
-	text += searchOptionsText;
+	if (!searchOptionsCaseWordText.empty())
+	{
+		searchOptionsText += TEXT(": ") + searchOptionsCaseWordText;
+	}
+	searchOptionsText += TEXT("] ");
+	text = searchOptionsText + text;
 
 	if (isMatchLines)
 	{

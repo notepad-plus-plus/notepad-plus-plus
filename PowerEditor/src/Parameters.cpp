@@ -468,6 +468,9 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 */
 static const ScintillaKeyDefinition scintKeyDefs[] =
 {
+    //Scintilla command name,             SCINTILLA_CMD_ID,            Ctrl,  Alt,   Shift, V_KEY,       NOTEPAD++_CMD_ID
+	// -------------------------------------------------------------------------------------------------------------------
+	//
 	{TEXT("SCI_CUT"),                     SCI_CUT,                     true,  false, false, VK_X,        IDM_EDIT_CUT},
 	{TEXT(""),                            SCI_CUT,                     false, false, true,  VK_DELETE,   0},
 	{TEXT("SCI_COPY"),                    SCI_COPY,                    true,  false, false, VK_C,        IDM_EDIT_COPY},

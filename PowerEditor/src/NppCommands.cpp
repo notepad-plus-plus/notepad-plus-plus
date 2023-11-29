@@ -356,20 +356,37 @@ void Notepad_plus::command(int id)
 		}
 		
 		case IDM_EDIT_CUT:
-			if (!_pEditView->hasSelection()) // Ctrl + X: without selected text, it will cut the whole line.
-				_pEditView->execute(SCI_LINECUT);
-			else
-				_pEditView->execute(WM_CUT);
-
+		{
+			HWND focusedHwnd = ::GetFocus();
+			if (focusedHwnd == _pEditView->getHSelf())
+			{
+				if (!_pEditView->hasSelection()) // Ctrl + X: without selected text, it will cut the whole line.
+					_pEditView->execute(SCI_LINECUT);
+				else
+					_pEditView->execute(WM_CUT);
+			}
 			break;
+		}
 
 		case IDM_EDIT_COPY:
-			if (!_pEditView->hasSelection()) // Ctrl + C: without selected text, it will copy the whole line.
-				_pEditView->execute(SCI_LINECOPY);
-			else
-				_pEditView->execute(WM_COPY);
+		{
+			HWND focusedHwnd = ::GetFocus();
+			if (focusedHwnd == _pEditView->getHSelf())
+			{
+				if (!_pEditView->hasSelection()) // Ctrl + C: without selected text, it will copy the whole line.
+					_pEditView->execute(SCI_LINECOPY);
+				else
+					_pEditView->execute(WM_COPY);
+			}
+			else  // Search result
+			{
+				Finder* finder = _findReplaceDlg.getFinderFrom(focusedHwnd);
+				if (finder)
+					finder->scintillaExecute(WM_COPY);
+			}
 
 			break;
+		}
 
 		case IDM_EDIT_COPY_LINK:
 		{
@@ -448,18 +465,21 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_PASTE:
 		{
 			std::lock_guard<std::mutex> lock(command_mutex);
-
-			size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
-			Buffer* buf = getCurrentBuffer();
-			bool isRO = buf->isReadOnly();
-			if (nbSelections > 1 && !isRO)
+			HWND focusedHwnd = ::GetFocus();
+			if (focusedHwnd == _pEditView->getHSelf())
 			{
-				bool isPasteDone = _pEditView->pasteToMultiSelection();
-				if (isPasteDone)
-					return;
-			}
+				size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
+				Buffer* buf = getCurrentBuffer();
+				bool isRO = buf->isReadOnly();
+				if (nbSelections > 1 && !isRO)
+				{
+					bool isPasteDone = _pEditView->pasteToMultiSelection();
+					if (isPasteDone)
+						return;
+				}
 
-			_pEditView->execute(SCI_PASTE);
+				_pEditView->execute(SCI_PASTE);
+			}
 		}
 		break;
 

@@ -145,6 +145,9 @@ public:
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
 	generic_string getHitsString(int count) const;
 
+	LRESULT scintillaExecute(UINT msg, WPARAM wParam = 0, LPARAM lParam = 0) const {
+		return _scintView.execute(msg, wParam, lParam);
+	}
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	bool notify(SCNotification *notification);
@@ -282,7 +285,9 @@ public :
 	void findAllIn(InWhat op);
 	void setSearchText(TCHAR * txt2find);
 
-	void gotoNextFoundResult(int direction = 0) {if (_pFinder) _pFinder->gotoNextFoundResult(direction);};
+	void gotoNextFoundResult(int direction = 0) const {
+		if (_pFinder) _pFinder->gotoNextFoundResult(direction);
+	};
 
 	void putFindResult(int result) {
 		_findAllResult = result;
@@ -392,6 +397,7 @@ public :
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
 	DIALOG_TYPE getCurrentStatus() {return _currentStatus;};
+	Finder* getFinderFrom(HWND hwnd);
 
 protected :
 	void resizeDialogElements(LONG newWidth);

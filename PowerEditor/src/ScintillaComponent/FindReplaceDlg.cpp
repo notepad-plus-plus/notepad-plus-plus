@@ -3412,6 +3412,26 @@ bool FindReplaceDlg::removeFinder(Finder *finder2remove)
 	return false;
 }
 
+Finder* FindReplaceDlg::getFinderFrom(HWND hwnd)
+{
+	if (_pFinder && _pFinder->isCreated())
+	{
+		if (_pFinder->_scintView.getHSelf() == hwnd)
+			return _pFinder;
+
+		if (!_findersOfFinder.empty())
+		{
+			for (const auto& finder : _findersOfFinder)
+			{
+				if (finder->_scintView.getHSelf() == hwnd)
+					return finder;
+			}
+		}
+	}
+
+	return nullptr;
+}
+
 void FindReplaceDlg::setSearchText(TCHAR * txt2find)
 {
 	HWND hCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);

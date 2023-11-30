@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.6  23/Nov/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.6  30/Nov/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -1509,6 +1509,7 @@ Přejete si použít takovéto zástupné dokumenty/karty?
 POZNÁMKA: Jestliže se rozhodnete neotevírat zástupné dokumenty/karty anebo je poté sami zavřete, Vaše relace BUDE PŘI UKONČENÍ Notepadu++ automaticky MODIFIKOVÁNA!
 Doporučujeme Vám, abyste si nyní zazálohovali Váš soubor &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Nelze použít směr textu RTL" message="RTL není v současnosti kompatibilní se zvoleným DirectWrite režimem. Prosím vypněte nejprve DirectWrite v sekci &quot;Různé&quot; v &quot;Nastavení&quot;, poté restartujte Notepad++ a použijte znovu tento příkaz."/>
+			<FileMemoryAllocationFailed title="Problém s alokací paměti pro soubor" message="Pravděpodobně není dostatek souvislé volné paměti pro soubor, který Notepad++ právě načítá."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		
 		<ClipboardHistory>

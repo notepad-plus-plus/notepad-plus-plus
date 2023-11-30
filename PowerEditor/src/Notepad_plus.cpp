@@ -864,12 +864,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_mainEditView.getFocus();
 
-	if (_nativeLangSpeaker.isRTL())
-	{
-		_mainEditView.changeTextDirection(true);
-		_subEditView.changeTextDirection(true);
-	}
-
 	return TRUE;
 }
 
@@ -6227,6 +6221,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColour(static_cast<int>(i));
+			sfi._isRTL = buf->isRTL();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			size_t maxLine = static_cast<size_t>(_invisibleEditView.execute(SCI_GETLINECOUNT));

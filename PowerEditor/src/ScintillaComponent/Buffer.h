@@ -342,6 +342,9 @@ public:
 		return _docColorId;
 	};
 
+	bool isRTL() const { return _isRTL; };
+	void setRTL(bool isRTL) { _isRTL = isRTL; };
+
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
@@ -420,4 +423,6 @@ private:
 	std::mutex _reloadFromDiskRequestGuard;
 
 	bool _isInaccessible = false;
+
+	bool _isRTL = false;
 };

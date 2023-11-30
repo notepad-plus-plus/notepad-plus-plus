@@ -39,7 +39,6 @@ public:
 
 class NativeLangSpeaker {
 public:
-	NativeLangSpeaker():_nativeLangA(NULL), _nativeLangEncoding(CP_ACP), _isRTL(false), _fileName(NULL){};
 	void init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish = false);
 	void changeConfigLang(HWND hDlg);
 	void changeLangTabContextMenu(HMENU hCM);
@@ -64,6 +63,10 @@ public:
 
 	bool isRTL() const {
 		return _isRTL;
+	};
+
+	bool isEditZoneRTL() const {
+		return _isEditZoneRTL;
 	};
 
 	const char * getFileName() const {
@@ -92,10 +95,11 @@ public:
 
 	int messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *message, const TCHAR *title, int msgBoxType, int intInfo = 0, const TCHAR *strInfo = NULL);
 private:
-	TiXmlNodeA *_nativeLangA;
-	int _nativeLangEncoding;
-	bool _isRTL;
-	const char *_fileName;
+	TiXmlNodeA *_nativeLangA = nullptr;
+	int _nativeLangEncoding = CP_ACP;
+	bool _isRTL = false; // for Notepad++ GUI
+	bool _isEditZoneRTL = false; // for Scitilla
+	const char *_fileName = nullptr;
 	std::map<std::string, std::wstring> _shortcutMenuEntryNameMap;
 };
 

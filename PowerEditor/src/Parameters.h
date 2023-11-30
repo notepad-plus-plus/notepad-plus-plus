@@ -210,7 +210,7 @@ struct sessionFileInfo : public Position
 	bool _isUserReadOnly = false;
 	bool _isMonitoring = false;
 	int _individualTabColour = -1;
-
+	bool _isRTL = false;
 	std::wstring _backupFilePath;
 	FILETIME _originalFileLastModifTimestamp {};
 

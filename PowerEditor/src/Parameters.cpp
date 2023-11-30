@@ -2425,6 +2425,12 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 						sfi._individualTabColour = _wtoi(intStrTabColour);
 					}
 
+					const TCHAR* rtlStr = (childNode->ToElement())->Attribute(TEXT("RTL"));
+					if (rtlStr)
+					{
+						sfi._isRTL = _wcsicmp(TEXT("yes"), rtlStr) == 0;
+					}
+
 					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
 						markNode;
 						markNode = markNode->NextSibling(TEXT("Mark")))
@@ -3588,6 +3594,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
 				(fileNameNode->ToElement())->SetAttribute(TEXT("tabColourId"), static_cast<int32_t>(viewSessionFiles[i]._individualTabColour));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("RTL"), viewSessionFiles[i]._isRTL ? TEXT("yes") : TEXT("no"));
 
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));

@@ -86,6 +86,9 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 	// reset after initialization
 	_canNotify = true;
+
+	if (nppParamInst.getNativeLangSpeaker()->isRTL() && nppParamInst.getNativeLangSpeaker()->isEditZoneRTL())
+		_isRTL = true;
 }
 
 

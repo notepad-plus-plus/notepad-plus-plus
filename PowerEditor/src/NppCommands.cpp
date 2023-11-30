@@ -3851,15 +3851,11 @@ void Notepad_plus::command(int id)
 			}
 
 			_pEditView->changeTextDirection(toRTL);
-			_pNonEditView->changeTextDirection(toRTL);
 
 			// Wrap then !wrap to fix problem of mirror characters
 			bool isWraped = _pEditView->isWrap();
 			_pEditView->wrap(!isWraped);
 			_pEditView->wrap(isWraped);
-
-			_pNonEditView->wrap(!isWraped);
-			_pNonEditView->wrap(isWraped);
 
 			if (_pDocMap)
 			{

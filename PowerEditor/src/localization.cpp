@@ -122,12 +122,30 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
 			{
 				TiXmlElementA *element = _nativeLangA->ToElement();
 				const char *rtl = element->Attribute("RTL");
-				if (rtl)
-					_isRTL = (strcmp(rtl, "yes") == 0);
-                else
-                    _isRTL = false;
 
-                // get original file name (defined by Notpad++) from the attribute
+				if (rtl)
+				{
+					_isRTL = (strcmp(rtl, "yes") == 0);
+
+					if (_isRTL)
+					{
+						const char* editZoneRtl = element->Attribute("editZoneRTL");
+						if (editZoneRtl)
+							_isEditZoneRTL = !(strcmp(editZoneRtl, "no") == 0);
+						else
+							_isEditZoneRTL = true;
+					}
+					else
+						_isEditZoneRTL = false;
+				}
+				else
+				{
+					_isRTL = false;
+					_isEditZoneRTL = false;
+				}
+
+
+				// get original file name (defined by Notpad++) from the attribute
                 _fileName = element->Attribute("filename");
 
 				if (!loadIfEnglish && _fileName && stricmp("english.xml", _fileName) == 0)

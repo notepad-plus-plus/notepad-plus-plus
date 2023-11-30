@@ -2119,6 +2119,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	int mainIndex2Update = -1;
 
+	// no session
+	if (!session.nbMainFiles() && !session.nbSubFiles())
+	{
+		Buffer* buf = getCurrentBuffer();
+		if (nppParam.getNativeLangSpeaker()->isRTL() && nppParam.getNativeLangSpeaker()->isEditZoneRTL())
+			buf->setRTL(true);
+
+		_mainEditView.changeTextDirection(buf->isRTL());
+		return true;
+	}
+
 	for (size_t i = 0; i < session.nbMainFiles() ; )
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
@@ -2211,6 +2222,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			if (isSnapshotMode && session._mainViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
+
+			buf->setRTL(session._mainViewFiles[i]._isRTL);
+			if (i == 0 && session._activeMainIndex == 0)
+				_mainEditView.changeTextDirection(buf->isRTL());
 
 			_mainDocTab.setIndividualTabColour(lastOpened, session._mainViewFiles[i]._individualTabColour);
 
@@ -2339,6 +2354,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			if (isSnapshotMode && session._subViewFiles[k]._backupFilePath != TEXT("") && PathFileExists(session._subViewFiles[k]._backupFilePath.c_str()))
 				buf->setDirty(true);
+
+			buf->setRTL(session._subViewFiles[k]._isRTL);
 
 			_subDocTab.setIndividualTabColour(lastOpened, session._subViewFiles[k]._individualTabColour);
 

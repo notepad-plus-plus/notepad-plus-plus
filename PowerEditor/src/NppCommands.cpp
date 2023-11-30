@@ -3839,27 +3839,12 @@ void Notepad_plus::command(int id)
 				return;
 			}
 
-			if (toRTL && (NppParameters::getInstance()).getNppGUI()._writeTechnologyEngine == directWriteTechnology)
-			{
-				_nativeLangSpeaker.messageBox("RTLvsDirectWrite",
-					_pPublicInterface->getHSelf(),
-					TEXT("RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, restart Notepad++, and try this command again."),
-					TEXT("Cannot run RTL"),
-					MB_OK | MB_APPLMODAL);
-
-				return;
-			}
-
 			_pEditView->changeTextDirection(toRTL);
-			_pNonEditView->changeTextDirection(toRTL);
 
 			// Wrap then !wrap to fix problem of mirror characters
 			bool isWraped = _pEditView->isWrap();
 			_pEditView->wrap(!isWraped);
 			_pEditView->wrap(isWraped);
-
-			_pNonEditView->wrap(!isWraped);
-			_pNonEditView->wrap(isWraped);
 
 			if (_pDocMap)
 			{

@@ -2119,6 +2119,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 	int mainIndex2Update = -1;
 
+	// no session
+	if (!session.nbMainFiles() && !session.nbSubFiles())
+	{
+		Buffer* buf = getCurrentBuffer();
+		if (nppParam.getNativeLangSpeaker()->isRTL() && nppParam.getNativeLangSpeaker()->isEditZoneRTL())
+			buf->setRTL(true);
+
+		_mainEditView.changeTextDirection(buf->isRTL());
+		return true;
+	}
+
 	for (size_t i = 0; i < session.nbMainFiles() ; )
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();

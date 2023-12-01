@@ -82,7 +82,7 @@ struct FindOption
 	bool _isProjectPanel_2 = false;
 	bool _isProjectPanel_3 = false;
 	bool _dotMatchesNewline = false;
-	bool _isMatchLineNumber = true; // only for Find in Folder
+	bool _isMatchLineNumber = false; // sometimes true for "Find in these search results"; never true for main search
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -135,7 +135,7 @@ public:
 	void copy();
 	void copyPathnames();
 	void beginNewFilesSearch();
-	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection, const FindOption *pfo);
+	void finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection, const FindOption *pFindOpt);
 	
 	void gotoNextFoundResult(int direction);
 	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value 0 means this argument is not used
@@ -229,6 +229,7 @@ public:
 	FindInFinderDlg() {
 		_options._isMatchCase = false;
 		_options._isWholeWord = false;
+		_options._isMatchLineNumber = true;
 	};
 
 private:

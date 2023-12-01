@@ -3771,6 +3771,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				_env->_isWrapAround = ((intValue & IDF_WRAP) > 0);
 				_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION) > 0);
 				_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL) > 0);
+				_env->_isMatchLineNumber = false;  // always false for main search
 				break;
 			case IDNORMAL:
 				_env->_searchType = static_cast<SearchType>(intValue);
@@ -4715,44 +4716,35 @@ void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool 
 		text = stringReplace(text, TEXT("$INT_REPLACE3$"), nbSearchedFilesStr);
 	}
 
-	generic_string searchOptionsText = TEXT("[");
+	generic_string searchModeText;
 	if (pFindOpt->_searchType == FindExtended)
 	{
-		generic_string extendedText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-extended", TEXT("Extended"));
-		searchOptionsText += extendedText;
+		searchModeText += pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-extended", TEXT("Extended"));
 	}
 	else if (pFindOpt->_searchType == FindRegex)
 	{
-		generic_string regexText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-regexp", TEXT("RegEx"));
-		searchOptionsText += regexText;
-		if (pFindOpt->_dotMatchesNewline) searchOptionsText += TEXT(".");
+		searchModeText += pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-regexp", TEXT("RegEx"));
+		if (pFindOpt->_dotMatchesNewline) searchModeText += TEXT(".");
 	}
 	else
 	{
-		generic_string normalText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-normal", TEXT("Normal"));
-		searchOptionsText += normalText;
+		searchModeText += pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-searchmode-normal", TEXT("Normal"));
 	}
-	generic_string searchOptionsCaseWordText;
+
+	generic_string searchOptionsText;
 	if (pFindOpt->_isMatchCase)
 	{
-		generic_string caseText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-case", TEXT("Case"));
-		searchOptionsCaseWordText += caseText;
+		searchOptionsText += pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-case", TEXT("Case"));
 	}
 	if (pFindOpt->_isWholeWord)
 	{
-		if (!searchOptionsCaseWordText.empty())
-		{
-			searchOptionsCaseWordText += TEXT("/");
-		}
-		generic_string wordText = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-word", TEXT("Word"));
-		searchOptionsCaseWordText += wordText;
+		if (!searchOptionsText.empty()) searchOptionsText += TEXT("/");
+		searchOptionsText += pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-word", TEXT("Word"));
 	}
-	if (!searchOptionsCaseWordText.empty())
-	{
-		searchOptionsText += TEXT(": ") + searchOptionsCaseWordText;
-	}
-	searchOptionsText += TEXT("] ");
-	text = searchOptionsText + text;
+
+	if (!searchOptionsText.empty()) searchModeText += TEXT(": ");
+	
+	text += TEXT(" [") + searchModeText + searchOptionsText + TEXT("]");
 
 	if (isMatchLines)
 	{
@@ -4995,7 +4987,7 @@ void Finder::beginNewFilesSearch()
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
-void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pfo)
+void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pFindOpt)
 {
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarkingLine>* _pOldMarkings;
@@ -5013,7 +5005,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCountAndOptionsInfo(count, searchedCount, isMatchLines, searchedEntireNotSelection, pfo);
+	addSearchHitCountAndOptionsInfo(count, searchedCount, isMatchLines, searchedEntireNotSelection, pFindOpt);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	//SCI_SETILEXER resets the lexer property @MarkingsStruct and then no data could be exchanged with the searchResult lexer

@@ -4696,8 +4696,7 @@ void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool 
 		//  variation             "(2 hits in 1 file of 3 searched)"
 		//  variation             "(0 hits in 0 files of 1 searched)"
 		// selection variations:  "(1 hit in 1 selection of 1 searched)"     " (0 hits in 0 selections of 1 searched)"
-		// line filter variation: "(1 hit in 1 file of 1 searched) - Line Filter Mode: only display the filtered results"
-
+		
 		generic_string hitsIn = count == 1 ? TEXT("hit") : TEXT("hits");
 
 		generic_string fileOrSelection = searchedEntireNotSelection ? TEXT("file") : TEXT("selection");;
@@ -4741,16 +4740,15 @@ void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool 
 		if (!searchOptionsText.empty()) searchOptionsText += TEXT("/");
 		searchOptionsText += pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-word", TEXT("Word"));
 	}
-
-	if (!searchOptionsText.empty()) searchModeText += TEXT(": ");
-	
-	text += TEXT(" [") + searchModeText + searchOptionsText + TEXT("]");
-
 	if (pFindOpt->_isMatchLineNumber)
 	{
-		generic_string lineFilterModeInfo = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-extra", TEXT(" - Line Filter Mode: only display the filtered results"));
-		text += lineFilterModeInfo;
+		if (!searchOptionsText.empty()) searchOptionsText += TEXT("/");
+		searchOptionsText += pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-options-foundlines", TEXT("In Found Lines"));
 	}
+
+	if (!searchOptionsText.empty()) searchModeText += TEXT(": ");
+
+	text += TEXT(" [") + searchModeText + searchOptionsText + TEXT("]");
 
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text.c_str());

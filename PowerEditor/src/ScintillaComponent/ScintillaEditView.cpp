@@ -20,6 +20,7 @@
 #include <windowsx.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
+#include "localization.h"
 #include "Sorters.h"
 #include "verifySignedfile.h"
 #include "ILexer.h"
@@ -319,8 +320,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	if (hNtdllModule)
 		isWINE = ::GetProcAddress(hNtdllModule, "wine_get_version");
 
-	if (isWINE || // There is a performance issue under WINE when DirectWright is ON, so we turn it off if user uses Notepad++ under WINE
-		isTextDirectionRTL()) // RTL is not compatible with Direct Write Technology
+	if (isWINE) // There is a performance issue under WINE when DirectWright is ON, so we turn it off if user uses Notepad++ under WINE
 		nppGui._writeTechnologyEngine = defaultTechnology;
 
 	if (nppGui._writeTechnologyEngine == directWriteTechnology)
@@ -4219,6 +4219,24 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 {
 	if (isTextDirectionRTL() == isRTL)
 		return;
+
+	NppParameters& nppParamInst = NppParameters::getInstance();
+	if (isRTL && nppParamInst.getNppGUI()._writeTechnologyEngine == directWriteTechnology) // RTL is not compatible with Direct Write Technology
+	{
+		static bool theWarningIsGiven = false;
+
+		if (!theWarningIsGiven)
+		{
+			(nppParamInst.getNativeLangSpeaker())->messageBox("RTLvsDirectWrite",
+				getHSelf(),
+				TEXT("RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++."),
+				TEXT("Cannot run RTL"),
+				MB_OK | MB_APPLMODAL);
+
+			theWarningIsGiven = true;
+		}
+		return;
+	}
 
 	long exStyle = static_cast<long>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
 	exStyle = isRTL ? (exStyle | WS_EX_LAYOUTRTL) : (exStyle & (~WS_EX_LAYOUTRTL));

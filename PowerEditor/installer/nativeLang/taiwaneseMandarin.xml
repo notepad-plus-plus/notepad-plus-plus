@@ -1390,7 +1390,8 @@
 你想為它們創建佔位欄嗎？
 
 請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份工作階段檔案 &quot;session.xml&quot; 。"/>
-			<RTLvsDirectWrite title="無法執行「文字由右至左」指令" message="「文字由右至左」指令與「直接寫入」模式不相容。 請在偏好設定對話框的「其他」中停用「直接寫入」模式，然後重新​​啟動 Notepad++，重試此指令。"/>
+			<RTLvsDirectWrite title="無法執行「文字由右至左」指令" message="「文字由右至左」指令與「直接寫入」模式不相容。 請在偏好設定對話框的「其他」中停用「直接寫入」模式，然後重新​​啟動 Notepad++ 。"/>
+			<FileMemoryAllocationFailed title="例外狀況：檔案記憶體分配失敗" message="可能沒有足夠的連續可用記憶體供 Notepad++ 載入檔案。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

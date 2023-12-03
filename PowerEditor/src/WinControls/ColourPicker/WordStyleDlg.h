@@ -66,7 +66,7 @@ public :
 	void prepare2Cancel();
 	void redraw(bool forceUpdate = false) const override;
 	void restoreGlobalOverrideValues();
-	void apply();
+	void apply(bool needVisualApply = true);
 	void addLastThemeEntry();
 	bool selectThemeByName(const TCHAR* themeName);
 	bool goToSection(const TCHAR* sectionNames); // sectionNames is formed as following: "Language name:Style name"

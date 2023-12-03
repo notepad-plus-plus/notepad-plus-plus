@@ -284,7 +284,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 				{
 					updateExtension();
 					notifyDataModified();
-					// apply(); // apply() function has no effect on adding & modifying user defined extension, but it's just time consuming
+					apply(false);
 				}
 			}
 			else
@@ -1199,17 +1199,21 @@ void WordStyleDlg::restoreGlobalOverrideValues()
 }
 
 
-void WordStyleDlg::apply()
+void WordStyleDlg::apply(bool needVisualApply)
 {
 	LexerStylerArray & lsa = (NppParameters::getInstance()).getLStylerArray();
-	StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
-
 	lsa = _lsArray;
+
+	StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
 	globalStyles = _globalStyles;
 
+	if (needVisualApply)
+	{
+		::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+		::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+	}
+
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
-	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
-	::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 }
 
 void WordStyleDlg::addLastThemeEntry()

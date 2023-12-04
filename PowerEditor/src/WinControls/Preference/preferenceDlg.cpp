@@ -19,6 +19,8 @@
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
 #include "localization.h"
+#include <algorithm>
+#include <iostream> // remove before PR
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 
@@ -2861,10 +2863,16 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (str.length() > 0)
 						{
 							_langList.push_back(LangMenuItem(static_cast<LangType>(i), cmdID, str));
-							::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(str.c_str()));
 						}
 					}
 				}
+			}
+
+			std::sort(_langList.begin(), _langList.end());
+
+			for (size_t i = 0; i < _langList.size(); ++i)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_langList[i]._langName.c_str()));
 			}
 
 			for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; ++i)

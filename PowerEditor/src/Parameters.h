@@ -586,6 +586,14 @@ struct LangMenuItem final
 
 	LangMenuItem(LangType lt, int cmdID = 0, const std::wstring& langName = TEXT("")):
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
+
+	bool operator<(const LangMenuItem& rhs)
+	{
+		std::wstring lhs_lang(this->_langName.length(), ' '), rhs_lang(rhs._langName.length(), ' ');
+		std::transform(this->_langName.begin(), this->_langName.end(), lhs_lang.begin(), towlower);
+		std::transform(rhs._langName.begin(), rhs._langName.end(), rhs_lang.begin(), towlower);
+		return lhs_lang < rhs_lang;
+	}
 };
 
 struct PrintSettings final {

@@ -2875,6 +2875,8 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_langList[i]._langName.c_str()));
 			}
 
+			std::sort(nppGUI._excludedLangList.begin(), nppGUI._excludedLangList.end());
+				
 			for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; ++i)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(nppGUI._excludedLangList[i]._langName.c_str()));

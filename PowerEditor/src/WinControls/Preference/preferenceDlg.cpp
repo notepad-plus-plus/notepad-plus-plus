@@ -2869,7 +2869,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			std::sort(_langList.begin(), _langList.end());
 
-			for (size_t i = 0; i < _langList.size(); ++i)
+			for (size_t i = 0, len = _langList.size(); i < len; ++i)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_langList[i]._langName.c_str()));
 			}

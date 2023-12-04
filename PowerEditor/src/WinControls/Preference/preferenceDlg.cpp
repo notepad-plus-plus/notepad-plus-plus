@@ -20,7 +20,6 @@
 #include "EncodingMapper.h"
 #include "localization.h"
 #include <algorithm>
-#include <iostream> // remove before PR
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 

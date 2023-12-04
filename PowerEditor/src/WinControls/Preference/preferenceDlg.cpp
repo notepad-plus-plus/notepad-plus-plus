@@ -19,6 +19,7 @@
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
 #include "localization.h"
+#include <iostream>
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 
@@ -48,6 +49,13 @@ constexpr int AUTOCOMPLETEFROMCHAR_SMALLEST = 1;
 constexpr int AUTOCOMPLETEFROMCHAR_LARGEST = 9;
 constexpr int AUTOCOMPLETEFROMCHAR_INTERVAL = 1;
 
+struct Sort_Languages
+{
+	bool operator()(const LangMenuItem& x, const LangMenuItem& y) const
+	{
+		return x._langName < y._langName;
+	}
+};
 // This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
 // And NewDocumentSubDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
 static int encodings[] = {
@@ -3163,6 +3171,42 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
 					return TRUE;
 				}
+
+
+
+				case IDC_BUTTON_SORT_AVAILIBLE:
+				{
+	
+					::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_RESETCONTENT, 0, 0);
+
+					std::sort(_langList.begin(), _langList.end(), Sort_Languages());
+
+					for (const auto& item : _langList) 
+					{
+						TCHAR s[32];
+						_sntprintf_s(s, _countof(s), _TRUNCATE, _T("%s"), item._langName.c_str());
+						::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(s));
+					}
+
+					return TRUE; 
+				}
+
+
+				case IDC_BUTTON_SORT_DISABLED:
+				{
+					::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_RESETCONTENT, 0, 0);
+
+					std::sort(nppGUI._excludedLangList.begin(), nppGUI._excludedLangList.end(), Sort_Languages());
+
+					for (const auto& item : nppGUI._excludedLangList) {
+						TCHAR s[32];
+						_sntprintf_s(s, _countof(s), _TRUNCATE, _T("%s"), item._langName.c_str());
+						::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(s));
+					}
+
+					return TRUE;
+				}
+
 
 				case IDC_BUTTON_RESTORE :
 				case IDC_BUTTON_REMOVE :

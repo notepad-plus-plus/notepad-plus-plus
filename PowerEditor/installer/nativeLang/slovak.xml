@@ -1510,7 +1510,7 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatv
 			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
 Chcete vytvoriť tieto zástupné karty?
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Nie je možné prepnúť smer textu na sprava doľava (RTL)" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne, reštartujte Notepad++ a skúste tento príkaz znova."/>
+			<RTLvsDirectWrite title="Nie je možné prepnúť smer textu na sprava doľava (RTL)" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne a reštartujte Notepad++."/>
 			<FileMemoryAllocationFailed title="Výnimka: Pridelenie pamäte súboru zlyhalo" message="Pravdepodobne nie je dostatok súvislej voľnej pamäte pre súbor načítavaný programom Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>

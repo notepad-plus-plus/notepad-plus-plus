@@ -2270,13 +2270,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
-		BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
-		if (clonedBuf != BUFFER_INVALID)
-		{
-			loadBufferIntoView(clonedBuf, SUB_VIEW);
-			++k;
-			continue;
-		}
 		bool isWow64Off = false;
 		if (!PathFileExists(pFn))
 		{

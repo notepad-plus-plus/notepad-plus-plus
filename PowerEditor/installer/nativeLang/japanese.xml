@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -304,6 +304,8 @@ Translation note:
 					<Item id="44092" name="タブ7"/>
 					<Item id="44093" name="タブ8"/>
 					<Item id="44094" name="タブ9"/>
+					<Item id="44116" name="最初のタブ"/>
+					<Item id="44117" name="最後のタブ"/>
 					<Item id="44095" name="次のタブ"/>
 					<Item id="44096" name="前のタブ"/>
 					<Item id="44097" name="ファイル監視(tail -f)"/>
@@ -517,8 +519,8 @@ Translation note:
 
 			<IncrementalFind title="">
 				<Item id="1681" name="検索文字列:"/>
-				<Item id="1685" name="大/小文字を区別"/>
-				<Item id="1690" name="すべてハイライト"/>
+				<Item id="1685" name="大/小文字を区別(&amp;C)"/>
+				<Item id="1690" name="すべてハイライト(&amp;H)"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="文字範囲を指定して検索...">
@@ -1161,7 +1163,7 @@ Translation note:
 					<Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
 					<Item id="6904" name="「すべての文書で置換」を実行する前に、確認する"/>
 					<Item id="6905" name="置換時に、次の出現箇所に移動しない"/>
-					<Item id="6906" name="検索結果画面：複数回一致した行を 1行にまとめて表示する"/>
+					<Item id="6906" name="検索結果画面：可能であれば、複数回一致した行を 1行にまとめて表示する"/>
 					<Item id="6907" name="検索画面を開くときの動作"/>
 					<Item id="6908" name="検索文字列欄に、選択中の文字列を自動入力する"/>
 					<Item id="6909" name="何も選択されていないときは、カーソル位置の単語を自動入力する"/>
@@ -1512,7 +1514,8 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 プレースホルダーとして残しますか？
 
 注意：プレースホルダーとして残さない場合や残した後に閉じた場合、プログラム終了時にセッションに反映されます！　ファイル「session.xml」のバックアップを今すぐ作成することをお勧めします。"/>
-			<RTLvsDirectWrite title="RTL を利用できません" message="右から左への書字方向（RTL）は DirectWrite と互換性がありません。「環境設定」の「その他」にて DirectWrite をオフにし、Notepad++ を再起動してください。その後、もう一度このコマンドを実行してください。"/>
+			<RTLvsDirectWrite title="RTL を利用できません" message="右から左への書字方向（RTL）は DirectWrite と互換性がありません。「環境設定」の「その他」にて DirectWrite をオフにし、Notepad++ を再起動してください。"/>
+			<FileMemoryAllocationFailed title="メモリー領域の確保に失敗しました" message="Notepad++ で開こうとしているファイルに対し、十分な連続したメモリー領域が確保できなかったことが原因と思われます。"/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>
@@ -1724,6 +1727,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<find-result-title value="検索文字列"/>
 			<find-result-title-info value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個のファイル内で一致しました。検索ファイル数は $INT_REPLACE3$ 個)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個の選択範囲内で一致しました。検索した選択範囲は $INT_REPLACE3$ 個)"/>
+			<find-result-title-info-options-searchmode-normal value="標準"/>
+			<find-result-title-info-options-searchmode-extended value="拡張"/>
+			<find-result-title-info-options-searchmode-regexp value="正規表現"/>
+			<find-result-title-info-options-case value="大・小文字区別"/>
+			<find-result-title-info-options-word value="単語単位"/>
 			<find-result-title-info-extra value=" - 絞り込まれた検索結果のみを表示しています"/>
 			<find-result-hits value="($INT_REPLACE$ 件の一致)"/>
 			<find-result-line-prefix value="行番号"/><!-- Must not begin with space or tab character -->

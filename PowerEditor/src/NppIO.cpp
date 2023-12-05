@@ -2276,17 +2276,21 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;
 		}
+
 		if (PathFileExists(pFn))
 		{
-			if (isSnapshotMode && session._subViewFiles[k]._backupFilePath != TEXT(""))
-				lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
-			else
-				lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
-
 			//check if already open in main. If so, clone
-			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1)
+			BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
+			if (clonedBuf != BUFFER_INVALID)
 			{
-				loadBufferIntoView(lastOpened, SUB_VIEW);
+				loadBufferIntoView(clonedBuf, SUB_VIEW);
+			}
+			else
+			{
+				if (isSnapshotMode && session._subViewFiles[k]._backupFilePath != TEXT(""))
+					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
+				else
+					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 			}
 		}
 		else if (isSnapshotMode && PathFileExists(session._subViewFiles[k]._backupFilePath.c_str()))
@@ -2299,6 +2303,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (foundBufID == BUFFER_INVALID)
 				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName) : BUFFER_INVALID;
 		}
+
 		if (isWow64Off)
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(TRUE);

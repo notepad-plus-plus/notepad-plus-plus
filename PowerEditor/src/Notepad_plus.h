@@ -206,6 +206,20 @@ public:
 	void saveCurrentSession();
 	void saveFindHistory();
 
+	#define IDM_VIEW_HIDECOLUMNS           (IDM_VIEW + 35)
+	#define IDM_VIEW_HIDECOLUMNS_10        (IDM_VIEW_HIDECOLUMNS + 1)
+	#define IDM_VIEW_HIDECOLUMNS_20        (IDM_VIEW_HIDECOLUMNS + 2)
+	#define IDM_VIEW_HIDECOLUMNS_30        (IDM_VIEW_HIDECOLUMNS + 3)
+	#define IDM_VIEW_HIDECOLUMNS_50        (IDM_VIEW_HIDECOLUMNS + 4)
+	#define IDM_VIEW_HIDECOLUMNS_100       (IDM_VIEW_HIDECOLUMNS + 5)
+	#define IDM_VIEW_HIDECOLUMNS_CUSTOM    (IDM_VIEW_HIDECOLUMNS + 6)
+	
+	#define IDC_STATIC                     (IDM_VIEW_HIDECOLUMNS + 7)
+	#define IDOK                           (IDM_VIEW_HIDECOLUMNS + 8)
+	#define IDCANCEL                       (IDM_VIEW_HIDECOLUMNS + 9)  
+	#define IDC_COLUMN_COUNT_TEXT_FIELD    (IDM_VIEW_HIDECOLUMNS + 10)  
+
+
 	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
 
 	bool fileLoadSession(const TCHAR* fn = nullptr);

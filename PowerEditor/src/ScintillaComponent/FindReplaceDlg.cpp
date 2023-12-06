@@ -4677,7 +4677,7 @@ void Finder::addFileHitCount(int count)
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool searchedEntireNotSelection, const FindOption* pFindOpt)
+void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pFindOpt)
 {
 	generic_string nbResStr = std::to_wstring(count);
 	generic_string nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
@@ -4746,7 +4746,7 @@ void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool 
 	
 	text += TEXT(" [") + searchModeText + searchOptionsText + TEXT("]");
 
-	if (pFindOpt->_isMatchLineNumber)
+	if (isMatchLines)
 	{
 		generic_string lineFilterModeInfo = pNativeSpeaker->getLocalizedStrFromID("find-result-title-info-extra", TEXT(" - Line Filter Mode: only display the filtered results"));
 		text += lineFilterModeInfo;
@@ -4987,7 +4987,7 @@ void Finder::beginNewFilesSearch()
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
-void Finder::finishFilesSearch(int count, int searchedCount, bool searchedEntireNotSelection, const FindOption* pFindOpt)
+void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pFindOpt)
 {
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarkingLine>* _pOldMarkings;
@@ -5005,7 +5005,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool searchedEntire
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCountAndOptionsInfo(count, searchedCount, searchedEntireNotSelection, pFindOpt);
+	addSearchHitCountAndOptionsInfo(count, searchedCount, isMatchLines, searchedEntireNotSelection, pFindOpt);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	//SCI_SETILEXER resets the lexer property @MarkingsStruct and then no data could be exchanged with the searchResult lexer

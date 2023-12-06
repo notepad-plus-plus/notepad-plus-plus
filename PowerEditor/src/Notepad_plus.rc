@@ -352,6 +352,7 @@ IDR_ASCIIPANEL_ICO2             ICON      "icons/asciiPanel2.ico"
 IDR_ASCIIPANEL_ICO_DM           ICON      "icons/darkMode/panels/asciiPanel.ico"
 
 
+
 IDI_PROJECT_WORKSPACE           BITMAP      "icons/project_work_space.bmp"
 IDI_PROJECT_WORKSPACEDIRTY      BITMAP      "icons/project_work_space_dirty.bmp"
 IDI_PROJECT_PROJECT             BITMAP      "icons/project_root.bmp"
@@ -1346,6 +1347,23 @@ BEGIN
     PUSHBUTTON      "Yes to &all",IDRETRY,179,60,60,14
     PUSHBUTTON      "N&o to all",IDIGNORE,242,60,60,14
 END
+
+
+LTEXT           "Enter number of columns:", IDC_STATIC, 40, 10, 100, 8
+EDITTEXT        IDC_COLUMN_COUNT_TEXT_FIELD, 150, 10, 20, 14, ES_AUTOHSCROLL
+PUSHBUTTON      "OK", IDOK, 40, 50, 10, 14
+PUSHBUTTON      "Cancel", IDCANCEL, 40, 65, 10, 14
+
+MENUITEM "Hide Columns", IDM_VIEW_HIDECOLUMNS, MFT_STRING, MFS_ENABLED, 40, 40, 20, 14
+BEGIN
+        MENUITEM "Hide 10 Columns", IDM_VIEW_HIDECOLUMNS_10
+        MENUITEM "Hide 20 Columns", IDM_VIEW_HIDECOLUMNS_20
+        MENUITEM "Hide 30 Columns", IDM_VIEW_HIDECOLUMNS_30
+        MENUITEM "Hide 50 Columns", IDM_VIEW_HIDECOLUMNS_50
+        MENUITEM "Hide 100 Columns", IDM_VIEW_HIDECOLUMNS_100
+        MENUITEM "Custom...", IDM_VIEW_HIDECOLUMNS_CUSTOM
+END
+
 
 IDD_DOSAVEALLBOX DIALOGEX 0, 0, 260, 95
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU

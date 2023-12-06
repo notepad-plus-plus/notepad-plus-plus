@@ -3771,7 +3771,6 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				_env->_isWrapAround = ((intValue & IDF_WRAP) > 0);
 				_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION) > 0);
 				_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL) > 0);
-				_env->_isMatchLineNumber = false;  // always false for main search
 				break;
 			case IDNORMAL:
 				_env->_searchType = static_cast<SearchType>(intValue);
@@ -4677,7 +4676,7 @@ void Finder::addFileHitCount(int count)
 	++_nbFoundFiles;
 }
 
-void Finder::addSearchHitCountAndOptionsInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pFindOpt)
+void Finder::addSearchResultInfo(int count, int countSearched, bool isMatchLines, bool searchedEntireNotSelection, const FindOption* pFindOpt)
 {
 	generic_string nbResStr = std::to_wstring(count);
 	generic_string nbFoundFilesStr = std::to_wstring(_nbFoundFiles);
@@ -5005,7 +5004,7 @@ void Finder::finishFilesSearch(int count, int searchedCount, bool isMatchLines, 
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCountAndOptionsInfo(count, searchedCount, isMatchLines, searchedEntireNotSelection, pFindOpt);
+	addSearchResultInfo(count, searchedCount, isMatchLines, searchedEntireNotSelection, pFindOpt);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	//SCI_SETILEXER resets the lexer property @MarkingsStruct and then no data could be exchanged with the searchResult lexer

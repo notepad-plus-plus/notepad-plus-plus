@@ -1594,6 +1594,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		_pscratchTilla->execute(SCI_SETREADONLY, false);
 	}
 	_pscratchTilla->execute(SCI_CLEARALL);
+	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, false); // disable undocollection while loading a file
 
 
 	if (fileFormat._language < L_EXTERNAL)
@@ -1769,6 +1770,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, true);
 
 	if (ro)
 		_pscratchTilla->execute(SCI_SETREADONLY, true);

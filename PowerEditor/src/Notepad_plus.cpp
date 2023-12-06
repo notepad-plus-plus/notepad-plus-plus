@@ -725,12 +725,73 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_sha512FromFilesDlg.setHashType(hash_sha512);
 	_sha512FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_sha512FromTextDlg.setHashType(hash_sha512);
-
+	
 
 	//--User Define Dialog Section--//
 	int uddStatus = nppGUI._userDefineDlgStatus;
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 
+	void hideColumns(int numColumns) {
+    HWND editorHandle = ::GetDlgItem(_hSelf, IDC_MAIN_EDIT);
+    int lineCount = ::SendMessage(editorHandle, SCI_GETLINECOUNT, 0, 0);
+
+    for (int line = 0; line < lineCount; ++line) {
+        int lineStart = ::SendMessage(editorHandle, SCI_POSITIONFROMLINE, line, 0);
+        ::SendMessage(editorHandle, SCI_SETTARGETSTART, lineStart, 0);
+        ::SendMessage(editorHandle, SCI_SETTARGETEND, lineStart + numColumns, 0);
+        ::SendMessage(editorHandle, SCI_REPLACETARGET, 0, reinterpret_cast<LPARAM>(""));
+    }
+}
+
+	// Dialog procedure for custom column count dialog
+	INT_PTR CALLBACK CustomColumnCountDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
+	    switch (message) {
+		case WM_COMMAND:
+		    if (LOWORD(wParam) == IDOK) {
+			TCHAR numColumnsStr[11];
+			GetDlgItemText(hDlg, IDC_COLUMN_COUNT_TEXT_FIELD, numColumnsStr, 10);
+			int numColumns = _ttoi(numColumnsStr);
+			hideColumns(numColumns);
+			EndDialog(hDlg, numColumns);
+			return TRUE;
+		    } else if (LOWORD(wParam) == IDCANCEL) {
+			EndDialog(hDlg, 0);
+			return TRUE;
+		    }
+		    break;
+		// ... additional message handling ...
+	    }
+	    return FALSE;
+	}
+	
+	// Window procedure or command message handling function
+	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+	    switch (message) {
+		// ... other case statements ...
+	
+		case IDM_VIEW_HIDECOLUMNS_10:
+		    hideColumns(10);
+		    break;
+		case IDM_VIEW_HIDECOLUMNS_20:
+		    hideColumns(20);
+		    break;
+		case IDM_VIEW_HIDECOLUMNS_30:
+		    hideColumns(30);
+		    break;
+		case IDM_VIEW_HIDECOLUMNS_50:
+		    hideColumns(50);
+		    break;
+		case IDM_VIEW_HIDECOLUMNS_100:
+		    hideColumns(100);
+		    break;
+		case IDM_VIEW_HIDECOLUMNS_CUSTOM:
+		    DialogBox(_hInst, MAKEINTRESOURCE(IDD_CUSTOM_COLUMN_COUNT_DLG), hWnd, CustomColumnCountDlgProc);
+		    break;
+	    }
+	    return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+
+	
 	bool uddShow = false;
 	switch (uddStatus)
 	{

@@ -1723,7 +1723,7 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
 			<find-result-title-info-options-case value="Case"/>
 			<find-result-title-info-options-word value="Word"/>
-			<find-result-title-info-options-foundlines value="In Found Lines"/>
+			<find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
 			<find-result-hits value="($INT_REPLACE$ hits)"/>
 			<find-result-line-prefix value="Line"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="zero length match"/>

@@ -251,6 +251,7 @@ public :
 	FindReplaceDlg() {
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance()).getWinVersion();
+		_options._isMatchLineNumber = false;  // always false for main search
 		_env = &_options;
 	};
 

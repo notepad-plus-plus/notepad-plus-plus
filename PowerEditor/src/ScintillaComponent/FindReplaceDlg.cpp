@@ -3771,6 +3771,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 				_env->_isWrapAround = ((intValue & IDF_WRAP) > 0);
 				_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION) > 0);
 				_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL) > 0);
+				_env->_isMatchLineNumber = false;  // always false for main search
 				break;
 			case IDNORMAL:
 				_env->_searchType = static_cast<SearchType>(intValue);

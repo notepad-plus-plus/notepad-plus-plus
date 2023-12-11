@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#include <time.h>
 #include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 
@@ -65,10 +64,6 @@ void Notepad_plus_Window::setStartupBgColor(COLORREF BgColor)
 
 void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdLineParams *cmdLineParams)
 {
-	time_t timestampBegin = 0;
-	if (cmdLineParams->_showLoadingTime)
-		timestampBegin = time(NULL);
-
 	Window::init(hInst, parent);
 	WNDCLASS nppClass{};
 
@@ -172,8 +167,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	if (cmdLineParams->_alwaysOnTop)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
 
+	std::chrono::steady_clock::duration sessionLoadingTime{};
 	if (nppGUI._rememberLastSession && !nppGUI._isCmdlineNosessionActivated)
+	{
+		std::chrono::steady_clock::time_point sessionLoadingStartTP = std::chrono::steady_clock::now();
 		_notepad_plus_plus_core.loadLastSession();
+		sessionLoadingTime = std::chrono::steady_clock::now() - sessionLoadingStartTP;
+	}
 
 	if (nppParams.doFunctionListExport() || nppParams.doPrintAndExit())
 	{
@@ -297,9 +297,14 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; ++i)
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);
 
+	std::chrono::steady_clock::duration cmdlineParamsLoadingTime{};
 	std::vector<generic_string> fns;
 	if (cmdLine)
+	{
+		std::chrono::steady_clock::time_point cmdlineParamsLoadingStartTP = std::chrono::steady_clock::now();
 		fns = _notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
+		cmdlineParamsLoadingTime = std::chrono::steady_clock::now() - cmdlineParamsLoadingStartTP;
+	}
 
 	// Launch folder as workspace after all this dockable panel being restored from the last session
 	// To avoid dockable panel toggle problem.
@@ -385,12 +390,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	if (cmdLineParams->_showLoadingTime)
 	{
-		time_t timestampEnd = time(NULL);
-		double loadTime = difftime(timestampEnd, timestampBegin);
-
-		char dest[256];
-		sprintf(dest, "Loading time : %.0lf seconds", loadTime);
-		::MessageBoxA(NULL, dest, "", MB_OK);
+		std::chrono::steady_clock::duration nppInitTime = (std::chrono::steady_clock::now() - g_nppStartTimePoint) - sessionLoadingTime - cmdlineParamsLoadingTime;
+		std::wstringstream wss;
+		wss << L"app & plugin(s) initialization: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(nppInitTime) } << std::endl;
+		wss << L"last session loading: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(sessionLoadingTime) } << std::endl;
+		wss << L"cmdline params handling: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(cmdlineParamsLoadingTime) } << std::endl << std::endl;
+		wss << L"overall: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(nppInitTime + sessionLoadingTime + cmdlineParamsLoadingTime) };
+		::MessageBoxW(NULL, wss.str().c_str(), L"Notepad++ loading time (hh:mm:ss.ms)", MB_OK);
 	}
 
 	bool isSnapshotMode = nppGUI.isSnapshotMode();

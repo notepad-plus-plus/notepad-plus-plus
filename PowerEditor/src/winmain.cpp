@@ -377,10 +377,13 @@ void stripIgnoredParams(ParamVector & params)
 } // namespace
 
 
+std::chrono::steady_clock::time_point g_nppStartTimePoint{};
 
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ PWSTR pCmdLine, _In_ int /*nShowCmd*/)
 {
+	g_nppStartTimePoint = std::chrono::steady_clock::now();
+
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);
 	::CreateMutex(NULL, false, TEXT("nppInstance"));

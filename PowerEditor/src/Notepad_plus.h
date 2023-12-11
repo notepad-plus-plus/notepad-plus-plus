@@ -45,6 +45,10 @@
 #include "md5Dlgs.h"
 #include <vector>
 #include <iso646.h>
+#include <chrono>
+
+extern std::chrono::steady_clock::time_point g_nppStartTimePoint;
+extern std::chrono::steady_clock::duration g_pluginsLoadingTime;
 
 
 #define MENU 0x01

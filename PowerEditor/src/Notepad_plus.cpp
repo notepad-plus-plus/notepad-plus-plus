@@ -43,6 +43,8 @@
 
 using namespace std;
 
+chrono::steady_clock::duration g_pluginsLoadingTime{};
+
 enum tb_stat {tb_saved, tb_unsaved, tb_ro, tb_monitored};
 #define DIR_LEFT true
 #define DIR_RIGHT false
@@ -457,7 +459,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pluginsManager.init(nppData);
 
 	bool enablePluginAdmin = _pluginsAdminDlg.initFromJson();
+	std::chrono::steady_clock::time_point pluginsLoadingStartTP = std::chrono::steady_clock::now();
 	_pluginsManager.loadPlugins(nppParam.getPluginRootDir(), enablePluginAdmin ? &_pluginsAdminDlg.getAvailablePluginUpdateInfoList() : nullptr, enablePluginAdmin ? &_pluginsAdminDlg.getIncompatibleList() : nullptr);
+	g_pluginsLoadingTime = std::chrono::steady_clock::now() - pluginsLoadingStartTP;
 	_restoreButton.init(_pPublicInterface->getHinst(), hwnd);
 
 	// ------------ //

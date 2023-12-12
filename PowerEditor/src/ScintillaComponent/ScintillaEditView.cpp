@@ -524,6 +524,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			SHORT alt = GetKeyState(VK_MENU);
 			SHORT shift = GetKeyState(VK_SHIFT);
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
+			bool column2MultSelect = (NppParameters::getInstance()).doColumn2MultiSelect();
 
 			if (wParam == VK_DELETE)
 			{
@@ -610,7 +611,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					}
 				}
 			}
-			else if (isColumnSelection)
+			else if (isColumnSelection && column2MultSelect)
 			{
 				//
 				// Transform the column selection to multi-edit
@@ -628,8 +629,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						execute(SCI_SETSELECTIONMODE, SC_SEL_STREAM); // When it's rectangular selection and the arrow keys are pressed, we switch the mode for having multiple carets.
 
 						execute(SCI_SETSELECTIONMODE, SC_SEL_STREAM); // the 2nd call for removing the unwanted selection while moving carets.
-						                                              // Solution suggested by Neil Hodgson. See:
-						                                              // https://sourceforge.net/p/scintilla/bugs/2412/
+																	  // Solution suggested by Neil Hodgson. See:
+																	  // https://sourceforge.net/p/scintilla/bugs/2412/
 						break;
 
 					default:

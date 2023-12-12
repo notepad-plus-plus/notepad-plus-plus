@@ -1877,6 +1877,7 @@ public:
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
+	bool doColumn2MultiSelect() const { return _column2MultiSelect; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1944,10 +1945,11 @@ private:
 
 	bool _isSelectFgColorEnabled = false;
 	bool _isRegForOSAppRestartDisabled = false;
+	bool _column2MultiSelect = true;
 
 	bool _doNppLogNetworkDriveIssue = false;
-
 	bool _doNppLogNulContentCorruptionIssue = false;
+
 	bool _isEndSessionStarted = false;
 	bool _isEndSessionCritical = false;
 

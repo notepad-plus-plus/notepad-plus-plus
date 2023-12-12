@@ -1635,6 +1635,21 @@ bool NppParameters::load()
 		_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
 	}
 
+
+	//-------------------------------------------------------------//
+	// noColumnToMultiSelect.xml                                   //
+	// This empty xml file is optional - user adds this empty file //
+	// manually in order to prevent Notepad++ transform column     //
+	// selection into multi-select.                                //
+	//-------------------------------------------------------------//
+	std::wstring enableNoColumn2MultiSelectPath = _userPath;
+	pathAppend(enableNoColumn2MultiSelectPath, TEXT("noColumnToMultiSelect.xml"));
+
+	if (PathFileExists(enableNoColumn2MultiSelectPath.c_str()))
+	{
+		_column2MultiSelect = false;
+	}
+
 	return isAllLaoded;
 }
 

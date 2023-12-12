@@ -82,7 +82,7 @@ struct FindOption
 	bool _isProjectPanel_2 = false;
 	bool _isProjectPanel_3 = false;
 	bool _dotMatchesNewline = false;
-	bool _isMatchLineNumber = true; // only for Find in Folder
+	bool _isMatchLineNumber = false; // always false for main search
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -229,6 +229,7 @@ public:
 	FindInFinderDlg() {
 		_options._isMatchCase = false;
 		_options._isWholeWord = false;
+		_options._isMatchLineNumber = true;
 	};
 
 private:
@@ -251,7 +252,6 @@ public :
 	FindReplaceDlg() {
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance()).getWinVersion();
-		_options._isMatchLineNumber = false;  // always false for main search
 		_env = &_options;
 	};
 

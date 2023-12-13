@@ -48,6 +48,10 @@
 #include <chrono>
 
 extern std::chrono::steady_clock::time_point g_nppStartTimePoint;
+extern std::chrono::steady_clock::duration g_nppInitTime;
+extern std::chrono::steady_clock::duration g_pluginsLoadingTime;
+extern std::chrono::steady_clock::duration g_sessionLoadingTime;
+extern std::chrono::steady_clock::duration g_cmdlineParamsLoadingTime;
 
 
 #define MENU 0x01

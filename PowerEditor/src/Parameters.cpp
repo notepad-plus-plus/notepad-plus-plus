@@ -1593,7 +1593,11 @@ bool NppParameters::load()
 
 
 	std::wstring filePath, filePath2, issueFileName;
-
+	//-------------------------------------------------------------//
+	// nppLogNetworkDriveIssue.xml                                 //
+	// This empty xml file is optional - user adds this empty file //
+	// It's for debugging use only                                 //
+	//-------------------------------------------------------------//
 	filePath = _nppPath;
 	issueFileName = nppLogNetworkDriveIssue;
 	issueFileName += TEXT(".xml");
@@ -1606,6 +1610,11 @@ bool NppParameters::load()
 		_doNppLogNetworkDriveIssue = (PathFileExists(filePath2.c_str()) == TRUE);
 	}
 
+	//-------------------------------------------------------------//
+	// nppLogNulContentCorruptionIssue.xml                         //
+	// This empty xml file is optional - user adds this empty file //
+	// It's for debugging use only                                 //
+	//-------------------------------------------------------------//
 	filePath = _nppPath;
 	issueFileName = nppLogNulContentCorruptionIssue;
 	issueFileName += TEXT(".xml");
@@ -1642,12 +1651,26 @@ bool NppParameters::load()
 	// manually in order to prevent Notepad++ transform column     //
 	// selection into multi-select.                                //
 	//-------------------------------------------------------------//
-	std::wstring enableNoColumn2MultiSelectPath = _userPath;
-	pathAppend(enableNoColumn2MultiSelectPath, TEXT("noColumnToMultiSelect.xml"));
+	std::wstring disableColumn2MultiSelectPath = _userPath;
+	pathAppend(disableColumn2MultiSelectPath, TEXT("noColumnToMultiSelect.xml"));
 
-	if (PathFileExists(enableNoColumn2MultiSelectPath.c_str()))
+	if (PathFileExists(disableColumn2MultiSelectPath.c_str()))
 	{
 		_column2MultiSelect = false;
+	}
+
+	//-------------------------------------------------------------//
+	// disableHardCodedShiftDelete.xml                             //
+	// This empty xml file is optional - user adds this empty file //
+	// manually in order to prevent hard coded Shift-DEL shortcut  //
+	// delete whole line while no selection.                       //
+	//-------------------------------------------------------------//
+	std::wstring disableHardCodedShiftDeletePath = _userPath;
+	pathAppend(disableHardCodedShiftDeletePath, TEXT("disableHardCodedShiftDelete.xml"));
+
+	if (PathFileExists(disableHardCodedShiftDeletePath.c_str()))
+	{
+		_useHardCodedShiftDelete = false;
 	}
 
 	return isAllLaoded;

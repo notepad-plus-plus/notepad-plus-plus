@@ -1878,6 +1878,7 @@ public:
 	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
 	bool doColumn2MultiSelect() const { return _column2MultiSelect; };
+	bool useHardCodedShiftDelete() const { return _useHardCodedShiftDelete; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1946,6 +1947,7 @@ private:
 	bool _isSelectFgColorEnabled = false;
 	bool _isRegForOSAppRestartDisabled = false;
 	bool _column2MultiSelect = true;
+	bool _useHardCodedShiftDelete = true;
 
 	bool _doNppLogNetworkDriveIssue = false;
 	bool _doNppLogNulContentCorruptionIssue = false;

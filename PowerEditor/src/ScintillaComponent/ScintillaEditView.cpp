@@ -525,13 +525,14 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			SHORT shift = GetKeyState(VK_SHIFT);
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
 			bool column2MultSelect = (NppParameters::getInstance()).doColumn2MultiSelect();
+			bool useHardCodedShiftDelete = (NppParameters::getInstance()).useHardCodedShiftDelete();
 
 			if (wParam == VK_DELETE)
 			{
 				// 1 shortcut:
 				// Shift + Delete: without selected text, it will delete the whole line.
 				//
-				if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000) && !hasSelection()) // Shift-DEL & no selection
+				if ((shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000) && !hasSelection() && useHardCodedShiftDelete) // Shift-DEL & no selection
 				{
 					execute(SCI_LINEDELETE);
 					return TRUE;

@@ -14,7 +14,7 @@ Additionnal information about Corsican localization:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
-			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6)
+			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -32,7 +32,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -331,6 +331,8 @@ Additionnal information about Corsican localization:
 					<Item id="44092" name="7ᵃ unghjetta"/>
 					<Item id="44093" name="8ᵃ unghjetta"/>
 					<Item id="44094" name="9ᵃ unghjetta"/>
+					<Item id="44116" name="Prima unghjetta"/>
+					<Item id="44117" name="Ultima unghjetta"/>
 					<Item id="44095" name="Unghjetta seguente"/>
 					<Item id="44096" name="Unghjetta precedente"/>
 					<Item id="44097" name="Appustamentu (tail -f)"/>
@@ -373,12 +375,12 @@ Additionnal information about Corsican localization:
 					<Item id="45057" name="OEM 865 : Nordicu"/>
 					<Item id="45053" name="OEM 860 : Purtughese"/>
 					<Item id="45056" name="OEM 863 : Francese"/>
-
 					<Item id="10001" name="Dispiazzà in l’altra vista"/>
 					<Item id="10002" name="Duppià in l’altra vista"/>
 					<Item id="10003" name="Dispiazzà in una finestra nova"/>
 					<Item id="10004" name="Apre in una finestra nova"/>
-
+					<Item id="10005" name="Dispiazzà à u principiu"/>
+					<Item id="10006" name="Dispiazzà à a fine"/>
 					<Item id="46001" name="&amp;Cunfiguratore di stilu…"/>
 					<Item id="46250" name="Definisce u vostru linguaghju…"/>
 					<Item id="46300" name="Apre u cartulare di i linguaghji definiti da l’utilizatore…"/>
@@ -417,9 +419,9 @@ Additionnal information about Corsican localization:
 
 					<Item id="50000" name="Cumpiimentu di funzione"/>
 					<Item id="50001" name="Cumpiimentu di parolla"/>
-					<Item id="50002" name="Sugestione di parametri di funzione"/>
-					<Item id="50010" name="Sugestione precedente di parametri di funzione"/>
-					<Item id="50011" name="Sugestione seguente di parametri di funzione"/>
+					<Item id="50002" name="Suggestione di parametri di funzione"/>
+					<Item id="50010" name="Suggestione precedente di parametri di funzione"/>
+					<Item id="50011" name="Suggestione seguente di parametri di funzione"/>
 					<Item id="50005" name="Attivà o disattivà l’arregistramentu d’una prucedura"/>
 					<Item id="50006" name="Cumpiimentu di chjassu"/>
 					<Item id="44042" name="Piattà e linee"/>
@@ -493,8 +495,8 @@ Additionnal information about Corsican localization:
 				<Item id="2" name="Chjode"/>
 				<Item id="1620" name="&amp;Cosa à circà :"/>
 				<Item id="1603" name="&amp;Parolla sana deve currisponde"/>
-				<Item id="1604" name="Rispettà &amp;Maiuscule è minuscule"/>
-				<Item id="1605" name="Spress&amp;ione regulare"/>
+				<Item id="1604" name="Rispettà a cassa (&amp;maiuscule è minuscule)"/>
+				<Item id="1605" name="Espressi&amp;one regulare"/>
 				<Item id="1606" name="Circun&amp;voglie"/>
 				<Item id="1614" name="Con&amp;tu"/>
 				<Item id="1615" name="Marcalle tutte"/>
@@ -515,8 +517,8 @@ Additionnal information about Corsican localization:
 				<Item id="1658" name="In i sottucartu&amp;lari"/>
 				<Item id="1659" name="In i sc&amp;hedarii piattati"/>
 				<Item id="1624" name="Modu di ricerca"/>
-				<Item id="1625" name="&amp;Nurmale"/>
-				<Item id="1626" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
+				<Item id="1625" name="Modu &amp;nurmale"/>
+				<Item id="1626" name="Modu &amp;aumintatu (\n, \r, \t, \0, \x…)"/>
 				<Item id="1660" name="Rimpiazzà in schedarii"/>
 				<Item id="1665" name="Rimpiazzà in prughjetti"/>
 				<Item id="1661" name="Seguità ducum. attuale"/>
@@ -525,7 +527,7 @@ Additionnal information about Corsican localization:
 				<Item id="1664" name="Pannellu di prughjettu 3"/>
 				<Item id="1641" name="Circalle tutte in u ducumentu attuale"/>
 				<Item id="1686" name="Traspar&amp;enza"/>
-				<Item id="1703" name=". cum’è n&amp;ova linea"/>
+				<Item id="1703" name=". &amp;inchjude fine di linea"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Circà a seguente"/>
 				<Item id="1725" name="Cupià u testu marcatu"/>
@@ -536,9 +538,9 @@ Additionnal information about Corsican localization:
 				</Menu>
 			</Find>
 			<IncrementalFind title="">
-				<Item id="1681" name="Circà"/>
-				<Item id="1685" name="Rispettà Maiuscule è minuscule"/>
-				<Item id="1690" name="Tuttu sopralineà"/>
+				<Item id="1681" name="Circà :"/>
+				<Item id="1685" name="&amp;Rispettà a cassa"/>
+				<Item id="1690" name="&amp;Tuttu sopralineà"/>
 			</IncrementalFind>
 			<FindCharsInRange title="Circà caratteri in una stesa…">
 				<Item id="2" name="C&amp;hjode"/>
@@ -1119,12 +1121,12 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 
 				<Highlighting title="Sopralineamentu">
 					<Item id="6351" name="Stilizà tutte l’occurenze di testu"/>
-					<Item id="6352" name="Rispettà Maiuscule è minuscule"/>
+					<Item id="6352" name="Rispettà a cassa (maiuscule è minuscule)"/>
 					<Item id="6353" name="Parolla sana deve currisponde"/>
 					<Item id="6333" name="Sopralineamentu astutu"/>
 					<Item id="6326" name="Attivà"/>
 					<Item id="6354" name="Currispundenza"/>
-					<Item id="6332" name="Rispettà Maiuscule è minuscule"/>
+					<Item id="6332" name="Rispettà a cassa (maiuscule è minuscule)"/>
 					<Item id="6338" name="Parolla sana deve currisponde"/>
 					<Item id="6339" name="Impiegà e preferenze di dialogu di ricerca"/>
 					<Item id="6340" name="Sopralineà dinù l’altra vista"/>
@@ -1372,12 +1374,12 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 				<Item id="1711" name="&amp;Cosa à circà :"/>
 				<Item id="1713" name="Circà solu in e linee &amp;truvate"/>
 				<Item id="1714" name="&amp;Parolla sana deve currisponde"/>
-				<Item id="1715" name="Rispettà &amp;Maiuscule è minuscule"/>
+				<Item id="1715" name="Rispettà a cassa (&amp;maiuscule è minuscule)"/>
 				<Item id="1716" name="Modu di ricerca"/>
-				<Item id="1717" name="&amp;Nurmale"/>
-				<Item id="1719" name="&amp;Spressione regulare"/>
-				<Item id="1718" name="&amp;Allungatu (\n, \r, \t, \0, \x…)"/>
-				<Item id="1720" name=". cum’è n&amp;ova linea"/>
+				<Item id="1717" name="Modu &amp;nurmale"/>
+				<Item id="1719" name="&amp;Espressione regulare"/>
+				<Item id="1718" name="Modu &amp;aumintatu (\n, \r, \t, \0, \x…)"/>
+				<Item id="1720" name=". &amp;inchjude fine di linea"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Arregistrà">
 				<Item id="1761" name="Arregistrà u schedariu « $STR_REPLACE$ » ?"/>
@@ -1534,7 +1536,8 @@ NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli 
 Vulete creà sti spazii riservati per elli ?
 
 NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli dopu, u vostru schedariu di sessione serà mudificatu à l’esce. Vi ricumandemu di fà subitu una salvaguardia di u vostru schedariu di sessione « session.xml »."/>
-			<RTLvsDirectWrite title="Ùn si pò lancià a cumanda « Testu da diritta à manca »" message="« Testu da diritta à manca » ùn hè micca cumpatibile cù u modu « DirectWrite ». Ci vole à disattivà stu modu in a sezzione « Diversi » di e Preferenze, rilancià Notepad++ eppò torna à lancià sta cumanda."/>
+			<RTLvsDirectWrite title="Ùn si pò lancià a cumanda « Testu da diritta à manca »" message="« Testu da diritta à manca » ùn hè micca cumpatibile cù u modu « DirectWrite ». Ci vole à disattivà stu modu in a sezzione « Diversi » di e Preferenze eppò rilancià Notepad++."/>
+			<FileMemoryAllocationFailed title="Sbagliu : fiascu d’attribuzione di memoria" message="Forse ùn ci hè abbastanza memoria quanciana libera per chì u schedariu sia caricatu da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1694,7 +1697,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
 			<find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
 			<find-status-cannot-find value="Circà : Ùn si pò truvà u testu « $STR_REPLACE$ »"/>
-			<find-status-cannot-find-pebkac-maybe value="Ùn si pò truvà l’occurrenza pruvista. Forse vi site scurdati di selezziunà « Circunvoglie » (attivatu), « Rispettà Maiuscule è minuscule » (disattivatu), o « Currispundenza solu di a parolla sana » (disattivatu)."/>
+			<find-status-cannot-find-pebkac-maybe value="Ùn si pò truvà l’occurrenza pruvista. Forse vi site scurdati di selezziunà « Circunvoglie » (attivatu), « Rispettà a cassa (maiuscule è minuscule) » (disattivatu), o « Currispundenza solu di a parolla sana » (disattivatu)."/>
 			<find-status-scope-selection value="in u testu selezziunatu"/>
 			<find-status-scope-all value="in u schedariu sanu"/>
 			<find-status-scope-backward value="da u principiu di schedariu à u cursore"/>
@@ -1748,6 +1751,11 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-result-title value="Circà"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ ducumenti frà i $INT_REPLACE3$ ducumenti circati)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ risultati in $INT_REPLACE2$ selezzioni frà i $INT_REPLACE3$ ducumenti circati)"/>
+			<find-result-title-info-options-searchmode-normal value="Nurmale"/>
+			<find-result-title-info-options-searchmode-extended value="Aumintatu"/>
+			<find-result-title-info-options-searchmode-regexp value="Espressione"/>
+			<find-result-title-info-options-case value="Cassa"/>
+			<find-result-title-info-options-word value="Parolla"/>
 			<find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
 			<find-result-hits value="($INT_REPLACE$ risultati)"/>
 			<find-result-line-prefix value="Linea"/><!-- Must not begin with space or tab character -->

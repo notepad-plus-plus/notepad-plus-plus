@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.6:
+Updated to v8.6.1:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.6.0">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.6.1">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -131,13 +131,13 @@ Updated to v8.6:
 					<Item id="42089" name="Выделение Столбцом (начало/конец)"/>
 
 					<Item id="42090" name="Игнорировать Регистр и Целые Слова"/>
-					<Item id="42091" name="Учитывать Только Регистр"/>
-					<Item id="42092" name="Учитывать Только Целые Слова"/>
+					<Item id="42091" name="Учитывать только Регистр"/>
+					<Item id="42092" name="Учитывать только Целые Слова"/>
 					<Item id="42093" name="Учитывать Регистр и Целые Слова"/>
 
 					<Item id="42094" name="Игнорировать Регистр и Целые Слова"/>
-					<Item id="42095" name="Учитывать Только Регистр"/>
-					<Item id="42096" name="Учитывать Только Целые Слова"/>
+					<Item id="42095" name="Учитывать только Регистр"/>
+					<Item id="42096" name="Учитывать только Целые Слова"/>
 					<Item id="42097" name="Учитывать Регистр и Целые Слова"/>
 					<Item id="42098" name="Отменить Последний Добавленный"/>
 					<Item id="42099" name="Пропустить Текущий и Перейти к След."/>
@@ -1497,7 +1497,8 @@ Notepad++ сделает резервную копию вашего старог
 			<NotEnoughRoom4Saving title="Не удалось сохранить" message="Не удалось сохранить файл.&#x0A;Кажется, на диске недостаточно места для сохранения файла. Ваш файл не сохранен."/>
 			<FileInaccessibleUserSession title="Файл недоступен" message="Некоторые файлы из сохраненной вручную сессии &quot;$STR_REPLACE$&quot; недоступны. Их можно открыть как пустые файлы, доступные только для чтения, в качестве заполнителей.&#x0A;&#x0A;Хотите создать эти заполнители?&#x0A;&#x0A;ПРИМЕЧАНИЕ: Если вы не будете создавать заполнители или закроете их позже, ваша сессия, сохраненная вручную, НЕ будет изменена при выходе."/>
 			<FileInaccessibleDefaultSessionXml title="Файл недоступен" message="Некоторые файлы из вашей прошлой сессии недоступны. Их можно открыть как пустые файлы, доступные только для чтения, в качестве заполнителей.&#x0A;&#x0A;Хотите создать эти заполнители?&#x0A;&#x0A;ПРИМЕЧАНИЕ: Если вы не будете создавать заполнители или закроете их позже, ваша сессия БУДЕТ ИЗМЕНЕНА ПРИ ВЫХОДЕ! Предлагаем вам сделать резервную копию вашего файла &quot;session.xml&quot; сейчас."/>
-			<RTLvsDirectWrite title="Не могу запустить RTL" message="RTL несовместим с режимом DirectWrite. Пожалуйста, отключите режим DirectWrite в разделе Разное в меню Настроек. Перезапустите Notepad++ и попробуйте эту команду еще раз."/>
+			<RTLvsDirectWrite title="Не могу запустить RTL" message="RTL несовместим с режимом DirectWrite. Пожалуйста, отключите режим DirectWrite в разделе Разное в меню Настроек и перезапустите Notepad++."/>
+			<FileMemoryAllocationFailed title="Исключение: не удалось выделить память файла." message="Вероятно, недостаточно свободной памяти для файла, загружаемого Notepad++."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1709,6 +1710,11 @@ Notepad++ сделает резервную копию вашего старог
 			<replace-in-projects-confirm-message value="Вы точно хотите заменить все совпадения во всех документах в выбранных панелях Проекта?"/>
 			<replace-in-open-docs-confirm-title value="Вы уверены?"/>
 			<replace-in-open-docs-confirm-message value="Вы точно хотите заменить все совпадения во всех открытых документах?"/>
+			<find-result-title-info-options-searchmode-normal value="Обычный"/>
+			<find-result-title-info-options-searchmode-extended value="Продвинутый"/>
+			<find-result-title-info-options-searchmode-regexp value="Регулярное"/>
+			<find-result-title-info-options-case value="Регистр"/>
+			<find-result-title-info-options-word value="Слова"/>
 			<find-result-caption value="Результаты поиска"/>
 			<find-result-title value="Поиск"/><!-- Не должно начинаться с пробела или табуляции -->
 			<find-result-line-prefix value="Строка"/><!-- Не должно начинаться с пробела или табуляции -->

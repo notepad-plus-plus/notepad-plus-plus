@@ -1720,6 +1720,11 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-result-title value="Rechercher"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ documents depuis $INT_REPLACE3$ documents recherchés)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ sélections de $INT_REPLACE3$ recherchés)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Étendu"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Casse"/>
+			<find-result-title-info-options-word value="Mot"/>
 			<find-result-title-info-extra value=" - Mode de filtre de ligne : affiche uniquement les résultats filtrés"/>
 			<find-result-hits value="($INT_REPLACE$ résultats)"/>
 			<find-result-line-prefix value="Ligne"/><!-- Must not begin with space or tab character -->

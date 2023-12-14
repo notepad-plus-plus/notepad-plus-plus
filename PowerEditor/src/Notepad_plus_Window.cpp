@@ -21,10 +21,6 @@
 const TCHAR Notepad_plus_Window::_className[32] = TEXT("Notepad++");
 HWND Notepad_plus_Window::gNppHWND = NULL;
 
-std::chrono::steady_clock::duration g_nppInitTime{};
-std::chrono::steady_clock::duration g_sessionLoadingTime{};
-std::chrono::steady_clock::duration g_cmdlineParamsLoadingTime{};
-
 
 namespace // anonymous
 {

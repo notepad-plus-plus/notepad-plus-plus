@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-The comments are here for explanation, it's not necessary to translate them.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.5.9">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +41,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item subMenuId="edit-onSelection" name="För markerad te&amp;xt"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multimarkera ALLA"/>
 					<Item subMenuId="edit-multiSelectNext" name="Multimarkera nästkommande"/>
+					<Item subMenuId="search-changeHistory" name="Förändringshistorik"/>
 					<Item subMenuId="search-markAll" name="Sti&amp;lsätt alla förekomster"/>
 					<Item subMenuId="search-markOne" name="S&amp;tilsätt en förekomst"/>
 					<Item subMenuId="search-unmarkAll" name="Rensa stil"/>
@@ -153,6 +156,16 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="42074" name="Öppna innehållande mapp i utforskaren"/>
 					<Item id="42075" name="Sök på internet"/>
 					<Item id="42076" name="Ändra sökmotor..."/>
+					<Item id="42090" name="Ignorera skiftläge och hela ord"/>
+					<Item id="42091" name="Matcha skiftläge"/>
+					<Item id="42092" name="Matcha hela ord"/>
+					<Item id="42093" name="Matcha skiftläge och hela ord"/>
+					<Item id="42094" name="Ignorera skiftläge och hela ord"/>
+					<Item id="42095" name="Matcha skiftläge"/>
+					<Item id="42096" name="Matcha hela ord"/>
+					<Item id="42097" name="Matcha skiftläge och hela ord"/>
+					<Item id="42098" name="Ångra senast tillagda multimarkering"/>
+					<Item id="42099" name="Hoppa över nuvarande och gå till nästa multimarkering"/>
 					<Item id="42018" name="Starta &amp;inspelning"/>
 					<Item id="42019" name="S&amp;toppa inspelning"/>
 					<Item id="42021" name="Spela &amp;upp"/>
@@ -251,6 +264,9 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="43064" name="Stil nr. 3"/>
 					<Item id="43065" name="Stil nr. 4"/>
 					<Item id="43066" name="Stil nr. 5"/>
+					<Item id="43067" name="Gå till nästa förändring"/>
+					<Item id="43068" name="Gå till föregående förändring"/>
+					<Item id="43069" name="Rensa förändringshistorik"/>
 					<Item id="43045" name="Sökres&amp;ultatsfönster"/>
 					<Item id="43046" name="&amp;Nästa sökresultat"/>
 					<Item id="43047" name="&amp;Föregående sökresultat"/>
@@ -1023,7 +1039,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6292" name="Dynamisk bredd"/>
 					<Item id="6293" name="Konstant bredd"/>
 					<Item id="6207" name="Visa bokmärken"/>
-					<Item id="6223" name="Visa ändringshistorik"/>
+					<Item id="6223" name="Visa förändringshistorik"/>
 					<Item id="6211" name="Inställningar för lodrätt kantläge"/>
 					<Item id="6213" name="Bakgrundsläge"/>
 					<Item id="6237" name="Lägg till din kolumnmarkör genom att ange dess position med ett decimaltal.
@@ -1466,7 +1482,7 @@ Vill du starta Notepad++ som administratör?"/>
 Notepad++ kommer att startas om när alla åtgärder är avslutade.
 Vill du fortsätta?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att läsa in de insticksprogram du har installerat."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera ändringshistoriken."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera förändringshistoriken."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Windows-session avslutas" message="Windows-sessionen håller på att avslutas men du har osparad data. Vill du avsluta Notepad++ nu?"/>
 			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer ändras vid nästa uppstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Osparade ändringar håller på att ignoreras!
@@ -1477,8 +1493,6 @@ Var god testa dessa kommandon och redigera dem vid behov.
 Annars kan du nedgradera till Notepad++ v8.5.2 och återställa din föregående data.
 Notepad++ kommer att säkerhetskopiera din gamla &quot;shortcuts.xml&quot; och spara den som &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Byt namn på &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; så bör dina kommandon återställas och fungera ordentligt."/> <!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="Antalet filer att öppna är för stort" message="$INT_REPLACE$ filer håller på att öppnas.
-Är du säker på att du vill öppna dem?"/>
 			<NotEnoughRoom4Saving title="Misslyckades att spara" message="Misslyckades att spara filen.
 Det verkar inte finnas tillräckligt mycket diskutrymme för att spara filen. Din fil sparades inte."/>
 			<FileInaccessibleUserSession title="Filen är otillgänglig" message="Vissa filer från din manuellt sparade session &quot;$STR_REPLACE$&quot; är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.
@@ -1487,6 +1501,8 @@ OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din manue
 			<FileInaccessibleDefaultSessionXml title="Filen är otillgänglig" message="Vissa filer från din föregående session är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.
 Vill du skapa dessa platshållare?
 OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din session MODIFIERAS VID AVSLUT! Vi föreslår att du nu säkerhetskopierar din &quot;session.xml&quot;."/>
+			<RTLvsDirectWrite title="Kan inte köra RTL" message="RTL är inte kompatibelt med DirectWrite-läget. Inaktivera DirectWrite-läget under avsnittet Övrigt i inställningarna och starta sedan om Notepad++."/>
+			<FileMemoryAllocationFailed title="Undantag: Minnesallokering av fil misslyckades" message="Det finns förmodligen inte tillräckligt mycket ledigt angränsande minne för att filen ska kunna läsas in av Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1650,6 +1666,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<find-status-replace-not-found value="Ersätt: Inga förekomster hittades"/>
 			<find-status-replace-readonly value="Ersätt: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
 			<find-status-cannot-find value="Sök: Kan inte hitta texten &quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="Kan inte hitta förekomsten. Du kanske har glömt att markera &quot;Loopa&quot;, avmarkera &quot;Matcha skiftläge&quot; eller avmarkera &quot;Matcha hela ord&quot;."/>
 			<find-status-scope-selection value="inom den markerade texten"/>
 			<find-status-scope-all value="i hela filen"/>
 			<find-status-scope-backward value="från filens början till textmarkören"/>
@@ -1703,6 +1720,11 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<find-result-title value="Sökning efter"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ träff(ar) i $INT_REPLACE2$ fil(er) utav $INT_REPLACE3$ genomsökt(a))"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ träff(ar) i $INT_REPLACE2$ markering(ar) utav $INT_REPLACE3$ genomsökt(a))"/>
+			<find-result-title-info-options-searchmode-normal value="Normalt"/>
+			<find-result-title-info-options-searchmode-extended value="Utökat"/>
+			<find-result-title-info-options-searchmode-regexp value="Reguljärt uttryck"/>
+			<find-result-title-info-options-case value="Skiftläge"/>
+			<find-result-title-info-options-word value="Ord"/>
 			<find-result-title-info-extra value=" - Radfiltreringsläge: Visa endast filtrerade resultat"/>
 			<find-result-hits value="($INT_REPLACE$ träffar)"/>
 			<find-result-line-prefix value="Rad"/><!-- Must not begin with space or tab character -->

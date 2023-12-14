@@ -170,11 +170,12 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	if (cmdLineParams->_alwaysOnTop)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
 
+	std::chrono::steady_clock::duration sessionLoadingTime{};
 	if (nppGUI._rememberLastSession && !nppGUI._isCmdlineNosessionActivated)
 	{
 		std::chrono::steady_clock::time_point sessionLoadingStartTP = std::chrono::steady_clock::now();
 		_notepad_plus_plus_core.loadLastSession();
-		g_sessionLoadingTime = std::chrono::steady_clock::now() - sessionLoadingStartTP;
+		sessionLoadingTime = std::chrono::steady_clock::now() - sessionLoadingStartTP;
 	}
 
 	if (nppParams.doFunctionListExport() || nppParams.doPrintAndExit())
@@ -299,12 +300,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; ++i)
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);
 
+	std::chrono::steady_clock::duration cmdlineParamsLoadingTime{};
 	std::vector<generic_string> fns;
 	if (cmdLine)
 	{
 		std::chrono::steady_clock::time_point cmdlineParamsLoadingStartTP = std::chrono::steady_clock::now();
 		fns = _notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
-		g_cmdlineParamsLoadingTime = std::chrono::steady_clock::now() - cmdlineParamsLoadingStartTP;
+		cmdlineParamsLoadingTime = std::chrono::steady_clock::now() - cmdlineParamsLoadingStartTP;
 	}
 
 	// Launch folder as workspace after all this dockable panel being restored from the last session
@@ -391,13 +393,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	if (cmdLineParams->_showLoadingTime)
 	{
-		g_nppInitTime = (std::chrono::steady_clock::now() - g_nppStartTimePoint) - g_pluginsLoadingTime - g_sessionLoadingTime - g_cmdlineParamsLoadingTime;
+		std::chrono::steady_clock::duration nppInitTime = (std::chrono::steady_clock::now() - g_nppStartTimePoint) - g_pluginsLoadingTime - sessionLoadingTime - cmdlineParamsLoadingTime;
 		std::wstringstream wss;
-		wss << L"Notepad++ initialization: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(g_nppInitTime) } << std::endl;
+		wss << L"Notepad++ initialization: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(nppInitTime) } << std::endl;
 		wss << L"Plugins loading: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(g_pluginsLoadingTime) } << std::endl;
-		wss << L"Last session loading: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(g_sessionLoadingTime) } << std::endl;
-		wss << L"Command line params handling: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(g_cmdlineParamsLoadingTime) } << std::endl;
-		wss << L"Total loading time: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(g_nppInitTime + g_pluginsLoadingTime + g_sessionLoadingTime + g_cmdlineParamsLoadingTime) };
+		wss << L"Last session loading: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(sessionLoadingTime) } << std::endl;
+		wss << L"Command line params handling: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(cmdlineParamsLoadingTime) } << std::endl;
+		wss << L"Total loading time: " << std::chrono::hh_mm_ss{ std::chrono::duration_cast<std::chrono::milliseconds>(nppInitTime + g_pluginsLoadingTime + sessionLoadingTime + cmdlineParamsLoadingTime) };
 		::MessageBoxW(NULL, wss.str().c_str(), L"Notepad++ loading time (hh:mm:ss.ms)", MB_OK);
 	}
 

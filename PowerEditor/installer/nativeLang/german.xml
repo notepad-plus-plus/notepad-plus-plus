@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.06"><!-- basiert auf english.xml vom 02.12.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.15"><!-- basiert auf english.xml vom 13.12.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1729,6 +1729,11 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-result-title value="Suche"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Dateien von $INT_REPLACE3$ gesucht)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Auswahlen von $INT_REPLACE3$ gesucht)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Erweitert"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Fall"/>
+			<find-result-title-info-options-word value="Wort"/>
 			<find-result-title-info-extra value=" - Zeilenfilter-Modus: nur die Treffer anzeigen"/>
 			<find-result-hits value="($INT_REPLACE$ Treffer)"/>
 			<find-result-line-prefix value="Zeile"/><!-- Must not begin with space or tab character -->

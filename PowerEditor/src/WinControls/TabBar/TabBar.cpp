@@ -404,6 +404,29 @@ void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i)
 	doOwnerDrawTab();
 }
 
+void TabBarPlus::currentTabToStart()
+{
+	int currentTabIndex = getCurrentTabIndex();
+	if (currentTabIndex <= 0)
+		return;
+
+	for (int i = currentTabIndex, j = currentTabIndex - 1; j >= 0; --i, --j)
+	{
+		exchangeTabItemData(i, j);
+	}
+}
+
+void TabBarPlus::currentTabToEnd()
+{
+	int currentTabIndex = getCurrentTabIndex();
+	if (currentTabIndex >= _nbItem)
+		return;
+
+	for (int i = currentTabIndex, j = currentTabIndex + 1; j < _nbItem; ++i, ++j)
+	{
+		exchangeTabItemData(i, j);
+	}
+}
 
 void TabBarPlus::doVertical()
 {

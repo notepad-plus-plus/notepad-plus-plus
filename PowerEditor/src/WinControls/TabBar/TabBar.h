@@ -159,14 +159,6 @@ public :
         return _doDragNDrop;
     };
 
-	int getSrcTabIndex() const {
-        return _nSrcTab;
-    };
-
-    int getTabDraggedIndex() const {
-        return _nTabDragged;
-    };
-
 	POINT getDraggingPoint() const {
 		return _draggingPoint;
 	};
@@ -217,8 +209,10 @@ public :
 	}
 
 	static void setColour(COLORREF colour2Set, tabColourIndex i);
-
 	virtual int getIndividualTabColour(int tabIndex) = 0;
+
+	void currentTabToStart();
+	void currentTabToEnd();
 
 protected:
     // it's the boss to decide if we do the drag N drop

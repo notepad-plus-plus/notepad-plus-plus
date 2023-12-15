@@ -552,6 +552,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP, TEXT("Copy Full File Path"), TEXT("Copy to Clipboard")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP, TEXT("Copy Filename"), TEXT("Copy to Clipboard")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Copy Current Dir. Path"), TEXT("Copy to Clipboard")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_START, TEXT("Move to Start"), TEXT("Move Document")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_END, TEXT("Move to End"), TEXT("Move Document")));
+					itemUnitArray.push_back(MenuItemUnit(0, NULL, TEXT("Move Document")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Move to Other View"), TEXT("Move Document")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View"), TEXT("Move Document")));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance"), TEXT("Move Document")));

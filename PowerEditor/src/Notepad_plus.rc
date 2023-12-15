@@ -708,6 +708,9 @@ BEGIN
         END
         POPUP "Move/Clone Current Document"
         BEGIN
+            MENUITEM "Move to Start",           IDM_VIEW_GOTO_START
+            MENUITEM "Move to End",             IDM_VIEW_GOTO_END
+            MENUITEM SEPARATOR
             MENUITEM "Move to Other View",      IDM_VIEW_GOTO_ANOTHER_VIEW
             MENUITEM "Clone to Other View",     IDM_VIEW_CLONE_TO_ANOTHER_VIEW
             MENUITEM "Move to New Instance",    IDM_VIEW_GOTO_NEW_INSTANCE

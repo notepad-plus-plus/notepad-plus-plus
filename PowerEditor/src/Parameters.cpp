@@ -280,6 +280,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 //  { VK_NULL,    IDM_VIEW_ZOOMIN,                              false, false, false, nullptr },
 //  { VK_NULL,    IDM_VIEW_ZOOMOUT,                             false, false, false, nullptr },
 //  { VK_NULL,    IDM_VIEW_ZOOMRESTORE,                         false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_GOTO_START,                          false, false, false, nullptr },
+	{ VK_NULL,    IDM_VIEW_GOTO_END,                            false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_GOTO_ANOTHER_VIEW,                   false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_CLONE_TO_ANOTHER_VIEW,               false, false, false, nullptr },
 	{ VK_NULL,    IDM_VIEW_GOTO_NEW_INSTANCE,                   false, false, false, nullptr },

@@ -1725,6 +1725,11 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-result-title value="Hľadať"/>
 			<find-result-title-info value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ súboroch z $INT_REPLACE3$ prehľadávaných)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ výskytov v $INT_REPLACE2$ výberoch z $INT_REPLACE3$ nájdených)"/>
+			<find-result-title-info-options-searchmode-normal value="Normálne"/>
+			<find-result-title-info-options-searchmode-extended value="Rozšírené"/>
+			<find-result-title-info-options-searchmode-regexp value="Reg. výraz"/>
+			<find-result-title-info-options-case value="Veľkosť písmen"/>
+			<find-result-title-info-options-word value="Slovo"/>
 			<find-result-title-info-extra value=" - Režim filtrovania riadka: zobraziť iba filtrované výsledky"/>
 			<find-result-hits value="(Počet výskytov: $INT_REPLACE$)"/>
 			<find-result-line-prefix value="Riadok"/>

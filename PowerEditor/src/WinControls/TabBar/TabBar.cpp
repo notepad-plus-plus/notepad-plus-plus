@@ -419,10 +419,10 @@ void TabBarPlus::currentTabToStart()
 void TabBarPlus::currentTabToEnd()
 {
 	int currentTabIndex = getCurrentTabIndex();
-	if (currentTabIndex >= _nbItem)
+	if (currentTabIndex >= static_cast<int>(_nbItem))
 		return;
 
-	for (int i = currentTabIndex, j = currentTabIndex + 1; j < _nbItem; ++i, ++j)
+	for (int i = currentTabIndex, j = currentTabIndex + 1; j < static_cast<int>(_nbItem); ++i, ++j)
 	{
 		exchangeTabItemData(i, j);
 	}

@@ -1072,6 +1072,14 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_TAB_START:
+		case IDM_VIEW_TAB_END:
+		{
+			size_t index = id == IDM_VIEW_TAB_START ? 0 : _pDocTab->nbItem() - 1;
+			switchToFile(_pDocTab->getBufferByIndex(index));
+		}
+		break;
+
 		case IDM_VIEW_TAB_NEXT:
 		{
 			const int current_index = _pDocTab->getCurrentTabIndex();

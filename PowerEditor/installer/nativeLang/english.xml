@@ -304,6 +304,8 @@ Translation note:
 					<Item id="44092" name="7th Tab"/>
 					<Item id="44093" name="8th Tab"/>
 					<Item id="44094" name="9th Tab"/>
+					<Item id="44116" name="First Tab"/>
+					<Item id="44117" name="Last Tab"/>
 					<Item id="44095" name="Next Tab"/>
 					<Item id="44096" name="Previous Tab"/>
 					<Item id="44097" name="Monitoring (tail -f)"/>
@@ -346,12 +348,12 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nordic"/>
 					<Item id="45053" name="OEM 860: Portuguese"/>
 					<Item id="45056" name="OEM 863: French"/>
-
 					<Item id="10001" name="Move to Other View"/>
 					<Item id="10002" name="Clone to Other View"/>
 					<Item id="10003" name="Move to New Instance"/>
 					<Item id="10004" name="Open in New Instance"/>
-
+					<Item id="10005" name="Move to Start"/>
+					<Item id="10006" name="Move to End"/>
 					<Item id="46001" name="Style Configurator..."/>
 					<Item id="46250" name="Define your language..."/>
 					<Item id="46300" name="Open User Defined Language folder..."/>

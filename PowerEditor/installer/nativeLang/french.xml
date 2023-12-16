@@ -304,6 +304,8 @@ Translation note:
 					<Item id="44092" name="Onglet 7"/>
 					<Item id="44093" name="Onglet 8"/>
 					<Item id="44094" name="Onglet 9"/>
+					<Item id="44116" name="Premier Onglet"/>
+					<Item id="44117" name="Dernier Onglet"/>
 					<Item id="44095" name="Onglet suivant"/>
 					<Item id="44096" name="Onglet précédent"/>
 					<Item id="44097" name="Surveillance de Log (tail -f)"/>
@@ -351,7 +353,8 @@ Translation note:
 					<Item id="10002" name="Cloner dans l'autre vue"/>
 					<Item id="10003" name="Déplacer vers une nouvelle fenêtre"/>
 					<Item id="10004" name="Ouvrir dans une nouvelle fenêtre"/>
-
+					<Item id="10005" name="Déplacer au début"/>
+					<Item id="10006" name="Déplacer à la fin"/>
 					<Item id="46001" name="Configurateur de coloration syntaxique..."/>
 					<Item id="46250" name="Définir votre langage..."/>
 					<Item id="46300" name="Ouvrir le dossier des Langages utilisateur..."/>

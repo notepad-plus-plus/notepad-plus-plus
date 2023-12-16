@@ -281,6 +281,8 @@
 					<Item id="44092" name="頁籤7"/>
 					<Item id="44093" name="頁籤8"/>
 					<Item id="44094" name="頁籤9"/>
+					<Item id="44116" name="車頭頁籤"/>
+					<Item id="44117" name="車尾頁籤"/>
 					<Item id="44095" name="下一頁籤"/>
 					<Item id="44096" name="上一頁籤"/>
 					<Item id="44110" name="移除顏色"/>
@@ -321,12 +323,12 @@
 					<Item id="45057" name="OEM 865: 北歐文"/>
 					<Item id="45053" name="OEM 860: 葡萄牙文"/>
 					<Item id="45056" name="OEM 863: 法文"/>
-
 					<Item id="10001" name="移動到另一檢視"/>
 					<Item id="10002" name="仿製到另一檢視"/>
 					<Item id="10003" name="移到新執行個體"/>
 					<Item id="10004" name="在新執行個體開啟"/>
-
+					<Item id="10005" name="移動至車頭"/>
+					<Item id="10006" name="移動至車尾"/>
 					<Item id="46001" name="語法樣式配置器..."/>
 					<Item id="46250" name="定義你的語法樣式..."/>
 					<Item id="46300" name="開啟自訂語法樣式資料夾..."/>

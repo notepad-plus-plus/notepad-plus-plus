@@ -512,9 +512,9 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Find"/>
-				<Item id="1685" name="Match case"/>
-				<Item id="1690" name="Highlight all"/>
+				<Item id="1681" name="Find:"/>
+				<Item id="1685" name="Match &amp;case"/>
+				<Item id="1690" name="&amp;Highlight all"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Find Characters in Range...">

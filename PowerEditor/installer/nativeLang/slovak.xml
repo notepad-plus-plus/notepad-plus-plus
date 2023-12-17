@@ -302,6 +302,8 @@
 					<Item id="44092" name="7. karta"/>
 					<Item id="44093" name="8. karta"/>
 					<Item id="44094" name="9. karta"/>
+					<Item id="44116" name="Prvá karta"/>
+					<Item id="44117" name="Posledná karta"/>
 					<Item id="44095" name="Nasledujúca karta"/>
 					<Item id="44096" name="Predchádzajúca karta"/>
 					<Item id="44097" name="Sledovanie zmien (tail -f)"/>

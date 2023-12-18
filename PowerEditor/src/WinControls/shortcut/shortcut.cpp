@@ -615,7 +615,6 @@ void Accelerator::updateShortcuts()
 
 	if (_hIncFindAccTab)
 		::DestroyAcceleratorTable(_hIncFindAccTab);
-
 	size_t nb = incrFindAcc.size();
 	ACCEL *tmpIncrFindAccelArray = new ACCEL[nb];
 	for (i = 0; i < nb; ++i)
@@ -624,10 +623,6 @@ void Accelerator::updateShortcuts()
 	}
 	_hIncFindAccTab = ::CreateAcceleratorTable(tmpIncrFindAccelArray, static_cast<int32_t>(nb));
 	delete [] tmpIncrFindAccelArray;
-
-	if (_hIncFindAccTab)
-		::DestroyAcceleratorTable(_hIncFindAccTab);
-
 
 	if (_hFindAccTab)
 		::DestroyAcceleratorTable(_hFindAccTab);

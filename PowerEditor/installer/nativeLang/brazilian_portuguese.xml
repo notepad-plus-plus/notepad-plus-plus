@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 12 Dec 2023, for Notepad++ 8.6.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 17 Dec 2023, for Notepad++ 8.6.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -304,6 +304,8 @@ Translation note:
 					<Item id="44092" name="7ª aba"/>
 					<Item id="44093" name="8ª aba"/>
 					<Item id="44094" name="9ª aba"/>
+					<Item id="44116" name="Primeira Aba"/>
+					<Item id="44117" name="Última Aba"/>					
 					<Item id="44095" name="Aba seguinte"/>
 					<Item id="44096" name="Aba anterior"/>
 					<Item id="44097" name="Monitorando (tail -f)"/>
@@ -346,12 +348,12 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nórdico"/>
 					<Item id="45053" name="OEM 860: Português"/>
 					<Item id="45056" name="OEM 863: Francês"/>
-
 					<Item id="10001" name="Mover para outra tela"/>
 					<Item id="10002" name="Duplicar tela (clonar)"/>
 					<Item id="10003" name="Mover para uma nova janela"/>
 					<Item id="10004" name="Abrir em uma nova janela"/>
-
+					<Item id="10005" name="Mover para o Começo"/>
+					<Item id="10006" name="Mover para o Fim"/>
 					<Item id="46001" name="Configurador de estilos..."/>
 					<Item id="46250" name="Defina a sua linguagem..."/>
 					<Item id="46300" name="Pasta de Linguagens definidas pelo usuário..."/>
@@ -586,7 +588,7 @@ Translation note:
 				<Item id="2" name="&amp;Fechar"/>
 			</SHA512FromFilesDlg>
 
-			<SHA512FromTextDlg title="Generate SHA-512">
+			<SHA512FromTextDlg title="Gerar SHA-512">
 				<Item id="1932" name="Tratar cada linha como uma &amp;string separada"/>
 				<Item id="1934" name="Co&amp;piar"/>
 				<Item id="2" name="&amp;Fechar"/>
@@ -1376,11 +1378,11 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 Reinicie o Notepad++ para que as modificações tenham efeito."/>
 			<SaveCurrentModifWarning title="Salvar modificações atuais" message="Você deve salvar a modificação atual.
 As modificações salvas não poderão ser desfeitas.
-				
+
 Deseja continuar?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
 			<LoseUndoAbilityWarning title="Impossível desfazer" message="Você deve salvar a modificação atual.
 As modificações salvas não poderão ser desfeitas.
-				
+
 Deseja continuar?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Mover para nova instância do Notepad++" message="Documento alterado, salve-o e tente novamente."/>
 			<DocReloadWarning title="Recarregar" message="Deseja recarregar o arquivo atual e perder as modificações feitas no Notepad++?"/>
@@ -1402,11 +1404,11 @@ Você tem que habilitar o &quot;Abrir todos os arquivos da pasta em vez de usar 
 			<SortingError title="Erro de Classificação" message="Não é possível realizar a classificação numérica devido à linha $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Dica de Modo Coluna" message="
 Existem 3 maneiras de ativar o modo de seleção em colunas:
-				
+
 1. (Teclado e Mouse)  Aperte a tecla Alt enquanto clica com o botão esquerdo e arrasta
-				
+
 2. (Apenas teclado)  Utilize as teclas Alt+Shift enquanto usa as teclas de seta
-				
+
 3. (Teclado ou Mouse)
       Coloque o cursor no local onde se deseja o início do bloco a ser selecionado, e depois
        execute o comando &quot;Selecionar Início/Fim em Modo Coluna&quot; ;
@@ -1422,7 +1424,7 @@ Deseja continuar?"/>
 Salve-o, caso contrário, seus dados serão perdidos.
 Deseja salvar o arquivo &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Recarregar" message="&quot;$STR_REPLACE$&quot;
-				
+
 Este arquivo foi modificado por outro programa.
 Deseja recarregá-lo?"/>
 			<DoReloadOrNotAndLooseChange title="Recarregar" message="&quot;$STR_REPLACE$&quot;
@@ -1432,7 +1434,7 @@ Deseja recarregá-lo e perder as alterações feitas no Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema pré-histórico detectado" message="Parece que você ainda usa um sistema pré-histórico. Esse recurso funciona apenas em um sistema moderno. Desculpe."/>
 			<XpUpdaterProblem title="Atualizador do Notepad++" message="O atualizador do Notepad++ não é compatível com o Windows XP devido à camada de segurança obsoleta dele.
 Deseja ir para a página do Notepad++ e baixar a última versão?"/>
-			<GUpProxyConfNeedAdminMode title="Proxy Settings" message="Reinicie o Notepad++ como Admin para configurar o proxy."/>
+			<GUpProxyConfNeedAdminMode title="Configurações de Proxy" message="Reinicie o Notepad++ como Admin para configurar o proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitoramento" message="O documento está sujo. Por favor, salve a modificação antes de monitorá-lo."/>
 			<DocNoExistToMonitor title="Problema de monitoramento" message="O arquivo deve existir para ser monitorado."/>
 			<FileTooBigToOpen title="Problema no tamanho do arquivo" message="Arquivo é muito grande para ser aberto pelo Notepad++"/>
@@ -1482,14 +1484,14 @@ Deseja iniciar o Notepad++ no modo Administrador?"/>
 O Notepad++ será reiniciado depois que todas as operações forem concluídas.
 Deseja continuar?"/>
 			<NeedToRestartToLoadPlugins title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para carregar os plugins instalados."/> <!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Hisórico de Modificações."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge". -->
+			<ChangeHistoryEnabledWarning title="O Notepad++ precisa ser reiniciado" message="Reinicie o Notepad++ para habilitar o Histórico de Modificações."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge". -->
 			<WindowsSessionExit title="Notepad++ - Fechar sessão no Windows" message="A sessão do Windows está prestes a ser encerrada, mas há dados não salvos. Deseja encerrar o Notepad++ agora?"/>
 			<LanguageMenuCompactWarning title="Menu Compacto de Linguagem" message="Esta opção será alterada na próxima vez que o programa for aberto."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Alterações não salvas estão prestes a serem perdidas!
 Deseja salvar suas alterações antes de alterar os temas?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Compatibilidade de comandos Macro e Executar" message="Seus comandos Macro e Executar salvos no Notepad++ v.8.5.2 (ou anteriores) podem não ser compatíveis com a versão atual do Notepad++.
 Por favor, teste estes comandos e, se necessário, altere-os.
-				
+
 Como alternativa, você pode voltar à versão v8.5.2 do Notepad++ e restaurar os dados anteriores.
 O Notepad++ irá efetuar backup do seu arquivo &quot;shortcuts.xml&quot; anterior e salvá-lo como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Ao renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, seus comandos devem ser restaurados e devem funcionar a contento."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
@@ -1626,13 +1628,13 @@ OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua
 			<cloud-invalid-warning value="Caminho inválido."/>
 			<cloud-restart-warning value="Favor reiniciar o Notepad++ para entrar em vigor."/>
 			<cloud-select-folder value="Selecione uma pasta de/para onde o Notepad++ lê/grava suas configurações"/> <!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
-			<default-open-save-select-folder value="Selecione uma pasta como padta padrão"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<default-open-save-select-folder value="Selecione uma pasta como pasta padrão"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
 			<two-find-buttons-tip value="Modo 2 botões"/>
 			<file-rename-title value="Renomear"/>
 			<find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
-				
+
 Procurar em todos os arquivos, exceto exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
 
@@ -1750,22 +1752,22 @@ OBSERVAÇÃO:
 
 NOTA:
 Usar a representação irá desabilitar os efeitos de caracteres no texto.
-				
+
 Para a lista completa de caracteres de espaço em branco e caracteres sem representação, consulte o Manual de Usuário.
-				
+
 Clique neste botão para abrir o site com o Manual do Usuário."/>
-			<npcAbbreviation-tip value="Abbreviação : nome
+			<npcAbbreviation-tip value="Abreviação : nome
 NBSP : espaço em branco sem quebra
 ZWSP : espaço em branco com largura zero
 ZWNBSP : espaço em branco sem quebra com largura zero
-				
+
 Para a lista completa consulte o Manual do Usuário.
 Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usuário."/>
 			<npcCodepoint-tip value="Ponto de Código : nome
 U+00A0 : espaço em branco sem quebra
 U+200B : espaço em branco com largura zero
 U+FEFF : espaço em branco sem quebra com largura zero
-				
+
 Para a lista completa consulte o Manual do Usuário.
 Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usuário."/>
 

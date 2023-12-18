@@ -304,6 +304,8 @@ Translation note:
 					<Item id="44092" name="タブ7"/>
 					<Item id="44093" name="タブ8"/>
 					<Item id="44094" name="タブ9"/>
+					<Item id="44116" name="最初のタブ"/>
+					<Item id="44117" name="最後のタブ"/>
 					<Item id="44095" name="次のタブ"/>
 					<Item id="44096" name="前のタブ"/>
 					<Item id="44097" name="ファイル監視(tail -f)"/>
@@ -1725,6 +1727,11 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<find-result-title value="検索文字列"/>
 			<find-result-title-info value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個のファイル内で一致しました。検索ファイル数は $INT_REPLACE3$ 個)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ 件が $INT_REPLACE2$ 個の選択範囲内で一致しました。検索した選択範囲は $INT_REPLACE3$ 個)"/>
+			<find-result-title-info-options-searchmode-normal value="標準"/>
+			<find-result-title-info-options-searchmode-extended value="拡張"/>
+			<find-result-title-info-options-searchmode-regexp value="正規表現"/>
+			<find-result-title-info-options-case value="大・小文字区別"/>
+			<find-result-title-info-options-word value="単語単位"/>
 			<find-result-title-info-extra value=" - 絞り込まれた検索結果のみを表示しています"/>
 			<find-result-hits value="($INT_REPLACE$ 件の一致)"/>
 			<find-result-line-prefix value="行番号"/><!-- Must not begin with space or tab character -->

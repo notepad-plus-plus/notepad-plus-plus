@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 17 Dec 2023, for Notepad++ 8.6.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 19 Dec 2023, for Notepad++ 8.6.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -512,7 +512,7 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Procurar"/>
+				<Item id="1681" name="Procurar:"/>
 				<Item id="1685" name="Diferenciar maiúsc/minúsc"/>
 				<Item id="1690" name="Destacar todos"/>
 			</IncrementalFind>

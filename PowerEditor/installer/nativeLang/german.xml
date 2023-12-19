@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.15"><!-- basiert auf english.xml vom 13.12.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.19"><!-- basiert auf english.xml vom 19.12.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -313,6 +313,8 @@ Translation note:
 					<Item id="44092" name="&amp;7. Tab"/>
 					<Item id="44093" name="&amp;8. Tab"/>
 					<Item id="44094" name="&amp;9. Tab"/>
+					<Item id="44116" name="&amp;Erster Tab"/>
+					<Item id="44117" name="&amp;Letzter Tab"/>
 					<Item id="44095" name="&amp;Nächster Tab"/>
 					<Item id="44096" name="&amp;Vorheriger Tab"/>
 					<Item id="44097" name="Überwachen (tail -f)"/>
@@ -355,12 +357,12 @@ Translation note:
 					<Item id="45057" name="OEM 865 (Nordisch)"/>
 					<Item id="45053" name="OEM 860 (Portugiesisch)"/>
 					<Item id="45056" name="OEM 863 (kanadisches Französisch)"/>
-
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
 					<Item id="10002" name="In zweite Ansicht &amp;duplizieren"/>
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>
 					<Item id="10004" name="In neue Instan&amp;z duplizieren"/>
-
+					<Item id="10005" name="Zum Anfang verschieben"/>
+					<Item id="10006" name="Ans Ende verschieben"/>
 					<Item id="46001" name="&amp;Stile konfigurieren …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
 					<Item id="46300" name="Verzeichnis mit benutzerdefinierten Sprachen öffnen …"/>
@@ -519,9 +521,9 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Suchen"/>
-				<Item id="1685" name="Groß-/Kleinschreibung"/>
-				<Item id="1690" name="Alle markieren"/>
+				<Item id="1681" name="Suchen:"/>
+				<Item id="1685" name="&amp;Groß-/Kleinschreibung"/>
+				<Item id="1690" name="&amp;Alle markieren"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">

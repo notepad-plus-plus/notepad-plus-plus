@@ -510,9 +510,9 @@
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Hľadať"/>
-				<Item id="1685" name="Rozlišovať malé/VEĽKÉ písmená"/>
-				<Item id="1690" name="Zvýrazniť všetky"/>
+				<Item id="1681" name="Hľadať:"/>
+				<Item id="1685" name="&amp;Rozlišovať veľkosť písmen"/>
+				<Item id="1690" name="&amp;Zvýrazniť všetky"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hľadať znaky v rozsahu">

@@ -415,14 +415,14 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 {
+	if (_notepad_plus_plus_core.processIncrFindAccel(msg))
+		return true;
+
+	if (_notepad_plus_plus_core.processFindAccel(msg))
+		return true;
+
 	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; ++i)
 	{
-		if (_notepad_plus_plus_core.processIncrFindAccel(msg))
-			return true;
-
-		if (_notepad_plus_plus_core.processFindAccel(msg))
-			return true;
-
 		if (::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg))
 			return true;
 	}

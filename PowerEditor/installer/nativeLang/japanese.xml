@@ -519,8 +519,8 @@ Translation note:
 
 			<IncrementalFind title="">
 				<Item id="1681" name="検索文字列:"/>
-				<Item id="1685" name="大/小文字を区別"/>
-				<Item id="1690" name="すべてハイライト"/>
+				<Item id="1685" name="大/小文字を区別(&amp;C)"/>
+				<Item id="1690" name="すべてハイライト(&amp;H)"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="文字範囲を指定して検索...">

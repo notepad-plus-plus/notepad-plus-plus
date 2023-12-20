@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
+
 Dutch localization for Notepad++
 Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2023-11-17 by Thomas De Rocker (RockyTDR).
+Last modified on 2023-12-20 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.5.9">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -307,6 +311,8 @@ Last modified on 2023-11-17 by Thomas De Rocker (RockyTDR).
 					<Item id="44092" name="Tabblad 7"/>
 					<Item id="44093" name="Tabblad 8"/>
 					<Item id="44094" name="Tabblad 9"/>
+					<Item id="44116" name="Eerste tabblad"/>
+					<Item id="44117" name="Laatste tabblad"/>
 					<Item id="44095" name="Volgend tabblad"/>
 					<Item id="44096" name="Vorig tabblad"/>
 					<Item id="44097" name="Monitoren (tail -f)"/>
@@ -349,12 +355,12 @@ Last modified on 2023-11-17 by Thomas De Rocker (RockyTDR).
 					<Item id="45057" name="OEM 865: Deens en Noors"/>
 					<Item id="45053" name="OEM 860: Portugees"/>
 					<Item id="45056" name="OEM 863: Frans"/>
-
 					<Item id="10001" name="Naar deelvenster verplaatsen"/>
 					<Item id="10002" name="Naar deelvenster kopiëren"/>
 					<Item id="10003" name="Naar een nieuw venster verplaatsen"/>
 					<Item id="10004" name="Naar een nieuw venster kopiëren"/>
-
+					<Item id="10005" name="Naar begin verplaatsen"/>
+					<Item id="10006" name="Naar einde verplaatsen"/>
 					<Item id="46001" name="Stijlconfigurator..."/>
 					<Item id="46250" name="Aangepaste syntaxismarkering ontwerpen..."/>
 					<Item id="46300" name="Map met aangepaste syntaxissen openen..."/>
@@ -513,7 +519,7 @@ Last modified on 2023-11-17 by Thomas De Rocker (RockyTDR).
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Zoeken"/>
+				<Item id="1681" name="Zoeken:"/>
 				<Item id="1685" name="Hoofdlettergevoelig"/>
 				<Item id="1690" name="Alles markeren"/>
 			</IncrementalFind>
@@ -1508,6 +1514,8 @@ Opmerking: als u ervoor kiest de plaatshouders niet aan te maken of ze later slu
 Wilt u deze plaatshouders aanmaken?
 
 Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later te sluiten, zal uw sessie worden GEWIJZIGD BIJ HET AFSLUITEN! We raden u aan nu een back-up te maken van uw &quot;session.xml&quot;."/>
+			<RTLvsDirectWrite title="Kan tekstrichting rechts-links niet uitvoeren" message="Tekstrichting rechts-links is niet compatibel met de modus DirectWrite. Schakel de DirectWrite-modus uit in de overige-sectie van het voorkeurenvenster en start Notepad++ opnieuw."/>
+			<FileMemoryAllocationFailed title="Uitzondering: toewijzing van bestandsgeheugen mislukt" message="Er is vermoedelijk onvoldoende aaneensluitend vrij geheugen voor het bestand om geladen te worden door Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Geschiedenis van klembord"/>
@@ -1721,6 +1729,11 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<find-result-title value="Zoeken"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ overeenkomsten in $INT_REPLACE2$ uit $INT_REPLACE3$ bestanden)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ overeenkomsten in $INT_REPLACE2$ selecties van $INT_REPLACE3$ doorzocht)"/>
+			<find-result-title-info-options-searchmode-normal value="Normaal"/>
+			<find-result-title-info-options-searchmode-extended value="Uitgebreid"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Hoofdlettergebruik"/>
+			<find-result-title-info-options-word value="Woord"/>
 			<find-result-title-info-extra value=" - Regelfiltermodus: alleen gefilterde resultaten weergeven"/>
 			<find-result-hits value="($INT_REPLACE$ overeenkomsten)"/>
 			<find-result-line-prefix value="Regel"/><!-- Must not begin with space or tab character -->

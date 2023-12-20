@@ -1287,7 +1287,15 @@ bool Notepad_plus::replaceInOpenedFiles()
 	{
 		for (size_t i = 0, len = _subDocTab.nbItem(); i < len; ++i)
 		{
-			pBuf = MainFileManager.getBufferByID(_subDocTab.getBufferByIndex(i));
+			BufferID bufId = _subDocTab.getBufferByIndex(i);
+
+			if (_mainDocTab.getIndexByBuffer(bufId) != -1)
+			{
+				// cloned doc, replacements already done in main doc
+				continue;
+			}
+
+			pBuf = MainFileManager.getBufferByID(bufId);
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());

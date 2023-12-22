@@ -525,7 +525,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			SHORT shift = GetKeyState(VK_SHIFT);
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
 			bool column2MultSelect = (NppParameters::getInstance()).doColumn2MultiSelect();
-			bool useHardCodedShiftDelete = (NppParameters::getInstance()).useHardCodedShiftDelete();
+			bool useHardCodedShiftDelete = (NppParameters::getInstance()).useLineCopyCutDelete();
 
 			if (wParam == VK_DELETE)
 			{

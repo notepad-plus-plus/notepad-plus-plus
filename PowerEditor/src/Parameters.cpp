@@ -35,27 +35,14 @@ namespace // anonymous namespace
 {
 
 
-struct WinMenuKeyDefinition //more or less matches accelerator table definition, easy copy/paste
+struct WinMenuKeyDefinition // more or less matches accelerator table definition, easy copy/paste
 {
-	//const TCHAR * name;	//name retrieved from menu?
-	int vKey;
-	int functionId;
-	bool isCtrl;
-	bool isAlt;
-	bool isShift;
-	const TCHAR * specialName;		//Used when no real menu name exists (in case of toggle for example)
-};
-
-
-struct ScintillaKeyDefinition
-{
-	const TCHAR * name;
-	int functionId;
-	bool isCtrl;
-	bool isAlt;
-	bool isShift;
-	int vKey;
-	int redirFunctionId;	//this gets set  when a function is being redirected through Notepad++ if Scintilla doesnt do it properly :)
+	int vKey = 0;
+	int functionId = 0;
+	bool isCtrl = false;
+	bool isAlt = false;
+	bool isShift = false;
+	const TCHAR * specialName = nullptr; // Used when no real menu name exists (in case of toggle for example)
 };
 
 
@@ -464,6 +451,16 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 
 
 
+struct ScintillaKeyDefinition
+{
+	const TCHAR* name = nullptr;
+	int functionId = 0;
+	bool isCtrl = false;
+	bool isAlt = false;
+	bool isShift = false;
+	int vKey = 0;
+	int redirFunctionId = 0; // this gets set when a function is being redirected through Notepad++ if Scintilla doesnt do it properly :)
+};
 
 /*!
 ** \brief array of accelerator keys for all possible scintilla functions
@@ -475,12 +472,11 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
     //Scintilla command name,             SCINTILLA_CMD_ID,            Ctrl,  Alt,   Shift, V_KEY,       NOTEPAD++_CMD_ID
 	// -------------------------------------------------------------------------------------------------------------------
 	//
-//	{TEXT("SCI_CUT"),                     SCI_CUT,                     true,  false, false, VK_X,        IDM_EDIT_CUT},
-//	{TEXT(""),                            SCI_CUT,                     false, false, true,  VK_DELETE,   0},
-//	{TEXT("SCI_COPY"),                    SCI_COPY,                    true,  false, false, VK_C,        IDM_EDIT_COPY},
-//	{TEXT(""),                            SCI_COPY,                    true,  false, false, VK_INSERT,   0},
-//	{TEXT("SCI_PASTE"),                   SCI_PASTE,                   true,  false, false, VK_V,        IDM_EDIT_PASTE},
-//	{TEXT(""),                            SCI_PASTE,                   false, false, true,  VK_INSERT,   0},
+//	{TEXT("SCI_CUT"),                     SCI_CUT,                     false, false, true,  VK_DELETE,   0},
+//	{TEXT("SCI_COPY"),                    SCI_COPY,                    true,  false, false, VK_INSERT,   0},
+//	{TEXT("SCI_PASTE"),                   SCI_PASTE,                   false, false, true,  VK_INSERT,   0},
+//	the above 3 shortcuts will be added dynamically if "disableLineCopyCutDelete.xml" is present.
+
 	{TEXT("SCI_SELECTALL"),               SCI_SELECTALL,               true,  false, false, VK_A,        IDM_EDIT_SELECTALL},
 	{TEXT("SCI_CLEAR"),                   SCI_CLEAR,                   false, false, false, VK_DELETE,   IDM_EDIT_DELETE},
 	{TEXT("SCI_CLEARALL"),                SCI_CLEARALL,                false, false, false, 0,           0},
@@ -1480,6 +1476,35 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
+
+	//-----------------------------------------------------------------------------------//
+	// disableLineCopyCutDelete.xml                                                      //
+	// This empty xml file is optional - user adds this empty file manually to :         //
+	// 1. prevent hard coded Shift-DEL shortcut deletes whole line while no selection.   //
+	// 2. prevent Copy command (Ctrl-C) copies whole line (without selection).           //
+	// 3. prevent Cut command (Ctrl-X) cuts whole line (without selection).              //
+	// 4. add SCI_CUT (Shift-DEL), SCI_COPY (Ctrl-INS) & SCI_PASTE (Shift-INS) shortcuts //
+	//-----------------------------------------------------------------------------------//
+	std::wstring disableLineCopyCutDeletePath = _userPath;
+	pathAppend(disableLineCopyCutDeletePath, TEXT("disableLineCopyCutDelete.xml"));
+
+	if (PathFileExists(disableLineCopyCutDeletePath.c_str()))
+	{
+		_useLineCopyCutDelete = false;
+		
+		//
+		// Add back SCI_CUT (Shift-DEL), SCI_COPY (Ctrl-INS) & SCI_PASTE (Shift-INS) shortcuts
+		//
+		ScintillaKeyMap sci_cut = ScintillaKeyMap(Shortcut("SCI_CUT", false, false, true, static_cast<unsigned char>(VK_DELETE)), SCI_CUT, 0);
+		_scintillaKeyCommands.push_back(sci_cut);
+
+		ScintillaKeyMap sci_copy = ScintillaKeyMap(Shortcut("SCI_COPY", true, false, false, static_cast<unsigned char>(VK_INSERT)), SCI_COPY, 0);
+		_scintillaKeyCommands.push_back(sci_copy);
+
+		ScintillaKeyMap sci_paste = ScintillaKeyMap(Shortcut("SCI_PASTE", false, false, true, static_cast<unsigned char>(VK_INSERT)), SCI_PASTE, 0);
+		_scintillaKeyCommands.push_back(sci_paste);
+	}
+
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//
@@ -1661,20 +1686,6 @@ bool NppParameters::load()
 	if (PathFileExists(disableColumn2MultiSelectPath.c_str()))
 	{
 		_column2MultiSelect = false;
-	}
-
-	//-------------------------------------------------------------//
-	// disableHardCodedShiftDelete.xml                             //
-	// This empty xml file is optional - user adds this empty file //
-	// manually in order to prevent hard coded Shift-DEL shortcut  //
-	// delete whole line while no selection.                       //
-	//-------------------------------------------------------------//
-	std::wstring disableHardCodedShiftDeletePath = _userPath;
-	pathAppend(disableHardCodedShiftDeletePath, TEXT("disableHardCodedShiftDelete.xml"));
-
-	if (PathFileExists(disableHardCodedShiftDeletePath.c_str()))
-	{
-		_useHardCodedShiftDelete = false;
 	}
 
 	return isAllLaoded;
@@ -2130,6 +2141,7 @@ void NppParameters::initScintillaKeys()
 		prevID = skd.functionId;
 	}
 }
+
 bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu)
 {
 	_contextMenuItems.clear();

@@ -1663,18 +1663,19 @@ bool NppParameters::load()
 		_column2MultiSelect = false;
 	}
 
-	//-------------------------------------------------------------//
-	// disableHardCodedShiftDelete.xml                             //
-	// This empty xml file is optional - user adds this empty file //
-	// manually in order to prevent hard coded Shift-DEL shortcut  //
-	// delete whole line while no selection.                       //
-	//-------------------------------------------------------------//
-	std::wstring disableHardCodedShiftDeletePath = _userPath;
-	pathAppend(disableHardCodedShiftDeletePath, TEXT("disableHardCodedShiftDelete.xml"));
+	//----------------------------------------------------------------------------------//
+	// disableLineCopyCutDelete.xml                                                     //
+	// This empty xml file is optional - user adds this empty file manually to prevent: //
+	// 1. Hard coded Shift-DEL shortcut delete whole line while no selection.           //
+	// 2. Copy command (Ctrl-C) copy whole line (without selection).                    //
+	// 3. Cut command (Ctrl-X) cut whole line (without selection).                      //
+	//----------------------------------------------------------------------------------//
+	std::wstring disableLineCopyCutDeletePath = _userPath;
+	pathAppend(disableLineCopyCutDeletePath, TEXT("disableLineCopyCutDelete.xml"));
 
-	if (PathFileExists(disableHardCodedShiftDeletePath.c_str()))
+	if (PathFileExists(disableLineCopyCutDeletePath.c_str()))
 	{
-		_useHardCodedShiftDelete = false;
+		_useLineCopyCutDelete = false;
 	}
 
 	return isAllLaoded;

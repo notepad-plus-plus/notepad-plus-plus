@@ -1156,7 +1156,7 @@ Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour 
 					<Item id="6903" name="La boîte de dialogue &quot;Rechercher&quot; reste ouverte après la recherche qui affiche la fenêtre de résultats"/>
 					<Item id="6904" name="Confirmer &quot;Remplacer dans tous les documents ouverts&quot;"/>
 					<Item id="6905" name="&quot;Remplacer&quot; : ne pas passer à l'occurrence suivante"/>
-					<Item id="6906" name="Résultats de recherche : afficher une seule entrée par ligne trouvée"/>
+					<Item id="6906" name="Résultats de recherche : afficher une seule entrée par ligne trouvée si possible"/>
 					<Item id="6907" name="Quand la boîte de dialogue &quot;Rechercher&quot; est invoquée"/>
 					<Item id="6908" name="Remplir le champ de recherche avec le texte sélectionné"/>
 					<Item id="6909" name="Sélectionner le mot sous le curseur si rien n'est sélectionné"/>

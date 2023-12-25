@@ -1155,7 +1155,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="6903" name="Find dialog remains open after search that outputs to results window"/>
 					<Item id="6904" name="Confirm Replace All in All Opened Documents"/>
 					<Item id="6905" name="Replace: Don't move to the following occurrence"/>
-					<Item id="6906" name="Search Result window: show only one entry per found line"/>
+					<Item id="6906" name="Search Result window: show only one entry per found line if possible"/>
 					<Item id="6907" name="When Find Dialog is Invoked"/>
 					<Item id="6908" name="Fill Find Field with Selected Text"/>
 					<Item id="6909" name="Select Word Under Caret when Nothing Selected"/>

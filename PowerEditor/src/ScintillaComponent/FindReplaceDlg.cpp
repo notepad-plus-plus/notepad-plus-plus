@@ -559,8 +559,11 @@ bool Finder::notify(SCNotification *notification)
 			if (end > lineEndAbsPos)
 				end = lineEndAbsPos;
 			
-			_scintView.execute(SCI_SETSEL, begin, end);
-			_scintView.execute(SCI_SCROLLRANGE, begin, end);
+			if (begin < end)
+			{
+				_scintView.execute(SCI_SETSEL, begin, end);
+				_scintView.execute(SCI_SCROLLRANGE, begin, end);
+			}
 
 		}
 		break;
@@ -4817,30 +4820,35 @@ const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, cons
 	headerStr += foundline;
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const char* text2AddUtf8 = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8, &miLine._segmentPostions[0].first, &miLine._segmentPostions[0].second); // certainly utf8 here
+	size_t text2AddUtf8Len = strlen(text2AddUtf8);
 
-	if (isRepeatedLine) // if current line is the repeated line of previous one, and settings make per found line show once in the result even there are several found occurences in the same line
+	// if current line is the repeated line of previous one, and settings make per found line show ONCE in the result even there are several found occurences in the same line, for:
+	if ((isRepeatedLine && 
+		((text2AddUtf8Len < SC_SEARCHRESULT_LINEBUFFERMAXLENGTH) ||                                                                              // 1. All displayed whole lines, in which it contains all the occurrences.
+		((text2AddUtf8Len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH && miLine._segmentPostions[0].second < SC_SEARCHRESULT_LINEBUFFERMAXLENGTH))))) // 2. or the cut lines but the segments are displayed. For the segments displayed beyond displayed (non-cut part), go to default mode.
 	{
 		// Add start and end markers into the previous line's info for colourizing 
 		_pMainMarkings->back()._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(miLine._segmentPostions[0].first, miLine._segmentPostions[0].second));
 		_pMainFoundInfos->back()._ranges.push_back(fi._ranges.back());
+
 		return "";
 	}
 	else // default mode: allow same found line has several entries in search result if the searched occurrence is matched several times in the same line
 	{
 		_pMainFoundInfos->push_back(fi);
 
-		size_t len = strlen(text2AddUtf8);
-		if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+
+		if (text2AddUtf8Len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
 		{
 			const char* endOfLongLine = " ...\r\n"; // perfectly Utf8-encoded already
 			size_t lenEndOfLongLine = strlen(endOfLongLine);
 			size_t cut = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lenEndOfLongLine - 1;
 
-			while ((cut > 0) && (!Utf8::isValid(&text2AddUtf8[cut], (int)(len - cut))))
+			while ((cut > 0) && (!Utf8::isValid(&text2AddUtf8[cut], (int)(text2AddUtf8Len - cut))))
 				cut--;
 
 			memcpy((void*)&text2AddUtf8[cut], endOfLongLine, lenEndOfLongLine + 1);
-			len = cut + lenEndOfLongLine;
+			text2AddUtf8Len = cut + lenEndOfLongLine;
 		}
 
 		_pMainMarkings->push_back(miLine);

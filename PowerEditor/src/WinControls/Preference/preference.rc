@@ -363,7 +363,7 @@ BEGIN
     CONTROL         "Find dialog remains open after search that outputs to results window", IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 89, 350, 10
     CONTROL         "Confirm Replace All in All Opened Documents", IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 104, 350, 10
     CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 119, 350, 10
-    CONTROL         "Search Result window: show only one entry per found line", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 134, 350, 10
+    CONTROL         "Search Result window: show only one entry per found line if possible", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 134, 350, 10
 END
 
 

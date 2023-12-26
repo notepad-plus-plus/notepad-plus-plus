@@ -14,6 +14,7 @@ namespace Scintilla::Internal {
 class CharacterIndexer {
 public:
 	virtual char CharAt(Sci::Position index) const=0;
+	virtual Sci::Position MovePositionOutsideChar(Sci::Position pos, [[maybe_unused]] Sci::Position moveDir) const noexcept=0;
 };
 
 class RESearch {
@@ -22,8 +23,12 @@ public:
 	explicit RESearch(CharClassify *charClassTable);
 	// No dynamic allocation so default copy constructor and assignment operator are OK.
 	void Clear();
-	const char *Compile(const char *pattern, Sci::Position length, bool caseSensitive, bool posix) noexcept;
+	const char *Compile(const char *pattern, Sci::Position length, bool caseSensitive, bool posix);
 	int Execute(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp);
+	void SetLineRange(Sci::Position startPos, Sci::Position endPos) noexcept {
+		lineStartPos = startPos;
+		lineEndPos = endPos;
+	}
 
 	static constexpr int MAXTAG = 10;
 	static constexpr int NOTFOUND = -1;
@@ -47,12 +52,13 @@ private:
 
 	Sci::Position PMatch(const CharacterIndexer &ci, Sci::Position lp, Sci::Position endp, const char *ap);
 
-	Sci::Position bol;
-	Sci::Position tagstk[MAXTAG];  /* subpat tag stack */
+	// positions to match line start and line end
+	Sci::Position lineStartPos;
+	Sci::Position lineEndPos;
 	char nfa[MAXNFA];    /* automaton */
 	int sta;
-	unsigned char bittab[BITBLK]; /* bit table for CCL pre-set bits */
 	int failure;
+	std::array<unsigned char, BITBLK> bittab {}; /* bit table for CCL pre-set bits */
 	CharClassify *charClass;
 	bool iswordc(unsigned char x) const noexcept {
 		return charClass->IsWord(x);

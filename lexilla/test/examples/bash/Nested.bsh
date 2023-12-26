@@ -28,6 +28,10 @@ var=abcdef
 sub=abc
 rep='& '
 echo ${var/$sub/"${rep}}"} #
+# issue 216
+option="no[foo]"
+option=${option%%[<{().[]*}
+echo $option
 
 # '$' in variable
 echo $$PID

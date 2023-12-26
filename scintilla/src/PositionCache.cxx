@@ -471,7 +471,7 @@ bool SignificantLines::LineMayCache(Sci::Line line) const noexcept {
 
 LineLayoutCache::LineLayoutCache() :
 	level(LineCache::None),
-	allInvalidated(false), styleClock(-1) {
+	maxValidity(LineLayout::ValidLevel::invalid), styleClock(-1) {
 }
 
 LineLayoutCache::~LineLayoutCache() = default;
@@ -520,7 +520,7 @@ void LineLayoutCache::AllocateForLevel(Sci::Line linesOnScreen, Sci::Line linesI
 	}
 
 	if (lengthForLevel != cache.size()) {
-		allInvalidated = false;
+		maxValidity = LineLayout::ValidLevel::lines;
 		cache.resize(lengthForLevel);
 		// Cache::none -> no entries
 		// Cache::caret -> 1 entry can take any line
@@ -563,18 +563,17 @@ void LineLayoutCache::AllocateForLevel(Sci::Line linesOnScreen, Sci::Line linesI
 }
 
 void LineLayoutCache::Deallocate() noexcept {
+	maxValidity = LineLayout::ValidLevel::invalid;
 	cache.clear();
 }
 
 void LineLayoutCache::Invalidate(LineLayout::ValidLevel validity_) noexcept {
-	if (!cache.empty() && !allInvalidated) {
+	if (maxValidity > validity_) {
+		maxValidity = validity_;
 		for (const std::shared_ptr<LineLayout> &ll : cache) {
 			if (ll) {
 				ll->Invalidate(validity_);
 			}
-		}
-		if (validity_ == LineLayout::ValidLevel::invalid) {
-			allInvalidated = true;
 		}
 	}
 }
@@ -582,7 +581,7 @@ void LineLayoutCache::Invalidate(LineLayout::ValidLevel validity_) noexcept {
 void LineLayoutCache::SetLevel(LineCache level_) noexcept {
 	if (level != level_) {
 		level = level_;
-		allInvalidated = false;
+		maxValidity = LineLayout::ValidLevel::invalid;
 		cache.clear();
 	}
 }
@@ -594,7 +593,7 @@ std::shared_ptr<LineLayout> LineLayoutCache::Retrieve(Sci::Line lineNumber, Sci:
 		Invalidate(LineLayout::ValidLevel::checkTextAndStyle);
 		styleClock = styleClock_;
 	}
-	allInvalidated = false;
+	maxValidity = LineLayout::ValidLevel::lines;
 	size_t pos = 0;
 	if (level == LineCache::Page) {
 		// If first entry is this line then just reuse it.

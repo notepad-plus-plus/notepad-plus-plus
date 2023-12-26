@@ -583,9 +583,39 @@
       </tr><tr>
 	<td>German Aizek</td>
 	<td>Tsuyoshi Miyake</td>
+	<td>Martin Schäfer</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/lexilla530.zip">Release 5.3.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released 27 December 2023.
+	</li>
+	<li>
+	Fix calling AddStaticLexerModule by defining as C++ instead of C which matches header.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2421/">Bug #2421</a>.
+	</li>
+	<li>
+	Bash: Fix shift operator &lt;&lt; incorrectly recognized as here-doc.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/215">Issue #215</a>.
+	</li>
+	<li>
+	Bash: Fix termination of '${' with first unquoted '}' instead of nesting.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/216">Issue #216</a>.
+	</li>
+	<li>
+	HTML: JavaScript double-quoted strings may escape line end with '\'.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/214">Issue #214</a>.
+	</li>
+	<li>
+	Lua: recognize --- doc comments.
+	Defined by <a href="https://github.com/lunarmodules/ldoc">LDoc</a>.
+	Does not recognize --[[-- doc comments which seem less common.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/lexilla529.zip">Release 5.2.9</a>
     </h3>

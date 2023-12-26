@@ -164,7 +164,7 @@ int CallTip::DrawChunk(Surface *surface, int x, std::string_view sv,
 	size_t startSeg = 0;
 	for (const size_t endSeg : ends) {
 		assert(endSeg > 0);
-		int xEnd;
+		int xEnd = 0;
 		if (IsArrowCharacter(sv[startSeg])) {
 			xEnd = x + widthArrow;
 			const bool upArrow = sv[startSeg] == '\001';
@@ -228,7 +228,8 @@ int CallTip::PaintContents(Surface *surfaceWindow, bool draw) {
 		chunkHighlight.start -= lineStart;
 		chunkHighlight.end -= lineStart;
 
-		rcClient.top = static_cast<XYPOSITION>(ytext - ascent - 1);
+		const int top = ytext - ascent - 1;
+		rcClient.top = top;
 
 		int x = insetX;     // start each line at this inset
 

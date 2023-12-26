@@ -860,7 +860,9 @@ $(DIR_O)/LexLua.o: \
 	../lexlib/Accessor.h \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexMagik.o: \
 	../lexers/LexMagik.cxx \
 	../../scintilla/include/ILexer.h \

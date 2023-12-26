@@ -28,6 +28,10 @@
 {8}sub{7}={8}abc{0}
 {8}rep{7}={6}'& '{0}
 {4}echo{0} {10}${var/$sub/"${rep}}"}{0} {2}#{0}
+{2}# issue 216{0}
+{8}option{7}={5}"no[foo]"{0}
+{8}option{7}={10}${option%%[<{().[]*}{0}
+{4}echo{0} {9}$option{0}
 
 {2}# '$' in variable{0}
 {4}echo{0} {9}$${8}PID{0}

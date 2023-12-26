@@ -129,6 +129,7 @@ struct SelectionRange {
 	bool Contains(Sci::Position pos) const noexcept;
 	bool Contains(SelectionPosition sp) const noexcept;
 	bool ContainsCharacter(Sci::Position posCharacter) const noexcept;
+	bool ContainsCharacter(SelectionPosition spCharacter) const noexcept;
 	SelectionSegment Intersect(SelectionSegment check) const noexcept;
 	SelectionPosition Start() const noexcept {
 		return (anchor < caret) ? anchor : caret;

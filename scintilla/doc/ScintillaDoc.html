@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 1 November 2023 NH</p>
+    <p>Last edited 19 December 2023 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -402,34 +402,35 @@
         <tr>
           <td>&cir; <a class="toc" href="#MultipleViews">Multiple views</a></td>
           <td>&cir; <a class="toc" href="#BackgroundLoadSave">Background loading and saving</a></td>
-          <td>&cir; <a class="toc" href="#Folding">Folding</a></td>
+          <td>&cir; <a class="toc" href="#DocumentInterface">Document interface</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#Folding">Folding</a></td>
           <td>&cir; <a class="toc" href="#LineWrapping">Line wrapping</a></td>
           <td>&cir; <a class="toc" href="#Zooming">Zooming</a></td>
-          <td>&cir; <a class="toc" href="#LongLines">Long lines</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#LongLines">Long lines</a></td>
           <td>&cir; <a class="toc" href="#Accessibility">Accessibility</a></td>
           <td>&cir; <a class="toc" href="#Lexer">Lexer</a></td>
-          <td>&cir; <a class="toc" href="#LexerObjects">Lexer objects</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#LexerObjects">Lexer objects</a></td>
           <td>&cir; <a class="toc" href="#Notifications">Notifications</a></td>
           <td>&cir; <a class="toc" href="#Images">Images</a></td>
-          <td>&cir; <a class="toc" href="#GTK">GTK</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#GTK">GTK</a></td>
           <td>&cir; <a class="toc" href="#ProvisionalMessages"><span class="provisional">Provisional messages</span></a></td>
           <td>&cir; <a class="toc" href="#DeprecatedMessages">Deprecated messages</a></td>
-          <td>&cir; <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never supported by Scintilla</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never supported by Scintilla</a></td>
           <td>&cir; <a class="toc" href="#RemovedFeatures">Removed features</a></td>
           <td>&cir; <a class="toc" href="#BuildingScintilla">Building Scintilla</a></td>
         </tr>
@@ -979,7 +980,9 @@ struct Sci_TextRangeFull {
      <a class="message" href="#SCI_GETCURLINE">SCI_GETCURLINE(position length, char *text) &rarr; position</a><br />
      <a class="message" href="#SCI_SELECTIONISRECTANGLE">SCI_SELECTIONISRECTANGLE &rarr; bool</a><br />
      <a class="message" href="#SCI_SETSELECTIONMODE">SCI_SETSELECTIONMODE(int selectionMode)</a><br />
+     <a class="message" href="#SCI_CHANGESELECTIONMODE">SCI_CHANGESELECTIONMODE(int selectionMode)</a><br />
      <a class="message" href="#SCI_GETSELECTIONMODE">SCI_GETSELECTIONMODE &rarr; int</a><br />
+     <a class="message" href="#SCI_SETMOVEEXTENDSSELECTION">SCI_SETMOVEEXTENDSSELECTION(bool moveExtendsSelection)</a><br />
      <a class="message" href="#SCI_GETMOVEEXTENDSSELECTION">SCI_GETMOVEEXTENDSSELECTION &rarr; bool</a><br />
      <a class="message" href="#SCI_GETLINESELSTARTPOSITION">SCI_GETLINESELSTARTPOSITION(line line) &rarr; position</a><br />
      <a class="message" href="#SCI_GETLINESELENDPOSITION">SCI_GETLINESELENDPOSITION(line line) &rarr; position</a><br />
@@ -1121,22 +1124,27 @@ struct Sci_TextRangeFull {
     <p><b id="SCI_SELECTIONISRECTANGLE">SCI_SELECTIONISRECTANGLE &rarr; bool</b><br />
      This returns 1 if the current selection is in rectangle mode, 0 if not.</p>
 
-    <p><b id="SCI_SETSELECTIONMODE">SCI_SETSELECTIONMODE(int selectionMode)</b><br />
+    <p>
+    <b id="SCI_SETSELECTIONMODE">SCI_SETSELECTIONMODE(int selectionMode)</b><br />
+    <b id="SCI_CHANGESELECTIONMODE">SCI_CHANGESELECTIONMODE(int selectionMode)</b><br />
     <b id="SCI_GETSELECTIONMODE">SCI_GETSELECTIONMODE &rarr; int</b><br />
-    The two functions set and get the selection mode, which can be
+    The functions set, change, and get the selection mode, which can be
      stream (<code>SC_SEL_STREAM</code>=0) or
      rectangular (<code>SC_SEL_RECTANGLE</code>=1) or
      by lines (<code>SC_SEL_LINES</code>=2)
      or thin rectangular (<code>SC_SEL_THIN</code>=3).
-     When set in these modes, regular caret moves will extend or reduce the selection,
-     until the mode is cancelled by a call with same value or with <code>SCI_CANCEL</code>.
-     The get function returns the current mode even if the selection was made by mouse
-     or with regular extended moves.
+     When <code>SCI_SETSELECTIONMODE</code> sets these modes, regular caret moves will extend or reduce the selection,
+     until the mode is cancelled by a call with same value, or with <code>SCI_CANCEL</code>, or with <code>SCI_SETMOVEEXTENDSSELECTION</code>.
+     <code>SCI_CHANGESELECTIONMODE</code> sets the mode but does not make regular caret moves extend or reduce the selection.</p>
+     <p>The get function returns the current mode even if the selection was made by mouse or with regular extended moves.
      <code>SC_SEL_THIN</code> is the mode after a rectangular selection has been typed into and ensures
      that no characters are selected.</p>
 
-    <p><b id="SCI_GETMOVEEXTENDSSELECTION">SCI_GETMOVEEXTENDSSELECTION &rarr; bool</b><br />
-     This returns 1 if regular caret moves will extend or reduce the selection, 0 if not.
+    <p>
+    <b id="SCI_SETMOVEEXTENDSSELECTION">SCI_SETMOVEEXTENDSSELECTION(bool moveExtendsSelection)</b><br />
+    <b id="SCI_GETMOVEEXTENDSSELECTION">SCI_GETMOVEEXTENDSSELECTION &rarr; bool</b><br />
+     This controls whether regular caret moves extends the selection leaving the anchor unchanged.
+     It is 1 if regular caret moves will extend or reduce the selection, 0 if not.
      <code>SCI_SETSELECTIONMODE</code> toggles this setting between on and off.</p>
 
     <p><b id="SCI_GETLINESELSTARTPOSITION">SCI_GETLINESELSTARTPOSITION(line line) &rarr; position</b><br />
@@ -1192,6 +1200,7 @@ struct Sci_TextRangeFull {
      <a class="message" href="#SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</a><br />
      <a class="message" href="#SCI_SETSELECTION">SCI_SETSELECTION(position caret, position anchor)</a><br />
      <a class="message" href="#SCI_ADDSELECTION">SCI_ADDSELECTION(position caret, position anchor)</a><br />
+     <a class="message" href="#SCI_SELECTIONFROMPOINT">SCI_SELECTIONFROMPOINT(int x, int y) &rarr; int</a><br />
      <a class="message" href="#SCI_DROPSELECTIONN">SCI_DROPSELECTIONN(int selection)</a><br />
      <a class="message" href="#SCI_SETMAINSELECTION">SCI_SETMAINSELECTION(int selection)</a><br />
      <a class="message" href="#SCI_GETMAINSELECTION">SCI_GETMAINSELECTION &rarr; int</a><br />
@@ -1335,6 +1344,11 @@ struct Sci_TextRangeFull {
      selections as additional selections.
      Since there is always at least one selection, to set a list of selections, the first selection should be
      added with <code>SCI_SETSELECTION</code> and later selections added with <code>SCI_ADDSELECTION</code></p>
+
+    <p>
+    <b id="SCI_SELECTIONFROMPOINT">SCI_SELECTIONFROMPOINT(int x, int y) &rarr; int</b><br />
+     Return the index of the selection at the point. If there is no selection at the point, return -1.
+     This can be used to drop a selection or make it the main selection.</p>
 
     <p>
     <b id="SCI_DROPSELECTIONN">SCI_DROPSELECTIONN(int selection)</b><br />
@@ -7190,9 +7204,11 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     windows (for use with splitter windows).</p>
 
     <p>These messages use <code>pointer</code> returns and arguments to refer to documents.
-    They point to internal objects inside Scintilla and should be treated as an opaque <code>void*</code>. That
-    is, you can use and store the pointer as described in this section but you should not
-    dereference it.</p>
+    They point to <a class="seealso" href="#IDocumentEditable" style="background:#FFB000">IDocumentEditable</a> objects inside
+    Scintilla.
+    The <code>IDocumentEditable</code> interface is provisional and may change.
+    Client code can call <code>IDocumentEditable</code> methods.
+    Clients may just treat these as opaque <code>void*</code> values that are received from and passed to Scintilla without dereferencing.</p>
     <code><a class="message" href="#SCI_GETDOCPOINTER">SCI_GETDOCPOINTER &rarr; pointer</a><br />
      <a class="message" href="#SCI_SETDOCPOINTER">SCI_SETDOCPOINTER(&lt;unused&gt;, pointer doc)</a><br />
      <a class="message" href="#SCI_CREATEDOCUMENT">SCI_CREATEDOCUMENT(position bytes, int documentOptions) &rarr; pointer</a><br />
@@ -7326,7 +7342,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <p>The <code class="parameter">documentOptions</code> argument
     is described in the <a class="seealso" href="#documentOptions"><code>SCI_CREATEDOCUMENT</code></a> section.</p>
 
-<h4>ILoader</h4>
+<h4 id="ILoader">ILoader</h4>
 
 <div class="highlighted">
 <span class="S5">class</span><span class="S0"> </span>ILoader<span class="S0"> </span><span class="S10">{</span><br />
@@ -7343,7 +7359,9 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     If a failure occurs in <code>AddData</code> or in a file reading call then loading can be abandoned and the loader released with
     the <code>Release</code> call.
     When the whole file has been read, <code>ConvertToDocument</code> should be called to produce a Scintilla
-    document pointer. The newly created document will have a reference count of 1 in the same way as a document pointer
+    document pointer. This pointer can be treated as a <code>void*</code> cookie to pass to other APIs or cast to a
+    <a class="seealso" href="#IDocumentEditable" style="background:#FFB000">IDocumentEditable*</a> pointer.
+    The newly created document will have a reference count of 1 in the same way as a document pointer
     returned from
     <a class="seealso" href="#SCI_CREATEDOCUMENT">SCI_CREATEDOCUMENT</a>.
     There is no need to call <code>Release</code> after <code>ConvertToDocument</code>.</p>
@@ -7359,6 +7377,46 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     href="#SCN_MODIFYATTEMPTRO">SCN_MODIFYATTEMPTRO</a></code> notification is sent to the application.
     The application may then decide to ignore the modification or to terminate the background saving thread and reenable
     modification before returning from the notification.</p>
+
+   <h2 id="DocumentInterface" class="provisional">Document interface</h2>
+
+    <p>Applications may want to manipulate documents that are not visible and the provisional <code>IDocumentEditable</code>
+    interface can be used for this.</p>
+
+    <p><code>IDocumentEditable</code> allows more direct access to functionality and is faster than calling Scintilla APIs.</p>
+
+    <p><code>IDocumentEditable</code> pointers are returned by
+    <a class="seealso" href="#SCI_CREATEDOCUMENT">SCI_CREATEDOCUMENT</a>,
+    <a class="seealso" href="#SCI_GETDOCPOINTER">SCI_GETDOCPOINTER</a>, and
+    <a class="seealso" href="#ILoader">ILoader::ConvertToDocument</a>.</p>
+
+    <p>They may be passed to
+    <a class="seealso" href="#SCI_ADDREFDOCUMENT">SCI_ADDREFDOCUMENT</a>,
+    <a class="seealso" href="#SCI_RELEASEDOCUMENT">SCI_RELEASEDOCUMENT</a>, and
+    <a class="seealso" href="#SCI_SETDOCPOINTER">SCI_SETDOCPOINTER</a>,
+    .</p>
+
+<h4 id="IDocumentEditable">IDocumentEditable</h4>
+
+<div class="highlighted" style="background:#FFD270;border: 1px solid #FFBB00">
+<span><span class="S5">class</span><span class="S0"> </span>IDocumentEditable<span class="S0"> </span><span class="S10">{</span><br />
+<span class="S5">public</span><span class="S10">:</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S2">// Allow this interface to add methods over time and discover whether new methods available.</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>DEVersion<span class="S10">()</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">noexcept</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S2">// Lifetime control</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>AddRef<span class="S10">()</span><span class="S0"> </span><span class="S5">noexcept</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>Release<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S10">};</span><br />
+<span class="S0"></span></span>
+</div>
+
+    <p>The <code>IDocumentEditable</code> interface is being developed and more methods will be added in the future.
+    Its also possible that methods will change signatures or be removed.
+    Thus the feature is provisional and users should be aware that they may have to modify client code in response to these changes.</p>
+
+    <p><code>DEVersion</code> will return 0 while <code>IDocumentEditable</code> is provisional and will return 1
+    for the first stable release. After that, it will be incremented when new methods are added.</p>
 
     <h2 id="Folding">Folding</h2>
 

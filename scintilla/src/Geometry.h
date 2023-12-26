@@ -173,7 +173,7 @@ PRectangle PixelAlignOutside(const PRectangle &rc, int pixelDivisions) noexcept;
 constexpr float componentMaximum = 255.0F;
 constexpr unsigned int maximumByte = 0xffU;
 class ColourRGBA {
-	static constexpr float ComponentAsFloat(unsigned int component) {
+	static constexpr float ComponentAsFloat(unsigned char component) {
 		return component / componentMaximum;
 	}
 	static constexpr int rgbMask = 0xffffff;
@@ -195,7 +195,8 @@ public:
 	}
 
 	static constexpr ColourRGBA FromIpRGB(intptr_t co_) noexcept {
-		return ColourRGBA((co_ & rgbMask) | (maximumByte << 24));
+		const int rgb = co_ & rgbMask;
+		return ColourRGBA(rgb | (maximumByte << 24));
 	}
 
 	constexpr ColourRGBA WithoutAlpha() const noexcept {

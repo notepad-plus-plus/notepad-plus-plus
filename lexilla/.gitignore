@@ -27,6 +27,7 @@ __pycache__
 *.bsc
 *.intermediate.manifest
 *.lastbuildstate
+*.nativecodeanalysis.xml
 *.cache
 *.ilk
 *.ncb
@@ -34,13 +35,13 @@ __pycache__
 *.sdf
 gtk/*.plist
 win32/*.plist
-*.nativecodeanalysis.xml
 *.opt
 *.plg
 *.pbxbtree
 *.mode1v3
 *.pbxuser
 *.pbproj
+*.tgz
 *.log
 *.xcbkptlist
 *.xcuserstate
@@ -49,8 +50,8 @@ xcuserdata/
 xcschememanagement.plist
 .DS_Store
 test/TestLexers
-Debug
 Release
+Debug
 x64
 ARM64
 cocoa/build
@@ -58,8 +59,9 @@ cocoa/ScintillaFramework/build
 cocoa/ScintillaTest/build
 macosx/SciTest/build
 *.cppcheck
+*.pro.user
+.qmake.stash
 cov-int
-*.tgz
 .vs
 meson-private
 meson-logs

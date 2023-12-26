@@ -172,49 +172,11 @@ def UpdateLineInFile(path, linePrefix, lineReplace):
     contents = lineEnd.join(lines) + lineEnd
     UpdateFile(path, contents)
 
-def ReadFileAsList(path):
-    """Read all the lnes in the file and return as a list of strings without line ends.
-    """
-    with codecs.open(path, "r", "utf-8") as f:
-        return [line.rstrip('\n') for line in f]
-
 def UpdateFileFromLines(path, lines, lineEndToUse):
     """Join the lines with the lineEndToUse then update file if the result is different.
     """
     contents = lineEndToUse.join(lines) + lineEndToUse
     UpdateFile(path, contents)
-
-def FindSectionInList(lines, markers):
-    """Find a section defined by an initial start marker, an optional secondary
-    marker and an end marker.
-    The section is between the secondary/initial start and the end.
-    Report as a slice object so the section can be extracted or replaced.
-    Raises an exception if the markers can't be found.
-    """
-    start = -1
-    end = -1
-    state = 0
-    for i, line in enumerate(lines):
-        if markers[0] in line:
-            if markers[1]:
-                state = 1
-            else:
-                start = i+1
-                state = 2
-        elif state == 1:
-            if markers[1] in line:
-                start = i+1
-                state = 2
-        elif state == 2:
-            if markers[2] in line:
-                end = i
-                state = 3
-    # Check that section was found
-    if start == -1:
-        raise Exception("Could not find start marker(s) |" + markers[0] + "|" + markers[1] + "|")
-    if end == -1:
-        raise Exception("Could not find end marker " + markers[2])
-    return slice(start, end)
 
 def ReplaceREInFile(path, match, replace, count=1):
     with codecs.open(path, "r", "utf-8") as f:

@@ -3,7 +3,10 @@
 # Released to the public domain.
 # Requires FileGenerator from Scintilla so scintilla must be a peer directory of lexilla.
 
-# Common code used by Lexilla and SciTE for source file regeneration.
+"""
+Common code used by Lexilla and SciTE for source file regeneration.
+"""
+
 # The LexillaData object exposes information about Lexilla as properties:
 # Version properties
 #     version
@@ -42,15 +45,16 @@
 
 import datetime, pathlib, sys, textwrap
 
-thisPath = pathlib.Path(__file__).resolve()
-
-sys.path.append(str(thisPath.parent.parent.parent / "scintilla" / "scripts"))
-
-import FileGenerator
-
 neutralEncoding = "iso-8859-1"	# Each byte value is valid in iso-8859-1
 
+def ReadFileAsList(path):
+    """Read all the lnes in the file and return as a list of strings without line ends.
+    """
+    with path.open(encoding="utf-8") as f:
+        return [line.rstrip('\n') for line in f]
+
 def FindModules(lexFile):
+    """ Return a list of modules found within a lexer implementation file. """
     modules = []
     partLine = ""
     with lexFile.open(encoding=neutralEncoding) as f:
@@ -69,7 +73,7 @@ def FindModules(lexFile):
                     lexerName = parts[4]
                     if not (lexerName.startswith('"') and lexerName.endswith('"')):
                         print(f"{lexFile}:{lineNum}: Bad LexerModule statement:\n{original}")
-                        exit(1)
+                        sys.exit(1)
                     lexerName = lexerName.strip('"')
                     modules.append([parts[1], parts[2], lexerName])
                     partLine = ""
@@ -77,14 +81,48 @@ def FindModules(lexFile):
                     partLine = partLine + line
     return modules
 
-def FindLexersInXcode(xCodeProject):
-    lines = FileGenerator.ReadFileAsList(xCodeProject)
+def FindSectionInList(lines, markers):
+    """Find a section defined by an initial start marker, an optional secondary
+    marker and an end marker.
+    The section is between the secondary/initial start and the end.
+    Report as a slice object so the section can be extracted or replaced.
+    Raises an exception if the markers can't be found.
+    Currently only used for Xcode project files.
+    """
+    start = -1
+    end = -1
+    state = 0
+    for i, line in enumerate(lines):
+        if markers[0] in line:
+            if markers[1]:
+                state = 1
+            else:
+                start = i+1
+                state = 2
+        elif state == 1:
+            if markers[1] in line:
+                start = i+1
+                state = 2
+        elif state == 2:
+            if markers[2] in line:
+                end = i
+                state = 3
+    # Check that section was found
+    if start == -1:
+        raise ValueError("Could not find start marker(s) |" + markers[0] + "|" + markers[1] + "|")
+    if end == -1:
+        raise ValueError("Could not find end marker " + markers[2])
+    return slice(start, end)
 
-    # PBXBuildFile section is a list of all buildable files in the project so extract the file basename and
-    # its build and file IDs
+def FindLexersInXcode(xCodeProject):
+    """ Return a dictionary { file name: [build UUID, file UUID] } of lexers in Xcode project. """
+    lines = ReadFileAsList(xCodeProject)
+
+    # PBXBuildFile section is a list of all buildable files in the project so extract the file
+    # basename and its build and file IDs
     uidsOfBuild = {}
     markersPBXBuildFile = ["Begin PBXBuildFile section", "", "End PBXBuildFile section"]
-    for buildLine in lines[FileGenerator.FindSectionInList(lines, markersPBXBuildFile)]:
+    for buildLine in lines[FindSectionInList(lines, markersPBXBuildFile)]:
         # Occurs for each file in the build. Find the UIDs used for the file.
         #\t\t[0-9A-F]+ /* [a-zA-Z]+.cxx in sources */ = {isa = PBXBuildFile; fileRef = [0-9A-F]+ /* [a-zA-Z]+ */; };
         pieces = buildLine.split()
@@ -96,7 +134,7 @@ def FindLexersInXcode(xCodeProject):
     # PBXGroup section contains the folders (Lexilla, Lexers, LexLib, ...) so is used to find the lexers
     lexers = {}
     markersLexers = ["/* Lexers */ =", "children", ");"]
-    for lexerLine in lines[FileGenerator.FindSectionInList(lines, markersLexers)]:
+    for lexerLine in lines[FindSectionInList(lines, markersLexers)]:
         #\t\t\t\t[0-9A-F]+ /* [a-zA-Z]+.cxx */,
         uid, _, rest = lexerLine.partition("/* ")
         uid = uid.strip()
@@ -121,7 +159,8 @@ knownIrregularProperties = [
 ]
 
 def FindProperties(lexFile):
-    properties = {}
+    """ Return a set of property names in a lexer implementation file. """
+    properties = set()
     with open(lexFile, encoding=neutralEncoding) as f:
         for s in f.readlines():
             if ("GetProperty" in s or "DefineProperty" in s) and "\"" in s:
@@ -133,10 +172,11 @@ def FindProperties(lexFile):
                         if propertyName in knownIrregularProperties or \
                             propertyName.startswith("fold.") or \
                             propertyName.startswith("lexer."):
-                            properties[propertyName] = 1
+                            properties.add(propertyName)
     return properties
 
 def FindPropertyDocumentation(lexFile):
+    """ Return a dictionary { name: document string } of property documentation in a lexer. """
     documents = {}
     with lexFile.open(encoding=neutralEncoding) as f:
         name = ""
@@ -178,7 +218,8 @@ def FindPropertyDocumentation(lexFile):
     return documents
 
 def FindCredits(historyFile):
-    credits = []
+    """ Return a list of contributors in a history file. """
+    creditList = []
     stage = 0
     with historyFile.open(encoding="utf-8") as f:
         for line in f.readlines():
@@ -190,7 +231,7 @@ def FindCredits(historyFile):
             if stage == 1 and line.startswith("<td>"):
                 credit = line[4:-5]
                 if "<a" in line:
-                    title, a, rest = credit.partition("<a href=")
+                    title, dummy, rest = credit.partition("<a href=")
                     urlplus, _bracket, end = rest.partition(">")
                     name = end.split("<")[0]
                     url = urlplus[1:-1]
@@ -198,16 +239,20 @@ def FindCredits(historyFile):
                     if credit:
                         credit += " "
                     credit += name + " " + url
-                credits.append(credit)
-    return credits
+                creditList.append(credit)
+    return creditList
 
 def ciKey(a):
+    """ Return a string lowered to be used when sorting. """
     return str(a).lower()
 
-def SortListInsensitive(list):
-    list.sort(key=ciKey)
+def SortListInsensitive(l):
+    """ Sort a list of strings case insensitively. """
+    l.sort(key=ciKey)
 
 class LexillaData:
+    """ Expose information about Lexilla as properties. """
+
     def __init__(self, scintillaRoot):
         # Discover version information
         self.version = (scintillaRoot / "version.txt").read_text().strip()
@@ -223,7 +268,7 @@ class LexillaData:
             dtModified = datetime.datetime.strptime(self.dateModified, "%Y%m%d")
             self.yearModified = self.dateModified[0:4]
             monthModified = dtModified.strftime("%B")
-            dayModified = "%d" % dtModified.day
+            dayModified = f"{dtModified.day}"
             self.mdyModified = monthModified + " " + dayModified + " " + self.yearModified
             # May 22 2013
             # Lexilla.html, SciTE.html
@@ -247,12 +292,12 @@ class LexillaData:
                 self.sclexFromName[module[2]] = module[1]
                 self.fileFromSclex[module[1]] = lexFile
                 self.lexerModules.append(module[0])
-            for k in FindProperties(lexFile).keys():
-                lexerProperties.add(k)
+            for prop in FindProperties(lexFile):
+                lexerProperties.add(prop)
             documents = FindPropertyDocumentation(lexFile)
-            for k in documents.keys():
-                if k not in self.propertyDocuments:
-                    self.propertyDocuments[k] = documents[k]
+            for prop, doc in documents.items():
+                if prop not in self.propertyDocuments:
+                    self.propertyDocuments[prop] = doc
         SortListInsensitive(self.lexerModules)
         self.lexerProperties = list(lexerProperties)
         SortListInsensitive(self.lexerProperties)
@@ -262,13 +307,14 @@ class LexillaData:
         self.credits = FindCredits(scintillaRoot / "doc" / "LexillaHistory.html")
 
 def printWrapped(text):
+    """ Print string wrapped with subsequent lines indented. """
     print(textwrap.fill(text, subsequent_indent="    "))
 
 if __name__=="__main__":
     sci = LexillaData(pathlib.Path(__file__).resolve().parent.parent)
-    print("Version   %s   %s   %s" % (sci.version, sci.versionDotted, sci.versionCommad))
-    print("Date last modified    %s   %s   %s   %s   %s" % (
-        sci.dateModified, sci.yearModified, sci.mdyModified, sci.dmyModified, sci.myModified))
+    print(f"Version   {sci.version}   {sci.versionDotted}   {sci.versionCommad}")
+    print(f"Date last modified    {sci.dateModified}   {sci.yearModified}   {sci.mdyModified}"
+        f"   {sci.dmyModified}   {sci.myModified}")
     printWrapped(str(len(sci.lexFiles)) + " lexer files: " + ", ".join(sci.lexFiles))
     printWrapped(str(len(sci.lexerModules)) + " lexer modules: " + ", ".join(sci.lexerModules))
     #~ printWrapped(str(len(sci.lexersXcode)) + " Xcode lexer references: " + ", ".join(

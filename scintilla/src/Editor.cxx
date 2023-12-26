@@ -98,11 +98,12 @@ constexpr bool CanEliminate(const DocModification &mh) noexcept {
 	in a [possibly lengthy] multi-step Undo/Redo sequence
 */
 constexpr bool IsLastStep(const DocModification &mh) noexcept {
+	constexpr ModificationFlags finalMask = ModificationFlags::MultiStepUndoRedo
+		| ModificationFlags::LastStepInUndoRedo
+		| ModificationFlags::MultilineUndoRedo;
 	return
 		FlagSet(mh.modificationType, (ModificationFlags::Undo | ModificationFlags::Redo))
-	    && (FlagSet(mh.modificationType, ModificationFlags::MultiStepUndoRedo))
-	    && (FlagSet(mh.modificationType, ModificationFlags::LastStepInUndoRedo))
-	    && (FlagSet(mh.modificationType, ModificationFlags::MultilineUndoRedo));
+	    && ((mh.modificationType & finalMask) == finalMask);
 }
 
 }
@@ -2727,7 +2728,7 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 			if (FlagSet(mh.modificationType, ModificationFlags::BeforeInsert)) {
 				if (pdoc->ContainsLineEnd(mh.text, mh.length) && (mh.position != pdoc->LineStart(lineOfPos)))
 					endNeedShown = pdoc->LineStart(lineOfPos+1);
-			} else if (FlagSet(mh.modificationType, ModificationFlags::BeforeDelete)) {
+			} else {
 				// If the deletion includes any EOL then we extend the need shown area.
 				endNeedShown = mh.position + mh.length;
 				Sci::Line lineLast = pdoc->SciLineFromPosition(mh.position+mh.length);
@@ -2802,7 +2803,7 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 		SetScrollBars();
 	}
 
-	if ((FlagSet(mh.modificationType, ModificationFlags::ChangeMarker)) || (FlagSet(mh.modificationType, ModificationFlags::ChangeMargin))) {
+	if (FlagSet(mh.modificationType, (ModificationFlags::ChangeMarker | ModificationFlags::ChangeMargin))) {
 		if ((!willRedrawAll) && ((paintState == PaintState::notPainting) || !PaintContainsMargin())) {
 			if (FlagSet(mh.modificationType, ModificationFlags::ChangeFold)) {
 				// Fold changes can affect the drawing of following lines so redraw whole margin
@@ -4403,8 +4404,6 @@ bool Editor::DragThreshold(Point ptStart, Point ptNow) {
 
 void Editor::StartDrag() {
 	// Always handled by subclasses
-	//SetMouseCapture(true);
-	//DisplayCursor(Windows::Cursor::Arrow);
 }
 
 void Editor::DropAt(SelectionPosition position, const char *value, size_t lengthValue, bool moving, bool rectangular) {
@@ -4511,6 +4510,28 @@ bool Editor::PointInSelection(Point pt) {
 	return false;
 }
 
+ptrdiff_t Editor::SelectionFromPoint(Point pt) {
+	// Prioritize checking inside non-empty selections since each character will be inside only 1 
+	const SelectionPosition posChar = SPositionFromLocation(pt, true, true);
+	for (size_t r = 0; r < sel.Count(); r++) {
+		if (sel.Range(r).ContainsCharacter(posChar)) {
+			return r;
+		}
+	}
+
+	// Then check if near empty selections as may be near more than 1
+	const SelectionPosition pos = SPositionFromLocation(pt, true, false);
+	for (size_t r = 0; r < sel.Count(); r++) {
+		const SelectionRange &range = sel.Range(r);
+		if ((range.Empty()) && (pos == range.caret)) {
+			return r;
+		}
+	}
+
+	// No selection at point
+	return -1;
+}
+
 bool Editor::PointInSelMargin(Point pt) const {
 	// Really means: "Point in a margin"
 	if (vs.fixedColumnWidth > 0) {	// There is a margin
@@ -4533,6 +4554,12 @@ Window::Cursor Editor::GetMarginCursor(Point pt) const noexcept {
 		x += m.width;
 	}
 	return Window::Cursor::reverseArrow;
+}
+
+void Editor::DropSelection(size_t part) {
+	sel.DropSelection(part);
+	ContainerNeedsUpdate(Update::Selection);
+	Redraw();
 }
 
 void Editor::TrimAndSetSelection(Sci::Position currentPos_, Sci::Position anchor_) {
@@ -4620,8 +4647,7 @@ void Editor::MouseLeave() {
 }
 
 static constexpr bool AllowVirtualSpace(VirtualSpace virtualSpaceOptions, bool rectangular) noexcept {
-	return (!rectangular && (FlagSet(virtualSpaceOptions, VirtualSpace::UserAccessible)))
-		|| (rectangular && (FlagSet(virtualSpaceOptions, VirtualSpace::RectangularSelection)));
+	return FlagSet(virtualSpaceOptions, (rectangular ? VirtualSpace::RectangularSelection : VirtualSpace::UserAccessible));
 }
 
 void Editor::ButtonDownWithModifiers(Point pt, unsigned int curTime, KeyMod modifiers) {
@@ -4631,10 +4657,10 @@ void Editor::ButtonDownWithModifiers(Point pt, unsigned int curTime, KeyMod modi
 	const bool ctrl = FlagSet(modifiers, KeyMod::Ctrl);
 	const bool shift = FlagSet(modifiers, KeyMod::Shift);
 	const bool alt = FlagSet(modifiers, KeyMod::Alt);
-	SelectionPosition newPos = SPositionFromLocation(pt, false, false, AllowVirtualSpace(virtualSpaceOptions, alt));
-	newPos = MovePositionOutsideChar(newPos, sel.MainCaret() - newPos.Position());
-	SelectionPosition newCharPos = SPositionFromLocation(pt, false, true, false);
-	newCharPos = MovePositionOutsideChar(newCharPos, -1);
+	const SelectionPosition clickPos = SPositionFromLocation(pt, false, false, AllowVirtualSpace(virtualSpaceOptions, alt));
+	const SelectionPosition newPos = MovePositionOutsideChar(clickPos, sel.MainCaret() - clickPos.Position());
+	const SelectionPosition newCharPos = MovePositionOutsideChar(
+		SPositionFromLocation(pt, false, true, false), -1);
 	inDragDrop = DragDrop::none;
 	sel.SetMoveExtends(false);
 
@@ -4643,21 +4669,22 @@ void Editor::ButtonDownWithModifiers(Point pt, unsigned int curTime, KeyMod modi
 
 	NotifyIndicatorClick(true, newPos.Position(), modifiers);
 
+	const bool multiClick = (curTime < (lastClickTime + Platform::DoubleClickTime())) && Close(pt, lastClick, doubleClickCloseThreshold);
+	lastClickTime = curTime;
+	lastClick = pt;
+
 	const bool inSelMargin = PointInSelMargin(pt);
 	// In margin ctrl+(double)click should always select everything
 	if (ctrl && inSelMargin) {
 		SelectAll();
-		lastClickTime = curTime;
-		lastClick = pt;
 		return;
 	}
 	if (shift && !inSelMargin) {
 		SetSelection(newPos);
 	}
-	if ((curTime < (lastClickTime+Platform::DoubleClickTime())) && Close(pt, lastClick, doubleClickCloseThreshold)) {
+	if (multiClick) {
 		//Platform::DebugPrintf("Double click %d %d = %d\n", curTime, lastClickTime, curTime - lastClickTime);
-		SetMouseCapture(true);
-		FineTickerStart(TickReason::scroll, 100, 10);
+		ChangeMouseCapture(true);
 		if (!ctrl || !multipleSelection || (selectionUnit != TextUnit::character && selectionUnit != TextUnit::word))
 			SetEmptySelection(newPos.Position());
 		bool doubleClick = false;
@@ -4755,21 +4782,32 @@ void Editor::ButtonDownWithModifiers(Point pt, unsigned int curTime, KeyMod modi
 			}
 
 			SetDragPosition(SelectionPosition(Sci::invalidPosition));
-			SetMouseCapture(true);
-			FineTickerStart(TickReason::scroll, 100, 10);
+			ChangeMouseCapture(true);
 		} else {
 			if (PointIsHotspot(pt)) {
 				NotifyHotSpotClicked(newCharPos.Position(), modifiers);
 				hotSpotClickPos = newCharPos.Position();
 			}
 			if (!shift) {
-				if (PointInSelection(pt) && !SelectionEmpty())
-					inDragDrop = DragDrop::initial;
-				else
-					inDragDrop = DragDrop::none;
+				const ptrdiff_t selectionPart = SelectionFromPoint(pt);
+				if (selectionPart >= 0) {
+					if (multipleSelection && ctrl) {
+						// Deselect
+						if (sel.Count() > 1) {
+							DropSelection(selectionPart);
+							// Completed: don't want any more processing of this click
+							return;
+						} else {
+							// Switch to just the click position
+							SetSelection(newPos, newPos);
+						}
+					}
+					if (!sel.Range(selectionPart).Empty()) {
+						inDragDrop = DragDrop::initial;
+					}
+				}
 			}
-			SetMouseCapture(true);
-			FineTickerStart(TickReason::scroll, 100, 10);
+			ChangeMouseCapture(true);
 			if (inDragDrop != DragDrop::initial) {
 				SetDragPosition(SelectionPosition(Sci::invalidPosition));
 				if (!shift) {
@@ -4799,8 +4837,6 @@ void Editor::ButtonDownWithModifiers(Point pt, unsigned int curTime, KeyMod modi
 			}
 		}
 	}
-	lastClickTime = curTime;
-	lastClick = pt;
 	lastXChosen = static_cast<int>(pt.x) + xOffset;
 	ShowCaretAtCurrentPosition();
 }
@@ -4886,8 +4922,7 @@ void Editor::ButtonMoveWithModifiers(Point pt, unsigned int, KeyMod modifiers) {
 
 	if (inDragDrop == DragDrop::initial) {
 		if (DragThreshold(ptMouseLast, pt)) {
-			SetMouseCapture(false);
-			FineTickerCancel(TickReason::scroll);
+			ChangeMouseCapture(false);
 			SetDragPosition(movePos);
 			CopySelectionRange(&drag);
 			StartDrag();
@@ -5029,8 +5064,7 @@ void Editor::ButtonUpWithModifiers(Point pt, unsigned int curTime, KeyMod modifi
 			SetHotSpotRange(nullptr);
 		}
 		ptMouseLast = pt;
-		SetMouseCapture(false);
-		FineTickerCancel(TickReason::scroll);
+		ChangeMouseCapture(false);
 		NotifyIndicatorClick(false, newPos.Position(), modifiers);
 		if (inDragDrop == DragDrop::dragging) {
 			const SelectionPosition selStart = SelectionStart();
@@ -5161,6 +5195,16 @@ void Editor::FineTickerStart(TickReason, int, int) {
 // this method should never be called.
 void Editor::FineTickerCancel(TickReason) {
 	assert(false);
+}
+
+void Editor::ChangeMouseCapture(bool on) {
+	SetMouseCapture(on);
+	// While mouse captured want timer to scroll automatically
+	if (on) {
+		FineTickerStart(TickReason::scroll, 100, 10);
+	} else {
+		FineTickerCancel(TickReason::scroll);
+	}
 }
 
 void Editor::SetFocusState(bool focusState) {
@@ -5732,13 +5776,17 @@ Sci::Position Editor::GetTag(char *tagValue, int tagNumber) {
 
 Sci::Position Editor::ReplaceTarget(ReplaceType replaceType, std::string_view text) {
 	UndoGroup ug(pdoc);
+
+	std::string substituted;	// Copy in case of re-entrance
+
 	if (replaceType == ReplaceType::patterns) {
 		Sci::Position length = text.length();
 		const char *p = pdoc->SubstituteByPosition(text.data(), &length);
 		if (!p) {
 			return 0;
 		}
-		text = std::string_view(p, length);
+		substituted.assign(p, length);
+		text = substituted;
 	}
 
 	if (replaceType == ReplaceType::minimal) {
@@ -5753,19 +5801,25 @@ Sci::Position Editor::ReplaceTarget(ReplaceType replaceType, std::string_view te
 		targetRange = SelectionSegment(start, SelectionPosition(range.end));
 	}
 
+	// Make a copy of targetRange in case callbacks use target
+	SelectionSegment replaceRange = targetRange;
+
 	// Remove the text inside the range
-	if (targetRange.Length() > 0)
-		pdoc->DeleteChars(targetRange.start.Position(), targetRange.Length());
-	targetRange.end = targetRange.start;
+	if (replaceRange.Length() > 0)
+		pdoc->DeleteChars(replaceRange.start.Position(), replaceRange.Length());
 
 	// Realize virtual space of target start
-	const Sci::Position startAfterSpaceInsertion = RealizeVirtualSpace(targetRange.start.Position(), targetRange.start.VirtualSpace());
-	targetRange.start.SetPosition(startAfterSpaceInsertion);
-	targetRange.end = targetRange.start;
+	const Sci::Position startAfterSpaceInsertion = RealizeVirtualSpace(replaceRange.start.Position(), replaceRange.start.VirtualSpace());
+	replaceRange.start.SetPosition(startAfterSpaceInsertion);
+	replaceRange.end = replaceRange.start;
 
 	// Insert the new text
-	const Sci::Position lengthInserted = pdoc->InsertString(targetRange.start.Position(), text);
-	targetRange.end.SetPosition(targetRange.start.Position() + lengthInserted);
+	const Sci::Position lengthInserted = pdoc->InsertString(replaceRange.start.Position(), text);
+	replaceRange.end.SetPosition(replaceRange.start.Position() + lengthInserted);
+
+	// Copy back to targetRange in case application is chaining modifications
+	targetRange = replaceRange;
+
 	return text.length();
 }
 
@@ -6007,6 +6061,47 @@ void Editor::SetSelectionNMessage(Message iMessage, uptr_t wParam, sptr_t lParam
 
 	InvalidateRange(sel.Range(wParam).Start().Position(), sel.Range(wParam).End().Position());
 	ContainerNeedsUpdate(Update::Selection);
+}
+
+namespace {
+
+constexpr Selection::SelTypes SelTypeFromMode(SelectionMode mode) {
+	switch (mode) {
+	case SelectionMode::Rectangle:
+		return Selection::SelTypes::rectangle;
+	case SelectionMode::Lines:
+		return Selection::SelTypes::lines;
+	case SelectionMode::Thin:
+		return Selection::SelTypes::thin;
+	case SelectionMode::Stream:
+	default:
+		return Selection::SelTypes::stream;
+	}
+}
+
+sptr_t SPtrFromPtr(void *ptr) noexcept {
+	return reinterpret_cast<sptr_t>(ptr);
+}
+
+}
+
+void Editor::SetSelectionMode(uptr_t wParam, bool setMoveExtends) {
+	const Selection::SelTypes newSelType = SelTypeFromMode(static_cast<SelectionMode>(wParam));
+	if (setMoveExtends) {
+		sel.SetMoveExtends(!sel.MoveExtends() || (sel.selType != newSelType));
+	}
+	sel.selType = newSelType;
+	switch (sel.selType) {
+	case Selection::SelTypes::rectangle:
+		sel.Rectangular() = sel.RangeMain(); // adjust current selection
+		break;
+	case Selection::SelTypes::lines:
+		SetSelection(sel.RangeMain().caret, sel.RangeMain().anchor); // adjust current selection
+		break;
+	default:
+		break;
+	}
+	InvalidateWholeSelection();
 }
 
 sptr_t Editor::StringResult(sptr_t lParam, const char *val) noexcept {
@@ -8125,11 +8220,11 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		break;
 
 	case Message::GetDocPointer:
-		return reinterpret_cast<sptr_t>(pdoc);
+		return SPtrFromPtr(pdoc->AsDocumentEditable());
 
 	case Message::SetDocPointer:
 		CancelModes();
-		SetDocPointer(static_cast<Document *>(PtrFromSPtr(lParam)));
+		SetDocPointer(static_cast<Document *>(static_cast<IDocumentEditable *>(PtrFromSPtr(lParam))));
 		return 0;
 
 	case Message::CreateDocument: {
@@ -8137,15 +8232,15 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 			doc->AddRef();
 			doc->Allocate(PositionFromUPtr(wParam));
 			pcs = ContractionStateCreate(pdoc->IsLarge());
-			return reinterpret_cast<sptr_t>(doc);
+			return SPtrFromPtr(doc->AsDocumentEditable());
 		}
 
 	case Message::AddRefDocument:
-		(static_cast<Document *>(PtrFromSPtr(lParam)))->AddRef();
+		(static_cast<IDocumentEditable *>(PtrFromSPtr(lParam)))->AddRef();
 		break;
 
 	case Message::ReleaseDocument:
-		(static_cast<Document *>(PtrFromSPtr(lParam)))->Release();
+		(static_cast<IDocumentEditable *>(PtrFromSPtr(lParam)))->Release();
 		break;
 
 	case Message::GetDocumentOptions:
@@ -8186,33 +8281,12 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	case Message::SelectionIsRectangle:
 		return sel.selType == Selection::SelTypes::rectangle ? 1 : 0;
 
-	case Message::SetSelectionMode: {
-			switch (static_cast<SelectionMode>(wParam)) {
-			case SelectionMode::Stream:
-				sel.SetMoveExtends(!sel.MoveExtends() || (sel.selType != Selection::SelTypes::stream));
-				sel.selType = Selection::SelTypes::stream;
-				break;
-			case SelectionMode::Rectangle:
-				sel.SetMoveExtends(!sel.MoveExtends() || (sel.selType != Selection::SelTypes::rectangle));
-				sel.selType = Selection::SelTypes::rectangle;
-				sel.Rectangular() = sel.RangeMain(); // adjust current selection
-				break;
-			case SelectionMode::Lines:
-				sel.SetMoveExtends(!sel.MoveExtends() || (sel.selType != Selection::SelTypes::lines));
-				sel.selType = Selection::SelTypes::lines;
-				SetSelection(sel.RangeMain().caret, sel.RangeMain().anchor); // adjust current selection
-				break;
-			case SelectionMode::Thin:
-				sel.SetMoveExtends(!sel.MoveExtends() || (sel.selType != Selection::SelTypes::thin));
-				sel.selType = Selection::SelTypes::thin;
-				break;
-			default:
-				sel.SetMoveExtends(!sel.MoveExtends() || (sel.selType != Selection::SelTypes::stream));
-				sel.selType = Selection::SelTypes::stream;
-			}
-			InvalidateWholeSelection();
-			break;
-		}
+	case Message::SetSelectionMode:
+		SetSelectionMode(wParam, true);
+		break;
+	case Message::ChangeSelectionMode:
+		SetSelectionMode(wParam, false);
+		break;
 	case Message::GetSelectionMode:
 		switch (sel.selType) {
 		case Selection::SelTypes::stream:
@@ -8226,6 +8300,9 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		default:	// ?!
 			return static_cast<sptr_t>(SelectionMode::Stream);
 		}
+	case Message::SetMoveExtendsSelection:
+		sel.SetMoveExtends(wParam != 0);
+		break;
 	case Message::GetMoveExtendsSelection:
 		return sel.MoveExtends();
 	case Message::GetLineSelStartPosition:
@@ -8657,10 +8734,11 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		Redraw();
 		break;
 
+	case Message::SelectionFromPoint:
+		return SelectionFromPoint(PointFromParameters(wParam, lParam));
+
 	case Message::DropSelectionN:
-		sel.DropSelection(wParam);
-		ContainerNeedsUpdate(Update::Selection);
-		Redraw();
+		DropSelection(wParam);
 		break;
 
 	case Message::SetMainSelection:

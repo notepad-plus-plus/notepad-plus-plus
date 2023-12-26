@@ -4,7 +4,7 @@
 DEL = del /q
 EXE = unitTest.exe
 
-INCLUDEDIRS = /I../../include /I../../src /I../../lexlib /I../../../scintilla/include
+INCLUDEDIRS = /I../../include /I../../lexlib /I../../../scintilla/include
 
 CXXFLAGS = /EHsc /std:c++17 /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
 

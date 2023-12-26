@@ -2,7 +2,10 @@
 # LexillaGen.py - implemented 2019 by Neil Hodgson neilh@scintilla.org
 # Released to the public domain.
 
-# Regenerate the Lexilla source files that list all the lexers.
+"""
+Regenerate the Lexilla source files that list all the lexers.
+"""
+
 # Should be run whenever a new lexer is added or removed.
 # Requires Python 3.6 or later
 # Files are regenerated in place with templates stored in comments.
@@ -15,8 +18,7 @@ thisPath = pathlib.Path(__file__).resolve()
 sys.path.append(str(thisPath.parent.parent.parent / "scintilla" / "scripts"))
 
 from FileGenerator import Regenerate, UpdateLineInFile, \
-    ReplaceREInFile, UpdateLineInPlistFile, ReadFileAsList, UpdateFileFromLines, \
-    FindSectionInList
+    ReplaceREInFile, UpdateLineInPlistFile, UpdateFileFromLines
 import LexillaData
 import LexFacer
 
@@ -25,11 +27,12 @@ import DepGen
 
 # RegenerateXcodeProject and assiciated functions is copied from scintilla/scripts/LexGen.py
 
-# Last 24 digits of UUID, used for item IDs in Xcode
 def uid24():
+    """ Last 24 digits of UUID, used for item IDs in Xcode. """
     return str(uuid.uuid4()).replace("-", "").upper()[-24:]
 
 def ciLexerKey(a):
+    """ Return 3rd element of string lowered to be used when sorting. """
     return a.split()[2].lower()
 
 
@@ -40,6 +43,7 @@ def ciLexerKey(a):
 				11F35FDB12AEFAF100F0236D /* LexA68k.cxx in Sources */,
 """
 def RegenerateXcodeProject(path, lexers, lexerReferences):
+    """ Regenerate project to include any new lexers. """
     # Build 4 blocks for insertion:
     # Each markers contains a unique section start, an optional wait string, and a section end
 
@@ -61,34 +65,35 @@ def RegenerateXcodeProject(path, lexers, lexerReferences):
             uid2 = uid24()
             print("Lexer", lexer, "is not in Xcode project. Use IDs", uid1, uid2)
             lexerReferences[lexer] = [uid1, uid2]
-            linePBXBuildFile = "\t\t{} /* {}.cxx in Sources */ = {{isa = PBXBuildFile; fileRef = {} /* {}.cxx */; }};".format(uid1, lexer, uid2, lexer)
-            linePBXFileReference = "\t\t{} /* {}.cxx */ = {{isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = {}.cxx; path = ../../lexers/{}.cxx; sourceTree = SOURCE_ROOT; }};".format(uid2, lexer, lexer, lexer)
-            lineLexers = "\t\t\t\t{} /* {}.cxx */,".format(uid2, lexer)
-            linePBXSourcesBuildPhase = "\t\t\t\t{} /* {}.cxx in Sources */,".format(uid1, lexer)
+            linePBXBuildFile = f"\t\t{uid1} /* {lexer}.cxx in Sources */ = {{isa = PBXBuildFile; fileRef = {uid2} /* {lexer}.cxx */; }};"
+            linePBXFileReference = f"\t\t{uid2} /* {lexer}.cxx */ = {{isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = {lexer}.cxx; path = ../../lexers/{lexer}.cxx; sourceTree = SOURCE_ROOT; }};"
+            lineLexers = f"\t\t\t\t{uid2} /* {lexer}.cxx */,"
+            linePBXSourcesBuildPhase = f"\t\t\t\t{uid1} /* {lexer}.cxx in Sources */,"
             sectionPBXBuildFile.append(linePBXBuildFile)
             sectionPBXFileReference.append(linePBXFileReference)
             sectionLexers.append(lineLexers)
             sectionPBXSourcesBuildPhase.append(linePBXSourcesBuildPhase)
 
-    lines = ReadFileAsList(path)
+    lines = LexillaData.ReadFileAsList(path)
 
-    sli = FindSectionInList(lines, markersPBXBuildFile)
+    sli = LexillaData.FindSectionInList(lines, markersPBXBuildFile)
     lines[sli.stop:sli.stop] = sectionPBXBuildFile
 
-    sli = FindSectionInList(lines, markersPBXFileReference)
+    sli = LexillaData.FindSectionInList(lines, markersPBXFileReference)
     lines[sli.stop:sli.stop] = sectionPBXFileReference
 
-    sli = FindSectionInList(lines, markersLexers)
+    sli = LexillaData.FindSectionInList(lines, markersLexers)
     # This section is shown in the project outline so sort it to make it easier to navigate.
     allLexers = sorted(lines[sli.start:sli.stop] + sectionLexers, key=ciLexerKey)
     lines[sli] = allLexers
 
-    sli = FindSectionInList(lines, markersPBXSourcesBuildPhase)
+    sli = LexillaData.FindSectionInList(lines, markersPBXSourcesBuildPhase)
     lines[sli.stop:sli.stop] = sectionPBXSourcesBuildPhase
 
-    UpdateFileFromLines(path, lines, "\n")
+    UpdateFileFromLines(path, lines, os.linesep)
 
 def RegenerateAll(rootDirectory):
+    """ Regenerate all the files. """
 
     root = pathlib.Path(rootDirectory)
 

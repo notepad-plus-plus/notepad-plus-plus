@@ -66,7 +66,7 @@ public:
 	std::unique_ptr<char[]> chars;
 	std::unique_ptr<unsigned char[]> styles;
 	std::unique_ptr<XYPOSITION[]> positions;
-	char bracePreviousStyles[2];
+	unsigned char bracePreviousStyles[2];
 
 	std::unique_ptr<BidiData> bidiData;
 
@@ -156,7 +156,7 @@ public:
 private:
 	Scintilla::LineCache level;
 	std::vector<std::shared_ptr<LineLayout>>cache;
-	bool allInvalidated;
+	LineLayout::ValidLevel maxValidity;
 	int styleClock;
 	size_t EntryForLine(Sci::Line line) const noexcept;
 	void AllocateForLevel(Sci::Line linesOnScreen, Sci::Line linesInDoc);

@@ -1164,7 +1164,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="6903" name="Dialógové okno Hľadať zostáva otvorené po vyhľadaní s výstupom do okna s výsledkami hľadania"/>
 					<Item id="6904" name="Potvrdiť Nahradiť všetko vo všetkých otvorených dokumentoch"/>
 					<Item id="6905" name="Nahradiť: Neprechádzať na nasledujúci výskyt"/>
-					<Item id="6906" name="Okno s výsledkami hľadania: zobraziť len jednu položku na nájdený riadok"/>
+					<Item id="6906" name="Okno s výsledkami hľadania: zobraziť len jednu položku na nájdený riadok, ak je to možné"/>
 					<Item id="6907" name="Pri vyvolaní dialógového okna Hľadať"/>
 					<Item id="6908" name="Vložiť označený text do vyhľadávacieho poľa"/>
 					<Item id="6909" name="Ak nie je nič označené, označiť slovo na pozícii kurzora"/>

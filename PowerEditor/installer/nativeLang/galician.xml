@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.5.9">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -304,6 +304,8 @@ Translation note:
 					<Item id="44092" name="Pestana 7"/>
 					<Item id="44093" name="Pestana 8"/>
 					<Item id="44094" name="Pestana 9"/>
+					<Item id="44116" name="Primeira pestana"/>
+					<Item id="44117" name="Derradeira pestana"/>
 					<Item id="44095" name="Pestana seguinte"/>
 					<Item id="44096" name="Pestana anterior"/>
 					<Item id="44097" name="Monitorizando (tail -f)"/>
@@ -346,12 +348,12 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nórdico"/>
 					<Item id="45053" name="OEM 860: Portugués"/>
 					<Item id="45056" name="OEM 863: Francés"/>
-
 					<Item id="10001" name="Mover a outra vista"/>
 					<Item id="10002" name="Clonar noutra vista"/>
 					<Item id="10003" name="Mover a unha ventá nova"/>
 					<Item id="10004" name="Abrir nunha ventá nova"/>
-
+					<Item id="10005" name="Ir ao inicio"/>
+					<Item id="10006" name="Ir ao final"/>
 					<Item id="46001" name="Configurador de estilos..."/>
 					<Item id="46250" name="Defina a súa linguaxe..."/>
 					<Item id="46300" name="Abrir carpeta da linguaxe definida polo usuario..."/>
@@ -510,9 +512,9 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Buscar"/>
-				<Item id="1685" name="Coincidir MAIÚS/minús"/>
-				<Item id="1690" name="Marcar todo"/>
+				<Item id="1681" name="Buscar:"/>
+				<Item id="1685" name="&amp;Coincidir MAIÚS/minús"/>
+				<Item id="1690" name="&amp;Marcar todo"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Rango de busca de caracteres">
@@ -1143,7 +1145,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 						<Element name="Data longa"/>
 						<Element name="Hora"/>
 					</ComboBox>
-					<Item id="6725" name="Opcións:"/>
+					<Item id="6725" name="&amp;Opcións:"/>
 					<Item id="6727" name="Móstranse os seus axustes variables"/>
 					<Item id="6728" name="Cabeceira e pé de páxina"/>
 				</Print>
@@ -1153,7 +1155,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="6903" name="O cadro de diálogo permanece aberto despois da busca que mostra a ventá de resultados"/>
 					<Item id="6904" name="Confirmar &quot;Substituír todo&quot; en tódolos documentos abertos"/>
 					<Item id="6905" name="Substituír: non moverse á seguinte coincidencia"/>
-					<Item id="6906" name="Ventá de resultados de busca: mostrar só unha entrada por liña encontrada"/>
+					<Item id="6906" name="Ventá de resultados de busca: mostrar, si é posible, só unha entrada por liña encontrada"/>
 					<Item id="6907" name="Ao abrir o cadro de busca"/>
 					<Item id="6908" name="Encher o campo de busca co texto seleccionado"/>
 					<Item id="6909" name="Seleccionar a palabra baixo o cursor se non hai nada seleccionado"/>
@@ -1392,8 +1394,7 @@ As modificacións gardadas non se poden desfacer.
 
 			<NbFileToOpenImportantWarning title="A cantidade de arquivos para abrir é demasiado grande" message="Abriranse $INT_REPLACE$ arquivos.
 ¿Desexa abrir todos estes arquivos?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-			<SettingsOnCloudError title="Configuración na nube" message="Parece que a ruta da configuración na nube establécese nunha unidade de só lectura 
-ou nunha carpeta que necesita dereito de acceso para escritura.
+			<SettingsOnCloudError title="Configuración na nube" message="Parece que a ruta da configuración na nube establécese nunha unidade de só lectura ou nunha carpeta que necesita dereito de acceso para escritura.
 A súa configuración na nube será cancelada. Reinicie cun valor coherente usando o cadro de diálogo de Preferencias."/>
 			<FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que está intentando abrir non existe."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Non se puido cargar a sesión" message="O arquivo de sesión está danado ou non é válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
@@ -1497,8 +1498,6 @@ Probe estes comandos e, si é necesario, volva a editalos.
 Alternativamente, pode reinstalar Notepad++ v8.5.2 e restaurar os seus datos anteriores.
 Notepad++ fará unha copia de seguridade do seu antigo &quot;shortcuts.xml&quot; e gardarao como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Cambie o nome de &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; e os comandos serán restaurados e funcionales de novo."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NbFileToOpenImportantWarning title="A cantidade de arquivos para abrir é demasiado grande" message="Está a punto de abrir $INT_REPLACE$ arquivos.
-¿Seguro que quere abrilos?"/>
 			<NotEnoughRoom4Saving title="Gardado fallido" message="Non se  pode gardar o arquivo.
 Parece que non hai espazo suficiente no disco e non é posible gardalo."/>
 			<FileInaccessibleUserSession title="Arquivo inaccesible" message="Algúns arquivos da súa sesión gardada manualmente &quot;$STR_REPLACE$&quot; están inaccesibles. Pódense abrir como documentos baleiros e de só lectura como marcadores de posición.
@@ -1511,6 +1510,8 @@ NOTA: Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a 
 ¿Quere crear esos marcadores de posición?
 
 NOTA: ¡Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a súa sesión SERÁ MODIFICADA AO SAÍR! Suxerímoslle que faga unha copia de seguridade do seu &quot;session.xml&quot; agora."/>
+			<RTLvsDirectWrite title="Non se pode executar RTL" message="RTL non é compatible co modo DirectWrite. Desactíveo en Configuración -> Preferencias -> Varios e reinicie Notepad++."/>
+			<FileMemoryAllocationFailed title="Excepción: fallo na asignación de memoria para os arquivos" message="É posible que non haxa memoria suficiente dispoñible para os arquivos que quere abrir con Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial do portapapeis"/>
@@ -1670,6 +1671,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<find-status-replace-not-found value="Non se encontrou ningunha coincidencia."/>
 			<find-status-replace-readonly value="Atención: non se pode modificar o texto. O documento actual é de só lectura."/>
 			<find-status-cannot-find value="Atención: non se pode encontrar o texto &quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="Non se pode encontrar a expresión indicada. Pode que esquecera marcar &quot;Buscar en todo o documento&quot; e desmarcar &quot;Coincidir maiúsculas y minúsculas&quot; ou &quot;Só palabra completa&quot;."/>
 			<find-status-scope-selection value="no texto seleccionado."/>
 			<find-status-scope-all value="en todo o arquivo."/>
 			<find-status-scope-backward value="desde o inicio do arquivo até o cursor."/>
@@ -1723,6 +1725,11 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<find-result-title value="Buscar"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="(Hai $INT_REPLACE1$ coincidencia(s) en $INT_REPLACE2$ arquivo(s) de $INT_REPLACE3$ procura(s))"/>
 			<find-result-title-info-selections value="(Hai $INT_REPLACE1$ coincidencias en $INT_REPLACE2$ seleccións de $INT_REPLACE3$ procuras)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Extendido"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Maiúsculas - Minúsculas"/>
+			<find-result-title-info-options-word value="Palabra"/>
 			<find-result-title-info-extra value=" - Modo de filtro: mostrar só os resultados buscados"/>
 			<find-result-hits value="($INT_REPLACE$ coincidencias)"/>
 			<find-result-line-prefix value="Liña"/><!-- Must not begin with space or tab character -->

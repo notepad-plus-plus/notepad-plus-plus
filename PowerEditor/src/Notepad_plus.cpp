@@ -4907,13 +4907,6 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 
 	notifyBufferActivated(id, whichOne);
 
-	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) ? true : false;
-	if (!reload && isCurrBuffDetection)
-	{
-		// Buffer has been activated, now check for file modification
-		// If enabled for current buffer
-		pBuf->checkFileState();
-	}
 	return true;
 }
 
@@ -6662,6 +6655,16 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 	{
 		_pFuncList->reload();
+	}
+
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) ? true : false;
+	bool reload = buf->getNeedReload();
+	if (!reload && isCurrBuffDetection)
+	{
+		// Buffer has been activated, now check for file modification
+		// If enabled for current buffer
+		buf->checkFileState();
 	}
 
 	_linkTriggered = true;

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.19"><!-- basiert auf english.xml vom 19.12.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.29"><!-- basiert auf english.xml vom 26.12.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1164,7 +1164,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
 					<Item id="6905" name="Ersetzen: Nach Ersetzung nicht zum nächsten Vorkommen springen"/>
-					<Item id="6906" name="Suchergebnisfenster: Zeige nur einen Eintrag pro gefundener Zeile"/>
+					<Item id="6906" name="Suchergebnisfenster: Zeige wenn möglich nur einen Eintrag pro gefundener Zeile"/>
 					<Item id="6907" name="Wenn der Suchdialog aufgerufen wird"/>
 					<Item id="6908" name="Im Suchfeld gewählten Text einsetzen"/>
 					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>

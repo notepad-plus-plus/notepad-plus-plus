@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.6  30/Nov/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.6.1  29/Dec/2023  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.6">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -332,6 +332,8 @@
 					<Item id="44113" name="Označit barvou 3"/>
 					<Item id="44114" name="Označit barvou 4"/>
 					<Item id="44115" name="Označit barvou 5"/>
+					<Item id="44116" name="První karta"/>
+					<Item id="44117" name="Poslední karta"/>
 					<Item id="44130" name="Zobrazit netisknutelné znaky"/>
 					<Item id="44131" name="Zobrazit řídící znaky a &amp;&amp; Unicode EOLy"/>
 					<Item id="45001" name="Konvertovat do formátu Windows"/>
@@ -357,6 +359,8 @@
 					<Item id="10002" name="Vytvořit kopii v druhém náhledu"/>
 					<Item id="10003" name="Přesunout do nové instance"/>
 					<Item id="10004" name="Otevřít v nové instanci"/>
+					<Item id="10005" name="Přesunout na začátek"/>
+					<Item id="10006" name="Přesunout na konec"/>
 					<Item id="46001" name="Upravit styl..."/>
 					<Item id="46015" name="MS-DOS styl"/>
 					<Item id="46016" name="Normální text"/>
@@ -450,6 +454,8 @@
 				<Item CMDID="10002" name="Vytvořit kopii v druhém náhledu"/>
 				<Item CMDID="10003" name="Přesunout do nové instance"/>
 				<Item CMDID="10004" name="Otevřít v nové instanci"/>
+				<Item CMDID="10005" name="Přesunout na začátek"/>
+				<Item CMDID="10006" name="Přesunout na konec"/>
 				<Item CMDID="4" name="Označit kartu barvou"/>
 				<Item CMDID="44111" name="Označit barvou 1"/>
 				<Item CMDID="44112" name="Označit barvou 2"/>
@@ -520,9 +526,9 @@
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Najít"/>
-				<Item id="1685" name="Rozlišovat velká a malá p."/>
-				<Item id="1690" name="Zvýraznit všechny"/>
+				<Item id="1681" name="Najít:"/>
+				<Item id="1685" name="&amp;Rozlišovat velikost písmen"/>
+				<Item id="1690" name="&amp;Zvýraznit všechny"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Najít znaky z rozsahu...">
@@ -1184,7 +1190,7 @@ Můžete definovat více značek sloupců použitím více čísel oddělených 
 					<Item id="6903" name="Dialog Najít zůstane otevřen po vyhledávání s výstupem do okna s výsledky"/>
 					<Item id="6904" name="Potvrzovat příkaz Zaměnit vše ve všech otevřených dokumentech"/>
 					<Item id="6905" name="Nahradit: Nepřesunovat se při nahrazení výrazu k následujícímu výskytu"/>
-					<Item id="6906" name="Okno s výsledky vyhledávání: zobrazovat pouze jeden záznam s nálezy na řádku"/>
+					<Item id="6906" name="Okno s výsledky vyhledávání: zobrazovat pouze jeden záznam s nálezy na řádku, pokud je to možné"/>
 					<Item id="6907" name="Při vyvolání dialogového okna &quot;Najít&quot;"/>
 					<Item id="6908" name="Předvyplnit vyhledávací pole označeným textem"/>
 					<Item id="6909" name="Když není nic označeno, předvyplnit slovem na pozici kurzoru"/>
@@ -1508,7 +1514,7 @@ Přejete si použít takovéto zástupné dokumenty/karty?
 
 POZNÁMKA: Jestliže se rozhodnete neotevírat zástupné dokumenty/karty anebo je poté sami zavřete, Vaše relace BUDE PŘI UKONČENÍ Notepadu++ automaticky MODIFIKOVÁNA!
 Doporučujeme Vám, abyste si nyní zazálohovali Váš soubor &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Nelze použít směr textu RTL" message="RTL není v současnosti kompatibilní se zvoleným DirectWrite režimem. Prosím vypněte nejprve DirectWrite v sekci &quot;Různé&quot; v &quot;Nastavení&quot;, poté restartujte Notepad++ a použijte znovu tento příkaz."/>
+			<RTLvsDirectWrite title="Nelze použít směr textu RTL" message="RTL není v současnosti kompatibilní se zvoleným DirectWrite režimem. Prosím vypněte nejprve DirectWrite v sekci &quot;Různé&quot; v &quot;Nastavení&quot; a restartujte Notepad++."/>
 			<FileMemoryAllocationFailed title="Problém s alokací paměti pro soubor" message="Pravděpodobně není dostatek souvislé volné paměti pro soubor, který Notepad++ právě načítá."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		
@@ -1730,6 +1736,11 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-result-title value="Vyhledávání"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ výskytů v $INT_REPLACE2$ souborech z $INT_REPLACE3$ prohledaných)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ výskytů v $INT_REPLACE2$ výběrech z $INT_REPLACE3$ prohledávaných)"/>
+			<find-result-title-info-options-searchmode-normal value="Normální"/>
+			<find-result-title-info-options-searchmode-extended value="Rozšířený"/>
+			<find-result-title-info-options-searchmode-regexp value="Reg. výraz"/>
+			<find-result-title-info-options-case value="VELKÁ/malá"/>
+			<find-result-title-info-options-word value="Celá slova"/>
 			<find-result-title-info-extra value=" - Režim řádkového filtru: zobrazení pouze filtrovaných výsledků"/>
 			<find-result-hits value="(výskytů: $INT_REPLACE$)"/>
 			<find-result-line-prefix value="Řádek"/><!-- Must not begin with space or tab character -->

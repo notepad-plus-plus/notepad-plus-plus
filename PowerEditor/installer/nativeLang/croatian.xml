@@ -1168,7 +1168,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 					<Item id="6903" name="Dijalog pretraživanja ostaje otvoren nakon pretraživanja koje otvara prozor s rezultatima"/>
 					<Item id="6904" name="Traži potvrdu za Zamijeni sve u svim otvorenim dokumentima"/>
 					<Item id="6905" name="Pri zamjeni ne prelazi na sljedeće pojavljivanje"/>
-					<Item id="6906" name="U prozoru rezultata pretraživanja prikaži samo jedan rezultat po pronađenom retku (ako stane u redak)"/>
+					<Item id="6906" name="U prozoru rezultata pretraživanja prikaži samo jedan redak s rezultatima u tom retku (ako stanu u redak)"/>
 					<Item id="6907" name="Kada se pozove dijaloški okvir za pretraživanje"/>
 					<Item id="6908" name="Ispunite polje za pretraživanje odabranim tekstom"/>
 					<Item id="6909" name="Odaberi riječ pod kursorom kada ništa nije odabrano"/>

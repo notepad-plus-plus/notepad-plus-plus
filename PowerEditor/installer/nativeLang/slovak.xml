@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -346,12 +346,12 @@
 					<Item id="45057" name="OEM 865: Škandinávske"/>
 					<Item id="45053" name="OEM 860: Portugalčina"/>
 					<Item id="45056" name="OEM 863: Francúzština"/>
-
 					<Item id="10001" name="Presunúť do druhého zobrazenia"/>
 					<Item id="10002" name="Klonovať do druhého zobrazenia"/>
 					<Item id="10003" name="Presunúť do novej inštancie"/>
 					<Item id="10004" name="Otvoriť v novej inštancii"/>
-
+					<Item id="10005" name="Presunúť na začiatok"/>
+					<Item id="10006" name="Presunúť na koniec"/>
 					<Item id="46001" name="Nastavenie štýlov…"/>
 					<Item id="46250" name="Definovať vlastný jazyk…"/>
 					<Item id="46300" name="Otvoriť priečinok Používateľom definovaný jazyk…"/>
@@ -438,6 +438,8 @@
 				<Item CMDID="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
 				<Item CMDID="3" name="Presunúť dokument"/>
 				<Item CMDID="10001" name="Presunúť do druhého zobrazenia"/>
+				<Item CMDID="10005" name="Presunúť na začiatok"/>
+				<Item CMDID="10006" name="Presunúť na koniec"/>
 				<Item CMDID="10002" name="Klonovať do druhého zobrazenia"/>
 				<Item CMDID="10003" name="Presunúť do novej inštancie"/>
 				<Item CMDID="10004" name="Otvoriť v novej inštancii"/>
@@ -515,7 +517,7 @@
 				<Item id="1690" name="&amp;Zvýrazniť všetky"/>
 			</IncrementalFind>
 
-			<FindCharsInRange title="Hľadať znaky v rozsahu">
+			<FindCharsInRange title="Hľadať znaky v rozsahu…">
 				<Item id="2" name="&amp;Zavrieť"/>
 				<Item id="2901" name="&amp;Nie-ASCII znaky (128 – 255)"/>
 				<Item id="2902" name="&amp;ASCII znaky (0 – 127)"/>
@@ -653,17 +655,7 @@
 				<ScintillaCommandsTab name="Príkazy editora Scintilla"/>
 				<ConflictInfoOk name="Žiadne konflikty pre túto položku."/>
 				<ConflictInfoEditing name="Žiadne konflikty…"/>
-				<WindowCategory name="Okno"/>
-				<FileCategory name="Súbor"/>
-				<EditCategory name="Upraviť"/>
-				<SearchCategory name="Hľadať"/>
-				<ViewCategory name="Zobraziť"/>
-				<FormatCategory name="Formátovať"/>
-				<LangCategory name="Jazyk"/>
 				<AboutCategory name="O Notepade++"/>
-				<SettingCategory name="Nastavenia"/>
-				<ToolCategory name="Nástroje"/>
-				<ExecuteCategory name="Spustiť"/>
 				<ModifyContextMenu name="Upraviť"/>
 				<DeleteContextMenu name="Odstrániť"/>
 				<ClearContextMenu name="Vymazať"/>
@@ -959,7 +951,6 @@
 					<Item id="6108" name="Zamknúť (Vypne Drag 'N' Drop)"/>
 					<Item id="6109" name="Stmaviť neaktívne karty"/>
 					<Item id="6110" name="Farebne zvýrazniť aktívnu kartu"/>
-					<Item id="6111" name="Zobraziť stavový riadok"/>
 					<Item id="6112" name="Zobraziť tlačidlo zatvorenia na karte"/>
 					<Item id="6113" name="Dvojklikom zavrieť dokument"/>
 					<Item id="6118" name="Skryť"/>
@@ -967,7 +958,7 @@
 					<Item id="6120" name="Vertikálny"/>
 					<Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 					<Item id="6128" name="Alternatívne ikony"/>
-					
+
 					<Item id="6133" name="Stavový riadok"/>
 					<Item id="6134" name="Skryť"/>
 
@@ -1400,6 +1391,7 @@ Pokračovať?"/>
 			<RenameTabTemporaryNameAlreadyInUse title="Premenovanie zlyhalo" message="Tento názov je už použitý pre inú kartu."/>
 			<RenameTabTemporaryNameIsEmpty title="Premenovanie zlyhalo" message="Názov nemôže byť prázdny alebo nesmie obsahovať iba medzeru(-y) alebo tabulátor(-y)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Odstrániť súbor" message="Odstránenie súboru zlyhalo."/>
+			
 			<NbFileToOpenImportantWarning title="Počet otváraných súborov je príliš veľký" message="Chystáte sa otvoriť $INT_REPLACE$ súborov.
 Naozaj ich chcete otvoriť?"/>
 			<SettingsOnCloudError title="Úložisko s nastaveniami programu" message="Zdá sa, že cesta k úložisku s nastaveniami je nastavená na jednotku určenú len na čítanie
@@ -1501,16 +1493,21 @@ Pokračovať?"/>
 Chcete uložiť zmeny pred prepnutím motívu?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Kompatibilita makier a príkazov cez ponuku Spustiť" message="Vaše makrá a príkazy cez ponuku Spustiť uložené v Notepad++ v.8.5.2 (alebo staršej) nemusia byť kompatibilné s aktuálnou verziou programu Notepad++.
 Otestujte tieto príkazy a v prípade potreby ich znovu upravte.
+
 Prípadne môžete vykonať prechod na verziu Notepad++ v8.5.2 a obnoviť svoje predchádzajúce údaje.
 Notepad++ zálohuje váš starý súbor &quot;shortcuts.xml&quot; a uloží ho ako &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Premenovaním &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; by sa vaše príkazy mali obnoviť a fungovať správne."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Uloženie zlyhalo" message="Nepodarilo sa uložiť súbor.
 Zdá sa, že na disku nie je dostatok miesta na uloženie súboru. Súbor sa neuložil."/>
 			<FileInaccessibleUserSession title="Nedostupný súbor" message="Niektoré súbory z manuálne uloženej relácie &quot;$STR_REPLACE$&quot; sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+			
 Chcete vytvoriť tieto zástupné karty?
+
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zatvoríte, vaša ručne uložená relácia sa pri ukončení NEzmení."/>
 			<FileInaccessibleDefaultSessionXml title="Nedostupný súbor" message="Niektoré súbory z poslednej relácie sú nedostupné. Môžete ich otvoriť ako prázdne dokumenty a len na čítanie ako zástupné karty.
+			
 Chcete vytvoriť tieto zástupné karty?
+
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Nie je možné prepnúť smer textu na sprava doľava (RTL)" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne a reštartujte Notepad++."/>
 			<FileMemoryAllocationFailed title="Výnimka: Pridelenie pamäte súboru zlyhalo" message="Pravdepodobne nie je dostatok súvislej voľnej pamäte pre súbor načítavaný programom Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
@@ -1749,11 +1746,13 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<contextMenu-clearStyle value="Vymazať štýl"/>
 			<contextMenu-PluginCommands value="Príkazy doplnkov"/>
 			<largeFileRestriction-tip value="Niektoré funkcie môžu pri veľkých súboroch spomaliť výkon. Tieto funkcie je možné pri otvorení veľkého súboru automaticky vypnúť. Môžete si ich prispôsobiť tu.
+
 POZNÁMKA:
 1. Pri zmene týchto možností sa na správne fungovanie vyžaduje opätovné otvorenie aktuálne otvorených veľkých súborov.
 
 2. Ak je povolená možnosť &quot;Globálne zakázať zalamovanie riadkov&quot; a otvoríte veľký súbor, &quot;Zalamovanie riadkov&quot; bude deaktivované pre všetky súbory. Môžete ho znovu aktivovať cez ponuku &quot;Zobrazenie-&gt;Zalomiť riadky&quot;."/>
 			<npcNote-tip value="Zastúpenie vybraných &quot;nie-ASCII&quot; bielych znakov a netlačiteľných (riadiacich) znakov.
+
 POZNÁMKA:
 Použitím reprezentácie sa vypnú efekty znakov na texte.
 

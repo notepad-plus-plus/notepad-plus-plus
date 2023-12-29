@@ -438,6 +438,8 @@
 				<Item CMDID="42031" name="Skopírovať cestu k aktuálnemu priečinku"/>
 				<Item CMDID="3" name="Presunúť dokument"/>
 				<Item CMDID="10001" name="Presunúť do druhého zobrazenia"/>
+				<Item CMDID="10005" name="Presunúť na začiatok"/>
+				<Item CMDID="10006" name="Presunúť na koniec"/>
 				<Item CMDID="10002" name="Klonovať do druhého zobrazenia"/>
 				<Item CMDID="10003" name="Presunúť do novej inštancie"/>
 				<Item CMDID="10004" name="Otvoriť v novej inštancii"/>

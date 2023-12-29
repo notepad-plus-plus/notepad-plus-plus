@@ -8,6 +8,13 @@
     - &quot; is (")
     -->
 <NotepadPlus>
+	<!--
+	If "RTL" attribute is present and its value is "yes", then user can add "editZoneRTL" attribute beside,
+	and set the value of the attribute in question to "no", so Notepad++ GUI will be RTL,
+	but Scintilla zone will be LTR by opening files (see the commented example).
+	Of course, user can set any direction they want afterward, and what they have set on document will be remembered across the sessions.
+	-->
+	<!-- Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" editZoneRTL="no" version="7.7.2" -->
 	<Native-Langue name="Arabic" filename="arabic.xml" RTL="yes" version="7.7.2">
 		<Menu>
 			<Main>

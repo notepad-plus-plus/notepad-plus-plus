@@ -4,6 +4,13 @@
 <!-- If you want to see RTL direction, please rewrite  <Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" > -->
 <!--ئوڭدىن سولغا كۆرمەكچى بولسىڭىز،بۇنى 2-قۇر بىلەن ئالماشتۇرۇڭ <Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml" >-->
 <NotepadPlus>
+	<!--
+	If "RTL" attribute is present and its value is "yes", then user can add "editZoneRTL" attribute beside,
+	and set the value of the attribute in question to "no", so Notepad++ GUI will be RTL,
+	but Scintilla zone will be LTR by opening files (see the commented example).
+	Of course, user can set any direction they want afterward, and what they have set on document will be remembered across the sessions.
+	-->
+	<!-- Native-Langue name="Uyghurche" RTL="yes" editZoneRTL="no" filename="uyghur.xml" -->
 	<Native-Langue name="Uyghurche" RTL="yes" filename="uyghur.xml">
 		<Menu>
 			<Main>

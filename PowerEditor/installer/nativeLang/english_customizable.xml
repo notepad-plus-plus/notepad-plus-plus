@@ -439,6 +439,8 @@ Translation note:
 				<Item CMDID="42030" name="Copy Filename"/>
 				<Item CMDID="42031" name="Copy Current Dir. Path"/>
 				<Item CMDID="3" name="Move Document"/>
+				<Item CMDID="10005" name="Move to Start"/>
+				<Item CMDID="10006" name="Move to End"/>
 				<Item CMDID="10001" name="Move to Other View"/>
 				<Item CMDID="10002" name="Clone to Other View"/>
 				<Item CMDID="10003" name="Move to New Instance"/>

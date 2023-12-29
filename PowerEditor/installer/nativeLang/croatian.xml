@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 23 November 2023 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 29 December 2023 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.6">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.6.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -104,7 +104,7 @@
 					<Item id="41011" name="Iz&amp;laz"/>
 					<Item id="41012" name="&amp;Učitaj sesiju..."/>
 					<Item id="41013" name="Spremi sesi&amp;ju..."/>
-					<Item id="41014" name="Ponovno u&amp;čitaj s diska"/>
+					<Item id="41014" name="Ponovno u&amp;čitaj datoteku kako je spremljena"/>
 					<Item id="41015" name="Spre&amp;mi kopiju kao..."/>
 					<Item id="41016" name="Premjesti u koš za sme&amp;će"/>
 					<Item id="41017" name="Pre&amp;imenuj..."/>
@@ -164,7 +164,7 @@
 					<Item id="42095" name="&amp;Samo podudaranje velikih i malih slova"/>
 					<Item id="42096" name="S&amp;amo podudaranje cijele riječi"/>
 					<Item id="42097" name="&amp;Podudaranje velikih i malih slova i cijele riječi"/>
-					<Item id="42098" name="Poništi zadnje dodani &amp;višestruki odabir"/>
+					<Item id="42098" name="Poništi posljednje dodani &amp;višestruki odabir"/>
 					<Item id="42099" name="Preskoči trenutni i idi na sljedeći &amp;višestruki odabir"/>
 					<Item id="42018" name="&amp;Započni snimanje"/>
 					<Item id="42019" name="Za&amp;ustavi snimanje"/>
@@ -304,8 +304,10 @@
 					<Item id="44092" name="7. kartica"/>
 					<Item id="44093" name="8. kartica"/>
 					<Item id="44094" name="9. kartica"/>
+					<Item id="44116" name="&amp;Prva kartica"/>
+					<Item id="44117" name="&amp;Zadnja kartica"/>
 					<Item id="44095" name="&amp;Sljedeća kartica"/>
-					<Item id="44096" name="&amp;Prethodna kartica"/>
+					<Item id="44096" name="P&amp;rethodna kartica"/>
 					<Item id="44097" name="&amp;Nadzor u pozadini (tail -f)"/>
 					<Item id="44098" name="Premjesti &amp;karticu naprijed"/>
 					<Item id="44099" name="Premjesti k&amp;articu natrag"/>
@@ -346,11 +348,12 @@
 					<Item id="45057" name="OEM 865: Skandinavski"/>
 					<Item id="45053" name="OEM 860: Portugalski"/>
 					<Item id="45056" name="OEM 863: Francuski"/>
-
 					<Item id="10001" name="&amp;Premjesti u drugi prikaz"/>
 					<Item id="10002" name="&amp;Kloniraj u drugi prikaz"/>
 					<Item id="10003" name="P&amp;remjesti u novu instancu"/>
 					<Item id="10004" name="&amp;Otvori u novoj instanci"/>
+					<Item id="10005" name="Premjesti na po&amp;četak"/>
+					<Item id="10006" name="Premjesti na kra&amp;j"/>
 
 					<Item id="46015" name="MS-DOS stil"/>
 					<Item id="46016" name="Obični &amp;tekst"/>
@@ -445,6 +448,8 @@
 				<Item CMDID="42030" name="Kopiraj naziv datoteke"/>
 				<Item CMDID="42031" name="Kopiraj put trenutne mape"/>
 				<Item CMDID="3" name="Premjesti dokument"/>
+				<Item CMDID="10005" name="Premjesti na početak"/>
+				<Item CMDID="10006" name="Premjesti na kraj"/>
 				<Item CMDID="10001" name="Premjesti u drugi prikaz"/>
 				<Item CMDID="10002" name="Kloniraj u drugi prikaz"/>
 				<Item CMDID="10003" name="Premjesti u novu instancu"/>
@@ -517,10 +522,10 @@
 				</Menu>
 			</Find>
 
-			<IncrementalFind title="">
+			<IncrementalFind title="Tko traži, taj i nađe">
 				<Item id="1681" name="Pronađi: "/>
-				<Item id="1685" name="Razlikuj velika i mala slova"/>
-				<Item id="1690" name="Označi sva pojavljivanja"/>
+				<Item id="1685" name="Razlikuj &amp;velika i mala slova"/>
+				<Item id="1690" name="Označi &amp;sva pojavljivanja"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Pronađi znakove u rasponu...">
@@ -1163,7 +1168,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 					<Item id="6903" name="Dijalog pretraživanja ostaje otvoren nakon pretraživanja koje otvara prozor s rezultatima"/>
 					<Item id="6904" name="Traži potvrdu za Zamijeni sve u svim otvorenim dokumentima"/>
 					<Item id="6905" name="Pri zamjeni ne prelazi na sljedeće pojavljivanje"/>
-					<Item id="6906" name="U prozoru rezultata pretraživanja prikaži samo jedan rezultat po pronađenom retku"/>
+					<Item id="6906" name="U prozoru rezultata pretraživanja prikaži samo jedan redak s rezultatima u tom retku (ako stanu u redak)"/>
 					<Item id="6907" name="Kada se pozove dijaloški okvir za pretraživanje"/>
 					<Item id="6908" name="Ispunite polje za pretraživanje odabranim tekstom"/>
 					<Item id="6909" name="Odaberi riječ pod kursorom kada ništa nije odabrano"/>
@@ -1301,7 +1306,7 @@ Možete definirati više okomitih linija korištenjem praznog mjesta za odjeljiv
 					<Item id="6308" name="Minimiziraj u paletu sustava"/>
 					<Item id="6312" name="Automatsko prepoznavanje stanja datoteke"/>
 					<Item id="6313" name="Tiho ažuriranje"/>
-					<Item id="6325" name="Po ažuriranju idi na posljednji redak"/>
+					<Item id="6325" name="Po ažuriranju idi na zadnji redak"/>
 					<Item id="6322" name="Nastavak datoteke sesije:"/>
 					<Item id="6323" name="Automatska nadogradnja Notepada++"/>
 					<Item id="6324" name="Promjena kartica (Ctrl + Tab)"/>
@@ -1427,7 +1432,7 @@ Postoje 3 načina za prijelaz na Rad u stupcima:
        Pomaknite kursor na željeni kraj bloka stupca, zatim ponovo
         izvršite naredbu &quot;Početak/kraj odabira u Radu u stupcima&quot;"/>
 			<BufferInvalidWarning title="Greška spremanja" message="Ne mogu spremiti: Buffer je neispravan."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<DoCloseOrNot title="Zadrži nepostojeću datoteku" message="Datoteka &quot;$STR_REPLACE$&quot; više ne postoji na disku.
+			<DoCloseOrNot title="Zadrži nepostojeću datoteku" message="Datoteka &quot;$STR_REPLACE$&quot; više ne postoji na mediju na kojem je bila spremljena.
 Želite li ju zadržati u editoru?"/>
 			<DoDeleteOrNot title="Izbriši datoteku" message="Datoteka &quot;$STR_REPLACE$&quot;
 će biti premještena u Koš za smeće kada ovaj dokument bude zatvoren.
@@ -1508,8 +1513,8 @@ Molim, testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, 
 Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
 Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Promjenite naziv datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i vaše bi naredbe trebale biti vraćene i ispravno raditi."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
-			<NotEnoughRoom4Saving title="Neuspjelo snimanje" message="Snimanje datoteke nije uspjelo.
-Izgleda da nema dovoljno mjesta na disku za snimanje datoteke. Vaša datoteka nije snimljena."/>
+			<NotEnoughRoom4Saving title="Neuspjelo spremanje" message="Spremanje datoteke nije uspjelo.
+Izgleda da nema dovoljno mjesta na mediju za spremanje datoteke. Vaša datoteka nije spremljena."/>
 			<FileInaccessibleUserSession title="Datoteka nedostupna" message="Neke datoteke iz vaše ručno spremljene sesije &quot;$STR_REPLACE$&quot; su nedostupne. Mogu se otvoriti kao prazni dokumenti samo za čitanje, kao rezervirana mjesta.
 
 Želite li kreirati ta rezervirana mjesta?
@@ -1522,7 +1527,8 @@ NAPOMENA: Ako odaberete da ne želite kreirati rezervirana mjesta ili ih kasnije
 NAPOMENA: Ako odaberete da ne želite kreirati rezervirana mjesta ili ih kasnije zatvorite, vaša će sesija BITI IZMIJENJENA PRI IZLAZKU!
 Predlažemo da napravite sigurnosnu kopiju &quot;session.xml&quot; sada."/>
 			<RTLvsDirectWrite title="Ne mogu uključiti RTL smjer pisanja" message="Pisanje s desna na lijevo nije kompatibilno sa DirectWrite načinom.
-Molim, isključite DirectWrite način u odjeljku &quot;Razno&quot; u Postavkama, restartajte Notepad++, i probajte ovu naredbu ponovo."/>
+Molim, isključite DirectWrite način u odjeljku &quot;Razno&quot; u Postavkama i restartajte Notepad++."/>
+			<FileMemoryAllocationFailed title="Iznimka: dodjela memorije datoteci nije uspjela" message="Vjerojatno nema dovoljno kontinuirane slobodne memorije za datoteku koju učitava Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>
@@ -1736,6 +1742,11 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<find-result-title value="Pretraživanje"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ pronađeno u $INT_REPLACE2$ datoteka od $INT_REPLACE3$ pretraženih)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ pronađeno u $INT_REPLACE2$ odabira od $INT_REPLACE3$ pretraženih)"/>
+			<find-result-title-info-options-searchmode-normal value="Normalno"/>
+			<find-result-title-info-options-searchmode-extended value="Prošireno"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Velika/mala slova"/>
+			<find-result-title-info-options-word value="Cijela riječ"/>
 			<find-result-title-info-extra value=" - Način linijskog filtra: prikaži samo filtrirane rezultate"/>
 			<find-result-hits value="($INT_REPLACE$ pronađeno)"/>
 			<find-result-line-prefix value="Redak"/><!-- Must not begin with space or tab character -->
@@ -1784,7 +1795,9 @@ Kliknite &quot;?&quot; gumb s desne strane za otvaranje web stranice s Korisnič
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Idite na Prilagodbu izgleda kako bi promijenili zadanu prilagođenu boju za odabrane prazne i neispisive znakove (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Primijeni postavke izgleda neispisivih znakova na znakove C0, C1 kontrole i Unicode EOL (sljedeći redak, razdjelnik retka i razdjelnik odlomka)."/>
-			<searchingInSelThresh-tip value="Broj odabranih znakova u zoni uređivanja potreban da bi se automatski uključio potvrdni okvir &quot;U označenom&quot; kad se aktivira dijaloški okvir za pretraživanje. Maksimalna vrijednost je 1024. Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
+			<searchingInSelThresh-tip value="Broj odabranih znakova u zoni uređivanja potreban da bi se automatski uključio potvrdni okvir &quot;U označenom&quot; kad se aktivira dijaloški okvir za pretraživanje.
+Maksimalna vrijednost je 1024.
+Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

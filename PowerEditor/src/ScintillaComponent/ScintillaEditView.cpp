@@ -558,7 +558,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 								size_t docLen = getCurrentDocLen();
 
 								char eolStr[3];
-								Sci_TextRange tr;
+								Sci_TextRangeFull tr;
 								tr.chrg.cpMin = posStart;
 								tr.chrg.cpMax = posEnd + 2;
 								if (tr.chrg.cpMax > static_cast<Sci_PositionCR>(docLen))
@@ -568,7 +568,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 								tr.lpstrText = eolStr;
 
 								if (tr.chrg.cpMin != tr.chrg.cpMax)
-									execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
+									execute(SCI_GETTEXTRANGEFULL, 0, reinterpret_cast<LPARAM>(&tr));
 
 								// Remember EOL length
 								// in the case of other characters let Scintilla do its job

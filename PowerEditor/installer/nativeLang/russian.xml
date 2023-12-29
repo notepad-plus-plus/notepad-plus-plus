@@ -490,6 +490,8 @@ Updated to v8.6.1:
 				<Item CMDID="10002" name="Дублировать в Другой Области"/>
 				<Item CMDID="10003" name="Переместить в Новый Экземпляр"/>
 				<Item CMDID="10004" name="Открыть в Новом Экземпляре"/>
+				<Item CMDID="10005" name="Переместить в Начало"/>
+				<Item CMDID="10006" name="Переместить в Конец"/>
 				<Item CMDID="4" name="Применить цвет к Вкладке"/>
 				<Item CMDID="44111" name="Применить цвет 1"/>
 				<Item CMDID="44112" name="Применить цвет 2"/>
@@ -497,6 +499,7 @@ Updated to v8.6.1:
 				<Item CMDID="44114" name="Применить цвет 4"/>
 				<Item CMDID="44115" name="Применить цвет 5"/>
 				<Item CMDID="44110" name="Убрать Цвет"/>
+
 			</TabBar>
 			<TrayIcon>
 				<Item id="43101" name="Развернуть"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 26 Dec 2023, for Notepad++ 8.6.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 29 Dec 2023, for Notepad++ 8.6.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -432,17 +432,19 @@ Translation note:
 				<Item CMDID="41016" name="Mover para a lixeira"/>
 				<Item CMDID="41014" name="Recarregar"/>
 				<Item CMDID="41010" name="Imprimir"/>
-				<Item CMDID="42028" name="Somente leitura"/>
-				<Item CMDID="42033" name="Desmarcar somente leitura"/>
+				<Item CMDID="42028" name="Somente Leitura"/>
+				<Item CMDID="42033" name="Desmarcar Somente Leitura"/>
 				<Item CMDID="2" name="Copiar para Área de Transferência"/>
-				<Item CMDID="42029" name="Copiar caminho completo"/>
-				<Item CMDID="42030" name="Copiar nome do arquivo"/>
-				<Item CMDID="42031" name="Copiar caminho da pasta"/>
+				<Item CMDID="42029" name="Copiar Caminho Completo"/>
+				<Item CMDID="42030" name="Copiar Nome do Arquivo"/>
+				<Item CMDID="42031" name="Copiar Caminho da Pasta"/>
 				<Item CMDID="3" name="Mover Documento"/>
-				<Item CMDID="10001" name="Mover para outra tela"/>
-				<Item CMDID="10002" name="Clonar para outra tela"/>
-				<Item CMDID="10003" name="Mover para nova janela"/>
-				<Item CMDID="10004" name="Abrir em uma nova janela"/>
+				<Item CMDID="10005" name="Mover para o Início"/>
+				<Item CMDID="10006" name="Mover para o Final"/>
+				<Item CMDID="10001" name="Mover para Outra Tela"/>
+				<Item CMDID="10002" name="Clonar para Outra Tela"/>
+				<Item CMDID="10003" name="Mover para Nova Janela"/>
+				<Item CMDID="10004" name="Abrir em uma Nova Janela"/>
 				<Item CMDID="4" name="Aplicar Cor em Aba"/>
 				<Item CMDID="44111" name="Aplicar Cor 1"/>
 				<Item CMDID="44112" name="Aplicar Cor 2"/>

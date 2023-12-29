@@ -14,7 +14,7 @@ Additionnal information about Corsican localization:
 
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
-			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1)
+			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
 	- Updated in 2022 by Patriccollu di Santa Maria è Sichè: Jan. 11th (v8.2.1), Feb. 8th (v8.3.1), Feb. 21st (v8.3.2),
 			  Sep. 21st (v8.4.6), Apr. 7th (v8.3.4), Apr. 27th (v8.4.1), May 25th (v8.4.2), June 27th (v8.4.3),
 			  Aug. 24th (v8.4.5), Oct. 22nd (v8.4.7), Dec. 1st (v8.4.8), Dec. 31st (v8.4.9)
@@ -466,6 +466,8 @@ Additionnal information about Corsican localization:
 				<Item CMDID="42030" name="Cupià u nome di schedariu"/>
 				<Item CMDID="42031" name="Cupià u chjassu cumpletu di u cartulare attuale"/>
 				<Item CMDID="3" name="Dispiazzà u ducumentu"/>
+				<Item CMDID="10005" name="Dispiazzà à u principiu"/>
+				<Item CMDID="10006" name="Dispiazzà à a fine"/>
 				<Item CMDID="10001" name="Dispiazzà in l’altra vista"/>
 				<Item CMDID="10002" name="Duppià in l’altra vista"/>
 				<Item CMDID="10003" name="Dispiazzà in una finestra nova"/>
@@ -1180,7 +1182,7 @@ Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà
 					<Item id="6903" name="U dialogu di ricerca sta apertu dopu una ricerca chì s’affisseghja in a finestra di risultati"/>
 					<Item id="6904" name="Cunfirmà tutti i rimpiazzamenti in tutti i ducumenti aperti"/>
 					<Item id="6905" name="Rimpiazzà : ùn movesi micca à a prossima occurrenza"/>
-					<Item id="6906" name="Risultati di ricerca : affissà un elementu unicu à a linea trova"/>
+					<Item id="6906" name="Risultati di ricerca : affissà un elementu unicu à a linea trova, s’ella hè pussibule"/>
 					<Item id="6907" name="Quandu u dialogu di ricerca hè chjamatu"/>
 					<Item id="6908" name="Riempie u campu di ricerca cù u testu selezziunatu"/>
 					<Item id="6909" name="Selezziunà a parolla sottu à u cursore s’è nunda hè selezziunatu"/>

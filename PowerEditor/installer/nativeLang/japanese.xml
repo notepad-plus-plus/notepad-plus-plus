@@ -304,13 +304,13 @@ Translation note:
 					<Item id="44092" name="タブ7"/>
 					<Item id="44093" name="タブ8"/>
 					<Item id="44094" name="タブ9"/>
-					<Item id="44116" name="最初のタブ"/>
-					<Item id="44117" name="最後のタブ"/>
-					<Item id="44095" name="次のタブ"/>
-					<Item id="44096" name="前のタブ"/>
+					<Item id="44116" name="先頭のタブを表示"/>
+					<Item id="44117" name="末尾のタブを表示"/>
+					<Item id="44095" name="次のタブを表示"/>
+					<Item id="44096" name="前のタブを表示"/>
 					<Item id="44097" name="ファイル監視(tail -f)"/>
-					<Item id="44098" name="タブを右へ移動"/>
-					<Item id="44099" name="タブを左へ移動"/>
+					<Item id="44098" name="タブを後ろへ移動"/>
+					<Item id="44099" name="タブを前へ移動"/>
 					<Item id="44110" name="色を外す"/>
 					<Item id="44111" name="色1をつける"/>
 					<Item id="44112" name="色2をつける"/>
@@ -348,18 +348,17 @@ Translation note:
 					<Item id="45057" name="OEM 865: ノルウェー語"/>
 					<Item id="45053" name="OEM 860: ポルトガル語"/>
 					<Item id="45056" name="OEM 863: フランス語"/>
-
 					<Item id="10001" name="別のビューへ移動"/>
 					<Item id="10002" name="別のビューへ複製"/>
 					<Item id="10003" name="新しいウィンドウへ移動"/>
 					<Item id="10004" name="新しいウィンドウで開く"/>
-
+					<Item id="10005" name="タブを先頭へ移動"/>
+					<Item id="10006" name="タブを末尾へ移動"/>
 					<Item id="46033" name="アセンブリ"/>
 					<Item id="46019" name="MS INIファイル"/>
 					<Item id="46015" name="MS-DOSスタイル"/>
 					<Item id="46016" name="標準テキスト"/>
 					<Item id="46017" name="リソースファイル"/>
-
 					<Item id="46001" name="スタイル設定..."/>
 					<Item id="46250" name="言語を定義..."/>
 					<Item id="46300" name="言語定義のフォルダーを開く..."/>
@@ -445,6 +444,8 @@ Translation note:
 				<Item CMDID="42030" name="ファイル名をコピー"/>
 				<Item CMDID="42031" name="ディレクトリをコピー"/>
 				<Item CMDID="3" name="文書を移動"/>
+				<Item CMDID="10005" name="タブを先頭へ移動"/>
+				<Item CMDID="10006" name="タブを末尾へ移動"/>
 				<Item CMDID="10001" name="別のビューへ移動"/>
 				<Item CMDID="10002" name="別のビューへ複製"/>
 				<Item CMDID="10003" name="新しいウィンドウへ移動"/>

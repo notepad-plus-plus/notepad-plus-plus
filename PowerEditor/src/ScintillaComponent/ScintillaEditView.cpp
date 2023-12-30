@@ -561,7 +561,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 								Sci_TextRangeFull tr;
 								tr.chrg.cpMin = posStart;
 								tr.chrg.cpMax = posEnd + 2;
-								if (tr.chrg.cpMax > static_cast<Sci_PositionCR>(docLen))
+								if (tr.chrg.cpMax > static_cast<Sci_Position>(docLen))
 								{
 									tr.chrg.cpMax = docLen;
 								}

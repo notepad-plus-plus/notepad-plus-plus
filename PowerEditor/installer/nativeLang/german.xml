@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.29"><!-- basiert auf english.xml vom 26.12.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.30"><!-- basiert auf english.xml vom 29.12.2023 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -448,6 +448,8 @@ Translation note:
 				<Item CMDID="42030" name="Nur Datei&amp;namen kopieren"/>
 				<Item CMDID="42031" name="Nur Verzeichnis&amp;pfad kopieren"/>
 				<Item CMDID="3" name="Dokument verschieben"/>
+				<Item CMDID="10005" name="Zum Anfang verschieben"/>
+				<Item CMDID="10006" name="Ans Ende verschieben"/>
 				<Item CMDID="10001" name="In zweite Ansicht &amp;verschieben"/>
 				<Item CMDID="10002" name="In zw&amp;eite Ansicht duplizieren"/>
 				<Item CMDID="10003" name="In neue &amp;Instanz verschieben"/>

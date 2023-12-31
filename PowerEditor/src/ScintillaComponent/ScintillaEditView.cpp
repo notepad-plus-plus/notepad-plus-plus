@@ -592,17 +592,20 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						if (nbCaseForScint)
 							_callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 
-						// then do our job, if any
-						for (const auto& i : edgeOfEol)
+						// then do our job, if it's not column mode
+						if (!isColumnSelection)
 						{
-							// because the current caret modification will change the other caret positions,
-							// so we get them dynamically in the loop.
-							LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i._selIndex);
-							LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i._selIndex);
+							for (const auto& i : edgeOfEol)
+							{
+								// because the current caret modification will change the other caret positions,
+								// so we get them dynamically in the loop.
+								LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i._selIndex);
+								LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i._selIndex);
 
-							replaceTarget(L"", posStart, posEnd + i._len2remove);
-							execute(SCI_SETSELECTIONNSTART, i._selIndex, posStart);
-							execute(SCI_SETSELECTIONNEND, i._selIndex, posStart);
+								replaceTarget(L"", posStart, posEnd + i._len2remove);
+								execute(SCI_SETSELECTIONNSTART, i._selIndex, posStart);
+								execute(SCI_SETSELECTIONNEND, i._selIndex, posStart);
+							}
 						}
 
 						execute(SCI_ENDUNDOACTION);

@@ -25,35 +25,35 @@ jobs:
 
     - name: Archive artifacts for x64 / Release
       if: matrix.build_platform == 'x64' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\bin64\Notepad++.exe
 
     - name: Archive artifacts for Win32 / Release
       if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\bin\Notepad++.exe
 
     - name: Archive artifacts for ARM64 / Release
       if: matrix.build_platform == 'ARM64' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\binarm64\Notepad++.exe
 
     - name: Archive artifacts for ARM64|x64 / Debug
       if: (matrix.build_platform == 'ARM64' || matrix.build_platform == 'x64') && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\visual.net\${{ matrix.build_platform}}\${{ matrix.build_configuration}}\Notepad++.exe
 
     - name: Archive artifacts for Win32 / Debug
       if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\visual.net\${{ matrix.build_configuration}}\Notepad++.exe
@@ -190,14 +190,14 @@ jobs:
 
     - name: Archive artifacts for ${{ matrix.build_platform}} / Release
       if: matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.GCC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: bin.${{ matrix.build_platform}}\notepad++.exe
 
     - name: Archive artifacts for ${{ matrix.build_platform}} / Debug
       if: matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.GCC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: bin.${{ matrix.build_platform}}-debug\notepad++.exe

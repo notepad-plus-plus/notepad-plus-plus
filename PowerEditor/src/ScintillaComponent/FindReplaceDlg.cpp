@@ -610,7 +610,7 @@ std::pair<intptr_t, intptr_t> Finder::gotoFoundLine(size_t nOccurrence)
 	{
 		index = nOccurrence - 1;
 	}
-	else // nOccurrence not used: use current line relative pos to check if it's inside of a marked occurrence
+	else // nOccurrence == 0 -> not used: use current line relative pos to check if it's inside of a marked occurrence
 	{
 		intptr_t currentPosInLine = currentPos - start;
 
@@ -718,18 +718,18 @@ bool Finder::canFind(const TCHAR *fileName, size_t lineNumber, size_t* indexToSt
 // X     : current sel
 // XXXXY : current sel + current pos
 // 
-//      1          2                3        4                   Status      auxiliaryInfo
-// =======================================================================================
-// Y [     ]    [     ]          [     ]  [     ]            : pos_infront        -1
-//   [     ]    [     ]          [     ]  [  Y  ]            : pos_inside          4
-//   [     ]  XXY     ]          [     ]  [     ]            : pos_inside          2
-//   [     ]    [     ]          [     ]  [  XXXY            : pos_inside          4
-//   [     ]    [     ]          [XXXXXY  [     ]            : pos_inside          3
-//   [     Y    [     ]          [     ]  [     ]            : pos_between         1
-//   [     ]    [     ]          [     ]  Y     ]            : pos_between         3
-//   [     ]    [     ]          [     Y  [     ]            : pos_between         3
-//   [     ]    [     ]  Y       [     ]  [     ]            : pos_between         2
-//   [     ]    [     ]          [     ]  [     ]    Y       : pos_behind          4
+//                occurrence 1   occur. 2         occur. 3  occur. 4              Status      auxiliaryInfo
+// =========================================================================================================
+// situation  1:     Y [     ]    [     ]          [     ]  [     ]            : pos_infront        -1
+// situation  2:       [     ]    [     ]          [     ]  [  Y  ]            : pos_inside          4
+// situation  3:       [     ]  XXY     ]          [     ]  [     ]            : pos_inside          2
+// situation  4:       [     ]    [     ]          [     ]  [  XXXY            : pos_inside          4
+// situation  5:       [     ]    [     ]          [XXXXXY  [     ]            : pos_inside          3
+// situation  6:       [     Y    [     ]          [     ]  [     ]            : pos_between         1
+// situation  7:       [     ]    [     ]          [     ]  Y     ]            : pos_between         3
+// situation  8:       [     ]    [     ]          [     Y  [     ]            : pos_between         3
+// situation  9:       [     ]    [     ]  Y       [     ]  [     ]            : pos_between         2
+// situation 10:       [     ]    [     ]          [     ]  [     ]    Y       : pos_behind          4
 
 Finder::CurrentPosInLineInfo Finder::getCurrentPosInLineInfo(intptr_t currentPosInLine, const SearchResultMarkingLine& markingLine) const
 {
@@ -846,12 +846,15 @@ void Finder::gotoNextFoundResult(int direction)
 		assert(min_lno >= 0);
 	}
 
-	if (min_lno < 0) min_lno = lno; // when lno is a search header line
+	if (min_lno < 0)
+		min_lno = lno; // when lno is a search header line
 
 	assert(min_lno <= max_lno);
 
-	if (lno > max_lno && direction == 0) lno = min_lno;
-	else if (lno < min_lno) lno = max_lno;
+	if (lno > max_lno && direction == 0)
+		lno = min_lno;
+	else if (lno < min_lno)
+		lno = max_lno;
 
 	//
 	// Set anchor and make sure that achor is not on the last (empty) line or head lines
@@ -879,7 +882,7 @@ void Finder::gotoNextFoundResult(int direction)
 	}
 
 
-	size_t n = 0;
+	size_t occurrenceNumberInLine_base1 = 0;
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
 	//
@@ -894,21 +897,30 @@ void Finder::gotoNextFoundResult(int direction)
 	{
 		switch (cpili._status)
 		{
-			case pos_infront:
+			case pos_infront: // 2 situation: 
 			{
-				n = 1;
+				if (markingLine._segmentPostions[0].second < SC_SEARCHRESULT_LINEBUFFERMAXLENGTH) // 1. The occurrence is displayed in the line
+				{
+					occurrenceNumberInLine_base1 = 1;
+				}
+				else // 2. The occurrence is NOT displayed in the line
+				{
+					lno++;
+					anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
+					occurrenceNumberInLine_base1 = 1;
+				}
 			}
 			break;
 
 			case pos_between:
 			case pos_inside:
 			{
-				n = cpili.auxiliaryInfo + 1;
-				if (n > markingLine._segmentPostions.size())
+				occurrenceNumberInLine_base1 = cpili.auxiliaryInfo + 1;
+				if (occurrenceNumberInLine_base1 > markingLine._segmentPostions.size())
 				{
 					lno++;
 					anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
-					n = 1;
+					occurrenceNumberInLine_base1 = 1;
 				}
 			}
 			break;
@@ -917,7 +929,7 @@ void Finder::gotoNextFoundResult(int direction)
 			{
 				lno++;
 				anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
-				n = 1;
+				occurrenceNumberInLine_base1 = 1;
 			}
 			break;
 		}
@@ -931,33 +943,33 @@ void Finder::gotoNextFoundResult(int direction)
 				lno--;
 				anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 				const SearchResultMarkingLine& newMarkingLine = *(_pMainMarkings->begin() + lno);
-				n = newMarkingLine._segmentPostions.size();
+				occurrenceNumberInLine_base1 = newMarkingLine._segmentPostions.size();
 			}
 			break;
 
 			case pos_between:
 			{
-				n = cpili.auxiliaryInfo;
+				occurrenceNumberInLine_base1 = cpili.auxiliaryInfo;
 			}
 			break;
 
 			case pos_inside:
 			{
 				if (cpili.auxiliaryInfo > 1)
-					n = cpili.auxiliaryInfo - 1;
+					occurrenceNumberInLine_base1 = cpili.auxiliaryInfo - 1;
 				else
 				{
 					lno--;
 					anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 					const SearchResultMarkingLine& newMarkingLine = *(_pMainMarkings->begin() + lno);
-					n = newMarkingLine._segmentPostions.size();
+					occurrenceNumberInLine_base1 = newMarkingLine._segmentPostions.size();
 				}
 			}
 			break;
 
 			case pos_behind:
 			{
-				n = cpili.auxiliaryInfo;
+				occurrenceNumberInLine_base1 = cpili.auxiliaryInfo;
 			}
 			break;
 		}
@@ -968,7 +980,7 @@ void Finder::gotoNextFoundResult(int direction)
 	}
 
 	_scintView.execute(SCI_ENSUREVISIBLE, lno);
-	std::pair<intptr_t, intptr_t> newPos = gotoFoundLine(n);
+	std::pair<intptr_t, intptr_t> newPos = gotoFoundLine(occurrenceNumberInLine_base1);
 
 	lineStartAbsPos = _scintView.execute(SCI_POSITIONFROMLINE, lno);
 	intptr_t lineEndAbsPos = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
@@ -979,9 +991,11 @@ void Finder::gotoNextFoundResult(int direction)
 	if (end > lineEndAbsPos)
 		end = lineEndAbsPos;
 
-	_scintView.execute(SCI_SETSEL, begin, end);
-	_scintView.execute(SCI_SCROLLRANGE, begin, end);
-
+	if (begin < end)
+	{
+		_scintView.execute(SCI_SETSEL, begin, end);
+		_scintView.execute(SCI_SCROLLRANGE, begin, end);
+	}
 }
 
 void FindInFinderDlg::initFromOptions()

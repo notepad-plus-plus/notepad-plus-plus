@@ -159,7 +159,7 @@ private:
 
 	struct CurrentPosInLineInfo {
 		CurrentPosInLineStatus _status = pos_infront;
-		intptr_t auxiliaryInfo = -1; // according the status
+		intptr_t auxiliaryInfo = -1; // according the status - see getCurrentPosInLineInfo member function definition's above comment
 	};
 
 	ScintillaEditView **_ppEditView = nullptr;

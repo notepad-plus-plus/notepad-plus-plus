@@ -1315,10 +1315,10 @@ BEGIN
     //LTEXT           "Unhappy Users' Edition",IDC_AUTHOR_NAME,85,38,100,8
     //LTEXT           "Happy Users' Edition",IDC_AUTHOR_NAME,85,38,100,8
     //LTEXT           "I want to get a refund",IDC_HOME_ADDR,85,48,126,8
-    LTEXT           "20th-Year Anniversary",IDC_AUTHOR_NAME,85,38,100,8
-    LTEXT           "The short story",IDC_HOME_ADDR,85,48,126,10
-    //LTEXT           "Home:",IDC_STATIC,21,58,47,8
-    //LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,56,126,10
+    //LTEXT           "20th-Year Anniversary",IDC_AUTHOR_NAME,85,38,100,8
+    //LTEXT           "The short story",IDC_HOME_ADDR,85,48,126,10
+    LTEXT           "Home:",IDC_STATIC,21,58,47,8
+    LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,56,126,10
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,20,75,230,138,BS_CENTER
     DEFPUSHBUTTON   "OK",IDOK,110,220,50,14
     // IDC_LICENCE_EDIT should be the last line, don't know why

@@ -1,36 +1,37 @@
-Notepad++ v8.6 new features & bug-fixes:
+Notepad++ v8.6.1 new features & bug-fixes:
 
- 1. Multi-edit is fully supported in Notepad++.
- 2. Make multi-select background & caret colours customizable.
- 3. Make session inaccessible files remembered (empty & read-only document as placeholder).
- 4. Fix missing session invalid error for user session & enhance API NPPM_GETNBSESSIONFILES.
- 5. Fix network shared files saving regression.
- 6. Update Scintilla to v5.3.8 & Lexilla to v5.2.8.
- 7. Fix docking panel crash due to messing up config.xml.
- 8. Fix invalid styler.xml making Notepad++ crash issue.
- 9. Fix tab-closing crash by middle mouse button (unexpected mouse position).
-10. Fix 2 performance issues in Style Configurator.
-11. Add 3 line operation (delete, copy & cut) shortcuts.
-12. Display extra info in the status bar of Find/Replace dialog to avoid PEBKAC.
-13. Fix "Hide lines" command hiding unselected lines issue.
-14. Fix silent installer mode when Notepad++ is running issue.
-15. Fix Updater's vulnerability (update cURL in WinGUp for fixing CVE-2023-38545).
-16. Fix incoherent behaviour of "Duplicate Current Line" menu command.
-17. Fix JSON5 not using JSON keywords.
-18. Fix empty message showing while cancelling session file saving dialog.
-
-
+ 1. Updated to Scintilla 5.4.1 & Lexilla 5.3.0.
+ 2. Fix a regression: the position in the previous session is now restored correctly in cloned document.
+ 3. Fix a regression: customized extension in Style Configurator is now saved correctly.
+ 4. Add an ability (disableLineCopyCutDelete.xml) to disable line copy/cut/delete when no selection is made.
+ 5. Add an ability (noColumnToMultiSelect.xml) to disable column mode to multi-select mode.
+ 6. Fix deleting in column mode also delete an unexpected EOL.
+ 7. Fix hidden results of long lines for Search results with "Find in..." commands.
+ 8. Enhance Search-results by showing search options for "Find in..." commands.
+ 9. Fix an issue: replacements are no longer duplicated (the 2nd time in cloned document) for "Replace in Opened Docs".
+10. Fix a regression to make F3 & Shift-F3 work again in Incremental Search.
+11. Add document tab navigation commands: "First tab" & "Last tab".
+12. Add document tab commands: "Move to Start" & "Move to End" commands.
+13. 3 RTL new abilities: RTL per document, RTL per document remembered across the sessions & new attribute editZoneRTL="no" in RTL localization files.
+14. Enhance the "-loadingTime" command line parameter.
+15. Enhance the performance: disable undo collection while loading a file.
+16. Sort language list in the Preferences dialog.
+17. Fix a visual glitch that occurred during multi-paste.
+18. Fix confusing memory allocation error message.
+19. Fix python wrong decorator attribute color.
+20. Fix file status in "other view" is not detected.
+21. Fix dropped file being opened in the wrong view.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6/
+https://notepad-plus-plus.org/downloads/v8.6.1/
 
 
 Included plugins:
 
 1.  NppExport v0.4
 2.  Converter v4.5
-3.  Mime Tool v2.9
+3.  Mime Tool v3.0
 
 
 Updater (Installer only):

@@ -2284,6 +2284,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (clonedBuf != BUFFER_INVALID)
 			{
 				loadBufferIntoView(clonedBuf, SUB_VIEW);
+				lastOpened = clonedBuf;
 			}
 			else
 			{

@@ -360,14 +360,19 @@ void Notepad_plus::command(int id)
 			HWND focusedHwnd = ::GetFocus();
 			if (focusedHwnd == _pEditView->getHSelf())
 			{
-				if (_pEditView->hasSelection())
-					_pEditView->execute(WM_CUT);
-				else
+				if (_pEditView->hasSelection()) // Cut normally
 				{
-					bool useLinCopyCut = (NppParameters::getInstance()).useLineCopyCutDelete();
-					if (useLinCopyCut)
-						_pEditView->execute(SCI_LINECUT); // Ctrl + X: without selected text, it will cut the whole line.
+					_pEditView->execute(WM_CUT);
 				}
+				else // Cul the entire line
+				{
+					_pEditView->execute(SCI_COPYALLOWLINE);
+					_pEditView->execute(SCI_LINEDELETE);
+				}
+			}
+			else
+			{
+				::SendMessage(focusedHwnd, WM_CUT, 0, 0);
 			}
 			break;
 		}
@@ -377,20 +382,16 @@ void Notepad_plus::command(int id)
 			HWND focusedHwnd = ::GetFocus();
 			if (focusedHwnd == _pEditView->getHSelf())
 			{
-				if (_pEditView->hasSelection())
-					_pEditView->execute(WM_COPY);
-				else
-				{
-					bool useLinCopyCut = (NppParameters::getInstance()).useLineCopyCutDelete();
-					if (useLinCopyCut)
-						_pEditView->execute(SCI_LINECOPY); // Ctrl + C: without selected text, it will copy the whole line.
-				}
+				_pEditView->execute(SCI_COPYALLOWLINE); // Copy selected text if any.
+														// Otherwise copy the entire line with EOL, for pasting before any line where the caret is.
 			}
-			else  // Search result
+			else
 			{
 				Finder* finder = _findReplaceDlg.getFinderFrom(focusedHwnd);
-				if (finder)
+				if (finder)  // Search result
 					finder->scintillaExecute(WM_COPY);
+				else
+					::SendMessage(focusedHwnd, WM_COPY, 0, 0);
 			}
 
 			break;
@@ -487,6 +488,10 @@ void Notepad_plus::command(int id)
 				}
 
 				_pEditView->execute(SCI_PASTE);
+			}
+			else
+			{
+				::SendMessage(focusedHwnd, WM_PASTE, 0, 0);
 			}
 		}
 		break;

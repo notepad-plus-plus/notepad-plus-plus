@@ -361,12 +361,9 @@ void Notepad_plus::command(int id)
 			if (focusedHwnd == _pEditView->getHSelf())
 			{
 				if (_pEditView->hasSelection())
-					_pEditView->execute(WM_CUT);
-				else
 				{
-					bool useLinCopyCut = (NppParameters::getInstance()).useLineCopyCutDelete();
-					if (useLinCopyCut)
-						_pEditView->execute(SCI_LINECUT); // Ctrl + X: without selected text, it will cut the whole line.
+					_pEditView->execute(WM_CUT);
+					checkClipboard();
 				}
 			}
 			break;
@@ -378,12 +375,9 @@ void Notepad_plus::command(int id)
 			if (focusedHwnd == _pEditView->getHSelf())
 			{
 				if (_pEditView->hasSelection())
-					_pEditView->execute(WM_COPY);
-				else
 				{
-					bool useLinCopyCut = (NppParameters::getInstance()).useLineCopyCutDelete();
-					if (useLinCopyCut)
-						_pEditView->execute(SCI_LINECOPY); // Ctrl + C: without selected text, it will copy the whole line.
+					_pEditView->execute(WM_COPY);
+					checkClipboard();
 				}
 			}
 			else  // Search result

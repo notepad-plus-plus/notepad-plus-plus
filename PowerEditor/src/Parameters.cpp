@@ -84,9 +84,9 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 
 //	{ VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr },
-	{ VK_X,       IDM_EDIT_CUT,                                 true,  false, false, nullptr },
-	{ VK_C,       IDM_EDIT_COPY,                                true,  false, false, nullptr },
-	{ VK_V,       IDM_EDIT_PASTE,                               true,  false, false, nullptr },
+//	{ VK_X,       IDM_EDIT_CUT,                                 true,  false, false, nullptr },
+//	{ VK_C,       IDM_EDIT_COPY,                                true,  false, false, nullptr },
+//	{ VK_V,       IDM_EDIT_PASTE,                               true,  false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_DELETE,                              false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_SELECTALL,                           false, false, false, nullptr },
 	{ VK_B,       IDM_EDIT_BEGINENDSELECT,                      true,  false, true,  nullptr },
@@ -472,11 +472,12 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
     //Scintilla command name,             SCINTILLA_CMD_ID,            Ctrl,  Alt,   Shift, V_KEY,       NOTEPAD++_CMD_ID
 	// -------------------------------------------------------------------------------------------------------------------
 	//
-//	{TEXT("SCI_CUT"),                     SCI_CUT,                     false, false, true,  VK_DELETE,   0},
-//	{TEXT("SCI_COPY"),                    SCI_COPY,                    true,  false, false, VK_INSERT,   0},
-//	{TEXT("SCI_PASTE"),                   SCI_PASTE,                   false, false, true,  VK_INSERT,   0},
-//	the above 3 shortcuts will be added dynamically if "disableLineCopyCutDelete.xml" is present.
-
+	{TEXT("SCI_CUT"),                     SCI_CUT,                     true,  false, false, VK_X,        IDM_EDIT_CUT},
+	{TEXT(""),                            SCI_CUT,                     false, false, true,  VK_DELETE,   0},
+	{TEXT("SCI_COPY"),                    SCI_COPY,                    true,  false, false, VK_C,        IDM_EDIT_COPY},
+	{TEXT(""),                            SCI_COPY,                    true,  false, false, VK_INSERT,   0},
+	{TEXT("SCI_PASTE"),                   SCI_PASTE,                   true,  false, false, VK_V,        IDM_EDIT_PASTE},
+	{TEXT(""),                            SCI_PASTE,                   false, false, true,  VK_INSERT,   0},
 	{TEXT("SCI_SELECTALL"),               SCI_SELECTALL,               true,  false, false, VK_A,        IDM_EDIT_SELECTALL},
 	{TEXT("SCI_CLEAR"),                   SCI_CLEAR,                   false, false, false, VK_DELETE,   IDM_EDIT_DELETE},
 	{TEXT("SCI_CLEARALL"),                SCI_CLEARALL,                false, false, false, 0,           0},
@@ -1474,35 +1475,6 @@ bool NppParameters::load()
 		delete _pXmlToolIconsDoc;
 		_pXmlToolIconsDoc = nullptr;
 		isAllLaoded = false;
-	}
-
-
-	//-----------------------------------------------------------------------------------//
-	// disableLineCopyCutDelete.xml                                                      //
-	// This empty xml file is optional - user adds this empty file manually to :         //
-	// 1. prevent hard coded Shift-DEL shortcut deletes whole line while no selection.   //
-	// 2. prevent Copy command (Ctrl-C) copies whole line (without selection).           //
-	// 3. prevent Cut command (Ctrl-X) cuts whole line (without selection).              //
-	// 4. add SCI_CUT (Shift-DEL), SCI_COPY (Ctrl-INS) & SCI_PASTE (Shift-INS) shortcuts //
-	//-----------------------------------------------------------------------------------//
-	std::wstring disableLineCopyCutDeletePath = _userPath;
-	pathAppend(disableLineCopyCutDeletePath, TEXT("disableLineCopyCutDelete.xml"));
-
-	if (PathFileExists(disableLineCopyCutDeletePath.c_str()))
-	{
-		_useLineCopyCutDelete = false;
-		
-		//
-		// Add back SCI_CUT (Shift-DEL), SCI_COPY (Ctrl-INS) & SCI_PASTE (Shift-INS) shortcuts
-		//
-		ScintillaKeyMap sci_cut = ScintillaKeyMap(Shortcut("SCI_CUT", false, false, true, static_cast<unsigned char>(VK_DELETE)), SCI_CUT, 0);
-		_scintillaKeyCommands.push_back(sci_cut);
-
-		ScintillaKeyMap sci_copy = ScintillaKeyMap(Shortcut("SCI_COPY", true, false, false, static_cast<unsigned char>(VK_INSERT)), SCI_COPY, 0);
-		_scintillaKeyCommands.push_back(sci_copy);
-
-		ScintillaKeyMap sci_paste = ScintillaKeyMap(Shortcut("SCI_PASTE", false, false, true, static_cast<unsigned char>(VK_INSERT)), SCI_PASTE, 0);
-		_scintillaKeyCommands.push_back(sci_paste);
 	}
 
 	//------------------------------//

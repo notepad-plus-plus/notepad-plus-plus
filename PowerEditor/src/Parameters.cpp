@@ -84,9 +84,16 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 
 //	{ VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr },
-//	{ VK_X,       IDM_EDIT_CUT,                                 true,  false, false, nullptr },
-//	{ VK_C,       IDM_EDIT_COPY,                                true,  false, false, nullptr },
-//	{ VK_V,       IDM_EDIT_PASTE,                               true,  false, false, nullptr },
+
+	{ VK_DELETE,  IDM_EDIT_CUT,                                 false, false, true,  nullptr },
+	{ VK_X,       IDM_EDIT_CUT,                                 true,  false, false, nullptr },
+
+	{ VK_INSERT,  IDM_EDIT_COPY,                                true,  false, false, nullptr },
+	{ VK_C,       IDM_EDIT_COPY,                                true,  false, false, nullptr },
+
+	{ VK_INSERT,  IDM_EDIT_PASTE,                               false, false, true,  nullptr },
+	{ VK_V,       IDM_EDIT_PASTE,                               true,  false, false, nullptr },
+
 //	{ VK_NULL,    IDM_EDIT_DELETE,                              false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_SELECTALL,                           false, false, false, nullptr },
 	{ VK_B,       IDM_EDIT_BEGINENDSELECT,                      true,  false, true,  nullptr },
@@ -472,12 +479,12 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
     //Scintilla command name,             SCINTILLA_CMD_ID,            Ctrl,  Alt,   Shift, V_KEY,       NOTEPAD++_CMD_ID
 	// -------------------------------------------------------------------------------------------------------------------
 	//
-	{TEXT("SCI_CUT"),                     SCI_CUT,                     true,  false, false, VK_X,        IDM_EDIT_CUT},
-	{TEXT(""),                            SCI_CUT,                     false, false, true,  VK_DELETE,   0},
-	{TEXT("SCI_COPY"),                    SCI_COPY,                    true,  false, false, VK_C,        IDM_EDIT_COPY},
-	{TEXT(""),                            SCI_COPY,                    true,  false, false, VK_INSERT,   0},
-	{TEXT("SCI_PASTE"),                   SCI_PASTE,                   true,  false, false, VK_V,        IDM_EDIT_PASTE},
-	{TEXT(""),                            SCI_PASTE,                   false, false, true,  VK_INSERT,   0},
+	//{TEXT("SCI_CUT"),                     SCI_CUT,                     true,  false, false, VK_X,        IDM_EDIT_CUT},
+	//{TEXT(""),                            SCI_CUT,                     false, false, true,  VK_DELETE,   0},
+	//{TEXT("SCI_COPY"),                    SCI_COPY,                    true,  false, false, VK_C,        IDM_EDIT_COPY},
+	//{TEXT(""),                            SCI_COPY,                    true,  false, false, VK_INSERT,   0},
+	//{TEXT("SCI_PASTE"),                   SCI_PASTE,                   true,  false, false, VK_V,        IDM_EDIT_PASTE},
+	//{TEXT("SCI_PASTE"),                   SCI_PASTE,                   false, false, true,  VK_INSERT,   IDM_EDIT_PASTE},
 	{TEXT("SCI_SELECTALL"),               SCI_SELECTALL,               true,  false, false, VK_A,        IDM_EDIT_SELECTALL},
 	{TEXT("SCI_CLEAR"),                   SCI_CLEAR,                   false, false, false, VK_DELETE,   IDM_EDIT_DELETE},
 	{TEXT("SCI_CLEARALL"),                SCI_CLEARALL,                false, false, false, 0,           0},

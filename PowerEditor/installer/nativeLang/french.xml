@@ -348,7 +348,6 @@ Translation note:
 					<Item id="45057" name="OEM 865 : danois &amp;&amp; norvégien"/>
 					<Item id="45053" name="OEM 860 : portugais"/>
 					<Item id="45056" name="OEM 863 : français"/>
-
 					<Item id="10001" name="Déplacer vers l'autre vue"/>
 					<Item id="10002" name="Cloner dans l'autre vue"/>
 					<Item id="10003" name="Déplacer vers une nouvelle fenêtre"/>
@@ -440,6 +439,8 @@ Translation note:
 				<Item CMDID="42030" name="Copier le nom du fichier actuel"/>
 				<Item CMDID="42031" name="Copier le dossier du fichier actuel"/>
 				<Item CMDID="3" name="Déplacer le document"/>
+				<Item CMDID="10005" name="Déplacer au début"/>
+				<Item CMDID="10006" name="Déplacer à la fin"/>
 				<Item CMDID="10001" name="Déplacer vers l'autre vue"/>
 				<Item CMDID="10002" name="Cloner dans l'autre vue"/>
 				<Item CMDID="10003" name="Déplacer vers une nouvelle fenêtre"/>

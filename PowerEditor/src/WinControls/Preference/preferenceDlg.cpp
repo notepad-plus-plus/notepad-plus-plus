@@ -844,11 +844,21 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 		case WM_CHAR:
 		{
 			// All non decimal numbers and non white space and non backspace are ignored
-			if ((wParam != 8 && wParam != 32 && wParam < 48) || wParam > 57)
+			SHORT ctrl = GetKeyState(VK_CONTROL);
+			SHORT alt = GetKeyState(VK_MENU);
+			SHORT shift = GetKeyState(VK_SHIFT);
+			if (!ctrl && !alt && !shift)
 			{
-				return TRUE;
+				if ((wParam != 8 && wParam != ' ' && wParam < '0') || wParam > '9')
+				{
+					return TRUE;
+				}
 			}
 		}
+		break;
+
+		default:
+			break;
 	}
 	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
 }

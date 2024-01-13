@@ -2082,11 +2082,13 @@ void NppParameters::initMenuKeys()
 {
 	int nbCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
 	WinMenuKeyDefinition wkd;
+	int previousFuncID = 0;
 	for (int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
 		Shortcut sc((wkd.specialName ? wstring2string(wkd.specialName, CP_UTF8).c_str() : ""), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
-		_shortcuts.push_back( CommandShortcut(sc, wkd.functionId) );
+		_shortcuts.push_back( CommandShortcut(sc, wkd.functionId, previousFuncID == wkd.functionId) );
+		previousFuncID = wkd.functionId;
 	}
 }
 
@@ -2839,12 +2841,15 @@ void NppParameters::feedShortcut(TiXmlNodeA *node)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
 			size_t len = _shortcuts.size();
-			for (size_t i = 0; i < len; ++i)
+			bool isFound = false;
+			for (size_t i = 0; i < len, !isFound; ++i)
 			{
 				if (_shortcuts[i].getID() == (unsigned long)id)
 				{	//found our match
-					getShortcuts(childNode, _shortcuts[i]);
-					addUserModifiedIndex(i);
+					isFound = getInternalCommandShortcuts(childNode, _shortcuts[i]);
+
+					if (isFound)
+						addUserModifiedIndex(i);
 				}
 			}
 		}
@@ -3031,6 +3036,52 @@ void NppParameters::feedScintKeys(TiXmlNodeA *node)
 	}
 }
 
+bool NppParameters::getInternalCommandShortcuts(TiXmlNodeA *node, CommandShortcut & cs, string* folderName)
+{
+	if (!node) return false;
+
+	const char* name = (node->ToElement())->Attribute("name");
+	if (!name)
+		name = "";
+
+	bool isCtrl = false;
+	const char* isCtrlStr = (node->ToElement())->Attribute("Ctrl");
+	if (isCtrlStr)
+		isCtrl = (strcmp("yes", isCtrlStr) == 0);
+
+	bool isAlt = false;
+	const char* isAltStr = (node->ToElement())->Attribute("Alt");
+	if (isAltStr)
+		isAlt = (strcmp("yes", isAltStr) == 0);
+
+	bool isShift = false;
+	const char* isShiftStr = (node->ToElement())->Attribute("Shift");
+	if (isShiftStr)
+		isShift = (strcmp("yes", isShiftStr) == 0);
+
+	int key;
+	const char* keyStr = (node->ToElement())->Attribute("Key", &key);
+	if (!keyStr)
+		return false;
+
+	int nth = -1; // 0 based
+	const char* nthStr = (node->ToElement())->Attribute("nth", &nth);
+	if (nthStr && nth == 1)
+	{
+		if (cs.getNth() != nth)
+			return false;
+	}
+		
+	if (folderName)
+	{
+		const char* fn = (node->ToElement())->Attribute("FolderName");
+		*folderName = fn ? fn : "";
+	}
+
+	cs = Shortcut(name, isCtrl, isAlt, isShift, static_cast<unsigned char>(key));
+	return true;
+}
+
 bool NppParameters::getShortcuts(TiXmlNodeA *node, Shortcut & sc, string* folderName)
 {
 	if (!node) return false;
@@ -3058,6 +3109,7 @@ bool NppParameters::getShortcuts(TiXmlNodeA *node, Shortcut & sc, string* folder
 	const char* keyStr = (node->ToElement())->Attribute("Key", &key);
 	if (!keyStr)
 		return false;
+
 
 	if (folderName)
 	{
@@ -3458,6 +3510,8 @@ void NppParameters::insertCmd(TiXmlNodeA *shortcutsRoot, const CommandShortcut &
 	sc->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
 	sc->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
 	sc->ToElement()->SetAttribute("Key", key._key);
+	if (cmd.getNth() != 0)
+		sc->ToElement()->SetAttribute("nth", cmd.getNth());
 }
 
 

@@ -682,7 +682,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			BufferID id = MainFileManager.getBufferFromName(longNameFullpath);
 			if (id != BUFFER_INVALID)
 				doReload(id, wParam != 0);
-			break;
+			
+			return TRUE;
 		}
 
 		case NPPM_SWITCHTOFILE :
@@ -1157,7 +1158,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else if (_pEditView == &_subEditView)
 				*id = SUB_VIEW;
 			else
-				*id = -1;
+				*id = -1; // cannot happen
 			return TRUE;
 		}
 
@@ -1667,7 +1668,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_DESTROYSCINTILLAHANDLE:
+		case NPPM_DESTROYSCINTILLAHANDLE_DEPRECATED:
 		{
 			//return _scintillaCtrls4Plugins.destroyScintilla(reinterpret_cast<HWND>(lParam));
 
@@ -2068,7 +2069,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			int i;
 
-			if (lParam == SUB_VIEW)
+			if (lParam == SUB_VIEW) // priorityView is sub view, so we search in sub view firstly
 			{
 				if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
@@ -2076,6 +2077,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					view <<= 30;
 					return view|i;
 				}
+
 				if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
 					long view = MAIN_VIEW;
@@ -2083,7 +2085,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					return view|i;
 				}
 			}
-			else
+			else // (lParam == SUB_VIEW): priorityView is main view, so we search in main view firstly
 			{
 				if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
@@ -2091,6 +2093,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					view <<= 30;
 					return view|i;
 				}
+
 				if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
 					long view = SUB_VIEW;
@@ -2913,7 +2916,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pluginsManager.relayPluginMessages(message, wParam, lParam);
 		}
 
-		case NPPM_ALLOCATESUPPORTED:
+		case NPPM_ALLOCATESUPPORTED_DEPRECATED:
 		{
 			return TRUE;
 		}

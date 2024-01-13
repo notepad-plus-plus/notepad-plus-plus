@@ -1244,10 +1244,10 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 		if (isHiddenOrSys)
 			::SetFileAttributes(fullpath, attrib);
 
-		if (isCopy) // Save As command
+		if (isCopy) // "Save a Copy As..." command
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			return SavingStatus::SaveOK;	//all done
+			return SavingStatus::SaveOK;	//all done - we don't change the current buffer's path to "fullpath", since it's "Save a Copy As..." action.
 		}
 
 		buffer->setFileName(fullpath);
@@ -1373,7 +1373,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 				"FileInaccessibleUserSession",
 				_pNotepadPlus->_pEditView->getHSelf(),
 				L"Some files from your manually-saved session \"$STR_REPLACE$\" are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit.",
-				L"File inaccessinble",
+				L"File inaccessible",
 				MB_YESNO | MB_APPLMODAL,
 				0,
 				userCreatedSessionName);
@@ -1384,7 +1384,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 				"FileInaccessibleDefaultSessionXml",
 				_pNotepadPlus->_pEditView->getHSelf(),
 				L"Some files from your past session are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your \"session.xml\" now.",
-				L"File inaccessinble",
+				L"File inaccessible",
 				MB_YESNO | MB_APPLMODAL);
 		}
 

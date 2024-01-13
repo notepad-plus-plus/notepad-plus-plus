@@ -58,14 +58,14 @@ struct tTbData {
 	const TCHAR* pszAddInfo = nullptr;     // for plugin to display additional informations
 
 	// internal data, do not use !!!
-	RECT rcFloat = {};                    // floating position
+	RECT rcFloat = {};                     // floating position
 	int iPrevCont = 0;                     // stores the privious container (toggling between float and dock)
 	const TCHAR* pszModuleName = nullptr;  // it's the plugin file name. It's used to identify the plugin
 };
 
 
 struct tDockMgr {
-	HWND hWnd = nullptr;                   // the docking manager wnd
+	HWND hWnd = nullptr;                  // the docking manager wnd
 	RECT rcRegion[DOCKCONT_MAX] = {{}};   // position of docked dialogs
 };
 

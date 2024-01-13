@@ -364,7 +364,7 @@ void Notepad_plus::command(int id)
 				{
 					_pEditView->execute(WM_CUT);
 				}
-				else // Cul the entire line
+				else // Cut the entire line
 				{
 					_pEditView->execute(SCI_COPYALLOWLINE);
 					_pEditView->execute(SCI_LINEDELETE);

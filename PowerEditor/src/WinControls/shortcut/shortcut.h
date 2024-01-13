@@ -184,19 +184,26 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(const Shortcut& sc, long id) : Shortcut(sc), _id(id){
+	CommandShortcut(const Shortcut& sc, long id, bool isDuplicated = false) : Shortcut(sc), _id(id) {
 		_shortcutName = string2wstring(getName(), CP_UTF8);
+		if (isDuplicated) _nth = 1;
 	};
+
+	CommandShortcut& operator = (const Shortcut& sct);
 	void setCategoryFromMenu(HMENU hMenu);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
+	int getNth() const { return _nth; };
 	const TCHAR * getCategory() const { return _category.c_str(); };
 	const TCHAR * getShortcutName() const { return _shortcutName.c_str(); };
 
 private :
-	unsigned long _id;
+	unsigned long _id = 0;
 	generic_string _category;
 	generic_string _shortcutName;
+	int _nth = 0; // Allow several shortcuts for the same command (_id).
+	              // If there is the 2nd identical command in winKeyDefs array, the value of _nth will be 1.
+	              // This variable member allows the application to distinguish the different shortcuts assigned to the same command.
 };
 
 

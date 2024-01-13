@@ -1264,3 +1264,13 @@ void CommandShortcut::setCategoryFromMenu(HMENU hMenu)
 	else
 		pNativeSpeaker->getMainMenuEntryName(_category, hMenu, "run", L"Run");
 }
+
+CommandShortcut& CommandShortcut::operator = (const Shortcut& sct)
+{
+	if (this != &sct)
+	{
+		strcpy(this->_name, sct.getName());
+		this->_keyCombo = sct.getKeyCombo();
+	}
+	return *this;
+}

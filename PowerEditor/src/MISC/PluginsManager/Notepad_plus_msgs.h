@@ -62,6 +62,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_MODELESSDIALOG		 (NPPMSG + 12)
 		#define MODELESSDIALOGADD		0
 		#define MODELESSDIALOGREMOVE	1
+	// HWND NPPM_MODELESSDIALOG(INT action, HWND hDlg)
+	// action is MODELESSDIALOGADD (for registering your hDlg) or MODELESSDIALOGREMOVE (for unregistering your hDlg)
+	// return hDlg (HWND) on success, NULL on failure
+	// 
+	// For each created dialog in your plugin, you should register it (and unregister while destroy it) to Notepad++ by using this message.
+	// If this message is ignored, then your dialog won't react with the key stroke messages such as TAB, Ctrl-C or Ctrl-V key.
+	// For the good functioning of your plugin dialog, you're recommended to not ignore this message.
 
 	#define NPPM_GETNBSESSIONFILES (NPPMSG + 13)
 	#define NPPM_GETSESSIONFILES (NPPMSG + 14)

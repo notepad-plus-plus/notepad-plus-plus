@@ -836,19 +836,100 @@ void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
 	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 }
 
+bool hasOnlyNumSpaceInClipboard()
+{
+	int clipFormat;
+	clipFormat = CF_UNICODETEXT;
+
+	BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
+	if (!canPaste)
+		return false;
+
+	::OpenClipboard(NULL);
+	HANDLE clipboardData = ::GetClipboardData(clipFormat);
+	if (!clipboardData)
+		return false;
+
+	::GlobalSize(clipboardData);
+	const wchar_t* clipboardDataPtr = (const wchar_t*)::GlobalLock(clipboardData);
+	if (!clipboardDataPtr) return false;
+
+	wstring clipboardDataString = clipboardDataPtr;
+
+	::GlobalUnlock(clipboardData);
+	::CloseClipboard();
+	for (wchar_t c: clipboardDataString)
+	{
+		if (c != ' ' && (c < '0' || c > '9'))
+			return false;
+	}
+	return true;
+}
+
 static WNDPROC oldFunclstToolbarProc = NULL;
 static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	static bool canPaste = false;
 	switch (message)
 	{
+		case WM_KEYDOWN:
+		{
+			bool ctrl = GetKeyState(VK_CONTROL) & 0x8000;
+			bool alt = GetKeyState(VK_MENU) & 0x8000;
+			bool shift = GetKeyState(VK_SHIFT) & 0x8000;
+
+			bool ctrl_V = (!shift && ctrl && !alt && wParam == 'V');
+			bool shif_INS = (shift && !ctrl && !alt && wParam == VK_INSERT);
+			if ( ctrl_V || shif_INS)
+			{
+				canPaste = hasOnlyNumSpaceInClipboard();
+
+				if (shif_INS && !canPaste) // Shift-INS is different from Ctrl-V, it doesn't pass by WM_CHAR afterward, so we stop here
+					return TRUE;
+			}
+		}
+		break;
+
 		case WM_CHAR:
 		{
 			// All non decimal numbers and non white space and non backspace are ignored
-			if ((wParam != 8 && wParam != 32 && wParam < 48) || wParam > 57)
+			bool ctrl = GetKeyState(VK_CONTROL) & 0x8000;
+			bool alt = GetKeyState(VK_MENU) & 0x8000;
+			bool shift = GetKeyState(VK_SHIFT) & 0x8000;
+
+			bool ctrl_V_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'V' - 'A' + 1);
+			bool ctrl_X_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'X' - 'A' + 1);
+			bool ctrl_A_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'A' - 'A' + 1);
+			bool ctrl_Z_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'Z' - 'A' + 1);
+			bool ctrl_C_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'C' - 'A' + 1);
+
+			if (ctrl_V_in_WM_CHAR)
 			{
-				return TRUE;
+				if (!canPaste) // it's come from ctl_v of WM_KEYDOWN: the format is not correct or nothing to paste, so stop here
+				{
+					return TRUE;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if (ctrl_X_in_WM_CHAR || ctrl_C_in_WM_CHAR || ctrl_Z_in_WM_CHAR || ctrl_A_in_WM_CHAR) // Ctrl-X & Ctrl-C & Ctrl-Z & Ctrl-A: let them pass
+			{
+				break;
+			}
+			else
+			{
+				if (wParam != VK_BACK && wParam != ' ' && (wParam < '0' || wParam > '9')) // If input char is not number either white space, stop here
+				{
+					return TRUE;
+				}
 			}
 		}
+		break;
+
+		default:
+			break;
 	}
 	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
 }

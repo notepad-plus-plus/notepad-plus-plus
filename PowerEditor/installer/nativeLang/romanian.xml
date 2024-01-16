@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.6.1
--    Ultima modificare a fost făcută în 11 decembrie 2023 de către Miloiu Andrei 	 
+-    Traducerea în română pentru Notepad++ 8.6.2
+-    Ultima modificare 16 ianuarie 2024 de către Miloiu Andrei 	 
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.5.9">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -427,6 +427,8 @@
                     <Item CMDID="42030" name="Copiere nume fișier în Clipboard"/>
                     <Item CMDID="42031" name="Copiere cale folder în Clipboard"/>
 					<Item CMDID="3" name="Mutarea documentului"/>
+				    <Item CMDID="10005" name="Mutare la început"/>
+				    <Item CMDID="10006" name="Mutare la sfârșit"/>
                     <Item CMDID="10001" name="Mutare în altă vedere"/>
                     <Item CMDID="10002" name="Clonare în altă vedere"/>
                     <Item CMDID="10003" name="Mutare în instanță nouă"/>
@@ -1524,14 +1526,12 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
 			<FileInaccessibleDefaultSessionXml title="Fișier inaccesibil" message="Unele fișiere din sesiunea ta anterioară sunt inaccesbilie. Ele pot fi deschise ca documente goale sau în modul doar citire ca și substituenți.
 Dorești să creezi acei substituenți?
 NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta VA FI MODIFICATĂ LA IEȘIRE! Îți sugerăm să-ți faci acum o copie de rezervă a fișierului tău &quot;sesiune.xml&quot;."/>
-			<RTLvsDirectWrite title="Nu se poate rula RTL" message="RTL nu este compatibil cu modul DirectWrite. Te rugăm să dezactivezi modul DirectWrite din secțiunea DIVERSE a dialogului Preferințe, și să repornești Notepad++."/>
-			<FileMemoryAllocationFailed title="Excepție: Alocarea memoriei fișierelor a eșuat" message="Probabil că nu e suficientă memorie continuă pentru ca fișierul să fie încărcat de Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>
         </ClipboardHistory>
         <DocList>
-            <PanelTitle name="Listă de documente"/>
+            <PanelTitle name="Comutare document"/>
             <ColumnName name="Nume"/>
             <ColumnExt name="Extern"/>
 			<ColumnPath name="Cale"/>

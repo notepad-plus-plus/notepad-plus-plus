@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.6.1
--    Ultima modificare a fost făcută în 11 decembrie 2023 de către Miloiu Andrei 	 
+-    Traducerea în română pentru Notepad++ 8.6.3
+-    Ultima modificare 11 februarie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.5.9">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -427,6 +427,8 @@
                     <Item CMDID="42030" name="Copiere nume fișier în Clipboard"/>
                     <Item CMDID="42031" name="Copiere cale folder în Clipboard"/>
 					<Item CMDID="3" name="Mutarea documentului"/>
+				    <Item CMDID="10005" name="Mutare la început"/>
+				    <Item CMDID="10006" name="Mutare la sfârșit"/>
                     <Item CMDID="10001" name="Mutare în altă vedere"/>
                     <Item CMDID="10002" name="Clonare în altă vedere"/>
                     <Item CMDID="10003" name="Mutare în instanță nouă"/>
@@ -999,6 +1001,7 @@
                     <Item id="6236" name="Activare derulare dincolo de ultima linie"/>
                     <Item id="6239" name="Activarea selecției când se dă clic dreapta în afara selecției"/>		
                     <Item id="6245" name="Activarea spațiului virtual"/>
+                    <Item id="6214" name="Activează Copiere/Tăiere linie fără selecție"/>
                     <Item id="6651" name="Indicatorul liniei curente"/>
                     <Item id="6652" name="Niciunul"/>
                     <Item id="6653" name="Fundal evidențiat"/>
@@ -1531,7 +1534,7 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
             <PanelTitle name="Istoricul clipboard-ului"/>
         </ClipboardHistory>
         <DocList>
-            <PanelTitle name="Listă de documente"/>
+            <PanelTitle name="Comutare document"/>
             <ColumnName name="Nume"/>
             <ColumnExt name="Extern"/>
 			<ColumnPath name="Cale"/>

@@ -19,41 +19,48 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1
 
+    - name: Modify resource.h N++ version to avoid confusion
+      working-directory: PowerEditor\src\
+      run: |
+           $content = Get-Content -Path 'resource.h'
+           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
+           $newContent | Set-Content -Path 'resource.h'
+
     - name: MSBuild of n++ exe
       working-directory: PowerEditor\visual.net\
       run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="v143"
 
     - name: Archive artifacts for x64 / Release
       if: matrix.build_platform == 'x64' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\bin64\Notepad++.exe
 
     - name: Archive artifacts for Win32 / Release
       if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\bin\Notepad++.exe
 
     - name: Archive artifacts for ARM64 / Release
       if: matrix.build_platform == 'ARM64' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\binarm64\Notepad++.exe
 
     - name: Archive artifacts for ARM64|x64 / Debug
       if: (matrix.build_platform == 'ARM64' || matrix.build_platform == 'x64') && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\visual.net\${{ matrix.build_platform}}\${{ matrix.build_configuration}}\Notepad++.exe
 
     - name: Archive artifacts for Win32 / Debug
       if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\visual.net\${{ matrix.build_configuration}}\Notepad++.exe
@@ -103,6 +110,13 @@ jobs:
     # - name: Add msbuild to PATH
       # uses: microsoft/setup-msbuild@v1
 
+    # - name: Modify resource.h N++ version to avoid confusion
+      # working-directory: PowerEditor\src\
+      # run: |
+           # $content = Get-Content -Path 'resource.h'
+           # $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
+           # $newContent | Set-Content -Path 'resource.h'
+
     # - name: MSBuild of n++ exe
       # working-directory: PowerEditor\visual.net\
       # run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="ClangCL"
@@ -124,6 +138,13 @@ jobs:
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1
+
+    - name: Modify resource.h N++ version to avoid confusion
+      working-directory: PowerEditor\src\
+      run: |
+           $content = Get-Content -Path 'resource.h'
+           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
+           $newContent | Set-Content -Path 'resource.h'
 
     - name: Add nmake to PATH
       uses: ilammy/msvc-dev-cmd@v1
@@ -166,6 +187,14 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
 
+    - name: Modify resource.h N++ version to avoid confusion
+      working-directory: PowerEditor\src\
+      shell: pwsh
+      run: |
+           $content = Get-Content -Path 'resource.h'
+           $newContent = $content -replace 'TEXT\(\"Notepad\+\+ v.*\"\)', 'TEXT("Notepad++ GH_BUILD")'
+           $newContent | Set-Content -Path 'resource.h'
+
     - name: Make n++ exe
       working-directory: .\
       run: |
@@ -190,14 +219,14 @@ jobs:
 
     - name: Archive artifacts for ${{ matrix.build_platform}} / Release
       if: matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.GCC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: bin.${{ matrix.build_platform}}\notepad++.exe
 
     - name: Archive artifacts for ${{ matrix.build_platform}} / Debug
       if: matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: Notepad++.GCC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: bin.${{ matrix.build_platform}}-debug\notepad++.exe

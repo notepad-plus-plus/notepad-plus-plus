@@ -147,13 +147,25 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//BOOL NPPM_SWITCHTOFILE(0, TCHAR *filePathName2switch)
 
 	#define NPPM_SAVECURRENTFILE (NPPMSG + 38)
-	//BOOL NPPM_SAVECURRENTFILE(0, 0)
+	// BOOL NPPM_SAVECURRENTFILE(0, 0)
+	// Save current activated document.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return TRUE if file is saved, otherwise FALSE (the file doesn't need to be saved, or other reasons).
 
 	#define NPPM_SAVEALLFILES	(NPPMSG + 39)
-	//BOOL NPPM_SAVEALLFILES(0, 0)
+	// BOOL NPPM_SAVEALLFILES(0, 0)
+	// Save all opened document.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return FALSE when no file needs to be saved, else TRUE if there is at least one file saved.
 
 	#define NPPM_SETMENUITEMCHECK	(NPPMSG + 40)
-	//void WM_PIMENU_CHECK(UINT	funcItem[X]._cmdID, TRUE/FALSE)
+	// BOOL NPPM_SETMENUITEMCHECK(UINT pluginCmdID, BOOL doCheck)
+	// Set or remove the check on a item of plugin menu and tool bar (if any).
+	// wParam[in]: pluginCmdID is the plugin command ID which corresponds to the menu item: funcItem[X]._cmdID
+	// lParam[in]: if doCheck value is TRUE, item will be checked, FALSE makes item unchecked.
+	// Return TRUE
 
 	#define NPPM_ADDTOOLBARICON_DEPRECATED (NPPMSG + 41)
 	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons iconHandles) -- DEPRECATED : use NPPM_ADDTOOLBARICON_FORDARKMODE instead
@@ -179,9 +191,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//BOOL NPPM_GETENABLETHEMETEXTUREFUNC(0, 0) -- DEPRECATED : use EnableThemeDialogTexture from uxtheme.h instead
 
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
-	//INT NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
+	// int NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
 	// Get user's plugin config directory path. It's useful if plugins want to save/load parameters for the current user
-	// Returns the number of TCHAR copied/to copy.
+	// Return the number of TCHAR copied/to copy.
 	// Users should call it with "str" be NULL to get the required number of TCHAR (not including the terminating nul character),
 	// allocate "str" buffer with the return value + 1, then call it again to get the path.
 
@@ -192,7 +204,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		struct CommunicationInfo {
 			long internalMsg;
 			const TCHAR * srcModuleName;
-			void * info; // defined by plugin
+			void* info; // defined by plugin
 		};
 
 	#define NPPM_MENUCOMMAND (NPPMSG + 48)
@@ -206,7 +218,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETNPPVERSION (NPPMSG + 50)
 	// int NPPM_GETNPPVERSION(BOOL ADD_ZERO_PADDING, 0)
-	// Get Notepad++ version
+	// Get Notepad++ version.
+	// wParam[in]: ADD_ZERO_PADDING (see below)
+	// lParam: 0 (not used)
+	// return value:
 	// HIWORD(returned_value) is major part of version: the 1st number
 	// LOWORD(returned_value) is minor part of version: the 3 last numbers
 	// 
@@ -233,136 +248,187 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_HIDETABBAR (NPPMSG + 51)
 	// BOOL NPPM_HIDETABBAR(0, BOOL hideOrNot)
-	// if hideOrNot is set as TRUE then tab bar will be hidden
-	// otherwise it'll be shown.
+	// Hide (or show) tab bar.
+	// wParam: 0 (not used)
+	// lParam[in]: if hideOrNot is set as TRUE then tab bar will be hidden, otherwise it'll be shown.
 	// return value : the old status value
 
 	#define NPPM_ISTABBARHIDDEN (NPPMSG + 52)
 	// BOOL NPPM_ISTABBARHIDDEN(0, 0)
-	// returned value : TRUE if tab bar is hidden, otherwise FALSE
+	// Get tab bar status.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// return value : TRUE if tool bar is hidden, otherwise FALSE
 
 	#define NPPM_GETPOSFROMBUFFERID (NPPMSG + 57)
-	// INT NPPM_GETPOSFROMBUFFERID(UINT_PTR bufferID, INT priorityView)
-	// Return VIEW|INDEX from a buffer ID. -1 if the bufferID non existing
-	// if priorityView set to SUB_VIEW, then SUB_VIEW will be search firstly
+	// int NPPM_GETPOSFROMBUFFERID(UINT_PTR bufferID, int priorityView)
+	// Get document position (VIEW and INDEX) from a buffer ID, according priorityView.
+	// wParam[in]: BufferID of document
+	// lParam[in]: priorityView is the target VIEW. However, if the given bufferID cannot be found in the target VIEW, the other VIEW will be searched.  
+	// Return -1 if the bufferID non existing, else return value contains VIEW & INDEX:
 	//
 	// VIEW takes 2 highest bits and INDEX (0 based) takes the rest (30 bits)
 	// Here's the values for the view :
 	//  MAIN_VIEW 0
 	//  SUB_VIEW  1
+	// 
+	// if priorityView set to SUB_VIEW, then SUB_VIEW will be search firstly
 
 	#define NPPM_GETFULLPATHFROMBUFFERID (NPPMSG + 58)
-	// INT NPPM_GETFULLPATHFROMBUFFERID(UINT_PTR bufferID, TCHAR *fullFilePath)
-	// Get full path file name from a bufferID.
+	// int NPPM_GETFULLPATHFROMBUFFERID(UINT_PTR bufferID, TCHAR* fullFilePath)
+	// Get full path file name from a bufferID (the pointer of buffer).
+	// wParam[in]: bufferID
+	// lParam[out]: fullFilePath - User should call it with fullFilePath be NULL to get the number of TCHAR (not including the nul character),
+	//         allocate fullFilePath with the return values + 1, then call it again to get full path file name
 	// Return -1 if the bufferID non existing, otherwise the number of TCHAR copied/to copy
-	// User should call it with fullFilePath be NULL to get the number of TCHAR (not including the nul character),
-	// allocate fullFilePath with the return values + 1, then call it again to get full path file name
 
 	#define NPPM_GETBUFFERIDFROMPOS (NPPMSG + 59)
-	// LRESULT NPPM_GETBUFFERIDFROMPOS(INT index, INT iView)
-	// wParam: Position of document
-	// lParam: View to use, 0 = Main, 1 = Secondary
-	// Returns 0 if invalid
+	// UINT_PTR NPPM_GETBUFFERIDFROMPOS(int index, int iView)
+	// Get the document bufferID from the given position (iView & index).
+	// wParam[in]: Position (0 based) of document
+	// lParam[in]: Main or sub View in which document is, 0 = Main, 1 = Sub
+	// Returns NULL if invalid, otherwise bufferID
 
 	#define NPPM_GETCURRENTBUFFERID (NPPMSG + 60)
-	// LRESULT NPPM_GETCURRENTBUFFERID(0, 0)
-	// Returns active Buffer
+	// UINT_PTR NPPM_GETCURRENTBUFFERID(0, 0)
+	// Get active document BufferID.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return active document BufferID
 
 	#define NPPM_RELOADBUFFERID (NPPMSG + 61)
-	// VOID NPPM_RELOADBUFFERID(UINT_PTR bufferID, BOOL alert)
-	// Reloads Buffer
-	// wParam: Buffer to reload
-	// lParam: 0 if no alert, else alert
+	// BOOL NPPM_RELOADBUFFERID(UINT_PTR bufferID, BOOL alert)
+	// Reloads document with the given BufferID
+	// wParam[in]: BufferID of document to reload
+	// lParam[in]: set TRUE to let user confirm or reject the reload; setting FALSE will reload with no alert.
+	// Returns TRUE on success, FALSE otherwise
 
 	#define NPPM_GETBUFFERLANGTYPE (NPPMSG + 64)
-	// INT NPPM_GETBUFFERLANGTYPE(UINT_PTR bufferID, 0)
-	// wParam: BufferID to get LangType from
-	// lParam: 0
+	// int NPPM_GETBUFFERLANGTYPE(UINT_PTR bufferID, 0)
+	// Retrieves the language type of the document with the given bufferID.
+	// wParam[in]: BufferID of document to get LangType from
+	// lParam: 0 (not used)
 	// Returns as int, see LangType. -1 on error
 
 	#define NPPM_SETBUFFERLANGTYPE (NPPMSG + 65)
-	// BOOL NPPM_SETBUFFERLANGTYPE(UINT_PTR bufferID, INT langType)
-	// wParam: BufferID to set LangType of
-	// lParam: LangType
+	// BOOL NPPM_SETBUFFERLANGTYPE(UINT_PTR bufferID, int langType)
+	// Set the language type of the document based on the given bufferID.
+	// wParam[in]: BufferID to set LangType of
+	// lParam[in]: langType as int, enum LangType for valid values (L_USER and L_EXTERNAL are not supported)
 	// Returns TRUE on success, FALSE otherwise
-	// use int, see LangType for possible values
-	// L_USER and L_EXTERNAL are not supported
 
 	#define NPPM_GETBUFFERENCODING (NPPMSG + 66)
-	// INT NPPM_GETBUFFERENCODING(UINT_PTR bufferID, 0)
-	// wParam: BufferID to get encoding from
-	// lParam: 0
-	// returns as int, see UniMode. -1 on error
+	// int NPPM_GETBUFFERENCODING(UINT_PTR bufferID, 0)
+	// Get encoding from the document with the given bufferID
+	// wParam[in]: BufferID to get encoding from
+	// lParam: 0 (not used)
+	// returns -1 on error, otherwise UniMode, with the following value: 
+	// 0: ANSI
+	// 1: UTF-8 with BOM
+	// 2: UTF-16 Big Ending with BOM
+	// 3: UTF-16 Little Ending with BOM
+	// 4: UTF-8 without BOM
+	// 5: uni7Bit
+	// 6: UTF-16 Big Ending without BOM
+	// 7: UTF-16 Little Ending without BOM
 
 	#define NPPM_SETBUFFERENCODING (NPPMSG + 67)
-	// BOOL NPPM_SETBUFFERENCODING(UINT_PTR bufferID, INT encoding)
+	// BOOL NPPM_SETBUFFERENCODING(UINT_PTR bufferID, int encoding)
+	// Set encoding to the document with the given bufferID
 	// wParam: BufferID to set encoding of
-	// lParam: encoding
+	// lParam: encoding, see UniMode value in NPPM_GETBUFFERENCODING (above)
 	// Returns TRUE on success, FALSE otherwise
-	// use int, see UniMode
 	// Can only be done on new, unedited files
 
 	#define NPPM_GETBUFFERFORMAT (NPPMSG + 68)
-	// INT NPPM_GETBUFFERFORMAT(UINT_PTR bufferID, 0)
-	// wParam: BufferID to get EolType format from
-	// lParam: 0
-	// returns as int, see EolType format. -1 on error
+	// int NPPM_GETBUFFERFORMAT(UINT_PTR bufferID, 0)
+	// Get the EOL format of the document with given bufferID.
+	// wParam[in]: BufferID to get EolType format from
+	// lParam: 0 (not used)
+	// Returned value is  -1 on error, otherwize EolType format:
+	// 0: Windows (CRLF)
+	// 1: Macos (CR)
+	// 2: Unix (LF)
+	// 3. Unknown
 
 	#define NPPM_SETBUFFERFORMAT (NPPMSG + 69)
-	// BOOL NPPM_SETBUFFERFORMAT(UINT_PTR bufferID, INT format)
-	// wParam: BufferID to set EolType format of
-	// lParam: format
+	// BOOL NPPM_SETBUFFERFORMAT(UINT_PTR bufferID, int format)
+	// Set the EOL format to the document with given bufferID.
+	// wParam[in]: BufferID to set EolType format of
+	// lParam[in]: EolType format. For EolType format value, see NPPM_GETBUFFERFORMAT (above)
 	// Returns TRUE on success, FALSE otherwise
-	// use int, see EolType format
-
 
 	#define NPPM_HIDETOOLBAR (NPPMSG + 70)
 	// BOOL NPPM_HIDETOOLBAR(0, BOOL hideOrNot)
-	// if hideOrNot is set as TRUE then tool bar will be hidden
-	// otherwise it'll be shown.
+	// Hide (or show) the toolbar.
+	// wParam: 0 (not used)
+	// lParam[in]: if hideOrNot is set as TRUE then tool bar will be hidden, otherwise it'll be shown.
 	// return value : the old status value
 
 	#define NPPM_ISTOOLBARHIDDEN (NPPMSG + 71)
 	// BOOL NPPM_ISTOOLBARHIDDEN(0, 0)
-	// returned value : TRUE if tool bar is hidden, otherwise FALSE
+	// Get toolbar status.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// return value : TRUE if tool bar is hidden, otherwise FALSE
 
 	#define NPPM_HIDEMENU (NPPMSG + 72)
 	// BOOL NPPM_HIDEMENU(0, BOOL hideOrNot)
-	// if hideOrNot is set as TRUE then menu will be hidden
-	// otherwise it'll be shown.
+	// Hide (or show) menu bar.
+	// wParam: 0 (not used)
+	// lParam[in]: if hideOrNot is set as TRUE then menu will be hidden, otherwise it'll be shown.
 	// return value : the old status value
 
 	#define NPPM_ISMENUHIDDEN (NPPMSG + 73)
 	// BOOL NPPM_ISMENUHIDDEN(0, 0)
-	// returned value : TRUE if menu is hidden, otherwise FALSE
+	// Get menu bar status.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// return value : TRUE if menu bar is hidden, otherwise FALSE
 
 	#define NPPM_HIDESTATUSBAR (NPPMSG + 74)
 	// BOOL NPPM_HIDESTATUSBAR(0, BOOL hideOrNot)
-	// if hideOrNot is set as TRUE then STATUSBAR will be hidden
-	// otherwise it'll be shown.
+	// Hide (or show) status bar.
+	// wParam: 0 (not used)
+	// lParam[in]: if hideOrNot is set as TRUE then status bar will be hidden, otherwise it'll be shown.
 	// return value : the old status value
 
 	#define NPPM_ISSTATUSBARHIDDEN (NPPMSG + 75)
 	// BOOL NPPM_ISSTATUSBARHIDDEN(0, 0)
-	// returned value : TRUE if STATUSBAR is hidden, otherwise FALSE
+	// Get status bar status.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// return value : TRUE if status bar is hidden, otherwise FALSE
 
 	#define NPPM_GETSHORTCUTBYCMDID (NPPMSG + 76)
-	// BOOL NPPM_GETSHORTCUTBYCMDID(int cmdID, ShortcutKey *sk)
-	// get your plugin command current mapped shortcut into sk via cmdID
-	// You may need it after getting NPPN_READY notification
-	// returned value : TRUE if this function call is successful and shortcut is enable, otherwise FALSE
+	// BOOL NPPM_GETSHORTCUTBYCMDID(int cmdID, ShortcutKey* sk)
+	// Get your plugin command current mapped shortcut into sk via cmdID.
+	// wParam[in]: cmdID is your plugin command ID 
+	// lParam[out]: sk is a pointer of ShortcutKey strcture which will receive the requested CMD shortcut. It should be allocated in the plugin before being used.
+	// For ShortcutKey strcture, see in "PluginInterface.h". You may need it after getting NPPN_READY notification.
+	// return value : TRUE if this function call is successful and shortcut is enable, otherwise FALSE
 
 	#define NPPM_DOOPEN (NPPMSG + 77)
-	// BOOL NPPM_DOOPEN(0, const TCHAR *fullPathName2Open)
-	// fullPathName2Open indicates the full file path name to be opened.
-	// The return value is TRUE (1) if the operation is successful, otherwise FALSE (0).
+	// BOOL NPPM_DOOPEN(0, const TCHAR* fullPathName2Open)
+	// Open a file with given fullPathName2Open.
+	// If fullPathName2Open has been already opened in Notepad++, the it will be activated and becomes the current document.
+	// wParam: 0 (not used)
+	// lParam[in]: fullPathName2Open indicates the full file path name to be opened
+	// The return value is TRUE if the operation is successful, otherwise FALSE
 
 	#define NPPM_SAVECURRENTFILEAS (NPPMSG + 78)
-	// BOOL NPPM_SAVECURRENTFILEAS (BOOL asCopy, const TCHAR* filename)
+	// BOOL NPPM_SAVECURRENTFILEAS (BOOL saveAsCopy, const TCHAR* filename)
+	// Save the current activated document.
+	// wParam[in]: saveAsCopy must be either FALSE to save, or TRUE to save a copy of the current filename ("Save a Copy As..." action)
+	// lParam[in]: filename indicates the full file path name to be saved
+	// The return value is TRUE if the operation is successful, otherwise FALSE
 
     #define NPPM_GETCURRENTNATIVELANGENCODING (NPPMSG + 79)
-	// INT NPPM_GETCURRENTNATIVELANGENCODING(0, 0)
-	// returned value : the current native language encoding
+	// int NPPM_GETCURRENTNATIVELANGENCODING(0, 0)
+	// Get the code page associated with the current localisation of Notepad++.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// return value : the current native language encoding
 
     #define NPPM_ALLOCATESUPPORTED   (NPPMSG + 80)
     // returns TRUE if NPPM_ALLOCATECMDID is supported
@@ -378,7 +444,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
     // sets startNumber to the initial marker ID if successful
     // Allocates a marker number to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
 	// it has to use this message to get marker number, in order to prevent from the conflict with the other plugins.
-    // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
+    // Return TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
 	// INT NPPM_GETLANGUAGENAME(int langType, TCHAR *langName)
@@ -444,7 +510,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_REMOVESHORTCUTBYCMDID (NPPMSG + 96) // 2120 in decimal
 	// BOOL NPPM_REMOVESHORTCUTASSIGNMENT(int cmdID)
 	// removes the assigned shortcut mapped to cmdID
-	// returned value : TRUE if function call is successful, otherwise FALSE
+	// return value : TRUE if function call is successful, otherwise FALSE
 
 	#define NPPM_GETPLUGINHOMEPATH (NPPMSG + 97)
 	// INT NPPM_GETPLUGINHOMEPATH(size_t strLen, TCHAR *pluginRootPath)
@@ -498,7 +564,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// - Standard means Notepad++ will keep the same TAB indentation between lines;
 	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
 	// - Custom means a Plugin will be controlling auto-indentation for the current language.
-	// returned value: TRUE if function call was successful, otherwise FALSE.
+	// return value: TRUE if function call was successful, otherwise FALSE.
 
 	#define NPPM_ISAUTOINDENTON  (NPPMSG + 105)
 	// BOOL NPPM_ISAUTOINDENTON(0, 0)

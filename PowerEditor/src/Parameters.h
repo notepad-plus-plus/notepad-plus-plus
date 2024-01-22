@@ -97,7 +97,17 @@ EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault)
 
 
 
-enum UniMode {uni8Bit=0, uniUTF8=1, uni16BE=2, uni16LE=3, uniCookie=4, uni7Bit=5, uni16BE_NoBOM=6, uni16LE_NoBOM=7, uniEnd};
+enum UniMode {
+	uni8Bit       = 0,  // ANSI
+	uniUTF8       = 1,  // UTF-8 with BOM
+	uni16BE       = 2,  // UTF-16 Big Ending with BOM
+	uni16LE       = 3,  // UTF-16 Little Ending with BOM
+	uniCookie     = 4,  // UTF-8 without BOM
+	uni7Bit       = 5,  // 
+	uni16BE_NoBOM = 6,  // UTF-16 Big Ending without BOM
+	uni16LE_NoBOM = 7,  // UTF-16 Little Ending without BOM
+	uniEnd};
+
 enum ChangeDetect { cdDisabled = 0x0, cdEnabledOld = 0x01, cdEnabledNew = 0x02, cdAutoUpdate = 0x04, cdGo2end = 0x08 };
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};

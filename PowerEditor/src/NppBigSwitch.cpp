@@ -2068,7 +2068,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			int i;
 
-			if (lParam == SUB_VIEW)
+			if (lParam == SUB_VIEW) // priorityView is sub view, so we search in sub view firstly
 			{
 				if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
@@ -2076,6 +2076,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					view <<= 30;
 					return view|i;
 				}
+
 				if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
 					long view = MAIN_VIEW;
@@ -2083,7 +2084,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					return view|i;
 				}
 			}
-			else
+			else // (lParam == SUB_VIEW): priorityView is main view, so we search in main view firstly
 			{
 				if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
@@ -2091,6 +2092,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					view <<= 30;
 					return view|i;
 				}
+
 				if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
 				{
 					long view = SUB_VIEW;

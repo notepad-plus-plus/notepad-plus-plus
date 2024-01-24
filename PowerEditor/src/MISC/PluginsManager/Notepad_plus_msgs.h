@@ -47,28 +47,55 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 #define NPPMSG  (WM_USER + 1000)
 
-	#define NPPM_GETCURRENTSCINTILLA  (NPPMSG + 4)
-	#define NPPM_GETCURRENTLANGTYPE  (NPPMSG + 5)
-	#define NPPM_SETCURRENTLANGTYPE  (NPPMSG + 6)
+	#define NPPM_GETCURRENTSCINTILLA (NPPMSG + 4)
+	// BOOL NPPM_GETCURRENTSCINTILLA(0, int* iScintillaView)
+	// Get current Scintilla view.
+	// wParam: 0 (not used)
+	// lParam[out]: iScintillaView could be 0 (Main View) or 1 (Sub View)
+	// return TRUE
 
-	#define NPPM_GETNBOPENFILES			(NPPMSG + 7)
-		#define ALL_OPEN_FILES			0
-		#define PRIMARY_VIEW			1
-		#define SECOND_VIEW				2
+	#define NPPM_GETCURRENTLANGTYPE (NPPMSG + 5)
+	// BOOL NPPM_GETCURRENTLANGTYPE(0, int* langType)
+	// Get the programming language type from the current used document.
+	// wParam: 0 (not used)
+	// lParam[out]: langType - see "enum LangType" for all valid values
+	// return TRUE
 
-	#define NPPM_GETOPENFILENAMES		(NPPMSG + 8)
+	#define NPPM_SETCURRENTLANGTYPE (NPPMSG + 6)
+	// BOOL NPPM_SETCURRENTLANGTYPE(0, int langType)
+	// Set a new programming language type to the current used document.
+	// wParam: 0 (not used)
+	// lParam[in]: langType - see "enum LangType" for all valid values
+	// return TRUE
 
+	#define NPPM_GETNBOPENFILES (NPPMSG + 7)
+		#define ALL_OPEN_FILES   0
+		#define PRIMARY_VIEW     1
+		#define SECOND_VIEW      2
+	// int NPPM_GETNBOPENFILES(0, int iViewType)
+	// Get the number of files currently open.
+	// wParam: 0 (not used)
+	// lParam[in]: iViewType - could be PRIMARY_VIEW (value 1), SECOND_VIEW (value 2) or ALL_OPEN_FILES (value 0)
+	// return the number of opened files
 
-	#define NPPM_MODELESSDIALOG		 (NPPMSG + 12)
-		#define MODELESSDIALOGADD		0
-		#define MODELESSDIALOGREMOVE	1
-	// HWND NPPM_MODELESSDIALOG(INT action, HWND hDlg)
-	// action is MODELESSDIALOGADD (for registering your hDlg) or MODELESSDIALOGREMOVE (for unregistering your hDlg)
-	// return hDlg (HWND) on success, NULL on failure
-	// 
+	#define NPPM_GETOPENFILENAMES  (NPPMSG + 8)
+	// BOOL NPPM_GETOPENFILENAMES(TCHAR** fileNames, int nbFileNames)
+	// Get the open files full paths of both views. User is responsible to allocate an big enough fileNames array by using NPPM_GETNBOPENFILES.
+	// wParam[out]: fileNames - array of file path
+	// lParam[in]: nbFileNames is the number of file path.
+	// return value: The number of files copied into fileNames array
+
+	#define NPPM_MODELESSDIALOG  (NPPMSG + 12)
+		#define MODELESSDIALOGADD    0
+		#define MODELESSDIALOGREMOVE 1
+	// HWND NPPM_MODELESSDIALOG(int action, HWND hDlg)
+	// Register (or unregister) plugin's dialog handle.
 	// For each created dialog in your plugin, you should register it (and unregister while destroy it) to Notepad++ by using this message.
 	// If this message is ignored, then your dialog won't react with the key stroke messages such as TAB, Ctrl-C or Ctrl-V key.
 	// For the good functioning of your plugin dialog, you're recommended to not ignore this message.
+	// wParam[in]: action is MODELESSDIALOGADD (for registering your hDlg) or MODELESSDIALOGREMOVE (for unregistering your hDlg)
+	// lParam[in]: hDlg is the handle of dialog to register/unregister
+	// return hDlg (HWND) on success, NULL on failure
 
 	#define NPPM_GETNBSESSIONFILES (NPPMSG + 13)
 	#define NPPM_GETSESSIONFILES (NPPMSG + 14)
@@ -82,11 +109,36 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		};
 
 	#define NPPM_GETOPENFILENAMESPRIMARY (NPPMSG + 17)
+	// BOOL NPPM_GETOPENFILENAMESPRIMARY(TCHAR** fileNames, int nbFileNames)
+	// Get the open files full paths of main view. User is responsible to allocate an big enough fileNames array by using NPPM_GETNBOPENFILES.
+	// wParam[out]: fileNames - array of file path
+	// lParam[in]: nbFileNames is the number of file path.
+	// return value: The number of files copied into fileNames array
+
 	#define NPPM_GETOPENFILENAMESSECOND (NPPMSG + 18)
+	// BOOL NPPM_GETOPENFILENAMESSECOND(TCHAR** fileNames, int nbFileNames)
+	// Get the open files full paths of sub-view. User is responsible to allocate an big enough fileNames array by using NPPM_GETNBOPENFILES.
+	// wParam[out]: fileNames - array of file path
+	// lParam[in]: nbFileNames is the number of file path.
+	// return value: The number of files copied into fileNames array
 
 	#define NPPM_CREATESCINTILLAHANDLE (NPPMSG + 20)
+	// HWND NPPM_CREATESCINTILLAHANDLE(0, HWND hParent)
+	// A plugin can create a Scintilla for its usage by sending this message to Notepad++. The handle should be destroyed by NPPM_DESTROYSCINTILLAHANDLE message while exit the plugin.
+	// wParam: 0 (not used)
+	// lParam[in]: hParent - If set (non NULL), it will be the parent window of this created Scintilla handle, otherwise the parent window is Notepad++
+	// return the handle of created Scintilla handle
+
 	#define NPPM_DESTROYSCINTILLAHANDLE (NPPMSG + 21)
+	// Deprecated. It is kept for the compatibility.
+	// Notepad++ will deallocate every createed Scintilla control on exit, this message returns TRUE but does nothing.
+
 	#define NPPM_GETNBUSERLANG (NPPMSG + 22)
+	// int NPPM_GETNBUSERLANG(0, int* udlID)
+	// Get the number of user defined languages and, optionally, the starting menu id.
+	// wParam: 0 (not used)
+	// lParam[out]: udlID is optional, if not used set it to 0, otherwise an integer pointer is needed to retrieve the menu identifier.
+	// Return the number of user defined languages identified
 
 	#define NPPM_GETCURRENTDOCINDEX (NPPMSG + 23)
 		#define MAIN_VIEW 0
@@ -168,7 +220,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return TRUE
 
 	#define NPPM_ADDTOOLBARICON_DEPRECATED (NPPMSG + 41)
-	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons iconHandles) -- DEPRECATED : use NPPM_ADDTOOLBARICON_FORDARKMODE instead
+	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons iconHandles) -- DEPRECATED: use NPPM_ADDTOOLBARICON_FORDARKMODE instead
 	//2 formats of icon are needed: .ico & .bmp 
 	//Both handles below should be set so the icon will be displayed correctly if toolbar icon sets are changed by users
 		struct toolbarIcons {
@@ -188,7 +240,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//BOOL NPPM_MAKECURRENTBUFFERDIRTY(0, 0)
 
 	#define NPPM_GETENABLETHEMETEXTUREFUNC_DEPRECATED (NPPMSG + 45)
-	//BOOL NPPM_GETENABLETHEMETEXTUREFUNC(0, 0) -- DEPRECATED : use EnableThemeDialogTexture from uxtheme.h instead
+	//BOOL NPPM_GETENABLETHEMETEXTUREFUNC(0, 0) -- DEPRECATED: use EnableThemeDialogTexture from uxtheme.h instead
 
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
 	// int NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
@@ -251,14 +303,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Hide (or show) tab bar.
 	// wParam: 0 (not used)
 	// lParam[in]: if hideOrNot is set as TRUE then tab bar will be hidden, otherwise it'll be shown.
-	// return value : the old status value
+	// return value: the old status value
 
 	#define NPPM_ISTABBARHIDDEN (NPPMSG + 52)
 	// BOOL NPPM_ISTABBARHIDDEN(0, 0)
 	// Get tab bar status.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
-	// return value : TRUE if tool bar is hidden, otherwise FALSE
+	// return value: TRUE if tool bar is hidden, otherwise FALSE
 
 	#define NPPM_GETPOSFROMBUFFERID (NPPMSG + 57)
 	// int NPPM_GETPOSFROMBUFFERID(UINT_PTR bufferID, int priorityView)
@@ -268,7 +320,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return -1 if the bufferID non existing, else return value contains VIEW & INDEX:
 	//
 	// VIEW takes 2 highest bits and INDEX (0 based) takes the rest (30 bits)
-	// Here's the values for the view :
+	// Here's the values for the view:
 	//  MAIN_VIEW 0
 	//  SUB_VIEW  1
 	// 
@@ -363,42 +415,42 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Hide (or show) the toolbar.
 	// wParam: 0 (not used)
 	// lParam[in]: if hideOrNot is set as TRUE then tool bar will be hidden, otherwise it'll be shown.
-	// return value : the old status value
+	// return value: the old status value
 
 	#define NPPM_ISTOOLBARHIDDEN (NPPMSG + 71)
 	// BOOL NPPM_ISTOOLBARHIDDEN(0, 0)
 	// Get toolbar status.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
-	// return value : TRUE if tool bar is hidden, otherwise FALSE
+	// return value: TRUE if tool bar is hidden, otherwise FALSE
 
 	#define NPPM_HIDEMENU (NPPMSG + 72)
 	// BOOL NPPM_HIDEMENU(0, BOOL hideOrNot)
 	// Hide (or show) menu bar.
 	// wParam: 0 (not used)
 	// lParam[in]: if hideOrNot is set as TRUE then menu will be hidden, otherwise it'll be shown.
-	// return value : the old status value
+	// return value: the old status value
 
 	#define NPPM_ISMENUHIDDEN (NPPMSG + 73)
 	// BOOL NPPM_ISMENUHIDDEN(0, 0)
 	// Get menu bar status.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
-	// return value : TRUE if menu bar is hidden, otherwise FALSE
+	// return value: TRUE if menu bar is hidden, otherwise FALSE
 
 	#define NPPM_HIDESTATUSBAR (NPPMSG + 74)
 	// BOOL NPPM_HIDESTATUSBAR(0, BOOL hideOrNot)
 	// Hide (or show) status bar.
 	// wParam: 0 (not used)
 	// lParam[in]: if hideOrNot is set as TRUE then status bar will be hidden, otherwise it'll be shown.
-	// return value : the old status value
+	// return value: the old status value
 
 	#define NPPM_ISSTATUSBARHIDDEN (NPPMSG + 75)
 	// BOOL NPPM_ISSTATUSBARHIDDEN(0, 0)
 	// Get status bar status.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
-	// return value : TRUE if status bar is hidden, otherwise FALSE
+	// return value: TRUE if status bar is hidden, otherwise FALSE
 
 	#define NPPM_GETSHORTCUTBYCMDID (NPPMSG + 76)
 	// BOOL NPPM_GETSHORTCUTBYCMDID(int cmdID, ShortcutKey* sk)
@@ -406,7 +458,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// wParam[in]: cmdID is your plugin command ID 
 	// lParam[out]: sk is a pointer of ShortcutKey strcture which will receive the requested CMD shortcut. It should be allocated in the plugin before being used.
 	// For ShortcutKey strcture, see in "PluginInterface.h". You may need it after getting NPPN_READY notification.
-	// return value : TRUE if this function call is successful and shortcut is enable, otherwise FALSE
+	// return value: TRUE if this function call is successful and shortcut is enable, otherwise FALSE
 
 	#define NPPM_DOOPEN (NPPMSG + 77)
 	// BOOL NPPM_DOOPEN(0, const TCHAR* fullPathName2Open)
@@ -428,7 +480,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Get the code page associated with the current localisation of Notepad++.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
-	// return value : the current native language encoding
+	// return value: the current native language encoding
 
     #define NPPM_ALLOCATESUPPORTED   (NPPMSG + 80)
     // returns TRUE if NPPM_ALLOCATECMDID is supported
@@ -463,54 +515,93 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// by passing allocated buffer as argument langDesc
 
 	#define NPPM_SHOWDOCLIST    (NPPMSG + 85)
-	// VOID NPPM_SHOWDOCLIST(0, BOOL toShowOrNot)
-	// Send this message to show or hide Document List.
-	// if toShowOrNot is TRUE then show Document List, otherwise hide it.
+	// BOOL NPPM_SHOWDOCLIST(0, BOOL toShowOrNot)
+	// Show or hide the Document List panel.
+	// wParam: 0 (not used)
+	// lParam[in]: toShowOrNot - if toShowOrNot is TRUE, the Document List panel is shown otherwise it is hidden.
+	// Return TRUE
 
 	#define NPPM_ISDOCLISTSHOWN    (NPPMSG + 86)
 	// BOOL NPPM_ISDOCLISTSHOWN(0, 0)
-	// Check to see if Document List is shown.
+	// Checks the visibility of the Document List panel.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// return value: TRUE if the Document List panel is currently shown, FALSE otherwise
 
 	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
 	// Check to see if loading plugins from "%APPDATA%\..\Local\Notepad++\plugins" is allowed.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// return value: TRUE if loading plugins from %APPDATA% is allowed, FALSE otherwise
 
 	#define NPPM_GETCURRENTVIEW    (NPPMSG + 88)
-	// INT NPPM_GETCURRENTVIEW(0, 0)
+	// int NPPM_GETCURRENTVIEW(0, 0)
+	// Get the current used view.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
 	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
 
 	#define NPPM_DOCLISTDISABLEEXTCOLUMN    (NPPMSG + 89)
-	// VOID NPPM_DOCLISTDISABLEEXTCOLUMN(0, BOOL disableOrNot)
+	// BOOL NPPM_DOCLISTDISABLEEXTCOLUMN(0, BOOL disableOrNot)
 	// Disable or enable extension column of Document List
+	// wParam: 0 (not used)
+	// lParam[in]: disableOrNot - if disableOrNot is TRUE, extension column is hidden otherwise it is visible.
+	// Return TRUE
 
 	#define NPPM_DOCLISTDISABLEPATHCOLUMN    (NPPMSG + 102)
-	// VOID NPPM_DOCLISTDISABLEPATHCOLUMN(0, BOOL disableOrNot)
+	// BOOL NPPM_DOCLISTDISABLEPATHCOLUMN(0, BOOL disableOrNot)
 	// Disable or enable path column of Document List
+	// wParam: 0 (not used)
+	// lParam[in]: disableOrNot - if disableOrNot is TRUE, extension column is hidden otherwise it is visible.
+	// Return TRUE
 
 	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 90)
-	// INT NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)
-	// Return: current editor default foreground color. You should convert the returned value in COLORREF
+	// int NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)
+	// Get the current editor default foreground color.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return: the color as integer with hex format being 0x00bbggrr
 
 	#define NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR    (NPPMSG + 91)
-	// INT NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR(0, 0)
-	// Return: current editor default background color. You should convert the returned value in COLORREF
+	// int NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR(0, 0)
+	// Get the current editor default background color.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return: the color as integer with hex format being 0x00bbggrr
 
 	#define NPPM_SETSMOOTHFONT    (NPPMSG + 92)
-	// VOID NPPM_SETSMOOTHFONT(0, BOOL setSmoothFontOrNot)
+	// BOOL NPPM_SETSMOOTHFONT(0, BOOL setSmoothFontOrNot)
+	// Set (or remove) smooth font. The API uses underlying Scintilla command SCI_SETFONTQUALITY to manage the font quality.
+	// wParam: 0 (not used)
+	// lParam[in]: setSmoothFontOrNot - if value is TRUE, this message sets SC_EFF_QUALITY_LCD_OPTIMIZED else SC_EFF_QUALITY_DEFAULT
+	// Return TRUE
 
 	#define NPPM_SETEDITORBORDEREDGE    (NPPMSG + 93)
-	// VOID NPPM_SETEDITORBORDEREDGE(0, BOOL withEditorBorderEdgeOrNot)
+	// BOOL NPPM_SETEDITORBORDEREDGE(0, BOOL withEditorBorderEdgeOrNot)
+	// Add (or remove) an additional sunken edge style to the Scintilla window else it removes the extended style from the window.
+	// wParam: 0 (not used)
+	// lParam[in]: withEditorBorderEdgeOrNot - TRUE for adding border edge on Scintilla window, FALSE for removing it
+	// Return TRUE
 
 	#define NPPM_SAVEFILE (NPPMSG + 94)
-	// VOID NPPM_SAVEFILE(0, const TCHAR *fileNameToSave)
+	// BOOL NPPM_SAVEFILE(0, const TCHAR *fileNameToSave)
+	// Save the file (opened in Notepad++) with the given full file name path.
+	// wParam: 0 (not used)
+	// lParam[in]: fileNameToSave must be the full file path for the file to be saved.
+	// Return TRUE on success, FALSE on fileNameToSave is not found
 
 	#define NPPM_DISABLEAUTOUPDATE (NPPMSG + 95) // 2119 in decimal
-	// VOID NPPM_DISABLEAUTOUPDATE(0, 0)
+	// BOOL NPPM_DISABLEAUTOUPDATE(0, 0)
+	// Disable Notepad++ auto-update.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return TRUE
 
 	#define NPPM_REMOVESHORTCUTBYCMDID (NPPMSG + 96) // 2120 in decimal
 	// BOOL NPPM_REMOVESHORTCUTASSIGNMENT(int cmdID)
 	// removes the assigned shortcut mapped to cmdID
-	// return value : TRUE if function call is successful, otherwise FALSE
+	// return value: TRUE if function call is successful, otherwise FALSE
 
 	#define NPPM_GETPLUGINHOMEPATH (NPPMSG + 97)
 	// INT NPPM_GETPLUGINHOMEPATH(size_t strLen, TCHAR *pluginRootPath)
@@ -568,21 +659,35 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_ISAUTOINDENTON  (NPPMSG + 105)
 	// BOOL NPPM_ISAUTOINDENTON(0, 0)
-	// Returns the current Use Auto-Indentation setting in Notepad++ Preferences.
+	// Get the current use Auto-Indentation setting in Notepad++ Preferences.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return TRUE if Auto-Indentation is on, FALSE otherwise
 
 	#define NPPM_GETCURRENTMACROSTATUS (NPPMSG + 106)
 	// MacroStatus NPPM_GETCURRENTMACROSTATUS(0, 0)
-	// Gets current enum class MacroStatus { Idle - means macro is not in use and it's empty, RecordInProgress, RecordingStopped, PlayingBack }
+	// Get current enum class MacroStatus { Idle, RecordInProgress, RecordingStopped, PlayingBack }
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return MacroStatus as int:
+	// 0: Idle - macro is not in use and it's empty
+	// 1: RecordInProgress - macro is currently being recorded
+	// 2: RecordingStopped - macro recording has been stopped
+	// 3: PlayingBack - macro is currently being played back
 
 	#define NPPM_ISDARKMODEENABLED (NPPMSG + 107)
-	// bool NPPM_ISDARKMODEENABLED(0, 0)
-	// Returns true when Notepad++ Dark Mode is enable, false when it is not.
+	// BOOL NPPM_ISDARKMODEENABLED(0, 0)
+	// Get Notepad++ Dark Mode status (ON or OFF).
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return TRUE if Dark Mode is enable, otherwise FALSE
 
 	#define NPPM_GETDARKMODECOLORS (NPPMSG + 108)
-	// bool NPPM_GETDARKMODECOLORS (size_t cbSize, NppDarkMode::Colors* returnColors)
-	// - cbSize must be filled with sizeof(NppDarkMode::Colors).
-	// - returnColors must be a pre-allocated NppDarkMode::Colors struct.
-	// Returns true when successful, false otherwise.
+	// BOOL NPPM_GETDARKMODECOLORS (size_t cbSize, NppDarkMode::Colors* returnColors)
+	// Get the colors used in Dark Mode.
+	// wParam[in]: cbSize must be filled with sizeof(NppDarkMode::Colors).
+	// lParam[out]: returnColors must be a pre-allocated NppDarkMode::Colors struct.
+	// Return TRUE when successful, FALSE otherwise.
 	// You need to uncomment the following code to use NppDarkMode::Colors structure:
 	//
 	// namespace NppDarkMode
@@ -608,19 +713,28 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/NppDarkMode.h#L32
 
 	#define NPPM_GETCURRENTCMDLINE (NPPMSG + 109)
-	// INT NPPM_GETCURRENTCMDLINE(size_t strLen, TCHAR *commandLineStr)
+	// int NPPM_GETCURRENTCMDLINE(size_t strLen, TCHAR *commandLineStr)
 	// Get the Current Command Line string.
-	// Returns the number of TCHAR copied/to copy.
 	// Users should call it with commandLineStr as NULL to get the required number of TCHAR (not including the terminating nul character),
 	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current command line string.
+	// wParam[in]: strLen is "commandLineStr" buffer length
+	// lParam[out]: commandLineStr recieves all copied command line string
+	// Return the number of TCHAR copied/to copy
+
 
 	#define NPPM_CREATELEXER (NPPMSG + 110)
-	// void* NPPM_CREATELEXER(0, const TCHAR *lexer_name)
-	// Returns the ILexer pointer created by Lexilla
+	// void* NPPM_CREATELEXER(0, const TCHAR* lexer_name)
+	// Get the ILexer pointer created by Lexilla. Call the lexilla "CreateLexer()" function to allow plugins to set the lexer for a Scintilla instance created by NPPM_CREATESCINTILLAHANDLE.
+	// wParam: 0 (not used)
+	// lParam[in]: lexer_name is the name of the lexer
+	// Return the ILexer pointer
 
 	#define NPPM_GETBOOKMARKID (NPPMSG + 111)
-	// void* NPPM_GETBOOKMARKID(0, 0)
-	// Returns the bookmark ID
+	// int NPPM_GETBOOKMARKID(0, 0)
+	// Get the bookmark ID - use this API to get bookmark ID dynamically that garantees you get always the right bookmark ID even it's been changed through the different versions.  
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return bookmark ID
 
 	#define NPPM_DARKMODESUBCLASSANDTHEME (NPPMSG + 112)
 	// ULONG NPPM_DARKMODESUBCLASSANDTHEME(ULONG dmFlags, HWND hwnd)

@@ -1157,7 +1157,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else if (_pEditView == &_subEditView)
 				*id = SUB_VIEW;
 			else
-				*id = -1;
+				*id = -1; // cannot happen
 			return TRUE;
 		}
 

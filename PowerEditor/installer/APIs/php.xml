@@ -6079,6 +6079,13 @@
 				<Param name="void"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="json_validate" func="yes">
+			<Overload retVal="bool">
+				<Param name="string json"/>
+				<Param name="[int depth=512"/>
+				<Param name="[int flags=0]]"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="juliantojd" func="yes">
 			<Overload retVal="int">
 				<Param name="int month"/>
@@ -6865,6 +6872,15 @@
 			<Overload retVal="int">
 				<Param name="string str"/>
 				<Param name="[string encoding]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="mb_str_pad" func="yes">
+			<Overload retVal="string">
+				<Param name="string string"/>
+				<Param name="int length"/>
+				<Param name="[string pad_string=&quot; &quot;"/>
+				<Param name="[int pad_type=STR_PAD_RIGHT"/>
+				<Param name="[string encoding]]]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="mb_substitute_character" func="yes">
@@ -10487,6 +10503,18 @@
 				<Param name="void"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="posix_eaccess" func="yes">
+			<Overload retVal="bool">
+				<Param name="string filename"/>
+				<Param name="[int flags=0]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="posix_fpathconf" func="yes">
+			<Overload retVal="int|false">
+				<Param name="resource|int file_descriptor"/>
+				<Param name="int name"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="posix_getcwd" func="yes">
 			<Overload retVal="string">
 				<Param name="void"/>
@@ -10608,6 +10636,12 @@
 				<Param name="[int minor]]"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="posix_pathconf" func="yes">
+			<Overload retVal="int|false">
+				<Param name="string path"/>
+				<Param name="int name"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="posix_setegid" func="yes">
 			<Overload retVal="bool">
 				<Param name="int uid"/>
@@ -10642,6 +10676,11 @@
 		<KeyWord name="posix_strerror" func="yes">
 			<Overload retVal="string">
 				<Param name="int errno"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="posix_sysconf" func="yes">
+			<Overload retVal="int">
+				<Param name="int conf_id"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="posix_times" func="yes">
@@ -11631,6 +11670,11 @@
 				<Param name="resource socket"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="socket_atmark" func="yes">
+			<Overload retVal="bool">
+				<Param name="Socket socket"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="socket_bind" func="yes">
 			<Overload retVal="bool">
 				<Param name="resource socket"/>
@@ -12217,6 +12261,12 @@
 				<Param name="mixed value"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="stream_context_set_options" func="yes">
+			<Overload retVal="bool">
+				<Param name="resource context"/>
+				<Param name="array options"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="stream_context_set_params" func="yes">
 			<Overload retVal="bool">
 				<Param name="resource stream_or_context"/>
@@ -12598,6 +12648,11 @@
 				<Param name="string needle"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="str_decrement" func="yes">
+			<Overload retVal="string">
+				<Param name="string string"/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="str_ends_with" func="yes">
 			<Overload retVal="bool">
 				<Param name="string haystack"/>
@@ -12610,6 +12665,11 @@
 				<Param name="[string delimiter=&quot;,&quot;"/>
 				<Param name="[string enclosure='&quot;'"/>
 				<Param name="[string escape]]]"/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="str_increment" func="yes">
+			<Overload retVal="string">
+				<Param name="string string"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="str_ireplace" func="yes">

@@ -145,58 +145,120 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		#define SUB_VIEW 1
 
 	#define NPPM_SETSTATUSBAR (NPPMSG + 24)
-		#define STATUSBAR_DOC_TYPE 0
-		#define STATUSBAR_DOC_SIZE 1
-		#define STATUSBAR_CUR_POS 2
-		#define STATUSBAR_EOF_FORMAT 3
+		#define STATUSBAR_DOC_TYPE     0
+		#define STATUSBAR_DOC_SIZE     1
+		#define STATUSBAR_CUR_POS      2
+		#define STATUSBAR_EOF_FORMAT   3
 		#define STATUSBAR_UNICODE_TYPE 4
-		#define STATUSBAR_TYPING_MODE 5
+		#define STATUSBAR_TYPING_MODE  5
+	// BOOL NPPM_SETSTATUSBAR(int whichPart, TCHAR *str2set)
+	// Set string in the specified field of a statusbar.
+	// wParam[in]: whichPart for indicating the statusbar part you want to set. It can be only the above value (0 - 5)
+	// lParam[in]: str2set is the string you want to write to the part of statusbar.
+	// Return FALSE on failure, TRUE on success
 
 	#define NPPM_GETMENUHANDLE (NPPMSG + 25)
 		#define NPPPLUGINMENU 0
 		#define NPPMAINMENU 1
-	// INT NPPM_GETMENUHANDLE(INT menuChoice, 0)
+	// int NPPM_GETMENUHANDLE(int menuChoice, 0)
+	// Get menu handle (HMENU) of choice.
+	// wParam[in]: menuChoice could be main menu (NPPMAINMENU) or Plugin menu (NPPPLUGINMENU)
+	// lParam: 0 (not used)
 	// Return: menu handle (HMENU) of choice (plugin menu handle or Notepad++ main menu handle)
 
 	#define NPPM_ENCODESCI (NPPMSG + 26)
-	//ascii file to unicode
-	//int NPPM_ENCODESCI(MAIN_VIEW/SUB_VIEW, 0)
-	//return new unicodeMode
+	// int NPPM_ENCODESCI(int inView, 0)
+	// Changes current buffer in view to UTF-8.
+	// wParam[in]: inView - main view (0) or sub-view (1)
+	// lParam: 0 (not used)
+	// return new UniMode, with the following value: 
+	// 0: ANSI
+	// 1: UTF-8 with BOM
+	// 2: UTF-16 Big Ending with BOM
+	// 3: UTF-16 Little Ending with BOM
+	// 4: UTF-8 without BOM
+	// 5: uni7Bit
+	// 6: UTF-16 Big Ending without BOM
+	// 7: UTF-16 Little Ending without BOM
 
 	#define NPPM_DECODESCI (NPPMSG + 27)
-	//unicode file to ascii
-	//int NPPM_DECODESCI(MAIN_VIEW/SUB_VIEW, 0)
-	//return old unicodeMode
+	// int NPPM_DECODESCI(int inView, 0)
+	// Changes current buffer in view to ANSI.
+	// wParam[in]: inView - main view (0) or sub-view (1)
+	// lParam: 0 (not used)
+	// return old UniMode - see above
 
 	#define NPPM_ACTIVATEDOC (NPPMSG + 28)
-	//void NPPM_ACTIVATEDOC(int view, int index2Activate)
+	// BOOL NPPM_ACTIVATEDOC(int inView, int index2Activate)
+	// Switch to the document by the given view and index.
+	// wParam[in]: inView - main view (0) or sub-view (1)
+	// lParam[in]: index2Activate - index (in the view indicated above) where is the document to be activated 
+	// Return TRUE
 
 	#define NPPM_LAUNCHFINDINFILESDLG (NPPMSG + 29)
-	//void NPPM_LAUNCHFINDINFILESDLG(TCHAR * dir2Search, TCHAR * filtre)
+	// BOOL NPPM_LAUNCHFINDINFILESDLG(TCHAR * dir2Search, TCHAR * filtre)
+	// Launch Find in Files dialog and set "Find in" directory and filters with the given arguments.
+	// wParam[in]: if dir2Search is not NULL, it will be set as working directory in which Notepad++ will search
+	// lParam[in]: if filtre is not NULL, filtre string will be set into filter field
+	// Return TRUE
 
 	#define NPPM_DMMSHOW (NPPMSG + 30)
-	//void NPPM_DMMSHOW(0, tTbData->hClient)
+	// BOOL NPPM_DMMSHOW(0, HWND hDlg)
+	// Show the dialog which was previously regeistered by NPPM_DMMREGASDCKDLG.
+	// wParam: 0 (not used)
+	// lParam[in]: hDlg is the handle of dialog to show
+	// Return TRUE
 
 	#define NPPM_DMMHIDE	(NPPMSG + 31)
-	//void NPPM_DMMHIDE(0, tTbData->hClient)
+	// BOOL NPPM_DMMHIDE(0, HWND hDlg)
+	// Hide the dialog which was previously regeistered by NPPM_DMMREGASDCKDLG.
+	// wParam: 0 (not used)
+	// lParam[in]: hDlg is the handle of dialog to hide 
+	// Return TRUE
 
 	#define NPPM_DMMUPDATEDISPINFO (NPPMSG + 32)
-	//void NPPM_DMMUPDATEDISPINFO(0, tTbData->hClient)
+	// BOOL NPPM_DMMUPDATEDISPINFO(0, HWND hDlg)
+	// Redraw the dialog.
+	// wParam: 0 (not used)
+	// lParam[in]: hDlg is the handle of dialog to redraw 
+	// Return TRUE
 
 	#define NPPM_DMMREGASDCKDLG (NPPMSG + 33)
-	//void NPPM_DMMREGASDCKDLG(0, &tTbData)
+	// BOOL NPPM_DMMREGASDCKDLG(0, tTbData* pData)
+	// Pass the necessary dockingData to Notepad++ in order to make your dialog dockable.
+	// wParam: 0 (not used)
+	// lParam[in/out]: pData is the pointer of tTbData. Please check tTbData structure in "Docking.h"
+	//                 Minimum informations which needs to be filled out are hClient, pszName, dlgID, uMask and pszModuleName.
+	//                 Notice that rcFloatand iPrevCont shouldn't be filled. They are used internally.
+	// Return TRUE
 
 	#define NPPM_LOADSESSION (NPPMSG + 34)
-	//void NPPM_LOADSESSION(0, const TCHAR* file name)
+	// BOOL NPPM_LOADSESSION(0, TCHAR* sessionFileName)
+	// Open all files of same session in Notepad++ via a xml format session file sessionFileName.
+	// wParam: 0 (not used)
+	// lParam[in]: sessionFileName is the full file path of session file to reload 
+	// Return TRUE
 
 	#define NPPM_DMMVIEWOTHERTAB (NPPMSG + 35)
-	//void WM_DMM_VIEWOTHERTAB(0, tTbData->pszName)
+	// BOOL WM_DMM_VIEWOTHERTAB(0, TCHAR* name)
+	// Show the plugin dialog (switch to plugin tab) with the given name. 
+	// wParam: 0 (not used)
+	// lParam[in]: name should be the same value as previously used to register the dialog (pszName of tTbData)
+	// Return TRUE
 
 	#define NPPM_RELOADFILE (NPPMSG + 36)
-	//BOOL NPPM_RELOADFILE(BOOL withAlert, TCHAR *filePathName2Reload)
+	// BOOL NPPM_RELOADFILE(BOOL withAlert, TCHAR *filePathName2Reload)
+	// Reload the document which matches with the given filePathName2switch.
+	// wParam: 0 (not used)
+	// lParam[in]: filePathName2Reload is the full file path of document to reload 
+	// Return TRUE
 
 	#define NPPM_SWITCHTOFILE (NPPMSG + 37)
-	//BOOL NPPM_SWITCHTOFILE(0, TCHAR *filePathName2switch)
+	// BOOL NPPM_SWITCHTOFILE(0, TCHAR* filePathName2switch)
+	// Switch to the document which matches with the given filePathName2switch.
+	// wParam: 0 (not used)
+	// lParam[in]: filePathName2switch is the full file path of document to switch 
+	// Return TRUE
 
 	#define NPPM_SAVECURRENTFILE (NPPMSG + 38)
 	// BOOL NPPM_SAVECURRENTFILE(0, 0)
@@ -250,23 +312,32 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// allocate "str" buffer with the return value + 1, then call it again to get the path.
 
 	#define NPPM_MSGTOPLUGIN (NPPMSG + 47)
-	//BOOL NPPM_MSGTOPLUGIN(TCHAR *destModuleName, CommunicationInfo *info)
-	// return value is TRUE when the message arrive to the destination plugins.
-	// if destModule or info is NULL, then return value is FALSE
 		struct CommunicationInfo {
-			long internalMsg;
-			const TCHAR * srcModuleName;
-			void* info; // defined by plugin
+			long internalMsg;             // an integer defined by plugin Y, known by plugin X, identifying the message being sent.
+			const TCHAR * srcModuleName;  // the complete module name (with the extesion .dll) of caller (plugin X).
+			void* info;                   // defined by plugin, the informations to be exchanged between X and Y. It's a void pointer so it should be defined by plugin Y and known by plugin X.
 		};
+	// BOOL NPPM_MSGTOPLUGIN(TCHAR *destModuleName, CommunicationInfo *info)
+	// Send a private information to a plugin with given plugin name. This message allows the communication between 2 plugins.
+	// For example, plugin X can execute a command of plugin Y if plugin X knows the command ID and the file name of plugin Y.
+	// wParam[in]: destModuleName is the destination complete module file name (with the file extension ".dll")
+	// lParam[in]: info - See above "CommunicationInfo" structure
+	// The returned value is TRUE if Notepad++ found the plugin by its module name (destModuleName), and pass the info (communicationInfo) to the module.
+	// The returned value is FALSE if no plugin with such name is found.
 
 	#define NPPM_MENUCOMMAND (NPPMSG + 48)
-	//void NPPM_MENUCOMMAND(0, int cmdID)
-	// uncomment //#include "menuCmdID.h"
-	// in the beginning of this file then use the command symbols defined in "menuCmdID.h" file
-	// to access all the Notepad++ menu command items
+	// BOOL NPPM_MENUCOMMAND(0, int cmdID)
+	// Run Notepad++ command with the given command ID.
+	// wParam: 0 (not used)
+	// lParam[in]: cmdID - See "menuCmdID.h" for all the Notepad++ menu command items
+	// Return TRUE
 
 	#define NPPM_TRIGGERTABBARCONTEXTMENU (NPPMSG + 49)
-	//void NPPM_TRIGGERTABBARCONTEXTMENU(int view, int index2Activate)
+	// BOOL NPPM_TRIGGERTABBARCONTEXTMENU(int inView, int index2Activate)
+	// Switch to the document by the given view and index and trigger the context menu
+	// wParam[in]: inView - main view (0) or sub-view (1)
+	// lParam[in]: index2Activate - index (in the view indicated above) where is the document to have the context menu
+	// Return TRUE
 
 	#define NPPM_GETNPPVERSION (NPPMSG + 50)
 	// int NPPM_GETNPPVERSION(BOOL ADD_ZERO_PADDING, 0)
@@ -737,25 +808,21 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return bookmark ID
 
 	#define NPPM_DARKMODESUBCLASSANDTHEME (NPPMSG + 112)
-	// ULONG NPPM_DARKMODESUBCLASSANDTHEME(ULONG dmFlags, HWND hwnd)
-	// Add support for generic dark mode.
-	//
-	// Docking panels don't need to call NPPM_DARKMODESUBCLASSANDTHEME for main hwnd.
-	// Subclassing is applied automatically unless DWS_USEOWNDARKMODE flag is used.
-	//
-	// Might not work properly in C# plugins.
-	//
-	// Returns succesful combinations of flags.
-	//
-
 	namespace NppDarkMode
 	{
 		// Standard flags for main parent after its children are initialized.
-		constexpr ULONG dmfInit =               0x0000000BUL;
+		constexpr ULONG dmfInit = 0x0000000BUL;
 
 		// Standard flags for main parent usually used in NPPN_DARKMODECHANGED.
-		constexpr ULONG dmfHandleChange =       0x0000000CUL;
+		constexpr ULONG dmfHandleChange = 0x0000000CUL;
 	};
+
+	// ULONG NPPM_DARKMODESUBCLASSANDTHEME(ULONG dmFlags, HWND hwnd)
+	// Add support for generic dark mode to plugin dialog. Subclassing is applied automatically unless DWS_USEOWNDARKMODE flag is used.
+	// Might not work properly in C# plugins.
+	// wParam[in]: dmFlags has 2 possible value dmfInit (0x0000000BUL) & dmfHandleChange (0x0000000CUL) - see above definition
+	// lParam[in]: hwnd is the dialog handle of plugin -  Docking panels don't need to call NPPM_DARKMODESUBCLASSANDTHEME
+	// Returns succesful combinations of flags.
 
 	// Examples:
 	//
@@ -783,7 +850,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// sets startNumber to the initial indicator ID if successful
 	// Allocates an indicator number to a plugin: if a plugin needs to add an indicator,
 	// it has to use this message to get the indicator number, in order to prevent a conflict with the other plugins.
-	// Returns: TRUE if successful, FALSE otherwise.
+	// Return TRUE if successful, FALSE otherwise.
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

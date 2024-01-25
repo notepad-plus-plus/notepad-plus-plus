@@ -682,7 +682,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			BufferID id = MainFileManager.getBufferFromName(longNameFullpath);
 			if (id != BUFFER_INVALID)
 				doReload(id, wParam != 0);
-			break;
+			
+			return TRUE;
 		}
 
 		case NPPM_SWITCHTOFILE :

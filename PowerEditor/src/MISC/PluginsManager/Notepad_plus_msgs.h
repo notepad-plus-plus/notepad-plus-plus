@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2021 Don HO <don.h@free.fr>
+// Copyright (C)2024 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -98,6 +98,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// return hDlg (HWND) on success, NULL on failure
 
 	#define NPPM_GETNBSESSIONFILES (NPPMSG + 13)
+	// int NPPM_GETNBSESSIONFILES (BOOL* pbIsValidXML, TCHAR* sessionFileName)
+	// wParam[out]: pbIsValidXML, if the lParam pointer is null, then this parameter will be ignored. TRUE if XML is valid, otherwise FALSE.
+	// lParam[in]: sessionFileName is XML session full path
+	// return value: The number of files in XML session file
+
 	#define NPPM_GETSESSIONFILES (NPPMSG + 14)
 	#define NPPM_SAVESESSION (NPPMSG + 15)
 	#define NPPM_SAVECURRENTSESSION (NPPMSG + 16)
@@ -124,13 +129,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_CREATESCINTILLAHANDLE (NPPMSG + 20)
 	// HWND NPPM_CREATESCINTILLAHANDLE(0, HWND hParent)
-	// A plugin can create a Scintilla for its usage by sending this message to Notepad++. The handle should be destroyed by NPPM_DESTROYSCINTILLAHANDLE message while exit the plugin.
+	// A plugin can create a Scintilla for its usage by sending this message to Notepad++.
 	// wParam: 0 (not used)
 	// lParam[in]: hParent - If set (non NULL), it will be the parent window of this created Scintilla handle, otherwise the parent window is Notepad++
 	// return the handle of created Scintilla handle
 
-	#define NPPM_DESTROYSCINTILLAHANDLE (NPPMSG + 21)
-	// Deprecated. It is kept for the compatibility.
+	#define NPPM_DESTROYSCINTILLAHANDLE_DEPRECATED (NPPMSG + 21)
+	// DEPRECATED: It is kept for the compatibility.
 	// Notepad++ will deallocate every createed Scintilla control on exit, this message returns TRUE but does nothing.
 
 	#define NPPM_GETNBUSERLANG (NPPMSG + 22)
@@ -143,6 +148,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_GETCURRENTDOCINDEX (NPPMSG + 23)
 		#define MAIN_VIEW 0
 		#define SUB_VIEW 1
+	// int NPPM_GETCURRENTDOCINDEX(0, int inView)
+	// Get the current index of the given view.
+	// wParam: 0 (not used)
+	// lParam[in]: inView, should be 0 (main view) or 1 (sub-view) 
+	// Return -1 if the view is invisible (hidden), otherwise is the current index.
 
 	#define NPPM_SETSTATUSBAR (NPPMSG + 24)
 		#define STATUSBAR_DOC_TYPE     0
@@ -282,27 +292,45 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return TRUE
 
 	#define NPPM_ADDTOOLBARICON_DEPRECATED (NPPMSG + 41)
-	//void NPPM_ADDTOOLBARICON(UINT funcItem[X]._cmdID, toolbarIcons iconHandles) -- DEPRECATED: use NPPM_ADDTOOLBARICON_FORDARKMODE instead
-	//2 formats of icon are needed: .ico & .bmp 
-	//Both handles below should be set so the icon will be displayed correctly if toolbar icon sets are changed by users
 		struct toolbarIcons {
 			HBITMAP	hToolbarBmp;
 			HICON	hToolbarIcon;
 		};
+	// BOOL NPPM_ADDTOOLBARICON_DEPRECATED(UINT pluginCmdID, toolbarIcons* iconHandles) -- DEPRECATED: use NPPM_ADDTOOLBARICON_FORDARKMODE instead
+	// Add an icon to the toolbar.
+	// wParam[in]: pluginCmdID is the plugin command ID which corresponds to the menu item: funcItem[X]._cmdID
+	// lParam[in]: iconHandles of toolbarIcons structure. 2 formats ".ico" & ".bmp" are needed
+	//             Both handles should be set so the icon will be displayed correctly if toolbar icon sets are changed by users
+	// Return TRUE
+
 
 	#define NPPM_GETWINDOWSVERSION (NPPMSG + 42)
-	//winVer NPPM_GETWINDOWSVERSION(0, 0)
+	// winVer NPPM_GETWINDOWSVERSION(0, 0)
+	// Get OS (Windows) version.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return enum winVer, which is defined at the begining of this file
 
 	#define NPPM_DMMGETPLUGINHWNDBYNAME (NPPMSG + 43)
-	//HWND WM_DMM_GETPLUGINHWNDBYNAME(const TCHAR *windowName, const TCHAR *moduleName)
-	// if moduleName is NULL, then return value is NULL
-	// if windowName is NULL, then the first found window handle which matches with the moduleName will be returned
+	// HWND NPPM_DMMGETPLUGINHWNDBYNAME(const TCHAR *windowName, const TCHAR *moduleName)
+	// Retrieve the dialog handle corresponds to the windowName and moduleName. You may need this message if you want to communicate with another plugin "dockable" dialog.
+	// wParam[in]: windowName - if windowName is NULL, then the first found window handle which matches with the moduleName will be returned
+	// lParam[in] : moduleName - if moduleName is NULL, then return value is NULL
+	// Return NULL if moduleName is NULL. If windowName is NULL, then the first found window handle which matches with the moduleName will be returned.
 
 	#define NPPM_MAKECURRENTBUFFERDIRTY (NPPMSG + 44)
-	//BOOL NPPM_MAKECURRENTBUFFERDIRTY(0, 0)
+	// BOOL NPPM_MAKECURRENTBUFFERDIRTY(0, 0)
+	// Make the current document dirty, aka set the save state to unsaved.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return TRUE
 
 	#define NPPM_GETENABLETHEMETEXTUREFUNC_DEPRECATED (NPPMSG + 45)
-	//BOOL NPPM_GETENABLETHEMETEXTUREFUNC(0, 0) -- DEPRECATED: use EnableThemeDialogTexture from uxtheme.h instead
+	// THEMEAPI NPPM_GETENABLETHEMETEXTUREFUNC(0, 0) -- DEPRECATED: plugin can use EnableThemeDialogTexture directly from uxtheme.h instead
+	// Get "EnableThemeDialogTexture" function address.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return a proc address or NULL
 
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
 	// int NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
@@ -553,21 +581,45 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// lParam: 0 (not used)
 	// return value: the current native language encoding
 
-    #define NPPM_ALLOCATESUPPORTED   (NPPMSG + 80)
-    // returns TRUE if NPPM_ALLOCATECMDID is supported
-    // Use to identify if subclassing is necessary
+	#define NPPM_ALLOCATESUPPORTED_DEPRECATED   (NPPMSG + 80)
+	// DEPRECATED: the message has been made (since 2010 AD) for checking if NPPM_ALLOCATECMDID is supported. This message is no more needed.
+	// BOOL NPPM_ALLOCATESUPPORTED_DEPRECATED(0, 0)
+	// Get NPPM_ALLOCATECMDID supported status. Use to identify if subclassing is necessary
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// returns TRUE if NPPM_ALLOCATECMDID is supported
+
 
 	#define NPPM_ALLOCATECMDID   (NPPMSG + 81)
-    // BOOL NPPM_ALLOCATECMDID(int numberRequested, int* startNumber)
-    // sets startNumber to the initial command ID if successful
-    // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
+	// BOOL NPPM_ALLOCATECMDID(int numberRequested, int* startNumber)
+	// Obtain a number of consecutive menu item IDs for creating menus dynamically, with the guarantee of these IDs not clashing with any other plugins.
+	// wParam[in]: numberRequested is the number of ID you request for the reservation
+	// lParam[out]: startNumber will be set to the initial command ID if successful
+	// Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
+	// 
+	// Example: If a plugin needs 4 menu item ID, the following code can be used:
+	// 
+	// int idBegin;
+	// BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATECMDID, 4, &idBegin);
+	// 
+	// if isAllocatedSuccessful is TRUE, and value of idBegin is 46581
+	// then menu iten ID 46581, 46582, 46583 and 46584 are preserved by Notepad++, and they are safe to be used by the plugin.
 
 	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
     // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
-    // sets startNumber to the initial marker ID if successful
-    // Allocates a marker number to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
+	// Allocate a number of consecutive marker IDs to a plugin: if a plugin need to add a marker on Notepad++'s Scintilla marker margin,
 	// it has to use this message to get marker number, in order to prevent from the conflict with the other plugins.
+	// wParam[in]: numberRequested is the number of ID you request for the reservation
+	// lParam[out]: startNumber will be set to the initial command ID if successful
     // Return TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
+	// 
+	// Example: If a plugin needs 3 marker ID, the following code can be used:
+	// 
+	// int idBegin;
+	// BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATEMARKER, 3, &idBegin);
+	// 
+	// if isAllocatedSuccessful is TRUE, and value of idBegin is 16 
+	// then marker ID 16, 17 and 18 are preserved by Notepad++, and they are safe to be used by the plugin.
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
 	// INT NPPM_GETLANGUAGENAME(int langType, TCHAR *langName)
@@ -847,10 +899,19 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_ALLOCATEINDICATOR  (NPPMSG + 113)
 	// BOOL NPPM_ALLOCATEINDICATOR(int numberRequested, int* startNumber)
-	// sets startNumber to the initial indicator ID if successful
 	// Allocates an indicator number to a plugin: if a plugin needs to add an indicator,
 	// it has to use this message to get the indicator number, in order to prevent a conflict with the other plugins.
-	// Return TRUE if successful, FALSE otherwise.
+	// wParam[in]: numberRequested is the number of ID you request for the reservation
+	// lParam[out]: startNumber will be set to the initial command ID if successful
+	// Return TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
+	//
+	// Example: If a plugin needs 1 indicator ID, the following code can be used :
+	//
+	//    int idBegin;
+	//    BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATEINDICATOR, 1, &idBegin);
+	//
+	// if isAllocatedSuccessful is TRUE, and value of idBegin is 7
+	// then indicator ID 7 is preserved by Notepad++, and it is safe to be used by the plugin.
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

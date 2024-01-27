@@ -99,19 +99,38 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETNBSESSIONFILES (NPPMSG + 13)
 	// int NPPM_GETNBSESSIONFILES (BOOL* pbIsValidXML, TCHAR* sessionFileName)
+	// Get the number of files to load in the session sessionFileName. sessionFileName should be a full path name of an xml file.
 	// wParam[out]: pbIsValidXML, if the lParam pointer is null, then this parameter will be ignored. TRUE if XML is valid, otherwise FALSE.
 	// lParam[in]: sessionFileName is XML session full path
 	// return value: The number of files in XML session file
 
 	#define NPPM_GETSESSIONFILES (NPPMSG + 14)
+	// NPPM_GETSESSIONFILES (TCHAR** sessionFileArray, TCHAR* sessionFileName)
+	// the files' full path name from a session file.
+	// wParam[out]: sessionFileArray is the array in which the files' full path of the same group are written. To allocate the array with the proper size, send message NPPM_GETNBSESSIONFILES.
+	// lParam[in]: sessionFileName is XML session full path
+	// Return FALSE on failure, TRUE on success
+	
 	#define NPPM_SAVESESSION (NPPMSG + 15)
-	#define NPPM_SAVECURRENTSESSION (NPPMSG + 16)
-
 		struct sessionInfo {
-			TCHAR* sessionFilePathName;
-			int nbFile;
-			TCHAR** files;
+			TCHAR* sessionFilePathName; // Full session file path name to be saved
+			int nbFile;                 // Size of "files" array - number of files to be saved in session
+			TCHAR** files;              // Array of file name (full path) to be saved in session
 		};
+	// NPPM_SAVESESSION(0, sessionInfo* si)
+	// Creates an session file for a defined set of files.
+	// Contrary to NPPM_SAVECURRENTSESSION (see below), which saves the current opened files, this call can be used to freely define any file which should be part of a session.
+	// wParam: 0 (not used)
+	// lParam[in]: si is a pointer to sessionInfo structure
+	// Returns sessionFileName on success, NULL otherwise
+
+	#define NPPM_SAVECURRENTSESSION (NPPMSG + 16)
+	// TCHAR* NPPM_SAVECURRENTSESSION(0, TCHAR* sessionFileName)
+	// Saves the current opened files in Notepad++ as a group of files (session) as an xml file.
+	// wParam: 0 (not used)
+	// lParam[in]: sessionFileName is the xml full path name
+	// Returns sessionFileName on success, NULL otherwise
+
 
 	#define NPPM_GETOPENFILENAMESPRIMARY (NPPMSG + 17)
 	// BOOL NPPM_GETOPENFILENAMESPRIMARY(TCHAR** fileNames, int nbFileNames)
@@ -135,8 +154,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// return the handle of created Scintilla handle
 
 	#define NPPM_DESTROYSCINTILLAHANDLE_DEPRECATED (NPPMSG + 21)
-	// DEPRECATED: It is kept for the compatibility.
+	// BOOL NPPM_DESTROYSCINTILLAHANDLE_DEPRECATED(0, HWND hScintilla) - DEPRECATED: It is kept for the compatibility.
 	// Notepad++ will deallocate every createed Scintilla control on exit, this message returns TRUE but does nothing.
+	// wParam: 0 (not used)
+	// lParam[in]: hScintilla is Scintilla handle
+	// Return TRUE
 
 	#define NPPM_GETNBUSERLANG (NPPMSG + 22)
 	// int NPPM_GETNBUSERLANG(0, int* udlID)
@@ -335,9 +357,12 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
 	// int NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
 	// Get user's plugin config directory path. It's useful if plugins want to save/load parameters for the current user
-	// Return the number of TCHAR copied/to copy.
-	// Users should call it with "str" be NULL to get the required number of TCHAR (not including the terminating nul character),
-	// allocate "str" buffer with the return value + 1, then call it again to get the path.
+	// wParam[in]: strLen is length of  allocated buffer in which directory path is copied
+	// lParam[out] : str is the allocated buffere. User should call this message twice -
+	//               The 1st call with "str" be NULL to get the required number of TCHAR (not including the terminating nul character)
+	//               The 2nd call to allocate "str" buffer with the 1st call's return value + 1, then call it again to get the path
+	// Return value: The 1st call - the number of TCHAR to copy.
+	//               The 2nd call - FALSE on failure, TRUE on success
 
 	#define NPPM_MSGTOPLUGIN (NPPMSG + 47)
 		struct CommunicationInfo {
@@ -919,6 +944,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 7
 	// then indicator ID 7 is preserved by Notepad++, and it is safe to be used by the plugin.
 
+
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0
 	#define FULL_CURRENT_PATH 1
@@ -943,22 +969,30 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_GETEXTPART				(RUNCOMMAND_USER + EXT_PART)
 	#define NPPM_GETCURRENTWORD			(RUNCOMMAND_USER + CURRENT_WORD)
 	#define NPPM_GETNPPDIRECTORY		(RUNCOMMAND_USER + NPP_DIRECTORY)
+	#define NPPM_GETNPPFULLFILEPATH		(RUNCOMMAND_USER + NPP_FULL_FILE_PATH)
 	#define NPPM_GETFILENAMEATCURSOR	(RUNCOMMAND_USER + GETFILENAMEATCURSOR)
 	#define NPPM_GETCURRENTLINESTR      (RUNCOMMAND_USER + CURRENT_LINESTR)
 	// BOOL NPPM_GETXXXXXXXXXXXXXXXX(size_t strLen, TCHAR *str)
-	// where str is the allocated TCHAR array,
-	//	     strLen is the allocated array size
-	// The return value is TRUE when get generic_string operation success
-	// Otherwise (allocated array size is too small) FALSE
+	// Get XXX string operations.
+	// wParam[in]: strLen is the allocated array size
+	// lParam[out]: str is the allocated TCHAR array
+	// The return value is TRUE when get generic_string operation success, otherwise FALSE (allocated array size is too small)
+
 
 	#define NPPM_GETCURRENTLINE			(RUNCOMMAND_USER + CURRENT_LINE)
-	// INT NPPM_GETCURRENTLINE(0, 0)
+	// int NPPM_GETCURRENTLINE(0, 0)
+	// Get current line number.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
 	// return the caret current position line
+
 	#define NPPM_GETCURRENTCOLUMN			(RUNCOMMAND_USER + CURRENT_COLUMN)
-	// INT NPPM_GETCURRENTCOLUMN(0, 0)
+	// int NPPM_GETCURRENTCOLUMN(0, 0)
+	// Get current column number.
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
 	// return the caret current position column
 
-	#define NPPM_GETNPPFULLFILEPATH			(RUNCOMMAND_USER + NPP_FULL_FILE_PATH)
 
 
 // Notification code

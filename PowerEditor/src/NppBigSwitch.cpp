@@ -2916,7 +2916,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pluginsManager.relayPluginMessages(message, wParam, lParam);
 		}
 
-		case NPPM_ALLOCATESUPPORTED:
+		case NPPM_ALLOCATESUPPORTED_DEPRECATED:
 		{
 			return TRUE;
 		}

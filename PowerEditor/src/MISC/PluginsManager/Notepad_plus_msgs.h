@@ -622,17 +622,23 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// then marker ID 16, 17 and 18 are preserved by Notepad++, and they are safe to be used by the plugin.
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
-	// INT NPPM_GETLANGUAGENAME(int langType, TCHAR *langName)
-	// Get programming language name from the given language type (LangType)
+	// int NPPM_GETLANGUAGENAME(LangType langType, TCHAR* langName)
+	// Get programming language name from the given language type (enum LangType).
+	// wParam[in]: langType is the number of LangType
+	// lParam[out]: langName is the buffer to recieve the language name string
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
+	// 
 	// You should call this function 2 times - the first time you pass langName as NULL to get the number of characters to copy.
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGENAME function the 2nd time
 	// by passing allocated buffer as argument langName
 
 	#define NPPM_GETLANGUAGEDESC  (NPPMSG + 84)
 	// INT NPPM_GETLANGUAGEDESC(int langType, TCHAR *langDesc)
-	// Get programming language short description from the given language type (LangType)
+	// Get programming language short description from the given language type (enum LangType)
+	// wParam[in]: langType is the number of LangType
+	// lParam[out]: langDesc is the buffer to recieve the language description string
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
+	// 
 	// You should call this function 2 times - the first time you pass langDesc as NULL to get the number of characters to copy.
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time
 	// by passing allocated buffer as argument langDesc

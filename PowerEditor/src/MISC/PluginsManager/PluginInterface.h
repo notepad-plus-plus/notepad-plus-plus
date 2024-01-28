@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2021 Don HO <don.h@free.fr>
+// Copyright (C)2024 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,12 +15,15 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+
+// For more comprehensive information on plugin communication, please refer to the following resource:
+// https://npp-user-manual.org/docs/plugin-communication/
+
 #pragma once
 
 #include "Scintilla.h"
 #include "Notepad_plus_msgs.h"
 
-const int nbChar = 64;
 
 typedef const TCHAR * (__cdecl * PFUNCGETNAME)();
 
@@ -45,9 +48,11 @@ struct ShortcutKey
 	UCHAR _key = 0;
 };
 
+const int menuItemSize = 64;
+
 struct FuncItem
 {
-	TCHAR _itemName[nbChar] = { '\0' };
+	TCHAR _itemName[menuItemSize] = { '\0' };
 	PFUNCPLUGINCMD _pFunc = nullptr;
 	int _cmdID = 0;
 	bool _init2Check = false;

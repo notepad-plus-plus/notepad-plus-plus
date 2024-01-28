@@ -15,6 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+
+// For more comprehensive information on plugin communication, please refer to the following resource:
+// https://npp-user-manual.org/docs/plugin-communication/
+
+
 #pragma once
 
 #include <windows.h>

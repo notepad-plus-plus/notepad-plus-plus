@@ -259,9 +259,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// BOOL NPPM_DMMREGASDCKDLG(0, tTbData* pData)
 	// Pass the necessary dockingData to Notepad++ in order to make your dialog dockable.
 	// wParam: 0 (not used)
-	// lParam[in/out]: pData is the pointer of tTbData. Please check tTbData structure in "Docking.h"
-	//                 Minimum informations which needs to be filled out are hClient, pszName, dlgID, uMask and pszModuleName.
-	//                 Notice that rcFloatand iPrevCont shouldn't be filled. They are used internally.
+	// lParam[in]: pData is the pointer of tTbData. Please check tTbData structure in "Docking.h"
+	//             Minimum informations which needs to be filled out are hClient, pszName, dlgID, uMask and pszModuleName.
+	//             Notice that rcFloatand iPrevCont shouldn't be filled. They are used internally.
 	// Return TRUE
 
 	#define NPPM_LOADSESSION (NPPMSG + 34)
@@ -624,8 +624,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// 
 	// Example: If a plugin needs 4 menu item ID, the following code can be used:
 	// 
-	// int idBegin;
-	// BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATECMDID, 4, &idBegin);
+	//   int idBegin;
+	//   BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATECMDID, 4, &idBegin);
 	// 
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 46581
 	// then menu iten ID 46581, 46582, 46583 and 46584 are preserved by Notepad++, and they are safe to be used by the plugin.
@@ -640,8 +640,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// 
 	// Example: If a plugin needs 3 marker ID, the following code can be used:
 	// 
-	// int idBegin;
-	// BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATEMARKER, 3, &idBegin);
+	//   int idBegin;
+	//   BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATEMARKER, 3, &idBegin);
 	// 
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 16 
 	// then marker ID 16, 17 and 18 are preserved by Notepad++, and they are safe to be used by the plugin.
@@ -753,62 +753,76 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return TRUE
 
 	#define NPPM_REMOVESHORTCUTBYCMDID (NPPMSG + 96) // 2120 in decimal
-	// BOOL NPPM_REMOVESHORTCUTASSIGNMENT(int cmdID)
-	// removes the assigned shortcut mapped to cmdID
+	// BOOL NPPM_REMOVESHORTCUTBYCMDID(int pluginCmdID, 0)
+	// Remove the assigned shortcut mapped to pluginCmdID
+	// wParam[in]: pluginCmdID
+	// lParam: 0 (not used)
 	// return value: TRUE if function call is successful, otherwise FALSE
 
 	#define NPPM_GETPLUGINHOMEPATH (NPPMSG + 97)
-	// INT NPPM_GETPLUGINHOMEPATH(size_t strLen, TCHAR *pluginRootPath)
-	// Get plugin home root path. It's useful if plugins want to get its own path
-	// by appending <pluginFolderName> which is the name of plugin without extension part.
-	// Returns the number of TCHAR copied/to copy.
-	// Users should call it with pluginRootPath be NULL to get the required number of TCHAR (not including the terminating nul character),
-	// allocate pluginRootPath buffer with the return value + 1, then call it again to get the path.
+	// int NPPM_GETPLUGINHOMEPATH(size_t strLen, TCHAR* pluginRootPath)
+	// Get plugin home root path. It's useful if plugins want to get its own path by appending <pluginFolderName> which is the name of plugin without extension part.
+	// wParam[in]: strLen - size of allocated buffer "pluginRootPath"
+	// lParam[out]: pluginRootPath - Users should call it with pluginRootPath be NULL to get the required number of TCHAR (not including the terminating nul character),
+	//              allocate pluginRootPath buffer with the return value + 1, then call it again to get the path.
+	// Return the number of TCHAR copied/to copy, 0 on copy failed
 
 	#define NPPM_GETSETTINGSONCLOUDPATH (NPPMSG + 98)
-	// INT NPPM_GETSETTINGSCLOUDPATH(size_t strLen, TCHAR *settingsOnCloudPath)
+	// int NPPM_GETSETTINGSCLOUDPATH(size_t strLen, TCHAR *settingsOnCloudPath)
 	// Get settings on cloud path. It's useful if plugins want to store its settings on Cloud, if this path is set.
+	// wParam[in]: strLen - size of allocated buffer "settingsOnCloudPath"
+	// lParam[out]: settingsOnCloudPath - Users should call it with settingsOnCloudPath be NULL to get the required number of TCHAR (not including the terminating nul character),
+	//              allocate settingsOnCloudPath buffer with the return value + 1, then call it again to get the path.
 	// Returns the number of TCHAR copied/to copy. If the return value is 0, then this path is not set, or the "strLen" is not enough to copy the path.
-	// Users should call it with settingsCloudPath be NULL to get the required number of TCHAR (not including the terminating nul character),
-	// allocate settingsCloudPath buffer with the return value + 1, then call it again to get the path.
 
 	#define NPPM_SETLINENUMBERWIDTHMODE    (NPPMSG + 99)
 		#define LINENUMWIDTH_DYNAMIC     0
 		#define LINENUMWIDTH_CONSTANT    1
-	// BOOL NPPM_SETLINENUMBERWIDTHMODE(0, INT widthMode)
+	// BOOL NPPM_SETLINENUMBERWIDTHMODE(0, int widthMode)
 	// Set line number margin width in dynamic width mode (LINENUMWIDTH_DYNAMIC) or constant width mode (LINENUMWIDTH_CONSTANT)
 	// It may help some plugins to disable non-dynamic line number margins width to have a smoothly visual effect while vertical scrolling the content in Notepad++
-	// If calling is successful return TRUE, otherwise return FALSE.
+	// wParam: 0 (not used)
+	// lParam[in]: widthMode should be LINENUMWIDTH_DYNAMIC or LINENUMWIDTH_CONSTANT
+	// return TRUE if calling is successful, otherwise return FALSE
 
 	#define NPPM_GETLINENUMBERWIDTHMODE    (NPPMSG + 100)
-	// INT NPPM_GETLINENUMBERWIDTHMODE(0, 0)
+	// int NPPM_GETLINENUMBERWIDTHMODE(0, 0)
 	// Get line number margin width in dynamic width mode (LINENUMWIDTH_DYNAMIC) or constant width mode (LINENUMWIDTH_CONSTANT)
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return current line number margin width mode (LINENUMWIDTH_DYNAMIC or LINENUMWIDTH_CONSTANT)
 
 	#define NPPM_ADDTOOLBARICON_FORDARKMODE (NPPMSG + 101)
-	// VOID NPPM_ADDTOOLBARICON_FORDARKMODE(UINT funcItem[X]._cmdID, toolbarIconsWithDarkMode iconHandles)
-	// Use NPPM_ADDTOOLBARICON_FORDARKMODE instead obsolete NPPM_ADDTOOLBARICON which doesn't support the dark mode
-	// 2 formats / 3 icons are needed:  1 * BMP + 2 * ICO 
-	// All 3 handles below should be set so the icon will be displayed correctly if toolbar icon sets are changed by users, also in dark mode
 	struct toolbarIconsWithDarkMode {
 		HBITMAP	hToolbarBmp;
 		HICON	hToolbarIcon;
 		HICON	hToolbarIconDarkMode;
 	};
+	// BOOL NPPM_ADDTOOLBARICON_FORDARKMODE(UINT pluginCmdID, toolbarIconsWithDarkMode* iconHandles)
+	// Use NPPM_ADDTOOLBARICON_FORDARKMODE instead obsolete NPPM_ADDTOOLBARICON (DEPRECATED) which doesn't support the dark mode
+	// wParam[in]: pluginCmdID
+	// lParam[in]: iconHandles is the pointer of toolbarIconsWithDarkMode structure
+	//             All 3 handles below should be set so the icon will be displayed correctly if toolbar icon sets are changed by users, also in dark mode
+	// Return TRUE
 
 	#define NPPM_GETEXTERNALLEXERAUTOINDENTMODE  (NPPMSG + 103)
-	// BOOL NPPM_GETEXTERNALLEXERAUTOINDENTMODE(const TCHAR *languageName, ExternalLexerAutoIndentMode &autoIndentMode)
+	// BOOL NPPM_GETEXTERNALLEXERAUTOINDENTMODE(const TCHAR* languageName, ExternalLexerAutoIndentMode* autoIndentMode)
 	// Get ExternalLexerAutoIndentMode for an installed external programming language.
-	// - Standard means Notepad++ will keep the same TAB indentation between lines;
-	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
-	// - Custom means a Plugin will be controlling auto-indentation for the current language.
+	// wParam[in]: languageName is external language name to search
+	// lParam[out]: autoIndentMode could recieve one of three following values
+	//              - Standard (0) means Notepad++ will keep the same TAB indentation between lines;
+	//              - C_Like (1) means Notepad++ will perform a C-Language style indentation for the selected external language;
+	//              - Custom (2) means a Plugin will be controlling auto-indentation for the current language.
 	// returned values: TRUE for successful searches, otherwise FALSE.
 
 	#define NPPM_SETEXTERNALLEXERAUTOINDENTMODE  (NPPMSG + 104)
-	// BOOL NPPM_SETEXTERNALLEXERAUTOINDENTMODE(const TCHAR *languageName, ExternalLexerAutoIndentMode autoIndentMode)
+	// BOOL NPPM_SETEXTERNALLEXERAUTOINDENTMODE(const TCHAR* languageName, ExternalLexerAutoIndentMode autoIndentMode)
 	// Set ExternalLexerAutoIndentMode for an installed external programming language.
-	// - Standard means Notepad++ will keep the same TAB indentation between lines;
-	// - C_Like means Notepad++ will perform a C-Language style indentation for the selected external language;
-	// - Custom means a Plugin will be controlling auto-indentation for the current language.
+	// wParam[in]: languageName is external language name to set
+	// lParam[in]: autoIndentMode could recieve one of three following values
+	//             - Standard (0) means Notepad++ will keep the same TAB indentation between lines;
+	//             - C_Like (1) means Notepad++ will perform a C-Language style indentation for the selected external language;
+	//             - Custom (2) means a Plugin will be controlling auto-indentation for the current language.
 	// return value: TRUE if function call was successful, otherwise FALSE.
 
 	#define NPPM_ISAUTOINDENTON  (NPPMSG + 105)

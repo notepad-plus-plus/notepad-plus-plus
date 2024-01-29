@@ -4193,7 +4193,7 @@ void Notepad_plus::command(int id)
 			case IDM_FILE_RELOAD:
 			case IDM_EDIT_UNDO:
 			case IDM_EDIT_REDO:
-			case IDM_EDIT_CUT:
+			//case IDM_EDIT_CUT:
 			case IDM_EDIT_COPY:
 			//case IDM_EDIT_PASTE:
 			case IDM_EDIT_DELETE:

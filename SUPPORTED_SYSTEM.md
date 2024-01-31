@@ -17,7 +17,7 @@
 | **Windows Vista**       | v8.4.6  \*               |          NO               |
 | **Windows Server 2008** | v8.4.6  \*               |          NO               |
 | **Windows 7**           | current version          |          NO               |
-| **Windows 8**           | current version          |          No               |
+| **Windows 8**           | current version          |          NO               |
 | **Windows 8.1**         | current version          |          YES              |
 | **Windows 10**          | current version          |          YES              |
 | **Windows 11**          | current version          |          YES              |

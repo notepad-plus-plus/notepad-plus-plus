@@ -1065,11 +1065,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			constexpr int strSize = CURRENTWORD_MAXLENGTH;
 			TCHAR str[strSize]{};
-			TCHAR strLine[strSize]{};
-			size_t lineNumber = 0;
-			intptr_t col = 0;
 			int hasSlash = 0;
-			TCHAR *pTchar = reinterpret_cast<TCHAR *>(lParam);
 
 			_pEditView->getGenericSelectedText(str, strSize); // this is either the selected text, or the word under the cursor if there is no selection
 			hasSlash = FALSE;
@@ -1083,9 +1079,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				intptr_t start = 0;
 				intptr_t end = 0;
 				const TCHAR *delimiters;
+				TCHAR strLine[strSize]{};
+				size_t lineNumber = 0;
+				intptr_t col = 0;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
-				col = _pEditView->getCurrentColumnNumber();
+				col = _pEditView->execute(SCI_GETCURRENTPOS) - _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
 				_pEditView->getLine(lineNumber, strLine, strSize);
 
 				// find the start
@@ -1110,6 +1109,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 			else //buffer large enough, perform safe copy
 			{
+				TCHAR* pTchar = reinterpret_cast<TCHAR*>(lParam);
 				lstrcpyn(pTchar, str, static_cast<int32_t>(wParam));
 				return TRUE;
 			}

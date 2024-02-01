@@ -2567,9 +2567,12 @@ void Notepad_plus::checkClipboard()
 {
 	bool hasSelection = _pEditView->hasSelection();
 	bool canPaste = (_pEditView->execute(SCI_CANPASTE) != 0);
-	//enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR);
-	//enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);
 
+	if (!NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection)
+	{
+		enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR);
+		enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);
+	}
 	enableCommand(IDM_EDIT_PASTE, canPaste, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_UPPERCASE, hasSelection, MENU);

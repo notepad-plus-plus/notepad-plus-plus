@@ -991,6 +991,8 @@ struct ScintillaViewParams
 			paddingLen = editViewWidth / defaultDiviser;
 		return paddingLen;
 	};
+
+	bool _lineCopyCutWithoutSelection = true;
 };
 
 const int NB_LIST = 20;
@@ -1887,7 +1889,6 @@ public:
 	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
 	bool doColumn2MultiSelect() const { return _column2MultiSelect; };
-	bool useLineCopyCutDelete() const { return _useLineCopyCutDelete; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1956,7 +1957,6 @@ private:
 	bool _isSelectFgColorEnabled = false;
 	bool _isRegForOSAppRestartDisabled = false;
 	bool _column2MultiSelect = true;
-	bool _useLineCopyCutDelete = true;
 
 	bool _doNppLogNetworkDriveIssue = false;
 	bool _doNppLogNulContentCorruptionIssue = false;

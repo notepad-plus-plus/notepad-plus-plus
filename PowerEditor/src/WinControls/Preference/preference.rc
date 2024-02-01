@@ -116,6 +116,7 @@ BEGIN
     CONTROL         "Keep selection when right-click outside of selection", IDC_CHECK_RIGHTCLICKKEEPSSELECTION, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 173, 133, 270, 10
     CONTROL         "Enable scrolling beyond last line",IDC_CHECK_SCROLLBEYONDLASTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,148,270,10
     CONTROL         "Disable advanced scrolling feature due to touchpad issue",IDC_CHECK_DISABLEADVANCEDSCROLL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,163,270,10
+    CONTROL         "Enable Copy/Cut Line without selection",IDC_CHECK_LINECUTCOPYWITHOUTSELECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,178,270,10
 END
 
 

@@ -364,7 +364,7 @@ void Notepad_plus::command(int id)
 				{
 					_pEditView->execute(WM_CUT);
 				}
-				else // Cut the entire line
+				else if (NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection) // Cut the entire line with EOL
 				{
 					_pEditView->execute(SCI_COPYALLOWLINE);
 					_pEditView->execute(SCI_LINEDELETE);
@@ -382,8 +382,15 @@ void Notepad_plus::command(int id)
 			HWND focusedHwnd = ::GetFocus();
 			if (focusedHwnd == _pEditView->getHSelf())
 			{
-				_pEditView->execute(SCI_COPYALLOWLINE); // Copy selected text if any.
-														// Otherwise copy the entire line with EOL, for pasting before any line where the caret is.
+				if (_pEditView->hasSelection())
+				{
+					_pEditView->execute(WM_COPY);
+				}
+				else if (NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection)
+				{
+					_pEditView->execute(SCI_COPYALLOWLINE); // Copy without selected text, it will copy the whole line with EOL, for pasting before any line where the caret is.
+				}
+
 			}
 			else
 			{

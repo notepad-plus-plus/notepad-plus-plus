@@ -6625,6 +6625,15 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		if (val >= 3 && val <= 9)
 			_svp._distractionFreeDivPart = static_cast<unsigned char>(val);
 	}
+
+	nm = element->Attribute(TEXT("lineCopyCutWithoutSelection"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._lineCopyCutWithoutSelection = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._lineCopyCutWithoutSelection = false;
+	}
 }
 
 
@@ -6899,6 +6908,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingLeft"), _svp._paddingLeft);
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingRight"), _svp._paddingRight);
 	(scintNode->ToElement())->SetAttribute(TEXT("distractionFreeDivPart"), _svp._distractionFreeDivPart);
+	(scintNode->ToElement())->SetAttribute(TEXT("lineCopyCutWithoutSelection"), _svp._lineCopyCutWithoutSelection ? TEXT("yes") : TEXT("no"));
 	return true;
 }
 

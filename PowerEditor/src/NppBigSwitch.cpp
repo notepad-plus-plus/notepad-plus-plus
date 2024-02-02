@@ -2291,16 +2291,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (nppParam.getSVP()._lineCopyCutWithoutSelection) // "Disable Copy Cut Line Without Selection" is just unchecked: From NOT using it to using this feature
 			{
 				// Enable Copy & Cut unconditionally
-				enableCommand(IDM_EDIT_CUT, true, TOOLBAR);
-				enableCommand(IDM_EDIT_COPY, true, TOOLBAR);
+				enableCommand(IDM_EDIT_CUT, true, MENU | TOOLBAR);
+				enableCommand(IDM_EDIT_COPY, true, MENU | TOOLBAR);
 
 			}
 			else // "Disable Copy Cut Line Without Selection" is just checked: From using this feature to NOT using it
 			{
 				// Check the current selection to disable/enable Copy & Cut
 				bool hasSelection = _pEditView->hasSelection();
-				enableCommand(IDM_EDIT_CUT, hasSelection, TOOLBAR);
-				enableCommand(IDM_EDIT_COPY, hasSelection, TOOLBAR);
+				enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR);
+				enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);
 			}
 			return TRUE;
 		}

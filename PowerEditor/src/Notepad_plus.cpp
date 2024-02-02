@@ -2570,8 +2570,8 @@ void Notepad_plus::checkClipboard()
 
 	if (!NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection)
 	{
-		enableCommand(IDM_EDIT_CUT, hasSelection, TOOLBAR);
-		enableCommand(IDM_EDIT_COPY, hasSelection, TOOLBAR);
+		enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR);
+		enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);
 	}
 	enableCommand(IDM_EDIT_PASTE, canPaste, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);

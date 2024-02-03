@@ -105,7 +105,10 @@ void FunctionCallTip::showNextOverload()
 {
 	if (!isVisible())
 		return;
-	_currentOverload = (_currentOverload+1) % _currentNbOverloads;
+
+	if (_currentNbOverloads > 0)
+		_currentOverload = (_currentOverload + 1) % _currentNbOverloads;
+
 	showCalltip();
 }
 

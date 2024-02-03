@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Translation note:
-1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
-2. All the comments are for explanation, they are not for translation.
+Nota de tradução:
+1. Instale o plugin XML Tools para formatar a sua tradução XML. Através do comando do menu "Plugins -> XML Tools-> Pretty Print - indent only".
+2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.5.5">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,8 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Operação em branco"/>
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multisseleção TUDO"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multisseleção Seguinte"/>
 					<Item subMenuId="search-changeHistory" name="Histórico de alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar tudo"/>
 					<Item subMenuId="search-markOne" name="Marcar uma"/>
@@ -154,6 +156,16 @@ Translation note:
 					<Item id="42074" name="Abrir a pasta de conteúdo no Explorador"/>
 					<Item id="42075" name="Pesquisar na Internet"/>
 					<Item id="42076" name="Mudar motor de pesquisa..."/>
+					<Item id="42090" name="Ignorar maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42091" name="Corresponder apenas a maiúsculas/minúsculas"/>
+					<Item id="42092" name="Corresponder apenas a palavra inteira"/>
+					<Item id="42093" name="Corresponder a maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42094" name="Ignorar maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42095" name="Corresponder apenas a maiúsculas/minúsculas"/>
+					<Item id="42096" name="Corresponder apenas a palavra inteira"/>
+					<Item id="42097" name="Corresponder a maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42098" name="Anular a multisseleção mais recente"/>
+					<Item id="42099" name="Ignorar a atual e Ir para multisseleção seguinte"/>
 					<Item id="42018" name="&amp;Iniciar gravação"/>
 					<Item id="42019" name="&amp;Parar gravação"/>
 					<Item id="42021" name="&amp;Reproduzir"/>
@@ -177,18 +189,18 @@ Translation note:
 					<Item id="42037" name="Modo de coluna..."/>
 					<Item id="42034" name="Editor de coluna..."/>
 					<Item id="42051" name="Painel de carateres"/>
-					<Item id="42052" name="Hístórico da área de transferência"/>
+					<Item id="42052" name="Histórico da área de transferência"/>
 					<Item id="42025" name="Guardar a macro atualmente gravada"/>
 					<Item id="42026" name="Direção do texto - direita para a esquerda"/>
 					<Item id="42027" name="Direção do texto - esquerda para a direita"/>
-					<Item id="42028" name="Definir como apenas-leitura"/>
+					<Item id="42028" name="Definir como só de leitura"/>
 					<Item id="42029" name="Copiar localização do ficheiro atual"/>
 					<Item id="42030" name="Copiar nome do ficheiro atual"/>
-					<Item id="42031" name="Copiar localização do dir. atual"/>
+					<Item id="42031" name="Copiar localização da pasta atual"/>
 					<Item id="42087" name="Copiar todos os nomes de ficheiros"/>
 					<Item id="42088" name="Copiar todas as localizações de ficheiros"/>
 					<Item id="42032" name="Executar macro várias vezes..."/>
-					<Item id="42033" name="Limpar símbolo apenas-leitura"/>
+					<Item id="42033" name="Limpar o símbolo só de leitura do ficheiro"/>
 					<Item id="42035" name="Comentar bloco"/>
 					<Item id="42036" name="Descomentar bloco"/>
 					<Item id="42055" name="Remover linhas em branco"/>
@@ -212,7 +224,7 @@ Translation note:
 					<Item id="43052" name="Localizar carateres..."/>
 					<Item id="43053" name="Selecionar tudo entre as chavetas correspondidas"/>
 					<Item id="43009" name="Ir para a chaveta correspondida"/>
-					<Item id="43010" name="Localizar anterior"/>
+					<Item id="43010" name="Localizar anterior"/>										
 					<Item id="43011" name="Pesquisa &amp;progressiva"/>
 					<Item id="43013" name="Localizar nos ficheiros"/>
 					<Item id="43014" name="Localizar seguinte (temporário)"/>
@@ -292,6 +304,8 @@ Translation note:
 					<Item id="44092" name="7º Separador"/>
 					<Item id="44093" name="8º Separador"/>
 					<Item id="44094" name="9º Separador"/>
+					<Item id="44116" name="Primeiro separador"/>
+					<Item id="44117" name="Último separador"/>
 					<Item id="44095" name="Separador seguinte"/>
 					<Item id="44096" name="Separador anterior"/>
 					<Item id="44097" name="Monitorização (tail -f)"/>
@@ -303,8 +317,8 @@ Translation note:
 					<Item id="44113" name="Aplicar cor 3"/>
 					<Item id="44114" name="Aplicar cor 4"/>
 					<Item id="44115" name="Aplicar cor 5"/>
-					<Item id="44130" name="Mostrar caracteres sem representação"/>
-					<Item id="44131" name="Mostrar caracteres de controlo &amp;e EOL do Unicode"/>
+					<Item id="44130" name="Mostrar carateres sem representação"/>
+					<Item id="44131" name="Mostrar carateres de controlo &amp;e EOL do Unicode"/>
 					<Item id="44032" name="Alternar para modo de ecrã inteiro"/>
 					<Item id="44033" name="Restaurar zoom predefinido"/>
 					<Item id="44034" name="Sempre no topo"/>
@@ -334,14 +348,14 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nórdico"/>
 					<Item id="45053" name="OEM 860: Português"/>
 					<Item id="45056" name="OEM 863: Francês"/>
-
 					<Item id="10001" name="Mudar para outra vista"/>
 					<Item id="10002" name="Clonar para outra vista"/>
 					<Item id="10003" name="Mover para a nova instância"/>
 					<Item id="10004" name="Abrir numa nova instância"/>
-
+					<Item id="10005" name="Mover para o início"/>
+					<Item id="10006" name="Mover para o fim"/>
 					<Item id="46001" name="Configurador de estilos..."/>
-					<Item id="46250" name="Defina a sua linguagem..."/>
+					<Item id="46250" name="Selecione a sua linguagem..."/>
 					<Item id="46300" name="Abrir pasta de linguagem definida pelo utilizador..."/>
 					<Item id="46301" name="Coleção de linguagens definidas pelo utilizador Notepad++"/>
 					<Item id="46180" name="Definida pelo utilizador"/>
@@ -418,13 +432,15 @@ Translation note:
 				<Item CMDID="41016" name="Mover para a Reciclagem"/>
 				<Item CMDID="41014" name="Recarregar"/>
 				<Item CMDID="41010" name="Imprimir..."/>
-				<Item CMDID="42028" name="Apenas-leitura"/>
-				<Item CMDID="42033" name="Limpar símbolo apenas-leitura"/>
+				<Item CMDID="42028" name="Só de leitura"/>
+				<Item CMDID="42033" name="Limpar o símbolo só de leitura"/>
 				<Item CMDID="2" name="Copiar para a área de transferência"/>
-				<Item CMDID="42029" name="Copiar caminho completo do ficheiro"/>
+				<Item CMDID="42029" name="Copiar localização do ficheiro atual"/>
 				<Item CMDID="42030" name="Copiar nome do ficheiro"/>
-				<Item CMDID="42031" name="Copiar caminho do diretório atual"/>
+				<Item CMDID="42031" name="Copiar localização da pasta atual"/>
 				<Item CMDID="3" name="Mover documento"/>
+				<Item CMDID="10005" name="Mover para o início"/>
+				<Item CMDID="10006" name="Mover para o fim"/>
 				<Item CMDID="10001" name="Mover para outra visualização"/>
 				<Item CMDID="10002" name="Clonar para outra visualização"/>
 				<Item CMDID="10003" name="Mover para nova instância"/>
@@ -450,18 +466,18 @@ Translation note:
 		<Dialog>
 			<Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar nos ficheiros" titleFindInProjects="Localizar nos projetos" titleMark="Marcar">
 				<Item id="1" name="Localizar seguinte"/>
-				<Item id="1722" name="Direção para trás"/>
+				<Item id="1722" name="&amp;Sentido inverso"/>
 				<Item id="2" name="Fechar"/>
-				<Item id="1620" name="Localizar o quê?"/>
-				<Item id="1603" name="Corresponder à &amp;palavra completa"/>
-				<Item id="1604" name="Corresponder &amp;MAI/MIN"/>
+				<Item id="1620" name="Localizar:"/>
+				<Item id="1603" name="Corresponder a &amp;palavra inteira"/>
+				<Item id="1604" name="Corresponder a &amp;maiúsculas/minúsculas"/>
 				<Item id="1605" name="&amp;Expressão regular "/>
 				<Item id="1606" name="&amp;Voltar ao início"/>
 				<Item id="1614" name="Contar"/>
 				<Item id="1615" name="Localizar tudo"/>
 				<Item id="1616" name="Marcar linha"/>
 				<Item id="1618" name="Limpar para cada pesquisa"/>
-				<Item id="1611" name="Subs&amp;tituir com:"/>
+				<Item id="1611" name="Subs&amp;tituir por:"/>
 				<Item id="1608" name="&amp;Substituir"/>
 				<Item id="1609" name="Substituir &amp;tudo"/>
 				<Item id="1687" name="Ao deixar a janela"/>
@@ -477,7 +493,7 @@ Translation note:
 				<Item id="1659" name="Nas pastas ocultas"/>
 				<Item id="1624" name="Modo de pesquisa"/>
 				<Item id="1625" name="&amp;Normal"/>
-				<Item id="1626" name="Estendido (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="&amp;Avançada (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Substituir nos ficheiros"/>
 				<Item id="1665" name="Substituir em projetos"/>
 				<Item id="1661" name="Seguir documento atual"/>
@@ -498,15 +514,15 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Localizar"/>
-				<Item id="1685" name="Letra correspondente"/>
-				<Item id="1690" name="Destacar tudo"/>
+				<Item id="1681" name="Localizar:"/>
+				<Item id="1685" name="&amp;Letra correspondente"/>
+				<Item id="1690" name="&amp;Destacar tudo"/>
 			</IncrementalFind>
 
-			<FindCharsInRange title="Localizar caracteres no alcance...">
+			<FindCharsInRange title="Localizar carateres no alcance...">
 				<Item id="2" name="&amp;Fechar"/>
-				<Item id="2901" name="Caracteres &amp;Não-ASCII (128–255)"/>
-				<Item id="2902" name="Caracteres &amp;ASCII (0–127)"/>
+				<Item id="2901" name="Carateres &amp;Não-ASCII (128–255)"/>
+				<Item id="2902" name="Carateres &amp;ASCII (0–127)"/>
 				<Item id="2903" name="Alcance &amp;personalizado (0–255):"/>
 				<Item id="2906" name="&amp;Cima"/>
 				<Item id="2907" name="&amp;Baixo"/>
@@ -520,9 +536,9 @@ Translation note:
 				<Item id="2008" name="Posição"/>
 				<Item id="1" name="&amp;Ir"/>
 				<Item id="2" name="Sair"/>
-				<Item id="2004" name="Está aqui:"/>
-				<Item id="2005" name="Deseja ir para:"/>
-				<Item id="2006" name="Não pode ir além de:"/>
+				<Item id="2004" name="Está na linha/posição:"/>
+				<Item id="2005" name="Ir para linha/posição:"/>
+				<Item id="2006" name="Última linha/posição disponível:"/>
 			</GoToLine>
 
 			<Run title="Executar...">
@@ -641,17 +657,7 @@ Translation note:
 				<ScintillaCommandsTab name="Comandos de Scintilla"/>
 				<ConflictInfoOk name="Sem conflito de atalhos para este item."/>
 				<ConflictInfoEditing name="Sem conflitos . . ."/>
-				<WindowCategory name="Janela"/>
-				<FileCategory name="Ficheiro"/>
-				<EditCategory name="Editar"/>
-				<SearchCategory name="Procurar"/>
-				<ViewCategory name="Visualização"/>
-				<FormatCategory name="Formato"/>
-				<LangCategory name="Linguagem"/>
 				<AboutCategory name="Acerca"/>
-				<SettingCategory name="Configuração"/>
-				<ToolCategory name="Ferramenta"/>
-				<ExecuteCategory name="Executar"/>
 				<ModifyContextMenu name="Modificar"/>
 				<DeleteContextMenu name="Eliminar"/>
 				<ClearContextMenu name="Limpar"/>
@@ -767,7 +773,7 @@ Translation note:
 				<Item id="20005" name="Guardar como..."/>
 				<Item id="20007" name="Linguagem: "/>
 				<Item id="20009" name="Ext.:"/>
-				<Item id="20012" name="Ignorar MAI/MIN"/>
+				<Item id="20012" name="Ignorar maiúsculas/minúsculas"/>
 				<Item id="20011" name="Transparência"/>
 				<Item id="20015" name="Importar..."/>
 				<Item id="20016" name="Exportar..."/>
@@ -971,7 +977,6 @@ Translation note:
 					<Item id="6221" name="R"/><!-- Rápida -->
 					<Item id="6222" name="L"/><!-- Lenta -->
 					<Item id="6246" name="Tornar os comandos de dobrar/desdobrar do nível atual comutáveis"/>
-					<Item id="6225" name="Ativar (Ctrl+Clique do rato/seleção)"/>
 					<Item id="6227" name="Continuar linha"/>
 					<Item id="6228" name="Predefinição"/>
 					<Item id="6229" name="Alinhada"/>
@@ -981,6 +986,7 @@ Translation note:
 					<Item id="6236" name="Ativar deslizamento para além da última linha"/>
 					<Item id="6239" name="Manter seleção quando clicar com o botão direito do rato fora da seleção"/>
 					<Item id="6245" name="Ativar o espaço virtual"/>
+					<Item id="6214" name="Ativar Copiar/Cortar linha sem seleção"/>
 					<Item id="6651" name="Indicador da linha atual"/>
 					<Item id="6652" name="Nenhum"/>
 					<Item id="6653" name="Realçar fundo"/>
@@ -990,17 +996,17 @@ Translation note:
 					<Item id="6248" name="Predefinição"/>
 					<Item id="6249" name="Texto simples"/>
 					<Item id="6250" name="Cor personalizada"/>
-					<Item id="6252" name="Caracteres sem representação"/>
+					<Item id="6252" name="Carateres sem representação"/>
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Ponto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar a caracteres C0, C1 &amp;e EOL do Unicode"/>
+					<Item id="6258" name="Aplicar a carateres C0, C1 &amp;e EOL do Unicode"/>
 				</Scintillas>
 
 				<DarkMode title="Modo Escuro">
 					<Item id="7131" name="Modo claro"/>
 					<Item id="7132" name="Modo escuro"/>
-					<Item id="7133" name="Seguir o Windows"/>
+					<Item id="7133" name="Predefinição do Windows"/>
 					<Item id="7102" name="Preto"/>
 					<Item id="7103" name="Vermelho"/>
 					<Item id="7104" name="Verde"/>
@@ -1071,7 +1077,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6413" name="Pasta Predefinida (Abrir/Guardar)"/>
 					<Item id="6414" name="Acompanhar o documento atual"/>
 					<Item id="6415" name="Lembrar a última pasta utilizada"/>
-					<Item id="6431" name="Abrir todos os ficheiros da pasta em vez de lançar a Pasta como área de trabalho ao largar a pasta"/>
+					<Item id="6431" name="Abrir todos os ficheiros da pasta em vez de abrir a Pasta como área de trabalho ao largar a pasta"/>
 				</DefaultDir>
 
 				<FileAssoc title="Associação de ficheiro">
@@ -1091,14 +1097,14 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6335" name="Tratar a barra invertida como caráter escape para SQL"/>
 				</Language>
 
-				<Highlighting title="Destacar">
-					<Item id="6351" name="Marcar tudo"/>
-					<Item id="6352" name="Letra correspondente"/>
+				<Highlighting title="Destaque">
+					<Item id="6351" name="Aplicar o estilo a todas as correspondências"/>
+v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="6353" name="Corresponder apenas a palavra inteira"/>
 					<Item id="6333" name="Destaque inteligente"/>
 					<Item id="6326" name="Ativar"/>
 					<Item id="6354" name="Correspondente"/>
-					<Item id="6332" name="Letra correspondente"/>
+					<Item id="6332" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="6338" name="Corresponder apenas a palavra inteira"/>
 					<Item id="6339" name="Usar as definições da janela Localizar"/>
 					<Item id="6340" name="Destacar outra vista"/>
@@ -1147,19 +1153,20 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6728" name="Cabeçalho e Rodapé"/>
 				</Print>
 
-				<Searching title="Pesquisar">
-					<Item id="6902" name="Usar letra monoespaçada na janela Localizar (é necessário reiniciar o Notepad ++)"/>
+				<Searching title="Pesquisa">
+					<Item id="6902" name="Usar letra monoespaçada na janela Localizar (é necessário reiniciar o Notepad++)"/>
 					<Item id="6903" name="A janela Localizar permanece aberta após a pesquisa que resulta na janela de resultados"/>
 					<Item id="6904" name="Confirmar o substituir tudo em todos os documentos abertos"/>
 					<Item id="6905" name="Substituir: não mover para a seguinte ocorrência"/>
-					<Item id="6906" name="Janela de resultado da pesquisa: mostrar apenas uma entrada por linha encontrada"/>
+					<Item id="6906" name="Janela de resultado da pesquisa: mostrar apenas uma entrada por linha encontrada se possível"/>
 					<Item id="6907" name="Quando a caixa de diálogo Localizar é invocada"/>
 					<Item id="6908" name="Preencher o campo Localizar com o texto selecionado"/>
 					<Item id="6909" name="Selecionar a palavra sob acento circunflexo quando nada selecionado"/>
+					<Item id="6910" name="Tamanho mínimo para Verificação automática &quot;Na seleção&quot;:"/>
 				</Searching>
 
-				<RecentFilesHistory title="Histórico fic. recentes">
-					<Item id="6304" name="Histórico dos ficheiros recentes"/>
+				<RecentFilesHistory title="Histórico de ficheiros recentes">
+					<Item id="6304" name="Histórico de ficheiros recentes"/>
 					<Item id="6306" name="Número máximo de entradas:"/>
 					<Item id="6305" name="Não verificar ao iniciar"/>
 					<Item id="6429" name="Mostrar"/>
@@ -1176,7 +1183,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Localização da cópia:"/>
 					<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
-					<Item id="6801" name="Cópia de segurança"/>
+					<Item id="6825" name="Lembrar ficheiros inacessíveis da sessão anterior"/>
+					<Item id="6801" name="Efetuar cópia de segurança ao guardar"/>
 					<Item id="6315" name="Nenhuma"/>
 					<Item id="6316" name="Cópia de segurança simples"/>
 					<Item id="6317" name="Cópia de segurança completa"/>
@@ -1212,21 +1220,21 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6151" name="Definições de multi-instância *"/>
 					<Item id="6152" name="Abrir sessão numa nova instância (e guardar sessão automaticamente ao sair)"/>
 					<Item id="6153" name="Sempre no modo de multi-instância"/>
-					<Item id="6154" name="Predefinição (mono-instância)"/>
+					<Item id="6154" name="Instância única por predefinição ()"/>
 					<Item id="6155" name="* Deve reiniciar o Notepad++ depois de modificar estas definições"/>
 					<Item id="6171" name="Personalizar inserção de Data e Hora"/>
-					<Item id="6175" name="Inverter ordem predefenida de data e hora (formatos curto e longo)"/>
+					<Item id="6175" name="Inverter ordem predefinida de data e hora (formatos curto e longo)"/>
 					<Item id="6172" name="Formato personalizado:"/>
 					<Item id="6181" name="Estado do painel e [-nosession] *"/>
 					<Item id="6182" name="Lembrar o estado do painel (o painel está aberto) noutras instâncias (modo multi-instância) ou quando se usa o parâmetro de linha de comandos [-nosession]"/>
-					<Item id="6183" name="Histórico da Área de transferência"/>
+					<Item id="6183" name="Histórico de área de transferência"/>
 					<Item id="6184" name="Lista de documentos"/>
-					<Item id="6185" name="Painel de caracteres"/>
+					<Item id="6185" name="Painel de carateres"/>
 					<Item id="6186" name="Pasta como área de trabalho"/>
-					<Item id="6187" name="Painéis de Projeto"/>
+					<Item id="6187" name="Painéis de projeto"/>
 					<Item id="6188" name="Mapa de documentos"/>
 					<Item id="6189" name="Lista de funções"/>
-					<Item id="6190" name="Painéis de Plugins"/>
+					<Item id="6190" name="Painéis de plugins"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimitador">
@@ -1234,8 +1242,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6252" name="Abrir"/>
 					<Item id="6255" name="Fechar"/>
 					<Item id="6256" name="Permitir em várias linhas"/>
-					<Item id="6161" name="Lista de caracteres de palavras"/>
-					<Item id="6162" name="Usar a lista de caracteres de palavra predefinida como está"/>
+					<Item id="6161" name="Lista de carateres de palavras"/>
+					<Item id="6162" name="Usar a lista de carateres de palavra predefinida como está"/>
 					<Item id="6163" name="Adicione o seu caráter como parte da palavra
 (não o escolha a menos que saiba o que está a fazer)"/>
 				</Delimiter>
@@ -1256,7 +1264,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 				<Cloud title="Nuvem e Ligação">
 					<Item id="6262" name="Definições na nuvem"/>
 					<Item id="6263" name="Sem nuvem"/>
-					<Item id="6267" name="Defina o caminho de localização na nuvem aqui:"/>
+					<Item id="6267" name="Selecione a localização da sua pasta na nuvem:"/>
 					<Item id="6318" name="Definições de ligações clicáveis"/>
 					<Item id="6319" name="Ativar"/>
 					<Item id="6320" name="Sem sublinhar"/>
@@ -1270,7 +1278,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
-					<Item id="6276" name="Defina aqui o seu motor de pesquisa:"/>
+					<Item id="6276" name="Selecione aqui o seu motor de pesquisa:"/>
 					<!-- Don't change anything after Example: -->
 					<Item id="6278" name="Exemplo: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
@@ -1290,7 +1298,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6324" name="Mudança de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Apenas mostrar o nome do ficheiro na barra do título"/>
 					<Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
-					<Item id="6349" name="Usar DirectWrite (pode melhorar a renderização de caracteres especiais, é necessário reiniciar o Notepad ++)"/>
+					<Item id="6349" name="Usar DirectWrite (pode melhorar a renderização de carateres especiais, é necessário reiniciar o Notepad++)"/>
 					<Item id="6337" name="Extensão de ficheiro da área de trabalho:"/>
 					<Item id="6114" name="Ativar"/>
 					<Item id="6117" name="Ativar comportamento MRU"/>
@@ -1339,14 +1347,14 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 			<FindInFinder title="Localizar em resultados de pesquisa">
 				<Item id="1" name="Localizar tudo"/>
 				<Item id="2" name="Fechar"/>
-				<Item id="1711" name="Localizar o quê:"/>
+				<Item id="1711" name="Localizar:"/>
 				<Item id="1713" name="Pesquisar &amp;apenas em linhas encontradas"/>
 				<Item id="1714" name="Corresponder apenas a palavra inteira"/>
-				<Item id="1715" name="Letra correspondente"/>
+				<Item id="1715" name="Corresponder a maiúsculas/minúsculas"/>
 				<Item id="1716" name="Modo Pesquisa"/>
 				<Item id="1717" name="&amp;Normal"/>
 				<Item id="1719" name="Expressão re&amp;gular"/>
-				<Item id="1718" name="Estendido (\n, \r, \t, \0, \x...)"/>
+				<Item id="1718" name="Avançada (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. corresponde a nova linha"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Guardar">
@@ -1365,7 +1373,7 @@ Pode reativar esta janela de diálogo nas preferências mais tarde."/>
 				<Item id="6" name="Sim"/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sempre Sim"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1381,21 +1389,21 @@ Todas as modificações guardadas não podem ser anuladas.
 Continuar?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Mover para nova instância do Notepad++" message="Documento modificado, guarde-o e tente novamente."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Recarregar" message="Tem a certeza que quer recarregar o ficheiro atual e perder as alterações efetuadas no Notepad++?"/>
-			<FileLockedWarning title="Falha ao Guardar" message="Por favor, verifique se o ficheiro está aberto noutro programa."/>
+			<FileLockedWarning title="Ocorreu um erro ao Guardar" message="Por favor, verifique se o ficheiro está aberto noutro programa."/>
 			<FileAlreadyOpenedInNpp title="" message="O ficheiro já está aberto no Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
-			<RenameTabTemporaryNameAlreadyInUse title="Falha ao renomear" message="O nome especificado já está a ser utilizado noutro separador."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<RenameTabTemporaryNameIsEmpty title="Falha ao renomear" message="O nome especificado não pode estar em branco ou conter apenas espaço(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
-			<DeleteFileFailed title="Eliminar ficheiro" message="Falha ao eliminar o ficheiro."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Ocorreu um erro ao renomear" message="O nome especificado já está a ser utilizado noutro separador."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Ocorreu um erro ao renomear" message="O nome especificado não pode estar em branco ou conter apenas espaço(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
+			<DeleteFileFailed title="Eliminar ficheiro" message="Ocorreu um erro ao eliminar o ficheiro."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Está a tentar abrir demasiados ficheiros." message="Está prestes a abrir $INT_REPLACE$ ficheiros.
 Tem a certeza que os deseja abrir?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-			<SettingsOnCloudError title="Definições na Nuvem" message="Parece que o caminho das definições na nuvem é definido numa unidade de leitura apenas,
-ou sobre uma pasta com direitos de privilégio necessários para acesso à escrita.
-As suas definições na nuvem serão canceladas. Por favor, reponha um valor coerente através da caixa de diálogo de Preferência."/>
+			<SettingsOnCloudError title="Definições na Nuvem" message="Parece que as definições na nuvem estão definidas numa unidade só de leitura,
+ou numa pasta com privilégios necessários para acesso de escrita.
+As suas definições na nuvem serão canceladas. Por favor, reponha um valor coerente através da caixa de diálogo de Preferências."/>
 			<FilePathNotFoundWarning title="Abrir Ficheiro" message="O ficheiro que está a tentar abrir não existe."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Não foi possível carregar a sessão" message="O ficheiro da sessão ou está corrompido ou não é válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
-			<DroppingFolderAsProjectModeWarning title="Ação inválida" message="Só pode largar ficheiros ou pastas, mas não ambos, porque está a largar pasta como Modo projeto.
-tem de ativar &quot;Abrir todos os ficheiros da pasta em vez de lançar pasta a pasta como àrea de trabalho na pasta a largar&quot; na secção de diálogo de Preferências do &quot;Diretório predefinido&quot; para que esta operação funcione."/>
+			<DroppingFolderAsProjectModeWarning title="Ação inválida" message="Só pode largar ficheiros ou pastas, mas não ambos, porque está a largar a pasta como Modo projeto.
+Tem de ativar a opção &quot;Abrir todos os ficheiros da pasta em vez de abrir a Pasta como área de trabalho ao largar a pasta&quot; na secção &quot;Pasta predefinida&quot; da caixa de diálogo de Preferências para que esta operação funcione."/>
 			<SortingError title="Erro de Ordenação" message="Incapaz de efectuar a triagem numérica devido à linha $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Dica de Modo Coluna" message="
 Existem 3 maneiras de mudar para o modo de selecção de coluna:
@@ -1409,7 +1417,7 @@ Existem 3 maneiras de mudar para o modo de selecção de coluna:
        execute o comando &quot;Selecionar Início/Fim no modo de coluna&quot;
       Mova o cursor para o fim desejado da posição do bloco da coluna, depois
        execute o comando &quot;Selecionar Início/Fim no modo de coluna&quot; novamente"/>
-			<BufferInvalidWarning title="Falha ao guardar" message="Não é possível guardar: O Buffer é inválido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<BufferInvalidWarning title="Ocorreu um erro ao guardar" message="Não é possível guardar: O Buffer é inválido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Manter ficheiro não existente" message="O ficheiro &quot;$STR_REPLACE$&quot; já não existe.
 Mantenha este ficheiro no editor?"/>
 			<DoDeleteOrNot title="Eliminar ficheiro" message="O ficheiro &quot;$STR_REPLACE$&quot;
@@ -1438,16 +1446,16 @@ Deseja ir à página Notepad++ para descarregar a versão mais recente?"/><!-- H
 Deseja abri-lo?"/>
 			<CreateNewFileOrNot title="Criar novo ficheiro" message="&quot;$STR_REPLACE$&quot; não existe. Criá-lo?"/>
 			<CreateNewFileError title="Criar novo ficheiro" message="Não é possível criar o ficheiro &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<OpenFileError title="ERRO" message="Não pode abrir ficheiro &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileError title="ERRO" message="Não é possível abrir o ficheiro &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileNoFolderError title="Não é possível abrir o ficheiro" message="&quot;$STR_REPLACE1$&quot; não pode ser aberto:
 A pasta &quot;$STR_REPLACE2$&quot; não existe."/>
-			<FileBackupFailed title="Ficheiro de cópia de segurança falhou" message="A versão anterior do ficheiro não pôde ser guardada no diretório de cópia de segurança em &quot;$STR_REPLACE$&quot;.
+			<FileBackupFailed title="Ficheiro de cópia de segurança falhou" message="A versão anterior do ficheiro não pôde ser guardada na pasta de cópia de segurança em &quot;$STR_REPLACE$&quot;.
 
 Quer guardar o ficheiro atual de qualquer forma?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<LoadStylersFailed title="Falha ao carregar stylers.xml" message="Falha ao carregar &quot;$STR_REPLACE$&quot;!"/>
-			<LoadLangsFailed title="Configurador" message="Falha ao carregar langs.xml!
+			<LoadStylersFailed title="Ocorreu um erro ao carregar stylers.xml" message="Ocorreu um erro ao carregar &quot;$STR_REPLACE$&quot;!"/>
+			<LoadLangsFailed title="Configurador" message="Ocorreu um erro ao carregar langs.xml!
 Deseja recuperar o seu langs.xml?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
-			<LoadLangsFailedFinal title="Configurador" message="Falha ao carregar langs.xml!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
+			<LoadLangsFailedFinal title="Configurador" message="Ocorreu um erro ao carregar langs.xml!"/><!-- HowToReproduce: Close Notepad++. Use another editor to make "langs.xml" an invalid xml file then save it. Open Notepad++. -->
 			<FolderAsWorspaceSubfolderExists title="Problema de adição de pasta como área de trabalho" message="Existe uma subpasta da pasta que deseja adicionar.
 Por favor remova a sua raiz do painel antes de adicionar a pasta &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: Add a folder like "c:\temp\aFolder\" into "Folder as Workspace" panel, then try to add "c:\temp\". -->
 
@@ -1469,11 +1477,11 @@ por favor dê outra."/>
 			<UDLRemoveCurrentLang title="Remover a linguagem atual" message="Tem a certeza?"/>
 			<SCMapperDoDeleteOrNot title="Tem a certeza?" message="Tem a certeza que deseja eliminar este atalho?"/>
 			<FindCharRangeValueError title="Problema de valor" message="Deve introduzir entre 0 e 255."/>
-			<OpenInAdminMode title="Falha ao guardar" message="O ficheiro não pode ser guardado e pode estar protegido.
+			<OpenInAdminMode title="Ocorreu um erro ao guardar" message="O ficheiro não pode ser guardado e pode estar protegido.
 Deseja iniciar o Notepad++ em modo de Administrador?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Falha ao guardar" message="O ficheiro não pode ser guardado e pode estar protegido.
+			<OpenInAdminModeWithoutCloseCurrent title="Ocorreu um erro ao guardar" message="O ficheiro não pode ser guardado e pode estar protegido.
 Deseja iniciar o Notepad++ em modo de Administrador?"/>
-			<OpenInAdminModeFailed title="Falha ao abrir em modo de Administrador" message="O Notepad++ não pode ser aberto em modo Administrador."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
+			<OpenInAdminModeFailed title="Ocorreu um erro ao abrir em modo de Administrador" message="O Notepad++ não pode ser aberto em modo Administrador."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Ver ficheiro atual no Navegador" message="A aplicação não pode ser encontrada no seu sistema."/>
 			<ExitToUpdatePlugins title="O Notepad++ está prestes a terminar" message="Se clicar SIM, sairá do Notepad++ para continuar as operações.
 O Notepad++ será reiniciado após a conclusão de todas as operações.
@@ -1490,6 +1498,20 @@ Teste esses comandos e, se necessário, edite-os novamente.
 Em alternativa, pode reverter para o Notepad++ v8.5.2 e restaurar os dados anteriores.
 O Notepad++ fará uma cópia de segurança do seu antigo &quot;shortcuts.xml&quot; e guardá-lo-á como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, os seus comandos devem estar restaurados e a funcionar corretamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Erro ao guardar" message="Ocorreu um erro ao guardar o ficheiro.
+É possível que não haja espaço suficiente em disco para guardar o ficheiro. O seu ficheiro não foi guardado."/>
+			<FileInaccessibleUserSession title="Ficheiro inacessível" message="Alguns ficheiros da sua sessão guardada &quot;$STR_REPLACE$&quot; não podem ser acedidos. Podem ser abertos como ficheiros vazios e só de leitura para que permaneçam na lista de documentos.
+
+Gostaria de criar esses substitutos?
+
+NOTA: Se optar por não criar os substitutos ou se os fechar mais tarde, a sua sessão guardada manualmente NÃO será modificada ao sair."/>
+			<FileInaccessibleDefaultSessionXml title="Ficheiro inacessível" message="Alguns ficheiros da sua sessão anterior estão inacessíveis. Podem ser abertos como documentos vazios e só de leitura como substitutos.
+
+Gostaria de criar esses substitutos?
+
+NOTA: Se optar por não criar os substitutos ou fechá-los mais tarde, a sua sessão SERÁ MODIFICADA AO SAIR! Sugerimos que faça uma cópia de segurança do seu ficheiro &quot;session.xml&quot; agora."/>
+			<RTLvsDirectWrite title="Não foi possível executar o RTL" message="O RTL (Orientação de texto da Direita para a Esquerda) não é compatível com o modo DirectWrite. Desative a opção &quot;Usar DirectWrite&quot; na secção &quot;Diversos&quot; da opção &quot;Preferências&quot; do menu &quot;Definições&quot;, e reinicie o Notepad++."/>
+			<FileMemoryAllocationFailed title="Exceção: falha na atribuição da memória do ficheiro" message="Provavelmente não existe memória livre contígua suficiente para o ficheiro que está a ser carregado pelo Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1597,7 +1619,7 @@ A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quo
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<word-chars-list-tip value="Isto permite que inclua caracteres adicionais nos caracteres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas à palavra inteira&quot; marcada."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Isto permite que inclua carateres adicionais nos carateres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas a palavra inteira&quot; marcada."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Ir para o Configurador de estilos para alterar a cor personalizada EOL predefinida (&quot;EOL custom color&quot;).."/>
@@ -1605,12 +1627,12 @@ A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quo
 			<word-chars-list-warning-begin value="Esteja ciente: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ espaço(s)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-			<word-chars-list-warning-end value="  na sua lista de caracteres."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
-			<backup-select-folder value="Selecione uma pasta como diretório de backup"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<word-chars-list-warning-end value="  na sua lista de carateres."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
+			<backup-select-folder value="Selecione um localização para a pasta de cópia de segurança"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Localização inválida."/>
 			<cloud-restart-warning value="Reinicie o Notepad++ para ter efeito."/>
-			<cloud-select-folder value="Selecione uma pasta de/para onde o Notepad++ lê/grava as suas definições"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
-			<default-open-save-select-folder value="Selecione uma pasta como diretório predefinido"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<cloud-select-folder value="Selecione uma pasta a partir da qual o Notepad++ pode ler ou gravar as suas definições"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<default-open-save-select-folder value="Selecione um localização para a pasta predefinida"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use Shift+Enter para pesquisar na direção oposta"/>
 			<two-find-buttons-tip value="Modo de 2 botões de localização"/>
 			<file-rename-title value="Renomear"/>
@@ -1628,27 +1650,28 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<find-in-files-select-folder value="Selecione uma pasta para pesquisar dentro"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value="Localizar: Encontrada a 1ª ocorrência a partir do final. O início do documento foi alcançado."/>
 			<find-status-end-reached value="Localizar: Encontrada a 1ª ocorrência a partir do início. O final do documento foi alcançado.."/>
-			<find-status-replaceinfiles-1-replaced value="Substituir em Ficheiros: 1 ocorrência foi substituída"/>
-			<find-status-replaceinfiles-nb-replaced value="Substituir em Ficheiros: $INT_REPLACE$ ocorrências foram substituídas"/>
+			<find-status-replaceinfiles-1-replaced value="Substituir em ficheiros: 1 ocorrência foi substituída"/>
+			<find-status-replaceinfiles-nb-replaced value="Substituir em ficheiros: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em ficheiros abertos: 1 ocorrência foi substituída"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Substituir em ficheiros abertos: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-invalid-re value="Localizar: Expressão regular inválida"/>
-			<find-status-search-failed value="Localizar: Falha ao pesquisar"/>
+			<find-status-search-failed value="Localizar: Ocorreu um erro ao pesquisar"/>
 			<find-status-mark-1-match value="Marcar: 1 correspondência"/>
 			<find-status-mark-nb-matches value="Marcar: $INT_REPLACE$ correspondências"/>
 			<find-status-count-1-match value="Total: 1 correspondência"/>
 			<find-status-count-nb-matches value="Total: $INT_REPLACE$ correspondências"/>
 			<find-status-replaceall-1-replaced value="Substituir tudo: 1 ocorrência foi substituída"/>
 			<find-status-replaceall-nb-replaced value="Substituir tudo: $INT_REPLACE$ ocorrências foram substituídas"/>
-			<find-status-replaceall-readonly value="Substituir tudo: Texto não substituído. O documento é apenas de leitura"/>
+			<find-status-replaceall-readonly value="Substituir tudo: Texto não substituído. O documento é só de leitura"/>
 			<find-status-replace-end-reached value="Substituir: Substituída a 1ª ocorrência a partir do início. O final do documento foi alcançado"/>
 			<find-status-replace-top-reached value="Substituir: Substituída a 1ª ocorrência a partir do final. O início do documento foi alcançado"/>
 			<find-status-replaced-next-found value="Substituir: 1 ocorrência foi substituída. A ocorrência seguinte encontrada."/>
 			<find-status-replaced-without-continuing value="Substituir: 1 ocorrência foi substituída."/>
 			<find-status-replaced-next-not-found value="Substituir: 1 ocorrência foi substituída. Não foram encontradas mais ocorrências."/>
 			<find-status-replace-not-found value="Substituir: nenhuma ocorrência encontrada"/>
-			<find-status-replace-readonly value="Substituir: Texto não substituído. O documento é apenas de leitura"/>
+			<find-status-replace-readonly value="Substituir: Texto não substituído. O documento é só de leitura"/>
 			<find-status-cannot-find value="Localizar: Texto &quot;$STR_REPLACE$&quot; não localizado"/>
+			<find-status-cannot-find-pebkac-maybe value="Não foi possível localizar a ocorrência em causa. Poderá ter-se esquecido de selecionar as opções &quot;Voltar ao início&quot; (para Ativado), &quot;Corresponder a maiúsculas/minúsculas&quot; (para Desativado), ou &quot;Corresponder apenas a palavra inteira&quot; (para Desativado)."/>
 			<find-status-scope-selection value="no texto selecionado"/>
 			<find-status-scope-all value="em todo o ficheiro"/>
 			<find-status-scope-backward value="do início do ficheiro ao cursor"/>
@@ -1679,11 +1702,11 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<summary-filepath value="Localização completa: "/>
 			<summary-filecreatetime value="Criado em: "/>
 			<summary-filemodifytime value="Modificado em: "/>
-			<summary-nbchar value="Caracteres (sem quebras de linha): "/>
+			<summary-nbchar value="Carateres (sem quebras de linha): "/>
 			<summary-nbword value="Palavras: "/>
 			<summary-nbline value="Linhas: "/>
 			<summary-nbbyte value="Comprimento: "/>
-			<summary-nbsel1 value=" caracteres selecionados ("/>
+			<summary-nbsel1 value=" carateres selecionados ("/>
 			<summary-nbsel2 value=" bytes) em "/>
 			<summary-nbrange value=" intervalos"/>
 			<progress-hits-title value="Resultados:"/>
@@ -1692,7 +1715,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<find-in-files-progress-title value="Localizar em ficheiros em curso..."/>
 			<replace-in-files-confirm-title value="Tem a certeza?"/>
 			<replace-in-files-confirm-directory value="Tem a certeza de que quer substituir todas as ocorrências em: "/>
-			<replace-in-files-confirm-filetype value="Para tipo de ficheiro :"/>
+			<replace-in-files-confirm-filetype value="Para tipo de ficheiro:"/>
 			<replace-in-files-progress-title value="Substituir em ficheiros em curso..."/>
 			<replace-in-projects-confirm-title value="Tem a certeza?"/>
 			<replace-in-projects-confirm-message value="Quer substituir todas as ocorrências em todos os documentos do Painel(éis) do projeto selecionado?"/>
@@ -1700,10 +1723,15 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<replace-in-open-docs-confirm-message value="Tem a certeza que pretende substituir todas as ocorrências em todos os documentos abertos?"/>
 			<find-result-caption value="Resultados de pesquisa"/>
 			<find-result-title value="Pesquisar"/><!-- Must not begin with space or tab character -->
-			<find-result-title-info value="($INT_REPLACE1$ encontrado(s) em $INT_REPLACE2$ ficheiro(s) de $INT_REPLACE3$ pesquisado(s))"/>
-			<find-result-title-info-selections value="($INT_REPLACE1$ encontrado(s) em $INT_REPLACE2$ seleções de $INT_REPLACE3$ pesquisados)"/>
+			<find-result-title-info value="($INT_REPLACE1$ correspondência(s) encontrada(s) em $INT_REPLACE2$ ficheiro(s) de $INT_REPLACE3$ pesquisado(s))"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ correspondência(s) encontrada(s) em $INT_REPLACE2$ seleções de $INT_REPLACE3$ pesquisados)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Avançada"/>
+			<find-result-title-info-options-searchmode-regexp value="Expressão regular"/>
+			<find-result-title-info-options-case value="Letra"/>
+			<find-result-title-info-options-word value="Palavra"/>
 			<find-result-title-info-extra value=" - Modo de filtro de linha: mostrar apenas os resultados filtrados"/>
-			<find-result-hits value="($INT_REPLACE$ encontrado(s))"/>
+			<find-result-hits value="($INT_REPLACE$ correspondência(s))"/>
 			<find-result-line-prefix value="Linha"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="correspondência de comprimento zero"/>
 			<session-save-folder-as-workspace value="Guardar pasta como área de trabalho"/>
@@ -1723,33 +1751,34 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 NOTA:
 1. Modificar as opções de aqui requer a reabertura de ficheiros grandes atualmente abertos para obter um comportamento adequado.
 
-2. If &quot;Desativar a quebra de linha globalmente&quot; é verificada e abre-se um ficheiro grande, a &quot;Quebra de linha&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Quebra de linha&quot;."/>
-			<npcNote-tip value="Representação de caracteres selecionados &quot;não-ASCII&quot; espaços em branco e caracteres sem representação (controlo).
+2. Se a opção &quot;Desativar Quebra de linha globalmente&quot; estiver selecionada e abrir um ficheiro grande, a opção &quot;Moldar o texto&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Moldar o texto&quot;." />
+			<npcNote-tip value="Representação de carateres selecionados &quot;não-ASCII&quot; espaços em branco e carateres sem representação (controlo).
 
 NOTA:
-A utilização da representação desactivará os efeitos de caracteres no texto.
+A utilização da representação desativará os efeitos de carateres no texto.
 
-Para a lista completa dos espaços em branco selecionados e caracteres sem representação, consulte o Manual do Utilizador.
+Para a lista completa dos espaços em branco selecionados e carateres sem representação, consulte o Manual do Utilizador.
 
-Clique neste botão para abrir o website com Manual do Utilizador."/>
-			<npcAbbreviation-tip value="Abreviatura : nome
-NBSP : no-break space
-ZWSP : zero-width space
-ZWNBSP : zero-width no-break space
-
-Para ver a lista completa, consulte o Manual do Utilizador.
-Clique no botão &quot;?&quot; à direita para abrir o website com Manual do Utilizador."/>
-			<npcCodepoint-tip value="Codepoint : nome
-U+00A0 : no-break space
-U+200B : zero-width space
-U+FEFF : zero-width no-break space
+Clique neste botão para abrir o site com o Manual do Utilizador."/>
+			<npcAbbreviation-tip value="Abreviatura: nome
+NBSP: no-break space
+ZWSP: zero-width space
+ZWNBSP: zero-width no-break space
 
 Para ver a lista completa, consulte o Manual do Utilizador.
-Clique no botão &quot;?&quot; à direita para abrir o website com Manual do Utilizador."/>
+Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Utilizador."/>
+			<npcCodepoint-tip value="Codepoint: nome
+U+00A0: no-break space
+U+200B: zero-width space
+U+FEFF: zero-width no-break space
+
+Para ver a lista completa, consulte o Manual do Utilizador.
+Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Utilizador."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e caracteres não-impressos (&quot;Cor personalizada de caracteres sem representação&quot;)."/>
-			<npcIncludeCcUniEol-tip value="Aplicar as definições de caracteres sem representação para os caracteres C0, C1 e EOL do Unicode (linha seguinte, separador de linha e separador de parágrafo)."/>
+			<npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e carateres não-impressos (&quot;Cor personalizada de carateres sem representação&quot;)."/>
+			<npcIncludeCcUniEol-tip value="Aplicar as definições de carateres sem representação para os carateres C0, C1 e EOL do Unicode (linha seguinte, separador de linha e separador de parágrafo)."/>
+			<searchingInSelThresh-tip value="Número de carateres selecionados na zona de edição para verificar automaticamente a caixa de verificação &quot;Na seleção&quot; quando a caixa de diálogo Localizar é ativada. O valor máximo é 1024. Defina o valor para 0 para desativar a verificação automática."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
@@ -1773,12 +1802,12 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5)
+07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6)
 
 Filipe Mota <blackspirits@gmail.com>
-27/03/2023 (version 8.5.1)
+27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 01 September 2023 by Hugo Carvalho
+Last modified: 10 February 2024 by Hugo Carvalho e Filipe Mota
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

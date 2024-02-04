@@ -204,14 +204,14 @@
 		<KeyWord name="grad" />
 		<KeyWord name="gray" />
 		<KeyWord name="green" />
-		<KeyWord name="h1" />
-		<KeyWord name="h2" />
-		<KeyWord name="h3" />
-		<KeyWord name="h4" />
-		<KeyWord name="h5" />
-		<KeyWord name="h6" />
-		<KeyWord name="head" />
-		<KeyWord name="header" />
+		<KeyWord name="h1></h1>" />
+		<KeyWord name="h2></h2>" />
+		<KeyWord name="h3></h3>" />
+		<KeyWord name="h4></h4>" />
+		<KeyWord name="h5></h5>" />
+		<KeyWord name="h6></h6>" />
+		<KeyWord name="head></head>" />
+		<KeyWord name="header></header>" />
 		<KeyWord name="headers" />
 		<KeyWord name="hebrew" />
 		<KeyWord name="height" />
@@ -226,7 +226,15 @@
 		<KeyWord name="hr" />
 		<KeyWord name="href" />
 		<KeyWord name="hreflang" />
-		<KeyWord name="html" />
+		<KeyWord name="html>
+<head>
+	<meta>
+	<title></title>
+</head>
+<body>
+	
+</body>
+</html>" />
 		<KeyWord name="http-equiv" />
 		<KeyWord name="hz" />
 		<KeyWord name="i" />

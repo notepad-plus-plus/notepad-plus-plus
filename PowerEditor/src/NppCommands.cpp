@@ -4193,7 +4193,6 @@ void Notepad_plus::command(int id)
 			case IDM_FILE_RELOAD:
 			case IDM_EDIT_UNDO:
 			case IDM_EDIT_REDO:
-			//case IDM_EDIT_PASTE:
 			case IDM_EDIT_DELETE:
 			case IDM_SEARCH_FINDNEXT :
 			case IDM_SEARCH_FINDPREV :
@@ -4366,6 +4365,14 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_MULTISELECTUNDO:
 			case IDM_EDIT_MULTISELECTSSKIP:
 				_macro.push_back(recordedMacroStep(id));
+				break;
+
+			// No need to record the following commands: all they do is execute Scintilla commands, which are recorded instead.
+			case IDM_EDIT_CUT:
+			case IDM_EDIT_COPY:
+			case IDM_EDIT_PASTE:
+			case IDM_EDIT_LINE_UP:
+			case IDM_EDIT_LINE_DOWN:
 				break;
 
 			// The following 3 commands will insert date time string during the recording:

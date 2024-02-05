@@ -5,7 +5,7 @@ Nota de tradução:
 2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.2">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,8 @@ Nota de tradução:
 					<Item subMenuId="edit-blankOperations" name="Operação em branco"/>
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
+					<Item subMenuId="edit-multiSelectALL" name="Multisseleção TUDO"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multisseleção Seguinte"/>
 					<Item subMenuId="search-changeHistory" name="Histórico de alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar tudo"/>
 					<Item subMenuId="search-markOne" name="Marcar uma"/>
@@ -154,6 +156,16 @@ Nota de tradução:
 					<Item id="42074" name="Abrir a pasta de conteúdo no Explorador"/>
 					<Item id="42075" name="Pesquisar na Internet"/>
 					<Item id="42076" name="Mudar motor de pesquisa..."/>
+					<Item id="42090" name="Ignorar maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42091" name="Corresponder apenas a maiúsculas/minúsculas"/>
+					<Item id="42092" name="Corresponder apenas a palavra inteira"/>
+					<Item id="42093" name="Corresponder a maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42094" name="Ignorar maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42095" name="Corresponder apenas a maiúsculas/minúsculas"/>
+					<Item id="42096" name="Corresponder apenas a palavra inteira"/>
+					<Item id="42097" name="Corresponder a maiúsculas/minúsculas e palavra inteira"/>
+					<Item id="42098" name="Anular a multisseleção mais recente"/>
+					<Item id="42099" name="Ignorar a atual e Ir para multisseleção seguinte"/>
 					<Item id="42018" name="&amp;Iniciar gravação"/>
 					<Item id="42019" name="&amp;Parar gravação"/>
 					<Item id="42021" name="&amp;Reproduzir"/>
@@ -177,11 +189,11 @@ Nota de tradução:
 					<Item id="42037" name="Modo de coluna..."/>
 					<Item id="42034" name="Editor de coluna..."/>
 					<Item id="42051" name="Painel de carateres"/>
-					<Item id="42052" name="Hístórico da área de transferência"/>
+					<Item id="42052" name="Histórico da área de transferência"/>
 					<Item id="42025" name="Guardar a macro atualmente gravada"/>
 					<Item id="42026" name="Direção do texto - direita para a esquerda"/>
 					<Item id="42027" name="Direção do texto - esquerda para a direita"/>
-					<Item id="42028" name="Defenir como só de leitura"/>
+					<Item id="42028" name="Definir como só de leitura"/>
 					<Item id="42029" name="Copiar localização do ficheiro atual"/>
 					<Item id="42030" name="Copiar nome do ficheiro atual"/>
 					<Item id="42031" name="Copiar localização da pasta atual"/>
@@ -211,8 +223,8 @@ Nota de tradução:
 					<Item id="43050" name="Inverter marcador"/>
 					<Item id="43052" name="Localizar carateres..."/>
 					<Item id="43053" name="Selecionar tudo entre as chavetas correspondidas"/>
-					<Item id="43009" name="Ir para a chaveta correspondida"/>
 					<Item id="43010" name="Localizar anterior"/>
+					<Item id="43009" name="Ir para a chaveta correspondida"/>
 					<Item id="43011" name="Pesquisa &amp;progressiva"/>
 					<Item id="43013" name="Localizar nos ficheiros"/>
 					<Item id="43014" name="Localizar seguinte (temporário)"/>
@@ -292,6 +304,8 @@ Nota de tradução:
 					<Item id="44092" name="7º Separador"/>
 					<Item id="44093" name="8º Separador"/>
 					<Item id="44094" name="9º Separador"/>
+					<Item id="44116" name="Primeiro separador"/>
+					<Item id="44117" name="Último separador"/>
 					<Item id="44095" name="Separador seguinte"/>
 					<Item id="44096" name="Separador anterior"/>
 					<Item id="44097" name="Monitorização (tail -f)"/>
@@ -334,12 +348,12 @@ Nota de tradução:
 					<Item id="45057" name="OEM 865: Nórdico"/>
 					<Item id="45053" name="OEM 860: Português"/>
 					<Item id="45056" name="OEM 863: Francês"/>
-
 					<Item id="10001" name="Mudar para outra vista"/>
 					<Item id="10002" name="Clonar para outra vista"/>
 					<Item id="10003" name="Mover para a nova instância"/>
 					<Item id="10004" name="Abrir numa nova instância"/>
-
+					<Item id="10005" name="Mover para o início"/>
+					<Item id="10006" name="Mover para o fim"/>
 					<Item id="46001" name="Configurador de estilos..."/>
 					<Item id="46250" name="Selecione a sua linguagem..."/>
 					<Item id="46300" name="Abrir pasta de linguagem definida pelo utilizador..."/>
@@ -425,6 +439,8 @@ Nota de tradução:
 				<Item CMDID="42030" name="Copiar nome do ficheiro"/>
 				<Item CMDID="42031" name="Copiar localização da pasta atual"/>
 				<Item CMDID="3" name="Mover documento"/>
+				<Item CMDID="10005" name="Mover para o início"/>
+				<Item CMDID="10006" name="Mover para o fim"/>
 				<Item CMDID="10001" name="Mover para outra visualização"/>
 				<Item CMDID="10002" name="Clonar para outra visualização"/>
 				<Item CMDID="10003" name="Mover para nova instância"/>
@@ -450,11 +466,11 @@ Nota de tradução:
 		<Dialog>
 			<Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar nos ficheiros" titleFindInProjects="Localizar nos projetos" titleMark="Marcar">
 				<Item id="1" name="Localizar seguinte"/>
-				<Item id="1722" name="Direção para trás"/>
+				<Item id="1722" name="&amp;Sentido inverso"/>
 				<Item id="2" name="Fechar"/>
 				<Item id="1620" name="Localizar o quê?"/>
-				<Item id="1603" name="Corresponder à &amp;palavra completa"/>
-				<Item id="1604" name="Corresponder &amp;MAI/MIN"/>
+				<Item id="1603" name="Corresponder a &amp;palavra inteira"/>
+				<Item id="1604" name="Corresponder a &amp;maiúsculas/minúsculas"/>
 				<Item id="1605" name="&amp;Expressão regular "/>
 				<Item id="1606" name="&amp;Voltar ao início"/>
 				<Item id="1614" name="Contar"/>
@@ -477,7 +493,7 @@ Nota de tradução:
 				<Item id="1659" name="Nas pastas ocultas"/>
 				<Item id="1624" name="Modo de pesquisa"/>
 				<Item id="1625" name="&amp;Normal"/>
-				<Item id="1626" name="Estendido (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="&amp;Avançada (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Substituir nos ficheiros"/>
 				<Item id="1665" name="Substituir em projetos"/>
 				<Item id="1661" name="Seguir documento atual"/>
@@ -498,9 +514,9 @@ Nota de tradução:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Localizar"/>
-				<Item id="1685" name="Letra correspondente"/>
-				<Item id="1690" name="Destacar tudo"/>
+				<Item id="1681" name="Localizar:"/>
+				<Item id="1685" name="&amp;Letra correspondente"/>
+				<Item id="1690" name="&amp;Destacar tudo"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Localizar carateres no alcance...">
@@ -520,9 +536,9 @@ Nota de tradução:
 				<Item id="2008" name="Posição"/>
 				<Item id="1" name="&amp;Ir"/>
 				<Item id="2" name="Sair"/>
-				<Item id="2004" name="Está aqui:"/>
-				<Item id="2005" name="Deseja ir para:"/>
-				<Item id="2006" name="Não pode ir além de:"/>
+				<Item id="2004" name="Está na linha/posição:"/>
+				<Item id="2005" name="Ir para linha/posição:"/>
+				<Item id="2006" name="Última linha/posição disponível:"/>
 			</GoToLine>
 
 			<Run title="Executar...">
@@ -641,17 +657,7 @@ Nota de tradução:
 				<ScintillaCommandsTab name="Comandos de Scintilla"/>
 				<ConflictInfoOk name="Sem conflito de atalhos para este item."/>
 				<ConflictInfoEditing name="Sem conflitos . . ."/>
-				<WindowCategory name="Janela"/>
-				<FileCategory name="Ficheiro"/>
-				<EditCategory name="Editar"/>
-				<SearchCategory name="Procurar"/>
-				<ViewCategory name="Visualização"/>
-				<FormatCategory name="Formato"/>
-				<LangCategory name="Linguagem"/>
 				<AboutCategory name="Acerca"/>
-				<SettingCategory name="Configuração"/>
-				<ToolCategory name="Ferramenta"/>
-				<ExecuteCategory name="Executar"/>
 				<ModifyContextMenu name="Modificar"/>
 				<DeleteContextMenu name="Eliminar"/>
 				<ClearContextMenu name="Limpar"/>
@@ -767,7 +773,7 @@ Nota de tradução:
 				<Item id="20005" name="Guardar como..."/>
 				<Item id="20007" name="Linguagem: "/>
 				<Item id="20009" name="Ext.:"/>
-				<Item id="20012" name="Ignorar MAI/MIN"/>
+				<Item id="20012" name="Ignorar maiúsculas/minúsculas"/>
 				<Item id="20011" name="Transparência"/>
 				<Item id="20015" name="Importar..."/>
 				<Item id="20016" name="Exportar..."/>
@@ -971,7 +977,6 @@ Nota de tradução:
 					<Item id="6221" name="R"/><!-- Rápida -->
 					<Item id="6222" name="L"/><!-- Lenta -->
 					<Item id="6246" name="Tornar os comandos de dobrar/desdobrar do nível atual comutáveis"/>
-					<Item id="6225" name="Ativar (Ctrl+Clique do rato/seleção)"/>
 					<Item id="6227" name="Continuar linha"/>
 					<Item id="6228" name="Predefinição"/>
 					<Item id="6229" name="Alinhada"/>
@@ -981,6 +986,7 @@ Nota de tradução:
 					<Item id="6236" name="Ativar deslizamento para além da última linha"/>
 					<Item id="6239" name="Manter seleção quando clicar com o botão direito do rato fora da seleção"/>
 					<Item id="6245" name="Ativar o espaço virtual"/>
+					<Item id="6214" name="Ativar Copiar/Cortar linha sem seleção"/>
 					<Item id="6651" name="Indicador da linha atual"/>
 					<Item id="6652" name="Nenhum"/>
 					<Item id="6653" name="Realçar fundo"/>
@@ -1091,14 +1097,14 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6335" name="Tratar a barra invertida como caráter escape para SQL"/>
 				</Language>
 
-				<Highlighting title="Destacar">
-					<Item id="6351" name="Marcar tudo"/>
-					<Item id="6352" name="Letra correspondente"/>
+				<Highlighting title="Destaque">
+					<Item id="6351" name="Aplicar o estilo a todas as correspondências"/>
+v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="6353" name="Corresponder apenas a palavra inteira"/>
 					<Item id="6333" name="Destaque inteligente"/>
 					<Item id="6326" name="Ativar"/>
 					<Item id="6354" name="Correspondente"/>
-					<Item id="6332" name="Letra correspondente"/>
+					<Item id="6332" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="6338" name="Corresponder apenas a palavra inteira"/>
 					<Item id="6339" name="Usar as definições da janela Localizar"/>
 					<Item id="6340" name="Destacar outra vista"/>
@@ -1147,15 +1153,16 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6728" name="Cabeçalho e Rodapé"/>
 				</Print>
 
-				<Searching title="Pesquisar">
+				<Searching title="Pesquisa">
 					<Item id="6902" name="Usar letra monoespaçada na janela Localizar (é necessário reiniciar o Notepad++)"/>
 					<Item id="6903" name="A janela Localizar permanece aberta após a pesquisa que resulta na janela de resultados"/>
 					<Item id="6904" name="Confirmar o substituir tudo em todos os documentos abertos"/>
 					<Item id="6905" name="Substituir: não mover para a seguinte ocorrência"/>
-					<Item id="6906" name="Janela de resultado da pesquisa: mostrar apenas uma entrada por linha encontrada"/>
+					<Item id="6906" name="Janela de resultado da pesquisa: mostrar apenas uma entrada por linha encontrada se possível"/>
 					<Item id="6907" name="Quando a caixa de diálogo Localizar é invocada"/>
 					<Item id="6908" name="Preencher o campo Localizar com o texto selecionado"/>
 					<Item id="6909" name="Selecionar a palavra sob acento circunflexo quando nada selecionado"/>
+					<Item id="6910" name="Tamanho mínimo para Verificação automática &quot;Na seleção&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="Histórico de ficheiros recentes">
@@ -1176,7 +1183,8 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Localização da cópia:"/>
 					<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
-					<Item id="6801" name="Cópia de segurança"/>
+					<Item id="6825" name="Lembrar ficheiros inacessíveis da sessão anterior"/>
+					<Item id="6801" name="Efetuar cópia de segurança ao guardar"/>
 					<Item id="6315" name="Nenhuma"/>
 					<Item id="6316" name="Cópia de segurança simples"/>
 					<Item id="6317" name="Cópia de segurança completa"/>
@@ -1212,21 +1220,21 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="6151" name="Definições de multi-instância *"/>
 					<Item id="6152" name="Abrir sessão numa nova instância (e guardar sessão automaticamente ao sair)"/>
 					<Item id="6153" name="Sempre no modo de multi-instância"/>
-					<Item id="6154" name="Predefinição (mono-instância)"/>
+					<Item id="6154" name="Instância única por predefinição ()"/>
 					<Item id="6155" name="* Deve reiniciar o Notepad++ depois de modificar estas definições"/>
 					<Item id="6171" name="Personalizar inserção de Data e Hora"/>
-					<Item id="6175" name="Inverter ordem predefenida de data e hora (formatos curto e longo)"/>
+					<Item id="6175" name="Inverter ordem predefinida de data e hora (formatos curto e longo)"/>
 					<Item id="6172" name="Formato personalizado:"/>
 					<Item id="6181" name="Estado do painel e [-nosession] *"/>
 					<Item id="6182" name="Lembrar o estado do painel (o painel está aberto) noutras instâncias (modo multi-instância) ou quando se usa o parâmetro de linha de comandos [-nosession]"/>
-					<Item id="6183" name="Histórico da Área de transferência"/>
+					<Item id="6183" name="Histórico de área de transferência"/>
 					<Item id="6184" name="Lista de documentos"/>
 					<Item id="6185" name="Painel de carateres"/>
 					<Item id="6186" name="Pasta como área de trabalho"/>
-					<Item id="6187" name="Painéis de Projeto"/>
+					<Item id="6187" name="Painéis de projeto"/>
 					<Item id="6188" name="Mapa de documentos"/>
 					<Item id="6189" name="Lista de funções"/>
-					<Item id="6190" name="Painéis de Plugins"/>
+					<Item id="6190" name="Painéis de plugins"/>
 				</MultiInstance>
 
 				<Delimiter title="Delimitador">
@@ -1342,11 +1350,11 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 				<Item id="1711" name="Localizar o quê:"/>
 				<Item id="1713" name="Pesquisar &amp;apenas em linhas encontradas"/>
 				<Item id="1714" name="Corresponder apenas a palavra inteira"/>
-				<Item id="1715" name="Letra correspondente"/>
+				<Item id="1715" name="Corresponder a maiúsculas/minúsculas"/>
 				<Item id="1716" name="Modo Pesquisa"/>
 				<Item id="1717" name="&amp;Normal"/>
 				<Item id="1719" name="Expressão re&amp;gular"/>
-				<Item id="1718" name="Estendido (\n, \r, \t, \0, \x...)"/>
+				<Item id="1718" name="Avançada (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. corresponde a nova linha"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Guardar">
@@ -1365,7 +1373,7 @@ Pode reativar esta janela de diálogo nas preferências mais tarde."/>
 				<Item id="6" name="Sim"/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sempre Sim"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1490,6 +1498,20 @@ Teste esses comandos e, se necessário, edite-os novamente.
 Em alternativa, pode reverter para o Notepad++ v8.5.2 e restaurar os dados anteriores.
 O Notepad++ fará uma cópia de segurança do seu antigo &quot;shortcuts.xml&quot; e guardá-lo-á como &quot;shortcuts.xml.v8.5.2.backup&quot;.
 A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, os seus comandos devem estar restaurados e a funcionar corretamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="Erro ao guardar" message="Ocorreu um erro ao guardar o ficheiro.
+É possível que não haja espaço suficiente em disco para guardar o ficheiro. O seu ficheiro não foi guardado."/>
+			<FileInaccessibleUserSession title="Ficheiro inacessível" message="Alguns ficheiros da sua sessão guardada &quot;$STR_REPLACE$&quot; não podem ser acedidos. Podem ser abertos como ficheiros vazios e só de leitura para que permaneçam na lista de documentos.
+
+Gostaria de criar esses substitutos?
+
+NOTA: Se optar por não criar os substitutos ou se os fechar mais tarde, a sua sessão guardada manualmente NÃO será modificada ao sair."/>
+			<FileInaccessibleDefaultSessionXml title="Ficheiro inacessível" message="Alguns ficheiros da sua sessão anterior estão inacessíveis. Podem ser abertos como documentos vazios e só de leitura como substitutos.
+
+Gostaria de criar esses substitutos?
+
+NOTA: Se optar por não criar os substitutos ou fechá-los mais tarde, a sua sessão SERÁ MODIFICADA AO SAIR! Sugerimos que faça uma cópia de segurança do seu ficheiro &quot;session.xml&quot; agora."/>
+			<RTLvsDirectWrite title="Não foi possível executar o RTL" message="O RTL (Orientação de texto da Direita para a Esquerda) não é compatível com o modo DirectWrite. Desative a opção &quot;Usar DirectWrite&quot; na secção &quot;Diversos&quot; da opção &quot;Preferências&quot; do menu &quot;Definições&quot;, e reinicie o Notepad++."/>
+			<FileMemoryAllocationFailed title="Exceção: falha na atribuição da memória do ficheiro" message="Provavelmente não existe memória livre contígua suficiente para o ficheiro que está a ser carregado pelo Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1597,7 +1619,7 @@ A renomear &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quo
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
-			<word-chars-list-tip value="Isto permite que inclua carateres adicionais nos carateres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas à palavra inteira&quot; marcada."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Isto permite que inclua carateres adicionais nos carateres da palavra atual ao clicar duas vezes para selecionar ou pesquisar com a opção &quot;Corresponder apenas a palavra inteira&quot; marcada."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Ir para o Configurador de estilos para alterar a cor personalizada EOL predefinida (&quot;EOL custom color&quot;).."/>
@@ -1649,6 +1671,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<find-status-replace-not-found value="Substituir: nenhuma ocorrência encontrada"/>
 			<find-status-replace-readonly value="Substituir: Texto não substituído. O documento é só de leitura"/>
 			<find-status-cannot-find value="Localizar: Texto &quot;$STR_REPLACE$&quot; não localizado"/>
+			<find-status-cannot-find-pebkac-maybe value="Não foi possível localizar a ocorrência em causa. Poderá ter-se esquecido de selecionar as opções &quot;Voltar ao início&quot; (para Ativado), &quot;Corresponder a maiúsculas/minúsculas&quot; (para Desativado), ou &quot;Corresponder apenas a palavra inteira&quot; (para Desativado)."/>
 			<find-status-scope-selection value="no texto selecionado"/>
 			<find-status-scope-all value="em todo o ficheiro"/>
 			<find-status-scope-backward value="do início do ficheiro ao cursor"/>
@@ -1700,10 +1723,15 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<replace-in-open-docs-confirm-message value="Tem a certeza que pretende substituir todas as ocorrências em todos os documentos abertos?"/>
 			<find-result-caption value="Resultados de pesquisa"/>
 			<find-result-title value="Pesquisar"/><!-- Must not begin with space or tab character -->
-			<find-result-title-info value="($INT_REPLACE1$ encontrado(s) em $INT_REPLACE2$ ficheiro(s) de $INT_REPLACE3$ pesquisado(s))"/>
-			<find-result-title-info-selections value="($INT_REPLACE1$ encontrado(s) em $INT_REPLACE2$ seleções de $INT_REPLACE3$ pesquisados)"/>
+			<find-result-title-info value="($INT_REPLACE1$ correspondência(s) encontrada(s) em $INT_REPLACE2$ ficheiro(s) de $INT_REPLACE3$ pesquisado(s))"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ correspondência(s) encontrada(s) em $INT_REPLACE2$ seleções de $INT_REPLACE3$ pesquisados)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Avançada"/>
+			<find-result-title-info-options-searchmode-regexp value="Expressão regular"/>
+			<find-result-title-info-options-case value="Letra"/>
+			<find-result-title-info-options-word value="Palavra"/>
 			<find-result-title-info-extra value=" - Modo de filtro de linha: mostrar apenas os resultados filtrados"/>
-			<find-result-hits value="($INT_REPLACE$ encontrado(s))"/>
+			<find-result-hits value="($INT_REPLACE$ correspondência(s))"/>
 			<find-result-line-prefix value="Linha"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="correspondência de comprimento zero"/>
 			<session-save-folder-as-workspace value="Guardar pasta como área de trabalho"/>
@@ -1750,6 +1778,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Util
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e carateres não-impressos (&quot;Cor personalizada de carateres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as definições de carateres sem representação para os carateres C0, C1 e EOL do Unicode (linha seguinte, separador de linha e separador de parágrafo)."/>
+			<searchingInSelThresh-tip value="Número de carateres selecionados na zona de edição para verificar automaticamente a caixa de verificação &quot;Na seleção&quot; quando a caixa de diálogo Localizar é ativada. O valor máximo é 1024. Defina o valor para 0 para desativar a verificação automática."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
@@ -1773,12 +1802,12 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5)
+07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6)
 
 Filipe Mota <blackspirits@gmail.com>
-27/03/2023 (version 8.5.1, 8.6.2)
+27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 03 February 2024 by Filipe Mota
+Last modified: 05 February 2024 by Hugo Carvalho e Filipe Mota
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

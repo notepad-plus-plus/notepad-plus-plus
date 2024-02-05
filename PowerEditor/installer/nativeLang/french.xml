@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="français" filename="french.xml" version="8.6">
+	<Native-Langue name="français" filename="french.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -986,6 +986,7 @@ Translation note:
 					<Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
 					<Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/>
 					<Item id="6245" name="Activer l'espace virtuel"/>
+					<Item id="6214" name="Activer Copier/Couper la ligne sans sélection"/>
 					<Item id="6651" name="Surligner la ligne courante"/>
 					<Item id="6652" name="Aucun"/>
 					<Item id="6653" name="Colorer l’arrière-plan"/>

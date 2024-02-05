@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.6">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -944,6 +944,7 @@
 					<Item id="6236" name="允許捲動至超出最後一行"/>
 					<Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/>
 					<Item id="6245" name="啟用虛擬空間"/>
+					<Item id="6214" name="允許無文字選取時複製/剪下當前整行文字"/>
 					<Item id="6651" name="游標行設定"/>
 					<Item id="6652" name="無"/>
 					<Item id="6653" name="加上背景顏色"/>

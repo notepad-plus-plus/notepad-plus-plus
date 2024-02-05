@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1
+      uses: microsoft/setup-msbuild@v2
 
     - name: Modify resource.h N++ version to avoid confusion
       working-directory: PowerEditor\src\
@@ -108,7 +108,7 @@ jobs:
       # uses: actions/checkout@v4
 
     # - name: Add msbuild to PATH
-      # uses: microsoft/setup-msbuild@v1
+      # uses: microsoft/setup-msbuild@v2
 
     # - name: Modify resource.h N++ version to avoid confusion
       # working-directory: PowerEditor\src\
@@ -137,7 +137,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1
+      uses: microsoft/setup-msbuild@v2
 
     - name: Modify resource.h N++ version to avoid confusion
       working-directory: PowerEditor\src\

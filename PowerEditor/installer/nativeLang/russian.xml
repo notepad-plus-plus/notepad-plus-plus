@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.6.1:
+Updated to v8.6.3:
 - add new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.6.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1039,6 +1039,7 @@ Updated to v8.6.1:
 					<Item id="6236" name="Прокрутка за пределы последней строки"/>
 					<Item id="6239" name="Сохранять выделение текста при правом щелчке за его пределами"/>
 					<Item id="6245" name="Включить Виртуальный Пробел"/>
+					<Item id="6214" name="Включить Копировать/Вырезать Строку без выделения"/>
 					<Item id="6246" name="Сделать команды 'Свернуть/Развернуть текущий блок' переключаемыми"/>
 					<Item id="6247" name="Индикатор Конца Строки (CRLF)"/>
 					<Item id="6248" name="По Умолчанию"/>

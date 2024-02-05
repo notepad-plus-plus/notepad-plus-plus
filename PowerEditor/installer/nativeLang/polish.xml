@@ -10,12 +10,13 @@ Translation note:
         - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.5 (02.08.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
+        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 6.6.3 (5.02.2024)
 
     The most recent version of this file can usually be downloaded from:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.5.5">
+	<Native-Langue name="polski" filename="polish.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -975,6 +976,7 @@ Translation note:
 					<Item id="6123" name="Język interfejsu"/>
 				</Global>
 				<Scintillas title="Edycja">
+					<Item id="6214" name="Włącz opcję Kopiuj/Wytnij linię bez zaznaczania"/>
 					<Item id="6216" name="Kursor"/>
 					<Item id="6217" name="Szerokość:"/>
 					<Item id="6219" name="Miganie:"/>

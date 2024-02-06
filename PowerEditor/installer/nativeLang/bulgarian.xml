@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 30.12.2023 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 06.02.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -924,6 +924,7 @@
 					<Item id="6239" name="Запазване на селекцията при щракане с десен бутон извън нея"/>
 					<Item id="6236" name="Превъртане след последният ред"/>
 					<Item id="6234" name="Без разширени функции за превъртане"/>
+					<Item id="6214" name="Включване на копиране/изрязване на ред без избиране"/>
 				</Scintillas>
 				<!-- Тъмен режим -->
 				<DarkMode title="Тъмен режим">

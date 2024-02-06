@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2023.12.30"><!-- basiert auf english.xml vom 29.12.2023 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024.02.05"><!-- basiert auf english.xml 8.6.3 vom 05.02.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -995,6 +995,7 @@ Translation note:
 					<Item id="6236" name="Scrollen über die letzte Zeile hinaus aktivieren"/>
 					<Item id="6239" name="Auswahl beibehalten bei Rechtsklick außerhalb der Auswahl"/>
 					<Item id="6245" name="Virtuellen Raum aktivieren"/>
+					<Item id="6214" name="Zeile Kopieren/Ausschneiden ohne Auswahl aktivieren"/>
 					<Item id="6651" name="Anzeige der aktuellen Zeile"/>
 					<Item id="6652" name="Keine"/>
 					<Item id="6653" name="Hintergrund hervorheben"/>

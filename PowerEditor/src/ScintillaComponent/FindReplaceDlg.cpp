@@ -2737,11 +2737,18 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 {
 	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-readonly", TEXT("Replace All: Cannot replace text. The current document is read only."));
 		setStatusbarMessage(msg, FSNotFound);
 		return 0;
 	}
+
+	// Turn OFF all the notification of modification (SCN_MODIFIED) for the sake of performance
+	LRESULT notifFlag = (*_ppEditView)->execute(SCI_GETMODEVENTMASK);
+	(*_ppEditView)->execute(SCI_SETMODEVENTMASK, 0);
+
+
 
 	const FindOption *pOptions = opt?opt:_env;
 	const TCHAR *txt2find = pOptions->_str2Search.c_str();
@@ -2804,6 +2811,13 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	findReplaceInfo._endRange = endPosition;
 
 	int nbProcessed = processRange(op, findReplaceInfo, pFindersInfo, pOptions, colourStyleID);
+
+
+	// Turn ON the notifications after operations
+	(*_ppEditView)->execute(SCI_SETMODEVENTMASK, notifFlag);
+	if (op == ProcessReplaceAll && nbProcessed > 0) // All the notification of modification (SCN_MODIFIED) were removed during the operations, so we set modified status true here
+		(*_ppEditView)->getCurrentBuffer()->setModifiedStatus(true);
+
 
 	if (nbProcessed == FIND_INVALID_REGULAR_EXPRESSION)
 		return FIND_INVALID_REGULAR_EXPRESSION;

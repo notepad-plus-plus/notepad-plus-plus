@@ -223,9 +223,8 @@ Nota de tradução:
 					<Item id="43050" name="Inverter marcador"/>
 					<Item id="43052" name="Localizar carateres..."/>
 					<Item id="43053" name="Selecionar tudo entre as chavetas correspondidas"/>
-					<Item id="43010" name="Localizar anterior"/>
 					<Item id="43009" name="Ir para a chaveta correspondida"/>
-					<Item id="43011" name="Pesquisa &amp;progressiva"/>
+					<Item id="43010" name="Localizar anterior"/>										<Item id="43011" name="Pesquisa &amp;progressiva"/>
 					<Item id="43013" name="Localizar nos ficheiros"/>
 					<Item id="43014" name="Localizar seguinte (temporário)"/>
 					<Item id="43015" name="Localizar anterior (temporário)"/>

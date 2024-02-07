@@ -299,7 +299,16 @@ class SampleClassGood(object):
     def __init__ (self, fileName):
         self.fileName = fileName
 
+    def calculate_area(radius: float, pi: float = 3.14) -> float:
+        return pi * radius ** 2
 
+
+async def greet(name: str) -> str:
+    return f"Hello, {name}!"
+
+
+def add_numbers(a: int, b: int, c: int) -> int:
+    return a + b + c
 
 
 

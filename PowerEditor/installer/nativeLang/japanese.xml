@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.1">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -993,6 +993,7 @@ Translation note:
 					<Item id="6236" name="最終行を画面上端までスクロールできる"/>
 					<Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
 					<Item id="6245" name="仮想空白を有効にする"/>
+					<Item id="6214" name="選択範囲がないときは行全体をコピー/切り取りする"/>
 					<Item id="6651" name="現在行の強調表示"/>
 					<Item id="6652" name="なし"/>
 					<Item id="6653" name="背景を色付け"/>

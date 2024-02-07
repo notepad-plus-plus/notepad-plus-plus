@@ -527,11 +527,15 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	// override the settings if multiInst is choosen by user in the preference dialog
 	const NppGUI & nppGUI = nppParameters.getNppGUI();
 	if (nppGUI._multiInstSetting == multiInst)
-	{
 		isMultiInst = true;
-		// Only the first launch remembers the session
-		if (!TheFirstOne)
-			cmdLineParams._isNoSession = true;
+
+	// Only the first launch remembers the session in multiInst
+	if (isMultiInst && !TheFirstOne)
+	{
+		// this will also correctly disable the possible unsaved tabs filebuffer backup in any other Notepad++ multi-inst instance later
+		// (otherwise any non-unique tab-filename like "new 1" will cause that these Notepad++ instances will be overwriting
+		// each other's backups...)
+		cmdLineParams._isNoSession = true;
 	}
 
 	std::wstring quotFileName = TEXT("");

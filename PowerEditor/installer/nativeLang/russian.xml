@@ -1220,7 +1220,7 @@ Updated to v8.6.1:
 					<Item id="6302" name="Заменять пробелом"/>
 					<Item id="6303" name="Размер табул.:"/>
 					<Item id="6510" name="Исп. значение по умолч."/>
-					<Item id="6335" name="Обратный слэш это экранирующий символ для SQL"/>
+					<Item id="6335" name="Обратный слеш это экранирующий символ для SQL"/>
 				</Language>
 				<MISC title="Разное">
 					<ComboBox id="6347">
@@ -1469,7 +1469,7 @@ Updated to v8.6.1:
 			<LoadStylersFailed title="Ошибка загрузки stylers.xml" message="Ошибка загрузки &quot;$STR_REPLACE$&quot;!"/>
 			<LoadLangsFailed title="Конфигуратор" message="Ошибка загрузки langs.xml!&#x0A;Вы хотите восстановить свой langs.xml?"/>
 			<LoadLangsFailedFinal title="Конфигуратор" message="Ошибка загрузки langs.xml!"/>
-			<FolderAsWorspaceSubfolderExists title="Проблема при добавлении &quot;Папка как Рабочая Область&quot;" message="Подпапка папки, которую вы хотите добавить, уже существует.&#x0A;Пожалуйста, удалите её корень, прежде чем добавить папку &quot;$STR_REPLACE$&quot;."/>
+			<FolderAsWorspaceSubfolderExists title="Проблема при добавлении &quot;Папка как Рабочая Область&quot;" message="Подпапка, которую вы хотите добавить, уже существует.&#x0A;Прежде чем добавить папку, удалите корневую &quot;$STR_REPLACE$&quot;."/>
 			<ConfirmSaveAs title="Подтверждение &quot;Сохранить как...&quot;" message="$STR_REPLACE$ уже существует.&#x0A;Вы хотите его заменить?"/>
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Рабочая область была изменена.&#x0A;Вы хотите сохранить её?"/>

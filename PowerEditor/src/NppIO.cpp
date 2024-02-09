@@ -658,7 +658,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 			NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 			bool isSnapshotMode = nppGui.isSnapshotMode();
 			bool isAlwaysInMultiInstMode = nppGui._multiInstSetting == multiInst;
-			if (isSnapshotMode && !isAlwaysInMultiInstMode) // if both rememberSession && backup mode are enabled and "Always In Multi-Instance Mode" option not activated
+			if (isSnapshotMode && !isAlwaysInMultiInstMode) // if both rememberSession && backup mode are enabled and "Always In Multi-Instance Mode" option not activated:
 			{                                               // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.
 
 				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminMode",
@@ -694,8 +694,9 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 
 				}
 			}
-			else // rememberSession && backup mode are not both enabled
-			{    // open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
+			else // rememberSession && backup mode are not both enabled, or "Always In Multi-Instance Mode" option is ON:
+			{    // Open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
+
 				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminModeWithoutCloseCurrent",
 				_pPublicInterface->getHSelf(),
 				TEXT("The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),

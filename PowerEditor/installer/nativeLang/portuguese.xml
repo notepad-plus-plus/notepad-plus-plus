@@ -468,7 +468,7 @@ Nota de tradução:
 				<Item id="1" name="Localizar seguinte"/>
 				<Item id="1722" name="&amp;Sentido inverso"/>
 				<Item id="2" name="Fechar"/>
-				<Item id="1620" name="Localizar o quê?"/>
+				<Item id="1620" name="Localizar:"/>
 				<Item id="1603" name="Corresponder a &amp;palavra inteira"/>
 				<Item id="1604" name="Corresponder a &amp;maiúsculas/minúsculas"/>
 				<Item id="1605" name="&amp;Expressão regular "/>
@@ -477,7 +477,7 @@ Nota de tradução:
 				<Item id="1615" name="Localizar tudo"/>
 				<Item id="1616" name="Marcar linha"/>
 				<Item id="1618" name="Limpar para cada pesquisa"/>
-				<Item id="1611" name="Subs&amp;tituir com:"/>
+				<Item id="1611" name="Subs&amp;tituir por:"/>
 				<Item id="1608" name="&amp;Substituir"/>
 				<Item id="1609" name="Substituir &amp;tudo"/>
 				<Item id="1687" name="Ao deixar a janela"/>
@@ -1347,7 +1347,7 @@ v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 			<FindInFinder title="Localizar em resultados de pesquisa">
 				<Item id="1" name="Localizar tudo"/>
 				<Item id="2" name="Fechar"/>
-				<Item id="1711" name="Localizar o quê:"/>
+				<Item id="1711" name="Localizar:"/>
 				<Item id="1713" name="Pesquisar &amp;apenas em linhas encontradas"/>
 				<Item id="1714" name="Corresponder apenas a palavra inteira"/>
 				<Item id="1715" name="Corresponder a maiúsculas/minúsculas"/>
@@ -1650,8 +1650,8 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<find-in-files-select-folder value="Selecione uma pasta para pesquisar dentro"/><!-- HowToReproduce: Search > Find in Files > [...] -->
 			<find-status-top-reached value="Localizar: Encontrada a 1ª ocorrência a partir do final. O início do documento foi alcançado."/>
 			<find-status-end-reached value="Localizar: Encontrada a 1ª ocorrência a partir do início. O final do documento foi alcançado.."/>
-			<find-status-replaceinfiles-1-replaced value="Substituir em Ficheiros: 1 ocorrência foi substituída"/>
-			<find-status-replaceinfiles-nb-replaced value="Substituir em Ficheiros: $INT_REPLACE$ ocorrências foram substituídas"/>
+			<find-status-replaceinfiles-1-replaced value="Substituir em ficheiros: 1 ocorrência foi substituída"/>
+			<find-status-replaceinfiles-nb-replaced value="Substituir em ficheiros: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em ficheiros abertos: 1 ocorrência foi substituída"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Substituir em ficheiros abertos: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-invalid-re value="Localizar: Expressão regular inválida"/>
@@ -1807,7 +1807,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 05 February 2024 by Hugo Carvalho e Filipe Mota
+Last modified: 10 February 2024 by Hugo Carvalho e Filipe Mota
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

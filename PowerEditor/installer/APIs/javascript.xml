@@ -39,6 +39,7 @@
 		<KeyWord name="Array" />
 		<KeyWord name="asin" />
 		<KeyWord name="async" />
+		<KeyWord name="at" />
 		<KeyWord name="atan" />
 		<KeyWord name="atan2" />
 		<KeyWord name="atob" />
@@ -61,6 +62,7 @@
 		<KeyWord name="bgColor" />
 		<KeyWord name="big" />
 		<KeyWord name="BigInt" />
+		<KeyWord name="bind" />
 		<KeyWord name="blink" />
 		<KeyWord name="blob" />
 		<KeyWord name="blur" />
@@ -130,6 +132,7 @@
 		<KeyWord name="controllers" />
 		<KeyWord name="cookie" />
 		<KeyWord name="cookieEnabled" />
+		<KeyWord name="copyWithin" />
 		<KeyWord name="cos" />
 		<KeyWord name="cpuClass" />
 		<KeyWord name="createDocumentFragment" />
@@ -197,6 +200,7 @@
 		<KeyWord name="encodeURI" />
 		<KeyWord name="encodeURIComponent" />
 		<KeyWord name="encoding" />
+		<KeyWord name="endsWith" />
 		<KeyWord name="enum" />
 		<KeyWord name="enumerable" />
 		<KeyWord name="entries" />
@@ -230,6 +234,8 @@
 		<KeyWord name="find" />
 		<KeyWord name="findAll" />
 		<KeyWord name="findIndex" />
+		<KeyWord name="findLast" />
+		<KeyWord name="findLastIndex" />
 		<KeyWord name="firstChild" />
 		<KeyWord name="fixed" />
 		<KeyWord name="flat" />
@@ -307,6 +313,7 @@
 		<KeyWord name="hasAttributeNS" />
 		<KeyWord name="hasAttributes" />
 		<KeyWord name="hasFocus" />
+		<KeyWord name="hasOwn" />
 		<KeyWord name="hasOwnProperty" />
 		<KeyWord name="hash" />
 		<KeyWord name="height" />
@@ -732,6 +739,7 @@
 		<KeyWord name="SQRT1_2" />
 		<KeyWord name="SQRT2" />
 		<KeyWord name="src" />
+		<KeyWord name="startsWith" />
 		<KeyWord name="static" />
 		<KeyWord name="StaticRange" />
 		<KeyWord name="status" />
@@ -779,12 +787,20 @@
 		<KeyWord name="timeEnd" />
 		<KeyWord name="title" />
 		<KeyWord name="toGMTString" />
+		<KeyWord name="toLocaleDateString" />
 		<KeyWord name="toLocaleString" />
+		<KeyWord name="toLocaleTimeString" />
 		<KeyWord name="toLowerCase" />
 		<KeyWord name="toolbar" />
 		<KeyWord name="top" />
 		<KeyWord name="total" />
+		<KeyWord name="toTimeString" />
+		<KeyWord name="toISOString" />
+		<KeyWord name="toJSON" />
+		<KeyWord name="toReversed" />
+		<KeyWord name="toSorted" />
 		<KeyWord name="toSource" />
+		<KeyWord name="toSpliced" />
 		<KeyWord name="toString" />
 		<KeyWord name="toUpperCase" />
 		<KeyWord name="toUTCString" />

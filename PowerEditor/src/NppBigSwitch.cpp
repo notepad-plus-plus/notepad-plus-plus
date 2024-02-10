@@ -683,7 +683,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (id != BUFFER_INVALID)
 				doReload(id, wParam != 0);
 			
-			return TRUE;
+			break; // For relaying this message to other plugin by calling "_pluginsManager.relayNppMessages(message, wParam, lParam)" at the end.
 		}
 
 		case NPPM_SWITCHTOFILE :

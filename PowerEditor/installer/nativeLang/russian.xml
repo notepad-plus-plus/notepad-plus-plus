@@ -658,8 +658,8 @@ Updated to v8.6.3:
 					<Item id="2211" name="Стиль:"/>
 					<Item id="2212" name="Стиль Цвета"/>
 					<Item id="2213" name="Стиль Шрифта"/>
-					<Item id="2214" name="Стандартное расшир:"/>
-					<Item id="2216" name="Польз. расширение:"/>
+					<Item id="2214" name="Стандартные:"/>
+					<Item id="2216" name="Польз. расширения:"/>
 					<Item id="2218" name="Подчеркнутый"/>
 					<Item id="2219" name="Стандартные ключевые слова"/>
 					<Item id="2221" name="Пользовательские"/>
@@ -1470,7 +1470,7 @@ Updated to v8.6.3:
 			<LoadStylersFailed title="Ошибка загрузки stylers.xml" message="Ошибка загрузки &quot;$STR_REPLACE$&quot;!"/>
 			<LoadLangsFailed title="Конфигуратор" message="Ошибка загрузки langs.xml!&#x0A;Вы хотите восстановить свой langs.xml?"/>
 			<LoadLangsFailedFinal title="Конфигуратор" message="Ошибка загрузки langs.xml!"/>
-			<FolderAsWorspaceSubfolderExists title="Проблема при добавлении &quot;Папка как Рабочая Область&quot;" message="Подпапка папки, которую вы хотите добавить, уже существует.&#x0A;Пожалуйста, удалите её корень, прежде чем добавить папку &quot;$STR_REPLACE$&quot;."/>
+			<FolderAsWorspaceSubfolderExists title="Проблема при добавлении &quot;Папка как Рабочая Область&quot;" message="Подпапка, которую вы хотите добавить, уже существует.&#x0A;Пожалуйста, удалите старую, прежде чем добавить новую папку &quot;$STR_REPLACE$&quot;."/>
 			<ConfirmSaveAs title="Подтверждение &quot;Сохранить как...&quot;" message="$STR_REPLACE$ уже существует.&#x0A;Вы хотите его заменить?"/>
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Рабочая область была изменена.&#x0A;Вы хотите сохранить её?"/>

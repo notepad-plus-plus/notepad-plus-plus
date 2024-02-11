@@ -789,7 +789,7 @@
 		<KeyWord name="toGMTString" />
 		<KeyWord name="toLocaleDateString" />
 		<KeyWord name="toLocaleString" />
-		<KeyWord name="toLocaleTimeString />
+		<KeyWord name="toLocaleTimeString" />
 		<KeyWord name="toLowerCase" />
 		<KeyWord name="toolbar" />
 		<KeyWord name="top" />

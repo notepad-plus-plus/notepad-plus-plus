@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.6">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -439,6 +439,8 @@ Translation note:
 				<Item CMDID="42030" name="Copiar nombre del archivo"/>
 				<Item CMDID="42031" name="Copiar ruta actual"/>
 				<Item CMDID="3" name="Mover documento"/>
+				<Item CMDID="10005" name="Mover al inicio"/>
+				<Item CMDID="10006" name="Mover al final"/>
 				<Item CMDID="10001" name="Mover a otra vista"/>
 				<Item CMDID="10002" name="Clonar en otra vista"/>
 				<Item CMDID="10003" name="Mover a una nueva instancia"/>
@@ -984,6 +986,7 @@ Translation note:
 					<Item id="6236" name="Permitir desplazamiento después de la última línea"/>
 					<Item id="6239" name="Mantener la selección si pulsa el botón derecho fuera de la selección"/>
 					<Item id="6245" name="Habilitar espacio virtual"/>
+					<Item id="6214" name="Permitir copiar/cortar línea sin selección"/>
 					<Item id="6651" name="Indicador de línea actual"/>
 					<Item id="6652" name="Ninguno"/>
 					<Item id="6653" name="Fondo resaltado"/>
@@ -1394,7 +1397,8 @@ Las modificaciones guardadas no se pueden deshacer.
 
 			<NbFileToOpenImportantWarning title="La cantidad de archivos para abrir es demasiado grande" message="Se abrirán $INT_REPLACE$ archivos.
 ¿Desea abrir todos estos archivos?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-			<SettingsOnCloudError title="Configuración en la nube" message="Parece que la ruta de la configuración en la nube se establece en una unidad de solo lectura o en una carpeta que necesita derecho de acceso para escritura.
+			<SettingsOnCloudError title="Configuración en la nube" message="Parece que la ruta de la configuración en la nube se establece en una unidad de solo lectura
+o en una carpeta que necesita derecho de acceso para escritura.
 Su configuración en la nube será cancelada. Reinicie con un valor coherente usando el cuadro de diálogo de Preferencias."/>
 			<FilePathNotFoundWarning title="Abrir archivo" message="El archivo que está intentando abrir no existe."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="No se pudo cargar la sesión" message="El archivo de sesión está dañado o no es válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->

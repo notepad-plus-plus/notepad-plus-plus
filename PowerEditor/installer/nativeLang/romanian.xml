@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
 -    Traducerea în română pentru Notepad++ 8.6.3
--    Ultima modificare 27 ianuarie 2024 de către Miloiu Andrei-Valentin
+-    Ultima modificare 11 februarie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
@@ -1001,6 +1001,7 @@
                     <Item id="6236" name="Activare derulare dincolo de ultima linie"/>
                     <Item id="6239" name="Activarea selecției când se dă clic dreapta în afara selecției"/>		
                     <Item id="6245" name="Activarea spațiului virtual"/>
+                    <Item id="6214" name="Activează Copiere/Tăiere linie fără selecție"/>
                     <Item id="6651" name="Indicatorul liniei curente"/>
                     <Item id="6652" name="Niciunul"/>
                     <Item id="6653" name="Fundal evidențiat"/>
@@ -1526,6 +1527,8 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
 			<FileInaccessibleDefaultSessionXml title="Fișier inaccesibil" message="Unele fișiere din sesiunea ta anterioară sunt inaccesbilie. Ele pot fi deschise ca documente goale sau în modul doar citire ca și substituenți.
 Dorești să creezi acei substituenți?
 NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta VA FI MODIFICATĂ LA IEȘIRE! Îți sugerăm să-ți faci acum o copie de rezervă a fișierului tău &quot;sesiune.xml&quot;."/>
+			<RTLvsDirectWrite title="Nu se poate rula RTL" message="RTL nu este compatibil cu modul DirectWrite. Te rugăm să dezactivezi modul DirectWrite din secțiunea DIVERSE a dialogului Preferințe, și să repornești Notepad++."/>
+			<FileMemoryAllocationFailed title="Excepție: Alocarea memoriei fișierelor a eșuat" message="Probabil că nu e suficientă memorie continuă pentru ca fișierul să fie încărcat de Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>

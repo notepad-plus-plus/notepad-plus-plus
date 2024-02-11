@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.6">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -119,7 +119,7 @@ Translation note:
 					<Item id="42006" name="&amp;Borrar"/>
 					<Item id="42007" name="Selecc&amp;ionar todo"/>
 					<Item id="42020" name="Selección de inicio/&amp;fin"/>
-					<Item id="42089" name="Selección de inicio/fin en modo columna"/>
+					<Item id="42089" name="Selección de inicio/fin no modo columna"/>
 					<Item id="42084" name="Data e hora (curta)"/>
 					<Item id="42085" name="Data e hora (longa)"/>
 					<Item id="42086" name="Data e hora (personalizada)"/>
@@ -439,6 +439,8 @@ Translation note:
 				<Item CMDID="42030" name="Copiar nome do arquivo"/>
 				<Item CMDID="42031" name="Copiar ruta actual"/>
 				<Item CMDID="3" name="Mover documento"/>
+				<Item CMDID="10005" name="Mover ao inicio"/>
+				<Item CMDID="10006" name="Mover ao final"/>
 				<Item CMDID="10001" name="Mover a outra vista"/>
 				<Item CMDID="10002" name="Clonar noutra vista"/>
 				<Item CMDID="10003" name="Mover a unha nova instancia"/>
@@ -984,6 +986,7 @@ Translation note:
 					<Item id="6236" name="Permitir desprazamento despois da última liña"/>
 					<Item id="6239" name="Manter a selección si preme o botón dereito fóra da selección"/>
 					<Item id="6245" name="Habilitar espazo virtual"/>
+					<Item id="6214" name="Permitir copiar/cortar liña sin selección"/>
 					<Item id="6651" name="Indicador de liña actual"/>
 					<Item id="6652" name="Ningún"/>
 					<Item id="6653" name="Fondo resaltado"/>
@@ -1386,7 +1389,7 @@ As modificacións gardadas non se poden desfacer.
 ¿Continuar?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Mover á nova instancia de Notepad++" message="O documento foi modificado. Gárdeo e volva a intentalo."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Recargar" message="¿Está seguro de que desexa volver a cargar o arquivo actual e perder os cambios feitos en Notepad++?"/>
-			<FileLockedWarning title="Imposible gardalo" message="Comprobe si este arquivo está aberto por outro programa"/>
+			<FileLockedWarning title="Imposible gardalo" message="Comprobe se este arquivo está aberto por outro programa"/>
 			<FileAlreadyOpenedInNpp title="Información" message="O arquivo xa está aberto en Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Non se puido cambiar o nome" message="O nome especificado xa está en uso noutra pestana."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="No se puido cambiar o nome" message="O nome non pode estar baleiro ou non pode ser só espazo(s) ou TAB(s)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
@@ -1394,8 +1397,9 @@ As modificacións gardadas non se poden desfacer.
 
 			<NbFileToOpenImportantWarning title="A cantidade de arquivos para abrir é demasiado grande" message="Abriranse $INT_REPLACE$ arquivos.
 ¿Desexa abrir todos estes arquivos?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-			<SettingsOnCloudError title="Configuración na nube" message="Parece que a ruta da configuración na nube establécese nunha unidade de só lectura ou nunha carpeta que necesita dereito de acceso para escritura.
-A súa configuración na nube será cancelada. Reinicie cun valor coherente usando o cadro de diálogo de Preferencias."/>
+			<SettingsOnCloudError title="Configuración na nube" message="Parece que a ruta da configuración na nube establécese nunha unidade de só lectura
+ou nunha carpeta que necesita dereito de acceso para escritura.
+A súa configuración na nube cancelarase. Reinicie cun valor coherente usando o cadro de diálogo de Preferencias."/>
 			<FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que está intentando abrir non existe."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Non se puido cargar a sesión" message="O arquivo de sesión está danado ou non é válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Acción non válida" message="Só pode soltar arquivos ou carpetas, pero non ambos, porque está soltando Carpeta como modo Proxecto.
@@ -1413,10 +1417,10 @@ Hai 3 formas de cambiar ao modo de selección de columnas:
 3- Co teclado ou co rato
  Marque co cursor a posición desexada do inicio do bloque de
  columnas e aplique a opción
- &quot;Selección de inicio/fin en modo columna&quot;.
+ &quot;Selección de inicio/fin no modo columna&quot;.
  Mova o cursor á posición desexada ao final do bloque de columnas,
  marque e a continuación aplique de novo a opción
- &quot;Selección de inicio/fin en modo columna&quot;."/>
+ &quot;Selección de inicio/fin no modo columna&quot;."/>
 			<BufferInvalidWarning title="Erro ao gardar" message="Non se pode gardar: o búfer no é válido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Conservar arquivo non existente" message="O arquivo &quot;$STR_REPLACE$&quot; non existe.
 ¿Manter este arquivo no editor?"/>
@@ -1437,7 +1441,7 @@ Este arquivo foi modificado por outro programa.
 			<PrehistoricSystemDetected title="Detectado sistema obsoleto" message="Parece que está usando un sistema obsoleto. Lamentablemente esta función só funciona nun sistema máis moderno."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Actualizador Notepad++" message="O actualizador de Notepad++ non é compatible con XP debido á capa de seguridade obsoleta en XP.
 ¿Desexa ir á páxina de Notepad++ para descargar a última versión?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Configuración do proxy" message="Para cambiar a configuración do proxy, reinicie Notepad++ en modo Administrador."/>
+			<GUpProxyConfNeedAdminMode title="Configuración do proxy" message="Para cambiar a configuración do proxy, reinicie Notepad++ no modo Administrador."/>
 			<DocTooDirtyToMonitor title="Problema de monitorización" message="O documento non está limpo. Garde as modificacións antes de monitorealo."/>
 			<DocNoExistToMonitor title="Problema de monitorización" message="O arquivo debe existir para ser monitoreado."/>
 			<FileTooBigToOpen title="Problema de tamaño de arquivo" message="O arquivo é demasiado grande para abrilo con Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->

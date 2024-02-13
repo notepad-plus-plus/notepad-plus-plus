@@ -2449,13 +2449,20 @@ int Notepad_plus::doSaveOrNot(const TCHAR* fn, bool isMulti)
 	if ((NppParameters::getInstance()).isEndSessionCritical())
 		return IDCANCEL; // simulate Esc-key or Cancel-button as there should not be any big delay / code-flow block
 
-	// In case Notepad++ is iconized into notification zone
-	if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
+	// In case Notepad++ is minimized into taskbar or iconized into notification zone
+	if (::IsIconic(_pPublicInterface->getHSelf()))
 	{
-		::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+		::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
+	}
+	else
+	{
+		if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
+		{
+			::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
 
-		// Send sizing info to make window fit (specially to show tool bar.)
-		::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			// Send sizing info to make window fit (specially to show tool bar.)
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+		}
 	}
 
 	if (!isMulti)

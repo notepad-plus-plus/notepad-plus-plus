@@ -13,6 +13,12 @@ Last Modified:       1/14/2015
                      Added support for CoffeeScript.\
 					 Improved contrast for readbility.
 					 2023-09-30: update Perl support.
+                     2024-02-12:
+                     improved contrast and color diversity for Python, JSON and INI files.
+                     Increased diversity of coloring for markers.
+                     Improved bad brace visibility.
+                     Improved visibility of hovered URLS.
+                     Improved contrast of selection background with normal text color.
 Released:            4/17/2012
 License:             Feel free to modify this theme. 
                      This theme is available under the terms of the Creative Commons
@@ -401,10 +407,10 @@ Installation:
             <WordsStyle name="ENTITY" styleID="10" fgColor="561e0f" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="ini" desc="ini file" ext="">
-            <WordsStyle name="DEFAULT" styleID="0" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="80ff80" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="SECTION" styleID="2" fgColor="afcf90" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ASSIGNMENT" styleID="3" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="SECTION" styleID="2" fgColor="afcf90" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ASSIGNMENT" styleID="3" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="DEFVAL" styleID="4" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="inno" desc="InnoSetup" ext="">
@@ -456,22 +462,22 @@ Installation:
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="afcf90" bgColor="58693D" fontName="" fontStyle="3" fontSize="">param @projectDescription projectDescription @param</WordsStyle>
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="981f0e" bgColor="fdd64a" fontName="" fontStyle="3" fontSize="" />
         </LexerType>
-        <LexerType name="json" desc="JSON" ext="">
-            <WordsStyle name="DEFAULT" styleID="0" fgColor="C3BE98" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="NUMBER" styleID="1" fgColor="FF8000" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING" styleID="2" fgColor="DCDCCC" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING EOL" styleID="3" fgColor="808080" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="PROPERTY NAME" styleID="4" fgColor="8CD0D3" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="ESCAPE SEQUENCE" styleID="5" fgColor="0000FF" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="LINE COMMENT" styleID="6" fgColor="008000" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="BLOCK COMMENT" styleID="7" fgColor="008000" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="OPERATOR" styleID="8" fgColor="E3CEAB" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="URI" styleID="9" fgColor="FFFF80" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMPACT IRI" styleID="10" fgColor="0000FF" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="58693D" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
-            <WordsStyle name="LD KEYWORD" styleID="12" fgColor="FF0000" bgColor="58693D" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
-            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />		
-		</LexerType>
+        <LexerType name="json" desc="JSON" ext="jsonl ipynb">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="1" fgColor="00ffff" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="2" fgColor="b0a9f1" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING EOL" styleID="3" fgColor="a8a8a8" bgColor="58693D" fontName="" fontStyle="5" fontSize="" />
+            <WordsStyle name="PROPERTY NAME" styleID="4" fgColor="ff82dd" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ESCAPE SEQUENCE" styleID="5" fgColor="b5b5ff" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="LINE COMMENT" styleID="6" fgColor="0000ff" bgColor="00FFFF" fontName="" fontStyle="7" fontSize="" />
+            <WordsStyle name="BLOCK COMMENT" styleID="7" fgColor="0000ff" bgColor="00FFFF" fontName="" fontStyle="7" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="8" fgColor="ffff80" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="URI" styleID="9" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="COMPACT IRI" styleID="10" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="11" fgColor="00ff40" bgColor="58693D" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="LD KEYWORD" styleID="12" fgColor="ff0000" bgColor="58693D" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="ERROR" styleID="13" fgColor="1702d5" bgColor="00FFFF" fontName="" fontStyle="7" fontSize="" />
+        </LexerType>
         <LexerType name="kix" desc="KiXtart" ext="">
             <WordsStyle name="DEFAULT" styleID="31" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
@@ -690,23 +696,24 @@ Installation:
         <LexerType name="python" desc="Python" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTLINE" styleID="1" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="NUMBER" styleID="2" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING" styleID="3" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="CHARACTER" styleID="4" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="KEYWORDS" styleID="5" fgColor="cbe248" bgColor="58693D" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="TRIPLE" styleID="6" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="TRIPLEDOUBLE" styleID="7" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="CLASSNAME" styleID="8" fgColor="FFBBAA" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DEFNAME" styleID="9" fgColor="FFBBAA" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="2" fgColor="00ffff" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="3" fgColor="ff8040" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CHARACTER" styleID="4" fgColor="ff8040" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="KEYWORDS" styleID="5" fgColor="cbe248" bgColor="58693D" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="TRIPLE" styleID="6" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="TRIPLEDOUBLE" styleID="7" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="CLASSNAME" styleID="8" fgColor="ffbbaa" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="DEFNAME" styleID="9" fgColor="ffbbaa" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="ffee88" bgColor="58693D" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="efc53d" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="ffff00" bgColor="58693D" fontName="" fontStyle="0" fontSize="" colorStyle="2" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="2a390e" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="STRINGEOL" styleID="13" fgColor="162504" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="BUILTINS" styleID="14" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
-            <WordsStyle name="F STRING" styleID="16" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="F CHARACTER" styleID="17" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="F TRIPLE" styleID="18" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="12" fgColor="162504" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BUILTINS" styleID="14" fgColor="cbe248" bgColor="58693D" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="DECORATOR" styleID="15" fgColor="ff80ff" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="F STRING" styleID="16" fgColor="ff8040" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F CHARACTER" styleID="17" fgColor="ff8040" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="F TRIPLE" styleID="18" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="r" desc="R" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
@@ -930,11 +937,11 @@ Installation:
         <WidgetStyle name="Global override" styleID="0" fgColor="F2C476" bgColor="58693D" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="F2C476" bgColor="58693D" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="003709" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-        <WidgetStyle name="Brace highlight style" styleID="34" fgColor="561E0F" bgColor="9ECE3C" fontName="" fontStyle="1" fontSize="" />
-        <WidgetStyle name="Bad brace colour" styleID="35" fgColor="981F0E" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
-        <WidgetStyle name="Current line background colour" styleID="0" bgColor="717A39" />
+        <WidgetStyle name="Brace highlight style" styleID="34" fgColor="561e0f" bgColor="9ECE3C" fontName="" fontStyle="1" fontSize="" />
+        <WidgetStyle name="Bad brace colour" styleID="35" fgColor="ff8aff" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
+        <WidgetStyle name="Current line background colour" styleID="0" bgColor="717A39" fontStyle="0" />
         <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="8B6733" fgColor="000000" />
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="369EAD" fontStyle="0" />
         <WidgetStyle name="Multi-selected text color" styleID="0" bgColor="8B6733" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="FFC973" />
         <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="FFC973" />
@@ -942,26 +949,27 @@ Installation:
         <WidgetStyle name="Line number margin" styleID="33" fgColor="603D13" bgColor="7E8A28" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="7E8A28" />
         <WidgetStyle name="Change History margin" styleID="0" bgColor="7E8A28" />
-        <WidgetStyle name="Fold" styleID="0" fgColor="603d13" bgColor="7E8A28" />
-        <WidgetStyle name="Fold active" styleID="0" fgColor="FF0000" />
-        <WidgetStyle name="Fold margin" styleID="0" fgColor="7E8A28" bgColor="7E8A28" />
-        <WidgetStyle name="White space symbol" styleID="0" fgColor="FFC973" />
-        <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="BF8830" />
-        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="6A1A01" />
-        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="FDD64A" />
-        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="AFCF90" />
-        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFDC87" />
-        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="CBE248" />
-        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="8ABBE4" />
-        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="6A1A01" />
-        <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="92983E" />
-        <WidgetStyle name="Tags attribute" styleID="26" bgColor="DAB57E" />
-        <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="58693D" />
-        <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="58693D" />
-        <WidgetStyle name="Active tab text" styleID="0" fgColor="012001" />
-        <WidgetStyle name="Inactive tabs" styleID="0" fgColor="162504" bgColor="BBCF60" />
-        <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
-        <WidgetStyle name="Document map" styleID="0" fgColor="F2C476" bgColor="58693D" />
-        <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Fold" styleID="0" fgColor="603d13" bgColor="7E8A28" fontStyle="0" />
+        <WidgetStyle name="Fold active" styleID="0" fgColor="ff0000" fontStyle="0" />
+        <WidgetStyle name="Fold margin" styleID="0" fgColor="7e8a28" bgColor="7E8A28" fontStyle="0" />
+        <WidgetStyle name="White space symbol" styleID="0" fgColor="ffc973" fontStyle="0" />
+        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="BF8830" fontStyle="0" />
+        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="6A1A01" fontStyle="0" />
+        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="FEC5D0" fontStyle="0" />
+        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="400000" fontStyle="0" />
+        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="00F2F2" fontStyle="0" />
+        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="62F06C" fontStyle="0" />
+        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="F82216" fontStyle="0" />
+        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="6A1A01" fontStyle="0" />
+        <WidgetStyle name="Tags match highlighting" styleID="27" bgColor="92983E" fontStyle="0" />
+        <WidgetStyle name="Tags attribute" styleID="26" bgColor="DAB57E" fontStyle="0" />
+        <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="58693d" fontStyle="0" />
+        <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="58693d" fontStyle="0" />
+        <WidgetStyle name="Active tab text" styleID="0" fgColor="012001" fontStyle="0" />
+        <WidgetStyle name="Inactive tabs" styleID="0" fgColor="162504" bgColor="BBCF60" fontStyle="0" />
+        <WidgetStyle name="URL hovered" styleID="0" fgColor="1fef01" fontStyle="0" />
+        <WidgetStyle name="Document map" styleID="0" fgColor="ff8000" bgColor="58693D" fontStyle="0" />
+        <WidgetStyle name="EOL custom color" styleID="0" fgColor="dadada" fontStyle="0" />
+        <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="ffb56a" fontStyle="0" />
     </GlobalStyles>
 </NotepadPlus>

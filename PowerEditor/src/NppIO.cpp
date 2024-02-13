@@ -1035,6 +1035,10 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 
 	//closes all documents, makes the current view the only one visible
 
+	// since this func can also be called on the Notepad++ exit (from within the WM_CLOSE handler) while the Notepad++ window is minimized
+	// or invisible (systray), we need to always ensure that window visibility before invoking any of the possible subsequent dialogs here
+	// (otherwise any possible dialog here will be invisible too and will block the Notepad++ process exit forever...)
+
 	//first check if we need to save any file
 	//check in the both view
 	std::unordered_set<BufferID> uniqueBuffers;
@@ -1063,6 +1067,20 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 					if (!activateBuffer(id, SUB_VIEW))
 						switchEditViewTo(MAIN_VIEW);
 
+					if (::IsIconic(_pPublicInterface->getHSelf()))
+					{
+						::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
+					}
+					else
+					{
+						if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
+						{
+							// systray etc...
+							::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+							::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0); // to make window fit (especially to show the tool bar)
+						}
+					}
+
 					int res = _nativeLangSpeaker.messageBox("NoBackupDoSaveFile",
 						_pPublicInterface->getHSelf(),
 						TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"$STR_REPLACE$\" ?"),
@@ -1087,6 +1105,20 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				activateBuffer(id, MAIN_VIEW);
 				if (!activateBuffer(id, SUB_VIEW))
 					switchEditViewTo(MAIN_VIEW);
+
+				if (::IsIconic(_pPublicInterface->getHSelf()))
+				{
+					::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
+				}
+				else
+				{
+					if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
+					{
+						// systray etc...
+						::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+						::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0); // to make window fit (especially to show the tool bar)
+					}
+				}
 
 				int res = -1;
 				if (saveToAll)

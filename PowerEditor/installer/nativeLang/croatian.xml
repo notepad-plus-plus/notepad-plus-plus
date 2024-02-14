@@ -5,7 +5,7 @@
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.6.1">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -996,6 +996,7 @@
 					<Item id="6236" name="Omogući skrolanje nakon zadnjeg retka"/>
 					<Item id="6239" name="Zadrži izbor nakon desnog klika izvan izbora"/>
 					<Item id="6245" name="Uključi virtualni prostor"/>
+					<Item id="6214" name="Omogući kopiranje/izrezivanje retka bez označavanja"/>
 					<Item id="6651" name="Indikator trenutno aktivnog retka"/>
 					<Item id="6652" name="Ništa"/>
 					<Item id="6653" name="Istaknuta pozadina"/>

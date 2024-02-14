@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.6.1  29/Dec/2023  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.6.3  14/Feb/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.1">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1011,6 +1011,7 @@
 					<Item id="6134" name="Skrýt"/>
 				</Global>
 				<Scintillas title="Editace">
+					<Item id="6214" name="Povolit Kopírování/Vyjmutí celého řádku bez výběru"/>
 					<Item id="6215" name="Povolit vyhlazování fontu"/>
 					<Item id="6216" name="Nastavení kurzoru"/>
 					<Item id="6217" name="Šířka:"/>

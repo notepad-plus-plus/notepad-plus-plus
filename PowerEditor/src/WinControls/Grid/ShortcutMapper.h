@@ -57,6 +57,7 @@ public:
 	generic_string getTextFromCombo(HWND hCombo);
 	bool isFilterValid(Shortcut);
 	bool isFilterValid(PluginCmdShortcut sc);
+	bool isFilterValid(ScintillaKeyMap sc);
 
 protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

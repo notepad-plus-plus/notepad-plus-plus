@@ -1959,20 +1959,37 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 			else
 			{
-				if ((HWND(wParam) == _mainEditView.getHSelf()) || (HWND(wParam) == _subEditView.getHSelf()))
+				HWND activeViewHwnd = reinterpret_cast<HWND>(wParam);
+
+				if ((activeViewHwnd == _mainEditView.getHSelf()) || (activeViewHwnd == _subEditView.getHSelf()))
 				{
-					if ((HWND(wParam) == _mainEditView.getHSelf()))
+					if (activeViewHwnd == _mainEditView.getHSelf())
 						switchEditViewTo(MAIN_VIEW);
 					else
 						switchEditViewTo(SUB_VIEW);
 
-					POINT p;
-					::GetCursorPos(&p);
 					ContextMenu scintillaContextmenu;
+					
 					std::vector<MenuItemUnit>& tmp = nppParam.getContextMenuItems();
 					bool copyLink = (_pEditView->getSelectedTextCount() == 0) && _pEditView->getIndicatorRange(URL_INDIC);
 					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle, copyLink);
+					
+					POINT p;
+					if (lParam == -1)
+					{
+						// context menu activated via keyboard; pop up at text caret position
+						auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+						p.x = static_cast<LONG>(_pEditView->execute(SCI_POINTXFROMPOSITION, 0, caretPos));
+						p.y = static_cast<LONG>(_pEditView->execute(SCI_POINTYFROMPOSITION, 0, caretPos));
+						::ClientToScreen(activeViewHwnd, &p);
+					}
+					else
+					{
+						// context menu activated via mouse right-click; pop up at click location
+						::GetCursorPos(&p);
+					}
 					scintillaContextmenu.display(p);
+
 					return TRUE;
 				}
 			}

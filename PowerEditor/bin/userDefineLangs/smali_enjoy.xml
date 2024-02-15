@@ -1,0 +1,64 @@
+<NotepadPlus>
+    <UserLang name="smali5" ext="smali" udlVersion="2.1">
+        <Settings>
+            <Global caseIgnored="no" allowFoldOfComments="no" foldCompact="no" forcePureLC="0" decimalSeparator="0" />
+            <Prefix Keywords1="no" Keywords2="no" Keywords3="no" Keywords4="no" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="no" />
+        </Settings>
+        <KeywordLists>
+            <Keywords name="Comments">00# 01 02 03 04</Keywords>
+            <Keywords name="Numbers, prefix1">0x</Keywords>
+            <Keywords name="Numbers, prefix2"></Keywords>
+            <Keywords name="Numbers, extras1"></Keywords>
+            <Keywords name="Numbers, extras2"></Keywords>
+            <Keywords name="Numbers, suffix1"></Keywords>
+            <Keywords name="Numbers, suffix2"></Keywords>
+            <Keywords name="Numbers, range"></Keywords>
+            <Keywords name="Operators1">&quot; ( ) , ; { }</Keywords>
+            <Keywords name="Operators2"></Keywords>
+            <Keywords name="Folders in code1, open">.method .annotation .sparse-switch .packed-switch param</Keywords>
+            <Keywords name="Folders in code1, middle"></Keywords>
+            <Keywords name="Folders in code1, close">.end\ method .end\ annotation .end\ sparse-switch .end\ packed-switch .end\ param</Keywords>
+            <Keywords name="Folders in code2, open"></Keywords>
+            <Keywords name="Folders in code2, middle"></Keywords>
+            <Keywords name="Folders in code2, close"></Keywords>
+            <Keywords name="Folders in comment, open"></Keywords>
+            <Keywords name="Folders in comment, middle"></Keywords>
+            <Keywords name="Folders in comment, close"></Keywords>
+            <Keywords name="Keywords1">.array-data .catch .catchall .class .end .end\ array-data .end\ local end\ subannotation .enum .epilogue .field .implements .line .local .locals .parameter .prologue .registers .restart .restart\ local .source .subannotation .super</Keywords>
+            <Keywords name="Keywords2">abstract bridge constructor declared-synchronized enum false final interface native private protected public static strictfp synchronized synthetic system transient true varargs volatile</Keywords>
+            <Keywords name="Keywords3">add-double add-double/2addr add-float add-float/2addr add-int add-int/2addr add-int/lit16 add-int/lit8 add-long add-long/2addr aget aget-boolean aget-byte aget-char aget-object aget-short aget-wide and-int and-int/2addr and-int/lit16 and-int/lit8 and-long and-long/2addr aput aput-boolean aput-byte aput-char aput-object aput-short aput-wide array-length check-cast cmp-long cmpg-double cmpg-float cmpl-double cmpl-float const const-class const-method-handle const-method-type const-string const-string/jumbo const-wide const-wide/16 const-wide/32 const-wide/high16 const/16 const/4 const/high16 div-double div-double/2addr div-float div-float/2addr div-int div-int/2addr div-int/lit16 div-int/lit8 div-long div-long/2addr double-to-float double-to-int double-to-long fill-array-data filled-new-array filled-new-array/range float-to-double float-to-int float-to-long goto goto/16 goto/32 if-eq if-eqz if-ge if-gez if-gt if-gtz if-le if-lez if-lt if-ltz if-ne if-nez iget iget-boolean iget-byte iget-char iget-object iget-short iget-wide instance-of int-to-byte int-to-char int-to-double int-to-float int-to-long int-to-short invoke-custom invoke-custom/range invoke-direct invoke-direct/range invoke-interface invoke-interface/range invoke-polymorphic invoke-polymorphic/range invoke-static invoke-static/range invoke-super invoke-super/range invoke-virtual invoke-virtual/range iput iput-boolean iput-byte iput-char iput-object iput-short iput-wide long-to-double long-to-float long-to-int monitor-enter monitor-exit move move-exception move-object move-object/16 move-object/from16 move-result move-result-object move-result-wide move-wide move-wide/16 move-wide/from16 move/16 move/from16 mul-double mul-double/2addr mul-float mul-float/2addr mul-int mul-int/2addr mul-int/lit16 mul-int/lit8 mul-long mul-long/2addr neg-double neg-float neg-int neg-long new-array new-instance nop not-int not-long or-int or-int/2addr or-int/lit16 or-int/lit8 or-long or-long/2addr packed-switch rem-double rem-double/2addr rem-float rem-float/2addr rem-int rem-int/2addr rem-int/lit16 rem-int/lit8 rem-long rem-long/2addr return return-object return-void return-wide rsub-int rsub-int/lit8 sget sget-boolean sget-byte sget-char sget-object sget-short sget-wide shl-int shl-int/2addr shl-int/lit8 shl-long shl-long/2addr shr-int shr-int/2addr shr-int/lit8 shr-long shr-long/2addr sparse-switch sput sput-boolean sput-byte sput-char sput-object sput-short sput-wide sub-double sub-double/2addr sub-float sub-float/2addr sub-int sub-int/2addr sub-long sub-long/2addr throw ushr-int ushr-int/2addr ushr-int/lit8 ushr-long ushr-long/2addr xor-int xor-int/2addr xor-int/lit16 xor-int/lit8 xor-long xor-long/2addr</Keywords>
+            <Keywords name="Keywords4">v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v20 v21 v22 v23 v24 v25 v26 v27 v28 v29 v30 v31 v32 v33 v34 v35 v36 v37 v38 v39 v40 v41 v42 v43 v44 v45 v46 v47 v48 v49 v50 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p30</Keywords>
+            <Keywords name="Keywords5"></Keywords>
+            <Keywords name="Keywords6"></Keywords>
+            <Keywords name="Keywords7"></Keywords>
+            <Keywords name="Keywords8"></Keywords>
+            <Keywords name="Delimiters">00:L 01 02; 03&quot; 04 05&quot; 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE1" fgColor="CF462D" bgColor="FFFFFF" colorStyle="1" fontStyle="1" nesting="0" />
+            <WordsStyle name="KEYWORDS1" fgColor="CF462D" bgColor="FFFFFF" colorStyle="1" fontStyle="1" nesting="0" />
+            <WordsStyle name="KEYWORDS2" fgColor="0000FF" bgColor="FFFFFF" colorStyle="1" fontStyle="1" nesting="0" />
+            <WordsStyle name="KEYWORDS3" fgColor="1F6FEB" bgColor="FFFFFF" colorStyle="1" fontStyle="1" nesting="0" />
+            <WordsStyle name="KEYWORDS4" fgColor="8000FF" bgColor="FFFFFF" colorStyle="1" fontStyle="1" nesting="0" />
+            <WordsStyle name="COMMENTS" fgColor="0080FF" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="LINE COMMENTS" fgColor="6E7681" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="NUMBERS" fgColor="FF0000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="OPERATORS" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS1" fgColor="DEA02B" bgColor="FFFFFF" colorStyle="1" fontStyle="1" nesting="0" />
+            <WordsStyle name="DELIMITERS2" fgColor="006432" bgColor="FFFFFF" colorStyle="1" fontStyle="1" nesting="0" />
+            <WordsStyle name="DELIMITERS3" fgColor="DEA02B" bgColor="FFFFFF" colorStyle="1" fontStyle="3" nesting="0" />
+            <WordsStyle name="KEYWORDS5" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS6" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS7" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS8" fgColor="FFFFFF" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE2" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN COMMENT" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS4" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS5" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS6" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS7" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS8" fgColor="000000" bgColor="FFFFFF" colorStyle="1" fontStyle="0" nesting="0" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>

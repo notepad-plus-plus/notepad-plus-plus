@@ -1904,6 +1904,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_SETMULTISELCTION:
+		{
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+			_mainEditView.execute(SCI_SETMULTIPLESELECTION, svp._multiSelection);
+			_subEditView.execute(SCI_SETMULTIPLESELECTION, svp._multiSelection);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETCARETBLINKRATE:
 		{
 			const NppGUI & nppGUI = nppParam.getNppGUI();

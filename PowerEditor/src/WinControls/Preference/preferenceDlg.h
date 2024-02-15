@@ -79,6 +79,17 @@ private :
 	void changeLineHiliteMode(bool enableSlider);
 };
 
+class Editing2SubDlg : public StaticDialog
+{
+friend class PreferenceDlg;
+public :
+	Editing2SubDlg() = default;
+	~Editing2SubDlg() = default;
+
+private:
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+};
+
 class DarkModeSubDlg : public StaticDialog
 {
 public:
@@ -327,6 +338,7 @@ private :
 	WindowVector _wVector;
 	GeneralSubDlg _generalSubDlg;
 	EditingSubDlg _editingSubDlg;
+	Editing2SubDlg _editing2SubDlg;
 	DarkModeSubDlg _darkModeSubDlg;
 	MarginsBorderEdgeSubDlg _marginsBorderEdgeSubDlg;
 	MiscSubDlg _miscSubDlg;

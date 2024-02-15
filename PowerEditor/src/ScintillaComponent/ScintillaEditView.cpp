@@ -528,7 +528,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			SHORT alt = GetKeyState(VK_MENU);
 			SHORT shift = GetKeyState(VK_SHIFT);
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
-			bool column2MultSelect = (NppParameters::getInstance()).doColumn2MultiSelect();
+			bool column2MultSelect = (NppParameters::getInstance()).getSVP()._columnSel2MultiEdit;
 
 			if (wParam == VK_DELETE)
 			{

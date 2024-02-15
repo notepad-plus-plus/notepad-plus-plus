@@ -1652,21 +1652,6 @@ bool NppParameters::load()
 		_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
 	}
 
-
-	//-------------------------------------------------------------//
-	// noColumnToMultiSelect.xml                                   //
-	// This empty xml file is optional - user adds this empty file //
-	// manually in order to prevent Notepad++ transform column     //
-	// selection into multi-select.                                //
-	//-------------------------------------------------------------//
-	std::wstring disableColumn2MultiSelectPath = _userPath;
-	pathAppend(disableColumn2MultiSelectPath, TEXT("noColumnToMultiSelect.xml"));
-
-	if (PathFileExists(disableColumn2MultiSelectPath.c_str()))
-	{
-		_column2MultiSelect = false;
-	}
-
 	return isAllLaoded;
 }
 
@@ -6634,6 +6619,24 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("no")))
 			_svp._lineCopyCutWithoutSelection = false;
 	}
+
+	nm = element->Attribute(TEXT("multiSelection"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._multiSelection = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._multiSelection = false;
+	}
+
+	nm = element->Attribute(TEXT("columnSel2MultiEdit"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")) && _svp._multiSelection)
+			_svp._columnSel2MultiEdit = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._columnSel2MultiEdit = false;
+	}
 }
 
 
@@ -6909,6 +6912,11 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("paddingRight"), _svp._paddingRight);
 	(scintNode->ToElement())->SetAttribute(TEXT("distractionFreeDivPart"), _svp._distractionFreeDivPart);
 	(scintNode->ToElement())->SetAttribute(TEXT("lineCopyCutWithoutSelection"), _svp._lineCopyCutWithoutSelection ? TEXT("yes") : TEXT("no"));
+
+	(scintNode->ToElement())->SetAttribute(TEXT("multiSelection"), _svp._multiSelection ? TEXT("yes") : TEXT("no"));
+	bool canEnableColumnSel2MultiEdit = _svp._multiSelection && _svp._columnSel2MultiEdit;
+	(scintNode->ToElement())->SetAttribute(TEXT("columnSel2MultiEdit"), canEnableColumnSel2MultiEdit ? TEXT("yes") : TEXT("no"));
+
 	return true;
 }
 

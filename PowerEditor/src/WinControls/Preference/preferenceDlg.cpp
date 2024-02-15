@@ -127,6 +127,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_editingSubDlg.init(_hInst, _hSelf);
 			_editingSubDlg.create(IDD_PREFERENCE_SUB_EDITING, false, false);
 
+			_editing2SubDlg.init(_hInst, _hSelf);
+			_editing2SubDlg.create(IDD_PREFERENCE_SUB_EDITING2, false, false);
+
 			_darkModeSubDlg.init(_hInst, _hSelf);
 			_darkModeSubDlg.create(IDD_PREFERENCE_SUB_DARKMODE, false, false);
 
@@ -182,7 +185,8 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);			
 
 			_wVector.push_back(DlgInfo(&_generalSubDlg, TEXT("General"), TEXT("Global")));
-			_wVector.push_back(DlgInfo(&_editingSubDlg, TEXT("Editing"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_editingSubDlg, TEXT("Editing 1"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_editing2SubDlg, TEXT("Editing 2"), TEXT("Scintillas2")));
 			_wVector.push_back(DlgInfo(&_darkModeSubDlg, TEXT("Dark Mode"), TEXT("DarkMode")));
 			_wVector.push_back(DlgInfo(&_marginsBorderEdgeSubDlg, TEXT("Margins/Border/Edge"), TEXT("MarginsBorderEdge")));
 			_wVector.push_back(DlgInfo(&_newDocumentSubDlg, TEXT("New Document"), TEXT("NewDoc")));
@@ -487,6 +491,7 @@ void PreferenceDlg::destroy()
 {
 	_generalSubDlg.destroy();
 	_editingSubDlg.destroy();
+	_editing2SubDlg.destroy();
 	_darkModeSubDlg.destroy();
 	_marginsBorderEdgeSubDlg.destroy();
 	_miscSubDlg.destroy();
@@ -1300,6 +1305,52 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					}
 			}
 		}
+	}
+	return FALSE;
+}
+
+intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_SETCHECK, svp._multiSelection, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, svp._columnSel2MultiEdit, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
+		}
+		return TRUE;
+
+		case WM_COMMAND:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+			switch (wParam)
+			{
+				case IDC_CHECK_MULTISELECTION:
+				{
+					svp._multiSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_GETCHECK, 0, 0));
+					if (!svp._multiSelection)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, FALSE, 0);
+						svp._columnSel2MultiEdit = false;
+					}
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
+				}
+				return TRUE;
+
+				case IDC_CHECK_COLUMN2MULTIEDITING:
+				{
+					svp._columnSel2MultiEdit = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_GETCHECK, 0, 0));
+				}
+				return TRUE;
+			}
+		}
+		return TRUE;
 	}
 	return FALSE;
 }

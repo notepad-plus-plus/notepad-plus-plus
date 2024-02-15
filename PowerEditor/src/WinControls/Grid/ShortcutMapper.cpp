@@ -224,37 +224,17 @@ bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc)
 
 bool ShortcutMapper::isFilterValid(ScintillaKeyMap sc)
 {
-	// do a classic search on shortcut name, then see if *any* keycombo in _keyCombos matches
+	// do a classic search on shortcut name,
+	// then see if the list of keycombos matches (e.g. "Ctrl+X or Alt+Y" matches "or" and "Alt" and "Ctrl+")
 	if (_shortcutFilter.empty())
 		return true;
 
 	wstring shortcut_name = stringToLower(string2wstring(sc.getName(), CP_UTF8));
 	if (shortcut_name.find(_shortcutFilter) != std::string::npos)
-		return true; // name matches; don't have to check shortcuts
+		return true; // name matches
 
-	for (size_t i = 0; i < sc.getSize(); ++i)
-	{
-		KeyCombo keyCombo = sc.getKeyComboByIndex(i);
-		if (keyCombo._key != 0)
-		{
-			// check if this stringified shortcut matches 
-			string sc;
-			if (keyCombo._isCtrl)
-				sc += "Ctrl+";
-			if (keyCombo._isAlt)
-				sc += "Alt+";
-			if (keyCombo._isShift)
-				sc += "Shift+";
-
-			string keyString;
-			getKeyStrFromVal(keyCombo._key, keyString);
-			sc += keyString;
-			wstring combo_value = stringToLower(string2wstring(sc, CP_UTF8));
-			if (combo_value.find(_shortcutFilter) != std::string::npos)
-				return true;
-		}
-	}
-	return false;
+	wstring shortcut_value = stringToLower(string2wstring(sc.toString(), CP_UTF8));
+	return shortcut_value.find(_shortcutFilter) != std::string::npos; // list of shortcuts matches
 }
 
 void ShortcutMapper::fillOutBabyGrid()

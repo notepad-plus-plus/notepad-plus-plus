@@ -1323,6 +1323,26 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		}
 		return TRUE;
 
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
 		case WM_COMMAND:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();

@@ -1785,29 +1785,55 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	LangType langType = buf->getLangType();
 
-	const bool defaultAllTypes = NppParameters::getInstance().getNppGUI()._setSaveDlgExtFiltToAllTypes;
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = nppParam.getNppGUI();
+
+	const bool defaultAllTypes = nppGUI._setSaveDlgExtFiltToAllTypes;
 	const int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, false, langType);
 	
 	fDlg.setDefFileName(buf->getFileName());
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
-	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
+	generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
 		TEXT("&Append extension"));
 	fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);
 
+	if (isSaveCopy)
+	{
+		checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-open-copy", TEXT("&Open copy after saving"));
+		fDlg.includeOpenTheCopyCheckbox(checkboxLabel, nppGUI._setSaveDlgOpenCopyChecked);
+	}
+
 	// Disable file autodetection before opening save dialog to prevent use-after-delete bug.
-	NppParameters& nppParam = NppParameters::getInstance();
-	auto cdBefore = nppParam.getNppGUI()._fileAutoDetection;
-	(nppParam.getNppGUI())._fileAutoDetection = cdDisabled;
+	auto cdBefore = nppGUI._fileAutoDetection;
+	nppGUI._fileAutoDetection = cdDisabled;
+
+	std::wstring title;
+	if (isSaveCopy)
+	{
+		title = _nativeLangSpeaker.getLocalizedStrFromID("file-save-as-copy-title", TEXT("Save Copy As"));
+	}
+	else
+	{
+		title = _nativeLangSpeaker.getLocalizedStrFromID("file-save-as-title", TEXT("Save As"));
+	}
+	fDlg.setTitle(title.c_str());
 
 	generic_string fn = fDlg.doSaveDlg();
 
 	// Remember the selected state
-	(nppParam.getNppGUI())._setSaveDlgExtFiltToAllTypes = !fDlg.getFileTypeCheckboxValue();
+	nppGUI._setSaveDlgExtFiltToAllTypes = !fDlg.getFileTypeCheckboxValue();
 
 	// Enable file autodetection again.
-	(nppParam.getNppGUI())._fileAutoDetection = cdBefore;
+	nppGUI._fileAutoDetection = cdBefore;
+
+	bool willOpenTheCopy = false;
+	if (isSaveCopy)
+	{
+		willOpenTheCopy = fDlg.getOpenTheCopyCheckboxIsChecked();
+		nppGUI._setSaveDlgOpenCopyChecked = willOpenTheCopy;
+	}
 
 	if (!fn.empty())
 	{
@@ -1829,6 +1855,15 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 			if (res && !isSaveCopy)
 			{
 				_lastRecentFileList.remove(fn.c_str());
+			}
+
+			if (res && isSaveCopy && willOpenTheCopy)
+			{
+				BufferID bid = doOpen(fn.c_str());
+				if (bid != BUFFER_INVALID)
+				{
+					switchToFile(bid);
+				}
 			}
 
 			return res;
@@ -2014,6 +2049,9 @@ void Notepad_plus::fileOpen()
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 
 	setFileOpenSaveDlgFilters(fDlg, true);
+
+	std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("file-open-title", L"Open");
+	fDlg.setTitle(title.c_str());
 
 	BufferID lastOpened = BUFFER_INVALID;
 	const auto& fns = fDlg.doOpenMultiFilesDlg();

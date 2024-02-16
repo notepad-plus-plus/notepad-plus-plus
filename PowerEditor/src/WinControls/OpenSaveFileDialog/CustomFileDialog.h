@@ -41,6 +41,9 @@ public:
 	void enableFileTypeCheckbox(const generic_string& text, bool value);
 	bool getFileTypeCheckboxValue() const;
 
+	void includeOpenTheCopyCheckbox(const generic_string& text, bool isChecked);
+	bool getOpenTheCopyCheckboxIsChecked() const;
+
 	// Empty string is not a valid file name and may signal that the dialog was canceled.
 	generic_string doSaveDlg();
 	generic_string pickFolder();

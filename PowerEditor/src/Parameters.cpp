@@ -6124,6 +6124,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (saveDlgExtFilterToAllTypes)
 				_nppGUI._setSaveDlgExtFiltToAllTypes = (lstrcmp(saveDlgExtFilterToAllTypes, TEXT("yes")) == 0);
 
+			const TCHAR* saveDlgOpenCopy = element->Attribute(TEXT("saveDlgOpenCopy"));
+			if (saveDlgOpenCopy)
+				_nppGUI._setSaveDlgOpenCopyChecked = (lstrcmp(saveDlgOpenCopy, TEXT("yes")) == 0);
+
 			const TCHAR * optMuteSounds = element->Attribute(TEXT("muteSounds"));
 			if (optMuteSounds)
 				_nppGUI._muteSounds = lstrcmp(optMuteSounds, TEXT("yes")) == 0;
@@ -7437,6 +7441,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("sortFunctionList"), _nppGUI._shouldSortFunctionList ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("saveDlgExtFilterToAllTypes"), _nppGUI._setSaveDlgExtFiltToAllTypes ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("saveDlgOpenCopy"), _nppGUI._setSaveDlgOpenCopyChecked ? TEXT("yes") : TEXT("no"));
+		
 		GUIConfigElement->SetAttribute(TEXT("muteSounds"), _nppGUI._muteSounds ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("enableFoldCmdToggable"), _nppGUI._enableFoldCmdToggable ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("hideMenuRightShortcuts"), _nppGUI._hideMenuRightShortcuts ? TEXT("yes") : TEXT("no"));

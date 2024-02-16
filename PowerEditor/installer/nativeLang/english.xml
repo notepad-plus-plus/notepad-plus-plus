@@ -1636,6 +1636,9 @@ NOTE: Choosing not to create the placeholders or closing them later, your sessio
 			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
 			<two-find-buttons-tip value="2 find buttons mode"/>
 			<file-rename-title value="Rename"/>
+			<file-open-title value="Open"/>
+			<file-save-as-title value="Save As"/>
+			<file-save-as-copy-title value="Save Copy As"/>
 			<find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1737,6 +1740,7 @@ Find in all files but exclude all folders log or logs recursively:
 			<session-save-folder-as-workspace value="Save Folder as Workspace"/>
 			<tab-untitled-string value="new "/>
 			<file-save-assign-type value="&amp;Append extension"/>
+			<file-save-open-copy value="&amp;Open copy after saving"/>
 			<close-panel-tip value="Close"/>
 			<IncrementalFind-FSFound value="$INT_REPLACE$ matches"/>
 			<IncrementalFind-FSNotFound value="Phrase not found"/>

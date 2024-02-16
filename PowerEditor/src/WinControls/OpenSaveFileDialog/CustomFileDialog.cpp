@@ -51,6 +51,7 @@ namespace // anonymous
 
 	static const int IDC_FILE_CUSTOM_CHECKBOX = 4;
 	static const int IDC_FILE_TYPE_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 1;
+	static const int IDC_OPEN_THE_COPY_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 2;
 
 	// Returns a first extension from the extension specification string.
 	// Multiple extensions are separated with ';'.
@@ -796,6 +797,9 @@ public:
 		if (_enableFileTypeCheckbox)
 			addCheckbox(IDC_FILE_TYPE_CHECKBOX, _fileTypeCheckboxLabel.c_str(), _fileTypeCheckboxValue);
 
+		if (_includeOpenTheCopyCheckbox)
+			addCheckbox(IDC_OPEN_THE_COPY_CHECKBOX, _openTheCopyCheckboxLabel.c_str(), _openTheCopyCheckboxChecked);
+
 		if (SUCCEEDED(hr))
 			return addControls();
 
@@ -974,6 +978,9 @@ public:
 	bool _enableFileTypeCheckbox = false;
 	bool _fileTypeCheckboxValue = false;	// initial value
 	generic_string _fileTypeCheckboxLabel;
+	bool _includeOpenTheCopyCheckbox = false;
+	bool _openTheCopyCheckboxChecked = false;	// initial value (unchecked)
+	generic_string _openTheCopyCheckboxLabel;
 
 private:
 	com_ptr<IFileDialog> _dialog;
@@ -1085,6 +1092,22 @@ void CustomFileDialog::enableFileTypeCheckbox(const generic_string& text, bool v
 bool CustomFileDialog::getFileTypeCheckboxValue() const
 {
 	return _impl->getCheckboxState(IDC_FILE_TYPE_CHECKBOX);
+}
+
+void CustomFileDialog::includeOpenTheCopyCheckbox(const generic_string& text, bool isChecked)
+{
+	assert(!text.empty());
+	if (!text.empty())
+	{
+		_impl->_includeOpenTheCopyCheckbox = true;
+		_impl->_openTheCopyCheckboxLabel = text;
+		_impl->_openTheCopyCheckboxChecked = isChecked;
+	}
+}
+
+bool CustomFileDialog::getOpenTheCopyCheckboxIsChecked() const
+{
+	return _impl->getCheckboxState(IDC_OPEN_THE_COPY_CHECKBOX);
 }
 
 generic_string CustomFileDialog::doSaveDlg()

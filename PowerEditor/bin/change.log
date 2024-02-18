@@ -1,46 +1,27 @@
-Notepad++ v8.6.2 fixed regressions:
+Notepad++ v8.6.3 bug-fixes & new enhancements:
 
- 1. Fix Shift-DEL, Ctrl-INS and Shift-INS not working regression.
- 2. Fix Ctrl+V cannot paste into the text fields of certain plugins regression.
- 3. Remove option "disableLineCopyCutDelete.xml" (the empty file takes no effect).
- 4. Fix a regression: the position in the previous session is now restored correctly in cloned document.
-
-
-Notepad++ v8.6.1 new features & bug-fixes:
-
- 1. Updated to Scintilla 5.4.1 & Lexilla 5.3.0.
- 2. Fix a regression: customized extension in Style Configurator is now saved correctly.
- 3. Add an ability (disableLineCopyCutDelete.xml) to disable line copy/cut/delete when no selection is made.
- 4. Add an ability (noColumnToMultiSelect.xml) to disable column mode to multi-select mode.
- 5. Fix deleting in column mode also delete an unexpected EOL.
- 6. Fix hidden results of long lines for Search results with "Find in..." commands.
- 7. Enhance Search-results by showing search options for "Find in..." commands.
- 8. Fix an issue: replacements are no longer duplicated (the 2nd time in cloned document) for "Replace in Opened Docs".
- 9. Fix a regression to make F3 & Shift-F3 work again in Incremental Search.
-10. Add document tab navigation commands: "First tab" & "Last tab".
-11. Add document tab commands: "Move to Start" & "Move to End" commands.
-12. 3 RTL new abilities: RTL per document, RTL per document remembered across the sessions & new attribute editZoneRTL="no" in RTL localization files.
-13. Enhance the "-loadingTime" command line parameter.
-14. Enhance the performance: disable undo collection while loading a file.
-15. Sort language list in the Preferences dialog.
-16. Fix a visual glitch that occurred during multi-paste.
-17. Fix confusing memory allocation error message.
-18. Fix python wrong decorator attribute color.
-19. Fix file status in "other view" is not detected.
-20. Fix dropped file being opened in the wrong view.
-
+ 1. Restore multi-editing option & add "Column To Multi-editing" option on GUI.
+ 2. Make "copy/cut line while no selection" optional.
+ 3. Fix all open files lost after restarting as Admin to save a file.
+ 4. Fix "Replace All" crash & performance issue.
+ 5. Fix calltip crash due to the division by zero.
+ 6. Enhance Function List for Python to support "async def" & colons in argument list.
+ 7. Fix Copy/Cut/Paste issue in Vertical Edge text field in preferences dialog.
+ 8. Fix macro recording twice for some commands.
+ 9. Fix "Open File" command not working with TAB preceded.
+10. Add auto-completion keywords for PHP, JavaScript and CSS.
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6.2/
+https://notepad-plus-plus.org/downloads/v8.6.3/
 
 
 Included plugins:
 
 1.  NppExport v0.4
-2.  Converter v4.5
-3.  Mime Tool v3.0
+2.  Converter v4.6
+3.  Mime Tool v3.1
 
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.2.7
+* WinGUp (for Notepad++) v5.2.8

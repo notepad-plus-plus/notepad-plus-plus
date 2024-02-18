@@ -2572,6 +2572,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_pluginsManager.notify(&scnN);
 					if (isSnapshotMode)
 						::LockWindowUpdate(NULL);
+
+					if (!::IsWindowVisible(hwnd))
+					{
+						// Notepad++ probably has not been restored from the systray yet but its tray-icon was removed before,
+						// so we have to show it otherwise we end up with no GUI
+						::ShowWindow(hwnd, SW_SHOW);
+						::SendMessage(hwnd, WM_SIZE, 0, 0);
+					}
+
 					return 0; // abort quitting
 				}
 

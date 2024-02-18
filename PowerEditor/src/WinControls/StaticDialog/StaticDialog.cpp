@@ -79,10 +79,15 @@ void StaticDialog::goToCenter(UINT swpFlags)
 {
 	RECT rc{};
 	::GetClientRect(_hParent, &rc);
+	if ((rc.left == rc.right) || (rc.top == rc.bottom))
+		swpFlags |= SWP_NOSIZE; // sizing has no sense here
+
 	POINT center{};
 	center.x = rc.left + (rc.right - rc.left)/2;
 	center.y = rc.top + (rc.bottom - rc.top)/2;
 	::ClientToScreen(_hParent, &center);
+	if ((center.x == -32000) && (center.y == -32000))
+		swpFlags |= SWP_NOMOVE; // moving has no sense here (owner wnd is minimized)
 
 	int x = center.x - (_rc.right - _rc.left)/2;
 	int y = center.y - (_rc.bottom - _rc.top)/2;

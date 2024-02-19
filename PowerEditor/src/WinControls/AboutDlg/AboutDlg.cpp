@@ -222,8 +222,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			constexpr size_t bufSizeUBR = 12;
 			TCHAR szUBR[bufSizeUBR] = TEXT("0");
 
-			// NOTE: RegQueryValueExW is not guaranteed to return null-ter
-			// minated strings
+			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
 			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 			{
 				dataSize = sizeof(szProductName);

@@ -36,6 +36,7 @@ Updated to v8.6 fixed version
 					<Item subMenuId="edit-blankOperations" name="Välilyöntien käsittely"/>
 					<Item subMenuId="edit-pasteSpecial" name="Liitä erikoistekstiä"/>
 					<Item subMenuId="edit-onSelection" name="Valinnassa"/>
+					<Item subMenuId="search-changeHistory" name="Muutoshistoria"/>
 					<Item subMenuId="search-markAll" name="Samanlaisten korostaminen"/>
 					<Item subMenuId="search-markOne" name="Korosta yksi"/>
 					<Item subMenuId="search-unmarkAll" name="Korostusten poistaminen"/>
@@ -84,6 +85,8 @@ Updated to v8.6 fixed version
 					<Item id="10002" name="Kahdenna näkymä"/>
 					<Item id="10003" name="Siirrä uuteen istuntoon"/>
 					<Item id="10004" name="Avaa uudessa istunnossa"/>
+					<Item id="10005" name="Siirrä alkuun"/>
+					<Item id="10006" name="Siirrä loppuun"/>
 					<Item id="41001" name="&amp;Uusi"/>
 					<Item id="41002" name="&amp;Avaa"/>
 					<Item id="41003" name="&amp;Sulje"/>
@@ -153,16 +156,15 @@ Updated to v8.6 fixed version
 					<Item id="42043" name="Poista välilyönnit rivien aluista ja lopuista"/>
 					<Item id="42044" name="Loppumerkki (EOL) välilyönniksi"/>
 					<Item id="42045" name="Poista tarpeettomat välilyönnit ja loppumerkit"/>
-					<Item id="42046" name="Tabuloinnit välilyönneiksi"/>
+					<Item id="42046" name="Sarkaimet välilyönneiksi"/>
 					<Item id="42047" name="Poista lohkon kommentti"/>
 					<Item id="42048" name="Kopioi binäärisisältö"/>
 					<Item id="42049" name="Leikkaa binäärisisältö"/>
 					<Item id="42050" name="Liitä binäärisisältö"/>
 					<Item id="42051" name="Merkkipaneeli"/>
 					<Item id="42052" name="Leikepöytähistoria"/>
-					<Item id="42053" name="Korvaa rivin alun välilyönnit tabuloinneilla"/>
-					<Item id="42054" name="Korvaa kaikki välilyönnit tabuloinneilla"/>
-					<Item id="42054" name="Välilyönnit tabuloinneiksi (kaikki)"/>
+					<Item id="42053" name="Korvaa rivin alun välilyönnit sarkaimilla"/>
+					<Item id="42054" name="Korvaa kaikki välilyönnit sarkaimilla"/>
 					<Item id="42055" name="Poista tyhjät rivit"/>
 					<Item id="42056" name="Poista tyhjät rivit (myös välilyöntejä sisältävät)"/>
 					<Item id="42057" name="Lisää tyhjä rivi nykyisen yläpuolelle"/>
@@ -311,6 +313,8 @@ Updated to v8.6 fixed version
 					<Item id="44092" name="7. välilehti"/>
 					<Item id="44093" name="8. välilehti"/>
 					<Item id="44094" name="9. välilehti"/>
+					<Item id="44116" name="Ensimmäinen välilehti"/>
+					<Item id="44117" name="Viimeinen välilehti"/>
 					<Item id="44095" name="Seuraava välilehti"/>
 					<Item id="44096" name="Edellinen välilehti"/>
 					<Item id="44097" name="Seuranta (tail -f)"/>
@@ -994,9 +998,9 @@ Updated to v8.6 fixed version
 					<Item id="4010" name="Kytketyt päätteet:"/>
 				</FileAssoc>
 				<Language title="Kieli">
-					<Item id="6301" name="Välilehtiasetukset"/>
-					<Item id="6302" name="Korvaa välilyönnillä"/>
-					<Item id="6303" name="Välilehden koko: "/>
+					<Item id="6301" name="Sarkainasetukset"/>
+					<Item id="6302" name="Korvaa välilyönneillä"/>
+					<Item id="6303" name="Sarkaimen leveys: "/>
 					<Item id="6505" name="Käytettävissä olevat"/>
 					<Item id="6506" name="Käytöstä poistetut"/>
 					<Item id="6507" name="Tiivistä"/>
@@ -1058,7 +1062,7 @@ Updated to v8.6 fixed version
 					<Item id="6903" name="Hakuikkuna jää avoimeksi näytettäessä tulosikkuna"/>
 					<Item id="6904" name="Vahvista korvaaminen kaikissa avoimissa tiedostoissa"/>
 					<Item id="6905" name="Korvattaessa älä siirry seuraaviin esiintymiin"/>
-					<Item id="6906" name="Hakutuloksissa vain yksi löydös rivittäin"/>
+					<Item id="6906" name="Hakutuloksissa vain yksi löydös riviltä, jos mahdollista"/>
 					<Item id="6907" name="Käynnistettäessä hakuikkuna"/>
 					<Item id="6908" name="Täytä hakukenttä valitulla tekstillä"/>
 					<Item id="6909" name="Jos mitään ei ole valittuna käytetään kursorin kohdalla olevaa sanaa"/>
@@ -1499,7 +1503,7 @@ Updated to v8.6 fixed version
 			<splitter-rotate-left value="Kierrä vasemmalle"/>
 			<splitter-rotate-right value="Kierrä oikealle"/>
 			<recent-file-history-maxfile value="Tiedostoja enintään: "/>
-			<language-tabsize value="Välilehden koko: "/>
+			<language-tabsize value="Sarkaimen leveys: "/>
 			<userdefined-title-new value="Luo uusi kieli..."/>
 			<userdefined-title-save value="Tallenna nykyinen kieli nimellä..."/>
 			<userdefined-title-rename value="Nimeä nykyinen kieli uudelleen"/>

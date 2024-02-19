@@ -156,16 +156,15 @@ Updated to v8.6 fixed version
 					<Item id="42043" name="Poista välilyönnit rivien aluista ja lopuista"/>
 					<Item id="42044" name="Loppumerkki (EOL) välilyönniksi"/>
 					<Item id="42045" name="Poista tarpeettomat välilyönnit ja loppumerkit"/>
-					<Item id="42046" name="Tabuloinnit välilyönneiksi"/>
+					<Item id="42046" name="Sarkaimet välilyönneiksi"/>
 					<Item id="42047" name="Poista lohkon kommentti"/>
 					<Item id="42048" name="Kopioi binäärisisältö"/>
 					<Item id="42049" name="Leikkaa binäärisisältö"/>
 					<Item id="42050" name="Liitä binäärisisältö"/>
 					<Item id="42051" name="Merkkipaneeli"/>
 					<Item id="42052" name="Leikepöytähistoria"/>
-					<Item id="42053" name="Korvaa rivin alun välilyönnit tabuloinneilla"/>
-					<Item id="42054" name="Korvaa kaikki välilyönnit tabuloinneilla"/>
-					<Item id="42054" name="Välilyönnit tabuloinneiksi (kaikki)"/>
+					<Item id="42053" name="Korvaa rivin alun välilyönnit sarkaimilla"/>
+					<Item id="42054" name="Korvaa kaikki välilyönnit sarkaimilla"/>
 					<Item id="42055" name="Poista tyhjät rivit"/>
 					<Item id="42056" name="Poista tyhjät rivit (myös välilyöntejä sisältävät)"/>
 					<Item id="42057" name="Lisää tyhjä rivi nykyisen yläpuolelle"/>

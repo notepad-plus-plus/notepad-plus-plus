@@ -1062,7 +1062,7 @@ Updated to v8.6 fixed version
 					<Item id="6903" name="Hakuikkuna jää avoimeksi näytettäessä tulosikkuna"/>
 					<Item id="6904" name="Vahvista korvaaminen kaikissa avoimissa tiedostoissa"/>
 					<Item id="6905" name="Korvattaessa älä siirry seuraaviin esiintymiin"/>
-					<Item id="6906" name="Hakutuloksissa vain yksi löydös rivittäin"/>
+					<Item id="6906" name="Hakutuloksissa vain yksi löydös riviltä, jos mahdollista"/>
 					<Item id="6907" name="Käynnistettäessä hakuikkuna"/>
 					<Item id="6908" name="Täytä hakukenttä valitulla tekstillä"/>
 					<Item id="6909" name="Jos mitään ei ole valittuna käytetään kursorin kohdalla olevaa sanaa"/>

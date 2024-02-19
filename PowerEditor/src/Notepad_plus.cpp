@@ -7643,6 +7643,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Don Ho #2"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("RTFM is the true path of every developer.\nBut it would happen only if there's no way out.")},
 	{TEXT("Don Ho #3"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("The smartphone is the best invention of the 21st century for avoiding eye contact with people you know while crossing the street.")},
 	{TEXT("Don Ho #4"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen.")},
+	{TEXT("Don Ho #5"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("With great refactoring comes great regressions.")},
 	{TEXT("Anonymous #1"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("An opinion without 3.14 is just an onion.")},
 	{TEXT("Anonymous #2"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked.")},
 	{TEXT("Anonymous #3"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("I'm not totally useless. I can be used as a bad example.")},

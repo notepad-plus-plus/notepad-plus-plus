@@ -994,9 +994,9 @@ Updated to v8.6 fixed version
 					<Item id="4010" name="Kytketyt päätteet:"/>
 				</FileAssoc>
 				<Language title="Kieli">
-					<Item id="6301" name="Välilehtiasetukset"/>
-					<Item id="6302" name="Korvaa välilyönnillä"/>
-					<Item id="6303" name="Välilehden koko: "/>
+					<Item id="6301" name="Sarkainasetukset"/>
+					<Item id="6302" name="Korvaa välilyönneillä"/>
+					<Item id="6303" name="Sarkaimen leveys: "/>
 					<Item id="6505" name="Käytettävissä olevat"/>
 					<Item id="6506" name="Käytöstä poistetut"/>
 					<Item id="6507" name="Tiivistä"/>
@@ -1499,7 +1499,7 @@ Updated to v8.6 fixed version
 			<splitter-rotate-left value="Kierrä vasemmalle"/>
 			<splitter-rotate-right value="Kierrä oikealle"/>
 			<recent-file-history-maxfile value="Tiedostoja enintään: "/>
-			<language-tabsize value="Välilehden koko: "/>
+			<language-tabsize value="Sarkaimen leveys: "/>
 			<userdefined-title-new value="Luo uusi kieli..."/>
 			<userdefined-title-save value="Tallenna nykyinen kieli nimellä..."/>
 			<userdefined-title-rename value="Nimeä nykyinen kieli uudelleen"/>

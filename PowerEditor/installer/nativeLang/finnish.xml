@@ -36,6 +36,7 @@ Updated to v8.6 fixed version
 					<Item subMenuId="edit-blankOperations" name="Välilyöntien käsittely"/>
 					<Item subMenuId="edit-pasteSpecial" name="Liitä erikoistekstiä"/>
 					<Item subMenuId="edit-onSelection" name="Valinnassa"/>
+					<Item subMenuId="search-changeHistory" name="Muutoshistoria"/>
 					<Item subMenuId="search-markAll" name="Samanlaisten korostaminen"/>
 					<Item subMenuId="search-markOne" name="Korosta yksi"/>
 					<Item subMenuId="search-unmarkAll" name="Korostusten poistaminen"/>
@@ -84,6 +85,8 @@ Updated to v8.6 fixed version
 					<Item id="10002" name="Kahdenna näkymä"/>
 					<Item id="10003" name="Siirrä uuteen istuntoon"/>
 					<Item id="10004" name="Avaa uudessa istunnossa"/>
+					<Item id="10005" name="Siirrä alkuun"/>
+					<Item id="10006" name="Siirrä loppuun"/>
 					<Item id="41001" name="&amp;Uusi"/>
 					<Item id="41002" name="&amp;Avaa"/>
 					<Item id="41003" name="&amp;Sulje"/>
@@ -311,6 +314,8 @@ Updated to v8.6 fixed version
 					<Item id="44092" name="7. välilehti"/>
 					<Item id="44093" name="8. välilehti"/>
 					<Item id="44094" name="9. välilehti"/>
+					<Item id="44116" name="Ensimmäinen välilehti"/>
+					<Item id="44117" name="Viimeinen välilehti"/>
 					<Item id="44095" name="Seuraava välilehti"/>
 					<Item id="44096" name="Edellinen välilehti"/>
 					<Item id="44097" name="Seuranta (tail -f)"/>

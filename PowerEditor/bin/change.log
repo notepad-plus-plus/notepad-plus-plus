@@ -1,3 +1,8 @@
+Notepad++ v8.6.4 regression-fix:
+
+ 1. Fix regression that the view cannot be activated by mouse clicking.
+
+
 Notepad++ v8.6.3 bug-fixes & new enhancements:
 
  1. Restore multi-editing option & add "Column To Multi-editing" option on GUI.

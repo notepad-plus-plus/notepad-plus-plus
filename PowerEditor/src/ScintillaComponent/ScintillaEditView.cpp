@@ -497,6 +497,17 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
+		case WM_CHAR:
+		{
+			// prevent "control characters" from being entered in text
+			// (don't need to be concerned about Tab or CR or LF etc here)
+			if ((wParam >= 0 && wParam <= 31) || wParam == 127)
+			{
+				return FALSE;
+			}
+			break;
+		}
+
 		case WM_KEYUP:
 		{
 			if (wParam == VK_PRIOR || wParam == VK_NEXT)

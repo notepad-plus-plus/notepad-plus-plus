@@ -2816,7 +2816,10 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	// Turn ON the notifications after operations
 	(*_ppEditView)->execute(SCI_SETMODEVENTMASK, notifFlag);
 	if (op == ProcessReplaceAll && nbProcessed > 0) // All the notification of modification (SCN_MODIFIED) were removed during the operations, so we set modified status true here
+	{
 		(*_ppEditView)->getCurrentBuffer()->setModifiedStatus(true);
+		::SendMessage(_hParent, NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL, 0, 0);
+	}
 
 
 	if (nbProcessed == FIND_INVALID_REGULAR_EXPRESSION)

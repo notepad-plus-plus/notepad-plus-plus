@@ -1173,9 +1173,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID; //where pluginMessage is pointer of type wchar_t
 
-	#define NPPN_GLOBALMODIFIED (NPPN_FIRST + 30)  // To notify plugins that the current document is just modified by Replace All action. For solving the performance issue (from v8.6.4),
-                                                   // Notepad++ doesn't trigger SCN_MODIFIED & other Scitilla notifications during Replace All action anymore.
-                                                   // Plugin devs should monitor NPPN_GLOBALMODIFIED instead. This notification is implemented in Notepad++ v8.6.5.
+	#define NPPN_GLOBALMODIFIED (NPPN_FIRST + 30)  // To notify plugins that the current document is just modified by Replace All action.
+                                                   // For solving the performance issue (from v8.6.4), Notepad++ doesn't trigger SCN_MODIFIED during Replace All action anymore.
+                                                   // As a result, the plugins which monitor SCN_MODIFIED should also monitor NPPN_GLOBALMODIFIED.
+                                                   // This notification is implemented in Notepad++ v8.6.5.
 	//scnNotification->nmhdr.code = NPPN_GLOBALMODIFIED;
 	//scnNotification->nmhdr.hwndFrom = BufferID;
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero

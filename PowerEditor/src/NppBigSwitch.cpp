@@ -3520,7 +3520,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			SCNotification scnN{};
 			scnN.nmhdr.code = NPPN_GLOBALMODIFIED;
-			scnN.nmhdr.hwndFrom = hwnd;
+			scnN.nmhdr.hwndFrom = (void*)_pEditView->getCurrentBuffer();;
 			scnN.nmhdr.idFrom = 0;
 			_pluginsManager.notify(&scnN);
 			return TRUE;

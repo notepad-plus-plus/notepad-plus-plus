@@ -1177,5 +1177,5 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
                                                    // Notepad++ doesn't trigger SCN_MODIFIED & other Scitilla notifications during Replace All action anymore.
                                                    // Plugin devs should monitor NPPN_GLOBALMODIFIED instead. This notification is implemented in Notepad++ v8.6.5.
 	//scnNotification->nmhdr.code = NPPN_DOCMODIFIEDBYREPLACEALL;
-	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.hwndFrom = BufferID;
+	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero

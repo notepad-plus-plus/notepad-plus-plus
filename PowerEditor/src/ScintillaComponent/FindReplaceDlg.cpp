@@ -4753,7 +4753,7 @@ void Finder::addSearchResultInfo(int count, int countSearched, bool searchedEnti
 
 		generic_string hitsIn = count == 1 ? TEXT("hit") : TEXT("hits");
 
-		generic_string fileOrSelection = searchedEntireNotSelection ? TEXT("file") : TEXT("selection");;
+		generic_string fileOrSelection = searchedEntireNotSelection ? TEXT("file") : TEXT("selection");
 		if (_nbFoundFiles != 1)
 		{
 			fileOrSelection += TEXT("s");

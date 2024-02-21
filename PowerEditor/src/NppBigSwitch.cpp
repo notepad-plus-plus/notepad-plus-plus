@@ -3519,7 +3519,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL:
 		{
 			SCNotification scnN{};
-			scnN.nmhdr.code = NPPN_DOCMODIFIEDBYREPLACEALL;
+			scnN.nmhdr.code = NPPN_GLOBALMODIFIED;
 			scnN.nmhdr.hwndFrom = hwnd;
 			scnN.nmhdr.idFrom = 0;
 			_pluginsManager.notify(&scnN);

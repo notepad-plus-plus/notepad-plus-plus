@@ -1385,7 +1385,7 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							*keyConflictLocation += TEXT("  |  ");
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
 							*keyConflictLocation += TEXT("   ");
-							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);;
+							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
 							*keyConflictLocation += TEXT("  ( ");
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
 							*keyConflictLocation += TEXT(" )");

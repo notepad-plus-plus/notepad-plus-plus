@@ -1311,7 +1311,7 @@ int FindLongestLine(HDC hdc, wchar_t* text, SIZE* size)
 {
     int longest = 0;
     wchar_t* buffer = nullptr;
-    wchar_t* token = WCSTOK(text, TEXT("\n"), &buffer);;
+    wchar_t* token = WCSTOK(text, TEXT("\n"), &buffer);
 
     while (token)
     {

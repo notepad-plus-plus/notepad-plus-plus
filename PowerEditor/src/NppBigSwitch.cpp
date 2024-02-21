@@ -3516,6 +3516,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL:
+		{
+			SCNotification scnN{};
+			scnN.nmhdr.code = NPPN_GLOBALMODIFIED;
+			scnN.nmhdr.hwndFrom = reinterpret_cast<void*>(_pEditView->getCurrentBuffer());
+			scnN.nmhdr.idFrom = 0;
+			_pluginsManager.notify(&scnN);
+			return TRUE;
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

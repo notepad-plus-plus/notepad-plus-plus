@@ -1047,7 +1047,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.idFrom = BufferID;
 
 	#define NPPN_FILEBEFORESAVE (NPPN_FIRST + 7) // To notify plugins that the current file is about to be saved
-	//scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
+	//scnNotification->nmhdr.code = NPPN_FILEBEFORESAVE;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
 
@@ -1077,7 +1077,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.idFrom = currentBufferID;
 
 	#define NPPN_SHORTCUTREMAPPED (NPPN_FIRST + 13) // To notify plugins that plugin command shortcut is remapped.
-	//scnNotification->nmhdr.code = NPPN_SHORTCUTSREMAPPED;
+	//scnNotification->nmhdr.code = NPPN_SHORTCUTREMAPPED;
 	//scnNotification->nmhdr.hwndFrom = ShortcutKeyStructurePointer;
 	//scnNotification->nmhdr.idFrom = cmdID;
 		//where ShortcutKeyStructurePointer is pointer of struct ShortcutKey:
@@ -1089,12 +1089,12 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		//};
 
 	#define NPPN_FILEBEFORELOAD (NPPN_FIRST + 14) // To notify plugins that the current file is about to be loaded
-	//scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
+	//scnNotification->nmhdr.code = NPPN_FILEBEFORELOAD;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = NULL;
 
 	#define NPPN_FILELOADFAILED (NPPN_FIRST + 15)  // To notify plugins that file open operation failed
-	//scnNotification->nmhdr.code = NPPN_FILEOPENFAILED;
+	//scnNotification->nmhdr.code = NPPN_FILELOADFAILED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
 
@@ -1176,6 +1176,6 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPN_GLOBALMODIFIED (NPPN_FIRST + 30)  // To notify plugins that the current document is just modified by Replace All action. For solving the performance issue (from v8.6.4),
                                                    // Notepad++ doesn't trigger SCN_MODIFIED & other Scitilla notifications during Replace All action anymore.
                                                    // Plugin devs should monitor NPPN_GLOBALMODIFIED instead. This notification is implemented in Notepad++ v8.6.5.
-	//scnNotification->nmhdr.code = NPPN_DOCMODIFIEDBYREPLACEALL;
+	//scnNotification->nmhdr.code = NPPN_GLOBALMODIFIED;
 	//scnNotification->nmhdr.hwndFrom = BufferID;
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero

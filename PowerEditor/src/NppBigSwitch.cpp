@@ -19,6 +19,7 @@
 #include <shlwapi.h>
 #include <uxtheme.h> // for EnableThemeDialogTexture
 #include <format>
+#include <Windowsx.h> // for GET_X_LPARAM, GET_Y_LPARAM
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
@@ -1975,7 +1976,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle, copyLink);
 					
 					POINT p;
-					if (lParam == -1)
+					int xPos = GET_X_LPARAM(lParam);
+					int yPos = GET_Y_LPARAM(lParam);
+					if ((xPos == -1) && (yPos == -1))
 					{
 						// context menu activated via keyboard; pop up at text caret position
 						auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS);

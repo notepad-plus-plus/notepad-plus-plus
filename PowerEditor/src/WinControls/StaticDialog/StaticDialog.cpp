@@ -86,7 +86,7 @@ void StaticDialog::goToCenter(UINT swpFlags)
 	center.x = rc.left + (rc.right - rc.left)/2;
 	center.y = rc.top + (rc.bottom - rc.top)/2;
 	::ClientToScreen(_hParent, &center);
-	if ((center.x == -32000) && (center.y == -32000))
+	if ((center.x == -32000) && (center.y == -32000)) // https://devblogs.microsoft.com/oldnewthing/20041028-00/?p=37453
 		swpFlags |= SWP_NOMOVE; // moving has no sense here (owner wnd is minimized)
 
 	int x = center.x - (_rc.right - _rc.left)/2;

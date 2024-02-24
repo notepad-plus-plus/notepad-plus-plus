@@ -1976,20 +1976,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle, copyLink);
 					
 					POINT p;
-					int xPos = GET_X_LPARAM(lParam);
-					int yPos = GET_Y_LPARAM(lParam);
-					if ((xPos == -1) && (yPos == -1))
+					p.x = GET_X_LPARAM(lParam);
+					p.y = GET_Y_LPARAM(lParam);
+					if ((p.x == -1) && (p.y == -1))
 					{
 						// context menu activated via keyboard; pop up at text caret position
 						auto caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 						p.x = static_cast<LONG>(_pEditView->execute(SCI_POINTXFROMPOSITION, 0, caretPos));
 						p.y = static_cast<LONG>(_pEditView->execute(SCI_POINTYFROMPOSITION, 0, caretPos));
 						::ClientToScreen(activeViewHwnd, &p);
-					}
-					else
-					{
-						// context menu activated via mouse right-click; pop up at click location
-						::GetCursorPos(&p);
 					}
 					scintillaContextmenu.display(p);
 

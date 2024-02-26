@@ -47,7 +47,20 @@ class EditingSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	EditingSubDlg() = default;
-	~EditingSubDlg() {
+	~EditingSubDlg() = default;
+	
+private :
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+	void initScintParam();
+	void changeLineHiliteMode(bool enableSlider);
+};
+
+class Editing2SubDlg : public StaticDialog
+{
+friend class PreferenceDlg;
+public :
+	Editing2SubDlg() = default;
+	~Editing2SubDlg() {
 		if (_tip != nullptr)
 		{
 			::DestroyWindow(_tip);
@@ -63,8 +76,8 @@ public :
 			}
 		}
 	};
-	
-private :
+
+private:
 	HWND _tip = nullptr;
 	HWND _tipNote = nullptr;
 	HWND _tipAbb = nullptr;
@@ -73,20 +86,6 @@ private :
 	HWND _tipNpcInclude = nullptr;
 
 	std::vector<HWND> _tips;
-
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	void initScintParam();
-	void changeLineHiliteMode(bool enableSlider);
-};
-
-class Editing2SubDlg : public StaticDialog
-{
-friend class PreferenceDlg;
-public :
-	Editing2SubDlg() = default;
-	~Editing2SubDlg() = default;
-
-private:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

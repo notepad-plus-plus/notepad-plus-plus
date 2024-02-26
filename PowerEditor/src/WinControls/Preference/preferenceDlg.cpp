@@ -238,10 +238,10 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
-			if (_editingSubDlg._tip != nullptr)
-				NppDarkMode::setDarkTooltips(_editingSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
+			if (_editing2SubDlg._tip != nullptr)
+				NppDarkMode::setDarkTooltips(_editing2SubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 
-			for (auto& tip : _editingSubDlg._tips)
+			for (auto& tip : _editing2SubDlg._tips)
 			{
 				if (tip != nullptr)
 				{
@@ -973,102 +973,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPOS, TRUE, svp._currentLineFrameWidth);
 			::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
 
-
-			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
-			bool checkDefaultCRLF = true;
-			bool checkPlainTextCRLF = false;
-			bool checkWithColorCRLF = false;
-
-			if (svp._eolMode == svp.plainText)
-			{
-				checkDefaultCRLF = false;
-				checkPlainTextCRLF = true;
-				checkWithColorCRLF = false;
-			}
-			else if (svp._eolMode == svp.plainTextCustomColor)
-			{
-				checkDefaultCRLF = false;
-				checkPlainTextCRLF = true;
-				checkWithColorCRLF = true;
-			}
-			else if (svp._eolMode == svp.roundedRectangleTextCustomColor)
-			{
-				checkDefaultCRLF = true;
-				checkPlainTextCRLF = false;
-				checkWithColorCRLF = true;
-			}
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_ROUNDCORNER_CRLF, BM_SETCHECK, checkDefaultCRLF, 0);
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
-
-
-			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
-
-			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
-
-			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
-			setChecked(IDC_RADIO_NPC_ABBREVIATION, isNpcModeAbbrv);
-			setChecked(IDC_RADIO_NPC_CODEPOINT, !isNpcModeAbbrv);
-
-			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
-			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
-
-			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
-				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
-				L"NOTE:\n"\
-				L"Using representation will disable character effects on text.\n\n"\
-				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
-				L"Click on this button to open website with User Manual.");
-
-			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID("npcAbbreviation-tip",
-				L"Abbreviation : name\n"\
-				L"NBSP : no-break space\n"\
-				L"ZWSP : zero-width space\n"\
-				L"ZWNBSP : zero-width no-break space\n\n"\
-				L"For the full list check User Manual.\n"\
-				L"Click on \"?\" button on right to open website with User Manual.");
-
-			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID("npcCodepoint-tip",
-				L"Codepoint : name\n"\
-				L"U+00A0 : no-break space\n"\
-				L"U+200B : zero-width space\n"\
-				L"U+FEFF : zero-width no-break space\n\n"\
-				L"For the full list check User Manual.\n"\
-				L"Click on \"?\" button on right to open website with User Manual.");
-
-			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
-				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
-
-			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
-				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
-
-			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
-			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, const_cast<PTSTR>(tipNpcInc2show.c_str()), pNativeSpeaker->isRTL());
-			
-			_tips.push_back(_tipNote);
-			_tips.push_back(_tipAbb);
-			_tips.push_back(_tipCodepoint);
-			_tips.push_back(_tipNpcColor);
-			_tips.push_back(_tipNpcInclude);
-
-			for (auto& tip : _tips)
-			{
-				if (tip != nullptr)
-				{
-					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
-				}
-			}
-
-			if (_tipNote != nullptr)
-			{
-				// Make tip stay 30 seconds
-				::SendMessage(_tipNote, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
-			}
-
 			initScintParam();
 
 			return TRUE;
@@ -1159,6 +1063,229 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					changeLineHiliteMode(true);
 					return TRUE;
 
+				case IDC_CHECK_VIRTUALSPACE:
+					svp._virtualSpace = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VIRTUALSPACE, 0, 0);
+					return TRUE;
+
+				case IDC_CHECK_SCROLLBEYONDLASTLINE:
+					svp._scrollBeyondLastLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBEYONDLASTLINE, 0, 0);
+					return TRUE;
+
+				case IDC_CHECK_LINECUTCOPYWITHOUTSELECTION:
+				{
+					bool isChecked = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINECUTCOPYWITHOUTSELECTION, BM_GETCHECK, 0, 0);
+					svp._lineCopyCutWithoutSelection = isChecked;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINECUTCOPYWITHOUTSELECTION, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_RIGHTCLICKKEEPSSELECTION:
+					svp._rightClickKeepsSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_GETCHECK, 0, 0));
+					return TRUE;
+
+				case IDC_CHECK_DISABLEADVANCEDSCROLL:
+					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
+					return TRUE;
+
+				case IDC_CHECK_FOLDINGTOGGLE:
+					nppGUI._enableFoldCmdToggable = isCheckedOrNot(IDC_CHECK_FOLDINGTOGGLE);
+					return TRUE;
+
+				case IDC_RADIO_LWDEF:
+					svp._lineWrapMethod = LINEWRAP_DEFAULT;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
+					return TRUE;
+
+				case IDC_RADIO_LWALIGN:
+					svp._lineWrapMethod = LINEWRAP_ALIGNED;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
+					return TRUE;
+
+				case IDC_RADIO_LWINDENT:
+					svp._lineWrapMethod = LINEWRAP_INDENT;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
+					return TRUE;
+
+				default :
+					switch (HIWORD(wParam))
+					{
+						case CBN_SELCHANGE : // == case LBN_SELCHANGE :
+						{
+							if (LOWORD(wParam) == IDC_WIDTH_COMBO)
+							{
+								nppGUI._caretWidth = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0));
+								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
+								return TRUE;
+							}
+						}
+						break;
+					}
+			}
+		}
+	}
+	return FALSE;
+}
+
+intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	ScintillaViewParams& svp = (ScintillaViewParams&)nppParam.getSVP();
+
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
+			bool checkDefaultCRLF = true;
+			bool checkPlainTextCRLF = false;
+			bool checkWithColorCRLF = false;
+
+			if (svp._eolMode == svp.plainText)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = false;
+			}
+			else if (svp._eolMode == svp.plainTextCustomColor)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = true;
+			}
+			else if (svp._eolMode == svp.roundedRectangleTextCustomColor)
+			{
+				checkDefaultCRLF = true;
+				checkPlainTextCRLF = false;
+				checkWithColorCRLF = true;
+			}
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_ROUNDCORNER_CRLF, BM_SETCHECK, checkDefaultCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
+
+
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_SETCHECK, svp._multiSelection, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, svp._columnSel2MultiEdit, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
+
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
+
+			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
+
+			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
+			setChecked(IDC_RADIO_NPC_ABBREVIATION, isNpcModeAbbrv);
+			setChecked(IDC_RADIO_NPC_CODEPOINT, !isNpcModeAbbrv);
+
+			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
+			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
+
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
+				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
+				L"NOTE:\n"\
+				L"Using representation will disable character effects on text.\n\n"\
+				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
+				L"Click on this button to open website with User Manual.");
+
+			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID("npcAbbreviation-tip",
+				L"Abbreviation : name\n"\
+				L"NBSP : no-break space\n"\
+				L"ZWSP : zero-width space\n"\
+				L"ZWNBSP : zero-width no-break space\n\n"\
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
+
+			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID("npcCodepoint-tip",
+				L"Codepoint : name\n"\
+				L"U+00A0 : no-break space\n"\
+				L"U+200B : zero-width space\n"\
+				L"U+FEFF : zero-width no-break space\n\n"\
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
+
+			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
+				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
+
+			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
+				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
+
+			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, const_cast<PTSTR>(tipNpcInc2show.c_str()), pNativeSpeaker->isRTL());
+
+			_tips.push_back(_tipNote);
+			_tips.push_back(_tipAbb);
+			_tips.push_back(_tipCodepoint);
+			_tips.push_back(_tipNpcColor);
+			_tips.push_back(_tipNpcInclude);
+
+			for (auto& tip : _tips)
+			{
+				if (tip != nullptr)
+				{
+					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
+				}
+			}
+
+			if (_tipNote != nullptr)
+			{
+				// Make tip stay 30 seconds
+				::SendMessage(_tipNote, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
+		}
+		return TRUE;
+
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_COMMAND:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+			switch (wParam)
+			{
+				case IDC_CHECK_MULTISELECTION:
+				{
+					svp._multiSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_GETCHECK, 0, 0));
+					if (!svp._multiSelection)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, FALSE, 0);
+						svp._columnSel2MultiEdit = false;
+					}
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
+				}
+				return TRUE;
+
+				case IDC_CHECK_COLUMN2MULTIEDITING:
+				{
+					svp._columnSel2MultiEdit = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_GETCHECK, 0, 0));
+				}
+				return TRUE;
+
 				case IDC_RADIO_ROUNDCORNER_CRLF:
 				case IDC_RADIO_PLEINTEXT_CRLF:
 				case IDC_CHECK_WITHCUSTOMCOLOR_CRLF:
@@ -1243,131 +1370,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, IDC_CHECK_NPC_INCLUDECCUNIEOL, 0);
 					return TRUE;
 				}
-
-				case IDC_CHECK_VIRTUALSPACE:
-					svp._virtualSpace = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VIRTUALSPACE, 0, 0);
-					return TRUE;
-
-				case IDC_CHECK_SCROLLBEYONDLASTLINE:
-					svp._scrollBeyondLastLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBEYONDLASTLINE, 0, 0);
-					return TRUE;
-
-				case IDC_CHECK_LINECUTCOPYWITHOUTSELECTION:
-				{
-					bool isChecked = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINECUTCOPYWITHOUTSELECTION, BM_GETCHECK, 0, 0);
-					svp._lineCopyCutWithoutSelection = isChecked;
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINECUTCOPYWITHOUTSELECTION, 0, 0);
-					return TRUE;
-				}
-
-				case IDC_CHECK_RIGHTCLICKKEEPSSELECTION:
-					svp._rightClickKeepsSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_GETCHECK, 0, 0));
-					return TRUE;
-
-				case IDC_CHECK_DISABLEADVANCEDSCROLL:
-					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
-					return TRUE;
-
-				case IDC_CHECK_FOLDINGTOGGLE:
-					nppGUI._enableFoldCmdToggable = isCheckedOrNot(IDC_CHECK_FOLDINGTOGGLE);
-					return TRUE;
-
-				case IDC_RADIO_LWDEF:
-					svp._lineWrapMethod = LINEWRAP_DEFAULT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
-					return TRUE;
-
-				case IDC_RADIO_LWALIGN:
-					svp._lineWrapMethod = LINEWRAP_ALIGNED;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
-					return TRUE;
-
-				case IDC_RADIO_LWINDENT:
-					svp._lineWrapMethod = LINEWRAP_INDENT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
-					return TRUE;
-
-				default :
-					switch (HIWORD(wParam))
-					{
-						case CBN_SELCHANGE : // == case LBN_SELCHANGE :
-						{
-							if (LOWORD(wParam) == IDC_WIDTH_COMBO)
-							{
-								nppGUI._caretWidth = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0));
-								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
-								return TRUE;
-							}
-						}
-						break;
-					}
-			}
-		}
-	}
-	return FALSE;
-}
-
-intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
-{
-	switch (message)
-	{
-		case WM_INITDIALOG:
-		{
-			NppParameters& nppParam = NppParameters::getInstance();
-			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_SETCHECK, svp._multiSelection, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, svp._columnSel2MultiEdit, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
-		}
-		return TRUE;
-
-		case WM_CTLCOLOREDIT:
-		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
-		}
-
-		case WM_CTLCOLORDLG:
-		case WM_CTLCOLORSTATIC:
-		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
-		}
-
-		case WM_PRINTCLIENT:
-		{
-			if (NppDarkMode::isEnabled())
-			{
-				return TRUE;
-			}
-			break;
-		}
-
-		case WM_COMMAND:
-		{
-			NppParameters& nppParam = NppParameters::getInstance();
-			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
-			switch (wParam)
-			{
-				case IDC_CHECK_MULTISELECTION:
-				{
-					svp._multiSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_GETCHECK, 0, 0));
-					if (!svp._multiSelection)
-					{
-						::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, FALSE, 0);
-						svp._columnSel2MultiEdit = false;
-					}
-
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
-				}
-				return TRUE;
-
-				case IDC_CHECK_COLUMN2MULTIEDITING:
-				{
-					svp._columnSel2MultiEdit = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_GETCHECK, 0, 0));
-				}
-				return TRUE;
 			}
 		}
 		return TRUE;

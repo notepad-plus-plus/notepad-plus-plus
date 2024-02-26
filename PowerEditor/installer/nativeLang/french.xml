@@ -970,7 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Langue"/>
 				</Global>
-				<Scintillas title="Zones d'édition">
+				<Scintillas title="Zones d'édition 1">
 					<Item id="6216" name="Curseur"/>
 					<Item id="6217" name="Largeur :"/>
 					<Item id="6219" name="Clignotement :"/>
@@ -992,6 +992,11 @@ Translation note:
 					<Item id="6653" name="Colorer l’arrière-plan"/>
 					<Item id="6654" name="Tracer la bordure"/>
 					<Item id="6655" name="Épaisseur :"/>
+				</Scintillas>
+				<Scintillas2 title="Zones d'édition 2">
+					<Item id="6521" name="Multi-édition"/>
+					<Item id="6522" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
+					<Item id="6523" name="Activer colonne-sélection vers multi-édition"/>
 					<Item id="6247" name="Saut de ligne (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Défaut"/>
 					<Item id="6249" name="Texte brut"/>
@@ -1001,8 +1006,8 @@ Translation note:
 					<Item id="6255" name="Point de code"/>
 					<Item id="6256" name="Couleur personnalisée"/>
 					<Item id="6258" name="Appliquer à C0, C1 &amp; Unicode EOL"/>
-				</Scintillas>
-
+					<Item id="6259" name="Empêcher la saisie de caractères de contrôle (code C0) dans le document"/>
+				</Scintillas2>
 				<DarkMode title="Mode Sombre">
 					<Item id="7131" name="Mode lumineux"/>
 					<Item id="7132" name="Mode sombre"/>

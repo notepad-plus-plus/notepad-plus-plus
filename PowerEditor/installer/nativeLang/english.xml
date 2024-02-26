@@ -970,7 +970,8 @@ Translation note:
 
 					<Item id="6123" name="Localization"/>
 				</Global>
-				<Scintillas title="Editing">
+
+				<Scintillas title="Editing 1">
 					<Item id="6216" name="Caret Settings"/>
 					<Item id="6217" name="Width:"/>
 					<Item id="6219" name="Blink rate:"/>
@@ -992,6 +993,12 @@ Translation note:
 					<Item id="6653" name="Highlight Background"/>
 					<Item id="6654" name="Frame"/>
 					<Item id="6655" name="Width:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Editing 2">
+					<Item id="6521" name="Multi-Editing"/>
+					<Item id="6522" name="Enable Multi-Editing (Ctrl+Mouse click/selection)"/>
+					<Item id="6523" name="Enable Column Selection to Multi-Editing"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Default"/>
 					<Item id="6249" name="Plain Text"/>
@@ -1001,7 +1008,8 @@ Translation note:
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Custom Color"/>
 					<Item id="6258" name="Apply to C0, C1 &amp;&amp; Unicode EOL"/>
-				</Scintillas>
+					<Item id="6259" name="Prevent control character (C0 code) typing into document"/>
+				</Scintillas2>
 
 				<DarkMode title="Dark Mode">
 					<Item id="7131" name="Light mode"/>
@@ -1085,6 +1093,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="4009" name="Supported extensions:"/>
 					<Item id="4010" name="Registered extensions:"/>
 				</FileAssoc>
+
 				<Language title="Language">
 					<Item id="6505" name="Available items"/>
 					<Item id="6506" name="Disabled items"/>

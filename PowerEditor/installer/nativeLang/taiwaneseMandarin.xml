@@ -928,7 +928,7 @@
 					<Item id="6127" name="停用副檔名欄"/>
 				</Global>
 
-				<Scintillas title="編輯">
+				<Scintillas title="編輯一">
 					<Item id="6216" name="游標設定"/>
 					<Item id="6217" name="寬度："/>
 					<Item id="6219" name="閃爍頻率："/>
@@ -950,11 +950,23 @@
 					<Item id="6653" name="加上背景顏色"/>
 					<Item id="6654" name="加上邊緣線"/>
 					<Item id="6655" name="粗細度："/>
+				</Scintillas>
+
+				<Scintillas2 title="編輯二">
+					<Item id="6521" name="多位同時編輯"/>
+					<Item id="6522" name="啟用多個位置同時編輯（Ctrl + 滑鼠點擊/選取）"/>
+					<Item id="6523" name="啟用行列模式自動轉換到多位同時編輯"/>
 					<Item id="6247" name="換行字符（CRLF）"/>
 					<Item id="6248" name="內定"/>
 					<Item id="6249" name="純文字"/>
 					<Item id="6250" name="使用自訂顏色"/>
-				</Scintillas>
+					<Item id="6252" name="非列印字符"/>
+					<Item id="6254" name="縮寫"/>
+					<Item id="6255" name="代碼"/>
+					<Item id="6256" name="使用自訂顏色"/>
+					<Item id="6258" name="套用於 C0, C1 &amp;&amp; 萬國碼換行字符"/>
+					<Item id="6259" name="禁止控制字元（C0 代碼）輸入文件"/>
+				</Scintillas2>
 
 				<DarkMode title="黑暗模式">
 					<Item id="7131" name="鮮明模式"/>

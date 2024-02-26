@@ -972,10 +972,10 @@ Translation note:
 					<Item id="6131" name="Pasek menu"/>
 					<Item id="6122" name="Ukryj pasek menu (Alt lub F10 przełączają)"/>
 					<Item id="6132" name="Ukryj przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu (wymagany restart Notepad++)"/>
-
+                 
 					<Item id="6123" name="Język interfejsu"/>
 				</Global>
-				<Scintillas title="Edycja">
+				<Scintillas title="Edycja 1">
 					<Item id="6214" name="Włącz opcję Kopiuj/Wytnij linię bez zaznaczania"/>
 					<Item id="6216" name="Kursor"/>
 					<Item id="6217" name="Szerokość:"/>
@@ -1008,7 +1008,13 @@ Translation note:
 					<Item id="6256" name="Własny kolor"/>
 					<Item id="6258" name="Zastosuj do C0, C1 i EOL z Unicode"/>
 				</Scintillas>
-
+                                <Scintillas2 title="Edycja 2">
+			        <Item id="6521" name="Multi Edycja"/>
+				<Item id="6522" name="Włącz multi edycję (Ctrl+kliknięcie/wybór myszą)"/>
+				<Item id="6523" name="Włącz wybór kolumny do multi edycji"/>	
+			        </Scintillas>
+				<Item id="6259" name="Zapobiegaj wpisywania znaku kontrolnego (Kod C0) do dokumentu"/>
+				</Scintillas2>
 				<DarkMode title="Tryb ciemny">
 					<Item id="7131" name="Tryb jasny"/>
 					<Item id="7132" name="Tryb ciemny"/>

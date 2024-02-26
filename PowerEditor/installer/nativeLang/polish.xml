@@ -1012,7 +1012,6 @@ Translation note:
 			        <Item id="6521" name="Multi Edycja"/>
 				<Item id="6522" name="Włącz multi edycję (Ctrl+kliknięcie/wybór myszą)"/>
 				<Item id="6523" name="Włącz wybór kolumny do multi edycji"/>	
-			        </Scintillas>
 				<Item id="6259" name="Zapobiegaj wpisywania znaku kontrolnego (Kod C0) do dokumentu"/>
 				</Scintillas2>
 				<DarkMode title="Tryb ciemny">

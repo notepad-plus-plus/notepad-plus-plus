@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3)
+	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -33,7 +33,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.3">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -996,7 +996,7 @@ Additionnal information about Corsican localization:
 
 					<Item id="6123" name="Lingua"/>
 				</Global>
-				<Scintillas title="Mudificazione">
+				<Scintillas title="Mudificazione 1">
 					<Item id="6216" name="Preferenze di cursore"/>
 					<Item id="6217" name="Larghezza :"/>
 					<Item id="6219" name="Cinnulamentu :"/>
@@ -1018,16 +1018,24 @@ Additionnal information about Corsican localization:
 					<Item id="6653" name="Culurisce u sfondulu"/>
 					<Item id="6654" name="Quadru"/>
 					<Item id="6655" name="Larghezza :"/>
+				</Scintillas>
+
+				<Scintillas2 title="Mudificazione 2">
+					<Item id="6521" name="Mudificazione multiple"/>
+					<Item id="6522" name="Attivà a mudificazione multiple (Ctrl+cliccu/selez. cù topu)"/>
+					<Item id="6523" name="Attivà a selezzione di culonna versu a mudificazione multiple"/>
 					<Item id="6247" name="Fine di linea (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinitu"/>
 					<Item id="6249" name="Testu in chjaru"/>
 					<Item id="6250" name="Culore persunalizatu"/>
 					<Item id="6252" name="Caratteri nonstampevule"/>
+					<Item id="6260" name="Apparenza"/>
 					<Item id="6254" name="Abbreviamentu"/>
 					<Item id="6255" name="Puntu di codice"/>
 					<Item id="6256" name="Culore persunalizatu"/>
-					<Item id="6258" name="Appiecà à C0, C1 è e fine di linea Unicode"/>
-				</Scintillas>
+					<Item id="6258" name="Appiecà e preferenze d’Apparenza à C0, C1 è e fine di linea Unicode"/>
+					<Item id="6259" name="Impedisce a stampittera di caratteru di cuntrollu (codice C0) in u ducumentu"/>
+				</Scintillas2>
 
 				<DarkMode title="Modu scuru">
 					<Item id="7131" name="Modu chjaru"/>
@@ -1069,11 +1077,11 @@ Additionnal information about Corsican localization:
 					<Item id="6292" name="Larghezza dinamica"/>
 					<Item id="6293" name="Larghezza custante"/>
 					<Item id="6207" name="Affissà a margine di l’indetta"/>
-					<Item id="6223" name="Affissà a cronolugia di i cambiamenti"/>
+					<Item id="6295" name="Cronolugia di i cambiamenti"/>
+					<Item id="6223" name="Affissà in a margine"/>
+					<Item id="6296" name="Affissà in u testu"/>
 					<Item id="6211" name="Marcatore di culonna"/>
 					<Item id="6213" name="Culurisce u fondu"/>
-					<Item id="6237" name="Aghjunghje u vostru marcatore di culonna indichendu a so pusizione cù un numeru sanu.
-Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
 					<Item id="6231" name="Larghezza di bordu"/>
 					<Item id="6235" name="Nisunu bordu"/>
 					<Item id="6208" name="Imburrera"/>
@@ -1665,7 +1673,6 @@ NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli 
 			<default-open-save-select-folder value="Selezziunà u cartulare chì serà quellu predefinitu"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
 			<two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
-			<file-rename-title value="Rinuminà"/>
 			<find-in-files-filter-tip value="Circà tramezu cpp, cxx, h, hxx è hpp :
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1711,9 +1718,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<finder-collapse-all value="Tuttu ripiegà"/>
 			<finder-uncollapse-all value="Tuttu spiegà"/>
 			<finder-copy value="Cupià a(e) linea(e) selezziunata(e)"/>
-			<finder-copy-verbatim value="Cupià"/>
 			<finder-copy-paths value="Cupià u(i) nome(i) di chjassu"/>
-			<finder-select-all value="Tuttu selezziunà"/>
 			<finder-clear-all value="Tuttu viutà"/>
 			<finder-open-all value="Tuttu apre"/>
 			<finder-purge-for-every-search value="Spurgulà per ogni ricerca"/>
@@ -1740,7 +1745,6 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<summary-nbsel2 value=" ottetti) in "/>
 			<summary-nbrange value=" selezzioni"/>
 			<progress-hits-title value="Occurrenze :"/>
-			<progress-cancel-button value="Abbandunà"/>
 			<progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè…"/>
 			<find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
 			<replace-in-files-confirm-title value="Cunfirmazione"/>
@@ -1797,9 +1801,10 @@ U+200B : spaziu di larghezza nulla
 U+FEFF : spaziu nonspezzevule di larghezza nulla
 Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
 Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web."/>
-			<npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/><!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcIncludeCcUniEol-tip value="Appiecà e preferenze d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
-			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definisce u valore à 0 per disattivà a verificazione autumatica."/>
+			<npcCustomColor-tip value="Accidite à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/><!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcIncludeCcUniEol-tip value="Appiecate e preferenze d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
+			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definite u valore à 0 per disattivà a verificazione autumatica."/>
+			<verticalEdge-tip value="Aghjunghjite u vostru marcatore di culonna indichendu a so pusizione cù un numeru interu. Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

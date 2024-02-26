@@ -974,12 +974,12 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 	}
 	else if (style._styleDesc == TEXT("EOL custom color"))
 	{
-		result.first = 1;
+		result.first = 2;
 		result.second = IDC_CHECK_WITHCUSTOMCOLOR_CRLF;
 	}
 	else if (style._styleDesc == g_npcStyleName)
 	{
-		result.first = 1;
+		result.first = 2;
 		result.second = IDC_CHECK_NPC_COLOR;
 	}
 

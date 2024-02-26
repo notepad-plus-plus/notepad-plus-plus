@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.3">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -968,7 +968,8 @@
 
 					<Item id="6123" name="Lokalizácia"/>
 				</Global>
-				<Scintillas title="Editor">
+				
+				<Scintillas title="Úprava 1">
 					<Item id="6216" name="Nastavenie kurzora"/>
 					<Item id="6217" name="Šírka:"/>
 					<Item id="6219" name="Rýchlosť blikania:"/>
@@ -989,7 +990,13 @@
 					<Item id="6652" name="Žiadny"/>
 					<Item id="6653" name="Zvýraznenie pozadia"/>
 					<Item id="6654" name="Orámovanie"/>
-					<Item id="6655" name="Hrúbka"/>
+					<Item id="6655" name="Hrúbka:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Úprava 2">
+					<Item id="6521" name="Viacnásobná úprava"/>
+					<Item id="6522" name="Povoliť viacnásobnú úpravu (Ctrl+klik myšou/výber)"/>
+					<Item id="6523" name="Povoliť výber stĺpcov pre viacnásobnú úpravu"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predvolené"/>
 					<Item id="6249" name="Obyčajný text"/>
@@ -999,8 +1006,9 @@
 					<Item id="6255" name="Kódový bod"/>
 					<Item id="6256" name="Vlastná farba"/>
 					<Item id="6258" name="Použiť na C0, C1 a Unicode EOL"/>
-				</Scintillas>
-
+					<Item id="6259" name="Zabrániť vloženiu riadiaceho znaku (kód C0) do dokumentu"/>
+				</Scintillas2>
+				
 				<DarkMode title="Tmavý režim">
 					<Item id="7131" name="Svetlý režim"/>
 					<Item id="7132" name="Tmavý režim"/>
@@ -1083,6 +1091,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="4009" name="Podporované prípony:"/>
 					<Item id="4010" name="Registrované prípony:"/>
 				</FileAssoc>
+
 				<Language title="Jazyk">
 					<Item id="6505" name="Dostupné položky"/>
 					<Item id="6506" name="Nepoužívané položky"/>

@@ -998,6 +998,8 @@ Translation note:
 					<Item id="6653" name="Podświetlane tło"/>
 					<Item id="6654" name="Ramka"/>
 					<Item id="6655" name="Szerokość:"/>
+				</Scintillas>
+                                <Scintillas2 title="Edycja 2">
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Domyślny"/>
 					<Item id="6249" name="Zwykły tekst"/>
@@ -1007,11 +1009,10 @@ Translation note:
 					<Item id="6255" name="Kod"/>
 					<Item id="6256" name="Własny kolor"/>
 					<Item id="6258" name="Zastosuj do C0, C1 i EOL z Unicode"/>
-				</Scintillas>
-                                <Scintillas2 title="Edycja 2">
 			        <Item id="6521" name="Multi Edycja"/>
 				<Item id="6522" name="Włącz multi edycję (Ctrl+kliknięcie/wybór myszą)"/>
-				<Item id="6523" name="Włącz wybór kolumny do multi edycji"/>	
+				<Item id="6523" name="Włącz wybór kolumny do multi edycji"/>
+				<Item id="6254" name="Skrót"/>
 				<Item id="6259" name="Zapobiegaj wpisywania znaku kontrolnego (Kod C0) do dokumentu"/>
 				</Scintillas2>
 				<DarkMode title="Tryb ciemny">

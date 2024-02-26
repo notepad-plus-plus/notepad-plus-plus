@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3)
+	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Feb. 27th (v8.6.5)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -33,7 +33,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.3">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -996,7 +996,7 @@ Additionnal information about Corsican localization:
 
 					<Item id="6123" name="Lingua"/>
 				</Global>
-				<Scintillas title="Mudificazione">
+				<Scintillas title="Mudificazione 1">
 					<Item id="6216" name="Preferenze di cursore"/>
 					<Item id="6217" name="Larghezza :"/>
 					<Item id="6219" name="Cinnulamentu :"/>
@@ -1018,6 +1018,12 @@ Additionnal information about Corsican localization:
 					<Item id="6653" name="Culurisce u sfondulu"/>
 					<Item id="6654" name="Quadru"/>
 					<Item id="6655" name="Larghezza :"/>
+				</Scintillas>
+
+				<Scintillas2 title="Mudificazione 2">
+					<Item id="6521" name="Mudificazione multiple"/>
+					<Item id="6522" name="Attivà a mudificazione multiple (Ctrl+cliccu/selez. cù topu)"/>
+					<Item id="6523" name="Attivà a selezzione di culonna versu a mudificazione multiple"/>
 					<Item id="6247" name="Fine di linea (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinitu"/>
 					<Item id="6249" name="Testu in chjaru"/>
@@ -1027,7 +1033,8 @@ Additionnal information about Corsican localization:
 					<Item id="6255" name="Puntu di codice"/>
 					<Item id="6256" name="Culore persunalizatu"/>
 					<Item id="6258" name="Appiecà à C0, C1 è e fine di linea Unicode"/>
-				</Scintillas>
+					<Item id="6259" name="Impedisce a stampittera di caratteru di cuntrollu (codice C0) in u ducumentu"/>
+				</Scintillas2>
 
 				<DarkMode title="Modu scuru">
 					<Item id="7131" name="Modu chjaru"/>

@@ -10,13 +10,13 @@ Translation note:
         - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.5 (02.08.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
-        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 6.6.3 (5.02.2024)
+        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.5 (10.03.2024)
 
     The most recent version of this file can usually be downloaded from:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.6.3">
+	<Native-Langue name="polski" filename="polish.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -42,7 +42,7 @@ Translation note:
 					<Item subMenuId="edit-insert" name="Wstaw"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kopiuj do schowka"/>
 					<Item subMenuId="edit-indent" name="Wcięcie"/>
-					<Item subMenuId="edit-convertCaseTo" name="Wielkość liter"/>
+					<Item subMenuId="edit-convertCaseTo" name="Przekonwertuj wielkość liter na"/>
 					<Item subMenuId="edit-lineOperations" name="Działania na liniach"/>
 					<Item subMenuId="edit-comment" name="Komentarze"/>
 					<Item subMenuId="edit-autoCompletion" name="Autouzupełnianie"/>
@@ -51,15 +51,15 @@ Translation note:
 					<Item subMenuId="edit-pasteSpecial" name="Wklej specjalnie"/>
 					<Item subMenuId="edit-onSelection" name="Z zaznaczenia"/>
 					<Item subMenuId="search-changeHistory" name="Historia zmian"/>
-					<Item subMenuId="search-markAll" name="Wyróżnij każde"/>
-					<Item subMenuId="search-markOne" name="Wyróżnij jedno"/>
-					<Item subMenuId="search-unmarkAll" name="Usuń wyróżnienia"/>
+					<Item subMenuId="search-markAll" name="Zaznacz wszystko"/>
+					<Item subMenuId="search-markOne" name="Zaznacz jedno"/>
+					<Item subMenuId="search-unmarkAll" name="Odznacz wszystko"/>
 					<Item subMenuId="search-jumpUp" name="Przejdź wyżej"/>
 					<Item subMenuId="search-jumpDown" name="Przejdź niżej"/>
 					<Item subMenuId="search-copyStyledText" name="Kopiuj ostylowany tekst"/>
 					<Item subMenuId="search-bookmark" name="Zakładki"/>
 					<Item subMenuId="view-currentFileIn" name="Wyświetl bieżący plik w..."/>
-					<Item subMenuId="view-showSymbol" name="Niewidoczne znaki"/>
+					<Item subMenuId="view-showSymbol" name="Pokaż Symbol"/>
 					<Item subMenuId="view-zoom" name="Powiększenie"/>
 					<Item subMenuId="view-moveCloneDocument" name="Bieżący dokument"/>
 					<Item subMenuId="view-tab" name="Karty"/>
@@ -153,12 +153,12 @@ Translation note:
 					<Item id="42066" name="Sortuj malejąco jako liczby dziesiętne z kropką"/>
 					<Item id="42083" name="Odwróć kolejność linii"/>
 					<Item id="42078" name="Losowa kolejność linii"/>
-					<Item id="42016" name="&amp;MAJUSKUŁY"/>
-					<Item id="42017" name="mi&amp;nuskuły"/>
-					<Item id="42067" name="Jak Nazwy &amp;Własne"/>
-					<Item id="42068" name="Jak Nazwy Własne (zostaw MAJUSKUŁY)"/>
-					<Item id="42069" name="Jak w &amp;zdaniach"/>
-					<Item id="42070" name="Jak w zdaniach (zostaw MAJUSKUŁY)"/>
+					<Item id="42016" name="&amp;DUŻE LITERY"/>
+					<Item id="42017" name="&amp;małe litery"/>
+					<Item id="42067" name="Właściwa wielkość"/>
+					<Item id="42068" name="Właściwa wielkość (mieszana)"/>
+					<Item id="42069" name="Wielkość zdania"/>
+					<Item id="42070" name="Wielkość zdania (mieszana)"/>
 					<Item id="42071" name="&amp;oDWRÓĆ wIELKOŚĆ lITER"/>
 					<Item id="42072" name="&amp;loSoWA WIelKość liTEr"/>
 					<Item id="42073" name="Otwórz plik"/>
@@ -972,10 +972,10 @@ Translation note:
 					<Item id="6131" name="Pasek menu"/>
 					<Item id="6122" name="Ukryj pasek menu (Alt lub F10 przełączają)"/>
 					<Item id="6132" name="Ukryj przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu (wymagany restart Notepad++)"/>
-
+                 
 					<Item id="6123" name="Język interfejsu"/>
 				</Global>
-				<Scintillas title="Edycja">
+				<Scintillas title="Edycja 1">
 					<Item id="6214" name="Włącz opcję Kopiuj/Wytnij linię bez zaznaczania"/>
 					<Item id="6216" name="Kursor"/>
 					<Item id="6217" name="Szerokość:"/>
@@ -998,6 +998,8 @@ Translation note:
 					<Item id="6653" name="Podświetlane tło"/>
 					<Item id="6654" name="Ramka"/>
 					<Item id="6655" name="Szerokość:"/>
+				</Scintillas>
+                                <Scintillas2 title="Edycja 2">
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Domyślny"/>
 					<Item id="6249" name="Zwykły tekst"/>
@@ -1006,9 +1008,13 @@ Translation note:
 					<Item id="6254" name="Skrót"/>
 					<Item id="6255" name="Kod"/>
 					<Item id="6256" name="Własny kolor"/>
-					<Item id="6258" name="Zastosuj do C0, C1 i EOL z Unicode"/>
-				</Scintillas>
-
+					<Item id="6258" name="Zastosuj ustawienia wyglądu do C0,C1 &amp;&amp;Unikod EOL"/>
+			        <Item id="6521" name="Multi Edycja"/>
+				<Item id="6522" name="Włącz multi edycję (Ctrl+kliknięcie/wybór myszą)"/>
+				<Item id="6523" name="Włącz wybór kolumny do multi edycji"/>
+				<Item id="6254" name="Skrót"/>
+				<Item id="6259" name="Zapobiegaj wpisywania znaku kontrolnego (Kod C0) do dokumentu"/>
+				</Scintillas2>
 				<DarkMode title="Tryb ciemny">
 					<Item id="7131" name="Tryb jasny"/>
 					<Item id="7132" name="Tryb ciemny"/>
@@ -1049,11 +1055,11 @@ Translation note:
 					<Item id="6292" name="Dynamiczna szerokość"/>
 					<Item id="6293" name="Stała szerokość"/>
 					<Item id="6207" name="Pokazuj zakładki"/>
-					<Item id="6223" name="Pokazuj historię zmian"/>
+					<Item id="6295" name="Historia zmian"/>
+					<Item id="6223" name="Pokaż na marginesie"/>
+					<Item id="6296" name="Pokaż w tekście"/>
 					<Item id="6211" name="Ustawienia krawędzi pionowej"/>
 					<Item id="6213" name="Podświetlenie tła"/>
-					<Item id="6237" name="Dodaj znacznik kolumny, wskazując jego pozycję za pomocą liczby dziesiętnej.
-Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych liczb znakami spacji."/>
 					<Item id="6231" name="Grubość ramki"/>
 					<Item id="6235" name="Brak obrysu"/>
 					<Item id="6208" name="Odstęp wewnętrzny"/>
@@ -1623,7 +1629,6 @@ Po zmianie nazwy pliku z „shortcuts.xml.v8.5.2.backup” na „shortcuts.xml�
 			<default-open-save-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać jako domyślny"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Shift+Enter pozwala wyszukiwać w drugą stronę."/>
 			<two-find-buttons-tip value="Tryb dwóch przycisków szukania"/>
-			<file-rename-title value="Zmiana nazwy"/>
 			<find-in-files-filter-tip value="Szukaj wśród plików cpp, cxx, h, hxx i hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1668,9 +1673,7 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<finder-collapse-all value="Zwiń wszystko"/>
 			<finder-uncollapse-all value="Rozwiń wszystko"/>
 			<finder-copy value="Kopiuj zaznaczone linie"/>
-			<finder-copy-verbatim value="Kopiuj"/>
 			<finder-copy-paths value="Kopiuj ścieżki"/>
-			<finder-select-all value="Zaznacz wszystko"/>
 			<finder-clear-all value="Wyczyść wszystko"/>
 			<finder-open-all value="Otwórz wszystko"/>
 			<finder-purge-for-every-search value="Opróżnij przed każdym wyszukiwaniem"/>
@@ -1697,7 +1700,6 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<summary-nbsel2 value=" bajtów) w "/>
 			<summary-nbrange value=" zakresach"/>
 			<progress-hits-title value="Trafień:"/>
-			<progress-cancel-button value="Anuluj"/>
 			<progress-cancel-info value="Trwa anulowanie operacji, proszę czekać..."/>
 			<find-in-files-progress-title value="Szukanie w plikach w toku..."/>
 			<replace-in-files-confirm-title value="Na pewno chcesz kontynuować?"/>
@@ -1760,6 +1762,7 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Przejdź do okna Konfiguratora stylów, by zmienić domyślny własny kolor dla wybranych białych i niedrukowanych znaków (styl: „Non-printing characters custom color”)."/>
 			<npcIncludeCcUniEol-tip value="Zastosuj ustawienia wyglądu znaków niedrukowalnych do znaków kontrolnych C0 i C1 oraz znaków EOL (następna linia, separator linii i separator akapitu) z Unicode."/>
+			<verticalEdge-tip value="Dodaj znacznik kolumny, wskazując jej pozycję liczbą dziesiętną.Można zdefiniować kilka znaczników kolumn, używając pustej przestrzeni do oddzielenia różnych liczb"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

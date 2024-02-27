@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024.02.05"><!-- basiert auf english.xml 8.6.3 vom 05.02.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024.02.29"><!-- basiert auf english.xml 8.6.3 vom 28.02.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -979,7 +979,8 @@ Translation note:
 
 					<Item id="6123" name="Sprache:"/>
 				</Global>
-				<Scintillas title="Bearbeiten">
+				
+				<Scintillas title="Bearbeiten 1">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite:"/>
 					<Item id="6219" name="Geschwindigkeit:"/>
@@ -1000,17 +1001,25 @@ Translation note:
 					<Item id="6652" name="Keine"/>
 					<Item id="6653" name="Hintergrund hervorheben"/>
 					<Item id="6654" name="Rahmen"/>
+				</Scintillas>
+
+				<Scintillas2 title="Bearbeiten 2">
+					<Item id="6521" name="Mehrfach-Bearbeitung"/>
+					<Item id="6522" name="Aktiviere Mehrfach-Bearbeitung (STRG+Maus-Klick/Auswahl)"/>
+					<Item id="6523" name="Aktiviere Spalten-Modus für Mehrfach-Bearbeitung"/>
 					<Item id="6655" name="Breite:"/>
 					<Item id="6247" name="Zeilenende EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standard"/>
 					<Item id="6249" name="Klartext"/>
 					<Item id="6250" name="Benutzerdefinierte Farbe"/>
 					<Item id="6252" name="Nicht druckbare Zeichen"/>
+					<Item id="6260" name="Erscheinungsbild"/>
 					<Item id="6254" name="Abkürzung"/>
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Benutzerdefinierte Farbe"/>
-					<Item id="6258" name="Anwenden auf C0, C1 &amp;&amp; Unicode EOL"/>
-				</Scintillas>
+					<Item id="6258" name="Anwenden der Erscheinungsbild-Einstellungen auf C0, C1 &amp;&amp; Unicode EOL"/>
+					<Item id="6259" name="Verhindere das Schreiben von Steuerzeichen (C0 usw.) ins Dokument"/>
+				</Scintillas2>
 
 				<DarkMode title="Dunkler Modus">
 					<Item id="7131" name="Hellen Modus aktivieren"/>
@@ -1094,6 +1103,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="4009" name="Unterstützte Erw.:"/>
 					<Item id="4010" name="Registrierte Erw.:"/>
 				</FileAssoc>
+
 				<Language title="Sprache">
 					<Item id="6505" name="Verfügbar:"/>
 					<Item id="6506" name="Deaktiviert:"/>
@@ -1644,7 +1654,6 @@ HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wi
 			<default-open-save-select-folder value="Wählen Sie ein Standardverzeichnis"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
-			<file-rename-title value="Umbenennen"/>
 			<find-in-files-filter-tip value="Suche in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1690,9 +1699,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<finder-collapse-all value="Alles einklappen"/>
 			<finder-uncollapse-all value="Alles aufklappen"/>
 			<finder-copy value="Kopiere ausgewählte Zeile(n)"/>
-			<finder-copy-verbatim value="Kopieren"/>
 			<finder-copy-paths value="Pfadnamen kopieren"/>
-			<finder-select-all value="Alles wählen"/>
 			<finder-clear-all value="Alles löschen"/>
 			<finder-open-all value="Alles öffnen"/>
 			<finder-purge-for-every-search value="Vor jeder Suche leeren"/>
@@ -1719,7 +1726,6 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<summary-nbsel2 value=" Bytes) in "/>
 			<summary-nbrange value=" Stufen"/>
 			<progress-hits-title value="Treffer:"/>
-			<progress-cancel-button value="Abbrechen"/>
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>

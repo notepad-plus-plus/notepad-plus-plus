@@ -198,7 +198,47 @@ generic_string NativeLangSpeaker::getSubMenuEntryName(const char *nodeName) cons
 	return TEXT("");
 }
 
-generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
+void purifyMenuString(string& s)
+{
+	// Remove & for CJK localization
+	size_t posAndCJK = s.find("(&", 0);
+	if (posAndCJK != string::npos)
+	{
+		if (posAndCJK + 3 < s.length())
+		{
+			if (s[posAndCJK + 3] == ')')
+				s.erase(posAndCJK, 4);
+		}
+	}
+
+	// Remove & and transform && to & for all localizations
+	for (int i = static_cast<int>(s.length()) - 1; i >= 0; --i)
+	{
+		if (s[i] == '&')
+		{
+			if (i-1 >= 0 && s[i-1] == '&')
+			{
+				s.erase(i, 1);
+				i -= 1;
+			}
+			else
+			{
+				s.erase(i, 1);
+			}
+		}
+	}
+
+	// Remove ellipsis...
+	size_t len = s.length();
+	if (len <= 3)
+		return;
+	size_t posEllipsis = len - 3;
+	if (s.substr(posEllipsis) == "...")
+		s.erase(posEllipsis, 3);
+
+}
+
+generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID, bool removeMarkAnd) const
 {
 	if (!_nativeLangA)
 		return TEXT("");
@@ -225,7 +265,13 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 			const char *name = element->Attribute("name");
 			if (name)
 			{
-				return wmc.char2wchar(name, _nativeLangEncoding);
+				string nameStr = name;
+
+				if (removeMarkAnd)
+				{
+					purifyMenuString(nameStr);
+				}
+				return wmc.char2wchar(nameStr.c_str(), _nativeLangEncoding);
 			}
 		}
 	}
@@ -1436,7 +1482,7 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 	return defaultStr;
 }
 
-	generic_string NativeLangSpeaker::getAttrNameByIdStr(const TCHAR *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name, const char *nodeL2Name) const
+generic_string NativeLangSpeaker::getAttrNameByIdStr(const TCHAR *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name, const char *nodeL2Name) const
 {
 	if (!targetNode) return defaultStr;
 

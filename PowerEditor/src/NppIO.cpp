@@ -1792,6 +1792,16 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
+	generic_string localizedSaveCopyAs;
+	if (isSaveCopy)
+	{
+		localizedSaveCopyAs = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVECOPYAS, true);
+		if (localizedSaveCopyAs.empty())
+			localizedSaveCopyAs = L"Save a Copy As";
+
+		fDlg.setTitle(localizedSaveCopyAs.c_str());
+	}
+
 	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
 		TEXT("&Append extension"));
 	fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 05 Feb 2024, for Notepad++ 8.6.3
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 26 Feb 2024, for Notepad++ 8.6.5
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.3">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -970,7 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Localização"/>
 				</Global>
-				<Scintillas title="Edição">
+				<Scintillas title="Edição 1">
 					<Item id="6216" name="Configurações do cursor"/>
 					<Item id="6217" name="Largura:"/>
 					<Item id="6219" name="Veloc. piscada:"/>
@@ -992,6 +992,11 @@ Translation note:
 					<Item id="6653" name="Destacar fundo"/>
 					<Item id="6654" name="Enquadrado"/>
 					<Item id="6655" name="Largura:"/>
+				</Scintillas>
+				<Scintillas2 title="Edição 2">
+					<Item id="6521" name="Multi-Edição"/>
+					<Item id="6522" name="Habilitar Multi-Edição (Ctrl+Clique do Mouse/seleção)"/>
+					<Item id="6523" name="Habilitar Seleção em Colunas para Multi-Edição"/>
 					<Item id="6247" name="Fim de Linha (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Padrão"/>
 					<Item id="6249" name="Texto comum"/>
@@ -1001,7 +1006,8 @@ Translation note:
 					<Item id="6255" name="Ponto de Código"/>
 					<Item id="6256" name="Cor Personalizada"/>
 					<Item id="6258" name="Aplicar para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
-				</Scintillas>
+					<Item id="6259" name="Impedir digitação de caracter de controle (código C0) no documento"/>
+				</Scintillas2>
 
 				<DarkMode title="Modo Escuro">
 					<Item id="7131" name="Modo Claro"/>
@@ -1085,6 +1091,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registradas:"/>
 				</FileAssoc>
+
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
 					<Item id="6506" name="Itens desabilitados"/>

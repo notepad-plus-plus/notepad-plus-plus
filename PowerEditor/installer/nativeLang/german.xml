@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024.02.05"><!-- basiert auf english.xml 8.6.3 vom 05.02.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024.02.27"><!-- basiert auf english.xml 8.6.3 vom 26.02.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -979,7 +979,7 @@ Translation note:
 
 					<Item id="6123" name="Sprache:"/>
 				</Global>
-				<Scintillas title="Bearbeiten">
+				<Scintillas title="Bearbeiten 1">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite:"/>
 					<Item id="6219" name="Geschwindigkeit:"/>
@@ -1000,6 +1000,12 @@ Translation note:
 					<Item id="6652" name="Keine"/>
 					<Item id="6653" name="Hintergrund hervorheben"/>
 					<Item id="6654" name="Rahmen"/>
+				</Scintillas>
+
+				<Scintillas2 title="Bearbeiten 2">
+					<Item id="6521" name="Mehrfach-Bearbeitung"/>
+					<Item id="6522" name="Aktiviere Mehrfach-Bearbeitung (STRG+Maus-Klick/Auswahl)"/>
+					<Item id="6523" name="Aktiviere Spalten-Modus für Mehrfach-Bearbeitung"/>
 					<Item id="6655" name="Breite:"/>
 					<Item id="6247" name="Zeilenende EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standard"/>
@@ -1010,7 +1016,8 @@ Translation note:
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Benutzerdefinierte Farbe"/>
 					<Item id="6258" name="Anwenden auf C0, C1 &amp;&amp; Unicode EOL"/>
-				</Scintillas>
+					<Item id="6259" name="Verhindere das Schreiben von Steuerzeichen (C0 usw.) ins Dokument"/>
+				</Scintillas2>
 
 				<DarkMode title="Dunkler Modus">
 					<Item id="7131" name="Hellen Modus aktivieren"/>
@@ -1094,6 +1101,7 @@ Mehrere Spaltenmarkierungen können definiert werden, indem die Zahlen durch Lee
 					<Item id="4009" name="Unterstützte Erw.:"/>
 					<Item id="4010" name="Registrierte Erw.:"/>
 				</FileAssoc>
+
 				<Language title="Sprache">
 					<Item id="6505" name="Verfügbar:"/>
 					<Item id="6506" name="Deaktiviert:"/>

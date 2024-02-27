@@ -977,7 +977,8 @@ Translation note:
 
 					<Item id="6123" name="言語"/>
 				</Global>
-				<Scintillas title="編集画面">
+
+				<Scintillas title="編集画面 1">
 					<Item id="6216" name="カーソル設定"/>
 					<Item id="6217" name="幅:"/>
 					<Item id="6219" name="点滅速度:"/>
@@ -999,6 +1000,12 @@ Translation note:
 					<Item id="6653" name="背景を色付け"/>
 					<Item id="6654" name="枠を表示"/>
 					<Item id="6655" name="線幅:"/>
+				</Scintillas>
+
+				<Scintillas2 title="編集画面 2">
+					<Item id="6521" name="一括編集"/>
+					<Item id="6522" name="一括編集を有効 (Ctrl+クリック/選択)"/>
+					<Item id="6523" name="矩形選択を一括編集に変換する"/>
 					<Item id="6247" name="改行文字(CRLF)の装飾"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="デフォルト"/>
 					<Item id="6249" name="装飾なし"/>
@@ -1008,7 +1015,8 @@ Translation note:
 					<Item id="6255" name="コードポイント"/>
 					<Item id="6256" name="カスタム色"/>
 					<Item id="6258" name="C0、C1、Unicode改行文字にも適用"/>
-				</Scintillas>
+					<Item id="6259" name="制御文字(C0コード)が文書に入力されないようにする"/>
+				</Scintillas2>
 
 				<DarkMode title="ダークモード">
 					<Item id="7131" name="ライトモード"/>
@@ -1092,6 +1100,7 @@ Translation note:
 					<Item id="4009" name="サポート形式:"/>
 					<Item id="4010" name="登録済み形式:"/>
 				</FileAssoc>
+
 				<Language title="言語メニュー">
 					<Item id="6505" name="利用する"/>
 					<Item id="6506" name="利用しない"/>

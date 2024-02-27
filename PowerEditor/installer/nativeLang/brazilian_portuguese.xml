@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 05 Feb 2024, for Notepad++ 8.6.3
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 10 Mar 2024, for Notepad++ 8.6.5
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.3">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -970,7 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Localização"/>
 				</Global>
-				<Scintillas title="Edição">
+				<Scintillas title="Edição 1">
 					<Item id="6216" name="Configurações do cursor"/>
 					<Item id="6217" name="Largura:"/>
 					<Item id="6219" name="Veloc. piscada:"/>
@@ -992,16 +992,23 @@ Translation note:
 					<Item id="6653" name="Destacar fundo"/>
 					<Item id="6654" name="Enquadrado"/>
 					<Item id="6655" name="Largura:"/>
+				</Scintillas>
+				<Scintillas2 title="Edição 2">
+					<Item id="6521" name="Multi-Edição"/>
+					<Item id="6522" name="Habilitar Multi-Edição (Ctrl+Clique do Mouse/seleção)"/>
+					<Item id="6523" name="Habilitar Seleção em Colunas para Multi-Edição"/>
 					<Item id="6247" name="Fim de Linha (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Padrão"/>
 					<Item id="6249" name="Texto comum"/>
 					<Item id="6250" name="Cor Customizada"/>
 					<Item id="6252" name="Caracteres sem representação"/>
+					<Item id="6260" name="Aparência"/>
 					<Item id="6254" name="Abreviação"/>
 					<Item id="6255" name="Ponto de Código"/>
 					<Item id="6256" name="Cor Personalizada"/>
-					<Item id="6258" name="Aplicar para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
-				</Scintillas>
+					<Item id="6258" name="Aplicar configurações de Exibição para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
+					<Item id="6259" name="Impedir digitação de caracter de controle (código C0) no documento"/>
+				</Scintillas2>
 
 				<DarkMode title="Modo Escuro">
 					<Item id="7131" name="Modo Claro"/>
@@ -1043,11 +1050,11 @@ Translation note:
 					<Item id="6292" name="Largura dinâmica"/>
 					<Item id="6293" name="Largura constante"/>
 					<Item id="6207" name="Exibir margem dos marcadores"/>
-					<Item id="6223" name="Mostrar Histórico de Modificações"/>
+					<Item id="6295" name="Mudar Histórico"/>
+					<Item id="6223" name="Mostrar na margem"/>
+					<Item id="6296" name="Mostrar no texto"/>
 					<Item id="6211" name="Configurações do marcador de coluna"/>
 					<Item id="6213" name="Modo plano de fundo"/>
-					<Item id="6237" name="Adicione seu marcador de coluna, indicando sua posição com um número decimal.
-Você pode definir vários marcadores de coluna usando espaço em branco para separar os diferentes números."/>
 					<Item id="6231" name="Largura da borda"/>
 					<Item id="6235" name="Sem borda"/>
 					<Item id="6208" name="Exibir linha vertical"/>
@@ -1085,6 +1092,7 @@ Você pode definir vários marcadores de coluna usando espaço em branco para se
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registradas:"/>
 				</FileAssoc>
+
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
 					<Item id="6506" name="Itens desabilitados"/>
@@ -1634,7 +1642,6 @@ OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua
 			<default-open-save-select-folder value="Selecione uma pasta como pasta padrão"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
 			<two-find-buttons-tip value="Modo 2 botões"/>
-			<file-rename-title value="Renomear"/>
 			<find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1680,9 +1687,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
-			<finder-copy-verbatim value="Copiar"/>
 			<finder-copy-paths value="Copiar nome(s) de caminho(s)"/>
-			<finder-select-all value="Selecionar tudo"/>
 			<finder-clear-all value="Limpar tudo"/>
 			<finder-open-all value="Abrir tudo"/>
 			<finder-purge-for-every-search value="Limpar a cada pesquisa"/>
@@ -1709,7 +1714,6 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<summary-nbsel2 value=" bytes) em "/>
 			<summary-nbrange value=" intervalo"/>
 			<progress-hits-title value="Ocorrências:"/>
-			<progress-cancel-button value="Cancelar"/>
 			<progress-cancel-info value="Cancelando operação, aguarde..."/>
 			<find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>
 			<replace-in-files-confirm-title value="Tem certeza?"/>
@@ -1778,6 +1782,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres selecionados no modo editor para marcar automaticamente a opção &quot;Na seleção&quot; quando a caixa de diálogo Localizar for ativada. O valor máximo é 1024. Use o valor 0 para desabilitar a auto-seleção."/>
+			<verticalEdge-tip value="Adicione seu marcador de coluna indicando a posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os números diferentes."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1643,7 +1643,6 @@ NOTE: Choosing not to create the placeholders or closing them later, your sessio
 			<default-open-save-select-folder value="Select a folder as default directory"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
 			<two-find-buttons-tip value="2 find buttons mode"/>
-			<file-rename-title value="Rename"/>
 			<find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1689,9 +1688,7 @@ Find in all files but exclude all folders log or logs recursively:
 			<finder-collapse-all value="Fold all"/>
 			<finder-uncollapse-all value="Unfold all"/>
 			<finder-copy value="Copy Selected Line(s)"/>
-			<finder-copy-verbatim value="Copy"/>
 			<finder-copy-paths value="Copy Pathname(s)"/>
-			<finder-select-all value="Select all"/>
 			<finder-clear-all value="Clear all"/>
 			<finder-open-all value="Open all"/>
 			<finder-purge-for-every-search value="Purge for every search"/>
@@ -1718,7 +1715,6 @@ Find in all files but exclude all folders log or logs recursively:
 			<summary-nbsel2 value=" bytes) in "/>
 			<summary-nbrange value=" ranges"/>
 			<progress-hits-title value="Hits:"/>
-			<progress-cancel-button value="Cancel"/>
 			<progress-cancel-info value="Cancelling operation, please wait..."/>
 			<find-in-files-progress-title value="Find In Files progress..."/>
 			<replace-in-files-confirm-title value="Are you sure?"/>

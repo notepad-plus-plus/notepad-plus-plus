@@ -1186,7 +1186,7 @@ BEGIN
         POPUP "Import"
         BEGIN
             MENUITEM "Import plugin(s)...",         IDM_SETTING_IMPORTPLUGIN
-            MENUITEM "Import style theme(s)...",    IDM_SETTING_IMPORTSTYLETHEMS
+            MENUITEM "Import style theme(s)...",    IDM_SETTING_IMPORTSTYLETHEMES
         END
         MENUITEM SEPARATOR
         MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU

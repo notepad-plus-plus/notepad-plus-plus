@@ -3181,7 +3181,7 @@ void Notepad_plus::command(int id)
             break;
         }
 
-        case IDM_SETTING_IMPORTSTYLETHEMS :
+        case IDM_SETTING_IMPORTSTYLETHEMES :
         {
             // get plugin source path
             const TCHAR *extFilterName = TEXT("Notepad++ style theme");

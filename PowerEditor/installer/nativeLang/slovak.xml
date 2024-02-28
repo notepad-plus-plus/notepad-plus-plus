@@ -1002,10 +1002,11 @@
 					<Item id="6249" name="Obyčajný text"/>
 					<Item id="6250" name="Vlastná farba"/>
 					<Item id="6252" name="Netlačiteľné znaky"/>
+					<Item id="6260" name="Vzhľad"/>
 					<Item id="6254" name="Skratka"/>
 					<Item id="6255" name="Kódový bod"/>
 					<Item id="6256" name="Vlastná farba"/>
-					<Item id="6258" name="Použiť na C0, C1 a Unicode EOL"/>
+					<Item id="6258" name="Použiť nastavenia vzhľadu na C0, C1 a Unicode EOL"/>
 					<Item id="6259" name="Zabrániť vloženiu riadiaceho znaku (kód C0) do dokumentu"/>
 				</Scintillas2>
 				
@@ -1644,7 +1645,6 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavr
 			<default-open-save-select-folder value="Vyberte predvolený priečinok"/>
 			<shift-change-direction-tip value="Na vyhľadávanie v opačnom smere použite Shift+Enter"/>
 			<two-find-buttons-tip value="Režim dvoch tlačidiel"/>
-			<file-rename-title value="Premenovať"/>
 			<find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1690,9 +1690,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<finder-collapse-all value="Zbaliť všetko"/>
 			<finder-uncollapse-all value="Rozbaliť všetko"/>
 			<finder-copy value="Kopírovať vybrané riadky"/>
-			<finder-copy-verbatim value="Kopírovať"/>
 			<finder-copy-paths value="Kopírovať názov súboru(ov)"/>
-			<finder-select-all value="Vybrať všetko"/>
 			<finder-clear-all value="Vymazať všetko"/>
 			<finder-open-all value="Otvoriť všetko"/>
 			<finder-purge-for-every-search value="Vymazať pri každom hľadaní"/>
@@ -1719,7 +1717,6 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<summary-nbsel2 value=" bajtov) v "/>
 			<summary-nbrange value=" oblastiach"/>
 			<progress-hits-title value="Nájdené:"/>
-			<progress-cancel-button value="Zrušiť"/>
 			<progress-cancel-info value="Ruší sa operácia, čakajte, prosím…"/>
 			<find-in-files-progress-title value="Prebieha hľadanie v súboroch…"/>
 			<replace-in-files-confirm-title value="Naozaj?"/>

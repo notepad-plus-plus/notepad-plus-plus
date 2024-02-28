@@ -1795,10 +1795,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	generic_string localizedSaveCopyAs;
 	if (isSaveCopy)
 	{
-		localizedSaveCopyAs = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVECOPYAS, true);
-		if (localizedSaveCopyAs.empty())
-			localizedSaveCopyAs = L"Save a Copy As";
-
+		localizedSaveCopyAs = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVECOPYAS, L"Save a Copy As", true);
 		fDlg.setTitle(localizedSaveCopyAs.c_str());
 	}
 
@@ -1885,8 +1882,8 @@ bool Notepad_plus::fileRename(BufferID id)
 		fDlg.setFolder(buf->getFullPathName());
 		fDlg.setDefFileName(buf->getFileName());
 
-		std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", L"Rename");
-		fDlg.setTitle(title.c_str());
+		wstring localizedRename = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_RENAME, L"Rename", true);
+		fDlg.setTitle(localizedRename.c_str());
 
 		std::wstring fn = fDlg.doSaveDlg();
 

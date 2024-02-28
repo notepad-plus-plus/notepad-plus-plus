@@ -7357,8 +7357,9 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FB_PANELTITLE, FOLDERASWORKSPACE_NODE, "PanelTitle");
 
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
+		const int titleLen = 64;
+		static TCHAR title[titleLen];
+		if (title_temp.length() < titleLen)
 		{
 			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;

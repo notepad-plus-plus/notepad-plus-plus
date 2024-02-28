@@ -1640,7 +1640,6 @@ NOTE : Si vous choisissez de ne pas créer d'espaces réservés ou de les fermer
 			<default-open-save-select-folder value="Sélectionner un dossier pour le répertoire par défaut"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Utilisez Maj + Entrée pour rechercher dans le sens inverse"/>
 			<two-find-buttons-tip value="2 boutons Recherche"/>
-			<file-rename-title value="Renommer"/>
 			<find-in-files-filter-tip value="Rechercher dans cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1686,9 +1685,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<finder-collapse-all value="Replier tout"/>
 			<finder-uncollapse-all value="Déplier tout"/>
 			<finder-copy value="Copier la(les) ligne(s) sélectionnée(s)"/>
-			<finder-copy-verbatim value="Copier"/>
 			<finder-copy-paths value="Copier le(s) chemin(s)"/>
-			<finder-select-all value="Sélectionner tout"/>
 			<finder-clear-all value="Effacer tout"/>
 			<finder-open-all value="Ouvrir tout"/>
 			<finder-purge-for-every-search value="Purger chaque recherche"/>
@@ -1715,7 +1712,6 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<summary-nbsel2 value=" octets) dans "/>
 			<summary-nbrange value=" sélections"/>
 			<progress-hits-title value="Résultats :"/>
-			<progress-cancel-button value="Annuler"/>
 			<progress-cancel-info value="Annulation de l'opération, veuillez patienter..."/>
 			<find-in-files-progress-title value="Rechercher dans les fichiers en cours..."/>
 			<replace-in-files-confirm-title value="Confirmation"/>

@@ -1560,8 +1560,6 @@
 			<finder-collapse-all value="層數全部收折"/>
 			<finder-uncollapse-all value="層數全部展開"/>
 			<finder-copy value="複製全行"/>
-			<finder-copy-verbatim value="複製"/>
-			<finder-select-all value="全部選取"/>
 			<finder-clear-all value="全部清除"/>
 			<finder-open-all value="全部開啟"/>
 			<finder-wrap-long-lines value="自動換行"/>

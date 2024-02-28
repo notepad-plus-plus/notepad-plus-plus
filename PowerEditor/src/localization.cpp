@@ -238,19 +238,19 @@ void purifyMenuString(string& s)
 
 }
 
-generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID, bool removeMarkAnd) const
+generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID, generic_string inCaseOfFailureStr, bool removeMarkAnd) const
 {
 	if (!_nativeLangA)
-		return TEXT("");
+		return inCaseOfFailureStr;
 
 	TiXmlNodeA *node = _nativeLangA->FirstChild("Menu");
-	if (!node) return TEXT("");
+	if (!node) return inCaseOfFailureStr;
 
 	node = node->FirstChild("Main");
-	if (!node) return TEXT("");
+	if (!node) return inCaseOfFailureStr;
 
 	node = node->FirstChild("Commands");
-	if (!node) return TEXT("");
+	if (!node) return inCaseOfFailureStr;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
@@ -275,7 +275,7 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID, bool remov
 			}
 		}
 	}
-	return TEXT("");
+	return inCaseOfFailureStr;
 }
 
 generic_string NativeLangSpeaker::getShortcutNameString(int itemID) const

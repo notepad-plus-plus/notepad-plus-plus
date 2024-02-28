@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 26 Feb 2024, for Notepad++ 8.6.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 28 Feb 2024, for Notepad++ 8.6.5
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1641,7 +1641,6 @@ OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua
 			<default-open-save-select-folder value="Selecione uma pasta como pasta padrão"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Usar Shift+Enter para pesquisar na direção oposta."/>
 			<two-find-buttons-tip value="Modo 2 botões"/>
-			<file-rename-title value="Renomear"/>
 			<find-in-files-filter-tip value="Procurar em cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1687,9 +1686,7 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
-			<finder-copy-verbatim value="Copiar"/>
 			<finder-copy-paths value="Copiar nome(s) de caminho(s)"/>
-			<finder-select-all value="Selecionar tudo"/>
 			<finder-clear-all value="Limpar tudo"/>
 			<finder-open-all value="Abrir tudo"/>
 			<finder-purge-for-every-search value="Limpar a cada pesquisa"/>
@@ -1716,7 +1713,6 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<summary-nbsel2 value=" bytes) em "/>
 			<summary-nbrange value=" intervalo"/>
 			<progress-hits-title value="Ocorrências:"/>
-			<progress-cancel-button value="Cancelar"/>
 			<progress-cancel-info value="Cancelando operação, aguarde..."/>
 			<find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>
 			<replace-in-files-confirm-title value="Tem certeza?"/>

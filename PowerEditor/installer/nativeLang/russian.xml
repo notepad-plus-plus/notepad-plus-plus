@@ -1060,10 +1060,11 @@ Updated to v8.6.5:
 					<Item id="6256" name="Польз. Цвет"/>
 
 					<Item id="6252" name="Непечатаемые символы"/>
+					<Item id="6260" name="Внешний Вид"/>
 					<Item id="6254" name="Аббревиатура"/>
 					<Item id="6255" name="Кодовая Точка"/>
 					<Item id="6250" name="Польз. Цвет"/>
-					<Item id="6258" name="Применить к C0, C1 и Юникод EOL"/>
+					<Item id="6258" name="Применить настройки внешнего вида к C0, C1 и Юникод EOL"/>
 					<Item id="6259" name="Запретить ввод управляющего символа (кода C0) в документ"/>
 				</Scintillas2>
 				<DarkMode title="Тёмный Режим">
@@ -1684,9 +1685,7 @@ Notepad++ сделает резервную копию вашего старог
 			<finder-collapse-all value="Свернуть все блоки"/>
 			<finder-uncollapse-all value="Развернуть все блоки"/>
 			<finder-copy value="Копировать (выбранные строки)"/>
-			<finder-copy-verbatim value="Копировать"/>
 			<finder-copy-paths value="Путь и Имя файла в буфер"/>
-			<finder-select-all value="Выделить всё"/>
 			<finder-clear-all value="Очистить всё поле поиска"/>
 			<finder-open-all value="Открыть все файлы"/>
 			<finder-wrap-long-lines value="Перенос слов длинных строк"/>
@@ -1717,7 +1716,6 @@ Notepad++ сделает резервную копию вашего старог
 			<summary-nbsel2 value=" байт) в "/>
 			<summary-nbrange value=" диапазоне(ах)"/>
 			<progress-hits-title value="Совпадений:"/>
-			<progress-cancel-button value="Отмена"/>
 			<progress-cancel-info value="Отмена операции, подождите..."/>
 
 			<find-in-files-progress-title value="Прогресс поиска в файлах..."/>
@@ -1746,7 +1744,6 @@ Notepad++ сделает резервную копию вашего старог
 			<session-save-folder-as-workspace value="Сохранить Папку как Проект"/>
 			<tab-untitled-string value="новый "/>
 			<file-save-assign-type value="&amp;Добавлять расширение"/>
-			<file-rename-title value="Переименовать"/>
 			<close-panel-tip value="Закрыть"/>
 			<IncrementalFind-FSFound value="$INT_REPLACE$ совпадений"/>
 			<IncrementalFind-FSNotFound value="Фраза не найдена"/>

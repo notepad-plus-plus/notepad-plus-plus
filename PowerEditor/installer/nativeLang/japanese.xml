@@ -1648,7 +1648,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<default-open-save-select-folder value="既定のディレクトリを選択してください"/>
 			<shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
 			<two-find-buttons-tip value="検索ボタンを2個に分ける"/>
-			<file-rename-title value="名前の変更"/>
 			<find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイル内を検索する：
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1694,9 +1693,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<finder-collapse-all value="すべて畳む"/>
 			<finder-uncollapse-all value="すべて展開する"/>
 			<finder-copy value="選択行をコピー"/>
-			<finder-copy-verbatim value="コピー"/>
 			<finder-copy-paths value="すべてのパスをコピー"/>
-			<finder-select-all value="すべて選択"/>
 			<finder-clear-all value="すべてクリア"/>
 			<finder-open-all value="すべて開く"/>
 			<finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
@@ -1723,7 +1720,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<summary-nbsel2 value=" バイト）/ "/>
 			<summary-nbrange value=" 個の選択範囲"/>
 			<progress-hits-title value="一致件数:"/>
-			<progress-cancel-button value="キャンセル"/>
 			<progress-cancel-info value="キャンセルしています。お待ちください..."/>
 			<find-in-files-progress-title value="複数ファイル内を検索中..."/>
 			<replace-in-files-confirm-title value="本当によろしいですか？"/>

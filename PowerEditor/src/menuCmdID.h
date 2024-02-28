@@ -592,7 +592,7 @@
 //    #define    IDM_SETTING_HISTORY_SIZE             (IDM_SETTING + 3)
 //    #define    IDM_SETTING_EDGE_SIZE                (IDM_SETTING + 4)
     #define    IDM_SETTING_IMPORTPLUGIN             (IDM_SETTING + 5)
-    #define    IDM_SETTING_IMPORTSTYLETHEMS         (IDM_SETTING + 6)
+    #define    IDM_SETTING_IMPORTSTYLETHEMES        (IDM_SETTING + 6)
     #define    IDM_SETTING_TRAYICON                 (IDM_SETTING + 8)
     #define    IDM_SETTING_SHORTCUT_MAPPER          (IDM_SETTING + 9)
     #define    IDM_SETTING_REMEMBER_LAST_SESSION    (IDM_SETTING + 10)

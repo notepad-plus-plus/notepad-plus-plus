@@ -1792,12 +1792,16 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
-	generic_string localizedSaveCopyAs;
+	generic_string localizedTitle;
 	if (isSaveCopy)
 	{
-		localizedSaveCopyAs = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVECOPYAS, L"Save a Copy As", true);
-		fDlg.setTitle(localizedSaveCopyAs.c_str());
+		localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVECOPYAS, L"Save a Copy As", true);
 	}
+	else
+	{
+		localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVEAS, L"Save As", true);
+	}
+	fDlg.setTitle(localizedTitle.c_str());
 
 	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
 		TEXT("&Append extension"));
@@ -2018,6 +2022,8 @@ bool Notepad_plus::fileDelete(BufferID id)
 void Notepad_plus::fileOpen()
 {
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
+	wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_OPEN, L"Open", true);
+	fDlg.setTitle(localizedTitle.c_str());
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 
 	setFileOpenSaveDlgFilters(fDlg, true);
@@ -2467,6 +2473,8 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			fDlg.setDefExt(ext);
 		}
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
+		wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_LOADSESSION, L"Load Session", true);
+		fDlg.setTitle(localizedTitle.c_str());
 		sessionFileName = fDlg.doOpenSingleFileDlg();
 	}
 	else
@@ -2565,9 +2573,10 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	}
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 	const bool isCheckboxActive = _pFileBrowser && !_pFileBrowser->isClosed();
-	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("session-save-folder-as-workspace",
-		TEXT("Save Folder as Workspace"));
+	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("session-save-folder-as-workspace", L"Save Folder as Workspace");
 	fDlg.setCheckbox(checkboxLabel.c_str(), isCheckboxActive);
+	wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVESESSION, L"Save Session", true);
+	fDlg.setTitle(localizedTitle.c_str());
 	generic_string sessionFileName = fDlg.doSaveDlg();
 
 	if (!sessionFileName.empty())

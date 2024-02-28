@@ -961,10 +961,11 @@
 					<Item id="6249" name="純文字"/>
 					<Item id="6250" name="使用自訂顏色"/>
 					<Item id="6252" name="非列印字符"/>
+					<Item id="6260" name="外觀"/>
 					<Item id="6254" name="縮寫"/>
 					<Item id="6255" name="代碼"/>
 					<Item id="6256" name="使用自訂顏色"/>
-					<Item id="6258" name="套用於 C0, C1 &amp;&amp; 萬國碼換行字符"/>
+					<Item id="6258" name="套用設定的外觀於 C0, C1 &amp;&amp; 萬國碼換行字符"/>
 					<Item id="6259" name="禁止控制字元（C0 代碼）輸入文件"/>
 				</Scintillas2>
 

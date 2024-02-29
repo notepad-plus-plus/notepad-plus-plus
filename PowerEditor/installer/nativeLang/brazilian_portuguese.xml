@@ -1006,7 +1006,7 @@ Translation note:
 					<Item id="6254" name="Abreviação"/>
 					<Item id="6255" name="Ponto de Código"/>
 					<Item id="6256" name="Cor Personalizada"/>
-					<Item id="6258" name="Aplicar configurações de exibição para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
+					<Item id="6258" name="Aplicar configurações de Exibição para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
 					<Item id="6259" name="Impedir digitação de caracter de controle (código C0) no documento"/>
 				</Scintillas2>
 

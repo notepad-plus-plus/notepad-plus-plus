@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 28 Feb 2024, for Notepad++ 8.6.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 29 Feb 2024, for Notepad++ 8.6.5
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1002,10 +1002,11 @@ Translation note:
 					<Item id="6249" name="Texto comum"/>
 					<Item id="6250" name="Cor Customizada"/>
 					<Item id="6252" name="Caracteres sem representação"/>
+					<Item id="6260" name="Aparência"/>
 					<Item id="6254" name="Abreviação"/>
 					<Item id="6255" name="Ponto de Código"/>
 					<Item id="6256" name="Cor Personalizada"/>
-					<Item id="6258" name="Aplicar para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
+					<Item id="6258" name="Aplicar configurações de exibição para caracteres C0, C1 &amp;&amp; EOL Unicode"/>
 					<Item id="6259" name="Impedir digitação de caracter de controle (código C0) no documento"/>
 				</Scintillas2>
 

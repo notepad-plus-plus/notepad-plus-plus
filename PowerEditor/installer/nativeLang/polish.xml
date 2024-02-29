@@ -10,13 +10,13 @@ Translation note:
         - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.5 (02.08.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
-        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 6.6.3 (5.02.2024)
+        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.4 (29.02.2024)
 
     The most recent version of this file can usually be downloaded from:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.6.3">
+	<Native-Langue name="polski" filename="polish.xml" version="8.6.4">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -42,7 +42,7 @@ Translation note:
 					<Item subMenuId="edit-insert" name="Wstaw"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kopiuj do schowka"/>
 					<Item subMenuId="edit-indent" name="Wcięcie"/>
-					<Item subMenuId="edit-convertCaseTo" name="Wielkość liter"/>
+					<Item subMenuId="edit-convertCaseTo" name="Przekonwertuj wielkość liter na"/>
 					<Item subMenuId="edit-lineOperations" name="Działania na liniach"/>
 					<Item subMenuId="edit-comment" name="Komentarze"/>
 					<Item subMenuId="edit-autoCompletion" name="Autouzupełnianie"/>
@@ -51,15 +51,15 @@ Translation note:
 					<Item subMenuId="edit-pasteSpecial" name="Wklej specjalnie"/>
 					<Item subMenuId="edit-onSelection" name="Z zaznaczenia"/>
 					<Item subMenuId="search-changeHistory" name="Historia zmian"/>
-					<Item subMenuId="search-markAll" name="Wyróżnij każde"/>
-					<Item subMenuId="search-markOne" name="Wyróżnij jedno"/>
-					<Item subMenuId="search-unmarkAll" name="Usuń wyróżnienia"/>
+					<Item subMenuId="search-markAll" name="Zaznacz wszystko"/>
+					<Item subMenuId="search-markOne" name="Zaznacz jedno"/>
+					<Item subMenuId="search-unmarkAll" name="Odznacz wszystko"/>
 					<Item subMenuId="search-jumpUp" name="Przejdź wyżej"/>
 					<Item subMenuId="search-jumpDown" name="Przejdź niżej"/>
 					<Item subMenuId="search-copyStyledText" name="Kopiuj ostylowany tekst"/>
 					<Item subMenuId="search-bookmark" name="Zakładki"/>
 					<Item subMenuId="view-currentFileIn" name="Wyświetl bieżący plik w..."/>
-					<Item subMenuId="view-showSymbol" name="Niewidoczne znaki"/>
+					<Item subMenuId="view-showSymbol" name="Pokaż Symbol"/>
 					<Item subMenuId="view-zoom" name="Powiększenie"/>
 					<Item subMenuId="view-moveCloneDocument" name="Bieżący dokument"/>
 					<Item subMenuId="view-tab" name="Karty"/>
@@ -153,12 +153,12 @@ Translation note:
 					<Item id="42066" name="Sortuj malejąco jako liczby dziesiętne z kropką"/>
 					<Item id="42083" name="Odwróć kolejność linii"/>
 					<Item id="42078" name="Losowa kolejność linii"/>
-					<Item id="42016" name="&amp;MAJUSKUŁY"/>
-					<Item id="42017" name="mi&amp;nuskuły"/>
-					<Item id="42067" name="Jak Nazwy &amp;Własne"/>
-					<Item id="42068" name="Jak Nazwy Własne (zostaw MAJUSKUŁY)"/>
-					<Item id="42069" name="Jak w &amp;zdaniach"/>
-					<Item id="42070" name="Jak w zdaniach (zostaw MAJUSKUŁY)"/>
+					<Item id="42016" name="&amp;DUŻE LITERY"/>
+					<Item id="42017" name="&amp;małe litery"/>
+					<Item id="42067" name="Właściwa wielkość"/>
+					<Item id="42068" name="Właściwa wielkość (mieszana)"/>
+					<Item id="42069" name="Wielkość zdania"/>
+					<Item id="42070" name="Wielkość zdania (mieszana)"/>
 					<Item id="42071" name="&amp;oDWRÓĆ wIELKOŚĆ lITER"/>
 					<Item id="42072" name="&amp;loSoWA WIelKość liTEr"/>
 					<Item id="42073" name="Otwórz plik"/>
@@ -1008,7 +1008,7 @@ Translation note:
 					<Item id="6254" name="Skrót"/>
 					<Item id="6255" name="Kod"/>
 					<Item id="6256" name="Własny kolor"/>
-					<Item id="6258" name="Zastosuj do C0, C1 i EOL z Unicode"/>
+					<Item id="6258" name="Zastosuj ustawienia wyglądu do C0,C1 &amp;&amp;Unikod EOL"/>
 			        <Item id="6521" name="Multi Edycja"/>
 				<Item id="6522" name="Włącz multi edycję (Ctrl+kliknięcie/wybór myszą)"/>
 				<Item id="6523" name="Włącz wybór kolumny do multi edycji"/>
@@ -1629,7 +1629,6 @@ Po zmianie nazwy pliku z „shortcuts.xml.v8.5.2.backup” na „shortcuts.xml�
 			<default-open-save-select-folder value="Wybierz folder, który Notepad++ ma wykorzystywać jako domyślny"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Shift+Enter pozwala wyszukiwać w drugą stronę."/>
 			<two-find-buttons-tip value="Tryb dwóch przycisków szukania"/>
-			<file-rename-title value="Zmiana nazwy"/>
 			<find-in-files-filter-tip value="Szukaj wśród plików cpp, cxx, h, hxx i hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1674,9 +1673,7 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<finder-collapse-all value="Zwiń wszystko"/>
 			<finder-uncollapse-all value="Rozwiń wszystko"/>
 			<finder-copy value="Kopiuj zaznaczone linie"/>
-			<finder-copy-verbatim value="Kopiuj"/>
 			<finder-copy-paths value="Kopiuj ścieżki"/>
-			<finder-select-all value="Zaznacz wszystko"/>
 			<finder-clear-all value="Wyczyść wszystko"/>
 			<finder-open-all value="Otwórz wszystko"/>
 			<finder-purge-for-every-search value="Opróżnij przed każdym wyszukiwaniem"/>
@@ -1703,7 +1700,6 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<summary-nbsel2 value=" bajtów) w "/>
 			<summary-nbrange value=" zakresach"/>
 			<progress-hits-title value="Trafień:"/>
-			<progress-cancel-button value="Anuluj"/>
 			<progress-cancel-info value="Trwa anulowanie operacji, proszę czekać..."/>
 			<find-in-files-progress-title value="Szukanie w plikach w toku..."/>
 			<replace-in-files-confirm-title value="Na pewno chcesz kontynuować?"/>

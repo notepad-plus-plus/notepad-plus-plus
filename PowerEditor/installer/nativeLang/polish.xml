@@ -1006,7 +1006,7 @@ Translation note:
 					<Item id="6254" name="Skrót"/>
 					<Item id="6255" name="Kod"/>
 					<Item id="6256" name="Własny kolor"/>
-					<Item id="6258" name="Zastosuj do C0, C1 i EOL z Unicode"/>
+					<Item id="6258" name="Zastosuj ustawienia wyglądu do C0,C1 &amp;&amp;Unikod EOL"/>
 				</Scintillas>
 
 				<DarkMode title="Tryb ciemny">

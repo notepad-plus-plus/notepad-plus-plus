@@ -967,6 +967,7 @@ struct ScintillaViewParams
 	bool _npcCustomColor = false;
 	bool _npcIncludeCcUniEol = false;
 	bool _ccUniEolShow = true;
+	bool _npcNoInputC0 = true;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;

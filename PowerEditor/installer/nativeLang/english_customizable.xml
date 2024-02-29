@@ -1008,7 +1008,7 @@ Translation note:
 					<Item id="6254" name="Abbreviation"/>
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Custom Color"/>
-					<Item id="6258" name="Apply appearance settings to C0, C1 &amp;&amp; Unicode EOL"/>
+					<Item id="6258" name="Apply Appearance settings to C0, C1 &amp;&amp; Unicode EOL"/>
 					<Item id="6259" name="Prevent control character (C0 code) typing into document"/>
 				</Scintillas2>
 

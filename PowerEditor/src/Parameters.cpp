@@ -6569,6 +6569,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 
 	_svp._npcCustomColor = parseYesNoBoolAttribute(TEXT("npcCustomColor"));
 	_svp._npcIncludeCcUniEol = parseYesNoBoolAttribute(TEXT("npcIncludeCcUniEOL"));
+	_svp._npcNoInputC0 = parseYesNoBoolAttribute(TEXT("npcNoInputC0"));
 
 	// C0, C1 control and Unicode EOL visibility state
 	_svp._ccUniEolShow = parseYesNoBoolAttribute(TEXT("ccShow"), true);
@@ -6905,6 +6906,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(TEXT("npcMode"), static_cast<int>(_svp._npcMode));
 	setYesNoBoolAttribute(TEXT("npcCustomColor"), _svp._npcCustomColor);
 	setYesNoBoolAttribute(TEXT("npcIncludeCcUniEOL"), _svp._npcIncludeCcUniEol);
+	setYesNoBoolAttribute(TEXT("npcNoInputC0"), _svp._npcNoInputC0);
 	setYesNoBoolAttribute(TEXT("ccShow"), _svp._ccUniEolShow);
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), _svp._borderWidth);
 	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), _svp._doSmoothFont ? TEXT("yes") : TEXT("no"));

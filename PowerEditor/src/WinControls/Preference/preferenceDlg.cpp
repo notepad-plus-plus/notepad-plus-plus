@@ -1182,6 +1182,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
 			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
+			setChecked(IDC_CHECK_NPC_NOINPUTC0, svp._npcNoInputC0);
 
 			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
 				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
@@ -1368,6 +1369,12 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					const HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_SETNPC, IDC_CHECK_NPC_INCLUDECCUNIEOL, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_NPC_NOINPUTC0:
+				{
+					svp._npcNoInputC0 = isCheckedOrNot(IDC_CHECK_NPC_NOINPUTC0);
 					return TRUE;
 				}
 			}

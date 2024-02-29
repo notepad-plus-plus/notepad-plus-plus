@@ -126,8 +126,8 @@ BEGIN
     CONTROL         "Codepoint",IDC_RADIO_NPC_CODEPOINT,"Button",BS_AUTORADIOBUTTON,33,116,110,10
     CONTROL         "Custom Color",IDC_CHECK_NPC_COLOR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,33,133,110,10
     PUSHBUTTON      "...",IDC_BUTTON_NPC_LAUNCHSTYLECONF,147,130,16,14
-    CONTROL         "Apply appearance settings to C0, C1 && Unicode EOL",IDC_CHECK_NPC_INCLUDECCUNIEOL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,153,281,10
-    //CONTROL         "Prevent control character (C0 code) typing into document",IDC_CHECK_NPC_NOC0CODETYPING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,177,281,10
+    CONTROL         "Apply Appearance settings to C0, C1 && Unicode EOL",IDC_CHECK_NPC_INCLUDECCUNIEOL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,153,281,10
+    CONTROL         "Prevent control character (C0 code) typing into document", IDC_CHECK_NPC_NOINPUTC0,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,177,281,10
 END
 
 

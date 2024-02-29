@@ -1006,7 +1006,7 @@ Translation note:
 					<Item id="6254" name="Abréviation"/>
 					<Item id="6255" name="Point de code"/>
 					<Item id="6256" name="Couleur personnalisée"/>
-					<Item id="6258" name="Appliquer l'apparence à C0, C1 &amp; Unicode EOL"/>
+					<Item id="6258" name="Appliquer les paramètres d'Apparence à C0, C1 &amp; Unicode EOL"/>
 					<Item id="6259" name="Empêcher la saisie de caractères de contrôle (code C0) dans le document"/>
 				</Scintillas2>
 				<DarkMode title="Mode Sombre">

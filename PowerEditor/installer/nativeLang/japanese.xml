@@ -1011,10 +1011,11 @@ Translation note:
 					<Item id="6249" name="装飾なし"/>
 					<Item id="6250" name="カスタム色"/>
 					<Item id="6252" name="非表示文字"/>
+					<Item id="6260" name="表示設定"/>
 					<Item id="6254" name="略称"/>
 					<Item id="6255" name="コードポイント"/>
 					<Item id="6256" name="カスタム色"/>
-					<Item id="6258" name="C0、C1、Unicode改行文字にも適用"/>
+					<Item id="6258" name="表示設定をC0、C1、Unicode改行文字にも適用"/>
 					<Item id="6259" name="制御文字(C0コード)が文書に入力されないようにする"/>
 				</Scintillas2>
 

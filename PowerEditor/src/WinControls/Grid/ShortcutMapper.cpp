@@ -194,32 +194,76 @@ generic_string ShortcutMapper::getTextFromCombo(HWND hCombo)
 
 bool ShortcutMapper::isFilterValid(Shortcut sc)
 {
-	if (_shortcutFilter.empty())
+	// all words in _shortcutFilter must be in the name or keycombo
+	// For example, the shortcut with name "foo bar baz" and keycombo "Ctrl+A"
+	// would be matched by the filter "foo ctrl" and the filter "bar +a"
+	// but *not* by the filter "foo shift" or the filter "quz +a"
+	size_t filterSize = _shortcutFilter.size();
+	if (filterSize == 0)
 		return true;
 
 	wstring shortcut_name = stringToLower(string2wstring(sc.getName(), CP_UTF8));
 	wstring shortcut_value = stringToLower(string2wstring(sc.toString(), CP_UTF8));
 
-	// test the filter on the shortcut name and value
-	return (shortcut_name.find(_shortcutFilter) != std::string::npos) || 
-		(shortcut_value.find(_shortcutFilter) != std::string::npos);
+	for (size_t i = 0; i < filterSize; ++i)
+	{
+		generic_string filterWord = _shortcutFilter.at(i);
+		// every word must be matched by keycombo or name
+		if (shortcut_name.find(filterWord) == std::string::npos &&
+			shortcut_value.find(filterWord) == std::string::npos)
+			return false;
+	}
+	return true;
 }
 
 bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc)
 {
-	// Do like a classic search on shortcut name, then search on the plugin name.
-	Shortcut shortcut = sc;
-	bool match = false;
-	wstring module_name = stringToLower(string2wstring(sc.getModuleName(), CP_UTF8));
-	if (isFilterValid(shortcut)){
+	// all words in _shortcutFilter must be in the name or the keycombo or the plugin name
+	// For example, the shortcut with name "foo bar baz" and keycombo "Ctrl+A" and plugin "BlahLint"
+	// would be matched by the filter "foo ctrl" and the filter "bar +a blah"
+	// but *not* by the filter "baz shift" or the filter "lint quz" 
+	size_t filterSize = _shortcutFilter.size();
+	if (filterSize == 0)
 		return true;
-	}
-	size_t match_pos = module_name.find(_shortcutFilter);
-	if (match_pos != std::string::npos){
-		match = true;
-	}
 
-	return match;
+	wstring shortcut_name = stringToLower(string2wstring(sc.getName(), CP_UTF8));
+	wstring shortcut_value = stringToLower(string2wstring(sc.toString(), CP_UTF8));
+	wstring module_name = stringToLower(string2wstring(sc.getModuleName(), CP_UTF8));
+	
+	for (size_t i = 0; i < filterSize; ++i)
+	{
+		generic_string filterWord = _shortcutFilter.at(i);
+		// every word must be matched by keycombo or name or plugin name
+		if (shortcut_name.find(filterWord) == std::string::npos &&
+			shortcut_value.find(filterWord) == std::string::npos &&
+			module_name.find(filterWord) == std::string::npos)
+			return false;
+	}
+	return true;
+}
+
+bool ShortcutMapper::isFilterValid(ScintillaKeyMap sc)
+{
+	// all words in _shortcutFilter must be in the name or the list of keycombos
+	// For example, the shortcut with name "foo bar baz" and keycombo "Ctrl+A or Alt+G"
+	// would be matched by the filter "foo ctrl" and the filter "bar alt or"
+	// but *not* by the filter "foo shift" or the filter "quz +a"
+	size_t filterSize = _shortcutFilter.size();
+	if (filterSize == 0)
+		return true;
+
+	wstring shortcut_name = stringToLower(string2wstring(sc.getName(), CP_UTF8));
+	wstring shortcut_value = stringToLower(string2wstring(sc.toString(), CP_UTF8));
+
+	for (size_t i = 0; i < filterSize; ++i)
+	{
+		generic_string filterWord = _shortcutFilter.at(i);
+		// every word must be matched by keycombo or name
+		if (shortcut_name.find(filterWord) == std::string::npos &&
+			shortcut_value.find(filterWord) == std::string::npos)
+			return false;
+	}
+	return true;
 }
 
 void ShortcutMapper::fillOutBabyGrid()
@@ -281,7 +325,20 @@ void ShortcutMapper::fillOutBabyGrid()
 
 	bool isMarker = false;
 	size_t cs_index = 0;
-	_shortcutFilter = getTextFromCombo(::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER));
+	
+	// make _shortcutFilter a list of the words in IDC_BABYGRID_FILTER
+	generic_string shortcutFilterStr = getTextFromCombo(::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER));
+	const generic_string whitespace(TEXT(" "));
+	std::vector<generic_string> shortcutFilterWithEmpties;
+	stringSplit(shortcutFilterStr, whitespace, shortcutFilterWithEmpties);
+	// now add only the non-empty strings in the split list to _shortcutFilter
+	_shortcutFilter = std::vector<generic_string>();
+	for (size_t i = 0; i < shortcutFilterWithEmpties.size(); ++i)
+	{
+		generic_string filterWord = shortcutFilterWithEmpties.at(i);
+		if (!filterWord.empty())
+			_shortcutFilter.push_back(filterWord);
+	}
 
 	switch(_currentState) 
 	{

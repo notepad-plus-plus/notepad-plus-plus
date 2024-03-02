@@ -66,7 +66,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		}
 
 		NppParameters& nppParam = NppParameters::getInstance();
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		//if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
 			generic_string issueFn = nppLogNulContentCorruptionIssue;
 			issueFn += TEXT(".log");
@@ -104,7 +104,7 @@ void Win32_IO_File::close()
 
 
 		NppParameters& nppParam = NppParameters::getInstance();
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		//if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
 			generic_string issueFn = nppLogNulContentCorruptionIssue;
 			issueFn += TEXT(".log");
@@ -165,7 +165,7 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 
 	if (success == FALSE)
 	{
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		//if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
 			generic_string issueFn = nppLogNulContentCorruptionIssue;
 			issueFn += TEXT(".log");
@@ -184,7 +184,7 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 	}
 	else
 	{
-		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
+		//if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
 			generic_string issueFn = nppLogNulContentCorruptionIssue;
 			issueFn += TEXT(".log");

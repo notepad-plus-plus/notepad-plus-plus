@@ -939,6 +939,10 @@ Installation:
         <WidgetStyle name="Line number margin" styleID="33" fgColor="000000" bgColor="808080" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="808080" />
         <WidgetStyle name="Change History margin" styleID="0" bgColor="808080" />
+        <WidgetStyle name="Change History modified" styleID="0" fgColor="FF8000" bgColor="FF8000" />
+        <WidgetStyle name="Change History revert modified" styleID="0" fgColor="A0C000" bgColor="A0C000" />
+        <WidgetStyle name="Change History revert origin" styleID="0" fgColor="40A0BF" bgColor="40A0BF" />
+        <WidgetStyle name="Change History saved" styleID="0" fgColor="00A000" bgColor="00A000" />
         <WidgetStyle name="Fold" styleID="0" fgColor="000000" bgColor="808080" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="FF0000" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="808080" bgColor="808080" />

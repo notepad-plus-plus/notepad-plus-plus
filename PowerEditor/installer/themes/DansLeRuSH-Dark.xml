@@ -925,6 +925,10 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <WidgetStyle name="Line number margin" styleID="33" fgColor="8F8F8F" bgColor="363636" fontName="" fontStyle="0" fontSize="9" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="363636" />
         <WidgetStyle name="Change History margin" styleID="0" bgColor="363636" />
+        <WidgetStyle name="Change History modified" styleID="0" fgColor="FF8000" bgColor="FF8000" />
+        <WidgetStyle name="Change History revert modified" styleID="0" fgColor="A0C000" bgColor="A0C000" />
+        <WidgetStyle name="Change History revert origin" styleID="0" fgColor="40A0BF" bgColor="40A0BF" />
+        <WidgetStyle name="Change History saved" styleID="0" fgColor="00A000" bgColor="00A000" />
         <WidgetStyle name="Fold" styleID="0" fgColor="4D4D4D" bgColor="2E2E2E" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="666666" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="2E2E2E" bgColor="2E2E2E" />

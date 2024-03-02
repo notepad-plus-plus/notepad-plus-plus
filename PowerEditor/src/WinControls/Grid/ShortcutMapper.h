@@ -27,7 +27,7 @@ enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTIL
 class ShortcutMapper : public StaticDialog {
 public:
 	ShortcutMapper() : StaticDialog(), _currentState(STATE_MENU) {
-		_shortcutFilter = TEXT("");
+		_shortcutFilter = std::vector<generic_string>();
 		_dialogInitDone = false;
 	};
 	~ShortcutMapper() = default;
@@ -71,7 +71,7 @@ private:
 
 	const static int _nbTab = 5;
 	generic_string _tabNames[_nbTab];
-	generic_string _shortcutFilter;
+	std::vector<generic_string> _shortcutFilter;
 	std::vector<size_t> _shortcutIndex;
 
 	//save/restore the last view

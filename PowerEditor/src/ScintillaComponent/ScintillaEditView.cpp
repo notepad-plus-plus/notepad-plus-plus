@@ -3003,6 +3003,50 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
 	execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, changeHistoryMarginColor);
 
+	COLORREF changeModifiedfgColor = orange;
+	pStyle = stylers.findByName(TEXT("Change History modified"));
+	if (pStyle)
+	{
+		changeModifiedfgColor = pStyle->_fgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_MODIFIED, changeModifiedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED, changeModifiedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_MODIFIED_INSERTION, changeModifiedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_MODIFIED_DELETION, changeModifiedfgColor);
+
+	COLORREF changeRevertModifiedfgColor = yellowGreen;
+	pStyle = stylers.findByName(TEXT("Change History revert modified"));
+	if (pStyle)
+	{
+		changeRevertModifiedfgColor = pStyle->_fgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, changeRevertModifiedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, changeRevertModifiedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_MODIFIED_INSERTION, changeRevertModifiedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_MODIFIED_DELETION, changeRevertModifiedfgColor);	
+
+	COLORREF changeRevertOriginfgColor = darkCyan;
+	pStyle = stylers.findByName(TEXT("Change History revert origin"));
+	if (pStyle)
+	{
+		changeRevertOriginfgColor = pStyle->_fgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, changeRevertOriginfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, changeRevertOriginfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_ORIGIN_INSERTION, changeRevertOriginfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_ORIGIN_DELETION, changeRevertOriginfgColor);
+
+	COLORREF changeSavedfgColor = midGreen;
+	pStyle = stylers.findByName(TEXT("Change History saved"));
+	if (pStyle)
+	{
+		changeSavedfgColor = pStyle->_fgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_SAVED, changeSavedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_SAVED, changeSavedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_SAVED_INSERTION, changeSavedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_SAVED_DELETION, changeSavedfgColor);
+
 	COLORREF urlHoveredFG = grey;
 	pStyle = stylers.findByName(TEXT("URL hovered"));
 	if (pStyle)

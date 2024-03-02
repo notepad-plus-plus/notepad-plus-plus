@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.6.3
--    Ultima modificare 11 februarie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.6.5
+-    Ultima modificare 2 martie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.3">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -973,7 +973,8 @@
                     <Item id="6126" name="Afișare"/>
                     <Item id="6127" name="Dezactivare coloană module"/>
                 </Global>
-                <Scintillas title="Editare">
+				
+                <Scintillas title="Editare 1">
                     <Item id="6216" name="Setările cursorului"/>
                     <Item id="6217" name="Lățime:"/>
                     <Item id="6219" name="Viteză de clipire:"/>
@@ -1017,6 +1018,22 @@
                     <Item id="6256" name="Culoare personalizată"/>
 					<Item id="6258" name="Aplicarea la C0, C1 &amp;&amp; Unicode EOL"/>
                 </Scintillas>
+				
+				<Scintillas2 title="Editare 2">
+					<Item id="6521" name="Editare multiplă"/>
+					<Item id="6522" name="Activează editarea multiplă (Ctrl+Mouse clic/selecție)"/>
+					<Item id="6523" name="Activează selecția coloanelor pentru editare multiplă"/>
+					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
+					<Item id="6248" name="Implicit"/>
+					<Item id="6249" name="Text simplu"/>
+					<Item id="6250" name="Culoare personalizată"/>
+					<Item id="6252" name="Caractere neafișabile"/>
+					<Item id="6254" name="Abreviere"/>
+					<Item id="6255" name="Punct de cod"/>
+					<Item id="6256" name="Culoare personalizată"/>
+					<Item id="6258" name="Aplică la C0, C1 &amp;&amp; Unicode EOL"/>
+					<Item id="6259" name="Previne introducerea caracterului de control (codul C0) în document"/>
+				</Scintillas2>
 				
                 <DarkMode title="Modul întunecat">
                     <Item id="7131" name="Modul luminos"/>

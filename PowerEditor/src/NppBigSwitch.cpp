@@ -682,7 +682,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			BufferID id = MainFileManager.getBufferFromName(longNameFullpath);
 			if (id != BUFFER_INVALID)
-				doReload(id, wParam != 0);
+				result = doReload(id, wParam != 0);
 			
 			break; // For relaying this message to other plugin by calling "_pluginsManager.relayNppMessages(message, wParam, lParam)" at the end.
 		}

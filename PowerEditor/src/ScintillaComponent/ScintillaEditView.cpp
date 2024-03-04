@@ -3004,46 +3004,54 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, changeHistoryMarginColor);
 
 	COLORREF changeModifiedfgColor = orange;
+	COLORREF changeModifiedbgColor = orange;
 	pStyle = stylers.findByName(TEXT("Change History modified"));
 	if (pStyle)
 	{
 		changeModifiedfgColor = pStyle->_fgColor;
+		changeModifiedbgColor = pStyle->_bgColor;
 	}
 	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_MODIFIED, changeModifiedfgColor);
-	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED, changeModifiedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED, changeModifiedbgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_MODIFIED_INSERTION, changeModifiedfgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_MODIFIED_DELETION, changeModifiedfgColor);
 
 	COLORREF changeRevertModifiedfgColor = yellowGreen;
+	COLORREF changeRevertModifiedbgColor = yellowGreen;
 	pStyle = stylers.findByName(TEXT("Change History revert modified"));
 	if (pStyle)
 	{
 		changeRevertModifiedfgColor = pStyle->_fgColor;
+		changeRevertModifiedbgColor = pStyle->_bgColor;
 	}
 	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, changeRevertModifiedfgColor);
-	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, changeRevertModifiedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, changeRevertModifiedbgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_MODIFIED_INSERTION, changeRevertModifiedfgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_MODIFIED_DELETION, changeRevertModifiedfgColor);	
 
 	COLORREF changeRevertOriginfgColor = darkCyan;
+	COLORREF changeRevertOriginbgColor = darkCyan;
 	pStyle = stylers.findByName(TEXT("Change History revert origin"));
 	if (pStyle)
 	{
 		changeRevertOriginfgColor = pStyle->_fgColor;
+		changeRevertOriginbgColor = pStyle->_bgColor;
 	}
 	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, changeRevertOriginfgColor);
-	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, changeRevertOriginfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, changeRevertOriginbgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_ORIGIN_INSERTION, changeRevertOriginfgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_ORIGIN_DELETION, changeRevertOriginfgColor);
 
 	COLORREF changeSavedfgColor = midGreen;
+	COLORREF changeSavedbgColor = midGreen;
 	pStyle = stylers.findByName(TEXT("Change History saved"));
 	if (pStyle)
 	{
 		changeSavedfgColor = pStyle->_fgColor;
+		changeSavedbgColor = pStyle->_bgColor;
 	}
 	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_SAVED, changeSavedfgColor);
-	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_SAVED, changeSavedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_SAVED, changeSavedbgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_SAVED_INSERTION, changeSavedfgColor);
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_SAVED_DELETION, changeSavedfgColor);
 

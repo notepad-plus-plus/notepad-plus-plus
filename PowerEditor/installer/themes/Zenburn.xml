@@ -1473,10 +1473,10 @@ License:             GPL2
         <WidgetStyle name="Line number margin" styleID="33" fgColor="8A8A8A" bgColor="0C0C0C" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Bookmark margin" styleID="0" bgColor="0C0C0C" />
         <WidgetStyle name="Change History margin" styleID="0" bgColor="0C0C0C" />
-        <WidgetStyle name="Change History modified" styleID="0" fgColor="FF8000" />
-        <WidgetStyle name="Change History revert modified" styleID="0" fgColor="A0C000" />
-        <WidgetStyle name="Change History revert origin" styleID="0" fgColor="40A0BF" />
-        <WidgetStyle name="Change History saved" styleID="0" fgColor="00A000" />
+        <WidgetStyle name="Change History modified" styleID="0" fgColor="FF8000" bgColor="FF8000" />
+        <WidgetStyle name="Change History revert modified" styleID="0" fgColor="A0C000" bgColor="A0C000" />
+        <WidgetStyle name="Change History revert origin" styleID="0" fgColor="40A0BF" bgColor="40A0BF" />
+        <WidgetStyle name="Change History saved" styleID="0" fgColor="00A000" bgColor="00A000" />
         <WidgetStyle name="Fold" styleID="0" fgColor="707070" bgColor="101010" />
         <WidgetStyle name="Fold active" styleID="0" fgColor="7F9F7F" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="181818" bgColor="101010" />

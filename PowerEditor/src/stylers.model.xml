@@ -1029,6 +1029,7 @@
             <WordsStyle name="COMMENT BLOCK" styleID="12" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="BUILTINS" styleID="14" fgColor="880088" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
             <WordsStyle name="DECORATOR" styleID="15" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="ATTRIBUTE" styleID="20" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="F STRING" styleID="16" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

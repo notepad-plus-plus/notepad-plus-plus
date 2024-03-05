@@ -1053,6 +1053,7 @@ License:             GPL2
             <WordsStyle name="COMMENT BLOCK" styleID="12" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="BUILTINS" styleID="14" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DECORATOR" styleID="15" fgColor="93E0E3" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="ATTRIBUTE" styleID="15" fgColor="93E0E3" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="F STRING" styleID="16" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F CHARACTER" styleID="17" fgColor="DCA3A3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />

@@ -1,6 +1,5 @@
 *.o
 *.a
-*.asm
 *.lib
 *.obj
 *.iobj

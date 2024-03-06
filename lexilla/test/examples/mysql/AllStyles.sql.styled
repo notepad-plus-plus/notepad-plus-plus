@@ -1,0 +1,70 @@
+{2}-- Enumerate all styles: 0 to 22, except for 3 (variable) and 11 (string) which are not implemented
+-- Hidden commands with other states (ored with ox40) are also possible inside /*! ... */
+{0}
+{1}/* commentline=2 */{0}
+{2}# comment
+{0}
+{2}# default=0
+{0}	{2}# w
+{0}
+{2}# comment=1
+{1}/* comment */{0}
+
+{2}# variable=3 is not implemented
+{14}@{16}variable{0}
+
+{2}# systemvariable=4
+{4}@@systemvariable{0}
+
+{2}# knownsystemvariable=5
+{5}@@known{0}
+
+{2}# number=6
+{6}6{0}
+
+{2}# majorkeyword=7
+{7}select{0}
+
+{2}# keyword=8
+{8}in{0}
+
+{2}# databaseobject=9
+{9}object{0}
+
+{2}# procedurekeyword=10
+{10}procedure{0}
+
+{2}# string=11 is not implemented
+{0}
+{2}# sqstring=12
+{12}'string'{0}
+
+{2}# dqstring=13
+{13}"string"{0}
+
+{2}# operator=14
+{14}+{0}
+
+{2}# function=15
+{15}function{14}(){0}
+
+{2}# identifier=16
+{16}identifier{0}
+
+{2}# quotedidentifier=17
+{17}`quoted`{0}
+
+{2}# user1=18
+{18}user1{0}
+
+{2}# user2=19
+{19}user2{0}
+
+{2}# user3=20
+{20}user3{0}
+
+{2}# hiddencommand=21
+{21}/*!*/{0}
+
+{2}# placeholder=22
+{22}<{placeholder>}

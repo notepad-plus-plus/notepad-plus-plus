@@ -122,6 +122,7 @@
 #include "ContractionState.h"
 #include "ChangeHistory.h"
 #include "CellBuffer.h"
+#include "UndoHistory.h"
 #include "PerLine.h"
 #include "CallTip.h"
 #include "KeyMap.h"

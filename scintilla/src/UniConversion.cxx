@@ -241,12 +241,12 @@ std::wstring WStringFromUTF8(std::string_view svu8) {
 	if constexpr (sizeof(wchar_t) == 2) {
 		const size_t len16 = UTF16Length(svu8);
 		std::wstring ws(len16, 0);
-		UTF16FromUTF8(svu8, &ws[0], len16);
+		UTF16FromUTF8(svu8, ws.data(), len16);
 		return ws;
 	} else {
 		const size_t len32 = UTF32Length(svu8);
 		std::wstring ws(len32, 0);
-		UTF32FromUTF8(svu8, reinterpret_cast<unsigned int *>(&ws[0]), len32);
+		UTF32FromUTF8(svu8, reinterpret_cast<unsigned int *>(ws.data()), len32);
 		return ws;
 	}
 }
@@ -255,11 +255,10 @@ unsigned int UTF16FromUTF32Character(unsigned int val, wchar_t *tbuf) noexcept {
 	if (val < SUPPLEMENTAL_PLANE_FIRST) {
 		tbuf[0] = static_cast<wchar_t>(val);
 		return 1;
-	} else {
-		tbuf[0] = static_cast<wchar_t>(((val - SUPPLEMENTAL_PLANE_FIRST) >> 10) + SURROGATE_LEAD_FIRST);
-		tbuf[1] = static_cast<wchar_t>((val & 0x3ff) + SURROGATE_TRAIL_FIRST);
-		return 2;
 	}
+	tbuf[0] = static_cast<wchar_t>(((val - SUPPLEMENTAL_PLANE_FIRST) >> 10) + SURROGATE_LEAD_FIRST);
+	tbuf[1] = static_cast<wchar_t>((val & 0x3ff) + SURROGATE_TRAIL_FIRST);
+	return 2;
 }
 
 const unsigned char UTF8BytesOfLead[256] = {
@@ -358,25 +357,28 @@ int UTF8Classify(const unsigned char *us, size_t len) noexcept {
 	return UTF8MaskInvalid | 1;
 }
 
+int UTF8Classify(const char *s, size_t len) noexcept {
+	return UTF8Classify(reinterpret_cast<const unsigned char *>(s), len);
+}
+
 int UTF8DrawBytes(const char *s, size_t len) noexcept {
-	const int utf8StatusNext = UTF8Classify(reinterpret_cast<const unsigned char *>(s), len);
+	const int utf8StatusNext = UTF8Classify(s, len);
 	return (utf8StatusNext & UTF8MaskInvalid) ? 1 : (utf8StatusNext & UTF8MaskWidth);
 }
 
 bool UTF8IsValid(std::string_view svu8) noexcept {
-	const unsigned char *us = reinterpret_cast<const unsigned char *>(svu8.data());
+	const char *s = svu8.data();
 	size_t remaining = svu8.length();
 	while (remaining > 0) {
-		const int utf8Status = UTF8Classify(us, remaining);
+		const int utf8Status = UTF8Classify(s, remaining);
 		if (utf8Status & UTF8MaskInvalid) {
 			return false;
-		} else {
-			const int lenChar = utf8Status & UTF8MaskWidth;
-			us += lenChar;
-			remaining -= lenChar;
 		}
+		const int lenChar = utf8Status & UTF8MaskWidth;
+		s += lenChar;
+		remaining -= lenChar;
 	}
-	return remaining == 0;
+	return true;
 }
 
 // Replace invalid bytes in UTF-8 with the replacement character
@@ -385,7 +387,7 @@ std::string FixInvalidUTF8(const std::string &text) {
 	const char *s = text.c_str();
 	size_t remaining = text.size();
 	while (remaining > 0) {
-		const int utf8Status = UTF8Classify(reinterpret_cast<const unsigned char *>(s), remaining);
+		const int utf8Status = UTF8Classify(s, remaining);
 		if (utf8Status & UTF8MaskInvalid) {
 			// Replacement character 0xFFFD = UTF8:"efbfbd".
 			result.append("\xef\xbf\xbd");

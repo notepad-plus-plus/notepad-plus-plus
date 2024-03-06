@@ -1,0 +1,71 @@
+ 0 400 400   -- Enumerate all styles: 0 to 24
+ 1 400 400   
+ 0 400 400   -- comment=1
+ 0 400 400   /* comment */
+ 1 400 400   
+ 0 400 400   -- whitespace=0
+ 0 400 400   	-- w
+ 1 400 400   
+ 0 400 400   /* commentline=2 */
+ 0 400 400   -- commentline
+ 1 400 400   
+ 0 400 400   -- commentdoc=3
+ 0 400 400   /** commentdoc */
+ 1 400 400   
+ 0 400 400   -- number=4
+ 0 400 400   4
+ 1 400 400   
+ 0 400 400   -- word=5
+ 0 400 400   select
+ 1 400 400   
+ 0 400 400   -- string=6
+ 0 400 400   "string"
+ 1 400 400   
+ 0 400 400   -- character=7
+ 0 400 400   'character'
+ 1 400 400   
+ 0 400 400   -- sqlplus=8
+ 0 400 400   append
+ 1 400 400   
+ 0 400 400   -- sqlplus_prompt=9
+ 0 400 400   prompt SQL+Prompt
+ 1 400 400   
+ 0 400 400   -- operator=10
+ 0 400 400   +
+ 1 400 400   
+ 0 400 400   -- identifier=11
+ 0 400 400   identifier
+ 1 400 400   
+ 0 400 400   -- sqlplus_comment=13
+ 0 400 400   remark sqlplus comment
+ 1 400 400   
+ 0 400 400   -- commentlinedoc=15
+ 0 400 400   # commentlinedoc
+ 1 400 400   
+ 0 400 400   -- word2=16
+ 0 400 400   object
+ 1 400 400   
+ 0 400 400   -- commentdockeyword=17
+ 0 400 400   /** @return */
+ 1 400 400   
+ 0 400 400   -- commentdockeyworderror=18
+ 0 400 400   /** @error */
+ 1 400 400   
+ 0 400 400   -- user1=19
+ 0 400 400   dbms_output.disable
+ 1 400 400   
+ 0 400 400   -- user2=20
+ 0 400 400   analyze
+ 1 400 400   
+ 0 400 400   -- user3=21
+ 0 400 400   array
+ 1 400 400   
+ 0 400 400   -- user4=22
+ 0 400 400   false
+ 1 400 400   
+ 0 400 400   -- quotedidentifier=23
+ 0 400 400   `quotedidentifier`
+ 1 400 400   
+ 0 400 400   -- qoperator=24
+ 0 400 400   q'{ today's }'
+ 0 400   0   

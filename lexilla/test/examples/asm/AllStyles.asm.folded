@@ -1,0 +1,53 @@
+ 0 400   0   ; Enumerate all styles: 0 to 15 except for 11(comment block) which is not yet implemented.
+ 0 400   0   ; This is not a viable source file, it just illustrates the different states in isolation.
+ 0 400   0   
+ 0 400   0   ; comment=1
+ 0 400   0   ; Comment
+ 0 400   0   
+ 0 400   0   ; whitespace=0
+ 0 400   0   	; w
+ 0 400   0   
+ 0 400   0   ; number=2
+ 0 400   0   11
+ 0 400   0   
+ 0 400   0   ; string=3
+ 0 400   0   "String"
+ 0 400   0   
+ 0 400   0   ; operator=4
+ 0 400   0   +
+ 0 400   0   
+ 0 400   0   ; identifier=5
+ 0 400   0   identifier
+ 0 400   0   
+ 0 400   0   ; CPU instruction=6
+ 0 400   0   add
+ 0 400   0   
+ 0 400   0   ; math Instruction=7
+ 0 400   0   fadd
+ 0 400   0   
+ 0 400   0   ; register=8
+ 0 400   0   ECX
+ 0 400   0   
+ 0 400   0   ; directive=9
+ 0 400   0   section
+ 0 400   0   
+ 0 400   0   ; directive operand=10
+ 0 400   0   rel
+ 0 400   0   
+ 0 400   0   ; comment block=11 is for future expansion
+ 0 400   0   
+ 0 400   0   ; character=12
+ 0 400   0   'character'
+ 0 400   0   
+ 0 400   0   ; string EOL=13
+ 0 400   0   "no line end
+ 0 400   0   
+ 0 400   0   ; extended instruction=14
+ 0 400   0   movq
+ 0 400   0   
+ 0 400   0   ; comment directive=15
+ 0 400   0    comment ~ A multiple-line
+ 0 400   0    comment directive~
+ 0 400   0   
+ 0 400   0   ;end
+ 0 400   0   

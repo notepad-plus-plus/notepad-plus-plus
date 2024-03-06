@@ -1,4 +1,4 @@
-% All the exaples here should yeild folding
+% All the examples here should yield folding
 
 classdef
     % Some code

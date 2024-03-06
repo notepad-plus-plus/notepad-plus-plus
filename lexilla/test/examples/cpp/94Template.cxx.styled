@@ -1,0 +1,31 @@
+{2}// Test JavaScript template expressions for issue 94
+{0}
+{2}// Basic
+{5}var{0} {11}basic{0} {10}={0} {20}`{10}${{11}identifier{10}}{20}`{10};{0}
+
+{2}// Nested
+{5}var{0} {11}nested{0} {10}={0} {20}` {10}${{0} {20}` {10}${{0} {4}1{0} {10}}{20} `{0} {10}}{20} `{10};{0}
+
+{2}// With escapes
+{5}var{0} {11}xxx{0} {10}={0} {10}{{0}
+    {7}'1'{10}:{0} {20}`{27}\`\u0020\${20}{a{10}${{4}1{0} {10}+{0} {4}1{10}}{20}b}`{10},{0}
+    {7}'2'{10}:{0} {20}`{27}\${20}{a{10}${{0} {20}`b{10}${{4}1{0} {10}+{0} {4}2{10}}{20}c`{10}.{16}charCodeAt{10}({4}2{10}){0} {10}}{20}d}`{10},{0}
+    {7}'3'{10}:{0} {20}`{27}\${20}{a{10}${{0} {20}`b{10}${{0} {20}`c{10}${{0} {19}JSON{10}.{16}stringify{10}({{0}
+        {7}'4'{10}:{0} {10}{},{0}
+        {10}}){0} {10}}{20}d`{0} {10}}{20}e`{0} {10}}{20}f}`{10},{0}
+{10}};{0}
+
+{2}// Original request
+{11}fetchOptions{10}.{11}body{0} {10}={0} {20}`
+{
+	"accountNumber" : "248796",
+	"customerType" : "Shipper",
+	"destinationCity" : "{10}${{11}order{10}.{11}destination{10}.{11}city{10}}{20}",
+	"destinationState" : "{10}${{11}order{10}.{11}destination{10}.{11}stateProvince{10}}{20}",
+	"destinationZip" : {10}${{11}order{10}.{11}destination{10}.{11}postalCode{10}}{20},
+	"paymentType" : "Prepaid",
+	"shipmentInfo" :
+	{
+		"items" : [ { "shipmentClass" : "50", "shipmentWeight" : "{10}${{11}order{10}.{11}totalWeight{10}.{11}toString{10}()}{20}" } ]
+	}
+}`{10};{0}

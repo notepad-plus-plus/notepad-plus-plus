@@ -116,6 +116,7 @@ LEXLIB_OBJS=\
 	CharacterCategory.o \
 	CharacterSet.o \
 	DefaultLexer.o \
+	InList.o \
 	LexAccessor.o \
 	LexerBase.o \
 	LexerModule.o \

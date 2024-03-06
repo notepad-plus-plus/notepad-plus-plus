@@ -1,0 +1,13 @@
+ 0 400   0   # Float Literals
+ 0 400   0   12.34
+ 0 400   0   1234e-2
+ 0 400   0   1.234E1
+ 0 400   0   # Range Literals
+ 0 400   0   (1..2)
+ 0 400   0   (2.0..3)
+ 0 400   0   # Method on number
+ 0 400   0   1.5.ceil
+ 0 400   0   1ri.abs
+ 0 400   0   3.times {|i| puts i}
+ 0 400   0   3. times {|i| puts i}
+ 0 400   0   

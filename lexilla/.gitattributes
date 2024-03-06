@@ -29,10 +29,12 @@
 **.aspx text
 **.php text
 **.vb text
+**.asm text
 **.cmake text
 **.d text
 **.diff text
 **.erl text
+**.f text
 **.gd text
 **.gui text
 **.iss text

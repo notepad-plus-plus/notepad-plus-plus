@@ -165,6 +165,7 @@
     <ClCompile Include="..\..\src\PerLine.cxx" />
     <ClCompile Include="..\..\src\RESearch.cxx" />
     <ClCompile Include="..\..\src\RunStyles.cxx" />
+    <ClCompile Include="..\..\src\UndoHistory.cxx" />
     <ClCompile Include="..\..\src\UniConversion.cxx" />
     <ClCompile Include="..\..\src\UniqueString.cxx" />
     <ClCompile Include="test*.cxx" />

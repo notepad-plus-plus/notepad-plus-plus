@@ -14,11 +14,13 @@
 
 #include <string>
 #include <string_view>
+#include <initializer_list>
 
 #include "ILexer.h"
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#include "InList.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -200,18 +202,19 @@ void ColouriseBatchDoc(
 					styler.ColourTo(startLine + offset - 1, SCE_BAT_DEFAULT);
 				}
 				char wordBuffer[81]{};		// Word Buffer - large to catch long paths
-				// Copy word from Line Buffer into Word Buffer
+				// Copy word from Line Buffer into Word Buffer and convert to lower case
 				Sci_PositionU wbl = 0;		// Word Buffer Length
 				for (; offset < lengthLine && wbl < 80 &&
 						!isspacechar(lineBuffer[offset]); wbl++, offset++) {
-					wordBuffer[wbl] = tolower(lineBuffer[offset]);
+					wordBuffer[wbl] = MakeLowerCase(lineBuffer[offset]);
 				}
 				wordBuffer[wbl] = '\0';
+				const std::string_view wordView(wordBuffer);
 				Sci_PositionU wbo = 0;		// Word Buffer Offset - also Special Keyword Buffer Length
 
 				// Check for Comment - return if found
 				if (continueProcessing) {
-					if ((CompareCaseInsensitive(wordBuffer, "rem") == 0) || (wordBuffer[0] == ':' && wordBuffer[1] == ':')) {
+					if ((wordView == "rem") || (wordBuffer[0] == ':' && wordBuffer[1] == ':')) {
 						if ((offset == wbl) || !textQuoted(lineBuffer, offset - wbl)) {
 							styler.ColourTo(startLine + offset - wbl - 1, SCE_BAT_DEFAULT);
 							styler.ColourTo(endPos, SCE_BAT_COMMENT);
@@ -248,19 +251,16 @@ void ColouriseBatchDoc(
 				} else if ((keywords.InList(wordBuffer)) &&
 					(continueProcessing)) {
 					// ECHO, GOTO, PROMPT and SET require no further Regular Keyword Checking
-					if ((CompareCaseInsensitive(wordBuffer, "echo") == 0) ||
-						(CompareCaseInsensitive(wordBuffer, "goto") == 0) ||
-						(CompareCaseInsensitive(wordBuffer, "prompt") == 0)) {
+					if (InList(wordView, {"echo", "goto", "prompt"})) {
 						continueProcessing = false;
 					}
 					// SET requires additional processing for the assignment operator
-					if (CompareCaseInsensitive(wordBuffer, "set") == 0) {
+					if (wordView == "set") {
 						continueProcessing = false;
 						isNotAssigned=true;
 					}
 					// Identify External Command / Program Location for ERRORLEVEL, and EXIST
-					if ((CompareCaseInsensitive(wordBuffer, "errorlevel") == 0) ||
-						(CompareCaseInsensitive(wordBuffer, "exist") == 0)) {
+					if (InList(wordView, {"errorlevel", "exist"})) {
 						// Reset External Command / Program Location
 						cmdLoc = offset;
 						// Skip next spaces
@@ -279,16 +279,18 @@ void ColouriseBatchDoc(
 							cmdLoc++;
 						}
 					// Identify External Command / Program Location for CALL, DO, LOADHIGH and LH
-					} else if ((CompareCaseInsensitive(wordBuffer, "call") == 0) ||
-						(CompareCaseInsensitive(wordBuffer, "do") == 0) ||
-						(CompareCaseInsensitive(wordBuffer, "loadhigh") == 0) ||
-						(CompareCaseInsensitive(wordBuffer, "lh") == 0)) {
+					} else if (InList(wordView, {"call", "do", "loadhigh", "lh"})) {
 						// Reset External Command / Program Location
 						cmdLoc = offset;
 						// Skip next spaces
 						while ((cmdLoc < lengthLine) &&
 							(isspacechar(lineBuffer[cmdLoc]))) {
 							cmdLoc++;
+						}
+						// Check if call is followed by a label
+						if ((lineBuffer[cmdLoc] == ':') &&
+							(wordView == "call")) {
+							continueProcessing = false;
 						}
 					}
 					// Colorize Regular keyword
@@ -317,10 +319,12 @@ void ColouriseBatchDoc(
 						// Check for Special Keyword in list
 						if ((keywords.InList(sKeywordBuffer)) &&
 							((IsBOperator(wordBuffer[wbo])) ||
-							(IsBSeparator(wordBuffer[wbo])))) {
+							(IsBSeparator(wordBuffer[wbo])) ||
+							(wordBuffer[wbo] == ':' &&
+							(InList(sKeywordBuffer, {"call", "echo", "goto"}) )))) {
 							sKeywordFound = true;
 							// ECHO requires no further Regular Keyword Checking
-							if (CompareCaseInsensitive(sKeywordBuffer, "echo") == 0) {
+							if (std::string_view(sKeywordBuffer) == "echo") {
 								continueProcessing = false;
 							}
 							// Colorize Special Keyword as Regular Keyword
@@ -347,11 +351,11 @@ void ColouriseBatchDoc(
 							// Reset Offset to re-process remainder of word
 							offset -= (wbl - wbo);
 							// CHOICE requires no further Regular Keyword Checking
-							if (CompareCaseInsensitive(wordBuffer, "choice") == 0) {
+							if (wordView == "choice") {
 								continueProcessing = false;
 							}
 							// Check for START (and its switches) - What follows is External Command \ Program
-							if (CompareCaseInsensitive(wordBuffer, "start") == 0) {
+							if (wordView == "start") {
 								// Reset External Command / Program Location
 								cmdLoc = offset;
 								// Skip next spaces
@@ -576,7 +580,7 @@ void ColouriseBatchDoc(
 							isNotAssigned=false;
 						}
 						// Colorize Other Operators
-						// Do not Colorize Paranthesis, quoted text and escaped operators
+						// Do not Colorize Parenthesis, quoted text and escaped operators
 						if (((wordBuffer[0] != ')') && (wordBuffer[0] != '(')
 						&& !textQuoted(lineBuffer, offset - wbl)  && !IsEscaped(lineBuffer,offset - wbl + wbo))
 						&& !((wordBuffer[0] == '=') && !isNotAssigned ))

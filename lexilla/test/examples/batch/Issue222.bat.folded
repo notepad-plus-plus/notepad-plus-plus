@@ -1,0 +1,27 @@
+ 0 400   0   rem Keywords with colon
+ 0 400   0   
+ 0 400   0   rem with spacing
+ 0 400   0   call file.bat arg1
+ 0 400   0   call "file.bat" arg1
+ 0 400   0   call :label arg1
+ 0 400   0   goto :label
+ 0 400   0   goto :eof
+ 0 400   0   goto label
+ 0 400   0   echo: %var%
+ 0 400   0   echo: text
+ 0 400   0   echo text
+ 0 400   0   
+ 0 400   0   rem no spacing
+ 0 400   0   call:label arg1
+ 0 400   0   goto:label
+ 0 400   0   goto:eof
+ 0 400   0   echo:%var%
+ 0 400   0   echo:text
+ 0 400   0   (call)
+ 0 400   0   (echo:)
+ 0 400   0   (goto)
+ 0 400   0   
+ 0 400   0   rem call internal commands
+ 0 400   0   call echo text
+ 0 400   0   call set "a=b"
+ 0 400   0   

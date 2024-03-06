@@ -19,7 +19,6 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
-#include "StringCopy.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -109,7 +108,7 @@ class LexerLua : public DefaultLexer {
 	OptionSetLua osLua;
 public:
 	explicit LexerLua() :
-		DefaultLexer("lua", SCLEX_LUA, lexicalClasses, ELEMENTS(lexicalClasses)) {
+		DefaultLexer("lua", SCLEX_LUA, lexicalClasses, std::size(lexicalClasses)) {
 	}
 	~LexerLua() override = default;
 	void SCI_METHOD Release() noexcept override {
@@ -324,7 +323,7 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 					sc.SetState(SCE_LUA_DEFAULT);
 			}
 		} else if (sc.state == SCE_LUA_IDENTIFIER) {
-			idenPos--;			// commit already-scanned identitier/word parts
+			idenPos--;			// commit already-scanned identifier/word parts
 			if (idenWordPos > 0) {
 				idenWordPos--;
 				sc.ChangeState(idenStyle);
@@ -405,7 +404,7 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 		if (sc.state == SCE_LUA_DEFAULT) {
 			if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
 				sc.SetState(SCE_LUA_NUMBER);
-				if (sc.ch == '0' && toupper(sc.chNext) == 'X') {
+				if (sc.ch == '0' && AnyOf(sc.chNext, 'x', 'X')) {
 					sc.Forward();
 				}
 			} else if (setWordStart.Contains(sc.ch)) {

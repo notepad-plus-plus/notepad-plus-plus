@@ -32,15 +32,15 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
-			generic_string buildTime = TEXT("Build time: ");
+			generic_string buildTime = L"Build time: ";
 
 			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			buildTime +=  wmc.char2wchar(__DATE__, CP_ACP);
-			buildTime += TEXT(" - ");
+			buildTime += L" - ";
 			buildTime +=  wmc.char2wchar(__TIME__, CP_ACP);
 
 			NppParameters& nppParam = NppParameters::getInstance();
-			LPCTSTR bitness = nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? TEXT("(32-bit)") : (nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? TEXT("(64-bit)") : TEXT("(ARM 64-bit)"));
+			LPCTSTR bitness = nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? L"(32-bit)" : nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? L"(64-bit)" : L"(ARM 64-bit)";
 			::SetDlgItemText(_hSelf, IDC_VERSION_BIT, bitness);
 
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(buildTime.c_str()));
@@ -50,16 +50,16 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			::SendMessage(licenceEditHandle, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(LICENCE_TXT));
 
             //_emailLink.init(_hInst, _hSelf);
-			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("mailto:don.h@free.fr"));
-			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v781-free-uyghur-edition/"));
-			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v792-stand-with-hong-kong/"));
-			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/news/v791-pour-samuel-paty/"));
-			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/news/v843-unhappy-users-edition/"));
-			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/news/v844-happy-users-edition/"));
-            //_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/news/v86-20thyearanniversary"));
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"mailto:don.h@free.fr";
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v781-free-uyghur-edition/";
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v792-stand-with-hong-kong/";
+			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v791-pour-samuel-paty/";
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v843-unhappy-users-edition/";
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v844-happy-users-edition/";
+            //_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v86-20thyearanniversary";
 
             _pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/");
 
 
 			getClientRect(_rc);
@@ -149,65 +149,71 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		case WM_INITDIALOG:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
+			NppGUI& nppGui = nppParam.getNppGUI();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			// Notepad++ version
 			_debugInfoStr = NOTEPAD_PLUS_VERSION;
-			_debugInfoStr += nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? TEXT("   (32-bit)") : (nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? TEXT("   (64-bit)") : TEXT("   (ARM 64-bit)"));
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += nppParam.archType() == IMAGE_FILE_MACHINE_I386 ? L"   (32-bit)" : nppParam.archType() == IMAGE_FILE_MACHINE_AMD64 ? L"   (64-bit)" : L"   (ARM 64-bit)";
+			_debugInfoStr += L"\r\n";
 
 			// Build time
-			_debugInfoStr += TEXT("Build time : ");
+			_debugInfoStr += L"Build time : ";
 			generic_string buildTime;
 			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			buildTime += wmc.char2wchar(__DATE__, CP_ACP);
-			buildTime += TEXT(" - ");
+			buildTime += L" - ";
 			buildTime += wmc.char2wchar(__TIME__, CP_ACP);
 			_debugInfoStr += buildTime;
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"\r\n";
 
 #if defined(__clang__)
-			_debugInfoStr += TEXT("Built with : Clang ");
+			_debugInfoStr += L"Built with : Clang ";
 			_debugInfoStr += wmc.char2wchar(__clang_version__, CP_ACP);
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"\r\n";
 #elif defined(__GNUC__)
-			_debugInfoStr += TEXT("Built with : GCC ");
+			_debugInfoStr += L"Built with : GCC ";
 			_debugInfoStr += wmc.char2wchar(__VERSION__, CP_ACP);
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"\r\n";
 #elif !defined(_MSC_VER)
-			_debugInfoStr += TEXT("Built with : (unknown)\r\n");
+			_debugInfoStr += L"Built with : (unknown)\r\n";
 #endif
 
 			// Binary path
-			_debugInfoStr += TEXT("Path : ");
+			_debugInfoStr += L"Path : ";
 			TCHAR nppFullPath[MAX_PATH]{};
 			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 			_debugInfoStr += nppFullPath;
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"\r\n";
 
 			// Command line as specified for program launch
 			// The _cmdLinePlaceHolder will be replaced later by refreshDebugInfo()
-			_debugInfoStr += TEXT("Command Line : ");
+			_debugInfoStr += L"Command Line : ";
 			_debugInfoStr += _cmdLinePlaceHolder;
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"\r\n";
 
 			// Administrator mode
-			_debugInfoStr += TEXT("Admin mode : ");
-			_debugInfoStr += (_isAdmin ? TEXT("ON") : TEXT("OFF"));
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"Admin mode : ";
+			_debugInfoStr += _isAdmin ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
 
 			// local conf
-			_debugInfoStr += TEXT("Local Conf mode : ");
+			_debugInfoStr += L"Local Conf mode : ";
 			bool doLocalConf = (NppParameters::getInstance()).isLocal();
-			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += doLocalConf ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
 
 			// Cloud config directory
-			_debugInfoStr += TEXT("Cloud Config : ");
+			_debugInfoStr += L"Cloud Config : ";
 			const generic_string& cloudPath = nppParam.getNppGUI()._cloudPath;
-			_debugInfoStr += cloudPath.empty() ? _T("OFF") : cloudPath;
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += cloudPath.empty() ? L"OFF" : cloudPath;
+			_debugInfoStr += L"\r\n";
+
+			// Periodic Backup
+			_debugInfoStr += L"Periodic Backup : ";
+			_debugInfoStr += nppGui.isSnapshotMode() ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
 
 			// OS information
 			HKEY hKey = nullptr;
@@ -220,31 +226,31 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			TCHAR szReleaseId[32] = {'\0'};
 			DWORD dwUBR = 0;
 			constexpr size_t bufSizeUBR = 12;
-			TCHAR szUBR[bufSizeUBR] = TEXT("0");
+			TCHAR szUBR[bufSizeUBR] = L"0";
 
 			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
-			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 			{
 				dataSize = sizeof(szProductName);
-				RegQueryValueExW(hKey, TEXT("ProductName"), NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
+				RegQueryValueExW(hKey, L"ProductName", NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
 				szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
 
 				dataSize = sizeof(szReleaseId);
-				if(RegQueryValueExW(hKey, TEXT("DisplayVersion"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize) != ERROR_SUCCESS)
+				if(RegQueryValueExW(hKey, L"DisplayVersion", NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize) != ERROR_SUCCESS)
 				{
 					dataSize = sizeof(szReleaseId);
-					RegQueryValueExW(hKey, TEXT("ReleaseId"), NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
+					RegQueryValueExW(hKey, L"ReleaseId", NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
 				}
 				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
 
 				dataSize = sizeof(szCurrentBuildNumber);
-				RegQueryValueExW(hKey, TEXT("CurrentBuildNumber"), NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
+				RegQueryValueExW(hKey, L"CurrentBuildNumber", NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
 				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
 
 				dataSize = sizeof(DWORD);
-				if (RegQueryValueExW(hKey, TEXT("UBR"), NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
+				if (RegQueryValueExW(hKey, L"UBR", NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
 				{
-					swprintf(szUBR, bufSizeUBR, TEXT("%u"), dwUBR);
+					swprintf(szUBR, bufSizeUBR, L"%u", dwUBR);
 				}
 
 				RegCloseKey(hKey);
@@ -253,18 +259,18 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			// Get alternative OS information
 			if (szProductName[0] == '\0')
 			{
-				swprintf(szProductName, bufSize, TEXT("%s"), (NppParameters::getInstance()).getWinVersionStr().c_str());
+				swprintf(szProductName, bufSize, L"%s", (NppParameters::getInstance()).getWinVersionStr().c_str());
 			}
 			else if (NppDarkMode::isWindows11())
 			{
 				generic_string tmpProductName = szProductName;
 				constexpr size_t strLen = 10U;
-				const TCHAR strWin10[strLen + 1U] = TEXT("Windows 10");
+				const TCHAR strWin10[strLen + 1U] = L"Windows 10";
 				const size_t pos = tmpProductName.find(strWin10);
 				if (pos < (bufSize - strLen - 1U))
 				{
-					tmpProductName.replace(pos, strLen, TEXT("Windows 11"));
-					swprintf(szProductName, bufSize, TEXT("%s"), tmpProductName.c_str());
+					tmpProductName.replace(pos, strLen, L"Windows 11");
+					swprintf(szProductName, bufSize, L"%s", tmpProductName.c_str());
 				}
 			}
 
@@ -273,40 +279,40 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				DWORD dwVersion = GetVersion();
 				if (dwVersion < 0x80000000)
 				{
-					swprintf(szCurrentBuildNumber, bufSizeBuildNumber, TEXT("%u"), HIWORD(dwVersion));
+					swprintf(szCurrentBuildNumber, bufSizeBuildNumber, L"%u", HIWORD(dwVersion));
 				}
 			}
 
-			_debugInfoStr += TEXT("OS Name : ");
+			_debugInfoStr += L"OS Name : ";
 			_debugInfoStr += szProductName;
-			_debugInfoStr += TEXT(" (");
+			_debugInfoStr += L" (";
 			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
-			_debugInfoStr += TEXT(")");
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"";
+			_debugInfoStr += L"\r\n";
 
 			if (szReleaseId[0] != '\0')
 			{
-				_debugInfoStr += TEXT("OS Version : ");
+				_debugInfoStr += L"OS Version : ";
 				_debugInfoStr += szReleaseId;
-				_debugInfoStr += TEXT("\r\n");
+				_debugInfoStr += L"\r\n";
 			}
 
 			if (szCurrentBuildNumber[0] != '\0')
 			{
-				_debugInfoStr += TEXT("OS Build : ");
+				_debugInfoStr += L"OS Build : ";
 				_debugInfoStr += szCurrentBuildNumber;
-				_debugInfoStr += TEXT(".");
+				_debugInfoStr += L".";
 				_debugInfoStr += szUBR;
-				_debugInfoStr += TEXT("\r\n");
+				_debugInfoStr += L"\r\n";
 			}
 
 			{
 				constexpr size_t bufSizeACP = 32;
 				TCHAR szACP[bufSizeACP] = { '\0' };
-				swprintf(szACP, bufSizeACP, TEXT("%u"), ::GetACP());
-				_debugInfoStr += TEXT("Current ANSI codepage : ");
+				swprintf(szACP, bufSizeACP, L"%u", ::GetACP());
+				_debugInfoStr += L"Current ANSI codepage : ";
  				_debugInfoStr += szACP;
-				_debugInfoStr += TEXT("\r\n");
+				_debugInfoStr += L"\r\n";
 			}
 
 			// Detect WINE
@@ -321,17 +327,17 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				constexpr size_t bufSizeWineVer = 32;
 				TCHAR szWINEVersion[bufSizeWineVer] = { '\0' };
-				swprintf(szWINEVersion, bufSizeWineVer, TEXT("%hs"), pWGV());
+				swprintf(szWINEVersion, bufSizeWineVer, L"%hs", pWGV());
 
-				_debugInfoStr += TEXT("WINE : ");
+				_debugInfoStr += L"WINE : ";
 				_debugInfoStr += szWINEVersion;
-				_debugInfoStr += TEXT("\r\n");
+				_debugInfoStr += L"\r\n";
 			}
 
 			// Plugins
-			_debugInfoStr += TEXT("Plugins : ");
-			_debugInfoStr += _loadedPlugins.length() == 0 ? TEXT("none") : _loadedPlugins;
-			_debugInfoStr += TEXT("\r\n");
+			_debugInfoStr += L"Plugins : ";
+			_debugInfoStr += _loadedPlugins.length() == 0 ? L"none" : _loadedPlugins;
+			_debugInfoStr += L"\r\n";
 
 			getClientRect(_rc);
 			return TRUE;
@@ -441,7 +447,7 @@ void DoSaveOrNotBox::doDialog(bool isRTL)
 void DoSaveOrNotBox::changeLang()
 {
 	generic_string msg;
-	generic_string defaultMessage = TEXT("Save file \"$STR_REPLACE$\" ?");
+	generic_string defaultMessage = L"Save file \"$STR_REPLACE$\" ?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
@@ -455,7 +461,7 @@ void DoSaveOrNotBox::changeLang()
 	if (msg.empty())
 		msg = defaultMessage;
 
-	msg = stringReplace(msg, TEXT("$STR_REPLACE$"), _fn);
+	msg = stringReplace(msg, L"$STR_REPLACE$", _fn);
 	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, msg.c_str());
 }
 
@@ -554,7 +560,7 @@ void DoSaveAllBox::doDialog(bool isRTL)
 void DoSaveAllBox::changeLang()
 {
 	generic_string msg;
-	generic_string defaultMessage = TEXT("Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.");
+	generic_string defaultMessage = L"Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))

@@ -166,7 +166,7 @@ public:
 	// This is for when you want to move the caret in response to a
 	// user direction command - for rectangular selections, use the range
 	// that covers all selected text otherwise return the main selection.
-	SelectionSegment LimitsForRectangularElseMain() const;
+	SelectionSegment LimitsForRectangularElseMain() const noexcept;
 	size_t Count() const noexcept;
 	size_t Main() const noexcept;
 	void SetMain(size_t r) noexcept;
@@ -183,19 +183,19 @@ public:
 	void MovePositions(bool insertion, Sci::Position startChange, Sci::Position length) noexcept;
 	void TrimSelection(SelectionRange range) noexcept;
 	void TrimOtherSelections(size_t r, SelectionRange range) noexcept;
-	void SetSelection(SelectionRange range);
+	void SetSelection(SelectionRange range) noexcept;
 	void AddSelection(SelectionRange range);
 	void AddSelectionWithoutTrim(SelectionRange range);
-	void DropSelection(size_t r);
-	void DropAdditionalRanges();
+	void DropSelection(size_t r) noexcept;
+	void DropAdditionalRanges() noexcept;
 	void TentativeSelection(SelectionRange range);
 	void CommitTentative() noexcept;
 	InSelection RangeType(size_t r) const noexcept;
 	InSelection CharacterInSelection(Sci::Position posCharacter) const noexcept;
 	InSelection InSelectionForEOL(Sci::Position pos) const noexcept;
 	Sci::Position VirtualSpaceFor(Sci::Position pos) const noexcept;
-	void Clear();
-	void RemoveDuplicates();
+	void Clear() noexcept;
+	void RemoveDuplicates() noexcept;
 	void RotateMain() noexcept;
 	bool Tentative() const noexcept { return tentativeMain; }
 	std::vector<SelectionRange> RangesCopy() const {

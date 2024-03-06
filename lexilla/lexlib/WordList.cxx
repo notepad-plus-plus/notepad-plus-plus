@@ -242,7 +242,7 @@ bool WordList::InListAbbreviated(const char *s, const char marker) const noexcep
 	return false;
 }
 
-/** similar to InListAbbreviated, but word s can be a abridged version of a keyword.
+/** similar to InListAbbreviated, but word s can be an abridged version of a keyword.
 * eg. the keyword is defined as "after.~:". This means the word must have a prefix (begins with) of
 * "after." and suffix (ends with) of ":" to be a keyword, Hence "after.field:" , "after.form.item:" are valid.
 * Similarly "~.is.valid" keyword is suffix only... hence "field.is.valid" , "form.is.valid" are valid.

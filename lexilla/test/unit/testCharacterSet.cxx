@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <cassert>
 
+#include <string_view>
+
 #include "CharacterSet.h"
 
 #include "catch.hpp"
@@ -138,4 +140,12 @@ TEST_CASE("Functions") {
 		REQUIRE(CompareNCaseInsensitive("aa", "A", 1) == 0);
 	}
 
+	SECTION("EqualCaseInsensitive") {
+		REQUIRE(EqualCaseInsensitive(" ", " "));
+		REQUIRE(EqualCaseInsensitive("A", "A"));
+		REQUIRE(EqualCaseInsensitive("a", "A"));
+		REQUIRE(!EqualCaseInsensitive("b", "A"));
+		REQUIRE(!EqualCaseInsensitive("aa", "A"));
+		REQUIRE(!EqualCaseInsensitive("a", "AA"));
+	}
 }

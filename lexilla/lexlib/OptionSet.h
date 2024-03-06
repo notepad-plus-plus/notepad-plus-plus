@@ -97,6 +97,15 @@ public:
 		nameToDef[name] = Option(ps, description);
 		AppendName(name);
 	}
+	template <typename E>
+	void DefineProperty(const char *name, E T::*pe, std::string_view description="") {
+		static_assert(std::is_enum<E>::value);
+		plcoi pi {};
+		static_assert(sizeof(pe) == sizeof(pi));
+		memcpy(&pi, &pe, sizeof(pe));
+		nameToDef[name] = Option(pi, description);
+		AppendName(name);
+	}
 	const char *PropertyNames() const noexcept {
 		return names.c_str();
 	}

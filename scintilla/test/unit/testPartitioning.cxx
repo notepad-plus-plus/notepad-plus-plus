@@ -34,13 +34,13 @@ TEST_CASE("CompileCopying Partitioning") {
 		Partitioning<int> s2;
 
 		// Copy constructor
-		Partitioning<int> sa(s);
+		const Partitioning<int> sa(s);
 		// Copy assignment
 		Partitioning<int> sb;
 		sb = s;
 
 		// Move constructor
-		Partitioning<int> sc(std::move(s));
+		const Partitioning<int> sc(std::move(s));
 		// Move assignment
 		Partitioning<int> sd;
 		sd = (std::move(s2));

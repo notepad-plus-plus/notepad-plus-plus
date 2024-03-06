@@ -41,13 +41,13 @@ TEST_CASE("CompileCopying MarkerHandleSet") {
 		MarkerHandleSet s2;
 
 		// Copy constructor
-		MarkerHandleSet sa(s);
+		const MarkerHandleSet sa(s);
 		// Copy assignment
 		MarkerHandleSet sb;
 		sb = s;
 
 		// Move constructor
-		MarkerHandleSet sc(std::move(s));
+		const MarkerHandleSet sc(std::move(s));
 		// Move assignment
 		MarkerHandleSet sd;
 		sd = (std::move(s2));

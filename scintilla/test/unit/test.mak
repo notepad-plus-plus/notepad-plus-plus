@@ -25,6 +25,7 @@ TESTEDSRC=\
  ../../src/PerLine.cxx \
  ../../src/RESearch.cxx \
  ../../src/RunStyles.cxx \
+ ../../src/UndoHistory.cxx \
  ../../src/UniConversion.cxx \
  ../../src/UniqueString.cxx
 

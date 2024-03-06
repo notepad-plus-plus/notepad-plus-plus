@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		00D544CC992062D2E3CD4BF6 /* LexGDScript.cxx in Sources */ = {isa = PBXBuildFile; fileRef = A383409E9A994F461550FEC1 /* LexGDScript.cxx */; };
 		283639BC268FD4EA009D58A1 /* LexAccessor.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 283639BB268FD4EA009D58A1 /* LexAccessor.cxx */; };
+		283A17AE2B47E61100DF5C82 /* InList.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 283A17AC2B47E61100DF5C82 /* InList.cxx */; };
+		283A17AF2B47E61100DF5C82 /* InList.h in Headers */ = {isa = PBXBuildFile; fileRef = 283A17AD2B47E61100DF5C82 /* InList.h */; };
 		28BA72AB24E34D5B00272C2D /* LexerBase.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA728F24E34D5A00272C2D /* LexerBase.cxx */; };
 		28BA72AC24E34D5B00272C2D /* LexAccessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729024E34D5A00272C2D /* LexAccessor.h */; };
 		28BA72AD24E34D5B00272C2D /* DefaultLexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729124E34D5A00272C2D /* DefaultLexer.h */; };
@@ -161,6 +163,8 @@
 /* Begin PBXFileReference section */
 		280262A5246DF655000DF3B8 /* liblexilla.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblexilla.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		283639BB268FD4EA009D58A1 /* LexAccessor.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexAccessor.cxx; path = ../../lexlib/LexAccessor.cxx; sourceTree = "<group>"; };
+		283A17AC2B47E61100DF5C82 /* InList.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InList.cxx; path = ../../lexlib/InList.cxx; sourceTree = "<group>"; };
+		283A17AD2B47E61100DF5C82 /* InList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InList.h; path = ../../lexlib/InList.h; sourceTree = "<group>"; };
 		28BA728F24E34D5A00272C2D /* LexerBase.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexerBase.cxx; path = ../../lexlib/LexerBase.cxx; sourceTree = "<group>"; };
 		28BA729024E34D5A00272C2D /* LexAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexAccessor.h; path = ../../lexlib/LexAccessor.h; sourceTree = "<group>"; };
 		28BA729124E34D5A00272C2D /* DefaultLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultLexer.h; path = ../../lexlib/DefaultLexer.h; sourceTree = "<group>"; };
@@ -488,6 +492,8 @@
 				28BA72A124E34D5B00272C2D /* CharacterSet.h */,
 				28BA729C24E34D5A00272C2D /* DefaultLexer.cxx */,
 				28BA729124E34D5A00272C2D /* DefaultLexer.h */,
+				283A17AC2B47E61100DF5C82 /* InList.cxx */,
+				283A17AD2B47E61100DF5C82 /* InList.h */,
 				283639BB268FD4EA009D58A1 /* LexAccessor.cxx */,
 				28BA729024E34D5A00272C2D /* LexAccessor.h */,
 				28BA728F24E34D5A00272C2D /* LexerBase.cxx */,
@@ -529,6 +535,7 @@
 				28BA72B324E34D5B00272C2D /* Accessor.h in Headers */,
 				28BA72BE24E34D5B00272C2D /* StyleContext.h in Headers */,
 				28BA72BB24E34D5B00272C2D /* OptionSet.h in Headers */,
+				283A17AF2B47E61100DF5C82 /* InList.h in Headers */,
 				28BA72B024E34D5B00272C2D /* LexerModule.h in Headers */,
 				28BA72AC24E34D5B00272C2D /* LexAccessor.h in Headers */,
 				28BA72C524E34D5B00272C2D /* CharacterCategory.h in Headers */,
@@ -684,6 +691,7 @@
 				28BA73A624E34D9700272C2D /* LexMatlab.cxx in Sources */,
 				28BA736324E34D9700272C2D /* LexRaku.cxx in Sources */,
 				28BA736224E34D9700272C2D /* LexCPP.cxx in Sources */,
+				283A17AE2B47E61100DF5C82 /* InList.cxx in Sources */,
 				28BA738A24E34D9700272C2D /* LexOpal.cxx in Sources */,
 				28BA736E24E34D9700272C2D /* LexRegistry.cxx in Sources */,
 				28BA738224E34D9700272C2D /* LexMMIXAL.cxx in Sources */,
@@ -858,7 +866,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.3.0;
+				CURRENT_PROJECT_VERSION = 5.3.1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -886,7 +894,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.3.0;
+				CURRENT_PROJECT_VERSION = 5.3.1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;

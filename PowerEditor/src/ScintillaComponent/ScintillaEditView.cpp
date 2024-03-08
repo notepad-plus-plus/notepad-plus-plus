@@ -505,7 +505,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			// prevent "control characters" from being entered in text
 			// (don't need to be concerned about Tab or CR or LF etc here)
 			if ((NppParameters::getInstance()).getSVP()._npcNoInputC0 &&
-				((wParam >= 0 && wParam <= 31) || wParam == 127))
+				(wParam <= 31 || wParam == 127))
 			{
 				return FALSE;
 			}

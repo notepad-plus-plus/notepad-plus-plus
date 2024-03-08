@@ -92,6 +92,8 @@ void Win32_IO_File::close()
 {
 	if (isOpened())
 	{
+		NppParameters& nppParam = NppParameters::getInstance();
+
 		DWORD flushError = NOERROR;
 		if (_written)
 		{
@@ -99,16 +101,17 @@ void Win32_IO_File::close()
 			{
 				flushError = ::GetLastError();
 
-				if (!NppParameters::getInstance().isEndSessionCritical())
+				if (!nppParam.isEndSessionCritical())
 				{
-					// at least alert the user that the file data could not actually be saved
+					// because of there is not an externally forced shutdown/restart of Windows in progress,
+					// we can at least alert the user that the file data could not actually be saved
 
 					std::wstring curFilePath;
 					const DWORD cchPathBuf = MAX_PATH + 128;
 					WCHAR pathbuf[cchPathBuf]{};
 					// the dwFlags used below are the most error-proof and informative
 					DWORD dwRet = ::GetFinalPathNameByHandle(_hFile, pathbuf, cchPathBuf, FILE_NAME_OPENED | VOLUME_NAME_NT);
-					if ( (dwRet == 0) || (dwRet >= cchPathBuf))
+					if ((dwRet == 0) || (dwRet >= cchPathBuf))
 					{
 						// probably insufficient path-buffer length, the classic style must suffice
 						std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -139,15 +142,12 @@ Please try using another storage and also check if your saved data is not corrup
 
 		_hFile = INVALID_HANDLE_VALUE;
 
-
-		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
 			generic_string issueFn = nppLogNulContentCorruptionIssue;
 			issueFn += TEXT(".log");
 			generic_string nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
-
 
 			std::string msg;
 			if (flushError != NOERROR)

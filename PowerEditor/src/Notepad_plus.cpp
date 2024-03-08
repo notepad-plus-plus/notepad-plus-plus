@@ -6430,6 +6430,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		{
 			case DOC_UNNAMED: 	//nothing todo
 			case DOC_REGULAR: 	//nothing todo
+			case DOC_INACCESSIBLE: 	//nothing todo
 			{
 				break;
 			}

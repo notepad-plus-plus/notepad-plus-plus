@@ -2820,16 +2820,16 @@ void NppParameters::feedShortcut(TiXmlNodeA *node)
 		childNode ;
 		childNode = childNode->NextSibling("Shortcut"))
 	{
-		int id;
+		int id = 0;
 		const char* idStr = (childNode->ToElement())->Attribute("id", &id);
 		if (idStr)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
 			size_t len = _shortcuts.size();
 			bool isFound = false;
-			for (size_t i = 0; i < len, !isFound; ++i)
+			for (size_t i = 0; i < len && !isFound; ++i)
 			{
-				if (_shortcuts[i].getID() == (unsigned long)id)
+				if (_shortcuts[i].getID() == static_cast<unsigned long>(id))
 				{	//found our match
 					isFound = getInternalCommandShortcuts(childNode, _shortcuts[i]);
 

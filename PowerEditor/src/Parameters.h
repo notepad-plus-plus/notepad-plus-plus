@@ -942,8 +942,11 @@ struct ScintillaViewParams
 	bool _lineNumberMarginShow = true;
 	bool _lineNumberMarginDynamicWidth = true;
 	bool _bookMarkMarginShow = true;
-	bool _isChangeHistoryEnabled = true;
-	bool _isChangeHistoryEnabled4NextSession = true;
+	
+	bool _isChangeHistoryMarginEnabled = true;
+	bool _isChangeHistoryIndicatorEnabled = false;
+	changeHistoryState _isChangeHistoryEnabled4NextSession = changeHistoryState::margin; // no -> 0 (disable), yes -> 1 (margin), yes ->2 (indicator), yes-> 3 (margin + indicator)
+
 	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
 	bool _foldMarginShow = true;

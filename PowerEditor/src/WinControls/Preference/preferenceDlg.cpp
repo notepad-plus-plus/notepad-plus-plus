@@ -241,6 +241,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (_editing2SubDlg._tip != nullptr)
 				NppDarkMode::setDarkTooltips(_editing2SubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 
+			if (_marginsBorderEdgeSubDlg._verticalEdgeTip != nullptr)
+				NppDarkMode::setDarkTooltips(_marginsBorderEdgeSubDlg._verticalEdgeTip, NppDarkMode::ToolTipsType::tooltip);
+
 			for (auto& tip : _editing2SubDlg._tips)
 			{
 				if (tip != nullptr)
@@ -1130,13 +1133,13 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
-	NppParameters& nppParam = NppParameters::getInstance();
-	ScintillaViewParams& svp = (ScintillaViewParams&)nppParam.getSVP();
-
 	switch (message)
 	{
 		case WM_INITDIALOG:
 		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+
 			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
 			bool checkDefaultCRLF = true;
 			bool checkPlainTextCRLF = false;
@@ -1164,14 +1167,12 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
 
-
-			NppParameters& nppParam = NppParameters::getInstance();
-			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_SETCHECK, svp._multiSelection, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, svp._columnSel2MultiEdit, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
 
-			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
 
 			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
@@ -1910,7 +1911,8 @@ void MarginsBorderEdgeSubDlg::initScintParam()
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CONSTANT), svp._lineNumberMarginShow);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_SETCHECK, svp._isChangeHistoryEnabled, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGIN, BM_SETCHECK, svp._isChangeHistoryMarginEnabled, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYINDICATOR, BM_SETCHECK, svp._isChangeHistoryIndicatorEnabled, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
 	
 	bool canBeBg = svp._edgeMultiColumnPos.size() == 1;
@@ -1940,6 +1942,8 @@ void MarginsBorderEdgeSubDlg::initScintParam()
 intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
+	static bool changeHistoryWarningHasBeenGiven = false;
+
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -1969,6 +1973,15 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 			::SendMessage(::GetDlgItem(_hSelf, IDC_DISTRACTIONFREE_SLIDER), TBM_SETPOS, TRUE, svp._distractionFreeDivPart);
 			::SetDlgItemInt(_hSelf, IDC_DISTRACTIONFREEVAL_STATIC, svp._distractionFreeDivPart, FALSE);
 
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("verticalEdge-tip",	L"Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers.");
+
+			_verticalEdgeTip = CreateToolTip(IDC_BUTTON_VES_TIP, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
+			if (_verticalEdgeTip != nullptr)
+			{
+				// Make tip stay 30 seconds
+				::SendMessage(_verticalEdgeTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
 			initScintParam();
 
 			return TRUE;
@@ -2055,23 +2068,65 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, 0);
 					return TRUE;
 
-				case IDC_CHECK_CHANGHISTORYMARGE:
+				case IDC_CHECK_CHANGHISTORYMARGIN:
 				{
-					bool isChangeHistoryEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_GETCHECK, 0, 0));
-					if (isChangeHistoryEnabled)
+					bool isMaginJustEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGIN, BM_GETCHECK, 0, 0));
+					bool isIndicatorAlreadyEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYINDICATOR, BM_GETCHECK, 0, 0));
+
+					if (isMaginJustEnabled && !isIndicatorAlreadyEnabled) // In the case that both "in margin" & "in text" were disabled, but "in margin" is just enabled
 					{
-						NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
-						pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
-							_hSelf,
-							TEXT("You have to restart Notepad++ to enable Change History."),
-							TEXT("Notepad++ need to be relaunched"),
-							MB_OK | MB_APPLMODAL);
-						svp._isChangeHistoryEnabled4NextSession = true;
+						if (!changeHistoryWarningHasBeenGiven)
+						{
+							NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+							pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
+								_hSelf,
+								TEXT("You have to restart Notepad++ to enable Change History."),
+								TEXT("Notepad++ need to be relaunched"),
+								MB_OK | MB_APPLMODAL);
+							
+							changeHistoryWarningHasBeenGiven = true;
+						}
+						svp._isChangeHistoryMarginEnabled = true;
+						svp._isChangeHistoryEnabled4NextSession = changeHistoryState::margin;
+					}
+					else // otherwise
+					{
+						svp._isChangeHistoryMarginEnabled = isMaginJustEnabled;
+						svp._isChangeHistoryEnabled4NextSession = (!isMaginJustEnabled && !isIndicatorAlreadyEnabled) ? changeHistoryState::disable :
+							(isMaginJustEnabled && isIndicatorAlreadyEnabled) ? changeHistoryState::marginIndicator :changeHistoryState::indicator;
+
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
+					}
+					return TRUE;
+				}
+
+				case IDC_CHECK_CHANGHISTORYINDICATOR:
+				{
+					bool isIndicatorJustEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYINDICATOR, BM_GETCHECK, 0, 0));
+					bool isMaginAlreadyEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGIN, BM_GETCHECK, 0, 0));
+
+					if (isIndicatorJustEnabled && !isMaginAlreadyEnabled) // In the case that both "in margin" & "in text" were disabled, but "in text" is just enabled
+					{
+						if (!changeHistoryWarningHasBeenGiven)
+						{
+							NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+							pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
+								_hSelf,
+								TEXT("You have to restart Notepad++ to enable Change History."),
+								TEXT("Notepad++ need to be relaunched"),
+								MB_OK | MB_APPLMODAL);
+							
+							changeHistoryWarningHasBeenGiven = true;
+						}
+						svp._isChangeHistoryIndicatorEnabled = true;
+						svp._isChangeHistoryEnabled4NextSession = changeHistoryState::indicator;
 					}
 					else
 					{
-						svp._isChangeHistoryEnabled = false;
-						svp._isChangeHistoryEnabled4NextSession = false;
+						svp._isChangeHistoryIndicatorEnabled = isIndicatorJustEnabled;
+						svp._isChangeHistoryEnabled4NextSession = (!isIndicatorJustEnabled && !isMaginAlreadyEnabled) ? changeHistoryState::disable :
+							(isIndicatorJustEnabled && isMaginAlreadyEnabled) ? changeHistoryState::marginIndicator : changeHistoryState::margin;
+
 						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
 					}
 					return TRUE;

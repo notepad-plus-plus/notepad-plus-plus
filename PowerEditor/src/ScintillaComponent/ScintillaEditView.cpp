@@ -2233,8 +2233,19 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParam.getSVP();
-	int enabledCH = svp._isChangeHistoryEnabled ? (SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS) : SC_CHANGE_HISTORY_DISABLED;
-	execute(SCI_SETCHANGEHISTORY, enabledCH);
+
+	int enabledCHFlag = SC_CHANGE_HISTORY_DISABLED;
+	if (!(svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled))
+	{
+		enabledCHFlag = SC_CHANGE_HISTORY_ENABLED;
+
+		if (svp._isChangeHistoryMarginEnabled)
+			enabledCHFlag |= SC_CHANGE_HISTORY_MARKERS;
+
+		if (svp._isChangeHistoryIndicatorEnabled)
+			enabledCHFlag |= SC_CHANGE_HISTORY_INDICATORS;
+	}
+	execute(SCI_SETCHANGEHISTORY, enabledCHFlag);
 
 	if (isTextDirectionRTL() != buffer->isRTL())
 		changeTextDirection(buffer->isRTL());

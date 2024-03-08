@@ -92,25 +92,62 @@ void Win32_IO_File::close()
 {
 	if (isOpened())
 	{
+		NppParameters& nppParam = NppParameters::getInstance();
+
 		DWORD flushError = NOERROR;
 		if (_written)
 		{
 			if (!::FlushFileBuffers(_hFile))
+			{
 				flushError = ::GetLastError();
+
+				if (!nppParam.isEndSessionCritical())
+				{
+					// because of there is not an externally forced shutdown/restart of Windows in progress,
+					// we can at least alert the user that the file data could not actually be saved
+
+					std::wstring curFilePath;
+					const DWORD cchPathBuf = MAX_PATH + 128;
+					WCHAR pathbuf[cchPathBuf]{};
+					// the dwFlags used below are the most error-proof and informative
+					DWORD dwRet = ::GetFinalPathNameByHandle(_hFile, pathbuf, cchPathBuf, FILE_NAME_OPENED | VOLUME_NAME_NT);
+					if ((dwRet == 0) || (dwRet >= cchPathBuf))
+					{
+						// probably insufficient path-buffer length, the classic style must suffice
+						std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+						curFilePath = converter.from_bytes(_path);
+					}
+					else
+					{
+						// ok
+						// - the chosen file path style here will allow us to also see the MS MUP (multiple UNC provider) style path
+						//   for a possible network drive mapped here as the usual disk-letter, e.g.:
+						//     "\Device\Mup\NETWORK_SERVER_DNS_NAME_OR_IP\SERVER_PATH\FILENAME" 
+						//     "\Device\Mup\NETWORK_SERVER_DNS_NAME_OR_IP@SSL@PORT_NUMBER\DavWWWRoot\SERVER_PATH\FILENAME"
+						// - classic local disk will be visible here like: "\Device\HarddiskVolume2\ABSOLUTE_PATH_WITHOUT_DRIVENAME\FILENAME"
+						curFilePath = pathbuf;
+					}
+
+					std::wstring errMsg = L"Notepad++ has encountered a serious system problem while saving:\n\n";
+					errMsg += curFilePath;
+					errMsg += L"\n\nThat file, temporarily stored in the system cache, cannot be finally committed to the storage device selected! \
+This is probably a storage driver or hardware issue, beyond the control of the Notepad++. \
+Please try using another storage and also check if your saved data is not corrupted.\n\nError Code reported: ";
+					errMsg += std::to_wstring(flushError) + L" - " + GetLastErrorAsString(flushError);
+					::MessageBoxW(NULL, errMsg.c_str(), L"WARNING - filebuffer flushing fail!", MB_OK | MB_ICONWARNING | MB_SYSTEMMODAL);
+				}
+			}
 		}
 		::CloseHandle(_hFile);
 
 		_hFile = INVALID_HANDLE_VALUE;
 
-
-		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
 			generic_string issueFn = nppLogNulContentCorruptionIssue;
 			issueFn += TEXT(".log");
 			generic_string nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
-
 
 			std::string msg;
 			if (flushError != NOERROR)

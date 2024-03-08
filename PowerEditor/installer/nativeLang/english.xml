@@ -1052,11 +1052,11 @@ Translation note:
 					<Item id="6292" name="Dynamic width"/>
 					<Item id="6293" name="Constant width"/>
 					<Item id="6207" name="Display bookmark"/>
-					<Item id="6223" name="Display Change History"/>
+					<Item id="6295" name="Change History"/>
+					<Item id="6223" name="Show in the margin"/>
+					<Item id="6296" name="Show in the text"/>
 					<Item id="6211" name="Vertical Edge Settings"/>
 					<Item id="6213" name="Background mode"/>
-					<Item id="6237" name="Add your column marker by indicating its position with a decimal number.
-You can define several column markers by using white space to separate the different numbers."/>
 					<Item id="6231" name="Border Width"/>
 					<Item id="6235" name="No edge"/>
 					<Item id="6208" name="Padding"/>
@@ -1785,6 +1785,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
 			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
+			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

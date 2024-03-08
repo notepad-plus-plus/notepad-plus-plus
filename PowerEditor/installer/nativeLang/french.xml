@@ -1049,11 +1049,11 @@ Translation note:
 					<Item id="6292" name="Largeur dynamique"/>
 					<Item id="6293" name="Largeur constante"/>
 					<Item id="6207" name="Afficher la marge de signet"/>
-					<Item id="6223" name="Afficher l'Historique de Modification"/>
+					<Item id="6295" name="Historique de Modification"/>
+					<Item id="6223" name="Afficher dans la marge"/>
+					<Item id="6296" name="Afficher dans le texte"/>
 					<Item id="6211" name="Marqueur de colonne"/>
 					<Item id="6213" name="Colorer l’arrière-plan"/>
-					<Item id="6237" name="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
-Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
 					<Item id="6231" name="Largeur de la bordure"/>
 					<Item id="6235" name="Pas de bordure"/>
 					<Item id="6208" name="Remplissage"/>
@@ -1781,6 +1781,7 @@ Cliquez sur le bouton &quot;?&quot; à droite pour ouvrir le site web du Manuel 
 			<npcCustomColor-tip value="Aller dans le Configurateur de style pour changer la couleur personnalisée par défaut pour la sélection de caractères blancs et de caractères non-imprimables (&quot;Couleur personnalisée des caractères non-imprimables&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Applique les paramètres d'apparence des caractères non-imprimables aux contrôles C0, C1 et aux caractères Unicode EOL (ligne suivante, séparateur de ligne et séparateur de paragraphe)."/>
 			<searchingInSelThresh-tip value="Nombre de caractères sélectionnés dans la zone d'édition pour cocher automatiquement la case &quot;Dans la sélection&quot; quand la fenêtre Rechercher est activée. La valeur maximale est 1024. Mettre la valeur à 0 pour désactiver l'auto-coche."/>
+			<verticalEdge-tip value="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier. Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

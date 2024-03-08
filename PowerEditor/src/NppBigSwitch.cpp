@@ -3152,19 +3152,40 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ENABLECHANGEHISTORY:
 		{
+			static bool stopActionUntilNextSession = false;
+
 			const ScintillaViewParams& svp = nppParam.getSVP();
-			int enabledCH = svp._isChangeHistoryEnabled ? (SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS) : SC_CHANGE_HISTORY_DISABLED;
 
-			_mainEditView.execute(SCI_SETCHANGEHISTORY, enabledCH);
-			_subEditView.execute(SCI_SETCHANGEHISTORY, enabledCH);
+			int enabledCHFlag = SC_CHANGE_HISTORY_DISABLED;
+			if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
+			{
+				enabledCHFlag = SC_CHANGE_HISTORY_ENABLED;
 
-			_mainEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
-			_subEditView.showChangeHistoryMargin(svp._isChangeHistoryEnabled);
+				if  (svp._isChangeHistoryMarginEnabled)
+					enabledCHFlag |= SC_CHANGE_HISTORY_MARKERS;
 
-			enableCommand(IDM_SEARCH_CHANGED_PREV, svp._isChangeHistoryEnabled, MENU);
-			enableCommand(IDM_SEARCH_CHANGED_NEXT, svp._isChangeHistoryEnabled, MENU);
-			enableCommand(IDM_SEARCH_CLEAR_CHANGE_HISTORY, svp._isChangeHistoryEnabled, MENU);
+				if  (svp._isChangeHistoryIndicatorEnabled)
+					enabledCHFlag |= SC_CHANGE_HISTORY_INDICATORS;
+			}
 
+			if (!stopActionUntilNextSession)
+			{
+				_mainEditView.execute(SCI_SETCHANGEHISTORY, enabledCHFlag);
+				_subEditView.execute(SCI_SETCHANGEHISTORY, enabledCHFlag);
+
+				if (enabledCHFlag == SC_CHANGE_HISTORY_DISABLED)
+					stopActionUntilNextSession = true;
+
+				_mainEditView.showChangeHistoryMargin(svp._isChangeHistoryMarginEnabled);
+				_subEditView.showChangeHistoryMargin(svp._isChangeHistoryMarginEnabled);
+
+				_mainEditView.redraw();
+				_subEditView.redraw();
+
+				enableCommand(IDM_SEARCH_CHANGED_PREV, svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled, MENU);
+				enableCommand(IDM_SEARCH_CHANGED_NEXT, svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled, MENU);
+				enableCommand(IDM_SEARCH_CLEAR_CHANGE_HISTORY, svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled, MENU);
+			}
 			return TRUE;
 		}
 

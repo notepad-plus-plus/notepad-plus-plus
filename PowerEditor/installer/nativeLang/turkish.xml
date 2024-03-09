@@ -5,7 +5,7 @@
 2. Tüm yorumlar açıklama içindir, çeviri için değil.
 -->
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.5.5">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -39,6 +39,8 @@
 					<Item subMenuId="edit-blankOperations" name="Boşluk İşlemleri"/>
 					<Item subMenuId="edit-pasteSpecial" name="Özel Yapıştır"/>
 					<Item subMenuId="edit-onSelection" name="Seçilen Üzerinde"/>
+					<Item subMenuId="edit-multiSelectALL" name="Çoklu-Seç TÜMÜ"/>
+					<Item subMenuId="edit-multiSelectNext" name="Çoklu-Seç Sonraki"/>
 					<Item subMenuId="search-changeHistory" name="Değişim Geçmişi"/>
 					<Item subMenuId="search-markAll" name="Eşleşen Tüm İşaretleri Stillendir"/>
 					<Item subMenuId="search-markOne" name="Eşleşen İşareti Stillendir"/>
@@ -154,6 +156,16 @@
 					<Item id="42074" name="Bulunduğu Klasörü Windows Gezgini'nde Aç"/>
 					<Item id="42075" name="İnternette Ara"/>
 					<Item id="42076" name="Arama Motorunu Değiştir…"/>
+					<Item id="42090" name="Büyük/Küçük Harf Dışla &amp;&amp; Tüm Kelime"/>
+					<Item id="42091" name="Sadece Büyük/Küçük Harf Eşleştir"/>
+					<Item id="42092" name="Sadece Tüm Kelimeyi Eşleştir"/>
+					<Item id="42093" name="Büyük/Küçük Harf Eşleştir &amp;&amp; Tüm Kelime"/>
+					<Item id="42094" name="Büyük/Küçük Harf Dışla &amp;&amp; Tüm Kelime"/>
+					<Item id="42095" name="Sadece Büyük/Küçük Harf Eşleştir"/>
+					<Item id="42096" name="Sadece Tüm Kelimeyi Eşleştir"/>
+					<Item id="42097" name="Büyük/Küçük Harf Eşleştir &amp;&amp; Tüm Kelime"/>
+					<Item id="42098" name="Son Eklenmiş Çoklu-Seçmeyi Geri Al"/>
+					<Item id="42099" name="Şimdikini Atla &amp;&amp; Sonraki Çoklu-Seçime Git"/>
 					<Item id="42018" name="Ka&amp;ydı Başlat"/>
 					<Item id="42019" name="Kaydı D&amp;urdur"/>
 					<Item id="42021" name="&amp;Oynat"/>
@@ -292,6 +304,8 @@
 					<Item id="44092" name="7. Sekme"/>
 					<Item id="44093" name="8. Sekme"/>
 					<Item id="44094" name="9. Sekme"/>
+					<Item id="44116" name="İlk Sekme"/>
+					<Item id="44117" name="Son Sekme"/>
 					<Item id="44095" name="Sonraki Sekme"/>
 					<Item id="44096" name="Önceki Sekme"/>
 					<Item id="44097" name="Monitörleme (tail -f)"/>
@@ -334,12 +348,12 @@
 					<Item id="45057" name="OEM 865: Nordik"/>
 					<Item id="45053" name="OEM 860: Portekizce"/>
 					<Item id="45056" name="OEM 863: Fransızca"/>
-
 					<Item id="10001" name="Diğer Görünüme Taşı"/>
 					<Item id="10002" name="Diğer Görünüme Kopyala"/>
 					<Item id="10003" name="Yeni Uygulama Penceresine Taşı"/>
 					<Item id="10004" name="Yeni Uygulama Penceresinde Aç"/>
-
+					<Item id="10005" name="Başlangıca Taşı"/>
+					<Item id="10006" name="Sona Taşı"/>
 					<Item id="46001" name="&amp;Stil Yapılandırıcı…"/>
 					<Item id="46250" name="Dil &amp;Tanımla"/>
 					<Item id="46300" name="Kullanıcı Tanımlı Dil Klasörünü Aç..."/>
@@ -501,9 +515,9 @@
 			</Find>
 			
 			<IncrementalFind title="">
-				<Item id="1681" name="Bul"/>
-				<Item id="1685" name="Büyük/Küçük Harf Eşleştir"/>
-				<Item id="1690" name="Tümünü Vurgula"/>
+				<Item id="1681" name="Bul:"/>
+				<Item id="1685" name="&amp;Büyük/Küçük Harf Eşleştir"/>
+				<Item id="1690" name="Tümünü &amp;Vurgula"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Aralıktaki Karakterleri Bul…">
@@ -957,15 +971,14 @@
 					
 					<Item id="6123" name="Yerelleştir"/>
 				</Global>
-				<Scintillas title="Düzenleme">
+
+				<Scintillas title="Düzenleme 1">
 					<Item id="6216" name="İmleç Ayarları"/>
 					<Item id="6217" name="Genişlik:"/>
 					<Item id="6219" name="Yenilenme hızı:"/>
 					<Item id="6221" name="H"/>
 					<Item id="6222" name="Y"/>
 					<Item id="6246" name="Şu anki seviye açılır/kapanır komutları değiştirilebilir yap"/>
-					<Item id="6224" name="Çoklu Düzenleme Ayarları"/>
-					<Item id="6225" name="Çoklu Düzenlemeyi Etkinleştir (Ctrl + fareyle tıkla/seç)"/>
 					<Item id="6227" name="Satır Kaydırma"/>
 					<Item id="6228" name="Varsayılan"/>
 					<Item id="6229" name="Hizalanmış"/>
@@ -976,21 +989,30 @@
 					<Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
 					<Item id="6239" name="Seçimin dışında sağ tıklanırsa seçimi koru"/>
 					<Item id="6245" name="Sanal Alanı Etkinleştir"/>
+					<Item id="6214" name="Satırı Seçmeden Kopyalamayı/Kesmeyi Etkinleştir"/>
 					<Item id="6651" name="Şimdiki Satır İşaretçisi"/>
 					<Item id="6652" name="Hiçbiri"/>
 					<Item id="6653" name="Arka Planı Vurgula"/>
 					<Item id="6654" name="Çerçeve"/>
 					<Item id="6655" name="Genişlik:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Düzenleme 2">
+					<Item id="6521" name="Çoklu-Düzenleme"/>
+					<Item id="6522" name="Çoklu-Düzenlemeyi Etkinleştir(Ctrl+Fare tıklama/seçim)"/>
+					<Item id="6523" name="Çoklu-Düzenlemeye Sütun Seçimini Etkinleştir"/>
 					<Item id="6247" name="Satır Sonu (CRLF)"/><!-- "(CRLF)" Kısmını Çevirmeyin -->
 					<Item id="6248" name="Varsayılan"/>
 					<Item id="6249" name="Düz Metin"/>
 					<Item id="6250" name="Kişisel Renk"/>
+					<Item id="6260" name="Görünüm"/>
 					<Item id="6252" name="Yazdırılamayan Karakterler"/>
 					<Item id="6254" name="Kısaltma"/>
 					<Item id="6255" name="Kod noktası"/>
 					<Item id="6256" name="Özel Renk"/>
-					<Item id="6258" name="C0, C1 &amp;&amp; Unicode Satır Sonuna Uygula"/>
-				</Scintillas>
+					<Item id="6258" name="Görünüm Ayarlarını C0, C1 &amp;&amp; Unicode Satır Sonuna Uygula"/>
+					<Item id="6259" name="Kontrol Karakterinin (C0 kodu) Dökümana Yazılmasını Engelle"/>
+				</Scintillas2>
 
 				<DarkMode title="Koyu Mod">
 					<Item id="7131" name="Açık Mod"/>
@@ -1032,11 +1054,11 @@
 					<Item id="6292" name="Hareketli Genişlik"/>
 					<Item id="6293" name="Sabit Genişlik"/>
 					<Item id="6207" name="Yer imini görüntüle"/>
-					<Item id="6223" name="Değişim Geçmişini Göster"/>
+					<Item id="6295" name="Değişim Geçmişi"/>
+					<Item id="6223" name="Kenarlıkta Göster"/>
+					<Item id="6296" name="Yazıda Göster"/>
 					<Item id="6211" name="Dikey Kenarlık Ayarları"/>
 					<Item id="6213" name="Arka plan modu"/>
-					<Item id="6237" name="Sütun işaretçinizi, onun pozisyonunu ondalık sayıyla belirterek ekleyin.
-Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
 					<Item id="6208" name="Boşluk"/>
@@ -1147,10 +1169,11 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6903" name="Bul penceresi, arama sonuçlar penceresine yönlendirdiğinde açık kalsın"/>
 					<Item id="6904" name="Tüm Açılmış Pencerelerde Tümünü Değiştirmeyi Onayla"/>
 					<Item id="6905" name="Değiştir: Sonraki eşleşmeye geçme"/>
-					<Item id="6906" name="Bul Sonucu Penceresi: Her bulunan satır için sadece tek girdi göster"/>
+					<Item id="6906" name="Bul Sonucu Penceresi: Her bulunan satır için mümkünse sadece tek girdi göster"/>
 					<Item id="6907" name="Bul Diyaloğu Başlatıldığı Zaman"/>
 					<Item id="6908" name="Bul Alanını Seçili Yazı ile Doldur"/>
 					<Item id="6909" name="Hiçbir Şey Seçilmediyse İşaretçi Altındaki sözcüğü Seç"/>
+					<Item id="6910" name="&quot;Seçimde&quot; oto-kontrol için en az boyut:"/>
 				</Searching>
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
@@ -1171,6 +1194,7 @@ Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasın
 					<Item id="6821" name="saniyede bir yapılsın"/>
 					<Item id="6822" name="Yedekleme yolu:"/>
 					<Item id="6309" name="Geçerli oturumu sonraki açılışta hatırla"/>
+					<Item id="6825" name="Önceki oturumdan erişilemeyen dosyaları hatırla"/>
 					<Item id="6801" name="Kayıtta Yedekle"/>
 					<Item id="6315" name="Hiçbiri"/>
 					<Item id="6316" name="Basit yedekleme"/>
@@ -1360,7 +1384,7 @@ Bu pencereyi Tercihler içinden tekrar aktif edebilirsiniz."/>
 				<Item id="6" name="&amp;Evet"/>
 				<Item id="7" name="&amp;Hayır"/>
 				<Item id="4" name="&amp;Her zaman evet"/>
-			</DoSaveAll><!-- NasılTekrarlanır: Tercihler->Çeşitli penceresinde 'Tümünü Kaydet onaylama penceresi' kutucuğunu işaretleyin, şimdi 'Tümünü Kaydet' seçeneğine tıklayın -->
+			</DoSaveAll><!-- NasılTekrarlanır: Tercihler->Çeşitli penceresinde "Tümünü Kaydet onaylama penceresi" kutucuğunu işaretleyin, şimdi "Tümünü Kaydet" seçeneğine tıklayın -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ ve $STR_REPLACE$ birer yer tutucudur, bu yer tutucuları çevirmeyin. -->
@@ -1482,6 +1506,18 @@ Notepad++, eski &quot;shortcuts.xml&quot; dosyasını yedekleyip &quot;shortcuts
 &quot;shortcuts.xml.v8.5.2.backup&quot; dosyasını -&gt; &quot;shortcuts.xml&quot; olarak yeniden adlandırarak, komutlarınız geri gelecek ve düzgün olarak çalışacaktır."/><!-- NasılTekrarlanır: Notepad++'i kapatın, shortcuts.xml.v8.5.2.backup & eğer varsa v852ShortcutsCompatibilityWarning.xml dosyalarını silin, Notepad++'ı yeniden başlatın, Kısayol Eşleyicisi ile bazı kısayolları silin veya düzenleyin, Notepad++'ı kapatın, mesaj görünecektir -->	
 			<NotEnoughRoom4Saving title="Kaydetme Başarısız" message="Dosya kaydetme başarısız.
 Görünüşe göre, diskinizde dosyayı kaydetmek için yeterli alan yok. Dosyanız kaydedilemedi."/>
+			<FileInaccessibleUserSession title="Dosyaya erişilemiyor" message="Elle kaydettiğiniz &quot;$STR_REPLACE$&quot; oturumunuzdaki bazı dosyalara erişilemiyor. Yer tutucular gibi boş ve salt-okunur belgeler şeklinde açılabilirler.
+
+Bu yer tutucuları oluşturmak ister misiniz?
+
+NOT: Yer tutucuları oluşturmayı seçmemeniz veya onları sonradan kapatmanız durumunda, elle-kaydedilmiş oturumunuz kapatmada düzenlenmeyecektir."/>
+			<FileInaccessibleDefaultSessionXml title="Dosyaya erişilemiyor" message="Önceki oturumunuzdaki bazı dosyalara erişilemiyor. Yer tutucular gibi boş ve salt-okunur belgeler şeklinde açılabilirler.
+
+Bu yer tutucuları oluşturmak ister misiniz?
+
+NOT: Yer tutucuları oluşturmayı seçmemeniz veya onları sonradan kapatmanız durumunda, oturumunuz ÇIKIŞTA DÜZENLENMEYECEKTİR! &quot;session.xml&quot; dosyanızı şimdi yedeklemenizi öneririz."/>
+			<RTLvsDirectWrite title="SaSMY Çalıştırılamıyor" message="Sağdan Sola Metin Yönü, DirectWrite modu ile uyumsuz. Lütfen DirectWrite modunu Tercihler penceresi altındaki Çeşitli sekmesinden etkisizleştirin ve Notepad++'ı yeniden başlatın."/>
+			<FileMemoryAllocationFailed title="İstisna: Dosya hafızası ayırma başarısız" message="Muhtemelen Notepad++ tarafından yüklenen dosya için yeterli boş hafıza yok."/><!-- NasılTerkarlanır: x86 Notepad++ içinde birden fazla ve toplamda boyutu > ~700MB olan dosyalar açmaya çalışın (bilgisayarda bulunan fiziki bellek miktarına ve mevcut sistem hafıza kullanımına göre değişebilir...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1605,7 +1641,6 @@ Görünüşe göre, diskinizde dosyayı kaydetmek için yeterli alan yok. Dosyan
 			<default-open-save-select-folder value="Varsayılan dizin için bir klasör seçin"/><!-- NasılTekrarlanır: Ayarlar > Tercihler > Varsayılan Dizin > [...] -->
 			<shift-change-direction-tip value="Shift+Enter ile diğer yönde arama yapın."/>
 			<two-find-buttons-tip value="İkili Bulma Düğmesi Modu"/>
-			<file-rename-title value="Yeniden Adlandır"/>
 			<find-in-files-filter-tip value="Şunların içinde Bul - cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1641,6 +1676,7 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<find-status-replace-not-found value="Değiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
+			<find-status-cannot-find-pebkac-maybe value="Verilen olay bulunamıyor. &quot;Sözcük kaydırmayı&quot; (Açmayı), &quot;Büyük/Küçük Harf Eşleştir&quot; (Kapatmayı), ya da &quot;Tüm Kelimeyi Eşleştir&quot; (Kapatmayı) kontrol etmeyi unutmuş olabilirsiniz."/>
 			<find-status-scope-selection value="seçilmiş yazıda"/>
 			<find-status-scope-all value="tüm dosyada"/>
 			<find-status-scope-backward value="dosyanın başından içboşluk simgesine kadar"/>
@@ -1650,9 +1686,7 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<finder-collapse-all value="Tümünü Katla"/>
 			<finder-uncollapse-all value="Tümünü Aç"/>
 			<finder-copy value="Seçili Satır(lar)ı Kopyala"/>
-			<finder-copy-verbatim value="Kopyala"/>
 			<finder-copy-paths value="Yol Ad(lar)ını Kopyala"/>
-			<finder-select-all value="Tümünü Seç"/>
 			<finder-clear-all value="Tümünü Temizle"/>
 			<finder-open-all value="Tümünü Aç"/>
 			<finder-purge-for-every-search value="Her Arama İçin Temizle"/>
@@ -1679,7 +1713,6 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<summary-nbsel2 value=" bayt) içinde "/>
 			<summary-nbrange value=" mesafe"/>
 			<progress-hits-title value="Eşleşmeler:"/>
-			<progress-cancel-button value="İptal"/>
 			<progress-cancel-info value="işlem iptal ediliyor, lütfen bekleyin..."/>
 			<find-in-files-progress-title value="Dosyalarda Bul işleniyor..."/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
@@ -1694,6 +1727,11 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<find-result-title value="Ara"/><!-- Boşlukla veya atlama (tab) karakteriyle başlamamalı -->
 			<find-result-title-info value="($INT_REPLACE2$ dosyada yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
 			<find-result-title-info-selections value="($INT_REPLACE2$ seçimde yapılan $INT_REPLACE3$ aramada $INT_REPLACE1$ eşleşme bulundu)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Genişletilmiş"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Harf Boyutu"/>
+			<find-result-title-info-options-word value="Kelime"/>
 			<find-result-title-info-extra value=" - Satır Filtresi Modu: sadece filtrelenmiş sonuçları göster"/>
 			<find-result-hits value="($INT_REPLACE$ eşleşme)"/>
 			<find-regex-zero-length-match value="sıfır uzunluk eşleşmesi"/>
@@ -1741,6 +1779,8 @@ Sağdaki &quot;?&quot; düğmesine tıklayarak Kullanıcı Kılavuzu'nun olduğu
 			<!-- "(&quot;Non-printing characters custom color&quot;)" Kısmını Çevirmeyin -->
 			<npcCustomColor-tip value="Stil Yapılandırıcısı'na giderek, varsayılan seçili beyaz boşluk karakteri ve yazdırılamayan karakterler için kişisel rengi değiştirebilirsiniz (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Yazdırılamayan karaklerlerin görünüm ayarlarını C0, C1 kontrol ve Unicode Satır Sonu (yeni satır, satır ayırıcı ve paragraf ayırıcı) karakterleri için uygulayabilirsiniz."/>
+			<searchingInSelThresh-tip value="Bul penceresi aktifken, düzenleme bölgesinde &quot;Seçimde&quot; kutucuğunun otomatik olarak kontrolü yapılacak seçili karakter sayısı. En yüksek değer 1024'tür. Değeri 0 yaparak otomatik kontrolü etkisizleştirebilirsiniz."/>
+			<verticalEdge-tip value="Sütun işaretçinizi, pozisyonunu ondalık sayı ile belirterek ekleyin. Birden fazla sütun işaretçisini, aralarında boş alan bırakarak belirleyebilirsiniz."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

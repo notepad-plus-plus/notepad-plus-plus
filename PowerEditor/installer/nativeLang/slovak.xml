@@ -1050,11 +1050,11 @@
 					<Item id="6292" name="Dynamická šírka"/>
 					<Item id="6293" name="Konštantná šírka"/>
 					<Item id="6207" name="Zobraziť záložky"/>
-					<Item id="6223" name="Zobraziť históriu zmien"/>
+					<Item id="6295" name="História zmien"/>
+					<Item id="6223" name="Zobraziť na okraji"/>
+					<Item id="6296" name="Zobraziť v texte"/>
 					<Item id="6211" name="Nastavenie vertikálneho okraja"/>
 					<Item id="6213" name="Režim pozadia"/>
-					<Item id="6237" name="Pridajte značku stĺpca zadaním jej pozície (celé číslo).
-Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych čísel."/>
 					<Item id="6231" name="Šírka okraja"/>
 					<Item id="6235" name="Bez okraja"/>
 					<Item id="6208" name="Odsadenie"/>
@@ -1785,6 +1785,7 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)."/>
 			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
+			<verticalEdge-tip value="Pridajte značku stĺpca uvedením jeho pozície pomocou desatinného čísla. Môžete definovať niekoľko značiek stĺpcov tak, že jednotlivé čísla oddelíte bielymi znakmi."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

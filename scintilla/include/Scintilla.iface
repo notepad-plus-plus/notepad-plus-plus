@@ -1100,6 +1100,8 @@ enu AutoCompleteOption=SC_AUTOCOMPLETE_
 val SC_AUTOCOMPLETE_NORMAL=0
 # Win32 specific:
 val SC_AUTOCOMPLETE_FIXED_SIZE=1
+# Always select the first item in the autocompletion list:
+val SC_AUTOCOMPLETE_SELECT_FIRST_ITEM=2
 
 # Set autocompletion options.
 set void AutoCSetOptions=2638(AutoCompleteOption options,)

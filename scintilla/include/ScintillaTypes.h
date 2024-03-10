@@ -250,6 +250,7 @@ enum class IndicFlag {
 enum class AutoCompleteOption {
 	Normal = 0,
 	FixedSize = 1,
+	SelectFirstItem = 2,
 };
 
 enum class IndentView {

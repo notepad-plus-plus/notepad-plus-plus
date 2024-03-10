@@ -397,6 +397,32 @@ TEST_CASE("UndoHistory") {
 		REQUIRE(!uh.IsSavePoint());
 	}
 
+	SECTION("EnsureTruncationAfterUndo") {
+
+		REQUIRE(uh.Actions() == 0);
+		bool startSequence = false;
+		uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(uh.Actions() == 1);
+		uh.AppendAction(ActionType::insert, 2, "cd", 2, startSequence, true);
+		REQUIRE(uh.Actions() == 2);
+		REQUIRE(uh.CanUndo());
+		REQUIRE(!uh.CanRedo());
+
+		// Undoing
+		const int steps = uh.StartUndo();
+		REQUIRE(steps == 2);
+		uh.GetUndoStep();
+		uh.CompletedUndoStep();
+		REQUIRE(uh.Actions() == 2);	// Not truncated until forward action
+		uh.GetUndoStep();
+		uh.CompletedUndoStep();
+		REQUIRE(uh.Actions() == 2);
+
+		// Perform action which should truncate history
+		uh.AppendAction(ActionType::insert, 0, "12", 2, startSequence, true);
+		REQUIRE(uh.Actions() == 1);
+	}
+
 	SECTION("Coalesce") {
 
 		bool startSequence = false;

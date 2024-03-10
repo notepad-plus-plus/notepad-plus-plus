@@ -3129,6 +3129,28 @@ class TestAutoComplete(unittest.TestCase):
 
 		self.assertEqual(self.ed.AutoCActive(), 0)
 
+	def testAutoSelectFirstItem(self):
+		self.assertEqual(self.ed.AutoCActive(), 0)
+
+		self.ed.AutoCSetOrder(self.ed.SC_ORDER_CUSTOM)
+
+		# without SC_AUTOCOMPLETE_SELECT_FIRST_ITEM option
+		self.ed.SetSel(3, 3)
+		self.ed.AutoCShow(3, b"aaa1 bbb1 xxx1")
+		# automatically selects the item with the entered prefix xxx
+		self.ed.AutoCComplete()
+		self.assertEqual(self.ed.Contents(), b"xxx1\n")
+
+		# with SC_AUTOCOMPLETE_SELECT_FIRST_ITEM option
+		self.ed.AutoCSetOptions(2, 0)
+		self.ed.SetSel(3, 3)
+		self.ed.AutoCShow(3, b"aaa1 bbb1 xxx1")
+		# selects the first item regardless of the entered prefix and replaces the entered xxx
+		self.ed.AutoCComplete()
+		self.assertEqual(self.ed.Contents(), b"aaa11\n")
+
+		self.assertEqual(self.ed.AutoCActive(), 0)
+
 	def testAutoCustomSort(self):
 		# Checks bug #2294 where SC_ORDER_CUSTOM with an empty list asserts
 		# https://sourceforge.net/p/scintilla/bugs/2294/

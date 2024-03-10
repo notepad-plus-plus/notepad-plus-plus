@@ -22,20 +22,20 @@ enum CharacterCategory {
 	ccCc, ccCf, ccCs, ccCo, ccCn
 };
 
-CharacterCategory CategoriseCharacter(int character);
+CharacterCategory CategoriseCharacter(int character) noexcept;
 
 // Common definitions of allowable characters in identifiers from UAX #31.
-bool IsIdStart(int character);
-bool IsIdContinue(int character);
-bool IsXidStart(int character);
-bool IsXidContinue(int character);
+bool IsIdStart(int character) noexcept;
+bool IsIdContinue(int character) noexcept;
+bool IsXidStart(int character) noexcept;
+bool IsXidContinue(int character) noexcept;
 
 class CharacterCategoryMap {
 private:
 	std::vector<unsigned char> dense;
 public:
 	CharacterCategoryMap();
-	CharacterCategory CategoryFor(int character) const {
+	CharacterCategory CategoryFor(int character) const noexcept {
 		if (static_cast<size_t>(character) < dense.size()) {
 			return static_cast<CharacterCategory>(dense[character]);
 		} else {

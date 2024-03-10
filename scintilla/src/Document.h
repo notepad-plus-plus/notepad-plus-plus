@@ -385,7 +385,7 @@ public:
 	void ChangeInsertion(const char *s, Sci::Position length);
 	int SCI_METHOD AddData(const char *data, Sci_Position length) override;
 	IDocumentEditable *AsDocumentEditable() noexcept;
-	void * SCI_METHOD ConvertToDocument() override;
+	void *SCI_METHOD ConvertToDocument() override;
 	Sci::Position Undo();
 	Sci::Position Redo();
 	bool CanUndo() const noexcept { return cb.CanUndo(); }
@@ -427,7 +427,7 @@ public:
 	[[nodiscard]] unsigned int EditionDeletesAt(Sci::Position pos) const noexcept { return cb.EditionDeletesAt(pos); }
 	[[nodiscard]] Sci::Position EditionNextDelete(Sci::Position pos) const noexcept { return cb.EditionNextDelete(pos); }
 
-	const char * SCI_METHOD BufferPointer() override { return cb.BufferPointer(); }
+	const char *SCI_METHOD BufferPointer() override { return cb.BufferPointer(); }
 	const char *RangePointer(Sci::Position position, Sci::Position rangeLength) noexcept { return cb.RangePointer(position, rangeLength); }
 	Sci::Position GapPosition() const noexcept { return cb.GapPosition(); }
 

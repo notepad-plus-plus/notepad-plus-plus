@@ -47,7 +47,7 @@ struct CountWidths {
 		countOtherPlanes(countOtherPlanes_) {
 	}
 	CountWidths operator-() const noexcept {
-		return CountWidths(-countBasePlane , -countOtherPlanes);
+		return CountWidths(-countBasePlane, -countOtherPlanes);
 	}
 	Sci::Position WidthUTF32() const noexcept {
 		// All code points take one code unit in UTF-32.
@@ -832,7 +832,7 @@ void CellBuffer::BasicInsertString(Sci::Position position, const char *s, Sci::P
 	const Sci::Line lineStart = lineInsert;
 
 	// s may not NULL-terminated, ensure *ptr == '\n' or *next == '\n' is valid.
-	const char * const end = s + insertLength - 1;
+	const char *const end = s + insertLength - 1;
 	const char *ptr = s;
 	unsigned char ch = 0;
 

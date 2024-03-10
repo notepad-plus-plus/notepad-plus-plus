@@ -6420,6 +6420,18 @@ struct Sci_TextToFindFull {
 	  This also avoids a header rectangle above the list.</td>
         </tr>
 
+        <tr>
+          <td align="left"><code>SC_AUTOCOMPLETE_SELECT_FIRST_ITEM</code></td>
+
+          <td align="center">2</td>
+
+          <td>Always select the first item from the autocompletion list regardless of the value
+            entered in the editor. Useful when the autocompletion logic of the application
+            sorts autocompletion entries so that the best match is always at the top of the
+            list. Without this option, Scintilla selects the item from the autocompletion
+            list matching the value entered in the editor.</td>
+        </tr>
+
       </tbody>
     </table>
 

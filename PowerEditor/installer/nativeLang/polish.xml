@@ -16,7 +16,7 @@ Translation note:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.6.4">
+	<Native-Langue name="polski" filename="polish.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->

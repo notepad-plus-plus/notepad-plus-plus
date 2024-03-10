@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 2nd (v8.6.5)
+	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -1077,11 +1077,11 @@ Additionnal information about Corsican localization:
 					<Item id="6292" name="Larghezza dinamica"/>
 					<Item id="6293" name="Larghezza custante"/>
 					<Item id="6207" name="Affissà a margine di l’indetta"/>
-					<Item id="6223" name="Affissà a cronolugia di i cambiamenti"/>
+					<Item id="6295" name="Cronolugia di i cambiamenti"/>
+					<Item id="6223" name="Affissà in a margine"/>
+					<Item id="6296" name="Affissà in u testu"/>
 					<Item id="6211" name="Marcatore di culonna"/>
 					<Item id="6213" name="Culurisce u fondu"/>
-					<Item id="6237" name="Aghjunghje u vostru marcatore di culonna indichendu a so pusizione cù un numeru sanu.
-Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
 					<Item id="6231" name="Larghezza di bordu"/>
 					<Item id="6235" name="Nisunu bordu"/>
 					<Item id="6208" name="Imburrera"/>
@@ -1801,9 +1801,10 @@ U+200B : spaziu di larghezza nulla
 U+FEFF : spaziu nonspezzevule di larghezza nulla
 Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
 Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web."/>
-			<npcCustomColor-tip value="Accede à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/><!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcIncludeCcUniEol-tip value="Appiecà e preferenze d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
-			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definisce u valore à 0 per disattivà a verificazione autumatica."/>
+			<npcCustomColor-tip value="Accidite à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/><!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
+			<npcIncludeCcUniEol-tip value="Appiecate e preferenze d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
+			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definite u valore à 0 per disattivà a verificazione autumatica."/>
+			<verticalEdge-tip value="Aghjunghjite u vostru marcatore di culonna indichendu a so pusizione cù un numeru interu. Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -2235,7 +2235,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	const ScintillaViewParams& svp = nppParam.getSVP();
 
 	int enabledCHFlag = SC_CHANGE_HISTORY_DISABLED;
-	if (!(svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled))
+	if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
 	{
 		enabledCHFlag = SC_CHANGE_HISTORY_ENABLED;
 

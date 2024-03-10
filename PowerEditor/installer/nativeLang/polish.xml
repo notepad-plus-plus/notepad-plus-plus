@@ -10,7 +10,7 @@ Translation note:
         - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.5 (02.08.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
-        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.4 (29.02.2024)
+        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.5 (10.03.2024)
 
     The most recent version of this file can usually be downloaded from:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
@@ -1055,11 +1055,11 @@ Translation note:
 					<Item id="6292" name="Dynamiczna szerokość"/>
 					<Item id="6293" name="Stała szerokość"/>
 					<Item id="6207" name="Pokazuj zakładki"/>
-					<Item id="6223" name="Pokazuj historię zmian"/>
+					<Item id="6295" name="Historia zmian"/>
+					<Item id="6223" name="Pokaż na marginesie"/>
+					<Item id="6296" name="Pokaż w tekście"/>
 					<Item id="6211" name="Ustawienia krawędzi pionowej"/>
 					<Item id="6213" name="Podświetlenie tła"/>
-					<Item id="6237" name="Dodaj znacznik kolumny, wskazując jego pozycję za pomocą liczby dziesiętnej.
-Możesz zdefiniować kilka znaczników kolumn poprzez rozdzielenie różnych liczb znakami spacji."/>
 					<Item id="6231" name="Grubość ramki"/>
 					<Item id="6235" name="Brak obrysu"/>
 					<Item id="6208" name="Odstęp wewnętrzny"/>
@@ -1762,6 +1762,7 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Przejdź do okna Konfiguratora stylów, by zmienić domyślny własny kolor dla wybranych białych i niedrukowanych znaków (styl: „Non-printing characters custom color”)."/>
 			<npcIncludeCcUniEol-tip value="Zastosuj ustawienia wyglądu znaków niedrukowalnych do znaków kontrolnych C0 i C1 oraz znaków EOL (następna linia, separator linii i separator akapitu) z Unicode."/>
+			<verticalEdge-tip value="Dodaj znacznik kolumny, wskazując jej pozycję liczbą dziesiętną.Można zdefiniować kilka znaczników kolumn, używając pustej przestrzeni do oddzielenia różnych liczb"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

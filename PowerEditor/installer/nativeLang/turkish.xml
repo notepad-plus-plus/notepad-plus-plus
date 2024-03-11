@@ -1054,11 +1054,11 @@
 					<Item id="6292" name="Hareketli Genişlik"/>
 					<Item id="6293" name="Sabit Genişlik"/>
 					<Item id="6207" name="Yer imini görüntüle"/>
-					<Item id="6223" name="Değişim Geçmişini Göster"/>
+					<Item id="6295" name="Değişim Geçmişi"/>
+					<Item id="6223" name="Kenarlıkta Göster"/>
+					<Item id="6296" name="Yazıda Göster"/>
 					<Item id="6211" name="Dikey Kenarlık Ayarları"/>
 					<Item id="6213" name="Arka plan modu"/>
-					<Item id="6237" name="Sütun işaretçinizi, onun pozisyonunu ondalık sayıyla belirterek ekleyin.
-Birden fazla sütun işaretçisi belirleyebilmek için, farklı sayılar arasına beyaz boşluk eklemeniz yeterli."/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
 					<Item id="6235" name="Kenarlık yok"/>
 					<Item id="6208" name="Boşluk"/>
@@ -1780,6 +1780,7 @@ Sağdaki &quot;?&quot; düğmesine tıklayarak Kullanıcı Kılavuzu'nun olduğu
 			<npcCustomColor-tip value="Stil Yapılandırıcısı'na giderek, varsayılan seçili beyaz boşluk karakteri ve yazdırılamayan karakterler için kişisel rengi değiştirebilirsiniz (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Yazdırılamayan karaklerlerin görünüm ayarlarını C0, C1 kontrol ve Unicode Satır Sonu (yeni satır, satır ayırıcı ve paragraf ayırıcı) karakterleri için uygulayabilirsiniz."/>
 			<searchingInSelThresh-tip value="Bul penceresi aktifken, düzenleme bölgesinde &quot;Seçimde&quot; kutucuğunun otomatik olarak kontrolü yapılacak seçili karakter sayısı. En yüksek değer 1024'tür. Değeri 0 yaparak otomatik kontrolü etkisizleştirebilirsiniz."/>
+			<verticalEdge-tip value="Sütun işaretçinizi, pozisyonunu ondalık sayı ile belirterek ekleyin. Birden fazla sütun işaretçisini, aralarında boş alan bırakarak belirleyebilirsiniz."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

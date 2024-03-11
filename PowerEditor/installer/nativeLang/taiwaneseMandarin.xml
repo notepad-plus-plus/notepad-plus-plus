@@ -1002,17 +1002,17 @@
 					<Item id="6203" name="箭頭"/>
 					<Item id="6204" name="圓形"/>
 					<Item id="6205" name="方形"/>
-					<Item id="6226" name="無"/>
+					<Item id="6226" name="無"/> 
 					<Item id="6291" name="行號"/>
 					<Item id="6206" name="顯示"/>
 					<Item id="6292" name="動態寬度"/>
 					<Item id="6293" name="恆定寬度"/>
 					<Item id="6207" name="顯示標記"/>
-					<Item id="6223" name="顯示文件修改紀錄"/>
+					<Item id="6295" name="文件修改紀錄"/>
+					<Item id="6223" name="顯示在邊框上"/>
+					<Item id="6296" name="顯示在字裡行間"/>
 					<Item id="6211" name="行界線設定"/>
 					<Item id="6213" name="背景色模式"/>
-					<Item id="6237" name="如欲添加列標記可以在下面以數字指示其列位置。
-使用空格分隔不同數字來定義多個列標記。"/>
 					<Item id="6231" name="邊框寬度"/>
 					<Item id="6235" name="無邊框"/>
 					<Item id="6208" name="填充"/>
@@ -1623,6 +1623,7 @@
 
 2. 如果「停用自動換行」被啟動，在開啟一個大型文件時，「自動換行」將對所有文件停用。 你可以通過選單「檢視-&gt;自動換行」重新啟動這個功能。"/>
 			<searchingInSelThresh-tip value="在尋找與取代對話方塊啟動時，為啟動自動勾選核取方塊「僅尋找選取範圍」在編輯區中選取的字符數量。 最大值為 1024。 將值設置為 0 將停止自動勾選功能。"/>
+			<verticalEdge-tip value="如欲添加列標記可以在下面以數字指示其列位置。使用空格分隔不同數字來定義多個列標記。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -1,4 +1,4 @@
- 0 400 400   % All the exaples here should yeild folding
+ 0 400 400   % All the examples here should yield folding
  1 400 400   
  2 400 401 + classdef
  0 401 401 |     % Some code

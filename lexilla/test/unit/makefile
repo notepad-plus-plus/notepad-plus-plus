@@ -54,6 +54,7 @@ TESTOBJ=$(TESTSRC:.cxx=.o)
 TESTEDOBJ=\
  Accessor.o \
  CharacterSet.o \
+ InList.o \
  LexerBase.o \
  LexerModule.o \
  LexerSimple.o \

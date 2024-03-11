@@ -1915,7 +1915,7 @@ Sci::Position Editor::FormatRange(Scintilla::Message iMessage, Scintilla::uptr_t
 	void *ptr = PtrFromSPtr(lParam);
 	if (iMessage == Message::FormatRange) {
 		RangeToFormat *pfr = static_cast<RangeToFormat *>(ptr);
-		const CharacterRangeFull chrg{ pfr->chrg.cpMin,pfr->chrg.cpMax };
+		const CharacterRangeFull chrg{ pfr->chrg.cpMin, pfr->chrg.cpMax };
 		AutoSurface surface(pfr->hdc, this, Technology::Default);
 		AutoSurface surfaceMeasure(pfr->hdcTarget, this, Technology::Default);
 		if (!surface || !surfaceMeasure) {
@@ -6128,6 +6128,15 @@ sptr_t Editor::BytesResult(sptr_t lParam, const unsigned char *val, size_t len) 
 	return val ? len : 0;
 }
 
+sptr_t Editor::BytesResult(Scintilla::sptr_t lParam, std::string_view sv) noexcept {
+	// No NUL termination: sv.length() is number of valid/displayed bytes
+	if (lParam && !sv.empty()) {
+		char *ptr = CharPtrFromSPtr(lParam);
+		memcpy(ptr, sv.data(), sv.length());
+	}
+	return sv.length();
+}
+
 sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	//Platform::DebugPrintf("S start wnd proc %d %d %d\n",iMessage, wParam, lParam);
 
@@ -6374,8 +6383,8 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 		break;
 
 	case Message::GetTargetText: {
-			std::string text = RangeText(targetRange.start.Position(), targetRange.end.Position());
-			return BytesResult(lParam, reinterpret_cast<const unsigned char *>(text.c_str()), text.length());
+			const std::string text = RangeText(targetRange.start.Position(), targetRange.end.Position());
+			return BytesResult(lParam, text);
 		}
 
 	case Message::ReplaceTarget:
@@ -6585,6 +6594,56 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	case Message::EndUndoAction:
 		pdoc->EndUndoAction();
 		return 0;
+
+	case Message::GetUndoActions:
+		return pdoc->UndoActions();
+
+	case Message::SetUndoSavePoint:
+		pdoc->SetUndoSavePoint(static_cast<int>(wParam));
+		break;
+
+	case Message::GetUndoSavePoint:
+		return pdoc->UndoSavePoint();
+
+	case Message::SetUndoDetach:
+		pdoc->SetUndoDetach(static_cast<int>(wParam));
+		break;
+
+	case Message::GetUndoDetach:
+		return pdoc->UndoDetach();
+
+	case Message::SetUndoTentative:
+		pdoc->SetUndoTentative(static_cast<int>(wParam));
+		break;
+
+	case Message::GetUndoTentative:
+		return pdoc->UndoTentative();
+
+	case Message::SetUndoCurrent:
+		pdoc->SetUndoCurrent(static_cast<int>(wParam));
+		break;
+
+	case Message::GetUndoCurrent:
+		return pdoc->UndoCurrent();
+
+	case Message::GetUndoActionType:
+		return pdoc->UndoActionType(static_cast<int>(wParam));
+
+	case Message::GetUndoActionPosition:
+		return pdoc->UndoActionPosition(static_cast<int>(wParam));
+
+	case Message::GetUndoActionText: {
+		const std::string_view text = pdoc->UndoActionText(static_cast<int>(wParam));
+		return BytesResult(lParam, text);
+	}
+
+	case Message::PushUndoActionType:
+		pdoc->PushUndoActionType(static_cast<int>(wParam), lParam);
+		break;
+
+	case Message::ChangeLastUndoActionText:
+		pdoc->ChangeLastUndoActionText(wParam, CharPtrFromSPtr(lParam));
+		break;
 
 	case Message::GetCaretPeriod:
 		return caret.period;

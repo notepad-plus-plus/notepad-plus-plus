@@ -13,7 +13,7 @@ TEMPLATE = lib
 CONFIG += lib_bundle
 CONFIG += c++1z
 
-VERSION = 5.4.1
+VERSION = 5.4.3
 
 SOURCES += \
     ScintillaEdit.cpp \
@@ -23,6 +23,7 @@ SOURCES += \
     ../ScintillaEditBase/ScintillaEditBase.cpp \
     ../../src/XPM.cxx \
     ../../src/ViewStyle.cxx \
+    ../../src/UndoHistory.cxx \
     ../../src/UniqueString.cxx \
     ../../src/UniConversion.cxx \
     ../../src/Style.cxx \

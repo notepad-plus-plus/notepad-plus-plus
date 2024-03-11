@@ -584,6 +584,56 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla543.zip">Release 5.4.3</a>
+    </h3>
+    <ul>
+	<li>
+	Released 9 March 2024.
+	</li>
+	<li>
+	Fix redo failure introduced with 5.4.2.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2432/">Bug #2432</a>.
+	</li>
+	<li>
+	Add SC_AUTOCOMPLETE_SELECT_FIRST_ITEM option to
+	always selects the first item in the autocompletion list.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2403/">Bug #2403</a>.
+	</li>
+    </ul>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla542.zip">Release 5.4.2</a>
+    </h3>
+    <ul>
+	<li>
+	Released 5 March 2024.
+	</li>
+	<li>
+	Significantly reduce memory used for undo actions, often to a half or quarter of previous versions.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1458/">Feature #1458</a>.
+	</li>
+	<li>
+	Add APIs for saving and restoring undo history.
+	</li>
+	<li>
+	For GTK, when laying out text, detect runs with both left-to-right and right-to-left ranges and divide into an ASCII prefix and
+	more complex suffix. Lay out the ASCII prefix in the standard manner but, for the suffix, measure the whole width
+	and spread that over the suffix bytes. This produces more usable results where the caret moves over the ASCII prefix correctly
+	and over the suffix reasonably but not accurately.
+	</li>
+	<li>
+	For ScintillaEdit on Qt, fix reference from ScintillaDocument to Document to match change in 5.4.1
+	using IDocumentEditable for SCI_GETDOCPOINTER and SCI_SETDOCPOINTER.
+	</li>
+	<li>
+	For Direct2D on Win32, use the multi-threaded option to avoid crashes when Scintilla instances
+	created on different threads. There may be more problems with this scenario so it should be avoided.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2420/">Bug #2420</a>.
+	</li>
+	<li>
+	For Win32, ensure keyboard-initiated context menu appears in multi-screen situations.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla541.zip">Release 5.4.1</a>
     </h3>
     <ul>
@@ -592,7 +642,7 @@
 	</li>
 	<li>
 	Add IDocumentEditable interface to allow efficient interaction with document objects which may not be visible in
-	a Scintilla instance. This feature is provisonal and may change before being declared stable.
+	a Scintilla instance. This feature is provisional and may change before being declared stable.
 	For better type-safety, the ScintillaCall C++ API uses IDocumentEditable* where void* was used before which may require
 	changes to client code that uses document pointer APIs
 	DocPointer, SetDocPointer, CreateDocument, AddRefDocument, and ReleaseDocument.
@@ -2024,7 +2074,7 @@
 	</li>
 	<li>
 	Add SCI_SETTABMINIMUMWIDTH to set the minimum width of tabs.
-	This allows minimaps or overviews to be layed out to match the full size editing view.
+	This allows minimaps or overviews to be laid out to match the full size editing view.
 	<a href="https://sourceforge.net/p/scintilla/bugs/2118/">Bug #2118</a>.
 	</li>
 	<li>
@@ -2593,7 +2643,7 @@
 	<a href="https://sourceforge.net/p/scintilla/feature-requests/1210/">Feature #1210.</a>
 	</li>
 	<li>
-	Fix hang in Lua lexer when lexing a label upto the terminating "::".
+	Fix hang in Lua lexer when lexing a label up to the terminating "::".
 	<a href="https://sourceforge.net/p/scintilla/bugs/1999/">Bug #1999</a>.
 	</li>
 	<li>
@@ -2820,7 +2870,7 @@
 	'Ctrl+L|SCI_LINEDELETE|'.
 	</li>
 	<li>
-	The Matlab lexer treats 'end' as a number rather than a keyword when used as a index.
+	The Matlab lexer treats 'end' as a number rather than a keyword when used as an index.
 	This also stops incorrect folding.
 	<a href="https://sourceforge.net/p/scintilla/bugs/1951/">Bug #1951</a>.
 	</li>
@@ -9863,7 +9913,7 @@
 	SciTE crashing bug fixed in incremental search on Windows ME.
 	</li>
 	<li>
-	SciTE on Windows has a optional find and replace dialogs that can search through
+	SciTE on Windows has an optional find and replace dialogs that can search through
 	all buffers and search within a particular style number.
 	</li>
     </ul>
@@ -11432,7 +11482,7 @@
 	SciTE's Export as LaTeX output improved.
       </li>
       <li>
-	Better choice of autocompletion displaying above the caret rather then
+	Better choice of autocompletion displaying above the caret rather than
 	below when that is more sensible.
       </li>
       <li>
@@ -12800,7 +12850,7 @@
         Pascal lexer handles comments more correctly.
       </li>
       <li>
-        C/C++/Java/JavaScipt lexer has a state for line doc comments.
+        C/C++/Java/JavaScript lexer has a state for line doc comments.
       </li>
       <li>
         Error output lexer understands Sun CC messages.
@@ -14017,7 +14067,7 @@
       <li>
         Scintilla supports a 'savepoint' in the undo stack which can be set by the container when
         the document is saved. Notifications are sent to the container when the savepoint is
-        entered or left, allowing the container to to display a dirty indicator and change its
+        entered or left, allowing the container to display a dirty indicator and change its
         menus.
       </li>
       <li>

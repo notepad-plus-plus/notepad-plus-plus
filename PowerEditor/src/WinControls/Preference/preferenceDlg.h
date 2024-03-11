@@ -115,10 +115,13 @@ private:
 
 class MarginsBorderEdgeSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	MarginsBorderEdgeSubDlg() = default;
 	
 private :
+	HWND _verticalEdgeTip = nullptr;
+
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };

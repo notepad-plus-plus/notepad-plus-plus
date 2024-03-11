@@ -57,7 +57,7 @@ struct Folding {
 };
 
 // Table of case folding for non-ASCII bytes in Windows Latin code page 1252
-Folding foldings1252[] = {
+const Folding foldings1252[] = {
 	{0x8a, 0x9a, 0x01},
 	{0x8c, 0x9c, 0x01},
 	{0x8e, 0x9e, 0x01},
@@ -67,7 +67,7 @@ Folding foldings1252[] = {
 };
 
 // Table of case folding for non-ASCII bytes in Windows Russian code page 1251
-Folding foldings1251[] = {
+const Folding foldings1251[] = {
 	{0x80, 0x90, 0x01},
 	{0x81, 0x83, 0x01},
 	{0x8a, 0x9a, 0x01},
@@ -83,7 +83,7 @@ Folding foldings1251[] = {
 	{0xc0, 0xe0, 0x20},
 };
 
-std::string ReadFile(std::string path) {
+std::string ReadFile(const std::string &path) {
 	std::ifstream ifs(path, std::ios::binary);
 	std::string content((std::istreambuf_iterator<char>(ifs)),
 		(std::istreambuf_iterator<char>()));
@@ -163,6 +163,13 @@ struct DocPlus {
 		document.InsertString(gapNew, "!", 1);
 		// Remove insertion
 		document.DeleteChars(gapNew, 1);
+	}
+
+	[[nodiscard]] std::string Contents() const {
+		const Sci::Position length = document.Length();
+		std::string contents(length, 0);
+		document.GetCharRange(contents.data(), 0, length);
+		return contents;
 	}
 };
 
@@ -266,7 +273,7 @@ TEST_CASE("Document") {
 		DocPlus doc("_abcdef", 0);	// _ a b c d e f
 		constexpr std::string_view finding = "cd";
 		Sci::Position lengthFinding = finding.length();
-		size_t docLength = doc.document.Length() - 1;
+		const size_t docLength = doc.document.Length() - 1;
 		Sci::Position location = doc.document.FindText(1, docLength, finding.data(), FindOption::MatchCase, &lengthFinding);
 		REQUIRE(location == 3);
 		location = doc.document.FindText(docLength, 1, finding.data(), FindOption::MatchCase, &lengthFinding);
@@ -723,6 +730,80 @@ TEST_CASE("Document") {
 
 }
 
+TEST_CASE("DocumentUndo") {
+
+	// These tests check that Undo reports the end of coalesced deletes
+
+	constexpr std::string_view sText = "Scintilla";
+	DocPlus doc(sText, 0);
+
+	SECTION("CheckDeleteForwards") {
+		// Delete forwards like the Del key
+		doc.document.DeleteUndoHistory();
+		doc.document.DeleteChars(1, 1);
+		doc.document.DeleteChars(1, 1);
+		doc.document.DeleteChars(1, 1);
+		const Sci::Position position = doc.document.Undo();
+		REQUIRE(position == 4);	// End of reinsertion
+		REQUIRE(!doc.document.CanUndo());	// Exhausted undo stack
+		REQUIRE(doc.document.CanRedo());
+	}
+
+	SECTION("CheckDeleteBackwards") {
+		// Delete backwards like the backspace key
+		doc.document.DeleteUndoHistory();
+		doc.document.DeleteChars(5, 1);
+		doc.document.DeleteChars(4, 1);
+		doc.document.DeleteChars(3, 1);
+		const Sci::Position position = doc.document.Undo();
+		REQUIRE(position == 6);	// End of reinsertion
+		REQUIRE(!doc.document.CanUndo());	// Exhausted undo stack
+	}
+
+	SECTION("CheckBothWays") {
+		// Delete backwards like the backspace key
+		doc.document.DeleteUndoHistory();
+		// Like having the caret at position 5 then
+		doc.document.DeleteChars(5, 1);	// Del
+		doc.document.DeleteChars(4, 1); // Backspace
+		doc.document.DeleteChars(4, 1); // Del
+		doc.document.DeleteChars(3, 1); // Backspace
+		const Sci::Position position = doc.document.Undo();
+		REQUIRE(position == 7);	// End of reinsertion, Start at 5, 2*Del
+		REQUIRE(!doc.document.CanUndo());	// Exhausted undo stack
+	}
+
+	SECTION("CheckInsert") {
+		// Insertions are only coalesced when following previous
+		doc.document.DeleteUndoHistory();
+		doc.document.InsertString(1, "1");
+		doc.document.InsertString(2, "2");
+		doc.document.InsertString(3, "3");
+		REQUIRE(doc.Contents() == "S123cintilla");
+		const Sci::Position position = doc.document.Undo();
+		REQUIRE(position == 1);	// Start of insertions
+		REQUIRE(!doc.document.CanUndo());	// Exhausted undo stack
+	}
+
+	SECTION("CheckGrouped") {
+		// Check that position returned for group is that at end of first deletion set
+		// Also include a container undo action.
+		doc.document.DeleteUndoHistory();
+		doc.document.BeginUndoAction();
+		// At 1, 2*Del so end of initial deletion sequence is 3
+		doc.document.DeleteChars(1, 1); // 'c'
+		doc.document.DeleteChars(1, 1); // 'i'
+		doc.document.AddUndoAction(99, true);
+		doc.document.InsertString(1, "1");
+		doc.document.DeleteChars(4, 2); // 'il'
+		doc.document.BeginUndoAction();
+		REQUIRE(doc.Contents() == "S1ntla");
+		const Sci::Position position = doc.document.Undo();
+		REQUIRE(position == 3);	// Start of insertions
+		REQUIRE(!doc.document.CanUndo());	// Exhausted undo stack
+	}
+}
+
 TEST_CASE("Words") {
 
 	SECTION("WordsInText") {
@@ -759,7 +840,7 @@ TEST_CASE("SafeSegment") {
 		const DocPlus doc("", 0);
 		// all encoding: break before or after last space
 		constexpr std::string_view text = "12 ";
-		size_t length = doc.document.SafeSegment(text);
+		const size_t length = doc.document.SafeSegment(text);
 		REQUIRE(length <= text.length());
 		REQUIRE(text[length - 1] == '2');
 		REQUIRE(text[length] == ' ');

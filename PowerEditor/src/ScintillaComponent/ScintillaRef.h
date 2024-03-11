@@ -15,11 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#ifndef SCINTILLA_REF_H
-#define SCINTILLA_REF_H
+#pragma once
 
+enum changeHistoryState { disable = 0, margin = 1, indicator = 2, marginIndicator = 3 };
 enum folderStyle {FOLDER_TYPE, FOLDER_STYLE_SIMPLE, FOLDER_STYLE_ARROW, FOLDER_STYLE_CIRCLE, FOLDER_STYLE_BOX, FOLDER_STYLE_NONE};
 enum lineWrapMethod {LINEWRAP_DEFAULT, LINEWRAP_ALIGNED, LINEWRAP_INDENT};
 enum lineHiliteMode {LINEHILITE_NONE, LINEHILITE_HILITE, LINEHILITE_FRAME};
-
-#endif //SCINTILLA_REF_H

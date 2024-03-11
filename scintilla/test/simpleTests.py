@@ -887,6 +887,82 @@ class TestSimple(unittest.TestCase):
 		self.assertEqual(self.ed.IsRangeWord(6, 7), 0)
 		self.assertEqual(self.ed.IsRangeWord(6, 8), 1)
 
+atInsertion = 0
+atDeletion = 1
+actMayCoalesce = 0x100
+
+class TestUndoSaveRestore(unittest.TestCase):
+
+	def setUp(self):
+		self.xite = Xite.xiteFrame
+		self.ed = self.xite.ed
+		self.ed.ClearAll()
+		self.ed.EmptyUndoBuffer()
+		self.data = b"xy"
+
+	def testSave(self):
+		self.ed.InsertText(0, self.data)
+		self.assertEqual(self.ed.Contents(), b"xy")
+		self.ed.SetSavePoint()
+		self.ed.InsertText(0, self.data)
+		self.assertEqual(self.ed.Contents(), b"xyxy")
+		self.ed.DeleteRange(1, 2)
+		self.assertEqual(self.ed.Contents(), b"xy")
+		self.ed.DeleteRange(1, 1)
+		self.assertEqual(self.ed.Contents(), b"x")
+
+		self.assertEqual(self.ed.UndoActions, 4)
+		self.assertEqual(self.ed.UndoCurrent, 4)
+		self.assertEqual(self.ed.UndoSavePoint, 1)
+		self.assertEqual(self.ed.UndoTentative, -1)
+		self.assertEqual(self.ed.GetUndoActionType(0), atInsertion)
+		self.assertEqual(self.ed.GetUndoActionPosition(0), 0)
+		self.assertEqual(bytes(self.ed.GetUndoActionText(0)), self.data)
+		self.assertEqual(self.ed.GetUndoActionType(1), atInsertion)
+		self.assertEqual(self.ed.GetUndoActionPosition(1), 0)
+		self.assertEqual(bytes(self.ed.GetUndoActionText(1)), self.data)
+		self.assertEqual(self.ed.GetUndoActionType(2), atDeletion + actMayCoalesce)
+		self.assertEqual(self.ed.GetUndoActionPosition(2), 1)
+		self.assertEqual(bytes(self.ed.GetUndoActionText(2)), b'yx')
+		self.assertEqual(self.ed.GetUndoActionType(3), atDeletion + actMayCoalesce)
+		self.assertEqual(self.ed.GetUndoActionPosition(3), 1)
+		self.assertEqual(bytes(self.ed.GetUndoActionText(3)), b'y')
+
+	def testRestore(self):
+		self.ed.InsertText(0, self.data)
+		self.assertEqual(self.ed.Contents(), b"xy")
+		self.ed.EmptyUndoBuffer()
+
+		self.ed.PushUndoActionType(atInsertion, 0)
+		self.ed.ChangeLastUndoActionText(2, b'xy')
+		self.ed.PushUndoActionType(atInsertion, 0)
+		self.ed.ChangeLastUndoActionText(2, b'xy')
+		self.ed.PushUndoActionType(atDeletion + actMayCoalesce, 1)
+		self.ed.ChangeLastUndoActionText(2, b'yx')
+		self.ed.PushUndoActionType(atDeletion + actMayCoalesce, 1)
+		self.ed.ChangeLastUndoActionText(1, b'y')
+		
+		self.assertEqual(self.ed.UndoActions, 4)
+		self.ed.SetUndoCurrent(1)
+		self.ed.SetUndoSavePoint(1)
+		self.ed.SetUndoTentative(-1)
+		
+		self.ed.Undo()
+		self.assertEqual(self.ed.UndoCurrent, 0)
+		self.assertEqual(self.ed.Contents(), b"")
+		self.ed.Redo()
+		self.assertEqual(self.ed.UndoCurrent, 1)
+		self.assertEqual(self.ed.Contents(), b"xy")
+		self.ed.Redo()
+		self.assertEqual(self.ed.UndoCurrent, 2)
+		self.assertEqual(self.ed.Contents(), b"xyxy")
+		self.ed.Redo()	# Does 2 actions due to mayCoalesce
+		self.assertEqual(self.ed.UndoCurrent, 4)
+		self.assertEqual(self.ed.Contents(), b"x")
+
+		# No more redo actions
+		self.assertEqual(self.ed.CanRedo(), 0)
+
 class TestChangeHistory(unittest.TestCase):
 
 	def setUp(self):
@@ -3050,6 +3126,28 @@ class TestAutoComplete(unittest.TestCase):
 		self.ed.AutoCSelect(0, b"d")
 		self.ed.AutoCComplete()
 		self.assertEqual(self.ed.Contents(), b"defnxxx\n")
+
+		self.assertEqual(self.ed.AutoCActive(), 0)
+
+	def testAutoSelectFirstItem(self):
+		self.assertEqual(self.ed.AutoCActive(), 0)
+
+		self.ed.AutoCSetOrder(self.ed.SC_ORDER_CUSTOM)
+
+		# without SC_AUTOCOMPLETE_SELECT_FIRST_ITEM option
+		self.ed.SetSel(3, 3)
+		self.ed.AutoCShow(3, b"aaa1 bbb1 xxx1")
+		# automatically selects the item with the entered prefix xxx
+		self.ed.AutoCComplete()
+		self.assertEqual(self.ed.Contents(), b"xxx1\n")
+
+		# with SC_AUTOCOMPLETE_SELECT_FIRST_ITEM option
+		self.ed.AutoCSetOptions(2, 0)
+		self.ed.SetSel(3, 3)
+		self.ed.AutoCShow(3, b"aaa1 bbb1 xxx1")
+		# selects the first item regardless of the entered prefix and replaces the entered xxx
+		self.ed.AutoCComplete()
+		self.assertEqual(self.ed.Contents(), b"aaa11\n")
 
 		self.assertEqual(self.ed.AutoCActive(), 0)
 

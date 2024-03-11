@@ -37,13 +37,13 @@ TEST_CASE("CompileCopying SplitVector") {
 		SplitVector<int> s2;
 
 		// Copy constructor fails
-		SplitVector<int> sa(s);
+		const SplitVector<int> sa(s);
 		// Copy assignment fails
 		SplitVector<int> sb;
 		sb = s;
 
 		// Move constructor fails
-		SplitVector<int> sc(std::move(s));
+		const SplitVector<int> sc(std::move(s));
 		// Move assignment fails
 		SplitVector<int> sd;
 		sd = (std::move(s2));
@@ -62,7 +62,7 @@ TEST_CASE("CompileCopying SplitVector") {
 #endif
 
 		// Move constructor fails
-		SplitVector<UniqueInt> sc(std::move(s));
+		const SplitVector<UniqueInt> sc(std::move(s));
 		// Move assignment fails
 		SplitVector<UniqueInt> sd;
 		sd = (std::move(s));
@@ -72,7 +72,7 @@ TEST_CASE("CompileCopying SplitVector") {
 
 struct StringSetHolder {
 	SplitVector<std::string> sa;
-	bool Check() const noexcept {
+	[[nodiscard]] bool Check() const noexcept {
 		for (int i = 0; i < sa.Length(); i++) {
 			if (sa[i].empty()) {
 				return false;
@@ -374,7 +374,7 @@ TEST_CASE("SplitVector") {
 	SECTION("DeleteBackAndForth") {
 		sv.InsertValue(0, 10, 87);
 		for (int i=0; i<10; i+=2) {
-			int len = 10 - i;
+			const int len = 10 - i;
 			REQUIRE(len == sv.Length());
 			for (int j=0; j<sv.Length(); j++) {
 				REQUIRE(87 == sv.ValueAt(j));

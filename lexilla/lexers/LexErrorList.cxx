@@ -5,20 +5,21 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
+#include <initializer_list>
 
 #include "ILexer.h"
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#include "InList.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -42,11 +43,7 @@ constexpr bool Is1To9(char ch) noexcept {
 	return (ch >= '1') && (ch <= '9');
 }
 
-bool IsAlphabetic(int ch) {
-	return IsASCII(ch) && isalpha(ch);
-}
-
-inline bool AtEOL(Accessor &styler, Sci_PositionU i) {
+bool AtEOL(Accessor &styler, Sci_Position i) {
 	return (styler[i] == '\n') ||
 	       ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n'));
 }
@@ -255,18 +252,16 @@ int RecogniseErrorListLine(const char *lineBuffer, Sci_PositionU lengthLine, Sci
 				} else if ((ch == ':' && chNext == ' ') || (ch == ' ')) {
 					// Possibly Delphi.. don't test against chNext as it's one of the strings below.
 					char word[512];
-					unsigned numstep;
+					unsigned numstep = 0;
 					if (ch == ' ')
 						numstep = 1; // ch was ' ', handle as if it's a delphi errorline, only add 1 to i.
 					else
 						numstep = 2; // otherwise add 2.
 					Sci_PositionU chPos = 0;
-					for (Sci_PositionU j = i + numstep; j < lengthLine && IsAlphabetic(lineBuffer[j]) && chPos < sizeof(word) - 1; j++)
+					for (Sci_PositionU j = i + numstep; j < lengthLine && IsUpperOrLowerCase(lineBuffer[j]) && chPos < sizeof(word) - 1; j++)
 						word[chPos++] = lineBuffer[j];
 					word[chPos] = 0;
-					if (!CompareCaseInsensitive(word, "error") || !CompareCaseInsensitive(word, "warning") ||
-						!CompareCaseInsensitive(word, "fatal") || !CompareCaseInsensitive(word, "catastrophic") ||
-						!CompareCaseInsensitive(word, "note") || !CompareCaseInsensitive(word, "remark")) {
+					if (InListCaseInsensitive(word, {"error", "warning", "fatal", "catastrophic", "note", "remark"})) {
 						state = stMsVc;
 					} else {
 						state = stUnrecognized;
@@ -363,12 +358,12 @@ void ColouriseErrorListLine(
 		int portionStyle = style;
 		while (const char *startSeq = strstr(linePortion, CSI)) {
 			if (startSeq > linePortion) {
-				styler.ColourTo(startPortion + static_cast<int>(startSeq - linePortion), portionStyle);
+				styler.ColourTo(startPortion + (startSeq - linePortion), portionStyle);
 			}
 			const char *endSeq = startSeq + 2;
 			while (!SequenceEnd(*endSeq))
 				endSeq++;
-			const Sci_Position endSeqPosition = startPortion + static_cast<Sci_Position>(endSeq - linePortion) + 1;
+			const Sci_Position endSeqPosition = startPortion + (endSeq - linePortion) + 1;
 			switch (*endSeq) {
 			case 0:
 				styler.ColourTo(endPos, SCE_ERR_ESCSEQ_UNKNOWN);
@@ -433,4 +428,4 @@ const char *const emptyWordListDesc[] = {
 
 }
 
-LexerModule lmErrorList(SCLEX_ERRORLIST, ColouriseErrorListDoc, "errorlist", 0, emptyWordListDesc);
+LexerModule lmErrorList(SCLEX_ERRORLIST, ColouriseErrorListDoc, "errorlist", nullptr, emptyWordListDesc);

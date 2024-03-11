@@ -36,6 +36,7 @@
 
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
+#include "CharacterType.h"
 #include "XPM.h"
 #include "UniConversion.h"
 
@@ -1085,6 +1086,27 @@ void SurfaceImpl::MeasureWidthsUTF8(const Font *font_, std::string_view text, XY
 		}
 		while (!iti.finished) {
 			iti.Next();
+			if (iti.curIndex < i) {
+				// Backwards movement indicater bidirectional.
+				// Divide into ASCII prefix and non-ASCII suffix as this is common case
+				// and produces accurate positions for the ASCII prefix.
+				size_t lenASCII=0;
+				while (lenASCII<text.length() && IsASCII(text[lenASCII])) {
+					lenASCII++;
+				}
+				const std::string_view asciiPrefix = text.substr(0, lenASCII);
+				const std::string_view bidiSuffix = text.substr(lenASCII);
+				// Recurse for ASCII prefix.
+				MeasureWidthsUTF8(font_, asciiPrefix, positions);
+				// Measure the whole bidiSuffix and spread its width evenly
+				const XYPOSITION endASCII = positions[lenASCII-1];
+				const XYPOSITION widthBidi = WidthText(font_, bidiSuffix);
+				const XYPOSITION widthByteBidi = widthBidi / bidiSuffix.length();
+				for (size_t bidiPos=0; bidiPos<bidiSuffix.length(); bidiPos++) {
+					positions[bidiPos+lenASCII] = endASCII + widthByteBidi * (bidiPos + 1);
+				}
+				return;
+			}
 			const int places = iti.curIndex - i;
 			while (i < iti.curIndex) {
 				// Evenly distribute space among bytes of this cluster.

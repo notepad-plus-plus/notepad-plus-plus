@@ -167,9 +167,11 @@ class EscapeSequence {
 	const CharacterSet *escapeSetValid = nullptr;
 	int digitsLeft = 0;
 public:
+	int outerState = SCE_C_DEFAULT;
 	EscapeSequence() = default;
-	void resetEscapeState(int nextChar) noexcept {
+	void resetEscapeState(int state, int nextChar) noexcept {
 		digitsLeft = 0;
+		outerState = state;
 		escapeSetValid = &setNoneNumeric;
 		if (nextChar == 'U') {
 			digitsLeft = 9;
@@ -185,7 +187,7 @@ public:
 			escapeSetValid = &setOctDigits;
 		}
 	}
-	bool atEscapeEnd(int currChar) const noexcept {
+	[[nodiscard]] bool atEscapeEnd(int currChar) const noexcept {
 		return (digitsLeft <= 0) || !escapeSetValid->Contains(currChar);
 	}
 	void consumeDigit() noexcept {
@@ -254,28 +256,27 @@ class LinePPState {
 	// level is the nesting level of #if constructs
 	int level = -1;
 	static const int maximumNestingLevel = 31;
-	int maskLevel() const noexcept {
+	[[nodiscard]] int maskLevel() const noexcept {
 		if (level >= 0) {
 			return 1 << level;
-		} else {
-			return 1;
 		}
+		return 1;
 	}
 public:
 	LinePPState() noexcept = default;
-	bool ValidLevel() const noexcept {
+	[[nodiscard]] bool ValidLevel() const noexcept {
 		return level >= 0 && level < maximumNestingLevel;
 	}
-	bool IsActive() const noexcept {
+	[[nodiscard]] bool IsActive() const noexcept {
 		return state == 0;
 	}
-	bool IsInactive() const noexcept {
+	[[nodiscard]] bool IsInactive() const noexcept {
 		return state != 0;
 	}
-	int ActiveState() const noexcept {
+	[[nodiscard]] int ActiveState() const noexcept {
 		return state ? inactiveFlag : 0;
 	}
-	bool CurrentIfTaken() const noexcept {
+	[[nodiscard]] bool CurrentIfTaken() const noexcept {
 		return (ifTaken & maskLevel()) != 0;
 	}
 	void StartSection(bool on) noexcept {
@@ -310,7 +311,7 @@ public:
 class PPStates {
 	std::vector<LinePPState> vlls;
 public:
-	LinePPState ForLine(Sci_Position line) const noexcept {
+	[[nodiscard]] LinePPState ForLine(Sci_Position line) const noexcept {
 		if ((line > 0) && (vlls.size() > static_cast<size_t>(line))) {
 			return vlls[line];
 		}
@@ -320,6 +321,18 @@ public:
 		vlls.resize(line+1);
 		vlls[line] = lls;
 	}
+};
+
+enum class BackQuotedString : int {
+	None,
+	RawString,
+	TemplateLiteral,
+};
+
+// string interpolating state
+struct InterpolatingState {
+	int state;
+	int braceCount;
 };
 
 // An individual named option for use in an OptionSet
@@ -333,7 +346,7 @@ struct OptionsCPP {
 	bool verbatimStringsAllowEscapes = false;
 	bool triplequotedStrings = false;
 	bool hashquotedStrings = false;
-	bool backQuotedStrings = false;
+	BackQuotedString backQuotedStrings = BackQuotedString::None;
 	bool escapeSequence = false;
 	bool fold = false;
 	bool foldSyntaxBased = true;
@@ -385,7 +398,10 @@ struct OptionSetCPP : public OptionSet<OptionsCPP> {
 			"Set to 1 to enable highlighting of hash-quoted strings.");
 
 		DefineProperty("lexer.cpp.backquoted.strings", &OptionsCPP::backQuotedStrings,
-			"Set to 1 to enable highlighting of back-quoted raw strings .");
+			"Set how to highlighting back-quoted strings. "
+			"0 (the default) no highlighting. "
+			"1 highlighted as Go raw string. "
+			"2 highlighted as JavaScript template literal.");
 
 		DefineProperty("lexer.cpp.escape.sequence", &OptionsCPP::escapeSequence,
 			"Set to 1 to enable highlighting of escape sequences in strings");
@@ -480,6 +496,7 @@ class LexerCPP : public ILexer5 {
 	CharacterSet setWordStart;
 	PPStates vlls;
 	std::vector<PPDefinition> ppDefineHistory;
+	std::map<Sci_Position, std::vector<InterpolatingState>> interpolatingAtEol;
 	WordList keywords;
 	WordList keywords2;
 	WordList keywords3;
@@ -497,11 +514,11 @@ class LexerCPP : public ILexer5 {
 			arguments.clear();
 			return *this;
 		}
-		bool IsMacro() const noexcept {
+		[[nodiscard]] bool IsMacro() const noexcept {
 			return !arguments.empty();
 		}
 	};
-	typedef std::map<std::string, SymbolValue> SymbolTable;
+	using SymbolTable = std::map<std::string, SymbolValue>;
 	SymbolTable preprocessorDefinitionsStart;
 	OptionsCPP options;
 	OptionSetCPP osCPP;
@@ -526,8 +543,7 @@ public:
 	LexerCPP(LexerCPP &&) = delete;
 	void operator=(const LexerCPP &) = delete;
 	void operator=(LexerCPP &&) = delete;
-	virtual ~LexerCPP() {
-	}
+	virtual ~LexerCPP() = default;
 	void SCI_METHOD Release() noexcept override {
 		delete this;
 	}
@@ -661,7 +677,7 @@ public:
 		return style & ~inactiveFlag;
 	}
 	void EvaluateTokens(Tokens &tokens, const SymbolTable &preprocessorDefinitions);
-	Tokens Tokenize(const std::string &expr) const;
+	[[nodiscard]] Tokens Tokenize(const std::string &expr) const;
 	bool EvaluateExpression(const std::string &expr, const SymbolTable &preprocessorDefinitions);
 };
 
@@ -718,21 +734,19 @@ Sci_Position SCI_METHOD LexerCPP::WordListSet(int n, const char *wl) {
 					const char *cpEquals = strchr(cpDefinition, '=');
 					if (cpEquals) {
 						std::string name(cpDefinition, cpEquals - cpDefinition);
-						std::string val(cpEquals+1);
+						const std::string val(cpEquals+1);
 						const size_t bracket = name.find('(');
 						const size_t bracketEnd = name.find(')');
 						if ((bracket != std::string::npos) && (bracketEnd != std::string::npos)) {
 							// Macro
-							std::string args = name.substr(bracket + 1, bracketEnd - bracket - 1);
+							const std::string args = name.substr(bracket + 1, bracketEnd - bracket - 1);
 							name = name.substr(0, bracket);
 							preprocessorDefinitionsStart[name] = SymbolValue(val, args);
 						} else {
 							preprocessorDefinitionsStart[name] = val;
 						}
 					} else {
-						std::string name(cpDefinition);
-						std::string val("1");
-						preprocessorDefinitionsStart[name] = val;
+						preprocessorDefinitionsStart[std::string(cpDefinition)] = std::string("1");
 					}
 				}
 			}
@@ -771,7 +785,21 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 	bool inRERange = false;
 	bool seenDocKeyBrace = false;
 
+	std::vector<InterpolatingState> interpolatingStack;
+
 	Sci_Position lineCurrent = styler.GetLine(startPos);
+	if (options.backQuotedStrings == BackQuotedString::TemplateLiteral) {
+		// code copied from LexPython
+		auto it = interpolatingAtEol.find(lineCurrent - 1);
+		if (it != interpolatingAtEol.end()) {
+			interpolatingStack = it->second;
+		}
+		it = interpolatingAtEol.lower_bound(lineCurrent);
+		if (it != interpolatingAtEol.end()) {
+			interpolatingAtEol.erase(it, interpolatingAtEol.end());
+		}
+	}
+
 	if ((MaskActive(initStyle) == SCE_C_PREPROCESSOR) ||
       (MaskActive(initStyle) == SCE_C_COMMENTLINE) ||
       (MaskActive(initStyle) == SCE_C_COMMENTLINEDOC)) {
@@ -863,6 +891,9 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 			vlls.Add(lineCurrent, preproc);
 			if (!rawStringTerminator.empty()) {
 				rawSTNew.Set(lineCurrent-1, rawStringTerminator);
+			}
+			if (!interpolatingStack.empty()) {
+				interpolatingAtEol[sc.currentLine] = interpolatingStack;
 			}
 		}
 
@@ -1051,7 +1082,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 					} else {
 						sc.GetCurrentString(currentText, transform);
 						assert(!currentText.empty());
-						std::string currentSuffix = currentText.substr(1);
+						const std::string currentSuffix = currentText.substr(1);
 						if (!keywords3.InList(currentSuffix) && !keywords3.InList(currentText)) {
 							const int subStyleCDKW = classifierDocKeyWords.ValueFor(currentSuffix);
 							if (subStyleCDKW >= 0) {
@@ -1087,8 +1118,8 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 					}
 				} else if (sc.ch == '\\') {
 					if (options.escapeSequence) {
+						escapeSeq.resetEscapeState(sc.state, sc.chNext);
 						sc.SetState(SCE_C_ESCAPESEQUENCE|activitySet);
-						escapeSeq.resetEscapeState(sc.chNext);
 					}
 					sc.Forward(); // Skip all characters after the backslash
 				} else if (sc.ch == '\"') {
@@ -1101,20 +1132,9 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 				break;
 			case SCE_C_ESCAPESEQUENCE:
 				escapeSeq.consumeDigit();
-				if (!escapeSeq.atEscapeEnd(sc.ch)) {
-					break;
-				}
-				if (sc.ch == '"') {
-					sc.SetState(SCE_C_STRING|activitySet);
-					sc.ForwardSetState(SCE_C_DEFAULT|activitySet);
-				} else if (sc.ch == '\\') {
-					escapeSeq.resetEscapeState(sc.chNext);
-					sc.Forward();
-				} else {
-					sc.SetState(SCE_C_STRING|activitySet);
-					if (sc.atLineEnd) {
-						sc.ChangeState(SCE_C_STRINGEOL|activitySet);
-					}
+				if (escapeSeq.atEscapeEnd(sc.ch)) {
+					sc.SetState(escapeSeq.outerState);
+					continue;
 				}
 				break;
 			case SCE_C_HASHQUOTEDSTRING:
@@ -1131,7 +1151,21 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 					for (size_t termPos=rawStringTerminator.size(); termPos; termPos--)
 						sc.Forward();
 					sc.SetState(SCE_C_DEFAULT|activitySet);
-					rawStringTerminator.clear();
+					if (interpolatingStack.empty()) {
+						rawStringTerminator.clear();
+					}
+				} else if (options.backQuotedStrings == BackQuotedString::TemplateLiteral) {
+					if (sc.ch == '\\') {
+						if (options.escapeSequence) {
+							escapeSeq.resetEscapeState(sc.state, sc.chNext);
+							sc.SetState(SCE_C_ESCAPESEQUENCE|activitySet);
+						}
+						sc.Forward(); // Skip all characters after the backslash
+					} else if (sc.Match('$', '{')) {
+						interpolatingStack.push_back({sc.state, 1});
+						sc.SetState(SCE_C_OPERATOR|activitySet);
+						sc.Forward();
+					}
 				}
 				break;
 			case SCE_C_CHARACTER:
@@ -1222,7 +1256,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 			} else if (options.hashquotedStrings && sc.Match('#', '\"')) {
 				sc.SetState(SCE_C_HASHQUOTEDSTRING|activitySet);
 				sc.Forward();
-			} else if (options.backQuotedStrings && sc.Match('`')) {
+			} else if ((options.backQuotedStrings != BackQuotedString::None) && sc.Match('`')) {
 				sc.SetState(SCE_C_STRINGRAW|activitySet);
 				rawStringTerminator = "`";
 			} else if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
@@ -1336,7 +1370,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 									// Inactive, if expression true then may become active if parent scope active
 									assert(sc.state == (SCE_C_PREPROCESSOR | inactiveFlag));
 									// Similar to #if
-									std::string restOfLine = GetRestOfLine(styler, sc.currentPos + 4, true);
+									const std::string restOfLine = GetRestOfLine(styler, sc.currentPos + 4, true);
 									const bool ifGood = EvaluateExpression(restOfLine, preprocessorDefinitions);
 									if (ifGood) {
 										preproc.InvertCurrentLevel();
@@ -1365,13 +1399,13 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 								size_t endName = startName;
 								while ((endName < restOfLine.length()) && setWord.Contains(restOfLine[endName]))
 									endName++;
-								std::string key = restOfLine.substr(startName, endName-startName);
+								const std::string key = restOfLine.substr(startName, endName-startName);
 								if ((endName < restOfLine.length()) && (restOfLine.at(endName) == '(')) {
 									// Macro
 									size_t endArgs = endName;
 									while ((endArgs < restOfLine.length()) && (restOfLine[endArgs] != ')'))
 										endArgs++;
-									std::string args = restOfLine.substr(endName + 1, endArgs - endName - 1);
+									const std::string args = restOfLine.substr(endName + 1, endArgs - endName - 1);
 									size_t startValue = endArgs+1;
 									while ((startValue < restOfLine.length()) && IsSpaceOrTab(restOfLine[startValue]))
 										startValue++;
@@ -1410,6 +1444,19 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 				}
 			} else if (isoperator(sc.ch)) {
 				sc.SetState(SCE_C_OPERATOR|activitySet);
+				if (!interpolatingStack.empty() && AnyOf(sc.ch, '{', '}')) {
+					InterpolatingState &current = interpolatingStack.back();
+					if (sc.ch == '{') {
+						current.braceCount += 1;
+					} else {
+						current.braceCount -= 1;
+						if (current.braceCount == 0) {
+							sc.ForwardSetState(current.state);
+							interpolatingStack.pop_back();
+							continue;
+						}
+					}
+				}
 			}
 		}
 

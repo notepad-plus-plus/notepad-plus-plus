@@ -6338,19 +6338,37 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._bookMarkMarginShow = false;
 	}
 
-	// Bookmark Margin
-	nm = element->Attribute(TEXT("isChangeHistoryEnabled"));
+	// Change History Margin
+	int chState = 0;
+	nm = element->Attribute(TEXT("isChangeHistoryEnabled"), &chState);
 	if (nm)
 	{
-		if (!lstrcmp(nm, TEXT("yes")))
+		if (!lstrcmp(nm, TEXT("yes"))) // for the retro-compatibility
+			chState = 1;
+
+		_svp._isChangeHistoryEnabled4NextSession = static_cast<changeHistoryState>(chState);
+		switch (chState)
 		{
-			_svp._isChangeHistoryEnabled = true;
-			_svp._isChangeHistoryEnabled4NextSession = true;
-		}
-		else if (!lstrcmp(nm, TEXT("no")))
-		{
-			_svp._isChangeHistoryEnabled = false;
-			_svp._isChangeHistoryEnabled4NextSession = false;
+			case changeHistoryState::disable:
+				_svp._isChangeHistoryMarginEnabled = false;
+				_svp._isChangeHistoryIndicatorEnabled = false;
+				break;
+			case changeHistoryState::margin:
+				_svp._isChangeHistoryMarginEnabled = true;
+				_svp._isChangeHistoryIndicatorEnabled = false;
+				break;
+			case changeHistoryState::indicator:
+				_svp._isChangeHistoryMarginEnabled = false;
+				_svp._isChangeHistoryIndicatorEnabled = true;
+				break;
+			case changeHistoryState::marginIndicator:
+				_svp._isChangeHistoryMarginEnabled = true;
+				_svp._isChangeHistoryIndicatorEnabled = true;
+				break;
+			default:
+			_svp._isChangeHistoryMarginEnabled = true;
+			_svp._isChangeHistoryIndicatorEnabled = false;
+			_svp._isChangeHistoryEnabled4NextSession = changeHistoryState::marginIndicator;
 		}
 	}
 
@@ -6872,7 +6890,9 @@ bool NppParameters::writeScintillaParams()
 										(_svp._folderStyle == FOLDER_STYLE_CIRCLE)?TEXT("circle"):
 										(_svp._folderStyle == FOLDER_STYLE_NONE)?TEXT("none"):TEXT("box");
 	(scintNode->ToElement())->SetAttribute(TEXT("folderMarkStyle"), pFolderStyleStr);
-	(scintNode->ToElement())->SetAttribute(TEXT("isChangeHistoryEnabled"), _svp._isChangeHistoryEnabled4NextSession ? TEXT("yes") : TEXT("no"));
+	
+	(scintNode->ToElement())->SetAttribute(TEXT("isChangeHistoryEnabled"), _svp._isChangeHistoryEnabled4NextSession); // no -> 0 (disable), yes -> 1 (margin), yes ->2 (indicator), yes-> 3 (margin + indicator)
+
 	const TCHAR *pWrapMethodStr = (_svp._lineWrapMethod == LINEWRAP_ALIGNED)?TEXT("aligned"):
 								(_svp._lineWrapMethod == LINEWRAP_INDENT)?TEXT("indent"):TEXT("default");
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 29 Feb 2024, for Notepad++ 8.6.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 10 Mar 2024, for Notepad++ 8.6.5
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1050,11 +1050,11 @@ Translation note:
 					<Item id="6292" name="Largura dinâmica"/>
 					<Item id="6293" name="Largura constante"/>
 					<Item id="6207" name="Exibir margem dos marcadores"/>
-					<Item id="6223" name="Mostrar Histórico de Modificações"/>
+					<Item id="6295" name="Mudar Histórico"/>
+					<Item id="6223" name="Mostrar na margem"/>
+					<Item id="6296" name="Mostrar no texto"/>
 					<Item id="6211" name="Configurações do marcador de coluna"/>
 					<Item id="6213" name="Modo plano de fundo"/>
-					<Item id="6237" name="Adicione seu marcador de coluna, indicando sua posição com um número decimal.
-Você pode definir vários marcadores de coluna usando espaço em branco para separar os diferentes números."/>
 					<Item id="6231" name="Largura da borda"/>
 					<Item id="6235" name="Sem borda"/>
 					<Item id="6208" name="Exibir linha vertical"/>
@@ -1782,6 +1782,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<npcCustomColor-tip value="Acesse o Configurador de Estilos para mudar a cor padrão para espaços em branco e caracteres sem representação selecionados (&quot;Cor padrão para caracteres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres selecionados no modo editor para marcar automaticamente a opção &quot;Na seleção&quot; quando a caixa de diálogo Localizar for ativada. O valor máximo é 1024. Use o valor 0 para desabilitar a auto-seleção."/>
+			<verticalEdge-tip value="Adicione seu marcador de coluna indicando a posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os números diferentes."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

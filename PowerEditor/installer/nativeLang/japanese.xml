@@ -1059,11 +1059,11 @@ Translation note:
 					<Item id="6292" name="表示に応じて幅を調整"/>
 					<Item id="6293" name="最大桁数で幅を固定"/>
 					<Item id="6207" name="ブックマークを表示"/>
-					<Item id="6223" name="編集履歴マーカーを表示する"/>
+					<Item id="6295" name="編集履歴マーカー"/>
+					<Item id="6223" name="余白に表示する"/>
+					<Item id="6296" name="文書中に表示する"/>
 					<Item id="6211" name="ガイド線の表示設定"/>
 					<Item id="6213" name="背景色で表示"/>
-					<Item id="6237" name="線を表示したい桁位置を指定してください。
-複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
 					<Item id="6231" name="枠線幅"/>
 					<Item id="6235" name="枠を非表示"/>
 					<Item id="6208" name="余白"/>
@@ -1784,6 +1784,7 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 			<npcCustomColor-tip value="色を変更したい場合は、スタイル設定から変更してください (&quot;Non-printing characters custom color&quot;)。"/>
 			<npcIncludeCcUniEol-tip value="非表示文字の表示設定を、C0、C1制御コードと、Unicode改行文字（Next Line、Line Separator、Paragraph Separator）にも適用します。"/>
 			<searchingInSelThresh-tip value="編集画面でこの文字数以上を選択したまま検索画面を開くと、「選択内のみ」を自動でオンにします。最大値は 1024 です。0 にするとこの動作を無効にできます。"/>
+			<verticalEdge-tip value="線を表示したい桁位置を指定してください。複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -74,6 +74,7 @@ SET(src_files
 			./MISC/sha2/sha-256.cpp
 			./MISC/sha512/sha512.cpp
 			./NppDarkMode.cpp
+			./dpiManagerV2.cpp
 			./MISC/Process/Processus.cpp
 			./WinControls/AboutDlg/AboutDlg.cpp
 			./WinControls/AnsiCharPanel/ansiCharPanel.cpp

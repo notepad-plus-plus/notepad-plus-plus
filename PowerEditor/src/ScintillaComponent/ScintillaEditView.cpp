@@ -1252,6 +1252,7 @@ void ScintillaEditView::setJsLexer()
 	// In the most of cases, the symbols are defined outside of file.
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("2"));
 }
 
 void ScintillaEditView::setTclLexer()

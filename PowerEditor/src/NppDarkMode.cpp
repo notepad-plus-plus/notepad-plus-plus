@@ -1600,20 +1600,10 @@ namespace NppDarkMode
 		void setMetricsForDpi(UINT dpi)
 		{
 			_dpi = dpi;
-			if (NppDarkMode::isWindows10())
-			{
-				_xEdge = ::GetSystemMetricsForDpi(SM_CXEDGE, _dpi);
-				_yEdge = ::GetSystemMetricsForDpi(SM_CYEDGE, _dpi);
-				_xScroll = ::GetSystemMetricsForDpi(SM_CXVSCROLL, _dpi);
-				_yScroll = ::GetSystemMetricsForDpi(SM_CYVSCROLL, _dpi);
-			}
-			else
-			{
-				_xEdge = DPIManagerV2::scale(::GetSystemMetrics(SM_CXEDGE), _dpi);
-				_yEdge = DPIManagerV2::scale(::GetSystemMetrics(SM_CYEDGE), _dpi);
-				_xScroll = DPIManagerV2::scale(::GetSystemMetrics(SM_CXVSCROLL), _dpi);
-				_yScroll = DPIManagerV2::scale(::GetSystemMetrics(SM_CYVSCROLL), _dpi);
-			}
+			_xEdge = DPIManagerV2::getSystemMetricsForDpi(SM_CXEDGE, _dpi);
+			_yEdge = DPIManagerV2::getSystemMetricsForDpi(SM_CYEDGE, _dpi);
+			_xScroll = DPIManagerV2::getSystemMetricsForDpi(SM_CXVSCROLL, _dpi);
+			_yScroll = DPIManagerV2::getSystemMetricsForDpi(SM_CYVSCROLL, _dpi);
 		}
 	};
 

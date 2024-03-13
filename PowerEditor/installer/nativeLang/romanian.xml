@@ -989,6 +989,7 @@
                     <Item id="6230" name="Indentare"/>
                     <Item id="6206" name="Afișare numere linii"/>
                     <Item id="6207" name="Afișare semne de carte"/>
+                    <Item id="6223" name="Afișare istoric schimbări"/>
                     <Item id="6208" name="Afișare margine verticală"/>
                     <Item id="6209" name="Număr de coloane: "/>
                     <Item id="6234" name="Dezactivare funcție derulare avansată (dacă aveți probleme cu touchpad-ul)"/>		
@@ -996,6 +997,8 @@
                     <Item id="6211" name="Setări margine verticală"/>
                     <Item id="6212" name="Mod linie"/>
                     <Item id="6213" name="Mod în fundal"/>
+		    <Item id="6237" name="Adaugă-ți un marcator de coloană indicându-ți poziția cu un număr zecimal.
+Îți poți defini mulți marcatori de coloană folosind spațiul alb pentru a separa diferitele numere."/>
                     <Item id="6214" name="Activare evidențiere linie curentă"/>
                     <Item id="6231" name="Lățime bordură"/>
                     <Item id="6235" name="Fără bordură" />					

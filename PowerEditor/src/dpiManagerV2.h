@@ -16,7 +16,7 @@
 
 
 #pragma once
-#include "NppDarkMode.h"
+#include <windows.h>
 
 class DPIManagerV2
 {
@@ -27,6 +27,10 @@ public:
 	virtual ~DPIManagerV2() = default;
 
 	enum class FontType { menu, status, message, caption, smcaption };
+
+	static void initDpiAPI();
+
+	static int getSystemMetricsForDpi(int nIndex, UINT dpi);
 
 	static UINT getDpiForSystem();
 	static UINT getDpiForWindow(HWND hWnd);

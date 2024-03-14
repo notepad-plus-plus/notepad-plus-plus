@@ -3591,10 +3591,14 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 {
 	const TCHAR *sessionPathName = fileName ? fileName : _sessionPath.c_str();
 
+	//
 	// Make sure session file is not read-only
+	//
 	removeReadOnlyFlagFromFileAttributes(sessionPathName);
 
+	// 
 	// Backup session file before overriting it
+	//
 	TCHAR backupPathName[MAX_PATH]{};
 	BOOL doesBackupCopyExist = FALSE;
 	if (PathFileExists(sessionPathName))
@@ -3613,11 +3617,12 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 		}
 	}
 
+	//
+	// Prepare for writing
+	//
 	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(sessionPathName);
-
 	TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
 	pXmlSessionDoc->LinkEndChild(decl);
-
 	TiXmlNode *root = pXmlSessionDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
 	if (root)
@@ -3709,20 +3714,28 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 		}
 	}
 
+	//
+	// Write the session file
+	//
 	bool sessionSaveOK = pXmlSessionDoc->SaveFile();
 
-	if (!sessionSaveOK)
+	//
+	// Double checking: prevent written session file corrupted while writting
+	//
+	if (sessionSaveOK)
 	{
-		::MessageBox(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
-	}
-	else
-	{
-		// Double checking: prevent written session file corrupted while writting
 		TiXmlDocument* pXmlSessionCheck = new TiXmlDocument(sessionPathName);
 		sessionSaveOK = pXmlSessionCheck->LoadFile();
 		delete pXmlSessionCheck;
 	}
+	else
+	{
+		::MessageBox(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+	}
 
+	//
+	// If error after double checking, restore session backup file
+	//
 	if (!sessionSaveOK)
 	{
 		if (doesBackupCopyExist) // session backup file exists, restore it
@@ -3731,10 +3744,12 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 			wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
-			MoveFileEx(sessionPathName, sessionPathNameFail2Load.c_str(), MOVEFILE_REPLACE_EXISTING);
-			CopyFile(backupPathName, sessionPathName, FALSE);
+			ReplaceFile(backupPathName, sessionPathName, sessionPathNameFail2Load.c_str(), REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 		}
 	}
+	/*
+	 * Keep session backup file in case of corrupted session file
+	 * 
 	else
 	{
 		if (backupPathName[0]) // session backup file not useful, delete it
@@ -3742,6 +3757,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			::DeleteFile(backupPathName);
 		}
 	}
+	*/
 
 	delete pXmlSessionDoc;
 }

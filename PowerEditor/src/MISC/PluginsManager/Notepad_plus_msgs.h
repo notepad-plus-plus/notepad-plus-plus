@@ -285,7 +285,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_RELOADFILE (NPPMSG + 36)
 	// BOOL NPPM_RELOADFILE(BOOL withAlert, TCHAR *filePathName2Reload)
-	// Reload the document which matches with the given filePathName2switch.
+	// Reload the document which matches with the given filePathName2Reload.
 	// wParam: 0 (not used)
 	// lParam[in]: filePathName2Reload is the full file path of document to reload 
 	// Return TRUE if reloading file succeeds, otherwise FALSE

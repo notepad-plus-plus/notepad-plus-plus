@@ -255,7 +255,7 @@ void Notepad_plus::command(int id)
 				auto files = _pDocumentListPanel->getSelectedFiles(false);
 				for (auto&& sel : files)
 					buffers.push_back(MainFileManager.getBufferByID(sel._bufID));
-				buf2Clipborad(buffers, id == IDM_DOCLIST_COPYPATHS, _pDocumentListPanel->getHSelf());
+				buf2Clipboard(buffers, id == IDM_DOCLIST_COPYPATHS, _pDocumentListPanel->getHSelf());
 			}
 			break;
 
@@ -1289,7 +1289,7 @@ void Notepad_plus::command(int id)
 							buffers.push_back(buf);
 					}
 				}
-				buf2Clipborad({ buffers.begin(), buffers.end() }, id == IDM_EDIT_COPY_ALL_PATHS, _pPublicInterface->getHSelf());
+				buf2Clipboard({ buffers.begin(), buffers.end() }, id == IDM_EDIT_COPY_ALL_PATHS, _pPublicInterface->getHSelf());
 			}
 			break;
 

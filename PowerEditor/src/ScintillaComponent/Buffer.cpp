@@ -1028,7 +1028,7 @@ bool FileManager::backupCurrentBuffer()
 				hasModifForSession = true;
 			}
 
-			TCHAR fullpath[MAX_PATH];
+			TCHAR fullpath[MAX_PATH]{};
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
 			if (wcschr(fullpath, '~'))
 			{
@@ -1038,8 +1038,9 @@ bool FileManager::backupCurrentBuffer()
 			// Make sure the backup file is not read only
 			removeReadOnlyFlagFromFileAttributes(fullpath);
 
-
-			if (UnicodeConvertor.openFile(fullpath))
+			std::wstring fullpathTemp = fullpath;
+			fullpathTemp += L".tmp";
+			if (UnicodeConvertor.openFile(buffer->isUntitled() ? fullpathTemp.c_str() : fullpath)) // Use temp only for "new #" due to they don't have the original physical existance on the hard drive
 			{
 				size_t lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
 				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
@@ -1074,6 +1075,14 @@ bool FileManager::backupCurrentBuffer()
 
 				if (isWrittenSuccessful) // backup file has been saved
 				{
+					if (buffer->isUntitled()) // "new #" file is saved successfully, then we replace its only physical existence by its temp
+					{
+						if (::PathFileExists(fullpath))
+							::ReplaceFile(fullpath, fullpathTemp.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+						else
+							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
+					}
+
 					buffer->setModifiedStatus(false);
 					result = true;	//all done
 				}

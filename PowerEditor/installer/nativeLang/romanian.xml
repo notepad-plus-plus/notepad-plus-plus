@@ -1821,7 +1821,7 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Mergi la Configurator de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Culoare personalizată a caracterelor neimprimabile&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplică setările de aparență ale caracterelor neimprimabile la controalele C0, C1 și a caracterelor Unicode EOL (linie următoare, separator de linie și separator de paragraf)."/>
-			<searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a verifica automat caseta de selectare &quot;tÎn selecție&quot; atunci când caseta de dialogul Găsește este activată. Valoarea maximă este 1024. Setează valoarea la 0 pentru a dezactiva verificarea automată."/>
+			<searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a verifica automat caseta de selectare &quot;În selecție&quot; atunci când caseta de dialogul Găsește este activată. Valoarea maximă este 1024. Setează valoarea la 0 pentru a dezactiva verificarea automată."/>
 			<verticalEdge-tip value="Adaugă-ți un marcator de coloană indicându-ți poziția cu un număr zecimal. Îți poți defini mulți marcatori de coloană folosind spațiul alb pentru a separa diferitele numere."/>
 	</MiscStrings>
     </Native-Langue>

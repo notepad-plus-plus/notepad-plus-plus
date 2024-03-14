@@ -590,6 +590,8 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 #define NONEEDSHORTCUTSXMLBACKUP_FILENAME L"v852NoNeedShortcutsBackup.xml"
 #define SHORTCUTSXML_FILENAME L"shortcuts.xml"
 
+#define SESSION_BACKUP_EXT L".inCaseOfCorruption.bak"
+
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 int strVal(const TCHAR *str, int base)
@@ -1130,7 +1132,7 @@ std::wstring NppParameters::getSettingsFolder()
 bool NppParameters::load()
 {
 	L_END = L_EXTERNAL;
-	bool isAllLaoded = true;
+	bool isAllLoaded = true;
 
 	_isx64 = sizeof(void *) == 8;
 
@@ -1310,7 +1312,7 @@ bool NppParameters::load()
 
 		delete _pXmlDoc;
 		_pXmlDoc = nullptr;
-		isAllLaoded = false;
+		isAllLoaded = false;
 	}
 	else
 		getLangKeywordsFromXmlTree();
@@ -1379,7 +1381,7 @@ bool NppParameters::load()
 		}
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
-		isAllLaoded = false;
+		isAllLoaded = false;
 	}
 	else
 		getUserStylersFromXmlTree();
@@ -1404,7 +1406,7 @@ bool NppParameters::load()
 	{
 		delete _pXmlUserLangDoc;
 		_pXmlUserLangDoc = nullptr;
-		isAllLaoded = false;
+		isAllLoaded = false;
 	}
 	else
 	{
@@ -1466,7 +1468,7 @@ bool NppParameters::load()
 	{
 		delete _pXmlNativeLangDocA;
 		_pXmlNativeLangDocA = nullptr;
-		isAllLaoded = false;
+		isAllLoaded = false;
 	}
 
 	//---------------------------------//
@@ -1481,7 +1483,7 @@ bool NppParameters::load()
 	{
 		delete _pXmlToolIconsDoc;
 		_pXmlToolIconsDoc = nullptr;
-		isAllLaoded = false;
+		isAllLoaded = false;
 	}
 
 	//------------------------------//
@@ -1511,7 +1513,7 @@ bool NppParameters::load()
 	{
 		delete _pXmlShortcutDocA;
 		_pXmlShortcutDocA = nullptr;
-		isAllLaoded = false;
+		isAllLoaded = false;
 	}
 	else
 	{
@@ -1544,7 +1546,7 @@ bool NppParameters::load()
 	{
 		delete _pXmlContextMenuDocA;
 		_pXmlContextMenuDocA = nullptr;
-		isAllLaoded = false;
+		isAllLoaded = false;
 	}
 
 	//---------------------------------------------//
@@ -1574,10 +1576,35 @@ bool NppParameters::load()
 		TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(_sessionPath);
 
 		loadOkay = pXmlSessionDoc->LoadFile();
+		if (loadOkay)
+		{
+			loadOkay = getSessionFromXmlTree(pXmlSessionDoc, _session);
+		}
+		
 		if (!loadOkay)
-			isAllLaoded = false;
-		else
-			getSessionFromXmlTree(pXmlSessionDoc, _session);
+		{
+			wstring sessionInCaseOfCorruption_bak = _sessionPath;
+			sessionInCaseOfCorruption_bak += SESSION_BACKUP_EXT;
+			if (::PathFileExists(sessionInCaseOfCorruption_bak.c_str()))
+			{
+				ReplaceFile(_sessionPath.c_str(), sessionInCaseOfCorruption_bak.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+
+				TiXmlDocument* pXmlSessionBackupDoc = new TiXmlDocument(_sessionPath);
+				loadOkay = pXmlSessionBackupDoc->LoadFile();
+				if (loadOkay)
+					loadOkay = getSessionFromXmlTree(pXmlSessionBackupDoc, _session);
+
+				delete pXmlSessionBackupDoc;
+
+				if (!loadOkay)
+					isAllLoaded = false;
+			}
+			else
+			{
+				isAllLoaded = false;
+			}
+		}
+			
 
 		delete pXmlSessionDoc;
 
@@ -1652,7 +1679,7 @@ bool NppParameters::load()
 		_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
 	}
 
-	return isAllLaoded;
+	return isAllLoaded;
 }
 
 
@@ -3591,21 +3618,25 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 {
 	const TCHAR *sessionPathName = fileName ? fileName : _sessionPath.c_str();
 
+	//
 	// Make sure session file is not read-only
+	//
 	removeReadOnlyFlagFromFileAttributes(sessionPathName);
 
+	// 
 	// Backup session file before overriting it
+	//
 	TCHAR backupPathName[MAX_PATH]{};
 	BOOL doesBackupCopyExist = FALSE;
 	if (PathFileExists(sessionPathName))
 	{
 		_tcscpy(backupPathName, sessionPathName);
-		_tcscat(backupPathName, TEXT(".inCaseOfCorruption.bak"));
+		_tcscat(backupPathName, SESSION_BACKUP_EXT);
 		
 		// Make sure backup file is not read-only, if it exists
 		removeReadOnlyFlagFromFileAttributes(backupPathName);
 		doesBackupCopyExist = CopyFile(sessionPathName, backupPathName, FALSE);
-		if (!doesBackupCopyExist)
+		if (!doesBackupCopyExist && !isEndSessionCritical())
 		{
 			wstring errTitle = L"Session file backup error: ";
 			errTitle += GetLastErrorAsString(0);
@@ -3613,11 +3644,12 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 		}
 	}
 
+	//
+	// Prepare for writing
+	//
 	TiXmlDocument* pXmlSessionDoc = new TiXmlDocument(sessionPathName);
-
 	TiXmlDeclaration* decl = new TiXmlDeclaration(TEXT("1.0"), TEXT("UTF-8"), TEXT(""));
 	pXmlSessionDoc->LinkEndChild(decl);
-
 	TiXmlNode *root = pXmlSessionDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
 	if (root)
@@ -3709,32 +3741,48 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 		}
 	}
 
+	//
+	// Write the session file
+	//
 	bool sessionSaveOK = pXmlSessionDoc->SaveFile();
 
-	if (!sessionSaveOK)
+	//
+	// Double checking: prevent written session file corrupted while writting
+	//
+	if (sessionSaveOK)
+	{
+		TiXmlDocument* pXmlSessionCheck = new TiXmlDocument(sessionPathName);
+		sessionSaveOK = pXmlSessionCheck->LoadFile();
+		if (sessionSaveOK)
+		{
+			Session sessionCheck;
+			sessionSaveOK = getSessionFromXmlTree(pXmlSessionCheck, sessionCheck);
+		}
+		delete pXmlSessionCheck;
+	}
+	else if (!isEndSessionCritical())
 	{
 		::MessageBox(nullptr, sessionPathName, L"Error of saving session XML file", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 	}
-	else
-	{
-		// Double checking: prevent written session file corrupted while writting
-		TiXmlDocument* pXmlSessionCheck = new TiXmlDocument(sessionPathName);
-		sessionSaveOK = pXmlSessionCheck->LoadFile();
-		delete pXmlSessionCheck;
-	}
 
+	//
+	// If error after double checking, restore session backup file
+	//
 	if (!sessionSaveOK)
 	{
 		if (doesBackupCopyExist) // session backup file exists, restore it
 		{
-			::MessageBox(nullptr, backupPathName, L"Saving session error - restore backup", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
+			if (!isEndSessionCritical())
+				::MessageBox(nullptr, backupPathName, L"Saving session error - restoring from the backup:", MB_OK | MB_APPLMODAL | MB_ICONWARNING);
 
 			wstring sessionPathNameFail2Load = sessionPathName;
 			sessionPathNameFail2Load += L".fail2Load";
-			MoveFileEx(sessionPathName, sessionPathNameFail2Load.c_str(), MOVEFILE_REPLACE_EXISTING);
-			CopyFile(backupPathName, sessionPathName, FALSE);
+			ReplaceFile(sessionPathName, backupPathName, sessionPathNameFail2Load.c_str(), REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 		}
 	}
+	/*
+	 * Keep session backup file in case of corrupted session file
+	 * 
 	else
 	{
 		if (backupPathName[0]) // session backup file not useful, delete it
@@ -3742,6 +3790,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			::DeleteFile(backupPathName);
 		}
 	}
+	*/
 
 	delete pXmlSessionDoc;
 }

@@ -1699,7 +1699,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<common-cancel value="Cancelar"/>
 			<common-name value="Nome"/>
 			<tabrename-title value="Renomear separador atual"/>
-			<tabrename-newname value="Novo nome: "/>
+			<tabrename-newname value="Novo nome"/>
 			<splitter-rotate-left value="Rodar para a esquerda"/>
 			<splitter-rotate-right value="Rodar para a direita"/>
 			<userdefined-title-new value="Criar nova linguagem..."/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Nota de tradução:
-1. Instale o plugin XML Tools para formatar a sua tradução XML. Através do comando do menu "Plugins -> XML Tools-> Pretty Print - indent only".
+1. Instale o plugin XML Tools para formatar a sua tradução XML. Através do comando do menu "Plugins -> XML Tools-> Pretty print - indent only".
 2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.3">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -224,7 +224,7 @@ Nota de tradução:
 					<Item id="43052" name="Localizar carateres..."/>
 					<Item id="43053" name="Selecionar tudo entre as chavetas correspondidas"/>
 					<Item id="43009" name="Ir para a chaveta correspondida"/>
-					<Item id="43010" name="Localizar anterior"/>										
+					<Item id="43010" name="Localizar anterior"/>
 					<Item id="43011" name="Pesquisa &amp;progressiva"/>
 					<Item id="43013" name="Localizar nos ficheiros"/>
 					<Item id="43014" name="Localizar seguinte (temporário)"/>
@@ -970,7 +970,8 @@ Nota de tradução:
 
 					<Item id="6123" name="Idioma"/>
 				</Global>
-				<Scintillas title="Edição">
+
+				<Scintillas title="Edição 1">
 					<Item id="6216" name="Definições do cursor"/>
 					<Item id="6217" name="Largura:"/>
 					<Item id="6219" name="Cintilação:"/>
@@ -992,16 +993,24 @@ Nota de tradução:
 					<Item id="6653" name="Realçar fundo"/>
 					<Item id="6654" name="Contorno"/>
 					<Item id="6655" name="Espessura:"/>
-					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
+				</Scintillas>
+
+				<Scintillas2 title="Edição 2">
+					<Item id="6521" name="Multi-Edição"/>
+					<Item id="6522" name="Ativar multi-edição (Ctrl+Clique do rato/seleção)"/>
+					<Item id="6523" name="Ativar a seleção de colunas para multi-edição"/>
+					<Item id="6247" name="Fim de linha (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinição"/>
 					<Item id="6249" name="Texto simples"/>
 					<Item id="6250" name="Cor personalizada"/>
 					<Item id="6252" name="Carateres sem representação"/>
+					<Item id="6260" name="Aparência"/>
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Ponto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar a carateres C0, C1 &amp;e EOL do Unicode"/>
-				</Scintillas>
+					<Item id="6258" name="Aplicar definições de Aparência a carateres C0, C1 &amp;e Fim de linha do Unicode"/>
+					<Item id="6259" name="Impedir a introdução de caracteres de controlo (código C0) no documento"/>
+				</Scintillas2>
 
 				<DarkMode title="Modo Escuro">
 					<Item id="7131" name="Modo claro"/>
@@ -1043,11 +1052,11 @@ Nota de tradução:
 					<Item id="6292" name="Largura dinâmica"/>
 					<Item id="6293" name="Largura constante"/>
 					<Item id="6207" name="Mostrar marcador"/>
-					<Item id="6223" name="Mostrar histórico de alterações"/>
+					<Item id="6295" name="Histórico de alterações"/>
+					<Item id="6223" name="Mostrar na margem"/>
+					<Item id="6296" name="Mostrar no texto"/>
 					<Item id="6211" name="Definições de limites verticais"/>
 					<Item id="6213" name="Modo de fundo"/>
-					<Item id="6237" name="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal.
-Pode definir vários marcadores de coluna utilizando espaço branco para separar os diferentes números."/>
 					<Item id="6231" name="Largura da borda"/>
 					<Item id="6235" name="Sem limite"/>
 					<Item id="6208" name="Preenchimento"/>
@@ -1085,6 +1094,7 @@ Pode definir vários marcadores de coluna utilizando espaço branco para separar
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registadas:"/>
 				</FileAssoc>
+
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
 					<Item id="6506" name="Itens desativados"/>
@@ -1635,7 +1645,6 @@ NOTA: Se optar por não criar os substitutos ou fechá-los mais tarde, a sua ses
 			<default-open-save-select-folder value="Selecione um localização para a pasta predefinida"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use Shift+Enter para pesquisar na direção oposta"/>
 			<two-find-buttons-tip value="Modo de 2 botões de localização"/>
-			<file-rename-title value="Renomear"/>
 			<find-in-files-filter-tip value="Localizar em cpp, cxx, h, hxx &amp;e hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1681,18 +1690,16 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
-			<finder-copy-verbatim value="Copiar"/>
 			<finder-copy-paths value="Copiar nome da localização(ões)"/>
-			<finder-select-all value="Selecionar tudo"/>
 			<finder-clear-all value="Limpar tudo"/>
 			<finder-open-all value="Abrir tudo"/>
 			<finder-purge-for-every-search value="Eliminar para cada pesquisa"/>
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="Confirmar"/>
 			<common-cancel value="Cancelar"/>
-			<common-name value="Nome: "/>
+			<common-name value="Nome"/>
 			<tabrename-title value="Renomear separador atual"/>
-			<tabrename-newname value="Novo nome: "/>
+			<tabrename-newname value="Novo nome"/>
 			<splitter-rotate-left value="Rodar para a esquerda"/>
 			<splitter-rotate-right value="Rodar para a direita"/>
 			<userdefined-title-new value="Criar nova linguagem..."/>
@@ -1710,7 +1717,6 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<summary-nbsel2 value=" bytes) em "/>
 			<summary-nbrange value=" intervalos"/>
 			<progress-hits-title value="Resultados:"/>
-			<progress-cancel-button value="Cancelar"/>
 			<progress-cancel-info value="A cancelar a operação, aguarde..."/>
 			<find-in-files-progress-title value="Localizar em ficheiros em curso..."/>
 			<replace-in-files-confirm-title value="Tem a certeza?"/>
@@ -1751,7 +1757,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 NOTA:
 1. Modificar as opções de aqui requer a reabertura de ficheiros grandes atualmente abertos para obter um comportamento adequado.
 
-2. Se a opção &quot;Desativar Quebra de linha globalmente&quot; estiver selecionada e abrir um ficheiro grande, a opção &quot;Moldar o texto&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Moldar o texto&quot;." />
+2. Se a opção &quot;Desativar Quebra de linha globalmente&quot; estiver selecionada e abrir um ficheiro grande, a opção &quot;Moldar o texto&quot; será desativada para todos os ficheiros. Pode voltar a ativá-la através do menu &quot;Visualização-&gt;Moldar o texto&quot;."/>
 			<npcNote-tip value="Representação de carateres selecionados &quot;não-ASCII&quot; espaços em branco e carateres sem representação (controlo).
 
 NOTA:
@@ -1779,6 +1785,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Util
 			<npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e carateres não-impressos (&quot;Cor personalizada de carateres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as definições de carateres sem representação para os carateres C0, C1 e EOL do Unicode (linha seguinte, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de carateres selecionados na zona de edição para verificar automaticamente a caixa de verificação &quot;Na seleção&quot; quando a caixa de diálogo Localizar é ativada. O valor máximo é 1024. Defina o valor para 0 para desativar a verificação automática."/>
+			<verticalEdge-tip value="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os diferentes números."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
@@ -1807,7 +1814,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 10 February 2024 by Hugo Carvalho e Filipe Mota
+Last modified: 15 March 2024 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

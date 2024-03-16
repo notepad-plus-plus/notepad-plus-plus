@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.6.3  14/Feb/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.6.5  15/Mar/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.3">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1010,7 +1010,7 @@
 					<Item id="6133" name="Stavový řádek"/>
 					<Item id="6134" name="Skrýt"/>
 				</Global>
-				<Scintillas title="Editace">
+				<Scintillas title="Editace 1">
 					<Item id="6214" name="Povolit Kopírování/Vyjmutí celého řádku bez výběru"/>
 					<Item id="6215" name="Povolit vyhlazování fontu"/>
 					<Item id="6216" name="Nastavení kurzoru"/>
@@ -1032,7 +1032,9 @@
 					<Item id="6653" name="Zvýrazněné pozadí"/>
 					<Item id="6654" name="Orámování"/>
 					<Item id="6655" name="tloušťka:"/>
-					<Item id="6247" name="Konce řádků (CRLF)"/><!-- Don't translate "(CRLF)" -->
+				</Scintillas>
+				<Scintillas2 title="Editace 2">
+					<Item id="6247" name="EOL - konce řádků (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Implicitní"/>
 					<Item id="6249" name="Barva prostého textu"/>
 					<Item id="6250" name="Vlastní barva"/>
@@ -1040,8 +1042,13 @@
 					<Item id="6254" name="Zkratka"/>
 					<Item id="6255" name="Kód Unicode"/>
 					<Item id="6256" name="Vlastní barva"/>
-					<Item id="6258" name="Aplikovat na C0, C1 a &amp;&amp; Unicode EOLy"/>
-				</Scintillas>
+					<Item id="6258" name="Aplikovat nastavení vzhledu na C0, C1 a &amp;&amp; Unicode EOLy"/>
+					<Item id="6259" name="Zabránit vkládání řídících znaků (kódy C0) do dokumentu"/>
+					<Item id="6260" name="Vzhled"/>
+					<Item id="6521" name="Vícenásobná editace"/>
+					<Item id="6522" name="Povolit vícenásobnou editaci (Ctrl+Myš kliknutí/výběr)"/>
+					<Item id="6523" name="Povolit výběr sloupců pro vícenásobnou editaci"/>
+				</Scintillas2>
 				<DarkMode title="Tmavý režim">
 					<Item id="7102" name="Černý"/>
 					<Item id="7103" name="Červený"/>
@@ -1083,15 +1090,15 @@
 					<Item id="6211" name="Nastavení svislé vodící čáry"/>
 					<Item id="6212" name="Nerušivý mód"/>
 					<Item id="6213" name="Režim s pozadím"/>
-					<Item id="6223" name="Zobrazit historii změn"/>
+					<Item id="6223" name="Zobrazit na okraji"/>
 					<Item id="6226" name="Žádný"/>
 					<Item id="6231" name="Šířka okraje"/>
 					<Item id="6235" name="Bez okraje"/>
-					<Item id="6237" name="Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo).
-Můžete definovat více značek sloupců použitím více čísel oddělených prázdnými znaky."/>
 					<Item id="6291" name="Číslo řádku"/>
 					<Item id="6292" name="Dynamická šířka"/>
 					<Item id="6293" name="Konstantní šířka"/>
+					<Item id="6295" name="Historie změn"/>
+					<Item id="6296" name="Zobrazit v textu"/>
 				</MarginsBorderEdge>
 				<NewDoc title="Nový dokument">
 					<Item id="6401" name="Formát"/>
@@ -1647,7 +1654,6 @@ Doporučujeme Vám, abyste si nyní zazálohovali Váš soubor &quot;session.xml
 			<default-open-save-select-folder value="Vyberte výchozí složku"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Pro změnu směru vyhledávání použijte Shift + Enter."/>
 			<two-find-buttons-tip value="Mód se dvěma vyhledávacími tlačítky"/>
-			<file-rename-title value="Přejmenovat"/>
 			<find-in-files-filter-tip value="Hledat v cpp, cxx, h, hxx &amp;&amp; hpp souborech:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1693,9 +1699,7 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<finder-collapse-all value="Sbalit vše"/>
 			<finder-uncollapse-all value="Rozbalit vše"/>
 			<finder-copy value="Kopírovat vybrané řádky"/>
-			<finder-copy-verbatim value="Kopírovat"/>
 			<finder-copy-paths value="Kopírovat souborovou cestu(y)"/>
-			<finder-select-all value="Vybrat vše"/>
 			<finder-clear-all value="Smazat vše"/>
 			<finder-open-all value="Otevřít vše"/>
 			<finder-purge-for-every-search value="Vymazat před každým vyhledáváním"/>
@@ -1722,7 +1726,6 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<summary-nbsel2 value=" bytů) v "/>
 			<summary-nbrange value=" oblastech"/>
 			<progress-hits-title value="Výskytů:"/>
-			<progress-cancel-button value="Storno"/>
 			<progress-cancel-info value="Ruším operaci, počkejte prosím ..."/>
 			<find-in-files-progress-title value="Průběh hledání v souborech ..."/>
 			<replace-in-files-confirm-title value="Jste si jistí?"/>
@@ -1793,6 +1796,7 @@ Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživ
 			<npcCustomColor-tip value="Přejděte do Úpravy stylu a změňte výchozí vlastní barvu pro vybrané prázdné a netisknutelné znaky. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použije nastavení vzhledu netisknutelných znaků pro řídící znaky C0, C1 (reprezentují další informace o textu jako jsou další řádek, oddělovač řádků, oddělovač odstavců) a pro Unicode EOL znaky." />
 			<searchingInSelThresh-tip value="Minimální počet vybraných znaků editační zóny, aby došlo k automatickému zaškrtnutí políčka &quot;Ve vybraném&quot; při aktivaci dialogu &quot;Najít&quot;. Nejvyšší možná hodnota je 1024. Pokud chcete toto automatické zaškrtávání zcela vypnout, nastavte hodnotu na 0."/>
+			<verticalEdge-tip value="Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo). Můžete definovat více značek sloupců použitím více čísel oddělených prázdnými znaky."/>
 		</MiscStrings>
 
 	</Native-Langue>

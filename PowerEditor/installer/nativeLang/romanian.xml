@@ -1810,8 +1810,8 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Mergi la Configurator de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Culoare personalizată a caracterelor neimprimabile&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplică setările de aparență ale caracterelor neimprimabile la controalele C0, C1 și a caracterelor Unicode EOL (linie următoare, separator de linie și separator de paragraf)."/>
-            <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsire e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
-            <verticalEdge-tip value="Adăugați-vă marcatorul de coloană prinm indicarea poziției sale cu un număr zecimal. Vă puteți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
+                        <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsire e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
+                        <verticalEdge-tip value="Adăugați-vă marcatorul de coloană prinm indicarea poziției sale cu un număr zecimal. Vă puteți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

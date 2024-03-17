@@ -446,14 +446,14 @@
                 <Item id="43102" name="Nou"/>
                 <Item id="43103" name="Nou și lipește"/>
                 <Item id="43104" name="Deschide..."/>
-                <Item id="43013" name="Găsire în fișiere..."/>
+                <Item id="43013" name="Găsește în fișiere..."/>
                 <Item id="43105" name="Închide iconița din bara de iconițe"/>
             </TrayIcon>
         </Menu>
 		
         <Dialog>
-            <Find title="Caută, caută și vei găsi" titleFind="Găsire" titleReplace="Înlocuire" titleFindInFiles="Găsire în fișiere" titleMark="Marcare">
-                <Item id="1"    name="Găsire următorul"/>
+            <Find title="Caută, caută și vei găsi" titleFind="Găsește" titleReplace="Înlocuire" titleFindInFiles="Găsește în fișiere" titleMark="Marcare">
+                <Item id="1"    name="Găsește următorul"/>
                 <Item id="1722" name="Inversare direcție de căutare"/>
                 <Item id="2"    name="Închidere"/>
                 <Item id="1620" name="&amp;Căutare:"/>
@@ -492,7 +492,7 @@
                 <Item id="1686" name="Transpa&amp;rență"/>										
                 <Item id="1703" name="&amp;. este \r sau \n"/>
                 <Item id="1721" name="▲"/>
-                <Item id="1723" name="▼ Găsire următorul"/>
+                <Item id="1723" name="▼ Găsește următorul"/>
                 <Item id="1725" name="Copiază textul marcat"/>
                 <Menu>
                     <Item id="1726" name="⇅ Schimbă Căutăre cu Înlocuire"/>
@@ -1372,8 +1372,8 @@
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Anulare"/>
 				</ColumnEditor>
-	            <FindInFinder title="Găsire în rezultatele găsite">
-					<Item id="1"    name="Găsire toate"/>
+	            <FindInFinder title="Găsește în rezultatele găsite">
+					<Item id="1"    name="Găsește toate"/>
 					<Item id="2"    name="Închidere"/>
 					<Item id="1711" name="&amp;Căutare :"/>
 					<Item id="1713" name="Căutare doar în liniile &amp;găsite"/>
@@ -1618,7 +1618,7 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
                     <Item id="3126" name="Salvare ca..."/>
                     <Item id="3127" name="Salvare copie ca..."/>
                     <Item id="3121" name="Adăugare proiect nou"/>
-					<Item id="3128" name="Găsire în proiecte..."/>
+					<Item id="3128" name="Găsește în proiecte..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Redenumire"/>
@@ -1664,17 +1664,17 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
             <cloud-select-folder value="Selectare folder din/în care Notepad++ citește/scrie setările sale"/>
 			<default-open-save-select-folder value="Selectează un dosar ca director implicit"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Folosiți Shift+Enter pentru a căuta în direcția opusă"/>
-            <two-find-buttons-tip value="Modul găsire cu 2 butoane"/>
-			<find-in-files-filter-tip value="Găsire în cpp, cxx, h, hxx &amp;&amp; hpp:
+            <two-find-buttons-tip value="Modul Găsește cu 2 butoane"/>
+			<find-in-files-filter-tip value="Găsește în cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Găsire în toate fișierele, exceptând exe, obj &amp;&amp; log:
+Găsește în toate fișierele, exceptând exe, obj &amp;&amp; log:
 *.* !*.exe !*.obj !*.log
 
-Găsire în toate fișierele, dar exclude dosarele tests, bin &amp;&amp; bin64:
+Găsește în toate fișierele, dar exclude dosarele tests, bin &amp;&amp; bin64:
 *.* !\tests !\bin*
 
-Găsire în toate fișierele, dar exclude toate dosarele log sau logs în mod recursiv:
+Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod recursiv:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selectează un dosar de căutare în"/><!-- HowToReproduce: Search > Find in Files > [...] -->
             <find-status-top-reached value="Căutare: S-a găsit prima potrivire de jos.S-a ajuns la începutul documentului."/>
@@ -1686,7 +1686,7 @@ Găsire în toate fișierele, dar exclude toate dosarele log sau logs în mod re
             <find-status-replaceinopenedfiles-nb-replaced value="Înlocuire în fișierele deschise: s-au înlocuit $INT_REPLACE$ potriviri."/>
             <find-status-mark-re-malformed value="Marcare: expresia regulată de căutare este eronată."/>
             <find-status-invalid-re value="Căutare: expresie regulată nevalidă."/>
-			<find-status-search-failed value="Găsire: căutare eșuată"/>
+			<find-status-search-failed value="Găsește: căutare eșuată"/>
             <find-status-mark-1-match value="O potrivire"/>
             <find-status-mark-nb-matches value="$INT_REPLACE$ potriviri"/>
             <find-status-count-re-malformed value="Contorizare: expresia regulată de căutare este eronată."/>
@@ -1749,7 +1749,7 @@ Găsire în toate fișierele, dar exclude toate dosarele log sau logs în mod re
 			<summary-nbrange value=" intervale"/>
 			<progress-hits-title value="Coincidențe:"/>
 			<progress-cancel-info value="Se anulează operația, te rugăm să aștepți..."/>
-			<find-in-files-progress-title value="Progresul funcției Găsire în fișiere..."/>
+			<find-in-files-progress-title value="Progresul funcției Găsește în fișiere..."/>
 			<replace-in-files-confirm-title value="Ești sigur?"/>
 			<replace-in-files-confirm-directory value="Ești sigur că vrei să înlocuișeti toate aparițiile în :"/>
 			<replace-in-files-confirm-filetype value="Pentru tipul de fișier :"/>
@@ -1810,7 +1810,7 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Mergi la Configurator de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Culoare personalizată a caracterelor neimprimabile&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplică setările de aparență ale caracterelor neimprimabile la controalele C0, C1 și a caracterelor Unicode EOL (linie următoare, separator de linie și separator de paragraf)."/>
-                        <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsire e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
+                        <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsește e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
                         <verticalEdge-tip value="Adăugați-vă marcatorul de coloană prinm indicarea poziției sale cu un număr zecimal. Vă puteți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
         </MiscStrings>
     </Native-Langue>

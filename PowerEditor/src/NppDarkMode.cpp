@@ -26,7 +26,6 @@
 
 #include "Parameters.h"
 #include "resource.h"
-#include "dpiManagerV2.h"
 
 #include <shlwapi.h>
 
@@ -49,7 +48,7 @@
 //#pragma comment(lib, "uxtheme.lib")
 //#endif
 
-static constexpr COLORREF HEXRGB(DWORD rrggbb) {
+constexpr COLORREF HEXRGB(DWORD rrggbb) {
 	// from 0xRRGGBB like natural #RRGGBB
 	// to the little-endian 0xBBGGRR
 	return
@@ -1002,7 +1001,7 @@ namespace NppDarkMode
 		}
 	};
 
-	static void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
+	void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
 	{
 		RECT rcClient{};
 		WCHAR szText[256] = { '\0' };
@@ -1086,7 +1085,7 @@ namespace NppDarkMode
 		SelectObject(hdc, hOldFont);
 	}
 
-	static void paintButton(HWND hwnd, HDC hdc, ButtonData& buttonData)
+	void paintButton(HWND hwnd, HDC hdc, ButtonData& buttonData)
 	{
 		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
 		const auto nStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
@@ -1161,7 +1160,7 @@ namespace NppDarkMode
 
 	constexpr UINT_PTR g_buttonSubclassID = 42;
 
-	static LRESULT CALLBACK ButtonSubclass(
+	LRESULT CALLBACK ButtonSubclass(
 		HWND hWnd,
 		UINT uMsg,
 		WPARAM wParam,
@@ -1186,28 +1185,18 @@ namespace NppDarkMode
 				RemoveWindowSubclass(hWnd, ButtonSubclass, g_buttonSubclassID);
 				delete pButtonData;
 				break;
-
 			case WM_ERASEBKGND:
-			{
 				if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
 				{
 					return TRUE;
 				}
-				break;
-			}
-
-			case WM_DPICHANGED:
-			{
-				pButtonData->closeTheme();
-				return 0;
-			}
-
+				else
+				{
+					break;
+				}
 			case WM_THEMECHANGED:
-			{
 				pButtonData->closeTheme();
 				break;
-			}
-
 			case WM_PRINTCLIENT:
 			case WM_PAINT:
 				if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
@@ -1255,7 +1244,7 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, ButtonSubclass, g_buttonSubclassID, pButtonData);
 	}
 
-	static void paintGroupbox(HWND hwnd, HDC hdc, ButtonData& buttonData)
+	void paintGroupbox(HWND hwnd, HDC hdc, ButtonData& buttonData)
 	{
 		auto nStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 		bool isDisabled = (nStyle & WS_DISABLED) == WS_DISABLED;
@@ -1348,7 +1337,7 @@ namespace NppDarkMode
 
 	constexpr UINT_PTR g_groupboxSubclassID = 42;
 
-	static LRESULT CALLBACK GroupboxSubclass(
+	LRESULT CALLBACK GroupboxSubclass(
 		HWND hWnd,
 		UINT uMsg,
 		WPARAM wParam,
@@ -1367,28 +1356,18 @@ namespace NppDarkMode
 			RemoveWindowSubclass(hWnd, GroupboxSubclass, g_groupboxSubclassID);
 			delete pButtonData;
 			break;
-
 		case WM_ERASEBKGND:
-		{
 			if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
 			{
 				return TRUE;
 			}
-			break;
-		}
-
-		case WM_DPICHANGED:
-		{
-			pButtonData->closeTheme();
-			return 0;
-		}
-
+			else
+			{
+				break;
+			}
 		case WM_THEMECHANGED:
-		{
 			pButtonData->closeTheme();
 			break;
-		}
-
 		case WM_PRINTCLIENT:
 		case WM_PAINT:
 			if (NppDarkMode::isEnabled() && pButtonData->ensureTheme(hWnd))
@@ -1409,6 +1388,10 @@ namespace NppDarkMode
 
 				return 0;
 			}
+			else
+			{
+				break;
+			}
 			break;
 		}
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
@@ -1422,7 +1405,7 @@ namespace NppDarkMode
 
 	constexpr UINT_PTR g_tabSubclassID = 42;
 
-	static LRESULT CALLBACK TabSubclass(
+	LRESULT CALLBACK TabSubclass(
 		HWND hWnd,
 		UINT uMsg,
 		WPARAM wParam,
@@ -1509,15 +1492,15 @@ namespace NppDarkMode
 
 					::SendMessage(hWnd, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tci));
 
-					const auto dpi = DPIManagerV2::getDpiForParent(hWnd);
+					auto dpiManager = NppParameters::getInstance()._dpiManager;
 
 					RECT rcText = rcItem;
-					rcText.left += DPIManagerV2::scale(5, dpi);
-					rcText.right -= DPIManagerV2::scale(3, dpi);
+					rcText.left += dpiManager.scaleX(5);
+					rcText.right -= dpiManager.scaleX(3);
 
 					if (isSelectedTab)
 					{
-						rcText.bottom -= DPIManagerV2::scale(4, dpi);
+						rcText.bottom -= dpiManager.scaleY(4);
 						::InflateRect(&rcFrame, 0, 1);
 					}
 					if (i != nTabs - 1)
@@ -1582,44 +1565,9 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, TabSubclass, g_tabSubclassID, 0);
 	}
 
-	struct BorderMetricsData
-	{
-		UINT _dpi = USER_DEFAULT_SCREEN_DPI;
-		LONG _xEdge = ::GetSystemMetrics(SM_CXEDGE);
-		LONG _yEdge = ::GetSystemMetrics(SM_CYEDGE);
-		LONG _xScroll = ::GetSystemMetrics(SM_CXVSCROLL);
-		LONG _yScroll = ::GetSystemMetrics(SM_CYVSCROLL);
-
-		BorderMetricsData() {};
-
-		BorderMetricsData(HWND hWnd)
-		{
-			setMetricsForDpi(DPIManagerV2::getDpiForParent(hWnd));
-		}
-
-		void setMetricsForDpi(UINT dpi)
-		{
-			_dpi = dpi;
-			if (NppDarkMode::isWindows10())
-			{
-				_xEdge = ::GetSystemMetricsForDpi(SM_CXEDGE, _dpi);
-				_yEdge = ::GetSystemMetricsForDpi(SM_CYEDGE, _dpi);
-				_xScroll = ::GetSystemMetricsForDpi(SM_CXVSCROLL, _dpi);
-				_yScroll = ::GetSystemMetricsForDpi(SM_CYVSCROLL, _dpi);
-			}
-			else
-			{
-				_xEdge = DPIManagerV2::scale(::GetSystemMetrics(SM_CXEDGE), _dpi);
-				_yEdge = DPIManagerV2::scale(::GetSystemMetrics(SM_CYEDGE), _dpi);
-				_xScroll = DPIManagerV2::scale(::GetSystemMetrics(SM_CXVSCROLL), _dpi);
-				_yScroll = DPIManagerV2::scale(::GetSystemMetrics(SM_CYVSCROLL), _dpi);
-			}
-		}
-	};
-
 	constexpr UINT_PTR g_customBorderSubclassID = 42;
 
-	static LRESULT CALLBACK CustomBorderSubclass(
+	LRESULT CALLBACK CustomBorderSubclass(
 		HWND hWnd,
 		UINT uMsg,
 		WPARAM wParam,
@@ -1628,7 +1576,7 @@ namespace NppDarkMode
 		DWORD_PTR dwRefData
 	)
 	{
-		auto pBorderMetricsData = reinterpret_cast<BorderMetricsData*>(dwRefData);
+		UNREFERENCED_PARAMETER(dwRefData);
 
 		static bool isHotStatic = false;
 
@@ -1646,21 +1594,21 @@ namespace NppDarkMode
 				HDC hdc = ::GetWindowDC(hWnd);
 				RECT rcClient{};
 				::GetClientRect(hWnd, &rcClient);
-				rcClient.right += (2 * pBorderMetricsData->_xEdge);
+				rcClient.right += (2 * ::GetSystemMetrics(SM_CXEDGE));
 
 				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 				bool hasVerScrollbar = (style & WS_VSCROLL) == WS_VSCROLL;
 				if (hasVerScrollbar)
 				{
-					rcClient.right += pBorderMetricsData->_xScroll;
+					rcClient.right += ::GetSystemMetrics(SM_CXVSCROLL);
 				}
 
-				rcClient.bottom += (2 * pBorderMetricsData->_yEdge);
+				rcClient.bottom += (2 * ::GetSystemMetrics(SM_CYEDGE));
 
 				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
 				if (hasHorScrollbar)
 				{
-					rcClient.bottom += pBorderMetricsData->_yScroll;
+					rcClient.bottom += ::GetSystemMetrics(SM_CYHSCROLL);
 				}
 
 				HPEN hPen = ::CreatePen(PS_SOLID, 1, NppDarkMode::getBackgroundColor());
@@ -1696,31 +1644,24 @@ namespace NppDarkMode
 				}
 
 				auto lpRect = reinterpret_cast<LPRECT>(lParam);
-				::InflateRect(lpRect, -(pBorderMetricsData->_xEdge), -(pBorderMetricsData->_yEdge));
+				::InflateRect(lpRect, -(::GetSystemMetrics(SM_CXEDGE)), -(::GetSystemMetrics(SM_CYEDGE)));
 
 				auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 				bool hasVerScrollbar = (style & WS_VSCROLL) == WS_VSCROLL;
 				if (hasVerScrollbar)
 				{
-					lpRect->right -= pBorderMetricsData->_xScroll;
+					lpRect->right -= ::GetSystemMetrics(SM_CXVSCROLL);
 				}
 
 				bool hasHorScrollbar = (style & WS_HSCROLL) == WS_HSCROLL;
 				if (hasHorScrollbar)
 				{
-					lpRect->bottom -= pBorderMetricsData->_yScroll;
+					lpRect->bottom -= ::GetSystemMetrics(SM_CYHSCROLL);
 				}
 
 				return 0;
 			}
 			break;
-
-			case WM_DPICHANGED:
-			{
-				pBorderMetricsData->setMetricsForDpi(LOWORD(wParam));
-				::SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-				return 0;
-			}
 
 			case WM_MOUSEMOVE:
 			{
@@ -1774,22 +1715,20 @@ namespace NppDarkMode
 			case WM_NCDESTROY:
 			{
 				RemoveWindowSubclass(hWnd, CustomBorderSubclass, uIdSubclass);
-				delete pBorderMetricsData;
 			}
 			break;
 		}
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
-	static void subclassCustomBorderForListBoxAndEditControls(HWND hwnd)
+	void subclassCustomBorderForListBoxAndEditControls(HWND hwnd)
 	{
-		auto pBorderMetricsData = reinterpret_cast<DWORD_PTR>(new BorderMetricsData(hwnd));
-		SetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, pBorderMetricsData);
+		SetWindowSubclass(hwnd, CustomBorderSubclass, g_customBorderSubclassID, 0);
 	}
 
 	constexpr UINT_PTR g_comboBoxSubclassID = 42;
 
-	static LRESULT CALLBACK ComboBoxSubclass(
+	LRESULT CALLBACK ComboBoxSubclass(
 		HWND hWnd,
 		UINT uMsg,
 		WPARAM wParam,
@@ -1820,7 +1759,7 @@ namespace NppDarkMode
 
 				auto holdBrush = ::SelectObject(hdc, NppDarkMode::getDarkerBackgroundBrush());
 
-				const auto dpi = DPIManagerV2::getDpiForParent(hWnd);
+				auto& dpiManager = NppParameters::getInstance()._dpiManager;
 
 				RECT rcArrow{};
 
@@ -1835,7 +1774,7 @@ namespace NppDarkMode
 				else
 				{
 					rcArrow = {
-					rc.right - DPIManagerV2::scale(17, dpi), rc.top + 1,
+					rc.right - dpiManager.scaleX(17), rc.top + 1,
 					rc.right - 1, rc.bottom - 1
 					};
 				}
@@ -1918,7 +1857,7 @@ namespace NppDarkMode
 				};
 				::Polyline(hdc, edge, _countof(edge));
 
-				const int roundCornerValue = NppDarkMode::isWindows11() ? DPIManagerV2::scale(4, dpi) : 0;
+				int roundCornerValue = NppDarkMode::isWindows11() ? dpiManager.scaleX(4) : 0;
 				NppDarkMode::paintRoundFrameRect(hdc, rc, hSelectedPen, roundCornerValue, roundCornerValue);
 
 				::SelectObject(hdc, holdPen);
@@ -2015,7 +1954,7 @@ namespace NppDarkMode
 
 	constexpr UINT_PTR g_upDownSubclassID = 42;
 
-	static LRESULT CALLBACK UpDownSubclass(
+	LRESULT CALLBACK UpDownSubclass(
 		HWND hWnd,
 		UINT uMsg,
 		WPARAM wParam,
@@ -2121,12 +2060,6 @@ namespace NppDarkMode
 				return FALSE;
 			}
 
-			case WM_DPICHANGED:
-			{
-				pButtonData->closeTheme();
-				return 0;
-			}
-
 			case WM_THEMECHANGED:
 			{
 				pButtonData->closeTheme();
@@ -2155,7 +2088,7 @@ namespace NppDarkMode
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
-	static void subclassAndThemeUpDownControl(HWND hwnd, NppDarkModeParams p)
+	void subclassAndThemeUpDownControl(HWND hwnd, NppDarkModeParams p)
 	{
 		if (p._subclass)
 		{
@@ -2482,12 +2415,8 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
-					if (NppDarkMode::isWindows11())
-					{
-						const auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
-						const auto dpi = DPIManagerV2::getDpiForParent(nmhdr->hwndFrom);
-						roundCornerValue = DPIManagerV2::scale(5, dpi);
-					}
+					auto dpiManager = NppParameters::getInstance()._dpiManager;
+					roundCornerValue = NppDarkMode::isWindows11() ? dpiManager.scaleX(5) : 0;
 
 					::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
 					return CDRF_NOTIFYITEMDRAW;

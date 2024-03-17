@@ -17,54 +17,11 @@
 
 #include "dpiManagerV2.h"
 
-template <typename P>
-bool ptrFn(HMODULE handle, P& pointer, const char* name)
-{
-	auto p = reinterpret_cast<P>(::GetProcAddress(handle, name));
-	if (p != nullptr)
-	{
-		pointer = p;
-		return true;
-	}
-	return false;
-}
-
-using fnGetDpiForSystem = UINT (WINAPI*)();
-using fnGetDpiForWindow = UINT (WINAPI*)(HWND);
-using fnGetSystemMetricsForDpi = int (WINAPI*)(int, UINT);
-using fnSystemParametersInfoForDpi = BOOL(WINAPI*)(UINT, UINT, PVOID, UINT, UINT);
-
-fnGetDpiForSystem _fnGetDpiForSystem = nullptr;
-fnGetDpiForWindow _fnGetDpiForWindow = nullptr;
-fnGetSystemMetricsForDpi _fnGetSystemMetricsForDpi = nullptr;
-fnSystemParametersInfoForDpi _fnSystemParametersInfoForDpi = nullptr;
-
-void DPIManagerV2::initDpiAPI()
-{
-	HMODULE hUser32 = ::GetModuleHandleW(L"user32.dll");
-	if (hUser32)
-	{
-		ptrFn(hUser32, _fnGetDpiForSystem, "GetDpiForSystem");
-		ptrFn(hUser32, _fnGetDpiForWindow, "GetDpiForWindow");
-		ptrFn(hUser32, _fnGetSystemMetricsForDpi, "GetSystemMetricsForDpi");
-		ptrFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
-	}
-}
-
-int DPIManagerV2::getSystemMetricsForDpi(int nIndex, UINT dpi)
-{
-	if (_fnGetSystemMetricsForDpi != nullptr)
-	{
-		return _fnGetSystemMetricsForDpi(nIndex, dpi);
-	}
-	return DPIManagerV2::scale(::GetSystemMetrics(nIndex), dpi);
-}
-
 UINT DPIManagerV2::getDpiForSystem()
 {
-	if (_fnGetDpiForSystem != nullptr)
+	if (NppDarkMode::isWindows10())
 	{
-		return _fnGetDpiForSystem();
+		return ::GetDpiForSystem();
 	}
 
 	UINT dpi = USER_DEFAULT_SCREEN_DPI;
@@ -79,9 +36,9 @@ UINT DPIManagerV2::getDpiForSystem()
 
 UINT DPIManagerV2::getDpiForWindow(HWND hWnd)
 {
-	if (_fnGetDpiForWindow != nullptr)
+	if (NppDarkMode::isWindows10())
 	{
-		const auto dpi = _fnGetDpiForWindow(hWnd);
+		const auto dpi = ::GetDpiForWindow(hWnd);
 		if (dpi > 0)
 		{
 			return dpi;
@@ -109,8 +66,8 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 	LOGFONT lf{};
 	NONCLIENTMETRICS ncm{};
 	ncm.cbSize = sizeof(NONCLIENTMETRICS);
-	if (_fnSystemParametersInfoForDpi != nullptr
-		&& (_fnSystemParametersInfoForDpi(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0, dpi) != FALSE))
+	if (NppDarkMode::isWindows10()
+		&& (::SystemParametersInfoForDpi(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0, dpi) != FALSE))
 	{
 		result = 2;
 	}

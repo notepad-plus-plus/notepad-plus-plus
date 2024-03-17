@@ -503,7 +503,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	NppGUI & nppGui = nppParameters.getNppGUI();
 
 	NppDarkMode::initDarkMode();
+
+	// There is issue with MSVC x86 release build,
+	// some optimalization will cause crash when opening shortcut mapper.
+	// Needs further investigation.
+#if defined(_WIN32) && (defined(_WIN64) || defined(DEBUG))
 	DPIManagerV2::initDpiAPI();
+#endif
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;

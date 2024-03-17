@@ -29,10 +29,10 @@ bool ptrFn(HMODULE handle, P& pointer, const char* name)
 	return false;
 }
 
-using fnGetDpiForSystem = UINT (WINAPI*)();
-using fnGetDpiForWindow = UINT (WINAPI*)(HWND);
-using fnGetSystemMetricsForDpi = int (WINAPI*)(int, UINT);
-using fnSystemParametersInfoForDpi = BOOL(WINAPI*)(UINT, UINT, PVOID, UINT, UINT);
+using fnGetDpiForSystem = UINT (WINAPI*)(VOID);
+using fnGetDpiForWindow = UINT (WINAPI*)(HWND hwnd);
+using fnGetSystemMetricsForDpi = int (WINAPI*)(int nIndex, UINT dpi);
+using fnSystemParametersInfoForDpi = BOOL (WINAPI*)(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, UINT dpi);
 
 fnGetDpiForSystem _fnGetDpiForSystem = nullptr;
 fnGetDpiForWindow _fnGetDpiForWindow = nullptr;
@@ -41,19 +41,22 @@ fnSystemParametersInfoForDpi _fnSystemParametersInfoForDpi = nullptr;
 
 void DPIManagerV2::initDpiAPI()
 {
-	HMODULE hUser32 = ::GetModuleHandleW(L"user32.dll");
-	if (hUser32)
+	if (NppDarkMode::isWindows10())
 	{
-		ptrFn(hUser32, _fnGetDpiForSystem, "GetDpiForSystem");
-		ptrFn(hUser32, _fnGetDpiForWindow, "GetDpiForWindow");
-		ptrFn(hUser32, _fnGetSystemMetricsForDpi, "GetSystemMetricsForDpi");
-		ptrFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
+		HMODULE hUser32 = ::GetModuleHandleW(L"user32.dll");
+		if (hUser32 != nullptr)
+		{
+			ptrFn(hUser32, _fnGetDpiForSystem, "GetDpiForSystem");
+			ptrFn(hUser32, _fnGetDpiForWindow, "GetDpiForWindow");
+			ptrFn(hUser32, _fnGetSystemMetricsForDpi, "GetSystemMetricsForDpi");
+			ptrFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
+		}
 	}
 }
 
 int DPIManagerV2::getSystemMetricsForDpi(int nIndex, UINT dpi)
 {
-	if (_fnGetSystemMetricsForDpi != nullptr)
+	if (NppDarkMode::isWindows10() && _fnGetSystemMetricsForDpi != nullptr)
 	{
 		return _fnGetSystemMetricsForDpi(nIndex, dpi);
 	}
@@ -62,7 +65,7 @@ int DPIManagerV2::getSystemMetricsForDpi(int nIndex, UINT dpi)
 
 UINT DPIManagerV2::getDpiForSystem()
 {
-	if (_fnGetDpiForSystem != nullptr)
+	if (NppDarkMode::isWindows10() && _fnGetDpiForSystem != nullptr)
 	{
 		return _fnGetDpiForSystem();
 	}
@@ -79,7 +82,7 @@ UINT DPIManagerV2::getDpiForSystem()
 
 UINT DPIManagerV2::getDpiForWindow(HWND hWnd)
 {
-	if (_fnGetDpiForWindow != nullptr)
+	if (NppDarkMode::isWindows10() && _fnGetDpiForWindow != nullptr)
 	{
 		const auto dpi = _fnGetDpiForWindow(hWnd);
 		if (dpi > 0)
@@ -109,7 +112,7 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 	LOGFONT lf{};
 	NONCLIENTMETRICS ncm{};
 	ncm.cbSize = sizeof(NONCLIENTMETRICS);
-	if (_fnSystemParametersInfoForDpi != nullptr
+	if (NppDarkMode::isWindows10() && _fnSystemParametersInfoForDpi != nullptr
 		&& (_fnSystemParametersInfoForDpi(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0, dpi) != FALSE))
 	{
 		result = 2;

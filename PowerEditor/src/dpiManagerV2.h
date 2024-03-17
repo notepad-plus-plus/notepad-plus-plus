@@ -16,7 +16,7 @@
 
 
 #pragma once
-#include <windows.h>
+#include "NppDarkMode.h"
 
 class DPIManagerV2
 {

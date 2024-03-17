@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
 -    Traducerea în română pentru Notepad++ 8.6.5
--    Ultima modificare 15 martie 2024 de către Miloiu Andrei-Valentin
+-    Ultima modificare 17 martie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
@@ -1014,20 +1014,20 @@
                 </Scintillas>
 				
 				<Scintillas2 title="Editare 2">
-					<Item id="6521" name="Editare multiplă"/>
-					<Item id="6522" name="Activează editarea multiplă (Ctrl+Mouse clic/selecție)"/>
-					<Item id="6523" name="Activează selecția coloanelor pentru editare multiplă"/>
-					<Item id="6247" name="EOL- Sfârșit de linie (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+				    <Item id="6247" name="EOL- Sfârșit de linie (CRLF)"/> <!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Implicit"/>
 					<Item id="6249" name="Text simplu"/>
 					<Item id="6250" name="Culoare personalizată"/>
 					<Item id="6252" name="Caractere neafișabile"/>
-					<Item id="6260" name="Aspect"/>
 					<Item id="6254" name="Abreviere"/>
 					<Item id="6255" name="Punct de cod"/>
 					<Item id="6256" name="Culoare personalizată"/>
 					<Item id="6258" name="Aplicare la C0, C1 &amp;&amp; Unicode EOL"/>
 					<Item id="6259" name="Previne introducerea caracterului de control (codul C0) în document"/>
+					<Item id="6260" name="Aspect"/>
+					<Item id="6521" name="Editare multiplă"/>
+					<Item id="6522" name="Activează editarea multiplă (Ctrl+Mouse clic/selecție)"/>
+					<Item id="6523" name="Activează selecția coloanelor pentru editare multiplă"/>
 				</Scintillas2>
 				
                 <DarkMode title="Modul întunecat">
@@ -1080,6 +1080,8 @@
                     <Item id="6209" name="Stânga"/>
                     <Item id="6210" name="Dreapta"/>
                     <Item id="6212" name="Fără distracție"/>
+					<Item id="6295" name="Istoricul schimbărilor"/>
+					<Item id="6296" name="Afișează în text"/>
                 </MarginsBorderEdge>
 				
                 <NewDoc title="Document nou">

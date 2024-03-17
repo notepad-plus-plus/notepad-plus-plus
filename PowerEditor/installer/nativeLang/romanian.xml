@@ -989,9 +989,9 @@
                     <Item id="6230" name="Indentare"/>
                     <Item id="6206" name="Afișare numere de linii"/>
                     <Item id="6207" name="Afișare semne de carte"/>
-		            <Item id="6295" name="Istoricul schimbărilor"/>
-		            <Item id="6223" name="Afișare în marjă"/>
-		            <Item id="6296" name="Afișare în text"/>
+		    <Item id="6295" name="Istoricul schimbărilor"/>
+		    <Item id="6223" name="Afișare în marjă"/>
+		    <Item id="6296" name="Afișare în text"/>
                     <Item id="6208" name="Afișare margine verticală"/>
                     <Item id="6209" name="Număr de coloane: "/>
                     <Item id="6234" name="Dezactivează funcția derulare avansată (dacă aveți probleme cu touchpad-ul)"/>		
@@ -1071,7 +1071,7 @@
                     <Item id="6293" name="Lățime constantă"/>
                     <Item id="6207" name="Semn de carte pentru afișaj"/>
                     <Item id="6223" name="Istoricul schimbărilor afișajului"/>
-					<Item id="6296" name="Afișează în text"/>
+                    <Item id="6296" name="Afișează în text"/>
                     <Item id="6211" name="Setările vârfurilor verticale"/>
                     <Item id="6213" name="Modul fundal"/>
                     <Item id="6231" name="Lățimea chenarului"/>

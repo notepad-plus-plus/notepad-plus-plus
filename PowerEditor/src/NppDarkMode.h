@@ -222,6 +222,8 @@ namespace NppDarkMode
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags);
 	void autoSubclassAndThemeWindowNotify(HWND hwnd);
 
+	void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
+
 	void setDarkTitleBar(HWND hwnd);
 	void setDarkExplorerTheme(HWND hwnd);
 	void setDarkScrollBar(HWND hwnd);

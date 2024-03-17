@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.6.3">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -970,7 +970,8 @@ Translation note:
 
 					<Item id="6123" name="Idioma"/>
 				</Global>
-				<Scintillas title="Edición">
+
+				<Scintillas title="Edición 1">
 					<Item id="6216" name="Configuración do cursor"/>
 					<Item id="6217" name="Anchura:"/>
 					<Item id="6219" name="Intermitencia:"/>
@@ -992,16 +993,24 @@ Translation note:
 					<Item id="6653" name="Fondo resaltado"/>
 					<Item id="6654" name="Marco"/>
 					<Item id="6655" name="Anchura"/>
+				</Scintillas>
+
+				<Scintillas2 title="Edición 2">
+					<Item id="6521" name="Edición múltiple"/>
+					<Item id="6522" name="Activar a edición múltiple (Ctrl+clic do rato/selección)"/>
+					<Item id="6523" name="Habilitar a selección de columnas para a edición múltiple"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predeterminado"/>
 					<Item id="6249" name="Texto sin formato"/>
 					<Item id="6250" name="Cor personalizada"/>
 					<Item id="6252" name="Caracteres non imprimibles"/>
+					<Item id="6260" name="Apariencia"/>
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Punto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
 					<Item id="6258" name="Aplicar a C0, C1 &amp;&amp; EOL de Unicode"/>
-				</Scintillas>
+					<Item id="6259" name="Impedir a introducción de caracteres de control (código C0) no documento"/>
+				</Scintillas2>
 
 				<DarkMode title="Modo escuro">
 					<Item id="7131" name="Modo claro"/>
@@ -1085,6 +1094,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="4009" name="Extensións soportadas:"/>
 					<Item id="4010" name="Extensións rexistradas:"/>
 				</FileAssoc>
+				
 				<Language title="Linguaxes">
 					<Item id="6505" name="Dispoñibles"/>
 					<Item id="6506" name="Desactivadas"/>
@@ -1639,7 +1649,6 @@ NOTA: ¡Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, 
 			<default-open-save-select-folder value="Seleccionar unha carpeta como directorio predeterminado"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use Maiús+Enter para buscar na dirección contraria"/>
 			<two-find-buttons-tip value="Modo de busca de 2 botóns"/>
-			<file-rename-title value="Renomear"/>
 			<find-in-files-filter-tip value="Buscar cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1685,9 +1694,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<finder-collapse-all value="Contraer todo"/>
 			<finder-uncollapse-all value="Expandir todo"/>
 			<finder-copy value="Copiar liña(s) seleccionada(s)"/>
-			<finder-copy-verbatim value="Copiar"/>
 			<finder-copy-paths value="Copiar nome(s) de ruta(s)"/>
-			<finder-select-all value="Seleccionar todo"/>
 			<finder-clear-all value="Limpar todo"/>
 			<finder-open-all value="Abrir todo"/>
 			<finder-purge-for-every-search value="Depurar para cada busca"/>
@@ -1714,7 +1721,6 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<summary-nbsel2 value=" bytes) en "/>
 			<summary-nbrange value=" rangos"/>
 			<progress-hits-title value="Coincidencias: "/>
-			<progress-cancel-button value="Cancelar"/>
 			<progress-cancel-info value="Cancelando operación, por favor espere..."/>
 			<find-in-files-progress-title value="Progreso da busca en arquivos..."/>
 			<replace-in-files-confirm-title value="¿Está seguro?"/>
@@ -1783,6 +1789,7 @@ Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do us
 			<npcCustomColor-tip value="Vaia ao Configurador de estilos para cambiar a cor personalizada por defecto dos espazos en branco e caracteres non imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar axustes de apariencia de caracteres non imprimibles aos caracteres de control C0, C1 e Unicode EOL (liña seguinte, separador de liña e separador de párrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres seleccionados na zona de edición para marcar automáticamente o recadro &quot;Selección&quot; cando se activa o diálogo Buscar. O valor máximo é 1024. Estableza o valor en 0 para desactivar a comprobación automática."/>
+			<verticalEdge-tip value="Añada o seu marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores utilizando espazos en branco para separar os distintos números."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

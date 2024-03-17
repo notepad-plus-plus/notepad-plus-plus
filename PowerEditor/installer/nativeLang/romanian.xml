@@ -40,8 +40,8 @@
                     <Item subMenuId="edit-blankOperations" name="Operații spații libere"/>
                     <Item subMenuId="edit-pasteSpecial" name="Lipire specială"/>
                     <Item subMenuId="edit-onSelection" name="Pe selecție"/>
-					<Item subMenuId="search-changeHistory" name="Schimbă istoricul"/>
-					<Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
+		    <Item subMenuId="search-changeHistory" name="Schimbă istoricul"/>
+		    <Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
                     <Item subMenuId="search-markAll" name="Marcare tot"/>
                     <Item subMenuId="search-markOne" name="Marcare &amp;unică a selecției"/>
                     <Item subMenuId="search-unmarkAll" name="Demarcare tot"/>
@@ -989,9 +989,6 @@
                     <Item id="6230" name="Indentare"/>
                     <Item id="6206" name="Afișare numere de linii"/>
                     <Item id="6207" name="Afișare semne de carte"/>
-		    <Item id="6295" name="Istoricul schimbărilor"/>
-		    <Item id="6223" name="Afișare în marjă"/>
-		    <Item id="6296" name="Afișare în text"/>
                     <Item id="6208" name="Afișare margine verticală"/>
                     <Item id="6209" name="Număr de coloane: "/>
                     <Item id="6234" name="Dezactivează funcția derulare avansată (dacă aveți probleme cu touchpad-ul)"/>		

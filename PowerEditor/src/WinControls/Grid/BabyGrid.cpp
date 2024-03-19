@@ -1341,7 +1341,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	SelfIndex=FindGrid(GetMenu(hWnd));
 
-	// the following check will prevent memory overwriting bug by BabyGrip during the WM_NCCREATE, WM_NCCALCSIZE, WM_CREATE and WM_NCDESTROY
+	// the following check will prevent memory overwriting bug by BabyGrid during the WM_NCCREATE, WM_NCCALCSIZE, WM_CREATE and WM_NCDESTROY
 	// - TODO: if the above FindGrid can theoretically return -1, the whole BabyGrid code here is theoretically flawed and needs a review
 	//         (luckily it seems it never returns -1 apart from the aforementioned 4 WMs above)
 	if (SelfIndex != -1)

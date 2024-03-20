@@ -1587,24 +1587,39 @@ bool NppParameters::load()
 			sessionInCaseOfCorruption_bak += SESSION_BACKUP_EXT;
 			if (::PathFileExists(sessionInCaseOfCorruption_bak.c_str()))
 			{
-				ReplaceFile(_sessionPath.c_str(), sessionInCaseOfCorruption_bak.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+				BOOL bFileSwapOk = false;
+				if (::PathFileExists(_sessionPath.c_str()))
+				{
+					// an invalid session.xml file exists
+					bFileSwapOk = ::ReplaceFile(_sessionPath.c_str(), sessionInCaseOfCorruption_bak.c_str(), nullptr,
+						REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+				}
+				else
+				{
+					// no session.xml file
+					bFileSwapOk = ::MoveFileEx(sessionInCaseOfCorruption_bak.c_str(), _sessionPath.c_str(),
+						MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH);
+				}
 
-				TiXmlDocument* pXmlSessionBackupDoc = new TiXmlDocument(_sessionPath);
-				loadOkay = pXmlSessionBackupDoc->LoadFile();
-				if (loadOkay)
-					loadOkay = getSessionFromXmlTree(pXmlSessionBackupDoc, _session);
+				if (bFileSwapOk)
+				{
+					TiXmlDocument* pXmlSessionBackupDoc = new TiXmlDocument(_sessionPath);
+					loadOkay = pXmlSessionBackupDoc->LoadFile();
+					if (loadOkay)
+						loadOkay = getSessionFromXmlTree(pXmlSessionBackupDoc, _session);
 
-				delete pXmlSessionBackupDoc;
+					delete pXmlSessionBackupDoc;
+				}
 
 				if (!loadOkay)
-					isAllLoaded = false;
+					isAllLoaded = false; // either the backup file is also invalid or cannot be swapped with the session.xml
 			}
 			else
 			{
+				// no backup file
 				isAllLoaded = false;
 			}
 		}
-			
 
 		delete pXmlSessionDoc;
 

@@ -3563,6 +3563,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL:
 		{
+			if (wParam == reinterpret_cast<WPARAM>(_pEditView->getCurrentBuffer()))
+				addHotSpot(_pEditView);
 			SCNotification scnN{};
 			scnN.nmhdr.code = NPPN_GLOBALMODIFIED;
 			scnN.nmhdr.hwndFrom = reinterpret_cast<void*>(wParam);

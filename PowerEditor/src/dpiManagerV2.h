@@ -31,6 +31,7 @@ public:
 	static void initDpiAPI();
 
 	static int getSystemMetricsForDpi(int nIndex, UINT dpi);
+	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
 
 	static UINT getDpiForSystem();
 	static UINT getDpiForWindow(HWND hWnd);

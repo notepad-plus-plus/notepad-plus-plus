@@ -72,7 +72,7 @@ DPI_AWARENESS_CONTEXT DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_C
 	{
 		return _fnSetThreadDpiAwarenessContext(dpiContext);
 	}
-	return DPI_AWARENESS_CONTEXT_SYSTEM_AWARE;
+	return NULL;
 }
 
 UINT DPIManagerV2::getDpiForSystem()

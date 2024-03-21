@@ -424,7 +424,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 
 void Splitter::resizeSpliter(RECT *pRect)
 {
-	RECT rect;
+	RECT rect{};
 
 	if (pRect)
 		rect = *pRect;

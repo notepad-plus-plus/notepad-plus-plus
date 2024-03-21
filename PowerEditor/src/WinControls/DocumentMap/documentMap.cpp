@@ -97,7 +97,7 @@ void DocumentMap::initWrapMap()
 {
 	if (_pMapView && _ppEditView)
 	{
-		RECT rect;
+		RECT rect{};
 		getClientRect(rect);
 		::MoveWindow(_pMapView->getHSelf(), 0, 0, rect.right - rect.left, rect.bottom-rect.top, TRUE);
 		_pMapView->wrap(false);
@@ -158,7 +158,7 @@ double zoomRatio[] = {1, 1, 1, 1, 1.5, 2, 2.5, 2.5, 3.5, 3.5,\
 void DocumentMap::wrapMap(const ScintillaEditView *editView)
 {
 	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
-	RECT rect;
+	RECT rect{};
 	getClientRect(rect);
 	if (pEditView->isWrap())
 	{

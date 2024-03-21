@@ -28,9 +28,11 @@ public:
 	~BabyGridWrapper() = default;
 
 	virtual void init(HINSTANCE hInst, HWND parent, int16_t id);
+
 	virtual void destroy() {
 		::DestroyWindow(_hSelf);
 	};
+
 	void setLineColNumber(size_t nbRow, size_t nbCol) {
 		::SendMessage(_hSelf, BGM_SETGRIDDIM, nbRow, nbCol);
 	};
@@ -48,7 +50,7 @@ public:
 	}
 
 	void setText(size_t row, size_t col, const TCHAR* text) {
-		_BGCELL cell;
+		BGCELL cell;
 		cell.row = int(row);
 		cell.col = int(col);
 		::SendMessage(_hSelf, BGM_SETCELLDATA, reinterpret_cast<WPARAM>(&cell), reinterpret_cast<LPARAM>(text));
@@ -63,7 +65,7 @@ public:
 	};
 
 	void deleteCell(int row, int col) {
-		_BGCELL cell;
+		BGCELL cell;
 		cell.row = row;
 		cell.col = col;
 		::SendMessage(_hSelf, BGM_DELETECELL, reinterpret_cast<WPARAM>(&cell), 0);

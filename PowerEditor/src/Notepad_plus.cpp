@@ -5789,7 +5789,7 @@ void Notepad_plus::fullScreenToggle()
         // show restore button
         _restoreButton.doDialog(_nativeLangSpeaker.isRTL());
 
-        RECT rect;
+		RECT rect{};
         GetWindowRect(_restoreButton.getHSelf(), &rect);
 	    int w = rect.right - rect.left;
 	    int h = rect.bottom - rect.top;
@@ -5853,7 +5853,7 @@ void Notepad_plus::fullScreenToggle()
     if (_beforeSpecialView._isPostIt)
     {
         // show restore button on the right position
-        RECT rect;
+        RECT rect{};
         GetWindowRect(_restoreButton.getHSelf(), &rect);
         int w = rect.right - rect.left;
         int h = rect.bottom - rect.top;
@@ -5923,7 +5923,7 @@ void Notepad_plus::postItToggle()
         // show restore button
         _restoreButton.doDialog(_nativeLangSpeaker.isRTL());
 
-        RECT rect;
+        RECT rect{};
         GetWindowRect(_restoreButton.getHSelf(), &rect);
 	    int w = rect.right - rect.left;
 	    int h = rect.bottom - rect.top;

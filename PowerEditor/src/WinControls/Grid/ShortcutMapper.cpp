@@ -522,7 +522,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
-			RECT rect;
+			RECT rect{};
 			Window::getClientRect(rect);
 			_clientWidth = rect.right - rect.left;
 			_clientHeight = rect.bottom - rect.top;
@@ -587,7 +587,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			LONG newWidth = LOWORD(lParam);
 			LONG newHeight = HIWORD(lParam);
-			RECT rect;
+			RECT rect{};
 
 			LONG addWidth = newWidth - _clientWidth;
 			LONG addHeight = newHeight - _clientHeight;

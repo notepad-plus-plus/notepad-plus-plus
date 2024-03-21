@@ -84,7 +84,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 
 	if (!_isRegistered)
 	{
-		WNDCLASS clz;
+		WNDCLASS clz{};
 
 		clz.style = 0;
 		clz.lpfnWndProc = staticWinProc;

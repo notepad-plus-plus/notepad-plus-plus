@@ -897,7 +897,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			NppGUI & nppGui = nppParam.getNppGUI();
 
 			// replacement for obsolete custom SCN_SCROLLED
-			if (notification->updated & SC_UPDATE_V_SCROLL)
+			if ((notification->updated & SC_UPDATE_V_SCROLL)
+				// if one line is in view and word wrap is off (so the first line in view is the last line of the document)
+				//    we need to recalculate URLs in response to horizontal scrolling as well as vertical scrolling
+				|| ((notification->updated & SC_UPDATE_H_SCROLL) && notifyView->execute(SCI_GETFIRSTVISIBLELINE) == notifyView->execute(SCI_GETLINECOUNT) - 1))
 			{
 				addHotSpot(notifyView);
 			}

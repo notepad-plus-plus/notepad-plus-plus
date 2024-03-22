@@ -17,7 +17,7 @@
 
 #include "BabyGridWrapper.h"
 
-const TCHAR *babyGridClassName = TEXT("BABYGRID");
+const wchar_t* babyGridClassName = L"BABYGRID";
 
 bool BabyGridWrapper::_isRegistered = false;
 
@@ -37,4 +37,6 @@ void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int16_t id)
 					reinterpret_cast<HMENU>(id),
 					_hInst,
 					NULL);
+
+	_isRegistered = true;
 }

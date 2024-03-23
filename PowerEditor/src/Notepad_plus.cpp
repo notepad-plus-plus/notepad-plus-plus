@@ -3120,37 +3120,17 @@ bool isUrlQueryDelimiter(TCHAR const c)
 	return false;
 }
 
-bool isUrlSchemeSupported(INTERNET_SCHEME s, TCHAR *url)
+bool isUrlSchemeSupported(TCHAR *url, int remainingLength)
 {
-	switch (s)
-	{
-		case INTERNET_SCHEME_FTP:
-		case INTERNET_SCHEME_HTTP:
-		case INTERNET_SCHEME_HTTPS:
-		case INTERNET_SCHEME_MAILTO:
-		case INTERNET_SCHEME_FILE:
-			return true;
-
-		case INTERNET_SCHEME_PARTIAL:
-		case INTERNET_SCHEME_UNKNOWN:
-		case INTERNET_SCHEME_DEFAULT:
-		case INTERNET_SCHEME_GOPHER:
-		case INTERNET_SCHEME_NEWS:
-		case INTERNET_SCHEME_SOCKS:
-		case INTERNET_SCHEME_JAVASCRIPT:
-		case INTERNET_SCHEME_VBSCRIPT:
-		case INTERNET_SCHEME_RES:
-		default:
-			break;
-	}
-	generic_string const mySchemes = (NppParameters::getInstance()).getNppGUI()._uriSchemes + TEXT(" ");
+	generic_string const mySchemes = L"ftp:// http:// https:// mailto: file:// "
+		                           + (NppParameters::getInstance()).getNppGUI()._uriSchemes + L" ";
 	TCHAR *p = (TCHAR *)mySchemes.c_str();
 	while (*p)
 	{
 		int i = 0;
 		while (p [i] && (p [i] != ' ')) i++;
 		if (i == 0) return false;
-		if (wcsnicmp(url, p, i) == 0) return true;
+		if (i <= remainingLength && wcsnicmp(url, p, i) == 0) return true;
 		p += i;
 		while (*p == ' ') p++;
 	}
@@ -3183,7 +3163,7 @@ bool scanToUrlStart(TCHAR *text, int textLen, int start, int* distance, int* sch
 				break;
 
 			case sScheme:
-				if (text [p] == ':')
+				if (text [p] == ':' && isUrlSchemeSupported(text + p0, textLen - p0))
 				{
 					*distance = p0 - start;
 					*schemeLength = p - p0 + 1;
@@ -3380,12 +3360,17 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 			URL_COMPONENTS url;
 			memset (& url, 0, sizeof(url));
 			url.dwStructSize = sizeof(url);
-			bool r  = InternetCrackUrl(& text [start], len, 0, & url) && isUrlSchemeSupported(url.nScheme, & text [start]);
+			bool r  = InternetCrackUrl(& text [start], len, 0, & url);
 			if (r)
 			{
 				while (removeUnwantedTrailingCharFromUrl (& text [start], & len));
 				*segmentLen = len;
 				return true;
+			}
+			else // to avoid potentially catastrophic backtracking, skip the entire text that looked like a URL
+			{
+				*segmentLen = len;
+				return false;
 			}
 		}
 		len = 1;

@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -1823,44 +1823,51 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, size_t level, const vec
 	level++;
 
 	generic_string dirFilter(dir);
-	dirFilter += TEXT("*.*");
 
-	WIN32_FIND_DATA foundData;
-	HANDLE hFindFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
-	if (hFindFile != INVALID_HANDLE_VALUE)
+	std::vector<generic_string> dirQueue; // implement a queue using a vector so as to avoid #include <queue>
+	dirQueue.push_back(dirFilter);
+
+	while (!dirQueue.empty()) 
 	{
-		do
+		WIN32_FIND_DATA foundData;
+		HANDLE hFindFile = ::FindFirstFile((dirQueue.front() + TEXT("*.*")).c_str(), &foundData);
+		if (hFindFile != INVALID_HANDLE_VALUE)
 		{
-			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			do
 			{
-				if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+				if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 				{
-					// do nothing
-				}
-				else if (isRecursive)
-				{
-					if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && 
-						(OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0) &&
-						!matchInExcludeDirList(foundData.cFileName, patterns, level))
+					if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
 					{
-						generic_string pathDir(dir);
-						pathDir += foundData.cFileName;
-						pathDir += TEXT("\\");
-						getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir);
+						// do nothing
+					}
+					else if (isRecursive)
+					{
+						if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && 
+							(OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0) &&
+							!matchInExcludeDirList(foundData.cFileName, patterns, level))
+						{
+							generic_string pathDir(dirQueue.front().c_str());
+							pathDir += foundData.cFileName;
+							pathDir += TEXT("\\");
+							dirQueue.push_back(pathDir);
+							// getMatchedFileNames(pathDir.c_str(), level, patterns, fileNames, isRecursive, isInHiddenDir);
+						}
 					}
 				}
-			}
-			else
-			{
-				if (matchInList(foundData.cFileName, patterns))
+				else
 				{
-					generic_string pathFile(dir);
-					pathFile += foundData.cFileName;
-					fileNames.push_back(pathFile.c_str());
+					if (matchInList(foundData.cFileName, patterns))
+					{
+						generic_string pathFile(dirQueue.front().c_str());
+						pathFile += foundData.cFileName;
+						fileNames.push_back(pathFile.c_str());
+					}
 				}
-			}
-		} while (::FindNextFile(hFindFile, &foundData));
-		::FindClose(hFindFile);
+			} while (::FindNextFile(hFindFile, &foundData));
+			::FindClose(hFindFile);
+		}
+		dirQueue.erase(dirQueue.begin());
 	}
 }
 

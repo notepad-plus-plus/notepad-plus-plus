@@ -20,6 +20,7 @@
 #include "MiniDumper.h"			//Write dump files
 #include "verifySignedfile.h"
 #include "NppDarkMode.h"
+#include "dpiManagerV2.h"
 #include <memory>
 
 typedef std::vector<std::wstring> ParamVector;
@@ -502,6 +503,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	NppGUI & nppGui = nppParameters.getNppGUI();
 
 	NppDarkMode::initDarkMode();
+	DPIManagerV2::initDpiAPI();
 
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;

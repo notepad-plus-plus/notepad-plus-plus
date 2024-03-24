@@ -3400,6 +3400,8 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 
 void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
+	if (_isAttemptingCloseOnQuit)
+		return; // don't recalculate URLs when shutting down
 	ScintillaEditView* pView = view ? view : _pEditView;
 	Buffer* currentBuf = pView->getCurrentBuffer();
 
@@ -3417,10 +3419,45 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 		pView->execute(SCI_INDICSETFLAGS, URL_INDIC, SC_INDICFLAG_VALUEFORE);
 	}
 
-	intptr_t startPos = 0;
-	intptr_t endPos = -1;
-	pView->getVisibleStartAndEndPosition(&startPos, &endPos);
-	if (startPos >= endPos) return;
+	RECT rcEditView{};
+	pView->getClientRect(rcEditView);
+	const intptr_t topLeftPos = pView->execute(SCI_POSITIONFROMPOINT, 0, 0);
+	const intptr_t startLine = pView->execute(SCI_LINEFROMPOSITION, topLeftPos);
+	// by default, the first character "visible" is the start of the first visible line
+	intptr_t startPos = pView->execute(SCI_POSITIONFROMLINE, startLine);
+	const WPARAM viewRight = static_cast<WPARAM>(rcEditView.right - rcEditView.left);
+	const intptr_t bottomRightPos = pView->execute(SCI_POSITIONFROMPOINT, viewRight, static_cast<LPARAM>(rcEditView.bottom - rcEditView.top));
+	const intptr_t endLine = pView->execute(SCI_LINEFROMPOSITION, bottomRightPos);
+	const intptr_t endLineEndPos = pView->execute(SCI_GETLINEENDPOSITION, endLine);
+	intptr_t endPos;
+	if (endLine > startLine)
+	{
+		// if multiple lines in view, use end of last line in view
+		endPos = endLineEndPos;
+		if (startPos >= endPos) return;
+	}
+	else // only one line in view
+	{
+		if (pView->isWrap())
+			// if word wrap is *on*, the last character visible is in the bottom right
+			endPos = bottomRightPos;
+		else
+			// if word wrap is *off*, the last character visible is in the top right
+			endPos = pView->execute(SCI_POSITIONFROMPOINT, viewRight, 0);
+		if (topLeftPos >= endPos)
+			return;
+		// This appears to be the maximum length of an URL accepted by ShellExecute (see NppNotification.cpp, case SCN_DOUBLECLICK of Notepad_plus::notify)
+		//     based on the documentation here: https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry
+		constexpr intptr_t maxUrlLength = 32767;
+		// We will start our scan from the beginning of the line or maxUrlLength chars before the first visible character, whichever is higher
+		if (topLeftPos - maxUrlLength > startPos)
+			startPos = pView->execute(SCI_POSITIONBEFORE, topLeftPos - maxUrlLength);
+		// We will end our scan at the end of the line or maxUrlLength chars after the last visible character, whichever is lower
+		if (endLineEndPos < endPos + maxUrlLength)
+			endPos = endLineEndPos;
+		else
+			endPos = pView->execute(SCI_POSITIONAFTER, endPos + maxUrlLength);
+	}
 	pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
 	if (urlAction == urlDisable || !currentBuf->allowClickableLink())
 	{

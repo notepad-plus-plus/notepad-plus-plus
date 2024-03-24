@@ -3243,7 +3243,14 @@ void scanToUrlEnd(TCHAR *text, int textLen, int start, int* distance)
 					s = sQueryAfterDelimiter;
 				else if (!isUrlTextChar(text [p]))
 				{
-					*distance = p - start;
+					if (p > start && (text [p - 1] == '\'' || text [p - 1] == '"'))
+					{
+						*distance = p - start - 1;
+					}
+					else 
+					{
+						*distance = p - start;
+					}
 					return;
 				}
 				break;

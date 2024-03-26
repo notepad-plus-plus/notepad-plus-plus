@@ -960,7 +960,9 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		result.first = margins;
 		result.second = IDC_CHECK_BOOKMARKMARGE;
 	}
-	else if (style._styleDesc == TEXT("Change History margin"))
+	else if (style._styleDesc == L"Change History margin" || style._styleDesc == L"Change History modified"
+		|| style._styleDesc == L"Change History revert modified" || style._styleDesc == L"Change History revert origin"
+		|| style._styleDesc == L"Change History saved")
 	{
 		result.first = margins;
 		result.second = IDC_CHECK_CHANGHISTORYMARGIN;

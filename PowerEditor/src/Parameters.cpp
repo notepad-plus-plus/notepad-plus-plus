@@ -4155,40 +4155,73 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			((bbggrr & 0x0000FF) << 16);
 	};
 
-	const Style* pStyle = _widgetStyleArray.findByName(TEXT("EOL custom color"));
-	if (!pStyle)
-	{
-		TiXmlNode* eolColorkNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
-		eolColorkNode->ToElement()->SetAttribute(TEXT("name"), TEXT("EOL custom color"));
-		eolColorkNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
-		eolColorkNode->ToElement()->SetAttribute(TEXT("fgColor"), TEXT("DADADA"));
-
-		_widgetStyleArray.addStyler(0, eolColorkNode);
-	}
-
-	const Style* pStyleNpc = _widgetStyleArray.findByName(g_npcStyleName);
-	if (!pStyleNpc)
-	{
-		TiXmlNode* npcColorkNode = globalStyleRoot->InsertEndChild(TiXmlElement(TEXT("WidgetStyle")));
-		npcColorkNode->ToElement()->SetAttribute(TEXT("name"), g_npcStyleName);
-		npcColorkNode->ToElement()->SetAttribute(TEXT("styleID"), TEXT("0"));
-
-		// use color from style White space symbol
-		const Style* pStyleWS = _widgetStyleArray.findByName(TEXT("White space symbol"));
-		if (pStyleWS)
+	auto addStyle = [&](const std::wstring& name,
+		const std::wstring& fgColor = L"",
+		const std::wstring& bgColor = L"",
+		const std::wstring& fromStyle = L"",
+		const std::wstring& styleID = L"0") -> int
 		{
-			constexpr size_t bufSize = 7;
-			wchar_t strColor[bufSize] = { '\0' };
-			swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleWS->_fgColor));
-			npcColorkNode->ToElement()->SetAttribute(L"fgColor", strColor);
-		}
-		else
-		{
-			npcColorkNode->ToElement()->SetAttribute(L"fgColor", L"DADADA");
-		}
+			int result = 0;
+			const Style* pStyle = _widgetStyleArray.findByName(name);
+			if (pStyle == nullptr)
+			{
+				TiXmlNode* newStyle = globalStyleRoot->InsertEndChild(TiXmlElement(L"WidgetStyle"));
+				newStyle->ToElement()->SetAttribute(L"name", name);
+				newStyle->ToElement()->SetAttribute(L"styleID", styleID);
 
-		_widgetStyleArray.addStyler(0, npcColorkNode);
-	}
+				const Style* pStyleFrom = fromStyle.empty() ? nullptr : _widgetStyleArray.findByName(fromStyle);
+				if (pStyleFrom != nullptr)
+				{
+					constexpr size_t bufSize = 7;
+					if (!fgColor.empty())
+					{
+						wchar_t strColor[bufSize] = { '\0' };
+						swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_fgColor));
+						newStyle->ToElement()->SetAttribute(L"fgColor", strColor);
+					}
+
+					if (!bgColor.empty())
+					{
+						wchar_t strColor[bufSize] = { '\0' };
+						swprintf(strColor, bufSize, L"%6X", rgbhex(pStyleFrom->_bgColor));
+						newStyle->ToElement()->SetAttribute(L"bgColor", strColor);
+					}
+
+					result = 2;
+				}
+				else
+				{
+					if (!fgColor.empty())
+					{
+						newStyle->ToElement()->SetAttribute(L"fgColor", fgColor);
+					}
+
+					if (!bgColor.empty())
+					{
+						newStyle->ToElement()->SetAttribute(L"bgColor", bgColor);
+					}
+
+					result = 1;
+				}
+
+
+				if (!fgColor.empty() || !bgColor.empty())
+				{
+					_widgetStyleArray.addStyler(0, newStyle);
+					return result;
+				}
+				return -1;
+			}
+			return result;
+		};
+
+	addStyle(L"Change History modified", L"FF8000", L"FF8000");
+	addStyle(L"Change History revert modified", L"A0C000", L"A0C000");
+	addStyle(L"Change History revert origin", L"40A0BF", L"40A0BF");
+	addStyle(L"Change History saved", L"00A000", L"00A000");
+
+	addStyle(L"EOL custom color", L"DADADA");
+	addStyle(g_npcStyleName, L"DADADA", L"", L"White space symbol");
 
 	return true;
 }

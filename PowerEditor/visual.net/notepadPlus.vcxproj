@@ -107,6 +107,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />
+    <ClCompile Include="..\src\MISC\Common\LongRunningOperation.cpp" />
+    <ClCompile Include="..\src\MISC\Common\mutex.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
     <ClCompile Include="..\src\MISC\sha1\calc_sha1.cpp" />
@@ -244,6 +246,8 @@
     <ClInclude Include="..\src\dpiManager.h" />
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />
+    <ClInclude Include="..\src\MISC\Common\LongRunningOperation.h" />
+    <ClInclude Include="..\src\MISC\Common\mutex.h" />
     <ClInclude Include="..\src\MISC\Common\Sorters.h" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
     <ClInclude Include="..\src\MISC\md5\md5.h" />

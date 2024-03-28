@@ -969,7 +969,7 @@ For untitled document (new  4)
 	1. track UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776) in session.xml.
 */
 
-std::mutex backup_mutex;
+#include "LongRunningOperation.h"
 
 bool FileManager::backupCurrentBuffer()
 {
@@ -977,7 +977,7 @@ bool FileManager::backupCurrentBuffer()
 	if (buffer->isLargeFile())
 		return false;
 
-	std::lock_guard<std::mutex> lock(backup_mutex);
+	LongRunningOperation op;
 
 	bool result = false;
 	bool hasModifForSession = false;

@@ -770,16 +770,15 @@ namespace NppDarkMode
 
 	// processes messages related to UAH / custom menubar drawing.
 	// return true if handled, false to continue with normal processing in your wndproc
-	bool runUAHWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, LRESULT* lr)
+	bool runUAHWndProc(HWND hWnd, UINT message, WPARAM /*wParam*/, LPARAM lParam, LRESULT* lr)
 	{
 		static HTHEME g_menuTheme = nullptr;
 
-		UNREFERENCED_PARAMETER(wParam);
 		switch (message)
 		{
 		case WM_UAHDRAWMENU:
 		{
-			UAHMENU* pUDM = (UAHMENU*)lParam;
+			auto pUDM = reinterpret_cast<UAHMENU*>(lParam);
 			RECT rc{};
 
 			// get the menubar rect
@@ -804,9 +803,10 @@ namespace NppDarkMode
 
 			return true;
 		}
+
 		case WM_UAHDRAWMENUITEM:
 		{
-			UAHDRAWMENUITEM* pUDMI = (UAHDRAWMENUITEM*)lParam;
+			auto pUDMI = reinterpret_cast<UAHDRAWMENUITEM*>(lParam);
 
 			// get the menu item string
 			wchar_t menuString[256] = { '\0' };
@@ -824,32 +824,32 @@ namespace NppDarkMode
 
 			DWORD dwFlags = DT_CENTER | DT_SINGLELINE | DT_VCENTER;
 
-			int iTextStateID = MPI_NORMAL;
-			int iBackgroundStateID = MPI_NORMAL;
+			int iTextStateID = MBI_NORMAL;
+			int iBackgroundStateID = MBI_NORMAL;
 			{
 				if ((pUDMI->dis.itemState & ODS_INACTIVE) | (pUDMI->dis.itemState & ODS_DEFAULT))
 				{
 					// normal display
-					iTextStateID = MPI_NORMAL;
-					iBackgroundStateID = MPI_NORMAL;
+					iTextStateID = MBI_NORMAL;
+					iBackgroundStateID = MBI_NORMAL;
 				}
 				if (pUDMI->dis.itemState & ODS_HOTLIGHT)
 				{
 					// hot tracking
-					iTextStateID = MPI_HOT;
-					iBackgroundStateID = MPI_HOT;
+					iTextStateID = MBI_HOT;
+					iBackgroundStateID = MBI_HOT;
 				}
 				if (pUDMI->dis.itemState & ODS_SELECTED)
 				{
-					// clicked -- MENU_POPUPITEM has no state for this, though MENU_BARITEM does
-					iTextStateID = MPI_HOT;
-					iBackgroundStateID = MPI_HOT;
+					// clicked
+					iTextStateID = MBI_PUSHED;
+					iBackgroundStateID = MBI_PUSHED;
 				}
 				if ((pUDMI->dis.itemState & ODS_GRAYED) || (pUDMI->dis.itemState & ODS_DISABLED))
 				{
 					// disabled / grey text
-					iTextStateID = MPI_DISABLED;
-					iBackgroundStateID = MPI_DISABLED;
+					iTextStateID = MBI_DISABLED;
+					iBackgroundStateID = MBI_DISABLED;
 				}
 				if (pUDMI->dis.itemState & ODS_NOACCEL)
 				{
@@ -862,31 +862,56 @@ namespace NppDarkMode
 				g_menuTheme = OpenThemeData(hWnd, L"Menu");
 			}
 
-			if (iBackgroundStateID == MPI_NORMAL || iBackgroundStateID == MPI_DISABLED)
+			switch (iBackgroundStateID)
 			{
-				FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getDarkerBackgroundBrush());
+				case MBI_NORMAL:
+				case MBI_DISABLED:
+				{
+					::FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getDarkerBackgroundBrush());
+					break;
+				}
+
+				case MBI_HOT:
+				case MBI_DISABLEDHOT:
+				{
+					::FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getHotBackgroundBrush());
+					break;
+				}
+
+				case MBI_PUSHED:
+				case MBI_DISABLEDPUSHED:
+				{
+					::FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getSofterBackgroundBrush());
+					break;
+				}
+
+				default:
+				{
+					::DrawThemeBackground(g_menuTheme, pUDMI->um.hdc, MENU_BARITEM, iBackgroundStateID, &pUDMI->dis.rcItem, nullptr);
+					break;
+				}
 			}
-			else if (iBackgroundStateID == MPI_HOT || iBackgroundStateID == MPI_DISABLEDHOT)
-			{
-				FillRect(pUDMI->um.hdc, &pUDMI->dis.rcItem, NppDarkMode::getHotBackgroundBrush());
-			}
-			else
-			{
-				DrawThemeBackground(g_menuTheme, pUDMI->um.hdc, MENU_POPUPITEM, iBackgroundStateID, &pUDMI->dis.rcItem, nullptr);
-			}
+
 			DTTOPTS dttopts{};
 			dttopts.dwSize = sizeof(DTTOPTS);
-			if (iTextStateID == MPI_NORMAL || iTextStateID == MPI_HOT)
+			if (iTextStateID == MBI_NORMAL || iTextStateID == MBI_HOT || iTextStateID == MBI_PUSHED)
 			{
 				dttopts.dwFlags |= DTT_TEXTCOLOR;
 				dttopts.crText = NppDarkMode::getTextColor();
 			}
-			DrawThemeTextEx(g_menuTheme, pUDMI->um.hdc, MENU_POPUPITEM, iTextStateID, menuString, mii.cch, dwFlags, &pUDMI->dis.rcItem, &dttopts);
+			else if (iTextStateID == MBI_DISABLED || iTextStateID == MBI_DISABLEDHOT || iTextStateID == MBI_DISABLEDPUSHED)
+			{
+				dttopts.dwFlags |= DTT_TEXTCOLOR;
+				dttopts.crText = NppDarkMode::getDisabledTextColor();
+			}
+
+			::DrawThemeTextEx(g_menuTheme, pUDMI->um.hdc, MENU_BARITEM, iTextStateID, menuString, mii.cch, dwFlags, &pUDMI->dis.rcItem, &dttopts);
 
 			*lr = 0;
 
 			return true;
 		}
+
 		case WM_THEMECHANGED:
 		{
 			if (g_menuTheme)

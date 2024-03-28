@@ -986,6 +986,8 @@ bool FileManager::backupCurrentBuffer()
 	{
 		if (buffer->isModified()) // buffer dirty and modified, write the backup file
 		{
+			::MessageBoxA(NULL, "INSIDE", "", MB_OK);
+
 			UniMode mode = buffer->getUnicodeMode();
 			if (mode == uniCookie)
 				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly

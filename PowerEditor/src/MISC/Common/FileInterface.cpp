@@ -94,6 +94,8 @@ void Win32_IO_File::close()
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
 
+		//::MessageBoxA(NULL, "Blocked...", "", MB_OK);
+
 		DWORD flushError = NOERROR;
 		if (_written)
 		{

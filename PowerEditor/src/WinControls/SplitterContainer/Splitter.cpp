@@ -27,8 +27,6 @@ bool Splitter::_isHorizontalFixedRegistered = false;
 bool Splitter::_isVerticalFixedRegistered = false;
 
 
-#define SPLITTER_SIZE 8
-
 void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSplitRatio, DWORD dwFlags)
 {
 	if (hPere == NULL)
@@ -205,7 +203,7 @@ int Splitter::getClickZone(WH which)
 			? (which == WH::width ? _splitterSize  : HIEGHT_MINIMAL)
 			: (which == WH::width ? HIEGHT_MINIMAL : _splitterSize);
 	}
-	else // (_spiltterSize > 8)
+	else // (_splitterSize > 8)
 	{
 		return isVertical()
 			? ((which == WH::width) ? 8  : 15)
@@ -514,8 +512,8 @@ void Splitter::gotoRightBottom()
 
 void Splitter::drawSplitter()
 {
-	PAINTSTRUCT ps;
-	RECT rc, rcToDraw1, rcToDraw2, TLrc, BRrc;
+	PAINTSTRUCT ps {};
+	RECT rc {}, rcToDraw1 {}, rcToDraw2 {}, TLrc {}, BRrc {};
 
 	HDC hdc = ::BeginPaint(_hSelf, &ps);
 	getClientRect(rc);
@@ -649,7 +647,7 @@ void Splitter::rotate()
 
 void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 {
-	RECT rc;
+	RECT rc {};
 	rc.left = rect.left;
 	rc.top = rect.top;
 	rc.right = rect.right;
@@ -717,14 +715,14 @@ void Splitter::adjustZoneToDraw(RECT& rc2def, ZONE_TYPE whichZone)
 	if (_splitterSize < 4)
 		return;
 
-	int x0, y0, x1, y1, w, h;
+	int x0 = 0, y0 = 0, x1 = 0, y1 = 0, w = 0, h = 0;
 
 	if (/*(4 <= _splitterSize) && */(_splitterSize <= 8))
 	{
 		w = (isVertical() ? 4 : 7);
 		h = (isVertical() ? 7 : 4);
 	}
-	else // (_spiltterSize > 8)
+	else // (_splitterSize > 8)
 	{
 		w = (isVertical() ? 6  : 11);
 		h = (isVertical() ? 11 : 6);

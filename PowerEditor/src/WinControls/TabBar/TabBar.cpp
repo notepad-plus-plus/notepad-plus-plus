@@ -1392,21 +1392,15 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	const COLORREF colorActiveBg = isDarkMode ? NppDarkMode::getCtrlBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
 	const COLORREF colorInactiveBgBase = isDarkMode ? NppDarkMode::getBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
 	
-	COLORREF colorInactiveBg = liteGrey;
-	COLORREF colorActiveText = ::GetSysColor(COLOR_BTNTEXT);
-	COLORREF colorInactiveText = grey;
+	COLORREF colorInactiveBg = _inactiveBgColour;
+	COLORREF colorActiveText = _activeTextColour;
+	COLORREF colorInactiveText = _inactiveTextColour;
 
 	if (!NppDarkMode::useTabTheme() && isDarkMode)
 	{
 		colorInactiveBg = NppDarkMode::getBackgroundColor();
 		colorActiveText = NppDarkMode::getTextColor();
 		colorInactiveText = NppDarkMode::getDarkerTextColor();
-	}
-	else
-	{
-		colorInactiveBg = _inactiveBgColour;
-		colorActiveText = _activeTextColour;
-		colorInactiveText = _inactiveTextColour;
 	}
 
 	HDC hDC = pDrawItemStruct->hDC;

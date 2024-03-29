@@ -93,6 +93,7 @@ void Win32_IO_File::close()
 	if (isOpened())
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
+
 		DWORD flushError = NOERROR;
 		if (_written)
 		{

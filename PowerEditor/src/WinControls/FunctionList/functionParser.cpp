@@ -409,7 +409,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 		// dataToSearch & data2ToSearch are optional
 		if (!_functionNameExprArray.size() && !_classNameExprArray.size())
 		{
-			wchar_t foundData[1024];
+			wchar_t foundData[1024] {};
 			(*ppEditView)->getGenericText(foundData, 1024, targetStart, targetEnd);
 
 			fi._data = foundData; // whole found data
@@ -418,7 +418,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 		}
 		else
 		{
-			intptr_t foundPos;
+			intptr_t foundPos = -1;
 			if (_functionNameExprArray.size())
 			{
 				fi._data = parseSubLevel(targetStart, targetEnd, _functionNameExprArray, foundPos, ppEditView);

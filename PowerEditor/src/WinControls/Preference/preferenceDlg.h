@@ -118,11 +118,18 @@ class MarginsBorderEdgeSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	MarginsBorderEdgeSubDlg() = default;
-	
+	~MarginsBorderEdgeSubDlg() {
+		if (_verticalEdgeTip != nullptr)
+		{
+			::DestroyWindow(_verticalEdgeTip);
+			_verticalEdgeTip = nullptr;
+		}
+	};
+
 private :
 	HWND _verticalEdgeTip = nullptr;
 
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initScintParam();
 };
 

@@ -287,7 +287,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += szProductName;
 			_debugInfoStr += L" (";
 			_debugInfoStr += (NppParameters::getInstance()).getWinVerBitStr();
-			_debugInfoStr += L"";
+			_debugInfoStr += L")";
 			_debugInfoStr += L"\r\n";
 
 			if (szReleaseId[0] != '\0')

@@ -41,6 +41,10 @@
 #define WINAPI_LAMBDA
 #endif
 
+#ifndef WM_DPICHANGED
+#define WM_DPICHANGED 0x02E0
+#endif
+
 // already added in project files
 // keep for plugin authors
 //#ifdef _MSC_VER
@@ -912,6 +916,7 @@ namespace NppDarkMode
 			return true;
 		}
 
+		case WM_DPICHANGED:
 		case WM_THEMECHANGED:
 		{
 			if (g_menuTheme)

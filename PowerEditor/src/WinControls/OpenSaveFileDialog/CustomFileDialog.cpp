@@ -416,21 +416,9 @@ private:
 
 	void installHooks()
 	{
-		_prevKbdHook = ::SetWindowsHookEx(WH_KEYBOARD,
-			reinterpret_cast<HOOKPROC>(&FileDialogEventHandler::KbdProcHook),
-			nullptr,
-			::GetCurrentThreadId()
-		);
-		_prevCallHook = ::SetWindowsHookEx(WH_CALLWNDPROC,
-			reinterpret_cast<HOOKPROC>(&FileDialogEventHandler::CallProcHook),
-			nullptr,
-			::GetCurrentThreadId()
-		);
-		_langaugeDetectHook = ::SetWindowsHookEx(WH_SHELL,
-			reinterpret_cast<HOOKPROC>(&FileDialogEventHandler::LanguageDetectHook),
-			nullptr,
-			::GetCurrentThreadId()
-		);
+		_prevKbdHook = ::SetWindowsHookEx(WH_KEYBOARD, &FileDialogEventHandler::KbdProcHook, nullptr, ::GetCurrentThreadId());
+		_prevCallHook = ::SetWindowsHookEx(WH_CALLWNDPROC, &FileDialogEventHandler::CallProcHook, nullptr, ::GetCurrentThreadId());
+		_langaugeDetectHook = ::SetWindowsHookEx(WH_SHELL, &FileDialogEventHandler::LanguageDetectHook, nullptr,::GetCurrentThreadId());
 	}
 
 	void removeHooks()

@@ -310,8 +310,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			NppDarkMode::handleSettingChange(hwnd, lParam);
 
 			const bool enableDarkMode = NppDarkMode::isExperimentalActive();
-
-			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParam.getNppGUI();
 
 			// Windows mode is enabled
@@ -2005,7 +2003,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_NOTIFY:
 		{
-			NMHDR* nmhdr = reinterpret_cast<NMHDR*>(lParam);
+			const NMHDR* nmhdr = reinterpret_cast<NMHDR*>(lParam);
 			if (nmhdr->code == NM_CUSTOMDRAW && (nmhdr->hwndFrom == _toolBar.getHSelf()))
 			{
 				NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(lParam);

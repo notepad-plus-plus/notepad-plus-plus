@@ -713,7 +713,7 @@ std::wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *lan
 
 bool LocalizationSwitcher::addLanguageFromXml(const std::wstring& xmlFullPath)
 {
-	wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
+	const wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
 	wstring foundLang = getLangFromXmlFileName(fn);
 	if (!foundLang.empty())
 	{
@@ -1705,7 +1705,7 @@ void NppParameters::destroyInstance()
 	delete _pXmlUserStylerDoc;
 	
 	//delete _pXmlUserLangDoc; will be deleted in the vector
-	for (auto& l : _pXmlUserLangsDoc)
+	for (const auto& l : _pXmlUserLangsDoc)
 	{
 		delete l._udlXmlDoc;
 	}
@@ -2244,6 +2244,7 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu, bool isEditCM)
 {
 	std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
+
 	TiXmlDocumentA* pXmlContextMenuDocA = isEditCM ? _pXmlContextMenuDocA : _pXmlTabContextMenuDocA;
 	std::string cmName = isEditCM ? "ScintillaContextMenu" : "TabContextMenu";
 
@@ -3748,10 +3749,10 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			// Node structure and naming corresponds to config.xml
 			TiXmlNode* fileBrowserRootNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("FileBrowser")));
 			fileBrowserRootNode->ToElement()->SetAttribute(TEXT("latestSelectedItem"), session._fileBrowserSelectedItem.c_str());
-			for (const auto& root : session._fileBrowserRoots)
+			for (const auto& fbRoot : session._fileBrowserRoots)
 			{
 				TiXmlNode *fileNameNode = fileBrowserRootNode->InsertEndChild(TiXmlElement(TEXT("root")));
-				(fileNameNode->ToElement())->SetAttribute(TEXT("foldername"), root.c_str());
+				(fileNameNode->ToElement())->SetAttribute(TEXT("foldername"), fbRoot.c_str());
 			}
 		}
 	}
@@ -4002,7 +4003,6 @@ void NppParameters::feedUserSettings(TiXmlNode *settingsRoot)
 void NppParameters::feedUserKeywordList(TiXmlNode *node)
 {
 	const TCHAR * udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
-	int id = -1;
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Keywords"));
 		childNode ;
@@ -4016,7 +4016,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			if (!lstrcmp(udlVersion, TEXT("")) && !lstrcmp(keywordsName, TEXT("Delimiters")))	// support for old style (pre 2.0)
 			{
 				basic_string<TCHAR> temp;
-				kwl = (valueNode)?valueNode->Value():TEXT("000000");
+				kwl = valueNode->Value();
 
 				temp += TEXT("00");	 if (kwl[0] != '0') temp += kwl[0];	 temp += TEXT(" 01");
 				temp += TEXT(" 02");	if (kwl[3] != '0') temp += kwl[3];
@@ -4030,7 +4030,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			}
 			else if (!lstrcmp(keywordsName, TEXT("Comment")))
 			{
-				kwl = (valueNode)?valueNode->Value():TEXT("");
+				kwl = valueNode->Value();
 				basic_string<TCHAR> temp{TEXT(" ")};
 
 				temp += kwl;
@@ -4063,10 +4063,10 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			}
 			else
 			{
-				kwl = (valueNode)?valueNode->Value():TEXT("");
+				kwl = valueNode->Value();
 				if (globalMappper().keywordIdMapper.find(keywordsName) != globalMappper().keywordIdMapper.end())
 				{
-					id = globalMappper().keywordIdMapper[keywordsName];
+					int id = globalMappper().keywordIdMapper[keywordsName];
 					if (wcslen(kwl) < max_char)
 					{
 						wcscpy_s(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
@@ -4083,8 +4083,6 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 
 void NppParameters::feedUserStyles(TiXmlNode *node)
 {
-	int id = -1;
-
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("WordsStyle"));
 		childNode ;
 		childNode = childNode->NextSibling(TEXT("WordsStyle")))
@@ -4094,7 +4092,7 @@ void NppParameters::feedUserStyles(TiXmlNode *node)
 		{
 			if (globalMappper().styleIdMapper.find(styleName) != globalMappper().styleIdMapper.end())
 			{
-				id = globalMappper().styleIdMapper[styleName];
+				int id = globalMappper().styleIdMapper[styleName];
 				_userLangArray[_nbUserLang - 1]->_styles.addStyler((id | L_USER << 16), childNode);
 			}
 		}
@@ -8665,7 +8663,7 @@ Date::Date(int nbDaysFromNow)
 	const time_t oneDay = (60 * 60 * 24);
 
 	time_t rawtime;
-	tm* timeinfo;
+	const tm* timeinfo;
 
 	time(&rawtime);
 	rawtime += (nbDaysFromNow * oneDay);
@@ -8682,7 +8680,7 @@ Date::Date(int nbDaysFromNow)
 void Date::now()
 {
 	time_t rawtime;
-	tm* timeinfo;
+	const tm* timeinfo;
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);

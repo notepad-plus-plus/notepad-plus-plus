@@ -280,7 +280,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		}
 		else
 		{
-			auto& themeInfo = themeSwitcher.getElementFromIndex(0);
+			const auto& themeInfo = themeSwitcher.getElementFromIndex(0);
 			themePath = themeInfo.second;
 		}
 

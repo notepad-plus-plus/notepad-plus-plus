@@ -281,11 +281,11 @@ bool FunctionParsersManager::getOverrideMapFromXmlTree(const generic_string & xm
 			}
 			else if (userDefinedLangName && userDefinedLangName[0])
 			{
+				++_currentUDIndex;
+
 				if (_currentUDIndex < L_EXTERNAL + nbMaxUserDefined)
 				{
-					++_currentUDIndex;
-					_parsers[_currentUDIndex] = new ParserInfo(id, userDefinedLangName);
-					
+					_parsers[_currentUDIndex] = new ParserInfo(id, userDefinedLangName);	
 				}
 			}
 		}

@@ -263,12 +263,12 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	// Search case 1 & 2 firstly
 	BufferID foundBufID = MainFileManager.getBufferFromName(targetFileName.c_str());
 
-	if (foundBufID == BUFFER_INVALID)
-		fileName2Find = longFileName;
-
 	// if case 1 & 2 not found, search case 3
 	if (foundBufID == BUFFER_INVALID)
+	{
+		fileName2Find = longFileName;
 		foundBufID = MainFileManager.getBufferFromName(fileName2Find.c_str());
+	}
 
 	// If we found the document, then we don't open the existing doc. We return the found buffer ID instead.
     if (foundBufID != BUFFER_INVALID && !isSnapshotMode)
@@ -656,7 +656,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 		else
 		{
 			// try to open Notepad++ in admin mode
-			NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+			const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 			bool isSnapshotMode = nppGui.isSnapshotMode();
 			bool isAlwaysInMultiInstMode = nppGui._multiInstSetting == multiInst;
 			if (isSnapshotMode && !isAlwaysInMultiInstMode) // if both rememberSession && backup mode are enabled and "Always In Multi-Instance Mode" option not activated:
@@ -1625,7 +1625,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				constexpr int temBufLen = 32;
 				TCHAR tmpbuf[temBufLen]{};
 				time_t ltime = time(0);
-				struct tm *today;
+				const struct tm* today;
 
 				today = localtime(&ltime);
 				if (today)

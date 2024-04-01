@@ -25,7 +25,7 @@ using namespace std;
 
 
 
-MenuPosition menuPos[] = {
+MenuPosition g_menuFolderPositions[] = {
 //==============================================
 //	{L0,  L1, L2, id},
 //==============================================
@@ -110,6 +110,18 @@ MenuPosition menuPos[] = {
 	{ -1,  -1, -1, "" } // End of array
 };
 
+MenuPosition& getMenuPosition(const char* id)
+{
+	int nbSubMenuPos = sizeof(g_menuFolderPositions) / sizeof(MenuPosition);
+
+	for (int i = 0; i < nbSubMenuPos; ++i)
+	{
+		if (strcmp(g_menuFolderPositions[i]._id, id) == 0)
+			return g_menuFolderPositions[i];
+	}
+	return g_menuFolderPositions[nbSubMenuPos - 1];
+}
+
 void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish)
 {
 	if (nativeLangDocRootA)
@@ -158,7 +170,7 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
 				if (declaration)
 				{
 					const char * encodingStr = declaration->Encoding();
-					EncodingMapper& em = EncodingMapper::getInstance();
+					const EncodingMapper& em = EncodingMapper::getInstance();
                     int enc = em.getEncodingFromString(encodingStr);
                     _nativeLangEncoding = (enc != -1)?enc:CP_ACP;
 				}
@@ -335,20 +347,6 @@ generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const
 	return wmc.char2wchar(value, _nativeLangEncoding);
 }
 
-
-
-MenuPosition & getMenuPosition(const char *id)
-{
-
-	int nbSubMenuPos = sizeof(menuPos)/sizeof(MenuPosition);
-
-	for (int i = 0; i < nbSubMenuPos; ++i) 
-	{
-		if (strcmp(menuPos[i]._id, id) == 0)
-			return menuPos[i];
-	}
-	return menuPos[nbSubMenuPos-1];
-}
 
 // Get string from map.
 // If string not found, get string from menu, then put it into map for the next use.
@@ -789,8 +787,8 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 				{
 					if (id == IDC_DOCK_BUTTON && userDefineDlg->isDocked())
 					{
-						generic_string name = getAttrNameByIdStr(TEXT("Undock"), userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
-						::SetWindowText(hItem, name.c_str());
+						generic_string undockStr = getAttrNameByIdStr(TEXT("Undock"), userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
+						::SetWindowText(hItem, undockStr.c_str());
 					}
 					else
 					{

@@ -404,14 +404,18 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
 
-	// Autocomplete list and calltip
-	const Style* pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
+	//
+	// Initialize the default foreground & background color
+	//
+	const Style* pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
 	if (pStyle)
 	{
-		NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
-		NppParameters::getInstance().setCurrentDefaultBgColor(pStyle->_bgColor);
+		nppParam.setCurrentDefaultFgColor(pStyle->_fgColor);
+		nppParam.setCurrentDefaultBgColor(pStyle->_bgColor);
 		drawAutocompleteColoursFromTheme(pStyle->_fgColor, pStyle->_bgColor);
 	}
+	
+	// Autocomplete list and calltip
 	AutoCompletion::drawAutocomplete(_pEditView);
 	AutoCompletion::drawAutocomplete(_pNonEditView);
 
@@ -791,18 +795,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	//
-	// Initialize the default foreground & background color
-	//
-	{
-		const Style * pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
-		if (pStyle)
-		{
-			nppParam.setCurrentDefaultFgColor(pStyle->_fgColor);
-			nppParam.setCurrentDefaultBgColor(pStyle->_bgColor);
-		}
-	}
-
-	//
 	// launch the plugin dlg memorized at the last session
 	//
 
@@ -948,7 +940,7 @@ bool Notepad_plus::saveGUIParams()
 
 bool Notepad_plus::saveColumnEditorParams()
 {
-	NppParameters& nppParams = NppParameters::getInstance();
+	const NppParameters& nppParams = NppParameters::getInstance();
 	return nppParams.writeColumnEditorSettings();
 }
 
@@ -1179,7 +1171,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
             char encodingStr[encodingStrLen];
             _invisibleEditView.getText(encodingStr, startPos, endPos);
 
-			EncodingMapper& em = EncodingMapper::getInstance();
+			const EncodingMapper& em = EncodingMapper::getInstance();
             int enc = em.getEncodingFromString(encodingStr);
             return (enc == CP_ACP ? -1 : enc);
 		}
@@ -1223,7 +1215,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
         char encodingStr[encodingStrLen];
         _invisibleEditView.getText(encodingStr, startPos, endPos);
 
-		EncodingMapper& em = EncodingMapper::getInstance();
+		const EncodingMapper& em = EncodingMapper::getInstance();
 		int enc = em.getEncodingFromString(encodingStr);
         return (enc == CP_ACP ? -1 : enc);
 	}
@@ -2224,7 +2216,7 @@ bool Notepad_plus::findInFilelist(std::vector<generic_string> & fileNames)
 	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGui = nppParam.getNppGUI();
+		const NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -2323,7 +2315,7 @@ bool Notepad_plus::findInOpenedFiles()
 	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGui = nppParam.getNppGUI();
+		const NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -2396,7 +2388,7 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	if (nbTotal > 0)
 	{
 		NppParameters& nppParam = NppParameters::getInstance();
-		NppGUI& nppGui = nppParam.getNppGUI();
+		const NppGUI& nppGui = nppParam.getNppGUI();
 		if (!nppGui._findDlgAlwaysVisible)
 		{
 			_findReplaceDlg.display(false);
@@ -3055,7 +3047,7 @@ void Notepad_plus::setUniModeText()
 	}
 	else
 	{
-		EncodingMapper& em = EncodingMapper::getInstance();
+		const EncodingMapper& em = EncodingMapper::getInstance();
 		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
@@ -4090,7 +4082,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 #ifdef _OPENMP
 #include <omp.h>
 #endif
-static inline size_t countUtf8Characters(unsigned char *buf, size_t pos, size_t endpos)
+static inline size_t countUtf8Characters(const unsigned char *buf, size_t pos, size_t endpos)
 {
 	size_t result = 0;
 	while (pos < endpos)
@@ -4594,7 +4586,7 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 				size_t i, n = taskListInfo._tlfsLst.size();
 				for (i = 0; i < n; i++)
 				{
-					TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
+					const TaskLstFnStatus& tfs = taskListInfo._tlfsLst[i];
 					if (tfs._iView != whichOne || tfs._bufID == id)
 						continue;
 					toActivate = tfs._docIndex >= active ? tfs._docIndex - 1 : tfs._docIndex;
@@ -4848,7 +4840,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHilite)
 {
-	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	bool isSnapshotMode = nppGui.isSnapshotMode();
 	if (isSnapshotMode)
 	{
@@ -5027,7 +5019,7 @@ void Notepad_plus::checkUnicodeMenuItems() const
 	}
 	else
 	{
-		EncodingMapper& em = EncodingMapper::getInstance();
+		const EncodingMapper& em = EncodingMapper::getInstance();
 		int cmdID = em.getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
@@ -5143,7 +5135,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
 	if (buf->getLangType() == L_USER)
 	{
-		UserLangContainer * userLangContainer = NppParameters::getInstance().getULCFromName(buf->getUserDefineLangName());
+		const UserLangContainer* userLangContainer = NppParameters::getInstance().getULCFromName(buf->getUserDefineLangName());
 		if (!userLangContainer)
 			return false;
 
@@ -5441,7 +5433,7 @@ bool Notepad_plus::doStreamComment()
 
 	if (buf->getLangType() == L_USER)
 	{
-		UserLangContainer * userLangContainer = NppParameters::getInstance().getULCFromName(buf->getUserDefineLangName());
+		const UserLangContainer* userLangContainer = NppParameters::getInstance().getULCFromName(buf->getUserDefineLangName());
 
 		if (!userLangContainer)
 			return false;
@@ -5870,7 +5862,7 @@ void Notepad_plus::postItToggle()
 {
 	if (!_beforeSpecialView._isPostIt)	// PostIt disabled, enable it
 	{
-		NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
+		const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
 		// get current status before switch to postIt
 		//check these always
 		{
@@ -6032,7 +6024,7 @@ void Notepad_plus::distractionFreeToggle()
 		}
 
 		// check if any dockable panel is visible
-		std::vector<DockingCont*> & container = _dockingManager.getContainerInfo();
+		const std::vector<DockingCont*>& container = _dockingManager.getContainerInfo();
 		_beforeSpecialView._pVisibleDockingContainers.clear();
 		for (auto i : container)
 		{
@@ -6130,7 +6122,7 @@ void Notepad_plus::doSynScorll(HWND whichView)
 
 bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible)
 {
-	DockingManagerData & dockingData = (DockingManagerData &)(NppParameters::getInstance()).getNppGUI()._dockingData;
+	const DockingManagerData & dockingData = (DockingManagerData &)(NppParameters::getInstance()).getNppGUI()._dockingData;
 
 	for (size_t i = 0, len = dockingData._pluginDockInfo.size(); i < len ; ++i)
 	{
@@ -6196,11 +6188,11 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 				NppParameters& nppParam = NppParameters::getInstance();
 				const NppGUI& nppGUI = nppParam.getNppGUI();
 
-				for (size_t k = 0; k < nppGUI._excludedLangList.size(); ++k) // try to find it in exclude lang list
+				for (size_t j = 0; j < nppGUI._excludedLangList.size(); ++j) // try to find it in exclude lang list
 				{
-					if (buf->getLangType() == nppGUI._excludedLangList[k]._langType)
+					if (buf->getLangType() == nppGUI._excludedLangList[j]._langType)
 					{
-						languageName = nppGUI._excludedLangList[k]._langName;
+						languageName = nppGUI._excludedLangList[j]._langName;
 						break;
 					}
 				}
@@ -6643,7 +6635,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_pFuncList->reload();
 	}
 
-	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	bool isCurrBuffDetection = (nppGui._fileAutoDetection & cdEnabledNew) ? true : false;
 	bool reload = buf->getNeedReload();
 	if (!reload && isCurrBuffDetection)
@@ -7897,11 +7889,11 @@ int Notepad_plus::getRandomAction(int ranNum)
 }
 
 
-bool isInList(int elem, vector<int> elemList)
+bool isInList(int elem, const vector<int>& elemList)
 {
-	for (size_t i = 0, len = elemList.size(); i < len; ++i)
+	for (auto i : elemList)
 	{
-		if (elem == elemList[i])
+		if (elem == i)
 			return true;
 	}
 	return false;
@@ -8380,7 +8372,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		{
 			//use _stylerPath;
 
-			pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
+			const pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(0);
 			themePath = themeInfo.second;
 			themeName = themeSwitcher.getDefaultThemeLabel();
 		}
@@ -8501,7 +8493,7 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 		return false;
 	if (buf->getLangType() == L_USER)
 	{
-		UserLangContainer* userLangContainer = NppParameters::getInstance().getULCFromName(buf->getUserDefineLangName());
+		const UserLangContainer* userLangContainer = NppParameters::getInstance().getULCFromName(buf->getUserDefineLangName());
 		if (!userLangContainer)
 			return false;
 

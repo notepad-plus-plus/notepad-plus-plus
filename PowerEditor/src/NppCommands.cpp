@@ -1683,7 +1683,7 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-        case IDM_EDIT_COLUMNMODETIP :
+		case IDM_EDIT_COLUMNMODETIP :
 		{
 			_nativeLangSpeaker.messageBox("ColumnModeTip",
 					_pPublicInterface->getHSelf(),

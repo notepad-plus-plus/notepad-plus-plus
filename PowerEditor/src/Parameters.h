@@ -210,7 +210,7 @@ struct sessionFileInfo : public Position
 		if (backupFilePath) _backupFilePath = backupFilePath;
 	}
 
-	sessionFileInfo(std::wstring fn) : _fileName(fn) {}
+	sessionFileInfo(const std::wstring& fn) : _fileName(fn) {}
 
 	std::wstring _fileName;
 	std::wstring _langName;
@@ -533,7 +533,7 @@ private :
 };
 
 struct SortLexersInAlphabeticalOrder {
-	bool operator() (LexerStyler& l, LexerStyler& r) {
+	bool operator() (const LexerStyler& l, const LexerStyler& r) {
 		if (!lstrcmp(l.getLexerDesc(), TEXT("Search result")))
 			return false;
 		if (!lstrcmp(r.getLexerDesc(), TEXT("Search result")))
@@ -1337,7 +1337,7 @@ public:
 		return _themeList[index];
 	}
 
-	void setThemeDirPath(std::wstring themeDirPath) { _themeDirPath = themeDirPath; }
+	void setThemeDirPath(const std::wstring& themeDirPath) { _themeDirPath = themeDirPath; }
 	std::wstring getThemeDirPath() const { return _themeDirPath; }
 
 	std::wstring getDefaultThemeLabel() const { return _defaultThemeLabel; }
@@ -1354,7 +1354,7 @@ public:
 		}
 	};
 
-	void addThemeStylerSavePath(std::wstring key, std::wstring val) {
+	void addThemeStylerSavePath(const std::wstring& key, const std::wstring& val) {
 		_themeStylerSavePath[key] = val;
 	};
 
@@ -1444,7 +1444,7 @@ public:
 
 	const TCHAR * getWordList(LangType langID, int typeIndex) const
 	{
-		Lang *pLang = getLangFromID(langID);
+		const Lang* pLang = getLangFromID(langID);
 		if (!pLang) return nullptr;
 
 		return pLang->getWords(typeIndex);
@@ -1731,9 +1731,9 @@ public:
 	}
 
 	std::vector<std::wstring> & getBlackList() { return _blacklist; };
-	bool isInBlackList(TCHAR *fn) const
+	bool isInBlackList(const wchar_t* fn) const
 	{
-		for (auto& element: _blacklist)
+		for (const auto& element: _blacklist)
 		{
 			if (element == fn)
 				return true;

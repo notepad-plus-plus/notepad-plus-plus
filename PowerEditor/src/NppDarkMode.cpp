@@ -864,7 +864,7 @@ namespace NppDarkMode
 
 			if (!g_menuTheme)
 			{
-				g_menuTheme = OpenThemeData(hWnd, L"Menu");
+				g_menuTheme = OpenThemeData(hWnd, VSCLASS_MENU);
 			}
 
 			switch (iBackgroundStateID)
@@ -1017,7 +1017,7 @@ namespace NppDarkMode
 		{
 			if (!hTheme)
 			{
-				hTheme = OpenThemeData(hwnd, WC_BUTTON);
+				hTheme = OpenThemeData(hwnd, VSCLASS_BUTTON);
 			}
 			return hTheme != nullptr;
 		}
@@ -2290,12 +2290,12 @@ namespace NppDarkMode
 				return TRUE;
 			}
 
-			if (wcscmp(className, L"Static") == 0)
+			if (wcscmp(className, WC_STATIC) == 0)
 			{
 				return TRUE;
 			}
 
-			if (wcscmp(className, L"msctls_trackbar32") == 0)
+			if (wcscmp(className, TRACKBAR_CLASS) == 0)
 			{
 				return TRUE;
 			}
@@ -2331,6 +2331,12 @@ namespace NppDarkMode
 					}
 					break;
 				}
+
+				if (NppDarkMode::isWindows11() && p._theme)
+				{
+					SetWindowTheme(hwnd, p._themeClassName, nullptr);
+				}
+
 				if (p._subclass)
 				{
 					NppDarkMode::subclassButtonControl(hwnd);

@@ -451,10 +451,10 @@ Translation note:
 			<TrayIcon>
 				<Item id="43101" name="Pokaż"/>
 				<Item id="43102" name="Nowy"/>
-				<Item id="43103" name="Nowy i wklej ze schowka"/>
+				<Item id="43103" name="Nowy i wklej"/>
 				<Item id="43104" name="Otwórz..."/>
 				<Item id="43013" name="Szukaj w plikach..."/>
-				<Item id="43105" name="Zakończ"/>
+				<Item id="43105" name="Zamknij ikonę zasobnika"/>
 			</TrayIcon>
 		</Menu>
 

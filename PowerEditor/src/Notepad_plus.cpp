@@ -3367,8 +3367,13 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 				*segmentLen = len;
 				return true;
 			}
+			else // to avoid potentially catastrophic backtracking, skip the entire text that looked like a URL
+			{
+				*segmentLen = len;
+				return false;
+			}
 		}
-		else len = 1;
+		len = 1;
 		int lMax = textLen - start;
 		while (isUrlSchemeStartChar(text[start+len]) && (len < lMax)) len++;
 		*segmentLen = len;

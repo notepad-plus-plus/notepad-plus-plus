@@ -515,8 +515,8 @@ Translation note:
 
 			<IncrementalFind title="">
 				<Item id="1681" name="Sök:"/>
-				<Item id="1685" name="&Matcha skiftläge"/>
-				<Item id="1690" name="M&arkera alla"/>
+				<Item id="1685" name="&amp;Matcha skiftläge"/>
+				<Item id="1690" name="M&amp;arkera alla"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hitta tecken i intervall...">

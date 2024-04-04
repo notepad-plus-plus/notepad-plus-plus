@@ -419,19 +419,6 @@ private :
 	LONG _lesssModeHeight = 0;
 
 	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;
-	RECT _findClosePos = {};
-	RECT _replaceClosePos = {};
-	RECT _findInFilesClosePos = {};
-	RECT _markClosePos = {};
-
-	RECT _countInSelFramePos = {};
-	RECT _replaceInSelFramePos = {};
-
-	RECT _countInSelCheckPos = {};
-	RECT _replaceInSelCheckPos = {};
-
-	RECT _collapseButtonPos = {};
-	RECT _uncollapseButtonPos = {};
 
 	ScintillaEditView** _ppEditView = nullptr;
 	Finder  *_pFinder = nullptr;
@@ -483,6 +470,7 @@ private :
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
 	void hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT);
+	void calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn = false);
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);

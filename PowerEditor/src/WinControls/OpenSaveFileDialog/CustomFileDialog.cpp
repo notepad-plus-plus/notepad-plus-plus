@@ -205,7 +205,7 @@ namespace // anonymous
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class FileDialogEventHandler : public IFileDialogEvents, public IFileDialogControlEvents
+class FileDialogEventHandler final : public IFileDialogEvents, public IFileDialogControlEvents
 {
 public:
 	// IUnknown methods

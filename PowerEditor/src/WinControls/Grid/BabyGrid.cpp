@@ -61,9 +61,9 @@ struct GridHandleStruct
 	COLORREF highlightcolorProtectNoFocus = RGB(200, 200, 200);
 	COLORREF gridlinecolor = RGB(220, 220, 220);
 	COLORREF highlighttextcolor = RGB(255, 255, 255);
-	COLORREF backgroundcolor = GetSysColor(COLOR_BTNFACE);;
+	COLORREF backgroundcolor = GetSysColor(COLOR_BTNFACE);
 	COLORREF titletextcolor = RGB(0, 0, 0);
-	COLORREF titlecolor = GetSysColor(COLOR_BTNFACE);;
+	COLORREF titlecolor = GetSysColor(COLOR_BTNFACE);
 	COLORREF titlegridlinecolor = RGB(120, 120, 120);
 	BOOL DRAWHIGHLIGHT = TRUE;
 	BOOL ADVANCEROW = TRUE;

@@ -3,14 +3,97 @@ name: CI_build
 on: [push, pull_request]
 
 jobs:
+  before_build:
+
+    runs-on: windows-latest
+    outputs:
+      result: ${{ steps.filter.outputs.result }}
+      matrix: ${{ steps.filter.outputs.matrix }}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+    - name: Commit filtering
+      id: filter
+      run: |
+        $allowMaster = $true
+        $folders_onejob = "PowerEditor/(Test|(installer/(filesForTesting|functionList)))/"
+        $files_nowork = "md|txt|log|ini"
+        $files_needwork = "CMakeLists\.txt"
+
+        $matrix_all = 'matrix={"build_configuration": ["Release", "Debug"], "build_platform": ["x64", "Win32", "ARM64"]}'
+        $matrix_onejob = 'matrix={"build_configuration": ["Debug"], "build_platform": ["Win32"]}'
+        Write-Output $matrix_all >> $env:GITHUB_OUTPUT
+
+        $isPush = "${{github.event_name }}" -eq "push" ? $true : $false
+        $isMaster = $isPush -and $${{ github.ref_name == github.event.repository.master_branch }}
+
+        if ($isPush) {
+          $commit_message = "${{ github.event.head_commit.message }}"
+        }
+        else {
+          $last_commit = @(Invoke-RestMethod ${{ github.event.pull_request._links.commits.href }})[0]  | Select-Object -Last 1
+          $commit_message = $last_commit.commit.message
+        }
+
+        $commit_title = ($commit_message -split "[\r\n]+")[0]
+        $files_modified = @(git diff --name-only HEAD~1)
+        $files_needwork_all = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_onejob" -or $_ -match "$files_needwork$"})
+
+        if ($allowMaster -or !$isMaster) {
+            if ($commit_title -match "\[force all\]") {
+              Write-Output "Run standard jobs"
+            }
+            elseif ($commit_title -match "\[force one\]") {
+              Write-Output "Run only one Win32/Debug job"
+              Write-Output "result=ONEJOB" >> $env:GITHUB_OUTPUT
+              Write-Output $matrix_onejob >> $env:GITHUB_OUTPUT
+            }
+            elseif (($files_modified.length -gt 0 -and $files_needwork_all.length -eq 0) -or $commit_title -match "\[force (xml|none)\]") {
+                if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$"}).length -eq 0 -or $commit_title -match "\[force none\]") {
+                    Write-Output "Changed files on this commit don't require any additional tasks.`n"
+                    Write-Output "result=OK" >> $env:GITHUB_OUTPUT
+                }
+                else {
+                    Write-Output "XML validation mode`n"
+                    if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
+                        python -m pip install requests rfc3987 pywin32 lxml
+                        python PowerEditor\Test\xmlValidator\validator_xml.py
+                        if ($LastExitCode -eq 0) {
+                            Write-Output "`nAll XML files are valid.`n"
+                            Write-Output "result=OK" >> $env:GITHUB_OUTPUT
+                        }
+                        else {
+                            Write-Output "`nSome XML files are invalid.`n"
+                            $host.SetShouldExit($LastExitCode)
+                        }
+                    }
+                    else {
+                      Write-Output "Run only one Win32/Debug job"
+                      Write-Output "result=ONEJOB" >> $env:GITHUB_OUTPUT
+                      Write-Output $matrix_onejob >> $env:GITHUB_OUTPUT
+                    }
+
+                }
+            }
+            else {
+              Write-Output "Run standard jobs"
+            }
+        }
+        else {
+          Write-Output "Run standard jobs"
+        }
+
   build_windows:
 
     runs-on: windows-latest
+    needs: before_build
+    if: needs.before_build.outputs.result == '' || needs.before_build.outputs.result == 'ONEJOB'
     strategy:
       fail-fast: false
-      matrix:
-        build_configuration: [Release, Debug]
-        build_platform: [x64, Win32, ARM64]
+      matrix: ${{ fromJSON(needs.before_build.outputs.matrix) }}
 
     steps:
     - name: Checkout repo
@@ -98,6 +181,8 @@ jobs:
   # build_windows_clang:
 
     # runs-on: windows-latest
+    #needs: before_build
+    #if: needs.before_build.outputs.result == ''
     # strategy:
       # matrix:
         # build_configuration: [Release]
@@ -125,6 +210,8 @@ jobs:
   build_windows_cmake:
 
     runs-on: windows-latest
+    needs: before_build
+    if: needs.before_build.outputs.result == ''
     strategy:
       matrix:
         include:
@@ -177,6 +264,8 @@ jobs:
   build_windows_msys2:
 
     runs-on: windows-latest
+    needs: before_build
+    if: needs.before_build.outputs.result == ''
     strategy:
       fail-fast: false
       matrix:

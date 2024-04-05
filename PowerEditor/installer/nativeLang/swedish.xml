@@ -1248,7 +1248,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="7141" name="Begränsning för stora filer"/>
 					<Item id="7143" name="Aktivera begränsning för stora filer (ingen syntaxmarkering)"/>
 					<Item id="7144" name="Definiera stor filstorlek:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Tillåt matchande klamrar"/>
 					<Item id="7148" name="Tillåt automatisk komplettering"/>
 					<Item id="7149" name="Tillåt smart markering"/>

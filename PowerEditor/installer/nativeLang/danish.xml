@@ -1204,7 +1204,7 @@ Brug mellemrum til at angive flere markører."/>
 					<Item id="7141" name="Begræns store filer"/>
 					<Item id="7143" name="Aktivér begrænsning (ingen syntaks fremhævning)"/>
 					<Item id="7144" name="Definér filstørrelse:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Tillad parantesmatch"/>
 					<Item id="7148" name="Tillad autofuldførelse"/>
 					<Item id="7149" name="Tillad smart fremhævning"/>

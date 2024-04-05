@@ -1262,7 +1262,7 @@ Translation note:
 					<Item id="7141" name="Ograniczenia dla dużych plików"/>
 					<Item id="7143" name="Włącz ograniczenia dla dużych plików (trwały brak podświetlania składni)"/>
 					<Item id="7144" name="Zdefiniuj rozmiar dużego pliku:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Zezwól na dopasowanie nawiasów"/>
 					<Item id="7148" name="Zezwól na autouzupełnianie"/>
 					<Item id="7149" name="Zezwól na inteligentne podświetlanie"/>

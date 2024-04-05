@@ -1263,7 +1263,7 @@
 					<Item id="7141" name="Büyük Dosya Kısıtlaması"/>
 					<Item id="7143" name="Büyük Dosya Kısıtlamasını Etkinleştir (Sözdizim Vurgulamasız)"/>
 					<Item id="7144" name="Büyük Dosya Boyutunu Belirle:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Ayraç Eşleştirmeye İzin Ver"/>
 					<Item id="7148" name="Otomatik Tamamlamaya İzin Ver"/>
 					<Item id="7149" name="Akıllı Vurgulamaya İzin Ver"/>

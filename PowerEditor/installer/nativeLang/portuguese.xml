@@ -1262,7 +1262,7 @@ v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="7141" name="Restrição de ficheiros grandes"/>
 					<Item id="7143" name="Ativar restrição de ficheiros grandes (sem destaque de sintaxe)"/>
 					<Item id="7144" name="Definir tamanho de ficheiro grande:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Permitir a coloração simétrica do delimitador"/>
 					<Item id="7148" name="Permitir preenchimento automático"/>
 					<Item id="7149" name="Permitir destaque inteligente"/>

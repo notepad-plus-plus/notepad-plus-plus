@@ -1262,7 +1262,7 @@ Translation note:
 					<Item id="7141" name="Large File Restriction"/>
 					<Item id="7143" name="Enable Large File Restriction (no syntax highlighting)"/>
 					<Item id="7144" name="Define Large File Size:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Allow Brace Match"/>
 					<Item id="7148" name="Allow Auto-Completion"/>
 					<Item id="7149" name="Allow Smart Highlighting"/>

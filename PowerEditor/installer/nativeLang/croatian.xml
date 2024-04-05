@@ -1276,7 +1276,7 @@
 					<Item id="7141" name="Ograničenja za velike datoteke"/>
 					<Item id="7143" name="Omogući ograničenja za velike datoteke (bez označavanja sintakse)"/>
 					<Item id="7144" name="Velike datoteke su veće ili jednake:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Omogući nalaženje pripadajućih zagrada"/>
 					<Item id="7148" name="Omogući automatsko dopunjavanje"/>
 					<Item id="7149" name="Omogući pametno označavanje"/>

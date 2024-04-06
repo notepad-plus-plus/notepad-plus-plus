@@ -1276,7 +1276,7 @@
                     <Item id="7141" name="Restricția fișierelor mari"/>
                     <Item id="7143" name="Permiterea restricției fișierelor mari (fără sintaxă evidențiată)"/>
                     <Item id="7144" name="Definirea mărimii fișierelor mari:"/>
-                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7146" name="MB   (1 - 2046)"/>
                     <Item id="7147" name="Permite potrivirea acoladelor"/>
                     <Item id="7148" name="Permite autocompletarea"/>
                     <Item id="7149" name="Permite evidențierea inteligentă"/>

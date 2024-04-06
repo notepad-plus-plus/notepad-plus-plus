@@ -1198,7 +1198,7 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="7141" name="大文件限制"/>
 					<Item id="7143" name="启用大文件限制（无语法高亮）"/>
 					<Item id="7144" name="定义大文件大小:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="匹配括号"/>
 					<Item id="7148" name="自动完成"/>
 					<Item id="7149" name="智能高亮"/>

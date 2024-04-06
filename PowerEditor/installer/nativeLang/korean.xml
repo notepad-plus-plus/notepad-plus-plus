@@ -1243,7 +1243,7 @@
 					<Item id="7141" name="큰 파일 제한"/>
 					<Item id="7143" name="큰 파일 제한 활성화 (구문 강조 없음)"/>
 					<Item id="7144" name="큰 파일 크기 정의:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="중괄호 대응표시 허용"/>
 					<Item id="7148" name="자동완성 허용"/>
 					<Item id="7149" name="지능적 구문강조 허용"/>

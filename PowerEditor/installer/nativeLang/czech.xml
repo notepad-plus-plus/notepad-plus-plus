@@ -1315,7 +1315,7 @@
 					<Item id="7141" name="Omezení funkcí pro velké soubory"/>
 					<Item id="7143" name="Povolit vypnutí zvýrazňování syntaxe pro velké soubory"/>
 					<Item id="7144" name="Velký soubor je >= "/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Povolit párování závorek"/>
 					<Item id="7148" name="Povolit automatické dokončování"/>
 					<Item id="7149" name="Povolit inteligentní zvýrazňování"/>

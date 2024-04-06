@@ -1260,7 +1260,7 @@
 					<Item id="7141" name="Obmedzenie veľkých súborov"/>
 					<Item id="7143" name="Povoliť obmedzenie veľkých súborov (bez zvýraznenia syntaxe)"/>
 					<Item id="7144" name="Veľký súbor je:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Povoliť párové zátvorky"/>
 					<Item id="7148" name="Povoliť automatické dokončovanie"/>
 					<Item id="7149" name="Povoliť inteligentné zvýrazňovanie"/>

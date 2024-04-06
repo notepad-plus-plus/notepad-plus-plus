@@ -1270,7 +1270,7 @@ Translation note:
 					<Item id="7141" name="大きなファイルでの制約"/>
 					<Item id="7143" name="大きなファイルで制約をかける（強調表示なし）"/>
 					<Item id="7144" name="ファイルサイズのしきい値："/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="対応する括弧の強調表示を利用する"/>
 					<Item id="7148" name="自動補完を利用する"/>
 					<Item id="7149" name="スマート強調表示を利用する"/>

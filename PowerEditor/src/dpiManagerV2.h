@@ -115,6 +115,8 @@ public:
 		return getDefaultGUIFontForDpi(getDpiForWindow(hWnd), type);
 	}
 
+	static void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
+
 private:
 	UINT _dpi = USER_DEFAULT_SCREEN_DPI;
 };

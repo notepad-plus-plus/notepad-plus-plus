@@ -45,10 +45,10 @@ LRESULT CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Messag
 			}
 
 			// Get the default GUI font
-			LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+			LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(hwnd) };
 			HFONT hf = ::CreateFontIndirect(&lf);
 
-			HANDLE hOld = SelectObject(hdc, hf);
+			HANDLE hOld = ::SelectObject(hdc, hf);
 
 			// Draw the text!
 			TCHAR text[MAX_PATH]{};
@@ -136,11 +136,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_pFgColour->init(_hInst, _hSelf);
 			_pBgColour->init(_hInst, _hSelf);
 
-			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
-			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
+			const int cpDynamicalSize = DPIManagerV2::scale(25);
 
-			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 
 			_pFgColour->display();
 			_pBgColour->display();
@@ -568,7 +567,7 @@ void WordStyleDlg::move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveW
 	RECT rc{};
 	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
 
-	p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);
+	p.x = rc.right + DPIManagerV2::scale(5);
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
 	::ScreenToClient(_hSelf, &p);

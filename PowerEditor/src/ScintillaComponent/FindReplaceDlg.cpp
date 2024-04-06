@@ -5907,7 +5907,7 @@ int Progress::createProgressWindow()
 
 	if (_hFont == nullptr)
 	{
-		LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+		LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hwnd) };
 		_hFont = ::CreateFontIndirect(&lf);
 	}
 

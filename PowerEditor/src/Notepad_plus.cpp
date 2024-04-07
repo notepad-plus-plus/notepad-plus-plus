@@ -4281,7 +4281,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 		if (!hWin) return;
 
-		if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin) || currentView() == SUB_VIEW)
+		if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
 			switchEditViewTo(SUB_VIEW);
 		else
 			switchEditViewTo(MAIN_VIEW);

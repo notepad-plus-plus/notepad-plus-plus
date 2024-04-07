@@ -364,8 +364,8 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					{
 						if (_isDirty)
 						{
-							LexerStylerArray & lsa = (NppParameters::getInstance()).getLStylerArray();
-							StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
+							const LexerStylerArray & lsa = (NppParameters::getInstance()).getLStylerArray();
+							const StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
 
 							_lsArray = lsa;
 							_globalStyles = globalStyles;
@@ -891,7 +891,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_USER_EXT_STATIC), index?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_PLUSSYMBOL2_STATIC), index?SW_SHOW:SW_HIDE);
 
-	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):_globalStyles;
+	StyleArray & lexerStyler = index ? _lsArray.getLexerFromIndex(index-1) : _globalStyles;
 
 	for (const Style & style : lexerStyler)
 	{
@@ -932,7 +932,7 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		misc
 	};
 
-	Style& style = getCurrentStyler();
+	const Style& style = getCurrentStyler();
 
 	// Global override style
 	if (style._styleDesc == TEXT("Current line background colour"))

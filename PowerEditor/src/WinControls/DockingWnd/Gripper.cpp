@@ -179,7 +179,7 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			POINT			ptBuf		= {0,0};
 
 			::GetCursorPos(&pt);
-			getMousePoints(&pt, &ptBuf);
+			getMousePoints(pt, ptBuf);
 
 			/* erase last drawn rectangle */
 			drawRectangle(NULL);
@@ -267,7 +267,7 @@ void Gripper::onMove()
 	POINT		ptBuf	= {0,0};
 
 	::GetCursorPos(&pt);
-	getMousePoints(&pt, &ptBuf);
+	getMousePoints(pt, ptBuf);
 
 	/* tab reordering only when tab was selected */
 	if (_startMovingFromTab == TRUE)
@@ -287,7 +287,7 @@ void Gripper::onButtonUp()
 	RECT			rcCorr		= {};
 
 	::GetCursorPos(&pt);
-	getMousePoints(&pt, &ptBuf);
+	getMousePoints(pt, ptBuf);
 
 	// do nothing, when old point is not valid
 	if (_bPtOldValid == FALSE)
@@ -623,10 +623,10 @@ void Gripper::drawRectangle(const POINT* pPt)
 }
 
 
-void Gripper::getMousePoints(POINT* pt, POINT* ptPrev)
+void Gripper::getMousePoints(const POINT& pt, POINT& ptPrev)
 {
-	*ptPrev	= _ptOld;
-	_ptOld	= *pt;
+	ptPrev	= _ptOld;
+	_ptOld	= pt;
 }
 
 

@@ -104,7 +104,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_JESUISCHARLIE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GILETJAUNE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_SAMESEXMARRIAGE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
-			DRAWITEMSTRUCT *pdis = (DRAWITEMSTRUCT *)lParam;
+			DRAWITEMSTRUCT* pdis = reinterpret_cast<DRAWITEMSTRUCT *>(lParam);
 			::DrawIconEx(pdis->hDC, 0, 0, hIcon, w, h, 0, NULL, DI_NORMAL);
 			return TRUE;
 		}
@@ -320,7 +320,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
 			if (hNtdllModule)
 			{
-				pWGV = (PWINEGETVERSION)GetProcAddress(hNtdllModule, "wine_get_version");
+				pWGV = reinterpret_cast<PWINEGETVERSION>(GetProcAddress(hNtdllModule, "wine_get_version"));
 			}
 
 			if (pWGV != nullptr)

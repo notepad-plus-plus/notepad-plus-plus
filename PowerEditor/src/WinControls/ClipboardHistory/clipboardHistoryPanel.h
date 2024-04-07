@@ -33,7 +33,7 @@ struct ClipboardDataInfo {
 class ByteArray {
 public:
 	ByteArray() = default;
-	explicit ByteArray(ClipboardDataInfo cd);
+	explicit ByteArray(const ClipboardDataInfo& cd);
 	
 	~ByteArray() {
 		if (_pBytes)
@@ -48,7 +48,7 @@ protected:
 
 class StringArray : public ByteArray {
 public:
-	StringArray(ClipboardDataInfo cd, size_t maxLen);
+	StringArray(const ClipboardDataInfo& cd, size_t maxLen);
 };
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
@@ -66,7 +66,7 @@ public:
 
 	ClipboardDataInfo getClipboadData();
 	void addToClipboadHistory(ClipboardDataInfo cbd);
-	int getClipboardDataIndex(ClipboardDataInfo cbd);
+	int getClipboardDataIndex(const ClipboardDataInfo& cbd);
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		_lbBgColor = bgColour;

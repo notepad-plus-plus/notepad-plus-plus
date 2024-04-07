@@ -48,7 +48,7 @@ protected:
 	std::vector<generic_string> _functionNameExprArray;
 	std::vector<generic_string> _classNameExprArray;
 	void getCommentZones(std::vector< std::pair<size_t, size_t> > & commentZone, size_t begin, size_t end, ScintillaEditView **ppEditView);
-	void getInvertZones(std::vector< std::pair<size_t, size_t> > & destZones, std::vector< std::pair<size_t, size_t> > & sourceZones, size_t begin, size_t end);
+	void getInvertZones(std::vector< std::pair<size_t, size_t> > & destZones, const std::vector< std::pair<size_t, size_t> > & sourceZones, size_t begin, size_t end);
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, intptr_t & foundPos, ScintillaEditView **ppEditView);
 };
 
@@ -61,7 +61,7 @@ public:
 		const std::vector<generic_string>& classNameExprArray, const generic_string& functionExpr, const std::vector<generic_string>& functionNameExprArray):
 		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};
 
-	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) override;
 	
 protected:
 	void classParse(std::vector<foundInfo> & foundInfos, std::vector< std::pair<size_t, size_t> > & scannedZones, const std::vector< std::pair<size_t, size_t> > & commentZones, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
@@ -84,7 +84,7 @@ public:
 		const std::vector<generic_string>& classNameExprArray): FunctionParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray)
 	{}
 
-	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) override;
 };
 
 class FunctionMixParser : public FunctionZoneParser
@@ -99,7 +99,7 @@ public:
 		delete _funcUnitPaser;
 	}
 
-	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) override;
 
 private:
 	FunctionUnitParser* _funcUnitPaser = nullptr;

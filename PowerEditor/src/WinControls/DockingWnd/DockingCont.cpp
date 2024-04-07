@@ -58,24 +58,6 @@ static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 
 DockingCont::DockingCont()
 {
-	_isMouseOver		= FALSE;
-	_isMouseClose		= FALSE;
-	_isMouseDown		= FALSE;
-	_isFloating			= false;
-	_isTopCaption		= CAPTION_TOP;
-	_dragFromTab		= FALSE;
-	_hContTab			= NULL;
-	_hDefaultTabProc	= NULL;
-	_beginDrag			= FALSE;
-	_prevItem			= 0;
-	_hFont				= NULL;
-	_bTabTTHover		= FALSE;
-	_bCaptionTT			= FALSE;
-	_bCapTTHover		= FALSE;
-	_hoverMPos			= posClose;
-	_bDrawOgLine		= TRUE;
-	_vTbData.clear();
-
 	_captionHeightDynamic = NppParameters::getInstance()._dpiManager.scaleY(_captionHeightDynamic);
 	_captionGapDynamic = NppParameters::getInstance()._dpiManager.scaleY(_captionGapDynamic);
 	_closeButtonPosLeftDynamic = NppParameters::getInstance()._dpiManager.scaleX(_closeButtonPosLeftDynamic);
@@ -135,7 +117,7 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 }
 
 
-tTbData* DockingCont::createToolbar(tTbData data)
+tTbData* DockingCont::createToolbar(const tTbData& data)
 {
 	tTbData *pTbData = new tTbData;
 
@@ -164,13 +146,13 @@ tTbData* DockingCont::createToolbar(tTbData data)
 }
 
 
-void DockingCont::removeToolbar(tTbData TbData)
+void DockingCont::removeToolbar(const tTbData& data)
 {
 	// remove from list
 	// items in _vTbData are removed in the loop so _vTbData.size() should be checked in every iteration
 	for (size_t iTb = 0 ; iTb < _vTbData.size(); ++iTb)
 	{
-		if (_vTbData[iTb]->hClient == TbData.hClient)
+		if (_vTbData[iTb]->hClient == data.hClient)
 		{
 			// remove tab
 			removeTab(_vTbData[iTb]);
@@ -1094,8 +1076,8 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		if ((hImageList != NULL) && (iPosImage >= 0))
 		{
 			// Get height of image so we
-			IMAGEINFO	info		= {};
-			RECT &		imageRect	= info.rcImage;
+			IMAGEINFO info = {};
+			const RECT& imageRect = info.rcImage;
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
 
@@ -1394,31 +1376,29 @@ void DockingCont::onSize()
 
 void DockingCont::doClose(BOOL closeAll)
 {
-	int	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
-
 	// Always close active tab first
 	int iItemCur = getActiveTb();
-	TCITEM	tcItem	= {};
-	tcItem.mask	= TCIF_PARAM;
-	::SendMessage(_hContTab, TCM_GETITEM, iItemCur, reinterpret_cast<LPARAM>(&tcItem));
-	if (tcItem.lParam)
+	TCITEM item	= {};
+	item.mask = TCIF_PARAM;
+	::SendMessage(_hContTab, TCM_GETITEM, iItemCur, reinterpret_cast<LPARAM>(&item));
+	if (item.lParam)
 	{
 		// notify child windows
 		if (NotifyParent(DMM_CLOSE) == 0)
 		{
 			// delete tab
-			hideToolbar((tTbData*)tcItem.lParam);
+			hideToolbar((tTbData*)item.lParam);
 		}
 	}
 
 	// Close all other tabs if requested
 	if (closeAll)
 	{
-		iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+		int nbItem = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 		int iItemOff = 0;
-		for (int iItem = 0; iItem < iItemCnt; ++iItem)
+		for (int iItem = 0; iItem < nbItem; ++iItem)
 		{
-			TCITEM	tcItem	= {};
+			TCITEM tcItem = {};
 			// get item data
 			selectTab(iItemOff);
 			tcItem.mask	= TCIF_PARAM;
@@ -1440,7 +1420,7 @@ void DockingCont::doClose(BOOL closeAll)
 	}
 
 	// Hide dialog window if all tabs closed
-	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 	if (iItemCnt == 0)
 	{
 		// hide dialog first
@@ -1601,11 +1581,11 @@ void DockingCont::selectTab(int iTab)
 		::SetFocus(((tTbData*)tcItem.lParam)->hClient);
 
 		// Notify switch in
-		NMHDR nmhdr{};
-		nmhdr.code		= DMN_SWITCHIN;
-		nmhdr.hwndFrom	= _hSelf;
-		nmhdr.idFrom	= 0;
-		::SendMessage(reinterpret_cast<tTbData*>(tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
+		NMHDR nmhdrIn{};
+		nmhdrIn.code		= DMN_SWITCHIN;
+		nmhdrIn.hwndFrom	= _hSelf;
+		nmhdrIn.idFrom	= 0;
+		::SendMessage(reinterpret_cast<tTbData*>(tcItem.lParam)->hClient, WM_NOTIFY, nmhdrIn.idFrom, reinterpret_cast<LPARAM>(&nmhdrIn));
 
 		if (static_cast<unsigned int>(iTab) != _prevItem)
 		{
@@ -1617,11 +1597,11 @@ void DockingCont::selectTab(int iTab)
 			::ShowWindow(((tTbData*)tcItem.lParam)->hClient, SW_HIDE);
 		
 			// Notify switch off
-			NMHDR nmhdr{};
-			nmhdr.code		= DMN_SWITCHOFF;
-			nmhdr.hwndFrom	= _hSelf;
-			nmhdr.idFrom	= 0;
-			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
+			NMHDR nmhdrOff{};
+			nmhdrOff.code		= DMN_SWITCHOFF;
+			nmhdrOff.hwndFrom	= _hSelf;
+			nmhdrOff.idFrom	= 0;
+			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdrOff.idFrom, reinterpret_cast<LPARAM>(&nmhdrOff));
 		}
 
 		// resize tab item

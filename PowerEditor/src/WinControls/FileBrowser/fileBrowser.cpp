@@ -443,7 +443,7 @@ generic_string FileBrowser::getNodePath(HTREEITEM node) const
 		HTREEITEM temp = _treeView.getParent(parent);
 		if (temp == nullptr)
 		{
-			SortingData4lParam* customData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(parent));
+			const SortingData4lParam* customData = reinterpret_cast<SortingData4lParam*>(_treeView.getItemParam(parent));
 			folderName = customData->_rootPath;
 		}
 		parent = temp;
@@ -750,7 +750,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		{
 			if (!selectedNode) return;
 
-			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
+			const wstring* rootPath = (wstring *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
 				return;
 

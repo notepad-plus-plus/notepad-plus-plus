@@ -652,7 +652,7 @@ bool FunctionParser::isInZones(size_t pos2Test, const std::vector< std::pair<siz
 }
 
 
-void FunctionParser::getInvertZones(vector< pair<size_t, size_t> > &  destZones, vector< pair<size_t, size_t> > &  sourceZones, size_t begin, size_t end)
+void FunctionParser::getInvertZones(vector< pair<size_t, size_t> > &  destZones, const vector< pair<size_t, size_t> > &  sourceZones, size_t begin, size_t end)
 {
 	if (sourceZones.size() == 0)
 	{
@@ -708,7 +708,7 @@ void FunctionUnitParser::parse(std::vector<foundInfo> & foundInfos, size_t begin
 // sort in _selLpos : increased order
 struct SortZones final
 {
-	bool operator() (pair<int, int> & l, pair<int, int> & r)
+	bool operator() (const pair<int, int> & l, const pair<int, int> & r)
 	{
 		return (l.first < r.first);
 	}

@@ -366,7 +366,7 @@ void FunctionListPanel::reload()
 		udln = currentBuf->getUserDefineLangName();
 	}
 
-	TCHAR *ext = ::PathFindExtension(fn);
+	const wchar_t* ext = ::PathFindExtension(fn);
 
 	bool parsedOK = _funcParserMgr.parse(_foundFuncInfos, AssociationInfo(-1, langID, ext, udln));
 	if (parsedOK)
@@ -429,7 +429,7 @@ void FunctionListPanel::reload()
 void FunctionListPanel::initPreferencesMenu()
 {
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
-	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
 	generic_string shouldSortFunctionListStr = pNativeSpeaker->getAttrNameStr(TEXT("Sort functions (A to Z) by default"), FL_FUCTIONLISTROOTNODE, FL_PREFERENCE_INITIALSORT);
 
@@ -546,8 +546,6 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	}
 	else
 	{
-		generic_string funcListDefaultXmlPath = nppParams.getNppPath();
-		pathAppend(funcListDefaultXmlPath, TEXT("functionList"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
 			_funcParserMgr.init(funcListDefaultXmlPath, funcListDefaultXmlPath, ppEditView);

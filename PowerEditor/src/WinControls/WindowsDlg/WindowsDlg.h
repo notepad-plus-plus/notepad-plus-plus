@@ -89,8 +89,8 @@ protected :
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
-	SIZE _szMinButton{};
-	SIZE _szMinListCtrl{};
+	SIZE _szMinButton = SIZEZERO;
+	SIZE _szMinListCtrl = SIZEZERO;
 	DocTabView* _pTab = nullptr;
 	std::vector<int> _idxMap;
 	int _currentColumn = -1;

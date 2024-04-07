@@ -96,7 +96,7 @@ class ToolBarIcons
 public :
 	ToolBarIcons() = default;
 
-	void init(ToolBarButtonUnit *buttonUnitArray, int arraySize, std::vector<DynamicCmdIcoBmp> cmds2add);
+	void init(ToolBarButtonUnit *buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& cmds2add);
 	void create(HINSTANCE hInst, int iconSize);
 	void destroy();
 

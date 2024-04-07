@@ -82,7 +82,7 @@ ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 	return clipboardData;
 }
 
-ByteArray::ByteArray(ClipboardDataInfo cd)
+ByteArray::ByteArray(const ClipboardDataInfo& cd)
 {
 	_length = cd._data.size();
 	if (!_length)
@@ -97,7 +97,7 @@ ByteArray::ByteArray(ClipboardDataInfo cd)
 	}
 }
 
-StringArray::StringArray(ClipboardDataInfo cd, size_t maxLen)
+StringArray::StringArray(const ClipboardDataInfo& cd, size_t maxLen)
 {
 	size_t len = cd._data.size();
 
@@ -132,7 +132,7 @@ StringArray::StringArray(ClipboardDataInfo cd, size_t maxLen)
 
 // Search clipboard data in internal storage
 // return -1 if not found, else return the index of internal array
-int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardDataInfo cbd)
+int ClipboardHistoryPanel::getClipboardDataIndex(const ClipboardDataInfo& cbd)
 {
 	int iFound = -1;
 	bool found = false; 

@@ -58,7 +58,7 @@ BOOL WINRECT::GetMargins(int& w, int& h)
 // Initialize map: set up all the next/prev pointers. This converts the
 // linear array to a more convenient linked list. Called from END_WINDOW_MAP.
 //
-WINRECT* WINRECT::InitMap(WINRECT* pWinMap, WINRECT* parent)
+WINRECT* WINRECT::InitMap(WINRECT* pWinMap, const WINRECT* parent)
 {
 	assert(pWinMap);
 

@@ -225,7 +225,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
 		case WM_GETDLGCODE :
 		{
-			MSG *msg = (MSG*)lParam;
+			const MSG *msg = (MSG*)lParam;
 
 			if ( msg != NULL)
 			{

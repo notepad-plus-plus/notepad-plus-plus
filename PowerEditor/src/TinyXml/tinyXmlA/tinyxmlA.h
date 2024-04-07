@@ -80,8 +80,8 @@ struct TiXmlCursorA
 	TiXmlCursorA()		{ Clear(); }
 	void Clear()		{ row = col = -1; }
 
-	int row;	// 0 based.
-	int col;	// 0 based.
+	int row = -1;	// 0 based.
+	int col = -1;	// 0 based.
 };
 
 
@@ -1115,10 +1115,10 @@ protected :
 	#endif
 
 private:
-	bool error;
-	int  errorId;
+	bool error = false;
+	int  errorId = 0;
 	TIXMLA_STRING errorDesc;
-	int tabsize;
+	int tabsize  = 4;
 	TiXmlCursorA errorLocation;
 };
 

@@ -120,8 +120,8 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				case IDC_M_RUN_MULTI:
 				case IDC_M_RUN_EOF:
 				{
-					const bool isMulti = (wParam == IDC_M_RUN_MULTI);
-					if (isMulti)
+					const bool isRunMulti = (wParam == IDC_M_RUN_MULTI);
+					if (isRunMulti)
 					{
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_M_RUN_TIMES), TRUE);
 						_times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, NULL, FALSE);

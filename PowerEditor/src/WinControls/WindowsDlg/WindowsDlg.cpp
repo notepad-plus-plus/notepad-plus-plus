@@ -242,8 +242,6 @@ RECT WindowsDlg::_lastKnownLocation;
 
 WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap)
 {
-	_szMinButton = SIZEZERO;
-	_szMinListCtrl = SIZEZERO;
 }
 
 void WindowsDlg::init(HINSTANCE hInst, HWND parent, DocTabView *pTab)
@@ -429,7 +427,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				else if (pNMHDR->code == LVN_COLUMNCLICK) // sort columns with stable sort
 				{
-					NMLISTVIEW *pNMLV = (NMLISTVIEW *)pNMHDR;
+					const NMLISTVIEW *pNMLV = (NMLISTVIEW *)pNMHDR;
 					if (pNMLV->iItem == -1)
 					{
 						_currentColumn = pNMLV->iSubItem;
@@ -462,7 +460,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				else if (pNMHDR->code == LVN_KEYDOWN)
 				{
-					NMLVKEYDOWN *lvkd = (NMLVKEYDOWN *)pNMHDR;
+					const NMLVKEYDOWN *lvkd = (NMLVKEYDOWN *)pNMHDR;
 					short ctrl = GetKeyState(VK_CONTROL);
 					short alt = GetKeyState(VK_MENU);
 					short shift = GetKeyState(VK_SHIFT);
@@ -889,9 +887,9 @@ void WindowsDlg::doClose()
 	{
 		// Trying to retain sort order. fairly sure there is a much better algorithm for this
 		vector<int>::iterator kitr = key.begin();
-		for (UINT i = 0; i < n; ++i, ++kitr)
+		for (UINT k = 0; k < n; ++k, ++kitr)
 		{
-			if (nmdlg.Items[i] == ((UINT)-1))
+			if (nmdlg.Items[k] == ((UINT)-1))
 			{
 				int oldVal = _idxMap[*kitr];
 				_idxMap[*kitr] = -1;
@@ -1034,15 +1032,13 @@ void WindowsDlg::refreshMap()
 	if (count == oldSize)
 		return;
 
-	if (count != oldSize)
-	{
-		size_t lo = 0;
-		_idxMap.resize(count);
-		if (oldSize < count)
-			lo = oldSize;
-		for (size_t i = lo; i < count; ++i)
-			_idxMap[i] = int(i);
-	}
+	size_t lo = 0;
+	_idxMap.resize(count);
+	if (oldSize < count)
+		lo = oldSize;
+
+	for (size_t i = lo; i < count; ++i)
+		_idxMap[i] = int(i);
 }
 
 void WindowsDlg::doSortToTabs()

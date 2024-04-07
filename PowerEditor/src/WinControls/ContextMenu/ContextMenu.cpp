@@ -92,7 +92,7 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 			::InsertMenu(_hMenu, static_cast<UINT>(i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = false;
 		}
-		else if (item._cmdID == 0 && !lastIsSep)
+		else if (/*item._cmdID == 0 &&*/ !lastIsSep)
 		{
 			::InsertMenu(_hMenu, static_cast<int32_t>(i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = true;

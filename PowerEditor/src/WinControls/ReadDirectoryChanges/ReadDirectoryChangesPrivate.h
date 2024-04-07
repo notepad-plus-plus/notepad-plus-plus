@@ -106,10 +106,7 @@ protected:
 class CReadChangesServer
 {
 public:
-	explicit CReadChangesServer(CReadDirectoryChanges* pParent)
-	{
-		m_bTerminate=false; m_nOutstandingRequests=0;m_pBase=pParent;
-	}
+	explicit CReadChangesServer(CReadDirectoryChanges* pParent): m_pBase(pParent) {}
 
 	static unsigned int WINAPI ThreadStartProc(LPVOID arg)
 	{
@@ -134,7 +131,7 @@ public:
 
 	CReadDirectoryChanges* m_pBase = nullptr;
 
-	volatile DWORD m_nOutstandingRequests;
+	volatile DWORD m_nOutstandingRequests = 0;
 
 protected:
 

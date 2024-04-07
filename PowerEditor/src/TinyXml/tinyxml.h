@@ -1114,10 +1114,10 @@ protected :
 	#endif
 
 private:
-	bool error;
-	int  errorId;
+	bool error = false;
+	int  errorId = 0;
 	TIXML_STRING errorDesc;
-	int tabsize;
+	int tabsize = 4;
 	TiXmlCursor errorLocation;
 };
 

@@ -1236,7 +1236,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	}
 	else // inactive tabs
 	{
-		RECT rect = hasMultipleLines ? pDrawItemStruct->rcItem : barRect;
+		RECT inactiveRect = hasMultipleLines ? pDrawItemStruct->rcItem : barRect;
 		COLORREF brushColour{};
 
 		if (_drawInactiveTab && individualColourId == -1)
@@ -1253,7 +1253,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 
 		hBrush = ::CreateSolidBrush(brushColour);
-		::FillRect(hDC, &rect, hBrush);
+		::FillRect(hDC, &inactiveRect, hBrush);
 		::DeleteObject((HGDIOBJ)hBrush);
 	}
 

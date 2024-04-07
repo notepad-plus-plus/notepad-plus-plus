@@ -294,7 +294,7 @@ struct recordedMacroStep {
 	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam);
 	explicit recordedMacroStep(int iCommandID): _wParameter(iCommandID) {};
 
-	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const char *sParam, int type)
+	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const char* sParam, int type)
 		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)){
 			_sParameter = (sParam) ? std::string(sParam) : "";	
 	};

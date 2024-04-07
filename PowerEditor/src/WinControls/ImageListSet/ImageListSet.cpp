@@ -68,7 +68,7 @@ bool IconList::changeIcon(size_t index, const TCHAR *iconLocation) const
 	return (i == index);
 }
 
-void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize, std::vector<DynamicCmdIcoBmp> moreCmds)
+void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize, const std::vector<DynamicCmdIcoBmp>& moreCmds)
 {
 	for (int i = 0 ; i < arraySize ; ++i)
 		_tbiis.push_back(buttonUnitArray[i]);

@@ -40,7 +40,7 @@ jobs:
 
         $commit_title = ($commit_message -split "[\r\n]+")[0]
         $files_modified = @(git diff --name-only HEAD~1)
-        $files_needwork_all = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_onejob" -or $_ -match $files_needwork})
+        $files_needwork_all = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_onejob" -or $_ -match "$files_needwork$"})
 
         if ($allowMaster -or !$isMaster) {
             if ($commit_title -match "\[force all\]") {

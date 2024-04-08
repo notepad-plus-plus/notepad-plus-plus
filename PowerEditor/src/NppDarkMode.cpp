@@ -593,10 +593,10 @@ namespace NppDarkMode
 
 	static TreeViewStyle g_treeViewStyle = TreeViewStyle::classic;
 	static COLORREF g_treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
-	static double g_lighnessTreeView = 50.0;
+	static double g_lightnessTreeView = 50.0;
 
 	// adapted from https://stackoverflow.com/a/56678483
-	double calculatePerceivedLighness(COLORREF c)
+	double calculatePerceivedLightness(COLORREF c)
 	{
 		auto linearValue = [](double colorChannel) -> double
 		{
@@ -612,8 +612,8 @@ namespace NppDarkMode
 
 		double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
-		double lighness = (luminance <= 216.0 / 24389.0) ? (luminance * 24389.0 / 27.0) : (std::pow(luminance, (1.0 / 3.0)) * 116.0 - 16.0);
-		return lighness;
+		double lightness = (luminance <= 216.0 / 24389.0) ? (luminance * 24389.0 / 27.0) : (std::pow(luminance, (1.0 / 3.0)) * 116.0 - 16.0);
+		return lightness;
 	}
 
 	COLORREF getBackgroundColor()         { return getTheme()._colors.background; }
@@ -1458,14 +1458,20 @@ namespace NppDarkMode
 		WPARAM wParam,
 		LPARAM lParam,
 		UINT_PTR uIdSubclass,
-		DWORD_PTR dwRefData
+		DWORD_PTR /*dwRefData*/
 	)
 	{
-		UNREFERENCED_PARAMETER(uIdSubclass);
-		UNREFERENCED_PARAMETER(dwRefData);
-
 		switch (uMsg)
 		{
+			case WM_ERASEBKGND:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return TRUE;
+				}
+				break;
+			}
+
 		case WM_PAINT:
 		{
 			if (!NppDarkMode::isEnabled())
@@ -1539,14 +1545,10 @@ namespace NppDarkMode
 
 					::SendMessage(hWnd, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tci));
 
-					const auto dpi = DPIManagerV2::getDpiForParent(hWnd);
-
 					RECT rcText = rcItem;
-					rcText.left += DPIManagerV2::scale(5, dpi);
-					rcText.right -= DPIManagerV2::scale(3, dpi);
-
 					if (isSelectedTab)
 					{
+						const auto dpi = DPIManagerV2::getDpiForParent(hWnd);
 						rcText.bottom -= DPIManagerV2::scale(4, dpi);
 						::InflateRect(&rcFrame, 0, 1);
 					}
@@ -1557,7 +1559,7 @@ namespace NppDarkMode
 
 					::FrameRect(hdc, &rcFrame, NppDarkMode::getEdgeBrush());
 
-					DrawText(hdc, label, -1, &rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+					DrawText(hdc, label, -1, &rcText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 					DeleteObject(hClip);
 
@@ -1582,7 +1584,7 @@ namespace NppDarkMode
 
 		case WM_NCDESTROY:
 		{
-			RemoveWindowSubclass(hWnd, TabSubclass, g_tabSubclassID);
+			::RemoveWindowSubclass(hWnd, TabSubclass, uIdSubclass);
 			break;
 		}
 
@@ -3166,17 +3168,17 @@ namespace NppDarkMode
 	{
 		COLORREF bgColor = NppParameters::getInstance().getCurrentDefaultBgColor();
 
-		if (g_treeViewBg != bgColor || g_lighnessTreeView == 50.0)
+		if (g_treeViewBg != bgColor || g_lightnessTreeView == 50.0)
 		{
-			g_lighnessTreeView = calculatePerceivedLighness(bgColor);
+			g_lightnessTreeView = calculatePerceivedLightness(bgColor);
 			g_treeViewBg = bgColor;
 		}
 
-		if (g_lighnessTreeView < (50.0 - g_middleGrayRange))
+		if (g_lightnessTreeView < (50.0 - g_middleGrayRange))
 		{
 			g_treeViewStyle = TreeViewStyle::dark;
 		}
-		else if (g_lighnessTreeView > (50.0 + g_middleGrayRange))
+		else if (g_lightnessTreeView > (50.0 + g_middleGrayRange))
 		{
 			g_treeViewStyle = TreeViewStyle::light;
 		}

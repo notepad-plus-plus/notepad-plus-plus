@@ -642,6 +642,14 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 																	  // Solution suggested by Neil Hodgson. See:
 																	  // https://sourceforge.net/p/scintilla/bugs/2412/
 						break;
+	
+					case VK_ESCAPE:
+					{
+						int selection = static_cast<int>(execute(SCI_GETMAINSELECTION, 0, 0));
+						int caret = static_cast<int>(execute(SCI_GETSELECTIONNCARET, selection, 0));
+						execute(SCI_SETSELECTION, caret, caret);
+						break;
+					}
 
 					default:
 						break;

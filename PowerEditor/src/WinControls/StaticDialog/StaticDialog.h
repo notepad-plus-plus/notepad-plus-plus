@@ -81,7 +81,7 @@ public :
 	}
 
 	void sendDpiMsgToChildCtrls(WPARAM wParam = 0, LPARAM lParam = 0) {
-		NppDarkMode::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
+		DPIManagerV2::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
 	}
 
 	void destroy() override;

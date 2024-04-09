@@ -1160,7 +1160,7 @@ Bạn có thể định nghĩa một vài mốc đánh dấu bằng cách sử d
 					<Item id="7142" name="Khi mở một tệp lớn, một số tính năng sẽ bị tắt đi để cải thiện hiệu năng. Bạn có thể tuỳ chỉnh chúng ở đây."/>
 					<Item id="7143" name="Bật giới hạn tệp lớn (không tô sáng cú pháp)"/>
 					<Item id="7144" name="Định nghĩa kích cỡ tệp lớn:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Cho phép khớp dấu ngoặc"/>
 					<Item id="7148" name="Cho phép tự động hoàn thành"/>
 					<Item id="7149" name="Cho phép tô sáng thông minh"/>

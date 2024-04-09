@@ -1267,7 +1267,7 @@ Translation note:
 					<Item id="7141" name="Restrizioni per File di grandi dimensioni"/>
 					<Item id="7143" name="Abilita restrizioni per i file di grandi dimensioni (no evidenziazione sintattica)"/>
 					<Item id="7144" name="Definizione dei file di grandi dimensioni:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Permetti l&apos;evidenziazione della parentesi corrispondente"/>
 					<Item id="7148" name="Permetti l&apos;attivazione Auto-Completamento"/>
 					<Item id="7149" name="Permetti l&apos;attivazione della colorazione automatica"/>

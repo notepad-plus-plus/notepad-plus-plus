@@ -1260,7 +1260,7 @@ Translation note:
 					<Item id="7141" name="Restrição para Arquivos Grandes"/>
 					<Item id="7143" name="Habilitar Restrição para Arquivos Grandes (sem destaque de sintaxe)"/>
 					<Item id="7144" name="Definir Tamanho de Arquivos Grandes:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Permitr Chaves Correspondentes"/>
 					<Item id="7148" name="Permitir Autocompletar"/>
 					<Item id="7149" name="Permitir Destaque Inteligente"/>

@@ -3921,6 +3921,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_GDSCRIPT;
         case IDM_LANG_HOLLYWOOD:
             return L_HOLLYWOOD;	    
+        case IDM_LANG_GOLANG:
+            return L_GOLANG;
         case IDM_LANG_USER:
             return L_USER;
 		default:

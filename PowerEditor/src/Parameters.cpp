@@ -8148,6 +8148,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_HOLLYWOOD:
 			id = IDM_LANG_HOLLYWOOD; break;
 			
+		case L_GOLANG:
+			id = IDM_LANG_GOLANG; break;
+			
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

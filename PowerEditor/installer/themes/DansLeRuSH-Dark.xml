@@ -341,6 +341,27 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="LABEL" styleID="13" fgColor="A88AB6" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CONTINUATION" styleID="14" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="go" desc="Go" ext="">
+            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FF5757" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="DEFAULT" styleID="11" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="TYPE WORD" styleID="16" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="type1" />
+            <WordsStyle name="PREDECLARED IDENTIFIERS" styleID="19" fgColor="986598" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="6" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CHARACTER" styleID="7" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="8F8F8F" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="VERBATIM" styleID="13" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="REGEX" styleID="14" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PREPROCESSOR COMMENT" styleID="23" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PREPROCESSOR COMMENT DOC" styleID="24" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
         <LexerType name="gui4cli" desc="GUI4CLI" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="1" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />

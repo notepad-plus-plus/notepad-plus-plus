@@ -955,6 +955,7 @@ BEGIN
         MENUITEM "Fortran (fixed form)",    IDM_LANG_FORTRAN_77
         MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
         MENUITEM "GDScript",                IDM_LANG_GDSCRIPT
+        MENUITEM "Go",                      IDM_LANG_GOLANG
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL
         MENUITEM "Hollywood",               IDM_LANG_HOLLYWOOD
@@ -1072,6 +1073,7 @@ BEGIN
 	POPUP "G"
 	BEGIN
         MENUITEM "GDScript",                  IDM_LANG_GDSCRIPT
+        MENUITEM "Go",                        IDM_LANG_GOLANG
         MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
 	END
     POPUP "H"

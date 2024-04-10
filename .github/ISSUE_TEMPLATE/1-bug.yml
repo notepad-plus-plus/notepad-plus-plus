@@ -1,0 +1,66 @@
+name: Bug
+description: File a bug/issue
+title: "[BUG] <title>"
+#labels: ["bug"]
+body:
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: Please search to see if an issue already exists for the bug you encountered.
+    options:
+    - label: I have searched the existing issues
+      required: true
+- type: textarea
+  attributes:
+    label: Description of the Issue
+    description: Provide a concise description to the issue itself.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Steps To Reproduce
+    description: Steps to reproduce the behavior.
+    placeholder: |
+      1.  
+      2.  
+      3.  
+      ...
+    value: |
+      1.  
+      2.  
+      3.  
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Current Behavior
+    description: What you're experiencing.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: What did you expect to happen.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Debug Information
+    description: |
+      In your Notepad++, click on the "?" menu (found to the right of "Window" in the menu bar).
+      In the menu that drops down, choose "Debug Info...".
+      A dialog will open detailing specifics about your Notepad++ version, plugins, etc.
+      CLICK ON THE BUTTON "Copy debug info into clipboard".
+      Do a PASTE HERE
+    render: shell
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      Links? References? Anything that will give us more context about the issue you are encountering!
+
+      Tip: You can attach images or relevant text files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false

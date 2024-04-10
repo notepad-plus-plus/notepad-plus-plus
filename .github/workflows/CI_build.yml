@@ -295,16 +295,15 @@ jobs:
         if ( $${{ matrix.build_platform == 'x86_64'}} ) {$Env:MSYSTEM = 'MINGW64'}
         if ( $${{ matrix.build_platform == 'x86_64'}} ) {$Env:Path = 'C:\msys64\mingw64\bin' + [IO.Path]::PathSeparator + $Env:Path}
         if ( $${{ matrix.build_configuration == 'Debug'}} ) {$Env:DEBUG = '1'}
-        Write-Output "Tools version:"
-        Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
-        Write-Output (make --version) | select-object -first 1
-        Write-Output (sh --version) | select-object -first 1
-        Write-Output ""
         bash -lc "pacman --noconfirm -Syuu"
         bash -lc "pacman --noconfirm -Syuu"
         if ( $${{ matrix.build_platform == 'i686'}} ) {bash -lc "pacman --noconfirm -S mingw-w64-i686-gcc mingw-w64-i686-make"}
         if ( $${{ matrix.build_platform == 'x86_64'}} ) {bash -lc "pacman --noconfirm -S mingw-w64-x86_64-gcc mingw-w64-x86_64-make"}
-        make -f PowerEditor\gcc\makefile
+        Write-Output "Tools version:"
+        Write-Output (((gcc --version) | select-object -first 1) + " " + (gcc -dumpmachine))
+        Write-Output (mingw32-make --version) | select-object -first 1
+        Write-Output (sh --version) | select-object -first 1
+        mingw32-make -f PowerEditor\gcc\makefile
 
     - name: Archive artifacts for ${{ matrix.build_platform}} / Release
       if: matrix.build_configuration == 'Release'

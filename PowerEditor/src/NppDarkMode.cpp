@@ -42,9 +42,23 @@
 #define WINAPI_LAMBDA
 #endif
 
-#ifndef WM_DPICHANGED
-#define WM_DPICHANGED 0x02E0
-#endif
+// already added in dpiManagerV2.h
+// keep for plugin authors
+//#ifndef WM_DPICHANGED
+//#define WM_DPICHANGED 0x02E0
+//#endif
+//
+//#ifndef WM_DPICHANGED_BEFOREPARENT
+//#define WM_DPICHANGED_BEFOREPARENT 0x02E2
+//#endif
+//
+//#ifndef WM_DPICHANGED_AFTERPARENT
+//#define WM_DPICHANGED_AFTERPARENT 0x02E3
+//#endif
+//
+//#ifndef WM_GETDPISCALEDSIZE
+//#define WM_GETDPISCALEDSIZE 0x02E4
+//#endif
 
 // already added in project files
 // keep for plugin authors
@@ -577,20 +591,6 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF invertLightnessSofter(COLORREF c)
-	{
-		WORD h = 0;
-		WORD s = 0;
-		WORD l = 0;
-		ColorRGBToHLS(c, &h, &l, &s);
-
-		l = std::min<WORD>(240U - l, 211U);
-
-		COLORREF invert_c = ColorHLSToRGB(h, l, s);
-
-		return invert_c;
-	}
-
 	static TreeViewStyle g_treeViewStyle = TreeViewStyle::classic;
 	static COLORREF g_treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
 	static double g_lightnessTreeView = 50.0;
@@ -918,6 +918,7 @@ namespace NppDarkMode
 		}
 
 		case WM_DPICHANGED:
+		case WM_DPICHANGED_AFTERPARENT:
 		case WM_THEMECHANGED:
 		{
 			if (g_menuTheme)
@@ -1227,6 +1228,7 @@ namespace NppDarkMode
 			}
 
 			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
 			{
 				pButtonData->closeTheme();
 				return 0;
@@ -1408,6 +1410,7 @@ namespace NppDarkMode
 		}
 
 		case WM_DPICHANGED:
+		case WM_DPICHANGED_AFTERPARENT:
 		{
 			pButtonData->closeTheme();
 			return 0;
@@ -1738,8 +1741,9 @@ namespace NppDarkMode
 			break;
 
 			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
 			{
-				pBorderMetricsData->setMetricsForDpi(LOWORD(wParam));
+				pBorderMetricsData->setMetricsForDpi((uMsg == WM_DPICHANGED) ? LOWORD(wParam) : DPIManagerV2::getDpiForParent(hWnd));
 				::SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 				return 0;
 			}
@@ -2144,6 +2148,7 @@ namespace NppDarkMode
 			}
 
 			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
 			{
 				pButtonData->closeTheme();
 				return 0;
@@ -3025,7 +3030,7 @@ namespace NppDarkMode
 			case NppDarkMode::ToolTipsType::tabbar:
 				msg = TCM_GETTOOLTIPS;
 				break;
-			default:
+			case NppDarkMode::ToolTipsType::tooltip:
 				msg = 0;
 				break;
 		}
@@ -3144,7 +3149,7 @@ namespace NppDarkMode
 				SetWindowTheme(hwnd, g_isAtLeastWindows10 ? L"DarkMode_Explorer" : nullptr, nullptr);
 				break;
 			}
-			default:
+			case TreeViewStyle::classic:
 			{
 				if (hasHotStyle)
 				{

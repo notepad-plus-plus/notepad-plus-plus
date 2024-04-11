@@ -122,7 +122,6 @@ namespace NppDarkMode
 	DWORD getWindowsBuildNumber();
 
 	COLORREF invertLightness(COLORREF c);
-	COLORREF invertLightnessSofter(COLORREF c);
 	double calculatePerceivedLightness(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);

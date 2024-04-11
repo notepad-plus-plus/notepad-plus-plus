@@ -728,8 +728,9 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 	bool ownDoc = false;
 	if (!doc)
 	{
-		// If file exceeds 200MB, activate large file mode
-		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, isLargeFile ? SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE : 0);
+		// if file exceeds the _largeFileSizeDefInByte, disable the Scintilla styling (results in half memory consumption)
+		doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0,
+			isLargeFile ? SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE : SC_DOCUMENTOPTION_TEXT_LARGE));
 		ownDoc = true;
 	}
 
@@ -1354,7 +1355,7 @@ BufferID FileManager::newEmptyDocument()
 	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
 	newTitle += nb;
 
-	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
+	Document doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE)); // this already sets a reference for filemanager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str(), false);
 
 	NppParameters& nppParamInst = NppParameters::getInstance();

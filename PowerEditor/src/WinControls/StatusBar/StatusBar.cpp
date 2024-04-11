@@ -241,13 +241,14 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 		}
 
 		case WM_DPICHANGED:
+		case WM_DPICHANGED_AFTERPARENT:
 		case WM_THEMECHANGED:
 		{
 			pStatusBarInfo->closeTheme();
 			LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hWnd), DPIManagerV2::FontType::status) };
 			pStatusBarInfo->setFont(::CreateFontIndirect(&lf));
 			
-			if (uMsg == WM_DPICHANGED)
+			if (uMsg != WM_THEMECHANGED)
 			{
 				return 0;
 			}

@@ -1548,10 +1548,10 @@ namespace NppDarkMode
 					RECT rcText = rcItem;
 					if (isSelectedTab)
 					{
-						const auto dpi = DPIManagerV2::getDpiForParent(hWnd);
-						rcText.bottom -= DPIManagerV2::scale(4, dpi);
+						::OffsetRect(&rcText, 0, -1);
 						::InflateRect(&rcFrame, 0, 1);
 					}
+
 					if (i != nTabs - 1)
 					{
 						rcFrame.right += 1;

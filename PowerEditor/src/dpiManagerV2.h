@@ -64,7 +64,7 @@ public:
 		return _dpi;
 	}
 
-	static void setPositionDpi(LPARAM lParam, HWND hWnd);
+	static void setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags = SWP_NOZORDER | SWP_NOACTIVATE);
 
 	static int scale(int x, UINT dpi, UINT dpi2) {
 		return MulDiv(x, dpi, dpi2);
@@ -116,6 +116,7 @@ public:
 	}
 
 	static void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
+	static void loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad = LR_DEFAULTCOLOR);
 
 private:
 	UINT _dpi = USER_DEFAULT_SCREEN_DPI;

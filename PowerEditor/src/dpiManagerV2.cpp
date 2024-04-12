@@ -116,7 +116,7 @@ UINT DPIManagerV2::getDpiForWindow(HWND hWnd)
 	return getDpiForSystem();
 }
 
-void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd)
+void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags)
 {
 	const auto prcNewWindow = reinterpret_cast<RECT*>(lParam);
 
@@ -126,7 +126,7 @@ void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd)
 		prcNewWindow->top,
 		prcNewWindow->right - prcNewWindow->left,
 		prcNewWindow->bottom - prcNewWindow->top,
-		SWP_NOZORDER | SWP_NOACTIVATE);
+		flags);
 }
 
 LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
@@ -262,5 +262,13 @@ void DPIManagerV2::sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM 
 			return TRUE;
 		}
 		return TRUE;
-		}, reinterpret_cast<LPARAM>(&p));
+	}, reinterpret_cast<LPARAM>(&p));
+}
+
+void DPIManagerV2::loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
+{
+	if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) != S_OK)
+	{
+		*phico = static_cast<HICON>(::LoadImage(hinst, pszName, IMAGE_ICON, cx, cy, fuLoad));
+	}
 }

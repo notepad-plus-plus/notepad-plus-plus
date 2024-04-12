@@ -162,7 +162,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			if (_hfUnderlined == nullptr)
 			{
 				// Get the default GUI font
-				LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+				LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hwnd)) };
 				lf.lfUnderline = TRUE;
 
 				// Create a new font

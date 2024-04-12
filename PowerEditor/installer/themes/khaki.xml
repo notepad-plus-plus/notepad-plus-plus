@@ -350,6 +350,25 @@ Installation:
             <WordsStyle name="LABEL" styleID="13" fgColor="af0000" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CONTINUATION" styleID="14" fgColor="d700d7" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="go" desc="Go" ext="">
+            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="5f0000" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT" styleID="11" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="87005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="TYPE WORD" styleID="16" fgColor="5f005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+            <WordsStyle name="PREDECLARED IDENTIFIERS" styleID="19" fgColor="5f335f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="005f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="6" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CHARACTER" styleID="7" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="VERBATIM" styleID="13" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="REGEX" styleID="14" fgColor="0087af" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="d700d7" bgColor="d7d7af" fontName="" fontStyle="3" fontSize="" />
+        </LexerType>
         <LexerType name="gui4cli" desc="GUI4CLI" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="1" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />

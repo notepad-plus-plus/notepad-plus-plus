@@ -76,8 +76,8 @@ public :
 		DPIManagerV2::setDpi(_hSelf);
 	}
 
-	void setPositionDpi(LPARAM lParam) {
-		DPIManagerV2::setPositionDpi(lParam, _hSelf);
+	void setPositionDpi(LPARAM lParam, UINT flags = SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE) {
+		DPIManagerV2::setPositionDpi(lParam, _hSelf, flags);
 	}
 
 	void sendDpiMsgToChildCtrls(WPARAM wParam = 0, LPARAM lParam = 0) {

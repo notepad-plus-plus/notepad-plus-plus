@@ -46,6 +46,11 @@ public :
 	void destroy() override {
 		//_emailLink.destroy();
 		_pageLink.destroy();
+		if (_hIcon != nullptr)
+		{
+			::DestroyIcon(_hIcon);
+			_hIcon = nullptr;
+		}
 	};
 
 protected :
@@ -54,6 +59,7 @@ protected :
 private :
 	//URLCtrl _emailLink;
 	URLCtrl _pageLink;
+	HICON _hIcon = nullptr;
 };
 
 

@@ -85,31 +85,41 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
+			if (_hIcon != nullptr)
+			{
+				::DestroyIcon(_hIcon);
+				_hIcon = nullptr;
+			}
 			return TRUE;
 		}
 
-		case WM_DRAWITEM :
+		case WM_DPICHANGED:
 		{
-			DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-			int iconSideSize = 80;
-			int w = dpiManager.scaleX(iconSideSize);
-			int h = dpiManager.scaleY(iconSideSize);
+			DPIManagerV2::setDpiWP(wParam);
+			destroy();
+			//setPositionDpi(lParam);
+			getClientRect(_rc);
 
-			HICON hIcon = nullptr;
-			if (NppDarkMode::isEnabled())
-				hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON_DM), IMAGE_ICON, w, h, LR_DEFAULTSIZE);
-			else
-				hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON), IMAGE_ICON, w, h, LR_DEFAULTSIZE);
+			return TRUE;
+		}
+
+		case WM_DRAWITEM:
+		{
+			const int iconSize = DPIManagerV2::scale(80);
+			if (_hIcon == nullptr)
+			{
+				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_CHAMELEON_DM : IDI_CHAMELEON), iconSize, iconSize, &_hIcon);
+			}
 
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_JESUISCHARLIE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GILETJAUNE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_SAMESEXMARRIAGE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
-			DRAWITEMSTRUCT *pdis = (DRAWITEMSTRUCT *)lParam;
-			::DrawIconEx(pdis->hDC, 0, 0, hIcon, w, h, 0, NULL, DI_NORMAL);
+			auto pdis = reinterpret_cast<DRAWITEMSTRUCT*>(lParam);
+			::DrawIconEx(pdis->hDC, 0, 0, _hIcon, iconSize, iconSize, 0, nullptr, DI_NORMAL);
 			return TRUE;
 		}
 
-		case WM_COMMAND :
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
@@ -124,8 +134,9 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			break;
 		}
 
-		case WM_DESTROY :
+		case WM_DESTROY:
 		{
+			destroy();
 			return TRUE;
 		}
 	}
@@ -138,11 +149,12 @@ void AboutDlg::doDialog()
 		create(IDD_ABOUTBOX);
 
 	// Adjust the position of AboutBox
+	goToCenter(SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
 
-intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -364,6 +376,15 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			return TRUE;
 		}
 
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			getClientRect(_rc);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
 			switch (wParam)
@@ -409,7 +430,8 @@ void DebugInfoDlg::doDialog()
 	// For example, the command line parameters may have changed since this dialog was last opened during this session.
 	refreshDebugInfo();
 
-	// Adjust the position of AboutBox
+	// Adjust the position of DebugBox
+	goToCenter(SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
@@ -465,7 +487,7 @@ void DoSaveOrNotBox::changeLang()
 	::SetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, msg.c_str());
 }
 
-intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -493,6 +515,14 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				return TRUE;
 			}
 			break;
+		}
+
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
 		}
 
 		case WM_COMMAND:
@@ -577,7 +607,7 @@ void DoSaveAllBox::changeLang()
 	::SetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, msg.c_str());
 }
 
-intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -603,6 +633,14 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			return TRUE;
 		}
 		break;
+	}
+
+	case WM_DPICHANGED:
+	{
+		DPIManagerV2::setDpiWP(wParam);
+		setPositionDpi(lParam);
+
+		return TRUE;
 	}
 
 	case WM_COMMAND:

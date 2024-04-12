@@ -82,7 +82,7 @@
 						"
 					/>
 					<!-- comment out the following node to display the method with its parameters -->
-					<nameExpr expr="[[:alpha:]](?:[\w.]*[[:alnum:]])?" />
+					<!-- <nameExpr expr="[[:alpha:]](?:[\w.]*[[:alnum:]])?" /> -->
 				</functionName>
 			</function>
 		</parser>

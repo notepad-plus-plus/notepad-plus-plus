@@ -73,6 +73,16 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 	{
 		throw std::runtime_error("TabBar::init : CreateWindowEx() function return null");
 	}
+
+	if (_hFont == nullptr)
+	{
+		const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
+		LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(dpi) };
+		lf.lfHeight = DPIManagerV2::scaleFont(8, dpi);
+		_hFont = ::CreateFontIndirect(&lf);
+		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
+	}
+
 }
 
 
@@ -337,13 +347,17 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
 
-	auto& dpiManager = NppParameters::getInstance()._dpiManager;
-
-	LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+	const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
+	LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(dpi) };
 	LOGFONT lfVer{ lf };
+	if (_hFont != nullptr)
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
 	_hFont = ::CreateFontIndirect(&lf);
 	lf.lfWeight = FW_HEAVY;
-	lf.lfHeight = -(dpiManager.pointsToPixels(10));
+	lf.lfHeight = DPIManagerV2::scaleFont(10, dpi);
 	_hLargeFont = ::CreateFontIndirect(&lf);
 
 	lfVer.lfEscapement = 900;

@@ -1693,6 +1693,63 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						enableMarkFunc();
 					return TRUE;
 
+				case IDC_NEXT_TAB:
+				case IDC_PREV_TAB:
+				{
+					const int lastTab = TabCtrl_GetItemCount(_tab.getHSelf()) - 1;
+					int selTab = TabCtrl_GetCurSel(_tab.getHSelf());
+
+					if (LOWORD(wParam) == IDC_NEXT_TAB)
+					{
+						if (selTab++ == lastTab)
+						{
+							selTab = 0;
+						}
+					}
+					else
+					{
+						if (selTab-- == 0)
+						{
+							selTab = lastTab;
+						}
+					}
+
+					switch (static_cast<DIALOG_TYPE>(selTab))
+					{
+						case DIALOG_TYPE::FIND_DLG:
+						{
+							enableReplaceFunc(false);
+							break;
+						}
+
+						case DIALOG_TYPE::REPLACE_DLG:
+						{
+							enableReplaceFunc(true);
+							break;
+						}
+
+						case DIALOG_TYPE::FINDINFILES_DLG:
+						{
+							enableFindInFilesFunc();
+							break;
+						}
+
+						case DIALOG_TYPE::FINDINPROJECTS_DLG:
+						{
+							enableFindInProjectsFunc();
+							break;
+						}
+
+						case DIALOG_TYPE::MARK_DLG:
+						{
+							enableMarkFunc();
+							break;
+						}
+					}
+
+					return TRUE;
+				}
+
 				case IDREPLACE:
 				{
 					std::lock_guard<std::mutex> lock(findOps_mutex);

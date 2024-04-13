@@ -1546,9 +1546,6 @@ public:
 	bool isInFontList(const std::wstring& fontName2Search) const;
 	const std::vector<std::wstring>& getFontList() const { return _fontlist; }
 
-	enum class DefaultFontType { menu, status, message, caption, smcaption };
-	static LOGFONT getDefaultGUIFont(DefaultFontType type = DefaultFontType::message);
-
 	int getNbUserLang() const {return _nbUserLang;}
 	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
 	UserLangContainer * getULCFromName(const TCHAR *userLangName);

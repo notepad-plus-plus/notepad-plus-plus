@@ -1250,8 +1250,6 @@ void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 
 void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem)
 {
-	bool isRecursive = true;
-	bool isInHiddenDir = false;
 	generic_string dirFilter(folderPath);
 	if (folderPath[lstrlen(folderPath)-1] != '\\')
 		dirFilter += TEXT("\\");
@@ -1268,11 +1266,11 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) // Hidden directories are ignored
 			{
 				// do nothing
 			}
-			else if (isRecursive)
+			else // Always recursive
 			{
 				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
 				{

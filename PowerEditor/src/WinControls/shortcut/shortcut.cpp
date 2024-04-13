@@ -249,7 +249,7 @@ int ScintillaKeyMap::addKeyCombo(KeyCombo combo)
 
 	for (size_t i = 0; i < _size; ++i)
 	{	//if already in the list do not add it
-		KeyCombo & kc = _keyCombos[i];
+		const KeyCombo& kc = _keyCombos[i];
 		if (combo._key == kc._key && combo._isCtrl == kc._isCtrl && combo._isAlt == kc._isAlt && combo._isShift == kc._isShift)
 			return static_cast<int32_t>(i);	//already in the list
 	}
@@ -291,19 +291,19 @@ void getNameStrFromCmd(DWORD cmd, wstring & str)
 {
 	if ((cmd >= ID_MACRO) && (cmd < ID_MACRO_LIMIT))
 	{
-		vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
+		const vector<MacroShortcut> & theMacros = (NppParameters::getInstance()).getMacroList();
 		int i = cmd - ID_MACRO;
 		str = string2wstring(theMacros[i].getName(), CP_UTF8);
 	}
 	else if ((cmd >= ID_USER_CMD) && (cmd < ID_USER_CMD_LIMIT))
 	{
-		vector<UserCommand> & userCommands = (NppParameters::getInstance()).getUserCommandList();
+		const vector<UserCommand> & userCommands = (NppParameters::getInstance()).getUserCommandList();
 		int i = cmd - ID_USER_CMD;
 		str = string2wstring(userCommands[i].getName(), CP_UTF8);
 	}
 	else if ((cmd >= ID_PLUGINS_CMD) && (cmd < ID_PLUGINS_CMD_LIMIT))
 	{
-		vector<PluginCmdShortcut> & pluginCmds = (NppParameters::getInstance()).getPluginCommandList();
+		const vector<PluginCmdShortcut> & pluginCmds = (NppParameters::getInstance()).getPluginCommandList();
 		size_t i = 0;
 		for (size_t j = 0, len = pluginCmds.size(); j < len ; ++j)
 		{
@@ -630,8 +630,8 @@ void Accelerator::updateShortcuts()
 	if (nbFindReplaceAcc)
 	{
 		ACCEL* tmpFindAccelArray = new ACCEL[nbFindReplaceAcc];
-		for (size_t i = 0; i < nbFindReplaceAcc; ++i)
-			tmpFindAccelArray[i] = findReplaceAcc[i];
+		for (size_t j = 0; j < nbFindReplaceAcc; ++j)
+			tmpFindAccelArray[j] = findReplaceAcc[j];
 		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, static_cast<int>(nbFindReplaceAcc));
 		delete[] tmpFindAccelArray;
 	}
@@ -924,7 +924,7 @@ void ScintillaAccelerator::init(vector<HWND> * vScintillas, HMENU hMenu, HWND me
 void ScintillaAccelerator::updateKeys() 
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	vector<ScintillaKeyMap> & map = nppParam.getScintillaKeyList();
+	const vector<ScintillaKeyMap> & map = nppParam.getScintillaKeyList();
 	size_t mapSize = map.size();
 	size_t index;
 	size_t nb = nbScintillas();

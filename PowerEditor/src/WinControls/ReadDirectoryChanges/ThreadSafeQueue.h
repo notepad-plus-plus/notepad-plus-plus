@@ -38,8 +38,7 @@ protected:
 	using Base = std::list<C>;
 
 public:
-	CThreadSafeQueue()
-	{
+	CThreadSafeQueue() {
 		m_hEvent = ::CreateEvent(
 			NULL,		// no security attributes
 			FALSE,		// auto reset
@@ -47,14 +46,12 @@ public:
 			NULL);		// anonymous
 	}
 
-	~CThreadSafeQueue()
-	{
+	~CThreadSafeQueue() {
 		::CloseHandle(m_hEvent);
 		m_hEvent = NULL;
 	}
 
-	void push(C& c)
-	{
+	void push(C& c) {
 		{
 			std::lock_guard<std::mutex> lock(m_mutex);
 			Base::push_back(c);
@@ -62,8 +59,7 @@ public:
 		::SetEvent(m_hEvent);
 	}
 
-	bool pop(C& c)
-	{
+	bool pop(C& c) {
 		std::lock_guard<std::mutex> lock(m_mutex);
 		if (Base::empty())
 		{

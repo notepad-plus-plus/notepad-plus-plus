@@ -1043,7 +1043,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_COMMAND : 
 		{
-			ScintillaViewParams & svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 			switch (wParam)
 			{
 				case IDC_CHECK_SMOOTHFONT:
@@ -5275,21 +5274,21 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 					nppGUI._cloudPath = inputDirExpanded;
 					nppParams.setCloudChoice(inputDirExpanded);
 					
-					generic_string message;
+					generic_string warningMsg;
 					if (nppParams.isCloudPathChanged())
 					{
-						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
+						warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
 					}
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, warningMsg.c_str());
 				}
 				else
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
 					if (isChecked)
 					{
-						generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
+						generic_string errMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
 
-						::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+						::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
 						nppParams.removeCloudChoice();
 					}
 				}
@@ -5312,17 +5311,17 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	{
 		case WM_INITDIALOG:
 		{
-			generic_string message = TEXT("");
+			generic_string errMsg = TEXT("");
 
 			bool withCloud = nppGUI._cloudPath != TEXT("");
 			if (withCloud)
 			{
 				// detect validation of path
 				if (!::PathFileExists(nppGUI._cloudPath.c_str()))
-					message = TEXT("Invalid path");
+					errMsg = TEXT("Invalid path");
 			}
 			
-			::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+			::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
 
 			::SendDlgItemMessage(_hSelf, IDC_NOCLOUD_RADIO, BM_SETCHECK, !withCloud ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_SETCHECK, withCloud ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -5391,13 +5390,13 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 					nppGUI._cloudPath = TEXT("");
 					nppParams.removeCloudChoice();
 
-					generic_string message;
+					generic_string warningMsg;
 					if (nppParams.isCloudPathChanged())
 					{
-						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
+						warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
 					}
 					// else set empty string
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, warningMsg.c_str());
 
 					::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._cloudPath.c_str()));
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), false);
@@ -5407,8 +5406,8 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 				case IDC_WITHCLOUD_RADIO:
 				{
-					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+					generic_string errMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), true);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_CLOUDPATH_BROWSE_BUTTON), true);
@@ -5417,8 +5416,8 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 				case IDD_CLOUDPATH_BROWSE_BUTTON:
 				{
-					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-select-folder", TEXT("Select a folder from/to where Notepad++ reads/writes its settings"));
-					folderBrowser(_hSelf, message, IDC_CLOUDPATH_EDIT);
+					generic_string warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-select-folder", TEXT("Select a folder from/to where Notepad++ reads/writes its settings"));
+					folderBrowser(_hSelf, warningMsg, IDC_CLOUDPATH_EDIT);
 				}
 				break;
 

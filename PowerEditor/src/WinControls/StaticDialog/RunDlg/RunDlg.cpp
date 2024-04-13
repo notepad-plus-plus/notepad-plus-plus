@@ -360,7 +360,6 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						runMenu.push_back(MenuItemUnit(cmdID, string2wstring(uc.getName(), CP_UTF8)));
 						::InsertMenu(hRunMenu, posBase + nbTopLevelItem, MF_BYPOSITION, cmdID, string2wstring(uc.toMenuItemString(), CP_UTF8).c_str());
 
-						NppParameters& nppParams = NppParameters::getInstance();
                         if (nbTopLevelItem == 0)
                         {
                             // Insert the separator and modify/delete command

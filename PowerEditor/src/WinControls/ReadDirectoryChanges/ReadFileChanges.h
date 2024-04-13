@@ -14,8 +14,8 @@
 class CReadFileChanges
 {
 public:
-	CReadFileChanges();
-	~CReadFileChanges();
+	CReadFileChanges() {};
+	~CReadFileChanges() {};
 	void AddFile(LPCTSTR szDirectory, DWORD dwNotifyFilter);
 	BOOL DetectChanges();
 	void Terminate();

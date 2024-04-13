@@ -439,6 +439,9 @@
     //#define IDC_KEY_SELECT_2_HOME            (IDCMD+8)
     //#define IDC_KEY_SELECT_2_END            (IDCMD+9)
 
+	#define IDC_NEXT_TAB                   IDC_NEXT_DOC
+	#define IDC_PREV_TAB                   IDC_PREV_DOC
+
 #define IDCMD_LIMIT                        (IDCMD+20)
 
 #define IDSCINTILLA 60000

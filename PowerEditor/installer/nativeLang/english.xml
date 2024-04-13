@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.6">
+	<Native-Langue name="English" filename="english.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -970,7 +970,8 @@ Translation note:
 
 					<Item id="6123" name="Localization"/>
 				</Global>
-				<Scintillas title="Editing">
+
+				<Scintillas title="Editing 1">
 					<Item id="6216" name="Caret Settings"/>
 					<Item id="6217" name="Width:"/>
 					<Item id="6219" name="Blink rate:"/>
@@ -986,21 +987,30 @@ Translation note:
 					<Item id="6236" name="Enable scrolling beyond last line"/>
 					<Item id="6239" name="Keep selection when right-click outside of selection"/>
 					<Item id="6245" name="Enable virtual space"/>
+					<Item id="6214" name="Enable Copy/Cut Line without selection"/>
 					<Item id="6651" name="Current Line Indicator"/>
 					<Item id="6652" name="None"/>
 					<Item id="6653" name="Highlight Background"/>
 					<Item id="6654" name="Frame"/>
 					<Item id="6655" name="Width:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Editing 2">
+					<Item id="6521" name="Multi-Editing"/>
+					<Item id="6522" name="Enable Multi-Editing (Ctrl+Mouse click/selection)"/>
+					<Item id="6523" name="Enable Column Selection to Multi-Editing"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Default"/>
 					<Item id="6249" name="Plain Text"/>
 					<Item id="6250" name="Custom Color"/>
 					<Item id="6252" name="Non-Printing Characters"/>
+					<Item id="6260" name="Appearance"/>
 					<Item id="6254" name="Abbreviation"/>
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Custom Color"/>
-					<Item id="6258" name="Apply to C0, C1 &amp;&amp; Unicode EOL"/>
-				</Scintillas>
+					<Item id="6258" name="Apply Appearance settings to C0, C1 &amp;&amp; Unicode EOL"/>
+					<Item id="6259" name="Prevent control character (C0 code) typing into document"/>
+				</Scintillas2>
 
 				<DarkMode title="Dark Mode">
 					<Item id="7131" name="Light mode"/>
@@ -1042,11 +1052,11 @@ Translation note:
 					<Item id="6292" name="Dynamic width"/>
 					<Item id="6293" name="Constant width"/>
 					<Item id="6207" name="Display bookmark"/>
-					<Item id="6223" name="Display Change History"/>
+					<Item id="6295" name="Change History"/>
+					<Item id="6223" name="Show in the margin"/>
+					<Item id="6296" name="Show in the text"/>
 					<Item id="6211" name="Vertical Edge Settings"/>
 					<Item id="6213" name="Background mode"/>
-					<Item id="6237" name="Add your column marker by indicating its position with a decimal number.
-You can define several column markers by using white space to separate the different numbers."/>
 					<Item id="6231" name="Border Width"/>
 					<Item id="6235" name="No edge"/>
 					<Item id="6208" name="Padding"/>
@@ -1084,6 +1094,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="4009" name="Supported extensions:"/>
 					<Item id="4010" name="Registered extensions:"/>
 				</FileAssoc>
+
 				<Language title="Language">
 					<Item id="6505" name="Available items"/>
 					<Item id="6506" name="Disabled items"/>
@@ -1251,7 +1262,7 @@ You can define several column markers by using white space to separate the diffe
 					<Item id="7141" name="Large File Restriction"/>
 					<Item id="7143" name="Enable Large File Restriction (no syntax highlighting)"/>
 					<Item id="7144" name="Define Large File Size:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Allow Brace Match"/>
 					<Item id="7148" name="Allow Auto-Completion"/>
 					<Item id="7149" name="Allow Smart Highlighting"/>
@@ -1634,7 +1645,6 @@ NOTE: Choosing not to create the placeholders or closing them later, your sessio
 			<default-open-save-select-folder value="Select a folder as default directory"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
 			<two-find-buttons-tip value="2 find buttons mode"/>
-			<file-rename-title value="Rename"/>
 			<find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1680,9 +1690,7 @@ Find in all files but exclude all folders log or logs recursively:
 			<finder-collapse-all value="Fold all"/>
 			<finder-uncollapse-all value="Unfold all"/>
 			<finder-copy value="Copy Selected Line(s)"/>
-			<finder-copy-verbatim value="Copy"/>
 			<finder-copy-paths value="Copy Pathname(s)"/>
-			<finder-select-all value="Select all"/>
 			<finder-clear-all value="Clear all"/>
 			<finder-open-all value="Open all"/>
 			<finder-purge-for-every-search value="Purge for every search"/>
@@ -1709,7 +1717,6 @@ Find in all files but exclude all folders log or logs recursively:
 			<summary-nbsel2 value=" bytes) in "/>
 			<summary-nbrange value=" ranges"/>
 			<progress-hits-title value="Hits:"/>
-			<progress-cancel-button value="Cancel"/>
 			<progress-cancel-info value="Cancelling operation, please wait..."/>
 			<find-in-files-progress-title value="Find In Files progress..."/>
 			<replace-in-files-confirm-title value="Are you sure?"/>
@@ -1778,6 +1785,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<npcCustomColor-tip value="Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
 			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
+			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

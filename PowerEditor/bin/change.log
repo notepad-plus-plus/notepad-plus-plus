@@ -1,39 +1,37 @@
-Notepad++ v8.6.1 new features & bug-fixes:
+Notepad++ v8.6.5 bug-fixes & new enhancements:
 
- 1. Updated to Scintilla 5.4.1 & Lexilla 5.3.0.
- 2. Fix a regression: the position in the previous session is now restored correctly in cloned document.
- 3. Fix a regression: customized extension in Style Configurator is now saved correctly.
- 4. Add an ability (disableLineCopyCutDelete.xml) to disable line copy/cut/delete when no selection is made.
- 5. Add an ability (noColumnToMultiSelect.xml) to disable column mode to multi-select mode.
- 6. Fix deleting in column mode also delete an unexpected EOL.
- 7. Fix hidden results of long lines for Search results with "Find in..." commands.
- 8. Enhance Search-results by showing search options for "Find in..." commands.
- 9. Fix an issue: replacements are no longer duplicated (the 2nd time in cloned document) for "Replace in Opened Docs".
-10. Fix a regression to make F3 & Shift-F3 work again in Incremental Search.
-11. Add document tab navigation commands: "First tab" & "Last tab".
-12. Add document tab commands: "Move to Start" & "Move to End" commands.
-13. 3 RTL new abilities: RTL per document, RTL per document remembered across the sessions & new attribute editZoneRTL="no" in RTL localization files.
-14. Enhance the "-loadingTime" command line parameter.
-15. Enhance the performance: disable undo collection while loading a file.
-16. Sort language list in the Preferences dialog.
-17. Fix a visual glitch that occurred during multi-paste.
-18. Fix confusing memory allocation error message.
-19. Fix python wrong decorator attribute color.
-20. Fix file status in "other view" is not detected.
-21. Fix dropped file being opened in the wrong view.
+ 1. Fix "Replace All" action not notifying plugins of modification regression by adding NPPN_GLOBALMODIFIED.
+ 2. Fix plugins not receiving some Scintilla notification types regression.
+ 3. Fix Shortcut Mapper pontential crash problem.
+ 4. Fix period backup pontential crash due to the dead lock.
+ 5. Fix NUL characters file corruption after power outrages.
+ 6. Remedy losing session problem after power outrages.
+ 7. Fix URLs are not detected after a "Replace All" regression.
+ 8. Notify user while saving failure due to hardware problem.
+ 9. Update to scintilla 5.4.3 (from 5.4.1) & Lexilla 5.3.1.
+10. Support template literal (template strings) in JavaScript & make `back-quoted strings` more readable.  
+11. Add support for Change History in the text, besides in the margin. Also, make Change History color configurable.
+12. Fix NPPM_RELOADFILE API return wrong result issue.
+13. Enhance Shortcut Mapper filter to find command items more easily
+14. Prevent typing control characters into document & make it optional.
+15. Fix possible no-GUI state when using systray.
+16. Make context menu popup location at current text position when invoked via keyboard.
+17. Fix Notepad++ blocked when closed minimized or from systray.
+18. Fix python wrong decorator attribute colors & add "ATTRIBUTE" color in styles.xml.model.
+19. Fix Mouse Wheel Scrolling in Shortcut Mapper & reduce also the memory use.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6.1/
+https://notepad-plus-plus.org/downloads/v8.6.5/
 
 
 Included plugins:
 
 1.  NppExport v0.4
-2.  Converter v4.5
-3.  Mime Tool v3.0
+2.  Converter v4.6
+3.  Mime Tool v3.1
 
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.2.7
+* WinGUp (for Notepad++) v5.2.8

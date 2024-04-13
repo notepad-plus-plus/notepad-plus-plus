@@ -263,12 +263,12 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	// Search case 1 & 2 firstly
 	BufferID foundBufID = MainFileManager.getBufferFromName(targetFileName.c_str());
 
-	if (foundBufID == BUFFER_INVALID)
-		fileName2Find = longFileName;
-
 	// if case 1 & 2 not found, search case 3
 	if (foundBufID == BUFFER_INVALID)
+	{
+		fileName2Find = longFileName;
 		foundBufID = MainFileManager.getBufferFromName(fileName2Find.c_str());
+	}
 
 	// If we found the document, then we don't open the existing doc. We return the found buffer ID instead.
     if (foundBufID != BUFFER_INVALID && !isSnapshotMode)
@@ -589,7 +589,8 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	// many settings such as update status bar, clickable link etc.
 	activateBuffer(id, currentView(), true);
 
-	if (NppParameters::getInstance().getSVP()._isChangeHistoryEnabled)
+	auto svp = NppParameters::getInstance().getSVP();
+	if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
 		clearChangesHistory();
 
 	return res;
@@ -655,9 +656,12 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 		else
 		{
 			// try to open Notepad++ in admin mode
-			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-			if (isSnapshotMode) // if both rememberSession && backup mode are enabled
-			{                   // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.
+			const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+			bool isSnapshotMode = nppGui.isSnapshotMode();
+			bool isAlwaysInMultiInstMode = nppGui._multiInstSetting == multiInst;
+			if (isSnapshotMode && !isAlwaysInMultiInstMode) // if both rememberSession && backup mode are enabled and "Always In Multi-Instance Mode" option not activated:
+			{                                               // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.
+
 				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminMode",
 				_pPublicInterface->getHSelf(),
 				TEXT("This file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),
@@ -691,8 +695,9 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 
 				}
 			}
-			else // rememberSession && backup mode are not both enabled
-			{    // open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
+			else // rememberSession && backup mode are not both enabled, or "Always In Multi-Instance Mode" option is ON:
+			{    // Open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
+
 				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminModeWithoutCloseCurrent",
 				_pPublicInterface->getHSelf(),
 				TEXT("The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),
@@ -1620,7 +1625,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				constexpr int temBufLen = 32;
 				TCHAR tmpbuf[temBufLen]{};
 				time_t ltime = time(0);
-				struct tm *today;
+				const struct tm* today;
 
 				today = localtime(&ltime);
 				if (today)
@@ -1788,6 +1793,17 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
+	generic_string localizedTitle;
+	if (isSaveCopy)
+	{
+		localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVECOPYAS, L"Save a Copy As", true);
+	}
+	else
+	{
+		localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVEAS, L"Save As", true);
+	}
+	fDlg.setTitle(localizedTitle.c_str());
+
 	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("file-save-assign-type",
 		TEXT("&Append extension"));
 	fDlg.enableFileTypeCheckbox(checkboxLabel, !defaultAllTypes);
@@ -1871,8 +1887,8 @@ bool Notepad_plus::fileRename(BufferID id)
 		fDlg.setFolder(buf->getFullPathName());
 		fDlg.setDefFileName(buf->getFileName());
 
-		std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("file-rename-title", L"Rename");
-		fDlg.setTitle(title.c_str());
+		wstring localizedRename = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_RENAME, L"Rename", true);
+		fDlg.setTitle(localizedRename.c_str());
 
 		std::wstring fn = fDlg.doSaveDlg();
 
@@ -2007,6 +2023,8 @@ bool Notepad_plus::fileDelete(BufferID id)
 void Notepad_plus::fileOpen()
 {
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
+	wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_OPEN, L"Open", true);
+	fDlg.setTitle(localizedTitle.c_str());
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 
 	setFileOpenSaveDlgFilters(fDlg, true);
@@ -2456,6 +2474,8 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			fDlg.setDefExt(ext);
 		}
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
+		wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_LOADSESSION, L"Load Session", true);
+		fDlg.setTitle(localizedTitle.c_str());
 		sessionFileName = fDlg.doOpenSingleFileDlg();
 	}
 	else
@@ -2554,9 +2574,10 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	}
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"));
 	const bool isCheckboxActive = _pFileBrowser && !_pFileBrowser->isClosed();
-	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("session-save-folder-as-workspace",
-		TEXT("Save Folder as Workspace"));
+	const generic_string checkboxLabel = _nativeLangSpeaker.getLocalizedStrFromID("session-save-folder-as-workspace", L"Save Folder as Workspace");
 	fDlg.setCheckbox(checkboxLabel.c_str(), isCheckboxActive);
+	wstring localizedTitle = _nativeLangSpeaker.getNativeLangMenuString(IDM_FILE_SAVESESSION, L"Save Session", true);
+	fDlg.setTitle(localizedTitle.c_str());
 	generic_string sessionFileName = fDlg.doSaveDlg();
 
 	if (!sessionFileName.empty())

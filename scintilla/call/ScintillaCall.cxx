@@ -799,6 +799,66 @@ void ScintillaCall::EndUndoAction() {
 	Call(Message::EndUndoAction);
 }
 
+int ScintillaCall::UndoActions() {
+	return static_cast<int>(Call(Message::GetUndoActions));
+}
+
+void ScintillaCall::SetUndoSavePoint(int action) {
+	Call(Message::SetUndoSavePoint, action);
+}
+
+int ScintillaCall::UndoSavePoint() {
+	return static_cast<int>(Call(Message::GetUndoSavePoint));
+}
+
+void ScintillaCall::SetUndoDetach(int action) {
+	Call(Message::SetUndoDetach, action);
+}
+
+int ScintillaCall::UndoDetach() {
+	return static_cast<int>(Call(Message::GetUndoDetach));
+}
+
+void ScintillaCall::SetUndoTentative(int action) {
+	Call(Message::SetUndoTentative, action);
+}
+
+int ScintillaCall::UndoTentative() {
+	return static_cast<int>(Call(Message::GetUndoTentative));
+}
+
+void ScintillaCall::SetUndoCurrent(int action) {
+	Call(Message::SetUndoCurrent, action);
+}
+
+int ScintillaCall::UndoCurrent() {
+	return static_cast<int>(Call(Message::GetUndoCurrent));
+}
+
+void ScintillaCall::PushUndoActionType(int type, Position pos) {
+	Call(Message::PushUndoActionType, type, pos);
+}
+
+void ScintillaCall::ChangeLastUndoActionText(Position length, const char *text) {
+	CallString(Message::ChangeLastUndoActionText, length, text);
+}
+
+int ScintillaCall::UndoActionType(int action) {
+	return static_cast<int>(Call(Message::GetUndoActionType, action));
+}
+
+Position ScintillaCall::UndoActionPosition(int action) {
+	return Call(Message::GetUndoActionPosition, action);
+}
+
+int ScintillaCall::UndoActionText(int action, char *text) {
+	return static_cast<int>(CallPointer(Message::GetUndoActionText, action, text));
+}
+
+std::string ScintillaCall::UndoActionText(int action) {
+	return CallReturnString(Message::GetUndoActionText, action);
+}
+
 void ScintillaCall::IndicSetStyle(int indicator, Scintilla::IndicatorStyle indicatorStyle) {
 	Call(Message::IndicSetStyle, indicator, static_cast<intptr_t>(indicatorStyle));
 }

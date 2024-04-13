@@ -25,7 +25,7 @@ const TCHAR* nppBackup = TEXT("Notepad++_backup");
 const TCHAR* nppDoc    = TEXT("Notepad++ Document");
 
 const int nbSupportedLang = 10;
-const int nbExtMax = 27;
+const int nbExtMax = 28;
 const int extNameMax = 18;
 
 
@@ -48,7 +48,7 @@ const TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
 	{TEXT("web script"),
 		TEXT(".html"), TEXT(".htm"), TEXT(".shtml"), TEXT(".shtm"), TEXT(".hta"),
 		TEXT(".asp"), TEXT(".aspx"),
-		TEXT(".css"), TEXT(".js"), TEXT(".json"), TEXT(".jsm"), TEXT(".jsp"),
+		TEXT(".css"), TEXT(".js"), TEXT(".json"), TEXT(".mjs"), TEXT(".jsm"), TEXT(".jsp"),
 		TEXT(".php"), TEXT(".php3"), TEXT(".php4"), TEXT(".php5"), TEXT(".phps"), TEXT(".phpt"), TEXT(".phtml"),
 		TEXT(".xml"), TEXT(".xhtml"), TEXT(".xht"), TEXT(".xul"), TEXT(".kml"), TEXT(".xaml"), TEXT(".xsml")
 	},

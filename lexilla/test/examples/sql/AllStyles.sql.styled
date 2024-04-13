@@ -1,0 +1,70 @@
+{2}-- Enumerate all styles: 0 to 24
+{0}
+{2}-- comment=1
+{1}/* comment */{0}
+
+{2}-- whitespace=0
+{0}	{2}-- w
+{0}
+{1}/* commentline=2 */{0}
+{2}-- commentline
+{0}
+{2}-- commentdoc=3
+{3}/** commentdoc */{0}
+
+{2}-- number=4
+{4}4{0}
+
+{2}-- word=5
+{5}select{0}
+
+{2}-- string=6
+{6}"string"{0}
+
+{2}-- character=7
+{7}'character'{0}
+
+{2}-- sqlplus=8
+{8}append{0}
+
+{2}-- sqlplus_prompt=9
+{8}prompt{9} SQL+Prompt
+{0}
+{2}-- operator=10
+{10}+{0}
+
+{2}-- identifier=11
+{11}identifier{0}
+
+{2}-- sqlplus_comment=13
+{8}remark{13} sqlplus comment
+{0}
+{2}-- commentlinedoc=15
+{15}# commentlinedoc
+{0}
+{2}-- word2=16
+{16}object{0}
+
+{2}-- commentdockeyword=17
+{3}/** {17}@return{3} */{0}
+
+{2}-- commentdockeyworderror=18
+{3}/** {18}@error{3} */{0}
+
+{2}-- user1=19
+{19}dbms_output.disable{0}
+
+{2}-- user2=20
+{20}analyze{0}
+
+{2}-- user3=21
+{21}array{0}
+
+{2}-- user4=22
+{22}false{0}
+
+{2}-- quotedidentifier=23
+{23}`quotedidentifier`{0}
+
+{2}-- qoperator=24
+{24}q'{ today's }'{0}

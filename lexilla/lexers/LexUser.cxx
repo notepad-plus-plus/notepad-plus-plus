@@ -623,7 +623,7 @@ static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstrin
 static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
 {
     size_t length = strlen(s);
-    char * temp = new char[length+1];
+    char * temp = new char[length+1] {};
     unsigned int index = 0;
     vector<string> subvector;
     unsigned int i = 0;
@@ -697,7 +697,7 @@ static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
 static inline void GenerateVector(vvstring & vec, const char * s, const char * prefix, size_t minLength)
 {
     size_t length = strlen(s);
-    char * temp = new char[length];
+    char * temp = new char[length] {};
     unsigned int index = 0;
     bool copy = false;
     bool inGroup = false;

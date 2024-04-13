@@ -149,6 +149,7 @@ SRC_OBJS = \
 	RunStyles.o \
 	Selection.o \
 	Style.o \
+	UndoHistory.o \
 	UniConversion.o \
 	UniqueString.o \
 	ViewStyle.o \

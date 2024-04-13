@@ -97,7 +97,17 @@ EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault)
 
 
 
-enum UniMode {uni8Bit=0, uniUTF8=1, uni16BE=2, uni16LE=3, uniCookie=4, uni7Bit=5, uni16BE_NoBOM=6, uni16LE_NoBOM=7, uniEnd};
+enum UniMode {
+	uni8Bit       = 0,  // ANSI
+	uniUTF8       = 1,  // UTF-8 with BOM
+	uni16BE       = 2,  // UTF-16 Big Ending with BOM
+	uni16LE       = 3,  // UTF-16 Little Ending with BOM
+	uniCookie     = 4,  // UTF-8 without BOM
+	uni7Bit       = 5,  // 
+	uni16BE_NoBOM = 6,  // UTF-16 Big Ending without BOM
+	uni16LE_NoBOM = 7,  // UTF-16 Little Ending without BOM
+	uniEnd};
+
 enum ChangeDetect { cdDisabled = 0x0, cdEnabledOld = 0x01, cdEnabledNew = 0x02, cdAutoUpdate = 0x04, cdGo2end = 0x08 };
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
@@ -200,7 +210,7 @@ struct sessionFileInfo : public Position
 		if (backupFilePath) _backupFilePath = backupFilePath;
 	}
 
-	sessionFileInfo(std::wstring fn) : _fileName(fn) {}
+	sessionFileInfo(const std::wstring& fn) : _fileName(fn) {}
 
 	std::wstring _fileName;
 	std::wstring _langName;
@@ -523,7 +533,7 @@ private :
 };
 
 struct SortLexersInAlphabeticalOrder {
-	bool operator() (LexerStyler& l, LexerStyler& r) {
+	bool operator() (const LexerStyler& l, const LexerStyler& r) {
 		if (!lstrcmp(l.getLexerDesc(), TEXT("Search result")))
 			return false;
 		if (!lstrcmp(r.getLexerDesc(), TEXT("Search result")))
@@ -932,8 +942,11 @@ struct ScintillaViewParams
 	bool _lineNumberMarginShow = true;
 	bool _lineNumberMarginDynamicWidth = true;
 	bool _bookMarkMarginShow = true;
-	bool _isChangeHistoryEnabled = true;
-	bool _isChangeHistoryEnabled4NextSession = true;
+	
+	bool _isChangeHistoryMarginEnabled = true;
+	bool _isChangeHistoryIndicatorEnabled = false;
+	changeHistoryState _isChangeHistoryEnabled4NextSession = changeHistoryState::margin; // no -> 0 (disable), yes -> 1 (margin), yes ->2 (indicator), yes-> 3 (margin + indicator)
+
 	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
 	bool _foldMarginShow = true;
@@ -957,6 +970,7 @@ struct ScintillaViewParams
 	bool _npcCustomColor = false;
 	bool _npcIncludeCcUniEol = false;
 	bool _ccUniEolShow = true;
+	bool _npcNoInputC0 = true;
 
 	int _borderWidth = 2;
 	bool _virtualSpace = false;
@@ -981,6 +995,11 @@ struct ScintillaViewParams
 			paddingLen = editViewWidth / defaultDiviser;
 		return paddingLen;
 	};
+
+	bool _lineCopyCutWithoutSelection = true;
+
+	bool _multiSelection = true;      // if _multiSelection is false
+	bool _columnSel2MultiEdit = true; // _columnSel2MultiEdit must be false
 };
 
 const int NB_LIST = 20;
@@ -1318,7 +1337,7 @@ public:
 		return _themeList[index];
 	}
 
-	void setThemeDirPath(std::wstring themeDirPath) { _themeDirPath = themeDirPath; }
+	void setThemeDirPath(const std::wstring& themeDirPath) { _themeDirPath = themeDirPath; }
 	std::wstring getThemeDirPath() const { return _themeDirPath; }
 
 	std::wstring getDefaultThemeLabel() const { return _defaultThemeLabel; }
@@ -1335,7 +1354,7 @@ public:
 		}
 	};
 
-	void addThemeStylerSavePath(std::wstring key, std::wstring val) {
+	void addThemeStylerSavePath(const std::wstring& key, const std::wstring& val) {
 		_themeStylerSavePath[key] = val;
 	};
 
@@ -1425,7 +1444,7 @@ public:
 
 	const TCHAR * getWordList(LangType langID, int typeIndex) const
 	{
-		Lang *pLang = getLangFromID(langID);
+		const Lang* pLang = getLangFromID(langID);
 		if (!pLang) return nullptr;
 
 		return pLang->getWords(typeIndex);
@@ -1712,9 +1731,9 @@ public:
 	}
 
 	std::vector<std::wstring> & getBlackList() { return _blacklist; };
-	bool isInBlackList(TCHAR *fn) const
+	bool isInBlackList(const wchar_t* fn) const
 	{
-		for (auto& element: _blacklist)
+		for (const auto& element: _blacklist)
 		{
 			if (element == fn)
 				return true;
@@ -1876,8 +1895,6 @@ public:
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
 	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
-	bool doColumn2MultiSelect() const { return _column2MultiSelect; };
-	bool useLineCopyCutDelete() const { return _useLineCopyCutDelete; };
 
 private:
 	bool _isAnyShortcutModified = false;
@@ -1945,8 +1962,6 @@ private:
 
 	bool _isSelectFgColorEnabled = false;
 	bool _isRegForOSAppRestartDisabled = false;
-	bool _column2MultiSelect = true;
-	bool _useLineCopyCutDelete = true;
 
 	bool _doNppLogNetworkDriveIssue = false;
 	bool _doNppLogNulContentCorruptionIssue = false;

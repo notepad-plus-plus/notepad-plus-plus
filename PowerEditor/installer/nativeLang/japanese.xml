@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.1">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -977,7 +977,8 @@ Translation note:
 
 					<Item id="6123" name="言語"/>
 				</Global>
-				<Scintillas title="編集画面">
+
+				<Scintillas title="編集画面 1">
 					<Item id="6216" name="カーソル設定"/>
 					<Item id="6217" name="幅:"/>
 					<Item id="6219" name="点滅速度:"/>
@@ -993,21 +994,30 @@ Translation note:
 					<Item id="6236" name="最終行を画面上端までスクロールできる"/>
 					<Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
 					<Item id="6245" name="仮想空白を有効にする"/>
+					<Item id="6214" name="選択範囲がないときは行全体をコピー/切り取りする"/>
 					<Item id="6651" name="現在行の強調表示"/>
 					<Item id="6652" name="なし"/>
 					<Item id="6653" name="背景を色付け"/>
 					<Item id="6654" name="枠を表示"/>
 					<Item id="6655" name="線幅:"/>
+				</Scintillas>
+
+				<Scintillas2 title="編集画面 2">
+					<Item id="6521" name="一括編集"/>
+					<Item id="6522" name="一括編集を有効 (Ctrl+クリック/選択)"/>
+					<Item id="6523" name="矩形選択を一括編集に変換する"/>
 					<Item id="6247" name="改行文字(CRLF)の装飾"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="デフォルト"/>
 					<Item id="6249" name="装飾なし"/>
 					<Item id="6250" name="カスタム色"/>
 					<Item id="6252" name="非表示文字"/>
+					<Item id="6260" name="表示設定"/>
 					<Item id="6254" name="略称"/>
 					<Item id="6255" name="コードポイント"/>
 					<Item id="6256" name="カスタム色"/>
-					<Item id="6258" name="C0、C1、Unicode改行文字にも適用"/>
-				</Scintillas>
+					<Item id="6258" name="表示設定をC0、C1、Unicode改行文字にも適用"/>
+					<Item id="6259" name="制御文字(C0コード)が文書に入力されないようにする"/>
+				</Scintillas2>
 
 				<DarkMode title="ダークモード">
 					<Item id="7131" name="ライトモード"/>
@@ -1049,11 +1059,11 @@ Translation note:
 					<Item id="6292" name="表示に応じて幅を調整"/>
 					<Item id="6293" name="最大桁数で幅を固定"/>
 					<Item id="6207" name="ブックマークを表示"/>
-					<Item id="6223" name="編集履歴マーカーを表示する"/>
+					<Item id="6295" name="編集履歴マーカー"/>
+					<Item id="6223" name="余白に表示する"/>
+					<Item id="6296" name="文書中に表示する"/>
 					<Item id="6211" name="ガイド線の表示設定"/>
 					<Item id="6213" name="背景色で表示"/>
-					<Item id="6237" name="線を表示したい桁位置を指定してください。
-複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
 					<Item id="6231" name="枠線幅"/>
 					<Item id="6235" name="枠を非表示"/>
 					<Item id="6208" name="余白"/>
@@ -1091,6 +1101,7 @@ Translation note:
 					<Item id="4009" name="サポート形式:"/>
 					<Item id="4010" name="登録済み形式:"/>
 				</FileAssoc>
+
 				<Language title="言語メニュー">
 					<Item id="6505" name="利用する"/>
 					<Item id="6506" name="利用しない"/>
@@ -1259,7 +1270,7 @@ Translation note:
 					<Item id="7141" name="大きなファイルでの制約"/>
 					<Item id="7143" name="大きなファイルで制約をかける（強調表示なし）"/>
 					<Item id="7144" name="ファイルサイズのしきい値："/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="対応する括弧の強調表示を利用する"/>
 					<Item id="7148" name="自動補完を利用する"/>
 					<Item id="7149" name="スマート強調表示を利用する"/>
@@ -1638,7 +1649,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<default-open-save-select-folder value="既定のディレクトリを選択してください"/>
 			<shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
 			<two-find-buttons-tip value="検索ボタンを2個に分ける"/>
-			<file-rename-title value="名前の変更"/>
 			<find-in-files-filter-tip value="例）cpp, cxx, h, hxx, hpp のファイル内を検索する：
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1684,9 +1694,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<finder-collapse-all value="すべて畳む"/>
 			<finder-uncollapse-all value="すべて展開する"/>
 			<finder-copy value="選択行をコピー"/>
-			<finder-copy-verbatim value="コピー"/>
 			<finder-copy-paths value="すべてのパスをコピー"/>
-			<finder-select-all value="すべて選択"/>
 			<finder-clear-all value="すべてクリア"/>
 			<finder-open-all value="すべて開く"/>
 			<finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
@@ -1713,7 +1721,6 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 			<summary-nbsel2 value=" バイト）/ "/>
 			<summary-nbrange value=" 個の選択範囲"/>
 			<progress-hits-title value="一致件数:"/>
-			<progress-cancel-button value="キャンセル"/>
 			<progress-cancel-info value="キャンセルしています。お待ちください..."/>
 			<find-in-files-progress-title value="複数ファイル内を検索中..."/>
 			<replace-in-files-confirm-title value="本当によろしいですか？"/>
@@ -1777,6 +1784,7 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 			<npcCustomColor-tip value="色を変更したい場合は、スタイル設定から変更してください (&quot;Non-printing characters custom color&quot;)。"/>
 			<npcIncludeCcUniEol-tip value="非表示文字の表示設定を、C0、C1制御コードと、Unicode改行文字（Next Line、Line Separator、Paragraph Separator）にも適用します。"/>
 			<searchingInSelThresh-tip value="編集画面でこの文字数以上を選択したまま検索画面を開くと、「選択内のみ」を自動でオンにします。最大値は 1024 です。0 にするとこの動作を無効にできます。"/>
+			<verticalEdge-tip value="線を表示したい桁位置を指定してください。複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

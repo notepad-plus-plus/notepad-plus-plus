@@ -1028,7 +1028,7 @@ bool FileManager::backupCurrentBuffer()
 				hasModifForSession = true;
 			}
 
-			TCHAR fullpath[MAX_PATH];
+			TCHAR fullpath[MAX_PATH]{};
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
 			if (wcschr(fullpath, '~'))
 			{
@@ -1038,8 +1038,9 @@ bool FileManager::backupCurrentBuffer()
 			// Make sure the backup file is not read only
 			removeReadOnlyFlagFromFileAttributes(fullpath);
 
-
-			if (UnicodeConvertor.openFile(fullpath))
+			std::wstring fullpathTemp = fullpath;
+			fullpathTemp += L".tmp";
+			if (UnicodeConvertor.openFile(buffer->isUntitled() ? fullpathTemp.c_str() : fullpath)) // Use temp only for "new #" due to they don't have the original physical existance on the hard drive
 			{
 				size_t lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
 				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
@@ -1054,7 +1055,7 @@ bool FileManager::backupCurrentBuffer()
 				else
 				{
 					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-					size_t grabSize;
+					size_t grabSize = 0;
 					for (size_t i = 0; i < lengthDoc; i += grabSize)
 					{
 						grabSize = lengthDoc - i;
@@ -1074,6 +1075,14 @@ bool FileManager::backupCurrentBuffer()
 
 				if (isWrittenSuccessful) // backup file has been saved
 				{
+					if (buffer->isUntitled()) // "new #" file is saved successfully, then we replace its only physical existence by its temp
+					{
+						if (::PathFileExists(fullpath))
+							::ReplaceFile(fullpath, fullpathTemp.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+						else
+							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
+					}
+
 					buffer->setModifiedStatus(false);
 					result = true;	//all done
 				}
@@ -1209,14 +1218,14 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 		}
 		else
 		{
-			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			if (lengthDoc == 0)
 			{
 				isWrittenSuccessful = UnicodeConvertor.writeFile(buf, 0);
 			}
 			else
 			{
-				size_t grabSize;
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+				size_t grabSize = 0;
 				for (size_t i = 0; i < lengthDoc; i += grabSize)
 				{
 					grabSize = lengthDoc - i;
@@ -1244,10 +1253,10 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 		if (isHiddenOrSys)
 			::SetFileAttributes(fullpath, attrib);
 
-		if (isCopy) // Save As command
+		if (isCopy) // "Save a Copy As..." command
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			return SavingStatus::SaveOK;	//all done
+			return SavingStatus::SaveOK;	//all done - we don't change the current buffer's path to "fullpath", since it's "Save a Copy As..." action.
 		}
 
 		buffer->setFileName(fullpath);
@@ -1373,7 +1382,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 				"FileInaccessibleUserSession",
 				_pNotepadPlus->_pEditView->getHSelf(),
 				L"Some files from your manually-saved session \"$STR_REPLACE$\" are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your manually-saved session will NOT be modified on exit.",
-				L"File inaccessinble",
+				L"File inaccessible",
 				MB_YESNO | MB_APPLMODAL,
 				0,
 				userCreatedSessionName);
@@ -1384,7 +1393,7 @@ BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int w
 				"FileInaccessibleDefaultSessionXml",
 				_pNotepadPlus->_pEditView->getHSelf(),
 				L"Some files from your past session are inaccessible. They can be opened as empty and read-only documents as placeholders.\n\nWould you like to create those placeholders?\n\nNOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your \"session.xml\" now.",
-				L"File inaccessinble",
+				L"File inaccessible",
 				MB_YESNO | MB_APPLMODAL);
 		}
 

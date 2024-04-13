@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2021 Don HO <don.h@free.fr>
+// Copyright (C)2024 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -559,6 +559,7 @@
     #define    IDM_LANG_MSSQL              (IDM_LANG + 86)
     #define    IDM_LANG_GDSCRIPT           (IDM_LANG + 87)
     #define    IDM_LANG_HOLLYWOOD          (IDM_LANG + 88)
+    #define    IDM_LANG_GOLANG             (IDM_LANG + 89)
     
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 165)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)
@@ -592,7 +593,7 @@
 //    #define    IDM_SETTING_HISTORY_SIZE             (IDM_SETTING + 3)
 //    #define    IDM_SETTING_EDGE_SIZE                (IDM_SETTING + 4)
     #define    IDM_SETTING_IMPORTPLUGIN             (IDM_SETTING + 5)
-    #define    IDM_SETTING_IMPORTSTYLETHEMS         (IDM_SETTING + 6)
+    #define    IDM_SETTING_IMPORTSTYLETHEMES        (IDM_SETTING + 6)
     #define    IDM_SETTING_TRAYICON                 (IDM_SETTING + 8)
     #define    IDM_SETTING_SHORTCUT_MAPPER          (IDM_SETTING + 9)
     #define    IDM_SETTING_REMEMBER_LAST_SESSION    (IDM_SETTING + 10)

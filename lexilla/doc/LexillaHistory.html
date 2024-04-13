@@ -584,9 +584,43 @@
 	<td>German Aizek</td>
 	<td>Tsuyoshi Miyake</td>
 	<td>Martin Schäfer</td>
+	<td>RainRat</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/lexilla531.zip">Release 5.3.1</a>
+    </h3>
+    <ul>
+	<li>
+	Released 5 March 2024.
+	</li>
+	<li>
+	Assembler: After comments, treat \r\n line ends the same as \n. This makes testing easier.
+	</li>
+	<li>
+	Bash: Fix folding when line changed to/from comment and previous line is comment.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/224">Issue #224</a>.
+	</li>
+	<li>
+	Batch: Fix handling ':' next to keywords.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/222">Issue #222</a>.
+	</li>
+	<li>
+	JavaScript: in cpp lexer, add lexer.cpp.backquoted.strings=2 mode to treat ` back-quoted
+	strings as template literals which allow embedded ${expressions}.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/94">Issue #94</a>.
+	</li>
+	<li>
+	Python: fix lexing of rb'' and rf'' strings.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/223">Issue #223</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/227">Pull request #227</a>.
+	</li>
+	<li>
+	Ruby: fix lexing of methods on numeric literals like '3.times' so the '.' and method name do not appear in numeric style.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/225">Issue #225</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/lexilla530.zip">Release 5.3.0</a>
     </h3>
@@ -1964,7 +1998,7 @@
 	</li>
 	<li>
 	Add SCI_SETTABMINIMUMWIDTH to set the minimum width of tabs.
-	This allows minimaps or overviews to be layed out to match the full size editing view.
+	This allows minimaps or overviews to be laid out to match the full size editing view.
 	<a href="https://sourceforge.net/p/scintilla/bugs/2118/">Bug #2118</a>.
 	</li>
 	<li>
@@ -2533,7 +2567,7 @@
 	<a href="https://sourceforge.net/p/scintilla/feature-requests/1210/">Feature #1210.</a>
 	</li>
 	<li>
-	Fix hang in Lua lexer when lexing a label upto the terminating "::".
+	Fix hang in Lua lexer when lexing a label up to the terminating "::".
 	<a href="https://sourceforge.net/p/scintilla/bugs/1999/">Bug #1999</a>.
 	</li>
 	<li>
@@ -2760,7 +2794,7 @@
 	'Ctrl+L|SCI_LINEDELETE|'.
 	</li>
 	<li>
-	The Matlab lexer treats 'end' as a number rather than a keyword when used as a index.
+	The Matlab lexer treats 'end' as a number rather than a keyword when used as an index.
 	This also stops incorrect folding.
 	<a href="https://sourceforge.net/p/scintilla/bugs/1951/">Bug #1951</a>.
 	</li>
@@ -9803,7 +9837,7 @@
 	SciTE crashing bug fixed in incremental search on Windows ME.
 	</li>
 	<li>
-	SciTE on Windows has a optional find and replace dialogs that can search through
+	SciTE on Windows has an optional find and replace dialogs that can search through
 	all buffers and search within a particular style number.
 	</li>
     </ul>
@@ -11372,7 +11406,7 @@
 	SciTE's Export as LaTeX output improved.
       </li>
       <li>
-	Better choice of autocompletion displaying above the caret rather then
+	Better choice of autocompletion displaying above the caret rather than
 	below when that is more sensible.
       </li>
       <li>
@@ -13957,7 +13991,7 @@
       <li>
         Scintilla supports a 'savepoint' in the undo stack which can be set by the container when
         the document is saved. Notifications are sent to the container when the savepoint is
-        entered or left, allowing the container to to display a dirty indicator and change its
+        entered or left, allowing the container to display a dirty indicator and change its
         menus.
       </li>
       <li>

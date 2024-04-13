@@ -17,7 +17,7 @@
 
 #include "BabyGridWrapper.h"
 
-const TCHAR *babyGridClassName = TEXT("BABYGRID");
+const wchar_t* babyGridClassName = L"BABYGRID";
 
 bool BabyGridWrapper::_isRegistered = false;
 
@@ -29,12 +29,14 @@ void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int16_t id)
 		RegisterGridClass(_hInst);
  
 	_hSelf = ::CreateWindowEx(0,
-					babyGridClassName,\
-					TEXT(""),\
-					WS_CHILD | WS_VISIBLE | WS_TABSTOP | WS_BORDER,\
-					CW_USEDEFAULT, 0, CW_USEDEFAULT, 0,\
-					_hParent,\
-					reinterpret_cast<HMENU>(id), \
-					_hInst,\
+					babyGridClassName,
+					TEXT(""),
+					WS_CHILD | WS_VISIBLE | WS_TABSTOP | WS_BORDER,
+					CW_USEDEFAULT, 0, CW_USEDEFAULT, 0,
+					_hParent,
+					reinterpret_cast<HMENU>(id),
+					_hInst,
 					NULL);
+
+	_isRegistered = true;
 }

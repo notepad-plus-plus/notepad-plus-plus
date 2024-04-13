@@ -1093,7 +1093,7 @@ void WindowsDlg::putItemsToClipboard(bool isFullPath)
 	}
 	while (i >= 0);
 
-	buf2Clipborad(buffers, isFullPath, _hList);
+	buf2Clipboard(buffers, isFullPath, _hList);
 }
 
 Buffer* WindowsDlg::getBuffer(int index) const

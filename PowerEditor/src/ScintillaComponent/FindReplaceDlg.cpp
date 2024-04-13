@@ -1336,72 +1336,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				SendMessage(hComboBox, WM_SETFONT, (WPARAM)CreateFontIndirect(&lf), MAKELPARAM(true, 0));
 			}
 
-			RECT arc{};
-			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);
-			_markClosePos.bottom = _findInFilesClosePos.bottom = _replaceClosePos.bottom = _findClosePos.bottom = arc.bottom - arc.top;
-			_markClosePos.right = _findInFilesClosePos.right = _replaceClosePos.right = _findClosePos.right = arc.right - arc.left;
-
-			POINT p{};
-			p.x = arc.left;
-			p.y = arc.top;
-			::ScreenToClient(_hSelf, &p);
-
-			p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
-			_replaceClosePos.left = p.x;
-			_replaceClosePos.top = p.y;
-
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL), !_isRTL);
-			 _findInFilesClosePos.left = p.x;
-			 _findInFilesClosePos.top = p.y;
-
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), !_isRTL);
-			 _markClosePos.left = p.x;
-			 _markClosePos.top = p.y;
-
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
-			 _findClosePos.left = p.x;
-			 _findClosePos.top = p.y + 10;
-
-			 ::GetWindowRect(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), &arc);
-			 long resizeButtonW = arc.right - arc.left;
-			 long resizeButtonH = arc.bottom - arc.top;
-			 _collapseButtonPos.bottom = _uncollapseButtonPos.bottom = resizeButtonW;
-			 _collapseButtonPos.right = _uncollapseButtonPos.right = resizeButtonH;
-
-			 ::GetWindowRect(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), &arc);
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), !_isRTL);
-			 _collapseButtonPos.left = p.x + (arc.right - arc.left) + dpiManager.scaleX(10);
-			 _collapseButtonPos.top = p.y + (arc.bottom - arc.top) - resizeButtonH + dpiManager.scaleX(10);
-			 ::GetWindowRect(::GetDlgItem(_hSelf, IDCCOUNTALL), &arc);
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDCCOUNTALL), !_isRTL);
-			 _uncollapseButtonPos.left = p.x + (arc.right - arc.left) + dpiManager.scaleX(8);
-			 _uncollapseButtonPos.top = p.y + dpiManager.scaleY(2);
-			 
-			 // in selection check
-			 RECT checkRect;
-			 ::GetWindowRect(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), &checkRect);
-			 _countInSelCheckPos.bottom = _replaceInSelCheckPos.bottom = checkRect.bottom - checkRect.top;
-			 _countInSelCheckPos.right = _replaceInSelCheckPos.right = checkRect.right - checkRect.left;
-
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), !_isRTL);
-			 _countInSelCheckPos.left = _replaceInSelCheckPos.left = p.x;
-			 _countInSelCheckPos.top = _replaceInSelCheckPos.top = p.y;
-
-			 POINT countP = getTopPoint(::GetDlgItem(_hSelf, IDCCOUNTALL), !_isRTL);
-
-			 // in selection Frame
-			 RECT frameRect;
-			 ::GetWindowRect(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), &frameRect);
-			 _countInSelFramePos.bottom = _replaceInSelFramePos.bottom = frameRect.bottom - frameRect.top;
-			 _countInSelFramePos.right = _replaceInSelFramePos.right = frameRect.right - frameRect.left;
-
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), !_isRTL);
-			 _countInSelFramePos.left = _replaceInSelFramePos.left = p.x;
-			 _countInSelFramePos.top = _replaceInSelFramePos.top = p.y;
-
-			 _countInSelFramePos.top = countP.y - dpiManager.scaleY(10);
-			 _countInSelFramePos.bottom = dpiManager.scaleY(80 - 3);
-
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip", TEXT("Use Shift+Enter to search in the opposite direction."));
@@ -2350,31 +2284,27 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 				case IDD_RESIZE_TOGGLE_BUTTON:
 				{
-					RECT rc = { 0, 0, 0, 0};
+					RECT rc{};
 					getWindowRect(rc);
-					int w = rc.right - rc.left;
-					POINT p{};
-					p.x = rc.left;
-					p.y = rc.top;
+					LONG w = rc.right - rc.left;
 					bool& isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 					isLessModeOn = !isLessModeOn;
 					long dlgH = isLessModeOn ? _lesssModeHeight : _initialWindowRect.bottom;
-					RECT& buttonRc = isLessModeOn ? _uncollapseButtonPos : _collapseButtonPos;
+
+					DIALOG_TYPE dlgT = getCurrentStatus();
+					calcAndSetCtrlsPos(dlgT, true);
 
 					// For unknown reason, the original default width doesn't make the status bar moveed
 					// Here we use a dirty workaround: increase 1 pixel so WM_SIZE message will be triggered
 					if (w == _initialWindowRect.right)
 						w += 1;
 
-					::MoveWindow(_hSelf, p.x, p.y, w, dlgH, FALSE); // WM_SIZE message to call resizeDialogElements - status bar will be reposition correctly.
-					::MoveWindow(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), buttonRc.left + _deltaWidth, buttonRc.top, buttonRc.right, buttonRc.bottom, TRUE);
+					::SetWindowPos(_hSelf, nullptr, 0, 0, w, dlgH, SWP_NOMOVE | SWP_NOZORDER | SWP_NOREDRAW); // WM_SIZE message to call resizeDialogElements - status bar will be reposition correctly.
 
 					// Reposition the status bar
-					const UINT flags = SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOCOPYBITS | SWP_DRAWFRAME;
+					constexpr UINT flags = SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOCOPYBITS | SWP_FRAMECHANGED;
 					::GetClientRect(_statusBar.getHSelf(), &rc);
-					::SetWindowPos(_statusBar.getHSelf(), 0, 0, 0, rc.right + _deltaWidth, rc.bottom, flags);
-
-					DIALOG_TYPE dlgT = getCurrentStatus();
+					::SetWindowPos(_statusBar.getHSelf(), nullptr, 0, 0, w, rc.bottom, flags);
 
 					hideOrShowCtrl4reduceOrNormalMode(dlgT);
 
@@ -2737,11 +2667,18 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 {
 	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NppParameters& nppParam = NppParameters::getInstance();
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-readonly", TEXT("Replace All: Cannot replace text. The current document is read only."));
 		setStatusbarMessage(msg, FSNotFound);
 		return 0;
 	}
+
+	// Turn OFF all the notification of modification (SCN_MODIFIED) for the sake of performance
+	LRESULT notifFlag = (*_ppEditView)->execute(SCI_GETMODEVENTMASK);
+	(*_ppEditView)->execute(SCI_SETMODEVENTMASK, 0);
+
+
 
 	const FindOption *pOptions = opt?opt:_env;
 	const TCHAR *txt2find = pOptions->_str2Search.c_str();
@@ -2804,6 +2741,17 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	findReplaceInfo._endRange = endPosition;
 
 	int nbProcessed = processRange(op, findReplaceInfo, pFindersInfo, pOptions, colourStyleID);
+
+
+	// Turn ON the notifications after operations
+	(*_ppEditView)->execute(SCI_SETMODEVENTMASK, notifFlag);
+	if (op == ProcessReplaceAll && nbProcessed > 0) // All the notification of modification (SCN_MODIFIED) were removed during the operations, so we set modified status true here
+	{
+		Buffer* buf = (*_ppEditView)->getCurrentBuffer();
+		buf->setModifiedStatus(true);
+		::SendMessage(_hParent, NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL, reinterpret_cast<WPARAM>(buf), 0);
+	}
+
 
 	if (nbProcessed == FIND_INVALID_REGULAR_EXPRESSION)
 		return FIND_INVALID_REGULAR_EXPRESSION;
@@ -3514,10 +3462,7 @@ void FindReplaceDlg::showFindDlgItem(int dlgItemID, bool isShow /* = true*/)
 
 void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 {
-	_currentStatus = isEnable?REPLACE_DLG:FIND_DLG;
-	RECT *pClosePos = isEnable ? &_replaceClosePos : &_findClosePos;
-	RECT *pInSelectionFramePos = isEnable ? &_replaceInSelFramePos : &_countInSelFramePos;
-	RECT *pInSectionCheckPos = isEnable ? &_replaceInSelCheckPos : &_countInSelCheckPos;
+	_currentStatus = isEnable ? REPLACE_DLG : FIND_DLG;
 
 	enableFindInFilesControls(false, false);
 	enableMarkAllControls(false);
@@ -3543,10 +3488,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	showFindDlgItem(IDC_FINDALL_CURRENTFILE, !isEnable);
 
 	gotoCorrectTab();
-
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left + _deltaWidth, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
-	::MoveWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), pInSectionCheckPos->left + _deltaWidth, pInSectionCheckPos->top, pInSectionCheckPos->right, pInSectionCheckPos->bottom, TRUE);
-	::MoveWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), pInSelectionFramePos->left + _deltaWidth, pInSelectionFramePos->top, pInSelectionFramePos->right, pInSelectionFramePos->bottom, TRUE);
+	calcAndSetCtrlsPos(_currentStatus);
 
 	TCHAR label[MAX_PATH] = { '\0' };
 	_tab.getCurrentTitle(label, MAX_PATH);
@@ -4358,12 +4300,101 @@ void FindReplaceDlg::hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT)
 	}
 }
 
+void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
+{
+	const bool isNotLessMode = !NppParameters::getInstance().getNppGUI()._findWindowLessMode;
+
+	RECT rcBtn2ndPos{};
+	RECT rcBtn3rdPos{};
+
+	getMappedChildRect(IDREPLACE, rcBtn2ndPos);
+	getMappedChildRect(IDREPLACEALL, rcBtn3rdPos);
+	
+	const LONG btnGap = rcBtn3rdPos.top - rcBtn2ndPos.bottom;
+	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+
+	if (isNotLessMode)
+	{
+		const LONG btnGapDbl = 2 * btnGap;
+		const LONG btnGapOneHalf = 3 * btnGap / 2;
+
+		LONG yFrame = -btnGapOneHalf;
+		LONG hFrame = btnGapDbl;
+
+		RECT rcToUse{};
+
+		switch (dlgT)
+		{
+			case FIND_DLG:
+			{
+				getMappedChildRect(IDC_FINDALL_OPENEDFILES, rcToUse);
+
+				RECT rcBtn3rdPosLarge{};
+				getMappedChildRect(IDC_FINDALL_CURRENTFILE, rcBtn3rdPosLarge);
+				yFrame += rcBtn2ndPos.top;
+				hFrame += (rcBtn3rdPosLarge.bottom - rcBtn2ndPos.top);
+				break;
+			}
+
+			case REPLACE_DLG:
+			{
+				getMappedChildRect(IDC_REPLACE_OPENEDFILES, rcToUse);
+
+				yFrame += rcBtn3rdPos.top;
+				hFrame += (rcBtn3rdPos.bottom - rcBtn3rdPos.top);
+				break;
+			}
+
+			case FINDINFILES_DLG:
+			case FINDINPROJECTS_DLG:
+			{
+				rcToUse = rcBtn2ndPos;
+				break;
+			}
+
+			case MARK_DLG:
+			{
+				rcToUse = rcBtn3rdPos;
+				break;
+			}
+		}
+		
+		::SetWindowPos(::GetDlgItem(_hSelf, IDCANCEL), nullptr, rcToUse.left, (rcToUse.bottom + btnGap), 0, 0, SWP_NOSIZE | flags);
+
+		if (dlgT == FIND_DLG || dlgT == REPLACE_DLG)
+		{
+			RECT rcCheckBtn{};
+			getMappedChildRect(IDC_IN_SELECTION_CHECK, rcCheckBtn);
+
+			const LONG xFrame = rcCheckBtn.left - btnGapOneHalf;
+			const LONG wFrame = (rcBtn2ndPos.right - rcCheckBtn.left) + btnGapDbl;
+			::SetWindowPos(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), nullptr, xFrame, yFrame, wFrame, hFrame, flags);
+		}
+	}
+
+	if (fromColBtn)
+	{
+		LONG yColBtn = 0;
+		if (isNotLessMode)
+		{
+			RECT rcSlider{};
+			getMappedChildRect(IDC_PERCENTAGE_SLIDER, rcSlider);
+			yColBtn = rcSlider.top + btnGap;
+		}
+		else
+		{
+			yColBtn = rcBtn2ndPos.top + btnGap / 2;
+		}
+		::SetWindowPos(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), nullptr, rcBtn2ndPos.right + btnGap, yColBtn, 0, 0, SWP_NOSIZE | flags);
+	}
+}
+
 void FindReplaceDlg::enableFindInFilesFunc()
 {
 	enableFindInFilesControls(true, false);
 	_currentStatus = FINDINFILES_DLG;
 	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	calcAndSetCtrlsPos(_currentStatus);
 	TCHAR label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
@@ -4377,7 +4408,7 @@ void FindReplaceDlg::enableFindInProjectsFunc()
 	enableFindInFilesControls(true, true);
 	_currentStatus = FINDINPROJECTS_DLG;
 	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	calcAndSetCtrlsPos(_currentStatus);
 	TCHAR label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
@@ -4413,10 +4444,7 @@ void FindReplaceDlg::enableMarkFunc()
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
-	::MoveWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), _replaceInSelCheckPos.left + _deltaWidth, _replaceInSelCheckPos.top, _replaceInSelCheckPos.right, _replaceInSelCheckPos.bottom, TRUE);
-	::MoveWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), _replaceInSelFramePos.left + _deltaWidth, _replaceInSelFramePos.top, _replaceInSelFramePos.right, _replaceInSelFramePos.bottom, TRUE);
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _markClosePos.left + _deltaWidth, _markClosePos.top, _markClosePos.right, _markClosePos.bottom, TRUE);
+	calcAndSetCtrlsPos(_currentStatus);
 
 	TCHAR label[MAX_PATH]{};
 	_tab.getCurrentTitle(label, MAX_PATH);
@@ -4736,7 +4764,7 @@ void Finder::addSearchResultInfo(int count, int countSearched, bool searchedEnti
 
 		generic_string hitsIn = count == 1 ? TEXT("hit") : TEXT("hits");
 
-		generic_string fileOrSelection = searchedEntireNotSelection ? TEXT("file") : TEXT("selection");;
+		generic_string fileOrSelection = searchedEntireNotSelection ? TEXT("file") : TEXT("selection");
 		if (_nbFoundFiles != 1)
 		{
 			fileOrSelection += TEXT("s");
@@ -5240,10 +5268,10 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				generic_string collapseAll = pNativeSpeaker->getLocalizedStrFromID("finder-collapse-all", TEXT("Fold all"));
 				generic_string uncollapseAll = pNativeSpeaker->getLocalizedStrFromID("finder-uncollapse-all", TEXT("Unfold all"));
 				generic_string copyLines = pNativeSpeaker->getLocalizedStrFromID("finder-copy", TEXT("Copy Selected Line(s)"));
-				generic_string copyVerbatim = pNativeSpeaker->getLocalizedStrFromID("finder-copy-verbatim", TEXT("Copy"));
+				generic_string copyVerbatim = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_COPY, L"Copy", true);
 				copyVerbatim += TEXT("\tCtrl+C");
 				generic_string copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", TEXT("Copy Pathname(s)"));
-				generic_string selectAll = pNativeSpeaker->getLocalizedStrFromID("finder-select-all", TEXT("Select all"));
+				generic_string selectAll = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_SELECTALL, L"Select all", true);
 				selectAll += TEXT("\tCtrl+A");
 				generic_string clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", TEXT("Clear all"));
 				generic_string purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", TEXT("Purge for every search"));
@@ -5879,7 +5907,7 @@ int Progress::createProgressWindow()
 		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
 	}
 
-	generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("progress-cancel-button", TEXT("Cancel"));
+	generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("common-cancel", TEXT("Cancel"));
 
 	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), cancel.c_str(),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
@@ -5889,7 +5917,7 @@ int Progress::createProgressWindow()
 
 	if (_hFont == nullptr)
 	{
-		LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+		LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hwnd) };
 		_hFont = ::CreateFontIndirect(&lf);
 	}
 

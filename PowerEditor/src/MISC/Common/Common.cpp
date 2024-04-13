@@ -59,8 +59,8 @@ std::string getFileContent(const TCHAR *file2read)
 	char data[blockSize];
 	std::string wholeFileContent = "";
 	FILE *fp = _wfopen(file2read, TEXT("rb"));
-    if (!fp)
-        return "";
+	if (!fp)
+		return "";
 
 	size_t lenFile = 0;
 	do
@@ -950,7 +950,7 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	return true;
 }
 
-bool buf2Clipborad(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd)
+bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd)
 {
 	const generic_string crlf = _T("\r\n");
 	generic_string selection;
@@ -1342,21 +1342,19 @@ void getFilesInFolder(std::vector<generic_string>& files, const generic_string& 
 
 	WIN32_FIND_DATA foundData;
 	HANDLE hFindFile = ::FindFirstFile(filter.c_str(), &foundData);
-
-	if (hFindFile != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+	if (hFindFile != INVALID_HANDLE_VALUE)
 	{
-		generic_string foundFullPath = inFolder;
-		pathAppend(foundFullPath, foundData.cFileName);
-		files.push_back(foundFullPath);
-
-		while (::FindNextFile(hFindFile, &foundData))
+		do
 		{
-			generic_string foundFullPath2 = inFolder;
-			pathAppend(foundFullPath2, foundData.cFileName);
-			files.push_back(foundFullPath2);
-		}
+			if (!(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				generic_string foundFullPath = inFolder;
+				pathAppend(foundFullPath, foundData.cFileName);
+				files.push_back(foundFullPath);
+			}
+		} while (::FindNextFile(hFindFile, &foundData));
+		::FindClose(hFindFile);
 	}
-	::FindClose(hFindFile);
 }
 
 // remove any leading or trailing spaces from str

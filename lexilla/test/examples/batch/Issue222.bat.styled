@@ -1,0 +1,26 @@
+{1}rem Keywords with colon
+{0}
+{1}rem with spacing
+{2}call{5} file.bat{0} arg1
+{2}call{0} "file.bat" arg1
+{2}call{0} :label arg1
+{2}goto{0} :label
+{2}goto{0} :eof
+{2}goto{0} label
+{2}echo{0}: {6}%var%{0}
+{2}echo{0}: text
+{2}echo{0} text
+
+{1}rem no spacing
+{2}call{0}:label arg1
+{2}goto{0}:label
+{2}goto{0}:eof
+{2}echo{0}:{6}%var%{0}
+{2}echo{0}:text
+({2}call{0})
+({2}echo{0}:)
+({2}goto{0})
+
+{1}rem call internal commands
+{2}call echo{0} text
+{2}call set{0} "a=b"

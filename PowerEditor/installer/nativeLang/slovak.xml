@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.1">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -968,7 +968,8 @@
 
 					<Item id="6123" name="Lokalizácia"/>
 				</Global>
-				<Scintillas title="Editor">
+				
+				<Scintillas title="Úprava 1">
 					<Item id="6216" name="Nastavenie kurzora"/>
 					<Item id="6217" name="Šírka:"/>
 					<Item id="6219" name="Rýchlosť blikania:"/>
@@ -984,22 +985,31 @@
 					<Item id="6236" name="Povoliť posun za posledným riadkom"/>
 					<Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
 					<Item id="6245" name="Povoliť virtuálny priestor"/>
+					<Item id="6214" name="Povoliť Kopírovať/Vystrihnúť riadok bez označenia"/>
 					<Item id="6651" name="Indikátor aktuálneho riadku"/>
 					<Item id="6652" name="Žiadny"/>
 					<Item id="6653" name="Zvýraznenie pozadia"/>
 					<Item id="6654" name="Orámovanie"/>
-					<Item id="6655" name="Hrúbka"/>
+					<Item id="6655" name="Hrúbka:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Úprava 2">
+					<Item id="6521" name="Viacnásobná úprava"/>
+					<Item id="6522" name="Povoliť viacnásobnú úpravu (Ctrl+klik myšou/výber)"/>
+					<Item id="6523" name="Povoliť výber stĺpcov pre viacnásobnú úpravu"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predvolené"/>
 					<Item id="6249" name="Obyčajný text"/>
 					<Item id="6250" name="Vlastná farba"/>
 					<Item id="6252" name="Netlačiteľné znaky"/>
+					<Item id="6260" name="Vzhľad"/>
 					<Item id="6254" name="Skratka"/>
 					<Item id="6255" name="Kódový bod"/>
 					<Item id="6256" name="Vlastná farba"/>
-					<Item id="6258" name="Použiť na C0, C1 a Unicode EOL"/>
-				</Scintillas>
-
+					<Item id="6258" name="Použiť nastavenia vzhľadu na C0, C1 a Unicode EOL"/>
+					<Item id="6259" name="Zabrániť vloženiu riadiaceho znaku (kód C0) do dokumentu"/>
+				</Scintillas2>
+				
 				<DarkMode title="Tmavý režim">
 					<Item id="7131" name="Svetlý režim"/>
 					<Item id="7132" name="Tmavý režim"/>
@@ -1040,11 +1050,11 @@
 					<Item id="6292" name="Dynamická šírka"/>
 					<Item id="6293" name="Konštantná šírka"/>
 					<Item id="6207" name="Zobraziť záložky"/>
-					<Item id="6223" name="Zobraziť históriu zmien"/>
+					<Item id="6295" name="História zmien"/>
+					<Item id="6223" name="Zobraziť na okraji"/>
+					<Item id="6296" name="Zobraziť v texte"/>
 					<Item id="6211" name="Nastavenie vertikálneho okraja"/>
 					<Item id="6213" name="Režim pozadia"/>
-					<Item id="6237" name="Pridajte značku stĺpca zadaním jej pozície (celé číslo).
-Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych čísel."/>
 					<Item id="6231" name="Šírka okraja"/>
 					<Item id="6235" name="Bez okraja"/>
 					<Item id="6208" name="Odsadenie"/>
@@ -1082,6 +1092,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="4009" name="Podporované prípony:"/>
 					<Item id="4010" name="Registrované prípony:"/>
 				</FileAssoc>
+
 				<Language title="Jazyk">
 					<Item id="6505" name="Dostupné položky"/>
 					<Item id="6506" name="Nepoužívané položky"/>
@@ -1249,7 +1260,7 @@ Zadať môžete viacero značiek pomocou bielych znakov na oddelenie rôznych č
 					<Item id="7141" name="Obmedzenie veľkých súborov"/>
 					<Item id="7143" name="Povoliť obmedzenie veľkých súborov (bez zvýraznenia syntaxe)"/>
 					<Item id="7144" name="Veľký súbor je:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Povoliť párové zátvorky"/>
 					<Item id="7148" name="Povoliť automatické dokončovanie"/>
 					<Item id="7149" name="Povoliť inteligentné zvýrazňovanie"/>
@@ -1634,7 +1645,6 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavr
 			<default-open-save-select-folder value="Vyberte predvolený priečinok"/>
 			<shift-change-direction-tip value="Na vyhľadávanie v opačnom smere použite Shift+Enter"/>
 			<two-find-buttons-tip value="Režim dvoch tlačidiel"/>
-			<file-rename-title value="Premenovať"/>
 			<find-in-files-filter-tip value="Hľadať v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1680,9 +1690,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<finder-collapse-all value="Zbaliť všetko"/>
 			<finder-uncollapse-all value="Rozbaliť všetko"/>
 			<finder-copy value="Kopírovať vybrané riadky"/>
-			<finder-copy-verbatim value="Kopírovať"/>
 			<finder-copy-paths value="Kopírovať názov súboru(ov)"/>
-			<finder-select-all value="Vybrať všetko"/>
 			<finder-clear-all value="Vymazať všetko"/>
 			<finder-open-all value="Otvoriť všetko"/>
 			<finder-purge-for-every-search value="Vymazať pri každom hľadaní"/>
@@ -1709,7 +1717,6 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<summary-nbsel2 value=" bajtov) v "/>
 			<summary-nbrange value=" oblastiach"/>
 			<progress-hits-title value="Nájdené:"/>
-			<progress-cancel-button value="Zrušiť"/>
 			<progress-cancel-info value="Ruší sa operácia, čakajte, prosím…"/>
 			<find-in-files-progress-title value="Prebieha hľadanie v súboroch…"/>
 			<replace-in-files-confirm-title value="Naozaj?"/>
@@ -1778,6 +1785,7 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<npcCustomColor-tip value="Prejdite do Nastavenia štýlov a zmeňte predvolenú vlastnú farbu pre vybrané biele a netlačiteľné znaky (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)."/>
 			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
+			<verticalEdge-tip value="Pridajte značku stĺpca uvedením jeho pozície pomocou desatinného čísla. Môžete definovať niekoľko značiek stĺpcov tak, že jednotlivé čísla oddelíte bielymi znakmi."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

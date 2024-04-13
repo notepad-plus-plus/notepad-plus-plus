@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.6.1
--    Ultima modificare a fost făcută în 11 decembrie 2023 de către Miloiu Andrei 	 
+-    Traducerea în română pentru Notepad++ 8.6.5
+-    Ultima modificare 17 martie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.5.9">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -40,8 +40,8 @@
                     <Item subMenuId="edit-blankOperations" name="Operații spații libere"/>
                     <Item subMenuId="edit-pasteSpecial" name="Lipire specială"/>
                     <Item subMenuId="edit-onSelection" name="Pe selecție"/>
-					<Item subMenuId="search-changeHistory" name="Schimbă istoricul"/>
-					<Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
+		    <Item subMenuId="search-changeHistory" name="Schimbă istoricul"/>
+		    <Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
                     <Item subMenuId="search-markAll" name="Marcare tot"/>
                     <Item subMenuId="search-markOne" name="Marcare &amp;unică a selecției"/>
                     <Item subMenuId="search-unmarkAll" name="Demarcare tot"/>
@@ -273,8 +273,8 @@
                     <Item id="44019" name="Afișare toate caracterele"/>
                     <Item id="44020" name="Afișare ghidaj indentare"/>
                     <Item id="44022" name="Limitare lungime linii"/>
-                    <Item id="44023" name="&amp;Mărire (Ctrl+rotiță maus sus)"/>
-                    <Item id="44024" name="Micșo&amp;rare (Ctrl+rotiță maus jos)"/>
+                    <Item id="44023" name="&amp;Mărire (Ctrl+rotița mouse-ului în sus)"/>
+                    <Item id="44024" name="Micșo&amp;rare (Ctrl+rotița mouse-ului în jos)"/>
                     <Item id="44025" name="Afișare spații libere și Tab-uri"/>
                     <Item id="44026" name="Afișare sfârșit de linie"/>
                     <Item id="44029" name="Depliere toate"/>
@@ -427,6 +427,8 @@
                     <Item CMDID="42030" name="Copiere nume fișier în Clipboard"/>
                     <Item CMDID="42031" name="Copiere cale folder în Clipboard"/>
 					<Item CMDID="3" name="Mutarea documentului"/>
+				    <Item CMDID="10005" name="Mutare la început"/>
+				    <Item CMDID="10006" name="Mutare la sfârșit"/>
                     <Item CMDID="10001" name="Mutare în altă vedere"/>
                     <Item CMDID="10002" name="Clonare în altă vedere"/>
                     <Item CMDID="10003" name="Mutare în instanță nouă"/>
@@ -450,7 +452,7 @@
         </Menu>
 		
         <Dialog>
-            <Find title="" titleFind="Găsește" titleReplace="Înlocuire" titleFindInFiles="Găsește în fișiere" titleMark="Marcare">
+            <Find title="Caută, caută și vei găsi" titleFind="Găsește" titleReplace="Înlocuire" titleFindInFiles="Găsește în fișiere" titleMark="Marcare">
                 <Item id="1"    name="Găsește următorul"/>
                 <Item id="1722" name="Inversare direcție de căutare"/>
                 <Item id="2"    name="Închidere"/>
@@ -971,49 +973,59 @@
                     <Item id="6126" name="Afișare"/>
                     <Item id="6127" name="Dezactivare coloană module"/>
                 </Global>
-                <Scintillas title="Editare">
+				
+                <Scintillas title="Editare 1">
                     <Item id="6216" name="Setările cursorului"/>
                     <Item id="6217" name="Lățime:"/>
                     <Item id="6219" name="Viteză de clipire:"/>
                     <Item id="6221" name="100"/>
                     <Item id="6222" name="0"/>
                     <Item id="6224" name="Setări editare multiplă"/>	
-                    <Item id="6246" name="Facerea comutabilă a comenzilor de pliere/desfășurare la nivelul actual"/>
-                    <Item id="6225" name="Activare (Ctrl+clic maus pe selecție)"/>
+                    <Item id="6246" name="Se face comutabilă a comenzilor de pliere/desfășurare la nivelul actual"/>
+                    <Item id="6225" name="Activare (Ctrl+clic mouse pe selecție)"/>
                     <Item id="6227" name="Limitare linie"/>
                     <Item id="6228" name="Implicit"/>
                     <Item id="6229" name="Aliniere"/>
                     <Item id="6230" name="Indentare"/>
-                    <Item id="6206" name="Afișare numere linii"/>
+                    <Item id="6206" name="Afișare numere de linii"/>
                     <Item id="6207" name="Afișare semne de carte"/>
                     <Item id="6208" name="Afișare margine verticală"/>
                     <Item id="6209" name="Număr de coloane: "/>
-                    <Item id="6234" name="Dezactivare funcție derulare avansată (dacă aveți probleme cu touchpad-ul)"/>		
-                    <Item id="6215" name="Activare font finisat"/>
+                    <Item id="6234" name="Dezactivează funcția derulare avansată (dacă aveți probleme cu touchpad-ul)"/>		
+                    <Item id="6215" name="Activează fontul finisat"/>
                     <Item id="6211" name="Setări margine verticală"/>
                     <Item id="6212" name="Mod linie"/>
                     <Item id="6213" name="Mod în fundal"/>
-                    <Item id="6214" name="Activare evidențiere linie curentă"/>
+                    <Item id="6214" name="Activează evidențierea linie curentă"/>
                     <Item id="6231" name="Lățime bordură"/>
                     <Item id="6235" name="Fără bordură" />					
-                    <Item id="6236" name="Activare derulare dincolo de ultima linie"/>
-                    <Item id="6239" name="Activarea selecției când se dă clic dreapta în afara selecției"/>		
-                    <Item id="6245" name="Activarea spațiului virtual"/>
+                    <Item id="6236" name="Activează derularea dincolo de ultima linie"/>
+                    <Item id="6239" name="Activează selecția atunci când se dă clic dreapta în afara selecției"/>		
+                    <Item id="6245" name="Activează spațiul virtual"/>
+                    <Item id="6214" name="Activează Copiere/Tăiere linie fără selecție"/>
                     <Item id="6651" name="Indicatorul liniei curente"/>
                     <Item id="6652" name="Niciunul"/>
                     <Item id="6653" name="Fundal evidențiat"/>
                     <Item id="6654" name="Cadru"/>
                     <Item id="6655" name="Lățime"/>			
-                    <Item id="6247" name="EOL- Sârșit de linie (CRLF)"/> <!-- Don't translate "(CRLF)" -->
-                    <Item id="6248" name="Implicit"/>
-                    <Item id="6249" name="Text simplu"/>
-                    <Item id="6250" name="Culoare personalizată"/>	
-                    <Item id="6252" name="Caractere neafișabile"/>
-                    <Item id="6254" name="Abreviere"/>
-                    <Item id="6255" name="Punct de cod"/>
-                    <Item id="6256" name="Culoare personalizată"/>
-					<Item id="6258" name="Aplicarea la C0, C1 &amp;&amp; Unicode EOL"/>
                 </Scintillas>
+				
+		<Scintillas2 title="Editare 2">
+		     <Item id="6247" name="EOL- Sfârșit de linie (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+		     <Item id="6248" name="Implicit"/>
+		     <Item id="6249" name="Text simplu"/>
+                     <Item id="6250" name="Culoare personalizată"/>
+		     <Item id="6252" name="Caractere neafișabile"/>
+		     <Item id="6254" name="Abreviere"/>
+		     <Item id="6255" name="Punct de cod"/>
+		     <Item id="6256" name="Culoare personalizată"/>
+		     <Item id="6258" name="Aplicare la C0, C1 &amp;&amp; Unicode EOL"/>
+		     <Item id="6259" name="Previne introducerea caracterului de control (codul C0) în document"/>
+		     <Item id="6260" name="Aspect"/>
+		     <Item id="6521" name="Editare multiplă"/>
+		     <Item id="6522" name="Activează editarea multiplă (Ctrl+Mouse clic/selecție)"/>
+		     <Item id="6523" name="Activează selecția coloanelor pentru editare multiplă"/>
+		</Scintillas2>
 				
                 <DarkMode title="Modul întunecat">
                     <Item id="7131" name="Modul luminos"/>
@@ -1058,14 +1070,14 @@
                     <Item id="6223" name="Istoricul schimbărilor afișajului"/>
                     <Item id="6211" name="Setările vârfurilor verticale"/>
                     <Item id="6213" name="Modul fundal"/>
-                    <Item id="6237" name="Se adaugă marcatorul de coloană indicând poziția acestuia cu un număr zecimal.
-Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a separa diferitele numere."/>
                     <Item id="6231" name="Lățimea chenarului"/>
                     <Item id="6235" name="Fără vârf"/>
                     <Item id="6208" name="Umplutură"/>
                     <Item id="6209" name="Stânga"/>
                     <Item id="6210" name="Dreapta"/>
                     <Item id="6212" name="Fără distracție"/>
+		    <Item id="6295" name="Istoricul schimbărilor"/>
+		    <Item id="6296" name="Afișează în text"/>
                 </MarginsBorderEdge>
 				
                 <NewDoc title="Document nou">
@@ -1250,7 +1262,7 @@ Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a 
                 </MultiInstance>
 
                 <Delimiter title="Separatori">
-                    <Item id="6251" name="Setări separatori selecție (Ctrl + dublu clic maus)"/>
+                    <Item id="6251" name="Setări separatori selecție (Ctrl + dublu clic cu mouse-ul)"/>
                     <Item id="6252" name="Început"/>
                     <Item id="6255" name="Sfârșit"/>
                     <Item id="6256" name="Permitere pe linii multiple"/>
@@ -1264,7 +1276,7 @@ Se pot defini mai mulți marcatori de coloană utilizând spațiul alb pentru a 
                     <Item id="7141" name="Restricția fișierelor mari"/>
                     <Item id="7143" name="Permiterea restricției fișierelor mari (fără sintaxă evidențiată)"/>
                     <Item id="7144" name="Definirea mărimii fișierelor mari:"/>
-                    <Item id="7146" name="MB   (1 - 4096)"/>
+                    <Item id="7146" name="MB   (1 - 2046)"/>
                     <Item id="7147" name="Permite potrivirea acoladelor"/>
                     <Item id="7148" name="Permite autocompletarea"/>
                     <Item id="7149" name="Permite evidențierea inteligentă"/>
@@ -1404,7 +1416,7 @@ Continuați?"/>
             <CannotMoveDoc title="Mutare în instanță nouă Notepad++" message="Documentul este modificat, salvați-l și încercați din nou."/>
             <DocReloadWarning title="Reîncărcare" message="Sigur doriți să reîncărcați fișierul curent și să pierdeți modificările efectuate în Notepad++?"/>
             <FileLockedWarning title="Salvare eșuată" message="Verificați dacă acest fișier nu este accesat și de un alt program."/>
-            <FileAlreadyOpenedInNpp title="" message="Fișierul este deja deschis în Notepad++."/>
+            <FileAlreadyOpenedInNpp title="Salvare eșuată" message="Fișierul este deja deschis în Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Redenumire eșuată" message="Numele specificat este deja folosit într-o altă filă."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Redenumire eșuată" message="Numele specificat nu poate fi gol sau nu poate conține numai spațiu(i) sau tabulație(i)/TAB(-uri)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
             <DeleteFileFailed title="Ștergerea fișierului" message="Ștergerea fișierului eșuată."/>
@@ -1531,7 +1543,7 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
             <PanelTitle name="Istoricul clipboard-ului"/>
         </ClipboardHistory>
         <DocList>
-            <PanelTitle name="Listă de documente"/>
+            <PanelTitle name="Comutare document"/>
             <ColumnName name="Nume"/>
             <ColumnExt name="Extern"/>
 			<ColumnPath name="Cale"/>
@@ -1632,7 +1644,7 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <!-- $INT_REPLACE$ și $STR_REPLACE$ sunt variabile, nu le traduceți -->
+            <!-- $INT_REPLACE$ and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Se permite includerea de caractere adiționale în lista curentă de caractere când se dă dublu clic pe o selectare la căutarea cu opțiunea &quot;Potrivire doar cuvinte&quot; activată."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
@@ -1648,8 +1660,7 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
             <cloud-select-folder value="Selectare folder din/în care Notepad++ citește/scrie setările sale"/>
 			<default-open-save-select-folder value="Selectează un dosar ca director implicit"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
             <shift-change-direction-tip value="Folosiți Shift+Enter pentru a căuta în direcția opusă"/>
-            <two-find-buttons-tip value="Mod găsire cu 2 butoane"/>
-			<file-rename-title value="Redenumește"/>
+            <two-find-buttons-tip value="Modul Găsește cu 2 butoane"/>
 			<find-in-files-filter-tip value="Găsește în cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1701,9 +1712,7 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <finder-collapse-all value="Restrângere toate"/>
             <finder-uncollapse-all value="Extindere toate"/>
             <finder-copy value="Copiere"/>
-			<finder-copy-verbatim value="Copiere"/>
-			<finder-copy-paths value="Copiază numele căii(ilor)"/>
-            <finder-select-all value="Selectare toate"/>
+			<finder-copy-paths value="Copiază numele căii(căilor)"/>
             <finder-clear-all value="Golire toate"/>
             <finder-open-all value="Deschidere toate"/>
 			<finder-purge-for-every-search value="Curăță pentru fiecare căutare"/>
@@ -1735,9 +1744,8 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<summary-nbsel2 value=" octeți) in "/>
 			<summary-nbrange value=" intervale"/>
 			<progress-hits-title value="Coincidențe:"/>
-			<progress-cancel-button value="Anulează"/>
 			<progress-cancel-info value="Se anulează operația, te rugăm să aștepți..."/>
-			<find-in-files-progress-title value="Progresul funcției Găsire în fișiere..."/>
+			<find-in-files-progress-title value="Progresul funcției Găsește în fișiere..."/>
 			<replace-in-files-confirm-title value="Ești sigur?"/>
 			<replace-in-files-confirm-directory value="Ești sigur că vrei să înlocuișeti toate aparițiile în :"/>
 			<replace-in-files-confirm-filetype value="Pentru tipul de fișier :"/>
@@ -1798,6 +1806,8 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Mergi la Configurator de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Culoare personalizată a caracterelor neimprimabile&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplică setările de aparență ale caracterelor neimprimabile la controalele C0, C1 și a caracterelor Unicode EOL (linie următoare, separator de linie și separator de paragraf)."/>
+                        <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsește e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
+                        <verticalEdge-tip value="Adăugați-vă marcatorul de coloană prinm indicarea poziției sale cu un număr zecimal. Vă puteți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

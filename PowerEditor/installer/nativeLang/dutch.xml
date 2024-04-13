@@ -1256,7 +1256,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 					<Item id="7141" name="Beperking grote bestanden"/>
 					<Item id="7143" name="Beperking grote bestanden inschakelen (geen syntaxismarkering)"/>
 					<Item id="7144" name="Grootte van groot bestand opgeven:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Overeenkomende haakjes toestaan"/>
 					<Item id="7148" name="Automatisch aanvullen toestaan"/>
 					<Item id="7149" name="Slim markeren toestaan"/>

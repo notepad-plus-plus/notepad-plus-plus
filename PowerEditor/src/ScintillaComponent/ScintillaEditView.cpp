@@ -157,6 +157,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("mssql"),			TEXT("mssql"),				TEXT("Microsoft Transact-SQL (SQL Server) file"),		L_MSSQL,		"mssql"},
 	{TEXT("gdscript"),		TEXT("GDScript"),			TEXT("GDScript file"),									L_GDSCRIPT,		"gdscript"},
 	{TEXT("hollywood"),		TEXT("Hollywood"),			TEXT("Hollywood script"),								L_HOLLYWOOD,	"hollywood"},
+	{TEXT("go"),			TEXT("Go"),					TEXT("Go source file"),									L_GOLANG,		"cpp"},
 	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
 };
 
@@ -340,10 +341,13 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	{
 		auto defaultCharListLen = execute(SCI_GETWORDCHARS);
 		char *defaultCharList = new char[defaultCharListLen + 1];
-		execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
-		defaultCharList[defaultCharListLen] = '\0';
-		_defaultCharList = defaultCharList;
-		delete[] defaultCharList;
+		if(defaultCharList)
+		{
+			execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+			defaultCharList[defaultCharListLen] = '\0';
+			_defaultCharList = defaultCharList;
+			delete[] defaultCharList;
+		}
 	}
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
@@ -497,6 +501,18 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
+		case WM_CHAR:
+		{
+			// prevent "control characters" from being entered in text
+			// (don't need to be concerned about Tab or CR or LF etc here)
+			if ((NppParameters::getInstance()).getSVP()._npcNoInputC0 &&
+				(wParam <= 31 || wParam == 127))
+			{
+				return FALSE;
+			}
+			break;
+		}
+
 		case WM_KEYUP:
 		{
 			if (wParam == VK_PRIOR || wParam == VK_NEXT)
@@ -524,7 +540,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			SHORT alt = GetKeyState(VK_MENU);
 			SHORT shift = GetKeyState(VK_SHIFT);
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
-			bool column2MultSelect = (NppParameters::getInstance()).doColumn2MultiSelect();
+			bool column2MultSelect = (NppParameters::getInstance()).getSVP()._columnSel2MultiEdit;
 
 			if (wParam == VK_DELETE)
 			{
@@ -627,6 +643,14 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 																	  // Solution suggested by Neil Hodgson. See:
 																	  // https://sourceforge.net/p/scintilla/bugs/2412/
 						break;
+	
+					case VK_ESCAPE:
+					{
+						int selection = static_cast<int>(execute(SCI_GETMAINSELECTION, 0, 0));
+						int caret = static_cast<int>(execute(SCI_GETSELECTIONNCARET, selection, 0));
+						execute(SCI_SETSELECTION, caret, caret);
+						break;
+					}
 
 					default:
 						break;
@@ -1079,6 +1103,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 {
     const char *cppInstrs;
     const char *cppTypes;
+    const char *cppGlobalclass;
     const TCHAR *doxygenKeyWords  = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
     setLexerFromLangID(L_CPP);
@@ -1098,6 +1123,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 	basic_string<char> keywordListInstruction("");
 	basic_string<char> keywordListType("");
+	basic_string<char> keywordListGlobalclass("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
@@ -1112,8 +1138,16 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	}
 	cppTypes = getCompleteKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
 
+	if (pKwArray[LANG_INDEX_INSTR2])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+		keywordListGlobalclass = wstring2string(kwlW, CP_ACP);
+	}
+	cppGlobalclass = getCompleteKeywordList(keywordListGlobalclass, langType, LANG_INDEX_INSTR2);
+
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(cppInstrs));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(cppTypes));
+	execute(SCI_SETKEYWORDS, 3, reinterpret_cast<LPARAM>(cppGlobalclass));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
@@ -1237,6 +1271,7 @@ void ScintillaEditView::setJsLexer()
 	// In the most of cases, the symbols are defined outside of file.
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("2"));
 }
 
 void ScintillaEditView::setTclLexer()
@@ -1706,6 +1741,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_CS :
 		case L_FLASH :
 		case L_SWIFT:
+		case L_GOLANG:
 			setCppLexer(typeDoc); break;
 
 		case L_JS:
@@ -2221,8 +2257,19 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	const ScintillaViewParams& svp = nppParam.getSVP();
-	int enabledCH = svp._isChangeHistoryEnabled ? (SC_CHANGE_HISTORY_ENABLED | SC_CHANGE_HISTORY_MARKERS) : SC_CHANGE_HISTORY_DISABLED;
-	execute(SCI_SETCHANGEHISTORY, enabledCH);
+
+	int enabledCHFlag = SC_CHANGE_HISTORY_DISABLED;
+	if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
+	{
+		enabledCHFlag = SC_CHANGE_HISTORY_ENABLED;
+
+		if (svp._isChangeHistoryMarginEnabled)
+			enabledCHFlag |= SC_CHANGE_HISTORY_MARKERS;
+
+		if (svp._isChangeHistoryIndicatorEnabled)
+			enabledCHFlag |= SC_CHANGE_HISTORY_INDICATORS;
+	}
+	execute(SCI_SETCHANGEHISTORY, enabledCHFlag);
 
 	if (isTextDirectionRTL() != buffer->isRTL())
 		changeTextDirection(buffer->isRTL());
@@ -2990,6 +3037,58 @@ void ScintillaEditView::performGlobalStyles()
 	}
 	execute(SCI_SETMARGINTYPEN, _SC_MARGE_CHANGEHISTORY, SC_MARGIN_COLOUR);
 	execute(SCI_SETMARGINBACKN, _SC_MARGE_CHANGEHISTORY, changeHistoryMarginColor);
+
+	COLORREF changeModifiedfgColor = orange;
+	COLORREF changeModifiedbgColor = orange;
+	pStyle = stylers.findByName(TEXT("Change History modified"));
+	if (pStyle)
+	{
+		changeModifiedfgColor = pStyle->_fgColor;
+		changeModifiedbgColor = pStyle->_bgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_MODIFIED, changeModifiedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_MODIFIED, changeModifiedbgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_MODIFIED_INSERTION, changeModifiedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_MODIFIED_DELETION, changeModifiedfgColor);
+
+	COLORREF changeRevertModifiedfgColor = yellowGreen;
+	COLORREF changeRevertModifiedbgColor = yellowGreen;
+	pStyle = stylers.findByName(TEXT("Change History revert modified"));
+	if (pStyle)
+	{
+		changeRevertModifiedfgColor = pStyle->_fgColor;
+		changeRevertModifiedbgColor = pStyle->_bgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, changeRevertModifiedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_MODIFIED, changeRevertModifiedbgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_MODIFIED_INSERTION, changeRevertModifiedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_MODIFIED_DELETION, changeRevertModifiedfgColor);	
+
+	COLORREF changeRevertOriginfgColor = darkCyan;
+	COLORREF changeRevertOriginbgColor = darkCyan;
+	pStyle = stylers.findByName(TEXT("Change History revert origin"));
+	if (pStyle)
+	{
+		changeRevertOriginfgColor = pStyle->_fgColor;
+		changeRevertOriginbgColor = pStyle->_bgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, changeRevertOriginfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_REVERTED_TO_ORIGIN, changeRevertOriginbgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_ORIGIN_INSERTION, changeRevertOriginfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_REVERTED_TO_ORIGIN_DELETION, changeRevertOriginfgColor);
+
+	COLORREF changeSavedfgColor = midGreen;
+	COLORREF changeSavedbgColor = midGreen;
+	pStyle = stylers.findByName(TEXT("Change History saved"));
+	if (pStyle)
+	{
+		changeSavedfgColor = pStyle->_fgColor;
+		changeSavedbgColor = pStyle->_bgColor;
+	}
+	execute(SCI_MARKERSETFORE, SC_MARKNUM_HISTORY_SAVED, changeSavedfgColor);
+	execute(SCI_MARKERSETBACK, SC_MARKNUM_HISTORY_SAVED, changeSavedbgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_SAVED_INSERTION, changeSavedfgColor);
+	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_SAVED_DELETION, changeSavedfgColor);
 
 	COLORREF urlHoveredFG = grey;
 	pStyle = stylers.findByName(TEXT("URL hovered"));

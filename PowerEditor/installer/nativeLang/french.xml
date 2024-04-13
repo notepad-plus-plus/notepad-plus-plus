@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="français" filename="french.xml" version="8.6">
+	<Native-Langue name="français" filename="french.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -970,7 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Langue"/>
 				</Global>
-				<Scintillas title="Zones d'édition">
+				<Scintillas title="Zones d'édition 1">
 					<Item id="6216" name="Curseur"/>
 					<Item id="6217" name="Largeur :"/>
 					<Item id="6219" name="Clignotement :"/>
@@ -986,22 +986,29 @@ Translation note:
 					<Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
 					<Item id="6239" name="Conserver la sélection lors d'un clic droit en dehors de la sélection"/>
 					<Item id="6245" name="Activer l'espace virtuel"/>
+					<Item id="6214" name="Activer Copier/Couper la ligne sans sélection"/>
 					<Item id="6651" name="Surligner la ligne courante"/>
 					<Item id="6652" name="Aucun"/>
 					<Item id="6653" name="Colorer l’arrière-plan"/>
 					<Item id="6654" name="Tracer la bordure"/>
 					<Item id="6655" name="Épaisseur :"/>
+				</Scintillas>
+				<Scintillas2 title="Zones d'édition 2">
+					<Item id="6521" name="Multi-édition"/>
+					<Item id="6522" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
+					<Item id="6523" name="Activer colonne-sélection vers multi-édition"/>
 					<Item id="6247" name="Saut de ligne (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Défaut"/>
 					<Item id="6249" name="Texte brut"/>
 					<Item id="6250" name="Couleur personnalisée"/>
 					<Item id="6252" name="Caractères non-imprimables"/>
+					<Item id="6260" name="Apparence"/>
 					<Item id="6254" name="Abréviation"/>
 					<Item id="6255" name="Point de code"/>
 					<Item id="6256" name="Couleur personnalisée"/>
-					<Item id="6258" name="Appliquer à C0, C1 &amp; Unicode EOL"/>
-				</Scintillas>
-
+					<Item id="6258" name="Appliquer les paramètres d'Apparence à C0, C1 &amp; Unicode EOL"/>
+					<Item id="6259" name="Empêcher la saisie de caractères de contrôle (code C0) dans le document"/>
+				</Scintillas2>
 				<DarkMode title="Mode Sombre">
 					<Item id="7131" name="Mode lumineux"/>
 					<Item id="7132" name="Mode sombre"/>
@@ -1042,11 +1049,11 @@ Translation note:
 					<Item id="6292" name="Largeur dynamique"/>
 					<Item id="6293" name="Largeur constante"/>
 					<Item id="6207" name="Afficher la marge de signet"/>
-					<Item id="6223" name="Afficher l'Historique de Modification"/>
+					<Item id="6295" name="Historique de Modification"/>
+					<Item id="6223" name="Afficher dans la marge"/>
+					<Item id="6296" name="Afficher dans le texte"/>
 					<Item id="6211" name="Marqueur de colonne"/>
 					<Item id="6213" name="Colorer l’arrière-plan"/>
-					<Item id="6237" name="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier.
-Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
 					<Item id="6231" name="Largeur de la bordure"/>
 					<Item id="6235" name="Pas de bordure"/>
 					<Item id="6208" name="Remplissage"/>
@@ -1634,7 +1641,6 @@ NOTE : Si vous choisissez de ne pas créer d'espaces réservés ou de les fermer
 			<default-open-save-select-folder value="Sélectionner un dossier pour le répertoire par défaut"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Utilisez Maj + Entrée pour rechercher dans le sens inverse"/>
 			<two-find-buttons-tip value="2 boutons Recherche"/>
-			<file-rename-title value="Renommer"/>
 			<find-in-files-filter-tip value="Rechercher dans cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1680,9 +1686,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<finder-collapse-all value="Replier tout"/>
 			<finder-uncollapse-all value="Déplier tout"/>
 			<finder-copy value="Copier la(les) ligne(s) sélectionnée(s)"/>
-			<finder-copy-verbatim value="Copier"/>
 			<finder-copy-paths value="Copier le(s) chemin(s)"/>
-			<finder-select-all value="Sélectionner tout"/>
 			<finder-clear-all value="Effacer tout"/>
 			<finder-open-all value="Ouvrir tout"/>
 			<finder-purge-for-every-search value="Purger chaque recherche"/>
@@ -1709,7 +1713,6 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<summary-nbsel2 value=" octets) dans "/>
 			<summary-nbrange value=" sélections"/>
 			<progress-hits-title value="Résultats :"/>
-			<progress-cancel-button value="Annuler"/>
 			<progress-cancel-info value="Annulation de l'opération, veuillez patienter..."/>
 			<find-in-files-progress-title value="Rechercher dans les fichiers en cours..."/>
 			<replace-in-files-confirm-title value="Confirmation"/>
@@ -1778,6 +1781,7 @@ Cliquez sur le bouton &quot;?&quot; à droite pour ouvrir le site web du Manuel 
 			<npcCustomColor-tip value="Aller dans le Configurateur de style pour changer la couleur personnalisée par défaut pour la sélection de caractères blancs et de caractères non-imprimables (&quot;Couleur personnalisée des caractères non-imprimables&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Applique les paramètres d'apparence des caractères non-imprimables aux contrôles C0, C1 et aux caractères Unicode EOL (ligne suivante, séparateur de ligne et séparateur de paragraphe)."/>
 			<searchingInSelThresh-tip value="Nombre de caractères sélectionnés dans la zone d'édition pour cocher automatiquement la case &quot;Dans la sélection&quot; quand la fenêtre Rechercher est activée. La valeur maximale est 1024. Mettre la valeur à 0 pour désactiver l'auto-coche."/>
+			<verticalEdge-tip value="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier. Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

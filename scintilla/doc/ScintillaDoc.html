@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 19 December 2023 NH</p>
+    <p>Last edited 16 February 2024 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -341,97 +341,101 @@
 
         <tr>
           <td>&cir; <a class="toc" href="#UndoAndRedo">Undo and Redo</a></td>
+          <td>&cir; <a class="toc" href="#UndoSaveRestore">Undo save and restore</a></td>
           <td>&cir; <a class="toc" href="#ChangeHistory">Change history</a></td>
-          <td>&cir; <a class="toc" href="#ScrollingAndAutomaticScrolling">Scrolling and automatic scrolling</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#ScrollingAndAutomaticScrolling">Scrolling and automatic scrolling</a></td>
           <td>&cir; <a class="toc" href="#WhiteSpace">White space</a></td>
           <td>&cir; <a class="toc" href="#Cursor">Cursor</a></td>
-          <td>&cir; <a class="toc" href="#MouseCapture">Mouse capture</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#MouseCapture">Mouse capture</a></td>
           <td>&cir; <a class="toc" href="#LineEndings">Line endings</a></td>
           <td>&cir; <a class="toc" href="#Words">Words</a></td>
-          <td>&cir; <a class="toc" href="#Styling">Styling</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#Styling">Styling</a></td>
           <td>&cir; <a class="toc" href="#StyleDefinition">Style definition</a></td>
           <td>&cir; <a class="toc" href="#ElementColours">Element colours</a></td>
-          <td>&cir; <a class="toc" href="#CaretAndSelectionStyles">Selection, caret, and hotspot styles</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#CaretAndSelectionStyles">Selection, caret, and hotspot styles</a></td>
           <td>&cir; <a class="toc" href="#CharacterRepresentations">Character representations</a></td>
           <td>&cir; <a class="toc" href="#Margins">Margins</a></td>
-          <td>&cir; <a class="toc" href="#Annotations">Annotations</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#Annotations">Annotations</a></td>
           <td>&cir; <a class="toc" href="#EndOfLineAnnotations">End of Line Annotations</a></td>
           <td>&cir; <a class="toc" href="#OtherSettings">Other settings</a></td>
-          <td>&cir; <a class="toc" href="#BraceHighlighting">Brace highlighting</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#BraceHighlighting">Brace highlighting</a></td>
           <td>&cir; <a class="toc" href="#TabsAndIndentationGuides">Tabs and Indentation Guides</a></td>
           <td>&cir; <a class="toc" href="#Markers">Markers</a></td>
-          <td>&cir; <a class="toc" href="#Indicators">Indicators</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#Indicators">Indicators</a></td>
           <td>&cir; <a class="toc" href="#Autocompletion">Autocompletion</a></td>
           <td>&cir; <a class="toc" href="#UserLists">User lists</a></td>
-          <td>&cir; <a class="toc" href="#CallTips">Call tips</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#CallTips">Call tips</a></td>
           <td>&cir; <a class="toc" href="#KeyboardCommands">Keyboard commands</a></td>
           <td>&cir; <a class="toc" href="#KeyBindings">Key bindings</a></td>
-          <td>&cir; <a class="toc" href="#PopupEditMenu">Popup edit menu</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#PopupEditMenu">Popup edit menu</a></td>
           <td>&cir; <a class="toc" href="#MacroRecording">Macro recording</a></td>
           <td>&cir; <a class="toc" href="#Printing">Printing</a></td>
-          <td>&cir; <a class="toc" href="#DirectAccess">Direct access</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#DirectAccess">Direct access</a></td>
           <td>&cir; <a class="toc" href="#MultipleViews">Multiple views</a></td>
           <td>&cir; <a class="toc" href="#BackgroundLoadSave">Background loading and saving</a></td>
-          <td>&cir; <a class="toc" href="#DocumentInterface">Document interface</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#DocumentInterface">Document interface</a></td>
           <td>&cir; <a class="toc" href="#Folding">Folding</a></td>
           <td>&cir; <a class="toc" href="#LineWrapping">Line wrapping</a></td>
-          <td>&cir; <a class="toc" href="#Zooming">Zooming</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#Zooming">Zooming</a></td>
           <td>&cir; <a class="toc" href="#LongLines">Long lines</a></td>
           <td>&cir; <a class="toc" href="#Accessibility">Accessibility</a></td>
-          <td>&cir; <a class="toc" href="#Lexer">Lexer</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#Lexer">Lexer</a></td>
           <td>&cir; <a class="toc" href="#LexerObjects">Lexer objects</a></td>
           <td>&cir; <a class="toc" href="#Notifications">Notifications</a></td>
-          <td>&cir; <a class="toc" href="#Images">Images</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#Images">Images</a></td>
           <td>&cir; <a class="toc" href="#GTK">GTK</a></td>
           <td>&cir; <a class="toc" href="#ProvisionalMessages"><span class="provisional">Provisional messages</span></a></td>
-          <td>&cir; <a class="toc" href="#DeprecatedMessages">Deprecated messages</a></td>
         </tr>
 
         <tr>
+          <td>&cir; <a class="toc" href="#DeprecatedMessages">Deprecated messages</a></td>
           <td>&cir; <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never supported by Scintilla</a></td>
           <td>&cir; <a class="toc" href="#RemovedFeatures">Removed features</a></td>
+        </tr>
+
+        <tr>
           <td>&cir; <a class="toc" href="#BuildingScintilla">Building Scintilla</a></td>
         </tr>
       </tbody>
@@ -1987,6 +1991,117 @@ struct Sci_TextToFindFull {
      Coalescing treats coalescible container actions as transparent so will still only group together insertions that
      look like typing or deletions that look like multiple uses of the Backspace or Delete keys.
      </p>
+
+    <h2 id="UndoSaveRestore">Undo Save and Restore</h2>
+
+    <p>This feature is unfinished and has limitations.
+    When change history is active, it may show different changes than the previous session as undo actions
+    performed in that session are discarded in some circumstances such as when detaching from a save point.
+    A future version may add an API for archiving change history alongside undo history.
+    The operation sequences discussed here are a 'golden path' that has been tested to some extent and calling
+    the APIs in other circumstances or with out-of-bounds values may fail.</p>
+
+    <p>The behaviour of tentative actions in save and restore is uncertain as these are meant to be short-term states in language input
+    and which need to synchronize with a language IME (input method editor).
+    For now, restore the tentative point to -1 as it seems safest to regard the tentative change as committed.</p>
+
+    <p>Scintilla stores each change in an undo stack.
+    Various inter-action points play roles in undo behaviour: actions count, save point, detach point,
+    tentative point, and current action. Just like positions in documents, these points are between actions in the 
+    undo stack. Thus the current action specifies the number of actions that led to the current document state and
+    actions after this are for redo.
+    The save point specifies that the actions before this point are in the most recent save and actions after this are not yet saved.</p>
+    <p>When the user undoes from a save point and then performs a new change, the save point can no longer be reached and is -1.
+    The detach point is the point at which the undo stack branched away from the saved state and is used by
+    change history.</p>
+
+    <p>It is possible to retrieve the undo stack from Scintilla and subsequently restore the state of the stack.</p>
+
+    <p>An application may save both the document and its save stack between sessions to enable the user to return
+    to the same state the next time they edit.
+    For this to work, the loaded file must be exactly the same as when the undo stack was saved.
+    If the file was changed, even in minor ways like converting line ends from Windows to Unix style then
+    the undo actions will not line up so undo may fail completely and will produce unexpected results.</p>
+
+    <code><a class="message" href="#SCI_GETUNDOACTIONS">SCI_GETUNDOACTIONS &rarr; int</a><br />
+     <a class="message" href="#SCI_SETUNDOSAVEPOINT">SCI_SETUNDOSAVEPOINT(int action)</a><br />
+     <a class="message" href="#SCI_GETUNDOSAVEPOINT">SCI_GETUNDOSAVEPOINT &rarr; int</a><br />
+     <a class="message" href="#SCI_SETUNDODETACH">SCI_SETUNDODETACH(int action)</a><br />
+     <a class="message" href="#SCI_GETUNDODETACH">SCI_GETUNDODETACH &rarr; int</a><br />
+     <a class="message" href="#SCI_SETUNDOTENTATIVE">SCI_SETUNDOTENTATIVE(int action)</a><br />
+     <a class="message" href="#SCI_GETUNDOTENTATIVE">SCI_GETUNDOTENTATIVE &rarr; int</a><br />
+     <a class="message" href="#SCI_SETUNDOCURRENT">SCI_SETUNDOCURRENT(int action)</a><br />
+     <a class="message" href="#SCI_GETUNDOCURRENT">SCI_GETUNDOCURRENT &rarr; int</a><br />
+     <a class="message" href="#SCI_PUSHUNDOACTIONTYPE">SCI_PUSHUNDOACTIONTYPE(int type, position pos)</a><br />
+     <a class="message" href="#SCI_CHANGELASTUNDOACTIONTEXT">SCI_CHANGELASTUNDOACTIONTEXT(position length, const char *text)</a><br />
+     <a class="message" href="#SCI_GETUNDOACTIONTYPE">SCI_GETUNDOACTIONTYPE(int action) &rarr; int</a><br />
+     <a class="message" href="#SCI_GETUNDOACTIONPOSITION">SCI_GETUNDOACTIONPOSITION(int action) &rarr; position</a><br />
+     <a class="message" href="#SCI_GETUNDOACTIONTEXT ">SCI_GETUNDOACTIONTEXT(int action, char *text) &rarr; int</a><br />
+    </code>
+
+    <h3 id="UndoSave">Save</h3>
+
+    <p>The retrieval APIs are the 'GET*' ones:
+    <code>SCI_GETUNDOACTIONS</code>,
+    <code>SCI_GETUNDOSAVEPOINT</code>,
+    <code>SCI_GETUNDODETACH</code>,
+    <code>SCI_GETUNDOTENTATIVE</code>,
+    <code>SCI_GETUNDOCURRENT</code>,
+    <code>SCI_GETUNDOACTIONTYPE</code>,
+    <code>SCI_GETUNDOACTIONPOSITION</code>, and
+    <code>SCI_GETUNDOACTIONTEXT</code>.
+    </p>
+
+    <p>The <code>SCI_GETUNDOACTIONS</code>,
+    <code>SCI_GETUNDOSAVEPOINT</code>, <code>SCI_GETUNDODETACH</code>,
+    <code>SCI_GETUNDOTENTATIVE</code>, and <code>SCI_GETUNDOCURRENT</code>
+     APIs each return a single value and may be called in any order.
+    </p>
+
+    <p>The <code>SCI_GETUNDOACTIONTYPE</code>,
+    <code>SCI_GETUNDOACTIONPOSITION</code>, and <code>SCI_GETUNDOACTIONTEXT</code>
+    APIs take an action index and should be called with indices from 0 to one less than the result of
+    <code>SCI_GETUNDOACTIONS</code>.
+    The actions should only be iterated in the positive direction and should start from 0.
+    That is because undo stack data is not all randomly accessible and iterating in other orders may take O(n^2) time.
+    Data may also be inaccurate if a cursor is not initialised first with 0 index calls.
+    </p>
+
+    <h3 id="UndoRestore">Restore</h3>
+
+    <p>Restoration is only possible when the undo state is empty so <code>SCI_EMPTYUNDOBUFFER</code>
+    should be called first if there may already be some undo actions.</p>
+
+    <p>The restore APIs are the 'SET*' and others:
+    <code>SCI_SETUNDOSAVEPOINT</code>,
+    <code>SCI_SETUNDODETACH</code>,
+    <code>SCI_SETUNDOTENTATIVE</code>,
+    <code>SCI_SETUNDOCURRENT</code>,
+    <code>SCI_PUSHUNDOACTIONTYPE</code>, and
+    <code>SCI_CHANGELASTUNDOACTIONTEXT</code>.
+    </p>
+
+    <p>The history should first be set up with <code>SCI_PUSHUNDOACTIONTYPE</code> and
+    <code>SCI_CHANGELASTUNDOACTIONTEXT</code> then the save, detach, tentative, and current points set
+    with <code>SCI_SETUNDOSAVEPOINT</code>, <code>SCI_SETUNDODETACH</code>, <code>SCI_SETUNDOTENTATIVE</code>, and
+    <code>SCI_SETUNDOCURRENT</code>.
+    </p>
+
+    <p><code>SCI_PUSHUNDOACTIONTYPE(int type, position pos)</code> appends an action to the undo stack
+    with a particular type and position then the text and length of that action are set with
+    <code>SCI_CHANGELASTUNDOACTIONTEXT(position length, const char *text)</code>.
+    </p>
+
+    <p>
+    The last restoration API called should be <code>SCI_SETUNDOCURRENT</code> as this validates
+    the restored history and values against the document. For example, an undo history that could cause a negative
+    document length or insert / remove text outside the document is invalid.
+    If the restored undo state is invalid then a failure status is set and the undo history cleared.
+    Check for failure with <a class="seealso" href="#SCI_GETSTATUS">SCI_GETSTATUS</a>.
+    </p>
+
+    <p>The current implementation may only work when there is no tentative point.
+    </p>
 
     <h2 id="ChangeHistory">Change history</h2>
 
@@ -6303,6 +6418,18 @@ struct Sci_TextToFindFull {
 
           <td>On Win32 only, use a fixed size list instead of one that can be resized by the user.
 	  This also avoids a header rectangle above the list.</td>
+        </tr>
+
+        <tr>
+          <td align="left"><code>SC_AUTOCOMPLETE_SELECT_FIRST_ITEM</code></td>
+
+          <td align="center">2</td>
+
+          <td>Always select the first item from the autocompletion list regardless of the value
+            entered in the editor. Useful when the autocompletion logic of the application
+            sorts autocompletion entries so that the best match is always at the top of the
+            list. Without this option, Scintilla selects the item from the autocompletion
+            list matching the value entered in the editor.</td>
         </tr>
 
       </tbody>

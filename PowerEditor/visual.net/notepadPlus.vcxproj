@@ -65,7 +65,6 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
     <Import Project="notepadPlus.Cpp.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -114,6 +113,7 @@
     <ClCompile Include="..\src\MISC\sha2\sha-256.cpp" />
     <ClCompile Include="..\src\MISC\sha512\sha512.cpp" />
     <ClCompile Include="..\src\NppDarkMode.cpp" />
+    <ClCompile Include="..\src\dpiManagerV2.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\AutoCompletion.cpp" />
@@ -242,6 +242,7 @@
     <ClInclude Include="..\src\DarkMode\IatHook.h" />
     <ClInclude Include="..\src\DarkMode\UAHMenuBar.h" />
     <ClInclude Include="..\src\dpiManager.h" />
+    <ClInclude Include="..\src\dpiManagerV2.h" />
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />
     <ClInclude Include="..\src\MISC\Common\Sorters.h" />

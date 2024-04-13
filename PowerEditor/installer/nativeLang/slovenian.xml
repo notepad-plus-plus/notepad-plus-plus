@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v8.5.7
-        Last modified 09. Sep 2023 by dr. Vinko Kastelic
+        Slovenian localization for Notepad++ v8.6.5
+        Last modified 02. Apr 2024 by dr. Vinko Kastelic
 		
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.5.5">
+	<Native-Langue name="Slovenščina" filename="slovenian.xml" version="8.6.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,6 +39,8 @@
 					<Item subMenuId="edit-blankOperations" name="&amp;Obravnava praznin"/>
 					<Item subMenuId="edit-pasteSpecial" name="&amp;Posebno lepljenje"/>
 					<Item subMenuId="edit-onSelection" name="&amp;Na izbiro"/>
+					<Item subMenuId="edit-multiSelectALL" name="Večkratna izbira VSE"/>
+					<Item subMenuId="edit-multiSelectNext" name="Večkratna izbira VSEH"/>
 					<Item subMenuId="search-changeHistory" name="Zgodovina sprememb"/>
 					<Item subMenuId="search-markAll" name="Oblikuj &amp;vse pojavnosti žetona"/>
 					<Item subMenuId="search-markOne" name="Oblikuj &amp;en žeton"/>
@@ -154,6 +156,16 @@
 					<Item id="42074" name="Odpri vsebino mape v Raziskovalcu"/>
 					<Item id="42075" name="Iskanje na spletu"/>
 					<Item id="42076" name="Sprememba iskalnika..."/>
+					<Item id="42090" name="Prezri velike in male črke &amp;&amp; celotne besede"/>
+					<Item id="42091" name="Samo ujemanje velikih in malih črk"/>
+					<Item id="42092" name="Samo ujemanje celotne besede"/>
+					<Item id="42093" name="Ujemanje velikih in malih črk &amp;&amp; celotne besede"/>
+					<Item id="42094" name="Prezri velike in male črke &amp;&amp; celotne besede"/>
+					<Item id="42095" name="Samo ujemanje velikih in malih črk"/>
+					<Item id="42096" name="Samo ujemanje celotne besede"/>
+					<Item id="42097" name="Ujemanje velikih in malih črk &amp;&amp; celotne besede"/>
+					<Item id="42098" name="Razveljavi nazadnje dodano Večkratno izbiro"/>
+					<Item id="42099" name="Preskoči trenutno &amp;&amp; Pojdite na Naprej Večkratna izbira"/>
 					<Item id="42018" name="&amp;Začni snemanje"/>
 					<Item id="42019" name="&amp;Nehaj snemanje"/>
 					<Item id="42021" name="&amp;Predvajaj"/>
@@ -292,6 +304,8 @@
 					<Item id="44092" name="7. tabulator"/>
 					<Item id="44093" name="8. tabulator"/>
 					<Item id="44094" name="9. tabulator"/>
+					<Item id="44116" name="Prvi zavihek"/>
+					<Item id="44117" name="Zadnji zavihek"/>
 					<Item id="44095" name="Naslednji tabulator"/>
 					<Item id="44096" name="Predhodni tabulator"/>
 					<Item id="44097" name="Spremljanje (tail -f)"/>
@@ -333,13 +347,13 @@
 					<Item id="45054" name="OEM 861: islandski"/>
 					<Item id="45057" name="OEM 865: nordijski"/>
 					<Item id="45053" name="OEM 860: portugalski"/>
-					<Item id="45056" name="OEM 863: francoski"/>
-						
+					<Item id="45056" name="OEM 863: francoski"/>						
 					<Item id="10001" name="Premakni v drugi pogled"/>
 					<Item id="10002" name="Kloniraj v drugi pogled"/>
 					<Item id="10003" name="Premakni v novo pojavitev"/>
 					<Item id="10004" name="Odpri v novi pojavitvi"/>
-								
+					<Item id="10005" name="Premakni na začetek"/>
+					<Item id="10006" name="Premakni na konec"/>								
 					<Item id="46001" name="Nastavljanje sloga..."/>
 					<Item id="46250" name="Določite svoj jezik..."/>
 					<Item id="46300" name="Odpri mapo Uporabniško določen jezik..."/>
@@ -425,6 +439,8 @@
 				<Item CMDID="42030" name="Kopiraj ime datoteke"/>
 				<Item CMDID="42031" name="Kopiraj pot trenutne mape"/>
 				<Item CMDID="3" name="Premakni dokument"/>
+				<Item CMDID="10005" name="Premakni na začetek"/>
+				<Item CMDID="10006" name="Premakni na konec"/>
 				<Item CMDID="10001" name="Premakni v drugi pogled"/>
 				<Item CMDID="10002" name="Kloniraj v drug pogled"/>
 				<Item CMDID="10003" name="Premakni v novo pojavitev"/>
@@ -498,9 +514,9 @@
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Najdi"/>
-				<Item id="1685" name="Upoštevaj izbrano"/>
-				<Item id="1690" name="Poudari vse"/>
+				<Item id="1681" name="Najdi:"/>
+				<Item id="1685" name="Upoštevaj &amp;izbrano"/>
+				<Item id="1690" name="&amp;Poudari vse"/>
 			</IncrementalFind>
 				
 			<FindCharsInRange title="Najdi znake v območju...">
@@ -641,20 +657,10 @@
 				<ScintillaCommandsTab name="Ukazi Scintilla"/>
 				<ConflictInfoOk name="Za to postavko ni konfliktov z bližnjico."/>
 				<ConflictInfoEditing name="Ni konfliktov . . ."/>
-				<WindowCategory name="Okno"/>
-				<FileCategory name="File"/>
-				<EditCategory name="Edit"/>
-				<SearchCategory name="Search"/>
-				<ViewCategory name="View"/>
-				<FormatCategory name="Format"/>
-				<LangCategory name="Lang"/>
-				<AboutCategory name="About"/>
-				<SettingCategory name="Setting"/>
-				<ToolCategory name="Tool"/>
-				<ExecuteCategory name="Execute"/>
-				<ModifyContextMenu name="Modify"/>
-				<DeleteContextMenu name="Delete"/>
-				<ClearContextMenu name="Clear"/>
+				<AboutCategory name="O tem"/>
+				<ModifyContextMenu name="Spremeni"/>
+				<DeleteContextMenu name="Izbriši"/>
+				<ClearContextMenu name="Čisto"/>
 				<MainCommandNames>
 					<Item id="41019" name="Odpri vsebino mape v Raziskovalcu"/>
 					<Item id="41020" name="Odpri vsebino mape v ukaznem pozivu"/>
@@ -964,14 +970,14 @@
 
 					<Item id="6123" name="Lokalizacija"/>
 				</Global>
-				<Scintillas title="Urejanje">
+				
+				<Scintillas title="Urejanje 1">
 					<Item id="6216" name="Nastavitve kazalca"/>
 					<Item id="6217" name="Širina:"/>
 					<Item id="6219" name="Hitrost utripanja:"/>
 					<Item id="6221" name="H"/>
 					<Item id="6222" name="P"/>
 					<Item id="6246" name="Naredi preklopne ukaze za zlaganje/razpiranje na trenutni ravni"/>
-					<Item id="6225" name="Omogoči (Ctrl+klik miške/izbor)"/>
 					<Item id="6227" name="Prelom vrstice"/>
 					<Item id="6228" name="Privzeto"/>
 					<Item id="6229" name="Poravnano"/>
@@ -981,21 +987,30 @@
 					<Item id="6236" name="Omogoči pomikanje izven zadnje vrstice"/>
 					<Item id="6239" name="Obdrži izbor, ko z desno miškino tipko kliknete zunaj izbora"/>
 					<Item id="6245" name="Omogoči virtualni prostor"/>
+					<Item id="6214" name="Omogoči Kopiraj/Izreži vrstico brez izbire"/>
 					<Item id="6651" name="Indikator trenutne vrstice"/>
 					<Item id="6652" name="Nobena"/>
 					<Item id="6653" name="Označi ozadje"/>
 					<Item id="6654" name="Okvir"/>
 					<Item id="6655" name="Širina:"/>
+				 </Scintillas>
+
+				<Scintillas2 title="Urejanje 2">
+					<Item id="6521" name="Večkratno urejanje"/>
+					<Item id="6522" name="Omogoči večkratno urejanje (Ctrl+klik z miško/izbira)"/>
+					<Item id="6523" name="Omogoči izbiro stolpcev za večkratno urejanje"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Privzeto"/>
 					<Item id="6249" name="Golo besedilo"/>
 					<Item id="6250" name="Barva po meri"/>
 					<Item id="6252" name="Nenatisljivi znaki"/>
+					<Item id="6260" name="Videz"/>					
 					<Item id="6254" name="Kratica"/>
 					<Item id="6255" name="Kodna točka"/>
-					<Item id="6256" name="Barva po meri"/>
-					<Item id="6258" name="Uporabi za C0, C1 &amp;&amp; Unicode EOL"/>
-				</Scintillas>
+					<Item id="6256" name="Barva po meri"/>					
+					<Item id="6258" name="Apply Appearance settings to C0, C1 &amp;&amp; Unicode EOL"/>
+					<Item id="6259" name="Prevent control character (C0 code) typing into document"/>
+				</Scintillas2>
 				
 				<DarkMode title="Temni način">
 					<Item id="7131" name="Svetli način"/>
@@ -1037,11 +1052,11 @@
 					<Item id="6292" name="Dinamična širina"/>
 					<Item id="6293" name="Konstantna širina"/>
 					<Item id="6207" name="Prikaži zaznamek"/>
-					<Item id="6223" name="Prikaži zgodovino sprememb"/>
+					<Item id="6295" name="Zgodovina sprememb"/>
+					<Item id="6223" name="Show in the margin"/>
+					<Item id="6296" name="Show in the text"/>					
 					<Item id="6211" name="Nastavitev navpičnega roba"/>
-					<Item id="6213" name="Način ozadja"/>
-					<Item id="6237" name="Dodajte oznako stolpca tako, da z decimalno številko navedete njegovo pozicijo.
-Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločevanje različnih števil."/>
+					<Item id="6213" name="Način ozadja"/>					
 					<Item id="6231" name="Širina obrobe"/>
 					<Item id="6235" name="Brez roba"/>
 					<Item id="6208" name="Zapolnjeno"/>
@@ -1079,6 +1094,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="4009" name="Podprte pripone:"/>
 					<Item id="4010" name="Registrirane pripone:"/>
 				</FileAssoc>
+				
 				<Language title="Jezik">
 					<Item id="6505" name="Razpoložljive postavke"/>
 					<Item id="6506" name="Onemogočene postavke"/>
@@ -1152,10 +1168,11 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6903" name="Pogovorno okno za iskanje ostane odprto po iskanju, ki se prikaže v oknu z rezultati"/>
 					<Item id="6904" name="Potrdite Zamenjaj vse v vseh odprtih dokumentih"/>
 					<Item id="6905" name="Zamenjaj: Ne premakni se na naslednji pojav"/>
-					<Item id="6906" name="Okno z rezultati iskanja: prikaže samo en vnos na najdeno vrstico"/>
+					<Item id="6906" name="Okno z rezultati iskanja: po možnosti prikaži samo en vnos na najdeno vrstico"/>
 					<Item id="6907" name="Ko se odpre pogovorno okno Najdi"/>
 					<Item id="6908" name="Izpolni iskalno polje z izbranim besedilom"/>
 					<Item id="6909" name="Izberi besedo pod znakom, ko ni izbrano nič"/>
+				    <Item id="6910" name="Najmanjša velikost za samodejno preverjanje &quot;V izboru&quot;:"/>					
 				</Searching>
 
 				<RecentFilesHistory title="Nastavitev zgodovine datotek">
@@ -1176,6 +1193,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="6821" name="sekund"/>
 					<Item id="6822" name="Pot varnostne kopije:"/>
 					<Item id="6309" name="Zapomni si trenutno sejo za naslednji zagon"/>
+					<Item id="6825" name="Zapomni si nedostopne datoteke iz pretekle seje"/>					
 					<Item id="6801" name="Varnostno kopiranje pri shranjevanju"/>
 					<Item id="6315" name="Brez"/>
 					<Item id="6316" name="Enostavno varnostno kopiranje"/>
@@ -1244,7 +1262,7 @@ Lahko določite več označevalcev stolpcev z uporabo belega presledka za ločev
 					<Item id="7141" name="Omejitev velikih datotek"/>
 					<Item id="7143" name="Omogoči omejitev velikih datotek (brez označevanja sintakse)"/>
 					<Item id="7144" name="Določi velikost velike datoteke:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Dovoli ujemanje oklepajev"/>
 					<Item id="7148" name="Dovoli samodejno dokončanje"/>
 					<Item id="7149" name="Dovoli pametno označevanje"/>
@@ -1365,7 +1383,7 @@ To pogovorno okno lahko pozneje znova aktivirate v nastavitvah."/>
 				<Item id="6" name="&amp;Da"/>
 				<Item id="7" name="&amp;Ne"/>
 				<Item id="4" name="&amp;Vedno da"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1490,6 +1508,20 @@ Preizkusite te ukaze in jih po potrebi ponovno uredite.
 Lahko pa preidete na Notepad++ v8.5.2 in obnovite prejšnje podatke.
 Notepad++ bo varnostno kopiral vaše stare &quot;shortcuts.xml&quot; in ga shranite kot &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Preimenovanje &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, vaši ukazi morajo biti obnovljeni in pravilno delovati."/><!-- HowToReproduce: Zaprite Notepad++, odstranite shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml, če je prisoten, znova zaženite Notepad++, izbrišite ali spremenite bližnjice prek Shortcut Mapper, zaprite Notepad++, nato se prikaže sporočilo -->
+			<NotEnoughRoom4Saving title="Shranjevanje ni uspelo" message="Datoteke ni bilo mogoče shraniti.
+Zdi se, da na disku ni dovolj prostora za shranjevanje datoteke. Vaša datoteka ni shranjena."/>
+			<FileInaccessibleUserSession title="Datoteka nedostopna" message="Nekatere datoteke iz vaše ročno shranjene seje &quot;$STR_REPLACE$&quot; so nedostopne. Lahko jih odprete kot prazne in samo za branje dokumente kot ogradne oznake.
+
+Ali želite ustvariti te nadomestne oznake?
+
+OPOMBA: Če se odločite, da ne ustvarite ograd ali jih zaprete pozneje, vaša ročno shranjena seja NE BO spremenjena ob izhodu."/>
+			<FileInaccessibleDefaultSessionXml title="Datoteka nedostopna" message="Nekatere datoteke iz vaše pretekle seje so nedostopne. Lahko jih odprete kot prazne dokumente in dokumente samo za branje kot ogradne oznake.
+
+Ali želite ustvariti te nadomestne oznake?
+
+OPOMBA: če se odločite, da ne ustvarite ograd ali jih zaprete pozneje, BO vaša seja OB IZHODU SPREMENJENA! Predlagamo, da varnostno kopirate svoj &quot;session.xml&quot; zdaj."/>
+			<RTLvsDirectWrite title="Ni mogoče zagnati RTL" message="RTL ni združljiv z načinom DirectWrite. Onemogočite način DirectWrite v MISC. razdelku pogovornega okna Preferences in znova zaženite Notepad++."/>		
+			<FileMemoryAllocationFailed title="Izjema: dodelitev pomnilnika datoteki ni uspela" message="Verjetno ni dovolj neprekinjenega prostega pomnilnika za datoteko, ki jo nalaga Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zgodovina odložišča"/>
@@ -1612,8 +1644,7 @@ Preimenovanje &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&
 			<cloud-select-folder value="Izberite mapo od/do, kjer Notepad++ bere/zapisuje svoje nastavitve"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Izberite mapo kot privzeti imenik"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Uporabite Shift + Enter za iskanje v nasprotni smeri"/>
-			<two-find-buttons-tip value="dva gumba za iskanje"/>
-			<file-rename-title value="Preimenuj"/>
+			<two-find-buttons-tip value="2 gumba za iskanje"/>
 			<find-in-files-filter-tip value="Najdi v cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1649,6 +1680,7 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
 			<find-status-replace-not-found value="Zamenjaj: ni bilo nobene pojavitve"/>
 			<find-status-replace-readonly value="Zamenjaj: Besedilo ni mogoče zamenjati. Trenutni dokument je samo za branje"/>
 			<find-status-cannot-find value="Najdi: Besedila ni mogoče najti &quot;$STR_REPLACE$&quot;"/>
+			<find-status-cannot-find-pebkac-maybe value="Danega pojava ni mogoče najti. Morda ste pozabili obkljukati &quot;Zavij&quot; (na VKLOP), &quot;Ujemanje velikih in malih črk&quot; (na IZKLOP) ali &quot;Ujemaj samo celotno besedo&quot; (na IZKLOP)."/>			
 			<find-status-scope-selection value="v izbranem besedilu"/>
 			<find-status-scope-all value="v celotni datoteki"/>
 			<find-status-scope-backward value="od začetka datoteke do karete"/>
@@ -1658,9 +1690,7 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
 			<finder-collapse-all value="Zloži vse"/>
 			<finder-uncollapse-all value="Razgrni vse"/>
 			<finder-copy value="Kopiraj izbrane vrstice"/>
-			<finder-copy-verbatim value="Kopiraj"/>
 			<finder-copy-paths value="Kopiraj ime(na) poti"/>
-			<finder-select-all value="Izberi vse"/>
 			<finder-clear-all value="Počisti vse"/>
 			<finder-open-all value="Odpri vse"/>
 			<finder-purge-for-every-search value="Počisti za vsakim iskanjem"/>
@@ -1687,7 +1717,6 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
 			<summary-nbsel2 value=" bajtov) v "/>
 			<summary-nbrange value=" razponu"/>
 			<progress-hits-title value="Zadetki:"/>
-			<progress-cancel-button value="Prekliči"/>
 			<progress-cancel-info value="Preklic operacije, počakajte..."/>
 			<find-in-files-progress-title value="Potek iskanja v datotekah..."/>
 			<replace-in-files-confirm-title value="Ali ste prepričani?"/>
@@ -1702,6 +1731,11 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
 			<find-result-title value="Iskanje"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ zadetkov v $INT_REPLACE2$ datotek od $INT_REPLACE3$ iskanih)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ zadetkov v $INT_REPLACE2$ izbirah od $INT_REPLACE3$ iskanih)"/>
+			<find-result-title-info-options-searchmode-normal value="Normalno"/>
+			<find-result-title-info-options-searchmode-extended value="Razširjeno"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Primer"/>
+			<find-result-title-info-options-word value="Beseda"/>
 			<find-result-title-info-extra value=" - Način linijskega filtra: prikaže samo filtrirane rezultate"/>
 			<find-result-hits value="($INT_REPLACE$ zadetkov)"/>
 			<find-result-line-prefix value="Vrstica"/><!-- Must not begin with space or tab character -->
@@ -1750,6 +1784,8 @@ Kliknite na &quot;?&quot; gumb na desni, da odprete spletno mesto z uporabniški
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Pojdite v konfigurator sloga, da spremenite privzeto barvo po meri za izbrane presledke in nenatisljive znake (&quot;Barva po meri nenatisljivih znakov&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Uporabi nastavitve videza nenatisljivih znakov za kontrolne znake C0, C1 in znake Unicode EOL (naslednja vrstica, ločilo vrstic in ločilo odstavkov)."/>
+			<searchingInSelThresh-tip value="Število izbranih znakov v območju urejanja za samodejno preverjanje &quot;V izboru&quot; potrditveno polje, ko je aktivirano pogovorno okno Najdi. Največja vrednost je 1024. Nastavite vrednost na 0, da onemogočite samodejno preverjanje."/>
+			<verticalEdge-tip value="Dodajte svoj označevalec stolpca tako, da njegov položaj označite z decimalno številko. Določite lahko več označevalcev stolpcev z uporabo praznega prostora za ločevanje različnih številk."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

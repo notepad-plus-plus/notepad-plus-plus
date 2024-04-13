@@ -104,6 +104,7 @@ SRC_OBJS=\
 	$(DIR_O)\RunStyles.obj \
 	$(DIR_O)\Selection.obj \
 	$(DIR_O)\Style.obj \
+	$(DIR_O)\UndoHistory.obj \
 	$(DIR_O)\UniConversion.obj \
 	$(DIR_O)\UniqueString.obj \
 	$(DIR_O)\ViewStyle.obj \

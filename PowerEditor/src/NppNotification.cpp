@@ -151,8 +151,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
 					Buffer *pBuf = MainFileManager.getBufferByID(id);
 
-					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
-					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
+					const Buffer* currentBufMain = _mainEditView.getCurrentBuffer();
+					const Buffer* currentBufSub = _subEditView.getCurrentBuffer();
 
 					RECT rect{};
 					TabCtrl_GetItemRect(pTabDocView->getHSelf(), tbHdr->_tabOrigin, &rect);
@@ -179,10 +179,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (pTabDocView)
 				{
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
-					Buffer *pBuf = MainFileManager.getBufferByID(id);
+					Buffer* pBuf = MainFileManager.getBufferByID(id);
 
-					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
-					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
+					const Buffer* currentBufMain = _mainEditView.getCurrentBuffer();
+					const Buffer* currentBufSub = _subEditView.getCurrentBuffer();
 
 					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
@@ -478,10 +478,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_UNICODE_TYPE))
 				{
-					POINT p;
-					::GetCursorPos(&p);
+					POINT cursorPos;
+					::GetCursorPos(&cursorPos);
 					HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
-					TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+					TrackPopupMenu(hLangMenu, 0, cursorPos.x, cursorPos.y, 0, _pPublicInterface->getHSelf(), NULL);
 				}
 				return TRUE;
 			}
@@ -1072,7 +1072,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (_syncInfo.doSync())
 				doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
-			NppParameters& nppParam = NppParameters::getInstance();
+			const NppParameters& nppParam = NppParameters::getInstance();
 
 			// if it's searching/replacing, then do nothing
 			if ((_linkTriggered && !nppParam._isFindReplacing) || notification->wParam == LINKTRIGGERED)

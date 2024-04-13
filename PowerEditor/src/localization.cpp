@@ -25,7 +25,7 @@ using namespace std;
 
 
 
-MenuPosition menuPos[] = {
+MenuPosition g_menuFolderPositions[] = {
 //==============================================
 //	{L0,  L1, L2, id},
 //==============================================
@@ -110,6 +110,18 @@ MenuPosition menuPos[] = {
 	{ -1,  -1, -1, "" } // End of array
 };
 
+MenuPosition& getMenuPosition(const char* id)
+{
+	int nbSubMenuPos = sizeof(g_menuFolderPositions) / sizeof(MenuPosition);
+
+	for (int i = 0; i < nbSubMenuPos; ++i)
+	{
+		if (strcmp(g_menuFolderPositions[i]._id, id) == 0)
+			return g_menuFolderPositions[i];
+	}
+	return g_menuFolderPositions[nbSubMenuPos - 1];
+}
+
 void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish)
 {
 	if (nativeLangDocRootA)
@@ -158,7 +170,7 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
 				if (declaration)
 				{
 					const char * encodingStr = declaration->Encoding();
-					EncodingMapper& em = EncodingMapper::getInstance();
+					const EncodingMapper& em = EncodingMapper::getInstance();
                     int enc = em.getEncodingFromString(encodingStr);
                     _nativeLangEncoding = (enc != -1)?enc:CP_ACP;
 				}
@@ -198,19 +210,59 @@ generic_string NativeLangSpeaker::getSubMenuEntryName(const char *nodeName) cons
 	return TEXT("");
 }
 
-generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
+void purifyMenuString(string& s)
+{
+	// Remove & for CJK localization
+	size_t posAndCJK = s.find("(&", 0);
+	if (posAndCJK != string::npos)
+	{
+		if (posAndCJK + 3 < s.length())
+		{
+			if (s[posAndCJK + 3] == ')')
+				s.erase(posAndCJK, 4);
+		}
+	}
+
+	// Remove & and transform && to & for all localizations
+	for (int i = static_cast<int>(s.length()) - 1; i >= 0; --i)
+	{
+		if (s[i] == '&')
+		{
+			if (i-1 >= 0 && s[i-1] == '&')
+			{
+				s.erase(i, 1);
+				i -= 1;
+			}
+			else
+			{
+				s.erase(i, 1);
+			}
+		}
+	}
+
+	// Remove ellipsis...
+	size_t len = s.length();
+	if (len <= 3)
+		return;
+	size_t posEllipsis = len - 3;
+	if (s.substr(posEllipsis) == "...")
+		s.erase(posEllipsis, 3);
+
+}
+
+generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID, generic_string inCaseOfFailureStr, bool removeMarkAnd) const
 {
 	if (!_nativeLangA)
-		return TEXT("");
+		return inCaseOfFailureStr;
 
 	TiXmlNodeA *node = _nativeLangA->FirstChild("Menu");
-	if (!node) return TEXT("");
+	if (!node) return inCaseOfFailureStr;
 
 	node = node->FirstChild("Main");
-	if (!node) return TEXT("");
+	if (!node) return inCaseOfFailureStr;
 
 	node = node->FirstChild("Commands");
-	if (!node) return TEXT("");
+	if (!node) return inCaseOfFailureStr;
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 
@@ -225,11 +277,17 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 			const char *name = element->Attribute("name");
 			if (name)
 			{
-				return wmc.char2wchar(name, _nativeLangEncoding);
+				string nameStr = name;
+
+				if (removeMarkAnd)
+				{
+					purifyMenuString(nameStr);
+				}
+				return wmc.char2wchar(nameStr.c_str(), _nativeLangEncoding);
 			}
 		}
 	}
-	return TEXT("");
+	return inCaseOfFailureStr;
 }
 
 generic_string NativeLangSpeaker::getShortcutNameString(int itemID) const
@@ -289,20 +347,6 @@ generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const
 	return wmc.char2wchar(value, _nativeLangEncoding);
 }
 
-
-
-MenuPosition & getMenuPosition(const char *id)
-{
-
-	int nbSubMenuPos = sizeof(menuPos)/sizeof(MenuPosition);
-
-	for (int i = 0; i < nbSubMenuPos; ++i) 
-	{
-		if (strcmp(menuPos[i]._id, id) == 0)
-			return menuPos[i];
-	}
-	return menuPos[nbSubMenuPos-1];
-}
 
 // Get string from map.
 // If string not found, get string from menu, then put it into map for the next use.
@@ -743,8 +787,8 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 				{
 					if (id == IDC_DOCK_BUTTON && userDefineDlg->isDocked())
 					{
-						generic_string name = getAttrNameByIdStr(TEXT("Undock"), userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
-						::SetWindowText(hItem, name.c_str());
+						generic_string undockStr = getAttrNameByIdStr(TEXT("Undock"), userDefineDlgNode, std::to_string(IDC_UNDOCK_BUTTON).c_str());
+						::SetWindowText(hItem, undockStr.c_str());
 					}
 					else
 					{
@@ -942,6 +986,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	{
 		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Scintillas"), nameW);
+	}
+
+	changeDlgLang(preference._editing2SubDlg.getHSelf(), "Scintillas2", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("Scintillas2"), nameW);
 	}
 
 	changeDlgLang(preference._darkModeSubDlg.getHSelf(), "DarkMode", titre, titreMaxSize);
@@ -1429,7 +1480,7 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 	return defaultStr;
 }
 
-	generic_string NativeLangSpeaker::getAttrNameByIdStr(const TCHAR *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name, const char *nodeL2Name) const
+generic_string NativeLangSpeaker::getAttrNameByIdStr(const TCHAR *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name, const char *nodeL2Name) const
 {
 	if (!targetNode) return defaultStr;
 

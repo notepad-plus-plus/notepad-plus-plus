@@ -98,6 +98,8 @@
 		286F8EE0260448C300EC8D60 /* Geometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 286F8EDD260448C300EC8D60 /* Geometry.h */; };
 		287F3C6A246F90240040E76F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287F3C69246F90240040E76F /* Cocoa.framework */; };
 		287F3C6C246F90300040E76F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287F3C6B246F90300040E76F /* QuartzCore.framework */; };
+		28B962A52B6AF44F00ACCD96 /* UndoHistory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28B962A32B6AF44F00ACCD96 /* UndoHistory.cxx */; };
+		28B962A62B6AF44F00ACCD96 /* UndoHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 28B962A42B6AF44F00ACCD96 /* UndoHistory.h */; };
 		28EA9CAE255894B4007710C4 /* CharacterCategoryMap.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */; };
 		28EA9CAF255894B4007710C4 /* CharacterType.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28EA9CAB255894B4007710C4 /* CharacterType.cxx */; };
 		28EA9CB0255894B4007710C4 /* CharacterCategoryMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */; };
@@ -199,6 +201,8 @@
 		287F3C69246F90240040E76F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		287F3C6B246F90300040E76F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		287F3E0F246F9AE50040E76F /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = SOURCE_ROOT; };
+		28B962A32B6AF44F00ACCD96 /* UndoHistory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UndoHistory.cxx; path = ../../src/UndoHistory.cxx; sourceTree = "<group>"; };
+		28B962A42B6AF44F00ACCD96 /* UndoHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UndoHistory.h; path = ../../src/UndoHistory.h; sourceTree = "<group>"; };
 		28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterCategoryMap.cxx; path = ../../src/CharacterCategoryMap.cxx; sourceTree = "<group>"; };
 		28EA9CAB255894B4007710C4 /* CharacterType.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterType.cxx; path = ../../src/CharacterType.cxx; sourceTree = "<group>"; };
 		28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterCategoryMap.h; path = ../../src/CharacterCategoryMap.h; sourceTree = "<group>"; };
@@ -306,6 +310,8 @@
 				2829372124E2D58700C84BA2 /* SplitVector.h */,
 				2829370424E2D58500C84BA2 /* Style.cxx */,
 				282936F224E2D58400C84BA2 /* Style.h */,
+				28B962A32B6AF44F00ACCD96 /* UndoHistory.cxx */,
+				28B962A42B6AF44F00ACCD96 /* UndoHistory.h */,
 				2829370F24E2D58500C84BA2 /* UniConversion.cxx */,
 				282936FC24E2D58400C84BA2 /* UniConversion.h */,
 				282936F324E2D58400C84BA2 /* UniqueString.cxx */,
@@ -397,6 +403,7 @@
 				2829376F24E2D58800C84BA2 /* Document.h in Headers */,
 				2829374A24E2D58800C84BA2 /* ContractionState.h in Headers */,
 				2829376024E2D58800C84BA2 /* XPM.h in Headers */,
+				28B962A62B6AF44F00ACCD96 /* UndoHistory.h in Headers */,
 				2829372F24E2D58800C84BA2 /* ElapsedPeriod.h in Headers */,
 				28EA9CB1255894B4007710C4 /* CharacterType.h in Headers */,
 				2829373A24E2D58800C84BA2 /* MarginView.h in Headers */,
@@ -522,6 +529,7 @@
 				2829373C24E2D58800C84BA2 /* CaseFolder.cxx in Sources */,
 				2829374824E2D58800C84BA2 /* RESearch.cxx in Sources */,
 				2829377024E2D58800C84BA2 /* EditView.cxx in Sources */,
+				28B962A52B6AF44F00ACCD96 /* UndoHistory.cxx in Sources */,
 				2829376724E2D58800C84BA2 /* ScintillaBase.cxx in Sources */,
 				2829374724E2D58800C84BA2 /* Style.cxx in Sources */,
 				2829375A24E2D58800C84BA2 /* ViewStyle.cxx in Sources */,
@@ -574,7 +582,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.4.1;
+				CURRENT_PROJECT_VERSION = 5.4.3;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -639,7 +647,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.4.1;
+				CURRENT_PROJECT_VERSION = 5.4.3;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -672,7 +680,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5.4.1;
+				CURRENT_PROJECT_VERSION = 5.4.3;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -707,7 +715,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5.4.1;
+				CURRENT_PROJECT_VERSION = 5.4.3;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";

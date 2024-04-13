@@ -30,10 +30,11 @@ Opening an issue beforehand allows the administrators and the community to discu
 5. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
 6. PR of reformatting (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
 7. Typo fixing and code refactoring won't be accepted - please create issues with title started with `TYPO` to request the changing.
-8. Address the review change requests by pushing new commits to the same PR. Avoid amending a commit and then force pushing it. All the PR commits are squashed before merging to the main branch.
-9. When creating new PR, try to base it on latest master.
-10. Don't merge `upstream/master` (using git or via github sync), if your PR is based on older `upstream/master`. If you need to base it on latest `master` (e.g. to check and fix merge conflict), use commands `git fetch upstream` to get latest `master` and then `git rebase upstream/master` to rebase it onto this latest `upstream/master`.
-11. Finally, please test your pull requests, at least once.
+8. The PR for the enhancement of Function List parser should also include unit test. Please refer [here](https://npp-user-manual.org/docs/function-list/#contribute-your-new-or-enhanced-parser-rule-to-the-notepad-codebase) for more information. 
+9. Address the review change requests by pushing new commits to the same PR. Avoid amending a commit and then force pushing it. All the PR commits are squashed before merging to the main branch.
+10. When creating new PR, try to base it on latest master.
+11. Don't merge `upstream/master` (using git or via github sync), if your PR is based on older `upstream/master`. If you need to base it on latest `master` (e.g. to check and fix merge conflict), use commands `git fetch upstream` to get latest `master` and then `git rebase upstream/master` to rebase it onto this latest `upstream/master`.
+12. Finally, please test your pull requests, at least once.
 
 In short: The easier the code review is, the better the chance your pull request will get accepted.
 

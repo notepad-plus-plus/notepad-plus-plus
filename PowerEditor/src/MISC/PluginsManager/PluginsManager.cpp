@@ -815,7 +815,7 @@ bool PluginsManager::allocateCmdID(int numberRequired, int *start)
 
 	*start = _dynamicIDAlloc.allocate(numberRequired);
 
-	if (-1 == *start)
+	if (*start == -1)
 	{
 		*start = 0;
 		retVal = false;

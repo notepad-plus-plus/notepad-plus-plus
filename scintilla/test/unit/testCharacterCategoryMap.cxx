@@ -24,7 +24,7 @@ using namespace Scintilla::Internal;
 
 TEST_CASE("CharacterCategoryMap") {
 
-	CharacterCategoryMap ccm;
+	const CharacterCategoryMap ccm;
 
 	SECTION("LowerCaseLetter") {
 		const CharacterCategory cc = ccm.CategoryFor('a');

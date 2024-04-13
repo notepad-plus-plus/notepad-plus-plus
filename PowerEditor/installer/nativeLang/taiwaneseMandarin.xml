@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.6">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.6.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -928,7 +928,7 @@
 					<Item id="6127" name="停用副檔名欄"/>
 				</Global>
 
-				<Scintillas title="編輯">
+				<Scintillas title="編輯一">
 					<Item id="6216" name="游標設定"/>
 					<Item id="6217" name="寬度："/>
 					<Item id="6219" name="閃爍頻率："/>
@@ -944,16 +944,30 @@
 					<Item id="6236" name="允許捲動至超出最後一行"/>
 					<Item id="6239" name="在選擇範圍之外點擊滑鼠右鍵時仍保留選擇範圍"/>
 					<Item id="6245" name="啟用虛擬空間"/>
+					<Item id="6214" name="允許無文字選取時複製/剪下當前整行文字"/>
 					<Item id="6651" name="游標行設定"/>
 					<Item id="6652" name="無"/>
 					<Item id="6653" name="加上背景顏色"/>
 					<Item id="6654" name="加上邊緣線"/>
 					<Item id="6655" name="粗細度："/>
+				</Scintillas>
+
+				<Scintillas2 title="編輯二">
+					<Item id="6521" name="多位同時編輯"/>
+					<Item id="6522" name="啟用多個位置同時編輯（Ctrl + 滑鼠點擊/選取）"/>
+					<Item id="6523" name="啟用行列模式自動轉換到多位同時編輯"/>
 					<Item id="6247" name="換行字符（CRLF）"/>
 					<Item id="6248" name="內定"/>
 					<Item id="6249" name="純文字"/>
 					<Item id="6250" name="使用自訂顏色"/>
-				</Scintillas>
+					<Item id="6252" name="非列印字符"/>
+					<Item id="6260" name="外觀"/>
+					<Item id="6254" name="縮寫"/>
+					<Item id="6255" name="代碼"/>
+					<Item id="6256" name="使用自訂顏色"/>
+					<Item id="6258" name="套用設定的外觀於 C0, C1 &amp;&amp; 萬國碼換行字符"/>
+					<Item id="6259" name="禁止控制字元（C0 代碼）輸入文件"/>
+				</Scintillas2>
 
 				<DarkMode title="黑暗模式">
 					<Item id="7131" name="鮮明模式"/>
@@ -988,17 +1002,17 @@
 					<Item id="6203" name="箭頭"/>
 					<Item id="6204" name="圓形"/>
 					<Item id="6205" name="方形"/>
-					<Item id="6226" name="無"/>
+					<Item id="6226" name="無"/> 
 					<Item id="6291" name="行號"/>
 					<Item id="6206" name="顯示"/>
 					<Item id="6292" name="動態寬度"/>
 					<Item id="6293" name="恆定寬度"/>
 					<Item id="6207" name="顯示標記"/>
-					<Item id="6223" name="顯示文件修改紀錄"/>
+					<Item id="6295" name="文件修改紀錄"/>
+					<Item id="6223" name="顯示在邊框上"/>
+					<Item id="6296" name="顯示在字裡行間"/>
 					<Item id="6211" name="行界線設定"/>
 					<Item id="6213" name="背景色模式"/>
-					<Item id="6237" name="如欲添加列標記可以在下面以數字指示其列位置。
-使用空格分隔不同數字來定義多個列標記。"/>
 					<Item id="6231" name="邊框寬度"/>
 					<Item id="6235" name="無邊框"/>
 					<Item id="6208" name="填充"/>
@@ -1190,7 +1204,7 @@
 					<Item id="7141" name="大型檔案限制"/>
 					<Item id="7143" name="啟動大型檔案限制（沒有語法醒目提示）"/>
 					<Item id="7144" name="定義大型檔案文件長度大小："/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="允許顏色顯示對應括號"/>
 					<Item id="7148" name="允許自動完成功能"/>
 					<Item id="7149" name="允許智慧醒目提示"/>
@@ -1547,8 +1561,6 @@
 			<finder-collapse-all value="層數全部收折"/>
 			<finder-uncollapse-all value="層數全部展開"/>
 			<finder-copy value="複製全行"/>
-			<finder-copy-verbatim value="複製"/>
-			<finder-select-all value="全部選取"/>
 			<finder-clear-all value="全部清除"/>
 			<finder-open-all value="全部開啟"/>
 			<finder-wrap-long-lines value="自動換行"/>
@@ -1611,6 +1623,7 @@
 
 2. 如果「停用自動換行」被啟動，在開啟一個大型文件時，「自動換行」將對所有文件停用。 你可以通過選單「檢視-&gt;自動換行」重新啟動這個功能。"/>
 			<searchingInSelThresh-tip value="在尋找與取代對話方塊啟動時，為啟動自動勾選核取方塊「僅尋找選取範圍」在編輯區中選取的字符數量。 最大值為 1024。 將值設置為 0 將停止自動勾選功能。"/>
+			<verticalEdge-tip value="如欲添加列標記可以在下面以數字指示其列位置。使用空格分隔不同數字來定義多個列標記。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

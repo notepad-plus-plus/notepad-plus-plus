@@ -47,7 +47,20 @@ class EditingSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public :
 	EditingSubDlg() = default;
-	~EditingSubDlg() {
+	~EditingSubDlg() = default;
+	
+private :
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+	void initScintParam();
+	void changeLineHiliteMode(bool enableSlider);
+};
+
+class Editing2SubDlg : public StaticDialog
+{
+friend class PreferenceDlg;
+public :
+	Editing2SubDlg() = default;
+	~Editing2SubDlg() {
 		if (_tip != nullptr)
 		{
 			::DestroyWindow(_tip);
@@ -63,8 +76,8 @@ public :
 			}
 		}
 	};
-	
-private :
+
+private:
 	HWND _tip = nullptr;
 	HWND _tipNote = nullptr;
 	HWND _tipAbb = nullptr;
@@ -73,10 +86,7 @@ private :
 	HWND _tipNpcInclude = nullptr;
 
 	std::vector<HWND> _tips;
-
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	void initScintParam();
-	void changeLineHiliteMode(bool enableSlider);
 };
 
 class DarkModeSubDlg : public StaticDialog
@@ -105,11 +115,21 @@ private:
 
 class MarginsBorderEdgeSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	MarginsBorderEdgeSubDlg() = default;
-	
+	~MarginsBorderEdgeSubDlg() {
+		if (_verticalEdgeTip != nullptr)
+		{
+			::DestroyWindow(_verticalEdgeTip);
+			_verticalEdgeTip = nullptr;
+		}
+	};
+
 private :
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	HWND _verticalEdgeTip = nullptr;
+
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void initScintParam();
 };
 
@@ -327,6 +347,7 @@ private :
 	WindowVector _wVector;
 	GeneralSubDlg _generalSubDlg;
 	EditingSubDlg _editingSubDlg;
+	Editing2SubDlg _editing2SubDlg;
 	DarkModeSubDlg _darkModeSubDlg;
 	MarginsBorderEdgeSubDlg _marginsBorderEdgeSubDlg;
 	MiscSubDlg _miscSubDlg;

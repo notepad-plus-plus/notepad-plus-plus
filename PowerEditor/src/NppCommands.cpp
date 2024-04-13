@@ -255,7 +255,7 @@ void Notepad_plus::command(int id)
 				auto files = _pDocumentListPanel->getSelectedFiles(false);
 				for (auto&& sel : files)
 					buffers.push_back(MainFileManager.getBufferByID(sel._bufID));
-				buf2Clipborad(buffers, id == IDM_DOCLIST_COPYPATHS, _pDocumentListPanel->getHSelf());
+				buf2Clipboard(buffers, id == IDM_DOCLIST_COPYPATHS, _pDocumentListPanel->getHSelf());
 			}
 			break;
 
@@ -364,7 +364,7 @@ void Notepad_plus::command(int id)
 				{
 					_pEditView->execute(WM_CUT);
 				}
-				else // Cut the entire line
+				else if (NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection) // Cut the entire line with EOL
 				{
 					_pEditView->execute(SCI_COPYALLOWLINE);
 					_pEditView->execute(SCI_LINEDELETE);
@@ -382,8 +382,15 @@ void Notepad_plus::command(int id)
 			HWND focusedHwnd = ::GetFocus();
 			if (focusedHwnd == _pEditView->getHSelf())
 			{
-				_pEditView->execute(SCI_COPYALLOWLINE); // Copy selected text if any.
-														// Otherwise copy the entire line with EOL, for pasting before any line where the caret is.
+				if (_pEditView->hasSelection())
+				{
+					_pEditView->execute(WM_COPY);
+				}
+				else if (NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection)
+				{
+					_pEditView->execute(SCI_COPYALLOWLINE); // Copy without selected text, it will copy the whole line with EOL, for pasting before any line where the caret is.
+				}
+
 			}
 			else
 			{
@@ -1282,7 +1289,7 @@ void Notepad_plus::command(int id)
 							buffers.push_back(buf);
 					}
 				}
-				buf2Clipborad({ buffers.begin(), buffers.end() }, id == IDM_EDIT_COPY_ALL_PATHS, _pPublicInterface->getHSelf());
+				buf2Clipboard({ buffers.begin(), buffers.end() }, id == IDM_EDIT_COPY_ALL_PATHS, _pPublicInterface->getHSelf());
 			}
 			break;
 
@@ -1676,7 +1683,7 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-        case IDM_EDIT_COLUMNMODETIP :
+		case IDM_EDIT_COLUMNMODETIP :
 		{
 			_nativeLangSpeaker.messageBox("ColumnModeTip",
 					_pPublicInterface->getHSelf(),
@@ -3174,7 +3181,7 @@ void Notepad_plus::command(int id)
             break;
         }
 
-        case IDM_SETTING_IMPORTSTYLETHEMS :
+        case IDM_SETTING_IMPORTSTYLETHEMES :
         {
             // get plugin source path
             const TCHAR *extFilterName = TEXT("Notepad++ style theme");
@@ -3756,6 +3763,7 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_TYPESCRIPT:
 		case IDM_LANG_GDSCRIPT:
 		case IDM_LANG_HOLLYWOOD:
+		case IDM_LANG_GOLANG:
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));
@@ -4193,9 +4201,6 @@ void Notepad_plus::command(int id)
 			case IDM_FILE_RELOAD:
 			case IDM_EDIT_UNDO:
 			case IDM_EDIT_REDO:
-			case IDM_EDIT_CUT:
-			case IDM_EDIT_COPY:
-			//case IDM_EDIT_PASTE:
 			case IDM_EDIT_DELETE:
 			case IDM_SEARCH_FINDNEXT :
 			case IDM_SEARCH_FINDPREV :
@@ -4217,8 +4222,6 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_TRANSPOSE_LINE:
 			case IDM_EDIT_SPLIT_LINES:
 			case IDM_EDIT_JOIN_LINES:
-			case IDM_EDIT_LINE_UP:
-			case IDM_EDIT_LINE_DOWN:
 			case IDM_EDIT_REMOVEEMPTYLINES:
 			case IDM_EDIT_REMOVEEMPTYLINESWITHBLANK:
 			case IDM_EDIT_UPPERCASE:
@@ -4370,6 +4373,14 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_MULTISELECTUNDO:
 			case IDM_EDIT_MULTISELECTSSKIP:
 				_macro.push_back(recordedMacroStep(id));
+				break;
+
+			// No need to record the following commands: all they do is execute Scintilla commands, which are recorded instead.
+			case IDM_EDIT_CUT:
+			case IDM_EDIT_COPY:
+			case IDM_EDIT_PASTE:
+			case IDM_EDIT_LINE_UP:
+			case IDM_EDIT_LINE_DOWN:
 				break;
 
 			// The following 3 commands will insert date time string during the recording:

@@ -1,0 +1,71 @@
+ 0 400 400   -- Enumerate all styles: 0 to 22, except for 3 (variable) and 11 (string) which are not implemented
+ 0 400 400   -- Hidden commands with other states (ored with ox40) are also possible inside /*! ... */
+ 1 400 400   
+ 0 400 400   /* commentline=2 */
+ 0 400 400   # comment
+ 1 400 400   
+ 0 400 400   # default=0
+ 0 400 400   	# w
+ 1 400 400   
+ 0 400 400   # comment=1
+ 0 400 400   /* comment */
+ 1 400 400   
+ 0 400 400   # variable=3 is not implemented
+ 0 400 400   @variable
+ 1 400 400   
+ 0 400 400   # systemvariable=4
+ 0 400 400   @@systemvariable
+ 1 400 400   
+ 0 400 400   # knownsystemvariable=5
+ 0 400 400   @@known
+ 1 400 400   
+ 0 400 400   # number=6
+ 0 400 400   6
+ 1 400 400   
+ 0 400 400   # majorkeyword=7
+ 0 400 400   select
+ 1 400 400   
+ 0 400 400   # keyword=8
+ 0 400 400   in
+ 1 400 400   
+ 0 400 400   # databaseobject=9
+ 0 400 400   object
+ 1 400 400   
+ 0 400 400   # procedurekeyword=10
+ 0 400 400   procedure
+ 1 400 400   
+ 0 400 400   # string=11 is not implemented
+ 1 400 400   
+ 0 400 400   # sqstring=12
+ 0 400 400   'string'
+ 1 400 400   
+ 0 400 400   # dqstring=13
+ 0 400 400   "string"
+ 1 400 400   
+ 0 400 400   # operator=14
+ 0 400 400   +
+ 1 400 400   
+ 0 400 400   # function=15
+ 0 400 400   function()
+ 1 400 400   
+ 0 400 400   # identifier=16
+ 0 400 400   identifier
+ 1 400 400   
+ 0 400 400   # quotedidentifier=17
+ 0 400 400   `quoted`
+ 1 400 400   
+ 0 400 400   # user1=18
+ 0 400 400   user1
+ 1 400 400   
+ 0 400 400   # user2=19
+ 0 400 400   user2
+ 1 400 400   
+ 0 400 400   # user3=20
+ 0 400 400   user3
+ 1 400 400   
+ 0 400 400   # hiddencommand=21
+ 0 400 400   /*!*/
+ 1 400 400   
+ 0 400 400   # placeholder=22
+ 0 400 400   <{placeholder>}
+ 0 400   0   

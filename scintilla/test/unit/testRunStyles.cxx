@@ -37,13 +37,13 @@ TEST_CASE("CompileCopying RunStyles") {
 		RunStyles<int, int> s2;
 
 		// Copy constructor
-		RunStyles<int, int> sa(s);
+		const RunStyles<int, int> sa(s);
 		// Copy assignment fails
 		RunStyles<int, int> sb;
 		sb = s;
 
 		// Move constructor
-		RunStyles<int, int> sc(std::move(s));
+		const RunStyles<int, int> sc(std::move(s));
 		// Move assignment
 		RunStyles<int, int> sd;
 		sd = (std::move(s2));
@@ -72,7 +72,7 @@ TEST_CASE("CompileCopying RunStyles") {
 }
 
 namespace Scintilla::Internal {	// Xcode clang 9.0 doesn't like this when in the unnamed namespace
-	bool operator==(const FillResult<int> &fra, const FillResult<int> &frb) {
+	bool operator==(const FillResult<int> &fra, const FillResult<int> &frb) noexcept {
 		return fra.changed == frb.changed &&
 			fra.position == frb.position &&
 			fra.fillLength == frb.fillLength;
@@ -149,8 +149,8 @@ TEST_CASE("RunStyles") {
 
 	SECTION("FillRange") {
 		rs.InsertSpace(0, 5);
-		int startFill = 1;
-		int lengthFill = 3;
+		const int startFill = 1;
+		const int lengthFill = 3;
 		const auto fr = rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(FillResult<int>{true, 1, 3} == fr);
 
@@ -169,13 +169,13 @@ TEST_CASE("RunStyles") {
 
 	SECTION("FillRangeAlreadyFilled") {
 		rs.InsertSpace(0, 5);
-		int startFill = 1;
-		int lengthFill = 3;
+		const int startFill = 1;
+		const int lengthFill = 3;
 		const auto fr = rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(FillResult<int>{true, 1, 3} == fr);
 
-		int startFill2 = 2;
-		int lengthFill2 = 1;
+		const int startFill2 = 2;
+		const int lengthFill2 = 1;
 		// Compiler warnings if 'false' used instead of '0' as expected value:
 		const auto fr2 = rs.FillRange(startFill2, 99, lengthFill2);
 		REQUIRE(FillResult<int>{false, 2, 1} == fr2);
@@ -189,13 +189,13 @@ TEST_CASE("RunStyles") {
 
 	SECTION("FillRangeAlreadyPartFilled") {
 		rs.InsertSpace(0, 5);
-		int startFill = 1;
-		int lengthFill = 2;
+		const int startFill = 1;
+		const int lengthFill = 2;
 		const auto fr = rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(FillResult<int>{true, 1, 2} == fr);
 
-		int startFill2 = 2;
-		int lengthFill2 = 2;
+		const int startFill2 = 2;
+		const int lengthFill2 = 2;
 		const auto fr2 = rs.FillRange(startFill2, 99, lengthFill2);
 		REQUIRE(FillResult<int>{true, 3, 1} == fr2);
 		REQUIRE(3 == rs.Runs());
@@ -225,8 +225,8 @@ TEST_CASE("RunStyles") {
 
 	SECTION("Find") {
 		rs.InsertSpace(0, 5);
-		int startFill = 1;
-		int lengthFill = 3;
+		const int startFill = 1;
+		const int lengthFill = 3;
 		const auto fr = rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(FillResult<int>{true, 1, 3} == fr);
 
@@ -261,8 +261,8 @@ TEST_CASE("RunStyles") {
 		REQUIRE(true == rs.AllSame());
 		REQUIRE(false == rs.AllSameAs(88));
 		REQUIRE(true == rs.AllSameAs(0));
-		int startFill = 1;
-		int lengthFill = 3;
+		const int startFill = 1;
+		const int lengthFill = 3;
 		const auto fr = rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(true == fr.changed);
 		REQUIRE(false == rs.AllSame());
@@ -334,8 +334,8 @@ TEST_CASE("RunStyles") {
 
 	SECTION("DeleteSecond") {
 		rs.InsertSpace(0, 3);
-		int startFill = 1;
-		int lengthFill = 1;
+		const int startFill = 1;
+		const int lengthFill = 1;
 		const auto fr = rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(true == fr.changed);
 		REQUIRE(3 == rs.Length());
@@ -347,8 +347,8 @@ TEST_CASE("RunStyles") {
 
 	SECTION("DeleteEndRun") {
 		rs.InsertSpace(0, 2);
-		int startFill = 1;
-		int lengthFill = 1;
+		const int startFill = 1;
+		const int lengthFill = 1;
 		const auto fr = rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(true == fr.changed);
 		REQUIRE(2 == rs.Length());
@@ -369,8 +369,8 @@ TEST_CASE("RunStyles") {
 
 	SECTION("OutsideBounds") {
 		rs.InsertSpace(0, 1);
-		int startFill = 1;
-		int lengthFill = 1;
+		const int startFill = 1;
+		const int lengthFill = 1;
 		rs.FillRange(startFill, 99, lengthFill);
 		REQUIRE(1 == rs.Length());
 		REQUIRE(1 == rs.Runs());

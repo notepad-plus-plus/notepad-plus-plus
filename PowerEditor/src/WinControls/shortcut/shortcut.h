@@ -95,7 +95,7 @@ public:
 	}
 
 	BYTE getAcceleratorModifiers() {
-		return ( FVIRTKEY | (_keyCombo._isCtrl?FCONTROL:0) | (_keyCombo._isAlt?FALT:0) | (_keyCombo._isShift?FSHIFT:0) );
+		return static_cast<BYTE>( FVIRTKEY | (_keyCombo._isCtrl?FCONTROL:0) | (_keyCombo._isAlt?FALT:0) | (_keyCombo._isShift?FSHIFT:0) );
 	};
 
 	Shortcut & operator=(const Shortcut & sc) {

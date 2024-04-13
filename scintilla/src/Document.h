@@ -385,26 +385,41 @@ public:
 	void ChangeInsertion(const char *s, Sci::Position length);
 	int SCI_METHOD AddData(const char *data, Sci_Position length) override;
 	IDocumentEditable *AsDocumentEditable() noexcept;
-	void * SCI_METHOD ConvertToDocument() override;
+	void *SCI_METHOD ConvertToDocument() override;
 	Sci::Position Undo();
 	Sci::Position Redo();
 	bool CanUndo() const noexcept { return cb.CanUndo(); }
 	bool CanRedo() const noexcept { return cb.CanRedo(); }
-	void DeleteUndoHistory() { cb.DeleteUndoHistory(); }
-	bool SetUndoCollection(bool collectUndo) {
+	void DeleteUndoHistory() noexcept { cb.DeleteUndoHistory(); }
+	bool SetUndoCollection(bool collectUndo) noexcept {
 		return cb.SetUndoCollection(collectUndo);
 	}
 	bool IsCollectingUndo() const noexcept { return cb.IsCollectingUndo(); }
-	void BeginUndoAction() { cb.BeginUndoAction(); }
-	void EndUndoAction() { cb.EndUndoAction(); }
+	void BeginUndoAction(bool coalesceWithPrior=false) noexcept { cb.BeginUndoAction(coalesceWithPrior); }
+	void EndUndoAction() noexcept { cb.EndUndoAction(); }
 	void AddUndoAction(Sci::Position token, bool mayCoalesce) { cb.AddUndoAction(token, mayCoalesce); }
 	void SetSavePoint();
 	bool IsSavePoint() const noexcept { return cb.IsSavePoint(); }
 
-	void TentativeStart() { cb.TentativeStart(); }
-	void TentativeCommit() { cb.TentativeCommit(); }
+	void TentativeStart() noexcept { cb.TentativeStart(); }
+	void TentativeCommit() noexcept { cb.TentativeCommit(); }
 	void TentativeUndo();
 	bool TentativeActive() const noexcept { return cb.TentativeActive(); }
+
+	int UndoActions() const noexcept;
+	void SetUndoSavePoint(int action) noexcept;
+	int UndoSavePoint() const noexcept;
+	void SetUndoDetach(int action) noexcept;
+	int UndoDetach() const noexcept;
+	void SetUndoTentative(int action) noexcept;
+	int UndoTentative() const noexcept;
+	void SetUndoCurrent(int action);
+	int UndoCurrent() const noexcept;
+	int UndoActionType(int action) const noexcept;
+	Sci::Position UndoActionPosition(int action) const noexcept;
+	std::string_view UndoActionText(int action) const noexcept;
+	void PushUndoActionType(int type, Sci::Position position);
+	void ChangeLastUndoActionText(size_t length, const char *text);
 
 	void ChangeHistorySet(bool set) { cb.ChangeHistorySet(set); }
 	[[nodiscard]] int EditionAt(Sci::Position pos) const noexcept { return cb.EditionAt(pos); }
@@ -412,7 +427,7 @@ public:
 	[[nodiscard]] unsigned int EditionDeletesAt(Sci::Position pos) const noexcept { return cb.EditionDeletesAt(pos); }
 	[[nodiscard]] Sci::Position EditionNextDelete(Sci::Position pos) const noexcept { return cb.EditionNextDelete(pos); }
 
-	const char * SCI_METHOD BufferPointer() override { return cb.BufferPointer(); }
+	const char *SCI_METHOD BufferPointer() override { return cb.BufferPointer(); }
 	const char *RangePointer(Sci::Position position, Sci::Position rangeLength) noexcept { return cb.RangePointer(position, rangeLength); }
 	Sci::Position GapPosition() const noexcept { return cb.GapPosition(); }
 
@@ -427,7 +442,7 @@ public:
 	static std::string TransformLineEnds(const char *s, size_t len, Scintilla::EndOfLine eolModeWanted);
 	void ConvertLineEnds(Scintilla::EndOfLine eolModeSet);
 	std::string_view EOLString() const noexcept;
-	void SetReadOnly(bool set) { cb.SetReadOnly(set); }
+	void SetReadOnly(bool set) noexcept { cb.SetReadOnly(set); }
 	bool IsReadOnly() const noexcept { return cb.IsReadOnly(); }
 	bool IsLarge() const noexcept { return cb.IsLarge(); }
 	Scintilla::DocumentOption Options() const noexcept;
@@ -565,7 +580,7 @@ class UndoGroup {
 	Document *pdoc;
 	bool groupNeeded;
 public:
-	UndoGroup(Document *pdoc_, bool groupNeeded_=true) :
+	UndoGroup(Document *pdoc_, bool groupNeeded_=true) noexcept :
 		pdoc(pdoc_), groupNeeded(groupNeeded_) {
 		if (groupNeeded) {
 			pdoc->BeginUndoAction();
@@ -626,7 +641,7 @@ public:
 		position(act.position),
 		length(act.lenData),
 		linesAdded(linesAdded_),
-		text(act.data.get()),
+		text(act.data),
 		line(0),
 		foldLevelNow(Scintilla::FoldLevel::None),
 		foldLevelPrev(Scintilla::FoldLevel::None),

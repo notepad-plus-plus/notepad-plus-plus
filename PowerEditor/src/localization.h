@@ -47,7 +47,7 @@ public:
 	void changeLangTabDropContextMenu(HMENU hCM);
 	void changeLangTrayIconContexMenu(HMENU hCM);
 	generic_string getSubMenuEntryName(const char *nodeName) const;
-	generic_string getNativeLangMenuString(int itemID) const;
+	generic_string getNativeLangMenuString(int itemID, generic_string inCaseOfFailureStr = L"", bool removeMarkAnd = false) const;
 	generic_string getShortcutNameString(int itemID) const;
 
 	void changeMenuLang(HMENU menuHandle);

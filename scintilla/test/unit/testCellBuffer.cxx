@@ -6,6 +6,7 @@
 #include <cassert>
 #include <cstring>
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <vector>
 #include <optional>
@@ -23,6 +24,7 @@
 #include "SparseVector.h"
 #include "ChangeHistory.h"
 #include "CellBuffer.h"
+#include "UndoHistory.h"
 
 #include "catch.hpp"
 
@@ -32,6 +34,35 @@ using namespace Scintilla::Internal;
 // Test CellBuffer.
 bool Equal(const char *ptr, std::string_view sv) noexcept {
 	return memcmp(ptr, sv.data(), sv.length()) == 0;
+}
+
+TEST_CASE("ScrapStack") {
+
+	ScrapStack ss;
+
+	SECTION("Push") {
+		const char *t = ss.Push("abc", 3);
+		REQUIRE(memcmp(t, "abc", 3) == 0);
+
+		ss.MoveBack(3);
+		const char *text = ss.CurrentText();
+		REQUIRE(memcmp(text, "abc", 3) == 0);
+
+		ss.MoveForward(1);
+		const char *text2 = ss.CurrentText();
+		REQUIRE(memcmp(text2, "bc", 2) == 0);
+
+		ss.SetCurrent(1);
+		const char *text3 = ss.CurrentText();
+		REQUIRE(memcmp(text3, "bc", 2) == 0);
+
+		const char *text4 = ss.TextAt(2);
+		REQUIRE(memcmp(text4, "c", 1) == 0);
+
+		ss.Clear();
+		const char *text5 = ss.Push("1", 1);
+		REQUIRE(memcmp(text5, "1", 1) == 0);
+	}
 }
 
 TEST_CASE("CellBuffer") {
@@ -209,6 +240,434 @@ TEST_CASE("CellBuffer") {
 	}
 
 }
+
+bool Equal(const Action &a, ActionType at, Sci::Position position, std::string_view value) noexcept {
+	// Currently ignores mayCoalesce since this is not set consistently when following
+	// start action implies it.
+	if (a.at != at)
+		return false;
+	if (a.position != position)
+		return false;
+	if (a.lenData != static_cast<Sci::Position>(value.length()))
+		return false;
+	if (memcmp(a.data, value.data(), a.lenData) != 0)
+		return false;
+	return true;
+}
+
+bool EqualContainerAction(const Action &a, Sci::Position token) noexcept {
+	// Currently ignores mayCoalesce
+	if (a.at != ActionType::container)
+		return false;
+	if (a.position != token)
+		return false;
+	if (a.lenData != 0)
+		return false;
+	if (a.data)
+		return false;
+	return true;
+}
+
+void TentativeUndo(UndoHistory &uh) noexcept {
+	const int steps = uh.TentativeSteps();
+	for (int step = 0; step < steps; step++) {
+		/* const Action &actionStep = */ uh.GetUndoStep();
+		uh.CompletedUndoStep();
+	}
+	uh.TentativeCommit();
+}
+
+TEST_CASE("ScaledVector") {
+
+	ScaledVector sv;
+	
+	SECTION("ScalingUp") {
+		sv.ReSize(1);
+		REQUIRE(sv.SizeInBytes() == 1);
+		REQUIRE(sv.ValueAt(0) == 0);
+		sv.SetValueAt(0, 1);
+		REQUIRE(sv.ValueAt(0) == 1);
+		REQUIRE(sv.SignedValueAt(0) == 1);
+		sv.ClearValueAt(0);
+		REQUIRE(sv.ValueAt(0) == 0);
+
+		// Check boundary of 1-byte values
+		sv.SetValueAt(0, 0xff);
+		REQUIRE(sv.ValueAt(0) == 0xff);
+		REQUIRE(sv.SizeInBytes() == 1);
+		// Require expansion to 2 byte elements
+		sv.SetValueAt(0, 0x100);
+		REQUIRE(sv.ValueAt(0) == 0x100);
+		REQUIRE(sv.SizeInBytes() == 2);
+		// Only ever expands, never diminishes element size
+		sv.SetValueAt(0, 0xff);
+		REQUIRE(sv.ValueAt(0) == 0xff);
+		REQUIRE(sv.SizeInBytes() == 2);
+
+		// Check boundary of 2-byte values
+		sv.SetValueAt(0, 0xffff);
+		REQUIRE(sv.ValueAt(0) == 0xffff);
+		REQUIRE(sv.SizeInBytes() == 2);
+		// Require expansion to 2 byte elements
+		sv.SetValueAt(0, 0x10000);
+		REQUIRE(sv.ValueAt(0) == 0x10000);
+		REQUIRE(sv.SizeInBytes() == 3);
+
+		// Check that its not just simple bit patterns that work
+		sv.SetValueAt(0, 0xd4381);
+		REQUIRE(sv.ValueAt(0) == 0xd4381);
+
+		// Add a second item
+		sv.ReSize(2);
+		REQUIRE(sv.SizeInBytes() == 6);
+		// Truncate
+		sv.Truncate(1);
+		REQUIRE(sv.SizeInBytes() == 3);
+		REQUIRE(sv.ValueAt(0) == 0xd4381);
+
+		sv.Clear();
+		REQUIRE(sv.Size() == 0);
+		sv.PushBack();
+		REQUIRE(sv.Size() == 1);
+		REQUIRE(sv.SizeInBytes() == 3);
+		sv.SetValueAt(0, 0x1fd4381);
+		REQUIRE(sv.SizeInBytes() == 4);
+		REQUIRE(sv.ValueAt(0) == 0x1fd4381);
+	}
+}
+
+TEST_CASE("UndoHistory") {
+
+	UndoHistory uh;
+
+	SECTION("Basics") {
+		REQUIRE(uh.IsSavePoint());
+		REQUIRE(uh.AfterSavePoint());
+		REQUIRE(!uh.BeforeSavePoint());
+		REQUIRE(!uh.BeforeReachableSavePoint());
+		REQUIRE(!uh.CanUndo());
+		REQUIRE(!uh.CanRedo());
+
+		bool startSequence = false;
+		const char *val = uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(startSequence);
+		REQUIRE(!uh.IsSavePoint());
+		REQUIRE(uh.AfterSavePoint());
+		REQUIRE(uh.CanUndo());
+		REQUIRE(!uh.CanRedo());
+		val = uh.AppendAction(ActionType::remove, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(startSequence);
+
+		// Undoing
+		{
+			const int steps = uh.StartUndo();
+			REQUIRE(steps == 1);
+			const Action action = uh.GetUndoStep();
+			REQUIRE(Equal(action, ActionType::remove, 0, "ab"));
+			uh.CompletedUndoStep();
+		}
+		{
+			const int steps = uh.StartUndo();
+			REQUIRE(steps == 1);
+			const Action action = uh.GetUndoStep();
+			REQUIRE(Equal(action, ActionType::insert, 0, "ab"));
+			uh.CompletedUndoStep();
+		}
+
+		REQUIRE(uh.IsSavePoint());
+
+		// Redoing
+		{
+			const int steps = uh.StartRedo();
+			REQUIRE(steps == 1);
+			const Action action = uh.GetRedoStep();
+			REQUIRE(Equal(action, ActionType::insert, 0, "ab"));
+			uh.CompletedRedoStep();
+		}
+		{
+			const int steps = uh.StartRedo();
+			REQUIRE(steps == 1);
+			const Action action = uh.GetRedoStep();
+			REQUIRE(Equal(action, ActionType::remove, 0, "ab"));
+			uh.CompletedRedoStep();
+		}
+
+		REQUIRE(!uh.IsSavePoint());
+	}
+
+	SECTION("EnsureTruncationAfterUndo") {
+
+		REQUIRE(uh.Actions() == 0);
+		bool startSequence = false;
+		uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(uh.Actions() == 1);
+		uh.AppendAction(ActionType::insert, 2, "cd", 2, startSequence, true);
+		REQUIRE(uh.Actions() == 2);
+		REQUIRE(uh.CanUndo());
+		REQUIRE(!uh.CanRedo());
+
+		// Undoing
+		const int steps = uh.StartUndo();
+		REQUIRE(steps == 2);
+		uh.GetUndoStep();
+		uh.CompletedUndoStep();
+		REQUIRE(uh.Actions() == 2);	// Not truncated until forward action
+		uh.GetUndoStep();
+		uh.CompletedUndoStep();
+		REQUIRE(uh.Actions() == 2);
+
+		// Perform action which should truncate history
+		uh.AppendAction(ActionType::insert, 0, "12", 2, startSequence, true);
+		REQUIRE(uh.Actions() == 1);
+	}
+
+	SECTION("Coalesce") {
+
+		bool startSequence = false;
+		const char *val = uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(startSequence);
+		REQUIRE(!uh.IsSavePoint());
+		REQUIRE(uh.AfterSavePoint());
+		REQUIRE(uh.CanUndo());
+		REQUIRE(!uh.CanRedo());
+		val = uh.AppendAction(ActionType::insert, 2, "cd", 2, startSequence, true);
+		REQUIRE(memcmp(val, "cd", 2) == 0);
+		REQUIRE(!startSequence);
+
+		// Undoing
+		{
+			const int steps = uh.StartUndo();
+			REQUIRE(steps == 2);
+			const Action action2 = uh.GetUndoStep();
+			REQUIRE(Equal(action2, ActionType::insert, 2, "cd"));
+			uh.CompletedUndoStep();
+			const Action action1 = uh.GetUndoStep();
+			REQUIRE(Equal(action1, ActionType::insert, 0, "ab"));
+			uh.CompletedUndoStep();
+		}
+
+		REQUIRE(uh.IsSavePoint());
+
+		// Redoing
+		{
+			const int steps = uh.StartRedo();
+			REQUIRE(steps == 2);
+			const Action action1 = uh.GetRedoStep();
+			REQUIRE(Equal(action1, ActionType::insert, 0, "ab"));
+			uh.CompletedRedoStep();
+			const Action action2 = uh.GetRedoStep();
+			REQUIRE(Equal(action2, ActionType::insert, 2, "cd"));
+			uh.CompletedRedoStep();
+		}
+
+		REQUIRE(!uh.IsSavePoint());
+
+	}
+
+	SECTION("SimpleContainer") {
+		bool startSequence = false;
+		const char *val = uh.AppendAction(ActionType::container, 1000, nullptr, 0, startSequence, true);
+		REQUIRE(startSequence);
+		REQUIRE(!val);
+		val = uh.AppendAction(ActionType::container, 1001, nullptr, 0, startSequence, true);
+		REQUIRE(!startSequence);
+		REQUIRE(!val);
+	}
+
+	SECTION("CoalesceContainer") {
+		bool startSequence = false;
+		const char *val = uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(startSequence);
+		val = uh.AppendAction(ActionType::container, 1000, nullptr, 0, startSequence, true);
+		REQUIRE(!startSequence);
+		// container actions do not have text data, just the token store in position
+		REQUIRE(!val);
+		uh.AppendAction(ActionType::container, 1001, nullptr, 0, startSequence, true);
+		REQUIRE(!startSequence);
+		// This is a coalescible change since the container actions are skipped to determine compatibility
+		val = uh.AppendAction(ActionType::insert, 2, "cd", 2, startSequence, true);
+		REQUIRE(memcmp(val, "cd", 2) == 0);
+		REQUIRE(!startSequence);
+		// Break the sequence with a non-coalescible container action
+		uh.AppendAction(ActionType::container, 1002, nullptr, 0, startSequence, false);
+		REQUIRE(startSequence);
+
+		{
+			const int steps = uh.StartUndo();
+			REQUIRE(steps == 1);
+			const Action actionContainer = uh.GetUndoStep();
+			REQUIRE(EqualContainerAction(actionContainer, 1002));
+			REQUIRE(actionContainer.mayCoalesce == false);
+			uh.CompletedUndoStep();
+		}
+		{
+			const int steps = uh.StartUndo();
+			REQUIRE(steps == 4);
+			const Action actionInsert = uh.GetUndoStep();
+			REQUIRE(Equal(actionInsert, ActionType::insert, 2, "cd"));
+			uh.CompletedUndoStep();
+			{
+				const Action actionContainer = uh.GetUndoStep();
+				REQUIRE(EqualContainerAction(actionContainer, 1001));
+				uh.CompletedUndoStep();
+			}
+			{
+				const Action actionContainer = uh.GetUndoStep();
+				REQUIRE(EqualContainerAction(actionContainer, 1000));
+				uh.CompletedUndoStep();
+			}
+			{
+				const Action actionInsert1 = uh.GetUndoStep();
+				REQUIRE(Equal(actionInsert1, ActionType::insert, 0, "ab"));
+				uh.CompletedUndoStep();
+			}
+		}
+		// Reached beginning
+		REQUIRE(!uh.CanUndo());
+	}
+
+	SECTION("Grouping") {
+
+		uh.BeginUndoAction();
+
+		bool startSequence = false;
+		const char *val = uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(startSequence);
+		REQUIRE(!uh.IsSavePoint());
+		REQUIRE(uh.AfterSavePoint());
+		REQUIRE(uh.CanUndo());
+		REQUIRE(!uh.CanRedo());
+		val = uh.AppendAction(ActionType::remove, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(!startSequence);
+		val = uh.AppendAction(ActionType::insert, 0, "cde", 3, startSequence, true);
+		REQUIRE(memcmp(val, "cde", 3) == 0);
+		REQUIRE(!startSequence);
+
+		uh.EndUndoAction();
+
+		// Undoing
+		{
+			const int steps = uh.StartUndo();
+			REQUIRE(steps == 3);
+			const Action action3 = uh.GetUndoStep();
+			REQUIRE(Equal(action3, ActionType::insert, 0, "cde"));
+			uh.CompletedUndoStep();
+			const Action action2 = uh.GetUndoStep();
+			REQUIRE(Equal(action2, ActionType::remove, 0, "ab"));
+			uh.CompletedUndoStep();
+			const Action action1 = uh.GetUndoStep();
+			REQUIRE(Equal(action1, ActionType::insert, 0, "ab"));
+			uh.CompletedUndoStep();
+		}
+
+		REQUIRE(uh.IsSavePoint());
+
+		// Redoing
+		{
+			const int steps = uh.StartRedo();
+			REQUIRE(steps == 3);
+			const Action action1 = uh.GetRedoStep();
+			REQUIRE(Equal(action1, ActionType::insert, 0, "ab"));
+			uh.CompletedRedoStep();
+			const Action action2 = uh.GetRedoStep();
+			REQUIRE(Equal(action2, ActionType::remove, 0, "ab"));
+			uh.CompletedRedoStep();
+			const Action action3 = uh.GetRedoStep();
+			REQUIRE(Equal(action3, ActionType::insert, 0, "cde"));
+			uh.CompletedRedoStep();
+		}
+
+		REQUIRE(!uh.IsSavePoint());
+
+	}
+
+	SECTION("DeepGroup") {
+
+		uh.BeginUndoAction();
+		uh.BeginUndoAction();
+
+		bool startSequence = false;
+		const char *val = uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(startSequence);
+		val = uh.AppendAction(ActionType::container, 1000, nullptr, 0, startSequence, false);
+		REQUIRE(!val);
+		REQUIRE(!startSequence);
+		val = uh.AppendAction(ActionType::remove, 0, "ab", 2, startSequence, true);
+		REQUIRE(memcmp(val, "ab", 2) == 0);
+		REQUIRE(!startSequence);
+		val = uh.AppendAction(ActionType::insert, 0, "cde", 3, startSequence, true);
+		REQUIRE(memcmp(val, "cde", 3) == 0);
+		REQUIRE(!startSequence);
+
+		uh.EndUndoAction();
+		uh.EndUndoAction();
+
+		const int steps = uh.StartUndo();
+		REQUIRE(steps == 4);
+	}
+
+	SECTION("Tentative") {
+
+		REQUIRE(!uh.TentativeActive());
+		REQUIRE(uh.TentativeSteps() == -1);
+		uh.TentativeStart();
+		REQUIRE(uh.TentativeActive());
+		REQUIRE(uh.TentativeSteps() == 0);
+		bool startSequence = false;
+		uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(uh.TentativeActive());
+		REQUIRE(uh.TentativeSteps() == 1);
+		REQUIRE(uh.CanUndo());
+		uh.TentativeCommit();
+		REQUIRE(!uh.TentativeActive());
+		REQUIRE(uh.TentativeSteps() == -1);
+		REQUIRE(uh.CanUndo());
+
+		// TentativeUndo is the other important operation but it is performed by Document so add a local equivalent
+		uh.TentativeStart();
+		uh.AppendAction(ActionType::remove, 0, "ab", 2, startSequence, false);
+		uh.AppendAction(ActionType::insert, 0, "ab", 2, startSequence, true);
+		REQUIRE(uh.TentativeActive());
+		// The first TentativeCommit didn't seal off the first action so it is still undoable
+		REQUIRE(uh.TentativeSteps() == 2);
+		REQUIRE(uh.CanUndo());
+		TentativeUndo(uh);
+		REQUIRE(!uh.TentativeActive());
+		REQUIRE(uh.TentativeSteps() == -1);
+		REQUIRE(uh.CanUndo());
+	}
+}
+
+TEST_CASE("UndoActions") {
+
+	UndoActions ua;
+
+	SECTION("Basics") {
+		ua.PushBack();
+		REQUIRE(ua.SSize() == 1);
+		ua.Create(0, ActionType::insert, 0, 2, false);
+		REQUIRE(ua.AtStart(0));
+		REQUIRE(ua.LengthTo(0) == 0);
+		REQUIRE(ua.AtStart(1));
+		REQUIRE(ua.LengthTo(1) == 2);
+		ua.PushBack();
+		REQUIRE(ua.SSize() == 2);
+		ua.Create(0, ActionType::insert, 0, 2, false);
+		REQUIRE(ua.SSize() == 2);
+		ua.Truncate(1);
+		REQUIRE(ua.SSize() == 1);
+		ua.Clear();
+		REQUIRE(ua.SSize() == 0);
+	}
+}
+
 
 TEST_CASE("CharacterIndex") {
 
@@ -693,20 +1152,20 @@ TEST_CASE("ChangeHistory") {
 
 	SECTION("Delete Contiguous Backward") {
 		// Deletes that touch
-		constexpr size_t length = 20;
-		constexpr size_t rounds = 8;
+		constexpr Sci::Position length = 20;
+		constexpr Sci::Position rounds = 8;
 		il.Insert(0, length, false, true);
 		REQUIRE(il.Length() == length);
 		il.SetSavePoint();
-		for (size_t i = 0; i < rounds; i++) {
+		for (Sci::Position i = 0; i < rounds; i++) {
 			il.DeleteRangeSavingHistory(9-i, 1, false, false);
 		}
 
-		constexpr size_t lengthAfterDeletions = length - rounds;
+		constexpr Sci::Position lengthAfterDeletions = length - rounds;
 		REQUIRE(il.Length() == lengthAfterDeletions);
 		REQUIRE(il.DeletionCount(0, lengthAfterDeletions) == rounds);
 
-		for (size_t j = 0; j < rounds; j++) {
+		for (Sci::Position j = 0; j < rounds; j++) {
 			il.UndoDeleteStep(2+j, 1, false);
 		}
 
@@ -1060,6 +1519,80 @@ TEST_CASE("CellBufferWithChangeHistory") {
 
 namespace {
 
+void PushUndoAction(CellBuffer &cb, int type, Sci::Position pos, std::string_view sv) {
+	cb.PushUndoActionType(type, pos);
+	cb.ChangeLastUndoActionText(sv.length(), sv.data());
+}
+
+}
+
+TEST_CASE("CellBufferLoadUndoHistory") {
+
+	CellBuffer cb(false, false);
+	constexpr int remove = 1;
+	constexpr int insert = 0;
+
+	SECTION("Basics") {
+		cb.SetUndoCollection(false);
+		constexpr std::string_view sInsert = "abcdef";
+		bool startSequence = false;
+		cb.InsertString(0, sInsert.data(), sInsert.length(), startSequence);
+		cb.SetUndoCollection(true);
+		cb.ChangeHistorySet(true);
+
+		// Create an undo history that matches the contents at current point 2
+		// So, 2 actions; current point; 2 actions
+		// a_cdef
+		PushUndoAction(cb, remove, 1, "_");
+		// acdef
+		PushUndoAction(cb, insert, 1, "b");
+		// abcdef -> current
+		PushUndoAction(cb, remove, 3, "d");
+		// abcef -> save
+		PushUndoAction(cb, insert, 3, "*");
+		// abc*ef
+		cb.SetUndoSavePoint(3);
+		cb.SetUndoDetach(-1);
+		cb.SetUndoTentative(-1);
+		cb.SetUndoCurrent(2);
+
+		// 2nd insertion is removed from change history as it isn't visible and isn't saved
+		// 2nd deletion is visible (as insertion) as it was saved but then reverted to original
+		// 1st insertion and 1st deletion are both visible as saved
+		const History hist{ {{1, 1, changeSaved}, {3, 1, changeRevertedOriginal}}, {{2, changeSaved}} };
+		REQUIRE(HistoryOf(cb) == hist);
+	}
+
+	SECTION("Detached") {
+		cb.SetUndoCollection(false);
+		constexpr std::string_view sInsert = "a-b=cdef";
+		bool startSequence = false;
+		cb.InsertString(0, sInsert.data(), sInsert.length(), startSequence);
+		cb.SetUndoCollection(true);
+		cb.ChangeHistorySet(true);
+
+		// Create an undo history that matches the contents at current point 2 which detached at 1
+		// So, insert saved; insert detached; current point
+		// abcdef
+		PushUndoAction(cb, insert, 1, "-");
+		// a-bcdef
+		PushUndoAction(cb, insert, 3, "=");
+		// a-b=cdef
+		cb.SetUndoSavePoint(-1);
+		cb.SetUndoDetach(1);
+		cb.SetUndoTentative(-1);
+		cb.SetUndoCurrent(2);
+
+		// This doesn't show elements due to undo.
+		// There was also a modified delete (reverting the insert) at 3 in the original but that is missing.
+		const History hist{ {{1, 1, changeSaved}, {3, 1, changeModified}}, {} };
+		REQUIRE(HistoryOf(cb) == hist);
+	}
+
+}
+
+namespace {
+
 // Implement low quality reproducible pseudo-random numbers.
 // Pseudo-random algorithm based on R. G. Dromey "How to Solve it by Computer" page 122.
 
@@ -1086,11 +1619,11 @@ TEST_CASE("CellBufferLong") {
 
 	SECTION("Random") {
 		RandomSequence rseq;
-		for (size_t i = 0l; i < 20000; i++) {
+		for (size_t i = 0; i < 20000; i++) {
 			const int r = rseq.Next() % 10;
 			if (r <= 2) {			// 30%
 				// Insert text
-				const int pos = rseq.Next() % (cb.Length() + 1);
+				const Sci::Position pos = rseq.Next() % (cb.Length() + 1);
 				const int len = rseq.Next() % 10 + 1;
 				std::string sInsert;
 				for (int j = 0; j < len; j++) {

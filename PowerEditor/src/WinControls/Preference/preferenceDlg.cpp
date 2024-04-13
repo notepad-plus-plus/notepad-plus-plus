@@ -127,6 +127,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_editingSubDlg.init(_hInst, _hSelf);
 			_editingSubDlg.create(IDD_PREFERENCE_SUB_EDITING, false, false);
 
+			_editing2SubDlg.init(_hInst, _hSelf);
+			_editing2SubDlg.create(IDD_PREFERENCE_SUB_EDITING2, false, false);
+
 			_darkModeSubDlg.init(_hInst, _hSelf);
 			_darkModeSubDlg.create(IDD_PREFERENCE_SUB_DARKMODE, false, false);
 
@@ -182,7 +185,8 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);			
 
 			_wVector.push_back(DlgInfo(&_generalSubDlg, TEXT("General"), TEXT("Global")));
-			_wVector.push_back(DlgInfo(&_editingSubDlg, TEXT("Editing"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_editingSubDlg, TEXT("Editing 1"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_editing2SubDlg, TEXT("Editing 2"), TEXT("Scintillas2")));
 			_wVector.push_back(DlgInfo(&_darkModeSubDlg, TEXT("Dark Mode"), TEXT("DarkMode")));
 			_wVector.push_back(DlgInfo(&_marginsBorderEdgeSubDlg, TEXT("Margins/Border/Edge"), TEXT("MarginsBorderEdge")));
 			_wVector.push_back(DlgInfo(&_newDocumentSubDlg, TEXT("New Document"), TEXT("NewDoc")));
@@ -234,10 +238,13 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
-			if (_editingSubDlg._tip != nullptr)
-				NppDarkMode::setDarkTooltips(_editingSubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
+			if (_editing2SubDlg._tip != nullptr)
+				NppDarkMode::setDarkTooltips(_editing2SubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 
-			for (auto& tip : _editingSubDlg._tips)
+			if (_marginsBorderEdgeSubDlg._verticalEdgeTip != nullptr)
+				NppDarkMode::setDarkTooltips(_marginsBorderEdgeSubDlg._verticalEdgeTip, NppDarkMode::ToolTipsType::tooltip);
+
+			for (auto& tip : _editing2SubDlg._tips)
 			{
 				if (tip != nullptr)
 				{
@@ -487,6 +494,7 @@ void PreferenceDlg::destroy()
 {
 	_generalSubDlg.destroy();
 	_editingSubDlg.destroy();
+	_editing2SubDlg.destroy();
 	_darkModeSubDlg.destroy();
 	_marginsBorderEdgeSubDlg.destroy();
 	_miscSubDlg.destroy();
@@ -826,6 +834,7 @@ void EditingSubDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_SETCHECK, svp._scrollBeyondLastLine, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_SETCHECK, svp._rightClickKeepsSelection, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINECUTCOPYWITHOUTSELECTION, BM_SETCHECK, svp._lineCopyCutWithoutSelection, 0);
 }
 
 void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
@@ -836,19 +845,100 @@ void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
 	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 }
 
+bool hasOnlyNumSpaceInClipboard()
+{
+	int clipFormat;
+	clipFormat = CF_UNICODETEXT;
+
+	BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
+	if (!canPaste)
+		return false;
+
+	::OpenClipboard(NULL);
+	HANDLE clipboardData = ::GetClipboardData(clipFormat);
+	if (!clipboardData)
+		return false;
+
+	::GlobalSize(clipboardData);
+	const wchar_t* clipboardDataPtr = (const wchar_t*)::GlobalLock(clipboardData);
+	if (!clipboardDataPtr) return false;
+
+	wstring clipboardDataString = clipboardDataPtr;
+
+	::GlobalUnlock(clipboardData);
+	::CloseClipboard();
+	for (wchar_t c: clipboardDataString)
+	{
+		if (c != ' ' && (c < '0' || c > '9'))
+			return false;
+	}
+	return true;
+}
+
 static WNDPROC oldFunclstToolbarProc = NULL;
 static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	static bool canPaste = false;
 	switch (message)
 	{
+		case WM_KEYDOWN:
+		{
+			bool ctrl = GetKeyState(VK_CONTROL) & 0x8000;
+			bool alt = GetKeyState(VK_MENU) & 0x8000;
+			bool shift = GetKeyState(VK_SHIFT) & 0x8000;
+
+			bool ctrl_V = (!shift && ctrl && !alt && wParam == 'V');
+			bool shif_INS = (shift && !ctrl && !alt && wParam == VK_INSERT);
+			if ( ctrl_V || shif_INS)
+			{
+				canPaste = hasOnlyNumSpaceInClipboard();
+
+				if (shif_INS && !canPaste) // Shift-INS is different from Ctrl-V, it doesn't pass by WM_CHAR afterward, so we stop here
+					return TRUE;
+			}
+		}
+		break;
+
 		case WM_CHAR:
 		{
 			// All non decimal numbers and non white space and non backspace are ignored
-			if ((wParam != 8 && wParam != 32 && wParam < 48) || wParam > 57)
+			bool ctrl = GetKeyState(VK_CONTROL) & 0x8000;
+			bool alt = GetKeyState(VK_MENU) & 0x8000;
+			bool shift = GetKeyState(VK_SHIFT) & 0x8000;
+
+			bool ctrl_V_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'V' - 'A' + 1);
+			bool ctrl_X_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'X' - 'A' + 1);
+			bool ctrl_A_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'A' - 'A' + 1);
+			bool ctrl_Z_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'Z' - 'A' + 1);
+			bool ctrl_C_in_WM_CHAR = (!shift && ctrl && !alt && wParam == 'C' - 'A' + 1);
+
+			if (ctrl_V_in_WM_CHAR)
 			{
-				return TRUE;
+				if (!canPaste) // it's come from ctl_v of WM_KEYDOWN: the format is not correct or nothing to paste, so stop here
+				{
+					return TRUE;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if (ctrl_X_in_WM_CHAR || ctrl_C_in_WM_CHAR || ctrl_Z_in_WM_CHAR || ctrl_A_in_WM_CHAR) // Ctrl-X & Ctrl-C & Ctrl-Z & Ctrl-A: let them pass
+			{
+				break;
+			}
+			else
+			{
+				if (wParam != VK_BACK && wParam != ' ' && (wParam < '0' || wParam > '9')) // If input char is not number either white space, stop here
+				{
+					return TRUE;
+				}
 			}
 		}
+		break;
+
+		default:
+			break;
 	}
 	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
 }
@@ -885,102 +975,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPAGESIZE, 0, CARETLINEFRAME_INTERVAL);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), TBM_SETPOS, TRUE, svp._currentLineFrameWidth);
 			::SetDlgItemInt(_hSelf, IDC_CARETLINEFRAME_WIDTH_DISPLAY, svp._currentLineFrameWidth, FALSE);
-
-
-			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
-			bool checkDefaultCRLF = true;
-			bool checkPlainTextCRLF = false;
-			bool checkWithColorCRLF = false;
-
-			if (svp._eolMode == svp.plainText)
-			{
-				checkDefaultCRLF = false;
-				checkPlainTextCRLF = true;
-				checkWithColorCRLF = false;
-			}
-			else if (svp._eolMode == svp.plainTextCustomColor)
-			{
-				checkDefaultCRLF = false;
-				checkPlainTextCRLF = true;
-				checkWithColorCRLF = true;
-			}
-			else if (svp._eolMode == svp.roundedRectangleTextCustomColor)
-			{
-				checkDefaultCRLF = true;
-				checkPlainTextCRLF = false;
-				checkWithColorCRLF = true;
-			}
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_ROUNDCORNER_CRLF, BM_SETCHECK, checkDefaultCRLF, 0);
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
-
-
-			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
-
-			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
-
-			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
-			setChecked(IDC_RADIO_NPC_ABBREVIATION, isNpcModeAbbrv);
-			setChecked(IDC_RADIO_NPC_CODEPOINT, !isNpcModeAbbrv);
-
-			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
-			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
-
-			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
-				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
-				L"NOTE:\n"\
-				L"Using representation will disable character effects on text.\n\n"\
-				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
-				L"Click on this button to open website with User Manual.");
-
-			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID("npcAbbreviation-tip",
-				L"Abbreviation : name\n"\
-				L"NBSP : no-break space\n"\
-				L"ZWSP : zero-width space\n"\
-				L"ZWNBSP : zero-width no-break space\n\n"\
-				L"For the full list check User Manual.\n"\
-				L"Click on \"?\" button on right to open website with User Manual.");
-
-			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID("npcCodepoint-tip",
-				L"Codepoint : name\n"\
-				L"U+00A0 : no-break space\n"\
-				L"U+200B : zero-width space\n"\
-				L"U+FEFF : zero-width no-break space\n\n"\
-				L"For the full list check User Manual.\n"\
-				L"Click on \"?\" button on right to open website with User Manual.");
-
-			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
-				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
-
-			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
-				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
-
-			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
-			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
-			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, const_cast<PTSTR>(tipNpcInc2show.c_str()), pNativeSpeaker->isRTL());
-			
-			_tips.push_back(_tipNote);
-			_tips.push_back(_tipAbb);
-			_tips.push_back(_tipCodepoint);
-			_tips.push_back(_tipNpcColor);
-			_tips.push_back(_tipNpcInclude);
-
-			for (auto& tip : _tips)
-			{
-				if (tip != nullptr)
-				{
-					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
-				}
-			}
-
-			if (_tipNote != nullptr)
-			{
-				// Make tip stay 30 seconds
-				::SendMessage(_tipNote, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
-			}
 
 			initScintParam();
 
@@ -1072,6 +1066,228 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					changeLineHiliteMode(true);
 					return TRUE;
 
+				case IDC_CHECK_VIRTUALSPACE:
+					svp._virtualSpace = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VIRTUALSPACE, 0, 0);
+					return TRUE;
+
+				case IDC_CHECK_SCROLLBEYONDLASTLINE:
+					svp._scrollBeyondLastLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBEYONDLASTLINE, 0, 0);
+					return TRUE;
+
+				case IDC_CHECK_LINECUTCOPYWITHOUTSELECTION:
+				{
+					bool isChecked = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINECUTCOPYWITHOUTSELECTION, BM_GETCHECK, 0, 0);
+					svp._lineCopyCutWithoutSelection = isChecked;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINECUTCOPYWITHOUTSELECTION, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_RIGHTCLICKKEEPSSELECTION:
+					svp._rightClickKeepsSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_GETCHECK, 0, 0));
+					return TRUE;
+
+				case IDC_CHECK_DISABLEADVANCEDSCROLL:
+					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
+					return TRUE;
+
+				case IDC_CHECK_FOLDINGTOGGLE:
+					nppGUI._enableFoldCmdToggable = isCheckedOrNot(IDC_CHECK_FOLDINGTOGGLE);
+					return TRUE;
+
+				case IDC_RADIO_LWDEF:
+					svp._lineWrapMethod = LINEWRAP_DEFAULT;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
+					return TRUE;
+
+				case IDC_RADIO_LWALIGN:
+					svp._lineWrapMethod = LINEWRAP_ALIGNED;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
+					return TRUE;
+
+				case IDC_RADIO_LWINDENT:
+					svp._lineWrapMethod = LINEWRAP_INDENT;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
+					return TRUE;
+
+				default :
+					switch (HIWORD(wParam))
+					{
+						case CBN_SELCHANGE : // == case LBN_SELCHANGE :
+						{
+							if (LOWORD(wParam) == IDC_WIDTH_COMBO)
+							{
+								nppGUI._caretWidth = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0));
+								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
+								return TRUE;
+							}
+						}
+						break;
+					}
+			}
+		}
+	}
+	return FALSE;
+}
+
+intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+
+			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
+			bool checkDefaultCRLF = true;
+			bool checkPlainTextCRLF = false;
+			bool checkWithColorCRLF = false;
+
+			if (svp._eolMode == svp.plainText)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = false;
+			}
+			else if (svp._eolMode == svp.plainTextCustomColor)
+			{
+				checkDefaultCRLF = false;
+				checkPlainTextCRLF = true;
+				checkWithColorCRLF = true;
+			}
+			else if (svp._eolMode == svp.roundedRectangleTextCustomColor)
+			{
+				checkDefaultCRLF = true;
+				checkPlainTextCRLF = false;
+				checkWithColorCRLF = true;
+			}
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_ROUNDCORNER_CRLF, BM_SETCHECK, checkDefaultCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
+
+			
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_SETCHECK, svp._multiSelection, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, svp._columnSel2MultiEdit, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("eol-custom-color-tip", TEXT("Go to Style Configurator to change the default EOL custom color (\"EOL custom color\")."));
+
+			_tip = CreateToolTip(IDC_BUTTON_LAUNCHSTYLECONF_CRLF, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()), pNativeSpeaker->isRTL());
+
+			const bool isNpcModeAbbrv = svp._npcMode == svp.abbreviation;
+			setChecked(IDC_RADIO_NPC_ABBREVIATION, isNpcModeAbbrv);
+			setChecked(IDC_RADIO_NPC_CODEPOINT, !isNpcModeAbbrv);
+
+			setChecked(IDC_CHECK_NPC_COLOR, svp._npcCustomColor);
+			setChecked(IDC_CHECK_NPC_INCLUDECCUNIEOL, svp._npcIncludeCcUniEol);
+			setChecked(IDC_CHECK_NPC_NOINPUTC0, svp._npcNoInputC0);
+
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("npcNote-tip",
+				L"Representation of selected \"non-ASCII\" whitespace and non-printing (control) characters.\n\n"\
+				L"NOTE:\n"\
+				L"Using representation will disable character effects on text.\n\n"\
+				L"For the full list of selected whitespace and non-printing characters check User Manual.\n\n"\
+				L"Click on this button to open website with User Manual.");
+
+			generic_string tipAb2Show = pNativeSpeaker->getLocalizedStrFromID("npcAbbreviation-tip",
+				L"Abbreviation : name\n"\
+				L"NBSP : no-break space\n"\
+				L"ZWSP : zero-width space\n"\
+				L"ZWNBSP : zero-width no-break space\n\n"\
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
+
+			generic_string tipCp2Show = pNativeSpeaker->getLocalizedStrFromID("npcCodepoint-tip",
+				L"Codepoint : name\n"\
+				L"U+00A0 : no-break space\n"\
+				L"U+200B : zero-width space\n"\
+				L"U+FEFF : zero-width no-break space\n\n"\
+				L"For the full list check User Manual.\n"\
+				L"Click on \"?\" button on right to open website with User Manual.");
+
+			generic_string tipNpcCol2show = pNativeSpeaker->getLocalizedStrFromID("npcCustomColor-tip",
+				L"Go to Style Configurator to change the default custom color for selected whitespace and non-printing characters (\"Non-printing characters custom color\").");
+
+			generic_string tipNpcInc2show = pNativeSpeaker->getLocalizedStrFromID("npcIncludeCcUniEol-tip",
+				L"Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters.");
+
+			_tipNote = CreateToolTip(IDC_BUTTON_NPC_NOTE, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAbb = CreateToolTip(IDC_RADIO_NPC_ABBREVIATION, _hSelf, _hInst, const_cast<PTSTR>(tipAb2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipCodepoint = CreateToolTip(IDC_RADIO_NPC_CODEPOINT, _hSelf, _hInst, const_cast<PTSTR>(tipCp2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcColor = CreateToolTip(IDC_BUTTON_NPC_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipNpcCol2show.c_str()), pNativeSpeaker->isRTL());
+			_tipNpcInclude = CreateToolTip(IDC_CHECK_NPC_INCLUDECCUNIEOL, _hSelf, _hInst, const_cast<PTSTR>(tipNpcInc2show.c_str()), pNativeSpeaker->isRTL());
+
+			_tips.push_back(_tipNote);
+			_tips.push_back(_tipAbb);
+			_tips.push_back(_tipCodepoint);
+			_tips.push_back(_tipNpcColor);
+			_tips.push_back(_tipNpcInclude);
+
+			for (auto& tip : _tips)
+			{
+				if (tip != nullptr)
+				{
+					::SendMessage(tip, TTM_SETMAXTIPWIDTH, 0, 260);
+				}
+			}
+
+			if (_tipNote != nullptr)
+			{
+				// Make tip stay 30 seconds
+				::SendMessage(_tipNote, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
+		}
+		return TRUE;
+
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_COMMAND:
+		{
+			NppParameters& nppParam = NppParameters::getInstance();
+			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
+			switch (wParam)
+			{
+				case IDC_CHECK_MULTISELECTION:
+				{
+					svp._multiSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_GETCHECK, 0, 0));
+					if (!svp._multiSelection)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_SETCHECK, FALSE, 0);
+						svp._columnSel2MultiEdit = false;
+					}
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
+				}
+				return TRUE;
+
+				case IDC_CHECK_COLUMN2MULTIEDITING:
+				{
+					svp._columnSel2MultiEdit = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING, BM_GETCHECK, 0, 0));
+				}
+				return TRUE;
+
 				case IDC_RADIO_ROUNDCORNER_CRLF:
 				case IDC_RADIO_PLEINTEXT_CRLF:
 				case IDC_CHECK_WITHCUSTOMCOLOR_CRLF:
@@ -1157,59 +1373,14 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					return TRUE;
 				}
 
-				case IDC_CHECK_VIRTUALSPACE:
-					svp._virtualSpace = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_VIRTUALSPACE, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VIRTUALSPACE, 0, 0);
+				case IDC_CHECK_NPC_NOINPUTC0:
+				{
+					svp._npcNoInputC0 = isCheckedOrNot(IDC_CHECK_NPC_NOINPUTC0);
 					return TRUE;
-
-				case IDC_CHECK_SCROLLBEYONDLASTLINE:
-					svp._scrollBeyondLastLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_GETCHECK, 0, 0));
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBEYONDLASTLINE, 0, 0);
-					return TRUE;
-
-				case IDC_CHECK_RIGHTCLICKKEEPSSELECTION:
-					svp._rightClickKeepsSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_RIGHTCLICKKEEPSSELECTION, BM_GETCHECK, 0, 0));
-					return TRUE;
-
-				case IDC_CHECK_DISABLEADVANCEDSCROLL:
-					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
-					return TRUE;
-
-				case IDC_CHECK_FOLDINGTOGGLE:
-					nppGUI._enableFoldCmdToggable = isCheckedOrNot(IDC_CHECK_FOLDINGTOGGLE);
-					return TRUE;
-
-				case IDC_RADIO_LWDEF:
-					svp._lineWrapMethod = LINEWRAP_DEFAULT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
-					return TRUE;
-
-				case IDC_RADIO_LWALIGN:
-					svp._lineWrapMethod = LINEWRAP_ALIGNED;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
-					return TRUE;
-
-				case IDC_RADIO_LWINDENT:
-					svp._lineWrapMethod = LINEWRAP_INDENT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
-					return TRUE;
-
-				default :
-					switch (HIWORD(wParam))
-					{
-						case CBN_SELCHANGE : // == case LBN_SELCHANGE :
-						{
-							if (LOWORD(wParam) == IDC_WIDTH_COMBO)
-							{
-								nppGUI._caretWidth = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0));
-								::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
-								return TRUE;
-							}
-						}
-						break;
-					}
+				}
 			}
 		}
+		return TRUE;
 	}
 	return FALSE;
 }
@@ -1740,7 +1911,8 @@ void MarginsBorderEdgeSubDlg::initScintParam()
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CONSTANT), svp._lineNumberMarginShow);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_SETCHECK, svp._isChangeHistoryEnabled, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGIN, BM_SETCHECK, svp._isChangeHistoryMarginEnabled, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYINDICATOR, BM_SETCHECK, svp._isChangeHistoryIndicatorEnabled, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
 	
 	bool canBeBg = svp._edgeMultiColumnPos.size() == 1;
@@ -1770,6 +1942,8 @@ void MarginsBorderEdgeSubDlg::initScintParam()
 intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
+	static bool changeHistoryWarningHasBeenGiven = false;
+
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -1799,6 +1973,15 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 			::SendMessage(::GetDlgItem(_hSelf, IDC_DISTRACTIONFREE_SLIDER), TBM_SETPOS, TRUE, svp._distractionFreeDivPart);
 			::SetDlgItemInt(_hSelf, IDC_DISTRACTIONFREEVAL_STATIC, svp._distractionFreeDivPart, FALSE);
 
+			NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			generic_string tipNote2Show = pNativeSpeaker->getLocalizedStrFromID("verticalEdge-tip",	L"Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers.");
+
+			_verticalEdgeTip = CreateToolTip(IDC_BUTTON_VES_TIP, _hSelf, _hInst, const_cast<PTSTR>(tipNote2Show.c_str()), pNativeSpeaker->isRTL());
+			if (_verticalEdgeTip != nullptr)
+			{
+				// Make tip stay 30 seconds
+				::SendMessage(_verticalEdgeTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
 			initScintParam();
 
 			return TRUE;
@@ -1885,23 +2068,65 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, 0);
 					return TRUE;
 
-				case IDC_CHECK_CHANGHISTORYMARGE:
+				case IDC_CHECK_CHANGHISTORYMARGIN:
 				{
-					bool isChangeHistoryEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGE, BM_GETCHECK, 0, 0));
-					if (isChangeHistoryEnabled)
+					bool isMaginJustEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGIN, BM_GETCHECK, 0, 0));
+					bool isIndicatorAlreadyEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYINDICATOR, BM_GETCHECK, 0, 0));
+
+					if (isMaginJustEnabled && !isIndicatorAlreadyEnabled) // In the case that both "in margin" & "in text" were disabled, but "in margin" is just enabled
 					{
-						NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
-						pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
-							_hSelf,
-							TEXT("You have to restart Notepad++ to enable Change History."),
-							TEXT("Notepad++ need to be relaunched"),
-							MB_OK | MB_APPLMODAL);
-						svp._isChangeHistoryEnabled4NextSession = true;
+						if (!changeHistoryWarningHasBeenGiven)
+						{
+							NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+							pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
+								_hSelf,
+								TEXT("You have to restart Notepad++ to enable Change History."),
+								TEXT("Notepad++ need to be relaunched"),
+								MB_OK | MB_APPLMODAL);
+							
+							changeHistoryWarningHasBeenGiven = true;
+						}
+						svp._isChangeHistoryMarginEnabled = true;
+						svp._isChangeHistoryEnabled4NextSession = changeHistoryState::margin;
+					}
+					else // otherwise
+					{
+						svp._isChangeHistoryMarginEnabled = isMaginJustEnabled;
+						svp._isChangeHistoryEnabled4NextSession = (!isMaginJustEnabled && !isIndicatorAlreadyEnabled) ? changeHistoryState::disable :
+							(isMaginJustEnabled && isIndicatorAlreadyEnabled) ? changeHistoryState::marginIndicator :changeHistoryState::indicator;
+
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
+					}
+					return TRUE;
+				}
+
+				case IDC_CHECK_CHANGHISTORYINDICATOR:
+				{
+					bool isIndicatorJustEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYINDICATOR, BM_GETCHECK, 0, 0));
+					bool isMaginAlreadyEnabled = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CHANGHISTORYMARGIN, BM_GETCHECK, 0, 0));
+
+					if (isIndicatorJustEnabled && !isMaginAlreadyEnabled) // In the case that both "in margin" & "in text" were disabled, but "in text" is just enabled
+					{
+						if (!changeHistoryWarningHasBeenGiven)
+						{
+							NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+							pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
+								_hSelf,
+								TEXT("You have to restart Notepad++ to enable Change History."),
+								TEXT("Notepad++ need to be relaunched"),
+								MB_OK | MB_APPLMODAL);
+							
+							changeHistoryWarningHasBeenGiven = true;
+						}
+						svp._isChangeHistoryIndicatorEnabled = true;
+						svp._isChangeHistoryEnabled4NextSession = changeHistoryState::indicator;
 					}
 					else
 					{
-						svp._isChangeHistoryEnabled = false;
-						svp._isChangeHistoryEnabled4NextSession = false;
+						svp._isChangeHistoryIndicatorEnabled = isIndicatorJustEnabled;
+						svp._isChangeHistoryEnabled4NextSession = (!isIndicatorJustEnabled && !isMaginAlreadyEnabled) ? changeHistoryState::disable :
+							(isIndicatorJustEnabled && isMaginAlreadyEnabled) ? changeHistoryState::marginIndicator : changeHistoryState::margin;
+
 						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLECHANGEHISTORY, 0, 0);
 					}
 					return TRUE;
@@ -5258,12 +5483,12 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 
 				if (lstrcmp(str, TEXT("")) == 0)
 					return TRUE;
-				
-				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
 
-				if (fileLenInMB > 4096)
+				constexpr int fileLenInMBMax = (INT32_MAX - 1024 * 1024) / 1024 / 1024; // -1MB ... have to to consider also the bufferSizeRequested algo in FileManager::loadFileData
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+				if (fileLenInMB > fileLenInMBMax)
 				{
-					fileLenInMB = 4096;
+					fileLenInMB = fileLenInMBMax;
 					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
 				}
 
@@ -5606,9 +5831,13 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
-		case WM_CTLCOLOREDIT:
 		{
 			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}

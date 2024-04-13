@@ -20,17 +20,14 @@ echo on
 if %SIGN% == 0 goto NoSign
 
 set signtoolWin11="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
-set signtoolWin10="C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
-
 set signBinary=%signtoolWin11% sign /fd SHA256 /tr http://timestamp.digicert.com /td sha256 /a /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/
 
-set signArmBinary=%signtoolWin10% sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/
 
 %signBinary% ..\bin\notepad++.exe
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\notepad++.exe
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\notepad++.exe
+%signBinary% ..\binarm64\notepad++.exe
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\NppShell.x86.dll
@@ -41,49 +38,49 @@ If ErrorLevel 1 goto End
 If ErrorLevel 1 goto End
 %signBinary% ..\binarm64\NppShell.msix
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\NppShell.arm64.dll
+%signBinary% ..\binarm64\NppShell.arm64.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\Config\nppPluginList.dll
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\plugins\Config\nppPluginList.dll
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\plugins\Config\nppPluginList.dll
+%signBinary% ..\binarm64\plugins\Config\nppPluginList.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\updater\GUP.exe
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\updater\GUP.exe
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\updater\GUP.exe
+%signBinary% ..\binarm64\updater\GUP.exe
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\updater\libcurl.dll
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\updater\libcurl.dll
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\updater\libcurl.dll
+%signBinary% ..\binarm64\updater\libcurl.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\NppExport\NppExport.dll
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\plugins\NppExport\NppExport.dll
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\plugins\NppExport\NppExport.dll
+%signBinary% ..\binarm64\plugins\NppExport\NppExport.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\mimeTools\mimeTools.dll
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\plugins\mimeTools\mimeTools.dll
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\plugins\mimeTools\mimeTools.dll
+%signBinary% ..\binarm64\plugins\mimeTools\mimeTools.dll
 If ErrorLevel 1 goto End
 
 %signBinary% ..\bin\plugins\NppConverter\NppConverter.dll
 If ErrorLevel 1 goto End
 %signBinary% ..\bin64\plugins\NppConverter\NppConverter.dll
 If ErrorLevel 1 goto End
-%signArmBinary% ..\binarm64\plugins\NppConverter\NppConverter.dll
+%signBinary% ..\binarm64\plugins\NppConverter\NppConverter.dll
 If ErrorLevel 1 goto End
 
 :NoSign

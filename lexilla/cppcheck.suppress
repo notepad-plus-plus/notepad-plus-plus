@@ -21,6 +21,10 @@ passedByValue
 // cppcheck 2.11 can't find system headers on Win32.
 missingIncludeSystem
 
+// Passing temporary string into hidden object creator functions: they do not hold the argument
+danglingTemporaryLifetime:lexilla/access/LexillaAccess.cxx
+returnDanglingLifetime:lexilla/access/LexillaAccess.cxx
+
 // cppcheck seems to believe that unique_ptr<char *[]>::get returns void* instead of char**
 arithOperationsOnVoidPointer:lexilla/lexlib/WordList.cxx
 
@@ -41,6 +45,7 @@ constVariablePointer:lexilla/examples/CheckLexilla/CheckLexilla.c
 // Suppress most lexer warnings since the lexers are maintained by others
 redundantCondition:lexilla/lexers/LexA68k.cxx
 constParameterReference:lexilla/lexers/LexAbaqus.cxx
+constParameterReference:lexilla/lexers/LexAda.cxx
 constParameterReference:lexilla/lexers/LexAsciidoc.cxx
 constParameterCallback:lexilla/lexers/LexAsn1.cxx
 knownConditionTrueFalse:lexilla/lexers/LexAU3.cxx
@@ -53,16 +58,20 @@ constParameterReference:lexilla/lexers/LexBash.cxx
 knownConditionTrueFalse:lexilla/lexers/LexBash.cxx
 variableScope:lexilla/lexers/LexBash.cxx
 constVariable:lexilla/lexers/LexBasic.cxx
-variableScope:lexilla/lexers/LexCmake.cxx
-knownConditionTrueFalse:lexilla/lexers/LexCmake.cxx
 constParameterReference:lexilla/lexers/LexCLW.cxx
 knownConditionTrueFalse:lexilla/lexers/LexCLW.cxx
+variableScope:lexilla/lexers/LexCmake.cxx
+knownConditionTrueFalse:lexilla/lexers/LexCmake.cxx
+constParameterReference:lexilla/lexers/LexCmake.cxx
+constParameterReference:lexilla/lexers/LexCOBOL.cxx
 constParameterReference:lexilla/lexers/LexCoffeeScript.cxx
 constParameterPointer:lexilla/lexers/LexCoffeeScript.cxx
 knownConditionTrueFalse:lexilla/lexers/LexCoffeeScript.cxx
+constVariableReference:lexilla/lexers/LexConf.cxx
 constParameterReference:lexilla/lexers/LexCPP.cxx
 variableScope:lexilla/lexers/LexCSS.cxx
 knownConditionTrueFalse:lexilla/lexers/LexDataflex.cxx
+constParameterReference:lexilla/lexers/LexDataflex.cxx
 variableScope:lexilla/lexers/LexDataflex.cxx
 knownConditionTrueFalse:lexilla/lexers/LexECL.cxx
 variableScope:lexilla/lexers/LexECL.cxx
@@ -75,6 +84,7 @@ constParameter:lexilla/lexers/LexFortran.cxx
 constParameterReference:lexilla/lexers/LexFortran.cxx
 redundantContinue:lexilla/lexers/LexFortran.cxx
 knownConditionTrueFalse:lexilla/lexers/LexFSharp.cxx
+constParameterReference:lexilla/lexers/LexGAP.cxx
 constParameterReference:lexilla/lexers/LexGDScript.cxx
 variableScope:lexilla/lexers/LexGui4Cli.cxx
 constParameterReference:lexilla/lexers/LexHaskell.cxx
@@ -83,6 +93,8 @@ knownConditionTrueFalse:lexilla/lexers/LexHex.cxx
 constParameterReference:lexilla/lexers/LexHTML.cxx
 constVariable:lexilla/lexers/LexHollywood.cxx
 variableScope:lexilla/lexers/LexInno.cxx
+constVariableReference:lexilla/lexers/LexInno.cxx
+constParameterReference:lexilla/lexers/LexJSON.cxx
 constParameterPointer:lexilla/lexers/LexJulia.cxx
 constParameterReference:lexilla/lexers/LexJulia.cxx
 knownConditionTrueFalse:lexilla/lexers/LexJulia.cxx
@@ -108,18 +120,24 @@ constParameterReference:lexilla/lexers/LexNimrod.cxx
 knownConditionTrueFalse:lexilla/lexers/LexNimrod.cxx
 variableScope:lexilla/lexers/LexNimrod.cxx
 variableScope:lexilla/lexers/LexNsis.cxx
+constParameterReference:lexilla/lexers/LexNsis.cxx
 knownConditionTrueFalse:lexilla/lexers/LexNsis.cxx
 variableScope:lexilla/lexers/LexOpal.cxx
+constParameterReference:lexilla/lexers/LexOpal.cxx
 knownConditionTrueFalse:lexilla/lexers/LexOpal.cxx
 constParameterReference:lexilla/lexers/LexOScript.cxx
+constParameterReference:lexilla/lexers/LexPascal.cxx
 variableScope:lexilla/lexers/LexPB.cxx
 constParameterReference:lexilla/lexers/LexPerl.cxx
+constVariableReference:lexilla/lexers/LexPerl.cxx
 knownConditionTrueFalse:lexilla/lexers/LexPerl.cxx
+constParameterReference:lexilla/lexers/LexPLM.cxx
 constParameterReference:lexilla/lexers/LexPO.cxx
 constParameterReference:lexilla/lexers/LexPython.cxx
 shadowVariable:lexilla/lexers/LexPowerPro.cxx
 knownConditionTrueFalse:lexilla/lexers/LexPowerPro.cxx
 variableScope:lexilla/lexers/LexProgress.cxx
+constParameterReference:lexilla/lexers/LexProgress.cxx
 constParameterReference:lexilla/lexers/LexRaku.cxx
 variableScope:lexilla/lexers/LexRaku.cxx
 redundantInitialization:lexilla/lexers/LexRegistry.cxx
@@ -128,10 +146,14 @@ constParameterReference:lexilla/lexers/LexRust.cxx
 knownConditionTrueFalse:lexilla/lexers/LexScriptol.cxx
 variableScope:lexilla/lexers/LexSpecman.cxx
 unreadVariable:lexilla/lexers/LexSpice.cxx
+constParameterReference:lexilla/lexers/LexSpice.cxx
 constParameterReference:lexilla/lexers/LexSTTXT.cxx
+constParameterReference:lexilla/lexers/LexTACL.cxx
 knownConditionTrueFalse:lexilla/lexers/LexTACL.cxx
 clarifyCalculation:lexilla/lexers/LexTADS3.cxx
 constParameterReference:lexilla/lexers/LexTADS3.cxx
+constParameterReference:lexilla/lexers/LexTAL.cxx
+constVariableReference:lexilla/lexers/LexTCL.cxx
 invalidscanf:lexilla/lexers/LexTCMD.cxx
 constParameterReference:lexilla/lexers/LexTeX.cxx
 variableScope:lexilla/lexers/LexTeX.cxx
@@ -149,6 +171,7 @@ variableScope:lexilla/lexers/LexVHDL.cxx
 unreadVariable:lexilla/lexers/LexVisualProlog.cxx
 variableScope:lexilla/lexers/LexVisualProlog.cxx
 shiftTooManyBitsSigned:lexilla/lexers/LexVisualProlog.cxx
+iterateByValue:lexilla/lexers/LexVisualProlog.cxx
 unreadVariable:lexilla/lexers/LexX12.cxx
 constVariableReference:lexilla/lexers/LexX12.cxx
 constParameterPointer:lexilla/lexers/LexX12.cxx
@@ -165,6 +188,7 @@ constParameterCallback:lexilla/lexers/LexPython.cxx
 constParameterCallback:lexilla/lexers/LexScriptol.cxx
 constParameterCallback:lexilla/lexers/LexVB.cxx
 
+constVariableReference:lexilla/lexers/LexBibTeX.cxx
 constVariableReference:lexilla/lexers/LexCSS.cxx
 constVariableReference:lexilla/lexers/LexCrontab.cxx
 constVariableReference:lexilla/lexers/LexGui4Cli.cxx

@@ -44,7 +44,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize, S
 	}
 	if (!_isRegistered)
 	{
-		WNDCLASS splitterContainerClass;
+		WNDCLASS splitterContainerClass{};
 
 		splitterContainerClass.style = CS_DBLCLKS;
 		splitterContainerClass.lpfnWndProc = staticWinProc;

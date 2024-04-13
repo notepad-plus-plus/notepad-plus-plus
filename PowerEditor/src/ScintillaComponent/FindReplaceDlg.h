@@ -410,28 +410,15 @@ protected :
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-    void combo2ExtendedMode(int comboID);
+	void combo2ExtendedMode(int comboID);
 
 private :
-	RECT _initialWindowRect = {};
+	RECT _initialWindowRect{};
 	LONG _deltaWidth = 0;
 	LONG _initialClientWidth = 0;
 	LONG _lesssModeHeight = 0;
 
 	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;
-	RECT _findClosePos = {};
-	RECT _replaceClosePos = {};
-	RECT _findInFilesClosePos = {};
-	RECT _markClosePos = {};
-
-	RECT _countInSelFramePos = {};
-	RECT _replaceInSelFramePos = {};
-
-	RECT _countInSelCheckPos = {};
-	RECT _replaceInSelCheckPos = {};
-
-	RECT _collapseButtonPos = {};
-	RECT _uncollapseButtonPos = {};
 
 	ScintillaEditView** _ppEditView = nullptr;
 	Finder  *_pFinder = nullptr;
@@ -467,11 +454,11 @@ private :
 
 	std::map<int, bool> _controlEnableMap;
 
-	std::vector<int> _reduce2hide_find = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDC_FINDALL_CURRENTFILE };
-	std::vector<int> _reduce2hide_findReplace = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDREPLACEALL };
+	std::vector<int> _reduce2hide_find = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDC_FINDALL_CURRENTFILE, IDCANCEL };
+	std::vector<int> _reduce2hide_findReplace = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDREPLACEALL, IDCANCEL };
 	std::vector<int> _reduce2hide_fif = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
 	std::vector<int> _reduce2hide_fip = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
-	std::vector<int> _reduce2hide_mark = { IDC_MARKLINE_CHECK, IDC_PURGE_CHECK, IDC_IN_SELECTION_CHECK, IDC_COPY_MARKED_TEXT };
+	std::vector<int> _reduce2hide_mark = { IDC_MARKLINE_CHECK, IDC_PURGE_CHECK, IDC_IN_SELECTION_CHECK, IDC_COPY_MARKED_TEXT, IDCANCEL };
 
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);
@@ -483,6 +470,7 @@ private :
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
 	void hideOrShowCtrl4reduceOrNormalMode(DIALOG_TYPE dlgT);
+	void calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn = false);
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);
@@ -501,7 +489,7 @@ private :
 	void updateCombos();
 	void updateCombo(int comboID);
 	void fillFindHistory();
-    void fillComboHistory(int id, const std::vector<generic_string> & strings);
+	void fillComboHistory(int id, const std::vector<generic_string> & strings);
 	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings, bool saveEmpty);
 	static const int FR_OP_FIND = 1;
 	static const int FR_OP_REPLACE = 2;
@@ -610,4 +598,3 @@ private:
 	HWND _hBtn = nullptr;
 	HFONT _hFont = nullptr;
 };
-

@@ -7,20 +7,20 @@
 
 |           OS            | last version can be run  |      supported            |
 |-------------------------|--------------------------|---------------------------|
-| **Windows 95**          | v3.9                     |          NO               |
-| **Windows 98**          | v6.0                     |          NO               |
-| **Windows ME**          | v6.0                     |          NO               |
-| **Windows NT 4.0**      | v4.7.3                   |          NO               |
-| **Windows 2000**        | v6.6.9                   |          NO               |
-| **Windows XP**          | v7.9.2                   |          NO               |
-| **Windows Server 2003** | v7.9.2                   |          NO               |
-| **Windows Vista**       | v8.4.6  \*               |          NO               |
-| **Windows Server 2008** | v8.4.6  \*               |          NO               |
-| **Windows 7**           | current version          |          NO               |
+| **Windows 95**          | v3.9                     |          No               |
+| **Windows 98**          | v6.0                     |          No               |
+| **Windows ME**          | v6.0                     |          No               |
+| **Windows NT 4.0**      | v4.7.3                   |          No               |
+| **Windows 2000**        | v6.6.9                   |          No               |
+| **Windows XP**          | v7.9.2                   |          No               |
+| **Windows Server 2003** | v7.9.2                   |          No               |
+| **Windows Vista**       | v8.4.6  \*               |          No               |
+| **Windows Server 2008** | v8.4.6  \*               |          No               |
+| **Windows 7**           | current version          |          No               |
 | **Windows 8**           | current version          |          No               |
-| **Windows 8.1**         | current version          |          YES              |
-| **Windows 10**          | current version          |          YES              |
-| **Windows 11**          | current version          |          YES              |
+| **Windows 8.1**         | current version          |          Yes              |
+| **Windows 10**          | current version          |          Yes              |
+| **Windows 11**          | current version          |          Yes              |
 
 \* The current version of Notepad++ built by GCC can be run under Vista & Server 2008
 

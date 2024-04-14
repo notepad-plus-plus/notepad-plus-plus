@@ -14,7 +14,7 @@ Bug reports are appreciated. Following a few guidelines listed below will help s
     * mimeTools
 4. Fill the complete information: a template will be shown when you create an issue. Please fill the complete information in the template. To fill the field **Debug Information** you can get it from your Notepad++ via menu `?>Debug Info...`. Please take your time to fill these information. If you don't bother to complete the information we need to help you, we won't bother to solve your problem either.
     
-
+test
 ## Pull Requests
 
 Your pull requests are welcome; however, they may not be accepted for various reasons. If you want to make some GUI enhancement like renaming some graphic items or fixing typos, please create the issue instead of the pull requests. All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.

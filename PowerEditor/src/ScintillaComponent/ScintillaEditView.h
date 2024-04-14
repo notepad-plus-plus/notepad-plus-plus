@@ -1134,6 +1134,12 @@ protected:
 		setLexer(L_HOLLYWOOD, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};	
 
+	void setRakuLexer(){
+		setLexer(L_RAKU, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.raku.comment.multiline"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.raku.comment.pod"), reinterpret_cast<LPARAM>("1"));
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {

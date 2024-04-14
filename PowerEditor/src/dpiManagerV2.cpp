@@ -17,7 +17,7 @@
 
 #include "dpiManagerV2.h"
 
-#include <CommCtrl.h>
+#include <commctrl.h>
 
 
 #if defined(__GNUC__) && __GNUC__ > 8

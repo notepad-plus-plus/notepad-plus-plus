@@ -1787,7 +1787,7 @@ void Notepad_plus::command(int id)
 					::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 
 					udd->display(false);
-					_mainWindowStatus &= ~WindowUserActive;
+					_mainWindowStatus &= static_cast<UCHAR>(~WindowUserActive);
 				}
 				else if ((isUDDlgDocked)&&(!isUDDlgVisible))
 				{

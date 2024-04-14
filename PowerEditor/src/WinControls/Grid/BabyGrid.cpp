@@ -674,7 +674,6 @@ void DrawCursor(HWND hWnd, int SI)
 	if (BGHS[SI].cursorcol < BGHS[SI].homecol) { return; }
 
 	rect = GetCellRect(hWnd, SI, BGHS[SI].cursorrow, BGHS[SI].cursorcol);
-	RECT rectwhole = rect;
 	HDC gdc = GetDC(hWnd);
 	BGHS[SI].activecellrect = rect;
 	int rop = GetROP2(gdc);

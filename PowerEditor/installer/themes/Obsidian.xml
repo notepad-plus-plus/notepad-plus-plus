@@ -608,6 +608,38 @@ Notepad++ Custom Style
             <WordsStyle name="F TRIPLE" styleID="18" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="F TRIPLEDOUBLE" styleID="19" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="raku" desc="Raku" ext="">
+            <WordsStyle name="DEFAULT"                      styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="ERROR"                        styleID="1" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="COMMENT LINE"                 styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="COMMENT EMBED"                styleID="3" fgColor="66747B" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="POD"                          styleID="4" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="CHARACTER"                    styleID="5" fgColor="FF8409" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="HEREDOC Q"                    styleID="6" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="HEREDOC QQ"                   styleID="7" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING"                       styleID="8" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="STRING Q"                     styleID="9" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="STRING QQ"                    styleID="10" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING Q_LANG"                styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING VAR"                   styleID="12" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="REGEX"                        styleID="13" fgColor="D39745" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="REGEX VAR"                    styleID="14" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="ADVERB"                       styleID="15" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="type5" />
+            <WordsStyle name="NUMBER"                       styleID="16" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="PREPROCESSOR"                 styleID="17" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR"                     styleID="18" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD"             styleID="19" fgColor="93C763" bgColor="293134" fontName="" fontStyle="" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="FUNCTION"                     styleID="20" fgColor="93C763" bgColor="293134" fontName="" fontStyle="" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="IDENTIFIER"                   styleID="21" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
+            <WordsStyle name="TYPEDEF"                      styleID="22" fgColor="93C763" bgColor="293134" fontName="" fontStyle="" fontSize="" keywordClass="type1" />
+            <WordsStyle name="MU"                           styleID="8" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="POSITIONAL"                   styleID="24" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ASSOCIATIVE"                  styleID="25" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CALLABLE"                     styleID="26" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="GRAMMAR"                      styleID="27" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CLASS"                        styleID="28" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
         <LexerType name="rc" desc="RC" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />

@@ -8151,6 +8151,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_GOLANG:
 			id = IDM_LANG_GOLANG; break;
 			
+		case L_RAKU:
+			id = IDM_LANG_RAKU; break;
+			
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

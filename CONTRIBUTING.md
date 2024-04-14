@@ -12,7 +12,7 @@ Bug reports are appreciated. Following a few guidelines listed below will help s
     * NppExport
     * Converter
     * mimeTools
-4. Fill the complete information: a template will be shown when you create an issue. Please fill the complete information in the template. To fill the field **Debug Information** you can get it from your Notepad++ via menu `?>Debug Info...`. Please take your time to fill these information. If you don't bother to complete the information we need to help you, we won't bother to solve your problem either.
+4. Fill the complete information: a template will be shown when you create an issue. Please fill the complete information in the template. To fill the field **Debug Information** you can get it from your Notepad++ via menu `?>Debug Info...`. Please take your time to fill these information. If you don't bother to complete the information we need to help you, we won't bother to solve your problem either. test
     
 
 ## Pull Requests

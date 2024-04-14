@@ -31,7 +31,7 @@ jobs:
         $isMaster = $isPush -and $${{ github.ref_name == github.event.repository.master_branch }}
 
         if ($isPush) {
-          $commit_message = "${{ github.event.head_commit.message }}"
+          $commit_message = (git show -s --format=%B)
         }
         else {
           $last_commit = @(Invoke-RestMethod ${{ github.event.pull_request._links.commits.href }})[0]  | Select-Object -Last 1

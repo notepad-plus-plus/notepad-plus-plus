@@ -6,7 +6,10 @@ body:
 - type: checkboxes
   attributes:
     label: Is there an existing issue for this?
-    description: Please search to see if an issue already exists for the bug you encountered.
+    description: |
+      Please search to see if an issue already exists for the bug you encountered.
+      If the issue is for a plugin (except for mimeTools, NppConverter, and NppExport),
+      report it to the plugin author rather than here.
     options:
     - label: I have searched the existing issues
       required: true
@@ -60,6 +63,16 @@ body:
     label: Anything else?
     description: |
       Links? References? Anything that will give us more context about the issue you are encountering!
+
+      If feasible, try launching Notepad++ without any plugins.
+      Some updates to Notepad++ modify communication rules used by plugins,
+      and if plugin developers do not keep their plugins in sync with these changes, issues may arise.
+      Running without plugins can help diagnose specific problems.
+
+      Notepad++ relies on the Lexilla and Scintilla libraries.
+      For more details, visit https://github.com/ScintillaOrg/lexilla and https://sourceforge.net/p/scintilla.
+      Consider using the reference program SciTE to verify whether the issue is a genuine bug in Notepad++.
+      Download Scite from here https://www.scintilla.org/SciTEDownload.html.
 
       Tip: You can attach images or relevant text files by clicking this area to highlight it and then dragging files in.
   validations:

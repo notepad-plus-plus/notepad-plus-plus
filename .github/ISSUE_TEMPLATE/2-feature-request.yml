@@ -33,12 +33,19 @@ body:
       Do a PASTE HERE
     render: shell
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Anything else?
     description: |
       Links? References? Anything that will give us more context about the feature you want!
+
+      Notepad++ relies on the Lexilla and Scintilla libraries.
+      For more details, visit https://github.com/ScintillaOrg/lexilla and https://sourceforge.net/p/scintilla.
+      If you have specific language feature requests, consider using the reference program SciTE to verify whether the desired feature is supported.
+      You can download SciTE from here https://www.scintilla.org/SciTEDownload.html.
+
+      If you have any questions about Notepad++ usage, explore the community forum https://community.notepad-plus-plus.org/category/7/faq.
 
       Tip: You can attach images by clicking this area to highlight it and then dragging files in.
   validations:

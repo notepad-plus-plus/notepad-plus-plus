@@ -100,6 +100,7 @@ void Win32_IO_File::close()
 			if (!::FlushFileBuffers(_hFile))
 			{
 				flushError = ::GetLastError();
+				std::wstring errNumberMsg = std::to_wstring(flushError) + L" - " + GetLastErrorAsString(flushError);
 
 				if (!nppParam.isEndSessionCritical())
 				{
@@ -133,8 +134,20 @@ void Win32_IO_File::close()
 					errMsg += L"\n\nThat file, temporarily stored in the system cache, cannot be finally committed to the storage device selected! \
 This is probably a storage driver or hardware issue, beyond the control of the Notepad++. \
 Please try using another storage and also check if your saved data is not corrupted.\n\nError Code reported: ";
-					errMsg += std::to_wstring(flushError) + L" - " + GetLastErrorAsString(flushError);
+					errMsg += errNumberMsg;
 					::MessageBoxW(NULL, errMsg.c_str(), L"WARNING - filebuffer flushing fail!", MB_OK | MB_ICONWARNING | MB_SYSTEMMODAL);
+				}
+				else
+				{
+					// writing breif log here
+					std::wstring nppFlushFileBuffersFailsLog = L"nppFlushFileBuffersFails.log";
+					std::wstring nppIssueLog = nppParam.getUserPath();
+					pathAppend(nppIssueLog, nppFlushFileBuffersFailsLog);
+
+					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+					std::string errNumberMsgA = converter.to_bytes(errNumberMsg);
+
+					writeLog(nppIssueLog.c_str(), errNumberMsgA.c_str());
 				}
 			}
 		}

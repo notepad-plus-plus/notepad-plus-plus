@@ -165,6 +165,8 @@ Please try using another storage and also check if your saved data is not corrup
 			std::string msg;
 			if (flushError != NOERROR)
 			{
+				msg = "FlushFileBuffers failed with the error code: " + std::to_string(flushError) + " - ";
+
 				LPSTR messageBuffer = nullptr;
 				FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 					nullptr, flushError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, nullptr);

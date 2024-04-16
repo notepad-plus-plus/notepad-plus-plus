@@ -731,7 +731,6 @@ public:
 
 public:
 	std::vector<std::pair<char, char>> _matchedPairs;
-	std::vector<std::pair<char, char>> _matchedPairsInit; // used only on init
 	bool _doHtmlXmlTag = false;
 	bool _doParentheses = false;
 	bool _doBrackets = false;

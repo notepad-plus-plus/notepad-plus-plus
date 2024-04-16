@@ -5898,7 +5898,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					close = closeVal;
 
 				if (open != -1 && close != -1)
-					_nppGUI._matchedPairConf._matchedPairsInit.push_back(pair<char, char>(char(open), char(close)));
+					_nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(char(open), char(close)));
 			}
 		}
 

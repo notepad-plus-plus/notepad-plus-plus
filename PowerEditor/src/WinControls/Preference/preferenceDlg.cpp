@@ -4502,16 +4502,16 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, EM_LIMITTEXT, 1, 0);
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, EM_LIMITTEXT, 1, 0);
 
-			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairsInit.size();
+			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairs.size();
 			if (nbMatchedPair > 3)
 				nbMatchedPair = 3;
 			for (size_t i = 0; i < nbMatchedPair; ++i)
 			{
 				TCHAR openChar[2]{};
-				openChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].first;
+				openChar[0] = nppGUI._matchedPairConf._matchedPairs[i].first;
 				openChar[1] = '\0';
 				TCHAR closeChar[2]{};
-				closeChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].second;
+				closeChar[0] = nppGUI._matchedPairConf._matchedPairs[i].second;
 				closeChar[1] = '\0';
 
 				if (i == 0)

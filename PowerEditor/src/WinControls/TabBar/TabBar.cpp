@@ -157,6 +157,28 @@ void TabBar::setFont(const TCHAR *fontName, int fontSize)
 		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 }
 
+int TabBar::getNextOrPrevTabIdx(bool isNext) const
+{
+	const HWND hTab = _hSelf;
+	const int lastTabIdx = TabCtrl_GetItemCount(hTab) - 1;
+	int selTabIdx = TabCtrl_GetCurSel(hTab);
+	if (isNext)
+	{
+		if (selTabIdx++ == lastTabIdx)
+		{
+			selTabIdx = 0;
+		}
+	}
+	else
+	{
+		if (selTabIdx-- == 0)
+		{
+			selTabIdx = lastTabIdx;
+		}
+	}
+	return selTabIdx;
+}
+
 
 void TabBar::activateAt(int index) const
 {

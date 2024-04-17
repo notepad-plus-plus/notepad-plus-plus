@@ -362,6 +362,8 @@ public:
 			::DestroyAcceleratorTable(_hIncFindAccTab);
 		if (_hFindAccTab)
 			::DestroyAcceleratorTable(_hFindAccTab);
+		if (_hAccTabSwitch)
+			::DestroyAcceleratorTable(_hAccTabSwitch);
 		delete [] _pAccelArray;
 	};
 	void init(HMENU hMenu, HWND menuParent) {
@@ -372,6 +374,7 @@ public:
 	HACCEL getAccTable() const {return _hAccTable;};
 	HACCEL getIncrFindAccTable() const { return _hIncFindAccTab; };
 	HACCEL getFindAccTable() const { return _hFindAccTab; };
+	HACCEL getTabSwitchAccTable() const { return _hAccTabSwitch; };
 
 	void updateShortcuts();
 	void updateFullMenu();
@@ -382,6 +385,7 @@ private:
 	HACCEL _hAccTable = nullptr;
 	HACCEL _hIncFindAccTab = nullptr;
 	HACCEL _hFindAccTab = nullptr;
+	HACCEL _hAccTabSwitch = nullptr;
 	ACCEL *_pAccelArray = nullptr;
 	int _nbAccelItems = 0;
 

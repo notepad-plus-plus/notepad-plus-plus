@@ -3711,6 +3711,29 @@ BOOL Notepad_plus::processIncrFindAccel(MSG *msg) const
 	return ::TranslateAccelerator(_incrementFindDlg.getHSelf(), _accelerator.getIncrFindAccTable(), msg);
 }
 
+BOOL Notepad_plus::processTabSwitchAccel(MSG* msg) const
+{
+	HWND hDlg = nullptr;
+	auto isRightDlg = [&msg, &hDlg](HWND hWnd) -> bool {
+		const bool isRight = (hWnd == msg->hwnd || (::IsChild(hWnd, msg->hwnd) == TRUE));
+		if (isRight)
+		{
+			hDlg = hWnd;
+		}
+		return isRight;
+		};
+	
+	if (isRightDlg(_findReplaceDlg.getHSelf())
+		|| isRightDlg(_pluginsAdminDlg.getHSelf())
+		|| (ScintillaEditView::getUserDefineDlg() != nullptr
+			&& isRightDlg(ScintillaEditView::getUserDefineDlg()->getHSelf()))
+		)
+	{
+		return static_cast<BOOL>(::TranslateAccelerator(hDlg, _accelerator.getTabSwitchAccTable(), msg));
+	}
+	return FALSE;
+}
+
 void Notepad_plus::setLanguage(LangType langType)
 {
 	//Add logic to prevent changing a language when a document is shared between two views

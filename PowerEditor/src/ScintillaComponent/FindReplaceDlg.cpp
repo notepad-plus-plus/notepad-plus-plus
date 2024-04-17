@@ -1694,25 +1694,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_NEXT_TAB:
 				case IDC_PREV_TAB:
 				{
-					const int lastTab = TabCtrl_GetItemCount(_tab.getHSelf()) - 1;
-					int selTab = TabCtrl_GetCurSel(_tab.getHSelf());
+					const int selTabIdx = _tab.getNextOrPrevTabIdx(LOWORD(wParam) == IDC_NEXT_TAB);
 
-					if (LOWORD(wParam) == IDC_NEXT_TAB)
-					{
-						if (selTab++ == lastTab)
-						{
-							selTab = 0;
-						}
-					}
-					else
-					{
-						if (selTab-- == 0)
-						{
-							selTab = lastTab;
-						}
-					}
-
-					switch (static_cast<DIALOG_TYPE>(selTab))
+					switch (static_cast<DIALOG_TYPE>(selTabIdx))
 					{
 						case DIALOG_TYPE::FIND_DLG:
 						{

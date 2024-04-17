@@ -624,19 +624,33 @@ void Accelerator::updateShortcuts()
 	_hIncFindAccTab = ::CreateAcceleratorTable(tmpIncrFindAccelArray, static_cast<int32_t>(nb));
 	delete [] tmpIncrFindAccelArray;
 
-	if (_hFindAccTab)
-		::DestroyAcceleratorTable(_hFindAccTab);
+	if (_hAccTabSwitch)
+		::DestroyAcceleratorTable(_hAccTabSwitch);
 
 	ACCEL accNextTab{ BYTE{FVIRTKEY | FCONTROL}, VK_TAB, IDC_NEXT_TAB };
 	ACCEL accPrevTab{ BYTE{FVIRTKEY | FCONTROL | FSHIFT}, VK_TAB, IDC_PREV_TAB };
-	findReplaceAcc.emplace_back(accNextTab);
-	findReplaceAcc.emplace_back(accPrevTab);
+	vector<ACCEL> tabSwitchAcc{ accNextTab, accPrevTab };
+	const size_t nbTabSwitchAcc = tabSwitchAcc.size();
+	if (nbTabSwitchAcc > 0)
+	{
+		ACCEL* tmpTabSwitchAcc = new ACCEL[nbTabSwitchAcc];
+		for (i = 0; i < nbTabSwitchAcc; ++i)
+			tmpTabSwitchAcc[i] = tabSwitchAcc.at(i);
+		_hAccTabSwitch = ::CreateAcceleratorTable(tmpTabSwitchAcc, static_cast<int>(nbTabSwitchAcc));
+		delete[] tmpTabSwitchAcc;
+	}
+
+	if (_hFindAccTab)
+		::DestroyAcceleratorTable(_hFindAccTab);
+
 	size_t nbFindReplaceAcc = findReplaceAcc.size();
 	if (nbFindReplaceAcc)
 	{
 		ACCEL* tmpFindAccelArray = new ACCEL[nbFindReplaceAcc];
+
 		for (size_t j = 0; j < nbFindReplaceAcc; ++j)
 			tmpFindAccelArray[j] = findReplaceAcc[j];
+
 		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, static_cast<int>(nbFindReplaceAcc));
 		delete[] tmpFindAccelArray;
 	}

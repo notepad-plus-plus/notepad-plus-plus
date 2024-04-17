@@ -1187,7 +1187,7 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				}
 			}
 
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDOK:
 					if (::GetFocus() == ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT))
@@ -1197,6 +1197,16 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDCANCEL:
 					display(false);
 					return TRUE;
+
+				case IDC_NEXT_TAB:
+				case IDC_PREV_TAB:
+				{
+					const int selTabIdx = _tab.getNextOrPrevTabIdx(LOWORD(wParam) == IDC_NEXT_TAB);
+					_tab.activateAt(selTabIdx);
+					switchDialog(selTabIdx);
+
+					return TRUE;
+				}
 
 				case IDC_PLUGINADM_RESEARCH_NEXT:
 					searchInPlugins(true);

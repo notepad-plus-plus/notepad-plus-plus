@@ -4276,15 +4276,17 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 	if (hdrop)
 	{
 		// Determinate in which view the file(s) is (are) dropped
-		POINT p;
+		POINT p{};
 		::DragQueryPoint(hdrop, &p);
 		HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 		if (!hWin) return;
 
-		if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
-			switchEditViewTo(SUB_VIEW);
-		else
+		if ((_mainEditView.getHSelf() == hWin) || (_mainDocTab.getHSelf() == hWin))
 			switchEditViewTo(MAIN_VIEW);
+		else if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
+			switchEditViewTo(SUB_VIEW);
+		//else
+			// do not change the current Notepad++ edit-view
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
 

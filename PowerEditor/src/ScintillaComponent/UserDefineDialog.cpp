@@ -1144,7 +1144,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
             return TRUE;
         }
 
-        case WM_COMMAND :
+        case WM_COMMAND:
         {
             if (HIWORD(wParam) == EN_CHANGE)
             {
@@ -1153,19 +1153,32 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                 _pUserLang->_ext = ext;
                 return TRUE;
             }
-            else if (HIWORD(wParam) == CBN_SELCHANGE)
+            else if (HIWORD(wParam) == CBN_SELCHANGE) // HIWORD(wParam) for accelerators is also 1
             {
-                if (LOWORD(wParam) == IDC_LANGNAME_COMBO)
+                switch (LOWORD(wParam))
                 {
-					auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
-                    enableLangAndControlsBy(i);
-                    updateDlg();
+                    case IDC_LANGNAME_COMBO:
+                    {
+                        auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+                        enableLangAndControlsBy(i);
+                        updateDlg();
+                        return TRUE;
+                    }
+
+                    case IDC_NEXT_TAB:
+                    case IDC_PREV_TAB:
+                    {
+                        const int selTabIdx = _ctrlTab.getNextOrPrevTabIdx(LOWORD(wParam) == IDC_NEXT_TAB);
+                        _ctrlTab.activateAt(selTabIdx);
+                        _ctrlTab.clickedUpdate();
+
+                        return TRUE;
+                    }
                 }
-                return TRUE;
             }
             else
             {
-                switch (wParam)
+                switch (LOWORD(wParam))
                 {
                     case IDC_DOCK_BUTTON :
                     {

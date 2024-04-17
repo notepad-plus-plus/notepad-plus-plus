@@ -108,6 +108,8 @@ public:
 		return isReduced ? _hFont : _hLargeFont;
 	}
 
+	int getNextOrPrevTabIdx(bool isNext) const;
+
 protected:
 	size_t _nbItem = 0;
 	bool _hasImgLst = false;

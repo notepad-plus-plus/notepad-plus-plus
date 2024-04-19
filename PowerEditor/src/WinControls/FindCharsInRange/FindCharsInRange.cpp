@@ -95,9 +95,17 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			return TRUE;
 		}
 
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDC_NONASCCI_RADIO:
 				case IDC_ASCCI_RADIO:

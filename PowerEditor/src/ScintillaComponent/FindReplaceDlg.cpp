@@ -1027,7 +1027,7 @@ void FindInFinderDlg::writeOptions()
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
 }
 
-intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -1084,6 +1084,14 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			setPositionDpi(lParam);
+
 			return TRUE;
 		}
 

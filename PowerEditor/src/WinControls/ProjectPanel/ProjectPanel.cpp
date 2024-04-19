@@ -1330,7 +1330,7 @@ void ProjectPanel::addFilesFromDirectory(HTREEITEM hTreeItem)
 	}
 }
 
-intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
@@ -1370,9 +1370,17 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 			break;
 		}
 
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDOK :
 				{

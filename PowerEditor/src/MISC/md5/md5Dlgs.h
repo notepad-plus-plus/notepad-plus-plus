@@ -31,7 +31,7 @@ public :
 	HashFromFilesDlg() = default;
 
 	void doDialog(bool isRTL = false);
-	void destroy() override {};
+	void destroy() override;
 	void setHashType(hashType hashType2set);
 
 protected :
@@ -51,6 +51,7 @@ protected :
 private :
 	WNDPROC _oldHashPathEditProc = nullptr;
 	WNDPROC _oldHashResultProc = nullptr;
+	HFONT _hFont = nullptr;
 };
 
 class HashFromTextDlg : public StaticDialog
@@ -59,7 +60,7 @@ public :
 	HashFromTextDlg() = default;
 
 	void doDialog(bool isRTL = false);
-	void destroy() override {};
+	void destroy() override;
 	void generateHash();
 	void generateHashPerLine();
 	void setHashType(hashType hashType2set);
@@ -81,5 +82,5 @@ protected :
 private :
 	WNDPROC _oldHashTextEditProc = nullptr;
 	WNDPROC _oldHashResultProc = nullptr;
+	HFONT _hFont = nullptr;
 };
-

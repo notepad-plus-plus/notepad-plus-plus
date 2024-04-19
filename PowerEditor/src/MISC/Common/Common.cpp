@@ -1503,8 +1503,8 @@ HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestPar
 {
 	HDC hdc = GetDC(hDestParent);
 
-	LOGFONT logFont = {};
-	logFont.lfHeight = -MulDiv(fontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
+	LOGFONT logFont{};
+	logFont.lfHeight = DPIManagerV2::scaleFont(fontSize, hDestParent);
 	if (isBold)
 		logFont.lfWeight = FW_BOLD;
 

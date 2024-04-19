@@ -122,6 +122,10 @@ public:
 		return -(scale(pt, dpi, 72));
 	}
 
+	static int scaleFont(int pt, HWND hWnd) {
+		return -(scale(pt, getDpiForWindow(hWnd), 72));
+	}
+
 	int scaleFont(int pt) {
 		return scaleFont(pt, _dpi);
 	}

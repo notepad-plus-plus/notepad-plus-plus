@@ -246,6 +246,13 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 {
 	switch (message) 
 	{
+		case WM_INITDIALOG:
+		{
+			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_FINDKEYCONFLICTS:
 		{
 			return ::SendMessage(_hParent, message, wParam, lParam);
@@ -296,7 +303,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 		case WM_CHANGEUISTATE:
 		{
-			if (NppDarkMode::isEnabled() && !NppDarkMode::isWindows11())
+			if (NppDarkMode::isEnabled())
 			{
 				redrawDlgItem(IDC_MAINTEXT_STATIC);
 			}
@@ -304,9 +311,17 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 			return FALSE;
 		}
 
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDCANCEL :
 					display(false);
@@ -431,9 +446,8 @@ void RunDlg::doDialog(bool isRTL)
 	if (!isCreated())
 		create(IDD_RUN_DLG, isRTL);
 
-	NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
-
 	// Adjust the position in the center
+	goToCenter(SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 	::SetFocus(::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH));
 }

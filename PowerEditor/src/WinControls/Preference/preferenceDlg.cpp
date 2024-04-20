@@ -366,7 +366,35 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case WM_COMMAND :
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			_generalSubDlg.setDpiWP(wParam);
+			_editingSubDlg.setDpiWP(wParam);
+			_editing2SubDlg.setDpiWP(wParam);
+			_darkModeSubDlg.setDpiWP(wParam);
+			_marginsBorderEdgeSubDlg.setDpiWP(wParam);
+			_miscSubDlg.setDpiWP(wParam);
+			_fileAssocDlg.setDpiWP(wParam);
+			_languageSubDlg.setDpiWP(wParam);
+			_highlightingSubDlg.setDpiWP(wParam);
+			_printSubDlg.setDpiWP(wParam);
+			_searchingSubDlg.setDpiWP(wParam);
+			_newDocumentSubDlg.setDpiWP(wParam);
+			_defaultDirectorySubDlg.setDpiWP(wParam);
+			_recentFilesHistorySubDlg.setDpiWP(wParam);
+			_backupSubDlg.setDpiWP(wParam);
+			_autoCompletionSubDlg.setDpiWP(wParam);
+			_multiInstanceSubDlg.setDpiWP(wParam);
+			_delimiterSubDlg.setDpiWP(wParam);
+			_performanceSubDlg.setDpiWP(wParam);
+
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
 			{
@@ -532,7 +560,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	
-	switch (message) 
+	switch (message)
 	{
 		case WM_INITDIALOG :
 		{
@@ -1428,9 +1456,9 @@ void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2Move
 	NppParameters& nppParam = NppParameters::getInstance();
 
 	if(nppParam.getNativeLangSpeaker()->isRTL())
-		p.x = rc.right + nppParam._dpiManager.scaleX(5) + handle2MoveWidth;
+		p.x = rc.right + DPIManagerV2::scale(5) + handle2MoveWidth;
 	else
-		p.x = rc.left - nppParam._dpiManager.scaleX(5) - handle2MoveWidth;
+		p.x = rc.left - DPIManagerV2::scale(5) - handle2MoveWidth;
 
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
@@ -1510,21 +1538,20 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pHotEdgeColorPicker->init(_hInst, _hSelf);
 			_pDisabledEdgeColorPicker->init(_hInst, _hSelf);
 
-			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
-			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
+			const int cpDynamicalSize = DPIManagerV2::scale(25);
 
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 
 			_pBackgroundColorPicker->display();
 			_pSofterBackgroundColorPicker->display();
@@ -1621,6 +1648,26 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			delete _pLinkColorPicker;
 			delete _pHotEdgeColorPicker;
 			delete _pDisabledEdgeColorPicker;
+
+			return TRUE;
+		}
+
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			const int cpDynamicalSize = DPIManagerV2::scale(25);
+
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 
 			return TRUE;
 		}
@@ -2816,7 +2863,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
 
-	switch (message) 
+	switch (message)
 	{
 		case WM_INITDIALOG:
 		{
@@ -2871,11 +2918,6 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 			{
 				const bool isTextEnabled = isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH);
 				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
-			}
-
-			if (dlgCtrlID == IDC_EDIT_CUSTOMIZELENGTHVAL)
-			{
-				return NppDarkMode::onCtlColor(hdcStatic);
 			}
 			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
@@ -5054,12 +5096,42 @@ void DelimiterSubDlg::setWarningIfNeed() const
 	::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
 }
 
+void DelimiterSubDlg::calcCtrlsPos()
+{
+	RECT rcBlabla{};
+	RECT rcBlabla2nd{};
+	RECT rcOpen{};
+	RECT rcOpenEdit{};
+
+	getMappedChildRect(IDD_STATIC_BLABLA, rcBlabla);
+	getMappedChildRect(IDD_STATIC_BLABLA2NDLINE, rcBlabla2nd);
+	getMappedChildRect(IDD_STATIC_OPENDELIMITER, rcOpen);
+	getMappedChildRect(IDC_EDIT_OPENDELIMITER, rcOpenEdit);
+
+	_gapEditHor = (rcBlabla.left - rcOpenEdit.right) - ::GetSystemMetrics(SM_CXEDGE);
+	_gapEditVer = (rcBlabla.top - rcOpenEdit.top) + ::GetSystemMetrics(SM_CYEDGE);
+	_gapText = (rcBlabla.left - rcOpen.right);
+}
+
+void DelimiterSubDlg::setCtrlsPos(bool isMultiline)
+{
+	constexpr UINT flags = SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE), isMultiline ? SW_SHOW : SW_HIDE);
+
+	RECT rcToUse{};
+	getMappedChildRect(isMultiline ? IDD_STATIC_BLABLA2NDLINE : IDD_STATIC_BLABLA, rcToUse);
+
+	::SetWindowPos(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), nullptr, rcToUse.right + _gapEditHor, rcToUse.top - _gapEditVer, 0, 0, flags);
+	::SetWindowPos(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), nullptr, rcToUse.right + _gapText, rcToUse.top, 0, 0, flags);
+}
+
 intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
-	switch (message) 
+	switch (message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			//
 			// Delimiter
@@ -5077,29 +5149,9 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(opener));
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(closer));
 			::SendDlgItemMessage(_hSelf, IDD_SEVERALLINEMODEON_CHECK, BM_SETCHECK, onSeveralLines?BST_CHECKED:BST_UNCHECKED, 0);
-
-			POINT point = getTopPoint(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA), false);
-			_singleLineModePoint.x = point.x + 4;
-			_singleLineModePoint.y = point.y - 4;
-
-			point = getTopPoint(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE), false);
-			_multiLineModePoint.x = point.x + 4;
-			_multiLineModePoint.y = point.y - 4;
-
-			::GetClientRect(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), &_closerRect);
-			_closerRect.right = _closerRect.right - _closerRect.left + 4;
-			_closerRect.bottom = _closerRect.bottom - _closerRect.top + 4;
-
-			::GetClientRect(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), &_closerLabelRect);
-			_closerLabelRect.right = _closerLabelRect.right - _closerLabelRect.left + 4;
-			_closerLabelRect.bottom = _closerLabelRect.bottom - _closerLabelRect.top + 4;
-
-
-			::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE),onSeveralLines?SW_SHOW:SW_HIDE);
-
-			POINT *p = onSeveralLines?&_multiLineModePoint:&_singleLineModePoint;
-			::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
-			::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
+			
+			calcCtrlsPos();
+			setCtrlsPos(onSeveralLines);
 
 			//
 			// Word Char List
@@ -5169,7 +5221,13 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			calcCtrlsPos();
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
@@ -5208,16 +5266,12 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			switch (wParam)
 			{
 
-				case IDD_SEVERALLINEMODEON_CHECK :
+				case IDD_SEVERALLINEMODEON_CHECK:
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_SEVERALLINEMODEON_CHECK, BM_GETCHECK, 0, 0));
 					nppGUI._delimiterSelectionOnEntireDocument = isChecked;
-					
-					::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE),isChecked?SW_SHOW:SW_HIDE);
 
-					POINT *p = isChecked?&_multiLineModePoint:&_singleLineModePoint;
-					::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
-					::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
+					setCtrlsPos(isChecked);
 
 					return TRUE;
 				}
@@ -5459,7 +5513,7 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 					return FALSE;
 
 			}
-		}																						
+		}
 	}
 	return FALSE;
 }
@@ -5577,11 +5631,6 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 			{
 				bool isTextEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
 				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
-			}
-
-			if (dlgCtrlID == IDC_EDIT_PERFORMANCE_FILESIZE)
-			{
-				return NppDarkMode::onCtlColor(hdcStatic);
 			}
 			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}

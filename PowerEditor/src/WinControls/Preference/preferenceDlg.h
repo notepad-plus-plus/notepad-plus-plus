@@ -264,16 +264,17 @@ public :
 	};
 
 private :
-	POINT _singleLineModePoint = {};
-	POINT _multiLineModePoint = {};
-	RECT _closerRect = {};
-	RECT _closerLabelRect = {};
+	LONG _gapEditHor = 0;
+	LONG _gapEditVer = 0;
+	LONG _gapText = 0;
 	HWND _tip = nullptr;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void detectSpace(const char *text2Check, int & nbSp, int & nbTab) const;
 	generic_string getWarningText(size_t nbSp, size_t nbTab) const;
 	void setWarningIfNeed() const;
+	void calcCtrlsPos();
+	void setCtrlsPos(bool isMultiline);
 };
 
 class CloudAndLinkSubDlg : public StaticDialog

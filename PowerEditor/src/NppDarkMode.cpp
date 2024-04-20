@@ -1030,7 +1030,9 @@ namespace NppDarkMode
 					{
 						RECT rcBtn{};
 						::GetClientRect(hWnd, &rcBtn);
-						szBtn = { rcBtn.right - rcBtn.left, rcBtn.bottom - rcBtn.top };
+						const UINT dpi = DPIManagerV2::getDpiForParent(hWnd);
+						szBtn.cx = DPIManagerV2::unscale(rcBtn.right - rcBtn.left, dpi);
+						szBtn.cy = DPIManagerV2::unscale(rcBtn.bottom - rcBtn.top, dpi);
 						isSizeSet = (szBtn.cx != 0 && szBtn.cy != 0);
 					}
 					break;
@@ -1238,21 +1240,6 @@ namespace NppDarkMode
 
 		switch (uMsg)
 		{
-			case WM_SETBUTTONIDEALSIZE:
-			{
-				if (pButtonData->isSizeSet)
-				{
-					SIZE szBtn{};
-					if (Button_GetIdealSize(hWnd, &szBtn) == TRUE)
-					{
-						const int cx = std::min<LONG>(szBtn.cx, pButtonData->szBtn.cx);
-						const int cy = std::min<LONG>(szBtn.cy, pButtonData->szBtn.cy);
-						::SetWindowPos(hWnd, nullptr, 0, 0, cx, cy, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
-					}
-				}
-				return 0;
-			}
-
 			case WM_UPDATEUISTATE:
 				if (HIWORD(wParam) & (UISF_HIDEACCEL | UISF_HIDEFOCUS))
 				{
@@ -1280,6 +1267,21 @@ namespace NppDarkMode
 			case WM_DPICHANGED_AFTERPARENT:
 			{
 				pButtonData->closeTheme();
+				[[fallthrough]];
+			}
+			case WM_SETBUTTONIDEALSIZE:
+			{
+				if (pButtonData->isSizeSet)
+				{
+					SIZE szBtn{};
+					if (Button_GetIdealSize(hWnd, &szBtn) == TRUE)
+					{
+						const UINT dpi = DPIManagerV2::getDpiForParent(hWnd);
+						const int cx = std::min<LONG>(szBtn.cx, DPIManagerV2::scale(pButtonData->szBtn.cx, dpi));
+						const int cy = std::min<LONG>(szBtn.cy, DPIManagerV2::scale(pButtonData->szBtn.cy, dpi));
+						::SetWindowPos(hWnd, nullptr, 0, 0, cx, cy, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
+					}
+				}
 				return 0;
 			}
 

@@ -105,11 +105,11 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 			::ShowWindow(_hCaption, SW_SHOW);
 		}
 
-		//If you want defualt GUI font
-		LOGFONT lfTab{ NppParameters::getDefaultGUIFont() };
+		//If you want default GUI font
+		LOGFONT lfTab{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent) };
 		_hFont = ::CreateFontIndirect(&lfTab);
 
-		LOGFONT lfCaption{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::smcaption) };
+		LOGFONT lfCaption{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent, DPIManagerV2::FontType::smcaption) };
 		_hFontCaption = ::CreateFontIndirect(&lfCaption);
 	}
 
@@ -560,7 +560,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		rc.right	= rc.bottom - rc.top;
 		rc.bottom	+= 14;
 
-		LOGFONT lf{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::smcaption) };
+		LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent, DPIManagerV2::FontType::smcaption) };
 		lf.lfEscapement = 900;
 		hFont = ::CreateFontIndirect(&lf);
 		if (hFont == nullptr)
@@ -594,7 +594,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	{
 		if (_hFont == nullptr)
 		{
-			LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+			LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent) };
 			_hFont = ::CreateFontIndirect(&lf);
 		}
 		auto hOld = static_cast<HFONT>(::SelectObject(hDc, _hFont));

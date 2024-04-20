@@ -65,7 +65,7 @@ struct StatusBarSubclassInfo
 	{
 		if (!hTheme)
 		{
-			hTheme = OpenThemeData(hwnd, L"Status");
+			hTheme = ::OpenThemeData(hwnd, VSCLASS_STATUS);
 		}
 		return hTheme != nullptr;
 	}
@@ -99,7 +99,7 @@ struct StatusBarSubclassInfo
 constexpr UINT_PTR g_statusBarSubclassID = 42;
 
 
-LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
 	StatusBarSubclassInfo* pStatusBarInfo = reinterpret_cast<StatusBarSubclassInfo*>(dwRefData);
 
@@ -240,11 +240,18 @@ LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			break;
 		}
 
+		case WM_DPICHANGED:
+		case WM_DPICHANGED_AFTERPARENT:
 		case WM_THEMECHANGED:
 		{
 			pStatusBarInfo->closeTheme();
-			LOGFONT lf{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::status) };
+			LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(::GetParent(hWnd), DPIManagerV2::FontType::status) };
 			pStatusBarInfo->setFont(::CreateFontIndirect(&lf));
+			
+			if (uMsg != WM_THEMECHANGED)
+			{
+				return 0;
+			}
 			break;
 		}
 	}
@@ -269,7 +276,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	if (!_hSelf)
 		throw std::runtime_error("StatusBar::init : CreateWindowEx() function return null");
 
-	LOGFONT lf{ NppParameters::getDefaultGUIFont(NppParameters::DefaultFontType::status) };
+	LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent, DPIManagerV2::FontType::status) };
 	StatusBarSubclassInfo* pStatusBarInfo = new StatusBarSubclassInfo(::CreateFontIndirect(&lf));
 	_pStatusBarInfo = pStatusBarInfo;
 

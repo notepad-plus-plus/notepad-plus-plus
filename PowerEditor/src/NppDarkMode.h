@@ -95,6 +95,8 @@ namespace NppDarkMode
 		NppDarkMode::AdvOptDefaults _lightDefaults{ L"", 4, 0, true };
 	};
 
+	constexpr UINT WM_SETBUTTONIDEALSIZE = (WM_USER + 4200);
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 
@@ -122,8 +124,7 @@ namespace NppDarkMode
 	DWORD getWindowsBuildNumber();
 
 	COLORREF invertLightness(COLORREF c);
-	COLORREF invertLightnessSofter(COLORREF c);
-	double calculatePerceivedLighness(COLORREF c);
+	double calculatePerceivedLightness(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);
 
@@ -221,8 +222,6 @@ namespace NppDarkMode
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags);
 	void autoSubclassAndThemeWindowNotify(HWND hwnd);
-
-	void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	void setDarkTitleBar(HWND hwnd);
 	void setDarkExplorerTheme(HWND hwnd);

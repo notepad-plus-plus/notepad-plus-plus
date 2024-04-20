@@ -133,9 +133,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
 	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 
-	int tabDpiDynamicalHeight = dpiManager.scaleY(13);
-	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
-
 	const TCHAR *available = TEXT("Available");
 	const TCHAR *updates = TEXT("Updates");
 	const TCHAR *installed = TEXT("Installed");
@@ -150,7 +147,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	getMappedChildRect(IDC_PLUGINADM_EDIT, rcDesc);
 
 	const long margeX = ::GetSystemMetrics(SM_CXEDGE);
-	const long margeY = tabDpiDynamicalHeight;
+	const long margeY = dpiManager.scaleY(13);
 
 	rect.bottom = rcDesc.bottom + margeY;
 	_tab.reSizeTo(rect);

@@ -20,6 +20,7 @@
 #include "EncodingMapper.h"
 #include "localization.h"
 #include "fileBrowser.h"
+#include "NppDarkMode.h"
 
 using namespace std;
 
@@ -678,6 +679,7 @@ void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 			{
 				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
+				resizeCheckboxRadioBtn(hItem);
 			}
 		}
 	}
@@ -741,7 +743,7 @@ void NativeLangSpeaker::changeUserDefineLangPopupDlg(HWND hDlg)
 			{
 				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
-
+				resizeCheckboxRadioBtn(hItem);
 			}
 		}
 	}
@@ -836,6 +838,7 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 					{
 						const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						::SetWindowText(hItem, nameW);
+						resizeCheckboxRadioBtn(hItem);
 					}
 				}
 			}
@@ -1308,6 +1311,7 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 			{
 				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
+				resizeCheckboxRadioBtn(hItem);
 			}
 		}
 	}
@@ -1526,4 +1530,34 @@ int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TC
 		msgBoxType |= MB_RTLREADING | MB_RIGHT;
 	}
 	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
+}
+
+// Default English localization during Notepad++ launch
+// is handled in NppDarkMode::subclassButtonControl.
+void NativeLangSpeaker::resizeCheckboxRadioBtn(HWND hWnd)
+{
+	constexpr size_t classNameLen = 32;
+	wchar_t className[classNameLen]{};
+	::GetClassNameW(hWnd, className, classNameLen);
+	if (wcscmp(className, WC_BUTTON) == 0)
+	{
+		const auto nBtnStyle = ::GetWindowLongPtrW(hWnd, GWL_STYLE);
+		switch (nBtnStyle & BS_TYPEMASK)
+		{
+			case BS_CHECKBOX:
+			case BS_AUTOCHECKBOX:
+			case BS_RADIOBUTTON:
+			case BS_AUTORADIOBUTTON:
+			{
+				if ((nBtnStyle & BS_MULTILINE) != BS_MULTILINE)
+				{
+					::SendMessageW(hWnd, NppDarkMode::WM_SETBUTTONIDEALSIZE, 0, 0);
+				}
+				break;
+			}
+
+			default:
+				break;
+		}
+	}
 }

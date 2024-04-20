@@ -896,7 +896,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			if (_hFontSearchEdit == nullptr)
 			{
-				LOGFONT lf{ NppParameters::getDefaultGUIFont() };
+				LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent) };
 				_hFontSearchEdit = ::CreateFontIndirect(&lf);
 			}
 

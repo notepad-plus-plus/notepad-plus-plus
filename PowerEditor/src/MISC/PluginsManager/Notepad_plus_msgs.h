@@ -39,6 +39,7 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_MMIXAL, L_NIM, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
 			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG,\
 			   L_TYPESCRIPT, L_JSON5, L_MSSQL, L_GDSCRIPT, L_HOLLYWOOD,\
+               L_GOLANG, L_RAKU,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
@@ -115,7 +116,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// wParam[out]: sessionFileArray is the array in which the files' full path of the same group are written. To allocate the array with the proper size, send message NPPM_GETNBSESSIONFILES.
 	// lParam[in]: sessionFileName is XML session full path
 	// Return FALSE on failure, TRUE on success
-	
+
 	#define NPPM_SAVESESSION (NPPMSG + 15)
 		struct sessionInfo {
 			TCHAR* sessionFilePathName; // Full session file path name to be saved
@@ -178,7 +179,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// int NPPM_GETCURRENTDOCINDEX(0, int inView)
 	// Get the current index of the given view.
 	// wParam: 0 (not used)
-	// lParam[in]: inView, should be 0 (main view) or 1 (sub-view) 
+	// lParam[in]: inView, should be 0 (main view) or 1 (sub-view)
 	// Return -1 if the view is invisible (hidden), otherwise is the current index.
 
 	#define NPPM_SETSTATUSBAR (NPPMSG + 24)
@@ -208,7 +209,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Changes current buffer in view to UTF-8.
 	// wParam[in]: inView - main view (0) or sub-view (1)
 	// lParam: 0 (not used)
-	// return new UniMode, with the following value: 
+	// return new UniMode, with the following value:
 	// 0: ANSI
 	// 1: UTF-8 with BOM
 	// 2: UTF-16 Big Ending with BOM
@@ -229,7 +230,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// BOOL NPPM_ACTIVATEDOC(int inView, int index2Activate)
 	// Switch to the document by the given view and index.
 	// wParam[in]: inView - main view (0) or sub-view (1)
-	// lParam[in]: index2Activate - index (in the view indicated above) where is the document to be activated 
+	// lParam[in]: index2Activate - index (in the view indicated above) where is the document to be activated
 	// Return TRUE
 
 	#define NPPM_LAUNCHFINDINFILESDLG (NPPMSG + 29)
@@ -250,14 +251,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// BOOL NPPM_DMMHIDE(0, HWND hDlg)
 	// Hide the dialog which was previously regeistered by NPPM_DMMREGASDCKDLG.
 	// wParam: 0 (not used)
-	// lParam[in]: hDlg is the handle of dialog to hide 
+	// lParam[in]: hDlg is the handle of dialog to hide
 	// Return TRUE
 
 	#define NPPM_DMMUPDATEDISPINFO (NPPMSG + 32)
 	// BOOL NPPM_DMMUPDATEDISPINFO(0, HWND hDlg)
 	// Redraw the dialog.
 	// wParam: 0 (not used)
-	// lParam[in]: hDlg is the handle of dialog to redraw 
+	// lParam[in]: hDlg is the handle of dialog to redraw
 	// Return TRUE
 
 	#define NPPM_DMMREGASDCKDLG (NPPMSG + 33)
@@ -273,12 +274,12 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// BOOL NPPM_LOADSESSION(0, TCHAR* sessionFileName)
 	// Open all files of same session in Notepad++ via a xml format session file sessionFileName.
 	// wParam: 0 (not used)
-	// lParam[in]: sessionFileName is the full file path of session file to reload 
+	// lParam[in]: sessionFileName is the full file path of session file to reload
 	// Return TRUE
 
 	#define NPPM_DMMVIEWOTHERTAB (NPPMSG + 35)
 	// BOOL WM_DMM_VIEWOTHERTAB(0, TCHAR* name)
-	// Show the plugin dialog (switch to plugin tab) with the given name. 
+	// Show the plugin dialog (switch to plugin tab) with the given name.
 	// wParam: 0 (not used)
 	// lParam[in]: name should be the same value as previously used to register the dialog (pszName of tTbData)
 	// Return TRUE
@@ -287,14 +288,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// BOOL NPPM_RELOADFILE(BOOL withAlert, TCHAR *filePathName2Reload)
 	// Reload the document which matches with the given filePathName2Reload.
 	// wParam: 0 (not used)
-	// lParam[in]: filePathName2Reload is the full file path of document to reload 
+	// lParam[in]: filePathName2Reload is the full file path of document to reload
 	// Return TRUE if reloading file succeeds, otherwise FALSE
 
 	#define NPPM_SWITCHTOFILE (NPPMSG + 37)
 	// BOOL NPPM_SWITCHTOFILE(0, TCHAR* filePathName2switch)
 	// Switch to the document which matches with the given filePathName2switch.
 	// wParam: 0 (not used)
-	// lParam[in]: filePathName2switch is the full file path of document to switch 
+	// lParam[in]: filePathName2switch is the full file path of document to switch
 	// Return TRUE
 
 	#define NPPM_SAVECURRENTFILE (NPPMSG + 38)
@@ -405,9 +406,9 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// return value:
 	// HIWORD(returned_value) is major part of version: the 1st number
 	// LOWORD(returned_value) is minor part of version: the 3 last numbers
-	// 
+	//
 	// ADD_ZERO_PADDING == TRUE
-	// 
+	//
 	// version  | HIWORD | LOWORD
 	//------------------------------
 	// 8.9.6.4  | 8      | 964
@@ -415,10 +416,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// 6.9      | 6      | 900
 	// 6.6.6    | 6      | 660
 	// 13.6.6.6 | 13     | 666
-	// 
-	// 
+	//
+	//
 	// ADD_ZERO_PADDING == FALSE
-	// 
+	//
 	// version  | HIWORD | LOWORD
 	//------------------------------
 	// 8.9.6.4  | 8      | 964
@@ -445,14 +446,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// int NPPM_GETPOSFROMBUFFERID(UINT_PTR bufferID, int priorityView)
 	// Get document position (VIEW and INDEX) from a buffer ID, according priorityView.
 	// wParam[in]: BufferID of document
-	// lParam[in]: priorityView is the target VIEW. However, if the given bufferID cannot be found in the target VIEW, the other VIEW will be searched.  
+	// lParam[in]: priorityView is the target VIEW. However, if the given bufferID cannot be found in the target VIEW, the other VIEW will be searched.
 	// Return -1 if the bufferID non existing, else return value contains VIEW & INDEX:
 	//
 	// VIEW takes 2 highest bits and INDEX (0 based) takes the rest (30 bits)
 	// Here's the values for the view:
 	//  MAIN_VIEW 0
 	//  SUB_VIEW  1
-	// 
+	//
 	// if priorityView set to SUB_VIEW, then SUB_VIEW will be search firstly
 
 	#define NPPM_GETFULLPATHFROMBUFFERID (NPPMSG + 58)
@@ -503,7 +504,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Get encoding from the document with the given bufferID
 	// wParam[in]: BufferID to get encoding from
 	// lParam: 0 (not used)
-	// returns -1 on error, otherwise UniMode, with the following value: 
+	// returns -1 on error, otherwise UniMode, with the following value:
 	// 0: ANSI
 	// 1: UTF-8 with BOM
 	// 2: UTF-16 Big Ending with BOM
@@ -584,7 +585,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	#define NPPM_GETSHORTCUTBYCMDID (NPPMSG + 76)
 	// BOOL NPPM_GETSHORTCUTBYCMDID(int cmdID, ShortcutKey* sk)
 	// Get your plugin command current mapped shortcut into sk via cmdID.
-	// wParam[in]: cmdID is your plugin command ID 
+	// wParam[in]: cmdID is your plugin command ID
 	// lParam[out]: sk is a pointer of ShortcutKey strcture which will receive the requested CMD shortcut. It should be allocated in the plugin before being used.
 	// For ShortcutKey strcture, see in "PluginInterface.h". You may need it after getting NPPN_READY notification.
 	// return value: TRUE if this function call is successful and shortcut is enable, otherwise FALSE
@@ -626,12 +627,12 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// wParam[in]: numberRequested is the number of ID you request for the reservation
 	// lParam[out]: startNumber will be set to the initial command ID if successful
 	// Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
-	// 
+	//
 	// Example: If a plugin needs 4 menu item ID, the following code can be used:
-	// 
+	//
 	//   int idBegin;
 	//   BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATECMDID, 4, &idBegin);
-	// 
+	//
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 46581
 	// then menu iten ID 46581, 46582, 46583 and 46584 are preserved by Notepad++, and they are safe to be used by the plugin.
 
@@ -642,13 +643,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// wParam[in]: numberRequested is the number of ID you request for the reservation
 	// lParam[out]: startNumber will be set to the initial command ID if successful
     // Return TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
-	// 
+	//
 	// Example: If a plugin needs 3 marker ID, the following code can be used:
-	// 
+	//
 	//   int idBegin;
 	//   BOOL isAllocatedSuccessful = ::SendMessage(nppData._nppHandle, NPPM_ALLOCATEMARKER, 3, &idBegin);
-	// 
-	// if isAllocatedSuccessful is TRUE, and value of idBegin is 16 
+	//
+	// if isAllocatedSuccessful is TRUE, and value of idBegin is 16
 	// then marker ID 16, 17 and 18 are preserved by Notepad++, and they are safe to be used by the plugin.
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
@@ -657,7 +658,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// wParam[in]: langType is the number of LangType
 	// lParam[out]: langName is the buffer to recieve the language name string
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
-	// 
+	//
 	// You should call this function 2 times - the first time you pass langName as NULL to get the number of characters to copy.
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGENAME function the 2nd time
 	// by passing allocated buffer as argument langName
@@ -668,7 +669,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// wParam[in]: langType is the number of LangType
 	// lParam[out]: langDesc is the buffer to recieve the language description string
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
-	// 
+	//
 	// You should call this function 2 times - the first time you pass langDesc as NULL to get the number of characters to copy.
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time
 	// by passing allocated buffer as argument langDesc
@@ -904,7 +905,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETBOOKMARKID (NPPMSG + 111)
 	// int NPPM_GETBOOKMARKID(0, 0)
-	// Get the bookmark ID - use this API to get bookmark ID dynamically that garantees you get always the right bookmark ID even it's been changed through the different versions.  
+	// Get the bookmark ID - use this API to get bookmark ID dynamically that garantees you get always the right bookmark ID even it's been changed through the different versions.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// Return bookmark ID

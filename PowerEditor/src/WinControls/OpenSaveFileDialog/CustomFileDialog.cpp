@@ -251,12 +251,6 @@ public:
 	IFACEMETHODIMP OnFileOk(IFileDialog* dlg) override
 	{
 		_lastUsedFolder = getDialogFolder(dlg);
-
-		// Ignore OnFileOk() as OnPreFileOk() is not called when in Hangul mode.
-		// check KbdProcHook() for details.
-		if (_isHangul)
-			return S_FALSE;
-
 		return S_OK;
 	}
 	IFACEMETHODIMP OnFolderChange(IFileDialog*) override
@@ -374,8 +368,6 @@ public:
 		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
 	{
 		installHooks();
-		_keyboardLayoutLanguage = getKeyboardLayout();
-		_isHangul = isHangul(_keyboardLayoutLanguage);
 	}
 
 	~FileDialogEventHandler()
@@ -418,7 +410,6 @@ private:
 	{
 		_prevKbdHook = ::SetWindowsHookEx(WH_KEYBOARD, &FileDialogEventHandler::KbdProcHook, nullptr, ::GetCurrentThreadId());
 		_prevCallHook = ::SetWindowsHookEx(WH_CALLWNDPROC, &FileDialogEventHandler::CallProcHook, nullptr, ::GetCurrentThreadId());
-		_langaugeDetectHook = ::SetWindowsHookEx(WH_SHELL, &FileDialogEventHandler::LanguageDetectHook, nullptr,::GetCurrentThreadId());
 	}
 
 	void removeHooks()
@@ -427,11 +418,8 @@ private:
 			::UnhookWindowsHookEx(_prevKbdHook);
 		if (_prevCallHook)
 			::UnhookWindowsHookEx(_prevCallHook);
-		if (_langaugeDetectHook)
-			::UnhookWindowsHookEx(_langaugeDetectHook);
 		_prevKbdHook = nullptr;
 		_prevCallHook = nullptr;
-		_langaugeDetectHook = nullptr;
 	}
 
 	void eraseHandles()
@@ -507,21 +495,6 @@ private:
 			_dialog->SetFileName(fileName.c_str());
 		}
 	}
-
-	LANGID getKeyboardLayout() 
-	{
-		return PRIMARYLANGID(LOWORD(HandleToLong(GetKeyboardLayout(0))));
-	}
-
-	static bool isHangul(LANGID lang)
-	{
-		auto hwnd = GetFocus();
-		auto himc = ImmGetContext(hwnd);
-		auto isLocalInputMode = ImmGetOpenStatus(himc); // return true when CJK IME is in local language input mode
-		ImmReleaseContext(hwnd, himc);
-
-		return (lang == LANG_KOREAN) && isLocalInputMode;
-	};
 
 	// Transforms a forward-slash path to a canonical Windows path.
 	static bool transformPath(generic_string& fileName)
@@ -644,39 +617,7 @@ private:
 				HWND hwnd = GetFocus();
 				auto it = s_handleMap.find(hwnd);
 				if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
-				{
-					// Capture the state at this point because of the OnFileOk()
-					it->second->_isHangul = isHangul(it->second->_keyboardLayoutLanguage);
-
-					if (it->second->_isHangul)
-					{
-						// If IME is in Hangul mode, ignore VK_RETURN to complete the composition and change 
-						// to alphabetical input mode to proceed to onPreFileOk() on the next VK_RETURN.
-						auto himc = ImmGetContext(hwnd);
-						ImmSetConversionStatus(himc, IME_CMODE_ALPHANUMERIC, IME_SMODE_NONE);
-						ImmReleaseContext(hwnd, himc);
-					}
-					else
-					{
-						it->second->onPreFileOk();
-					}
-				}
-			}
-		}
-		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
-	}
-
-	// Dectect language layout of keyboard when it changed
-	static LRESULT CALLBACK LanguageDetectHook(int nCode, WPARAM wParam, LPARAM lParam)
-	{
-		if (nCode == HSHELL_LANGUAGE)
-		{
-			HWND hwnd = GetFocus();
-			auto it = s_handleMap.find(hwnd);
-			if (it != s_handleMap.end() && it->second && hwnd == it->second->_hwndNameEdit)
-			{
-				HKL hkl = (HKL)lParam;
-				it->second->_keyboardLayoutLanguage = PRIMARYLANGID(LOWORD(hkl));
+					it->second->onPreFileOk();
 			}
 		}
 		return ::CallNextHookEx(nullptr, nCode, wParam, lParam);
@@ -691,14 +632,11 @@ private:
 	generic_string _lastUsedFolder;
 	HHOOK _prevKbdHook = nullptr;
 	HHOOK _prevCallHook = nullptr;
-	HHOOK _langaugeDetectHook = nullptr;
 	HWND _hwndNameEdit = nullptr;
 	HWND _hwndButton = nullptr;
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
-	LANGID _keyboardLayoutLanguage = LANG_NEUTRAL;
-	bool _isHangul = false; // Korean IME specific flag
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 

@@ -3921,6 +3921,10 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_GDSCRIPT;
         case IDM_LANG_HOLLYWOOD:
             return L_HOLLYWOOD;	    
+        case IDM_LANG_GOLANG:
+            return L_GOLANG;
+        case IDM_LANG_RAKU:
+            return L_RAKU;
         case IDM_LANG_USER:
             return L_USER;
 		default:
@@ -4276,15 +4280,17 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 	if (hdrop)
 	{
 		// Determinate in which view the file(s) is (are) dropped
-		POINT p;
+		POINT p{};
 		::DragQueryPoint(hdrop, &p);
 		HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 		if (!hWin) return;
 
-		if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin) || currentView() == SUB_VIEW)
-			switchEditViewTo(SUB_VIEW);
-		else
+		if ((_mainEditView.getHSelf() == hWin) || (_mainDocTab.getHSelf() == hWin))
 			switchEditViewTo(MAIN_VIEW);
+		else if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
+			switchEditViewTo(SUB_VIEW);
+		//else
+			// do not change the current Notepad++ edit-view
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
 
@@ -7616,7 +7622,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #8"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Everything is a knife if you're strong enough.")},
 	{TEXT("Anonymous #9"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala.")},
 	{TEXT("Anonymous #10"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Etc.\n\n(Abb.) End of Thinking Capacity.\n")},
-	{TEXT("Anonymous #11"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("We stopped checking for monsters under our bed, when we realized they were inside us.")},
+	{TEXT("Anonymous #11"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("In China, you can criticise every Roman numeral from I to X.\nBut you can't criticize Xi.")},
 	{TEXT("Anonymous #12"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I would rather check my facebook than face my checkbook.")},
 	{TEXT("Anonymous #13"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper.")},
 	{TEXT("Anonymous #14"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A better world is where chickens can cross the road without having their motives questioned.")},

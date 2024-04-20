@@ -20,7 +20,7 @@
 <!--- In your Notepad++, click on the "?" menu (found to the right of "Window" in the menu bar) -->
 <!--- In the menu that drops down, choose "Debug Info..." -->
 <!--- A message box will open detailing specifics about your Notepad++ version, plugins, etc. -->
-<!--- CLICK ON THE BLUE LINK with the text "Copy debug info into clipboard" -->
+<!--- CLICK ON THE BUTTON with the text "Copy debug info into clipboard" -->
 <!--- Do a PASTE HERE -->
 
 <!--- Feel free to include any other info, such as screenshots, etc -->

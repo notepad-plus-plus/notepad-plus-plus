@@ -157,6 +157,8 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{TEXT("mssql"),			TEXT("mssql"),				TEXT("Microsoft Transact-SQL (SQL Server) file"),		L_MSSQL,		"mssql"},
 	{TEXT("gdscript"),		TEXT("GDScript"),			TEXT("GDScript file"),									L_GDSCRIPT,		"gdscript"},
 	{TEXT("hollywood"),		TEXT("Hollywood"),			TEXT("Hollywood script"),								L_HOLLYWOOD,	"hollywood"},
+	{TEXT("go"),			TEXT("Go"),					TEXT("Go source file"),									L_GOLANG,		"cpp"},
+	{TEXT("raku"),			TEXT("Raku"),				TEXT("Raku source file"),								L_RAKU,			"raku"},
 	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
 };
 
@@ -642,6 +644,14 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 																	  // Solution suggested by Neil Hodgson. See:
 																	  // https://sourceforge.net/p/scintilla/bugs/2412/
 						break;
+	
+					case VK_ESCAPE:
+					{
+						int selection = static_cast<int>(execute(SCI_GETMAINSELECTION, 0, 0));
+						int caret = static_cast<int>(execute(SCI_GETSELECTIONNCARET, selection, 0));
+						execute(SCI_SETSELECTION, caret, caret);
+						break;
+					}
 
 					default:
 						break;
@@ -1094,6 +1104,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 {
     const char *cppInstrs;
     const char *cppTypes;
+    const char *cppGlobalclass;
     const TCHAR *doxygenKeyWords  = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
     setLexerFromLangID(L_CPP);
@@ -1113,6 +1124,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 	basic_string<char> keywordListInstruction("");
 	basic_string<char> keywordListType("");
+	basic_string<char> keywordListGlobalclass("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
@@ -1127,8 +1139,16 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	}
 	cppTypes = getCompleteKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
 
+	if (pKwArray[LANG_INDEX_INSTR2])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+		keywordListGlobalclass = wstring2string(kwlW, CP_ACP);
+	}
+	cppGlobalclass = getCompleteKeywordList(keywordListGlobalclass, langType, LANG_INDEX_INSTR2);
+
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(cppInstrs));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(cppTypes));
+	execute(SCI_SETKEYWORDS, 3, reinterpret_cast<LPARAM>(cppGlobalclass));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
@@ -1722,6 +1742,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_CS :
 		case L_FLASH :
 		case L_SWIFT:
+		case L_GOLANG:
 			setCppLexer(typeDoc); break;
 
 		case L_JS:
@@ -1990,6 +2011,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_HOLLYWOOD:
 			setHollywoodLexer(); break;
+
+		case L_RAKU:
+			setRakuLexer(); break;
 
 		case L_TEXT :
 		default :

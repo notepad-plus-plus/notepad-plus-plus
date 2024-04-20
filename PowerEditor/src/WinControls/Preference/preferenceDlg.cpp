@@ -4501,16 +4501,16 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, EM_LIMITTEXT, 1, 0);
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, EM_LIMITTEXT, 1, 0);
 
-			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairsInit.size();
+			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairs.size();
 			if (nbMatchedPair > 3)
 				nbMatchedPair = 3;
 			for (size_t i = 0; i < nbMatchedPair; ++i)
 			{
 				TCHAR openChar[2]{};
-				openChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].first;
+				openChar[0] = nppGUI._matchedPairConf._matchedPairs[i].first;
 				openChar[1] = '\0';
 				TCHAR closeChar[2]{};
-				closeChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].second;
+				closeChar[0] = nppGUI._matchedPairConf._matchedPairs[i].second;
 				closeChar[1] = '\0';
 
 				if (i == 0)
@@ -5482,12 +5482,12 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 
 				if (lstrcmp(str, TEXT("")) == 0)
 					return TRUE;
-				
-				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
 
-				if (fileLenInMB > 4096)
+				constexpr int fileLenInMBMax = (INT32_MAX - 1024 * 1024) / 1024 / 1024; // -1MB ... have to to consider also the bufferSizeRequested algo in FileManager::loadFileData
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+				if (fileLenInMB > fileLenInMBMax)
 				{
-					fileLenInMB = 4096;
+					fileLenInMB = fileLenInMBMax;
 					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
 				}
 

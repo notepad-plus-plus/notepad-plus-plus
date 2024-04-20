@@ -626,6 +626,11 @@ void Accelerator::updateShortcuts()
 
 	if (_hFindAccTab)
 		::DestroyAcceleratorTable(_hFindAccTab);
+
+	ACCEL accNextTab{ BYTE{FVIRTKEY | FCONTROL}, VK_TAB, IDC_NEXT_TAB };
+	ACCEL accPrevTab{ BYTE{FVIRTKEY | FCONTROL | FSHIFT}, VK_TAB, IDC_PREV_TAB };
+	findReplaceAcc.emplace_back(accNextTab);
+	findReplaceAcc.emplace_back(accPrevTab);
 	size_t nbFindReplaceAcc = findReplaceAcc.size();
 	if (nbFindReplaceAcc)
 	{

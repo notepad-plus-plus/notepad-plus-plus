@@ -18,6 +18,22 @@
 #pragma once
 #include "NppDarkMode.h"
 
+#ifndef WM_DPICHANGED
+#define WM_DPICHANGED 0x02E0
+#endif
+
+#ifndef WM_DPICHANGED_BEFOREPARENT
+#define WM_DPICHANGED_BEFOREPARENT 0x02E2
+#endif
+
+#ifndef WM_DPICHANGED_AFTERPARENT
+#define WM_DPICHANGED_AFTERPARENT 0x02E3
+#endif
+
+#ifndef WM_GETDPISCALEDSIZE
+#define WM_GETDPISCALEDSIZE 0x02E4
+#endif
+
 class DPIManagerV2
 {
 public:
@@ -64,7 +80,7 @@ public:
 		return _dpi;
 	}
 
-	static void setPositionDpi(LPARAM lParam, HWND hWnd);
+	static void setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags = SWP_NOZORDER | SWP_NOACTIVATE);
 
 	static int scale(int x, UINT dpi, UINT dpi2) {
 		return MulDiv(x, dpi, dpi2);
@@ -114,6 +130,9 @@ public:
 	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, FontType type = FontType::message) {
 		return getDefaultGUIFontForDpi(getDpiForWindow(hWnd), type);
 	}
+
+	static void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
+	static void loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad = LR_DEFAULTCOLOR);
 
 private:
 	UINT _dpi = USER_DEFAULT_SCREEN_DPI;

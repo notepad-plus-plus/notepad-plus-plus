@@ -1262,7 +1262,7 @@
 					<Item id="7141" name="Omejitev velikih datotek"/>
 					<Item id="7143" name="Omogoči omejitev velikih datotek (brez označevanja sintakse)"/>
 					<Item id="7144" name="Določi velikost velike datoteke:"/>
-					<Item id="7146" name="MB   (1 - 4096)"/>
+					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Dovoli ujemanje oklepajev"/>
 					<Item id="7148" name="Dovoli samodejno dokončanje"/>
 					<Item id="7149" name="Dovoli pametno označevanje"/>

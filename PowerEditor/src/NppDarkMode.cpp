@@ -42,9 +42,23 @@
 #define WINAPI_LAMBDA
 #endif
 
-#ifndef WM_DPICHANGED
-#define WM_DPICHANGED 0x02E0
-#endif
+// already added in dpiManagerV2.h
+// keep for plugin authors
+//#ifndef WM_DPICHANGED
+//#define WM_DPICHANGED 0x02E0
+//#endif
+//
+//#ifndef WM_DPICHANGED_BEFOREPARENT
+//#define WM_DPICHANGED_BEFOREPARENT 0x02E2
+//#endif
+//
+//#ifndef WM_DPICHANGED_AFTERPARENT
+//#define WM_DPICHANGED_AFTERPARENT 0x02E3
+//#endif
+//
+//#ifndef WM_GETDPISCALEDSIZE
+//#define WM_GETDPISCALEDSIZE 0x02E4
+//#endif
 
 // already added in project files
 // keep for plugin authors
@@ -577,26 +591,12 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
-	COLORREF invertLightnessSofter(COLORREF c)
-	{
-		WORD h = 0;
-		WORD s = 0;
-		WORD l = 0;
-		ColorRGBToHLS(c, &h, &l, &s);
-
-		l = std::min<WORD>(240U - l, 211U);
-
-		COLORREF invert_c = ColorHLSToRGB(h, l, s);
-
-		return invert_c;
-	}
-
 	static TreeViewStyle g_treeViewStyle = TreeViewStyle::classic;
 	static COLORREF g_treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
-	static double g_lighnessTreeView = 50.0;
+	static double g_lightnessTreeView = 50.0;
 
 	// adapted from https://stackoverflow.com/a/56678483
-	double calculatePerceivedLighness(COLORREF c)
+	double calculatePerceivedLightness(COLORREF c)
 	{
 		auto linearValue = [](double colorChannel) -> double
 		{
@@ -612,8 +612,8 @@ namespace NppDarkMode
 
 		double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
-		double lighness = (luminance <= 216.0 / 24389.0) ? (luminance * 24389.0 / 27.0) : (std::pow(luminance, (1.0 / 3.0)) * 116.0 - 16.0);
-		return lighness;
+		double lightness = (luminance <= 216.0 / 24389.0) ? (luminance * 24389.0 / 27.0) : (std::pow(luminance, (1.0 / 3.0)) * 116.0 - 16.0);
+		return lightness;
 	}
 
 	COLORREF getBackgroundColor()         { return getTheme()._colors.background; }
@@ -918,6 +918,7 @@ namespace NppDarkMode
 		}
 
 		case WM_DPICHANGED:
+		case WM_DPICHANGED_AFTERPARENT:
 		case WM_THEMECHANGED:
 		{
 			if (g_menuTheme)
@@ -1007,6 +1008,37 @@ namespace NppDarkMode
 	{
 		HTHEME hTheme = nullptr;
 		int iStateID = 0;
+
+		bool isSizeSet = false;
+		SIZE szBtn{};
+
+		ButtonData() {};
+
+		// Saves width and height from the resource file for use as restrictions.
+		ButtonData(HWND hWnd)
+		{
+			// Notepad++ doesn't use BS_3STATE, BS_AUTO3STATE and BS_PUSHLIKE buttons.
+			const auto nBtnStyle = ::GetWindowLongPtrW(hWnd, GWL_STYLE);
+			switch (nBtnStyle & BS_TYPEMASK)
+			{
+				case BS_CHECKBOX:
+				case BS_AUTOCHECKBOX:
+				case BS_RADIOBUTTON:
+				case BS_AUTORADIOBUTTON:
+				{
+					if ((nBtnStyle & BS_MULTILINE) != BS_MULTILINE)
+					{
+						RECT rcBtn{};
+						::GetClientRect(hWnd, &rcBtn);
+						szBtn = { rcBtn.right - rcBtn.left, rcBtn.bottom - rcBtn.top };
+						isSizeSet = (szBtn.cx != 0 && szBtn.cy != 0);
+					}
+					break;
+				}
+				default:
+					break;
+			}
+		}
 
 		~ButtonData()
 		{
@@ -1206,16 +1238,34 @@ namespace NppDarkMode
 
 		switch (uMsg)
 		{
+			case WM_SETBUTTONIDEALSIZE:
+			{
+				if (pButtonData->isSizeSet)
+				{
+					SIZE szBtn{};
+					if (Button_GetIdealSize(hWnd, &szBtn) == TRUE)
+					{
+						const int cx = std::min<LONG>(szBtn.cx, pButtonData->szBtn.cx);
+						const int cy = std::min<LONG>(szBtn.cy, pButtonData->szBtn.cy);
+						::SetWindowPos(hWnd, nullptr, 0, 0, cx, cy, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
+					}
+				}
+				return 0;
+			}
+
 			case WM_UPDATEUISTATE:
 				if (HIWORD(wParam) & (UISF_HIDEACCEL | UISF_HIDEFOCUS))
 				{
 					InvalidateRect(hWnd, nullptr, FALSE);
 				}
 				break;
+
 			case WM_NCDESTROY:
-				RemoveWindowSubclass(hWnd, ButtonSubclass, g_buttonSubclassID);
+			{
+				::RemoveWindowSubclass(hWnd, ButtonSubclass, g_buttonSubclassID);
 				delete pButtonData;
 				break;
+			}
 
 			case WM_ERASEBKGND:
 			{
@@ -1227,6 +1277,7 @@ namespace NppDarkMode
 			}
 
 			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
 			{
 				pButtonData->closeTheme();
 				return 0;
@@ -1281,8 +1332,29 @@ namespace NppDarkMode
 
 	void subclassButtonControl(HWND hwnd)
 	{
-		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
+		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData(hwnd));
 		SetWindowSubclass(hwnd, ButtonSubclass, g_buttonSubclassID, pButtonData);
+
+		// The following code handles default English localization during Notepad++ launch for button size.
+		// For other languages, NativeLangSpeaker::resizeCheckboxRadioBtn will adjust button dimensions.
+		const auto nBtnStyle = ::GetWindowLongPtrW(hwnd, GWL_STYLE);
+		switch (nBtnStyle & BS_TYPEMASK)
+		{
+			case BS_CHECKBOX:
+			case BS_AUTOCHECKBOX:
+			case BS_RADIOBUTTON:
+			case BS_AUTORADIOBUTTON:
+			{
+				if ((nBtnStyle & BS_MULTILINE) != BS_MULTILINE)
+				{
+					::SendMessageW(hwnd, NppDarkMode::WM_SETBUTTONIDEALSIZE, 0, 0);
+				}
+				break;
+			}
+
+			default:
+				break;
+		}
 	}
 
 	static void paintGroupbox(HWND hwnd, HDC hdc, ButtonData& buttonData)
@@ -1408,6 +1480,7 @@ namespace NppDarkMode
 		}
 
 		case WM_DPICHANGED:
+		case WM_DPICHANGED_AFTERPARENT:
 		{
 			pButtonData->closeTheme();
 			return 0;
@@ -1458,14 +1531,20 @@ namespace NppDarkMode
 		WPARAM wParam,
 		LPARAM lParam,
 		UINT_PTR uIdSubclass,
-		DWORD_PTR dwRefData
+		DWORD_PTR /*dwRefData*/
 	)
 	{
-		UNREFERENCED_PARAMETER(uIdSubclass);
-		UNREFERENCED_PARAMETER(dwRefData);
-
 		switch (uMsg)
 		{
+			case WM_ERASEBKGND:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return TRUE;
+				}
+				break;
+			}
+
 		case WM_PAINT:
 		{
 			if (!NppDarkMode::isEnabled())
@@ -1539,17 +1618,13 @@ namespace NppDarkMode
 
 					::SendMessage(hWnd, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tci));
 
-					const auto dpi = DPIManagerV2::getDpiForParent(hWnd);
-
 					RECT rcText = rcItem;
-					rcText.left += DPIManagerV2::scale(5, dpi);
-					rcText.right -= DPIManagerV2::scale(3, dpi);
-
 					if (isSelectedTab)
 					{
-						rcText.bottom -= DPIManagerV2::scale(4, dpi);
+						::OffsetRect(&rcText, 0, -1);
 						::InflateRect(&rcFrame, 0, 1);
 					}
+
 					if (i != nTabs - 1)
 					{
 						rcFrame.right += 1;
@@ -1557,7 +1632,7 @@ namespace NppDarkMode
 
 					::FrameRect(hdc, &rcFrame, NppDarkMode::getEdgeBrush());
 
-					DrawText(hdc, label, -1, &rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+					DrawText(hdc, label, -1, &rcText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 					DeleteObject(hClip);
 
@@ -1582,7 +1657,7 @@ namespace NppDarkMode
 
 		case WM_NCDESTROY:
 		{
-			RemoveWindowSubclass(hWnd, TabSubclass, g_tabSubclassID);
+			::RemoveWindowSubclass(hWnd, TabSubclass, uIdSubclass);
 			break;
 		}
 
@@ -1736,8 +1811,9 @@ namespace NppDarkMode
 			break;
 
 			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
 			{
-				pBorderMetricsData->setMetricsForDpi(LOWORD(wParam));
+				pBorderMetricsData->setMetricsForDpi((uMsg == WM_DPICHANGED) ? LOWORD(wParam) : DPIManagerV2::getDpiForParent(hWnd));
 				::SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 				return 0;
 			}
@@ -2142,6 +2218,7 @@ namespace NppDarkMode
 			}
 
 			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
 			{
 				pButtonData->closeTheme();
 				return 0;
@@ -2315,7 +2392,7 @@ namespace NppDarkMode
 		auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 		switch (nButtonStyle & BS_TYPEMASK)
 		{
-			// Plugin might use BS_3STATE and BS_AUTO3STATE button style
+			// Plugin might use BS_3STATE, BS_AUTO3STATE and BS_PUSHLIKE button style
 			case BS_CHECKBOX:
 			case BS_AUTOCHECKBOX:
 			case BS_3STATE:
@@ -2981,77 +3058,6 @@ namespace NppDarkMode
 		SetWindowSubclass(hwnd, WindowNotifySubclass, g_windowNotifySubclassID, 0);
 	}
 
-	// currently send message only to selected buttons; listbox and edit controls with scrollbars
-	void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam)
-	{
-		struct WMessage
-		{
-			UINT _msg = 0;
-			WPARAM _wParam = 0;
-			LPARAM _lParam = 0;
-		};
-
-		struct WMessage p { msg, wParam, lParam };
-
-		::EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM childLParam) WINAPI_LAMBDA->BOOL{
-			auto & p = *reinterpret_cast<WMessage*>(childLParam);
-			constexpr size_t classNameLen = 32;
-			TCHAR className[classNameLen]{};
-			::GetClassName(hwnd, className, classNameLen);
-			auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-
-			if (wcscmp(className, WC_BUTTON) == 0)
-			{
-				switch (style & BS_TYPEMASK)
-				{
-					case BS_CHECKBOX:
-					case BS_AUTOCHECKBOX:
-					case BS_3STATE:
-					case BS_AUTO3STATE:
-					case BS_RADIOBUTTON:
-					case BS_AUTORADIOBUTTON:
-					{
-						if ((style & BS_PUSHLIKE) != BS_PUSHLIKE)
-						{
-							::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
-						}
-						break;
-					}
-
-					default:
-					{
-						break;
-					}
-				}
-				return TRUE;
-			}
-
-			if (wcscmp(className, WC_EDIT) == 0)
-			{
-				bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
-				if (hasScrollBar)
-				{
-					::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
-				}
-				return TRUE;
-			}
-
-			if (wcscmp(className, WC_LISTBOX) == 0)
-			{
-				if ((style & LBS_COMBOBOX) != LBS_COMBOBOX)
-				{
-					bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
-					if (hasScrollBar)
-					{
-						::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
-					}
-				}
-				return TRUE;
-			}
-			return TRUE;
-			}, reinterpret_cast<LPARAM>(&p));
-	}
-
 	void setDarkTitleBar(HWND hwnd)
 	{
 		constexpr DWORD win10Build2004 = 19041;
@@ -3094,7 +3100,7 @@ namespace NppDarkMode
 			case NppDarkMode::ToolTipsType::tabbar:
 				msg = TCM_GETTOOLTIPS;
 				break;
-			default:
+			case NppDarkMode::ToolTipsType::tooltip:
 				msg = 0;
 				break;
 		}
@@ -3166,17 +3172,17 @@ namespace NppDarkMode
 	{
 		COLORREF bgColor = NppParameters::getInstance().getCurrentDefaultBgColor();
 
-		if (g_treeViewBg != bgColor || g_lighnessTreeView == 50.0)
+		if (g_treeViewBg != bgColor || g_lightnessTreeView == 50.0)
 		{
-			g_lighnessTreeView = calculatePerceivedLighness(bgColor);
+			g_lightnessTreeView = calculatePerceivedLightness(bgColor);
 			g_treeViewBg = bgColor;
 		}
 
-		if (g_lighnessTreeView < (50.0 - g_middleGrayRange))
+		if (g_lightnessTreeView < (50.0 - g_middleGrayRange))
 		{
 			g_treeViewStyle = TreeViewStyle::dark;
 		}
-		else if (g_lighnessTreeView > (50.0 + g_middleGrayRange))
+		else if (g_lightnessTreeView > (50.0 + g_middleGrayRange))
 		{
 			g_treeViewStyle = TreeViewStyle::light;
 		}
@@ -3213,7 +3219,7 @@ namespace NppDarkMode
 				SetWindowTheme(hwnd, g_isAtLeastWindows10 ? L"DarkMode_Explorer" : nullptr, nullptr);
 				break;
 			}
-			default:
+			case TreeViewStyle::classic:
 			{
 				if (hasHotStyle)
 				{

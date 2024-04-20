@@ -955,6 +955,7 @@ BEGIN
         MENUITEM "Fortran (fixed form)",    IDM_LANG_FORTRAN_77
         MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
         MENUITEM "GDScript",                IDM_LANG_GDSCRIPT
+        MENUITEM "Go",                      IDM_LANG_GOLANG
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL
         MENUITEM "Hollywood",               IDM_LANG_HOLLYWOOD
@@ -990,6 +991,7 @@ BEGIN
         MENUITEM "Purebasic",               IDM_LANG_PUREBASIC
         MENUITEM "Python",                  IDM_LANG_PYTHON
         MENUITEM "R",                       IDM_LANG_R
+        MENUITEM "Raku",                    IDM_LANG_RAKU
         MENUITEM "REBOL",                   IDM_LANG_REBOL
         MENUITEM "Registry",                IDM_LANG_REGISTRY
         MENUITEM "Resource file",           IDM_LANG_RC
@@ -1072,6 +1074,7 @@ BEGIN
 	POPUP "G"
 	BEGIN
         MENUITEM "GDScript",                  IDM_LANG_GDSCRIPT
+        MENUITEM "Go",                        IDM_LANG_GOLANG
         MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
 	END
     POPUP "H"
@@ -1134,6 +1137,7 @@ BEGIN
     POPUP "R"
     BEGIN
         MENUITEM "R",                     IDM_LANG_R
+        MENUITEM "Raku",                  IDM_LANG_RAKU
         MENUITEM "REBOL",                 IDM_LANG_REBOL
         MENUITEM "Registry",              IDM_LANG_REGISTRY
         MENUITEM "Resource file",         IDM_LANG_RC

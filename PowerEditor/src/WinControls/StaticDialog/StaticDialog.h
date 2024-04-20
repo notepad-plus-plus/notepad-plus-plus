@@ -13,7 +13,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #pragma once
+#include "dpiManagerV2.h"
 #include "Notepad_plus_msgs.h"
 #include "Window.h"
 
@@ -36,12 +38,13 @@ struct DLGTEMPLATEEX
       // The structure has more fields but are variable length
 };
 
-class StaticDialog : public Window
+class StaticDialog : public Window, public DPIManagerV2
 {
 public :
 	virtual ~StaticDialog();
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
+	virtual void createForDpi(int dialogID, bool isRTL = false, bool msgDestParent = true, DPI_AWARENESS_CONTEXT dpiAContext = DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
 	virtual bool isCreated() const {
 		return (_hSelf != nullptr);
@@ -67,6 +70,18 @@ public :
 	void setChecked(int checkControlID, bool checkOrNot = true) const
 	{
 		::SendDlgItemMessage(_hSelf, checkControlID, BM_SETCHECK, checkOrNot ? BST_CHECKED : BST_UNCHECKED, 0);
+	}
+
+	void setDpi() {
+		DPIManagerV2::setDpi(_hSelf);
+	}
+
+	void setPositionDpi(LPARAM lParam, UINT flags = SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE) {
+		DPIManagerV2::setPositionDpi(lParam, _hSelf, flags);
+	}
+
+	void sendDpiMsgToChildCtrls(WPARAM wParam = 0, LPARAM lParam = 0) {
+		DPIManagerV2::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
 	}
 
 	void destroy() override;

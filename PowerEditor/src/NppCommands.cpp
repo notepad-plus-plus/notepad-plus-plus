@@ -1787,7 +1787,7 @@ void Notepad_plus::command(int id)
 					::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 
 					udd->display(false);
-					_mainWindowStatus &= ~WindowUserActive;
+					_mainWindowStatus &= static_cast<UCHAR>(~WindowUserActive);
 				}
 				else if ((isUDDlgDocked)&&(!isUDDlgVisible))
 				{
@@ -3763,6 +3763,8 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_TYPESCRIPT:
 		case IDM_LANG_GDSCRIPT:
 		case IDM_LANG_HOLLYWOOD:
+		case IDM_LANG_GOLANG:
+		case IDM_LANG_RAKU:
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));

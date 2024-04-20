@@ -17,6 +17,17 @@
 
 #include "dpiManagerV2.h"
 
+#include <commctrl.h>
+
+
+#if defined(__GNUC__) && __GNUC__ > 8
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t WINAPI
+#elif defined(__GNUC__)
+#define WINAPI_LAMBDA_RETURN(return_t) WINAPI -> return_t
+#else
+#define WINAPI_LAMBDA_RETURN(return_t) -> return_t
+#endif
+
 template <typename P>
 bool ptrFn(HMODULE handle, P& pointer, const char* name)
 {
@@ -105,7 +116,7 @@ UINT DPIManagerV2::getDpiForWindow(HWND hWnd)
 	return getDpiForSystem();
 }
 
-void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd)
+void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags)
 {
 	const auto prcNewWindow = reinterpret_cast<RECT*>(lParam);
 
@@ -115,7 +126,7 @@ void DPIManagerV2::setPositionDpi(LPARAM lParam, HWND hWnd)
 		prcNewWindow->top,
 		prcNewWindow->right - prcNewWindow->left,
 		prcNewWindow->bottom - prcNewWindow->top,
-		SWP_NOZORDER | SWP_NOACTIVATE);
+		flags);
 }
 
 LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
@@ -181,4 +192,83 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 	}
 
 	return lf;
+}
+
+// currently send message only to selected buttons; listbox and edit controls with scrollbars
+void DPIManagerV2::sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	struct WMessage
+	{
+		UINT _msg = 0;
+		WPARAM _wParam = 0;
+		LPARAM _lParam = 0;
+	};
+
+	struct WMessage p { msg, wParam, lParam };
+
+	::EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM childLParam) WINAPI_LAMBDA_RETURN(BOOL) {
+		auto & p = *reinterpret_cast<WMessage*>(childLParam);
+		constexpr size_t classNameLen = 32;
+		TCHAR className[classNameLen]{};
+		::GetClassName(hwnd, className, classNameLen);
+		auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+
+		if (wcscmp(className, WC_BUTTON) == 0)
+		{
+			switch (style & BS_TYPEMASK)
+			{
+				case BS_CHECKBOX:
+				case BS_AUTOCHECKBOX:
+				case BS_3STATE:
+				case BS_AUTO3STATE:
+				case BS_RADIOBUTTON:
+				case BS_AUTORADIOBUTTON:
+				{
+					if ((style & BS_PUSHLIKE) != BS_PUSHLIKE)
+					{
+						::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
+					}
+					break;
+				}
+
+				default:
+				{
+					break;
+				}
+			}
+			return TRUE;
+		}
+
+		if (wcscmp(className, WC_EDIT) == 0)
+		{
+			bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
+			if (hasScrollBar)
+			{
+				::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
+			}
+			return TRUE;
+		}
+
+		if (wcscmp(className, WC_LISTBOX) == 0)
+		{
+			if ((style & LBS_COMBOBOX) != LBS_COMBOBOX)
+			{
+				bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
+				if (hasScrollBar)
+				{
+					::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
+				}
+			}
+			return TRUE;
+		}
+		return TRUE;
+	}, reinterpret_cast<LPARAM>(&p));
+}
+
+void DPIManagerV2::loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
+{
+	if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) != S_OK)
+	{
+		*phico = static_cast<HICON>(::LoadImage(hinst, pszName, IMAGE_ICON, cx, cy, fuLoad));
+	}
 }

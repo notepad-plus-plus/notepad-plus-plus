@@ -1899,55 +1899,6 @@ bool NppParameters::isInFontList(const std::wstring& fontName2Search) const
 	return false;
 }
 
-LOGFONT NppParameters::getDefaultGUIFont(DefaultFontType type)
-{
-	LOGFONT lf{};
-	NONCLIENTMETRICS ncm{};
-	ncm.cbSize = sizeof(NONCLIENTMETRICS);
-	if (::SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS), &ncm, 0) != FALSE)
-	{
-		switch (type)
-		{
-			case DefaultFontType::menu:
-			{
-				lf = ncm.lfMenuFont;
-				break;
-			}
-
-			case DefaultFontType::status:
-			{
-				lf = ncm.lfStatusFont;
-				break;
-			}
-
-			case DefaultFontType::caption:
-			{
-				lf = ncm.lfCaptionFont;
-				break;
-			}
-
-			case DefaultFontType::smcaption:
-			{
-				lf = ncm.lfSmCaptionFont;
-				break;
-			}
-
-			// case DefaultFontType::message:
-			default:
-			{
-				lf = ncm.lfMessageFont;
-				break;
-			}
-		}
-	}
-	else // should not happen, fallback
-	{
-		auto hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
-		::GetObject(hf, sizeof(LOGFONT), &lf);
-	}
-	return lf;
-}
-
 void NppParameters::getLangKeywordsFromXmlTree()
 {
 	TiXmlNode *root =
@@ -5898,7 +5849,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					close = closeVal;
 
 				if (open != -1 && close != -1)
-					_nppGUI._matchedPairConf._matchedPairsInit.push_back(pair<char, char>(char(open), char(close)));
+					_nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(char(open), char(close)));
 			}
 		}
 
@@ -8147,6 +8098,12 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 
 		case L_HOLLYWOOD:
 			id = IDM_LANG_HOLLYWOOD; break;
+			
+		case L_GOLANG:
+			id = IDM_LANG_GOLANG; break;
+			
+		case L_RAKU:
+			id = IDM_LANG_RAKU; break;
 			
 		case L_SEARCHRESULT :
 			id = -1;	break;

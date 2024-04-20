@@ -95,6 +95,8 @@ namespace NppDarkMode
 		NppDarkMode::AdvOptDefaults _lightDefaults{ L"", 4, 0, true };
 	};
 
+	constexpr UINT WM_SETBUTTONIDEALSIZE = (WM_USER + 4200);
+
 	void initDarkMode();				// pulls options from NppParameters
 	void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
 

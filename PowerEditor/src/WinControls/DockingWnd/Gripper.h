@@ -83,7 +83,7 @@ protected :
 
 	void doTabReordering(POINT pt);
 	void drawRectangle(const POINT* pPt);
-	void getMousePoints(POINT* pt, POINT* ptPrev);
+	void getMousePoints(const POINT& pt, POINT& ptPrev);
 	void getMovingRect(POINT pt, RECT *rc);
 	DockingCont * contHitTest(POINT pt);
 	DockingCont * workHitTest(POINT pt, RECT *rcCont = NULL);

@@ -430,11 +430,11 @@ void DockingManager::reSizeTo(RECT & rc)
 		_rcWork.bottom	-= _dockData.rcRegion[CONT_TOP].bottom + SPLITTER_WIDTH;
 
 		// set size of splitter
-		RECT	rc = {_dockData.rcRegion[CONT_TOP].left  ,
+		RECT rcSplitter = {_dockData.rcRegion[CONT_TOP].left  ,
 					  _dockData.rcRegion[CONT_TOP].top + _dockData.rcRegion[CONT_TOP].bottom,
 					  _dockData.rcRegion[CONT_TOP].right ,
 					  SPLITTER_WIDTH};
-		_vSplitter[CONT_TOP]->reSizeTo(rc);
+		_vSplitter[CONT_TOP]->reSizeTo(rcSplitter);
 	}
 
 	// set bottom container
@@ -464,11 +464,11 @@ void DockingManager::reSizeTo(RECT & rc)
 		}
 
 		// set size of splitter
-		RECT	rc = {rcBottom.left,
+		RECT rcSplitter = {rcBottom.left,
 					  rcBottom.top - SPLITTER_WIDTH,
 					  rcBottom.right,
 					  SPLITTER_WIDTH};
-		_vSplitter[CONT_BOTTOM]->reSizeTo(rc);
+		_vSplitter[CONT_BOTTOM]->reSizeTo(rcSplitter);
 	}
 
 	// set left container
@@ -484,11 +484,11 @@ void DockingManager::reSizeTo(RECT & rc)
 		_rcWork.right	-= _dockData.rcRegion[CONT_LEFT].right + SPLITTER_WIDTH;
 
 		// set size of splitter
-		RECT	rc = {_dockData.rcRegion[CONT_LEFT].right,
+		RECT rcSplitter = {_dockData.rcRegion[CONT_LEFT].right,
 					  _dockData.rcRegion[CONT_LEFT].top,
 					  SPLITTER_WIDTH,
 					  _dockData.rcRegion[CONT_LEFT].bottom};
-		_vSplitter[CONT_LEFT]->reSizeTo(rc);
+		_vSplitter[CONT_LEFT]->reSizeTo(rcSplitter);
 	}
 
 	// set right container
@@ -513,11 +513,11 @@ void DockingManager::reSizeTo(RECT & rc)
 		}
 
 		// set size of splitter
-		RECT	rc = {rcRight.left - SPLITTER_WIDTH,
+		RECT rcSplitter = {rcRight.left - SPLITTER_WIDTH,
 					  rcRight.top,
 					  SPLITTER_WIDTH,
 					  rcRight.bottom};
-		_vSplitter[CONT_RIGHT]->reSizeTo(rc);
+		_vSplitter[CONT_RIGHT]->reSizeTo(rcSplitter);
 	}
 
 	// set window positions of container

@@ -149,17 +149,17 @@ void VerticalFileSwitcherListView::initList()
 		item.lParam = reinterpret_cast<LPARAM>(tl);
 		item.iGroupId = (fileNameStatus._iView == MAIN_VIEW) ? _groupID : _group2ID;
 		ListView_InsertItem(_hSelf, &item);
-		int colIndex = 0;
+		int colIndex2 = 0;
 		if (isExtColumn)
 		{
-			ListView_SetItemText(_hSelf, i, ++colIndex, ::PathFindExtension(fileNameStatus._fn.c_str()));
+			ListView_SetItemText(_hSelf, i, ++colIndex2, ::PathFindExtension(fileNameStatus._fn.c_str()));
 		}
 		if (isPathColumn)
 		{
 			TCHAR dir[MAX_PATH] = { '\0' }, drive[MAX_PATH] = { '\0' };
 			_wsplitpath_s(fileNameStatus._fn.c_str(), drive, MAX_PATH, dir, MAX_PATH, NULL, 0, NULL, 0);
 			wcscat_s(drive, dir);
-			ListView_SetItemText(_hSelf, i, ++colIndex, drive);
+			ListView_SetItemText(_hSelf, i, ++colIndex2, drive);
 		}
 	}
 	_currentIndex = taskListInfo._currentIndex;
@@ -294,7 +294,7 @@ generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const
 	item.mask = LVIF_PARAM;
 	item.iItem = static_cast<int32_t>(i);
 	ListView_GetItem(_hSelf, &item);
-	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+	const TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 
 	return tlfs->_fn;
 }
@@ -330,7 +330,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	_currentIndex = ListView_GetItemCount(_hSelf);
 	Buffer *buf = bufferID;
 	const TCHAR *fileName = buf->getFileName();
-	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, buf->getFullPathName(), 0, (void *)bufferID, -1);
 
 	TCHAR fn[MAX_PATH] = { '\0' };
@@ -412,7 +412,7 @@ int VerticalFileSwitcherListView::find(BufferID bufferID, int iView) const
 		item.mask = LVIF_PARAM;
 		item.iItem = i;
 		ListView_GetItem(_hSelf, &item);
-		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+		const TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 		if (tlfs->_bufID == bufferID && tlfs->_iView == iView)
 		{
 			found =  true;

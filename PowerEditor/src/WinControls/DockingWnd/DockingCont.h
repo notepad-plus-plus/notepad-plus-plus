@@ -59,8 +59,8 @@ public:
 			return _hSelf;
 	};
 
-	tTbData* createToolbar(tTbData data);
-	void	 removeToolbar(tTbData data);
+	tTbData* createToolbar(const tTbData& data);
+	void	 removeToolbar(const tTbData& data);
 	tTbData* findToolbarByWnd(HWND hClient);
 	tTbData* findToolbarByName(TCHAR* pszName);
 
@@ -173,7 +173,7 @@ protected :
 private:
 	// handles
 	BOOL _isActive = FALSE;
-	bool _isFloating = FALSE;
+	bool _isFloating = false;
 	HWND _hCaption = nullptr;
 	HWND _hContTab = nullptr;
 	HWND _hTabUpdown = nullptr;
@@ -183,7 +183,7 @@ private:
 	HFONT _hFontCaption = nullptr;
 
 	// caption params
-	BOOL _isTopCaption = FALSE;
+	BOOL _isTopCaption = CAPTION_TOP;
 	generic_string _pszCaption;
 
 	BOOL _isMouseDown = FALSE;
@@ -192,7 +192,7 @@ private:
 	RECT _rcCaption{};
 	
 	// tab style
-	BOOL _bDrawOgLine = FALSE;
+	BOOL _bDrawOgLine = TRUE;
 
 	// Important value for DlgMoving class
 	BOOL _dragFromTab = FALSE;
@@ -213,7 +213,7 @@ private:
 
 	BOOL _bCaptionTT = FALSE;
 	BOOL _bCapTTHover = FALSE;
-	eMousePos _hoverMPos = posOutside;
+	eMousePos _hoverMPos = posClose;
 
 	int _captionHeightDynamic = HIGH_CAPTION;
 	int _captionGapDynamic = CAPTION_GAP;

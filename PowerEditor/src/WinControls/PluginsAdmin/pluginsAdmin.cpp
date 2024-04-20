@@ -77,7 +77,7 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 
 bool PluginsAdminDlg::isFoundInListFromIndex(const PluginViewList& inWhichList, int index, const generic_string& str2search, bool inWhichPart) const
 {
-	PluginUpdateInfo* pui = inWhichList.getPluginInfoFromUiIndex(index);
+	const PluginUpdateInfo* pui = inWhichList.getPluginInfoFromUiIndex(index);
 	generic_string searchIn;
 	if (inWhichPart == _inNames)
 		searchIn = pui->_displayName;
@@ -412,7 +412,7 @@ bool PluginViewList::removeFromFolderName(const generic_string& folderName)
 
 	for (size_t i = 0; i < _ui.nbItem(); ++i)
 	{
-		PluginUpdateInfo* pi = getPluginInfoFromUiIndex(i);
+		const PluginUpdateInfo* pi = getPluginInfoFromUiIndex(i);
 		if (pi->_folderName == folderName)
 		{
 			if (!_ui.removeFromIndex(i))
@@ -577,11 +577,11 @@ bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, wstring& verStr, const jso
 					pi->_oldVersionCompatibility = getTwoIntervalVersions(oldVerCompatibilityStr);
 				}
 			}
-			catch (const wstring& s)
+			catch (const wstring& exceptionStr)
 			{
 				wstring msg = pi->_displayName;
 				msg += L": ";
-				throw msg + s;
+				throw msg + exceptionStr;
 			}
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
@@ -592,9 +592,9 @@ bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, wstring& verStr, const jso
 			pl.push_back(pi);
 		}
 #ifdef DEBUG
-		catch (const wstring& s)
+		catch (const wstring& exceptionStr)
 		{
-			::MessageBox(NULL, s.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
+			::MessageBox(NULL, exceptionStr.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
 			continue;
 		}
 
@@ -1249,7 +1249,7 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
                      pnmh->hwndFrom == _installedList.getViewHwnd() ||
                      pnmh->hwndFrom == _incompatibleList.getViewHwnd())
 			{
-				PluginViewList* pViewList = nullptr;
+				const PluginViewList* pViewList = nullptr;
 				int buttonID = 0;
 
 				if (pnmh->hwndFrom == _availableList.getViewHwnd())

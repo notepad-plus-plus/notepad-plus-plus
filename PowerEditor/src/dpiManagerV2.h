@@ -94,6 +94,14 @@ public:
 		return scale(x, USER_DEFAULT_SCREEN_DPI, dpi);
 	}
 
+	static int scale(int x, HWND hWnd) {
+		return scale(x, getDpiForWindow(hWnd), USER_DEFAULT_SCREEN_DPI);
+	}
+
+	static int unscale(int x, HWND hWnd) {
+		return scale(x, USER_DEFAULT_SCREEN_DPI, getDpiForWindow(hWnd));
+	}
+
 	int scale(int x) {
 		return scale(x, _dpi);
 	}

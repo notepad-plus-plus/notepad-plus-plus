@@ -985,7 +985,7 @@ Translation note:
 					<Item id="6234" name="Desactivar desprazamento avanzado (se ten problemas coa pantalla táctil)"/>
 					<Item id="6215" name="Suavizar a fonte"/>
 					<Item id="6236" name="Permitir desprazamento despois da última liña"/>
-					<Item id="6239" name="Manter a selección si preme o botón dereito fóra da selección"/>
+					<Item id="6239" name="Manter a selección se preme o botón dereito fóra da selección"/>
 					<Item id="6245" name="Habilitar espazo virtual"/>
 					<Item id="6214" name="Permitir copiar/cortar liña sin selección"/>
 					<Item id="6651" name="Indicador de liña actual"/>
@@ -1008,7 +1008,7 @@ Translation note:
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Punto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar a C0, C1 &amp;&amp; EOL de Unicode"/>
+					<Item id="6258" name="Aplicar axustes de apariencia a C0, C1 &amp;&amp; EOL de Unicode"/>
 					<Item id="6259" name="Impedir a introducción de caracteres de control (código C0) no documento"/>
 				</Scintillas2>
 
@@ -1052,11 +1052,11 @@ Translation note:
 					<Item id="6292" name="Ancho dinámico"/>
 					<Item id="6293" name="Ancho fixo"/>
 					<Item id="6207" name="Mostrar marcador"/>
-					<Item id="6223" name="Mostrar marcas de cambios"/>
+					<Item id="6295" name="Historial de cambios"/>
+					<Item id="6223" name="Mostralos na marxen"/>
+					<Item id="6296" name="Mostralos no texto"/>
 					<Item id="6211" name="Configuración do bordo vertical"/>
 					<Item id="6213" name="Resaltar fondo de liñas"/>
-					<Item id="6237" name="Engada o seu marcador de columna indicando a súa posición cun número decimal.
-Pode definir varios marcadores de columna utilizando espazos en branco para separar os diferentes números."/>
 					<Item id="6231" name="Ancho do bordo"/>
 					<Item id="6235" name="Sen recadro"/>
 					<Item id="6208" name="Recheo"/>
@@ -1168,7 +1168,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="6903" name="O cadro de diálogo permanece aberto despois da busca que mostra a ventá de resultados"/>
 					<Item id="6904" name="Confirmar &quot;Substituír todo&quot; en tódolos documentos abertos"/>
 					<Item id="6905" name="Substituír: non moverse á seguinte coincidencia"/>
-					<Item id="6906" name="Ventá de resultados de busca: mostrar, si é posible, só unha entrada por liña encontrada"/>
+					<Item id="6906" name="Ventá de resultados de busca: mostrar, se é posible, só unha entrada por liña encontrada"/>
 					<Item id="6907" name="Ao abrir o cadro de busca"/>
 					<Item id="6908" name="Encher o campo de busca co texto seleccionado"/>
 					<Item id="6909" name="Seleccionar a palabra baixo o cursor se non hai nada seleccionado"/>
@@ -1187,8 +1187,8 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 				</RecentFilesHistory>
 
 				<Backup title="Copias de seguridade">
-					<Item id="6817" name="Copias de seguridade e sesións"/>
-					<Item id="6818" name="Automatizar copias de seguridade e sesións"/>
+					<Item id="6817" name="Copias de seguridade e de sesións"/>
+					<Item id="6818" name="Automatizar copias de seguridade e de sesións"/>
 					<Item id="6819" name="Realizar copias cada"/>
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Gardar en:"/>
@@ -1262,7 +1262,7 @@ Pode definir varios marcadores de columna utilizando espazos en branco para sepa
 					<Item id="7141" name="Restriccións para arquivos de gran tamaño"/>
 					<Item id="7143" name="Activar restriccións para arquivos grandes (sin resaltado de sintaxe)"/>
 					<Item id="7144" name="Defina o tamaño de arquivo grande:"/>
-					<Item id="7146" name="MB (1 - 4096)"/>
+					<Item id="7146" name="MB (1 - 2046)"/>
 					<Item id="7147" name="Permitir a coincidencia de corchetes"/>
 					<Item id="7148" name="Permitir o autocompletado"/>
 					<Item id="7149" name="Permitir o resaltado intelixente"/>
@@ -1497,7 +1497,7 @@ Parece que o arquivo para abrir no é un arquivo de proxecto válido."/>
 ¿Desexa iniciar Notepad++ en modo Administrador?"/>
 			<OpenInAdminModeFailed title="Erro ao abrir en modo Administrador" message="Notepad++ non se pode abrir no modo Administrador."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Ver arquivo actual no navegador" message="Non se pode encontrar a aplicación no seu sistema."/>
-			<ExitToUpdatePlugins title="Está a punto de saír de Notepad++" message="Si fai clic en SI, salirá de Notepad++ para continuar coas operacións.
+			<ExitToUpdatePlugins title="Está a punto de saír de Notepad++" message="Se fai clic en SI, salirá de Notepad++ para continuar coas operacións.
 Notepad++ reiniciarase despois de que rematen todas.
 ¿Continuar?"/>
 			<NeedToRestartToLoadPlugins title="Necesita reiniciar Notepad++" message="Debe reiniciar Notepad++ para cargar os complementos que instalou."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
@@ -1507,7 +1507,7 @@ Notepad++ reiniciarase despois de que rematen todas.
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="¡Os cambios non gardados serán descartados!
 ¿Quere gardar os cambios antes de cambiar de tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Compatibilidade de Macro e Executar" message="Os comandos Macro e Executar gardados en Notepad++ v.8.5.2 (ou anterior) poden non ser compatibles coa versión actual de Notepad++.
-Probe estes comandos e, si é necesario, volva a editalos.
+Probe estes comandos e, se é necesario, volva a editalos.
 
 Alternativamente, pode reinstalar Notepad++ v8.5.2 e restaurar os seus datos anteriores.
 Notepad++ fará unha copia de seguridade do seu antigo &quot;shortcuts.xml&quot; e gardarao como &quot;shortcuts.xml.v8.5.2.backup&quot;.
@@ -1761,7 +1761,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 NOTA:
 1. A modificación das opcións implica reabrir os arquivos grandes que teña abertos para obter un comportamento adecuado.
 
-2. Si &quot;Desactivar globalmente o axuste do texto&quot; está marcado e abre un arquivo grande, &quot;Axuste do texto&quot; desactivarase para tódolos arquivos. Pode volver a activalo a través do menú Vista en &quot;Axuste do texto&quot;."/>
+2. Se &quot;Desactivar globalmente o axuste do texto&quot; está marcado e abre un arquivo grande, &quot;Axuste do texto&quot; desactivarase para tódolos arquivos. Pode volver a activalo a través do menú Vista en &quot;Axuste do texto&quot;."/>
 			<npcNote-tip value="Representación de espazos en branco seleccionados &quot;non ASCII&quot; e caracteres non imprimibles (de control).
 
 NOTA:
@@ -1789,7 +1789,7 @@ Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do us
 			<npcCustomColor-tip value="Vaia ao Configurador de estilos para cambiar a cor personalizada por defecto dos espazos en branco e caracteres non imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar axustes de apariencia de caracteres non imprimibles aos caracteres de control C0, C1 e Unicode EOL (liña seguinte, separador de liña e separador de párrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres seleccionados na zona de edición para marcar automáticamente o recadro &quot;Selección&quot; cando se activa o diálogo Buscar. O valor máximo é 1024. Estableza o valor en 0 para desactivar a comprobación automática."/>
-			<verticalEdge-tip value="Añada o seu marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores utilizando espazos en branco para separar os distintos números."/>
+			<verticalEdge-tip value="Engada o seu marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores utilizando espazos en branco para separar os distintos números."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

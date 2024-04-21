@@ -131,7 +131,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
-	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 
 	const TCHAR *available = TEXT("Available");
 	const TCHAR *updates = TEXT("Updates");
@@ -147,7 +146,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	getMappedChildRect(IDC_PLUGINADM_EDIT, rcDesc);
 
 	const long margeX = ::GetSystemMetrics(SM_CXEDGE);
-	const long margeY = dpiManager.scaleY(13);
+	const long margeY = DPIManagerV2::scale(13);
 
 	rect.bottom = rcDesc.bottom + margeY;
 	_tab.reSizeTo(rect);
@@ -171,7 +170,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	const COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
 	const COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
-	const size_t szColVer = dpiManager.scaleX(100);
+	const size_t szColVer = DPIManagerV2::scale(100);
 	const size_t szColName = szColVer * 2;
 
 	auto initListView = [&](PluginViewList& list) -> void {
@@ -183,6 +182,9 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 		ListView_SetBkColor(hList, bgColor);
 		ListView_SetTextBkColor(hList, bgColor);
 		ListView_SetTextColor(hList, fgColor);
+		const auto style = ::GetWindowLongPtr(hList, GWL_STYLE);
+		::SetWindowLongPtr(hList, GWL_STYLE, style | WS_TABSTOP);
+		::SetWindowPos(hList, ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_NEXT), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE); // to allow tab switch
 		list.reSizeView(listRect);
 	};
 
@@ -1173,7 +1175,30 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_COMMAND :
+		case WM_DPICHANGED:
+		{
+			DPIManagerV2::setDpiWP(wParam);
+			_repoLink.destroy();
+
+			const size_t szColVer = DPIManagerV2::scale(100);
+			const size_t szColName = szColVer * 2;
+
+			auto setListViewSize = [&](PluginViewList& list) -> void {
+				ListView_SetColumnWidth(list.getViewHwnd(), 0, szColName);
+				ListView_SetColumnWidth(list.getViewHwnd(), 1, szColVer);
+				};
+			
+			setListViewSize(_availableList);
+			setListViewSize(_updateList);
+			setListViewSize(_installedList);
+			setListViewSize(_incompatibleList);
+
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
@@ -1184,6 +1209,9 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						searchInPlugins(false);
 						return TRUE;
 					}
+
+					default:
+						return FALSE;
 				}
 			}
 
@@ -1304,8 +1332,9 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_DESTROY :
+		case WM_DESTROY:
 		{
+			_repoLink.destroy();
 			return TRUE;
 		}
 	}

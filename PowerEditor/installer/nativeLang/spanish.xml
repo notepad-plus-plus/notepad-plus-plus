@@ -1008,7 +1008,7 @@ Translation note:
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Punto de código"/>
 					<Item id="6256" name="Color personalizado"/>
-					<Item id="6258" name="Aplicar a C0, C1 &amp;&amp; EOL de Unicode"/>
+					<Item id="6258" name="Aplicar ajustes de apariencia a C0, C1 &amp;&amp; EOL de Unicode"/>
 					<Item id="6259" name="Impedir la introducción de caracteres de control (código C0) en el documento"/>
 				</Scintillas2>
 
@@ -1052,11 +1052,11 @@ Translation note:
 					<Item id="6292" name="Ancho dinámico"/>
 					<Item id="6293" name="Ancho fijo"/>
 					<Item id="6207" name="Mostrar marcador"/>
-					<Item id="6223" name="Mostrar marcas de cambios"/>
+					<Item id="6295" name="Historial de cambios"/>
+					<Item id="6223" name="Mostrarlos en el margen"/>
+					<Item id="6296" name="Mostrarlos en el texto"/>
 					<Item id="6211" name="Configuración de borde vertical"/>
 					<Item id="6213" name="Resaltar fondo de líneas"/>
-					<Item id="6237" name="Agregue su marcador de columna indicando su posición con un número decimal.
-Puede definir varios marcadores de columna utilizando espacios en blanco para separar los diferentes números."/>
 					<Item id="6231" name="Ancho del borde"/>
 					<Item id="6235" name="Sin marco"/>
 					<Item id="6208" name="Relleno"/>
@@ -1187,8 +1187,8 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 				</RecentFilesHistory>
 
 				<Backup title="Copias de seguridad">
-					<Item id="6817" name="Copias de seguridad y sesiones"/>
-					<Item id="6818" name="Automatizar copias de seguridad y sesiones"/>
+					<Item id="6817" name="Copias de seguridad y de sesiones"/>
+					<Item id="6818" name="Automatizar copias de seguridad y de sesiones"/>
 					<Item id="6819" name="Realizar copias cada"/>
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Guardar en:"/>
@@ -1262,7 +1262,7 @@ Puede definir varios marcadores de columna utilizando espacios en blanco para se
 					<Item id="7141" name="Restricciones para archivos de gran tamaño"/>
 					<Item id="7143" name="Activar restricciones para archivos grandes (sin resaltado de sintaxis)"/>
 					<Item id="7144" name="Defina el tamaño de archivo grande:"/>
-					<Item id="7146" name="MB (1 - 4096)"/>
+					<Item id="7146" name="MB (1 - 2046)"/>
 					<Item id="7147" name="Permitir la coincidencia de corchetes"/>
 					<Item id="7148" name="Permitir el autocompletado"/>
 					<Item id="7149" name="Permitir el resaltado inteligente"/>

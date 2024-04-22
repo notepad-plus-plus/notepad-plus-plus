@@ -970,7 +970,10 @@ For untitled document (new  4)
 	1. track UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776) in session.xml.
 */
 
-std::mutex backup_mutex;
+// The previously used std::mutex here crashed with the _RESOURCE_DEADLOCK_WOULD_OCCUR code (0x5) when entered recursively from the same thread!
+// Ref: https://en.cppreference.com/w/cpp/thread/mutex/lock
+// And the std::recursive_mutex has not its own locking counter method (and its native_handle() method is not implemented on the Windows platform).
+StdMutexEx g_backupMutex;
 
 bool FileManager::backupCurrentBuffer()
 {
@@ -978,7 +981,15 @@ bool FileManager::backupCurrentBuffer()
 	if (buffer->isLargeFile())
 		return false;
 
-	std::lock_guard<std::mutex> lock(backup_mutex);
+	std::lock_guard<StdMutexEx> lock(g_backupMutex);
+	if (g_backupMutex.lockCount() > 1)
+	{
+		// BAD
+		// - being here means that probably something unexpected happens like the file-saving has been blocked/stalled somehow!
+		// - in such a situation, we definitely do not want to stack up multiple backup requests from the same thread here,
+		//   so returning immediately (this also decrements the current lock-holder counter back to 1)
+		return false;
+	}
 
 	bool result = false;
 	bool hasModifForSession = false;

@@ -1832,8 +1832,8 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, size_t level, const vec
 				}
 				else if (isRecursive)
 				{
-					if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && 
-						(OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0) &&
+					if ((wcscmp(foundData.cFileName, TEXT(".")) != 0) && 
+						(wcscmp(foundData.cFileName, TEXT("..")) != 0) &&
 						!matchInExcludeDirList(foundData.cFileName, patterns, level))
 					{
 						generic_string pathDir(dir);

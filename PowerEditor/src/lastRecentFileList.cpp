@@ -278,7 +278,7 @@ int LastRecentFileList::find(const TCHAR *fn)
 {
 	for (int i = 0; i < _size; ++i)
 	{
-		if (OrdinalIgnoreCaseCompareStrings(_lrfl.at(i)._name.c_str(), fn) == 0)
+		if (wcscmp(_lrfl.at(i)._name.c_str(), fn) == 0)
 		{
 			return i;
 		}

@@ -1272,7 +1272,7 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 			}
 			else // Always recursive
 			{
-				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
+				if ((wcscmp(foundData.cFileName, TEXT(".")) != 0) && (wcscmp(foundData.cFileName, TEXT("..")) != 0))
 				{
 					generic_string pathDir(folderPath);
 					if (folderPath[lstrlen(folderPath)-1] != '\\')

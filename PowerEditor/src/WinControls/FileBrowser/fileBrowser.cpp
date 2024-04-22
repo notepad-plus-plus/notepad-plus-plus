@@ -897,8 +897,8 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 				}
 				else if (isRecursive)
 				{
-					if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && 
-						(OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
+					if ((wcscmp(foundData.cFileName, TEXT(".")) != 0) && 
+						(wcscmp(foundData.cFileName, TEXT("..")) != 0))
 					{
 						generic_string pathDir(dir);
 						if (pathDir[pathDir.length() - 1] != '\\')

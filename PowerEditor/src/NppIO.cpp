@@ -84,7 +84,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 					if (pos == 2)
 						fn.replace(pos, 2, TEXT("\\"));
 
-					if (OrdinalIgnoreCaseCompareStrings(fullFileName, fn.c_str()) == 0)
+					if (wcscmp(fullFileName, fn.c_str()) == 0)
 					{
 						if (dwAction == FILE_ACTION_MODIFIED)
 						{

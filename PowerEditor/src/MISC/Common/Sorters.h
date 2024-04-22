@@ -128,11 +128,11 @@ public:
 				{
 					if (isDescending())
 					{
-						return OrdinalIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
+						return wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) > 0;
 					}
 					else
 					{
-						return OrdinalIgnoreCaseCompareStrings(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
+						return wcsicmp(getSortKey(a).c_str(), getSortKey(b).c_str()) < 0;
 					}
 				});
 		}
@@ -142,11 +142,11 @@ public:
 				{
 					if (isDescending())
 					{
-						return OrdinalIgnoreCaseCompareStrings(a.c_str(), b.c_str()) > 0;
+						return wcsicmp(a.c_str(), b.c_str()) > 0;
 					}
 					else
 					{
-						return OrdinalIgnoreCaseCompareStrings(a.c_str(), b.c_str()) < 0;
+						return wcsicmp(a.c_str(), b.c_str()) < 0;
 					}
 				});
 		}

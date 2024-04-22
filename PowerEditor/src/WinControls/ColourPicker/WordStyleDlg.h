@@ -63,6 +63,7 @@ public :
 
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
     void doDialog(bool isRTL = false);
+	void destroy() override;
 	void prepare2Cancel();
 	void redraw(bool forceUpdate = false) const override;
 	void restoreGlobalOverrideValues();

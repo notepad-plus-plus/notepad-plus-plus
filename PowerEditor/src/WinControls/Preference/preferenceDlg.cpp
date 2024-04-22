@@ -1538,6 +1538,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pHotEdgeColorPicker->init(_hInst, _hSelf);
 			_pDisabledEdgeColorPicker->init(_hInst, _hSelf);
 
+			DPIManagerV2::setDpi(_hSelf);
 			const int cpDynamicalSize = DPIManagerV2::scale(25);
 
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);

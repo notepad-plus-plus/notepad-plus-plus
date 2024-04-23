@@ -45,15 +45,21 @@ void ColourPopup::create(int dialogID)
 	display();
 }
 
-void ColourPopup::createForDpi(int dialogID)
+void ColourPopup::doDialog(POINT p)
 {
-	const DPI_AWARENESS_CONTEXT dpiContextSystem = NppDarkMode::isWindows10() ? DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED : DPI_AWARENESS_CONTEXT_SYSTEM_AWARE;
-	const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(dpiContextSystem);
-	create(dialogID);
-	if (dpiContext != NULL)
+	if (!isCreated())
 	{
-		DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+		const DPI_AWARENESS_CONTEXT dpiContextSystem = NppDarkMode::isWindows10() ? DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED : DPI_AWARENESS_CONTEXT_SYSTEM_AWARE;
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(dpiContextSystem);
+
+		create(IDD_COLOUR_POPUP);
+
+		if (dpiContext != NULL)
+		{
+			DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+		}
 	}
+	::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
 }
 
 intptr_t CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 

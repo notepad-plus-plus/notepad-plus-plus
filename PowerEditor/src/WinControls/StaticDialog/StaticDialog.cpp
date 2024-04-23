@@ -263,16 +263,6 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 	::SendMessage(msgDestParent ? _hParent : (::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, reinterpret_cast<WPARAM>(_hSelf));
 }
 
-void StaticDialog::createForDpi(int dialogID, bool isRTL, bool msgDestParent, DPI_AWARENESS_CONTEXT dpiAContext)
-{
-	const auto dpiContext = setThreadDpiAwarenessContext(dpiAContext);
-	create(dialogID, isRTL, msgDestParent);
-	if (dpiContext != NULL)
-	{
-		setThreadDpiAwarenessContext(dpiContext);
-	}
-}
-
 intptr_t CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)

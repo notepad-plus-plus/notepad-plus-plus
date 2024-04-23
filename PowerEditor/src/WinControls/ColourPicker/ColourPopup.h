@@ -37,14 +37,7 @@ public :
 	}
 
 	void create(int dialogID);
-	void createForDpi(int dialogID);
-
-	void doDialog(POINT p)
-	{
-		if (!isCreated())
-			createForDpi(IDD_COLOUR_POPUP);
-		::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
-	}
+	void doDialog(POINT p);
 
 	virtual void destroy()
 	{

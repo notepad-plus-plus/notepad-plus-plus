@@ -44,7 +44,6 @@ public :
 	virtual ~StaticDialog();
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
-	virtual void createForDpi(int dialogID, bool isRTL = false, bool msgDestParent = true, DPI_AWARENESS_CONTEXT dpiAContext = DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
 	virtual bool isCreated() const {
 		return (_hSelf != nullptr);

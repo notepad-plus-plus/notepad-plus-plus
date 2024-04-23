@@ -1965,6 +1965,16 @@ bool Notepad_plus::fileRename(BufferID id)
 	scnN.nmhdr.code = success ? NPPN_FILERENAMED : NPPN_FILERENAMECANCEL;
 	_pluginsManager.notify(&scnN);
 
+	generic_string fname = buf->getFileName();
+	if (fname.substr(fname.size() - 4) == TEXT(".txt"))
+	{
+		_autoCompleteMain.setIsTextFile(true);
+	}
+	else
+	{
+		_autoCompleteMain.setIsTextFile(false);
+	}
+
 	return success;
 }
 

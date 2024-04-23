@@ -867,6 +867,7 @@ struct NppGUI final
 	bool _autocInsertSelectedUseENTER = true;
 	bool _autocInsertSelectedUseTAB = true;
 	bool _autocBrief = false;
+	bool _autocDisableForText = false;
 	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;
 

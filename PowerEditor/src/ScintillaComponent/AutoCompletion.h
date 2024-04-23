@@ -80,6 +80,7 @@ public:
 	void update(int character);
 	void callTipClick(size_t direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
+	void setIsTextFile(bool isText);
 
 	static void setColour(COLORREF colour2Set, AutocompleteColorIndex i);
 	static void drawAutocomplete(ScintillaEditView* pEditView);
@@ -101,6 +102,7 @@ private:
 	TiXmlElement *_pXmlKeyword = nullptr;
 	bool _isFxImageRegistered = false;
 	bool _isFxImageRegisteredDark = false;
+	bool _isTextFile = false;
 
 	InsertedMatchedChars _insertedMatchedChars;
 

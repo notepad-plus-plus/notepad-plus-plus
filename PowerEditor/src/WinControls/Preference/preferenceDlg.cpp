@@ -4673,6 +4673,21 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					return TRUE;
 				}
 
+				case IDD_AUTOC_DISABLEFORTEXT:
+				{
+					bool disableForText = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_DISABLEFORTEXT, BM_GETCHECK, 0, 0);
+
+					if (disableForText)
+					{
+						nppGUI._autocDisableForText = true;
+					}
+					else
+					{
+						nppGUI._autocDisableForText = false;
+					}
+					return TRUE;
+				}
+
 				case IDD_AUTOC_ENABLECHECK :
 				{
 					bool isEnableAutoC = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_GETCHECK, 0, 0);

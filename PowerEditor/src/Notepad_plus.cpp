@@ -6613,6 +6613,15 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (view != currentView())
 		return;	//dont care if another view did something
 
+	generic_string fname = buf->getFileName();
+	if (fname.substr(fname.size() - 4) == TEXT(".txt"))
+	{
+		_autoCompleteMain.setIsTextFile(true);
+	}
+	else
+	{
+		_autoCompleteMain.setIsTextFile(false);
+	}
 
 	checkDocState();
 	dynamicCheckMenuAndTB();

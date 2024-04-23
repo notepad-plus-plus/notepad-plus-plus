@@ -19,6 +19,7 @@
 #include <shlwapi.h>
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
+#include "Buffer.h"
 
 const auto FUNC_IMG_ID = 1000;
 const char* xpmfn[] = {
@@ -292,6 +293,11 @@ static void sortInsensitive(vector<generic_string> &wordArray)
 
 bool AutoCompletion::showAutoComplete(AutocompleteType autocType, bool autoInsert)
 {
+	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+
+	if (nppGUI._autocDisableForText && _isTextFile)
+		return false;
+
 	if (autocType == autocFunc && !_funcCompletionActive)
 		return false;
 
@@ -1024,6 +1030,10 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		_pEditView->execute(SCI_INSERTTEXT, caretPos, reinterpret_cast<LPARAM>(matchedChars));
 }
 
+void AutoCompletion::setIsTextFile(bool isText)
+{
+	_isTextFile = isText;
+}
 
 void AutoCompletion::update(int character)
 {

@@ -4715,6 +4715,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_BOTHRADIO), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_DISABLEFORTEXT), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_BRIEF_CHECK), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEKEY_GRP_STATIC), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEENTER), isEnableAutoC);

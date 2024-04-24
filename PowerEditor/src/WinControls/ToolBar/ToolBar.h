@@ -21,6 +21,7 @@
 #include "Window.h"
 #include "Notepad_plus_msgs.h"
 #include "ImageListSet.h"
+#include "dpiManagerV2.h"
 
 #define REBAR_BAR_TOOLBAR		0
 #define REBAR_BAR_SEARCH		1
@@ -101,6 +102,8 @@ public :
 
 	void addToRebar(ReBar * rebar);
 
+	void resizeIconsDpi(UINT dpi);
+
 private :
 	TBBUTTON *_pTBB = nullptr;
 	ToolBarIcons _toolBarIcons;
@@ -115,6 +118,8 @@ private :
     std::vector<iconLocator> _customIconVect;
 
     TiXmlNode *_toolIcons = nullptr;
+
+	DPIManagerV2 _dpiManager;
 
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));

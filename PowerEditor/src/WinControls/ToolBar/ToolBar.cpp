@@ -125,6 +125,9 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	Window::init(hInst, hPere);
 	
 	_state = type;
+
+	DPIManagerV2::setDpi(hPere);
+
 	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
 	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
@@ -398,7 +401,7 @@ void ToolBar::reset(bool create)
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
 		_nbCurrentButtons = _nbTotalButtons;
-		WORD btnSize = (_state == TB_LARGE ? 32 : 16);
+		WORD btnSize = static_cast<WORD>(DPIManagerV2::scale((_state == TB_LARGE || _state == TB_LARGE2) ? 32 : 16));
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}
@@ -508,6 +511,14 @@ void ToolBar::doPopop(POINT chevPoint)
 		}
 		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);
 	}
+}
+
+void ToolBar::resizeIconsDpi(UINT dpi)
+{
+	DPIManagerV2::setDpi(dpi);
+	const int iconDpiDynamicalSize = DPIManagerV2::scale((_state == TB_LARGE || _state == TB_LARGE2) ? 32 : 16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	reset(true);
 }
 
 void ToolBar::addToRebar(ReBar * rebar) 

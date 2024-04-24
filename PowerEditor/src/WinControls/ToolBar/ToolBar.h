@@ -21,6 +21,7 @@
 #include "Window.h"
 #include "Notepad_plus_msgs.h"
 #include "ImageListSet.h"
+#include "dpiManagerV2.h"
 
 #define REBAR_BAR_TOOLBAR		0
 #define REBAR_BAR_SEARCH		1
@@ -46,7 +47,7 @@ class ReBar;
 class TiXmlDocument;
 class TiXmlNode;
 
-class ToolBar : public Window
+class ToolBar : public Window, public DPIManagerV2
 {
 public :
 	ToolBar() = default;
@@ -100,6 +101,8 @@ public :
 	void doPopop(POINT chevPoint);	//show the popup if buttons are hidden
 
 	void addToRebar(ReBar * rebar);
+
+	void resizeIconsDpi(UINT dpi);
 
 private :
 	TBBUTTON *_pTBB = nullptr;

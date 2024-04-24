@@ -589,6 +589,57 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla532.zip">Release 5.3.2</a>
+    </h3>
+    <ul>
+	<li>
+	Released 23 April 2024.
+	</li>
+	<li>
+	COBOL: Stop string literal continuing over line end.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/229">Issue #229</a>.
+	</li>
+	<li>
+	COBOL: Stop doc comment assigning different styles to \r and \n at line end.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/229">Issue #229</a>.
+	</li>
+	<li>
+	COBOL: Recognize keywords that start with 'V'.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/230">Issue #230</a>.
+	</li>
+	<li>
+	COBOL: Recognize comments after tag or that start with '/'.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/231">Issue #231</a>.
+	</li>
+	<li>
+	HTML: Implement substyles for tags, attributes, and identifiers
+	SCE_H_TAG, SCE_H_ATTRIBUTE, SCE_HJ_WORD, SCE_HJA_WORD, SCE_HB_WORD, SCE_HP_WORD, SCE_HPHP_WORD.
+	</li>
+	<li>
+	HTML: Implement context-sensitive attributes. "tag.attribute" matches "attribute" only inside "tag".
+	</li>
+	<li>
+	HTML: Match standard handling of comments.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/232">Issue #232</a>.
+	</li>
+	<li>
+	Lua: Implement substyles for identifiers SCE_LUA_IDENTIFIER.
+	</li>
+	<li>
+	Ruby: Allow non-ASCII here-doc delimiters.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/234">Issue #234</a>.
+	</li>
+	<li>
+	Ruby: Allow modifier if, unless, while and until after heredoc delimiter.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/236">Issue #236</a>.
+	</li>
+	<li>
+	Rust: Recognize raw identifiers.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/239">Issue #239</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/240">Pull request #240</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla531.zip">Release 5.3.1</a>
     </h3>
     <ul>
@@ -12774,7 +12825,7 @@
         Pascal lexer handles comments more correctly.
       </li>
       <li>
-        C/C++/Java/JavaScipt lexer has a state for line doc comments.
+        C/C++/Java/JavaScript lexer has a state for line doc comments.
       </li>
       <li>
         Error output lexer understands Sun CC messages.

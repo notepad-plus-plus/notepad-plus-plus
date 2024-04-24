@@ -45,7 +45,7 @@ vpath %.h ../src ../include
 vpath %.cxx ../src
 
 LDFLAGS=-shared -static -mwindows
-LIBS=-lgdi32 -luser32 -limm32 -lole32 -luuid -loleaut32 $(LIBSMINGW)
+LIBS=-lgdi32 -luser32 -limm32 -lole32 -luuid -loleaut32 -ladvapi32 $(LIBSMINGW)
 
 INCLUDES=-I ../include -I ../src
 

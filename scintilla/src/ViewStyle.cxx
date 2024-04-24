@@ -39,6 +39,17 @@
 using namespace Scintilla;
 using namespace Scintilla::Internal;
 
+namespace {
+
+// Colour component proportions of maximum 0xffU
+constexpr unsigned int light = 0xc0U;
+// The middle point of 0..0xff is between 0x7fU and 0x80U and both are used
+constexpr unsigned int mid = 0x80U;
+constexpr unsigned int half = 0x7fU;
+constexpr unsigned int quarter = 0x3fU;
+
+}
+
 MarginStyle::MarginStyle(MarginType style_, int width_, int mask_) noexcept :
 	style(style_), width(width_), mask(mask_), sensitive(false), cursor(CursorShape::ReverseArrow) {
 }
@@ -92,7 +103,8 @@ void FontRealised::Realise(Surface &surface, int zoomLevel, Technology technolog
 ViewStyle::ViewStyle(size_t stylesSize_) :
 	styles(stylesSize_),
 	markers(MarkerMax + 1),
-	indicators(static_cast<size_t>(IndicatorNumbers::Max) + 1) {
+	indicators(static_cast<size_t>(IndicatorNumbers::Max) + 1),
+	ms(MaxMargin + 1) {
 
 	nextExtendedStyle = 256;
 	ResetDefaultStyle();
@@ -100,9 +112,9 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 	// There are no image markers by default, so no need for calling CalcLargestMarkerHeight()
 	largestMarkerHeight = 0;
 
-	indicators[0] = Indicator(IndicatorStyle::Squiggle, ColourRGBA(0, 0x7f, 0));
-	indicators[1] = Indicator(IndicatorStyle::TT, ColourRGBA(0, 0, 0xff));
-	indicators[2] = Indicator(IndicatorStyle::Plain, ColourRGBA(0xff, 0, 0));
+	indicators[0] = Indicator(IndicatorStyle::Squiggle, ColourRGBA(0, half, 0));	// Green
+	indicators[1] = Indicator(IndicatorStyle::TT, ColourRGBA(0, 0, maximumByte));	// Blue
+	indicators[2] = Indicator(IndicatorStyle::Plain, ColourRGBA(maximumByte, 0, 0));	// Red
 
 	// Reverted to origin
 	constexpr ColourRGBA revertedToOrigin(0x40, 0xA0, 0xBF);
@@ -116,13 +128,16 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 	// Edition indicators
 	constexpr size_t indexHistory = static_cast<size_t>(IndicatorNumbers::HistoryRevertedToOriginInsertion);
 
-	indicators[indexHistory+0] = Indicator(IndicatorStyle::CompositionThick, revertedToOrigin, false, 30, 60);
+	// Default indicators are moderately intense so they don't overwhelm text
+	constexpr int alphaFill = 30;
+	constexpr int alphaOutline = 50;
+	indicators[indexHistory+0] = Indicator(IndicatorStyle::CompositionThick, revertedToOrigin, false, alphaFill, alphaOutline);
 	indicators[indexHistory+1] = Indicator(IndicatorStyle::Point, revertedToOrigin);
-	indicators[indexHistory+2] = Indicator(IndicatorStyle::CompositionThick, saved, false, 30, 60);
+	indicators[indexHistory+2] = Indicator(IndicatorStyle::CompositionThick, saved, false, alphaFill, alphaOutline);
 	indicators[indexHistory+3] = Indicator(IndicatorStyle::Point, saved);
-	indicators[indexHistory+4] = Indicator(IndicatorStyle::CompositionThick, modified, false, 30, 60);
+	indicators[indexHistory+4] = Indicator(IndicatorStyle::CompositionThick, modified, false, alphaFill, alphaOutline);
 	indicators[indexHistory+5] = Indicator(IndicatorStyle::PointTop, modified);
-	indicators[indexHistory+6] = Indicator(IndicatorStyle::CompositionThick, revertedToChange, false, 30, 60);
+	indicators[indexHistory+6] = Indicator(IndicatorStyle::CompositionThick, revertedToChange, false, alphaFill, alphaOutline);
 	indicators[indexHistory+7] = Indicator(IndicatorStyle::Point, revertedToChange);
 
 	// Edition markers
@@ -159,15 +174,13 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 	tabWidth = spaceWidth * 8;
 
 	// Default is for no selection foregrounds
-	elementColours.erase(Element::SelectionText);
-	elementColours.erase(Element::SelectionAdditionalText);
-	elementColours.erase(Element::SelectionSecondaryText);
-	elementColours.erase(Element::SelectionInactiveText);
 	// Shades of grey for selection backgrounds
-	elementBaseColours[Element::SelectionBack] = ColourRGBA(0xc0, 0xc0, 0xc0, 0xff);
-	elementBaseColours[Element::SelectionAdditionalBack] = ColourRGBA(0xd7, 0xd7, 0xd7, 0xff);
-	elementBaseColours[Element::SelectionSecondaryBack] = ColourRGBA(0xb0, 0xb0, 0xb0, 0xff);
-	elementBaseColours[Element::SelectionInactiveBack] = ColourRGBA(0x80, 0x80, 0x80, 0x3f);
+	elementBaseColours[Element::SelectionBack] = ColourRGBA::Grey(light);
+	constexpr unsigned int veryLight = 0xd7U;
+	elementBaseColours[Element::SelectionAdditionalBack] = ColourRGBA::Grey(veryLight);
+	constexpr unsigned int halfLight = 0xb0;
+	elementBaseColours[Element::SelectionSecondaryBack] = ColourRGBA::Grey(halfLight);
+	elementBaseColours[Element::SelectionInactiveBack] = ColourRGBA::Grey(mid, quarter);
 	elementAllowsTranslucent.insert({
 		Element::SelectionText,
 		Element::SelectionBack,
@@ -177,10 +190,9 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 		Element::SelectionSecondaryBack,
 		Element::SelectionInactiveText,
 		Element::SelectionInactiveBack,
+		Element::SelectionInactiveAdditionalText,
+		Element::SelectionInactiveAdditionalBack,
 		});
-
-	foldmarginColour.reset();
-	foldmarginHighlightColour.reset();
 
 	controlCharSymbol = 0;	/* Draw the control characters */
 	controlCharWidth = 0;
@@ -190,25 +202,22 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 	styles[StyleLineNumber].back = Platform::Chrome();
 
 	elementBaseColours[Element::Caret] = black;
-	elementBaseColours[Element::CaretAdditional] = ColourRGBA(0x7f, 0x7f, 0x7f);
+	elementBaseColours[Element::CaretAdditional] = ColourRGBA::Grey(half);
 	elementAllowsTranslucent.insert({
 		Element::Caret,
 		Element::CaretAdditional,
 		});
 
-	elementColours.erase(Element::CaretLineBack);
 	elementAllowsTranslucent.insert(Element::CaretLineBack);
 
 	someStylesProtected = false;
 	someStylesForceCase = false;
 
 	hotspotUnderline = true;
-	elementColours.erase(Element::HotSpotActive);
 	elementAllowsTranslucent.insert(Element::HotSpotActive);
 
 	leftMarginWidth = 1;
 	rightMarginWidth = 1;
-	ms.resize(MaxMargin + 1);
 	ms[0] = MarginStyle(MarginType::Number);
 	ms[1] = MarginStyle(MarginType::Symbol, 16, ~MaskFolders);
 	ms[2] = MarginStyle(MarginType::Symbol);
@@ -219,7 +228,6 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 	viewWhitespace = WhiteSpace::Invisible;
 	tabDrawMode = TabDrawMode::LongArrow;
 	whitespaceSize = 1;
-	elementColours.erase(Element::WhiteSpace);
 	elementAllowsTranslucent.insert(Element::WhiteSpace);
 
 	viewIndentationGuides = IndentView::None;
@@ -238,7 +246,7 @@ ViewStyle::ViewStyle(size_t stylesSize_) :
 	braceBadLightIndicator = 0;
 
 	edgeState = EdgeVisualStyle::None;
-	theEdge = EdgeProperties(0, ColourRGBA(0xc0, 0xc0, 0xc0));
+	theEdge = EdgeProperties(0, ColourRGBA::Grey(light));
 
 	marginNumberPadding = 3;
 	ctrlCharPadding = 3; // +3 For a blank on front and rounded edge each side
@@ -333,7 +341,7 @@ void ViewStyle::CalculateMarginWidthAndMask() noexcept {
 		maskDefinedMarkers |= m.mask;
 	}
 	maskDrawInText = 0;
-	for (int markBit = 0; markBit < 32; markBit++) {
+	for (int markBit = 0; markBit <= MarkerMax; markBit++) {
 		const int maskBit = 1U << markBit;
 		switch (markers[markBit].markType) {
 		case MarkerSymbol::Empty:
@@ -349,7 +357,7 @@ void ViewStyle::CalculateMarginWidthAndMask() noexcept {
 		}
 	}
 	maskDrawWrapped = 0;
-	for (int markBit = 0; markBit < 32; markBit++) {
+	for (int markBit = 0; markBit <= MarkerMax; markBit++) {
 		const int maskBit = 1U << markBit;
 		switch (markers[markBit].markType) {
 		case MarkerSymbol::Bar:
@@ -460,7 +468,7 @@ void ViewStyle::ClearStyles() {
 
 	// Set call tip fore/back to match the values previously set for call tips
 	styles[StyleCallTip].back = white;
-	styles[StyleCallTip].fore = ColourRGBA(0x80, 0x80, 0x80);
+	styles[StyleCallTip].fore = ColourRGBA::Grey(mid);
 }
 
 void ViewStyle::SetStyleFontName(int styleIndex, const char *name) {
@@ -538,7 +546,7 @@ ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lin
 	}
 	if (!background && marksOfLine) {
 		int marks = marksOfLine;
-		for (int markBit = 0; (markBit < 32) && marks; markBit++) {
+		for (int markBit = 0; (markBit <= MarkerMax) && marks; markBit++) {
 			if ((marks & 1) && (markers[markBit].markType == MarkerSymbol::Background) &&
 				(markers[markBit].layer == Layer::Base)) {
 				background = markers[markBit].back;
@@ -549,7 +557,7 @@ ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lin
 	if (!background && maskInLine) {
 		int marksMasked = marksOfLine & maskInLine;
 		if (marksMasked) {
-			for (int markBit = 0; (markBit < 32) && marksMasked; markBit++) {
+			for (int markBit = 0; (markBit <= MarkerMax) && marksMasked; markBit++) {
 				if ((marksMasked & 1) &&
 					(markers[markBit].layer == Layer::Base)) {
 					background = markers[markBit].back;
@@ -574,7 +582,8 @@ bool ViewStyle::SelectionTextDrawn() const {
 		ElementIsSet(Element::SelectionText) ||
 		ElementIsSet(Element::SelectionAdditionalText) ||
 		ElementIsSet(Element::SelectionSecondaryText) ||
-		ElementIsSet(Element::SelectionInactiveText);
+		ElementIsSet(Element::SelectionInactiveText) ||
+		ElementIsSet(Element::SelectionInactiveAdditionalText);
 }
 
 bool ViewStyle::WhitespaceBackgroundDrawn() const {
@@ -602,13 +611,13 @@ void ViewStyle::AddMultiEdge(int column, ColourRGBA colour) {
 }
 
 ColourOptional ViewStyle::ElementColour(Element element) const {
-	ElementMap::const_iterator search = elementColours.find(element);
+	const ElementMap::const_iterator search = elementColours.find(element);
 	if (search != elementColours.end()) {
 		if (search->second.has_value()) {
 			return search->second;
 		}
 	}
-	ElementMap::const_iterator searchBase = elementBaseColours.find(element);
+	const ElementMap::const_iterator searchBase = elementBaseColours.find(element);
 	if (searchBase != elementBaseColours.end()) {
 		if (searchBase->second.has_value()) {
 			return searchBase->second;
@@ -630,19 +639,30 @@ bool ViewStyle::ElementAllowsTranslucent(Element element) const {
 }
 
 bool ViewStyle::ResetElement(Element element) {
-	ElementMap::const_iterator search = elementColours.find(element);
+	const ElementMap::const_iterator search = elementColours.find(element);
 	const bool changed = (search != elementColours.end()) && (search->second.has_value());
 	elementColours.erase(element);
 	return changed;
 }
 
-bool ViewStyle::SetElementColour(Element element, ColourRGBA colour) {
-	ElementMap::const_iterator search = elementColours.find(element);
-	const bool changed =
-		(search == elementColours.end()) ||
-		(search->second.has_value() && !(*search->second == colour));
-	elementColours[element] = colour;
+namespace {
+
+bool IsDifferentColour(const ColourOptional &colour, const ColourRGBA &test) noexcept {
+	return colour.has_value() && !(*colour == test);
+}
+
+bool SetElementMapColour(ViewStyle::ElementMap &elements, Element element, ColourRGBA colour) {
+	const ViewStyle::ElementMap::const_iterator search = elements.find(element);
+	const bool changed = (search == elements.end()) ||
+		IsDifferentColour(search->second, colour);
+	elements[element] = colour;
 	return changed;
+}
+
+}
+
+bool ViewStyle::SetElementColour(Element element, ColourRGBA colour) {
+	return SetElementMapColour(elementColours, element, colour);
 }
 
 bool ViewStyle::SetElementColourOptional(Element element, uptr_t wParam, sptr_t lParam) {
@@ -660,11 +680,11 @@ void ViewStyle::SetElementRGB(Element element, int rgb) {
 
 void ViewStyle::SetElementAlpha(Element element, int alpha) {
 	const ColourRGBA current = ElementColour(element).value_or(ColourRGBA(0, 0, 0, 0));
-	elementColours[element] = ColourRGBA(current, std::min(alpha, 0xff));
+	elementColours[element] = ColourRGBA(current, std::min<unsigned int>(alpha, maximumByte));
 }
 
 bool ViewStyle::ElementIsSet(Element element) const {
-	ElementMap::const_iterator search = elementColours.find(element);
+	const ElementMap::const_iterator search = elementColours.find(element);
 	if (search != elementColours.end()) {
 		return search->second.has_value();
 	}
@@ -672,12 +692,7 @@ bool ViewStyle::ElementIsSet(Element element) const {
 }
 
 bool ViewStyle::SetElementBase(Element element, ColourRGBA colour) {
-	ElementMap::const_iterator search = elementBaseColours.find(element);
-	const bool changed =
-		(search == elementBaseColours.end()) ||
-		(search->second.has_value() && !(*search->second == colour));
-	elementBaseColours[element] = colour;
-	return changed;
+	return SetElementMapColour(elementBaseColours, element, colour);
 }
 
 bool ViewStyle::SetWrapState(Wrap wrapState_) noexcept {
@@ -757,7 +772,7 @@ void ViewStyle::AllocStyles(size_t sizeNew) {
 
 void ViewStyle::CreateAndAddFont(const FontSpecification &fs) {
 	if (fs.fontName) {
-		FontMap::iterator it = fonts.find(fs);
+		const FontMap::iterator it = fonts.find(fs);
 		if (it == fonts.end()) {
 			fonts[fs] = std::make_unique<FontRealised>();
 		}
@@ -767,7 +782,7 @@ void ViewStyle::CreateAndAddFont(const FontSpecification &fs) {
 FontRealised *ViewStyle::Find(const FontSpecification &fs) {
 	if (!fs.fontName)	// Invalid specification so return arbitrary object
 		return fonts.begin()->second.get();
-	FontMap::iterator it = fonts.find(fs);
+	const FontMap::iterator it = fonts.find(fs);
 	if (it != fonts.end()) {
 		// Should always reach here since map was just set for all styles
 		return it->second.get();

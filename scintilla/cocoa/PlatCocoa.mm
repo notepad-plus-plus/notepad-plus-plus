@@ -2298,8 +2298,7 @@ ColourRGBA Platform::ChromeHighlight() {
  * Returns the currently set system font for the user.
  */
 const char *Platform::DefaultFont() {
-	NSString *name = [[NSUserDefaults standardUserDefaults] stringForKey: @"NSFixedPitchFont"];
-	return name.UTF8String;
+	return "Menlo-Regular";
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2308,8 +2307,7 @@ const char *Platform::DefaultFont() {
  * Returns the currently set system font size for the user.
  */
 int Platform::DefaultFontSize() {
-	return static_cast<int>([[NSUserDefaults standardUserDefaults]
-				 integerForKey: @"NSFixedPitchFontSize"]);
+	return 11;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2321,8 +2319,7 @@ int Platform::DefaultFontSize() {
  * @return time span in milliseconds
  */
 unsigned int Platform::DoubleClickTime() {
-	float threshold = [[NSUserDefaults standardUserDefaults] floatForKey:
-								 @"com.apple.mouse.doubleClickThreshold"];
+	NSTimeInterval threshold = NSEvent.doubleClickInterval;
 	if (threshold == 0)
 		threshold = 0.5;
 	return static_cast<unsigned int>(threshold * 1000.0);

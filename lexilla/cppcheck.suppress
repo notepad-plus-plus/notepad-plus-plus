@@ -28,9 +28,6 @@ returnDanglingLifetime:lexilla/access/LexillaAccess.cxx
 // cppcheck seems to believe that unique_ptr<char *[]>::get returns void* instead of char**
 arithOperationsOnVoidPointer:lexilla/lexlib/WordList.cxx
 
-// This could be fixed but it should be rewritten to use string_view which doesn't have resize
-uselessCallsSubstr:lexilla/lexers/LexCPP.cxx
-
 // cppcheck 2.11 limits checking of complex functions unless --check-level=exhaustive but that
 // only finds one false issue in LexRuby
 checkLevelNormal:lexilla/lexers/LexBash.cxx
@@ -90,7 +87,6 @@ variableScope:lexilla/lexers/LexGui4Cli.cxx
 constParameterReference:lexilla/lexers/LexHaskell.cxx
 constParameterReference:lexilla/lexers/LexHex.cxx
 knownConditionTrueFalse:lexilla/lexers/LexHex.cxx
-constParameterReference:lexilla/lexers/LexHTML.cxx
 constVariable:lexilla/lexers/LexHollywood.cxx
 variableScope:lexilla/lexers/LexInno.cxx
 constVariableReference:lexilla/lexers/LexInno.cxx

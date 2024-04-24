@@ -730,6 +730,7 @@ $(DIR_O)/LexHTML.o: \
 	../../scintilla/include/Sci_Position.h \
 	../../scintilla/include/Scintilla.h \
 	../include/SciLexer.h \
+	../lexlib/InList.h \
 	../lexlib/WordList.h \
 	../lexlib/LexAccessor.h \
 	../lexlib/Accessor.h \
@@ -737,6 +738,7 @@ $(DIR_O)/LexHTML.o: \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h \
 	../lexlib/OptionSet.h \
+	../lexlib/SubStyles.h \
 	../lexlib/DefaultLexer.h
 $(DIR_O)/LexIndent.o: \
 	../lexers/LexIndent.cxx \
@@ -868,6 +870,7 @@ $(DIR_O)/LexLua.o: \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h \
 	../lexlib/OptionSet.h \
+	../lexlib/SubStyles.h \
 	../lexlib/DefaultLexer.h
 $(DIR_O)/LexMagik.o: \
 	../lexers/LexMagik.cxx \

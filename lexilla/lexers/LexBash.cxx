@@ -483,12 +483,11 @@ class LexerBash final : public DefaultLexer {
 	OptionSetBash osBash;
 	CharacterSet setParamStart;
 	enum { ssIdentifier, ssScalar };
-	SubStyles subStyles;
+	SubStyles subStyles{styleSubable};
 public:
 	LexerBash() :
 		DefaultLexer("bash", SCLEX_BASH, lexicalClasses, std::size(lexicalClasses)),
-		setParamStart(CharacterSet::setAlphaNum, "_" BASH_SPECIAL_PARAMETER),
-		subStyles(styleSubable, 0x80, 0x40, 0) {
+		setParamStart(CharacterSet::setAlphaNum, "_" BASH_SPECIAL_PARAMETER) {
 		cmdDelimiter.Set("| || |& & && ; ;; ( ) { }");
 		bashStruct.Set("if elif fi while until else then do done esac eval");
 		bashStruct_in.Set("for case select");

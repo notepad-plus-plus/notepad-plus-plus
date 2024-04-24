@@ -1,0 +1,9 @@
+ 0 400   0   <!----><p>1 normal comment</p>
+ 0 400   0   <!-- > and <!--><p>2 valid comment</p>
+ 0 400   0   <!--><p>3 abrupt-closing-of-empty-comment</p>
+ 0 400   0   <!---><p>4 abrupt-closing-of-empty-comment</p>
+ 0 400   0   <!----!><p>5 incorrectly-closed-comment</p>
+ 0 400   0   <!--!> <h1 value="--!><p>6 incorrectly-closed-comment</p>
+ 0 400   0   <!--<!---><p>7 nested-comment</p>
+ 0 400   0   <!--<!---!><p>8 nested-comment</p>
+ 0 400   0   

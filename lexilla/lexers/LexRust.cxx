@@ -171,10 +171,7 @@ Sci_Position SCI_METHOD LexerRust::WordListSet(int n, const char *wl) {
 	Sci_Position firstModification = -1;
 	if (n < NUM_RUST_KEYWORD_LISTS) {
 		WordList *wordListN = &keywords[n];
-		WordList wlNew;
-		wlNew.Set(wl);
-		if (*wordListN != wlNew) {
-			wordListN->Set(wl);
+		if (wordListN->Set(wl)) {
 			firstModification = 0;
 		}
 	}
@@ -208,6 +205,24 @@ static void GrabString(char* s, Accessor& styler, Sci_Position start, Sci_Positi
 	for (Sci_Position ii = 0; ii < len; ii++)
 		s[ii] = styler[ii + start];
 	s[len] = '\0';
+}
+
+static void ScanRawIdentifier(Accessor& styler, Sci_Position& pos) {
+	Sci_Position start = pos;
+	while (IsIdentifierContinue(styler.SafeGetCharAt(pos, '\0')))
+		pos++;
+
+	char s[MAX_RUST_IDENT_CHARS + 1];
+	Sci_Position len = pos - start;
+	len = len > MAX_RUST_IDENT_CHARS ? MAX_RUST_IDENT_CHARS : len;
+	GrabString(s, styler, start, len);
+	// restricted values https://doc.rust-lang.org/reference/identifiers.html#raw-identifiers
+	if (strcmp(s, "crate") != 0 && strcmp(s, "self") != 0 &&
+		strcmp(s, "super") != 0 && strcmp(s, "Self") != 0) {
+		styler.ColourTo(pos - 1, SCE_RUST_IDENTIFIER);
+	} else {
+		styler.ColourTo(pos - 1, SCE_RUST_LEXERROR);
+	}
 }
 
 static void ScanIdentifier(Accessor& styler, Sci_Position& pos, WordList *keywords) {
@@ -707,6 +722,9 @@ void SCI_METHOD LexerRust::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			ScanWhitespace(styler, pos, max);
 		} else if (c == '/' && (n == '/' || n == '*')) {
 			ScanComments(styler, pos, max);
+		} else if (c == 'r' && (n == '#' && IsIdentifierStart(n2))) {
+			pos += 2;
+			ScanRawIdentifier(styler, pos);
 		} else if (c == 'r' && (n == '#' || n == '"')) {
 			ScanRawString(styler, pos, max, false);
 		} else if (c == 'b' && n == 'r' && (n2 == '#' || n2 == '"')) {

@@ -13,6 +13,7 @@
 
 #include <string>
 #include <string_view>
+#include <vector>
 #include <map>
 
 #include "ILexer.h"
@@ -26,6 +27,7 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 #include "OptionSet.h"
+#include "SubStyles.h"
 #include "DefaultLexer.h"
 
 using namespace Scintilla;
@@ -45,7 +47,7 @@ int LongDelimCheck(StyleContext &sc) {
 	return 0;
 }
 
-const char * const luaWordListDesc[] = {
+const char *const luaWordListDesc[] = {
 	"Keywords",
 	"Basic functions",
 	"String, (table) & math functions",
@@ -54,8 +56,10 @@ const char * const luaWordListDesc[] = {
 	"user2",
 	"user3",
 	"user4",
-    nullptr
+	nullptr
 };
+
+const char styleSubable[] = { SCE_LUA_IDENTIFIER, 0 };
 
 const LexicalClass lexicalClasses[] = {
 	// Lexer Lua SCLEX_LUA SCE_LUA_:
@@ -106,6 +110,7 @@ class LexerLua : public DefaultLexer {
 	WordList keywords8;
 	OptionsLua options;
 	OptionSetLua osLua;
+	SubStyles subStyles{styleSubable};
 public:
 	explicit LexerLua() :
 		DefaultLexer("lua", SCLEX_LUA, lexicalClasses, std::size(lexicalClasses)) {
@@ -136,6 +141,35 @@ public:
 	Sci_Position SCI_METHOD WordListSet(int n, const char *wl) override;
 	void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
+
+	int SCI_METHOD AllocateSubStyles(int styleBase, int numberStyles) override {
+		return subStyles.Allocate(styleBase, numberStyles);
+	}
+	int SCI_METHOD SubStylesStart(int styleBase) override {
+		return subStyles.Start(styleBase);
+	}
+	int SCI_METHOD SubStylesLength(int styleBase) override {
+		return subStyles.Length(styleBase);
+	}
+	int SCI_METHOD StyleFromSubStyle(int subStyle) override {
+		const int styleBase = subStyles.BaseStyle(subStyle);
+		return styleBase;
+	}
+	int SCI_METHOD PrimaryStyleFromStyle(int style) override {
+		return style;
+	}
+	void SCI_METHOD FreeSubStyles() override {
+		subStyles.Free();
+	}
+	void SCI_METHOD SetIdentifiers(int style, const char *identifiers) override {
+		subStyles.SetIdentifiers(style, identifiers);
+	}
+	int SCI_METHOD DistanceToSecondaryStyles() override {
+		return 0;
+	}
+	const char *SCI_METHOD GetSubStyleBases() override {
+		return styleSubable;
+	}
 
 	static ILexer5 *LexerFactoryLua() {
 		return new LexerLua();
@@ -204,6 +238,8 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 	const CharacterSet setExponent("eEpP");
 	const CharacterSet setLuaOperator("*/-+()={}~[];<>,.^%:#&|");
 	const CharacterSet setEscapeSkip("\"'\\");
+
+	const WordClassifier &classifierIdentifiers = subStyles.Classifier(SCE_LUA_IDENTIFIER);
 
 	Sci_Position currentLine = styler.GetLine(startPos);
 	// Initialize long string [[ ... ]] or block comment --[[ ... ]],
@@ -449,6 +485,11 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 						newStyle = SCE_LUA_WORD7;
 					} else if (keywords8.InList(ident)) {
 						newStyle = SCE_LUA_WORD8;
+					} else {
+						const int subStyle = classifierIdentifiers.ValueFor(ident);
+						if (subStyle >= 0) {
+							newStyle = subStyle;
+						}
 					}
 					if (newStyle != SCE_LUA_IDENTIFIER) {
 						idenStyle = newStyle;
@@ -464,7 +505,7 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 						cNext = 0;
 					}
 				} while (cNext);
-                if ((idenStyle == SCE_LUA_WORD) && (ident == "goto")) {
+				if ((idenStyle == SCE_LUA_WORD) && (ident == "goto")) {
 					foundGoto = true;
 				}
 				sc.SetState(SCE_LUA_IDENTIFIER);

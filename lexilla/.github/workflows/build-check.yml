@@ -12,7 +12,7 @@ jobs:
                 cpp_compiler: [g++, clang++]
 
         steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
         - name: Install Scintilla source
           run: |
               (cd .. && wget --no-verbose https://www.scintilla.org/scintilla500.zip)
@@ -21,10 +21,11 @@ jobs:
           run: (cd test/unit && make DEBUG=1 CXX=${{matrix.cpp_compiler}} test)
         - name: Build Lexilla
           run: (cd src && make DEBUG=1 CXX=${{matrix.cpp_compiler}})
-        - uses: actions/upload-artifact@v3
+        - uses: actions/upload-artifact@v4
           with:
-              name: liblexilla.so
+              name: liblexilla-${{matrix.cpp_compiler}}.so
               path: bin/liblexilla.so
+              overwrite: true
         - name: Test lexing and folding
           run: (cd test && make DEBUG=1 CXX=${{matrix.cpp_compiler}} test)
         - name: CheckLexilla C Example

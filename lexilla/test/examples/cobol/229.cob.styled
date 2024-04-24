@@ -1,0 +1,10 @@
+{0}      {2}* Fix string style to not continue to next line{0}
+
+            {11}DISPLAY{0} {11}MESSAGE{0} {11}BOX{0}
+              {6}"The following process must be applied to Earnings, Deduct{0}
+      {10}-{0}       {6}"ions and Company Contributions separately."{0}
+
+{11}LP61A{0}            {11}DISPLAY{0} {11}MESSAGE{0} {11}BOX{0} 
+{11}lp61b{0}            {6}"S*** strives to continually develop and improve its pr{0}
+{11}LP61B{0} {10}-{0}          {6}"oducts and services to deliver more value to our custo{0}
+{11}LP61B{0} {10}-{0}          {6}"mers."{0} 

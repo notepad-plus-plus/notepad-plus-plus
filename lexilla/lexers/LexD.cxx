@@ -198,9 +198,6 @@ public:
 	static ILexer5 *LexerFactoryD() {
 		return new LexerD(true);
 	}
-	static ILexer5 *LexerFactoryDInsensitive() {
-		return new LexerD(false);
-	}
 };
 
 Sci_Position SCI_METHOD LexerD::PropertySet(const char *key, const char *val) {

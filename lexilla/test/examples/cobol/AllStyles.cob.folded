@@ -1,0 +1,36 @@
+ 0 400   0         *     Enumerate all styles: 0, 2 to 11, 16
+ 0 400   0         *     SCE_C_COMMENTLINE=2
+ 0 400   0   
+ 0 400   0         *     SCE_C_DEFAULT=0
+ 0 400   0                
+ 0 400   0   
+ 0 400   0         *     SCE_C_IDENTIFIER=11
+ 0 400   0               identifier
+ 0 400   0   
+ 0 400   0         *     SCE_C_NUMBER=4
+ 0 400   0               4
+ 0 400   0   
+ 0 400   0         *     SCE_C_WORD=5
+ 0 400   0               data
+ 0 400   0   
+ 0 400   0         *     SCE_C_WORD2=16
+ 0 400   0               cancel
+ 0 400   0   
+ 0 400   0         *     SCE_C_UUID=8
+ 0 400   0               remarks
+ 0 400   0   
+ 0 400   0         *     SCE_C_COMMENTDOC=3 not implemented
+ 0 400   0   ** at line start
+ 0 400   0   
+ 0 400   0         *     SCE_C_STRING=6
+ 0 400   0               "string"
+ 0 400   0   
+ 0 400   0         *     SCE_C_CHARACTER=7
+ 0 400   0               'c'
+ 0 400   0   
+ 0 400   0         *     SCE_C_PREPROCESSOR=9
+ 0 400   0   ?preprocessor
+ 0 400   0   
+ 0 400   0         *     SCE_C_OPERATOR=10
+ 0 400   0               +
+ 0 400   0   

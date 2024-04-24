@@ -28,6 +28,40 @@ b
 
 \
  
+
+// Test preprocessor active branches feature
+
+#if HAVE_COLOUR
+// Active
+#endif
+#if NOT_HAVE_COLOUR
+// Inactive
+#endif
+
+#if FEATURE==2
+// Active
+#endif
+#if FEATURE==3
+// Inactive
+#endif
+
+#if VERSION(1,2)==3
+// Active
+#endif
+#if VERSION(1,2)==4
+// Inactive
+#endif
+
+#undef HAVE_COLOUR
+#if HAVE_COLOUR
+// Inactive
+#endif
+
+#define MULTIPLY(a,b) a*b
+#if MULTIPLY(2,3)==6
+// Active
+#endif
+
 int main() {
 	double x[] = {3.14159,6.02e23,1.6e-19,1.0+1};
 	int y[] = {75,0113,0x4b};

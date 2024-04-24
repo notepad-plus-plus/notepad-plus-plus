@@ -48,6 +48,10 @@ inline bool isSafeAlpha(char ch) noexcept {
     return (isSafeASCII(ch) && isalpha(ch)) || ch == '_';
 }
 
+inline bool isSafeAlphaOrHigh(char ch) noexcept {
+	return isHighBitChar(ch) || isalpha(ch) || ch == '_';
+}
+
 inline bool isSafeAlnum(char ch) noexcept {
     return (isSafeASCII(ch) && isalnum(ch)) || ch == '_';
 }
@@ -155,7 +159,7 @@ int ClassifyWordRb(Sci_PositionU start, Sci_PositionU end, char ch, WordList &ke
             // 1. <<if test ...>> : normal
             // 2. <<stmt if test>> : demoted
             // 3. <<lhs = if ...>> : normal: start a new indent level
-            // 4. <<obj.if = 10>> : color as identifer, since it follows '.'
+            // 4. <<obj.if = 10>> : color as identifier, since it follows '.'
 
             chAttr = SCE_RB_WORD_DEMOTED;
         } else {
@@ -613,7 +617,7 @@ bool sureThisIsNotHeredoc(Sci_Position lt2StartPos, Accessor &styler) {
         j += 1;
     }
 
-    if (isSafeAlnum(styler[j])) {
+    if (isSafeAlnumOrHigh(styler[j])) {
         // Init target_end because some compilers think it won't
         // be initialized by the time it's used
         target_start = target_end = j;
@@ -622,7 +626,7 @@ bool sureThisIsNotHeredoc(Sci_Position lt2StartPos, Accessor &styler) {
         return definitely_not_a_here_doc;
     }
     for (; j < lengthDoc; j++) {
-        if (!isSafeAlnum(styler[j])) {
+        if (!isSafeAlnumOrHigh(styler[j])) {
             if (target_quote && styler[j] != target_quote) {
                 // unquoted end
                 return definitely_not_a_here_doc;
@@ -641,7 +645,7 @@ bool sureThisIsNotHeredoc(Sci_Position lt2StartPos, Accessor &styler) {
                 return definitely_not_a_here_doc;
             } else {
                 const char ch = styler[j];
-                if (ch == '#' || isEOLChar(ch) || ch == '.' || ch == ',') {
+                if (ch == '#' || isEOLChar(ch) || ch == '.' || ch == ',' || IsLowerCase(ch)) {
                     // This is OK, so break and continue;
                     break;
                 } else {
@@ -877,7 +881,7 @@ void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, 
                 styler.ColourTo(i - 1, state);
                 state = SCE_RB_NUMBER;
                 is_real_number = true;
-            } else if (isHighBitChar(ch) || iswordstart(ch)) {
+            } else if (isSafeAlphaOrHigh(ch)) {
                 styler.ColourTo(i - 1, state);
                 state = SCE_RB_WORD;
             } else if (ch == '#') {
@@ -929,7 +933,7 @@ void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, 
                 // Recognize it bit by bit
                 state = SCE_RB_GLOBAL;
             } else if (ch == '/' && preferRE) {
-                // Ambigous operator
+                // Ambiguous operator
                 styler.ColourTo(i - 1, state);
                 state = SCE_RB_REGEX;
                 Quote.New();
@@ -945,7 +949,7 @@ void ColouriseRbDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, 
                 chNext = chNext2;
                 styler.ColourTo(i, SCE_RB_OPERATOR);
 
-                if (!(strchr("\"\'`_-~", chNext2) || isSafeAlpha(chNext2))) {
+                if (!(strchr("\"\'`_-~", chNext2) || isSafeAlphaOrHigh(chNext2))) {
                     // It's definitely not a here-doc,
                     // based on Ruby's lexer/parser in the
                     // heredoc_identifier routine.

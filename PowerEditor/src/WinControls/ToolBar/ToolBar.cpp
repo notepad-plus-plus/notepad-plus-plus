@@ -128,7 +128,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 
 	DPIManagerV2::setDpi(hPere);
 
-	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
+	int iconSize = DPIManagerV2::scale(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
 	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
@@ -234,7 +234,7 @@ int ToolBar::getHeight() const
 
 void ToolBar::reduce() 
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	int iconDpiDynamicalSize = DPIManagerV2::scale(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_SMALL);
 	reset(true);	//recreate toolbar if previous state was Std icons or Big icons
@@ -243,7 +243,7 @@ void ToolBar::reduce()
 
 void ToolBar::enlarge()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	int iconDpiDynamicalSize = DPIManagerV2::scale(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE);
 	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
@@ -252,7 +252,7 @@ void ToolBar::enlarge()
 
 void ToolBar::reduceToSet2()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	int iconDpiDynamicalSize = DPIManagerV2::scale(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 
 	setState(TB_SMALL2);
@@ -262,7 +262,7 @@ void ToolBar::reduceToSet2()
 
 void ToolBar::enlargeToSet2()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	int iconDpiDynamicalSize = DPIManagerV2::scale(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE2);
 	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
@@ -376,7 +376,7 @@ void ToolBar::reset(bool create)
 	else
 	{
 		//Else set the internal imagelist with standard bitmaps
-		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+		int iconDpiDynamicalSize = DPIManagerV2::scale(16);
 		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
 		TBADDBITMAP addbmp = { 0, 0 };

@@ -126,7 +126,7 @@ Updated to v8.6.6:
 					<Item id="42002" name="Копировать"/>
 					<Item id="42005" name="Вставить"/>
 					<Item id="42006" name="Удалить"/>
-					<Item id="42007" name="Выделить всё"/>
+					<Item id="42007" name="Выделить Всё"/>
 					<Item id="42020" name="Задать выделение (начало/конец)"/>
 					<Item id="42089" name="Выделение Столбцом (начало/конец)"/>
 
@@ -1687,7 +1687,7 @@ Notepad++ сделает резервную копию вашего старог
 			<finder-uncollapse-all value="Развернуть все блоки"/>
 			<finder-copy value="Копировать (выбранные строки)"/>
 			<finder-copy-paths value="Путь и Имя файла в буфер"/>
-			<finder-clear-all value="Очистить всё поле поиска"/>
+			<finder-clear-all value="Очистить окно поиска"/>
 			<finder-open-all value="Открыть все файлы"/>
 			<finder-wrap-long-lines value="Перенос слов длинных строк"/>
 			<common-ok value="ОК"/>

@@ -104,8 +104,6 @@ public :
 
 	void resizeIconsDpi(UINT dpi);
 
-	DPIManagerV2 _dpiManager;
-
 private :
 	TBBUTTON *_pTBB = nullptr;
 	ToolBarIcons _toolBarIcons;
@@ -120,6 +118,8 @@ private :
     std::vector<iconLocator> _customIconVect;
 
     TiXmlNode *_toolIcons = nullptr;
+
+	DPIManagerV2 _dpiManager;
 
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));

@@ -47,7 +47,7 @@ class ReBar;
 class TiXmlDocument;
 class TiXmlNode;
 
-class ToolBar : public Window, public DPIManagerV2
+class ToolBar : public Window
 {
 public :
 	ToolBar() = default;
@@ -103,6 +103,8 @@ public :
 	void addToRebar(ReBar * rebar);
 
 	void resizeIconsDpi(UINT dpi);
+
+	DPIManagerV2 _dpiManager;
 
 private :
 	TBBUTTON *_pTBB = nullptr;

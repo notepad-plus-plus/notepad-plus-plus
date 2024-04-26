@@ -118,7 +118,7 @@ jobs:
         key: ${{ steps.filter.outputs.python }}
 
     - name: (cache) Install Python modules
-      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true'
+      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true' && github.event_name == 'push'
       run: |
         python -m pip install --target ${{ env.PYTHON_DIR_CACHE }} requests rfc3987 pywin32 lxml
 

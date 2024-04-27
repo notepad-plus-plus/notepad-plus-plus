@@ -2273,17 +2273,20 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_REDUCETABBAR:
 		{
-			_toReduceTabBar = !_toReduceTabBar;
-			auto& dpiManager = NppParameters::getInstance()._dpiManager;
+			bool isReduceed = TabBarPlus::isReduced();
 
 			//Resize the tab height
-			int tabDpiDynamicalWidth = dpiManager.scaleX(g_TabWidth);
-			int tabDpiDynamicalHeight = dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
+			
+			TabCtrl_SetPadding(_mainDocTab.getHSelf(), _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
+			TabCtrl_SetPadding(_subDocTab.getHSelf(), _subDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
+
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
 			//change the font
-			const auto& hf = _mainDocTab.getFont(_toReduceTabBar);
+			const auto& hf = _mainDocTab.getFont(isReduceed);
 			if (hf)
 			{
 				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
@@ -2309,23 +2312,22 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_DRAWTABBAR_INACIVETAB:
 		{
-			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab());
+			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab(), &_mainDocTab);
 			break;
 		}
 		case IDM_VIEW_DRAWTABBAR_TOPBAR:
 		{
-			TabBarPlus::setDrawTopBar(!TabBarPlus::drawTopBar());
+			TabBarPlus::setDrawTopBar(!TabBarPlus::drawTopBar(), &_mainDocTab);
 			break;
 		}
 
 		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN:
 		{
-			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());
-			auto& dpiManager = NppParameters::getInstance()._dpiManager;
+			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton(), &_mainDocTab);
 
 			// This part is just for updating (redraw) the tabs
-			int tabDpiDynamicalHeight = dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
-			int tabDpiDynamicalWidth = dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
@@ -3812,25 +3814,9 @@ void Notepad_plus::command(int id)
 					if (TaskListDlg::_instanceCount == 0)
 					{
 						TaskListDlg tld;
-						HIMAGELIST hImgLst = nullptr;
 						const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-						switch (tabIconSet)
-						{
-							case 1:
-							{
-								hImgLst = _docTabIconListAlt.getHandle();
-								break;
-							}
-							case 2:
-							{
-								hImgLst = _docTabIconListDarkMode.getHandle();
-								break;
-							}
-							//case 0:
-							//case -1:
-							default:
-								hImgLst = _docTabIconList.getHandle();
-						}
+						HIMAGELIST hImgLst = _mainDocTab.getImgLst(tabIconSet);
+
 						tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
 						tld.doDialog(_nativeLangSpeaker.isRTL());
 					}

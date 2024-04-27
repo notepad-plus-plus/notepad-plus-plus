@@ -49,9 +49,6 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro, tb_monitored};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
-int docTabIconIDs[] = { IDI_SAVED_ICON,  IDI_UNSAVED_ICON,  IDI_READONLY_ICON,  IDI_MONITORING_ICON };
-int docTabIconIDs_darkMode[] = { IDI_SAVED_DM_ICON,  IDI_UNSAVED_DM_ICON,  IDI_READONLY_DM_ICON,  IDI_MONITORING_DM_ICON };
-int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READONLY_ALT_ICON, IDI_MONITORING_ICON };
 
 
 ToolBarButtonUnit toolBarIcons[] = {
@@ -228,17 +225,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	const ScintillaViewParams & svp = nppParam.getSVP();
 
 	int tabBarStatus = nppGUI._tabStatus;
-
-	_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
-	int iconDpiDynamicalSize = nppParam._dpiManager.scaleX(g_TabIconSize);
-	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs) / sizeof(int));
-	_docTabIconListAlt.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_alt, sizeof(docTabIconIDs_alt) / sizeof(int));
-	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
-	
-	vector<IconList *> pIconListVector;
-	pIconListVector.push_back(&_docTabIconList);        // 0
-	pIconListVector.push_back(&_docTabIconListAlt);     // 1
-	pIconListVector.push_back(&_docTabIconListDarkMode);// 2
+	TabBarPlus::setReduced((tabBarStatus & TAB_REDUCE) != 0);
 
 	const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
 	unsigned char indexDocTabIcon = 0;
@@ -268,8 +255,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		}
 	}
 
-	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, pIconListVector, indexDocTabIcon);
-	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, pIconListVector, indexDocTabIcon);
+	_mainDocTab.dpiManager().setDpiWithParent(hwnd);
+	_subDocTab.dpiManager().setDpiWithParent(hwnd);
+
+	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, indexDocTabIcon);
+	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, indexDocTabIcon);
 
 	_mainEditView.display();
 
@@ -382,15 +372,19 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	TabBarPlus::doDragNDrop(true);
 
-	const auto& hf = _mainDocTab.getFont(_toReduceTabBar);
+	const auto& hf = _mainDocTab.getFont(TabBarPlus::isReduced());
 	if (hf)
 	{
 		::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 		::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 	}
 
-	int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
-	int tabDpiDynamicalWidth = nppParam._dpiManager.scaleX(g_TabWidth);
+	int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
+	int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
+
+	TabCtrl_SetPadding(_mainDocTab.getHSelf(), _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
+	TabCtrl_SetPadding(_subDocTab.getHSelf(), _subDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
+
 	TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 	TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
@@ -398,9 +392,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 
 	TabBarPlus::doDragNDrop((tabBarStatus & TAB_DRAGNDROP) != 0);
-	TabBarPlus::setDrawTopBar((tabBarStatus & TAB_DRAWTOPBAR) != 0);
-	TabBarPlus::setDrawInactiveTab((tabBarStatus & TAB_DRAWINACTIVETAB) != 0);
-	TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0);
+	TabBarPlus::setDrawTopBar((tabBarStatus & TAB_DRAWTOPBAR) != 0, &_mainDocTab);
+	TabBarPlus::setDrawInactiveTab((tabBarStatus & TAB_DRAWINACTIVETAB) != 0, &_mainDocTab);
+	TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0, &_mainDocTab);
 	TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
@@ -896,14 +890,14 @@ bool Notepad_plus::saveGUIParams()
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
-	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot()?TAB_DRAWTOPBAR:0) | \
-						(TabBarPlus::drawTopBar()?TAB_DRAGNDROP:0) | \
-						(TabBarPlus::drawInactiveTab()?TAB_DRAWINACTIVETAB:0) | \
-						(_toReduceTabBar?TAB_REDUCE:0) | \
-						(TabBarPlus::drawTabCloseButton()?TAB_CLOSEBUTTON:0) | \
-						(TabBarPlus::isDbClk2Close()?TAB_DBCLK2CLOSE:0) | \
-						(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
-						(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
+	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot() ? TAB_DRAWTOPBAR : 0) | \
+						(TabBarPlus::drawTopBar() ? TAB_DRAGNDROP : 0) | \
+						(TabBarPlus::drawInactiveTab() ? TAB_DRAWINACTIVETAB : 0) | \
+						(TabBarPlus::isReduced() ? TAB_REDUCE : 0) | \
+						(TabBarPlus::drawTabCloseButton() ? TAB_CLOSEBUTTON : 0) | \
+						(TabBarPlus::isDbClk2Close() ? TAB_DBCLK2CLOSE : 0) | \
+						(TabBarPlus::isVertical() ? TAB_VERTICAL : 0) | \
+						(TabBarPlus::isMultiLine() ? TAB_MULTILINE : 0) |\
 						(nppGUI._tabStatus & TAB_HIDE) | \
 						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
 						(nppGUI._tabStatus & TAB_ALTICONS);
@@ -6291,21 +6285,21 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 {
 	Style *stActText = getStyleFromName(TABBAR_ACTIVETEXT);
 	if (stActText && static_cast<long>(stActText->_fgColor) != -1)
-		TabBarPlus::setColour(stActText->_fgColor, TabBarPlus::activeText);
+		TabBarPlus::setColour(stActText->_fgColor, TabBarPlus::activeText, &_mainDocTab);
 
 	Style *stActfocusTop = getStyleFromName(TABBAR_ACTIVEFOCUSEDINDCATOR);
 	if (stActfocusTop && static_cast<long>(stActfocusTop->_fgColor) != -1)
-		TabBarPlus::setColour(stActfocusTop->_fgColor, TabBarPlus::activeFocusedTop);
+		TabBarPlus::setColour(stActfocusTop->_fgColor, TabBarPlus::activeFocusedTop, &_mainDocTab);
 
 	Style *stActunfocusTop = getStyleFromName(TABBAR_ACTIVEUNFOCUSEDINDCATOR);
 	if (stActunfocusTop && static_cast<long>(stActunfocusTop->_fgColor) != -1)
-		TabBarPlus::setColour(stActunfocusTop->_fgColor, TabBarPlus::activeUnfocusedTop);
+		TabBarPlus::setColour(stActunfocusTop->_fgColor, TabBarPlus::activeUnfocusedTop, &_mainDocTab);
 
 	Style *stInact = getStyleFromName(TABBAR_INACTIVETEXT);
 	if (stInact && static_cast<long>(stInact->_fgColor) != -1)
-		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText);
+		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText, &_mainDocTab);
 	if (stInact && static_cast<long>(stInact->_bgColor) != -1)
-		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
+		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg, &_mainDocTab);
 }
 
 void Notepad_plus::drawAutocompleteColoursFromTheme(COLORREF fgColor, COLORREF bgColor)
@@ -7188,29 +7182,14 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 
 		_pDocumentListPanel = new VerticalFileSwitcher;
 
-		HIMAGELIST hImgLst = nullptr;
-		const int tabIconSet = changeFromBtnCmd ? -1 : NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-		switch (tabIconSet)
-		{
-			case 0:
-			{
-				hImgLst = _docTabIconList.getHandle();
-				break;
-			}
-			case 1:
-			{
-				hImgLst = _docTabIconListAlt.getHandle();
-				break;
-			}
-			case 2:
-			{
-				hImgLst = _docTabIconListDarkMode.getHandle();
-				break;
-			}
-			//case -1:
-			default:
-				hImgLst = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
-		}
+		
+		int tabIconSet = changeFromBtnCmd ? -1 : NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+
+		if (tabIconSet == -1)
+			tabIconSet = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::isEnabled() ? 2 : 0);
+
+		HIMAGELIST hImgLst = _mainDocTab.getImgLst(tabIconSet);
+
 
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
@@ -7254,6 +7233,41 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 	_pDocumentListPanel->display();
 }
 
+void Notepad_plus::changeDocumentListIconSet(bool changeFromBtnCmd)
+{
+	//restart document list with the same icons as the DocTabs
+	if (_pDocumentListPanel)
+	{
+		if (!_pDocumentListPanel->isClosed()) // if doclist is open
+		{
+			//close the doclist
+			_pDocumentListPanel->display(false);
+
+			//clean doclist
+			_pDocumentListPanel->destroy();
+			_pDocumentListPanel = nullptr;
+
+			//relaunch with new icons
+			launchDocumentListPanel(changeFromBtnCmd);
+		}
+		else //if doclist is closed
+		{
+			//clean doclist
+			_pDocumentListPanel->destroy();
+			_pDocumentListPanel = nullptr;
+
+			//relaunch doclist with new icons and close it
+			launchDocumentListPanel(changeFromBtnCmd);
+			if (_pDocumentListPanel)
+			{
+				_pDocumentListPanel->display(false);
+				_pDocumentListPanel->setClosed(true);
+				checkMenuItem(IDM_VIEW_DOCLIST, false);
+				_toolBar.setCheck(IDM_VIEW_DOCLIST, false);
+			}
+		}
+	}
+}
 
 void Notepad_plus::launchAnsiCharPanel()
 {
@@ -8327,14 +8341,14 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		if (tabIconSet != -1)
 		{
 			_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(false), tabIconSet);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBARICONSET, static_cast<WPARAM>(false), tabIconSet);
 		}
 		else
 		{
 			const bool isChecked = _preference._generalSubDlg.isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
 			if (!isChecked)
 			{
-				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(false), NppDarkMode::isEnabled() ? 2 : 0);
+				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBARICONSET, static_cast<WPARAM>(false), NppDarkMode::isEnabled() ? 2 : 0);
 			}
 		}
 

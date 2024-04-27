@@ -24,6 +24,7 @@ const int UNSAVED_IMG_INDEX = 1;
 const int REDONLY_IMG_INDEX = 2;
 const int MONITORING_IMG_INDEX = 3;
 
+
 class DocTabView : public TabBarPlus
 {
 public :
@@ -34,26 +35,11 @@ public :
 		TabBarPlus::destroy();
 	};
 
-	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, std::vector<IconList *> pIconListVector, unsigned char indexChoice) {
-		TabBarPlus::init(hInst, parent);
-		_pView = pView;
+	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, unsigned char indexChoice);
 
-		if (!pIconListVector.empty())
-		{
-			_pIconListVector = pIconListVector;
+	void createIconSets();
 
-			if (indexChoice >= pIconListVector.size())
-				_iconListIndexChoice = 0;
-			else
-				_iconListIndexChoice = indexChoice;
-		}
-
-		if (_iconListIndexChoice != -1)
-			TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
-		return;
-	};
-
-	void changeIcons(unsigned char choice) {
+	void changeIconSet(unsigned char choice) {
 		if (choice >= _pIconListVector.size())
 			return;
 		_iconListIndexChoice = choice;
@@ -86,16 +72,41 @@ public :
 
 	void reSizeTo(RECT & rc) override;
 
+	void resizeIconsDpi() {
+		UINT newSize = dpiManager().scale(g_TabIconSize);
+		for (const auto& i : _pIconListVector)
+		{
+			ImageList_SetIconSize(i->getHandle(), newSize, newSize);
+		}
+
+		createIconSets();
+
+		if (_iconListIndexChoice < 0 || static_cast<size_t>(_iconListIndexChoice) >= _pIconListVector.size())
+			_iconListIndexChoice = 0;
+
+		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
+	};
+
 	const ScintillaEditView* getScintillaEditView() const {
 		return _pView;
 	};
 
 	void setIndividualTabColour(BufferID bufferId, int colorId);
 	int getIndividualTabColour(int tabIndex) override;
+	
+	HIMAGELIST getImgLst(UINT index) {
+		if (index >= _pIconListVector.size())
+			index = 0;
+		return _pIconListVector[index]->getHandle();
+	};
 
 private :
 	ScintillaEditView *_pView = nullptr;
 	static bool _hideTabBarStatus;
+
+	IconList _docTabIconList;
+	IconList _docTabIconListAlt;
+	IconList _docTabIconListDarkMode;
 
 	std::vector<IconList *> _pIconListVector;
 	int _iconListIndexChoice = -1;

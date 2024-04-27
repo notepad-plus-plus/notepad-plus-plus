@@ -23,8 +23,44 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-
 bool DocTabView::_hideTabBarStatus = false;
+
+
+int docTabIconIDs[] = { IDI_SAVED_ICON,  IDI_UNSAVED_ICON,  IDI_READONLY_ICON,  IDI_MONITORING_ICON };
+int docTabIconIDs_darkMode[] = { IDI_SAVED_DM_ICON,  IDI_UNSAVED_DM_ICON,  IDI_READONLY_DM_ICON,  IDI_MONITORING_DM_ICON };
+int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READONLY_ALT_ICON, IDI_MONITORING_ICON };
+
+
+
+void DocTabView::init(HINSTANCE hInst, HWND parent, ScintillaEditView* pView, unsigned char indexChoice)
+{
+	TabBarPlus::init(hInst, parent);
+	_pView = pView;
+
+	createIconSets();
+
+	_pIconListVector.push_back(&_docTabIconList);         // 0
+	_pIconListVector.push_back(&_docTabIconListAlt);      // 1
+	_pIconListVector.push_back(&_docTabIconListDarkMode); // 2
+
+	if (indexChoice >= _pIconListVector.size())
+		_iconListIndexChoice = 0;
+	else
+		_iconListIndexChoice = indexChoice;
+
+	if (_iconListIndexChoice != -1)
+		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
+	return;
+}
+
+void DocTabView::createIconSets()
+{
+	int iconDpiDynamicalSize = _dpiManager.scale(g_TabIconSize);
+
+	_docTabIconList.create(iconDpiDynamicalSize, _hInst, docTabIconIDs, sizeof(docTabIconIDs) / sizeof(int));
+	_docTabIconListAlt.create(iconDpiDynamicalSize, _hInst, docTabIconIDs_alt, sizeof(docTabIconIDs_alt) / sizeof(int));
+	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _hInst, docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
+}
 
 void DocTabView::addBuffer(BufferID buffer)
 {
@@ -47,7 +83,6 @@ void DocTabView::addBuffer(BufferID buffer)
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
-
 
 void DocTabView::closeBuffer(BufferID buffer)
 {

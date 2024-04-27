@@ -717,15 +717,19 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tabStatus ^= TAB_ALTICONS;
 					const bool isChecked = isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
 					const bool isBtnCmd = true;
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(isBtnCmd), isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0));
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBARICONSET, static_cast<WPARAM>(isBtnCmd), isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0));
 					NppDarkMode::setTabIconSet(isChecked, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
-				case IDC_CHECK_REDUCE :
+				case IDC_CHECK_REDUCE:
+				{
+					const bool isChecked = isCheckedOrNot(IDC_CHECK_REDUCE);
+					TabBarPlus::setReduced(isChecked);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
 					return TRUE;
-					
+				}
+
 				case IDC_CHECK_LOCK :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LOCKTABBAR, 0);
 					return TRUE;

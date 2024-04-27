@@ -1304,6 +1304,9 @@ Editor::XYScrollPosition Editor::XYScrollToMakeVisible(const SelectionRange &ran
 					// Caret is on the right of the display
 					newXY.xOffset += xMoveR;
 				}
+				if ((pt.x - rcClient.left) < (rcClient.right - rcClient.left)) { // START NEW CHANGE
+					newXY.xOffset = 0;
+				} // END NEW CHANGE
 			}
 		} else {	// No slop
 			if (bStrict ||
@@ -1373,13 +1376,14 @@ void Editor::SetXYScroll(XYScrollPosition newXY) {
 		if (newXY.xOffset != xOffset) {
 			xOffset = newXY.xOffset;
 			ContainerNeedsUpdate(Update::HScroll);
-			if (newXY.xOffset > 0) {
+			if (newXY.xOffset >= 0) { // NEW CHANGE >0 CHANGED TO >=0
 				const PRectangle rcText = GetTextRectangle();
-				if (horizontalScrollBarVisible &&
+				/*if (horizontalScrollBarVisible &&
 					rcText.Width() + xOffset > scrollWidth) {
 					scrollWidth = xOffset + static_cast<int>(rcText.Width());
 					SetScrollBars();
-				}
+				}*/
+				SetScrollBars();
 			}
 			SetHorizontalScrollPos();
 		}

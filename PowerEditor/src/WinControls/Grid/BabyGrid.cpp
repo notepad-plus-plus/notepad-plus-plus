@@ -2816,6 +2816,14 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
+		// START NEW CHANGE
+		case WM_CHAR:
+			ShowHscroll(hWnd, SelfIndex);
+			ShowVscroll(hWnd, SelfIndex);
+			RefreshGrid(hWnd);
+			break;
+		// END NEW CHANGE
+
 		case WM_CREATE:
 		{
 			CREATESTRUCT* lpcs = (LPCREATESTRUCT)lParam;

@@ -2273,17 +2273,16 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_REDUCETABBAR:
 		{
-			_toReduceTabBar = !_toReduceTabBar;
-			auto& dpiManager = NppParameters::getInstance()._dpiManager;
+			bool isReduceed = TabBarPlus::isReduced();
 
 			//Resize the tab height
-			int tabDpiDynamicalWidth = dpiManager.scaleX(g_TabWidth);
-			int tabDpiDynamicalHeight = dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
 			//change the font
-			const auto& hf = _mainDocTab.getFont(_toReduceTabBar);
+			const auto& hf = _mainDocTab.getFont(isReduceed);
 			if (hf)
 			{
 				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
@@ -2309,23 +2308,22 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_DRAWTABBAR_INACIVETAB:
 		{
-			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab());
+			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab(), &_mainDocTab);
 			break;
 		}
 		case IDM_VIEW_DRAWTABBAR_TOPBAR:
 		{
-			TabBarPlus::setDrawTopBar(!TabBarPlus::drawTopBar());
+			TabBarPlus::setDrawTopBar(!TabBarPlus::drawTopBar(), &_mainDocTab);
 			break;
 		}
 
 		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN:
 		{
-			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());
-			auto& dpiManager = NppParameters::getInstance()._dpiManager;
+			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton(), &_mainDocTab);
 
 			// This part is just for updating (redraw) the tabs
-			int tabDpiDynamicalHeight = dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
-			int tabDpiDynamicalWidth = dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 

@@ -304,7 +304,6 @@ private:
 	IconList _docTabIconListDarkMode;
 
     StatusBar _statusBar;
-	bool _toReduceTabBar = false;
 	ReBar _rebarTop;
 	ReBar _rebarBottom;
 

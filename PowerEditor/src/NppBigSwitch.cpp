@@ -1921,7 +1921,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ISTABBARREDUCED:
 		{
-			return _toReduceTabBar?TRUE:FALSE;
+			return TabBarPlus::isReduced() ? TRUE : FALSE;
 		}
 
 		// ADD: success->hwnd; failure->NULL
@@ -3515,6 +3515,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			const UINT dpi = LOWORD(wParam);
 			_toolBar.resizeIconsDpi(dpi);
+
+			_mainDocTab.dpiManager().setDpi(dpi);
+			_subDocTab.dpiManager().setDpi(dpi);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
+			_mainDocTab.setFont();
+			_subDocTab.setFont();
 
 			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, DPIManagerV2::scale(220, dpi));
 			_statusBar.setPartWidth(STATUSBAR_CUR_POS, DPIManagerV2::scale(260, dpi));

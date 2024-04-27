@@ -531,7 +531,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									int tabColourIndex;
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
-										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
+										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex, nullptr);
 									}
 									else if (isDocumentMapStyle())
 									{
@@ -548,7 +548,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
 										tabColourIndex = (tabColourIndex == TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
-										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
+										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex, nullptr);
 									}
 									else if (isDocumentMapStyle())
 									{

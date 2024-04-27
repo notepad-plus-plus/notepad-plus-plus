@@ -229,7 +229,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	int tabBarStatus = nppGUI._tabStatus;
 
-	_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
+	TabBarPlus::setReduced((tabBarStatus & TAB_REDUCE) != 0);
+
 	int iconDpiDynamicalSize = nppParam._dpiManager.scaleX(g_TabIconSize);
 	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs) / sizeof(int));
 	_docTabIconListAlt.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_alt, sizeof(docTabIconIDs_alt) / sizeof(int));
@@ -382,15 +383,15 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	TabBarPlus::doDragNDrop(true);
 
-	const auto& hf = _mainDocTab.getFont(_toReduceTabBar);
+	const auto& hf = _mainDocTab.getFont(TabBarPlus::isReduced());
 	if (hf)
 	{
 		::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 		::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 	}
 
-	int tabDpiDynamicalHeight = nppParam._dpiManager.scaleY(_toReduceTabBar ? g_TabHeight : g_TabHeightLarge);
-	int tabDpiDynamicalWidth = nppParam._dpiManager.scaleX(g_TabWidth);
+	int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
+	int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(g_TabWidth);
 	TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 	TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
@@ -398,9 +399,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 
 	TabBarPlus::doDragNDrop((tabBarStatus & TAB_DRAGNDROP) != 0);
-	TabBarPlus::setDrawTopBar((tabBarStatus & TAB_DRAWTOPBAR) != 0);
-	TabBarPlus::setDrawInactiveTab((tabBarStatus & TAB_DRAWINACTIVETAB) != 0);
-	TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0);
+	TabBarPlus::setDrawTopBar((tabBarStatus & TAB_DRAWTOPBAR) != 0, &_mainDocTab);
+	TabBarPlus::setDrawInactiveTab((tabBarStatus & TAB_DRAWINACTIVETAB) != 0, &_mainDocTab);
+	TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0, &_mainDocTab);
 	TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
@@ -896,14 +897,14 @@ bool Notepad_plus::saveGUIParams()
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
-	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot()?TAB_DRAWTOPBAR:0) | \
-						(TabBarPlus::drawTopBar()?TAB_DRAGNDROP:0) | \
-						(TabBarPlus::drawInactiveTab()?TAB_DRAWINACTIVETAB:0) | \
-						(_toReduceTabBar?TAB_REDUCE:0) | \
-						(TabBarPlus::drawTabCloseButton()?TAB_CLOSEBUTTON:0) | \
-						(TabBarPlus::isDbClk2Close()?TAB_DBCLK2CLOSE:0) | \
-						(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
-						(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
+	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot() ? TAB_DRAWTOPBAR : 0) | \
+						(TabBarPlus::drawTopBar() ? TAB_DRAGNDROP : 0) | \
+						(TabBarPlus::drawInactiveTab() ? TAB_DRAWINACTIVETAB : 0) | \
+						(TabBarPlus::isReduced() ? TAB_REDUCE : 0) | \
+						(TabBarPlus::drawTabCloseButton() ? TAB_CLOSEBUTTON : 0) | \
+						(TabBarPlus::isDbClk2Close() ? TAB_DBCLK2CLOSE : 0) | \
+						(TabBarPlus::isVertical() ? TAB_VERTICAL : 0) | \
+						(TabBarPlus::isMultiLine() ? TAB_MULTILINE : 0) |\
 						(nppGUI._tabStatus & TAB_HIDE) | \
 						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
 						(nppGUI._tabStatus & TAB_ALTICONS);
@@ -6291,21 +6292,21 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 {
 	Style *stActText = getStyleFromName(TABBAR_ACTIVETEXT);
 	if (stActText && static_cast<long>(stActText->_fgColor) != -1)
-		TabBarPlus::setColour(stActText->_fgColor, TabBarPlus::activeText);
+		TabBarPlus::setColour(stActText->_fgColor, TabBarPlus::activeText, &_mainDocTab);
 
 	Style *stActfocusTop = getStyleFromName(TABBAR_ACTIVEFOCUSEDINDCATOR);
 	if (stActfocusTop && static_cast<long>(stActfocusTop->_fgColor) != -1)
-		TabBarPlus::setColour(stActfocusTop->_fgColor, TabBarPlus::activeFocusedTop);
+		TabBarPlus::setColour(stActfocusTop->_fgColor, TabBarPlus::activeFocusedTop, &_mainDocTab);
 
 	Style *stActunfocusTop = getStyleFromName(TABBAR_ACTIVEUNFOCUSEDINDCATOR);
 	if (stActunfocusTop && static_cast<long>(stActunfocusTop->_fgColor) != -1)
-		TabBarPlus::setColour(stActunfocusTop->_fgColor, TabBarPlus::activeUnfocusedTop);
+		TabBarPlus::setColour(stActunfocusTop->_fgColor, TabBarPlus::activeUnfocusedTop, &_mainDocTab);
 
 	Style *stInact = getStyleFromName(TABBAR_INACTIVETEXT);
 	if (stInact && static_cast<long>(stInact->_fgColor) != -1)
-		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText);
+		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText, &_mainDocTab);
 	if (stInact && static_cast<long>(stInact->_bgColor) != -1)
-		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
+		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg, &_mainDocTab);
 }
 
 void Notepad_plus::drawAutocompleteColoursFromTheme(COLORREF fgColor, COLORREF bgColor)

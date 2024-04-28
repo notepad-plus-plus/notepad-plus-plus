@@ -86,7 +86,6 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 
 }
 
-
 void TabBar::destroy()
 {
 	if (_hFont)
@@ -383,16 +382,12 @@ void TabBar::setFont()
 
 void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
 {
-	::SendMessage(_hwndArray[0], TCM_SETPADDING, 0, MAKELPARAM(6, 0));
 	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
 		if (_hwndArray[i])
 		{
 			LONG_PTR style = ::GetWindowLongPtr(_hwndArray[i], GWL_STYLE);
-			if (isOwnerDrawTab())
-				style |= TCS_OWNERDRAWFIXED;
-			else
-				style &= ~TCS_OWNERDRAWFIXED;
+			style |= TCS_OWNERDRAWFIXED;
 
 			::SetWindowLongPtr(_hwndArray[i], GWL_STYLE, style);
 			::InvalidateRect(_hwndArray[i], NULL, TRUE);
@@ -1121,7 +1116,9 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 	if (!::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci)))
 	{
-		::MessageBox(NULL, TEXT("! TCM_GETITEM"), TEXT(""), MB_OK);
+		std::wstring errorMessageTitle = TEXT("TabBarPlus::drawItem wrong: ! TCM_GETITEM");
+		std::wstring errorMessage = GetLastErrorAsString(GetLastError());
+		::MessageBox(NULL, errorMessage.c_str(), errorMessageTitle.c_str(), MB_OK);
 	}
 
 	const COLORREF colorActiveBg = isDarkMode ? NppDarkMode::getSofterBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
@@ -1154,7 +1151,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	::DeleteObject((HGDIOBJ)hBrush);
 
 	// equalize drawing areas of active and inactive tabs
-	int paddingDynamicTwoX = _dpiManager.scaleX(2);
+	int paddingDynamicTwoX = _dpiManager.scale(2);
 	int paddingDynamicTwoY = paddingDynamicTwoX;
 	if (isSelected && !isDarkMode)
 	{
@@ -1219,7 +1216,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 		if (_drawTopBar)
 		{
-			int topBarHeight = _dpiManager.scaleX(4);
+			int topBarHeight = _dpiManager.scale(4);
 			if (_isVertical)
 			{
 				barRect.left -= (hasMultipleLines && isDarkMode) ? 0 : paddingDynamicTwoX;

@@ -3278,6 +3278,18 @@ void scanToUrlEnd(TCHAR *text, int textLen, int start, int* distance)
 	*distance = p - start;
 }
 
+// removeUnwantedTrailingCharFromEnclosedUrl removes a single unwanted trailing character from a URL if the URL is enclosed by a pair of characters.
+void removeUnwantedTrailingCharFromEnclosedUrl(int start, TCHAR const * text, int * length)
+{
+	// Check if URL is enclosed in apostrophes.
+	if (start > 0 && text [start - 1] == '\'' && text [start + *length - 1] == '\'')
+		*length -= 1;
+
+	// Check if URL is enclosed in grave accents.
+	if (start > 0 && text [start - 1] == '`' && text [start + *length - 1] == '`')
+		*length -= 1;
+}
+
 // removeUnwantedTrailingCharFromUrl removes a single unwanted trailing character from an URL.
 // It has to be called repeatedly, until it returns false, meaning that all unwanted characters are gone.
 bool removeUnwantedTrailingCharFromUrl (TCHAR const *text, int* length)
@@ -3350,6 +3362,8 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 			bool r  = InternetCrackUrl(& text [start], len, 0, & url);
 			if (r)
 			{
+				removeUnwantedTrailingCharFromEnclosedUrl(start, & text [0], & len);
+
 				while (removeUnwantedTrailingCharFromUrl (& text [start], & len));
 				*segmentLen = len;
 				return true;

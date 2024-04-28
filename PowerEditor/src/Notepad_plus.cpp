@@ -3356,6 +3356,10 @@ bool isUrl(TCHAR * text, int textLen, int start, int* segmentLen)
 			bool r  = InternetCrackUrl(& text [start], len, 0, & url);
 			if (r)
 			{
+				// Check if URL is enclosed in apostrophes.
+				if (start > 0 && text [start - 1] == '\'' && text [start + len - 1] == '\'')
+					len--;
+
 				while (removeUnwantedTrailingCharFromUrl (& text [start], & len));
 				*segmentLen = len;
 				return true;

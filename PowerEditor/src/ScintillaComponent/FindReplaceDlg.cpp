@@ -1535,6 +1535,17 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					display(false);
 					break;
 
+				case IDM_SEARCH_FINDNEXT:
+				case IDM_SEARCH_FINDPREV:
+				{
+					if (HIWORD(wParam) != 1 || 
+						(getCurrentStatus() != DIALOG_TYPE::FIND_DLG && 
+						getCurrentStatus() != DIALOG_TYPE::REPLACE_DLG))
+					{
+						return FALSE;
+					}
+					[[fallthrough]];
+				}
 				case IDC_FINDPREV:
 				case IDC_FINDNEXT:
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
@@ -1549,11 +1560,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					bool direction_bak = _options._whichDirection;
 
-					if (LOWORD(wParam) == IDC_FINDPREV)
+					if (LOWORD(wParam) == IDC_FINDPREV || LOWORD(wParam) == IDM_SEARCH_FINDPREV)
 					{
 						_options._whichDirection = DIR_UP;
 					}
-					else if (LOWORD(wParam) == IDC_FINDNEXT)
+					else if (LOWORD(wParam) == IDC_FINDNEXT || LOWORD(wParam) == IDM_SEARCH_FINDNEXT)
 					{
 						_options._whichDirection = DIR_DOWN;
 					}

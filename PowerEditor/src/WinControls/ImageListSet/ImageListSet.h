@@ -52,7 +52,7 @@ private :
 	int _iconSize = 0;
 };
 
-typedef struct 
+struct ToolBarButtonUnit
 {	
 	int _cmdID;
 
@@ -69,7 +69,7 @@ typedef struct
 	int _grayDarkModeIcon2;
 
 	int _stdIcon;
-} ToolBarButtonUnit;
+};
 
 struct DynamicCmdIcoBmp {
 	UINT _message = 0;         // identification of icon in tool bar (menu ID)

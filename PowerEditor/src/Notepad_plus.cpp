@@ -49,9 +49,6 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro, tb_monitored};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
-int docTabIconIDs[] = { IDI_SAVED_ICON,  IDI_UNSAVED_ICON,  IDI_READONLY_ICON,  IDI_MONITORING_ICON };
-int docTabIconIDs_darkMode[] = { IDI_SAVED_DM_ICON,  IDI_UNSAVED_DM_ICON,  IDI_READONLY_DM_ICON,  IDI_MONITORING_DM_ICON };
-int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READONLY_ALT_ICON, IDI_MONITORING_ICON };
 
 
 ToolBarButtonUnit toolBarIcons[] = {
@@ -228,18 +225,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	const ScintillaViewParams & svp = nppParam.getSVP();
 
 	int tabBarStatus = nppGUI._tabStatus;
-
 	TabBarPlus::setReduced((tabBarStatus & TAB_REDUCE) != 0);
-
-	int iconDpiDynamicalSize = nppParam._dpiManager.scaleX(g_TabIconSize);
-	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs) / sizeof(int));
-	_docTabIconListAlt.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_alt, sizeof(docTabIconIDs_alt) / sizeof(int));
-	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
-	
-	vector<IconList *> pIconListVector;
-	pIconListVector.push_back(&_docTabIconList);        // 0
-	pIconListVector.push_back(&_docTabIconListAlt);     // 1
-	pIconListVector.push_back(&_docTabIconListDarkMode);// 2
 
 	const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
 	unsigned char indexDocTabIcon = 0;
@@ -269,8 +255,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		}
 	}
 
-	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, pIconListVector, indexDocTabIcon);
-	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, pIconListVector, indexDocTabIcon);
+	_mainDocTab.dpiManager().setDpiWithParent(hwnd);
+	_subDocTab.dpiManager().setDpiWithParent(hwnd);
+
+	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, indexDocTabIcon);
+	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, indexDocTabIcon);
 
 	_mainEditView.display();
 
@@ -7193,29 +7182,14 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 
 		_pDocumentListPanel = new VerticalFileSwitcher;
 
-		HIMAGELIST hImgLst = nullptr;
-		const int tabIconSet = changeFromBtnCmd ? -1 : NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-		switch (tabIconSet)
-		{
-			case 0:
-			{
-				hImgLst = _docTabIconList.getHandle();
-				break;
-			}
-			case 1:
-			{
-				hImgLst = _docTabIconListAlt.getHandle();
-				break;
-			}
-			case 2:
-			{
-				hImgLst = _docTabIconListDarkMode.getHandle();
-				break;
-			}
-			//case -1:
-			default:
-				hImgLst = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? _docTabIconListAlt.getHandle() : NppDarkMode::isEnabled() ? _docTabIconListDarkMode.getHandle() : _docTabIconList.getHandle());
-		}
+		
+		int tabIconSet = changeFromBtnCmd ? -1 : NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
+
+		if (tabIconSet == -1)
+			tabIconSet = (((tabBarStatus & TAB_ALTICONS) == TAB_ALTICONS) ? 1 : NppDarkMode::isEnabled() ? 2 : 0);
+
+		HIMAGELIST hImgLst = _mainDocTab.getImgLst(tabIconSet);
+
 
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();

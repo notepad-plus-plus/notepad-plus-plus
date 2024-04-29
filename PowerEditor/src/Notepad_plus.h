@@ -299,9 +299,6 @@ private:
 	ContextMenu _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
-	IconList _docTabIconList;
-	IconList _docTabIconListAlt;
-	IconList _docTabIconListDarkMode;
 
     StatusBar _statusBar;
 	ReBar _rebarTop;

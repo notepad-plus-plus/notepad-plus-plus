@@ -3520,6 +3520,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_subDocTab.dpiManager().setDpi(dpi);
 			_mainDocTab.setFont();
 			_subDocTab.setFont();
+			_mainDocTab.resizeIconsDpi();
+			_subDocTab.resizeIconsDpi();
 			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
 
 			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, DPIManagerV2::scale(220, dpi));

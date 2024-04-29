@@ -3813,25 +3813,9 @@ void Notepad_plus::command(int id)
 					if (TaskListDlg::_instanceCount == 0)
 					{
 						TaskListDlg tld;
-						HIMAGELIST hImgLst = nullptr;
 						const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
-						switch (tabIconSet)
-						{
-							case 1:
-							{
-								hImgLst = _docTabIconListAlt.getHandle();
-								break;
-							}
-							case 2:
-							{
-								hImgLst = _docTabIconListDarkMode.getHandle();
-								break;
-							}
-							//case 0:
-							//case -1:
-							default:
-								hImgLst = _docTabIconList.getHandle();
-						}
+						HIMAGELIST hImgLst = _mainDocTab.getImgLst(tabIconSet);
+
 						tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
 						tld.doDialog(_nativeLangSpeaker.isRTL());
 					}

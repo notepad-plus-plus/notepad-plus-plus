@@ -103,15 +103,15 @@ void ToolBarIcons::reInit(int size)
 	{
 		if (_tbiis[i]._defaultIcon != -1)
 		{
-			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon);
-			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon);
-			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2);
-			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2);
+			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon, size, size);
+			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon, size, size);
+			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2, size, size);
+			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2, size, size);
 
-			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon);
-			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon);
-			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2);
-			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2);
+			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon, size, size);
+			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon, size, size);
+			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2, size, size);
+			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2, size, size);
 		}
 	}
 

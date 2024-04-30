@@ -81,7 +81,7 @@ public :
 
 		createIconSets();
 
-		if (_iconListIndexChoice < 0 || _iconListIndexChoice >= _pIconListVector.size())
+		if (_iconListIndexChoice < 0 || static_cast<size_t>(_iconListIndexChoice) >= _pIconListVector.size())
 			_iconListIndexChoice = 0;
 
 		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());

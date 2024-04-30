@@ -37,9 +37,9 @@ public :
 
 	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, unsigned char indexChoice);
 
-	void reInit();
+	void createIconSets();
 
-	void changeIcons(unsigned char choice) {
+	void changeIconSet(unsigned char choice) {
 		if (choice >= _pIconListVector.size())
 			return;
 		_iconListIndexChoice = choice;
@@ -74,12 +74,17 @@ public :
 
 	void resizeIconsDpi() {
 		UINT newSize = dpiManager().scale(g_TabIconSize);
-		for (auto i : _pIconListVector)
+		for (const auto& i : _pIconListVector)
 		{
 			ImageList_SetIconSize(i->getHandle(), newSize, newSize);
 		}
 
-		reInit();
+		createIconSets();
+
+		if (_iconListIndexChoice < 0 || _iconListIndexChoice >= _pIconListVector.size())
+			_iconListIndexChoice = 0;
+
+		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
 	};
 
 	const ScintillaEditView* getScintillaEditView() const {

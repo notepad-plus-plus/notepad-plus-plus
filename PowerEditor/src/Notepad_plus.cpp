@@ -7233,6 +7233,41 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 	_pDocumentListPanel->display();
 }
 
+void Notepad_plus::changeDocumentListIconSet(bool changeFromBtnCmd)
+{
+	//restart document list with the same icons as the DocTabs
+	if (_pDocumentListPanel)
+	{
+		if (!_pDocumentListPanel->isClosed()) // if doclist is open
+		{
+			//close the doclist
+			_pDocumentListPanel->display(false);
+
+			//clean doclist
+			_pDocumentListPanel->destroy();
+			_pDocumentListPanel = nullptr;
+
+			//relaunch with new icons
+			launchDocumentListPanel(changeFromBtnCmd);
+		}
+		else //if doclist is closed
+		{
+			//clean doclist
+			_pDocumentListPanel->destroy();
+			_pDocumentListPanel = nullptr;
+
+			//relaunch doclist with new icons and close it
+			launchDocumentListPanel(changeFromBtnCmd);
+			if (_pDocumentListPanel)
+			{
+				_pDocumentListPanel->display(false);
+				_pDocumentListPanel->setClosed(true);
+				checkMenuItem(IDM_VIEW_DOCLIST, false);
+				_toolBar.setCheck(IDM_VIEW_DOCLIST, false);
+			}
+		}
+	}
+}
 
 void Notepad_plus::launchAnsiCharPanel()
 {
@@ -8306,14 +8341,14 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		if (tabIconSet != -1)
 		{
 			_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(false), tabIconSet);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONSET, static_cast<WPARAM>(false), tabIconSet);
 		}
 		else
 		{
 			const bool isChecked = _preference._generalSubDlg.isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
 			if (!isChecked)
 			{
-				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(false), NppDarkMode::isEnabled() ? 2 : 0);
+				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBAEICONSET, static_cast<WPARAM>(false), NppDarkMode::isEnabled() ? 2 : 0);
 			}
 		}
 

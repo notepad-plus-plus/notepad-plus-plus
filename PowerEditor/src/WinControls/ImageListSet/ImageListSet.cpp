@@ -19,6 +19,7 @@
 #include <memory>
 #include "ImageListSet.h"
 #include "NppDarkMode.h"
+#include "dpiManagerV2.h"
 
 void IconList::init(HINSTANCE hInst, int iconSize) 
 {
@@ -31,19 +32,22 @@ void IconList::init(HINSTANCE hInst, int iconSize)
 		throw std::runtime_error("IconList::create : ImageList_Create() function returns null");
 }
 
-void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize)
+
+void IconList::create(int iconSize, HINSTANCE hInst, int* iconIDArray, int iconIDArraySize)
 {
 	init(hInst, iconSize);
 	_pIconIDArray = iconIDArray;
 	_iconIDArraySize = iconIDArraySize;
 
-	for (int i = 0 ; i < iconIDArraySize ; ++i)
-		addIcon(iconIDArray[i]);
+	for (int i = 0; i < iconIDArraySize; ++i)
+		addIcon(iconIDArray[i], iconSize, iconSize);
 }
 
-void IconList::addIcon(int iconID) const 
+void IconList::addIcon(int iconID, int cx, int cy) const
 {
-	HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(iconID));
+	HICON hIcon = nullptr;
+	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(iconID), cx, cy, &hIcon, LR_DEFAULTSIZE);
+
 	if (!hIcon)
 		throw std::runtime_error("IconList::addIcon : LoadIcon() function return null");
 

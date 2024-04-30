@@ -39,7 +39,7 @@ public :
 	};
 
 	HIMAGELIST getHandle() const {return _hImglst;};
-	void addIcon(int iconID) const;
+	void addIcon(int iconID, int cx = 32, int cy = 32) const;
 	void addIcon(HICON hIcon) const;
 
 	bool changeIcon(size_t index, const TCHAR *iconLocation) const;

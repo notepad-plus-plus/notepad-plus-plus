@@ -37,7 +37,7 @@ void DocTabView::init(HINSTANCE hInst, HWND parent, ScintillaEditView* pView, un
 	TabBarPlus::init(hInst, parent);
 	_pView = pView;
 
-	reInit();
+	createIconSets();
 
 	_pIconListVector.push_back(&_docTabIconList);         // 0
 	_pIconListVector.push_back(&_docTabIconListAlt);      // 1
@@ -53,7 +53,7 @@ void DocTabView::init(HINSTANCE hInst, HWND parent, ScintillaEditView* pView, un
 	return;
 }
 
-void DocTabView::reInit()
+void DocTabView::createIconSets()
 {
 	int iconDpiDynamicalSize = _dpiManager.scale(g_TabIconSize);
 

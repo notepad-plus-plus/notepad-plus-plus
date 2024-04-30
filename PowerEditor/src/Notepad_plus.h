@@ -614,6 +614,7 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchDocumentListPanel(bool changeFromBtnCmd = false);
+	void changeDocumentListIconSet(bool changeFromBtnCmd);
 	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();

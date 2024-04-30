@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5)
+	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -33,7 +33,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.5">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1288,7 +1288,7 @@ Additionnal information about Corsican localization:
 					<Item id="7141" name="Ristrizzione di i schedarii tamanti"/>
 					<Item id="7143" name="Attivà a ristrizzione di i schedarii tamanti (senza messa in evidenza di a sintassa)"/>
 					<Item id="7144" name="Definisce a dimensione d’un schedariu tamantu :"/>
-					<Item id="7146" name="Mo   (da 1 à 4096)"/>
+					<Item id="7146" name="Mo   (da 1 à 2046)"/>
 					<Item id="7147" name="Permette d’attivà a currispundenza trà e parentesi"/>
 					<Item id="7148" name="Permette d’attivà di l’empiimentu autumaticu"/>
 					<Item id="7149" name="Permette d’attivà u sopralineamentu astutu"/>

@@ -102,7 +102,7 @@ jobs:
         }
 
     - name: (cache) Lookup Python modules
-      if: env.PYTHON_ALLOW_CACHE == 'true'
+      if: env.PYTHON_ALLOW_CACHE == 'true' && (github.event_name == 'push' || steps.filter.outputs.result == 'XML')
       uses: actions/cache/restore@v4
       id: cache-lookup
       with:

@@ -43,6 +43,7 @@ public :
 		{
 			updateLinesNumbers();
 			::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+			::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 		}
 		else
 		{

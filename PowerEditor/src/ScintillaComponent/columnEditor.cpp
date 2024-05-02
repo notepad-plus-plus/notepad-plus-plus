@@ -31,9 +31,12 @@ void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEd
 
 void ColumnEditorDlg::display(bool toShow) const
 {
-    Window::display(toShow);
-    if (toShow)
-        ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+	Window::display(toShow);
+	if (toShow)
+	{
+		::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+		::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
+	}
 }
 
 intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

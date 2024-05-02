@@ -110,22 +110,6 @@ public:
 		return unscale(x, _dpi);
 	}
 
-	int scaleX(int x) {
-		return scale(x);
-	}
-
-	int unscaleX(int x) {
-		return unscale(x);
-	}
-
-	int scaleY(int y) {
-		return scale(y);
-	}
-
-	int unscaleY(int y) {
-		return unscale(y);
-	}
-
 	static int scaleFont(int pt, UINT dpi) {
 		return -(scale(pt, dpi, 72));
 	}

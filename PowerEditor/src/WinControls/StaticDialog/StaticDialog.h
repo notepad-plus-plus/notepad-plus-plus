@@ -38,7 +38,7 @@ struct DLGTEMPLATEEX
       // The structure has more fields but are variable length
 };
 
-class StaticDialog : public Window, public DPIManagerV2
+class StaticDialog : public Window
 {
 public :
 	virtual ~StaticDialog();
@@ -72,7 +72,7 @@ public :
 	}
 
 	void setDpi() {
-		DPIManagerV2::setDpi(_hSelf);
+		_dpiManager.setDpi(_hSelf);
 	}
 
 	void setPositionDpi(LPARAM lParam, UINT flags = SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE) {
@@ -85,8 +85,12 @@ public :
 
 	void destroy() override;
 
+	DPIManagerV2& dpiManager() { return _dpiManager; }
+
 protected:
 	RECT _rc{};
+	DPIManagerV2 _dpiManager;
+
 	static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 

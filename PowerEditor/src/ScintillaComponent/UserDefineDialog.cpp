@@ -1156,7 +1156,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
         case WM_DPICHANGED:
         {
-            DPIManagerV2::setDpiWP(wParam);
+            _dpiManager.setDpiWP(wParam);
             setPositionDpi(lParam);
 
             return TRUE;
@@ -1643,7 +1643,7 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
         case WM_DPICHANGED:
         {
-            DPIManagerV2::setDpiWP(wParam);
+            _dpiManager.setDpiWP(wParam);
             setPositionDpi(lParam);
 
             return TRUE;

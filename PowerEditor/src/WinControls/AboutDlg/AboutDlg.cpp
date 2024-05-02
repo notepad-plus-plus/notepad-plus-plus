@@ -95,7 +95,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			destroy();
 			//setPositionDpi(lParam);
 			getClientRect(_rc);
@@ -105,7 +105,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_DRAWITEM:
 		{
-			const int iconSize = DPIManagerV2::scale(80);
+			const int iconSize = _dpiManager.scale(80);
 			if (_hIcon == nullptr)
 			{
 				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_CHAMELEON_DM : IDI_CHAMELEON), iconSize, iconSize, &_hIcon);
@@ -380,7 +380,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			getClientRect(_rc);
 			setPositionDpi(lParam);
 
@@ -521,7 +521,7 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			setPositionDpi(lParam);
 
 			return TRUE;
@@ -639,7 +639,7 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 	case WM_DPICHANGED:
 	{
-		DPIManagerV2::setDpiWP(wParam);
+		_dpiManager.setDpiWP(wParam);
 		setPositionDpi(lParam);
 
 		return TRUE;

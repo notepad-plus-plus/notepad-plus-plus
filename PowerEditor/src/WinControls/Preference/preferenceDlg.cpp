@@ -368,26 +368,26 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
-			_generalSubDlg.setDpiWP(wParam);
-			_editingSubDlg.setDpiWP(wParam);
-			_editing2SubDlg.setDpiWP(wParam);
-			_darkModeSubDlg.setDpiWP(wParam);
-			_marginsBorderEdgeSubDlg.setDpiWP(wParam);
-			_miscSubDlg.setDpiWP(wParam);
-			_fileAssocDlg.setDpiWP(wParam);
-			_languageSubDlg.setDpiWP(wParam);
-			_highlightingSubDlg.setDpiWP(wParam);
-			_printSubDlg.setDpiWP(wParam);
-			_searchingSubDlg.setDpiWP(wParam);
-			_newDocumentSubDlg.setDpiWP(wParam);
-			_defaultDirectorySubDlg.setDpiWP(wParam);
-			_recentFilesHistorySubDlg.setDpiWP(wParam);
-			_backupSubDlg.setDpiWP(wParam);
-			_autoCompletionSubDlg.setDpiWP(wParam);
-			_multiInstanceSubDlg.setDpiWP(wParam);
-			_delimiterSubDlg.setDpiWP(wParam);
-			_performanceSubDlg.setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
+			_generalSubDlg.dpiManager().setDpiWP(wParam);
+			_editingSubDlg.dpiManager().setDpiWP(wParam);
+			_editing2SubDlg.dpiManager().setDpiWP(wParam);
+			_darkModeSubDlg.dpiManager().setDpiWP(wParam);
+			_marginsBorderEdgeSubDlg.dpiManager().setDpiWP(wParam);
+			_miscSubDlg.dpiManager().setDpiWP(wParam);
+			_fileAssocDlg.dpiManager().setDpiWP(wParam);
+			_languageSubDlg.dpiManager().setDpiWP(wParam);
+			_highlightingSubDlg.dpiManager().setDpiWP(wParam);
+			_printSubDlg.dpiManager().setDpiWP(wParam);
+			_searchingSubDlg.dpiManager().setDpiWP(wParam);
+			_newDocumentSubDlg.dpiManager().setDpiWP(wParam);
+			_defaultDirectorySubDlg.dpiManager().setDpiWP(wParam);
+			_recentFilesHistorySubDlg.dpiManager().setDpiWP(wParam);
+			_backupSubDlg.dpiManager().setDpiWP(wParam);
+			_autoCompletionSubDlg.dpiManager().setDpiWP(wParam);
+			_multiInstanceSubDlg.dpiManager().setDpiWP(wParam);
+			_delimiterSubDlg.dpiManager().setDpiWP(wParam);
+			_performanceSubDlg.dpiManager().setDpiWP(wParam);
 
 			setPositionDpi(lParam);
 
@@ -1460,9 +1460,9 @@ void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2Move
 	NppParameters& nppParam = NppParameters::getInstance();
 
 	if(nppParam.getNativeLangSpeaker()->isRTL())
-		p.x = rc.right + DPIManagerV2::scale(5) + handle2MoveWidth;
+		p.x = rc.right + _dpiManager.scale(5) + handle2MoveWidth;
 	else
-		p.x = rc.left - DPIManagerV2::scale(5) - handle2MoveWidth;
+		p.x = rc.left - _dpiManager.scale(5) - handle2MoveWidth;
 
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
@@ -1542,8 +1542,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pHotEdgeColorPicker->init(_hInst, _hSelf);
 			_pDisabledEdgeColorPicker->init(_hInst, _hSelf);
 
-			DPIManagerV2::setDpi(_hSelf);
-			const int cpDynamicalSize = DPIManagerV2::scale(25);
+			_dpiManager.setDpi(_hSelf);
+			const int cpDynamicalSize = _dpiManager.scale(25);
 
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
@@ -1659,7 +1659,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DPICHANGED_AFTERPARENT:
 		{
-			const int cpDynamicalSize = DPIManagerV2::scale(25);
+			const int cpDynamicalSize = _dpiManager.scale(25);
 
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);

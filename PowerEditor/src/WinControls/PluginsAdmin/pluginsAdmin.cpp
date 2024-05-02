@@ -146,7 +146,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	getMappedChildRect(IDC_PLUGINADM_EDIT, rcDesc);
 
 	const long margeX = ::GetSystemMetrics(SM_CXEDGE);
-	const long margeY = DPIManagerV2::scale(13);
+	const long margeY = _dpiManager.scale(13);
 
 	rect.bottom = rcDesc.bottom + margeY;
 	_tab.reSizeTo(rect);
@@ -170,7 +170,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	const COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
 	const COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
-	const size_t szColVer = DPIManagerV2::scale(100);
+	const size_t szColVer = _dpiManager.scale(100);
 	const size_t szColName = szColVer * 2;
 
 	auto initListView = [&](PluginViewList& list) -> void {
@@ -1177,10 +1177,10 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			_repoLink.destroy();
 
-			const size_t szColVer = DPIManagerV2::scale(100);
+			const size_t szColVer = _dpiManager.scale(100);
 			const size_t szColName = szColVer * 2;
 
 			auto setListViewSize = [&](PluginViewList& list) -> void {

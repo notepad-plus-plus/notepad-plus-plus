@@ -137,7 +137,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_pBgColour->init(_hInst, _hSelf);
 
 			setDpi();
-			const int cpDynamicalSize = DPIManagerV2::scale(25);
+			const int cpDynamicalSize = _dpiManager.scale(25);
 
 			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
@@ -268,11 +268,11 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 
 			_goToSettings.destroy();
 
-			const int cpDynamicalSize = DPIManagerV2::scale(25);
+			const int cpDynamicalSize = _dpiManager.scale(25);
 			move2CtrlRight(IDC_FG_STATIC, _pFgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 			move2CtrlRight(IDC_BG_STATIC, _pBgColour->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 
@@ -583,7 +583,7 @@ void WordStyleDlg::move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveW
 	RECT rc{};
 	::GetWindowRect(::GetDlgItem(_hSelf, ctrlID), &rc);
 
-	p.x = rc.right + DPIManagerV2::scale(5);
+	p.x = rc.right + _dpiManager.scale(5);
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
 	::ScreenToClient(_hSelf, &p);

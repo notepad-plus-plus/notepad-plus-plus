@@ -2707,7 +2707,7 @@ namespace NppDarkMode
 		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
-	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam)
+	LRESULT darkTreeViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
 	{
 		auto lptvcd = reinterpret_cast<LPNMTVCUSTOMDRAW>(lParam);
 
@@ -2715,63 +2715,70 @@ namespace NppDarkMode
 		{
 			case CDDS_PREPAINT:
 			{
+				LRESULT defaultValue = isPlugin ? DefSubclassProc(hWnd, uMsg, wParam, lParam) : CDRF_DODEFAULT;
 				if (NppDarkMode::isEnabled())
 				{
-					return CDRF_NOTIFYITEMDRAW;
+					return defaultValue | CDRF_NOTIFYITEMDRAW;
 				}
-				return CDRF_DODEFAULT;
+				return defaultValue;
 			}
 
 			case CDDS_ITEMPREPAINT:
 			{
-				if ((lptvcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
+				LRESULT defaultValue = isPlugin ? DefSubclassProc(hWnd, uMsg, wParam, lParam) : CDRF_DODEFAULT;
+				if (NppDarkMode::isEnabled() && (lptvcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
 				{
 					lptvcd->clrText = NppDarkMode::getTextColor();
 					lptvcd->clrTextBk = NppDarkMode::getSofterBackgroundColor();
 					::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getSofterBackgroundBrush());
 
-					return CDRF_NEWFONT | CDRF_NOTIFYPOSTPAINT;
+					return defaultValue | CDRF_NEWFONT | CDRF_NOTIFYPOSTPAINT;
 				}
 
-				if ((lptvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+				if (NppDarkMode::isEnabled() && (lptvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
 				{
 					lptvcd->clrText = NppDarkMode::getTextColor();
 					lptvcd->clrTextBk = NppDarkMode::getHotBackgroundColor();
 
-					auto notifyResult =  CDRF_DODEFAULT;
+					auto notifyResult = defaultValue;
 					if (g_isAtLeastWindows10 || g_treeViewStyle == TreeViewStyle::light)
 					{
 						::FillRect(lptvcd->nmcd.hdc, &lptvcd->nmcd.rc, NppDarkMode::getHotBackgroundBrush());
-						notifyResult = CDRF_NOTIFYPOSTPAINT;
+						notifyResult |= CDRF_NOTIFYPOSTPAINT;
 					}
 
 					return CDRF_NEWFONT | notifyResult;
 				}
 
-				return CDRF_DODEFAULT;
+				return defaultValue;
 			}
 
 			case CDDS_ITEMPOSTPAINT:
 			{
-				RECT rcFrame = lptvcd->nmcd.rc;
-				rcFrame.left -= 1;
-				rcFrame.right += 1;
+				LRESULT defaultValue = isPlugin ? DefSubclassProc(hWnd, uMsg, wParam, lParam) : CDRF_DODEFAULT;
 
-				if ((lptvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+				if (NppDarkMode::isEnabled())
 				{
-					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, rcFrame, NppDarkMode::getHotEdgePen(), 0, 0);
-				}
-				else if ((lptvcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
-				{
-					NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, rcFrame, NppDarkMode::getEdgePen(), 0, 0);
+					RECT rcFrame = lptvcd->nmcd.rc;
+					rcFrame.left -= 1;
+					rcFrame.right += 1;
+
+					if ((lptvcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+					{
+						NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, rcFrame, NppDarkMode::getHotEdgePen(), 0, 0);
+					}
+					else if ((lptvcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
+					{
+						NppDarkMode::paintRoundFrameRect(lptvcd->nmcd.hdc, rcFrame, NppDarkMode::getEdgePen(), 0, 0);
+					}
 				}
 
-				return CDRF_DODEFAULT;
+				return defaultValue;
 				
 			}
 
 			default:
-				return CDRF_DODEFAULT;
+				return isPlugin ? DefSubclassProc(hWnd, uMsg, wParam, lParam) : CDRF_DODEFAULT;
 		}
 	}
 
@@ -2891,7 +2898,7 @@ namespace NppDarkMode
 
 						if (wcscmp(className, WC_TREEVIEW) == 0)
 						{
-							return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);
+							return NppDarkMode::darkTreeViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
 					}
 					break;
@@ -3044,7 +3051,7 @@ namespace NppDarkMode
 
 						if (wcscmp(className, WC_TREEVIEW) == 0)
 						{
-							return NppDarkMode::darkTreeViewNotifyCustomDraw(lParam);
+							return NppDarkMode::darkTreeViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
 					}
 					break;

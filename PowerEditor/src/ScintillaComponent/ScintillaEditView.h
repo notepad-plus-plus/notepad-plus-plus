@@ -827,6 +827,7 @@ protected:
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);
+	void setHTMLLexer();
 	void setJsLexer();
 	void setTclLexer();
     void setObjCLexer(LangType type);

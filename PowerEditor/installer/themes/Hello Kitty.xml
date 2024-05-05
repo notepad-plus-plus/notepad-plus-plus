@@ -306,7 +306,7 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="NUMBER" styleID="5" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="6" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="7" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="TAG" styleID="1" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG" styleID="1" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="TAGEND" styleID="11" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />

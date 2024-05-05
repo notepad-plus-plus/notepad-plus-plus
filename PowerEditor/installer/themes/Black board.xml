@@ -209,7 +209,7 @@ Credits:
             <WordsStyle name="NUMBER" styleID="5" fgColor="D8FA3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="DOUBLESTRING" styleID="6" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SINGLESTRING" styleID="7" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="TAG" styleID="1" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TAG" styleID="1" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="TAGEND" styleID="11" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />

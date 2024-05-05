@@ -1167,13 +1167,13 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_RESIZE_TOGGLE_BUTTON
 	};
 
-	const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
 
 	auto newDeltaWidth = newWidth - _initialClientWidth;
 	auto addWidth = newDeltaWidth - _deltaWidth;
 	_deltaWidth = newDeltaWidth;
 
-	RECT rc;
+	RECT rc{};
 	for (int id : resizeWindowIDs)
 	{
 		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
@@ -1200,13 +1200,8 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 		::SetWindowPos(moveHwnd, NULL, rc.left + addWidth, rc.top, 0, 0, SWP_NOSIZE | flags);
 	}
 
-	auto additionalWindowHwndsToResize = { _tab.getHSelf() , _statusBar.getHSelf() };
-
-	for (HWND resizeHwnd : additionalWindowHwndsToResize)
-	{
-		::GetClientRect(resizeHwnd, &rc);
-		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
-	}
+	::GetClientRect(_tab.getHSelf(), &rc);
+	::SetWindowPos(_tab.getHSelf(), nullptr, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
 }
 
 std::mutex findOps_mutex;
@@ -1229,6 +1224,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_SIZE:
 		{
 			resizeDialogElements(LOWORD(lParam));
+			::SendMessage(_statusBar.getHSelf(), WM_SIZE, 0, 0); // pass WM_SIZE to status bar to automatically adjusts its size
 			return TRUE;
 		}
 
@@ -2401,17 +2397,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					DIALOG_TYPE dlgT = getCurrentStatus();
 					calcAndSetCtrlsPos(dlgT, true);
 
-					// For unknown reason, the original default width doesn't make the status bar moveed
-					// Here we use a dirty workaround: increase 1 pixel so WM_SIZE message will be triggered
-					if (w == _initialWindowRect.right)
-						w += 1;
-
-					::SetWindowPos(_hSelf, nullptr, 0, 0, w, dlgH, SWP_NOMOVE | SWP_NOZORDER | SWP_NOREDRAW); // WM_SIZE message to call resizeDialogElements - status bar will be reposition correctly.
-
-					// Reposition the status bar
-					constexpr UINT flags = SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOCOPYBITS | SWP_FRAMECHANGED;
-					::GetClientRect(_statusBar.getHSelf(), &rc);
-					::SetWindowPos(_statusBar.getHSelf(), nullptr, 0, 0, w, rc.bottom, flags);
+					::SetWindowPos(_hSelf, nullptr, 0, 0, w, dlgH, SWP_NOMOVE | SWP_NOZORDER | SWP_NOREDRAW);
 
 					hideOrShowCtrl4reduceOrNormalMode(dlgT);
 
@@ -4481,18 +4467,20 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 	if (fromColBtn)
 	{
-		LONG yColBtn = 0;
+		RECT rc2ModeCheck{};
+		getMappedChildRect(IDC_2_BUTTONS_MODE, rc2ModeCheck);
+		LONG yColBtn = btnGap / 2;
 		if (isNotLessMode)
 		{
 			RECT rcSlider{};
 			getMappedChildRect(IDC_PERCENTAGE_SLIDER, rcSlider);
-			yColBtn = rcSlider.top + btnGap;
+			yColBtn += rcSlider.top;
 		}
 		else
 		{
-			yColBtn = rcBtn2ndPos.top + btnGap / 2;
+			yColBtn += rcBtn2ndPos.top;
 		}
-		::SetWindowPos(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), nullptr, rcBtn2ndPos.right + btnGap, yColBtn, 0, 0, SWP_NOSIZE | flags);
+		::SetWindowPos(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), nullptr, rc2ModeCheck.left, yColBtn, 0, 0, SWP_NOSIZE | flags);
 	}
 }
 

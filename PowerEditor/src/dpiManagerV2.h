@@ -47,6 +47,9 @@ public:
 	static void initDpiAPI();
 
 	static int getSystemMetricsForDpi(int nIndex, UINT dpi);
+	int getSystemMetricsForDpi(int nIndex) {
+		return getSystemMetricsForDpi(nIndex, _dpi);
+	}
 	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
 
 	static UINT getDpiForSystem();
@@ -125,6 +128,9 @@ public:
 	static LOGFONT getDefaultGUIFontForDpi(UINT dpi, FontType type = FontType::message);
 	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, FontType type = FontType::message) {
 		return getDefaultGUIFontForDpi(getDpiForWindow(hWnd), type);
+	}
+	LOGFONT getDefaultGUIFontForDpi(FontType type = FontType::message) {
+		return getDefaultGUIFontForDpi(_dpi, type);
 	}
 
 	static void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);

@@ -37,7 +37,7 @@ public:
         _currentState = initState;
     };
 
-	void destroy() {};
+	void destroy() override {};
 	void doDialog(bool isRTL = false) {
 		if (isRTL)
 		{
@@ -49,7 +49,7 @@ public:
 		else
 			::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTMAPPER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 	};
-	void getClientRect(RECT & rc) const;
+	void getClientRect(RECT & rc) const override;
 
 	bool findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
 							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
@@ -60,7 +60,7 @@ public:
 	bool isFilterValid(ScintillaKeyMap sc);
 
 protected :
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	BabyGridWrapper _babygrid;

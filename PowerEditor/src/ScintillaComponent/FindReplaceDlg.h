@@ -412,8 +412,10 @@ protected :
 
 	void combo2ExtendedMode(int comboID);
 
-private :
-	RECT _initialWindowRect{};
+private:
+	SIZE _szMinDialog{};
+	SIZE _szBorder{};
+
 	LONG _deltaWidth = 0;
 	LONG _initialClientWidth = 0;
 	LONG _lesssModeHeight = 0;

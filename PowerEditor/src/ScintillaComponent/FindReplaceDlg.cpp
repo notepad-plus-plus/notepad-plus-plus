@@ -294,10 +294,19 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	_statusBar.init(GetModuleHandle(NULL), _hSelf, 0);
 	_statusBar.display();
 
-	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
+	setDpi();
 
-	RECT rect{};
-	getClientRect(rect);
+	RECT rcClient{};
+	getClientRect(rcClient);
+
+	const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
+	_szBorder.cx = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;
+	_szBorder.cy = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION);
+
+	//fill min dialog size info
+	_szMinDialog.cx = rcClient.right - rcClient.left;
+	_szMinDialog.cy = rcClient.bottom - rcClient.top;
+
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
 
@@ -313,23 +322,10 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	_tab.insertAtEnd(findInProjects);
 	_tab.insertAtEnd(mark);
 
-	_tab.reSizeTo(rect);
+	_tab.reSizeTo(rcClient);
 	_tab.display();
 
-	_initialClientWidth = rect.right - rect.left;
-
-	//fill min dialog size info
-	getWindowRect(_initialWindowRect);
-	_initialWindowRect.right = _initialWindowRect.right - _initialWindowRect.left + dpiManager.scaleX(10);
-	_initialWindowRect.left = 0;
-	_initialWindowRect.bottom = _initialWindowRect.bottom - _initialWindowRect.top;
-	_initialWindowRect.top = 0;
-
-	RECT dlgRc{};
-	getWindowRect(dlgRc);
-
-	RECT countRc{};
-	::GetWindowRect(::GetDlgItem(_hSelf, IDCCOUNTALL), &countRc);
+	_initialClientWidth = rcClient.right - rcClient.left;
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -347,9 +343,15 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 		goToCenter(swpFlags);
 	}
 
+	RECT rcCount{};
+	getMappedChildRect(IDCCOUNTALL, rcCount);
+
+	RECT rcOk{};
+	getMappedChildRect(IDOK, rcOk);
+
 	RECT rcStatusBar{};
 	::GetClientRect(_statusBar.getHSelf(), &rcStatusBar);
-	_lesssModeHeight = (countRc.bottom - dlgRc.top) + (rcStatusBar.bottom - rcStatusBar.top) + dpiManager.scaleY(10);
+	_lesssModeHeight = (rcCount.bottom + (rcCount.top - rcOk.bottom) + (rcStatusBar.bottom - rcStatusBar.top));
 
 	if (nppGUI._findWindowLessMode)
 	{
@@ -1169,13 +1171,13 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_RESIZE_TOGGLE_BUTTON
 	};
 
-	const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
 
 	auto newDeltaWidth = newWidth - _initialClientWidth;
 	auto addWidth = newDeltaWidth - _deltaWidth;
 	_deltaWidth = newDeltaWidth;
 
-	RECT rc;
+	RECT rc{};
 	for (int id : resizeWindowIDs)
 	{
 		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
@@ -1202,13 +1204,8 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 		::SetWindowPos(moveHwnd, NULL, rc.left + addWidth, rc.top, 0, 0, SWP_NOSIZE | flags);
 	}
 
-	auto additionalWindowHwndsToResize = { _tab.getHSelf() , _statusBar.getHSelf() };
-
-	for (HWND resizeHwnd : additionalWindowHwndsToResize)
-	{
-		::GetClientRect(resizeHwnd, &rc);
-		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
-	}
+	::GetClientRect(_tab.getHSelf(), &rc);
+	::SetWindowPos(_tab.getHSelf(), nullptr, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
 }
 
 std::mutex findOps_mutex;
@@ -1221,16 +1218,18 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 			MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
-			mmi->ptMinTrackSize.y = isLessModeOn ? _lesssModeHeight : _initialWindowRect.bottom;
-			mmi->ptMinTrackSize.x = _initialWindowRect.right;
-			mmi->ptMaxTrackSize.y = isLessModeOn ? _lesssModeHeight : _initialWindowRect.bottom;
+			mmi->ptMinTrackSize.x = _szMinDialog.cx + _szBorder.cx;
+			const LONG h = (isLessModeOn ? _lesssModeHeight : _szMinDialog.cy) + _szBorder.cy;
+			mmi->ptMinTrackSize.y = h;
+			mmi->ptMaxTrackSize.y = h;
 
-			return 0;
+			return TRUE;
 		}
 
 		case WM_SIZE:
 		{
 			resizeDialogElements(LOWORD(lParam));
+			::SendMessage(_statusBar.getHSelf(), WM_SIZE, 0, 0); // pass WM_SIZE to status bar to automatically adjusts its size
 			return TRUE;
 		}
 
@@ -2398,22 +2397,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					LONG w = rc.right - rc.left;
 					bool& isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 					isLessModeOn = !isLessModeOn;
-					long dlgH = isLessModeOn ? _lesssModeHeight : _initialWindowRect.bottom;
+					long dlgH = (isLessModeOn ? _lesssModeHeight : _szMinDialog.cy) + _szBorder.cy;
 
 					DIALOG_TYPE dlgT = getCurrentStatus();
 					calcAndSetCtrlsPos(dlgT, true);
 
-					// For unknown reason, the original default width doesn't make the status bar moveed
-					// Here we use a dirty workaround: increase 1 pixel so WM_SIZE message will be triggered
-					if (w == _initialWindowRect.right)
-						w += 1;
-
-					::SetWindowPos(_hSelf, nullptr, 0, 0, w, dlgH, SWP_NOMOVE | SWP_NOZORDER | SWP_NOREDRAW); // WM_SIZE message to call resizeDialogElements - status bar will be reposition correctly.
-
-					// Reposition the status bar
-					constexpr UINT flags = SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOCOPYBITS | SWP_FRAMECHANGED;
-					::GetClientRect(_statusBar.getHSelf(), &rc);
-					::SetWindowPos(_statusBar.getHSelf(), nullptr, 0, 0, w, rc.bottom, flags);
+					::SetWindowPos(_hSelf, nullptr, 0, 0, w, dlgH, SWP_NOMOVE | SWP_NOZORDER | SWP_NOREDRAW);
 
 					hideOrShowCtrl4reduceOrNormalMode(dlgT);
 
@@ -4483,18 +4472,20 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 	if (fromColBtn)
 	{
-		LONG yColBtn = 0;
+		RECT rc2ModeCheck{};
+		getMappedChildRect(IDC_2_BUTTONS_MODE, rc2ModeCheck);
+		LONG yColBtn = btnGap / 2;
 		if (isNotLessMode)
 		{
 			RECT rcSlider{};
 			getMappedChildRect(IDC_PERCENTAGE_SLIDER, rcSlider);
-			yColBtn = rcSlider.top + btnGap;
+			yColBtn += rcSlider.top;
 		}
 		else
 		{
-			yColBtn = rcBtn2ndPos.top + btnGap / 2;
+			yColBtn += rcBtn2ndPos.top;
 		}
-		::SetWindowPos(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), nullptr, rcBtn2ndPos.right + btnGap, yColBtn, 0, 0, SWP_NOSIZE | flags);
+		::SetWindowPos(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), nullptr, rc2ModeCheck.left, yColBtn, 0, 0, SWP_NOSIZE | flags);
 	}
 }
 

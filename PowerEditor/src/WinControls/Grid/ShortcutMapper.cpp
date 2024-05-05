@@ -46,7 +46,7 @@ void ShortcutMapper::initTabs()
 	::GetWindowPlacement(hTab, &wp);
 	::SendMessage(hTab, TCM_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rcTab));
 
-	wp.rcNormalPosition.bottom = NppParameters::getInstance()._dpiManager.scaleY(30);
+	wp.rcNormalPosition.bottom = _dpiManager.scale(30);
 	wp.rcNormalPosition.top = wp.rcNormalPosition.bottom - rcTab.bottom;
 
 	::SetWindowPlacement(hTab, &wp);
@@ -54,6 +54,7 @@ void ShortcutMapper::initTabs()
 
 void ShortcutMapper::getClientRect(RECT & rc) const 
 {
+	const UINT dpi = _dpiManager.getDpi();
 		Window::getClientRect(rc);
 
 		RECT tabRect{}, btnRect{};
@@ -69,11 +70,11 @@ void ShortcutMapper::getClientRect(RECT & rc) const
 		int infoH = infoRect.bottom - infoRect.top;
 		int filterH = filterRect.bottom - filterRect.top;
 		int btnH = btnRect.bottom - btnRect.top;
-		int paddingBottom = btnH + NppParameters::getInstance()._dpiManager.scaleY(16);
+	int paddingBottom = btnH + _dpiManager.scale(16, dpi);
 		rc.bottom -= btnH + filterH + infoH + paddingBottom;
 
-		rc.left += NppParameters::getInstance()._dpiManager.scaleX(5);
-		rc.right -= NppParameters::getInstance()._dpiManager.scaleX(5);
+	rc.left += _dpiManager.scale(5, dpi);
+	rc.right -= _dpiManager.scale(5, dpi);
 }
 
 generic_string ShortcutMapper::getTabString(size_t i) const
@@ -111,14 +112,12 @@ void ShortcutMapper::initBabyGrid()
 	_lastCursorRow.resize(5, 1);
 
 	_hGridFonts.resize(MAX_GRID_FONTS);
-	_hGridFonts.at(GFONT_HEADER) = ::CreateFont(
-		NppParameters::getInstance()._dpiManager.scaleY(18), 0, 0, 0, FW_BOLD,
-		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,
-		TEXT("MS Shell Dlg"));
-	_hGridFonts.at(GFONT_ROWS) = ::CreateFont(
-		NppParameters::getInstance()._dpiManager.scaleY(16), 0, 0, 0, FW_NORMAL,
-		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,
-		TEXT("MS Shell Dlg"));
+	LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
+	lf.lfHeight = _dpiManager.scaleFont(10);
+	_hGridFonts.at(GFONT_ROWS) = ::CreateFontIndirect(&lf);
+	lf.lfHeight = _dpiManager.scaleFont(12);
+	lf.lfWeight = FW_BOLD;
+	_hGridFonts.at(GFONT_HEADER) = ::CreateFontIndirect(&lf);
 	
 	_babygrid.init(_hInst, _hSelf, IDD_BABYGRID_ID1);
 
@@ -132,9 +131,9 @@ void ShortcutMapper::initBabyGrid()
 	_babygrid.makeColAutoWidth(true);
 	_babygrid.setAutoRow(true);
 	_babygrid.setColsNumbered(false);
-	_babygrid.setColWidth(0, NppParameters::getInstance()._dpiManager.scaleX(30));  // Force the first col to be small, others col will be automatically sized
-	_babygrid.setHeaderHeight(NppParameters::getInstance()._dpiManager.scaleY(21));
-	_babygrid.setRowHeight(NppParameters::getInstance()._dpiManager.scaleY(21));
+	_babygrid.setColWidth(0, _dpiManager.scale(30));  // Force the first col to be small, others col will be automatically sized
+	_babygrid.setHeaderHeight(_dpiManager.scale(21));
+	_babygrid.setRowHeight(_dpiManager.scale(21));
 
 	if (NppDarkMode::isEnabled())
 	{
@@ -510,10 +509,11 @@ void ShortcutMapper::fillOutBabyGrid()
 
 intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (message) 
+	switch (message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
+			setDpi();
 			initBabyGrid();
 			initTabs();
 			fillOutBabyGrid();
@@ -527,10 +527,9 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_clientWidth = rect.right - rect.left;
 			_clientHeight = rect.bottom - rect.top;
 
-			int cy_border = GetSystemMetrics(SM_CYFRAME);
-			int cy_caption = GetSystemMetrics(SM_CYCAPTION);
-			_initClientWidth = _clientWidth;
-			_initClientHeight = _clientHeight + cy_caption + cy_border;
+			Window::getWindowRect(rect);
+			_initClientWidth = rect.right - rect.left;
+			_initClientHeight = rect.bottom - rect.top;
 			_dialogInitDone = true;
 
 			return TRUE;

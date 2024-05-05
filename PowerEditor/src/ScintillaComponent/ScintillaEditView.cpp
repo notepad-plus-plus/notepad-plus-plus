@@ -828,13 +828,8 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP) || (type == L_JSP))
 	{
 		setLexerFromLangID(L_HTML);
-		const TCHAR *htmlKeyWords_generic = NppParameters::getInstance().getWordList(L_HTML, LANG_INDEX_INSTR);
 
-		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-		const char *htmlKeyWords = wmc.wchar2char(htmlKeyWords_generic, CP_ACP);
-		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
-		makeStyle(L_HTML);
-
+        setHTMLLexer();
         setEmbeddedJSLexer();
         setEmbeddedPhpLexer();
 		setEmbeddedAspLexer();
@@ -844,6 +839,21 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.html"), reinterpret_cast<LPARAM>("1"));
 	// This allow to fold comment strem in php/javascript code
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.hypertext.comment"), reinterpret_cast<LPARAM>("1"));
+}
+
+void ScintillaEditView::setHTMLLexer()
+{
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	makeStyle(L_HTML, pKwArray);
+
+	basic_string<char> keywordList("");
+	if (pKwArray[LANG_INDEX_INSTR])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordList = wstring2string(kwlW, CP_ACP);
+	}
+
+	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR)));
 }
 
 void ScintillaEditView::setEmbeddedJSLexer()

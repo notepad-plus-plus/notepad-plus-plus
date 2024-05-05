@@ -593,7 +593,7 @@ License:             GPL2
             <WordsStyle name="NUMBER" styleID="5" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLE STRING" styleID="6" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SINGLE STRING" styleID="7" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="TAG" styleID="1" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG" styleID="1" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="TAG END" styleID="11" fgColor="E3CEAB" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="TAG UNKNOWN" styleID="2" fgColor="EDD6ED" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="DFDFDF" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />

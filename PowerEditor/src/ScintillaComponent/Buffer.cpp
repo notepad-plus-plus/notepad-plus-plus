@@ -1795,7 +1795,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
 	for (auto buf : _buffers)
 	{
-		if (wcscmp(name, buf->getFullPathName()) == 0)
+		if (wcsicmp(name, buf->getFullPathName()) == 0)
 		{
 			if (!(buf->_referees.empty()) && buf->_referees[0]->isVisible())
 			{

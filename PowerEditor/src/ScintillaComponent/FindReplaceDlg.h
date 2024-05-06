@@ -450,7 +450,7 @@ private:
 	HICON _statusbarTooltipIcon = nullptr;
 	int _statusbarTooltipIconSize = 0;
 
-	HFONT _hMonospaceFont = nullptr;
+	HFONT _hComboBoxFont = nullptr;
 	HFONT _hLargerBolderFont = nullptr;
 	HFONT _hCourrierNewFont = nullptr;
 

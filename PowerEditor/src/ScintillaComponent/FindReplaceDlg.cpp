@@ -272,8 +272,8 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_filterTip)
 		::DestroyWindow(_filterTip);
 
-	if (_hMonospaceFont)
-		::DeleteObject(_hMonospaceFont);
+	if (_hComboBoxFont)
+		::DeleteObject(_hComboBoxFont);
 
 	if (_hLargerBolderFont)
 		::DeleteObject(_hLargerBolderFont);
@@ -1367,30 +1367,36 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			SetWindowLongPtr(cbinfo.hwndItem, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(comboEditProc));
 			SetWindowLongPtr(cbinfo.hwndItem, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(cbinfo.hwndCombo));
 
-			if ((NppParameters::getInstance()).getNppGUI()._monospacedFontFindDlg)
+			setDpi();
+
+			HFONT hFont = nullptr;
+			const bool isMonospaced = NppParameters::getInstance().getNppGUI()._monospacedFontFindDlg;
+			if (isMonospaced)
 			{
-				_hMonospaceFont = createFont(TEXT("Courier New"), 8, false, _hSelf);
-
-				SendMessage(hFindCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-				SendMessage(hReplaceCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-				SendMessage(hFiltersCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
-				SendMessage(hDirCombo, WM_SETFONT, (WPARAM)_hMonospaceFont, MAKELPARAM(true, 0));
+				hFont = createFont(TEXT("Courier New"), 8, false, _hSelf);
 			}
-
-			DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-
+			else
+			{
+				hFont = reinterpret_cast<HFONT>(::SendMessage(hFindCombo, WM_GETFONT, 0, 0));
+			}
+			
 			// Change ComboBox height to accomodate High-DPI settings.
 			// ComboBoxes are scaled using the font used in them, however this results in weird optics
 			// on scaling > 200% (192 DPI). Using this method we accomodate these scalings way better
 			// than the OS does with the current dpiAware.manifest...
-			for (HWND hComboBox : { hFindCombo, hReplaceCombo, hFiltersCombo, hDirCombo })
+
+			LOGFONT lf{};
+			::GetObject(hFont, sizeof(lf), &lf);
+			lf.lfHeight = -(_dpiManager.scale(16) - 5);
+			_hComboBoxFont = ::CreateFontIndirect(&lf);
+
+			for (const auto& hComboBox : { hFindCombo, hReplaceCombo, hFiltersCombo, hDirCombo })
 			{
-				LOGFONT lf = {};
-				HFONT font = reinterpret_cast<HFONT>(SendMessage(hComboBox, WM_GETFONT, 0, 0));
-				::GetObject(font, sizeof(lf), &lf);
-				lf.lfHeight = (dpiManager.scaleY(16) - 5) * -1;
-				SendMessage(hComboBox, WM_SETFONT, (WPARAM)CreateFontIndirect(&lf), MAKELPARAM(true, 0));
+				::SendMessage(hComboBox, WM_SETFONT, reinterpret_cast<WPARAM>(_hComboBoxFont), MAKELPARAM(TRUE, 0));
 			}
+
+			if (isMonospaced && hFont != nullptr)
+				::DeleteObject(hFont);
 
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
@@ -1415,11 +1421,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			// "⇅" enlargement
 			_hLargerBolderFont = createFont(TEXT("Courier New"), 14, true, _hSelf);
-			SendMessage(_hSwapButton, WM_SETFONT, (WPARAM)_hLargerBolderFont, MAKELPARAM(true, 0));
+			::SendMessage(_hSwapButton, WM_SETFONT, reinterpret_cast<WPARAM>(_hLargerBolderFont), MAKELPARAM(TRUE, 0));
 
 			// Make "˄" & "˅" look better
 			_hCourrierNewFont = createFont(TEXT("Courier New"), 12, false, _hSelf);
-			SendMessage(::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON), WM_SETFONT, (WPARAM)_hCourrierNewFont, MAKELPARAM(true, 0));
+			::SendDlgItemMessage(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, WM_SETFONT, reinterpret_cast<WPARAM>(_hCourrierNewFont), MAKELPARAM(TRUE, 0));
 
 			return TRUE;
 		}

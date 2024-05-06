@@ -16,7 +16,7 @@
 #pragma once
 #include "Notepad_plus.h"
 
-const int splitterSize = 8;
+constexpr int splitterSize = 8;
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
@@ -82,7 +82,7 @@ public:
 		return _notepad_plus_plus_core.getPluginListVerStr();
 	};
 
-	virtual void destroy() {
+	void destroy() override {
 		if (_hIconAbsent)
 			::DestroyIcon(_hIconAbsent);
 		::DestroyWindow(_hSelf);
@@ -100,17 +100,8 @@ public:
 
 	void setStartupBgColor(COLORREF BgColor);
 
-	static void loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* icon)
-	{
-		if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, icon) != S_OK)
-		{
-			*icon = static_cast<HICON>(::LoadImage(hinst, pszName, IMAGE_ICON, cx, cy, LR_DEFAULTCOLOR));
-		}
-	}
-
-	static void loadTrayIcon(HINSTANCE hinst, HICON* icon)
-	{
-		loadIcon(hinst, MAKEINTRESOURCE(IDI_M30ICON), ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), icon);
+	static void loadTrayIcon(HINSTANCE hinst, HICON* icon) {
+		DPIManagerV2::loadIcon(hinst, MAKEINTRESOURCE(IDI_M30ICON), ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), icon);
 	}
 
 private:

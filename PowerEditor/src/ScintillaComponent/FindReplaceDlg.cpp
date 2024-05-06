@@ -1232,6 +1232,55 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			return TRUE;
 		}
 
+		case WM_NCHITTEST:
+		{
+			LRESULT lrHitTest = ::DefWindowProc(_hSelf, message, wParam, lParam);
+			switch (lrHitTest)
+			{
+				case HTTOP:
+				{
+					lrHitTest = HTBORDER;
+					break;
+				}
+
+				case HTTOPLEFT:
+				{
+					lrHitTest = HTLEFT;
+					break;
+				}
+
+				case HTTOPRIGHT:
+				{
+					lrHitTest = HTRIGHT;
+					break;
+				}
+
+				case HTBOTTOM:
+				{
+					lrHitTest = HTBORDER;
+					break;
+				}
+
+				case HTBOTTOMLEFT:
+				{
+					lrHitTest = HTLEFT;
+					break;
+				}
+
+				case HTBOTTOMRIGHT:
+				{
+					lrHitTest = HTRIGHT;
+					break;
+				}
+
+				default:
+					return FALSE;
+			}
+
+			::SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, lrHitTest);
+			return TRUE;
+		}
+
 		case WM_CTLCOLOREDIT:
 		{
 			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));

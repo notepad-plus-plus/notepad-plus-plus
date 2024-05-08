@@ -4164,6 +4164,11 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			return result;
 		};
 
+	// check void ScintillaEditView::performGlobalStyles() for default colors
+
+	addStyle(L"Multi-selected text color", L"", L"C0C0C0", L"Selected text colour"); // liteGrey
+	addStyle(L"Multi-edit carets color", L"404040", L"", L"Caret colour"); // darkGrey
+
 	addStyle(L"Change History modified", L"FF8000", L"FF8000");
 	addStyle(L"Change History revert modified", L"A0C000", L"A0C000");
 	addStyle(L"Change History revert origin", L"40A0BF", L"40A0BF");

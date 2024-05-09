@@ -298,6 +298,15 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 
 	RECT rcClient{};
 	getClientRect(rcClient);
+
+	const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
+	_szBorder.cx = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;
+	_szBorder.cy = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION);
+
+	//fill min dialog size info
+	_szMinDialog.cx = rcClient.right - rcClient.left;
+	_szMinDialog.cy = rcClient.bottom - rcClient.top;
+
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
 
@@ -317,15 +326,6 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	_tab.display();
 
 	_initialClientWidth = rcClient.right - rcClient.left;
-
-	const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
-	const LONG xBorder = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;
-	const LONG yBorder = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION);
-
-	getClientRect(rcClient);
-	//fill min dialog size info
-	_szMinDialog.cx = rcClient.right - rcClient.left + xBorder;
-	_szMinDialog.cy = rcClient.bottom - rcClient.top + yBorder;
 
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
@@ -349,7 +349,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 
 	RECT rcStatusBar{};
 	::GetClientRect(_statusBar.getHSelf(), &rcStatusBar);
-	_lesssModeHeight = (rcCount.bottom + (rcCount.top - rcOk.bottom) + (rcStatusBar.bottom - rcStatusBar.top)) + yBorder;
+	_lesssModeHeight = (rcCount.bottom + (rcCount.top - rcOk.bottom) + (rcStatusBar.bottom - rcStatusBar.top));
 
 	if (nppGUI._findWindowLessMode)
 	{
@@ -1216,8 +1216,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		{
 			bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 			MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
-			mmi->ptMinTrackSize.x = _szMinDialog.cx;
-			const LONG h = (isLessModeOn ? _lesssModeHeight : _szMinDialog.cy);
+			mmi->ptMinTrackSize.x = _szMinDialog.cx + _szBorder.cx;
+			const LONG h = (isLessModeOn ? _lesssModeHeight : _szMinDialog.cy) + _szBorder.cy;
 			mmi->ptMinTrackSize.y = h;
 			mmi->ptMaxTrackSize.y = h;
 
@@ -2395,7 +2395,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					LONG w = rc.right - rc.left;
 					bool& isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 					isLessModeOn = !isLessModeOn;
-					long dlgH = (isLessModeOn ? _lesssModeHeight : _szMinDialog.cy);
+					long dlgH = (isLessModeOn ? _lesssModeHeight : _szMinDialog.cy) + _szBorder.cy;
 
 					DIALOG_TYPE dlgT = getCurrentStatus();
 					calcAndSetCtrlsPos(dlgT, true);

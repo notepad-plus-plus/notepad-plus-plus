@@ -414,6 +414,7 @@ protected :
 
 private:
 	SIZE _szMinDialog{};
+	SIZE _szBorder{};
 
 	LONG _deltaWidth = 0;
 	LONG _initialClientWidth = 0;

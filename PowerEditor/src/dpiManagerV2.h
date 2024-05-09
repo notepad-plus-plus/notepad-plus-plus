@@ -47,6 +47,9 @@ public:
 	static void initDpiAPI();
 
 	static int getSystemMetricsForDpi(int nIndex, UINT dpi);
+	int getSystemMetricsForDpi(int nIndex) {
+		return getSystemMetricsForDpi(nIndex, _dpi);
+	}
 	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
 
 	static UINT getDpiForSystem();

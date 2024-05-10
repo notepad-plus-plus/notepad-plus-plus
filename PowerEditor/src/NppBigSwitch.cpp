@@ -3252,7 +3252,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ISAUTOINDENTON:
 		{
-			return nppParam.getNppGUI()._maitainIndent;
+			return nppParam.getNppGUI()._maintainIndent;
 		}
 
 		case NPPM_ISDARKMODEENABLED:

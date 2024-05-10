@@ -5063,7 +5063,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
-		else if (lstrcmp(nm, TEXT("MaitainIndent")) == 0)
+		else if (lstrcmp(nm, TEXT("MaintainIndent")) == 0 || 
+			lstrcmp(nm, TEXT("MaitainIndent")) == 0) // typo - kept for the compatibility reason
 		{
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
@@ -5072,9 +5073,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				if (val)
 				{
 					if (lstrcmp(val, TEXT("yes")) == 0)
-						_nppGUI._maitainIndent = true;
+						_nppGUI._maintainIndent = true;
 					else
-						_nppGUI._maitainIndent = false;
+						_nppGUI._maintainIndent = false;
 				}
 			}
 		}
@@ -7225,9 +7226,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("TrayIcon"), _nppGUI._isMinimizedToTray);
 	}
 
-	// <GUIConfig name="MaitainIndent">yes</GUIConfig>
+	// <GUIConfig name="MaintainIndent">yes</GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, TEXT("MaitainIndent"), _nppGUI._maitainIndent);
+		insertGUIConfigBoolNode(newGUIRoot, TEXT("MaintainIndent"), _nppGUI._maintainIndent);
 	}
 
 	// <GUIConfig name = "TagsMatchHighLight" TagAttrHighLight = "yes" HighLightNonHtmlZone = "no">yes< / GUIConfig>

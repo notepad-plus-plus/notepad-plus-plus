@@ -692,7 +692,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
 			{
 				const NppGUI & nppGui = NppParameters::getInstance().getNppGUI();
-				bool indentMaintain = nppGui._maitainIndent;
+				bool indentMaintain = nppGui._maintainIndent;
 				if (indentMaintain)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
 

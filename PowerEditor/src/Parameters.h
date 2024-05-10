@@ -809,7 +809,7 @@ struct NppGUI final
 	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;
 	bool _doTaskList = true;
-	bool _maitainIndent = true;
+	bool _maintainIndent = true;
 	bool _enableSmartHilite = true;
 
 	bool _smartHiliteCaseSensitive = false;

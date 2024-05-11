@@ -37,14 +37,7 @@ jobs:
         $isPush = "${{github.event_name }}" -eq "push" ? $true : $false
         $isMaster = $isPush -and $${{ github.ref_name == github.event.repository.master_branch }}
 
-        if ($isPush) {
-          $commit_message = (git show -s --format=%B)
-        }
-        else {
-          $last_commit = @(Invoke-RestMethod ${{ github.event.pull_request._links.commits.href }})[0] | Select-Object -Last 1
-          $commit_message = $last_commit.commit.message
-        }
-
+        $commit_message = $isPush ? (git show -s --format=%B) : (git log -1 --no-merges --pretty=%B)
         $commit_title = ($commit_message -split "[\r\n]+")[0]
         Write-Output "title=$commit_title" >> $env:GITHUB_OUTPUT
         $files_modified = @(git diff --name-only HEAD~1)

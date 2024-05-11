@@ -1360,7 +1360,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	int textHeight = textMetrics.tmHeight;
 	int textDescent = textMetrics.tmDescent;
 
-	int Flags = DT_SINGLELINE | DT_NOPREFIX;
+	int flags = DT_SINGLELINE | DT_NOPREFIX;
 
 	// This code will read in one character at a time and remove every first ampersand (&).
 	// ex. If input "test && test &&& test &&&&" then output will be "test & test && test &&&".
@@ -1379,8 +1379,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	if (_isVertical)
 	{
 		// center text horizontally (rotated text is positioned as if it were unrotated, therefore manual positioning is necessary)
-		Flags |= DT_LEFT;
-		Flags |= DT_BOTTOM;
+		flags |= DT_LEFT;
+		flags |= DT_BOTTOM;
 		rect.left += (rect.right - rect.left - textHeight) / 2;
 		rect.bottom += textHeight;
 
@@ -1394,8 +1394,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	else
 	{
 		// center text vertically
-		Flags |= DT_LEFT;
-		Flags |= DT_TOP;
+		flags |= DT_LEFT;
+		flags |= DT_TOP;
 
 		const int paddingText = ((pDrawItemStruct->rcItem.bottom - pDrawItemStruct->rcItem.top) - (textHeight + textDescent)) / 2;
 		const int paddingDescent = !hasMultipleLines ? ((textDescent + ((isDarkMode || !isSelected) ? 1 : 0)) / 2) : 0;
@@ -1415,7 +1415,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 	::SetTextColor(hDC, textColor);
 
-	::DrawText(hDC, decodedLabel, lstrlen(decodedLabel), &rect, Flags);
+	::DrawText(hDC, decodedLabel, lstrlen(decodedLabel), &rect, flags);
 	::RestoreDC(hDC, nSavedDC);
 }
 

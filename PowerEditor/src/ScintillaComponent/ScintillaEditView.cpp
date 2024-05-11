@@ -650,6 +650,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 						int selection = static_cast<int>(execute(SCI_GETMAINSELECTION, 0, 0));
 						int caret = static_cast<int>(execute(SCI_GETSELECTIONNCARET, selection, 0));
 						execute(SCI_SETSELECTION, caret, caret);
+						execute(SCI_SETSELECTIONMODE, SC_SEL_STREAM);
 						break;
 					}
 

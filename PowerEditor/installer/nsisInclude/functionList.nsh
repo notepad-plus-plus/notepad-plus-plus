@@ -193,6 +193,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\gdscript.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "Raku" Raku_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\raku.xml"
+	${MementoSectionEnd}
+
 	${MementoSection} "Hollywood" Hollywood_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\hollywood.xml"
@@ -356,7 +361,11 @@ SectionGroup un.functionListComponent
 	Section un.GDScript_FL
 		Delete "$INSTDIR\functionList\gdscript.xml"
 	SectionEnd
-	
+
+	Section un.Raku_FL
+		Delete "$INSTDIR\functionList\raku.xml"
+	SectionEnd
+
 	Section un.Hollywood_FL
 		Delete "$INSTDIR\functionList\hollywood.xml"
 	SectionEnd	

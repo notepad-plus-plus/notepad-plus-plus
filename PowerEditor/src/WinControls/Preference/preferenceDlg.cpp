@@ -5317,55 +5317,6 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	NppGUI & nppGUI = nppParams.getNppGUI();
 	const size_t uriSchemesMaxLength = 2048;
 
-	if (HIWORD(wParam) == EN_CHANGE)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_CLOUDPATH_EDIT:
-			{
-				TCHAR inputDir[MAX_PATH] = {'\0'};
-				TCHAR inputDirExpanded[MAX_PATH] = {'\0'};
-				::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
-				::ExpandEnvironmentStrings(inputDir, inputDirExpanded, MAX_PATH);
-				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-				if (::PathFileExists(inputDirExpanded))
-				{
-					nppGUI._cloudPath = inputDirExpanded;
-					nppParams.setCloudChoice(inputDirExpanded);
-					
-					generic_string warningMsg;
-					if (nppParams.isCloudPathChanged())
-					{
-						warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
-					}
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, warningMsg.c_str());
-				}
-				else
-				{
-					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
-					if (isChecked)
-					{
-						generic_string errMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
-
-						::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
-						nppParams.removeCloudChoice();
-					}
-				}
-				return TRUE;
-			}
-
-			case IDC_URISCHEMES_EDIT:
-			{
-				TCHAR uriScheme[uriSchemesMaxLength] = { '\0' };
-				::SendDlgItemMessage(_hSelf, IDC_URISCHEMES_EDIT, WM_GETTEXT, uriSchemesMaxLength, reinterpret_cast<LPARAM>(uriScheme));
-				nppGUI._uriSchemes = uriScheme;
-				HWND grandParent = ::GetParent(_hParent);
-				::SendMessage(grandParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, 0, 0);
-				return TRUE;
-			}
-		}
-	}
-
 	switch (message)
 	{
 		case WM_INITDIALOG:
@@ -5441,6 +5392,55 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 		case WM_COMMAND:
 		{
+			if (HIWORD(wParam) == EN_CHANGE)
+			{
+				switch (LOWORD(wParam))
+				{
+					case  IDC_CLOUDPATH_EDIT:
+					{
+						TCHAR inputDir[MAX_PATH] = { '\0' };
+						TCHAR inputDirExpanded[MAX_PATH] = { '\0' };
+						::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
+						::ExpandEnvironmentStrings(inputDir, inputDirExpanded, MAX_PATH);
+						NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+						if (::PathFileExists(inputDirExpanded))
+						{
+							nppGUI._cloudPath = inputDirExpanded;
+							nppParams.setCloudChoice(inputDirExpanded);
+
+							generic_string warningMsg;
+							if (nppParams.isCloudPathChanged())
+							{
+								warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
+							}
+							::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, warningMsg.c_str());
+						}
+						else
+						{
+							bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
+							if (isChecked)
+							{
+								generic_string errMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
+
+								::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
+								nppParams.removeCloudChoice();
+							}
+						}
+						return TRUE;
+					}
+
+					case IDC_URISCHEMES_EDIT:
+					{
+						TCHAR uriScheme[uriSchemesMaxLength] = { '\0' };
+						::SendDlgItemMessage(_hSelf, IDC_URISCHEMES_EDIT, WM_GETTEXT, uriSchemesMaxLength, reinterpret_cast<LPARAM>(uriScheme));
+						nppGUI._uriSchemes = uriScheme;
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, 0, 0);
+						return TRUE;
+					}
+				}
+			}
+
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			switch (wParam)
 			{
@@ -5528,62 +5528,6 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
-	if (HIWORD(wParam) == EN_CHANGE)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_EDIT_PERFORMANCE_FILESIZE:
-			{
-				constexpr int stringSize = 16;
-				TCHAR str[stringSize]{};
-
-				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
-
-				if (lstrcmp(str, TEXT("")) == 0)
-					return TRUE;
-
-				constexpr int fileLenInMBMax = (INT32_MAX - 1024 * 1024) / 1024 / 1024; // -1MB ... have to to consider also the bufferSizeRequested algo in FileManager::loadFileData
-				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
-				if (fileLenInMB > fileLenInMBMax)
-				{
-					fileLenInMB = fileLenInMBMax;
-					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
-				}
-
-				nppGUI._largeFileRestriction._largeFileSizeDefInByte = fileLenInMB * 1024 * 1024;
-			}
-			return TRUE;
-		}
-	}
-	else if (HIWORD(wParam) == EN_KILLFOCUS)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_EDIT_PERFORMANCE_FILESIZE:
-			{
-				constexpr int stringSize = 16;
-				TCHAR str[stringSize]{};
-				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
-
-				if (lstrcmp(str, TEXT("")) == 0)
-				{
-					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024, FALSE);
-					return TRUE;
-				}
-
-				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
-
-				if (fileLenInMB == 0)
-				{
-					fileLenInMB = (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024;
-					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
-					return TRUE;
-				}
-			}
-			return TRUE;
-		}
-	}
-
 	switch (message)
 	{
 		case WM_INITDIALOG:
@@ -5651,6 +5595,53 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 
 		case WM_COMMAND:
 		{
+			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_EDIT_PERFORMANCE_FILESIZE)
+			{
+
+				constexpr int stringSize = 16;
+				TCHAR str[stringSize]{};
+
+				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
+
+				if (lstrcmp(str, TEXT("")) == 0)
+					return TRUE;
+
+				constexpr int fileLenInMBMax = (INT32_MAX - 1024 * 1024) / 1024 / 1024; // -1MB ... have to to consider also the bufferSizeRequested algo in FileManager::loadFileData
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+				if (fileLenInMB > fileLenInMBMax)
+				{
+					fileLenInMB = fileLenInMBMax;
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
+				}
+
+				nppGUI._largeFileRestriction._largeFileSizeDefInByte = fileLenInMB * 1024 * 1024;
+
+				return TRUE;
+			}
+			else if (HIWORD(wParam) == EN_KILLFOCUS && LOWORD(wParam) == IDC_EDIT_PERFORMANCE_FILESIZE)
+			{
+				constexpr int stringSize = 16;
+				TCHAR str[stringSize]{};
+				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
+
+				if (lstrcmp(str, TEXT("")) == 0)
+				{
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024, FALSE);
+					return TRUE;
+				}
+
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+
+				if (fileLenInMB == 0)
+				{
+					fileLenInMB = (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024;
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
+					return TRUE;
+				}
+
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case IDC_CHECK_PERFORMANCE_ENABLE:
@@ -5741,20 +5732,6 @@ intptr_t CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParams.getNppGUI();
 
-	if (HIWORD(wParam) == EN_CHANGE)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_SEARCHENGINE_EDIT:
-			{
-				TCHAR input[MAX_PATH] = { '\0' };
-				::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(input));
-				nppGUI._searchEngineCustom = input;
-				return TRUE;
-			}
-		}
-	}
-
 	switch (message)
 	{
 		case WM_INITDIALOG:
@@ -5803,6 +5780,14 @@ intptr_t CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 		case WM_COMMAND:
 		{
+			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_SEARCHENGINE_EDIT)
+			{
+				TCHAR input[MAX_PATH] = { '\0' };
+				::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(input));
+				nppGUI._searchEngineCustom = input;
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case IDC_SEARCHENGINE_DUCKDUCKGO_RADIO:

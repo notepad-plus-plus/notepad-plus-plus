@@ -59,7 +59,7 @@ constexpr bool IsBSeparator(char ch) noexcept {
 }
 
 // Tests for escape character
-bool IsEscaped(const char* wordStr, Sci_PositionU pos) noexcept {
+constexpr bool IsEscaped(const char* wordStr, Sci_PositionU pos) noexcept {
 	bool isQoted=false;
 	while (pos>0){
 		pos--;
@@ -71,28 +71,22 @@ bool IsEscaped(const char* wordStr, Sci_PositionU pos) noexcept {
 	return isQoted;
 }
 
-// Tests for quote character
-bool textQuoted(const char *lineBuffer, Sci_PositionU endPos) {
-	char strBuffer[1024];
-	strncpy(strBuffer, lineBuffer, endPos);
-	strBuffer[endPos] = '\0';
+constexpr bool IsQuotedBy(std::string_view svBuffer, char quote) noexcept {
 	bool CurrentStatus = false;
-	const char strQuotes[] = "\"'";
-	const size_t strLength = strlen(strQuotes);
-	for (size_t i = 0; i < strLength; i++) {
-		const char *pQuote = strchr(strBuffer, strQuotes[i]);
-		while (pQuote)
-		{
-			if (!IsEscaped(strBuffer, pQuote - strBuffer)) {
-				CurrentStatus = !CurrentStatus;
-			}
-			pQuote = strchr(pQuote + 1, strQuotes[i]);
+	size_t pQuote = svBuffer.find(quote);
+	while (pQuote != std::string_view::npos) {
+		if (!IsEscaped(svBuffer.data(), pQuote)) {
+			CurrentStatus = !CurrentStatus;
 		}
-		if (CurrentStatus) {
-			break;
-		}
+		pQuote = svBuffer.find(quote, pQuote + 1);
 	}
 	return CurrentStatus;
+}
+
+// Tests for quote character
+constexpr bool textQuoted(const char *lineBuffer, Sci_PositionU endPos) noexcept {
+	const std::string_view svBuffer(lineBuffer, endPos);
+	return IsQuotedBy(svBuffer, '\"') || IsQuotedBy(svBuffer, '\'');
 }
 
 void ColouriseBatchDoc(

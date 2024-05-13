@@ -827,6 +827,7 @@ protected:
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);
+	void setHTMLLexer();
 	void setJsLexer();
 	void setTclLexer();
     void setObjCLexer(LangType type);
@@ -844,7 +845,7 @@ protected:
 	};
 
 	void setLuaLexer() {
-		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7);
 	};
 
 	void setMakefileLexer() {

@@ -846,63 +846,6 @@ double stodLocale(const generic_string& str, [[maybe_unused]] _locale_t loc, siz
 	return ans;
 }
 
-// Source: https://blogs.msdn.microsoft.com/greggm/2005/09/21/comparing-file-names-in-native-code/
-// Modified to use TCHAR's instead of assuming Unicode and reformatted to conform with Notepad++ code style
-static TCHAR ToUpperInvariant(TCHAR input)
-{
-	TCHAR result;
-	LONG lres = LCMapString(LOCALE_INVARIANT, LCMAP_UPPERCASE, &input, 1, &result, 1);
-	if (lres == 0)
-	{
-		assert(false and "LCMapString failed to convert a character to upper case");
-		result = input;
-	}
-	return result;
-}
-
-// Source: https://blogs.msdn.microsoft.com/greggm/2005/09/21/comparing-file-names-in-native-code/
-// Modified to use TCHAR's instead of assuming Unicode and reformatted to conform with Notepad++ code style
-int OrdinalIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2)
-{
-	if (sz1 == sz2)
-	{
-		return 0;
-	}
-
-	if (sz1 == nullptr) sz1 = _T("");
-	if (sz2 == nullptr) sz2 = _T("");
-
-	for (;; sz1++, sz2++)
-	{
-		const TCHAR c1 = *sz1;
-		const TCHAR c2 = *sz2;
-
-		// check for binary equality first
-		if (c1 == c2)
-		{
-			if (c1 == 0)
-			{
-				return 0; // We have reached the end of both strings. No difference found.
-			}
-		}
-		else
-		{
-			if (c1 == 0 || c2 == 0)
-			{
-				return (c1-c2); // We have reached the end of one string
-			}
-
-			// IMPORTANT: this needs to be upper case to match the behavior of the operating system.
-			// See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dndotnet/html/StringsinNET20.asp
-			const TCHAR u1 = ToUpperInvariant(c1);
-			const TCHAR u2 = ToUpperInvariant(c2);
-			if (u1 != u2)
-			{
-				return (u1-u2); // strings are different
-			}
-		}
-	}
-}
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 {
@@ -1503,8 +1446,8 @@ HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestPar
 {
 	HDC hdc = GetDC(hDestParent);
 
-	LOGFONT logFont = {};
-	logFont.lfHeight = -MulDiv(fontSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
+	LOGFONT logFont{};
+	logFont.lfHeight = DPIManagerV2::scaleFont(fontSize, hDestParent);
 	if (isBold)
 		logFont.lfWeight = FW_BOLD;
 

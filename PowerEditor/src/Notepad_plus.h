@@ -299,12 +299,8 @@ private:
 	ContextMenu _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
-	IconList _docTabIconList;
-	IconList _docTabIconListAlt;
-	IconList _docTabIconListDarkMode;
 
     StatusBar _statusBar;
-	bool _toReduceTabBar = false;
 	ReBar _rebarTop;
 	ReBar _rebarBottom;
 
@@ -501,6 +497,7 @@ private:
 
 	BOOL processIncrFindAccel(MSG *msg) const;
 	BOOL processFindAccel(MSG *msg) const;
+	BOOL processTabSwitchAccel(MSG* msg) const;
 
 	void checkMenuItem(int itemID, bool willBeChecked) const {
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
@@ -629,6 +626,7 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchDocumentListPanel(bool changeFromBtnCmd = false);
+	void changeDocumentListIconSet(bool changeFromBtnCmd);
 	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();

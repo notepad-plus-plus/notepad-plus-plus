@@ -77,7 +77,7 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 
 bool PluginsAdminDlg::isFoundInListFromIndex(const PluginViewList& inWhichList, int index, const generic_string& str2search, bool inWhichPart) const
 {
-	PluginUpdateInfo* pui = inWhichList.getPluginInfoFromUiIndex(index);
+	const PluginUpdateInfo* pui = inWhichList.getPluginInfoFromUiIndex(index);
 	generic_string searchIn;
 	if (inWhichPart == _inNames)
 		searchIn = pui->_displayName;
@@ -131,7 +131,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
-	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 
 	const TCHAR *available = TEXT("Available");
 	const TCHAR *updates = TEXT("Updates");
@@ -147,7 +146,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	getMappedChildRect(IDC_PLUGINADM_EDIT, rcDesc);
 
 	const long margeX = ::GetSystemMetrics(SM_CXEDGE);
-	const long margeY = dpiManager.scaleY(13);
+	const long margeY = _dpiManager.scale(13);
 
 	rect.bottom = rcDesc.bottom + margeY;
 	_tab.reSizeTo(rect);
@@ -171,7 +170,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	const COLORREF fgColor = nppParam.getCurrentDefaultFgColor();
 	const COLORREF bgColor = nppParam.getCurrentDefaultBgColor();
 
-	const size_t szColVer = dpiManager.scaleX(100);
+	const size_t szColVer = _dpiManager.scale(100);
 	const size_t szColName = szColVer * 2;
 
 	auto initListView = [&](PluginViewList& list) -> void {
@@ -183,6 +182,9 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 		ListView_SetBkColor(hList, bgColor);
 		ListView_SetTextBkColor(hList, bgColor);
 		ListView_SetTextColor(hList, fgColor);
+		const auto style = ::GetWindowLongPtr(hList, GWL_STYLE);
+		::SetWindowLongPtr(hList, GWL_STYLE, style | WS_TABSTOP);
+		::SetWindowPos(hList, ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_NEXT), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE); // to allow tab switch
 		list.reSizeView(listRect);
 	};
 
@@ -412,7 +414,7 @@ bool PluginViewList::removeFromFolderName(const generic_string& folderName)
 
 	for (size_t i = 0; i < _ui.nbItem(); ++i)
 	{
-		PluginUpdateInfo* pi = getPluginInfoFromUiIndex(i);
+		const PluginUpdateInfo* pi = getPluginInfoFromUiIndex(i);
 		if (pi->_folderName == folderName)
 		{
 			if (!_ui.removeFromIndex(i))
@@ -577,11 +579,11 @@ bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, wstring& verStr, const jso
 					pi->_oldVersionCompatibility = getTwoIntervalVersions(oldVerCompatibilityStr);
 				}
 			}
-			catch (const wstring& s)
+			catch (const wstring& exceptionStr)
 			{
 				wstring msg = pi->_displayName;
 				msg += L": ";
-				throw msg + s;
+				throw msg + exceptionStr;
 			}
 			valStr = i.at("repository").get<std::string>();
 			pi->_repository = wmc.char2wchar(valStr.c_str(), CP_ACP);
@@ -592,9 +594,9 @@ bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, wstring& verStr, const jso
 			pl.push_back(pi);
 		}
 #ifdef DEBUG
-		catch (const wstring& s)
+		catch (const wstring& exceptionStr)
 		{
-			::MessageBox(NULL, s.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
+			::MessageBox(NULL, exceptionStr.c_str(), TEXT("Exception caught in: PluginsAdmin loadFromJson()"), MB_ICONERROR);
 			continue;
 		}
 
@@ -1173,7 +1175,30 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_COMMAND :
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			_repoLink.destroy();
+
+			const size_t szColVer = _dpiManager.scale(100);
+			const size_t szColName = szColVer * 2;
+
+			auto setListViewSize = [&](PluginViewList& list) -> void {
+				ListView_SetColumnWidth(list.getViewHwnd(), 0, szColName);
+				ListView_SetColumnWidth(list.getViewHwnd(), 1, szColVer);
+				};
+			
+			setListViewSize(_availableList);
+			setListViewSize(_updateList);
+			setListViewSize(_installedList);
+			setListViewSize(_incompatibleList);
+
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
@@ -1184,10 +1209,13 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						searchInPlugins(false);
 						return TRUE;
 					}
+
+					default:
+						return FALSE;
 				}
 			}
 
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDOK:
 					if (::GetFocus() == ::GetDlgItem(_hSelf, IDC_PLUGINADM_SEARCH_EDIT))
@@ -1197,6 +1225,16 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDCANCEL:
 					display(false);
 					return TRUE;
+
+				case IDC_NEXT_TAB:
+				case IDC_PREV_TAB:
+				{
+					const int selTabIdx = _tab.getNextOrPrevTabIdx(LOWORD(wParam) == IDC_NEXT_TAB);
+					_tab.activateAt(selTabIdx);
+					switchDialog(selTabIdx);
+
+					return TRUE;
+				}
 
 				case IDC_PLUGINADM_RESEARCH_NEXT:
 					searchInPlugins(true);
@@ -1239,7 +1277,7 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
                      pnmh->hwndFrom == _installedList.getViewHwnd() ||
                      pnmh->hwndFrom == _incompatibleList.getViewHwnd())
 			{
-				PluginViewList* pViewList = nullptr;
+				const PluginViewList* pViewList = nullptr;
 				int buttonID = 0;
 
 				if (pnmh->hwndFrom == _availableList.getViewHwnd())
@@ -1294,8 +1332,9 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
-		case WM_DESTROY :
+		case WM_DESTROY:
 		{
+			_repoLink.destroy();
 			return TRUE;
 		}
 	}

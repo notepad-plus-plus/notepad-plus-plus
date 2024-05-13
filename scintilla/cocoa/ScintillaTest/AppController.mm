@@ -217,6 +217,7 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   [mEditor setColorProperty: SCI_MARKERSETBACK parameter: 0 fromHTML: @"#B1151C"];
 
   [mEditor setColorProperty: SCI_SETSELBACK parameter: 1 value: [NSColor selectedTextBackgroundColor]];
+  [mEditor setGeneralProperty: SCI_SETMULTIPLESELECTION parameter: 1 value: 0];
 
   // Uncomment if you wanna see auto wrapping in action.
   //[mEditor setGeneralProperty: SCI_SETWRAPMODE parameter: SC_WRAP_WORD value: 0];

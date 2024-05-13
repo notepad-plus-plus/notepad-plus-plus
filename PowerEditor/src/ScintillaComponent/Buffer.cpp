@@ -215,17 +215,17 @@ void Buffer::setFileName(const TCHAR *fn)
 		}
 	}
 
-	if (determinatedLang == L_TEXT)	//language can probably be refined
+	if (determinatedLang == L_TEXT)	// language can probably be refined
 	{
-		if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("makefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("GNUmakefile")) == 0))
+		if ((wcsicmp(_fileName, TEXT("makefile")) == 0) || (wcsicmp(_fileName, TEXT("GNUmakefile")) == 0))
 			determinatedLang = L_MAKEFILE;
-		else if (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("CmakeLists.txt")) == 0)
+		else if (wcsicmp(_fileName, TEXT("CmakeLists.txt")) == 0)
 			determinatedLang = L_CMAKE;
-		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("SConstruct")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("SConscript")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("wscript")) == 0))
+		else if ((wcsicmp(_fileName, TEXT("SConstruct")) == 0) || (wcsicmp(_fileName, TEXT("SConscript")) == 0) || (wcsicmp(_fileName, TEXT("wscript")) == 0))
 			determinatedLang = L_PYTHON;
-		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Rakefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Vagrantfile")) == 0))
+		else if ((wcsicmp(_fileName, TEXT("Rakefile")) == 0) || (wcsicmp(_fileName, TEXT("Vagrantfile")) == 0))
 			determinatedLang = L_RUBY;
-		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("crontab")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("PKGBUILD")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("APKBUILD")) == 0))
+		else if ((wcsicmp(_fileName, TEXT("crontab")) == 0) || (wcsicmp(_fileName, TEXT("PKGBUILD")) == 0) || (wcsicmp(_fileName, TEXT("APKBUILD")) == 0))
 			determinatedLang = L_BASH;
 	}
 
@@ -1795,7 +1795,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
 	for (auto buf : _buffers)
 	{
-		if (OrdinalIgnoreCaseCompareStrings(name, buf->getFullPathName()) == 0)
+		if (wcsicmp(name, buf->getFullPathName()) == 0)
 		{
 			if (!(buf->_referees.empty()) && buf->_referees[0]->isVisible())
 			{

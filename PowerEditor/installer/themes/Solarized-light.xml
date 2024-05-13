@@ -417,7 +417,7 @@ Installation:
             <WordsStyle name="NUMBER" styleID="5" fgColor="D33682" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="6" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="7" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="TAG" styleID="1" fgColor="268BD2" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG" styleID="1" fgColor="268BD2" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="TAGEND" styleID="11" fgColor="268BD2" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="D33682" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
@@ -540,6 +540,10 @@ Installation:
             <WordsStyle name="FUNC1" styleID="13" fgColor="CB4B16" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="FUNC2" styleID="14" fgColor="B58900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
             <WordsStyle name="FUNC3" styleID="15" fgColor="6C71C4" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
+            <WordsStyle name="USER KEYWORD 1" styleID="16" fgColor="6C71C4" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
+            <WordsStyle name="USER KEYWORD 2" styleID="17" fgColor="6C71C4" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type4" />
+            <WordsStyle name="USER KEYWORD 3" styleID="18" fgColor="6C71C4" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type5" />
+            <WordsStyle name="USER KEYWORD 4" styleID="19" fgColor="6C71C4" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type6" />
         </LexerType>
         <LexerType name="makefile" desc="Makefile" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />

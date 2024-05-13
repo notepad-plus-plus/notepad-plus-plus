@@ -306,7 +306,7 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="NUMBER" styleID="5" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="6" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="7" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="TAG" styleID="1" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TAG" styleID="1" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="TAGEND" styleID="11" fgColor="0000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="FF0000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
@@ -429,6 +429,10 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="FUNC1" styleID="13" fgColor="0080C0" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
             <WordsStyle name="FUNC2" styleID="14" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" keywordClass="type1" />
             <WordsStyle name="FUNC3" styleID="15" fgColor="0000A0" bgColor="FFB0FF" fontName="" fontStyle="3" fontSize="" keywordClass="type2" />
+            <WordsStyle name="USER KEYWORD 1" styleID="16" fgColor="0000A0" bgColor="FFB0FF" fontName="" fontStyle="3" fontSize="" keywordClass="type3" />
+            <WordsStyle name="USER KEYWORD 2" styleID="17" fgColor="0000A0" bgColor="FFB0FF" fontName="" fontStyle="3" fontSize="" keywordClass="type4" />
+            <WordsStyle name="USER KEYWORD 3" styleID="18" fgColor="0000A0" bgColor="FFB0FF" fontName="" fontStyle="3" fontSize="" keywordClass="type5" />
+            <WordsStyle name="USER KEYWORD 4" styleID="19" fgColor="0000A0" bgColor="FFB0FF" fontName="" fontStyle="3" fontSize="" keywordClass="type6" />
         </LexerType>
         <LexerType name="makefile" desc="Makefile" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />

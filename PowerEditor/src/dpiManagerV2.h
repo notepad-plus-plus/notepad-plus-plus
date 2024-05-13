@@ -94,6 +94,14 @@ public:
 		return scale(x, USER_DEFAULT_SCREEN_DPI, dpi);
 	}
 
+	static int scale(int x, HWND hWnd) {
+		return scale(x, getDpiForWindow(hWnd), USER_DEFAULT_SCREEN_DPI);
+	}
+
+	static int unscale(int x, HWND hWnd) {
+		return scale(x, USER_DEFAULT_SCREEN_DPI, getDpiForWindow(hWnd));
+	}
+
 	int scale(int x) {
 		return scale(x, _dpi);
 	}
@@ -102,24 +110,12 @@ public:
 		return unscale(x, _dpi);
 	}
 
-	int scaleX(int x) {
-		return scale(x);
-	}
-
-	int unscaleX(int x) {
-		return unscale(x);
-	}
-
-	int scaleY(int y) {
-		return scale(y);
-	}
-
-	int unscaleY(int y) {
-		return unscale(y);
-	}
-
 	static int scaleFont(int pt, UINT dpi) {
 		return -(scale(pt, dpi, 72));
+	}
+
+	static int scaleFont(int pt, HWND hWnd) {
+		return -(scale(pt, getDpiForWindow(hWnd), 72));
 	}
 
 	int scaleFont(int pt) {
@@ -132,7 +128,7 @@ public:
 	}
 
 	static void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
-	static void loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad = LR_DEFAULTCOLOR);
+	static void loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad = LR_DEFAULTCOLOR);
 
 private:
 	UINT _dpi = USER_DEFAULT_SCREEN_DPI;

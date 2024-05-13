@@ -139,7 +139,16 @@
 //
 #ifdef __clang__
 
-#if __has_include(<source_location>)
+#ifdef _GLIBCXX_RELEASE
+#  define BOOST_LIBSTDCXX_VERSION (_GLIBCXX_RELEASE * 10000 + 100)
+#else
+//
+// We figure out which gcc version issued this std lib
+// by checking which headers are available:
+//
+#if __has_include(<expected>)
+#  define BOOST_LIBSTDCXX_VERSION 120100
+#elif __has_include(<source_location>)
 #  define BOOST_LIBSTDCXX_VERSION 110100
 #elif __has_include(<compare>)
 #  define BOOST_LIBSTDCXX_VERSION 100100
@@ -167,6 +176,7 @@
 #  define BOOST_LIBSTDCXX_VERSION 40400
 #elif __has_include(<array>)
 #  define BOOST_LIBSTDCXX_VERSION 40300
+#endif
 #endif
 //
 // If BOOST_HAS_FLOAT128 is set, now that we know the std lib is libstdc++3, check to see if the std lib is
@@ -257,7 +267,7 @@ extern "C" char *gets (char *__s);
 #     if !_GLIBCXX_DEPRECATED
 #        define BOOST_NO_AUTO_PTR
 #     endif
-#  elif !_GLIBCXX_USE_DEPRECATED
+#  elif !defined(_GLIBCXX_USE_DEPRECATED) || !_GLIBCXX_USE_DEPRECATED
 #     define BOOST_NO_AUTO_PTR
 #     define BOOST_NO_CXX98_BINDERS
 #  endif
@@ -429,6 +439,13 @@ extern "C" char *gets (char *__s);
 #endif
 #endif
 
+#if defined(__clang__) && (BOOST_LIBSTDCXX_VERSION < 40300) && !defined(BOOST_NO_CXX11_NULLPTR)
+#  define BOOST_NO_CXX11_NULLPTR
+#endif
+#if defined(__clang__) && (BOOST_LIBSTDCXX_VERSION < 40300) && defined(BOOST_HAS_INT128) && defined(__APPLE_CC__)
+#undef BOOST_HAS_INT128
+#endif
+
 //
 // Headers not present on Solaris with the Oracle compiler:
 #if defined(__SUNPRO_CC) && (__SUNPRO_CC < 0x5140)
@@ -457,7 +474,7 @@ extern "C" char *gets (char *__s);
 #  endif
 #endif
 
-#if (!defined(_GTHREAD_USE_MUTEX_TIMEDLOCK) || (_GTHREAD_USE_MUTEX_TIMEDLOCK == 0)) && !defined(BOOST_NO_CXX11_HDR_MUTEX)
+#if (!defined(_GTHREAD_USE_MUTEX_TIMEDLOCK) || (_GTHREAD_USE_MUTEX_TIMEDLOCK == 0)) && !defined(BOOST_NO_CXX11_HDR_MUTEX) && (__GNUC__ < 6)
 // Timed mutexes are not always available:
 #  define BOOST_NO_CXX11_HDR_MUTEX
 #endif

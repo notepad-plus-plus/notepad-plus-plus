@@ -219,6 +219,7 @@
 #  define BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS
 #  define BOOST_NO_CXX11_RAW_LITERALS
 #  define BOOST_NO_CXX11_UNICODE_LITERALS
+#  define BOOST_NO_CXX11_ALIGNOF
 #endif
 
 // C++0x features in 4.5.1 and later
@@ -318,6 +319,9 @@
 #if !defined(__cpp_if_constexpr) || (__cpp_if_constexpr < 201606)
 #  define BOOST_NO_CXX17_IF_CONSTEXPR
 #endif
+#if (__GNUC__ < 7) || (__cplusplus < 201703L)
+#  define BOOST_NO_CXX17_AUTO_NONTYPE_TEMPLATE_PARAMS
+#endif
 
 #if __GNUC__ >= 7
 #  define BOOST_FALLTHROUGH __attribute__((fallthrough))
@@ -340,10 +344,16 @@
 // Type aliasing hint. Supported since gcc 3.3.
 #define BOOST_MAY_ALIAS __attribute__((__may_alias__))
 
-//
-// __builtin_unreachable:
+// Unreachable code markup
 #if BOOST_GCC_VERSION >= 40500
 #define BOOST_UNREACHABLE_RETURN(x) __builtin_unreachable();
+#endif
+
+// Deprecated symbol markup
+#if BOOST_GCC_VERSION >= 40500
+#define BOOST_DEPRECATED(msg) __attribute__((deprecated(msg)))
+#else
+#define BOOST_DEPRECATED(msg) __attribute__((deprecated))
 #endif
 
 #ifndef BOOST_COMPILER
@@ -359,7 +369,7 @@
 
 // versions check:
 // we don't know gcc prior to version 3.30:
-#if (BOOST_GCC_VERSION< 30300)
+#if (BOOST_GCC_VERSION < 30300)
 #  error "Compiler not configured - please reconfigure"
 #endif
 //

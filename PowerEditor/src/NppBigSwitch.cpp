@@ -915,44 +915,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_CHANGETABBAEICONS:
+		case NPPM_INTERNAL_CHANGETABBARICONSET:
 		{
-			_mainDocTab.changeIcons(static_cast<unsigned char>(lParam));
-			_subDocTab.changeIcons(static_cast<unsigned char>(lParam));
+			_mainDocTab.changeIconSet(static_cast<unsigned char>(lParam));
+			_subDocTab.changeIconSet(static_cast<unsigned char>(lParam));
 
-			//restart document list with the same icons as the DocTabs
-			if (_pDocumentListPanel)
-			{
-				if (!_pDocumentListPanel->isClosed()) // if doclist is open
-				{
-					//close the doclist
-					_pDocumentListPanel->display(false);
-
-					//clean doclist
-					_pDocumentListPanel->destroy();
-					_pDocumentListPanel = nullptr;
-
-					//relaunch with new icons
-					launchDocumentListPanel(static_cast<bool>(wParam));
-				}
-				else //if doclist is closed
-				{
-					//clean doclist
-					_pDocumentListPanel->destroy();
-					_pDocumentListPanel = nullptr;
-
-					//relaunch doclist with new icons and close it
-					launchDocumentListPanel(static_cast<bool>(wParam));
-					if (_pDocumentListPanel)
-					{
-						_pDocumentListPanel->display(false);
-						_pDocumentListPanel->setClosed(true);
-						checkMenuItem(IDM_VIEW_DOCLIST, false);
-						_toolBar.setCheck(IDM_VIEW_DOCLIST, false);
-					}
-				}
-			}
-
+			changeDocumentListIconSet(static_cast<bool>(wParam));
 			return TRUE;
 		}
 
@@ -1921,7 +1889,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ISTABBARREDUCED:
 		{
-			return _toReduceTabBar?TRUE:FALSE;
+			return TabBarPlus::isReduced() ? TRUE : FALSE;
 		}
 
 		// ADD: success->hwnd; failure->NULL
@@ -3284,7 +3252,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ISAUTOINDENTON:
 		{
-			return nppParam.getNppGUI()._maitainIndent;
+			return nppParam.getNppGUI()._maintainIndent;
 		}
 
 		case NPPM_ISDARKMODEENABLED:
@@ -3513,6 +3481,25 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_DPICHANGED:
 		{
+			const UINT dpi = LOWORD(wParam);
+			_toolBar.resizeIconsDpi(dpi);
+
+			_mainDocTab.dpiManager().setDpi(dpi);
+			_subDocTab.dpiManager().setDpi(dpi);
+			_mainDocTab.setFont();
+			_subDocTab.setFont();
+			_mainDocTab.resizeIconsDpi();
+			_subDocTab.resizeIconsDpi();
+			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
+
+			changeDocumentListIconSet(false);
+
+			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, DPIManagerV2::scale(220, dpi));
+			_statusBar.setPartWidth(STATUSBAR_CUR_POS, DPIManagerV2::scale(260, dpi));
+			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, DPIManagerV2::scale(110, dpi));
+			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, DPIManagerV2::scale(120, dpi));
+			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(30, dpi));
+
 			return TRUE;
 		}
 

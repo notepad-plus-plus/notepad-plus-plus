@@ -101,6 +101,8 @@ private:
 	bool _isEditZoneRTL = false; // for Scitilla
 	const char *_fileName = nullptr;
 	std::map<std::string, std::wstring> _shortcutMenuEntryNameMap;
+
+	static void resizeCheckboxRadioBtn(HWND hWnd);
 };
 
 

@@ -80,7 +80,6 @@ void DocumentPeeker::syncDisplay(Buffer *buf, const ScintillaEditView & scintSou
 			scrollSnapshotWith(mp, scintSource.getTextZoneWidth());
 		}
 
-		Buffer *buf = _pPeekerView->getCurrentBuffer();
 		_pPeekerView->defineDocType(buf->getLangType());
 		_pPeekerView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
 

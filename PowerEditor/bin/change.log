@@ -1,28 +1,40 @@
-Notepad++ v8.6.5 bug-fixes & new enhancements:
+Notepad++ v8.6.7 bug-fixes & new enhancements:
 
- 1. Fix "Replace All" action not notifying plugins of modification regression by adding NPPN_GLOBALMODIFIED.
- 2. Fix plugins not receiving some Scintilla notification types regression.
- 3. Fix Shortcut Mapper pontential crash problem.
- 4. Fix period backup pontential crash due to the dead lock.
- 5. Fix NUL characters file corruption after power outrages.
- 6. Remedy losing session problem after power outrages.
- 7. Fix URLs are not detected after a "Replace All" regression.
- 8. Notify user while saving failure due to hardware problem.
- 9. Update to scintilla 5.4.3 (from 5.4.1) & Lexilla 5.3.1.
-10. Support template literal (template strings) in JavaScript & make `back-quoted strings` more readable.  
-11. Add support for Change History in the text, besides in the margin. Also, make Change History color configurable.
-12. Fix NPPM_RELOADFILE API return wrong result issue.
-13. Enhance Shortcut Mapper filter to find command items more easily
-14. Prevent typing control characters into document & make it optional.
-15. Fix possible no-GUI state when using systray.
-16. Make context menu popup location at current text position when invoked via keyboard.
-17. Fix Notepad++ blocked when closed minimized or from systray.
-18. Fix python wrong decorator attribute colors & add "ATTRIBUTE" color in styles.xml.model.
-19. Fix Mouse Wheel Scrolling in Shortcut Mapper & reduce also the memory use.
+1. Fix regression of multi-edit cursors placed wrongly issue.
+2. Fix multi-editing not showing multiple cursors in dark mode.
+3. Add auto-completion for Go & Raku, function list for Raku.
+4. Fix symbol '&' not showing in Document Switcher.
+5. Allow syntax highlighting for custom tags in HTML.
+6. Fix dialogs out of screen problem.
+
+
+Notepad++ v8.6.6 bug-fixes & new enhancements:
+
+ 1. Update to scintilla 5.5.0 & Lexilla 5.3.2.
+ 2. Fix crash when crossing the 2GB file size threshold.
+ 3. Fix a performance issue due to URL recognition.
+ 4. Update to nlohman json 3.11.3.
+ 5. Fix multi-edit resists escape after typing issue.
+ 6. Make F3 & Shift-F3 work in Find Replace dialog.
+ 7. Allow Ctrl-TAB to switch tabs in FindReplace, PluginAdmin and UDL dialogs.
+ 8. Add programming language support for Go & Raku(Perl 6).
+ 9. Fix user defined auto-insert not working issue.
+10. Enhance GUI: resize checkboxes/radio buttons as text length needs.
+11. Enhance GUI: make sizing arrows more coherent in Find dialog.
+12. Fix URL enclosed in apostrophes or backtick not working issue.
+13. Fix wrong dropped file view issue.
+14. Fix Korean(한)/English(영) key not working regression.
+15. Fix the tab labels of some dialogs being cut in Dark mode.
+16. Fix close button disappeared issue in Find Replace dialog.
+17. Apply dark theme to checkbox buttons on Windows 11.
+18. Fix menu bar cluttered in Dark Mode issue.
+19. Fix Debug Info minor display regression.
+20. Enhance Lua language syntax highlighting.
+21. Enhance the function list support for Ada.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6.5/
+https://notepad-plus-plus.org/downloads/v8.6.7/
 
 
 Included plugins:

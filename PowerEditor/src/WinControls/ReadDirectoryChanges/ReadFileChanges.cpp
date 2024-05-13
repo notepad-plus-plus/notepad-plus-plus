@@ -2,18 +2,6 @@
 
 
 
-CReadFileChanges::CReadFileChanges()
-{
-	_szFile = NULL;
-	_dwNotifyFilter = 0;
-}
-
-
-CReadFileChanges::~CReadFileChanges()
-{
-}
-
-
 BOOL CReadFileChanges::DetectChanges() {
 
 	WIN32_FILE_ATTRIBUTE_DATA fInfo;

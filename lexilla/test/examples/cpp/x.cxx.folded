@@ -28,6 +28,40 @@
  1 400 400   
  0 400 400   \
  1 400 400    
+ 1 400 400   
+ 0 400 400   // Test preprocessor active branches feature
+ 1 400 400   
+ 2 400 401 + #if HAVE_COLOUR
+ 0 401 401 | // Active
+ 0 401 400 | #endif
+ 2 400 401 + #if NOT_HAVE_COLOUR
+ 0 401 401 | // Inactive
+ 0 401 400 | #endif
+ 1 400 400   
+ 2 400 401 + #if FEATURE==2
+ 0 401 401 | // Active
+ 0 401 400 | #endif
+ 2 400 401 + #if FEATURE==3
+ 0 401 401 | // Inactive
+ 0 401 400 | #endif
+ 1 400 400   
+ 2 400 401 + #if VERSION(1,2)==3
+ 0 401 401 | // Active
+ 0 401 400 | #endif
+ 2 400 401 + #if VERSION(1,2)==4
+ 0 401 401 | // Inactive
+ 0 401 400 | #endif
+ 1 400 400   
+ 0 400 400   #undef HAVE_COLOUR
+ 2 400 401 + #if HAVE_COLOUR
+ 0 401 401 | // Inactive
+ 0 401 400 | #endif
+ 1 400 400   
+ 0 400 400   #define MULTIPLY(a,b) a*b
+ 2 400 401 + #if MULTIPLY(2,3)==6
+ 0 401 401 | // Active
+ 0 401 400 | #endif
+ 1 400 400   
  2 400 401 + int main() {
  0 401 401 | 	double x[] = {3.14159,6.02e23,1.6e-19,1.0+1};
  0 401 401 | 	int y[] = {75,0113,0x4b};

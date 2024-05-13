@@ -310,6 +310,11 @@ public:
 		return attr;
 	}
 
+	LONG GetCompositionStringLength(DWORD dwIndex) const noexcept {
+		const LONG byteLen = ::ImmGetCompositionStringW(hIMC, dwIndex, nullptr, 0);
+		return byteLen / sizeof(wchar_t);
+	}
+
 	std::wstring GetCompositionString(DWORD dwIndex) {
 		const LONG byteLen = ::ImmGetCompositionStringW(hIMC, dwIndex, nullptr, 0);
 		std::wstring wcs(byteLen / 2, 0);
@@ -322,6 +327,7 @@ class GlobalMemory;
 
 class ReverseArrowCursor {
 	UINT dpi = USER_DEFAULT_SCREEN_DPI;
+	UINT cursorBaseSize = defaultCursorBaseSize;
 	HCURSOR cursor {};
 
 public:
@@ -337,16 +343,17 @@ public:
 		}
 	}
 
-	HCURSOR Load(UINT dpi_) noexcept {
+	HCURSOR Load(UINT dpi_, UINT cursorBaseSize_) noexcept {
 		if (cursor)	 {
-			if (dpi == dpi_) {
+			if (dpi == dpi_ && cursorBaseSize == cursorBaseSize_) {
 				return cursor;
 			}
 			::DestroyCursor(cursor);
 		}
 
 		dpi = dpi_;
-		cursor = LoadReverseArrowCursor(dpi_);
+		cursorBaseSize = cursorBaseSize_;
+		cursor = LoadReverseArrowCursor(dpi_, cursorBaseSize_);
 		return cursor ? cursor : ::LoadCursor({}, IDC_ARROW);
 	}
 };
@@ -387,6 +394,7 @@ class ScintillaWin :
 	MouseWheelDelta horizontalWheelDelta;
 
 	UINT dpi = USER_DEFAULT_SCREEN_DPI;
+	UINT cursorBaseSize = defaultCursorBaseSize;
 	ReverseArrowCursor reverseArrowCursor;
 
 	PRectangle rectangleClient;
@@ -819,7 +827,7 @@ void ScintillaWin::DisplayCursor(Window::Cursor c) {
 		c = static_cast<Window::Cursor>(cursorMode);
 	}
 	if (c == Window::Cursor::reverseArrow) {
-		::SetCursor(reverseArrowCursor.Load(static_cast<UINT>(dpi * deviceScaleFactor)));
+		::SetCursor(reverseArrowCursor.Load(static_cast<UINT>(dpi * deviceScaleFactor), cursorBaseSize));
 	} else {
 		wMain.SetCursor(c);
 	}
@@ -2589,10 +2597,11 @@ void ScintillaWin::NotifyDoubleClick(Point pt, KeyMod modifiers) {
 	//Platform::DebugPrintf("ScintillaWin Double click 0\n");
 	ScintillaBase::NotifyDoubleClick(pt, modifiers);
 	// Send myself a WM_LBUTTONDBLCLK, so the container can handle it too.
+	const POINT point = POINTFromPoint(pt);
 	::SendMessage(MainHWND(),
 			  WM_LBUTTONDBLCLK,
 			  FlagSet(modifiers, KeyMod::Shift) ? MK_SHIFT : 0,
-			  MAKELPARAM(pt.x, pt.y));
+			  MAKELPARAM(point.x, point.y));
 }
 
 namespace {
@@ -3244,9 +3253,14 @@ LRESULT ScintillaWin::ImeOnDocumentFeed(LPARAM lParam) const {
 	if (!imc.hIMC)
 		return 0;
 
-	const size_t compStrLen = imc.GetCompositionString(GCS_COMPSTR).size();
-	const int imeCaretPos = imc.GetImeCaretPos();
-	const Sci::Position compStart = pdoc->GetRelativePositionUTF16(curPos, -imeCaretPos);
+	DWORD compStrLen = 0;
+	Sci::Position compStart = curPos;
+	if (pdoc->TentativeActive()) {
+		// rcFeed contains current composition string
+		compStrLen = imc.GetCompositionStringLength(GCS_COMPSTR);
+		const int imeCaretPos = imc.GetImeCaretPos();
+		compStart = pdoc->GetRelativePositionUTF16(curPos, -imeCaretPos);
+	}
 	const Sci::Position compStrOffset = pdoc->CountUTF16(lineStart, compStart);
 
 	// Fill in reconvert structure.
@@ -3254,7 +3268,7 @@ LRESULT ScintillaWin::ImeOnDocumentFeed(LPARAM lParam) const {
 	rc->dwVersion = 0; //constant
 	rc->dwStrLen = static_cast<DWORD>(rcFeed.length());
 	rc->dwStrOffset = sizeof(RECONVERTSTRING); //constant
-	rc->dwCompStrLen = static_cast<DWORD>(compStrLen);
+	rc->dwCompStrLen = compStrLen;
 	rc->dwCompStrOffset = static_cast<DWORD>(compStrOffset) * sizeof(wchar_t);
 	rc->dwTargetStrLen = rc->dwCompStrLen;
 	rc->dwTargetStrOffset = rc->dwCompStrOffset;
@@ -3270,6 +3284,20 @@ void ScintillaWin::GetMouseParameters() noexcept {
 		charsPerScroll = (linesPerScroll == WHEEL_PAGESCROLL) ? 3 : linesPerScroll;
 	}
 	::SystemParametersInfo(SPI_GETMOUSEVANISH, 0, &typingWithoutCursor, 0);
+
+	// https://learn.microsoft.com/en-us/answers/questions/815036/windows-cursor-size
+	HKEY hKey;
+	LSTATUS status = ::RegOpenKeyExW(HKEY_CURRENT_USER, L"Control Panel\\Cursors", 0, KEY_READ, &hKey);
+	if (status == ERROR_SUCCESS) {
+		DWORD baseSize = 0;
+		DWORD type = REG_DWORD;
+		DWORD size = sizeof(DWORD);
+		status = ::RegQueryValueExW(hKey, L"CursorBaseSize", nullptr, &type, reinterpret_cast<LPBYTE>(&baseSize), &size);
+		if (status == ERROR_SUCCESS && type == REG_DWORD) {
+			cursorBaseSize = baseSize;
+		}
+		::RegCloseKey(hKey);
+	}
 }
 
 void ScintillaWin::CopyToGlobal(GlobalMemory &gmUnicode, const SelectionText &selectedText) {

@@ -40,6 +40,7 @@ public :
 
 	void display(bool toShow = true) const override {
 		Window::display(toShow);
+		::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 	};
 
 protected :

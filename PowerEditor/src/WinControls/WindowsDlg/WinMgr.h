@@ -109,7 +109,7 @@ protected:
 public:
 	WINRECT(WORD f, int id, LONG p);
 
-	static WINRECT* InitMap(WINRECT* map, WINRECT* parent=NULL);
+	static WINRECT* InitMap(WINRECT* map, const WINRECT* parent=NULL);
 
 	WINRECT* Prev()			{ return prev; }
 	WINRECT* Next()			{ return next; }

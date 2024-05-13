@@ -28,6 +28,40 @@
 
 {0}\
  
+
+{2}// Test preprocessor active branches feature
+{0}
+{9}#if HAVE_COLOUR
+{2}// Active
+{9}#endif
+#if NOT_HAVE_COLOUR
+{66}// Inactive
+{9}#endif
+{0}
+{9}#if FEATURE==2
+{2}// Active
+{9}#endif
+#if FEATURE==3
+{66}// Inactive
+{9}#endif
+{0}
+{9}#if VERSION(1,2)==3
+{2}// Active
+{9}#endif
+#if VERSION(1,2)==4
+{66}// Inactive
+{9}#endif
+{0}
+{9}#undef HAVE_COLOUR
+#if HAVE_COLOUR
+{66}// Inactive
+{9}#endif
+{0}
+{9}#define MULTIPLY(a,b) a*b
+#if MULTIPLY(2,3)==6
+{2}// Active
+{9}#endif
+{0}
 {5}int{0} {11}main{10}(){0} {10}{{0}
 	{11}double{0} {11}x{10}[]{0} {10}={0} {10}{{4}3.14159{10},{4}6.02e23{10},{4}1.6e-19{10},{4}1.0{10}+{4}1{10}};{0}
 	{5}int{0} {11}y{10}[]{0} {10}={0} {10}{{4}75{10},{4}0113{10},{4}0x4b{10}};{0}

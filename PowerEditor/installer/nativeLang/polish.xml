@@ -10,13 +10,13 @@ Translation note:
         - Updated by Arkadiusz Michalski (webref.pl) to version 8.5.5 (02.08.2023)
         - Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
         - Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
-        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.5 (10.03.2024)
+        - Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.6 (02.04.2024)
 
     The most recent version of this file can usually be downloaded from:
         https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.6.5">
+	<Native-Langue name="polski" filename="polish.xml" version="8.6.6">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -400,15 +400,15 @@ Translation note:
 					<Item id="48016" name="Zmień skrót/Usuń makro..."/>
 					<Item id="48017" name="Zmień skrót/Usuń polecenie..."/>
 
-					<Item id="11001" name="K&amp;arty..."/>
+					<Item id="11001" name="&amp;Windows..."/>
 					<Item id="11002" name="Nazwy od A do Z"/>
 					<Item id="11003" name="Nazwy od Z do A"/>
 					<Item id="11004" name="Ścieżki od A do Z"/>
 					<Item id="11005" name="Ścieżki od Z do A"/>
-					<Item id="11006" name="Typu od A do Z"/>
-					<Item id="11007" name="Typu od Z do A"/>
-					<Item id="11008" name="Rozmiaru od mniejszego do większego"/>
-					<Item id="11009" name="Rozmiaru od większego do mniejszego"/>
+					<Item id="11006" name="Typ od A do Z"/>
+					<Item id="11007" name="Typ od Z do A"/>
+					<Item id="11008" name="Rozmiar od najmniejszego do największego"/>
+					<Item id="11009" name="Rozmiar od największego do najmniejszego"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -451,10 +451,10 @@ Translation note:
 			<TrayIcon>
 				<Item id="43101" name="Pokaż"/>
 				<Item id="43102" name="Nowy"/>
-				<Item id="43103" name="Nowy i wklej ze schowka"/>
+				<Item id="43103" name="Nowy i wklej"/>
 				<Item id="43104" name="Otwórz..."/>
 				<Item id="43013" name="Szukaj w plikach..."/>
-				<Item id="43105" name="Zakończ"/>
+				<Item id="43105" name="Zamknij ikonę zasobnika"/>
 			</TrayIcon>
 		</Menu>
 

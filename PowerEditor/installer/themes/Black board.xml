@@ -209,7 +209,7 @@ Credits:
             <WordsStyle name="NUMBER" styleID="5" fgColor="D8FA3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="DOUBLESTRING" styleID="6" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SINGLESTRING" styleID="7" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="TAG" styleID="1" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TAG" styleID="1" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="TAGEND" styleID="11" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="TAGUNKNOWN" styleID="2" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="ATTRIBUTE" styleID="3" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
@@ -481,6 +481,10 @@ Credits:
             <WordsStyle name="FUNC1" styleID="13" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="FUNC2" styleID="14" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type1" />
             <WordsStyle name="FUNC3" styleID="15" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type2" />
+            <WordsStyle name="USER KEYWORD 1" styleID="16" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type3" />
+            <WordsStyle name="USER KEYWORD 2" styleID="17" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type4" />
+            <WordsStyle name="USER KEYWORD 3" styleID="18" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type5" />
+            <WordsStyle name="USER KEYWORD 4" styleID="19" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type6" />
         </LexerType>
         <LexerType name="tex" desc="TeX" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />

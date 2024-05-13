@@ -265,7 +265,7 @@ void DPIManagerV2::sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM 
 	}, reinterpret_cast<LPARAM>(&p));
 }
 
-void DPIManagerV2::loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
+void DPIManagerV2::loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
 {
 	if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) != S_OK)
 	{

@@ -1009,6 +1009,39 @@ namespace NppDarkMode
 		HTHEME hTheme = nullptr;
 		int iStateID = 0;
 
+		bool isSizeSet = false;
+		SIZE szBtn{};
+
+		ButtonData() {};
+
+		// Saves width and height from the resource file for use as restrictions.
+		ButtonData(HWND hWnd)
+		{
+			// Notepad++ doesn't use BS_3STATE, BS_AUTO3STATE and BS_PUSHLIKE buttons.
+			const auto nBtnStyle = ::GetWindowLongPtrW(hWnd, GWL_STYLE);
+			switch (nBtnStyle & BS_TYPEMASK)
+			{
+				case BS_CHECKBOX:
+				case BS_AUTOCHECKBOX:
+				case BS_RADIOBUTTON:
+				case BS_AUTORADIOBUTTON:
+				{
+					if ((nBtnStyle & BS_MULTILINE) != BS_MULTILINE)
+					{
+						RECT rcBtn{};
+						::GetClientRect(hWnd, &rcBtn);
+						const UINT dpi = DPIManagerV2::getDpiForParent(hWnd);
+						szBtn.cx = DPIManagerV2::unscale(rcBtn.right - rcBtn.left, dpi);
+						szBtn.cy = DPIManagerV2::unscale(rcBtn.bottom - rcBtn.top, dpi);
+						isSizeSet = (szBtn.cx != 0 && szBtn.cy != 0);
+					}
+					break;
+				}
+				default:
+					break;
+			}
+		}
+
 		~ButtonData()
 		{
 			closeTheme();
@@ -1213,10 +1246,13 @@ namespace NppDarkMode
 					InvalidateRect(hWnd, nullptr, FALSE);
 				}
 				break;
+
 			case WM_NCDESTROY:
-				RemoveWindowSubclass(hWnd, ButtonSubclass, g_buttonSubclassID);
+			{
+				::RemoveWindowSubclass(hWnd, ButtonSubclass, g_buttonSubclassID);
 				delete pButtonData;
 				break;
+			}
 
 			case WM_ERASEBKGND:
 			{
@@ -1231,6 +1267,21 @@ namespace NppDarkMode
 			case WM_DPICHANGED_AFTERPARENT:
 			{
 				pButtonData->closeTheme();
+				[[fallthrough]];
+			}
+			case WM_SETBUTTONIDEALSIZE:
+			{
+				if (pButtonData->isSizeSet)
+				{
+					SIZE szBtn{};
+					if (Button_GetIdealSize(hWnd, &szBtn) == TRUE)
+					{
+						const UINT dpi = DPIManagerV2::getDpiForParent(hWnd);
+						const int cx = std::min<LONG>(szBtn.cx, DPIManagerV2::scale(pButtonData->szBtn.cx, dpi));
+						const int cy = std::min<LONG>(szBtn.cy, DPIManagerV2::scale(pButtonData->szBtn.cy, dpi));
+						::SetWindowPos(hWnd, nullptr, 0, 0, cx, cy, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
+					}
+				}
 				return 0;
 			}
 
@@ -1283,8 +1334,29 @@ namespace NppDarkMode
 
 	void subclassButtonControl(HWND hwnd)
 	{
-		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData());
+		DWORD_PTR pButtonData = reinterpret_cast<DWORD_PTR>(new ButtonData(hwnd));
 		SetWindowSubclass(hwnd, ButtonSubclass, g_buttonSubclassID, pButtonData);
+
+		// The following code handles default English localization during Notepad++ launch for button size.
+		// For other languages, NativeLangSpeaker::resizeCheckboxRadioBtn will adjust button dimensions.
+		const auto nBtnStyle = ::GetWindowLongPtrW(hwnd, GWL_STYLE);
+		switch (nBtnStyle & BS_TYPEMASK)
+		{
+			case BS_CHECKBOX:
+			case BS_AUTOCHECKBOX:
+			case BS_RADIOBUTTON:
+			case BS_AUTORADIOBUTTON:
+			{
+				if ((nBtnStyle & BS_MULTILINE) != BS_MULTILINE)
+				{
+					::SendMessageW(hwnd, NppDarkMode::WM_SETBUTTONIDEALSIZE, 0, 0);
+				}
+				break;
+			}
+
+			default:
+				break;
+		}
 	}
 
 	static void paintGroupbox(HWND hwnd, HDC hdc, ButtonData& buttonData)
@@ -2322,7 +2394,7 @@ namespace NppDarkMode
 		auto nButtonStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 		switch (nButtonStyle & BS_TYPEMASK)
 		{
-			// Plugin might use BS_3STATE and BS_AUTO3STATE button style
+			// Plugin might use BS_3STATE, BS_AUTO3STATE and BS_PUSHLIKE button style
 			case BS_CHECKBOX:
 			case BS_AUTOCHECKBOX:
 			case BS_3STATE:

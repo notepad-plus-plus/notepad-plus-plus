@@ -366,7 +366,35 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case WM_COMMAND :
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			_generalSubDlg.dpiManager().setDpiWP(wParam);
+			_editingSubDlg.dpiManager().setDpiWP(wParam);
+			_editing2SubDlg.dpiManager().setDpiWP(wParam);
+			_darkModeSubDlg.dpiManager().setDpiWP(wParam);
+			_marginsBorderEdgeSubDlg.dpiManager().setDpiWP(wParam);
+			_miscSubDlg.dpiManager().setDpiWP(wParam);
+			_fileAssocDlg.dpiManager().setDpiWP(wParam);
+			_languageSubDlg.dpiManager().setDpiWP(wParam);
+			_highlightingSubDlg.dpiManager().setDpiWP(wParam);
+			_printSubDlg.dpiManager().setDpiWP(wParam);
+			_searchingSubDlg.dpiManager().setDpiWP(wParam);
+			_newDocumentSubDlg.dpiManager().setDpiWP(wParam);
+			_defaultDirectorySubDlg.dpiManager().setDpiWP(wParam);
+			_recentFilesHistorySubDlg.dpiManager().setDpiWP(wParam);
+			_backupSubDlg.dpiManager().setDpiWP(wParam);
+			_autoCompletionSubDlg.dpiManager().setDpiWP(wParam);
+			_multiInstanceSubDlg.dpiManager().setDpiWP(wParam);
+			_delimiterSubDlg.dpiManager().setDpiWP(wParam);
+			_performanceSubDlg.dpiManager().setDpiWP(wParam);
+
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
 			{
@@ -532,7 +560,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	
-	switch (message) 
+	switch (message)
 	{
 		case WM_INITDIALOG :
 		{
@@ -689,15 +717,19 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tabStatus ^= TAB_ALTICONS;
 					const bool isChecked = isCheckedOrNot(IDC_CHECK_TAB_ALTICONS);
 					const bool isBtnCmd = true;
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBAEICONS, static_cast<WPARAM>(isBtnCmd), isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0));
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGETABBARICONSET, static_cast<WPARAM>(isBtnCmd), isChecked ? 1 : (nppGUI._darkmode._isEnabled ? 2 : 0));
 					NppDarkMode::setTabIconSet(isChecked, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
-				case IDC_CHECK_REDUCE :
+				case IDC_CHECK_REDUCE:
+				{
+					const bool isChecked = isCheckedOrNot(IDC_CHECK_REDUCE);
+					TabBarPlus::setReduced(isChecked);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
 					return TRUE;
-					
+				}
+
 				case IDC_CHECK_LOCK :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LOCKTABBAR, 0);
 					return TRUE;
@@ -1043,7 +1075,6 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_COMMAND : 
 		{
-			ScintillaViewParams & svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 			switch (wParam)
 			{
 				case IDC_CHECK_SMOOTHFONT:
@@ -1429,9 +1460,9 @@ void DarkModeSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2Move
 	NppParameters& nppParam = NppParameters::getInstance();
 
 	if(nppParam.getNativeLangSpeaker()->isRTL())
-		p.x = rc.right + nppParam._dpiManager.scaleX(5) + handle2MoveWidth;
+		p.x = rc.right + _dpiManager.scale(5) + handle2MoveWidth;
 	else
-		p.x = rc.left - nppParam._dpiManager.scaleX(5) - handle2MoveWidth;
+		p.x = rc.left - _dpiManager.scale(5) - handle2MoveWidth;
 
 	p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
@@ -1511,21 +1542,21 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			_pHotEdgeColorPicker->init(_hInst, _hSelf);
 			_pDisabledEdgeColorPicker->init(_hInst, _hSelf);
 
-			int cpDynamicalWidth = NppParameters::getInstance()._dpiManager.scaleX(25);
-			int cpDynamicalHeight = NppParameters::getInstance()._dpiManager.scaleY(25);
+			_dpiManager.setDpi(_hSelf);
+			const int cpDynamicalSize = _dpiManager.scale(25);
 
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
-			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalWidth, cpDynamicalHeight);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 
 			_pBackgroundColorPicker->display();
 			_pSofterBackgroundColorPicker->display();
@@ -1622,6 +1653,26 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			delete _pLinkColorPicker;
 			delete _pHotEdgeColorPicker;
 			delete _pDisabledEdgeColorPicker;
+
+			return TRUE;
+		}
+
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			const int cpDynamicalSize = _dpiManager.scale(25);
+
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR1_STATIC, _pPureBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR2_STATIC, _pHotBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR3_STATIC, _pSofterBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR4_STATIC, _pBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR5_STATIC, _pErrorBackgroundColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR6_STATIC, _pTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR7_STATIC, _pDarkerTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR8_STATIC, _pDisabledTextColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR9_STATIC, _pEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR10_STATIC, _pLinkColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR11_STATIC, _pHotEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
+			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 
 			return TRUE;
 		}
@@ -2817,7 +2868,7 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
 
-	switch (message) 
+	switch (message)
 	{
 		case WM_INITDIALOG:
 		{
@@ -2872,11 +2923,6 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 			{
 				const bool isTextEnabled = isCheckedOrNot(IDC_RADIO_CUSTOMIZELENTH);
 				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
-			}
-
-			if (dlgCtrlID == IDC_EDIT_CUSTOMIZELENGTHVAL)
-			{
-				return NppDarkMode::onCtlColor(hdcStatic);
 			}
 			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
@@ -4468,7 +4514,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEKEY_GRP_STATIC), FALSE);
 				}
 			}
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maintainIndent, 0);
 
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_BRIEF_CHECK, BM_SETCHECK, nppGUI._autocBrief ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_SETCHECK, nppGUI._funcParams ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -4502,16 +4548,16 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, EM_LIMITTEXT, 1, 0);
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, EM_LIMITTEXT, 1, 0);
 
-			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairsInit.size();
+			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairs.size();
 			if (nbMatchedPair > 3)
 				nbMatchedPair = 3;
 			for (size_t i = 0; i < nbMatchedPair; ++i)
 			{
 				TCHAR openChar[2]{};
-				openChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].first;
+				openChar[0] = nppGUI._matchedPairConf._matchedPairs[i].first;
 				openChar[1] = '\0';
 				TCHAR closeChar[2]{};
-				closeChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].second;
+				closeChar[0] = nppGUI._matchedPairConf._matchedPairs[i].second;
 				closeChar[1] = '\0';
 
 				if (i == 0)
@@ -4627,7 +4673,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			{
 				case IDC_CHECK_MAINTAININDENT:
 				{
-					nppGUI._maitainIndent = isCheckedOrNot(IDC_CHECK_MAINTAININDENT);
+					nppGUI._maintainIndent = isCheckedOrNot(IDC_CHECK_MAINTAININDENT);
 					return TRUE;
 				}
 
@@ -5055,12 +5101,42 @@ void DelimiterSubDlg::setWarningIfNeed() const
 	::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
 }
 
+void DelimiterSubDlg::calcCtrlsPos()
+{
+	RECT rcBlabla{};
+	RECT rcBlabla2nd{};
+	RECT rcOpen{};
+	RECT rcOpenEdit{};
+
+	getMappedChildRect(IDD_STATIC_BLABLA, rcBlabla);
+	getMappedChildRect(IDD_STATIC_BLABLA2NDLINE, rcBlabla2nd);
+	getMappedChildRect(IDD_STATIC_OPENDELIMITER, rcOpen);
+	getMappedChildRect(IDC_EDIT_OPENDELIMITER, rcOpenEdit);
+
+	_gapEditHor = (rcBlabla.left - rcOpenEdit.right) - ::GetSystemMetrics(SM_CXEDGE);
+	_gapEditVer = (rcBlabla.top - rcOpenEdit.top) + ::GetSystemMetrics(SM_CYEDGE);
+	_gapText = (rcBlabla.left - rcOpen.right);
+}
+
+void DelimiterSubDlg::setCtrlsPos(bool isMultiline)
+{
+	constexpr UINT flags = SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE), isMultiline ? SW_SHOW : SW_HIDE);
+
+	RECT rcToUse{};
+	getMappedChildRect(isMultiline ? IDD_STATIC_BLABLA2NDLINE : IDD_STATIC_BLABLA, rcToUse);
+
+	::SetWindowPos(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), nullptr, rcToUse.right + _gapEditHor, rcToUse.top - _gapEditVer, 0, 0, flags);
+	::SetWindowPos(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), nullptr, rcToUse.right + _gapText, rcToUse.top, 0, 0, flags);
+}
+
 intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
-	switch (message) 
+	switch (message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			//
 			// Delimiter
@@ -5078,29 +5154,9 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(opener));
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(closer));
 			::SendDlgItemMessage(_hSelf, IDD_SEVERALLINEMODEON_CHECK, BM_SETCHECK, onSeveralLines?BST_CHECKED:BST_UNCHECKED, 0);
-
-			POINT point = getTopPoint(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA), false);
-			_singleLineModePoint.x = point.x + 4;
-			_singleLineModePoint.y = point.y - 4;
-
-			point = getTopPoint(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE), false);
-			_multiLineModePoint.x = point.x + 4;
-			_multiLineModePoint.y = point.y - 4;
-
-			::GetClientRect(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), &_closerRect);
-			_closerRect.right = _closerRect.right - _closerRect.left + 4;
-			_closerRect.bottom = _closerRect.bottom - _closerRect.top + 4;
-
-			::GetClientRect(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), &_closerLabelRect);
-			_closerLabelRect.right = _closerLabelRect.right - _closerLabelRect.left + 4;
-			_closerLabelRect.bottom = _closerLabelRect.bottom - _closerLabelRect.top + 4;
-
-
-			::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE),onSeveralLines?SW_SHOW:SW_HIDE);
-
-			POINT *p = onSeveralLines?&_multiLineModePoint:&_singleLineModePoint;
-			::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
-			::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
+			
+			calcCtrlsPos();
+			setCtrlsPos(onSeveralLines);
 
 			//
 			// Word Char List
@@ -5170,7 +5226,13 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			break;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED_AFTERPARENT:
+		{
+			calcCtrlsPos();
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
@@ -5209,16 +5271,12 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			switch (wParam)
 			{
 
-				case IDD_SEVERALLINEMODEON_CHECK :
+				case IDD_SEVERALLINEMODEON_CHECK:
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_SEVERALLINEMODEON_CHECK, BM_GETCHECK, 0, 0));
 					nppGUI._delimiterSelectionOnEntireDocument = isChecked;
-					
-					::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE),isChecked?SW_SHOW:SW_HIDE);
 
-					POINT *p = isChecked?&_multiLineModePoint:&_singleLineModePoint;
-					::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
-					::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
+					setCtrlsPos(isChecked);
 
 					return TRUE;
 				}
@@ -5259,70 +5317,21 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	NppGUI & nppGUI = nppParams.getNppGUI();
 	const size_t uriSchemesMaxLength = 2048;
 
-	if (HIWORD(wParam) == EN_CHANGE)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_CLOUDPATH_EDIT:
-			{
-				TCHAR inputDir[MAX_PATH] = {'\0'};
-				TCHAR inputDirExpanded[MAX_PATH] = {'\0'};
-				::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
-				::ExpandEnvironmentStrings(inputDir, inputDirExpanded, MAX_PATH);
-				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-				if (::PathFileExists(inputDirExpanded))
-				{
-					nppGUI._cloudPath = inputDirExpanded;
-					nppParams.setCloudChoice(inputDirExpanded);
-					
-					generic_string message;
-					if (nppParams.isCloudPathChanged())
-					{
-						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
-					}
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
-				}
-				else
-				{
-					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
-					if (isChecked)
-					{
-						generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
-
-						::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
-						nppParams.removeCloudChoice();
-					}
-				}
-				return TRUE;
-			}
-
-			case IDC_URISCHEMES_EDIT:
-			{
-				TCHAR uriScheme[uriSchemesMaxLength] = { '\0' };
-				::SendDlgItemMessage(_hSelf, IDC_URISCHEMES_EDIT, WM_GETTEXT, uriSchemesMaxLength, reinterpret_cast<LPARAM>(uriScheme));
-				nppGUI._uriSchemes = uriScheme;
-				HWND grandParent = ::GetParent(_hParent);
-				::SendMessage(grandParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, 0, 0);
-				return TRUE;
-			}
-		}
-	}
-
 	switch (message)
 	{
 		case WM_INITDIALOG:
 		{
-			generic_string message = TEXT("");
+			generic_string errMsg = TEXT("");
 
 			bool withCloud = nppGUI._cloudPath != TEXT("");
 			if (withCloud)
 			{
 				// detect validation of path
 				if (!::PathFileExists(nppGUI._cloudPath.c_str()))
-					message = TEXT("Invalid path");
+					errMsg = TEXT("Invalid path");
 			}
 			
-			::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+			::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
 
 			::SendDlgItemMessage(_hSelf, IDC_NOCLOUD_RADIO, BM_SETCHECK, !withCloud ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_SETCHECK, withCloud ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -5383,6 +5392,55 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 		case WM_COMMAND:
 		{
+			if (HIWORD(wParam) == EN_CHANGE)
+			{
+				switch (LOWORD(wParam))
+				{
+					case  IDC_CLOUDPATH_EDIT:
+					{
+						TCHAR inputDir[MAX_PATH] = { '\0' };
+						TCHAR inputDirExpanded[MAX_PATH] = { '\0' };
+						::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
+						::ExpandEnvironmentStrings(inputDir, inputDirExpanded, MAX_PATH);
+						NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+						if (::PathFileExists(inputDirExpanded))
+						{
+							nppGUI._cloudPath = inputDirExpanded;
+							nppParams.setCloudChoice(inputDirExpanded);
+
+							generic_string warningMsg;
+							if (nppParams.isCloudPathChanged())
+							{
+								warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
+							}
+							::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, warningMsg.c_str());
+						}
+						else
+						{
+							bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
+							if (isChecked)
+							{
+								generic_string errMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
+
+								::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
+								nppParams.removeCloudChoice();
+							}
+						}
+						return TRUE;
+					}
+
+					case IDC_URISCHEMES_EDIT:
+					{
+						TCHAR uriScheme[uriSchemesMaxLength] = { '\0' };
+						::SendDlgItemMessage(_hSelf, IDC_URISCHEMES_EDIT, WM_GETTEXT, uriSchemesMaxLength, reinterpret_cast<LPARAM>(uriScheme));
+						nppGUI._uriSchemes = uriScheme;
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_UPDATECLICKABLELINKS, 0, 0);
+						return TRUE;
+					}
+				}
+			}
+
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			switch (wParam)
 			{
@@ -5391,13 +5449,13 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 					nppGUI._cloudPath = TEXT("");
 					nppParams.removeCloudChoice();
 
-					generic_string message;
+					generic_string warningMsg;
 					if (nppParams.isCloudPathChanged())
 					{
-						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
+						warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
 					}
 					// else set empty string
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, warningMsg.c_str());
 
 					::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._cloudPath.c_str()));
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), false);
@@ -5407,8 +5465,8 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 				case IDC_WITHCLOUD_RADIO:
 				{
-					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+					generic_string errMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, errMsg.c_str());
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), true);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_CLOUDPATH_BROWSE_BUTTON), true);
@@ -5417,8 +5475,8 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 				case IDD_CLOUDPATH_BROWSE_BUTTON:
 				{
-					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-select-folder", TEXT("Select a folder from/to where Notepad++ reads/writes its settings"));
-					folderBrowser(_hSelf, message, IDC_CLOUDPATH_EDIT);
+					generic_string warningMsg = pNativeSpeaker->getLocalizedStrFromID("cloud-select-folder", TEXT("Select a folder from/to where Notepad++ reads/writes its settings"));
+					folderBrowser(_hSelf, warningMsg, IDC_CLOUDPATH_EDIT);
 				}
 				break;
 
@@ -5460,7 +5518,7 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 					return FALSE;
 
 			}
-		}																						
+		}
 	}
 	return FALSE;
 }
@@ -5469,62 +5527,6 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-
-	if (HIWORD(wParam) == EN_CHANGE)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_EDIT_PERFORMANCE_FILESIZE:
-			{
-				constexpr int stringSize = 16;
-				TCHAR str[stringSize]{};
-
-				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
-
-				if (lstrcmp(str, TEXT("")) == 0)
-					return TRUE;
-
-				constexpr int fileLenInMBMax = (INT32_MAX - 1024 * 1024) / 1024 / 1024; // -1MB ... have to to consider also the bufferSizeRequested algo in FileManager::loadFileData
-				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
-				if (fileLenInMB > fileLenInMBMax)
-				{
-					fileLenInMB = fileLenInMBMax;
-					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
-				}
-
-				nppGUI._largeFileRestriction._largeFileSizeDefInByte = fileLenInMB * 1024 * 1024;
-			}
-			return TRUE;
-		}
-	}
-	else if (HIWORD(wParam) == EN_KILLFOCUS)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_EDIT_PERFORMANCE_FILESIZE:
-			{
-				constexpr int stringSize = 16;
-				TCHAR str[stringSize]{};
-				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
-
-				if (lstrcmp(str, TEXT("")) == 0)
-				{
-					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024, FALSE);
-					return TRUE;
-				}
-
-				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
-
-				if (fileLenInMB == 0)
-				{
-					fileLenInMB = (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024;
-					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
-					return TRUE;
-				}
-			}
-			return TRUE;
-		}
-	}
 
 	switch (message)
 	{
@@ -5579,11 +5581,6 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 				bool isTextEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
 				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
 			}
-
-			if (dlgCtrlID == IDC_EDIT_PERFORMANCE_FILESIZE)
-			{
-				return NppDarkMode::onCtlColor(hdcStatic);
-			}
 			return NppDarkMode::onCtlColorDarker(hdcStatic);
 		}
 
@@ -5598,6 +5595,53 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 
 		case WM_COMMAND:
 		{
+			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_EDIT_PERFORMANCE_FILESIZE)
+			{
+
+				constexpr int stringSize = 16;
+				TCHAR str[stringSize]{};
+
+				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
+
+				if (lstrcmp(str, TEXT("")) == 0)
+					return TRUE;
+
+				constexpr int fileLenInMBMax = (INT32_MAX - 1024 * 1024) / 1024 / 1024; // -1MB ... have to to consider also the bufferSizeRequested algo in FileManager::loadFileData
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+				if (fileLenInMB > fileLenInMBMax)
+				{
+					fileLenInMB = fileLenInMBMax;
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
+				}
+
+				nppGUI._largeFileRestriction._largeFileSizeDefInByte = fileLenInMB * 1024 * 1024;
+
+				return TRUE;
+			}
+			else if (HIWORD(wParam) == EN_KILLFOCUS && LOWORD(wParam) == IDC_EDIT_PERFORMANCE_FILESIZE)
+			{
+				constexpr int stringSize = 16;
+				TCHAR str[stringSize]{};
+				::GetDlgItemText(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, str, stringSize);
+
+				if (lstrcmp(str, TEXT("")) == 0)
+				{
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024, FALSE);
+					return TRUE;
+				}
+
+				int64_t fileLenInMB = ::GetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, NULL, FALSE);
+
+				if (fileLenInMB == 0)
+				{
+					fileLenInMB = (NPP_STYLING_FILESIZE_LIMIT_DEFAULT / 1024) / 1024;
+					::SetDlgItemInt(_hSelf, IDC_EDIT_PERFORMANCE_FILESIZE, UINT(fileLenInMB), FALSE);
+					return TRUE;
+				}
+
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case IDC_CHECK_PERFORMANCE_ENABLE:
@@ -5688,20 +5732,6 @@ intptr_t CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParams.getNppGUI();
 
-	if (HIWORD(wParam) == EN_CHANGE)
-	{
-		switch (LOWORD(wParam))
-		{
-			case  IDC_SEARCHENGINE_EDIT:
-			{
-				TCHAR input[MAX_PATH] = { '\0' };
-				::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(input));
-				nppGUI._searchEngineCustom = input;
-				return TRUE;
-			}
-		}
-	}
-
 	switch (message)
 	{
 		case WM_INITDIALOG:
@@ -5750,6 +5780,14 @@ intptr_t CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 		case WM_COMMAND:
 		{
+			if (HIWORD(wParam) == EN_CHANGE && LOWORD(wParam) == IDC_SEARCHENGINE_EDIT)
+			{
+				TCHAR input[MAX_PATH] = { '\0' };
+				::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(input));
+				nppGUI._searchEngineCustom = input;
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case IDC_SEARCHENGINE_DUCKDUCKGO_RADIO:

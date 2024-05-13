@@ -95,7 +95,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			destroy();
 			//setPositionDpi(lParam);
 			getClientRect(_rc);
@@ -105,7 +105,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_DRAWITEM:
 		{
-			const int iconSize = DPIManagerV2::scale(80);
+			const int iconSize = _dpiManager.scale(80);
 			if (_hIcon == nullptr)
 			{
 				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_CHAMELEON_DM : IDI_CHAMELEON), iconSize, iconSize, &_hIcon);
@@ -114,8 +114,10 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_JESUISCHARLIE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_GILETJAUNE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
 			//HICON hIcon = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_SAMESEXMARRIAGE), IMAGE_ICON, 64, 64, LR_DEFAULTSIZE);
+
 			auto pdis = reinterpret_cast<DRAWITEMSTRUCT*>(lParam);
 			::DrawIconEx(pdis->hDC, 0, 0, _hIcon, iconSize, iconSize, 0, nullptr, DI_NORMAL);
+
 			return TRUE;
 		}
 
@@ -332,7 +334,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			HMODULE hNtdllModule = GetModuleHandle(L"ntdll.dll");
 			if (hNtdllModule)
 			{
-				pWGV = (PWINEGETVERSION)GetProcAddress(hNtdllModule, "wine_get_version");
+				pWGV = reinterpret_cast<PWINEGETVERSION>(GetProcAddress(hNtdllModule, "wine_get_version"));
 			}
 
 			if (pWGV != nullptr)
@@ -378,7 +380,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			getClientRect(_rc);
 			setPositionDpi(lParam);
 
@@ -519,7 +521,7 @@ intptr_t CALLBACK DoSaveOrNotBox::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			setPositionDpi(lParam);
 
 			return TRUE;
@@ -637,7 +639,7 @@ intptr_t CALLBACK DoSaveAllBox::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 	case WM_DPICHANGED:
 	{
-		DPIManagerV2::setDpiWP(wParam);
+		_dpiManager.setDpiWP(wParam);
 		setPositionDpi(lParam);
 
 		return TRUE;

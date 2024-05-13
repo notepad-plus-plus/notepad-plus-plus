@@ -439,6 +439,8 @@
 				<Item CMDID="42030" name="Dosya Adını Kopyala"/>
 				<Item CMDID="42031" name="Şimdiki Dizin Yolunu Kopyala"/>
 				<Item CMDID="3" name="Belgeyi Taşı"/>
+				<Item CMDID="10005" name="Başlangıca Taşı"/>
+				<Item CMDID="10006" name="Sona Taşı"/>
 				<Item CMDID="10001" name="Diğer Görünüme Taşı"/>
 				<Item CMDID="10002" name="Diğer Görünüme Kopyasını Çıkart"/>
 				<Item CMDID="10003" name="Yeni Pencereye Taşı"/>
@@ -1096,6 +1098,7 @@
 					<Item id="4009" name="Desteklenen uzantılar:"/>
 					<Item id="4010" name="Kaydedilen uzantılar:"/>
 				</FileAssoc>
+				
 				<Language title="Dil Menüsü">
 					<Item id="6505" name="Kullanılabilir öğeler:"/>
 					<Item id="6506" name="Devre dışı öğeler:"/>

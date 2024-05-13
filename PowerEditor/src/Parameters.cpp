@@ -4164,6 +4164,11 @@ bool NppParameters::feedStylerArray(TiXmlNode *node)
 			return result;
 		};
 
+	// check void ScintillaEditView::performGlobalStyles() for default colors
+
+	addStyle(L"Multi-selected text color", L"", L"C0C0C0", L"Selected text colour"); // liteGrey
+	addStyle(L"Multi-edit carets color", L"404040", L"", L"Caret colour"); // darkGrey
+
 	addStyle(L"Change History modified", L"FF8000", L"FF8000");
 	addStyle(L"Change History revert modified", L"A0C000", L"A0C000");
 	addStyle(L"Change History revert origin", L"40A0BF", L"40A0BF");
@@ -5063,7 +5068,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
-		else if (lstrcmp(nm, TEXT("MaitainIndent")) == 0)
+		else if (lstrcmp(nm, TEXT("MaintainIndent")) == 0 || 
+			lstrcmp(nm, TEXT("MaitainIndent")) == 0) // typo - kept for the compatibility reason
 		{
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
@@ -5072,9 +5078,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				if (val)
 				{
 					if (lstrcmp(val, TEXT("yes")) == 0)
-						_nppGUI._maitainIndent = true;
+						_nppGUI._maintainIndent = true;
 					else
-						_nppGUI._maitainIndent = false;
+						_nppGUI._maintainIndent = false;
 				}
 			}
 		}
@@ -5849,7 +5855,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					close = closeVal;
 
 				if (open != -1 && close != -1)
-					_nppGUI._matchedPairConf._matchedPairsInit.push_back(pair<char, char>(char(open), char(close)));
+					_nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(char(open), char(close)));
 			}
 		}
 
@@ -7225,9 +7231,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("TrayIcon"), _nppGUI._isMinimizedToTray);
 	}
 
-	// <GUIConfig name="MaitainIndent">yes</GUIConfig>
+	// <GUIConfig name="MaintainIndent">yes</GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, TEXT("MaitainIndent"), _nppGUI._maitainIndent);
+		insertGUIConfigBoolNode(newGUIRoot, TEXT("MaintainIndent"), _nppGUI._maintainIndent);
 	}
 
 	// <GUIConfig name = "TagsMatchHighLight" TagAttrHighLight = "yes" HighLightNonHtmlZone = "no">yes< / GUIConfig>

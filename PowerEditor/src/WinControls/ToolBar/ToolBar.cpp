@@ -125,7 +125,10 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	Window::init(hInst, hPere);
 	
 	_state = type;
-	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
+
+	_dpiManager.setDpi(hPere);
+
+	int iconSize = _dpiManager.scale(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
 	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
@@ -231,7 +234,7 @@ int ToolBar::getHeight() const
 
 void ToolBar::reduce() 
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	int iconDpiDynamicalSize = _dpiManager.scale(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_SMALL);
 	reset(true);	//recreate toolbar if previous state was Std icons or Big icons
@@ -240,7 +243,7 @@ void ToolBar::reduce()
 
 void ToolBar::enlarge()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	int iconDpiDynamicalSize = _dpiManager.scale(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE);
 	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
@@ -249,7 +252,7 @@ void ToolBar::enlarge()
 
 void ToolBar::reduceToSet2()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	int iconDpiDynamicalSize = _dpiManager.scale(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 
 	setState(TB_SMALL2);
@@ -259,7 +262,7 @@ void ToolBar::reduceToSet2()
 
 void ToolBar::enlargeToSet2()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	int iconDpiDynamicalSize = _dpiManager.scale(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE2);
 	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
@@ -373,7 +376,7 @@ void ToolBar::reset(bool create)
 	else
 	{
 		//Else set the internal imagelist with standard bitmaps
-		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+		int iconDpiDynamicalSize = _dpiManager.scale(16);
 		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
 		TBADDBITMAP addbmp = { 0, 0 };
@@ -398,7 +401,7 @@ void ToolBar::reset(bool create)
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
 		_nbCurrentButtons = _nbTotalButtons;
-		WORD btnSize = (_state == TB_LARGE ? 32 : 16);
+		WORD btnSize = static_cast<WORD>(_dpiManager.scale((_state == TB_LARGE || _state == TB_LARGE2) ? 32 : 16));
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}
@@ -508,6 +511,14 @@ void ToolBar::doPopop(POINT chevPoint)
 		}
 		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);
 	}
+}
+
+void ToolBar::resizeIconsDpi(UINT dpi)
+{
+	_dpiManager.setDpi(dpi);
+	const int iconDpiDynamicalSize = _dpiManager.scale((_state == TB_LARGE || _state == TB_LARGE2) ? 32 : 16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	reset(true);
 }
 
 void ToolBar::addToRebar(ReBar * rebar) 

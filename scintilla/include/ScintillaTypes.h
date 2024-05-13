@@ -178,6 +178,8 @@ enum class Element {
 	SelectionSecondaryBack = 15,
 	SelectionInactiveText = 16,
 	SelectionInactiveBack = 17,
+	SelectionInactiveAdditionalText = 18,
+	SelectionInactiveAdditionalBack = 19,
 	Caret = 40,
 	CaretAdditional = 41,
 	CaretLineBack = 50,

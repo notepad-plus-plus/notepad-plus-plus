@@ -175,7 +175,7 @@ public:
 
 protected :
 	KeyCombo _keyCombo;
-	virtual intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 	bool _canModifyName = false;
 	char _name[menuItemStrLenMax] {};		//normal name is plain text (for display purposes)
 	char _menuName[menuItemStrLenMax] {};	//menu name has ampersands for quick keys
@@ -232,13 +232,13 @@ public:
 		_size = 1;
 	};
 	int addKeyCombo(KeyCombo combo);
-	bool isEnabled() const;
+	bool isEnabled() const override;
 	size_t getSize() const;
 
-	std::string toString() const;
+	std::string toString() const override;
 	std::string toString(size_t index) const;
 
-	intptr_t doDialog()
+	intptr_t doDialog() override
 	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
@@ -275,7 +275,7 @@ private:
 	void showCurrentSettings();
 	void updateListItem(int index);
 protected :
-	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
 };
 
 
@@ -294,7 +294,7 @@ struct recordedMacroStep {
 	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam);
 	explicit recordedMacroStep(int iCommandID): _wParameter(iCommandID) {};
 
-	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const char *sParam, int type)
+	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const char* sParam, int type)
 		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)){
 			_sParameter = (sParam) ? std::string(sParam) : "";	
 	};
@@ -334,7 +334,7 @@ class PluginCmdShortcut : public CommandShortcut {
 public:
 	PluginCmdShortcut(const Shortcut& sc, int id, const char*moduleName, unsigned short internalID) :\
 		CommandShortcut(sc, id), _id(id), _moduleName(moduleName), _internalID(internalID) {};
-	bool isValid() const {
+	bool isValid() const override {
 		if (!Shortcut::isValid())
 			return false;
 		if ((!_moduleName[0]) || (_internalID == -1))
@@ -362,6 +362,8 @@ public:
 			::DestroyAcceleratorTable(_hIncFindAccTab);
 		if (_hFindAccTab)
 			::DestroyAcceleratorTable(_hFindAccTab);
+		if (_hAccTabSwitch)
+			::DestroyAcceleratorTable(_hAccTabSwitch);
 		delete [] _pAccelArray;
 	};
 	void init(HMENU hMenu, HWND menuParent) {
@@ -372,6 +374,7 @@ public:
 	HACCEL getAccTable() const {return _hAccTable;};
 	HACCEL getIncrFindAccTable() const { return _hIncFindAccTab; };
 	HACCEL getFindAccTable() const { return _hFindAccTab; };
+	HACCEL getTabSwitchAccTable() const { return _hAccTabSwitch; };
 
 	void updateShortcuts();
 	void updateFullMenu();
@@ -382,6 +385,7 @@ private:
 	HACCEL _hAccTable = nullptr;
 	HACCEL _hIncFindAccTab = nullptr;
 	HACCEL _hFindAccTab = nullptr;
+	HACCEL _hAccTabSwitch = nullptr;
 	ACCEL *_pAccelArray = nullptr;
 	int _nbAccelItems = 0;
 

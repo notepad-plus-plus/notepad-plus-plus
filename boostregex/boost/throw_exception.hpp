@@ -54,7 +54,7 @@ typedef char (&wrapexcept_s2)[ 2 ];
 template<class T> wrapexcept_s1 wrapexcept_is_convertible( T* );
 template<class T> wrapexcept_s2 wrapexcept_is_convertible( void* );
 
-template<class E, class B, std::size_t I = sizeof( wrapexcept_is_convertible<B>( static_cast< E* >( 0 ) ) ) > struct wrapexcept_add_base;
+template<class E, class B, std::size_t I = sizeof( wrapexcept_is_convertible<B>( static_cast< E* >( BOOST_NULLPTR ) ) ) > struct wrapexcept_add_base;
 
 template<class E, class B> struct wrapexcept_add_base<E, B, 1>
 {
@@ -104,9 +104,9 @@ public:
         copy_from( &e );
 
         set_info( *this, throw_file( loc.file_name() ) );
-        set_info( *this, throw_line( loc.line() ) );
+        set_info( *this, throw_line( static_cast<int>( loc.line() ) ) );
         set_info( *this, throw_function( loc.function_name() ) );
-        set_info( *this, throw_column( loc.column() ) );
+        set_info( *this, throw_column( static_cast<int>( loc.column() ) ) );
     }
 
     virtual boost::exception_detail::clone_base const * clone() const BOOST_OVERRIDE

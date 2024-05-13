@@ -8,7 +8,7 @@ jobs:
         runs-on: windows-latest
 
         steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
         - name: Preparing nmake
           uses: ilammy/msvc-dev-cmd@v1
           with:
@@ -31,7 +31,7 @@ jobs:
               cd src
               nmake -f lexilla.mak DEBUG=1
               cd ..
-        - uses: actions/upload-artifact@v3
+        - uses: actions/upload-artifact@v4
           with:
               name: lexilla.dll
               path: bin/lexilla.dll

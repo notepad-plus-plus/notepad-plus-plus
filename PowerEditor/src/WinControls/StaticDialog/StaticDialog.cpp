@@ -93,6 +93,8 @@ void StaticDialog::goToCenter(UINT swpFlags)
 	int y = center.y - (_rc.bottom - _rc.top)/2;
 
 	::SetWindowPos(_hSelf, HWND_TOP, x, y, _rc.right - _rc.left, _rc.bottom - _rc.top, swpFlags);
+	if (((swpFlags & SWP_NOMOVE) != SWP_NOMOVE) && ((swpFlags & SWP_SHOWWINDOW) == SWP_SHOWWINDOW))
+		::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 }
 
 void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing) const
@@ -135,8 +137,9 @@ void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing
 				newTop = workAreaRect.top;
 
 			if ((newLeft != rc.left) || (newTop != rc.top)) // then the virtual screen size has shrunk
-				// Remember that MoveWindow wants width/height.
-				::MoveWindow(_hSelf, newLeft, newTop, rc.right - rc.left, rc.bottom - rc.top, TRUE);
+				::SetWindowPos(_hSelf, nullptr, newLeft, newTop, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+			else
+				::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 		}
 	}
 
@@ -211,7 +214,7 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 	if (!hDlgTemplate)
 		return NULL;
 
-	DLGTEMPLATE *pDlgTemplate = static_cast<DLGTEMPLATE *>(::LockResource(hDlgTemplate));
+	const DLGTEMPLATE *pDlgTemplate = static_cast<DLGTEMPLATE *>(::LockResource(hDlgTemplate));
 	if (!pDlgTemplate)
 		return NULL;
 
@@ -261,16 +264,6 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	// if the destination of message NPPM_MODELESSDIALOG is not its parent, then it's the grand-parent
 	::SendMessage(msgDestParent ? _hParent : (::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, reinterpret_cast<WPARAM>(_hSelf));
-}
-
-void StaticDialog::createForDpi(int dialogID, bool isRTL, bool msgDestParent, DPI_AWARENESS_CONTEXT dpiAContext)
-{
-	const auto dpiContext = setThreadDpiAwarenessContext(dpiAContext);
-	create(dialogID, isRTL, msgDestParent);
-	if (dpiContext != NULL)
-	{
-		setThreadDpiAwarenessContext(dpiContext);
-	}
 }
 
 intptr_t CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)

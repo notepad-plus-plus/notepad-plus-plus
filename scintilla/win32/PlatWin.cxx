@@ -405,7 +405,7 @@ float GetDeviceScaleFactorWhenGdiScalingActive(HWND hWnd) noexcept {
 			const HMONITOR hMonitor = MonitorFromWindowHandleScaling(hRootWnd);
 			DEVICE_SCALE_FACTOR deviceScaleFactor;
 			if (S_OK == fnGetScaleFactorForMonitor(hMonitor, &deviceScaleFactor))
-				return deviceScaleFactor / 100.f;
+				return static_cast<int>(deviceScaleFactor) / 100.f;
 		}
 	}
 	return 1.f;
@@ -2782,7 +2782,7 @@ void Window::InvalidateRectangle(PRectangle rc) {
 	::InvalidateRect(HwndFromWindowID(wid), &rcw, FALSE);
 }
 
-HCURSOR LoadReverseArrowCursor(UINT dpi) noexcept {
+HCURSOR LoadReverseArrowCursor(UINT dpi, int cursorBaseSize) noexcept {
 	class CursorHelper {
 	public:
 		ICONINFO info{};
@@ -2848,8 +2848,15 @@ HCURSOR LoadReverseArrowCursor(UINT dpi) noexcept {
 
 	HCURSOR reverseArrowCursor {};
 
-	const int width = SystemMetricsForDpi(SM_CXCURSOR, dpi);
-	const int height = SystemMetricsForDpi(SM_CYCURSOR, dpi);
+	int width;
+	int height;
+	if (cursorBaseSize > defaultCursorBaseSize) {
+		width = ::MulDiv(cursorBaseSize, dpi, USER_DEFAULT_SCREEN_DPI);
+		height = width;
+	} else {
+		width = SystemMetricsForDpi(SM_CXCURSOR, dpi);
+		height = SystemMetricsForDpi(SM_CYCURSOR, dpi);
+	}
 
 	DPI_AWARENESS_CONTEXT oldContext = nullptr;
 	if (fnAreDpiAwarenessContextsEqual && fnAreDpiAwarenessContextsEqual(fnGetThreadDpiAwarenessContext(), DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED)) {

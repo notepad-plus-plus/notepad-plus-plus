@@ -1,5 +1,6 @@
 <head> <!-- About to script -->
 <?php
+decrypt "xyzzy";
 echo __FILE__.__LINE__;
 echo "<!-- -->\n";
 /* ?> */

@@ -35,11 +35,8 @@ using namespace ReadDirectoryChangesPrivate;
 ///////////////////////////////////////////////////////////////////////////
 // CReadDirectoryChanges
 
-CReadDirectoryChanges::CReadDirectoryChanges()
-	: m_Notifications()
+CReadDirectoryChanges::CReadDirectoryChanges(): m_Notifications()
 {
-	m_hThread	= NULL;
-	m_dwThreadId= 0;
 	m_pServer	= new CReadChangesServer(this);
 }
 

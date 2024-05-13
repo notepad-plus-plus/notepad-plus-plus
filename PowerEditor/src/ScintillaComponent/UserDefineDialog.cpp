@@ -100,9 +100,13 @@ intptr_t CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wPara
 {
     switch (Message)
     {
-        case WM_INITDIALOG :
+        case WM_INITDIALOG:
         {
             // initControls();
+
+            // Allow tab switch between main dialog and subdialogs
+            const auto exStyle = ::GetWindowLongPtr(_hSelf, GWL_EXSTYLE);
+            ::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle | WS_EX_CONTROLPARENT);
             return TRUE;
         }
 
@@ -147,14 +151,20 @@ intptr_t CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
 {
     switch (Message)
     {
-        case WM_INITDIALOG :
+        case WM_INITDIALOG:
         {
             _pageLink.init(_hInst, _hSelf);
             _pageLink.create(::GetDlgItem(_hSelf, IDC_WEB_HELP_LINK), TEXT("https://ivan-radic.github.io/udl-documentation/"));
+            return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
+        }
+
+        case WM_DPICHANGED_AFTERPARENT:
+        {
+            _pageLink.destroy();
             return TRUE;
         }
 
-        case WM_COMMAND :
+        case WM_COMMAND:
         {
             switch (wParam)
             {
@@ -264,7 +274,7 @@ intptr_t CALLBACK KeyWordsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, 
 {
     switch (Message)
     {
-        case WM_INITDIALOG :
+        case WM_INITDIALOG:
         {
             // extend Keyword edit boxes to hold 128k of TCHARs
             ::SendMessage(::GetDlgItem(_hSelf,IDC_KEYWORD1_EDIT), EM_LIMITTEXT, WPARAM(128*1024), 0);
@@ -276,10 +286,10 @@ intptr_t CALLBACK KeyWordsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, 
             ::SendMessage(::GetDlgItem(_hSelf,IDC_KEYWORD7_EDIT), EM_LIMITTEXT, WPARAM(128*1024), 0);
             ::SendMessage(::GetDlgItem(_hSelf,IDC_KEYWORD8_EDIT), EM_LIMITTEXT, WPARAM(128*1024), 0);
 
-            return TRUE;
+            return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
         }
 
-        case WM_COMMAND :
+        case WM_COMMAND:
         {
             switch (wParam)
             {
@@ -1144,7 +1154,15 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
             return TRUE;
         }
 
-        case WM_COMMAND :
+        case WM_DPICHANGED:
+        {
+            _dpiManager.setDpiWP(wParam);
+            setPositionDpi(lParam);
+
+            return TRUE;
+        }
+
+        case WM_COMMAND:
         {
             if (HIWORD(wParam) == EN_CHANGE)
             {
@@ -1153,19 +1171,36 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                 _pUserLang->_ext = ext;
                 return TRUE;
             }
-            else if (HIWORD(wParam) == CBN_SELCHANGE)
+            else if (HIWORD(wParam) == CBN_SELCHANGE) // HIWORD(wParam) for accelerators is also 1
             {
-                if (LOWORD(wParam) == IDC_LANGNAME_COMBO)
+                switch (LOWORD(wParam))
                 {
-					auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
-                    enableLangAndControlsBy(i);
-                    updateDlg();
+                    case IDC_LANGNAME_COMBO:
+                    {
+                        auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+                        enableLangAndControlsBy(i);
+                        updateDlg();
+                        return TRUE;
+                    }
+
+                    case IDC_NEXT_TAB:
+                    case IDC_PREV_TAB:
+                    {
+                        const int selTabIdx = _ctrlTab.getNextOrPrevTabIdx(LOWORD(wParam) == IDC_NEXT_TAB);
+                        _ctrlTab.activateAt(selTabIdx);
+                        _ctrlTab.clickedUpdate();
+                        ::SetFocus(_ctrlTab.getHSelf());
+
+                        return TRUE;
+                    }
+
+                    default:
+                        return FALSE;
                 }
-                return TRUE;
             }
             else
             {
-                switch (wParam)
+                switch (LOWORD(wParam))
                 {
                     case IDC_DOCK_BUTTON :
                     {
@@ -1530,11 +1565,11 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
     return FALSE;
 }
 
-intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
     switch (Message)
     {
-        case WM_INITDIALOG :
+        case WM_INITDIALOG:
         {
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -1606,7 +1641,15 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			return TRUE;
 		}
 
-        case WM_COMMAND :
+        case WM_DPICHANGED:
+        {
+            _dpiManager.setDpiWP(wParam);
+            setPositionDpi(lParam);
+
+            return TRUE;
+        }
+
+        case WM_COMMAND:
         {
             switch (wParam)
             {
@@ -1715,7 +1758,7 @@ void StylerDlg::move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int h
     RECT rc{};
     ::GetWindowRect(::GetDlgItem(hwndDlg, ctrlID), &rc);
 
-    p.x = rc.right + NppParameters::getInstance()._dpiManager.scaleX(5);
+    p.x = rc.right + DPIManagerV2::scale(5, hwndDlg);
     p.y = rc.top + ((rc.bottom - rc.top) / 2) - handle2MoveHeight / 2;
 
     ::ScreenToClient(hwndDlg, &p);
@@ -1798,12 +1841,9 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             dlg->_pBgColour->setEnabled(isBgEnabled);
             ::SendDlgItemMessage(hwnd, IDC_STYLER_CHECK_BG_TRANSPARENT, BM_SETCHECK, !isBgEnabled, 0);
 
-            int w = nppParam._dpiManager.scaleX(25);
-            int h = nppParam._dpiManager.scaleY(25);
-
-            dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), w, h);
-            dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), w, h);
-
+            const int moveSize = DPIManagerV2::scale(25, hwnd);
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), moveSize, moveSize);
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), moveSize, moveSize);
 
             dlg->_pFgColour->display();
             dlg->_pBgColour->display();
@@ -1850,7 +1890,18 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
             return TRUE;
         }
 
-        case WM_COMMAND :
+        case WM_DPICHANGED:
+        {
+            const int moveSize = DPIManagerV2::scale(25, hwnd);
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_FG_STATIC, dlg->_pFgColour->getHSelf(), moveSize, moveSize);
+            dlg->move2CtrlRight(hwnd, IDC_STYLER_BG_STATIC, dlg->_pBgColour->getHSelf(), moveSize, moveSize);
+
+            DPIManagerV2::setPositionDpi(lParam, hwnd, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+
+            return TRUE;
+        }
+
+        case WM_COMMAND:
         {
 			if (dlg == nullptr)
 				return FALSE;

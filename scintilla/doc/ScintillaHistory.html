@@ -584,6 +584,31 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/scintilla550.zip">Release 5.5.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released 23 April 2024.
+	</li>
+	<li>
+	Add elements for inactive additional selections SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_TEXT
+	and SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_BACK.
+	When not set these default to SC_ELEMENT_SELECTION_INACTIVE_TEXT and SC_ELEMENT_SELECTION_INACTIVE_BACK.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2417/">Bug #2417</a>.
+	</li>
+	<li>
+	On Cocoa, avoid use of NSUserDefaults which will soon require justification when used in applications on the App Store.
+	</li>
+	<li>
+	Fix Win32 IME crash in windowed mode.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2433/">Bug #2433</a>.
+	</li>
+	<li>
+	Scale reverse arrow cursor for margins to match other cursors when user changes pointer size.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2321/">Bug #2321</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/scintilla543.zip">Release 5.4.3</a>
     </h3>
     <ul>

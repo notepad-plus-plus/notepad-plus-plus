@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 10.03.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 05.05.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -1191,7 +1191,7 @@
 					<Item id="7141" name="Ограничение за големи файлове"/>
 					<Item id="7143" name="Включване на ограничението за големи файлове (без открояване на синтаксис)"/>
 					<Item id="7144" name="Задаване на размер за голям файл:"/>
-					<Item id="7146" name="MB   (1 – 4096)"/>
+					<Item id="7146" name="MB   (1 – 2046)"/>
 					<Item id="7150" name="Глобално деактивиране на &quot;На повече редове&quot;"/>
 					<Item id="7148" name="Разрешаване на &quot;Автоматично завършване&quot;"/>
 					<Item id="7149" name="Разрешаване на &quot;Интелигентно открояване&quot;"/>

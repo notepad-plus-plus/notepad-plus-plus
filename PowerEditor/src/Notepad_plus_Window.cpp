@@ -422,6 +422,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 {
+	if (_notepad_plus_plus_core.processTabSwitchAccel(msg))
+		return true;
+
 	if (_notepad_plus_plus_core.processIncrFindAccel(msg))
 		return true;
 

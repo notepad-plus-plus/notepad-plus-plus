@@ -1250,8 +1250,6 @@ void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 
 void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem)
 {
-	bool isRecursive = true;
-	bool isInHiddenDir = false;
 	generic_string dirFilter(folderPath);
 	if (folderPath[lstrlen(folderPath)-1] != '\\')
 		dirFilter += TEXT("\\");
@@ -1268,13 +1266,13 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) // Hidden directories are ignored
 			{
 				// do nothing
 			}
-			else if (isRecursive)
+			else // Always recursive
 			{
-				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
+				if ((wcscmp(foundData.cFileName, TEXT(".")) != 0) && (wcscmp(foundData.cFileName, TEXT("..")) != 0))
 				{
 					generic_string pathDir(folderPath);
 					if (folderPath[lstrlen(folderPath)-1] != '\\')
@@ -1332,7 +1330,7 @@ void ProjectPanel::addFilesFromDirectory(HTREEITEM hTreeItem)
 	}
 }
 
-intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
@@ -1372,9 +1370,17 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 			break;
 		}
 
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDOK :
 				{

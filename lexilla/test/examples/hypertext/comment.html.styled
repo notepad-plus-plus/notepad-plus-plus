@@ -1,0 +1,8 @@
+{9}<!---->{1}<p>{0}1 normal comment{1}</p>{0}
+{9}<!-- > and <!-->{1}<p>{0}2 valid comment{1}</p>{0}
+{9}<!-->{1}<p>{0}3 abrupt-closing-of-empty-comment{1}</p>{0}
+{9}<!--->{1}<p>{0}4 abrupt-closing-of-empty-comment{1}</p>{0}
+{9}<!----!>{1}<p>{0}5 incorrectly-closed-comment{1}</p>{0}
+{9}<!--!> <h1 value="--!>{1}<p>{0}6 incorrectly-closed-comment{1}</p>{0}
+{9}<!--<!--->{1}<p>{0}7 nested-comment{1}</p>{0}
+{9}<!--<!---!>{1}<p>{0}8 nested-comment{1}</p>{0}

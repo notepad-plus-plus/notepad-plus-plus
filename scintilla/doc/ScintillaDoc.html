@@ -129,7 +129,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 16 February 2024 NH</p>
+    <p>Last edited 22 March 2024 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -3804,6 +3804,22 @@ struct Sci_TextToFindFull {
            <td>Cocoa</td>
            <td>Background colour of selections when another window has focus</td>
          </tr>
+         <tr>
+           <th align="left"><code>SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_TEXT</code></th>
+           <td>18</td>
+           <td>Translucent</td>
+           <td>All</td>
+           <td></td>
+           <td>Text colour of additional selections when another window has focus</td>
+         </tr>
+         <tr>
+           <th align="left"><code>SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_BACK</code></th>
+           <td>19</td>
+           <td>Translucent</td>
+           <td>All</td>
+           <td></td>
+           <td>Background colour of additional selections when another window has focus</td>
+         </tr>
          <tr class="section">
            <th align="left"><code>SC_ELEMENT_CARET</code></th>
            <td>40</td>
@@ -3911,6 +3927,8 @@ struct Sci_TextToFindFull {
     <br />
     <a class="element" href="#SC_ELEMENT_SELECTION_INACTIVE_TEXT">SC_ELEMENT_SELECTION_INACTIVE_TEXT : colouralpha</a><br />
     <a class="element" href="#SC_ELEMENT_SELECTION_INACTIVE_BACK">SC_ELEMENT_SELECTION_INACTIVE_BACK : colouralpha</a><br />
+    <a class="element" href="#SC_ELEMENT_SELECTION_INACTIVE_TEXT">SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_TEXT : colouralpha</a><br />
+    <a class="element" href="#SC_ELEMENT_SELECTION_INACTIVE_BACK">SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_BACK : colouralpha</a><br />
     <br />
     <a class="element" href="#SC_ELEMENT_CARET_LINE_BACK">SC_ELEMENT_CARET_LINE_BACK : colouralpha</a><br />
     <a class="message" href="#SCI_SETCARETLINELAYER">SCI_SETCARETLINELAYER(int layer)</a><br />
@@ -4035,8 +4053,13 @@ struct Sci_TextToFindFull {
     <p>
      <b id="SC_ELEMENT_SELECTION_INACTIVE_TEXT">SC_ELEMENT_SELECTION_INACTIVE_TEXT : colouralpha</b><br />
      <b id="SC_ELEMENT_SELECTION_INACTIVE_BACK">SC_ELEMENT_SELECTION_INACTIVE_BACK : colouralpha</b><br />
+     <b id="SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_TEXT">SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_TEXT : colouralpha</b><br />
+     <b id="SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_BACK">SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_BACK : colouralpha</b><br />
      When a window no longer has the keyboard focus, it is customary to make its selection less noticeable by colouring it grey.
-     These elements define the colours to be used for selections without focus.
+     These elements define the colours to be used for selections without focus. When the <code>ADDITIONAL</code> elements are not set then
+     the standard values are used:
+     <code>SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_TEXT</code>&rarr;<code>SC_ELEMENT_SELECTION_INACTIVE_TEXT</code> and
+     <code>SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_BACK</code>&rarr;<code>SC_ELEMENT_SELECTION_INACTIVE_BACK</code>.
      </p>
 
     <p>
@@ -8575,6 +8598,8 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
 
     <p><b id="SCI_ALLOCATESUBSTYLES">SCI_ALLOCATESUBSTYLES(int styleBase, int numberStyles) &rarr; int</b><br />
      Allocate some number of substyles for a particular base style returning the first substyle number allocated.
+     A failure, such as requesting more substyles than available, is indicated by returning a negative number.
+     Lexers that support substyles will commonly allow allocating 64 substyles. 
      Substyles are allocated contiguously.</p>
 
     <p><b id="SCI_FREESUBSTYLES">SCI_FREESUBSTYLES</b><br />
@@ -8673,7 +8698,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
 
 <p>
 The types <code>Sci_Position</code> and <code>Sci_PositionU</code> are used for positions and line numbers in the document.
-With Scintilla 4, 64-bit builds define these as 64-bit types to allow future implementation of documents larger than 2 GB.
+64-bit builds define these as 64-bit types to allow documents larger than 2 GB.
 </p>
 
 <p>
@@ -8710,6 +8735,9 @@ Previously, lexers were called with a range that started one line before the ran
 needs to be folded as this allowed fixing up the last line from the previous folding.
 The new approach allows the lexer to decide whether to backtrack or to handle this
 more efficiently.</p>
+
+<p><code>AllocateSubStyles</code> returns a negative number when more
+substyles are requested than is available.</p>
 
 <p><code>NamedStyles</code>, <code>NameOfStyle</code>,
 <code>TagsOfStyle</code>, and <code>DescriptionOfStyle</code>
@@ -8851,7 +8879,7 @@ struct SCNotification {
 	int x;			/* SCN_DWELLSTART, SCN_DWELLEND */
 	int y;		/* SCN_DWELLSTART, SCN_DWELLEND */
 	int token;		/* SCN_MODIFIED with SC_MOD_CONTAINER */
-	int annotationLinesAdded;	/* SCN_MODIFIED with SC_MOD_CHANGEANNOTATION */
+	Sci_Position annotationLinesAdded;	/* SCN_MODIFIED with SC_MOD_CHANGEANNOTATION */
 	int updated;	/* SCN_UPDATEUI */
 	int listCompletionMethod;
 	/* SCN_AUTOCSELECTION, SCN_AUTOCCOMPLETED, SCN_USERLISTSELECTION */

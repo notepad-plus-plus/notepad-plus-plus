@@ -339,6 +339,8 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	{
 		RECT rc = getViewablePositionRect(nppGUI._findWindowPos);
 		::SetWindowPos(_hSelf, HWND_TOP, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, swpFlags);
+		if ((swpFlags & SWP_SHOWWINDOW) == SWP_SHOWWINDOW)
+			::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 	}
 	else
 	{
@@ -1027,7 +1029,7 @@ void FindInFinderDlg::writeOptions()
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
 }
 
-intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -1084,6 +1086,14 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+
 			return TRUE;
 		}
 
@@ -1221,6 +1231,55 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_SIZE:
 		{
 			resizeDialogElements(LOWORD(lParam));
+			return TRUE;
+		}
+
+		case WM_NCHITTEST:
+		{
+			LRESULT lrHitTest = ::DefWindowProc(_hSelf, message, wParam, lParam);
+			switch (lrHitTest)
+			{
+				case HTTOP:
+				{
+					lrHitTest = HTBORDER;
+					break;
+				}
+
+				case HTTOPLEFT:
+				{
+					lrHitTest = HTLEFT;
+					break;
+				}
+
+				case HTTOPRIGHT:
+				{
+					lrHitTest = HTRIGHT;
+					break;
+				}
+
+				case HTBOTTOM:
+				{
+					lrHitTest = HTBORDER;
+					break;
+				}
+
+				case HTBOTTOMLEFT:
+				{
+					lrHitTest = HTLEFT;
+					break;
+				}
+
+				case HTBOTTOMRIGHT:
+				{
+					lrHitTest = HTRIGHT;
+					break;
+				}
+
+				default:
+					return FALSE;
+			}
+
+			::SetWindowLongPtr(_hSelf, DWLP_MSGRESULT, lrHitTest);
 			return TRUE;
 		}
 
@@ -1527,6 +1586,17 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					display(false);
 					break;
 
+				case IDM_SEARCH_FINDNEXT:
+				case IDM_SEARCH_FINDPREV:
+				{
+					if (HIWORD(wParam) != 1 || 
+						(getCurrentStatus() != DIALOG_TYPE::FIND_DLG && 
+						getCurrentStatus() != DIALOG_TYPE::REPLACE_DLG))
+					{
+						return FALSE;
+					}
+					[[fallthrough]];
+				}
 				case IDC_FINDPREV:
 				case IDC_FINDNEXT:
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
@@ -1541,11 +1611,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 					bool direction_bak = _options._whichDirection;
 
-					if (LOWORD(wParam) == IDC_FINDPREV)
+					if (LOWORD(wParam) == IDC_FINDPREV || LOWORD(wParam) == IDM_SEARCH_FINDPREV)
 					{
 						_options._whichDirection = DIR_UP;
 					}
-					else if (LOWORD(wParam) == IDC_FINDNEXT)
+					else if (LOWORD(wParam) == IDC_FINDNEXT || LOWORD(wParam) == IDM_SEARCH_FINDNEXT)
 					{
 						_options._whichDirection = DIR_DOWN;
 					}
@@ -1694,25 +1764,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_NEXT_TAB:
 				case IDC_PREV_TAB:
 				{
-					const int lastTab = TabCtrl_GetItemCount(_tab.getHSelf()) - 1;
-					int selTab = TabCtrl_GetCurSel(_tab.getHSelf());
+					const int selTabIdx = _tab.getNextOrPrevTabIdx(LOWORD(wParam) == IDC_NEXT_TAB);
 
-					if (LOWORD(wParam) == IDC_NEXT_TAB)
-					{
-						if (selTab++ == lastTab)
-						{
-							selTab = 0;
-						}
-					}
-					else
-					{
-						if (selTab-- == 0)
-						{
-							selTab = lastTab;
-						}
-					}
-
-					switch (static_cast<DIALOG_TYPE>(selTab))
+					switch (static_cast<DIALOG_TYPE>(selTabIdx))
 					{
 						case DIALOG_TYPE::FIND_DLG:
 						{

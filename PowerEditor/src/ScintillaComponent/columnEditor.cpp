@@ -31,9 +31,12 @@ void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEd
 
 void ColumnEditorDlg::display(bool toShow) const
 {
-    Window::display(toShow);
-    if (toShow)
-        ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+	Window::display(toShow);
+	if (toShow)
+	{
+		::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+		::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
+	}
 }
 
 intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -148,9 +151,17 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			return TRUE;
 		}
 
+		case WM_DPICHANGED:
+		{
+			_dpiManager.setDpiWP(wParam);
+			setPositionDpi(lParam);
+
+			return TRUE;
+		}
+
 		case WM_COMMAND:
 		{
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDCANCEL : // Close
 					display(false);

@@ -512,10 +512,13 @@ private:
 
 	void addHotSpot(ScintillaEditView* view = nullptr);
 
-    void bookmarkAdd(intptr_t lineno) const {
+    void bookmarkAdd(intptr_t lineno, bool redBookmarks) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
-		if (!bookmarkPresent(lineno))
+			if (redBookmarks)
+				_pEditView->execute(SCI_MARKERDEFINERGBAIMAGE, MARK_BOOKMARK, reinterpret_cast<LPARAM>(bookmark19));
+			else
+				_pEditView->execute(SCI_MARKERDEFINERGBAIMAGE, MARK_BOOKMARK, reinterpret_cast<LPARAM>(bookmark18));
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
 	}
 
@@ -533,14 +536,23 @@ private:
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
 
-    void bookmarkToggle(intptr_t lineno) const {
+    bool bookmarkToggle(intptr_t lineno, bool redBookmarks) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 
-		if (bookmarkPresent(lineno))
-			bookmarkDelete(lineno);
-		else
-			bookmarkAdd(lineno);
+		if (bookmarkPresent(lineno)) {
+			if (redBookmarks)
+				bookmarkDelete(lineno);
+			else {
+				redBookmarks = true;
+				bookmarkAdd(lineno, redBookmarks);
+			}
+		}
+		else {
+			redBookmarks = false;
+			bookmarkAdd(lineno, redBookmarks);
+		}
+		return redBookmarks;
 	}
 
     void bookmarkNext(bool forwardScan);

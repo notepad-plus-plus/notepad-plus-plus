@@ -2904,7 +2904,7 @@ void Notepad_plus::inverseMarks()
 		}
 		else
 		{
-			bookmarkAdd(i);
+			bookmarkAdd(i, false);
 		}
 	}
 }

@@ -27,6 +27,7 @@
 
 using namespace std;
 
+bool redBookmarks = false;
 // Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -640,7 +641,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYMBOL) && !notification->modifiers)
 			{
 				if (!_pEditView->markerMarginClick(lineClick))
-					bookmarkToggle(lineClick);
+					redBookmarks = bookmarkToggle(lineClick, redBookmarks);	
 			}
 			break;
 		}

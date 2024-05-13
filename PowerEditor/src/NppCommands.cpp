@@ -1732,7 +1732,7 @@ void Notepad_plus::command(int id)
 		break;
 
         case IDM_SEARCH_TOGGLE_BOOKMARK :
-	        bookmarkToggle(-1);
+	        bookmarkToggle(-1, false);
             break;
 
 	    case IDM_SEARCH_NEXT_BOOKMARK:

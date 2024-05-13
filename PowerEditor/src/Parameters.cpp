@@ -8594,9 +8594,9 @@ Date::Date(const TCHAR *dateStr)
 {
 	// timeStr should be Notepad++ date format : YYYYMMDD
 	assert(dateStr);
-	int D = lstrlen(dateStr);
-
-	if ( 8==D )
+	const int dateStrSize = lstrlen(dateStr);
+	constexpr int validDataStrSize = 8;
+	if (dateStrSize == validDataStrSize)
 	{
 		std::wstring ds(dateStr);
 		std::wstring yyyy(ds, 0, 4);

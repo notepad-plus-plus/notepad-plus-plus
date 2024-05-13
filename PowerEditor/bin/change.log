@@ -1,3 +1,13 @@
+Notepad++ v8.6.7 bug-fixes & new enhancements:
+
+1. Fix regression of multi-edit cursors placed wrongly issue.
+2. Fix multi-editing not showing multiple cursors in dark mode.
+3. Add auto-completion for Go & Raku, function list for Raku.
+4. Fix symbol '&' not showing in Document Switcher.
+5. Allow syntax highlighting for custom tags in HTML.
+6. Fix dialogs out of screen problem.
+
+
 Notepad++ v8.6.6 bug-fixes & new enhancements:
 
  1. Update to scintilla 5.5.0 & Lexilla 5.3.2.
@@ -24,7 +34,7 @@ Notepad++ v8.6.6 bug-fixes & new enhancements:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6.6/
+https://notepad-plus-plus.org/downloads/v8.6.7/
 
 
 Included plugins:

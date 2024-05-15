@@ -964,6 +964,19 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// if isAllocatedSuccessful is TRUE, and value of idBegin is 7
 	// then indicator ID 7 is preserved by Notepad++, and it is safe to be used by the plugin.
 
+	#define NPPM_NPPM_GET_TABCOLORINDEX (NPPMSG + 114)
+	// int NPPM_NPPM_GET_TABCOLORINDEX(int tabIndex, int inView)
+	// Get the current tab color index of the specified tab and view.
+	// wParam[in]: tabIndex; use -1 for currently active tab
+	// lParam[in]: inView, use 0 (main view) or 1 (sub view) or -1 (active view)
+	// Return -1 if the tab has no color, otherwise the current color index (0 - 4).
+
+	#define NPPM_NPPM_SET_TABCOLORINDEX (NPPMSG + 115)
+	// int NPPM_NPPM_SET_TABCOLORINDEX(int colorIndex)
+	// Set a new tab color index for the active tab in the active view.
+	// wParam[in]: colorIndex; use -1 for no color, otherwise 0 - 4
+	// lParam: unused
+	// Return previous color index of the tab (-1 - 4).
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

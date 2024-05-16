@@ -400,7 +400,7 @@ public :
 	Finder* getFinderFrom(HWND hwnd);
 
 protected :
-	void resizeDialogElements(LONG newWidth);
+	void resizeDialogElements();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	static WNDPROC originalFinderProc;
 	static WNDPROC originalComboEditProc;
@@ -416,8 +416,6 @@ private:
 	SIZE _szMinDialog{};
 	SIZE _szBorder{};
 
-	LONG _deltaWidth = 0;
-	LONG _initialClientWidth = 0;
 	LONG _lesssModeHeight = 0;
 
 	DIALOG_TYPE _currentStatus = DIALOG_TYPE::FIND_DLG;

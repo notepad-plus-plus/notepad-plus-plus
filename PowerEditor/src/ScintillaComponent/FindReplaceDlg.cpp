@@ -325,8 +325,6 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	_tab.reSizeTo(rcClient);
 	_tab.display();
 
-	_initialClientWidth = rcClient.right - rcClient.left;
-
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParam.getNppGUI();
 
@@ -1154,58 +1152,189 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 }
 
 
-void FindReplaceDlg::resizeDialogElements(LONG newWidth)
+void FindReplaceDlg::resizeDialogElements()
 {
+	auto getRcWidth = [](const RECT& rc) -> int {
+		return rc.right - rc.left;
+		};
+
+	auto setOrDeferWindowPos = [](HDWP hWinPosInfo, HWND hWnd, HWND hWndInsertAfter, int x, int y, int cx, int cy, UINT uFlags) -> HDWP {
+		if (hWinPosInfo != nullptr)
+		{
+			return ::DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags);
+		}
+		::SetWindowPos(hWnd, hWndInsertAfter, x, y, cx, cy, uFlags);
+		return nullptr;
+		};
+
+	const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
+
 	//elements that need to be resized horizontally (all edit/combo boxes etc.)
 	const auto resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
 
 	//elements that need to be moved
-	const auto moveWindowIDs = {
+	const auto moveCheckIds = {
 		IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK,IDD_FINDINFILES_RECURSIVE_CHECK, IDD_FINDINFILES_INHIDDENDIR_CHECK,
 		IDD_FINDINFILES_PROJECT1_CHECK, IDD_FINDINFILES_PROJECT2_CHECK, IDD_FINDINFILES_PROJECT3_CHECK,
-		IDC_TRANSPARENT_GRPBOX, IDC_TRANSPARENT_CHECK, IDC_TRANSPARENT_LOSSFOCUS_RADIO, IDC_TRANSPARENT_ALWAYS_RADIO,
-		IDC_PERCENTAGE_SLIDER , IDC_REPLACEINSELECTION , IDC_IN_SELECTION_CHECK,
+	};
 
-		IDD_FINDINFILES_BROWSE_BUTTON, IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
-		IDREPLACE, IDREPLACEALL, IDD_FINDREPLACE_SWAP_BUTTON, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDOK, IDCANCEL,
-		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_RESIZE_TOGGLE_BUTTON
+	const auto moveBtnIDs = {
+		IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
+		IDREPLACE, IDREPLACEALL, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDCANCEL,
+		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
+	};
+
+	const auto moveOtherCtrlsIDs = {
+		IDC_REPLACEINSELECTION, IDD_RESIZE_TOGGLE_BUTTON, IDD_FINDREPLACE_SWAP_BUTTON
+	};
+
+	const auto moveLaterIDs = {
+		IDC_FINDPREV, IDD_FINDINFILES_BROWSE_BUTTON
+	};
+
+	const auto moveTransIDs = {
+		IDC_TRANSPARENT_CHECK, IDC_TRANSPARENT_LOSSFOCUS_RADIO, IDC_TRANSPARENT_ALWAYS_RADIO, IDC_PERCENTAGE_SLIDER
 	};
 
 	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
 
-	auto newDeltaWidth = newWidth - _initialClientWidth;
-	auto addWidth = newDeltaWidth - _deltaWidth;
-	_deltaWidth = newDeltaWidth;
+	RECT rcClient{};
+	getClientRect(rcClient);
 
-	RECT rc{};
+	RECT rcTmp{};
+
+	RECT rcOkBtn{};
+	HWND hOkBtn = ::GetDlgItem(_hSelf, IDOK);
+	getMappedChildRect(hOkBtn, rcOkBtn);
+
+	RECT rcSelCheck{};
+	HWND hSelCheck = ::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK);
+	getMappedChildRect(hSelCheck, rcSelCheck);
+
+	RECT rc2ModeCheck{};
+	HWND h2ModeCheck = ::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE);
+	getMappedChildRect(h2ModeCheck, rc2ModeCheck);
+
+	const int gap = rc2ModeCheck.left - rcOkBtn.right; // this value is important, same spacing is used almost everywhere in FindReplaceDlg.rc
+	const int posSelCheck = rcOkBtn.left - rcSelCheck.left;
+
+	::SetWindowPos(h2ModeCheck, nullptr, rcClient.right - gap - getRcWidth(rc2ModeCheck), rc2ModeCheck.top, 0, 0, SWP_NOSIZE | flags);
+	getMappedChildRect(h2ModeCheck, rc2ModeCheck);
+
+	::SetWindowPos(hOkBtn, nullptr, rc2ModeCheck.left - gap - getRcWidth(rcOkBtn), rcOkBtn.top, 0, 0, SWP_NOSIZE | flags);
+	getMappedChildRect(hOkBtn, rcOkBtn);
+
+	::SetWindowPos(hSelCheck, nullptr, rcOkBtn.left - posSelCheck, rcSelCheck.top, 0, 0, SWP_NOSIZE | flags);
+	getMappedChildRect(hSelCheck, rcSelCheck);
+
+	size_t nCtrls = moveCheckIds.size() + moveBtnIDs.size() + moveOtherCtrlsIDs.size();
+	auto hdwp = ::BeginDeferWindowPos(static_cast<int>(nCtrls));
+
+	RECT rcSelGrpb{};
+	HWND hSelGrpb = ::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION);
+	getMappedChildRect(hSelGrpb, rcSelGrpb);
+	hdwp = setOrDeferWindowPos(hdwp, hSelGrpb, nullptr, rcSelCheck.left - (gap * 3) / 2, rcSelGrpb.top, 0, 0, SWP_NOSIZE | flags);
+
+	for (int moveWndID : moveCheckIds)
+	{
+		HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
+		getMappedChildRect(moveHwnd, rcTmp);
+		hdwp = setOrDeferWindowPos(hdwp, moveHwnd, nullptr, rcOkBtn.left + gap / 2, rcTmp.top, 0, 0, SWP_NOSIZE | flags);
+	}
+
+	for (int moveWndID : moveBtnIDs)
+	{
+		HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
+		getMappedChildRect(moveHwnd, rcTmp);
+		hdwp = setOrDeferWindowPos(hdwp, moveHwnd, nullptr, rcOkBtn.left, rcTmp.top, 0, 0, SWP_NOSIZE | flags);
+	}
+
+	RECT rcRszBtn{};
+	HWND hRszBtn = ::GetDlgItem(_hSelf, IDD_RESIZE_TOGGLE_BUTTON);
+	getMappedChildRect(hRszBtn, rcRszBtn);
+	hdwp = setOrDeferWindowPos(hdwp, hRszBtn, nullptr, rc2ModeCheck.left, rcRszBtn.top, 0, 0, SWP_NOSIZE | flags);
+
+	RECT rcSwapBtn{};
+	HWND hSwapBtn = ::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON);
+	getMappedChildRect(hSwapBtn, rcSwapBtn);
+	hdwp = setOrDeferWindowPos(hdwp, hSwapBtn, nullptr, rcOkBtn.left - getRcWidth(rcSwapBtn) - gap, rcSwapBtn.top, 0, 0, SWP_NOSIZE | flags);
+
+	if (hdwp)
+		::EndDeferWindowPos(hdwp);
+
+	getMappedChildRect(hSwapBtn, rcSwapBtn);
+
+	nCtrls = resizeWindowIDs.size() + moveLaterIDs.size() + (isLessModeOn ? 0 : moveTransIDs.size()) + 1; // 1 is for tab control
+	hdwp = ::BeginDeferWindowPos(static_cast<int>(nCtrls));
+
 	for (int id : resizeWindowIDs)
 	{
 		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
-		::GetClientRect(resizeHwnd, &rc);
+		getMappedChildRect(resizeHwnd, rcTmp);
 
-		// Combo box for some reasons selects text on resize. So let's check befor resize if selection is present and clear it manually after resize.
+		// Combo box for some reasons selects text on resize. So let's check before resize if selection is present and clear it manually after resize.
 		DWORD endSelection = 0;
-		SendMessage(resizeHwnd, CB_GETEDITSEL, 0, (LPARAM)&endSelection);
+		::SendMessage(resizeHwnd, CB_GETEDITSEL, 0, reinterpret_cast<LPARAM>(&endSelection));
 
-		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
+		hdwp = setOrDeferWindowPos(hdwp, resizeHwnd, nullptr, 0, 0, rcSwapBtn.left - rcTmp.left - gap, rcTmp.bottom - rcTmp.top, SWP_NOMOVE | flags);
 
 		if (endSelection == 0)
 		{
-			SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
+			::SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
 		}
 	}
 
-	for (int moveWndID : moveWindowIDs)
-	{
-		HWND moveHwnd = GetDlgItem(_hSelf, moveWndID);
-		::GetWindowRect(moveHwnd, &rc);
-		::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rc, 2);
+	RECT rcFPrevBtn{};
+	HWND hFPrevBtn = ::GetDlgItem(_hSelf, IDC_FINDPREV);
+	getMappedChildRect(hFPrevBtn, rcFPrevBtn);
+	hdwp = setOrDeferWindowPos(hdwp, ::GetDlgItem(_hSelf, IDC_FINDNEXT), nullptr, rcFPrevBtn.right + gap, rcOkBtn.top, 0, 0, SWP_NOSIZE | flags);
 
-		::SetWindowPos(moveHwnd, NULL, rc.left + addWidth, rc.top, 0, 0, SWP_NOSIZE | flags);
+	RECT rcBrowseBtn{};
+	HWND hBrowseBtn = ::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON);
+	getMappedChildRect(hBrowseBtn, rcBrowseBtn);
+	hdwp = setOrDeferWindowPos(hdwp, hBrowseBtn, nullptr, rcSwapBtn.left, rcBrowseBtn.top, 0, 0, SWP_NOSIZE | flags);
+
+	if (!isLessModeOn)
+	{
+		RECT rcTransGrpb{};
+		HWND hTransGrpb = ::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX);
+		getMappedChildRect(hTransGrpb, rcTransGrpb);
+
+		RECT rcTransCheck{};
+		HWND hTransCheck = ::GetDlgItem(_hSelf, IDC_TRANSPARENT_CHECK);
+		getMappedChildRect(hTransCheck, rcTransCheck);
+
+		RECT rcTransLFRadio{};
+		HWND hTransLFRadio = ::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO);
+		getMappedChildRect(hTransLFRadio, rcTransLFRadio);
+
+		RECT rcTransARadio{};
+		HWND hTransARadio = ::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO);
+		getMappedChildRect(hTransARadio, rcTransARadio);
+
+		RECT rcTransSlider{};
+		HWND hTransSlider = ::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER);
+		getMappedChildRect(hTransSlider, rcTransSlider);
+
+		const int gapTrans = rcTransGrpb.left - rcTransCheck.left;
+		const int gapTransR = rcTransLFRadio.left - rcTransGrpb.left;
+		const int gapTransS = rcTransSlider.left - rcTransGrpb.left;
+
+		::SetWindowPos(hTransGrpb, nullptr, rc2ModeCheck.left - gap - getRcWidth(rcTransGrpb), rcTransGrpb.top, 0, 0, SWP_NOSIZE | flags);
+		getMappedChildRect(hTransGrpb, rcTransGrpb);
+
+		hdwp = setOrDeferWindowPos(hdwp, hTransCheck, nullptr, rcTransGrpb.left - gapTrans, rcTransCheck.top, 0, 0, SWP_NOSIZE | flags);
+		hdwp = setOrDeferWindowPos(hdwp, hTransLFRadio, nullptr, rcTransGrpb.left + gapTransR, rcTransLFRadio.top, 0, 0, SWP_NOSIZE | flags);
+		hdwp = setOrDeferWindowPos(hdwp, hTransARadio, nullptr, rcTransGrpb.left + gapTransR, rcTransARadio.top, 0, 0, SWP_NOSIZE | flags);
+		hdwp = setOrDeferWindowPos(hdwp, hTransSlider, nullptr, rcTransGrpb.left + gapTransS, rcTransSlider.top, 0, 0, SWP_NOSIZE | flags);
 	}
 
-	::GetClientRect(_tab.getHSelf(), &rc);
-	::SetWindowPos(_tab.getHSelf(), nullptr, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
+	auto hTab = _tab.getHSelf();
+	::GetClientRect(hTab, &rcTmp);
+	hdwp = setOrDeferWindowPos(hdwp, hTab, nullptr, 0, 0, rcClient.right, rcTmp.bottom, SWP_NOMOVE | flags);
+
+	if (hdwp)
+		::EndDeferWindowPos(hdwp);
 }
 
 std::mutex findOps_mutex;
@@ -1228,7 +1357,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_SIZE:
 		{
-			resizeDialogElements(LOWORD(lParam));
+			resizeDialogElements();
 			::SendMessage(_statusBar.getHSelf(), WM_SIZE, 0, 0); // pass WM_SIZE to status bar to automatically adjusts its size
 			return TRUE;
 		}

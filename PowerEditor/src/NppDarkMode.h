@@ -215,9 +215,9 @@ namespace NppDarkMode
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
 
-	LRESULT darkToolBarNotifyCustomDraw(LPARAM lParam);
-	LRESULT darkListViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin);
-	LRESULT darkTreeViewNotifyCustomDraw(LPARAM lParam);
+	static LRESULT darkToolBarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin);
+	static LRESULT darkListViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin);
+	static LRESULT darkTreeViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin);
 
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags);

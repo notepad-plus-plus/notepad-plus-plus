@@ -85,8 +85,8 @@ public:
 
 	static void setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags = SWP_NOZORDER | SWP_NOACTIVATE);
 
-	static int scale(int x, UINT dpi, UINT dpi2) {
-		return MulDiv(x, dpi, dpi2);
+	static int scale(int x, UINT toDpi, UINT fromDpi) {
+		return MulDiv(x, toDpi, fromDpi);
 	}
 
 	static int scale(int x, UINT dpi) {

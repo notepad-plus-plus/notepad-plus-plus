@@ -1695,7 +1695,91 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case NPPM_MODELESSDIALOG :
 			return ::SendMessage(_hParent, NPPM_MODELESSDIALOG, wParam, lParam);
 
-		case WM_COMMAND :
+		case WM_GETDPISCALEDSIZE:
+		{
+			RECT rcClient{};
+			getClientRect(rcClient);
+
+			const UINT dpi = static_cast<UINT>(wParam);
+
+			const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
+
+			const LONG w = static_cast<LONG>(_dpiManager.unscale(rcClient.right - rcClient.left));
+			const LONG h = isLessModeOn ? _lesssModeHeight : _szMinDialog.cy;
+
+
+			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi);
+			const LONG xBorder = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME, dpi) + padding) * 2;
+			const LONG yBorder = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME, dpi) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION, dpi);
+
+			auto newSize = reinterpret_cast<SIZE*>(lParam);
+			newSize->cx = _dpiManager.scale(w, dpi) + xBorder;
+			newSize->cy = _dpiManager.scale(h, dpi) + yBorder;
+
+			if (_dpiManager.getDpi() > dpi)
+			{
+				const auto padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi));
+				newSize->cx += padding;
+				newSize->cy += padding;
+			}
+
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			const UINT prevDpi = _dpiManager.getDpi();
+			_dpiManager.setDpiWP(wParam);
+
+			if (_hLargerBolderFont)
+				::DeleteObject(_hLargerBolderFont);
+
+			if (_hCourrierNewFont)
+				::DeleteObject(_hCourrierNewFont);
+
+			if (_hComboBoxFont)
+				::DeleteObject(_hComboBoxFont);
+
+			_hLargerBolderFont = createFont(TEXT("Courier New"), 14, true, _hSelf);
+			::SendMessage(_hSwapButton, WM_SETFONT, reinterpret_cast<WPARAM>(_hLargerBolderFont), MAKELPARAM(TRUE, 0));
+
+			_hCourrierNewFont = createFont(TEXT("Courier New"), 12, false, _hSelf);
+			::SendDlgItemMessage(_hSelf, IDD_RESIZE_TOGGLE_BUTTON, WM_SETFONT, reinterpret_cast<WPARAM>(_hCourrierNewFont), MAKELPARAM(TRUE, 0));
+
+			LOGFONT lf{};
+			HFONT font = reinterpret_cast<HFONT>(::SendDlgItemMessage(_hSelf, IDFINDWHAT, WM_GETFONT, 0, 0));
+			::GetObject(font, sizeof(lf), &lf);
+			lf.lfHeight = -(_dpiManager.scale(16) - 5);
+			_hComboBoxFont = ::CreateFontIndirect(&lf);
+
+			for (auto idComboBox : { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO })
+			{
+				::SendDlgItemMessage(_hSelf, idComboBox, WM_SETFONT, reinterpret_cast<WPARAM>(_hComboBoxFont), MAKELPARAM(TRUE, 0));
+			}
+
+			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
+			_szBorder.cx = ((_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2);
+			_szBorder.cy = ((_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION));
+
+			if (prevDpi > _dpiManager.getDpi())
+			{
+				const auto padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER));
+				_szBorder.cx += padding;
+				_szBorder.cy += padding;
+			}
+
+			const UINT dpi = _dpiManager.getDpi();
+			_szMinDialog.cx = _dpiManager.scale(_szMinDialog.cx, dpi, prevDpi);
+			_szMinDialog.cy = _dpiManager.scale(_szMinDialog.cy, dpi, prevDpi);
+			_lesssModeHeight = _dpiManager.scale(_lesssModeHeight, dpi, prevDpi);
+
+			setPositionDpi(lParam, SWP_NOZORDER | SWP_NOACTIVATE);
+
+			return TRUE;
+		}
+
+
+		case WM_COMMAND:
 		{
 			bool isMacroRecording = (static_cast<MacroStatus>(::SendMessage(_hParent, NPPM_GETCURRENTMACROSTATUS,0,0)) == MacroStatus::RecordInProgress);
 			NppParameters& nppParamInst = NppParameters::getInstance();

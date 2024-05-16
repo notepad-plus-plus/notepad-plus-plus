@@ -51,6 +51,8 @@ public:
 		return getSystemMetricsForDpi(nIndex, _dpi);
 	}
 	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
+	static BOOL adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
+
 
 	static UINT getDpiForSystem();
 	static UINT getDpiForWindow(HWND hWnd);
@@ -85,8 +87,8 @@ public:
 
 	static void setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags = SWP_NOZORDER | SWP_NOACTIVATE);
 
-	static int scale(int x, UINT dpi, UINT dpi2) {
-		return MulDiv(x, dpi, dpi2);
+	static int scale(int x, UINT toDpi, UINT fromDpi) {
+		return MulDiv(x, toDpi, fromDpi);
 	}
 
 	static int scale(int x, UINT dpi) {

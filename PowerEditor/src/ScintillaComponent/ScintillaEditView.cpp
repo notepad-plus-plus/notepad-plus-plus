@@ -165,24 +165,17 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 
 int getNbDigits(int aNum, int base)
 {
-	int nbChiffre = 1;
-	int diviseur = base;
+	int nbDigits = 0;
 
-	for (;;)
+	do
 	{
-		int result = aNum / diviseur;
-		if (!result)
-			break;
-		else
-		{
-			diviseur *= base;
-			++nbChiffre;
-		}
-	}
-	if ((base == 16) && (nbChiffre % 2 != 0))
-		nbChiffre += 1;
+		++nbDigits;
+		aNum /= base;
+	} while (aNum != 0);
+	if (base == 16 && nbDigits % 2 != 0)
+		++nbDigits;
 
-	return nbChiffre;
+	return nbDigits;
 }
 
 bool isCharSingleQuote(__inout wchar_t const c)

@@ -45,12 +45,16 @@ using fnGetDpiForWindow = UINT (WINAPI*)(HWND hwnd);
 using fnGetSystemMetricsForDpi = int (WINAPI*)(int nIndex, UINT dpi);
 using fnSystemParametersInfoForDpi = BOOL (WINAPI*)(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, UINT dpi);
 using fnSetThreadDpiAwarenessContext = DPI_AWARENESS_CONTEXT (WINAPI*)(DPI_AWARENESS_CONTEXT dpiContext);
+using fnAdjustWindowRectExForDpi = BOOL (WINAPI*)(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
+
 
 fnGetDpiForSystem _fnGetDpiForSystem = nullptr;
 fnGetDpiForWindow _fnGetDpiForWindow = nullptr;
 fnGetSystemMetricsForDpi _fnGetSystemMetricsForDpi = nullptr;
 fnSystemParametersInfoForDpi _fnSystemParametersInfoForDpi = nullptr;
 fnSetThreadDpiAwarenessContext _fnSetThreadDpiAwarenessContext = nullptr;
+fnAdjustWindowRectExForDpi _fnAdjustWindowRectExForDpi = nullptr;
+
 
 void DPIManagerV2::initDpiAPI()
 {
@@ -64,6 +68,8 @@ void DPIManagerV2::initDpiAPI()
 			ptrFn(hUser32, _fnGetSystemMetricsForDpi, "GetSystemMetricsForDpi");
 			ptrFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
 			ptrFn(hUser32, _fnSetThreadDpiAwarenessContext, "SetThreadDpiAwarenessContext");
+			ptrFn(hUser32, _fnAdjustWindowRectExForDpi, "AdjustWindowRectExForDpi");
+
 		}
 	}
 }
@@ -84,6 +90,15 @@ DPI_AWARENESS_CONTEXT DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_C
 		return _fnSetThreadDpiAwarenessContext(dpiContext);
 	}
 	return NULL;
+}
+
+BOOL DPIManagerV2::adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi)
+{
+	if (_fnAdjustWindowRectExForDpi != nullptr)
+	{
+		return _fnAdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi);
+	}
+	return FALSE;
 }
 
 UINT DPIManagerV2::getDpiForSystem()

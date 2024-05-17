@@ -51,6 +51,8 @@ public:
 		return getSystemMetricsForDpi(nIndex, _dpi);
 	}
 	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
+	static BOOL adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
+
 
 	static UINT getDpiForSystem();
 	static UINT getDpiForWindow(HWND hWnd);

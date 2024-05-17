@@ -1697,28 +1697,37 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_GETDPISCALEDSIZE:
 		{
+			auto newSize = reinterpret_cast<SIZE*>(lParam);
+
 			RECT rcClient{};
 			getClientRect(rcClient);
 
-			const UINT dpi = static_cast<UINT>(wParam);
+			const UINT newDpi = static_cast<UINT>(wParam);
+			const UINT prevDpi = _dpiManager.getDpi();
 
 			const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 
-			const LONG w = static_cast<LONG>(_dpiManager.unscale(rcClient.right - rcClient.left));
-			const LONG h = isLessModeOn ? _lesssModeHeight : _szMinDialog.cy;
+			rcClient.right = _dpiManager.scale(rcClient.right - rcClient.left, newDpi, prevDpi);
+			rcClient.bottom = _dpiManager.scale(isLessModeOn ? _lesssModeHeight : _szMinDialog.cy, newDpi, prevDpi);
 
+			LONG xBorder = 0;
+			LONG yBorder = 0;
 
-			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi);
-			const LONG xBorder = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME, dpi) + padding) * 2;
-			const LONG yBorder = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME, dpi) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION, dpi);
-
-			auto newSize = reinterpret_cast<SIZE*>(lParam);
-			newSize->cx = _dpiManager.scale(w, dpi) + xBorder;
-			newSize->cy = _dpiManager.scale(h, dpi) + yBorder;
-
-			if (_dpiManager.getDpi() > dpi)
+			const auto style = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_STYLE));
+			const auto exStyle = static_cast<DWORD>(::GetWindowLongPtr(_hSelf, GWL_EXSTYLE));
+			if (_dpiManager.adjustWindowRectExForDpi(&rcClient, style, FALSE, exStyle, newDpi) == FALSE)
 			{
-				const auto padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi));
+				const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, newDpi);
+				xBorder = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME, newDpi) + padding) * 2;
+				yBorder = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME, newDpi) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION, newDpi);
+			}
+
+			newSize->cx = (rcClient.right - rcClient.left) + xBorder;
+			newSize->cy = (rcClient.bottom - rcClient.top) + yBorder;
+
+			if (prevDpi > newDpi)
+			{
+				const auto padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, newDpi));
 				newSize->cx += padding;
 				newSize->cy += padding;
 			}

@@ -299,13 +299,30 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	RECT rcClient{};
 	getClientRect(rcClient);
 
+	RECT rcCount{};
+	getMappedChildRect(IDCCOUNTALL, rcCount);
+
+	RECT rcOk{};
+	getMappedChildRect(IDOK, rcOk);
+
+	RECT rcTransGrpb{};
+	getMappedChildRect(IDC_TRANSPARENT_GRPBOX, rcTransGrpb);
+
+	RECT rcStatusBar{};
+	::GetWindowRect(_statusBar.getHSelf(), &rcStatusBar);
+
+	const LONG gap = (rcCount.top - rcOk.bottom);
+	_lesssModeHeight = (rcCount.bottom + gap);
+
 	const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
 	_szBorder.cx = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;
-	_szBorder.cy = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION);
+	_szBorder.cy = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2
+		+ _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION)
+		+ (rcStatusBar.bottom - rcStatusBar.top);
 
 	//fill min dialog size info
 	_szMinDialog.cx = rcClient.right - rcClient.left;
-	_szMinDialog.cy = rcClient.bottom - rcClient.top;
+	_szMinDialog.cy = rcTransGrpb.bottom + gap;
 
 	_tab.init(_hInst, _hSelf, false, true);
 	NppDarkMode::subclassTabControl(_tab.getHSelf());
@@ -340,16 +357,6 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	{
 		goToCenter(swpFlags);
 	}
-
-	RECT rcCount{};
-	getMappedChildRect(IDCCOUNTALL, rcCount);
-
-	RECT rcOk{};
-	getMappedChildRect(IDOK, rcOk);
-
-	RECT rcStatusBar{};
-	::GetClientRect(_statusBar.getHSelf(), &rcStatusBar);
-	_lesssModeHeight = (rcCount.bottom + (rcCount.top - rcOk.bottom) + (rcStatusBar.bottom - rcStatusBar.top));
 
 	if (nppGUI._findWindowLessMode)
 	{
@@ -1707,8 +1714,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 
+			RECT rcStatusBar{};
+			::GetWindowRect(_statusBar.getHSelf(), &rcStatusBar);
+
 			rcClient.right = _dpiManager.scale(rcClient.right - rcClient.left, newDpi, prevDpi);
-			rcClient.bottom = _dpiManager.scale(isLessModeOn ? _lesssModeHeight : _szMinDialog.cy, newDpi, prevDpi);
+			rcClient.bottom = _dpiManager.scale((isLessModeOn ? _lesssModeHeight : _szMinDialog.cy) + (rcStatusBar.bottom - rcStatusBar.top), newDpi, prevDpi);
 
 			LONG xBorder = 0;
 			LONG yBorder = 0;
@@ -1766,9 +1776,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				::SendDlgItemMessage(_hSelf, idComboBox, WM_SETFONT, reinterpret_cast<WPARAM>(_hComboBoxFont), MAKELPARAM(TRUE, 0));
 			}
 
+			RECT rcStatusBar{};
+			::GetWindowRect(_statusBar.getHSelf(), &rcStatusBar);
+
 			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
 			_szBorder.cx = ((_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2);
-			_szBorder.cy = ((_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION));
+			_szBorder.cy = ((_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2
+				+ _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION)
+				+ (rcStatusBar.bottom - rcStatusBar.top));
 
 			if (prevDpi > _dpiManager.getDpi())
 			{

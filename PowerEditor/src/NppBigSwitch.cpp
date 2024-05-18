@@ -2953,11 +2953,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return _pluginsManager.allocateIndicator(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
 		}
 
-		case NPPM_NPPM_GET_TABCOLORINDEX:
+		case NPPM_GETTABCOLORID:
 		{
-			auto tabIndex = static_cast<INT>(wParam);
-			const auto view = static_cast<INT>(lParam);
-			auto colorIndex = -1;  // no color (or unknown)
+			const auto view = static_cast<INT>(wParam);
+			auto tabIndex = static_cast<INT>(lParam);
+			auto colorId = -1;  // no color (or unknown)
 			auto pDt = _pDocTab;  // active view
 			if (view == MAIN_VIEW)
 			{
@@ -2971,31 +2971,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				tabIndex = pDt->getCurrentTabIndex();
 			}
-			if ((tabIndex >= 0) && (tabIndex < pDt->nbItem()))
+			if ((tabIndex >= 0) && (tabIndex < static_cast<INT>(pDt->nbItem())))
 			{
-				colorIndex = pDt->getIndividualTabColour(tabIndex);
+				colorId = pDt->getIndividualTabColour(tabIndex);
 			}
-			return colorIndex;
-		}
-
-		case NPPM_NPPM_SET_TABCOLORINDEX:
-		{
-			// operates only upon active tab in active view
-			const auto newColorIndex = static_cast<INT>(wParam);
-			const auto currentTabIndex = _pDocTab->getCurrentTabIndex();
-			const auto oldColorIndex = _pDocTab->getIndividualTabColour(currentTabIndex);
-			if ((newColorIndex != oldColorIndex) && (newColorIndex >= -1) &&
-				(newColorIndex <= IDM_VIEW_TAB_COLOUR_5 - IDM_VIEW_TAB_COLOUR_NONE - 1))
-			{
-				const auto bufferID = _pDocTab->getBufferByIndex(currentTabIndex);
-				_pDocTab->setIndividualTabColour(bufferID, newColorIndex);
-				_pDocTab->redraw();
-				if (_pDocumentListPanel != nullptr)
-				{
-					_pDocumentListPanel->setItemColor(bufferID);
-				}
-			}
-			return oldColorIndex;
+			return colorId;
 		}
 
 		case NPPM_GETBOOKMARKID:

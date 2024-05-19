@@ -165,6 +165,8 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 
 int getNbDigits(int aNum, int base)
 {
+	if (base <= 0) return 0;
+
 	int nbDigits = 0;
 
 	do
@@ -172,6 +174,7 @@ int getNbDigits(int aNum, int base)
 		++nbDigits;
 		aNum /= base;
 	} while (aNum != 0);
+
 	if (base == 16 && nbDigits % 2 != 0)
 		++nbDigits;
 
@@ -3660,7 +3663,7 @@ bool ScintillaEditView::expandWordSelection()
 
 TCHAR* int2str(TCHAR* str, int strLen, int number, int base, int nbDigits, ColumnEditorParam::leadingChoice lead)
 {
-	if (nbDigits >= strLen) return NULL;
+	if (nbDigits <= 0 || nbDigits >= strLen) return NULL;
 
 	if (base == 2)
 	{

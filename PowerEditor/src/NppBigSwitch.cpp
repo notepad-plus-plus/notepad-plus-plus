@@ -2955,9 +2955,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETTABCOLORID:
 		{
-			const auto view = static_cast<INT>(wParam);
-			auto tabIndex = static_cast<INT>(lParam);
+			const auto view = static_cast<int>(wParam);
+			auto tabIndex = static_cast<int>(lParam);
+
 			auto colorId = -1;  // no color (or unknown)
+
 			auto pDt = _pDocTab;  // active view
 			if (view == MAIN_VIEW)
 			{
@@ -2967,14 +2969,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				pDt = &_subDocTab;
 			}
+
 			if (tabIndex == -1)
 			{
 				tabIndex = pDt->getCurrentTabIndex();
 			}
-			if ((tabIndex >= 0) && (tabIndex < static_cast<INT>(pDt->nbItem())))
+			
+			if ((tabIndex >= 0) && (tabIndex < static_cast<int>(pDt->nbItem())))
 			{
 				colorId = pDt->getIndividualTabColour(tabIndex);
 			}
+			
 			return colorId;
 		}
 

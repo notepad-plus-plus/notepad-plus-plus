@@ -97,6 +97,16 @@ void StaticDialog::goToCenter(UINT swpFlags)
 		::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 }
 
+bool StaticDialog::moveForDpiChange()
+{
+	if (_dpiManager.getDpi() != _dpiManager.getDpiForWindow(_hParent))
+	{
+		goToCenter(SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
+		return true;
+	}
+	return false;
+}
+
 void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing) const
 {
 	if (toShow)

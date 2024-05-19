@@ -315,6 +315,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 		{
 			_dpiManager.setDpiWP(wParam);
 			setPositionDpi(lParam);
+			getWindowRect(_rc);
 
 			return TRUE;
 		}
@@ -446,7 +447,7 @@ void RunDlg::doDialog(bool isRTL)
 		create(IDD_RUN_DLG, isRTL);
 
 	// Adjust the position in the center
-	goToCenter(SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
+	moveForDpiChange();
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 	::SetFocus(::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH));
 }

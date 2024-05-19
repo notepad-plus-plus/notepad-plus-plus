@@ -97,6 +97,8 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			setPositionDpi(lParam);
 
+			getWindowRect(_rc);
+
 			return TRUE;
 		}
 
@@ -303,7 +305,7 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 	}
 
 	// Adjust the position in the center
-	goToCenter(SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
+	moveForDpiChange();
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 
@@ -545,6 +547,8 @@ intptr_t CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 			setPositionDpi(lParam);
 
+			getWindowRect(_rc);
+
 			return TRUE;
 		}
 
@@ -659,7 +663,7 @@ void HashFromTextDlg::doDialog(bool isRTL)
 	}
 
 	// Adjust the position in the center
-	goToCenter(SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
+	moveForDpiChange();
 	goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 }
 

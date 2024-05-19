@@ -54,6 +54,7 @@ public :
 	void redrawDlgItem(const int nIDDlgItem, bool forceUpdate = false) const;
 
 	void goToCenter(UINT swpFlags = SWP_SHOWWINDOW);
+	bool moveForDpiChange();
 
 	void display(bool toShow = true, bool enhancedPositioningCheckWhenShowing = false) const;
 

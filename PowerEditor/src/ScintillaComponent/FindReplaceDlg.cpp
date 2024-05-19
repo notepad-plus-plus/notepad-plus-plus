@@ -349,7 +349,9 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	if (nppGUI._findWindowPos.bottom - nppGUI._findWindowPos.top != 0)  // check height against 0 as a test of valid data from config
 	{
 		RECT rc = getViewablePositionRect(nppGUI._findWindowPos);
-		::SetWindowPos(_hSelf, HWND_TOP, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, swpFlags);
+		::SetWindowPos(_hSelf, HWND_TOP, rc.left, rc.top, 0, 0, SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
+		::SetWindowPos(_hSelf, HWND_TOP, 0, 0, _rc.right - _rc.left, _rc.bottom - _rc.top, swpFlags | SWP_NOMOVE);
+
 		if ((swpFlags & SWP_SHOWWINDOW) == SWP_SHOWWINDOW)
 			::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 	}
@@ -1799,6 +1801,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			setPositionDpi(lParam, SWP_NOZORDER | SWP_NOACTIVATE);
 
+			_rc.left = 0;
+			_rc.top = 0;
+			_rc.right = _szMinDialog.cx + _szBorder.cx;
+			_rc.bottom = _szMinDialog.cy + _szBorder.cy;
+
 			return TRUE;
 		}
 
@@ -1977,28 +1984,40 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 				case IDM_SEARCH_FIND:
 					if (_currentStatus == FIND_DLG)
+					{
+						moveForDpiChange();
 						goToCenter();
+					}
 					else
 						enableReplaceFunc(false);
 					return TRUE;
 
 				case IDM_SEARCH_REPLACE:
 					if (_currentStatus == REPLACE_DLG)
+					{
+						moveForDpiChange();
 						goToCenter();
+					}
 					else
 						enableReplaceFunc(true);
 					return TRUE;
 
 				case IDM_SEARCH_FINDINFILES:
 					if (_currentStatus == FINDINFILES_DLG)
+					{
+						moveForDpiChange();
 						goToCenter();
+					}
 					else
 						enableFindInFilesFunc();
 					return TRUE;
 
 				case IDM_SEARCH_MARK:
 					if (_currentStatus == MARK_DLG)
+					{
+						moveForDpiChange();
 						goToCenter();
+					}
 					else
 						enableMarkFunc();
 					return TRUE;
@@ -4843,7 +4862,7 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 		::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, FALSE, 0);
 
 		delete [] newBuffer;
-    }
+	}
 }
 
 void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)

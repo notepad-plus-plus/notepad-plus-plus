@@ -3683,6 +3683,35 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			*/
 		}
 	}
+	else if (type == L_PYTHON)
+	{
+		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+			(eolMode == SC_EOL_CR && ch == '\r'))
+		{
+			// Search the non-empty previous line
+			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+				prevLine--;
+
+			// Get previous line's Indent
+			if (prevLine >= 0)
+			{
+				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+			}
+
+			_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
+			_pEditView->execute(SCI_SETTARGETRANGE, _pEditView->execute(SCI_POSITIONFROMLINE, prevLine), 
+				_pEditView->execute(SCI_GETLINEENDPOSITION, prevLine));
+			const char colonExpr[] = ":[ \t]*(#|$)";  // colon optionally followed by only whitespace and/or start-of-comment
+			if (_pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr)) >= 0)
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+			}
+			else if (indentAmountPrevLine > 0)
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+		}
+	}
 	else // Basic indentation mode
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||

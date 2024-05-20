@@ -965,26 +965,14 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// then indicator ID 7 is preserved by Notepad++, and it is safe to be used by the plugin.
 
 	#define NPPM_GETTABCOLORID (NPPMSG + 114)
-	// int NPPM_GETTABCOLORID (int view, int tabIndex)
-	// Get the tab color id with given view and tab index.
-	// 
-	// wParam[in]: VIEW
-		// Here's the values for the view:
-		//  MAIN_VIEW 0
-		//  SUB_VIEW  1
-		//  active    -1
-	// 
-	// lParam[in]: TABINDEX
-		// Zero-based, i.e., use 0 for first tab, 1 for second tab, etc.; use -1 for active tab
+	// int NPPM_GETTABCOLORID(int view, int tabIndex)
+	// Get the tab color ID with given tab index and view.
+	// wParam[in]: view - main view (0) or sub-view (1) or -1 (active view)
+	// lParam[in]: tabIndex - index (in the view indicated above). -1 for currently active tab
+	// Return tab color ID which contains the following values: 0 (yellow), 1 (green), 2 (blue), 3 (orange), 4 (pink) or -1 (no color)
 	//
-	// Return tab color id
-		// tab color id contains the following values:
-		//  -1 (no color)
-		//   0 (yellow)
-		//   1 (green)
-		//   2 (blue)
-		//   3 (orange)
-		//   4 (pink)
+	// Note: there's no symetric command NPPM_SETTABCOLORID. Plugins can use NPPM_MENUCOMMAND to set current tab color with the desired tab color ID.
+
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

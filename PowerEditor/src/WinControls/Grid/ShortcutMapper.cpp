@@ -23,8 +23,8 @@ using namespace std;
 
 void ShortcutMapper::initTabs()
 {
-	HWND hTab = _hTabCtrl = ::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR);
-	NppDarkMode::subclassTabControl(hTab);
+	_hTabCtrl = ::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR);
+	NppDarkMode::subclassTabControl(_hTabCtrl);
 	TCITEM tie{};
 	tie.mask = TCIF_TEXT;
 
@@ -33,48 +33,36 @@ void ShortcutMapper::initTabs()
 		_tabNames[i] = getTabString(i);
 
 		tie.pszText = const_cast<LPWSTR>(_tabNames[i].c_str());
-		::SendMessage(hTab, TCM_INSERTITEM, i, reinterpret_cast<LPARAM>(&tie));
+		::SendMessage(_hTabCtrl, TCM_INSERTITEM, i, reinterpret_cast<LPARAM>(&tie));
 	}
 
-    TabCtrl_SetCurSel(_hTabCtrl, int(_currentState));
-
-	// force alignment to babygrid
-	RECT rcTab{};
-	WINDOWPLACEMENT wp{};
-	wp.length = sizeof(wp);
-
-	::GetWindowPlacement(hTab, &wp);
-	::SendMessage(hTab, TCM_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rcTab));
-
-	wp.rcNormalPosition.bottom = _dpiManager.scale(30);
-	wp.rcNormalPosition.top = wp.rcNormalPosition.bottom - rcTab.bottom;
-
-	::SetWindowPlacement(hTab, &wp);
+	TabCtrl_SetCurSel(_hTabCtrl, static_cast<int>(_currentState));
 }
 
-void ShortcutMapper::getClientRect(RECT & rc) const 
+void ShortcutMapper::getClientRect(RECT& rc) const
 {
-	const UINT dpi = _dpiManager.getDpi();
-		Window::getClientRect(rc);
+	Window::getClientRect(rc);
 
-		RECT tabRect{}, btnRect{};
-		::GetClientRect(::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR), &tabRect);
-		int tabH = tabRect.bottom - tabRect.top;
-		int paddingTop = tabH / 2;
-		rc.top += tabH + paddingTop;
+	RECT rcTab{};
+	getMappedChildRect(IDC_BABYGRID_TABBAR, rcTab);
 
-		RECT infoRect{}, filterRect{};
-		::GetClientRect(::GetDlgItem(_hSelf, IDC_BABYGRID_INFO), &infoRect);
-		::GetClientRect(::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER), &filterRect);
-		::GetClientRect(::GetDlgItem(_hSelf, IDOK), &btnRect);
-		int infoH = infoRect.bottom - infoRect.top;
-		int filterH = filterRect.bottom - filterRect.top;
-		int btnH = btnRect.bottom - btnRect.top;
-	int paddingBottom = btnH + _dpiManager.scale(16, dpi);
-		rc.bottom -= btnH + filterH + infoH + paddingBottom;
+	RECT rcInfo{};
+	HWND hInfo = ::GetDlgItem(_hSelf, IDC_BABYGRID_INFO);
+	::GetWindowRect(hInfo, &rcInfo);
+	::MapWindowPoints(nullptr, _hSelf, reinterpret_cast<LPPOINT>(&rcInfo), 2);
 
-	rc.left += _dpiManager.scale(5, dpi);
-	rc.right -= _dpiManager.scale(5, dpi);
+	RECT rcFilterEdit{};
+	HWND hFilterEdit = ::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER);
+	::GetWindowRect(hFilterEdit, &rcFilterEdit);
+	::MapWindowPoints(nullptr, _hSelf, reinterpret_cast<LPPOINT>(&rcFilterEdit), 2);
+
+	const UINT dpi = _dpiManager.getDpiForWindow(_hSelf);
+	const LONG padding = _dpiManager.scale(6, dpi);
+	const LONG gap = rcFilterEdit.top - rcInfo.bottom;
+
+	rc.top = rcTab.bottom;
+	rc.bottom = rcInfo.top - gap;
+	::InflateRect(&rc, -padding, 0);
 }
 
 generic_string ShortcutMapper::getTabString(size_t i) const
@@ -507,6 +495,94 @@ void ShortcutMapper::fillOutBabyGrid()
 	_babygrid.setInitialContent(false);
 }
 
+void ShortcutMapper::resizeDialogElements()
+{
+	constexpr auto getRcWidth = [](const RECT& rc) -> int {
+		return rc.right - rc.left;
+		};
+
+	constexpr auto getRcHeight = [](const RECT& rc) -> int {
+		return rc.bottom - rc.top;
+		};
+
+	auto setOrDeferWindowPos = [](HDWP hWinPosInfo, HWND hWnd, HWND hWndInsertAfter, int x, int y, int cx, int cy, UINT uFlags) -> HDWP {
+		if (hWinPosInfo != nullptr)
+		{
+			return ::DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags);
+		}
+		::SetWindowPos(hWnd, hWndInsertAfter, x, y, cx, cy, uFlags);
+		return nullptr;
+		};
+
+	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+
+	RECT rcClient{};
+	Window::getClientRect(rcClient);
+
+	RECT rcModBtn{};
+	HWND hModBtn = ::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY);
+	getMappedChildRect(hModBtn, rcModBtn);
+
+	RECT rcClearBtn{};
+	HWND hClearBtn = ::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR);
+	getMappedChildRect(hClearBtn, rcClearBtn);
+
+	RECT rcDelBtn{};
+	HWND hDelBtn = ::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE);
+	::GetClientRect(hDelBtn, &rcDelBtn);
+
+	RECT rcOkBtn{};
+	HWND hOkBtn = ::GetDlgItem(_hSelf, IDOK);
+	::GetClientRect(hOkBtn, &rcOkBtn);
+
+	RECT rcStatic{};
+	HWND hStatic = ::GetDlgItem(_hSelf, IDC_BABYGRID_STATIC);
+	getMappedChildRect(hStatic, rcStatic);
+
+	RECT rcFilterEdit{};
+	HWND hFilterEdit = ::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER);
+	::GetWindowRect(hFilterEdit, &rcFilterEdit);
+	::MapWindowPoints(nullptr, _hSelf, reinterpret_cast<LPPOINT>(&rcFilterEdit), 2);
+
+	RECT rcInfo{};
+	HWND hInfo = ::GetDlgItem(_hSelf, IDC_BABYGRID_INFO);
+	::GetWindowRect(hInfo, &rcInfo);
+	::MapWindowPoints(nullptr, _hSelf, reinterpret_cast<LPPOINT>(&rcInfo), 2);
+
+	const int wClient = getRcWidth(rcClient);
+	const int center = wClient / 2;
+
+	const int wBtn = getRcWidth(rcOkBtn);
+	const int gapBtn = rcClearBtn.left - rcModBtn.right;
+	const int gapBtnHalf = gapBtn / 2;
+
+	const int padding = _dpiManager.scale(6);
+	::InflateRect(&rcClient, -padding, -(gapBtn + getRcHeight(rcOkBtn)));
+
+	const int gapBtnEdit = rcClearBtn.top - rcFilterEdit.bottom;
+	const int heightFilter = getRcHeight(rcFilterEdit);
+	const int heightInfo = getRcHeight(rcInfo);
+
+	constexpr int nCtrls = 7;
+	auto hdwp = ::BeginDeferWindowPos(nCtrls);
+
+	hdwp = setOrDeferWindowPos(hdwp, hModBtn, nullptr, center - gapBtnHalf - wBtn * 2 - gapBtn, rcClient.bottom, 0, 0, SWP_NOSIZE | flags);
+	hdwp = setOrDeferWindowPos(hdwp, hClearBtn, nullptr, center - gapBtnHalf - wBtn, rcClient.bottom, 0, 0, SWP_NOSIZE | flags);
+	hdwp = setOrDeferWindowPos(hdwp, hDelBtn, nullptr, center + gapBtnHalf, rcClient.bottom, 0, 0, SWP_NOSIZE | flags);
+	hdwp = setOrDeferWindowPos(hdwp, hOkBtn, nullptr, center + gapBtnHalf + wBtn + gapBtn, rcClient.bottom, 0, 0, SWP_NOSIZE | flags);
+
+	rcClient.bottom -= (gapBtnEdit + heightFilter);
+	hdwp = setOrDeferWindowPos(hdwp, hStatic, nullptr, rcClient.left, rcClient.bottom + gapBtnEdit / 2, 0, 0, SWP_NOSIZE | flags);
+	hdwp = setOrDeferWindowPos(hdwp, hFilterEdit, nullptr, rcFilterEdit.left, rcClient.bottom, rcClient.right - rcFilterEdit.left, heightFilter, flags);
+	hdwp = setOrDeferWindowPos(hdwp, hInfo, nullptr, rcClient.left, rcClient.bottom - gapBtnEdit - heightInfo, getRcWidth(rcClient), heightInfo, flags);
+
+	if (hdwp)
+		::EndDeferWindowPos(hdwp);
+
+	getClientRect(rcClient);
+	_babygrid.reSizeToWH(rcClient);
+}
+
 intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -517,19 +593,22 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			initBabyGrid();
 			initTabs();
 			fillOutBabyGrid();
-			_babygrid.display();	
+			_babygrid.display();
 			goToCenter();
+
+			resizeDialogElements();
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
+			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
+			_szBorder.cx = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;
+			_szBorder.cy = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION);
+
 			RECT rect{};
 			Window::getClientRect(rect);
-			_clientWidth = rect.right - rect.left;
-			_clientHeight = rect.bottom - rect.top;
+			_szMinDialog.cx = rect.right - rect.left;
+			_szMinDialog.cy = rect.bottom - rect.top;
 
-			Window::getWindowRect(rect);
-			_initClientWidth = rect.right - rect.left;
-			_initClientHeight = rect.bottom - rect.top;
 			_dialogInitDone = true;
 
 			return TRUE;
@@ -561,15 +640,15 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			return TRUE;
 		}
 
-		case WM_GETMINMAXINFO :
+		case WM_GETMINMAXINFO:
 		{
-			MINMAXINFO* mmi = (MINMAXINFO*)lParam;
+			auto mmi = reinterpret_cast<MINMAXINFO*>(lParam);
 			if (_dialogInitDone)
 			{
-				mmi->ptMinTrackSize.x = _initClientWidth;
-				mmi->ptMinTrackSize.y = _initClientHeight;
+				mmi->ptMinTrackSize.x = _szMinDialog.cx + _szBorder.cx;
+				mmi->ptMinTrackSize.y = _szMinDialog.cy + _szBorder.cy;
 			}
-			return 0;
+			return TRUE;
 		}
 
 		case WM_DESTROY:
@@ -584,56 +663,13 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_SIZE:
 		{
-			LONG newWidth = LOWORD(lParam);
-			LONG newHeight = HIWORD(lParam);
-			RECT rect{};
-
-			LONG addWidth = newWidth - _clientWidth;
-			LONG addHeight = newHeight - _clientHeight;
-			_clientWidth = newWidth;
-			_clientHeight = newHeight;
-
-			getClientRect(rect);
-			_babygrid.reSizeToWH(rect);
-			
-			//elements that need to be moved
-			const auto moveWindowIDs = {
-				IDM_BABYGRID_MODIFY, IDM_BABYGRID_CLEAR, IDM_BABYGRID_DELETE, IDOK
-			};
-			const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
-			Window::getClientRect(rect);
-
-			for (int moveWndID : moveWindowIDs)
-			{
-				HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
-				::GetWindowRect(moveHwnd, &rect);
-				::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
-				::SetWindowPos(moveHwnd, NULL, rect.left + addWidth / 2, rect.top + addHeight, 0, 0, SWP_NOSIZE | flags);
-			}
-			HWND moveHwnd = ::GetDlgItem(_hSelf, IDC_BABYGRID_STATIC);
-			::GetWindowRect(moveHwnd, &rect);
-			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
-			::SetWindowPos(moveHwnd, NULL, rect.left, rect.top + addHeight, 0, 0, SWP_NOSIZE | flags);
-			
-			// Move and resize IDC_BABYGRID_INFO and IDC_BABYGRID_FILTER
-			// Move the Y position, Resize the width
-			HWND resizeHwnd = ::GetDlgItem(_hSelf, IDC_BABYGRID_INFO);
-			::GetWindowRect(resizeHwnd, &rect);
-			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
-			::SetWindowPos(resizeHwnd, NULL, rect.left, rect.top + addHeight, rect.right - rect.left + addWidth, rect.bottom - rect.top, flags);
-			
-			resizeHwnd = ::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER);
-			::GetWindowRect(resizeHwnd, &rect);
-			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
-			::SetWindowPos(resizeHwnd, NULL, rect.left, rect.top + addHeight, rect.right - rect.left + addWidth, rect.bottom - rect.top, flags);
-
-			break;
+			resizeDialogElements();
+			return TRUE;
 		}
-		break;
 
 		case WM_NOTIFY:
 		{
-			NMHDR nmh = *((NMHDR*)lParam);
+			NMHDR nmh = *reinterpret_cast<NMHDR*>(lParam);
 			if (nmh.hwndFrom == _hTabCtrl)
 			{
 				if (nmh.code == TCN_SELCHANGE)
@@ -668,8 +704,8 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					fillOutBabyGrid();
 				}
 			}
+			return TRUE;
 		}
-		break;
 
 		case NPPM_INTERNAL_FINDKEYCONFLICTS:
 		{
@@ -1125,7 +1161,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							break;
 						}
 
-                        // updateShortcuts() will update all menu item - the menu items will be shifted
+						// updateShortcuts() will update all menu item - the menu items will be shifted
 						nppParam.getAccelerator()->updateShortcuts();
 						nppParam.setShortcutDirty();
 					}

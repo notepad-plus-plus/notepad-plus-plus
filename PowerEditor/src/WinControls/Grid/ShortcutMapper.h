@@ -55,11 +55,12 @@ public:
 							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
 
 	generic_string getTextFromCombo(HWND hCombo);
-	bool isFilterValid(Shortcut);
+	bool isFilterValid(Shortcut sc);
 	bool isFilterValid(PluginCmdShortcut sc);
 	bool isFilterValid(ScintillaKeyMap sc);
 
-protected :
+protected:
+	void resizeDialogElements();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
@@ -89,10 +90,9 @@ private:
 		GFONT_ROWS,
 		MAX_GRID_FONTS
 	};
-	LONG _clientWidth = 0;
-	LONG _clientHeight = 0;
-	LONG _initClientWidth = 0;
-	LONG _initClientHeight = 0;
+
+	SIZE _szMinDialog{};
+	SIZE _szBorder{};
 	bool _dialogInitDone = false;
 
 	void initTabs();
@@ -108,4 +108,3 @@ private:
 				 (lhs._key	   == rhs._key	  ) );
 	}
 };
-

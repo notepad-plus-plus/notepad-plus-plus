@@ -145,7 +145,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT rcDesc{};
 	getMappedChildRect(IDC_PLUGINADM_EDIT, rcDesc);
 
-	const long margeX = ::GetSystemMetrics(SM_CXEDGE);
+	const long margeX = _dpiManager.getSystemMetricsForDpi(SM_CXEDGE);
 	const long margeY = _dpiManager.scale(13);
 
 	rect.bottom = rcDesc.bottom + margeY;
@@ -158,7 +158,7 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 	RECT listRect{
 		rcDesc.left - margeX,
 		rcSearch.bottom + margeY,
-		rcDesc.right + ::GetSystemMetrics(SM_CXVSCROLL) + margeX,
+		rcDesc.right + _dpiManager.getSystemMetricsForDpi(SM_CXVSCROLL) + margeX,
 		rcDesc.top - margeY
 	};
 

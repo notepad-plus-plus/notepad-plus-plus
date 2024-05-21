@@ -5113,8 +5113,8 @@ void DelimiterSubDlg::calcCtrlsPos()
 	getMappedChildRect(IDD_STATIC_OPENDELIMITER, rcOpen);
 	getMappedChildRect(IDC_EDIT_OPENDELIMITER, rcOpenEdit);
 
-	_gapEditHor = (rcBlabla.left - rcOpenEdit.right) - ::GetSystemMetrics(SM_CXEDGE);
-	_gapEditVer = (rcBlabla.top - rcOpenEdit.top) + ::GetSystemMetrics(SM_CYEDGE);
+	_gapEditHor = (rcBlabla.left - rcOpenEdit.right) - _dpiManager.getSystemMetricsForDpi(SM_CXEDGE);
+	_gapEditVer = (rcBlabla.top - rcOpenEdit.top) + _dpiManager.getSystemMetricsForDpi(SM_CYEDGE);
 	_gapText = (rcBlabla.left - rcOpen.right);
 }
 

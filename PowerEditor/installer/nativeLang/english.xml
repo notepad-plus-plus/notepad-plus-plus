@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.6.3">
+	<Native-Langue name="English" filename="english.xml" version="8.6.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -468,7 +468,7 @@ Translation note:
 				<Item id="1" name="Find Next"/>
 				<Item id="1722" name="Backward direction"/>
 				<Item id="2" name="Close"/>
-				<Item id="1620" name="&amp;Find what :"/>
+				<Item id="1620" name="&amp;Find what:"/>
 				<Item id="1603" name="Match &amp;whole word only"/>
 				<Item id="1604" name="Match &amp;case"/>
 				<Item id="1605" name="Re&amp;gular expression"/>
@@ -477,7 +477,7 @@ Translation note:
 				<Item id="1615" name="Mark All"/>
 				<Item id="1616" name="Book&amp;mark line"/>
 				<Item id="1618" name="Purge for each search"/>
-				<Item id="1611" name="Rep&amp;lace with :"/>
+				<Item id="1611" name="Rep&amp;lace with:"/>
 				<Item id="1608" name="&amp;Replace"/>
 				<Item id="1609" name="Replace &amp;All"/>
 				<Item id="1687" name="On losing focus"/>
@@ -486,8 +486,8 @@ Translation note:
 				<Item id="1633" name="Clear all marks"/>
 				<Item id="1635" name="Replace All in All &amp;Opened Documents"/>
 				<Item id="1636" name="Find All in All &amp;Opened Documents"/>
-				<Item id="1654" name="Filter&amp;s :"/>
-				<Item id="1655" name="Dir&amp;ectory :"/>
+				<Item id="1654" name="Filter&amp;s:"/>
+				<Item id="1655" name="Dir&amp;ectory:"/>
 				<Item id="1656" name="Find All"/>
 				<Item id="1658" name="In all su&amp;b-folders"/>
 				<Item id="1659" name="In &amp;hidden folders"/>
@@ -1076,7 +1076,7 @@ Translation note:
 					<Item id="6408" name="UTF-8 with BOM"/>
 					<Item id="6409" name="UTF-16 Big Endian with BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian with BOM"/>
-					<Item id="6411" name="Default language :"/>
+					<Item id="6411" name="Default language:"/>
 					<Item id="6419" name="New Document"/>
 					<Item id="6420" name="Apply to opened ANSI files"/>
 					<Item id="6432" name="Always open a new document in addition at startup"/>
@@ -1199,7 +1199,7 @@ Translation note:
 					<Item id="6316" name="Simple backup"/>
 					<Item id="6317" name="Verbose backup"/>
 					<Item id="6804" name="Custom Backup Directory"/>
-					<Item id="6803" name="Directory :"/>
+					<Item id="6803" name="Directory:"/>
 				</Backup>
 
 				<AutoCompletion title="Auto-Completion">
@@ -1720,8 +1720,8 @@ Find in all files but exclude all folders log or logs recursively:
 			<progress-cancel-info value="Cancelling operation, please wait..."/>
 			<find-in-files-progress-title value="Find In Files progress..."/>
 			<replace-in-files-confirm-title value="Are you sure?"/>
-			<replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
-			<replace-in-files-confirm-filetype value="For file type :"/>
+			<replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in:"/>
+			<replace-in-files-confirm-filetype value="For file type:"/>
 			<replace-in-files-progress-title value="Replace In Files progress..."/>
 			<replace-in-projects-confirm-title value="Are you sure?"/>
 			<replace-in-projects-confirm-message value="Do you want to replace all occurrences in all documents in the selected Project Panel(s)?"/>

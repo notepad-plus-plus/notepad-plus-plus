@@ -730,7 +730,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (int i)
 	{
-		TCHAR str[50] = TEXT("God Damned Exception : ");
+		wchar_t str[50] = L"God Damned Exception:";
 		TCHAR code[10];
 		wsprintf(code, TEXT("%d"), i);
 		wcscat_s(str, code);

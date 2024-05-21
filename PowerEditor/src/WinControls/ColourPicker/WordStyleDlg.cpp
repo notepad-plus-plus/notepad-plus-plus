@@ -1069,7 +1069,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (static_cast<size_t>(lbTextLen) > styleNameLen)
 		return;
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
-	wcscat_s(str, TEXT(" : "));
+	wcscat_s(str, L": ");
 	wcscat_s(str, styleName);
 
 	// PAD for fix a display glitch

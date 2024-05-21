@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.3">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -120,16 +120,6 @@ Translation note:
 					<Item id="42007" name="&amp;Select All"/>
 					<Item id="42020" name="Begin/End &amp;Select"/>
 					<Item id="42089" name="Begin/End Select in Column Mode"/>
-					<Item id="42090" name="Ignore Case &amp;&amp; Whole Word"/>
-					<Item id="42091" name="Match Case Only"/>
-					<Item id="42092" name="Match Whole Word Only"/>
-					<Item id="42093" name="Match Case &amp;&amp; Whole Word"/>
-					<Item id="42094" name="Ignore Case &amp;&amp; Whole Word"/>
-					<Item id="42095" name="Match Case Only"/>
-					<Item id="42096" name="Match Whole Word Only"/>
-					<Item id="42097" name="Match Case &amp;&amp; Whole Word"/>
-					<Item id="42098" name="Undo the Latest Added Multi-Select"/>
-					<Item id="42099" name="Skip Current &amp;&amp; Go to Next Multi-select"/>
 					<Item id="42084" name="Date Time (short)"/>
 					<Item id="42085" name="Date Time (long)"/>
 					<Item id="42086" name="Date Time (customized)"/>
@@ -166,6 +156,16 @@ Translation note:
 					<Item id="42074" name="Open Containing Folder in Explorer"/>
 					<Item id="42075" name="Search on Internet"/>
 					<Item id="42076" name="Change Search Engine..."/>
+					<Item id="42090" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42091" name="Match Case Only"/>
+					<Item id="42092" name="Match Whole Word Only"/>
+					<Item id="42093" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42094" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42095" name="Match Case Only"/>
+					<Item id="42096" name="Match Whole Word Only"/>
+					<Item id="42097" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42098" name="Undo the Latest Added Multi-Select"/>
+					<Item id="42099" name="Skip Current &amp;&amp; Go to Next Multi-select"/>
 					<Item id="42018" name="Start Re&amp;cording"/>
 					<Item id="42019" name="S&amp;top Recording"/>
 					<Item id="42021" name="&amp;Playback"/>
@@ -468,7 +468,7 @@ Translation note:
 				<Item id="1" name="Find Next"/>
 				<Item id="1722" name="Backward direction"/>
 				<Item id="2" name="Close"/>
-				<Item id="1620" name="&amp;Find what :"/>
+				<Item id="1620" name="&amp;Find what:"/>
 				<Item id="1603" name="Match &amp;whole word only"/>
 				<Item id="1604" name="Match &amp;case"/>
 				<Item id="1605" name="Re&amp;gular expression"/>
@@ -477,7 +477,7 @@ Translation note:
 				<Item id="1615" name="Mark All"/>
 				<Item id="1616" name="Book&amp;mark line"/>
 				<Item id="1618" name="Purge for each search"/>
-				<Item id="1611" name="Rep&amp;lace with :"/>
+				<Item id="1611" name="Rep&amp;lace with:"/>
 				<Item id="1608" name="&amp;Replace"/>
 				<Item id="1609" name="Replace &amp;All"/>
 				<Item id="1687" name="On losing focus"/>
@@ -486,8 +486,8 @@ Translation note:
 				<Item id="1633" name="Clear all marks"/>
 				<Item id="1635" name="Replace All in All &amp;Opened Documents"/>
 				<Item id="1636" name="Find All in All &amp;Opened Documents"/>
-				<Item id="1654" name="Filter&amp;s :"/>
-				<Item id="1655" name="Dir&amp;ectory :"/>
+				<Item id="1654" name="Filter&amp;s:"/>
+				<Item id="1655" name="Dir&amp;ectory:"/>
 				<Item id="1656" name="Find All"/>
 				<Item id="1658" name="In all su&amp;b-folders"/>
 				<Item id="1659" name="In &amp;hidden folders"/>
@@ -514,9 +514,9 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Find"/>
-				<Item id="1685" name="Match case"/>
-				<Item id="1690" name="Highlight all"/>
+				<Item id="1681" name="Find:"/>
+				<Item id="1685" name="Match &amp;case"/>
+				<Item id="1690" name="&amp;Highlight all"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Find Characters in Range...">
@@ -971,7 +971,7 @@ Translation note:
 					<Item id="6123" name="Localization"/>
 				</Global>
 
-				<Scintillas title="Editing">
+				<Scintillas title="Editing 1">
 					<Item id="6216" name="Caret Settings"/>
 					<Item id="6217" name="Width:"/>
 					<Item id="6219" name="Blink rate:"/>
@@ -1076,7 +1076,7 @@ Translation note:
 					<Item id="6408" name="UTF-8 with BOM"/>
 					<Item id="6409" name="UTF-16 Big Endian with BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian with BOM"/>
-					<Item id="6411" name="Default language :"/>
+					<Item id="6411" name="Default language:"/>
 					<Item id="6419" name="New Document"/>
 					<Item id="6420" name="Apply to opened ANSI files"/>
 					<Item id="6432" name="Always open a new document in addition at startup"/>
@@ -1094,6 +1094,7 @@ Translation note:
 					<Item id="4009" name="Supported extensions:"/>
 					<Item id="4010" name="Registered extensions:"/>
 				</FileAssoc>
+
 				<Language title="Language">
 					<Item id="6505" name="Available items"/>
 					<Item id="6506" name="Disabled items"/>
@@ -1198,7 +1199,7 @@ Translation note:
 					<Item id="6316" name="Simple backup"/>
 					<Item id="6317" name="Verbose backup"/>
 					<Item id="6804" name="Custom Backup Directory"/>
-					<Item id="6803" name="Directory :"/>
+					<Item id="6803" name="Directory:"/>
 				</Backup>
 
 				<AutoCompletion title="Auto-Completion">
@@ -1719,8 +1720,8 @@ Find in all files but exclude all folders log or logs recursively:
 			<progress-cancel-info value="Cancelling operation, please wait..."/>
 			<find-in-files-progress-title value="Find In Files progress..."/>
 			<replace-in-files-confirm-title value="Are you sure?"/>
-			<replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
-			<replace-in-files-confirm-filetype value="For file type :"/>
+			<replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in:"/>
+			<replace-in-files-confirm-filetype value="For file type:"/>
 			<replace-in-files-progress-title value="Replace In Files progress..."/>
 			<replace-in-projects-confirm-title value="Are you sure?"/>
 			<replace-in-projects-confirm-message value="Do you want to replace all occurrences in all documents in the selected Project Panel(s)?"/>
@@ -1730,6 +1731,11 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-result-title value="Search"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Extended"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Case"/>
+			<find-result-title-info-options-word value="Word"/>
 			<find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
 			<find-result-hits value="($INT_REPLACE$ hits)"/>
 			<find-result-line-prefix value="Line"/><!-- Must not begin with space or tab character -->

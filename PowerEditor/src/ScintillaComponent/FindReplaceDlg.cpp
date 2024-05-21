@@ -4974,13 +4974,13 @@ bool FindReplaceDlg::replaceInFilesConfirmCheck(generic_string directory, generi
 
 	generic_string title = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-title", TEXT("Are you sure?"));
 
-	generic_string msg = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-directory", TEXT("Are you sure you want to replace all occurrences in :"));
+	generic_string msg = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-directory", L"Are you sure you want to replace all occurrences in:");
 	msg += TEXT("\r\r");
 	msg += directory;
 
 	msg += TEXT("\r\r");
 
-	generic_string msg2 = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-filetype", TEXT("For file type :"));
+	generic_string msg2 = pNativeSpeaker->getLocalizedStrFromID("replace-in-files-confirm-filetype", L"For file type:");
 	msg2 += TEXT("\r\r");
 	msg2 += fileTypes[0] ? fileTypes : TEXT("*.*");
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 10 Mar 2024, for Notepad++ 8.6.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 13 Jun 2024, for Notepad++ 8.6.9
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.5">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -468,7 +468,7 @@ Translation note:
 				<Item id="1" name="Localizar próximo"/>
 				<Item id="1722" name="Direção para trás"/>
 				<Item id="2" name="Fechar"/>
-				<Item id="1620" name="Localizar :"/>
+				<Item id="1620" name="Localizar:"/>
 				<Item id="1603" name="Coincidir palavra inteira"/>
 				<Item id="1604" name="Diferen&amp;ciar maiúsculas/minúsculas"/>
 				<Item id="1605" name="&amp;Expressão regular"/>
@@ -477,7 +477,7 @@ Translation note:
 				<Item id="1615" name="Localizar todos"/>
 				<Item id="1616" name="Marcar linha"/>
 				<Item id="1618" name="Limpar marcadores"/>
-				<Item id="1611" name="Substituir por :"/>
+				<Item id="1611" name="Substituir por:"/>
 				<Item id="1608" name="Substitui&amp;r"/>
 				<Item id="1609" name="Substituir &amp;todos"/>
 				<Item id="1687" name="Ao perder o foco"/>
@@ -486,8 +486,8 @@ Translation note:
 				<Item id="1633" name="Limpar"/>
 				<Item id="1635" name="Substituir em todos os documentos abertos"/>
 				<Item id="1636" name="Localizar em todos os documentos abertos"/>
-				<Item id="1654" name="Filtros :"/>
-				<Item id="1655" name="Pasta :"/>
+				<Item id="1654" name="Filtros:"/>
+				<Item id="1655" name="Pasta:"/>
 				<Item id="1656" name="Localizar todos"/>
 				<Item id="1658" name="Incluir subpastas"/>
 				<Item id="1659" name="Incluir pastas ocultas"/>
@@ -970,6 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Localização"/>
 				</Global>
+				
 				<Scintillas title="Edição 1">
 					<Item id="6216" name="Configurações do cursor"/>
 					<Item id="6217" name="Largura:"/>
@@ -993,6 +994,7 @@ Translation note:
 					<Item id="6654" name="Enquadrado"/>
 					<Item id="6655" name="Largura:"/>
 				</Scintillas>
+				
 				<Scintillas2 title="Edição 2">
 					<Item id="6521" name="Multi-Edição"/>
 					<Item id="6522" name="Habilitar Multi-Edição (Ctrl+Clique do Mouse/seleção)"/>
@@ -1074,7 +1076,7 @@ Translation note:
 					<Item id="6408" name="UTF-8 com BOM"/>
 					<Item id="6409" name="UTF-16 Big Endian com BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian com BOM"/>
-					<Item id="6411" name="Linguagem padrão :"/>
+					<Item id="6411" name="Linguagem padrão:"/>
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar ao abrir arquivos ANSI"/>
 					<Item id="6432" name="Sempre abrir um novo documento ao iniciar"/>
@@ -1098,10 +1100,13 @@ Translation note:
 					<Item id="6506" name="Itens desabilitados"/>
 					<Item id="6507" name="Tornar o menu de linguagens compacto"/>
 					<Item id="6508" name="Menu de linguagens"/>
-					<Item id="6301" name="Configurações de tabulação"/>
-					<Item id="6302" name="Substituir por espaço"/>
-					<Item id="6303" name="Tamanho: "/>
+					<Item id="6301" name="Configurações de Indentação"/>
+					<Item id="6302" name="Caracter(es) de espaço"/>
+					<Item id="6303" name="Tamanho de indentação:"/>
+					<Item id="6310" name="Indentar usando:"/>
+					<Item id="6311" name="Caracter de TAB"/>
 					<Item id="6510" name="Usar valor padrão"/>
+					<Item id="6512" name="Tecla backspace deleta indentação ao invés de remover um único caracter espaço"/>
 					<Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
 				</Language>
 
@@ -1197,7 +1202,7 @@ Translation note:
 					<Item id="6316" name="Backup simples"/>
 					<Item id="6317" name="Backup completo"/>
 					<Item id="6804" name="Personalizar pasta de backup"/>
-					<Item id="6803" name="Pasta :"/>
+					<Item id="6803" name="Pasta:"/>
 				</Backup>
 
 				<AutoCompletion title="Autocompletar">
@@ -1519,6 +1524,11 @@ Deseja criar estes substitutos?
 
 OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua sessão SERÁ MODIFICADA QUANDO SAIR! É recomendável que você faça backup do seu arquivo &quot;session.xml&quot; agora."/>
 			<RTLvsDirectWrite title="Impossível executar o RTL" message="O RTL (Orientação de texto da Direita para a Esquerda) não é compatível com o modo DirectWrite. Por favor, desabilite a opção &quot;Usar DirectWrite&quot; na seção &quot;Diversos&quot; da opção &quot;Preferências&quot; do menu &quot;Configurações&quot;, e reinicie o Notepad++."/>
+			<FileMemoryAllocationFailed title="Exceção: A Alocação de memória para arquivo falhou" message="Pravavelmente não há memória livre contígua para que o arquivo possa ser carregado pelo Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Busca tipo Regex para trás está desabilitada" message="Por padrão, as buscas Regex para trás são desabilitadas devido a erros que levam a resultados potencialmente inesperados. Para executar uma busca para trás, abra a caixa de diálogo Localizar e selecione busca normal ou estendida ao invés de expressão regular.
+Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco para ela.
+			
+Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1717,8 +1727,8 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<progress-cancel-info value="Cancelando operação, aguarde..."/>
 			<find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>
 			<replace-in-files-confirm-title value="Tem certeza?"/>
-			<replace-in-files-confirm-directory value="Tem certeza de que deseja substituir todas as ocorrências em :"/>
-			<replace-in-files-confirm-filetype value="Para o tipo de arquivo :"/>
+			<replace-in-files-confirm-directory value="Tem certeza de que deseja substituir todas as ocorrências em:"/>
+			<replace-in-files-confirm-filetype value="Para o tipo de arquivo:"/>
 			<replace-in-files-progress-title value="Progresso do Substituir nos arquivos..."/>
 			<replace-in-projects-confirm-title value="Tem certeza?"/>
 			<replace-in-projects-confirm-message value="Deseja substituir todas as ocorrências em todos os documentos no(s) Painel(éis) de Projeto selecionado(s)?"/>

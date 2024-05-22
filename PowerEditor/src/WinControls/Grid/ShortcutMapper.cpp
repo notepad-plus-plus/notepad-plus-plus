@@ -728,7 +728,48 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_DPICHANGED:
+		{
+			const UINT prevDpi = _dpiManager.getDpi();
+			_dpiManager.setDpiWP(wParam);
+
+			for (auto& hFont : _hGridFonts)
+			{
+				if (hFont != nullptr)
+				{
+					::DeleteObject(hFont);
+					hFont = nullptr;
+				}
+			}
+
+			LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
+			lf.lfHeight = _dpiManager.scaleFont(10);
+			_hGridFonts.at(GFONT_ROWS) = ::CreateFontIndirect(&lf);
+			lf.lfHeight = _dpiManager.scaleFont(12);
+			lf.lfWeight = FW_BOLD;
+			_hGridFonts.at(GFONT_HEADER) = ::CreateFontIndirect(&lf);
+
+			_babygrid.setHeaderFont(_hGridFonts.at(GFONT_HEADER));
+			_babygrid.setRowFont(_hGridFonts.at(GFONT_ROWS));
+
+			_babygrid.setColWidth(0, _dpiManager.scale(30));
+			_babygrid.setHeaderHeight(_dpiManager.scale(21));
+			_babygrid.setRowHeight(_dpiManager.scale(21));
+
+			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
+			_szBorder.cx = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2;
+			_szBorder.cy = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION);
+
+			const UINT dpi = _dpiManager.getDpi();
+			_szMinDialog.cx = _dpiManager.scale(_szMinDialog.cx, dpi, prevDpi);
+			_szMinDialog.cy = _dpiManager.scale(_szMinDialog.cy, dpi, prevDpi);
+
+			setPositionDpi(lParam, SWP_NOZORDER | SWP_NOACTIVATE);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND:
 		{
 			switch (LOWORD(wParam))
 			{

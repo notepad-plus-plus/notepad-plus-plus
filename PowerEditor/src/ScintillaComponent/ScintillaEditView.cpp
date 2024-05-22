@@ -175,9 +175,6 @@ int getNbDigits(int aNum, int base)
 		aNum /= base;
 	} while (aNum != 0);
 
-	if (base == 16 && nbDigits % 2 != 0)
-		++nbDigits;
-
 	return nbDigits;
 }
 

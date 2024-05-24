@@ -6030,11 +6030,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 const TCHAR Progress::cClassName[] = TEXT("NppProgressClass");
 const TCHAR Progress::cDefaultHeader[] = TEXT("Operation progress...");
 const int Progress::cBackgroundColor = COLOR_3DFACE;
-const int Progress::cPBwidth = NppParameters::getInstance()._dpiManager.scaleX(550);
-const int Progress::cPBheight = NppParameters::getInstance()._dpiManager.scaleY(10);
-const int Progress::cBTNwidth = NppParameters::getInstance()._dpiManager.scaleX(80);
-const int Progress::cBTNheight = NppParameters::getInstance()._dpiManager.scaleY(25);
-
+const SIZE Progress::_szClient = { 565, 95 };
 
 volatile LONG Progress::refCount = 0;
 
@@ -6050,6 +6046,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
 		wcex.lpfnWndProc = wndProc;
 		wcex.hInstance = _hInst;
+		wcex.hIcon = ::LoadIcon(hInst, MAKEINTRESOURCE(IDI_M30ICON));
 		wcex.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 		wcex.hbrBackground = ::GetSysColorBrush(cBackgroundColor);
 		wcex.lpszClassName = cClassName;
@@ -6195,73 +6192,53 @@ int Progress::thread()
 
 int Progress::createProgressWindow()
 {
-	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
-
 	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	_hwnd = ::CreateWindowEx(
-		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW |
-			(pNativeSpeaker->isRTL() ? WS_EX_LAYOUTRTL : 0),
-		cClassName, _header, WS_POPUP | WS_CAPTION,
-		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-		NULL, NULL, _hInst, (LPVOID)this);
+	_dpiManager.setDpi(_hCallerWnd);
+	const UINT dpi = _dpiManager.getDpi();
+
+	RECT rcWindow = getDpiScaledWindowRect(dpi);
+
+	int xWindow = rcWindow.right - rcWindow.left;
+	int yWindow = rcWindow.bottom - rcWindow.top;
+
+	const DWORD style = WS_POPUP | WS_CAPTION;
+	const DWORD exStyle = WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | (pNativeSpeaker->isRTL() ? WS_EX_LAYOUTRTL : 0);
+
+	_hwnd = ::CreateWindowEx(exStyle, cClassName, _header, style,
+		rcWindow.left, rcWindow.top, xWindow, yWindow,
+		nullptr, nullptr, _hInst, static_cast<LPVOID>(this));
+
 	if (!_hwnd)
 		return -1;
 
-	const int paddedBorder = 3 * ::GetSystemMetrics(SM_CXPADDEDBORDER);
-	int widthPadding = dpiManager.scaleX(15) + paddedBorder;
-	int width = cPBwidth + widthPadding;
-
-	int textHeight = dpiManager.scaleY(20);
-	int progressBarPadding = dpiManager.scaleY(10);
-	int morePadding = dpiManager.scaleY(45);
-	int height = cPBheight + cBTNheight + textHeight + progressBarPadding + morePadding + paddedBorder;
-
-
-	POINT center{};
-	RECT callerRect{};
-	::GetWindowRect(_hCallerWnd, &callerRect);
-	center.x = (callerRect.left + callerRect.right) / 2;
-	center.y = (callerRect.top + callerRect.bottom) / 2;
-
-	int x = center.x - width / 2;
-	int y = center.y - height / 2;
-	::MoveWindow(_hwnd, x, y, width, height, TRUE);
-
-
-	int xStartPos = dpiManager.scaleX(5);
-	int yTextPos = dpiManager.scaleY(5);
-	auto ctrlWidth = width - widthPadding - xStartPos;
-
-	_hPathText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
+	_hPathText = ::CreateWindowEx(0, WC_STATIC, L"",
 		WS_CHILD | WS_VISIBLE | SS_PATHELLIPSIS,
-		xStartPos, yTextPos,
-		ctrlWidth, textHeight, _hwnd, NULL, _hInst, NULL);
+		0, 0, 0, 0,
+		_hwnd, nullptr, _hInst, nullptr);
 
-	generic_string hits = pNativeSpeaker->getLocalizedStrFromID("progress-hits-title", TEXT("Hits:"));
-	_hRunningHitsStaticText = ::CreateWindowEx(0, TEXT("STATIC"), hits.c_str(),
-		WS_CHILD | WS_VISIBLE | SS_RIGHT,
-		xStartPos, yTextPos + textHeight * 2,
-		75, textHeight, 
-		_hwnd, NULL, _hInst, NULL);
-
-	_hRunningHitsText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
+	generic_string hits = pNativeSpeaker->getLocalizedStrFromID("progress-hits-title", L"Hits:");
+	_hRunningHitsStaticText = ::CreateWindowEx(0, WC_STATIC, hits.c_str(),
 		WS_CHILD | WS_VISIBLE,
-		xStartPos + 75 + 2, yTextPos + textHeight * 2,
-		dpiManager.scaleX(70), textHeight,
-		_hwnd, NULL, _hInst, NULL);
+		0, 0, 0, 0,
+		_hwnd, nullptr, _hInst, nullptr);
 
-	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
+	_hRunningHitsText = ::CreateWindowEx(0, WC_STATIC, L"",
+		WS_CHILD | WS_VISIBLE | SS_RIGHT,
+		0, 0, 0, 0,
+		_hwnd, nullptr, _hInst, nullptr);
+
+	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, L"Progress Bar",
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
-		xStartPos, yTextPos + textHeight,
-		ctrlWidth, cPBheight,
-		_hwnd, NULL, _hInst, NULL);
-	SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
+		0, 0, 0, 0,
+		_hwnd, nullptr, _hInst, nullptr);
+
+	::SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 
 	// Set border so user can distinguish easier progress bar,
 	// especially, when getBackgroundColor is very similar or same 
 	// as getDarkerBackgroundColor
-	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled()); 
+	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled());
 	NppDarkMode::disableVisualStyle(_hPBar, NppDarkMode::isEnabled());
 	if (NppDarkMode::isEnabled())
 	{
@@ -6269,19 +6246,118 @@ int Progress::createProgressWindow()
 		::SendMessage(_hPBar, PBM_SETBARCOLOR, 0, static_cast<LPARAM>(NppDarkMode::getDarkerTextColor()));
 	}
 
-	generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("common-cancel", TEXT("Cancel"));
+	generic_string cancel = pNativeSpeaker->getLocalizedStrFromID("common-cancel", L"Cancel");
+	_hBtn = ::CreateWindowEx(0, WC_BUTTON, cancel.c_str(),
+		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON,
+		0, 0, 0, 0,
+		_hwnd, nullptr, _hInst, nullptr);
 
-	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), cancel.c_str(),
-		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
-		(width - cBTNwidth) / 2, yTextPos + textHeight + cPBheight + progressBarPadding,
-		cBTNwidth, cBTNheight,
-		_hwnd, NULL, _hInst, NULL);
+	setCtrlsPos();
+	setFont();
 
-	if (_hFont == nullptr)
+	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);
+	NppDarkMode::setDarkTitleBar(_hwnd);
+
+	POINT center{};
+	RECT callerRect{};
+	::GetWindowRect(_hCallerWnd, &callerRect);
+	center.x = (callerRect.left + callerRect.right) / 2;
+	center.y = (callerRect.top + callerRect.bottom) / 2;
+
+	int x = center.x - xWindow / 2;
+	int y = center.y - yWindow / 2;
+
+	::SetWindowPos(_hwnd, nullptr, x, y, 0, 0, SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
+	::SetWindowPos(_hwnd, HWND_TOPMOST, 0, 0, xWindow, yWindow, SWP_NOMOVE | SWP_SHOWWINDOW);
+
+	::ShowWindow(_hwnd, SW_SHOWNORMAL);
+	::UpdateWindow(_hwnd);
+
+	return 0;
+}
+
+
+RECT Progress::getDpiScaledWindowRect(UINT dpi) const
+{
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+
+	const int borderPadding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER, dpi);
+	const int xBorderPadding = (_dpiManager.getSystemMetricsForDpi(SM_CXFRAME, dpi) + borderPadding) * 2;
+	const int yBorderPadding = (_dpiManager.getSystemMetricsForDpi(SM_CYFRAME, dpi) + borderPadding) * 2 + _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION, dpi);
+
+	const int xClient = _dpiManager.scale(_szClient.cx, dpi);
+	const int yClient = _dpiManager.scale(_szClient.cy, dpi);
+
+	RECT rc{ 0, 0, xClient, yClient };
+
+	const DWORD style = WS_POPUP | WS_CAPTION;
+	const DWORD exStyle = WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | (pNativeSpeaker->isRTL() ? WS_EX_LAYOUTRTL : 0);
+	if (_dpiManager.adjustWindowRectExForDpi(&rc, style, FALSE, exStyle, dpi) == FALSE)
 	{
-		LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hwnd) };
-		_hFont = ::CreateFontIndirect(&lf);
+		rc.right = xClient + xBorderPadding;
+		rc.bottom = yClient + yBorderPadding;
 	}
+
+	return rc;
+}
+
+void Progress::setCtrlsPos()
+{
+	auto setOrDeferWindowPos = [](HDWP hWinPosInfo, HWND hWnd, HWND hWndInsertAfter, int x, int y, int cx, int cy, UINT uFlags) -> HDWP {
+		if (hWinPosInfo != nullptr)
+		{
+			return ::DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags);
+		}
+		::SetWindowPos(hWnd, hWndInsertAfter, x, y, cx, cy, uFlags);
+		return nullptr;
+		};
+
+	constexpr int heightBar = 10;
+	constexpr int heightText = 18;
+	constexpr int widthTextHits = 150;
+	constexpr int widthBtn = 80;
+	constexpr int heightBtn = 25;
+
+	const int padding = _dpiManager.scale(5);
+
+	const int xClientPadded = _dpiManager.scale(_szClient.cx) - padding * 2;
+	const int yBar = _dpiManager.scale(heightBar);
+	const int yText = _dpiManager.scale(heightText);
+	const int xTextHits = _dpiManager.scale(widthTextHits);
+	const int xBtn = _dpiManager.scale(widthBtn);
+	const int yBtn = _dpiManager.scale(heightBtn);
+
+	const int xStartPos = padding;
+	int yCtrlPos = padding;
+
+	constexpr UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+
+	constexpr int nCtrls = 5;
+	auto hdwp = ::BeginDeferWindowPos(nCtrls);
+
+	hdwp = setOrDeferWindowPos(hdwp, _hPathText, nullptr, xStartPos, yCtrlPos, xClientPadded, yText, flags);
+	yCtrlPos += yText;
+	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsStaticText, nullptr, xStartPos, yCtrlPos, xTextHits, yText, flags);
+	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsText, nullptr, xStartPos + xClientPadded - xTextHits, yCtrlPos, xTextHits, yText, flags);
+	yCtrlPos += yText;
+	hdwp = setOrDeferWindowPos(hdwp, _hPBar, nullptr, xStartPos, yCtrlPos, xClientPadded, yBar, flags);
+	yCtrlPos += yText;
+	hdwp = setOrDeferWindowPos(hdwp, _hBtn, nullptr, (xClientPadded - xBtn) / 2, yCtrlPos, xBtn, yBtn, flags);
+
+	if (hdwp)
+		::EndDeferWindowPos(hdwp);
+}
+
+void Progress::setFont()
+{
+	if (_hFont != nullptr)
+	{
+		::DeleteObject(_hFont);
+		_hFont = nullptr;
+	}
+
+	LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
+	_hFont = ::CreateFontIndirect(&lf);
 
 	if (_hFont != nullptr)
 	{
@@ -6291,14 +6367,6 @@ int Progress::createProgressWindow()
 		::SendMessage(_hRunningHitsText, WM_SETFONT, wpFont, TRUE);
 		::SendMessage(_hBtn, WM_SETFONT, wpFont, TRUE);
 	}
-
-	NppDarkMode::autoSubclassAndThemeChildControls(_hwnd);
-	NppDarkMode::setDarkTitleBar(_hwnd);
-
-	::ShowWindow(_hwnd, SW_SHOWNORMAL);
-	::UpdateWindow(_hwnd);
-
-	return 0;
 }
 
 
@@ -6357,6 +6425,33 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 			Progress* pw =	reinterpret_cast<Progress*>(static_cast<LONG_PTR>
 			(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
 			::SetFocus(pw->_hBtn);
+			return 0;
+		}
+
+		case WM_GETDPISCALEDSIZE:
+		{
+			auto pw = reinterpret_cast<Progress*>(static_cast<LONG_PTR>(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
+
+			const UINT newDpi = static_cast<UINT>(wparam);
+			RECT rcWindow = pw->getDpiScaledWindowRect(newDpi);
+
+			auto newSize = reinterpret_cast<SIZE*>(lparam);
+			newSize->cx = rcWindow.right - rcWindow.left;
+			newSize->cy = rcWindow.bottom - rcWindow.top;
+
+			return TRUE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			auto pw = reinterpret_cast<Progress*>(static_cast<LONG_PTR>(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
+			pw->_dpiManager.setDpiWP(wparam);
+
+			pw->setCtrlsPos();
+			pw->setFont();
+
+			pw->_dpiManager.setPositionDpi(lparam, hwnd, SWP_NOZORDER | SWP_NOACTIVATE);
+
 			return 0;
 		}
 

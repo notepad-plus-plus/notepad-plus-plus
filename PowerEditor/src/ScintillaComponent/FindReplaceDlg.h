@@ -572,10 +572,7 @@ private:
 	static const TCHAR cClassName[];
 	static const TCHAR cDefaultHeader[];
 	static const int cBackgroundColor;
-	static const int cPBwidth;
-	static const int cPBheight;
-	static const int cBTNwidth;
-	static const int cBTNheight;
+	static const SIZE _szClient;
 
 	static volatile LONG refCount;
 
@@ -584,6 +581,10 @@ private:
 
 	int thread();
 	int createProgressWindow();
+
+	RECT getDpiScaledWindowRect(UINT dpi) const;
+	void setCtrlsPos();
+	void setFont();
 
 	HINSTANCE _hInst = nullptr;
 	volatile HWND _hwnd = nullptr;
@@ -597,4 +598,6 @@ private:
 	HWND _hPBar = nullptr;
 	HWND _hBtn = nullptr;
 	HFONT _hFont = nullptr;
+
+	DPIManagerV2 _dpiManager;
 };

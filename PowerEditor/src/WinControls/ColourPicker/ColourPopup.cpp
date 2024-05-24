@@ -49,8 +49,7 @@ void ColourPopup::doDialog(POINT p)
 {
 	if (!isCreated())
 	{
-		const DPI_AWARENESS_CONTEXT dpiContextSystem = NppDarkMode::isWindows10() ? DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED : DPI_AWARENESS_CONTEXT_SYSTEM_AWARE;
-		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(dpiContextSystem);
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
 
 		create(IDD_COLOUR_POPUP);
 
@@ -248,8 +247,7 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 					display(false);
 
-					const DPI_AWARENESS_CONTEXT dpiContextSystem = NppDarkMode::isWindows10() ? DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED : DPI_AWARENESS_CONTEXT_SYSTEM_AWARE;
-					const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(dpiContextSystem);
+					const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
 					const bool isCreated = ChooseColor(&cc) == TRUE;
 					if (dpiContext != NULL)
 					{

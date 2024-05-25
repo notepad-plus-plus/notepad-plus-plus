@@ -52,7 +52,7 @@ uses features from Boost's `Boost.Regex` library.
 
 If you have [MinGW-w64](https://www.mingw-w64.org/) installed, you can compile Notepad++ with GCC. Otherwise MinGW-w64 can be downloaded [here](https://sourceforge.net/projects/mingw-w64/files/). You can also download some collection of tools which supports MinGW-w64, like [MSYS2](https://www.msys2.org/) or [WinLibs](https://winlibs.com/).
 
-Building Notepad++ is regularly tested on a Windows system by using [MSYS2](https://www.msys2.org/) project. Current versions of tools used to building (such as GCC, Make or Bash) can be checked by looking at some logs from the finished building (for example in the [current-build page](https://ci.appveyor.com/project/donho/notepad-plus-plus)). Other versions may also work but are untested.
+Building Notepad++ is regularly tested on a Windows system by using [MSYS2](https://www.msys2.org/) project. Current versions of tools used to building (such as GCC, Clang, Make or Bash) can be checked by looking at some logs from the finished building (for example in the [current-build page](https://github.com/notepad-plus-plus/notepad-plus-plus/actions/workflows/CI_build.yml). Other versions may also work but are untested.
 
 **Note:** Before building make sure that the system `PATH` environment variable contains `$MinGW-root$\bin` directory. Otherwise you have to set this directory yourself in Windows settings. You can also use a command like `set PATH=$MinGW-root$\bin;%PATH%` each time `cmd` is launched. But beware that if `PATH` contains several versions of MinGW-w64 GCC, only the first one will be usable.
 
@@ -70,3 +70,5 @@ Building Notepad++ is regularly tested on a Windows system by using [MSYS2](http
 - To see commands being executed add `VERBOSE=1` to the same command.
 - When a project is built outside of the `PowerEditor/gcc` directory, for example when using `-f` option, then the entire project path must not contain any spaces. Additionally, the path to `makefile` of this project should be listed as first.
 - When a project is built through MinGW-w64 with multilib support, a specific target can be forced by passing `TARGET_CPU` variable with `x86_64` or `i686` as value.
+- To use Clang instead of GCC for compilation provide `CXX` variable with `clang++` as value.
+- To use [Clang analyzer](https://clang-analyzer.llvm.org/) together with Clang provide `CLANGANALYZE=1` to the `mingw32-make` invocation.

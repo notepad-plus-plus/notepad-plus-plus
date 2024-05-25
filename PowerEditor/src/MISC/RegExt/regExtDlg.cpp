@@ -86,7 +86,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 	NppParameters& nppParam = NppParameters::getInstance();
 	switch (Message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			getRegisteredExts();
 			getDefSupportedExts();
@@ -105,6 +105,11 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 				::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, EM_SETLIMITTEXT, extNameMax - 1, 0);
 			}
 			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -140,15 +145,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
-		case WM_DRAWITEM :
-		{
-			HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_DELETE_ICON));
-			DRAWITEMSTRUCT *pdis = (DRAWITEMSTRUCT *)lParam;
-			::DrawIcon(pdis->hDC, 0, 0, hIcon);
-			return TRUE;
-		}
-
-		case WM_COMMAND :
+		case WM_COMMAND:
 		{
 			// Handle File association list extension
 			if (LOWORD(wParam) == IDC_REGEXT_LANGEXT_LIST || LOWORD(wParam) == IDC_REGEXT_REGISTEREDEXTS_LIST)

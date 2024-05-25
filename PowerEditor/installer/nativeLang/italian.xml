@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.6.5
-    Last modified Tue, March 12th, 2023.
+    Italian translation for Notepad++ 8.6.7
+    Last modified Sat, May 25th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.6.5">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.6.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -123,7 +123,7 @@ Translation note:
 					<Item id="42005" name="&amp;Incolla"/>
 					<Item id="42006" name="&amp;Elimina"/>
 					<Item id="42007" name="Seleziona t&amp;utto"/>
-					<Item id="42020" name="Inizio/Fine selezione"/>
+					<Item id="42020" name="Inizio/Fine &amp;selezione"/>
 					<Item id="42089" name="Inizio/Fine selezione in modalità Selezione-Colonna"/>
 					<Item id="42084" name="Data e ora (formato ridotto)"/>
 					<Item id="42085" name="Data e ora (formato esteso)"/>
@@ -473,11 +473,11 @@ Translation note:
 				<Item id="1" name="Trova Successivo"/>
 				<Item id="1722" name="Ricerca a ritroso"/>
 				<Item id="2" name="Chiudi"/>
-				<Item id="1620" name="Trova:"/>
+				<Item id="1620" name="&amp;Trova:"/>
 				<Item id="1603" name="Solo &amp;parole intere"/>
 				<Item id="1604" name="Distingui tra ma&amp;iuscole e minuscole"/>
-				<Item id="1605" name="Espressione regolare"/>
-				<Item id="1606" name="Torna all'inizio se raggiunta la fine"/>
+				<Item id="1605" name="Espressione re&amp;golare"/>
+				<Item id="1606" name="Torna all'ini&amp;zio se raggiunta la fine"/>
 				<Item id="1614" name="Conta corrispondenze"/>
 				<Item id="1615" name="Trova tutti"/>
 				<Item id="1616" name="Imposta un segnalibro sulla riga"/>
@@ -491,14 +491,14 @@ Translation note:
 				<Item id="1633" name="Pulisci evidenziazioni"/>
 				<Item id="1635" name="Sostituisci in tutti i documenti aperti"/>
 				<Item id="1636" name="Ricerca in tutti i documenti aperti"/>
-				<Item id="1654" name="Filtri:"/>
+				<Item id="1654" name="&amp;Filtri:"/>
 				<Item id="1655" name="Cart&amp;ella:"/>
 				<Item id="1656" name="Trova tutti"/>
-				<Item id="1658" name="Nelle sottocartelle"/>
-				<Item id="1659" name="Nelle cartelle nascoste"/>
+				<Item id="1658" name="Nelle sotto&amp;cartelle"/>
+				<Item id="1659" name="Nelle cartelle &amp;nascoste"/>
 				<Item id="1624" name="Tipo di ricerca"/>
 				<Item id="1625" name="&amp;Normale"/>
-				<Item id="1626" name="Estesa (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Estesa (\n, \r, \t, \0, \&amp;x...)"/>
 				<Item id="1660" name="Sostituisci nei file"/>
 				<Item id="1665" name="Sostituisci nei Progetti"/>
 				<Item id="1661" name="Segui documento corrente"/>
@@ -520,8 +520,8 @@ Translation note:
 
 			<IncrementalFind title="">
 				<Item id="1681" name="Trova:"/>
-				<Item id="1685" name="MAIUSCOLE/minuscole"/>
-				<Item id="1690" name="Evidenzia tutto"/>
+				<Item id="1685" name="Maiuscole/&amp;minuscole"/>
+				<Item id="1690" name="Evidenzia &amp;tutto"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Trova caratteri...">
@@ -530,16 +530,16 @@ Translation note:
 				<Item id="2902" name="Caratteri &amp;ASCII (0 - 127)"/>
 				<Item id="2903" name="Intervallo personalizzato (0-255):"/>
 				<Item id="2906" name="S&amp;u"/>
-				<Item id="2907" name="Giù"/>
+				<Item id="2907" name="&amp;Giù"/>
 				<Item id="2908" name="Direzione"/>
-				<Item id="2909" name="Torna su se raggiunta la fine"/>
-				<Item id="2910" name="Trova"/>
+				<Item id="2909" name="Torna ini&amp;zio se raggiunta la fine"/>
+				<Item id="2910" name="&amp;Trova"/>
 			</FindCharsInRange>
 
 			<GoToLine title="Vai alla riga/posizione #">
 				<Item id="2007" name="Riga"/>
 				<Item id="2008" name="Posizione carattere"/>
-				<Item id="1" name="&amp;Vai !"/>
+				<Item id="1" name="&amp;Vai"/>
 				<Item id="2" name="Annulla"/>
 				<Item id="2004" name="Sei alla riga/posizione:"/>
 				<Item id="2005" name="Vai alla riga/posizione:"/>
@@ -548,7 +548,7 @@ Translation note:
 
 			<Run title="Esegui...">
 				<Item id="1903" name="Programma da eseguire"/>
-				<Item id="1" name="Esegui!"/>
+				<Item id="1" name="Esegui"/>
 				<Item id="2" name="Annulla"/>
 				<Item id="1904" name="Salva..."/>
 			</Run>
@@ -1095,7 +1095,7 @@ Translation note:
 				</DefaultDir>
 
 				<FileAssoc title="Associazione file">
-					<Item id="4008" name="Chiudi e rilancia Notepad++ con privilegi di Amministratore per usare questa funzionalità"/>
+					<Item id="4008" name="Chiudi e rilancia Notepad++ con i privilegi di Amministratore per usare questa funzionalità"/>
 					<Item id="4009" name="Estensioni supportate:"/>
 					<Item id="4010" name="Estensioni registrate:"/>
 				</FileAssoc>
@@ -1369,7 +1369,7 @@ Translation note:
 				<Item id="1716" name="Tipo di ricerca"/>
 				<Item id="1717" name="&amp;Normale"/>
 				<Item id="1719" name="Espressione re&amp;golare"/>
-				<Item id="1718" name="Estesa (\n, \r, \t, \0, \x...)"/>
+				<Item id="1718" name="Estesa (\n, \r, \t, \0, \&amp;x...)"/>
 				<Item id="1720" name="&amp;. significa a capo"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Salva">
@@ -1404,11 +1404,11 @@ Tutte le modifiche salvate non possono essere ripristinate.
 Continuare?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
 			<DocReloadWarning title="Ricarica" message="Vuoi ricaricare il file? Ogni modifica apportata andrà persa."/>
-			<FileLockedWarning title="Salvataggio fallito" message="Verificare che il file non sia aperto con un altro programma."/>
+			<FileLockedWarning title="Salvataggio non andato a buon fine" message="Verificare che il file non sia aperto da un altro programma."/>
 			<FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
-			<RenameTabTemporaryNameAlreadyInUse title="Rinomina fallita" message="Il file specificato è già in uso su un&apos;altra scheda."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Rinomina non andata a buon fine" message="Il file specificato è già in uso su un&apos;altra scheda."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Rename failed" message="Il nome inserito non può rimanere vuoto, e non può contenere soltanto spazi o TAB."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
-			<DeleteFileFailed title="Eliminazione file" message="Eliminazione del file fallita."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<DeleteFileFailed title="Eliminazione file non andata a buon fine" message="Eliminazione del file non andata a buon fine."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="Il numero di file da aprire è troppo grande" message="Si stanno aprendo $INT_REPLACE$ file.
 Vuoi procedere?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
@@ -1432,7 +1432,7 @@ Esistono 3 modi per passare alla modalità Selezione-Colonna:
        selezionare la funzione &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;;
       Spostare il cursore all&apos;estremità del blocco di colonna desiderato, quindi
        eseguire nuovamente il comando &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;"/>
-			<BufferInvalidWarning title="Salvataggio fallito" message="Impossibile salvare: il buffer non è valido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<BufferInvalidWarning title="Salvataggio non andato a buon fine" message="Impossibile salvare: il buffer non è valido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Mantenere file inesistente" message="Il file &quot;$STR_REPLACE$&quot; è inesistente.
 Mantenere il file aperto?"/>
 			<DoDeleteOrNot title="Elimina file" message="Il file &quot;$STR_REPLACE$&quot;
@@ -1452,25 +1452,25 @@ Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra tu stia usando un sistema preistorico. Questa funzionalità richiede un sistema più moderno, scusaci."/>
 			<XpUpdaterProblem title="Aggiornamento Notepad++" message="L&apos;aggiornamento automatico di Notepad++ non è compatibile con XP a causa di un sistema di permessi obsoleto.
 Vuoi aprire la pagina di Notepad++ per scaricare l&apos;aggiornamento manualmente?"/>
-			<GUpProxyConfNeedAdminMode title="Impostazioni proxy" message="Rilancia Notepad++ con privilegi di amministratore per configurare il proxy."/>
+			<GUpProxyConfNeedAdminMode title="Impostazioni proxy" message="Rilancia Notepad++ con i privilegi di amministratore per configurare il proxy."/>
 			<DocTooDirtyToMonitor title="Problema monitoraggio" message="Il documento è stato modificato. Salva le modifiche prima di avviare il monitoraggio."/>
 			<DocNoExistToMonitor title="Problema monitoraggio" message="Il file deve esistere per essere monitorato."/>
 			<FileTooBigToOpen title="Problema dimensione file" message="Il file è troppo grande per essere aperto con Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Codice di eccezione: $STR_REPLACE$" message="Si è verificato un errore durante il caricamento del file!"/>
 			<WantToOpenHugeFile title="Apertura file di grandi dimensioni" message="L&apos;apertura di file superiori a 2GB+ potrebbe impegare svariati minuti.
 Vuoi proseguire?"/>
-			<CreateNewFileOrNot title="Crea nuovo file" message="&quot;$STR_REPLACE$&quot; non esiste. Crearlo??"/>
+			<CreateNewFileOrNot title="Crea nuovo file" message="&quot;$STR_REPLACE$&quot; non esiste. Crearlo?"/>
 			<CreateNewFileError title="Crea nuovo file" message="Impossibile creare il file &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="ERRORE" message="Impossibile aprire il file &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileNoFolderError title="Errore nell'apertura del file" message="&quot;$STR_REPLACE1$&quot; non può essere aperto:
 La cartella &quot;$STR_REPLACE2$&quot; non esiste."/>
-			<FileBackupFailed title="Backup File Fallito" message="La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
+			<FileBackupFailed title="Backup File non andato a buon fine" message="La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
 
 Vuoi salvare il file ugualmente?"/>
-			<LoadStylersFailed title="Caricamento stylers.xml fallito" message="Il caricamento di &quot;$STR_REPLACE$&quot; è fallito!"/>
-			<LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml è fallito!
+			<LoadStylersFailed title="Caricamento stylers.xml non andato a buon fine" message="Il caricamento di &quot;$STR_REPLACE$&quot; non è andato a buon fine!"/>
+			<LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml non è andato a buon fine!
 Vuoi ripristinare il file langs.xml?"/>
-			<LoadLangsFailedFinal title="Configurazione" message="Il caricamento di langs.xml è fallito!"/>
+			<LoadLangsFailedFinal title="Configurazione" message="Il caricamento di langs.xml non è andato a buon fine!"/>
 			<FolderAsWorspaceSubfolderExists title="Problema per Cartella come Area di Lavoro" message="Una sotto cartella della cartella che vuoi aggiungere esiste già.
 Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."/>
 
@@ -1492,11 +1492,11 @@ usane un altro."/>
 			<UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Vuoi rimuovere il linguaggio corrente?"/>
 			<SCMapperDoDeleteOrNot title="Eliminare scorciatoia" message="Sei sicuro di voler eliminare questa scorciatoia?"/>
 			<FindCharRangeValueError title="Problema nell&apos;intervallo di valori" message="Devi inserire un valore tra 0 e 255."/>
-			<OpenInAdminMode title="Salvataggio fallito" message="Il file non può essere salvato e potrebbe essere protetto.
+			<OpenInAdminMode title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Salvataggio fallito" message="Il file non può essere salvato e potrebbe essere protetto.
+			<OpenInAdminModeWithoutCloseCurrent title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
 Vuoi avviare Notepad++ come amministratore?"/>
-			<OpenInAdminModeFailed title="Apertura come amministratore fallita" message="Notepad++ non può essere aperto come amministratore."/>
+			<OpenInAdminModeFailed title="Apertura come amministratore non andata a buon fine" message="Notepad++ non può essere aperto come amministratore."/>
 			<ViewInBrowser title="Visualizza il file corrente nel browser" message="Applicazione non trovata nel sistema."/>
 			<ExitToUpdatePlugins title="Notepad++ sta per chiudersi" message="Cliccando &quot;Sì&quot;, uscirai da Notepad++ per continuare le operazioni.
 Notepad++ verrà riavviato dopo che le operazioni saranno state completate.
@@ -1646,7 +1646,7 @@ NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, 
 			<backup-select-folder value="Seleziona un percorso per la cartella di Backup"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Percorso non valido."/>
 			<cloud-restart-warning value="Riavvia Notepad++ per applicare le modifiche."/>
-			<cloud-select-folder value="Seleziona una cartella da dove Notepad++ possa leggere o scrivere le proprie impostazioni"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-select-folder value="Seleziona una cartella dove Notepad++ possa leggere o scrivere le proprie impostazioni"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Seleziona un percorso per la cartella predefinita"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Utilizza Shift+Invio per cercare nella direzione opposta"/>
 			<two-find-buttons-tip value="Modalità ricerca a 2 pulsanti"/>
@@ -1669,7 +1669,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<find-status-replaceinopenedfiles-1-replaced value="Sostituisci nei file aperti: 1 corrispondenza è stata sostituita"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Sostituisci nei file aperti: $INT_REPLACE$ corrispondenze sono state sostituite"/>
 			<find-status-invalid-re value="Trova: espressione regolare non valida"/>
-			<find-status-search-failed value="Trova: ricerca fallita"/>
+			<find-status-search-failed value="Trova: ricerca non andata a buon fine"/>
 			<find-status-mark-1-match value="Evidenzia: 1 corrispondenza trovata"/>
 			<find-status-mark-nb-matches value="Evidenzia: $INT_REPLACE$ corrispondenze trovate"/>
 			<find-status-count-1-match value="Conta: 1 corrispondenza trovata"/>

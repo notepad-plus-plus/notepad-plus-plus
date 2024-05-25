@@ -36,7 +36,12 @@ SCINTILLA_TARGET := libscintilla.a
 LEXILLA_DIRECTORY := ../../lexilla
 LEXILLA_TARGET := liblexilla.a
 
-CXX := $(CROSS_COMPILE)g++
+ifeq ($(CXX),clang++)
+  CXX := $(CROSS_COMPILE)clang++
+else
+  CXX := $(CROSS_COMPILE)g++
+endif
+
 CXXFLAGS := -include $(GCC_DIRECTORY)/gcc-fixes.h -std=c++20
 RC := $(CROSS_COMPILE)windres
 RCFLAGS :=
@@ -61,6 +66,10 @@ BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
 CXXFLAGS += -Og -g -Wpedantic -Wall -Wextra -Wno-cast-function-type -Wno-overloaded-virtual -Wconversion
 CPP_DEFINE += DEBUG
+endif
+
+ifneq "$(filter-out 0,$(CLANGANALYZE))" ""
+CXXFLAGS += --analyze -Xanalyzer -analyzer-output=text
 endif
 
 #

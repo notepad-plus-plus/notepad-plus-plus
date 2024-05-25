@@ -382,7 +382,6 @@
   <ItemGroup>
     <Manifest Include="..\src\notepad++.exe.manifest" />
   </ItemGroup>
-  <Import Project="notepadPlus.Resource.targets" />
   <Import Project="notepadPlus.uchardet.targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

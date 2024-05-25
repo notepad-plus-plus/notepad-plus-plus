@@ -3699,9 +3699,13 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			}
 
 			_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-			_pEditView->execute(SCI_SETTARGETRANGE, _pEditView->execute(SCI_POSITIONFROMLINE, prevLine), 
-				_pEditView->execute(SCI_GETLINEENDPOSITION, prevLine));
+
+			auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+			auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+			_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+
 			const char colonExpr[] = ":[ \t]*(#|$)";  // colon optionally followed by only whitespace and/or start-of-comment
+
 			if (_pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr)) >= 0)
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);

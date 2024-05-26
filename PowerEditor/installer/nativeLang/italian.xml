@@ -1177,7 +1177,7 @@ Translation note:
 					<Item id="6907" name="Quando viene richiamata la finestra di dialogo Trova"/>
 					<Item id="6908" name="Compila il campo di ricerca con il testo selezionato"/>
 					<Item id="6909" name="Proponi la parola del cursore quando non è selezionato nulla"/>
-					<Item id="6910" name="Dimensione minima per l'abilitazione automatica dell'opzione &quot;Nella selezione&quot;:"/>
+					<Item id="6910" name="Dim. minima per l'abilitazione automatica di &quot;Nella selezione&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="Cronologia File Recenti">

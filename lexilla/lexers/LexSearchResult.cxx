@@ -108,7 +108,7 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 
 static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 
-	char lineBuffer[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
+	char lineBuffer[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH] {};
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
 	unsigned int linePos = 0;

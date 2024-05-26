@@ -30,8 +30,8 @@ Translation note:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Apri cartella file"/>
-					<Item subMenuId="file-closeMore" name="Chiudi schede multiple"/>
+					<Item subMenuId="file-openFolder" name="Apri cartella &amp;file"/>
+					<Item subMenuId="file-closeMore" name="Chiudi schede &amp;multiple"/>
 					<Item subMenuId="file-recentFiles" name="File recenti"/>
 					<Item subMenuId="edit-insert" name="Inserisci"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copia negli Appunti"/>
@@ -104,18 +104,18 @@ Translation note:
 					<Item id="41006" name="&amp;Salva"/>
 					<Item id="41007" name="Salva t&amp;utto"/>
 					<Item id="41008" name="S&amp;alva con nome..."/>
-					<Item id="41010" name="Stampa..."/>
-					<Item id="1001" name="Stampa subito!"/>
+					<Item id="41010" name="Stam&amp;pa..."/>
+					<Item id="1001" name="Stampa su&amp;bito!"/>
 					<Item id="41011" name="&amp;Esci"/>
-					<Item id="41012" name="Apri sessione..."/>
-					<Item id="41013" name="Salva sessione..."/>
-					<Item id="41014" name="Ricarica dal disco"/>
-					<Item id="41015" name="Salva una copia con nome..."/>
-					<Item id="41016" name="Sposta nel cestino"/>
+					<Item id="41012" name="Apri sess&amp;ione..."/>
+					<Item id="41013" name="Salva sessio&amp;ne..."/>
+					<Item id="41014" name="Ricarica dal &amp;disco"/>
+					<Item id="41015" name="Sal&amp;va una copia con nome..."/>
+					<Item id="41016" name="Sp&amp;osta nel cestino"/>
 					<Item id="41017" name="&amp;Rinomina..."/>
 					<Item id="41021" name="Ripristina i file recenti"/>
-					<Item id="41022" name="Apri cartella come Area di Lavoro..."/>
-					<Item id="41023" name="Apri con il visualizzatore predefinito"/>
+					<Item id="41022" name="Apri cartella come Area di &amp;Lavoro..."/>
+					<Item id="41023" name="Apri con il visuali&amp;zzatore predefinito"/>
 					<Item id="42001" name="Tag&amp;lia"/>
 					<Item id="42002" name="&amp;Copia"/>
 					<Item id="42003" name="Ann&amp;ulla digitazione"/>
@@ -478,16 +478,16 @@ Translation note:
 				<Item id="1604" name="Distingui tra ma&amp;iuscole e minuscole"/>
 				<Item id="1605" name="Espressione re&amp;golare"/>
 				<Item id="1606" name="Torna all'ini&amp;zio se raggiunta la fine"/>
-				<Item id="1614" name="Conta corrispondenze"/>
+				<Item id="1614" name="&amp;Conta corrispondenze"/>
 				<Item id="1615" name="Trova tutti"/>
-				<Item id="1616" name="Imposta un segnalibro sulla riga"/>
+				<Item id="1616" name="Imposta un segnali&amp;bro sulla riga"/>
 				<Item id="1618" name="Pulisci ad ogni ricerca"/>
 				<Item id="1611" name="S&amp;ostituisci con :"/>
 				<Item id="1608" name="&amp;Sostituisci"/>
 				<Item id="1609" name="Sostituisci &amp;tutti"/>
 				<Item id="1687" name="Alla perdita del focus"/>
 				<Item id="1688" name="Sempre"/>
-				<Item id="1632" name="Nella selezione"/>
+				<Item id="1632" name="Ne&amp;lla selezione"/>
 				<Item id="1633" name="Pulisci evidenziazioni"/>
 				<Item id="1635" name="Sostituisci in tutti i documenti aperti"/>
 				<Item id="1636" name="Ricerca in tutti i documenti aperti"/>
@@ -505,7 +505,7 @@ Translation note:
 				<Item id="1662" name="Pannello Progetto 1"/>
 				<Item id="1663" name="Pannello Progetto 2"/>
 				<Item id="1664" name="Pannello Progetto 3"/>
-				<Item id="1641" name="Ricerca in tutto il documento corrente"/>
+				<Item id="1641" name="Ricerca in t&amp;utto il documento corrente"/>
 				<Item id="1686" name="T&amp;rasparenza"/>
 				<Item id="1703" name="&amp;. significa &quot;a capo&quot;"/>
 				<Item id="1721" name="▲"/>

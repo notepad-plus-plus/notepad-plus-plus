@@ -813,7 +813,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				else
 				{
-					// Find matching pairs of delimiters (e.g. parantheses).
+					// Find matching pairs of delimiters (e.g. parentheses).
 					// The pair where the distance from the left delimiter to position_of_click is at a minimum is the one we're looking for.
 					// Of course position_of_click must lie between the delimiters.
 
@@ -863,7 +863,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			else
 			{ // Double click with no modifiers
-				// Check wether cursor is within URL
+				// Check whether cursor is within URL
 				auto indicMsk = notifyView->execute(SCI_INDICATORALLONFOR, notification->position);
 				if (!(indicMsk & (1 << URL_INDIC)))
 					break;
@@ -1103,6 +1103,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_AUTOCSELECTION:
 		{
+			if (!notifyView)
+				return FALSE;
+
 			const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 
 			// if autocompletion is disabled and it is triggered manually, then both ENTER & TAB will insert the selection 

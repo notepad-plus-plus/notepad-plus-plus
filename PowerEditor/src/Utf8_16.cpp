@@ -171,7 +171,10 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 					delete [] m_pNewBuf;
                 m_pNewBuf  = NULL;
                 m_pNewBuf  = new ubyte[newSize];
-				m_nAllocatedBufSize = newSize;
+				if (m_pNewBuf)
+				{
+					m_nAllocatedBufSize = newSize;
+				}
             }
             
             ubyte* pCur = m_pNewBuf;
@@ -419,18 +422,24 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
         case uniCookie:
 		{
             // Normal write
-            m_nBufSize = _size;
-            m_pNewBuf = (ubyte*)new ubyte[m_nBufSize];
-            memcpy(m_pNewBuf, p, _size);
+            m_pNewBuf = (ubyte*)new ubyte[_size];
+			if (m_pNewBuf)
+			{
+				m_nBufSize = _size;
+				memcpy(m_pNewBuf, p, _size);
+			}
         }
 		break;
 
         case uniUTF8:
 		{
-            m_nBufSize = _size + 3;
-            m_pNewBuf = (ubyte*)new ubyte[m_nBufSize];
-            memcpy(m_pNewBuf, k_Boms[m_eEncoding], 3);
-            memcpy(&m_pNewBuf[3], p, _size);
+            m_pNewBuf = (ubyte*)new ubyte[_size + 3];
+			if (m_pNewBuf)
+			{
+				m_nBufSize = _size + 3;
+				memcpy(m_pNewBuf, k_Boms[m_eEncoding], 3);
+				memcpy(&m_pNewBuf[3], p, _size);
+			}
         }
 		break;
 
@@ -445,13 +454,19 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
 			{
                 // Write the BOM
 				m_pNewBuf = (ubyte*)new ubyte[sizeof(utf16) * (_size + 1)];
-                memcpy(m_pNewBuf, k_Boms[m_eEncoding], 2);
-	            pCur = (utf16*)&m_pNewBuf[2];
+				if (m_pNewBuf)
+				{
+					memcpy(m_pNewBuf, k_Boms[m_eEncoding], 2);
+					pCur = (utf16*)&m_pNewBuf[2];
+				}
             }
 			else
 			{
 				m_pNewBuf = (ubyte*)new ubyte[sizeof(utf16) * _size];
-	            pCur = (utf16*)m_pNewBuf;
+				if (m_pNewBuf)
+				{
+					pCur = (utf16*)m_pNewBuf;
+				}
 			}
 
             Utf8_Iter iter8;

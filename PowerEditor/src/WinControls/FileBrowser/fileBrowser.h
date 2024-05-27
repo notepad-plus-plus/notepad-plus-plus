@@ -162,6 +162,7 @@ public:
 
 protected:
 	HWND _hToolbarMenu = nullptr;
+	std::vector<HIMAGELIST> _iconListVector;
 
 	TreeView _treeView;
 	HIMAGELIST _hImaLst = nullptr;
@@ -207,7 +208,7 @@ protected:
 
 	void removeNamesAlreadyInNode(HTREEITEM parent, std::vector<generic_string> & labels) const;
 
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
 	void openSelectFile();

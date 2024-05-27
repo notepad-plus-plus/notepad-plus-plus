@@ -41,6 +41,15 @@ FunctionListPanel::~FunctionListPanel()
 		::DeleteObject(_hFontSearchEdit);
 		_hFontSearchEdit = nullptr;
 	}
+
+	for (auto hImgList : _iconListVector)
+	{
+		if (hImgList != nullptr)
+		{
+			::ImageList_Destroy(hImgList);
+		}
+	}
+	_iconListVector.clear();
 }
 
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
@@ -814,38 +823,55 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			return reinterpret_cast<LRESULT>(hBrushBackground);
 		}
 
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			FunctionListPanel::initPreferencesMenu();
 
 			NppParameters& nppParams = NppParameters::getInstance();
 
-			int editWidth = nppParams._dpiManager.scaleX(100);
-			int editWidthSep = nppParams._dpiManager.scaleX(105); //editWidth + 5
-			int editHeight = nppParams._dpiManager.scaleY(20);
+			setDpi();
+			const int editWidth = _dpiManager.scale(100);
+			const int editWidthSep = _dpiManager.scale(105); //editWidth + 5
+			const int editHeight = _dpiManager.scale(20);
 
 			// Create toolbar menu
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
+			constexpr DWORD style = WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								0,0,0,0,_hSelf,nullptr, _hInst, NULL);
 
+			const DWORD tbExStyle = static_cast<DWORD>(::SendMessage(_hToolbarMenu, TB_GETEXTENDEDSTYLE, 0, 0));
+			::SendMessage(_hToolbarMenu, TB_SETEXTENDEDSTYLE, 0, tbExStyle | TBSTYLE_EX_DOUBLEBUFFER);
+
 			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
 
-			// Add the bmap image into toolbar's imagelist
-			int iconSizeDyn = nppParams._dpiManager.scaleX(16);
-			::SendMessage(_hToolbarMenu, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconSizeDyn, iconSizeDyn));
-
-			TBADDBITMAP addbmp = { 0, 0 };
-			const int nbIcons = 3;
+			const int iconSizeDyn = _dpiManager.scale(16);
+			constexpr int nbIcons = 3;
 			int iconIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON, IDI_FUNCLIST_PREFERENCEBUTTON };
 			int iconDarkModeIDs[nbIcons] = { IDI_FUNCLIST_SORTBUTTON_DM, IDI_FUNCLIST_RELOADBUTTON_DM, IDI_FUNCLIST_PREFERENCEBUTTON_DM };
+
+			// Create an image lists for the toolbar icons
+			HIMAGELIST hImageList = ImageList_Create(iconSizeDyn, iconSizeDyn, ILC_COLOR32 | ILC_MASK, nbIcons, 0);
+			HIMAGELIST hImageListDm = ImageList_Create(iconSizeDyn, iconSizeDyn, ILC_COLOR32 | ILC_MASK, nbIcons, 0);
+			_iconListVector.push_back(hImageList);
+			_iconListVector.push_back(hImageListDm);
+
 			for (size_t i = 0; i < nbIcons; ++i)
 			{
-				int icoID = NppDarkMode::isEnabled() ? iconDarkModeIDs[i] : iconIDs[i];
-				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconSizeDyn, iconSizeDyn, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
-				addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
-				::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+				int icoID = iconIDs[i];
+				HICON hIcon = nullptr;
+				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSizeDyn, iconSizeDyn, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+				ImageList_AddIcon(_iconListVector.at(0), hIcon);
+				::DestroyIcon(hIcon);
+				hIcon = nullptr;
+
+				icoID = iconDarkModeIDs[i];
+				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSizeDyn, iconSizeDyn, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+				ImageList_AddIcon(_iconListVector.at(1), hIcon);
+				::DestroyIcon(hIcon); // Clean up the loaded icon
 			}
+
+			// Attach the image list to the toolbar
+			::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 
 			// Place holder of search text field
 			TBBUTTON tbButtons[1 + nbIcons]{};
@@ -859,23 +885,23 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			tbButtons[1].idCommand = IDC_SORTBUTTON_FUNCLIST;
 			tbButtons[1].iBitmap = 0;
 			tbButtons[1].fsState = TBSTATE_ENABLED;
-			tbButtons[1].fsStyle = BTNS_CHECK | BTNS_AUTOSIZE;
-			tbButtons[1].iString = reinterpret_cast<intptr_t>(TEXT(""));
+			tbButtons[1].fsStyle = BTNS_CHECK;
+			tbButtons[1].iString = 0;
 
 			tbButtons[2].idCommand = IDC_RELOADBUTTON_FUNCLIST;
 			tbButtons[2].iBitmap = 1;
 			tbButtons[2].fsState = TBSTATE_ENABLED;
-			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[2].iString = reinterpret_cast<intptr_t>(TEXT(""));
+			tbButtons[2].fsStyle = BTNS_BUTTON;
+			tbButtons[2].iString = 0;
 
 			tbButtons[3].idCommand = IDC_PREFERENCEBUTTON_FUNCLIST;
 			tbButtons[3].iBitmap = 2;
 			tbButtons[3].fsState = TBSTATE_ENABLED;
-			tbButtons[3].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[3].iString = reinterpret_cast<intptr_t>(TEXT(""));
+			tbButtons[3].fsStyle = BTNS_BUTTON;
+			tbButtons[3].iString = 0;
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
-			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParams._dpiManager.scaleX(16), nppParams._dpiManager.scaleY(16)));
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(iconSizeDyn, iconSizeDyn));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 
@@ -887,7 +913,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 			_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
 
-			_hSearchEdit = CreateWindowEx(WS_EX_CLIENTEDGE, L"Edit", NULL,
+			_hSearchEdit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, NULL,
 								WS_CHILD | WS_VISIBLE | ES_AUTOVSCROLL,
 								2, 2, editWidth, editHeight,
 								_hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
@@ -896,7 +922,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			if (_hFontSearchEdit == nullptr)
 			{
-				LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(_hParent) };
+				LOGFONT lf{ _dpiManager.getDefaultGUIFontForDpi() };
 				_hFontSearchEdit = ::CreateFontIndirect(&lf);
 			}
 
@@ -925,6 +951,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			if (static_cast<BOOL>(lParam) != TRUE)
 			{
 				NppDarkMode::autoThemeChildControls(_hSelf);
+				::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
@@ -1000,7 +1027,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 		{
 			int width = LOWORD(lParam);
 			int height = HIWORD(lParam);
-			int extraValue = NppParameters::getInstance()._dpiManager.scaleX(4);
+			int extraValue = _dpiManager.scale(4);
 
 			RECT toolbarMenuRect;
 			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);

@@ -54,6 +54,15 @@ FileBrowser::~FileBrowser()
 	{
 		delete cd;
 	}
+
+	for (auto hImgList : _iconListVector)
+	{
+		if (hImgList != nullptr)
+		{
+			::ImageList_Destroy(hImgList);
+		}
+	}
+	_iconListVector.clear();
 }
 
 vector<generic_string> split(const generic_string & string2split, TCHAR sep)
@@ -96,44 +105,65 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 {
 	switch (message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
+
+			constexpr DWORD style = WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | TBSTYLE_TOOLTIPS | TBSTYLE_CUSTOMERASE;
 			_hToolbarMenu = CreateWindowEx(WS_EX_LAYOUTRTL, TOOLBARCLASSNAME, NULL, style, 0, 0, 0, 0, _hSelf, nullptr, _hInst, NULL);
 
-			// Add the bmap image into toolbar's imagelist
-			int iconSizeDyn = nppParam._dpiManager.scaleX(16);
-			::SendMessage(_hToolbarMenu, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconSizeDyn, iconSizeDyn));
+			const DWORD tbExStyle = static_cast<DWORD>(::SendMessage(_hToolbarMenu, TB_GETEXTENDEDSTYLE, 0, 0));
+			::SendMessage(_hToolbarMenu, TB_SETEXTENDEDSTYLE, 0, tbExStyle | TBSTYLE_EX_DOUBLEBUFFER);
 
-			TBADDBITMAP addbmp = { 0, 0 };
-			const int nbIcons = 3;
+			setDpi();
+			const int iconSizeDyn = _dpiManager.scale(16);
+			constexpr int nbIcons = 3;
 			int iconIDs[nbIcons] = { IDI_FB_SELECTCURRENTFILE, IDI_FB_FOLDALL, IDI_FB_EXPANDALL};
 			int iconDarkModeIDs[nbIcons] = { IDI_FB_SELECTCURRENTFILE_DM, IDI_FB_FOLDALL_DM, IDI_FB_EXPANDALL_DM};
+
+			// Create an image lists for the toolbar icons
+			HIMAGELIST hImageList = ImageList_Create(iconSizeDyn, iconSizeDyn, ILC_COLOR32 | ILC_MASK, nbIcons, 0);
+			HIMAGELIST hImageListDm = ImageList_Create(iconSizeDyn, iconSizeDyn, ILC_COLOR32 | ILC_MASK, nbIcons, 0);
+			_iconListVector.push_back(hImageList);
+			_iconListVector.push_back(hImageListDm);
+
 			for (size_t i = 0; i < nbIcons; ++i)
 			{
-				int icoID = NppDarkMode::isEnabled() ? iconDarkModeIDs[i] : iconIDs[i];
-				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconSizeDyn, iconSizeDyn, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
-				addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
-				::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
+				int icoID = iconIDs[i];
+				HICON hIcon = nullptr;
+				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSizeDyn, iconSizeDyn, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+				ImageList_AddIcon(_iconListVector.at(0), hIcon);
+				::DestroyIcon(hIcon);
+				hIcon = nullptr;
+
+				icoID = iconDarkModeIDs[i];
+				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSizeDyn, iconSizeDyn, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+				ImageList_AddIcon(_iconListVector.at(1), hIcon);
+				::DestroyIcon(hIcon); // Clean up the loaded icon
 			}
 
-			TBBUTTON tbButtons[nbIcons];
+			// Attach the image list to the toolbar
+			::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
+
+			TBBUTTON tbButtons[nbIcons]{};
+
 			tbButtons[0].idCommand = FB_CMD_AIMFILE;
 			tbButtons[0].iBitmap = 0;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
-			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[0].iString = reinterpret_cast<intptr_t>(TEXT(""));
+			tbButtons[0].fsStyle = BTNS_BUTTON;
+			tbButtons[0].iString = 0;
+
 			tbButtons[1].idCommand = FB_CMD_FOLDALL;
 			tbButtons[1].iBitmap = 1;
 			tbButtons[1].fsState = TBSTATE_ENABLED;
-			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[1].iString = reinterpret_cast<intptr_t>(TEXT(""));
+			tbButtons[1].fsStyle = BTNS_BUTTON;
+			tbButtons[1].iString = 0;
+
 			tbButtons[2].idCommand = FB_CMD_EXPANDALL;
 			tbButtons[2].iBitmap = 2;
 			tbButtons[2].fsState = TBSTATE_ENABLED;
-			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[2].iString = reinterpret_cast<intptr_t>(TEXT(""));
+			tbButtons[2].fsStyle = BTNS_BUTTON;
+			tbButtons[2].iString = 0;
 
 			// tips text for toolbar buttons
 			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
@@ -142,12 +172,10 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			_locateCurrentFile = pNativeSpeaker->getAttrNameStr(_locateCurrentFile.c_str(), FOLDERASWORKSPACE_NODE, "LocateCurrentFileTip");
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
-			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(nppParam._dpiManager.scaleX(20), nppParam._dpiManager.scaleY(20)));
-			::SendMessage(_hToolbarMenu, TB_SETPADDING, 0, MAKELONG(nppParam._dpiManager.scaleX(10), 0));
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(iconSizeDyn, iconSizeDyn));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 			
-			::SendMessage(_hToolbarMenu, TB_GETIMAGELIST, 0, 0);
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			FileBrowser::initPopupMenus();
@@ -181,6 +209,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			if (static_cast<BOOL>(lParam) != TRUE)
 			{
 				NppDarkMode::autoThemeChildControls(_hSelf);
+				::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
 			return TRUE;
@@ -208,7 +237,7 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 		{
 			int width = LOWORD(lParam);
 			int height = HIWORD(lParam);
-			int extraValue = NppParameters::getInstance()._dpiManager.scaleX(4);
+			int extraValue = _dpiManager.scale(4);
 
 			RECT toolbarMenuRect;
 			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
@@ -511,7 +540,7 @@ void FileBrowser::notified(LPNMHDR notification)
 	else if (notification->hwndFrom == _treeView.getHSelf())
 	{
 		TCHAR textBuffer[MAX_PATH] = { '\0' };
-		TVITEM tvItem;
+		TVITEM tvItem{};
 		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
 		tvItem.pszText = textBuffer;
 		tvItem.cchTextMax = MAX_PATH;
@@ -676,7 +705,7 @@ void FileBrowser::notified(LPNMHDR notification)
 
 BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 {
-	TVITEM tvItem;
+	TVITEM tvItem{};
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
@@ -1038,7 +1067,7 @@ HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) cons
 		hItemNode != nullptr && node == nullptr;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
-		TVITEM tvItem;
+		TVITEM tvItem{};
 		tvItem.mask = TVIF_PARAM;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
@@ -1057,7 +1086,7 @@ HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, const generic_str
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
 		TCHAR textBuffer[MAX_PATH] = { '\0' };
-		TVITEM tvItem;
+		TVITEM tvItem{};
 		tvItem.mask = TVIF_TEXT;
 		tvItem.pszText = textBuffer;
 		tvItem.cchTextMax = MAX_PATH;
@@ -1080,7 +1109,7 @@ vector<generic_string> FileBrowser::getRoots() const
 		hItemNode != nullptr;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
-		TVITEM tvItem;
+		TVITEM tvItem{};
 		tvItem.mask = TVIF_PARAM;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
@@ -1217,7 +1246,7 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
 			TCHAR textBuffer[MAX_PATH] = { '\0' };
-			TVITEM tvItem;
+			TVITEM tvItem{};
 			tvItem.mask = TVIF_TEXT;
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
@@ -1278,7 +1307,7 @@ HTREEITEM FileBrowser::findInTree(const generic_string& rootPath, HTREEITEM node
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
 			TCHAR textBuffer[MAX_PATH] = { '\0' };
-			TVITEM tvItem;
+			TVITEM tvItem{};
 			tvItem.mask = TVIF_TEXT;
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
@@ -1319,7 +1348,7 @@ std::vector<HTREEITEM> FileBrowser::findInTree(FilesToChange & group, HTREEITEM 
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
 			TCHAR textBuffer[MAX_PATH] = {'\0'};
-			TVITEM tvItem;
+			TVITEM tvItem{};
 			tvItem.mask = TVIF_TEXT;
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
@@ -1346,8 +1375,8 @@ std::vector<HTREEITEM> FileBrowser::findChildNodesFromNames(HTREEITEM parent, st
 		hItemNode = _treeView.getNextSibling(hItemNode)
 		)
 	{
-		TCHAR textBuffer[MAX_PATH];
-		TVITEM tvItem;
+		TCHAR textBuffer[MAX_PATH]{};
+		TVITEM tvItem{};
 		tvItem.mask = TVIF_TEXT;
 		tvItem.pszText = textBuffer;
 		tvItem.cchTextMax = MAX_PATH;
@@ -1372,8 +1401,8 @@ void FileBrowser::removeNamesAlreadyInNode(HTREEITEM parent, std::vector<generic
 		hItemNode = _treeView.getNextSibling(hItemNode)
 		)
 	{
-		TCHAR textBuffer[MAX_PATH];
-		TVITEM tvItem;
+		TCHAR textBuffer[MAX_PATH]{};
+		TVITEM tvItem{};
 		tvItem.mask = TVIF_TEXT;
 		tvItem.pszText = textBuffer;
 		tvItem.cchTextMax = MAX_PATH;

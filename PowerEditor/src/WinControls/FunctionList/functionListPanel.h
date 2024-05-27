@@ -111,6 +111,7 @@ private:
 	HWND _hToolbarMenu = nullptr;
 	HWND _hSearchEdit = nullptr;
 	HFONT _hFontSearchEdit = nullptr;
+	std::vector<HIMAGELIST> _iconListVector;
 
 	TreeView *_pTreeView = nullptr;
 	TreeView _treeView;

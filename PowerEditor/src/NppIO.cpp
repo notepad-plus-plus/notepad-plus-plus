@@ -1901,8 +1901,9 @@ bool Notepad_plus::fileRename(BufferID id)
 		// So just rename the tab and rename the backup file too if applicable
 
 		// https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
-		// Reserved characters: < > : " / \ | ? *
-		std::wstring reservedChars = TEXT("<>:\"/\\|\?*");
+		// Reserved characters:  < > : " / \ | ? * tab  
+		//  ("tab" is not in the official list, but it is good to avoid it)
+		std::wstring reservedChars = TEXT("<>:\"/\\|\?*\t");
 
 		std::wstring staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", L"New name");
 
@@ -1934,7 +1935,7 @@ bool Notepad_plus::fileRename(BufferID id)
 			{
 				_nativeLangSpeaker.messageBox("RenameTabTemporaryNameIsEmpty",
 					_pPublicInterface->getHSelf(),
-					L"The specified name cannot be empty, or it cannot contain only space(s) or TAB(s).",
+					L"The specified name cannot be empty, or it cannot contain only space(s).",
 					L"Rename failed",
 					MB_OK | MB_ICONSTOP);
 			}

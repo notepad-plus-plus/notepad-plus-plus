@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-03-18"><!-- basiert auf english.xml 8.6.5 vom 10.03.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-05-28"><!-- basiert auf english.xml 8.6.7 vom 21.05.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -477,7 +477,7 @@ Translation note:
 				<Item id="1" name="Näch&amp;stes finden"/>
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2" name="S&amp;chließen"/>
-				<Item id="1620" name="Suchen &amp;nach:"/>
+				<Item id="1620" name="Suchen &amp;nach :"/>
 				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
 				<Item id="1604" name="Groß-/&amp;Kleinschreibung beachten"/>
 				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
@@ -486,7 +486,7 @@ Translation note:
 				<Item id="1615" name="&amp;Alle markieren"/>
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
-				<Item id="1611" name="Erset&amp;zen durch:"/>
+				<Item id="1611" name="Erset&amp;zen durch :"/>
 				<Item id="1608" name="&amp;Ersetzen"/>
 				<Item id="1609" name="Alle erse&amp;tzen"/>
 				<Item id="1687" name="Wenn inaktiv"/>
@@ -495,8 +495,8 @@ Translation note:
 				<Item id="1633" name="Markierung aufheben"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
-				<Item id="1654" name="Filter:"/>
-				<Item id="1655" name="Verzeichnis:"/>
+				<Item id="1654" name="Filter :"/>
+				<Item id="1655" name="Verzeichnis :"/>
 				<Item id="1656" name="Alle su&amp;chen"/>
 				<Item id="1658" name="&amp;Unterverzeichnisse"/>
 				<Item id="1659" name="&amp;Versteckte Ordner"/>
@@ -1085,7 +1085,7 @@ Translation note:
 					<Item id="6408" name="UTF-8 mit BOM"/>
 					<Item id="6409" name="UTF-16 Big Endian mit BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian mit BOM"/>
-					<Item id="6411" name="Standardsprache:"/>
+					<Item id="6411" name="Standardsprache :"/>
 					<Item id="6419" name="Neues Dokument"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
 					<Item id="6432" name="Öffne beim Starten immer zusätzlich ein neues Dokument"/>
@@ -1208,7 +1208,7 @@ Translation note:
 					<Item id="6316" name="Einfach"/>
 					<Item id="6317" name="Erweitert"/>
 					<Item id="6804" name="Verzeichnisangabe für die Sicherheitskopien"/>
-					<Item id="6803" name="Verzeichnis:"/>
+					<Item id="6803" name="Verzeichnis :"/>
 				</Backup>
 
 				<AutoCompletion title="Autovervollständigung">
@@ -1729,8 +1729,8 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
-			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Vorkommen ersetzt werden sollen in: "/>
-			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
+			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Vorkommen ersetzt werden sollen in :"/>
+			<replace-in-files-confirm-filetype value="Für Dateityp :"/>
 			<replace-in-files-progress-title value="Fortschritt für das Ersetzen in Dateien …"/>
 			<replace-in-projects-confirm-title value="Sind Sie sicher?"/>
 			<replace-in-projects-confirm-message value="Sollen wirklich alle Vorkommen in allen Dokumenten im gewählten Projekt ersetzt werden?"/>

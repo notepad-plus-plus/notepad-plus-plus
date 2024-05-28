@@ -7902,6 +7902,7 @@ static const QuoteParams quotes[] =
 	{TEXT("Anonymous #204"), QuoteParams::slow , false, SC_CP_UTF8, L_TEXT, TEXT("The greatest security vulnerability in any computer system is located between the keyboard and the chair.\n\n") },
 	{TEXT("Anonymous #205"), QuoteParams::slow , false, SC_CP_UTF8, L_TEXT, TEXT("Courage is knowing it might hurt, and doing it anyway.\nStupidity is the same.\nAnd that's why life is hard.\n\n") },
 	{TEXT("Anonymous #206"), QuoteParams::rapid , false, SC_CP_UTF8, L_TEXT, TEXT("RegEx can save 30 minutes of your dev time with only 10 characters.\nBut you have to spend more than 40 minutes to figure out what these 10 characters need to be.\n\n") },
+	{TEXT("Anonymous #207"), QuoteParams::rapid , false, SC_CP_UTF8, L_TEXT, TEXT("To whoever stole my copy of Microsoft Office, I will find you.\n\nYou have my Word.\n") },
 	{TEXT("xkcd"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Never have I felt so close to another soul\nAnd yet so helplessly alone\nAs when I Google an error\nAnd there's one result\nA thread by someone with the same problem\nAnd no answer\nLast posted to in 2003\n\n\"Who were you, DenverCoder9?\"\n\"What did you see?!\"\n\n(ref: https://xkcd.com/979/)") },
 	{TEXT("A developer"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("No hugs & kisses.\nOnly bugs & fixes.") },
 	{TEXT("Elon Musk"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Don't set your password as your child's name.\nName your child after your password.") },

@@ -3201,7 +3201,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			const auto& hdcStatic = reinterpret_cast<HDC>(wParam);
 			// handle blurry text with disabled states for the affected static controls
 			const size_t index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-			if ((index > 0) && (dlgCtrlID == IDC_TABSIZE_STATIC))
+			if ((index > 0) && (dlgCtrlID == IDC_TABSIZE_STATIC || dlgCtrlID == IDC_INDENTUSING_STATIC))
 			{
 				const Lang* lang = nppParam.getLangFromIndex(index - 1);
 				if (lang == nullptr)
@@ -3300,6 +3300,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						}
 
 						redrawDlgItem(IDC_TABSIZE_STATIC);
+						redrawDlgItem(IDC_INDENTUSING_STATIC);
 
 						return TRUE;
 					}
@@ -3643,6 +3644,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						nppParam.insertTabInfo(lang->getLangName(), -1);
 
 					redrawDlgItem(IDC_TABSIZE_STATIC);
+					redrawDlgItem(IDC_INDENTUSING_STATIC);
 
 					return TRUE;
 				}

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-03-18"><!-- basiert auf english.xml 8.6.5 vom 10.03.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-06-16"><!-- basiert auf english.xml 8.6.8 vom 16.06.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1109,10 +1109,13 @@ Translation note:
 					<Item id="6506" name="Deaktiviert:"/>
 					<Item id="6507" name="Sprachmenü verschachtelt darstellen"/>
 					<Item id="6508" name="Sprachmenü"/>
-					<Item id="6301" name="Tabulatoren"/>
-					<Item id="6302" name="Ersetzt durch Leerzeichen"/>
-					<Item id="6303" name="Tabulatorbreite:"/>
+					<Item id="6301" name="Einstellung Einrückungen"/>
+					<Item id="6302" name="Leerzeichen"/>
+					<Item id="6303" name="Einrückungsbreite:"/>
+					<Item id="6310" name="Einrückung verwendet:"/>
+					<Item id="6311" name="Tab Zeichen"/>
 					<Item id="6510" name="Standard verwenden"/>
+					<Item id="6512" name="Rückschritttaste entfernt Einrückungen, anstatt einzelne Leerzeichen zu entfernen"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</Language>
 
@@ -1531,6 +1534,10 @@ Sollen diese Dateil-Platzhalter erstellt werden?
 HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wird die Sitzung beim Beenden MODIFIZIERT! Es wird empfohlen jetzt eine Sicherung der Sitzung &quot;session.xml&quot; zu machen."/>
 			<RTLvsDirectWrite title="Kann nicht auf 'Schreibrichtung von rechts nach links' (RTL) schalten" message="'RTL' ist nicht kompatibel mit dem 'DirectWrite' Modus. Bitte dazu 'DirectWrite' unter 'Diverses' in den Einstellungen deaktivieren und danach Notepad++ neu starten."/>
 			<FileMemoryAllocationFailed title="Ausnahmefehler: Dateispeicherzuweisung fehlgeschlagen" message="Eventuell gibt es nicht genügend zusammenhängenden freien Speicher für die von Notepad++ geladene Datei."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Regex-Rückwärtssuche nicht aktiv" message="Standardmäßig ist die Regex-Rückwärtssuche deaktiviert da möglicherweise unerwartete Ergebnisse auftreten. Um dennoch eine Regex-Rückwärtssuche durchzuführen, ist in der Suche entweder die normale oder erweiterte Suche statt regulärer Ausdrucke auszuwählen.
+OK auswählen um die Suche zu öffnen oder in den Vordergrund zu bringen.
+			
+Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung im Benutzerhandbuch nachgeschlagen werden."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

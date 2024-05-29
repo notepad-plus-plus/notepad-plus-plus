@@ -113,6 +113,7 @@ IDI_VIEW_DOCLIST_ICON           ICON      "icons/light/toolbar/regular/docList_o
 IDI_VIEW_FUNCLIST_ICON          ICON      "icons/light/toolbar/regular/funcList_off.ico"
 IDI_VIEW_FILEBROWSER_ICON       ICON      "icons/light/toolbar/regular/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON        ICON      "icons/light/toolbar/regular/monitoring_off.ico"
+IDI_VIEW_MONITORING_DIS_ICON    ICON      "icons/light/toolbar/regular/monitoring_dis.ico"
 
 //
 // TOOLBAR ICO - set 2
@@ -163,6 +164,7 @@ IDI_VIEW_DOCLIST_ICON2          ICON      "icons/light/toolbar/filled/docList_of
 IDI_VIEW_FUNCLIST_ICON2         ICON      "icons/light/toolbar/filled/funcList_off.ico"
 IDI_VIEW_FILEBROWSER_ICON2      ICON      "icons/light/toolbar/filled/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON2       ICON      "icons/light/toolbar/filled/monitoring_off.ico"
+IDI_VIEW_MONITORING_DIS_ICON2   ICON      "icons/light/toolbar/filled/monitoring_dis.ico"
 
 //
 // TOOLBAR ICO - set 1 Dark Mode
@@ -213,6 +215,7 @@ IDI_VIEW_DOCLIST_ICON_DM           ICON      "icons/dark/toolbar/regular/docList
 IDI_VIEW_FUNCLIST_ICON_DM          ICON      "icons/dark/toolbar/regular/funcList_off.ico"
 IDI_VIEW_FILEBROWSER_ICON_DM       ICON      "icons/dark/toolbar/regular/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON_DM        ICON      "icons/dark/toolbar/regular/monitoring_off.ico"
+IDI_VIEW_MONITORING_DIS_ICON_DM    ICON      "icons/dark/toolbar/regular/monitoring_dis.ico"
 
 //
 // TOOLBAR ICO - set 2 Dark Mode
@@ -263,7 +266,7 @@ IDI_VIEW_DOCLIST_ICON_DM2          ICON      "icons/dark/toolbar/filled/docList_
 IDI_VIEW_FUNCLIST_ICON_DM2         ICON      "icons/dark/toolbar/filled/funcList_off.ico"
 IDI_VIEW_FILEBROWSER_ICON_DM2      ICON      "icons/dark/toolbar/filled/fileBrowser_off.ico"
 IDI_VIEW_MONITORING_ICON_DM2       ICON      "icons/dark/toolbar/filled/monitoring_off.ico"
-
+IDI_VIEW_MONITORING_DIS_ICON_DM2   ICON      "icons/dark/toolbar/filled/monitoring_dis.ico"
 
 
 
@@ -370,7 +373,7 @@ IDI_FB_SELECTCURRENTFILE_DM     ICON        "icons/dark/panels/toolbar/fb_select
 IDI_FB_FOLDALL_DM               ICON        "icons/dark/panels/toolbar/fb_fold_all.ico"
 IDI_FB_EXPANDALL_DM             ICON        "icons/dark/panels/toolbar/fb_expand_all.ico"
 
-IDI_FUNCLIST_ROOT               BITMAP      "icons/standard/panels/treeview/project_file.bmp"
+//IDI_FUNCLIST_ROOT               BITMAP      "icons/standard/panels/treeview/project_file.bmp" // same file as IDI_PROJECT_FILE
 IDI_FUNCLIST_NODE               BITMAP      "icons/standard/panels/treeview/funcList_node.bmp"
 IDI_FUNCLIST_LEAF               BITMAP      "icons/standard/panels/treeview/funcList_leaf.bmp"
 

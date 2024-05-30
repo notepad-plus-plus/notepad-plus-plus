@@ -422,7 +422,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
         case uniCookie:
 		{
             // Normal write
-            m_pNewBuf = (ubyte*)new ubyte[_size];
+            m_pNewBuf = new ubyte[_size];
 			if (m_pNewBuf)
 			{
 				m_nBufSize = _size;
@@ -433,7 +433,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
 
         case uniUTF8:
 		{
-            m_pNewBuf = (ubyte*)new ubyte[_size + 3];
+            m_pNewBuf = new ubyte[_size + 3];
 			if (m_pNewBuf)
 			{
 				m_nBufSize = _size + 3;
@@ -453,7 +453,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
             if (m_eEncoding == uni16BE || m_eEncoding == uni16LE)
 			{
                 // Write the BOM
-				m_pNewBuf = (ubyte*)new ubyte[sizeof(utf16) * (_size + 1)];
+				m_pNewBuf = new ubyte[sizeof(utf16) * (_size + 1)];
 				if (m_pNewBuf)
 				{
 					memcpy(m_pNewBuf, k_Boms[m_eEncoding], 2);
@@ -462,7 +462,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
             }
 			else
 			{
-				m_pNewBuf = (ubyte*)new ubyte[sizeof(utf16) * _size];
+				m_pNewBuf = new ubyte[sizeof(utf16) * _size];
 				if (m_pNewBuf)
 				{
 					pCur = (utf16*)m_pNewBuf;

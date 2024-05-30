@@ -6645,10 +6645,12 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (view == MAIN_VIEW)
 	{
 		_autoCompleteMain.setLanguage(buf->getLangType());
+		_mainEditView.maintainStateForNpc();
 	}
 	else if (view == SUB_VIEW)
 	{
 		_autoCompleteSub.setLanguage(buf->getLangType());
+		_subEditView.maintainStateForNpc();
 	}
 
 	if (view != currentView())

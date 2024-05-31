@@ -195,7 +195,7 @@ void TabBar::deletItemAt(size_t index)
 				//Doesn't really seem to be documented anywhere, but the values do match the message parameters
 				//The up/down control really is just some sort of scrollbar
 				//There seems to be no negative effect on any internal state of the tab control or the up/down control
-				int wParam = MAKEWPARAM(SB_THUMBPOSITION, index - 1);
+				WPARAM wParam = MAKEWPARAM(SB_THUMBPOSITION, index - 1);
 				::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
 
 				wParam = MAKEWPARAM(SB_ENDSCROLL, index - 1);

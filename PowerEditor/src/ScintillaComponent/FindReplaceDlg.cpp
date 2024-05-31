@@ -250,9 +250,6 @@ void Searching::displaySectionCentered(size_t posStart, size_t posEnd, Scintilla
 WNDPROC FindReplaceDlg::originalFinderProc = nullptr;
 WNDPROC FindReplaceDlg::originalComboEditProc = nullptr;
 
-// important : to activate all styles
-const int STYLING_MASK = 255;
-
 FindReplaceDlg::~FindReplaceDlg()
 {
 	_tab.destroy();

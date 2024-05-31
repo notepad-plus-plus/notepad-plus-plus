@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="français" filename="french.xml" version="8.6.3">
+	<Native-Langue name="français" filename="french.xml" version="8.6.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -970,6 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Langue"/>
 				</Global>
+
 				<Scintillas title="Zones d'édition 1">
 					<Item id="6216" name="Curseur"/>
 					<Item id="6217" name="Largeur :"/>
@@ -993,6 +994,7 @@ Translation note:
 					<Item id="6654" name="Tracer la bordure"/>
 					<Item id="6655" name="Épaisseur :"/>
 				</Scintillas>
+
 				<Scintillas2 title="Zones d'édition 2">
 					<Item id="6521" name="Multi-édition"/>
 					<Item id="6522" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
@@ -1009,6 +1011,7 @@ Translation note:
 					<Item id="6258" name="Appliquer les paramètres d'Apparence à C0, C1 &amp; Unicode EOL"/>
 					<Item id="6259" name="Empêcher la saisie de caractères de contrôle (code C0) dans le document"/>
 				</Scintillas2>
+
 				<DarkMode title="Mode Sombre">
 					<Item id="7131" name="Mode lumineux"/>
 					<Item id="7132" name="Mode sombre"/>
@@ -1091,6 +1094,7 @@ Translation note:
 					<Item id="4009" name="Extensions supportées :"/>
 					<Item id="4010" name="Extensions associées :"/>
 				</FileAssoc>
+
 				<Language title="Langage">
 					<Item id="6505" name="Langages disponibles"/>
 					<Item id="6506" name="Langages cachés"/>

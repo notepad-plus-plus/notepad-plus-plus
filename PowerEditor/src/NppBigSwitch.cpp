@@ -1971,23 +1971,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_NOTIFY:
 		{
-			const NMHDR* nmhdr = reinterpret_cast<NMHDR*>(lParam);
-			if (nmhdr->code == NM_CUSTOMDRAW && (nmhdr->hwndFrom == _toolBar.getHSelf()))
+			const auto lpnmhdr = reinterpret_cast<LPNMHDR>(lParam);
+			if (lpnmhdr->hwndFrom == _toolBar.getHSelf())
 			{
-				NMTBCUSTOMDRAW* nmtbcd = reinterpret_cast<NMTBCUSTOMDRAW*>(lParam);
-				if (nmtbcd->nmcd.dwDrawStage == CDDS_PREERASE)
+				switch (lpnmhdr->code)
 				{
-					if (NppDarkMode::isEnabled())
+					case NM_CUSTOMDRAW:
 					{
-						FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
-						nmtbcd->clrText = NppDarkMode::getTextColor();
-						SetTextColor(nmtbcd->nmcd.hdc, NppDarkMode::getTextColor());
-						return CDRF_SKIPDEFAULT;
+						return NppDarkMode::darkToolBarNotifyCustomDraw(hwnd, message, wParam, lParam, false);
 					}
-					else
-					{
-						return CDRF_DODEFAULT;
-					}
+
+					default:
+						return FALSE;
 				}
 			}
 

@@ -2576,7 +2576,7 @@ namespace NppDarkMode
 		}
 	}
 
-	static LRESULT darkToolBarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
+	LRESULT darkToolBarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
 	{
 		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
 		static int roundCornerValue = 0;
@@ -2609,7 +2609,9 @@ namespace NppDarkMode
 
 			case CDDS_ITEMPREPAINT:
 			{
+				nmtbcd->hbrMonoDither = NppDarkMode::getBackgroundBrush();
 				nmtbcd->hbrLines = NppDarkMode::getEdgeBrush();
+				nmtbcd->hpenLines = NppDarkMode::getEdgePen();
 				nmtbcd->clrText = NppDarkMode::getTextColor();
 				nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
 				nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
@@ -2618,7 +2620,17 @@ namespace NppDarkMode
 				nmtbcd->nStringBkMode = TRANSPARENT;
 				nmtbcd->nHLStringBkMode = TRANSPARENT;
 
-				if ((nmtbcd->nmcd.uItemState & CDIS_CHECKED) == CDIS_CHECKED)
+				if ((nmtbcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+				{
+					auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotBackgroundBrush());
+					auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotEdgePen());
+					::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
+					::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
+					::SelectObject(nmtbcd->nmcd.hdc, holdPen);
+
+					nmtbcd->nmcd.uItemState &= ~(CDIS_CHECKED | CDIS_HOT);
+				}
+				else if ((nmtbcd->nmcd.uItemState & CDIS_CHECKED) == CDIS_CHECKED)
 				{
 					auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getSofterBackgroundBrush());
 					auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getEdgePen());
@@ -2629,41 +2641,18 @@ namespace NppDarkMode
 					nmtbcd->nmcd.uItemState &= ~CDIS_CHECKED;
 				}
 
-				LRESULT lr = TBCDRF_HILITEHOTTRACK | TBCDRF_USECDCOLORS | CDRF_NOTIFYPOSTPAINT;
+				LRESULT lr = TBCDRF_USECDCOLORS;
+				if ((nmtbcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
+				{
+					lr |= TBCDRF_NOBACKGROUND;
+				}
+
 				if (isPlugin)
 				{
 					lr |= ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 				}
 
 				return lr;
-			}
-
-			case CDDS_ITEMPOSTPAINT:
-			{
-				bool isDropDown = false;
-
-				auto exStyle = ::SendMessage(nmtbcd->nmcd.hdr.hwndFrom, TB_GETEXTENDEDSTYLE, 0, 0);
-				if ((exStyle & TBSTYLE_EX_DRAWDDARROWS) == TBSTYLE_EX_DRAWDDARROWS)
-				{
-					TBBUTTONINFO tbButtonInfo{};
-					tbButtonInfo.cbSize = sizeof(TBBUTTONINFO);
-					tbButtonInfo.dwMask = TBIF_STYLE;
-					::SendMessage(nmtbcd->nmcd.hdr.hwndFrom, TB_GETBUTTONINFO, nmtbcd->nmcd.dwItemSpec, reinterpret_cast<LPARAM>(&tbButtonInfo));
-
-					isDropDown = (tbButtonInfo.fsStyle & BTNS_DROPDOWN) == BTNS_DROPDOWN;
-				}
-
-				if ( !isDropDown && (nmtbcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
-				{
-					NppDarkMode::paintRoundFrameRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc, NppDarkMode::getHotEdgePen(), roundCornerValue, roundCornerValue);
-				}
-
-				if (isPlugin)
-				{
-					break;
-				}
-
-				return CDRF_DODEFAULT;
 			}
 
 			default:

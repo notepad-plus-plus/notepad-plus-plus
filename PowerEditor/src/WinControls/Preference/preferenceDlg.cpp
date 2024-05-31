@@ -3108,6 +3108,56 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 	return FALSE;
 }
 
+BOOL LanguageSubDlg::updateIndentSettingsValues()
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = nppParam.getNppGUI();
+
+	auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+	if (index == LB_ERR)
+		return FALSE;
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), index > 0 ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), index > 0 ? SW_SHOW : SW_HIDE);
+
+	if (index > 0)
+	{
+		Lang* lang = nppParam.getLangFromIndex(index - 1);
+		if (!lang) return FALSE;
+		bool useDefaultTab = (lang->_tabSize == -1 || lang->_tabSize == 0);
+
+		::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_SETCHECK, useDefaultTab, 0);
+
+		int size = useDefaultTab ? nppGUI._tabSize : lang->_tabSize;
+		::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, size, FALSE);
+		::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab ? nppGUI._tabReplacedBySpace : lang->_isTabReplacedBySpace, 0);
+		::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, useDefaultTab ? !nppGUI._tabReplacedBySpace : !lang->_isTabReplacedBySpace, 0);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), !useDefaultTab);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), !useDefaultTab);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), !useDefaultTab);
+
+		if (!useDefaultTab)
+		{
+			::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, lang->_tabSize, FALSE);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_SETCHECK, lang->_isTabReplacedBySpace, 0);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, !lang->_isTabReplacedBySpace, 0);
+		}
+	}
+	else
+	{
+		::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, nppGUI._tabSize, FALSE);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), TRUE);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), TRUE);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), TRUE);
+		::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
+		::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, !nppGUI._tabReplacedBySpace, 0);
+	}
+
+	redrawDlgItem(IDC_TABSIZE_STATIC);
+	redrawDlgItem(IDC_INDENTUSING_STATIC);
+
+	return TRUE;
+}
+
 intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -3260,49 +3310,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					// Tab setting
 					else if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
 					{
-						auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-						if (index == LB_ERR)
-							return FALSE;
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), index > 0 ? SW_SHOW : SW_HIDE);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), index > 0 ? SW_SHOW : SW_HIDE);
-
-						if (index > 0)
-						{
-							Lang* lang = nppParam.getLangFromIndex(index - 1);
-							if (!lang) return FALSE;
-							bool useDefaultTab = (lang->_tabSize == -1 || lang->_tabSize == 0);
-
-							::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_SETCHECK, useDefaultTab, 0);
-
-							int size = useDefaultTab ? nppGUI._tabSize : lang->_tabSize;
-							::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, size, FALSE);
-							::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab ? nppGUI._tabReplacedBySpace : lang->_isTabReplacedBySpace, 0);
-							::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, useDefaultTab ? !nppGUI._tabReplacedBySpace : !lang->_isTabReplacedBySpace, 0);
-							::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), !useDefaultTab);
-							::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), !useDefaultTab);
-							::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), !useDefaultTab);
-
-							if (!useDefaultTab)
-							{
-								::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, lang->_tabSize, FALSE);
-								::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_SETCHECK, lang->_isTabReplacedBySpace, 0);
-								::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, !lang->_isTabReplacedBySpace, 0);
-							}
-						}
-						else
-						{
-							::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, nppGUI._tabSize, FALSE);
-							::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), TRUE);
-							::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), TRUE);
-							::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), TRUE);
-							::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
-							::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, !nppGUI._tabReplacedBySpace, 0);
-						}
-
-						redrawDlgItem(IDC_TABSIZE_STATIC);
-						redrawDlgItem(IDC_INDENTUSING_STATIC);
-
-						return TRUE;
+						return updateIndentSettingsValues();
 					}
 
 					break;
@@ -3628,7 +3636,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						return FALSE;
 
 					//- Set tab setting in choosed language
-					lang->_tabSize = useDefaultTab ? 0 : nppGUI._tabSize;
+					lang->_tabSize = useDefaultTab ? -1 : nppGUI._tabSize;
 					lang->_isTabReplacedBySpace = useDefaultTab ? false : nppGUI._tabReplacedBySpace;
 
 					//- set visual effect

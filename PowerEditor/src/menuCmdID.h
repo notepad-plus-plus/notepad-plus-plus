@@ -605,6 +605,14 @@
     #define    IDM_SETTING_SHORTCUT_MAPPER_RUN      (IDM_SETTING + 17)
     #define    IDM_SETTING_EDITCONTEXTMENU          (IDM_SETTING + 18)
 
+    #define    IDM_SETTING_INDENT_DEFAULT           (IDM_SETTING + 19)
+    #define    IDM_SETTING_INDENT_TAB               (IDM_SETTING + 20)
+    #define    IDM_SETTING_INDENT_SPACES            (IDM_SETTING + 21)
+    #define    IDM_SETTING_INDENT_2                 (IDM_SETTING + 22)
+    #define    IDM_SETTING_INDENT_4                 (IDM_SETTING + 23)
+    #define    IDM_SETTING_INDENT_8                 (IDM_SETTING + 24)
+    #define    IDM_SETTING_INDENT_PREFERENCE        (IDM_SETTING + 25)
+
 #define    IDM_TOOL  (IDM + 8500)
     #define    IDM_TOOL_MD5_GENERATE                    (IDM_TOOL + 1)
     #define    IDM_TOOL_MD5_GENERATEFROMFILE            (IDM_TOOL + 2)

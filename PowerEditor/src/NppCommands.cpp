@@ -3273,6 +3273,124 @@ void Notepad_plus::command(int id)
             break;
         }
 
+		case IDM_SETTING_INDENT_DEFAULT:
+		{
+			auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+			const int indentInfo = lang->getTabInfo();
+			if (indentInfo == -1)
+			{
+				NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+				lang->setTabInfo((nppGUI._tabSize) | (nppGUI._tabReplacedBySpace ? 0x80 : 0x00));
+			}
+			else
+			{
+				lang->_tabSize = -1;
+				NppParameters::getInstance().insertTabInfo(lang->getLangName(), -1);
+			}
+
+			if (_preference.isCreated())
+			{
+				_preference._languageSubDlg.updateIndentSettingsValues();
+			}
+
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+
+			break;
+		}
+
+		case IDM_SETTING_INDENT_TAB:
+		case IDM_SETTING_INDENT_SPACES:
+		{
+			const bool useSpace = id == IDM_SETTING_INDENT_SPACES;
+
+			NppParameters& nppParam = NppParameters::getInstance();
+
+			auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+			const int indentInfo = lang->getTabInfo();
+			if (indentInfo != -1)
+			{
+				if (lang->_langID == L_JS)
+				{
+					Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+					ljs->_isTabReplacedBySpace = useSpace;
+				}
+				else if (lang->_langID == L_JAVASCRIPT)
+				{
+					Lang* ljavascript = nppParam.getLangFromID(L_JS);
+					ljavascript->_isTabReplacedBySpace = useSpace;
+				}
+
+				lang->setTabInfo((indentInfo & MASK_TabSize) | (useSpace ? 0x80 : 0x00));
+
+				nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo());
+			}
+			else
+			{
+				NppGUI& nppGUI = nppParam.getNppGUI();
+				nppGUI._tabReplacedBySpace = useSpace;
+			}
+
+			if (_preference.isCreated())
+			{
+				_preference._languageSubDlg.updateIndentSettingsValues();
+			}
+
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+
+			break;
+		}
+
+		case IDM_SETTING_INDENT_2:
+		case IDM_SETTING_INDENT_4:
+		case IDM_SETTING_INDENT_8:
+		{
+			int tabSize = 4;
+			if (id == IDM_SETTING_INDENT_2)
+				tabSize = 2;
+			else if (id == IDM_SETTING_INDENT_8)
+				tabSize = 8;
+
+			NppParameters& nppParam = NppParameters::getInstance();
+
+			auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+			const int indentInfo = lang->getTabInfo();
+			if (indentInfo != -1)
+			{
+				if (lang->_langID == L_JS)
+				{
+					Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+					ljs->_tabSize = tabSize;
+				}
+				else if (lang->_langID == L_JAVASCRIPT)
+				{
+					Lang* ljavascript = nppParam.getLangFromID(L_JS);
+					ljavascript->_tabSize = tabSize;
+				}
+
+				lang->setTabInfo((tabSize) | (indentInfo & MASK_ReplaceBySpc));
+			}
+			else
+			{
+				NppGUI& nppGUI = nppParam.getNppGUI();
+				nppGUI._tabSize = tabSize;
+			}
+
+			if (_preference.isCreated())
+			{
+				_preference._languageSubDlg.updateIndentSettingsValues();
+			}
+
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SETTING_TAB_SIZE, 0, 0);
+
+			break;
+		}
+
+		case IDM_SETTING_INDENT_PREFERENCE:
+		{
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_LAUNCHPREFERENCES, 9, IDC_LIST_TABSETTNG);
+			break;
+		}
+
         case IDM_VIEW_GOTO_START:
 			_pDocTab->currentTabToStart();
 			break;

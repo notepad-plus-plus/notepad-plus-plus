@@ -2603,6 +2603,8 @@ void Notepad_plus::checkDocState()
 	checkUnicodeMenuItems();
 	checkLangsMenu(-1);
 
+	checkIndentMenuItems();
+
 	if (_pAnsiCharPanel)
 		_pAnsiCharPanel->switchEncoding();
 
@@ -2998,27 +3000,26 @@ void Notepad_plus::setLangStatus(LangType langType)
 	_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
 }
 
-
 void Notepad_plus::setIndentType()
 {
-	Buffer* buf = _pEditView->getCurrentBuffer();
-	const int indentInfo = buf->getCurrentLang()->getTabInfo();
+	auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+	const int indentInfo = lang->getTabInfo();
 	bool isSpace = false;
-	int tabSize = 0;
+	int indentSize = 0;
 	if (indentInfo != -1)
 	{
 		isSpace = (indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc;
-		tabSize = (indentInfo & MASK_TabSize);
+		indentSize = (indentInfo & MASK_TabSize);
 	}
 	else
 	{
 		NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 		isSpace = nppGUI._tabReplacedBySpace;
-		tabSize = nppGUI._tabSize;
+		indentSize = nppGUI._tabSize;
 	}
 
 	std::wstring strIndent = (isSpace) ? L"Spaces: " : L"Tab: ";
-	strIndent += std::to_wstring(tabSize);
+	strIndent += std::to_wstring(indentSize);
 	_statusBar.setText(strIndent.c_str(), STATUSBAR_INDENT_TYPE);
 }
 
@@ -5050,6 +5051,12 @@ void Notepad_plus::dynamicCheckMenuAndTB() const
 	checkUnicodeMenuItems();
 }
 
+void Notepad_plus::indentCheckMenuAndSetStatusBar()
+{
+	checkIndentMenuItems();
+	setIndentType();
+}
+
 
 void Notepad_plus::enableConvertMenuItems(EolType format) const
 {
@@ -5117,6 +5124,76 @@ void Notepad_plus::checkUnicodeMenuItems() const
 		// Check the encoding item
         HMENU _formatMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FORMAT);
         doCheck(_formatMenuHandle, cmdID);
+	}
+}
+
+void Notepad_plus::checkIndentMenuItems() const
+{
+	Buffer* buf = _pEditView->getCurrentBuffer();
+	const int indentInfo = buf->getCurrentLang()->getTabInfo();
+	bool isSpace = false;
+	int indentSize = 0;
+	const bool isNotDefault = indentInfo != -1;
+	if (isNotDefault)
+	{
+		isSpace = (indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc;
+		indentSize = (indentInfo & MASK_TabSize);
+	}
+	else
+	{
+		NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+		isSpace = nppGUI._tabReplacedBySpace;
+		indentSize = nppGUI._tabSize;
+	}
+
+	int menuIndentSizeId = IDM_SETTING_INDENT_4;
+	bool isCustom = false;
+	switch (indentSize)
+	{
+		case 2:
+		{
+			menuIndentSizeId = IDM_SETTING_INDENT_2;
+			break;
+		}
+
+		case 4:
+		{
+			break;
+		}
+
+		case 8:
+		{
+			menuIndentSizeId = IDM_SETTING_INDENT_8;
+			break;
+		}
+
+		default:
+		{
+			isCustom = true;
+			break;
+		}
+	}
+
+	if (indentSize == 2)
+		menuIndentSizeId = IDM_SETTING_INDENT_2;
+	else if (indentSize == 8)
+		menuIndentSizeId = IDM_SETTING_INDENT_8;
+
+	MenuPosition& menuPos = getMenuPosition("settings-indentation");
+	HMENU hSettingsMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+	if (hSettingsMenu != nullptr)
+	{
+		HMENU hIndentTypeMenu = ::GetSubMenu(hSettingsMenu, menuPos._y);
+		if (hIndentTypeMenu != nullptr)
+		{
+			::CheckMenuItem(hIndentTypeMenu, IDM_SETTING_INDENT_DEFAULT, MF_BYCOMMAND | (isNotDefault ? MF_UNCHECKED : MF_CHECKED));
+			::CheckMenuRadioItem(hIndentTypeMenu, IDM_SETTING_INDENT_TAB, IDM_SETTING_INDENT_SPACES, isSpace ? IDM_SETTING_INDENT_SPACES : IDM_SETTING_INDENT_TAB, MF_BYCOMMAND);
+			::CheckMenuRadioItem(hIndentTypeMenu, IDM_SETTING_INDENT_2, IDM_SETTING_INDENT_8, menuIndentSizeId, MF_BYCOMMAND);
+			if (isCustom)
+			{
+				::CheckMenuItem(hIndentTypeMenu, menuIndentSizeId, MF_BYCOMMAND | MF_UNCHECKED);
+			}
+		}
 	}
 }
 
@@ -6638,7 +6715,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		else if (_subEditView.getCurrentBuffer() == buffer)
 			_autoCompleteSub.setLanguage(buffer->getLangType());
 
-		setIndentType();
+		indentCheckMenuAndSetStatusBar();
 
 		SCNotification scnN{};
 		scnN.nmhdr.code = NPPN_LANGCHANGED;
@@ -6686,7 +6763,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	checkDocState();
 	dynamicCheckMenuAndTB();
 	setLangStatus(buf->getLangType());
-	setIndentType();
+	indentCheckMenuAndSetStatusBar();
 	updateStatusBar();
 	checkUnicodeMenuItems(/*buf->getUnicodeMode()*/);
 	setUniModeText();

@@ -176,6 +176,7 @@ class LanguageSubDlg : public StaticDialog
 {
 public :
 	LanguageSubDlg() = default;
+	BOOL updateIndentSettingsValues();
 
 private :
 	LexerStylerArray _lsArray;

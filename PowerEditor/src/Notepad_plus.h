@@ -482,8 +482,10 @@ private:
     void getMainClientRect(RECT & rc) const;
 	void staticCheckMenuAndTB() const;
 	void dynamicCheckMenuAndTB() const;
+	void indentCheckMenuAndSetStatusBar();
 	void enableConvertMenuItems(EolType f) const;
 	void checkUnicodeMenuItems() const;
+	void checkIndentMenuItems() const;
 
 	generic_string getLangDesc(LangType langType, bool getName = false);
 

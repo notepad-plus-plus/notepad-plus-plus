@@ -99,7 +99,8 @@ MenuPosition g_menuFolderPositions[] = {
 
 	{ 5,  25, -1, "language-userDefinedLanguage" },
 
-	{ 6,   4, -1, "settings-import" },
+	{ 6,   4, -1, "settings-indentation" },
+	{ 6,   5, -1, "settings-import" },
 
 	{ 7,   0, -1, "tools-md5" },
 	{ 7,   1, -1, "tools-sha1" },

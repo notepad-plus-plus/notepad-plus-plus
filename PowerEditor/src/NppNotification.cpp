@@ -420,6 +420,27 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 					TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
 				}
+				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_INDENT_TYPE))
+				{
+					auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+					const int indentInfo = lang->getTabInfo();
+					if (indentInfo != -1)
+					{
+						lang->setTabInfo((indentInfo & MASK_TabSize) | ((indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc ? 0x00 : 0x80));
+					}
+					else
+					{
+						NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+						nppGUI._tabReplacedBySpace = !nppGUI._tabReplacedBySpace;
+					}
+
+					if (_preference.isCreated())
+					{
+						_preference._languageSubDlg.updateIndentSettingsValues();
+					}
+
+					::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
 				{
 					POINT p;
@@ -464,6 +485,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 					TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+				}
+				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_INDENT_TYPE))
+				{
+					MenuPosition& menuPos = getMenuPosition("settings-indentation");
+					HMENU hSettingsMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+					if (!hSettingsMenu)
+						return TRUE;
+					HMENU hIndentTypeMenu = ::GetSubMenu(hSettingsMenu, menuPos._y);
+					if (!hIndentTypeMenu)
+						return TRUE;
+					::TrackPopupMenu(hIndentTypeMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), nullptr);
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
 				{

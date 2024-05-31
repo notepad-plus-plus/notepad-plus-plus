@@ -1191,6 +1191,20 @@ BEGIN
         MENUITEM "Style Configurator...",   IDM_LANGSTYLE_CONFIG_DLG
         MENUITEM "Shortcut Mapper...",      IDM_SETTING_SHORTCUT_MAPPER
         MENUITEM SEPARATOR
+        POPUP "Indentation"
+        BEGIN
+            MENUITEM "Use default setting", IDM_SETTING_INDENT_DEFAULT
+            MENUITEM SEPARATOR
+            MENUITEM "Indent using tab",    IDM_SETTING_INDENT_TAB
+            MENUITEM "Indent using spaces", IDM_SETTING_INDENT_SPACES
+            MENUITEM SEPARATOR
+            MENUITEM "Indent size 2",       IDM_SETTING_INDENT_2
+            MENUITEM "Indent size 4",       IDM_SETTING_INDENT_4
+            MENUITEM "Indent size 8",       IDM_SETTING_INDENT_8
+            MENUITEM SEPARATOR
+            MENUITEM "Open settings",       IDM_SETTING_INDENT_PREFERENCE
+        END
+        MENUITEM SEPARATOR
         POPUP "Import"
         BEGIN
             MENUITEM "Import plugin(s)...",         IDM_SETTING_IMPORTPLUGIN

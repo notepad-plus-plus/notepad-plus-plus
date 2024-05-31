@@ -186,12 +186,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 		#define STATUSBAR_DOC_TYPE     0
 		#define STATUSBAR_DOC_SIZE     1
 		#define STATUSBAR_CUR_POS      2
-		#define STATUSBAR_EOF_FORMAT   3
-		#define STATUSBAR_UNICODE_TYPE 4
-		#define STATUSBAR_TYPING_MODE  5
+		#define STATUSBAR_INDENT_TYPE  3
+		#define STATUSBAR_EOF_FORMAT   4
+		#define STATUSBAR_UNICODE_TYPE 5
+		#define STATUSBAR_TYPING_MODE  6
 	// BOOL NPPM_SETSTATUSBAR(int whichPart, TCHAR *str2set)
 	// Set string in the specified field of a statusbar.
-	// wParam[in]: whichPart for indicating the statusbar part you want to set. It can be only the above value (0 - 5)
+	// wParam[in]: whichPart for indicating the statusbar part you want to set. It can be only the above value (0 - 6)
 	// lParam[in]: str2set is the string you want to write to the part of statusbar.
 	// Return FALSE on failure, TRUE on success
 

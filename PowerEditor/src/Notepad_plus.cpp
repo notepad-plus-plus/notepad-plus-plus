@@ -426,10 +426,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	//--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
-	_statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
+	_statusBar.init(_pPublicInterface->getHinst(), hwnd, 7);
 	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, DPIManagerV2::scale(220, dpi));
 	_statusBar.setPartWidth(STATUSBAR_CUR_POS, DPIManagerV2::scale(260, dpi));
-	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, DPIManagerV2::scale(110, dpi));
+	_statusBar.setPartWidth(STATUSBAR_INDENT_TYPE, DPIManagerV2::scale(70, dpi));
+	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, DPIManagerV2::scale(40, dpi));
 	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, DPIManagerV2::scale(120, dpi));
 	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, DPIManagerV2::scale(30, dpi));
 	_statusBar.display(willBeShown);
@@ -2998,17 +2999,40 @@ void Notepad_plus::setLangStatus(LangType langType)
 }
 
 
+void Notepad_plus::setIndentType()
+{
+	Buffer* buf = _pEditView->getCurrentBuffer();
+	const int indentInfo = buf->getCurrentLang()->getTabInfo();
+	bool isSpace = false;
+	int tabSize = 0;
+	if (indentInfo != -1)
+	{
+		isSpace = (indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc;
+		tabSize = (indentInfo & MASK_TabSize);
+	}
+	else
+	{
+		NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+		isSpace = nppGUI._tabReplacedBySpace;
+		tabSize = nppGUI._tabSize;
+	}
+
+	std::wstring strIndent = (isSpace) ? L"Spaces: " : L"Tab: ";
+	strIndent += std::to_wstring(tabSize);
+	_statusBar.setText(strIndent.c_str(), STATUSBAR_INDENT_TYPE);
+}
+
 void Notepad_plus::setDisplayFormat(EolType format)
 {
-	const TCHAR* str = TEXT("??");
+	std::wstring strEol;
 	switch (format)
 	{
-		case EolType::windows: str = TEXT("Windows (CR LF)"); break;
-		case EolType::macos:   str = TEXT("Macintosh (CR)"); break;
-		case EolType::unix:    str = TEXT("Unix (LF)"); break;
-		case EolType::unknown: str = TEXT("Unknown"); assert(false);  break;
+		case EolType::windows: strEol = L"CRLF"; break;
+		case EolType::macos:   strEol = L"CR"; break;
+		case EolType::unix:    strEol = L"LF"; break;
+		case EolType::unknown: strEol = L"Unknown"; assert(false);  break;
 	}
-	_statusBar.setText(str, STATUSBAR_EOF_FORMAT);
+	_statusBar.setText(strEol.c_str(), STATUSBAR_EOF_FORMAT);
 }
 
 
@@ -6614,6 +6638,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		else if (_subEditView.getCurrentBuffer() == buffer)
 			_autoCompleteSub.setLanguage(buffer->getLangType());
 
+		setIndentType();
+
 		SCNotification scnN{};
 		scnN.nmhdr.code = NPPN_LANGCHANGED;
 		scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
@@ -6660,6 +6686,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	checkDocState();
 	dynamicCheckMenuAndTB();
 	setLangStatus(buf->getLangType());
+	setIndentType();
 	updateStatusBar();
 	checkUnicodeMenuItems(/*buf->getUnicodeMode()*/);
 	setUniModeText();

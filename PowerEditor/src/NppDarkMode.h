@@ -212,8 +212,6 @@ namespace NppDarkMode
 	void themeToolbar(HWND hwnd, NppDarkModeParams p);
 	void themeRichEdit(HWND hwnd, NppDarkModeParams p);
 
-	LRESULT darkToolBarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin);
-
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 	void autoThemeChildControls(HWND hwndParent);
 

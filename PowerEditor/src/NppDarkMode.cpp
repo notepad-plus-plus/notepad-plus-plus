@@ -2576,7 +2576,7 @@ namespace NppDarkMode
 		}
 	}
 
-	LRESULT darkToolBarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
+	static LRESULT darkToolBarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
 	{
 		auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
 		static int roundCornerValue = 0;
@@ -2590,9 +2590,7 @@ namespace NppDarkMode
 				{
 					if (NppDarkMode::isWindows11())
 					{
-						const auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
-						const auto dpi = DPIManagerV2::getDpiForParent(nmhdr->hwndFrom);
-						roundCornerValue = DPIManagerV2::scale(5, dpi);
+						roundCornerValue = 5;
 					}
 
 					::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());

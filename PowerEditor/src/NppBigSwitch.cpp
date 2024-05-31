@@ -1949,7 +1949,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					bool copyLink = (_pEditView->getSelectedTextCount() == 0) && _pEditView->getIndicatorRange(URL_INDIC);
 					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle, copyLink);
 					
-					POINT p;
+					POINT p{};
 					p.x = GET_X_LPARAM(lParam);
 					p.y = GET_Y_LPARAM(lParam);
 					if ((p.x == -1) && (p.y == -1))
@@ -1978,7 +1978,76 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					case NM_CUSTOMDRAW:
 					{
-						return NppDarkMode::darkToolBarNotifyCustomDraw(hwnd, message, wParam, lParam, false);
+						auto nmtbcd = reinterpret_cast<LPNMTBCUSTOMDRAW>(lParam);
+						static int roundCornerValue = 0;
+
+						switch (nmtbcd->nmcd.dwDrawStage)
+						{
+							case CDDS_PREPAINT:
+							{
+								LRESULT lr = CDRF_DODEFAULT;
+								if (NppDarkMode::isEnabled())
+								{
+									if (NppDarkMode::isWindows11())
+									{
+										roundCornerValue = 5;
+									}
+
+									::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+									lr |= CDRF_NOTIFYITEMDRAW;
+								}
+
+								return lr;
+							}
+
+							case CDDS_ITEMPREPAINT:
+							{
+								nmtbcd->hbrMonoDither = NppDarkMode::getBackgroundBrush();
+								nmtbcd->hbrLines = NppDarkMode::getEdgeBrush();
+								nmtbcd->hpenLines = NppDarkMode::getEdgePen();
+								nmtbcd->clrText = NppDarkMode::getTextColor();
+								nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
+								nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
+								nmtbcd->clrBtnHighlight = NppDarkMode::getSofterBackgroundColor();
+								nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
+								nmtbcd->nStringBkMode = TRANSPARENT;
+								nmtbcd->nHLStringBkMode = TRANSPARENT;
+
+								if ((nmtbcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
+								{
+									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotBackgroundBrush());
+									auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotEdgePen());
+									::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
+									::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
+									::SelectObject(nmtbcd->nmcd.hdc, holdPen);
+
+									nmtbcd->nmcd.uItemState &= ~(CDIS_CHECKED | CDIS_HOT);
+								}
+								else if ((nmtbcd->nmcd.uItemState & CDIS_CHECKED) == CDIS_CHECKED)
+								{
+									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getSofterBackgroundBrush());
+									auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getEdgePen());
+									::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
+									::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
+									::SelectObject(nmtbcd->nmcd.hdc, holdPen);
+
+									nmtbcd->nmcd.uItemState &= ~CDIS_CHECKED;
+								}
+
+								LRESULT lr = TBCDRF_USECDCOLORS;
+								if ((nmtbcd->nmcd.uItemState & CDIS_SELECTED) == CDIS_SELECTED)
+								{
+									lr |= TBCDRF_NOBACKGROUND;
+								}
+
+								return lr;
+							}
+
+							default:
+								break;
+						}
+
+						return CDRF_DODEFAULT;
 					}
 
 					default:

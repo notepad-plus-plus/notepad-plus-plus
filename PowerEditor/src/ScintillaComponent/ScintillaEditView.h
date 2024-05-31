@@ -306,7 +306,7 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 	size_t noneUsedStart = 0;
 	size_t noneUsedEnd = 0;
 
-	char noneUsedSymbol = ' ';
+	T noUsedSymbol = ' ';
 
 	//
 	// Determinate leading zero/space or none
@@ -319,7 +319,7 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 	}
 	else if (lead == ColumnEditorParam::zeroLeading)
 	{
-		noneUsedSymbol = '0';
+		noUsedSymbol = '0';
 
 		noneUsedStart = 0;
 		noneUsedEnd = nbStart = noneUsedZoneLen;
@@ -341,7 +341,7 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 
 	size_t j = 0;
 	for (j = noneUsedStart; j < noneUsedEnd; ++j)
-		str[j] = noneUsedSymbol;
+		str[j] = noUsedSymbol;
 
 	return str;
 }

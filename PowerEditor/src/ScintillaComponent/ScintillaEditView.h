@@ -245,10 +245,106 @@ const std::vector<std::vector<const char*>> g_nonPrintingChars =
 	{"\xEF\xBF\xBB", "IAT", "U+FFFB"}        // U+FFFB : interlinear annotation terminator
 };
 
-int getNbDigits(int aNum, int base);
-//HMODULE loadSciLexerDll();
+size_t getNbDigits(size_t aNum, size_t base);
 
-TCHAR* int2str(TCHAR* str, int strLen, int number, int base, int nbDigits, ColumnEditorParam::leadingChoice lead);
+template<typename T>
+T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, size_t nbDigits, ColumnEditorParam::leadingChoice lead)
+{
+	if (nbDigits == 0 || nbDigits >= strLen) return NULL;
+
+	//
+	// Reset the output string
+	//
+	memset(str, 0, sizeof(T) * strLen);
+
+	//
+	// Form number string according its base
+	//
+	std::string numberStr;
+
+	if (base == 2)
+	{
+		std::string tmpStr;
+		size_t aNum = number;
+		do
+		{
+			tmpStr += aNum % 2 ? "1" : "0";
+			aNum = aNum / 2;
+
+		} while (aNum != 0);
+
+		size_t i = 0;
+		size_t j = tmpStr.length() - 1;
+		for (; j >= 0 && i < tmpStr.length(); i++, j--)
+		{
+			numberStr += tmpStr[j];
+		}
+	}
+	else if (base == 8)
+	{
+		std::stringstream stream;
+		stream << std::oct << number;
+		numberStr = stream.str();
+	}
+	else if (base == 16)
+	{
+		std::stringstream stream;
+		stream << std::hex << number;
+		numberStr = stream.str();
+	}
+	else //if (base == 10)
+	{
+		numberStr = std::to_string(number);
+	}
+
+	size_t numberStrLen = numberStr.length();
+	size_t noneUsedZoneLen = nbDigits - numberStrLen;
+
+	size_t nbStart = 0;
+	size_t nbEnd = 0;
+
+	size_t noneUsedStart = 0;
+	size_t noneUsedEnd = 0;
+
+	T noUsedSymbol = ' ';
+
+	//
+	// Determinate leading zero/space or none
+	//
+	if (lead == ColumnEditorParam::spaceLeading)
+	{
+		noneUsedStart = 0;
+		noneUsedEnd = nbStart = noneUsedZoneLen;
+		nbEnd = nbDigits;
+	}
+	else if (lead == ColumnEditorParam::zeroLeading)
+	{
+		noUsedSymbol = '0';
+
+		noneUsedStart = 0;
+		noneUsedEnd = nbStart = noneUsedZoneLen;
+		nbEnd = nbDigits;
+	}
+	else //if (lead != ColumnEditorParam::noneLeading)
+	{
+		nbStart = 0;
+		nbEnd = noneUsedStart = numberStrLen;
+		noneUsedEnd = nbDigits;
+	}
+
+	//
+	// Fill str with the correct position
+	//
+	size_t i = 0;
+	for (size_t k = nbStart; k < nbEnd; ++k)
+		str[k] = numberStr[i++];
+
+	size_t j = 0;
+	for (j = noneUsedStart; j < noneUsedEnd; ++j)
+		str[j] = noUsedSymbol;
+
+	return str;
+}
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
 
@@ -687,7 +783,7 @@ public:
 	ColumnModeInfos getColumnModeSelectInfo();
 
 	void columnReplace(ColumnModeInfos & cmi, const TCHAR *str);
-	void columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, UCHAR format, ColumnEditorParam::leadingChoice lead);
+	void columnReplace(ColumnModeInfos & cmi, size_t initial, size_t incr, size_t repeat, UCHAR format, ColumnEditorParam::leadingChoice lead);
 
 	void clearIndicator(int indicatorNumber) {
 		size_t docStart = 0;

@@ -172,7 +172,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
 					
 					constexpr int stringSize = 1024;
-					TCHAR str[stringSize]{};
+					wchar_t str[stringSize]{};
 					
 					bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
 					
@@ -239,13 +239,14 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					}
 					else
 					{
-						int initialNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INITNUM_EDIT, NULL, TRUE);
-						int increaseNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INCREASENUM_EDIT, NULL, TRUE);
-						int repeat = ::GetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, NULL, TRUE);
-						if (repeat <= 0)
+						size_t initialNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INITNUM_EDIT, NULL, TRUE);
+						size_t increaseNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INCREASENUM_EDIT, NULL, TRUE);
+						size_t repeat = ::GetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, NULL, TRUE);
+						if (repeat == 0)
 						{
 							repeat = 1; // Without this we might get an infinite loop while calculating the set "numbers" below.
 						}
+
 						UCHAR format = getFormat();
 						display(false);
 
@@ -272,31 +273,28 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							// Compute the numbers to be placed at each column.
-							std::vector<int> numbers;
+							std::vector<size_t> numbers;
+
+							size_t curNumber = initialNumber;
+							const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
+							while (numbers.size() < kiMaxSize)
 							{
-								int curNumber = initialNumber;
-								const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
-								while (numbers.size() < kiMaxSize)
+								for (size_t i = 0; i < repeat; i++)
 								{
-									for (int i = 0; i < repeat; i++)
-									{
-										numbers.push_back(curNumber);
-										if (numbers.size() >= kiMaxSize)
-										{
-											break;
-										}
-									}
-									curNumber += increaseNumber;
+									numbers.push_back(curNumber);
+
+									if (numbers.size() >= kiMaxSize)
+										break;
 								}
+								curNumber += increaseNumber;
 							}
-							assert(numbers.size() > 0);
 
 							constexpr int lineAllocatedLen = 1024;
 							TCHAR *line = new TCHAR[lineAllocatedLen];
 
 							UCHAR f = format & MASK_FORMAT;
 
-							int base = 10;
+							size_t base = 10;
 							if (f == BASE_16)
 								base = 16;
 							else if (f == BASE_08)
@@ -304,10 +302,10 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							else if (f == BASE_02)
 								base = 2;
 
-							int endNumber = *numbers.rbegin();
-							int nbEnd = getNbDigits(endNumber, base);
-							int nbInit = getNbDigits(initialNumber, base);
-							int nb = std::max<int>(nbInit, nbEnd);
+							size_t endNumber = *numbers.rbegin();
+							size_t nbEnd = getNbDigits(endNumber, base);
+							size_t nbInit = getNbDigits(initialNumber, base);
+							size_t nb = std::max<size_t>(nbInit, nbEnd);
 
 
 							for (size_t i = cursorLine ; i <= size_t(endLine) ; ++i)
@@ -324,12 +322,13 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 									line = new TCHAR[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
+
 								generic_string s2r(line);
 
 								//
 								// Calcule generic_string
 								//
-								int2str(str, stringSize, numbers.at(i - cursorLine), base, nb, getLeading());
+								variedFormatNumber2String<wchar_t>(str, stringSize, numbers.at(i - cursorLine), base, nb, getLeading());
 
 								if (lineEndCol < cursorCol)
 								{

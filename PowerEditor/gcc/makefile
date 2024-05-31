@@ -58,7 +58,7 @@ SUBMAKEFLAGS := -O --no-print-directory
 ifeq "$(filter-out 0,$(DEBUG))" ""
 BUILD_TYPE := release
 BUILD_SUFFIX :=
-CXXFLAGS += -O3 -Wno-alloc-size-larger-than -Wconversion
+CXXFLAGS += -O3 -Wconversion
 CPP_DEFINE += NDEBUG
 LDFLAGS += -s
 else
@@ -66,6 +66,23 @@ BUILD_TYPE := debug
 BUILD_SUFFIX := -debug
 CXXFLAGS += -Og -g -Wpedantic -Wall -Wextra -Wno-cast-function-type -Wno-overloaded-virtual -Wconversion
 CPP_DEFINE += DEBUG
+endif
+
+ifeq ($(CXX),clang++)
+  CXXFLAGS += -Wimplicit-fallthrough \
+              -Wformat=2 \
+              -Wno-c++98-compat \
+              -Wno-c++98-compat-pedantic \
+              -Wno-reserved-id-macro \
+              -Wno-pragma-pack \
+              -Wno-unknown-pragmas \
+              -Wno-unused-command-line-argument \
+              -Wno-overloaded-virtual \
+              -Wno-sign-conversion \
+              -Wno-c99-extensions \
+              -Wno-deprecated-declarations
+else ifeq ($(BUILD_TYPE),release)
+  CXXFLAGS += -Wno-alloc-size-larger-than
 endif
 
 ifneq "$(filter-out 0,$(CLANGANALYZE))" ""

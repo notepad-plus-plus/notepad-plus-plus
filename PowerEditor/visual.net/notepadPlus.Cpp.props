@@ -58,7 +58,7 @@
   <ItemDefinitionGroup Condition="'$(PlatformToolset)'=='ClangCL'">
     <ClCompile>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalOptions>-Wextra -Wimplicit-fallthrough -Wformat=2 -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-reserved-id-macro -Wno-pragma-pack -Wno-unknown-pragmas -Wno-unused-command-line-argument -Wno-overloaded-virtual %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Wpedantic -Wall -Wextra -Wimplicit-fallthrough -Wformat=2 -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-reserved-id-macro -Wno-pragma-pack -Wno-unknown-pragmas -Wno-unused-command-line-argument -Wno-overloaded-virtual -Wno-sign-conversion -Wno-c99-extensions -Wno-deprecated-declarations %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">

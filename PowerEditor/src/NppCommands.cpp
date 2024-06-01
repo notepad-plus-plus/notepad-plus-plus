@@ -3275,6 +3275,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_SETTING_INDENT_DEFAULT:
 		{
+			NppParameters& nppParam = NppParameters::getInstance();
+
 			Buffer* buf = _pEditView->getCurrentBuffer();
 			if (!buf->isUserDefineLangExt())
 			{
@@ -3282,13 +3284,13 @@ void Notepad_plus::command(int id)
 				const int indentInfo = lang->getTabInfo();
 				if (indentInfo == -1)
 				{
-					NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+					NppGUI& nppGUI = nppParam.getNppGUI();
 					lang->setTabInfo((nppGUI._tabSize) | (nppGUI._tabReplacedBySpace ? 0x80 : 0x00));
 				}
 				else
 				{
 					lang->_tabSize = -1;
-					NppParameters::getInstance().insertTabInfo(lang->getLangName(), -1);
+					nppParam.insertTabInfo(lang->getLangName(), -1);
 				}
 
 				if (_preference.isCreated())

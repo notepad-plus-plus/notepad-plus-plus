@@ -5147,7 +5147,7 @@ void Notepad_plus::checkIndentMenuItems() const
 	bool useDefault = true;
 	if (!buf->isUserDefineLangExt())
 	{
-		auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+		auto lang = buf->getCurrentLang();
 		const int indentInfo = lang->getTabInfo();
 		if (indentInfo != -1)
 		{

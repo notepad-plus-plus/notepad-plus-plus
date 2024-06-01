@@ -422,13 +422,21 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_INDENT_TYPE))
 				{
-					auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-					const int indentInfo = lang->getTabInfo();
-					if (indentInfo != -1)
+					bool useDefault = true;
+
+					Buffer* buf = _pEditView->getCurrentBuffer();
+					if (!buf->isUserDefineLangExt())
 					{
-						lang->setTabInfo((indentInfo & MASK_TabSize) | ((indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc ? 0x00 : 0x80));
+						auto lang = buf->getCurrentLang();
+						const int indentInfo = lang->getTabInfo();
+						if (indentInfo != -1)
+						{
+							lang->setTabInfo((indentInfo & MASK_TabSize) | ((indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc ? 0x00 : 0x80));
+							useDefault = false;
+						}
 					}
-					else
+
+					if (useDefault)
 					{
 						NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 						nppGUI._tabReplacedBySpace = !nppGUI._tabReplacedBySpace;

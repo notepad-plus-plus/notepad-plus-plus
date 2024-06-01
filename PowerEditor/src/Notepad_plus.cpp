@@ -3003,16 +3003,25 @@ void Notepad_plus::setLangStatus(LangType langType)
 void Notepad_plus::setIndentTypeStatus()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-	const int indentInfo = lang->getTabInfo();
+	Buffer* buf = _pEditView->getCurrentBuffer();
+
 	bool isSpace = false;
 	int indentSize = 0;
-	if (indentInfo != -1)
+	bool useDefault = true;
+
+	if (!buf->isUserDefineLangExt())
 	{
-		isSpace = (indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc;
-		indentSize = (indentInfo & MASK_TabSize);
+		auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+		const int indentInfo = lang->getTabInfo();
+		if (indentInfo != -1)
+		{
+			isSpace = (indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc;
+			indentSize = (indentInfo & MASK_TabSize);
+			useDefault = false;
+		}
 	}
-	else
+
+	if (useDefault)
 	{
 		NppGUI& nppGUI = nppParam.getNppGUI();
 		isSpace = nppGUI._tabReplacedBySpace;
@@ -5133,16 +5142,22 @@ void Notepad_plus::checkUnicodeMenuItems() const
 void Notepad_plus::checkIndentMenuItems() const
 {
 	Buffer* buf = _pEditView->getCurrentBuffer();
-	const int indentInfo = buf->getCurrentLang()->getTabInfo();
 	bool isSpace = false;
 	int indentSize = 0;
-	const bool isNotDefault = indentInfo != -1;
-	if (isNotDefault)
+	bool useDefault = true;
+	if (!buf->isUserDefineLangExt())
 	{
-		isSpace = (indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc;
-		indentSize = (indentInfo & MASK_TabSize);
+		auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+		const int indentInfo = lang->getTabInfo();
+		if (indentInfo != -1)
+		{
+			isSpace = (indentInfo & MASK_ReplaceBySpc) == MASK_ReplaceBySpc;
+			indentSize = (indentInfo & MASK_TabSize);
+			useDefault = false;
+		}
 	}
-	else
+
+	if (useDefault)
 	{
 		NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 		isSpace = nppGUI._tabReplacedBySpace;
@@ -5189,7 +5204,7 @@ void Notepad_plus::checkIndentMenuItems() const
 		HMENU hIndentTypeMenu = ::GetSubMenu(hSettingsMenu, menuPos._y);
 		if (hIndentTypeMenu != nullptr)
 		{
-			::CheckMenuItem(hIndentTypeMenu, IDM_SETTING_INDENT_DEFAULT, MF_BYCOMMAND | (isNotDefault ? MF_UNCHECKED : MF_CHECKED));
+			::CheckMenuItem(hIndentTypeMenu, IDM_SETTING_INDENT_DEFAULT, MF_BYCOMMAND | (useDefault ? MF_CHECKED : MF_UNCHECKED));
 			::CheckMenuRadioItem(hIndentTypeMenu, IDM_SETTING_INDENT_TAB, IDM_SETTING_INDENT_SPACES, isSpace ? IDM_SETTING_INDENT_SPACES : IDM_SETTING_INDENT_TAB, MF_BYCOMMAND);
 			::CheckMenuRadioItem(hIndentTypeMenu, IDM_SETTING_INDENT_2, IDM_SETTING_INDENT_8, menuIndentSizeId, MF_BYCOMMAND);
 			if (isCustom)

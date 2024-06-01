@@ -3275,25 +3275,29 @@ void Notepad_plus::command(int id)
 
 		case IDM_SETTING_INDENT_DEFAULT:
 		{
-			auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-			const int indentInfo = lang->getTabInfo();
-			if (indentInfo == -1)
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			if (!buf->isUserDefineLangExt())
 			{
-				NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
-				lang->setTabInfo((nppGUI._tabSize) | (nppGUI._tabReplacedBySpace ? 0x80 : 0x00));
-			}
-			else
-			{
-				lang->_tabSize = -1;
-				NppParameters::getInstance().insertTabInfo(lang->getLangName(), -1);
-			}
+				auto lang = buf->getCurrentLang();
+				const int indentInfo = lang->getTabInfo();
+				if (indentInfo == -1)
+				{
+					NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+					lang->setTabInfo((nppGUI._tabSize) | (nppGUI._tabReplacedBySpace ? 0x80 : 0x00));
+				}
+				else
+				{
+					lang->_tabSize = -1;
+					NppParameters::getInstance().insertTabInfo(lang->getLangName(), -1);
+				}
 
-			if (_preference.isCreated())
-			{
-				_preference._languageSubDlg.updateIndentSettingsValues();
-			}
+				if (_preference.isCreated())
+				{
+					_preference._languageSubDlg.updateIndentSettingsValues();
+				}
 
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+				::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+			}
 
 			break;
 		}
@@ -3302,29 +3306,36 @@ void Notepad_plus::command(int id)
 		case IDM_SETTING_INDENT_SPACES:
 		{
 			const bool useSpace = id == IDM_SETTING_INDENT_SPACES;
+			bool useDefault = true;
 
 			NppParameters& nppParam = NppParameters::getInstance();
 
-			auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-			const int indentInfo = lang->getTabInfo();
-			if (indentInfo != -1)
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			if (!buf->isUserDefineLangExt())
 			{
-				if (lang->_langID == L_JS)
+				auto lang = buf->getCurrentLang();
+				const int indentInfo = lang->getTabInfo();
+				if (indentInfo != -1)
 				{
-					Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-					ljs->_isTabReplacedBySpace = useSpace;
-				}
-				else if (lang->_langID == L_JAVASCRIPT)
-				{
-					Lang* ljavascript = nppParam.getLangFromID(L_JS);
-					ljavascript->_isTabReplacedBySpace = useSpace;
-				}
+					if (lang->_langID == L_JS)
+					{
+						Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+						ljs->_isTabReplacedBySpace = useSpace;
+					}
+					else if (lang->_langID == L_JAVASCRIPT)
+					{
+						Lang* ljavascript = nppParam.getLangFromID(L_JS);
+						ljavascript->_isTabReplacedBySpace = useSpace;
+					}
 
-				lang->setTabInfo((indentInfo & MASK_TabSize) | (useSpace ? 0x80 : 0x00));
+					lang->setTabInfo((indentInfo & MASK_TabSize) | (useSpace ? 0x80 : 0x00));
 
-				nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo());
+					nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo());
+					useDefault = false;
+				}
 			}
-			else
+
+			if (useDefault)
 			{
 				NppGUI& nppGUI = nppParam.getNppGUI();
 				nppGUI._tabReplacedBySpace = useSpace;
@@ -3350,26 +3361,33 @@ void Notepad_plus::command(int id)
 			else if (id == IDM_SETTING_INDENT_8)
 				tabSize = 8;
 
+			bool useDefault = true;
+
 			NppParameters& nppParam = NppParameters::getInstance();
 
-			auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-			const int indentInfo = lang->getTabInfo();
-			if (indentInfo != -1)
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			if (!buf->isUserDefineLangExt())
 			{
-				if (lang->_langID == L_JS)
+				auto lang = buf->getCurrentLang();
+				const int indentInfo = lang->getTabInfo();
+				if (indentInfo != -1)
 				{
-					Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-					ljs->_tabSize = tabSize;
-				}
-				else if (lang->_langID == L_JAVASCRIPT)
-				{
-					Lang* ljavascript = nppParam.getLangFromID(L_JS);
-					ljavascript->_tabSize = tabSize;
-				}
+					if (lang->_langID == L_JS)
+					{
+						Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+						ljs->_tabSize = tabSize;
+					}
+					else if (lang->_langID == L_JAVASCRIPT)
+					{
+						Lang* ljavascript = nppParam.getLangFromID(L_JS);
+						ljavascript->_tabSize = tabSize;
+					}
 
-				lang->setTabInfo((tabSize) | (indentInfo & MASK_ReplaceBySpc));
+					lang->setTabInfo((tabSize) | (indentInfo & MASK_ReplaceBySpc));
+				}
 			}
-			else
+
+			if (useDefault)
 			{
 				NppGUI& nppGUI = nppParam.getNppGUI();
 				nppGUI._tabSize = tabSize;

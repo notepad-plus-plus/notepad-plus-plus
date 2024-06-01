@@ -3000,8 +3000,9 @@ void Notepad_plus::setLangStatus(LangType langType)
 	_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
 }
 
-void Notepad_plus::setIndentType()
+void Notepad_plus::setIndentTypeStatus()
 {
+	NppParameters& nppParam = NppParameters::getInstance();
 	auto lang = _pEditView->getCurrentBuffer()->getCurrentLang();
 	const int indentInfo = lang->getTabInfo();
 	bool isSpace = false;
@@ -3013,12 +3014,14 @@ void Notepad_plus::setIndentType()
 	}
 	else
 	{
-		NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+		NppGUI& nppGUI = nppParam.getNppGUI();
 		isSpace = nppGUI._tabReplacedBySpace;
 		indentSize = nppGUI._tabSize;
 	}
 
-	std::wstring strIndent = (isSpace) ? L"Spaces: " : L"Tab: ";
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+	std::wstring strIndent = (isSpace) ? pNativeSpeaker->getLocalizedStrFromID("indent-spaces", L"Spaces") : pNativeSpeaker->getLocalizedStrFromID("indent-tabs", L"Tabs");
+	strIndent += L": ";
 	strIndent += std::to_wstring(indentSize);
 	_statusBar.setText(strIndent.c_str(), STATUSBAR_INDENT_TYPE);
 }
@@ -5054,7 +5057,7 @@ void Notepad_plus::dynamicCheckMenuAndTB() const
 void Notepad_plus::indentCheckMenuAndSetStatusBar()
 {
 	checkIndentMenuItems();
-	setIndentType();
+	setIndentTypeStatus();
 }
 
 

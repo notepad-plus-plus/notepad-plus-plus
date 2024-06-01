@@ -1193,9 +1193,9 @@ BEGIN
         MENUITEM SEPARATOR
         POPUP "Indentation"
         BEGIN
-            MENUITEM "Use default setting", IDM_SETTING_INDENT_DEFAULT
+            MENUITEM "Use default values",  IDM_SETTING_INDENT_DEFAULT
             MENUITEM SEPARATOR
-            MENUITEM "Indent using tab",    IDM_SETTING_INDENT_TAB
+            MENUITEM "Indent using tabs",   IDM_SETTING_INDENT_TAB
             MENUITEM "Indent using spaces", IDM_SETTING_INDENT_SPACES
             MENUITEM SEPARATOR
             MENUITEM "Indent size 2",       IDM_SETTING_INDENT_2

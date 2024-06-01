@@ -491,7 +491,7 @@ private:
 
 	void setLangStatus(LangType langType);
 
-	void setIndentType();
+	void setIndentTypeStatus();
 	void setDisplayFormat(EolType format);
 	void setUniModeText();
 	void checkLangsMenu(int id) const ;

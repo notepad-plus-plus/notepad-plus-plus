@@ -193,7 +193,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_wVector.push_back(DlgInfo(&_defaultDirectorySubDlg, TEXT("Default Directory"), TEXT("DefaultDir")));
 			_wVector.push_back(DlgInfo(&_recentFilesHistorySubDlg, TEXT("Recent Files History"), TEXT("RecentFilesHistory")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
-			_wVector.push_back(DlgInfo(&_languageSubDlg, TEXT("Language"), TEXT("Language")));
+			_wVector.push_back(DlgInfo(&_languageSubDlg, TEXT("Language & Indentation"), TEXT("Language")));
 			_wVector.push_back(DlgInfo(&_highlightingSubDlg, TEXT("Highlighting"), TEXT("Highlighting")));
 			_wVector.push_back(DlgInfo(&_printSubDlg, TEXT("Print"), TEXT("Print")));
 			_wVector.push_back(DlgInfo(&_searchingSubDlg, TEXT("Searching"), TEXT("Searching")));

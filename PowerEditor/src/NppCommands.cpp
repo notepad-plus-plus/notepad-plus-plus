@@ -3387,7 +3387,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_SETTING_INDENT_PREFERENCE:
 		{
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_LAUNCHPREFERENCES, 9, IDC_LIST_TABSETTNG);
+			constexpr int preferencesLang = 9;
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_LAUNCHPREFERENCES, preferencesLang, IDC_LIST_TABSETTNG);
 			break;
 		}
 

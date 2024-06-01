@@ -114,6 +114,7 @@ InstType "Minimalist"
 
 Var diffArchDir2Remove
 Var noUpdater
+Var closeRunningNpp
 
 
 !ifdef ARCH64 || ARCHARM64
@@ -149,6 +150,21 @@ Function .onInit
 !endif
 	;
 	; --- PATCH END ---
+
+	; check for the possible "/closeRunningNpp" cmdline option 1st
+	${GetParameters} $R0 
+	${GetOptions} $R0 "/closeRunningNpp" $R1 ; case insensitive 
+	IfErrors 0 closeRunningNppYes
+	StrCpy $closeRunningNpp "false"
+	Goto closeRunningNppCheckDone
+closeRunningNppYes:
+	StrCpy $closeRunningNpp "true"
+closeRunningNppCheckDone:
+	${If} $closeRunningNpp == "true"
+		; First try to use the usual app-closing by sending the WM_CLOSE.
+		; If that closing fails, use the forceful TerminateProcess way.
+		!insertmacro FindAndCloseOrTerminateRunningNpp ; this has to precede the following silent mode Notepad++ instance mutex check
+	${EndIf}
 
 	; handle the possible Silent Mode (/S) & already running Notepad++ (without this an incorrect partial installation is possible)
 	IfSilent 0 notInSilentMode

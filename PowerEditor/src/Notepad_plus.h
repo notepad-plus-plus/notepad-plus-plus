@@ -653,4 +653,6 @@ private:
 
 	void clearChangesHistory();
 	void changedHistoryGoTo(int idGoTo);
+
+	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId);
 };

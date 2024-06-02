@@ -151,14 +151,27 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	for (; i < _nbButtons && i < _nbTotalButtons; ++i)
 	{
 		cmd = buttonUnitArray[i]._cmdID;
-		if (cmd != 0)
+		switch (cmd)
 		{
-			++bmpIndex;
-			style = BTNS_BUTTON;
-		}
-		else
-		{
-			style = BTNS_SEP;
+			case 0:
+			{
+				style = BTNS_SEP;
+				break;
+			}
+
+			case IDM_VIEW_ALL_CHARACTERS:
+			{
+				++bmpIndex;
+				style = BTNS_DROPDOWN;
+				break;
+			}
+
+			default:
+			{
+				++bmpIndex;
+				style = BTNS_BUTTON;
+				break;
+			}
 		}
 
 		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
@@ -169,7 +182,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		_pTBB[i].iString = 0;
 	}
 
-	if (_nbDynButtons > 0)
+	if (_nbDynButtons > 0 && i < _nbTotalButtons)
 	{
 		//add separator
 		_pTBB[i].iBitmap = 0;
@@ -181,7 +194,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		++i;
 
 		//add plugin buttons
-		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
+		for (size_t j = 0; j < _nbDynButtons && i < _nbTotalButtons; ++j, ++i)
 		{
 			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
@@ -318,7 +331,7 @@ void ToolBar::reset(bool create)
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
-		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_HIDECLIPPEDBUTTONS | TBSTYLE_EX_DOUBLEBUFFER);
+		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_DRAWDDARROWS | TBSTYLE_EX_HIDECLIPPEDBUTTONS | TBSTYLE_EX_DOUBLEBUFFER);
 		
 		change2CustomIconsIfAny();
 	}

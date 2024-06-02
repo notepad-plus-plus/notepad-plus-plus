@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+﻿// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -2013,11 +2013,34 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								nmtbcd->nStringBkMode = TRANSPARENT;
 								nmtbcd->nHLStringBkMode = TRANSPARENT;
 
+								RECT rcItem{ nmtbcd->nmcd.rc };
+								RECT rcDrop{};
+
+								TBBUTTONINFO tbi{};
+								tbi.cbSize = sizeof(TBBUTTONINFO);
+								tbi.dwMask = TBIF_STYLE;
+								::SendMessage(lpnmhdr->hwndFrom, TB_GETBUTTONINFO, nmtbcd->nmcd.dwItemSpec, reinterpret_cast<LPARAM>(&tbi));
+								const bool isDropDown = (tbi.fsStyle & BTNS_DROPDOWN) == BTNS_DROPDOWN;
+								if (isDropDown)
+								{
+									WPARAM idx = ::SendMessage(lpnmhdr->hwndFrom, TB_COMMANDTOINDEX, nmtbcd->nmcd.dwItemSpec, 0);
+									::SendMessage(lpnmhdr->hwndFrom, TB_GETITEMDROPDOWNRECT, idx, reinterpret_cast<LPARAM>(&rcDrop));
+
+									rcItem.right = rcDrop.left;
+								}
+
 								if ((nmtbcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
 								{
 									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotBackgroundBrush());
 									auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotEdgePen());
-									::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
+
+									::RoundRect(nmtbcd->nmcd.hdc, rcItem.left, rcItem.top, rcItem.right, rcItem.bottom, roundCornerValue, roundCornerValue);
+
+									if (isDropDown)
+									{
+										::RoundRect(nmtbcd->nmcd.hdc, rcDrop.left, rcDrop.top, rcDrop.right, rcDrop.bottom, roundCornerValue, roundCornerValue);
+									}
+
 									::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
 									::SelectObject(nmtbcd->nmcd.hdc, holdPen);
 
@@ -2027,7 +2050,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								{
 									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getSofterBackgroundBrush());
 									auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getEdgePen());
-									::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
+
+									::RoundRect(nmtbcd->nmcd.hdc, rcItem.left, rcItem.top, rcItem.right, rcItem.bottom, roundCornerValue, roundCornerValue);
+
+									if (isDropDown)
+									{
+										::RoundRect(nmtbcd->nmcd.hdc, rcDrop.left, rcDrop.top, rcDrop.right, rcDrop.bottom, roundCornerValue, roundCornerValue);
+									}
+
 									::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
 									::SelectObject(nmtbcd->nmcd.hdc, holdPen);
 
@@ -2040,14 +2070,78 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 									lr |= TBCDRF_NOBACKGROUND;
 								}
 
+								if (isDropDown)
+								{
+									lr |= CDRF_NOTIFYPOSTPAINT;
+								}
+
 								return lr;
 							}
+
+							case CDDS_ITEMPOSTPAINT:
+							{
+
+								const UINT dpi = DPIManagerV2::getDpiForWindow(hwnd);
+								LOGFONT lf{ DPIManagerV2::getDefaultGUIFontForDpi(dpi) };
+								HFONT hFont = CreateFontIndirect(&lf);
+								auto holdFont = static_cast<HFONT>(::SelectObject(nmtbcd->nmcd.hdc, hFont));
+
+								RECT rcArrow{};
+								WPARAM idx = ::SendMessage(lpnmhdr->hwndFrom, TB_COMMANDTOINDEX, nmtbcd->nmcd.dwItemSpec, 0);
+								::SendMessage(lpnmhdr->hwndFrom, TB_GETITEMDROPDOWNRECT, idx, reinterpret_cast<LPARAM>(&rcArrow));
+								rcArrow.left += DPIManagerV2::scale(1, dpi);
+								rcArrow.bottom -= DPIManagerV2::scale(3, dpi);
+
+								COLORREF clrArrow = NppDarkMode::getTextColor();
+
+								::SetBkMode(nmtbcd->nmcd.hdc, TRANSPARENT);
+								::SetTextColor(nmtbcd->nmcd.hdc, clrArrow);
+								::DrawText(nmtbcd->nmcd.hdc, L"⏷", -1, &rcArrow, DT_NOPREFIX | DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
+								::SelectObject(nmtbcd->nmcd.hdc, holdFont);
+								::DeleteObject(hFont);
+
+								return CDRF_DODEFAULT;
+							}
+
 
 							default:
 								break;
 						}
 
 						return CDRF_DODEFAULT;
+					}
+
+					case TBN_DROPDOWN:
+					{
+						auto lpnmtb = reinterpret_cast<LPNMTOOLBARW>(lParam);
+						switch (lpnmtb->iItem)
+						{
+							case IDM_VIEW_ALL_CHARACTERS:
+							{
+								notifyTBShowMenu(lpnmtb, "view-showSymbol");
+								return TBDDRET_DEFAULT;
+							}
+
+							default:
+								break;
+						}
+						return TBDDRET_NODEFAULT;
+					}
+
+					case NM_RCLICK:
+					{
+						auto lpnmtb = reinterpret_cast<LPNMTOOLBARW>(lParam);
+						switch (lpnmtb->iItem)
+						{
+							case IDM_VIEW_ALL_CHARACTERS:
+							{
+								return notifyTBShowMenu(lpnmtb, "view-showSymbol");
+							}
+
+							default:
+								break;
+						}
+						return FALSE;
 					}
 
 					default:

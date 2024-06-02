@@ -8959,3 +8959,32 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 			::MessageBeep(MB_ICONEXCLAMATION);
 	}
 }
+
+BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId)
+{
+	RECT rcItem{};
+	::SendMessage(lpnmtb->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmtb->iItem), reinterpret_cast<LPARAM>(&rcItem));
+	::MapWindowPoints(lpnmtb->hdr.hwndFrom, HWND_DESKTOP, reinterpret_cast<LPPOINT>(&rcItem), 2);
+
+	const MenuPosition& menuPos = getMenuPosition(menuPosId);
+	HMENU hSubMenuView = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+	if (hSubMenuView != nullptr)
+	{
+		HMENU hPopupMenu = ::GetSubMenu(hSubMenuView, menuPos._y);
+		if (hPopupMenu != nullptr)
+		{
+			TPMPARAMS tpm{};
+			tpm.cbSize = sizeof(TPMPARAMS);
+			tpm.rcExclude = rcItem;
+
+			const UINT flags = _nativeLangSpeaker.isRTL() ? (TPM_RIGHTALIGN | TPM_RIGHTBUTTON | TPM_LAYOUTRTL) : (TPM_LEFTALIGN | TPM_LEFTBUTTON);
+
+			::TrackPopupMenuEx(hPopupMenu,
+				flags | TPM_VERTICAL,
+				rcItem.left, rcItem.bottom, _pPublicInterface->getHSelf(), &tpm);
+
+			return TRUE;
+		}
+	}
+	return FALSE;
+}

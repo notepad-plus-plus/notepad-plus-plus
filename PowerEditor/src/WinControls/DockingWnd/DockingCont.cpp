@@ -1153,6 +1153,18 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			onSize();
 			break;
 		}
+		case WM_GETMINMAXINFO:
+		{
+			if (_isFloating)
+			{
+				// ensure a reasonable minimal size of the floating panels
+				LPMINMAXINFO pMinMax = reinterpret_cast<LPMINMAXINFO>(lParam);
+				pMinMax->ptMinTrackSize.x = NppParameters::getInstance().getNppGUI()._dockingData._minFloatingPanelSize.cx;
+				pMinMax->ptMinTrackSize.y = NppParameters::getInstance().getNppGUI()._dockingData._minFloatingPanelSize.cy;
+				return 0;
+			}
+			break;
+		}
 		case WM_ERASEBKGND:
 		{
 			if (!NppDarkMode::isEnabled())

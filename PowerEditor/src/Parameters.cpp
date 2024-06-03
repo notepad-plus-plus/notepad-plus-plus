@@ -24,6 +24,7 @@
 #include "localizationString.h"
 #include "UserDefineDialog.h"
 #include "WindowsDlgRc.h"
+#include "Notepad_plus_Window.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
@@ -1012,6 +1013,16 @@ NppParameters::NppParameters()
 	//Load initial accelerator key definitions
 	initMenuKeys();
 	initScintillaKeys();
+
+	// Rescale default panels dimensions according to the current DPI
+	_nppGUI._dockingData._leftWidth = _dpiManager.scaleX(_nppGUI._dockingData._leftWidth);
+	_nppGUI._dockingData._rightWidth = _dpiManager.scaleX(_nppGUI._dockingData._rightWidth);
+	_nppGUI._dockingData._topHeight = _dpiManager.scaleY(_nppGUI._dockingData._topHeight);
+	_nppGUI._dockingData._bottomHeight = _dpiManager.scaleY(_nppGUI._dockingData._bottomHeight);
+	_nppGUI._dockingData._minDockedPanelVisibility = _dpiManager.scaleY(_nppGUI._dockingData._minDockedPanelVisibility);
+	_nppGUI._dockingData._minFloatingPanelSize.cy = _nppGUI._dockingData._minDockedPanelVisibility;
+	_nppGUI._dockingData._minFloatingPanelSize.cx = std::max(static_cast<int>(_nppGUI._dockingData._minFloatingPanelSize.cy * 6),
+		::GetSystemMetrics(SM_CXMINTRACK));
 }
 
 
@@ -6715,18 +6726,110 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 {
 	TiXmlElement *element = node->ToElement();
 
+	SIZE maxMonitorSize{ ::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN) }; // use primary monitor as the default
+	SIZE nppSize = maxMonitorSize;
+	HWND hwndNpp = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
+	if (hwndNpp)
+	{
+		// TODO: 
+		// the problem here is that this code-branch cannot be currently reached
+		// (as it is called at the Notepad++ startup in the wWinMain nppParameters.load())
+
+		HMONITOR hCurMon = ::MonitorFromWindow(hwndNpp, MONITOR_DEFAULTTONEAREST);
+		if (hCurMon)
+		{
+			MONITORINFO mi{};
+			mi.cbSize = sizeof(MONITORINFO);
+			if (::GetMonitorInfo(hCurMon, &mi))
+			{
+				maxMonitorSize.cx = mi.rcMonitor.right - mi.rcMonitor.left;
+				maxMonitorSize.cy = mi.rcMonitor.bottom - mi.rcMonitor.top;
+				nppSize = maxMonitorSize;
+			}
+		}
+
+		RECT rcNpp{};
+		if (::GetClientRect(hwndNpp, &rcNpp))
+		{
+			nppSize.cx = rcNpp.right;
+			nppSize.cy = rcNpp.bottom;
+		}
+	}
+	else
+	{
+		// no real Notepad++ wnd available, so try to use the previously saved config.xml data instead
+		if (!_nppGUI._isMaximized)
+		{
+			if (((_nppGUI._appPos.right > DMD_PANEL_WH_DEFAULT) && (_nppGUI._appPos.right < maxMonitorSize.cx))
+				&& ((_nppGUI._appPos.bottom > DMD_PANEL_WH_DEFAULT) && (_nppGUI._appPos.bottom < maxMonitorSize.cy)))
+			{
+				nppSize.cx = _nppGUI._appPos.right;
+				nppSize.cy = _nppGUI._appPos.bottom;
+			}
+		}
+	}
+
 	int i;
 	if (element->Attribute(TEXT("leftWidth"), &i))
-		_nppGUI._dockingData._leftWidth = i;
-
+	{
+		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
+		{
+			if  (i < (nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility))
+				_nppGUI._dockingData._leftWidth = i;
+			else
+				_nppGUI._dockingData._leftWidth = nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility; // invalid, reset
+		}
+		else
+		{
+			// invalid, reset
+			_nppGUI._dockingData._leftWidth = _nppGUI._dockingData._minDockedPanelVisibility;
+		}
+	}
 	if (element->Attribute(TEXT("rightWidth"), &i))
-		_nppGUI._dockingData._rightWidth = i;
-
+	{
+		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
+		{
+			if (i < (nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility))
+				_nppGUI._dockingData._rightWidth = i;
+			else
+				_nppGUI._dockingData._rightWidth = nppSize.cx - _nppGUI._dockingData._minDockedPanelVisibility; // invalid, reset
+		}
+		else
+		{
+			// invalid, reset
+			_nppGUI._dockingData._rightWidth = _nppGUI._dockingData._minDockedPanelVisibility;
+		}
+	}
 	if (element->Attribute(TEXT("topHeight"), &i))
-		_nppGUI._dockingData._topHeight = i;
-
+	{
+		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
+		{
+			if (i < (nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility))
+				_nppGUI._dockingData._topHeight = i;
+			else
+				_nppGUI._dockingData._topHeight = nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility;  // invalid, reset
+		}
+		else
+		{
+			// invalid, reset
+			_nppGUI._dockingData._topHeight = _nppGUI._dockingData._minDockedPanelVisibility;
+		}
+	}
 	if (element->Attribute(TEXT("bottomHeight"), &i))
-		_nppGUI._dockingData._bottomHight = i;
+	{
+		if (i > _nppGUI._dockingData._minDockedPanelVisibility)
+		{
+			if (i < (nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility))
+				_nppGUI._dockingData._bottomHeight = i;
+			else
+				_nppGUI._dockingData._bottomHeight = nppSize.cy - _nppGUI._dockingData._minDockedPanelVisibility; // invalid, reset
+		}
+		else
+		{
+			// invalid, reset
+			_nppGUI._dockingData._bottomHeight = _nppGUI._dockingData._minDockedPanelVisibility;
+		}
+	}
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("FloatingWindow"));
 		childNode ;
@@ -6738,14 +6841,44 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 		{
 			int x = 0;
 			int y = 0;
-			int w = 100;
-			int h = 100;
+			int w = FWI_PANEL_WH_DEFAULT;
+			int h = FWI_PANEL_WH_DEFAULT;
 
-			floatElement->Attribute(TEXT("x"), &x);
-			floatElement->Attribute(TEXT("y"), &y);
-			floatElement->Attribute(TEXT("width"), &w);
-			floatElement->Attribute(TEXT("height"), &h);
-			_nppGUI._dockingData._flaotingWindowInfo.push_back(FloatingWindowInfo(cont, x, y, w, h));
+			if (floatElement->Attribute(TEXT("x"), &x))
+			{
+				if ((x > (maxMonitorSize.cx - 1)) || (x < 0))
+					x = 0; // invalid, reset
+			}
+			if (floatElement->Attribute(TEXT("y"), &y))
+			{
+				if ((y > (maxMonitorSize.cy - 1)) || (y < 0))
+					y = 0; // invalid, reset
+			}
+			if (floatElement->Attribute(TEXT("width"), &w))
+			{
+				if (w > maxMonitorSize.cx)
+				{
+					w = maxMonitorSize.cx; // invalid, reset
+				}
+				else
+				{
+					if (w < _nppGUI._dockingData._minFloatingPanelSize.cx)
+						w = _nppGUI._dockingData._minFloatingPanelSize.cx; // invalid, reset
+				}
+			}
+			if (floatElement->Attribute(TEXT("height"), &h))
+			{
+				if (h > maxMonitorSize.cy)
+				{
+					h = maxMonitorSize.cy; // invalid, reset
+				}
+				else
+				{
+					if (h < _nppGUI._dockingData._minFloatingPanelSize.cy)
+						h = _nppGUI._dockingData._minFloatingPanelSize.cy; // invalid, reset
+				}
+			}
+			_nppGUI._dockingData._floatingWindowInfo.push_back(FloatingWindowInfo(cont, x, y, w, h));
 		}
 	}
 
@@ -7715,11 +7848,11 @@ void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)
 	DMNode.SetAttribute(TEXT("leftWidth"), _nppGUI._dockingData._leftWidth);
 	DMNode.SetAttribute(TEXT("rightWidth"), _nppGUI._dockingData._rightWidth);
 	DMNode.SetAttribute(TEXT("topHeight"), _nppGUI._dockingData._topHeight);
-	DMNode.SetAttribute(TEXT("bottomHeight"), _nppGUI._dockingData._bottomHight);
+	DMNode.SetAttribute(TEXT("bottomHeight"), _nppGUI._dockingData._bottomHeight);
 
-	for (size_t i = 0, len = _nppGUI._dockingData._flaotingWindowInfo.size(); i < len ; ++i)
+	for (size_t i = 0, len = _nppGUI._dockingData._floatingWindowInfo.size(); i < len ; ++i)
 	{
-		FloatingWindowInfo & fwi = _nppGUI._dockingData._flaotingWindowInfo[i];
+		FloatingWindowInfo & fwi = _nppGUI._dockingData._floatingWindowInfo[i];
 		TiXmlElement FWNode(TEXT("FloatingWindow"));
 		FWNode.SetAttribute(TEXT("cont"), fwi._cont);
 		FWNode.SetAttribute(TEXT("x"), fwi._pos.left);

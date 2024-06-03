@@ -811,10 +811,16 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	DockingManagerData& dmd = nppGUI._dockingData;
 
+	// preset minimal panel dimensions according to the current DPI
+	dmd._minDockedPanelVisibility = DPIManagerV2::scale(nppGUI._dockingData._minDockedPanelVisibility, dpi);
+	dmd._minFloatingPanelSize.cy = nppGUI._dockingData._minDockedPanelVisibility;
+	dmd._minFloatingPanelSize.cx = std::max(static_cast<int>(nppGUI._dockingData._minFloatingPanelSize.cy * 6),
+		DPIManagerV2::getSystemMetricsForDpi(SM_CXMINTRACK, dpi));
+
 	_dockingManager.setDockedContSize(CONT_LEFT, nppGUI._dockingData._leftWidth);
 	_dockingManager.setDockedContSize(CONT_RIGHT, nppGUI._dockingData._rightWidth);
 	_dockingManager.setDockedContSize(CONT_TOP, nppGUI._dockingData._topHeight);
-	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHight);
+	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHeight);
 
 	{
 		for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len; ++i)
@@ -996,7 +1002,7 @@ void Notepad_plus::saveDockingParams()
 	nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
 	nppGUI._dockingData._rightWidth		= _dockingManager.getDockedContSize(CONT_RIGHT);
 	nppGUI._dockingData._topHeight		= _dockingManager.getDockedContSize(CONT_TOP);
-	nppGUI._dockingData._bottomHight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
+	nppGUI._dockingData._bottomHeight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
 
 	// clear the container tab information (active tab)
 	nppGUI._dockingData._containerTabInfo.clear();
@@ -1091,7 +1097,7 @@ void Notepad_plus::saveDockingParams()
 	}
 
 	nppGUI._dockingData._pluginDockInfo = vPluginDockInfo;
-	nppGUI._dockingData._flaotingWindowInfo = vFloatingWindowInfo;
+	nppGUI._dockingData._floatingWindowInfo = vFloatingWindowInfo;
 }
 
 

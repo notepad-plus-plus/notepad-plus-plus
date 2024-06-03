@@ -1199,6 +1199,7 @@ BEGIN
             MENUITEM "Indent using spaces", IDM_SETTING_INDENT_SPACES
             MENUITEM SEPARATOR
             MENUITEM "Indent size 2",       IDM_SETTING_INDENT_2
+            MENUITEM "Indent size 3",       IDM_SETTING_INDENT_3
             MENUITEM "Indent size 4",       IDM_SETTING_INDENT_4
             MENUITEM "Indent size 8",       IDM_SETTING_INDENT_8
             MENUITEM SEPARATOR

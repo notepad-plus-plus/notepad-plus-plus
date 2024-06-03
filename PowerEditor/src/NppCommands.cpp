@@ -3354,12 +3354,15 @@ void Notepad_plus::command(int id)
 		}
 
 		case IDM_SETTING_INDENT_2:
+		case IDM_SETTING_INDENT_3:
 		case IDM_SETTING_INDENT_4:
 		case IDM_SETTING_INDENT_8:
 		{
 			int tabSize = 4;
 			if (id == IDM_SETTING_INDENT_2)
 				tabSize = 2;
+			else if (id == IDM_SETTING_INDENT_3)
+				tabSize = 3;
 			else if (id == IDM_SETTING_INDENT_8)
 				tabSize = 8;
 
@@ -3386,6 +3389,7 @@ void Notepad_plus::command(int id)
 					}
 
 					lang->setTabInfo((tabSize) | (indentInfo & MASK_ReplaceBySpc));
+					useDefault = false;
 				}
 			}
 

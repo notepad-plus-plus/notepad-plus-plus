@@ -609,9 +609,10 @@
     #define    IDM_SETTING_INDENT_TAB               (IDM_SETTING + 20)
     #define    IDM_SETTING_INDENT_SPACES            (IDM_SETTING + 21)
     #define    IDM_SETTING_INDENT_2                 (IDM_SETTING + 22)
-    #define    IDM_SETTING_INDENT_4                 (IDM_SETTING + 23)
-    #define    IDM_SETTING_INDENT_8                 (IDM_SETTING + 24)
-    #define    IDM_SETTING_INDENT_PREFERENCE        (IDM_SETTING + 25)
+    #define    IDM_SETTING_INDENT_3                 (IDM_SETTING + 23)
+    #define    IDM_SETTING_INDENT_4                 (IDM_SETTING + 24)
+    #define    IDM_SETTING_INDENT_8                 (IDM_SETTING + 25)
+    #define    IDM_SETTING_INDENT_PREFERENCE        (IDM_SETTING + 26)
 
 #define    IDM_TOOL  (IDM + 8500)
     #define    IDM_TOOL_MD5_GENERATE                    (IDM_TOOL + 1)

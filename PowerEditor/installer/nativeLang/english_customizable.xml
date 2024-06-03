@@ -377,9 +377,10 @@ Translation note:
 					<Item id="48020" name="Indent using tabs"/>
 					<Item id="48021" name="Indent using spaces"/>
 					<Item id="48022" name="Indent size 2"/>
-					<Item id="48023" name="Indent size 4"/>
-					<Item id="48024" name="Indent size 2"/>
-					<Item id="48025" name="Open settings"/>
+					<Item id="48023" name="Indent size 3"/>
+					<Item id="48024" name="Indent size 4"/>
+					<Item id="48025" name="Indent size 8"/>
+					<Item id="48026" name="Open settings"/>
 					<Item id="48009" name="Shortcut Mapper..."/>
 					<Item id="48011" name="Preferences..."/>
 					<Item id="48014" name="Open Plugins Folder..."/>

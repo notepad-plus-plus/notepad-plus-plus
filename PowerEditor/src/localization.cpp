@@ -796,6 +796,7 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 					{
 						const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 						::SetWindowText(hItem, nameW);
+						resizeCheckboxRadioBtn(hItem);
 					}
 				}
 			}

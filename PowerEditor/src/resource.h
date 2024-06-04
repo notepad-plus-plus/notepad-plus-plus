@@ -19,14 +19,14 @@
 //
 // Notepad++ version: begin
 //
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.6.7")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.6.8")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_INTERNAL_VALUE TEXT("8.67\0")
+#define VERSION_INTERNAL_VALUE TEXT("8.68\0")
 
-#define VERSION_PRODUCT_VALUE TEXT("8.6.7\0")
-#define VERSION_DIGITALVALUE 8, 6, 7, 0
+#define VERSION_PRODUCT_VALUE TEXT("8.6.8\0")
+#define VERSION_DIGITALVALUE 8, 6, 8, 0
 
 // Notepad++ version: end
 
@@ -35,15 +35,17 @@
 #define IDC_STATIC    -1
 #endif
 
-#define IDI_NPPABOUT_LOGO        99
-#define IDI_M30ICON             100
-#define IDI_CHAMELEON           101
-#define IDI_CHAMELEON_DM        102
-//#define IDI_JESUISCHARLIE     102
-//#define IDI_GILETJAUNE        102
-//#define IDI_SAMESEXMARRIAGE   102
-#define IDR_RT_MANIFEST         103
-#define IDI_ICONABSENT          104
+#define IDI_NPPABOUT_LOGO           99
+#define IDI_M30ICON                100
+#define IDI_CHAMELEON              101
+#define IDI_CHAMELEON_DM           102
+//#define IDI_JESUISCHARLIE        102
+//#define IDI_GILETJAUNE           102
+//#define IDI_SAMESEXMARRIAGE      102
+#define IDI_TAIWANSSOVEREIGNTY     105
+#define IDI_TAIWANSSOVEREIGNTY_DM  106
+#define IDR_RT_MANIFEST            103
+#define IDI_ICONABSENT             104
 
 //
 // TOOLBAR ICO - set 1

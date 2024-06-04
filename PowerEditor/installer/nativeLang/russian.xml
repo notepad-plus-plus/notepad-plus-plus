@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.6.6:
-- 
+Updated to v8.6.8:
+- added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.6.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1228,9 +1228,11 @@ Updated to v8.6.6:
 					<Item id="6506" name="Отключённые"/>
 					<Item id="6507" name="Компактное меню Синтаксисов"/>
 					<Item id="6508" name="Меню Синтаксисов"/>
-					<Item id="6301" name="Настройка Табуляции"/>
-					<Item id="6302" name="Заменять пробелом"/>
-					<Item id="6303" name="Размер табул.:"/>
+					<Item id="6301" name="Настройка Отступа"/>
+					<Item id="6302" name="Символ(ы) пробела"/>
+					<Item id="6303" name="Размер отступа:"/>
+					<Item id="6310" name="Использ. отступа:"/>
+					<Item id="6311" name="Символ табуляции"/>
 					<Item id="6510" name="Исп. значение по умолч."/>
 					<Item id="6335" name="Обратный слэш это экранирующий символ для SQL"/>
 				</Language>
@@ -1721,8 +1723,8 @@ Notepad++ сделает резервную копию вашего старог
 
 			<find-in-files-progress-title value="Прогресс поиска в файлах..."/>
 			<replace-in-files-confirm-title value="Вы уверены?"/>
-			<replace-in-files-confirm-directory value="Вы точно хотите заменить все совпадения в директории :"/>
-			<replace-in-files-confirm-filetype value="Для типа файла(ов) :"/>
+			<replace-in-files-confirm-directory value="Вы точно хотите заменить все совпадения в директории:"/>
+			<replace-in-files-confirm-filetype value="Для типа файла(ов):"/>
 			<replace-in-files-progress-title value="Прогресс замены в файлах..."/>
 			<replace-in-projects-confirm-title value="Вы уверены?"/>
 			<replace-in-projects-confirm-message value="Вы точно хотите заменить все совпадения во всех документах в выбранных панелях Проекта?"/>

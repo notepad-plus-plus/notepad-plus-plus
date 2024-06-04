@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.6.6:
-- 
+Updated to v8.6.8:
+- added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.6.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1228,10 +1228,13 @@ Updated to v8.6.6:
 					<Item id="6506" name="Отключённые"/>
 					<Item id="6507" name="Компактное меню Синтаксисов"/>
 					<Item id="6508" name="Меню Синтаксисов"/>
-					<Item id="6301" name="Настройка Табуляции"/>
-					<Item id="6302" name="Заменять пробелом"/>
-					<Item id="6303" name="Размер табул.:"/>
+					<Item id="6301" name="Настройка Отступа"/>
+					<Item id="6302" name="Символ пробела"/>
+					<Item id="6303" name="Размер отступа:"/>
+					<Item id="6310" name="Вид отступа:"/>
+					<Item id="6311" name="Символ табуляции"/>
 					<Item id="6510" name="Исп. значение по умолч."/>
+					<Item id="6512" name="Удаление отступов клавишей Backspace вместо удаления одного пробела"/>
 					<Item id="6335" name="Обратный слэш это экранирующий символ для SQL"/>
 				</Language>
 				<MISC title="Разное">
@@ -1520,6 +1523,10 @@ Notepad++ сделает резервную копию вашего старог
 			<FileInaccessibleDefaultSessionXml title="Файл недоступен" message="Некоторые файлы из вашей прошлой сессии недоступны. Их можно открыть как пустые файлы, доступные только для чтения, в качестве заполнителей.&#x0A;&#x0A;Хотите создать эти заполнители?&#x0A;&#x0A;ПРИМЕЧАНИЕ: Если вы не будете создавать заполнители или закроете их позже, ваша сессия БУДЕТ ИЗМЕНЕНА ПРИ ВЫХОДЕ! Предлагаем вам сделать резервную копию вашего файла &quot;session.xml&quot; сейчас."/>
 			<RTLvsDirectWrite title="Не могу запустить RTL" message="RTL несовместим с режимом DirectWrite. Пожалуйста, отключите режим DirectWrite в разделе Разное в меню Настроек и перезапустите Notepad++."/>
 			<FileMemoryAllocationFailed title="Исключение: не удалось выделить память файла." message="Вероятно, недостаточно свободной памяти для файла, загружаемого Notepad++."/>
+			<FindRegexBackwardDisabled title="Обратный поиск регулярных выражений отключен" message="По умолчанию обратный поиск регулярных выражений отключен из-за неожиданных результатов. Чтобы выполнить обратный поиск, откройте диалоговое окно 'Найти' и выберите режим обычного или расширенного поиска вместо регулярного выражения.
+Нажмите кнопку ОК, чтобы открыть окно 'Найти' или сместить фокус на него.
+			
+Если вам нужна функция обратного поиска регулярных выражений, обратитесь к руководству пользователя за инструкциями по её включению."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1721,8 +1728,8 @@ Notepad++ сделает резервную копию вашего старог
 
 			<find-in-files-progress-title value="Прогресс поиска в файлах..."/>
 			<replace-in-files-confirm-title value="Вы уверены?"/>
-			<replace-in-files-confirm-directory value="Вы точно хотите заменить все совпадения в директории :"/>
-			<replace-in-files-confirm-filetype value="Для типа файла(ов) :"/>
+			<replace-in-files-confirm-directory value="Вы точно хотите заменить все совпадения в директории:"/>
+			<replace-in-files-confirm-filetype value="Для типа файла(ов):"/>
 			<replace-in-files-progress-title value="Прогресс замены в файлах..."/>
 			<replace-in-projects-confirm-title value="Вы уверены?"/>
 			<replace-in-projects-confirm-message value="Вы точно хотите заменить все совпадения во всех документах в выбранных панелях Проекта?"/>

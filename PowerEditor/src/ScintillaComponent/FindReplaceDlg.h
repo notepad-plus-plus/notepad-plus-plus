@@ -399,6 +399,8 @@ public :
 	DIALOG_TYPE getCurrentStatus() {return _currentStatus;};
 	Finder* getFinderFrom(HWND hwnd);
 
+	int regexBackwardMsgBox();
+
 protected :
 	void resizeDialogElements();
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;

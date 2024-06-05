@@ -1881,6 +1881,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						// this can only happen when shift-key was pressed
 						// regex upward search is disabled
 						// turn user action into a no-action step
+
+						regexBackwardMsgBox();
 					}
 					else
 					{
@@ -3754,6 +3756,38 @@ Finder* FindReplaceDlg::getFinderFrom(HWND hwnd)
 	return nullptr;
 }
 
+int FindReplaceDlg::regexBackwardMsgBox()
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+
+	const int msgboxID = nppParam.getNativeLangSpeaker()->messageBox("FindRegexBackwardDisabled",
+		(*_ppEditView)->getHParent(),
+		L"By default, backward regex searching is disabled due to potentially unexpected results. " \
+		L"To perform a backward search, open the Find dialog and select either normal or extended search mode instead of regular expression.\r\n" \
+		L"Press the OK button to open the Find dialog or set focus on it.\r\n" \
+		L"\r\n" \
+		L"If you require the backward regex searching feature, consult the user manual for instructions on enabling it.",
+		L"Regex backward search disabled",
+		MB_OKCANCEL | MB_APPLMODAL | MB_ICONINFORMATION);
+
+	switch (msgboxID)
+	{
+		case IDOK:
+		{
+			doDialog(FIND_DLG, nppParam.getNativeLangSpeaker()->isRTL());
+			goToCenter();
+			::SetFocus(::GetDlgItem(_hSelf, IDREGEXP));
+			break;
+		}
+
+		case IDCANCEL:
+		default:
+			break;
+	}
+
+	return msgboxID;
+}
+
 void FindReplaceDlg::setSearchText(TCHAR * txt2find)
 {
 	HWND hCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -4131,6 +4165,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
 							// make this a no-action macro step
+
+							regexBackwardMsgBox();
 						}
 						else
 						{
@@ -4157,6 +4193,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
 							// make this a no-action macro step
+
+							regexBackwardMsgBox();
 						}
 						else
 						{
@@ -4173,6 +4211,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was disabled, or hand-edited
 							// make this a no-action macro step
+
+							regexBackwardMsgBox();
 						}
 						else
 						{

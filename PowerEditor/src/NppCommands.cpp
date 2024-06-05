@@ -1367,6 +1367,8 @@ void Notepad_plus::command(int id)
 				{
 					// regex upward search is disabled
 					// make this a no-action command
+
+					_findReplaceDlg.regexBackwardMsgBox();
 				}
 				else
 				{

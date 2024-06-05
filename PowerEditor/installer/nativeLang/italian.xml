@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.6.7
-    Last modified Sat, May 25th, 2024.
+    Italian translation for Notepad++ 8.6.9
+    Last modified Wen, Jun 5th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.6.7">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -35,7 +35,7 @@ Translation note:
 					<Item subMenuId="file-recentFiles" name="File recenti"/>
 					<Item subMenuId="edit-insert" name="Inserisci"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copia negli Appunti"/>
-					<Item subMenuId="edit-indent" name="&amp;Indenta"/>
+					<Item subMenuId="edit-indent" name="&amp;Rientro"/>
 					<Item subMenuId="edit-convertCaseTo" name="Con&amp;verti MAIUSCOLO/minuscolo"/>
 					<Item subMenuId="edit-lineOperations" name="Operazioni sulle righe"/>
 					<Item subMenuId="edit-comment" name="Commenta/Rimuovi commenti"/>
@@ -128,8 +128,8 @@ Translation note:
 					<Item id="42084" name="Data e ora (formato ridotto)"/>
 					<Item id="42085" name="Data e ora (formato esteso)"/>
 					<Item id="42086" name="Data e ora (formato personalizzato)"/>
-					<Item id="42008" name="Inserisci tabulazione (indent)"/>
-					<Item id="42009" name="Rimuovi tabulazione (outdent)"/>
+					<Item id="42008" name="Aumenta rientro"/>
+					<Item id="42009" name="Riduci rientro"/>
 					<Item id="42010" name="Duplica la riga corrente"/>
 					<Item id="42079" name="Rimuovi le righe duplicate"/>
 					<Item id="42077" name="Rimuovi le righe duplicate consecutive"/>
@@ -288,12 +288,12 @@ Translation note:
 					<Item id="44019" name="Visualizza tutti i caratteri"/>
 					<Item id="44020" name="Visualizza guide di indentazione"/>
 					<Item id="44022" name="Attiva ritorno a capo automatico"/>
-					<Item id="44023" name="&amp;Ingrandisci testo"/>
-					<Item id="44024" name="&amp;Riduci testo"/>
+					<Item id="44023" name="&amp;Ingrandisci testo (Ctrl+rotellina Mouse Su)"/>
+					<Item id="44024" name="&amp;Riduci testo (Ctrl+rotellina Mouse Giù)"/>
 					<Item id="44025" name="Visualizza gli spazi e le tabulazioni"/>
 					<Item id="44026" name="Visualizza carattere di fine riga"/>
 					<Item id="44029" name="Espandi tutti i livelli"/>
-					<Item id="44030" name="Contrai al livello corrente"/>
+					<Item id="44030" name="Contrai il livello corrente"/>
 					<Item id="44031" name="Espandi il livello corrente"/>
 					<Item id="44049" name="Informazioni file..."/>
 					<Item id="44080" name="Mappa documento"/>
@@ -383,16 +383,16 @@ Translation note:
 					<Item id="48015" name="Gestione plugin..."/>
 					<Item id="48501" name="Genera..."/>
 					<Item id="48502" name="Genera da file..."/>
-					<Item id="48503" name="Genera negli Appunti"/>
+					<Item id="48503" name="Genera dalla selezione negli Appunti"/>
 					<Item id="48504" name="Genera..."/>
 					<Item id="48505" name="Genera da file..."/>
-					<Item id="48506" name="Genera da selezione negli Appunti"/>
+					<Item id="48506" name="Genera dalla selezione negli Appunti"/>
 					<Item id="48507" name="Genera..."/>
 					<Item id="48508" name="Genera da file..."/>
-					<Item id="48509" name="Genera dalla selezione agli Appunti"/>
+					<Item id="48509" name="Genera dalla selezione negli Appunti"/>
 					<Item id="48510" name="Genera..."/>
 					<Item id="48511" name="Genera da file..."/>
-					<Item id="48512" name="Genera dalla selezione agli Appunti"/>
+					<Item id="48512" name="Genera dalla selezione negli Appunti"/>
 					<Item id="49000" name="E&amp;segui..."/>
 
 					<Item id="50000" name="Completa funzione"/>
@@ -553,7 +553,7 @@ Translation note:
 				<Item id="1904" name="Salva..."/>
 			</Run>
 
-			<MD5FromFilesDlg title="Genera firma MD5 di file">
+			<MD5FromFilesDlg title="Genera firma MD5 da file">
 				<Item id="1922" name="Scegli i file da cui &amp;generare MD5..."/>
 				<Item id="1924" name="Co&amp;pia negli Appunti"/>
 				<Item id="2" name="&amp;Chiudi"/>
@@ -590,7 +590,7 @@ Translation note:
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Genera firma SHA-512 da file">
-				<Item id="1922" name="Scegli i file da cui &amp;generare  SHA-512..."/>
+				<Item id="1922" name="Scegli i file da cui &amp;generare SHA-512..."/>
 				<Item id="1924" name="Co&amp;pia negli Appunti"/>
 				<Item id="2" name="&amp;Chiudi"/>
 			</SHA512FromFilesDlg>
@@ -761,7 +761,7 @@ Translation note:
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Scelta rapida">
-				<Item id="1" name="Ok"/>
+				<Item id="1" name="Conferma"/>
 				<Item id="2" name="Annulla"/>
 				<Item id="5006" name="Nome"/>
 				<Item id="5008" name="Aggiungi"/>
@@ -816,7 +816,7 @@ Translation note:
 					<Item id="25028" name="Numeri"/>
 					<Item id="25033" name="Trasparente"/>
 					<Item id="25034" name="Trasparente"/>
-					<Item id="1" name="OK"/>
+					<Item id="1" name="Conferma"/>
 					<Item id="2" name="Annulla"/>
 				</StylerDialog>
 				<Folder title="Cartelle e Predefiniti">
@@ -1002,7 +1002,7 @@ Translation note:
 
 				<Scintillas2 title="Modifica 2">
 					<Item id="6521" name="Multi-Modifica"/>
-					<Item id="6522" name="Abilita la Multi-Modifica (Ctrl+Mouse click/selection)"/>
+					<Item id="6522" name="Abilita la Multi-Modifica (Ctrl+Clic del mouse/selezione)"/>
 					<Item id="6523" name="Abilita la Selezione colonna alla Multi-Modifica"/>
 					<Item id="6247" name="Fine Riga (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinito"/>
@@ -1105,9 +1105,11 @@ Translation note:
 					<Item id="6506" name="Linguaggi disabilitati"/>
 					<Item id="6507" name="Utilizza menu compatto"/>
 					<Item id="6508" name="Menu linguaggio"/>
-					<Item id="6301" name="Impostazioni Tabulazioni"/>
-					<Item id="6302" name="Sostituisci con spazi"/>
-					<Item id="6303" name="Dimensione tabulazione:"/>
+					<Item id="6301" name="Impostazioni di rientro"/>
+					<Item id="6302" name="Spazi"/>
+					<Item id="6303" name="Dimensione rientro:"/>
+					<Item id="6310" name="Il rientro usa:"/>
+					<Item id="6311" name="Tabulazioni"/>
 					<Item id="6510" name="Usa predefinito"/>
 					<Item id="6335" name="Backslash è il carattere di escape in SQL"/>
 				</Language>
@@ -1266,7 +1268,7 @@ Translation note:
 				<Performance title="Prestazioni">
 					<Item id="7141" name="Restrizioni per File di grandi dimensioni"/>
 					<Item id="7143" name="Abilita restrizioni per i file di grandi dimensioni (no evidenziazione sintattica)"/>
-					<Item id="7144" name="Definizione dei file di grandi dimensioni:"/>
+					<Item id="7144" name="Definizione file di grandi dimensioni:"/>
 					<Item id="7146" name="MB   (1 - 2046)"/>
 					<Item id="7147" name="Permetti l&apos;evidenziazione della parentesi corrispondente"/>
 					<Item id="7148" name="Permetti l&apos;attivazione Auto-Completamento"/>
@@ -1334,7 +1336,7 @@ Translation note:
 			</MultiMacro>
 			<Window title="Finestre">
 				<Item id="1" name="Attiva"/>
-				<Item id="2" name="OK"/>
+				<Item id="2" name="Conferma"/>
 				<Item id="7002" name="Salva"/>
 				<Item id="7003" name="Chiudi scheda/e"/>
 				<Item id="7004" name="Ordina schede"/>
@@ -1342,8 +1344,8 @@ Translation note:
 			<ColumnEditor title="Editor a colonne">
 				<Item id="2023" name="&amp;Testo da inserire"/>
 				<Item id="2033" name="&amp;Numero da inserire"/>
-				<Item id="2030" name="Numero &amp;iniziale:"/>
-				<Item id="2031" name="Incrementa di:"/>
+				<Item id="2030" name="N&amp;umero iniziale:"/>
+				<Item id="2031" name="&amp;Incrementa di:"/>
 				<Item id="2038" name="Inizia&amp;li:"/>
 				<ComboBox id="2039">
 					<Element name="Niente"/>
@@ -1354,9 +1356,9 @@ Translation note:
 				<Item id="2032" name="Formato"/>
 				<Item id="2024" name="&amp;Decimale"/>
 				<Item id="2025" name="&amp;Ottale"/>
-				<Item id="2026" name="Esadecimale"/>
+				<Item id="2026" name="&amp;Esadecimale"/>
 				<Item id="2027" name="&amp;Binario"/>
-				<Item id="1" name="OK"/>
+				<Item id="1" name="Conferma"/>
 				<Item id="2" name="Annulla"/>
 			</ColumnEditor>
 			<FindInFinder title="Trova tra i risultati">
@@ -1700,7 +1702,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<finder-open-all value="Apri tutto"/>
 			<finder-purge-for-every-search value="Pulisci ad ogni ricerca"/>
 			<finder-wrap-long-lines value="Attiva il Ritorno a capo automatico"/>
-			<common-ok value="OK"/>
+			<common-ok value="Conferma"/>
 			<common-cancel value="Annulla"/>
 			<common-name value="Nome"/>
 			<tabrename-title value="Rinomina scheda corrente"/>

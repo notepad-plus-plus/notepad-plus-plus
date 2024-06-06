@@ -1529,6 +1529,10 @@ si vuole mantenere il file aperto ?
 NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, la sessione verrà MODIFICATA ALL'USCITA! si suggerisce di effetture adesso il backup di  &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Non è possibile eseguire RTL" message="RTL non è compatibile con la modalità DirectWrite. Disabilita DirectWrite mode in Preferenze, sezione Varie, riavvia Notepad++, and prova questo comando nuovamente."/>
 			<FileMemoryAllocationFailed title="Eccezione: errore nell'Allocazione della memoria del File" message="Sembra non esserci sufficiente memoria contigua libera affinché il file possa essere caricato da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Disabilitata la Ricerca a ritroso con espressione regolare" message="Per impostazione predefinita, la ricerca Espressione Regolare a ritroso è disabilitata a causa di risultati potenzialmente imprevisti. Per eseguire una ricerca all'indietro, aprire la finestra di dialogo Trova e selezionare la modalità di ricerca normale o estesa anziché l'espressione regolare.
+Premere il pulsante Conferma per aprire o attivare la finestra di dialogo Trova.
+
+Nel caso fosse necessaria la funzione di ricerca Espressione regolare a ritroso, consultare il manuale dell'utente per istruzioni su come abilitarla."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>

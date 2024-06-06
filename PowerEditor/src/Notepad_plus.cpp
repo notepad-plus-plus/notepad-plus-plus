@@ -601,6 +601,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Search menu
 	//disable "Search Results Window" under Search Menu 
 	::EnableMenuItem(_mainMenuHandle, IDM_FOCUS_ON_FOUND_RESULTS, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_GOTONEXTFOUND, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_GOTOPREVFOUND, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
+
+	// Find dialog is not created yet
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_FINDNEXT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_FINDPREV, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 
 	//Main menu is loaded, now load editor context menu items
 	nppParam.getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());

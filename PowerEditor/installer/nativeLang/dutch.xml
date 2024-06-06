@@ -9,10 +9,10 @@ Modifications until 2018-03-26 by Klaas Nekeman (knekeman(at)gmail.com).
 Modifications until 2020-05-26 by xylographe <wr86420@gmail.com>.
 Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepadplusplus(at)rockytdr.33mail.com)
 
-Last modified on 2023-12-20 by Thomas De Rocker (RockyTDR).
+Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.6">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -446,6 +446,8 @@ Last modified on 2023-12-20 by Thomas De Rocker (RockyTDR).
 				<Item CMDID="42030" name="Bestandsnaam kopiëren"/>
 				<Item CMDID="42031" name="Pad naar huidige map kopiëren"/>
 				<Item CMDID="3" name="Document verplaatsen"/>
+				<Item CMDID="10005" name="Naar begin verplaatsen"/>
+				<Item CMDID="10006" name="Naar einde verplaatsen"/>
 				<Item CMDID="10001" name="Naar deelvenster verplaatsen"/>
 				<Item CMDID="10002" name="Naar deelvenster kopiëren"/>
 				<Item CMDID="10003" name="Naar een nieuw venster verplaatsen"/>
@@ -975,7 +977,8 @@ Last modified on 2023-12-20 by Thomas De Rocker (RockyTDR).
 
 					<Item id="6123" name="Taal"/>
 				</Global>
-				<Scintillas title="Bewerken">
+
+				<Scintillas title="Bewerken 1">
 					<Item id="6216" name="Cursor-instellingen"/>
 					<Item id="6217" name="Breedte:"/>
 					<Item id="6219" name="Knippersnelheid:"/>
@@ -991,21 +994,30 @@ Last modified on 2023-12-20 by Thomas De Rocker (RockyTDR).
 					<Item id="6236" name="Scrollen voorbij laatste regel inschakelen"/>
 					<Item id="6239" name="Selectie behouden bij rechtsklikken buiten selectie"/>
 					<Item id="6245" name="Virtuele ruimte inschakelen"/>
+					<Item id="6214" name="Kopiëren/knippen van regel zonder te selecteren inschakelen"/>
 					<Item id="6651" name="Indicator voor huidige regel"/>
 					<Item id="6652" name="Geen"/>
 					<Item id="6653" name="Achtergrond markeren"/>
 					<Item id="6654" name="Frame"/>
 					<Item id="6655" name="Breedte:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Editing 2">
+					<Item id="6521" name="Meervoudig bewerken"/>
+					<Item id="6522" name="Meervoudig bewerken inschakelen (Ctrl+Muis klikken/selectie)"/>
+					<Item id="6523" name="Kolomselectie naar meervoudig bewerken inschakelen"/>
 					<Item id="6247" name="Regeleinde (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standaard"/>
 					<Item id="6249" name="Platte tekst"/>
 					<Item id="6250" name="Aangepaste kleur"/>
 					<Item id="6252" name="Niet-afdrukbare tekens"/>
+					<Item id="6260" name="Uiterlijk"/>
 					<Item id="6254" name="Afkorting"/>
 					<Item id="6255" name="Codepoint"/>
 					<Item id="6256" name="Aangepaste kleur"/>
-					<Item id="6258" name="Toepassen op C0, C1 en Unicode-regeleindes"/>
-				</Scintillas>
+					<Item id="6258" name="Instellingen voor uiterlijk toepassen op C0, C1 en Unicode-regeleindes"/>
+					<Item id="6259" name="Typen van stuurtekens (C0-code) in het document voorkomen"/>
+				</Scintillas2>
 
 				<DarkMode title="Donkere modus">
 					<Item id="7131" name="Lichte modus"/>
@@ -1047,11 +1059,11 @@ Last modified on 2023-12-20 by Thomas De Rocker (RockyTDR).
 					<Item id="6292" name="Dynamische breedte"/>
 					<Item id="6293" name="Constante breedte"/>
 					<Item id="6207" name="Bladwijzers weergeven"/>
-					<Item id="6223" name="Geschiedenis van wijzigingen weergeven"/>
+					<Item id="6223" name="Geschiedenis van wijzigingen"/>
+					<Item id="6223" name="In de marge weergeven"/>
+					<Item id="6296" name="In de tekst weergeven"/>
 					<Item id="6211" name="Instellingen verticale rand"/>
 					<Item id="6213" name="Achtergrondmodus"/>
-					<Item id="6237" name="Voeg uw kolommarkering toe door de positie aan te geven met een decimaal getal.
-U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spaties om de verschillende getallen van elkaar te scheiden."/>
 					<Item id="6231" name="Breedte rand"/>
 					<Item id="6235" name="Geen rand"/>
 					<Item id="6208" name="Vulling"/>
@@ -1089,14 +1101,17 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 					<Item id="4009" name="Ondersteund:"/>
 					<Item id="4010" name="Geregistreerd:"/>
 				</FileAssoc>
+
 				<Language title="Syntaxismarkering">
 					<Item id="6505" name="Beschikbare items"/>
 					<Item id="6506" name="Uitgeschakelde items"/>
 					<Item id="6507" name="Compacte indeling inschakelen"/>
 					<Item id="6508" name="Syntaxis-menu"/>
-					<Item id="6301" name="Tab-instellingen"/>
-					<Item id="6302" name="Vervangen door spaties"/>
-					<Item id="6303" name="Tabgrootte: "/>
+					<Item id="6301" name="Inspringing-instellingen"/>
+					<Item id="6302" name="Spatieteken(s)"/>
+					<Item id="6303" name="Grootte inspringing:"/>
+					<Item id="6310" name="Inspringing met:"/>
+					<Item id="6311" name="Tab-teken"/>
 					<Item id="6510" name="Standaardwaarde gebruiken"/>
 					<Item id="6335" name="Backslash als SQL escape-teken behandelen"/>
 				</Language>
@@ -1162,7 +1177,7 @@ U kunt verschillende kolommarkeringen vastleggen door gebruik te maken van spati
 					<Item id="6903" name="Zoekvenster blijft open na zoekopdracht die naar het resultaatvenster uitvoert"/>
 					<Item id="6904" name="Alles vervangen in alle geopende documenten bevestigen"/>
 					<Item id="6905" name="Vervangen: niet naar de volgende overeenkomst gaan"/>
-					<Item id="6906" name="Zoekresultaatvenster: slechts een item per gevonden regel weergeven"/>
+					<Item id="6906" name="Zoekresultaatvenster: slechts een item per gevonden regel weergeven indien mogelijk"/>
 					<Item id="6907" name="Wanneer het zoekvenster opgeroepen is"/>
 					<Item id="6908" name="Zoekveld vullen met geselecteerde tekst"/>
 					<Item id="6909" name="Woord onder 'dakje' selecteren wanneer niets geselecteerd is"/>
@@ -1639,7 +1654,6 @@ Opmerking: als u ervoor kiest om de plaatshouders niet aan te maken of ze later 
 			<default-open-save-select-folder value="Een map selecteren als standaardmap"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Gebruik Shift + Enter om in omgekeerde richting te zoeken"/>
 			<two-find-buttons-tip value="modus met 2-zoekknoppen"/>
-			<file-rename-title value="Naam wijzigen"/>
 			<find-in-files-filter-tip value="In cpp, cxx, h, hxx en hpp- bestanden zoeken:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1685,9 +1699,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<finder-collapse-all value="Alles samenvouwen"/>
 			<finder-uncollapse-all value="Alles uitvouwen"/>
 			<finder-copy value="Geselecteerde regel(s) kopiëren"/>
-			<finder-copy-verbatim value="Kopiëren"/>
 			<finder-copy-paths value="Padnaam/-namen kopiëren"/>
-			<finder-select-all value="Alles selecteren"/>
 			<finder-clear-all value="Alles wissen"/>
 			<finder-open-all value="Alles openen"/>
 			<finder-purge-for-every-search value="Leegmaken voor elke zoekopdracht"/>
@@ -1714,11 +1726,10 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<summary-nbsel2 value=" bytes) in "/>
 			<summary-nbrange value=" selecties"/>
 			<progress-hits-title value="Treffers:"/>
-			<progress-cancel-button value="Annuleren"/>
 			<progress-cancel-info value="Bewerking annuleren. Even geduld..."/>
 			<find-in-files-progress-title value="Voortgang van zoeken in bestanden..."/>
 			<replace-in-files-confirm-title value="Weet u het zeker?"/>
-			<replace-in-files-confirm-directory value="Wilt u alle overeenkomsten vervangen in: "/>
+			<replace-in-files-confirm-directory value="Wilt u alle overeenkomsten vervangen in:"/>
 			<replace-in-files-confirm-filetype value="Voor bestandstype:"/>
 			<replace-in-files-progress-title value="Voortgang van vervangen in bestanden..."/>
 			<replace-in-projects-confirm-title value="Weet u het zeker?"/>
@@ -1756,7 +1767,7 @@ OPMERKING:
 1. Aanpassen van deze opties vereist dat u grote bestanden opnieuw opent om juist gedrag te verkrijgen.
 
 2. Als &quot;Automatische terugloop globaal uitschakelen&quot; aangevinkt is en u een groot bestand opent, zal &quot;automatische terugloop&quot; voor alle bestanden uitgeschakeld worden. U kunt het opnieuw inschakelen via het menu &quot;Beeld-&gt;Automatische terugloop&quot;."/>
-			<npcNote-tip value="Weergave van geselecteerde &quot;niet-ASCII&quot; witruimte en niet-afdrukbare (controle)tekens.
+			<npcNote-tip value="Weergave van geselecteerde &quot;niet-ASCII&quot; witruimte en niet-afdrukbare (stuur)tekens.
 
 OPMERKING:
 Door representatie te gebruiken worden tekeneffecten op tekst uitgeschakeld.

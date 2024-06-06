@@ -1835,9 +1835,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDM_SEARCH_FINDNEXT:
 				case IDM_SEARCH_FINDPREV:
 				{
-					if (HIWORD(wParam) != 1 || 
-						(getCurrentStatus() != DIALOG_TYPE::FIND_DLG && 
-						getCurrentStatus() != DIALOG_TYPE::REPLACE_DLG))
+					if (HIWORD(wParam) != 1 ||
+						(getCurrentStatus() != DIALOG_TYPE::FIND_DLG &&
+						getCurrentStatus() != DIALOG_TYPE::REPLACE_DLG)
+						|| (LOWORD(wParam) == IDM_SEARCH_FINDPREV &&
+							(_options._searchType == FindRegex) &&
+							!nppParamInst.regexBackward4PowerUser()))
 					{
 						return FALSE;
 					}
@@ -2472,9 +2475,6 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					}
 
 					bool isRegex = (_options._searchType == FindRegex);
-
-					::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDPREV, MF_BYCOMMAND | (!isRegex || nppParamInst.regexBackward4PowerUser() ? MF_ENABLED : MF_DISABLED | MF_GRAYED));
-
 					if (isRegex)
 					{
 						//regex doesn't allow whole word
@@ -4564,10 +4564,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		create(IDD_FIND_REPLACE_DLG, isRTL, true, toShow);
 
 		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDNEXT, MF_BYCOMMAND | MF_ENABLED);
-
-		NppParameters& nppParam = NppParameters::getInstance();
-		const bool enableBackwardSearch = (nppParam.getFindHistory()._searchMode != FindHistory::regExpr) || nppParam.regexBackward4PowerUser();
-		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDPREV, MF_BYCOMMAND | (enableBackwardSearch ? MF_ENABLED : MF_DISABLED | MF_GRAYED));
+		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDPREV, MF_BYCOMMAND | MF_ENABLED);
 	}
 
 	if (whichType == FINDINFILES_DLG)

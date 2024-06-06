@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-05-28"><!-- basiert auf english.xml 8.6.7 vom 21.05.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-06-06"><!-- basiert auf english.xml 8.6.8 vom 05.06.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1109,9 +1109,11 @@ Translation note:
 					<Item id="6506" name="Deaktiviert:"/>
 					<Item id="6507" name="Sprachmenü verschachtelt darstellen"/>
 					<Item id="6508" name="Sprachmenü"/>
-					<Item id="6301" name="Tabulatoren"/>
-					<Item id="6302" name="Ersetzt durch Leerzeichen"/>
-					<Item id="6303" name="Tabulatorbreite:"/>
+					<Item id="6301" name="Einstellung Einrückungen"/>
+					<Item id="6302" name="Leerzeichen"/>
+					<Item id="6303" name="Einrückungsbreite:"/>
+					<Item id="6310" name="Einrückung verwendet:"/>
+					<Item id="6311" name="Tab Zeichen"/>
 					<Item id="6510" name="Standard verwenden"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</Language>

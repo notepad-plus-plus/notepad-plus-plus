@@ -8960,6 +8960,50 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	}
 }
 
+HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, std::vector<int>& commandIds)
+{
+	HMENU hNewMenu = ::CreatePopupMenu();
+	for (const auto& cmdID : commandIds)
+	{
+		if (cmdID == 0)
+		{
+			::AppendMenu(hNewMenu, MF_SEPARATOR, 0, nullptr);
+		}
+		else
+		{
+			MENUITEMINFO mii{};
+			mii.cbSize = sizeof(MENUITEMINFO);
+			mii.fMask = MIIM_STRING | MIIM_STATE;
+			mii.dwTypeData = nullptr;
+
+			if (::GetMenuItemInfo(hSourceMenu, cmdID, FALSE, &mii) == TRUE)
+			{
+				++mii.cch;
+				wchar_t* szString = new wchar_t[mii.cch];
+				mii.dwTypeData = szString;
+
+				if (::GetMenuItemInfo(hSourceMenu, cmdID, FALSE, &mii) == TRUE)
+				{
+					::AppendMenu(hNewMenu, MF_STRING | mii.fState, cmdID, mii.dwTypeData);
+					delete[] szString;
+				}
+				else
+				{
+					delete[] szString;
+					::DestroyMenu(hNewMenu);
+					return nullptr;
+				}
+			}
+			else
+			{
+				::DestroyMenu(hNewMenu);
+				return nullptr;
+			}
+		}
+	}
+	return hNewMenu;
+}
+
 BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId)
 {
 	RECT rcItem{};
@@ -8985,6 +9029,35 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId)
 
 			return TRUE;
 		}
+	}
+	return FALSE;
+}
+
+BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, std::vector<int> cmdIDs)
+{
+	if (cmdIDs.empty())
+		return notifyTBShowMenu(lpnmtb, menuPosId);
+
+	RECT rcItem{};
+	::SendMessage(lpnmtb->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmtb->iItem), reinterpret_cast<LPARAM>(&rcItem));
+	::MapWindowPoints(lpnmtb->hdr.hwndFrom, HWND_DESKTOP, reinterpret_cast<LPPOINT>(&rcItem), 2);
+
+	HMENU hPopupMenu = createMenuFromMenu(_mainMenuHandle, cmdIDs);
+	if (hPopupMenu != nullptr)
+	{
+		TPMPARAMS tpm{};
+		tpm.cbSize = sizeof(TPMPARAMS);
+		tpm.rcExclude = rcItem;
+
+		const UINT flags = _nativeLangSpeaker.isRTL() ? (TPM_RIGHTALIGN | TPM_RIGHTBUTTON | TPM_LAYOUTRTL) : (TPM_LEFTALIGN | TPM_LEFTBUTTON);
+
+		::TrackPopupMenuEx(hPopupMenu,
+			flags | TPM_VERTICAL,
+			rcItem.left, rcItem.bottom, _pPublicInterface->getHSelf(), &tpm);
+
+		::DestroyMenu(hPopupMenu);
+
+		return TRUE;
 	}
 	return FALSE;
 }

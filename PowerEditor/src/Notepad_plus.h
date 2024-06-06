@@ -654,5 +654,7 @@ private:
 	void clearChangesHistory();
 	void changedHistoryGoTo(int idGoTo);
 
+	HMENU createMenuFromMenu(HMENU hSourceMenu, std::vector<int>& commandIds);
 	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId);
+	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, std::vector<int> cmdIDs);
 };

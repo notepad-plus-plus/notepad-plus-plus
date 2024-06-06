@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 21 May 2024, for Notepad++ 8.6.8
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 06 Jun 2024, for Notepad++ 8.6.9
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.8">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1098,9 +1098,11 @@ Translation note:
 					<Item id="6506" name="Itens desabilitados"/>
 					<Item id="6507" name="Tornar o menu de linguagens compacto"/>
 					<Item id="6508" name="Menu de linguagens"/>
-					<Item id="6301" name="Configurações de tabulação"/>
-					<Item id="6302" name="Substituir por espaço"/>
-					<Item id="6303" name="Tamanho: "/>
+					<Item id="6301" name="Configurações de Indentação"/>
+					<Item id="6302" name="Caracter(es) de espaço"/>
+					<Item id="6303" name="Tamanho de indentação:"/>
+					<Item id="6310" name="Indentar usando:"/>
+					<Item id="6311" name="Caracter de TAB"/>
 					<Item id="6510" name="Usar valor padrão"/>
 					<Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
 				</Language>

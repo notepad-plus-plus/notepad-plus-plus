@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.5">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -860,7 +860,7 @@
 					<Item id="22622" name="Nastaviť štýl"/>
 				</Keywords>
 				<Comment title="Komentár a číslo">
-					<Item id="23003" name="Pozícia riadkového komentáru"/>
+					<Item id="23003" name="Pozícia riadkového komentára"/>
 					<Item id="23004" name="Povoliť kdekoľvek"/>
 					<Item id="23005" name="Vynútiť na začiatku riadka"/>
 					<Item id="23006" name="Povoliť úvodné biele znaky"/>
@@ -869,11 +869,11 @@
 					<Item id="23323" name="Začiatok"/>
 					<Item id="23324" name="Pokračovací znak"/>
 					<Item id="23325" name="Koniec"/>
-					<Item id="23301" name="Štýl riadkového komentáru"/>
+					<Item id="23301" name="Štýl riadkového komentára"/>
 					<Item id="23124" name="Nastaviť štýl…"/>
 					<Item id="23122" name="Začiatok"/>
 					<Item id="23123" name="Koniec"/>
-					<Item id="23101" name="Štýl komentáru"/>
+					<Item id="23101" name="Štýl komentára"/>
 					<Item id="23201" name="Číselný štýl"/>
 					<Item id="23220" name="Nastaviť štýl…"/>
 					<Item id="23230" name="Prefix 1"/>
@@ -1098,10 +1098,13 @@
 					<Item id="6506" name="Nepoužívané položky"/>
 					<Item id="6507" name="Kompaktná ponuka jazyka"/>
 					<Item id="6508" name="Ponuka jazyka"/>
-					<Item id="6301" name="Nastavenie tabulátora"/>
-					<Item id="6302" name="Nahradiť medzerami"/>
-					<Item id="6303" name="Veľkosť tabulátora: "/>
+					<Item id="6301" name="Nastavenie odsadenia"/>
+					<Item id="6302" name="Znak(y) medzery"/>
+					<Item id="6303" name="Veľkosť odsadenia: "/>
+					<Item id="6310" name="Odsadenie pomocou:"/>
+					<Item id="6311" name="Znak tabulátora"/>
 					<Item id="6510" name="Použiť predvolenú hodnotu"/>
+					<Item id="6512" name="Kláves Backspace odstráni odsadenie namiesto medzery"/>
 					<Item id="6335" name="V SQL považovať spätnú lomku za znak ukončenia"/>
 				</Language>
 
@@ -1119,7 +1122,7 @@
 					<Item id="6329" name="Zvýrazňovanie párových značiek"/>
 					<Item id="6327" name="Povoliť"/>
 					<Item id="6328" name="Zvýrazňovať atribúty značiek"/>
-					<Item id="6330" name="Zvýrazňovať oblasť komentáru/php/asp"/>
+					<Item id="6330" name="Zvýrazňovať oblasť komentára/php/asp"/>
 				</Highlighting>
 
 				<Print title="Tlač">
@@ -1157,7 +1160,7 @@
 						<Element name="Čas"/>
 					</ComboBox>
 					<Item id="6725" name="Pre&amp;menná:"/>
-					<Item id="6727" name="Tu sa zobrazia nastav. premenných"/>
+					<Item id="6727" name="Tu sa zobrazia nastavenia premenných"/>
 					<Item id="6728" name="Hlavička a päta"/>
 				</Print>
 
@@ -1175,7 +1178,7 @@
 
 				<RecentFilesHistory title="História súborov">
 					<Item id="6304" name="História posledných súborov"/>
-					<Item id="6306" name="Max. počet položiek:"/>
+					<Item id="6306" name="Maximálny počet položiek:"/>
 					<Item id="6305" name="Nekontrolovať pri spustení"/>
 					<Item id="6429" name="Zobrazenie"/>
 					<Item id="6424" name="Zobraziť ako ponuku"/>
@@ -1522,6 +1525,10 @@ Chcete vytvoriť tieto zástupné karty?
 POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavriete, vaša relácia sa pri ukončení UPRAVÍ! Odporúčame vám, aby ste si teraz zálohovali súbor &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Nie je možné prepnúť smer textu na sprava doľava (RTL)" message="RTL nie je kompatibilné s režimom DirectWrite. Prosím, zakážte režim DirectWrite v Nastavenia – Rôzne a reštartujte Notepad++."/>
 			<FileMemoryAllocationFailed title="Výnimka: Pridelenie pamäte súboru zlyhalo" message="Pravdepodobne nie je dostatok súvislej voľnej pamäte pre súbor načítavaný programom Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Vypnuté spätné vyhľadávanie pomocou regulárnych výrazov" message="Štandardne je spätné vyhľadávanie pomocou regulárnych výrazov vypnuté z dôvodu možných neočakávaných výsledkov. Ak chcete vykonať spätné vyhľadávanie, otvorte dialógové okno Hľadať a namiesto regulárneho výrazu vyberte normálny alebo rozšírený režim vyhľadávania.
+Stlačením tlačidla OK otvorte dialógové okno Hľadať alebo ho prepnite do popredia.
+			
+Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, pokyny na jej zapnutie nájdete v používateľskej príručke."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

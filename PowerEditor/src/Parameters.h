@@ -380,7 +380,7 @@ struct DockingManagerData final
 	int _topHeight = DMD_PANEL_WH_DEFAULT;
 	int _bottomHeight = DMD_PANEL_WH_DEFAULT;
 
-	// will be updated at runtime (NppParameters ctor & DockingManager::runProc DMM_MOVE_SPLITTER)
+	// will be updated at runtime (Notepad_plus::init & DockingManager::runProc DMM_MOVE_SPLITTER)
 	LONG _minDockedPanelVisibility = HIGH_CAPTION; 
 	SIZE _minFloatingPanelSize = { (HIGH_CAPTION) * 6, HIGH_CAPTION };
 

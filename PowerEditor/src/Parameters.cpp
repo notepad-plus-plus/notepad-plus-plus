@@ -1013,16 +1013,6 @@ NppParameters::NppParameters()
 	//Load initial accelerator key definitions
 	initMenuKeys();
 	initScintillaKeys();
-
-	// Rescale default panels dimensions according to the current DPI
-	_nppGUI._dockingData._leftWidth = _dpiManager.scaleX(_nppGUI._dockingData._leftWidth);
-	_nppGUI._dockingData._rightWidth = _dpiManager.scaleX(_nppGUI._dockingData._rightWidth);
-	_nppGUI._dockingData._topHeight = _dpiManager.scaleY(_nppGUI._dockingData._topHeight);
-	_nppGUI._dockingData._bottomHeight = _dpiManager.scaleY(_nppGUI._dockingData._bottomHeight);
-	_nppGUI._dockingData._minDockedPanelVisibility = _dpiManager.scaleY(_nppGUI._dockingData._minDockedPanelVisibility);
-	_nppGUI._dockingData._minFloatingPanelSize.cy = _nppGUI._dockingData._minDockedPanelVisibility;
-	_nppGUI._dockingData._minFloatingPanelSize.cx = std::max(static_cast<int>(_nppGUI._dockingData._minFloatingPanelSize.cy * 6),
-		::GetSystemMetrics(SM_CXMINTRACK));
 }
 
 

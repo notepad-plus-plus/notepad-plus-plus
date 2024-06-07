@@ -970,6 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Localização"/>
 				</Global>
+				
 				<Scintillas title="Edição 1">
 					<Item id="6216" name="Configurações do cursor"/>
 					<Item id="6217" name="Largura:"/>
@@ -993,6 +994,7 @@ Translation note:
 					<Item id="6654" name="Enquadrado"/>
 					<Item id="6655" name="Largura:"/>
 				</Scintillas>
+				
 				<Scintillas2 title="Edição 2">
 					<Item id="6521" name="Multi-Edição"/>
 					<Item id="6522" name="Habilitar Multi-Edição (Ctrl+Clique do Mouse/seleção)"/>
@@ -1521,6 +1523,11 @@ Deseja criar estes substitutos?
 
 OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua sessão SERÁ MODIFICADA QUANDO SAIR! É recomendável que você faça backup do seu arquivo &quot;session.xml&quot; agora."/>
 			<RTLvsDirectWrite title="Impossível executar o RTL" message="O RTL (Orientação de texto da Direita para a Esquerda) não é compatível com o modo DirectWrite. Por favor, desabilite a opção &quot;Usar DirectWrite&quot; na seção &quot;Diversos&quot; da opção &quot;Preferências&quot; do menu &quot;Configurações&quot;, e reinicie o Notepad++."/>
+			<FileMemoryAllocationFailed title="Exceção: A Alocação de memória para arquivo falhou" message="Pravavelmente não há memória livre contígua para que o arquivo possa ser carregado pelo Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Busca tipo Regex para trás está desabilitada" message="Por padrão, as buscas Regex para trás são desabilitadas devido a erros que levam a resultados potencialmente inesperados. Para executar uma busca para trás, abra a caixa de diálogo Localizar e selecione busca normal ou estendida ao invés de expressão regular.
+Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco para ela.
+			
+Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

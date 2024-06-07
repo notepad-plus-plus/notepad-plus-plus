@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.3">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1107,10 +1107,13 @@ Translation note:
 					<Item id="6506" name="利用しない"/>
 					<Item id="6507" name="言語メニューをまとめる"/>
 					<Item id="6508" name="言語メニュー"/>
-					<Item id="6301" name="タブ設定"/>
-					<Item id="6302" name="スペースで置換"/>
-					<Item id="6303" name="タブ幅:"/>
+					<Item id="6301" name="インデント設定"/>
+					<Item id="6302" name="スペース"/>
+					<Item id="6303" name="インデント幅:"/>
+					<Item id="6310" name="インデント文字:"/>
+					<Item id="6311" name="タブ"/>
 					<Item id="6510" name="デフォルト値を使用"/>
+					<Item id="6512" name="バックスペースキーで、スペース1文字を消すのではなくインデントを減らす"/>
 					<Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
 				</Language>
 
@@ -1528,6 +1531,10 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 注意：プレースホルダーとして残さない場合や残した後に閉じた場合、プログラム終了時にセッションに反映されます！　ファイル「session.xml」のバックアップを今すぐ作成することをお勧めします。"/>
 			<RTLvsDirectWrite title="RTL を利用できません" message="右から左への書字方向（RTL）は DirectWrite と互換性がありません。「環境設定」の「その他」にて DirectWrite をオフにし、Notepad++ を再起動してください。"/>
 			<FileMemoryAllocationFailed title="メモリー領域の確保に失敗しました" message="Notepad++ で開こうとしているファイルに対し、十分な連続したメモリー領域が確保できなかったことが原因と思われます。"/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="正規表現での逆方向の検索は無効です" message="標準では、正規表現使用時は逆方向への検索はできません。これは予想外の検索結果になることがあるためです。逆方向へ検索するには、検索ダイアログを開き、検索モードを「標準」か「拡張」にしてください。
+OKボタンを押すと検索ダイアログが開きます。
+
+もし正規表現での逆方向の検索を有効にされたい場合は、オンラインマニュアルをご確認ください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

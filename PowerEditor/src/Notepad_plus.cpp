@@ -799,7 +799,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	dmd._minDockedPanelVisibility = DPIManagerV2::scale(nppGUI._dockingData._minDockedPanelVisibility, dpi);
 	dmd._minFloatingPanelSize.cy = nppGUI._dockingData._minDockedPanelVisibility;
 	dmd._minFloatingPanelSize.cx = std::max(static_cast<int>(nppGUI._dockingData._minFloatingPanelSize.cy * 6),
-		::GetSystemMetrics(SM_CXMINTRACK));
+		DPIManagerV2::getSystemMetricsForDpi(SM_CXMINTRACK, dpi));
 
 	_dockingManager.setDockedContSize(CONT_LEFT, nppGUI._dockingData._leftWidth);
 	_dockingManager.setDockedContSize(CONT_RIGHT, nppGUI._dockingData._rightWidth);

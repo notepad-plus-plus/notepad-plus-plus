@@ -12,7 +12,8 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6)
+	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
+			  June 13th (v8.6.9)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -33,7 +34,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.6">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -44,7 +45,7 @@ Additionnal information about Corsican localization:
 					<Item menuId="view" name="&amp;Affissera"/>
 					<Item menuId="encoding" name="&amp;Cudificazione"/>
 					<Item menuId="language" name="&amp;Linguaghju"/>
-					<Item menuId="settings" name="&amp;Preferenze"/>
+					<Item menuId="settings" name="&amp;Parametri"/>
 					<Item menuId="tools" name="A&amp;ttrezzi"/>
 					<Item menuId="macro" name="Pr&amp;ucedura"/>
 					<Item menuId="run" name="La&amp;ncià"/>
@@ -663,7 +664,7 @@ Additionnal information about Corsican localization:
 					<Item id="2230" name="Permette stilu di grafia glubale grassu"/>
 					<Item id="2231" name="Permette stilu di grafia glubale italicu"/>
 					<Item id="2232" name="Permette stilu di gra. glub. sottulineatu"/>
-					<Item id="2234" name="Andà à e preferenze"/>
+					<Item id="2234" name="Andà à i parametri"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -997,7 +998,7 @@ Additionnal information about Corsican localization:
 					<Item id="6123" name="Lingua"/>
 				</Global>
 				<Scintillas title="Mudificazione 1">
-					<Item id="6216" name="Preferenze di cursore"/>
+					<Item id="6216" name="Parametri di cursore"/>
 					<Item id="6217" name="Larghezza :"/>
 					<Item id="6219" name="Cinnulamentu :"/>
 					<Item id="6221" name="10"/><!-- Prestu (3 caratteri à u più) -->
@@ -1033,7 +1034,7 @@ Additionnal information about Corsican localization:
 					<Item id="6254" name="Abbreviamentu"/>
 					<Item id="6255" name="Puntu di codice"/>
 					<Item id="6256" name="Culore persunalizatu"/>
-					<Item id="6258" name="Appiecà e preferenze d’Apparenza à C0, C1 è e fine di linea Unicode"/>
+					<Item id="6258" name="Appiecà i parametri  d’Apparenza à C0, C1 è e fine di linea Unicode"/>
 					<Item id="6259" name="Impedisce a stampittera di caratteru di cuntrollu (codice C0) in u ducumentu"/>
 				</Scintillas2>
 
@@ -1124,10 +1125,13 @@ Additionnal information about Corsican localization:
 					<Item id="6506" name="Elementi piattati"/>
 					<Item id="6507" name="Cumpattà l’affissera di u listinu"/>
 					<Item id="6508" name="Listinu di i linguaghji affissati"/>
-					<Item id="6301" name="Definizione di a tabulazione"/>
-					<Item id="6302" name="Rimpiazzà cù spazii"/>
-					<Item id="6303" name="Dimensione : "/>
+					<Item id="6301" name="Parametri d’indentazione"/>
+					<Item id="6302" name="Caratteru(i) di spaziu"/>
+					<Item id="6303" name="Dimensione d’indentazione :"/>
+					<Item id="6310" name="Indentazione impieghendu :"/>
+					<Item id="6311" name="Caratteru di tabulazione"/>
 					<Item id="6510" name="Impiegà valore predef."/>
+					<Item id="6512" name="U tastu di ritornu in daretu caccia un’indentazione invece di caccià un spaziu unicu"/>
 					<Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
 				</Language>
 
@@ -1140,7 +1144,7 @@ Additionnal information about Corsican localization:
 					<Item id="6354" name="Currispundenza"/>
 					<Item id="6332" name="Rispettà a cassa (maiuscule è minuscule)"/>
 					<Item id="6338" name="Parolla sana deve currisponde"/>
-					<Item id="6339" name="Impiegà e preferenze di dialogu di ricerca"/>
+					<Item id="6339" name="Impiegà i parametri di dialogu di ricerca"/>
 					<Item id="6340" name="Sopralineà dinù l’altra vista"/>
 					<Item id="6329" name="Sopralineà l’etichette chì currispondenu"/>
 					<Item id="6327" name="Attivà"/>
@@ -1155,7 +1159,7 @@ Additionnal information about Corsican localization:
 					<Item id="6604" name="In&amp;vertisce"/>
 					<Item id="6605" name="Neru nant’à &amp;biancu"/>
 					<Item id="6606" name="Sen&amp;za culore di fondu"/>
-					<Item id="6607" name="Preferenze di margine (Unita : mm)"/>
+					<Item id="6607" name="Parametri di margine (Unita : mm)"/>
 					<Item id="6612" name="&amp;Manca"/>
 					<Item id="6613" name="In&amp;sù"/>
 					<Item id="6614" name="&amp;Diritta"/>
@@ -1251,11 +1255,11 @@ Additionnal information about Corsican localization:
 				</AutoCompletion>
 
 				<MultiInstance title="Finestre multiple è data">
-					<Item id="6151" name="Preferenze di e finestre multiple *"/>
+					<Item id="6151" name="Parametri di e finestre multiple *"/>
 					<Item id="6152" name="Apre una sessione in una finestra nova (è arregistralla autumaticamente à l’esce)"/>
 					<Item id="6153" name="Sempre in modu à finestre multiple"/>
 					<Item id="6154" name="Modu predefinitu (finestra unica)"/>
-					<Item id="6155" name="* A mudificazione di sta preferenza richiede di rilancià Notepad++"/>
+					<Item id="6155" name="* A mudificazione di stu parametru richiede di rilancià Notepad++"/>
 					<Item id="6171" name="Persunalizazione d’inserzione di a data è l’ora"/>
 					<Item id="6175" name="Invertisce l’ordine predefinitu di a data è l’ora (furmatu cortu è longu)"/>
 					<Item id="6172" name="Furmatu persunalizatu :"/>
@@ -1272,7 +1276,7 @@ Additionnal information about Corsican localization:
 				</MultiInstance>
 
 				<Delimiter title="Delimitatore">
-					<Item id="6251" name="Preferenze di selezzione di delimitatore (Ctrl+doppiu cliccu di topu)"/>
+					<Item id="6251" name="Parametri di selezzione di delimitatore (Ctrl+doppiu cliccu di topu)"/>
 					<Item id="6252" name="Principiu"/>
 					<Item id="6255" name="Fine"/>
 					<Item id="6256" name="Permette nant’à parechje linee"/>
@@ -1298,10 +1302,10 @@ Additionnal information about Corsican localization:
 				</Performance>
 
 				<Cloud title="Nivulu è liame">
-					<Item id="6262" name="Preferenze di nivulu"/>
+					<Item id="6262" name="Parametri di u nivulu"/>
 					<Item id="6263" name="Senza nivulu"/>
 					<Item id="6267" name="Definisce quì u chjassu sanu di u vostru nivulu :"/>
-					<Item id="6318" name="Preferenze di cliccu di liame"/>
+					<Item id="6318" name="Parametri di cliccu di liame"/>
 					<Item id="6319" name="Attivà sta funzione"/>
 					<Item id="6320" name="Ùn micca sottulineà"/>
 					<Item id="6350" name="Attivà u modu di sopralineamentu sanu per un liame"/>
@@ -1433,9 +1437,9 @@ Cuntinuà ?"/><!-- HowToReproduce: when you opened file is modified and saved, 
 
 			<NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii stanu per esse aperti.
 Da veru, vulete apreli ?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
-			<SettingsOnCloudError title="Preferenze di nivulu" message="Pare chì u chjassu di e preferenze di nivulu hè definitu nant’à un lettore in
+			<SettingsOnCloudError title="Parametri di u nivulu" message="Pare chì u chjassu di i parametri di u nivulu hè definitu nant’à un lettore in
 lettura sola, o in un cartulare chì richiede diritti d’accessu di scrittura.
-E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
+I vostri parametri di u nivulu anu da esse abbandunati. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
 			<FilePathNotFoundWarning title="Apertura di schedariu" message="U schedariu chì voi pruvate d’apre ùn esiste micca."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Ùn si pò micca caricà una sessione" message="U schedariu di sessione hè sia alteratu, sia inaccettevule."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum’è spaziu di travagliu.
@@ -1475,7 +1479,7 @@ Vulete ricaricallu è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
 			<PrehistoricSystemDetected title="Sistema prestoricu identificatu" message="Pare chì voi impiegate sempre un sistema prestoricu. Per disgrazia, sta funzione funziuneghja solu cù un sistema mudernu."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Rinnovu di Notepad++" message="U rinnovu di Notepad++ ùn funziuneghja micca cù XP per via di u so livellu di sicurità à l’anticogna.
 Vulete andà nant’à a pagina di Notepad++ per scaricà l’ultima versione ?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Preferenze di Proxy" message="Ci vole à rilancià Notepad++ in modu Amministratore per cunfigurà u proxy."/>
+			<GUpProxyConfNeedAdminMode title="Parametri di Proxy" message="Ci vole à rilancià Notepad++ in modu Amministratore per cunfigurà u proxy."/>
 			<DocTooDirtyToMonitor title="Penseru d’appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
 			<DocNoExistToMonitor title="Penseru d’appustamentu" message="U schedariu deve esiste per esse appustatu."/>
 			<FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
@@ -1550,6 +1554,10 @@ Vulete creà sti spazii riservati per elli ?
 NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli dopu, u vostru schedariu di sessione serà mudificatu à l’esce. Vi ricumandemu di fà subitu una salvaguardia di u vostru schedariu di sessione « session.xml »."/>
 			<RTLvsDirectWrite title="Ùn si pò lancià a cumanda « Testu da diritta à manca »" message="« Testu da diritta à manca » ùn hè micca cumpatibile cù u modu « DirectWrite ». Ci vole à disattivà stu modu in a sezzione « Diversi » di e Preferenze eppò rilancià Notepad++."/>
 			<FileMemoryAllocationFailed title="Sbagliu : fiascu d’attribuzione di memoria" message="Forse ùn ci hè abbastanza memoria quanciana libera per chì u schedariu sia caricatu da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Ricerca RegEx à l’arritrosa disattivata" message="Di regula, a ricerca RegEx à l’arritrosa hè disattivata per via di risultati imprevisti pussibule. Per effettuà una ricerca à l’arritrosa, aprite a finestra di dialogu di ricerca è selezziunate, sia u modu di ricerca nurmale, sia u modu espertu, invece chì l’espressione regulare.
+Appughjate nant’à u buttone Vai per apre a finestra di dialogu di ricerca o piazzateci u puntu fucale.
+			
+S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjite l’istruzzioni per attivalla in u manuale di l’utilizatore."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1669,7 +1677,7 @@ NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli 
 			<backup-select-folder value="Selezziunà u cartulare induve arregistrà a salvaguardia"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Chjassu inaccettevule."/>
 			<cloud-restart-warning value="Ci vole à rilancià Notepad++ per piglià in contu stu cambiamentu."/>
-			<cloud-select-folder value="Selezziunà un cartulare induve Notepad++ leghje è scrive e so preferenze"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-select-folder value="Selezziunà un cartulare induve Notepad++ leghje è scrive i so parametri"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Selezziunà u cartulare chì serà quellu predefinitu"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
 			<two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
@@ -1748,7 +1756,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<progress-cancel-info value="Abbandonu di l’operazione, aspittate per piacè…"/>
 			<find-in-files-progress-title value="Prugressione di a ricerca in i schedarii…"/>
 			<replace-in-files-confirm-title value="Cunfirmazione"/>
-			<replace-in-files-confirm-directory value="Vulete rimpiazzà tutte l’occurrenze in :"/>
+			<replace-in-files-confirm-directory value="Da veru, vulete rimpiazzà tutte l’occurrenze in :"/>
 			<replace-in-files-confirm-filetype value="Per u(i) tipu(i) di schedariu :"/>
 			<replace-in-files-progress-title value="Prugressione di u rimpiazzamentu in i schedarii…"/>
 			<replace-in-projects-confirm-title value="Cunfirmazione"/>
@@ -1802,7 +1810,7 @@ U+FEFF : spaziu nonspezzevule di larghezza nulla
 Per ottene a lista sana, fighjate u Manuale di l’utilizatore.
 Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore nant’à u situ web."/>
 			<npcCustomColor-tip value="Accidite à u Cunfiguratore di stilu per persunalizà u culore predefinitu di i spazii bianchi selezziunati è di i caratteri nonstampevule (&quot;Non-printing characters custom color&quot;)."/><!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcIncludeCcUniEol-tip value="Appiecate e preferenze d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
+			<npcIncludeCcUniEol-tip value="Appiecate i parametri d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
 			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definite u valore à 0 per disattivà a verificazione autumatica."/>
 			<verticalEdge-tip value="Aghjunghjite u vostru marcatore di culonna indichendu a so pusizione cù un numeru interu. Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
 		</MiscStrings>

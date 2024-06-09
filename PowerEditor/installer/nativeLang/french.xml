@@ -970,6 +970,7 @@ Translation note:
 
 					<Item id="6123" name="Langue"/>
 				</Global>
+
 				<Scintillas title="Zones d'édition 1">
 					<Item id="6216" name="Curseur"/>
 					<Item id="6217" name="Largeur :"/>
@@ -993,6 +994,7 @@ Translation note:
 					<Item id="6654" name="Tracer la bordure"/>
 					<Item id="6655" name="Épaisseur :"/>
 				</Scintillas>
+
 				<Scintillas2 title="Zones d'édition 2">
 					<Item id="6521" name="Multi-édition"/>
 					<Item id="6522" name="Activer Multi-édition (Ctrl+Clic/sélection)"/>
@@ -1009,6 +1011,7 @@ Translation note:
 					<Item id="6258" name="Appliquer les paramètres d'Apparence à C0, C1 &amp; Unicode EOL"/>
 					<Item id="6259" name="Empêcher la saisie de caractères de contrôle (code C0) dans le document"/>
 				</Scintillas2>
+
 				<DarkMode title="Mode Sombre">
 					<Item id="7131" name="Mode lumineux"/>
 					<Item id="7132" name="Mode sombre"/>
@@ -1091,16 +1094,19 @@ Translation note:
 					<Item id="4009" name="Extensions supportées :"/>
 					<Item id="4010" name="Extensions associées :"/>
 				</FileAssoc>
-				<Language title="Langage">
+
+				<Language title="Language">
 					<Item id="6505" name="Langages disponibles"/>
 					<Item id="6506" name="Langages cachés"/>
 					<Item id="6507" name="Compacter le menu Langage"/>
 					<Item id="6508" name="Menu Langage"/>
 					<Item id="6301" name="Tabulations"/>
 					<Item id="6302" name="Insérer des espaces"/>
-					<Item id="6303" name="Taille : "/>
-					<Item id="6510" name="Valeur par défaut"/>
-					<Item id="6335" name="Contre-oblique : caractère d'échappement pour SQL"/>
+					<Item id="6303" name="Taille de l'indentation :"/>
+					<Item id="6310" name="Indenter à l'aide de :"/>
+					<Item id="6311" name="Caractère de tabulation"/>
+					<Item id="6510" name="Utiliser la valeur par défaut"/>
+					<Item id="6335" name="Barre oblique inversée : caractère d'échappement pour SQL"/>
 				</Language>
 
 				<Highlighting title="Coloration">
@@ -1275,7 +1281,7 @@ Translation note:
 					<Item id="6319" name="Activer"/>
 					<Item id="6320" name="Ne pas souligner"/>
 					<Item id="6350" name="Activer la mode d'arrière-plan"/>
-					<Item id="6264" name="Schémas personnalisés d'URI:"/>
+					<Item id="6264" name="Schémas personnalisés d'URI :"/>
 				</Cloud>
 
 				<SearchEngine title="Moteur de recherche">
@@ -1518,6 +1524,10 @@ Voulez-vous créer des espaces réservés pour eux ?
 NOTE : Si vous choisissez de ne pas créer d'espaces réservés ou de les fermer plus tard, votre fichier de session sera modifié à la sortie. Nous vous suggérons de faire une sauvegarde du fichier de session &quot;session.xml&quot; maintenant."/>
 			<RTLvsDirectWrite title="Exécution de la commande &quot;Texte de droite à gauche&quot; impossible" message="&quot;Texte de droite à gauche&quot; n'est pas compatible avec le mode &quot;DirectWrite&quot;. Veuillez désactiver ce mode dans la section &quot;Divers&quot; du dialogue Préférences, et redémarer Notepad++."/>
 			<FileMemoryAllocationFailed title="Exception : échec de l'allocation de mémoire du fichier" message="Il n'y a probablement pas assez de mémoire libre contiguë pour le fichier chargé par Notepad++."/>
+			<FindRegexBackwardDisabled title="Recherche par Expression régulière inversée désactivée" message="Par défaut, la recherche par Expression régulière inversée est désactivée en raison des résultats potentiellement inattendus qu'elle peut produire. Pour effectuer une recherche inversée, ouvrez la boîte de dialogue Rechercher et sélectionnez le mode de recherche normal ou étendu au lieu de l'option Expression régulière.
+Appuyez sur le bouton OK pour ouvrir la boîte de dialogue Rechercher ou lui donner la priorité.
+
+Si vous avez besoin de la fonction de recherche d'Expression régulière inversée, consultez le manuel de l'utilisateur pour savoir comment l'activer."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>
@@ -1785,4 +1795,3 @@ Cliquez sur le bouton &quot;?&quot; à droite pour ouvrir le site web du Manuel 
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

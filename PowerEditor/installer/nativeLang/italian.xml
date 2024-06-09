@@ -17,9 +17,9 @@ Translation note:
 				<Entries>
 					<Item menuId="file" name="&amp;File"/>
 					<Item menuId="edit" name="&amp;Modifica"/>
-					<Item menuId="search" name="Ri&amp;cerca"/>
+					<Item menuId="search" name="&amp;Ricerca"/>
 					<Item menuId="view" name="&amp;Visualizza"/>
-					<Item menuId="encoding" name="Fo&amp;rmato"/>
+					<Item menuId="encoding" name="Forma&amp;to"/>
 					<Item menuId="language" name="&amp;Linguaggio"/>
 					<Item menuId="settings" name="C&amp;onfigurazione"/>
 					<Item menuId="tools" name="&amp;Strumenti"/>
@@ -32,28 +32,28 @@ Translation note:
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Apri cartella &amp;file"/>
 					<Item subMenuId="file-closeMore" name="Chiudi schede &amp;multiple"/>
-					<Item subMenuId="file-recentFiles" name="File recenti"/>
+					<Item subMenuId="file-recentFiles" name="File recen&amp;ti"/>
 					<Item subMenuId="edit-insert" name="Inserisci"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copia negli Appunti"/>
 					<Item subMenuId="edit-indent" name="&amp;Rientro"/>
 					<Item subMenuId="edit-convertCaseTo" name="Con&amp;verti MAIUSCOLO/minuscolo"/>
-					<Item subMenuId="edit-lineOperations" name="Operazioni sulle righe"/>
-					<Item subMenuId="edit-comment" name="Commenta/Rimuovi commenti"/>
-					<Item subMenuId="edit-autoCompletion" name="Auto-completamento"/>
-					<Item subMenuId="edit-eolConversion" name="Converti carattere di fine riga"/>
-					<Item subMenuId="edit-blankOperations" name="Operazioni sugli spazi"/>
-					<Item subMenuId="edit-pasteSpecial" name="Incolla speciale"/>
-					<Item subMenuId="edit-onSelection" name="Testo selezionato"/>
+					<Item subMenuId="edit-lineOperations" name="&amp;Operazioni sulle righe"/>
+					<Item subMenuId="edit-comment" name="Co&amp;mmenta/Rimuovi commenti"/>
+					<Item subMenuId="edit-autoCompletion" name="&amp;Auto-completamento"/>
+					<Item subMenuId="edit-eolConversion" name="Converti carattere di &amp;fine riga"/>
+					<Item subMenuId="edit-blankOperations" name="Operazioni sugli spa&amp;zi"/>
+					<Item subMenuId="edit-pasteSpecial" name="I&amp;ncolla speciale"/>
+					<Item subMenuId="edit-onSelection" name="&amp;Testo selezionato"/>
 					<Item subMenuId="edit-multiSelectALL" name="Effettua la Selezione multipla di tutto"/>
 					<Item subMenuId="edit-multiSelectNext" name="Effettua la Selezione Multipla successiva"/>
-					<Item subMenuId="search-changeHistory" name="Modifica Cronologia"/>
+					<Item subMenuId="search-changeHistory" name="Cronologia delle modific&amp;he"/>
 					<Item subMenuId="search-markAll" name="&amp;Applica Stile per tutte le corrispondenze"/>
 					<Item subMenuId="search-markOne" name="Applica Stile s&amp;olo per la selezione"/>
-					<Item subMenuId="search-unmarkAll" name="Rimuovi applicazione Stile"/>
-					<Item subMenuId="search-jumpUp" name="Vai su"/>
-					<Item subMenuId="search-jumpDown" name="Vai giù"/>
-					<Item subMenuId="search-copyStyledText" name="Copia il testo in stile"/>
-					<Item subMenuId="search-bookmark" name="Segnalibri"/>
+					<Item subMenuId="search-unmarkAll" name="Rimuovi applica&amp;zione Stile"/>
+					<Item subMenuId="search-jumpUp" name="Vai s&amp;u"/>
+					<Item subMenuId="search-jumpDown" name="Vai gi&amp;ù"/>
+					<Item subMenuId="search-copyStyledText" name="Copia il testo in sti&amp;le"/>
+					<Item subMenuId="search-bookmark" name="Segnali&amp;bri"/>
 					<Item subMenuId="view-currentFileIn" name="Visualizza file corrente in"/>
 					<Item subMenuId="view-showSymbol" name="Simboli"/>
 					<Item subMenuId="view-zoom" name="Ingrandimento"/>
@@ -105,7 +105,7 @@ Translation note:
 					<Item id="41007" name="Salva t&amp;utto"/>
 					<Item id="41008" name="S&amp;alva con nome..."/>
 					<Item id="41010" name="Stam&amp;pa..."/>
-					<Item id="1001" name="Stampa su&amp;bito!"/>
+					<Item id="1001" name="Stampa su&amp;bito"/>
 					<Item id="41011" name="&amp;Esci"/>
 					<Item id="41012" name="Apri sess&amp;ione..."/>
 					<Item id="41013" name="Salva sessio&amp;ne..."/>
@@ -113,18 +113,18 @@ Translation note:
 					<Item id="41015" name="Sal&amp;va una copia con nome..."/>
 					<Item id="41016" name="Sp&amp;osta nel cestino"/>
 					<Item id="41017" name="&amp;Rinomina..."/>
-					<Item id="41021" name="Ripristina i file recenti"/>
+					<Item id="41021" name="Ripristina i file recen&amp;ti"/>
 					<Item id="41022" name="Apri cartella come Area di &amp;Lavoro..."/>
 					<Item id="41023" name="Apri con il visuali&amp;zzatore predefinito"/>
 					<Item id="42001" name="Tag&amp;lia"/>
 					<Item id="42002" name="&amp;Copia"/>
-					<Item id="42003" name="Ann&amp;ulla digitazione"/>
+					<Item id="42003" name="Annulla digitazione"/>
 					<Item id="42004" name="&amp;Ripristina digitazione"/>
 					<Item id="42005" name="&amp;Incolla"/>
 					<Item id="42006" name="&amp;Elimina"/>
 					<Item id="42007" name="Seleziona t&amp;utto"/>
 					<Item id="42020" name="Inizio/Fine &amp;selezione"/>
-					<Item id="42089" name="Inizio/Fine selezione in modalità Selezione-Colonna"/>
+					<Item id="42089" name="Inizio/Fine selezione in modalit&amp;à Selezione-Colonna"/>
 					<Item id="42084" name="Data e ora (formato ridotto)"/>
 					<Item id="42085" name="Data e ora (formato esteso)"/>
 					<Item id="42086" name="Data e ora (formato personalizzato)"/>
@@ -149,14 +149,14 @@ Translation note:
 					<Item id="42066" name="Ordina le righe come valori decimali (punto) decrescenti"/>
 					<Item id="42083" name="Inverti l&apos;ordine delle righe"/>
 					<Item id="42078" name="Ordina le righe in modo casuale"/>
-					<Item id="42016" name="TUTTO MAIUSCOLE"/>
-					<Item id="42017" name="tutto minuscole"/>
-					<Item id="42067" name="Iniziali Maiuscole"/>
-					<Item id="42068" name="Iniziali Maiuscole (intelligente)"/>
-					<Item id="42069" name="Frasi maiuscole"/>
-					<Item id="42070" name="Frasi maiuscole (intelligente)"/>
-					<Item id="42071" name="&amp;iNVERTI mAIUSCOLE/mINUSCOLE"/>
-					<Item id="42072" name="mAiusCole/miNUScoLE casUaLi"/>
+					<Item id="42016" name="TUTTO &amp;MAIUSCOLE"/>
+					<Item id="42017" name="tutto mi&amp;nuscole"/>
+					<Item id="42067" name="&amp;Iniziali Maiuscole"/>
+					<Item id="42068" name="Iniziali Maiuscole (ignora le altre)"/>
+					<Item id="42069" name="&amp;Frasi maiuscole"/>
+					<Item id="42070" name="Frasi maiuscole (ignora le altre)"/>
+					<Item id="42071" name="iN&amp;VERTI mAIUSCOLE/mINUSCOLE"/>
+					<Item id="42072" name="mAiusCole/miNUScoLE &amp;casUaLi"/>
 					<Item id="42073" name="Apri file"/>
 					<Item id="42074" name="Apri cartella in Esplora Risorse"/>
 					<Item id="42075" name="Cerca in Internet"/>
@@ -193,12 +193,12 @@ Translation note:
 					<Item id="42082" name="Copia link"/>
 					<Item id="42037" name="Modalità colonna..."/>
 					<Item id="42034" name="Editor a colonne..."/>
-					<Item id="42051" name="Pannello caratteri"/>
-					<Item id="42052" name="Cronologia Appunti"/>
+					<Item id="42051" name="&amp;Pannello caratteri"/>
+					<Item id="42052" name="Cronolo&amp;gia Appunti"/>
 					<Item id="42025" name="Salva la macro registrata..."/>
 					<Item id="42026" name="Direzione del testo Destra-Sinistra"/>
 					<Item id="42027" name="Direzione del testo Sinistra-Destra"/>
-					<Item id="42028" name="Sessione documento in sola lettura"/>
+					<Item id="42028" name="Sessione &amp;documento in sola lettura"/>
 					<Item id="42029" name="Copia il percorso completo del file corrente"/>
 					<Item id="42030" name="Copia Nome file corrente"/>
 					<Item id="42031" name="Copia il percorso della cartella corrente"/>
@@ -213,11 +213,11 @@ Translation note:
 					<Item id="42057" name="Inserisci riga vuota sopra alla corrente"/>
 					<Item id="42058" name="Inserisci riga vuota sotto alla corrente"/>
 					<Item id="43001" name="&amp;Trova..."/>
-					<Item id="43002" name="Trova &amp;successivo"/>
-					<Item id="43003" name="Sostitu&amp;isci..."/>
-					<Item id="43004" name="Vai alla riga/posizione..."/>
+					<Item id="43002" name="Trova su&amp;ccessivo"/>
+					<Item id="43003" name="&amp;Sostituisci..."/>
+					<Item id="43004" name="Vai alla ri&amp;ga/posizione..."/>
 					<Item id="43005" name="Attiva/Disattiva Segnalibro"/>
-					<Item id="43006" name="Segnalibro seguente"/>
+					<Item id="43006" name="Segnalibro successivo"/>
 					<Item id="43007" name="Segnalibro precedente"/>
 					<Item id="43008" name="Elimina tutti i segnalibri"/>
 					<Item id="43018" name="Taglia le righe con segnalibri"/>
@@ -226,12 +226,12 @@ Translation note:
 					<Item id="43021" name="Elimina le righe con segnalibri"/>
 					<Item id="43051" name="Elimina le righe senza segnalibri"/>
 					<Item id="43050" name="Inverti i segnalibri"/>
-					<Item id="43052" name="Trova caratteri..."/>
+					<Item id="43052" name="Tro&amp;va caratteri..."/>
 					<Item id="43053" name="Seleziona tutto tra le parentesi corrispondenti"/>
 					<Item id="43009" name="Vai alla parentesi corrispondente"/>
-					<Item id="43010" name="Trova precedente"/>
-					<Item id="43011" name="Ricerca veloce"/>
-					<Item id="43013" name="Cerca nei file..."/>
+					<Item id="43010" name="Trova &amp;precedente"/>
+					<Item id="43011" name="&amp;Ricerca veloce"/>
+					<Item id="43013" name="Cerca nei &amp;file..."/>
 					<Item id="43014" name="Trova (volatile) successivo"/>
 					<Item id="43015" name="Trova (volatile) precedente"/>
 					<Item id="43022" name="Applica stile 1"/>
@@ -272,12 +272,12 @@ Translation note:
 					<Item id="43067" name="Vai alla modifica successiva"/>
 					<Item id="43068" name="Vai alla modifica precedente"/>
 					<Item id="43069" name="Pulisci la cronologia delle modifiche"/>
-					<Item id="43045" name="Finestra dei risultati di ricerca"/>
+					<Item id="43045" name="&amp;Finestra dei risultati di ricerca"/>
 					<Item id="43046" name="Vai al successivo risultato di ricerca"/>
 					<Item id="43047" name="Vai al precedente risultato di ricerca"/>
-					<Item id="43048" name="&amp;Seleziona e trova successivo"/>
-					<Item id="43049" name="&amp;Seleziona e trova precedente"/>
-					<Item id="43054" name="Evidenzia..."/>
+					<Item id="43048" name="Selez&amp;iona e trova successivo"/>
+					<Item id="43049" name="Selezio&amp;na e trova precedente"/>
+					<Item id="43054" name="&amp;Evidenzia..."/>
 					<Item id="43501" name="Chiudi i selezionati"/>
 					<Item id="43502" name="Chiudi gli altri"/>
 					<Item id="43503" name="Copia i nomi file dei selezionati"/>
@@ -482,7 +482,7 @@ Translation note:
 				<Item id="1615" name="Trova tutti"/>
 				<Item id="1616" name="Imposta un segnali&amp;bro sulla riga"/>
 				<Item id="1618" name="Pulisci ad ogni ricerca"/>
-				<Item id="1611" name="S&amp;ostituisci con :"/>
+				<Item id="1611" name="S&amp;ostituisci con:"/>
 				<Item id="1608" name="&amp;Sostituisci"/>
 				<Item id="1609" name="Sostituisci &amp;tutti"/>
 				<Item id="1687" name="Alla perdita del focus"/>
@@ -621,10 +621,10 @@ Translation note:
 				<SubDialog>
 					<Item id="2204" name="Grassetto"/>
 					<Item id="2205" name="Corsivo"/>
-					<Item id="2206" name="Primo piano: "/>
-					<Item id="2207" name="Sfondo: "/>
-					<Item id="2208" name="Nome: "/>
-					<Item id="2209" name="Dimensione: "/>
+					<Item id="2206" name="Primo piano"/>
+					<Item id="2207" name="Sfondo"/>
+					<Item id="2208" name="Nome:"/>
+					<Item id="2209" name="Dimensione:"/>
 					<Item id="2211" name="Stile:"/>
 					<Item id="2212" name="Colore"/>
 					<Item id="2213" name="Carattere"/>
@@ -633,7 +633,7 @@ Translation note:
 					<Item id="2218" name="Sottolineato"/>
 					<Item id="2219" name="Parole chiave predefinite"/>
 					<Item id="2221" name="Parole chiave definite dall&apos;utente"/>
-					<Item id="2225" name="Linguaggio: "/>
+					<Item id="2225" name="Linguaggio:"/>
 					<Item id="2226" name="Abilita colore globale in primo piano"/>
 					<Item id="2227" name="Abilita colore globale per lo sfondo"/>
 					<Item id="2228" name="Abilita stile globale del carattere"/>
@@ -776,7 +776,7 @@ Translation note:
 				<Item id="20003" name="Crea nuovo..."/>
 				<Item id="20004" name="Rimuovi"/>
 				<Item id="20005" name="Salva con nome..."/>
-				<Item id="20007" name="Linguaggio personalizzato: "/>
+				<Item id="20007" name="Linguaggio personalizzato"/>
 				<Item id="20009" name="Estensione:"/>
 				<Item id="20012" name="Ignora Maius./Minus."/>
 				<Item id="20011" name="Trasparenza"/>
@@ -784,9 +784,9 @@ Translation note:
 				<Item id="20016" name="Esporta..."/>
 				<Item id="20017" name="Disancora"/>
 				<StylerDialog title="Configuratore di stili">
-					<Item id="25030" name="Opzioni carattere:"/>
-					<Item id="25006" name="Colore primo piano:"/>
-					<Item id="25007" name="Colore sfondo:"/>
+					<Item id="25030" name="Opzioni carattere"/>
+					<Item id="25006" name="Colore primo piano"/>
+					<Item id="25007" name="Colore sfondo"/>
 					<Item id="25031" name="Nome:"/>
 					<Item id="25032" name="Dimensione:"/>
 					<Item id="25001" name="Grassetto"/>
@@ -822,19 +822,19 @@ Translation note:
 				<Folder title="Cartelle e Predefiniti">
 					<Item id="21101" name="Impostazioni stile predefinito"/>
 					<Item id="21102" name="Stile"/>
-					<Item id="21105" name="Documentazione:"/>
+					<Item id="21105" name="Documentazione"/>
 					<Item id="21106" name="Delimita compatto (racchiudi righe vuote)"/>
-					<Item id="21220" name="Delimitatori nel codice 1° stile:"/>
+					<Item id="21220" name="Delimitatori nel codice 1° stile"/>
 					<Item id="21224" name="Apri:"/>
 					<Item id="21225" name="Centro:"/>
 					<Item id="21226" name="Chiudi:"/>
 					<Item id="21227" name="Stile"/>
-					<Item id="21320" name="Delimitatori nel codice 2° stile (con separatori):"/>
+					<Item id="21320" name="Delimitatori nel codice 2° stile (con separatori)"/>
 					<Item id="21324" name="Apri:"/>
 					<Item id="21325" name="Centro:"/>
 					<Item id="21326" name="Chiudi:"/>
 					<Item id="21327" name="Stile"/>
-					<Item id="21420" name="Delimitatori per i commenti:"/>
+					<Item id="21420" name="Delimitatori per i commenti"/>
 					<Item id="21424" name="Apri:"/>
 					<Item id="21425" name="Centro:"/>
 					<Item id="21426" name="Chiudi:"/>
@@ -883,12 +883,12 @@ Translation note:
 					<Item id="23101" name="Stile commenti"/>
 					<Item id="23201" name="Stile numeri"/>
 					<Item id="23220" name="Stile"/>
-					<Item id="23230" name="Prefisso 1:"/>
-					<Item id="23232" name="Prefisso 2:"/>
-					<Item id="23234" name="Extra 1:"/>
-					<Item id="23236" name="Extra 2:"/>
-					<Item id="23238" name="Suffisso 1:"/>
-					<Item id="23240" name="Suffisso 2:"/>
+					<Item id="23230" name="Prefisso 1"/>
+					<Item id="23232" name="Prefisso 2"/>
+					<Item id="23234" name="Extra 1"/>
+					<Item id="23236" name="Extra 2"/>
+					<Item id="23238" name="Suffisso 1"/>
+					<Item id="23240" name="Suffisso 2"/>
 					<Item id="23242" name="Intervallo:"/>
 					<Item id="23244" name="Separatore decimale"/>
 					<Item id="23245" name="Punto"/>
@@ -1710,7 +1710,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<common-cancel value="Annulla"/>
 			<common-name value="Nome"/>
 			<tabrename-title value="Rinomina scheda corrente"/>
-			<tabrename-newname value="Nuovo nome: "/>
+			<tabrename-newname value="Nuovo nome"/>
 			<splitter-rotate-left value="Ruota a sinistra"/>
 			<splitter-rotate-right value="Ruota a destra"/>
 			<userdefined-title-new value="Crea nuovo linguaggio..."/>
@@ -1727,12 +1727,12 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<summary-nbsel1 value=" caratteri selezionati ("/>
 			<summary-nbsel2 value=" byte) in "/>
 			<summary-nbrange value=" intervalli"/>
-			<progress-hits-title value="Corrispondenze :"/>
+			<progress-hits-title value="Corrispondenze:"/>
 			<progress-cancel-info value="Annullamento operazione, attendere..."/>
 			<find-in-files-progress-title value="Ricerca nei file in corso..."/>
 			<replace-in-files-confirm-title value="Conferma"/>
-			<replace-in-files-confirm-directory value="Vuoi sostituire tutte le corrispondenze in: "/>
-			<replace-in-files-confirm-filetype value="Per i tipi di file: "/>
+			<replace-in-files-confirm-directory value="Vuoi sostituire tutte le corrispondenze in:"/>
+			<replace-in-files-confirm-filetype value="Per i tipi di file:"/>
 			<replace-in-files-progress-title value="Sostituisci nei file in corso..."/>
 			<replace-in-projects-confirm-title value="Conferma"/>
 			<replace-in-projects-confirm-message value="Vuoi sostituire tutte le corrispondenze in tutti i pannelli dei progetti selezionati?"/>

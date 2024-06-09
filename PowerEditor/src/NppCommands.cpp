@@ -487,7 +487,8 @@ void Notepad_plus::command(int id)
 				size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
 				Buffer* buf = getCurrentBuffer();
 				bool isRO = buf->isReadOnly();
-				if (nbSelections > 1 && !isRO)
+				LRESULT selectionMode = _pEditView->execute(SCI_GETSELECTIONMODE);
+				if (nbSelections > 1 && !isRO && selectionMode == SC_SEL_STREAM)
 				{
 					bool isPasteDone = _pEditView->pasteToMultiSelection();
 					if (isPasteDone)

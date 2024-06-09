@@ -915,35 +915,29 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_ERASEBKGND:
 		{
-			if (!NppDarkMode::isEnabled())
-			{
-				break;
-			}
-
-			RECT rc{};
-			GetClientRect(hwnd, &rc);
-			FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
-
-			return 1;
+			// Skip background erasing and set fErase in PAINTSTRUCT instead,
+			// WM_PAINT does all the painting in all cases
+			return FALSE;
 		}
 
 		case WM_PAINT:
 		{
-			if (!NppDarkMode::isEnabled())
-			{
-				break;
-			}
+			PAINTSTRUCT ps{};
+			HDC hdc = _dblBuf.beginPaint(hwnd, &ps);
 
 			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
-			if (!(dwStyle & TCS_OWNERDRAWFIXED))
+			if (!NppDarkMode::isEnabled() || !(dwStyle & TCS_OWNERDRAWFIXED))
 			{
-				break;
+				// Even if the tab bar common control is used directly, e.g. in non-dark mode,
+				// it suffers from flickering during updates, so let it paint into a back buffer
+				::CallWindowProc(_tabBarDefaultProc, hwnd, WM_ERASEBKGND, reinterpret_cast<WPARAM>(hdc), 0);
+				::CallWindowProc(_tabBarDefaultProc, hwnd, WM_PRINTCLIENT, reinterpret_cast<WPARAM>(hdc), PRF_NONCLIENT | PRF_CLIENT);
+				_dblBuf.endPaint(hwnd, &ps);
+				return 0;
 			}
 
 			const bool hasMultipleLines = ((dwStyle & TCS_BUTTONS) == TCS_BUTTONS);
 
-			PAINTSTRUCT ps{};
-			HDC hdc = BeginPaint(hwnd, &ps);
 			FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
 
 			UINT id = ::GetDlgCtrlID(hwnd);
@@ -1072,7 +1066,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			SelectObject(hdc, holdPen);
 
-			EndPaint(hwnd, &ps);
+			_dblBuf.endPaint(hwnd, &ps);
 			return 0;
 		}
 

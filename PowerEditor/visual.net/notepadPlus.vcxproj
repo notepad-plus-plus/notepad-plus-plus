@@ -298,6 +298,7 @@
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingSplitter.h" />
     <ClInclude Include="..\src\ScintillaComponent\DocTabView.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentMap.h" />
+    <ClInclude Include="..\src\WinControls\DoubleBuffer.h" />
     <ClInclude Include="..\src\EncodingMapper.h" />
     <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />
     <ClInclude Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.h" />

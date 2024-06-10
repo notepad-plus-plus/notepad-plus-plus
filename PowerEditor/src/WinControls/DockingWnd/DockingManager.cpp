@@ -591,7 +591,7 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 		// create image list if not exist
 		if (_hImageList == NULL)
 		{
-			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleY(12) + 2;
+			const int iconDpiDynamicalSize = DPIManagerV2::scale(g_dockingContTabIconSize, data.hClient);
 			_hImageList = ::ImageList_Create(iconDpiDynamicalSize, iconDpiDynamicalSize, ILC_COLOR32 | ILC_MASK, 0, 0);
 		}
 

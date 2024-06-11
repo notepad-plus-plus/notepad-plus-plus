@@ -99,12 +99,22 @@ ToolBarButtonUnit toolBarIcons[] = {
     {IDM_VIEW_WRAP,                    IDI_VIEW_WRAP_ICON,         IDI_VIEW_WRAP_ICON,            IDI_VIEW_WRAP_ICON2,        IDI_VIEW_WRAP_ICON2,           IDI_VIEW_WRAP_ICON_DM,         IDI_VIEW_WRAP_ICON_DM,            IDI_VIEW_WRAP_ICON_DM2,        IDI_VIEW_WRAP_ICON_DM2,           IDR_WRAP},
     {IDM_VIEW_ALL_CHARACTERS,          IDI_VIEW_ALL_CHAR_ICON,     IDI_VIEW_ALL_CHAR_ICON,        IDI_VIEW_ALL_CHAR_ICON2,    IDI_VIEW_ALL_CHAR_ICON2,       IDI_VIEW_ALL_CHAR_ICON_DM,     IDI_VIEW_ALL_CHAR_ICON_DM,        IDI_VIEW_ALL_CHAR_ICON_DM2,    IDI_VIEW_ALL_CHAR_ICON_DM2,       IDR_INVISIBLECHAR},
     {IDM_VIEW_INDENT_GUIDE,            IDI_VIEW_INDENT_ICON,       IDI_VIEW_INDENT_ICON,          IDI_VIEW_INDENT_ICON2,      IDI_VIEW_INDENT_ICON2,         IDI_VIEW_INDENT_ICON_DM,       IDI_VIEW_INDENT_ICON_DM,          IDI_VIEW_INDENT_ICON_DM2,      IDI_VIEW_INDENT_ICON_DM2,         IDR_INDENTGUIDE},
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,               IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
     {IDM_LANG_USER_DLG,                IDI_VIEW_UD_DLG_ICON,       IDI_VIEW_UD_DLG_ICON,          IDI_VIEW_UD_DLG_ICON2,      IDI_VIEW_UD_DLG_ICON2,         IDI_VIEW_UD_DLG_ICON_DM,       IDI_VIEW_UD_DLG_ICON_DM,          IDI_VIEW_UD_DLG_ICON_DM2,      IDI_VIEW_UD_DLG_ICON_DM2,         IDR_SHOWPANNEL},
     {IDM_VIEW_DOC_MAP,                 IDI_VIEW_DOC_MAP_ICON,      IDI_VIEW_DOC_MAP_ICON,         IDI_VIEW_DOC_MAP_ICON2,     IDI_VIEW_DOC_MAP_ICON2,        IDI_VIEW_DOC_MAP_ICON_DM,      IDI_VIEW_DOC_MAP_ICON_DM,         IDI_VIEW_DOC_MAP_ICON_DM2,     IDI_VIEW_DOC_MAP_ICON_DM2,        IDR_DOCMAP},
     {IDM_VIEW_DOCLIST,                 IDI_VIEW_DOCLIST_ICON,      IDI_VIEW_DOCLIST_ICON,         IDI_VIEW_DOCLIST_ICON2,     IDI_VIEW_DOCLIST_ICON2,        IDI_VIEW_DOCLIST_ICON_DM,      IDI_VIEW_DOCLIST_ICON_DM,         IDI_VIEW_DOCLIST_ICON_DM2,     IDI_VIEW_DOCLIST_ICON_DM2,        IDR_DOCLIST},
     {IDM_VIEW_FUNC_LIST,               IDI_VIEW_FUNCLIST_ICON,     IDI_VIEW_FUNCLIST_ICON,        IDI_VIEW_FUNCLIST_ICON2,    IDI_VIEW_FUNCLIST_ICON2,       IDI_VIEW_FUNCLIST_ICON_DM,     IDI_VIEW_FUNCLIST_ICON_DM,        IDI_VIEW_FUNCLIST_ICON_DM2,    IDI_VIEW_FUNCLIST_ICON_DM2,       IDR_FUNC_LIST},
     {IDM_VIEW_FILEBROWSER,             IDI_VIEW_FILEBROWSER_ICON,  IDI_VIEW_FILEBROWSER_ICON,     IDI_VIEW_FILEBROWSER_ICON2, IDI_VIEW_FILEBROWSER_ICON2,    IDI_VIEW_FILEBROWSER_ICON_DM,  IDI_VIEW_FILEBROWSER_ICON_DM,     IDI_VIEW_FILEBROWSER_ICON_DM2, IDI_VIEW_FILEBROWSER_ICON_DM2,    IDR_FILEBROWSER},
-    {IDM_VIEW_MONITORING,              IDI_VIEW_MONITORING_ICON,   IDI_VIEW_MONITORING_ICON,      IDI_VIEW_MONITORING_ICON2,  IDI_VIEW_MONITORING_ICON2,     IDI_VIEW_MONITORING_ICON_DM,   IDI_VIEW_MONITORING_ICON_DM,      IDI_VIEW_MONITORING_ICON_DM2,  IDI_VIEW_MONITORING_ICON_DM2,     IDR_FILEMONITORING},
+ 
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,               IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+    {IDM_VIEW_MONITORING,              IDI_VIEW_MONITORING_ICON,   IDI_VIEW_MONITORING_DIS_ICON,  IDI_VIEW_MONITORING_ICON2,  IDI_VIEW_MONITORING_DIS_ICON2, IDI_VIEW_MONITORING_ICON_DM,   IDI_VIEW_MONITORING_DIS_ICON_DM,  IDI_VIEW_MONITORING_ICON_DM2,  IDI_VIEW_MONITORING_DIS_ICON_DM2, IDR_FILEMONITORING},
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     {0,                                IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,         IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,               IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON,            IDI_SEPARATOR_ICON},
@@ -601,6 +611,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Search menu
 	//disable "Search Results Window" under Search Menu 
 	::EnableMenuItem(_mainMenuHandle, IDM_FOCUS_ON_FOUND_RESULTS, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_GOTONEXTFOUND, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_GOTOPREVFOUND, MF_DISABLED | MF_GRAYED | MF_BYCOMMAND);
+
+	// Find dialog is not created yet
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_FINDNEXT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	::EnableMenuItem(_mainMenuHandle, IDM_SEARCH_FINDPREV, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 
 	//Main menu is loaded, now load editor context menu items
 	nppParam.getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
@@ -795,10 +811,16 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	DockingManagerData& dmd = nppGUI._dockingData;
 
+	// preset minimal panel dimensions according to the current DPI
+	dmd._minDockedPanelVisibility = DPIManagerV2::scale(nppGUI._dockingData._minDockedPanelVisibility, dpi);
+	dmd._minFloatingPanelSize.cy = nppGUI._dockingData._minDockedPanelVisibility;
+	dmd._minFloatingPanelSize.cx = std::max(static_cast<int>(nppGUI._dockingData._minFloatingPanelSize.cy * 6),
+		DPIManagerV2::getSystemMetricsForDpi(SM_CXMINTRACK, dpi));
+
 	_dockingManager.setDockedContSize(CONT_LEFT, nppGUI._dockingData._leftWidth);
 	_dockingManager.setDockedContSize(CONT_RIGHT, nppGUI._dockingData._rightWidth);
 	_dockingManager.setDockedContSize(CONT_TOP, nppGUI._dockingData._topHeight);
-	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHight);
+	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHeight);
 
 	{
 		for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len; ++i)
@@ -980,7 +1002,7 @@ void Notepad_plus::saveDockingParams()
 	nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
 	nppGUI._dockingData._rightWidth		= _dockingManager.getDockedContSize(CONT_RIGHT);
 	nppGUI._dockingData._topHeight		= _dockingManager.getDockedContSize(CONT_TOP);
-	nppGUI._dockingData._bottomHight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
+	nppGUI._dockingData._bottomHeight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
 
 	// clear the container tab information (active tab)
 	nppGUI._dockingData._containerTabInfo.clear();
@@ -1075,7 +1097,7 @@ void Notepad_plus::saveDockingParams()
 	}
 
 	nppGUI._dockingData._pluginDockInfo = vPluginDockInfo;
-	nppGUI._dockingData._flaotingWindowInfo = vFloatingWindowInfo;
+	nppGUI._dockingData._floatingWindowInfo = vFloatingWindowInfo;
 }
 
 
@@ -6645,10 +6667,12 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (view == MAIN_VIEW)
 	{
 		_autoCompleteMain.setLanguage(buf->getLangType());
+		_mainEditView.maintainStateForNpc();
 	}
 	else if (view == SUB_VIEW)
 	{
 		_autoCompleteSub.setLanguage(buf->getLangType());
+		_subEditView.maintainStateForNpc();
 	}
 
 	if (view != currentView())
@@ -7179,7 +7203,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
-		tTbData	data = {};
+		tTbData	data{};
 		_pClipboardHistoryPanel->create(&data, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pClipboardHistoryPanel->getHSelf()));
@@ -7192,7 +7216,9 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
 			icoID = IDR_CLIPBOARDPANEL_ICO2;
 
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pClipboardHistoryPanel->getHSelf());
+		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -7241,7 +7267,7 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 		_pDocumentListPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
-		tTbData	data = {};
+		tTbData	data{};
 		_pDocumentListPanel->create(&data, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocumentListPanel->getHSelf()));
@@ -7254,7 +7280,9 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
 			icoID = IDR_DOCLIST_ICO2;
 
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pDocumentListPanel->getHSelf());
+		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -7327,7 +7355,7 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
-		tTbData	data = {};
+		tTbData	data{};
 		_pAnsiCharPanel->create(&data, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pAnsiCharPanel->getHSelf()));
@@ -7340,7 +7368,9 @@ void Notepad_plus::launchAnsiCharPanel()
 		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
 			icoID = IDR_ASCIIPANEL_ICO2;
 
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pAnsiCharPanel->getHSelf());
+		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -7374,7 +7404,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		_pFileBrowser = new FileBrowser;
 		_pFileBrowser->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
 
-		tTbData	data = {};
+		tTbData	data{};
 		_pFileBrowser->create(&data, _nativeLangSpeaker.isRTL());
 		data.pszName = TEXT("ST");
 
@@ -7390,7 +7420,9 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders, con
 		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
 			icoID = IDR_FILEBROWSER_ICO2;
 
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFileBrowser->getHSelf());
+		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -7484,7 +7516,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		(*pProjPanel)->setWorkSpaceFilePath(nppParam.getWorkSpaceFilePath(panelID));
 		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
-		tTbData	data = {};
+		tTbData	data{};
 		(*pProjPanel)->create(&data, isRTL);
 		data.pszName = TEXT("ST");
 
@@ -7498,7 +7530,9 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
 			icoID = IDR_PROJECTPANEL_ICO2;
 
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, (*pProjPanel)->getHSelf());
+		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -7549,7 +7583,7 @@ void Notepad_plus::launchDocMap()
 		_pDocMap = new DocumentMap();
 		_pDocMap->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
-		tTbData	data = {};
+		tTbData	data{};
 		_pDocMap->create(&data);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocMap->getHSelf()));
@@ -7562,7 +7596,9 @@ void Notepad_plus::launchDocMap()
 		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
 			icoID = IDR_DOCMAP_ICO2;
 
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pDocMap->getHSelf());
+		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -7596,7 +7632,7 @@ void Notepad_plus::launchFunctionList()
 		_pFuncList = new FunctionListPanel();
 		_pFuncList->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
-		tTbData	data = {};
+		tTbData	data{};
 		_pFuncList->create(&data);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFuncList->getHSelf()));
@@ -7611,7 +7647,9 @@ void Notepad_plus::launchFunctionList()
 		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
 			icoID = IDR_FUNC_LIST_ICO2;
 
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFuncList->getHSelf());
+		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -8956,4 +8994,106 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 		if (!isSilent)
 			::MessageBeep(MB_ICONEXCLAMATION);
 	}
+}
+
+HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, std::vector<int>& commandIds)
+{
+	HMENU hNewMenu = ::CreatePopupMenu();
+	for (const auto& cmdID : commandIds)
+	{
+		if (cmdID == 0)
+		{
+			::AppendMenu(hNewMenu, MF_SEPARATOR, 0, nullptr);
+		}
+		else
+		{
+			MENUITEMINFO mii{};
+			mii.cbSize = sizeof(MENUITEMINFO);
+			mii.fMask = MIIM_STRING | MIIM_STATE;
+			mii.dwTypeData = nullptr;
+
+			if (::GetMenuItemInfo(hSourceMenu, cmdID, FALSE, &mii) == TRUE)
+			{
+				++mii.cch;
+				wchar_t* szString = new wchar_t[mii.cch];
+				mii.dwTypeData = szString;
+
+				if (::GetMenuItemInfo(hSourceMenu, cmdID, FALSE, &mii) == TRUE)
+				{
+					::AppendMenu(hNewMenu, MF_STRING | mii.fState, cmdID, mii.dwTypeData);
+					delete[] szString;
+				}
+				else
+				{
+					delete[] szString;
+					::DestroyMenu(hNewMenu);
+					return nullptr;
+				}
+			}
+			else
+			{
+				::DestroyMenu(hNewMenu);
+				return nullptr;
+			}
+		}
+	}
+	return hNewMenu;
+}
+
+BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId)
+{
+	RECT rcItem{};
+	::SendMessage(lpnmtb->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmtb->iItem), reinterpret_cast<LPARAM>(&rcItem));
+	::MapWindowPoints(lpnmtb->hdr.hwndFrom, HWND_DESKTOP, reinterpret_cast<LPPOINT>(&rcItem), 2);
+
+	const MenuPosition& menuPos = getMenuPosition(menuPosId);
+	HMENU hSubMenuView = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+	if (hSubMenuView != nullptr)
+	{
+		HMENU hPopupMenu = ::GetSubMenu(hSubMenuView, menuPos._y);
+		if (hPopupMenu != nullptr)
+		{
+			TPMPARAMS tpm{};
+			tpm.cbSize = sizeof(TPMPARAMS);
+			tpm.rcExclude = rcItem;
+
+			const UINT flags = _nativeLangSpeaker.isRTL() ? (TPM_RIGHTALIGN | TPM_RIGHTBUTTON | TPM_LAYOUTRTL) : (TPM_LEFTALIGN | TPM_LEFTBUTTON);
+
+			::TrackPopupMenuEx(hPopupMenu,
+				flags | TPM_VERTICAL,
+				rcItem.left, rcItem.bottom, _pPublicInterface->getHSelf(), &tpm);
+
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, std::vector<int> cmdIDs)
+{
+	if (cmdIDs.empty())
+		return notifyTBShowMenu(lpnmtb, menuPosId);
+
+	RECT rcItem{};
+	::SendMessage(lpnmtb->hdr.hwndFrom, TB_GETRECT, static_cast<WPARAM>(lpnmtb->iItem), reinterpret_cast<LPARAM>(&rcItem));
+	::MapWindowPoints(lpnmtb->hdr.hwndFrom, HWND_DESKTOP, reinterpret_cast<LPPOINT>(&rcItem), 2);
+
+	HMENU hPopupMenu = createMenuFromMenu(_mainMenuHandle, cmdIDs);
+	if (hPopupMenu != nullptr)
+	{
+		TPMPARAMS tpm{};
+		tpm.cbSize = sizeof(TPMPARAMS);
+		tpm.rcExclude = rcItem;
+
+		const UINT flags = _nativeLangSpeaker.isRTL() ? (TPM_RIGHTALIGN | TPM_RIGHTBUTTON | TPM_LAYOUTRTL) : (TPM_LEFTALIGN | TPM_LEFTBUTTON);
+
+		::TrackPopupMenuEx(hPopupMenu,
+			flags | TPM_VERTICAL,
+			rcItem.left, rcItem.bottom, _pPublicInterface->getHSelf(), &tpm);
+
+		::DestroyMenu(hPopupMenu);
+
+		return TRUE;
+	}
+	return FALSE;
 }

@@ -152,14 +152,6 @@ private :
 	void setDisableImageListDM2() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSetDM2()));
 	};
-	
-	void setHoveredImageListDM() {
-		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
-	};
-
-	void setHoveredImageListDM2() {
-		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSet2()));
-	};
 
 	void reset(bool create = false);
 	void setState(toolBarStatusType state) {

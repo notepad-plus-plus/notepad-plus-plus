@@ -22,7 +22,7 @@
 #include "FindReplaceDlg_rc.h"
 #include "NppDarkMode.h"
 
-const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
+constexpr DWORD WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT | CCS_TOP | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
 struct ToolbarIconIdUnit
 {
@@ -145,30 +145,44 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	_pTBB = new TBBUTTON[_nbTotalButtons];	//add one for the extra separator
 
 	int cmd = 0;
-	int bmpIndex = -1, style;
+	int bmpIndex = -1;
+	BYTE style = 0;
 	size_t i = 0;
-	for (; i < _nbButtons ; ++i)
+	for (; i < _nbButtons && i < _nbTotalButtons; ++i)
 	{
 		cmd = buttonUnitArray[i]._cmdID;
-		if (cmd != 0)
+		switch (cmd)
 		{
-			++bmpIndex;
-			style = BTNS_BUTTON;
-		}
-		else
-		{
-			style = BTNS_SEP;
+			case 0:
+			{
+				style = BTNS_SEP;
+				break;
+			}
+
+			case IDM_VIEW_ALL_CHARACTERS:
+			{
+				++bmpIndex;
+				style = BTNS_DROPDOWN;
+				break;
+			}
+
+			default:
+			{
+				++bmpIndex;
+				style = BTNS_BUTTON;
+				break;
+			}
 		}
 
 		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
 		_pTBB[i].idCommand = cmd;
 		_pTBB[i].fsState = TBSTATE_ENABLED;
-		_pTBB[i].fsStyle = (BYTE)style; 
+		_pTBB[i].fsStyle = style;
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 	}
 
-	if (_nbDynButtons > 0)
+	if (_nbDynButtons > 0 && i < _nbTotalButtons)
 	{
 		//add separator
 		_pTBB[i].iBitmap = 0;
@@ -180,7 +194,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		++i;
 
 		//add plugin buttons
-		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
+		for (size_t j = 0; j < _nbDynButtons && i < _nbTotalButtons; ++j, ++i)
 		{
 			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
@@ -317,7 +331,7 @@ void ToolBar::reset(bool create)
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
-		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_HIDECLIPPEDBUTTONS);
+		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_DRAWDDARROWS | TBSTYLE_EX_HIDECLIPPEDBUTTONS | TBSTYLE_EX_DOUBLEBUFFER);
 		
 		change2CustomIconsIfAny();
 	}
@@ -342,11 +356,6 @@ void ToolBar::reset(bool create)
 			{
 				setDefaultImageListDM();
 				setDisableImageListDM();
-
-				if (NppDarkMode::isWindows11())
-				{
-					setHoveredImageListDM();
-				}
 			}
 			else
 			{
@@ -360,11 +369,6 @@ void ToolBar::reset(bool create)
 			{
 				setDefaultImageListDM2();
 				setDisableImageListDM2();
-
-				if (NppDarkMode::isWindows11())
-				{
-					setHoveredImageListDM2();
-				}
 			}
 			else
 			{

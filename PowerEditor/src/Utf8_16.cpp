@@ -170,22 +170,29 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 				if (m_pNewBuf)
 					delete [] m_pNewBuf;
                 m_pNewBuf  = NULL;
+				m_nAllocatedBufSize = 0;
                 m_pNewBuf  = new ubyte[newSize];
-				m_nAllocatedBufSize = newSize;
+				if (m_pNewBuf)
+				{
+					m_nAllocatedBufSize = newSize;
+				}
             }
-            
-            ubyte* pCur = m_pNewBuf;
-            
-            m_Iter16.set(m_pBuf + nSkip, len - nSkip, m_eEncoding);
 
-			while (m_Iter16)
+			if (m_nAllocatedBufSize)
 			{
-				++m_Iter16;
-				utf8 c;
-				while (m_Iter16.get(&c))
-					*pCur++ = c;
+				ubyte* pCur = m_pNewBuf;
+
+				m_Iter16.set(m_pBuf + nSkip, len - nSkip, m_eEncoding);
+
+				while (m_Iter16)
+				{
+					++m_Iter16;
+					utf8 c;
+					while (m_Iter16.get(&c))
+						*pCur++ = c;
+				}
+				m_nNewBufSize = pCur - m_pNewBuf;
 			}
-			m_nNewBufSize = pCur - m_pNewBuf;
         }
 		break;
 
@@ -407,71 +414,79 @@ bool Utf8_16_Write::writeFile(const void* p, size_t _size)
 size_t Utf8_16_Write::convert(char* p, size_t _size)
 {
 	if (m_pNewBuf)
-    {
+	{
 		delete [] m_pNewBuf;
 		m_pNewBuf = NULL;
+		m_nBufSize = 0;
 	}
 
-    switch (m_eEncoding)
-    {
+	try
+	{
+		switch (m_eEncoding)
+		{
 		case uni7Bit:
-        case uni8Bit:
-        case uniCookie:
+		case uni8Bit:
+		case uniCookie:
 		{
-            // Normal write
-            m_nBufSize = _size;
-            m_pNewBuf = (ubyte*)new ubyte[m_nBufSize];
-            memcpy(m_pNewBuf, p, _size);
-        }
+			// Normal write
+			m_pNewBuf = new ubyte[_size];
+			m_nBufSize = _size;
+			memcpy(m_pNewBuf, p, _size);
+		}
 		break;
 
-        case uniUTF8:
+		case uniUTF8:
 		{
-            m_nBufSize = _size + 3;
-            m_pNewBuf = (ubyte*)new ubyte[m_nBufSize];
-            memcpy(m_pNewBuf, k_Boms[m_eEncoding], 3);
-            memcpy(&m_pNewBuf[3], p, _size);
-        }
+			m_pNewBuf = new ubyte[_size + 3];
+			m_nBufSize = _size + 3;
+			memcpy(m_pNewBuf, k_Boms[m_eEncoding], 3);
+			memcpy(&m_pNewBuf[3], p, _size);
+		}
 		break;
 
-        case uni16BE_NoBOM:
-        case uni16LE_NoBOM:
-        case uni16BE:
-        case uni16LE:
+		case uni16BE_NoBOM:
+		case uni16LE_NoBOM:
+		case uni16BE:
+		case uni16LE:
 		{
 			utf16* pCur = NULL;
-            
-            if (m_eEncoding == uni16BE || m_eEncoding == uni16LE)
+
+			if (m_eEncoding == uni16BE || m_eEncoding == uni16LE)
 			{
-                // Write the BOM
-				m_pNewBuf = (ubyte*)new ubyte[sizeof(utf16) * (_size + 1)];
-                memcpy(m_pNewBuf, k_Boms[m_eEncoding], 2);
-	            pCur = (utf16*)&m_pNewBuf[2];
-            }
+				// Write the BOM
+				m_pNewBuf = new ubyte[sizeof(utf16) * (_size + 1)];
+				memcpy(m_pNewBuf, k_Boms[m_eEncoding], 2);
+				pCur = (utf16*)&m_pNewBuf[2];
+			}
 			else
 			{
-				m_pNewBuf = (ubyte*)new ubyte[sizeof(utf16) * _size];
-	            pCur = (utf16*)m_pNewBuf;
+				m_pNewBuf = new ubyte[sizeof(utf16) * _size];
+				pCur = (utf16*)m_pNewBuf;
 			}
 
-            Utf8_Iter iter8;
-            iter8.set(reinterpret_cast<const ubyte*>(p), _size, m_eEncoding);
-            
-            for (; iter8; ++iter8)
+			Utf8_Iter iter8;
+			iter8.set(reinterpret_cast<const ubyte*>(p), _size, m_eEncoding);
+
+			for (; iter8; ++iter8)
 			{
-                if (iter8.canGet())
+				if (iter8.canGet())
 				{
-                    iter8.get(pCur++);
-                }
-            }
-            m_nBufSize = (const char*)pCur - (const char*)m_pNewBuf;
-        }
+					iter8.get(pCur++);
+				}
+			}
+			m_nBufSize = (const char*)pCur - (const char*)m_pNewBuf;
+		}
 		break;
 
-        default:
-            break;
-    }
-    
+		default:
+			break;
+		}
+	}
+	catch (const std::bad_alloc&)
+	{
+		m_nBufSize = 0;
+	}
+
 	return m_nBufSize;
 }
 

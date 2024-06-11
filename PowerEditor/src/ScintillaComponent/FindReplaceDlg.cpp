@@ -250,9 +250,6 @@ void Searching::displaySectionCentered(size_t posStart, size_t posEnd, Scintilla
 WNDPROC FindReplaceDlg::originalFinderProc = nullptr;
 WNDPROC FindReplaceDlg::originalComboEditProc = nullptr;
 
-// important : to activate all styles
-const int STYLING_MASK = 255;
-
 FindReplaceDlg::~FindReplaceDlg()
 {
 	_tab.destroy();
@@ -1838,9 +1835,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDM_SEARCH_FINDNEXT:
 				case IDM_SEARCH_FINDPREV:
 				{
-					if (HIWORD(wParam) != 1 || 
-						(getCurrentStatus() != DIALOG_TYPE::FIND_DLG && 
-						getCurrentStatus() != DIALOG_TYPE::REPLACE_DLG))
+					if (HIWORD(wParam) != 1 ||
+						(getCurrentStatus() != DIALOG_TYPE::FIND_DLG &&
+						getCurrentStatus() != DIALOG_TYPE::REPLACE_DLG)
+						|| (LOWORD(wParam) == IDM_SEARCH_FINDPREV &&
+							(_options._searchType == FindRegex) &&
+							!nppParamInst.regexBackward4PowerUser()))
 					{
 						return FALSE;
 					}
@@ -1884,6 +1884,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						// this can only happen when shift-key was pressed
 						// regex upward search is disabled
 						// turn user action into a no-action step
+
+						regexBackwardMsgBox();
 					}
 					else
 					{
@@ -3507,12 +3509,15 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 		_pFinder->setVolatiled(false);
 
-		tTbData	data = {};
+		tTbData	data{};
 		_pFinder->create(&data);
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
-		data.hIconTab = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
+		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 		data.pszAddInfo = _findAllResultStr;
 
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
@@ -3593,6 +3598,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		//enable "Search Results Window" under Search Menu
 		::EnableMenuItem(::GetMenu(_hParent), IDM_FOCUS_ON_FOUND_RESULTS, MF_ENABLED | MF_BYCOMMAND);
+		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_GOTONEXTFOUND, MF_ENABLED | MF_BYCOMMAND);
+		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_GOTOPREVFOUND, MF_ENABLED | MF_BYCOMMAND);
 	}
 
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
@@ -3641,13 +3648,16 @@ Finder * FindReplaceDlg::createFinder()
 	Finder *pFinder = new Finder();
 	pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 
-	tTbData	data = {};
+	tTbData	data{};
 	bool isRTL = _pFinder->_scintView.isTextDirectionRTL();
 	pFinder->create(&data, isRTL);
 	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<WPARAM>(pFinder->getHSelf()));
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
-	data.hIconTab = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
+	const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
+	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+
 	data.pszAddInfo = _findAllResultStr;
 
 	data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
@@ -3755,6 +3765,38 @@ Finder* FindReplaceDlg::getFinderFrom(HWND hwnd)
 	}
 
 	return nullptr;
+}
+
+int FindReplaceDlg::regexBackwardMsgBox()
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+
+	const int msgboxID = nppParam.getNativeLangSpeaker()->messageBox("FindRegexBackwardDisabled",
+		(*_ppEditView)->getHParent(),
+		L"By default, backward regex searching is disabled due to potentially unexpected results. " \
+		L"To perform a backward search, open the Find dialog and select either normal or extended search mode instead of regular expression.\r\n" \
+		L"Press the OK button to open the Find dialog or set focus on it.\r\n" \
+		L"\r\n" \
+		L"If you require the backward regex searching feature, consult the user manual for instructions on enabling it.",
+		L"Regex backward search disabled",
+		MB_OKCANCEL | MB_APPLMODAL | MB_ICONINFORMATION);
+
+	switch (msgboxID)
+	{
+		case IDOK:
+		{
+			doDialog(FIND_DLG, nppParam.getNativeLangSpeaker()->isRTL());
+			goToCenter();
+			::SetFocus(::GetDlgItem(_hSelf, IDREGEXP));
+			break;
+		}
+
+		case IDCANCEL:
+		default:
+			break;
+	}
+
+	return msgboxID;
 }
 
 void FindReplaceDlg::setSearchText(TCHAR * txt2find)
@@ -4134,6 +4176,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
 							// make this a no-action macro step
+
+							regexBackwardMsgBox();
 						}
 						else
 						{
@@ -4160,6 +4204,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was not allowed, or hand-edited
 							// make this a no-action macro step
+
+							regexBackwardMsgBox();
 						}
 						else
 						{
@@ -4176,6 +4222,8 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, const generic_st
 							// regex upward search is disabled
 							// this macro step could have been recorded in an earlier version before it was disabled, or hand-edited
 							// make this a no-action macro step
+
+							regexBackwardMsgBox();
 						}
 						else
 						{
@@ -4520,6 +4568,9 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 	{
 		_isRTL = isRTL;
 		create(IDD_FIND_REPLACE_DLG, isRTL, true, toShow);
+
+		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDNEXT, MF_BYCOMMAND | MF_ENABLED);
+		::EnableMenuItem(::GetMenu(_hParent), IDM_SEARCH_FINDPREV, MF_BYCOMMAND | MF_ENABLED);
 	}
 
 	if (whichType == FINDINFILES_DLG)

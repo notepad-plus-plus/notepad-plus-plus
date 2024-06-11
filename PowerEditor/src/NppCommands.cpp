@@ -1367,6 +1367,8 @@ void Notepad_plus::command(int id)
 				{
 					// regex upward search is disabled
 					// make this a no-action command
+
+					_findReplaceDlg.regexBackwardMsgBox();
 				}
 				else
 				{
@@ -3122,16 +3124,20 @@ void Notepad_plus::command(int id)
 				// Save the current clipboard content
 				::OpenClipboard(_pPublicInterface->getHSelf());
 				HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
-				int len = static_cast<int32_t>(::GlobalSize(clipboardData));
-				LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+				LPVOID clipboardData2 = NULL;
+				if (clipboardData != NULL)
+				{
+					int len = static_cast<int32_t>(::GlobalSize(clipboardData));
+					LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
 
-				HANDLE allocClipboardData = ::GlobalAlloc(GMEM_MOVEABLE, len);
-				LPVOID clipboardData2 = ::GlobalLock(allocClipboardData);
+					HANDLE allocClipboardData = ::GlobalAlloc(GMEM_MOVEABLE, len);
+					clipboardData2 = ::GlobalLock(allocClipboardData);
 
-				::memcpy(clipboardData2, clipboardDataPtr, len);
-				::GlobalUnlock(clipboardData);
-				::GlobalUnlock(allocClipboardData);
-				::CloseClipboard();
+					::memcpy(clipboardData2, clipboardDataPtr, len);
+					::GlobalUnlock(clipboardData);
+					::GlobalUnlock(allocClipboardData);
+					::CloseClipboard();
+				}
 
 				_pEditView->saveCurrentPos();
 

@@ -300,17 +300,33 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		{
 			int offset = static_cast<int32_t>(wParam);
 
+			NppGUI& nppGUI = (NppParameters::getInstance()).getNppGUI();
+
 			for (int iCont = 0; iCont < DOCKCONT_MAX; ++iCont)
 			{
 				if (_vSplitter[iCont]->getHSelf() == reinterpret_cast<HWND>(lParam))
 				{
+					RECT rcPanelCaption{};
+					if (::GetWindowRect(_vContainer[iCont]->getCaptionWnd(), &rcPanelCaption))
+					{
+						LONG currentPanelHeight = rcPanelCaption.bottom - rcPanelCaption.top;
+						if (currentPanelHeight != nppGUI._dockingData._minDockedPanelVisibility)
+						{
+							// update with current value (important for multi-monitors setups or a runtime change of display DPI)
+							nppGUI._dockingData._minDockedPanelVisibility = currentPanelHeight;
+							nppGUI._dockingData._minFloatingPanelSize.cy = currentPanelHeight;
+							nppGUI._dockingData._minFloatingPanelSize.cx = std::max(static_cast<int>(nppGUI._dockingData._minFloatingPanelSize.cy * 6),
+								::GetSystemMetrics(SM_CXMINTRACK));
+						}
+					}
+
 					switch (iCont)
 					{
 						case CONT_TOP:
 							_dockData.rcRegion[iCont].bottom -= offset;
-							if (_dockData.rcRegion[iCont].bottom < 0)
+							if (_dockData.rcRegion[iCont].bottom < nppGUI._dockingData._minDockedPanelVisibility)
 							{
-								_dockData.rcRegion[iCont].bottom = 0;
+								_dockData.rcRegion[iCont].bottom = nppGUI._dockingData._minDockedPanelVisibility;
 							}
 							if ((_rcWork.bottom < (-SPLITTER_WIDTH)) && (offset < 0))
 							{
@@ -319,9 +335,9 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 							break;
 						case CONT_BOTTOM:
 							_dockData.rcRegion[iCont].bottom   += offset;
-							if (_dockData.rcRegion[iCont].bottom < 0)
+							if (_dockData.rcRegion[iCont].bottom < nppGUI._dockingData._minDockedPanelVisibility)
 							{
-								_dockData.rcRegion[iCont].bottom   = 0;
+								_dockData.rcRegion[iCont].bottom   = nppGUI._dockingData._minDockedPanelVisibility;
 							}
 							if ((_rcWork.bottom < (-SPLITTER_WIDTH)) && (offset > 0))
 							{
@@ -330,9 +346,9 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 							break;
 						case CONT_LEFT:
 							_dockData.rcRegion[iCont].right    -= offset;
-							if (_dockData.rcRegion[iCont].right < 0)
+							if (_dockData.rcRegion[iCont].right < nppGUI._dockingData._minDockedPanelVisibility)
 							{
-								_dockData.rcRegion[iCont].right = 0;
+								_dockData.rcRegion[iCont].right = nppGUI._dockingData._minDockedPanelVisibility;
 							}
 							if ((_rcWork.right < SPLITTER_WIDTH) && (offset < 0))
 							{
@@ -341,9 +357,9 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 							break;
 						case CONT_RIGHT:
 							_dockData.rcRegion[iCont].right    += offset;
-							if (_dockData.rcRegion[iCont].right < 0)
+							if (_dockData.rcRegion[iCont].right < nppGUI._dockingData._minDockedPanelVisibility)
 							{
-								_dockData.rcRegion[iCont].right = 0;
+								_dockData.rcRegion[iCont].right = nppGUI._dockingData._minDockedPanelVisibility;
 							}
 							if ((_rcWork.right < SPLITTER_WIDTH) && (offset > 0))
 							{
@@ -575,7 +591,7 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 		// create image list if not exist
 		if (_hImageList == NULL)
 		{
-			int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleY(12) + 2;
+			const int iconDpiDynamicalSize = DPIManagerV2::scale(g_dockingContTabIconSize, data.hClient);
 			_hImageList = ::ImageList_Create(iconDpiDynamicalSize, iconDpiDynamicalSize, ILC_COLOR32 | ILC_MASK, 0, 0);
 		}
 

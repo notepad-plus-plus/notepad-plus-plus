@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.6.7">
+	<Native-Langue name="English" filename="english.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1100,9 +1100,11 @@ Translation note:
 					<Item id="6506" name="Disabled items"/>
 					<Item id="6507" name="Make language menu compact"/>
 					<Item id="6508" name="Language Menu"/>
-					<Item id="6301" name="Tab Settings"/>
-					<Item id="6302" name="Replace by space"/>
-					<Item id="6303" name="Tab size: "/>
+					<Item id="6301" name="Indent Settings"/>
+					<Item id="6302" name="Space character(s)"/>
+					<Item id="6303" name="Indent size:"/>
+					<Item id="6310" name="Indent using:"/>
+					<Item id="6311" name="Tab character"/>
 					<Item id="6510" name="Use default value"/>
 					<Item id="6335" name="Treat backslash as escape character for SQL"/>
 					<Item id="6512" name="Backspace key unindents instead of removing single space"/>
@@ -1523,6 +1525,10 @@ Would you like to create those placeholders?
 NOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your &quot;session.xml&quot; now."/>
 			<RTLvsDirectWrite title="Cannot run RTL" message="RTL is not compatible with DirectWrite mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++."/>
 			<FileMemoryAllocationFailed title="Exception: File memory allocation failed" message="There is probably not enough contiguous free memory for the file being loaded by Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Regex backward search disabled" message="By default, backward regex searching is disabled due to potentially unexpected results. To perform a backward search, open the Find dialog and select either normal or extended search mode instead of regular expression.
+Press the OK button to open the Find dialog or set focus on it.
+			
+If you require the backward regex searching feature, consult the user manual for instructions on enabling it."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

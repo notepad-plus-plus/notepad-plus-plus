@@ -155,13 +155,13 @@ struct BufferEquivalent
 			BufferID bid2 = _pTab->getBufferByIndex(i2);
 			Buffer * b1 = MainFileManager.getBufferByID(bid1);
 			Buffer * b2 = MainFileManager.getBufferByID(bid2);
-			
+
 			if (_iColumn == 0)
 			{
 				const TCHAR *s1 = b1->getFileName();
 				const TCHAR *s2 = b2->getFileName();
 				int result = _strequiv(s1, s2);
-				
+
 				if (result != 0) // default to filepath sorting when equivalent
 					return result < 0;
 			}
@@ -179,7 +179,7 @@ struct BufferEquivalent
 				}
 				else
 					s1 = TEXT("");
-				
+
 				Lang *lang2 = nppParameters.getLangFromID(b2->getLangType());
 				if (lang2)
 				{
@@ -187,7 +187,7 @@ struct BufferEquivalent
 				}
 				else
 					s2 = TEXT("");
-				
+
 				int result = _strequiv(s1, s2);
 
 				if (result != 0) // default to filepath sorting when equivalent
@@ -198,11 +198,11 @@ struct BufferEquivalent
 			{
 				auto t1 = b1->docLength();
 				auto t2 = b2->docLength();
-				
+
 				if (t1 != t2) // default to filepath sorting when equivalent
 					return (t1 < t2);
 			}
-			
+
 			// _iColumn == 1
 			const TCHAR *s1 = b1->getFullPathName();
 			const TCHAR *s2 = b2->getFullPathName();
@@ -326,13 +326,13 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						_currentColumn = 0;
 						_reverseSort = false;
 						_lastSort = _currentColumn;
-						
+
 						updateColumnNames();
 						doColumnSort();
 					}
-					
+
 					doSortToTabs();
-					
+
 					// must re-sort because tab indexes changed
 					doColumnSort();
 					break;
@@ -431,7 +431,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (pNMLV->iItem == -1)
 					{
 						_currentColumn = pNMLV->iSubItem;
-						
+
 						if (_lastSort == _currentColumn)
 						{
 							_reverseSort = true;
@@ -442,7 +442,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							_reverseSort = false;
 							_lastSort = _currentColumn;
 						}
-						
+
 						updateColumnNames();
 						doColumnSort();
 					}
@@ -512,7 +512,7 @@ void WindowsDlg::doColumnSort()
 {
 	if (_currentColumn == -1)
 		return;
-	
+
 	size_t i = 0;
 	size_t n = _idxMap.size();
 	vector<int> sortMap;
@@ -597,7 +597,7 @@ BOOL WindowsDlg::onInitDialog()
 	LVCOLUMN lvColumn{};
 	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
 	lvColumn.fmt = LVCFMT_LEFT;
-	
+
 	generic_string columnText;
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
@@ -646,7 +646,7 @@ void WindowsDlg::updateColumnNames()
 
 	generic_string columnText;
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-	
+
 	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
 	if (_currentColumn != 0)
 	{
@@ -801,7 +801,8 @@ void WindowsDlg::fitColumnsToSize()
 
 void WindowsDlg::resetSelection()
 {
-	assert(_pTab != nullptr);
+	if (!_pTab)
+		return;
 
 	auto curSel = _pTab->getCurrentTabIndex();
 	int pos = 0;
@@ -946,7 +947,7 @@ void WindowsDlg::doCount()
 
 void WindowsDlg::doSort()
 {
-	if (_pTab == NULL)
+	if (!_pTab)
 		return;
 
 	size_t count =  _pTab->nbItem();
@@ -969,7 +970,7 @@ void WindowsDlg::doSort()
 		_idxMap.clear();
 		refreshMap();
 	}
-	
+
 	//After sorting, need to open the active tab before sorting
 	//This will be helpful when large number of documents are opened
 	__int64 newPosition = -1;
@@ -981,7 +982,7 @@ void WindowsDlg::doSort()
 	nmdlg.type = WDT_ACTIVATE;
 	nmdlg.curSel = static_cast<UINT>(newPosition);
 	nmdlg.hwndFrom = _hSelf;
-	nmdlg.code = WDN_NOTIFY;	
+	nmdlg.code = WDN_NOTIFY;
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
 }
 

@@ -4726,7 +4726,7 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 
 				int tabSettings;
 				const TCHAR *tsVal = element->Attribute(TEXT("tabSettings"), &tabSettings);
-				const TCHAR *buVal = element->Attribute(TEXT("backspaceUnindents"));
+				const TCHAR *buVal = element->Attribute(TEXT("backspaceUnindent"));
 				_langList[_nbLang]->setTabInfo(tsVal ? tabSettings : -1, buVal && !lstrcmp(buVal, TEXT("yes")));
 
 				for (TiXmlNode *kwNode = langNode->FirstChildElement(TEXT("Keywords"));
@@ -5309,9 +5309,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (val)
 				_nppGUI._tabReplacedBySpace = (!lstrcmp(val, TEXT("yes")));
 
-			val = element->Attribute(TEXT("backspaceUnindents"));
+			val = element->Attribute(TEXT("backspaceUnindent"));
 			if (val)
-				_nppGUI._backspaceUnindents = (!lstrcmp(val, TEXT("yes")));
+				_nppGUI._backspaceUnindent = (!lstrcmp(val, TEXT("yes")));
 		}
 
 		else if (!lstrcmp(nm, TEXT("Caret")))
@@ -7131,15 +7131,15 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 
-	// <GUIConfig name = "TabSetting" size = "4" replaceBySpace = "no" backspaceUnindents = "no" / >
+	// <GUIConfig name = "TabSetting" size = "4" replaceBySpace = "no" backspaceUnindent = "no" / >
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("TabSetting"));
 		const TCHAR *pStr = _nppGUI._tabReplacedBySpace ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("replaceBySpace"), pStr);
 		GUIConfigElement->SetAttribute(TEXT("size"), _nppGUI._tabSize);
-		pStr = _nppGUI._backspaceUnindents ? TEXT("yes") : TEXT("no");
-		GUIConfigElement->SetAttribute(TEXT("backspaceUnindents"), pStr);
+		pStr = _nppGUI._backspaceUnindent ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("backspaceUnindent"), pStr);
 	}
 
 	// <GUIConfig name = "AppPosition" x = "3900" y = "446" width = "2160" height = "1380" isMaximized = "no" / >
@@ -8273,7 +8273,7 @@ std::wstring NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleA
 }
 
 
-bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo, bool backspaceUnindents)
+bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo, bool backspaceUnindent)
 {
 	if (!_pXmlDoc) return false;
 	TiXmlNode *langRoot = (_pXmlDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("Languages"));
@@ -8286,7 +8286,7 @@ bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo, bool backs
 		if (nm && lstrcmp(langName, nm) == 0)
 		{
 			childNode->ToElement()->SetAttribute(TEXT("tabSettings"), tabInfo);
-			childNode->ToElement()->SetAttribute(TEXT("backspaceUnindents"), backspaceUnindents ? TEXT("yes") : TEXT("no"));
+			childNode->ToElement()->SetAttribute(TEXT("backspaceUnindent"), backspaceUnindent ? TEXT("yes") : TEXT("no"));
 			_pXmlDoc->SaveFile();
 			return true;
 		}

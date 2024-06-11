@@ -1105,6 +1105,7 @@ Translation note:
 					<Item id="6303" name="Tab size: "/>
 					<Item id="6510" name="Use default value"/>
 					<Item id="6335" name="Treat backslash as escape character for SQL"/>
+					<Item id="6512" name="Backspace key unindents instead of removing single space"/>
 				</Language>
 
 				<Highlighting title="Highlighting">

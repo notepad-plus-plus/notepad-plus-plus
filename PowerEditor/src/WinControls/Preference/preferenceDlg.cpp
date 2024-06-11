@@ -3163,7 +3163,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, nppGUI._tabSize, FALSE);
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_REPLACEBYSPACE, BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_USINGTAB, BM_SETCHECK, !nppGUI._tabReplacedBySpace, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSPACEUNINDENT, BM_SETCHECK, nppGUI._backspaceUnindents, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSPACEUNINDENT, BM_SETCHECK, nppGUI._backspaceUnindent, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("[Default]")));
 			const int nbLang = nppParam.getNbLang();
@@ -3282,7 +3282,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, 
 								useDefaultTab ? !nppGUI._tabReplacedBySpace : !lang->_isTabReplacedBySpace, 0);
 							::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), BM_SETCHECK, 
-								useDefaultTab ? nppGUI._backspaceUnindents : lang->_isBackspaceUnindents, 0);
+								useDefaultTab ? nppGUI._backspaceUnindent : lang->_isBackspaceUnindent, 0);
 
 							::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), !useDefaultTab);
 							::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), !useDefaultTab);
@@ -3294,7 +3294,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, nppGUI._tabSize, FALSE);
 							::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
 							::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), BM_SETCHECK, !nppGUI._tabReplacedBySpace, 0);
-							::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), BM_SETCHECK, nppGUI._backspaceUnindents, 0);
+							::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), BM_SETCHECK, nppGUI._backspaceUnindent, 0);
 
 							::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), TRUE);
 							::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), TRUE);
@@ -3370,14 +3370,14 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								lang->_tabSize = tabSize;
 
 								// write in langs.xml
-								nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindents);
+								nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindent);
 							}
 							else
 							{
 								nppGUI._tabSize = tabSize;
 							}
 
-							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_SIZE, 0, 0);
+							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SET_TAB_SETTINGS, 0, 0);
 							return TRUE;
 						}
 
@@ -3611,21 +3611,21 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						lang->_isTabReplacedBySpace = isTabReplacedBySpace;
 
 						// write in langs.xml
-						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindents);
+						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindent);
 					}
 					else
 					{
 						nppGUI._tabReplacedBySpace = isTabReplacedBySpace;
 					}
 
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SET_TAB_SETTINGS, 0, 0);
 
 					return TRUE;
 				}
 
 				case IDC_CHECK_BACKSPACEUNINDENT:
 				{
-					bool isBackspaceUnindents = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), BM_GETCHECK, 0, 0);
+					bool isBackspaceUnindent = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), BM_GETCHECK, 0, 0);
 
 					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
 					if (index == LB_ERR) return FALSE;
@@ -3640,25 +3640,25 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (lang->_langID == L_JS)
 						{
 							Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-							ljs->_isBackspaceUnindents = isBackspaceUnindents;
+							ljs->_isBackspaceUnindent = isBackspaceUnindent;
 						}
 						else if (lang->_langID == L_JAVASCRIPT)
 						{
 							Lang* ljavascript = nppParam.getLangFromID(L_JS);
-							ljavascript->_isBackspaceUnindents = isBackspaceUnindents;
+							ljavascript->_isBackspaceUnindent = isBackspaceUnindent;
 						}
 
-						lang->_isBackspaceUnindents = isBackspaceUnindents;
+						lang->_isBackspaceUnindent = isBackspaceUnindent;
 
 						// write in langs.xml
-						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindents);
+						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindent);
 					}
 					else
 					{
-						nppGUI._backspaceUnindents = isBackspaceUnindents;
+						nppGUI._backspaceUnindent = isBackspaceUnindent;
 					}
 
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_BACKSPACE_UNINDENTS, 0, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SET_TAB_SETTINGS, 0, 0);
 
 					return TRUE;
 				}
@@ -3677,13 +3677,13 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					//- Set tab setting in chosen language
 					lang->_tabSize = useDefaultTab ? 0 : nppGUI._tabSize;
 					lang->_isTabReplacedBySpace = useDefaultTab ? false : nppGUI._tabReplacedBySpace;
-					lang->_isBackspaceUnindents = useDefaultTab ? false : nppGUI._backspaceUnindents;
+					lang->_isBackspaceUnindent = useDefaultTab ? false : nppGUI._backspaceUnindent;
 
 					//- set visual effect
 					::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, useDefaultTab ? nppGUI._tabSize : lang->_tabSize, FALSE);
 					setChecked(IDC_RADIO_REPLACEBYSPACE, useDefaultTab ? nppGUI._tabReplacedBySpace : lang->_isTabReplacedBySpace);
 					setChecked(IDC_RADIO_USINGTAB, useDefaultTab ? !nppGUI._tabReplacedBySpace : !lang->_isTabReplacedBySpace);
-					setChecked(IDC_CHECK_BACKSPACEUNINDENT, useDefaultTab ? nppGUI._backspaceUnindents : lang->_isBackspaceUnindents);
+					setChecked(IDC_CHECK_BACKSPACEUNINDENT, useDefaultTab ? nppGUI._backspaceUnindent : lang->_isBackspaceUnindent);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), !useDefaultTab);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), !useDefaultTab);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), !useDefaultTab);

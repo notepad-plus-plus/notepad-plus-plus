@@ -786,7 +786,7 @@ struct NppGUI final
 
 	int _tabSize = 4;
 	bool _tabReplacedBySpace = false;
-	bool _backspaceUnindents = false;
+	bool _backspaceUnindent = false;
 
 	bool _finderLinesAreCurrentlyWrapped = false;
 	bool _finderPurgeBeforeEverySearch = false;
@@ -1035,7 +1035,7 @@ struct Lang final
 
 	bool _isTabReplacedBySpace = false;
 	int _tabSize = -1;
-	bool _isBackspaceUnindents = false;
+	bool _isBackspaceUnindent = false;
 
 	Lang()
 	{
@@ -1065,7 +1065,7 @@ struct Lang final
 		_pCommentEnd = commentEnd;
 	}
 
-	void setTabInfo(int tabInfo, bool bsInfo)
+	void setTabInfo(int tabInfo, bool isBackspaceUnindent)
 	{
 		if (tabInfo != -1 && tabInfo & MASK_TabSize)
 		{
@@ -1073,7 +1073,7 @@ struct Lang final
 			_tabSize = tabInfo & MASK_TabSize;
 		}
 
-		_isBackspaceUnindents = bsInfo;
+		_isBackspaceUnindent = isBackspaceUnindent;
 	}
 
 	const TCHAR * getDefaultExtList() const {
@@ -1534,7 +1534,7 @@ public:
 	void createXmlTreeFromGUIParams();
 
 	std::wstring writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers); // return "" if saving file succeeds, otherwise return the new saved file path
-	bool insertTabInfo(const TCHAR *langName, int tabInfo, bool backspaceUnindents);
+	bool insertTabInfo(const TCHAR *langName, int tabInfo, bool backspaceUnindent);
 
 	LexerStylerArray & getLStylerArray() {return _lexerStylerVect;};
 	StyleArray & getGlobalStylers() {return _widgetStyleArray;};

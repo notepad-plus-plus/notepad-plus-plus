@@ -6270,12 +6270,12 @@ int Progress::createProgressWindow()
 
 	generic_string hits = pNativeSpeaker->getLocalizedStrFromID("progress-hits-title", L"Hits:");
 	_hRunningHitsStaticText = ::CreateWindowEx(0, WC_STATIC, hits.c_str(),
-		WS_CHILD | WS_VISIBLE,
+		WS_CHILD | WS_VISIBLE | SS_RIGHT,
 		0, 0, 0, 0,
 		_hwnd, nullptr, _hInst, nullptr);
 
 	_hRunningHitsText = ::CreateWindowEx(0, WC_STATIC, L"",
-		WS_CHILD | WS_VISIBLE | SS_RIGHT,
+		WS_CHILD | WS_VISIBLE,
 		0, 0, 0, 0,
 		_hwnd, nullptr, _hInst, nullptr);
 
@@ -6388,8 +6388,8 @@ void Progress::setCtrlsPos()
 
 	hdwp = setOrDeferWindowPos(hdwp, _hPathText, nullptr, xStartPos, yCtrlPos, xClientPadded, yText, flags);
 	yCtrlPos += yText;
-	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsStaticText, nullptr, xStartPos, yCtrlPos, xTextHits, yText, flags);
-	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsText, nullptr, xStartPos + xClientPadded - xTextHits, yCtrlPos, xTextHits, yText, flags);
+	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsStaticText, nullptr, (xClientPadded - padding) / 2 - xTextHits, yCtrlPos, xTextHits, yText, flags);
+	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsText, nullptr, (xClientPadded + padding) / 2, yCtrlPos, xTextHits, yText, flags);
 	yCtrlPos += yText;
 	hdwp = setOrDeferWindowPos(hdwp, _hPBar, nullptr, xStartPos, yCtrlPos, xClientPadded, yBar, flags);
 	yCtrlPos += yText;

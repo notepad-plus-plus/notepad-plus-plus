@@ -1341,6 +1341,8 @@ void FindReplaceDlg::resizeDialogElements()
 
 	if (hdwp)
 		::EndDeferWindowPos(hdwp);
+
+	::SetWindowPos(::GetDlgItem(_hSelf, IDFINDWHAT), nullptr, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_FRAMECHANGED | flags);
 }
 
 std::mutex findOps_mutex;
@@ -4731,7 +4733,7 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 		LONG yFrame = -btnGapOneHalf;
 		LONG hFrame = btnGapDbl;
-
+		int ySelCheck = rcBtn3rdPos.top;
 		RECT rcToUse{};
 
 		switch (dlgT)
@@ -4765,6 +4767,13 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 			case MARK_DLG:
 			{
+
+				RECT rcBtn1stPos{};
+				getMappedChildRect(IDOK, rcBtn1stPos);
+				yFrame += rcBtn1stPos.top;
+				hFrame += (rcBtn2ndPos.bottom - rcBtn1stPos.top);
+				ySelCheck = rcBtn2ndPos.top;
+
 				rcToUse = rcBtn3rdPos;
 				break;
 			}
@@ -4772,10 +4781,11 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 		
 		::SetWindowPos(::GetDlgItem(_hSelf, IDCANCEL), nullptr, rcToUse.left, (rcToUse.bottom + btnGap), 0, 0, SWP_NOSIZE | flags);
 
-		if (dlgT == FIND_DLG || dlgT == REPLACE_DLG)
+		if (dlgT == FIND_DLG || dlgT == REPLACE_DLG || dlgT == MARK_DLG)
 		{
 			RECT rcCheckBtn{};
 			getMappedChildRect(IDC_IN_SELECTION_CHECK, rcCheckBtn);
+			::SetWindowPos(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nullptr, rcCheckBtn.left, ySelCheck + btnGap / 2, 0, 0, SWP_NOSIZE | flags);
 
 			const LONG xFrame = rcCheckBtn.left - btnGapOneHalf;
 			const LONG wFrame = (rcBtn2ndPos.right - rcCheckBtn.left) + btnGapDbl;
@@ -4844,7 +4854,6 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, false);
 	showFindDlgItem(IDREPLACEALL, false);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, false);
-	showFindDlgItem(IDC_REPLACEINSELECTION, false);
 
 	// find controls to hide
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, false);

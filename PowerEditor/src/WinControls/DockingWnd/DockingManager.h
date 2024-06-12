@@ -35,7 +35,7 @@ public :
 	~DockingManager();
 
 	void init(HINSTANCE hInst, HWND hWnd, Window ** ppWin);
-	virtual void reSizeTo(RECT & rc);
+	void reSizeTo(RECT & rc) override;
 
 	void setClientWnd(Window ** ppWin) {
 		_ppWindow = ppWin;
@@ -73,14 +73,9 @@ public :
 		_vContainer[CONT_BOTTOM]->setCaptionTop(captionOnTop);
 	};
 
-	void setTabStyle(BOOL orangeLine) {
-		for (size_t i = 0; i < _vContainer.size(); ++i)
-			_vContainer[i]->setTabStyle(orangeLine);
-	};
-
 	int getDockedContSize(int iCont);
 	void setDockedContSize(int iCont, int iSize);
-	virtual void destroy();
+	void destroy() override;
 	void resize();
 
 private :
@@ -88,8 +83,6 @@ private :
 	RECT						_rcWork = {};
 	RECT						_rect = {};
 	Window						**_ppMainWindow = nullptr;
-	std::vector<HWND>			_vImageList;
-	HIMAGELIST					_hImageList = nullptr;
 	std::vector<DockingCont*>	_vContainer;
 	tDockMgr					_dockData;
 	static BOOL					_isRegistered;
@@ -107,7 +100,4 @@ private :
 	BOOL ContExists(size_t iCont);
 	int	 FindEmptyContainer();
 	LRESULT SendNotify(HWND hWnd, UINT message);
-	
-
 };
-

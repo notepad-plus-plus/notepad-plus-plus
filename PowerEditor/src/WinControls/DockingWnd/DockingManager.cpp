@@ -260,12 +260,6 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 				hWndServer = NULL;
 			}
 
-			// destroy imagelist if it exists
-			if (_hImageList != NULL)
-			{
-				::ImageList_Destroy(_hImageList);
-			}
-
 			// destroy containers
 			for (int32_t i = static_cast<int32_t>(_vContainer.size()); i > 0; i--)
 			{
@@ -395,21 +389,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 			toggleVisTb(reinterpret_cast<DockingCont*>(lParam), DMM_DOCK);
 			return FALSE;
 		}
-		case DMM_GETIMAGELIST:
-		{
-			return reinterpret_cast<LPARAM>(_hImageList);
-		}
-		case DMM_GETICONPOS:
-		{
-			for (size_t uImageCnt = 0, len = _vImageList.size(); uImageCnt < len; ++uImageCnt)
-			{
-				if (reinterpret_cast<HWND>(lParam) == _vImageList[uImageCnt])
-				{
-					return uImageCnt;
-				}
-			}
-			return -1;
-		}
+
 		default :
 			break;
 	}
@@ -585,23 +565,6 @@ void DockingManager::reSizeTo(RECT & rc)
 
 void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 {
-	// add icons
-	if ((data.uMask & DWS_ICONTAB) && data.hIconTab != NULL)
-	{
-		// create image list if not exist
-		if (_hImageList == NULL)
-		{
-			const int iconDpiDynamicalSize = DPIManagerV2::scale(g_dockingContTabIconSize, data.hClient);
-			_hImageList = ::ImageList_Create(iconDpiDynamicalSize, iconDpiDynamicalSize, ILC_COLOR32 | ILC_MASK, 0, 0);
-		}
-
-		// add icon
-		::ImageList_AddIcon(_hImageList, data.hIconTab);
-
-		// do the reference here to find later the correct position
-		_vImageList.push_back(data.hClient);
-	}
-
 	if ((data.uMask & DWS_USEOWNDARKMODE) != DWS_USEOWNDARKMODE && NppDarkMode::isEnabledForPlugins())
 	{
 		NppDarkMode::autoSubclassAndThemePluginDockWindow(data.hClient);

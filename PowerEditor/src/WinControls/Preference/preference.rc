@@ -291,7 +291,7 @@ BEGIN
     LTEXT           "Indent using: ",IDC_INDENTUSING_STATIC,259,118,135,8
     CONTROL         "Tab character",IDC_RADIO_USINGTAB,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,264,130,165,10
     CONTROL         "Space character(s)",IDC_RADIO_REPLACEBYSPACE,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,264,143,165,10
-    //CONTROL         "Backspace key unindents instead of removing single space",IDC_CHECK_BACKSPACEUNINDENT,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,258,158,180,21
+    CONTROL         "Backspace key unindents instead of removing single space",IDC_CHECK_BACKSPACEUNINDENT,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,258,158,180,21
 END
 
 

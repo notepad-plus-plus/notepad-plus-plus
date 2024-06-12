@@ -1106,6 +1106,7 @@ Translation note:
 					<Item id="6310" name="Indent using:"/>
 					<Item id="6311" name="Tab character"/>
 					<Item id="6510" name="Use default value"/>
+					<Item id="6512" name="Backspace key unindents instead of removing single space"/>
 					<Item id="6335" name="Treat backslash as escape character for SQL"/>
 				</Language>
 

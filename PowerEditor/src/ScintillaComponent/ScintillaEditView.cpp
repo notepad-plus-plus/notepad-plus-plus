@@ -2049,6 +2049,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	{
 		setSpecialStyle(*pStyle);
 	}
+	
 	setTabSettings(NppParameters::getInstance().getLangFromID(typeDoc));
 	
 	if (svp._indentGuideLineShow)
@@ -4117,25 +4118,30 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 }
 
 
-void ScintillaEditView::setTabSettings(Lang *lang)
+void ScintillaEditView::setTabSettings(Lang* lang)
 {
 	if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
 	{
 		if (lang->_langID == L_JAVASCRIPT)
 		{
-			Lang *ljs = NppParameters::getInstance().getLangFromID(L_JS);
+			Lang* ljs = NppParameters::getInstance().getLangFromID(L_JS);
 			execute(SCI_SETTABWIDTH, ljs->_tabSize > 0 ? ljs->_tabSize : lang->_tabSize);
 			execute(SCI_SETUSETABS, !ljs->_isTabReplacedBySpace);
-			return;
+			execute(SCI_SETBACKSPACEUNINDENTS, ljs->_isBackspaceUnindent);
 		}
-		execute(SCI_SETTABWIDTH, lang->_tabSize);
-		execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
+		else
+		{
+			execute(SCI_SETTABWIDTH, lang->_tabSize);
+			execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
+			execute(SCI_SETBACKSPACEUNINDENTS, lang->_isBackspaceUnindent);
+		}
 	}
-    else
+	else
 	{
-		const NppGUI & nppgui = NppParameters::getInstance().getNppGUI();
-		execute(SCI_SETTABWIDTH, nppgui._tabSize  > 0 ? nppgui._tabSize : 4);
+		const NppGUI& nppgui = NppParameters::getInstance().getNppGUI();
+		execute(SCI_SETTABWIDTH, nppgui._tabSize > 0 ? nppgui._tabSize : 4);
 		execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
+		execute(SCI_SETBACKSPACEUNINDENTS, nppgui._backspaceUnindent);
 	}
 }
 

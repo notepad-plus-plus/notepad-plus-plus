@@ -1095,7 +1095,7 @@ Translation note:
 					<Item id="4010" name="Extensions associées :"/>
 				</FileAssoc>
 
-				<Language title="Language">
+				<Language title="Langage">
 					<Item id="6505" name="Langages disponibles"/>
 					<Item id="6506" name="Langages cachés"/>
 					<Item id="6507" name="Compacter le menu Langage"/>

@@ -42,7 +42,7 @@ enum eMousePos {
 #define CLOSEBTN_POS_LEFT	3
 #define CLOSEBTN_POS_TOP	3
 
-constexpr int g_dockingContTabIconSize = 14;
+constexpr int g_dockingContTabIconSize = 16;
 constexpr int g_dockingContTabIconPadding = 3;
 
 class DockingCont : public StaticDialog

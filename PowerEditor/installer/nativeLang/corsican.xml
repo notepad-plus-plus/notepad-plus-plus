@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
-			  June 8th (v8.6.9)
+			  June 13th (v8.6.9)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -1131,6 +1131,7 @@ Additionnal information about Corsican localization:
 					<Item id="6310" name="Indentazione impieghendu :"/>
 					<Item id="6311" name="Caratteru di tabulazione"/>
 					<Item id="6510" name="Impiegà valore predef."/>
+					<Item id="6512" name="U tastu di ritornu in daretu caccia un’indentazione invece di caccià un spaziu unicu"/>
 					<Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
 				</Language>
 

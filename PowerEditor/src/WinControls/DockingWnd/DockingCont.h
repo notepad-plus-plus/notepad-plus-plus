@@ -119,10 +119,14 @@ public:
 		updateCaption();
 	};
 
-	void destroy() override{
+	void destroy() override {
 		for (auto& tTbData : _vTbData)
 		{
-			::DestroyIcon(tTbData->hIconTab);
+			if (tTbData->hIconTab != nullptr)
+			{
+				::DestroyIcon(tTbData->hIconTab);
+				tTbData->hIconTab = nullptr;
+			}
 			delete tTbData;
 		}
 		::DestroyWindow(_hSelf);

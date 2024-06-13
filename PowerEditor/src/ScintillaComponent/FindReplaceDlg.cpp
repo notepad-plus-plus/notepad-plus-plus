@@ -3517,8 +3517,10 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
+		int icoID = NppDarkMode::isEnabled() ? IDR_FIND_RESULT_ICO_DM : IDI_FIND_RESULT_ICON;
+
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
-		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
 		data.pszAddInfo = _findAllResultStr;
 
@@ -3657,8 +3659,10 @@ Finder * FindReplaceDlg::createFinder()
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
+	int icoID = NppDarkMode::isEnabled() ? IDR_FIND_RESULT_ICO_DM : IDI_FIND_RESULT_ICON;
+
 	const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
-	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
 	data.pszAddInfo = _findAllResultStr;
 

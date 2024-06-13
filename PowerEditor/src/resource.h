@@ -265,7 +265,6 @@
 #define IDI_UNSAVED_DM_ICON      510
 #define IDI_MONITORING_DM_ICON   511
 #define IDI_READONLY_DM_ICON     512
-#define IDI_DELETE_ICON          525
 
 
 #define IDI_PROJECT_WORKSPACE          601
@@ -374,6 +373,8 @@
 #define IDR_CLIPBOARDPANEL_ICO_DM 1561
 #define IDR_ASCIIPANEL_ICO2       1562
 #define IDR_ASCIIPANEL_ICO_DM     1563
+#define IDR_FIND_RESULT_ICO2      1564
+#define IDR_FIND_RESULT_ICO_DM    1565
 
 #define ID_MACRO                           20000
 //                                     O     .

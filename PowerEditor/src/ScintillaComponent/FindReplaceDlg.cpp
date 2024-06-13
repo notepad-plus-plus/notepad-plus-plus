@@ -1341,6 +1341,8 @@ void FindReplaceDlg::resizeDialogElements()
 
 	if (hdwp)
 		::EndDeferWindowPos(hdwp);
+
+	::SetWindowPos(::GetDlgItem(_hSelf, IDFINDWHAT), nullptr, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_FRAMECHANGED | flags);
 }
 
 std::mutex findOps_mutex;
@@ -4731,7 +4733,7 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 		LONG yFrame = -btnGapOneHalf;
 		LONG hFrame = btnGapDbl;
-
+		int ySelCheck = rcBtn3rdPos.top;
 		RECT rcToUse{};
 
 		switch (dlgT)
@@ -4765,6 +4767,13 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 
 			case MARK_DLG:
 			{
+
+				RECT rcBtn1stPos{};
+				getMappedChildRect(IDOK, rcBtn1stPos);
+				yFrame += rcBtn1stPos.top;
+				hFrame += (rcBtn2ndPos.bottom - rcBtn1stPos.top);
+				ySelCheck = rcBtn2ndPos.top;
+
 				rcToUse = rcBtn3rdPos;
 				break;
 			}
@@ -4772,10 +4781,11 @@ void FindReplaceDlg::calcAndSetCtrlsPos(DIALOG_TYPE dlgT, bool fromColBtn)
 		
 		::SetWindowPos(::GetDlgItem(_hSelf, IDCANCEL), nullptr, rcToUse.left, (rcToUse.bottom + btnGap), 0, 0, SWP_NOSIZE | flags);
 
-		if (dlgT == FIND_DLG || dlgT == REPLACE_DLG)
+		if (dlgT == FIND_DLG || dlgT == REPLACE_DLG || dlgT == MARK_DLG)
 		{
 			RECT rcCheckBtn{};
 			getMappedChildRect(IDC_IN_SELECTION_CHECK, rcCheckBtn);
+			::SetWindowPos(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nullptr, rcCheckBtn.left, ySelCheck + btnGap / 2, 0, 0, SWP_NOSIZE | flags);
 
 			const LONG xFrame = rcCheckBtn.left - btnGapOneHalf;
 			const LONG wFrame = (rcBtn2ndPos.right - rcCheckBtn.left) + btnGapDbl;
@@ -4844,7 +4854,6 @@ void FindReplaceDlg::enableMarkFunc()
 	showFindDlgItem(IDD_FINDREPLACE_SWAP_BUTTON, false);
 	showFindDlgItem(IDREPLACEALL, false);
 	showFindDlgItem(IDC_REPLACE_OPENEDFILES, false);
-	showFindDlgItem(IDC_REPLACEINSELECTION, false);
 
 	// find controls to hide
 	showFindDlgItem(IDC_FINDALL_OPENEDFILES, false);
@@ -6270,12 +6279,12 @@ int Progress::createProgressWindow()
 
 	generic_string hits = pNativeSpeaker->getLocalizedStrFromID("progress-hits-title", L"Hits:");
 	_hRunningHitsStaticText = ::CreateWindowEx(0, WC_STATIC, hits.c_str(),
-		WS_CHILD | WS_VISIBLE,
+		WS_CHILD | WS_VISIBLE | SS_RIGHT,
 		0, 0, 0, 0,
 		_hwnd, nullptr, _hInst, nullptr);
 
 	_hRunningHitsText = ::CreateWindowEx(0, WC_STATIC, L"",
-		WS_CHILD | WS_VISIBLE | SS_RIGHT,
+		WS_CHILD | WS_VISIBLE,
 		0, 0, 0, 0,
 		_hwnd, nullptr, _hInst, nullptr);
 
@@ -6388,8 +6397,8 @@ void Progress::setCtrlsPos()
 
 	hdwp = setOrDeferWindowPos(hdwp, _hPathText, nullptr, xStartPos, yCtrlPos, xClientPadded, yText, flags);
 	yCtrlPos += yText;
-	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsStaticText, nullptr, xStartPos, yCtrlPos, xTextHits, yText, flags);
-	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsText, nullptr, xStartPos + xClientPadded - xTextHits, yCtrlPos, xTextHits, yText, flags);
+	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsStaticText, nullptr, (xClientPadded - padding) / 2 - xTextHits, yCtrlPos, xTextHits, yText, flags);
+	hdwp = setOrDeferWindowPos(hdwp, _hRunningHitsText, nullptr, (xClientPadded + padding) / 2, yCtrlPos, xTextHits, yText, flags);
 	yCtrlPos += yText;
 	hdwp = setOrDeferWindowPos(hdwp, _hPBar, nullptr, xStartPos, yCtrlPos, xClientPadded, yBar, flags);
 	yCtrlPos += yText;

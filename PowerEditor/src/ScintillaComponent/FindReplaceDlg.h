@@ -460,7 +460,7 @@ private:
 	std::vector<int> _reduce2hide_findReplace = { IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDREPLACEALL, IDCANCEL };
 	std::vector<int> _reduce2hide_fif = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
 	std::vector<int> _reduce2hide_fip = { IDD_FINDINFILES_FILTERS_STATIC, IDD_FINDINFILES_FILTERS_COMBO, IDCANCEL };
-	std::vector<int> _reduce2hide_mark = { IDC_MARKLINE_CHECK, IDC_PURGE_CHECK, IDC_IN_SELECTION_CHECK, IDC_COPY_MARKED_TEXT, IDCANCEL };
+	std::vector<int> _reduce2hide_mark = { IDC_MARKLINE_CHECK, IDC_PURGE_CHECK, IDC_IN_SELECTION_CHECK, IDC_REPLACEINSELECTION, IDC_COPY_MARKED_TEXT, IDCANCEL };
 
 	void enableFindDlgItem(int dlgItemID, bool isEnable = true);
 	void showFindDlgItem(int dlgItemID, bool isShow = true);

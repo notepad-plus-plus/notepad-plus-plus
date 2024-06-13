@@ -3507,6 +3507,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	bool justCreated = false;
 	if (!_pFinder)
 	{
+		NppParameters& nppParam = NppParameters::getInstance();
+
 		_pFinder = new Finder();
 		_pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 		_pFinder->setVolatiled(false);
@@ -3517,7 +3519,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-		int icoID = NppDarkMode::isEnabled() ? IDR_FIND_RESULT_ICO_DM : IDI_FIND_RESULT_ICON;
+		int icoID = IDI_FIND_RESULT_ICON;
+		if (NppDarkMode::isEnabled())
+			icoID = IDR_FIND_RESULT_ICO_DM;
+		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+			icoID = IDR_FIND_RESULT_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -3530,7 +3536,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// in this case is DOCKABLE_DEMO_INDEX
 		data.dlgID = 0;
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
 
 		if (!text.empty())
@@ -3556,7 +3562,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETUSETABS, true);
 		_pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
 
-		NppParameters& nppParam = NppParameters::getInstance();
 		NppGUI& nppGUI = nppParam.getNppGUI();
 		_pFinder->_longLinesAreWrapped = nppGUI._finderLinesAreCurrentlyWrapped;
 		_pFinder->_scintView.wrap(_pFinder->_longLinesAreWrapped);
@@ -3649,6 +3654,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 Finder * FindReplaceDlg::createFinder()
 {
+	NppParameters& nppParam = NppParameters::getInstance();
+
 	Finder *pFinder = new Finder();
 	pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 
@@ -3659,7 +3666,11 @@ Finder * FindReplaceDlg::createFinder()
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-	int icoID = NppDarkMode::isEnabled() ? IDR_FIND_RESULT_ICO_DM : IDI_FIND_RESULT_ICON;
+	int icoID = IDI_FIND_RESULT_ICON;
+	if (NppDarkMode::isEnabled())
+		icoID = IDR_FIND_RESULT_ICO_DM;
+	else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
+		icoID = IDR_FIND_RESULT_ICO2;
 
 	const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -3672,7 +3683,7 @@ Finder * FindReplaceDlg::createFinder()
 	// in this case is DOCKABLE_DEMO_INDEX
 	data.dlgID = 0;
 
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 	generic_string text = pNativeSpeaker->getLocalizedStrFromID("find-result-caption", TEXT(""));
 	if (!text.empty())
 	{

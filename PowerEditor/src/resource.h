@@ -373,7 +373,7 @@
 #define IDR_CLIPBOARDPANEL_ICO_DM 1561
 #define IDR_ASCIIPANEL_ICO2       1562
 #define IDR_ASCIIPANEL_ICO_DM     1563
-//#define IDR_FIND_RESULT_ICO2      1564
+#define IDR_FIND_RESULT_ICO2      1564
 #define IDR_FIND_RESULT_ICO_DM    1565
 
 #define ID_MACRO                           20000

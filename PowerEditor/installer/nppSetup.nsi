@@ -90,6 +90,7 @@ page Custom ExtraOptions
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchNpp"
 !insertmacro MUI_PAGE_FINISH
 
+
 !insertmacro MUI_UNPAGE_CONFIRM
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "un.CheckIfRunning"
 !insertmacro MUI_UNPAGE_INSTFILES
@@ -115,7 +116,7 @@ InstType "Minimalist"
 Var diffArchDir2Remove
 Var noUpdater
 Var closeRunningNpp
-
+Var runNppAfterSilentInstall
 
 !ifdef ARCH64 || ARCHARM64
 ; this is needed for the 64-bit InstallDirRegKey patch
@@ -151,7 +152,8 @@ Function .onInit
 	;
 	; --- PATCH END ---
 
-	; check for the possible "/closeRunningNpp" cmdline option 1st
+
+	; Begin of "/closeRunningNpp"
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/closeRunningNpp" $R1 ; case insensitive 
 	IfErrors 0 closeRunningNppYes
@@ -175,7 +177,11 @@ closeRunningNppCheckDone:
 	Quit ; silent installation is silent, currently we cannot continue without a user interaction (TODO: a new "/closeRunningNppAutomatically" installer optional param...)
 nppNotRunning:
 notInSilentMode:
+	; End of "/closeRunningNpp"
+	
+	
 
+	; Begin of "/noUpdater"
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
 	IfErrors withUpdater withoutUpdater
@@ -192,7 +198,21 @@ updaterDone:
 		!insertmacro UnSelectSection ${PluginsAdmin}
 		SectionSetText ${PluginsAdmin} ""
 	${EndIf}
+	; End of "/noUpdater"
 
+
+	; Begin of "/runNppAfterSilentInstall"
+	${GetParameters} $R0 
+	${GetOptions} $R0 "/runNppAfterSilentInstall" $R1 ;case insensitive 
+	IfErrors noRunNpp runNpp
+noRunNpp:
+	StrCpy $runNppAfterSilentInstall "false"
+	Goto runNppDone
+runNpp:
+	StrCpy $runNppAfterSilentInstall "true"
+runNppDone:
+	; End of "/runNppAfterSilentInstall"
+	
 
 	${If} ${SectionIsSelected} ${PluginsAdmin}
 		!insertmacro SetSectionFlag ${AutoUpdater} ${SF_RO}
@@ -358,6 +378,11 @@ FunctionEnd
 
 Section -FinishSection
   Call writeInstallInfoInRegistry
+  IfSilent 0 theEnd
+  	${If} $runNppAfterSilentInstall == "true"
+		Call LaunchNpp
+	${EndIf}
+theEnd:
 SectionEnd
 
 BrandingText "The best things in life are free. Notepad++ is free so Notepad++ is the best"

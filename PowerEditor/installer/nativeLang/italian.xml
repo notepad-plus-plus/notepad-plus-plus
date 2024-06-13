@@ -1111,6 +1111,7 @@ Translation note:
 					<Item id="6310" name="Il rientro usa:"/>
 					<Item id="6311" name="Tabulazioni"/>
 					<Item id="6510" name="Usa predefinito"/>
+					<Item id="6512" name="Backspace rimuove i rientri invece di rimuovere un singolo spazio"/>
 					<Item id="6335" name="Backslash è il carattere di escape in SQL"/>
 				</Language>
 

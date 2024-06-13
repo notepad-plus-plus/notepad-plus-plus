@@ -2787,14 +2787,16 @@ void ScintillaEditView::addText(size_t length, const char *buf)
 
 void ScintillaEditView::beginOrEndSelect(bool isColumnMode)
 {
+	auto currPos = execute(SCI_GETCURRENTPOS);
+
 	if (_beginSelectPosition == -1)
 	{
-		_beginSelectPosition = execute(SCI_GETCURRENTPOS);
+		_beginSelectPosition = currPos;
 	}
 	else
 	{
-		execute(SCI_SETSELECTIONMODE, static_cast<WPARAM>(isColumnMode ? SC_SEL_RECTANGLE : SC_SEL_STREAM));
-		execute(SCI_SETANCHOR, static_cast<WPARAM>(_beginSelectPosition));
+		execute(SCI_CHANGESELECTIONMODE, static_cast<WPARAM>(isColumnMode ? SC_SEL_RECTANGLE : SC_SEL_STREAM));
+		execute(isColumnMode ? SCI_SETANCHOR : SCI_SETSEL, static_cast<WPARAM>(_beginSelectPosition), static_cast<LPARAM>(currPos));
 		_beginSelectPosition = -1;
 	}
 }

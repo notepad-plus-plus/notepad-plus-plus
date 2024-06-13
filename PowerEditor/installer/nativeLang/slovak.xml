@@ -1104,6 +1104,7 @@
 					<Item id="6310" name="Odsadenie pomocou:"/>
 					<Item id="6311" name="Znak tabulátora"/>
 					<Item id="6510" name="Použiť predvolenú hodnotu"/>
+					<Item id="6512" name="Kláves Backspace odstráni odsadenie namiesto medzery"/>
 					<Item id="6335" name="V SQL považovať spätnú lomku za znak ukončenia"/>
 				</Language>
 

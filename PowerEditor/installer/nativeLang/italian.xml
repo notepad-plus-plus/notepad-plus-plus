@@ -874,7 +874,7 @@ Translation note:
 					<Item id="23001" name="Permetti delimitazione dei commenti"/>
 					<Item id="23326" name="Stile"/>
 					<Item id="23323" name="Apertura"/>
-					<Item id="23324" name="Carattere di continuazione"/>
+					<Item id="23324" name="Continuazione"/>
 					<Item id="23325" name="Chiusura"/>
 					<Item id="23301" name="Stile commenti su riga singola"/>
 					<Item id="23124" name="Stile"/>
@@ -1058,11 +1058,11 @@ Translation note:
 					<Item id="6293" name="Larghezza costante"/>
 					<Item id="6207" name="Visualizza i segnalibri"/>
 					<Item id="6295" name="Cronologia delle modifiche"/>
-					<Item id="6223" name="Mostra Cronologia modifiche"/>
+					<Item id="6223" name="Mostra nel margine"/>
 					<Item id="6296" name="Mostra nel testo"/>
-					<Item id="6211" name="Limite di colonna"/>
+					<Item id="6211" name="Delimitatori di colonna"/>
 					<Item id="6213" name="Modalità &quot;sfondo&quot;"/>
-					<Item id="6231" name="Spessore Bordo Editor"/>
+					<Item id="6231" name="Spessore Bordo Schede"/>
 					<Item id="6235" name="Nessun bordo"/>
 					<Item id="6208" name="Riempimento"/>
 					<Item id="6209" name="Sinistra"/>
@@ -1793,10 +1793,10 @@ Per l&apos;elenco completo consultare il Manuale Utente.
 Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale utente."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Vai a Configura gli Stili per personalizzare il colore predefinito degli spazi e i caratteri non stampabili selezionati(&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip value="Per personalizzare il colore predefinito degli spazi e dei caratteri non stampabili selezionati, Vai a Configura gli Stili (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Applicare le impostazioni dell&apos;aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)."/>
 			<searchingInSelThresh-tip value="Il numero di caratteri selezionati nella zona di modifica per controllare automaticamente la casella di controllo &quot;Nella selezione&quot; quando la finestra di dialogo Trova è attivata. Il valore massimo è 1024. Impostare il valore a 0 per disabilitare il controllo automatico."/>
-			<verticalEdge-tip value="Aggiungi il tuo indicatore di colonna indicandone la posizione con un numero decimale. È possibile definire diversi delimitatori di colonna utilizzando lo spazio bianco per separare i diversi numeri."/>
+			<verticalEdge-tip value="Aggiungi le posizioni dei tuoi delimitatori di colonna, separati da spazi. Indicali con dei numeri interi."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

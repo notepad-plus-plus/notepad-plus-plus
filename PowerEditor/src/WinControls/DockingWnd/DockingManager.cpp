@@ -565,6 +565,17 @@ void DockingManager::reSizeTo(RECT & rc)
 
 void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 {
+	// try to make bmp icon transparent
+	if ((data.uMask & DWS_ICONTAB) == DWS_ICONTAB && data.hIconTab != nullptr)
+	{
+		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, data.hClient);
+		HIMAGELIST hImageList = ::ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, 0);
+		::ImageList_AddIcon(hImageList, data.hIconTab);
+		::DestroyIcon(data.hIconTab);
+		data.hIconTab = ::ImageList_GetIcon(hImageList, 0, ILD_TRANSPARENT);
+		::ImageList_Destroy(hImageList);
+	}
+
 	if ((data.uMask & DWS_USEOWNDARKMODE) != DWS_USEOWNDARKMODE && NppDarkMode::isEnabledForPlugins())
 	{
 		NppDarkMode::autoSubclassAndThemePluginDockWindow(data.hClient);

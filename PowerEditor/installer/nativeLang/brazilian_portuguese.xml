@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 06 Jun 2024, for Notepad++ 8.6.9
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 13 Jun 2024, for Notepad++ 8.6.9
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1106,6 +1106,7 @@ Translation note:
 					<Item id="6310" name="Indentar usando:"/>
 					<Item id="6311" name="Caracter de TAB"/>
 					<Item id="6510" name="Usar valor padrão"/>
+					<Item id="6512" name="Tecla backspace deleta indentação ao invés de remover um único caracter espaço"/>
 					<Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
 				</Language>
 

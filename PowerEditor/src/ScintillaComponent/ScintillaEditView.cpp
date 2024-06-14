@@ -2795,9 +2795,7 @@ void ScintillaEditView::beginOrEndSelect(bool isColumnMode)
 	else
 	{
 		execute(SCI_CHANGESELECTIONMODE, static_cast<WPARAM>(isColumnMode ? SC_SEL_RECTANGLE : SC_SEL_STREAM));
-		execute(isColumnMode ? SCI_SETANCHOR : SCI_SETSEL,
-			static_cast<WPARAM>(_beginSelectPosition),
-			static_cast<LPARAM>(currPos));
+		execute(isColumnMode ? SCI_SETANCHOR : SCI_SETSEL, static_cast<WPARAM>(_beginSelectPosition), static_cast<LPARAM>(currPos));
 		_beginSelectPosition = -1;
 	}
 }

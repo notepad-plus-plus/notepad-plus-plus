@@ -905,6 +905,9 @@ void Finder::gotoNextFoundResult(int direction)
 		{
 			case pos_infront: // 2 situation: 
 			{
+				if (!markingLine._segmentPostions.size())
+					return;
+
 				if (markingLine._segmentPostions[0].second < SC_SEARCHRESULT_LINEBUFFERMAXLENGTH) // 1. The occurrence is displayed in the line
 				{
 					occurrenceNumberInLine_base1 = 1;

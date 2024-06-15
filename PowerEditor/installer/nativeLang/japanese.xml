@@ -1113,6 +1113,7 @@ Translation note:
 					<Item id="6310" name="インデント文字:"/>
 					<Item id="6311" name="タブ"/>
 					<Item id="6510" name="デフォルト値を使用"/>
+					<Item id="6512" name="バックスペースキーで、スペース1文字を消すのではなくインデントを減らす"/>
 					<Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
 				</Language>
 

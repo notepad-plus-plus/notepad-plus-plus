@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.6.5
--    Ultima modificare 17 martie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.6.9
+-    Ultima modificare 16 iunie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.5">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1114,10 +1114,13 @@
                     <Item id="6506" name="Articole dezactivate"/>
                     <Item id="6507" name="Compactare meniu limbaje"/>
                     <Item id="6508" name="Meniu limbaje"/>
-                    <Item id="6301" name="Setări Tab"/>
-                    <Item id="6302" name="Înlocuire cu spațiu"/>
-                    <Item id="6303" name="Mărime Tab: "/>
+                    <Item id="6301" name="Setări de indentare"/>
+                    <Item id="6302" name="Caracter(e) spațiu"/>
+                    <Item id="6303" name="Mărimea indentării:"/>
+					<Item id="6310" name="Indentează folosind:"/>
+					<Item id="6311" name="Caracterul Tab(ulator)"/>
                     <Item id="6510" name="Aplicare valoare implicită" />
+					<Item id="6512" name="Tasta Backspace anulează indentarea în loc să elimine un spațiu"/>
                     <Item id="6335" name="Consideră '\' ca și caracter escape pentru SQL"/>
                 </Language>
 
@@ -1359,7 +1362,7 @@
 					<Element name="Spații"/>
 				</ComboBox>
                 <Item id="2035" name="Precede zerouri"/>
-                <Item id="2036" name="Repetare :"/>
+                <Item id="2036" name="Repetare:"/>
                 <Item id="2032" name="Formatare"/>
                 <Item id="2024" name="Zecimal"/>
                 <Item id="2025" name="Octal"/>
@@ -1371,7 +1374,7 @@
 	            <FindInFinder title="Găsește în rezultatele găsite">
 					<Item id="1"    name="Găsește toate"/>
 					<Item id="2"    name="Închidere"/>
-					<Item id="1711" name="&amp;Căutare :"/>
+					<Item id="1711" name="&amp;Căutare:"/>
 					<Item id="1713" name="Căutare doar în liniile &amp;găsite"/>
 					<Item id="1714" name="Potrivire doar cu&amp;vinte întregi"/>
 					<Item id="1715" name="Potrivire &amp;litere"/>
@@ -1538,6 +1541,10 @@ Dorești să creezi acei substituenți?
 NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta VA FI MODIFICATĂ LA IEȘIRE! Îți sugerăm să-ți faci acum o copie de rezervă a fișierului tău &quot;sesiune.xml&quot;."/>
 			<RTLvsDirectWrite title="Nu se poate rula RTL" message="RTL nu este compatibil cu modul DirectWrite. Te rugăm să dezactivezi modul DirectWrite din secțiunea DIVERSE a dialogului Preferințe, și să repornești Notepad++."/>
 			<FileMemoryAllocationFailed title="Excepție: Alocarea memoriei fișierelor a eșuat" message="Probabil că nu e suficientă memorie continuă pentru ca fișierul să fie încărcat de Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Căutarea inversă regex a fost dezactivată" message="În mod implicit, căutarea inversă regex este dezactivată din cauza unor rezultate potențial neașteptate. Pentru a efectua o căutare inversă, deschide căsuța de dialog Găsește și selectează modul de căutare fie normal, fie extins instead of regular expression.
+Apasă butonul OK pentru a deschide căsuța de dialog Găsește sau pentru a seta focalizarea pe ea.
+			
+Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utilizatorului manualul de utilizare pentru instrucțiuni privind activarea acesteia."/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>
@@ -1747,8 +1754,8 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<progress-cancel-info value="Se anulează operația, te rugăm să aștepți..."/>
 			<find-in-files-progress-title value="Progresul funcției Găsește în fișiere..."/>
 			<replace-in-files-confirm-title value="Ești sigur?"/>
-			<replace-in-files-confirm-directory value="Ești sigur că vrei să înlocuișeti toate aparițiile în :"/>
-			<replace-in-files-confirm-filetype value="Pentru tipul de fișier :"/>
+			<replace-in-files-confirm-directory value="Ești sigur că vrei să înlocuișeti toate aparițiile în:"/>
+			<replace-in-files-confirm-filetype value="Pentru tipul de fișier:"/>
 			<replace-in-files-progress-title value="Progresul funcției Înlouire în fișiere în fișiere..."/>
 			<replace-in-projects-confirm-title value="Ești sigur?"/>
 			<replace-in-projects-confirm-message value="Vrei să înlocuișeti toate aparițiile în toate documentele în Panoul(urile) de proiecte selectat(e)?"/>
@@ -1788,17 +1795,17 @@ Folosind reprezentarea se vor dezactiva efectele de caracter dintr-un text.
 Pentru lista completă a spațiilor albe și a caracterelor neimprimabile selectate verifică Manualul utilizatorului.
 
 Apasă pe acest buton pentru a deschide site-ul web cu Manualul utilizatorului."/>
-			<npcAbbreviation-tip value="Abreviere : nume
-NBSP : spațiu fără pauză
-ZWSP : spațiu cu lățime zero
-ZWNBSP : spațiu cu lățime zero și fără pauză
+			<npcAbbreviation-tip value="Abreviere: nume
+NBSP: spațiu fără pauză
+ZWSP: spațiu cu lățime zero
+ZWNBSP: spațiu cu lățime zero și fără pauză
 
 Pentru lista completă verifică Manualul utilizatorului.
 Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>
-			<npcCodepoint-tip value="Punct de cod : nume
-U+00A0 : spațiu fără pauză
-U+200B : spațiu cu lățime zero
-U+FEFF : spațiu cu lățime zero și fără pauză
+			<npcCodepoint-tip value="Punct de cod: nume
+U+00A0: spațiu fără pauză
+U+200B: spațiu cu lățime zero
+U+FEFF: spațiu cu lățime zero și fără pauză
 
 Pentru lista completă verifică Manualul utilizatorului.
 Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>

@@ -347,7 +347,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent, bool t
 	{
 		RECT rc = getViewablePositionRect(nppGUI._findWindowPos);
 		::SetWindowPos(_hSelf, HWND_TOP, rc.left, rc.top, 0, 0, SWP_HIDEWINDOW | SWP_NOSIZE | SWP_NOACTIVATE);
-		::SetWindowPos(_hSelf, HWND_TOP, 0, 0, _rc.right - _rc.left, _rc.bottom - _rc.top, swpFlags | SWP_NOMOVE);
+		::SetWindowPos(_hSelf, HWND_TOP, 0, 0, rc.right - rc.left, _rc.bottom - _rc.top, swpFlags | SWP_NOMOVE);
 
 		if ((swpFlags & SWP_SHOWWINDOW) == SWP_SHOWWINDOW)
 			::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);

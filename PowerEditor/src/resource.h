@@ -688,14 +688,6 @@
     	#define CHECKDOCOPT_UPDATESILENTLY 1
     	#define CHECKDOCOPT_UPDATEGO2END 2
 
-    //
-    // Used by netnote plugin
-    //
-	#define NPPM_INTERNAL_SETFILENAME (NPPMSG + 63)
-    //wParam: BufferID to rename
-    //lParam: name to set (TCHAR*)
-    //Buffer must have been previously unnamed (eg "new 1" document types)
-
 
 
 #define SCINTILLA_USER     (WM_USER + 2000)

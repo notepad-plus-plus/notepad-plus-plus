@@ -32,6 +32,11 @@
 
 using namespace std;
 
+// https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
+// Reserved characters:  < > : " / \ | ? * tab  
+//  ("tab" is not in the official list, but it is good to avoid it)
+const std::wstring filenameReservedChars = TEXT("<>:\"/\\|\?*\t");
+
 DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 {
 	MonitorInfo *monitorInfo = static_cast<MonitorInfo *>(params);
@@ -1904,16 +1909,11 @@ bool Notepad_plus::fileRename(BufferID id)
 		// We are just going to rename the tab nothing else
 		// So just rename the tab and rename the backup file too if applicable
 
-		// https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
-		// Reserved characters:  < > : " / \ | ? * tab  
-		//  ("tab" is not in the official list, but it is good to avoid it)
-		std::wstring reservedChars = TEXT("<>:\"/\\|\?*\t");
-
 		std::wstring staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", L"New name");
 
 		StringDlg strDlg;
 		std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", L"Rename Current Tab");
-		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, reservedChars.c_str(), true);
+		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, filenameReservedChars.c_str(), true);
 
 		wchar_t *tabNewName = reinterpret_cast<wchar_t *>(strDlg.doDialog());
 		if (tabNewName)
@@ -1975,6 +1975,74 @@ bool Notepad_plus::fileRename(BufferID id)
 	return success;
 }
 
+bool Notepad_plus::fileRenameUntitled(BufferID id, const wchar_t* tabNewName)
+{
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+	{
+		bufferID = _pEditView->getCurrentBufferID();
+	}
+	Buffer* buf = MainFileManager.getBufferByID(bufferID);
+
+	bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
+	if (isFileExisting) return false;
+
+	// We are just going to rename the tab nothing else
+	// So just rename the tab and rename the backup file too if applicable
+
+	if (!tabNewName) return false;
+
+	std::wstring tabNewNameStr = tabNewName;
+
+	trim(tabNewNameStr); // No leading and tailing space allowed
+
+	if (tabNewNameStr.empty()) return false;
+
+	if (tabNewNameStr.length() > langNameLenMax - 1) return false;
+
+	if (tabNewNameStr.find_first_of(filenameReservedChars) != std::wstring::npos) return false;
+
+	BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewNameStr.c_str());
+	if (sameNamedBufferId == BUFFER_INVALID)
+	{
+		sameNamedBufferId = _pNonDocTab->findBufferByName(tabNewNameStr.c_str());
+	}
+
+	if (sameNamedBufferId == BUFFER_INVALID)
+	{
+		SCNotification scnN{};
+		scnN.nmhdr.code = NPPN_FILEBEFORERENAME;
+		scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+		scnN.nmhdr.idFrom = (uptr_t)bufferID;
+		_pluginsManager.notify(&scnN);
+
+		buf->setFileName(tabNewNameStr.c_str());
+
+		scnN.nmhdr.code = NPPN_FILERENAMED;
+		_pluginsManager.notify(&scnN);
+
+		bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+		if (isSnapshotMode)
+		{
+			std::wstring oldBackUpFile = buf->getBackupFileName();
+
+			// Change the backup file name and let MainFileManager decide the new filename
+			buf->setBackupFileName(TEXT(""));
+
+			// Create new backup
+			buf->setModifiedStatus(true);
+			bool bRes = MainFileManager.backupCurrentBuffer();
+
+			// Delete old backup
+			if (bRes)
+			{
+				::DeleteFile(oldBackUpFile.c_str());
+			}
+		}
+	}
+
+	return true;
+}
 
 bool Notepad_plus::fileDelete(BufferID id)
 {

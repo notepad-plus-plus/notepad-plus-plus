@@ -654,7 +654,7 @@ void Finder::deleteResult()
 	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
 	{
 		auto endline = _scintView.execute(SCI_GETLASTCHILD, lno, -1) + 1;
-		assert((size_t) endline <= _pMainFoundInfos->size());
+		if ((size_t)endline > _pMainFoundInfos->size()) return;
 
 		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno, _pMainFoundInfos->begin() + endline); // remove found info
 		_pMainMarkings->erase(_pMainMarkings->begin() + lno, _pMainMarkings->begin() + endline);
@@ -667,7 +667,7 @@ void Finder::deleteResult()
 	}
 	else // delete one line
 	{
-		assert((size_t) lno < _pMainFoundInfos->size());
+		if ((size_t)lno >= _pMainFoundInfos->size()) return;
 
 		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno); // remove found info
 		_pMainMarkings->erase(_pMainMarkings->begin() + lno);
@@ -841,7 +841,7 @@ void Finder::gotoNextFoundResult(int direction)
 	auto init_lno = lno;
 	auto max_lno = _scintView.execute(SCI_GETLASTCHILD, lno, searchHeaderLevel);
 
-	assert(max_lno <= total_lines - 2);
+	if (max_lno > total_lines - 2) return;
 
 	// get the line number of the current search (searchHeaderLevel)
 	int level = _scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELNUMBERMASK;
@@ -950,6 +950,7 @@ void Finder::gotoNextFoundResult(int direction)
 			case pos_infront:
 			{
 				lno--;
+				if (lno < 0) return;
 				anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 				const SearchResultMarkingLine& newMarkingLine = *(_pMainMarkings->begin() + lno);
 				occurrenceNumberInLine_base1 = newMarkingLine._segmentPostions.size();
@@ -969,6 +970,7 @@ void Finder::gotoNextFoundResult(int direction)
 				else
 				{
 					lno--;
+					if (lno < 0) return;
 					anchorWithNoHeaderLines(lno, init_lno, min_lno, max_lno, direction);
 					const SearchResultMarkingLine& newMarkingLine = *(_pMainMarkings->begin() + lno);
 					occurrenceNumberInLine_base1 = newMarkingLine._segmentPostions.size();

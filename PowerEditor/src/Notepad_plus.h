@@ -190,6 +190,7 @@ public:
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
+	bool fileRenameUntitled(BufferID id = BUFFER_INVALID, const wchar_t* tabNewName = nullptr);
 
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}

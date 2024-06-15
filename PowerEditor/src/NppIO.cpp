@@ -1969,6 +1969,86 @@ bool Notepad_plus::fileRename(BufferID id)
 	return success;
 }
 
+bool Notepad_plus::fileRenameUntitled(BufferID id /* =BUFFER_INVALID */, const wchar_t* tabNewName /* =nullptr */)
+{
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+	{
+		bufferID = _pEditView->getCurrentBufferID();
+	}
+	Buffer* buf = MainFileManager.getBufferByID(bufferID);
+
+	SCNotification scnN{};
+	scnN.nmhdr.code = NPPN_FILEBEFORERENAME;
+	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+	scnN.nmhdr.idFrom = (uptr_t)bufferID;
+	_pluginsManager.notify(&scnN);
+
+	bool success = false;
+
+	bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
+	if (!isFileExisting)
+	{
+		// We are just going to rename the tab nothing else
+		// So just rename the tab and rename the backup file too if applicable
+
+		if (tabNewName != nullptr)
+		{
+			std::wstring tabNewNameStr = tabNewName;
+
+			trim(tabNewNameStr); // No leading and tailing space allowed
+
+			if (!tabNewNameStr.empty())
+			{
+				if (tabNewNameStr.length() < langNameLenMax)
+				{
+					// https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
+					// Reserved characters:  < > : " / \ | ? * tab  
+					//  ("tab" is not in the official list, but it is good to avoid it)
+					const std::wstring reservedChars = TEXT("<>:\"/\\|\?*\t");
+
+					if (tabNewNameStr.find_first_of(reservedChars) == std::wstring::npos)  // no reserved characters in tabNewNameStr
+					{
+						BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewNameStr.c_str());
+						if (sameNamedBufferId == BUFFER_INVALID)
+						{
+							sameNamedBufferId = _pNonDocTab->findBufferByName(tabNewNameStr.c_str());
+						}
+
+						if (sameNamedBufferId == BUFFER_INVALID)
+						{
+							success = true;
+							buf->setFileName(tabNewNameStr.c_str());
+							bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+							if (isSnapshotMode)
+							{
+								std::wstring oldBackUpFile = buf->getBackupFileName();
+
+								// Change the backup file name and let MainFileManager decide the new filename
+								buf->setBackupFileName(TEXT(""));
+
+								// Create new backup
+								buf->setModifiedStatus(true);
+								bool bRes = MainFileManager.backupCurrentBuffer();
+
+								// Delete old backup
+								if (bRes)
+								{
+									::DeleteFile(oldBackUpFile.c_str());
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	scnN.nmhdr.code = success ? NPPN_FILERENAMED : NPPN_FILERENAMECANCEL;
+	_pluginsManager.notify(&scnN);
+
+	return success;
+}
 
 bool Notepad_plus::fileDelete(BufferID id)
 {

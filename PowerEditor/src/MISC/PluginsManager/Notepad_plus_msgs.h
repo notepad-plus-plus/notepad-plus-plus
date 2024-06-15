@@ -973,6 +973,12 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//
 	// Note: there's no symetric command NPPM_SETTABCOLORID. Plugins can use NPPM_MENUCOMMAND to set current tab color with the desired tab color ID.
 
+	#define NPPM_SETUNTITLEDNAME (NPPMSG + 115)
+	// int NPPM_SETUNTITLEDNAME(BufferID id, const TCHAR* newName)
+	// Rename the tab name for an untitled tab.
+	// wParam[in]: id - BufferID of the tab. -1 for currently active tab
+	// lParam[in]: newName - the desired new name of the tab
+	// Return TRUE upon success; FALSE upon failure
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

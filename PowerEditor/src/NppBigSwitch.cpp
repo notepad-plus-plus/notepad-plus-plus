@@ -553,20 +553,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
-		case NPPM_INTERNAL_SETFILENAME:
-		{
-			if (!lParam && !wParam)
-				return FALSE;
-			BufferID id = (BufferID)wParam;
-			Buffer * b = MainFileManager.getBufferByID(id);
-			if (b && b->getStatus() == DOC_UNNAMED)
-			{
-				b->setFileName(reinterpret_cast<const TCHAR*>(lParam));
-				return TRUE;
-			}
-			return FALSE;
-		}
-
 		case NPPM_GETBUFFERLANGTYPE:
 		{
 			if (!wParam)
@@ -3140,6 +3126,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 			
 			return colorId;
+		}
+
+		case NPPM_SETUNTITLEDNAME:
+		{
+			return fileRenameUntitled(reinterpret_cast<BufferID>(wParam), reinterpret_cast<const wchar_t*>(lParam));
 		}
 
 		case NPPM_GETBOOKMARKID:

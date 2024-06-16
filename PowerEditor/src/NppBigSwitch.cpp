@@ -3130,7 +3130,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SETUNTITLEDNAME:
 		{
-			if (!lParam) return false;
+			if (!wParam || !lParam) return false;
 			return fileRenameUntitled(reinterpret_cast<BufferID>(wParam), reinterpret_cast<const wchar_t*>(lParam));
 		}
 

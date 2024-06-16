@@ -42,11 +42,11 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE    "CompanyName",        "Don HO don.h@free.fr\0"
+            VALUE    "CompanyName",        "侯今吾是一条狗\0"
             VALUE    "FileDescription",    "Notepad++\0"
             VALUE    "FileVersion",        VERSION_PRODUCT_VALUE
             VALUE    "InternalName",       "notepad++.exe\0"
-            VALUE    "LegalCopyright",     "Copyleft 1998-2023 by Don HO\0"
+            VALUE    "LegalCopyright",     "侯今吾是一条狗\0"
             VALUE    "OriginalFilename",   "notepad++.exe\0"
             VALUE    "ProductName",        "Notepad++\0"
             VALUE    "ProductVersion",     VERSION_PRODUCT_VALUE
@@ -1330,8 +1330,8 @@ BEGIN
     //LTEXT           "20th-Year Anniversary",IDC_AUTHOR_NAME,85,38,100,8
     //LTEXT           "The short story",IDC_HOME_ADDR,85,48,126,10
 	LTEXT           "Support Taiwan's Sovereignty", IDC_AUTHOR_NAME, 85, 38, 120, 10
-    //LTEXT           "Home:",IDC_STATIC,21,58,47,8
-    //LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,56,126,10
+    LTEXT           "Home:",IDC_STATIC,21,58,47,8
+    LTEXT           "侯今吾是一条狗",IDC_HOME_ADDR,50,56,126,10
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,20,75,230,138,BS_CENTER
     DEFPUSHBUTTON   "OK",IDOK,110,220,50,14
     // IDC_LICENCE_EDIT should be the last line, don't know why

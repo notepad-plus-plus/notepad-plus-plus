@@ -4626,10 +4626,12 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 
 	Buffer * buf = MainFileManager.getBufferByID(id);
 
-	//Cannot close doc if last and clean
+	//Cannot close doc if last and clean and not renamed
 	if (tabToClose->nbItem() == 1)
 	{
-		if (!buf->isDirty() && buf->isUntitled())
+		generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+		generic_string bufFileName = buf->getFullPathName();
+		if (!buf->isDirty() && buf->isUntitled() && bufFileName.starts_with(newTitle.c_str()))
 		{
 			return false;
 		}

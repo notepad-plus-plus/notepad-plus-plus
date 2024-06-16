@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.6.9
-    Last modified Wen, Jun 5th, 2024.
+    Last modified Sun, Jun 16th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -44,7 +44,7 @@ Translation note:
 					<Item subMenuId="edit-blankOperations" name="Operazioni sugli spa&amp;zi"/>
 					<Item subMenuId="edit-pasteSpecial" name="I&amp;ncolla speciale"/>
 					<Item subMenuId="edit-onSelection" name="&amp;Testo selezionato"/>
-					<Item subMenuId="edit-multiSelectALL" name="Effettua la Selezione multipla di tutto"/>
+					<Item subMenuId="edit-multiSelectALL" name="Effettua la Selezione Multipla di tutto"/>
 					<Item subMenuId="edit-multiSelectNext" name="Effettua la Selezione Multipla successiva"/>
 					<Item subMenuId="search-changeHistory" name="Cronologia delle modific&amp;he"/>
 					<Item subMenuId="search-markAll" name="&amp;Applica Stile per tutte le corrispondenze"/>
@@ -52,15 +52,15 @@ Translation note:
 					<Item subMenuId="search-unmarkAll" name="Rimuovi applica&amp;zione Stile"/>
 					<Item subMenuId="search-jumpUp" name="Vai s&amp;u"/>
 					<Item subMenuId="search-jumpDown" name="Vai gi&amp;ù"/>
-					<Item subMenuId="search-copyStyledText" name="Copia il testo in sti&amp;le"/>
+					<Item subMenuId="search-copyStyledText" name="Copia il testo dello sti&amp;le"/>
 					<Item subMenuId="search-bookmark" name="Segnali&amp;bri"/>
 					<Item subMenuId="view-currentFileIn" name="Visualizza file corrente in"/>
 					<Item subMenuId="view-showSymbol" name="Simboli"/>
 					<Item subMenuId="view-zoom" name="Ingrandimento"/>
 					<Item subMenuId="view-moveCloneDocument" name="Sposta/clona la scheda corrente"/>
 					<Item subMenuId="view-tab" name="Schede"/>
-					<Item subMenuId="view-collapseLevel" name="Riduci livello"/>
-					<Item subMenuId="view-uncollapseLevel" name="Non ridurre livello"/>
+					<Item subMenuId="view-collapseLevel" name="Comprimi il livello"/>
+					<Item subMenuId="view-uncollapseLevel" name="Espandi il livello"/>
 					<Item subMenuId="view-project" name="Progetti"/>
 					<Item subMenuId="encoding-characterSets" name="Set caratteri"/>
 					<Item subMenuId="encoding-arabic" name="Arabo"/>
@@ -161,14 +161,14 @@ Translation note:
 					<Item id="42074" name="Apri cartella in Esplora Risorse"/>
 					<Item id="42075" name="Cerca in Internet"/>
 					<Item id="42076" name="Modifica motore di ricerca..."/>
-					<Item id="42090" name="Ignora Maiuscolo/Minuscolo e Parole Intere"/>
+					<Item id="42090" name="Ignora maiuscole/minuscole e Solo Parole Intere"/>
 					<Item id="42091" name="Distingui tra maiuscole e minuscole"/>
 					<Item id="42092" name="Solo Parole Intere"/>
-					<Item id="42093" name="Distingui tra maiuscole e minuscole e Solo Parole intere"/>
-					<Item id="42094" name="Distingui tra Maiuscolo/Minuscolo e Solo parole intere"/>
+					<Item id="42093" name="Distingui tra maiuscole/minuscole e Solo Parole intere"/>
+					<Item id="42094" name="Ignora maiuscole/minuscole e Solo Parole Intere"/>
 					<Item id="42095" name="Distingui tra maiuscole e minuscole"/>
 					<Item id="42096" name="Solo Parole Intere"/>
-					<Item id="42097" name="Distingui tra Maiuscolo/Minuscolo e Solo parole intere"/>
+					<Item id="42097" name="Distingui tra maiuscole/minuscole e Solo Parole Intere"/>
 					<Item id="42098" name="Annulla l'ultima Multi-Selezione aggiunta"/>
 					<Item id="42099" name="Ignora Corrente e Vai alla Successiva  Multiselezione"/>
 					<Item id="42018" name="&amp;Inizia registrazione"/>
@@ -191,8 +191,8 @@ Translation note:
 					<Item id="42049" name="Taglia contenuto binario"/>
 					<Item id="42050" name="Incolla contenuto binario"/>
 					<Item id="42082" name="Copia link"/>
-					<Item id="42037" name="Modalità colonna..."/>
-					<Item id="42034" name="Editor a colonne..."/>
+					<Item id="42037" name="Selezione in Modalità colonna..."/>
+					<Item id="42034" name="Modifica alle colonne..."/>
 					<Item id="42051" name="&amp;Pannello caratteri"/>
 					<Item id="42052" name="Cronolo&amp;gia Appunti"/>
 					<Item id="42025" name="Salva la macro registrata..."/>
@@ -234,16 +234,16 @@ Translation note:
 					<Item id="43013" name="Cerca nei &amp;file..."/>
 					<Item id="43014" name="Trova (volatile) successivo"/>
 					<Item id="43015" name="Trova (volatile) precedente"/>
-					<Item id="43022" name="Applica stile 1"/>
-					<Item id="43023" name="Rimuovi stile 1"/>
-					<Item id="43024" name="Applica stile 2"/>
-					<Item id="43025" name="Rimuovi stile 2"/>
-					<Item id="43026" name="Applica stile 3"/>
-					<Item id="43027" name="Rimuovi stile 3"/>
-					<Item id="43028" name="Applica stile 4"/>
-					<Item id="43029" name="Rimuovi stile 4"/>
-					<Item id="43030" name="Applica stile 5"/>
-					<Item id="43031" name="Rimuovi stile 5"/>
+					<Item id="43022" name="Applica lo stile 1"/>
+					<Item id="43023" name="Rimuovi lo stile 1"/>
+					<Item id="43024" name="Applica lo stile 2"/>
+					<Item id="43025" name="Rimuovi lo stile 2"/>
+					<Item id="43026" name="Applica lo stile 3"/>
+					<Item id="43027" name="Rimuovi lo stile 3"/>
+					<Item id="43028" name="Applica lo stile 4"/>
+					<Item id="43029" name="Rimuovi lo stile 4"/>
+					<Item id="43030" name="Applica lo stile 5"/>
+					<Item id="43031" name="Rimuovi lo stile 5"/>
 					<Item id="43032" name="Rimuovi tutti gli stili"/>
 					<Item id="43033" name="stile 1"/>
 					<Item id="43034" name="stile 2"/>
@@ -283,7 +283,7 @@ Translation note:
 					<Item id="43503" name="Copia i nomi file dei selezionati"/>
 					<Item id="43504" name="Copia i percorsi file dei selezionati"/>
 					<Item id="44009" name="Modalità Post-it"/>
-					<Item id="44010" name="Comprimi tutte le strutture"/>
+					<Item id="44010" name="Comprimi tutti i livelli"/>
 					<Item id="44011" name="Modalità &quot;senza distrazioni&quot;"/>
 					<Item id="44019" name="Visualizza tutti i caratteri"/>
 					<Item id="44020" name="Visualizza guide di indentazione"/>
@@ -293,7 +293,7 @@ Translation note:
 					<Item id="44025" name="Visualizza gli spazi e le tabulazioni"/>
 					<Item id="44026" name="Visualizza carattere di fine riga"/>
 					<Item id="44029" name="Espandi tutti i livelli"/>
-					<Item id="44030" name="Contrai il livello corrente"/>
+					<Item id="44030" name="Comprimi il livello corrente"/>
 					<Item id="44031" name="Espandi il livello corrente"/>
 					<Item id="44049" name="Informazioni file..."/>
 					<Item id="44080" name="Mappa documento"/>
@@ -714,14 +714,14 @@ Translation note:
 					<Item id="44102" name="Apri il file corrente in Edge"/>
 					<Item id="50003" name="Passa al documento precedente"/>
 					<Item id="50004" name="Passa al documento successivo"/>
-					<Item id="44051" name="Contrai livello 1"/>
-					<Item id="44052" name="Contrai livello 2"/>
-					<Item id="44053" name="Contrai livello 3"/>
-					<Item id="44054" name="Contrai livello 4"/>
-					<Item id="44055" name="Contrai livello 5"/>
-					<Item id="44056" name="Contrai livello 6"/>
-					<Item id="44057" name="Contrai livello 7"/>
-					<Item id="44058" name="Contrai livello 8"/>
+					<Item id="44051" name="Comprimi livello 1"/>
+					<Item id="44052" name="Comprimi livello 2"/>
+					<Item id="44053" name="Comprimi livello 3"/>
+					<Item id="44054" name="Comprimi livello 4"/>
+					<Item id="44055" name="Comprimi livello 5"/>
+					<Item id="44056" name="Comprimi livello 6"/>
+					<Item id="44057" name="Comprimi livello 7"/>
+					<Item id="44058" name="Comprimi livello 8"/>
 					<Item id="44061" name="Espandi livello 1"/>
 					<Item id="44062" name="Espandi livello 2"/>
 					<Item id="44063" name="Espandi livello 3"/>
@@ -959,7 +959,7 @@ Translation note:
 					<Item id="6109" name="Oscura le schede inattive"/>
 					<Item id="6110" name="Barra colorata sulla scheda attiva"/>
 					<Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
-					<Item id="6113" name="Chiudere una scheda con Doppio clic"/>
+					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>
 					<Item id="6118" name="Nascondi"/>
 					<Item id="6119" name="Utilizza più righe"/>
 					<Item id="6120" name="Verticale"/>
@@ -982,7 +982,7 @@ Translation note:
 					<Item id="6219" name="Velocità:"/>
 					<Item id="6221" name="V"/>
 					<Item id="6222" name="L"/>
-					<Item id="6246" name="Rendi i comandi del livello corrente comprimi/espandi attivabili"/>
+					<Item id="6246" name="Rendi commutabili i due comandi Comprimi ed Espandi il livello corrente"/>
 					<Item id="6227" name="Ritorno a Capo Autom."/>
 					<Item id="6228" name="Predefinito"/>
 					<Item id="6229" name="Allineato"/>
@@ -1342,7 +1342,7 @@ Translation note:
 				<Item id="7003" name="Chiudi scheda/e"/>
 				<Item id="7004" name="Ordina schede"/>
 			</Window>
-			<ColumnEditor title="Editor a colonne">
+			<ColumnEditor title="Modifica alle colonne">
 				<Item id="2023" name="&amp;Testo da inserire"/>
 				<Item id="2033" name="&amp;Numero da inserire"/>
 				<Item id="2030" name="N&amp;umero iniziale:"/>

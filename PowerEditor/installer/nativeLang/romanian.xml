@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
 -    Traducerea în română pentru Notepad++ 8.6.9
--    Ultima modificare 15 iunie 2024 de către Miloiu Andrei-Valentin
+-    Ultima modificare 16 iunie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
@@ -1362,7 +1362,7 @@
 					<Element name="Spații"/>
 				</ComboBox>
                 <Item id="2035" name="Precede zerouri"/>
-                <Item id="2036" name="Repetare :"/>
+                <Item id="2036" name="Repetare:"/>
                 <Item id="2032" name="Formatare"/>
                 <Item id="2024" name="Zecimal"/>
                 <Item id="2025" name="Octal"/>
@@ -1374,7 +1374,7 @@
 	            <FindInFinder title="Găsește în rezultatele găsite">
 					<Item id="1"    name="Găsește toate"/>
 					<Item id="2"    name="Închidere"/>
-					<Item id="1711" name="&amp;Căutare :"/>
+					<Item id="1711" name="&amp;Căutare:"/>
 					<Item id="1713" name="Căutare doar în liniile &amp;găsite"/>
 					<Item id="1714" name="Potrivire doar cu&amp;vinte întregi"/>
 					<Item id="1715" name="Potrivire &amp;litere"/>
@@ -1754,8 +1754,8 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<progress-cancel-info value="Se anulează operația, te rugăm să aștepți..."/>
 			<find-in-files-progress-title value="Progresul funcției Găsește în fișiere..."/>
 			<replace-in-files-confirm-title value="Ești sigur?"/>
-			<replace-in-files-confirm-directory value="Ești sigur că vrei să înlocuișeti toate aparițiile în :"/>
-			<replace-in-files-confirm-filetype value="Pentru tipul de fișier :"/>
+			<replace-in-files-confirm-directory value="Ești sigur că vrei să înlocuișeti toate aparițiile în:"/>
+			<replace-in-files-confirm-filetype value="Pentru tipul de fișier:"/>
 			<replace-in-files-progress-title value="Progresul funcției Înlouire în fișiere în fișiere..."/>
 			<replace-in-projects-confirm-title value="Ești sigur?"/>
 			<replace-in-projects-confirm-message value="Vrei să înlocuișeti toate aparițiile în toate documentele în Panoul(urile) de proiecte selectat(e)?"/>
@@ -1795,17 +1795,17 @@ Folosind reprezentarea se vor dezactiva efectele de caracter dintr-un text.
 Pentru lista completă a spațiilor albe și a caracterelor neimprimabile selectate verifică Manualul utilizatorului.
 
 Apasă pe acest buton pentru a deschide site-ul web cu Manualul utilizatorului."/>
-			<npcAbbreviation-tip value="Abreviere : nume
-NBSP : spațiu fără pauză
-ZWSP : spațiu cu lățime zero
-ZWNBSP : spațiu cu lățime zero și fără pauză
+			<npcAbbreviation-tip value="Abreviere: nume
+NBSP: spațiu fără pauză
+ZWSP: spațiu cu lățime zero
+ZWNBSP: spațiu cu lățime zero și fără pauză
 
 Pentru lista completă verifică Manualul utilizatorului.
 Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>
-			<npcCodepoint-tip value="Punct de cod : nume
-U+00A0 : spațiu fără pauză
-U+200B : spațiu cu lățime zero
-U+FEFF : spațiu cu lățime zero și fără pauză
+			<npcCodepoint-tip value="Punct de cod: nume
+U+00A0: spațiu fără pauză
+U+200B: spațiu cu lățime zero
+U+FEFF: spațiu cu lățime zero și fără pauză
 
 Pentru lista completă verifică Manualul utilizatorului.
 Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>

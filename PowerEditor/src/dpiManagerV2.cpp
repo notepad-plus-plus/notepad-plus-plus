@@ -280,10 +280,23 @@ void DPIManagerV2::sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM 
 	}, reinterpret_cast<LPARAM>(&p));
 }
 
+#include <format> // TEMP: DEBUG:
+
 void DPIManagerV2::loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
 {
-	if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) != S_OK)
+	HRESULT hr = ::LoadIconWithScaleDown(hinst, pszName, cx, cy, phico);
+	if (hr != S_OK)
 	{
+		std::wstring msg = L"ERROR: LoadIconWithScaleDown WINAPI failed! (HRESULT: ";
+		msg += std::format(L"{:#010x}", static_cast<DWORD>(hr)) + L")";
+		::MessageBoxW(NULL, msg.c_str(), L"DPIManagerV2::loadIcon", MB_OK | MB_SYSTEMMODAL | MB_ICONERROR); // TEMP: DEBUG:
+
 		*phico = static_cast<HICON>(::LoadImage(hinst, pszName, IMAGE_ICON, cx, cy, fuLoad));
+		if (*phico == NULL)
+		{
+			msg = L"ERROR: LoadImage WINAPI failed! (ErrorCode: ";
+			msg += std::to_wstring(::GetLastError()) + L")";
+			::MessageBoxW(NULL, msg.c_str(), L"DPIManagerV2::loadIcon", MB_OK | MB_SYSTEMMODAL | MB_ICONERROR); // TEMP: DEBUG:
+		}
 	}
 }

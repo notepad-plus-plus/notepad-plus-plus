@@ -229,6 +229,8 @@ public :
 	void currentTabToStart();
 	void currentTabToEnd();
 
+	void setCloseBtnImageList();
+
 protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;
@@ -248,6 +250,7 @@ protected:
 	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
 	CloseButtonZone _closeButtonZone;
+	HIMAGELIST _hCloseBtnImgLst = nullptr;
 	bool _isCloseHover = false;
 	int _whichCloseClickDown = -1;
 	bool _lmbdHit = false; // Left Mouse Button Down Hit

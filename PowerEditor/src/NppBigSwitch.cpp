@@ -3678,6 +3678,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_subDocTab.setFont();
 			_mainDocTab.resizeIconsDpi();
 			_subDocTab.resizeIconsDpi();
+			_subDocTab.setCloseBtnImageList();
+			_subDocTab.setCloseBtnImageList();
 			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
 
 			changeDocumentListIconSet(false);

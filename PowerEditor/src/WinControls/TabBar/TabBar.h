@@ -248,6 +248,7 @@ protected:
 	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
 	CloseButtonZone _closeButtonZone;
+	HIMAGELIST _hCloseBtnImgLst = nullptr;
 	bool _isCloseHover = false;
 	int _whichCloseClickDown = -1;
 	bool _lmbdHit = false; // Left Mouse Button Down Hit
@@ -307,4 +308,6 @@ protected:
 
 	void notify(int notifyCode, int tabIndex);
 	void trackMouseEvent(DWORD event2check);
+
+	void initCloseBtnImageList();
 };

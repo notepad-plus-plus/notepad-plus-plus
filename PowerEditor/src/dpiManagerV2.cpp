@@ -286,4 +286,10 @@ void DPIManagerV2::loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int
 	{
 		*phico = static_cast<HICON>(::LoadImage(hinst, pszName, IMAGE_ICON, cx, cy, fuLoad));
 	}
+
+	// in case of LoadIconWithScaleDown is not compatible on Windows version: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/15313
+	if (!*phico)
+	{
+		*phico = ::LoadIcon(hinst, pszName);
+	}
 }

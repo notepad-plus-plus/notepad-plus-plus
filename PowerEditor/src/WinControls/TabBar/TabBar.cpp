@@ -966,8 +966,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			{
 				// Even if the tab bar common control is used directly, e.g. in non-dark mode,
 				// it suffers from flickering during updates, so let it paint into a back buffer
-				::CallWindowProc(_tabBarDefaultProc, hwnd, WM_ERASEBKGND, reinterpret_cast<WPARAM>(hdc), 0);
-				::CallWindowProc(_tabBarDefaultProc, hwnd, WM_PRINTCLIENT, reinterpret_cast<WPARAM>(hdc), PRF_NONCLIENT | PRF_CLIENT);
+				::DefWindowProc(hwnd, WM_ERASEBKGND, reinterpret_cast<WPARAM>(hdc), 0);
+				::DefWindowProc(hwnd, WM_PRINT, reinterpret_cast<WPARAM>(hdc), PRF_NONCLIENT | PRF_CLIENT);
 				_dblBuf.endPaint(hwnd, &ps);
 				return 0;
 			}

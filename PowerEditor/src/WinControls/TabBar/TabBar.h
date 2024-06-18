@@ -229,6 +229,8 @@ public :
 	void currentTabToStart();
 	void currentTabToEnd();
 
+	void setCloseBtnImageList();
+
 protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;
@@ -308,6 +310,4 @@ protected:
 
 	void notify(int notifyCode, int tabIndex);
 	void trackMouseEvent(DWORD event2check);
-
-	void initCloseBtnImageList();
 };

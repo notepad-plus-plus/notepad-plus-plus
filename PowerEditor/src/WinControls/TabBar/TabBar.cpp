@@ -346,7 +346,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 
 	setFont();
 
-	initCloseBtnImageList();
+	setCloseBtnImageList();
 }
 
 void TabBar::setFont()
@@ -460,6 +460,34 @@ void TabBarPlus::currentTabToEnd()
 	}
 }
 
+void TabBarPlus::setCloseBtnImageList()
+{
+	if (_hCloseBtnImgLst != nullptr)
+	{
+		::ImageList_Destroy(_hCloseBtnImgLst);
+		_hCloseBtnImgLst = nullptr;
+	}
+
+	const int btnSize = _dpiManager.scale(g_TabCloseBtnSize);
+
+	const auto idsCloseIcons = {
+		IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVER, IDR_CLOSETAB_PUSH,
+		IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVER_DM, IDR_CLOSETAB_PUSH_DM };
+
+	_hCloseBtnImgLst = ::ImageList_Create(btnSize, btnSize, ILC_COLOR32 | ILC_MASK, static_cast<int>(idsCloseIcons.size()), 0);
+
+	for (const auto& id : idsCloseIcons)
+	{
+		HICON hIcon = nullptr;
+		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), btnSize, btnSize, &hIcon);
+		::ImageList_AddIcon(_hCloseBtnImgLst, hIcon);
+		::DestroyIcon(hIcon);
+	}
+
+	_closeButtonZone._width = btnSize;
+	_closeButtonZone._height = btnSize;
+}
+
 void TabBarPlus::doVertical()
 {
 	for (int i = 0 ; i < _nbCtrl ; ++i)
@@ -496,34 +524,6 @@ void TabBarPlus::trackMouseEvent(DWORD event2check)
 	tme.dwFlags = event2check;
 	tme.hwndTrack = _hSelf;
 	TrackMouseEvent(&tme);
-}
-
-void TabBarPlus::initCloseBtnImageList()
-{
-	if (_hCloseBtnImgLst != nullptr)
-	{
-		::ImageList_Destroy(_hCloseBtnImgLst);
-		_hCloseBtnImgLst = nullptr;
-	}
-
-	const int btnSize = _dpiManager.scale(g_TabCloseBtnSize);
-
-	const auto idsCloseIcons = {
-		IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVER, IDR_CLOSETAB_PUSH, 
-		IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVER_DM, IDR_CLOSETAB_PUSH_DM };
-
-	_hCloseBtnImgLst = ::ImageList_Create(btnSize, btnSize, ILC_COLOR32 | ILC_MASK, static_cast<int>(idsCloseIcons.size()), 0);
-
-	for (const auto& id : idsCloseIcons)
-	{
-		HICON hIcon = nullptr;
-		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), btnSize, btnSize, &hIcon);
-		::ImageList_AddIcon(_hCloseBtnImgLst, hIcon);
-		::DestroyIcon(hIcon);
-	}
-
-	_closeButtonZone._width = btnSize;
-	_closeButtonZone._height = btnSize;
 }
 
 LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)

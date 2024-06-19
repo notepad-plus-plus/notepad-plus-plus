@@ -54,6 +54,7 @@ constexpr int g_TabHeightLarge = 25;
 constexpr int g_TabWidth = 45;
 constexpr int g_TabWidthCloseBtn = 60;
 constexpr int g_TabCloseBtnSize = 11;
+constexpr int g_TabCloseBtnSize_DM = 16;
 
 struct TBHDR
 {
@@ -138,7 +139,6 @@ protected:
 
 struct CloseButtonZone
 {
-	CloseButtonZone();
 	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
 	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
 	void setParent(HWND parent) { _parent = parent; }

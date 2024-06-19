@@ -53,7 +53,7 @@ constexpr int g_TabHeight = 22;
 constexpr int g_TabHeightLarge = 25;
 constexpr int g_TabWidth = 45;
 constexpr int g_TabWidthCloseBtn = 60;
-constexpr int g_TabCloseBtnSize = 11;
+constexpr int g_TabCloseBtnSize = 16;
 
 struct TBHDR
 {

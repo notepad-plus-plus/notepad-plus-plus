@@ -138,6 +138,7 @@ protected:
 
 struct CloseButtonZone
 {
+	CloseButtonZone();
 	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
 	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
 	void setParent(HWND parent) { _parent = parent; }

@@ -462,21 +462,31 @@ void TabBarPlus::currentTabToEnd()
 
 void TabBarPlus::setCloseBtnImageList()
 {
+	int iconSize = 0;
+	std::vector<int> ids;
+
+	if (NppDarkMode::isEnabled())
+	{
+		iconSize = g_TabCloseBtnSize_DM;
+		ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVER_DM, IDR_CLOSETAB_PUSH_DM };
+	}
+	else
+	{
+		iconSize = g_TabCloseBtnSize;
+		ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVER, IDR_CLOSETAB_PUSH };
+	}
+
 	if (_hCloseBtnImgLst != nullptr)
 	{
 		::ImageList_Destroy(_hCloseBtnImgLst);
 		_hCloseBtnImgLst = nullptr;
 	}
 
-	const int btnSize = _dpiManager.scale(g_TabCloseBtnSize);
+	const int btnSize = _dpiManager.scale(iconSize);
 
-	const auto idsCloseIcons = {
-		IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVER, IDR_CLOSETAB_PUSH,
-		IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVER_DM, IDR_CLOSETAB_PUSH_DM };
+	_hCloseBtnImgLst = ::ImageList_Create(btnSize, btnSize, ILC_COLOR32 | ILC_MASK, static_cast<int>(ids.size()), 0);
 
-	_hCloseBtnImgLst = ::ImageList_Create(btnSize, btnSize, ILC_COLOR32 | ILC_MASK, static_cast<int>(idsCloseIcons.size()), 0);
-
-	for (const auto& id : idsCloseIcons)
+	for (const auto& id : ids)
 	{
 		HICON hIcon = nullptr;
 		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), btnSize, btnSize, &hIcon);
@@ -552,6 +562,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		case NPPM_INTERNAL_REFRESHDARKMODE:
 		{
 			NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::tabbar);
+			setCloseBtnImageList();
 			return TRUE;
 		}
 
@@ -1304,7 +1315,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	{
 		// 3 status for each inactive tab and selected tab close item :
 		// normal / hover / pushed
-		int idxCloseImg = isDarkMode ? 4 : 0; // selected
+		int idxCloseImg = 0; // selected
 
 		if (_isCloseHover && (_currentHoverTabItem == nTab))
 		{
@@ -1556,16 +1567,6 @@ void TabBarPlus::exchangeItemData(POINT point)
 
 }
 
-
-CloseButtonZone::CloseButtonZone()
-{
-	// TODO: get width/height of close button dynamically
-	if (_parent)
-	{
-		_width = DPIManagerV2::scale(g_TabCloseBtnSize, _parent);
-	}
-	_height = _width;
-}
 
 bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const
 {

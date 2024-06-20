@@ -49,7 +49,15 @@ void IconList::addIcon(int iconID, int cx, int cy) const
 	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(iconID), cx, cy, &hIcon, LR_DEFAULTSIZE);
 
 	if (!hIcon)
-		throw std::runtime_error("IconList::addIcon : LoadIcon() function return null");
+	{
+		static bool keepToLoad = true;
+		if (keepToLoad)
+		{
+			int userAnswer = ::MessageBoxA(NULL, "IconList::addIcon : LoadIcon() function return null.\nKeep showing this message?", std::to_string(iconID).c_str(), MB_YESNO | MB_ICONWARNING);
+			keepToLoad = userAnswer == IDYES;
+		}
+		return;
+	}
 
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);

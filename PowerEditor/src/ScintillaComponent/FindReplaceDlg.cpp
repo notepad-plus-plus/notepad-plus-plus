@@ -4987,17 +4987,8 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 
 	SetTextColor(lpDrawItemStruct->hDC, fgColor);
+	::SetBkMode(lpDrawItemStruct->hDC, TRANSPARENT);
 
-	COLORREF bgColor;
-	if (NppDarkMode::isEnabled())
-	{
-		bgColor = NppDarkMode::getBackgroundColor();
-	}
-	else
-	{
-		bgColor = getCtrlBgColor(_statusBar.getHSelf());
-	}
-	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
 	RECT rect{};
 	_statusBar.getClientRect(rect);
 

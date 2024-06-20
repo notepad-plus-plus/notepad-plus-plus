@@ -43,16 +43,47 @@ void IconList::create(int iconSize, HINSTANCE hInst, int* iconIDArray, int iconI
 		addIcon(iconIDArray[i], iconSize, iconSize);
 }
 
-void IconList::addIcon(int iconID, int cx, int cy) const
+void IconList::addIcon(int iconID, int cx, int cy, int failIconID) const
 {
 	HICON hIcon = nullptr;
 	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(iconID), cx, cy, &hIcon, LR_DEFAULTSIZE);
 
 	if (!hIcon)
-		throw std::runtime_error("IconList::addIcon : LoadIcon() function return null");
+	{
+		static bool ignoreWarning = false;
+		int userAnswer = 0;
+		if (!ignoreWarning)
+		{
+			userAnswer = ::MessageBoxA(NULL, "IconList::addIcon : LoadIcon() function return null.\nIgnore warning?", std::to_string(iconID).c_str(), MB_YESNOCANCEL | MB_ICONWARNING);
+			ignoreWarning = userAnswer == IDYES;
+		}
 
-	ImageList_AddIcon(_hImglst, hIcon);
-	::DestroyIcon(hIcon);
+		if (userAnswer == IDNO)
+		{
+			throw std::runtime_error("IconList::addIcon : LoadIcon() function returns null");
+		}
+		else
+		{
+			if (failIconID != -1)
+			{
+				HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(failIconID), IMAGE_BITMAP, cx, cy, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+				if (hBmp != nullptr)
+				{
+					::ImageList_AddMasked(_hImglst, hBmp, ::GetSysColor(COLOR_3DFACE));
+					::DeleteObject(hBmp);
+					return;
+				}
+			}
+			constexpr int IDI_ICONABSENT = 104; // check resource.h for correct id
+			DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_ICONABSENT), cx, cy, &hIcon);
+		}
+	}
+
+	if (hIcon != nullptr)
+	{
+		::ImageList_AddIcon(_hImglst, hIcon);
+		::DestroyIcon(hIcon);
+	}
 }
 
 void IconList::addIcon(HICON hIcon) const
@@ -103,20 +134,20 @@ void ToolBarIcons::reInit(int size)
 	{
 		if (_tbiis[i]._defaultIcon != -1)
 		{
-			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon, size, size);
-			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon, size, size);
-			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2, size, size);
-			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2, size, size);
+			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2, size, size, _tbiis[i]._stdIcon);
 
-			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon, size, size);
-			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon, size, size);
-			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2, size, size);
-			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2, size, size);
+			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2, size, size, _tbiis[i]._stdIcon);
 		}
 	}
 
 	// Add dynamic icons (from plugins)
-	for (auto i : _moreCmds)
+	for (const auto& i : _moreCmds)
 	{
 		_iconListVector[HLIST_DEFAULT].addIcon(i._hIcon);
 		_iconListVector[HLIST_DISABLE].addIcon(i._hIcon);

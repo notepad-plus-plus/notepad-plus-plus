@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.6.5">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1100,10 +1100,13 @@ Translation note:
 					<Item id="6506" name="Desactivadas"/>
 					<Item id="6507" name="Compactar o menú de linguaxes"/>
 					<Item id="6508" name="Menú de linguaxes"/>
-					<Item id="6301" name="Tabuladores"/>
-					<Item id="6302" name="Substituír por espazos"/>
+					<Item id="6301" name="Configuración de sangrías"/>
+					<Item id="6302" name="Espazos"/>
 					<Item id="6303" name="Tamaño:"/>
+					<Item id="6310" name="Sangría como:"/>
+					<Item id="6311" name="Tabulacións"/>
 					<Item id="6510" name="Usar valor por defecto"/>
+					<Item id="6512" name="A tecla de retroceso elimina a sangría en lugar do espazo."/>
 					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
 				</Language>
 
@@ -1526,6 +1529,10 @@ NOTA: Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a 
 NOTA: ¡Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, a súa sesión SERÁ MODIFICADA AO SAÍR! Suxerímoslle que faga unha copia de seguridade do seu &quot;session.xml&quot; agora."/>
 			<RTLvsDirectWrite title="Non se pode executar RTL" message="RTL non é compatible co modo DirectWrite. Desactíveo en Configuración -> Preferencias -> Varios e reinicie Notepad++."/>
 			<FileMemoryAllocationFailed title="Excepción: fallo na asignación de memoria para os arquivos" message="É posible que non haxa memoria suficiente dispoñible para os arquivos que quere abrir con Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Busca regex cara atrás desactivada" message="Por defecto, a busca regex cara atrás está desactivada debido aos resultados potencialmente inesperados. Para realizar unha busca cara atrás, abra o cadro de diálogo Buscar e seleccione o modo de busca normal ou ampliado en lugar da expresión regular.
+Pulse o botón Aceptar para abrir o cadro de diálogo Buscar ou fixar o foco nel.
+			
+Se necesita a función de busca regex cara atrás, consulte o manual do usuario para obter instruccións sobre como activala."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial do portapapeis"/>

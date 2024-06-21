@@ -37,8 +37,6 @@ using namespace std;
 //  ("tab" is not in the official list, but it is good to avoid it)
 const std::wstring filenameReservedChars = TEXT("<>:\"/\\|\?*\t");
 
-const int untitledMaxNameLength = 63;
-
 DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 {
 	MonitorInfo *monitorInfo = static_cast<MonitorInfo *>(params);
@@ -1911,7 +1909,7 @@ bool Notepad_plus::fileRename(BufferID id)
 
 		StringDlg strDlg;
 		std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", L"Rename Current Tab");
-		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), untitledMaxNameLength, filenameReservedChars.c_str(), true);
+		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, filenameReservedChars.c_str(), true);
 
 		wchar_t *tabNewName = reinterpret_cast<wchar_t *>(strDlg.doDialog());
 		if (tabNewName)
@@ -1994,7 +1992,7 @@ bool Notepad_plus::fileRenameUntitled(BufferID id, const wchar_t* tabNewName)
 
 	if (tabNewNameStr.empty()) return false;
 
-	if (tabNewNameStr.length() > untitledMaxNameLength) return false;
+	if (tabNewNameStr.length() > langNameLenMax - 1) return false;
 
 	if (tabNewNameStr.find_first_of(filenameReservedChars) != std::wstring::npos) return false;
 

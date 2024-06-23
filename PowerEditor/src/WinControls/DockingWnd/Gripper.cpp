@@ -19,6 +19,8 @@
 #include "Gripper.h"
 #include "DockingManager.h"
 #include "Parameters.h"
+#include <iostream>
+#include "SplitDockingConts.cpp"
 
 using namespace std;
 
@@ -36,6 +38,8 @@ BOOL Gripper::_isRegistered	= FALSE;
 static HWND		hWndServer		= NULL;
 static HHOOK	hookMouse		= NULL;
 static HHOOK	hookKeyboard	= NULL;
+
+const double SIDEBAR_SPLIT_DEADZONE = 0.25;
 
 static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 {
@@ -278,6 +282,13 @@ void Gripper::onMove()
 	drawRectangle(&pt);
 }
 
+void replaceDockCont(DockingCont** haystack, DockingCont* needle, DockingCont* replacement) {
+	if (*haystack == needle) {
+		*haystack = replacement;
+	} else {
+		// TODO: iterate *haystack children
+	}
+}
 
 void Gripper::onButtonUp()
 {
@@ -359,7 +370,24 @@ void Gripper::onButtonUp()
 		else
 		{
 			/* when all windows are moved */
-			_pDockMgr->toggleVisTb(_pCont, pDockCont);
+			RECT rc2 = {};
+			::GetWindowRect(pDockCont->getHSelf(), &rc2);
+			ShrinkRcToSize(&rc2);
+
+			auto vCont = _pDockMgr->getContainerInfo();
+
+			// If within deadzone, split sidebar
+			if (pt.x < rc2.left + SIDEBAR_SPLIT_DEADZONE * rc2.right) {
+				replaceDockCont(&vCont[sideIndex], pDockCont, new VerticalSplitContainer(? ? ? , pDockCont)); // Vertical split, og right
+			} else if (pt.x > rc2.left + (1 - SIDEBAR_SPLIT_DEADZONE) * rc2.right) {
+				replaceDockCont(&vCont[sideIndex], pDockCont, new VerticalSplitContainer(pDockCont, ???)); // Vertical split, og left
+			} else if (pt.y < rc2.top + SIDEBAR_SPLIT_DEADZONE * rc2.bottom) {
+				replaceDockCont(&vCont[sideIndex], pDockCont, new HorizontalSplitContainer(? ? ? , pDockCont)); // Horizontal split, og down
+			} else if (pt.y > rc2.top + (1 - SIDEBAR_SPLIT_DEADZONE) * rc2.bottom) {
+				replaceDockCont(vCont[sideIndex], pDockCont, new HorizontalSplitContainer(pDockCont, ? ? ? )); // Horizontal split, og up
+			} else {
+				_pDockMgr->toggleVisTb(_pCont, pDockCont);
+			}
 		}
 	}
 }
@@ -401,6 +429,8 @@ void Gripper::doTabReordering(POINT pt)
 				info.pt	= pt;
 				::ScreenToClient(hTab, &info.pt);
 				auto iItem = ::SendMessage(hTab, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info));
+				
+				std::cout << iItem << std::endl;
 
 				if (iItem != -1)
 				{
@@ -572,6 +602,13 @@ void Gripper::drawRectangle(const POINT* pPt)
 	}
 	else	rc = rcOld;	// only old rect will be drawn - to erase it
 
+	// sdasda7777: Yes, the correct rectangle is at this point
+	/*
+	std::wstringstream ss;
+	ss << "Debug message: rc = {left: " << rc.left << ", top: " << rc.top << ", right: " << rc.right << ", bottom: " << rc.bottom << "}" << std::endl;
+	OutputDebugString(ss.str().c_str());
+	*/
+
 	// now rc contains the rectangle wich encloses all needed, new and/or previous rectangle
 	// because in the following we drive within a memory device context wich is limited to rc,
 	// we have to localize rcNew and rcOld within rc...
@@ -652,6 +689,19 @@ void Gripper::getMovingRect(POINT pt, RECT *rc)
 		ShrinkRcToSize(rc);
 		ShrinkRcToSize(&rcCorr);
 
+		// If within deadzone, show sidebar split hint
+		if (pt.x < rc->left + SIDEBAR_SPLIT_DEADZONE * rc->right) {
+			rc->right /= 2;
+		} else if (pt.x > rc->left + (1 - SIDEBAR_SPLIT_DEADZONE) * rc->right) {
+			rc->left += rc->right / 2;
+			rc->right /= 2;
+		} else if (pt.y < rc->top + SIDEBAR_SPLIT_DEADZONE * rc->bottom) {
+			rc->bottom /= 2;
+		} else if (pt.y > rc->top + (1 - SIDEBAR_SPLIT_DEADZONE) * rc->bottom) {
+			rc->top += rc->bottom / 2;
+			rc->bottom /= 2;
+		}
+
 		/* correct rectangle position when mouse is not within */
 		DoCalcGripperRect(rc, rcCorr, pt);
 	}
@@ -686,44 +736,16 @@ void Gripper::getMovingRect(POINT pt, RECT *rc)
 DockingCont* Gripper::contHitTest(POINT pt)
 {
 	vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
-	HWND					hWnd	= ::WindowFromPoint(pt);
 
 	for (size_t iCont = 0, len = vCont.size(); iCont < len; ++iCont)
 	{
-		/* test if within caption */
-		if (hWnd == vCont[iCont]->getCaptionWnd())
-		{
-			if (vCont[iCont]->isFloating())
-			{
-				RECT	rc	= {};
-
-				vCont[iCont]->getWindowRect(rc);
-				if ((rc.top < pt.y) && (pt.y < (rc.top + 24)))
-				{
-					/* when it is the same container start moving immediately */
-					if (vCont[iCont] == _pCont)
-					{
-						return NULL;
-					}
-					else
-					{
-						return vCont[iCont];
-					}
-				}
-			}
-			else
-			{
-				return vCont[iCont];
-			}
-		}
-
-		/* test only tabs that are visible */
-		if (::IsWindowVisible(vCont[iCont]->getTabWnd()))
+		/* test only tabs that are not self and visible */
+		if (_pCont != vCont[iCont] && ::IsWindowVisible(vCont[iCont]->getHSelf()))
 		{
 			/* test if within tab (rect test is used, because of drag and drop behaviour) */
 			RECT		rc	= {};
 
-			::GetWindowRect(vCont[iCont]->getTabWnd(), &rc);
+			::GetWindowRect(vCont[iCont]->getHSelf(), &rc);
 			if (::PtInRect(&rc, pt))
 			{
 				return vCont[iCont];

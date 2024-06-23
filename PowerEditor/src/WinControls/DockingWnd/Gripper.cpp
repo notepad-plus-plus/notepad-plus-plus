@@ -19,7 +19,6 @@
 #include "Gripper.h"
 #include "DockingManager.h"
 #include "Parameters.h"
-#include <iostream>
 #include "SplitDockingConts.cpp"
 
 using namespace std;
@@ -376,6 +375,7 @@ void Gripper::onButtonUp()
 
 			auto vCont = _pDockMgr->getContainerInfo();
 
+			// This code is nowhere near compiling
 			// If within deadzone, split sidebar
 			if (pt.x < rc2.left + SIDEBAR_SPLIT_DEADZONE * rc2.right) {
 				replaceDockCont(&vCont[sideIndex], pDockCont, new VerticalSplitContainer(? ? ? , pDockCont)); // Vertical split, og right
@@ -601,13 +601,6 @@ void Gripper::drawRectangle(const POINT* pPt)
 		else	rc = rcNew;	// only new rect will be drawn
 	}
 	else	rc = rcOld;	// only old rect will be drawn - to erase it
-
-	// sdasda7777: Yes, the correct rectangle is at this point
-	/*
-	std::wstringstream ss;
-	ss << "Debug message: rc = {left: " << rc.left << ", top: " << rc.top << ", right: " << rc.right << ", bottom: " << rc.bottom << "}" << std::endl;
-	OutputDebugString(ss.str().c_str());
-	*/
 
 	// now rc contains the rectangle wich encloses all needed, new and/or previous rectangle
 	// because in the following we drive within a memory device context wich is limited to rc,

@@ -82,6 +82,7 @@ DockingCont::~DockingCont()
 	}
 }
 
+
 void DockingCont::doDialog(bool willBeShown, bool isFloating)
 {
 	if (!isCreated())

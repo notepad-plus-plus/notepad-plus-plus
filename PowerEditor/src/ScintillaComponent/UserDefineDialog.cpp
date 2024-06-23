@@ -1734,21 +1734,22 @@ bool StringDlg::isAllowed([[maybe_unused]] const generic_string & txt)
 
 void StringDlg::HandlePaste(HWND hEdit)
 {
-	if (OpenClipboard(hEdit))
+	if (::OpenClipboard(hEdit))
 	{
-		HANDLE hClipboardData = GetClipboardData(CF_UNICODETEXT);
-		if (NULL != hClipboardData)
+		HANDLE hClipboardData = ::GetClipboardData(CF_UNICODETEXT);
+		if (hClipboardData)
 		{
-			LPTSTR pszText = static_cast<LPTSTR>(GlobalLock(hClipboardData));
-			if (NULL != pszText && isAllowed(pszText))
+			LPTSTR pszText = static_cast<LPTSTR>(::GlobalLock(hClipboardData));
+			if (pszText)
 			{
-				SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));
-			}
+				if (isAllowed(pszText))
+					::SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));
 
-			GlobalUnlock(hClipboardData);
+				::GlobalUnlock(hClipboardData);
+			}
 		}
 
-		CloseClipboard();
+		::CloseClipboard();
 	}
 }
 

@@ -4591,66 +4591,76 @@ bool ScintillaEditView::pasteToMultiSelection() const
 
 	// "MSDEVColumnSelect" is column format from Scintilla 
 	CLIPFORMAT cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormat(TEXT("MSDEVColumnSelect")));
-	if (IsClipboardFormatAvailable(cfColumnSelect) && OpenClipboard(NULL))
+	if (::IsClipboardFormatAvailable(cfColumnSelect) && ::OpenClipboard(NULL))
 	{
 		HANDLE clipboardData = ::GetClipboardData(CF_UNICODETEXT);
-		::GlobalSize(clipboardData);
-		LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
-		if (clipboardDataPtr)
+		if (!clipboardData)
 		{
-			wstring clipboardStr = (const TCHAR*)clipboardDataPtr;
-			::GlobalUnlock(clipboardData);
 			::CloseClipboard();
-
-			vector<wstring> clipboardStrings;
-			stringSplit(clipboardStr, getEOLString(), clipboardStrings);
-			clipboardStrings.erase(clipboardStrings.cend() - 1); // remove the last empty string
-			size_t nbClipboardStr = clipboardStrings.size();
-
-			if (nbSelections >= nbClipboardStr) // enough holes for every insertion, keep holes empty if there are some left
+		}
+		else
+		{
+			LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+			if (!clipboardDataPtr)
 			{
-				execute(SCI_BEGINUNDOACTION);
-				for (size_t i = 0; i < nbClipboardStr; ++i)
-				{
-					LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
-					LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
-					replaceTarget(clipboardStrings[i].c_str(), posStart, posEnd);
-					posStart += clipboardStrings[i].length();
-					execute(SCI_SETSELECTIONNSTART, i, posStart);
-					execute(SCI_SETSELECTIONNEND, i, posStart);
-				}
-				execute(SCI_ENDUNDOACTION);
-				return true;
+				::CloseClipboard();
 			}
-			else if (nbSelections < nbClipboardStr) // not enough holes for insertion, every hole has several insertions
+			else
 			{
-				size_t nbStr2takeFromClipboard = nbClipboardStr / nbSelections;
+				wstring clipboardStr = (const TCHAR*)clipboardDataPtr;
+				::GlobalUnlock(clipboardData);
+				::CloseClipboard();
 
-				execute(SCI_BEGINUNDOACTION);
-				size_t j = 0;
-				for (size_t i = 0; i < nbSelections; ++i)
+				vector<wstring> clipboardStrings;
+				stringSplit(clipboardStr, getEOLString(), clipboardStrings);
+				clipboardStrings.erase(clipboardStrings.cend() - 1); // remove the last empty string
+				size_t nbClipboardStr = clipboardStrings.size();
+
+				if (nbSelections >= nbClipboardStr) // enough holes for every insertion, keep holes empty if there are some left
 				{
-					LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
-					LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
-					wstring severalStr;
-					wstring eol = getEOLString();
-					for (size_t k = 0; k < nbStr2takeFromClipboard && j < nbClipboardStr; ++k)
+					execute(SCI_BEGINUNDOACTION);
+					for (size_t i = 0; i < nbClipboardStr; ++i)
 					{
-						severalStr += clipboardStrings[j];
-						severalStr += eol;
-						++j;
+						LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
+						LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
+						replaceTarget(clipboardStrings[i].c_str(), posStart, posEnd);
+						posStart += clipboardStrings[i].length();
+						execute(SCI_SETSELECTIONNSTART, i, posStart);
+						execute(SCI_SETSELECTIONNEND, i, posStart);
 					}
-
-					// remove the latest added EOL
-					severalStr.erase(severalStr.length() - eol.length());
-
-					replaceTarget(severalStr.c_str(), posStart, posEnd);
-					posStart += severalStr.length();
-					execute(SCI_SETSELECTIONNSTART, i, posStart);
-					execute(SCI_SETSELECTIONNEND, i, posStart);
+					execute(SCI_ENDUNDOACTION);
+					return true;
 				}
-				execute(SCI_ENDUNDOACTION);
-				return true;
+				else if (nbSelections < nbClipboardStr) // not enough holes for insertion, every hole has several insertions
+				{
+					size_t nbStr2takeFromClipboard = nbClipboardStr / nbSelections;
+
+					execute(SCI_BEGINUNDOACTION);
+					size_t j = 0;
+					for (size_t i = 0; i < nbSelections; ++i)
+					{
+						LRESULT posStart = execute(SCI_GETSELECTIONNSTART, i);
+						LRESULT posEnd = execute(SCI_GETSELECTIONNEND, i);
+						wstring severalStr;
+						wstring eol = getEOLString();
+						for (size_t k = 0; k < nbStr2takeFromClipboard && j < nbClipboardStr; ++k)
+						{
+							severalStr += clipboardStrings[j];
+							severalStr += eol;
+							++j;
+						}
+
+						// remove the latest added EOL
+						severalStr.erase(severalStr.length() - eol.length());
+
+						replaceTarget(severalStr.c_str(), posStart, posEnd);
+						posStart += severalStr.length();
+						execute(SCI_SETSELECTIONNSTART, i, posStart);
+						execute(SCI_SETSELECTIONNEND, i, posStart);
+					}
+					execute(SCI_ENDUNDOACTION);
+					return true;
+				}
 			}
 		}
 	}

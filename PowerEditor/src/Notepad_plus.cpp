@@ -2870,19 +2870,29 @@ void Notepad_plus::pasteToMarkedLines()
 {
 	std::lock_guard<std::mutex> lock(mark_mutex);
 
-	int clipFormat;
-	clipFormat = CF_UNICODETEXT;
+	unsigned int clipFormat = CF_UNICODETEXT;
 
-	BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
-	if (!canPaste)
+	if (!::IsClipboardFormatAvailable(clipFormat))
 		return;
+
 	intptr_t lastLine = _pEditView->lastZeroBasedLineNumber();
 
-	::OpenClipboard(_pPublicInterface->getHSelf());
+	if (!::OpenClipboard(_pPublicInterface->getHSelf()))
+		return;
+
 	HANDLE clipboardData = ::GetClipboardData(clipFormat);
-	::GlobalSize(clipboardData);
+	if (!clipboardData)
+	{
+		::CloseClipboard();
+		return;
+	}
+
 	LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
-	if (!clipboardDataPtr) return;
+	if (!clipboardDataPtr)
+	{
+		::CloseClipboard();
+		return;
+	}
 
 	generic_string clipboardStr = (const TCHAR *)clipboardDataPtr;
 

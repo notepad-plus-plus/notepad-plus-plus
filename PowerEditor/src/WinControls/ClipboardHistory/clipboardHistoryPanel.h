@@ -77,6 +77,12 @@ public:
 
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
+	bool trackClipboardOps(bool bTrack) {
+		bool bPreviousState = _isTrackingClipboardOps;
+		_isTrackingClipboardOps = bTrack;
+		return bPreviousState;
+	};
+
 protected:
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -86,6 +92,6 @@ private:
 	HWND _hwndNextCbViewer = nullptr;
 	int _lbBgColor = -1;
 	int _lbFgColor= -1;
-
+	bool _isTrackingClipboardOps = true; // false when we do not want to track & show some Clipboard operations
 };
 

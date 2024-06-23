@@ -1734,22 +1734,26 @@ bool StringDlg::isAllowed([[maybe_unused]] const generic_string & txt)
 
 void StringDlg::HandlePaste(HWND hEdit)
 {
-	if (OpenClipboard(hEdit))
+	if (!::OpenClipboard(hEdit))
+		return;
+
+	HANDLE hClipboardData = ::GetClipboardData(CF_UNICODETEXT);
+	if (!hClipboardData)
 	{
-		HANDLE hClipboardData = GetClipboardData(CF_UNICODETEXT);
-		if (NULL != hClipboardData)
-		{
-			LPTSTR pszText = static_cast<LPTSTR>(GlobalLock(hClipboardData));
-			if (NULL != pszText && isAllowed(pszText))
-			{
-				SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));
-			}
-
-			GlobalUnlock(hClipboardData);
-		}
-
-		CloseClipboard();
+		::CloseClipboard();
+		return;
 	}
+
+	LPTSTR pszText = static_cast<LPTSTR>(::GlobalLock(hClipboardData));
+	if (pszText)
+	{
+		if (isAllowed(pszText))
+			::SendMessage(hEdit, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(pszText));
+
+		::GlobalUnlock(hClipboardData);
+	}
+	
+	::CloseClipboard();
 }
 
 void StylerDlg::move2CtrlRight(HWND hwndDlg, int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight)

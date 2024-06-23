@@ -427,51 +427,70 @@ void Notepad_plus::command(int id)
 			char *pBinText = new char[textLen + 1];
 			_pEditView->getSelectedText(pBinText, textLen + 1);
 
-			// Open the clipboard, and empty it.
-			if (!OpenClipboard(NULL))
+			// Open the clipboard and empty it.
+			if (!::OpenClipboard(NULL))
 				return;
-			EmptyClipboard();
+			if (!::EmptyClipboard())
+			{
+				::CloseClipboard();
+				return;
+			}
 
 			// Allocate a global memory object for the text.
-			HGLOBAL hglbCopy = GlobalAlloc(GMEM_MOVEABLE, (textLen + 1) * sizeof(unsigned char));
-			if (hglbCopy == NULL)
+			HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, (textLen + 1) * sizeof(unsigned char));
+			if (!hglbCopy)
 			{
-				CloseClipboard();
+				::CloseClipboard();
 				return;
 			}
 
 			// Lock the handle and copy the text to the buffer.
-			unsigned char *lpucharCopy = (unsigned char *)GlobalLock(hglbCopy);
+			unsigned char *lpucharCopy = (unsigned char *)::GlobalLock(hglbCopy);
+			if (!lpucharCopy)
+			{
+				::GlobalFree(hglbCopy);
+				::CloseClipboard();
+				return;
+			}
 			memcpy(lpucharCopy, pBinText, textLen * sizeof(unsigned char));
 			lpucharCopy[textLen] = 0;    // null character
 
 			delete[] pBinText;
 
-			GlobalUnlock(hglbCopy);
+			::GlobalUnlock(hglbCopy);
 
 			// Place the handle on the clipboard.
-			SetClipboardData(CF_TEXT, hglbCopy);
-
+			if (!::SetClipboardData(CF_TEXT, hglbCopy))
+			{
+				::GlobalFree(hglbCopy);
+				::CloseClipboard();
+				return;
+			}
 
 			// Allocate a global memory object for the text length.
-			HGLOBAL hglbLenCopy = GlobalAlloc(GMEM_MOVEABLE, sizeof(unsigned long));
-			if (hglbLenCopy == NULL)
+			HGLOBAL hglbLenCopy = ::GlobalAlloc(GMEM_MOVEABLE, sizeof(unsigned long));
+			if (!hglbLenCopy)
 			{
-				CloseClipboard();
+				::CloseClipboard();
 				return;
 			}
 
 			// Lock the handle and copy the text to the buffer.
-			unsigned long *lpLenCopy = (unsigned long *)GlobalLock(hglbLenCopy);
+			unsigned long *lpLenCopy = (unsigned long *)::GlobalLock(hglbLenCopy);
+			if (!lpLenCopy)
+			{
+				::CloseClipboard();
+				return;
+			}
 			*lpLenCopy = static_cast<unsigned long>(textLen);
 
-			GlobalUnlock(hglbLenCopy);
+			::GlobalUnlock(hglbLenCopy);
 
 			// Place the handle on the clipboard.
-			UINT cf_nppTextLen = RegisterClipboardFormat(CF_NPPTEXTLEN);
-			SetClipboardData(cf_nppTextLen, hglbLenCopy);
+			UINT cf_nppTextLen = ::RegisterClipboardFormat(CF_NPPTEXTLEN);
+			::SetClipboardData(cf_nppTextLen, hglbLenCopy);
 
-			CloseClipboard();
+			::CloseClipboard();
 
 			if (id == IDM_EDIT_CUT_BINARY)
 				_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
@@ -3122,44 +3141,95 @@ void Notepad_plus::command(int id)
 
 			if (idEncoding != -1)
 			{
-				// Save the current clipboard content
-				::OpenClipboard(_pPublicInterface->getHSelf());
-				HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
-				LPVOID clipboardData2 = NULL;
-				if (clipboardData != NULL)
+				// try to save the current clipboard CF_TEXT content 1st
+				HGLOBAL hglbClipboardCopy = NULL;
+				if (::OpenClipboard(_pPublicInterface->getHSelf()))
 				{
-					int len = static_cast<int32_t>(::GlobalSize(clipboardData));
-					LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
-
-					HANDLE allocClipboardData = ::GlobalAlloc(GMEM_MOVEABLE, len);
-					clipboardData2 = ::GlobalLock(allocClipboardData);
-
-					::memcpy(clipboardData2, clipboardDataPtr, len);
-					::GlobalUnlock(clipboardData);
-					::GlobalUnlock(allocClipboardData);
+					HANDLE hClipboardData = ::GetClipboardData(CF_TEXT);
+					if (hClipboardData) // NULL if there is no previous CF_TEXT data in
+					{
+						LPVOID pClipboardData = ::GlobalLock(hClipboardData);
+						if (pClipboardData)
+						{
+							size_t clipboardDataSize = ::GlobalSize(pClipboardData);
+							hglbClipboardCopy = ::GlobalAlloc(GMEM_MOVEABLE, clipboardDataSize);
+							if (hglbClipboardCopy)
+							{
+								LPVOID pClipboardCopy = ::GlobalLock(hglbClipboardCopy);
+								if (pClipboardCopy)
+								{
+									::memcpy(pClipboardCopy, pClipboardData, clipboardDataSize);
+									::GlobalUnlock(hglbClipboardCopy);
+								}
+								else
+								{
+									::GlobalFree(hglbClipboardCopy);
+									hglbClipboardCopy = NULL;
+								}
+							}
+							::GlobalUnlock(hClipboardData);
+						}
+					}
 					::CloseClipboard();
 				}
 
 				_pEditView->saveCurrentPos();
+
+				bool bPreviousCHPanelTrackingState = true;
+				if (_pClipboardHistoryPanel)
+					bPreviousCHPanelTrackingState = _pClipboardHistoryPanel->trackClipboardOps(false); // we do not want to track & show the next Clipboard op
 
 				// Cut all text
 				size_t docLen = _pEditView->getCurrentDocLen();
 				_pEditView->execute(SCI_COPYRANGE, 0, docLen);
 				_pEditView->execute(SCI_CLEARALL);
 
+				if (_pClipboardHistoryPanel)
+					_pClipboardHistoryPanel->trackClipboardOps(bPreviousCHPanelTrackingState); // restore
+
 				// Change to the proper buffer, save buffer status
 
 				::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
 
-				// Paste the texte, restore buffer status
+				// Paste the text, restore buffer status
 				_pEditView->execute(SCI_PASTE);
 				_pEditView->restoreCurrentPosPreStep();
 
-				// Restore the previous clipboard data
-				::OpenClipboard(_pPublicInterface->getHSelf());
-				::EmptyClipboard();
-				::SetClipboardData(CF_TEXT, clipboardData2);
-				::CloseClipboard();
+				// Restore the previous Clipboard data if any
+				if (hglbClipboardCopy)
+				{
+					bool bAllOk = false;
+					if (::OpenClipboard(_pPublicInterface->getHSelf()))
+					{
+						LPVOID pClipboardCopy = ::GlobalLock(hglbClipboardCopy);
+						if (pClipboardCopy)
+						{
+							if (::EmptyClipboard())
+							{
+								if (::SetClipboardData(CF_TEXT, pClipboardCopy))
+									bAllOk = true;
+							}
+							::GlobalUnlock(hglbClipboardCopy);
+						}
+						::CloseClipboard();
+					}
+					if (!bAllOk)
+					{
+						// when we failed to pass the data back to the Clipboard,
+						// we have to free our copy here otherwise there will be memory leak
+						::GlobalFree(hglbClipboardCopy);
+						hglbClipboardCopy = NULL;
+					}
+				}
+				else
+				{
+					// no previous Clipboard data, clear the ones used by the Scintilla's conversion
+					if (::OpenClipboard(_pPublicInterface->getHSelf()))
+					{
+						::EmptyClipboard();
+						::CloseClipboard();
+					}
+				}
 
 				//Do not free anything, EmptyClipboard does that
 				_pEditView->execute(SCI_EMPTYUNDOBUFFER);

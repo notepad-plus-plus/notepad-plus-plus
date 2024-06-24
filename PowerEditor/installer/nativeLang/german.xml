@@ -1115,7 +1115,7 @@ Translation note:
 					<Item id="6310" name="Einrückung verwendet:"/>
 					<Item id="6311" name="Tab Zeichen"/>
 					<Item id="6510" name="Standard verwenden"/>
-					<Item id="6512" name="Die Rückschrittaste U+232B entfernt Einrückungen, anstatt einzelne Leerzeichen zu entfernen"/>
+					<Item id="6512" name="Die Rückschrittaste U+232B entfernt Einrückungen statt einzelne Leerzeichen"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</Language>
 

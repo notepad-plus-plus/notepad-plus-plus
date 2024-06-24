@@ -3221,6 +3221,15 @@ void Notepad_plus::command(int id)
 						hglbClipboardCopy = NULL;
 					}
 				}
+				else
+				{
+					// no previous Clipboard data, clear the ones used by the Scintilla's conversion
+					if (::OpenClipboard(_pPublicInterface->getHSelf()))
+					{
+						::EmptyClipboard();
+						::CloseClipboard();
+					}
+				}
 
 				//Do not free anything, EmptyClipboard does that
 				_pEditView->execute(SCI_EMPTYUNDOBUFFER);

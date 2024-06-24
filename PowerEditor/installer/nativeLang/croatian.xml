@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 24 April 2024 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 14 June 2024 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.6.6">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1111,11 +1111,14 @@
 					<Item id="6506" name="Isključene sintakse"/>
 					<Item id="6507" name="Kompaktni izbornik sintaksi"/>
 					<Item id="6508" name="Izbornik sintaksi"/>
-					<Item id="6301" name="Postavke tabulatora"/>
-					<Item id="6302" name="Zamijeni razmacima"/>
-					<Item id="6303" name="Širina tabulatora: "/>
+					<Item id="6301" name="Postavke uvlaka"/>
+					<Item id="6302" name="razmake"/>
+					<Item id="6303" name="Širina uvlake: "/>
+					<Item id="6310" name="Za uvlake koristi:"/>
+					<Item id="6311" name="tabulatore"/>
 					<Item id="6510" name="Koristi zadanu vrijednost"/>
-					<Item id="6335" name="Tretiraj backslash kao escape znak za SQL"/>
+					<Item id="6512" name="Tipka Backspace poništava uvlake umjesto brisanja jednog razmaka"/>
+					<Item id="6335" name="Tretiraj Backslash kao escape znak za SQL"/>
 				</Language>
 
 				<Highlighting title="Označavanje">
@@ -1415,7 +1418,7 @@ Nastaviti?"/><!-- HowToReproduce: when you openned file is modified and saved, t
 			<CannotMoveDoc title="Premjesti u novu Notepad++ instancu" message="Dokument je izmijenjen. Spremite ga i onda pokušajte ponovo."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
 			<DocReloadWarning title="Ponovo učitaj" message="Jeste li sigurni da želite ponovo učitati trenutnu datoteku i izgubiti sve izmjene koje ste učinili u Notepadu++?"/>
 			<FileLockedWarning title="Neuspjelo spremanje" message="Molim provjerite da ta datoteka nije otvorena u nekom drugom programu"/>
-			<FileAlreadyOpenedInNpp title="Neuspjelo spremanje" message="Datoteka s tim imenom je otvorena u Notepadu++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
+			<FileAlreadyOpenedInNpp title="Ovo neće ići..." message="Datoteka s tim imenom je otvorena u Notepadu++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Neuspjelo preimenovanje" message="Taj naziv je već u upotrebi u drugoj kartici."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
 			<RenameTabTemporaryNameIsEmpty title="Neuspjelo preimenovanje" message="Naziv ne može biti prazan, odnosno ne može sadržavati samo razmak(e) ili tab(ove)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Brisanje datoteke" message="Brisanje datoteke nije uspjelo"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1540,6 +1543,10 @@ Predlažemo da napravite sigurnosnu kopiju &quot;session.xml&quot; sada."/>
 			<RTLvsDirectWrite title="Ne mogu uključiti RTL smjer pisanja" message="Pisanje s desna na lijevo nije kompatibilno sa DirectWrite načinom.
 Molim, isključite DirectWrite način u odjeljku &quot;Razno&quot; u Postavkama i restartajte Notepad++."/>
 			<FileMemoryAllocationFailed title="Iznimka: dodjela memorije datoteci nije uspjela" message="Vjerojatno nema dovoljno kontinuirane slobodne memorije za datoteku koju učitava Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="RegEx pretraživanje unatrag onemogućeno" message="Prema zadanim postavkama, pretraživanje regularnih izraza unatrag onemogućeno je zbog potencijalno neočekivanih rezultata. Za izvođenje pretraživanja unatrag, otvorite dijaloški okvir Traži i odaberite normalni ili prošireni način pretraživanja umjesto regularnog izraza.
+Pritisnite gumb U redu kako bi otvorili dijaloški okvir Traži ili postavite fokus na njega.
+			
+Ako vam je potrebna značajka pretraživanja regularnih izraza unatrag, potražite u korisničkom priručniku upute o tome kako ju omogućiti."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>

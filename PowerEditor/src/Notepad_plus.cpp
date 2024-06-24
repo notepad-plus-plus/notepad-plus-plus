@@ -2872,8 +2872,7 @@ void Notepad_plus::pasteToMarkedLines()
 
 	unsigned int clipFormat = CF_UNICODETEXT;
 
-	BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
-	if (!canPaste)
+	if (!::IsClipboardFormatAvailable(clipFormat))
 		return;
 
 	intptr_t lastLine = _pEditView->lastZeroBasedLineNumber();

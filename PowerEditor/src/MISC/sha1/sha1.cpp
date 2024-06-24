@@ -11,6 +11,14 @@
 //#define _CRT_SECURE_NO_WARNINGS
 #include "sha1.h"
 
+#ifndef MPP_USE_ORIGINAL_CODE
+#include <boost/filesystem.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+#include <boost/iostreams/device/file_descriptor.hpp>
+#include <vector>
+#include "FileInterface.h"
+#endif
+
 #define SHA1_MAX_FILE_BUFFER (32 * 20 * 820)
 
 // Rotate p_val32 by p_nBits bits to the left
@@ -141,6 +149,7 @@ void CSHA1::Update(const UINT_8* pbData, UINT_32 uLen)
 }
 
 #ifdef SHA1_UTILITY_FUNCTIONS
+#ifdef MPP_USE_ORIGINAL_CODE
 bool CSHA1::HashFile(const TCHAR* tszFileName)
 {
 	if(tszFileName == NULL) return false;
@@ -170,6 +179,57 @@ bool CSHA1::HashFile(const TCHAR* tszFileName)
 	delete[] pbData;
 	return bSuccess;
 }
+#else
+bool CSHA1::HashFile( const TCHAR* tszFileName )
+{
+	if ( tszFileName == NULL ) return false;
+
+	boost::filesystem::path filePath = tszFileName;
+	std::int64_t fileSize = GetFileLength( tszFileName );
+
+	if ( fileSize > 0 )
+	{
+		boost::iostreams::mapped_file_source mmDevice( filePath );
+
+		if ( !mmDevice.is_open() )
+			return false;
+
+		std::size_t nCopy = std::min< std::size_t >( mmDevice.size(), SHA1_MAX_FILE_BUFFER );
+
+		if ( nCopy == 0 )
+			return false;
+
+		for ( auto first = mmDevice.begin(); first < mmDevice.end(); first += nCopy )
+			Update( reinterpret_cast< const std::uint8_t* >( first ), static_cast< std::uint32_t >( nCopy ) );
+	}
+	else if ( fileSize == 0 )
+	{
+		boost::iostreams::file_descriptor_source fdDevice( filePath );
+
+		if ( !fdDevice.is_open() )
+			return false;
+
+		std::vector< char > buffer( SHA1_MAX_FILE_BUFFER );
+
+		while ( true )
+		{
+			const auto uRead = fdDevice.read( buffer.data(), SHA1_MAX_FILE_BUFFER );
+
+			if ( uRead > 0 )
+				Update( reinterpret_cast< std::uint8_t* >( buffer.data() ), static_cast< std::uint32_t >( uRead ) );
+
+			if ( uRead < SHA1_MAX_FILE_BUFFER )
+				break;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
+}
+#endif
 #endif
 
 void CSHA1::Final()

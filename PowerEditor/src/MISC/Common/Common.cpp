@@ -29,6 +29,14 @@
 #include <Parameters.h>
 #include "Buffer.h"
 
+#ifndef MPP_USE_ORIGINAL_CODE
+#include <bcrypt.h>
+#include <boost/filesystem.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+#include "FileInterface.h"
+#pragma comment( lib, "Bcrypt.lib" )
+#endif
+
 void printInt(int int2print)
 {
 	TCHAR str[32];
@@ -50,6 +58,7 @@ generic_string commafyInt(size_t n)
 	return ss.str();
 }
 
+#ifdef MPP_USE_ORIGINAL_CODE
 std::string getFileContent(const TCHAR *file2read)
 {
 	if (!::PathFileExists(file2read))
@@ -74,6 +83,24 @@ std::string getFileContent(const TCHAR *file2read)
 	fclose(fp);
 	return wholeFileContent;
 }
+#else
+std::string getFileContent( const TCHAR* file2read )
+{
+	if ( !::PathFileExists( file2read ) )
+		return "";
+
+	if ( GetFileLength( file2read ) == 0 )
+		return "";
+
+	boost::filesystem::path filePath = file2read;
+	boost::iostreams::mapped_file_source mmDevice( filePath );
+
+	if ( !mmDevice )
+		return "";
+
+	return { mmDevice.begin(), mmDevice.end() };
+}
+#endif
 
 char getDriveLetter()
 {
@@ -1761,3 +1788,122 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 
 	return false;
 }
+
+#ifndef MPP_USE_ORIGINAL_CODE
+namespace
+{
+	constexpr NTSTATUS STATUS_UNSUCCESSFUL = 0xC0000001L;
+	constexpr bool NT_SUCCESS( NTSTATUS Status ) { return ( Status >= 0 ); }
+
+	struct BCryptAlgorithmProviderDeleter
+	{
+		using pointer = BCRYPT_ALG_HANDLE;
+		void operator () ( pointer p )
+		{
+			::BCryptCloseAlgorithmProvider( p, 0 );
+		}
+	};
+
+	struct BCryptDestroyHashDeleter
+	{
+		using pointer = BCRYPT_HASH_HANDLE;
+		void operator () ( pointer p )
+		{
+			::BCryptDestroyHash( p );
+		}
+	};
+}
+
+bool WinCNG_CalculateHash( PCWSTR pszAlgId, const void* input, std::size_t nInputSize, std::uint8_t* pHash, std::size_t nHashSize, std::uint32_t& error_code )
+{
+	NTSTATUS status = STATUS_UNSUCCESSFUL;
+
+	std::unique_ptr< BCRYPT_ALG_HANDLE, BCryptAlgorithmProviderDeleter > handle_algorithm;
+	{
+		BCRYPT_ALG_HANDLE hAlg = nullptr;
+
+		status = ::BCryptOpenAlgorithmProvider( &hAlg, pszAlgId, nullptr, 0 );
+		if ( !NT_SUCCESS( status ) )
+		{
+			error_code = ::GetLastError();
+			return false;
+		}
+
+		handle_algorithm.reset( hAlg );
+	}
+
+	DWORD cbData;
+	DWORD cbHashObject;
+	//calculate the size of the buffer to hold the hash object
+	status = ::BCryptGetProperty( handle_algorithm.get(), BCRYPT_OBJECT_LENGTH, reinterpret_cast< PBYTE >( &cbHashObject ), sizeof( DWORD ), &cbData, 0 );
+	if ( !NT_SUCCESS( status ) )
+	{
+		error_code = ::GetLastError();
+		return false;
+	}
+
+	//allocate the hash object on the heap
+	std::vector< BYTE > hash_object( cbHashObject );
+
+	DWORD cbHash;
+	//calculate the length of the hash
+	status = ::BCryptGetProperty( handle_algorithm.get(), BCRYPT_HASH_LENGTH, reinterpret_cast< PBYTE >( &cbHash ), sizeof( DWORD ), &cbData, 0 );
+	if ( !NT_SUCCESS( status ) )
+	{
+		error_code = ::GetLastError();
+		return false;
+	}
+
+	if ( nHashSize < cbHash )
+	{
+		error_code = ERROR_INSUFFICIENT_BUFFER;
+		return false;
+	}
+
+	//create a hash
+	std::unique_ptr< BCRYPT_HASH_HANDLE, BCryptDestroyHashDeleter > handle_hash;
+	{
+		BCRYPT_HASH_HANDLE hHash = nullptr;
+
+		status = ::BCryptCreateHash( handle_algorithm.get(), &hHash, hash_object.data(), cbHashObject, nullptr, 0, 0 );
+		if ( !NT_SUCCESS( status ) )
+		{
+			error_code = ::GetLastError();
+			return false;
+		}
+
+		handle_hash.reset( hHash );
+	}
+
+	//hash some data
+	constexpr DWORD CHUNK_SIZE = 1 << 30;
+
+	PUCHAR pCurrent = static_cast< PUCHAR >( const_cast< void* >( input ) );
+	std::size_t nRemaining = nInputSize;
+
+	while ( nRemaining > 0 )
+	{
+		DWORD chunk = ( nRemaining < CHUNK_SIZE ) ? static_cast< DWORD >( nRemaining ) : CHUNK_SIZE;
+
+		status = ::BCryptHashData( handle_hash.get(), pCurrent, chunk, 0 );
+		if ( !NT_SUCCESS( status ) )
+		{
+			error_code = ::GetLastError();
+			return false;
+		}
+
+		nRemaining -= chunk;
+		pCurrent += chunk;
+	}
+
+	//close the hash
+	status = BCryptFinishHash( handle_hash.get(), pHash, cbHash, 0 );
+	if ( !NT_SUCCESS( status ) )
+	{
+		error_code = ::GetLastError();
+		return false;
+	}
+
+	return true;
+}
+#endif

@@ -58,3 +58,8 @@ private:
 	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };
 	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL };
 };
+
+
+#ifndef MPP_USE_ORIGINAL_CODE
+LONGLONG GetFileLength( PCTSTR pszFileName );
+#endif

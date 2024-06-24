@@ -17,8 +17,8 @@
 #pragma once
 
 #include <mutex>
+#include <iosfwd>
 #include "Utf8_16.h"
-
 
 class Notepad_plus;
 class Buffer;
@@ -135,7 +135,11 @@ private:
 	FileManager& operator=(FileManager&&) = delete;
 
 	int detectCodepage(char* buf, size_t len);
+#ifdef MPP_USE_ORIGINAL_CODE
 	bool loadFileData(Document doc, int64_t fileSize, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
+#else
+	bool loadFileData( Document doc, int64_t fileSize, std::istream& istr, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat );
+#endif
 	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 	Notepad_plus* _pNotepadPlus = nullptr;

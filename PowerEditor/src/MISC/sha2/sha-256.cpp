@@ -1,3 +1,4 @@
+#ifdef MPP_USE_ORIGINAL_CODE
 #include <stdint.h>
 #include <string.h>
 
@@ -208,3 +209,25 @@ void calc_sha_256(uint8_t hash[32], const void * input, size_t len)
 		hash[j++] = (uint8_t) h[i];
 	}
 }
+#else
+#ifdef MPP_USE_ORIGINAL_CODE_WITH_OPENSSL
+#include <cstdint>
+#include <openssl/sha.h>
+#include "sha-256.h"
+
+void calc_sha_256( unsigned char hash[32], const void* input, size_t len )
+{
+	::SHA256( static_cast< const uint8_t* >( input ), len, hash );
+}
+#else
+#include <system_error>
+#include "Common.h"
+
+void calc_sha_256( unsigned char hash[32], const void* input, size_t len )
+{
+	std::uint32_t errorCode;
+	if ( !WinCNG_CalculateHash( BCRYPT_SHA256_ALGORITHM, input, len, hash, 32, errorCode ) )
+		throw std::system_error( errorCode, std::system_category() );
+}
+#endif
+#endif

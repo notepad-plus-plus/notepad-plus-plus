@@ -31,6 +31,7 @@
 // http://www.ietf.org/ietf-ftp/IPR/RSA-MD-all
 
 
+#ifdef MPP_USE_ORIGINAL_CODE
 #include <stdio.h>
 #include <string.h>
 
@@ -387,3 +388,26 @@ public:
     return digestChars ;
   }
 } ;
+#else
+#ifdef MPP_USE_ORIGINAL_CODE_WITH_OPENSSL
+#include <cstdint>
+#define OPENSSL_API_COMPAT 0x10100000L
+#include <openssl/md5.h>
+#undef OPENSSL_API_COMPAT
+
+inline void calc_md5( unsigned char hash[16], const void* input, size_t len )
+{
+    ::MD5( static_cast< const uint8_t* >( input ), len, hash );
+}
+#else
+#include <system_error>
+#include "Common.h"
+
+inline void calc_md5( unsigned char hash[16], const void* input, size_t len )
+{
+    std::uint32_t errorCode;
+    if ( !WinCNG_CalculateHash( BCRYPT_MD5_ALGORITHM, input, len, hash, 16, errorCode ) )
+        throw std::system_error( errorCode, std::system_category() );
+}
+#endif
+#endif

@@ -26,6 +26,14 @@
 #include <shlwapi.h>
 #include "resource.h"
 
+#ifndef MPP_USE_ORIGINAL_CODE
+#include <cstdlib>
+#include <cstdint>
+#include <boost/filesystem.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+#include "FileInterface.h"
+#endif
+
 intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -124,73 +132,138 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 					if (!fns.empty())
 					{
 						std::wstring files2check, hashResultStr;
-						for (const auto& it : fns)
+						for ( const auto& it : fns )
 						{
-							if (_ht == hashType::hash_md5)
+#ifdef MPP_USE_ORIGINAL_CODE
+							if ( _ht == hashType::hash_md5 )
 							{
 								WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-								const char *path = wmc.wchar2char(it.c_str(), CP_ACP);
+								const char* path = wmc.wchar2char( it.c_str(), CP_ACP );
 
 								MD5 md5;
-								char *md5Result = md5.digestFile(path);
+								char* md5Result = md5.digestFile( path );
 
-								if (md5Result)
+								if ( md5Result )
 								{
 									files2check += it;
-									files2check += TEXT("\r\n");
+									files2check += TEXT( "\r\n" );
 
-									wchar_t* fileName = ::PathFindFileName(it.c_str());
-									hashResultStr += wmc.char2wchar(md5Result, CP_ACP);
-									hashResultStr += TEXT("  ");
+									wchar_t* fileName = ::PathFindFileName( it.c_str() );
+									hashResultStr += wmc.char2wchar( md5Result, CP_ACP );
+									hashResultStr += TEXT( "  " );
 									hashResultStr += fileName;
-									hashResultStr += TEXT("\r\n");
+									hashResultStr += TEXT( "\r\n" );
 								}
 							}
 							else
 							{
-								std::string content = getFileContent(it.c_str());
+								std::string content = getFileContent( it.c_str() );
 
-								uint8_t hash[HASH_MAX_LENGTH]{};
-								wchar_t hashStr[HASH_STR_MAX_LENGTH]{};
+								uint8_t hash[HASH_MAX_LENGTH] {};
+								wchar_t hashStr[HASH_STR_MAX_LENGTH] {};
 
-								switch (_ht)
+								switch ( _ht )
 								{
-									case hash_sha1:
+								case hash_sha1:
 									{
-										calc_sha1(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+										calc_sha1( hash, reinterpret_cast< const uint8_t* >( content.c_str() ), content.length() );
 									}
 									break;
 
-									case hash_sha256:
+								case hash_sha256:
 									{
-										calc_sha_256(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+										calc_sha_256( hash, reinterpret_cast< const uint8_t* >( content.c_str() ), content.length() );
 									}
 									break;
 
-									case hash_sha512:
+								case hash_sha512:
 									{
-										calc_sha_512(hash, reinterpret_cast<const uint8_t*>(content.c_str()), content.length());
+										calc_sha_512( hash, reinterpret_cast< const uint8_t* >( content.c_str() ), content.length() );
 									}
 									break;
 
-									default:
-										return FALSE;
+								default:
+									return FALSE;
 
 								}
 
-								for (int i = 0; i < _ht; i++)
-									wsprintf(hashStr + i * 2, TEXT("%02x"), hash[i]);
+								for ( int i = 0; i < _ht; i++ )
+									wsprintf( hashStr + i * 2, TEXT( "%02x" ), hash[i] );
 
 								files2check += it;
-								files2check += TEXT("\r\n");
+								files2check += TEXT( "\r\n" );
 
-								wchar_t* fileName = ::PathFindFileName(it.c_str());
+								wchar_t* fileName = ::PathFindFileName( it.c_str() );
 								hashResultStr += hashStr;
-								hashResultStr += TEXT("  ");
+								hashResultStr += TEXT( "  " );
 								hashResultStr += fileName;
-								hashResultStr += TEXT("\r\n");
+								hashResultStr += TEXT( "\r\n" );
 							}
 						}
+#else
+							boost::filesystem::path filename = it;
+							boost::iostreams::mapped_file_source mmDevice;
+
+							const std::uint8_t* content = reinterpret_cast< const std::uint8_t* >( "" );
+							const std::size_t size = boost::filesystem::file_size( filename );
+
+							if ( size > 0 )
+							{
+								mmDevice.open( filename );
+
+								if ( !mmDevice )
+									return FALSE;
+
+								content = reinterpret_cast< const std::uint8_t* >( mmDevice.data() );
+							}
+
+							std::uint8_t hash[HASH_MAX_LENGTH] = {};
+							wchar_t hashStr[HASH_STR_MAX_LENGTH] = {};
+
+							switch ( _ht )
+							{
+							case hash_md5:
+								{
+									calc_md5( hash, content, size );
+								}
+								break;
+
+							case hash_sha1:
+								{
+									calc_sha1( hash, content, size );
+								}
+								break;
+
+							case hash_sha256:
+								{
+									calc_sha_256( hash, content, size );
+								}
+								break;
+
+							case hash_sha512:
+								{
+									calc_sha_512( hash, content, size );
+								}
+								break;
+
+							default:
+								return FALSE;
+
+							}
+
+							for ( int i = 0; i < _ht; i++ )
+								::swprintf_s( hashStr + i * 2, sizeof hashStr, TEXT( "%02x" ), hash[i] );
+
+							files2check += it;
+							files2check += TEXT( "\r\n" );
+
+							wchar_t* fileName = ::PathFindFileName( it.c_str() );
+							hashResultStr += hashStr;
+							hashResultStr += TEXT( "  " );
+							hashResultStr += fileName;
+							hashResultStr += TEXT( "\r\n" );
+						}
+#endif
 
 						if (!files2check.empty() && !hashResultStr.empty())
 						{
@@ -332,6 +405,7 @@ void HashFromTextDlg::generateHash()
 		::GetDlgItemText(_hSelf, IDC_HASH_TEXT_EDIT, text, len + 1);
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		const char *newText = wmc.wchar2char(text, SC_CP_UTF8);
+#ifdef MPP_USE_ORIGINAL_CODE
 		if (_ht == hash_md5)
 		{
 			MD5 md5;
@@ -372,6 +446,45 @@ void HashFromTextDlg::generateHash()
 
 			::SetDlgItemText(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, hashStr);
 		}
+#else
+		std::uint8_t hash[HASH_MAX_LENGTH] = {};
+		wchar_t hashStr[HASH_STR_MAX_LENGTH] = {};
+
+		switch ( _ht )
+		{
+		case hash_md5:
+			{
+				calc_md5( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+			}
+			break;
+
+		case hash_sha1:
+			{
+				calc_sha1( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+			}
+			break;
+
+		case hash_sha256:
+			{
+				calc_sha_256( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+			}
+			break;
+
+		case hash_sha512:
+			{
+				calc_sha_512( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+			}
+			break;
+
+		default:
+			return;
+		}
+
+		for ( int i = 0; i < _ht; i++ )
+			::swprintf_s( hashStr + i * 2, sizeof hashStr, TEXT( "%02x" ), hash[i] );
+
+		::SetDlgItemText( _hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT, hashStr );
+#endif
 		delete[] text;
 	}
 	else
@@ -415,6 +528,7 @@ void HashFromTextDlg::generateHashPerLine()
 				{
 					const char* newText = wmc.wchar2char(aLine.c_str(), SC_CP_UTF8);
 
+#ifdef MPP_USE_ORIGINAL_CODE
 					if (_ht == hash_md5)
 					{
 						MD5 md5;
@@ -457,6 +571,46 @@ void HashFromTextDlg::generateHashPerLine()
 						result += hashStr;
 						result += "\r\n";
 					}
+#else
+					std::uint8_t hash[HASH_MAX_LENGTH] = {};
+					char hashStr[HASH_STR_MAX_LENGTH] = {};
+
+					switch ( _ht )
+					{
+					case hash_md5:
+						{
+							calc_md5( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+						}
+						break;
+
+					case hash_sha1:
+						{
+							calc_sha1( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+						}
+						break;
+
+					case hash_sha256:
+						{
+							calc_sha_256( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+						}
+						break;
+
+					case hash_sha512:
+						{
+							calc_sha_512( hash, reinterpret_cast< const std::uint8_t* >( newText ), strlen( newText ) );
+						}
+						break;
+
+					default:
+						return;
+					}
+
+					for ( int i = 0; i < _ht; i++ )
+						::sprintf_s( hashStr + i * 2, sizeof hashStr, "%02x", hash[i] );
+
+					result += hashStr;
+					result += "\r\n";
+#endif
 				}
 			}
 		}

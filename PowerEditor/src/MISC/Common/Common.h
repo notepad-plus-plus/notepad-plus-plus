@@ -14,6 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #pragma once
+
+#ifndef MPP_USE_ORIGINAL_CODE
+#include <cstdint>
+#include <cstdlib>
+#endif
+
 #include <vector>
 #include <string>
 #include <sstream>
@@ -23,7 +29,6 @@
 #include <unordered_set>
 #include <algorithm>
 #include <tchar.h>
-
 
 const bool dirUp = true;
 const bool dirDown = false;
@@ -75,6 +80,11 @@ void writeFileContent(const TCHAR *file2write, const char *content2write);
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
 bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level);
 bool allPatternsAreExclusion(const std::vector<generic_string> patterns);
+
+#ifndef MPP_USE_ORIGINAL_CODE
+bool WinCNG_CalculateHash( PCWSTR pszAlgId, const void* input, std::size_t nInputSize, std::uint8_t* pHash, std::size_t nHashSize, std::uint32_t& error_code );
+#endif
+
 
 class WcharMbcsConvertor final
 {

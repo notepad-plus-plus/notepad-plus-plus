@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#ifdef MPP_USE_ORIGINAL_CODE
 #include <cstdint>
 #include "sha1.h"
 #include "calc_sha1.h"
@@ -25,3 +26,25 @@ void calc_sha1(unsigned char hash[20], const void *input, size_t len)
     sha1.Final();
     sha1.GetHash(hash);
 }
+#else
+#ifdef MPP_USE_ORIGINAL_CODE_WITH_OPENSSL
+#include <cstdint>
+#include <openssl/sha.h>
+#include "calc_sha1.h"
+
+void calc_sha1( unsigned char hash[20], const void* input, size_t len )
+{
+    ::SHA1( static_cast< const uint8_t* >( input ), len, hash );
+}
+#else
+#include <system_error>
+#include "Common.h"
+
+void calc_sha1( unsigned char hash[20], const void* input, size_t len )
+{
+    std::uint32_t errorCode;
+    if ( !WinCNG_CalculateHash( BCRYPT_SHA1_ALGORITHM, input, len, hash, 20, errorCode ) )
+        throw std::system_error( errorCode, std::system_category() );
+}
+#endif
+#endif

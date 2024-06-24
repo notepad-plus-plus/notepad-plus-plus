@@ -259,3 +259,21 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 	return (total_bytes_written == buf_size);
 }
 
+#ifndef MPP_USE_ORIGINAL_CODE
+LONGLONG GetFileLength( PCTSTR pszFileName )
+{
+	WIN32_FILE_ATTRIBUTE_DATA attributes {};
+
+	if ( ::GetFileAttributesEx( pszFileName, GetFileExInfoStandard, &attributes ) != FALSE )
+	{
+		LARGE_INTEGER size {};
+
+		size.LowPart = attributes.nFileSizeLow;
+		size.HighPart = attributes.nFileSizeHigh;
+
+		return size.QuadPart;
+	}
+
+	return -1;
+}
+#endif

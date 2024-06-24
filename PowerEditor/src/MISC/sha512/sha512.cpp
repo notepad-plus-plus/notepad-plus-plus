@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#ifdef MPP_USE_ORIGINAL_CODE
 #include <windows.h>
 #include <wincrypt.h>
 #include "sha512.h"
@@ -21,38 +22,63 @@
 //#if defined(_MSC_VER)
 //#pragma comment(lib, "crypt32.lib")
 //#endif
-
-void calc_sha_512(unsigned char hash[64], const void *input, size_t len) {
+void calc_sha_512( unsigned char hash[64], const void* input, size_t len )
+{
     HCRYPTPROV hProv = 0;
     HCRYPTHASH hHash = 0;
     DWORD dwHashLen = 64;
 
-    if (!CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_AES, CRYPT_VERIFYCONTEXT)) {
+    if ( !CryptAcquireContext( &hProv, NULL, NULL, PROV_RSA_AES, CRYPT_VERIFYCONTEXT ) )
+    {
         //std::cerr << "CryptAcquireContext failed: " << GetLastError() << std::endl;
         return;
     }
 
-    if (!CryptCreateHash(hProv, CALG_SHA_512, 0, 0, &hHash)) {
+    if ( !CryptCreateHash( hProv, CALG_SHA_512, 0, 0, &hHash ) )
+    {
         //std::cerr << "CryptCreateHash failed: " << GetLastError() << std::endl;
-        CryptReleaseContext(hProv, 0);
+        CryptReleaseContext( hProv, 0 );
         return;
     }
 
-    if (!CryptHashData(hHash, (BYTE*)input, DWORD(len), 0)) {
+    if ( !CryptHashData( hHash, ( BYTE* )input, DWORD( len ), 0 ) )
+    {
         //std::cerr << "CryptHashData failed: " << GetLastError() << std::endl;
-        CryptDestroyHash(hHash);
-        CryptReleaseContext(hProv, 0);
+        CryptDestroyHash( hHash );
+        CryptReleaseContext( hProv, 0 );
         return;
     }
 
-    if (!CryptGetHashParam(hHash, HP_HASHVAL, hash, &dwHashLen, 0)) {
+    if ( !CryptGetHashParam( hHash, HP_HASHVAL, hash, &dwHashLen, 0 ) )
+    {
         //std::cerr << "CryptGetHashParam failed: " << GetLastError() << std::endl;
-        CryptDestroyHash(hHash);
-        CryptReleaseContext(hProv, 0);
+        CryptDestroyHash( hHash );
+        CryptReleaseContext( hProv, 0 );
         return;
     }
 
-    CryptDestroyHash(hHash);
-    CryptReleaseContext(hProv, 0);
+    CryptDestroyHash( hHash );
+    CryptReleaseContext( hProv, 0 );
 }
+#else
+#ifdef MPP_USE_ORIGINAL_CODE_WITH_OPENSSL
+#include <cstdint>
+#include <openssl/sha.h>
+#include "sha512.h"
 
+void calc_sha_512(unsigned char hash[64], const void *input, size_t len)
+{
+    ::SHA512( static_cast< const uint8_t* >( input ), len, hash );
+}
+#else
+#include <system_error>
+#include "Common.h"
+
+void calc_sha_512( unsigned char hash[64], const void* input, size_t len )
+{
+    std::uint32_t errorCode;
+    if ( !WinCNG_CalculateHash( BCRYPT_SHA512_ALGORITHM, input, len, hash, 64, errorCode ) )
+        throw std::system_error( errorCode, std::system_category() );
+}
+#endif
+#endif

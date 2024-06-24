@@ -31,6 +31,13 @@
 #include "uchardet.h"
 #include "FileInterface.h"
 
+#ifndef MPP_USE_ORIGINAL_CODE
+#include <boost/filesystem.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+#include <boost/iostreams/device/file_descriptor.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <vector>
+#endif
 
 static const int blockSize = 128 * 1024 + 4;
 static const int CR = 0x0D;
@@ -683,6 +690,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
+#ifdef MPP_USE_ORIGINAL_CODE
 BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp)
 {
 	if (!filename)
@@ -810,8 +818,146 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		return BUFFER_INVALID;
 	}
 }
+#else
+BufferID FileManager::loadFile( const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp )
+{
+	if ( !filename )
+		return BUFFER_INVALID;
 
+	//Get file size
+	std::int64_t fileSize = -1;
+	const TCHAR* pPath = filename;
+	if ( !::PathFileExists( pPath ) )
+	{
+		pPath = backupFileName;
+	}
 
+	if ( pPath != nullptr )
+	{
+		fileSize = GetFileLength( pPath );
+	}
+
+	// * the auto-completion feature will be disabled for large files
+	// * the session snapshotsand periodic backups feature will be disabled for large files
+	// * the backups on save feature will be disabled for large files
+	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	bool isLargeFile = false;
+	if ( nppGui._largeFileRestriction._isEnabled )
+		isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
+
+	// Due to the performance issue, the Word Wrap feature will be disabled if it's ON
+	if ( isLargeFile && nppGui._largeFileRestriction._deactivateWordWrap )
+	{
+		bool isWrap = _pNotepadPlus->_pEditView->isWrap();
+		if ( isWrap )
+		{
+			_pNotepadPlus->command( IDM_VIEW_WRAP );
+		}
+	}
+
+	bool ownDoc = false;
+	if ( !doc )
+	{
+		// if file exceeds the _largeFileSizeDefInByte, disable the Scintilla styling (results in half memory consumption)
+		doc = static_cast< Document >( _pscratchTilla->execute( SCI_CREATEDOCUMENT, 0,
+									   isLargeFile ? SC_DOCUMENTOPTION_STYLES_NONE | SC_DOCUMENTOPTION_TEXT_LARGE : SC_DOCUMENTOPTION_TEXT_LARGE ) );
+		ownDoc = true;
+	}
+
+	WCHAR fullpath[MAX_PATH] = { 0 };
+	if ( isWin32NamespacePrefixedFileName( filename ) )
+	{
+		// use directly the raw file name, skip the GetFullPathName WINAPI
+		wcsncpy_s( fullpath, _countof( fullpath ), filename, _TRUNCATE );
+	}
+	else
+	{
+		::GetFullPathName( filename, MAX_PATH, fullpath, NULL );
+		if ( wcschr( fullpath, '~' ) )
+		{
+			::GetLongPathName( fullpath, fullpath, MAX_PATH );
+		}
+	}
+
+	bool isSnapshotMode = backupFileName != NULL && PathFileExists( backupFileName );
+	if ( isSnapshotMode && !PathFileExists( fullpath ) ) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
+	{
+		wcscpy_s( fullpath, MAX_PATH, filename ); // we restore fullpath with filename, in our case is "new  #"
+	}
+
+	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
+
+	std::vector< char > buffer( blockSize + 8 ); // +8 for incomplete multibyte char
+
+	LoadedFileFormat loadedFileFormat;
+	loadedFileFormat._encoding = encoding;
+	loadedFileFormat._eolFormat = EolType::unknown;
+	loadedFileFormat._language = L_TEXT;
+
+	boost::filesystem::path filePath = ( backupFileName != nullptr ) ? backupFileName : fullpath;
+
+	bool res = false;
+
+	if ( fileSize > 0 )
+	{
+		boost::iostreams::stream< boost::iostreams::mapped_file_source > mmFile( filePath.string() );
+		res = loadFileData( doc, fileSize, mmFile, buffer.data(), &UnicodeConvertor, loadedFileFormat);
+	}
+	else if ( fileSize == 0 )
+	{
+		boost::iostreams::stream< boost::iostreams::file_descriptor_source > fdFile( filePath.string() );
+		res = loadFileData( doc, fileSize, fdFile, buffer.data(), &UnicodeConvertor, loadedFileFormat );
+	}
+	else
+	{
+		return BUFFER_INVALID;
+	}
+
+	if ( res )
+	{
+		Buffer* newBuf = new Buffer( this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile );
+		BufferID id = newBuf;
+		newBuf->_id = id;
+
+		if ( backupFileName != NULL )
+		{
+			newBuf->_backupFileName = backupFileName;
+			if ( !PathFileExists( fullpath ) )
+				newBuf->_currentStatus = DOC_UNNAMED;
+		}
+
+		const FILETIME zeroTimeStamp = {};
+		LONG res = CompareFileTime( &fileNameTimestamp, &zeroTimeStamp );
+		if ( res != 0 ) // res == 1 or res == -1
+			newBuf->_timeStamp = fileNameTimestamp;
+
+		_buffers.push_back( newBuf );
+		++_nbBufs;
+		Buffer* buf = _buffers.at( _nbBufs - 1 );
+
+		// restore the encoding (ANSI based) while opening the existing file
+		buf->setEncoding( -1 );
+
+		// if not a large file, no file extension, and the language has been detected,  we use the detected value
+		if ( !newBuf->_isLargeFile && ( ( buf->getLangType() == L_TEXT ) && ( loadedFileFormat._language != L_TEXT ) ) )
+			buf->setLangType( loadedFileFormat._language );
+
+		setLoadedBufferEncodingAndEol( buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat );
+
+		//determine buffer properties
+		++_nextBufferID;
+		return id;
+	}
+	else //failed loading, release document
+	{
+		if ( ownDoc )
+			_pscratchTilla->execute( SCI_RELEASEDOCUMENT, 0, doc );	//Failure, so release document
+		return BUFFER_INVALID;
+	}
+}
+#endif
+
+#ifdef MPP_USE_ORIGINAL_CODE
 bool FileManager::reloadBuffer(BufferID id)
 {
 	Buffer* buf = getBufferByID(id);
@@ -855,7 +1001,71 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	return res;
 }
+#else
+bool FileManager::reloadBuffer( BufferID id )
+{
+	Buffer* buf = getBufferByID( id );
+	Document doc = buf->getDocument();
+	Utf8_16_Read UnicodeConvertor;
 
+	LoadedFileFormat loadedFileFormat;
+	loadedFileFormat._encoding = buf->getEncoding();
+	loadedFileFormat._eolFormat = EolType::unknown;
+	loadedFileFormat._language = buf->getLangType();
+
+	buf->setLoadedDirty( false );	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
+									// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
+
+	bool res;
+
+	//Get file size
+	std::int64_t fileSize = GetFileLength( buf->getFullPathName() );
+
+	std::vector< char > buffer( blockSize + 8 ); // +8 for incomplete multibyte char
+
+	boost::filesystem::path filePath = buf->getFullPathName();
+
+	if ( fileSize > 0 )
+	{
+		boost::iostreams::stream< boost::iostreams::mapped_file_source > mmFile( filePath.string() );
+
+		if ( !mmFile )
+			return false;
+
+		buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
+		res = loadFileData( doc, fileSize, mmFile, buffer.data(), &UnicodeConvertor, loadedFileFormat );
+		buf->_canNotify = true;
+	}
+	else if ( fileSize == 0 )
+	{
+		boost::iostreams::stream< boost::iostreams::file_descriptor_source > fdFile( filePath.string() );
+
+		if ( !fdFile )
+			return false;
+
+		buf->_canNotify = false;	//disable notify during file load, we don't want dirty status to be triggered
+		res = loadFileData( doc, fileSize, fdFile, buffer.data(), &UnicodeConvertor, loadedFileFormat );
+		buf->_canNotify = true;
+	}
+	else
+	{
+		return false;
+	}
+
+	if ( res )
+	{
+		// now we are synchronized with the file on disk, so reset relevant flags
+		buf->setUnsync( false );
+		buf->setDirty( false ); // if the _isUnsync was true before the reloading, the _isDirty had been set to true somehow in the loadFileData()
+
+		buf->setSavePointDirty( false );
+
+		setLoadedBufferEncodingAndEol( buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat );
+	}
+
+	return res;
+}
+#endif
 
 void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat)
 {
@@ -1545,6 +1755,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
+#ifdef MPP_USE_ORIGINAL_CODE
 bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
 	FILE *fp = _wfopen(filename, TEXT("rb"));
@@ -1789,6 +2000,254 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 
 	return success;
 }
+#else
+bool FileManager::loadFileData( Document doc, int64_t fileSize, std::istream& istr, char* data, Utf8_16_Read* unicodeConvertor, LoadedFileFormat& fileFormat )
+{
+	if ( !istr )
+		return false;
+
+	if ( fileSize == -1 )
+		return false;
+
+	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
+	std::int64_t bufferSizeRequested = fileSize + std::min< std::int64_t >( 1LL << 20, fileSize / 6 );
+
+	NppParameters& nppParam = NppParameters::getInstance();
+	NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
+	if ( bufferSizeRequested > INT_MAX )
+	{
+		// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space).
+		if ( nppParam.archType() == IMAGE_FILE_MACHINE_I386 )
+		{
+			pNativeSpeaker->messageBox( "FileTooBigToOpen",
+										_pNotepadPlus->_pEditView->getHSelf(),
+										TEXT( "File is too big to be opened by Notepad++" ),
+										TEXT( "File size problem" ),
+										MB_OK | MB_APPLMODAL );
+
+			return false;
+		}
+		else // x64
+		{
+			NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+			if ( !nppGui._largeFileRestriction._suppress2GBWarning )
+			{
+				int res = pNativeSpeaker->messageBox( "WantToOpenHugeFile",
+													  _pNotepadPlus->_pEditView->getHSelf(),
+													  TEXT( "Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?" ),
+													  TEXT( "Opening huge file warning" ),
+													  MB_YESNO | MB_APPLMODAL );
+
+				if ( res == IDYES )
+				{
+					// Do nothing
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+	}
+
+	//Setup scratchtilla for new filedata
+	_pscratchTilla->execute( SCI_SETSTATUS, SC_STATUS_OK ); // reset error status
+	_pscratchTilla->execute( SCI_SETDOCPOINTER, 0, doc );
+	bool ro = _pscratchTilla->execute( SCI_GETREADONLY ) != 0;
+	if ( ro )
+	{
+		_pscratchTilla->execute( SCI_SETREADONLY, false );
+	}
+	_pscratchTilla->execute( SCI_CLEARALL );
+	_pscratchTilla->execute( SCI_SETUNDOCOLLECTION, false ); // disable undocollection while loading a file
+
+
+	if ( fileFormat._language < L_EXTERNAL )
+	{
+		const char* lexerNameID = ScintillaEditView::_langNameInfoArray[fileFormat._language]._lexerID;
+		_pscratchTilla->execute( SCI_SETILEXER, 0, reinterpret_cast< LPARAM >( CreateLexer( lexerNameID ) ) );
+	}
+	else
+	{
+		int id = fileFormat._language - L_EXTERNAL;
+		ExternalLangContainer& externalLexer = nppParam.getELCFromIndex( id );
+		const char* lexerName = externalLexer._name.c_str();
+		if ( externalLexer.fnCL )
+			_pscratchTilla->execute( SCI_SETILEXER, 0, reinterpret_cast< LPARAM >( externalLexer.fnCL( lexerName ) ) );
+	}
+
+	if ( fileFormat._encoding != -1 )
+		_pscratchTilla->execute( SCI_SETCODEPAGE, SC_CP_UTF8 );
+
+	bool success = true;
+	EolType format = EolType::unknown;
+	int sciStatus = SC_STATUS_OK;
+	TCHAR szException[64] = { '\0' };
+	__try
+	{
+		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
+		_pscratchTilla->execute( SCI_ALLOCATE, WPARAM( bufferSizeRequested ) );
+		sciStatus = static_cast< int >( _pscratchTilla->execute( SCI_GETSTATUS ) );
+		if ( ( sciStatus > SC_STATUS_OK ) && ( sciStatus < SC_STATUS_WARN_START ) )
+			throw std::runtime_error( "Scintilla error" );
+
+		std::size_t lenFile = 0;
+		std::size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
+		bool isFirstTime = true;
+		int incompleteMultibyteChar = 0;
+
+		do
+		{
+			lenFile = istr.read( data + incompleteMultibyteChar, blockSize - incompleteMultibyteChar ).gcount() + incompleteMultibyteChar;
+
+			if ( !istr && !istr.eof() )
+			{
+				success = false;
+				break;
+			}
+
+			if ( lenFile == 0 )
+				break;
+
+			if ( isFirstTime )
+			{
+				NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+
+				// check if file contain any BOM
+				if ( Utf8_16_Read::determineEncoding( reinterpret_cast< unsigned char* >( data ), lenFile ) != uni8Bit )
+				{
+					// if file contains any BOM, then encoding will be erased,
+					// and the document will be interpreted as UTF
+					fileFormat._encoding = -1;
+				}
+				else if ( fileFormat._encoding == -1 )
+				{
+					if ( nppGui._detectEncoding )
+						fileFormat._encoding = detectCodepage( data, lenFile );
+				}
+
+				bool isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
+				if ( !isLargeFile && fileFormat._language == L_TEXT )
+				{
+					// check the language du fichier
+					fileFormat._language = detectLanguageFromTextBegining( reinterpret_cast< unsigned char* >( data ), lenFile );
+				}
+
+				isFirstTime = false;
+			}
+
+			if ( fileFormat._encoding != -1 )
+			{
+				if ( fileFormat._encoding == SC_CP_UTF8 )
+				{
+					// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
+					_pscratchTilla->execute( SCI_APPENDTEXT, lenFile, reinterpret_cast< LPARAM >( data ) );
+				}
+				else
+				{
+					WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+					int newDataLen = 0;
+					const char* newData = wmc.encode( fileFormat._encoding, SC_CP_UTF8, data, static_cast< int32_t >( lenFile ), &newDataLen, &incompleteMultibyteChar );
+					_pscratchTilla->execute( SCI_APPENDTEXT, newDataLen, reinterpret_cast< LPARAM >( newData ) );
+				}
+
+				if ( format == EolType::unknown )
+					format = getEOLFormatForm( data, lenFile, EolType::unknown );
+			}
+			else
+			{
+				lenConvert = unicodeConvertor->convert( data, lenFile );
+				_pscratchTilla->execute( SCI_APPENDTEXT, lenConvert, reinterpret_cast< LPARAM >( unicodeConvertor->getNewBuf() ) );
+				if ( format == EolType::unknown )
+					format = getEOLFormatForm( unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown );
+			}
+
+			sciStatus = static_cast< int >( _pscratchTilla->execute( SCI_GETSTATUS ) );
+			if ( ( sciStatus > SC_STATUS_OK ) && ( sciStatus < SC_STATUS_WARN_START ) )
+				throw std::runtime_error( "Scintilla error" );
+
+			if ( incompleteMultibyteChar != 0 )
+			{
+				// copy bytes to next buffer
+				memcpy( data, data + blockSize - incompleteMultibyteChar, incompleteMultibyteChar );
+			}
+		}
+		while ( lenFile > 0 );
+	}
+	__except ( EXCEPTION_EXECUTE_HANDLER )
+	{
+		switch ( sciStatus )
+		{
+		case SC_STATUS_OK:
+			// either the Scintilla doesn't catch this exception or the error is in the Notepad++ code, report the exception anyway
+#if defined(__GNUC__)
+				// there is the std::current_exception() possibility, but getting the real exception code from there requires an ugly hack,
+				// because of the std::exception_ptr has its members _Data1 (GetExceptionCode) and _Data2 (GetExceptionInformation) private
+			_stprintf_s( szException, _countof( szException ), TEXT( "unknown exception" ) );
+#else
+			_stprintf_s( szException, _countof( szException ), TEXT( "0x%X (SEH)" ), ::GetExceptionCode() );
+#endif
+			break;
+		case SC_STATUS_BADALLOC:
+			{
+				pNativeSpeaker->messageBox( "FileMemoryAllocationFailed",
+											_pNotepadPlus->_pEditView->getHSelf(),
+											TEXT( "There is probably not enough contiguous free memory for the file being loaded by Notepad++." ),
+											TEXT( "Exception: File memory allocation failed" ),
+											MB_OK | MB_APPLMODAL );
+			}
+			[[fallthrough]];
+		case SC_STATUS_FAILURE:
+		default:
+			_stprintf_s( szException, _countof( szException ), TEXT( "%d (Scintilla)" ), sciStatus );
+			break;
+		}
+		if ( sciStatus != SC_STATUS_BADALLOC )
+		{
+			pNativeSpeaker->messageBox( "FileLoadingException",
+										_pNotepadPlus->_pEditView->getHSelf(),
+										TEXT( "An error occurred while loading the file!" ),
+										TEXT( "Exception code: $STR_REPLACE$" ),
+										MB_OK | MB_APPLMODAL,
+										0,
+										szException );
+		}
+		success = false;
+	}
+
+
+	// broadcast the format
+	if ( format == EolType::unknown )
+	{
+		const NewDocDefaultSettings& ndds = ( nppParam.getNppGUI() ).getNewDocDefaultSettings(); // for ndds._format
+		fileFormat._eolFormat = ndds._format;
+
+		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it
+		if ( ( fileSize == 0 ) && ( fileFormat._encoding < 1 ) )
+		{
+			if ( ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8 )
+				fileFormat._encoding = SC_CP_UTF8;
+		}
+	}
+	else
+	{
+		fileFormat._eolFormat = format;
+	}
+
+
+	_pscratchTilla->execute( SCI_EMPTYUNDOBUFFER );
+	_pscratchTilla->execute( SCI_SETSAVEPOINT );
+	_pscratchTilla->execute( SCI_SETUNDOCOLLECTION, true );
+
+	if ( ro )
+		_pscratchTilla->execute( SCI_SETREADONLY, true );
+
+	_pscratchTilla->execute( SCI_SETDOCPOINTER, 0, _scratchDocDefault );
+
+	return success;
+}
+#endif
 
 
 BufferID FileManager::getBufferFromName(const TCHAR* name)

@@ -2385,7 +2385,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Enable"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Enable for current file"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Enable for all opened files"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_FILEUPDATECHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Disable"));
 

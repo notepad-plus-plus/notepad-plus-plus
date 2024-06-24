@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.6.5  15/Mar/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.6.9  24/Jun/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.5">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1133,10 +1133,13 @@
 					<Item id="6506" name="Nepoužívané syntaxe"/>
 					<Item id="6507" name="Použít kompaktní menu pro syntaxe"/>
 					<Item id="6508" name="Nabídka syntaxí"/>
-					<Item id="6301" name="Nastavení tabulátoru"/>
-					<Item id="6302" name="Zaměnit za mezery"/>
-					<Item id="6303" name="Velikost tabulátoru:"/>
+					<Item id="6301" name="Nastavení odsazení"/>
+					<Item id="6302" name="Mezerami"/>
+					<Item id="6303" name="Velikost odsazení:"/>
+					<Item id="6310" name="Odsazovat:"/>
+					<Item id="6311" name="Tabulátorem"/>
 					<Item id="6510" name="Použít implicitní"/>
+					<Item id="6512" name="Klávesou Backspace zmenšovat odsazení místo odstranění pouhé jedné mezery"/>
 					<Item id="6335" name="Zpětné lomítko je escape znak pro SQL"/>
 				</Language>
 				<Highlighting title="Zvýrazňování">
@@ -1253,7 +1256,7 @@
 					<Item id="6817" name="Body obnovení a periodické zálohování"/>
 					<Item id="6818" name="Aktivovat ukládání bodů pro obnovení relace a periodické zálohování"/>
 					<Item id="6819" name="Zálohovat každých"/>
-					<Item id="6821" name="sekund"/>
+					<Item id="6821" name="sekund (při modif.)"/>
 					<Item id="6822" name="Cesta k zálohám:"/>
 					<Item id="6825" name="Pamatovat si nedostupné soubory z poslední relace (zástupné dokumenty/karty)"/>
 				</Backup>
@@ -1524,6 +1527,10 @@ POZNÁMKA: Jestliže se rozhodnete neotevírat zástupné dokumenty/karty anebo 
 Doporučujeme Vám, abyste si nyní zazálohovali Váš soubor &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Nelze použít směr textu RTL" message="RTL není v současnosti kompatibilní se zvoleným DirectWrite režimem. Prosím vypněte nejprve DirectWrite v sekci &quot;Různé&quot; v &quot;Nastavení&quot; a restartujte Notepad++."/>
 			<FileMemoryAllocationFailed title="Problém s alokací paměti pro soubor" message="Pravděpodobně není dostatek souvislé volné paměti pro soubor, který Notepad++ právě načítá."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Vypnuté zpětné vyhledávání při užívání regulárních výrazů" message="Ve výchozím nastavení je zpětné vyhledávání při užití regulárních výrazů zakázáno kvůli potenciálně neočekávaným výsledkům. Chcete-li provést zpětné vyhledávání, otevřete dialogové okno Najít a místo regulárních výrazů vyberte režim normálního nebo rozšířeného vyhledávání.
+Stisknutím tlačítka OK otevřete dialogové okno Najít nebo ho přepnete do popředí.
+			
+Pokud opravdu potřebujete funkci zpětného vyhledávání při regulárních výrazech, pokyny pro její zapnutí najdete v uživatelské příručce."/>
 		</MessageBox>
 		
 		<ClipboardHistory>

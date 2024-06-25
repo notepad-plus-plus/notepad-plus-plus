@@ -900,12 +900,14 @@ BufferID FileManager::loadFile( const TCHAR* filename, Document doc, int encodin
 
 	if ( fileSize > 0 )
 	{
-		boost::iostreams::stream< boost::iostreams::mapped_file_source > mmFile( filePath.string() );
+		boost::iostreams::mapped_file_source mmDevice( filePath );
+		boost::iostreams::stream< boost::iostreams::mapped_file_source > mmFile( mmDevice );
 		res = loadFileData( doc, fileSize, mmFile, buffer.data(), &UnicodeConvertor, loadedFileFormat);
 	}
 	else if ( fileSize == 0 )
 	{
-		boost::iostreams::stream< boost::iostreams::file_descriptor_source > fdFile( filePath.string() );
+		boost::iostreams::file_descriptor_source fileDevice( filePath, std::ios_base::in | std::ios_base::binary );
+		boost::iostreams::stream< boost::iostreams::file_descriptor_source > fdFile( fileDevice );
 		res = loadFileData( doc, fileSize, fdFile, buffer.data(), &UnicodeConvertor, loadedFileFormat );
 	}
 	else
@@ -1027,7 +1029,8 @@ bool FileManager::reloadBuffer( BufferID id )
 
 	if ( fileSize > 0 )
 	{
-		boost::iostreams::stream< boost::iostreams::mapped_file_source > mmFile( filePath.string() );
+		boost::iostreams::mapped_file_source mmDevice( filePath );
+		boost::iostreams::stream< boost::iostreams::mapped_file_source > mmFile( mmDevice );
 
 		if ( !mmFile )
 			return false;
@@ -1038,7 +1041,8 @@ bool FileManager::reloadBuffer( BufferID id )
 	}
 	else if ( fileSize == 0 )
 	{
-		boost::iostreams::stream< boost::iostreams::file_descriptor_source > fdFile( filePath.string() );
+		boost::iostreams::file_descriptor_source fileDevice( filePath, std::ios_base::in | std::ios_base::binary );
+		boost::iostreams::stream< boost::iostreams::file_descriptor_source > fdFile( fileDevice );
 
 		if ( !fdFile )
 			return false;

@@ -128,6 +128,16 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 bool resolveLinkFile(generic_string& linkFilePath)
 {
+	// upperize for the following comparison because the ends_with is case sensitive unlike the Windows OS filesystem
+	generic_string linkFilePathUp = linkFilePath;
+#ifdef UNICODE
+	std::transform(linkFilePathUp.begin(), linkFilePathUp.end(), linkFilePathUp.begin(), ::towupper);
+#else
+	std::transform(linkFilePathUp.begin(), linkFilePathUp.end(), linkFilePathUp.begin(), ::toupper);
+#endif
+	if (!linkFilePathUp.ends_with(TEXT(".LNK")))
+		return false; // we will not check the renamed shortcuts like "file.lnk.txt"
+
 	bool isResolved = false;
 
 	IShellLink* psl = nullptr;

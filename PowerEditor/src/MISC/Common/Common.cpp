@@ -1549,6 +1549,9 @@ bool isUnsupportedFileName(const generic_string& fileName)
 				if (pos != std::string::npos)
 					fileNameOnly = fileNameOnly.substr(pos + 1);
 
+				// upperize because the std::find is case sensitive unlike the Windows OS filesystem
+				std::transform(fileNameOnly.begin(), fileNameOnly.end(), fileNameOnly.begin(), ::towupper);
+
 				const std::vector<generic_string>  reservedWin32NamespaceDeviceList{
 				TEXT("CON"), TEXT("PRN"), TEXT("AUX"), TEXT("NUL"),
 				TEXT("COM1"), TEXT("COM2"), TEXT("COM3"), TEXT("COM4"), TEXT("COM5"), TEXT("COM6"), TEXT("COM7"), TEXT("COM8"), TEXT("COM9"),

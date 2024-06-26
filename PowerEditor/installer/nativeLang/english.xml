@@ -13,11 +13,11 @@ Translation note:
 					<Item menuId="file" name="&amp;File"/>
 					<Item menuId="edit" name="&amp;Edit"/>
 					<Item menuId="search" name="&amp;Search"/>
-					<Item menuId="view" name="&amp;View"/>
+					<Item menuId="view" name="&amp;Display"/><!-- Because the term View is also used in the Menu "Move to Other View" and "Clone to Other View" -->
 					<Item menuId="encoding" name="E&amp;ncoding"/>
 					<Item menuId="language" name="&amp;Language"/>
 					<Item menuId="settings" name="Se&amp;ttings"/>
-					<Item menuId="tools" name="To&amp;ols"/>
+					<Item menuId="tools" name="To&amp;ols"/> and
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="&amp;Run"/>
 					<Item menuId="Plugins" name="&amp;Plugins"/>
@@ -26,7 +26,7 @@ Translation note:
 				<!-- Sub Menu Entries -->
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Open Containing &amp;Folder"/>
-					<Item subMenuId="file-closeMore" name="Close &amp;Multiple Documents"/>
+					<Item subMenuId="file-closeMore" name="Close &amp;Multiple Files"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Recent Files"/>
 					<Item subMenuId="edit-insert" name="Insert"/>
 					<Item subMenuId="edit-copyToClipboard" name="Cop&amp;y to Clipboard"/>
@@ -175,8 +175,8 @@ Translation note:
 					<Item id="42024" name="Trim Trailing Space"/>
 					<Item id="42042" name="Trim Leading Space"/>
 					<Item id="42043" name="Trim Leading and Trailing Space"/>
-					<Item id="42044" name="EOL to Space"/>
-					<Item id="42045" name="Trim both and EOL to Space"/>
+					<Item id="42044" name="Convert EOL to Space"/>
+					<Item id="42045" name="Trim both and convert EOL to Space"/>
 					<Item id="42046" name="TAB to Space"/>
 					<Item id="42054" name="Space to TAB (All)"/>
 					<Item id="42053" name="Space to TAB (Leading)"/>
@@ -222,13 +222,13 @@ Translation note:
 					<Item id="43051" name="Remove Non-Bookmarked Lines"/>
 					<Item id="43050" name="Inverse Bookmark"/>
 					<Item id="43052" name="Find characters in rang&amp;e..."/>
-					<Item id="43053" name="Select All Between &amp;Matching Braces"/>
+					<Item id="43053" name="Select All Between &amp;Matching  { } or [ ] or ( )"/>
 					<Item id="43009" name="Go to &amp;Matching Brace"/>
 					<Item id="43010" name="Find &amp;Previous"/>
 					<Item id="43011" name="&amp;Incremental Search"/>
 					<Item id="43013" name="Find in Fi&amp;les"/>
-					<Item id="43014" name="Find (&amp;Volatile) Next"/>
-					<Item id="43015" name="Find (&amp;Volatile) Previous"/>
+					<Item id="43014" name="Find (Volatile selection) Ne&amp;xt"/>
+					<Item id="43015" name="Find (Volatile selection) Pre&amp;vious"/>
 					<Item id="43022" name="Using 1st Style"/>
 					<Item id="43023" name="Clear 1st Style"/>
 					<Item id="43024" name="Using 2nd Style"/>
@@ -355,6 +355,7 @@ Translation note:
 					<Item id="10005" name="Move to Start"/>
 					<Item id="10006" name="Move to End"/>
 					<Item id="46001" name="Style Configurator..."/>
+					<Item id="46016" name="None (NormalText)"/>
 					<Item id="46250" name="Define your language..."/>
 					<Item id="46300" name="Open User Defined Language folder..."/>
 					<Item id="46301" name="Notepad++ User Defined Languages Collection"/>
@@ -423,7 +424,7 @@ Translation note:
 				<Item CMDID="41024" name="Close All Unchanged"/>
 				<Item CMDID="41006" name="Save"/>
 				<Item CMDID="41008" name="Save As..."/>
-				<Item CMDID="1" name="Open into"/>
+				<Item CMDID="1" name="Use Path to"/>
 				<Item CMDID="41019" name="Open Containing Folder in Explorer"/>
 				<Item CMDID="41020" name="Open Containing Folder in cmd"/>
 				<Item CMDID="41025" name="Open Containing Folder as Workspace"/>
@@ -465,7 +466,7 @@ Translation note:
 
 		<Dialog>
 			<Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleFindInProjects="Find in Projects" titleMark="Mark">
-				<Item id="1" name="Find Next"/>
+				<Item id="1" name="Find &amp;Next"/>
 				<Item id="1722" name="Backward direction"/>
 				<Item id="2" name="Close"/>
 				<Item id="1620" name="&amp;Find what:"/>
@@ -595,6 +596,7 @@ Translation note:
 				<Item id="1934" name="Co&amp;py to Clipboard"/>
 				<Item id="2" name="&amp;Close"/>
 			</SHA512FromTextDlg>
+
 			<PluginsAdminDlg title="Plugins Admin" titleAvailable="Available" titleUpdates="Updates" titleInstalled="Installed" titleIncompatible="Incompatible">
 				<ColumnPlugin name="Plugin"/>
 				<ColumnVersion name="Version"/>
@@ -755,6 +757,7 @@ Translation note:
 					<Item id="11009" name="Sort By Size Larger to Smaller"/>
 				</MainCommandNames>
 			</ShortcutMapper>
+
 			<ShortcutMapperSubDialg title="Shortcut">
 				<Item id="1" name="OK"/>
 				<Item id="2" name="Cancel"/>
@@ -765,6 +768,7 @@ Translation note:
 				<Item id="5007" name="This will remove shortcut from this command"/>
 				<Item id="5012" name="CONFLICT FOUND!"/>
 			</ShortcutMapperSubDialg>
+
 			<UserDefine title="User-Defined">
 				<Item id="20001" name="Dock"/>
 				<Item id="20002" name="Rename"/>
@@ -937,6 +941,7 @@ Translation note:
 					<Item id="24673" name="Styler"/>
 				</Operator>
 			</UserDefine>
+
 			<Preference title="Preferences">
 				<Item id="6001" name="Close"/>
 				<Global title="General">
@@ -964,7 +969,7 @@ Translation note:
 					<Item id="6133" name="Status Bar"/>
 					<Item id="6134" name="Hide"/>
 
-					<Item id="6131" name="Menu"/>
+					<Item id="6131" name="Menu Bar"/>
 					<Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
 					<Item id="6132" name="Hide right shortcuts ＋ ▼ ✕ from the menu bar (Need to restart Notepad++)"/>
 
@@ -1120,7 +1125,7 @@ Translation note:
 					<Item id="6332" name="Match case"/>
 					<Item id="6338" name="Match whole word only"/>
 					<Item id="6339" name="Use Find dialog settings"/>
-					<Item id="6340" name="Highlight another view"/>
+					<Item id="6340" name="Highlight another View"/>
 					<Item id="6329" name="Highlight Matching Tags"/>
 					<Item id="6327" name="Enable"/>
 					<Item id="6328" name="Highlight tag attributes"/>
@@ -1229,7 +1234,7 @@ Translation note:
 					<Item id="6866" name="Matched pair 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Multi-Instance &amp; Date">
+				<MultiInstance title="Multi-Instance &amp; Date format">
 					<Item id="6151" name="Multi-instance settings *"/>
 					<Item id="6152" name="Open session in a new instance (and save session automatically on exit)"/>
 					<Item id="6153" name="Always in multi-instance mode"/>
@@ -1298,7 +1303,7 @@ Translation note:
 
 				<MISC title="MISC.">
 					<ComboBox id="6347">
-						<Element name="Enable"/>
+						<Element name="Enable for current file"/>
 						<Element name="Enable for all opened files"/>
 						<Element name="Disable"/>
 					</ComboBox>
@@ -1322,6 +1327,7 @@ Translation note:
 					<Item id="6361" name="Enable Save All confirm dialog"/>
 				</MISC>
 			</Preference>
+
 			<MultiMacro title="Run a Macro Multiple Times">
 				<Item id="1" name="&amp;Run"/>
 				<Item id="2" name="&amp;Cancel"/>
@@ -1330,13 +1336,15 @@ Translation note:
 				<Item id="8005" name="times"/>
 				<Item id="8002" name="Run until the &amp;end of file"/>
 			</MultiMacro>
-			<Window title="Windows">
+
+			<Window title="Tabs">
 				<Item id="1" name="&amp;Activate"/>
 				<Item id="2" name="&amp;OK"/>
 				<Item id="7002" name="&amp;Save"/>
-				<Item id="7003" name="&amp;Close window(s)"/>
+				<Item id="7003" name="&amp;Close tab(s)"/>
 				<Item id="7004" name="Sort &amp;tabs"/>
 			</Window>
+
 			<ColumnEditor title="Column Editor">
 				<Item id="2023" name="&amp;Text to Insert"/>
 				<Item id="2033" name="&amp;Number to Insert"/>
@@ -1350,13 +1358,14 @@ Translation note:
 				</ComboBox>
 				<Item id="2036" name="&amp;Repeat:"/>
 				<Item id="2032" name="Format"/>
-				<Item id="2024" name="&amp;Dec"/>
-				<Item id="2025" name="&amp;Oct"/>
-				<Item id="2026" name="&amp;Hex"/>
-				<Item id="2027" name="&amp;Bin"/>
+				<Item id="2024" name="&amp;Decimal"/>
+				<Item id="2025" name="&amp;Octal"/>
+				<Item id="2026" name="&amp;Hexadecimal"/>
+				<Item id="2027" name="&amp;Binary"/>
 				<Item id="1" name="OK"/>
 				<Item id="2" name="Cancel"/>
 			</ColumnEditor>
+
 			<FindInFinder title="Find in search results">
 				<Item id="1" name="Find All"/>
 				<Item id="2" name="Close"/>
@@ -1370,6 +1379,7 @@ Translation note:
 				<Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. matches newline"/>
 			</FindInFinder>
+
 			<DoSaveOrNot title="Save">
 				<Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
 				<Item id="6" name="&amp;Yes"/>
@@ -1378,16 +1388,19 @@ Translation note:
 				<Item id="4" name="Yes to &amp;all"/>
 				<Item id="5" name="N&amp;o to all"/>
 			</DoSaveOrNot>
+
 			<DoSaveAll title="Save All Confirmation">
 				<Item id="1766" name="Are you sure you want to save all modified documents?
 
 Choose &quot;Always yes&quot; if you don't want to see this dialog again.
+
 You can re-activate this dialog in Preferences later."/>
 				<Item id="6" name="&amp;Yes"/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="&amp;Always yes"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
+
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
@@ -1416,7 +1429,7 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
 			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
-you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
 			<SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Column Mode Tip" message="
 There are 3 ways to switch to column-select mode:
@@ -1428,6 +1441,7 @@ There are 3 ways to switch to column-select mode:
 3. (Keyboard or Mouse)
       Put caret at desired start of column block position, then
        execute &quot;Begin/End Select in Column Mode&quot; command;
+
       Move caret to desired end of column block position, then
        execute &quot;Begin/End Select in Column Mode&quot; command again"/>
 			<BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1530,9 +1544,11 @@ Press the OK button to open the Find dialog or set focus on it.
 			
 If you require the backward regex searching feature, consult the user manual for instructions on enabling it."/>
 		</MessageBox>
+
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
 		</ClipboardHistory>
+
 		<DocList>
 			<PanelTitle name="Document List"/>
 			<ColumnName name="Name"/>
@@ -1540,6 +1556,7 @@ If you require the backward regex searching feature, consult the user manual for
 			<ColumnPath name="Path"/>
 			<ListGroups name="Group by View"/>
 		</DocList>
+
 		<WindowsDlg>
 			<ColumnName name="Name"/>
 			<ColumnPath name="Path"/>
@@ -1549,6 +1566,7 @@ If you require the backward regex searching feature, consult the user manual for
 			<MenuCopyName name="Copy Name(s)"/>
 			<MenuCopyPath name="Copy Pathname(s)"/>
 		</WindowsDlg>
+
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Codes Insertion Panel"/>
 			<ColumnVal name="Value"/>
@@ -1558,9 +1576,11 @@ If you require the backward regex searching feature, consult the user manual for
 			<ColumnHtmlNumber name="HTML Decimal"/>
 			<ColumnHtmlHexNb name="HTML Hexadecimal"/>
 		</AsciiInsertion>
+
 		<DocumentMap>
 			<PanelTitle name="Document Map"/>
 		</DocumentMap>
+
 		<FunctionList>
 			<PanelTitle name="Function List"/>
 			<SortTip name="Sort"/>
@@ -1568,6 +1588,7 @@ If you require the backward regex searching feature, consult the user manual for
 			<PreferencesTip name="Preferences"/>
 			<PreferencesInitialSort name="Sort functions (A to Z) by default"/>
 		</FunctionList>
+
 		<FolderAsWorkspace>
 			<PanelTitle name="Folder as Workspace"/>
 			<SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
@@ -1587,6 +1608,7 @@ If you require the backward regex searching feature, consult the user manual for
 				<Item id="3520" name="Copy file name"/>
 			</Menu>
 		</FolderAsWorkspace>
+
 		<ProjectManager>
 			<PanelTitle name="Project"/>
 			<WorkspaceRootName name="Workspace"/>
@@ -1634,6 +1656,7 @@ If you require the backward regex searching feature, consult the user manual for
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
 			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
@@ -1652,7 +1675,7 @@ If you require the backward regex searching feature, consult the user manual for
 			<default-open-save-select-folder value="Select a folder as default directory"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
 			<two-find-buttons-tip value="2 find buttons mode"/>
-			<find-in-files-filter-tip value="Find in cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value="Find in Header cpp, cxx, h, hxx &amp;&amp; hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
 Find in all files except exe, obj &amp;&amp; log:
@@ -1664,8 +1687,8 @@ Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
-			<find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
+			<find-status-top-reached value="Find: Found the 1st occurrence from the top. The beginning of the document has been reached."/>
+			<find-status-end-reached value="Find: Found the last occurrence before the bottom. The end of the document has been reached."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
 			<find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>

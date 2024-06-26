@@ -17,7 +17,7 @@ Translation note:
 					<Item menuId="encoding" name="E&amp;ncoding"/>
 					<Item menuId="language" name="&amp;Language"/>
 					<Item menuId="settings" name="Se&amp;ttings"/>
-					<Item menuId="tools" name="To&amp;ols"/> and
+					<Item menuId="tools" name="To&amp;ols"/>
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="&amp;Run"/>
 					<Item menuId="Plugins" name="&amp;Plugins"/>

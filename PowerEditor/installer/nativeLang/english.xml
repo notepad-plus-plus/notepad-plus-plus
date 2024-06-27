@@ -13,7 +13,7 @@ Translation note:
 					<Item menuId="file" name="&amp;File"/>
 					<Item menuId="edit" name="&amp;Edit"/>
 					<Item menuId="search" name="&amp;Search"/>
-					<Item menuId="view" name="&amp;Display"/><!-- Because the term View is also used in the Menu "Move to Other View" and "Clone to Other View" -->
+					<Item menuId="view" name="&amp;View"/>
 					<Item menuId="encoding" name="E&amp;ncoding"/>
 					<Item menuId="language" name="&amp;Language"/>
 					<Item menuId="settings" name="Se&amp;ttings"/>

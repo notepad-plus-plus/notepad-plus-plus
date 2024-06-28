@@ -49,17 +49,17 @@ const bool dirDown = false;
 typedef std::basic_string<wchar_t> generic_string;
 typedef std::basic_stringstream<wchar_t> generic_stringstream;
 
-generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const wchar_t *defaultStr = NULL);
-generic_string getFolderName(HWND parent, const wchar_t *defaultDir = NULL);
+std::wstring folderBrowser(HWND parent, const std::wstring & title = TEXT(""), int outputCtrlID = 0, const wchar_t *defaultStr = NULL);
+std::wstring getFolderName(HWND parent, const wchar_t *defaultDir = NULL);
 
 void printInt(int int2print);
 void printStr(const wchar_t *str2print);
-generic_string commafyInt(size_t n);
+std::wstring commafyInt(size_t n);
 
 void writeLog(const wchar_t *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
-generic_string purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand = false);
-std::vector<generic_string> tokenizeString(const generic_string & tokenString, const char delim);
+std::wstring purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand = false);
+std::vector<std::wstring> tokenizeString(const std::wstring & tokenString, const char delim);
 
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);
 void ScreenRectToClientRect(HWND hWnd, RECT* rect);
@@ -67,14 +67,14 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
 bool isInList(const wchar_t *token, const wchar_t *list);
-generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename, bool ordinalNumber = true);
+std::wstring BuildMenuFileName(int filenameLen, unsigned int pos, const std::wstring &filename, bool ordinalNumber = true);
 
 std::string getFileContent(const wchar_t *file2read);
-generic_string relativeFilePathToFullFilePath(const wchar_t *relativeFilePath);
+std::wstring relativeFilePathToFullFilePath(const wchar_t *relativeFilePath);
 void writeFileContent(const wchar_t *file2write, const char *content2write);
-bool matchInList(const wchar_t *fileName, const std::vector<generic_string> & patterns);
-bool matchInExcludeDirList(const wchar_t* dirName, const std::vector<generic_string>& patterns, size_t level);
-bool allPatternsAreExclusion(const std::vector<generic_string> patterns);
+bool matchInList(const wchar_t *fileName, const std::vector<std::wstring> & patterns);
+bool matchInExcludeDirList(const wchar_t* dirName, const std::vector<std::wstring>& patterns, size_t level);
+bool allPatternsAreExclusion(const std::vector<std::wstring> patterns);
 
 class WcharMbcsConvertor final
 {
@@ -151,39 +151,39 @@ protected:
 
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
-generic_string PathRemoveFileSpec(generic_string & path);
-generic_string pathAppend(generic_string &strDest, const generic_string & str2append);
+std::wstring PathRemoveFileSpec(std::wstring & path);
+std::wstring pathAppend(std::wstring &strDest, const std::wstring & str2append);
 COLORREF getCtrlBgColor(HWND hWnd);
-generic_string stringToUpper(generic_string strToConvert);
-generic_string stringToLower(generic_string strToConvert);
-generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace);
-void stringSplit(const generic_string& input, const generic_string& delimiter, std::vector<generic_string>& output);
-bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect);
-void stringJoin(const std::vector<generic_string>& strings, const generic_string& separator, generic_string& joinedString);
-generic_string stringTakeWhileAdmissable(const generic_string& input, const generic_string& admissable);
-double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
+std::wstring stringToUpper(std::wstring strToConvert);
+std::wstring stringToLower(std::wstring strToConvert);
+std::wstring stringReplace(std::wstring subject, const std::wstring& search, const std::wstring& replace);
+void stringSplit(const std::wstring& input, const std::wstring& delimiter, std::vector<std::wstring>& output);
+bool str2numberVector(std::wstring str2convert, std::vector<size_t>& numVect);
+void stringJoin(const std::vector<std::wstring>& strings, const std::wstring& separator, std::wstring& joinedString);
+std::wstring stringTakeWhileAdmissable(const std::wstring& input, const std::wstring& admissable);
+double stodLocale(const std::wstring& str, _locale_t loc, size_t* idx = NULL);
 
-bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
+bool str2Clipboard(const std::wstring &str2cpy, HWND hwnd);
 class Buffer;
 bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd);
 
-generic_string GetLastErrorAsString(DWORD errorCode = 0);
+std::wstring GetLastErrorAsString(DWORD errorCode = 0);
 
-generic_string intToString(int val);
-generic_string uintToString(unsigned int val);
+std::wstring intToString(int val);
+std::wstring uintToString(unsigned int val);
 
 HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText, bool isRTL);
 HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszText, const RECT rc);
 
-bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
+bool isCertificateValidated(const std::wstring & fullFilePath, const std::wstring & subjectName2check);
 bool isAssoCommandExisting(LPCTSTR FullPathName);
 
 std::wstring s2ws(const std::string& str);
 std::string ws2s(const std::wstring& wstr);
 
-bool deleteFileOrFolder(const generic_string& f2delete);
+bool deleteFileOrFolder(const std::wstring& f2delete);
 
-void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder);
+void getFilesInFolder(std::vector<std::wstring>& files, const std::wstring& extTypeFilter, const std::wstring& inFolder);
 
 template<typename T> size_t vecRemoveDuplicates(std::vector<T>& vec, bool isSorted = false, bool canSort = false)
 {
@@ -215,25 +215,25 @@ void trim(std::wstring& str);
 
 int nbDigitsFromNbLines(size_t nbLines);
 
-generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);
+std::wstring getDateTimeStrFrom(const std::wstring& dateTimeFormat, const SYSTEMTIME& st);
 
 HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestParent);
 bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath);
 
-bool isWin32NamespacePrefixedFileName(const generic_string& fileName);
+bool isWin32NamespacePrefixedFileName(const std::wstring& fileName);
 bool isWin32NamespacePrefixedFileName(const wchar_t* szFileName);
-bool isUnsupportedFileName(const generic_string& fileName);
+bool isUnsupportedFileName(const std::wstring& fileName);
 bool isUnsupportedFileName(const wchar_t* szFileName);
 
 class Version final
 {
 public:
 	Version() = default;
-	Version(const generic_string& versionStr);
+	Version(const std::wstring& versionStr);
 
-	void setVersionFrom(const generic_string& filePath);
-	generic_string toString();
-	bool isNumber(const generic_string& s) const {
+	void setVersionFrom(const std::wstring& filePath);
+	std::wstring toString();
+	bool isNumber(const std::wstring& s) const {
 		return !s.empty() &&
 			find_if(s.begin(), s.end(), [](wchar_t c) { return !_istdigit(c); }) == s.end();
 	};

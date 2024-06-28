@@ -29,20 +29,22 @@
 #include <Parameters.h>
 #include "Buffer.h"
 
+using namespace std;
+
 void printInt(int int2print)
 {
-	TCHAR str[32];
+	wchar_t str[32];
 	wsprintf(str, TEXT("%d"), int2print);
 	::MessageBox(NULL, str, TEXT(""), MB_OK);
 }
 
 
-void printStr(const TCHAR *str2print)
+void printStr(const wchar_t *str2print)
 {
 	::MessageBox(NULL, str2print, TEXT(""), MB_OK);
 }
 
-generic_string commafyInt(size_t n)
+wstring commafyInt(size_t n)
 {
 	generic_stringstream ss;
 	ss.imbue(std::locale(""));
@@ -50,7 +52,7 @@ generic_string commafyInt(size_t n)
 	return ss.str();
 }
 
-std::string getFileContent(const TCHAR *file2read)
+std::string getFileContent(const wchar_t *file2read)
 {
 	if (!::PathFileExists(file2read))
 		return "";
@@ -78,7 +80,7 @@ std::string getFileContent(const TCHAR *file2read)
 char getDriveLetter()
 {
 	char drive = '\0';
-	TCHAR current[MAX_PATH];
+	wchar_t current[MAX_PATH];
 
 	::GetCurrentDirectory(MAX_PATH, current);
 	int driveNbr = ::PathGetDriveNumber(current);
@@ -89,10 +91,10 @@ char getDriveLetter()
 }
 
 
-generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
+wstring relativeFilePathToFullFilePath(const wchar_t *relativeFilePath)
 {
-	generic_string fullFilePathName;
-	TCHAR fullFileName[MAX_PATH];
+	wstring fullFilePathName;
+	wchar_t fullFileName[MAX_PATH];
 	BOOL isRelative = ::PathIsRelative(relativeFilePath);
 
 	if (isRelative)
@@ -115,7 +117,7 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 }
 
 
-void writeFileContent(const TCHAR *file2write, const char *content2write)
+void writeFileContent(const wchar_t *file2write, const char *content2write)
 {
 	Win32_IO_File file(file2write);
 
@@ -124,7 +126,7 @@ void writeFileContent(const TCHAR *file2write, const char *content2write)
 }
 
 
-void writeLog(const TCHAR *logFileName, const char *log2write)
+void writeLog(const wchar_t *logFileName, const char *log2write)
 {
 	const DWORD accessParam{ GENERIC_READ | GENERIC_WRITE };
 	const DWORD shareParam{ FILE_SHARE_READ | FILE_SHARE_WRITE };
@@ -140,7 +142,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 
 		SYSTEMTIME currentTime = {};
 		::GetLocalTime(&currentTime);
-		generic_string dateTimeStrW = getDateTimeStrFrom(TEXT("yyyy-MM-dd HH:mm:ss"), currentTime);
+		wstring dateTimeStrW = getDateTimeStrFrom(TEXT("yyyy-MM-dd HH:mm:ss"), currentTime);
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		std::string log2writeStr = converter.to_bytes(dateTimeStrW);
 		log2writeStr += "  ";
@@ -156,14 +158,14 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 }
 
 
-generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)
+wstring folderBrowser(HWND parent, const wstring & title, int outputCtrlID, const wchar_t *defaultStr)
 {
-	generic_string folderName;
+	wstring folderName;
 	CustomFileDialog dlg(parent);
 	dlg.setTitle(title.c_str());
 
 	// Get an initial directory from the edit control or from argument provided
-	TCHAR directory[MAX_PATH] = {};
+	wchar_t directory[MAX_PATH] = {};
 	if (outputCtrlID != 0)
 		::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
 	directory[_countof(directory) - 1] = '\0';
@@ -183,7 +185,7 @@ generic_string folderBrowser(HWND parent, const generic_string & title, int outp
 }
 
 
-generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
+wstring getFolderName(HWND parent, const wchar_t *defaultDir)
 {
 	return folderBrowser(parent, TEXT("Select a folder"), 0, defaultDir);
 }
@@ -207,15 +209,15 @@ void ClientRectToScreenRect(HWND hWnd, RECT* rect)
 }
 
 
-std::vector<generic_string> tokenizeString(const generic_string & tokenString, const char delim)
+std::vector<wstring> tokenizeString(const wstring & tokenString, const char delim)
 {
 	//Vector is created on stack and copied on return
-	std::vector<generic_string> tokens;
+	std::vector<wstring> tokens;
 
     // Skip delimiters at beginning.
-	generic_string::size_type lastPos = tokenString.find_first_not_of(delim, 0);
+	wstring::size_type lastPos = tokenString.find_first_not_of(delim, 0);
     // Find first "non-delimiter".
-    generic_string::size_type pos     = tokenString.find_first_of(delim, lastPos);
+    wstring::size_type pos     = tokenString.find_first_of(delim, lastPos);
 
     while (pos != std::string::npos || lastPos != std::string::npos)
     {
@@ -256,7 +258,7 @@ int filter(unsigned int code, struct _EXCEPTION_POINTERS *)
 }
 
 
-bool isInList(const TCHAR *token, const TCHAR *list)
+bool isInList(const wchar_t *token, const wchar_t *list)
 {
 	if ((!token) || (!list))
 		return false;
@@ -264,7 +266,7 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 	const size_t wordLen = 64;
 	size_t listLen = lstrlen(list);
 
-	TCHAR word[wordLen] = { '\0' };
+	wchar_t word[wordLen] = { '\0' };
 	size_t i = 0;
 	size_t j = 0;
 
@@ -294,10 +296,10 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 }
 
 
-generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
+wstring purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand)
 {
 	const size_t cleanedNameLen = 64;
-	TCHAR cleanedName[cleanedNameLen] = TEXT("");
+	wchar_t cleanedName[cleanedNameLen] = TEXT("");
 	size_t j = 0;
 	size_t menuNameLen = lstrlen(menuItemStr);
 	if (menuNameLen >= cleanedNameLen)
@@ -511,9 +513,9 @@ std::string wstring2string(const std::wstring & rwString, UINT codepage)
 
 // Escapes ampersands in file name to use it in menu
 template <typename T>
-generic_string convertFileName(T beg, T end)
+wstring convertFileName(T beg, T end)
 {
-	generic_string strTmp;
+	wstring strTmp;
 
 	for (T it = beg; it != end; ++it)
 	{
@@ -525,53 +527,53 @@ generic_string convertFileName(T beg, T end)
 }
 
 
-generic_string intToString(int val)
+wstring intToString(int val)
 {
-	std::vector<TCHAR> vt;
+	std::vector<wchar_t> vt;
 	bool isNegative = val < 0;
 	// can't use abs here because std::numeric_limits<int>::min() has no positive representation
 	//val = std::abs(val);
 
-	vt.push_back('0' + static_cast<TCHAR>(std::abs(val % 10)));
+	vt.push_back('0' + static_cast<wchar_t>(std::abs(val % 10)));
 	val /= 10;
 	while (val != 0)
 	{
-		vt.push_back('0' + static_cast<TCHAR>(std::abs(val % 10)));
+		vt.push_back('0' + static_cast<wchar_t>(std::abs(val % 10)));
 		val /= 10;
 	}
 
 	if (isNegative)
 		vt.push_back('-');
 
-	return generic_string(vt.rbegin(), vt.rend());
+	return wstring(vt.rbegin(), vt.rend());
 }
 
-generic_string uintToString(unsigned int val)
+wstring uintToString(unsigned int val)
 {
-	std::vector<TCHAR> vt;
+	std::vector<wchar_t> vt;
 
-	vt.push_back('0' + static_cast<TCHAR>(val % 10));
+	vt.push_back('0' + static_cast<wchar_t>(val % 10));
 	val /= 10;
 	while (val != 0)
 	{
-		vt.push_back('0' + static_cast<TCHAR>(val % 10));
+		vt.push_back('0' + static_cast<wchar_t>(val % 10));
 		val /= 10;
 	}
 
-	return generic_string(vt.rbegin(), vt.rend());
+	return wstring(vt.rbegin(), vt.rend());
 }
 
 // Build Recent File menu entries from given
-generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename, bool ordinalNumber)
+wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &filename, bool ordinalNumber)
 {
-	generic_string strTemp;
+	wstring strTemp;
 
 	if (ordinalNumber)
 	{
 		if (pos < 9)
 		{
 			strTemp.push_back('&');
-			strTemp.push_back('1' + static_cast<TCHAR>(pos));
+			strTemp.push_back('1' + static_cast<wchar_t>(pos));
 		}
 		else if (pos == 9)
 		{
@@ -593,7 +595,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 
 	if (filenameLen > 0)
 	{
-		std::vector<TCHAR> vt(filenameLen + 1);
+		std::vector<wchar_t> vt(filenameLen + 1);
 		// W removed from PathCompactPathExW due to compiler errors for ANSI version.
 		PathCompactPathEx(&vt[0], filename.c_str(), filenameLen + 1, 0);
 		strTemp.append(convertFileName(vt.begin(), vt.begin() + lstrlen(&vt[0])));
@@ -601,7 +603,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 	else
 	{
 		// (filenameLen < 0)
-		generic_string::const_iterator it = filename.begin();
+		wstring::const_iterator it = filename.begin();
 
 		if (filenameLen == 0)
 			it += PathFindFileName(filename.c_str()) - filename.c_str();
@@ -623,10 +625,10 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 }
 
 
-generic_string PathRemoveFileSpec(generic_string& path)
+wstring PathRemoveFileSpec(wstring& path)
 {
-    generic_string::size_type lastBackslash = path.find_last_of(TEXT('\\'));
-    if (lastBackslash == generic_string::npos)
+    wstring::size_type lastBackslash = path.find_last_of(TEXT('\\'));
+    if (lastBackslash == wstring::npos)
     {
         if (path.size() >= 2 && path[1] == TEXT(':'))  // "C:foo.bar" becomes "C:"
             path.erase(2);
@@ -646,7 +648,7 @@ generic_string PathRemoveFileSpec(generic_string& path)
 }
 
 
-generic_string pathAppend(generic_string& strDest, const generic_string& str2append)
+wstring pathAppend(wstring& strDest, const wstring& str2append)
 {
 	if (strDest.empty() && str2append.empty()) // "" + ""
 	{
@@ -721,7 +723,7 @@ COLORREF getCtrlBgColor(HWND hWnd)
 }
 
 
-generic_string stringToUpper(generic_string strToConvert)
+wstring stringToUpper(wstring strToConvert)
 {
     std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), 
         [](wchar_t ch){ return static_cast<wchar_t>(towupper(ch)); }
@@ -729,14 +731,14 @@ generic_string stringToUpper(generic_string strToConvert)
     return strToConvert;
 }
 
-generic_string stringToLower(generic_string strToConvert)
+wstring stringToLower(wstring strToConvert)
 {
     std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::towlower);
     return strToConvert;
 }
 
 
-generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace)
+wstring stringReplace(wstring subject, const wstring& search, const wstring& replace)
 {
 	size_t pos = 0;
 	while ((pos = subject.find(search, pos)) != std::string::npos)
@@ -748,7 +750,7 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 }
 
 
-void stringSplit(const generic_string& input, const generic_string& delimiter, std::vector<generic_string>& output)
+void stringSplit(const wstring& input, const wstring& delimiter, std::vector<wstring>& output)
 {
 	size_t start = 0U;
 	size_t end = input.find(delimiter);
@@ -763,7 +765,7 @@ void stringSplit(const generic_string& input, const generic_string& delimiter, s
 }
 
 
-bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
+bool str2numberVector(wstring str2convert, std::vector<size_t>& numVect)
 {
 	numVect.clear();
 
@@ -784,7 +786,7 @@ bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
 		}
 	}
 
-	std::vector<generic_string> v;
+	std::vector<wstring> v;
 	stringSplit(str2convert, TEXT(" "), v);
 	for (const auto& i : v)
 	{
@@ -797,7 +799,7 @@ bool str2numberVector(generic_string str2convert, std::vector<size_t>& numVect)
 	return true;
 }
 
-void stringJoin(const std::vector<generic_string>& strings, const generic_string& separator, generic_string& joinedString)
+void stringJoin(const std::vector<wstring>& strings, const wstring& separator, wstring& joinedString)
 {
 	size_t length = strings.size();
 	for (size_t i = 0; i < length; ++i)
@@ -811,7 +813,7 @@ void stringJoin(const std::vector<generic_string>& strings, const generic_string
 }
 
 
-generic_string stringTakeWhileAdmissable(const generic_string& input, const generic_string& admissable)
+wstring stringTakeWhileAdmissable(const wstring& input, const wstring& admissable)
 {
 	// Find first non-admissable character in "input", and remove everything after it.
 	size_t idx = input.find_first_not_of(admissable);
@@ -826,7 +828,7 @@ generic_string stringTakeWhileAdmissable(const generic_string& input, const gene
 }
 
 
-double stodLocale(const generic_string& str, [[maybe_unused]] _locale_t loc, size_t* idx)
+double stodLocale(const wstring& str, [[maybe_unused]] _locale_t loc, size_t* idx)
 {
 	// Copied from the std::stod implementation but uses _wcstod_l instead of wcstod.
 	const wchar_t* ptr = str.c_str();
@@ -847,9 +849,9 @@ double stodLocale(const generic_string& str, [[maybe_unused]] _locale_t loc, siz
 }
 
 
-bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
+bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 {
-	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
+	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(wchar_t);
 	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
 	if (hglbCopy == NULL)
 	{
@@ -867,14 +869,14 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 		return false;
 	}
 	// Lock the handle and copy the text to the buffer.
-	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);
+	wchar_t *pStr = (wchar_t *)::GlobalLock(hglbCopy);
 	if (!pStr)
 	{
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();
 		return false;
 	}
-	wcscpy_s(pStr, len2Allocate / sizeof(TCHAR), str2cpy.c_str());
+	wcscpy_s(pStr, len2Allocate / sizeof(wchar_t), str2cpy.c_str());
 	::GlobalUnlock(hglbCopy);
 	// Place the handle on the clipboard.
 	unsigned int clipBoardFormat = CF_UNICODETEXT;
@@ -893,13 +895,13 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 
 bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd)
 {
-	const generic_string crlf = _T("\r\n");
-	generic_string selection;
+	const wstring crlf = _T("\r\n");
+	wstring selection;
 	for (auto&& buf : buffers)
 	{
 		if (buf)
 		{
-			const TCHAR* fileName = isFullPath ? buf->getFullPathName() : buf->getFileName();
+			const wchar_t* fileName = isFullPath ? buf->getFullPathName() : buf->getFileName();
 			if (fileName)
 				selection += fileName;
 		}
@@ -911,7 +913,7 @@ bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hw
 	return false;
 }
 
-bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
+bool matchInList(const wchar_t *fileName, const std::vector<wstring> & patterns)
 {
 	bool is_matched = false;
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
@@ -930,7 +932,7 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 	return is_matched;
 }
 
-bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level)
+bool matchInExcludeDirList(const wchar_t* dirName, const std::vector<wstring>& patterns, size_t level)
 {
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
 	{
@@ -951,7 +953,7 @@ bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_strin
 	return false;
 }
 
-bool allPatternsAreExclusion(const std::vector<generic_string> patterns)
+bool allPatternsAreExclusion(const std::vector<wstring> patterns)
 {
 	bool oneInclusionPatternFound = false;
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
@@ -965,9 +967,9 @@ bool allPatternsAreExclusion(const std::vector<generic_string> patterns)
 	return !oneInclusionPatternFound;
 }
 
-generic_string GetLastErrorAsString(DWORD errorCode)
+wstring GetLastErrorAsString(DWORD errorCode)
 {
-	generic_string errorMsg(_T(""));
+	wstring errorMsg(_T(""));
 	// Get the error message, if any.
 	// If both error codes (passed error n GetLastError) are 0, then return empty
 	if (errorCode == 0)
@@ -1079,7 +1081,7 @@ HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszTe
 	return hwndTip;
 }
 
-bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check)
+bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjectName2check)
 {
 	bool isOK = false;
 	HCERTSTORE hStore = NULL;
@@ -1094,7 +1096,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 	CERT_INFO CertInfo{};
 	LPTSTR szName = NULL;
 
-	generic_string subjectName;
+	wstring subjectName;
 
 	try {
 		// Get message handle and store handle from the signed file.
@@ -1112,7 +1114,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 
 		if (!result)
 		{
-			generic_string errorMessage = TEXT("Check certificate of ") + fullFilePath + TEXT(" : ");
+			wstring errorMessage = TEXT("Check certificate of ") + fullFilePath + TEXT(" : ");
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1121,7 +1123,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		result = CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, NULL, &dwSignerInfo);
 		if (!result)
 		{
-			generic_string errorMessage = TEXT("CryptMsgGetParam first call: ");
+			wstring errorMessage = TEXT("CryptMsgGetParam first call: ");
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1130,7 +1132,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		pSignerInfo = (PCMSG_SIGNER_INFO)LocalAlloc(LPTR, dwSignerInfo);
 		if (!pSignerInfo)
 		{
-			generic_string errorMessage = TEXT("CryptMsgGetParam memory allocation problem: ");
+			wstring errorMessage = TEXT("CryptMsgGetParam memory allocation problem: ");
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1139,7 +1141,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		result = CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
 		if (!result)
 		{
-			generic_string errorMessage = TEXT("CryptMsgGetParam: ");
+			wstring errorMessage = TEXT("CryptMsgGetParam: ");
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1152,7 +1154,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		pCertContext = CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&CertInfo, NULL);
 		if (!pCertContext)
 		{
-			generic_string errorMessage = TEXT("Certificate context: ");
+			wstring errorMessage = TEXT("Certificate context: ");
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1163,32 +1165,32 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		dwData = CertGetNameString(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
 		if (dwData <= 1)
 		{
-			throw generic_string(TEXT("Certificate checking error: getting data size problem."));
+			throw wstring(TEXT("Certificate checking error: getting data size problem."));
 		}
 
 		// Allocate memory for subject name.
-		szName = (LPTSTR)LocalAlloc(LPTR, dwData * sizeof(TCHAR));
+		szName = (LPTSTR)LocalAlloc(LPTR, dwData * sizeof(wchar_t));
 		if (!szName)
 		{
-			throw generic_string(TEXT("Certificate checking error: memory allocation problem."));
+			throw wstring(TEXT("Certificate checking error: memory allocation problem."));
 		}
 
 		// Get subject name.
 		if (CertGetNameString(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, szName, dwData) <= 1)
 		{
-			throw generic_string(TEXT("Cannot get certificate info."));
+			throw wstring(TEXT("Cannot get certificate info."));
 		}
 
 		// check Subject name.
 		subjectName = szName;
 		if (subjectName != subjectName2check)
 		{
-			throw generic_string(TEXT("Certificate checking error: the certificate is not matched."));
+			throw wstring(TEXT("Certificate checking error: the certificate is not matched."));
 		}
 
 		isOK = true;
 	}
-	catch (const generic_string& s)
+	catch (const wstring& s)
 	{
 		// display error message
 		MessageBox(NULL, s.c_str(), TEXT("Certificate checking"), MB_OK);
@@ -1196,7 +1198,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 	catch (...)
 	{
 		// Unknown error
-		generic_string errorMessage = TEXT("Unknown exception occured. ");
+		wstring errorMessage = TEXT("Unknown exception occured. ");
 		errorMessage += GetLastErrorAsString(GetLastError());
 		MessageBox(NULL, errorMessage.c_str(), TEXT("Certificate checking"), MB_OK);
 	}
@@ -1251,10 +1253,10 @@ std::string ws2s(const std::wstring& wstr)
 	return converterX.to_bytes(wstr);
 }
 
-bool deleteFileOrFolder(const generic_string& f2delete)
+bool deleteFileOrFolder(const wstring& f2delete)
 {
 	auto len = f2delete.length();
-	TCHAR* actionFolder = new TCHAR[len + 2];
+	wchar_t* actionFolder = new wchar_t[len + 2];
 	wcscpy_s(actionFolder, len + 2, f2delete.c_str());
 	actionFolder[len] = 0;
 	actionFolder[len + 1] = 0;
@@ -1276,9 +1278,9 @@ bool deleteFileOrFolder(const generic_string& f2delete)
 }
 
 // Get a vector of full file paths in a given folder. File extension type filter should be *.*, *.xml, *.dll... according the type of file you want to get.  
-void getFilesInFolder(std::vector<generic_string>& files, const generic_string& extTypeFilter, const generic_string& inFolder)
+void getFilesInFolder(std::vector<wstring>& files, const wstring& extTypeFilter, const wstring& inFolder)
 {
-	generic_string filter = inFolder;
+	wstring filter = inFolder;
 	pathAppend(filter, extTypeFilter);
 
 	WIN32_FIND_DATA foundData;
@@ -1289,7 +1291,7 @@ void getFilesInFolder(std::vector<generic_string>& files, const generic_string& 
 		{
 			if (!(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
-				generic_string foundFullPath = inFolder;
+				wstring foundFullPath = inFolder;
 				pathAppend(foundFullPath, foundData.cFileName);
 				files.push_back(foundFullPath);
 			}
@@ -1337,14 +1339,14 @@ int nbDigitsFromNbLines(size_t nbLines)
 
 namespace
 {
-	constexpr TCHAR timeFmtEscapeChar = 0x1;
-	constexpr TCHAR middayFormat[] = _T("tt");
+	constexpr wchar_t timeFmtEscapeChar = 0x1;
+	constexpr wchar_t middayFormat[] = _T("tt");
 
 	// Returns AM/PM string defined by the system locale for the specified time.
 	// This string may be empty or customized.
-	generic_string getMiddayString(const TCHAR* localeName, const SYSTEMTIME& st)
+	wstring getMiddayString(const wchar_t* localeName, const SYSTEMTIME& st)
 	{
-		generic_string midday;
+		wstring midday;
 		midday.resize(MAX_PATH);
 		int ret = GetTimeFormatEx(localeName, 0, &st, middayFormat, &midday[0], static_cast<int>(midday.size()));
 		if (ret > 0)
@@ -1355,7 +1357,7 @@ namespace
 	}
 
 	// Replaces conflicting time format specifiers by a special character.
-	bool escapeTimeFormat(generic_string& format)
+	bool escapeTimeFormat(wstring& format)
 	{
 		bool modified = false;
 		for (auto& ch : format)
@@ -1370,7 +1372,7 @@ namespace
 	}
 
 	// Replaces special time format characters by actual AM/PM string.
-	void unescapeTimeFormat(generic_string& format, const generic_string& midday)
+	void unescapeTimeFormat(wstring& format, const wstring& midday)
 	{
 		if (midday.empty())
 		{
@@ -1381,7 +1383,7 @@ namespace
 		else
 		{
 			size_t i = 0;
-			while ((i = format.find(timeFmtEscapeChar, i)) != generic_string::npos)
+			while ((i = format.find(timeFmtEscapeChar, i)) != wstring::npos)
 			{
 				if (i + 1 < format.size() && format[i + 1] == timeFmtEscapeChar)
 				{
@@ -1399,19 +1401,19 @@ namespace
 	}
 }
 
-generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
+wstring getDateTimeStrFrom(const wstring& dateTimeFormat, const SYSTEMTIME& st)
 {
-	const TCHAR* localeName = LOCALE_NAME_USER_DEFAULT;
+	const wchar_t* localeName = LOCALE_NAME_USER_DEFAULT;
 	const DWORD flags = 0;
 
 	constexpr int bufferSize = MAX_PATH;
-	TCHAR buffer[bufferSize] = {};
+	wchar_t buffer[bufferSize] = {};
 	int ret = 0;
 
 
 	// 1. Escape 'tt' that means AM/PM or 't' that means A/P.
 	// This is needed to avoid conflict with 'M' date format that stands for month.
-	generic_string newFormat = dateTimeFormat;
+	wstring newFormat = dateTimeFormat;
 	const bool hasMiddayFormat = escapeTimeFormat(newFormat);
 
 	// 2. Format the time (h/m/s/t/H).
@@ -1428,8 +1430,8 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 		if (hasMiddayFormat)
 		{
 			// 4. Now format only the AM/PM string.
-			const generic_string midday = getMiddayString(localeName, st);
-			generic_string result = buffer;
+			const wstring midday = getMiddayString(localeName, st);
+			wstring result = buffer;
 			unescapeTimeFormat(result, midday);
 			return result;
 		}
@@ -1440,7 +1442,7 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 }
 
 // Don't forget to use DeleteObject(createdFont) before leaving the program
-HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent)
+HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestParent)
 {
 	HDC hdc = GetDC(hDestParent);
 
@@ -1471,7 +1473,7 @@ bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
 // "For file I/O, the "\\?\" prefix to a path string tells the Windows APIs to disable all string parsing
 // and to send the string that follows it straight to the file system..."
 // Ref: https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#win32-file-namespaces
-bool isWin32NamespacePrefixedFileName(const generic_string& fileName)
+bool isWin32NamespacePrefixedFileName(const wstring& fileName)
 {
 	// TODO:
 	// ?! how to handle similar NT Object Manager path style prefix case \??\...
@@ -1482,13 +1484,13 @@ bool isWin32NamespacePrefixedFileName(const generic_string& fileName)
 	return (fileName.starts_with(TEXT("\\\\?\\")) || fileName.starts_with(TEXT("//?/")));
 }
 
-bool isWin32NamespacePrefixedFileName(const TCHAR* szFileName)
+bool isWin32NamespacePrefixedFileName(const wchar_t* szFileName)
 {
-	const generic_string fileName = szFileName;
+	const wstring fileName = szFileName;
 	return isWin32NamespacePrefixedFileName(fileName);
 }
 
-bool isUnsupportedFileName(const generic_string& fileName)
+bool isUnsupportedFileName(const wstring& fileName)
 {
 	bool isUnsupported = true;
 
@@ -1509,7 +1511,7 @@ bool isUnsupportedFileName(const generic_string& fileName)
 
 			for (size_t pos = 0; pos < fileName.size(); ++pos)
 			{
-				TCHAR c = fileName.at(pos);
+				wchar_t c = fileName.at(pos);
 				if (c <= 31)
 				{
 					invalidASCIIChar = true;
@@ -1536,7 +1538,7 @@ bool isUnsupportedFileName(const generic_string& fileName)
 			if (!invalidASCIIChar)
 			{
 				// strip input string to a filename without a possible path and extension(s)
-				generic_string fileNameOnly;
+				wstring fileNameOnly;
 				size_t pos = fileName.find_first_of(TEXT("."));
 				if (pos != std::string::npos)
 					fileNameOnly = fileName.substr(0, pos);
@@ -1552,7 +1554,7 @@ bool isUnsupportedFileName(const generic_string& fileName)
 				// upperize because the std::find is case sensitive unlike the Windows OS filesystem
 				std::transform(fileNameOnly.begin(), fileNameOnly.end(), fileNameOnly.begin(), ::towupper);
 
-				const std::vector<generic_string>  reservedWin32NamespaceDeviceList{
+				const std::vector<wstring>  reservedWin32NamespaceDeviceList {
 				TEXT("CON"), TEXT("PRN"), TEXT("AUX"), TEXT("NUL"),
 				TEXT("COM1"), TEXT("COM2"), TEXT("COM3"), TEXT("COM4"), TEXT("COM5"), TEXT("COM6"), TEXT("COM7"), TEXT("COM8"), TEXT("COM9"),
 				TEXT("LPT1"), TEXT("LPT2"), TEXT("LPT3"), TEXT("LPT4"), TEXT("LPT5"), TEXT("LPT6"), TEXT("LPT7"), TEXT("LPT8"), TEXT("LPT9")
@@ -1571,14 +1573,14 @@ bool isUnsupportedFileName(const generic_string& fileName)
 	return isUnsupported;
 }
 
-bool isUnsupportedFileName(const TCHAR* szFileName)
+bool isUnsupportedFileName(const wchar_t* szFileName)
 {
-	const generic_string fileName = szFileName;
+	const wstring fileName = szFileName;
 	return isUnsupportedFileName(fileName);
 }
 
 
-Version::Version(const generic_string& versionStr)
+Version::Version(const wstring& versionStr)
 {
 	try {
 		auto ss = tokenizeString(versionStr, '.');
@@ -1627,13 +1629,13 @@ Version::Version(const generic_string& versionStr)
 		_patch = 0;
 		_build = 0;
 #ifdef DEBUG
-		throw std::wstring(TEXT("Unknown exception from \"Version::Version(const generic_string& versionStr)\""));
+		throw std::wstring(TEXT("Unknown exception from \"Version::Version(const wstring& versionStr)\""));
 #endif
 	}
 }
 
 
-void Version::setVersionFrom(const generic_string& filePath)
+void Version::setVersionFrom(const wstring& filePath)
 {
 	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
 	{
@@ -1660,7 +1662,7 @@ void Version::setVersionFrom(const generic_string& filePath)
 	}
 }
 
-generic_string Version::toString()
+wstring Version::toString()
 {
 	if (_build == 0 && _patch == 0 && _minor == 0 && _major == 0) // ""
 	{

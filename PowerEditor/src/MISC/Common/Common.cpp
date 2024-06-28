@@ -885,7 +885,6 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	if (!::OpenClipboard(hwnd))
 	{
 		::GlobalFree(hglbCopy);
-		::CloseClipboard();
 		return false;
 	}
 	if (!::EmptyClipboard())
@@ -896,9 +895,8 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	}
 	// Lock the handle and copy the text to the buffer.
 	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);
-	if (pStr == NULL)
+	if (!pStr)
 	{
-		::GlobalUnlock(hglbCopy);
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();
 		return false;
@@ -907,7 +905,7 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	::GlobalUnlock(hglbCopy);
 	// Place the handle on the clipboard.
 	unsigned int clipBoardFormat = CF_UNICODETEXT;
-	if (::SetClipboardData(clipBoardFormat, hglbCopy) == NULL)
+	if (!::SetClipboardData(clipBoardFormat, hglbCopy))
 	{
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();

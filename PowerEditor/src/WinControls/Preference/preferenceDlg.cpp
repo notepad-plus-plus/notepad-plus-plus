@@ -879,31 +879,39 @@ void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
 
 bool hasOnlyNumSpaceInClipboard()
 {
-	int clipFormat;
-	clipFormat = CF_UNICODETEXT;
+	unsigned int clipFormat = CF_UNICODETEXT;
 
-	BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
-	if (!canPaste)
+	if (!::IsClipboardFormatAvailable(clipFormat))
 		return false;
 
-	::OpenClipboard(NULL);
+	if (!::OpenClipboard(NULL))
+		return false;
+
 	HANDLE clipboardData = ::GetClipboardData(clipFormat);
 	if (!clipboardData)
+	{
+		::CloseClipboard();
 		return false;
+	}
 
-	::GlobalSize(clipboardData);
 	const wchar_t* clipboardDataPtr = (const wchar_t*)::GlobalLock(clipboardData);
-	if (!clipboardDataPtr) return false;
+	if (!clipboardDataPtr)
+	{
+		::CloseClipboard();
+		return false;
+	}
 
 	wstring clipboardDataString = clipboardDataPtr;
 
 	::GlobalUnlock(clipboardData);
 	::CloseClipboard();
+
 	for (wchar_t c: clipboardDataString)
 	{
 		if (c != ' ' && (c < '0' || c > '9'))
 			return false;
 	}
+
 	return true;
 }
 

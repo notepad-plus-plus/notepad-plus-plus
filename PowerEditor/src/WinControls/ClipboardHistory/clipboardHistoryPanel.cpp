@@ -230,18 +230,21 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
 			return TRUE;
 
-		case WM_DRAWCLIPBOARD :
+		case WM_DRAWCLIPBOARD:
 		{
-			ClipboardDataInfo clipboardData = getClipboadData();
-			if (clipboardData._data.size())
+			if (_isTrackingClipboardOps)
 			{
-				addToClipboadHistory(clipboardData);
+				ClipboardDataInfo clipboardData = getClipboadData();
+				if (clipboardData._data.size())
+				{
+					addToClipboadHistory(clipboardData);
+				}
 			}
 			if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
 			return TRUE;
 		}
-		
+
 		case WM_DESTROY:
 			::ChangeClipboardChain(_hSelf, _hwndNextCbViewer);
 			break;

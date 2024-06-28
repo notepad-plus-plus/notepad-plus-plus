@@ -31,13 +31,13 @@
 
 void printInt(int int2print)
 {
-	TCHAR str[32];
+	wchar_t str[32];
 	wsprintf(str, TEXT("%d"), int2print);
 	::MessageBox(NULL, str, TEXT(""), MB_OK);
 }
 
 
-void printStr(const TCHAR *str2print)
+void printStr(const wchar_t *str2print)
 {
 	::MessageBox(NULL, str2print, TEXT(""), MB_OK);
 }
@@ -50,7 +50,7 @@ generic_string commafyInt(size_t n)
 	return ss.str();
 }
 
-std::string getFileContent(const TCHAR *file2read)
+std::string getFileContent(const wchar_t *file2read)
 {
 	if (!::PathFileExists(file2read))
 		return "";
@@ -78,7 +78,7 @@ std::string getFileContent(const TCHAR *file2read)
 char getDriveLetter()
 {
 	char drive = '\0';
-	TCHAR current[MAX_PATH];
+	wchar_t current[MAX_PATH];
 
 	::GetCurrentDirectory(MAX_PATH, current);
 	int driveNbr = ::PathGetDriveNumber(current);
@@ -89,10 +89,10 @@ char getDriveLetter()
 }
 
 
-generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
+generic_string relativeFilePathToFullFilePath(const wchar_t *relativeFilePath)
 {
 	generic_string fullFilePathName;
-	TCHAR fullFileName[MAX_PATH];
+	wchar_t fullFileName[MAX_PATH];
 	BOOL isRelative = ::PathIsRelative(relativeFilePath);
 
 	if (isRelative)
@@ -115,7 +115,7 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 }
 
 
-void writeFileContent(const TCHAR *file2write, const char *content2write)
+void writeFileContent(const wchar_t *file2write, const char *content2write)
 {
 	Win32_IO_File file(file2write);
 
@@ -124,7 +124,7 @@ void writeFileContent(const TCHAR *file2write, const char *content2write)
 }
 
 
-void writeLog(const TCHAR *logFileName, const char *log2write)
+void writeLog(const wchar_t *logFileName, const char *log2write)
 {
 	const DWORD accessParam{ GENERIC_READ | GENERIC_WRITE };
 	const DWORD shareParam{ FILE_SHARE_READ | FILE_SHARE_WRITE };
@@ -156,14 +156,14 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 }
 
 
-generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)
+generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const wchar_t *defaultStr)
 {
 	generic_string folderName;
 	CustomFileDialog dlg(parent);
 	dlg.setTitle(title.c_str());
 
 	// Get an initial directory from the edit control or from argument provided
-	TCHAR directory[MAX_PATH] = {};
+	wchar_t directory[MAX_PATH] = {};
 	if (outputCtrlID != 0)
 		::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
 	directory[_countof(directory) - 1] = '\0';
@@ -183,7 +183,7 @@ generic_string folderBrowser(HWND parent, const generic_string & title, int outp
 }
 
 
-generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
+generic_string getFolderName(HWND parent, const wchar_t *defaultDir)
 {
 	return folderBrowser(parent, TEXT("Select a folder"), 0, defaultDir);
 }
@@ -256,7 +256,7 @@ int filter(unsigned int code, struct _EXCEPTION_POINTERS *)
 }
 
 
-bool isInList(const TCHAR *token, const TCHAR *list)
+bool isInList(const wchar_t *token, const wchar_t *list)
 {
 	if ((!token) || (!list))
 		return false;
@@ -264,7 +264,7 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 	const size_t wordLen = 64;
 	size_t listLen = lstrlen(list);
 
-	TCHAR word[wordLen] = { '\0' };
+	wchar_t word[wordLen] = { '\0' };
 	size_t i = 0;
 	size_t j = 0;
 
@@ -294,10 +294,10 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 }
 
 
-generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
+generic_string purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand)
 {
 	const size_t cleanedNameLen = 64;
-	TCHAR cleanedName[cleanedNameLen] = TEXT("");
+	wchar_t cleanedName[cleanedNameLen] = TEXT("");
 	size_t j = 0;
 	size_t menuNameLen = lstrlen(menuItemStr);
 	if (menuNameLen >= cleanedNameLen)
@@ -527,16 +527,16 @@ generic_string convertFileName(T beg, T end)
 
 generic_string intToString(int val)
 {
-	std::vector<TCHAR> vt;
+	std::vector<wchar_t> vt;
 	bool isNegative = val < 0;
 	// can't use abs here because std::numeric_limits<int>::min() has no positive representation
 	//val = std::abs(val);
 
-	vt.push_back('0' + static_cast<TCHAR>(std::abs(val % 10)));
+	vt.push_back('0' + static_cast<wchar_t>(std::abs(val % 10)));
 	val /= 10;
 	while (val != 0)
 	{
-		vt.push_back('0' + static_cast<TCHAR>(std::abs(val % 10)));
+		vt.push_back('0' + static_cast<wchar_t>(std::abs(val % 10)));
 		val /= 10;
 	}
 
@@ -548,13 +548,13 @@ generic_string intToString(int val)
 
 generic_string uintToString(unsigned int val)
 {
-	std::vector<TCHAR> vt;
+	std::vector<wchar_t> vt;
 
-	vt.push_back('0' + static_cast<TCHAR>(val % 10));
+	vt.push_back('0' + static_cast<wchar_t>(val % 10));
 	val /= 10;
 	while (val != 0)
 	{
-		vt.push_back('0' + static_cast<TCHAR>(val % 10));
+		vt.push_back('0' + static_cast<wchar_t>(val % 10));
 		val /= 10;
 	}
 
@@ -571,7 +571,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 		if (pos < 9)
 		{
 			strTemp.push_back('&');
-			strTemp.push_back('1' + static_cast<TCHAR>(pos));
+			strTemp.push_back('1' + static_cast<wchar_t>(pos));
 		}
 		else if (pos == 9)
 		{
@@ -593,7 +593,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 
 	if (filenameLen > 0)
 	{
-		std::vector<TCHAR> vt(filenameLen + 1);
+		std::vector<wchar_t> vt(filenameLen + 1);
 		// W removed from PathCompactPathExW due to compiler errors for ANSI version.
 		PathCompactPathEx(&vt[0], filename.c_str(), filenameLen + 1, 0);
 		strTemp.append(convertFileName(vt.begin(), vt.begin() + lstrlen(&vt[0])));
@@ -849,7 +849,7 @@ double stodLocale(const generic_string& str, [[maybe_unused]] _locale_t loc, siz
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 {
-	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
+	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(wchar_t);
 	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
 	if (hglbCopy == NULL)
 	{
@@ -867,14 +867,14 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 		return false;
 	}
 	// Lock the handle and copy the text to the buffer.
-	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);
+	wchar_t *pStr = (wchar_t *)::GlobalLock(hglbCopy);
 	if (!pStr)
 	{
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();
 		return false;
 	}
-	wcscpy_s(pStr, len2Allocate / sizeof(TCHAR), str2cpy.c_str());
+	wcscpy_s(pStr, len2Allocate / sizeof(wchar_t), str2cpy.c_str());
 	::GlobalUnlock(hglbCopy);
 	// Place the handle on the clipboard.
 	unsigned int clipBoardFormat = CF_UNICODETEXT;
@@ -899,7 +899,7 @@ bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hw
 	{
 		if (buf)
 		{
-			const TCHAR* fileName = isFullPath ? buf->getFullPathName() : buf->getFileName();
+			const wchar_t* fileName = isFullPath ? buf->getFullPathName() : buf->getFileName();
 			if (fileName)
 				selection += fileName;
 		}
@@ -911,7 +911,7 @@ bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hw
 	return false;
 }
 
-bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
+bool matchInList(const wchar_t *fileName, const std::vector<generic_string> & patterns)
 {
 	bool is_matched = false;
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
@@ -930,7 +930,7 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 	return is_matched;
 }
 
-bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level)
+bool matchInExcludeDirList(const wchar_t* dirName, const std::vector<generic_string>& patterns, size_t level)
 {
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
 	{
@@ -1167,7 +1167,7 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		}
 
 		// Allocate memory for subject name.
-		szName = (LPTSTR)LocalAlloc(LPTR, dwData * sizeof(TCHAR));
+		szName = (LPTSTR)LocalAlloc(LPTR, dwData * sizeof(wchar_t));
 		if (!szName)
 		{
 			throw generic_string(TEXT("Certificate checking error: memory allocation problem."));
@@ -1254,7 +1254,7 @@ std::string ws2s(const std::wstring& wstr)
 bool deleteFileOrFolder(const generic_string& f2delete)
 {
 	auto len = f2delete.length();
-	TCHAR* actionFolder = new TCHAR[len + 2];
+	wchar_t* actionFolder = new wchar_t[len + 2];
 	wcscpy_s(actionFolder, len + 2, f2delete.c_str());
 	actionFolder[len] = 0;
 	actionFolder[len + 1] = 0;
@@ -1337,12 +1337,12 @@ int nbDigitsFromNbLines(size_t nbLines)
 
 namespace
 {
-	constexpr TCHAR timeFmtEscapeChar = 0x1;
-	constexpr TCHAR middayFormat[] = _T("tt");
+	constexpr wchar_t timeFmtEscapeChar = 0x1;
+	constexpr wchar_t middayFormat[] = _T("tt");
 
 	// Returns AM/PM string defined by the system locale for the specified time.
 	// This string may be empty or customized.
-	generic_string getMiddayString(const TCHAR* localeName, const SYSTEMTIME& st)
+	generic_string getMiddayString(const wchar_t* localeName, const SYSTEMTIME& st)
 	{
 		generic_string midday;
 		midday.resize(MAX_PATH);
@@ -1401,11 +1401,11 @@ namespace
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st)
 {
-	const TCHAR* localeName = LOCALE_NAME_USER_DEFAULT;
+	const wchar_t* localeName = LOCALE_NAME_USER_DEFAULT;
 	const DWORD flags = 0;
 
 	constexpr int bufferSize = MAX_PATH;
-	TCHAR buffer[bufferSize] = {};
+	wchar_t buffer[bufferSize] = {};
 	int ret = 0;
 
 
@@ -1440,7 +1440,7 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 }
 
 // Don't forget to use DeleteObject(createdFont) before leaving the program
-HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent)
+HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestParent)
 {
 	HDC hdc = GetDC(hDestParent);
 
@@ -1482,7 +1482,7 @@ bool isWin32NamespacePrefixedFileName(const generic_string& fileName)
 	return (fileName.starts_with(TEXT("\\\\?\\")) || fileName.starts_with(TEXT("//?/")));
 }
 
-bool isWin32NamespacePrefixedFileName(const TCHAR* szFileName)
+bool isWin32NamespacePrefixedFileName(const wchar_t* szFileName)
 {
 	const generic_string fileName = szFileName;
 	return isWin32NamespacePrefixedFileName(fileName);
@@ -1509,7 +1509,7 @@ bool isUnsupportedFileName(const generic_string& fileName)
 
 			for (size_t pos = 0; pos < fileName.size(); ++pos)
 			{
-				TCHAR c = fileName.at(pos);
+				wchar_t c = fileName.at(pos);
 				if (c <= 31)
 				{
 					invalidASCIIChar = true;
@@ -1568,7 +1568,7 @@ bool isUnsupportedFileName(const generic_string& fileName)
 	return isUnsupported;
 }
 
-bool isUnsupportedFileName(const TCHAR* szFileName)
+bool isUnsupportedFileName(const wchar_t* szFileName)
 {
 	const generic_string fileName = szFileName;
 	return isUnsupportedFileName(fileName);

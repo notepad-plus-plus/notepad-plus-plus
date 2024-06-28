@@ -46,19 +46,19 @@ const bool dirDown = false;
 
 #define NPP_INTERNAL_FUCTION_STR L"Notepad++::InternalFunction"
 
-typedef std::basic_string<TCHAR> generic_string;
-typedef std::basic_stringstream<TCHAR> generic_stringstream;
+typedef std::basic_string<wchar_t> generic_string;
+typedef std::basic_stringstream<wchar_t> generic_stringstream;
 
-generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const TCHAR *defaultStr = NULL);
-generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
+generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const wchar_t *defaultStr = NULL);
+generic_string getFolderName(HWND parent, const wchar_t *defaultDir = NULL);
 
 void printInt(int int2print);
-void printStr(const TCHAR *str2print);
+void printStr(const wchar_t *str2print);
 generic_string commafyInt(size_t n);
 
-void writeLog(const TCHAR *logFileName, const char *log2write);
+void writeLog(const wchar_t *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
-generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand = false);
+generic_string purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand = false);
 std::vector<generic_string> tokenizeString(const generic_string & tokenString, const char delim);
 
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);
@@ -66,14 +66,14 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
-bool isInList(const TCHAR *token, const TCHAR *list);
+bool isInList(const wchar_t *token, const wchar_t *list);
 generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename, bool ordinalNumber = true);
 
-std::string getFileContent(const TCHAR *file2read);
-generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
-void writeFileContent(const TCHAR *file2write, const char *content2write);
-bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
-bool matchInExcludeDirList(const TCHAR* dirName, const std::vector<generic_string>& patterns, size_t level);
+std::string getFileContent(const wchar_t *file2read);
+generic_string relativeFilePathToFullFilePath(const wchar_t *relativeFilePath);
+void writeFileContent(const wchar_t *file2write, const char *content2write);
+bool matchInList(const wchar_t *fileName, const std::vector<generic_string> & patterns);
+bool matchInExcludeDirList(const wchar_t* dirName, const std::vector<generic_string>& patterns, size_t level);
 bool allPatternsAreExclusion(const std::vector<generic_string> patterns);
 
 class WcharMbcsConvertor final
@@ -217,13 +217,13 @@ int nbDigitsFromNbLines(size_t nbLines);
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);
 
-HFONT createFont(const TCHAR* fontName, int fontSize, bool isBold, HWND hDestParent);
+HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestParent);
 bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath);
 
 bool isWin32NamespacePrefixedFileName(const generic_string& fileName);
-bool isWin32NamespacePrefixedFileName(const TCHAR* szFileName);
+bool isWin32NamespacePrefixedFileName(const wchar_t* szFileName);
 bool isUnsupportedFileName(const generic_string& fileName);
-bool isUnsupportedFileName(const TCHAR* szFileName);
+bool isUnsupportedFileName(const wchar_t* szFileName);
 
 class Version final
 {
@@ -235,7 +235,7 @@ public:
 	generic_string toString();
 	bool isNumber(const generic_string& s) const {
 		return !s.empty() &&
-			find_if(s.begin(), s.end(), [](TCHAR c) { return !_istdigit(c); }) == s.end();
+			find_if(s.begin(), s.end(), [](wchar_t c) { return !_istdigit(c); }) == s.end();
 	};
 
 	int compareTo(const Version& v2c) const;

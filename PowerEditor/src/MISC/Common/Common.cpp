@@ -34,14 +34,14 @@ using namespace std;
 void printInt(int int2print)
 {
 	wchar_t str[32];
-	wsprintf(str, TEXT("%d"), int2print);
-	::MessageBox(NULL, str, TEXT(""), MB_OK);
+	wsprintf(str, L"%d", int2print);
+	::MessageBox(NULL, str, L"", MB_OK);
 }
 
 
 void printStr(const wchar_t *str2print)
 {
-	::MessageBox(NULL, str2print, TEXT(""), MB_OK);
+	::MessageBox(NULL, str2print, L"", MB_OK);
 }
 
 wstring commafyInt(size_t n)
@@ -60,7 +60,7 @@ std::string getFileContent(const wchar_t *file2read)
 	const size_t blockSize = 1024;
 	char data[blockSize];
 	std::string wholeFileContent = "";
-	FILE *fp = _wfopen(file2read, TEXT("rb"));
+	FILE *fp = _wfopen(file2read, L"rb");
 	if (!fp)
 		return "";
 
@@ -142,7 +142,7 @@ void writeLog(const wchar_t *logFileName, const char *log2write)
 
 		SYSTEMTIME currentTime = {};
 		::GetLocalTime(&currentTime);
-		wstring dateTimeStrW = getDateTimeStrFrom(TEXT("yyyy-MM-dd HH:mm:ss"), currentTime);
+		wstring dateTimeStrW = getDateTimeStrFrom(L"yyyy-MM-dd HH:mm:ss", currentTime);
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		std::string log2writeStr = converter.to_bytes(dateTimeStrW);
 		log2writeStr += "  ";
@@ -187,7 +187,7 @@ wstring folderBrowser(HWND parent, const wstring & title, int outputCtrlID, cons
 
 wstring getFolderName(HWND parent, const wchar_t *defaultDir)
 {
-	return folderBrowser(parent, TEXT("Select a folder"), 0, defaultDir);
+	return folderBrowser(parent, L"Select a folder", 0, defaultDir);
 }
 
 
@@ -299,7 +299,7 @@ bool isInList(const wchar_t *token, const wchar_t *list)
 wstring purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand)
 {
 	const size_t cleanedNameLen = 64;
-	wchar_t cleanedName[cleanedNameLen] = TEXT("");
+	wchar_t cleanedName[cleanedNameLen] = L"";
 	size_t j = 0;
 	size_t menuNameLen = lstrlen(menuItemStr);
 	if (menuNameLen >= cleanedNameLen)
@@ -577,7 +577,7 @@ wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &file
 		}
 		else if (pos == 9)
 		{
-			strTemp.append(TEXT("1&0"));
+			strTemp.append(L"1&0");
 		}
 		else
 		{
@@ -586,7 +586,7 @@ wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &file
 			strTemp.push_back('&');
 			strTemp.append(uintToString(splitDigits.rem));
 		}
-		strTemp.append(TEXT(": "));
+		strTemp.append(L": ");
 	}
 	else
 	{
@@ -616,7 +616,7 @@ wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &file
 		else
 		{
 			strTemp.append(convertFileName(it, it + MAX_PATH / 2 - 3));
-			strTemp.append(TEXT("..."));
+			strTemp.append(L"...");
 			strTemp.append(convertFileName(filename.end() - MAX_PATH / 2, filename.end()));
 		}
 	}
@@ -627,17 +627,17 @@ wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &file
 
 wstring PathRemoveFileSpec(wstring& path)
 {
-    wstring::size_type lastBackslash = path.find_last_of(TEXT('\\'));
+    wstring::size_type lastBackslash = path.find_last_of(L'\\');
     if (lastBackslash == wstring::npos)
     {
-        if (path.size() >= 2 && path[1] == TEXT(':'))  // "C:foo.bar" becomes "C:"
+        if (path.size() >= 2 && path[1] == L':')  // "C:foo.bar" becomes "C:"
             path.erase(2);
         else
             path.erase();
     }
     else
     {
-        if (lastBackslash == 2 && path[1] == TEXT(':') && path.size() >= 3)  // "C:\foo.exe" becomes "C:\"
+        if (lastBackslash == 2 && path[1] == L':' && path.size() >= 3)  // "C:\foo.exe" becomes "C:\"
             path.erase(3);
         else if (lastBackslash == 0 && path.size() > 1) // "\foo.exe" becomes "\"
             path.erase(1);
@@ -652,7 +652,7 @@ wstring pathAppend(wstring& strDest, const wstring& str2append)
 {
 	if (strDest.empty() && str2append.empty()) // "" + ""
 	{
-		strDest = TEXT("\\");
+		strDest = L"\\";
 		return strDest;
 	}
 
@@ -677,7 +677,7 @@ wstring pathAppend(wstring& strDest, const wstring& str2append)
 	}
 
 	// toto + titi
-	strDest += TEXT("\\");
+	strDest += L"\\";
 	strDest += str2append;
 
 	return strDest;
@@ -787,7 +787,7 @@ bool str2numberVector(wstring str2convert, std::vector<size_t>& numVect)
 	}
 
 	std::vector<wstring> v;
-	stringSplit(str2convert, TEXT(" "), v);
+	stringSplit(str2convert, L" ", v);
 	for (const auto& i : v)
 	{
 		// Don't treat empty string and the number greater than 9999
@@ -895,7 +895,7 @@ bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 
 bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hwnd)
 {
-	const wstring crlf = _T("\r\n");
+	const wstring crlf = L"\r\n";
 	wstring selection;
 	for (auto&& buf : buffers)
 	{
@@ -969,7 +969,7 @@ bool allPatternsAreExclusion(const std::vector<wstring> patterns)
 
 wstring GetLastErrorAsString(DWORD errorCode)
 {
-	wstring errorMsg(_T(""));
+	wstring errorMsg(L"");
 	// Get the error message, if any.
 	// If both error codes (passed error n GetLastError) are 0, then return empty
 	if (errorCode == 0)
@@ -1114,7 +1114,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 
 		if (!result)
 		{
-			wstring errorMessage = TEXT("Check certificate of ") + fullFilePath + TEXT(" : ");
+			wstring errorMessage = L"Check certificate of " + fullFilePath + L" : ";
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1123,7 +1123,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 		result = CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, NULL, &dwSignerInfo);
 		if (!result)
 		{
-			wstring errorMessage = TEXT("CryptMsgGetParam first call: ");
+			wstring errorMessage = L"CryptMsgGetParam first call: ";
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1132,7 +1132,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 		pSignerInfo = (PCMSG_SIGNER_INFO)LocalAlloc(LPTR, dwSignerInfo);
 		if (!pSignerInfo)
 		{
-			wstring errorMessage = TEXT("CryptMsgGetParam memory allocation problem: ");
+			wstring errorMessage = L"CryptMsgGetParam memory allocation problem: ";
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1141,7 +1141,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 		result = CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
 		if (!result)
 		{
-			wstring errorMessage = TEXT("CryptMsgGetParam: ");
+			wstring errorMessage = L"CryptMsgGetParam: ";
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1154,7 +1154,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 		pCertContext = CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&CertInfo, NULL);
 		if (!pCertContext)
 		{
-			wstring errorMessage = TEXT("Certificate context: ");
+			wstring errorMessage = L"Certificate context: ";
 			errorMessage += GetLastErrorAsString(GetLastError());
 			throw errorMessage;
 		}
@@ -1165,27 +1165,27 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 		dwData = CertGetNameString(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
 		if (dwData <= 1)
 		{
-			throw wstring(TEXT("Certificate checking error: getting data size problem."));
+			throw wstring(L"Certificate checking error: getting data size problem.");
 		}
 
 		// Allocate memory for subject name.
 		szName = (LPTSTR)LocalAlloc(LPTR, dwData * sizeof(wchar_t));
 		if (!szName)
 		{
-			throw wstring(TEXT("Certificate checking error: memory allocation problem."));
+			throw wstring(L"Certificate checking error: memory allocation problem.");
 		}
 
 		// Get subject name.
 		if (CertGetNameString(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, szName, dwData) <= 1)
 		{
-			throw wstring(TEXT("Cannot get certificate info."));
+			throw wstring(L"Cannot get certificate info.");
 		}
 
 		// check Subject name.
 		subjectName = szName;
 		if (subjectName != subjectName2check)
 		{
-			throw wstring(TEXT("Certificate checking error: the certificate is not matched."));
+			throw wstring(L"Certificate checking error: the certificate is not matched.");
 		}
 
 		isOK = true;
@@ -1193,14 +1193,14 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 	catch (const wstring& s)
 	{
 		// display error message
-		MessageBox(NULL, s.c_str(), TEXT("Certificate checking"), MB_OK);
+		MessageBox(NULL, s.c_str(), L"Certificate checking", MB_OK);
 	}
 	catch (...)
 	{
 		// Unknown error
-		wstring errorMessage = TEXT("Unknown exception occured. ");
+		wstring errorMessage = L"Unknown exception occured. ";
 		errorMessage += GetLastErrorAsString(GetLastError());
-		MessageBox(NULL, errorMessage.c_str(), TEXT("Certificate checking"), MB_OK);
+		MessageBox(NULL, errorMessage.c_str(), L"Certificate checking", MB_OK);
 	}
 
 	// Clean up.
@@ -1224,14 +1224,14 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 		PTSTR ext = PathFindExtension(FullPathName);
 
 		HRESULT hres;
-		wchar_t buffer[MAX_PATH] = TEXT("");
+		wchar_t buffer[MAX_PATH] = L"";
 		DWORD bufferLen = MAX_PATH;
 
 		// check if association exist
 		hres = AssocQueryString(ASSOCF_VERIFY|ASSOCF_INIT_IGNOREUNKNOWN, ASSOCSTR_COMMAND, ext, NULL, buffer, &bufferLen);
 
         isAssoCommandExisting = (hres == S_OK)                  // check if association exist and no error
-			&& (wcsstr(buffer, TEXT("notepad++.exe")) == NULL); // check association with notepad++
+			&& (wcsstr(buffer, L"notepad++.exe")) == NULL; // check association with notepad++
 
 	}
 	return isAssoCommandExisting;
@@ -1340,7 +1340,7 @@ int nbDigitsFromNbLines(size_t nbLines)
 namespace
 {
 	constexpr wchar_t timeFmtEscapeChar = 0x1;
-	constexpr wchar_t middayFormat[] = _T("tt");
+	constexpr wchar_t middayFormat[] = L"tt";
 
 	// Returns AM/PM string defined by the system locale for the specified time.
 	// This string may be empty or customized.
@@ -1481,7 +1481,7 @@ bool isWin32NamespacePrefixedFileName(const wstring& fileName)
 
 	// the following covers the \\?\... raw Win32-filenames or the \\?\UNC\... UNC equivalents
 	// and also its *nix like forward slash equivalents
-	return (fileName.starts_with(TEXT("\\\\?\\")) || fileName.starts_with(TEXT("//?/")));
+	return (fileName.starts_with(L"\\\\?\\") || fileName.starts_with(L"//?/"));
 }
 
 bool isWin32NamespacePrefixedFileName(const wchar_t* szFileName)
@@ -1505,7 +1505,7 @@ bool isUnsupportedFileName(const wstring& fileName)
 		// Exception for the standard filenames ending with the dot-char:
 		// - when someone tries to open e.g. the 'C:\file.', we will accept that as this is the way how to work with filenames
 		//   without an extension (some of the WINAPI calls used later trim that dot-char automatically ...)
-		if (!(fileName.ends_with(_T('.')) && isWin32NamespacePrefixedFileName(fileName)) && !fileName.ends_with(_T(' ')))
+		if (!(fileName.ends_with(L'.') && isWin32NamespacePrefixedFileName(fileName)) && !fileName.ends_with(L' '))
 		{
 			bool invalidASCIIChar = false;
 
@@ -1539,15 +1539,15 @@ bool isUnsupportedFileName(const wstring& fileName)
 			{
 				// strip input string to a filename without a possible path and extension(s)
 				wstring fileNameOnly;
-				size_t pos = fileName.find_first_of(TEXT("."));
+				size_t pos = fileName.find_first_of(L".");
 				if (pos != std::string::npos)
 					fileNameOnly = fileName.substr(0, pos);
 				else
 					fileNameOnly = fileName;
 
-				pos = fileNameOnly.find_last_of(TEXT("\\"));
+				pos = fileNameOnly.find_last_of(L"\\");
 				if (pos == std::string::npos)
-					pos = fileNameOnly.find_last_of(TEXT("/"));
+					pos = fileNameOnly.find_last_of(L"/");
 				if (pos != std::string::npos)
 					fileNameOnly = fileNameOnly.substr(pos + 1);
 
@@ -1555,9 +1555,9 @@ bool isUnsupportedFileName(const wstring& fileName)
 				std::transform(fileNameOnly.begin(), fileNameOnly.end(), fileNameOnly.begin(), ::towupper);
 
 				const std::vector<wstring>  reservedWin32NamespaceDeviceList {
-				TEXT("CON"), TEXT("PRN"), TEXT("AUX"), TEXT("NUL"),
-				TEXT("COM1"), TEXT("COM2"), TEXT("COM3"), TEXT("COM4"), TEXT("COM5"), TEXT("COM6"), TEXT("COM7"), TEXT("COM8"), TEXT("COM9"),
-				TEXT("LPT1"), TEXT("LPT2"), TEXT("LPT3"), TEXT("LPT4"), TEXT("LPT5"), TEXT("LPT6"), TEXT("LPT7"), TEXT("LPT8"), TEXT("LPT9")
+				L"CON", L"PRN", L"AUX", L"NUL",
+				L"COM1", L"COM2", L"COM3", L"COM4", L"COM5", L"COM6", L"COM7", L"COM8", L"COM9",
+				L"LPT1", L"LPT2", L"LPT3", L"LPT4", L"LPT5", L"LPT6", L"LPT7", L"LPT8", L"LPT9"
 				};
 
 				// last check is for all the old reserved Windows OS filenames
@@ -1590,7 +1590,7 @@ Version::Version(const wstring& versionStr)
 			std::wstring msg(L"\"");
 			msg += versionStr;
 			msg += L"\"";
-			msg += TEXT(": Version parts are more than 4. The string to parse is not a valid version format. Let's make it default value in catch block.");
+			msg += L": Version parts are more than 4. The string to parse is not a valid version format. Let's make it default value in catch block.";
 			throw msg;
 		}
 
@@ -1603,7 +1603,7 @@ Version::Version(const wstring& versionStr)
 				std::wstring msg(L"\"");
 				msg += versionStr;
 				msg += L"\"";
-				msg += TEXT(": One of version character is not number. The string to parse is not a valid version format. Let's make it default value in catch block.");
+				msg += L": One of version character is not number. The string to parse is not a valid version format. Let's make it default value in catch block.";
 				throw msg;
 			}
 			*(v[i]) = std::stoi(s);
@@ -1629,7 +1629,7 @@ Version::Version(const wstring& versionStr)
 		_patch = 0;
 		_build = 0;
 #ifdef DEBUG
-		throw std::wstring(TEXT("Unknown exception from \"Version::Version(const wstring& versionStr)\""));
+		throw std::wstring(L"Unknown exception from \"Version::Version(const wstring& versionStr)\"");
 #endif
 	}
 }
@@ -1650,7 +1650,7 @@ void Version::setVersionFrom(const wstring& filePath)
 
 		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
 		UINT cbFileInfo = 0;
-		VerQueryValue(buffer, TEXT("\\"), reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
+		VerQueryValue(buffer, L"\\", reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
 		if (cbFileInfo)
 		{
 			_major = (lpFileInfo->dwFileVersionMS & 0xFFFF0000) >> 16;
@@ -1666,7 +1666,7 @@ wstring Version::toString()
 {
 	if (_build == 0 && _patch == 0 && _minor == 0 && _major == 0) // ""
 	{
-		return TEXT("");
+		return L"";
 	}
 	else if (_build == 0 && _patch == 0 && _minor == 0) // "major"
 	{
@@ -1675,27 +1675,27 @@ wstring Version::toString()
 	else if (_build == 0 && _patch == 0) // "major.minor"
 	{
 		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
+		v += L".";
 		v += std::to_wstring(_minor);
 		return v;
 	}
 	else if (_build == 0) // "major.minor.patch"
 	{
 		std::wstring v = std::to_wstring(_major);
-		v += TEXT(".");
+		v += L".";
 		v += std::to_wstring(_minor);
-		v += TEXT(".");
+		v += L".";
 		v += std::to_wstring(_patch);
 		return v;
 	}
 
 	// "major.minor.patch.build"
 	std::wstring ver = std::to_wstring(_major);
-	ver += TEXT(".");
+	ver += L".";
 	ver += std::to_wstring(_minor);
-	ver += TEXT(".");
+	ver += L".";
 	ver += std::to_wstring(_patch);
-	ver += TEXT(".");
+	ver += L".";
 	ver += std::to_wstring(_build);
 
 	return ver;

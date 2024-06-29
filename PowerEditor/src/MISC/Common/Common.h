@@ -49,7 +49,7 @@ const bool dirDown = false;
 typedef std::basic_string<wchar_t> generic_string;
 typedef std::basic_stringstream<wchar_t> generic_stringstream;
 
-std::wstring folderBrowser(HWND parent, const std::wstring & title = TEXT(""), int outputCtrlID = 0, const wchar_t *defaultStr = NULL);
+std::wstring folderBrowser(HWND parent, const std::wstring & title = L"", int outputCtrlID = 0, const wchar_t *defaultStr = NULL);
 std::wstring getFolderName(HWND parent, const wchar_t *defaultDir = NULL);
 
 void printInt(int int2print);

@@ -222,7 +222,7 @@ Translation note:
 					<Item id="43051" name="Supprimer les lignes non marquées"/>
 					<Item id="43050" name="Inverser les signets"/>
 					<Item id="43052" name="Rechercher des caractères dans une plage..."/>
-					<Item id="43053" name="Sélectionner tout entre les 2 accolades {}"/>
+					<Item id="43053" name="Sélectionner tout entre les 2   { }  [ ]  ( )"/>
 					<Item id="43009" name="Aller au délimiteur symétrique"/>
 					<Item id="43010" name="Rechercher le précédent"/>
 					<Item id="43011" name="Recherche &amp;incrémentielle..."/>
@@ -444,8 +444,8 @@ Translation note:
 				<Item CMDID="10006" name="Déplacer à la fin"/>
 				<Item CMDID="10001" name="Déplacer vers l’autre vue"/>
 				<Item CMDID="10002" name="Cloner vers l’autre vue"/>
-				<Item CMDID="10003" name="Déplacer vers une nouvelle instance (fenêtre)"/>
-				<Item CMDID="10004" name="Ouvrir dans une nouvelle instance (fenêtre)"/>
+				<Item CMDID="10003" name="Déplacer vers une nouvelle « instance  »"/>
+				<Item CMDID="10004" name="Ouvrir dans une nouvelle « instance »"/>
 				<Item CMDID="4" name="Appliquer la couleur à l’onglet"/>
 				<Item CMDID="44111" name="Appliquer la couleur 1"/>
 				<Item CMDID="44112" name="Appliquer la couleur 2"/>
@@ -774,7 +774,7 @@ Translation note:
 				<Item id="20005" name="Enregistrer sous"/>
 				<Item id="20007" name="Langage : "/>
 				<Item id="20009" name="Ext. :"/>
-				<Item id="20012" name="Ignorer casse"/><!-- Espace réduit -->
+				<Item id="20012" name="Ignorer la casse"/>
 				<Item id="20011" name="Transparence"/>
 				<Item id="20015" name="Importer..."/>
 				<Item id="20016" name="Exporter..."/>
@@ -1103,8 +1103,8 @@ Translation note:
 					<Item id="6508" name="Menu langage"/>
 					<Item id="6301" name="Tabulations"/>
 					<Item id="6302" name="Insertion d’espaces"/>
-					<Item id="6303" name="Taille : "/><!-- Espace réduit -->
-					<Item id="6310" name="Indenter par : "/><!-- Espace réduit -->
+					<Item id="6303" name="Taille de l'indentation :"/>
+					<Item id="6310" name="Indenter par :"/>
 					<Item id="6311" name="Caractère de tabulation"/>
 					<Item id="6510" name="Utiliser la valeur par défaut"/>
 					<Item id="6335" name="Barre oblique inversée : caractère d'échappement pour SQL"/>
@@ -1175,7 +1175,7 @@ Translation note:
 					<Item id="6907" name="Quand la boîte de dialogue de recherche est invoquée"/>
 					<Item id="6908" name="Remplir le champ de recherche avec le texte sélectionné"/>
 					<Item id="6909" name="Sélectionner le mot sous le curseur si rien n’est sélectionné"/>
-					<Item id="6910" name="Taille minimale pour l’auto-coche de « Dans sélection » :"/>
+					<Item id="6910" name="Taille minimale pour l’auto-coche de « Dans la sélection » :"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fichiers récents">

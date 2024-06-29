@@ -222,7 +222,7 @@ Translation note:
 					<Item id="43051" name="Supprimer les lignes non marquées"/>
 					<Item id="43050" name="Inverser les signets"/>
 					<Item id="43052" name="Rechercher des caractères dans une plage..."/>
-					<Item id="43053" name="Sélectionner tout entre les 2   { }  [ ]  ( )"/>
+					<Item id="43053" name="Sélectionner tout entre les 2   { } ou [ ] ou ( )"/>
 					<Item id="43009" name="Aller au délimiteur symétrique"/>
 					<Item id="43010" name="Rechercher le précédent"/>
 					<Item id="43011" name="Recherche &amp;incrémentielle..."/>

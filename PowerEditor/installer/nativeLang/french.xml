@@ -483,7 +483,7 @@ Translation note:
 				<Item id="1609" name="Remplacer &amp;tout"/>
 				<Item id="1687" name="À la perte du focus"/>
 				<Item id="1688" name="Persistante"/>
-				<Item id="1632" name="Dans sélection"/><!-- Espace réduit -->
+				<Item id="1632" name="Dans la sélection"/>
 				<Item id="1633" name="Purger les marques"/>
 				<Item id="1635" name="Remplacer dans tous les documents ouverts"/>
 				<Item id="1636" name="Rechercher dans tous les documents ouverts"/>

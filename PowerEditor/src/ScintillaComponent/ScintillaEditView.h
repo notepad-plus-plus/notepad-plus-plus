@@ -388,9 +388,9 @@ struct SortInPositionOrder {
 typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
 struct LanguageNameInfo {
-	const TCHAR* _langName = nullptr;
-	const TCHAR* _shortName = nullptr;
-	const TCHAR* _longName = nullptr;
+	const wchar_t* _langName = nullptr;
+	const wchar_t* _shortName = nullptr;
+	const wchar_t* _longName = nullptr;
 	LangType _langID = L_TEXT;
 	const char* _lexerID = nullptr;
 };
@@ -451,10 +451,10 @@ public:
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 
 	void getText(char *dest, size_t start, size_t end) const;
-	void getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const;
-	void getGenericText(TCHAR *dest, size_t deslen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const;
-	generic_string getGenericTextAsString(size_t start, size_t end) const;
-	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
+	void getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const;
+	void getGenericText(wchar_t *dest, size_t deslen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const;
+	std::wstring getGenericTextAsString(size_t start, size_t end) const;
+	void insertGenericTextFrom(size_t position, const wchar_t *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
 	intptr_t getSelectedTextCount() {
@@ -466,18 +466,18 @@ public:
     char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
 	char * getSelectedText(char * txt, size_t size, bool expand = true);
     char * getWordOnCaretPos(char * txt, size_t size);
-    TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
-	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
-	intptr_t searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
-	void appandGenericText(const TCHAR * text2Append) const;
-	void addGenericText(const TCHAR * text2Append) const;
-	void addGenericText(const TCHAR * text2Append, intptr_t* mstart, intptr_t* mend) const;
-	intptr_t replaceTarget(const TCHAR * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
-	intptr_t replaceTargetRegExMode(const TCHAR * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
-	void showAutoComletion(size_t lenEntered, const TCHAR * list);
-	void showCallTip(size_t startPos, const TCHAR * def);
-	generic_string getLine(size_t lineNumber);
-	void getLine(size_t lineNumber, TCHAR * line, size_t lineBufferLen);
+    wchar_t * getGenericWordOnCaretPos(wchar_t * txt, int size);
+	wchar_t * getGenericSelectedText(wchar_t * txt, int size, bool expand = true);
+	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
+	void appandGenericText(const wchar_t * text2Append) const;
+	void addGenericText(const wchar_t * text2Append) const;
+	void addGenericText(const wchar_t * text2Append, intptr_t* mstart, intptr_t* mend) const;
+	intptr_t replaceTarget(const wchar_t * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
+	intptr_t replaceTargetRegExMode(const wchar_t * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
+	void showAutoComletion(size_t lenEntered, const wchar_t * list);
+	void showCallTip(size_t startPos, const wchar_t * def);
+	std::wstring getLine(size_t lineNumber);
+	void getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen);
 	void addText(size_t length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();
@@ -503,7 +503,7 @@ public:
 		return crange;
 	};
 
-	void getWordToCurrentPos(TCHAR * str, intptr_t strLen) const {
+	void getWordToCurrentPos(wchar_t * str, intptr_t strLen) const {
 		auto caretPos = execute(SCI_GETCURRENTPOS);
 		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
@@ -765,7 +765,7 @@ public:
 		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(caseToConvert);
 		else
-			::MessageBox(_hSelf, TEXT("This function needs a newer OS version."), TEXT("Change Case Error"), MB_OK | MB_ICONHAND);
+			::MessageBox(_hSelf, L"This function needs a newer OS version.", L"Change Case Error", MB_OK | MB_ICONHAND);
 	};
 
 	bool isFoldIndentationBased() const;
@@ -782,7 +782,7 @@ public:
 
 	ColumnModeInfos getColumnModeSelectInfo();
 
-	void columnReplace(ColumnModeInfos & cmi, const TCHAR *str);
+	void columnReplace(ColumnModeInfos & cmi, const wchar_t *str);
 	void columnReplace(ColumnModeInfos & cmi, size_t initial, size_t incr, size_t repeat, UCHAR format, ColumnEditorParam::leadingChoice lead);
 
 	void clearIndicator(int indicatorNumber) {
@@ -859,7 +859,7 @@ public:
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 	void scrollPosToCenter(size_t pos);
-	generic_string getEOLString() const;
+	std::wstring getEOLString() const;
 	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
@@ -913,7 +913,7 @@ protected:
 	void setKeywords(LangType langType, const char *keywords, int index);
 	void setLexer(LangType langID, int whichList);
 	bool setLexerFromLangID(int langID);
-	void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
+	void makeStyle(LangType langType, const wchar_t **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(const Style & styleToSet);	//by reference
 	void setSpecialIndicator(const Style & styleToSet) {
@@ -927,7 +927,7 @@ protected:
 	void setJsLexer();
 	void setTclLexer();
     void setObjCLexer(LangType type);
-	void setUserLexer(const TCHAR *userLangName = NULL);
+	void setUserLexer(const wchar_t *userLangName = NULL);
 	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
@@ -1000,7 +1000,7 @@ protected:
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(L""));
 		setLexer(L_TEX, LIST_NONE);
 	};
 

@@ -18,9 +18,7 @@
 #include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 
-const wchar_t Notepad_plus_Window::_className[32] = L"Notepad++";
 HWND Notepad_plus_Window::gNppHWND = NULL;
-
 
 namespace // anonymous
 {

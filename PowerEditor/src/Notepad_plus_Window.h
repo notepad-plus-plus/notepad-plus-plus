@@ -109,7 +109,7 @@ private:
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	static const wchar_t _className[32];
+	static constexpr wchar_t _className[32] = L"Notepad++";
 	bool _isPrelaunch = false;
 	bool _disablePluginsManager = false;
 

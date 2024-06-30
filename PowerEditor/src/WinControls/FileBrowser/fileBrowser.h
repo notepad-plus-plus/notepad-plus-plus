@@ -21,17 +21,17 @@
 #include "TreeView.h"
 #include "fileBrowser_rc.h"
 
-#define FB_PANELTITLE         TEXT("Folder as Workspace")
-#define FB_ADDROOT            TEXT("Add")
-#define FB_REMOVEALLROOTS     TEXT("Remove All")
-#define FB_REMOVEROOTFOLDER   TEXT("Remove")
-#define FB_COPYPATH           TEXT("Copy path")
-#define FB_COPYFILENAME       TEXT("Copy file name")
-#define FB_FINDINFILES        TEXT("Find in Files...")
-#define FB_EXPLORERHERE       TEXT("Explorer here")
-#define FB_CMDHERE            TEXT("CMD here")
-#define FB_OPENINNPP          TEXT("Open")
-#define FB_SHELLEXECUTE       TEXT("Run by system")
+#define FB_PANELTITLE         L"Folder as Workspace"
+#define FB_ADDROOT            L"Add"
+#define FB_REMOVEALLROOTS     L"Remove All"
+#define FB_REMOVEROOTFOLDER   L"Remove"
+#define FB_COPYPATH           L"Copy path"
+#define FB_COPYFILENAME       L"Copy file name"
+#define FB_FINDINFILES        L"Find in Files..."
+#define FB_EXPLORERHERE       L"Explorer here"
+#define FB_CMDHERE            L"CMD here"
+#define FB_OPENINNPP          L"Open"
+#define FB_SHELLEXECUTE       L"Run by system"
 
 #define FOLDERASWORKSPACE_NODE "FolderAsWorkspace"
 
@@ -47,12 +47,12 @@ friend class FolderInfo;
 
 public:
 	FileInfo() = delete; // constructor by default is forbidden
-	FileInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
-	generic_string getName() const { return _name; };
-	void setName(generic_string name) { _name = name; };
+	FileInfo(const std::wstring & name, FolderInfo *parent) : _name(name), _parent(parent) {};
+	std::wstring getName() const { return _name; };
+	void setName(std::wstring name) { _name = name; };
 
 private:
-	generic_string _name;
+	std::wstring _name;
 	FolderInfo *_parent = nullptr;
 };
 
@@ -64,24 +64,24 @@ friend class FolderUpdater;
 
 public:
 	FolderInfo() = delete; // constructor by default is forbidden
-	FolderInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
-	void setRootPath(const generic_string& rootPath) { _rootPath = rootPath; };
-	generic_string getRootPath() const { return _rootPath; };
-	void setName(const generic_string& name) { _name = name; };
-	generic_string getName() const { return _name; };
-	void addFile(const generic_string& fn) { _files.push_back(FileInfo(fn, this)); };
+	FolderInfo(const std::wstring & name, FolderInfo *parent) : _name(name), _parent(parent) {};
+	void setRootPath(const std::wstring& rootPath) { _rootPath = rootPath; };
+	std::wstring getRootPath() const { return _rootPath; };
+	void setName(const std::wstring& name) { _name = name; };
+	std::wstring getName() const { return _name; };
+	void addFile(const std::wstring& fn) { _files.push_back(FileInfo(fn, this)); };
 	void addSubFolder(FolderInfo subDirectoryStructure) { _subFolders.push_back(subDirectoryStructure); };
 
-	bool addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray);
-	bool removeFromStructure(std::vector<generic_string> linarPathArray);
-	bool renameInStructure(std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo);
+	bool addToStructure(std::wstring & fullpath, std::vector<std::wstring> linarPathArray);
+	bool removeFromStructure(std::vector<std::wstring> linarPathArray);
+	bool renameInStructure(std::vector<std::wstring> linarPathArrayFrom, std::vector<std::wstring> linarPathArrayTo);
 
 private:
 	std::vector<FolderInfo> _subFolders;
 	std::vector<FileInfo> _files;
-	generic_string _name;
+	std::wstring _name;
 	FolderInfo* _parent = nullptr;
-	generic_string _rootPath; // set only for root folder; empty for normal folder
+	std::wstring _rootPath; // set only for root folder; empty for normal folder
 };
 
 enum BrowserNodeType {
@@ -104,15 +104,15 @@ private:
 	HANDLE _EventHandle = nullptr;
 	static DWORD WINAPI watching(void *param);
 
-	static void processChange(DWORD dwAction, std::vector<generic_string> filesToChange, FolderUpdater* thisFolderUpdater);
+	static void processChange(DWORD dwAction, std::vector<std::wstring> filesToChange, FolderUpdater* thisFolderUpdater);
 };
 
 struct SortingData4lParam {
-	generic_string _rootPath; // Only for the root. It should be empty if it's not root
-	generic_string _label;    // TreeView item label
+	std::wstring _rootPath; // Only for the root. It should be empty if it's not root
+	std::wstring _label;    // TreeView item label
 	bool _isFolder = false;   // if it's not a folder, then it's a file
 
-	SortingData4lParam(generic_string rootPath, generic_string label, bool isFolder) : _rootPath(rootPath), _label(label), _isFolder(isFolder) {}
+	SortingData4lParam(std::wstring rootPath, std::wstring label, bool isFolder) : _rootPath(rootPath), _label(label), _isFolder(isFolder) {}
 };
 
 
@@ -133,25 +133,25 @@ public:
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
 	};
 
-	generic_string getNodePath(HTREEITEM node) const;
-	generic_string getNodeName(HTREEITEM node) const;
-	void addRootFolder(generic_string rootFolderPath);
+	std::wstring getNodePath(HTREEITEM node) const;
+	std::wstring getNodeName(HTREEITEM node) const;
+	void addRootFolder(std::wstring rootFolderPath);
 
-	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
-	HTREEITEM findChildNodeFromName(HTREEITEM parent, const generic_string& label) const;
+	HTREEITEM getRootFromFullPath(const std::wstring & rootPath) const;
+	HTREEITEM findChildNodeFromName(HTREEITEM parent, const std::wstring& label) const;
 
-	HTREEITEM findInTree(const generic_string& rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray) const;
+	HTREEITEM findInTree(const std::wstring& rootPath, HTREEITEM node, std::vector<std::wstring> linarPathArray) const;
 
 	void deleteAllFromTree() {
 		popupMenuCmd(IDM_FILEBROWSER_REMOVEALLROOTS);
 	};
 
-	bool renameInTree(const generic_string& rootPath, HTREEITEM node, const std::vector<generic_string>& linarPathArrayFrom, const generic_string & renameTo);
+	bool renameInTree(const std::wstring& rootPath, HTREEITEM node, const std::vector<std::wstring>& linarPathArrayFrom, const std::wstring & renameTo);
 
-	std::vector<generic_string> getRoots() const;
-	generic_string getSelectedItemPath() const;
+	std::vector<std::wstring> getRoots() const;
+	std::wstring getSelectedItemPath() const;
 
-	bool selectItemFromPath(const generic_string& itemPath) const;
+	bool selectItemFromPath(const std::wstring& itemPath) const;
 
 protected:
 	HWND _hToolbarMenu = nullptr;
@@ -166,13 +166,13 @@ protected:
 	HMENU _hFileMenu = NULL;
 	std::vector<FolderUpdater *> _folderUpdaters;
 
-	generic_string _selectedNodeFullPath; // this member is used only for PostMessage call
+	std::wstring _selectedNodeFullPath; // this member is used only for PostMessage call
 
 	std::vector<SortingData4lParam*> sortingDataArray;
 
-	generic_string _expandAllFolders = TEXT("Unfold all");
-	generic_string _collapseAllFolders = TEXT("Fold all");
-	generic_string _locateCurrentFile = TEXT("Locate current file");
+	std::wstring _expandAllFolders = L"Unfold all";
+	std::wstring _collapseAllFolders = L"Fold all";
+	std::wstring _locateCurrentFile = L"Locate current file";
 
 	void initPopupMenus();
 	void destroyMenus();
@@ -183,10 +183,10 @@ protected:
 	bool selectCurrentEditingFile() const;
 
 	struct FilesToChange {
-		generic_string _commonPath; // Common path between all the files. _rootPath + _linarWithoutLastPathElement
-		generic_string _rootPath;
-		std::vector<generic_string> _linarWithoutLastPathElement;
-		std::vector<generic_string> _files; // file/folder names
+		std::wstring _commonPath; // Common path between all the files. _rootPath + _linarWithoutLastPathElement
+		std::wstring _rootPath;
+		std::vector<std::wstring> _linarWithoutLastPathElement;
+		std::vector<std::wstring> _files; // file/folder names
 	};
 
 	std::vector<FilesToChange> getFilesFromParam(LPARAM lParam) const;
@@ -197,15 +197,15 @@ protected:
 
 	std::vector<HTREEITEM> findInTree(FilesToChange & group, HTREEITEM node) const;
 
-	std::vector<HTREEITEM> findChildNodesFromNames(HTREEITEM parent, std::vector<generic_string> & labels) const;
+	std::vector<HTREEITEM> findChildNodesFromNames(HTREEITEM parent, std::vector<std::wstring> & labels) const;
 
-	void removeNamesAlreadyInNode(HTREEITEM parent, std::vector<generic_string> & labels) const;
+	void removeNamesAlreadyInNode(HTREEITEM parent, std::vector<std::wstring> & labels) const;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
 	void openSelectFile();
-	void getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
+	void getDirectoryStructure(const wchar_t *dir, const std::vector<std::wstring> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir); 
 	HTREEITEM createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure);
 	static int CALLBACK categorySortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 };

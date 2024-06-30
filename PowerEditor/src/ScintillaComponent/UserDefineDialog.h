@@ -37,14 +37,14 @@ class GlobalMappers
 {
     public:
 
-		std::unordered_map<generic_string, int> keywordIdMapper;
-		std::unordered_map<int, generic_string> keywordNameMapper;
+		std::unordered_map<std::wstring, int> keywordIdMapper;
+		std::unordered_map<int, std::wstring> keywordNameMapper;
 
-		std::unordered_map<generic_string, int> styleIdMapper;
-		std::unordered_map<int, generic_string> styleNameMapper;
+		std::unordered_map<std::wstring, int> styleIdMapper;
+		std::unordered_map<int, std::wstring> styleNameMapper;
 
-		std::unordered_map<generic_string, int> temp;
-		std::unordered_map<generic_string, int>::iterator iter;
+		std::unordered_map<std::wstring, int> temp;
+		std::unordered_map<std::wstring, int>::iterator iter;
 
 		std::unordered_map<int, int> nestingMapper;
 		std::unordered_map<int, int> dialogMapper;
@@ -54,13 +54,13 @@ class GlobalMappers
         GlobalMappers()
         {
             // pre 2.0
-            temp[TEXT("Operators")]                     = SCE_USER_KWLIST_OPERATORS1;
-            temp[TEXT("Folder+")]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
-            temp[TEXT("Folder-")]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
-            temp[TEXT("Words1")]                        = SCE_USER_KWLIST_KEYWORDS1;
-            temp[TEXT("Words2")]                        = SCE_USER_KWLIST_KEYWORDS2;
-            temp[TEXT("Words3")]                        = SCE_USER_KWLIST_KEYWORDS3;
-            temp[TEXT("Words4")]                        = SCE_USER_KWLIST_KEYWORDS4;
+            temp[L"Operators"]                     = SCE_USER_KWLIST_OPERATORS1;
+            temp[L"Folder+"]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
+            temp[L"Folder-"]                       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
+            temp[L"Words1"]                        = SCE_USER_KWLIST_KEYWORDS1;
+            temp[L"Words2"]                        = SCE_USER_KWLIST_KEYWORDS2;
+            temp[L"Words3"]                        = SCE_USER_KWLIST_KEYWORDS3;
+            temp[L"Words4"]                        = SCE_USER_KWLIST_KEYWORDS4;
 
             // in case of duplicate entries, newer string should overwrite old one !
             for (iter = temp.begin(); iter != temp.end(); ++iter)
@@ -69,31 +69,31 @@ class GlobalMappers
             temp.clear();
 
             // 2.0
-            temp[TEXT("Comments")]                      = SCE_USER_KWLIST_COMMENTS;
-            temp[TEXT("Numbers, additional")]           = SCE_USER_KWLIST_NUMBER_RANGE;
-            temp[TEXT("Numbers, prefixes")]             = SCE_USER_KWLIST_NUMBER_PREFIX2;
-            temp[TEXT("Numbers, extras with prefixes")] = SCE_USER_KWLIST_NUMBER_EXTRAS2;
-            temp[TEXT("Numbers, suffixes")]             = SCE_USER_KWLIST_NUMBER_SUFFIX2;
-            temp[TEXT("Operators1")]                    = SCE_USER_KWLIST_OPERATORS1;
-            temp[TEXT("Operators2")]                    = SCE_USER_KWLIST_OPERATORS2;
-            temp[TEXT("Folders in code1, open")]        = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
-            temp[TEXT("Folders in code1, middle")]      = SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE;
-            temp[TEXT("Folders in code1, close")]       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
-            temp[TEXT("Folders in code2, open")]        = SCE_USER_KWLIST_FOLDERS_IN_CODE2_OPEN;
-            temp[TEXT("Folders in code2, middle")]      = SCE_USER_KWLIST_FOLDERS_IN_CODE2_MIDDLE;
-            temp[TEXT("Folders in code2, close")]       = SCE_USER_KWLIST_FOLDERS_IN_CODE2_CLOSE;
-            temp[TEXT("Folders in comment, open")]      = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN;
-            temp[TEXT("Folders in comment, middle")]    = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE;
-            temp[TEXT("Folders in comment, close")]     = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE;
-            temp[TEXT("Keywords1")]                     = SCE_USER_KWLIST_KEYWORDS1;
-            temp[TEXT("Keywords2")]                     = SCE_USER_KWLIST_KEYWORDS2;
-            temp[TEXT("Keywords3")]                     = SCE_USER_KWLIST_KEYWORDS3;
-            temp[TEXT("Keywords4")]                     = SCE_USER_KWLIST_KEYWORDS4;
-            temp[TEXT("Keywords5")]                     = SCE_USER_KWLIST_KEYWORDS5;
-            temp[TEXT("Keywords6")]                     = SCE_USER_KWLIST_KEYWORDS6;
-            temp[TEXT("Keywords7")]                     = SCE_USER_KWLIST_KEYWORDS7;
-            temp[TEXT("Keywords8")]                     = SCE_USER_KWLIST_KEYWORDS8;
-            temp[TEXT("Delimiters")]                    = SCE_USER_KWLIST_DELIMITERS;
+            temp[L"Comments"]                      = SCE_USER_KWLIST_COMMENTS;
+            temp[L"Numbers, additional"]           = SCE_USER_KWLIST_NUMBER_RANGE;
+            temp[L"Numbers, prefixes"]             = SCE_USER_KWLIST_NUMBER_PREFIX2;
+            temp[L"Numbers, extras with prefixes"] = SCE_USER_KWLIST_NUMBER_EXTRAS2;
+            temp[L"Numbers, suffixes"]             = SCE_USER_KWLIST_NUMBER_SUFFIX2;
+            temp[L"Operators1"]                    = SCE_USER_KWLIST_OPERATORS1;
+            temp[L"Operators2"]                    = SCE_USER_KWLIST_OPERATORS2;
+            temp[L"Folders in code1, open"]        = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;
+            temp[L"Folders in code1, middle"]      = SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE;
+            temp[L"Folders in code1, close"]       = SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE;
+            temp[L"Folders in code2, open"]        = SCE_USER_KWLIST_FOLDERS_IN_CODE2_OPEN;
+            temp[L"Folders in code2, middle"]      = SCE_USER_KWLIST_FOLDERS_IN_CODE2_MIDDLE;
+            temp[L"Folders in code2, close"]       = SCE_USER_KWLIST_FOLDERS_IN_CODE2_CLOSE;
+            temp[L"Folders in comment, open"]      = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_OPEN;
+            temp[L"Folders in comment, middle"]    = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_MIDDLE;
+            temp[L"Folders in comment, close"]     = SCE_USER_KWLIST_FOLDERS_IN_COMMENT_CLOSE;
+            temp[L"Keywords1"]                     = SCE_USER_KWLIST_KEYWORDS1;
+            temp[L"Keywords2"]                     = SCE_USER_KWLIST_KEYWORDS2;
+            temp[L"Keywords3"]                     = SCE_USER_KWLIST_KEYWORDS3;
+            temp[L"Keywords4"]                     = SCE_USER_KWLIST_KEYWORDS4;
+            temp[L"Keywords5"]                     = SCE_USER_KWLIST_KEYWORDS5;
+            temp[L"Keywords6"]                     = SCE_USER_KWLIST_KEYWORDS6;
+            temp[L"Keywords7"]                     = SCE_USER_KWLIST_KEYWORDS7;
+            temp[L"Keywords8"]                     = SCE_USER_KWLIST_KEYWORDS8;
+            temp[L"Delimiters"]                    = SCE_USER_KWLIST_DELIMITERS;
 
             // in case of duplicate entries, newer string should overwrite old one !
             for (iter = temp.begin(); iter != temp.end(); ++iter)
@@ -102,13 +102,13 @@ class GlobalMappers
             temp.clear();
 
             // 2.1
-            temp[TEXT("Numbers, prefix1")]              = SCE_USER_KWLIST_NUMBER_PREFIX1;
-            temp[TEXT("Numbers, prefix2")]              = SCE_USER_KWLIST_NUMBER_PREFIX2;
-            temp[TEXT("Numbers, extras1")]              = SCE_USER_KWLIST_NUMBER_EXTRAS1;
-            temp[TEXT("Numbers, extras2")]              = SCE_USER_KWLIST_NUMBER_EXTRAS2;
-            temp[TEXT("Numbers, suffix1")]              = SCE_USER_KWLIST_NUMBER_SUFFIX1;
-            temp[TEXT("Numbers, suffix2")]              = SCE_USER_KWLIST_NUMBER_SUFFIX2;
-            temp[TEXT("Numbers, range")]                = SCE_USER_KWLIST_NUMBER_RANGE;
+            temp[L"Numbers, prefix1"]              = SCE_USER_KWLIST_NUMBER_PREFIX1;
+            temp[L"Numbers, prefix2"]              = SCE_USER_KWLIST_NUMBER_PREFIX2;
+            temp[L"Numbers, extras1"]              = SCE_USER_KWLIST_NUMBER_EXTRAS1;
+            temp[L"Numbers, extras2"]              = SCE_USER_KWLIST_NUMBER_EXTRAS2;
+            temp[L"Numbers, suffix1"]              = SCE_USER_KWLIST_NUMBER_SUFFIX1;
+            temp[L"Numbers, suffix2"]              = SCE_USER_KWLIST_NUMBER_SUFFIX2;
+            temp[L"Numbers, range"]                = SCE_USER_KWLIST_NUMBER_RANGE;
 
             // in case of duplicate entries, newer string should overwrite old one !
             for (iter = temp.begin(); iter != temp.end(); ++iter)
@@ -117,19 +117,19 @@ class GlobalMappers
             temp.clear();
 
 	        // pre 2.0
-	        temp[TEXT("FOLDEROPEN")]           = SCE_USER_STYLE_FOLDER_IN_CODE1;
-	        temp[TEXT("FOLDERCLOSE")]          = SCE_USER_STYLE_FOLDER_IN_CODE1;
-	        temp[TEXT("KEYWORD1")]             = SCE_USER_STYLE_KEYWORD1;
-	        temp[TEXT("KEYWORD2")]             = SCE_USER_STYLE_KEYWORD2;
-	        temp[TEXT("KEYWORD3")]             = SCE_USER_STYLE_KEYWORD3;
-	        temp[TEXT("KEYWORD4")]             = SCE_USER_STYLE_KEYWORD4;
-	        temp[TEXT("COMMENT")]              = SCE_USER_STYLE_COMMENT;
-	        temp[TEXT("COMMENT LINE")]         = SCE_USER_STYLE_COMMENTLINE;
-	        temp[TEXT("NUMBER")]               = SCE_USER_STYLE_NUMBER;
-	        temp[TEXT("OPERATOR")]             = SCE_USER_STYLE_OPERATOR;
-	        temp[TEXT("DELIMINER1")]           = SCE_USER_STYLE_DELIMITER1;
-	        temp[TEXT("DELIMINER2")]           = SCE_USER_STYLE_DELIMITER2;
-	        temp[TEXT("DELIMINER3")]           = SCE_USER_STYLE_DELIMITER3;
+	        temp[L"FOLDEROPEN"]           = SCE_USER_STYLE_FOLDER_IN_CODE1;
+	        temp[L"FOLDERCLOSE"]          = SCE_USER_STYLE_FOLDER_IN_CODE1;
+	        temp[L"KEYWORD1"]             = SCE_USER_STYLE_KEYWORD1;
+	        temp[L"KEYWORD2"]             = SCE_USER_STYLE_KEYWORD2;
+	        temp[L"KEYWORD3"]             = SCE_USER_STYLE_KEYWORD3;
+	        temp[L"KEYWORD4"]             = SCE_USER_STYLE_KEYWORD4;
+	        temp[L"COMMENT"]              = SCE_USER_STYLE_COMMENT;
+	        temp[L"COMMENT LINE"]         = SCE_USER_STYLE_COMMENTLINE;
+	        temp[L"NUMBER"]               = SCE_USER_STYLE_NUMBER;
+	        temp[L"OPERATOR"]             = SCE_USER_STYLE_OPERATOR;
+	        temp[L"DELIMINER1"]           = SCE_USER_STYLE_DELIMITER1;
+	        temp[L"DELIMINER2"]           = SCE_USER_STYLE_DELIMITER2;
+	        temp[L"DELIMINER3"]           = SCE_USER_STYLE_DELIMITER3;
 	
 	        // in case of duplicate entries, newer string should overwrite old one !
 	        for (iter = temp.begin(); iter != temp.end(); ++iter)
@@ -138,30 +138,30 @@ class GlobalMappers
 	        temp.clear();
 			
 	        // post 2.0
-	        temp[TEXT("DEFAULT")]              = SCE_USER_STYLE_DEFAULT;
-	        temp[TEXT("COMMENTS")]             = SCE_USER_STYLE_COMMENT;
-	        temp[TEXT("LINE COMMENTS")]        = SCE_USER_STYLE_COMMENTLINE;
-	        temp[TEXT("NUMBERS")]              = SCE_USER_STYLE_NUMBER;
-	        temp[TEXT("KEYWORDS1")]            = SCE_USER_STYLE_KEYWORD1;
-	        temp[TEXT("KEYWORDS2")]            = SCE_USER_STYLE_KEYWORD2;
-	        temp[TEXT("KEYWORDS3")]            = SCE_USER_STYLE_KEYWORD3;
-	        temp[TEXT("KEYWORDS4")]            = SCE_USER_STYLE_KEYWORD4;
-	        temp[TEXT("KEYWORDS5")]            = SCE_USER_STYLE_KEYWORD5;
-	        temp[TEXT("KEYWORDS6")]            = SCE_USER_STYLE_KEYWORD6;
-	        temp[TEXT("KEYWORDS7")]            = SCE_USER_STYLE_KEYWORD7;
-	        temp[TEXT("KEYWORDS8")]            = SCE_USER_STYLE_KEYWORD8;
-	        temp[TEXT("OPERATORS")]            = SCE_USER_STYLE_OPERATOR;
-	        temp[TEXT("FOLDER IN CODE1")]      = SCE_USER_STYLE_FOLDER_IN_CODE1;
-	        temp[TEXT("FOLDER IN CODE2")]      = SCE_USER_STYLE_FOLDER_IN_CODE2;
-	        temp[TEXT("FOLDER IN COMMENT")]    = SCE_USER_STYLE_FOLDER_IN_COMMENT;
-	        temp[TEXT("DELIMITERS1")]          = SCE_USER_STYLE_DELIMITER1;
-	        temp[TEXT("DELIMITERS2")]          = SCE_USER_STYLE_DELIMITER2;
-	        temp[TEXT("DELIMITERS3")]          = SCE_USER_STYLE_DELIMITER3;
-	        temp[TEXT("DELIMITERS4")]          = SCE_USER_STYLE_DELIMITER4;
-	        temp[TEXT("DELIMITERS5")]          = SCE_USER_STYLE_DELIMITER5;
-	        temp[TEXT("DELIMITERS6")]          = SCE_USER_STYLE_DELIMITER6;
-	        temp[TEXT("DELIMITERS7")]          = SCE_USER_STYLE_DELIMITER7;
-	        temp[TEXT("DELIMITERS8")]          = SCE_USER_STYLE_DELIMITER8;
+	        temp[L"DEFAULT"]              = SCE_USER_STYLE_DEFAULT;
+	        temp[L"COMMENTS"]             = SCE_USER_STYLE_COMMENT;
+	        temp[L"LINE COMMENTS"]        = SCE_USER_STYLE_COMMENTLINE;
+	        temp[L"NUMBERS"]              = SCE_USER_STYLE_NUMBER;
+	        temp[L"KEYWORDS1"]            = SCE_USER_STYLE_KEYWORD1;
+	        temp[L"KEYWORDS2"]            = SCE_USER_STYLE_KEYWORD2;
+	        temp[L"KEYWORDS3"]            = SCE_USER_STYLE_KEYWORD3;
+	        temp[L"KEYWORDS4"]            = SCE_USER_STYLE_KEYWORD4;
+	        temp[L"KEYWORDS5"]            = SCE_USER_STYLE_KEYWORD5;
+	        temp[L"KEYWORDS6"]            = SCE_USER_STYLE_KEYWORD6;
+	        temp[L"KEYWORDS7"]            = SCE_USER_STYLE_KEYWORD7;
+	        temp[L"KEYWORDS8"]            = SCE_USER_STYLE_KEYWORD8;
+	        temp[L"OPERATORS"]            = SCE_USER_STYLE_OPERATOR;
+	        temp[L"FOLDER IN CODE1"]      = SCE_USER_STYLE_FOLDER_IN_CODE1;
+	        temp[L"FOLDER IN CODE2"]      = SCE_USER_STYLE_FOLDER_IN_CODE2;
+	        temp[L"FOLDER IN COMMENT"]    = SCE_USER_STYLE_FOLDER_IN_COMMENT;
+	        temp[L"DELIMITERS1"]          = SCE_USER_STYLE_DELIMITER1;
+	        temp[L"DELIMITERS2"]          = SCE_USER_STYLE_DELIMITER2;
+	        temp[L"DELIMITERS3"]          = SCE_USER_STYLE_DELIMITER3;
+	        temp[L"DELIMITERS4"]          = SCE_USER_STYLE_DELIMITER4;
+	        temp[L"DELIMITERS5"]          = SCE_USER_STYLE_DELIMITER5;
+	        temp[L"DELIMITERS6"]          = SCE_USER_STYLE_DELIMITER6;
+	        temp[L"DELIMITERS7"]          = SCE_USER_STYLE_DELIMITER7;
+	        temp[L"DELIMITERS8"]          = SCE_USER_STYLE_DELIMITER8;
 	
 	        // in case of duplicate entries, newer string should overwrite old one !
 	        for (iter = temp.begin(); iter != temp.end(); ++iter)
@@ -260,7 +260,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int ctrlID) override;
 private :
-    void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
+    void retrieve(wchar_t *dest, const wchar_t *toRetrieve, wchar_t *prefix) const;
     URLCtrl _pageLink;
 };
 
@@ -283,7 +283,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int id) override;
 private :
-    void retrieve(TCHAR *dest, const TCHAR *toRetrieve, const TCHAR *prefix) const;
+    void retrieve(wchar_t *dest, const wchar_t *toRetrieve, const wchar_t *prefix) const;
 };
 
 class SymbolsStyleDialog : public SharedParametersDialog
@@ -295,7 +295,7 @@ protected :
     intptr_t CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) override;
     void setKeywords2List(int id) override;
 private :
-    void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
+    void retrieve(wchar_t *dest, const wchar_t *toRetrieve, wchar_t *prefix) const;
 };
 
 class UserDefineDialog : public SharedParametersDialog
@@ -351,7 +351,7 @@ public :
     HWND getSymbolHandle() const {
         return _symbolsStyleDlg.getHSelf();
     };
-    void setTabName(int index, const TCHAR *name2set) {
+    void setTabName(int index, const wchar_t *name2set) {
         _ctrlTab.renameTab(index, name2set);
     };
 protected :
@@ -385,7 +385,7 @@ class StringDlg : public StaticDialog
 {
 public :
     StringDlg() = default;
-	void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0, const TCHAR* restrictedChars = nullptr, bool bGotoCenter = false) {
+	void init(HINSTANCE hInst, HWND parent, const wchar_t *title, const wchar_t *staticName, const wchar_t *text2Set, int txtLen = 0, const wchar_t* restrictedChars = nullptr, bool bGotoCenter = false) {
 		Window::init(hInst, parent);
 		_title = title;
 		_static = staticName;
@@ -410,14 +410,14 @@ protected :
 	// Custom proc to subclass edit control
 	LRESULT static CALLBACK customEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam);
 
-	bool isAllowed(const generic_string& txt);
+	bool isAllowed(const std::wstring& txt);
 	void HandlePaste(HWND hEdit);
 
 private :
-    generic_string _title;
-    generic_string _textValue;
-    generic_string _static;
-	generic_string _restrictedChars;
+    std::wstring _title;
+    std::wstring _textValue;
+    std::wstring _static;
+	std::wstring _restrictedChars;
     int _txtLen = 0;
 	bool _shouldGotoCenter = false;
 	WNDPROC _oldEditProc = nullptr;

@@ -66,7 +66,7 @@ struct BufferViewInfo {
 	BufferViewInfo(BufferID buf, int view) : _bufID(buf), _iView(view) {};
 };
 
-const TCHAR UNTITLED_STR[] = TEXT("new ");
+const wchar_t UNTITLED_STR[] = L"new ";
 
 //File manager class maintains all buffers
 class FileManager final {
@@ -87,31 +87,31 @@ public:
 
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 
-	BufferID loadFile(const TCHAR * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const TCHAR *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
+	BufferID loadFile(const wchar_t * filename, Document doc = static_cast<Document>(NULL), int encoding = -1, const wchar_t *backupFileName = nullptr, FILETIME fileNameTimestamp = {});	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
 	// create an empty placeholder for a missing file when loading session
-	BufferID newPlaceholderDocument(const TCHAR * missingFilename, int whichOne, const wchar_t* userCreatedSessionName);
+	BufferID newPlaceholderDocument(const wchar_t * missingFilename, int whichOne, const wchar_t* userCreatedSessionName);
 
 	//create Buffer from existing Scintilla, used from new Scintillas.
 	BufferID bufferFromDocument(Document doc, bool isMainEditZone);
 
-	BufferID getBufferFromName(const TCHAR * name);
+	BufferID getBufferFromName(const wchar_t * name);
 	BufferID getBufferFromDocument(Document doc);
 
 	void setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat);
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
-	SavingStatus saveBuffer(BufferID id, const TCHAR* filename, bool isCopy = false);
+	SavingStatus saveBuffer(BufferID id, const wchar_t* filename, bool isCopy = false);
 	bool backupCurrentBuffer();
 	bool deleteBufferBackup(BufferID id);
 	bool deleteFile(BufferID id);
-	bool moveFile(BufferID id, const TCHAR * newFilename);
-	bool createEmptyFile(const TCHAR * path);
+	bool moveFile(BufferID id, const wchar_t * newFilename);
+	bool createEmptyFile(const wchar_t * path);
 	static FileManager& getInstance() {
 		static FileManager instance;
 		return instance;
 	};
-	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
+	int getFileNameFromBuffer(BufferID id, wchar_t * fn2copy);
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
@@ -135,7 +135,7 @@ private:
 	FileManager& operator=(FileManager&&) = delete;
 
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, int64_t fileSize, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
+	bool loadFileData(Document doc, int64_t fileSize, const wchar_t* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 	Notepad_plus* _pNotepadPlus = nullptr;
@@ -158,16 +158,16 @@ public:
 	//Load the document into Scintilla/add to TabBar
 	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
 	//Destructor makes sure its purged
-	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName, bool isLargeFile);
+	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const wchar_t *fileName, bool isLargeFile);
 
 	// this method 1. copies the file name
 	//             2. determinates the language from the ext of file name
 	//             3. gets the last modified time
-	void setFileName(const TCHAR *fn);
+	void setFileName(const wchar_t *fn);
 
-	const TCHAR * getFullPathName() const { return _fullPathName.c_str(); }
+	const wchar_t * getFullPathName() const { return _fullPathName.c_str(); }
 
-	const TCHAR * getFileName() const { return _fileName; }
+	const wchar_t * getFileName() const { return _fileName; }
 
 	BufferID getID() const { return _id; }
 
@@ -212,7 +212,7 @@ public:
 
 	LangType getLangType() const { return _lang; }
 
-	void setLangType(LangType lang, const TCHAR * userLangName = TEXT(""));
+	void setLangType(LangType lang, const wchar_t * userLangName = L"");
 
 	UniMode getUnicodeMode() const { return _unicodeMode; }
 
@@ -236,23 +236,23 @@ public:
 
 	bool isUserDefineLangExt() const { return (_userLangExt[0] != '\0'); }
 
-	const TCHAR * getUserDefineLangName() const	{ return _userLangExt.c_str(); }
+	const wchar_t * getUserDefineLangName() const	{ return _userLangExt.c_str(); }
 
-	const TCHAR * getCommentLineSymbol() const {
+	const wchar_t * getCommentLineSymbol() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentLineSymbol;
 	}
 
-	const TCHAR * getCommentStart() const {
+	const wchar_t * getCommentStart() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentStart;
 	}
 
-	const TCHAR * getCommentEnd() const {
+	const wchar_t * getCommentEnd() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
@@ -285,15 +285,15 @@ public:
 	int64_t getFileLength() const; // return file length. -1 if file is not existing.
 
 	enum fileTimeType { ft_created, ft_modified, ft_accessed };
-	generic_string getFileTime(fileTimeType ftt) const;
+	std::wstring getFileTime(fileTimeType ftt) const;
 
 	Lang * getCurrentLang() const;
 
 	bool isModified() const { return _isModified; }
 	void setModifiedStatus(bool isModified) { _isModified = isModified; }
 
-	generic_string getBackupFileName() const { return _backupFileName; }
-	void setBackupFileName(const generic_string& fileName) { _backupFileName = fileName; }
+	std::wstring getBackupFileName() const { return _backupFileName; }
+	void setBackupFileName(const std::wstring& fileName) { _backupFileName = fileName; }
 
 	FILETIME getLastModifiedTimestamp() const { return _timeStamp; }
 
@@ -368,7 +368,7 @@ private:
 	//document properties
 	Document _doc;	//invariable
 	LangType _lang = L_TEXT;
-	generic_string _userLangExt; // it's useful if only (_lang == L_USER)
+	std::wstring _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
 	EolType _eolFormat = EolType::osdefault;
 	UniMode _unicodeMode = uniUTF8;
@@ -387,8 +387,8 @@ private:
 	FILETIME _timeStamp = {}; // 0 if it's a new doc
 
 	bool _isFileReadOnly = false;
-	generic_string _fullPathName;
-	TCHAR * _fileName = nullptr; // points to filename part in _fullPathName
+	std::wstring _fullPathName;
+	wchar_t * _fileName = nullptr; // points to filename part in _fullPathName
 	bool _needReloading = false; // True if Buffer needs to be reloaded on activation
 
 	long _recentTag = -1;
@@ -397,7 +397,7 @@ private:
 	int _docColorId = -1;
 
 	// For backup system
-	generic_string _backupFileName;
+	std::wstring _backupFileName;
 	bool _isModified = false;
 	bool _isLoadedDirty = false; // it's the indicator for finding buffer's initial state
 

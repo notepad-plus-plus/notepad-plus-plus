@@ -1726,7 +1726,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 #if defined(__GNUC__)
 				// there is the std::current_exception() possibility, but getting the real exception code from there requires an ugly hack,
 				// because of the std::exception_ptr has its members _Data1 (GetExceptionCode) and _Data2 (GetExceptionInformation) private
-				_stprintf_s(szException, _countof(szException), L"unknown exception"));
+				_stprintf_s(szException, _countof(szException), L"unknown exception");
 #else
 				_stprintf_s(szException, _countof(szException), L"0x%X (SEH)", ::GetExceptionCode());
 #endif

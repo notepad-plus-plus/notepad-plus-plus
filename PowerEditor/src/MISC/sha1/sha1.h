@@ -153,6 +153,20 @@
 #ifdef _MSC_VER
 #include <tchar.h>
 #else
+#ifndef TCHAR
+#define TCHAR char
+#endif
+#ifndef _T
+#define _T(__x) (__x)
+#define _tmain main
+#define _tprintf printf
+#define _getts gets
+#define _tcslen strlen
+#define _tfopen fopen
+#define _tcscpy strcpy
+#define _tcscat strcat
+#define _sntprintf snprintf
+#endif
 #endif
 #endif
 

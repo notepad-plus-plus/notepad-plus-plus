@@ -1353,7 +1353,7 @@ BufferID FileManager::newEmptyDocument()
 	wstring newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 
 	wchar_t nb[10];
-	wsprintf(nb, L"%d"), static_cast<int>(nextUntitledNewNumber());
+	wsprintf(nb, L"%d", static_cast<int>(nextUntitledNewNumber()));
 	newTitle += nb;
 
 	Document doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE)); // this already sets a reference for filemanager

@@ -153,20 +153,6 @@
 #ifdef _MSC_VER
 #include <tchar.h>
 #else
-#ifndef TCHAR
-#define TCHAR char
-#endif
-#ifndef _T
-#define _T(__x) (__x)
-#define _tmain main
-#define _tprintf printf
-#define _getts gets
-#define _tcslen strlen
-#define _tfopen fopen
-#define _tcscpy strcpy
-#define _tcscat strcat
-#define _sntprintf snprintf
-#endif
 #endif
 #endif
 
@@ -245,18 +231,18 @@ public:
 
 #ifdef SHA1_UTILITY_FUNCTIONS
 	// Hash in file contents
-	bool HashFile(const TCHAR* tszFileName);
+	bool HashFile(const wchar_t* tszFileName);
 #endif
 
 	// Finalize hash; call it before using ReportHash(Stl)
 	void Final();
 
 #ifdef SHA1_UTILITY_FUNCTIONS
-	bool ReportHash(TCHAR* tszReport, REPORT_TYPE rtReportType = REPORT_HEX) const;
+	bool ReportHash(wchar_t* tszReport, REPORT_TYPE rtReportType = REPORT_HEX) const;
 #endif
 
 #ifdef SHA1_STL_FUNCTIONS
-	bool ReportHashStl(std::basic_string<TCHAR>& strOut, REPORT_TYPE rtReportType =
+	bool ReportHashStl(std::basic_string<wchar_t>& strOut, REPORT_TYPE rtReportType =
 		REPORT_HEX) const;
 #endif
 

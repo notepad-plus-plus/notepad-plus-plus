@@ -463,7 +463,7 @@ void FindReplaceDlg::fillComboHistory(int id, const vector<wstring> & strings)
 	//empty string is not added to CB items, so we need to set it manually
 	if (!strings.empty() && strings.begin()->empty())
 	{
-		SetWindowText(hCombo, _T(""));
+		SetWindowText(hCombo, L"");
 		return;
 	}
 

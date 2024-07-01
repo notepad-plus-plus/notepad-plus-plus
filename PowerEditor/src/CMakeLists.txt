@@ -104,6 +104,7 @@ SET(src_files
 			./ScintillaComponent/DocTabView.cpp
 			./WinControls/DocumentMap/documentMap.cpp
 			./WinControls/DocumentMap/documentSnapshot.cpp
+			./WinControls/DoubleBuffer/DoubleBuffer.cpp
 			./EncodingMapper.cpp
 			./WinControls/FindCharsInRange/FindCharsInRange.cpp
 			./ScintillaComponent/FindReplaceDlg.cpp
@@ -262,6 +263,7 @@ SET(include_files
 			./ScintillaComponent/DocTabView.h
 			./WinControls/DocumentMap/documentMap.h
 			./WinControls/DocumentMap/documentSnapshot.h
+			./WinControls/DoubleBuffer/DoubleBuffer.h
 			./EncodingMapper.h
 			./MISC/FileNameStringSplitter.h
 			./WinControls/FindCharsInRange/FindCharsInRange.h

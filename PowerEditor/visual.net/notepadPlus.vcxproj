@@ -119,6 +119,7 @@
     <ClCompile Include="..\src\ScintillaComponent\AutoCompletion.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\asciiListView.cpp" />
     <ClCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.cpp" />
+    <ClCompile Include="..\src\WinControls\DoubleBuffer\DoubleBuffer.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\BabyGrid.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\BabyGridWrapper.cpp" />
     <ClCompile Include="..\src\ScintillaComponent\Buffer.cpp" />
@@ -298,7 +299,7 @@
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingSplitter.h" />
     <ClInclude Include="..\src\ScintillaComponent\DocTabView.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentMap.h" />
-    <ClInclude Include="..\src\WinControls\DoubleBuffer.h" />
+    <ClInclude Include="..\src\WinControls\DoubleBuffer\DoubleBuffer.h" />
     <ClInclude Include="..\src\EncodingMapper.h" />
     <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />
     <ClInclude Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.h" />

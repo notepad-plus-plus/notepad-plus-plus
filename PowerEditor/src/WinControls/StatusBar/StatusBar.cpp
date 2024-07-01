@@ -24,7 +24,7 @@
 #include "NppDarkMode.h"
 #include <uxtheme.h>
 #include <vssym32.h>
-#include "DoubleBuffer.h"
+#include "DoubleBuffer/DoubleBuffer.h"
 
 //#define IDC_STATUSBAR 789
 
@@ -51,7 +51,6 @@ struct StatusBarSubclassInfo
 {
 	HTHEME hTheme = nullptr;
 	HFONT _hFont = nullptr;
-	DoubleBuffer _dblBuf;
 
 	StatusBarSubclassInfo() = default;
 	StatusBarSubclassInfo(const HFONT& hFont)
@@ -109,25 +108,27 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 	{
 		case WM_ERASEBKGND:
 		{
-			// Skip background erasing and set fErase in PAINTSTRUCT instead,
-			// WM_PAINT does all the painting in all cases
-			return FALSE;
+			if (!NppDarkMode::isEnabled())
+			{
+				break;  // Let the control paint background the default way
+			}
+
+			RECT rc{};
+			::GetClientRect(hWnd, &rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getBackgroundBrush());
+			return TRUE;
 		}
 
 		case WM_PAINT:
+		case WM_PRINTCLIENT:
 		{
-			PAINTSTRUCT ps{};
-			HDC hdc = pStatusBarInfo->_dblBuf.beginPaint(hWnd, &ps);
-
 			if (!NppDarkMode::isEnabled())
 			{
-				// Even if the standard status bar common control is used directly in non-dark mode,
-				// it suffers from flickering during updates, so let it paint into a back buffer
-				DefSubclassProc(hWnd, WM_ERASEBKGND, reinterpret_cast<WPARAM>(hdc), 0);
-				DefSubclassProc(hWnd, WM_PRINTCLIENT, reinterpret_cast<WPARAM>(hdc), PRF_NONCLIENT | PRF_CLIENT);
-				pStatusBarInfo->_dblBuf.endPaint(hWnd, &ps);
-				return 0;
+				break;  // Let the control paint itself the default way
 			}
+
+			PAINTSTRUCT ps{};
+			HDC hdc = (uMsg == WM_PAINT) ? ::BeginPaint(hWnd, &ps) : reinterpret_cast<HDC>(wParam);
 
 			struct {
 				int horizontal = 0;
@@ -144,16 +145,13 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 			auto holdFont = static_cast<HFONT>(::SelectObject(hdc, pStatusBarInfo->_hFont));
 
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getBackgroundBrush());
-
 			int nParts = static_cast<int>(SendMessage(hWnd, SB_GETPARTS, 0, 0));
 			std::wstring str;
 			for (int i = 0; i < nParts; ++i)
 			{
 				RECT rcPart{};
 				SendMessage(hWnd, SB_GETRECT, i, (LPARAM)&rcPart);
-				RECT rcIntersect{};
-				if (!IntersectRect(&rcIntersect, &rcPart, &ps.rcPaint))
+				if (!::RectVisible(hdc, &rcPart))
 				{
 					continue;
 				}
@@ -218,7 +216,8 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			{
 				pStatusBarInfo->ensureTheme(hWnd);
 				SIZE gripSize{};
-				RECT rc = { 0, 0, pStatusBarInfo->_dblBuf.getWidth(), pStatusBarInfo->_dblBuf.getHeight() };
+				RECT rc{};
+				::GetClientRect(hWnd, &rc);
 				GetThemePartSize(pStatusBarInfo->hTheme, hdc, SP_GRIPPER, 0, &rc, TS_DRAW, &gripSize);
 				rc.left = rc.right - gripSize.cx;
 				rc.top = rc.bottom - gripSize.cy;
@@ -228,7 +227,10 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			::SelectObject(hdc, holdFont);
 			::SelectObject(hdc, holdPen);
 
-			pStatusBarInfo->_dblBuf.endPaint(hWnd, &ps);
+			if (uMsg == WM_PAINT)
+			{
+				::EndPaint(hWnd, &ps);
+			}
 			return 0;
 		}
 
@@ -279,6 +281,8 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	_pStatusBarInfo = pStatusBarInfo;
 
 	SetWindowSubclass(_hSelf, StatusBarSubclass, g_statusBarSubclassID, reinterpret_cast<DWORD_PTR>(pStatusBarInfo));
+
+	DoubleBuffer::subclass(_hSelf);
 
 	_partWidthArray.clear();
 	if (nbParts > 0)

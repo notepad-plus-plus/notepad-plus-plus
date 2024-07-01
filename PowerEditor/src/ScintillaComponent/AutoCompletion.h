@@ -106,14 +106,14 @@ private:
 
 	bool _ignoreCase = true;
 
-	std::vector<generic_string> _keyWordArray;
-	generic_string _keyWords;
+	std::vector<std::wstring> _keyWordArray;
+	std::wstring _keyWords;
 	size_t _keyWordMaxLen = 0;
 
 	FunctionCallTip _funcCalltip;
 
-	const TCHAR * getApiFileName();
-	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars, TCHAR *excludeChars);
+	const wchar_t * getApiFileName();
+	void getWordArray(std::vector<std::wstring> & wordArray, wchar_t *beginChars, wchar_t *excludeChars);
 
 	// Type of autocomplete function
 	enum AutocompleteType {

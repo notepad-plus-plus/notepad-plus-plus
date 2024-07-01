@@ -451,7 +451,7 @@ private:
 		if (extIndex >= 0 && extIndex < static_cast<int>(_filterSpec.size()))
 		{
 			const wstring ext = get1stExt(_filterSpec[extIndex].ext);
-			if (!ext.ends_with(_T(".*")))
+			if (!ext.ends_with(L".*"))
 				return replaceExt(name, ext);
 		}
 		return false;
@@ -493,7 +493,7 @@ private:
 		if (nameChanged)
 		{
 			// Clear the name first to ensure it's updated properly.
-			_dialog->SetFileName(_T(""));
+			_dialog->SetFileName(L"");
 			_dialog->SetFileName(fileName.c_str());
 		}
 	}
@@ -530,17 +530,17 @@ private:
 
 		if (IsWindowEnabled(hwnd) && GetClassName(hwnd, buffer, bufferLen) != 0)
 		{
-			if (lstrcmpi(buffer, _T("ComboBox")) == 0)
+			if (lstrcmpi(buffer, L"ComboBox") == 0)
 			{
 				// The edit box of interest is a child of the combo box and has empty window text.
 				// We use the first combo box, but there might be the others (file type dropdown, address bar, etc).
-				HWND hwndChild = FindWindowEx(hwnd, nullptr, _T("Edit"), _T(""));
+				HWND hwndChild = FindWindowEx(hwnd, nullptr, L"Edit", L"");
 				if (hwndChild && !inst->_hwndNameEdit)
 				{
 					inst->_hwndNameEdit = hwndChild;
 				}
 			}
-			else if (lstrcmpi(buffer, _T("Button")) == 0)
+			else if (lstrcmpi(buffer, L"Button") == 0)
 			{
 				// Find the OK button.
 				// Preconditions:
@@ -701,7 +701,7 @@ public:
 				if (!hasExt(newFileName))
 				{
 					const wstring ext = get1stExt(_filterSpec[_fileTypeIndex].ext);
-					if (!ext.ends_with(_T(".*")))
+					if (!ext.ends_with(L".*"))
 						newFileName += ext;
 				}
 			}
@@ -932,20 +932,20 @@ void CustomFileDialog::setTitle(const wchar_t* title)
 void CustomFileDialog::setExtFilter(const wchar_t *extText, const wchar_t *exts)
 {
 	// Add an asterisk before each dot in file patterns
-	wstring newExts{ exts ? exts : _T("") };
+	wstring newExts{ exts ? exts : L"" };
 	for (size_t pos = 0; pos < newExts.size(); ++pos)
 	{
-		pos = newExts.find(_T('.'), pos);
+		pos = newExts.find(L'.', pos);
 		if (pos == wstring::npos)
 			break;
-		if (pos == 0 || newExts[pos - 1] != _T('*'))
+		if (pos == 0 || newExts[pos - 1] != L'*')
 		{
-			newExts.insert(pos, 1, _T('*'));
+			newExts.insert(pos, 1, L'*');
 			++pos;
 		}
 	}
 
-	if (newExts.find(_T("*.*")) == 0)
+	if (newExts.find(L"*.*") == 0)
 		_impl->_wildcardIndex = static_cast<int>(_impl->_filterSpec.size());
 
 	_impl->_filterSpec.push_back({ extText, newExts });
@@ -957,7 +957,7 @@ void CustomFileDialog::setExtFilter(const wchar_t *extText, std::initializer_lis
 	for (auto&& x : extList)
 	{
 		exts += x;
-		exts += _T(';');
+		exts += L';';
 	}
 	exts.pop_back();	// remove the last ';'
 	setExtFilter(extText, exts.c_str());
@@ -975,7 +975,7 @@ void CustomFileDialog::setDefFileName(const wchar_t* fn)
 
 void CustomFileDialog::setFolder(const wchar_t* folder)
 {
-	_impl->_initialFolder = folder ? folder : _T("");
+	_impl->_initialFolder = folder ? folder : L"";
 }
 
 void CustomFileDialog::setCheckbox(const wchar_t* text, bool isActive)
@@ -1024,7 +1024,7 @@ wstring CustomFileDialog::doSaveDlg()
 
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM);
 	bool bOk = _impl->show();
-	return bOk ? _impl->getResultFilename() : _T("");
+	return bOk ? _impl->getResultFilename() : L"";
 }
 
 wstring CustomFileDialog::doOpenSingleFileDlg()
@@ -1036,7 +1036,7 @@ wstring CustomFileDialog::doOpenSingleFileDlg()
 
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM);
 	bool bOk = _impl->show();
-	return bOk ? _impl->getResultFilename() : _T("");
+	return bOk ? _impl->getResultFilename() : L"";
 }
 
 std::vector<wstring> CustomFileDialog::doOpenMultiFilesDlg()
@@ -1060,5 +1060,5 @@ wstring CustomFileDialog::pickFolder()
 
 	_impl->addFlags(FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_FORCEFILESYSTEM | FOS_PICKFOLDERS);
 	bool bOk = _impl->show();
-	return bOk ? _impl->getResultFilename() : _T("");
+	return bOk ? _impl->getResultFilename() : L"";
 }

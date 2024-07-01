@@ -20,7 +20,7 @@
 #include "Parameters.h"
 #include "localization.h"
 
-MenuItemUnit::MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName) : _cmdID(cmdID)
+MenuItemUnit::MenuItemUnit(unsigned long cmdID, const wchar_t* itemName, const wchar_t* parentFolderName) : _cmdID(cmdID)
 {
 	if (!itemName)
 		_itemName.clear();
@@ -33,27 +33,15 @@ MenuItemUnit::MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCH
 		_parentFolderName = parentFolderName;
 }
 
-
-ContextMenu::~ContextMenu()
-{
-	if (isCreated())
-	{
-		for (size_t i = 0, len = _subMenus.size(); i < len; ++i)
-			::DestroyMenu(_subMenus[i]);
-		::DestroyMenu(_hMenu);
-	}
-}
-
-	
 void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle, bool copyLink)
 { 
 	_hParent = hParent;
 	_hMenu = ::CreatePopupMenu();
 	bool lastIsSep = false;
 	HMENU hParentFolder = NULL;
-	generic_string currentParentFolderStr;
+	std::wstring currentParentFolderStr;
 	int j = 0;
-	MENUITEMINFO mii;
+	MENUITEMINFO mii{};
 
 	for (size_t i = 0, len = menuItemArray.size(); i < len; ++i)
 	{
@@ -127,17 +115,46 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 		if (copyLink && (item._cmdID == IDM_EDIT_COPY))
 		{
 			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
-			generic_string localized = nativeLangSpeaker->getNativeLangMenuString(IDM_EDIT_COPY_LINK);
+			std::wstring localized = nativeLangSpeaker->getNativeLangMenuString(IDM_EDIT_COPY_LINK);
 			if (localized.length() == 0)
 				localized = L"Copy link";
 			memset(&mii, 0, sizeof(mii));
 			mii.cbSize = sizeof(MENUITEMINFO);
 			mii.fMask = MIIM_ID | MIIM_STRING | MIIM_STATE;
 			mii.wID = IDM_EDIT_COPY_LINK;
-			mii.dwTypeData = (TCHAR*) localized.c_str();
+			mii.dwTypeData = (wchar_t*) localized.c_str();
 			mii.fState = MFS_ENABLED;
 			int c = GetMenuItemCount(_hMenu);
 			SetMenuItemInfo(_hMenu, c - 1, TRUE, & mii);
 		}
+	}
+}
+
+void ContextMenu::display(HWND hwnd) const
+{
+	RECT rcItem{};
+	::GetClientRect(hwnd, &rcItem);
+	::MapWindowPoints(hwnd, HWND_DESKTOP, reinterpret_cast<LPPOINT>(&rcItem), 2);
+
+	TPMPARAMS tpm{};
+	tpm.cbSize = sizeof(TPMPARAMS);
+	tpm.rcExclude = rcItem;
+
+	const NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+	const UINT flags = nativeLangSpeaker->isRTL() ? (TPM_RIGHTALIGN | TPM_RIGHTBUTTON | TPM_LAYOUTRTL) : (TPM_LEFTALIGN | TPM_LEFTBUTTON);
+	::TrackPopupMenuEx(_hMenu, flags | TPM_VERTICAL, rcItem.left, rcItem.bottom, _hParent, &tpm);
+}
+
+void ContextMenu::destroy()
+{
+	if (isCreated())
+	{
+		for (size_t i = 0, len = _subMenus.size(); i < len; ++i)
+		{
+			::DestroyMenu(_subMenus[i]);
+			_subMenus[i] = nullptr;
+		}
+		::DestroyMenu(_hMenu);
+		_hMenu = nullptr;
 	}
 }

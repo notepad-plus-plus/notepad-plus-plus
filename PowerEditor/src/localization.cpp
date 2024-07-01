@@ -1124,6 +1124,8 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(L"SearchEngine", nameW);
 	}
 
+	preference._darkModeSubDlg.destroyResetMenu();
+
 	preference.setListSelection(currentSel);
 }
 
@@ -1428,7 +1430,51 @@ wstring NativeLangSpeaker::getDlgLangMenuStr(const char* firstLevelNodeName, con
 	return defaultStr;
 }
 
-wstring NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const wchar_t *defaultStr) const
+std::wstring NativeLangSpeaker::getCmdLangStr(std::vector<const char*> nodeNames, int cmdID, const wchar_t* defaultStr) const
+{
+	if (!_nativeLangA) return defaultStr;
+	TiXmlNodeA* targetNode = _nativeLangA->FirstChild(nodeNames.at(0));
+	if (targetNode == nullptr)
+		return defaultStr;
+
+	auto it = nodeNames.begin();
+	++it;
+
+	for (auto end = nodeNames.end(); it != end; ++it)
+	{
+		targetNode = targetNode->FirstChild(*it);
+		if (targetNode == nullptr)
+			return defaultStr;
+	}
+
+	if (targetNode == nullptr)
+		return defaultStr;
+
+	const char* name = nullptr;
+	for (TiXmlNodeA* childNode = targetNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSibling("Item"))
+	{
+		TiXmlElementA* element = childNode->ToElement();
+		int id = 0;
+		const char* idStr = element->Attribute("id", &id);
+
+		if (idStr && id == cmdID)
+		{
+			name = element->Attribute("name");
+			break;
+		}
+	}
+
+	if (name && name[0])
+	{
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		return wmc.char2wchar(name, _nativeLangEncoding);
+	}
+	return defaultStr;
+}
+
+std::wstring NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const wchar_t *defaultStr) const
 {
 	if (!_nativeLangA) return defaultStr;
 

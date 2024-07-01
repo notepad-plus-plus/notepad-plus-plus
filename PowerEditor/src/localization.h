@@ -84,6 +84,7 @@ public:
 	std::wstring getShortcutMapperLangStr(const char *nodeName, const wchar_t *defaultStr) const;
 	std::wstring getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const wchar_t *defaultStr) const;
 	std::wstring getDlgLangMenuStr(const char* firstLevelNodeName, const char* secondLevelNodeName, int cmdID, const wchar_t *defaultStr) const;
+	std::wstring getCmdLangStr(std::vector<const char*> nodeNames, int cmdID, const wchar_t* defaultStr) const;
 	std::wstring getAttrNameStr(const wchar_t *defaultStr, const char *nodeL1Name, const char *nodeL2Name, const char *nodeL3Name = "name") const;
 	std::wstring getAttrNameByIdStr(const wchar_t *defaultStr, TiXmlNodeA *targetNode, const char *nodeL1Value, const char *nodeL1Name = "id", const char *nodeL2Name = "name") const;
 	std::wstring getLocalizedStrFromID(const char *strID, const std::wstring& defaultString) const;

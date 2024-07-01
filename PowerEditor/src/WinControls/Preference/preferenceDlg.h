@@ -94,6 +94,10 @@ class DarkModeSubDlg : public StaticDialog
 public:
 	DarkModeSubDlg() = default;
 
+	void destroyResetMenu() {
+		_resetPopupMenu.destroy();
+	}
+
 private:
 	ColourPicker* _pBackgroundColorPicker = nullptr;
 	ColourPicker* _pSofterBackgroundColorPicker = nullptr;
@@ -107,6 +111,8 @@ private:
 	ColourPicker* _pLinkColorPicker = nullptr;
 	ColourPicker* _pHotEdgeColorPicker = nullptr;
 	ColourPicker* _pDisabledEdgeColorPicker = nullptr;
+
+	ContextMenu _resetPopupMenu;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	void enableCustomizedColorCtrls(bool doEnable);

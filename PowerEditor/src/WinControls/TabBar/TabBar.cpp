@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include "TabBar.h"
 #include "Parameters.h"
+#include "DoubleBuffer/DoubleBuffer.h"
 
 #define	IDC_DRAG_TAB     1404
 #define	IDC_DRAG_INTERDIT_TAB 1405
@@ -343,6 +344,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
+
+	DoubleBuffer::subclass(_hSelf);
 
 	setFont();
 
@@ -962,30 +965,30 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_ERASEBKGND:
 		{
-			// Skip background erasing and set fErase in PAINTSTRUCT instead,
-			// WM_PAINT does all the painting in all cases
-			return FALSE;
+			if (!NppDarkMode::isEnabled())
+			{
+				break;	// Let the control paint background the default way
+			}
+
+			RECT rc{};
+			::GetClientRect(hwnd, &rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+			return TRUE;
 		}
 
 		case WM_PAINT:
+		case WM_PRINTCLIENT:
 		{
-			PAINTSTRUCT ps{};
-			HDC hdc = _dblBuf.beginPaint(hwnd, &ps);
-
 			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
 			if (!NppDarkMode::isEnabled() || !(dwStyle & TCS_OWNERDRAWFIXED))
 			{
-				// Even if the tab bar common control is used directly, e.g. in non-dark mode,
-				// it suffers from flickering during updates, so let it paint into a back buffer
-				::DefWindowProc(hwnd, WM_ERASEBKGND, reinterpret_cast<WPARAM>(hdc), 0);
-				::DefWindowProc(hwnd, WM_PRINT, reinterpret_cast<WPARAM>(hdc), PRF_NONCLIENT | PRF_CLIENT);
-				_dblBuf.endPaint(hwnd, &ps);
-				return 0;
+				break;	// Let the control paint itself the default way
 			}
 
-			const bool hasMultipleLines = ((dwStyle & TCS_BUTTONS) == TCS_BUTTONS);
+			PAINTSTRUCT ps{};
+			HDC hdc = (Message == WM_PAINT) ? ::BeginPaint(hwnd, &ps) : reinterpret_cast<HDC>(wParam);
 
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
+			const bool hasMultipleLines = ((dwStyle & TCS_BUTTONS) == TCS_BUTTONS);
 
 			UINT id = ::GetDlgCtrlID(hwnd);
 
@@ -1020,8 +1023,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
 
-				RECT rcIntersect{};
-				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
+				if (::RectVisible(hdc, &dis.rcItem))
 				{
 					if (!hasMultipleLines)
 					{
@@ -1113,7 +1115,11 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			SelectObject(hdc, holdPen);
 
-			_dblBuf.endPaint(hwnd, &ps);
+			if (Message == WM_PAINT)
+			{
+				::EndPaint(hwnd, &ps);
+			}
+
 			return 0;
 		}
 

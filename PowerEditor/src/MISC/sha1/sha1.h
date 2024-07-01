@@ -102,8 +102,7 @@
     C4609560 A108A0C6 26AA7F2B 38A65566 739353C5
 */
 
-#ifndef SHA1_H_A545E61D43E9404E8D736869AB3CBFE7
-#define SHA1_H_A545E61D43E9404E8D736869AB3CBFE7
+#pragma once
 
 #if !defined(SHA1_UTILITY_FUNCTIONS) && !defined(SHA1_NO_UTILITY_FUNCTIONS)
 #define SHA1_UTILITY_FUNCTIONS
@@ -154,21 +153,19 @@
 #include <tchar.h>
 #else
 #ifndef TCHAR
-#define TCHAR char
+#define TCHAR wchar_t
 #endif
-#ifndef _T
-#define _T(__x) (__x)
-#define _tmain main
-#define _tprintf printf
-#define _getts gets
-#define _tcslen strlen
-#define _tfopen fopen
-#define _tcscpy strcpy
-#define _tcscat strcat
-#define _sntprintf snprintf
+#define _tmain wmain
+#define _tprintf wprintf
+#define _getts getws
+#define _tcslen wcslen
+#define _tfopen _wfopen
+#define _tcscpy wcscpy
+#define _tcscat wcscat
+#define _sntprintf snwprintf
 #endif
 #endif
-#endif
+
 
 ///////////////////////////////////////////////////////////////////////////
 // Define variable types
@@ -279,4 +276,3 @@ private:
 	SHA1_WORKSPACE_BLOCK* m_block; // SHA1 pointer to the byte array above
 };
 
-#endif // SHA1_H_A545E61D43E9404E8D736869AB3CBFE7

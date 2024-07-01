@@ -503,7 +503,7 @@ namespace NppDarkMode
 		g_advOptions._enableWindowsMode = enable;
 	}
 
-	void setThemeName(const generic_string& newThemeName)
+	void setThemeName(const std::wstring& newThemeName)
 	{
 		if (NppDarkMode::isEnabled())
 			g_advOptions._darkDefaults._xmlFileName = newThemeName;
@@ -511,7 +511,7 @@ namespace NppDarkMode
 			g_advOptions._lightDefaults._xmlFileName = newThemeName;
 	}
 
-	generic_string getThemeName()
+	std::wstring getThemeName()
 	{
 		auto& theme = NppDarkMode::isEnabled() ? g_advOptions._darkDefaults._xmlFileName : g_advOptions._lightDefaults._xmlFileName;
 		return (lstrcmp(theme.c_str(), L"stylers.xml") == 0) ? L"" : theme;
@@ -728,10 +728,35 @@ namespace NppDarkMode
 		getTheme().change(clrs);
 	}
 
-	Colors getDarkModeDefaultColors()
+	Colors getDarkModeDefaultColors(ColorTone colorTone)
 	{
-		return darkColors;
+		switch (colorTone)
+		{
+			case NppDarkMode::ColorTone::redTone:
+				return darkRedColors;
+
+			case NppDarkMode::ColorTone::greenTone:
+				return darkGreenColors;
+
+			case NppDarkMode::ColorTone::blueTone:
+				return darkBlueColors;
+
+			case NppDarkMode::ColorTone::purpleTone:
+				return darkPurpleColors;
+
+			case NppDarkMode::ColorTone::cyanTone:
+				return darkCyanColors;
+
+			case NppDarkMode::ColorTone::oliveTone:
+				return darkOliveColors;
+
+			case NppDarkMode::ColorTone::customizedTone:
+			case NppDarkMode::ColorTone::blackTone:
+			default:
+				return darkColors;
+		}
 	}
+
 
 	void changeCustomTheme(const Colors& colors)
 	{
@@ -1612,7 +1637,7 @@ namespace NppDarkMode
 
 					SetBkMode(hdc, TRANSPARENT);
 
-					TCHAR label[MAX_PATH]{};
+					wchar_t label[MAX_PATH]{};
 					TCITEM tci{};
 					tci.mask = TCIF_TEXT;
 					tci.pszText = label;
@@ -1971,7 +1996,7 @@ namespace NppDarkMode
 						::SetTextColor(hdc, isWindowEnabled ? NppDarkMode::getTextColor() : NppDarkMode::getDisabledTextColor());
 						::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
 						auto bufferLen = static_cast<size_t>(::SendMessage(hWnd, CB_GETLBTEXTLEN, index, 0));
-						TCHAR* buffer = new TCHAR[(bufferLen + 1)];
+						wchar_t* buffer = new wchar_t[(bufferLen + 1)];
 						::SendMessage(hWnd, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(buffer));
 
 						RECT rcText = rcTextBg;
@@ -2002,7 +2027,7 @@ namespace NppDarkMode
 				::SetTextColor(hdc, isWindowEnabled ? colorEnabledText : NppDarkMode::getDisabledTextColor());
 				::SetBkColor(hdc, isHot ? NppDarkMode::getHotBackgroundColor() : NppDarkMode::getBackgroundColor());
 				::FillRect(hdc, &rcArrow, isHot ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getBackgroundBrush());
-				TCHAR arrow[] = L"˅";
+				wchar_t arrow[] = L"˅";
 				::DrawText(hdc, arrow, -1, &rcArrow, DT_NOPREFIX | DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
 				::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
 
@@ -2275,7 +2300,7 @@ namespace NppDarkMode
 	bool subclassTabUpDownControl(HWND hwnd)
 	{
 		constexpr size_t classNameLen = 16;
-		TCHAR className[classNameLen]{};
+		wchar_t className[classNameLen]{};
 		GetClassName(hwnd, className, classNameLen);
 		if (wcscmp(className, UPDOWN_CLASS) == 0)
 		{
@@ -2301,7 +2326,7 @@ namespace NppDarkMode
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
 			auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
 			constexpr size_t classNameLen = 32;
-			TCHAR className[classNameLen]{};
+			wchar_t className[classNameLen]{};
 			GetClassName(hwnd, className, classNameLen);
 
 			if (wcscmp(className, WC_BUTTON) == 0)
@@ -2881,7 +2906,7 @@ namespace NppDarkMode
 				if (NppDarkMode::isEnabled())
 				{
 					constexpr size_t classNameLen = 16;
-					TCHAR className[classNameLen]{};
+					wchar_t className[classNameLen]{};
 					auto hwndEdit = reinterpret_cast<HWND>(lParam);
 					GetClassName(hwndEdit, className, classNameLen);
 					if (wcscmp(className, WC_EDIT) == 0)
@@ -2910,7 +2935,7 @@ namespace NppDarkMode
 					case NM_CUSTOMDRAW:
 					{
 						constexpr size_t classNameLen = 16;
-						TCHAR className[classNameLen]{};
+						wchar_t className[classNameLen]{};
 						GetClassName(nmhdr->hwndFrom, className, classNameLen);
 
 						if (wcscmp(className, TOOLBARCLASSNAME) == 0)
@@ -3059,7 +3084,7 @@ namespace NppDarkMode
 				auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
 
 				constexpr size_t classNameLen = 16;
-				TCHAR className[classNameLen]{};
+				wchar_t className[classNameLen]{};
 				GetClassName(nmhdr->hwndFrom, className, classNameLen);
 
 				switch (nmhdr->code)
@@ -3305,7 +3330,7 @@ namespace NppDarkMode
 	static BOOL CALLBACK enumAutocompleteProc(HWND hwnd, LPARAM /*lParam*/)
 	{
 		constexpr size_t classNameLen = 16;
-		TCHAR className[classNameLen]{};
+		wchar_t className[classNameLen]{};
 		GetClassName(hwnd, className, classNameLen);
 		if ((wcscmp(className, L"ListBoxX") == 0))
 		{

@@ -16,9 +16,9 @@
 
 #pragma once
 
+#include <string>
 #include <windows.h>
 
-#include "Common.h" // for generic_string
 
 namespace NppDarkMode
 {
@@ -81,7 +81,7 @@ namespace NppDarkMode
 
 	struct AdvOptDefaults
 	{
-		generic_string _xmlFileName;
+		std::wstring _xmlFileName;
 		int _toolBarIconSet = -1;
 		int _tabIconSet = -1;
 		bool _tabUseTheme = false;
@@ -110,8 +110,8 @@ namespace NppDarkMode
 
 	bool isWindowsModeEnabled();
 	void setWindowsMode(bool enable);
-	generic_string getThemeName();
-	void setThemeName(const generic_string& newThemeName);
+	std::wstring getThemeName();
+	void setThemeName(const std::wstring& newThemeName);
 	int getToolBarIconSet(bool useDark);
 	void setToolBarIconSet(int state2Set, bool useDark);
 	int getTabIconSet(bool useDark);
@@ -173,7 +173,7 @@ namespace NppDarkMode
 	void setHotEdgeColor(COLORREF c);
 	void setDisabledEdgeColor(COLORREF c);
 
-	Colors getDarkModeDefaultColors();
+	Colors getDarkModeDefaultColors(ColorTone colorTone = ColorTone::blackTone);
 	void changeCustomTheme(const Colors& colors);
 
 	// handle events

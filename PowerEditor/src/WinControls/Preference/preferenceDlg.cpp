@@ -1662,6 +1662,8 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			delete _pHotEdgeColorPicker;
 			delete _pDisabledEdgeColorPicker;
 
+			destroyResetMenu();
+
 			return TRUE;
 		}
 
@@ -1683,6 +1685,51 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			move2CtrlLeft(IDD_CUSTOMIZED_COLOR12_STATIC, _pDisabledEdgeColorPicker->getHSelf(), cpDynamicalSize, cpDynamicalSize);
 
 			return TRUE;
+		}
+
+		case WM_NOTIFY:
+		{
+			auto lpnmhdr = reinterpret_cast<LPNMHDR>(lParam);
+			switch (lpnmhdr->code)
+			{
+				case BCN_DROPDOWN:
+				{
+					switch (lpnmhdr->idFrom)
+					{
+						case IDD_CUSTOMIZED_RESET_BUTTON:
+						{
+							if (!_resetPopupMenu.isCreated())
+							{
+								NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+								std::vector<const char*> nodeNames{ "Dialog", "Preference", "DarkMode" };
+
+								std::vector<MenuItemUnit> itemUnitArray;
+								itemUnitArray.push_back(MenuItemUnit(IDD_CUSTOMIZED_RESET_BUTTON, pNativeSpeaker->getCmdLangStr(nodeNames, IDC_RADIO_DARKMODE_BLACK ,L"Black")));
+								itemUnitArray.push_back(MenuItemUnit(IDD_DROPDOWN_RESET_RED, pNativeSpeaker->getCmdLangStr(nodeNames, IDC_RADIO_DARKMODE_RED, L"Red")));
+								itemUnitArray.push_back(MenuItemUnit(IDD_DROPDOWN_RESET_GREEN, pNativeSpeaker->getCmdLangStr(nodeNames, IDC_RADIO_DARKMODE_GREEN, L"Green")));
+								itemUnitArray.push_back(MenuItemUnit(IDD_DROPDOWN_RESET_BLUE, pNativeSpeaker->getCmdLangStr(nodeNames, IDC_RADIO_DARKMODE_BLUE, L"Blue")));
+								itemUnitArray.push_back(MenuItemUnit(IDD_DROPDOWN_RESET_PURPLE, pNativeSpeaker->getCmdLangStr(nodeNames, IDC_RADIO_DARKMODE_PURPLE, L"Purple")));
+								itemUnitArray.push_back(MenuItemUnit(IDD_DROPDOWN_RESET_CYAN, pNativeSpeaker->getCmdLangStr(nodeNames, IDC_RADIO_DARKMODE_CYAN, L"Cyan")));
+								itemUnitArray.push_back(MenuItemUnit(IDD_DROPDOWN_RESET_OLIVE, pNativeSpeaker->getCmdLangStr(nodeNames, IDC_RADIO_DARKMODE_OLIVE, L"Olive")));
+
+								_resetPopupMenu.create(_hSelf, itemUnitArray);
+							}
+
+							_resetPopupMenu.display(lpnmhdr->hwndFrom);
+
+							return TRUE;
+						}
+
+						default:
+							break;
+					}
+					return FALSE;
+				}
+
+				default:
+					break;
+			}
+			return FALSE;
 		}
 
 		case WM_COMMAND:
@@ -1734,6 +1781,12 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_RADIO_DARKMODE_OLIVE:
 				case IDC_RADIO_DARKMODE_CUSTOMIZED:
 				case IDD_CUSTOMIZED_RESET_BUTTON:
+				case IDD_DROPDOWN_RESET_RED:
+				case IDD_DROPDOWN_RESET_GREEN:
+				case IDD_DROPDOWN_RESET_BLUE:
+				case IDD_DROPDOWN_RESET_PURPLE:
+				case IDD_DROPDOWN_RESET_CYAN:
+				case IDD_DROPDOWN_RESET_OLIVE:
 				{
 					if (wParam == IDC_RADIO_DARKMODE_BLACK)
 					{
@@ -1791,7 +1844,61 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						NppDarkMode::changeCustomTheme(nppGUI._darkmode._customColors);
 						doEnableCustomizedColorCtrls = true;
 					}
+					else
+					{
+						doEnableCustomizedColorCtrls = true;
+						switch (wParam)
+						{
+							case IDD_CUSTOMIZED_RESET_BUTTON:
+							{
+								nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors();
+								break;
+							}
 
+							case IDD_DROPDOWN_RESET_RED:
+							{
+								nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors(NppDarkMode::ColorTone::redTone);
+								break;
+							}
+
+							case IDD_DROPDOWN_RESET_GREEN:
+							{
+								nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors(NppDarkMode::ColorTone::greenTone);
+								break;
+							}
+
+							case IDD_DROPDOWN_RESET_BLUE:
+							{
+								nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors(NppDarkMode::ColorTone::blueTone);
+								break;
+							}
+
+							case IDD_DROPDOWN_RESET_PURPLE:
+							{
+								nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors(NppDarkMode::ColorTone::purpleTone);
+								break;
+							}
+
+							case IDD_DROPDOWN_RESET_CYAN:
+							{
+								nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors(NppDarkMode::ColorTone::cyanTone);
+								break;
+							}
+
+							case IDD_DROPDOWN_RESET_OLIVE:
+							{
+								nppGUI._darkmode._customColors = NppDarkMode::getDarkModeDefaultColors(NppDarkMode::ColorTone::oliveTone);
+								break;
+							}
+
+							default:
+								doEnableCustomizedColorCtrls = false;
+								break;
+						}
+
+						if (doEnableCustomizedColorCtrls)
+							NppDarkMode::changeCustomTheme(nppGUI._darkmode._customColors);
+					}
 
 					// switch to chosen dark mode
 					nppGUI._darkmode._isEnabled = true;

@@ -42,6 +42,8 @@ enum eMousePos {
 #define CLOSEBTN_POS_LEFT	3
 #define CLOSEBTN_POS_TOP	3
 
+constexpr int g_dockingContCloseBtnSize = 12;
+
 constexpr int g_dockingContTabIconSize = 16;
 constexpr int g_dockingContTabIconPadding = 3;
 
@@ -132,19 +134,17 @@ public:
 		::DestroyWindow(_hSelf);
 	};
 
+	void destroyFonts();
+
 protected :
 
 	// Subclassing caption
 	LRESULT runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-	static LRESULT CALLBACK wndCaptionProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
-	};
+	static LRESULT CALLBACK DockingCaptionSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	// Subclassing tab
 	LRESULT runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-	static LRESULT CALLBACK wndTabProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
-	};
+	static LRESULT CALLBACK DockingTabSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
@@ -196,12 +196,6 @@ private:
 	// Important value for DlgMoving class
 	BOOL _dragFromTab = FALSE;
 
-	// subclassing handle for caption
-	WNDPROC _hDefaultCaptionProc = nullptr;
-
-	// subclassing handle for tab
-	WNDPROC _hDefaultTabProc = nullptr;
-
 	// for moving and reordering
 	UINT _prevItem = 0;
 	BOOL _beginDrag = FALSE;
@@ -218,8 +212,8 @@ private:
 	int _captionGapDynamic = CAPTION_GAP;
 	int _closeButtonPosLeftDynamic = CLOSEBTN_POS_LEFT;
 	int _closeButtonPosTopDynamic = CLOSEBTN_POS_TOP;
-	int _closeButtonWidth = 12;
-	int _closeButtonHeight = 12;
+	int _closeButtonWidth = g_dockingContCloseBtnSize;
+	int _closeButtonHeight = g_dockingContCloseBtnSize;
 
 	// data of added windows
 	std::vector<tTbData *> _vTbData;

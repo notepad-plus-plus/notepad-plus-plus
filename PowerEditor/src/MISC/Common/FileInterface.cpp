@@ -20,6 +20,7 @@
 #include "FileInterface.h"
 #include "Parameters.h"
 
+using namespace std;
 
 Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 {
@@ -68,9 +69,9 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
@@ -157,9 +158,9 @@ Please try using another storage and also check if your saved data is not corrup
 
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg;
@@ -219,9 +220,9 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 	{
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
@@ -238,9 +239,9 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 	{
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;

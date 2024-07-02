@@ -20,6 +20,8 @@
 #include "menuCmdID.h"
 #include "localization.h"
 
+using namespace std;
+
 void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase, Accelerator *pAccelerator, bool doSubMenu)
 {
 	if (doSubMenu)
@@ -90,19 +92,19 @@ void LastRecentFileList::updateMenu()
 		//add separators
 		NativeLangSpeaker *pNativeLangSpeaker = nppParam.getNativeLangSpeaker();
 
-		generic_string recentFileList = pNativeLangSpeaker->getSubMenuEntryName("file-recentFiles");
-		generic_string openRecentClosedFile = pNativeLangSpeaker->getNativeLangMenuString(IDM_FILE_RESTORELASTCLOSEDFILE);
-		generic_string openAllFiles = pNativeLangSpeaker->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
-		generic_string cleanFileList = pNativeLangSpeaker->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
+		wstring recentFileList = pNativeLangSpeaker->getSubMenuEntryName("file-recentFiles");
+		wstring openRecentClosedFile = pNativeLangSpeaker->getNativeLangMenuString(IDM_FILE_RESTORELASTCLOSEDFILE);
+		wstring openAllFiles = pNativeLangSpeaker->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
+		wstring cleanFileList = pNativeLangSpeaker->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
 
-		if (recentFileList == TEXT(""))
-			recentFileList = TEXT("&Recent Files");
-		if (openRecentClosedFile == TEXT(""))
-			openRecentClosedFile = TEXT("Restore Recent Closed File");
-		if (openAllFiles == TEXT(""))
-			openAllFiles = TEXT("Open All Recent Files");
-		if (cleanFileList == TEXT(""))
-			cleanFileList = TEXT("Empty Recent Files List");
+		if (recentFileList == L"")
+			recentFileList = L"&Recent Files";
+		if (openRecentClosedFile == L"")
+			openRecentClosedFile = L"Restore Recent Closed File";
+		if (openAllFiles == L"")
+			openAllFiles = L"Open All Recent Files";
+		if (cleanFileList == L"")
+			cleanFileList = L"Empty Recent Files List";
 
 		if (!isSubMenuMode())
 			::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, static_cast<UINT_PTR>(-1), 0);
@@ -149,13 +151,13 @@ void LastRecentFileList::updateMenu()
 	//Then readd them, so everything stays in sync
 	for (int j = 0; j < _size; ++j)
 	{
-		generic_string strBuffer(BuildMenuFileName(nppParam.getRecentFileCustomLength(), j, _lrfl.at(j)._name));
+		wstring strBuffer(BuildMenuFileName(nppParam.getRecentFileCustomLength(), j, _lrfl.at(j)._name));
 		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, strBuffer.c_str());
 	}
 	
 }
 
-void LastRecentFileList::add(const TCHAR *fn) 
+void LastRecentFileList::add(const wchar_t *fn) 
 {
 	if (_userMax == 0 || _locked)
 		return;
@@ -183,7 +185,7 @@ void LastRecentFileList::add(const TCHAR *fn)
 	updateMenu();
 }
 
-void LastRecentFileList::remove(const TCHAR *fn) 
+void LastRecentFileList::remove(const wchar_t *fn) 
 { 
 	int index = find(fn);
 	if (index != -1)
@@ -221,7 +223,7 @@ void LastRecentFileList::clear()
 }
 
 
-generic_string & LastRecentFileList::getItem(int id) 
+wstring & LastRecentFileList::getItem(int id) 
 {
 	int i = 0;
 	for (; i < _size; ++i)
@@ -234,7 +236,7 @@ generic_string & LastRecentFileList::getItem(int id)
 	return _lrfl.at(i)._name;	//if not found, return first
 }
 
-generic_string & LastRecentFileList::getIndex(int index)
+wstring & LastRecentFileList::getIndex(int index)
 {
 	return _lrfl.at(index)._name;	//if not found, return first
 }
@@ -274,7 +276,7 @@ void LastRecentFileList::saveLRFL()
 }
 
 
-int LastRecentFileList::find(const TCHAR *fn)
+int LastRecentFileList::find(const wchar_t *fn)
 {
 	for (int i = 0; i < _size; ++i)
 	{

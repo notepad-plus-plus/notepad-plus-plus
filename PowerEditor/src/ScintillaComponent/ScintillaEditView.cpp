@@ -67,101 +67,101 @@ const int ScintillaEditView::_markersArray[][NB_FOLDER_STATE] = {
 // The order of lang type (enum LangType) must be respected
 LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	//
-	// _langName			_shortName					_longName												_langID			_lexerID
+	//_langName           _shortName                 _longName                                             _langID            _lexerID
 	//
-	{TEXT("normal"),		TEXT("Normal text"),		TEXT("Normal text file"),								L_TEXT,			"null"},
-	{TEXT("php"),			TEXT("PHP"),				TEXT("PHP Hypertext Preprocessor file"),				L_PHP,			"phpscript"},
-	{TEXT("c"),				TEXT("C"),					TEXT("C source file"),									L_C,			"cpp"},
-	{TEXT("cpp"),			TEXT("C++"),				TEXT("C++ source file"),								L_CPP,			"cpp"},
-	{TEXT("cs"),			TEXT("C#"),					TEXT("C# source file"),									L_CS,			"cpp"},
-	{TEXT("objc"),			TEXT("Objective-C"),		TEXT("Objective-C source file"),						L_OBJC,			"objc"},
-	{TEXT("java"),			TEXT("Java"),				TEXT("Java source file"),								L_JAVA,			"cpp"},
-	{TEXT("rc"),			TEXT("RC"),					TEXT("Windows Resource file"),							L_RC,			"cpp"},
-	{TEXT("html"),			TEXT("HTML"),				TEXT("Hyper Text Markup Language file"),				L_HTML,			"hypertext"},
-	{TEXT("xml"),			TEXT("XML"),				TEXT("eXtensible Markup Language file"),				L_XML,			"xml"},
-	{TEXT("makefile"),		TEXT("Makefile"),			TEXT("Makefile"),										L_MAKEFILE,		"makefile"},
-	{TEXT("pascal"),		TEXT("Pascal"),				TEXT("Pascal source file"),								L_PASCAL,		"pascal"},
-	{TEXT("batch"),			TEXT("Batch"),				TEXT("Batch file"),										L_BATCH,		"batch"},
-	{TEXT("ini"),			TEXT("ini"),				TEXT("MS ini file"),									L_INI,			"props"},
-	{TEXT("nfo"),			TEXT("NFO"),				TEXT("MSDOS Style/ASCII Art"),							L_ASCII,		"null"},
-	{TEXT("udf"),			TEXT("udf"),				TEXT("User Defined language file"),						L_USER,			"user"},
-	{TEXT("asp"),			TEXT("ASP"),				TEXT("Active Server Pages script file"),				L_ASP,			"hypertext"},
-	{TEXT("sql"),			TEXT("SQL"),				TEXT("Structured Query Language file"),					L_SQL,			"sql"},
-	{TEXT("vb"),			TEXT("Visual Basic"),		TEXT("Visual Basic file"),								L_VB,			"vb"},
-	{TEXT("javascript"),	TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JS,			"cpp"},
-	{TEXT("css"),			TEXT("CSS"),				TEXT("Cascade Style Sheets File"),						L_CSS,			"css"},
-	{TEXT("perl"),			TEXT("Perl"),				TEXT("Perl source file"),								L_PERL,			"perl"},
-	{TEXT("python"),		TEXT("Python"),				TEXT("Python file"),									L_PYTHON,		"python"},
-	{TEXT("lua"),			TEXT("Lua"),				TEXT("Lua source File"),								L_LUA,			"lua"},
-	{TEXT("tex"),			TEXT("TeX"),				TEXT("TeX file"),										L_TEX,			"tex"},
-	{TEXT("fortran"),		TEXT("Fortran free form"),	TEXT("Fortran free form source file"),					L_FORTRAN,		"fortran"},
-	{TEXT("bash"),			TEXT("Shell"),				TEXT("Unix script file"),								L_BASH,			"bash"},
-	{TEXT("actionscript"),	TEXT("ActionScript"),		TEXT("Flash ActionScript file"),						L_FLASH,		"cpp"},
-	{TEXT("nsis"),			TEXT("NSIS"),				TEXT("Nullsoft Scriptable Install System script file"),	L_NSIS,			"nsis"},
-	{TEXT("tcl"),			TEXT("TCL"),				TEXT("Tool Command Language file"),						L_TCL,			"tcl"},
-	{TEXT("lisp"),			TEXT("Lisp"),				TEXT("List Processing language file"),					L_LISP,			"lisp"},
-	{TEXT("scheme"),		TEXT("Scheme"),				TEXT("Scheme file"),									L_SCHEME,		"lisp"},
-	{TEXT("asm"),			TEXT("Assembly"),			TEXT("Assembly language source file"),					L_ASM,			"asm"},
-	{TEXT("diff"),			TEXT("Diff"),				TEXT("Diff file"),										L_DIFF,			"diff"},
-	{TEXT("props"),			TEXT("Properties file"),	TEXT("Properties file"),								L_PROPS,		"props"},
-	{TEXT("postscript"),	TEXT("PostScript"),			TEXT("PostScript file"),								L_PS,			"ps"},
-	{TEXT("ruby"),			TEXT("Ruby"),				TEXT("Ruby file"),										L_RUBY,			"ruby"},
-	{TEXT("smalltalk"),		TEXT("Smalltalk"),			TEXT("Smalltalk file"),									L_SMALLTALK,	"smalltalk"},
-	{TEXT("vhdl"),			TEXT("VHDL"),				TEXT("VHSIC Hardware Description Language file"),		L_VHDL,			"vhdl"},
-	{TEXT("kix"),			TEXT("KiXtart"),			TEXT("KiXtart file"),									L_KIX,			"kix"},
-	{TEXT("autoit"),		TEXT("AutoIt"),				TEXT("AutoIt"),											L_AU3,			"au3"},
-	{TEXT("caml"),			TEXT("CAML"),				TEXT("Categorical Abstract Machine Language"),			L_CAML,			"caml"},
-	{TEXT("ada"),			TEXT("Ada"),				TEXT("Ada file"),										L_ADA,			"ada"},
-	{TEXT("verilog"),		TEXT("Verilog"),			TEXT("Verilog file"),									L_VERILOG,		"verilog"},
-	{TEXT("matlab"),		TEXT("MATLAB"),				TEXT("MATrix LABoratory"),								L_MATLAB,		"matlab"},
-	{TEXT("haskell"),		TEXT("Haskell"),			TEXT("Haskell"),										L_HASKELL,		"haskell"},
-	{TEXT("inno"),			TEXT("Inno Setup"),			TEXT("Inno Setup script"),								L_INNO,			"inno"},
-	{TEXT("searchResult"),	TEXT("Internal Search"),	TEXT("Internal Search"),								L_SEARCHRESULT,	"searchResult"},
-	{TEXT("cmake"),			TEXT("CMake"),				TEXT("CMake file"),										L_CMAKE,		"cmake"},
-	{TEXT("yaml"),			TEXT("YAML"),				TEXT("YAML Ain't Markup Language"),						L_YAML,			"yaml"},
-	{TEXT("cobol"),			TEXT("COBOL"),				TEXT("COmmon Business Oriented Language"),				L_COBOL,		"COBOL"},
-	{TEXT("gui4cli"),		TEXT("Gui4Cli"),			TEXT("Gui4Cli file"),									L_GUI4CLI,		"gui4cli"},
-	{TEXT("d"),				TEXT("D"),					TEXT("D programming language"),							L_D,			"d"},
-	{TEXT("powershell"),	TEXT("PowerShell"),			TEXT("Windows PowerShell"),								L_POWERSHELL,	"powershell"},
-	{TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			"r"},
-	{TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			"hypertext"},
-	{TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	"coffeescript"},
-	{TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			"json"},
-	{TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	"cpp"},
-	{TEXT("fortran77"),		TEXT("Fortran fixed form"),	TEXT("Fortran fixed form source file"),					L_FORTRAN_77,	"f77"},
-	{TEXT("baanc"),			TEXT("BaanC"),				TEXT("BaanC File"),										L_BAANC,		"baan"},
-	{TEXT("srec"),			TEXT("S-Record"),			TEXT("Motorola S-Record binary data"),					L_SREC,			"srec"},
-	{TEXT("ihex"),			TEXT("Intel HEX"),			TEXT("Intel HEX binary data"),							L_IHEX,			"ihex"},
-	{TEXT("tehex"),			TEXT("Tektronix extended HEX"),	TEXT("Tektronix extended HEX binary data"),			L_TEHEX,		"tehex"},
-	{TEXT("swift"),			TEXT("Swift"),              TEXT("Swift file"),										L_SWIFT,		"cpp"},
-	{TEXT("asn1"),			TEXT("ASN.1"),				TEXT("Abstract Syntax Notation One file"),				L_ASN1,			"asn1"},
-	{TEXT("avs"),			TEXT("AviSynth"),			TEXT("AviSynth scripts files"),							L_AVS,			"avs"},
-	{TEXT("blitzbasic"),	TEXT("BlitzBasic"),			TEXT("BlitzBasic file"),								L_BLITZBASIC,	"blitzbasic"},
-	{TEXT("purebasic"),		TEXT("PureBasic"),			TEXT("PureBasic file"),									L_PUREBASIC,	"purebasic"},
-	{TEXT("freebasic"),		TEXT("FreeBasic"),			TEXT("FreeBasic file"),									L_FREEBASIC,	"freebasic"},
-	{TEXT("csound"),		TEXT("Csound"),				TEXT("Csound file"),									L_CSOUND,		"csound"},
-	{TEXT("erlang"),		TEXT("Erlang"),				TEXT("Erlang file"),									L_ERLANG,		"erlang"},
-	{TEXT("escript"),		TEXT("ESCRIPT"),			TEXT("ESCRIPT file"),									L_ESCRIPT,		"escript"},
-	{TEXT("forth"),			TEXT("Forth"),				TEXT("Forth file"),										L_FORTH,		"forth"},
-	{TEXT("latex"),			TEXT("LaTeX"),				TEXT("LaTeX file"),										L_LATEX,		"latex"},
-	{TEXT("mmixal"),		TEXT("MMIXAL"),				TEXT("MMIXAL file"),									L_MMIXAL,		"mmixal"},
-	{TEXT("nim"),			TEXT("Nim"),				TEXT("Nim file"),										L_NIM,			"nimrod"},
-	{TEXT("nncrontab"),		TEXT("Nncrontab"),			TEXT("extended crontab file"),							L_NNCRONTAB,	"nncrontab"},
-	{TEXT("oscript"),		TEXT("OScript"),			TEXT("OScript source file"),							L_OSCRIPT,		"oscript"},
-	{TEXT("rebol"),			TEXT("REBOL"),				TEXT("REBOL file"),										L_REBOL,		"rebol"},
-	{TEXT("registry"),		TEXT("registry"),			TEXT("registry file"),									L_REGISTRY,		"registry"},
-	{TEXT("rust"),			TEXT("Rust"),				TEXT("Rust file"),										L_RUST,			"rust"},
-	{TEXT("spice"),			TEXT("Spice"),				TEXT("spice file"),										L_SPICE,		"spice"},
-	{TEXT("txt2tags"),		TEXT("txt2tags"),			TEXT("txt2tags file"),									L_TXT2TAGS,		"txt2tags"},
-	{TEXT("visualprolog"),	TEXT("Visual Prolog"),		TEXT("Visual Prolog file"),								L_VISUALPROLOG,	"visualprolog"},
-	{TEXT("typescript"),	TEXT("TypeScript"),			TEXT("TypeScript file"),								L_TYPESCRIPT,	"cpp"},
-	{TEXT("json5"),			TEXT("json5"),				TEXT("JSON5 file"),										L_JSON5,		"json"},
-	{TEXT("mssql"),			TEXT("mssql"),				TEXT("Microsoft Transact-SQL (SQL Server) file"),		L_MSSQL,		"mssql"},
-	{TEXT("gdscript"),		TEXT("GDScript"),			TEXT("GDScript file"),									L_GDSCRIPT,		"gdscript"},
-	{TEXT("hollywood"),		TEXT("Hollywood"),			TEXT("Hollywood script"),								L_HOLLYWOOD,	"hollywood"},
-	{TEXT("go"),			TEXT("Go"),					TEXT("Go source file"),									L_GOLANG,		"cpp"},
-	{TEXT("raku"),			TEXT("Raku"),				TEXT("Raku source file"),								L_RAKU,			"raku"},
-	{TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		"null"}
+	{L"normal",           L"Normal text",            L"Normal text file",                                  L_TEXT,            "null"},
+	{L"php",              L"PHP",                    L"PHP Hypertext Preprocessor file",                   L_PHP,             "phpscript"},
+	{L"c",                L"C",                      L"C source file",                                     L_C,               "cpp"},
+	{L"cpp",              L"C++",                    L"C++ source file",                                   L_CPP,             "cpp"},
+	{L"cs",               L"C#",                     L"C# source file",                                    L_CS,              "cpp"},
+	{L"objc",             L"Objective-C",            L"Objective-C source file",                           L_OBJC,            "objc"},
+	{L"java",             L"Java",                   L"Java source file",                                  L_JAVA,            "cpp"},
+	{L"rc",               L"RC",                     L"Windows Resource file",                             L_RC,              "cpp"},
+	{L"html",             L"HTML",                   L"Hyper Text Markup Language file",                   L_HTML,            "hypertext"},
+	{L"xml",              L"XML",                    L"eXtensible Markup Language file",                   L_XML,             "xml"},
+	{L"makefile",         L"Makefile",               L"Makefile",                                          L_MAKEFILE,        "makefile"},
+	{L"pascal",           L"Pascal",                 L"Pascal source file",                                L_PASCAL,          "pascal"},
+	{L"batch",            L"Batch",                  L"Batch file",                                        L_BATCH,           "batch"},
+	{L"ini",              L"ini",                    L"MS ini file",                                       L_INI,             "props"},
+	{L"nfo",              L"NFO",                    L"MSDOS Style/ASCII Art",                             L_ASCII,           "null"},
+	{L"udf",              L"udf",                    L"User Defined language file",                        L_USER,            "user"},
+	{L"asp",              L"ASP",                    L"Active Server Pages script file",                   L_ASP,             "hypertext"},
+	{L"sql",              L"SQL",                    L"Structured Query Language file",                    L_SQL,             "sql"},
+	{L"vb",               L"Visual Basic",           L"Visual Basic file",                                 L_VB,              "vb"},
+	{L"javascript",       L"JavaScript",             L"JavaScript file",                                   L_JS,              "cpp"},
+	{L"css",              L"CSS",                    L"Cascade Style Sheets File",                         L_CSS,             "css"},
+	{L"perl",             L"Perl",                   L"Perl source file",                                  L_PERL,            "perl"},
+	{L"python",           L"Python",                 L"Python file",                                       L_PYTHON,          "python"},
+	{L"lua",              L"Lua",                    L"Lua source File",                                   L_LUA,             "lua"},
+	{L"tex",              L"TeX",                    L"TeX file",                                          L_TEX,             "tex"},
+	{L"fortran",          L"Fortran free form",      L"Fortran free form source file",                     L_FORTRAN,         "fortran"},
+	{L"bash",             L"Shell",                  L"Unix script file",                                  L_BASH,            "bash"},
+	{L"actionscript",     L"ActionScript",           L"Flash ActionScript file",                           L_FLASH,           "cpp"},
+	{L"nsis",             L"NSIS",                   L"Nullsoft Scriptable Install System script file",    L_NSIS,            "nsis"},
+	{L"tcl",              L"TCL",                    L"Tool Command Language file",                        L_TCL,             "tcl"},
+	{L"lisp",             L"Lisp",                   L"List Processing language file",                     L_LISP,            "lisp"},
+	{L"scheme",           L"Scheme",                 L"Scheme file",                                       L_SCHEME,          "lisp"},
+	{L"asm",              L"Assembly",               L"Assembly language source file",                     L_ASM,             "asm"},
+	{L"diff",             L"Diff",                   L"Diff file",                                         L_DIFF,            "diff"},
+	{L"props",            L"Properties file",        L"Properties file",                                   L_PROPS,           "props"},
+	{L"postscript",       L"PostScript",             L"PostScript file",                                   L_PS,              "ps"},
+	{L"ruby",             L"Ruby",                   L"Ruby file",                                         L_RUBY,            "ruby"},
+	{L"smalltalk",        L"Smalltalk",              L"Smalltalk file",                                    L_SMALLTALK,       "smalltalk"},
+	{L"vhdl",             L"VHDL",                   L"VHSIC Hardware Description Language file",          L_VHDL,            "vhdl"},
+	{L"kix",              L"KiXtart",                L"KiXtart file",                                      L_KIX,             "kix"},
+	{L"autoit",           L"AutoIt",                 L"AutoIt",                                            L_AU3,             "au3"},
+	{L"caml",             L"CAML",                   L"Categorical Abstract Machine Language",             L_CAML,            "caml"},
+	{L"ada",              L"Ada",                    L"Ada file",                                          L_ADA,             "ada"},
+	{L"verilog",          L"Verilog",                L"Verilog file",                                      L_VERILOG,         "verilog"},
+	{L"matlab",           L"MATLAB",                 L"MATrix LABoratory",                                 L_MATLAB,          "matlab"},
+	{L"haskell",          L"Haskell",                L"Haskell",                                           L_HASKELL,         "haskell"},
+	{L"inno",             L"Inno Setup",             L"Inno Setup script",                                 L_INNO,            "inno"},
+	{L"searchResult",     L"Internal Search",        L"Internal Search",                                   L_SEARCHRESULT,    "searchResult"},
+	{L"cmake",            L"CMake",                  L"CMake file",                                        L_CMAKE,           "cmake"},
+	{L"yaml",             L"YAML",                   L"YAML Ain't Markup Language",                        L_YAML,            "yaml"},
+	{L"cobol",            L"COBOL",                  L"COmmon Business Oriented Language",                 L_COBOL,           "COBOL"},
+	{L"gui4cli",          L"Gui4Cli",                L"Gui4Cli file",                                      L_GUI4CLI,         "gui4cli"},
+	{L"d",                L"D",                      L"D programming language",                            L_D,               "d"},
+	{L"powershell",       L"PowerShell",             L"Windows PowerShell",                                L_POWERSHELL,      "powershell"},
+	{L"r",                L"R",                      L"R programming language",                            L_R,               "r"},
+	{L"jsp",              L"JSP",                    L"JavaServer Pages script file",                      L_JSP,             "hypertext"},
+	{L"coffeescript",     L"CoffeeScript",           L"CoffeeScript file",                                 L_COFFEESCRIPT,    "coffeescript"},
+	{L"json",             L"json",                   L"JSON file",                                         L_JSON,            "json"},
+	{L"javascript.js",    L"JavaScript",             L"JavaScript file",                                   L_JAVASCRIPT,      "cpp"},
+	{L"fortran77",        L"Fortran fixed form",     L"Fortran fixed form source file",                    L_FORTRAN_77,      "f77"},
+	{L"baanc",            L"BaanC",                  L"BaanC File",                                        L_BAANC,           "baan"},
+	{L"srec",             L"S-Record",               L"Motorola S-Record binary data",                     L_SREC,            "srec"},
+	{L"ihex",             L"Intel HEX",              L"Intel HEX binary data",                             L_IHEX,            "ihex"},
+	{L"tehex",            L"Tektronix extended HEX", L"Tektronix extended HEX binary data",                L_TEHEX,           "tehex"},
+	{L"swift",            L"Swift",                  L"Swift file",                                        L_SWIFT,           "cpp"},
+	{L"asn1",             L"ASN.1",                  L"Abstract Syntax Notation One file",                 L_ASN1,            "asn1"},
+	{L"avs",              L"AviSynth",               L"AviSynth scripts files",                            L_AVS,             "avs"},
+	{L"blitzbasic",       L"BlitzBasic",             L"BlitzBasic file",                                   L_BLITZBASIC,      "blitzbasic"},
+	{L"purebasic",        L"PureBasic",              L"PureBasic file",                                    L_PUREBASIC,       "purebasic"},
+	{L"freebasic",        L"FreeBasic",              L"FreeBasic file",                                    L_FREEBASIC,       "freebasic"},
+	{L"csound",           L"Csound",                 L"Csound file",                                       L_CSOUND,          "csound"},
+	{L"erlang",           L"Erlang",                 L"Erlang file",                                       L_ERLANG,          "erlang"},
+	{L"escript",          L"ESCRIPT",                L"ESCRIPT file",                                      L_ESCRIPT,         "escript"},
+	{L"forth",            L"Forth",                  L"Forth file",                                        L_FORTH,           "forth"},
+	{L"latex",            L"LaTeX",                  L"LaTeX file",                                        L_LATEX,           "latex"},
+	{L"mmixal",           L"MMIXAL",                 L"MMIXAL file",                                       L_MMIXAL,          "mmixal"},
+	{L"nim",              L"Nim",                    L"Nim file",                                          L_NIM,             "nimrod"},
+	{L"nncrontab",        L"Nncrontab",              L"extended crontab file",                             L_NNCRONTAB,       "nncrontab"},
+	{L"oscript",          L"OScript",                L"OScript source file",                               L_OSCRIPT,         "oscript"},
+	{L"rebol",            L"REBOL",                  L"REBOL file",                                        L_REBOL,           "rebol"},
+	{L"registry",         L"registry",               L"registry file",                                     L_REGISTRY,        "registry"},
+	{L"rust",             L"Rust",                   L"Rust file",                                         L_RUST,            "rust"},
+	{L"spice",            L"Spice",                  L"spice file",                                        L_SPICE,           "spice"},
+	{L"txt2tags",         L"txt2tags",               L"txt2tags file",                                     L_TXT2TAGS,        "txt2tags"},
+	{L"visualprolog",     L"Visual Prolog",          L"Visual Prolog file",                                L_VISUALPROLOG,    "visualprolog"},
+	{L"typescript",       L"TypeScript",             L"TypeScript file",                                   L_TYPESCRIPT,      "cpp"},
+	{L"json5",            L"json5",                  L"JSON5 file",                                        L_JSON5,           "json"},
+	{L"mssql",            L"mssql",                  L"Microsoft Transact-SQL (SQL Server) file",          L_MSSQL,           "mssql"},
+	{L"gdscript",         L"GDScript",               L"GDScript file",                                     L_GDSCRIPT,        "gdscript"},
+	{L"hollywood",        L"Hollywood",              L"Hollywood script",                                  L_HOLLYWOOD,       "hollywood"},
+	{L"go",               L"Go",                     L"Go source file",                                    L_GOLANG,          "cpp"},
+	{L"raku",             L"Raku",                   L"Raku source file",                                  L_RAKU,            "raku"},
+	{L"ext",              L"External",               L"External",                                          L_EXTERNAL,        "null"}
 };
 
 
@@ -198,8 +198,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	Window::init(hInst, hPere);
 	_hSelf = ::CreateWindowEx(
 					0,\
-					TEXT("Scintilla"),\
-					TEXT("Notepad++"),\
+					L"Scintilla",\
+					L"Notepad++",\
 					WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN | WS_EX_RTLREADING,\
 					0, 0, 100, 100,\
 					_hParent,\
@@ -467,7 +467,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				{
 					// convert the selection to Unicode, and store it at the end of the structure.
 					// Beware: For a Unicode IME, dwStrLen , dwCompStrLen, and dwTargetStrLen
-					// are TCHAR values, that is, character counts. The members dwStrOffset,
+					// are wchar_t values, that is, character counts. The members dwStrOffset,
 					// dwCompStrOffset, and dwTargetStrOffset specify byte counts.
 
 					textLength = ::MultiByteToWideChar(	codepage, 0,
@@ -738,7 +738,7 @@ void ScintillaEditView::setStyle(Style styleToSet)
 
 	if (go.isEnable())
 	{
-		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByName(TEXT("Global override"));
+		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByName(L"Global override");
 		if (pStyle)
 		{
 			if (go.enableFg)
@@ -814,7 +814,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 		setLexerFromLangID(L_XML);
 		
 		for (int i = 0 ; i < 4 ; ++i)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(L""));
 
         makeStyle(type);
 
@@ -838,7 +838,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 
 void ScintillaEditView::setHTMLLexer()
 {
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_HTML, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -853,7 +853,7 @@ void ScintillaEditView::setHTMLLexer()
 
 void ScintillaEditView::setEmbeddedJSLexer()
 {
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_JS, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -873,7 +873,7 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 {
 	setLexerFromLangID(isJson5 ? L_JSON5 : L_JSON);
 
-	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	const wchar_t *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 	makeStyle(L_JSON, pKwArray);
 
@@ -905,7 +905,7 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 
 void ScintillaEditView::setEmbeddedPhpLexer()
 {
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_PHP, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -923,7 +923,7 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 
 void ScintillaEditView::setEmbeddedAspLexer()
 {
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_ASP, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -940,7 +940,7 @@ void ScintillaEditView::setEmbeddedAspLexer()
     execute(SCI_STYLESETEOLFILLED, SCE_HBA_DEFAULT, true);
 }
 
-void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
+void ScintillaEditView::setUserLexer(const wchar_t *userLangName)
 {
 	int setKeywordsCounter = 0;
 	setLexerFromLangID(L_USER);
@@ -1049,7 +1049,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.decimalSeparator"), reinterpret_cast<LPARAM>(intBuffer));
 
 	// at the end (position SCE_USER_KWLIST_TOTAL) send id values
-	sprintf(intBuffer, "%" PRIuPTR, reinterpret_cast<uintptr_t>(userLangContainer->getName())); // use numeric value of TCHAR pointer
+	sprintf(intBuffer, "%" PRIuPTR, reinterpret_cast<uintptr_t>(userLangContainer->getName())); // use numeric value of wchar_t pointer
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.udlName"), reinterpret_cast<LPARAM>(intBuffer));
 
 	sprintf(intBuffer, "%" PRIuPTR, reinterpret_cast<uintptr_t>(_currentBufferID)); // use numeric value of BufferID pointer
@@ -1110,7 +1110,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
     const char *cppInstrs;
     const char *cppTypes;
     const char *cppGlobalclass;
-    const TCHAR *doxygenKeyWords  = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+    const wchar_t *doxygenKeyWords  = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
     setLexerFromLangID(L_CPP);
 
@@ -1124,7 +1124,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 		}
     }
 
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(langType, pKwArray);
 
 	basic_string<char> keywordListInstruction("");
@@ -1169,10 +1169,10 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 void ScintillaEditView::setJsLexer()
 {
-	const TCHAR *doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+	const wchar_t *doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
 	setLexerFromLangID(L_JAVASCRIPT);
-	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	const wchar_t *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 	makeStyle(L_JAVASCRIPT, pKwArray);
 
 	if (doxygenKeyWords)
@@ -1182,7 +1182,7 @@ void ScintillaEditView::setJsLexer()
 		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
 	}
 
-	const TCHAR *newLexerName = ScintillaEditView::_langNameInfoArray[L_JAVASCRIPT]._langName;
+	const wchar_t *newLexerName = ScintillaEditView::_langNameInfoArray[L_JAVASCRIPT]._langName;
 	LexerStyler *pNewStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(newLexerName);
 	if (pNewStyler) // New js styler is available, so we can use it do more modern styling
 	{
@@ -1222,7 +1222,7 @@ void ScintillaEditView::setJsLexer()
 	}
 	else // New js styler is not available, we use the old styling for the sake of retro-compatibility
 	{
-		const TCHAR *lexerName = ScintillaEditView::_langNameInfoArray[L_JS]._langName;
+		const wchar_t *lexerName = ScintillaEditView::_langNameInfoArray[L_JS]._langName;
 		LexerStyler *pOldStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 
 		if (pOldStyler)
@@ -1288,7 +1288,7 @@ void ScintillaEditView::setTclLexer()
 
 	setLexerFromLangID(L_TCL);
 
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_TCL, pKwArray);
 
 	basic_string<char> keywordListInstruction("");
@@ -1315,7 +1315,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 {
 	setLexerFromLangID(L_OBJC);
 
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 	makeStyle(langType, pKwArray);
 
@@ -1351,7 +1351,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 
 
 	basic_string<char> doxygenKeyWordsString("");
-	const TCHAR *doxygenKeyWordsW = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+	const wchar_t *doxygenKeyWordsW = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 	if (doxygenKeyWordsW)
 	{
 		doxygenKeyWordsString = wstring2string(doxygenKeyWordsW, CP_ACP);
@@ -1374,7 +1374,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 
 void ScintillaEditView::setTypeScriptLexer()
 {
-	const TCHAR* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
+	const wchar_t* doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 	setLexerFromLangID(L_TYPESCRIPT);
 
 	if (doxygenKeyWords)
@@ -1384,7 +1384,7 @@ void ScintillaEditView::setTypeScriptLexer()
 		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
 	}
 
-	const TCHAR* pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	const wchar_t* pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 	makeStyle(L_TYPESCRIPT, pKwArray);
 
 	auto getKeywordList = [&pKwArray](const int i) 
@@ -1428,7 +1428,7 @@ void ScintillaEditView::setLexer(LangType langType, int whichList)
 {
 	setLexerFromLangID(langType);
 
-	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 	makeStyle(langType, pKwArray);
 
@@ -1493,9 +1493,9 @@ void ScintillaEditView::setLexer(LangType langType, int whichList)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
 }
 
-void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
+void ScintillaEditView::makeStyle(LangType language, const wchar_t **keywordArray)
 {
-	const TCHAR * lexerName = ScintillaEditView::_langNameInfoArray[language]._langName;
+	const wchar_t * lexerName = ScintillaEditView::_langNameInfoArray[language]._langName;
 	LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
@@ -1572,7 +1572,7 @@ void ScintillaEditView::setCRLF(long color)
 	if (color == -1)
 	{
 		StyleArray& stylers = nppParams.getMiscStylerArray();
-		Style* pStyle = stylers.findByName(TEXT("EOL custom color"));
+		Style* pStyle = stylers.findByName(L"EOL custom color");
 		if (pStyle)
 		{
 			eolCustomColor = pStyle->_fgColor;
@@ -1786,7 +1786,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			setPropsLexer(false); break;
 
 		case L_USER : {
-			const TCHAR * langExt = _currentBuffer->getUserDefineLangName();
+			const wchar_t * langExt = _currentBuffer->getUserDefineLangName();
 			if (langExt[0])
 				setUserLexer(langExt);
 			else
@@ -1795,16 +1795,16 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
         case L_ASCII :
 		{
-			LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(TEXT("nfo"));
+			LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(L"nfo");
 
 			Style nfoStyle;
 			nfoStyle._styleID = STYLE_DEFAULT;
-			nfoStyle._fontName = TEXT("Lucida Console");
+			nfoStyle._fontName = L"Lucida Console";
 			nfoStyle._fontSize = 10;
 
 			if (pStyler)
 			{
-				const Style * pStyle = pStyler->findByName(TEXT("DEFAULT"));
+				const Style * pStyle = pStyler->findByName(L"DEFAULT");
 				if (pStyle)
 				{
 					nfoStyle._bgColor = pStyle->_bgColor;
@@ -2543,43 +2543,43 @@ void ScintillaEditView::getText(char *dest, size_t start, size_t end) const
 	execute(SCI_GETTEXTRANGEFULL, 0, reinterpret_cast<LPARAM>(&tr));
 }
 
-generic_string ScintillaEditView::getGenericTextAsString(size_t start, size_t end) const
+wstring ScintillaEditView::getGenericTextAsString(size_t start, size_t end) const
 {
 	assert(end > start);
 	const size_t bufSize = end - start + 1;
-	TCHAR *buf = new TCHAR[bufSize];
+	wchar_t *buf = new wchar_t[bufSize];
 	getGenericText(buf, bufSize, start, end);
-	generic_string text = buf;
+	wstring text = buf;
 	delete[] buf;
 	return text;
 }
 
-void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const
+void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
 	getText(destA, start, end);
 	size_t cp = execute(SCI_GETCODEPAGE);
-	const TCHAR *destW = wmc.char2wchar(destA, cp);
+	const wchar_t *destW = wmc.char2wchar(destA, cp);
 	wcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
 
 // "mstart" and "mend" are pointers to indexes in the read string,
-// which are converted to the corresponding indexes in the returned TCHAR string.
+// which are converted to the corresponding indexes in the returned wchar_t string.
 
-void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const
+void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
 	getText(destA, start, end);
 	size_t cp = execute(SCI_GETCODEPAGE)    ;
-	const TCHAR *destW = wmc.char2wchar(destA, cp, mstart, mend);
+	const wchar_t *destW = wmc.char2wchar(destA, cp, mstart, mend);
 	wcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
 
-void ScintillaEditView::insertGenericTextFrom(size_t position, const TCHAR *text2insert) const
+void ScintillaEditView::insertGenericTextFrom(size_t position, const wchar_t *text2insert) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2633,14 +2633,14 @@ char * ScintillaEditView::getWordOnCaretPos(char * txt, size_t size)
     return getWordFromRange(txt, size, range.first, range.second);
 }
 
-TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
+wchar_t * ScintillaEditView::getGenericWordOnCaretPos(wchar_t * txt, int size)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
 	char *txtA = new char[size + 1];
 	getWordOnCaretPos(txtA, size);
 
-	const TCHAR * txtW = wmc.char2wchar(txtA, cp);
+	const wchar_t * txtW = wmc.char2wchar(txtA, cp);
 	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
@@ -2664,20 +2664,20 @@ char * ScintillaEditView::getSelectedText(char * txt, size_t size, bool expand)
 	return getWordFromRange(txt, size, range.cpMin, range.cpMax);
 }
 
-TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool expand)
+wchar_t * ScintillaEditView::getGenericSelectedText(wchar_t * txt, int size, bool expand)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
 	char *txtA = new char[size + 1];
 	getSelectedText(txtA, size, expand);
 
-	const TCHAR * txtW = wmc.char2wchar(txtA, cp);
+	const wchar_t * txtW = wmc.char2wchar(txtA, cp);
 	wcscpy_s(txt, size, txtW);
 	delete [] txtA;
 	return txt;
 }
 
-intptr_t ScintillaEditView::searchInTarget(const TCHAR * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const
+intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const
 {
 	execute(SCI_SETTARGETRANGE, fromPos, toPos);
 
@@ -2689,7 +2689,7 @@ intptr_t ScintillaEditView::searchInTarget(const TCHAR * text2Find, size_t lenOf
 	return execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA));
 }
 
-void ScintillaEditView::appandGenericText(const TCHAR * text2Append) const
+void ScintillaEditView::appandGenericText(const wchar_t * text2Append) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2697,7 +2697,7 @@ void ScintillaEditView::appandGenericText(const TCHAR * text2Append) const
 	execute(SCI_APPENDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
-void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
+void ScintillaEditView::addGenericText(const wchar_t * text2Append) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2705,7 +2705,7 @@ void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
 	execute(SCI_ADDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
-void ScintillaEditView::addGenericText(const TCHAR * text2Append, intptr_t* mstart, intptr_t* mend) const
+void ScintillaEditView::addGenericText(const wchar_t * text2Append, intptr_t* mstart, intptr_t* mend) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2713,7 +2713,7 @@ void ScintillaEditView::addGenericText(const TCHAR * text2Append, intptr_t* msta
 	execute(SCI_ADDTEXT, strlen(text2AppendA), reinterpret_cast<LPARAM>(text2AppendA));
 }
 
-intptr_t ScintillaEditView::replaceTarget(const TCHAR * str2replace, intptr_t fromTargetPos, intptr_t toTargetPos) const
+intptr_t ScintillaEditView::replaceTarget(const wchar_t * str2replace, intptr_t fromTargetPos, intptr_t toTargetPos) const
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
@@ -2725,7 +2725,7 @@ intptr_t ScintillaEditView::replaceTarget(const TCHAR * str2replace, intptr_t fr
 	return execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(str2replaceA));
 }
 
-intptr_t ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, intptr_t fromTargetPos, intptr_t toTargetPos) const
+intptr_t ScintillaEditView::replaceTargetRegExMode(const wchar_t * re, intptr_t fromTargetPos, intptr_t toTargetPos) const
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
@@ -2737,7 +2737,7 @@ intptr_t ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, intptr_t fr
 	return execute(SCI_REPLACETARGETRE, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(reA));
 }
 
-void ScintillaEditView::showAutoComletion(size_t lenEntered, const TCHAR* list)
+void ScintillaEditView::showAutoComletion(size_t lenEntered, const wchar_t* list)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2746,7 +2746,7 @@ void ScintillaEditView::showAutoComletion(size_t lenEntered, const TCHAR* list)
 	NppDarkMode::setDarkAutoCompletion();
 }
 
-void ScintillaEditView::showCallTip(size_t startPos, const TCHAR * def)
+void ScintillaEditView::showCallTip(size_t startPos, const wchar_t * def)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2754,16 +2754,16 @@ void ScintillaEditView::showCallTip(size_t startPos, const TCHAR * def)
 	execute(SCI_CALLTIPSHOW, startPos, reinterpret_cast<LPARAM>(defA));
 }
 
-generic_string ScintillaEditView::getLine(size_t lineNumber)
+wstring ScintillaEditView::getLine(size_t lineNumber)
 {
 	size_t lineLen = execute(SCI_LINELENGTH, lineNumber);
 	const size_t bufSize = lineLen + 1;
-	std::unique_ptr<TCHAR[]> buf = std::make_unique<TCHAR[]>(bufSize);
+	std::unique_ptr<wchar_t[]> buf = std::make_unique<wchar_t[]>(bufSize);
 	getLine(lineNumber, buf.get(), bufSize);
 	return buf.get();
 }
 
-void ScintillaEditView::getLine(size_t lineNumber, TCHAR * line, size_t lineBufferLen)
+void ScintillaEditView::getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen)
 {
 	// make sure the buffer length is enough to get the whole line
 	size_t lineLen = execute(SCI_LINELENGTH, lineNumber);
@@ -2777,7 +2777,7 @@ void ScintillaEditView::getLine(size_t lineNumber, TCHAR * line, size_t lineBuff
 	memset(lineA, 0x0, sizeof(char) * lineBufferLen);
 	
 	execute(SCI_GETLINE, lineNumber, reinterpret_cast<LPARAM>(lineA));
-	const TCHAR *lineW = wmc.char2wchar(lineA, cp);
+	const wchar_t *lineW = wmc.char2wchar(lineA, cp);
 	lstrcpyn(line, lineW, static_cast<int>(lineBufferLen));
 	delete [] lineA;
 }
@@ -2941,7 +2941,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	if (svp._currentLineHiliteMode != LINEHILITE_NONE)
 	{
-		pStyle = stylers.findByName(TEXT("Current line background colour"));
+		pStyle = stylers.findByName(L"Current line background colour");
 		if (pStyle)
 		{
 			setElementColour(SC_ELEMENT_CARET_LINE_BACK, pStyle->_bgColor);
@@ -2952,7 +2952,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF selectColorBack = grey;
 	COLORREF selectColorFore = black;
-	pStyle = stylers.findByName(TEXT("Selected text colour"));
+	pStyle = stylers.findByName(L"Selected text colour");
 	if (pStyle)
 	{
 		selectColorBack = pStyle->_bgColor;
@@ -2964,7 +2964,7 @@ void ScintillaEditView::performGlobalStyles()
 
 
 	COLORREF selectMultiSelectColorBack = liteGrey;
-	pStyle = stylers.findByName(TEXT("Multi-selected text color"));
+	pStyle = stylers.findByName(L"Multi-selected text color");
 	if (pStyle)
 	{
 		selectMultiSelectColorBack = pStyle->_bgColor;
@@ -2997,7 +2997,7 @@ void ScintillaEditView::performGlobalStyles()
 	setElementColour(SC_ELEMENT_CARET_ADDITIONAL, multiEditCaretColor);
 
 	COLORREF edgeColor = liteGrey;
-	pStyle = stylers.findByName(TEXT("Edge colour"));
+	pStyle = stylers.findByName(L"Edge colour");
 	if (pStyle)
 	{
 		edgeColor = pStyle->_fgColor;
@@ -3007,7 +3007,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF foldMarginColor = grey;
 	COLORREF foldMarginHiColor = white;
-	pStyle = stylers.findByName(TEXT("Fold margin"));
+	pStyle = stylers.findByName(L"Fold margin");
 	if (pStyle)
 	{
 		foldMarginHiColor = pStyle->_fgColor;
@@ -3017,10 +3017,10 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETFOLDMARGINHICOLOUR, true, foldMarginHiColor);
 
 	COLORREF bookmarkMarginColor = veryLiteGrey;
-	pStyle = stylers.findByName(TEXT("Bookmark margin"));
+	pStyle = stylers.findByName(L"Bookmark margin");
 	if (!pStyle)
 	{
-		pStyle = stylers.findByName(TEXT("Line number margin")); // "Line number margin" is used only for getting the bg color for _SC_MARGE_SYMBOL.
+		pStyle = stylers.findByName(L"Line number margin"); // "Line number margin" is used only for getting the bg color for _SC_MARGE_SYMBOL.
 		if (pStyle)                                              // "Line number margin" has its own style (styleID="33") for setting its bg & fg color
 		{
 			bookmarkMarginColor = pStyle->_bgColor;
@@ -3034,10 +3034,10 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETMARGINBACKN, _SC_MARGE_SYMBOL, bookmarkMarginColor);
 
 	COLORREF changeHistoryMarginColor = veryLiteGrey;
-	pStyle = stylers.findByName(TEXT("Change History margin"));
+	pStyle = stylers.findByName(L"Change History margin");
 	if (!pStyle)
 	{
-		pStyle = stylers.findByName(TEXT("Line number margin"));
+		pStyle = stylers.findByName(L"Line number margin");
 		if (pStyle)
 		{
 			changeHistoryMarginColor = pStyle->_bgColor;
@@ -3052,7 +3052,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF changeModifiedfgColor = orange;
 	COLORREF changeModifiedbgColor = orange;
-	pStyle = stylers.findByName(TEXT("Change History modified"));
+	pStyle = stylers.findByName(L"Change History modified");
 	if (pStyle)
 	{
 		changeModifiedfgColor = pStyle->_fgColor;
@@ -3065,7 +3065,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF changeRevertModifiedfgColor = yellowGreen;
 	COLORREF changeRevertModifiedbgColor = yellowGreen;
-	pStyle = stylers.findByName(TEXT("Change History revert modified"));
+	pStyle = stylers.findByName(L"Change History revert modified");
 	if (pStyle)
 	{
 		changeRevertModifiedfgColor = pStyle->_fgColor;
@@ -3078,7 +3078,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF changeRevertOriginfgColor = darkCyan;
 	COLORREF changeRevertOriginbgColor = darkCyan;
-	pStyle = stylers.findByName(TEXT("Change History revert origin"));
+	pStyle = stylers.findByName(L"Change History revert origin");
 	if (pStyle)
 	{
 		changeRevertOriginfgColor = pStyle->_fgColor;
@@ -3091,7 +3091,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF changeSavedfgColor = midGreen;
 	COLORREF changeSavedbgColor = midGreen;
-	pStyle = stylers.findByName(TEXT("Change History saved"));
+	pStyle = stylers.findByName(L"Change History saved");
 	if (pStyle)
 	{
 		changeSavedfgColor = pStyle->_fgColor;
@@ -3103,7 +3103,7 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_INDICSETFORE, INDICATOR_HISTORY_SAVED_DELETION, changeSavedfgColor);
 
 	COLORREF urlHoveredFG = grey;
-	pStyle = stylers.findByName(TEXT("URL hovered"));
+	pStyle = stylers.findByName(L"URL hovered");
 	if (pStyle)
 	{
 		urlHoveredFG = pStyle->_fgColor;
@@ -3119,7 +3119,7 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_MARKERENABLEHIGHLIGHT, true);
 
 	COLORREF wsSymbolFgColor = black;
-	pStyle = stylers.findByName(TEXT("White space symbol"));
+	pStyle = stylers.findByName(L"White space symbol");
 	if (pStyle)
 	{
 		wsSymbolFgColor = pStyle->_fgColor;
@@ -3127,7 +3127,7 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETWHITESPACEFORE, true, wsSymbolFgColor);
 
 	COLORREF eolCustomColor = liteGrey;
-	pStyle = stylers.findByName(TEXT("EOL custom color"));
+	pStyle = stylers.findByName(L"EOL custom color");
 	if (pStyle)
 	{
 		eolCustomColor = pStyle->_fgColor;
@@ -3365,7 +3365,7 @@ void ScintillaEditView::updateLineNumberWidth()
 const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
 {
 	kwl += " ";
-	const TCHAR *defKwl_generic = NppParameters::getInstance().getWordList(langType, keywordIndex);
+	const wchar_t *defKwl_generic = NppParameters::getInstance().getWordList(langType, keywordIndex);
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	const char * defKwl = wmc.wchar2char(defKwl_generic, CP_ACP);
@@ -3691,7 +3691,7 @@ ColumnModeInfos ScintillaEditView::getColumnModeSelectInfo()
 	return columnModeInfos;
 }
 
-void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
+void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const wchar_t *str)
 {
 	intptr_t totalDiff = 0;
 	for (size_t i = 0, len = cmi.size(); i < len ; ++i)
@@ -4151,7 +4151,7 @@ void ScintillaEditView::setTabSettings(Lang* lang)
 
 void ScintillaEditView::insertNewLineAboveCurrentLine()
 {
-	generic_string newline = getEOLString();
+	wstring newline = getEOLString();
 	const auto current_line = getCurrentLineNumber();
 	if (current_line == 0)
 	{
@@ -4170,7 +4170,7 @@ void ScintillaEditView::insertNewLineAboveCurrentLine()
 
 void ScintillaEditView::insertNewLineBelowCurrentLine()
 {
-	generic_string newline = getEOLString();
+	wstring newline = getEOLString();
 	const auto line_count = execute(SCI_GETLINECOUNT);
 	const auto current_line = getCurrentLineNumber();
 	if (current_line == line_count - 1)
@@ -4196,8 +4196,8 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 
 	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
-	const generic_string text = getGenericTextAsString(startPos, endPos);
-	std::vector<generic_string> splitText;
+	const wstring text = getGenericTextAsString(startPos, endPos);
+	std::vector<wstring> splitText;
 	stringSplit(text, getEOLString(), splitText);
 	const size_t lineCount = execute(SCI_GETLINECOUNT);
 	const bool sortEntireDocument = toLine == lineCount - 1;
@@ -4210,7 +4210,7 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter* pSort
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
 	pSort->sort(splitText);
-	generic_string joined;
+	wstring joined;
 	stringJoin(splitText, getEOLString(), joined);
 
 	if (sortEntireDocument)
@@ -4248,8 +4248,8 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 		{
 			(nppParamInst.getNativeLangSpeaker())->messageBox("RTLvsDirectWrite",
 				getHSelf(),
-				TEXT("RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++."),
-				TEXT("Cannot run RTL"),
+				L"RTL is not compatible with Direct Write mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++.",
+				L"Cannot run RTL",
 				MB_OK | MB_APPLMODAL);
 
 			theWarningIsGiven = true;
@@ -4294,20 +4294,20 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 	buf->setRTL(isRTL);
 }
 
-generic_string ScintillaEditView::getEOLString() const
+wstring ScintillaEditView::getEOLString() const
 {
 	intptr_t eol_mode = execute(SCI_GETEOLMODE);
 	if (eol_mode == SC_EOL_CRLF)
 	{
-		return TEXT("\r\n");
+		return L"\r\n";
 	}
 	else if (eol_mode == SC_EOL_LF)
 	{
-		return TEXT("\n");
+		return L"\n";
 	}
 	else
 	{
-		return TEXT("\r");
+		return L"\r";
 	}
 }
 
@@ -4344,14 +4344,14 @@ void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLOR
 {
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();
 
-	const Style * pStyle = stylers.findByName(TEXT("Fold"));
+	const Style * pStyle = stylers.findByName(L"Fold");
 	if (pStyle)
 	{
 		fgColor = pStyle->_bgColor;
 		bgColor = pStyle->_fgColor;
 	}
 
-	pStyle = stylers.findByName(TEXT("Fold active"));
+	pStyle = stylers.findByName(L"Fold active");
 	if (pStyle)
 	{
 		activeFgColor = pStyle->_fgColor;
@@ -4453,10 +4453,10 @@ void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= fals
 	}
 
 	// vector of pairs: starting position of styled text, and styled text
-	std::vector<std::pair<size_t, generic_string>> styledVect;
+	std::vector<std::pair<size_t, wstring>> styledVect;
 
-	const generic_string cr = TEXT("\r");
-	const generic_string lf = TEXT("\n");
+	const wstring cr = L"\r";
+	const wstring lf = L"\n";
 
 	bool textContainsLineEndingChar = false;
 
@@ -4473,7 +4473,7 @@ void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= fals
 			{
 				if (atEndOfIndic)
 				{
-					generic_string styledText = getGenericTextAsString(prevPos, pos);
+					wstring styledText = getGenericTextAsString(prevPos, pos);
 					if (!textContainsLineEndingChar)
 					{
 						if (styledText.find(cr) != std::string::npos ||
@@ -4499,11 +4499,11 @@ void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= fals
 			std::sort(styledVect.begin(), styledVect.end());
 		}
 
-		const generic_string delim =
+		const wstring delim =
 			(textContainsLineEndingChar && styledVect.size() > 1) ?
-			TEXT("\r\n----\r\n") : TEXT("\r\n");
+			L"\r\n----\r\n" : L"\r\n";
 
-		generic_string joined;
+		wstring joined;
 		for (auto& item : styledVect)
 		{
 			joined += delim + item.second;
@@ -4511,7 +4511,7 @@ void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= fals
 		joined = joined.substr(delim.length());
 		if (styledVect.size() > 1)
 		{
-			joined += TEXT("\r\n");
+			joined += L"\r\n";
 		}
 
 		str2Clipboard(joined, NULL);
@@ -4552,8 +4552,8 @@ void ScintillaEditView::removeAnyDuplicateLines()
 
 	const auto startPos = execute(SCI_POSITIONFROMLINE, fromLine);
 	const auto endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
-	const generic_string text = getGenericTextAsString(startPos, endPos);
-	std::vector<generic_string> linesVect;
+	const wstring text = getGenericTextAsString(startPos, endPos);
+	std::vector<wstring> linesVect;
 	stringSplit(text, getEOLString(), linesVect);
 	const size_t lineCount = execute(SCI_GETLINECOUNT);
 
@@ -4570,7 +4570,7 @@ void ScintillaEditView::removeAnyDuplicateLines()
 	size_t newSize = vecRemoveDuplicates(linesVect);
 	if (origSize != newSize)
 	{
-		generic_string joined;
+		wstring joined;
 		stringJoin(linesVect, getEOLString(), joined);
 		if (!doingEntireDocument)
 		{
@@ -4590,7 +4590,7 @@ bool ScintillaEditView::pasteToMultiSelection() const
 		return false;
 
 	// "MSDEVColumnSelect" is column format from Scintilla 
-	CLIPFORMAT cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormat(TEXT("MSDEVColumnSelect")));
+	CLIPFORMAT cfColumnSelect = static_cast<CLIPFORMAT>(::RegisterClipboardFormat(L"MSDEVColumnSelect"));
 	if (!::IsClipboardFormatAvailable(cfColumnSelect) || !::OpenClipboard(NULL))
 		return false;
 
@@ -4608,7 +4608,7 @@ bool ScintillaEditView::pasteToMultiSelection() const
 		return false;
 	}
 
-	wstring clipboardStr = static_cast<const TCHAR*>(clipboardDataPtr);
+	wstring clipboardStr = static_cast<const wchar_t*>(clipboardDataPtr);
 	::GlobalUnlock(clipboardData);
 	::CloseClipboard();
 

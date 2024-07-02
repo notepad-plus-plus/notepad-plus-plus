@@ -266,7 +266,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	_hSelf = ::CreateWindowEx(
 		0,
 		STATUSCLASSNAME,
-		TEXT(""),
+		L"",
 		WS_CHILD | SBARS_SIZEGRIP ,
 		0, 0, 0, 0,
 		_hParent, nullptr, _hInst, 0);
@@ -344,7 +344,7 @@ void StatusBar::adjustParts(int clientWidth)
 }
 
 
-bool StatusBar::setText(const TCHAR* str, int whichPart)
+bool StatusBar::setText(const wchar_t* str, int whichPart)
 {
 	if ((size_t) whichPart < _partWidthArray.size())
 	{
@@ -360,7 +360,7 @@ bool StatusBar::setText(const TCHAR* str, int whichPart)
 }
 
 
-bool StatusBar::setOwnerDrawText(const TCHAR* str)
+bool StatusBar::setOwnerDrawText(const wchar_t* str)
 {
 	if (str != nullptr)
 		_lastSetText = str;

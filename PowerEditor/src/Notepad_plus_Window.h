@@ -18,7 +18,7 @@
 
 constexpr int splitterSize = 8;
 
-const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
+const wchar_t COMMAND_ARG_HELP[] = L"Usage :\r\
 \r\
 notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-monitor] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qn=\"Easter egg name\" | -qt=\"a text to display.\" | -qf=\"D:\\my quote.txt\"] [-qSpeed1|2|3] [-quickPrint] [-settingsDir=\"d:\\your settings dir\\\"] [-openFoldersAsWorkspace]  [-titleAdd=\"additional title bar text\"][filePath]\r\
 \r\
@@ -52,13 +52,13 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"] 
 -openFoldersAsWorkspace: open filePath of folder(s) as workspace\r\
 -titleAdd=\"string\": add string to Notepad++ title bar\r\
 filePath : file or folder name to open (absolute or relative path name)\r\
-");
+";
 
 
 class Notepad_plus_Window : public Window
 {
 public:
-	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
+	void init(HINSTANCE, HWND, const wchar_t *cmdLine, CmdLineParams *cmdLineParams);
 
 	bool isDlgsMsg(MSG *msg) const;
 
@@ -66,7 +66,7 @@ public:
 		return _notepad_plus_plus_core.getAccTable();
 	};
 
-	bool emergency(const generic_string& emergencySavedDir) {
+	bool emergency(const std::wstring& emergencySavedDir) {
 		return _notepad_plus_plus_core.emergency(emergencySavedDir);
 	};
 
@@ -78,7 +78,7 @@ public:
 		_isPrelaunch = val;
 	};
 
-	generic_string getPluginListVerStr() const {
+	std::wstring getPluginListVerStr() const {
 		return _notepad_plus_plus_core.getPluginListVerStr();
 	};
 
@@ -88,7 +88,7 @@ public:
 		::DestroyWindow(_hSelf);
 	};
 
-	static const TCHAR * getClassName() {
+	static const wchar_t * getClassName() {
 		return _className;
 	};
 
@@ -109,7 +109,7 @@ private:
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	static const TCHAR _className[32];
+	static constexpr wchar_t _className[32] = L"Notepad++";
 	bool _isPrelaunch = false;
 	bool _disablePluginsManager = false;
 

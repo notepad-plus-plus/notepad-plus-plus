@@ -820,15 +820,15 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	}
 }
 #else
-BufferID FileManager::loadFile( const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp )
+BufferID FileManager::loadFile( const wchar_t* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp )
 {
 	if ( !filename )
 		return BUFFER_INVALID;
 
 	//Get file size
 	std::int64_t fileSize = -1;
-	const TCHAR* pPath = filename;
-	if ( !::PathFileExists( pPath ) )
+	const wchar_t* pPath = filename;
+	if ( !::PathFileExistsW( pPath ) )
 	{
 		pPath = backupFileName;
 	}
@@ -865,7 +865,7 @@ BufferID FileManager::loadFile( const TCHAR* filename, Document doc, int encodin
 		ownDoc = true;
 	}
 
-	WCHAR fullpath[MAX_PATH] = { 0 };
+	wchar_t fullpath[MAX_PATH] = { 0 };
 	if ( isWin32NamespacePrefixedFileName( filename ) )
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
@@ -873,10 +873,10 @@ BufferID FileManager::loadFile( const TCHAR* filename, Document doc, int encodin
 	}
 	else
 	{
-		::GetFullPathName( filename, MAX_PATH, fullpath, NULL );
+		::GetFullPathNameW( filename, MAX_PATH, fullpath, NULL );
 		if ( wcschr( fullpath, '~' ) )
 		{
-			::GetLongPathName( fullpath, fullpath, MAX_PATH );
+			::GetLongPathNameW( fullpath, fullpath, MAX_PATH );
 		}
 	}
 

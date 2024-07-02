@@ -261,7 +261,7 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 }
 
 #ifndef MPP_USE_ORIGINAL_CODE
-LONGLONG GetFileLength( PCTSTR pszFileName )
+LONGLONG GetFileLength( PCWSTR pszFileName )
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes {};
 

@@ -61,5 +61,5 @@ private:
 
 
 #ifndef MPP_USE_ORIGINAL_CODE
-LONGLONG GetFileLength( PCTSTR pszFileName );
+LONGLONG GetFileLength( PCWSTR pszFileName );
 #endif

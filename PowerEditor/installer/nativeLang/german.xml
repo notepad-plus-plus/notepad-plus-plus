@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-06-16"><!-- basiert auf english.xml 8.6.8 vom 16.06.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-06-28"><!-- basiert auf english.xml 8.6.8 vom 16.06.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1115,7 +1115,7 @@ Translation note:
 					<Item id="6310" name="Einrückung verwendet:"/>
 					<Item id="6311" name="Tab Zeichen"/>
 					<Item id="6510" name="Standard verwenden"/>
-					<Item id="6512" name="Rückschritttaste entfernt Einrückungen, anstatt einzelne Leerzeichen zu entfernen"/>
+					<Item id="6512" name="Die Rücktaste U+232B entfernt Einrückungen statt einzelne Leerzeichen"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</Language>
 

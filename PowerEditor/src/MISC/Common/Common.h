@@ -279,7 +279,4 @@ private:
 	unsigned long _build = 0;
 };
 
-bool doesFileExist(const wchar_t* filePath){
-	DWORD dwAttrib = ::GetFileAttributesW(filePath);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
-}
+bool doesFileExist(const wchar_t* filePath);

@@ -1765,3 +1765,9 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 
 	return false;
 }
+
+bool doesFileExist(const wchar_t* filePath)
+{
+	DWORD dwAttrib = ::GetFileAttributesW(filePath);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.6.8:
+Updated to v8.6.9:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.6.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1079,6 +1079,13 @@ Updated to v8.6.8:
 					<Item id="7107" name="Фиолетовая"/>
 					<Item id="7108" name="Голубая"/>
 					<Item id="7109" name="Оливковая"/>
+
+					<Item id="7136" name="Красная"/>
+					<Item id="7137" name="Зелёная"/>
+					<Item id="7138" name="Синяя"/>
+					<Item id="7139" name="Фиолетовая"/>
+					<Item id="7140" name="Голубая"/>
+					<Item id="7141" name="Оливковая"/>
 
 					<Item id="7115" name="Настраиваемая тема"/>
 					<Item id="7116" name="Панель"/>

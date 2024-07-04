@@ -586,8 +586,8 @@ void Notepad_plus::command(int id)
 				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
 			}
 
-			// Full file path
-			if (::PathFileExists(curentWord))
+			// Full file path: could be a folder or a file
+			if (doesPathExist(curentWord))
 			{
 				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
 				fullFilePath += L"\"";
@@ -598,7 +598,7 @@ void Notepad_plus::command(int id)
 					(id == IDM_EDIT_OPENASFILE && !::PathIsDirectory(curentWord)))
 					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
-			else // Full file path - need concatenate with current full file path
+			else // Relative file path - need concatenate with current full file path
 			{
 				wchar_t currentDir[CURRENTWORD_MAXLENGTH] = { '\0' };
 				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
@@ -609,8 +609,8 @@ void Notepad_plus::command(int id)
 				fullFilePath += L"\\";
 				fullFilePath += curentWord;
 
-				if ((id == IDM_EDIT_OPENASFILE &&
-					(!::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
+				if ((id == IDM_EDIT_OPENASFILE && 
+					(!doesFileExist(fullFilePath.c_str() + 1)))) // + 1 for skipping the 1st char '"'
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
@@ -619,6 +619,8 @@ void Notepad_plus::command(int id)
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
+				// else id == IDM_EDIT_OPENINFOLDER - do it anyway. (even the last part does not exist, it doesn't matter)
+
 				fullFilePath += L"\"";
 				::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
@@ -2769,7 +2771,7 @@ void Notepad_plus::command(int id)
 			else
 			{
 				const wchar_t *longFileName = curBuf->getFullPathName();
-				if (::PathFileExists(longFileName))
+				if (doesFileExist(longFileName))
 				{
 					if (curBuf->isDirty())
 					{
@@ -3577,7 +3579,7 @@ void Notepad_plus::command(int id)
 				{
 					wstring noEasterEggsPath((NppParameters::getInstance()).getNppPath());
 					noEasterEggsPath.append(L"\\noEasterEggs.xml");
-					if (!::PathFileExists(noEasterEggsPath.c_str()))
+					if (!doesFileExist(noEasterEggsPath.c_str()))
 						showAllQuotes();
 					return;
 				}
@@ -3585,7 +3587,7 @@ void Notepad_plus::command(int id)
 				{
 					wstring noEasterEggsPath((NppParameters::getInstance()).getNppPath());
 					noEasterEggsPath.append(L"\\noEasterEggs.xml");
-					if (!::PathFileExists(noEasterEggsPath.c_str()))
+					if (!doesFileExist(noEasterEggsPath.c_str()))
 						showQuoteFromIndex(iQuote);
 					return;
 				}

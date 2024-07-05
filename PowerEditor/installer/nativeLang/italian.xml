@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.6.9
-    Last modified Sun, Jun 16th, 2024.
+    Last modified Sun, Jul 2nd, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -54,14 +54,14 @@ Translation note:
 					<Item subMenuId="search-jumpDown" name="Vai gi&amp;ù"/>
 					<Item subMenuId="search-copyStyledText" name="Copia il testo dello sti&amp;le"/>
 					<Item subMenuId="search-bookmark" name="Segnali&amp;bri"/>
-					<Item subMenuId="view-currentFileIn" name="Visualizza file corrente in"/>
-					<Item subMenuId="view-showSymbol" name="Simboli"/>
-					<Item subMenuId="view-zoom" name="Ingrandimento"/>
-					<Item subMenuId="view-moveCloneDocument" name="Sposta/clona la scheda corrente"/>
-					<Item subMenuId="view-tab" name="Schede"/>
-					<Item subMenuId="view-collapseLevel" name="Comprimi il livello"/>
-					<Item subMenuId="view-uncollapseLevel" name="Espandi il livello"/>
-					<Item subMenuId="view-project" name="Progetti"/>
+					<Item subMenuId="view-currentFileIn" name="&amp;Visualizza file corrente in"/>
+					<Item subMenuId="view-showSymbol" name="Sim&amp;boli"/>
+					<Item subMenuId="view-zoom" name="In&amp;grandimento"/>
+					<Item subMenuId="view-moveCloneDocument" name="&amp;Sposta/Copia la scheda corrente"/>
+					<Item subMenuId="view-tab" name="Sc&amp;hede"/>
+					<Item subMenuId="view-collapseLevel" name="&amp;Comprimi il livello"/>
+					<Item subMenuId="view-uncollapseLevel" name="&amp;Espandi il livello"/>
+					<Item subMenuId="view-project" name="&amp;Progetti"/>
 					<Item subMenuId="encoding-characterSets" name="Set caratteri"/>
 					<Item subMenuId="encoding-arabic" name="Arabo"/>
 					<Item subMenuId="encoding-baltic" name="Baltico"/>
@@ -92,7 +92,7 @@ Translation note:
 				<Commands>
 					<Item id="41001" name="&amp;Nuovo"/>
 					<Item id="41002" name="&amp;Apri..."/>
-					<Item id="41019" name="Esplora risorse"/>
+					<Item id="41019" name="Esplora Risorse"/>
 					<Item id="41020" name="Prompt dei Comandi"/>
 					<Item id="41025" name="Cartella come Area di Lavoro"/>
 					<Item id="41003" name="&amp;Chiudi"/>
@@ -295,7 +295,7 @@ Translation note:
 					<Item id="44029" name="Espandi tutti i livelli"/>
 					<Item id="44030" name="Comprimi il livello corrente"/>
 					<Item id="44031" name="Espandi il livello corrente"/>
-					<Item id="44049" name="Informazioni file..."/>
+					<Item id="44049" name="&amp;Informazioni file..."/>
 					<Item id="44080" name="Mappa documento"/>
 					<Item id="44070" name="Elenco documenti"/>
 					<Item id="44084" name="Elenco funzioni"/>
@@ -429,7 +429,7 @@ Translation note:
 				<Item CMDID="41006" name="Salva"/>
 				<Item CMDID="41008" name="Salva con nome..."/>
 				<Item CMDID="1" name="Apri in"/>
-				<Item CMDID="41019" name="Apri la cartella in Esplora risorse"/>
+				<Item CMDID="41019" name="Apri la cartella in Esplora Risorse"/>
 				<Item CMDID="41020" name="Apri la cartella nel prompt dei comandi"/>
 				<Item CMDID="41025" name="Apri la cartella come Area di Lavoro"/>
 				<Item CMDID="41023" name="Apri con il visualizzatore predefinito"/>
@@ -537,8 +537,8 @@ Translation note:
 			</FindCharsInRange>
 
 			<GoToLine title="Vai alla...">
-				<Item id="2007" name="Riga"/>
-				<Item id="2008" name="Posizione"/>
+				<Item id="2007" name="&amp;Riga"/>
+				<Item id="2008" name="&amp;Posizione"/>
 				<Item id="1" name="&amp;Vai"/>
 				<Item id="2" name="Annulla"/>
 				<Item id="2004" name="Sei a:"/>
@@ -605,9 +605,9 @@ Translation note:
 				<ColumnVersion name="Versione"/>
 				<Item id="5501" name="Trova:"/>
 				<Item id="5503" name="&amp;Installa"/>
-				<Item id="5504" name="Aggiorna"/>
+				<Item id="5504" name="&amp;Aggiorna"/>
 				<Item id="5505" name="&amp;Rimuovi"/>
-				<Item id="5508" name="Successivo"/>
+				<Item id="5508" name="&amp;Successivo"/>
 				<Item id="5509" name="Elenco versioni Plugin:"/>
 				<Item id="5511" name="Archivio Elenco Plugin"/>
 				<Item id="2" name="Chiudi"/>
@@ -667,7 +667,7 @@ Translation note:
 				<DeleteContextMenu name="Elimina"/>
 				<ClearContextMenu name="Pulisci"/>
 				<MainCommandNames>
-					<Item id="41019" name="Apri la cartella in Explorer"/>
+					<Item id="41019" name="Apri la cartella in Esplora Risorse"/>
 					<Item id="41020" name="Apri la cartella nel Prompt dei Comandi"/>
 					<Item id="41021" name="Ripristina i file recenti"/>
 					<Item id="45001" name="Fine riga in formato Windows (CR+LF)"/>
@@ -1135,15 +1135,15 @@ Translation note:
 				<Print title="Stampa">
 					<Item id="6601" name="N&amp;umeri di riga"/>
 					<Item id="6602" name="Opzioni Colore"/>
-					<Item id="6603" name="W&amp;YSIWYG"/>
-					<Item id="6604" name="I&amp;nverti"/>
-					<Item id="6605" name="Bianco e nero"/>
+					<Item id="6603" name="&amp;WYSIWYG"/>
+					<Item id="6604" name="&amp;Inverti"/>
+					<Item id="6605" name="&amp;Bianco e nero"/>
 					<Item id="6606" name="Non stampare i colori di sfondo"/>
 					<Item id="6607" name="Impostazione dei Margini (unità: mm)"/>
 					<Item id="6612" name="Sinistro"/>
 					<Item id="6613" name="Superiore"/>
-					<Item id="6614" name="Destro"/>
-					<Item id="6615" name="Inferiore"/>
+					<Item id="6614" name="&amp;Destro"/>
+					<Item id="6615" name="In&amp;feriore"/>
 					<Item id="6706" name="Grassetto"/>
 					<Item id="6707" name="Corsivo"/>
 					<Item id="6708" name="Intestazione"/>
@@ -1417,7 +1417,7 @@ Continuare?"/><!-- HowToReproduce: when you openned file is modified and saved, 
 Vuoi procedere?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
 			<SettingsOnCloudError title="Impostazioni Cloud" message="Sembra che le impostazioni del Cloud facciano riferimento a un&apos;unità in sola lettura,
 o a una cartella riservata.
-Le impostazioni del cloud saranno annullate. Reimposta un valore coerente dalle preferenze."/>
+Le impostazioni del Cloud saranno annullate. Reimposta un valore coerente dalle preferenze."/>
 			<FilePathNotFoundWarning title="Apertura file" message="Il file che si sta cercando di aprire non esiste."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Impossibile caricare la sessione" message="Il file di sessione è danneggiato o non è valido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Azione non valida" message="Puoi trascinare file o cartelle, ma non entrambi, perché sei in modalità Trascina Cartella come Progetto.
@@ -1460,7 +1460,7 @@ Vuoi aprire la pagina di Notepad++ per scaricare l&apos;aggiornamento manualment
 			<DocNoExistToMonitor title="Problema monitoraggio" message="Il file deve esistere per essere monitorato."/>
 			<FileTooBigToOpen title="Problema dimensione file" message="Il file è troppo grande per essere aperto con Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Codice di eccezione: $STR_REPLACE$" message="Si è verificato un errore durante il caricamento del file!"/>
-			<WantToOpenHugeFile title="Apertura file di grandi dimensioni" message="L&apos;apertura di file superiori a 2GB+ potrebbe impegare svariati minuti.
+			<WantToOpenHugeFile title="Apertura file di grandi dimensioni" message="L&apos;apertura di file superiori a 2GB+ potrebbe impiegare svariati minuti.
 Vuoi proseguire?"/>
 			<CreateNewFileOrNot title="Crea nuovo file" message="&quot;$STR_REPLACE$&quot; non esiste. Crearlo?"/>
 			<CreateNewFileError title="Crea nuovo file" message="Impossibile creare il file &quot;$STR_REPLACE$&quot;."/>
@@ -1522,13 +1522,13 @@ Lo spazio su disco non è sufficiente per salvare il file. Il file non è stato 
 
 Si vuole mantenere il file aperto?
 
-NOTA: Scegliendo di non mantenere il file apero o chiudendolo successivamente, la sessione non verrà modificata all'uscita."/>
+NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, la sessione non verrà modificata all'uscita."/>
 			<FileInaccessibleDefaultSessionXml title="File inaccessibili" message="Alcuni file della sessione precedente non sono accessibili. possono essere lasciati aperti come file in sola lettura e vuoti.
 
 si vuole mantenere il file aperto ?
 
-NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, la sessione verrà MODIFICATA ALL'USCITA! si suggerisce di effetture adesso il backup di  &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Non è possibile eseguire RTL" message="RTL non è compatibile con la modalità DirectWrite. Disabilita DirectWrite mode in Preferenze, sezione Varie, riavvia Notepad++, and prova questo comando nuovamente."/>
+NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, la sessione verrà MODIFICATA ALL'USCITA! si suggerisce di effettuare adesso il backup di  &quot;session.xml&quot;."/>
+			<RTLvsDirectWrite title="Non è possibile eseguire RTL" message="RTL non è compatibile con la modalità DirectWrite. Disabilita DirectWrite mode in Preferenze, sezione Varie, riavvia Notepad++, e prova questo comando nuovamente."/>
 			<FileMemoryAllocationFailed title="Eccezione: errore nell'Allocazione della memoria del File" message="Sembra non esserci sufficiente memoria contigua libera affinché il file possa essere caricato da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Disabilitata la Ricerca a ritroso con espressione regolare" message="Per impostazione predefinita, la ricerca Espressione Regolare a ritroso è disabilitata a causa di risultati potenzialmente imprevisti. Per eseguire una ricerca all'indietro, aprire la finestra di dialogo Trova e selezionare la modalità di ricerca normale o estesa anziché l'espressione regolare.
 Premere il pulsante Conferma per aprire o attivare la finestra di dialogo Trova.
@@ -1686,7 +1686,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<find-status-replaceall-readonly value="Sostituisci tutti: impossibile sostituire il testo. Il documento corrente è in sola lettura"/>
 			<find-status-replace-end-reached value="Sostituisci: sostituita la prima corrispondenza dall&apos;alto. È stata raggiunta la fine del documento"/>
 			<find-status-replace-top-reached value="Sostituisci: sostituita la prima corrispondenza dal basso. È stato raggiunto l&apos;inizio del documento"/>
-			<find-status-replaced-next-found value="Sostituisci: 1 corrispondenza è stata sostituita. Trovata l&apos;corrispondenza successiva"/>
+			<find-status-replaced-next-found value="Sostituisci: 1 corrispondenza è stata sostituita. Trovata la corrispondenza successiva"/>
 			<find-status-replaced-without-continuing value="Sostituisci: 1 corrispondenza è stata sostituita."/>
 			<find-status-replaced-next-not-found value="Sostituisci: 1 corrispondenza è stata sostituita. Nessuna corrispondenza successiva"/>
 			<find-status-replace-not-found value="Sostituisci: nessuna corrispondenza trovata"/>
@@ -1717,7 +1717,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<userdefined-title-new value="Crea nuovo linguaggio..."/>
 			<userdefined-title-save value="Salva il linguaggio corrente come..."/>
 			<userdefined-title-rename value="Rinomina il linguaggio corrente"/>
-			<summary value="Sommario"/>
+			<summary value="Informazioni file"/>
 			<summary-filepath value="Percorso completo file: "/>
 			<summary-filecreatetime value="Creato: "/>
 			<summary-filemodifytime value="Modificato: "/>
@@ -1752,7 +1752,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<find-result-hits value="($INT_REPLACE$ corrispondenze)"/>
 			<find-result-line-prefix value="Riga"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="nessun risultato trovato"/>
-			<session-save-folder-as-workspace value="Salva Cartella come Workspace"/>
+			<session-save-folder-as-workspace value="Salva Cartella come Area di Lavoro"/>
 			<tab-untitled-string value="nuovo "/>
 			<file-save-assign-type value="&amp;Accoda estensione"/>
 			<close-panel-tip value="Chiudi"/>

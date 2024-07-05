@@ -624,7 +624,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	std::wstring updaterParams = L"-v";
 	updaterParams += VERSION_INTERNAL_VALUE;
 
-	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
+	bool isUpExist = nppGui._doesExistUpdater = doesFileExist(updaterFullPath.c_str());
 
     if (doUpdateNpp) // check more detail
     {

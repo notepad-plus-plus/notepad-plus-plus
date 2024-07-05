@@ -275,7 +275,7 @@ bool FunctionListPanel::serialize(const wstring & outputFilename)
 
 		// Export function list from an existing file
 		bool exportFuncntionList = (NppParameters::getInstance()).doFunctionListExport();
-		if (exportFuncntionList && ::PathFileExists(fullFilePath))
+		if (exportFuncntionList && doesFileExist(fullFilePath))
 		{
 			fname2write = fullFilePath;
 			fname2write += L".result";
@@ -540,9 +540,9 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 
 	if (!doLocalConf)
 	{
-		if (!PathFileExists(funcListXmlPath.c_str()))
+		if (!doesFileExist(funcListXmlPath.c_str()))
 		{
-			if (PathFileExists(funcListDefaultXmlPath.c_str()))
+			if (doesFileExist(funcListDefaultXmlPath.c_str()))
 			{
 				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
 				_funcParserMgr.init(funcListXmlPath, funcListDefaultXmlPath, ppEditView);
@@ -555,7 +555,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	}
 	else
 	{
-		if (PathFileExists(funcListDefaultXmlPath.c_str()))
+		if (doesFileExist(funcListDefaultXmlPath.c_str()))
 		{
 			_funcParserMgr.init(funcListDefaultXmlPath, funcListDefaultXmlPath, ppEditView);
 		}

@@ -262,14 +262,15 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	bool isWow64Off = false;
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	if (!PathFileExists(_fullPathName.c_str()))
+	bool fileExists = doesFileExist(_fullPathName.c_str());
+	if (!fileExists)
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 	}
 
 	bool isOK = false;
-	if (_currentStatus == DOC_INACCESSIBLE && !PathFileExists(_fullPathName.c_str()))	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
+	if (_currentStatus == DOC_INACCESSIBLE && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
 	{
 		_currentStatus = DOC_DELETED;//DOC_INACCESSIBLE;
 		_isInaccessible = true;
@@ -279,7 +280,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	else if (_currentStatus != DOC_DELETED && !fileExists)	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -288,7 +289,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str()))
+	else if (_currentStatus == DOC_DELETED && fileExists)
 	{	//document has returned from its grave
 		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
@@ -326,7 +327,6 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		{
 			if (res == 1)
 			{
-				NppParameters& nppParam = NppParameters::getInstance();
 				if (nppParam.doNppLogNetworkDriveIssue())
 				{
 					wstring issueFn = nppLogNetworkDriveIssue;
@@ -692,7 +692,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	//Get file size
 	int64_t fileSize = -1;
 	const wchar_t* pPath = filename;
-	if (!::PathFileExists(pPath))
+	if (!doesFileExist(pPath))
 	{
 		pPath = backupFileName;
 	}
@@ -750,8 +750,8 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		}
 	}
 
-	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
-	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
+	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
+	if (isSnapshotMode && !doesFileExist(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
 		wcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
 	}
@@ -778,7 +778,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		if (backupFileName != NULL)
 		{
 			newBuf->_backupFileName = backupFileName;
-			if (!PathFileExists(fullpath))
+			if (!doesFileExist(fullpath))
 				newBuf->_currentStatus = DOC_UNNAMED;
 		}
 
@@ -899,7 +899,7 @@ bool FileManager::deleteFile(BufferID id)
 	// Make sure to form a string with double '\0' terminator.
 	fileNamePath.append(1, '\0');
 
-	if (!PathFileExists(fileNamePath.c_str()))
+	if (!doesFileExist(fileNamePath.c_str()))
 		return false;
 
 	SHFILEOPSTRUCT fileOpStruct = {};
@@ -1004,7 +1004,7 @@ bool FileManager::backupCurrentBuffer()
 				backupFilePath += L"\\backup\\";
 
 				// if "backup" folder doesn't exist, create it.
-				if (!PathFileExists(backupFilePath.c_str()))
+				if (!doesFileExist(backupFilePath.c_str()))
 				{
 					::CreateDirectory(backupFilePath.c_str(), NULL);
 				}
@@ -1079,7 +1079,7 @@ bool FileManager::backupCurrentBuffer()
 				{
 					if (buffer->isUntitled()) // "new #" file is saved successfully, then we replace its only physical existence by its temp
 					{
-						if (::PathFileExists(fullpath))
+						if (doesFileExist(fullpath))
 							::ReplaceFile(fullpath, fullpathTemp.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 						else
 							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
@@ -1183,7 +1183,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			return SavingStatus::NotEnoughRoom;
 	}
 
-	if (PathFileExists(fullpath))
+	if (doesFileExist(fullpath))
 	{
 		attrib = ::GetFileAttributes(fullpath);
 

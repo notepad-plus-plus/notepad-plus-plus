@@ -5504,7 +5504,7 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 			if (withCloud)
 			{
 				// detect validation of path
-				if (!::PathFileExists(nppGUI._cloudPath.c_str()))
+				if (!doesDirectoryExist(nppGUI._cloudPath.c_str()))
 					errMsg = L"Invalid path";
 			}
 			
@@ -5580,7 +5580,7 @@ intptr_t CALLBACK CloudAndLinkSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 						::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
 						::ExpandEnvironmentStrings(inputDir, inputDirExpanded, MAX_PATH);
 						NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-						if (::PathFileExists(inputDirExpanded))
+						if (doesDirectoryExist(inputDirExpanded))
 						{
 							nppGUI._cloudPath = inputDirExpanded;
 							nppParams.setCloudChoice(inputDirExpanded);

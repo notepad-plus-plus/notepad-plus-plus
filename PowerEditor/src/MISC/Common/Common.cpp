@@ -1771,3 +1771,15 @@ bool doesFileExist(const wchar_t* filePath)
 	DWORD dwAttrib = ::GetFileAttributesW(filePath);
 	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
+
+bool doesDirectoryExist(const wchar_t* dirPath)
+{
+	DWORD dwAttrib = ::GetFileAttributesW(dirPath);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+bool doesPathExist(const wchar_t* path)
+{
+	DWORD dwAttrib = ::GetFileAttributesW(path);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES);
+}

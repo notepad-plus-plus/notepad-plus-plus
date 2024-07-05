@@ -91,7 +91,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 				locator += L"\\";
 				locator += icoUnit._id;
 				locator += ext;
-				if (::PathFileExists(locator.c_str()))
+				if (doesFileExist(locator.c_str()))
 				{
 					_customIconVect.push_back(iconLocator(HLIST_DEFAULT, i, locator));
 					_customIconVect.push_back(iconLocator(HLIST_DEFAULT2, i, locator));
@@ -106,7 +106,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 					locator_dis += icoUnit._id;
 					locator_dis += disabled_suffix;
 					locator_dis += ext;
-					if (::PathFileExists(locator_dis.c_str()))
+					if (doesFileExist(locator_dis.c_str()))
 					{
 						_customIconVect.push_back(iconLocator(HLIST_DISABLE, i, locator_dis));
 						_customIconVect.push_back(iconLocator(HLIST_DISABLE2, i, locator_dis));

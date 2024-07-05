@@ -540,9 +540,9 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 
 	if (!doLocalConf)
 	{
-		if (!doesFileExist(funcListXmlPath.c_str()))
+		if (!doesDirectoryExist(funcListXmlPath.c_str()))
 		{
-			if (doesFileExist(funcListDefaultXmlPath.c_str()))
+			if (doesDirectoryExist(funcListDefaultXmlPath.c_str()))
 			{
 				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
 				_funcParserMgr.init(funcListXmlPath, funcListDefaultXmlPath, ppEditView);
@@ -555,7 +555,7 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	}
 	else
 	{
-		if (doesFileExist(funcListDefaultXmlPath.c_str()))
+		if (doesDirectoryExist(funcListDefaultXmlPath.c_str()))
 		{
 			_funcParserMgr.init(funcListDefaultXmlPath, funcListDefaultXmlPath, ppEditView);
 		}

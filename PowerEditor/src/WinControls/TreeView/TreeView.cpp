@@ -21,7 +21,8 @@
 
 using namespace std;
 
-#define CY_ITEMHEIGHT     18
+constexpr int g_treeviewItemPadding = 1;
+constexpr int g_treeviewIcoSize = 16;
 
 void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 {
@@ -47,11 +48,11 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 
 	NppDarkMode::setTreeViewStyle(_hSelf);
 
-	int itemHeight = NppParameters::getInstance()._dpiManager.scaleY(CY_ITEMHEIGHT);
+	const int itemHeight = DPIManagerV2::scale(g_treeviewIcoSize + g_treeviewItemPadding * 2, _hParent);
 	TreeView_SetItemHeight(_hSelf, itemHeight);
 
-	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
+	constexpr UINT_PTR idSubclassTreeview = 1;
+	::SetWindowSubclass(_hSelf, staticProc, idSubclassTreeview, reinterpret_cast<DWORD_PTR>(this));
 }
 
 
@@ -95,7 +96,23 @@ LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			}
 		}
 	}
-	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
+	return ::DefSubclassProc(hwnd, Message, wParam, lParam);
+}
+
+LRESULT TreeView::staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+{
+	switch (Message)
+	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, staticProc, uIdSubclass);
+			break;
+		}
+
+		default:
+			break;
+	}
+	return reinterpret_cast<TreeView*>(dwRefData)->runProc(hwnd, Message, wParam, lParam);
 }
 
 void TreeView::makeLabelEditable(bool toBeEnabled)
@@ -264,43 +281,33 @@ HTREEITEM TreeView::searchSubItemByName(const wchar_t *itemName, HTREEITEM hPare
 	return nullptr;
 }
 
-BOOL TreeView::setImageList(int w, int h, int nbImage, int image_id, ...)
+bool TreeView::setImageList(std::vector<int> imageIds, int imgSize)
 {
-	HBITMAP hbmp;
-	COLORREF maskColour = RGB(192, 192, 192);
+	const int nbImage = static_cast<int>(imageIds.size());
+	if (imgSize <= 0)
+		imgSize = g_treeviewIcoSize;
 
 	// Creation of image list
-	int bmDpiDynW = NppParameters::getInstance()._dpiManager.scaleX(w);
-	int bmDpiDynH = NppParameters::getInstance()._dpiManager.scaleY(h);
-	if ((_hImaLst = ImageList_Create(bmDpiDynW, bmDpiDynH, ILC_COLOR32 | ILC_MASK, nbImage, 0)) == NULL)
-		return FALSE;
+	int dpiImgSize = DPIManagerV2::scale(imgSize, _hParent);
+	if ((_hImaLst = ::ImageList_Create(dpiImgSize, dpiImgSize, ILC_COLOR32 | ILC_MASK, nbImage, 0)) == nullptr)
+		return false;
 
-	// Add the bmp in the list
-	va_list argLst;
-	va_start(argLst, image_id);
-	int imageID = image_id;
-
-	for (int i = 0; i < nbImage; i++)
+	// Add the ico into the list
+	for (const int& id : imageIds)
 	{
-		if (i > 0)
-			imageID = va_arg(argLst, int);
+		HICON hIcon = nullptr;
+		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), dpiImgSize, dpiImgSize, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		if (hIcon == nullptr)
+			return false;
 
-		hbmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(imageID), IMAGE_BITMAP, bmDpiDynW, bmDpiDynH, 0);
-		if (hbmp == NULL)
-		{
-			va_end(argLst);
-			return FALSE;
-		}
-		ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-		DeleteObject(hbmp);
+		::ImageList_AddIcon(_hImaLst, hIcon);
+		::DestroyIcon(hIcon);
 	}
-	va_end(argLst);
 
 	// Set image list to the tree view
 	TreeView_SetImageList(_hSelf, _hImaLst, TVSIL_NORMAL);
-	//TreeView_SetImageList(_treeViewSearchResult.getHSelf(), _hTreeViewImaLst, TVSIL_NORMAL);
 
-	return TRUE;
+	return true;
 }
 
 void TreeView::cleanSubEntries(HTREEITEM hTreeItem)

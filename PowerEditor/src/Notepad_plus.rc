@@ -360,15 +360,15 @@ IDR_FIND_RESULT_ICO2            ICON        "icons/light/panels/tabbar/findResul
 IDR_FIND_RESULT_ICO_DM          ICON        "icons/dark/panels/tabbar/findResult.ico"
 
 
-IDI_PROJECT_WORKSPACE           BITMAP      "icons/standard/panels/treeview/project_work_space.bmp"
-IDI_PROJECT_WORKSPACEDIRTY      BITMAP      "icons/standard/panels/treeview/project_work_space_dirty.bmp"
-IDI_PROJECT_PROJECT             BITMAP      "icons/standard/panels/treeview/project_root.bmp"
-IDI_PROJECT_FOLDEROPEN          BITMAP      "icons/standard/panels/treeview/project_folder_open.bmp"
-IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons/standard/panels/treeview/project_folder_close.bmp"
-IDI_PROJECT_FILE                BITMAP      "icons/standard/panels/treeview/project_file.bmp"
-IDI_PROJECT_FILEINVALID         BITMAP      "icons/standard/panels/treeview/project_file_invalid.bmp"
-IDI_FB_ROOTOPEN                 BITMAP      "icons/standard/panels/treeview/fb_root_open.bmp"
-IDI_FB_ROOTCLOSE                BITMAP      "icons/standard/panels/treeview/fb_root_close.bmp"
+IDI_PROJECT_WORKSPACE           ICON        "icons/standard/panels/treeview/project_work_space.ico"
+IDI_PROJECT_WORKSPACEDIRTY      ICON        "icons/standard/panels/treeview/project_work_space_dirty.ico"
+IDI_PROJECT_PROJECT             ICON        "icons/standard/panels/treeview/project_root.ico"
+IDI_PROJECT_FOLDEROPEN          ICON        "icons/standard/panels/treeview/project_folder_open.ico"
+IDI_PROJECT_FOLDERCLOSE         ICON        "icons/standard/panels/treeview/project_folder_close.ico"
+IDI_PROJECT_FILE                ICON        "icons/standard/panels/treeview/project_file.ico"
+IDI_PROJECT_FILEINVALID         ICON        "icons/standard/panels/treeview/project_file_invalid.ico"
+IDI_FB_ROOTOPEN                 ICON        "icons/standard/panels/treeview/fb_root_open.ico"
+IDI_FB_ROOTCLOSE                ICON        "icons/standard/panels/treeview/fb_root_close.ico"
 
 IDI_FB_SELECTCURRENTFILE        ICON        "icons/standard/panels/toolbar/fb_select_current_file.ico"
 IDI_FB_FOLDALL                  ICON        "icons/standard/panels/toolbar/fb_fold_all.ico"
@@ -377,9 +377,9 @@ IDI_FB_SELECTCURRENTFILE_DM     ICON        "icons/dark/panels/toolbar/fb_select
 IDI_FB_FOLDALL_DM               ICON        "icons/dark/panels/toolbar/fb_fold_all.ico"
 IDI_FB_EXPANDALL_DM             ICON        "icons/dark/panels/toolbar/fb_expand_all.ico"
 
-//IDI_FUNCLIST_ROOT               BITMAP      "icons/standard/panels/treeview/project_file.bmp" // same file as IDI_PROJECT_FILE
-IDI_FUNCLIST_NODE               BITMAP      "icons/standard/panels/treeview/funcList_node.bmp"
-IDI_FUNCLIST_LEAF               BITMAP      "icons/standard/panels/treeview/funcList_leaf.bmp"
+//IDI_FUNCLIST_ROOT               ICON        "icons/standard/panels/treeview/project_file.ico" // same file as IDI_PROJECT_FILE
+IDI_FUNCLIST_NODE               ICON        "icons/standard/panels/treeview/funcList_node.ico"
+IDI_FUNCLIST_LEAF               ICON        "icons/standard/panels/treeview/funcList_leaf.ico"
 
 IDI_FUNCLIST_SORTBUTTON            ICON     "icons/standard/panels/toolbar/funclstSort.ico"
 IDI_FUNCLIST_RELOADBUTTON          ICON     "icons/standard/panels/toolbar/funclstReload.ico"

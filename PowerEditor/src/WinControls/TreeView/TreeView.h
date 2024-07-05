@@ -21,9 +21,6 @@
 #include "Window.h"
 #include "Common.h"
 
-#define CX_BITMAP         16
-#define CY_BITMAP         16
-
 struct TreeStateNode {
 	std::wstring _label;
 	std::wstring _extraData;
@@ -119,16 +116,13 @@ public:
 	bool searchLeafAndBuildTree(const TreeView & tree2Build, const std::wstring & text2Search, int index2Search);
 	void sort(HTREEITEM hTreeItem, bool isRecusive);
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
-	BOOL setImageList(int w, int h, int nbImage, int image_id, ...);
+	bool setImageList(std::vector<int> imageIds, int imgSize = 0);
 
 protected:
 	HIMAGELIST _hImaLst = nullptr;
-	WNDPROC _defaultProc = nullptr;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((TreeView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
-	};
+	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 	void cleanSubEntries(HTREEITEM hTreeItem);
 	void dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem);

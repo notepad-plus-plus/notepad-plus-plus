@@ -710,39 +710,49 @@ void FunctionListPanel::searchFuncAndSwitchView()
 		_pTreeView->customSorting(_pTreeView->getRoot(), categorySortFunc, 0, true);
 }
 
-static WNDPROC oldFunclstToolbarProc = NULL;
-static LRESULT CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR /*dwRefData*/)
 {
 	switch (message)
 	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, funclstToolbarProc, uIdSubclass);
+			break;
+		}
+
 		case WM_CTLCOLOREDIT :
 		{
 			return ::SendMessage(::GetParent(hwnd), WM_CTLCOLOREDIT, wParam, lParam);
 		}
 	}
-	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
+	return ::DefSubclassProc(hwnd, message, wParam, lParam);
 }
 
-static WNDPROC oldFunclstSearchEditProc = NULL;
-static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK funclstSearchEditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR /*dwRefData*/)
 {
 	switch (message)
 	{
+		case WM_NCDESTROY:
+		{
+			::RemoveWindowSubclass(hwnd, funclstSearchEditProc, uIdSubclass);
+			break;
+		}
+
 		case WM_CHAR:
 		{
 			if (wParam == VK_ESCAPE)
 			{
 				::SendMessage(hwnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(L""));
-				return FALSE;
+				return 0;
 			}
 			else if (wParam == VK_TAB)
 			{
 				::SendMessage(GetParent(hwnd), WM_COMMAND, VK_TAB, 1);
-				return FALSE;
+				return 0;
 			}
 		}
 	}
-	return oldFunclstSearchEditProc(hwnd, message, wParam, lParam);
+	return ::DefSubclassProc(hwnd, message, wParam, lParam);
 }
 
 bool FunctionListPanel::shouldSort()
@@ -842,7 +852,8 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			const DWORD tbExStyle = static_cast<DWORD>(::SendMessage(_hToolbarMenu, TB_GETEXTENDEDSTYLE, 0, 0));
 			::SendMessage(_hToolbarMenu, TB_SETEXTENDEDSTYLE, 0, tbExStyle | TBSTYLE_EX_DOUBLEBUFFER);
 
-			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
+			constexpr UINT_PTR idSubclassFunclstToolbar = 2;
+			::SetWindowSubclass(_hToolbarMenu, funclstToolbarProc, idSubclassFunclstToolbar, 0);
 
 			const int iconSizeDyn = _dpiManager.scale(16);
 			constexpr int nbIcons = 3;
@@ -918,7 +929,8 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 								2, 2, editWidth, editHeight,
 								_hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
 
-			oldFunclstSearchEditProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSearchEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstSearchEditProc)));
+			constexpr UINT_PTR idSubclassFunclstSearchEdit = 3;
+			::SetWindowSubclass(_hSearchEdit, funclstSearchEditProc, idSubclassFunclstSearchEdit, 0);
 
 			if (_hFontSearchEdit == nullptr)
 			{
@@ -931,10 +943,11 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSearchEdit), MAKELPARAM(TRUE, 0));
 			}
 
+			std::vector<int> imgIds{ IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF };
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
-			_treeView.setImageList(CX_BITMAP, CY_BITMAP, 3, IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
+			_treeView.setImageList(imgIds);
 			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
-			_treeViewSearchResult.setImageList(CX_BITMAP, 3, CY_BITMAP, IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
+			_treeViewSearchResult.setImageList(imgIds);
 			
 			_treeView.makeLabelEditable(false);
 

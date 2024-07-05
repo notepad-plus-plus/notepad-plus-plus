@@ -1876,7 +1876,7 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 bool Notepad_plus::createFilelistForFiles(vector<wstring> & fileNames)
 {
 	const wchar_t *dir2Search = _findReplaceDlg.getDir2Search();
-	if (!dir2Search[0] || !::doesDirectoryExist(dir2Search))
+	if (!dir2Search[0] || !doesDirectoryExist(dir2Search))
 	{
 		return false;
 	}

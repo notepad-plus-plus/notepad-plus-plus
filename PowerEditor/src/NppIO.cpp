@@ -1036,7 +1036,19 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		viewToClose = curView;
 
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-	doClose(bufferID, viewToClose, isSnapshotMode);
+	bool doDeleteBackup = isSnapshotMode;
+	if (isSnapshotMode)
+	{
+		// if Buffer is cloned then we don't delete backup file
+		DocTabView* nonCurrentTab = (viewToClose == MAIN_VIEW) ? &_subDocTab : &_mainDocTab;
+		int clonedBufIndex = nonCurrentTab->getIndexByBuffer(bufferID);
+		if (clonedBufIndex != -1)
+		{
+			doDeleteBackup = false;
+		}
+	}
+
+	doClose(bufferID, viewToClose, doDeleteBackup);
 	return true;
 }
 

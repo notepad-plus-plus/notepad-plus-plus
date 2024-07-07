@@ -1020,7 +1020,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		// Do nothing
 	}
 	else if (buf->isDirty())
-	{	
+	{
 		const wchar_t* fileNamePath = buf->getFullPathName();
 		int res = doSaveOrNot(fileNamePath);
 

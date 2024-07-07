@@ -1007,12 +1007,20 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
-	if (buf->isUntitled() && buf->docLength() == 0)
+	int viewToClose = currentView();
+	if (curView != -1)
+		viewToClose = curView;
+
+	// Determinate if it's a cloned buffer
+	DocTabView* nonCurrentTab = (viewToClose == MAIN_VIEW) ? &_subDocTab : &_mainDocTab;
+	bool isCloned = nonCurrentTab->getIndexByBuffer(bufferID) != -1;
+
+	if ((buf->isUntitled() && buf->docLength() == 0) || isCloned)
 	{
 		// Do nothing
 	}
 	else if (buf->isDirty())
-	{
+	{	
 		const wchar_t* fileNamePath = buf->getFullPathName();
 		int res = doSaveOrNot(fileNamePath);
 
@@ -1031,22 +1039,10 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		}
 	}
 
-	int viewToClose = currentView();
-	if (curView != -1)
-		viewToClose = curView;
-
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 	bool doDeleteBackup = isSnapshotMode;
-	if (isSnapshotMode)
-	{
-		// if Buffer is cloned then we don't delete backup file
-		DocTabView* nonCurrentTab = (viewToClose == MAIN_VIEW) ? &_subDocTab : &_mainDocTab;
-		int clonedBufIndex = nonCurrentTab->getIndexByBuffer(bufferID);
-		if (clonedBufIndex != -1)
-		{
-			doDeleteBackup = false;
-		}
-	}
+	if (isSnapshotMode && isCloned) // if Buffer is cloned then we don't delete backup file
+		doDeleteBackup = false;
 
 	doClose(bufferID, viewToClose, doDeleteBackup);
 	return true;

@@ -2319,7 +2319,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
 
-			if (isSnapshotMode && session._mainViewFiles[i]._backupFilePath.empty() && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
+			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty() && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
 			buf->setRTL(session._mainViewFiles[i]._isRTL);

@@ -33,7 +33,9 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the \
 GNU General Public License for more details. \r\n\
 \r\n\
 You should have received a copy of the GNU General Public License \
-along with this program. If not, see <https://www.gnu.org/licenses/>.")
+along with this program. If not, see <https://www.gnu.org/licenses/>.\r\n\
+Hello sam!\r\n\
+")
 
 
 class AboutDlg : public StaticDialog

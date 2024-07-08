@@ -35,13 +35,13 @@
 #ifdef __GNUC__
 #include <cmath>
 #define WINAPI_LAMBDA WINAPI
-#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
-#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
-#endif
 #else
 #define WINAPI_LAMBDA
 #endif
 
+#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
+#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
+#endif
 // already added in dpiManagerV2.h
 // keep for plugin authors
 //#ifndef WM_DPICHANGED

@@ -7222,6 +7222,11 @@ bool Notepad_plus::reloadLang()
 		_nativeLangSpeaker.changePluginsAdminDlgLang(_pluginsAdminDlg);
 	}
 
+	if (_debugInfoDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_debugInfoDlg.getHSelf(), "DebugInfo");
+	}
+
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 	if (udd->isCreated())
 	{

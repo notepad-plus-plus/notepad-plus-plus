@@ -17,6 +17,7 @@
 
 #include "Printer.h"
 #include "RunDlg.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -180,9 +181,14 @@ size_t Printer::doPrint(bool justDoIt)
 	docInfo.lpszOutput = NULL;
 	docInfo.lpszDatatype = NULL;
 
-	if (::StartDoc(_pdlg.hDC, &docInfo) < 0) 
+	if (::StartDoc(_pdlg.hDC, &docInfo) < 0)
 	{
-		MessageBox(NULL, L"Can not start printer document.", 0, MB_OK);
+		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("PrintError",
+			nullptr,
+			L"Cannot start printer document.",
+			L"",
+			MB_OK);
 		return 0;
 	}
 	

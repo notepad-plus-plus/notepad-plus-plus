@@ -1583,7 +1583,7 @@ int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const wc
 	{
 		msgBoxType |= MB_RTLREADING | MB_RIGHT;
 	}
-	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
+	return ::MessageBox(hWnd, msg.c_str(), (title.empty() || wcscmp(title.c_str(), L"0") == 0) ? nullptr : title.c_str(), msgBoxType);
 }
 
 // Default English localization during Notepad++ launch

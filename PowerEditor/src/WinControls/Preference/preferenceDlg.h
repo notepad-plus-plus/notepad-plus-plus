@@ -184,9 +184,17 @@ public :
 	LanguageSubDlg() = default;
 
 private :
-	LexerStylerArray _lsArray;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	std::vector<LangMenuItem> _langList;
+};
+
+class IndentationSubDlg : public StaticDialog
+{
+public :
+	IndentationSubDlg() = default;
+
+private :
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 
 class HighlightingSubDlg : public StaticDialog
@@ -360,6 +368,7 @@ private :
 	MiscSubDlg _miscSubDlg;
 	RegExtDlg _fileAssocDlg;
 	LanguageSubDlg _languageSubDlg;
+	IndentationSubDlg _indentationSubDlg;
 	HighlightingSubDlg _highlightingSubDlg;
 	PrintSubDlg _printSubDlg;
 	NewDocumentSubDlg _newDocumentSubDlg;

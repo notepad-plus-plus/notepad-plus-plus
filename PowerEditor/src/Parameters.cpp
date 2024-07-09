@@ -5079,10 +5079,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const wchar_t* val = n->Value();
 				if (val)
 				{
+					// the retro-compatibility with the old values
 					if (lstrcmp(val, L"yes") == 0)
 						_nppGUI._maintainIndent = autoIndent_advance;
 					else if (lstrcmp(val, L"no") == 0)
 						_nppGUI._maintainIndent = autoIndent_none;
+
+					// the treatment of the new values
+					else if (lstrcmp(val, L"0") == 0)
+						_nppGUI._maintainIndent = autoIndent_none;
+					else if (lstrcmp(val, L"1") == 0)
+						_nppGUI._maintainIndent = autoIndent_advance;
+					else if (lstrcmp(val, L"2") == 0)
+						_nppGUI._maintainIndent = autoIndent_basic;
+					else // other values will be ignored - use the default value
+						_nppGUI._maintainIndent = autoIndent_advance;
 				}
 			}
 		}

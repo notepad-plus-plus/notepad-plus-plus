@@ -1804,6 +1804,8 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
+	fDlg.setSaveAsCopy(isSaveCopy);
+
 	wstring localizedTitle;
 	if (isSaveCopy)
 	{
@@ -1852,6 +1854,15 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 			if (res && !isSaveCopy)
 			{
 				_lastRecentFileList.remove(fn.c_str());
+			}
+
+			if (res && isSaveCopy && fDlg.getOpenTheCopyAfterSaveAsCopy())
+			{
+				BufferID bid = doOpen(fn.c_str());
+				if (bid != BUFFER_INVALID)
+				{
+					switchToFile(bid);
+				}
 			}
 
 			return res;

@@ -29,6 +29,11 @@ distribution.
 #include <sstream>
 #endif
 
+#ifndef MPP_USE_ORIGINAL_CODE
+#include <fstream>
+#include <string>
+#endif
+
 bool TiXmlBaseA::condenseWhiteSpace = true;
 
 void TiXmlBaseA::PutString( const TIXMLA_STRING& str, TIXMLA_OSTREAM* stream )
@@ -700,6 +705,7 @@ bool TiXmlDocumentA::SaveFile() const
 	return false;
 }
 
+#ifdef MPP_USE_ORIGINAL_CODE
 bool TiXmlDocumentA::LoadFile( const char* filename )
 {
 	// Delete the existing data:
@@ -757,6 +763,58 @@ bool TiXmlDocumentA::LoadFile( const char* filename )
 	SetError( TIXMLA_ERROR_OPENING_FILE, 0, 0 );
 	return false;
 }
+#else
+bool TiXmlDocumentA::LoadFile( const char* filename )
+{
+	// Delete the existing data:
+	Clear();
+	location.Clear();
+
+	// There was a really terrifying little bug here. The code:
+	//		value = filename
+	// in the STL case, cause the assignment method of the std::string to
+	// be called. What is strange, is that the std::string had the same
+	// address as it's c_str() method, and so bad things happen. Looks
+	// like a bug in the Microsoft STL implementation.
+	// See STL_STRING_BUG above.
+	// Fixed with the StringToBuffer class.
+	value = filename;
+
+	std::ifstream ifs( value );
+
+	if ( ifs )
+	{
+		// Get the file size, so we can pre-allocate the string. HUGE speed impact.
+		ifs.seekg( std::ios_base::end );
+		auto length = ifs.tellg();
+		ifs.seekg( std::ios_base::beg );
+
+		// Strange case, but good to handle up front.
+		if ( length == 0 )
+			return false;
+
+		// If we have a file, assume it is all one big XML file, and read it in.
+		// The document parser may decide the document ends sooner than the entire file, however.
+		TIXMLA_STRING data;
+		data.reserve( length );
+
+		std::string lineBuffer;
+		while ( std::getline( ifs, lineBuffer ) )
+			data += lineBuffer;
+
+		Parse( data.c_str(), 0 );
+
+		if ( Error() )
+			return false;
+		else
+			return true;
+	}
+
+	SetError( TIXMLA_ERROR_OPENING_FILE, 0, 0 );
+
+	return false;
+}
+#endif
 
 bool TiXmlDocumentA::LoadUnicodeFilePath( const TCHAR* filename )
 {

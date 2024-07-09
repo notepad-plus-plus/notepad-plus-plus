@@ -4850,7 +4850,7 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 			{
 				case IDC_CHECK_MAINTAININDENT:
 				{
-					nppGUI._maintainIndent = isCheckedOrNot(IDC_CHECK_MAINTAININDENT);
+					nppGUI._maintainIndent = isCheckedOrNot(IDC_CHECK_MAINTAININDENT) ? autoIndent_advance : autoIndent_none;
 					return TRUE;
 				}
 

@@ -3557,11 +3557,20 @@ intptr_t Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char t
 
 void Notepad_plus::maintainIndentation(wchar_t ch)
 {
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	if (nppGui._maintainIndent == autoIndent_none)
+		return;
+
 	intptr_t eolMode = _pEditView->execute(SCI_GETEOLMODE);
 	intptr_t curLine = _pEditView->getCurrentLineNumber();
 	intptr_t prevLine = curLine - 1;
 	intptr_t indentAmountPrevLine = 0;
 	intptr_t tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+
+	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
+	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+		return;
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 	ExternalLexerAutoIndentMode autoIndentMode = ExternalLexerAutoIndentMode::Standard;
@@ -3575,10 +3584,30 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			return;
 	}
 
-	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
-	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
-		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+	if (nppGui._maintainIndent == autoIndent_basic) // Basic indentation mode only
+	{
+		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+			(eolMode == SC_EOL_CR && ch == '\r'))
+		{
+			// Search the non-empty previous line
+			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+				prevLine--;
+
+			if (prevLine >= 0)
+			{
+				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+			}
+
+			if (indentAmountPrevLine > 0)
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+		}
+
 		return;
+	}
+
+	// else nppGui._maintainIndent == autoIndent_advance
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
 		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || 

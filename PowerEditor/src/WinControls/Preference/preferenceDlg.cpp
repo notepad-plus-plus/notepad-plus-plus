@@ -160,6 +160,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_languageSubDlg.init(_hInst, _hSelf);
 			_languageSubDlg.create(IDD_PREFERENCE_SUB_LANGUAGE, false, false);
 
+			_indentationSubDlg.init(_hInst, _hSelf);
+			_indentationSubDlg.create(IDD_PREFERENCE_SUB_INDENTATION, false, false);
+
 			_highlightingSubDlg.init(_hInst, _hSelf);
 			_highlightingSubDlg.create(IDD_PREFERENCE_SUB_HIGHLIGHTING, false, false);
 
@@ -194,6 +197,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_wVector.push_back(DlgInfo(&_recentFilesHistorySubDlg, L"Recent Files History", L"RecentFilesHistory"));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, L"File Association", L"FileAssoc"));
 			_wVector.push_back(DlgInfo(&_languageSubDlg, L"Language", L"Language"));
+			_wVector.push_back(DlgInfo(&_indentationSubDlg, L"Indentation", L"Indentation"));
 			_wVector.push_back(DlgInfo(&_highlightingSubDlg, L"Highlighting", L"Highlighting"));
 			_wVector.push_back(DlgInfo(&_printSubDlg, L"Print", L"Print"));
 			_wVector.push_back(DlgInfo(&_searchingSubDlg, L"Searching", L"Searching"));
@@ -257,6 +261,11 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				NppDarkMode::setDarkTooltips(_performanceSubDlg._largeFileRestrictionTip, NppDarkMode::ToolTipsType::tooltip);
 			if (_searchingSubDlg._tipInSelThresh != nullptr)
 				NppDarkMode::setDarkTooltips(_searchingSubDlg._tipInSelThresh, NppDarkMode::ToolTipsType::tooltip);
+
+			if (_indentationSubDlg._tipAutoIndentBasic)
+				NppDarkMode::setDarkTooltips(_indentationSubDlg._tipAutoIndentBasic, NppDarkMode::ToolTipsType::tooltip);
+			if (_indentationSubDlg._tipAutoIndentAdvanced)
+				NppDarkMode::setDarkTooltips(_indentationSubDlg._tipAutoIndentAdvanced, NppDarkMode::ToolTipsType::tooltip);
 
 			// groupbox label in dark mode support disabled text color
 			if (NppDarkMode::isEnabled())
@@ -377,6 +386,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_miscSubDlg.dpiManager().setDpiWP(wParam);
 			_fileAssocDlg.dpiManager().setDpiWP(wParam);
 			_languageSubDlg.dpiManager().setDpiWP(wParam);
+			_indentationSubDlg.dpiManager().setDpiWP(wParam);
 			_highlightingSubDlg.dpiManager().setDpiWP(wParam);
 			_printSubDlg.dpiManager().setDpiWP(wParam);
 			_searchingSubDlg.dpiManager().setDpiWP(wParam);
@@ -528,6 +538,7 @@ void PreferenceDlg::destroy()
 	_miscSubDlg.destroy();
 	_fileAssocDlg.destroy();
 	_languageSubDlg.destroy();
+	_indentationSubDlg.destroy();
 	_highlightingSubDlg.destroy();
 	_printSubDlg.destroy();
 	_searchingSubDlg.destroy();
@@ -3223,55 +3234,15 @@ intptr_t CALLBACK RecentFilesHistorySubDlg::run_dlgProc(UINT message, WPARAM wPa
 	return FALSE;
 }
 
-intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParam.getNppGUI();
-	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 
 	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
-			//
-			// Lang Menu
-			//
-			for (int i = L_TEXT ; i < nppParam.L_END ; ++i)
-			{
-				wstring str;
-				if (static_cast<LangType>(i) != L_USER)
-				{
-					int cmdID = nppParam.langTypeToCommandID(static_cast<LangType>(i));
-					if ((cmdID != -1))
-					{
-						getNameStrFromCmd(cmdID, str);
-						if (str.length() > 0)
-						{
-							_langList.push_back(LangMenuItem(static_cast<LangType>(i), cmdID, str));
-						}
-					}
-				}
-			}
-
-			std::sort(_langList.begin(), _langList.end());
-
-			for (size_t i = 0, len = _langList.size(); i < len; ++i)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_langList[i]._langName.c_str()));
-			}
-
-			std::sort(nppGUI._excludedLangList.begin(), nppGUI._excludedLangList.end());
-				
-			for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; ++i)
-			{
-				::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(nppGUI._excludedLangList[i]._langName.c_str()));
-			}
-
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_LANGMENUCOMPACT, BM_SETCHECK, nppGUI._isLangMenuCompact?BST_CHECKED:BST_UNCHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_REMOVE), FALSE);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RESTORE), FALSE);
-
-			
 			//
 			// Tab settings
 			//
@@ -3292,6 +3263,31 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), SW_HIDE);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL, BM_SETCHECK, nppGUI._backSlashIsEscapeCharacterForSql, 0);
+
+			//
+			// Auto-indent settings
+			//
+			int choiceID = IDC_RADIO_AUTOINDENT_ADVANCED;
+			if (nppGUI._maintainIndent == autoIndent_none)
+				choiceID = IDC_RADIO_AUTOINDENT_NONE;
+			else if (nppGUI._maintainIndent == autoIndent_basic)
+				choiceID = IDC_RADIO_AUTOINDENT_BASIC;
+
+			::SendDlgItemMessage(_hSelf, choiceID, BM_SETCHECK, TRUE, 0);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
+			wstring tipAutoIndentBasic2Show = pNativeSpeaker->getLocalizedStrFromID("autoIndentBasic-tip",
+				L"Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line.");
+
+			wstring tipAutoIndentAdvanced2show = pNativeSpeaker->getLocalizedStrFromID("autoIndentAdvanced-tip",
+				L"Enable smart indentation for 'C-like' languages and Python. The 'C-like' languages include:\n"\
+				L"C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON\n"\
+				L"\n"\
+				L"If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode.");
+
+			_tipAutoIndentBasic = CreateToolTip(IDC_RADIO_AUTOINDENT_BASIC, _hSelf, _hInst, const_cast<PTSTR>(tipAutoIndentBasic2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAutoIndentAdvanced = CreateToolTip(IDC_RADIO_AUTOINDENT_ADVANCED, _hSelf, _hInst, const_cast<PTSTR>(tipAutoIndentAdvanced2show.c_str()), pNativeSpeaker->isRTL());
 
 			return TRUE;
 		}
@@ -3345,36 +3341,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			{
 				case LBN_SELCHANGE:
 				{
-					// Lang Menu
-					if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
-					{
-						int idButton2Enable;
-						int idButton2Disable;
-
-						if (LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
-						{
-							idButton2Enable = IDC_BUTTON_REMOVE;
-							idButton2Disable = IDC_BUTTON_RESTORE;
-						}
-						else //IDC_LIST_DISABLEDLANG
-						{
-							idButton2Enable = IDC_BUTTON_RESTORE;
-							idButton2Disable = IDC_BUTTON_REMOVE;
-						}
-
-						auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETCURSEL, 0, 0);
-						if (i != LB_ERR)
-						{
-							::EnableWindow(::GetDlgItem(_hSelf, idButton2Enable), TRUE);
-							int idListbox2Disable = (LOWORD(wParam) == IDC_LIST_ENABLEDLANG) ? IDC_LIST_DISABLEDLANG : IDC_LIST_ENABLEDLANG;
-							::SendDlgItemMessage(_hSelf, idListbox2Disable, LB_SETCURSEL, static_cast<WPARAM>(-1), 0);
-							::EnableWindow(::GetDlgItem(_hSelf, idButton2Disable), FALSE);
-						}
-						return TRUE;
-
-					}
-					// Tab setting
-					else if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
+					if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
 					{
 						auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
 						if (index == LB_ERR)
@@ -3423,29 +3390,6 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 						return TRUE;
 					}
-
-					break;
-				}
-
-				// Check if it is double click
-				case LBN_DBLCLK:
-				{
-					// Lang Menu
-					if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
-					{
-						// On double click an item, the item should be moved
-						// from one list to other list
-
-						HWND(lParam) == ::GetDlgItem(_hSelf, IDC_LIST_ENABLEDLANG) ?
-							::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_REMOVE, 0) :
-							::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_RESTORE, 0);
-						return TRUE;
-					}
-
-					// Tab setting - Double click is not used at this moment
-					/*else if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
-					{
-					}*/
 
 					break;
 				}
@@ -3538,6 +3482,296 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							break;
 						}
 					}
+					break;
+				}
+
+				default:
+				{
+					break;
+				}
+			}
+
+
+			switch (wParam)
+			{
+				case IDC_RADIO_REPLACEBYSPACE:
+				case IDC_RADIO_USINGTAB:
+				{
+					bool isTabReplacedBySpace = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_GETCHECK, 0, 0);
+
+					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+					if (index == LB_ERR) return FALSE;
+
+					if (index != 0)
+					{
+						Lang *lang = nppParam.getLangFromIndex(index - 1);
+						if (!lang) return FALSE;
+						if (!lang->_tabSize || lang->_tabSize == -1)
+							lang->_tabSize = nppGUI._tabSize;
+
+						if (lang->_langID == L_JS)
+						{
+							Lang *ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+							ljs->_isTabReplacedBySpace = isTabReplacedBySpace;
+						}
+						else if (lang->_langID == L_JAVASCRIPT)
+						{
+							Lang *ljavascript = nppParam.getLangFromID(L_JS);
+							ljavascript->_isTabReplacedBySpace = isTabReplacedBySpace;
+						}
+
+						lang->_isTabReplacedBySpace = isTabReplacedBySpace;
+
+						// write in langs.xml
+						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindent);
+					}
+					else
+					{
+						nppGUI._tabReplacedBySpace = isTabReplacedBySpace;
+					}
+
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SET_TAB_SETTINGS, 0, 0);
+
+					return TRUE;
+				}
+
+				case IDC_CHECK_BACKSPACEUNINDENT:
+				{
+					bool isBackspaceUnindent = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), BM_GETCHECK, 0, 0);
+
+					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+					if (index == LB_ERR) return FALSE;
+
+					if (index != 0)
+					{
+						Lang* lang = nppParam.getLangFromIndex(index - 1);
+						if (!lang) return FALSE;
+						if (!lang->_tabSize || lang->_tabSize == -1)
+							lang->_tabSize = nppGUI._tabSize;
+
+						if (lang->_langID == L_JS)
+						{
+							Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
+							ljs->_isBackspaceUnindent = isBackspaceUnindent;
+						}
+						else if (lang->_langID == L_JAVASCRIPT)
+						{
+							Lang* ljavascript = nppParam.getLangFromID(L_JS);
+							ljavascript->_isBackspaceUnindent = isBackspaceUnindent;
+						}
+
+						lang->_isBackspaceUnindent = isBackspaceUnindent;
+
+						// write in langs.xml
+						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindent);
+					}
+					else
+					{
+						nppGUI._backspaceUnindent = isBackspaceUnindent;
+					}
+
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SET_TAB_SETTINGS, 0, 0);
+
+					return TRUE;
+				}
+
+				case IDC_CHECK_DEFAULTTABVALUE:
+				{
+					const bool useDefaultTab = isCheckedOrNot(IDC_CHECK_DEFAULTTABVALUE);
+					const auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+					if (index == LB_ERR || index == 0) // index == 0 shouldn't happen
+						return FALSE;
+
+					Lang *lang = nppParam.getLangFromIndex(index - 1);
+					if (!lang)
+						return FALSE;
+
+					//- Set tab setting in chosen language
+					lang->_tabSize = useDefaultTab ? 0 : nppGUI._tabSize;
+					lang->_isTabReplacedBySpace = useDefaultTab ? false : nppGUI._tabReplacedBySpace;
+					lang->_isBackspaceUnindent = useDefaultTab ? false : nppGUI._backspaceUnindent;
+
+					//- set visual effect
+					::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, useDefaultTab ? nppGUI._tabSize : lang->_tabSize, FALSE);
+					setChecked(IDC_RADIO_REPLACEBYSPACE, useDefaultTab ? nppGUI._tabReplacedBySpace : lang->_isTabReplacedBySpace);
+					setChecked(IDC_RADIO_USINGTAB, useDefaultTab ? !nppGUI._tabReplacedBySpace : !lang->_isTabReplacedBySpace);
+					setChecked(IDC_CHECK_BACKSPACEUNINDENT, useDefaultTab ? nppGUI._backspaceUnindent : lang->_isBackspaceUnindent);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), !useDefaultTab);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), !useDefaultTab);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), !useDefaultTab);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), !useDefaultTab);
+
+					// write in langs.xml
+					if (useDefaultTab)
+						nppParam.insertTabInfo(lang->getLangName(), -1, false);
+
+					redrawDlgItem(IDC_TABSIZE_STATIC);
+					redrawDlgItem(IDC_INDENTUSING_STATIC);
+
+					return TRUE;
+				}
+
+				case IDC_RADIO_AUTOINDENT_NONE:
+				{
+					nppGUI._maintainIndent = autoIndent_none;
+					return TRUE;
+				}
+				case IDC_RADIO_AUTOINDENT_BASIC:
+				{
+					nppGUI._maintainIndent = autoIndent_basic;
+					return TRUE;
+				}
+				case IDC_RADIO_AUTOINDENT_ADVANCED:
+				{
+					nppGUI._maintainIndent = autoIndent_advanced;
+					return TRUE;
+				}
+
+				default:
+				{
+					break;
+				}
+			}
+		}
+		[[fallthrough]];
+		default:
+		{
+			break;
+		}
+	}
+	return FALSE;
+}
+
+
+intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI & nppGUI = nppParam.getNppGUI();
+	NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
+	switch (message) 
+	{
+		case WM_INITDIALOG :
+		{
+			//
+			// Lang Menu
+			//
+			for (int i = L_TEXT ; i < nppParam.L_END ; ++i)
+			{
+				wstring str;
+				if (static_cast<LangType>(i) != L_USER)
+				{
+					int cmdID = nppParam.langTypeToCommandID(static_cast<LangType>(i));
+					if ((cmdID != -1))
+					{
+						getNameStrFromCmd(cmdID, str);
+						if (str.length() > 0)
+						{
+							_langList.push_back(LangMenuItem(static_cast<LangType>(i), cmdID, str));
+						}
+					}
+				}
+			}
+
+			std::sort(_langList.begin(), _langList.end());
+
+			for (size_t i = 0, len = _langList.size(); i < len; ++i)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_langList[i]._langName.c_str()));
+			}
+
+			std::sort(nppGUI._excludedLangList.begin(), nppGUI._excludedLangList.end());
+				
+			for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; ++i)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(nppGUI._excludedLangList[i]._langName.c_str()));
+			}
+
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_LANGMENUCOMPACT, BM_SETCHECK, nppGUI._isLangMenuCompact?BST_CHECKED:BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_REMOVE), FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RESTORE), FALSE);
+
+			return TRUE;
+		}
+
+		case WM_CTLCOLOREDIT:
+		{
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORLISTBOX:
+		{
+			return NppDarkMode::onCtlColorListbox(wParam, lParam);
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_PRINTCLIENT:
+		{
+			if (NppDarkMode::isEnabled())
+			{
+				return TRUE;
+			}
+			break;
+		}
+
+		case WM_COMMAND : 
+		{
+			switch (HIWORD(wParam))
+			{
+				case LBN_SELCHANGE:
+				{
+					// Lang Menu
+					if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
+					{
+						int idButton2Enable;
+						int idButton2Disable;
+
+						if (LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
+						{
+							idButton2Enable = IDC_BUTTON_REMOVE;
+							idButton2Disable = IDC_BUTTON_RESTORE;
+						}
+						else //IDC_LIST_DISABLEDLANG
+						{
+							idButton2Enable = IDC_BUTTON_RESTORE;
+							idButton2Disable = IDC_BUTTON_REMOVE;
+						}
+
+						auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETCURSEL, 0, 0);
+						if (i != LB_ERR)
+						{
+							::EnableWindow(::GetDlgItem(_hSelf, idButton2Enable), TRUE);
+							int idListbox2Disable = (LOWORD(wParam) == IDC_LIST_ENABLEDLANG) ? IDC_LIST_DISABLEDLANG : IDC_LIST_ENABLEDLANG;
+							::SendDlgItemMessage(_hSelf, idListbox2Disable, LB_SETCURSEL, static_cast<WPARAM>(-1), 0);
+							::EnableWindow(::GetDlgItem(_hSelf, idButton2Disable), FALSE);
+						}
+						return TRUE;
+
+					}
+
+					break;
+				}
+
+				// Check if it is double click
+				case LBN_DBLCLK:
+				{
+					// Lang Menu
+					if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
+					{
+						// On double click an item, the item should be moved
+						// from one list to other list
+
+						HWND(lParam) == ::GetDlgItem(_hSelf, IDC_LIST_ENABLEDLANG) ?
+							::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_REMOVE, 0) :
+							::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_RESTORE, 0);
+						return TRUE;
+					}
+
 					break;
 				}
 
@@ -3695,123 +3929,6 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						::InsertMenu(subMenu, x, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
 					}
 					::DrawMenuBar(grandParent);
-					return TRUE;
-				}
-
-				case IDC_RADIO_REPLACEBYSPACE:
-				case IDC_RADIO_USINGTAB:
-				{
-					bool isTabReplacedBySpace = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), BM_GETCHECK, 0, 0);
-
-					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-					if (index == LB_ERR) return FALSE;
-
-					if (index != 0)
-					{
-						Lang *lang = nppParam.getLangFromIndex(index - 1);
-						if (!lang) return FALSE;
-						if (!lang->_tabSize || lang->_tabSize == -1)
-							lang->_tabSize = nppGUI._tabSize;
-
-						if (lang->_langID == L_JS)
-						{
-							Lang *ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-							ljs->_isTabReplacedBySpace = isTabReplacedBySpace;
-						}
-						else if (lang->_langID == L_JAVASCRIPT)
-						{
-							Lang *ljavascript = nppParam.getLangFromID(L_JS);
-							ljavascript->_isTabReplacedBySpace = isTabReplacedBySpace;
-						}
-
-						lang->_isTabReplacedBySpace = isTabReplacedBySpace;
-
-						// write in langs.xml
-						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindent);
-					}
-					else
-					{
-						nppGUI._tabReplacedBySpace = isTabReplacedBySpace;
-					}
-
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SET_TAB_SETTINGS, 0, 0);
-
-					return TRUE;
-				}
-
-				case IDC_CHECK_BACKSPACEUNINDENT:
-				{
-					bool isBackspaceUnindent = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), BM_GETCHECK, 0, 0);
-
-					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-					if (index == LB_ERR) return FALSE;
-
-					if (index != 0)
-					{
-						Lang* lang = nppParam.getLangFromIndex(index - 1);
-						if (!lang) return FALSE;
-						if (!lang->_tabSize || lang->_tabSize == -1)
-							lang->_tabSize = nppGUI._tabSize;
-
-						if (lang->_langID == L_JS)
-						{
-							Lang* ljs = nppParam.getLangFromID(L_JAVASCRIPT);
-							ljs->_isBackspaceUnindent = isBackspaceUnindent;
-						}
-						else if (lang->_langID == L_JAVASCRIPT)
-						{
-							Lang* ljavascript = nppParam.getLangFromID(L_JS);
-							ljavascript->_isBackspaceUnindent = isBackspaceUnindent;
-						}
-
-						lang->_isBackspaceUnindent = isBackspaceUnindent;
-
-						// write in langs.xml
-						nppParam.insertTabInfo(lang->getLangName(), lang->getTabInfo(), lang->_isBackspaceUnindent);
-					}
-					else
-					{
-						nppGUI._backspaceUnindent = isBackspaceUnindent;
-					}
-
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SET_TAB_SETTINGS, 0, 0);
-
-					return TRUE;
-				}
-
-				case IDC_CHECK_DEFAULTTABVALUE:
-				{
-					const bool useDefaultTab = isCheckedOrNot(IDC_CHECK_DEFAULTTABVALUE);
-					const auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-					if (index == LB_ERR || index == 0) // index == 0 shouldn't happen
-						return FALSE;
-
-					Lang *lang = nppParam.getLangFromIndex(index - 1);
-					if (!lang)
-						return FALSE;
-
-					//- Set tab setting in chosen language
-					lang->_tabSize = useDefaultTab ? 0 : nppGUI._tabSize;
-					lang->_isTabReplacedBySpace = useDefaultTab ? false : nppGUI._tabReplacedBySpace;
-					lang->_isBackspaceUnindent = useDefaultTab ? false : nppGUI._backspaceUnindent;
-
-					//- set visual effect
-					::SetDlgItemInt(_hSelf, IDC_EDIT_TABSIZEVAL, useDefaultTab ? nppGUI._tabSize : lang->_tabSize, FALSE);
-					setChecked(IDC_RADIO_REPLACEBYSPACE, useDefaultTab ? nppGUI._tabReplacedBySpace : lang->_isTabReplacedBySpace);
-					setChecked(IDC_RADIO_USINGTAB, useDefaultTab ? !nppGUI._tabReplacedBySpace : !lang->_isTabReplacedBySpace);
-					setChecked(IDC_CHECK_BACKSPACEUNINDENT, useDefaultTab ? nppGUI._backspaceUnindent : lang->_isBackspaceUnindent);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_EDIT_TABSIZEVAL), !useDefaultTab);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_REPLACEBYSPACE), !useDefaultTab);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_USINGTAB), !useDefaultTab);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_BACKSPACEUNINDENT), !useDefaultTab);
-
-					// write in langs.xml
-					if (useDefaultTab)
-						nppParam.insertTabInfo(lang->getLangName(), -1, false);
-
-					redrawDlgItem(IDC_TABSIZE_STATIC);
-					redrawDlgItem(IDC_INDENTUSING_STATIC);
-
 					return TRUE;
 				}
 
@@ -4691,7 +4808,6 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_USEKEY_GRP_STATIC), FALSE);
 				}
 			}
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maintainIndent, 0);
 
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_BRIEF_CHECK, BM_SETCHECK, nppGUI._autocBrief ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_SETCHECK, nppGUI._funcParams ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -4848,12 +4964,6 @@ intptr_t CALLBACK AutoCompletionSubDlg::run_dlgProc(UINT message, WPARAM wParam,
 
 			switch (wParam)
 			{
-				case IDC_CHECK_MAINTAININDENT:
-				{
-					nppGUI._maintainIndent = isCheckedOrNot(IDC_CHECK_MAINTAININDENT);
-					return TRUE;
-				}
-
 				case IDD_AUTOC_ENABLECHECK :
 				{
 					bool isEnableAutoC = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_GETCHECK, 0, 0);

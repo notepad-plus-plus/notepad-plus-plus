@@ -5079,10 +5079,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const wchar_t* val = n->Value();
 				if (val)
 				{
+					// the retro-compatibility with the old values
 					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._maintainIndent = true;
-					else
-						_nppGUI._maintainIndent = false;
+						_nppGUI._maintainIndent = autoIndent_advanced;
+					else if (lstrcmp(val, L"no") == 0)
+						_nppGUI._maintainIndent = autoIndent_none;
+
+					// the treatment of the new values
+					else if (lstrcmp(val, L"0") == 0)
+						_nppGUI._maintainIndent = autoIndent_none;
+					else if (lstrcmp(val, L"1") == 0)
+						_nppGUI._maintainIndent = autoIndent_advanced;
+					else if (lstrcmp(val, L"2") == 0)
+						_nppGUI._maintainIndent = autoIndent_basic;
+					else // other values will be ignored - use the default value
+						_nppGUI._maintainIndent = autoIndent_advanced;
 				}
 			}
 		}
@@ -7365,7 +7376,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="MaintainIndent">yes</GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"MaintainIndent", _nppGUI._maintainIndent);
+		//insertGUIConfigBoolNode(newGUIRoot, L"MaintainIndent", _nppGUI._maintainIndent);
+		wchar_t szStr[12] = L"0";
+		_itow(_nppGUI._maintainIndent, szStr, 10);
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute(L"name", L"MaintainIndent");
+		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
 	}
 
 	// <GUIConfig name = "TagsMatchHighLight" TagAttrHighLight = "yes" HighLightNonHtmlZone = "no">yes< / GUIConfig>

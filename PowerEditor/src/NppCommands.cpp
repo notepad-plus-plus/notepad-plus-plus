@@ -3547,7 +3547,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_DEBUGINFO:
 		{
+			const bool isFirstTime = !_debugInfoDlg.isCreated();
 			_debugInfoDlg.doDialog();
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_debugInfoDlg.getHSelf(), "DebugInfo");
 			break;
 		}
 

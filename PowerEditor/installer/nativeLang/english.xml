@@ -1108,7 +1108,7 @@ Translation note:
 					<Item id="7161" name="Auto-indent"/>
 					<Item id="7162" name="None"/>
 					<Item id="7163" name="Basic"/>
-					<Item id="7164" name="Advance"/>
+					<Item id="7164" name="Advanced"/>
 					<Item id="6301" name="Indent Settings"/>
 					<Item id="6302" name="Space character(s)"/>
 					<Item id="6303" name="Indent size:"/>

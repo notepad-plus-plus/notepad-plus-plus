@@ -3605,7 +3605,7 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 				}
 				case IDC_RADIO_AUTOINDENT_ADVANCE:
 				{
-					nppGUI._maintainIndent = autoIndent_advance;
+					nppGUI._maintainIndent = autoIndent_advanced;
 					return TRUE;
 				}
 
@@ -3687,6 +3687,7 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		}
 
 		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
 		{
 			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
 		}

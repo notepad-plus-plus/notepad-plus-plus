@@ -190,11 +190,27 @@ private :
 
 class IndentationSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	IndentationSubDlg() = default;
+	~IndentationSubDlg() {
+		if (_tipAutoIndentBasic != nullptr)
+		{
+			::DestroyWindow(_tipAutoIndentBasic);
+			_tipAutoIndentBasic = nullptr;
+		}
+
+		if (_tipAutoIndentAdvanced != nullptr)
+		{
+			::DestroyWindow(_tipAutoIndentAdvanced);
+			_tipAutoIndentAdvanced = nullptr;
+		}
+	};
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+	HWND _tipAutoIndentBasic = nullptr;
+	HWND _tipAutoIndentAdvanced = nullptr;
 };
 
 class HighlightingSubDlg : public StaticDialog

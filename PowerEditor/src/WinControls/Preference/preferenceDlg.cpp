@@ -262,6 +262,11 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (_searchingSubDlg._tipInSelThresh != nullptr)
 				NppDarkMode::setDarkTooltips(_searchingSubDlg._tipInSelThresh, NppDarkMode::ToolTipsType::tooltip);
 
+			if (_indentationSubDlg._tipAutoIndentBasic)
+				NppDarkMode::setDarkTooltips(_indentationSubDlg._tipAutoIndentBasic, NppDarkMode::ToolTipsType::tooltip);
+			if (_indentationSubDlg._tipAutoIndentAdvanced)
+				NppDarkMode::setDarkTooltips(_indentationSubDlg._tipAutoIndentAdvanced, NppDarkMode::ToolTipsType::tooltip);
+
 			// groupbox label in dark mode support disabled text color
 			if (NppDarkMode::isEnabled())
 			{
@@ -3238,7 +3243,6 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 	{
 		case WM_INITDIALOG :
 		{
-		
 			//
 			// Tab settings
 			//
@@ -3263,13 +3267,26 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 			//
 			// Auto-indent settings
 			//
-			int choiceID = IDC_RADIO_AUTOINDENT_ADVANCE;
+			int choiceID = IDC_RADIO_AUTOINDENT_ADVANCED;
 			if (nppGUI._maintainIndent == autoIndent_none)
 				choiceID = IDC_RADIO_AUTOINDENT_NONE;
 			else if (nppGUI._maintainIndent == autoIndent_basic)
 				choiceID = IDC_RADIO_AUTOINDENT_BASIC;
 
 			::SendDlgItemMessage(_hSelf, choiceID, BM_SETCHECK, TRUE, 0);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
+			wstring tipAutoIndentBasic2Show = pNativeSpeaker->getLocalizedStrFromID("autoIndentBasic-tip",
+				L"Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line.");
+
+			wstring tipAutoIndentAdvanced2show = pNativeSpeaker->getLocalizedStrFromID("autoIndentAdvanced-tip",
+				L"Enable smart indentation for 'C-like' languages and Python. The 'C-like' languages include:\n"\
+				L"C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON\n"\
+				L"If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode.");
+
+			_tipAutoIndentBasic = CreateToolTip(IDC_RADIO_AUTOINDENT_BASIC, _hSelf, _hInst, const_cast<PTSTR>(tipAutoIndentBasic2Show.c_str()), pNativeSpeaker->isRTL());
+			_tipAutoIndentAdvanced = CreateToolTip(IDC_RADIO_AUTOINDENT_ADVANCED, _hSelf, _hInst, const_cast<PTSTR>(tipAutoIndentAdvanced2show.c_str()), pNativeSpeaker->isRTL());
 
 			return TRUE;
 		}
@@ -3603,7 +3620,7 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					nppGUI._maintainIndent = autoIndent_basic;
 					return TRUE;
 				}
-				case IDC_RADIO_AUTOINDENT_ADVANCE:
+				case IDC_RADIO_AUTOINDENT_ADVANCED:
 				{
 					nppGUI._maintainIndent = autoIndent_advanced;
 					return TRUE;

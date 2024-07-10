@@ -1101,14 +1101,21 @@ Translation note:
 					<Item id="6506" name="Langages cachés"/>
 					<Item id="6507" name="Compacter le « Menu langage »"/>
 					<Item id="6508" name="Menu langage"/>
-					<Item id="6301" name="Tabulations"/>
+					<Item id="6335" name="Barre oblique inversée : caractère d'échappement pour SQL"/>
+				</Language>
+
+				<Indentation title="Indentation">
+					<Item id="7161" name="Indentation automatique"/>
+					<Item id="7162" name="Désactivé"/>
+					<Item id="7163" name="Basique"/>
+					<Item id="7164" name="Avancé"/>
+					<Item id="6301" name="Indentation"/>
 					<Item id="6302" name="Insertion d’espaces"/>
 					<Item id="6303" name="Taille de l'indentation :"/>
 					<Item id="6310" name="Indenter par :"/>
 					<Item id="6311" name="Caractère de tabulation"/>
 					<Item id="6510" name="Utiliser la valeur par défaut"/>
-					<Item id="6335" name="Barre oblique inversée : caractère d'échappement pour SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Coloration">
 					<Item id="6351" name="Marquer tout"/>

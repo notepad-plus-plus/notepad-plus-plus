@@ -1050,17 +1050,28 @@
 					<Item id="4009" name="支援的副檔名"/>
 					<Item id="4010" name="已連結的副檔名"/>
 				</FileAssoc>
+
 				<Language title="程式語言">
 					<Item id="6505" name="可用項目"/>
 					<Item id="6506" name="停用項目"/>
 					<Item id="6507" name="簡化程式語言選單"/>
 					<Item id="6508" name="程式語言選單"/>
-					<Item id="6301" name="縮排設定"/>
-					<Item id="6302" name="使用空格"/>
-					<Item id="6303" name="縮排大小："/>
-					<Item id="6510" name="使用預設值"/>
 					<Item id="6335" name="在 SQL 中視「\」為逸出字元"/>
 				</Language>
+
+				<Indentation title="縮排">
+					<Item id="7161" name="自動縮排"/>
+					<Item id="7162" name="無"/>
+					<Item id="7163" name="基本"/>
+					<Item id="7164" name="進階"/>
+					<Item id="6301" name="縮排設定"/>
+					<Item id="6302" name="空格"/>
+					<Item id="6303" name="縮排大小："/>
+					<Item id="6310" name="縮排使用："/>
+					<Item id="6311" name="Tab 字元"/>
+					<Item id="6510" name="使用預設值"/>
+					<Item id="6512" name="退格鍵取消縮排而不是刪除單一空格"/>
+				</Indentation>
 
 				<Highlighting title="醒目提示">
 					<Item id="6351" name="全部標記"/>

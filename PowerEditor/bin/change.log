@@ -1,21 +1,36 @@
-Notepad++ v8.6.8 bug-fixes & new enhancements:
+Notepad++ v8.6.9 bug-fixes & new enhancements:
 
- 1. Fix a crash in Column Editor caused by an arithmetic overflow.
- 2. Fix the issue where any negative repeat value in Column Editor causes a hang.
- 3. Fix an extra space being inserted in HEX mode issue in Column Editor.
- 4. Fix a visual glitch of the toolbar pressed buttons in dark mode.
- 5. Add auto-indent feature for Python.
- 6. Fix the issue where "show control characters" settings not remembered when switching to another tab.
- 7. Fix the missing monitoring disabled state icon from the fluent icon set on the toolbar.
- 8. Adjusted the inaccurate naming of indent settings in thee Preferences dialog.
- 9. Fix the issue where the customized color of active tab in inactive view is missing.
-10. Introduce a new plugin command "NPPM_GETTABCOLORID" to retrieve the current tab color ID.
-11. Allow the tree view dark mode customization for plugins.
-12. Fix the popup dialog for updating not metioning 'Notepad++'.
+ 1. Make installation and updates easy & quiet by adding "Yes (Silent)" button.
+ 2. Add new options '/closeRunningNpp' & '/runNppAfterSilentInstall' in the installer.
+ 3. Fix crash of "Next Search Result" command on the empty search result.
+ 4. Fix the regression where the Find dialog size is not remembered across sessions.
+ 5. Fix the regression of content lost by using Encoding "Convert to..." commands. 
+ 6. Fix the regression of exception/crash on Windows Server Core 2022.
+ 7. Prevent DirectWrite from being enabled under Windows Sever.
+ 8. Enhance the quality of Fluent toolbar icon sets for different DPI settings.
+ 9. Improve the look & feel of tabbar close button in dark mode.
+10. Improve the dark mode tab bar icon in the search results panel.
+11. Add ability to pre-populate the predefined color sets for custom tones.
+12. Add "Show All Character" popup menu on toolbar button.
+13. Fix the rectangular selection copy-paste bug.
+14. Allow opening shortcut files (*.lnk) directly if the file extension is changed.
+15. Fix the lost panels issue.
+16. Add Backspace unindent option.
+17. Fix CSS more indentation bug.
+18. Include F13-F24 keys in Shortcut Mapper.
+19. Fix the problem where the last empty clean untitled tab cannot be closed after renaming.
+20. Add plugin a command (NPPM_SETUNTITLEDNAME) to rename untitled tab.
+21. Display a message box with information about disabled backward regex searching.
+22. Fix the display glitch for unsaved tabs containing tab characters.
+23. Fix status bar and tab bar flicker during the GUI updated (fixed only for dark mode).
+24. Fix the issue with "Begin/End Select" command after deletion.
+25. Resolve the integer overflow problem in the Column Editor.
+26. Adjust the position of hits text in the File Progress dialog.
+27. Fix the deployment of other software blocked due to NppShell.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6.8/
+https://notepad-plus-plus.org/downloads/v8.6.9/
 
 
 Included plugins:
@@ -27,4 +42,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.2.9
+* WinGUp (for Notepad++) v5.3

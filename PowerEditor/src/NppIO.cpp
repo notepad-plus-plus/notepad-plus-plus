@@ -1007,7 +1007,15 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
-	if (buf->isUntitled() && buf->docLength() == 0)
+	int viewToClose = currentView();
+	if (curView != -1)
+		viewToClose = curView;
+
+	// Determinate if it's a cloned buffer
+	DocTabView* nonCurrentTab = (viewToClose == MAIN_VIEW) ? &_subDocTab : &_mainDocTab;
+	bool isCloned = nonCurrentTab->getIndexByBuffer(bufferID) != -1;
+
+	if ((buf->isUntitled() && buf->docLength() == 0) || isCloned)
 	{
 		// Do nothing
 	}
@@ -1031,12 +1039,12 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		}
 	}
 
-	int viewToClose = currentView();
-	if (curView != -1)
-		viewToClose = curView;
-
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-	doClose(bufferID, viewToClose, isSnapshotMode);
+	bool doDeleteBackup = isSnapshotMode;
+	if (isSnapshotMode && isCloned) // if Buffer is cloned then we don't delete backup file
+		doDeleteBackup = false;
+
+	doClose(bufferID, viewToClose, doDeleteBackup);
 	return true;
 }
 
@@ -2320,7 +2328,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
 
-			if (isSnapshotMode && session._mainViewFiles[i]._backupFilePath.empty() && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
+			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty() && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
 			buf->setRTL(session._mainViewFiles[i]._isRTL);

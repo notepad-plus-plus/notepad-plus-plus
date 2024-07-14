@@ -1101,14 +1101,21 @@ Translation note:
 					<Item id="6506" name="Langages cachés"/>
 					<Item id="6507" name="Compacter le « Menu langage »"/>
 					<Item id="6508" name="Menu langage"/>
-					<Item id="6301" name="Tabulations"/>
+					<Item id="6335" name="Barre oblique inversée : caractère d'échappement pour SQL"/>
+				</Language>
+
+				<Indentation title="Indentation">
+					<Item id="7161" name="Indentation automatique"/>
+					<Item id="7162" name="Désactivé"/>
+					<Item id="7163" name="Basique"/>
+					<Item id="7164" name="Avancé"/>
+					<Item id="6301" name="Indentation"/>
 					<Item id="6302" name="Insertion d’espaces"/>
 					<Item id="6303" name="Taille de l'indentation :"/>
 					<Item id="6310" name="Indenter par :"/>
 					<Item id="6311" name="Caractère de tabulation"/>
 					<Item id="6510" name="Utiliser la valeur par défaut"/>
-					<Item id="6335" name="Barre oblique inversée : caractère d'échappement pour SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Coloration">
 					<Item id="6351" name="Marquer tout"/>
@@ -1796,6 +1803,11 @@ Cliquez sur le bouton « ? » à droite pour ouvrir le site web du manuel utilis
 			<npcIncludeCcUniEol-tip value="Applique les paramètres d’apparence des caractères non-imprimables aux contrôles C0, C1 et aux caractères Unicode EOL (ligne suivante, séparateur de ligne et séparateur de paragraphe)."/>
 			<searchingInSelThresh-tip value="Nombre de caractères sélectionnés dans la zone d’édition pour cocher automatiquement la case « Dans sélection » quand la fenêtre de recherche est activée. La valeur maximale est 1024. Mettre la valeur à 0 pour désactiver l’auto-coche."/>
 			<verticalEdge-tip value="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier. Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
+			<autoIndentBasic-tip value="Assurez-vous que la ligne courante (c'est-à-dire la nouvelle ligne saisie en appuyant sur ENTRÉE) a la même indentation que la ligne précédente."/>
+			<autoIndentAdvanced-tip value="Activer l'indentation intelligente pour les langages de « type C » et Python. Les langages de « type C » comprennent :
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell et JSON
+
+Si vous sélectionnez le mode avancé sans modifier les fichiers des langues mentionnées ci-dessus, les paramètres d'indentation resteront en mode basique."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

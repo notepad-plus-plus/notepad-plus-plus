@@ -5,7 +5,7 @@
 2. Tüm yorumlar açıklama içindir, çeviri için değil.
 -->
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.6.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -222,7 +222,7 @@
 					<Item id="43051" name="Yer İmlenmemiş Satırları Kaldır"/>
 					<Item id="43050" name="Yer İmlerini Ters Çevir"/>
 					<Item id="43052" name="Aralıktaki Karakterleri Bul…"/>
-					<Item id="43053" name="Eşleşen Kaşlı Ayraçla Arasındakileri Seç"/>
+					<Item id="43053" name="{} [] ya da () Arasından Tümünü S&amp;eç"/>
 					<Item id="43009" name="Eşleşen Kaşlı Ayraca Git"/>
 					<Item id="43010" name="&amp;Öncekini Bul"/>
 					<Item id="43011" name="Gelişmiş &amp;Arama"/>
@@ -355,6 +355,7 @@
 					<Item id="10005" name="Başlangıca Taşı"/>
 					<Item id="10006" name="Sona Taşı"/>
 					<Item id="46001" name="&amp;Stil Yapılandırıcı…"/>
+					<Item id="46016" name="Hiçbiri (Normal Yazı)"/>
 					<Item id="46250" name="Dil &amp;Tanımla"/>
 					<Item id="46300" name="Kullanıcı Tanımlı Dil Klasörünü Aç..."/>
 					<Item id="46301" name="Notepad++ Kullanıcı Tanımlı Diller Koleksiyonu"/>
@@ -468,7 +469,7 @@
 				<Item id="1" name="&amp;Sonrakini Bul"/>
 				<Item id="1722" name="Geriye Doğru"/>
 				<Item id="2" name="&amp;Kapat"/>
-				<Item id="1620" name="&amp;Aranan :"/>
+				<Item id="1620" name="&amp;Aranan:"/>
 				<Item id="1603" name="Sadece &amp;tam sözcükleri eşleştir"/>
 				<Item id="1604" name="Büyük/küçük harf &amp;eşleştir"/>
 				<Item id="1605" name="Dü&amp;zenli ifade"/>
@@ -480,7 +481,7 @@
 				<Item id="1616" name="Satırı işa&amp;retle"/>
 				<Item id="1618" name="Her arama için temizle"/>
 				
-				<Item id="1611" name="Değ&amp;iştir :"/>
+				<Item id="1611" name="Değ&amp;iştir:"/>
 				<Item id="1608" name="&amp;Değiştir"/>
 				<Item id="1609" name="Tü&amp;münü Değiştir"/>
 				<Item id="1687" name="Odak dışındayken"/>
@@ -1080,7 +1081,7 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UTF-16 Big-Endian BOM ile"/>
 					<Item id="6410" name="UTF-16 Small-Endian Bom ile"/>
-					<Item id="6411" name="Varsayılan dil :"/>
+					<Item id="6411" name="Varsayılan dil:"/>
 					<Item id="6419" name="Yeni Belge"/>
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula"/>
 					<Item id="6432" name="Başlangıçta her zaman yeni bir belge aç"/>
@@ -1099,17 +1100,28 @@
 					<Item id="4010" name="Kaydedilen uzantılar:"/>
 				</FileAssoc>
 				
+				
 				<Language title="Dil Menüsü">
 					<Item id="6505" name="Kullanılabilir öğeler:"/>
 					<Item id="6506" name="Devre dışı öğeler:"/>
 					<Item id="6507" name="Dil menüsünü kısalt"/>
 					<Item id="6508" name="Dil Menüsü"/>
-					<Item id="6301" name="Sekme Ayarları"/>
-					<Item id="6302" name="Boşlukla değiştir"/>
-					<Item id="6303" name="Sekme boyutu: "/>
-					<Item id="6510" name="Varsayılan değeri kullan"/>
 					<Item id="6335" name="SQL için kaçış karakteri olarak ters eğik çizgi kullan"/>
 				</Language>
+				
+				<Indentation title="Girinti">
+					<Item id="7161" name="Oto-girinti"/>
+					<Item id="7162" name="Hiç"/>
+					<Item id="7163" name="Temel"/>
+					<Item id="7164" name="Gelişmiş"/>
+					<Item id="6301" name="Girinti Ayarları"/>
+					<Item id="6302" name="Boşluk Karakter(ler)i"/>
+					<Item id="6303" name="Girinti Boyutu: "/>
+					<Item id="6310" name="Girinti Kullanımı:"/>
+					<Item id="6311" name="Sekme Karakteri"/>
+					<Item id="6510" name="Varsayılan değeri kullan"/>
+					<Item id="6512" name="Geri alma tuşu boşluk kaldırma yerine girintiyi geri alır"/>
+				</Indentation>
 				
 				<Highlighting title="Vurgulama">
 					<Item id="6351" name="Eşleşen Tüm İşaretleri Stillendir"/>
@@ -1193,7 +1205,7 @@
 				<Backup title="Yedekleme">
 					<Item id="6817" name="Anlık Görüntü Oturumu ve Dönemsel Yedekleme"/>
 					<Item id="6818" name="Anlık görüntü oturumunu ve dönemsel yedeklemeyi etkinleştir"/>
-					<Item id="6819" name="Yedekleme her"/>
+					<Item id="6819" name="Düzenlemede yedekleme tetikleme her"/>
 					<Item id="6821" name="saniyede bir yapılsın"/>
 					<Item id="6822" name="Yedekleme yolu:"/>
 					<Item id="6309" name="Geçerli oturumu sonraki açılışta hatırla"/>
@@ -1203,7 +1215,7 @@
 					<Item id="6316" name="Basit yedekleme"/>
 					<Item id="6317" name="Ayrıntılı yedekleme"/>
 					<Item id="6804" name="Özel yedekleme dizini"/>
-					<Item id="6803" name="Dizin :"/>
+					<Item id="6803" name="Dizin:"/>
 				</Backup>
 
 				<AutoCompletion title="Otomatik Tamamlama">
@@ -1299,7 +1311,7 @@
 
 				<MISC title="Çeşitli">
 					<ComboBox id="6347">
-						<Element name="Etkinleştir"/>
+						<Element name="Şimdiki dosya için etkinleştir"/>
 						<Element name="Tüm sekmeler için etkinleştir"/>
 						<Element name="Etkisizleştir"/>
 					</ComboBox>
@@ -1388,6 +1400,11 @@ Bu pencereyi Tercihler içinden tekrar aktif edebilirsiniz."/>
 				<Item id="7" name="&amp;Hayır"/>
 				<Item id="4" name="&amp;Her zaman evet"/>
 			</DoSaveAll><!-- NasılTekrarlanır: Tercihler->Çeşitli penceresinde "Tümünü Kaydet onaylama penceresi" kutucuğunu işaretleyin, şimdi "Tümünü Kaydet" seçeneğine tıklayın -->
+		
+			<DebugInfo title="Hata Ayıklama Bilgisi">
+				<Item id="1752" name="Hata ayıklama bilgisini panoya kopyala"/>
+				<Item id="1" name="Tamam"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ ve $STR_REPLACE$ birer yer tutucudur, bu yer tutucuları çevirmeyin. -->
@@ -1521,6 +1538,11 @@ Bu yer tutucuları oluşturmak ister misiniz?
 NOT: Yer tutucuları oluşturmayı seçmemeniz veya onları sonradan kapatmanız durumunda, oturumunuz ÇIKIŞTA DÜZENLENMEYECEKTİR! &quot;session.xml&quot; dosyanızı şimdi yedeklemenizi öneririz."/>
 			<RTLvsDirectWrite title="SaSMY Çalıştırılamıyor" message="Sağdan Sola Metin Yönü, DirectWrite modu ile uyumsuz. Lütfen DirectWrite modunu Tercihler penceresi altındaki Çeşitli sekmesinden etkisizleştirin ve Notepad++'ı yeniden başlatın."/>
 			<FileMemoryAllocationFailed title="İstisna: Dosya hafızası ayırma başarısız" message="Muhtemelen Notepad++ tarafından yüklenen dosya için yeterli boş hafıza yok."/><!-- NasılTerkarlanır: x86 Notepad++ içinde birden fazla ve toplamda boyutu > ~700MB olan dosyalar açmaya çalışın (bilgisayarda bulunan fiziki bellek miktarına ve mevcut sistem hafıza kullanımına göre değişebilir...). -->
+			<FindRegexBackwardDisabled title="Düzenli ifade geriye doğru arama etkisizleştirildi" message="Varsayılan olarak, muhtemel beklenmeyen sonuçlar nedeniyle geriye doğru düzenli ifade arama etkisizdir. Geriye doğru arama yapmak için, Bul penceresini açın ve düzenli ifade yerine normal ya da genişletilmiş aramayı kullanın.
+Bul penceresini açmak için Tamam tuşuna basın veya ona odaklayın.
+			
+Eğer geriye doğru düzenli ifade arama özelliğine ihtiyacınız varsa, kullanıcı kılavuzundaki talimatlarla etkinleştirin."/>
+			<PrintError title="0" message="Yazıcı belgesi başlatılamıyor."/><!-- title="0" kullanarak Windows İS varsayılan "Hata" tercüme başlığını kullanabilirsiniz. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1719,8 +1741,8 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<progress-cancel-info value="işlem iptal ediliyor, lütfen bekleyin..."/>
 			<find-in-files-progress-title value="Dosyalarda Bul işleniyor..."/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
-			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
-			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
+			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz:"/>
+			<replace-in-files-confirm-filetype value="Dosya türü için:"/>
 			<replace-in-files-progress-title value="Dosyalarda Değiştir işleniyor..."/>
 			<replace-in-projects-confirm-title value="Emin misiniz?"/>
 			<replace-in-projects-confirm-message value="Seçili Proje Panellerinin içindeki tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğinize emin misiniz?"/>
@@ -1784,6 +1806,12 @@ Sağdaki &quot;?&quot; düğmesine tıklayarak Kullanıcı Kılavuzu'nun olduğu
 			<npcIncludeCcUniEol-tip value="Yazdırılamayan karaklerlerin görünüm ayarlarını C0, C1 kontrol ve Unicode Satır Sonu (yeni satır, satır ayırıcı ve paragraf ayırıcı) karakterleri için uygulayabilirsiniz."/>
 			<searchingInSelThresh-tip value="Bul penceresi aktifken, düzenleme bölgesinde &quot;Seçimde&quot; kutucuğunun otomatik olarak kontrolü yapılacak seçili karakter sayısı. En yüksek değer 1024'tür. Değeri 0 yaparak otomatik kontrolü etkisizleştirebilirsiniz."/>
 			<verticalEdge-tip value="Sütun işaretçinizi, pozisyonunu ondalık sayı ile belirterek ekleyin. Birden fazla sütun işaretçisini, aralarında boş alan bırakarak belirleyebilirsiniz."/>
+			<fileSaveAsCopySaveButton-tip value="Shift tuşuna basılı tutarak Kaydete basmak, kayıttan sonra kopyayı açar."/>
+			<autoIndentBasic-tip value="Mevcut satırdaki girintinin (mesela ENTER tuşu ile oluşturulmuş yeni satır) önceki satır girintisi ile eşleştiğine emin olun."/>
+			<autoIndentAdvanced-tip value="&quot;C-benzeri&quot; diller ve Python için Akıllı Girintiyi etkinleştirin. &quot;C-benzeri&quot; diller:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell ve JSON
+
+Eğer gelişmiş modu seçerseniz fakat belirtilen dilleri düzenlemezseniz, girinti basit modda kalacaktır."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

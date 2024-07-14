@@ -65,28 +65,28 @@ void ShortcutMapper::getClientRect(RECT& rc) const
 	::InflateRect(&rc, -padding, 0);
 }
 
-generic_string ShortcutMapper::getTabString(size_t i) const
+wstring ShortcutMapper::getTabString(size_t i) const
 {
 	if (i >= _nbTab)
-		return TEXT("");
+		return L"";
 
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	switch (i)
 	{
 		case 1:
-			return nativeLangSpeaker->getShortcutMapperLangStr("MacrosTab", TEXT("Macros"));
+			return nativeLangSpeaker->getShortcutMapperLangStr("MacrosTab", L"Macros");
 
 		case 2:
-			return nativeLangSpeaker->getShortcutMapperLangStr("RunCommandsTab", TEXT("Run commands"));
+			return nativeLangSpeaker->getShortcutMapperLangStr("RunCommandsTab", L"Run commands");
 
 		case 3:
-			return nativeLangSpeaker->getShortcutMapperLangStr("PluginCommandsTab", TEXT("Plugin commands"));
+			return nativeLangSpeaker->getShortcutMapperLangStr("PluginCommandsTab", L"Plugin commands");
 
 		case 4:
-			return nativeLangSpeaker->getShortcutMapperLangStr("ScintillaCommandsTab", TEXT("Scintilla commands"));
+			return nativeLangSpeaker->getShortcutMapperLangStr("ScintillaCommandsTab", L"Scintilla commands");
 
 		default: //0
-			return nativeLangSpeaker->getShortcutMapperLangStr("MainMenuTab", TEXT("Main menu"));
+			return nativeLangSpeaker->getShortcutMapperLangStr("MainMenuTab", L"Main menu");
 	}
 }
 
@@ -166,16 +166,16 @@ void ShortcutMapper::initBabyGrid()
 
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapper");
-	_conflictInfoOk = nativeLangSpeaker->getShortcutMapperLangStr("ConflictInfoOk", TEXT("No shortcut conflicts for this item."));
-	_conflictInfoEditing = nativeLangSpeaker->getShortcutMapperLangStr("ConflictInfoEditing", TEXT("No conflicts . . ."));
+	_conflictInfoOk = nativeLangSpeaker->getShortcutMapperLangStr("ConflictInfoOk", L"No shortcut conflicts for this item.");
+	_conflictInfoEditing = nativeLangSpeaker->getShortcutMapperLangStr("ConflictInfoEditing", L"No conflicts . . .");
 }
 
-generic_string ShortcutMapper::getTextFromCombo(HWND hCombo)
+wstring ShortcutMapper::getTextFromCombo(HWND hCombo)
 {
 	const int NB_MAX(128);
-	TCHAR str[NB_MAX](TEXT("\0"));
+	wchar_t str[NB_MAX](L"\0");
 	::SendMessage(hCombo, WM_GETTEXT, NB_MAX, reinterpret_cast<LPARAM>(str));
-	generic_string res(str);
+	wstring res(str);
 	return stringToLower(res);
 }
 
@@ -194,7 +194,7 @@ bool ShortcutMapper::isFilterValid(Shortcut sc)
 
 	for (size_t i = 0; i < filterSize; ++i)
 	{
-		generic_string filterWord = _shortcutFilter.at(i);
+		wstring filterWord = _shortcutFilter.at(i);
 		// every word must be matched by keycombo or name
 		if (shortcut_name.find(filterWord) == std::string::npos &&
 			shortcut_value.find(filterWord) == std::string::npos)
@@ -219,7 +219,7 @@ bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc)
 	
 	for (size_t i = 0; i < filterSize; ++i)
 	{
-		generic_string filterWord = _shortcutFilter.at(i);
+		wstring filterWord = _shortcutFilter.at(i);
 		// every word must be matched by keycombo or name or plugin name
 		if (shortcut_name.find(filterWord) == std::string::npos &&
 			shortcut_value.find(filterWord) == std::string::npos &&
@@ -244,7 +244,7 @@ bool ShortcutMapper::isFilterValid(ScintillaKeyMap sc)
 
 	for (size_t i = 0; i < filterSize; ++i)
 	{
-		generic_string filterWord = _shortcutFilter.at(i);
+		wstring filterWord = _shortcutFilter.at(i);
 		// every word must be matched by keycombo or name
 		if (shortcut_name.find(filterWord) == std::string::npos &&
 			shortcut_value.find(filterWord) == std::string::npos)
@@ -262,8 +262,8 @@ void ShortcutMapper::fillOutBabyGrid()
 
 	size_t nbItems = 0;
 	NativeLangSpeaker* nativeLangSpeaker = nppParam.getNativeLangSpeaker();
-	generic_string nameStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnName", TEXT("Name"));
-	generic_string shortcutStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnShortcut", TEXT("Shortcut"));
+	wstring nameStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnName", L"Name");
+	wstring shortcutStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnShortcut", L"Shortcut");
 
 	_babygrid.setText(0, 1, nameStr.c_str());
 	_babygrid.setText(0, 2, shortcutStr.c_str());
@@ -274,7 +274,7 @@ void ShortcutMapper::fillOutBabyGrid()
 		{
 			nbItems = nppParam.getUserShortcuts().size();
 			_babygrid.setLineColNumber(nbItems, 3);
-			generic_string categoryStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnCategory", TEXT("Category"));
+			wstring categoryStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnCategory", L"Category");
 			_babygrid.setText(0, 3, categoryStr.c_str());
 		}
 		break;
@@ -297,7 +297,7 @@ void ShortcutMapper::fillOutBabyGrid()
 		{
 			nbItems = nppParam.getPluginCommandList().size();
 			_babygrid.setLineColNumber(nbItems, 3);
-			generic_string pluginStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnPlugin", TEXT("Plugin"));
+			wstring pluginStr = nativeLangSpeaker->getShortcutMapperLangStr("ColumnPlugin", L"Plugin");
 			_babygrid.setText(0, 3, pluginStr.c_str());
 		}
 		break;
@@ -314,15 +314,15 @@ void ShortcutMapper::fillOutBabyGrid()
 	size_t cs_index = 0;
 	
 	// make _shortcutFilter a list of the words in IDC_BABYGRID_FILTER
-	generic_string shortcutFilterStr = getTextFromCombo(::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER));
-	const generic_string whitespace(TEXT(" "));
-	std::vector<generic_string> shortcutFilterWithEmpties;
+	wstring shortcutFilterStr = getTextFromCombo(::GetDlgItem(_hSelf, IDC_BABYGRID_FILTER));
+	const wstring whitespace(L" ");
+	std::vector<wstring> shortcutFilterWithEmpties;
 	stringSplit(shortcutFilterStr, whitespace, shortcutFilterWithEmpties);
 	// now add only the non-empty strings in the split list to _shortcutFilter
-	_shortcutFilter = std::vector<generic_string>();
+	_shortcutFilter = std::vector<wstring>();
 	for (size_t i = 0; i < shortcutFilterWithEmpties.size(); ++i)
 	{
-		generic_string filterWord = shortcutFilterWithEmpties.at(i);
+		wstring filterWord = shortcutFilterWithEmpties.at(i);
 		if (!filterWord.empty())
 			_shortcutFilter.push_back(filterWord);
 	}
@@ -712,7 +712,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			if (!wParam || !lParam)
 				break;
 
-			generic_string conflictInfo;
+			wstring conflictInfo;
 
 			// In case of using filter will make the filtered items change index, so here we get its real index
 			size_t realIndexOfSelectedItem = _shortcutIndex[_babygrid.getSelectedRow() - 1];
@@ -1073,8 +1073,8 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					NppParameters& nppParam = NppParameters::getInstance();
 					int res = nppParam.getNativeLangSpeaker()->messageBox("SCMapperDoDeleteOrNot",
 						_hSelf,
-						TEXT("Are you sure you want to delete this shortcut?"),
-						TEXT("Are you sure?"),
+						L"Are you sure you want to delete this shortcut?",
+						L"Are you sure?",
 						MB_OKCANCEL);
 
 					if (res == IDOK)
@@ -1226,9 +1226,9 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							{
 								vector<MenuItemUnit> itemUnitArray;
 								NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
-								generic_string modifyStr = nativeLangSpeaker->getShortcutMapperLangStr("ModifyContextMenu", TEXT("Modify"));
-								generic_string deleteStr = nativeLangSpeaker->getShortcutMapperLangStr("DeleteContextMenu", TEXT("Delete"));
-								generic_string clearStr = nativeLangSpeaker->getShortcutMapperLangStr("ClearContextMenu", TEXT("Clear"));
+								wstring modifyStr = nativeLangSpeaker->getShortcutMapperLangStr("ModifyContextMenu", L"Modify");
+								wstring deleteStr = nativeLangSpeaker->getShortcutMapperLangStr("DeleteContextMenu", L"Delete");
+								wstring clearStr = nativeLangSpeaker->getShortcutMapperLangStr("ClearContextMenu", L"Clear");
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, modifyStr.c_str()));
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, deleteStr.c_str()));
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_CLEAR, clearStr.c_str()));
@@ -1301,7 +1301,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							// In case of using filter will make the filtered items change index, so here we get its real index
 							size_t realIndexOfSelectedItem = _shortcutIndex[currentIndex];
 
-							generic_string conflictInfo;
+							wstring conflictInfo;
 
 							switch (_currentState)
 							{
@@ -1378,7 +1378,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	return FALSE;
 }
 
-bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
+bool ShortcutMapper::findKeyConflicts(__inout_opt wstring * const keyConflictLocation,
 										const KeyCombo & itemKeyComboToTest, const size_t & itemIndexToTest) const
 {
 	if (itemKeyComboToTest._key == 0) //no key assignment
@@ -1411,15 +1411,15 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 						else
 						{
 							if (!keyConflictLocation->empty())
-								*keyConflictLocation += TEXT("\r\n");
+								*keyConflictLocation += L"\r\n";
 							*keyConflictLocation += _tabNames[gridState];
-							*keyConflictLocation += TEXT("  |  ");
+							*keyConflictLocation += L"  |  ";
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
-							*keyConflictLocation += TEXT("   ");
+							*keyConflictLocation += L"   ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
-							*keyConflictLocation += TEXT("  ( ");
+							*keyConflictLocation += L"  ( ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
-							*keyConflictLocation += TEXT(" )");
+							*keyConflictLocation += L" )";
 						}
 					}
 				}
@@ -1445,15 +1445,15 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 						else
 						{
 							if (!keyConflictLocation->empty())
-								*keyConflictLocation += TEXT("\r\n");
+								*keyConflictLocation += L"\r\n";
 							*keyConflictLocation += _tabNames[gridState];
-							*keyConflictLocation += TEXT("  |  ");
+							*keyConflictLocation += L"  |  ";
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
-							*keyConflictLocation += TEXT("   ");
+							*keyConflictLocation += L"   ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
-							*keyConflictLocation += TEXT("  ( ");
+							*keyConflictLocation += L"  ( ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
-							*keyConflictLocation += TEXT(" )");
+							*keyConflictLocation += L" )";
 						}
 					}
 				}
@@ -1479,15 +1479,15 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 						else
 						{
 							if (!keyConflictLocation->empty())
-								*keyConflictLocation += TEXT("\r\n");
+								*keyConflictLocation += L"\r\n";
 							*keyConflictLocation += _tabNames[gridState];
-							*keyConflictLocation += TEXT("  |  ");
+							*keyConflictLocation += L"  |  ";
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
-							*keyConflictLocation += TEXT("   ");
+							*keyConflictLocation += L"   ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
-							*keyConflictLocation += TEXT("  ( ");
+							*keyConflictLocation += L"  ( ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
-							*keyConflictLocation += TEXT(" )");
+							*keyConflictLocation += L" )";
 						}
 					}
 				}
@@ -1513,15 +1513,15 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 						else
 						{
 							if (!keyConflictLocation->empty())
-								*keyConflictLocation += TEXT("\r\n");
+								*keyConflictLocation += L"\r\n";
 							*keyConflictLocation += _tabNames[gridState];
-							*keyConflictLocation += TEXT("  |  ");
+							*keyConflictLocation += L"  |  ";
 							*keyConflictLocation += std::to_wstring(itemIndex + 1);
-							*keyConflictLocation += TEXT("   ");
+							*keyConflictLocation += L"   ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
-							*keyConflictLocation += TEXT("  ( ");
+							*keyConflictLocation += L"  ( ";
 							*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(), CP_UTF8);
-							*keyConflictLocation += TEXT(" )");
+							*keyConflictLocation += L" )";
 						}
 					}
 				}
@@ -1550,18 +1550,18 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 							else
 							{
 								if (!keyConflictLocation->empty())
-									*keyConflictLocation += TEXT("\r\n");
+									*keyConflictLocation += L"\r\n";
 								*keyConflictLocation += _tabNames[gridState];
-								*keyConflictLocation += TEXT("  |  ");
+								*keyConflictLocation += L"  |  ";
 								*keyConflictLocation += std::to_wstring(itemIndex + 1);
 								if (sciIndex > 0)
-									*keyConflictLocation += TEXT("*   ");
+									*keyConflictLocation += L"*   ";
 								else
-									*keyConflictLocation += TEXT("   ");
+									*keyConflictLocation += L"   ";
 								*keyConflictLocation += string2wstring(vShortcuts[itemIndex].getName(), CP_UTF8);
-								*keyConflictLocation += TEXT("  ( ");
+								*keyConflictLocation += L"  ( ";
 								*keyConflictLocation += string2wstring(vShortcuts[itemIndex].toString(sciIndex), CP_UTF8);
-								*keyConflictLocation += TEXT(" )");
+								*keyConflictLocation += L" )";
 							}
 						}
 					}

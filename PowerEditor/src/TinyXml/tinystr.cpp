@@ -28,7 +28,7 @@ distribution.
 
 #include "tinystr.h"
 
-// TiXmlString constructor, based on a C generic_string
+// TiXmlString constructor, based on a C string
 TiXmlString::TiXmlString (const TCHAR* instring)
 {
     unsigned newlen;
@@ -168,7 +168,7 @@ void TiXmlString::append( const TCHAR* str, int len )
     }
     else
     {
-        // we know we can safely append the new generic_string
+        // we know we can safely append the new string
         // strncat (cstring, str, len);
         memcpy (cstring + length (), 
                 str,
@@ -215,7 +215,7 @@ void TiXmlString::append( const TCHAR * suffix )
     }
     else
     {
-        // we know we can safely append the new generic_string
+        // we know we can safely append the new string
         memcpy (cstring + length (), 
                 suffix, 
                 lstrlen (suffix) + 1);

@@ -20,6 +20,7 @@
 #include "FileInterface.h"
 #include "Parameters.h"
 
+using namespace std;
 
 Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 {
@@ -31,8 +32,8 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 
 		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
 		DWORD dispParam = CREATE_ALWAYS;
-		BOOL doesFileExist = ::PathFileExistsW(fname);
-		if (doesFileExist)
+		bool fileExists = doesFileExist(fname);
+		if (fileExists)
 		{
 			// Store the file creation date & attributes for a possible use later...
 			::GetFileAttributesExW(fname, GetFileExInfoStandard, &attributes_original);
@@ -58,7 +59,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 		}
 
-		if (doesFileExist && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))
+		if (fileExists && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))
 		{
 			// restore back the original creation date & attributes
 			::SetFileTime(_hFile, &(attributes_original.ftCreationTime), NULL, NULL);
@@ -68,9 +69,9 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
@@ -157,9 +158,9 @@ Please try using another storage and also check if your saved data is not corrup
 
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg;
@@ -219,9 +220,9 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 	{
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;
@@ -238,9 +239,9 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 	{
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
-			generic_string issueFn = nppLogNulContentCorruptionIssue;
-			issueFn += TEXT(".log");
-			generic_string nppIssueLog = nppParam.getUserPath();
+			wstring issueFn = nppLogNulContentCorruptionIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
 
 			std::string msg = _path;

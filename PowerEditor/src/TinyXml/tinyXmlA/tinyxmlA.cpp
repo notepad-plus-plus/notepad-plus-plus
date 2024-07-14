@@ -778,7 +778,7 @@ bool TiXmlDocumentA::LoadUnicodeFilePath( const TCHAR* filename )
 
 	if ( file )
 	{
-		// Get the file size, so we can pre-allocate the generic_string. HUGE speed impact.
+		// Get the file size, so we can pre-allocate the string. HUGE speed impact.
 		long length = 0;
 		fseek( file, 0, SEEK_END );
 		length = ftell( file );

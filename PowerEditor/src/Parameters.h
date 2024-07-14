@@ -47,7 +47,7 @@
 
 #endif
 
-#define CMD_INTERPRETER TEXT("%COMSPEC%")
+#define CMD_INTERPRETER L"%COMSPEC%"
 
 class NativeLangSpeaker;
 
@@ -118,6 +118,8 @@ enum urlMode {urlDisable = 0, urlNoUnderLineFg, urlUnderLineFg, urlNoUnderLineBg
               urlMin = urlDisable,
               urlMax = urlUnderLineBg};
 
+enum AutoIndentMode { autoIndent_none = 0, autoIndent_advanced = 1, autoIndent_basic = 2 };
+
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
 const int LANG_INDEX_TYPE = 2;
@@ -150,17 +152,17 @@ const int COPYDATA_FULL_CMDLINE = 3;
 
 const int FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT = 1024;
 
-const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
+const wchar_t fontSizeStrs[][3] = {L"", L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"14", L"16", L"18", L"20", L"22", L"24", L"26", L"28"};
 
-const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
-const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
+const wchar_t localConfFile[] = L"doLocalConf.xml";
+const wchar_t notepadStyleFile[] = L"asNotepad.xml";
 
 // issue xml/log file name
-const TCHAR nppLogNetworkDriveIssue[] = TEXT("nppLogNetworkDriveIssue");
-const TCHAR nppLogNulContentCorruptionIssue[] = TEXT("nppLogNulContentCorruptionIssue");
+const wchar_t nppLogNetworkDriveIssue[] = L"nppLogNetworkDriveIssue";
+const wchar_t nppLogNulContentCorruptionIssue[] = L"nppLogNulContentCorruptionIssue";
 
-void cutString(const TCHAR *str2cut, std::vector<std::wstring> & patternVect);
-void cutStringBy(const TCHAR *str2cut, std::vector<std::wstring> & patternVect, char byChar, bool allowEmptyStr);
+void cutString(const wchar_t *str2cut, std::vector<std::wstring> & patternVect);
+void cutStringBy(const wchar_t *str2cut, std::vector<std::wstring> & patternVect, char byChar, bool allowEmptyStr);
 
 // style names
 const wchar_t g_npcStyleName[] = L"Non-printing characters custom color";
@@ -203,7 +205,7 @@ public:
 
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const wchar_t* fn, const TCHAR *ln, int encoding, bool userReadOnly, const Position& pos, const TCHAR *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
+	sessionFileInfo(const wchar_t* fn, const wchar_t *ln, int encoding, bool userReadOnly, const Position& pos, const wchar_t *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
 		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
@@ -352,7 +354,7 @@ struct PluginDlgDockingInfo final
 	int _prevContainer = -1;
 	bool _isVisible = false;
 
-	PluginDlgDockingInfo(const TCHAR* pluginName, int id, int curr, int prev, bool isVis)
+	PluginDlgDockingInfo(const wchar_t* pluginName, int id, int curr, int prev, bool isVis)
 		: _name(pluginName), _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis)
 	{}
 
@@ -515,23 +517,23 @@ public:
 		return *this;
 	}
 
-	void setLexerName(const TCHAR *lexerName)
+	void setLexerName(const wchar_t *lexerName)
 	{
 		_lexerName = lexerName;
 	}
 
-	void setLexerDesc(const TCHAR *lexerDesc)
+	void setLexerDesc(const wchar_t *lexerDesc)
 	{
 		_lexerDesc = lexerDesc;
 	}
 
-	void setLexerUserExt(const TCHAR *lexerUserExt) {
+	void setLexerUserExt(const wchar_t *lexerUserExt) {
 		_lexerUserExt = lexerUserExt;
 	};
 
-	const TCHAR * getLexerName() const {return _lexerName.c_str();};
-	const TCHAR * getLexerDesc() const {return _lexerDesc.c_str();};
-	const TCHAR * getLexerUserExt() const {return _lexerUserExt.c_str();};
+	const wchar_t * getLexerName() const {return _lexerName.c_str();};
+	const wchar_t * getLexerDesc() const {return _lexerDesc.c_str();};
+	const wchar_t * getLexerUserExt() const {return _lexerUserExt.c_str();};
 
 private :
 	std::wstring _lexerName;
@@ -541,9 +543,9 @@ private :
 
 struct SortLexersInAlphabeticalOrder {
 	bool operator() (const LexerStyler& l, const LexerStyler& r) {
-		if (!lstrcmp(l.getLexerDesc(), TEXT("Search result")))
+		if (!lstrcmp(l.getLexerDesc(), L"Search result"))
 			return false;
-		if (!lstrcmp(r.getLexerDesc(), TEXT("Search result")))
+		if (!lstrcmp(r.getLexerDesc(), L"Search result"))
 			return true;
 		return lstrcmp(l.getLexerDesc(), r.getLexerDesc()) < 0;
 	}
@@ -560,10 +562,10 @@ struct LexerStylerArray
 		return _lexerStylerVect[index];
 	};
 
-	const TCHAR * getLexerNameFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerName(); }
-	const TCHAR * getLexerDescFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerDesc(); }
+	const wchar_t * getLexerNameFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerName(); }
+	const wchar_t * getLexerDescFromIndex(size_t index) const { return _lexerStylerVect[index].getLexerDesc(); }
 
-	LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
+	LexerStyler * getLexerStylerByName(const wchar_t *lexerName) {
 		if (!lexerName) return nullptr;
 		for (size_t i = 0 ; i < _lexerStylerVect.size() ; ++i)
 		{
@@ -573,7 +575,7 @@ struct LexerStylerArray
 		return nullptr;
 	};
 
-	void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
+	void addLexerStyler(const wchar_t *lexerName, const wchar_t *lexerDesc, const wchar_t *lexerUserExt, TiXmlNode *lexerNode);
 
 	void sort() {
 		std::sort(_lexerStylerVect.begin(), _lexerStylerVect.end(), SortLexersInAlphabeticalOrder());
@@ -601,7 +603,7 @@ struct LangMenuItem final
 	int	_cmdID = -1;
 	std::wstring _langName;
 
-	LangMenuItem(LangType lt, int cmdID = 0, const std::wstring& langName = TEXT("")):
+	LangMenuItem(LangType lt, int cmdID = 0, const std::wstring& langName = L""):
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 
 	bool operator<(const LangMenuItem& rhs) const
@@ -638,11 +640,11 @@ struct PrintSettings final {
 	};
 
 	bool isHeaderPresent() const {
-		return ((_headerLeft != TEXT("")) || (_headerMiddle != TEXT("")) || (_headerRight != TEXT("")));
+		return (!_headerLeft.empty() || !_headerMiddle.empty() || !_headerRight.empty());
 	};
 
 	bool isFooterPresent() const {
-		return ((_footerLeft != TEXT("")) || (_footerMiddle != TEXT("")) || (_footerRight != TEXT("")));
+		return (!_footerLeft.empty() || !_footerMiddle.empty() || !_footerRight.empty());
 	};
 
 	bool isUserMargePresent() const {
@@ -670,7 +672,7 @@ public:
 			   !(month == 11 && day > 30));
 	}
 
-	explicit Date(const TCHAR *dateStr);
+	explicit Date(const wchar_t *dateStr);
 
 	// The constructor which makes the date of number of days from now
 	// nbDaysFromNow could be negative if user want to make a date in the past
@@ -681,8 +683,8 @@ public:
 
 	std::wstring toString() const // Return Notepad++ date format : YYYYMMDD
 	{
-		TCHAR dateStr[16];
-		wsprintf(dateStr, TEXT("%04u%02u%02u"), _year, _month, _day);
+		wchar_t dateStr[16];
+		wsprintf(dateStr, L"%04u%02u%02u", _year, _month, _day);
 		return dateStr;
 	}
 
@@ -817,7 +819,7 @@ struct NppGUI final
 	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;
 	bool _doTaskList = true;
-	bool _maintainIndent = true;
+	AutoIndentMode _maintainIndent = autoIndent_advanced;
 	bool _enableSmartHilite = true;
 
 	bool _smartHiliteCaseSensitive = false;
@@ -851,10 +853,10 @@ struct NppGUI final
 	bool _isWordCharDefault = true;
 	std::string _customWordChars;
 	urlMode _styleURL = urlUnderLineFg;
-	std::wstring _uriSchemes = TEXT("svn:// cvs:// git:// imap:// irc:// irc6:// ircs:// ldap:// ldaps:// news: telnet:// gopher:// ssh:// sftp:// smb:// skype: snmp:// spotify: steam:// sms: slack:// chrome:// bitcoin:");
+	std::wstring _uriSchemes = L"svn:// cvs:// git:// imap:// irc:// irc6:// ircs:// ldap:// ldaps:// news: telnet:// gopher:// ssh:// sftp:// smb:// skype: snmp:// spotify: steam:// sms: slack:// chrome:// bitcoin:";
 	NewDocDefaultSettings _newDocDefaultSettings;
 
-	std::wstring _dateTimeFormat = TEXT("yyyy-MM-dd HH:mm:ss");
+	std::wstring _dateTimeFormat = L"yyyy-MM-dd HH:mm:ss";
 	bool _dateTimeReverseDefaultOrder = false;
 
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
@@ -901,9 +903,9 @@ struct NppGUI final
 
 	OpenSaveDirSetting _openSaveDir = dir_followCurrent;
 
-	TCHAR _defaultDir[MAX_PATH]{};
-	TCHAR _defaultDirExp[MAX_PATH]{};	//expanded environment variables
-	TCHAR _lastUsedDir[MAX_PATH]{};
+	wchar_t _defaultDir[MAX_PATH]{};
+	wchar_t _defaultDirExp[MAX_PATH]{};	//expanded environment variables
+	wchar_t _lastUsedDir[MAX_PATH]{};
 	
 	std::wstring _themeName;
 	MultiInstSetting _multiInstSetting = monoInst;
@@ -1034,11 +1036,11 @@ struct Lang final
 {
 	LangType _langID = L_TEXT;
 	std::wstring _langName;
-	const TCHAR* _defaultExtList = nullptr;
-	const TCHAR* _langKeyWordList[NB_LIST];
-	const TCHAR* _pCommentLineSymbol = nullptr;
-	const TCHAR* _pCommentStart = nullptr;
-	const TCHAR* _pCommentEnd = nullptr;
+	const wchar_t* _defaultExtList = nullptr;
+	const wchar_t* _langKeyWordList[NB_LIST];
+	const wchar_t* _pCommentLineSymbol = nullptr;
+	const wchar_t* _pCommentStart = nullptr;
+	const wchar_t* _pCommentEnd = nullptr;
 
 	bool _isTabReplacedBySpace = false;
 	int _tabSize = -1;
@@ -1049,26 +1051,26 @@ struct Lang final
 		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
 	}
 
-	Lang(LangType langID, const TCHAR *name) : _langID(langID), _langName(name ? name : TEXT(""))
+	Lang(LangType langID, const wchar_t *name) : _langID(langID), _langName(name ? name : L"")
 	{
 		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
 	}
 
 	~Lang() = default;
 
-	void setDefaultExtList(const TCHAR *extLst){
+	void setDefaultExtList(const wchar_t *extLst){
 		_defaultExtList = extLst;
 	}
 
-	void setCommentLineSymbol(const TCHAR *commentLine){
+	void setCommentLineSymbol(const wchar_t *commentLine){
 		_pCommentLineSymbol = commentLine;
 	}
 
-	void setCommentStart(const TCHAR *commentStart){
+	void setCommentStart(const wchar_t *commentStart){
 		_pCommentStart = commentStart;
 	}
 
-	void setCommentEnd(const TCHAR *commentEnd){
+	void setCommentEnd(const wchar_t *commentEnd){
 		_pCommentEnd = commentEnd;
 	}
 
@@ -1083,20 +1085,20 @@ struct Lang final
 		_isBackspaceUnindent = isBackspaceUnindent;
 	}
 
-	const TCHAR * getDefaultExtList() const {
+	const wchar_t * getDefaultExtList() const {
 		return _defaultExtList;
 	}
 
-	void setWords(const TCHAR *words, int index) {
+	void setWords(const wchar_t *words, int index) {
 		_langKeyWordList[index] = words;
 	}
 
-	const TCHAR * getWords(int index) const {
+	const wchar_t * getWords(int index) const {
 		return _langKeyWordList[index];
 	}
 
 	LangType getLangID() const {return _langID;};
-	const TCHAR * getLangName() const {return _langName.c_str();};
+	const wchar_t * getLangName() const {return _langName.c_str();};
 
 	int getTabInfo() const
 	{
@@ -1110,11 +1112,11 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer() :_name(TEXT("new user define")), _ext(TEXT("")), _udlVersion(TEXT("")) {
+	UserLangContainer() :_name(L"new user define"), _ext(L""), _udlVersion(L"") {
 		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
 
-	UserLangContainer(const TCHAR *name, const TCHAR *ext, bool isDarkModeTheme, const TCHAR *udlVer):
+	UserLangContainer(const wchar_t *name, const wchar_t *ext, bool isDarkModeTheme, const wchar_t *udlVer):
 		_name(name), _ext(ext), _isDarkModeTheme(isDarkModeTheme), _udlVersion(udlVer) {
 		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i) *_keywordLists[i] = '\0';
 	}
@@ -1150,9 +1152,9 @@ public:
 		return *this;
 	}
 
-	const TCHAR * getName() {return _name.c_str();};
-	const TCHAR * getExtention() {return _ext.c_str();};
-	const TCHAR * getUdlVersion() {return _udlVersion.c_str();};
+	const wchar_t * getName() {return _name.c_str();};
+	const wchar_t * getExtention() {return _ext.c_str();};
+	const wchar_t * getUdlVersion() {return _udlVersion.c_str();};
 
 private:
 	StyleArray _styles;
@@ -1161,7 +1163,7 @@ private:
 	bool _isDarkModeTheme = false;
 	std::wstring _udlVersion;
 
-	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
+	wchar_t _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
 	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS] = {false};
 
 	bool _isCaseIgnored = false;
@@ -1319,16 +1321,16 @@ public:
 		_themeList.push_back(std::pair<std::wstring, std::wstring>(_defaultThemeLabel, xmlFullPath));
 	}
 
-	std::wstring getThemeFromXmlFileName(const TCHAR *fn) const;
+	std::wstring getThemeFromXmlFileName(const wchar_t *fn) const;
 
-	std::wstring getXmlFilePathFromThemeName(const TCHAR *themeName) const {
+	std::wstring getXmlFilePathFromThemeName(const wchar_t *themeName) const {
 		if (!themeName || themeName[0])
 			return std::wstring();
 		std::wstring themePath = _stylesXmlPath;
 		return themePath;
 	}
 
-	bool themeNameExists(const TCHAR *themeName) {
+	bool themeNameExists(const wchar_t *themeName) {
 		for (size_t i = 0; i < _themeList.size(); ++i )
 		{
 			auto& themeNameOnList = getElementFromIndex(i).first;
@@ -1356,7 +1358,7 @@ public:
 		const auto iter = _themeStylerSavePath.find(path);
 		if (iter == _themeStylerSavePath.end())
 		{
-			return TEXT("");
+			return L"";
 		}
 		else
 		{
@@ -1372,7 +1374,7 @@ private:
 	std::vector<std::pair<std::wstring, std::wstring>> _themeList;
 	std::map<std::wstring, std::wstring> _themeStylerSavePath;
 	std::wstring _themeDirPath;
-	const std::wstring _defaultThemeLabel = TEXT("Default (stylers.xml)");
+	const std::wstring _defaultThemeLabel = L"Default (stylers.xml)";
 	std::wstring _stylesXmlPath;
 };
 
@@ -1436,12 +1438,12 @@ public:
 		return *getInstancePointer();
 	};
 
-	static LangType getLangIDFromStr(const TCHAR *langName);
+	static LangType getLangIDFromStr(const wchar_t *langName);
 	static std::wstring getLocPathFromStr(const std::wstring & localizationCode);
 
 	bool load();
 	bool reloadLang();
-	bool reloadStylers(const TCHAR *stylePath = nullptr);
+	bool reloadStylers(const wchar_t *stylePath = nullptr);
 	void destroyInstance();
 	std::wstring getSettingsFolder();
 
@@ -1452,7 +1454,7 @@ public:
 		return _nppGUI;
 	}
 
-	const TCHAR * getWordList(LangType langID, int typeIndex) const
+	const wchar_t * getWordList(LangType langID, int typeIndex) const
 	{
 		const Lang* pLang = getLangFromID(langID);
 		if (!pLang) return nullptr;
@@ -1477,9 +1479,9 @@ public:
 
 	int getNbLang() const {return _nbLang;};
 
-	LangType getLangFromExt(const TCHAR *ext);
+	LangType getLangFromExt(const wchar_t *ext);
 
-	const TCHAR * getLangExtFromName(const TCHAR *langName) const
+	const wchar_t * getLangExtFromName(const wchar_t *langName) const
 	{
 		for (int i = 0 ; i < _nbLang ; ++i)
 		{
@@ -1489,7 +1491,7 @@ public:
 		return nullptr;
 	}
 
-	const TCHAR * getLangExtFromLangType(LangType langType) const
+	const wchar_t * getLangExtFromLangType(LangType langType) const
 	{
 		for (int i = 0 ; i < _nbLang ; ++i)
 		{
@@ -1529,19 +1531,19 @@ public:
 	}
 
 	bool writeRecentFileHistorySettings(int nbMaxFile = -1) const;
-	bool writeHistory(const TCHAR *fullpath);
+	bool writeHistory(const wchar_t *fullpath);
 
 	bool writeProjectPanelsSettings() const;
 	bool writeColumnEditorSettings() const;
 	bool writeFileBrowserSettings(const std::vector<std::wstring> & rootPath, const std::wstring & latestSelectedItemPath) const;
 
-	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
+	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const wchar_t *childName, const wchar_t *attributName, const wchar_t *attributVal) const;
 
 	bool writeScintillaParams();
 	void createXmlTreeFromGUIParams();
 
 	std::wstring writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers); // return "" if saving file succeeds, otherwise return the new saved file path
-	bool insertTabInfo(const TCHAR* langName, int tabInfo, bool backspaceUnindent);
+	bool insertTabInfo(const wchar_t* langName, int tabInfo, bool backspaceUnindent);
 
 	LexerStylerArray & getLStylerArray() {return _lexerStylerVect;};
 	StyleArray & getGlobalStylers() {return _widgetStyleArray;};
@@ -1558,10 +1560,10 @@ public:
 
 	int getNbUserLang() const {return _nbUserLang;}
 	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
-	UserLangContainer * getULCFromName(const TCHAR *userLangName);
+	UserLangContainer * getULCFromName(const wchar_t *userLangName);
 
 	int getNbExternalLang() const {return _nbExternalLang;};
-	int getExternalLangIndexFromName(const TCHAR *externalLangName) const;
+	int getExternalLangIndexFromName(const wchar_t *externalLangName) const;
 
 	ExternalLangContainer & getELCFromIndex(int i) {return *_externalLangArray[i];};
 
@@ -1574,10 +1576,10 @@ public:
 	void writeNonDefaultUDL();
 	void writeNeed2SaveUDL();
 	void writeShortcuts();
-	void writeSession(const Session & session, const TCHAR *fileName = NULL);
+	void writeSession(const Session & session, const wchar_t *fileName = NULL);
 	bool writeFindHistory();
 
-	bool isExistingUserLangName(const TCHAR *newName) const
+	bool isExistingUserLangName(const wchar_t *newName) const
 	{
 		if ((!newName) || (!newName[0]))
 			return true;
@@ -1590,9 +1592,9 @@ public:
 		return false;
 	}
 
-	const TCHAR * getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *fullName) const;
+	const wchar_t * getUserDefinedLangNameFromExt(wchar_t *ext, wchar_t *fullName) const;
 
-	int addUserLangToEnd(const UserLangContainer & userLang, const TCHAR *newName);
+	int addUserLangToEnd(const UserLangContainer & userLang, const wchar_t *newName);
 	void removeUserLang(size_t index);
 
 	bool isExistingExternalLangName(const char* newName) const;
@@ -1657,12 +1659,12 @@ public:
 
 	std::wstring getNppPath() const {return _nppPath;};
 	std::wstring getContextMenuPath() const {return _contextMenuPath;};
-	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
-	const TCHAR * getPluginRootDir() const { return _pluginRootDir.c_str(); };
-	const TCHAR * getPluginConfDir() const { return _pluginConfDir.c_str(); };
-	const TCHAR * getUserPluginConfDir() const { return _userPluginConfDir.c_str(); };
-	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
-	const TCHAR * getWorkSpaceFilePath(int i) const {
+	const wchar_t * getAppDataNppDir() const {return _appdataNppDir.c_str();};
+	const wchar_t * getPluginRootDir() const { return _pluginRootDir.c_str(); };
+	const wchar_t * getPluginConfDir() const { return _pluginConfDir.c_str(); };
+	const wchar_t * getUserPluginConfDir() const { return _userPluginConfDir.c_str(); };
+	const wchar_t * getWorkingDir() const {return _currentDirectory.c_str();};
+	const wchar_t * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePathes[i].c_str();
 	};
@@ -1670,9 +1672,9 @@ public:
 	const std::vector<std::wstring> getFileBrowserRoots() const { return _fileBrowserRoot; };
 	std::wstring getFileBrowserSelectedItemPath() const { return _fileBrowserSelectedItemPath; };
 
-	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
+	void setWorkSpaceFilePath(int i, const wchar_t *wsFile);
 
-	void setWorkingDir(const TCHAR * newPath);
+	void setWorkingDir(const wchar_t * newPath);
 
 	void setStartWithLocFileName(const std::wstring& locPath) {
 		_startWithLocFileName = locPath;
@@ -1692,7 +1694,7 @@ public:
 		return _doPrintAndExit;
 	};
 
-	bool loadSession(Session& session, const TCHAR* sessionFileName, const bool bSuppressErrorMsg = false);
+	bool loadSession(Session& session, const wchar_t* sessionFileName, const bool bSuppressErrorMsg = false);
 
 	void setLoadedSessionFilePath(const std::wstring & loadedSessionFilePath) {
 		_loadedSessionFullFilePath = loadedSessionFilePath;
@@ -1780,7 +1782,7 @@ public:
 	}
 
 	bool writeSettingsFilesOnCloudForThe1stTime(const std::wstring & cloudSettingsPath);
-	void setCloudChoice(const TCHAR *pathChoice);
+	void setCloudChoice(const wchar_t *pathChoice);
 	void removeCloudChoice();
 	bool isCloudPathChanged() const;
 	int archType() const { return ARCH_TYPE; };
@@ -1935,7 +1937,7 @@ private:
 	std::wstring _nppPath;
 	std::wstring _userPath;
 	std::wstring _stylerPath;
-	std::wstring _appdataNppDir; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
+	std::wstring _appdataNppDir; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == L""))?"doLocalConf.xml present":"doLocalConf.xml absent"
 	std::wstring _pluginRootDir; // plugins root where all the plugins are installed
 	std::wstring _pluginConfDir; // plugins config dir where the plugin list is installed
 	std::wstring _userPluginConfDir; // plugins config dir for per user where the plugin parameters are saved / loaded
@@ -2047,7 +2049,7 @@ private:
 	void insertUserCmd(TiXmlNodeA *userCmdRoot, const UserCommand & userCmd, const std::string& folderName);
 	void insertScintKey(TiXmlNodeA *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNodeA *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
-	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal);
+	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const wchar_t *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);
 	void writePrintSetting(TiXmlElement *element);

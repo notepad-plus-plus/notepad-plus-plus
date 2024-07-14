@@ -21,20 +21,22 @@
 struct MenuItemUnit final
 {
 	unsigned long _cmdID = 0;
-	generic_string _itemName;
-	generic_string _parentFolderName;
+	std::wstring _itemName;
+	std::wstring _parentFolderName;
 
 	MenuItemUnit() = default;
-	MenuItemUnit(unsigned long cmdID, const generic_string& itemName, const generic_string& parentFolderName = generic_string())
+	MenuItemUnit(unsigned long cmdID, const std::wstring& itemName, const std::wstring& parentFolderName = std::wstring())
 		: _cmdID(cmdID), _itemName(itemName), _parentFolderName(parentFolderName){};
-	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName = nullptr);
+	MenuItemUnit(unsigned long cmdID, const wchar_t* itemName, const wchar_t* parentFolderName = nullptr);
 };
 
 
 class ContextMenu final
 {
 public:
-	~ContextMenu();
+	~ContextMenu() {
+		destroy();
+	}
 
 	void create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL, bool copyLink = false);
 	bool isCreated() const {return _hMenu != NULL;}
@@ -42,6 +44,8 @@ public:
 	void display(const POINT & p) const {
 		::TrackPopupMenu(_hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hParent, NULL);
 	}
+
+	void display(HWND hwnd) const;
 
 	void enableItem(int cmdID, bool doEnable) const
 	{
@@ -59,9 +63,10 @@ public:
 		return _hMenu;
 	}
 
+	void destroy();
+
 private:
 	HWND _hParent = NULL;
 	HMENU _hMenu = NULL;
 	std::vector<HMENU> _subMenus;
-
 };

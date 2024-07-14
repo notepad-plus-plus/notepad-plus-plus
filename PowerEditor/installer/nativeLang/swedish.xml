@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.6.3">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -285,7 +285,7 @@ Translation note:
 					<Item id="44022" name="Radbrytning"/>
 					<Item id="44023" name="Zooma &amp;in (Ctrl + mushjul upp)"/>
 					<Item id="44024" name="Zooma &amp;ut (Ctrl + mushjul ned)"/>
-					<Item id="44025" name="Visa mellanslag och tabb"/>
+					<Item id="44025" name="Visa blanksteg och tabb"/>
 					<Item id="44026" name="Visa radslut"/>
 					<Item id="44029" name="Expandera alla"/>
 					<Item id="44030" name="Minimera aktuell nivå"/>
@@ -1086,7 +1086,7 @@ Translation note:
 					<Item id="6413" name="Standardmapp (öppna/spara)"/>
 					<Item id="6414" name="Använd aktuellt dokument"/>
 					<Item id="6415" name="Kom ihåg senast använd mapp"/>
-					<Item id="6431" name="Öppna alla filer inuti mappar som släpps istället för att öppna dem som arbetsytor"/>
+					<Item id="6431" name="Öppna alla filer inuti mappar som släpps i stället för att öppna dem som arbetsytor"/>
 				</DefaultDir>
 
 				<FileAssoc title="Filassociering">
@@ -1100,10 +1100,13 @@ Translation note:
 					<Item id="6506" name="Inaktiverade"/>
 					<Item id="6507" name="Gör språkmenyn kompakt"/>
 					<Item id="6508" name="Språkmeny"/>
-					<Item id="6301" name="Tabb-inställningar"/>
-					<Item id="6302" name="Ersätt med mellanslag"/>
-					<Item id="6303" name="Tabb-storlek: "/>
+					<Item id="6301" name="Indragsinställningar"/>
+					<Item id="6302" name="Blankstegstecken"/>
+					<Item id="6303" name="Indragsstorlek:"/>
+					<Item id="6310" name="Indrag använder:"/>
+					<Item id="6311" name="Tabb-tecken"/>
 					<Item id="6510" name="Använd standardvärde"/>
+					<Item id="6512" name="Backsteg minskar indrag i stället för att radera blanksteg"/>
 					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL"/>
 				</Language>
 
@@ -1413,7 +1416,7 @@ Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inst�
 			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna finns inte."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Kunde inte läsa in sessionen" message="Sessionsfilen är antingen skadad eller ogiltig."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan endast släppa filer eller mappar men inte båda eftersom du är i läget för att släppa mappar som projekt.
-Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps istället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
+Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps i stället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
 			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Tips för kolumnläge" message="
 Det finns 3 sätt att växla till kolumnmarkeringsläget:
@@ -1522,6 +1525,10 @@ Vill du skapa dessa platshållare?
 OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din session MODIFIERAS VID AVSLUT! Vi föreslår att du nu säkerhetskopierar din &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Kan inte köra RTL" message="RTL är inte kompatibelt med DirectWrite-läget. Inaktivera DirectWrite-läget under avsnittet Övrigt i inställningarna och starta sedan om Notepad++."/>
 			<FileMemoryAllocationFailed title="Undantag: Minnesallokering av fil misslyckades" message="Det finns förmodligen inte tillräckligt mycket ledigt angränsande minne för att filen ska kunna läsas in av Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Reguljär bakåtsökning har inaktiverats" message="Som standard har reguljär bakåtsökning inaktiverats p.g.a. potentiellt oväntade resultat. Öppna sökdialogen och välj antingen normalt eller utökat sökläge i stället för reguljärt uttryck för att genomföra en bakåtsökning.
+Tryck på OK-knappen för att öppna sökdialogen eller sätta fokus på den.
+			
+Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsökning ifall du behöver detta."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1635,7 +1642,7 @@ OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din sessi
 			<eol-custom-color-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för radslut (&quot;EOL custom color&quot;)."/>
 
 			<word-chars-list-warning-begin value="Observera: "/>
-			<word-chars-list-space-warning value="$INT_REPLACE$ mellanslag"/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ blanksteg"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabb(ar)"/>
 			<word-chars-list-warning-end value="  i din teckenlista."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Välj en mapp för säkerhetskopior"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
@@ -1768,14 +1775,14 @@ Se användarmanualen för den fullständiga listan över utvalda blanksteg och i
 Klicka på denna knapp för att öppna webbplatsen med användarmanualen."/>
 			<npcAbbreviation-tip value="Förkortning : namn
 NBSP : hårt blanksteg
-ZWSP : breddlöst mellanslag
+ZWSP : breddlöst blanksteg
 ZWNBSP : breddlöst hårt blanksteg
 
 Se användarmanualen för den fullständiga listan.
 Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen."/>
 			<npcCodepoint-tip value="Kodpunkt : namn
 U+00A0 : hårt blanksteg
-U+200B : breddlöst mellanslag
+U+200B : breddlöst blanksteg
 U+FEFF : breddlöst hårt blanksteg
 
 Se användarmanualen för den fullständiga listan.

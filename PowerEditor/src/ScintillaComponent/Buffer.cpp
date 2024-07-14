@@ -64,8 +64,9 @@ namespace // anonymous
 
 } // anonymous namespace
 
+using namespace std;
 
-Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName, bool isLargeFile)
+Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const wchar_t *fileName, bool isLargeFile)
 	// type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT), _isLargeFile(isLargeFile)
 {
@@ -123,7 +124,7 @@ void Buffer::setUnicodeMode(UniMode mode)
 }
 
 
-void Buffer::setLangType(LangType lang, const TCHAR* userLangName)
+void Buffer::setLangType(LangType lang, const wchar_t* userLangName)
 {
 	if (lang == _lang && lang != L_USER)
 		return;
@@ -159,9 +160,9 @@ void Buffer::updateTimeStamp()
 			NppParameters& nppParam = NppParameters::getInstance();
 			if (nppParam.doNppLogNetworkDriveIssue())
 			{
-				generic_string issueFn = nppLogNetworkDriveIssue;
-				issueFn += TEXT(".log");
-				generic_string nppIssueLog = nppParam.getUserPath();
+				wstring issueFn = nppLogNetworkDriveIssue;
+				issueFn += L".log";
+				wstring nppIssueLog = nppParam.getUserPath();
 				pathAppend(nppIssueLog, issueFn);
 
 				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -181,7 +182,7 @@ void Buffer::updateTimeStamp()
 
 // Set full path file name in buffer object,
 // and determinate its language by its extension.
-void Buffer::setFileName(const TCHAR *fn)
+void Buffer::setFileName(const wchar_t *fn)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	if (_fullPathName == fn)
@@ -196,13 +197,13 @@ void Buffer::setFileName(const TCHAR *fn)
 
 	// for _lang
 	LangType determinatedLang = L_TEXT;
-	TCHAR *ext = PathFindExtension(_fullPathName.c_str());
+	wchar_t *ext = PathFindExtension(_fullPathName.c_str());
 	if (*ext == '.') // extension found
 	{
 		ext += 1;
 
 		// Define User Lang firstly
-		const TCHAR* langName = nppParamInst.getUserDefinedLangNameFromExt(ext, _fileName);
+		const wchar_t* langName = nppParamInst.getUserDefinedLangNameFromExt(ext, _fileName);
 		if (langName)
 		{
 			determinatedLang = L_USER;
@@ -217,15 +218,15 @@ void Buffer::setFileName(const TCHAR *fn)
 
 	if (determinatedLang == L_TEXT)	// language can probably be refined
 	{
-		if ((wcsicmp(_fileName, TEXT("makefile")) == 0) || (wcsicmp(_fileName, TEXT("GNUmakefile")) == 0))
+		if ((wcsicmp(_fileName, L"makefile") == 0) || (wcsicmp(_fileName, L"GNUmakefile") == 0))
 			determinatedLang = L_MAKEFILE;
-		else if (wcsicmp(_fileName, TEXT("CmakeLists.txt")) == 0)
+		else if (wcsicmp(_fileName, L"CmakeLists.txt") == 0)
 			determinatedLang = L_CMAKE;
-		else if ((wcsicmp(_fileName, TEXT("SConstruct")) == 0) || (wcsicmp(_fileName, TEXT("SConscript")) == 0) || (wcsicmp(_fileName, TEXT("wscript")) == 0))
+		else if ((wcsicmp(_fileName, L"SConstruct") == 0) || (wcsicmp(_fileName, L"SConscript") == 0) || (wcsicmp(_fileName, L"wscript") == 0))
 			determinatedLang = L_PYTHON;
-		else if ((wcsicmp(_fileName, TEXT("Rakefile")) == 0) || (wcsicmp(_fileName, TEXT("Vagrantfile")) == 0))
+		else if ((wcsicmp(_fileName, L"Rakefile") == 0) || (wcsicmp(_fileName, L"Vagrantfile") == 0))
 			determinatedLang = L_RUBY;
-		else if ((wcsicmp(_fileName, TEXT("crontab")) == 0) || (wcsicmp(_fileName, TEXT("PKGBUILD")) == 0) || (wcsicmp(_fileName, TEXT("APKBUILD")) == 0))
+		else if ((wcsicmp(_fileName, L"crontab") == 0) || (wcsicmp(_fileName, L"PKGBUILD") == 0) || (wcsicmp(_fileName, L"APKBUILD") == 0))
 			determinatedLang = L_BASH;
 	}
 
@@ -261,14 +262,15 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	bool isWow64Off = false;
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	if (!PathFileExists(_fullPathName.c_str()))
+	bool fileExists = doesFileExist(_fullPathName.c_str());
+	if (!fileExists)
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 	}
 
 	bool isOK = false;
-	if (_currentStatus == DOC_INACCESSIBLE && !PathFileExists(_fullPathName.c_str()))	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
+	if (_currentStatus == DOC_INACCESSIBLE && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
 	{
 		_currentStatus = DOC_DELETED;//DOC_INACCESSIBLE;
 		_isInaccessible = true;
@@ -278,7 +280,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	else if (_currentStatus != DOC_DELETED && !fileExists)	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -287,7 +289,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str()))
+	else if (_currentStatus == DOC_DELETED && fileExists)
 	{	//document has returned from its grave
 		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
@@ -325,12 +327,11 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		{
 			if (res == 1)
 			{
-				NppParameters& nppParam = NppParameters::getInstance();
 				if (nppParam.doNppLogNetworkDriveIssue())
 				{
-					generic_string issueFn = nppLogNetworkDriveIssue;
-					issueFn += TEXT(".log");
-					generic_string nppIssueLog = nppParam.getUserPath();
+					wstring issueFn = nppLogNetworkDriveIssue;
+					issueFn += L".log";
+					wstring nppIssueLog = nppParam.getUserPath();
 					pathAppend(nppIssueLog, issueFn);
 
 					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -398,9 +399,9 @@ int64_t Buffer::getFileLength() const
 }
 
 
-generic_string Buffer::getFileTime(fileTimeType ftt) const
+wstring Buffer::getFileTime(fileTimeType ftt) const
 {
-	generic_string result;
+	wstring result;
 
 	if (_currentStatus != DOC_UNNAMED)
 	{
@@ -426,12 +427,12 @@ generic_string Buffer::getFileTime(fileTimeType ftt) const
 			SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
 
 			const size_t dateTimeStrLen = 256;
-			TCHAR bufDate[dateTimeStrLen] = {'\0'};
+			wchar_t bufDate[dateTimeStrLen] = {'\0'};
 			GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
 			result += bufDate;
 			result += ' ';
 
-			TCHAR bufTime[dateTimeStrLen] = {'\0'};
+			wchar_t bufTime[dateTimeStrLen] = {'\0'};
 			GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
 			result += bufTime;
 		}
@@ -683,22 +684,22 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
-BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding, const TCHAR* backupFileName, FILETIME fileNameTimestamp)
+BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encoding, const wchar_t* backupFileName, FILETIME fileNameTimestamp)
 {
 	if (!filename)
 		return BUFFER_INVALID;
 
 	//Get file size
 	int64_t fileSize = -1;
-	const TCHAR* pPath = filename;
-	if (!::PathFileExists(pPath))
+	const wchar_t* pPath = filename;
+	if (!doesFileExist(pPath))
 	{
 		pPath = backupFileName;
 	}
 
 	if (pPath)
 	{
-		FILE* fp = _wfopen(pPath, TEXT("rb"));
+		FILE* fp = _wfopen(pPath, L"rb");
 		if (fp)
 		{
 			_fseeki64(fp, 0, SEEK_END);
@@ -749,8 +750,8 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		}
 	}
 
-	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
-	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
+	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
+	if (isSnapshotMode && !doesFileExist(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
 		wcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
 	}
@@ -777,7 +778,7 @@ BufferID FileManager::loadFile(const TCHAR* filename, Document doc, int encoding
 		if (backupFileName != NULL)
 		{
 			newBuf->_backupFileName = backupFileName;
-			if (!PathFileExists(fullpath))
+			if (!doesFileExist(fullpath))
 				newBuf->_currentStatus = DOC_UNNAMED;
 		}
 
@@ -827,7 +828,7 @@ bool FileManager::reloadBuffer(BufferID id)
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
 	//Get file size
-	FILE* fp = _wfopen(buf->getFullPathName(), TEXT("rb"));
+	FILE* fp = _wfopen(buf->getFullPathName(), L"rb");
 	if (!fp)
 		return false;
 	_fseeki64(fp, 0, SEEK_END);
@@ -893,12 +894,12 @@ bool FileManager::reloadBufferDeferred(BufferID id)
 bool FileManager::deleteFile(BufferID id)
 {
 	Buffer* buf = getBufferByID(id);
-	generic_string fileNamePath = buf->getFullPathName();
+	wstring fileNamePath = buf->getFullPathName();
 
 	// Make sure to form a string with double '\0' terminator.
 	fileNamePath.append(1, '\0');
 
-	if (!PathFileExists(fileNamePath.c_str()))
+	if (!doesFileExist(fileNamePath.c_str()))
 		return false;
 
 	SHFILEOPSTRUCT fileOpStruct = {};
@@ -915,10 +916,10 @@ bool FileManager::deleteFile(BufferID id)
 }
 
 
-bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
+bool FileManager::moveFile(BufferID id, const wchar_t * newFileName)
 {
 	Buffer* buf = getBufferByID(id);
-	const TCHAR *fileNamePath = buf->getFullPathName();
+	const wchar_t *fileNamePath = buf->getFullPathName();
 	if (::MoveFileEx(fileNamePath, newFileName, MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH) == 0)
 		return false;
 
@@ -995,15 +996,15 @@ bool FileManager::backupCurrentBuffer()
 			UnicodeConvertor.setEncoding(mode);
 			int encoding = buffer->getEncoding();
 
-			generic_string backupFilePath = buffer->getBackupFileName();
+			wstring backupFilePath = buffer->getBackupFileName();
 			if (backupFilePath.empty())
 			{
 				// Create file
 				backupFilePath = NppParameters::getInstance().getUserPath();
-				backupFilePath += TEXT("\\backup\\");
+				backupFilePath += L"\\backup\\";
 
 				// if "backup" folder doesn't exist, create it.
-				if (!PathFileExists(backupFilePath.c_str()))
+				if (!doesFileExist(backupFilePath.c_str()))
 				{
 					::CreateDirectory(backupFilePath.c_str(), NULL);
 				}
@@ -1011,7 +1012,7 @@ bool FileManager::backupCurrentBuffer()
 				backupFilePath += buffer->getFileName();
 
 				const int temBufLen = 32;
-				TCHAR tmpbuf[temBufLen];
+				wchar_t tmpbuf[temBufLen];
 				time_t ltime = time(0);
 				struct tm* today = localtime(&ltime);
 				if (!today)
@@ -1029,7 +1030,7 @@ bool FileManager::backupCurrentBuffer()
 				hasModifForSession = true;
 			}
 
-			TCHAR fullpath[MAX_PATH]{};
+			wchar_t fullpath[MAX_PATH]{};
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
 			if (wcschr(fullpath, '~'))
 			{
@@ -1078,7 +1079,7 @@ bool FileManager::backupCurrentBuffer()
 				{
 					if (buffer->isUntitled()) // "new #" file is saved successfully, then we replace its only physical existence by its temp
 					{
-						if (::PathFileExists(fullpath))
+						if (doesFileExist(fullpath))
 							::ReplaceFile(fullpath, fullpathTemp.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 						else
 							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
@@ -1096,21 +1097,21 @@ bool FileManager::backupCurrentBuffer()
 	}
 	else // buffer not dirty, sync: delete the backup file
 	{
-		generic_string backupFilePath = buffer->getBackupFileName();
+		wstring backupFilePath = buffer->getBackupFileName();
 		if (!backupFilePath.empty())
 		{
 			// delete backup file
-			generic_string file2Delete = buffer->getBackupFileName();
-			buffer->setBackupFileName(generic_string());
+			wstring file2Delete = buffer->getBackupFileName();
+			buffer->setBackupFileName(wstring());
 			result = (::DeleteFile(file2Delete.c_str()) != 0);
 
 			// Session changes, save it
 			hasModifForSession = true;
 		}
-		//printStr(TEXT("backup deleted in backupCurrentBuffer"));
+		//printStr(L"backup deleted in backupCurrentBuffer"));
 		result = true; // no backup file to delete
 	}
-	//printStr(TEXT("backup sync"));
+	//printStr(L"backup sync"));
 
 	if (result && hasModifForSession)
 	{
@@ -1124,11 +1125,11 @@ bool FileManager::deleteBufferBackup(BufferID id)
 {
 	Buffer* buffer = getBufferByID(id);
 	bool result = true;
-	generic_string backupFilePath = buffer->getBackupFileName();
+	wstring backupFilePath = buffer->getBackupFileName();
 	if (!backupFilePath.empty())
 	{
 		// delete backup file
-		buffer->setBackupFileName(generic_string());
+		buffer->setBackupFileName(wstring());
 		result = (::DeleteFile(backupFilePath.c_str()) != 0);
 	}
 
@@ -1137,7 +1138,7 @@ bool FileManager::deleteBufferBackup(BufferID id)
 
 std::mutex save_mutex;
 
-SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool isCopy)
+SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool isCopy)
 {
 	std::lock_guard<std::mutex> lock(save_mutex);
 
@@ -1182,7 +1183,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 			return SavingStatus::NotEnoughRoom;
 	}
 
-	if (PathFileExists(fullpath))
+	if (doesFileExist(fullpath))
 	{
 		attrib = ::GetFileAttributes(fullpath);
 
@@ -1285,11 +1286,11 @@ SavingStatus FileManager::saveBuffer(BufferID id, const TCHAR* filename, bool is
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
-		generic_string backupFilePath = buffer->getBackupFileName();
+		wstring backupFilePath = buffer->getBackupFileName();
 		if (!backupFilePath.empty())
 		{
 			// delete backup file
-			buffer->setBackupFileName(generic_string());
+			buffer->setBackupFileName(wstring());
 			::DeleteFile(backupFilePath.c_str());
 		}
 
@@ -1312,8 +1313,8 @@ size_t FileManager::nextUntitledNewNumber() const
 			// if untitled document is invisible, then don't put its number into array (so its number is available to be used)
 			if ((buf->_referees[0])->isVisible())
 			{
-				generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
-				TCHAR *numberStr = buf->_fileName + newTitle.length();
+				wstring newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+				wchar_t *numberStr = buf->_fileName + newTitle.length();
 				int usedNumber = _wtoi(numberStr);
 				usedNumbers.push_back(usedNumber);
 			}
@@ -1349,10 +1350,10 @@ size_t FileManager::nextUntitledNewNumber() const
 
 BufferID FileManager::newEmptyDocument()
 {
-	generic_string newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
+	wstring newTitle = ((NppParameters::getInstance()).getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 
-	TCHAR nb[10];
-	wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
+	wchar_t nb[10];
+	wsprintf(nb, L"%d", static_cast<int>(nextUntitledNewNumber()));
 	newTitle += nb;
 
 	Document doc = static_cast<Document>(_pscratchTilla->execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE)); // this already sets a reference for filemanager
@@ -1370,7 +1371,7 @@ BufferID FileManager::newEmptyDocument()
 	return id;
 }
 
-BufferID FileManager::newPlaceholderDocument(const TCHAR* missingFilename, int whichOne, const wchar_t* userCreatedSessionName)
+BufferID FileManager::newPlaceholderDocument(const wchar_t* missingFilename, int whichOne, const wchar_t* userCreatedSessionName)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 
@@ -1422,7 +1423,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 	{
 		newTitle = (nppParamInst.getNativeLangSpeaker())->getLocalizedStrFromID("tab-untitled-string", UNTITLED_STR);
 		wchar_t nb[10];
-		wsprintf(nb, TEXT("%d"), static_cast<int>(nextUntitledNewNumber()));
+		wsprintf(nb, L"%d", static_cast<int>(nextUntitledNewNumber()));
 		newTitle += nb;
 	}
 
@@ -1545,9 +1546,9 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
+bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
-	FILE *fp = _wfopen(filename, TEXT("rb"));
+	FILE *fp = _wfopen(filename, L"rb");
 	if (!fp)
 		return false;
 
@@ -1564,8 +1565,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 		{
 			pNativeSpeaker->messageBox("FileTooBigToOpen",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("File is too big to be opened by Notepad++"),
-				TEXT("File size problem"),
+				L"File is too big to be opened by Notepad++",
+				L"File size problem",
 				MB_OK | MB_APPLMODAL);
 
 			fclose(fp);
@@ -1578,8 +1579,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 			{
 				int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
 					_pNotepadPlus->_pEditView->getHSelf(),
-					TEXT("Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?"),
-					TEXT("Opening huge file warning"),
+					L"Opening a huge file of 2GB+ could take several minutes.\nDo you want to open it?",
+					L"Opening huge file warning",
 					MB_YESNO | MB_APPLMODAL);
 
 				if (res == IDYES)
@@ -1627,7 +1628,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 	bool success = true;
 	EolType format = EolType::unknown;
 	int sciStatus = SC_STATUS_OK;
-	TCHAR szException[64] = { '\0' };
+	wchar_t szException[64] = { '\0' };
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
@@ -1725,31 +1726,31 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 #if defined(__GNUC__)
 				// there is the std::current_exception() possibility, but getting the real exception code from there requires an ugly hack,
 				// because of the std::exception_ptr has its members _Data1 (GetExceptionCode) and _Data2 (GetExceptionInformation) private
-				_stprintf_s(szException, _countof(szException), TEXT("unknown exception"));
+				_stprintf_s(szException, _countof(szException), L"unknown exception");
 #else
-				_stprintf_s(szException, _countof(szException), TEXT("0x%X (SEH)"), ::GetExceptionCode());
+				_stprintf_s(szException, _countof(szException), L"0x%X (SEH)", ::GetExceptionCode());
 #endif
 				break;
 			case SC_STATUS_BADALLOC:
 			{
 				pNativeSpeaker->messageBox("FileMemoryAllocationFailed",
 					_pNotepadPlus->_pEditView->getHSelf(),
-					TEXT("There is probably not enough contiguous free memory for the file being loaded by Notepad++."),
-					TEXT("Exception: File memory allocation failed"),
+					L"There is probably not enough contiguous free memory for the file being loaded by Notepad++.",
+					L"Exception: File memory allocation failed",
 					MB_OK | MB_APPLMODAL);
 			}
 			[[fallthrough]];
 			case SC_STATUS_FAILURE:
 			default:
-				_stprintf_s(szException, _countof(szException), TEXT("%d (Scintilla)"), sciStatus);
+				_stprintf_s(szException, _countof(szException), L"%d (Scintilla)", sciStatus);
 				break;
 		}
 		if (sciStatus != SC_STATUS_BADALLOC)
 		{
 			pNativeSpeaker->messageBox("FileLoadingException",
 				_pNotepadPlus->_pEditView->getHSelf(),
-				TEXT("An error occurred while loading the file!"),
-				TEXT("Exception code: $STR_REPLACE$"),
+				L"An error occurred while loading the file!",
+				L"Exception code: $STR_REPLACE$",
 				MB_OK | MB_APPLMODAL,
 				0,
 				szException);
@@ -1791,7 +1792,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const TCHAR * fil
 }
 
 
-BufferID FileManager::getBufferFromName(const TCHAR* name)
+BufferID FileManager::getBufferFromName(const wchar_t* name)
 {
 	for (auto buf : _buffers)
 	{
@@ -1818,14 +1819,14 @@ BufferID FileManager::getBufferFromDocument(Document doc)
 }
 
 
-bool FileManager::createEmptyFile(const TCHAR * path)
+bool FileManager::createEmptyFile(const wchar_t * path)
 {
 	Win32_IO_File file(path);
 	return file.isOpened();
 }
 
 
-int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy)
+int FileManager::getFileNameFromBuffer(BufferID id, wchar_t * fn2copy)
 {
 	if (getBufferIndexByID(id) == -1)
 		return -1;

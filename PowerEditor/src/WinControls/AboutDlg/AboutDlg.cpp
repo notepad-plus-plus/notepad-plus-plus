@@ -19,6 +19,8 @@
 #include "Parameters.h"
 #include "localization.h"
 
+using namespace std;
+
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersion()
 #endif
@@ -32,7 +34,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
-			generic_string buildTime = L"Build time: ";
+			wstring buildTime = L"Build time: ";
 
 			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			buildTime +=  wmc.char2wchar(__DATE__, CP_ACP);
@@ -58,7 +60,7 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v844-happy-users-edition/";
             //_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v86-20thyearanniversary";
 			_pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v868-about-taiwan/");
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v869-about-taiwan/");
             
 			//_pageLink.init(_hInst, _hSelf);
             //_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/");
@@ -174,7 +176,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			// Build time
 			_debugInfoStr += L"Build time : ";
-			generic_string buildTime;
+			wstring buildTime;
 			WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 			buildTime += wmc.char2wchar(__DATE__, CP_ACP);
 			buildTime += L" - ";
@@ -196,7 +198,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			// Binary path
 			_debugInfoStr += L"Path : ";
-			TCHAR nppFullPath[MAX_PATH]{};
+			wchar_t nppFullPath[MAX_PATH]{};
 			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 			_debugInfoStr += nppFullPath;
 			_debugInfoStr += L"\r\n";
@@ -220,7 +222,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			// Cloud config directory
 			_debugInfoStr += L"Cloud Config : ";
-			const generic_string& cloudPath = nppParam.getNppGUI()._cloudPath;
+			const wstring& cloudPath = nppParam.getNppGUI()._cloudPath;
 			_debugInfoStr += cloudPath.empty() ? L"OFF" : cloudPath;
 			_debugInfoStr += L"\r\n";
 
@@ -234,20 +236,20 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			DWORD dataSize = 0;
 
 			constexpr size_t bufSize = 96;
-			TCHAR szProductName[bufSize] = {'\0'};
+			wchar_t szProductName[bufSize] = {'\0'};
 			constexpr size_t bufSizeBuildNumber = 32;
-			TCHAR szCurrentBuildNumber[bufSizeBuildNumber] = {'\0'};
-			TCHAR szReleaseId[32] = {'\0'};
+			wchar_t szCurrentBuildNumber[bufSizeBuildNumber] = {'\0'};
+			wchar_t szReleaseId[32] = {'\0'};
 			DWORD dwUBR = 0;
 			constexpr size_t bufSizeUBR = 12;
-			TCHAR szUBR[bufSizeUBR] = L"0";
+			wchar_t szUBR[bufSizeUBR] = L"0";
 
 			// NOTE: RegQueryValueExW is not guaranteed to return null-terminated strings
 			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 			{
 				dataSize = sizeof(szProductName);
 				RegQueryValueExW(hKey, L"ProductName", NULL, NULL, reinterpret_cast<LPBYTE>(szProductName), &dataSize);
-				szProductName[sizeof(szProductName) / sizeof(TCHAR) - 1] = '\0';
+				szProductName[sizeof(szProductName) / sizeof(wchar_t) - 1] = '\0';
 
 				dataSize = sizeof(szReleaseId);
 				if(RegQueryValueExW(hKey, L"DisplayVersion", NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize) != ERROR_SUCCESS)
@@ -255,11 +257,11 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					dataSize = sizeof(szReleaseId);
 					RegQueryValueExW(hKey, L"ReleaseId", NULL, NULL, reinterpret_cast<LPBYTE>(szReleaseId), &dataSize);
 				}
-				szReleaseId[sizeof(szReleaseId) / sizeof(TCHAR) - 1] = '\0';
+				szReleaseId[sizeof(szReleaseId) / sizeof(wchar_t) - 1] = '\0';
 
 				dataSize = sizeof(szCurrentBuildNumber);
 				RegQueryValueExW(hKey, L"CurrentBuildNumber", NULL, NULL, reinterpret_cast<LPBYTE>(szCurrentBuildNumber), &dataSize);
-				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(TCHAR) - 1] = '\0';
+				szCurrentBuildNumber[sizeof(szCurrentBuildNumber) / sizeof(wchar_t) - 1] = '\0';
 
 				dataSize = sizeof(DWORD);
 				if (RegQueryValueExW(hKey, L"UBR", NULL, NULL, reinterpret_cast<LPBYTE>(&dwUBR), &dataSize) == ERROR_SUCCESS)
@@ -277,9 +279,9 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			}
 			else if (NppDarkMode::isWindows11())
 			{
-				generic_string tmpProductName = szProductName;
+				wstring tmpProductName = szProductName;
 				constexpr size_t strLen = 10U;
-				const TCHAR strWin10[strLen + 1U] = L"Windows 10";
+				const wchar_t strWin10[strLen + 1U] = L"Windows 10";
 				const size_t pos = tmpProductName.find(strWin10);
 				if (pos < (bufSize - strLen - 1U))
 				{
@@ -322,7 +324,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			{
 				constexpr size_t bufSizeACP = 32;
-				TCHAR szACP[bufSizeACP] = { '\0' };
+				wchar_t szACP[bufSizeACP] = { '\0' };
 				swprintf(szACP, bufSizeACP, L"%u", ::GetACP());
 				_debugInfoStr += L"Current ANSI codepage : ";
  				_debugInfoStr += szACP;
@@ -340,7 +342,7 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			if (pWGV != nullptr)
 			{
 				constexpr size_t bufSizeWineVer = 32;
-				TCHAR szWINEVersion[bufSizeWineVer] = { '\0' };
+				wchar_t szWINEVersion[bufSizeWineVer] = { '\0' };
 				swprintf(szWINEVersion, bufSizeWineVer, L"%hs", pWGV());
 
 				_debugInfoStr += L"WINE : ";
@@ -469,14 +471,14 @@ void DoSaveOrNotBox::doDialog(bool isRTL)
 
 void DoSaveOrNotBox::changeLang()
 {
-	generic_string msg;
-	generic_string defaultMessage = L"Save file \"$STR_REPLACE$\" ?";
+	wstring msg;
+	wstring defaultMessage = L"Save file \"$STR_REPLACE$\" ?";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveOrNot"))
 	{
 		constexpr unsigned char len = 255;
-		TCHAR text[len]{};
+		wchar_t text[len]{};
 		::GetDlgItemText(_hSelf, IDC_DOSAVEORNOTTEXT, text, len);
 		msg = text;
 	}
@@ -590,14 +592,14 @@ void DoSaveAllBox::doDialog(bool isRTL)
 
 void DoSaveAllBox::changeLang()
 {
-	generic_string msg;
-	generic_string defaultMessage = L"Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.";
+	wstring msg;
+	wstring defaultMessage = L"Are you sure you want to save all modified documents?\r\rChoose \"Always Yes\" if you don't want to see this dialog again.\rYou can re-activate this dialog in Preferences later.";
 	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 
 	if (nativeLangSpeaker->changeDlgLang(_hSelf, "DoSaveAll"))
 	{
 		constexpr size_t len = 1024;
-		TCHAR text[len]{};
+		wchar_t text[len]{};
 		::GetDlgItemText(_hSelf, IDC_DOSAVEALLTEXT, text, len);
 		msg = text;
 	}

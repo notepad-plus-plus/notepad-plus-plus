@@ -238,8 +238,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					if (!_tabPopupDropMenu.isCreated())
 					{
-						TCHAR goToView[32] = TEXT("Move to Other View");
-						TCHAR cloneToView[32] = TEXT("Clone to Other View");
+						wchar_t goToView[32] = L"Move to Other View";
+						wchar_t cloneToView[32] = L"Clone to Other View";
 						vector<MenuItemUnit> itemUnitArray;
 						itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToView));
 						itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToView));
@@ -263,17 +263,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						// Do nothing
 						return TRUE;
 					}
-					generic_string quotFileName = TEXT("\"");
+					wstring quotFileName = L"\"";
 					quotFileName += _pEditView->getCurrentBuffer()->getFullPathName();
-					quotFileName += TEXT("\"");
+					quotFileName += L"\"";
 					COPYDATASTRUCT fileNamesData{};
 					fileNamesData.dwData = COPYDATA_FILENAMESW;
 					fileNamesData.lpData = (void *)quotFileName.c_str();
-					fileNamesData.cbData = static_cast<DWORD>((quotFileName.length() + 1) * sizeof(TCHAR));
+					fileNamesData.cbData = static_cast<DWORD>((quotFileName.length() + 1) * sizeof(wchar_t));
 
 					HWND hWinParent = ::GetParent(hWin);
 					const rsize_t classNameBufferSize = MAX_PATH;
-					TCHAR className[classNameBufferSize];
+					wchar_t className[classNameBufferSize];
 					::GetClassName(hWinParent,className, classNameBufferSize);
 					if (lstrcmp(className, _pPublicInterface->getClassName()) == 0 && hWinParent != _pPublicInterface->getHSelf()) // another Notepad++
 					{
@@ -283,11 +283,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 						if (buf->isDirty())
 						{
-							generic_string msg, title;
+							wstring msg, title;
 							_nativeLangSpeaker.messageBox("CannotMoveDoc",
 								_pPublicInterface->getHSelf(),
-								TEXT("Document is modified, save it then try again."),
-								TEXT("Move to new Notepad++ Instance"),
+								L"Document is modified, save it then try again.",
+								L"Move to new Notepad++ Instance",
 								MB_OK);
 						}
 						else
@@ -368,7 +368,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					bool isOverTypeMode = (_pEditView->execute(SCI_GETOVERTYPE) != 0);
 					_pEditView->execute(SCI_SETOVERTYPE, !isOverTypeMode);
-					_statusBar.setText((_pEditView->execute(SCI_GETOVERTYPE))?TEXT("OVR"):TEXT("INS"), STATUSBAR_TYPING_MODE);
+					_statusBar.setText((_pEditView->execute(SCI_GETOVERTYPE)) ? L"OVR" : L"INS", STATUSBAR_TYPING_MODE);
 				}
 			}
 			else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
@@ -494,14 +494,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (!_fileSwitcherMultiFilePopupMenu.isCreated())
 					{
 						vector<MenuItemUnit> itemUnitArray;
-						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSE, TEXT("Close Selected files")));
-						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, TEXT("Close Other files")));
-						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYNAMES, TEXT("Copy Selected Names")));
-						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYPATHS, TEXT("Copy Selected Pathnames")));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSE, L"Close Selected files"));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_FILESCLOSEOTHERS, L"Close Other files"));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYNAMES, L"Copy Selected Names"));
+						itemUnitArray.push_back(MenuItemUnit(IDM_DOCLIST_COPYPATHS, L"Copy Selected Pathnames"));
 
 						for (auto&& x : itemUnitArray)
 						{
-							const generic_string menuItem = _nativeLangSpeaker.getNativeLangMenuString(x._cmdID);
+							const wstring menuItem = _nativeLangSpeaker.getNativeLangMenuString(x._cmdID);
 							if (!menuItem.empty())
 								x._itemName = menuItem;
 						}
@@ -529,42 +529,42 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					// IMPORTANT: If any submenu entry is added/moved/removed, you have to change the value of tabCmSubMenuEntryPos[] in localization.cpp file
 					
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This"), TEXT("Close Multiple Tabs")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left"), TEXT("Close Multiple Tabs")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right"), TEXT("Close Multiple Tabs")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_UNCHANGED, TEXT("Close All Unchanged"), TEXT("Close Multiple Tabs")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer"), TEXT("Open into")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd"), TEXT("Open into")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, TEXT("Open Containing Folder as Workspace"), TEXT("Open into")));
-					itemUnitArray.push_back(MenuItemUnit(0, NULL, TEXT("Open into")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer"), TEXT("Open into")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Move to Recycle Bin")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, TEXT("Reload")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, L"Close"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, L"Close All BUT This", L"Close Multiple Tabs"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, L"Close All to the Left", L"Close Multiple Tabs"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, L"Close All to the Right", L"Close Multiple Tabs"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_UNCHANGED, L"Close All Unchanged", L"Close Multiple Tabs"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, L"Save"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, L"Save As..."));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, L"Open Containing Folder in Explorer", L"Open into"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, L"Open Containing Folder in cmd", L"Open into"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CONTAININGFOLDERASWORKSPACE, L"Open Containing Folder as Workspace", L"Open into"));
+					itemUnitArray.push_back(MenuItemUnit(0, NULL, L"Open into"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, L"Open in Default Viewer", L"Open into"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, L"Rename"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, L"Move to Recycle Bin"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, L"Reload"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, L"Print"));
 					itemUnitArray.push_back(MenuItemUnit(0, NULL));
-					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, TEXT("Read-Only")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, L"Read-Only"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, L"Clear Read-Only Flag"));
 					itemUnitArray.push_back(MenuItemUnit(0, NULL));
-					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP, TEXT("Copy Full File Path"), TEXT("Copy to Clipboard")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP, TEXT("Copy Filename"), TEXT("Copy to Clipboard")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Copy Current Dir. Path"), TEXT("Copy to Clipboard")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_START, TEXT("Move to Start"), TEXT("Move Document")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_END, TEXT("Move to End"), TEXT("Move Document")));
-					itemUnitArray.push_back(MenuItemUnit(0, NULL, TEXT("Move Document")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Move to Other View"), TEXT("Move Document")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View"), TEXT("Move Document")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance"), TEXT("Move Document")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance"), TEXT("Move Document")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_1, TEXT("Apply Color 1"), TEXT("Apply Color to Tab")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_2, TEXT("Apply Color 2"), TEXT("Apply Color to Tab")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_3, TEXT("Apply Color 3"), TEXT("Apply Color to Tab")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_4, TEXT("Apply Color 4"), TEXT("Apply Color to Tab")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_5, TEXT("Apply Color 5"), TEXT("Apply Color to Tab")));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_NONE, TEXT("Remove Color"), TEXT("Apply Color to Tab")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP, L"Copy Full File Path", L"Copy to Clipboard"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP, L"Copy Filename", L"Copy to Clipboard"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, L"Copy Current Dir. Path", L"Copy to Clipboard"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_START, L"Move to Start", L"Move Document"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_END, L"Move to End", L"Move Document"));
+					itemUnitArray.push_back(MenuItemUnit(0, NULL, L"Move Document"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, L"Move to Other View", L"Move Document"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, L"Clone to Other View", L"Move Document"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, L"Move to New Instance", L"Move Document"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, L"Open in New Instance", L"Move Document"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_1, L"Apply Color 1", L"Apply Color to Tab"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_2, L"Apply Color 2", L"Apply Color to Tab"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_3, L"Apply Color 3", L"Apply Color to Tab"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_4, L"Apply Color 4", L"Apply Color to Tab"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_5, L"Apply Color 5", L"Apply Color to Tab"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_TAB_COLOUR_NONE, L"Remove Color", L"Apply Color to Tab"));
 
 					// IMPORTANT: If any submenu entry is added/moved/removed, you have to change the value of tabCmSubMenuEntryPos[] in localization.cpp file
 				}
@@ -594,7 +594,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (isInaccessible)
 				_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, false);
 
-			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
+			bool isFileExisting = doesFileExist(buf->getFullPathName());
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_RELOAD, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
@@ -692,9 +692,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
 			{
 				const NppGUI & nppGui = NppParameters::getInstance().getNppGUI();
-				bool indentMaintain = nppGui._maintainIndent;
-				if (indentMaintain)
-					maintainIndentation(static_cast<TCHAR>(notification->ch));
+				if (nppGui._maintainIndent != autoIndent_none)
+					maintainIndentation(static_cast<wchar_t>(notification->ch));
 
 				Buffer* currentBuf = _pEditView->getCurrentBuffer();
 				if (currentBuf->allowAutoCompletion())
@@ -882,8 +881,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				notifyView->execute(SCI_SETSEL, notification->position, notification->position); 
 
 				// Open URL
-				generic_string url = notifyView->getGenericTextAsString(static_cast<size_t>(startPos), static_cast<size_t>(endPos));
-				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), url.c_str(), NULL, NULL, SW_SHOW);
+				wstring url = notifyView->getGenericTextAsString(static_cast<size_t>(startPos), static_cast<size_t>(endPos));
+				::ShellExecute(_pPublicInterface->getHSelf(), L"open", url.c_str(), NULL, NULL, SW_SHOW);
 			}
 			break;
 		}
@@ -911,8 +910,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				if (nppGui._smartHiliteOnAnotherView)
 				{
-					TCHAR selectedText[1024];
-					_pEditView->getGenericSelectedText(selectedText, sizeof(selectedText)/sizeof(TCHAR), false);
+					wchar_t selectedText[1024];
+					_pEditView->getGenericSelectedText(selectedText, sizeof(selectedText)/sizeof(wchar_t), false);
 					_smartHighlighter.highlightViewWithWord(notifyView, selectedText);
 				}
 				break;
@@ -965,10 +964,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				::MapWindowPoints(NULL, _pPublicInterface->getHSelf(), &p, 1);
 				HWND hWin = ::ChildWindowFromPointEx(_pPublicInterface->getHSelf(), p, CWP_SKIPINVISIBLE);
 				const int tipMaxLen = 1024;
-				static TCHAR docTip[tipMaxLen];
+				static wchar_t docTip[tipMaxLen];
 				docTip[0] = '\0';
 
-				generic_string tipTmp(TEXT(""));
+				wstring tipTmp(L"");
 				int id = int(lpttt->hdr.idFrom);
 
 				if (hWin == _rebarTop.getHSelf())
@@ -1015,7 +1014,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			catch (...)
 			{
-				//printStr(TEXT("ToolTip crash is caught!"));
+				//printStr(L"ToolTip crash is caught!"));
 			}
 			break;
 		}

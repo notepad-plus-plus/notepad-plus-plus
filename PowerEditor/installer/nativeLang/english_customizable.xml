@@ -1101,6 +1101,14 @@ Translation note:
 					<Item id="6506" name="Disabled items"/>
 					<Item id="6507" name="Make language menu compact"/>
 					<Item id="6508" name="Language Menu"/>
+					<Item id="6335" name="Treat backslash as escape character for SQL"/>
+				</Language>
+
+				<Indentation title="Indentation">
+					<Item id="7161" name="Auto-indent"/>
+					<Item id="7162" name="None"/>
+					<Item id="7163" name="Basic"/>
+					<Item id="7164" name="Advanced"/>
 					<Item id="6301" name="Indent Settings"/>
 					<Item id="6302" name="Space character(s)"/>
 					<Item id="6303" name="Indent size:"/>
@@ -1108,8 +1116,7 @@ Translation note:
 					<Item id="6311" name="Tab character"/>
 					<Item id="6510" name="Use default value"/>
 					<Item id="6512" name="Backspace key unindents instead of removing single space"/>
-					<Item id="6335" name="Treat backslash as escape character for SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Highlighting">
 					<Item id="6351" name="Style All Occurrences of Token"/>
@@ -1794,6 +1801,11 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
 			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
 			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
+			<autoIndentBasic-tip value="Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line."/>
+			<autoIndentAdvanced-tip value="Enable smart indentation for 'C-like' languages and Python. The 'C-like' languages include:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON
+
+If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

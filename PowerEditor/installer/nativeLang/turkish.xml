@@ -5,7 +5,7 @@
 2. Tüm yorumlar açıklama içindir, çeviri için değil.
 -->
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.6.3">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -468,7 +468,7 @@
 				<Item id="1" name="&amp;Sonrakini Bul"/>
 				<Item id="1722" name="Geriye Doğru"/>
 				<Item id="2" name="&amp;Kapat"/>
-				<Item id="1620" name="&amp;Aranan :"/>
+				<Item id="1620" name="&amp;Aranan:"/>
 				<Item id="1603" name="Sadece &amp;tam sözcükleri eşleştir"/>
 				<Item id="1604" name="Büyük/küçük harf &amp;eşleştir"/>
 				<Item id="1605" name="Dü&amp;zenli ifade"/>
@@ -480,7 +480,7 @@
 				<Item id="1616" name="Satırı işa&amp;retle"/>
 				<Item id="1618" name="Her arama için temizle"/>
 				
-				<Item id="1611" name="Değ&amp;iştir :"/>
+				<Item id="1611" name="Değ&amp;iştir:"/>
 				<Item id="1608" name="&amp;Değiştir"/>
 				<Item id="1609" name="Tü&amp;münü Değiştir"/>
 				<Item id="1687" name="Odak dışındayken"/>
@@ -1080,7 +1080,7 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UTF-16 Big-Endian BOM ile"/>
 					<Item id="6410" name="UTF-16 Small-Endian Bom ile"/>
-					<Item id="6411" name="Varsayılan dil :"/>
+					<Item id="6411" name="Varsayılan dil:"/>
 					<Item id="6419" name="Yeni Belge"/>
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula"/>
 					<Item id="6432" name="Başlangıçta her zaman yeni bir belge aç"/>
@@ -1104,10 +1104,13 @@
 					<Item id="6506" name="Devre dışı öğeler:"/>
 					<Item id="6507" name="Dil menüsünü kısalt"/>
 					<Item id="6508" name="Dil Menüsü"/>
-					<Item id="6301" name="Sekme Ayarları"/>
-					<Item id="6302" name="Boşlukla değiştir"/>
-					<Item id="6303" name="Sekme boyutu: "/>
+					<Item id="6301" name="Girinti Ayarları"/>
+					<Item id="6302" name="Boşluk Karakter(ler)i"/>
+					<Item id="6303" name="Girinti Boyutu: "/>
+					<Item id="6310" name="Girinti Kullanımı:"/>
+					<Item id="6311" name="Sekme Karakteri"/>
 					<Item id="6510" name="Varsayılan değeri kullan"/>
+					<Item id="6512" name="Geri alma tuşu boşluk kaldırma yerine girintiyi geri alır"/>
 					<Item id="6335" name="SQL için kaçış karakteri olarak ters eğik çizgi kullan"/>
 				</Language>
 				
@@ -1203,7 +1206,7 @@
 					<Item id="6316" name="Basit yedekleme"/>
 					<Item id="6317" name="Ayrıntılı yedekleme"/>
 					<Item id="6804" name="Özel yedekleme dizini"/>
-					<Item id="6803" name="Dizin :"/>
+					<Item id="6803" name="Dizin:"/>
 				</Backup>
 
 				<AutoCompletion title="Otomatik Tamamlama">
@@ -1521,6 +1524,10 @@ Bu yer tutucuları oluşturmak ister misiniz?
 NOT: Yer tutucuları oluşturmayı seçmemeniz veya onları sonradan kapatmanız durumunda, oturumunuz ÇIKIŞTA DÜZENLENMEYECEKTİR! &quot;session.xml&quot; dosyanızı şimdi yedeklemenizi öneririz."/>
 			<RTLvsDirectWrite title="SaSMY Çalıştırılamıyor" message="Sağdan Sola Metin Yönü, DirectWrite modu ile uyumsuz. Lütfen DirectWrite modunu Tercihler penceresi altındaki Çeşitli sekmesinden etkisizleştirin ve Notepad++'ı yeniden başlatın."/>
 			<FileMemoryAllocationFailed title="İstisna: Dosya hafızası ayırma başarısız" message="Muhtemelen Notepad++ tarafından yüklenen dosya için yeterli boş hafıza yok."/><!-- NasılTerkarlanır: x86 Notepad++ içinde birden fazla ve toplamda boyutu > ~700MB olan dosyalar açmaya çalışın (bilgisayarda bulunan fiziki bellek miktarına ve mevcut sistem hafıza kullanımına göre değişebilir...). -->
+			<FindRegexBackwardDisabled title="Düzenli ifade geriye doğru arama etkisizleştirildi" message="Varsayılan olarak, muhtemel beklenmeyen sonuçlar nedeniyle geriye doğru düzenli ifade arama etkisizdir. Geriye doğru arama yapmak için, Bul penceresini açın ve düzenli ifade yerine normal ya da genişletilmiş aramayı kullanın.
+Bul penceresini açmak için Tamam tuşuna basın veya ona odaklayın.
+			
+Eğer geriye doğru düzenli ifade arama özelliğine ihtiyacınız varsa, kullanıcı kılavuzundaki talimatlarla etkinleştirin."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1719,8 +1726,8 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<progress-cancel-info value="işlem iptal ediliyor, lütfen bekleyin..."/>
 			<find-in-files-progress-title value="Dosyalarda Bul işleniyor..."/>
 			<replace-in-files-confirm-title value="Emin misiniz?"/>
-			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz :"/>
-			<replace-in-files-confirm-filetype value="Dosya türü için :"/>
+			<replace-in-files-confirm-directory value="Şuradaki tüm bulunanları değiştirmek istediğinize emin misiniz:"/>
+			<replace-in-files-confirm-filetype value="Dosya türü için:"/>
 			<replace-in-files-progress-title value="Dosyalarda Değiştir işleniyor..."/>
 			<replace-in-projects-confirm-title value="Emin misiniz?"/>
 			<replace-in-projects-confirm-message value="Seçili Proje Panellerinin içindeki tüm dosyalardaki tüm eşleşmeleri değiştirmek istediğinize emin misiniz?"/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 13 Jun 2024, for Notepad++ 8.6.9
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 14 Jul 2024, for Notepad++ 8.7.0
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.9">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1094,12 +1094,21 @@ Translation note:
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registradas:"/>
 				</FileAssoc>
+				
 
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
 					<Item id="6506" name="Itens desabilitados"/>
 					<Item id="6507" name="Tornar o menu de linguagens compacto"/>
 					<Item id="6508" name="Menu de linguagens"/>
+					<Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
+				</Language>
+
+				<Indentation title="Indentação">
+					<Item id="7161" name="Auto-indentar"/>
+					<Item id="7162" name="Nenhuma"/>
+					<Item id="7163" name="Básica"/>
+					<Item id="7164" name="Avançada"/>
 					<Item id="6301" name="Configurações de Indentação"/>
 					<Item id="6302" name="Caracter(es) de espaço"/>
 					<Item id="6303" name="Tamanho de indentação:"/>
@@ -1107,8 +1116,7 @@ Translation note:
 					<Item id="6311" name="Caracter de TAB"/>
 					<Item id="6510" name="Usar valor padrão"/>
 					<Item id="6512" name="Tecla backspace deleta indentação ao invés de remover um único caracter espaço"/>
-					<Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Destaque">
 					<Item id="6351" name="Marcar todos"/>
@@ -1793,6 +1801,10 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres selecionados no modo editor para marcar automaticamente a opção &quot;Na seleção&quot; quando a caixa de diálogo Localizar for ativada. O valor máximo é 1024. Use o valor 0 para desabilitar a auto-seleção."/>
 			<verticalEdge-tip value="Adicione seu marcador de coluna indicando a posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os números diferentes."/>
+			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao pressionar a tecla ENTER) seja igual à indentação da linha anterior."/>
+			<autoIndentAdvanced-tip value="Habilitar a indentação inteligente para linguagens com regras baseadas nas linguagens 'C' e Python. As linguagens baseadas em 'C' incluem:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON
+Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>			
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-06-28"><!-- basiert auf english.xml 8.6.8 vom 16.06.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-09-08"><!-- basiert auf english.xml 8.6.9 vom 07.09.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -51,8 +51,8 @@ Translation note:
 					<Item subMenuId="edit-multiSelectALL" name="Mehrfachauswahl ALLE"/>
 					<Item subMenuId="edit-multiSelectNext" name="Mehrfachauswahl Nächstes"/>
 					<Item subMenuId="search-changeHistory" name="Änderungs-Historie"/>
-					<Item subMenuId="search-markAll" name="&amp;Alle Vorkommen hervorheben"/>
-					<Item subMenuId="search-markOne" name="Di&amp;eses Vorkommen hervorheben"/>
+					<Item subMenuId="search-markAll" name="&amp;Alle Treffer hervorheben"/>
+					<Item subMenuId="search-markOne" name="Di&amp;esen Treffer hervorheben"/>
 					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
 					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
@@ -231,7 +231,7 @@ Translation note:
 					<Item id="43051" name="Zeilen &amp;ohne Lesezeichen löschen"/>
 					<Item id="43050" name="Lesezeichen inver&amp;tieren"/>
 					<Item id="43052" name="Nach &amp;Zeichencodes suchen …"/>
-					<Item id="43053" name="&amp;Alles zwischen Klammern auswählen"/>
+					<Item id="43053" name="&amp;Alles zwischen {}, [] oder () auswählen"/>
 					<Item id="43009" name="Zugehörige &amp;Klammer suchen"/>
 					<Item id="43010" name="&amp;Rückwärts suchen"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>
@@ -364,6 +364,7 @@ Translation note:
 					<Item id="10005" name="Zum Anfang verschieben"/>
 					<Item id="10006" name="Ans Ende verschieben"/>
 					<Item id="46001" name="&amp;Stile konfigurieren …"/>
+					<Item id="46016" name="Keine (Normaler Text)"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
 					<Item id="46300" name="Verzeichnis mit benutzerdefinierten Sprachen öffnen …"/>
 					<Item id="46301" name="Sammlung benutzerdefinierter Sprachen für Notepad++"/>
@@ -419,8 +420,8 @@ Translation note:
 					<Item id="11005" name="Pfad Z bis A"/>
 					<Item id="11006" name="Typ A bis Z"/>
 					<Item id="11007" name="Typ Z bis A"/>
-					<Item id="11008" name="Größe klein bis groß"/>
-					<Item id="11009" name="Größe groß bis klein"/>
+					<Item id="11008" name="Nach Inhaltslänge aufsteigend"/>
+					<Item id="11009" name="Nach Inhaltslänge absteigend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -677,16 +678,16 @@ Translation note:
 					<Item id="45001" name="Zeilenende umwandeln zu Windows (CR LF)"/>
 					<Item id="45002" name="Zeilenende umwandeln zu Unix (LF)"/>
 					<Item id="45003" name="Zeilenende umwandeln zu Macintosh (CR)"/>
-					<Item id="43022" name="Alle Vorkommen im 1. Stil markieren"/>
-					<Item id="43024" name="Alle Vorkommen im 2. Stil markieren"/>
-					<Item id="43026" name="Alle Vorkommen im 3. Stil markieren"/>
-					<Item id="43028" name="Alle Vorkommen im 4. Stil markieren"/>
-					<Item id="43030" name="Alle Vorkommen im 5. Stil markieren"/>
-					<Item id="43062" name="Dieses Vorkommen im 1. Stil markieren"/>
-					<Item id="43063" name="Dieses Vorkommen im 2. Stil markieren"/>
-					<Item id="43064" name="Dieses Vorkommen im 3. Stil markieren"/>
-					<Item id="43065" name="Dieses Vorkommen im 4. Stil markieren"/>
-					<Item id="43066" name="Dieses Vorkommen im 5. Stil markieren"/>
+					<Item id="43022" name="Alle Treffer im 1. Stil markieren"/>
+					<Item id="43024" name="Alle Treffer im 2. Stil markieren"/>
+					<Item id="43026" name="Alle Treffer im 3. Stil markieren"/>
+					<Item id="43028" name="Alle Treffer im 4. Stil markieren"/>
+					<Item id="43030" name="Alle Treffer im 5. Stil markieren"/>
+					<Item id="43062" name="Diesen Treffer im 1. Stil markieren"/>
+					<Item id="43063" name="Diesen Treffer im 2. Stil markieren"/>
+					<Item id="43064" name="Diesen Treffer im 3. Stil markieren"/>
+					<Item id="43065" name="Diesen Treffer im 4. Stil markieren"/>
+					<Item id="43066" name="Diesen Treffer im 5. Stil markieren"/>
 					<Item id="43023" name="Entferne die Markierung im Stil 1"/>
 					<Item id="43025" name="Entferne die Markierung im Stil 2"/>
 					<Item id="43027" name="Entferne die Markierung im Stil 3"/>
@@ -760,8 +761,8 @@ Translation note:
 					<Item id="11005" name="Sortieren nach Pfad Z bis A"/>
 					<Item id="11006" name="Sortieren nach Typ A bis Z"/>
 					<Item id="11007" name="Sortieren nach Typ Z bis A"/>
-					<Item id="11008" name="Sortieren nach Größe klein bis groß"/>
-					<Item id="11009" name="Sortieren nach Größe groß bis klein"/>
+					<Item id="11008" name="Sortieren nach Inhaltslänge aufsteigend"/>
+					<Item id="11009" name="Sortieren nach Inhaltslänge absteigend"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Tastenkombination">
@@ -1104,20 +1105,28 @@ Translation note:
 					<Item id="4010" name="Registrierte Erw.:"/>
 				</FileAssoc>
 
+
 				<Language title="Sprache">
 					<Item id="6505" name="Verfügbar:"/>
 					<Item id="6506" name="Deaktiviert:"/>
 					<Item id="6507" name="Sprachmenü verschachtelt darstellen"/>
 					<Item id="6508" name="Sprachmenü"/>
+					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
+				</Language>
+				
+				<Indentation title="Einrückungen">
+					<Item id="7161" name="Autom. Einrückung"/>
+					<Item id="7162" name="Keine"/>
+					<Item id="7163" name="Normale"/>
+					<Item id="7164" name="Erweiterte"/>
 					<Item id="6301" name="Einstellung Einrückungen"/>
 					<Item id="6302" name="Leerzeichen"/>
 					<Item id="6303" name="Einrückungsbreite:"/>
 					<Item id="6310" name="Einrückung verwendet:"/>
 					<Item id="6311" name="Tab Zeichen"/>
 					<Item id="6510" name="Standard verwenden"/>
-					<Item id="6512" name="Die Rücktaste U+232B entfernt Einrückungen statt einzelne Leerzeichen"/>
-					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
-				</Language>
+					<Item id="6512" name="Rücktaste entfernt Einrückungen anstatt einzelner Leerzeichen"/>
+				</Indentation>
 
 				<Highlighting title="Hervorhebung">
 					<Item id="6351" name="Alle markieren"/>
@@ -1179,7 +1188,7 @@ Translation note:
 					<Item id="6902" name="Festbreitenschrift im Dialogfeld 'Suchen' verwenden (Neustart von Notepad++ erforderlich)."/>
 					<Item id="6903" name="Der Suchdialog bleibt nach der Suche geöffnet, die im Ergebnisfenster ausgegeben wird"/>
 					<Item id="6904" name="Bestätigung für 'Alle Ersetzen' in allen offenen Dokumenten"/>
-					<Item id="6905" name="Ersetzen: Nach Ersetzung nicht zum nächsten Vorkommen springen"/>
+					<Item id="6905" name="Ersetzen: Nach Ersetzung nicht zum nächsten Treffer springen"/>
 					<Item id="6906" name="Suchergebnisfenster: Zeige wenn möglich nur einen Eintrag pro gefundener Zeile"/>
 					<Item id="6907" name="Wenn der Suchdialog aufgerufen wird"/>
 					<Item id="6908" name="Im Suchfeld gewählten Text einsetzen"/>
@@ -1201,15 +1210,15 @@ Translation note:
 				<Backup title="Sicherheitskopien">
 					<Item id="6817" name="Sitzungen automatisch speichern"/>
 					<Item id="6818" name="Sitzungen zeitgesteuert speichern"/>
-					<Item id="6819" name="Alle Sitzungen speichern"/>
+					<Item id="6819" name="Backup bei jeder Änderung auslösen alle"/>
 					<Item id="6821" name="Sekunden"/>
 					<Item id="6822" name="Verzeichnis:"/>
 					<Item id="6309" name="Aktuelle Sitzung für den nächsten Start merken"/>
 					<Item id="6825" name="Nicht zugängliche Dateien aus der letzten Sitzung merken"/>
 					<Item id="6801" name="Sicherheitskopie beim Speichern von Dateien"/>
 					<Item id="6315" name="Keine"/>
-					<Item id="6316" name="Einfach"/>
-					<Item id="6317" name="Erweitert"/>
+					<Item id="6316" name="Einfache"/>
+					<Item id="6317" name="Erweiterte"/>
 					<Item id="6804" name="Verzeichnisangabe für die Sicherheitskopien"/>
 					<Item id="6803" name="Verzeichnis:"/>
 				</Backup>
@@ -1307,7 +1316,7 @@ Translation note:
 
 				<MISC title="Diverses">
 					<ComboBox id="6347">
-						<Element name="Aktivieren"/>
+						<Element name="Für aktuelle Datei aktivieren"/>
 						<Element name="Für alle offenen Dateien aktivieren"/>
 						<Element name="Deaktivieren"/>
 					</ComboBox>
@@ -1396,6 +1405,11 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="7" name="&amp;Nein"/>
 				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+
+			<DebugInfo title="Debug-Info">
+				<Item id="1752" name="Debug-Info in die Zwischenablage &amp;kopieren"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1538,6 +1552,7 @@ HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wi
 OK auswählen um die Suche zu öffnen oder in den Vordergrund zu bringen.
 			
 Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung im Benutzerhandbuch nachgeschlagen werden."/>
+			<PrintError title="0" message="Druckerdokument kann nicht gestartet werden."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1673,30 +1688,30 @@ Suche in allen Dateien, exkludiere die Verzeichnisse test, bin &amp;&amp; bin64:
 Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Wählen Sie ein Verzeichnis zum Durchsuchen"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
-			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
-			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
-			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
-			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
-			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-top-reached value="Suche: Letzter Treffer von unten gefunden. Der Anfang des Dokumentes wurde erreicht."/>
+			<find-status-end-reached value="Suche: Letzter Treffer von oben gefunden. Das Ende des Dokumentes wurde erreicht."/>
+			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Treffer wurde ersetzt"/>
+			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Treffer wurden ersetzt"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Treffer wurde ersetzt"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Treffer wurden ersetzt"/>
 			<find-status-invalid-re value="Suche: Ungültiger Ausdruck"/>
 			<find-status-search-failed value="Suche: Fehlgeschlagen"/>
 			<find-status-mark-1-match value="Hervorheben: 1 Treffer"/>
 			<find-status-mark-nb-matches value="Hervorheben: $INT_REPLACE$ Treffer"/>
 			<find-status-count-1-match value="Zähler: 1 Treffer"/>
 			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
-			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Vorkommen wurde ersetzt"/>
-			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Treffer wurde ersetzt"/>
+			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Treffer wurden ersetzt"/>
 			<find-status-replaceall-readonly value="Alle ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
-			<find-status-replace-end-reached value="Ersetzen: 1. Vorkommen von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
-			<find-status-replace-top-reached value="Ersetzen: 1. Vorkommen von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
-			<find-status-replaced-next-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Nächster Treffer gefunden"/>
-			<find-status-replaced-without-continuing value="Ersetzen: 1 Vorkommen wurde ersetzt."/>
-			<find-status-replaced-next-not-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Keine weiteren Treffer gefunden"/>
-			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
+			<find-status-replace-end-reached value="Ersetzen: Letzter Treffer von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
+			<find-status-replace-top-reached value="Ersetzen: Letzter Treffer von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
+			<find-status-replaced-next-found value="Ersetzen: 1 Treffer wurde ersetzt. Nächster Treffer gefunden"/>
+			<find-status-replaced-without-continuing value="Ersetzen: 1 Treffer wurde ersetzt."/>
+			<find-status-replaced-next-not-found value="Ersetzen: 1 Treffer wurde ersetzt. Keine weiteren Treffer gefunden"/>
+			<find-status-replace-not-found value="Ersetzen: Keine Treffer gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
-			<find-status-cannot-find-pebkac-maybe value="Das angegebene Vorkommen kann nicht gefunden werden. Bitte überprüfen ob 'Am Ende von vorne beginnen' (auf EIN), 'Groß-/Kleinschreibung beachten' (auf AUS), oder 'Nur ganze Wörter suchen' (auf AUS) gesetzt sind."/>
+			<find-status-cannot-find-pebkac-maybe value="Der angegebene Treffer kann nicht gefunden werden. Bitte überprüfen ob 'Am Ende von vorne beginnen' (auf EIN), 'Groß-/Kleinschreibung beachten' (auf AUS), oder 'Nur ganze Wörter suchen' (auf AUS) gesetzt sind."/>
 			<find-status-scope-selection value="im gewählten Text"/>
 			<find-status-scope-all value="in der gesamten Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
@@ -1736,13 +1751,13 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<progress-cancel-info value="Aktion wird abgebrochen, bitte warten …"/>
 			<find-in-files-progress-title value="Fortschritt für die Suche in Dateien …"/>
 			<replace-in-files-confirm-title value="Sind Sie sicher?"/>
-			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Vorkommen ersetzt werden sollen in: "/>
+			<replace-in-files-confirm-directory value="Sind Sie sicher, dass alle Treffer ersetzt werden sollen in: "/>
 			<replace-in-files-confirm-filetype value="Für Dateityp: "/>
 			<replace-in-files-progress-title value="Fortschritt für das Ersetzen in Dateien …"/>
 			<replace-in-projects-confirm-title value="Sind Sie sicher?"/>
-			<replace-in-projects-confirm-message value="Sollen wirklich alle Vorkommen in allen Dokumenten im gewählten Projekt ersetzt werden?"/>
+			<replace-in-projects-confirm-message value="Sollen wirklich alle Treffer in allen Dokumenten im gewählten Projekt ersetzt werden?"/>
 			<replace-in-open-docs-confirm-title value="Sind Sie sicher?"/>
-			<replace-in-open-docs-confirm-message value="Sind Sie sicher dass alle Vorkommen in allen offenen Dokumenten ersetzt werden sollen?"/>
+			<replace-in-open-docs-confirm-message value="Sind Sie sicher, dass alle Treffer in allen offenen Dokumenten ersetzt werden sollen?"/>
 			<find-result-caption value="Suchergebnisse"/>
 			<find-result-title value="Suche"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ Treffer in $INT_REPLACE2$ Dateien von $INT_REPLACE3$ gesucht)"/>
@@ -1764,8 +1779,8 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<IncrementalFind-FSNotFound value="Ausdruck nicht gefunden"/>
 			<IncrementalFind-FSTopReached value="Anfang der Seite erreicht, Fortsetzung von unten"/>
 			<IncrementalFind-FSEndReached value="Ende der Seite erreicht, Fortsetzung von oben"/>
-			<contextMenu-styleAlloccurrencesOfToken value="Alle Vorkommen hervorheben"/>
-			<contextMenu-styleOneToken value="Dieses Vorkommen hervorheben"/>
+			<contextMenu-styleAlloccurrencesOfToken value="Alle Treffer hervorheben"/>
+			<contextMenu-styleOneToken value="Diesen Treffer hervorheben"/>
 			<contextMenu-clearStyle value="Alle Hervorhebungen entfernen"/>
 			<contextMenu-PluginCommands value="Plugin-Befehle"/>
 			<largeFileRestriction-tip value="Einige Funktionen können die Leistung bei großen Dateien beeinträchtigen. Diese Funktionen können beim Öffnen einer großen Datei automatisch deaktiviert werden - das kann hier angepasst werden.
@@ -1802,6 +1817,12 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<npcIncludeCcUniEol-tip value="Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) anwenden."/>
 			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Den Wert auf 0 setzen, um die automatische Markierung zu deaktivieren."/>
 			<verticalEdge-tip value="Eine Spaltenmarkierung kann hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird. Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
+			<fileSaveAsCopySaveButton-tip value="Drücke die Shift-Taste während des Speicherns um die Kopie nach dem Speichern zu öffnen."/>
+			<autoIndentBasic-tip value="Stelle sicher, dass die Einrückung in der aktuellen Zeile (z.B. erstellt durch das Drücken der ENTER-Taste) mit der Einrückung in der vorigen Zeile übereinstimmt."/>
+			<autoIndentAdvanced-tip value="Aktiviere die 'Intelligente Einrückung' für 'C-ähnliche' Sprachen und Python. Diese 'C-ähnliche' Sprachen sind:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON.
+
+Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

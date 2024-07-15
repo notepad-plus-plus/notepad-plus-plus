@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.8">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1200,7 +1200,7 @@ Translation note:
 				<Backup title="Backup">
 					<Item id="6817" name="Session snapshot and periodic backup"/>
 					<Item id="6818" name="Enable session snapshot and periodic backup"/>
-					<Item id="6819" name="Trigger backup on modifification in every"/>
+					<Item id="6819" name="Trigger backup on modification in every"/>
 					<Item id="6821" name="seconds"/>
 					<Item id="6822" name="Backup path:"/>
 					<Item id="6309" name="Remember current session for next launch"/>

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-06-28"><!-- basiert auf english.xml 8.6.8 vom 16.06.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-15"><!-- basiert auf english.xml 8.6.9 vom 15.07.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -231,7 +231,7 @@ Translation note:
 					<Item id="43051" name="Zeilen &amp;ohne Lesezeichen löschen"/>
 					<Item id="43050" name="Lesezeichen inver&amp;tieren"/>
 					<Item id="43052" name="Nach &amp;Zeichencodes suchen …"/>
-					<Item id="43053" name="&amp;Alles zwischen Klammern auswählen"/>
+					<Item id="43053" name="&amp;Alles zwischen {} [] or () auswählen"/>
 					<Item id="43009" name="Zugehörige &amp;Klammer suchen"/>
 					<Item id="43010" name="&amp;Rückwärts suchen"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>
@@ -364,6 +364,7 @@ Translation note:
 					<Item id="10005" name="Zum Anfang verschieben"/>
 					<Item id="10006" name="Ans Ende verschieben"/>
 					<Item id="46001" name="&amp;Stile konfigurieren …"/>
+					<Item id="46016" name="Kein (Normaler Text)"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
 					<Item id="46300" name="Verzeichnis mit benutzerdefinierten Sprachen öffnen …"/>
 					<Item id="46301" name="Sammlung benutzerdefinierter Sprachen für Notepad++"/>
@@ -1109,15 +1110,22 @@ Translation note:
 					<Item id="6506" name="Deaktiviert:"/>
 					<Item id="6507" name="Sprachmenü verschachtelt darstellen"/>
 					<Item id="6508" name="Sprachmenü"/>
+					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
+				</Language>
+				
+				<Indentation title="Einrückungen">
+					<Item id="7161" name="Autom. Einrückung"/>
+					<Item id="7162" name="Keine"/>
+					<Item id="7163" name="Normal"/>
+					<Item id="7164" name="Erweitert"/>
 					<Item id="6301" name="Einstellung Einrückungen"/>
 					<Item id="6302" name="Leerzeichen"/>
 					<Item id="6303" name="Einrückungsbreite:"/>
 					<Item id="6310" name="Einrückung verwendet:"/>
 					<Item id="6311" name="Tab Zeichen"/>
 					<Item id="6510" name="Standard verwenden"/>
-					<Item id="6512" name="Die Rücktaste U+232B entfernt Einrückungen statt einzelne Leerzeichen"/>
-					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
-				</Language>
+					<Item id="6512" name="Die Rücktaste U+232B entfernt Einrückungen statt einzelner Leerzeichen"/>
+				</Indentation>
 
 				<Highlighting title="Hervorhebung">
 					<Item id="6351" name="Alle markieren"/>
@@ -1201,7 +1209,7 @@ Translation note:
 				<Backup title="Sicherheitskopien">
 					<Item id="6817" name="Sitzungen automatisch speichern"/>
 					<Item id="6818" name="Sitzungen zeitgesteuert speichern"/>
-					<Item id="6819" name="Alle Sitzungen speichern"/>
+					<Item id="6819" name="Backup bei jeder Änderung auslösen"/>
 					<Item id="6821" name="Sekunden"/>
 					<Item id="6822" name="Verzeichnis:"/>
 					<Item id="6309" name="Aktuelle Sitzung für den nächsten Start merken"/>
@@ -1307,7 +1315,7 @@ Translation note:
 
 				<MISC title="Diverses">
 					<ComboBox id="6347">
-						<Element name="Aktivieren"/>
+						<Element name="Für aktuelle Datei aktivieren"/>
 						<Element name="Für alle offenen Dateien aktivieren"/>
 						<Element name="Deaktivieren"/>
 					</ComboBox>
@@ -1673,8 +1681,8 @@ Suche in allen Dateien, exkludiere die Verzeichnisse test, bin &amp;&amp; bin64:
 Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Wählen Sie ein Verzeichnis zum Durchsuchen"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
-			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
+			<find-status-top-reached value="Suche: Letzter Treffer von unten gefunden. Der Anfang des Dokumentes wurde erreicht."/>
+			<find-status-end-reached value="Suche: Letzter Treffer von oben gefunden. Das Ende des Dokumentes wurde erreicht."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
@@ -1688,8 +1696,8 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-replaceall-readonly value="Alle ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
-			<find-status-replace-end-reached value="Ersetzen: 1. Vorkommen von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
-			<find-status-replace-top-reached value="Ersetzen: 1. Vorkommen von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
+			<find-status-replace-end-reached value="Ersetzen: Letztes Vorkommen von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
+			<find-status-replace-top-reached value="Ersetzen: Letztes Vorkommen von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
 			<find-status-replaced-next-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Nächster Treffer gefunden"/>
 			<find-status-replaced-without-continuing value="Ersetzen: 1 Vorkommen wurde ersetzt."/>
 			<find-status-replaced-next-not-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Keine weiteren Treffer gefunden"/>
@@ -1802,6 +1810,11 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<npcIncludeCcUniEol-tip value="Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) anwenden."/>
 			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Den Wert auf 0 setzen, um die automatische Markierung zu deaktivieren."/>
 			<verticalEdge-tip value="Eine Spaltenmarkierung kann hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird. Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
+			<autoIndentBasic-tip value="Stelle sicher daß die Einrückung in der aktuellen Zeile (z.B. erstellt durch das Drücken der ENTER-Taste) mit der Einrückung in der vorigen Zeile übereinstimmt."/>
+			<autoIndentAdvanced-tip value="Aktiviere die 'Intelligente Einrückung' für 'C-ähnliche' Sprachen und Python. Diese 'C-ähnliche' Sprachen sind:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON
+
+If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

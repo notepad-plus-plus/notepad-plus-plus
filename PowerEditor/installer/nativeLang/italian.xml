@@ -360,6 +360,7 @@ Translation note:
 					<Item id="10005" name="Sposta all'inizio"/>
 					<Item id="10006" name="Sposta alla fine"/>
 					<Item id="46001" name="Configura gli stili..."/>
+					<Item id="46016" name="Nessuno (Testo Normale)"/>
 					<Item id="46250" name="Definisci il tuo linguaggio..."/>
 					<Item id="46300" name="Apri cartella linguaggi definiti dall&apos;utente..."/>
 					<Item id="46301" name="Collezione dei linguaggi Notepad++ definiti dall&apos;utente"/>
@@ -1100,11 +1101,20 @@ Translation note:
 					<Item id="4010" name="Estensioni registrate:"/>
 				</FileAssoc>
 
+
 				<Language title="Linguaggi">
 					<Item id="6505" name="Linguaggi disponibili"/>
 					<Item id="6506" name="Linguaggi disabilitati"/>
 					<Item id="6507" name="Utilizza menu compatto"/>
 					<Item id="6508" name="Menu linguaggio"/>
+					<Item id="6335" name="Backslash è il carattere di escape in SQL"/>
+				</Language>
+
+				<Indentation title="Rientro">
+					<Item id="7161" name="Rientro automatico"/>
+					<Item id="7162" name="Nessuno"/>
+					<Item id="7163" name="Base"/>
+					<Item id="7164" name="Avanzato"/>
 					<Item id="6301" name="Impostazioni di rientro"/>
 					<Item id="6302" name="Spazi"/>
 					<Item id="6303" name="Dimensione rientro:"/>
@@ -1112,8 +1122,7 @@ Translation note:
 					<Item id="6311" name="Tabulazioni"/>
 					<Item id="6510" name="Usa predefinito"/>
 					<Item id="6512" name="Backspace rimuove i rientri invece di rimuovere un singolo spazio"/>
-					<Item id="6335" name="Backslash è il carattere di escape in SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Evidenziazione">
 					<Item id="6351" name="Applica stile per tutte le corrispondenze"/>
@@ -1798,6 +1807,11 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 			<npcIncludeCcUniEol-tip value="Applicare le impostazioni dell&apos;aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)."/>
 			<searchingInSelThresh-tip value="Il numero di caratteri selezionati nella zona di modifica per controllare automaticamente la casella di controllo &quot;Nella selezione&quot; quando la finestra di dialogo Trova è attivata. Il valore massimo è 1024. Impostare il valore a 0 per disabilitare il controllo automatico."/>
 			<verticalEdge-tip value="Aggiungi le posizioni dei tuoi delimitatori di colonna, separati da spazi. Indicali con dei numeri interi."/>
+			<autoIndentBasic-tip value="Assicurarsi che il rientro della riga corrente (ovvero la nuova riga che è stata creata premendo il tasto INVIO) corrisponda al rientro della riga precedente."/>
+			<autoIndentAdvanced-tip value="Abilita il rientro avanzato per i linguaggi &quot;simil-C&quot; e Python. I linguaggi &quot;simil-C&quot; includono:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
+
+Se selezioni la modalità avanzata, ma non modifichi i file nei linguaggi sopra menzionati, il rientro rimarrà in modalità base."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

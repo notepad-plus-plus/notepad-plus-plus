@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.8">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -353,6 +353,7 @@
 					<Item id="10005" name="Presunúť na začiatok"/>
 					<Item id="10006" name="Presunúť na koniec"/>
 					<Item id="46001" name="Nastavenie štýlov…"/>
+					<Item id="46016" name="Žiadny (Obyčajný text)"/>
 					<Item id="46250" name="Definovať vlastný jazyk…"/>
 					<Item id="46300" name="Otvoriť priečinok Používateľom definovaný jazyk…"/>
 					<Item id="46301" name="Zbierka používateľom definovaných jazykov programu Notepad++"/>
@@ -408,8 +409,8 @@
 					<Item id="11005" name="Cesta od Z po A"/>
 					<Item id="11006" name="Typ od A po Z"/>
 					<Item id="11007" name="Typ od Z po A"/>
-					<Item id="11008" name="Veľkosť ↑"/>
-					<Item id="11009" name="Veľkosť ↓"/>
+					<Item id="11008" name="Dĺžka obsahu ↑"/>
+					<Item id="11009" name="Dĺžka obsahu ↓"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -749,8 +750,8 @@
 					<Item id="11005" name="Zoradiť podľa cesty od Z po A"/>
 					<Item id="11006" name="Zoradiť podľa typu od A po Z"/>
 					<Item id="11007" name="Zoradiť podľa typu od Z po A"/>
-					<Item id="11008" name="Zoradiť podľa veľkosti ↑"/>
-					<Item id="11009" name="Zoradiť podľa veľkosti ↓"/>
+					<Item id="11008" name="Zoradiť podľa dĺžky obsahu ↑"/>
+					<Item id="11009" name="Zoradiť podľa dĺžky obsahu ↓"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Skratka">
@@ -1088,16 +1089,25 @@
 				</DefaultDir>
 
 				<FileAssoc title="Asociácia súborov">
-					<Item id="4008" name="Ak chcete použiť túto funkciu , ukončite, prosím, Notepad++ a znova ho spustite v režime správcu."/>
+					<Item id="4008" name="Ak chcete použiť túto funkciu, ukončite, prosím, Notepad++ a znova ho spustite v režime správcu."/>
 					<Item id="4009" name="Podporované prípony:"/>
 					<Item id="4010" name="Registrované prípony:"/>
 				</FileAssoc>
+
 
 				<Language title="Jazyk">
 					<Item id="6505" name="Dostupné položky"/>
 					<Item id="6506" name="Nepoužívané položky"/>
 					<Item id="6507" name="Kompaktná ponuka jazyka"/>
 					<Item id="6508" name="Ponuka jazyka"/>
+					<Item id="6335" name="V SQL považovať spätnú lomku za znak ukončenia"/>
+				</Language>
+
+				<Indentation title="Odsadenie">
+					<Item id="7161" name="Automaticky odsadiť"/>
+					<Item id="7162" name="Žiadne"/>
+					<Item id="7163" name="Základné"/>
+					<Item id="7164" name="Pokročilé"/>
 					<Item id="6301" name="Nastavenie odsadenia"/>
 					<Item id="6302" name="Znak(y) medzery"/>
 					<Item id="6303" name="Veľkosť odsadenia: "/>
@@ -1105,8 +1115,7 @@
 					<Item id="6311" name="Znak tabulátora"/>
 					<Item id="6510" name="Použiť predvolenú hodnotu"/>
 					<Item id="6512" name="Kláves Backspace odstráni odsadenie namiesto medzery"/>
-					<Item id="6335" name="V SQL považovať spätnú lomku za znak ukončenia"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Zvýrazňovanie">
 					<Item id="6351" name="Použiť štýl na všetky výskyty tokenu"/>
@@ -1190,7 +1199,7 @@
 				<Backup title="Zálohovanie">
 					<Item id="6817" name="Bod obnovenia a periodické zálohovanie"/>
 					<Item id="6818" name="Povoliť bod obnovenia a periodické zálohovanie"/>
-					<Item id="6819" name="Zálohovať každých"/>
+					<Item id="6819" name="Spustiť zálohovanie pri úprave každých"/>
 					<Item id="6821" name="sekúnd"/>
 					<Item id="6822" name="Cesta k zálohám:"/>
 					<Item id="6309" name="Pamätať si aktuálnu reláciu pre ďalšie spustenie"/>
@@ -1296,7 +1305,7 @@
 
 				<MISC title="Rôzne">
 					<ComboBox id="6347">
-						<Element name="Povoliť"/>
+						<Element name="Povoliť pre aktuálny súbor"/>
 						<Element name="Povoliť pre všetky otvorené súbory"/>
 						<Element name="Zakázať"/>
 					</ComboBox>
@@ -1385,6 +1394,11 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			
+			<DebugInfo title="Informácie o ladení">
+				<Item id="1752" name="&amp;Skopírovať informácie o ladení do schránky"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1529,6 +1543,7 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavr
 Stlačením tlačidla OK otvorte dialógové okno Hľadať alebo ho prepnite do popredia.
 			
 Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, pokyny na jej zapnutie nájdete v používateľskej príručke."/>
+			<PrintError title="0" message="Nie je možné spustiť tlač dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1665,7 +1680,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 *.* !+\log*"/>
 			<find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>
 			<find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
-			<find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
+			<find-status-end-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
 			<find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahradiť v otvorených súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
@@ -1677,15 +1692,15 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-count-1-match value="Spočítať: 1 výskyt"/>
 			<find-status-count-nb-matches value="Spočítať: $INT_REPLACE$ výskytov"/>
 			<find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
-			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
-			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
-			<find-status-replace-end-reached value="Nahradiť: Bol nahradený prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
-			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
+			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu"/>
+			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie"/>
+			<find-status-replace-end-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu"/>
+			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu"/>
 			<find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
 			<find-status-replaced-without-continuing value="Nahradiť: bol nahradený 1 výskyt."/>
 			<find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty."/>
-			<find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
-			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
+			<find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt"/>
+			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie"/>
 			<find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť"/>
 			<find-status-cannot-find-pebkac-maybe value="Uvedený výskyt sa nedá nájsť. Možno ste zabudli skontrolovať &quot;Cyklicky&quot; (začiarknuté), &quot;Rozlišovať malé/VEĽKÉ písmená&quot; (nezačiarknuté), alebo &quot;Hľadať iba celé slová&quot; (nezačiarknuté)."/>
 			<find-status-scope-selection value="v označenom texte"/>
@@ -1793,6 +1808,11 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)."/>
 			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
 			<verticalEdge-tip value="Pridajte značku stĺpca uvedením jeho pozície pomocou desatinného čísla. Môžete definovať niekoľko značiek stĺpcov tak, že jednotlivé čísla oddelíte bielymi znakmi."/>
+			<fileSaveAsCopySaveButton-tip value="Ak chcete po uložení otvoriť kópiu, podržte kláves Shift a stlačte tlačidlo Uložiť."/>
+			<autoIndentBasic-tip value="Uistite sa, že odsadenie aktuálneho riadka (t. j. nového riadka vytvoreného stlačením klávesu ENTER) sa zhoduje s odsadením predchádzajúceho riadka."/>
+			<autoIndentAdvanced-tip value="Povoľte inteligentné odsadenie pre jazyky podobné jazyku C a Python. Medzi jazyky podobné jazyku C patria:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell a JSON.
+Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

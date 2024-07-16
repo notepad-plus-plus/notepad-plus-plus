@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.6.9
-    Last modified Sun, Jul 2nd, 2024.
+    Italian translation for Notepad++ 8.7.0
+    Last modified Sun, Jul 28th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.6.9">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -360,6 +360,7 @@ Translation note:
 					<Item id="10005" name="Sposta all'inizio"/>
 					<Item id="10006" name="Sposta alla fine"/>
 					<Item id="46001" name="Configura gli stili..."/>
+					<Item id="46016" name="Nessuno (Testo Normale)"/>
 					<Item id="46250" name="Definisci il tuo linguaggio..."/>
 					<Item id="46300" name="Apri cartella linguaggi definiti dall&apos;utente..."/>
 					<Item id="46301" name="Collezione dei linguaggi Notepad++ definiti dall&apos;utente"/>
@@ -792,7 +793,7 @@ Translation note:
 					<Item id="25001" name="Grassetto"/>
 					<Item id="25002" name="Corsivo"/>
 					<Item id="25003" name="Sottolineato"/>
-					<Item id="25029" name="Annidamento:"/>
+					<Item id="25029" name="Annidamento"/>
 					<Item id="25008" name="Delimitatore 1"/>
 					<Item id="25009" name="Delimitatore 2"/>
 					<Item id="25010" name="Delimitatore 3"/>
@@ -951,7 +952,7 @@ Translation note:
 					<Item id="6104" name="Icone contornate (grandi)"/>
 					<Item id="6129" name="Icone piene (piccole)"/>
 					<Item id="6130" name="Icone piene (grandi)"/>
-					<Item id="6105" name="Icone standard (piccole)"/>
+					<Item id="6105" name="Icone classiche (piccole)"/>
 
 					<Item id="6106" name="Barra delle schede"/>
 					<Item id="6107" name="Compatta"/>
@@ -1100,11 +1101,20 @@ Translation note:
 					<Item id="4010" name="Estensioni registrate:"/>
 				</FileAssoc>
 
+
 				<Language title="Linguaggi">
 					<Item id="6505" name="Linguaggi disponibili"/>
 					<Item id="6506" name="Linguaggi disabilitati"/>
 					<Item id="6507" name="Utilizza menu compatto"/>
 					<Item id="6508" name="Menu linguaggio"/>
+					<Item id="6335" name="Backslash è il carattere di escape in SQL"/>
+				</Language>
+
+				<Indentation title="Rientro">
+					<Item id="7161" name="Rientro automatico"/>
+					<Item id="7162" name="Nessuno"/>
+					<Item id="7163" name="Base"/>
+					<Item id="7164" name="Avanzato"/>
 					<Item id="6301" name="Impostazioni di rientro"/>
 					<Item id="6302" name="Spazi"/>
 					<Item id="6303" name="Dimensione rientro:"/>
@@ -1112,8 +1122,7 @@ Translation note:
 					<Item id="6311" name="Tabulazioni"/>
 					<Item id="6510" name="Usa predefinito"/>
 					<Item id="6512" name="Backspace rimuove i rientri invece di rimuovere un singolo spazio"/>
-					<Item id="6335" name="Backslash è il carattere di escape in SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Evidenziazione">
 					<Item id="6351" name="Applica stile per tutte le corrispondenze"/>
@@ -1197,8 +1206,8 @@ Translation note:
 				<Backup title="Backup">
 					<Item id="6817" name="Snapshot Sessione e Backup Periodico"/>
 					<Item id="6818" name="Abilita snapshot di sessione e backup periodici"/>
-					<Item id="6819" name="Backup ogni"/>
-					<Item id="6821" name="secondi"/>
+					<Item id="6819" name="Attiva il backup ogni"/>
+					<Item id="6821" name="secondi alla modifica"/>
 					<Item id="6822" name="Cartella backup:"/>
 					<Item id="6309" name="Ricorda sessione corrente al prossimo avvio"/>
 					<Item id="6825" name="Ricorda i file inaccessibili dalla sessione precedente"/>
@@ -1261,7 +1270,7 @@ Translation note:
 					<Item id="6255" name="Chiudi"/>
 					<Item id="6256" name="Permetti su più righe"/>
 					<Item id="6161" name="Elenco delimitatori di parola"/>
-					<Item id="6162" name="Utilizza i delimitatori di parola standard"/>
+					<Item id="6162" name="Utilizza i delimitatori di parola predefiniti"/>
 					<Item id="6163" name="Aggiungi i tuoi caratteri come delimitatori di parola
 (non selezionarlo se non sai cosa stai facendo)"/>
 				</Delimiter>
@@ -1376,15 +1385,15 @@ Translation note:
 				<Item id="1720" name="&amp;. significa a capo"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Salva">
-				<Item id="1761" name="Salvare il file &quot;$STR_REPLACE$&quot;?"/>
+				<Item id="1761" name="Salva il file &quot;$STR_REPLACE$&quot;?"/>
 				<Item id="6" name="&amp;Sì"/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="2" name="&amp;Annulla"/>
 				<Item id="4" name="S&amp;ì a tutto"/>
 				<Item id="5" name="N&amp;o a tutto"/>
 			</DoSaveOrNot>
-			<DoSaveAll title="Conferma di Salva tutto">
-				<Item id="1766" name="Vuoi salvare tutti i documenti modificati?
+			<DoSaveAll title="Salva tutto">
+				<Item id="1766" name="Salvare tutti i documenti modificati?
 
 Seleziona &quot;Sì, sempre&quot; per non visualizzare più il messaggio.
 Il messaggio può essere riattivato da Preferenze."/>
@@ -1392,6 +1401,11 @@ Il messaggio può essere riattivato da Preferenze."/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="Sì, sempre"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Informazioni di Debug">
+				<Item id="1752" name="&amp;Copia info di debug negli appunti"/>
+				<Item id="1" name="Conferma"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1406,7 +1420,7 @@ Tutte le modifiche salvate non possono essere ripristinate.
 
 Continuare?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
-			<DocReloadWarning title="Ricarica" message="Vuoi ricaricare il file? Ogni modifica apportata andrà persa."/>
+			<DocReloadWarning title="Ricarica" message="Ricaricare il file? Ogni modifica apportata andrà persa."/>
 			<FileLockedWarning title="Salvataggio non andato a buon fine" message="Verificare che il file non sia aperto da un altro programma."/>
 			<FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Rinomina non andata a buon fine" message="Il file specificato è già in uso su un&apos;altra scheda."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
@@ -1431,7 +1445,7 @@ Esistono 3 modi per passare alla modalità Selezione-Colonna:
 2. (Solo tastiera) Tieni premuto Alt+Maiusc mentre usi i tasti freccia
 
 3. (tastiera o mouse) 
-      Posiziona il cursore all&apos;inizio del blocco di colonna desiderato, quindi
+      Posizionare il cursore all&apos;inizio del blocco di colonna desiderato, quindi
        selezionare la funzione &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;;
       Spostare il cursore all&apos;estremità del blocco di colonna desiderato, quindi
        eseguire nuovamente il comando &quot;Inizio/Fine selezione in modalità Selezione-Colonna&quot;"/>
@@ -1441,27 +1455,27 @@ Mantenere il file aperto?"/>
 			<DoDeleteOrNot title="Elimina file" message="Il file &quot;$STR_REPLACE$&quot;
 verrà spostato nel Cestino e il documento verrà chiuso.
 Continuare?"/>
-			<NoBackupDoSaveFile title="Salva" message="Il tuo backup non può essere trovato (cancellato esternamente).
-Salvalo o i tuoi dati verranno persi.
-Vuoi salvare il file &quot;$STR_REPLACE$&quot; ?"/>
+			<NoBackupDoSaveFile title="Salva" message="Il backup non è stato trovato (cancellato esternamente).
+Salvare i file o i dati verranno persi.
+Salvare il file &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Ricarica" message="&quot;$STR_REPLACE$&quot;
 
 Questo file è stato modificato da un altro programma.
-Vuoi ricaricarlo?"/>
+Ricaricarlo?"/>
 			<DoReloadOrNotAndLooseChange title="Ricarica" message="&quot;$STR_REPLACE$&quot;
 
 Questo file è stato modificato da un altro programma.
-Vuoi ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
-			<PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra tu stia usando un sistema preistorico. Questa funzionalità richiede un sistema più moderno, scusaci."/>
+Ricaricarlo e perdere tutte le modifiche apportate in Notepad++?"/>
+			<PrehistoricSystemDetected title="Sistema preistorico trovato" message="Sembra si stia usando un sistema preistorico. Questa funzionalità richiede un sistema più moderno."/>
 			<XpUpdaterProblem title="Aggiornamento Notepad++" message="L&apos;aggiornamento automatico di Notepad++ non è compatibile con XP a causa di un sistema di permessi obsoleto.
-Vuoi aprire la pagina di Notepad++ per scaricare l&apos;aggiornamento manualmente?"/>
-			<GUpProxyConfNeedAdminMode title="Impostazioni proxy" message="Rilancia Notepad++ con i privilegi di amministratore per configurare il proxy."/>
-			<DocTooDirtyToMonitor title="Problema monitoraggio" message="Il documento è stato modificato. Salva le modifiche prima di avviare il monitoraggio."/>
+Aprire la pagina di Notepad++ per scaricare l&apos;aggiornamento manualmente?"/>
+			<GUpProxyConfNeedAdminMode title="Impostazioni proxy" message="Rilanciare Notepad++ con i privilegi di amministratore per configurare il proxy."/>
+			<DocTooDirtyToMonitor title="Problema monitoraggio" message="Il documento è stato modificato. Salvare le modifiche prima di avviare il monitoraggio."/>
 			<DocNoExistToMonitor title="Problema monitoraggio" message="Il file deve esistere per essere monitorato."/>
 			<FileTooBigToOpen title="Problema dimensione file" message="Il file è troppo grande per essere aperto con Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
-			<FileLoadingException title="Codice di eccezione: $STR_REPLACE$" message="Si è verificato un errore durante il caricamento del file!"/>
+			<FileLoadingException title="Codice di eccezione: $STR_REPLACE$" message="Si è verificato un errore durante il caricamento del file."/>
 			<WantToOpenHugeFile title="Apertura file di grandi dimensioni" message="L&apos;apertura di file superiori a 2GB+ potrebbe impiegare svariati minuti.
-Vuoi proseguire?"/>
+Proseguire?"/>
 			<CreateNewFileOrNot title="Crea nuovo file" message="&quot;$STR_REPLACE$&quot; non esiste. Crearlo?"/>
 			<CreateNewFileError title="Crea nuovo file" message="Impossibile creare il file &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="Errore nell'apertura del file" message="Impossibile aprire il file &quot;$STR_REPLACE$&quot;."/>
@@ -1469,71 +1483,72 @@ Vuoi proseguire?"/>
 La cartella &quot;$STR_REPLACE2$&quot; non esiste."/>
 			<FileBackupFailed title="Backup File non andato a buon fine" message="La versione precedente del file non può essere salvata nella cartella di backup &quot;$STR_REPLACE$&quot;.
 
-Vuoi salvare il file ugualmente?"/>
+Salvare comunque il file?"/>
 			<LoadStylersFailed title="Caricamento stylers.xml non andato a buon fine" message="Il caricamento di &quot;$STR_REPLACE$&quot; non è andato a buon fine!"/>
-			<LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml non è andato a buon fine!
-Vuoi ripristinare il file langs.xml?"/>
+			<LoadLangsFailed title="Configurazione" message="Il caricamento di langs.xml non è andato a buon fine.
+Ripristinare il file langs.xml?"/>
 			<LoadLangsFailedFinal title="Configurazione" message="Il caricamento di langs.xml non è andato a buon fine!"/>
-			<FolderAsWorspaceSubfolderExists title="Errore Aggiunta Cartella come Area di Lavoro" message="La cartella che vuoi aggiungere esiste già.
-Rimuovi la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."/>
+			<FolderAsWorspaceSubfolderExists title="Errore Aggiunta Cartella come Area di Lavoro" message="La cartella da aggiungere esiste già.
+Rimuovere la cartella dal pannello prima di aggiungere &quot;$STR_REPLACE$&quot;."/>
 
-			<ProjectPanelChanged title="$STR_REPLACE$" message="L&apos;Area di Lavoro è stata modificata. Vuoi salvarla?"/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="L&apos;Area di Lavoro è stata modificata. Salvarla?"/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="Si è verificato un errore durante la scrittura del file Area di Lavoro.
 Il file Area di Lavoro non è stato salvato."/>
-			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Apri Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Vuoi salvare il progetto corrente?"/>
-			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nuova Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Vuoi salvare il progetto corrente?"/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Apri Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Salvare il progetto corrente?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nuova Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Salvare il progetto corrente?"/>
 			<ProjectPanelOpenFailed title="Apri Area di Lavoro" message="L&apos;Area di Lavoro non può essere aperta.
 Sembra che il file da aprire non sia un file di progetto valido."/>
 			<ProjectPanelRemoveFolderFromProject title="Rimuovi cartella dal progetto" message="Tutti i sotto-elementi saranno rimossi.
-Vuoi rimuovere questa cartella dal progetto?"/>
-			<ProjectPanelRemoveFileFromProject title="Rimuovi file dal progetto" message="Vuoi rimuovere questo file dal progetto?"/>
+Rimuovere questa cartella dal progetto?"/>
+			<ProjectPanelRemoveFileFromProject title="Rimuovi file dal progetto" message="Rimuovere questo file dal progetto?"/>
 			<ProjectPanelReloadError title="Ricarica Area di Lavoro" message="Impossibile trovare il file da ricaricare."/>
 			<ProjectPanelReloadDirty title="Ricarica Area di Lavoro" message="L&apos;Area di Lavoro corrente è stata modificata. Ricaricandola perderai tutte le modifiche.
-Vuoi continuare?"/>
+Continuare?"/>
 			<UDLNewNameError title="Errore UDL" message="Questo nome è utilizzato da un altro linguaggio,
-usane un altro."/>
-			<UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Vuoi rimuovere il linguaggio corrente?"/>
-			<SCMapperDoDeleteOrNot title="Eliminare scorciatoia" message="Vuoi eliminare questa scorciatoia?"/>
-			<FindCharRangeValueError title="Intervallo di valori errato" message="Devi inserire un valore tra 0 e 255."/>
+usarne un altro."/>
+			<UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Rimuovere il linguaggio corrente?"/>
+			<SCMapperDoDeleteOrNot title="Eliminazione scorciatoia" message="Eliminare questa scorciatoia?"/>
+			<FindCharRangeValueError title="Intervallo di valori errato" message="Inserire un valore tra 0 e 255."/>
 			<OpenInAdminMode title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
-Vuoi avviare Notepad++ come amministratore?"/>
+Avviare Notepad++ come amministratore?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
-Vuoi avviare Notepad++ come amministratore?"/>
+Avviare Notepad++ come amministratore?"/>
 			<OpenInAdminModeFailed title="Apertura come amministratore non andata a buon fine" message="Notepad++ non può essere aperto come amministratore."/>
-			<ViewInBrowser title="Visualizza il file corrente nel browser" message="Applicazione non trovata nel sistema."/>
-			<ExitToUpdatePlugins title="Chiusura Notepad++" message="Cliccando &quot;Sì&quot;, uscirai da Notepad++ per continuare le operazioni.
+			<ViewInBrowser title="Visualizzazione del file corrente nel browser" message="Applicazione non trovata nel sistema."/>
+			<ExitToUpdatePlugins title="Chiusura Notepad++" message="Cliccando &quot;Sì&quot;, si uscirà da Notepad++ per continuare le operazioni.
 Notepad++ verrà riavviato dopo che le operazioni saranno state completate.
-Vuoi continuare?"/>
+Continuare?"/>
 			<NeedToRestartToLoadPlugins title="Riavvio Notepad++" message="Per caricare i plugin, Notepad++ deve essere riavviato."/>
 			<ChangeHistoryEnabledWarning title="Riavvio Notepad++" message="Per abilitare la cronologia delle modifiche, Notepad++ deve essere riavviato."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Chiusura della sessione" message="La sessione Windows sta per essere terminata, ma ci sono dati non salvati. Vuoi uscire da Notepad++"/>
+			<WindowsSessionExit title="Notepad++ - Chiusura della sessione" message="La sessione Windows sta per essere terminata, ma ci sono dati non salvati. Uscire da Notepad++"/>
 			<LanguageMenuCompactWarning title="Menù Linguaggio Compatto" message="L&apos;opzione sarà effettiva al riavvio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
-			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Le modifiche non salvate verranno perse!
-Vuoi salvare le modifiche prima di cambiare tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Le modifiche non salvate verranno perse.
+Salvare le modifiche prima di cambiare tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Compatibilità dei Comandi di Macro ed Esegui" message="I salvataggi dei comandi di Macro ed Esegui di Notepad++ v.8.5.2 (o successive) potrebbero non essere compatibili con la versione corrente di Notepad++.
-Testa questi comandi e, se necessario, rimodificali.
+Testare questi comandi e, se necessario, rimodificarli.
 
 Alternativamente, è possibile tornare a Notepad++ v8.5.2 e ripristinare i dati precedenti.
-Notepad++ salverà il vecchio &quot;shortcuts.xml&quot; e salvarlo come &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Notepad++ salverà il vecchio &quot;shortcuts.xml&quot; come &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Rinominando &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i comandi saranno ripristinati e funzioneranno correttamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Salvataggio non andato a buon fine" message="Il salvataggio del file non è andato a buon fine.
 Lo spazio su disco non è sufficiente per salvare il file. Il file non è stato salvato."/>
 			<FileInaccessibleUserSession title="File non accessibili" message="Alcuni file della sessione salvata non sono più accessibili. È possibile mantenere i file aperti in sola lettura e vuoto.
 
-Si vuole mantenere il file aperto?
+Mantenere il file aperto?
 
 NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, la sessione non verrà modificata all'uscita."/>
-			<FileInaccessibleDefaultSessionXml title="File inaccessibili" message="Alcuni file della sessione precedente non sono accessibili. possono essere lasciati aperti come file in sola lettura e vuoti.
+			<FileInaccessibleDefaultSessionXml title="File inaccessibili" message="Alcuni file della sessione precedente non sono accessibili. Possono essere lasciati aperti come file in sola lettura e vuoti.
 
-si vuole mantenere il file aperto ?
+Mantenere il file aperto ?
 
 NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, la sessione verrà MODIFICATA ALL'USCITA! si suggerisce di effettuare adesso il backup di  &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Non è possibile eseguire RTL" message="RTL non è compatibile con la modalità DirectWrite. Disabilita DirectWrite mode in Preferenze, sezione Varie, riavvia Notepad++, e prova questo comando nuovamente."/>
+			<RTLvsDirectWrite title="Non è possibile eseguire RTL" message="RTL non è compatibile con la modalità DirectWrite. Disabilitare DirectWrite mode in Preferenze, sezione Varie, riavviare Notepad++, e riprovare nuovamente questo comando."/>
 			<FileMemoryAllocationFailed title="Eccezione: errore nell'Allocazione della memoria del File" message="Sembra non esserci sufficiente memoria contigua libera affinché il file possa essere caricato da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Disabilitata la Ricerca a ritroso con espressione regolare" message="Per impostazione predefinita, la ricerca Espressione Regolare a ritroso è disabilitata a causa di risultati potenzialmente imprevisti. Per eseguire una ricerca all'indietro, aprire la finestra di dialogo Trova e selezionare la modalità di ricerca normale o estesa anziché l'espressione regolare.
 Premere il pulsante Conferma per aprire o attivare la finestra di dialogo Trova.
 
 Nel caso fosse necessaria la funzione di ricerca Espressione regolare a ritroso, consultare il manuale dell'utente per istruzioni su come abilitarla."/>
+			<PrintError title="0" message="Impossibile avviare la stampa del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>
@@ -1694,7 +1709,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<find-status-cannot-find value="Trova: impossibile trovare il testo &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Impossibile trovare la corrispondenza specificata. Potresti aver dimenticato di selezionare &quot;Torna all'inizio se raggiunta la fine&quot; (su ON), &quot;Distingui tra maiuscole e minuscole&quot; (su OFF) o &quot;Solo parole intere&quot; (su OFF)."/>
 			<find-status-scope-selection value="nel testo selezionato"/>
-			<find-status-scope-all value="in tutto il file"/>
+			<find-status-scope-all value="nell'intero file"/>
 			<find-status-scope-backward value="dall&apos;inizio fino al cursore"/>
 			<find-status-scope-forward value="dal cursore fino alla fine"/>
 			<finder-find-in-finder value="Trova in questi risultati..."/>
@@ -1732,13 +1747,13 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<progress-cancel-info value="Annullamento operazione, attendere..."/>
 			<find-in-files-progress-title value="Ricerca nei file in corso..."/>
 			<replace-in-files-confirm-title value="Conferma"/>
-			<replace-in-files-confirm-directory value="Vuoi sostituire tutte le corrispondenze in:"/>
+			<replace-in-files-confirm-directory value="Sostituire tutte le corrispondenze in:"/>
 			<replace-in-files-confirm-filetype value="Per i tipi di file:"/>
 			<replace-in-files-progress-title value="Sostituisci nei file in corso..."/>
 			<replace-in-projects-confirm-title value="Conferma"/>
-			<replace-in-projects-confirm-message value="Vuoi sostituire tutte le corrispondenze in tutti i pannelli dei progetti selezionati?"/>
+			<replace-in-projects-confirm-message value="Sostituire tutte le corrispondenze in tutti i pannelli dei progetti selezionati?"/>
 			<replace-in-open-docs-confirm-title value="Conferma"/>
-			<replace-in-open-docs-confirm-message value="Vuoi sostituire tutte le corrispondenze in tutti i file aperti?"/>
+			<replace-in-open-docs-confirm-message value="Sostituire tutte le corrispondenze in tutti i file aperti?"/>
 			<find-result-caption value="Risultati trovati"/>
 			<find-result-title value="Trova"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ corrispondenze trovate in $INT_REPLACE2$ file di $INT_REPLACE3$ cercate)"/>
@@ -1798,6 +1813,12 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 			<npcIncludeCcUniEol-tip value="Applicare le impostazioni dell&apos;aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)."/>
 			<searchingInSelThresh-tip value="Il numero di caratteri selezionati nella zona di modifica per controllare automaticamente la casella di controllo &quot;Nella selezione&quot; quando la finestra di dialogo Trova è attivata. Il valore massimo è 1024. Impostare il valore a 0 per disabilitare il controllo automatico."/>
 			<verticalEdge-tip value="Aggiungi le posizioni dei tuoi delimitatori di colonna, separati da spazi. Indicali con dei numeri interi."/>
+			<fileSaveAsCopySaveButton-tip value="Per aprire il file dopo il salvataggio, tenere premuto il tasto Shift mentre si preme il pulsante &quot;Salva&quot;"/>
+			<autoIndentBasic-tip value="Assicurarsi che il rientro della riga corrente (ovvero la nuova riga che è stata creata premendo il tasto INVIO) corrisponda al rientro della riga precedente."/>
+			<autoIndentAdvanced-tip value="Abilita il rientro avanzato per i linguaggi &quot;simil-C&quot; e Python. I linguaggi &quot;simil-C&quot; includono:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
+
+Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei linguaggi sopra menzionati, il rientro rimarrà in modalità base."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

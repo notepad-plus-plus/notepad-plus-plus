@@ -337,7 +337,7 @@ bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
 		return false;
 	}
 
-	if (!::PathFileExists(projectFileName))
+	if (!doesFileExist(projectFileName))
 	{
 		delete pXmlDocProject;
 		return false;
@@ -538,7 +538,7 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 			const wchar_t *strValue = (childNode->ToElement())->Attribute(L"name");
 			wstring fullPath = getAbsoluteFilePath(strValue);
 			wchar_t *strValueLabel = ::PathFindFileName(strValue);
-			int iImage = ::PathFileExists(fullPath.c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
+			int iImage = doesFileExist(fullPath.c_str()) ? INDEX_LEAF : INDEX_LEAF_INVALID;
 
 			wstring* fullPathStr = new wstring(fullPath);
 			fullPathStrs.push_back(fullPathStr);
@@ -574,7 +574,7 @@ void ProjectPanel::openSelectFile()
 	if (nType == nodeType_file && fn)
 	{
 		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-		if (::PathFileExists(fn->c_str()))
+		if (doesFileExist(fn->c_str()))
 		{
 			::PostMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fn->c_str()));
 			tvItem.iImage = INDEX_LEAF;
@@ -643,7 +643,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 					// Check the validity of modified file path
 					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-					if (::PathFileExists(filePath->c_str()))
+					if (doesFileExist(filePath->c_str()))
 					{
 						tvItem.iImage = INDEX_LEAF;
 						tvItem.iSelectedImage = INDEX_LEAF;
@@ -1073,7 +1073,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				}
 			}
 
-			if (::PathFileExists(_workSpaceFilePath.c_str()))
+			if (doesFileExist(_workSpaceFilePath.c_str()))
 			{
 				openWorkSpace(_workSpaceFilePath.c_str(), forceOpen);
 			}
@@ -1179,7 +1179,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				*fn = newValue;
 				wchar_t *strValueLabel = ::PathFindFileName(fn->c_str());
 				wcscpy_s(textBuffer, strValueLabel);
-				int iImage = ::PathFileExists(fn->c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
+				int iImage = doesFileExist(fn->c_str()) ? INDEX_LEAF : INDEX_LEAF_INVALID;
 				tvItem.iImage = tvItem.iSelectedImage = iImage;
 				SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 				setWorkSpaceDirty(true);

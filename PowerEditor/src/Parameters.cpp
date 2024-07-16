@@ -1008,7 +1008,7 @@ NppParameters::NppParameters()
 	std::wstring notepadStylePath(_nppPath);
 	pathAppend(notepadStylePath, notepadStyleFile);
 
-	_asNotepadStyle = (PathFileExists(notepadStylePath.c_str()) == TRUE);
+	_asNotepadStyle = (doesFileExist(notepadStylePath.c_str()) == TRUE);
 
 	//Load initial accelerator key definitions
 	initMenuKeys();
@@ -1079,11 +1079,11 @@ bool NppParameters::reloadLang()
 	std::wstring nativeLangPath(_localizationSwitcher._nativeLangPath);
 
 	// if "nativeLang.xml" does not exist, use npp path
-	if (!PathFileExists(nativeLangPath.c_str()))
+	if (!doesFileExist(nativeLangPath.c_str()))
 	{
 		nativeLangPath = _nppPath;
 		pathAppend(nativeLangPath, std::wstring(L"nativeLang.xml"));
-		if (!PathFileExists(nativeLangPath.c_str()))
+		if (!doesFileExist(nativeLangPath.c_str()))
 			return false;
 	}
 
@@ -1142,7 +1142,7 @@ bool NppParameters::load()
 	pathAppend(localConfPath, localConfFile);
 
 	// Test if localConf.xml exist
-	_isLocal = (PathFileExists(localConfPath.c_str()) == TRUE);
+	_isLocal = (doesFileExist(localConfPath.c_str()) == TRUE);
 
 	// Under vista and windows 7, the usage of doLocalConf.xml is not allowed
 	// if Notepad++ is installed in "program files" directory, because of UAC
@@ -1179,15 +1179,15 @@ bool NppParameters::load()
 		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 		pathAppend(_userPath, L"Notepad++");
-		if (!PathFileExists(_userPath.c_str()))
+		if (!doesDirectoryExist(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
 
 		_appdataNppDir = _userPluginConfDir = _userPath;
 		pathAppend(_userPluginConfDir, L"plugins");
-		if (!PathFileExists(_userPluginConfDir.c_str()))
+		if (!doesDirectoryExist(_userPluginConfDir.c_str()))
 			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
 		pathAppend(_userPluginConfDir, L"Config");
-		if (!PathFileExists(_userPluginConfDir.c_str()))
+		if (!doesDirectoryExist(_userPluginConfDir.c_str()))
 			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
 
 		// For PluginAdmin to launch the wingup with UAC
@@ -1197,9 +1197,9 @@ bool NppParameters::load()
 	_pluginConfDir = _pluginRootDir; // for plugin list home
 	pathAppend(_pluginConfDir, L"Config");
 
-	if (!PathFileExists(nppPluginRootParent.c_str()))
+	if (!doesDirectoryExist(nppPluginRootParent.c_str()))
 		::CreateDirectory(nppPluginRootParent.c_str(), NULL);
-	if (!PathFileExists(_pluginRootDir.c_str()))
+	if (!doesDirectoryExist(_pluginRootDir.c_str()))
 		::CreateDirectory(_pluginRootDir.c_str(), NULL);
 
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
@@ -1211,7 +1211,7 @@ bool NppParameters::load()
 	//
 	// the 2nd priority: cloud Choice Path
 	//
-	_isCloud = (::PathFileExists(cloudChoicePath.c_str()) == TRUE);
+	_isCloud = doesFileExist(cloudChoicePath.c_str());
 	if (_isCloud)
 	{
 		// Read cloud choice
@@ -1219,7 +1219,7 @@ bool NppParameters::load()
 		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 		std::wstring cloudChoiceStrW = wmc.char2wchar(cloudChoiceStr.c_str(), SC_CP_UTF8);
 
-		if (!cloudChoiceStrW.empty() && ::PathFileExists(cloudChoiceStrW.c_str()))
+		if (!cloudChoiceStrW.empty() && doesDirectoryExist(cloudChoiceStrW.c_str()))
 		{
 			_userPath = cloudChoiceStrW;
 			_nppGUI._cloudPath = cloudChoiceStrW;
@@ -1259,7 +1259,7 @@ bool NppParameters::load()
 	pathAppend(langs_xml_path, L"langs.xml");
 
 	BOOL doRecover = FALSE;
-	if (::PathFileExists(langs_xml_path.c_str()))
+	if (doesFileExist(langs_xml_path.c_str()))
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
 
@@ -1327,7 +1327,7 @@ bool NppParameters::load()
 	std::wstring srcConfigPath(_nppPath);
 	pathAppend(srcConfigPath, L"config.model.xml");
 
-	if (!::PathFileExists(configPath.c_str()))
+	if (!doesFileExist(configPath.c_str()))
 		::CopyFile(srcConfigPath.c_str(), configPath.c_str(), FALSE);
 
 	_pXmlUserDoc = new TiXmlDocument(configPath);
@@ -1350,7 +1350,7 @@ bool NppParameters::load()
 	_stylerPath = _userPath;
 	pathAppend(_stylerPath, L"stylers.xml");
 
-	if (!PathFileExists(_stylerPath.c_str()))
+	if (!doesFileExist(_stylerPath.c_str()))
 	{
 		std::wstring srcStylersPath(_nppPath);
 		pathAppend(srcStylersPath, L"stylers.model.xml");
@@ -1358,7 +1358,7 @@ bool NppParameters::load()
 		::CopyFile(srcStylersPath.c_str(), _stylerPath.c_str(), TRUE);
 	}
 
-	if (_nppGUI._themeName.empty() || (!PathFileExists(_nppGUI._themeName.c_str())))
+	if (_nppGUI._themeName.empty() || (!doesFileExist(_nppGUI._themeName.c_str())))
 		_nppGUI._themeName.assign(_stylerPath);
 
 	_pXmlUserStylerDoc = new TiXmlDocument(_nppGUI._themeName.c_str());
@@ -1454,7 +1454,7 @@ bool NppParameters::load()
 	}
 	else // use %appdata% location, or (if absence then) npp installed location
 	{
-		if (!PathFileExists(nativeLangPath.c_str()))
+		if (!doesFileExist(nativeLangPath.c_str()))
 		{
 			nativeLangPath = _nppPath;
 			pathAppend(nativeLangPath, L"nativeLang.xml");
@@ -1495,7 +1495,7 @@ bool NppParameters::load()
 	pathAppend(_shortcutsPath, SHORTCUTSXML_FILENAME);
 	pathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
 
-	if (!PathFileExists(_shortcutsPath.c_str()))
+	if (!doesFileExist(_shortcutsPath.c_str()))
 	{
 		std::wstring srcShortcutsPath(_nppPath);
 		pathAppend(srcShortcutsPath, SHORTCUTSXML_FILENAME);
@@ -1533,7 +1533,7 @@ bool NppParameters::load()
 	_contextMenuPath = _userPath;
 	pathAppend(_contextMenuPath, L"contextMenu.xml");
 
-	if (!PathFileExists(_contextMenuPath.c_str()))
+	if (!doesFileExist(_contextMenuPath.c_str()))
 	{
 		std::wstring srcContextMenuPath(_nppPath);
 		pathAppend(srcContextMenuPath, L"contextMenu.xml");
@@ -1586,10 +1586,10 @@ bool NppParameters::load()
 		{
 			wstring sessionInCaseOfCorruption_bak = _sessionPath;
 			sessionInCaseOfCorruption_bak += SESSION_BACKUP_EXT;
-			if (::PathFileExists(sessionInCaseOfCorruption_bak.c_str()))
+			if (doesFileExist(sessionInCaseOfCorruption_bak.c_str()))
 			{
 				BOOL bFileSwapOk = false;
-				if (::PathFileExists(_sessionPath.c_str()))
+				if (doesFileExist(_sessionPath.c_str()))
 				{
 					// an invalid session.xml file exists
 					bFileSwapOk = ::ReplaceFile(_sessionPath.c_str(), sessionInCaseOfCorruption_bak.c_str(), nullptr,
@@ -1637,7 +1637,7 @@ bool NppParameters::load()
 	std::wstring enableSelectFgColorPath = _userPath;
 	pathAppend(enableSelectFgColorPath, L"enableSelectFgColor.xml");
 
-	if (PathFileExists(enableSelectFgColorPath.c_str()))
+	if (doesFileExist(enableSelectFgColorPath.c_str()))
 	{
 		_isSelectFgColorEnabled = true;
 	}
@@ -1653,12 +1653,12 @@ bool NppParameters::load()
 	issueFileName = nppLogNetworkDriveIssue;
 	issueFileName += L".xml";
 	pathAppend(filePath, issueFileName);
-	_doNppLogNetworkDriveIssue = (PathFileExists(filePath.c_str()) == TRUE);
+	_doNppLogNetworkDriveIssue = doesFileExist(filePath.c_str());
 	if (!_doNppLogNetworkDriveIssue)
 	{
 		filePath2 = _userPath;
 		pathAppend(filePath2, issueFileName);
-		_doNppLogNetworkDriveIssue = (PathFileExists(filePath2.c_str()) == TRUE);
+		_doNppLogNetworkDriveIssue = doesFileExist(filePath2.c_str());
 	}
 
 	//-------------------------------------------------------------//
@@ -1670,12 +1670,12 @@ bool NppParameters::load()
 	issueFileName = nppLogNulContentCorruptionIssue;
 	issueFileName += L".xml";
 	pathAppend(filePath, issueFileName);
-	_doNppLogNulContentCorruptionIssue = (PathFileExists(filePath.c_str()) == TRUE);
+	_doNppLogNulContentCorruptionIssue = doesFileExist(filePath.c_str());
 	if (!_doNppLogNulContentCorruptionIssue)
 	{
 		filePath2 = _userPath;
 		pathAppend(filePath2, issueFileName);
-		_doNppLogNulContentCorruptionIssue = (PathFileExists(filePath2.c_str()) == TRUE);
+		_doNppLogNulContentCorruptionIssue = doesFileExist(filePath2.c_str());
 	}
 
 	//-------------------------------------------------------------//
@@ -1687,12 +1687,12 @@ bool NppParameters::load()
 	filePath = _nppPath;
 	std::wstring noRegForOSAppRestartTrigger = L"noRestartAutomatically.xml";
 	pathAppend(filePath, noRegForOSAppRestartTrigger);
-	_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
+	_isRegForOSAppRestartDisabled = doesFileExist(filePath.c_str());
 	if (!_isRegForOSAppRestartDisabled)
 	{
 		filePath = _userPath;
 		pathAppend(filePath, noRegForOSAppRestartTrigger);
-		_isRegForOSAppRestartDisabled = (::PathFileExists(filePath.c_str()) == TRUE);
+		_isRegForOSAppRestartDisabled = doesFileExist(filePath.c_str());
 	}
 
 	return isAllLoaded;
@@ -2285,7 +2285,7 @@ void NppParameters::setWorkingDir(const wchar_t * newPath)
 	}
 	else
 	{
-		if (PathFileExists(_nppGUI._defaultDirExp))
+		if (doesDirectoryExist(_nppGUI._defaultDirExp))
 			_currentDirectory = _nppGUI._defaultDirExp;
 		else
 			_currentDirectory = _nppPath.c_str();
@@ -3246,7 +3246,7 @@ void NppParameters::setCloudChoice(const wchar_t *pathChoice)
 	std::wstring cloudChoicePath = getSettingsFolder();
 	cloudChoicePath += L"\\cloud\\";
 
-	if (!PathFileExists(cloudChoicePath.c_str()))
+	if (!doesDirectoryExist(cloudChoicePath.c_str()))
 	{
 		::CreateDirectory(cloudChoicePath.c_str(), NULL);
 	}
@@ -3263,7 +3263,7 @@ void NppParameters::removeCloudChoice()
 	std::wstring cloudChoicePath = getSettingsFolder();
 
 	cloudChoicePath += L"\\cloud\\choice";
-	if (PathFileExists(cloudChoicePath.c_str()))
+	if (doesFileExist(cloudChoicePath.c_str()))
 	{
 		::DeleteFile(cloudChoicePath.c_str());
 	}
@@ -3304,7 +3304,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// config.xml
 	std::wstring cloudConfigPath = cloudSettingsPath;
 	pathAppend(cloudConfigPath, L"config.xml");
-	if (!::PathFileExists(cloudConfigPath.c_str()) && _pXmlUserDoc)
+	if (!doesFileExist(cloudConfigPath.c_str()) && _pXmlUserDoc)
 	{
 		isOK = _pXmlUserDoc->SaveFile(cloudConfigPath.c_str());
 		if (!isOK)
@@ -3314,7 +3314,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// stylers.xml
 	std::wstring cloudStylersPath = cloudSettingsPath;
 	pathAppend(cloudStylersPath, L"stylers.xml");
-	if (!::PathFileExists(cloudStylersPath.c_str()) && _pXmlUserStylerDoc)
+	if (!doesFileExist(cloudStylersPath.c_str()) && _pXmlUserStylerDoc)
 	{
 		isOK = _pXmlUserStylerDoc->SaveFile(cloudStylersPath.c_str());
 		if (!isOK)
@@ -3324,7 +3324,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// langs.xml
 	std::wstring cloudLangsPath = cloudSettingsPath;
 	pathAppend(cloudLangsPath, L"langs.xml");
-	if (!::PathFileExists(cloudLangsPath.c_str()) && _pXmlUserDoc)
+	if (!doesFileExist(cloudLangsPath.c_str()) && _pXmlUserDoc)
 	{
 		isOK = _pXmlDoc->SaveFile(cloudLangsPath.c_str());
 		if (!isOK)
@@ -3334,7 +3334,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// userDefineLang.xml
 	std::wstring cloudUserLangsPath = cloudSettingsPath;
 	pathAppend(cloudUserLangsPath, L"userDefineLang.xml");
-	if (!::PathFileExists(cloudUserLangsPath.c_str()) && _pXmlUserLangDoc)
+	if (!doesFileExist(cloudUserLangsPath.c_str()) && _pXmlUserLangDoc)
 	{
 		isOK = _pXmlUserLangDoc->SaveFile(cloudUserLangsPath.c_str());
 		if (!isOK)
@@ -3344,7 +3344,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// shortcuts.xml
 	std::wstring cloudShortcutsPath = cloudSettingsPath;
 	pathAppend(cloudShortcutsPath, SHORTCUTSXML_FILENAME);
-	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDocA)
+	if (!doesFileExist(cloudShortcutsPath.c_str()) && _pXmlShortcutDocA)
 	{
 		isOK = _pXmlShortcutDocA->SaveUnicodeFilePath(cloudShortcutsPath.c_str());
 		if (!isOK)
@@ -3354,7 +3354,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// contextMenu.xml
 	std::wstring cloudContextMenuPath = cloudSettingsPath;
 	pathAppend(cloudContextMenuPath, L"contextMenu.xml");
-	if (!::PathFileExists(cloudContextMenuPath.c_str()) && _pXmlContextMenuDocA)
+	if (!doesFileExist(cloudContextMenuPath.c_str()) && _pXmlContextMenuDocA)
 	{
 		isOK = _pXmlContextMenuDocA->SaveUnicodeFilePath(cloudContextMenuPath.c_str());
 		if (!isOK)
@@ -3364,7 +3364,7 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const std::wstring & 
 	// nativeLang.xml
 	std::wstring cloudNativeLangPath = cloudSettingsPath;
 	pathAppend(cloudNativeLangPath, L"nativeLang.xml");
-	if (!::PathFileExists(cloudNativeLangPath.c_str()) && _pXmlNativeLangDocA)
+	if (!doesFileExist(cloudNativeLangPath.c_str()) && _pXmlNativeLangDocA)
 	{
 		isOK = _pXmlNativeLangDocA->SaveUnicodeFilePath(cloudNativeLangPath.c_str());
 		if (!isOK)
@@ -3429,7 +3429,7 @@ void NppParameters::writeDefaultUDL()
 	}
 	else if (deleteAll)
 	{
-		if (::PathFileExists(_userDefineLangPath.c_str()))
+		if (doesFileExist(_userDefineLangPath.c_str()))
 		{
 			::DeleteFile(_userDefineLangPath.c_str());
 		}
@@ -3447,7 +3447,7 @@ void NppParameters::writeNonDefaultUDL()
 			{
 				// no need to save, delete file
 				const wchar_t* docFilePath = udl._udlXmlDoc->Value();
-				if (docFilePath && ::PathFileExists(docFilePath))
+				if (docFilePath && doesFileExist(docFilePath))
 				{
 					::DeleteFile(docFilePath);
 				}
@@ -3596,7 +3596,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 	//
 	wchar_t backupPathName[MAX_PATH]{};
 	BOOL doesBackupCopyExist = FALSE;
-	if (PathFileExists(sessionPathName))
+	if (doesFileExist(sessionPathName))
 	{
 		_tcscpy(backupPathName, sessionPathName);
 		_tcscat(backupPathName, SESSION_BACKUP_EXT);
@@ -3782,7 +3782,7 @@ void NppParameters::writeShortcuts()
 		::PathRemoveFileSpec(v852NoNeedShortcutsBackup);
 		::PathAppend(v852NoNeedShortcutsBackup, NONEEDSHORTCUTSXMLBACKUP_FILENAME);
 
-		if (!::PathFileExists(v852NoNeedShortcutsBackup))
+		if (!doesFileExist(v852NoNeedShortcutsBackup))
 		{
 			// Creat empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
 			HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -5079,10 +5079,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				const wchar_t* val = n->Value();
 				if (val)
 				{
+					// the retro-compatibility with the old values
 					if (lstrcmp(val, L"yes") == 0)
-						_nppGUI._maintainIndent = true;
-					else
-						_nppGUI._maintainIndent = false;
+						_nppGUI._maintainIndent = autoIndent_advanced;
+					else if (lstrcmp(val, L"no") == 0)
+						_nppGUI._maintainIndent = autoIndent_none;
+
+					// the treatment of the new values
+					else if (lstrcmp(val, L"0") == 0)
+						_nppGUI._maintainIndent = autoIndent_none;
+					else if (lstrcmp(val, L"1") == 0)
+						_nppGUI._maintainIndent = autoIndent_advanced;
+					else if (lstrcmp(val, L"2") == 0)
+						_nppGUI._maintainIndent = autoIndent_basic;
+					else // other values will be ignored - use the default value
+						_nppGUI._maintainIndent = autoIndent_advanced;
 				}
 			}
 		}
@@ -6310,7 +6321,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					pathAppend(themePath, L"themes\\");
 					pathAppend(themePath, xmlFileName);
 
-					if (!isLocalOnly && ::PathFileExists(themePath.c_str()) == FALSE)
+					if (!isLocalOnly && !doesFileExist(themePath.c_str()))
 					{
 						themePath = _nppPath;
 						pathAppend(themePath, L"themes\\");
@@ -6322,14 +6333,14 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					themePath = isLocalOnly ? _nppPath : _userPath;
 					pathAppend(themePath, L"stylers.xml");
 
-					if (!isLocalOnly && ::PathFileExists(themePath.c_str()) == FALSE)
+					if (!isLocalOnly && !doesFileExist(themePath.c_str()))
 					{
 						themePath = _nppPath;
 						pathAppend(themePath, L"stylers.xml");
 					}
 				}
 
-				if (::PathFileExists(themePath.c_str()) == TRUE)
+				if (doesFileExist(themePath.c_str()))
 				{
 					_nppGUI._themeName.assign(themePath);
 				}
@@ -7365,7 +7376,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="MaintainIndent">yes</GUIConfig>
 	{
-		insertGUIConfigBoolNode(newGUIRoot, L"MaintainIndent", _nppGUI._maintainIndent);
+		//insertGUIConfigBoolNode(newGUIRoot, L"MaintainIndent", _nppGUI._maintainIndent);
+		wchar_t szStr[12] = L"0";
+		_itow(_nppGUI._maintainIndent, szStr, 10);
+		TiXmlElement* GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute(L"name", L"MaintainIndent");
+		GUIConfigElement->InsertEndChild(TiXmlText(szStr));
 	}
 
 	// <GUIConfig name = "TagsMatchHighLight" TagAttrHighLight = "yes" HighLightNonHtmlZone = "no">yes< / GUIConfig>

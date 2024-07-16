@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #pragma once
 #include <vector>
 #include <string>
@@ -23,6 +24,8 @@
 #include <unordered_set>
 #include <algorithm>
 #include <tchar.h>
+
+#pragma deprecated(PathFileExists) // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
 
 
 const bool dirUp = true;
@@ -278,3 +281,7 @@ private:
 	unsigned long _patch = 0;
 	unsigned long _build = 0;
 };
+
+bool doesFileExist(const wchar_t* filePath);
+bool doesDirectoryExist(const wchar_t* dirPath);
+bool doesPathExist(const wchar_t* path);

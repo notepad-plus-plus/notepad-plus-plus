@@ -594,7 +594,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (isInaccessible)
 				_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, false);
 
-			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
+			bool isFileExisting = doesFileExist(buf->getFullPathName());
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_RELOAD, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
@@ -692,8 +692,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
 			{
 				const NppGUI & nppGui = NppParameters::getInstance().getNppGUI();
-				bool indentMaintain = nppGui._maintainIndent;
-				if (indentMaintain)
+				if (nppGui._maintainIndent != autoIndent_none)
 					maintainIndentation(static_cast<wchar_t>(notification->ch));
 
 				Buffer* currentBuf = _pEditView->getCurrentBuffer();

@@ -239,16 +239,16 @@ int PluginsManager::loadPluginFromPath(const wchar_t *pluginFilePath)
 			PathRemoveExtension(xmlPath);
 			PathAddExtension(xmlPath, L".xml");
 
-			if (!PathFileExists(xmlPath))
+			if (!doesFileExist(xmlPath))
 			{
 				lstrcpyn(xmlPath, L"\0", MAX_PATH );
-				wcscpy_s(xmlPath, nppParams.getAppDataNppDir() );
+				wcscpy_s(xmlPath, nppParams.getAppDataNppDir());
 				PathAppend(xmlPath, L"plugins\\Config");
                 PathAppend(xmlPath, pi->_moduleName.c_str());
-				PathRemoveExtension( xmlPath );
-				PathAddExtension( xmlPath, L".xml" );
+				PathRemoveExtension(xmlPath);
+				PathAddExtension(xmlPath, L".xml");
 
-				if (! PathFileExists( xmlPath ) )
+				if (!doesFileExist(xmlPath))
 				{
 					throw wstring(wstring(xmlPath) + L" is missing.");
 				}

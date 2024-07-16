@@ -619,7 +619,7 @@ bool loadFromJson(std::vector<PluginUpdateInfo*>& pl, wstring& verStr, const jso
 
 PluginUpdateInfo::PluginUpdateInfo(const wstring& fullFilePath, const wstring& filename)
 {
-	if (!::PathFileExists(fullFilePath.c_str()))
+	if (!doesFileExist(fullFilePath.c_str()))
 		return;
 
 	_fullFilePath = fullFilePath;
@@ -644,12 +644,12 @@ bool PluginsAdminDlg::initFromJson()
 		return false;
 	}
 
-	if (!::PathFileExists(_pluginListFullPath.c_str()))
+	if (!doesFileExist(_pluginListFullPath.c_str()))
 	{
 		return false;
 	}
 
-	if (!::PathFileExists(_updaterFullPath.c_str()))
+	if (!doesFileExist(_updaterFullPath.c_str()))
 	{
 		return false;
 	}

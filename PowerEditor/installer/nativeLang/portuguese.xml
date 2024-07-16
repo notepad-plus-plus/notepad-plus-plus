@@ -5,7 +5,7 @@ Nota de tradução:
 2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.5">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -502,7 +502,7 @@ Nota de tradução:
 				<Item id="1664" name="Painel do projeto 3"/>
 				<Item id="1641" name="Localizar tudo no documento atual"/>
 				<Item id="1686" name="Transparência"/>
-				<Item id="1703" name="&amp;. Corresponde EOL"/>
+				<Item id="1703" name="&amp;. para nova linha"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Localizar seguinte"/>
 				<Item id="1725" name="Copiar texto marcado"/>
@@ -1100,10 +1100,13 @@ Nota de tradução:
 					<Item id="6506" name="Itens desativados"/>
 					<Item id="6507" name="Compactar o menu da linguagem"/>
 					<Item id="6508" name="Menu da linguagem"/>
-					<Item id="6301" name="Definições das tabulações"/>
-					<Item id="6302" name="Substituir com espaço"/>
-					<Item id="6303" name="Tamanho do separador: "/>
-					<Item id="6510" name="Usar valor predefinido"/>
+					<Item id="6301" name="Definições de indentação"/>
+					<Item id="6302" name="Carácter(es) de espaço"/>
+					<Item id="6303" name="Tamanho de indentação:"/>
+					<Item id="6310" name="Indentar usando:"/>
+                    <Item id="6311" name="Carácter de TAB"/>
+                    <Item id="6510" name="Usar valor predefinido"/>
+                    <Item id="6512" name="A tecla Backspace remove a identação em vez do espaço"/>
 					<Item id="6335" name="Tratar a barra invertida como caráter escape para SQL"/>
 				</Language>
 
@@ -1199,7 +1202,7 @@ v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="6316" name="Cópia de segurança simples"/>
 					<Item id="6317" name="Cópia de segurança completa"/>
 					<Item id="6804" name="Personalizar pasta"/>
-					<Item id="6803" name="Pasta: "/>
+					<Item id="6803" name="Pasta:"/>
 				</Backup>
 
 				<AutoCompletion title="Preenchimento automático">
@@ -1522,6 +1525,10 @@ Gostaria de criar esses substitutos?
 NOTA: Se optar por não criar os substitutos ou fechá-los mais tarde, a sua sessão SERÁ MODIFICADA AO SAIR! Sugerimos que faça uma cópia de segurança do seu ficheiro &quot;session.xml&quot; agora."/>
 			<RTLvsDirectWrite title="Não foi possível executar o RTL" message="O RTL (Orientação de texto da Direita para a Esquerda) não é compatível com o modo DirectWrite. Desative a opção &quot;Usar DirectWrite&quot; na secção &quot;Diversos&quot; da opção &quot;Preferências&quot; do menu &quot;Definições&quot;, e reinicie o Notepad++."/>
 			<FileMemoryAllocationFailed title="Exceção: falha na atribuição da memória do ficheiro" message="Provavelmente não existe memória livre contígua suficiente para o ficheiro que está a ser carregado pelo Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Pesquisa Regex retroativa desativada" message="Por predefinição, a pesquisa regex retroativa está desativada devido a resultados potencialmente inesperados. Para efetuar uma pesquisa retroativa, abra a janela Localizar e selecione o modo de pesquisa normal ou avançada em vez da expressão regular.
+Prima o botão OK para abrir a caixa de diálogo Localizar ou definir o foco na mesma.
+			
+Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual do utilizador para obter instruções sobre como ativá-la."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1720,7 +1727,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<progress-cancel-info value="A cancelar a operação, aguarde..."/>
 			<find-in-files-progress-title value="Localizar em ficheiros em curso..."/>
 			<replace-in-files-confirm-title value="Tem a certeza?"/>
-			<replace-in-files-confirm-directory value="Tem a certeza de que quer substituir todas as ocorrências em: "/>
+			<replace-in-files-confirm-directory value="Tem a certeza de que quer substituir todas as ocorrências em:"/>
 			<replace-in-files-confirm-filetype value="Para tipo de ficheiro:"/>
 			<replace-in-files-progress-title value="Substituir em ficheiros em curso..."/>
 			<replace-in-projects-confirm-title value="Tem a certeza?"/>
@@ -1729,22 +1736,22 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<replace-in-open-docs-confirm-message value="Tem a certeza que pretende substituir todas as ocorrências em todos os documentos abertos?"/>
 			<find-result-caption value="Resultados de pesquisa"/>
 			<find-result-title value="Pesquisar"/><!-- Must not begin with space or tab character -->
-			<find-result-title-info value="($INT_REPLACE1$ correspondência(s) encontrada(s) em $INT_REPLACE2$ ficheiro(s) de $INT_REPLACE3$ pesquisado(s))"/>
-			<find-result-title-info-selections value="($INT_REPLACE1$ correspondência(s) encontrada(s) em $INT_REPLACE2$ seleções de $INT_REPLACE3$ pesquisados)"/>
+			<find-result-title-info value="($INT_REPLACE1$ ocorrência(s) encontrada(s) em $INT_REPLACE2$ ficheiro(s) de $INT_REPLACE3$ pesquisado(s))"/>
+			<find-result-title-info-selections value="($INT_REPLACE1$ ocorrência(s) encontrada(s) em $INT_REPLACE2$ seleções de $INT_REPLACE3$ pesquisados)"/>
 			<find-result-title-info-options-searchmode-normal value="Normal"/>
 			<find-result-title-info-options-searchmode-extended value="Avançada"/>
-			<find-result-title-info-options-searchmode-regexp value="Expressão regular"/>
-			<find-result-title-info-options-case value="Letra"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Diferenciar maiúsc/minúsc."/>
 			<find-result-title-info-options-word value="Palavra"/>
-			<find-result-title-info-extra value=" - Modo de filtro de linha: mostrar apenas os resultados filtrados"/>
-			<find-result-hits value="($INT_REPLACE$ correspondência(s))"/>
+			<find-result-title-info-extra value=" - Modo filtro de linha: mostrar apenas os resultados filtrados"/>
+			<find-result-hits value="($INT_REPLACE$ ocorrência(s))"/>
 			<find-result-line-prefix value="Linha"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="correspondência de comprimento zero"/>
 			<session-save-folder-as-workspace value="Guardar pasta como área de trabalho"/>
 			<tab-untitled-string value="novo "/>
 			<file-save-assign-type value="&amp;Adicionar extensão"/>
 			<close-panel-tip value="Fechar"/>
-			<IncrementalFind-FSFound value="$INT_REPLACE$ corresponde"/>
+			<IncrementalFind-FSFound value="$INT_REPLACE$ ocorrência(s)"/>
 			<IncrementalFind-FSNotFound value="Frase não encontrada"/>
 			<IncrementalFind-FSTopReached value="Atingido o topo da página, continuou do final"/>
 			<IncrementalFind-FSEndReached value="Atingido o final da página, continuou do topo"/>
@@ -1814,7 +1821,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 15 March 2024 by Hugo Carvalho
+Last modified: 02 July 2024 by Hugo Carvalho
 
 Changelog:
 PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.

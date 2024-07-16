@@ -2168,11 +2168,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// Then ReadDirectoryChanges does not detect the change.
 			// Fortunately, notification is sent if right click or double click happens on that file
 			// Let's leverage this as workaround to enhance npp file monitoring functionality.
-			// So calling "PathFileExists" is a workaround here.
+			// So calling "doesFileExist" is a workaround here.
 
 			Buffer* currBuf = getCurrentBuffer();
 			if (currBuf && currBuf->isMonitoringOn())
-				::PathFileExists(currBuf->getFullPathName());
+				doesFileExist(currBuf->getFullPathName());
 
 			const NppGUI & nppgui = nppParam.getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)
@@ -2762,7 +2762,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					// saving session.xml into loaded session if a saved session is loaded and saveLoadedSessionOnExit option is enabled
 					//
 					wstring loadedSessionFilePath = nppParam.getLoadedSessionFilePath();
-					if (!loadedSessionFilePath.empty() && PathFileExists(loadedSessionFilePath.c_str()))
+					if (!loadedSessionFilePath.empty() && doesFileExist(loadedSessionFilePath.c_str()))
 						nppParam.writeSession(currentSession, loadedSessionFilePath.c_str());
 				}
 

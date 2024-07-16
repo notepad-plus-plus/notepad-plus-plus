@@ -1206,8 +1206,8 @@ Translation note:
 				<Backup title="Backup">
 					<Item id="6817" name="Snapshot Sessione e Backup Periodico"/>
 					<Item id="6818" name="Abilita snapshot di sessione e backup periodici"/>
-					<Item id="6819" name="Backup ogni"/>
-					<Item id="6821" name="secondi"/>
+					<Item id="6819" name="Attiva il backup ogni"/>
+					<Item id="6821" name="secondi alla modifica"/>
 					<Item id="6822" name="Cartella backup:"/>
 					<Item id="6309" name="Ricorda sessione corrente al prossimo avvio"/>
 					<Item id="6825" name="Ricorda i file inaccessibili dalla sessione precedente"/>

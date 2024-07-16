@@ -353,6 +353,7 @@
 					<Item id="10005" name="Presunúť na začiatok"/>
 					<Item id="10006" name="Presunúť na koniec"/>
 					<Item id="46001" name="Nastavenie štýlov…"/>
+					<Item id="46016" name="Žiadny (Obyčajný text)"/>
 					<Item id="46250" name="Definovať vlastný jazyk…"/>
 					<Item id="46300" name="Otvoriť priečinok Používateľom definovaný jazyk…"/>
 					<Item id="46301" name="Zbierka používateľom definovaných jazykov programu Notepad++"/>
@@ -1088,16 +1089,25 @@
 				</DefaultDir>
 
 				<FileAssoc title="Asociácia súborov">
-					<Item id="4008" name="Ak chcete použiť túto funkciu , ukončite, prosím, Notepad++ a znova ho spustite v režime správcu."/>
+					<Item id="4008" name="Ak chcete použiť túto funkciu, ukončite, prosím, Notepad++ a znova ho spustite v režime správcu."/>
 					<Item id="4009" name="Podporované prípony:"/>
 					<Item id="4010" name="Registrované prípony:"/>
 				</FileAssoc>
+
 
 				<Language title="Jazyk">
 					<Item id="6505" name="Dostupné položky"/>
 					<Item id="6506" name="Nepoužívané položky"/>
 					<Item id="6507" name="Kompaktná ponuka jazyka"/>
 					<Item id="6508" name="Ponuka jazyka"/>
+					<Item id="6335" name="V SQL považovať spätnú lomku za znak ukončenia"/>
+				</Language>
+
+				<Indentation title="Odsadenie">
+					<Item id="7161" name="Automaticky odsadiť"/>
+					<Item id="7162" name="Žiadne"/>
+					<Item id="7163" name="Základné"/>
+					<Item id="7164" name="Pokročilé"/>
 					<Item id="6301" name="Nastavenie odsadenia"/>
 					<Item id="6302" name="Znak(y) medzery"/>
 					<Item id="6303" name="Veľkosť odsadenia: "/>
@@ -1105,8 +1115,7 @@
 					<Item id="6311" name="Znak tabulátora"/>
 					<Item id="6510" name="Použiť predvolenú hodnotu"/>
 					<Item id="6512" name="Kláves Backspace odstráni odsadenie namiesto medzery"/>
-					<Item id="6335" name="V SQL považovať spätnú lomku za znak ukončenia"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Zvýrazňovanie">
 					<Item id="6351" name="Použiť štýl na všetky výskyty tokenu"/>
@@ -1190,7 +1199,7 @@
 				<Backup title="Zálohovanie">
 					<Item id="6817" name="Bod obnovenia a periodické zálohovanie"/>
 					<Item id="6818" name="Povoliť bod obnovenia a periodické zálohovanie"/>
-					<Item id="6819" name="Zálohovať každých"/>
+					<Item id="6819" name="Spustiť zálohovanie pri úprave každých"/>
 					<Item id="6821" name="sekúnd"/>
 					<Item id="6822" name="Cesta k zálohám:"/>
 					<Item id="6309" name="Pamätať si aktuálnu reláciu pre ďalšie spustenie"/>
@@ -1296,7 +1305,7 @@
 
 				<MISC title="Rôzne">
 					<ComboBox id="6347">
-						<Element name="Povoliť"/>
+						<Element name="Povoliť pre aktuálny súbor"/>
 						<Element name="Povoliť pre všetky otvorené súbory"/>
 						<Element name="Zakázať"/>
 					</ComboBox>
@@ -1665,7 +1674,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 *.* !+\log*"/>
 			<find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>
 			<find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
-			<find-status-end-reached value="Hľadať: Našiel sa prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
+			<find-status-end-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
 			<find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahradiť v otvorených súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
@@ -1679,7 +1688,7 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
 			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
-			<find-status-replace-end-reached value="Nahradiť: Bol nahradený prvý výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
+			<find-status-replace-end-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
 			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
 			<find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
 			<find-status-replaced-without-continuing value="Nahradiť: bol nahradený 1 výskyt."/>
@@ -1793,6 +1802,10 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<npcIncludeCcUniEol-tip value="Použite nastavenia vzhľadu netlačiteľných znakov pre riadiace znaky C0, C1 a znaky Unicode EOL (ďalší riadok, oddeľovač riadkov a oddeľovač odsekov)."/>
 			<searchingInSelThresh-tip value="Počet vybraných znakov v oblasti úprav na automatické začiarknutie políčka &quot;Vo výbere&quot; pri aktivácii dialógového okna Hľadať. Maximálna hodnota je 1024. Ak chcete vypnúť automatickú kontrolu, nastavte hodnotu na 0."/>
 			<verticalEdge-tip value="Pridajte značku stĺpca uvedením jeho pozície pomocou desatinného čísla. Môžete definovať niekoľko značiek stĺpcov tak, že jednotlivé čísla oddelíte bielymi znakmi."/>
+			<autoIndentBasic-tip value="Uistite sa, že odsadenie aktuálneho riadka (t. j. nového riadka vytvoreného stlačením klávesu ENTER) sa zhoduje s odsadením predchádzajúceho riadka."/>
+			<autoIndentAdvanced-tip value="Povoľte inteligentné odsadenie pre jazyky podobné jazyku C a Python. Medzi jazyky podobné jazyku C patria:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell a JSON
+Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

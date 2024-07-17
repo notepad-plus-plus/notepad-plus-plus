@@ -1441,7 +1441,6 @@ Updated to v8.7.0:
 				<Item id="1752" name="&amp;Скопир. инфор. в буфер обмена"/>
 				<Item id="1" name="О&amp;К"/>
 			</DebugInfo>
-
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Редактирование contextMenu" message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.&#x0A;Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
@@ -1817,6 +1816,7 @@ U+FEFF : неразрывный пробел нулевой ширины
 			<autoIndentBasic-tip value="Обеспечивает отступ текущей строки (т.е. новой строки, созданной нажатием клавиши ENTER) будет соответствовать отступу предыдущей строки."/>
 			<autoIndentAdvanced-tip value="Включает умный отступы для языков типа C и Python. К C-подобным языкам относятся:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON
+
 Если редактируемые файлы не на вышеупомянутых языках, тогда отступы будут производиться в 'Базовом' режиме."/>
 		</MiscStrings>
 	</Native-Langue>

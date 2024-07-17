@@ -1396,6 +1396,12 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sem&amp;pre Sim"/>
 			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
+
+			<DebugInfo title="Informação de Depuração">
+				<Item id="1752" name="&amp;Copiar informação de depuração para a área de transferência"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>			
+			
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1538,6 +1544,7 @@ OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua
 Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco para ela.
 			
 Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
+			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

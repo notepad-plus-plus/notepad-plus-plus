@@ -6621,6 +6621,10 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
     if (mask & (BufferChangeReadonly))
 	{
 		checkDocState();
+		
+		// enable/disable possible Undo and Paste commands according to the current R/O status
+		checkClipboard();
+		checkUndoState();
 
 		bool isSysReadOnly = buffer->getFileReadOnly();
 		bool isUserReadOnly = buffer->getUserReadOnly();
@@ -6632,7 +6636,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTATUS_READONLY : 0) | (isDirty ? DOCSTATUS_BUFFERDIRTY : 0));
 		scnN.nmhdr.code = NPPN_READONLYCHANGED;
 		_pluginsManager.notify(&scnN);
-
 	}
 
 	if (_pDocumentListPanel)

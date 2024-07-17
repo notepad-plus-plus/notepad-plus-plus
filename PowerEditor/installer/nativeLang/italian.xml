@@ -1401,6 +1401,11 @@ Il messaggio può essere riattivato da Preferenze."/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="Sì, sempre"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Informazioni di Debug">
+				<Item id="1752" name="&amp;Copia info di debug negli appunti"/>
+				<Item id="1" name="Conferma"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1543,6 +1548,7 @@ NOTA: Scegliendo di non mantenere il file aperto o chiudendolo successivamente, 
 Premere il pulsante Conferma per aprire o attivare la finestra di dialogo Trova.
 
 Nel caso fosse necessaria la funzione di ricerca Espressione regolare a ritroso, consultare il manuale dell'utente per istruzioni su come abilitarla."/>
+			<PrintError title="0" message="Impossibile avviare la stampa del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>

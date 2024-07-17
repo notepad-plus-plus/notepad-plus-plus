@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-15"><!-- basiert auf english.xml 8.6.9 vom 15.07.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-17"><!-- basiert auf english.xml 8.6.9 vom 17.07.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1105,6 +1105,7 @@ Translation note:
 					<Item id="4010" name="Registrierte Erw.:"/>
 				</FileAssoc>
 
+
 				<Language title="Sprache">
 					<Item id="6505" name="Verfügbar:"/>
 					<Item id="6506" name="Deaktiviert:"/>
@@ -1404,6 +1405,11 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 				<Item id="7" name="&amp;Nein"/>
 				<Item id="4" name="&amp;Immer Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+
+			<DebugInfo title="Debug-Info">
+				<Item id="1752" name="Debug-Info in die Zwischenablage &amp;kopieren"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1546,6 +1552,7 @@ HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wi
 OK auswählen um die Suche zu öffnen oder in den Vordergrund zu bringen.
 			
 Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung im Benutzerhandbuch nachgeschlagen werden."/>
+			<PrintError title="0" message="Druckerdokument kann nicht gestartet werden."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

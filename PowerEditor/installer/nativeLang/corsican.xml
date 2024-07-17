@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
-			  June 13th (v8.6.9)
+			  June 13th (v8.6.9), Sept. 8th (v8.7)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -34,7 +34,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.6.9">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -251,7 +251,7 @@ Additionnal information about Corsican localization:
 					<Item id="43051" name="Caccià e linee senza indetta"/>
 					<Item id="43050" name="Invertisce l’indette"/>
 					<Item id="43052" name="Circà caratteri in &amp;una stesa…"/>
-					<Item id="43053" name="Tuttu selezziunà trà e parentesi chì currisp&amp;ondenu"/>
+					<Item id="43053" name="Tuttu selezziunà trà {} [] &amp;o ()"/>
 					<Item id="43009" name="A&amp;ndà à a parentesi chì currisponde"/>
 					<Item id="43010" name="Circà &amp;precedente"/>
 					<Item id="43011" name="Ricerca &amp;interattiva"/>
@@ -384,6 +384,7 @@ Additionnal information about Corsican localization:
 					<Item id="10005" name="Dispiazzà à u principiu"/>
 					<Item id="10006" name="Dispiazzà à a fine"/>
 					<Item id="46001" name="&amp;Cunfiguratore di stilu…"/>
+					<Item id="46016" name="Nisunu (Testu nurmale)"/>
 					<Item id="46250" name="Definisce u vostru linguaghju…"/>
 					<Item id="46300" name="Apre u cartulare di i linguaghji definiti da l’utilizatore…"/>
 					<Item id="46301" name="Cullezzione di i linguaghji Notepad++ definiti da l’utilizatore"/>
@@ -439,8 +440,8 @@ Additionnal information about Corsican localization:
 					<Item id="11005" name="Chjassu d’accessu da Z à A"/>
 					<Item id="11006" name="Tipu da A à Z"/>
 					<Item id="11007" name="Tipu da Z à A"/>
-					<Item id="11008" name="Dimensione da chjuca à maiò"/>
-					<Item id="11009" name="Dimensione da maiò à chjuca"/>
+					<Item id="11008" name="Lunghezza di cuntenutu crescente"/>
+					<Item id="11009" name="Lunghezza di cuntenutu discendente"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -779,8 +780,8 @@ Additionnal information about Corsican localization:
 					<Item id="11005" name="Ordinà da chjassu d’accessu da Z à A"/>
 					<Item id="11006" name="Ordinà da tipu da A à Z"/>
 					<Item id="11007" name="Ordinà da tipu da Z à A"/>
-					<Item id="11008" name="Ordinà da dimensione da chjuca à maiò"/>
-					<Item id="11009" name="Ordinà da dimensione da maiò à chjuca"/>
+					<Item id="11008" name="Ordinà da lunghezza di cuntenutu crescente"/>
+					<Item id="11009" name="Ordinà da lunghezza di cuntenutu discendente"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Accurtatoghju">
@@ -1120,11 +1121,20 @@ Additionnal information about Corsican localization:
 					<Item id="4009" name="Estensioni accettate :"/>
 					<Item id="4010" name="Estensioni inscritte :"/>
 				</FileAssoc>
+
 				<Language title="Linguaghju">
 					<Item id="6505" name="Elementi dispunibule"/>
 					<Item id="6506" name="Elementi piattati"/>
 					<Item id="6507" name="Cumpattà l’affissera di u listinu"/>
 					<Item id="6508" name="Listinu di i linguaghji affissati"/>
+					<Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
+				</Language>
+
+				<Indentation title="Indentazione">
+					<Item id="7161" name="Indentazione autumatica"/>
+					<Item id="7162" name="Nisuna"/>
+					<Item id="7163" name="Basica"/>
+					<Item id="7164" name="Esperta"/>
 					<Item id="6301" name="Parametri d’indentazione"/>
 					<Item id="6302" name="Caratteru(i) di spaziu"/>
 					<Item id="6303" name="Dimensione d’indentazione :"/>
@@ -1132,8 +1142,7 @@ Additionnal information about Corsican localization:
 					<Item id="6311" name="Caratteru di tabulazione"/>
 					<Item id="6510" name="Impiegà valore predef."/>
 					<Item id="6512" name="U tastu di ritornu in daretu caccia un’indentazione invece di caccià un spaziu unicu"/>
-					<Item id="6335" name="« \ » hè u caratteru di scappamentu per SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Sopralineamentu">
 					<Item id="6351" name="Stilizà tutte l’occurenze di testu"/>
@@ -1211,13 +1220,13 @@ Additionnal information about Corsican localization:
 					<Item id="6424" name="In sottulistinu"/>
 					<Item id="6425" name="Nome di schedariu solu"/>
 					<Item id="6426" name="Chjassu cumpletu di schedariu"/>
-					<Item id="6427" name="Persunalizà a longhezza massima :"/>
+					<Item id="6427" name="Persunalizà a lunghezza massima :"/>
 				</RecentFilesHistory>
 
 				<Backup title="Salvaguardia">
 					<Item id="6817" name="Fotò di sessione è salvaguardia periodica"/>
 					<Item id="6818" name="Permette a fotò di sessione è a salvaguardia periodica"/>
-					<Item id="6819" name="Salvaguardia ogni :"/>
+					<Item id="6819" name="Scruchjà una salvaguardia, in casu di mudificazione, ogni"/>
 					<Item id="6821" name="seconde"/>
 					<Item id="6822" name="Chjassu :"/>
 					<Item id="6309" name="Arricurdassi di a sessione currente per u prossimu lanciu"/>
@@ -1325,7 +1334,7 @@ Additionnal information about Corsican localization:
 
 				<MISC title="Diversi">
 					<ComboBox id="6347">
-						<Element name="Attivà"/>
+						<Element name="Attivà per u schedariu attuale"/>
 						<Element name="Attivà per tutti i schedarii aperti"/>
 						<Element name="Disattivà"/>
 					</ComboBox>
@@ -1414,6 +1423,11 @@ Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
 				<Item id="7" name="&amp;Nò"/>
 				<Item id="4" name="S&amp;empre sì"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Infurmazioni di spannatura">
+				<Item id="1752" name="&amp;Cupià l’infurmazione di spannatura in u preme’papei"/>
+				<Item id="1" name="Vai"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1558,6 +1572,7 @@ NOTA : S’è vo sciglite d’ùn micca creà i spazii riservati o di chjodeli 
 Appughjate nant’à u buttone Vai per apre a finestra di dialogu di ricerca o piazzateci u puntu fucale.
 			
 S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjite l’istruzzioni per attivalla in u manuale di l’utilizatore."/>
+			<PrintError title="0" message="Ùn si pò lancià u ducumentu di stampetta."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1693,8 +1708,8 @@ Circà in tutti i schedarii ma esclude i cartulari tests, bin è bin64 :
 Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o logs :
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selezziunà u cartulare per facci a ricerca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Circà : 1ᵃ occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
-			<find-status-end-reached value="Circà : 1ᵃ occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
+			<find-status-top-reached value="Circà : Ultima occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
+			<find-status-end-reached value="Circà : Ultima occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
 			<find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>
 			<find-status-replaceinfiles-nb-replaced value="Rimpiazzà in schedarii : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Rimpiazzà in schedarii aperti : 1 occurrenza hè stata rimpiazzata"/>
@@ -1708,8 +1723,8 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-status-replaceall-1-replaced value="Rimpiazzalle tutte : 1 occurrenza hè stata rimpiazzata"/>
 			<find-status-replaceall-nb-replaced value="Rimpiazzalle tutte : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
 			<find-status-replaceall-readonly value="Rimpiazzalle tutte : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
-			<find-status-replace-end-reached value="Rimpiazzà : 1ᵃ occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
-			<find-status-replace-top-reached value="Rimpiazzà : 1ᵃ occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
+			<find-status-replace-end-reached value="Rimpiazzà : Ultima occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
+			<find-status-replace-top-reached value="Rimpiazzà : Ultima occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
 			<find-status-replaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova."/>
 			<find-status-replaced-without-continuing value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata."/>
 			<find-status-replaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. Alcuna altra occurrenza trova."/>
@@ -1775,7 +1790,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
 			<find-result-hits value="($INT_REPLACE$ risultati)"/>
 			<find-result-line-prefix value="Linea"/><!-- Must not begin with space or tab character -->
-			<find-regex-zero-length-match value="currispundenza di longhezza à zeru"/>
+			<find-regex-zero-length-match value="currispundenza di lunghezza à zeru"/>
 			<session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
 			<tab-untitled-string value="novu "/>
 			<file-save-assign-type value="&amp;Aghjunghje un’estensione"/>
@@ -1813,6 +1828,11 @@ Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore na
 			<npcIncludeCcUniEol-tip value="Appiecate i parametri d’apparenza di caratteri nonstampevule à i caratteri di cuntrollu C0, C1 è quelli di fine di linea Unicode (linea seguente, separadore di linea è separadore di paragrafu)."/>
 			<searchingInSelThresh-tip value="Numeru di caratteri selezziunati in l’area di mudificazione per cuntrollà autumaticamente l’ozzione « In a selezzione » quandu u dialogu di ricerca hè attivatu. U valore massimu hè 1024. Definite u valore à 0 per disattivà a verificazione autumatica."/>
 			<verticalEdge-tip value="Aghjunghjite u vostru marcatore di culonna indichendu a so pusizione cù un numeru interu. Pudete definisce parechji marcatori di culonna impieghendu un spaziu per staccà ogni numeru."/>
+			<fileSaveAsCopySaveButton-tip value="Mantinite u tastu Maius quandu s’appoghja nant’à u buttone Arregistà per apre a copia dopu à l’arregistramentu."/>
+			<autoIndentBasic-tip value="Assicurassi chì l’indentazione di a linea currente (i.e. a linea nova creata da u tastu ENTRÉE) currisponde à l’indentazione di a linea precedente."/>
+			<autoIndentAdvanced-tip value="Attivà l’indentazione astuta per i linguaghji di tipu C è Python. I linguaghji di tipu C includenu :
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell è JSON
+S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i linguaghji mintulati insù, l’indentazione sterà in modu basicu."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

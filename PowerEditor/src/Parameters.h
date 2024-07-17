@@ -118,6 +118,8 @@ enum urlMode {urlDisable = 0, urlNoUnderLineFg, urlUnderLineFg, urlNoUnderLineBg
               urlMin = urlDisable,
               urlMax = urlUnderLineBg};
 
+enum AutoIndentMode { autoIndent_none = 0, autoIndent_advanced = 1, autoIndent_basic = 2 };
+
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
 const int LANG_INDEX_TYPE = 2;
@@ -817,7 +819,7 @@ struct NppGUI final
 	bool _saveAllConfirm = true;
 	bool _setSaveDlgExtFiltToAllTypes = false;
 	bool _doTaskList = true;
-	bool _maintainIndent = true;
+	AutoIndentMode _maintainIndent = autoIndent_advanced;
 	bool _enableSmartHilite = true;
 
 	bool _smartHiliteCaseSensitive = false;

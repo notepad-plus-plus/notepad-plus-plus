@@ -1048,6 +1048,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(L"Language", nameW);
 	}
 
+	changeDlgLang(preference._indentationSubDlg.getHSelf(), "Indentation", titre, titreMaxSize);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc.char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(L"Indentation", nameW);
+	}
+
 	changeDlgLang(preference._highlightingSubDlg.getHSelf(), "Highlighting", titre, titreMaxSize);
 	if (titre[0] != '\0')
 	{
@@ -1576,7 +1583,7 @@ int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const wc
 	{
 		msgBoxType |= MB_RTLREADING | MB_RIGHT;
 	}
-	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
+	return ::MessageBox(hWnd, msg.c_str(), (title.empty() || wcscmp(title.c_str(), L"0") == 0) ? nullptr : title.c_str(), msgBoxType);
 }
 
 // Default English localization during Notepad++ launch

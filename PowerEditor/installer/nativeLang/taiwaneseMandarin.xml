@@ -1050,17 +1050,28 @@
 					<Item id="4009" name="支援的副檔名"/>
 					<Item id="4010" name="已連結的副檔名"/>
 				</FileAssoc>
+
 				<Language title="程式語言">
 					<Item id="6505" name="可用項目"/>
 					<Item id="6506" name="停用項目"/>
 					<Item id="6507" name="簡化程式語言選單"/>
 					<Item id="6508" name="程式語言選單"/>
-					<Item id="6301" name="縮排設定"/>
-					<Item id="6302" name="使用空格"/>
-					<Item id="6303" name="縮排大小："/>
-					<Item id="6510" name="使用預設值"/>
 					<Item id="6335" name="在 SQL 中視「\」為逸出字元"/>
 				</Language>
+
+				<Indentation title="縮排">
+					<Item id="7161" name="自動縮排"/>
+					<Item id="7162" name="關閉"/>
+					<Item id="7163" name="基本模式"/>
+					<Item id="7164" name="進階模式"/>
+					<Item id="6301" name="縮排設定"/>
+					<Item id="6302" name="空格"/>
+					<Item id="6303" name="縮排大小："/>
+					<Item id="6310" name="縮排使用："/>
+					<Item id="6311" name="Tab 字元"/>
+					<Item id="6510" name="使用預設值"/>
+					<Item id="6512" name="退格鍵取消縮排而不是刪除單一空格"/>
+				</Indentation>
 
 				<Highlighting title="醒目提示">
 					<Item id="6351" name="全部標記"/>
@@ -1624,6 +1635,11 @@
 2. 如果「停用自動換行」被啟動，在開啟一個大型文件時，「自動換行」將對所有文件停用。 你可以通過選單「檢視-&gt;自動換行」重新啟動這個功能。"/>
 			<searchingInSelThresh-tip value="在尋找與取代對話方塊啟動時，為啟動自動勾選核取方塊「僅尋找選取範圍」在編輯區中選取的字符數量。 最大值為 1024。 將值設置為 0 將停止自動勾選功能。"/>
 			<verticalEdge-tip value="如欲添加列標記可以在下面以數字指示其列位置。使用空格分隔不同數字來定義多個列標記。"/>
+			<autoIndentBasic-tip value="確保目前行（即按 ENTER 鍵所打的新行）的縮排與上一行的縮排相同。"/>
+			<autoIndentAdvanced-tip value="啟用為「類 C 語言」和 Python 建構的智慧縮排 。 「類 C 語言」包括：
+C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell 與 JSON
+
+如果你選擇進階模式但不編輯上述語言文件，縮排設定將保留為基本模式。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -63,7 +63,7 @@ wstring commafyInt(size_t n)
 #ifdef MPP_USE_ORIGINAL_CODE
 std::string getFileContent(const wchar_t *file2read)
 {
-	if (!::PathFileExists(file2read))
+	if (!doesFileExist(file2read))
 		return "";
 
 	const size_t blockSize = 1024;
@@ -1244,7 +1244,7 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 {
 	bool isAssoCommandExisting = false;
 
-	bool isFileExisting = PathFileExists(FullPathName) != FALSE;
+	bool isFileExisting = doesFileExist(FullPathName);
 
 	if (isFileExisting)
 	{
@@ -1489,10 +1489,11 @@ HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestP
 
 bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
 {
-	if (!PathFileExists(fileFullPath))
+	DWORD dwFileAttribs = ::GetFileAttributes(fileFullPath);
+
+	if (dwFileAttribs == INVALID_FILE_ATTRIBUTES || (dwFileAttribs & FILE_ATTRIBUTE_DIRECTORY))
 		return false;
 
-	DWORD dwFileAttribs = ::GetFileAttributes(fileFullPath);
 	dwFileAttribs &= ~FILE_ATTRIBUTE_READONLY;
 	return (::SetFileAttributes(fileFullPath, dwFileAttribs) != FALSE);
 }
@@ -1664,29 +1665,29 @@ Version::Version(const wstring& versionStr)
 
 void Version::setVersionFrom(const wstring& filePath)
 {
-	if (!filePath.empty() && ::PathFileExists(filePath.c_str()))
+	if (filePath.empty() || !doesFileExist(filePath.c_str()))
+		return;
+
+	DWORD uselessArg = 0; // this variable is for passing the ignored argument to the functions
+	DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &uselessArg);
+
+	if (bufferSize <= 0)
+		return;
+
+	unsigned char* buffer = new unsigned char[bufferSize];
+	::GetFileVersionInfo(filePath.c_str(), 0, bufferSize, buffer);
+
+	VS_FIXEDFILEINFO* lpFileInfo = nullptr;
+	UINT cbFileInfo = 0;
+	VerQueryValue(buffer, L"\\", reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
+	if (cbFileInfo)
 	{
-		DWORD uselessArg = 0; // this variable is for passing the ignored argument to the functions
-		DWORD bufferSize = ::GetFileVersionInfoSize(filePath.c_str(), &uselessArg);
-
-		if (bufferSize <= 0)
-			return;
-
-		unsigned char* buffer = new unsigned char[bufferSize];
-		::GetFileVersionInfo(filePath.c_str(), 0, bufferSize, buffer);
-
-		VS_FIXEDFILEINFO* lpFileInfo = nullptr;
-		UINT cbFileInfo = 0;
-		VerQueryValue(buffer, L"\\", reinterpret_cast<LPVOID*>(&lpFileInfo), &cbFileInfo);
-		if (cbFileInfo)
-		{
-			_major = (lpFileInfo->dwFileVersionMS & 0xFFFF0000) >> 16;
-			_minor = lpFileInfo->dwFileVersionMS & 0x0000FFFF;
-			_patch = (lpFileInfo->dwFileVersionLS & 0xFFFF0000) >> 16;
-			_build = lpFileInfo->dwFileVersionLS & 0x0000FFFF;
-		}
-		delete[] buffer;
+		_major = (lpFileInfo->dwFileVersionMS & 0xFFFF0000) >> 16;
+		_minor = lpFileInfo->dwFileVersionMS & 0x0000FFFF;
+		_patch = (lpFileInfo->dwFileVersionLS & 0xFFFF0000) >> 16;
+		_build = lpFileInfo->dwFileVersionLS & 0x0000FFFF;
 	}
+	delete[] buffer;
 }
 
 wstring Version::toString()
@@ -1791,6 +1792,7 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 
 	return false;
 }
+
 
 #ifndef MPP_USE_ORIGINAL_CODE
 namespace
@@ -1910,3 +1912,21 @@ bool WinCNG_CalculateHash( PCWSTR pszAlgId, const void* input, std::size_t nInpu
 	return true;
 }
 #endif
+
+bool doesFileExist(const wchar_t* filePath)
+{
+	DWORD dwAttrib = ::GetFileAttributesW(filePath);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+bool doesDirectoryExist(const wchar_t* dirPath)
+{
+	DWORD dwAttrib = ::GetFileAttributesW(dirPath);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+bool doesPathExist(const wchar_t* path)
+{
+	DWORD dwAttrib = ::GetFileAttributesW(path);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES);
+}

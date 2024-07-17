@@ -598,7 +598,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	for (int i = 0; i < nbLRFile; ++i)
 	{
 		wstring * stdStr = nppParam.getLRFile(i);
-		if (!nppGUI._checkHistoryFiles || PathFileExists(stdStr->c_str()))
+		if (!nppGUI._checkHistoryFiles || doesFileExist(stdStr->c_str()))
 		{
 			_lastRecentFileList.add(stdStr->c_str());
 		}
@@ -1876,7 +1876,7 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 bool Notepad_plus::createFilelistForFiles(vector<wstring> & fileNames)
 {
 	const wchar_t *dir2Search = _findReplaceDlg.getDir2Search();
-	if (!dir2Search[0] || !::PathFileExists(dir2Search))
+	if (!dir2Search[0] || !doesDirectoryExist(dir2Search))
 	{
 		return false;
 	}
@@ -2579,7 +2579,7 @@ void Notepad_plus::checkDocState()
 
 	bool isCurrentDirty = curBuf->isDirty();
 	bool isSeveralDirty = isCurrentDirty;
-	bool isFileExisting = PathFileExists(curBuf->getFullPathName()) != FALSE;
+	bool isFileExisting = doesFileExist(curBuf->getFullPathName());
 	if (!isCurrentDirty)
 	{
 		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
@@ -3557,11 +3557,20 @@ intptr_t Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char t
 
 void Notepad_plus::maintainIndentation(wchar_t ch)
 {
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	if (nppGui._maintainIndent == autoIndent_none)
+		return;
+
 	intptr_t eolMode = _pEditView->execute(SCI_GETEOLMODE);
 	intptr_t curLine = _pEditView->getCurrentLineNumber();
 	intptr_t prevLine = curLine - 1;
 	intptr_t indentAmountPrevLine = 0;
 	intptr_t tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+
+	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
+	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+		return;
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 	ExternalLexerAutoIndentMode autoIndentMode = ExternalLexerAutoIndentMode::Standard;
@@ -3575,10 +3584,30 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			return;
 	}
 
-	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
-	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
-		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+	if (nppGui._maintainIndent == autoIndent_basic) // Basic indentation mode only
+	{
+		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+			(eolMode == SC_EOL_CR && ch == '\r'))
+		{
+			// Search the non-empty previous line
+			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+				prevLine--;
+
+			if (prevLine >= 0)
+			{
+				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+			}
+
+			if (indentAmountPrevLine > 0)
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+		}
+
 		return;
+	}
+
+	// else nppGui._maintainIndent == autoIndent_advance
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
 		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || 
@@ -4438,7 +4467,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			// display error & do nothing
 			_nativeLangSpeaker.messageBox("DroppingFolderAsProjectModeWarning",
 				_pPublicInterface->getHSelf(),
-				L"You can only drop files or folders but not both, because you're in dropping Folder as Project mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work.",
+				L"You can only drop files or folders but not both, because you're in dropping Folder as Project mode.\rYou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work.",
 				L"Invalid action",
 				MB_OK | MB_APPLMODAL);
 		}
@@ -6269,7 +6298,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 				continue;
 
 			if (!includUntitledDoc)
-				if (!PathFileExists(buf->getFullPathName()))
+				if (!doesFileExist(buf->getFullPathName()))
 					continue;
 
 
@@ -6918,7 +6947,7 @@ vector<wstring> Notepad_plus::addNppComponents(const wchar_t *destDir, const wch
 		wstring destDirName = (NppParameters::getInstance()).getNppPath();
         pathAppend(destDirName, destDir);
 
-        if (!::PathFileExists(destDirName.c_str()))
+        if (!doesDirectoryExist(destDirName.c_str()))
         {
             ::CreateDirectory(destDirName.c_str(), NULL);
         }
@@ -6928,7 +6957,7 @@ vector<wstring> Notepad_plus::addNppComponents(const wchar_t *destDir, const wch
         size_t sz = fns.size();
         for (size_t i = 0 ; i < sz ; ++i)
         {
-            if (::PathFileExists(fns.at(i).c_str()))
+            if (doesFileExist(fns.at(i).c_str()))
             {
                 // copy to plugins directory
                 wstring destName = destDirName;
@@ -6954,7 +6983,7 @@ vector<wstring> Notepad_plus::addNppPlugins(const wchar_t *extFilterName, const 
         // Get plugins dir
 		wstring destDirName = (NppParameters::getInstance()).getPluginRootDir();
 
-        if (!::PathFileExists(destDirName.c_str()))
+        if (!doesDirectoryExist(destDirName.c_str()))
         {
             ::CreateDirectory(destDirName.c_str(), NULL);
         }
@@ -6962,7 +6991,7 @@ vector<wstring> Notepad_plus::addNppPlugins(const wchar_t *extFilterName, const 
         size_t sz = fns.size();
         for (size_t i = 0 ; i < sz ; ++i)
         {
-            if (::PathFileExists(fns.at(i).c_str()))
+            if (doesFileExist(fns.at(i).c_str()))
             {
                 // copy to plugins directory
                 wstring destName = destDirName;
@@ -6974,7 +7003,7 @@ vector<wstring> Notepad_plus::addNppPlugins(const wchar_t *extFilterName, const 
 
 				wstring name = nameExt.substr(0, pos);
 				pathAppend(destName, name);
-				if (!::PathFileExists(destName.c_str()))
+				if (!doesDirectoryExist(destName.c_str()))
 				{
 					::CreateDirectory(destName.c_str(), NULL);
 				}
@@ -7191,6 +7220,11 @@ bool Notepad_plus::reloadLang()
 	if (_pluginsAdminDlg.isCreated())
 	{
 		_nativeLangSpeaker.changePluginsAdminDlgLang(_pluginsAdminDlg);
+	}
+
+	if (_debugInfoDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_debugInfoDlg.getHSelf(), "DebugInfo");
 	}
 
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
@@ -8489,7 +8523,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 				pathAppend(themePath, xmlFileName);
 			}
 
-			if (::PathFileExists(themePath.c_str()) == FALSE || themePath.empty())
+			if (themePath.empty() || !doesFileExist(themePath.c_str()))
 			{
 				themePath = themeSwitcher.getThemeDirPath();
 				pathAppend(themePath, xmlFileName);
@@ -8506,7 +8540,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			themeName = themeSwitcher.getDefaultThemeLabel();
 		}
 
-		if (::PathFileExists(themePath.c_str()) == TRUE)
+		if (doesFileExist(themePath.c_str()))
 		{
 			nppParams.getNppGUI()._themeName = themePath;
 

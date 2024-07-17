@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.8">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1394,6 +1394,11 @@ Toto dialógové okno môžete neskôr znovu aktivovať v Predvoľbách."/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Vždy áno"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			
+			<DebugInfo title="Informácie o ladení">
+				<Item id="1752" name="&amp;Skopírovať informácie o ladení do schránky"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
@@ -1538,6 +1543,7 @@ POZNÁMKA: Ak sa rozhodnete nevytvárať zástupné karty alebo ich neskôr zavr
 Stlačením tlačidla OK otvorte dialógové okno Hľadať alebo ho prepnite do popredia.
 			
 Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, pokyny na jej zapnutie nájdete v používateľskej príručke."/>
+			<PrintError title="0" message="Nie je možné spustiť tlač dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

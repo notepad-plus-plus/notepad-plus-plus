@@ -62,7 +62,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 	_hSelf = ::CreateWindowEx(
 				0,
 				WC_TABCONTROL,
-				TEXT("Tab"),
+				L"Tab",
 				style,
 				0, 0, 0, 0,
 				_hParent,
@@ -300,7 +300,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE | TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 	style |= TCS_OWNERDRAWFIXED;
 
-	_hSelf = ::CreateWindowEx(0, WC_TABCONTROL,	TEXT("Tab"), style,	0, 0, 0, 0, _hParent, NULL, _hInst, 0);
+	_hSelf = ::CreateWindowEx(0, WC_TABCONTROL,	L"Tab", style,	0, 0, 0, 0, _hParent, NULL, _hInst, 0);
 
 	if (!_hSelf)
 	{
@@ -1145,7 +1145,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	int nTab = pDrawItemStruct->itemID;
 	if (nTab < 0)
 	{
-		::MessageBox(NULL, TEXT("nTab < 0"), TEXT(""), MB_OK);
+		::MessageBox(NULL, TEXT("nTab < 0"), L"", MB_OK);
 	}
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
@@ -1385,7 +1385,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			SelectObject(hDC, _hLargeFont);
 	}
 	SIZE charPixel{};
-	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
+	::GetTextExtentPoint(hDC, L" ", 1, &charPixel);
 	int spaceUnit = charPixel.cx;
 
 	TEXTMETRIC textMetrics{};
@@ -1462,7 +1462,7 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 	{
 		TCHAR className[256] = { '\0' };
 		::GetClassName(hWin, className, 256);
-		if ((!lstrcmp(className, TEXT("Scintilla"))) || (!lstrcmp(className, WC_TABCONTROL)))
+		if ((!lstrcmp(className, L"Scintilla")) || (!lstrcmp(className, WC_TABCONTROL)))
 		{
 			if (::GetKeyState(VK_LCONTROL) & 0x80000000)
 				::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_PLUS_TAB)));

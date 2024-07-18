@@ -32,7 +32,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 
 	_hSelf = CreateWindowEx(0,
 							WC_TREEVIEW,
-							TEXT("Tree View"),
+							L"Tree View",
 							WS_CHILD | WS_BORDER | treeViewStyles,
 							0,
 							0,
@@ -138,7 +138,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (!Item2Set)
-		return TEXT("");
+		return L"";
 	TCHAR textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
 	tvItem.hItem = Item2Set;

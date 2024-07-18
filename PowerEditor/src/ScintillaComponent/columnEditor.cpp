@@ -57,9 +57,9 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			if (colEditParam._repeatNum != -1)
 				::SetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, colEditParam._repeatNum, FALSE);
 			
-			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("None")));
-			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Zeros")));
-			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Spaces")));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"None"));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Zeros"));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Spaces"));
 			WPARAM curSel = 0;
 			switch (colEditParam._leadingChoice)
 			{
@@ -404,7 +404,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, TEXT("")) == 0)
+									if (lstrcmp(str, L"") == 0)
 									{
 										colEditParam._initialNum = -1;
 										return TRUE;
@@ -418,7 +418,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, TEXT("")) == 0)
+									if (lstrcmp(str, L"") == 0)
 									{
 										colEditParam._increaseNum = -1;
 										return TRUE;
@@ -432,7 +432,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, TEXT("")) == 0)
+									if (lstrcmp(str, L"") == 0)
 									{
 										colEditParam._repeatNum = -1;
 										return TRUE;

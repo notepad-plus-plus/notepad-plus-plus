@@ -145,7 +145,7 @@ bool FunctionCallTip::getCursorFunction()
 		return false;	//cannot be a func, need name and separator
 	}
 	
-	TCHAR lineData[maxLen] = TEXT("");
+	TCHAR lineData[maxLen] = L"";
 
 	_pEditView->getLine(line, lineData, len);
 
@@ -298,10 +298,10 @@ bool FunctionCallTip::loadFunction()
 	//Iterate through all keywords and find the correct function keyword
 	TiXmlElement *funcNode = _pXmlKeyword;
 	
-	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")))
+	for (; funcNode; funcNode = funcNode->NextSiblingElement(L"KeyWord"))
 	{
 		const TCHAR * name = NULL;
-		name = funcNode->Attribute(TEXT("name"));
+		name = funcNode->Attribute(L"name");
 		if (!name)		//malformed node
 			continue;
 		int compVal = 0;
@@ -311,10 +311,10 @@ bool FunctionCallTip::loadFunction()
 			compVal = lstrcmp(name, _funcName);
 		if (!compVal) 	//found it!
         {
-			const TCHAR * val = funcNode->Attribute(TEXT("func"));
+			const TCHAR * val = funcNode->Attribute(L"func");
 			if (val)
 			{
-				if (!lstrcmp(val, TEXT("yes"))) 
+				if (!lstrcmp(val, L"yes")) 
                 {
 					//what we've been looking for
 					_curFunction = funcNode;
@@ -335,25 +335,25 @@ bool FunctionCallTip::loadFunction()
 
 	stringVec paramVec;
 
-	TiXmlElement *overloadNode = _curFunction->FirstChildElement(TEXT("Overload"));
+	TiXmlElement *overloadNode = _curFunction->FirstChildElement(L"Overload");
 	TiXmlElement *paramNode = NULL;
-	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(TEXT("Overload")) )
+	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(L"Overload") )
 	{
-		const TCHAR * retVal = overloadNode->Attribute(TEXT("retVal"));
+		const TCHAR * retVal = overloadNode->Attribute(L"retVal");
 		if (!retVal)
 			continue;	//malformed node
 		_retVals.push_back(retVal);
 
-		const TCHAR * description = overloadNode->Attribute(TEXT("descr"));
+		const TCHAR * description = overloadNode->Attribute(L"descr");
 		if (description)
 			_descriptions.push_back(description);
 		else
-			_descriptions.push_back(TEXT(""));	//"no description available"
+			_descriptions.push_back(L"");	//"no description available"
 
-		paramNode = overloadNode->FirstChildElement(TEXT("Param"));
-		for (; paramNode ; paramNode = paramNode->NextSiblingElement(TEXT("Param")) )
+		paramNode = overloadNode->FirstChildElement(L"Param");
+		for (; paramNode ; paramNode = paramNode->NextSiblingElement(L"Param") )
 		{
-			const TCHAR * param = paramNode->Attribute(TEXT("name"));
+			const TCHAR * param = paramNode->Attribute(L"name");
 			if (!param)
 				continue;	//malformed node
 			paramVec.push_back(param);
@@ -401,7 +401,7 @@ void FunctionCallTip::showCalltip()
 
 	if (_currentNbOverloads > 1)
 	{
-		callTipText << TEXT("\001") << _currentOverload + 1 << TEXT(" of ") << _currentNbOverloads << TEXT("\002");
+		callTipText << L"\001" << _currentOverload + 1 << L" of " << _currentNbOverloads << L"\002";
 	}
 
 	callTipText << _retVals.at(_currentOverload) << TEXT(' ') << _funcName << TEXT(' ') << _start;
@@ -424,7 +424,7 @@ void FunctionCallTip::showCalltip()
 	callTipText << _stop;
 	if (_descriptions.at(_currentOverload)[0])
 	{
-		callTipText << TEXT("\n") << _descriptions.at(_currentOverload);
+		callTipText << L"\n" << _descriptions.at(_currentOverload);
 	}
 
 	if (isVisible())

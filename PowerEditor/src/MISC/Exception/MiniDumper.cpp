@@ -21,7 +21,7 @@
 #include <shlwapi.h>
 #include "MiniDumper.h"
 
-LPCTSTR msgTitle = TEXT("Notepad++ crash analysis");
+LPCTSTR msgTitle = L"Notepad++ crash analysis";
 
 MiniDumper::MiniDumper()
 {
@@ -34,7 +34,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 	LPCTSTR szResult = NULL;
 	bool retval = false;
 
-	HMODULE hDll = ::LoadLibraryEx(TEXT("DBGHELP.DLL"), nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);	//that wont work on older windows version than XP, #care :)
+	HMODULE hDll = ::LoadLibraryEx(L"DBGHELP.DLL", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);	//that wont work on older windows version than XP, #care :)
 
 	if (hDll)
 	{
@@ -43,7 +43,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 		{
 			::GetModuleFileName(NULL, szDumpPath, MAX_PATH);
 			::PathRemoveFileSpec(szDumpPath);
-			wcscat_s(szDumpPath, TEXT("\\NppDump.dmp"));
+			wcscat_s(szDumpPath, L"\\NppDump.dmp");
 
 			// ask the user if they want to save a dump file
 			int msgret = ::MessageBox(NULL, TEXT("Do you want to save a dump file?\r\nDoing so can aid in developing Notepad++."), msgTitle, MB_YESNO);
@@ -65,33 +65,33 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 					BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, MiniDumpNormal, &ExInfo, NULL, NULL );
 					if (bOK)
 					{
-						wsprintf( szScratch, TEXT("Saved dump file to '%s'"), szDumpPath );
+						wsprintf( szScratch, L"Saved dump file to '%s'", szDumpPath );
 						szResult = szScratch;
 						retval = true;
 					}
 					else
 					{
-						wsprintf( szScratch, TEXT("Failed to save dump file to '%s' (error %d)"), szDumpPath, GetLastError() );
+						wsprintf( szScratch, L"Failed to save dump file to '%s' (error %d)", szDumpPath, GetLastError() );
 						szResult = szScratch;
 					}
 					::CloseHandle(hFile);
 				}
 				else
 				{
-					wsprintf( szScratch, TEXT("Failed to create dump file '%s' (error %d)"), szDumpPath, GetLastError() );
+					wsprintf( szScratch, L"Failed to create dump file '%s' (error %d)", szDumpPath, GetLastError() );
 					szResult = szScratch;
 				}
 			}
 		}
 		else
 		{
-			szResult = TEXT("The debugging DLL is outdated,\r\nfind a recent copy of dbghelp.dll and install it.");
+			szResult = L"The debugging DLL is outdated,\r\nfind a recent copy of dbghelp.dll and install it.";
 		}
 		::FreeLibrary(hDll);
 	}
 	else
 	{
-		szResult = TEXT("Unable to load the debugging DLL,\r\nfind a recent copy of dbghelp.dll and install it.");
+		szResult = L"Unable to load the debugging DLL,\r\nfind a recent copy of dbghelp.dll and install it.";
 	}
 
 	if (szResult)

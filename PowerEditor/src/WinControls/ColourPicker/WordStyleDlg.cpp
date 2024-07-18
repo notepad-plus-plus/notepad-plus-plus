@@ -110,7 +110,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					_currentThemeIndex = j;
 					_themeName.assign(themeInfo.second);
 				}
-				if (! themeInfo.first.compare(TEXT("Default")) )
+				if (! themeInfo.first.compare(L"Default") )
 				{
 					defaultThemeIndex = j;
 				}
@@ -153,7 +153,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			setVisualFromStyleList();
 
 			_goToSettings.init(_hInst, _hSelf);
-			_goToSettings.create(::GetDlgItem(_hSelf, IDC_GLOBAL_GOTOSETTINGS_LINK), TEXT(""));
+			_goToSettings.create(::GetDlgItem(_hSelf, IDC_GLOBAL_GOTOSETTINGS_LINK), L"");
 			std::pair<intptr_t, intptr_t> pageAndCtrlID = goToPreferencesSettings();
 			_goToSettings.display(pageAndCtrlID.first != -1);
 
@@ -205,7 +205,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					isTextEnabled = HIBYTE(HIWORD(style._fgColor)) != 0xFF;
 
 					// Selected text colour style
-					if (style._styleDesc == TEXT("Selected text colour"))
+					if (style._styleDesc == L"Selected text colour")
 					{
 						isTextEnabled = NppParameters::getInstance().isSelectFgColorEnabled();
 					}
@@ -599,7 +599,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 	// Clean up Language List
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_RESETCONTENT, 0, 0);
 
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Global Styles")));
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Global Styles"));
 	// All the lexers
 	for (size_t i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
 	{
@@ -950,27 +950,27 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 	const Style& style = getCurrentStyler();
 
 	// Global override style
-	if (style._styleDesc == TEXT("Current line background colour"))
+	if (style._styleDesc == L"Current line background colour")
 	{
 		result.first = edit1;
 		result.second = IDC_RADIO_CLM_HILITE;
 	}
-	else if (style._styleDesc == TEXT("Caret colour"))
+	else if (style._styleDesc == L"Caret colour")
 	{
 		result.first = edit1;
 		result.second = IDC_WIDTH_COMBO;
 	}
-	else if (style._styleDesc == TEXT("Edge colour"))
+	else if (style._styleDesc == L"Edge colour")
 	{
 		result.first = margins;
 		result.second = IDC_COLUMNPOS_EDIT;
 	}
-	else if (style._styleDesc == TEXT("Line number margin"))
+	else if (style._styleDesc == L"Line number margin")
 	{
 		result.first = margins;
 		result.second = IDC_CHECK_LINENUMBERMARGE;
 	}
-	else if (style._styleDesc == TEXT("Bookmark margin"))
+	else if (style._styleDesc == L"Bookmark margin")
 	{
 		result.first = margins;
 		result.second = IDC_CHECK_BOOKMARKMARGE;
@@ -982,38 +982,38 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		result.first = margins;
 		result.second = IDC_CHECK_CHANGHISTORYMARGIN;
 	}
-	else if (style._styleDesc == TEXT("Fold") || style._styleDesc == TEXT("Fold active") || style._styleDesc == TEXT("Fold margin"))
+	else if (style._styleDesc == L"Fold" || style._styleDesc == L"Fold active" || style._styleDesc == L"Fold margin")
 	{
 		result.first = margins;
 		result.second = IDC_RADIO_BOX;
 	}
-	else if (style._styleDesc == TEXT("Smart Highlighting"))
+	else if (style._styleDesc == L"Smart Highlighting")
 	{
 		result.first = highlighting;
 		result.second = IDC_CHECK_ENABLSMARTHILITE;
 	}
-	else if (style._styleDesc == TEXT("Tags match highlighting"))
+	else if (style._styleDesc == L"Tags match highlighting")
 	{
 		result.first = highlighting;
 		result.second = IDC_CHECK_ENABLTAGSMATCHHILITE;
 	}
-	else if (style._styleDesc == TEXT("Tags attribute"))
+	else if (style._styleDesc == L"Tags attribute")
 	{
 		result.first = highlighting;
 		result.second = IDC_CHECK_ENABLTAGATTRHILITE;
 	}
-	else if (style._styleDesc == TEXT("Mark Style 1") || style._styleDesc == TEXT("Mark Style 2") || style._styleDesc == TEXT("Mark Style 3")
-		|| style._styleDesc == TEXT("Mark Style 4") || style._styleDesc == TEXT("Mark Style 5"))
+	else if (style._styleDesc == L"Mark Style 1" || style._styleDesc == L"Mark Style 2" || style._styleDesc == L"Mark Style 3"
+		|| style._styleDesc == L"Mark Style 4" || style._styleDesc == L"Mark Style 5")
 	{
 		result.first = highlighting;
 		result.second = IDC_CHECK_MARKALLCASESENSITIVE;
 	}
-	else if (style._styleDesc == TEXT("URL hovered"))
+	else if (style._styleDesc == L"URL hovered")
 	{
 		result.first = cloudAndLink;
 		result.second = IDC_CHECK_CLICKABLELINK_ENABLE;
 	}
-	else if (style._styleDesc == TEXT("EOL custom color"))
+	else if (style._styleDesc == L"EOL custom color")
 	{
 		result.first = edit2;
 		result.second = IDC_CHECK_WITHCUSTOMCOLOR_CRLF;
@@ -1034,7 +1034,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	Style & style = getCurrentStyler();
 
 	// Global override style
-	if (style._styleDesc == TEXT("Global override"))
+	if (style._styleDesc == L"Global override")
 	{
 		showGlobalOverrideCtrls(true);
 	}
@@ -1073,7 +1073,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	wcscat_s(str, styleName);
 
 	// PAD for fix a display glitch
-	wcscat_s(str, TEXT("          "));
+	wcscat_s(str, L"          ");
 	_colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 
@@ -1087,7 +1087,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	}
 
 	// Selected text colour style
-	if (style._styleDesc == TEXT("Selected text colour"))
+	if (style._styleDesc == L"Selected text colour")
 	{
 		isEnable = false; // disable by default for "Selected text colour" style
 
@@ -1126,7 +1126,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	LRESULT iFontSize = 0;
 	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
 	{
-		wsprintf(intStr, TEXT("%d"), style._fontSize);
+		wsprintf(intStr, L"%d", style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
 	}
 	::SendMessage(_hFontSizeCombo, CB_SETCURSEL, iFontSize, 0);
@@ -1169,7 +1169,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		}
 		const TCHAR *kws = nppParams.getWordList(lType, style._keywordClass);
 		if (!kws)
-			kws = TEXT("");
+			kws = L"";
 		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(kws));
 
 		const TCHAR *ckwStr = style._keywords.c_str();

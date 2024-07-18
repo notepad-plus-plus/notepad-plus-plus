@@ -21,17 +21,17 @@
 
 #define CURRENTWORD_MAXLENGTH 2048
 
-const TCHAR fullCurrentPath[] = TEXT("FULL_CURRENT_PATH");
-const TCHAR currentDirectory[] = TEXT("CURRENT_DIRECTORY");
-const TCHAR onlyFileName[] = TEXT("FILE_NAME");
-const TCHAR fileNamePart[] = TEXT("NAME_PART");
-const TCHAR fileExtPart[] = TEXT("EXT_PART");
-const TCHAR currentWord[] = TEXT("CURRENT_WORD");
-const TCHAR nppDir[] = TEXT("NPP_DIRECTORY");
-const TCHAR nppFullFilePath[] = TEXT("NPP_FULL_FILE_PATH");
-const TCHAR currentLine[] = TEXT("CURRENT_LINE");
-const TCHAR currentColumn[] = TEXT("CURRENT_COLUMN");
-const TCHAR currentLineStr[] = TEXT("CURRENT_LINESTR");
+const TCHAR fullCurrentPath[] = L"FULL_CURRENT_PATH";
+const TCHAR currentDirectory[] = L"CURRENT_DIRECTORY";
+const TCHAR onlyFileName[] = L"FILE_NAME";
+const TCHAR fileNamePart[] = L"NAME_PART";
+const TCHAR fileExtPart[] = L"EXT_PART";
+const TCHAR currentWord[] = L"CURRENT_WORD";
+const TCHAR nppDir[] = L"NPP_DIRECTORY";
+const TCHAR nppFullFilePath[] = L"NPP_FULL_FILE_PATH";
+const TCHAR currentLine[] = L"CURRENT_LINE";
+const TCHAR currentColumn[] = L"CURRENT_COLUMN";
+const TCHAR currentLineStr[] = L"CURRENT_LINESTR";
 
 int whichVar(TCHAR *str);
 void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t strDestLen, HWND hWnd);

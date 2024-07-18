@@ -67,18 +67,18 @@ ToolbarIconIdUnit toolbarIconIDs[] = {
 
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 {
-    _toolIcons =  toolIconsDocRoot->FirstChild(TEXT("NotepadPlus"));
+    _toolIcons =  toolIconsDocRoot->FirstChild(L"NotepadPlus");
 	if (_toolIcons)
 	{
-		_toolIcons = _toolIcons->FirstChild(TEXT("ToolBarIcons"));
+		_toolIcons = _toolIcons->FirstChild(L"ToolBarIcons");
 		if (_toolIcons)
 		{
 			generic_string iconFolderDir = NppParameters::getInstance().getUserPath();
-			generic_string toolbarIconsRootFolderName = TEXT("toolbarIcons");
+			generic_string toolbarIconsRootFolderName = L"toolbarIcons";
 			pathAppend(iconFolderDir, toolbarIconsRootFolderName);
-			generic_string folderName = (_toolIcons->ToElement())->Attribute(TEXT("icoFolderName"));
+			generic_string folderName = (_toolIcons->ToElement())->Attribute(L"icoFolderName");
 			if (folderName.empty())
-				folderName = TEXT("default");
+				folderName = L"default";
 
 			pathAppend(iconFolderDir, folderName);
 
@@ -317,7 +317,7 @@ void ToolBar::reset(bool create)
 		_hSelf = ::CreateWindowEx(
 			WS_EX_PALETTEWINDOW,
 			TOOLBARCLASSNAME,
-			TEXT(""),
+			L"",
 			WS_TOOLBARSTYLE | dwExtraStyle,
 			0, 0,
 			0, 0,
@@ -509,7 +509,7 @@ void ToolBar::doPopop(POINT chevPoint)
 				else
 					AppendMenu(menu, MF_DISABLED|MF_GRAYED, cmd, text.c_str());
 			} else
-				AppendMenu(menu, MF_SEPARATOR, 0, TEXT(""));
+				AppendMenu(menu, MF_SEPARATOR, 0, L"");
 			
 			++start;
 		}

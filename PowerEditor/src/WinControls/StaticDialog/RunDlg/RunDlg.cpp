@@ -182,7 +182,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 
 HINSTANCE Command::run(HWND hWnd)
 {
-	return run(hWnd, TEXT("."));
+	return run(hWnd, L".");
 }
 
 HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
@@ -216,7 +216,7 @@ HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 	TCHAR cwd2Exec[MAX_PATH]{};
 	expandNppEnvironmentStrs(cwd, cwd2Exec, MAX_PATH, hWnd);
 	
-	HINSTANCE res = ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
+	HINSTANCE res = ::ShellExecute(hWnd, L"open", cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
 
 	// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 	// If the function succeeds, it returns a value greater than 32.
@@ -226,17 +226,17 @@ HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 	{
 		generic_string errorMsg;
 		errorMsg += GetLastErrorAsString(retResult);
-		errorMsg += TEXT("An attempt was made to execute the below command.");
-		errorMsg += TEXT("\n----------------------------------------------------------");
-		errorMsg += TEXT("\nCommand: ");
+		errorMsg += L"An attempt was made to execute the below command.";
+		errorMsg += L"\n----------------------------------------------------------";
+		errorMsg += L"\nCommand: ";
 		errorMsg += cmd2Exec;
-		errorMsg += TEXT("\nArguments: ");
+		errorMsg += L"\nArguments: ";
 		errorMsg += args2Exec;
-		errorMsg += TEXT("\nError Code: ");
+		errorMsg += L"\nError Code: ";
 		errorMsg += intToString(retResult);
-		errorMsg += TEXT("\n----------------------------------------------------------");
+		errorMsg += L"\n----------------------------------------------------------";
 
-		::MessageBox(hWnd, errorMsg.c_str(), TEXT("ShellExecute - ERROR"), MB_ICONINFORMATION | MB_APPLMODAL);
+		::MessageBox(hWnd, errorMsg.c_str(), L"ShellExecute - ERROR", MB_ICONINFORMATION | MB_APPLMODAL);
 	}
 
 	return res;
@@ -382,7 +382,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 							::InsertMenu(hRunMenu, posBase + nbTopLevelItem + 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
 							NativeLangSpeaker *pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
 							generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
-							if (nativeLangShortcutMapperMacro == TEXT(""))
+							if (nativeLangShortcutMapperMacro == L"")
 								nativeLangShortcutMapperMacro = runMenu.getLastCmdLabel();
 
 							::InsertMenu(hRunMenu, posBase + nbTopLevelItem + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, nativeLangShortcutMapperMacro.c_str());
@@ -405,7 +405,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						if (fn.find(' ') != generic_string::npos)
 						{
 							generic_string fn_quotes(fn);
-							fn_quotes = TEXT("\"") + fn_quotes + TEXT("\"");
+							fn_quotes = L"\"" + fn_quotes + L"\"";
 							addTextToCombo(fn_quotes.c_str());
 						}
 						else

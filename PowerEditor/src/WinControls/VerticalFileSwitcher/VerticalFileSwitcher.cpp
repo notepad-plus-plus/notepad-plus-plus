@@ -451,9 +451,9 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					Header_GetItem(hwndHD, test->iItem, &hdi);
 
 					// storing column width data
-					if (hdi.pszText == pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT))
+					if (hdi.pszText == pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT))
 						nppParams.getNppGUI()._fileSwitcherExtWidth = hdi.cxy;
-					else if (hdi.pszText == pNativeSpeaker->getAttrNameStr(TEXT("Path"), FS_ROOTNODE, FS_CLMNPATH))
+					else if (hdi.pszText == pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH))
 						nppParams.getNppGUI()._fileSwitcherPathWidth = hdi.cxy;
 
 					return TRUE;
@@ -533,9 +533,9 @@ void VerticalFileSwitcher::initPopupMenus()
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
-	generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
-	generic_string pathStr = pNativeSpeaker->getAttrNameStr(TEXT("Path"), FS_ROOTNODE, FS_CLMNPATH);
-	generic_string groupStr = pNativeSpeaker->getAttrNameStr(TEXT("Group by View"), FS_ROOTNODE, FS_LVGROUPS);
+	generic_string extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
+	generic_string pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
+	generic_string groupStr = pNativeSpeaker->getAttrNameStr(L"Group by View", FS_ROOTNODE, FS_LVGROUPS);
 
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | MF_STRING, CLMNEXT_ID, extStr.c_str());

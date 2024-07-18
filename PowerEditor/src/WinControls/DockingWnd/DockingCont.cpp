@@ -930,9 +930,6 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 						TCITEM tcItem {};
 						RECT rc {};
 
-						// destroy old tooltip
-						toolTip.destroy();
-
 						// recalc mouse position
 						::ClientToScreen(hwnd, &info.pt);
 
@@ -940,7 +937,10 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 						tcItem.mask		= TCIF_PARAM;
 						::SendMessage(hwnd, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 						if (!tcItem.lParam)
-							return 1;
+							break;
+
+						// destroy old tooltip
+						toolTip.destroy();
 
 						toolTip.init(_hInst, hwnd);
 						toolTip.Show(rc, (reinterpret_cast<tTbData*>(tcItem.lParam))->pszName, info.pt.x, info.pt.y + 20);
@@ -974,10 +974,10 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			tcItem.mask		= TCIF_PARAM;
 			::SendMessage(hwnd, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
-				return 1;
+				break;
 
 			toolTip.init(_hInst, hwnd);
-			toolTip.Show(rc, ((tTbData*)tcItem.lParam)->pszName, info.pt.x, info.pt.y + 20);
+			toolTip.Show(rc, reinterpret_cast<tTbData*>(tcItem.lParam)->pszName, info.pt.x, info.pt.y + 20);
 			return 0;
 		}
 
@@ -990,7 +990,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 		case WM_NOTIFY:
 		{
-			LPNMHDR	lpnmhdr = (LPNMHDR)lParam;
+			LPNMHDR	lpnmhdr = reinterpret_cast<LPNMHDR>(lParam);
 
 			if ((lpnmhdr->hwndFrom == _hContTab) && (lpnmhdr->code == TCN_GETOBJECT))
 			{
@@ -1003,6 +1003,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
 				selectTab(iItem);
+				return 0;
 			}
 			break;
 		}

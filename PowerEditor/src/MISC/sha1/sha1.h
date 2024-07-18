@@ -146,23 +146,6 @@
 #define SHA1_WIPE_VARIABLES
 #endif
 
-#if defined(SHA1_HAS_TCHAR)
-#include <tchar.h>
-#else
-#ifdef _MSC_VER
-#include <tchar.h>
-#else
-#define _tmain wmain
-#define _tprintf wprintf
-#define _getts getws
-#define _tcslen wcslen
-#define _tfopen _wfopen
-#define _tcscpy wcscpy
-#define _tcscat wcscat
-#define _sntprintf snwprintf
-#endif
-#endif
-
 
 ///////////////////////////////////////////////////////////////////////////
 // Define variable types

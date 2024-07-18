@@ -1009,6 +1009,7 @@ void FileBrowser::addRootFolder(wstring rootFolderPath)
 	FolderInfo directoryStructure(rootLabel, nullptr);
 	getDirectoryStructure(rootFolderPath.c_str(), patterns2Match, directoryStructure, true, false);
 	HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
+	_treeView.customSorting(hRootItem, categorySortFunc, 0, true); // needed here for possible *nix like storages (Samba, WebDAV, WSL, ...)
 	_treeView.expand(hRootItem);
 	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();

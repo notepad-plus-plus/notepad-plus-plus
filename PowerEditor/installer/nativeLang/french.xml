@@ -25,7 +25,7 @@ Translation note:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Utiliser le chemin du fichier en cours et ouvrir :"/>
+					<Item subMenuId="file-openFolder" name="Utiliser le chemin du fichier en cours et :"/>
 					<Item subMenuId="file-closeMore" name="Fermer plusieurs fichiers"/>
 					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
 					<Item subMenuId="edit-insert" name="Insertion"/>
@@ -87,15 +87,15 @@ Translation note:
 				<Commands>
 					<Item id="41001" name="&amp;Nouveau"/>
 					<Item id="41002" name="&amp;Ouvrir..."/>
-					<Item id="41019" name="L’explorateur Windows"/>
-					<Item id="41020" name="L’invite de commande (Cmd)"/>
-					<Item id="41025" name="Le dossier en tant qu’espace de travail"/>
+					<Item id="41019" name="ouvrir l’explorateur Windows"/>
+					<Item id="41020" name="ouvrir l’invite de commande (Cmd)"/>
+					<Item id="41025" name="ouvrir le dossier en tant qu’espace de travail"/>
 					<Item id="41003" name="Fermer"/>
 					<Item id="41004" name="Fermer tout"/>
-					<Item id="41005" name="Fermer tout sauf le fichier en cours"/>
-					<Item id="41009" name="Fermer tous les fichiers de gauche"/>
-					<Item id="41018" name="Fermer tous les fichiers de droite"/>
-					<Item id="41024" name="Fermer tous les fichiers non-modifiés"/>
+					<Item id="41005" name="Fermer tout sauf l’onglet en cours"/>
+					<Item id="41009" name="Fermer tous les onglets de gauche"/>
+					<Item id="41018" name="Fermer tous les onglets de droite"/>
+					<Item id="41024" name="Fermer tous les onglets non-modifiés"/>
 					<Item id="41006" name="&amp;Enregistrer"/>
 					<Item id="41007" name="En&amp;registrer tout"/>
 					<Item id="41008" name="Enregistrer &amp;sous..."/>
@@ -424,10 +424,10 @@ Translation note:
 				<Item CMDID="41024" name="Fermer tous les onglets non-modifiés"/>
 				<Item CMDID="41006" name="Enregistrer"/>
 				<Item CMDID="41008" name="Enregistrer sous..."/>
-				<Item CMDID="1" name="Localiser le fichier en cours et :"/>
-				<Item CMDID="41019" name="Ouvrir l’explorateur depuis ce répertoire"/>
-				<Item CMDID="41020" name="Ouvrir l’invite de commande depuis ce répertoire"/>
-				<Item CMDID="41025" name="Ouvrir l’espace de travail depuis ce répertoire"/>
+				<Item CMDID="1" name="Utiliser le chemin du fichier en cours et :"/>
+				<Item CMDID="41019" name="ouvrir l’explorateur depuis ce répertoire"/>
+				<Item CMDID="41020" name="ouvrir l’invite de commande depuis ce répertoire"/>
+				<Item CMDID="41025" name="ouvrir l’espace de travail depuis ce répertoire"/>
 				<Item CMDID="41023" name="Ouvrir le fichier en cours avec l’application par défaut"/>
 				<Item CMDID="41017" name="Renommer le fichier"/>
 				<Item CMDID="41016" name="Supprimer le fichier"/>

@@ -43,10 +43,10 @@
 const int marge = 8;
 const int nbCtrlMax = 10;
 
-const TCHAR TABBAR_ACTIVEFOCUSEDINDCATOR[64] = TEXT("Active tab focused indicator");
-const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = TEXT("Active tab unfocused indicator");
-const TCHAR TABBAR_ACTIVETEXT[64] = TEXT("Active tab text");
-const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
+const TCHAR TABBAR_ACTIVEFOCUSEDINDCATOR[64] = L"Active tab focused indicator";
+const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = L"Active tab unfocused indicator";
+const TCHAR TABBAR_ACTIVETEXT[64] = L"Active tab text";
+const TCHAR TABBAR_INACTIVETEXT[64] = L"Inactive tabs";
 
 constexpr int g_TabIconSize = 16;
 constexpr int g_TabHeight = 22;

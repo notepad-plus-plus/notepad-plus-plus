@@ -76,7 +76,7 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 
 	wchar_t sha2hashStr[65] = { '\0' };
 	for (size_t i = 0; i < 32; i++)
-		wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
+		wsprintf(sha2hashStr + i * 2, L"%02x", sha2hash[i]);
 
 	std::vector<std::wstring>* moduleSha256 = nullptr;
 
@@ -149,7 +149,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		DWORD netstatus;
 		QOCINFO oci;
 		oci.dwSize = sizeof(oci);
-		CONST TCHAR* msftTEXTest_site = TEXT("http://www.msftncsi.com/ncsi.txt");
+		CONST TCHAR* msftTEXTest_site = L"http://www.msftncsi.com/ncsi.txt";
 		bool online = false;
 		online = (0 != IsNetworkAlive(&netstatus));
 		online = online && (0 == GetLastError());

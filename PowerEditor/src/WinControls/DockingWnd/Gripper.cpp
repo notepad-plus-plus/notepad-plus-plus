@@ -108,7 +108,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 	_hSelf = ::CreateWindowEx(
 					0,
 					MDLG_CLASS_NAME,
-					TEXT(""), 0,
+					L"", 0,
 					CW_USEDEFAULT, CW_USEDEFAULT,
 					CW_USEDEFAULT, CW_USEDEFAULT,
 					NULL,
@@ -222,8 +222,8 @@ void Gripper::create()
     {
         DWORD dwError = ::GetLastError();
         TCHAR  str[128];
-        ::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-        ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on Gripper::create()"), MB_OK | MB_ICONERROR);
+        ::wsprintf(str, L"GetLastError() returned %lu", dwError);
+        ::MessageBox(NULL, str, L"SetWindowsHookEx(MOUSE) failed on Gripper::create()", MB_OK | MB_ICONERROR);
     }
 
 	if (ver != WV_UNKNOWN && ver < WV_VISTA)
@@ -233,8 +233,8 @@ void Gripper::create()
 		{
 			DWORD dwError = ::GetLastError();
 			TCHAR  str[128];
-			::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-			::MessageBox(NULL, str, TEXT("SetWindowsHookEx(KEYBOARD) failed on Gripper::create()"), MB_OK | MB_ICONERROR);
+			::wsprintf(str, L"GetLastError() returned %lu", dwError);
+			::MessageBox(NULL, str, L"SetWindowsHookEx(KEYBOARD) failed on Gripper::create()", MB_OK | MB_ICONERROR);
 		}
 	}
 //  Removed regarding W9x systems
@@ -474,7 +474,7 @@ void Gripper::doTabReordering(POINT pt)
 #if 0
 	extern HWND g_hMainWnd;
 	TCHAR str[128];
-	wsprintf(str, TEXT("Size: %i"), vCont.size());
+	wsprintf(str, L"Size: %i", vCont.size());
 	::SetWindowText(g_hMainWnd, str);
 #endif
 

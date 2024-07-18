@@ -69,7 +69,7 @@ class TiXmlString
     {
         if (allocated)
             return cstring;
-        return TEXT("");
+        return L"";
     }
 
     // Return the length of a TiXmlString
@@ -115,7 +115,7 @@ class TiXmlString
     }
 
     // Checks if a TiXmlString contains only whitespace (same rules as isspace)
-	// Not actually used in tinyxml. Conflicts with a C macro, TEXT("isblank"),
+	// Not actually used in tinyxml. Conflicts with a C macro, L"isblank",
 	// which is a problem. Commenting out. -lee
 //    bool isblank () const;
 

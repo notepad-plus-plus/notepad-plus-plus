@@ -182,7 +182,7 @@ void ClipboardHistoryPanel::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if (i >= _clipboardDataInfos.size())
 		return;
 
-	//printStr(TEXT("OK"));
+	//printStr(L"OK");
 	COLORREF fgColor = _lbFgColor == -1?black:_lbFgColor; // fg black by default
 	COLORREF bgColor = _lbBgColor == -1?white:_lbBgColor; // bg white by default
 	
@@ -293,7 +293,7 @@ intptr_t CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam
 							}
 							catch (...)
 							{
-								MessageBox(_hSelf,	TEXT("Cannot process this clipboard data in the history:\nThe data is too large to be treated."), TEXT("Clipboard problem"), MB_OK | MB_APPLMODAL);
+								MessageBox(_hSelf,	L"Cannot process this clipboard data in the history:\nThe data is too large to be treated.", L"Clipboard problem", MB_OK | MB_APPLMODAL);
 								delete[] c;
 							}
 						}

@@ -37,13 +37,13 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 	{
 		//double sided arrow pointing north-south as cursor
 		wc.hCursor			= ::LoadCursor(NULL,IDC_SIZENS);
-		wc.lpszClassName	= TEXT("nsdockspliter");
+		wc.lpszClassName	= L"nsdockspliter";
 	}
 	else
 	{
 		// double sided arrow pointing east-west as cursor
 		wc.hCursor			= ::LoadCursor(NULL,IDC_SIZEWE);
-		wc.lpszClassName	= TEXT("wedockspliter");
+		wc.lpszClassName	= L"wedockspliter";
 	}
 
 	if (((_isHoriReg == FALSE) && (flags & DMS_HORIZONTAL)) ||
@@ -73,7 +73,7 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 	}
 
 	/* create splitter windows and initialize it */
-	_hSelf = ::CreateWindowEx( 0, wc.lpszClassName, TEXT(""), WS_CHILD | WS_VISIBLE,
+	_hSelf = ::CreateWindowEx( 0, wc.lpszClassName, L"", WS_CHILD | WS_VISIBLE,
 								CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 								_hParent, NULL, _hInst, (LPVOID)this);
 

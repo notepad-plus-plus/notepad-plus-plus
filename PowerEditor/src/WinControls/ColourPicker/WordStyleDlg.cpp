@@ -799,8 +799,8 @@ void WordStyleDlg::switchToTheme()
 		NativeLangSpeaker *pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
 		int mb_response = pNativeSpeaker->messageBox("SwitchUnsavedThemeWarning",
 			_hSelf,
-			TEXT("Unsaved changes are about to be discarded!\nDo you want to save your changes before switching themes?"),
-			TEXT("$STR_REPLACE$"),
+			L"Unsaved changes are about to be discarded!\nDo you want to save your changes before switching themes?",
+			L"$STR_REPLACE$",
 			MB_ICONWARNING | MB_YESNO | MB_APPLMODAL | MB_SETFOREGROUND,
 			0,
 			themeFileName);
@@ -1164,7 +1164,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		if (lType == L_TEXT)
 		{
 			generic_string lexerNameStr = lexerStyler.getLexerName();
-			lexerNameStr += TEXT(" is not defined in NppParameters::getLangIDFromStr()");
+			lexerNameStr += L" is not defined in NppParameters::getLangIDFromStr()";
 				printStr(lexerNameStr.c_str());
 		}
 		const TCHAR *kws = nppParams.getWordList(lType, style._keywordClass);

@@ -67,7 +67,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize, S
 	}
 
 	_hSelf = ::CreateWindowEx(
-		0, SPC_CLASS_NAME, TEXT("a koi sert?"),
+		0, SPC_CLASS_NAME, L"a koi sert?",
 		WS_CHILD | WS_CLIPCHILDREN,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 		_hParent, NULL, _hInst, this);
@@ -245,9 +245,9 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 					NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 					const generic_string textLeft =
-						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-left", TEXT("Rotate to left"));
+						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-left", L"Rotate to left");
 					const generic_string textRight =
-						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-right", TEXT("Rotate to right"));
+						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-right", L"Rotate to right");
 
 					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_LEFT, textLeft.c_str());
 					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_RIGHT, textRight.c_str());

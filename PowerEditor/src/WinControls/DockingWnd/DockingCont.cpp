@@ -313,8 +313,8 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 				{
 					DWORD dwError = ::GetLastError();
 					TCHAR str[128]{};
-					::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-					::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on runProcCaption"), MB_OK | MB_ICONERROR);
+					::wsprintf(str, L"GetLastError() returned %lu", dwError);
+					::MessageBox(NULL, str, L"SetWindowsHookEx(MOUSE) failed on runProcCaption", MB_OK | MB_ICONERROR);
 				}
 				::RedrawWindow(hwnd, nullptr, nullptr, RDW_INVALIDATE);
 			}
@@ -425,7 +425,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			else
 			{
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-				generic_string tip = pNativeSpeaker->getLocalizedStrFromID("close-panel-tip", TEXT("Close"));
+				generic_string tip = pNativeSpeaker->getLocalizedStrFromID("close-panel-tip", L"Close");
 				toolTip.Show(rc, tip.c_str(), pt.x, pt.y + 20);
 			}
 			return 0;
@@ -592,7 +592,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 				ANSI_CHARSET, OUT_DEFAULT_PRECIS,
 				CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 				DEFAULT_PITCH | FF_ROMAN,
-				TEXT("MS Shell Dlg"));
+				L"MS Shell Dlg");
 		}
 
 		hOldFont = (HFONT)::SelectObject(hDc, hFont);
@@ -1726,7 +1726,7 @@ void DockingCont::selectTab(int iTab)
 			if (iItem == iTab && pszMaxTxt)
 			{
 				// fake here an icon before text ...
-				szText = TEXT("        ");
+				szText = L"        ";
 				szText += pszMaxTxt;
 			}
 			tcItem.pszText = (TCHAR *)szText.c_str();
@@ -1768,7 +1768,7 @@ bool DockingCont::updateCaption()
 	if ((((tTbData*)tcItem.lParam)->uMask & DWS_ADDINFO) && 
 		(lstrlen(((tTbData*)tcItem.lParam)->pszAddInfo) != 0))
 	{
-		_pszCaption += TEXT(" - ");
+		_pszCaption += L" - ";
 		_pszCaption += ((tTbData*)tcItem.lParam)->pszAddInfo; 
 	}
 

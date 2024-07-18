@@ -21,7 +21,7 @@
 
 IDD_REGEXT_BOX DIALOGEX 115, 10, 460, 205
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | DS_CONTROL
-FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+FONT 8, L"MS Shell Dlg", 0, 0, 0x1
 BEGIN
     LTEXT           "Please exit Notepad++ and relaunch Notepad++ in Administrator mode to use this feature.",IDC_ADMINMUSTBEONMSG_STATIC,20,0,300,16
     LTEXT           "Supported extensions:",IDC_SUPPORTEDEXTS_STATIC,70,18,80,8

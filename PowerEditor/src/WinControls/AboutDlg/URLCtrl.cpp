@@ -104,13 +104,13 @@ void URLCtrl::action()
 		// Open a browser
 		if (!_URL.empty())
 		{
-			::ShellExecute(NULL, TEXT("open"), _URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, L"open", _URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
 		}
 		else
 		{
 			TCHAR szWinText[MAX_PATH] = { '\0' };
 			::GetWindowText(_hSelf, szWinText, MAX_PATH);
-			::ShellExecute(NULL, TEXT("open"), szWinText, NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, L"open", szWinText, NULL, NULL, SW_SHOWNORMAL);
 		}
 	}
 }

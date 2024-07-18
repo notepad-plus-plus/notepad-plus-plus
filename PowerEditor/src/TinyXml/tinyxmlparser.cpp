@@ -34,11 +34,11 @@ distribution.
 // or order will break putstring.	
 TiXmlBase::Entity TiXmlBase::entity[ NUM_ENTITY ] = 
 {
-	{ TEXT("&amp;"),  5, '&' },
-	{ TEXT("&lt;"),   4, '<' },
-	{ TEXT("&gt;"),   4, '>' },
-	{ TEXT("&quot;"), 6, '\"' },
-	{ TEXT("&apos;"), 6, '\'' }
+	{ L"&amp;",  5, '&' },
+	{ L"&lt;",   4, '<' },
+	{ L"&gt;",   4, '>' },
+	{ L"&quot;", 6, '\"' },
+	{ L"&apos;", 6, '\'' }
 };
 
 
@@ -197,7 +197,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 
 const TCHAR* TiXmlBase::ReadName( const TCHAR* p, TIXML_STRING * name )
 {
-	*name = TEXT("");
+	*name = L"";
 	assert( p );
 
 	// Names start with letters or underscores.
@@ -228,7 +228,7 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 	int i;
 
 	// Handle the &#x entities.
-	if (wcsncmp( TEXT("&#x"), p, 3 ) == 0)
+	if (wcsncmp( L"&#x", p, 3 ) == 0)
 	{
 		const TCHAR* end = wcschr(p+3, L';');
 		if (end && end - p <= 3 + 4)
@@ -311,7 +311,7 @@ const TCHAR* TiXmlBase::ReadText(	const TCHAR* p,
 									const TCHAR* endTag, 
 									bool caseInsensitive )
 {
-    *text = TEXT("");
+    *text = L"";
 	if (    !trimWhiteSpace			// certain tags always keep whitespace
 		 || !condenseWhiteSpace )	// if true, whitespace is always kept
 	{
@@ -524,8 +524,8 @@ TiXmlNode* TiXmlNode::Identify( const TCHAR* p )
 	// - Everthing else is unknown to tinyxml.
 	//
 
-	const TCHAR* xmlHeader = { TEXT("<?xml") };
-	const TCHAR* commentHeader = { TEXT("<!--") };
+	const TCHAR* xmlHeader = { L"<?xml" };
+	const TCHAR* commentHeader = { L"<!--" };
 
 	if ( StringEqual( p, xmlHeader, true ) )
 	{
@@ -540,7 +540,7 @@ TiXmlNode* TiXmlNode::Identify( const TCHAR* p )
 		#ifdef DEBUG_PARSER
 			TIXML_LOG( "XML parsing Element\n" );
 		#endif
-		returnNode = new TiXmlElement( TEXT("") );
+		returnNode = new TiXmlElement( L"" );
 	}
 	else if ( StringEqual( p, commentHeader, false ) )
 	{
@@ -610,7 +610,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 			if ( in->good() && in->peek() != '<' ) 
 			{
 				// Yep, text.
-				TiXmlText text( TEXT("") );
+				TiXmlText text( L"" );
 				text.StreamIn( in, tag );
 
 				// What follows text is a closing tag or another node.
@@ -712,9 +712,9 @@ const TCHAR* TiXmlElement::Parse( const TCHAR* p, TiXmlParsingData* data )
 		return 0;
 	}
 
-    TIXML_STRING endTag (TEXT("</"));
+    TIXML_STRING endTag (L"</");
 	endTag += value;
-	endTag += TEXT(">");
+	endTag += L">";
 
 	// Check for and read attributes. Also look for an empty
 	// tag or an end tag.
@@ -808,7 +808,7 @@ const TCHAR* TiXmlElement::ReadValue( const TCHAR* p, TiXmlParsingData* data )
 		if ( *p != '<' )
 		{
 			// Take what we have, make a text element.
-			TiXmlText* textNode = new TiXmlText( TEXT("") );
+			TiXmlText* textNode = new TiXmlText( L"" );
 
 			if ( !textNode )
 			{
@@ -827,7 +827,7 @@ const TCHAR* TiXmlElement::ReadValue( const TCHAR* p, TiXmlParsingData* data )
 		{
 			// We hit a '<'
 			// Have we hit a new element or an end tag?
-			if ( StringEqual( p, TEXT("</"), false ) )
+			if ( StringEqual( p, L"</", false ) )
 			{
 				return p;
 			}
@@ -891,7 +891,7 @@ const TCHAR* TiXmlUnknown::Parse( const TCHAR* p, TiXmlParsingData* data )
 		return 0;
 	}
 	++p;
-    value = TEXT("");
+    value = L"";
 
 	while ( p && *p && *p != '>' )
 	{
@@ -931,7 +931,7 @@ void TiXmlComment::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 const TCHAR* TiXmlComment::Parse( const TCHAR* p, TiXmlParsingData* data )
 {
 	TiXmlDocument* document = GetDocument();
-	value = TEXT("");
+	value = L"";
 
 	p = SkipWhiteSpace( p );
 
@@ -941,8 +941,8 @@ const TCHAR* TiXmlComment::Parse( const TCHAR* p, TiXmlParsingData* data )
 		data->Stamp( p );
 		location = data->Cursor();
 	}
-	const TCHAR* startTag = TEXT("<!--");
-	const TCHAR* endTag   = TEXT("-->");
+	const TCHAR* startTag = L"<!--";
+	const TCHAR* endTag   = L"-->";
 
 	if ( !StringEqual( p, startTag, false ) )
 	{
@@ -994,13 +994,13 @@ const TCHAR* TiXmlAttribute::Parse( const TCHAR* p, TiXmlParsingData* data )
 	if ( *p == '\'' )
 	{
 		++p;
-		end = TEXT("\'");
+		end = L"\'";
 		p = ReadText( p, &value, false, end, false );
 	}
 	else if ( *p == '"' )
 	{
 		++p;
-		end = TEXT("\"");
+		end = L"\"";
 		p = ReadText( p, &value, false, end, false );
 	}
 	else
@@ -1008,7 +1008,7 @@ const TCHAR* TiXmlAttribute::Parse( const TCHAR* p, TiXmlParsingData* data )
 		// All attribute values should be in single or double quotes.
 		// But this is such a common error that the parser will try
 		// its best, even without them.
-		value = TEXT("");
+		value = L"";
 		while (    p && *p										// existence
 				&& !_istspace( *p ) && *p != '\n' && *p != '\r'	// whitespace
 				&& *p != '/' && *p != '>' )						// tag end
@@ -1037,7 +1037,7 @@ void TiXmlText::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 
 const TCHAR* TiXmlText::Parse( const TCHAR* p, TiXmlParsingData* data )
 {
-	value = TEXT("");
+	value = L"";
 //	TiXmlParsingData data( p, prevData );
 	if ( data )
 	{
@@ -1046,7 +1046,7 @@ const TCHAR* TiXmlText::Parse( const TCHAR* p, TiXmlParsingData* data )
 	}
 	bool ignoreWhite = true;
 
-	const TCHAR* end = TEXT("<");
+	const TCHAR* end = L"<";
 	p = ReadText( p, &value, ignoreWhite, end, false );
 	if ( p )
 		return p-1;	// don't truncate the '<'
@@ -1076,7 +1076,7 @@ const TCHAR* TiXmlDeclaration::Parse( const TCHAR* p, TiXmlParsingData* data )
 	// Find the beginning, find the end, and look for
 	// the stuff in-between.
 	TiXmlDocument* document = GetDocument();
-	if ( !p || !*p || !StringEqual( p, TEXT("<?xml"), true ) )
+	if ( !p || !*p || !StringEqual( p, L"<?xml", true ) )
 	{
 		if ( document ) document->SetError( TIXML_ERROR_PARSING_DECLARATION, 0, 0 );
 		return 0;
@@ -1089,9 +1089,9 @@ const TCHAR* TiXmlDeclaration::Parse( const TCHAR* p, TiXmlParsingData* data )
 	}
 	p += 5;
 
-	version = TEXT("");
-	encoding = TEXT("");
-	standalone = TEXT("");
+	version = L"";
+	encoding = L"";
+	standalone = L"";
 
 	while ( p && *p )
 	{
@@ -1102,19 +1102,19 @@ const TCHAR* TiXmlDeclaration::Parse( const TCHAR* p, TiXmlParsingData* data )
 		}
 
 		p = SkipWhiteSpace( p );
-		if ( StringEqual( p, TEXT("version"), true ) )
+		if ( StringEqual( p, L"version", true ) )
 		{
 			TiXmlAttribute attrib;
 			p = attrib.Parse( p, data );		
 			version = attrib.Value();
 		}
-		else if ( StringEqual( p, TEXT("encoding"), true ) )
+		else if ( StringEqual( p, L"encoding", true ) )
 		{
 			TiXmlAttribute attrib;
 			p = attrib.Parse( p, data );		
 			encoding = attrib.Value();
 		}
-		else if ( StringEqual( p, TEXT("standalone"), true ) )
+		else if ( StringEqual( p, L"standalone", true ) )
 		{
 			TiXmlAttribute attrib;
 			p = attrib.Parse( p, data );		

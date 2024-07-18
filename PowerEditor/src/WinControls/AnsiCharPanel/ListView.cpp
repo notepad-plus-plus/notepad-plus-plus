@@ -39,7 +39,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW,
-                                TEXT(""),
+                                L"",
 								WS_CHILD | WS_BORDER | listViewStyles,
                                 0,
                                 0,

@@ -524,16 +524,16 @@ void AsciiListView::setValues(int codepage)
 		{
 			if ((i >= 32 && i <= 126 && i != 45) || (i >= 160 && i <= 255))
 			{
-				swprintf(htmlNumber, bufSize, TEXT("&#%d;"), i);
-				swprintf(htmlHexNumber, bufSize, TEXT("&#x%x;"), i);
+				swprintf(htmlNumber, bufSize, L"&#%d;", i);
+				swprintf(htmlHexNumber, bufSize, L"&#x%x;", i);
 			}
 			else
 			{
 				int n = getHtmlNumber(static_cast<unsigned char>(i));
 				if (n > -1)
 				{
-					swprintf(htmlNumber, bufSize, TEXT("&#%d;"), n);
-					swprintf(htmlHexNumber, bufSizeHex, TEXT("&#x%x;"), n);
+					swprintf(htmlNumber, bufSize, L"&#%d;", n);
+					swprintf(htmlHexNumber, bufSizeHex, L"&#x%x;", n);
 				}
 				else
 				{

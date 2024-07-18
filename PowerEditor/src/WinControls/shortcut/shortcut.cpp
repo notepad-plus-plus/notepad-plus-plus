@@ -999,7 +999,7 @@ void ScintillaAccelerator::updateMenuItemByID(const ScintillaKeyMap& skm, int id
 	generic_string menuItem = cmdName;
 	if (skm.isEnabled())
 	{
-		menuItem += TEXT("\t");
+		menuItem += L"\t";
 		menuItem += string2wstring(skm.toString(), CP_UTF8);
 	}
 	::ModifyMenu(_hAccelMenu, id, MF_BYCOMMAND, id, menuItem.c_str());

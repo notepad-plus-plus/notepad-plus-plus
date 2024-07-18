@@ -23,7 +23,7 @@
 #include "DockingCont.h"
 #include "SplitterContainer.h"
 
-#define DSPC_CLASS_NAME TEXT("dockingManager")
+#define DSPC_CLASS_NAME L"dockingManager"
 #define	CONT_MAP_MAX	50
 
 class DockingSplitter;

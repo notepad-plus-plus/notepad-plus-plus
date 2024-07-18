@@ -1145,7 +1145,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	int nTab = pDrawItemStruct->itemID;
 	if (nTab < 0)
 	{
-		::MessageBox(NULL, TEXT("nTab < 0"), L"", MB_OK);
+		::MessageBox(NULL, L"nTab < 0", L"", MB_OK);
 	}
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
@@ -1157,7 +1157,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 	if (!::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci)))
 	{
-		std::wstring errorMessageTitle = TEXT("TabBarPlus::drawItem wrong: ! TCM_GETITEM");
+		std::wstring errorMessageTitle = L"TabBarPlus::drawItem wrong: ! TCM_GETITEM";
 		std::wstring errorMessage = GetLastErrorAsString(GetLastError());
 		::MessageBox(NULL, errorMessage.c_str(), errorMessageTitle.c_str(), MB_OK);
 	}

@@ -80,7 +80,7 @@ intptr_t CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 				i2set = 0;
 
 			_taskList.init(_hInst, _hSelf, _hImalist, nbTotal, i2set);
-			_taskList.setFont(TEXT("Verdana"), NppParameters::getInstance()._dpiManager.scaleY(14));
+			_taskList.setFont(L"Verdana", NppParameters::getInstance()._dpiManager.scaleY(14));
 			_rc = _taskList.adjustSize();
 
 			reSizeTo(_rc);
@@ -203,7 +203,7 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	const TCHAR *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
 	int iImage = _taskListInfo._tlfsLst[nItem]._status;
 
-	const int aSpaceWidth = ListView_GetStringWidth(_taskList.getHSelf(), TEXT(" "));
+	const int aSpaceWidth = ListView_GetStringWidth(_taskList.getHSelf(), L" ");
 
 	COLORREF textColor = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerTextColor() : darkGrey;
 	int imgStyle = ILD_SELECTED;

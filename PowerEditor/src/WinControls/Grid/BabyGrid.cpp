@@ -712,7 +712,7 @@ TCHAR GetASCII(WPARAM wParam, LPARAM lParam)
 	int result = ToAscii(static_cast<UINT>(wParam), (lParam >> 16) & 0xff, keys, &dwReturnedValue, 0);
 	int returnvalue = (TCHAR)dwReturnedValue;
 	if (returnvalue < 0) { returnvalue = 0; }
-	wsprintf(mbuffer, TEXT("return value = %d"), returnvalue);
+	wsprintf(mbuffer, L"return value = %d", returnvalue);
 	if (result != 1) { returnvalue = 0; }
 	return (TCHAR)returnvalue;
 
@@ -1389,7 +1389,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				//protecting or unprotecting a cell that isn't in the list
 				//add it as blank;
-				wcscat_s(buffer, TEXT("|"));
+				wcscat_s(buffer, L"|");
 				if ((BOOL)lParam)
 				{
 					wcscat_s(buffer, L"PA");
@@ -1398,7 +1398,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					wcscat_s(buffer, L"UA");
 				}
-				wcscat_s(buffer, TEXT("|"));
+				wcscat_s(buffer, L"|");
 				SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, FindResult, reinterpret_cast<LPARAM>(buffer));
 			}
 		}
@@ -1467,7 +1467,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 
 			//now add it
-			wcscat_s(buffer, TEXT("|"));
+			wcscat_s(buffer, L"|");
 			wcscat_s(buffer, BGHS[SelfIndex].protect);
 
 			int iDataType = 1;
@@ -1478,7 +1478,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (iDataType == 4) { wcscat_s(buffer, L"F"); }
 			if (iDataType == 5) { wcscat_s(buffer, L"G"); }
 
-			wcscat_s(buffer, TEXT("|"));
+			wcscat_s(buffer, L"|");
 			wcscat_s(buffer, (TCHAR*)lParam);
 			int FindResult = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(buffer)));
 

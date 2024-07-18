@@ -571,7 +571,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findText(const 
 	search.chrg.cpMax = static_cast<Sci_Position>(end);
 
 	LangType lang = (_pEditView->getCurrentBuffer())->getLangType();
-	if (lang == L_XML || (lang == L_HTML && wcsicmp(PathFindExtension((_pEditView->getCurrentBuffer())->getFileName()), TEXT(".xhtml")) == 0))
+	if (lang == L_XML || (lang == L_HTML && wcsicmp(PathFindExtension((_pEditView->getCurrentBuffer())->getFileName()), L".xhtml") == 0))
 		flags = flags | SCFIND_MATCHCASE;
 
 	intptr_t result = _pEditView->execute(SCI_FINDTEXTFULL, flags, reinterpret_cast<LPARAM>(&search));

@@ -42,8 +42,8 @@ using namespace std;
 #define WD_MENUCOPYNAME				"MenuCopyName"
 #define WD_MENUCOPYPATH				"MenuCopyPath"
 
-static const TCHAR *readonlyString = TEXT(" [Read Only]");
-const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
+static const TCHAR *readonlyString = L" [Read Only]";
+const UINT WDN_NOTIFY = RegisterWindowMessage(L"WDN_NOTIFY");
 /*
 inline static DWORD GetStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
@@ -489,8 +489,8 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 					const std::vector<MenuItemUnit> itemUnitArray
 					{
-						{IDM_WINDOW_COPY_NAME, pNativeSpeaker->getAttrNameStr(TEXT("Copy Name(s)"), WD_ROOTNODE, WD_MENUCOPYNAME)},
-						{IDM_WINDOW_COPY_PATH, pNativeSpeaker->getAttrNameStr(TEXT("Copy Pathname(s)"), WD_ROOTNODE, WD_MENUCOPYPATH)}
+						{IDM_WINDOW_COPY_NAME, pNativeSpeaker->getAttrNameStr(L"Copy Name(s)", WD_ROOTNODE, WD_MENUCOPYNAME)},
+						{IDM_WINDOW_COPY_PATH, pNativeSpeaker->getAttrNameStr(L"Copy Pathname(s)", WD_ROOTNODE, WD_MENUCOPYPATH)}
 					};
 					_listMenu.create(_hSelf, itemUnitArray);
 				}
@@ -601,23 +601,23 @@ BOOL WindowsDlg::onInitDialog()
 	generic_string columnText;
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
-	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(L"Name", WD_ROOTNODE, WD_CLMNNAME);
+	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Name", WD_ROOTNODE, WD_CLMNNAME);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = width / 4;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
 
-	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
+	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = 300;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
-	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
+	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
-	columnText = TEXT("⇵ ") + pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
+	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
@@ -650,15 +650,15 @@ void WindowsDlg::updateColumnNames()
 	columnText = pNativeSpeaker->getAttrNameStr(L"Name", WD_ROOTNODE, WD_CLMNNAME);
 	if (_currentColumn != 0)
 	{
-		columnText = TEXT("⇵ ") + columnText;
+		columnText = L"⇵ " + columnText;
 	}
 	else if (_reverseSort)
 	{
-		columnText = TEXT("△ ") + columnText;
+		columnText = L"△ " + columnText;
 	}
 	else
 	{
-		columnText = TEXT("▽ ") + columnText;
+		columnText = L"▽ " + columnText;
 	}
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
@@ -667,15 +667,15 @@ void WindowsDlg::updateColumnNames()
 	columnText = pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
 	if (_currentColumn != 1)
 	{
-		columnText = TEXT("⇵ ") + columnText;
+		columnText = L"⇵ " + columnText;
 	}
 	else if (_reverseSort)
 	{
-		columnText = TEXT("△ ") + columnText;
+		columnText = L"△ " + columnText;
 	}
 	else
 	{
-		columnText = TEXT("▽ ") + columnText;
+		columnText = L"▽ " + columnText;
 	}
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
@@ -685,15 +685,15 @@ void WindowsDlg::updateColumnNames()
 	columnText = pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
 	if (_currentColumn != 2)
 	{
-		columnText = TEXT("⇵ ") + columnText;
+		columnText = L"⇵ " + columnText;
 	}
 	else if (_reverseSort)
 	{
-		columnText = TEXT("△ ") + columnText;
+		columnText = L"△ " + columnText;
 	}
 	else
 	{
-		columnText = TEXT("▽ ") + columnText;
+		columnText = L"▽ " + columnText;
 	}
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
@@ -702,15 +702,15 @@ void WindowsDlg::updateColumnNames()
 	columnText = pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
 	if (_currentColumn != 3)
 	{
-		columnText = TEXT("⇵ ") + columnText;
+		columnText = L"⇵ " + columnText;
 	}
 	else if (_reverseSort)
 	{
-		columnText = TEXT("△ ") + columnText;
+		columnText = L"△ " + columnText;
 	}
 	else
 	{
-		columnText = TEXT("▽ ") + columnText;
+		columnText = L"▽ " + columnText;
 	}
 	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));

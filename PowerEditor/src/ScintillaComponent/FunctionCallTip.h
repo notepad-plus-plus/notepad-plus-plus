@@ -53,7 +53,7 @@ private:
 	TCHAR _stop = ')';
 	TCHAR _param = ',';
 	TCHAR _terminal = ';';
-    generic_string _additionalWordChar = TEXT("");
+    generic_string _additionalWordChar = L"";
 	bool _ignoreCase = true;
 	bool _selfActivated = false;
 

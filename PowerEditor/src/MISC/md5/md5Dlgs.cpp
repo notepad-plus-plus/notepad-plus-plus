@@ -118,7 +118,7 @@ intptr_t CALLBACK HashFromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 				case IDC_HASH_FILEBROWSER_BUTTON:
 				{
 					CustomFileDialog fDlg(_hSelf);
-					fDlg.setExtFilter(L"All types", TEXT(".*"));
+					fDlg.setExtFilter(L"All types", L".*");
 
 					const auto& fns = fDlg.doOpenMultiFilesDlg();
 					if (!fns.empty())
@@ -272,28 +272,28 @@ void HashFromFilesDlg::doDialog(bool isRTL)
 			case hash_md5:
 			{
 				title = L"Generate MD5 digest from files";
-				buttonText = TEXT("Choose files to &generate MD5...");
+				buttonText = L"Choose files to &generate MD5...";
 			}
 			break;
 
 			case hash_sha1:
 			{
 				title = L"Generate SHA-1 digest from files";
-				buttonText = TEXT("Choose files to &generate SHA-1...");
+				buttonText = L"Choose files to &generate SHA-1...";
 			}
 			break;
 
 			case hash_sha256:
 			{
 				title = L"Generate SHA-256 digest from files";
-				buttonText = TEXT("Choose files to &generate SHA-256...");
+				buttonText = L"Choose files to &generate SHA-256...";
 			}
 			break;
 
 			case hash_sha512:
 			{
 				title = L"Generate SHA-1 digest from files";
-				buttonText = TEXT("Choose files to &generate SHA-512...");
+				buttonText = L"Choose files to &generate SHA-512...";
 			}
 			break;
 

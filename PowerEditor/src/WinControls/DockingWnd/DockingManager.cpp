@@ -119,7 +119,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 	_hSelf = ::CreateWindowEx(
 					0,
 					DSPC_CLASS_NAME,
-					TEXT(""),
+					L"",
 					WS_CHILD | WS_CLIPCHILDREN,
 					CW_USEDEFAULT, CW_USEDEFAULT,
 					CW_USEDEFAULT, CW_USEDEFAULT,

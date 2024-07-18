@@ -34,7 +34,7 @@ const TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
 	{L"Notepad",
 		L".txt", L".log"
 	},
-	{TEXT("ms ini/inf"),
+	{L"ms ini/inf",
 		L".ini", L".inf"
 	},
 	{L"c, c++, objc",
@@ -42,7 +42,7 @@ const TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
 		L".m", L".mm",
 		L".vcxproj", L".vcproj", L".props", L".vsprops", L".manifest"
 	},
-	{TEXT("java, c#, pascal"),
+	{L"java, c#, pascal",
 		L".java", L".cs", L".pas", L".pp", L".inc"
 	},
 	{L"web script",

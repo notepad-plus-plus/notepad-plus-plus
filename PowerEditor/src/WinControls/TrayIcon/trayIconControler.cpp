@@ -27,7 +27,7 @@ trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hic
   _nid.hIcon = hicon;
   wcscpy_s(_nid.szTip, tip);
   
-  ::RegisterWindowMessage(TEXT("TaskbarCreated"));
+  ::RegisterWindowMessage(L"TaskbarCreated");
   _isIconShowed = false;
 }
 

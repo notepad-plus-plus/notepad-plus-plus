@@ -21,17 +21,17 @@ typedef std::vector<generic_string> stringVector;
 class FileNameStringSplitter
 {
 public:
-	FileNameStringSplitter(const TCHAR *fileNameStr)
+	FileNameStringSplitter(const wchar_t *fileNameStr)
 	{
-		TCHAR *pStr = NULL;
+		wchar_t *pStr = NULL;
 		bool isInsideQuotes = false;
 		const int filePathLength = MAX_PATH;
 
-		TCHAR str[filePathLength];
+		wchar_t str[filePathLength];
 		int i = 0;
         bool fini = false;
 
-		for (pStr = (TCHAR *)fileNameStr ; !fini ; )
+		for (pStr = (wchar_t *)fileNameStr ; !fini ; )
 		{
 			if (i >= filePathLength)
 				break;
@@ -93,7 +93,7 @@ public:
 		return _fileNames;
 	};
 
-	const TCHAR * getFileName(size_t index) const {
+	const wchar_t * getFileName(size_t index) const {
 		if (index >= _fileNames.size())
 			return NULL;
 		return _fileNames[index].c_str();

@@ -72,19 +72,19 @@ public:
 	void setPanelTitle(std::wstring title) {
 		_panelTitle = title;
 	};
-	const TCHAR * getPanelTitle() const {
+	const wchar_t * getPanelTitle() const {
 		return _panelTitle.c_str();
 	};
 
 	void newWorkSpace();
 	bool saveWorkspaceRequest();
-	bool openWorkSpace(const TCHAR *projectFileName, bool force = false);
+	bool openWorkSpace(const wchar_t *projectFileName, bool force = false);
 	bool saveWorkSpace();
 	bool saveWorkSpaceAs(bool saveCopyAs);
-	void setWorkSpaceFilePath(const TCHAR *projectFileName){
+	void setWorkSpaceFilePath(const wchar_t *projectFileName){
 		_workSpaceFilePath = projectFileName;
 	};
-	const TCHAR * getWorkSpaceFilePath() const {
+	const wchar_t * getWorkSpaceFilePath() const {
 		return _workSpaceFilePath.c_str();
 	};
 	bool isDirty() const {
@@ -118,12 +118,12 @@ protected:
 	void destroyMenus();
 	void addFiles(HTREEITEM hTreeItem);
 	void addFilesFromDirectory(HTREEITEM hTreeItem);
-	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
-	HTREEITEM addFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
+	void recursiveAddFilesFrom(const wchar_t *folderPath, HTREEITEM hTreeItem);
+	HTREEITEM addFolder(HTREEITEM hTreeItem, const wchar_t *folderName);
 
-	bool writeWorkSpace(const TCHAR *projectFileName = NULL, bool doUpdateGUI = true);
-	std::wstring getRelativePath(const std::wstring & fn, const TCHAR *workSpaceFileName);
-	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);
+	bool writeWorkSpace(const wchar_t *projectFileName = NULL, bool doUpdateGUI = true);
+	std::wstring getRelativePath(const std::wstring & fn, const wchar_t *workSpaceFileName);
+	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const wchar_t* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
@@ -134,7 +134,7 @@ protected:
 	void showContextMenu(int x, int y);
 	void showContextMenuFromMenuKey(HTREEITEM selectedItem, int x, int y);
 	HMENU getMenuHandler(HTREEITEM selectedItem);
-	std::wstring getAbsoluteFilePath(const TCHAR * relativePath);
+	std::wstring getAbsoluteFilePath(const wchar_t * relativePath);
 	void openSelectFile();
 	void setFileExtFilter(CustomFileDialog & fDlg);
 	std::vector<std::wstring*> fullPathStrs;
@@ -145,7 +145,7 @@ class FileRelocalizerDlg : public StaticDialog
 public :
 	FileRelocalizerDlg() = default;
 
-	int doDialog(const TCHAR *fn, bool isRTL = false);
+	int doDialog(const wchar_t *fn, bool isRTL = false);
 
 	void destroy() override {};
 

@@ -1013,8 +1013,8 @@ public:
 	bool SaveFile( const char * filename ) const;
 
 	/// Load and Save a file using the given unicode filename. Returns true if successful.
-	bool LoadUnicodeFilePath( const TCHAR* filename );
-	bool SaveUnicodeFilePath( const TCHAR* filename ) const;
+	bool LoadUnicodeFilePath( const wchar_t* filename );
+	bool SaveUnicodeFilePath( const wchar_t* filename ) const;
 
 	#ifdef TIXMLA_USE_STL
 	bool LoadFile( const std::string& filename )			///< STL std::string version.

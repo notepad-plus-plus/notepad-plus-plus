@@ -29,8 +29,8 @@ MiniDumper::MiniDumper()
 
 bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 {
-	TCHAR szDumpPath[MAX_PATH];
-	TCHAR szScratch[MAX_PATH];
+	wchar_t szDumpPath[MAX_PATH];
+	wchar_t szScratch[MAX_PATH];
 	LPCTSTR szResult = NULL;
 	bool retval = false;
 

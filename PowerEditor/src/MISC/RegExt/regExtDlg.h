@@ -37,8 +37,8 @@ private :
 
 	void getRegisteredExts();
 	void getDefSupportedExts();
-	void addExt(TCHAR *ext);
-	bool deleteExts(const TCHAR *ext2Delete);
+	void addExt(wchar_t *ext);
+	bool deleteExts(const wchar_t *ext2Delete);
 	void writeNppPath();
 
 	int getNbSubKey(HKEY hKey) const {

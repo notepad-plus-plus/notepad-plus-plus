@@ -67,7 +67,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		for (auto it = _columnInfos.begin(); it != _columnInfos.end(); ++it)
 		{
 			lvColumn.cx = static_cast<int>(it->_width);
-			lvColumn.pszText = const_cast<TCHAR *>(it->_label.c_str());
+			lvColumn.pszText = const_cast<wchar_t *>(it->_label.c_str());
 			ListView_InsertColumn(_hSelf, ++i, &lvColumn);  // index is not 0 based but 1 based
 		}
 	}
@@ -92,7 +92,7 @@ void ListView::addLine(const vector<generic_string> & values2Add, LPARAM lParam,
 	LVITEM item{};
 	item.mask = LVIF_TEXT | LVIF_PARAM;
 
-	item.pszText = const_cast<TCHAR *>(it->c_str());
+	item.pszText = const_cast<wchar_t *>(it->c_str());
 	item.iItem = pos2insert;
 	item.iSubItem = 0;
 	item.lParam = lParam;
@@ -102,7 +102,7 @@ void ListView::addLine(const vector<generic_string> & values2Add, LPARAM lParam,
 	int j = 0;
 	for (; it != values2Add.end(); ++it)
 	{
-		ListView_SetItemText(_hSelf, pos2insert, ++j, const_cast<TCHAR *>(it->c_str()));
+		ListView_SetItemText(_hSelf, pos2insert, ++j, const_cast<wchar_t *>(it->c_str()));
 	}
 }
 
@@ -114,7 +114,7 @@ size_t ListView::findAlphabeticalOrderPos(const generic_string& string2Cmp, Sort
 
 	for (size_t i = 0; i < nbItem; ++i)
 	{
-		TCHAR str[MAX_PATH] = { '\0' };
+		wchar_t str[MAX_PATH] = { '\0' };
 		ListView_GetItemText(_hSelf, i, 0, str, sizeof(str));
 
 		int res = lstrcmp(string2Cmp.c_str(), str);

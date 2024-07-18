@@ -199,7 +199,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							constexpr int lineAllocatedLen = 1024;
-							TCHAR *line = new TCHAR[lineAllocatedLen];
+							wchar_t *line = new wchar_t[lineAllocatedLen];
 
 							for (size_t i = cursorLine ; i <= static_cast<size_t>(endLine); ++i)
 							{
@@ -212,7 +212,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								if (lineLen > lineAllocatedLen)
 								{
 									delete [] line;
-									line = new TCHAR[lineLen];
+									line = new wchar_t[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
 								generic_string s2r(line);
@@ -290,7 +290,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							}
 
 							constexpr int lineAllocatedLen = 1024;
-							TCHAR *line = new TCHAR[lineAllocatedLen];
+							wchar_t *line = new wchar_t[lineAllocatedLen];
 
 							UCHAR f = format & MASK_FORMAT;
 
@@ -319,7 +319,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								if (lineLen > lineAllocatedLen)
 								{
 									delete [] line;
-									line = new TCHAR[lineLen];
+									line = new wchar_t[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
 
@@ -389,7 +389,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						{
 							ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
 							constexpr int stringSize = MAX_PATH;
-							TCHAR str[stringSize]{};
+							wchar_t str[stringSize]{};
 
 							switch (LOWORD(wParam))
 							{

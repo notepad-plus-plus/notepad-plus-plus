@@ -66,7 +66,7 @@ public:
 	tTbData* createToolbar(const tTbData& data);
 	void	 removeToolbar(const tTbData& data);
 	tTbData* findToolbarByWnd(HWND hClient);
-	tTbData* findToolbarByName(TCHAR* pszName);
+	tTbData* findToolbarByName(wchar_t* pszName);
 
 	void showToolbar(tTbData *pTbData, BOOL state);
 

@@ -35,8 +35,8 @@ COLORREF VerticalFileSwitcher::_bgColor = 0xFFFFFF;
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
 	sortCompareData* sortData = (sortCompareData*)lParamSort;
-	TCHAR str1[MAX_PATH] = { '\0' };
-	TCHAR str2[MAX_PATH] = { '\0' };
+	wchar_t str1[MAX_PATH] = { '\0' };
+	wchar_t str2[MAX_PATH] = { '\0' };
 
 	ListView_GetItemText(sortData->hListView, lParam1, sortData->columnIndex, str1, sizeof(str1));
 	ListView_GetItemText(sortData->hListView, lParam2, sortData->columnIndex, str2, sizeof(str2));
@@ -443,7 +443,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					
 					LPNMHEADER test = (LPNMHEADER)lParam;
 					HWND hwndHD = ListView_GetHeader(_fileListView.getHSelf());
-					TCHAR HDtext[MAX_PATH] = { '\0' };
+					wchar_t HDtext[MAX_PATH] = { '\0' };
 					HDITEM hdi = {};
 					hdi.mask = HDI_TEXT | HDI_WIDTH;
 					hdi.pszText = HDtext;

@@ -20,16 +20,16 @@
 
 
 
-const TCHAR* nppName   = L"Notepad++_file";
-const TCHAR* nppBackup = L"Notepad++_backup";
-const TCHAR* nppDoc    = L"Notepad++ Document";
+const wchar_t* nppName   = L"Notepad++_file";
+const wchar_t* nppBackup = L"Notepad++_backup";
+const wchar_t* nppDoc    = L"Notepad++ Document";
 
 const int nbSupportedLang = 10;
 const int nbExtMax = 28;
 const int extNameMax = 18;
 
 
-const TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
+const wchar_t defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
 {
 	{L"Notepad",
 		L".txt", L".log"
@@ -171,7 +171,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					writeNppPath();
 
-					TCHAR ext2Add[extNameMax] = L"";
+					wchar_t ext2Add[extNameMax] = L"";
 					if (!_isCustomize)
 					{
 						auto index2Add = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_GETCURSEL, 0, 0);
@@ -199,7 +199,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 				case IDC_REMOVEEXT_BUTTON :
 				{
-					TCHAR ext2Sup[extNameMax] = L"";
+					wchar_t ext2Sup[extNameMax] = L"";
 					auto index2Sup = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_GETCURSEL, 0, 0);
 					auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_GETTEXTLEN, index2Sup, 0);
 					if (lbTextLen > extNameMax - 1)
@@ -235,7 +235,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
-				TCHAR text[extNameMax] = L"";
+				wchar_t text[extNameMax] = L"";
 				::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_GETTEXT, extNameMax, reinterpret_cast<LPARAM>(text));
 				if ((lstrlen(text) == 1) && (text[0] != '.'))
 				{
@@ -257,7 +257,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 					if (i != LB_ERR)
 					{
 						const size_t itemNameLen = 32;
-						TCHAR itemName[itemNameLen + 1] = { '\0' };
+						wchar_t itemName[itemNameLen + 1] = { '\0' };
 						size_t lbTextLen = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXTLEN, i, 0);
 						if (lbTextLen > itemNameLen)
 							return TRUE;
@@ -324,15 +324,15 @@ void RegExtDlg::getRegisteredExts()
 	int nbRegisteredKey = getNbSubKey(HKEY_CLASSES_ROOT);
 	for (int i = 0 ; i < nbRegisteredKey ; ++i)
 	{
-		TCHAR extName[extNameLen]{};
+		wchar_t extName[extNameLen]{};
 		//FILETIME fileTime;
 		int extNameActualLen = extNameLen;
 		int res = ::RegEnumKeyEx(HKEY_CLASSES_ROOT, i, extName, reinterpret_cast<LPDWORD>(&extNameActualLen), nullptr, nullptr, nullptr, nullptr);
 		if ((res == ERROR_SUCCESS) && (extName[0] == '.'))
 		{
-			//TCHAR valName[extNameLen];
-			TCHAR valData[extNameLen] = { '\0' };
-			DWORD valDataLen = extNameLen * sizeof(TCHAR);
+			//wchar_t valName[extNameLen];
+			wchar_t valData[extNameLen] = { '\0' };
+			DWORD valDataLen = extNameLen * sizeof(wchar_t);
 			DWORD valType = 0;
 			HKEY hKey2Check;
 			extNameActualLen = extNameLen;
@@ -354,7 +354,7 @@ void RegExtDlg::getDefSupportedExts()
 }
 
 
-void RegExtDlg::addExt(TCHAR *ext)
+void RegExtDlg::addExt(wchar_t *ext)
 {
 	HKEY  hKey;
 	DWORD dwDisp = 0;
@@ -364,8 +364,8 @@ void RegExtDlg::addExt(TCHAR *ext)
 
 	if (nRet == ERROR_SUCCESS)
 	{
-		TCHAR valData[MAX_PATH] = { '\0' };
-		DWORD valDataLen = MAX_PATH * sizeof(TCHAR);
+		wchar_t valData[MAX_PATH] = { '\0' };
+		DWORD valDataLen = MAX_PATH * sizeof(wchar_t);
 
 		if (dwDisp == REG_OPENED_EXISTING_KEY)
 		{
@@ -373,14 +373,14 @@ void RegExtDlg::addExt(TCHAR *ext)
 			if (res == ERROR_SUCCESS)
 				::RegSetValueEx(hKey, nppBackup, 0, REG_SZ, reinterpret_cast<LPBYTE>(valData), valDataLen);
 		}
-		::RegSetValueEx(hKey, nullptr, 0, REG_SZ, reinterpret_cast<const BYTE *>(nppName), static_cast<DWORD>((lstrlen(nppName) + 1) * sizeof(TCHAR)));
+		::RegSetValueEx(hKey, nullptr, 0, REG_SZ, reinterpret_cast<const BYTE *>(nppName), static_cast<DWORD>((lstrlen(nppName) + 1) * sizeof(wchar_t)));
 
 		::RegCloseKey(hKey);
 	}
 }
 
 
-bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
+bool RegExtDlg::deleteExts(const wchar_t *ext2Delete)
 {
 	HKEY hKey;
 	::RegOpenKeyEx(HKEY_CLASSES_ROOT, ext2Delete, 0, KEY_ALL_ACCESS, &hKey);
@@ -390,14 +390,14 @@ bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 
 	if ((nbValue <= 1) && (!nbSubkey))
 	{
-		TCHAR subKey[32] = L"\\";
+		wchar_t subKey[32] = L"\\";
 		wcscat_s(subKey, ext2Delete);
 		::RegDeleteKey(HKEY_CLASSES_ROOT, subKey);
 	}
 	else
 	{
-		TCHAR valData[extNameLen] = { '\0' };
-		DWORD valDataLen = extNameLen*sizeof(TCHAR);
+		wchar_t valData[extNameLen] = { '\0' };
+		DWORD valDataLen = extNameLen*sizeof(wchar_t);
 		DWORD valType = 0;
 		int res = ::RegQueryValueEx(hKey, nppBackup, nullptr, &valType, (LPBYTE)valData, &valDataLen);
 
@@ -431,17 +431,17 @@ void RegExtDlg::writeNppPath()
 		{
 			// Write the value for new document
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, nppName, 0, KEY_ALL_ACCESS, &hRootKey);
-			::RegSetValueEx(hRootKey, nullptr, 0, REG_SZ, (LPBYTE)nppDoc, static_cast<DWORD>((lstrlen(nppDoc) + 1) * sizeof(TCHAR)));
+			::RegSetValueEx(hRootKey, nullptr, 0, REG_SZ, (LPBYTE)nppDoc, static_cast<DWORD>((lstrlen(nppDoc) + 1) * sizeof(wchar_t)));
 			RegCloseKey(hRootKey);
 
-			TCHAR nppPath[MAX_PATH] = { '\0' };
+			wchar_t nppPath[MAX_PATH] = { '\0' };
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
-			TCHAR nppPathParam[MAX_PATH] = L"\""; 
+			wchar_t nppPathParam[MAX_PATH] = L"\""; 
 			wcscat_s(nppPathParam, nppPath);
 			wcscat_s(nppPathParam, L"\" \"%1\"");
 
-			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, static_cast<DWORD>((lstrlen(nppPathParam) + 1) * sizeof(TCHAR)));
+			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, static_cast<DWORD>((lstrlen(nppPathParam) + 1) * sizeof(wchar_t)));
 		}
 		RegCloseKey(hKey);
 	}
@@ -455,14 +455,14 @@ void RegExtDlg::writeNppPath()
 	{
 		//if (dwDisp == REG_CREATED_NEW_KEY)
 		{
-			TCHAR nppPath[MAX_PATH] = { '\0' };
+			wchar_t nppPath[MAX_PATH] = { '\0' };
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
-			TCHAR nppPathParam[MAX_PATH] = L"\"";
+			wchar_t nppPathParam[MAX_PATH] = L"\"";
 			wcscat_s(nppPathParam, nppPath);
 			wcscat_s(nppPathParam, L"\",0");
 
-			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, static_cast<DWORD>((lstrlen(nppPathParam) + 1) * sizeof(TCHAR)));
+			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, static_cast<DWORD>((lstrlen(nppPathParam) + 1) * sizeof(wchar_t)));
 		}
 		RegCloseKey(hKey);
 	}

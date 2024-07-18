@@ -40,14 +40,14 @@ public:
 
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
-	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = 0);
+	HTREEITEM addItem(const wchar_t *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = 0);
 	bool setItemParam(HTREEITEM Item2Set, LPARAM param);
 	LPARAM getItemParam(HTREEITEM Item2Get) const;
 	generic_string getItemDisplayName(HTREEITEM Item2Set) const;
-	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
+	HTREEITEM searchSubItemByName(const wchar_t *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
-	bool renameItem(HTREEITEM Item2Set, const TCHAR *newName);
+	bool renameItem(HTREEITEM Item2Set, const wchar_t *newName);
 	void makeLabelEditable(bool toBeEnabled);
 
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {

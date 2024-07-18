@@ -125,7 +125,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 {
 	if (!Item2Get)
 		return false;
-	//TCHAR textBuffer[MAX_PATH];
+	//wchar_t textBuffer[MAX_PATH];
 	TVITEM tvItem{};
 	tvItem.hItem = Item2Get;
 	tvItem.mask = TVIF_PARAM;
@@ -139,7 +139,7 @@ generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (!Item2Set)
 		return L"";
-	TCHAR textBuffer[MAX_PATH] = { '\0' };
+	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
 	tvItem.hItem = Item2Set;
 	tvItem.mask = TVIF_TEXT;
@@ -149,7 +149,7 @@ generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 	return tvItem.pszText;
 }
 
-bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
+bool TreeView::renameItem(HTREEITEM Item2Set, const wchar_t *newName)
 {
 	if (!Item2Set || !newName)
 		return false;
@@ -163,7 +163,7 @@ bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
 	return true;
 }
 
-HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam)
+HTREEITEM TreeView::addItem(const wchar_t *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam)
 {
 	TVITEM tvi{};
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
@@ -217,7 +217,7 @@ void TreeView::dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem)
 {
 	for (HTREEITEM hItem = getChildFrom(hTree2Dup); hItem != NULL; hItem = getNextSibling(hItem))
 	{
-		TCHAR textBuffer[MAX_PATH]{};
+		wchar_t textBuffer[MAX_PATH]{};
 		TVITEM tvItem{};
 		tvItem.hItem = hItem;
 		tvItem.pszText = textBuffer;
@@ -234,7 +234,7 @@ void TreeView::dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem)
 	}
 }
 
-HTREEITEM TreeView::searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem)
+HTREEITEM TreeView::searchSubItemByName(const wchar_t *itemName, HTREEITEM hParentItem)
 {
 	HTREEITEM hItem = nullptr;
 	if (hParentItem != nullptr)
@@ -244,7 +244,7 @@ HTREEITEM TreeView::searchSubItemByName(const TCHAR *itemName, HTREEITEM hParent
 
 	while (hItem != nullptr)
 	{
-		TCHAR textBuffer[MAX_PATH] = { '\0' };
+		wchar_t textBuffer[MAX_PATH] = { '\0' };
 		TVITEM tvItem{};
 		tvItem.hItem = hItem;
 		tvItem.pszText = textBuffer;
@@ -491,7 +491,7 @@ bool TreeView::isParent(HTREEITEM targetItem, HTREEITEM draggedItem)
 
 void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 {
-	TCHAR textBuffer[MAX_PATH]{};
+	wchar_t textBuffer[MAX_PATH]{};
 	TVITEM tvDraggingItem{};
 	tvDraggingItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 	tvDraggingItem.pszText = textBuffer;
@@ -540,8 +540,8 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 		return false;
 
 	// get both item infos
-	TCHAR textBufferUp[MAX_PATH]{};
-	TCHAR textBufferDown[MAX_PATH]{};
+	wchar_t textBufferUp[MAX_PATH]{};
+	wchar_t textBufferDown[MAX_PATH]{};
 	TVITEM tvUpItem{};
 	TVITEM tvDownItem{};
 	tvUpItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
@@ -636,7 +636,7 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const gene
 	if (!tree2Search)
 		return false;
 
-	TCHAR textBuffer[MAX_PATH] = { '\0' };
+	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
 	tvItem.hItem = tree2Search;
 	tvItem.pszText = textBuffer;
@@ -676,7 +676,7 @@ bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREE
 	if (!treeviewNode)
 		return false;
 
-	TCHAR textBuffer[MAX_PATH] = { '\0' };
+	wchar_t textBuffer[MAX_PATH] = { '\0' };
 	TVITEM tvItem{};
 	tvItem.hItem = treeviewNode;
 	tvItem.pszText = textBuffer;

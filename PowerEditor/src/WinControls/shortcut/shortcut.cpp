@@ -331,7 +331,7 @@ void getNameStrFromCmd(DWORD cmd, wstring & str)
 	else
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
-		TCHAR cmdName[menuItemStrLenMax];
+		wchar_t cmdName[menuItemStrLenMax];
 		HMENU m = reinterpret_cast<HMENU>(::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0));
 		int nbChar = ::GetMenuString(m, cmd, cmdName, menuItemStrLenMax, MF_BYCOMMAND);
 		if (!nbChar)
@@ -496,7 +496,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 					if (_canModifyName)
 					{
-						TCHAR editName[menuItemStrLenMax]{};
+						wchar_t editName[menuItemStrLenMax]{};
 						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, menuItemStrLenMax, reinterpret_cast<LPARAM>(editName));
 						setName(wstring2string(editName, CP_UTF8).c_str());
 					}
@@ -984,7 +984,7 @@ void ScintillaAccelerator::updateKeys()
 
 void ScintillaAccelerator::updateMenuItemByID(const ScintillaKeyMap& skm, int id)
 {
-	TCHAR cmdName[menuItemStrLenMax];
+	wchar_t cmdName[menuItemStrLenMax];
 	::GetMenuString(_hAccelMenu, id, cmdName, menuItemStrLenMax, MF_BYCOMMAND);
 	int i = 0;
 	while (cmdName[i] != 0)

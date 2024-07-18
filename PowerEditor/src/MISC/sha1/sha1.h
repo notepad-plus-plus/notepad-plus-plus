@@ -152,9 +152,6 @@
 #ifdef _MSC_VER
 #include <tchar.h>
 #else
-#ifndef TCHAR
-#define TCHAR wchar_t
-#endif
 #define _tmain wmain
 #define _tprintf wprintf
 #define _getts getws

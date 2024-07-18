@@ -29,10 +29,10 @@ struct GridHandleStruct
 {
 	HMENU gridmenu = nullptr;
 	HWND hlist1 = nullptr;
-	TCHAR protect[2]{ 'U', '\0' };
-	TCHAR title[305]{};
-	TCHAR editstring[305]{};
-	TCHAR editstringdisplay[305]{};
+	wchar_t protect[2]{ 'U', '\0' };
+	wchar_t title[305]{};
+	wchar_t editstring[305]{};
+	wchar_t editstringdisplay[305]{};
 	int rows = 100;
 	int cols = 255;
 	int gridwidth = 0;
@@ -106,8 +106,8 @@ int AddGrid(HMENU);
 int FindGrid(HMENU);
 void ShowVscroll(HWND, int);
 void ShowHscroll(HWND, int);
-int BinarySearchListBox(HWND, TCHAR*);
-void DisplayEditString(HWND, int, const TCHAR*);
+int BinarySearchListBox(HWND, wchar_t*);
+void DisplayEditString(HWND, int, const wchar_t*);
 int CountGrids();
 
 
@@ -413,7 +413,7 @@ void DisplayColumn(HWND hWnd, int SI, int c, int offset, HFONT hfont, HFONT hcol
 	BGCELL BGcell;
 	SetCell(&BGcell, r, c);
 
-	TCHAR buffer[bufferLen]{};
+	wchar_t buffer[bufferLen]{};
 	wcscpy_s(buffer, L"");
 	if (BGHS[SI].COLUMNSNUMBERED)
 	{
@@ -703,18 +703,18 @@ void SetCurrentCellStatus(HWND hWnd, int SelfIndex)
 
 }
 
-TCHAR GetASCII(WPARAM wParam, LPARAM lParam)
+wchar_t GetASCII(WPARAM wParam, LPARAM lParam)
 {
-	TCHAR mbuffer[100]{};
+	wchar_t mbuffer[100]{};
 	BYTE keys[256]{};
 	WORD dwReturnedValue = 0;
 	GetKeyboardState(keys);
 	int result = ToAscii(static_cast<UINT>(wParam), (lParam >> 16) & 0xff, keys, &dwReturnedValue, 0);
-	int returnvalue = (TCHAR)dwReturnedValue;
+	int returnvalue = (wchar_t)dwReturnedValue;
 	if (returnvalue < 0) { returnvalue = 0; }
 	wsprintf(mbuffer, L"return value = %d", returnvalue);
 	if (result != 1) { returnvalue = 0; }
-	return (TCHAR)returnvalue;
+	return (wchar_t)returnvalue;
 
 }
 
@@ -1036,7 +1036,7 @@ void CloseEdit(HWND hWnd, int SI)
 	NotifyEditEnd(hWnd, SI);
 }
 
-void DisplayEditString(HWND hWnd, int SI, const TCHAR* tstring)
+void DisplayEditString(HWND hWnd, int SI, const wchar_t* tstring)
 {
 	if (SI < 0)
 		return;
@@ -1140,7 +1140,7 @@ int FindLongestLine(HDC hdc, wchar_t* text, SIZE* size)
 
 LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	TCHAR buffer[bufferLen]{};
+	wchar_t buffer[bufferLen]{};
 	int ReturnValue = FALSE;
 
 	int SelfIndex = FindGrid(GetMenu(hWnd));
@@ -1221,13 +1221,13 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case WM_SETTEXT:
 		{
-			if (lstrlen((TCHAR*)lParam) > 300)
+			if (lstrlen((wchar_t*)lParam) > 300)
 			{
 				wcscpy_s(BGHS[SelfIndex].title, L"Title too long (300 chars max)");
 			}
 			else
 			{
-				wcscpy_s(BGHS[SelfIndex].title, (TCHAR*)lParam);
+				wcscpy_s(BGHS[SelfIndex].title, (wchar_t*)lParam);
 			}
 
 			HDC gdc = GetDC(hWnd);
@@ -1479,7 +1479,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (iDataType == 5) { wcscat_s(buffer, L"G"); }
 
 			wcscat_s(buffer, L"|");
-			wcscat_s(buffer, (TCHAR*)lParam);
+			wcscat_s(buffer, (wchar_t*)lParam);
 			int FindResult = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(buffer)));
 
 			if (FindResult == LB_ERR)
@@ -1533,14 +1533,14 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					holdfont = (HFONT)SelectObject(hdc, BGHS[SelfIndex].hfont);
 				}
 				//if there are \n codes in the generic_string, find the longest line
-				int longestline = FindLongestLine(hdc, (TCHAR*)lParam, &size);
+				int longestline = FindLongestLine(hdc, (wchar_t*)lParam, &size);
 				int required_width = longestline + 15;
 				required_height = size.cy;
 				//count lines
 				{
 					int count = 1;
-					TCHAR tbuffer[255] = { '\0' };
-					wcscpy_s(tbuffer, (TCHAR*)lParam);
+					wchar_t tbuffer[255] = { '\0' };
+					wcscpy_s(tbuffer, (wchar_t*)lParam);
 					for (int j = 0; j < (int)lstrlen(tbuffer); j++)
 					{
 						if (tbuffer[j] == '\n') { count++; }
@@ -1617,7 +1617,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					default: ReturnValue |= 1 << 4; break;
 				}
 
-				TCHAR tbuffer[1000]{};
+				wchar_t tbuffer[1000]{};
 				wcscpy_s(tbuffer, buffer);
 				int k = lstrlen(tbuffer);
 				int c = 0;
@@ -1627,11 +1627,11 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					c++;
 				}
 				buffer[c] = 0x00;
-				wcscpy_s((TCHAR*)lParam, bufferLen, buffer);
+				wcscpy_s((wchar_t*)lParam, bufferLen, buffer);
 			}
 			else
 			{
-				wcscpy_s((TCHAR*)lParam, bufferLen, L"");
+				wcscpy_s((wchar_t*)lParam, bufferLen, L"");
 			}
 		}
 		break;
@@ -2446,13 +2446,13 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					wParam = ascii;
 					if ((wParam >= 32) && (wParam <= 125))
 					{
-						TCHAR tstring[2];
+						wchar_t tstring[2];
 						if (!BGHS[SelfIndex].EDITING)
 						{
 							NotifyEditBegin(hWnd, SelfIndex);
 						}
 						BGHS[SelfIndex].EDITING = TRUE;
-						tstring[0] = (TCHAR)wParam;
+						tstring[0] = (wchar_t)wParam;
 						tstring[1] = 0x00;
 						DisplayEditString(hWnd, SelfIndex, tstring);
 						break;
@@ -2930,12 +2930,12 @@ int FindGrid(HMENU menuid)
 }
 
 
-int BinarySearchListBox(HWND lbhWnd, TCHAR* searchtext)
+int BinarySearchListBox(HWND lbhWnd, wchar_t* searchtext)
 {
 	const size_t bufLen = 1000;
-	TCHAR tbuffer[bufLen]{};
-	TCHAR headtext[bufLen]{};
-	TCHAR tailtext[bufLen]{};
+	wchar_t tbuffer[bufLen]{};
+	wchar_t headtext[bufLen]{};
+	wchar_t tailtext[bufLen]{};
 	
 	BOOL FOUND = FALSE;
 	//get count of items in listbox

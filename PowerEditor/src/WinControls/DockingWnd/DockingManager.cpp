@@ -704,7 +704,7 @@ void DockingManager::showDockableDlg(HWND hDlg, BOOL view)
 	}
 }
 
-void DockingManager::showDockableDlg(TCHAR* pszName, BOOL view)
+void DockingManager::showDockableDlg(wchar_t* pszName, BOOL view)
 {
 	for (size_t i = 0, len = _vContainer.size(); i < len; ++i)
 	{

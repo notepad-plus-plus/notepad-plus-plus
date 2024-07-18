@@ -103,7 +103,7 @@ RECT TaskList::adjustSize()
 	int maxwidth = -1;
 
 	_rc = { 0, 0, 0, 0 };
-	TCHAR buf[MAX_PATH] = { '\0' };
+	wchar_t buf[MAX_PATH] = { '\0' };
 	for (int i = 0 ; i < _nbItem ; ++i)
 	{
 		ListView_GetItemText(_hSelf, i, 0, buf, MAX_PATH);
@@ -130,7 +130,7 @@ RECT TaskList::adjustSize()
 	return _rc;
 }
 
-void TaskList::setFont(const TCHAR *fontName, int fontSize)
+void TaskList::setFont(const wchar_t *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.8">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -222,7 +222,7 @@ Translation note:
 					<Item id="43051" name="ブックマークしていない行を削除"/>
 					<Item id="43050" name="ブックマークを反転"/>
 					<Item id="43052" name="文字範囲を指定して検索(&amp;E)..."/>
-					<Item id="43053" name="対応する括弧内を選択(&amp;M)"/>
+					<Item id="43053" name="対応する {} [] () の中を選択(&amp;E)"/>
 					<Item id="43009" name="対応する括弧へジャンプ(&amp;M)"/>
 					<Item id="43010" name="前を検索(&amp;P)"/>
 					<Item id="43011" name="インクリメンタルサーチ(&amp;I)"/>
@@ -415,8 +415,8 @@ Translation note:
 					<Item id="11005" name="パス・降順"/>
 					<Item id="11006" name="種類・昇順"/>
 					<Item id="11007" name="種類・降順"/>
-					<Item id="11008" name="サイズ・小さい順"/>
-					<Item id="11009" name="サイズ・大きい順"/>
+					<Item id="11008" name="コンテンツの長さ・小さい順"/>
+					<Item id="11009" name="コンテンツの長さ・大きい順"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -757,8 +757,8 @@ Translation note:
 					<Item id="11005" name="パス・降順 で並べ替え"/>
 					<Item id="11006" name="種類・昇順 で並べ替え"/>
 					<Item id="11007" name="種類・降順 で並べ替え"/>
-					<Item id="11008" name="サイズ・小さい順 で並べ替え"/>
-					<Item id="11009" name="サイズ・大きい順 で並べ替え"/>
+					<Item id="11008" name="コンテンツの長さ・小さい順 で並べ替え"/>
+					<Item id="11009" name="コンテンツの長さ・大きい順 で並べ替え"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="ショートカット">
@@ -1107,6 +1107,14 @@ Translation note:
 					<Item id="6506" name="利用しない"/>
 					<Item id="6507" name="言語メニューをまとめる"/>
 					<Item id="6508" name="言語メニュー"/>
+					<Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
+				</Language>
+
+				<Indentation title="インデント">
+					<Item id="7161" name="自動インデント"/>
+					<Item id="7162" name="オフ"/>
+					<Item id="7163" name="基本"/>
+					<Item id="7164" name="高度"/>
 					<Item id="6301" name="インデント設定"/>
 					<Item id="6302" name="スペース"/>
 					<Item id="6303" name="インデント幅:"/>
@@ -1114,8 +1122,7 @@ Translation note:
 					<Item id="6311" name="タブ"/>
 					<Item id="6510" name="デフォルト値を使用"/>
 					<Item id="6512" name="バックスペースキーで、スペース1文字を消すのではなくインデントを減らす"/>
-					<Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="強調表示">
 					<Item id="6351" name="選択した語をすべて色づけ"/>
@@ -1200,7 +1207,7 @@ Translation note:
 				<Backup title="自動バックアップ">
 					<Item id="6817" name="セッションスナップショットと定期的なバックアップ"/>
 					<Item id="6818" name="セッションスナップショットと定期的なバックアップを有効にする"/>
-					<Item id="6819" name="バックアップを"/>
+					<Item id="6819" name="編集中、バックアップを"/>
 					<Item id="6821" name="秒ごとに行う"/>
 					<Item id="6822" name="バックアップパス:"/>
 					<Item id="6309" name="現在のセッションを次回起動時に復元"/>
@@ -1306,7 +1313,7 @@ Translation note:
 
 				<MISC title="その他">
 					<ComboBox id="6347">
-						<Element name="有効"/>
+						<Element name="現在のファイルで有効"/>
 						<Element name="開いている全ファイルで有効"/>
 						<Element name="無効"/>
 					</ComboBox>
@@ -1395,6 +1402,11 @@ Translation note:
 				<Item id="7" name="いいえ(&amp;N)"/>
 				<Item id="4" name="常に はい(&amp;A)"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+
+			<DebugInfo title="デバッグ情報">
+				<Item id="1752" name="情報をクリップボードにコピー（&amp;C）"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1535,6 +1547,7 @@ Notepad++ を管理者権限で立ち上げますか？"/>
 OKボタンを押すと検索ダイアログが開きます。
 
 もし正規表現での逆方向の検索を有効にされたい場合は、オンラインマニュアルをご確認ください。"/>
+			<PrintError title="0" message="印刷を開始できませんでした。"/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>
@@ -1668,8 +1681,8 @@ OKボタンを押すと検索ダイアログが開きます。
 例）階層にかかわらず log や logs といったフォルダー内を除き、すべてのファイル内を検索する：
 *.* !+\log*"/>
 			<find-in-files-select-folder value="検索するディレクトリを選択してください"/>
-			<find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
-			<find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
+			<find-status-top-reached value="検索：末尾からの最後の一致でした。文書の先頭を通過しました"/>
+			<find-status-end-reached value="検索：先頭からの最後の一致でした。文書の末尾を通過しました"/>
 			<find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>
 			<find-status-replaceinfiles-nb-replaced value="複数ファイル内を検索：$INT_REPLACE$ 件を置換しました"/>
 			<find-status-replaceinopenedfiles-1-replaced value="すべての文書で置換：1 件を置換しました"/>
@@ -1683,8 +1696,8 @@ OKボタンを押すと検索ダイアログが開きます。
 			<find-status-replaceall-1-replaced value="すべて置換：1 件を置換しました"/>
 			<find-status-replaceall-nb-replaced value="すべて置換：$INT_REPLACE$ 件を置換しました"/>
 			<find-status-replaceall-readonly value="すべて置換：置換できません。この文書は読み取り専用です"/>
-			<find-status-replace-end-reached value="置換：先頭からの最初の一致を置換しました。文書の末尾を通過しました"/>
-			<find-status-replace-top-reached value="置換：末尾からの最初の一致を置換しました。文書の先頭を通過しました"/>
+			<find-status-replace-end-reached value="置換：先頭からの最後の一致を置換しました。文書の末尾を通過しました"/>
+			<find-status-replace-top-reached value="置換：末尾からの最後の一致を置換しました。文書の先頭を通過しました"/>
 			<find-status-replaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
 			<find-status-replaced-without-continuing value="置換：1 件を置換しました。"/>
 			<find-status-replaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
@@ -1792,6 +1805,12 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 			<npcIncludeCcUniEol-tip value="非表示文字の表示設定を、C0、C1制御コードと、Unicode改行文字（Next Line、Line Separator、Paragraph Separator）にも適用します。"/>
 			<searchingInSelThresh-tip value="編集画面でこの文字数以上を選択したまま検索画面を開くと、「選択内のみ」を自動でオンにします。最大値は 1024 です。0 にするとこの動作を無効にできます。"/>
 			<verticalEdge-tip value="線を表示したい桁位置を指定してください。複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
+			<fileSaveAsCopySaveButton-tip value="Shiftを押しながら「保存」を押すと、複製したファイルを開きます。"/>
+			<autoIndentBasic-tip value="現在の行（エンターキーを押して作成された新しい行）のインデントを、前の行のインデントと同じにします。"/>
+			<autoIndentAdvanced-tip value="C言語風の言語やPythonのときに、スマート・インデントを使用します。C言語風の言語とは、
+C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell、JSON を指します。
+
+「高度」を選択しても、上記の言語以外を編集している場合は「基本」と同じになります。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

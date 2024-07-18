@@ -21,7 +21,7 @@
 
 void Process::run(bool isElevationRequired) const
 {
-	const TCHAR *opVerb = isElevationRequired ? L"runas" : L"open";
+	const wchar_t *opVerb = isElevationRequired ? L"runas" : L"open";
 	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
 }
 

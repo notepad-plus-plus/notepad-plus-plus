@@ -91,7 +91,7 @@ public :
         return true;
     };
 
-	bool changeIcons(size_t whichLst, size_t iconIndex, const TCHAR *iconLocation){
+	bool changeIcons(size_t whichLst, size_t iconIndex, const wchar_t *iconLocation){
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
 

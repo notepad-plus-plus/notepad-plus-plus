@@ -69,8 +69,8 @@ public :
 	void restoreGlobalOverrideValues();
 	void apply(bool needVisualApply = true);
 	void addLastThemeEntry();
-	bool selectThemeByName(const TCHAR* themeName);
-	bool goToSection(const TCHAR* sectionNames); // sectionNames is formed as following: "Language name:Style name"
+	bool selectThemeByName(const wchar_t* themeName);
+	bool goToSection(const wchar_t* sectionNames); // sectionNames is formed as following: "Language name:Style name"
 	                                             // ex: "Global Styles:EOL custom color" will set Language on "Global Styles", then set Style on "EOL custom color" if both are found.
 
 private :
@@ -116,7 +116,7 @@ private :
 
 	Style& getCurrentStyler();
 
-	bool getStyleName(TCHAR *styleName, const size_t styleNameLen);
+	bool getStyleName(wchar_t *styleName, const size_t styleNameLen);
 
 	int whichTabColourIndex();
 	bool isDocumentMapStyle();

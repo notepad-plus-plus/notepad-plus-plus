@@ -32,7 +32,7 @@ distribution.
 // It also cleans up the code a bit.
 //
 
-const TCHAR* TiXmlBase::errorString[ TIXML_ERROR_STRING_COUNT ] =
+const wchar_t* TiXmlBase::errorString[ TIXML_ERROR_STRING_COUNT ] =
 {
 	L"No error",
 	L"Error",

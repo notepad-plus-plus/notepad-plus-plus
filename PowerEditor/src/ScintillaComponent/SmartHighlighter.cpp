@@ -156,7 +156,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
-	const TCHAR * text2FindW = wmc.char2wchar(text2Find, cp);
+	const wchar_t * text2FindW = wmc.char2wchar(text2Find, cp);
 
 	highlightViewWithWord(pHighlightView, text2FindW);
 

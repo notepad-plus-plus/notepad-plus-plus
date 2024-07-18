@@ -24,7 +24,7 @@
 #include <strsafe.h>
 
 
-void Command::extractArgs(TCHAR* cmd2Exec, size_t cmd2ExecLen, TCHAR* args, size_t argsLen, const TCHAR* cmdEntier)
+void Command::extractArgs(wchar_t* cmd2Exec, size_t cmd2ExecLen, wchar_t* args, size_t argsLen, const wchar_t* cmdEntier)
 {
 	size_t i = 0;
 	bool quoted = false;
@@ -74,7 +74,7 @@ void Command::extractArgs(TCHAR* cmd2Exec, size_t cmd2ExecLen, TCHAR* args, size
 }
 
 
-int whichVar(TCHAR *str)
+int whichVar(wchar_t *str)
 {
 	if (!lstrcmp(fullCurrentPath, str))
 		return FULL_CURRENT_PATH;
@@ -103,7 +103,7 @@ int whichVar(TCHAR *str)
 }
 
 // Since I'm sure the length will be 256, I won't check the lstrlen : watch out!
-void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t strDestLen, HWND hWnd)
+void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t strDestLen, HWND hWnd)
 {
 	size_t j = 0;
 	for (int i = 0, len = lstrlen(strSrc); i < len; ++i)
@@ -126,7 +126,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 		{
 			if (iEnd != -1)
 			{
-				TCHAR str[MAX_PATH] = { '\0' };
+				wchar_t str[MAX_PATH] = { '\0' };
 				int m = 0;
 				for (int k = iBegin  ; k <= iEnd ; ++k)
 					str[m++] = strSrc[k];
@@ -143,7 +143,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 				}
 				else
 				{
-					TCHAR expandedStr[CURRENTWORD_MAXLENGTH] = { '\0' };
+					wchar_t expandedStr[CURRENTWORD_MAXLENGTH] = { '\0' };
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
 						size_t lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
@@ -185,17 +185,17 @@ HINSTANCE Command::run(HWND hWnd)
 	return run(hWnd, L".");
 }
 
-HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
+HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 {
 	constexpr int argsIntermediateLen = MAX_PATH * 2;
 	constexpr int args2ExecLen = CURRENTWORD_MAXLENGTH + MAX_PATH * 2;
 
-	TCHAR cmdPure[MAX_PATH]{};
-	TCHAR cmdIntermediate[MAX_PATH]{};
-	TCHAR cmd2Exec[MAX_PATH]{};
-	TCHAR args[MAX_PATH]{};
-	TCHAR argsIntermediate[argsIntermediateLen]{};
-	TCHAR args2Exec[args2ExecLen]{};
+	wchar_t cmdPure[MAX_PATH]{};
+	wchar_t cmdIntermediate[MAX_PATH]{};
+	wchar_t cmd2Exec[MAX_PATH]{};
+	wchar_t args[MAX_PATH]{};
+	wchar_t argsIntermediate[argsIntermediateLen]{};
+	wchar_t args2Exec[args2ExecLen]{};
 
 	extractArgs(cmdPure, MAX_PATH, args, MAX_PATH, _cmdLine.c_str());
 	int nbTchar = ::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
@@ -213,7 +213,7 @@ HINSTANCE Command::run(HWND hWnd, const TCHAR* cwd)
 	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, MAX_PATH, hWnd);
 	expandNppEnvironmentStrs(argsIntermediate, args2Exec, args2ExecLen, hWnd);
 
-	TCHAR cwd2Exec[MAX_PATH]{};
+	wchar_t cwd2Exec[MAX_PATH]{};
 	expandNppEnvironmentStrs(cwd, cwd2Exec, MAX_PATH, hWnd);
 	
 	HINSTANCE res = ::ShellExecute(hWnd, L"open", cmd2Exec, args2Exec, cwd2Exec, SW_SHOW);
@@ -330,7 +330,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				
 				case IDOK :
 				{
-					TCHAR cmd[MAX_PATH]{};
+					wchar_t cmd[MAX_PATH]{};
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
 					_cmdLine = cmd;
 
@@ -358,7 +358,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					DynamicMenu& runMenu = nppParams.getRunMenuItems();
 					int nbTopLevelItem = runMenu.getTopLevelItemNumber();
 
-					TCHAR cmd[MAX_PATH]{};
+					wchar_t cmd[MAX_PATH]{};
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
 					UserCommand uc(Shortcut(), wstring2string(cmd, CP_UTF8).c_str(), cmdID);
 					uc.init(_hInst, _hSelf);
@@ -424,7 +424,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 	return FALSE;
 }
 
-void RunDlg::addTextToCombo(const TCHAR *txt2Add) const
+void RunDlg::addTextToCombo(const wchar_t *txt2Add) const
 {
 	HWND handle = ::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH);
 	auto i = ::SendMessage(handle, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(txt2Add));
@@ -432,7 +432,7 @@ void RunDlg::addTextToCombo(const TCHAR *txt2Add) const
 		i = ::SendMessage(handle, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(txt2Add));
 	::SendMessage(handle, CB_SETCURSEL, i, 0);
 }
-void RunDlg::removeTextFromCombo(const TCHAR *txt2Remove) const
+void RunDlg::removeTextFromCombo(const wchar_t *txt2Remove) const
 {
 	HWND handle = ::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH);
 	auto i = ::SendMessage(handle, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(txt2Remove));

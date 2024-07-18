@@ -40,8 +40,8 @@ public:
 
 	int getHeight() const override;
 
-    bool setText(const TCHAR* str, int whichPart);
-	bool setOwnerDrawText(const TCHAR* str);
+    bool setText(const wchar_t* str, int whichPart);
+	bool setOwnerDrawText(const wchar_t* str);
 	void adjustParts(int clientWidth);
 
 

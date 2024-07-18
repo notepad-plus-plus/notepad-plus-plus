@@ -42,7 +42,7 @@ using namespace std;
 #define WD_MENUCOPYNAME				"MenuCopyName"
 #define WD_MENUCOPYPATH				"MenuCopyPath"
 
-static const TCHAR *readonlyString = L" [Read Only]";
+static const wchar_t *readonlyString = L" [Read Only]";
 const UINT WDN_NOTIFY = RegisterWindowMessage(L"WDN_NOTIFY");
 /*
 inline static DWORD GetStyle(HWND hWnd) {
@@ -74,14 +74,14 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 
 struct NumericStringEquivalence
 {
-	int operator()(const TCHAR* s1, const TCHAR* s2) const
+	int operator()(const wchar_t* s1, const wchar_t* s2) const
 	{
 		return numstrcmp(s1, s2);
 	}
 
-	static inline int numstrcmp_get(const TCHAR **str, int *length)
+	static inline int numstrcmp_get(const wchar_t **str, int *length)
 	{
-		const TCHAR *p = *str;
+		const wchar_t *p = *str;
 		int value = 0;
 		for (*length = 0; isdigit(*p); ++(*length))
 			value = value * 10 + *p++ - '0';
@@ -89,9 +89,9 @@ struct NumericStringEquivalence
 		return (value);
 	}
 
-	static int numstrcmp(const TCHAR *str1, const TCHAR *str2)
+	static int numstrcmp(const wchar_t *str1, const wchar_t *str2)
 	{
-		TCHAR *p1 = nullptr, *p2 = nullptr;
+		wchar_t *p1 = nullptr, *p2 = nullptr;
 		int c1 = 0, c2 = 0, lcmp = 0;
 		for (;;)
 		{
@@ -158,8 +158,8 @@ struct BufferEquivalent
 
 			if (_iColumn == 0)
 			{
-				const TCHAR *s1 = b1->getFileName();
-				const TCHAR *s2 = b2->getFileName();
+				const wchar_t *s1 = b1->getFileName();
+				const wchar_t *s2 = b2->getFileName();
 				int result = _strequiv(s1, s2);
 
 				if (result != 0) // default to filepath sorting when equivalent
@@ -168,9 +168,9 @@ struct BufferEquivalent
 			else if (_iColumn == 2)
 			{
 				NppParameters & nppParameters = NppParameters::getInstance();
-				const TCHAR *s1;
-				const TCHAR *s2;
-				//const TCHAR empty[] = ;
+				const wchar_t *s1;
+				const wchar_t *s2;
+				//const wchar_t empty[] = ;
 				Lang *lang1 = nppParameters.getLangFromID(b1->getLangType());
 
 				if (lang1)
@@ -204,8 +204,8 @@ struct BufferEquivalent
 			}
 
 			// _iColumn == 1
-			const TCHAR *s1 = b1->getFullPathName();
-			const TCHAR *s2 = b2->getFullPathName();
+			const wchar_t *s1 = b1->getFullPathName();
+			const wchar_t *s2 = b2->getFullPathName();
 			return _strequiv(s1, s2) < 0;	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
 		}
 		return false;
@@ -393,8 +393,8 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
 						{
-							const TCHAR *fullName = buf->getFullPathName();
-							const TCHAR *fileName = buf->getFileName();
+							const wchar_t *fullName = buf->getFullPathName();
+							const wchar_t *fileName = buf->getFileName();
 							int len = lstrlen(fullName)-lstrlen(fileName);
 							if (!len) {
 								len = 1;
@@ -602,23 +602,23 @@ BOOL WindowsDlg::onInitDialog()
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Name", WD_ROOTNODE, WD_CLMNNAME);
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = width / 4;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Path", WD_ROOTNODE, WD_CLMNPATH);
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = 300;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Type", WD_ROOTNODE, WD_CLMNTYPE);
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
 	columnText = L"⇵ " + pNativeSpeaker->getAttrNameStr(L"Size", WD_ROOTNODE, WD_CLMNSIZE);
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = 100;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 3, LPARAM(&lvColumn));
 
@@ -660,7 +660,7 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 0, LPARAM(&lvColumn));
 
@@ -677,7 +677,7 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 1, LPARAM(&lvColumn));
 
@@ -695,7 +695,7 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
 
@@ -712,7 +712,7 @@ void WindowsDlg::updateColumnNames()
 	{
 		columnText = L"▽ " + columnText;
 	}
-	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
+	lvColumn.pszText = const_cast<wchar_t *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 3, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 3, LPARAM(&lvColumn));
 }
@@ -1167,7 +1167,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 			mii.fMask = MIIM_STRING | MIIM_STATE | MIIM_ID;
 
 			generic_string strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName(), !isDropListMenu));
-			std::vector<TCHAR> vBuffer(strBuffer.begin(), strBuffer.end());
+			std::vector<wchar_t> vBuffer(strBuffer.begin(), strBuffer.end());
 			vBuffer.push_back('\0');
 			mii.dwTypeData = (&vBuffer[0]);
 

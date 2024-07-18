@@ -194,8 +194,8 @@ public:
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
 	int getNth() const { return _nth; };
-	const TCHAR * getCategory() const { return _category.c_str(); };
-	const TCHAR * getShortcutName() const { return _shortcutName.c_str(); };
+	const wchar_t * getCategory() const { return _category.c_str(); };
+	const wchar_t * getShortcutName() const { return _shortcutName.c_str(); };
 
 private :
 	unsigned long _id = 0;

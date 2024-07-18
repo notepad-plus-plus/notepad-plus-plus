@@ -38,7 +38,7 @@ public:
 	virtual ~TaskList() = default;
 	void init(HINSTANCE hInst, HWND hwnd, HIMAGELIST hImaLst, int nbItem, int index2set);
 	virtual void destroy();
-	void setFont(const TCHAR *fontName, int fontSize);
+	void setFont(const wchar_t *fontName, int fontSize);
 	RECT adjustSize();
 	int getCurrentIndex() const {return _currentIndex;}
 	int updateCurrentIndex();

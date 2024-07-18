@@ -19,10 +19,10 @@
 
 
 struct Token {
-	TCHAR * token;
+	wchar_t * token;
 	int length;
 	bool isIdentifier;
-	Token(TCHAR * tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {};
+	Token(wchar_t * tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {};
 };
 
 struct FunctionValues {
@@ -33,11 +33,11 @@ struct FunctionValues {
 	FunctionValues() : lastIdentifier(-1), lastFunctionIdentifier(-1), param(0), scopeLevel(-1) {};
 };
 
-inline bool lower(TCHAR c) {
+inline bool lower(wchar_t c) {
 	return (c >= 'a' && c <= 'z');	
 }
 
-inline bool match(TCHAR c1, TCHAR c2) {
+inline bool match(wchar_t c1, wchar_t c2) {
 	if (c1 == c2)	return true;
 	if (lower(c1))
 		return ((c1-32) == c2);
@@ -48,7 +48,7 @@ inline bool match(TCHAR c1, TCHAR c2) {
 
 //test string case insensitive ala Scintilla
 //0 if equal, <0 of before, >0 if after (name1 that is)
-int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1)
+int testNameNoCase(const wchar_t * name1, const wchar_t * name2, int len = -1)
 {
 	if (len == -1)
 	{
@@ -145,7 +145,7 @@ bool FunctionCallTip::getCursorFunction()
 		return false;	//cannot be a func, need name and separator
 	}
 	
-	TCHAR lineData[maxLen] = L"";
+	wchar_t lineData[maxLen] = L"";
 
 	_pEditView->getLine(line, lineData, len);
 
@@ -154,7 +154,7 @@ bool FunctionCallTip::getCursorFunction()
 	//token is identifier or some expression, whitespace is ignored
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
-	TCHAR ch;
+	wchar_t ch;
 	for (int i = 0; i < offset; ++i) 	//we dont care about stuff after the offset
     {
 		//tokenVector.push_back(pair(lineData+i, len));
@@ -162,7 +162,7 @@ bool FunctionCallTip::getCursorFunction()
 		if (isBasicWordChar(ch) || isAdditionalWordChar(ch))	//part of identifier
         {
 			tokenLen = 0;
-			TCHAR * begin = lineData+i;
+			wchar_t * begin = lineData+i;
             while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset)
 			{
 				++tokenLen;
@@ -275,7 +275,7 @@ bool FunctionCallTip::getCursorFunction()
 		{	//check if we need to reload data
 			delete [] _funcName;
 
-			_funcName = new TCHAR[funcToken.length+1];
+			_funcName = new wchar_t[funcToken.length+1];
 			wcscpy_s(_funcName, funcToken.length+1, funcToken.token);
 			res = loadFunction();
 		}
@@ -300,7 +300,7 @@ bool FunctionCallTip::loadFunction()
 	
 	for (; funcNode; funcNode = funcNode->NextSiblingElement(L"KeyWord"))
 	{
-		const TCHAR * name = NULL;
+		const wchar_t * name = NULL;
 		name = funcNode->Attribute(L"name");
 		if (!name)		//malformed node
 			continue;
@@ -311,7 +311,7 @@ bool FunctionCallTip::loadFunction()
 			compVal = lstrcmp(name, _funcName);
 		if (!compVal) 	//found it!
         {
-			const TCHAR * val = funcNode->Attribute(L"func");
+			const wchar_t * val = funcNode->Attribute(L"func");
 			if (val)
 			{
 				if (!lstrcmp(val, L"yes")) 
@@ -339,12 +339,12 @@ bool FunctionCallTip::loadFunction()
 	TiXmlElement *paramNode = NULL;
 	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(L"Overload") )
 	{
-		const TCHAR * retVal = overloadNode->Attribute(L"retVal");
+		const wchar_t * retVal = overloadNode->Attribute(L"retVal");
 		if (!retVal)
 			continue;	//malformed node
 		_retVals.push_back(retVal);
 
-		const TCHAR * description = overloadNode->Attribute(L"descr");
+		const wchar_t * description = overloadNode->Attribute(L"descr");
 		if (description)
 			_descriptions.push_back(description);
 		else
@@ -353,7 +353,7 @@ bool FunctionCallTip::loadFunction()
 		paramNode = overloadNode->FirstChildElement(L"Param");
 		for (; paramNode ; paramNode = paramNode->NextSiblingElement(L"Param") )
 		{
-			const TCHAR * param = paramNode->Attribute(L"name");
+			const wchar_t * param = paramNode->Attribute(L"name");
 			if (!param)
 				continue;	//malformed node
 			paramVec.push_back(param);

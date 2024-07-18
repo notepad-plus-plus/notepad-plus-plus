@@ -76,7 +76,7 @@ void DocTabView::addBuffer(BufferID buffer)
 	if (_hasImgLst)
 		index = 0;
 	tie.iImage = index;
-	tie.pszText = const_cast<TCHAR *>(buf->getFileName());
+	tie.pszText = const_cast<wchar_t *>(buf->getFileName());
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);
 	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
 	bufferUpdated(buf, BufferChangeMask);
@@ -120,7 +120,7 @@ BufferID DocTabView::activeBuffer()
 }
 
 
-BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not found, something else otherwise
+BufferID DocTabView::findBufferByName(const wchar_t * fullfilename) //-1 if not found, something else otherwise
 {
 	TCITEM tie{};
 	tie.lParam = -1;
@@ -190,7 +190,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	}
 
 	//We must make space for the added ampersand characters.
-	TCHAR encodedLabel[2 * MAX_PATH] = { '\0' };
+	wchar_t encodedLabel[2 * MAX_PATH] = { '\0' };
 
 	if (mask & BufferChangeFilename)
 	{
@@ -198,8 +198,8 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 		tie.pszText = encodedLabel;
 
 		{
-			const TCHAR* in = buffer->getFileName();
-			TCHAR* out = encodedLabel;
+			const wchar_t* in = buffer->getFileName();
+			wchar_t* out = encodedLabel;
 
 			//This code will read in one character at a time and duplicate every first ampersand(&).
 			//ex. If input is "test & test && test &&&" then output will be "test && test &&& test &&&&".

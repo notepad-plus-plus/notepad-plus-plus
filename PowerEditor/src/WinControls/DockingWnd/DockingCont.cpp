@@ -172,7 +172,7 @@ tTbData* DockingCont::findToolbarByWnd(HWND hClient)
 	return pTbData;
 }
 
-tTbData* DockingCont::findToolbarByName(TCHAR* pszName)
+tTbData* DockingCont::findToolbarByName(wchar_t* pszName)
 {
 	tTbData*	pTbData		= NULL;
 
@@ -312,7 +312,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 				if (!hookMouse)
 				{
 					DWORD dwError = ::GetLastError();
-					TCHAR str[128]{};
+					wchar_t str[128]{};
 					::wsprintf(str, L"GetLastError() returned %lu", dwError);
 					::MessageBox(NULL, str, L"SetWindowsHookEx(MOUSE) failed on runProcCaption", MB_OK | MB_ICONERROR);
 				}
@@ -1065,7 +1065,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT* pDrawItemStruct)
 
 	auto tbData = reinterpret_cast<tTbData*>(tcItem.lParam);
 
-	const TCHAR* text = tbData->pszName;
+	const wchar_t* text = tbData->pszName;
 	int length = lstrlen(tbData->pszName);
 
 	// get drawing context
@@ -1652,7 +1652,7 @@ void DockingCont::selectTab(int iTab)
 {
 	if (iTab != -1)
 	{
-		const TCHAR	*pszMaxTxt	= NULL;
+		const wchar_t	*pszMaxTxt	= NULL;
 		TCITEM tcItem {};
 		SIZE size = {};
 		int maxWidth = 0;
@@ -1700,7 +1700,7 @@ void DockingCont::selectTab(int iTab)
 
 		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
-			const TCHAR *pszTabTxt = NULL;
+			const wchar_t *pszTabTxt = NULL;
 
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
@@ -1729,7 +1729,7 @@ void DockingCont::selectTab(int iTab)
 				szText = L"        ";
 				szText += pszMaxTxt;
 			}
-			tcItem.pszText = (TCHAR *)szText.c_str();
+			tcItem.pszText = (wchar_t *)szText.c_str();
 			::SendMessage(_hContTab, TCM_SETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		}
 

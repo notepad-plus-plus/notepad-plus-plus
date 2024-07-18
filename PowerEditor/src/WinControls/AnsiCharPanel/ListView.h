@@ -47,7 +47,7 @@ public:
 	void setColumnText(size_t i, generic_string txt2Set) {
 		LVCOLUMN lvColumn{};
 		lvColumn.mask = LVCF_TEXT;
-		lvColumn.pszText = const_cast<TCHAR *>(txt2Set.c_str());
+		lvColumn.pszText = const_cast<wchar_t *>(txt2Set.c_str());
 		ListView_SetColumn(_hSelf, i, &lvColumn);
 	}
 

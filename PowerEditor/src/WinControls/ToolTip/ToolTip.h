@@ -35,7 +35,7 @@ public:
 	};
 
 	void init(HINSTANCE hInst, HWND hParent) override;
-	void Show(RECT rectTitle, const TCHAR* pszTitleText, int iXOff = 0, int iWidthOff = 0);
+	void Show(RECT rectTitle, const wchar_t* pszTitleText, int iXOff = 0, int iWidthOff = 0);
 
 protected:
 	BOOL		_bTrackMouse = FALSE;

@@ -22,7 +22,7 @@
 
 class URLCtrl : public Window {
 public:
-    void create(HWND itemHandle, const TCHAR * link, COLORREF linkColor = RGB(0,0,255));
+    void create(HWND itemHandle, const wchar_t * link, COLORREF linkColor = RGB(0,0,255));
 	void create(HWND itemHandle, int cmd, HWND msgDest = NULL);
 	void destroy() override;
 private:

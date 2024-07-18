@@ -26,7 +26,7 @@
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 5) // DM_REPOSITION uses WM_USER + 2
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
 
-const TCHAR VIEWZONE_DOCUMENTMAP[64] = L"Document map";
+const wchar_t VIEWZONE_DOCUMENTMAP[64] = L"Document map";
 
 class ScintillaEditView;
 class Buffer;

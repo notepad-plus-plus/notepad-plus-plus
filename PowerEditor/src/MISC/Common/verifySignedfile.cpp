@@ -149,7 +149,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		DWORD netstatus;
 		QOCINFO oci;
 		oci.dwSize = sizeof(oci);
-		CONST TCHAR* msftTEXTest_site = L"http://www.msftncsi.com/ncsi.txt";
+		CONST wchar_t* msftTEXTest_site = L"http://www.msftncsi.com/ncsi.txt";
 		bool online = false;
 		online = (0 != IsNetworkAlive(&netstatus));
 		online = online && (0 == GetLastError());
@@ -248,7 +248,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 			throw string("Getting x509 field size problem.");
 		}
 
-		std::unique_ptr<TCHAR[]> subject_buffer(new TCHAR[subject_sze]);
+		std::unique_ptr<wchar_t[]> subject_buffer(new wchar_t[subject_sze]);
 		if (::CertNameToStr(X509_ASN_ENCODING, &context->pCertInfo->Subject, CERT_X500_NAME_STR, subject_buffer.get(), subject_sze) <= 1)
 		{
 			throw string("Failed to get x509 filed infos from certificate.");
@@ -271,7 +271,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		wstringstream ss;
 		for (unsigned i = 0; i < key_id_sze; i++)
 		{
-			ss << std::uppercase << std::setfill(TCHAR('0')) << std::setw(2) << std::hex
+			ss << std::uppercase << std::setfill(wchar_t('0')) << std::setw(2) << std::hex
 				<< key_id_buff[i];
 		}
 		key_id_hex = ss.str();
@@ -287,7 +287,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		}
 
 		// Get display name.
-		std::unique_ptr<TCHAR[]> display_name_buffer(new TCHAR[sze]);
+		std::unique_ptr<wchar_t[]> display_name_buffer(new wchar_t[sze]);
 		if (::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, display_name_buffer.get(), sze) <= 1)
 		{
 			throw string("Cannot get certificate info." + ws2s(GetLastErrorAsString(GetLastError())));

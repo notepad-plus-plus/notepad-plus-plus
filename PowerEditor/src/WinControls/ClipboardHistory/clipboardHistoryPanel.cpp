@@ -188,16 +188,16 @@ void ClipboardHistoryPanel::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	
 	ClipboardDataInfo& cbd = _clipboardDataInfos[i];
 	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
-	TCHAR* displayStr = nullptr;
+	wchar_t* displayStr = nullptr;
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	if (cbd._isBinaryContained)
 	{
 		char* displayStrA = (char*)sa.getPointer();
-		displayStr = (TCHAR*)wmc.char2wchar(displayStrA, SC_CP_UTF8);
+		displayStr = (wchar_t*)wmc.char2wchar(displayStrA, SC_CP_UTF8);
 	}
 	else
 	{
-		displayStr = (TCHAR*)sa.getPointer();
+		displayStr = (wchar_t*)sa.getPointer();
 	}
 
 	::SetTextColor(lpDrawItemStruct->hDC, fgColor);

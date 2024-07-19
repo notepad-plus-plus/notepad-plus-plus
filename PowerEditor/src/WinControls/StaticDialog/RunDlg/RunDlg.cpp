@@ -23,6 +23,7 @@
 #include "Notepad_plus.h"
 #include <strsafe.h>
 
+using namespace std;
 
 void Command::extractArgs(wchar_t* cmd2Exec, size_t cmd2ExecLen, wchar_t* args, size_t argsLen, const wchar_t* cmdEntier)
 {
@@ -224,7 +225,7 @@ HINSTANCE Command::run(HWND hWnd, const wchar_t* cwd)
 	int retResult = static_cast<int>(reinterpret_cast<intptr_t>(res));
 	if (retResult <= 32)
 	{
-		generic_string errorMsg;
+		wstring errorMsg;
 		errorMsg += GetLastErrorAsString(retResult);
 		errorMsg += L"An attempt was made to execute the below command.";
 		errorMsg += L"\n----------------------------------------------------------";
@@ -381,7 +382,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
                             // Insert the separator and modify/delete command
 							::InsertMenu(hRunMenu, posBase + nbTopLevelItem + 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
 							NativeLangSpeaker *pNativeLangSpeaker = nppParams.getNativeLangSpeaker();
-							generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
+							wstring nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
 							if (nativeLangShortcutMapperMacro == L"")
 								nativeLangShortcutMapperMacro = runMenu.getLastCmdLabel();
 
@@ -399,12 +400,12 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					fd.setExtFilter(L"Executable File", { L".exe", L".com", L".cmd", L".bat" });
 					fd.setExtFilter(L"All Files", L".*");
 
-					generic_string fn = fd.doOpenSingleFileDlg();
+					wstring fn = fd.doOpenSingleFileDlg();
 					if (!fn.empty())
 					{
-						if (fn.find(' ') != generic_string::npos)
+						if (fn.find(' ') != wstring::npos)
 						{
-							generic_string fn_quotes(fn);
+							wstring fn_quotes(fn);
 							fn_quotes = L"\"" + fn_quotes + L"\"";
 							addTextToCombo(fn_quotes.c_str());
 						}

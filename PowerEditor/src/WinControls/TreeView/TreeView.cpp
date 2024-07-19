@@ -19,6 +19,8 @@
 #include "TreeView.h"
 #include "Parameters.h"
 
+using namespace std;
+
 #define CY_ITEMHEIGHT     18
 
 void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
@@ -135,7 +137,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 	return tvItem.lParam;
 }
 
-generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
+wstring TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (!Item2Set)
 		return L"";
@@ -623,7 +625,7 @@ bool TreeView::canDragOut(HTREEITEM targetItem)
 
 
 
-bool TreeView::searchLeafAndBuildTree(const TreeView & tree2Build, const generic_string & text2Search, int index2Search)
+bool TreeView::searchLeafAndBuildTree(const TreeView & tree2Build, const wstring & text2Search, int index2Search)
 {
 	//tree2Build.removeAllItems();
 	//HTREEITEM root = getRoot();
@@ -631,7 +633,7 @@ bool TreeView::searchLeafAndBuildTree(const TreeView & tree2Build, const generic
 	return searchLeafRecusivelyAndBuildTree(tree2Build.getRoot(), text2Search, index2Search, getRoot());
 }
 
-bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search)
+bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const wstring & text2Search, int index2Search, HTREEITEM tree2Search)
 {
 	if (!tree2Search)
 		return false;
@@ -646,11 +648,11 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const gene
 
 	if (tvItem.iImage == index2Search)
 	{
-		generic_string itemNameUpperCase = stringToUpper(tvItem.pszText);
-		generic_string text2SearchUpperCase = stringToUpper(text2Search);
+		wstring itemNameUpperCase = stringToUpper(tvItem.pszText);
+		wstring text2SearchUpperCase = stringToUpper(text2Search);
 
 		size_t res = itemNameUpperCase.find(text2SearchUpperCase);
-		if (res != generic_string::npos)
+		if (res != wstring::npos)
 		{
 			TVINSERTSTRUCT tvInsertStruct{};
 			tvInsertStruct.item = tvItem;
@@ -690,7 +692,7 @@ bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREE
 
 	if (tvItem.lParam)
 	{
-		treeState2Construct._extraData = *((generic_string *)tvItem.lParam);
+		treeState2Construct._extraData = *((wstring *)tvItem.lParam);
 	}
 
 	int i = 0;

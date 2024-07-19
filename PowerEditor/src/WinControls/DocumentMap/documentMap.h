@@ -150,5 +150,5 @@ private:
 	// for needToRecomputeWith function
 	intptr_t _displayZoom = -1;
 	intptr_t _displayWidth = 0;
-	generic_string id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
+	std::wstring id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 };

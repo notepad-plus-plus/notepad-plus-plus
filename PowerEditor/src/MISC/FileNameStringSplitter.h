@@ -16,7 +16,7 @@
 
 #pragma once
 
-typedef std::vector<generic_string> stringVector;
+typedef std::vector<std::wstring> stringVector;
 
 class FileNameStringSplitter
 {
@@ -44,7 +44,7 @@ public:
 					{
 						str[i] = '\0';
                         if (str[0])
-							_fileNames.push_back(generic_string(str));
+							_fileNames.push_back(std::wstring(str));
 						i = 0;
 					}
 					isInsideQuotes = !isInsideQuotes;
@@ -63,7 +63,7 @@ public:
 					{
 						str[i] = '\0';
                         if (str[0])
-							_fileNames.push_back(generic_string(str));
+							_fileNames.push_back(std::wstring(str));
 						i = 0;
 					}
                     pStr++;
@@ -74,7 +74,7 @@ public:
 				{
                     str[i] = *pStr;
                     if (str[0])
-						_fileNames.push_back(generic_string(str));
+						_fileNames.push_back(std::wstring(str));
                     fini = true;
 					break;
 				}

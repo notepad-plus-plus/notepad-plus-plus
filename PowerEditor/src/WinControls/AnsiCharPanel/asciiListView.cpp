@@ -18,6 +18,8 @@
 #include "asciiListView.h"
 #include "Parameters.h"
 
+using namespace std;
+
 void AsciiListView::resetValues(int codepage)
 {
 	if (codepage == -1)
@@ -30,7 +32,7 @@ void AsciiListView::resetValues(int codepage)
 	setValues(codepage);
 }
 
-generic_string AsciiListView::getAscii(unsigned char value)
+wstring AsciiListView::getAscii(unsigned char value)
 {
 	switch (value)
 	{
@@ -115,7 +117,7 @@ generic_string AsciiListView::getAscii(unsigned char value)
 	}
 }
 
-generic_string AsciiListView::getHtmlName(unsigned char value)
+wstring AsciiListView::getHtmlName(unsigned char value)
 {
 	switch (value)
 	{
@@ -515,10 +517,10 @@ void AsciiListView::setValues(int codepage)
 		wchar_t hex[bufSize]{};
 		wchar_t htmlNumber[bufSize]{};
 		wchar_t htmlHexNumber[bufSizeHex]{};
-		generic_string htmlName;
+		wstring htmlName;
 		swprintf(dec, bufSize, L"%d", i);
 		swprintf(hex, bufSize, L"%02X", i);
-		generic_string s = getAscii(static_cast<unsigned char>(i));
+		wstring s = getAscii(static_cast<unsigned char>(i));
 
 		if (codepage == 0 || codepage == 1252)
 		{
@@ -551,7 +553,7 @@ void AsciiListView::setValues(int codepage)
 			htmlName = L"";
 		}
 
-		std::vector<generic_string> values2Add;
+		std::vector<wstring> values2Add;
 
 		values2Add.push_back(dec);
 		values2Add.push_back(hex);

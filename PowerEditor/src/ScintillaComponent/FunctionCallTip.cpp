@@ -397,7 +397,7 @@ void FunctionCallTip::showCalltip()
 		}
 	}
 
-	generic_stringstream callTipText;
+	std::basic_stringstream<wchar_t> callTipText;
 
 	if (_currentNbOverloads > 1)
 	{

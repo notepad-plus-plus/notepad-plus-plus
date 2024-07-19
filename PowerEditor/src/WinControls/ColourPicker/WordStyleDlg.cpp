@@ -103,7 +103,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
 			for (size_t i = 0 ; i < themeSwitcher.size() ; ++i)
 			{
-				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
+				pair<wstring, wstring> & themeInfo = themeSwitcher.getElementFromIndex(i);
 				int j = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str())));
 				if (! themeInfo.second.compare( nppParamInst.getNppGUI()._themeName ) )
 				{
@@ -124,7 +124,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			for (size_t i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(wchar_t)) ; ++i)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[i]));
 
-			const std::vector<generic_string> & fontlist = (NppParameters::getInstance()).getFontList();
+			const std::vector<wstring> & fontlist = (NppParameters::getInstance()).getFontList();
 			for (size_t i = 0, len = fontlist.size() ; i < len ; ++i)
 			{
 				auto j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontlist[i].c_str()));
@@ -339,7 +339,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							NppParameters& nppParamInst = NppParameters::getInstance();
 							if (_restoreInvalid)
 							{
-								generic_string str(nppParamInst.getNppGUI()._themeName);
+								wstring str(nppParamInst.getNppGUI()._themeName);
 								nppParamInst.reloadStylers(str.c_str());
 								loadLangListFromNppParam();
 							}
@@ -611,7 +611,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 	setStyleListFromLexer(index2Begin);
 }
 
-void WordStyleDlg::updateThemeName(const generic_string& themeName)
+void WordStyleDlg::updateThemeName(const wstring& themeName)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )nppParam.getNppGUI();
@@ -782,12 +782,12 @@ void WordStyleDlg::switchToTheme()
 {
 	auto iSel = ::SendMessage(_hSwitch2ThemeCombo, CB_GETCURSEL, 0, 0);
 
-	generic_string prevThemeName(_themeName);
+	wstring prevThemeName(_themeName);
 	_themeName.clear();
 
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	ThemeSwitcher & themeSwitcher = nppParamInst.getThemeSwitcher();
-	pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(iSel);
+	pair<wstring, wstring> & themeInfo = themeSwitcher.getElementFromIndex(iSel);
 	_themeName = themeInfo.second;
 
 	if (_isThemeDirty)
@@ -841,7 +841,7 @@ bool WordStyleDlg::goToSection(const wchar_t* sectionNames)
 	if (!sectionNames || !sectionNames[0])
 		return false;
 
-	std::vector<generic_string> sections = tokenizeString(sectionNames, ':');
+	std::vector<wstring> sections = tokenizeString(sectionNames, ':');
 
 	if (sections.size() == 0 || sections.size() >= 3)
 		return false;
@@ -1163,7 +1163,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		LangType lType = nppParams.getLangIDFromStr(lexerStyler.getLexerName());
 		if (lType == L_TEXT)
 		{
-			generic_string lexerNameStr = lexerStyler.getLexerName();
+			wstring lexerNameStr = lexerStyler.getLexerName();
 			lexerNameStr += L" is not defined in NppParameters::getLangIDFromStr()";
 				printStr(lexerNameStr.c_str());
 		}
@@ -1280,7 +1280,7 @@ void WordStyleDlg::addLastThemeEntry()
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
 	ThemeSwitcher& themeSwitcher = nppParamInst.getThemeSwitcher();
-	std::pair<generic_string, generic_string>& themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
+	std::pair<wstring, wstring>& themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
 	::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
 }
 

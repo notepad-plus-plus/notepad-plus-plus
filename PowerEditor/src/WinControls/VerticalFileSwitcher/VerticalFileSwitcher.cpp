@@ -22,6 +22,8 @@
 #include "resource.h"
 #include "localization.h"
 
+using namespace std;
+
 #define GET_X_LPARAM(lp) static_cast<short>(LOWORD(lp))
 #define GET_Y_LPARAM(lp) static_cast<short>(HIWORD(lp))
 
@@ -414,7 +416,7 @@ intptr_t CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam,
 					int i = pGetInfoTip->iItem;
 					if (i == -1)
 						return TRUE;
-					generic_string fn = getFullFilePath((size_t)i);
+					wstring fn = getFullFilePath((size_t)i);
 					lstrcpyn(pGetInfoTip->pszText, fn.c_str(), pGetInfoTip->cchTextMax);
 					return TRUE;
 				}
@@ -533,9 +535,9 @@ void VerticalFileSwitcher::initPopupMenus()
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
-	generic_string extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
-	generic_string pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
-	generic_string groupStr = pNativeSpeaker->getAttrNameStr(L"Group by View", FS_ROOTNODE, FS_LVGROUPS);
+	wstring extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
+	wstring pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
+	wstring groupStr = pNativeSpeaker->getAttrNameStr(L"Group by View", FS_ROOTNODE, FS_LVGROUPS);
 
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, CLMNEXT_ID, MF_BYCOMMAND | MF_STRING, CLMNEXT_ID, extStr.c_str());

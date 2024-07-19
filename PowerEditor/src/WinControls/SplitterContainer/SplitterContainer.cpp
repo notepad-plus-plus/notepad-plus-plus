@@ -244,9 +244,9 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 					_hPopupMenu = ::CreatePopupMenu();
 
 					NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
-					const generic_string textLeft =
+					const std::wstring textLeft =
 						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-left", L"Rotate to left");
-					const generic_string textRight =
+					const std::wstring textRight =
 						nativeLangSpeaker->getLocalizedStrFromID("splitter-rotate-right", L"Rotate to right");
 
 					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_LEFT, textLeft.c_str());

@@ -71,7 +71,7 @@ public:
 		_fileListView.setItemColor(bufferID);
 	};
 
-	generic_string getFullFilePath(size_t i) const {
+	std::wstring getFullFilePath(size_t i) const {
 		return _fileListView.getFullFilePath(i);
 	};
 

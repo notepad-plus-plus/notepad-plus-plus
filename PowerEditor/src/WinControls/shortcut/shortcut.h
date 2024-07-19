@@ -142,7 +142,7 @@ public:
 	};
 
 	virtual std::string toString() const;					//the hotkey part
-	std::string toMenuItemString() const {					//generic_string suitable for menu
+	std::string toMenuItemString() const {					//std::wstring suitable for menu
 		std::string str = _menuName;
 		if (isEnabled())
 		{
@@ -199,8 +199,8 @@ public:
 
 private :
 	unsigned long _id = 0;
-	generic_string _category;
-	generic_string _shortcutName;
+	std::wstring _category;
+	std::wstring _shortcutName;
 	int _nth = 0; // Allow several shortcuts for the same command (_id).
 	              // If there is the 2nd identical command in winKeyDefs array, the value of _nth will be 1.
 	              // This variable member allows the application to distinguish the different shortcuts assigned to the same command.

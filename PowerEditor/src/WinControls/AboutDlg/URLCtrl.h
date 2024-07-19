@@ -29,7 +29,7 @@ private:
 	HCURSOR& loadHandCursor();
 	void action();
 protected :
-    generic_string _URL;
+    std::wstring _URL;
     HFONT _hfUnderlined = nullptr;
     HCURSOR _hCursor = nullptr;
 

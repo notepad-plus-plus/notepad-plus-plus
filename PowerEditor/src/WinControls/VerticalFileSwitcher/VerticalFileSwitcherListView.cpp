@@ -20,6 +20,8 @@
 #include "Buffer.h"
 #include "localization.h"
 
+using namespace std;
+
 void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst)
 {
 	Window::init(hInst, parent);
@@ -109,16 +111,16 @@ void VerticalFileSwitcherListView::initList()
 		nameWidth -= nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherPathWidth);
 
 	//add columns
-	generic_string nameStr = pNativeSpeaker->getAttrNameStr(L"Name", FS_ROOTNODE, FS_CLMNNAME);
+	wstring nameStr = pNativeSpeaker->getAttrNameStr(L"Name", FS_ROOTNODE, FS_CLMNNAME);
 	insertColumn(nameStr.c_str(), nameWidth, ++colIndex);
 	if (isExtColumn)
 	{
-		generic_string extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
+		wstring extStr = pNativeSpeaker->getAttrNameStr(L"Ext.", FS_ROOTNODE, FS_CLMNEXT);
 		insertColumn(extStr.c_str(), nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherExtWidth), ++colIndex); //2nd column
 	}
 	if (isPathColumn)
 	{
-		generic_string pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
+		wstring pathStr = pNativeSpeaker->getAttrNameStr(L"Path", FS_ROOTNODE, FS_CLMNPATH);
 		insertColumn(pathStr.c_str(), nppParams._dpiManager.scaleX(nppParams.getNppGUI()._fileSwitcherPathWidth), ++colIndex); //2nd column if .ext is off
 	}
 
@@ -284,7 +286,7 @@ void VerticalFileSwitcherListView::setItemColor(BufferID bufferID)
 	redraw();
 }
 
-generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const
+wstring VerticalFileSwitcherListView::getFullFilePath(size_t i) const
 {
 	size_t nbItem = ListView_GetItemCount(_hSelf);
 	if (i > nbItem)

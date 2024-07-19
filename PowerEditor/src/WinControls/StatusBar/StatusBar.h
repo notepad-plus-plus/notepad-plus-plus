@@ -51,6 +51,6 @@ private:
 private:
     std::vector<int> _partWidthArray;
 	int *_lpParts = nullptr;
-	generic_string _lastSetText;
+	std::wstring _lastSetText;
 	StatusBarSubclassInfo* _pStatusBarInfo = nullptr;
 };

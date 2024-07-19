@@ -425,7 +425,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			else
 			{
 				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
-				generic_string tip = pNativeSpeaker->getLocalizedStrFromID("close-panel-tip", L"Close");
+				wstring tip = pNativeSpeaker->getLocalizedStrFromID("close-panel-tip", L"Close");
 				toolTip.Show(rc, tip.c_str(), pt.x, pt.y + 20);
 			}
 			return 0;
@@ -1722,7 +1722,7 @@ void DockingCont::selectTab(int iTab)
 
 		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
-			generic_string szText;
+			wstring szText;
 			if (iItem == iTab && pszMaxTxt)
 			{
 				// fake here an icon before text ...

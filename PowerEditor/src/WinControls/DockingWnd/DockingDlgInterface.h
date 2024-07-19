@@ -86,8 +86,8 @@ protected :
 	int	_dlgID = -1;
 	bool _isFloating = true;
 	int _iDockedPos = 0;
-	generic_string _moduleName;
-	generic_string _pluginName;
+	std::wstring _moduleName;
+	std::wstring _pluginName;
 	bool _isClosed = false;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override {

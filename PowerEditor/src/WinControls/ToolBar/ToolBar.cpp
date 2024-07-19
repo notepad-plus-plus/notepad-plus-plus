@@ -22,11 +22,13 @@
 #include "FindReplaceDlg_rc.h"
 #include "NppDarkMode.h"
 
+using namespace std;
+
 constexpr DWORD WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT | CCS_TOP | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
 struct ToolbarIconIdUnit
 {
-	generic_string _id;
+	wstring _id;
 	bool hasDisabledIcon = false;
 };
 
@@ -73,21 +75,21 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 		_toolIcons = _toolIcons->FirstChild(L"ToolBarIcons");
 		if (_toolIcons)
 		{
-			generic_string iconFolderDir = NppParameters::getInstance().getUserPath();
-			generic_string toolbarIconsRootFolderName = L"toolbarIcons";
+			wstring iconFolderDir = NppParameters::getInstance().getUserPath();
+			wstring toolbarIconsRootFolderName = L"toolbarIcons";
 			pathAppend(iconFolderDir, toolbarIconsRootFolderName);
-			generic_string folderName = (_toolIcons->ToElement())->Attribute(L"icoFolderName");
+			wstring folderName = (_toolIcons->ToElement())->Attribute(L"icoFolderName");
 			if (folderName.empty())
 				folderName = L"default";
 
 			pathAppend(iconFolderDir, folderName);
 
 			size_t i = 0;
-			generic_string disabled_suffix = L"_disabled";
-			generic_string ext = L".ico";
+			wstring disabled_suffix = L"_disabled";
+			wstring ext = L".ico";
 			for (ToolbarIconIdUnit icoUnit : toolbarIconIDs)
 			{
-				generic_string locator = iconFolderDir;
+				wstring locator = iconFolderDir;
 				locator += L"\\";
 				locator += icoUnit._id;
 				locator += ext;
@@ -101,7 +103,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 
 				if (icoUnit.hasDisabledIcon)
 				{
-					generic_string locator_dis = iconFolderDir;
+					wstring locator_dis = iconFolderDir;
 					locator_dis += L"\\";
 					locator_dis += icoUnit._id;
 					locator_dis += disabled_suffix;
@@ -497,7 +499,7 @@ void ToolBar::doPopop(POINT chevPoint)
 	if (start < _nbCurrentButtons)
 	{	//some buttons are hidden
 		HMENU menu = ::CreatePopupMenu();
-		generic_string text;
+		wstring text;
 		while (start < _nbCurrentButtons)
 		{
 			int cmd = _pTBB[start].idCommand;

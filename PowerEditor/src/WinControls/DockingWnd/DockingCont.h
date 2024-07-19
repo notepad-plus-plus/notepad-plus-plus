@@ -186,7 +186,7 @@ private:
 
 	// caption params
 	BOOL _isTopCaption = CAPTION_TOP;
-	generic_string _pszCaption;
+	std::wstring _pszCaption;
 
 	BOOL _isMouseDown = FALSE;
 	BOOL _isMouseClose = FALSE;

@@ -996,7 +996,7 @@ void ScintillaAccelerator::updateMenuItemByID(const ScintillaKeyMap& skm, int id
 		}
 		++i;
 	}
-	generic_string menuItem = cmdName;
+	wstring menuItem = cmdName;
 	if (skm.isEnabled())
 	{
 		menuItem += L"\t";
@@ -1189,7 +1189,7 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(string2wstring(toString(res), CP_UTF8).c_str()));
 						}
 						else
-						{	//update current generic_string, can happen if it was disabled
+						{	//update current string, can happen if it was disabled
 							updateListItem(res);
 						}
 						::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, res, 0);

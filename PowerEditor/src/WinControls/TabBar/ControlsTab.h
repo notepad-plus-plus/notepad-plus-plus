@@ -24,8 +24,8 @@
 struct DlgInfo
 {
     Window *_dlg;
-    generic_string _name;
-	generic_string _internalName;
+    std::wstring _name;
+	std::wstring _internalName;
 
 	DlgInfo(Window *dlg, const wchar_t *name, const wchar_t *internalName = L""): _dlg(dlg), _name(name), _internalName(internalName) {};
 };

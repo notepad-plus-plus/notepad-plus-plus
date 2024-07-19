@@ -1532,7 +1532,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					holdfont = (HFONT)SelectObject(hdc, BGHS[SelfIndex].hfont);
 				}
-				//if there are \n codes in the generic_string, find the longest line
+				//if there are \n codes in the string, find the longest line
 				int longestline = FindLongestLine(hdc, (wchar_t*)lParam, &size);
 				int required_width = longestline + 15;
 				required_height = size.cy;

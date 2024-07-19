@@ -40,12 +40,12 @@ class Command {
 public :
 	Command() = default;
 	explicit Command(const wchar_t *cmd) : _cmdLine(cmd){};
-	explicit Command(const generic_string& cmd) : _cmdLine(cmd){};
+	explicit Command(const std::wstring& cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
 	HINSTANCE run(HWND hWnd, const wchar_t* cwd);
 
 protected :
-	generic_string _cmdLine;
+	std::wstring _cmdLine;
 private :
 	void extractArgs(wchar_t *cmd2Exec, size_t cmd2ExecLen, wchar_t *args, size_t argsLen, const wchar_t *cmdEntier);
 };

@@ -53,7 +53,7 @@ private:
 	wchar_t _stop = ')';
 	wchar_t _param = ',';
 	wchar_t _terminal = ';';
-    generic_string _additionalWordChar = L"";
+    std::wstring _additionalWordChar = L"";
 	bool _ignoreCase = true;
 	bool _selfActivated = false;
 

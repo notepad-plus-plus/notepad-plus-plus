@@ -25,8 +25,8 @@
 #define CY_BITMAP         16
 
 struct TreeStateNode {
-	generic_string _label;
-	generic_string _extraData;
+	std::wstring _label;
+	std::wstring _extraData;
 	bool _isExpanded = false;
 	bool _isSelected = false;
 	std::vector<TreeStateNode> _children;
@@ -43,7 +43,7 @@ public:
 	HTREEITEM addItem(const wchar_t *itemName, HTREEITEM hParentItem, int iImage, LPARAM lParam = 0);
 	bool setItemParam(HTREEITEM Item2Set, LPARAM param);
 	LPARAM getItemParam(HTREEITEM Item2Get) const;
-	generic_string getItemDisplayName(HTREEITEM Item2Set) const;
+	std::wstring getItemDisplayName(HTREEITEM Item2Set) const;
 	HTREEITEM searchSubItemByName(const wchar_t *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
@@ -116,7 +116,7 @@ public:
 	bool swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp);
 	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
-	bool searchLeafAndBuildTree(const TreeView & tree2Build, const generic_string & text2Search, int index2Search);
+	bool searchLeafAndBuildTree(const TreeView & tree2Build, const std::wstring & text2Search, int index2Search);
 	void sort(HTREEITEM hTreeItem, bool isRecusive);
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
 	BOOL setImageList(int w, int h, int nbImage, int image_id, ...);
@@ -132,7 +132,7 @@ protected:
 
 	void cleanSubEntries(HTREEITEM hTreeItem);
 	void dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem);
-	bool searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search);
+	bool searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const std::wstring & text2Search, int index2Search, HTREEITEM tree2Search);
 
 	// Drag and Drop operations
 	HTREEITEM _draggedItem = nullptr;

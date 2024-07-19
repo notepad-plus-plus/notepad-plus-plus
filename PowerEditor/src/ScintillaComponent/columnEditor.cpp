@@ -20,6 +20,7 @@
 #include "columnEditor.h"
 #include "ScintillaEditView.h"
 
+using namespace std;
 
 void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
@@ -215,11 +216,11 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 									line = new wchar_t[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
-								generic_string s2r(line);
+								wstring s2r(line);
 
 								if (lineEndCol < cursorCol)
 								{
-									generic_string s_space(cursorCol - lineEndCol, ' ');
+									wstring s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -323,16 +324,16 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
 
-								generic_string s2r(line);
+								wstring s2r(line);
 
 								//
-								// Calcule generic_string
+								// Calcule wstring
 								//
 								variedFormatNumber2String<wchar_t>(str, stringSize, numbers.at(i - cursorLine), base, nb, getLeading());
 
 								if (lineEndCol < cursorCol)
 								{
-									generic_string s_space(cursorCol - lineEndCol, ' ');
+									wstring s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}

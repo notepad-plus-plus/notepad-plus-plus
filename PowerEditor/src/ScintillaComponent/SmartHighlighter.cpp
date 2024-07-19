@@ -26,7 +26,7 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 	//Nothing to do
 }
 
-void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite)
+void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const std::wstring & word2Hilite)
 {
 	// save target locations for other search functions
 	auto originalStartPos = pHighlightView->execute(SCI_GETTARGETSTART);

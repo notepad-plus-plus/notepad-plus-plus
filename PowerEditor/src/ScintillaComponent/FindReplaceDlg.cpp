@@ -2971,7 +2971,7 @@ bool FindReplaceDlg::processReplace(const wchar_t *txt2find, const wchar_t *txt2
 				}
 				else if (status == FSTopReached)
 				{
-					generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", L"Replace: Replaced the last occurrence from the bottom. The begin of document has been reached.");
+					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", L"Replace: Replaced the last occurrence from the bottom. The begin of document has been reached.");
 					setStatusbarMessage(msg, FSTopReached);
 				}
 				else

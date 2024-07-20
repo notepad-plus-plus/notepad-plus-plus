@@ -1200,7 +1200,7 @@ Translation note:
 				<Backup title="Backup">
 					<Item id="6817" name="Session snapshot and periodic backup"/>
 					<Item id="6818" name="Enable session snapshot and periodic backup"/>
-					<Item id="6819" name="Trigger backup on modifification in every"/>
+					<Item id="6819" name="Trigger backup on modification in every"/>
 					<Item id="6821" name="seconds"/>
 					<Item id="6822" name="Backup path:"/>
 					<Item id="6309" name="Remember current session for next launch"/>
@@ -1808,8 +1808,8 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
 			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
 			<autoIndentBasic-tip value="Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line."/>
-			<autoIndentAdvanced-tip value="Enable smart indentation for 'C-like' languages and Python. The 'C-like' languages include:
-C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON
+			<autoIndentAdvanced-tip value="Enable smart indentation for &quot;C-like&quot; languages and Python. The &quot;C-like&quot; languages include:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
 
 If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
 		</MiscStrings>

@@ -1754,7 +1754,7 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<summary-nbline value="Linii: "/>
 			<summary-nbbyte value="Lungimea documentului: "/>
 			<summary-nbsel1 value=" caracterele selectate ("/>
-			<summary-nbsel2 value=" octeți) În "/>
+			<summary-nbsel2 value=" octeți) în "/>
 			<summary-nbrange value=" intervale"/>
 			<progress-hits-title value="Coincidențe:"/>
 			<progress-cancel-info value="Se anulează operația, te rugăm să aștepți..."/>

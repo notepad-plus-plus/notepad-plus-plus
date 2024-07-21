@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.6.9
--    Ultima modificare 16 iunie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.7
+-    Ultima modificare a fost făcută 27 iulie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.6.9">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -954,7 +954,7 @@
                     <Item id="6109" name="Întunecare file inactive"/>
                     <Item id="6110" name="Desenare linie colorată pe fila activă"/>                  
                     <Item id="6112" name="Afișare buton închidere pe fiecare filă"/>
-                    <Item id="6113" name="Închidere document cu dublu clic"/>
+                    <Item id="6113" name="Închide documentele cu dublu clic"/>
                     <Item id="6118" name="Ascundere"/>
                     <Item id="6119" name="Multilinie"/>
                     <Item id="6120" name="Verticală"/>
@@ -965,13 +965,13 @@
 					<Item id="6134" name="Ascunde"/>
                  
                     <Item id="6131" name="Meniu"/>
-                    <Item id="6122" name="Ascunderea barei de meniu (comutare cu Alt sau F10)"/>
-                    <Item id="6132" name="Ascunderea butoanelor din dreapta ＋ ▼ ✕ din bara de meniu (necesită repornirea Notepad++)"/>
+                    <Item id="6122" name="Ascunde bara de meniu (comutare cu Alt sau F10)"/>
+                    <Item id="6132" name="Ascunde butoanele din dreapta ＋ ▼ ✕ din bara de meniu (necesită repornirea Notepad++)"/>
 					
                     <Item id="6123" name="Limba"/>
 					<Item id="6125" name="Panou listă documente"/>
                     <Item id="6126" name="Afișare"/>
-                    <Item id="6127" name="Dezactivare coloană module"/>
+                    <Item id="6127" name="Dezactivează coloana de module"/>
                 </Global>
 				
                 <Scintillas title="Editare 1">
@@ -1126,8 +1126,8 @@
 
                 <Highlighting title="Evidențiere">
                     <Item id="6351" name="Stilarea tuturor aparițiilor unice"/>
-                    <Item id="6352" name="Potrivire litere MARI/mici"/>
-                    <Item id="6353" name="Potrivie cuvânt întreg"/>
+                    <Item id="6352" name="Potrivire pentru litere MARI/mici"/>
+                    <Item id="6353" name="Potrivire pentru cuvinte întregi"/>
                     <Item id="6333" name="Evidențiere inteligentă"/>
                     <Item id="6326" name="Activare"/>
 					<Item id="6354" name="Potrivire"/>
@@ -1246,7 +1246,7 @@
                 <MultiInstance title="Instanțe multiple">
                     <Item id="6151" name="Setări instanțe multiple"/>
                     <Item id="6152" name="Deschidere sesiune în instanță nouă Notepad++"/>
-                    <Item id="6153" name="Totdeauna în mod instanță multiplă"/>
+                    <Item id="6153" name="Întotdeauna în mod instanță multiplă"/>
                     <Item id="6154" name="Implicit (instanță unică)"/>
                     <Item id="6155" name="* Modificarea acestor setări necesită repornirea Notepad++"/>
                     <Item id="6171" name="Personalizarea inserării datei și timpului"/>
@@ -1317,23 +1317,23 @@
                         <Element name="Dezactivare"/>
                     </ComboBox>
                     <Item id="6308" name="Micșorare în zona de sistem"/>
-                    <Item id="6312" name="Autodetectare stare fișier"/>
+                    <Item id="6312" name="Autodetectare a stării fișierului"/>
                     <Item id="6313" name="Actualizare silențioasă"/>
                     <Item id="6325" name="Derulare la ultima linie după actualizare"/>
-                    <Item id="6322" name="Extensie fișier sesiune:"/>
-                    <Item id="6323" name="Activare autoactualizare Notepad++"/>
-                    <Item id="6324" name="Comutare documente (Ctrl+Tab)"/>
-                    <Item id="6331" name="Afișare doar nume fișier în bara de titlu"/>
-                    <Item id="6334" name="Autodetectare codificare caractere"/>
+                    <Item id="6322" name="Extensie a fișierului de sesiune:"/>
+                    <Item id="6323" name="Activare a autoactualizării Notepad++"/>
+                    <Item id="6324" name="Comutator de documente (Ctrl+TAB)"/>
+                    <Item id="6331" name="Afișează numele fișierului în bara de titlu"/>
+                    <Item id="6334" name="Autodetectare a codificării caracterelor"/>
                     <Item id="6349" name="Folosire DirectWrite (Poate îmbunătăți afișarea caracterelor speciale, necesită repornirea Notepad++)"/>
-                    <Item id="6337" name="Extensie fișier spațiu de lucru:" />
+                    <Item id="6337" name="Extensie de fișiere a spațiului de lucru:" />
                     <Item id="6114" name="Activare"/>
                     <Item id="6117" name="În ordinea utilizării"/>             
-                    <Item id="6344" name="Previzualizare document"/>
-                    <Item id="6345" name="Previzualizare pe filă"/>
-                    <Item id="6346" name="Previzualizare pe hartă document"/>
-                    <Item id="6360" name="Punerea pe mut a tuturor sunetelor"/>
-                    <Item id="6361" name="Activarea dialogului de confirmare Salvare tot"/>
+                    <Item id="6344" name="Previzualizează documentul"/>
+                    <Item id="6345" name="Previzualizează pe filă"/>
+                    <Item id="6346" name="Previzualizează pe harta documentului"/>
+                    <Item id="6360" name="Pune pe mut toate sunetele"/>
+                    <Item id="6361" name="Activează dialogul de confirmare Salvare tot"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Executare macro în mod repetat">
@@ -1401,7 +1401,12 @@ Poți reactiva acest dialog mai târziu, în Preferințe."/>
 				<Item id="7" name="&amp;Nu"/>
 				<Item id="4" name="&amp;Întotdeauna da"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
-        </Dialog>
+        
+			<DebugInfo title="Informații de depanare">
+				<Item id="1752" name="&amp;Copiază informațiile de depanare în clipboard"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
+		</Dialog>
         <MessageBox> 
 		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Editare meniu contextual" message="Editarea fișierului contextMenu.xml vă permite să modificați meniul contextual al Notepad++.
@@ -1545,6 +1550,7 @@ NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu,
 Apasă butonul OK pentru a deschide căsuța de dialog Găsește sau pentru a seta focalizarea pe ea.
 			
 Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utilizatorului manualul de utilizare pentru instrucțiuni privind activarea acesteia."/>
+			<PrintError title="0" message="Nu se poate porni documentul imprimantei."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>
@@ -1748,7 +1754,7 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<summary-nbline value="Linii: "/>
 			<summary-nbbyte value="Lungimea documentului: "/>
 			<summary-nbsel1 value=" caracterele selectate ("/>
-			<summary-nbsel2 value=" octeți) in "/>
+			<summary-nbsel2 value=" octeți) în "/>
 			<summary-nbrange value=" intervale"/>
 			<progress-hits-title value="Coincidențe:"/>
 			<progress-cancel-info value="Se anulează operația, te rugăm să aștepți..."/>

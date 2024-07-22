@@ -675,6 +675,30 @@ constexpr bool isPHPStringState(int state) noexcept {
 	    (state == SCE_HPHP_COMPLEX_VARIABLE);
 }
 
+enum class AllowPHP : int {
+	None, // No PHP
+	PHP, // <?php and <?=
+	Question, // <?
+};
+
+constexpr bool IsPHPEntryState(int state) noexcept {
+	return !(isPHPStringState(state) || IsScriptCommentState(state) || AnyOf(state, SCE_H_ASPAT, SCE_HPHP_COMMENT, SCE_HPHP_COMMENTLINE));
+}
+
+bool IsPHPStart(AllowPHP allowPHP, Accessor &styler, Sci_PositionU start) {
+	if (allowPHP == AllowPHP::None) {
+		return false;
+	}
+	if (allowPHP == AllowPHP::PHP) {
+		// Require <?php or <?=
+		constexpr std::string_view phpTag = "<?php";
+		constexpr std::string_view echoTag = "<?=";
+		const std::string tag = styler.GetRangeLowered(start, start + phpTag.length());
+		return (tag == phpTag) || (tag.substr(0, echoTag.length()) == echoTag);
+	}
+	return true;
+}
+
 Sci_Position FindPhpStringDelimiter(std::string &phpStringDelimiter, Sci_Position i, const Sci_Position lengthDoc, Accessor &styler, bool &isSimpleString) {
 	const Sci_Position beginning = i - 1;
 	bool isQuoted = false;
@@ -722,8 +746,12 @@ struct OptionsHTML {
 	int aspDefaultLanguage = eScriptJS;
 	bool caseSensitive = false;
 	bool allowScripts = true;
+	AllowPHP allowPHPinXML = AllowPHP::Question;
+	AllowPHP allowPHPinHTML = AllowPHP::Question;
 	bool isMako = false;
 	bool isDjango = false;
+	bool allowASPinXML = true;
+	bool allowASPinHTML = true;
 	bool fold = false;
 	bool foldHTML = false;
 	bool foldHTMLPreprocessor = true;
@@ -767,11 +795,25 @@ struct OptionSetHTML : public OptionSet<OptionsHTML> {
 		DefineProperty("lexer.xml.allow.scripts", &OptionsHTML::allowScripts,
 			"Set to 0 to disable scripts in XML.");
 
+		DefineProperty("lexer.xml.allow.php", &OptionsHTML::allowPHPinXML,
+			"Set to 0 to disable PHP in XML, 1 to accept <?php and <?=, 2 to also accept <?."
+			"The default is 2.");
+
+		DefineProperty("lexer.html.allow.php", &OptionsHTML::allowPHPinHTML,
+			"Set to 0 to disable PHP in HTML, 1 to accept <?php and <?=, 2 to also accept <?."
+			"The default is 2.");
+
 		DefineProperty("lexer.html.mako", &OptionsHTML::isMako,
 			"Set to 1 to enable the mako template language.");
 
 		DefineProperty("lexer.html.django", &OptionsHTML::isDjango,
 			"Set to 1 to enable the django template language.");
+
+		DefineProperty("lexer.xml.allow.asp", &OptionsHTML::allowASPinXML,
+			"Set to 0 to disable ASP in XML.");
+
+		DefineProperty("lexer.html.allow.asp", &OptionsHTML::allowASPinHTML,
+			"Set to 0 to disable ASP in HTML.");
 
 		DefineProperty("fold", &OptionsHTML::fold);
 
@@ -1219,13 +1261,15 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 	const bool foldXmlAtTagOpen = isXml && fold && options.foldXmlAtTagOpen;
 	const bool caseSensitive = options.caseSensitive;
 	const bool allowScripts = options.allowScripts;
+	const AllowPHP allowPHP = isXml ? options.allowPHPinXML : options.allowPHPinHTML;
 	const bool isMako = options.isMako;
 	const bool isDjango = options.isDjango;
+	const bool allowASP = (isXml ? options.allowASPinXML : options.allowASPinHTML) && !isMako && !isDjango;
 	const CharacterSet setHTMLWord(CharacterSet::setAlphaNum, ".-_:!#", true);
 	const CharacterSet setTagContinue(CharacterSet::setAlphaNum, ".-_:!#[", true);
 	const CharacterSet setAttributeContinue(CharacterSet::setAlphaNum, ".-_:!#/", true);
 	// TODO: also handle + and - (except if they're part of ++ or --) and return keywords
-	const CharacterSet setOKBeforeJSRE(CharacterSet::setNone, "([{=,:;!%^&*|?~");
+	const CharacterSet setOKBeforeJSRE(CharacterSet::setNone, "([{=,:;!%^&*|?~> ");
 	// Only allow [A-Za-z0-9.#-_:] in entities
 	const CharacterSet setEntity(CharacterSet::setAlphaNum, ".#-_:");
 
@@ -1447,13 +1491,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 
 		/////////////////////////////////////
 		// handle the start of PHP pre-processor = Non-HTML
-		else if ((state != SCE_H_ASPAT) &&
-		         !isPHPStringState(state) &&
-		         (state != SCE_HPHP_COMMENT) &&
-		         (state != SCE_HPHP_COMMENTLINE) &&
-		         (ch == '<') &&
-		         (chNext == '?') &&
-				 !IsScriptCommentState(state)) {
+		else if ((ch == '<') && (chNext == '?') && IsPHPEntryState(state) && IsPHPStart(allowPHP, styler, i)) {
  			beforeLanguage = scriptLanguage;
 			scriptLanguage = segIsScriptingIndicator(styler, i + 2, i + 6, isXml ? eScriptXML : eScriptPHP);
 			if ((scriptLanguage != eScriptPHP) && (isStringState(state) || (state==SCE_H_COMMENT))) continue;
@@ -1579,7 +1617,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 		}
 
 		// handle the start of ASP pre-processor = Non-HTML
-		else if (!isMako && !isDjango && !isCommentASPState(state) && (ch == '<') && (chNext == '%') && !isPHPStringState(state)) {
+		else if ((ch == '<') && (chNext == '%') && allowASP && !isCommentASPState(state) && !isPHPStringState(state)) {
 			styler.ColourTo(i - 1, StateToPrint);
 			beforePreProc = state;
 			if (inScriptType == eNonHtmlScript)

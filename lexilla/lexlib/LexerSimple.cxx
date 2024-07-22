@@ -27,11 +27,11 @@ using namespace Lexilla;
 
 LexerSimple::LexerSimple(const LexerModule *module_) :
 	LexerBase(module_->LexClasses(), module_->NamedStyles()),
-	module(module_) {
-	for (int wl = 0; wl < module->GetNumWordLists(); wl++) {
+	lexerModule(module_) {
+	for (int wl = 0; wl < lexerModule->GetNumWordLists(); wl++) {
 		if (!wordLists.empty())
 			wordLists += "\n";
-		wordLists += module->GetWordListDescription(wl);
+		wordLists += lexerModule->GetWordListDescription(wl);
 	}
 }
 
@@ -41,22 +41,22 @@ const char * SCI_METHOD LexerSimple::DescribeWordListSets() {
 
 void SCI_METHOD LexerSimple::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, Scintilla::IDocument *pAccess) {
 	Accessor astyler(pAccess, &props);
-	module->Lex(startPos, lengthDoc, initStyle, keyWordLists, astyler);
+	lexerModule->Lex(startPos, lengthDoc, initStyle, keyWordLists, astyler);
 	astyler.Flush();
 }
 
 void SCI_METHOD LexerSimple::Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, Scintilla::IDocument *pAccess) {
 	if (props.GetInt("fold")) {
 		Accessor astyler(pAccess, &props);
-		module->Fold(startPos, lengthDoc, initStyle, keyWordLists, astyler);
+		lexerModule->Fold(startPos, lengthDoc, initStyle, keyWordLists, astyler);
 		astyler.Flush();
 	}
 }
 
 const char * SCI_METHOD LexerSimple::GetName() {
-	return module->languageName;
+	return lexerModule->languageName;
 }
 
 int SCI_METHOD LexerSimple::GetIdentifier() {
-	return module->GetLanguage();
+	return lexerModule->GetLanguage();
 }

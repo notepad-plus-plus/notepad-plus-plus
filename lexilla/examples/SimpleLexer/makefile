@@ -2,14 +2,15 @@
 
 INCLUDES = -I ../../../scintilla/include -I ../../include -I ../../lexlib
 
-BASE_FLAGS += --std=c++17 -shared
+BASE_FLAGS += --std=c++17
 
 ifdef windir
     SHAREDEXTENSION = dll
 else
     ifeq ($(shell uname),Darwin)
         SHAREDEXTENSION = dylib
-        BASE_FLAGS += -dynamiclib -arch arm64 -arch x86_64
+        BASE_FLAGS += -arch arm64 -arch x86_64
+        LINK_FLAGS += -dynamiclib
     else
         BASE_FLAGS += -fPIC
         SHAREDEXTENSION = so
@@ -23,7 +24,14 @@ ifdef windir
 endif
 
 LIBRARY = SimpleLexer.$(SHAREDEXTENSION)
-LEXLIB = ../../lexlib/*.cxx
+
+vpath %.cxx ../../lexlib
+ 
+LEXLIB_SOURCES := $(sort $(notdir $(wildcard ../../lexlib/*.cxx)))
+LEXLIB = $(LEXLIB_SOURCES:.cxx=.o)
+
+%.o: %.cxx
+	$(CXX) $(INCLUDES) $(BASE_FLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 all: $(LIBRARY)
 
@@ -34,5 +42,5 @@ check: $(LIBRARY)
 clean:
 	$(RM) *.o *obj *.lib *.exp $(LIBRARY)
 
-$(LIBRARY): *.cxx
-	$(CXX) $(INCLUDES) $(BASE_FLAGS) $(CPPFLAGS) $(CXXFLAGS) $^ $(LEXLIB) $(LIBS) $(LDLIBS) -o $@
+$(LIBRARY): $(LEXLIB) *.cxx
+	$(CXX) $(INCLUDES) $(LINK_FLAGS) $(BASE_FLAGS) -shared $(CPPFLAGS) $(CXXFLAGS) $^ $(LIBS) $(LDLIBS) -o $@

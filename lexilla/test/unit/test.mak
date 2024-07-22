@@ -1,16 +1,16 @@
 # Build all the unit tests with Microsoft Visual C++ using nmake
-# Tested with Visual C++ 2019
+# Tested with Visual C++ 2022
 
 DEL = del /q
 EXE = unitTest.exe
 
 INCLUDEDIRS = /I../../include /I../../lexlib /I../../../scintilla/include
 
-CXXFLAGS = /EHsc /std:c++17 /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
+CXXFLAGS = /MP /EHsc /std:c++17 /D_HAS_AUTO_PTR_ETC=1 /wd 4805 $(INCLUDEDIRS)
 
 # Files in this directory containing tests
 TESTSRC=test*.cxx
-# Files being tested from scintilla/src directory
+# Files being tested from lexilla/lexlib directory
 TESTEDSRC=\
  ../../lexlib/Accessor.cxx \
  ../../lexlib/CharacterSet.cxx \
@@ -31,5 +31,5 @@ test: $(TESTS)
 clean:
 	$(DEL) $(TESTS) *.o *.obj *.exe
 
-$(EXE): $(TESTSRC) $(TESTEDSRC) $(@B).obj
+$(EXE): $(TESTSRC) $(TESTEDSRC) $(@B).cxx
 	$(CXX) $(CXXFLAGS) /Fe$@ $**

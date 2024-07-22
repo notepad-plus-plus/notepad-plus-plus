@@ -410,6 +410,8 @@ ali SC_MARKNUM_FOLDERTAIL=FOLDER_TAIL
 ali SC_MARKNUM_FOLDERSUB=FOLDER_SUB
 ali SC_MARKNUM_FOLDEROPEN=FOLDER_OPEN
 
+val SC_MASK_HISTORY=0x01E00000
+
 # SC_MASK_FOLDERS doesn't go in an enumeration as larger than max 32-bit positive integer
 val SC_MASK_FOLDERS=0xFE000000
 
@@ -1145,6 +1147,12 @@ set void AutoCSetMaxHeight=2210(int rowCount,)
 
 # Set the maximum height, in rows, of auto-completion and user lists.
 get int AutoCGetMaxHeight=2211(,)
+
+# Set the style number used for auto-completion and user lists fonts.
+set void AutoCSetStyle=2109(int style,)
+
+# Get the style number used for auto-completion and user lists fonts.
+get int AutoCGetStyle=2120(,)
 
 # Set the number of spaces used for one level of indentation.
 set void SetIndent=2122(int indentSize,)
@@ -2656,6 +2664,9 @@ get int GetLayoutThreads=2776(,)
 
 # Copy the selection, if selection empty copy the line with the caret
 fun void CopyAllowLine=2519(,)
+
+# Cut the selection, if selection empty cut the line with the caret
+fun void CutAllowLine=2810(,)
 
 # Compact the document buffer and return a read-only pointer to the
 # characters in the document.

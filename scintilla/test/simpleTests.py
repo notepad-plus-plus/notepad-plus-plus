@@ -581,6 +581,19 @@ class TestSimple(unittest.TestCase):
 		self.ed.EOLMode = lineEndType
 		self.assertEqual(self.ed.Contents(), b"a1\na1\nb2")
 
+	def testCutAllowLine(self):
+		lineEndType = self.ed.EOLMode
+		self.ed.EOLMode = self.ed.SC_EOL_LF
+		self.ed.AddText(5, b"a1\nb2")
+		self.ed.SetSel(1,1)
+		self.ed.CutAllowLine()
+		# Clipboard = "a1\n"
+		self.assertEqual(self.ed.CanPaste(), 1)
+		self.ed.SetSel(0, 0)
+		self.ed.Paste()
+		self.ed.EOLMode = lineEndType
+		self.assertEqual(self.ed.Contents(), b"a1\nb2")
+
 	def testDuplicate(self):
 		self.ed.AddText(3, b"1b2")
 		self.ed.SetSel(1,2)
@@ -1868,6 +1881,7 @@ class TestMultiSelection(unittest.TestCase):
 		self.ed.ClearAll()
 		self.ed.EmptyUndoBuffer()
 		# 3 lines of 3 characters
+		self.ed.EOLMode = self.ed.SC_EOL_CRLF
 		t = b"xxx\nxxx\nxxx"
 		self.ed.AddText(len(t), t)
 
@@ -1945,6 +1959,52 @@ class TestMultiSelection(unittest.TestCase):
 		self.assertEqual(self.ed.GetSelectionNCaret(1), 6)
 		self.assertEqual(self.ed.GetSelectionNAnchor(2), 9)
 		self.assertEqual(self.ed.GetSelectionNCaret(2), 10)
+
+	def testRectangularCopy(self):
+		self.ed.RectangularSelectionAnchor = 1
+		self.assertEqual(self.ed.RectangularSelectionAnchor, 1)
+		self.ed.RectangularSelectionCaret = 10
+		self.assertEqual(self.ed.RectangularSelectionCaret, 10)
+		self.assertEqual(self.ed.Selections, 3)
+		self.ed.Copy()
+		self.ed.ClearAll()
+		self.ed.Paste()
+		# Single character slice with current line ends
+		result = b"x\r\nx\r\nx"
+		self.assertEqual(self.ed.Contents(), result)
+
+	def testMultipleCopy(self):
+		self.ed.ClearAll()
+		t = b"abc\n123\nxyz"
+		self.ed.AddText(len(t), t)
+		self.ed.SetSelection(4, 5)	# 1
+		self.ed.AddSelection(1, 3) 	# bc
+		self.ed.AddSelection(10, 11)	# z
+		self.ed.Copy()
+		# 1,bc,z
+		self.ed.ClearAll()
+		self.ed.Paste()
+		self.assertEqual(self.ed.Contents(), b"1bcz")
+
+	def testPasteConversion(self):
+		# Test that line ends are converted to current mode
+		self.ed.SetSelection(0, 11)
+		self.ed.Copy()
+
+		self.ed.ClearAll()
+		self.ed.EOLMode = self.ed.SC_EOL_CRLF
+		self.ed.Paste()
+		self.assertEqual(self.ed.Contents(), b"xxx\r\nxxx\r\nxxx")
+
+		self.ed.ClearAll()
+		self.ed.EOLMode = self.ed.SC_EOL_CR
+		self.ed.Paste()
+		self.assertEqual(self.ed.Contents(), b"xxx\rxxx\rxxx")
+
+		self.ed.ClearAll()
+		self.ed.EOLMode = self.ed.SC_EOL_LF
+		self.ed.Paste()
+		self.assertEqual(self.ed.Contents(), b"xxx\nxxx\nxxx")
 
 	def testVirtualSpace(self):
 		self.ed.SetSelection(3, 7)
@@ -3092,6 +3152,10 @@ class TestAutoComplete(unittest.TestCase):
 		self.ed.AutoCSetDropRestOfWord(1)
 		self.assertEqual(self.ed.AutoCGetDropRestOfWord(), 1)
 		self.ed.AutoCSetDropRestOfWord(0)
+
+		self.ed.AutoCSetStyle(13)
+		self.assertEqual(self.ed.AutoCGetStyle(), 13)
+		self.ed.AutoCSetStyle(self.ed.STYLE_DEFAULT)
 
 	def testAutoShow(self):
 		self.assertEqual(self.ed.AutoCActive(), 0)

@@ -68,19 +68,6 @@ $(DIR_O)/LexerModule.o: \
 	../lexlib/LexerModule.h \
 	../lexlib/LexerBase.h \
 	../lexlib/LexerSimple.h
-$(DIR_O)/LexerNoExceptions.o: \
-	../lexlib/LexerNoExceptions.cxx \
-	../../scintilla/include/ILexer.h \
-	../../scintilla/include/Sci_Position.h \
-	../../scintilla/include/Scintilla.h \
-	../include/SciLexer.h \
-	../lexlib/PropSetSimple.h \
-	../lexlib/WordList.h \
-	../lexlib/LexAccessor.h \
-	../lexlib/Accessor.h \
-	../lexlib/LexerModule.h \
-	../lexlib/LexerBase.h \
-	../lexlib/LexerNoExceptions.h
 $(DIR_O)/LexerSimple.o: \
 	../lexlib/LexerSimple.cxx \
 	../../scintilla/include/ILexer.h \

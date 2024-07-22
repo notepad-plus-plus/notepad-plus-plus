@@ -7,6 +7,11 @@
 # For debug versions define DEBUG on the command line:
 #     nmake DEBUG=1 -f lexilla.mak
 # To build with GCC or Clang, run makefile
+#
+# Command line options
+#     DEBUG Debug build.
+#     QUIET Avoid most compiler invocation output and copyright info.
+#     SUPPORT_XP Build for Windows XP.
 
 .SUFFIXES: .cxx
 
@@ -21,7 +26,7 @@ LD=link
 !IFDEF SUPPORT_XP
 ADD_DEFINE=-D_USING_V110_SDK71_
 # Different subsystems for 32-bit and 64-bit Windows XP so detect based on Platform
-# environment vairable set by vcvars*.bat to be either x86 or x64
+# environment variable set by vcvars*.bat to be either x86 or x64
 !IF "$(PLATFORM)" == "x64"
 SUBSYSTEM=-SUBSYSTEM:WINDOWS,5.02
 !ELSE
@@ -224,7 +229,7 @@ LEXILLA_OBJS=\
 	$(LEXLIB_OBJS) \
 	$(LEX_OBJS)
 
-$(LEXILLA): $(LEXILLA_OBJS) LexillaVersion.res
+$(LEXILLA): $(LEXILLA_OBJS) $(DIR_O)\LexillaVersion.res
 	$(LD) $(LDFLAGS) -DEF:Lexilla.def -DLL -OUT:$@ $** $(LIBS)
 
 $(LIBLEXILLA): $(LEXILLA_OBJS)
@@ -239,7 +244,7 @@ $(LIBLEXILLA): $(LEXILLA_OBJS)
 {.}.cxx{$(DIR_O)}.obj::
 	$(CXX) $(CXXFLAGS) -c $(NAME)$(DIR_O)\ $<
 
-.rc.res:
+.rc{$(DIR_O)}.res:
 	$(RC) -fo$@ $**
 
 # Dependencies

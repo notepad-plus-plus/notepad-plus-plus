@@ -1353,7 +1353,8 @@ void Window::SetCursor(Cursor curs) {
 
 	if (WindowFromWidget(PWidget(wid)))
 		gdk_window_set_cursor(WindowFromWidget(PWidget(wid)), gdkCurs);
-	UnRefCursor(gdkCurs);
+	if (gdkCurs)
+		UnRefCursor(gdkCurs);
 }
 
 /* Returns rectangle of monitor pt is on, both rect and pt are in Window's

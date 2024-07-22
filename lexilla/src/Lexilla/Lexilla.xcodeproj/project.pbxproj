@@ -15,7 +15,6 @@
 		28BA72AC24E34D5B00272C2D /* LexAccessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729024E34D5A00272C2D /* LexAccessor.h */; };
 		28BA72AD24E34D5B00272C2D /* DefaultLexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729124E34D5A00272C2D /* DefaultLexer.h */; };
 		28BA72AE24E34D5B00272C2D /* SubStyles.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729224E34D5A00272C2D /* SubStyles.h */; };
-		28BA72AF24E34D5B00272C2D /* LexerNoExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729324E34D5A00272C2D /* LexerNoExceptions.h */; };
 		28BA72B024E34D5B00272C2D /* LexerModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729424E34D5A00272C2D /* LexerModule.h */; };
 		28BA72B124E34D5B00272C2D /* CharacterCategory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA729524E34D5A00272C2D /* CharacterCategory.cxx */; };
 		28BA72B224E34D5B00272C2D /* LexerSimple.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729624E34D5A00272C2D /* LexerSimple.h */; };
@@ -25,7 +24,6 @@
 		28BA72B624E34D5B00272C2D /* SparseState.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729A24E34D5A00272C2D /* SparseState.h */; };
 		28BA72B724E34D5B00272C2D /* WordList.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729B24E34D5A00272C2D /* WordList.h */; };
 		28BA72B824E34D5B00272C2D /* DefaultLexer.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA729C24E34D5A00272C2D /* DefaultLexer.cxx */; };
-		28BA72B924E34D5B00272C2D /* LexerNoExceptions.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA729D24E34D5A00272C2D /* LexerNoExceptions.cxx */; };
 		28BA72BA24E34D5B00272C2D /* WordList.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28BA729E24E34D5A00272C2D /* WordList.cxx */; };
 		28BA72BB24E34D5B00272C2D /* OptionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA729F24E34D5A00272C2D /* OptionSet.h */; };
 		28BA72BC24E34D5B00272C2D /* CatalogueModules.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BA72A024E34D5B00272C2D /* CatalogueModules.h */; };
@@ -169,7 +167,6 @@
 		28BA729024E34D5A00272C2D /* LexAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexAccessor.h; path = ../../lexlib/LexAccessor.h; sourceTree = "<group>"; };
 		28BA729124E34D5A00272C2D /* DefaultLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultLexer.h; path = ../../lexlib/DefaultLexer.h; sourceTree = "<group>"; };
 		28BA729224E34D5A00272C2D /* SubStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubStyles.h; path = ../../lexlib/SubStyles.h; sourceTree = "<group>"; };
-		28BA729324E34D5A00272C2D /* LexerNoExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerNoExceptions.h; path = ../../lexlib/LexerNoExceptions.h; sourceTree = "<group>"; };
 		28BA729424E34D5A00272C2D /* LexerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerModule.h; path = ../../lexlib/LexerModule.h; sourceTree = "<group>"; };
 		28BA729524E34D5A00272C2D /* CharacterCategory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterCategory.cxx; path = ../../lexlib/CharacterCategory.cxx; sourceTree = "<group>"; };
 		28BA729624E34D5A00272C2D /* LexerSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexerSimple.h; path = ../../lexlib/LexerSimple.h; sourceTree = "<group>"; };
@@ -179,7 +176,6 @@
 		28BA729A24E34D5A00272C2D /* SparseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SparseState.h; path = ../../lexlib/SparseState.h; sourceTree = "<group>"; };
 		28BA729B24E34D5A00272C2D /* WordList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordList.h; path = ../../lexlib/WordList.h; sourceTree = "<group>"; };
 		28BA729C24E34D5A00272C2D /* DefaultLexer.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DefaultLexer.cxx; path = ../../lexlib/DefaultLexer.cxx; sourceTree = "<group>"; };
-		28BA729D24E34D5A00272C2D /* LexerNoExceptions.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexerNoExceptions.cxx; path = ../../lexlib/LexerNoExceptions.cxx; sourceTree = "<group>"; };
 		28BA729E24E34D5A00272C2D /* WordList.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WordList.cxx; path = ../../lexlib/WordList.cxx; sourceTree = "<group>"; };
 		28BA729F24E34D5A00272C2D /* OptionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionSet.h; path = ../../lexlib/OptionSet.h; sourceTree = "<group>"; };
 		28BA72A024E34D5B00272C2D /* CatalogueModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CatalogueModules.h; path = ../../lexlib/CatalogueModules.h; sourceTree = "<group>"; };
@@ -500,8 +496,6 @@
 				28BA72A624E34D5B00272C2D /* LexerBase.h */,
 				28BA72A524E34D5B00272C2D /* LexerModule.cxx */,
 				28BA729424E34D5A00272C2D /* LexerModule.h */,
-				28BA729D24E34D5A00272C2D /* LexerNoExceptions.cxx */,
-				28BA729324E34D5A00272C2D /* LexerNoExceptions.h */,
 				28BA72A724E34D5B00272C2D /* LexerSimple.cxx */,
 				28BA729624E34D5A00272C2D /* LexerSimple.h */,
 				28BA729F24E34D5A00272C2D /* OptionSet.h */,
@@ -528,7 +522,6 @@
 				28BA73AD24E34DBC00272C2D /* Lexilla.h in Headers */,
 				28BA72BF24E34D5B00272C2D /* PropSetSimple.h in Headers */,
 				28BA72B224E34D5B00272C2D /* LexerSimple.h in Headers */,
-				28BA72AF24E34D5B00272C2D /* LexerNoExceptions.h in Headers */,
 				28BA72B724E34D5B00272C2D /* WordList.h in Headers */,
 				28BA72C024E34D5B00272C2D /* StringCopy.h in Headers */,
 				28BA72AD24E34D5B00272C2D /* DefaultLexer.h in Headers */,
@@ -656,7 +649,6 @@
 				28BA735E24E34D9700272C2D /* LexFlagship.cxx in Sources */,
 				28BA735B24E34D9700272C2D /* LexRuby.cxx in Sources */,
 				28BA735424E34D9700272C2D /* LexHollywood.cxx in Sources */,
-				28BA72B924E34D5B00272C2D /* LexerNoExceptions.cxx in Sources */,
 				28BA736D24E34D9700272C2D /* LexFortran.cxx in Sources */,
 				28BA738924E34D9700272C2D /* LexStata.cxx in Sources */,
 				28BA737524E34D9700272C2D /* LexTCMD.cxx in Sources */,
@@ -866,7 +858,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.3.2;
+				CURRENT_PROJECT_VERSION = 5.3.3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -894,7 +886,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.3.2;
+				CURRENT_PROJECT_VERSION = 5.3.3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;

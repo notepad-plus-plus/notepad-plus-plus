@@ -34,7 +34,7 @@ LexerModule lmSimpleExample(123456, ColouriseDocument, "simpleexample");
 
 }
 
-TEST_CASE("LexerNoExceptions") {
+TEST_CASE("LexerSimple") {
 
 	SECTION("Identifier") {
 		LexerSimple lexSimple(&lmSimpleExample);

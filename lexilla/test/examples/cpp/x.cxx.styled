@@ -1,3 +1,5 @@
+{2}#!/usr/bin/env node
+{0}
 {2}// A demonstration program
 {9}#include <stdio.h>
 #if 0 {23}/* */{9}
@@ -70,6 +72,9 @@
 	{2}// JavaScript regular expression (14) tests
 {0}	{5}let{0} {11}a{0} {10}={0} {14}/a/{10};{0}
 	{5}let{0} {11}b{0} {10}={0} {14}/[a-z]+/gi{10};{0}
+	{14}/a|b/i{10}.{11}test{10}({6}"baby"{10});{0}
+	{2}// arrow function
+{0}	{10}(){0} {10}=>{0} {14}/a|b/i{10}.{11}test{10}({6}"baby"{10});{0}
 
 	{2}// Escape sequence (27) tests
 {0}	{11}printf{10}({6}"{27}\'\"\?\\\a\b\f\n\r\t\v{6} {27}\P{6}"{10});{0}

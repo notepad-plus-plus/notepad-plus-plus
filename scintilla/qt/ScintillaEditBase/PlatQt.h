@@ -83,7 +83,7 @@ private:
 public:
 	SurfaceImpl();
 	SurfaceImpl(int width, int height, SurfaceMode mode_);
-	virtual ~SurfaceImpl();
+	virtual ~SurfaceImpl() override;
 
 	void Init(WindowID wid) override;
 	void Init(SurfaceID sid, WindowID wid) override;

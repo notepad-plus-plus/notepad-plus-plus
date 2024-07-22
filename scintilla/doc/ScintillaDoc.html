@@ -10,6 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
     <title>Scintilla Documentation</title>
+    <link rel="canonical" href="https://scintilla.org/ScintillaDoc.html" />
 
     <style type="text/css">
 <!--
@@ -666,15 +667,17 @@
 
     <p><b id="SCI_RELEASEALLEXTENDEDSTYLES">SCI_RELEASEALLEXTENDEDSTYLES</b><br />
     <b id="SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES(int numberStyles) &rarr; int</b><br />
-     Extended styles are used for features like textual margins and annotations as well as internally by Scintilla.
+     Extended styles are used for features like textual margins and annotations and autocompletion lists as well as
+     internally by Scintilla.
      They are outside the range 0..255 used for the styles bytes associated with document bytes.
      These functions manage the use of extended styles to ensures that components cooperate in defining styles.
      <code>SCI_RELEASEALLEXTENDEDSTYLES</code> releases any extended styles allocated by the container.
      <code>SCI_ALLOCATEEXTENDEDSTYLES</code> allocates a range of style numbers after the byte style values and returns
      the number of the first allocated style.
-     Ranges for margin and annotation styles should be allocated before calling
+     Ranges for margin, annotation, and autocompletion list styles should be allocated before calling
      <a class="seealso" href="#SCI_MARGINSETSTYLEOFFSET">SCI_MARGINSETSTYLEOFFSET</a> or
-     <a class="seealso" href="#SCI_ANNOTATIONSETSTYLEOFFSET">SCI_ANNOTATIONSETSTYLEOFFSET</a>.</p>
+     <a class="seealso" href="#SCI_ANNOTATIONSETSTYLEOFFSET">SCI_ANNOTATIONSETSTYLEOFFSET</a> or
+     <a class="seealso" href="#SCI_AUTOCSETSTYLE">SCI_AUTOCSETSTYLE</a>.</p>
 
     <p><b id="Sci_TextRange">Sci_TextRange</b> and <b id="Sci_CharacterRange">Sci_CharacterRange</b><br />
      These structures are defined to be exactly the same shape as the Win32 <code>TEXTRANGE</code>
@@ -1852,6 +1855,7 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_COPYRANGE">SCI_COPYRANGE(position start, position end)</a><br />
      <a class="message" href="#SCI_COPYTEXT">SCI_COPYTEXT(position length, const char *text)</a><br />
      <a class="message" href="#SCI_COPYALLOWLINE">SCI_COPYALLOWLINE</a><br />
+     <a class="message" href="#SCI_CUTALLOWLINE">SCI_CUTALLOWLINE</a><br />
      <a class="message" href="#SCI_SETPASTECONVERTENDINGS">SCI_SETPASTECONVERTENDINGS(bool convert)</a><br />
      <a class="message" href="#SCI_GETPASTECONVERTENDINGS">SCI_GETPASTECONVERTENDINGS &rarr; bool</a><br />
      <a class="message" href="#SCI_REPLACERECTANGULAR">SCI_REPLACERECTANGULAR(position length, const char *text)</a><br />
@@ -1863,6 +1867,7 @@ struct Sci_TextToFindFull {
      <b id="SCI_CLEAR">SCI_CLEAR</b><br />
      <b id="SCI_CANPASTE">SCI_CANPASTE &rarr; bool</b><br />
      <b id="SCI_COPYALLOWLINE">SCI_COPYALLOWLINE</b><br />
+     <b id="SCI_CUTALLOWLINE">SCI_CUTALLOWLINE</b><br />
      These commands perform the standard tasks of cutting and copying data to the clipboard,
     pasting from the clipboard into the document, and clearing the document.
     <code>SCI_CANPASTE</code> returns non-zero if the document isn't read-only and if the selection
@@ -1879,6 +1884,11 @@ struct Sci_TextToFindFull {
 
     <p><code>SCI_COPYALLOWLINE</code> works the same as SCI_COPY except that if the
     selection is empty then the current line is copied. On Windows, an extra "MSDEVLineSelect" marker
+    is added to the clipboard which is then used in <code>SCI_PASTE</code> to paste
+    the whole line before the current line.</p>
+
+    <p><code>SCI_CUTALLOWLINE</code> works the same as SCI_CUT except that if the
+    selection is empty then the current line is cut. On Windows, an extra "MSDEVLineSelect" marker
     is added to the clipboard which is then used in <code>SCI_PASTE</code> to paste
     the whole line before the current line.</p>
 
@@ -2224,6 +2234,9 @@ struct Sci_TextToFindFull {
         </tr>
       </tbody>
     </table>
+    
+    <p>The bits used for change history markers are specified by <code>SC_MASK_HISTORY</code>, which is commonly
+    used as an argument to <code>SCI_SETMARGINMASKN</code> when defining a margin to be used for change history.</p>
 
     <p>Indicators:</p>
 
@@ -4460,8 +4473,10 @@ struct Sci_TextToFindFull {
      The mask is a 32-bit value. Each bit corresponds to one of 32 logical symbols that can be
     displayed in a margin that is enabled for symbols. There is a useful constant,
     <code>SC_MASK_FOLDERS</code> (0xFE000000 or -33554432), that is a mask for the 7 logical
-    symbols used to denote folding. You can assign a wide range of symbols and colours to each of
-    the 32 logical symbols, see <a href="#Markers">Markers</a> for more information. If <code>(mask
+    symbols used to denote folding, and another, <code>SC_MASK_HISTORY</code> (0x01E00000 or
+    31457280), that is a mask for the 4 logical symbols used to denote change history. You can
+    assign a wide range of symbols and colours to each of the 32 logical symbols, see
+    <a href="#Markers">Markers</a> for more information. If <code>(mask
     &amp; SC_MASK_FOLDERS)==0</code>, the margin background colour is controlled by style 33 (<a
     class="message" href="#StyleDefinition"><code>STYLE_LINENUMBER</code></a>).</p>
 
@@ -6495,6 +6510,16 @@ struct Sci_TextToFindFull {
      </p>
 
     <p>
+      <b id="SCI_AUTOCSETSTYLE">SCI_AUTOCSETSTYLE</b><br />
+      <b id="SCI_AUTOCGETSTYLE">SCI_AUTOCGETSTYLE &rarr; int</b><br />
+
+      Get or set the style used by autocompletion lists to determine the font facename, size and character set used to display characters. Defaults
+      to <code><a class="message" href="#StyleDefinition">STYLE_DEFAULT</a></code>. Always call
+      <a class="seealso" href="#SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES(1)</a> before <code>SCI_AUTOCSETSTYLE</code> and use the
+      result as the argument to <code>SCI_AUTOCSETSTYLE</code> and <code>SCI_STYLESETFONT</code> and others.
+    </p>
+
+    <p>
      <b id="SC_ELEMENT_LIST">SC_ELEMENT_LIST : colouralpha</b><br />
      <b id="SC_ELEMENT_LIST_BACK">SC_ELEMENT_LIST_BACK : colouralpha</b><br />
      <b id="SC_ELEMENT_LIST_SELECTED">SC_ELEMENT_LIST_SELECTED : colouralpha</b><br />
@@ -8246,7 +8271,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
 
     <p>Scintilla incorporates a "zoom factor" that lets you make all the text in the document
     larger or smaller in steps of one point. The displayed point size never goes below 2, whatever
-    zoom factor you set. You can set zoom factors in the range -10 to +20 points.</p>
+    zoom factor you set. You can set zoom factors in the range -10 to +60 points.</p>
     <code><a class="message" href="#SCI_ZOOMIN">SCI_ZOOMIN</a><br />
      <a class="message" href="#SCI_ZOOMOUT">SCI_ZOOMOUT</a><br />
      <a class="message" href="#SCI_SETZOOM">SCI_SETZOOM(int zoomInPoints)</a><br />
@@ -8256,13 +8281,13 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <p><b id="SCI_ZOOMIN">SCI_ZOOMIN</b><br />
      <b id="SCI_ZOOMOUT">SCI_ZOOMOUT</b><br />
      <code>SCI_ZOOMIN</code> increases the zoom factor by one point if the current zoom factor is
-    less than 20 points. <code>SCI_ZOOMOUT</code> decreases the zoom factor by one point if the
+    less than 60 points. <code>SCI_ZOOMOUT</code> decreases the zoom factor by one point if the
     current zoom factor is greater than -10 points.</p>
 
     <p><b id="SCI_SETZOOM">SCI_SETZOOM(int zoomInPoints)</b><br />
      <b id="SCI_GETZOOM">SCI_GETZOOM &rarr; int</b><br />
      These messages let you set and get the zoom factor directly. There is no limit set on the
-    factors you can set, so limiting yourself to -10 to +20 to match the incremental zoom functions
+    factors you can set, so limiting yourself to -10 to +60 to match the incremental zoom functions
     is a good idea.</p>
 
     <h2 id="LongLines">Long lines</h2>

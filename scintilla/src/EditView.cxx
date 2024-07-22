@@ -480,7 +480,7 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 		bool lastSegItalics = false;
 
 		std::vector<TextSegment> segments;
-		BreakFinder bfLayout(ll, nullptr, Range(0, numCharsInLine), posLineStart, 0, BreakFinder::BreakFor::Text, model.pdoc, &model.reprs, nullptr);
+		BreakFinder bfLayout(ll, nullptr, Range(0, numCharsInLine), posLineStart, 0, BreakFinder::BreakFor::Text, model.pdoc, model.reprs.get(), nullptr);
 		while (bfLayout.More()) {
 			segments.push_back(bfLayout.Next());
 		}
@@ -611,7 +611,7 @@ void EditView::UpdateBidiData(const EditModel &model, const ViewStyle &vstyle, L
 
 		for (int charsInLine = 0; charsInLine < ll->numCharsInLine; charsInLine++) {
 			const int charWidth = UTF8DrawBytes(&ll->chars[charsInLine], ll->numCharsInLine - charsInLine);
-			const Representation *repr = model.reprs.RepresentationFromCharacter(std::string_view(&ll->chars[charsInLine], charWidth));
+			const Representation *repr = model.reprs->RepresentationFromCharacter(std::string_view(&ll->chars[charsInLine], charWidth));
 
 			ll->bidiData->widthReprs[charsInLine] = 0.0f;
 			if (repr && ll->chars[charsInLine] != '\t') {
@@ -1007,12 +1007,12 @@ void EditView::DrawEOL(Surface *surface, const EditModel &model, const ViewStyle
 			std::string_view ctrlChar;
 			Sci::Position widthBytes = 1;
 			RepresentationAppearance appearance = RepresentationAppearance::Blob;
-			const Representation *repr = model.reprs.RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], ll->numCharsInLine - eolPos));
+			const Representation *repr = model.reprs->RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], ll->numCharsInLine - eolPos));
 			if (repr) {
 				// Representation of whole text
 				widthBytes = ll->numCharsInLine - eolPos;
 			} else {
-				repr = model.reprs.RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], 1));
+				repr = model.reprs->RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], 1));
 			}
 			if (repr) {
 				ctrlChar = repr->stringRep;
@@ -1666,7 +1666,7 @@ void DrawBackground(Surface *surface, const EditModel &model, const ViewStyle &v
 	const XYPOSITION xStartVisible = subLineStart - xStart;
 
 	const BreakFinder::BreakFor breakFor = selBackDrawn ? BreakFinder::BreakFor::Selection : BreakFinder::BreakFor::Text;
-	BreakFinder bfBack(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, &model.reprs, &vsDraw);
+	BreakFinder bfBack(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, model.reprs.get(), &vsDraw);
 
 	const bool drawWhitespaceBackground = vsDraw.WhitespaceBackgroundDrawn() && !background;
 
@@ -2137,7 +2137,7 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 	// Foreground drawing loop
 	const BreakFinder::BreakFor breakFor = (((phasesDraw == PhasesDraw::One) && selBackDrawn) || vsDraw.SelectionTextDrawn())
 		? BreakFinder::BreakFor::ForegroundAndSelection : BreakFinder::BreakFor::Foreground;
-	BreakFinder bfFore(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, &model.reprs, &vsDraw);
+	BreakFinder bfFore(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, model.reprs.get(), &vsDraw);
 
 	while (bfFore.More()) {
 

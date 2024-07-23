@@ -223,7 +223,7 @@ public :
 	}
 
 	static void setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tbpObj);
-	virtual int getIndividualTabColour(int tabIndex) = 0;
+	virtual int getIndividualTabColourId(int tabIndex) = 0;
 
 	void currentTabToStart();
 	void currentTabToEnd();

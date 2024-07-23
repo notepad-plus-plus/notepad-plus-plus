@@ -2693,7 +2693,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_isAttemptingCloseOnQuit = false;
 
 				if (nppgui._rememberLastSession)
-					_lastRecentFileList.setLock(false);	//only lock when the session is remembered
+					_lastRecentFileList.setLock(false);	//only unlock when the session is remembered
 
 				if (!saveProjectPanelsParams()) allClosed = false; //writeProjectPanelsSettings
 				saveFileBrowserParam();
@@ -3122,7 +3122,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			
 			if ((tabIndex >= 0) && (tabIndex < static_cast<int>(pDt->nbItem())))
 			{
-				colorId = pDt->getIndividualTabColour(tabIndex);
+				colorId = pDt->getIndividualTabColourId(tabIndex);
 			}
 			
 			return colorId;

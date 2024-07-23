@@ -1250,7 +1250,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 	}
 
-	const int individualColourId = getIndividualTabColour(nTab);
+	const int individualColourId = getIndividualTabColourId(nTab);
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
 	RECT barRect = rect;

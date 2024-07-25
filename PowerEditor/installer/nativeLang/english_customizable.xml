@@ -1807,6 +1807,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
 			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
 			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
+			<fileSaveAsCopySaveButton-tip value="Hold Shift while pressing Save to open the copy after saving."/>
 			<autoIndentBasic-tip value="Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line."/>
 			<autoIndentAdvanced-tip value="Enable smart indentation for &quot;C-like&quot; languages and Python. The &quot;C-like&quot; languages include:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.

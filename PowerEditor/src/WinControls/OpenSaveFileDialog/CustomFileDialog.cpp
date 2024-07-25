@@ -55,6 +55,10 @@ namespace // anonymous
 	static const int IDC_FILE_CUSTOM_CHECKBOX = 4;
 	static const int IDC_FILE_TYPE_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 1;
 
+	static const unsigned char SAVE_AS_COPY_OPEN = 0x01;
+	static const unsigned char SAVE_AS_COPY_DLG = 0x02;
+
+
 	// Returns a first extension from the extension specification string.
 	// Multiple extensions are separated with ';'.
 	// Example: input - ".c;.cpp;.h", output - ".c"
@@ -693,7 +697,7 @@ public:
 		// Init the event handler.
 		// Pass the initially selected file type.
 		if (SUCCEEDED(hr))
-			_events.Attach(new FileDialogEventHandler(_dialog, _filterSpec, _fileTypeIndex, _wildcardIndex, _isSavingAsCopy));
+			_events.Attach(new FileDialogEventHandler(_dialog, _filterSpec, _fileTypeIndex, _wildcardIndex, (_savingAsCopyInfo & SAVE_AS_COPY_DLG) != 0));
 
 		// If "assign type" is OFF, then change the file type to *.*
 		if (_enableFileTypeCheckbox && !_fileTypeCheckboxValue && _wildcardIndex >= 0)
@@ -826,7 +830,14 @@ public:
 			hr = _dialog->Show(_hwndOwner);
 			okPressed = SUCCEEDED(hr);
 
-			_isOpeningTheCopy = _isSavingAsCopy && okPressed && ((GetKeyState(VK_SHIFT) & 0x8000) != 0);
+			if (((_savingAsCopyInfo & SAVE_AS_COPY_DLG) != 0) && okPressed && ((GetKeyState(VK_SHIFT) & 0x8000) != 0))
+			{
+				_savingAsCopyInfo |= SAVE_AS_COPY_OPEN;
+			}
+			else
+			{
+				_savingAsCopyInfo &= ~SAVE_AS_COPY_OPEN;
+			}
 
 			NppParameters& params = NppParameters::getInstance();
 			NppGUI& nppGUI = params.getNppGUI();
@@ -927,8 +938,7 @@ public:
 	bool _enableFileTypeCheckbox = false;
 	bool _fileTypeCheckboxValue = false;	// initial value
 	wstring _fileTypeCheckboxLabel;
-	bool _isSavingAsCopy = false;
-	bool _isOpeningTheCopy = false;
+	unsigned char _savingAsCopyInfo = 0;
 
 private:
 	com_ptr<IFileDialog> _dialog;
@@ -1018,12 +1028,19 @@ void CustomFileDialog::setExtIndex(int extTypeIndex)
 
 void CustomFileDialog::setSaveAsCopy(bool isSavingAsCopy)
 {
-	_impl->_isSavingAsCopy = isSavingAsCopy;
+	if (isSavingAsCopy)
+	{
+		_impl->_savingAsCopyInfo |= SAVE_AS_COPY_DLG;
+	}
+	else
+	{
+		_impl->_savingAsCopyInfo &= ~SAVE_AS_COPY_DLG;
+	}
 }
 
 bool CustomFileDialog::getOpenTheCopyAfterSaveAsCopy(void)
 {
-	return _impl->_isOpeningTheCopy;
+	return (_impl->_savingAsCopyInfo & SAVE_AS_COPY_OPEN) != 0;
 }
 
 bool CustomFileDialog::getCheckboxState() const

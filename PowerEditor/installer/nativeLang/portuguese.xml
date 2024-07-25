@@ -5,7 +5,7 @@ Nota de tradução:
 2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.8">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -222,7 +222,7 @@ Nota de tradução:
 					<Item id="43051" name="Remover linhas não marcadas"/>
 					<Item id="43050" name="Inverter marcador"/>
 					<Item id="43052" name="Localizar carateres..."/>
-					<Item id="43053" name="Selecionar tudo entre as chavetas correspondidas"/>
+					<Item id="43053" name="Selecionar tudo entr&amp;e {} [] ou ()"/>
 					<Item id="43009" name="Ir para a chaveta correspondida"/>
 					<Item id="43010" name="Localizar anterior"/>
 					<Item id="43011" name="Pesquisa &amp;progressiva"/>
@@ -355,6 +355,7 @@ Nota de tradução:
 					<Item id="10005" name="Mover para o início"/>
 					<Item id="10006" name="Mover para o fim"/>
 					<Item id="46001" name="Configurador de estilos..."/>
+					<Item id="46016" name="Nenhum (Texto Normal)"/>
 					<Item id="46250" name="Selecione a sua linguagem..."/>
 					<Item id="46300" name="Abrir pasta de linguagem definida pelo utilizador..."/>
 					<Item id="46301" name="Coleção de linguagens definidas pelo utilizador Notepad++"/>
@@ -1095,24 +1096,32 @@ Nota de tradução:
 					<Item id="4010" name="Extensões registadas:"/>
 				</FileAssoc>
 
+
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
 					<Item id="6506" name="Itens desativados"/>
 					<Item id="6507" name="Compactar o menu da linguagem"/>
 					<Item id="6508" name="Menu da linguagem"/>
-					<Item id="6301" name="Definições de indentação"/>
-					<Item id="6302" name="Carácter(es) de espaço"/>
-					<Item id="6303" name="Tamanho de indentação:"/>
-					<Item id="6310" name="Indentar usando:"/>
-                    <Item id="6311" name="Carácter de TAB"/>
-                    <Item id="6510" name="Usar valor predefinido"/>
-                    <Item id="6512" name="A tecla Backspace remove a identação em vez do espaço"/>
 					<Item id="6335" name="Tratar a barra invertida como caráter escape para SQL"/>
 				</Language>
 
+				<Indentation title="Indentation">
+					<Item id="7161" name="Auto-indentar"/>
+					<Item id="7162" name="Nenhuma"/>
+					<Item id="7163" name="Básica"/>
+					<Item id="7164" name="Avançada"/>
+					<Item id="6301" name="Definições de indentação"/>
+					<Item id="6302" name="Caráter(es) de espaço"/>
+					<Item id="6303" name="Tamanho de indentação:"/>
+					<Item id="6310" name="Indentar usando:"/>
+					<Item id="6311" name="Caráter de TAB"/>
+					<Item id="6510" name="Usar valor predefinido"/>
+					<Item id="6512" name="A tecla Backspace remove a identação em vez do espaço"/>
+				</Indentation>
+
 				<Highlighting title="Destaque">
 					<Item id="6351" name="Aplicar o estilo a todas as correspondências"/>
-v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
+					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="6353" name="Corresponder apenas a palavra inteira"/>
 					<Item id="6333" name="Destaque inteligente"/>
 					<Item id="6326" name="Ativar"/>
@@ -1192,7 +1201,7 @@ v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 				<Backup title="Cópia de segurança">
 					<Item id="6817" name="Captura de ecrã da sessão e cópia periódica"/>
 					<Item id="6818" name="Ativar a captura de ecrã da sessão e cópia periódica"/>
-					<Item id="6819" name="Efetuar cópia a cada"/>
+					<Item id="6819" name="Acionar a cópia de segurança em caso de modificação a cada"/>
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Localização da cópia:"/>
 					<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
@@ -1298,7 +1307,7 @@ v					<Item id="6352" name="Corresponder a maiúsculas/minúsculas"/>
 
 				<MISC title="Diversos">
 					<ComboBox id="6347">
-						<Element name="Ativar"/>
+						<Element name="Ativar para o ficheiro atual"/>
 						<Element name="Ativar para todos os ficheiros abertos"/>
 						<Element name="Desativar"/>
 					</ComboBox>
@@ -1387,6 +1396,11 @@ Pode reativar esta janela de diálogo nas preferências mais tarde."/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sempre Sim"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Informação de Depuração">
+				<Item id="1752" name="&amp;Copiar informação de depuração para a área de transferência"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1529,6 +1543,7 @@ NOTA: Se optar por não criar os substitutos ou fechá-los mais tarde, a sua ses
 Prima o botão OK para abrir a caixa de diálogo Localizar ou definir o foco na mesma.
 			
 Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual do utilizador para obter instruções sobre como ativá-la."/>
+			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1664,8 +1679,8 @@ Localizar em todos os ficheiros mas excluir testes de pastas, bin &amp;e bin64:
 Localizar em todos os ficheiros mas excluir todos os registos de pastas ou registos recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selecione uma pasta para pesquisar dentro"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Localizar: Encontrada a 1ª ocorrência a partir do final. O início do documento foi alcançado."/>
-			<find-status-end-reached value="Localizar: Encontrada a 1ª ocorrência a partir do início. O final do documento foi alcançado.."/>
+			<find-status-top-reached value="Localizar: Encontrada a última ocorrência a partir do final. O início do documento foi alcançado."/>
+			<find-status-end-reached value="Localizar: Encontrada a última ocorrência a partir do início. O final do documento foi alcançado.."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em ficheiros: 1 ocorrência foi substituída"/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em ficheiros: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em ficheiros abertos: 1 ocorrência foi substituída"/>
@@ -1679,8 +1694,8 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<find-status-replaceall-1-replaced value="Substituir tudo: 1 ocorrência foi substituída"/>
 			<find-status-replaceall-nb-replaced value="Substituir tudo: $INT_REPLACE$ ocorrências foram substituídas"/>
 			<find-status-replaceall-readonly value="Substituir tudo: Texto não substituído. O documento é só de leitura"/>
-			<find-status-replace-end-reached value="Substituir: Substituída a 1ª ocorrência a partir do início. O final do documento foi alcançado"/>
-			<find-status-replace-top-reached value="Substituir: Substituída a 1ª ocorrência a partir do final. O início do documento foi alcançado"/>
+			<find-status-replace-end-reached value="Substituir: Substituída a última ocorrência a partir do início. O final do documento foi alcançado"/>
+			<find-status-replace-top-reached value="Substituir: Substituída a última ocorrência a partir do final. O início do documento foi alcançado"/>
 			<find-status-replaced-next-found value="Substituir: 1 ocorrência foi substituída. A ocorrência seguinte encontrada."/>
 			<find-status-replaced-without-continuing value="Substituir: 1 ocorrência foi substituída."/>
 			<find-status-replaced-next-not-found value="Substituir: 1 ocorrência foi substituída. Não foram encontradas mais ocorrências."/>
@@ -1793,6 +1808,12 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Util
 			<npcIncludeCcUniEol-tip value="Aplicar as definições de carateres sem representação para os carateres C0, C1 e EOL do Unicode (linha seguinte, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de carateres selecionados na zona de edição para verificar automaticamente a caixa de verificação &quot;Na seleção&quot; quando a caixa de diálogo Localizar é ativada. O valor máximo é 1024. Defina o valor para 0 para desativar a verificação automática."/>
 			<verticalEdge-tip value="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os diferentes números."/>
+			<fileSaveAsCopySaveButton-tip value="Mantenha premida a tecla Shift enquanto prime Guardar para abrir a cópia depois de a guardar."/>
+			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao premir a tecla ENTER) seja igual à indentação da linha anterior."/>
+			<autoIndentAdvanced-tip value="Ativar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
+
+Se selecionar o modo avançado mas não editar ficheiros nas linguagens acima mencionadas, a indentação manter-se-á no modo básico."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
@@ -1821,11 +1842,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 02 July 2024 by Hugo Carvalho
-
-Changelog:
-PT- Corrigidos erros de tradução, palavras por interpretar, ordem das frases e novas traduções concluídas.
-EN - Corrected translation errors, missing translations for some words, sentence order and new translations completed.
+Last modified: 25 July 2024 by Hugo Carvalho
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

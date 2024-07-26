@@ -1808,6 +1808,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Util
 			<npcIncludeCcUniEol-tip value="Aplicar as definições de carateres sem representação para os carateres C0, C1 e EOL do Unicode (linha seguinte, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de carateres selecionados na zona de edição para verificar automaticamente a caixa de verificação &quot;Na seleção&quot; quando a caixa de diálogo Localizar é ativada. O valor máximo é 1024. Defina o valor para 0 para desativar a verificação automática."/>
 			<verticalEdge-tip value="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os diferentes números."/>
+			<fileSaveAsCopySaveButton-tip value="Mantenha premida a tecla Shift enquanto prime Guardar para abrir a cópia depois de a guardar."/>
 			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao premir a tecla ENTER) seja igual à indentação da linha anterior."/>
 			<autoIndentAdvanced-tip value="Ativar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.

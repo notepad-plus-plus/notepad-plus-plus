@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-26"><!-- basiert auf english.xml 8.6.9 vom 26.07.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-27"><!-- basiert auf english.xml 8.6.9 vom 26.07.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -231,7 +231,7 @@ Translation note:
 					<Item id="43051" name="Zeilen &amp;ohne Lesezeichen löschen"/>
 					<Item id="43050" name="Lesezeichen inver&amp;tieren"/>
 					<Item id="43052" name="Nach &amp;Zeichencodes suchen …"/>
-					<Item id="43053" name="&amp;Alles zwischen {} [] or () auswählen"/>
+					<Item id="43053" name="&amp;Alles zwischen {} [] oder () auswählen"/>
 					<Item id="43009" name="Zugehörige &amp;Klammer suchen"/>
 					<Item id="43010" name="&amp;Rückwärts suchen"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>

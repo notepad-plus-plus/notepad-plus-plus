@@ -793,7 +793,7 @@ Translation note:
 					<Item id="25001" name="Grassetto"/>
 					<Item id="25002" name="Corsivo"/>
 					<Item id="25003" name="Sottolineato"/>
-					<Item id="25029" name="Annidamento:"/>
+					<Item id="25029" name="Annidamento"/>
 					<Item id="25008" name="Delimitatore 1"/>
 					<Item id="25009" name="Delimitatore 2"/>
 					<Item id="25010" name="Delimitatore 3"/>
@@ -1709,7 +1709,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<find-status-cannot-find value="Trova: impossibile trovare il testo &quot;$STR_REPLACE$&quot;"/>
 			<find-status-cannot-find-pebkac-maybe value="Impossibile trovare la corrispondenza specificata. Potresti aver dimenticato di selezionare &quot;Torna all'inizio se raggiunta la fine&quot; (su ON), &quot;Distingui tra maiuscole e minuscole&quot; (su OFF) o &quot;Solo parole intere&quot; (su OFF)."/>
 			<find-status-scope-selection value="nel testo selezionato"/>
-			<find-status-scope-all value="in tutto il file"/>
+			<find-status-scope-all value="nell'intero file"/>
 			<find-status-scope-backward value="dall&apos;inizio fino al cursore"/>
 			<find-status-scope-forward value="dal cursore fino alla fine"/>
 			<finder-find-in-finder value="Trova in questi risultati..."/>
@@ -1813,6 +1813,7 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 			<npcIncludeCcUniEol-tip value="Applicare le impostazioni dell&apos;aspetto dei caratteri non stampabili ai caratteri di controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore di riga e separatore di paragrafo)."/>
 			<searchingInSelThresh-tip value="Il numero di caratteri selezionati nella zona di modifica per controllare automaticamente la casella di controllo &quot;Nella selezione&quot; quando la finestra di dialogo Trova è attivata. Il valore massimo è 1024. Impostare il valore a 0 per disabilitare il controllo automatico."/>
 			<verticalEdge-tip value="Aggiungi le posizioni dei tuoi delimitatori di colonna, separati da spazi. Indicali con dei numeri interi."/>
+			<fileSaveAsCopySaveButton-tip value="Per aprire il file dopo il salvataggio, tenere premuto il tasto Shift mentre si preme il pulsante &quot;Salva&quot;"/>
 			<autoIndentBasic-tip value="Assicurarsi che il rientro della riga corrente (ovvero la nuova riga che è stata creata premendo il tasto INVIO) corrisponda al rientro della riga precedente."/>
 			<autoIndentAdvanced-tip value="Abilita il rientro avanzato per i linguaggi &quot;simil-C&quot; e Python. I linguaggi &quot;simil-C&quot; includono:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.

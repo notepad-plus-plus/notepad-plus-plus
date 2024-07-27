@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-18"><!-- basiert auf english.xml 8.6.9 vom 17.07.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-26"><!-- basiert auf english.xml 8.6.9 vom 26.07.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1817,9 +1817,10 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<npcIncludeCcUniEol-tip value="Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) anwenden."/>
 			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Den Wert auf 0 setzen, um die automatische Markierung zu deaktivieren."/>
 			<verticalEdge-tip value="Eine Spaltenmarkierung kann hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird. Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
+			<fileSaveAsCopySaveButton-tip value="Drücke die Shift-Taste während des Speicherns um die Kopie nach dem Speichern zu öffnen."/>
 			<autoIndentBasic-tip value="Stelle sicher, dass die Einrückung in der aktuellen Zeile (z.B. erstellt durch das Drücken der ENTER-Taste) mit der Einrückung in der vorigen Zeile übereinstimmt."/>
 			<autoIndentAdvanced-tip value="Aktiviere die 'Intelligente Einrückung' für 'C-ähnliche' Sprachen und Python. Diese 'C-ähnliche' Sprachen sind:
-C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON.
 
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
 		</MiscStrings>

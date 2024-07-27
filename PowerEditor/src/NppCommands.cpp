@@ -1533,7 +1533,15 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				_findReplaceDlg.markAll(selectedText, styleID);
+				auto count = _findReplaceDlg.markAll(selectedText, styleID);
+				if (count == 0)
+				{
+					_nativeLangSpeaker.messageBox("Style All Error",
+						_pPublicInterface->getHSelf(),
+						L"The selected text was not found; perhaps \"Match whole word only\" is enabled?",
+						L"Style All problem",
+						MB_OK);
+				}
 			}
 		}
 		break;

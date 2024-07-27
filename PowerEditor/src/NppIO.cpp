@@ -993,6 +993,46 @@ int Notepad_plus::setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAl
 		}
 		l = (NppParameters::getInstance()).getLangFromIndex(i++);
 	}
+	
+	LangType lt = (LangType)langType;
+	wstring fileUdlString(getLangDesc(lt, true));
+
+	for (size_t u=0; u<(size_t)nppParam.getNbUserLang(); u++)
+	{
+		UserLangContainer& ulc = nppParam.getULCFromIndex(u);
+		const wchar_t *extList = ulc.getExtention();
+		const wchar_t *lName = ulc.getName();
+
+		wstring list(L"");
+		if (extList)
+			list += extList;
+
+		wstring stringFilters = exts2Filters(list, showAllExt ? -1 : 40);
+		const wchar_t *filters = stringFilters.c_str();
+
+		if (filters[0])
+		{
+			fDlg.setExtFilter(lName, filters);
+
+			if (lt == L_USER)
+			{
+				wstring loopUdlString(L"udf - ");
+				loopUdlString += lName;
+
+				if (!ltFound)
+				{
+					ltFound = fileUdlString.compare(loopUdlString) == 0;
+				}
+
+				if (!ltFound)
+				{
+					++ltIndex;
+				}
+			}
+		}
+	}
+	
+	
 
     if (!ltFound)
         return -1;

@@ -1805,6 +1805,7 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 			<npcIncludeCcUniEol-tip value="非表示文字の表示設定を、C0、C1制御コードと、Unicode改行文字（Next Line、Line Separator、Paragraph Separator）にも適用します。"/>
 			<searchingInSelThresh-tip value="編集画面でこの文字数以上を選択したまま検索画面を開くと、「選択内のみ」を自動でオンにします。最大値は 1024 です。0 にするとこの動作を無効にできます。"/>
 			<verticalEdge-tip value="線を表示したい桁位置を指定してください。複数の値を半角スペースで区切って記入することで、複数の線を表示できます。"/>
+			<fileSaveAsCopySaveButton-tip value="Shiftを押しながら「保存」を押すと、複製したファイルを開きます。"/>
 			<autoIndentBasic-tip value="現在の行（エンターキーを押して作成された新しい行）のインデントを、前の行のインデントと同じにします。"/>
 			<autoIndentAdvanced-tip value="C言語風の言語やPythonのときに、スマート・インデントを使用します。C言語風の言語とは、
 C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell、JSON を指します。

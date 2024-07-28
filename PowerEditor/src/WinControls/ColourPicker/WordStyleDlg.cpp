@@ -934,6 +934,7 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		recentFileHistory,
 		fileAssociation,
 		language,
+		indentation,
 		highlighting,
 		print,
 		searching,

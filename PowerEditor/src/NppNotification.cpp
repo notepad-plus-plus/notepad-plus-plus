@@ -516,10 +516,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return TRUE;
 			//break;
 
+			NppParameters& nppParam = NppParameters::getInstance();
+
 			if (!_tabPopupMenu.isCreated())
 			{
 				std::vector<MenuItemUnit> itemUnitArray;
-				NppParameters& nppParam = NppParameters::getInstance();
 
 				if (nppParam.hasCustomTabContextMenu())
 				{
@@ -575,7 +576,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			// Adds colour icons
 			for (int i = 0; i < 5; ++i)
 			{
-				COLORREF colour = NppDarkMode::getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
+				COLORREF colour = nppParam.getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
 				HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
 				SetMenuItemBitmaps(_tabPopupMenu.getMenuHandle(), IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 			}

@@ -157,7 +157,7 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 
 			if (colorID != -1)
 			{
-				bgColor = NppDarkMode::getIndividualTabColour(colorID, isThemeDark, false);
+				bgColor = NppParameters::getInstance().getIndividualTabColour(colorID, isThemeDark, false);
 				applyColor = true;
 			}
 			else if (isThemeDark)

@@ -2003,6 +2003,8 @@ public:
 	void setTheWarningHasBeenGiven(bool isEnabled) { _theWarningHasBeenGiven = isEnabled; };
 	bool theWarningHasBeenGiven() const { return _theWarningHasBeenGiven; }
 
+	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated);
+
 private:
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();

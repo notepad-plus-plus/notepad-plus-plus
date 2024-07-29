@@ -1808,6 +1808,7 @@ Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med anv
 			<npcIncludeCcUniEol-tip value="Tillämpa utseendeinställningar för icke utskrivbara tecken på C0- och C1-kontrolltecken samt Unicode-radslutstecken (nästa rad, radavgränsare och paragrafavgränsare)."/>
 			<searchingInSelThresh-tip value="Antal markerade tecken i redigeringsområdet att automatiskt kontrollera kryssrutan &quot;I markering&quot; när sökdialogen aktiveras. Det maximala värdet är 1024. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
 			<verticalEdge-tip value="Lägg till din kolumnmarkör genom att ange dess position med ett decimaltal. Separera talen med blanksteg för att ange flera kolumnmarkörer."/>
+			<fileSaveAsCopySaveButton-tip value="Håll ned Shift och klicka på sparaknappen för att öppna kopian efteråt."/>
 			<autoIndentBasic-tip value="Ser till att indraget för aktuell rad (d.v.s. radbrytningen som skapas med ENTER-tangenten) stämmer överens med indraget från den föregående raden."/>
 			<autoIndentAdvanced-tip value="Aktiverar smarta indrag för &quot;C-liknande&quot; språk och Python. &quot;C-liknande&quot; språk omfattar:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell och JSON.

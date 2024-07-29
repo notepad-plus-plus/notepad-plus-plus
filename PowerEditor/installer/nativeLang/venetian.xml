@@ -162,14 +162,14 @@ Translation note:
 					<Item id="42074" name="Vèrxi carteƚa en Esplora Risorse"/>
 					<Item id="42075" name="Ruma en Internet"/>
 					<Item id="42076" name="Modìfega motore par rumare..."/>
-					<Item id="42090" name="Ignora maiuscoƚe/minuscoƚe e Solo Paroƚe Intiere"/>
-					<Item id="42091" name="Distingui tra maiuscoƚe e minuscoƚe"/>
+					<Item id="42090" name="Ignora maiùscoƚe/minùscoƚe e Solo Paroƚe Intiere"/>
+					<Item id="42091" name="Distingui tra maiùscoƚe e minùscoƚe"/>
 					<Item id="42092" name="Solo Paroƚe Intiere"/>
-					<Item id="42093" name="Distingui tra maiuscoƚe/minuscoƚe e Solo Paroƚe intiere"/>
-					<Item id="42094" name="Ignora maiuscoƚe/minuscoƚe e Solo Paroƚe Intiere"/>
-					<Item id="42095" name="Distingui tra maiuscoƚe e minuscoƚe"/>
+					<Item id="42093" name="Distingui tra maiùscoƚe/minùscoƚe e Solo Paroƚe intiere"/>
+					<Item id="42094" name="Ignora maiùscoƚe/minùscoƚe e Solo Paroƚe Intiere"/>
+					<Item id="42095" name="Distingui tra maiùscoƚe e minùscoƚe"/>
 					<Item id="42096" name="Solo Paroƚe Intiere"/>
-					<Item id="42097" name="Distingui tra maiuscoƚe/minuscoƚe e Solo Paroƚe Intiere"/>
+					<Item id="42097" name="Distingui tra maiùscoƚe/minùscoƚe e Solo Paroƚe Intiere"/>
 					<Item id="42098" name="Anulla l'ultima Multi-Selesione xontà"/>
 					<Item id="42099" name="Ignora Corente e Vai a ƚa Sucesiva  Multiseƚesione"/>
 					<Item id="42018" name="Taca reg&amp;istrasion"/>
@@ -202,7 +202,7 @@ Translation note:
 					<Item id="42028" name="File en soƚa ƚetura"/>
 					<Item id="42029" name="Còpia il percorso completo del file corente"/>
 					<Item id="42030" name="Còpia il Nòme file corente"/>
-					<Item id="42031" name="Còpia el percorso de la Carteƚa corente"/>
+					<Item id="42031" name="Còpia el percorso de ƚa Carteƚa corente"/>
 					<Item id="42087" name="Tuti i nomi file ne i Scaraboci"/>
 					<Item id="42088" name="Tuti i percorsi file ne i Scaraboci"/>
 					<Item id="42032" name="Exegui na macro pì volte..."/>
@@ -235,15 +235,15 @@ Translation note:
 					<Item id="43013" name="Cata inte i file..."/>
 					<Item id="43014" name="Cata (voƚatiƚe) el seguente"/>
 					<Item id="43015" name="Cata (voƚatiƚe) presedente"/>
-					<Item id="43022" name="Uxa 1º stiƚe"/>
+					<Item id="43022" name="Dòpara 1º stiƚe"/>
 					<Item id="43023" name="Scanseƚa 1º stiƚe"/>
-					<Item id="43024" name="Uxa 2º stiƚe"/>
+					<Item id="43024" name="Dòpara 2º stiƚe"/>
 					<Item id="43025" name="Scanseƚa 2º stiƚe"/>
-					<Item id="43026" name="Uxa 3º stiƚe"/>
+					<Item id="43026" name="Dòpara 3º stiƚe"/>
 					<Item id="43027" name="Scanseƚa 3º stiƚe"/>
-					<Item id="43028" name="Uxa 4º stiƚe"/>
+					<Item id="43028" name="Dòpara 4º stiƚe"/>
 					<Item id="43029" name="Scanseƚa 4º stiƚe"/>
-					<Item id="43030" name="Uxa 5º stiƚe"/>
+					<Item id="43030" name="Dòpara 5º stiƚe"/>
 					<Item id="43031" name="Scanseƚa 5º stiƚe"/>
 					<Item id="43032" name="Scanseƚa tuti i stiƚi"/>
 					<Item id="43033" name="1º stiƚe"/>
@@ -324,7 +324,7 @@ Translation note:
 					<Item id="44114" name="Aplica el Coƚore 4"/>
 					<Item id="44115" name="Aplica el Coƚore 5"/>
 					<Item id="44130" name="Visualixa i caràtari non stanpabili"/>
-					<Item id="44131" name="Visualixa i caràtari de controllo e ritorno a capo Unicode"/>
+					<Item id="44131" name="Visualixa i caràtari de controlo e ritorno a capo Unicode"/>
 					<Item id="44032" name="Vixuaƚixasion a tuto schermo"/>
 					<Item id="44033" name="Ripristina ƚo zoom predefinìo"/>
 					<Item id="44034" name="Senpre en primo pian"/>
@@ -361,7 +361,7 @@ Translation note:
 					<Item id="10005" name="Spòsta all'inisio"/>
 					<Item id="10006" name="Spòsta alla fine"/>
 					<Item id="46001" name="Configura i stiƚi..."/>
-					<Item id="46016" name="Nessuno (Testo Normale)"/>
+					<Item id="46016" name="Nisun (Testo Normale)"/>
 					<Item id="46250" name="Definisi el to ƚenguagio..."/>
 					<Item id="46300" name="Vèrxi carteƚa ƚenguagi definìi da &apos;l utente..."/>
 					<Item id="46301" name="Personalixasion Ƚenguagio Notepad++"/>
@@ -610,8 +610,8 @@ Translation note:
 				<Item id="5504" name="Axorna"/>
 				<Item id="5505" name="Rimovi"/>
 				<Item id="5508" name="Và"/>
-				<Item id="5509" name="Elenco version Plugin:"/>
-				<Item id="5511" name="Archivio Elenco Plugin"/>
+				<Item id="5509" name="Eƚenco version Plugin:"/>
+				<Item id="5511" name="Archivio Eƚenco Plugin"/>
 				<Item id="2" name="Sara su"/>
 			</PluginsAdminDlg>
 
@@ -680,11 +680,11 @@ Translation note:
 					<Item id="43026" name="Marca tuto col 3º stiƚe"/>
 					<Item id="43028" name="Marca tuto col 4º stiƚe"/>
 					<Item id="43030" name="Marca tuto col 5º stiƚe"/>
-					<Item id="43062" name="Marca el primo uxando el 1° stiƚe"/>
-					<Item id="43063" name="Marca el primo uxando el 2° stiƚe"/>
-					<Item id="43064" name="Marca el primo uxando el 3° stiƚe"/>
-					<Item id="43065" name="Marca el primo uxando el 4° stiƚe"/>
-					<Item id="43066" name="Marca el primo uxando el 5° stiƚe"/>
+					<Item id="43062" name="Marca el primo doparando el 1° stiƚe"/>
+					<Item id="43063" name="Marca el primo doparando el 2° stiƚe"/>
+					<Item id="43064" name="Marca el primo doparando el 3° stiƚe"/>
+					<Item id="43065" name="Marca el primo doparando el 4° stiƚe"/>
+					<Item id="43066" name="Marca el primo doparando el 5° stiƚe"/>
 					<Item id="43023" name="Rimovi marcadura de el 1º stiƚe"/>
 					<Item id="43025" name="Rimovi marcadura de el 2º stiƚe"/>
 					<Item id="43027" name="Rimovi marcadura de el 3º stiƚe"/>
@@ -973,7 +973,7 @@ Translation note:
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Scondi bara de i menu (Alt o F10 par mostrare)"/>
-					<Item id="6132" name="Scondi ＋ ▼ ✕ da ƚa bara dei menu (Richiede el riavio de Notepad++)"/>
+					<Item id="6132" name="Scondi ＋ ▼ ✕ da ƚa bara dei menu (Richiede el reinvio de Notepad++)"/>
 
 					<Item id="6123" name="Ƚengua"/>
 				</Global>
@@ -984,12 +984,12 @@ Translation note:
 					<Item id="6219" name="Veƚosità:"/>
 					<Item id="6221" name="V"/>
 					<Item id="6222" name="Ƚ"/>
-					<Item id="6246" name="Rendi comutabili i due comandi Comprimi ed Espandi el livello corente"/>
+					<Item id="6246" name="Rendi comutabili i do comandi Comprimi ed Espandi el livello corente"/>
 					<Item id="6227" name="A Capo Otomàtico"/>
 					<Item id="6228" name="Predefinìo"/>
 					<Item id="6229" name="Aƚineà"/>
 					<Item id="6230" name="Indentà"/>
-					<Item id="6234" name="Disabìƚita el scorimento avansà en caxo de problemi co touch screen"/>
+					<Item id="6234" name="Dixabìƚita el scorimento avansà en caxo de problemi co touch screen"/>
 					<Item id="6215" name="Abìƚita &apos;l arotondamento caràtari"/>
 					<Item id="6236" name="Abìƚita scorimento oltre ƚ&apos;ùltima riga"/>
 					<Item id="6239" name="Mantien ƚa seƚesion cò the clichi col tasto de drita fora de ƚa seƚesion"/>
@@ -1022,7 +1022,7 @@ Translation note:
 				<DarkMode title="Modaƚità scura">
 					<Item id="7131" name="Modaƚità ciara"/>
 					<Item id="7132" name="Modaƚità scura"/>
-					<Item id="7133" name="Usa l&apos;inpostasion de Windows"/>
+					<Item id="7133" name="Dòpara l&apos;inpostasion de Windows"/>
 					<Item id="7102" name="Tonaƚità negra"/>
 					<Item id="7103" name="Tonaƚità roso"/>
 					<Item id="7104" name="Tonaƚità verde"/>
@@ -1092,12 +1092,12 @@ Translation note:
 				<DefaultDir title="Carteƚa predefinìa">
 					<Item id="6413" name="Carteƚa Predefinìa par Vèrxi/Salva"/>
 					<Item id="6414" name="Secondo el documento corente"/>
-					<Item id="6415" name="Ricórdate ƚ&apos;ùltima carteƚa utiƚixà"/>
+					<Item id="6415" name="Ricórdate ƚ&apos;ùltima carteƚa doparà"/>
 					<Item id="6431" name="Vèrxi tuti i file de ƚa carteƚa invese de far partire Carteƚa cofà Area de lavoro a&apos;l strasinamento"/>
 				</DefaultDir>
 
 				<FileAssoc title="Asociasion file">
-					<Item id="4008" name="Sara su Notepad++ e invìa Notepad++ co priviƚegi de Aministradore par uxare sta funsionaƚità"/>
+					<Item id="4008" name="Sara su Notepad++ e invìa Notepad++ co priviƚegi de Aministradore par doparare sta funsionaƚità"/>
 					<Item id="4009" name="Estension suportà:"/>
 					<Item id="4010" name="Estension registrà:"/>
 				</FileAssoc>
@@ -1113,15 +1113,15 @@ Translation note:
 
 				<Indentation title="Rientro">
 					<Item id="7161" name="Rientro otomatego"/>
-					<Item id="7162" name="Nessuno"/>
+					<Item id="7162" name="Nisun"/>
 					<Item id="7163" name="Base"/>
 					<Item id="7164" name="Avansà"/>
 					<Item id="6301" name="Inpostasion de rientro"/>
 					<Item id="6302" name="Spazi"/>
 					<Item id="6303" name="Dimension rientro:"/>
-					<Item id="6310" name="El rientro usa:"/>
+					<Item id="6310" name="El rientro dòpara:"/>
 					<Item id="6311" name="Tabulasion"/>
-					<Item id="6510" name="Usa predefinìo"/>
+					<Item id="6510" name="Dòpara predefinìo"/>
 					<Item id="6512" name="Backspace rimove i rientri invese de rimovere un singolo spasio"/>
 				</Indentation>
 
@@ -1171,7 +1171,7 @@ Translation note:
 						<Element name="Percorso conpleto"/>
 						<Element name="Nòme del file"/>
 						<Element name="Percorso carteƚa"/>
-						<Element name="Pagina"/>
+						<Element name="Pàgina"/>
 						<Element name="Data (conpata)"/>
 						<Element name="Data (estesa)"/>
 						<Element name="Ora"/>
@@ -1182,15 +1182,15 @@ Translation note:
 				</Print>
 
 				<Searching title="Riserca">
-					<Item id="6902" name="Uxa caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
+					<Item id="6902" name="Dòpara caràtare a spasiatura fisa inte ƚa fenèstra de riserca (Te devi inviare de novo Notepad++)"/>
 					<Item id="6903" name="Ƚasa vèrta ƚa fenèstra de dialogo dopo aver catà cuel output inte ƚa fenèstra de i rixultadi"/>
 					<Item id="6904" name="Conferma Sostituisi tuto cuanto en tuti i documenti vèrti"/>
 					<Item id="6905" name="Sostituisi: sensa spostamento a ƚa corispondensa sucesiva"/>
-					<Item id="6906" name="Fenèstra dei risultati de riserca: mostra solo una voce par ƚa stesa riga trovata, cuando xe posibile"/>
+					<Item id="6906" name="Fenèstra dei risultadi de riserca: mostra solo una voce par ƚa stesa riga trovata, cuando xe posibile"/>
 					<Item id="6907" name="Cuando vien ricià ƚa fenèstra de dialogo Cata"/>
 					<Item id="6908" name="Compila el campo de ricerca con el testo selesionà"/>
-					<Item id="6909" name="Proponi ƚa paroƚa del cursore cuando non xe selesionà nulla"/>
-					<Item id="6910" name="Dim. minima par l'abilitasion automatega de &quot;Inte ƚa selesion&quot;:"/>
+					<Item id="6909" name="Proponi ƚa paroƚa del cursore cuando non xe selesionà gnente"/>
+					<Item id="6910" name="Dim. minima par l'abilitasion otomatega de &quot;Inte ƚa selesion&quot;:"/>
 				</Searching>
 
 				<RecentFilesHistory title="File resenti">
@@ -1233,7 +1233,7 @@ Translation note:
 					<Item id="6824" name="Ignora nùmari"/>
 					<Item id="6811" name="Da el"/>
 					<Item id="6813" name="º caràtare"/>
-					<Item id="6872" name="Riduci l&apos;elenco dell&apos;auto-completamento"/>
+					<Item id="6872" name="Riduxi l&apos;elenco dell&apos;auto-completamento"/>
 					<Item id="6815" name="Sugerisi i parametri de ƚe funsion"/>
 					<Item id="6851" name="Oto-Inserimento"/>
 					<Item id="6857" name="Tag sara html/xml"/>
@@ -1251,17 +1251,17 @@ Translation note:
 					<Item id="6154" name="Predefinìo (istansa ùgnoƚa)"/>
 					<Item id="6155" name="* Ƚa modìfega de sta inpostasion ƚa ga bixogno de inviare de novo Notepad++"/>
 					<Item id="6171" name="Inserimento Data e ora personalixà"/>
-					<Item id="6175" name="Inverti l&apos;ordinamento de date e ora de default (formado longo &amp;&amp; curto)"/>
+					<Item id="6175" name="Inverti l&apos;ordinamento de date e ora predefinìe (formado longo &amp;&amp; curto)"/>
 					<Item id="6172" name="formadi personalixà:"/>
 					<Item id="6181" name="Stato dei Paneli e [-nosession] *"/>
-					<Item id="6182" name="Ricorda lo stato dei panelli (verdaura pannelli) ne ƚe altre istanze (modalità multi-istanza) o da linea de comando con el parametro [-nosession]"/>
+					<Item id="6182" name="Ricorda lo stato dei panelli (verxere pannelli) ne ƚe altre istanse (modaƚità multi-istanza) o da linea de comando con el parametro [-nosession]"/>
 					<Item id="6183" name="Cronologia scaraboci"/>
-					<Item id="6184" name="Elenco Documenti"/>
+					<Item id="6184" name="Eƚenco Documenti"/>
 					<Item id="6185" name="Pannelo caràtari"/>
 					<Item id="6186" name="Cartela come Area de Lavoro"/>
 					<Item id="6187" name="Panelo Progeti"/>
 					<Item id="6188" name="Mapa Documento"/>
-					<Item id="6189" name="Elenco Funsioni"/>
+					<Item id="6189" name="Eƚenco Funsioni"/>
 					<Item id="6190" name="Paneƚo Plugin"/>
 				</MultiInstance>
 
@@ -1281,9 +1281,9 @@ Translation note:
 					<Item id="7143" name="Abiƚita restrisioni par i file de grandi dimensioni (no evidensiasion sintatica)"/>
 					<Item id="7144" name="Definision file de grandi dimensioni:"/>
 					<Item id="7146" name="MB   (1 - 2046)"/>
-					<Item id="7147" name="Parmeti l&apos;evidensiasione de la parentesi corispondente"/>
+					<Item id="7147" name="Parmeti l&apos;evidensiasione de ƚa parentesi corispondente"/>
 					<Item id="7148" name="Parmeti l&apos;ativasion Auto-Completamento"/>
-					<Item id="7149" name="Parmeti l&apos;ativasion de la colorasion automatega"/>
+					<Item id="7149" name="Parmeti l&apos;ativasion de ƚa colorasion automatega"/>
 					<Item id="7150" name="Dixativa el Ritorno A capo automatego globalmente"/>
 					<Item id="7151" name="Parmeti de clicare sui collegamenti ipertestuali (link)"/>
 					<Item id="7152" name="Rimovi i avisi cuando vien verti file ≥2GB"/>
@@ -1296,7 +1296,7 @@ Translation note:
 					<Item id="6318" name="Ƚink Clicabiƚi"/>
 					<Item id="6319" name="Abìƚita"/>
 					<Item id="6320" name="No sotoƚineare"/>
-					<Item id="6350" name="Abìƚita ƚa modaƚità colora sfondo"/>
+					<Item id="6350" name="Abìƚita ƚa modaƚità Colora sfondo"/>
 					<Item id="6264" name="Schema URI personalixà:"/>
 				</Cloud>
 
@@ -1326,7 +1326,7 @@ Translation note:
 					<Item id="6324" name="Sostituisi Documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Visuaƚixa soƚo nòme file inte ƚa bara de&apos;l tìtoƚo"/>
 					<Item id="6334" name="Riƚeva otomàticamente codefega caràtari"/>
-					<Item id="6349" name="Uxa DirectWrite (Poderìa mejorare el rendering de i caràtari speciaƚi, cogna inviare de novo Notepad++)"/>
+					<Item id="6349" name="Dòpara DirectWrite (Poderìa mejorare el rendering de i caràtari speciaƚi, cogna inviare de novo Notepad++)"/>
 					<Item id="6337" name="Est. file Area di Lavoro:"/>
 					<Item id="6114" name="Abìƚita"/>
 					<Item id="6117" name="Presedensa a i file pì resenti"/>
@@ -1421,43 +1421,43 @@ Tute ƚe modìfeghe salvà no ƚe poƚe èsare ripristinà.
 
 Continuare?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Manda a na nova istansa de Notepad++" message="El documento el xe stà modifegà, salvarƚo vanti de continuare."/>
-			<DocReloadWarning title="Carga de novo" message="Sito sicuro de voƚer cargare de novo el file? Ogni modìfega aportà ƚa vegnerà persa."/>
+			<DocReloadWarning title="Carga de novo" message="Sito sicuro de voƚer cargare de novo el file? Ogni modìfega aportà ƚa vegnarà persa."/>
 			<FileLockedWarning title="Salvatagio faƚìo" message="Verificare che el file no&apos;l sìpia vèrto co &apos;n altro programa."/>
 			<FileAlreadyOpenedInNpp title="" message="El file el xe xà vèrto en Notepad++."/>
-			<RenameTabTemporaryNameAlreadyInUse title="Rinomena no andà a bon fine" message="El nòme indicà el xe xà en uxo so nantra scheda."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<RenameTabTemporaryNameIsEmpty title="Rinomena non andata a buon fine" message="El nòme inserito non può rimanere vuoto, e non può contenere soltanto spasi o TAB."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
+			<RenameTabTemporaryNameAlreadyInUse title="Rinomena no andà a bon fine" message="El nòme indicà el xe xà doparà so nantra scheda."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Rinomena no andà a buon fine" message="El nòme inserìo no'l poƚe rimanere vodo, e no'l poƚe contegnere soltanto spasi o TAB."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Scanseƚasion file" message="Scanseƚasion de&apos;l file no andà a bon fine."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="El nùmaro de file da vèrxare el xe masa grando" message="Se xe drìo vèrxare $INT_REPLACE$ file.
 Sito sicuro de voƚerƚi vèrxare?"/><!-- HowToReproduce: Check "Open all files of folder instead of launching Folder as Workspace on folder dropping" in "Default Directory" of Preferences dialog, then drop a folder which contains more then 200 files into Notepad++. -->
 			<SettingsOnCloudError title="Inpostasion Cloud" message="Senbra che el percorso par ƚe inpostasion de&apos;l cloud el sìa inpostà so na carteƚa en soƚa ƚetura,
 o en na carteƚa riservada.
-Ƚe inpostasion inte&apos;l cloud ƚe vegnerà anulà. Reinposta on vaƚore coerente da ƚe inpostasion."/>
+Ƚe inpostasion inte&apos;l cloud ƚe vegnarà anulà. Reinposta on vaƚore coerente da ƚe inpostasion."/>
 			<FilePathNotFoundWarning title="Vertaura file" message="El file che se xe drio sercare de vèrxare no&apos;l existe."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Inposibiƚe cargare ƚa sesion" message="El file de sesion el xe coroto o no&apos;l xe mìa vaƚido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Asion no vaƚida" message="Te poi portare file o carteƚe, ma no tute e do, parché te si en modaƚità riƚasia Carteƚa cofà Progeto.
 te devi abiƚitare &quot;Vèrxi tuti i file de ƚa carteƚa invese de scomisiare Carteƚa cofà Area de lavoro a&apos;l strasinamento&quot; inte ƚa sesion &quot;Carteƚa predefinìa&quot; de ƚe prefarense par ativare sta funsionaƚità."/>
 			<SortingError title="Erore ordenamento" message="Inposibiƚe efetuare on ordenamento nùmarico par colpa de ƚa riga $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Consijio modaƚità coƚona" message="
-Esistono 3 modi par pasare alla modalità Seƚesion-Colona:
+Esistono 3 modi par pasare alla modaƚità Seƚesion-Colona:
 
 1. (Tastiera e mouse) Mantegnere strucà ALT mentre se clica con el tasto de sanca del mouse, cuindi strasinare
 
-2. (Solo tastiera) Tieni strucà Alt+Maiusc mentre usi i tasti freccia
+2. (Solo tastiera) Tien strucà Alt+Maiusc mentre te usi i tasti frecia
 
 3. (tastiera o mouse) 
       Posisiona el cursore all&apos;inisio del bloco de colona desiderà, cuindi
-       selesionare ƚa funsion &quot;Inisio/Fine selesion in modalità Seƚesion-Coƚona&quot;;
-      Spostare el cursore all&apos;estremità del blocco de coƚona desiderato, quindi
-       eseguire nuovamente el comando &quot;Inisio/Fine selesion in modalità Seƚesion-Colona&quot;"/>
+       selesionare ƚa funsion &quot;Inisio/Fine selesion in modaƚità Seƚesion-Coƚona&quot;;
+      Spostare el cursore all&apos;estremità del blocco de coƚona desiderà, cuindi
+       eseguire de novo el comando &quot;Inisio/Fine selesion in modaƚità Seƚesion-Colona&quot;"/>
 			<BufferInvalidWarning title="Salvatagio faƚìo" message="Inposibiƚe salvare: el buffer no&apos;l xe vàƚido."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<DoCloseOrNot title="Mantien file no existente" message="El file &quot;$STR_REPLACE$&quot; no&apos;l existe pì.
 Mantenere el file vèrto?"/>
 			<DoDeleteOrNot title="Scanseƚa file" message="El file &quot;$STR_REPLACE$&quot;
-vegnerà spostà inte ƚe Scoase e sto documento el vegnerà sarà.
+vegnarà spostà inte ƚe Scoase e sto documento el vegnarà sarà.
 Continuare?"/>
 			<NoBackupDoSaveFile title="Salva" message="El to backup no&apos;l poƚe èsare catà (scanceƚà da altrove).
-Salvaƚo o i to dati i vegnerà persi.
+Salvaƚo o i to dati i vegnarà persi.
 Vuto salvare el file &quot;$STR_REPLACE$&quot; ?"/>
 			<DoReloadOrNot title="Recarga" message="&quot;$STR_REPLACE$&quot;
 
@@ -1467,7 +1467,7 @@ Vuto recargarƚo?"/>
 
 Sto file el xe stà modifegà da &apos;n altro programa.
 Vuto recargarƚo e perdare tute ƚe modìfeghe aportà en Notepad++?"/>
-			<PrehistoricSystemDetected title="Catà on sistema preistorico" message="Senbra che te si drìo uxare on sistema preistorico. Sta funsionaƚità ƚa ga bisogno de on sistema pì moderno, scusane."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
+			<PrehistoricSystemDetected title="Catà on sistema preistorego" message="Senbra che te si drìo doparare on sistema preistorego. Sta funsionaƚità ƚa ga bisogno de on sistema pì moderno."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Axornamento Notepad++" message="Ƚ&apos;axornamento otomàtico de Notepad++ no&apos;l xe conpatibiƚe co XP par colpa de on sistema de parmesi obsoƚeto.
 Vuto &apos;ndare inte ƚa pàgina de Notepad++ par descargare ƚ&apos;axornamento manualmente?"/>
 			<GUpProxyConfNeedAdminMode title="Inpostasion proxy" message="Riƚancia Notepad++ co i priviƚegi de aministradore par configurare el proxy."/>
@@ -1475,13 +1475,13 @@ Vuto &apos;ndare inte ƚa pàgina de Notepad++ par descargare ƚ&apos;axornament
 			<DocNoExistToMonitor title="Problema monitoragio" message="El file el deve existare par èsare monitorà."/>
 			<FileTooBigToOpen title="Problema dimension file" message="El file el xe masa grando par èsare vèrto co Notepad++"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
 			<FileLoadingException title="Codice de ecesion: $STR_REPLACE$" message="Se gà verifegà un erore durante el caricamento del file!"/>
-			<WantToOpenHugeFile title="Apertura file de grandi dimensioni" message="L&apos;apertura de file superiori a 2GB+ i poderìa impiegare svariati minuti.
+			<WantToOpenHugeFile title="Verxere file de grandi dimensioni" message="Verxere file superiori a 2GB+ i poderìa inpiegare svariati minuti.
 Vuoi proseguire?"/>
 			<CreateNewFileOrNot title="Crea novo file" message="&quot;$STR_REPLACE$&quot; no existe. Crearƚo??"/>
 			<CreateNewFileError title="Crea novo file" message="Inposibiƚe creare el file &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="ERORE" message="Inposibiƚe vèrxare el file &quot;$STR_REPLACE$&quot;."/>
-			<OpenFileNoFolderError title="Errore nell'apertura del file" message="&quot;$STR_REPLACE1$&quot; no el pole èsare verto:
-La carteƚa &quot;$STR_REPLACE2$&quot; non esiste."/>
+			<OpenFileNoFolderError title="Erore nel verxere el file" message="&quot;$STR_REPLACE1$&quot; no el pole èsare verto:
+La carteƚa &quot;$STR_REPLACE2$&quot; non existe."/>
 			<FileBackupFailed title="Backup File Faƚìo" message="Ƚa version presedente de&apos;l file no ƚa poƚe èsare salvà inte ƚa carteƚa de backup &quot;$STR_REPLACE$&quot;.
 
 Vuto salvare el file ƚo steso?"/>
@@ -1499,7 +1499,7 @@ El Area di Lavoro non el xe stà salvà."/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Novo Area de lavoro" message="L'area de lavoro corente el xe stà xà modifegà. Vuto salvare el progeto corente?"/>
 			<ProjectPanelOpenFailed title="Vèrxi Area de lavoro" message="L'area de lavoro no&apos;l poƚe èsare vèrto.
 Senbra che el file da vèrxare no&apos;l sìpia on file de progeto vaƚido."/>
-			<ProjectPanelRemoveFolderFromProject title="Rimovi carteƚa da&apos;l progeto" message="Tuti i soto-eƚementi i vegnerà scanseƚà.
+			<ProjectPanelRemoveFolderFromProject title="Rimovi carteƚa da&apos;l progeto" message="Tuti i soto-eƚementi i vegnarà scanseƚà.
 Sito sicuro de voƚer rimovare sta carteƚa da&apos;l progeto?"/>
 			<ProjectPanelRemoveFileFromProject title="Rimovi file da&apos;l progeto" message="Sito sicuro de voƚer rimovare sto file da&apos;l progeto?"/>
 			<ProjectPanelReloadError title="Recarga Area de lavoro" message="Inposibiƚe catare el file da cargare de novo."/>
@@ -1517,39 +1517,39 @@ Vuto inviare Notepad++ cofà aministradore?"/>
 			<OpenInAdminModeFailed title="Vertaura cofà aministradore faƚìa" message="Notepad++ no&apos;l poƚe èsare vèrto cofà aministradore."/>
 			<ViewInBrowser title="Visuaƚixa file corente inte&apos;l browser" message="Aplicasion no catà inte&apos;l sistema."/>
 			<ExitToUpdatePlugins title="Notepad++ el xe drio sararse su" message="Se te fe clic so &quot;Sì&quot;, te narè fora da Notepad++ par continuare ƚe operasion.
-Notepad++ el vegnerà invià de novo dòpo che ƚe operasion ƚe vegnerà conpletà.
+Notepad++ el vegnarà invià de novo dòpo che ƚe operasion ƚe vegnarà conpletà.
 Vuto continuare?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ el deve èsare invià de novo" message="Te devi inviare de novo Notepad++ par cargare i plugin che te ghè instaƚà."/>
 			<ChangeHistoryEnabledWarning title="Riavvio Notepad++" message="Par abilitare ƚa cronologia delle modifeghe, Notepad++ deve èsare riavviato."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Sarare la sesion" message="La sesion Windows sta par èsare terminà, ma ghe xe dati no salvà. Usire da Notepad++"/>
-			<LanguageMenuCompactWarning title="Menù Linguaggio Compato" message="L&apos;opsione ƚa sarà effetiva al riavio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
-			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Le modifeghe non salvate ƚe vegnerà perse!
-Vuoi salvare ƚe modifeghe prima de cambiare tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilità dei Comandi de Macro ed Esegui" message="I salvataggi dei comandi de Macro ed Esegui de Notepad++ v.8.5.2 (o successive) ƚe poderìa non èsare compatibili con ƚa versione corente de Notepad++.
-Testa questi comandi e, se necessario, rimodificali.
+			<WindowsSessionExit title="Notepad++ - Sarare ƚa sesion" message="La sesion Windows sta par èsare terminà, ma ghe xe dati no salvà. Nar fora da Notepad++"/>
+			<LanguageMenuCompactWarning title="Menù Linguaggio Compato" message="L&apos;opsione ƚa sarà efetiva al reinvio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Ƚe modifeghe non salvate ƚe vegnarà perse!
+Vuoi salvare ƚe modifeghe vanti de canbiare tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+			<MacroAndRunCmdlWarning title="Compatibilità dei Comandi de Macro ed Esegui" message="I salvatagi dei comandi de Macro ed Exegui de Notepad++ v.8.5.2 (o sucesive) ƚe poderìa no èsare compatibili con ƚa version corente de Notepad++.
+Testa sti comandi e, se necesario, rimodificali.
 
-Alternativamente, xe posibile tornare a Notepad++ v8.5.2 e ripristinare i dati precedenti.
-Notepad++ salverà el vecio &quot;shortcuts.xml&quot; e salvarlo come &quot;shortcuts.xml.v8.5.2.backup&quot;.
+Alternativamente, xe posibile tornare a Notepad++ v8.5.2 e ripristinare i dati presedenti.
+Notepad++ salverà el vecio &quot;shortcuts.xml&quot; e salvarlo cofà &quot;shortcuts.xml.v8.5.2.backup&quot;.
 Rinominando &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i comandi i sarà ripristinà e i funsionerà coretamente."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Salvatagio no nà a bon fine" message="El salvatagio del file non el xe nà a buon fine.
 Lo spasio so disco non xe suficiente par salvare el file. El file non el xe sta salvà."/>
-			<FileInaccessibleUserSession title="File no acesibiƚi" message="Alcuni file de la sesion salvà non i xe pì acesibili. Xe posibile mantegnere i file vèrti in sola letura e vodi.
+			<FileInaccessibleUserSession title="File no acesibiƚi" message="Alcuni file de ƚa sesion salvà non i xe pì acesibili. Xe posibile mantegnere i file vèrti in sola letura e vodi.
 
 Si vole mantegnere el file vèrto?
 
-NOTA: Scegliendo de non mantegner el file verto o sarandolo sucesivamente, ƚa sesion non verà modificà nando fora."/>
+NOTA: Scegliendo de non mantegner el file verto o sarandolo sucesivamente, ƚa sesion non vegnarà modifegà nando fora."/>
 			<FileInaccessibleDefaultSessionXml title="File inacesibili" message="Alcuni file de ƚa sesion presedente no i xe acesibiƚi. I poƚe esare lasà vèrti come file in sola letura e vodi.
 
 si vuole mantegnere el file verto ?
 
-NOTA: Scegliendo de non mantegnere el file verto o sarandolo sucesivamente, ƚa sesion ƚa vegnerà MODIFEGÀ NANDO FORA! Se sugerise de efetuare adesso el backup de  &quot;session.xml&quot;."/>
-			<RTLvsDirectWrite title="Non xe posibile eseguire RTL" message="RTL non el xe compatibile con ƚa modalità DirectWrite. Dixabilita ƚa modaƚità DirectWrite in Preferense, sesion Varie, riavvia Notepad++, e prova de novo sto comando."/>
+NOTA: Scegliendo de non mantegnere el file verto o sarandolo sucesivamente, ƚa sesion ƚa vegnarà MODIFEGÀ NANDO FORA! Se sugerise de efetuare adesso el backup de  &quot;session.xml&quot;."/>
+			<RTLvsDirectWrite title="Non xe posibile eseguire RTL" message="RTL non el xe compatibile con ƚa modaƚità DirectWrite. Dixabilita ƚa modaƚità DirectWrite in Preferense, sesion Varie, reivvia Notepad++, e prova de novo sto comando."/>
 			<FileMemoryAllocationFailed title="Ecesion: erore nell'Alocasion de ƚa memoria del File" message="Senbra non eserghe bastansa memoria contigua libera afinché el file el posa èsare caricà da Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
-			<FindRegexBackwardDisabled title="Disabilitata ƚa Ricerca a ritroso con espresion regoƚare" message="Par inpostasion predefinìa, ƚa riserca Espresion Regoƚare a ritroso ƚa xe disabilità a causa de risultadi potensialmente imprevisti. Par eseguire una ricerca all'indietro, vèrxere ƚa fenèstra de dialogo Cata e seƚesionare ƚa modalità de riserca normale o estexa ansiché l'espresion regoƚare.
+			<FindRegexBackwardDisabled title="Disabilitata ƚa Ricerca a ritroso con espresion regoƚare" message="Par inpostasion predefinìa, ƚa riserca Espresion Regoƚare a ritroso ƚa xe disabilità a causa de risultadi potensialmente inprevisti. Par eseguire una ricerca all'indietro, vèrxere ƚa fenèstra de dialogo Cata e seƚesionare ƚa modaƚità de riserca normale o estexa ansiché l'espresion regoƚare.
 Strucare el boton Conferma par verxere o ativare ƚa fenèstra de dialogo Cata.
 
-Nel caso fosse necesaria ƚa funsion de riserca Espresion regoƚare a ritroso, consultare el manuale de l'utente par istrusion su come abilitarla."/>
-			<PrintError title="0" message="Inpossibile avviare ƚa stanpa del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+Nel caso fosse necesaria ƚa funsion de riserca Espresion regoƚare a ritroso, consultare el manuale de l'utente par istrusion su come abilitarƚa."/>
+			<PrintError title="0" message="Inpossibile inviare ƚa stanpa del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronoƚogia Scarabòci"/>
@@ -1708,7 +1708,7 @@ Runa en tuti i files, ma escludi tute ƚe carteƚe o sotocarteƚe log o logs:
 			<find-status-replace-not-found value="Sostituisi: nisuna corispondensa catà"/>
 			<find-status-replace-readonly value="Sostituisi: inposibiƚe canbiare el testo. El documento corente el xe en soƚa ƚetura"/>
 			<find-status-cannot-find value="Ruma: inposibiƚe catare el testo &quot;$STR_REPLACE$&quot;"/>
-			<find-status-cannot-find-pebkac-maybe value="Imposibiƚe catare ƚa corispondensa spesificà. Potresti aver dimenticato de selesionare &quot;Torna all'inisio se raggiunta ƚa fine&quot; (su ON), &quot;Distingui tra maiuscoƚe e minuscoƚe&quot; (su OFF) o &quot;Solo paroƚe intiere&quot; (su OFF)."/>
+			<find-status-cannot-find-pebkac-maybe value="Imposibiƚe catare ƚa corispondensa spesificà. Potresti aver dimenticato de selesionare &quot;Torna all'inisio se raxunta ƚa fine&quot; (su ON), &quot;Distingui tra maiùscoƚe e minùscoƚe&quot; (su OFF) o &quot;Solo paroƚe intiere&quot; (su OFF)."/>
 			<find-status-scope-selection value="inte&apos;l testo seƚesionà"/>
 			<find-status-scope-all value="intel file intiero"/>
 			<find-status-scope-backward value="da inisio-de-el-file fino al cursore"/>
@@ -1744,7 +1744,7 @@ Runa en tuti i files, ma escludi tute ƚe carteƚe o sotocarteƚe log o logs:
 			<summary-nbsel1 value=" caràtari seƚesionà ("/>
 			<summary-nbsel2 value=" byte) en "/>
 			<summary-nbrange value=" intervaƚi"/>
-			<progress-hits-title value="Corrispondenze:"/>
+			<progress-hits-title value="Corispondense:"/>
 			<progress-cancel-info value="Annullamento operasion, spetare..."/>
 			<find-in-files-progress-title value="Serca nei file en corso..."/>
 			<replace-in-files-confirm-title value="Sito sicuro?"/>
@@ -1780,18 +1780,18 @@ Runa en tuti i files, ma escludi tute ƚe carteƚe o sotocarteƚe log o logs:
 			<contextMenu-styleOneToken value="Marca stiƚe ƚa prima corispondensa"/>
 			<contextMenu-clearStyle value="Rimovi marcatura Stiƚe"/>
 			<contextMenu-PluginCommands value="Comandi plugin"/>
-			<largeFileRestriction-tip value="Alcune funsionalità ƚe poderìa ra lentare ƚe prestasion con file de grandi dimensioni. Queste funsionalità possono èsare impostate par auto-disabilitarsi all&apos;apertura de file de grandi dimensioni. Possono èsare disabilitate qui.
+			<largeFileRestriction-tip value="Alcune funsionalità ƚe poderìa ra lentare ƚe prestasion con file de grandi dimensioni. Sste funsionalità ƚe poƚe èsare impostà par auto-disabilitarse al verxerse de file de grandi dimensioni. Ƚe poƚe èsare disabilità chive.
 
 NOTE:
 1. La modifega de cueste opsioni richiede de vèrxere de novo dei file de dimension grandi.
 
-2. Se &quot;Dixativa el Ritorno A capo automatego globalmente&quot; el xe selesionà e vien verto un file de grandi dimension, &quot;Ritorno a capo automatego&quot; el vegnerà disabilità par tutti i file. Xe posibile riabilitarlo dal menu &quot;Visualixa-&gt;Ativa a capo automatego&quot;."/>
+2. Se &quot;Dixativa el Ritorno A capo automatego globalmente&quot; el xe selesionà e vien verto on file de grandi dimension, &quot;Ritorno a capo automatego&quot; el vegnarà disabilità par tutti i file. Xe posibile riabilitarlo dal menu &quot;Visualixa-&gt;Ativa a capo automatego&quot;."/>
 			<npcNote-tip value="Rapresentasion dei spasi &quot;non ASCII&quot; e dei caràtari non stanpabili (caràtari de controlo).
 
 NOTA:
-L&apos;uxo de la rappresentasion dixabiliterà l&apos;efeto dei caràtari sul testo.
+Dòparando ƚa rappresentasion dixabiliterà l&apos;efeto dei caràtari sul testo.
 
-Par l&apos;elenco conpleto dei spasi-bianchi selesionà e dei caràtari no stanpabili, consultare el Manuale dell&apos;utente.
+Par l&apos;elenco conpleto dei spasi-bianchi selesionà e dei caràtari no stanpabili, varda el Manuale dell&apos;utente.
 
 Fare clic su &quot;?&quot; par vèrxere el sito Web del Manuale Utente."/>
 			<npcAbbreviation-tip value="Abreviasion : nòme
@@ -1811,15 +1811,15 @@ Strucare el boton &quot;?&quot; a drita par vèrxere el sito Web con el manuale 
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Par personalixare el coƚore predefinìo dei spasi e dei caràtari non stanpabili selesionà, Vai a Configura i Stili (&quot;Non-printing characters custom color&quot;)."/>
-			<npcIncludeCcUniEol-tip value="Aplicare ƚe inpostasion de l&apos;aspeto dei caràtari no stanpabili ai caràtari de controllo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore de riga e separatore de paragrafo)."/>
+			<npcIncludeCcUniEol-tip value="Aplicare ƚe inpostasion de l&apos;aspeto dei caràtari no stanpabili ai caràtari de controlo C0, C1 e Ritorno a capo Unicode (riga successiva, separatore de riga e separatore de paragrafo)."/>
 			<searchingInSelThresh-tip value="El nùmaro de caràtari seƚesionà inte ƚa xona de modifega par controlare otomatigamente ƚa caxeƚa de controlo &quot;Nella selesion&quot; cuando ƚa fenèstra de dialogo Cata ƚa xe ativà. El valore masimo el xe 1024. Inpostare el valore a 0 par dixabilitare el controlo automatego."/>
 			<verticalEdge-tip value="Xonta ƚe poxision dei tò delimitatori de coƚona, separà da spasi. Indicali co dei nùmari interi."/>
 			<fileSaveAsCopySaveButton-tip value="Par vèrxere el file dopo el salvatagio, tenere strucà el tasto Shift mentre se struca el boton &quot;Salva&quot;"/>
-			<autoIndentBasic-tip value="Asicurarse che el rientro de la riga corente (overo ƚa nova riga che xe sta creà strucando el tasto INVIO) corisponda al rientro de ƚa riga presedente."/>
-			<autoIndentAdvanced-tip value="Abiƚita el rientro avansà par i linguagi &quot;simil-C&quot; e Python. I linguagi &quot;simil-C&quot; i include:
+			<autoIndentBasic-tip value="Asicurarse che el rientro de ƚa riga corente (overo ƚa nova riga che xe sta creà strucando el tasto INVIO) corisponda al rientro de ƚa riga presedente."/>
+			<autoIndentAdvanced-tip value="Abiƚita el rientro avansà par i ƚenguagi &quot;simil-C&quot; e Python. I ƚenguagi &quot;simil-C&quot; i include:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
-Se selesioni ƚa modalità avansà, ma no te modifeghi i file nei linguagi sopra mensionà, el rientro rimarà in modalità base."/>
+Se selesioni ƚa modaƚità avansà, ma no te modifeghi i file nei ƚenguagi sopra mensionà, el rientro rimarà in modaƚità base."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

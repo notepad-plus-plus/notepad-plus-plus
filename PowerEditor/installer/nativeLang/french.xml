@@ -308,7 +308,7 @@ Translation note:
 					<Item id="44117" name="Dernier onglet"/>
 					<Item id="44095" name="Onglet suivant"/>
 					<Item id="44096" name="Onglet précédent"/>
-					<Item id="44097" name="Journal de surveillance « log » (tail -f)"/>
+					<Item id="44097" name="Surveillance d’évolution de fichier « log » (tail -f)"/>
 					<Item id="44098" name="Déplacer vers l’avant"/>
 					<Item id="44099" name="Déplacer vers l’arrière"/>
 					<Item id="44110" name="Enlever la couleur"/>

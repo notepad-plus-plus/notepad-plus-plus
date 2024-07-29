@@ -11,7 +11,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Vèneto" filename="venetian.xml" version="8.6.9">
+	<Native-Langue name="Vèneto" filename="venetian.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

@@ -88,6 +88,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>Intermediates\$(Configuration)\</IntDir>
   </PropertyGroup>
+	<PropertyGroup>
+		<ReadOnlyProject>true</ReadOnlyProject>
+	</PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>

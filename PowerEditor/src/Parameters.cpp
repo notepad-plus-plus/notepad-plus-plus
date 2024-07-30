@@ -1418,17 +1418,15 @@ bool NppParameters::load()
 
 	for (const auto& i : udlFiles)
 	{
-		auto udlDoc = new TiXmlDocument(i);
+		auto udlDoc = std::make_unique<TiXmlDocument>(i);
 		loadOkay = udlDoc->LoadFile();
-		if (!loadOkay)
+		if (loadOkay)
 		{
-			delete udlDoc;
-		}
-		else
-		{
-			auto r = addUserDefineLangsFromXmlTree(udlDoc);
+			auto r = addUserDefineLangsFromXmlTree(udlDoc.get());
 			if (r.second - r.first > 0)
-				_pXmlUserLangsDoc.push_back(UdlXmlFileState(udlDoc, false, false, r));
+			{
+				_pXmlUserLangsDoc.push_back(UdlXmlFileState(udlDoc.release(), false, false, r));
+			}
 		}
 	}
 
@@ -2335,7 +2333,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 	}
 
 	const size_t nbView = 2;
-	TiXmlNode *viewRoots[nbView];
+	TiXmlNode* viewRoots[nbView]{};
 	viewRoots[0] = sessionRoot->FirstChildElement(L"mainView");
 	viewRoots[1] = sessionRoot->FirstChildElement(L"subView");
 	for (size_t k = 0; k < nbView; ++k)
@@ -3631,7 +3629,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 			size_t activeIndex;
 		};
 		const int nbElem = 2;
-		ViewElem viewElems[nbElem];
+		ViewElem viewElems[nbElem]{};
 		viewElems[0].viewNode = sessionNode->InsertEndChild(TiXmlElement(L"mainView"));
 		viewElems[1].viewNode = sessionNode->InsertEndChild(TiXmlElement(L"subView"));
 		viewElems[0].viewFiles = (vector<sessionFileInfo> *)(&(session._mainViewFiles));
@@ -8772,7 +8770,7 @@ Date::Date(const wchar_t *dateStr)
 // if the value of nbDaysFromNow is 0 then the date will be now
 Date::Date(int nbDaysFromNow)
 {
-	const time_t oneDay = (60 * 60 * 24);
+	const time_t oneDay = (static_cast<time_t>(60 * 60) * 24);
 
 	time_t rawtime;
 	const tm* timeinfo;

@@ -1060,8 +1060,8 @@ public:
 
 		@sa SetTabSize, Row, Column
 	*/
-	int ErrorRow()	{ return errorLocation.row+1; }
-	int ErrorCol()	{ return errorLocation.col+1; }	///< The column where the error occured. See ErrorRow()
+	int ErrorRow() const { return errorLocation.row + 1; }
+	int ErrorCol() const { return errorLocation.col + 1; }	///< The column where the error occured. See ErrorRow()
 
 	/** By calling this method, with a tab size
 		greater than 0, the row and column of each node and attribute is stored

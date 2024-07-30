@@ -137,7 +137,7 @@ void CSHA1::Update(const UINT_8* pbData, UINT_32 uLen)
 	else i = 0;
 
 	if((uLen - i) != 0)
-		memcpy(&m_buffer[j], &pbData[i], uLen - i);
+		memcpy(&m_buffer[j], &pbData[i], static_cast<size_t>(uLen) - i);
 }
 
 #ifdef SHA1_UTILITY_FUNCTIONS
@@ -212,23 +212,27 @@ bool CSHA1::ReportHash(wchar_t* tszReport, REPORT_TYPE rtReportType) const
 	if((rtReportType == REPORT_HEX) || (rtReportType == REPORT_HEX_SHORT))
 	{
 		_snwprintf(tszTemp, 15, L"%02X", m_digest[0]);
+		tszTemp[15] = '\0';
 		wcscpy(tszReport, tszTemp);
 
 		const wchar_t* lpFmt = ((rtReportType == REPORT_HEX) ? L" %02X" : L"%02X");
 		for(size_t i = 1; i < 20; ++i)
 		{
 			_snwprintf(tszTemp, 15, lpFmt, m_digest[i]);
+			tszTemp[15] = '\0';
 			wcscat(tszReport, tszTemp);
 		}
 	}
 	else if(rtReportType == REPORT_DIGIT)
 	{
 		_snwprintf(tszTemp, 15, L"%u", m_digest[0]);
+		tszTemp[15] = '\0';
 		wcscpy(tszReport, tszTemp);
 
 		for(size_t i = 1; i < 20; ++i)
 		{
 			_snwprintf(tszTemp, 15, L" %u", m_digest[i]);
+			tszTemp[15] = '\0';
 			wcscat(tszReport, tszTemp);
 		}
 	}

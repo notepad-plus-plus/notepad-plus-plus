@@ -1160,7 +1160,7 @@ TiXmlAttribute*	TiXmlAttributeSet::Find( const wchar_t * name ) const
 TIXML_ISTREAM & operator >> (TIXML_ISTREAM & in, TiXmlNode & base)
 {
 	TIXML_STRING tag;
-	tag.reserve( 8 * 1000 );
+	tag.reserve(static_cast<std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>>::size_type>(8) * 1000);
 	base.StreamIn( &in, &tag );
 
 	base.Parse( tag.c_str(), 0 );

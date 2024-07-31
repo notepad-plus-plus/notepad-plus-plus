@@ -598,6 +598,8 @@ BEGIN
 
     // "Enable Notepad++ auto-updater" should be always the 1st item, because it'll be hidden if GUP.exe is absent
     CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,94,210,10
+    RTEXT           "File extensions to NOT check if binary on opening ('|'-separated list)",IDC_STATIC_EXTS_NOT_CHECK_BINARY,34,95,225,10
+    EDITTEXT        IDC_EDIT_EXTS_NOT_CHECK_BINARY,261,93,120,12
     CONTROL         "Mute all sounds",IDC_CHECK_MUTE_SOUNDS,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,109,190,10
     CONTROL         "Autodetect character encoding",IDC_CHECK_DETECTENCODING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,124,217,10
     CONTROL         "Minimize to system tray",IDC_CHECK_MIN2SYSTRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,139,217,10

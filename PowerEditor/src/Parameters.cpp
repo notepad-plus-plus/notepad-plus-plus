@@ -6189,6 +6189,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const wchar_t * hideMenuRightShortcuts = element->Attribute(L"hideMenuRightShortcuts");
 			if (hideMenuRightShortcuts)
 				_nppGUI._hideMenuRightShortcuts = lstrcmp(hideMenuRightShortcuts, L"yes") == 0;
+
+			const wchar_t* fileExtensionsToNotCheckBinary = element->Attribute(L"fileExtensionsToNotCheckBinary");
+			if (fileExtensionsToNotCheckBinary)
+				MainFileManager.setExtensionsToNotCheckBinary(fileExtensionsToNotCheckBinary);
 		}
 		else if (!lstrcmp(nm, L"commandLineInterpreter"))
 		{
@@ -7670,6 +7674,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"muteSounds", _nppGUI._muteSounds ? L"yes" : L"no");
 		GUIConfigElement->SetAttribute(L"enableFoldCmdToggable", _nppGUI._enableFoldCmdToggable ? L"yes" : L"no");
 		GUIConfigElement->SetAttribute(L"hideMenuRightShortcuts", _nppGUI._hideMenuRightShortcuts ? L"yes" : L"no");
+		GUIConfigElement->SetAttribute(L"fileExtensionsToNotCheckBinary", MainFileManager.getExtensionsToNotCheckBinary());
 	}
 
 	// <GUIConfig name="Searching" "monospacedFontFindDlg"="no" stopFillingFindField="no" findDlgAlwaysVisible="no" confirmReplaceOpenDocs="yes" confirmMacroReplaceOpenDocs="yes" confirmReplaceInFiles="yes" confirmMacroReplaceInFiles="yes" replaceStopsWithoutFindingNext="no" inSelectionAutocheckThreshold="1024" />

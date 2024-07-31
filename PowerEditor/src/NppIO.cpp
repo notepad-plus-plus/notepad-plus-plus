@@ -408,6 +408,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
     }
 
 	BufferID buffer;
+	bool closeBecauseFileBinary = false;
 	if (isSnapshotMode)
 	{
 		buffer = MainFileManager.loadFile(longFileName, static_cast<Document>(NULL), encoding, backupFileName, fileNameTimestamp);
@@ -431,9 +432,20 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	else
 	{
 		buffer = MainFileManager.loadFile(longFileName, static_cast<Document>(NULL), encoding);
+		closeBecauseFileBinary = MainFileManager.closeBecauseBinary(buffer);
 	}
 
-    if (buffer != BUFFER_INVALID)
+	if (closeBecauseFileBinary)
+	{
+		// silently close the file, because the user said they don't want to open a binary file
+		MainFileManager.closeBuffer(buffer, currentView() == MAIN_VIEW ? &_mainEditView : &_subEditView);
+		buffer = BUFFER_INVALID;
+		_isFileOpening = false;
+
+		scnN.nmhdr.code = NPPN_FILELOADFAILED;
+		_pluginsManager.notify(&scnN);
+	}
+    else if (buffer != BUFFER_INVALID)
     {
         _isFileOpening = true;
 

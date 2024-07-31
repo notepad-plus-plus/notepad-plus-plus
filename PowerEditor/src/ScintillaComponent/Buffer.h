@@ -17,6 +17,7 @@
 #pragma once
 
 #include <mutex>
+#include "string.h"
 #include "Utf8_16.h"
 
 
@@ -115,6 +116,20 @@ public:
 	size_t docLength(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
+	// If id is a valid buffer, and the user has *not* specifically asked not to check whether documents like id are binary: 
+	//     1. check if the text of id is binary
+	//     2a. if the text is binary, warn the user, and return true if and only if they said they want to open it
+	//     2b. if the text is not binary, return false
+	bool closeBecauseBinary(BufferID id);
+
+	// gets all extensions to not check as an '|'-separated list. Each extension includes the leading '.'
+	std::wstring getExtensionsToNotCheckBinary();
+
+	// joinedList must be an '|'-separated list of extensions. 
+	// Each extension must be the empty string, or must be preceded by '.'
+	// if joinedList is empty, _extensionsToNotCheckIfBinary is cleared.
+	void setExtensionsToNotCheckBinary(const TCHAR* joinedList);
+
 private:
 	struct LoadedFileFormat {
 		LoadedFileFormat() = default;
@@ -138,12 +153,18 @@ private:
 	bool loadFileData(Document doc, int64_t fileSize, const wchar_t* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
+	// if this returns false, we don't even test if a file is binary in the closeBecauseBinary method
+	bool checkIfFileIsBinary(std::wstring fileExtension);
+	// used by closeBecauseBinary to determine whether a buffer is binary
+	bool isBinary(BufferID id);
+
 	Notepad_plus* _pNotepadPlus = nullptr;
 	ScintillaEditView* _pscratchTilla = nullptr;
 	Document _scratchDocDefault = 0;
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
 	size_t _nbBufs = 0;
+	std::vector<std::wstring> _extensionsToNotCheckIfBinary;
 };
 
 #define MainFileManager FileManager::getInstance()

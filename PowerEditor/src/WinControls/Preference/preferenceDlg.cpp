@@ -17,6 +17,7 @@
 #include <shlwapi.h>
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
+#include "Buffer.h"
 #include "EncodingMapper.h"
 #include "localization.h"
 #include <algorithm>
@@ -2423,6 +2424,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MUTE_SOUNDS, BM_SETCHECK, nppGUI._muteSounds ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_EXTS_NOT_CHECK_BINARY, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(MainFileManager.getExtensionsToNotCheckBinary().c_str()));
 
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 
@@ -2479,6 +2481,14 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						wchar_t workspaceExt[MAX_PATH] = { '\0' };
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(workspaceExt));
 						nppGUI._definedWorkspaceExt = workspaceExt;
+						return TRUE;
+					}
+					case IDC_EDIT_EXTS_NOT_CHECK_BINARY:
+					{
+						constexpr size_t maxExtsNotCheckSize = 4096;
+						wchar_t extsNotCheck[maxExtsNotCheckSize] = { '\0'};
+						::SendDlgItemMessage(_hSelf, IDC_EDIT_EXTS_NOT_CHECK_BINARY, WM_GETTEXT, maxExtsNotCheckSize, reinterpret_cast<LPARAM>(extsNotCheck));
+						MainFileManager.setExtensionsToNotCheckBinary(extsNotCheck);
 						return TRUE;
 					}
 				}

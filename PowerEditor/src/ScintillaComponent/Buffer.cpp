@@ -812,6 +812,103 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	}
 }
 
+bool FileManager::checkIfFileIsBinary(wstring fileExtension)
+{
+	for (size_t ii = 0; ii < _extensionsToNotCheckIfBinary.size(); ii++)
+	{
+		if (_extensionsToNotCheckIfBinary.at(ii) == fileExtension)
+			return false;
+	}
+	return true;
+}
+
+wstring FileManager::getExtensionsToNotCheckBinary()
+{
+	std::wstring joinedList;
+	stringJoin(_extensionsToNotCheckIfBinary, wstring(L"|"), joinedList);
+	return joinedList;
+}
+
+void FileManager::setExtensionsToNotCheckBinary(const TCHAR* joinedList)
+{
+	_extensionsToNotCheckIfBinary.clear();
+	if (!joinedList || wcslen(joinedList) == 0)
+		return;
+	vector<wstring> newExts;
+	stringSplit(wstring(joinedList), wstring(L"|"), newExts);
+	for (size_t ii = 0; ii < newExts.size(); ii++)
+	{
+		wstring ext = newExts.at(ii);
+		if (ext.size() == 0 || ext.at(0) == L'.')
+			_extensionsToNotCheckIfBinary.push_back(ext);
+	}
+}
+
+bool FileManager::isBinary(BufferID id)
+{
+	// figure out if the file contains any characters with ASCII char code less than 9 ('\t')
+	//     (we assume that such files are binary, and thus probably inappropriate to open with Notepad++)
+	// we can also do some tests on the filename (if the ext isn't recognized, maybe it's binary)
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, id->getDocument());
+	_pscratchTilla->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP);
+	const TCHAR * binaryRecognizer = TEXT("[\\x00-\\x08]");
+	constexpr size_t maxCharsToSearchForBinary = 10000;
+	size_t charsToSearchForBinary = _pscratchTilla->execute(SCI_GETLENGTH);
+	if (charsToSearchForBinary > maxCharsToSearchForBinary)
+		charsToSearchForBinary = maxCharsToSearchForBinary;
+	intptr_t positionOfFirstBinaryChar = _pscratchTilla->searchInTarget(binaryRecognizer, wcslen(binaryRecognizer), 0, charsToSearchForBinary);
+	return positionOfFirstBinaryChar != -1;
+}
+
+bool FileManager::closeBecauseBinary(BufferID id)
+{
+	wstring fileExtension = wstring(::PathFindExtensionW(id->getFileName()));
+	if (id == BUFFER_INVALID || !checkIfFileIsBinary(fileExtension))
+		return false;
+	bool result = false;
+	if (isBinary(id))
+	{
+		result = _pNotepadPlus->_nativeLangSpeaker.messageBox("FileIsMaybeBinary",
+				_pscratchTilla->getHSelf(),
+				TEXT("The file $STR_REPLACE$ appears to be binary, not a text file. Notepad++ is not designed to work with binary files. Are you sure you want to open it in Notepad++?"),
+				TEXT("Open a binary file in Notepad++?"),
+				MB_YESNO | MB_APPLMODAL,
+				0, id->getFullPathName()
+		) == IDNO;
+		if (!result)
+		{
+			bool addExtToList = _pNotepadPlus->_nativeLangSpeaker.messageBox("AddExtToBinaryIgnoreList",
+				_pscratchTilla->getHSelf(),
+				TEXT("Do you wish to stop checking if files with the \"$STR_REPLACE$\" extension are binary?"),
+				TEXT("Stop checking if \"$STR_REPLACE$\" files are binary?"),
+				MB_YESNO | MB_APPLMODAL,
+				0, fileExtension.data()
+			) == IDYES;
+			if (addExtToList)
+			{
+				_extensionsToNotCheckIfBinary.push_back(fileExtension);
+				//// reset text of the relevant control in the preference dialog (this code doesn't work, so I commented it out)
+				//wstring extsToNotCheck = getExtensionsToNotCheckBinary();
+				//const TCHAR* extsToNotCheckBuf = extsToNotCheck.c_str();
+				//if (_pNotepadPlus->_preference.isCreated())
+				//{
+				//	size_t res = ::SendDlgItemMessage(_pNotepadPlus->_preference.getHSelf(), IDC_EDIT_EXTS_NOT_CHECK_BINARY, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(extsToNotCheckBuf));
+				//	if (!res)
+				//	{
+				//		// typically it seems that I get errCode = 1421 (ERROR_CONTROL_ID_NOT_FOUND) when I run that line of code
+				//		int errCode = ::GetLastError();
+				//		wstring err = ::GetLastErrorAsString(errCode);
+				//		_pNotepadPlus->_nativeLangSpeaker.messageBox("fkrkek", _pscratchTilla->getHSelf(),
+				//			L"got error \"$STR_REPLACE$\" (code $INT_REPLACE$)", L"error setting text",
+				//			MB_OK | MB_APPLMODAL, errCode, err.c_str());
+				//	}
+				//}
+			}
+		}
+	}
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+	return result;
+}
 
 bool FileManager::reloadBuffer(BufferID id)
 {

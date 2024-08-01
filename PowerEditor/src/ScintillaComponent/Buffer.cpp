@@ -846,6 +846,8 @@ void FileManager::setExtensionsToNotCheckBinary(const TCHAR* joinedList)
 
 bool FileManager::isBinary(BufferID id)
 {
+	if (id == BUFFER_INVALID)
+		return false;
 	// figure out if the file contains any characters with ASCII char code less than 9 ('\t')
 	//     (we assume that such files are binary, and thus probably inappropriate to open with Notepad++)
 	// we can also do some tests on the filename (if the ext isn't recognized, maybe it's binary)
@@ -857,13 +859,16 @@ bool FileManager::isBinary(BufferID id)
 	if (charsToSearchForBinary > maxCharsToSearchForBinary)
 		charsToSearchForBinary = maxCharsToSearchForBinary;
 	intptr_t positionOfFirstBinaryChar = _pscratchTilla->searchInTarget(binaryRecognizer, wcslen(binaryRecognizer), 0, charsToSearchForBinary);
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 	return positionOfFirstBinaryChar != -1;
 }
 
 bool FileManager::closeBecauseBinary(BufferID id)
 {
+	if (id == BUFFER_INVALID)
+		return false;
 	wstring fileExtension = wstring(::PathFindExtensionW(id->getFileName()));
-	if (id == BUFFER_INVALID || !checkIfFileIsBinary(fileExtension))
+	if (!checkIfFileIsBinary(fileExtension))
 		return false;
 	bool result = false;
 	if (isBinary(id))
@@ -906,7 +911,6 @@ bool FileManager::closeBecauseBinary(BufferID id)
 			}
 		}
 	}
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 	return result;
 }
 

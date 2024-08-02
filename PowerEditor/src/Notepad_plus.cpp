@@ -475,7 +475,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// ------------ //
 	// Menu Section //
 	// ------------ //
-
+	nppParam.initTabCustomColors();
 	setupColorSampleBitmapsOnMainMenuItems();
 
 	// Macro Menu

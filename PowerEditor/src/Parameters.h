@@ -30,6 +30,8 @@
 #include <assert.h>
 #include <tchar.h>
 #include <map>
+#include <array>
+#include <shlwapi.h>
 #include "ILexer.h"
 #include "Lexilla.h"
 #include "DockingCont.h"
@@ -1378,6 +1380,15 @@ private:
 	std::wstring _stylesXmlPath;
 };
 
+struct HLSColour
+{
+	WORD _hue;
+	WORD _lightness;
+	WORD _saturation;
+
+	void changeHLSFrom(COLORREF rgb) { ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
+	COLORREF toRGB() const { return ColorHLSToRGB(_hue, _lightness, _saturation); }
+};
 
 struct UdlXmlFileState final {
 	TiXmlDocument* _udlXmlDoc = nullptr;
@@ -1897,6 +1908,9 @@ private:
 
 	std::wstring _loadedSessionFullFilePath;
 
+	std::array<HLSColour, 5> individualTabHuesFor_Dark{ { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
+	std::array<HLSColour, 5> individualTabHues{ { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}} };
+
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
@@ -2003,7 +2017,10 @@ public:
 	void setTheWarningHasBeenGiven(bool isEnabled) { _theWarningHasBeenGiven = isEnabled; };
 	bool theWarningHasBeenGiven() const { return _theWarningHasBeenGiven; }
 
-	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated);
+
+	void initTabCustomColors();
+	void setIndividualTabColour(COLORREF colour2Set, int colourIndex, bool isDarkMode);
+	COLORREF getIndividualTabColour(int colourIndex, bool isDarkMode, bool saturated);
 
 private:
 	void getLangKeywordsFromXmlTree();

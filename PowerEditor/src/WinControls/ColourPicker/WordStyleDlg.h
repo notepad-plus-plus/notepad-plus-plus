@@ -119,6 +119,7 @@ private :
 	bool getStyleName(wchar_t *styleName, const size_t styleNameLen);
 
 	int whichTabColourIndex();
+	int whichIndividualTabColourId();
 	bool isDocumentMapStyle();
 	void move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void updateColour(bool which);

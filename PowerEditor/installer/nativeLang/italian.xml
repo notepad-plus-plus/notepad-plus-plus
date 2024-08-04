@@ -952,7 +952,7 @@ Translation note:
 					<Item id="6104" name="Icone contornate (grandi)"/>
 					<Item id="6129" name="Icone piene (piccole)"/>
 					<Item id="6130" name="Icone piene (grandi)"/>
-					<Item id="6105" name="Icone standard (piccole)"/>
+					<Item id="6105" name="Icone classiche (piccole)"/>
 
 					<Item id="6106" name="Barra delle schede"/>
 					<Item id="6107" name="Compatta"/>
@@ -1270,7 +1270,7 @@ Translation note:
 					<Item id="6255" name="Chiudi"/>
 					<Item id="6256" name="Permetti su più righe"/>
 					<Item id="6161" name="Elenco delimitatori di parola"/>
-					<Item id="6162" name="Utilizza i delimitatori di parola standard"/>
+					<Item id="6162" name="Utilizza i delimitatori di parola predefiniti"/>
 					<Item id="6163" name="Aggiungi i tuoi caratteri come delimitatori di parola
 (non selezionarlo se non sai cosa stai facendo)"/>
 				</Delimiter>

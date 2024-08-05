@@ -228,8 +228,8 @@ public:
 
 	void setDirty(bool dirty);
 
-	void setPosition(const Position & pos, ScintillaEditView * identifier);
-	Position & getPosition(ScintillaEditView * identifier);
+	void setPosition(const Position & pos, const ScintillaEditView * identifier);
+	Position & getPosition(const ScintillaEditView * identifier);
 
 	void setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier);
 	const std::vector<size_t> & getHeaderLineState(const ScintillaEditView * identifier) const;
@@ -268,7 +268,7 @@ public:
 
 	//these two return reference count after operation
 	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
-	int removeReference(ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
+	int removeReference(const ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
 
 	void setHideLineChanged(bool isHide, size_t location);
 

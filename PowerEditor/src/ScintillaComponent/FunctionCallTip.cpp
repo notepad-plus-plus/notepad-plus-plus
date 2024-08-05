@@ -404,7 +404,7 @@ void FunctionCallTip::showCalltip()
 		callTipText << L"\001" << _currentOverload + 1 << L" of " << _currentNbOverloads << L"\002";
 	}
 
-	callTipText << _retVals.at(_currentOverload) << TEXT(' ') << _funcName << TEXT(' ') << _start;
+	callTipText << _retVals.at(_currentOverload) << ' ' << _funcName << ' ' << _start;
 
 	int highlightstart = 0;
 	int highlightend = 0;
@@ -418,7 +418,7 @@ void FunctionCallTip::showCalltip()
 		}
 		callTipText << params.at(i);
 		if (i < nbParams - 1)
-			callTipText << _param << TEXT(' ');
+			callTipText << _param << ' ';
 	}
 
 	callTipText << _stop;

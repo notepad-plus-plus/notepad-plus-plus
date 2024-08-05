@@ -75,7 +75,7 @@ std::wstring relativeFilePathToFullFilePath(const wchar_t *relativeFilePath);
 void writeFileContent(const wchar_t *file2write, const char *content2write);
 bool matchInList(const wchar_t *fileName, const std::vector<std::wstring> & patterns);
 bool matchInExcludeDirList(const wchar_t* dirName, const std::vector<std::wstring>& patterns, size_t level);
-bool allPatternsAreExclusion(const std::vector<std::wstring> patterns);
+bool allPatternsAreExclusion(const std::vector<std::wstring>& patterns);
 
 class WcharMbcsConvertor final
 {

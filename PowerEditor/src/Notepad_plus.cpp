@@ -3217,7 +3217,7 @@ bool scanToUrlStart(wchar_t *text, int textLen, int start, int* distance, int* s
 // The query pattern going through looks like this:
 // - ?abc;def;fgh="i j k"&'l m n'+opq
 //
-void scanToUrlEnd(wchar_t *text, int textLen, int start, int* distance)
+void scanToUrlEnd(const wchar_t *text, int textLen, int start, int* distance)
 {
 	int p = start;
 	wchar_t q = 0;
@@ -9048,7 +9048,7 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	}
 }
 
-HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, std::vector<int>& commandIds)
+HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds)
 {
 	HMENU hNewMenu = ::CreatePopupMenu();
 	for (const auto& cmdID : commandIds)

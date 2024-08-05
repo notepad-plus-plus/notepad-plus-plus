@@ -283,7 +283,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 						if (buf->isDirty())
 						{
-							wstring msg, title;
 							_nativeLangSpeaker.messageBox("CannotMoveDoc",
 								_pPublicInterface->getHSelf(),
 								L"Document is modified, save it then try again.",

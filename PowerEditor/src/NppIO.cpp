@@ -262,9 +262,6 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	}
     _lastRecentFileList.remove(longFileName);
 
-	wstring fileName2Find;
-	wstring gs_fileName{ targetFileName };
-
 
 	// "fileName" could be:
 	// 1. full file path to open or create
@@ -277,6 +274,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	// if case 1 & 2 not found, search case 3
 	if (foundBufID == BUFFER_INVALID)
 	{
+		wstring fileName2Find;
 		fileName2Find = longFileName;
 		foundBufID = MainFileManager.getBufferFromName(fileName2Find.c_str());
 	}
@@ -1652,7 +1650,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				// Get the current file's directory
 				wstring path = fn;
 				::PathRemoveFileSpec(path);
-				fn_bak = path.c_str();
+				fn_bak = path;
 				fn_bak += L"\\";
 
 				// If verbose, save it in a sub folder
@@ -1906,7 +1904,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 			if (res && isSaveCopy && fDlg.getOpenTheCopyAfterSaveAsCopy())
 			{
-				BufferID bid = doOpen(fn.c_str());
+				BufferID bid = doOpen(fn);
 				if (bid != BUFFER_INVALID)
 				{
 					switchToFile(bid);
@@ -2605,9 +2603,9 @@ bool Notepad_plus::fileLoadSession(const wchar_t *fn)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 		const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
-		wstring sessionExt = L"";
 		if (*ext != '\0')
 		{
+			wstring sessionExt = L"";
 			if (*ext != '.')
 				sessionExt += L".";
 			sessionExt += ext;
@@ -2703,9 +2701,9 @@ const wchar_t * Notepad_plus::fileSaveSession(size_t nbFile, wchar_t ** fileName
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 	const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
 
-	wstring sessionExt = L"";
 	if (*ext != '\0')
 	{
+		wstring sessionExt = L"";
 		if (*ext != '.')
 			sessionExt += L".";
 		sessionExt += ext;

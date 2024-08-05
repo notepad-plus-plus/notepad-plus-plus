@@ -2288,7 +2288,7 @@ void NppParameters::setWorkingDir(const wchar_t * newPath)
 		if (doesDirectoryExist(_nppGUI._defaultDirExp))
 			_currentDirectory = _nppGUI._defaultDirExp;
 		else
-			_currentDirectory = _nppPath.c_str();
+			_currentDirectory = _nppPath;
 	}
 }
 

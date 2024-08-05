@@ -358,12 +358,12 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 	Version nppVer;
 	nppVer.setVersionFrom(nppFullPathName);
 
-	const wchar_t* incompatibleWarning = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.";
-	const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
-
 	// get plugin folder
 	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
+		const wchar_t* incompatibleWarning = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.";
+		const wchar_t* incompatibleWarningWithSolution = L"%s's version %s is not compatible to this version of Notepad++ (v%s).\r\nAs a result the plugin cannot be loaded.\r\n\r\nGo to Updates section and update your plugin to %s for solving the compatibility issue.";
+
 		wstring foundFileName = foundData.cFileName;
 		if (foundFileName != L"." && foundFileName != L".." && wcsicmp(foundFileName.c_str(), L"Config") != 0)
 		{
@@ -441,7 +441,6 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 			{
 				wstring pluginsFullPathFilter2 = pluginsFolder;
 				pathAppend(pluginsFullPathFilter2, foundFileName2);
-				wstring pluginsFolderPath2 = pluginsFullPathFilter2;
 				wstring  dllName2 = foundFileName2;
 				dllName2 += L".dll";
 				pathAppend(pluginsFullPathFilter2, dllName2);
@@ -630,13 +629,12 @@ HMENU PluginsManager::initMenu(HMENU hMenu, bool enablePluginAdmin)
 	{
 		_hPluginsMenu = ::GetSubMenu(hMenu, MENUINDEX_PLUGINS);
 
-		int i = 1;
-
 		if (nbPlugin > 0)
 			::InsertMenu(_hPluginsMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, L"");
 
 		if (enablePluginAdmin)
 		{
+			int i = 1;
 			::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION, IDM_SETTING_PLUGINADM, L"Plugins Admin...");
 			::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION | MF_SEPARATOR, 0, L"");
 		}

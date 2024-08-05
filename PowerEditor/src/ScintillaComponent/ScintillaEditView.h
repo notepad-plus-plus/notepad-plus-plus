@@ -371,7 +371,7 @@ struct ColumnModeInfo {
 // SortClass for vector<ColumnModeInfo>
 // sort in _order : increased order
 struct SortInSelectOrder {
-	bool operator() (ColumnModeInfo & l, ColumnModeInfo & r) {
+	bool operator() (const ColumnModeInfo & l, const ColumnModeInfo & r) {
 		return (l._order < r._order);
 	}
 };
@@ -380,7 +380,7 @@ struct SortInSelectOrder {
 // SortClass for vector<ColumnModeInfo>
 // sort in _selLpos : increased order
 struct SortInPositionOrder {
-	bool operator() (ColumnModeInfo & l, ColumnModeInfo & r) {
+	bool operator() (const ColumnModeInfo & l, const ColumnModeInfo & r) {
 		return (l._selLpos < r._selLpos);
 	}
 };
@@ -586,7 +586,7 @@ public:
 	void showNpc(bool willBeShowed = true, bool isSearchResult = false);
 
 	bool isShownNpc() {
-		auto& svp = NppParameters::getInstance().getSVP();
+		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._npcShow;
 	};
 
@@ -618,7 +618,7 @@ public:
 	void showCcUniEol(bool willBeShowed = true, bool isSearchResult = false);
 
 	bool isShownCcUniEol() {
-		auto& svp = NppParameters::getInstance().getSVP();
+		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._ccUniEolShow;
 	};
 

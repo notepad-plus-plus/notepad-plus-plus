@@ -129,7 +129,7 @@ BufferID DocTabView::findBufferByName(const wchar_t * fullfilename) //-1 if not 
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		BufferID id = reinterpret_cast<BufferID>(tie.lParam);
-		Buffer * buf = MainFileManager.getBufferByID(id);
+		const Buffer* buf = MainFileManager.getBufferByID(id);
 		if (wcsicmp(fullfilename, buf->getFullPathName()) == 0)
 		{
 			return id;

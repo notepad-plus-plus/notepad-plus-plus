@@ -2195,8 +2195,6 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 
 bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu, bool isEditCM)
 {
-	std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
-
 	TiXmlDocumentA* pXmlContextMenuDocA = isEditCM ? _pXmlContextMenuDocA : _pXmlTabContextMenuDocA;
 	std::string cmName = isEditCM ? "ScintillaContextMenu" : "TabContextMenu";
 
@@ -2212,6 +2210,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 	TiXmlNodeA *contextMenuRoot = root->FirstChildElement(cmName.c_str());
 	if (contextMenuRoot)
 	{
+		std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
+
 		for (TiXmlNodeA *childNode = contextMenuRoot->FirstChildElement("Item");
 			childNode ;
 			childNode = childNode->NextSibling("Item") )
@@ -6192,10 +6192,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 		else if (!lstrcmp(nm, L"commandLineInterpreter"))
 		{
-			TiXmlNode *node = childNode->FirstChild();
-			if (node)
+			TiXmlNode *cmdLineInterpreterNode = childNode->FirstChild();
+			if (cmdLineInterpreterNode)
 			{
-				const wchar_t *cli = node->Value();
+				const wchar_t *cli = cmdLineInterpreterNode->Value();
 				if (cli && cli[0])
 					_nppGUI._commandLineInterpreter.assign(cli);
 			}

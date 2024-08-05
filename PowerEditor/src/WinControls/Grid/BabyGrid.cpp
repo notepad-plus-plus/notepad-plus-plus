@@ -234,7 +234,7 @@ int GetColOfMouse(int SI, int x)
 	return ReturnValue;
 }
 
-BOOL OutOfRange(BGCELL* cell)
+BOOL OutOfRange(const BGCELL* cell)
 {
 	if ((cell->row > MAX_ROWS) || (cell->col > MAX_COLS))
 	{
@@ -472,8 +472,8 @@ void DisplayColumn(HWND hWnd, int SI, int c, int offset, HFONT hfont, HFONT hcol
 		rect.bottom = rect.top + BGHS[SI].rowheight;
 		rectsave = rect;
 
-		BGCELL BGcell;
-		SetCell(&BGcell, r, c);
+		BGCELL BGcell2;
+		SetCell(&BGcell2, r, c);
 		wcscpy_s(buffer, L"");
 		int iProperty = 0;
 		if ((c == 0) && (BGHS[SI].ROWSNUMBERED))
@@ -485,7 +485,7 @@ void DisplayColumn(HWND hWnd, int SI, int c, int offset, HFONT hfont, HFONT hcol
 		{
 			// iProperty will combine (iDataType << 4) and (iProtection & 0xf), 
 			// this will reduce some unnecessary and 'heavy' message calls for getting iDataType and iProtection separately
-			iProperty = static_cast<int32_t>(SendMessage(hWnd, BGM_GETCELLDATA, reinterpret_cast<WPARAM>(&BGcell), reinterpret_cast<LPARAM>(buffer)));
+			iProperty = static_cast<int32_t>(SendMessage(hWnd, BGM_GETCELLDATA, reinterpret_cast<WPARAM>(&BGcell2), reinterpret_cast<LPARAM>(buffer)));
 		}
 
 		if (c == 0)

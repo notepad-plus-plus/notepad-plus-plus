@@ -1183,10 +1183,10 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	//-- font size
 	constexpr size_t intStrLen = 3;
-	wchar_t intStr[intStrLen]{};
 	LRESULT iFontSize = 0;
 	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
 	{
+		wchar_t intStr[intStrLen]{};
 		wsprintf(intStr, L"%d", style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
 	}

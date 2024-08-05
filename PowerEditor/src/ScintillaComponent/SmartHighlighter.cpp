@@ -52,7 +52,7 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	{
 		// fetch find dialog's setting
 		NppParameters& nppParams = NppParameters::getInstance();
-		FindHistory &findHistory = nppParams.getFindHistory();
+		const FindHistory &findHistory = nppParams.getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
 		isCaseSensentive = findHistory._isMatchCase;
 	}
@@ -125,7 +125,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	{
 		// fetch find dialog's setting
 		NppParameters& nppParams = NppParameters::getInstance();
-		FindHistory &findHistory = nppParams.getFindHistory();
+		const FindHistory &findHistory = nppParams.getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
 	}
 	else

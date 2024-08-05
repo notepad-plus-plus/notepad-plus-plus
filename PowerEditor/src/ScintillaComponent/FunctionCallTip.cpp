@@ -195,7 +195,7 @@ bool FunctionCallTip::getCursorFunction()
 	int scopeLevel = 0;
 	for (size_t i = 0; i < vsize; ++i)
 	{
-		Token & curToken = tokenVector.at(i);
+		const Token & curToken = tokenVector.at(i);
 		if (curToken.isIdentifier)
 		{
 			curValue.lastIdentifier = static_cast<int32_t>(i);

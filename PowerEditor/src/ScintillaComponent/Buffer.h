@@ -239,21 +239,21 @@ public:
 	const wchar_t * getUserDefineLangName() const	{ return _userLangExt.c_str(); }
 
 	const wchar_t * getCommentLineSymbol() const {
-		Lang *l = getCurrentLang();
+		const Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentLineSymbol;
 	}
 
 	const wchar_t * getCommentStart() const {
-		Lang *l = getCurrentLang();
+		const Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentStart;
 	}
 
 	const wchar_t * getCommentEnd() const {
-		Lang *l = getCurrentLang();
+		const Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentEnd;

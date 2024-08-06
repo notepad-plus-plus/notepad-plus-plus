@@ -202,7 +202,7 @@ void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const wchar_t
 	}
 }
 
-TreeParams* FunctionListPanel::getFromStateArray(wstring fullFilePath)
+TreeParams* FunctionListPanel::getFromStateArray(const wstring& fullFilePath)
 {
 	for (size_t i = 0, len = _treeParams.size(); i < len; ++i)
 	{

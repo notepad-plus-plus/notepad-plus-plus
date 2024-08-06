@@ -359,6 +359,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							}
 
 							restoreGlobalOverrideValues();
+							nppParamInst.initTabCustomColors();
 
 							_restoreInvalid = false;
 							_isDirty = false;
@@ -554,6 +555,20 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									{
 										ViewZoneDlg::setColour(_pBgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::frost);
 									}
+									else
+									{
+										int colourIndex = whichIndividualTabColourId();
+
+										if (colourIndex != -1)
+										{
+											if (colourIndex >= TabBarPlus::individualTabColourId::id5)
+												colourIndex -= TabBarPlus::individualTabColourId::id5;
+
+											NppParameters& nppParamInst = NppParameters::getInstance();
+											nppParamInst.setIndividualTabColour(_pBgColour->getColour(), colourIndex, NppDarkMode::isEnabled());
+										}
+									}
+
 									apply();
 									return TRUE;
 								}
@@ -654,6 +669,51 @@ int WordStyleDlg::whichTabColourIndex()
 
 	if (lstrcmp(styleName, TABBAR_INACTIVETEXT) == 0)
 		return TabBarPlus::inactiveText;
+
+	return -1;
+}
+
+int WordStyleDlg::whichIndividualTabColourId()
+{
+	constexpr size_t styleNameLen = 128;
+	wchar_t styleName[styleNameLen + 1] = { '\0' };
+
+	if (!WordStyleDlg::getStyleName(styleName, styleNameLen))
+	{
+		return -1;
+	}
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_1) == 0)
+		return TabBarPlus::individualTabColourId::id0;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_2) == 0)
+		return TabBarPlus::individualTabColourId::id1;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_3) == 0)
+		return TabBarPlus::individualTabColourId::id2;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_4) == 0)
+		return TabBarPlus::individualTabColourId::id3;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_5) == 0)
+		return TabBarPlus::individualTabColourId::id4;
+
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_1) == 0)
+		return TabBarPlus::individualTabColourId::id5;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_2) == 0)
+		return TabBarPlus::individualTabColourId::id6;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_3) == 0)
+		return TabBarPlus::individualTabColourId::id7;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_4) == 0)
+		return TabBarPlus::individualTabColourId::id8;
+
+	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_5) == 0)
+		return TabBarPlus::individualTabColourId::id9;
+
 
 	return -1;
 }
@@ -1123,10 +1183,10 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	//-- font size
 	constexpr size_t intStrLen = 3;
-	wchar_t intStr[intStrLen]{};
 	LRESULT iFontSize = 0;
 	if (style._fontSize != STYLE_NOT_USED && style._fontSize < 100) // style._fontSize has only 2 digits
 	{
+		wchar_t intStr[intStrLen]{};
 		wsprintf(intStr, L"%d", style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
 	}

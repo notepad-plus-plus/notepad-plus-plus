@@ -368,7 +368,7 @@ LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message
 		if (pScint && (isSynpnatic || makeTouchPadCompetible))
 			return (pScint->scintillaNew_Proc(hwnd, Message, wParam, lParam));
 
-		ScintillaEditView *pScintillaOnMouse = (ScintillaEditView *)(::GetWindowLongPtr(hwndOnMouse, GWLP_USERDATA));
+		const ScintillaEditView* pScintillaOnMouse = reinterpret_cast<const ScintillaEditView *>(::GetWindowLongPtr(hwndOnMouse, GWLP_USERDATA));
 		if (pScintillaOnMouse != pScint)
 			return ::SendMessage(hwndOnMouse, Message, wParam, lParam);
 	}
@@ -1804,12 +1804,12 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 			if (pStyler)
 			{
-				const Style * pStyle = pStyler->findByName(L"DEFAULT");
-				if (pStyle)
+				const Style * pDefStyle = pStyler->findByName(L"DEFAULT");
+				if (pDefStyle)
 				{
-					nfoStyle._bgColor = pStyle->_bgColor;
-					nfoStyle._fgColor = pStyle->_fgColor;
-					nfoStyle._colorStyle = pStyle->_colorStyle;
+					nfoStyle._bgColor = pDefStyle->_bgColor;
+					nfoStyle._fgColor = pDefStyle->_fgColor;
+					nfoStyle._colorStyle = pDefStyle->_colorStyle;
 				}
 			}
 			setSpecialStyle(nfoStyle);
@@ -2113,7 +2113,7 @@ void ScintillaEditView::saveCurrentPos()
 void ScintillaEditView::restoreCurrentPosPreStep()
 {
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
-	Position & pos = buf->getPosition(this);
+	const Position & pos = buf->getPosition(this);
 
 	execute(SCI_SETSELECTIONMODE, pos._selMode);	//enable
 	execute(SCI_SETANCHOR, pos._startPos);
@@ -2145,7 +2145,7 @@ void ScintillaEditView::restoreCurrentPosPostStep()
 		return;
 
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
-	Position & pos = buf->getPosition(this);
+	const Position & pos = buf->getPosition(this);
 
 	++_restorePositionRetryCount;
 
@@ -3145,7 +3145,7 @@ void ScintillaEditView::performGlobalStyles()
 
 void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 {
-	auto& svp = NppParameters::getInstance().getSVP();
+	const auto& svp = NppParameters::getInstance().getSVP();
 
 	if (willBeShowed)
 	{
@@ -3180,7 +3180,7 @@ void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 
 void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
 {
-	auto& svp = NppParameters::getInstance().getSVP();
+	const auto& svp = NppParameters::getInstance().getSVP();
 
 	if (willBeShowed)
 	{
@@ -4404,7 +4404,7 @@ pair<size_t, size_t> ScintillaEditView::getSelectedCharsAndLinesCount(long long 
 		}
 		sort(v.begin(), v.end());
 		intptr_t previousSecondLine = -1;
-		for (auto& lineRange : v)
+		for (const auto& lineRange : v)
 		{
 			selectedCharsAndLines.second += lineRange.second - lineRange.first;
 			if (lineRange.first != static_cast<size_t>(previousSecondLine))
@@ -4504,7 +4504,7 @@ void ScintillaEditView::markedTextToClipboard(int indiStyle, bool doAll /*= fals
 			L"\r\n----\r\n" : L"\r\n";
 
 		wstring joined;
-		for (auto& item : styledVect)
+		for (const auto& item : styledVect)
 		{
 			joined += delim + item.second;
 		}

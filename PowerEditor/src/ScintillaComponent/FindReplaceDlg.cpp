@@ -1785,7 +1785,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			RECT rcStatusBar{};
 			::GetWindowRect(_statusBar.getHSelf(), &rcStatusBar);
 
-			const LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
+			LONG padding = _dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER);
 			_szBorder.cx = ((_dpiManager.getSystemMetricsForDpi(SM_CXFRAME) + padding) * 2);
 			_szBorder.cy = ((_dpiManager.getSystemMetricsForDpi(SM_CYFRAME) + padding) * 2
 				+ _dpiManager.getSystemMetricsForDpi(SM_CYCAPTION)
@@ -1793,7 +1793,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			if (prevDpi > _dpiManager.getDpi())
 			{
-				const auto padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER));
+				padding = static_cast<LONG>(_dpiManager.getSystemMetricsForDpi(SM_CXPADDEDBORDER));
 				_szBorder.cx += padding;
 				_szBorder.cy += padding;
 			}
@@ -3567,7 +3567,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETUSETABS, true);
 		_pFinder->_scintView.execute(SCI_SETTABWIDTH, 4);
 
-		NppGUI& nppGUI = nppParam.getNppGUI();
+		const NppGUI& nppGUI = nppParam.getNppGUI();
 		_pFinder->_longLinesAreWrapped = nppGUI._finderLinesAreCurrentlyWrapped;
 		_pFinder->_scintView.wrap(_pFinder->_longLinesAreWrapped);
 		_pFinder->_scintView.setWrapMode(LINEWRAP_INDENT);
@@ -4063,7 +4063,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
 }
 
-void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, wstring tooltipMsg)
+void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, const wstring& tooltipMsg)
 {
 	if (_statusbarTooltipWnd)
 	{
@@ -5037,7 +5037,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 }
 
-bool FindReplaceDlg::replaceInFilesConfirmCheck(wstring directory, wstring fileTypes)
+bool FindReplaceDlg::replaceInFilesConfirmCheck(const wstring& directory, const wstring& fileTypes)
 {
 	bool confirmed = false;
 
@@ -5573,7 +5573,7 @@ void Finder::setFinderStyle()
 	_scintView.execute(SCI_COLOURISE, 0, -1);
 
 	// finder fold style follows user preference but use box when user selects none
-	ScintillaViewParams& svp = (ScintillaViewParams&)NppParameters::getInstance().getSVP();
+	const ScintillaViewParams& svp = (ScintillaViewParams&)NppParameters::getInstance().getSVP();
 	_scintView.setMakerStyle(svp._folderStyle == FOLDER_STYLE_NONE ? FOLDER_STYLE_BOX : svp._folderStyle);
 }
 
@@ -6499,7 +6499,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 
 		case WM_GETDPISCALEDSIZE:
 		{
-			auto pw = reinterpret_cast<Progress*>(static_cast<LONG_PTR>(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
+			const auto pw = reinterpret_cast<Progress*>(static_cast<LONG_PTR>(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
 
 			const UINT newDpi = static_cast<UINT>(wparam);
 			RECT rcWindow = pw->getDpiScaledWindowRect(newDpi);

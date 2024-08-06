@@ -49,7 +49,7 @@ ClipboardDataInfo ClipboardHistoryPanel::getClipboadData()
 						unsigned char* pData_bin = static_cast<unsigned char*>(GlobalLock(hglb_binText));
 						if (pData_bin != NULL)
 						{
-							unsigned long* lpLen = (unsigned long*)GlobalLock(hglbLen);
+							const unsigned long* lpLen = (unsigned long*)GlobalLock(hglbLen);
 							if (lpLen != NULL) // Special copy-paste: Binary data
 							{
 								size_t nbBytes = (*lpLen);

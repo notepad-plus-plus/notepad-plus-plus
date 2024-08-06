@@ -78,7 +78,7 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 	for (size_t i = 0; i < 32; i++)
 		wsprintf(sha2hashStr + i * 2, L"%02x", sha2hash[i]);
 
-	std::vector<std::wstring>* moduleSha256 = nullptr;
+	const std::vector<std::wstring>* moduleSha256 = nullptr;
 
 	if (module2check == nm_gup)
 		moduleSha256 = &_gupSha256;
@@ -87,7 +87,7 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 	else
 		return false;
 
-	for (auto i : *moduleSha256)
+	for (const auto& i : *moduleSha256)
 	{
 		if (i == sha2hashStr)
 		{

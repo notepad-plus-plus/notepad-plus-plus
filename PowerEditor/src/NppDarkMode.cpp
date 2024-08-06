@@ -464,7 +464,7 @@ namespace NppDarkMode
 
 	void initAdvancedOptions()
 	{
-		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+		const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 		g_advOptions = nppGui._darkmode._advOptions;
 	}
 
@@ -2324,7 +2324,7 @@ namespace NppDarkMode
 		::EnableThemeDialogTexture(hwndParent, theme && !NppDarkMode::isEnabled() ? ETDT_ENABLETAB : ETDT_DISABLE);
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
-			auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
+			const auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
 			constexpr size_t classNameLen = 32;
 			wchar_t className[classNameLen]{};
 			GetClassName(hwnd, className, classNameLen);

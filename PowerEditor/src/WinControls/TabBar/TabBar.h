@@ -47,6 +47,18 @@ const wchar_t TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = L"Active tab unfocused indica
 const wchar_t TABBAR_ACTIVETEXT[64] = L"Active tab text";
 const wchar_t TABBAR_INACTIVETEXT[64] = L"Inactive tabs";
 
+const wchar_t TABBAR_INDIVIDUALCOLOR_1[64] = L"Tab color 1";
+const wchar_t TABBAR_INDIVIDUALCOLOR_2[64] = L"Tab color 2";
+const wchar_t TABBAR_INDIVIDUALCOLOR_3[64] = L"Tab color 3";
+const wchar_t TABBAR_INDIVIDUALCOLOR_4[64] = L"Tab color 4";
+const wchar_t TABBAR_INDIVIDUALCOLOR_5[64] = L"Tab color 5";
+
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_1[64] = L"Tab color dark mode 1";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_2[64] = L"Tab color dark mode 2";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_3[64] = L"Tab color dark mode 3";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_4[64] = L"Tab color dark mode 4";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_5[64] = L"Tab color dark mode 5";
+
 constexpr int g_TabIconSize = 16;
 constexpr int g_TabHeight = 22;
 constexpr int g_TabHeightLarge = 25;
@@ -155,6 +167,10 @@ public :
 	TabBarPlus() = default;
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
+	};
+
+	enum individualTabColourId {
+		id0, id1, id2, id3, id4, id5, id6, id7, id8, id9
 	};
 
 	static void doDragNDrop(bool justDoIt) {

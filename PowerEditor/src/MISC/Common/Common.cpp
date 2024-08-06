@@ -68,7 +68,7 @@ std::string getFileContent(const wchar_t *file2read)
 	do
 	{
 		lenFile = fread(data, 1, blockSize, fp);
-		if (lenFile <= 0) break;
+		if (lenFile == 0) break;
 		wholeFileContent.append(data, lenFile);
 	}
 	while (lenFile > 0);
@@ -94,11 +94,11 @@ char getDriveLetter()
 wstring relativeFilePathToFullFilePath(const wchar_t *relativeFilePath)
 {
 	wstring fullFilePathName;
-	wchar_t fullFileName[MAX_PATH];
 	BOOL isRelative = ::PathIsRelative(relativeFilePath);
 
 	if (isRelative)
 	{
+		wchar_t fullFileName[MAX_PATH];
 		::GetFullPathName(relativeFilePath, MAX_PATH, fullFileName, NULL);
 		fullFilePathName += fullFileName;
 	}
@@ -953,7 +953,7 @@ bool matchInExcludeDirList(const wchar_t* dirName, const std::vector<wstring>& p
 	return false;
 }
 
-bool allPatternsAreExclusion(const std::vector<wstring> patterns)
+bool allPatternsAreExclusion(const std::vector<wstring>& patterns)
 {
 	bool oneInclusionPatternFound = false;
 	for (size_t i = 0, len = patterns.size(); i < len; ++i)
@@ -1096,8 +1096,6 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 	CERT_INFO CertInfo{};
 	LPTSTR szName = NULL;
 
-	wstring subjectName;
-
 	try {
 		// Get message handle and store handle from the signed file.
 		result = CryptQueryObject(CERT_QUERY_OBJECT_FILE,
@@ -1182,7 +1180,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 		}
 
 		// check Subject name.
-		subjectName = szName;
+		wstring subjectName = szName;
 		if (subjectName != subjectName2check)
 		{
 			throw wstring(L"Certificate checking error: the certificate is not matched.");

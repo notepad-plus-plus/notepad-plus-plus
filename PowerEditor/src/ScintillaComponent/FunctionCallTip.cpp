@@ -195,7 +195,7 @@ bool FunctionCallTip::getCursorFunction()
 	int scopeLevel = 0;
 	for (size_t i = 0; i < vsize; ++i)
 	{
-		Token & curToken = tokenVector.at(i);
+		const Token & curToken = tokenVector.at(i);
 		if (curToken.isIdentifier)
 		{
 			curValue.lastIdentifier = static_cast<int32_t>(i);
@@ -404,7 +404,7 @@ void FunctionCallTip::showCalltip()
 		callTipText << L"\001" << _currentOverload + 1 << L" of " << _currentNbOverloads << L"\002";
 	}
 
-	callTipText << _retVals.at(_currentOverload) << TEXT(' ') << _funcName << TEXT(' ') << _start;
+	callTipText << _retVals.at(_currentOverload) << ' ' << _funcName << ' ' << _start;
 
 	int highlightstart = 0;
 	int highlightend = 0;
@@ -418,7 +418,7 @@ void FunctionCallTip::showCalltip()
 		}
 		callTipText << params.at(i);
 		if (i < nbParams - 1)
-			callTipText << _param << TEXT(' ');
+			callTipText << _param << ' ';
 	}
 
 	callTipText << _stop;

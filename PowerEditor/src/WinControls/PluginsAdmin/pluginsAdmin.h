@@ -85,7 +85,7 @@ enum SORT_TYPE { DISPLAY_NAME_ALPHABET_ENCREASE, DISPLAY_NAME_ALPHABET_DECREASE 
 
 struct SortDisplayNameDecrease final
 {
-	bool operator() (PluginUpdateInfo* l, PluginUpdateInfo* r)
+	bool operator() (const PluginUpdateInfo* l, const PluginUpdateInfo* r)
 	{
 		return (l->_displayName.compare(r->_displayName) <= 0);
 	}

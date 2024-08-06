@@ -487,7 +487,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			// Find in files function code should be here due to the number of parameters (2) cannot be passed via WM_COMMAND
 			constexpr int strSize = FINDREPLACE_MAXLENGTH;
-			wchar_t str[strSize]{};
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
@@ -495,6 +494,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			const NppGUI & nppGui = nppParam.getNppGUI();
 			if (nppGui._fillFindFieldWithSelected)
 			{
+				wchar_t str[strSize]{};
 				_pEditView->getGenericSelectedText(str, strSize, nppGui._fillFindFieldSelectCaret);
 				_findReplaceDlg.setSearchText(str);
 			}

@@ -501,7 +501,7 @@ std::pair<Version, Version> getIntervalVersions(wstring intervalVerStr)
 // "[4.2,6.6.6][6.4,8.9]"  : The 1st interval from version 4.2 to 6.6.6 inclusive, the 2nd interval from version 6.4 to 8.9
 // "[8.3,][6.9,6.9]"       : The 1st interval any version from 8.3 to the latest version, the 2nd interval present only version 6.9
 // "[,8.2.1][4.4,]"        : The 1st interval 8.2.1 and any previous version, , the 2nd interval any version from 4.4 to the latest version
-std::pair<std::pair<Version, Version>, std::pair<Version, Version>> getTwoIntervalVersions(wstring twoIntervalVerStr)
+std::pair<std::pair<Version, Version>, std::pair<Version, Version>> getTwoIntervalVersions(const wstring& twoIntervalVerStr)
 {
 	std::pair<std::pair<Version, Version>, std::pair<Version, Version>> r;
 	wstring sep = L"][";
@@ -841,7 +841,7 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 	// Search from unloaded incompatible plugins
 	for (size_t j = 0, nb = _incompatibleList.nbItem(); j < nb; j++)
 	{
-		PluginUpdateInfo* incompatiblePluginInfo = _incompatibleList.getPluginInfoFromUiIndex(j);
+		const PluginUpdateInfo* incompatiblePluginInfo = _incompatibleList.getPluginInfoFromUiIndex(j);
 		int listIndex;
 		PluginUpdateInfo* foundInfoOfAvailable = _availableList.findPluginInfoFromFolderName(incompatiblePluginInfo->_folderName, listIndex);
 

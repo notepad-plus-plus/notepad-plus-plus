@@ -49,7 +49,7 @@ public:
 	FileInfo() = delete; // constructor by default is forbidden
 	FileInfo(const std::wstring & name, FolderInfo *parent) : _name(name), _parent(parent) {};
 	std::wstring getName() const { return _name; };
-	void setName(std::wstring name) { _name = name; };
+	void setName(const std::wstring& name) { _name = name; };
 
 private:
 	std::wstring _name;

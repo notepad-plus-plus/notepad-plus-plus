@@ -475,7 +475,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// ------------ //
 	// Menu Section //
 	// ------------ //
-
+	nppParam.initTabCustomColors();
 	setupColorSampleBitmapsOnMainMenuItems();
 
 	// Macro Menu
@@ -3217,7 +3217,7 @@ bool scanToUrlStart(wchar_t *text, int textLen, int start, int* distance, int* s
 // The query pattern going through looks like this:
 // - ?abc;def;fgh="i j k"&'l m n'+opq
 //
-void scanToUrlEnd(wchar_t *text, int textLen, int start, int* distance)
+void scanToUrlEnd(const wchar_t *text, int textLen, int start, int* distance)
 {
 	int p = start;
 	wchar_t q = 0;
@@ -4237,7 +4237,7 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 		size_t result = 0;
 
 		size_t endpos = _pEditView->execute(SCI_GETLENGTH);
-		unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc said the pointer can be invalidated by any other "execute"
+		const unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc said the pointer can be invalidated by any other "execute"
 
 #ifdef _OPENMP // parallel counting of characters with OpenMP
 		if (endpos > 50000) // starting threads takes time; for small files it is better to simply count in one thread
@@ -4825,25 +4825,25 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 	wchar_t nppName[MAX_PATH];
 	::GetModuleFileName(NULL, nppName, MAX_PATH);
-	wstring command = L"\"";
-	command += nppName;
-	command += L"\"";
-	command += L" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession";
+	wstring cmdLine = L"\"";
+	cmdLine += nppName;
+	cmdLine += L"\"";
+	cmdLine += L" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession";
 
 	if (x)
 	{
 		wchar_t pX[10]{};
 		_itow(x, pX, 10);
-		command += L" -x";
-		command += pX;
+		cmdLine += L" -x";
+		cmdLine += pX;
 	}
 
 	if (y)
 	{
 		wchar_t pY[10]{};
 		_itow(y, pY, 10);
-		command += L" -y";
-		command += pY;
+		cmdLine += L" -y";
+		cmdLine += pY;
 	}
 
 	LangType lt = buf->getLangType();
@@ -4855,15 +4855,15 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	// user applies Markdown to a file named "myMarkdown.abc".
 	if (lt != L_USER)
 	{
-		command += L" -l";
-		command += ScintillaEditView::_langNameInfoArray[lt]._langName;
+		cmdLine += L" -l";
+		cmdLine += ScintillaEditView::_langNameInfoArray[lt]._langName;
 	}
-	command += L" -n";
-	command += to_wstring(_pEditView->getCurrentLineNumber() + 1);
-	command += L" -c";
-	command += to_wstring(_pEditView->getCurrentColumnNumber() + 1);
+	cmdLine += L" -n";
+	cmdLine += to_wstring(_pEditView->getCurrentLineNumber() + 1);
+	cmdLine += L" -c";
+	cmdLine += to_wstring(_pEditView->getCurrentColumnNumber() + 1);
 
-	Command cmd(command);
+	Command cmd(cmdLine);
 	cmd.run(_pPublicInterface->getHSelf());
 	if (mode == TransferMove)
 	{
@@ -9048,7 +9048,7 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	}
 }
 
-HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, std::vector<int>& commandIds)
+HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds)
 {
 	HMENU hNewMenu = ::CreatePopupMenu();
 	for (const auto& cmdID : commandIds)
@@ -9121,7 +9121,7 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId)
 	return FALSE;
 }
 
-BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, std::vector<int> cmdIDs)
+BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, const std::vector<int>& cmdIDs)
 {
 	if (cmdIDs.empty())
 		return notifyTBShowMenu(lpnmtb, menuPosId);

@@ -254,8 +254,7 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 		}
 	}
 
-	if (!_written)
-		_written = true;
+	_written = true;
 
 	return (total_bytes_written == buf_size);
 }

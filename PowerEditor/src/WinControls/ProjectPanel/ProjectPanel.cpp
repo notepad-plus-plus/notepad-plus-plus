@@ -455,7 +455,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const wchar
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 		if (tvItem.lParam)
 		{
-			wstring *fn = (wstring *)tvItem.lParam;
+			const wstring *fn = reinterpret_cast<const wstring *>(tvItem.lParam);
 			wstring newFn = getRelativePath(*fn, fn2write);
 			TiXmlNode *fileLeaf = node->InsertEndChild(TiXmlElement(L"File"));
 			fileLeaf->ToElement()->SetAttribute(L"name", newFn.c_str());
@@ -1215,9 +1215,10 @@ bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 void ProjectPanel::setFileExtFilter(CustomFileDialog & fDlg)
 {
 	const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedWorkspaceExt.c_str();
-	wstring workspaceExt = L"";
 	if (*ext != '\0')
 	{
+		wstring workspaceExt = L"";
+
 		if (*ext != '.')
 			workspaceExt += L".";
 		workspaceExt += ext;

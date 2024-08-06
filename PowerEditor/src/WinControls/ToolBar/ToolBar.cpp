@@ -87,7 +87,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 			size_t i = 0;
 			wstring disabled_suffix = L"_disabled";
 			wstring ext = L".ico";
-			for (ToolbarIconIdUnit icoUnit : toolbarIconIDs)
+			for (const ToolbarIconIdUnit& icoUnit : toolbarIconIDs)
 			{
 				wstring locator = iconFolderDir;
 				locator += L"\\";

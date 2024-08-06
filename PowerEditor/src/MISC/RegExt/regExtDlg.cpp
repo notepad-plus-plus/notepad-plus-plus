@@ -364,11 +364,11 @@ void RegExtDlg::addExt(wchar_t *ext)
 
 	if (nRet == ERROR_SUCCESS)
 	{
-		wchar_t valData[MAX_PATH] = { '\0' };
-		DWORD valDataLen = MAX_PATH * sizeof(wchar_t);
-
 		if (dwDisp == REG_OPENED_EXISTING_KEY)
 		{
+			wchar_t valData[MAX_PATH] {};
+			DWORD valDataLen = MAX_PATH * sizeof(wchar_t);
+
 			int res = ::RegQueryValueEx(hKey, L"", nullptr, nullptr, reinterpret_cast<LPBYTE>(valData), &valDataLen);
 			if (res == ERROR_SUCCESS)
 				::RegSetValueEx(hKey, nppBackup, 0, REG_SZ, reinterpret_cast<LPBYTE>(valData), valDataLen);

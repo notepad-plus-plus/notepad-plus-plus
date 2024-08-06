@@ -83,7 +83,7 @@ public:
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 
-	void closeBuffer(BufferID, ScintillaEditView * identifer);		//called by Notepad++
+	void closeBuffer(BufferID, const ScintillaEditView* identifer);		//called by Notepad++
 
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 

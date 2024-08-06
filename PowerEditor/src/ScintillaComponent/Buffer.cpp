@@ -666,7 +666,7 @@ void FileManager::addBufferReference(BufferID buffer, ScintillaEditView * identi
 }
 
 
-void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
+void FileManager::closeBuffer(BufferID id, const ScintillaEditView* identifier)
 {
 	int index = getBufferIndexByID(id);
 	Buffer* buf = getBufferByIndex(index);

@@ -131,7 +131,7 @@ void parseCommandLine(const wchar_t* commandLine, ParamVector& paramVector)
 						++zArg; // zArg == 2
 					}
 				}
-				else if (isBetweenFileNameQuotes)
+				else //if (isBetweenFileNameQuotes)
 				{
 					isBetweenFileNameQuotes = false;
 					//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)

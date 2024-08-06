@@ -1120,10 +1120,10 @@ void Notepad_plus::saveFindHistory()
 }
 
 
-int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
+int Notepad_plus::getHtmlXmlEncoding(const wchar_t* fileName) const
 {
 	// Get Language type
-	wchar_t *ext = PathFindExtension(fileName);
+	wchar_t* ext = PathFindExtension(fileName);
 	if (*ext == '.') //extension found
 	{
 		ext += 1;
@@ -1139,7 +1139,7 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 		return -1;
 
 	// Get the beginning of file data
-	FILE *f = _wfopen(fileName, L"rb");
+	FILE* f = _wfopen(fileName, L"rb");
 	if (!f)
 		return -1;
 	const int blockSize = 1024; // To ensure that length is long enough to capture the encoding in html
@@ -1151,13 +1151,13 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 	_invisibleEditView.execute(SCI_CLEARALL);
 	_invisibleEditView.execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
 
-	const char *encodingAliasRegExpr = "[a-zA-Z0-9_-]+";
 	const size_t encodingStrLen = 128;
 	if (langT == L_XML)
 	{
 		// find encoding by RegExpr
 
-		const char *xmlHeaderRegExpr = "<?xml[ \\t]+version[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]+encoding[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]*.*?>";
+		const char* encodingAliasRegExpr = "[a-zA-Z0-9_-]+";
+		const char* xmlHeaderRegExpr = "<?xml[ \\t]+version[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]+encoding[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]*.*?>";
 
         size_t startPos = 0;
 		size_t endPos = lenFile-1;
@@ -1168,10 +1168,10 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 		auto posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), reinterpret_cast<LPARAM>(xmlHeaderRegExpr));
 		if (posFound >= 0)
 		{
-            const char *encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
+            const char* encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
 			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), reinterpret_cast<LPARAM>(encodingBlockRegExpr));
 
-            const char *encodingRegExpr = "\".+\"";
+            const char* encodingRegExpr = "\".+\"";
 			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingRegExpr), reinterpret_cast<LPARAM>(encodingRegExpr));
 
 			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), reinterpret_cast<LPARAM>(encodingAliasRegExpr));
@@ -1196,11 +1196,11 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 	}
 	else // if (langT == L_HTML)
 	{
-		const char *htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[\"'] */*>";
-		const char *htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[ \\t\"']http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*/*>";
-		const char *charsetBlock = "charset[ \\t]*=[ \\t]*[^\"']+";
-		const char *intermediaire = "=[ \\t]*.+";
-		const char *encodingStrRE = "[^ \\t=]+";
+		const char* htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[\"'] */*>";
+		const char* htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[ \\t\"']http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*/*>";
+		const char* charsetBlock = "charset[ \\t]*=[ \\t]*[^\"']+";
+		const char* intermediaire = "=[ \\t]*.+";
+		const char* encodingStrRE = "[^ \\t=]+";
 
 		intptr_t startPos = 0;
 		auto endPos = lenFile - 1;
@@ -5603,17 +5603,19 @@ bool Notepad_plus::doStreamComment()
 	bool move_caret = caretPosition < selectionEnd;
 
 	// if there is no selection?
-	if (selectionEnd - selectionStart <= 0)
+	if (selectionEnd <= selectionStart)
 	{
 		auto selLine = _pEditView->execute(SCI_LINEFROMPOSITION, selectionStart);
 		selectionStart = _pEditView->execute(SCI_GETLINEINDENTPOSITION, selLine);
 		selectionEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, selLine);
 	}
+
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 	_pEditView->insertGenericTextFrom(selectionStart, start_comment.c_str());
 	selectionEnd += start_comment_length;
 	selectionStart += start_comment_length;
 	_pEditView->insertGenericTextFrom(selectionEnd, end_comment.c_str());
+
 	if (move_caret)
 	{
 		// moving caret to the beginning of selected block

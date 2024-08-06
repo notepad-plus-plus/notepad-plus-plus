@@ -1002,8 +1002,7 @@ int Notepad_plus::setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAl
 		const wchar_t *lName = ulc.getName();
 
 		wstring list(L"");
-		if (extList)
-			list += extList;
+		list += extList;
 
 		wstring stringFilters = exts2Filters(list, showAllExt ? -1 : 40);
 		const wchar_t *filters = stringFilters.c_str();
@@ -1679,14 +1678,14 @@ bool Notepad_plus::fileSave(BufferID id)
 			}
 			else if (backup == bak_verbose)
 			{
-				constexpr int temBufLen = 32;
-				wchar_t tmpbuf[temBufLen]{};
 				time_t ltime = time(0);
 				const struct tm* today;
 
 				today = localtime(&ltime);
 				if (today)
 				{
+					constexpr int temBufLen = 32;
+					wchar_t tmpbuf[temBufLen]{};
 					wcsftime(tmpbuf, temBufLen, L"%Y-%m-%d_%H%M%S", today);
 
 					fn_bak += name;

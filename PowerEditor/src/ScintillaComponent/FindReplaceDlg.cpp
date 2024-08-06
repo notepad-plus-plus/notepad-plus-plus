@@ -99,10 +99,10 @@ int Searching::convertExtendedToString(const wchar_t * query, wchar_t * result, 
 {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
 	int charLeft = length;
-	wchar_t current;
+
 	while (i < length)
 	{	//because the backslash escape quences always reduce the size of the wstring, no overflow checks have to be made for target, assuming parameters are correct
-		current = query[i];
+		wchar_t current = query[i];
 		--charLeft;
 		if (current == '\\' && charLeft)
 		{	//possible escape sequence
@@ -193,10 +193,10 @@ bool Searching::readBase(const wchar_t * str, int * value, int base, int size)
 	int i = 0, temp = 0;
 	*value = 0;
 	wchar_t max = '0' + static_cast<wchar_t>(base) - 1;
-	wchar_t current;
+
 	while (i < size)
 	{
-		current = str[i];
+		wchar_t current = str[i];
 		if (current >= 'A')
 		{
 			current &= 0xdf;
@@ -3237,7 +3237,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	}
 
 	intptr_t targetStart = 0;
-	intptr_t targetEnd = 0;
 
 	//Initial range for searching
 	pEditView->execute(SCI_SETSEARCHFLAGS, flags);
@@ -3260,7 +3259,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		if (targetStart == FIND_INVALID_REGULAR_EXPRESSION)
 			return FIND_INVALID_REGULAR_EXPRESSION;
 
-		targetEnd = pEditView->execute(SCI_GETTARGETEND);
+		intptr_t targetEnd = pEditView->execute(SCI_GETTARGETEND);
 
 		if (targetEnd > findReplaceInfo._endRange)
 		{

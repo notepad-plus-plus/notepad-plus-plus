@@ -154,11 +154,11 @@ bool FunctionCallTip::getCursorFunction()
 	//token is identifier or some expression, whitespace is ignored
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
-	wchar_t ch;
+
 	for (int i = 0; i < offset; ++i) 	//we dont care about stuff after the offset
     {
 		//tokenVector.push_back(pair(lineData+i, len));
-		ch = lineData[i];
+		wchar_t ch = lineData[i];
 		if (isBasicWordChar(ch) || isAdditionalWordChar(ch))	//part of identifier
         {
 			tokenLen = 0;

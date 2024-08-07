@@ -46,6 +46,9 @@
 #include <vector>
 #include <iso646.h>
 #include <chrono>
+#include <thread>
+
+extern std::atomic<bool> g_bNppExitFlag;
 
 extern std::chrono::steady_clock::time_point g_nppStartTimePoint;
 extern std::chrono::steady_clock::duration g_pluginsLoadingTime;
@@ -131,6 +134,61 @@ struct QuoteParams
 	int _encoding = SC_CP_UTF8;
 	LangType _lang = L_TEXT;
 	const wchar_t* _quote = nullptr;
+};
+
+// static init to id for no thread
+// (on the Windows platform, zero is the only one invalid thread-id (https://devblogs.microsoft.com/oldnewthing/20040223-00/?p=40503)
+static const std::thread::id NO_THREAD;
+
+// std::mutex substitute with thread-safe lock counter and thread owner check
+class StdMutexEx {
+public:
+	void lock() {
+		auto me = std::this_thread::get_id();
+		if (_owner != me)
+		{
+			_mtx.lock();
+			_owner = me;
+			assert(_count == 0);
+		}
+		_count++;
+	}
+
+	// using the MS SAL intrinsic to suppress the incorrect MSVS C26110 warning here
+	// - Ref: https://learn.microsoft.com/en-us/cpp/code-quality/annotating-locking-behavior
+	//        https://learn.microsoft.com/en-us/cpp/code-quality/specifying-when-and-where-an-annotation-applies
+	_When_(this->count == 1, _Releases_lock_(this->mtx)) void unlock() {
+		auto me = std::this_thread::get_id();
+		assert(_owner == me);
+		assert(_count > 0);
+		_count--;
+		if (_count == 0)
+		{
+			_owner = NO_THREAD;
+			_mtx.unlock();
+		}
+	}
+
+	// extensions of the std::mutex follow
+	// - using the thread-safe atomic std C++ stuff below instead of the simpler InterlockedCompareExchange WINAPI intrinsic (LOCK CMPXCHG)
+	// - this std C++ substitution is necessary as the Notepad++ uses also the GCC in addition to the MSVC
+
+	const unsigned long lockCount() {
+		return _count.load(); // thread-safe op
+	}
+
+	const bool isOwner() {
+		std::thread::id tidTest = std::this_thread::get_id();
+		std::thread::id tidNew = tidTest;
+		// (tidTest != _owner) -> tidTest = _owner
+		// (tidTest == _owner) -> _owner = tidNew
+		return _owner.compare_exchange_strong(tidTest, tidNew); // thread-safe equivalent of (_owner == std::this_thread::get_id())
+	}
+
+private:
+	std::mutex _mtx;
+	std::atomic<std::thread::id> _owner{ NO_THREAD };
+	std::atomic<unsigned long> _count{ 0 };
 };
 
 class CustomFileDialog;

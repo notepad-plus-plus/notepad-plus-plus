@@ -820,7 +820,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 										// Change the language 
 										if (localizationSwitcher.switchToLang(langName))
 										{
-											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
+											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 1, 0);
 											::InvalidateRect(_hParent, NULL, TRUE);
 										}
 									}

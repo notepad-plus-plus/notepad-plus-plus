@@ -876,6 +876,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_mainEditView.getFocus();
 
+	notifyPluginsOfNativeLangChange();
+
 	return TRUE;
 }
 
@@ -7243,6 +7245,61 @@ bool Notepad_plus::reloadLang()
 
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
 	return true;
+}
+
+void Notepad_plus::notifyPluginsOfNativeLangChange()
+{
+	SCNotification scnN{};
+	scnN.nmhdr.code = NPPN_RELOADNATIVELANG;
+	// get plugins menu handle so plugins can re-translate their menu items
+	HMENU hPluginsMenu = NULL;
+	int mainMenuItemCount = ::GetMenuItemCount(_mainMenuHandle);
+	wstring pluginsMenuName;
+	_nativeLangSpeaker.getMainMenuEntryName(pluginsMenuName, _mainMenuHandle, "Plugins", L"Plugins");
+	if (mainMenuItemCount >= 0 && pluginsMenuName.size() > 0)
+	{
+		const wchar_t * pluginsMenuNameBuf = pluginsMenuName.c_str();
+		UINT idxPluginsMenu = 0;
+		for (; idxPluginsMenu < (UINT)mainMenuItemCount; ++idxPluginsMenu)
+		{
+			MENUITEMINFO mii{};
+			mii.cbSize = sizeof(MENUITEMINFO);
+			mii.fMask = MIIM_STRING | MIIM_STATE;
+			if (::GetMenuItemInfo(_mainMenuHandle, idxPluginsMenu, true, &mii))
+			{
+				mii.cch++;
+				wchar_t * submenuNameBuf = (wchar_t *)calloc(mii.cch, sizeof(wchar_t));
+				if (submenuNameBuf)
+				{
+					mii.dwTypeData = submenuNameBuf;
+					if (::GetMenuItemInfo(_mainMenuHandle, idxPluginsMenu, true, &mii))
+					{
+						wstring submenuName(submenuNameBuf);
+						wstring submenuNameNoAmpersands = stringReplace(submenuName, wstring(L"&"), wstring(L""));
+						const wchar_t * submenuNameNoAmpersandsBuf = submenuNameNoAmpersands.c_str();
+						if (!wcscmp(submenuNameNoAmpersandsBuf, pluginsMenuNameBuf))
+						{
+							hPluginsMenu = ::GetSubMenu(_mainMenuHandle, idxPluginsMenu);
+						}
+					}
+					free(submenuNameBuf);
+					if (hPluginsMenu)
+						break;
+				}
+			}
+		}
+	}
+	const char * nativeLangXmlNameBuf = _nativeLangSpeaker.getFileName();
+	if (nativeLangXmlNameBuf && hPluginsMenu)
+	{
+		string nativeLangXmlName(nativeLangXmlNameBuf);
+		size_t startOfExtension = nativeLangXmlName.find_first_of('.');
+		string nativeLangName = startOfExtension == string::npos ? nativeLangXmlName : nativeLangXmlName.substr(0, startOfExtension);
+		const char * nativeLangNameBuf = nativeLangName.c_str();
+		scnN.nmhdr.hwndFrom = hPluginsMenu;
+		scnN.nmhdr.idFrom = reinterpret_cast<uptr_t>(nativeLangNameBuf);
+		_pluginsManager.notify(&scnN);
+	}
 }
 
 

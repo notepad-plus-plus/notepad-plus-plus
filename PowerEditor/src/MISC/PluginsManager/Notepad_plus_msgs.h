@@ -1196,3 +1196,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.code = NPPN_GLOBALMODIFIED;
 	//scnNotification->nmhdr.hwndFrom = BufferID;
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero
+
+	#define NPPN_RELOADNATIVELANG (NPPN_FIRST + 31) // To notify plugins of the user's native language preference.
+													// This is emitted when Notepad++ starts up (after translations have been loaded from nativeLang.xml)
+													// and whenever the user changes their native language preference.
+													// This notification was first implemented in Notepad++ v8.7.0.
+	//scnNotification->nmhdr.code = NPPN_RELOADNATIVELANG;
+	//scnNotification->nmhdr.hwndFrom = hPluginMenu; // the menu handle to the plugin menu, so that plugins can find their plugin's submenu and re-translate their menu items
+	//scnNotification->nmhdr.idFrom = languageName; // the ANSI encoded English name of the current UI language for Notepad++ (this is the same as the name of the localization XML file used by Notepad++ to translate the UI).

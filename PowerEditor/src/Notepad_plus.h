@@ -269,6 +269,10 @@ public:
 
 	void refreshDarkMode(bool resetStyle = false);
 
+	// called each time the user changes their native language preference, and also at Notepad++ startup after native language XML has been loaded.
+	// Notifies plugins using NPPN_RELOADNATIVELANG, but only if it can find the native language name and a valid handle to the plugins submenu of the main menu.
+	void notifyPluginsOfNativeLangChange();
+
 private:
 	Notepad_plus_Window* _pPublicInterface = nullptr;
     Window* _pMainWindow = nullptr;

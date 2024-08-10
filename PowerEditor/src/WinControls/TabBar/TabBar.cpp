@@ -1250,10 +1250,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 	}
 
-	const int individualColourId = getIndividualTabColour(nTab);
+	const int individualColourId = getIndividualTabColourId(nTab);
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
 	RECT barRect = rect;
+	NppParameters& nppParam = NppParameters::getInstance();
 	if (isSelected)
 	{
 		hBrush = ::CreateSolidBrush(colorActiveBg);
@@ -1279,7 +1280,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 			if (individualColourId != -1)
 			{
-				topBarColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, isFocused);
+				topBarColour = nppParam.getIndividualTabColour(individualColourId, isDarkMode, isFocused);
 			}
 
 			hBrush = ::CreateSolidBrush(topBarColour);
@@ -1299,7 +1300,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 		else if (individualColourId != -1)
 		{
-			brushColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, false);
+			brushColour = nppParam.getIndividualTabColour(individualColourId, isDarkMode, false);
 		}
 		else
 		{

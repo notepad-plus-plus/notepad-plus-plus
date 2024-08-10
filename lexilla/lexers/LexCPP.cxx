@@ -791,7 +791,7 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 	const StyleContext::Transform transform = caseSensitive ?
 		StyleContext::Transform::none : StyleContext::Transform::lower;
 
-	const CharacterSet setOKBeforeRE("([{=,:;!%^&*|?~+-");
+	const CharacterSet setOKBeforeRE("([{=,:;!%^&*|?~+-> ");
 	const CharacterSet setCouldBePostOp("+-");
 
 	const CharacterSet setDoxygen(CharacterSet::setAlpha, "$@\\&<>#{}[]");
@@ -889,6 +889,12 @@ void SCI_METHOD LexerCPP::Lex(Sci_PositionU startPos, Sci_Position length, int i
 	const WordClassifier &classifierDocKeyWords = subStyles.Classifier(SCE_C_COMMENTDOCKEYWORD);
 
 	Sci_PositionU lineEndNext = styler.LineEnd(lineCurrent);
+
+	if (sc.currentPos == 0 && sc.Match('#', '!')) {
+		// Shell Shebang at beginning of file
+		sc.SetState(SCE_C_COMMENTLINE);
+		sc.Forward();
+	}
 
 	for (; sc.More();) {
 

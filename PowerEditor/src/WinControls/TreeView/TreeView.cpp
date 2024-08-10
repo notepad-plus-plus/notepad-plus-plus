@@ -281,7 +281,7 @@ HTREEITEM TreeView::searchSubItemByName(const wchar_t *itemName, HTREEITEM hPare
 	return nullptr;
 }
 
-bool TreeView::setImageList(std::vector<int> imageIds, int imgSize)
+bool TreeView::setImageList(const std::vector<int>& imageIds, int imgSize)
 {
 	const int nbImage = static_cast<int>(imageIds.size());
 	if (imgSize <= 0)

@@ -131,7 +131,7 @@ void parseCommandLine(const wchar_t* commandLine, ParamVector& paramVector)
 						++zArg; // zArg == 2
 					}
 				}
-				else if (isBetweenFileNameQuotes)
+				else //if (isBetweenFileNameQuotes)
 				{
 					isBetweenFileNameQuotes = false;
 					//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
@@ -253,7 +253,7 @@ std::wstring getLocalizationPathFromParam(ParamVector & params)
 	if (!getParamVal('L', params, locStr))
 		return L"";
 	locStr = stringToLower(stringReplace(locStr, L"_", L"-")); // convert to lowercase format with "-" as separator
-	return NppParameters::getLocPathFromStr(locStr.c_str());
+	return NppParameters::getLocPathFromStr(locStr);
 }
 
 intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent)

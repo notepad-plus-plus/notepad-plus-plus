@@ -43,11 +43,11 @@ jobs:
         - name: CheckLexilla C Example
           run: |
               cd examples/CheckLexilla
-              cl CheckLexilla.c -I ../../include -Fe: CheckLexilla
+              cl -MP CheckLexilla.c -I ../../include -Fe: CheckLexilla
               .\CheckLexilla.exe
               cd ../..
         - name: SimpleLexer Example
           run: |
               cd examples/SimpleLexer
-              cl -std:c++17 -EHsc -LD -I ../../../scintilla/include -I ../../include -I ../../lexlib SimpleLexer.cxx ../../lexlib/*.cxx
+              cl -MP -std:c++17 -EHsc -LD -I ../../../scintilla/include -I ../../include -I ../../lexlib SimpleLexer.cxx ../../lexlib/*.cxx
               cd ../..

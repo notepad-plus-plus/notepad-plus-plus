@@ -116,7 +116,7 @@ public:
 	bool searchLeafAndBuildTree(const TreeView & tree2Build, const std::wstring & text2Search, int index2Search);
 	void sort(HTREEITEM hTreeItem, bool isRecusive);
 	void customSorting(HTREEITEM hTreeItem, PFNTVCOMPARE sortingCallbackFunc, LPARAM lParam, bool isRecursive);
-	bool setImageList(std::vector<int> imageIds, int imgSize = 0);
+	bool setImageList(const std::vector<int>& imageIds, int imgSize = 0);
 
 protected:
 	HIMAGELIST _hImaLst = nullptr;

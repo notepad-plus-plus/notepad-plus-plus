@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // A demonstration program
 #include <stdio.h>
 #if 0 /* */
@@ -70,6 +72,9 @@ int main() {
 	// JavaScript regular expression (14) tests
 	let a = /a/;
 	let b = /[a-z]+/gi;
+	/a|b/i.test("baby");
+	// arrow function
+	() => /a|b/i.test("baby");
 
 	// Escape sequence (27) tests
 	printf("\'\"\?\\\a\b\f\n\r\t\v \P");

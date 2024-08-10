@@ -166,6 +166,7 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SC_MARKNUM_FOLDERSUB 29
 #define SC_MARKNUM_FOLDER 30
 #define SC_MARKNUM_FOLDEROPEN 31
+#define SC_MASK_HISTORY 0x01E00000
 #define SC_MASK_FOLDERS 0xFE000000
 #define SCI_MARKERDEFINE 2040
 #define SCI_MARKERSETFORE 2041
@@ -461,6 +462,8 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SCI_AUTOCGETMAXWIDTH 2209
 #define SCI_AUTOCSETMAXHEIGHT 2210
 #define SCI_AUTOCGETMAXHEIGHT 2211
+#define SCI_AUTOCSETSTYLE 2109
+#define SCI_AUTOCGETSTYLE 2120
 #define SCI_SETINDENT 2122
 #define SCI_GETINDENT 2123
 #define SCI_SETUSETABS 2124
@@ -977,6 +980,7 @@ typedef sptr_t (*SciFnDirectStatus)(sptr_t ptr, unsigned int iMessage, uptr_t wP
 #define SCI_SETLAYOUTTHREADS 2775
 #define SCI_GETLAYOUTTHREADS 2776
 #define SCI_COPYALLOWLINE 2519
+#define SCI_CUTALLOWLINE 2810
 #define SCI_GETCHARACTERPOINTER 2520
 #define SCI_GETRANGEPOINTER 2643
 #define SCI_GETGAPPOSITION 2644

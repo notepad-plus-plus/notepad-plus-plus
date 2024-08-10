@@ -1095,6 +1095,14 @@ int ScintillaCall::AutoCGetMaxHeight() {
 	return static_cast<int>(Call(Message::AutoCGetMaxHeight));
 }
 
+void ScintillaCall::AutoCSetStyle(int style) {
+	Call(Message::AutoCSetStyle, style);
+}
+
+int ScintillaCall::AutoCGetStyle() {
+	return static_cast<int>(Call(Message::AutoCGetStyle));
+}
+
 void ScintillaCall::SetIndent(int indentSize) {
 	Call(Message::SetIndent, indentSize);
 }
@@ -2709,6 +2717,10 @@ int ScintillaCall::LayoutThreads() {
 
 void ScintillaCall::CopyAllowLine() {
 	Call(Message::CopyAllowLine);
+}
+
+void ScintillaCall::CutAllowLine() {
+	Call(Message::CutAllowLine);
 }
 
 void *ScintillaCall::CharacterPointer() {

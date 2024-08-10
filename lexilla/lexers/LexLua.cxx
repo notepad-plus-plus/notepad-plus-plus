@@ -39,8 +39,9 @@ namespace {
 // return 1 for [[ or ]], returns >=2 for [=[ or ]=] and so on.
 // The maximum number of '=' characters allowed is 254.
 int LongDelimCheck(StyleContext &sc) {
+	constexpr int maximumEqualCharacters = 254;
 	int sep = 1;
-	while (sc.GetRelative(sep) == '=' && sep < 0xFF)
+	while (sc.GetRelative(sep) == '=' && sep <= maximumEqualCharacters)
 		sep++;
 	if (sc.GetRelative(sep) == sc.ch)
 		return sep;
@@ -115,11 +116,15 @@ public:
 	explicit LexerLua() :
 		DefaultLexer("lua", SCLEX_LUA, lexicalClasses, std::size(lexicalClasses)) {
 	}
+	LexerLua(const LexerLua &) = delete;
+	LexerLua(LexerLua &&) = delete;
+	LexerLua &operator=(const LexerLua &) = delete;
+	LexerLua &operator=(LexerLua &&) = delete;
 	~LexerLua() override = default;
 	void SCI_METHOD Release() noexcept override {
 		delete this;
 	}
-	int SCI_METHOD Version() const noexcept override {
+	[[nodiscard]] int SCI_METHOD Version() const noexcept override {
 		return lvRelease5;
 	}
 	const char *SCI_METHOD PropertyNames() noexcept override {
@@ -259,6 +264,7 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 
 	// results of identifier/keyword matching
 	Sci_Position idenPos = 0;
+	Sci_Position idenStartCharWidth = 0;
 	Sci_Position idenWordPos = 0;
 	int idenStyle = SCE_LUA_IDENTIFIER;
 	bool foundGoto = false;
@@ -315,22 +321,22 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 			if (sc.ch == ':' && sc.chPrev == ':') {	// :: <label> :: forward scan
 				sc.Forward();
 				Sci_Position ln = 0;
-				while (IsASpaceOrTab(sc.GetRelative(ln)))	// skip over spaces/tabs
+				while (IsASpaceOrTab(sc.GetRelativeChar(ln)))	// skip over spaces/tabs
 					ln++;
 				const Sci_Position ws1 = ln;
-				if (setWordStart.Contains(sc.GetRelative(ln))) {
-					int c = 0;
+				if (setWordStart.Contains(sc.GetRelativeChar(ln))) {
+					char cLabel = 0;
 					std::string s;
-					while (setWord.Contains(c = sc.GetRelative(ln))) {	// get potential label
-						s.push_back(static_cast<char>(c));
+					while (setWord.Contains(cLabel = sc.GetRelativeChar(ln))) {	// get potential label
+						s.push_back(cLabel);
 						ln++;
 					}
 					const Sci_Position lbl = ln;
 					if (!keywords.InList(s)) {
-						while (IsASpaceOrTab(sc.GetRelative(ln)))	// skip over spaces/tabs
+						while (IsASpaceOrTab(sc.GetRelativeChar(ln)))	// skip over spaces/tabs
 							ln++;
 						const Sci_Position ws2 = ln - lbl;
-						if (sc.GetRelative(ln) == ':' && sc.GetRelative(ln + 1) == ':') {
+						if (sc.GetRelativeChar(ln) == ':' && sc.GetRelativeChar(ln + 1) == ':') {
 							// final :: found, complete valid label construct
 							sc.ChangeState(SCE_LUA_LABEL);
 							if (ws1) {
@@ -359,7 +365,7 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 					sc.SetState(SCE_LUA_DEFAULT);
 			}
 		} else if (sc.state == SCE_LUA_IDENTIFIER) {
-			idenPos--;			// commit already-scanned identifier/word parts
+			idenPos -= idenStartCharWidth;			// commit already-scanned identifier/word parts
 			if (idenWordPos > 0) {
 				idenWordPos--;
 				sc.ChangeState(idenStyle);
@@ -449,17 +455,18 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 				// set to a word style. The non-matched part is in identifier style.
 				std::string ident;
 				idenPos = 0;
+				idenStartCharWidth = sc.width;
 				idenWordPos = 0;
 				idenStyle = SCE_LUA_IDENTIFIER;
 				foundGoto = false;
-				int cNext = 0;
+				char cNext = 0;
 				do {
-					int c = 0;
+					char cIdent = 0;
 					const Sci_Position idenPosOld = idenPos;
 					std::string identSeg;
-					identSeg += static_cast<char>(sc.GetRelative(idenPos++));
-					while (setWord.Contains(c = sc.GetRelative(idenPos))) {
-						identSeg += static_cast<char>(c);
+					identSeg += sc.GetRelativeChar(idenPos++);
+					while (setWord.Contains(cIdent = sc.GetRelativeChar(idenPos))) {
+						identSeg += cIdent;
 						idenPos++;
 					}
 					if (keywords.InList(identSeg) && (idenPosOld > 0)) {
@@ -497,9 +504,9 @@ void LexerLua::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, I
 					}
 					if (idenStyle == SCE_LUA_WORD)	// keywords cannot mix
 						break;
-					cNext = sc.GetRelative(idenPos + 1);
-					if ((c == '.' || c == ':') && setWordStart.Contains(cNext)) {
-						ident += static_cast<char>(c);
+					cNext = sc.GetRelativeChar(idenPos + 1);
+					if ((cIdent == '.' || cIdent == ':') && setWordStart.Contains(cNext)) {
+						ident += cIdent;
 						idenPos++;
 					} else {
 						cNext = 0;
@@ -570,14 +577,18 @@ void LexerLua::Fold(Sci_PositionU startPos_, Sci_Position length, int initStyle,
 		chNext = styler.SafeGetCharAt(i + 1);
 		const int stylePrev = style;
 		style = styleNext;
-		styleNext = styler.StyleIndexAt(i + 1);
+		if ((i + 1) < lengthDoc) {
+			// Only read styles that have been set, otherwise treat style as continuing
+			styleNext = styler.StyleIndexAt(i + 1);
+		}
 		const bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 		if (style == SCE_LUA_WORD) {
 			// Fixed list of folding words: if, do, function, repeat, end, until
 			// Must fix up next line with initial characters if any new words added.
 			if ((style != stylePrev) && AnyOf(ch, 'i', 'd', 'f', 'e', 'r', 'u')) {
+				constexpr Sci_Position maxFoldWord = 9; // "function"sv.length() + 1
 				std::string s;
-				for (Sci_Position j = 0; j < 8; j++) {	// 8 is length of longest: function
+				for (Sci_Position j = 0; j < maxFoldWord; j++) {
 					if (!iswordchar(styler[i + j])) {
 						break;
 					}

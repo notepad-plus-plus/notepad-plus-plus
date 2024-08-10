@@ -69,7 +69,7 @@ public:
 		_hParent = parent2set;
 	};
 
-	void setPanelTitle(std::wstring title) {
+	void setPanelTitle(const std::wstring& title) {
 		_panelTitle = title;
 	};
 	const wchar_t * getPanelTitle() const {

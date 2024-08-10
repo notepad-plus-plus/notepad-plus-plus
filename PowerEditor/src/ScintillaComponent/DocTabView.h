@@ -92,7 +92,7 @@ public :
 	};
 
 	void setIndividualTabColour(BufferID bufferId, int colorId);
-	int getIndividualTabColour(int tabIndex) override;
+	int getIndividualTabColourId(int tabIndex) override;
 	
 	HIMAGELIST getImgLst(UINT index) {
 		if (index >= _pIconListVector.size())

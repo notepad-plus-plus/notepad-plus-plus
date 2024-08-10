@@ -464,7 +464,7 @@ namespace NppDarkMode
 
 	void initAdvancedOptions()
 	{
-		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+		const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 		g_advOptions = nppGui._darkmode._advOptions;
 	}
 
@@ -2324,7 +2324,7 @@ namespace NppDarkMode
 		::EnableThemeDialogTexture(hwndParent, theme && !NppDarkMode::isEnabled() ? ETDT_ENABLETAB : ETDT_DISABLE);
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
-			auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
+			const auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
 			constexpr size_t classNameLen = 32;
 			wchar_t className[classNameLen]{};
 			GetClassName(hwnd, className, classNameLen);
@@ -3424,47 +3424,4 @@ namespace NppDarkMode
 		return static_cast<INT_PTR>(NppDarkMode::onCtlColor(hdc));
 	}
 
-	struct HLSColour
-	{
-		WORD _hue;
-		WORD _lightness;
-		WORD _saturation;
-
-		COLORREF toRGB() const { return ColorHLSToRGB(_hue, _lightness, _saturation); }
-	};
-
-	using IndividualTabColours = std::array<HLSColour, 5>;
-
-	static constexpr IndividualTabColours individualTabHuesFor_Dark  { { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
-	static constexpr IndividualTabColours individualTabHues          { { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}}};
-
-
-	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated)
-	{
-		if (colourIndex < 0 || colourIndex > 4) return {};
-
-		HLSColour result;
-		if (themeDependant)
-		{
-			result = individualTabHuesFor_Dark[colourIndex];
-
-			if (saturated)
-			{
-				result._lightness = 146U;
-				result._saturation = std::min<WORD>(240U, result._saturation + 100U);
-			}
-		}
-		else
-		{
-			result = individualTabHues[colourIndex];
-
-			if (saturated)
-			{
-				result._lightness = 140U;
-				result._saturation = std::min<WORD>(240U, result._saturation + 30U);
-			}
-		}
-
-		return result.toRGB();
-	}
 }

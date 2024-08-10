@@ -3658,12 +3658,12 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			//
 			for (int i = L_TEXT ; i < nppParam.L_END ; ++i)
 			{
-				wstring str;
 				if (static_cast<LangType>(i) != L_USER)
 				{
 					int cmdID = nppParam.langTypeToCommandID(static_cast<LangType>(i));
 					if ((cmdID != -1))
 					{
+						wstring str;
 						getNameStrFromCmd(cmdID, str);
 						if (str.length() > 0)
 						{

@@ -96,7 +96,6 @@
 #include "DefaultLexer.h"
 #include "LexerBase.h"
 #include "LexerSimple.h"
-#include "LexerNoExceptions.h"
 
 // test
 

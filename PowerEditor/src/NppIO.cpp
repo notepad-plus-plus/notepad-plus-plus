@@ -262,9 +262,6 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	}
     _lastRecentFileList.remove(longFileName);
 
-	wstring fileName2Find;
-	wstring gs_fileName{ targetFileName };
-
 
 	// "fileName" could be:
 	// 1. full file path to open or create
@@ -277,6 +274,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	// if case 1 & 2 not found, search case 3
 	if (foundBufID == BUFFER_INVALID)
 	{
+		wstring fileName2Find;
 		fileName2Find = longFileName;
 		foundBufID = MainFileManager.getBufferFromName(fileName2Find.c_str());
 	}
@@ -993,6 +991,45 @@ int Notepad_plus::setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAl
 		}
 		l = (NppParameters::getInstance()).getLangFromIndex(i++);
 	}
+	
+	LangType lt = (LangType)langType;
+	wstring fileUdlString(getLangDesc(lt, true));
+
+	for (size_t u=0; u<(size_t)nppParam.getNbUserLang(); u++)
+	{
+		UserLangContainer& ulc = nppParam.getULCFromIndex(u);
+		const wchar_t *extList = ulc.getExtention();
+		const wchar_t *lName = ulc.getName();
+
+		wstring list(L"");
+		list += extList;
+
+		wstring stringFilters = exts2Filters(list, showAllExt ? -1 : 40);
+		const wchar_t *filters = stringFilters.c_str();
+
+		if (filters[0])
+		{
+			fDlg.setExtFilter(lName, filters);
+
+			if (lt == L_USER)
+			{
+				wstring loopUdlString(L"udf - ");
+				loopUdlString += lName;
+
+				if (!ltFound)
+				{
+					ltFound = fileUdlString.compare(loopUdlString) == 0;
+				}
+
+				if (!ltFound)
+				{
+					++ltIndex;
+				}
+			}
+		}
+	}
+	
+	
 
     if (!ltFound)
         return -1;
@@ -1612,7 +1649,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				// Get the current file's directory
 				wstring path = fn;
 				::PathRemoveFileSpec(path);
-				fn_bak = path.c_str();
+				fn_bak = path;
 				fn_bak += L"\\";
 
 				// If verbose, save it in a sub folder
@@ -1641,14 +1678,14 @@ bool Notepad_plus::fileSave(BufferID id)
 			}
 			else if (backup == bak_verbose)
 			{
-				constexpr int temBufLen = 32;
-				wchar_t tmpbuf[temBufLen]{};
 				time_t ltime = time(0);
 				const struct tm* today;
 
 				today = localtime(&ltime);
 				if (today)
 				{
+					constexpr int temBufLen = 32;
+					wchar_t tmpbuf[temBufLen]{};
 					wcsftime(tmpbuf, temBufLen, L"%Y-%m-%d_%H%M%S", today);
 
 					fn_bak += name;
@@ -1812,6 +1849,8 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
+	fDlg.setSaveAsCopy(isSaveCopy);
+
 	wstring localizedTitle;
 	if (isSaveCopy)
 	{
@@ -1860,6 +1899,15 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 			if (res && !isSaveCopy)
 			{
 				_lastRecentFileList.remove(fn.c_str());
+			}
+
+			if (res && isSaveCopy && fDlg.getOpenTheCopyAfterSaveAsCopy())
+			{
+				BufferID bid = doOpen(fn);
+				if (bid != BUFFER_INVALID)
+				{
+					switchToFile(bid);
+				}
 			}
 
 			return res;
@@ -2554,9 +2602,9 @@ bool Notepad_plus::fileLoadSession(const wchar_t *fn)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 		const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
-		wstring sessionExt = L"";
 		if (*ext != '\0')
 		{
+			wstring sessionExt = L"";
 			if (*ext != '.')
 				sessionExt += L".";
 			sessionExt += ext;
@@ -2652,9 +2700,9 @@ const wchar_t * Notepad_plus::fileSaveSession(size_t nbFile, wchar_t ** fileName
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 	const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
 
-	wstring sessionExt = L"";
 	if (*ext != '\0')
 	{
+		wstring sessionExt = L"";
 		if (*ext != '.')
 			sessionExt += L".";
 		sessionExt += ext;

@@ -1,0 +1,6 @@
+ 2 400   0 + <script>
+ 0 401   0 | /a|b/i.test("baby");
+ 0 401   0 | // arrow function
+ 0 401   0 | () => /a|b/i.test("baby");
+ 0 401   0 | </script>
+ 0 400   0   

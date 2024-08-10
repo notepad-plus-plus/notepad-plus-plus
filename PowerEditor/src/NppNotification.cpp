@@ -283,7 +283,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 						if (buf->isDirty())
 						{
-							wstring msg, title;
 							_nativeLangSpeaker.messageBox("CannotMoveDoc",
 								_pPublicInterface->getHSelf(),
 								L"Document is modified, save it then try again.",
@@ -371,24 +370,30 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					_statusBar.setText((_pEditView->execute(SCI_GETOVERTYPE)) ? L"OVR" : L"INS", STATUSBAR_TYPING_MODE);
 				}
 			}
-			else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
+			else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf())
 			{
-				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-				if (isSnapshotMode)
+				if (_activeView == SUB_VIEW)
 				{
-					// Before switching off, synchronize backup file
-					MainFileManager.backupCurrentBuffer();
+					bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+					if (isSnapshotMode)
+					{
+						// Before switching off, synchronize backup file
+						MainFileManager.backupCurrentBuffer();
+					}
 				}
 				// Switch off
 				switchEditViewTo(MAIN_VIEW);
 			}
-			else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf() && _activeView == MAIN_VIEW)
+			else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf())
 			{
-				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-				if (isSnapshotMode)
+				if (_activeView == MAIN_VIEW)
 				{
-					// Before switching off, synchronize backup file
-					MainFileManager.backupCurrentBuffer();
+					bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+					if (isSnapshotMode)
+					{
+						// Before switching off, synchronize backup file
+						MainFileManager.backupCurrentBuffer();
+					}
 				}
 				// Switch off
 				switchEditViewTo(SUB_VIEW);
@@ -516,10 +521,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return TRUE;
 			//break;
 
+			NppParameters& nppParam = NppParameters::getInstance();
+
 			if (!_tabPopupMenu.isCreated())
 			{
 				std::vector<MenuItemUnit> itemUnitArray;
-				NppParameters& nppParam = NppParameters::getInstance();
 
 				if (nppParam.hasCustomTabContextMenu())
 				{
@@ -575,7 +581,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			// Adds colour icons
 			for (int i = 0; i < 5; ++i)
 			{
-				COLORREF colour = NppDarkMode::getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
+				COLORREF colour = nppParam.getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
 				HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
 				SetMenuItemBitmaps(_tabPopupMenu.getMenuHandle(), IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 			}

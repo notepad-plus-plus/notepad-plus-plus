@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <time.h>
-#include <shlwapi.h>
+
 #include <shlobj.h>
 #include "Parameters.h"
 #include "ScintillaEditView.h"
@@ -2195,8 +2195,6 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 
 bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu, bool isEditCM)
 {
-	std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
-
 	TiXmlDocumentA* pXmlContextMenuDocA = isEditCM ? _pXmlContextMenuDocA : _pXmlTabContextMenuDocA;
 	std::string cmName = isEditCM ? "ScintillaContextMenu" : "TabContextMenu";
 
@@ -2212,6 +2210,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 	TiXmlNodeA *contextMenuRoot = root->FirstChildElement(cmName.c_str());
 	if (contextMenuRoot)
 	{
+		std::vector<MenuItemUnit>& contextMenuItems = isEditCM ? _contextMenuItems : _tabContextMenuItems;
+
 		for (TiXmlNodeA *childNode = contextMenuRoot->FirstChildElement("Item");
 			childNode ;
 			childNode = childNode->NextSibling("Item") )
@@ -2288,7 +2288,7 @@ void NppParameters::setWorkingDir(const wchar_t * newPath)
 		if (doesDirectoryExist(_nppGUI._defaultDirExp))
 			_currentDirectory = _nppGUI._defaultDirExp;
 		else
-			_currentDirectory = _nppPath.c_str();
+			_currentDirectory = _nppPath;
 	}
 }
 
@@ -6192,10 +6192,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 		else if (!lstrcmp(nm, L"commandLineInterpreter"))
 		{
-			TiXmlNode *node = childNode->FirstChild();
-			if (node)
+			TiXmlNode *cmdLineInterpreterNode = childNode->FirstChild();
+			if (cmdLineInterpreterNode)
 			{
-				const wchar_t *cli = node->Value();
+				const wchar_t *cli = cmdLineInterpreterNode->Value();
 				if (cli && cli[0])
 					_nppGUI._commandLineInterpreter.assign(cli);
 			}
@@ -8818,4 +8818,112 @@ EolType convertIntToFormatType(int value, EolType defvalue)
 		default:
 			return defvalue;
 	}
+}
+
+void NppParameters::initTabCustomColors()
+{
+	StyleArray& stylers = getMiscStylerArray();
+
+	const Style* pStyle = stylers.findByName(L"Tab color 1");
+	if (pStyle)
+	{
+		individualTabHues[0].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color 2");
+	if (pStyle)
+	{
+		individualTabHues[1].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color 3");
+	if (pStyle)
+	{
+		individualTabHues[2].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color 4");
+	if (pStyle)
+	{
+		individualTabHues[3].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color 5");
+	if (pStyle)
+	{
+		individualTabHues[4].changeHLSFrom(pStyle->_bgColor);
+	}
+
+
+	pStyle = stylers.findByName(L"Tab color dark mode 1");
+	if (pStyle)
+	{
+		individualTabHuesFor_Dark[0].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color dark mode 2");
+	if (pStyle)
+	{
+		individualTabHuesFor_Dark[1].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color dark mode 3");
+	if (pStyle)
+	{
+		individualTabHuesFor_Dark[2].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color dark mode 4");
+	if (pStyle)
+	{
+		individualTabHuesFor_Dark[3].changeHLSFrom(pStyle->_bgColor);
+	}
+
+	pStyle = stylers.findByName(L"Tab color dark mode 5");
+	if (pStyle)
+	{
+		individualTabHuesFor_Dark[4].changeHLSFrom(pStyle->_bgColor);
+	}
+}
+
+
+void NppParameters::setIndividualTabColour(COLORREF colour2Set, int colourIndex, bool isDarkMode)
+{
+	if (colourIndex < 0 || colourIndex > 4) return;
+
+	if (isDarkMode)
+		individualTabHuesFor_Dark[colourIndex].changeHLSFrom(colour2Set);
+	else
+		individualTabHues[colourIndex].changeHLSFrom(colour2Set);
+
+	return;
+}
+
+COLORREF NppParameters::getIndividualTabColour(int colourIndex, bool isDarkMode, bool saturated)
+{
+	if (colourIndex < 0 || colourIndex > 4) return {};
+
+	HLSColour result;
+	if (isDarkMode)
+	{
+		result = individualTabHuesFor_Dark[colourIndex];
+
+		if (saturated)
+		{
+			result._lightness = 146U;
+			result._saturation = std::min<WORD>(240U, result._saturation + 100U);
+		}
+	}
+	else
+	{
+		result = individualTabHues[colourIndex];
+
+		if (saturated)
+		{
+			result._lightness = 140U;
+			result._saturation = std::min<WORD>(240U, result._saturation + 30U);
+		}
+	}
+
+	return result.toRGB();
 }

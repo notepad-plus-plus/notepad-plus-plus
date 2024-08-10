@@ -276,28 +276,57 @@
 #define IDI_PROJECT_FILEINVALID        607
 #define IDI_FB_ROOTOPEN                608
 #define IDI_FB_ROOTCLOSE               609
-#define IDI_FB_SELECTCURRENTFILE       610
-#define IDI_FB_FOLDALL                 611
-#define IDI_FB_EXPANDALL               612
-#define IDI_FB_SELECTCURRENTFILE_DM    613
-#define IDI_FB_FOLDALL_DM              614
-#define IDI_FB_EXPANDALL_DM            615
+
+#define IDI_PROJECT_WORKSPACE_DM       611
+#define IDI_PROJECT_WORKSPACEDIRTY_DM  612
+#define IDI_PROJECT_PROJECT_DM         613
+#define IDI_PROJECT_FOLDEROPEN_DM      614
+#define IDI_PROJECT_FOLDERCLOSE_DM     615
+#define IDI_PROJECT_FILE_DM            616
+#define IDI_PROJECT_FILEINVALID_DM     617
+#define IDI_FB_ROOTOPEN_DM             618
+#define IDI_FB_ROOTCLOSE_DM            619
+
+#define IDI_PROJECT_WORKSPACE2         621
+#define IDI_PROJECT_WORKSPACEDIRTY2    622
+#define IDI_PROJECT_PROJECT2           623
+#define IDI_PROJECT_FOLDEROPEN2        624
+#define IDI_PROJECT_FOLDERCLOSE2       625
+#define IDI_PROJECT_FILE2              626
+#define IDI_PROJECT_FILEINVALID2       627
+#define IDI_FB_ROOTOPEN2               628
+#define IDI_FB_ROOTCLOSE2              629
+
+#define IDI_FB_SELECTCURRENTFILE       630
+#define IDI_FB_FOLDALL                 631
+#define IDI_FB_EXPANDALL               632
+#define IDI_FB_SELECTCURRENTFILE_DM    633
+#define IDI_FB_FOLDALL_DM              634
+#define IDI_FB_EXPANDALL_DM            635
 
 #define IDI_FUNCLIST_ROOT              IDI_PROJECT_FILE // using same file
-#define IDI_FUNCLIST_NODE              621
-#define IDI_FUNCLIST_LEAF              622
+#define IDI_FUNCLIST_NODE              641
+#define IDI_FUNCLIST_LEAF              642
 
-#define IDI_FUNCLIST_SORTBUTTON              631
-#define IDI_FUNCLIST_RELOADBUTTON            632
-#define IDI_FUNCLIST_PREFERENCEBUTTON        633
-#define IDI_FUNCLIST_SORTBUTTON_DM           634
-#define IDI_FUNCLIST_RELOADBUTTON_DM         635
-#define IDI_FUNCLIST_PREFERENCEBUTTON_DM     636
+#define IDI_FUNCLIST_ROOT_DM           IDI_PROJECT_FILE_DM // using same file
+#define IDI_FUNCLIST_NODE_DM           644
+#define IDI_FUNCLIST_LEAF_DM           645
+
+#define IDI_FUNCLIST_ROOT2             IDI_PROJECT_FILE2 // using same file
+#define IDI_FUNCLIST_NODE2             647
+#define IDI_FUNCLIST_LEAF2             648
+
+#define IDI_FUNCLIST_SORTBUTTON              651
+#define IDI_FUNCLIST_RELOADBUTTON            652
+#define IDI_FUNCLIST_PREFERENCEBUTTON        653
+#define IDI_FUNCLIST_SORTBUTTON_DM           654
+#define IDI_FUNCLIST_RELOADBUTTON_DM         655
+#define IDI_FUNCLIST_PREFERENCEBUTTON_DM     656
 
 
 
 
-#define IDI_GET_INFO_FROM_TOOLTIP               641
+#define IDI_GET_INFO_FROM_TOOLTIP               661
 
 
 

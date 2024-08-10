@@ -56,7 +56,8 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			TBBUTTON tbButtons[2]{};
 
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			NppParameters& nppParam = NppParameters::getInstance();
+			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring workspace_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 0, PM_WORKSPACEMENUENTRY);
 			wstring edit_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 1, PM_EDITMENUENTRY);
 
@@ -77,7 +78,12 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
-			std::vector<int> imgIds{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID };
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }
+				, { IDI_PROJECT_WORKSPACE_DM, IDI_PROJECT_WORKSPACEDIRTY_DM, IDI_PROJECT_PROJECT_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM, IDI_PROJECT_FILEINVALID_DM }
+				, { IDI_PROJECT_WORKSPACE2, IDI_PROJECT_WORKSPACEDIRTY2, IDI_PROJECT_PROJECT2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2, IDI_PROJECT_FILEINVALID2 }
+			);
+
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
 			_treeView.setImageList(imgIds);
 
@@ -105,6 +111,15 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				NppDarkMode::autoThemeChildControls(_hSelf);
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }
+				, { IDI_PROJECT_WORKSPACE_DM, IDI_PROJECT_WORKSPACEDIRTY_DM, IDI_PROJECT_PROJECT_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM, IDI_PROJECT_FILEINVALID_DM }
+				, { IDI_PROJECT_WORKSPACE2, IDI_PROJECT_WORKSPACEDIRTY2, IDI_PROJECT_PROJECT2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2, IDI_PROJECT_FILEINVALID2 }
+			);
+
+			_treeView.setImageList(imgIds);
+
 			return TRUE;
 		}
 

@@ -3253,6 +3253,12 @@ namespace NppDarkMode
 		}
 	}
 
+	TreeViewStyle getTreeViewStyle()
+	{
+		const auto style = g_treeViewStyle;
+		return style;
+	}
+
 	void setTreeViewStyle(HWND hwnd)
 	{
 		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));

@@ -911,7 +911,8 @@ protected:
 	void restyleBuffer();
 	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
-	void setLexer(LangType langID, int whichList);
+	void populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray);
+	void setLexer(LangType langID, int whichList, int baseStyleID = STYLE_NOT_USED, int numSubStyles = 8);
 	bool setLexerFromLangID(int langID);
 	void makeStyle(LangType langType, const wchar_t **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
@@ -941,7 +942,7 @@ protected:
 	};
 
 	void setLuaLexer() {
-		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7);
+		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7, SCE_LUA_IDENTIFIER, 4);
 	};
 
 	void setMakefileLexer() {
@@ -965,7 +966,21 @@ protected:
 	};
 
 	void setBashLexer() {
-		setLexer(L_BASH, LIST_0);
+		setLexerFromLangID(L_BASH);
+
+		const wchar_t *pKwArray[NB_LIST] = {NULL};
+		makeStyle(L_BASH, pKwArray);
+
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
+		setKeywords(L_BASH, keyWords_char, LANG_INDEX_INSTR);
+
+		populateSubStyleKeywords(L_BASH, SCE_SH_IDENTIFIER, 4, LANG_INDEX_SUBSTYLE1, pKwArray);
+		populateSubStyleKeywords(L_BASH, SCE_SH_SCALAR, 4, LANG_INDEX_SUBSTYLE5, pKwArray);
+
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setVBLexer() {
@@ -982,14 +997,14 @@ protected:
 	};
 
 	void setPythonLexer() {
-		setLexer(L_PYTHON, LIST_0 | LIST_1);
+		setLexer(L_PYTHON, LIST_0 | LIST_1, SCE_P_IDENTIFIER);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.python.decorator.attributes"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.python.identifier.attributes"), reinterpret_cast<LPARAM>("1"));
 	};
 	
 	void setGDScriptLexer() {
-		setLexer(L_GDSCRIPT, LIST_0 | LIST_1);
+		setLexer(L_GDSCRIPT, LIST_0 | LIST_1, SCE_GD_IDENTIFIER);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.keywords2.no.sub.identifiers"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.whinge.level"), reinterpret_cast<LPARAM>("1"));
 	};

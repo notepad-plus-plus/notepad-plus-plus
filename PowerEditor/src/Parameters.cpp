@@ -629,6 +629,14 @@ int getKwClassFromName(const wchar_t *str)
 	if (!lstrcmp(L"type5", str)) return LANG_INDEX_TYPE5;
 	if (!lstrcmp(L"type6", str)) return LANG_INDEX_TYPE6;
 	if (!lstrcmp(L"type7", str)) return LANG_INDEX_TYPE7;
+	if (!lstrcmp(L"substyle1", str)) return LANG_INDEX_SUBSTYLE1;
+	if (!lstrcmp(L"substyle2", str)) return LANG_INDEX_SUBSTYLE2;
+	if (!lstrcmp(L"substyle3", str)) return LANG_INDEX_SUBSTYLE3;
+	if (!lstrcmp(L"substyle4", str)) return LANG_INDEX_SUBSTYLE4;
+	if (!lstrcmp(L"substyle5", str)) return LANG_INDEX_SUBSTYLE5;
+	if (!lstrcmp(L"substyle6", str)) return LANG_INDEX_SUBSTYLE6;
+	if (!lstrcmp(L"substyle7", str)) return LANG_INDEX_SUBSTYLE7;
+	if (!lstrcmp(L"substyle8", str)) return LANG_INDEX_SUBSTYLE8;
 
 	if ((str[1] == '\0') && (str[0] >= '0') && (str[0] <= '8')) // up to KEYWORDSET_MAX
 		return str[0] - '0';

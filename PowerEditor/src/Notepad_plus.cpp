@@ -3771,7 +3771,10 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			// colon optionally followed by only whitespace and/or start-of-comment, but NOT on a line that is already a comment
 			const char colonExpr[] = "^[^#]*\\K:[ \t]*(#|$)";
 
-			if (_pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr)) >= 0)
+			auto posColon = _pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr));
+
+			// when colon found, additionally check that it is not in a comment, inside a string, etc.
+			if ((posColon >= 0) && (_pEditView->execute(SCI_GETSTYLEINDEXAT, posColon) == SCE_P_OPERATOR))
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
 			}

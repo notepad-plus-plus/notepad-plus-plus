@@ -967,7 +967,7 @@ Translation note:
 
 					<Item id="6131" name="Meny"/>
 					<Item id="6122" name="Dölj menyraden (använd Alt eller F10 för att visa)"/>
-					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på menyfältets högersida (kräver omstart av Notepad++)"/>
+					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på menyradens högersida (kräver omstart av Notepad++)"/>
 
 					<Item id="6123" name="Gränssnittsspråk"/>
 				</Global>

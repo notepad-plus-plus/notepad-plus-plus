@@ -748,14 +748,14 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="COMMENT" styleID="124" fgColor="808080" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="808080" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="8F8F8F" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="PREDEFINED" styleID="208" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
-            <WordsStyle name="FUNCS AND METHODS 1" styleID="209" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
-            <WordsStyle name="FUNCS AND METHODS 2" styleID="210" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
-            <WordsStyle name="USER KEYWORDS 1" styleID="211" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
-            <WordsStyle name="USER KEYWORDS 2" styleID="212" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
-            <WordsStyle name="USER KEYWORDS 3" styleID="213" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
-            <WordsStyle name="USER KEYWORDS 4" styleID="214" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
-            <WordsStyle name="USER KEYWORDS 5" styleID="215" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
+            <WordsStyle name="PREDEFINED" styleID="213" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="FUNCS AND METHODS 1" styleID="214" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="FUNCS AND METHODS 2" styleID="215" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="208" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="209" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="210" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="211" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="212" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
         </LexerType>
         <LexerType name="postscript" desc="Postscript" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />

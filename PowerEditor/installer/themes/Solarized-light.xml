@@ -764,14 +764,14 @@ Installation:
             <WordsStyle name="COMMENT" styleID="124" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="586E75" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="PREDEFINED" styleID="208" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle1" />
-            <WordsStyle name="FUNCS AND METHODS 1" styleID="209" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle2" />
-            <WordsStyle name="FUNCS AND METHODS 2" styleID="210" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle3" />
-            <WordsStyle name="USER KEYWORDS 1" styleID="211" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle4" />
-            <WordsStyle name="USER KEYWORDS 2" styleID="212" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle5" />
-            <WordsStyle name="USER KEYWORDS 3" styleID="213" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle6" />
-            <WordsStyle name="USER KEYWORDS 4" styleID="214" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle7" />
-            <WordsStyle name="USER KEYWORDS 5" styleID="215" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle8" />
+            <WordsStyle name="PREDEFINED" styleID="213" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="FUNCS AND METHODS 1" styleID="214" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="FUNCS AND METHODS 2" styleID="215" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle8" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="208" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="209" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="210" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="211" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="212" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="substyle5" />
         </LexerType>
         <LexerType name="postscript" desc="Postscript" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />

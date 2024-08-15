@@ -180,7 +180,12 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 			FileBrowser::initPopupMenus();
 
-			std::vector<int> imgIds{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE };
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }
+				, { IDI_FB_ROOTOPEN_DM, IDI_FB_ROOTCLOSE_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM }
+				, { IDI_FB_ROOTOPEN2, IDI_FB_ROOTCLOSE2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2 }
+			);
+
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
 			_treeView.setImageList(imgIds);
 
@@ -213,6 +218,15 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 			}
 			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }
+				, { IDI_FB_ROOTOPEN_DM, IDI_FB_ROOTCLOSE_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM }
+				, { IDI_FB_ROOTOPEN2, IDI_FB_ROOTCLOSE2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2 }
+			);
+
+			_treeView.setImageList(imgIds);
+
 			return TRUE;
 		}
 

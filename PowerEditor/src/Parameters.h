@@ -131,6 +131,14 @@ const int LANG_INDEX_TYPE4 = 5;
 const int LANG_INDEX_TYPE5 = 6;
 const int LANG_INDEX_TYPE6 = 7;
 const int LANG_INDEX_TYPE7 = 8;
+const int LANG_INDEX_SUBSTYLE1 = 9;
+const int LANG_INDEX_SUBSTYLE2 = 10;
+const int LANG_INDEX_SUBSTYLE3 = 11;
+const int LANG_INDEX_SUBSTYLE4 = 12;
+const int LANG_INDEX_SUBSTYLE5 = 13;
+const int LANG_INDEX_SUBSTYLE6 = 14;
+const int LANG_INDEX_SUBSTYLE7 = 15;
+const int LANG_INDEX_SUBSTYLE8 = 16;
 
 const int COPYDATA_PARAMS = 0;
 //const int COPYDATA_FILENAMESA = 1; // obsolete, no more useful

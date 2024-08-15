@@ -289,25 +289,75 @@ bool TreeView::setImageList(const std::vector<int>& imageIds, int imgSize)
 
 	// Creation of image list
 	int dpiImgSize = DPIManagerV2::scale(imgSize, _hParent);
-	if ((_hImaLst = ::ImageList_Create(dpiImgSize, dpiImgSize, ILC_COLOR32 | ILC_MASK, nbImage, 0)) == nullptr)
-		return false;
 
-	// Add the ico into the list
-	for (const int& id : imageIds)
+	NppParameters& nppParam = NppParameters::getInstance();
+	const bool useStdIcons = nppParam.getNppGUI()._toolBarStatus == TB_STANDARD;
+
+	if (_hImaLst != nullptr)
 	{
-		HICON hIcon = nullptr;
-		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), dpiImgSize, dpiImgSize, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		if (hIcon == nullptr)
+		int prevImageSize = 0;
+		::ImageList_GetIconSize(_hImaLst, &prevImageSize, nullptr);
+		if ((prevImageSize != dpiImgSize) || (!(useStdIcons && _tvStyleType == NppDarkMode::TreeViewStyle::classic) && _tvStyleType != NppDarkMode::getTreeViewStyle()))
+		{
+			::ImageList_Destroy(_hImaLst);
+			_hImaLst = nullptr;
+		}
+		else
+			return false;
+	}
+
+	if (_hImaLst == nullptr)
+	{
+		if ((_hImaLst = ::ImageList_Create(dpiImgSize, dpiImgSize, ILC_COLOR32 | ILC_MASK, nbImage, 0)) == nullptr)
 			return false;
 
-		::ImageList_AddIcon(_hImaLst, hIcon);
-		::DestroyIcon(hIcon);
+		// Add the ico into the list
+		for (const int& id : imageIds)
+		{
+			HICON hIcon = nullptr;
+			DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), dpiImgSize, dpiImgSize, &hIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+			if (hIcon == nullptr)
+				return false;
+
+			::ImageList_AddIcon(_hImaLst, hIcon);
+			::DestroyIcon(hIcon);
+		}
 	}
 
 	// Set image list to the tree view
 	TreeView_SetImageList(_hSelf, _hImaLst, TVSIL_NORMAL);
+	_tvStyleType = useStdIcons ? NppDarkMode::TreeViewStyle::classic : NppDarkMode::getTreeViewStyle();
 
 	return true;
+}
+
+std::vector<int> TreeView::getImageIds(std::vector<int> stdIds, std::vector<int> darkIds, std::vector<int> lightIds)
+{
+	NppParameters& nppParam = NppParameters::getInstance();
+	const bool useStdIcons = nppParam.getNppGUI()._toolBarStatus == TB_STANDARD;
+	if (useStdIcons)
+	{
+		return stdIds;
+	}
+
+	switch (NppDarkMode::getTreeViewStyle())
+	{
+		case NppDarkMode::TreeViewStyle::light:
+		{
+			return lightIds;
+		}
+
+		case NppDarkMode::TreeViewStyle::dark:
+		{
+			return darkIds;
+		}
+
+		case NppDarkMode::TreeViewStyle::classic:
+		{
+			return stdIds;
+		}
+	}
+	return stdIds;
 }
 
 void TreeView::cleanSubEntries(HTREEITEM hTreeItem)

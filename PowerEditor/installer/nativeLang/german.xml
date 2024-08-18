@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-07-27"><!-- basiert auf english.xml 8.6.9 vom 26.07.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-08-18"><!-- basiert auf english.xml 8.6.9 vom 26.07.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1125,7 +1125,7 @@ Translation note:
 					<Item id="6310" name="Einrückung verwendet:"/>
 					<Item id="6311" name="Tab Zeichen"/>
 					<Item id="6510" name="Standard verwenden"/>
-					<Item id="6512" name="Die Rücktaste U+232B entfernt Einrückungen statt einzelner Leerzeichen"/>
+					<Item id="6512" name="Rücktaste entfernt Einrückungen anstatt einzelner Leerzeichen"/>
 				</Indentation>
 
 				<Highlighting title="Hervorhebung">

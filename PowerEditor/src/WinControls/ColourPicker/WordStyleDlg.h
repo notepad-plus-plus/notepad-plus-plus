@@ -26,6 +26,11 @@
 #define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
 #define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
+#define NO_VISUAL_CHANGE 0x00
+#define GENERAL_CHANGE 0x01
+#define THEME_CHANGE 0x02
+#define COLOR_CHANGE_4_MENU 0x04
+
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 
 const bool C_FOREGROUND = false;
@@ -67,7 +72,6 @@ public :
 	void prepare2Cancel();
 	void redraw(bool forceUpdate = false) const override;
 	void restoreGlobalOverrideValues();
-	void apply(bool needVisualApply = true);
 	void addLastThemeEntry();
 	bool selectThemeByName(const wchar_t* themeName);
 	bool goToSection(const wchar_t* sectionNames); // sectionNames is formed as following: "Language name:Style name"
@@ -116,10 +120,12 @@ private :
 
 	Style& getCurrentStyler();
 
-	bool getStyleName(wchar_t *styleName, const size_t styleNameLen);
+	bool getStyleName(wchar_t *styleName, const size_t styleNameLen) const;
 
-	int whichTabColourIndex();
+	int whichTabColourIndex() const;
 	int whichIndividualTabColourId();
+	void apply(int applicationInfo);
+	int getApplicationInfo() const;
 	bool isDocumentMapStyle();
 	void move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void updateColour(bool which);

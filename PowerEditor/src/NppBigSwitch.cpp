@@ -2286,7 +2286,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_UPDATESCINTILLAS:
 		{
-			bool isThemeChanged = (wParam == TRUE);
+			bool doChangePanel = (wParam == TRUE);
 
 			//reset styler for change in Stylers.xml
 			_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
@@ -2315,7 +2315,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			AutoCompletion::drawAutocomplete(_pEditView);
 			AutoCompletion::drawAutocomplete(_pNonEditView);
 
-			if (isThemeChanged) // Theme change
+			if (doChangePanel) // Theme change
 			{
 				NppDarkMode::calculateTreeViewStyle();
 				auto refreshOnlyTreeView = static_cast<LPARAM>(TRUE);

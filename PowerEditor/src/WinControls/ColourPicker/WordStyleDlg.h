@@ -23,7 +23,7 @@
 #include "Parameters.h"
 
 
-#define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) // WM_UPDATESCINTILLAS (BOOL doChangePanel, 0)
 #define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
 #define NO_VISUAL_CHANGE 0x00

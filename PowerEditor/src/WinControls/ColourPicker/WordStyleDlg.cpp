@@ -369,7 +369,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 							//(nppParamInst.getNppGUI())._themeName
 							::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
-							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+							::SendMessage(_hParent, WM_UPDATESCINTILLAS, TRUE, 0);
 							::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 						}
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
@@ -400,7 +400,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
 						//_isSync = true;
 						display(false);
-						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+						::SendMessage(_hParent, WM_UPDATESCINTILLAS, TRUE, 0);
 						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 
 						const wchar_t* fn = ::PathFindFileName(_themeName.c_str());

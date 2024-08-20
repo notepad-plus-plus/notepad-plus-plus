@@ -8563,7 +8563,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			else
 			{
 				nppParams.reloadStylers(themePath.c_str());
-				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
+				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, TRUE, 0);
 			}
 		}
 

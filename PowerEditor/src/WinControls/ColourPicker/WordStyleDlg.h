@@ -113,6 +113,7 @@ private :
 	bool _isDirty = false;
 	bool _isThemeDirty = false;
 	bool _isShownGOCtrls = false;
+	bool _isThemeChanged = false;
 
 	std::pair<intptr_t, intptr_t> goToPreferencesSettings();
 

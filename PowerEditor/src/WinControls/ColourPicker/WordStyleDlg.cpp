@@ -369,8 +369,10 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 							//(nppParamInst.getNppGUI())._themeName
 							::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
-							::SendMessage(_hParent, WM_UPDATESCINTILLAS, TRUE, 0);
+							::SendMessage(_hParent, WM_UPDATESCINTILLAS, _isThemeChanged, 0);
 							::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+
+							_isThemeChanged = false;
 						}
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
 						display(false);
@@ -1363,6 +1365,9 @@ void WordStyleDlg::apply(int applicationInfo)
 
 	StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
 	globalStyles = _globalStyles;
+
+	if ((applicationInfo & THEME_CHANGE) != 0)
+		_isThemeChanged = true;
 
 	if (applicationInfo & GENERAL_CHANGE || applicationInfo & THEME_CHANGE)
 		::SendMessage(_hParent, WM_UPDATESCINTILLAS, (applicationInfo & THEME_CHANGE) != 0, 0);

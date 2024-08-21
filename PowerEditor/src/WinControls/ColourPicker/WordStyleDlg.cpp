@@ -366,15 +366,13 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							_isThemeDirty = false;
 							setVisualFromStyleList();
 
-
-							//(nppParamInst.getNppGUI())._themeName
 							::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 							::SendMessage(_hParent, WM_UPDATESCINTILLAS, _isThemeChanged, 0);
 							::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 
 							_isThemeChanged = false;
 						}
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
 						display(false);
 						return TRUE;
 
@@ -393,6 +391,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							_currentThemeIndex = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_GETCURSEL, 0, 0));
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 							_isDirty = false;
+							_isThemeChanged = false;
 						}
 						_isThemeDirty = false;
 						auto newSavedFilePath = (NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
@@ -400,10 +399,11 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							updateThemeName(newSavedFilePath);
 
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
-						//_isSync = true;
 						display(false);
-						::SendMessage(_hParent, WM_UPDATESCINTILLAS, TRUE, 0);
-						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+
+						// With the application of each modification, the following 2 actions (applications) are not necessary 
+						//::SendMessage(_hParent, WM_UPDATESCINTILLAS, TRUE, 0);
+						//::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 
 						const wchar_t* fn = ::PathFindFileName(_themeName.c_str());
 						NppDarkMode::setThemeName((!NppDarkMode::isEnabled() && lstrcmp(fn, L"stylers.xml") == 0) ? L"" : fn);

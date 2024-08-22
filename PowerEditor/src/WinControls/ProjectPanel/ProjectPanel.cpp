@@ -110,7 +110,10 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				NppDarkMode::autoThemeChildControls(_hSelf);
 			}
-			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			else
+			{
+				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			}
 
 			std::vector<int> imgIds = _treeView.getImageIds(
 				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }

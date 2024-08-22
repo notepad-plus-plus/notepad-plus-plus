@@ -971,7 +971,10 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				NppDarkMode::autoThemeChildControls(_hSelf);
 				::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 			}
-			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			else
+			{
+				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			}
 
 			std::vector<int> imgIds = _treeView.getImageIds(
 				{ IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF }

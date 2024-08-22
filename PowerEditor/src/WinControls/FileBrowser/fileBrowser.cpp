@@ -217,7 +217,10 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				NppDarkMode::autoThemeChildControls(_hSelf);
 				::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 			}
-			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			else
+			{
+				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			}
 
 			std::vector<int> imgIds = _treeView.getImageIds(
 				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }

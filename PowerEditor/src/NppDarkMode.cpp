@@ -591,6 +591,7 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
+	static TreeViewStyle g_treeViewStylePrev = TreeViewStyle::classic;
 	static TreeViewStyle g_treeViewStyle = TreeViewStyle::classic;
 	static COLORREF g_treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
 	static double g_lightnessTreeView = 50.0;
@@ -1094,7 +1095,7 @@ namespace NppDarkMode
 	static void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
 	{
 		RECT rcClient{};
-		WCHAR szText[256] = { '\0' };
+		wchar_t szText[256] = { '\0' };
 		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
 		DWORD uiState = static_cast<DWORD>(SendMessage(hwnd, WM_QUERYUISTATE, 0, 0));
 		auto nStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
@@ -1414,7 +1415,7 @@ namespace NppDarkMode
 
 		hOldFont = static_cast<HFONT>(::SelectObject(hdc, hFont));
 
-		WCHAR szText[256] = { '\0' };
+		wchar_t szText[256] = { '\0' };
 		GetWindowText(hwnd, szText, _countof(szText));
 
 		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
@@ -1486,14 +1487,12 @@ namespace NppDarkMode
 		DWORD_PTR dwRefData
 	)
 	{
-		UNREFERENCED_PARAMETER(uIdSubclass);
-
 		auto pButtonData = reinterpret_cast<ButtonData*>(dwRefData);
 
 		switch (uMsg)
 		{
 		case WM_NCDESTROY:
-			RemoveWindowSubclass(hWnd, GroupboxSubclass, g_groupboxSubclassID);
+			RemoveWindowSubclass(hWnd, GroupboxSubclass, uIdSubclass);
 			delete pButtonData;
 			break;
 
@@ -2577,8 +2576,8 @@ namespace NppDarkMode
 		TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
 		TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
 
-		NppDarkMode::calculateTreeViewStyle();
-		NppDarkMode::setTreeViewStyle(hwnd);
+		//NppDarkMode::calculateTreeViewStyle();
+		NppDarkMode::setTreeViewStyle(hwnd, p._theme);
 
 		if (p._theme)
 		{
@@ -3253,54 +3252,72 @@ namespace NppDarkMode
 		}
 	}
 
+	void updateTreeViewStylePrev()
+	{
+		g_treeViewStylePrev = g_treeViewStyle;
+	}
+
 	TreeViewStyle getTreeViewStyle()
 	{
 		const auto style = g_treeViewStyle;
 		return style;
 	}
 
-	void setTreeViewStyle(HWND hwnd)
+	void setTreeViewStyle(HWND hWnd, bool force)
 	{
-		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
-		bool hasHotStyle = (style & TVS_TRACKSELECT) == TVS_TRACKSELECT;
-		bool change = false;
-		switch (g_treeViewStyle)
+		if (force || g_treeViewStylePrev != g_treeViewStyle)
 		{
-			case TreeViewStyle::light:
-			{
-				if (!hasHotStyle)
-				{
-					style |= TVS_TRACKSELECT;
-					change = true;
-				}
-				SetWindowTheme(hwnd, L"Explorer", nullptr);
-				break;
-			}
-			case TreeViewStyle::dark:
-			{
-				if (!hasHotStyle)
-				{
-					style |= TVS_TRACKSELECT;
-					change = true;
-				}
-				SetWindowTheme(hwnd, g_isAtLeastWindows10 ? L"DarkMode_Explorer" : nullptr, nullptr);
-				break;
-			}
-			case TreeViewStyle::classic:
-			{
-				if (hasHotStyle)
-				{
-					style &= ~TVS_TRACKSELECT;
-					change = true;
-				}
-				SetWindowTheme(hwnd, nullptr, nullptr);
-				break;
-			}
-		}
+			auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+			const bool hasHotStyle = (style & TVS_TRACKSELECT) == TVS_TRACKSELECT;
+			bool change = false;
+			std::wstring strSubAppName;
 
-		if (change)
-		{
-			::SetWindowLongPtr(hwnd, GWL_STYLE, style);
+			switch (g_treeViewStyle)
+			{
+				case TreeViewStyle::light:
+				{
+					if (!hasHotStyle)
+					{
+						style |= TVS_TRACKSELECT;
+						change = true;
+					}
+					strSubAppName = L"Explorer";
+					break;
+				}
+
+				case TreeViewStyle::dark:
+				{
+					if (NppDarkMode::isExperimentalSupported())
+					{
+						if (!hasHotStyle)
+						{
+							style |= TVS_TRACKSELECT;
+							change = true;
+						}
+						strSubAppName = L"DarkMode_Explorer";
+						break;
+					}
+					[[fallthrough]];
+				}
+
+				case TreeViewStyle::classic:
+				{
+					if (hasHotStyle)
+					{
+						style &= ~TVS_TRACKSELECT;
+						change = true;
+					}
+					strSubAppName = L"";
+					break;
+				}
+			}
+
+			if (change)
+			{
+				::SetWindowLongPtr(hWnd, GWL_STYLE, style);
+			}
+
+			::SetWindowTheme(hWnd, strSubAppName.empty() ? nullptr : strSubAppName.c_str(), nullptr);
 		}
 	}
 

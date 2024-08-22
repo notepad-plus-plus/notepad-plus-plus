@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "DoubleBuffer.h"
-#include <CommCtrl.h>
+#include <commctrl.h>
 #include <cassert>
 #include <memory>
 

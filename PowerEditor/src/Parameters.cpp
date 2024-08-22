@@ -8490,15 +8490,13 @@ void NppParameters::writeStyle2Element(const Style & style2Write, Style & style2
 	}
 
 
-	if (!style2Write._keywords.empty())
-	{
-		TiXmlNode *teteDeNoeud = element->LastChild();
+	TiXmlNode *teteDeNoeud = element->LastChild();
 
-		if (teteDeNoeud)
-			teteDeNoeud->SetValue(style2Write._keywords.c_str());
-		else
-			element->InsertEndChild(TiXmlText(style2Write._keywords.c_str()));
-	}
+	if (teteDeNoeud)
+		teteDeNoeud->SetValue(style2Write._keywords.c_str());
+	else
+		element->InsertEndChild(TiXmlText(style2Write._keywords.c_str()));
+
 }
 
 void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang)

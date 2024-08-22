@@ -2286,6 +2286,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_UPDATESCINTILLAS:
 		{
+			bool doChangePanel = (wParam == TRUE);
+
 			//reset styler for change in Stylers.xml
 			_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
 			_mainEditView.performGlobalStyles();
@@ -2313,62 +2315,65 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			AutoCompletion::drawAutocomplete(_pEditView);
 			AutoCompletion::drawAutocomplete(_pNonEditView);
 
-			NppDarkMode::calculateTreeViewStyle();
-			auto refreshOnlyTreeView = static_cast<LPARAM>(TRUE);
-
-			// Set default fg/bg colors on internal docking dialog
-			if (pStyle && _pFuncList)
+			if (doChangePanel) // Theme change
 			{
-				_pFuncList->setBackgroundColor(pStyle->_bgColor);
-				_pFuncList->setForegroundColor(pStyle->_fgColor);
-				::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
-			}
+				NppDarkMode::calculateTreeViewStyle();
+				auto refreshOnlyTreeView = static_cast<LPARAM>(TRUE);
 
-			if (pStyle && _pAnsiCharPanel)
-			{
-				_pAnsiCharPanel->setBackgroundColor(pStyle->_bgColor);
-				_pAnsiCharPanel->setForegroundColor(pStyle->_fgColor);
-			}
+				// Set default fg/bg colors on internal docking dialog
+				if (pStyle && _pFuncList)
+				{
+					_pFuncList->setBackgroundColor(pStyle->_bgColor);
+					_pFuncList->setForegroundColor(pStyle->_fgColor);
+					::SendMessage(_pFuncList->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
+				}
 
-			if (pStyle && _pDocumentListPanel)
-			{
-				_pDocumentListPanel->setBackgroundColor(pStyle->_bgColor);
-				_pDocumentListPanel->setForegroundColor(pStyle->_fgColor);
-			}
+				if (pStyle && _pAnsiCharPanel)
+				{
+					_pAnsiCharPanel->setBackgroundColor(pStyle->_bgColor);
+					_pAnsiCharPanel->setForegroundColor(pStyle->_fgColor);
+				}
 
-			if (pStyle && _pClipboardHistoryPanel)
-			{
-				_pClipboardHistoryPanel->setBackgroundColor(pStyle->_bgColor);
-				_pClipboardHistoryPanel->setForegroundColor(pStyle->_fgColor);
-				_pClipboardHistoryPanel->redraw(true);
-			}
+				if (pStyle && _pDocumentListPanel)
+				{
+					_pDocumentListPanel->setBackgroundColor(pStyle->_bgColor);
+					_pDocumentListPanel->setForegroundColor(pStyle->_fgColor);
+				}
 
-			if (pStyle && _pProjectPanel_1)
-			{
-				_pProjectPanel_1->setBackgroundColor(pStyle->_bgColor);
-				_pProjectPanel_1->setForegroundColor(pStyle->_fgColor);
-				::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
-			}
+				if (pStyle && _pClipboardHistoryPanel)
+				{
+					_pClipboardHistoryPanel->setBackgroundColor(pStyle->_bgColor);
+					_pClipboardHistoryPanel->setForegroundColor(pStyle->_fgColor);
+					_pClipboardHistoryPanel->redraw(true);
+				}
 
-			if (pStyle && _pProjectPanel_2)
-			{
-				_pProjectPanel_2->setBackgroundColor(pStyle->_bgColor);
-				_pProjectPanel_2->setForegroundColor(pStyle->_fgColor);
-				::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
-			}
+				if (pStyle && _pProjectPanel_1)
+				{
+					_pProjectPanel_1->setBackgroundColor(pStyle->_bgColor);
+					_pProjectPanel_1->setForegroundColor(pStyle->_fgColor);
+					::SendMessage(_pProjectPanel_1->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
+				}
 
-			if (pStyle && _pProjectPanel_3)
-			{
-				_pProjectPanel_3->setBackgroundColor(pStyle->_bgColor);
-				_pProjectPanel_3->setForegroundColor(pStyle->_fgColor);
-				::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
-			}
+				if (pStyle && _pProjectPanel_2)
+				{
+					_pProjectPanel_2->setBackgroundColor(pStyle->_bgColor);
+					_pProjectPanel_2->setForegroundColor(pStyle->_fgColor);
+					::SendMessage(_pProjectPanel_2->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
+				}
 
-			if (pStyle && _pFileBrowser)
-			{
-				_pFileBrowser->setBackgroundColor(pStyle->_bgColor);
-				_pFileBrowser->setForegroundColor(pStyle->_fgColor);
-				::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
+				if (pStyle && _pProjectPanel_3)
+				{
+					_pProjectPanel_3->setBackgroundColor(pStyle->_bgColor);
+					_pProjectPanel_3->setForegroundColor(pStyle->_fgColor);
+					::SendMessage(_pProjectPanel_3->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
+				}
+
+				if (pStyle && _pFileBrowser)
+				{
+					_pFileBrowser->setBackgroundColor(pStyle->_bgColor);
+					_pFileBrowser->setForegroundColor(pStyle->_fgColor);
+					::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
+				}
 			}
 
 			if (_pDocMap)

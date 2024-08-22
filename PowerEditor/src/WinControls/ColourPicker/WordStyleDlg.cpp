@@ -290,14 +290,14 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 				{
 					updateUserKeywords();
 					notifyDataModified();
-					apply();
+					apply(GENERAL_CHANGE);
 					return TRUE;
 				}
 				else if (editID == IDC_USER_EXT_EDIT)
 				{
 					updateExtension();
 					notifyDataModified();
-					apply(false);
+					apply(NO_VISUAL_CHANGE);
 					return TRUE;
 				}
 				return FALSE;
@@ -309,19 +309,19 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					case IDC_BOLD_CHECK :
 						updateFontStyleStatus(BOLD_STATUS);
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 
 					case IDC_ITALIC_CHECK :
 						updateFontStyleStatus(ITALIC_STATUS);
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 
 					case IDC_UNDERLINE_CHECK :
 						updateFontStyleStatus(UNDERLINE_STATUS);
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					
 					case IDC_GLOBAL_GOTOSETTINGS_LINK :
@@ -366,13 +366,13 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							_isThemeDirty = false;
 							setVisualFromStyleList();
 
-
-							//(nppParamInst.getNppGUI())._themeName
 							::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
-							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+							::SendMessage(_hParent, WM_UPDATESCINTILLAS, _isThemeChanged, 0);
 							::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+
+							_isThemeChanged = false;
 						}
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
 						display(false);
 						return TRUE;
 
@@ -391,6 +391,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							_currentThemeIndex = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_GETCURSEL, 0, 0));
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 							_isDirty = false;
+							_isThemeChanged = false;
 						}
 						_isThemeDirty = false;
 						auto newSavedFilePath = (NppParameters::getInstance()).writeStyles(_lsArray, _globalStyles);
@@ -398,10 +399,11 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							updateThemeName(newSavedFilePath);
 
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
-						//_isSync = true;
 						display(false);
-						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
-						::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
+
+						// With the application of each modification, the following 2 actions (applications) are not necessary 
+						//::SendMessage(_hParent, WM_UPDATESCINTILLAS, TRUE, 0);
+						//::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
 
 						const wchar_t* fn = ::PathFindFileName(_themeName.c_str());
 						NppDarkMode::setThemeName((!NppDarkMode::isEnabled() && lstrcmp(fn, L"stylers.xml") == 0) ? L"" : fn);
@@ -429,7 +431,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						GlobalOverride & glo = (NppParameters::getInstance()).getGlobalOverrideStyle();
 						glo.enableFg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					}
 
@@ -438,7 +440,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						GlobalOverride & glo = (NppParameters::getInstance()).getGlobalOverrideStyle();
 						glo.enableBg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					}
 
@@ -447,7 +449,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						GlobalOverride & glo = (NppParameters::getInstance()).getGlobalOverrideStyle();
 						glo.enableFont = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					}
 					case IDC_GLOBAL_FONTSIZE_CHECK :
@@ -455,7 +457,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						GlobalOverride & glo = (NppParameters::getInstance()).getGlobalOverrideStyle();
 						glo.enableFontSize = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					}
 					case IDC_GLOBAL_BOLD_CHECK :
@@ -463,7 +465,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						GlobalOverride & glo = (NppParameters::getInstance()).getGlobalOverrideStyle();
 						glo.enableBold = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					}
 
@@ -472,7 +474,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						GlobalOverride & glo = (NppParameters::getInstance()).getGlobalOverrideStyle();
 						glo.enableItalic = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					}
 					case IDC_GLOBAL_UNDERLINE_CHECK :
@@ -480,7 +482,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 						GlobalOverride & glo = (NppParameters::getInstance()).getGlobalOverrideStyle();
 						glo.enableUnderLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0));
 						notifyDataModified();
-						apply();
+						apply(GENERAL_CHANGE);
 						return TRUE;
 					}
 
@@ -494,12 +496,12 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									case IDC_FONT_COMBO :
 										updateFontName();
 										notifyDataModified();
-										apply();
+										apply(GENERAL_CHANGE);
 										break;
 									case IDC_FONTSIZE_COMBO :
 										updateFontSize();
 										notifyDataModified();
-										apply();
+										apply(GENERAL_CHANGE);
 										break;
 									case IDC_LANGUAGES_LIST :
 									{
@@ -525,12 +527,15 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 							case CPN_COLOURPICKED:
 							{
+								int applicationInfo = getApplicationInfo();
+								int tabColourIndex = whichTabColourIndex();
+
 								if (reinterpret_cast<HWND>(lParam) == _pFgColour->getHSelf())
 								{
 									updateColour(C_FOREGROUND);
 									notifyDataModified();
-									int tabColourIndex;
-									if ((tabColourIndex = whichTabColourIndex()) != -1)
+
+									if (tabColourIndex != -1)
 									{
 										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex, nullptr);
 									}
@@ -538,15 +543,16 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									{
 										ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
 									}
-									apply();
+									apply(applicationInfo);
 									return TRUE;
 								}
 								else if (reinterpret_cast<HWND>(lParam) == _pBgColour->getHSelf())
 								{
 									updateColour(C_BACKGROUND);
 									notifyDataModified();
-									int tabColourIndex;
-									if ((tabColourIndex = whichTabColourIndex()) != -1)
+									
+
+									if (tabColourIndex != -1)
 									{
 										tabColourIndex = (tabColourIndex == TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
 										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex, nullptr);
@@ -569,7 +575,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 										}
 									}
 
-									apply();
+									apply(applicationInfo);
 									return TRUE;
 								}
 								else
@@ -633,7 +639,7 @@ void WordStyleDlg::updateThemeName(const wstring& themeName)
 	nppGUI._themeName.assign( themeName );
 }
 
-bool WordStyleDlg::getStyleName(wchar_t *styleName, const size_t styleNameLen)
+bool WordStyleDlg::getStyleName(wchar_t *styleName, const size_t styleNameLen) const
 {
 	auto i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
@@ -648,7 +654,40 @@ bool WordStyleDlg::getStyleName(wchar_t *styleName, const size_t styleNameLen)
 	return true;
 }
 
-int WordStyleDlg::whichTabColourIndex()
+int WordStyleDlg::getApplicationInfo() const
+{
+	constexpr size_t styleNameLen = 128;
+	wchar_t styleName[styleNameLen + 1] = { '\0' };
+
+	if (!WordStyleDlg::getStyleName(styleName, styleNameLen))
+	{
+		return NO_VISUAL_CHANGE;
+	}
+
+	if (lstrcmp(styleName, L"Default Style") == 0)
+		return (GENERAL_CHANGE | THEME_CHANGE);
+	
+	if ((lstrcmp(styleName, L"Mark Style 1") == 0) ||
+		(lstrcmp(styleName, L"Mark Style 2") == 0) ||
+		(lstrcmp(styleName, L"Mark Style 3") == 0) ||
+		(lstrcmp(styleName, L"Mark Style 4") == 0) ||
+		(lstrcmp(styleName, L"Mark Style 5") == 0) ||
+		(lstrcmp(styleName, L"Tab color 1") == 0) ||
+		(lstrcmp(styleName, L"Tab color 2") == 0) ||
+		(lstrcmp(styleName, L"Tab color 3") == 0) ||
+		(lstrcmp(styleName, L"Tab color 4") == 0) ||
+		(lstrcmp(styleName, L"Tab color 5") == 0) ||
+		(lstrcmp(styleName, L"Tab color dark mode 1") == 0) ||
+		(lstrcmp(styleName, L"Tab color dark mode 2") == 0) ||
+		(lstrcmp(styleName, L"Tab color dark mode 3") == 0) ||
+		(lstrcmp(styleName, L"Tab color dark mode 4") == 0) ||
+		(lstrcmp(styleName, L"Tab color dark mode 5") == 0))
+		return (GENERAL_CHANGE | COLOR_CHANGE_4_MENU);
+
+	return GENERAL_CHANGE;
+}
+
+int WordStyleDlg::whichTabColourIndex() const 
 {
 	constexpr size_t styleNameLen = 128;
 	wchar_t styleName[styleNameLen + 1] = { '\0' };
@@ -880,7 +919,7 @@ void WordStyleDlg::applyCurrentSelectedThemeAndUpdateUI()
 	setVisualFromStyleList();
 	notifyDataModified();
 	_isThemeDirty = false;
-	apply();
+	apply(GENERAL_CHANGE | THEME_CHANGE);
 }
 
 bool WordStyleDlg::selectThemeByName(const wchar_t* themeName)
@@ -1319,8 +1358,7 @@ void WordStyleDlg::restoreGlobalOverrideValues()
 	gOverride = _gOverride2restored;
 }
 
-
-void WordStyleDlg::apply(bool needVisualApply)
+void WordStyleDlg::apply(int applicationInfo)
 {
 	LexerStylerArray & lsa = (NppParameters::getInstance()).getLStylerArray();
 	lsa = _lsArray;
@@ -1328,11 +1366,13 @@ void WordStyleDlg::apply(bool needVisualApply)
 	StyleArray & globalStyles = (NppParameters::getInstance()).getGlobalStylers();
 	globalStyles = _globalStyles;
 
-	if (needVisualApply)
-	{
-		::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+	if ((applicationInfo & THEME_CHANGE) != 0)
+		_isThemeChanged = true;
+
+	if (applicationInfo & GENERAL_CHANGE || applicationInfo & THEME_CHANGE)
+		::SendMessage(_hParent, WM_UPDATESCINTILLAS, (applicationInfo & THEME_CHANGE) != 0, 0);
+	if (applicationInfo & COLOR_CHANGE_4_MENU)
 		::SendMessage(_hParent, WM_UPDATEMAINMENUBITMAPS, 0, 0);
-	}
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 }

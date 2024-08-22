@@ -1115,5 +1115,5 @@ void SCI_METHOD LexerHaskell::Fold(Sci_PositionU startPos, Sci_Position length, 
    //styler.SetLevel(lineCurrent, indentCurrent);
 }
 
-LexerModule lmHaskell(SCLEX_HASKELL, LexerHaskell::LexerFactoryHaskell, "haskell", haskellWordListDesc);
-LexerModule lmLiterateHaskell(SCLEX_LITERATEHASKELL, LexerHaskell::LexerFactoryLiterateHaskell, "literatehaskell", haskellWordListDesc);
+extern const LexerModule lmHaskell(SCLEX_HASKELL, LexerHaskell::LexerFactoryHaskell, "haskell", haskellWordListDesc);
+extern const LexerModule lmLiterateHaskell(SCLEX_LITERATEHASKELL, LexerHaskell::LexerFactoryLiterateHaskell, "literatehaskell", haskellWordListDesc);

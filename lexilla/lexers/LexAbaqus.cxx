@@ -603,4 +603,4 @@ static const char * const abaqusWordListDesc[] = {
     0
 };
 
-LexerModule lmAbaqus(SCLEX_ABAQUS, ColouriseABAQUSDoc, "abaqus", FoldABAQUSDoc, abaqusWordListDesc);
+extern const LexerModule lmAbaqus(SCLEX_ABAQUS, ColouriseABAQUSDoc, "abaqus", FoldABAQUSDoc, abaqusWordListDesc);

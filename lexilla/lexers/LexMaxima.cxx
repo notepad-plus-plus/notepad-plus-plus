@@ -222,4 +222,4 @@ static void ColouriseMaximaDoc(Sci_PositionU startPos, Sci_Position length, int 
   }
 }
 
-LexerModule lmMaxima(SCLEX_MAXIMA, ColouriseMaximaDoc, "maxima", 0, 0);
+extern const LexerModule lmMaxima(SCLEX_MAXIMA, ColouriseMaximaDoc, "maxima", 0, 0);

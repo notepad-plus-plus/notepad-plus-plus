@@ -290,4 +290,4 @@ static void ColouriseSpecmanDocSensitive(Sci_PositionU startPos, Sci_Position le
 }
 
 
-LexerModule lmSpecman(SCLEX_SPECMAN, ColouriseSpecmanDocSensitive, "specman", FoldSpecmanDoc, specmanWordLists);
+extern const LexerModule lmSpecman(SCLEX_SPECMAN, ColouriseSpecmanDocSensitive, "specman", FoldSpecmanDoc, specmanWordLists);

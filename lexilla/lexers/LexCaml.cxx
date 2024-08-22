@@ -326,4 +326,4 @@ static const char * const camlWordListDesc[] = {
 	0
 };
 
-LexerModule lmCaml(SCLEX_CAML, ColouriseCamlDoc, "caml", FoldCamlDoc, camlWordListDesc);
+extern const LexerModule lmCaml(SCLEX_CAML, ColouriseCamlDoc, "caml", FoldCamlDoc, camlWordListDesc);

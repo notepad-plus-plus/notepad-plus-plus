@@ -566,8 +566,8 @@ void SCI_METHOD LexerBasic::Fold(Sci_PositionU startPos, Sci_Position length, in
 	}
 }
 
-LexerModule lmBlitzBasic(SCLEX_BLITZBASIC, LexerBasic::LexerFactoryBlitzBasic, "blitzbasic", blitzbasicWordListDesc);
+extern const LexerModule lmBlitzBasic(SCLEX_BLITZBASIC, LexerBasic::LexerFactoryBlitzBasic, "blitzbasic", blitzbasicWordListDesc);
 
-LexerModule lmPureBasic(SCLEX_PUREBASIC, LexerBasic::LexerFactoryPureBasic, "purebasic", purebasicWordListDesc);
+extern const LexerModule lmPureBasic(SCLEX_PUREBASIC, LexerBasic::LexerFactoryPureBasic, "purebasic", purebasicWordListDesc);
 
-LexerModule lmFreeBasic(SCLEX_FREEBASIC, LexerBasic::LexerFactoryFreeBasic, "freebasic", freebasicWordListDesc);
+extern const LexerModule lmFreeBasic(SCLEX_FREEBASIC, LexerBasic::LexerFactoryFreeBasic, "freebasic", freebasicWordListDesc);

@@ -1,0 +1,71 @@
+ 0 400 400   //line comment
+ 0 400 400   
+ 0 400 400   /* block comment */
+ 0 400 400   
+ 2 400 401 + /* block comment on 
+ 0 401 400 | multiple lines */
+ 0 400 400   
+ 0 400 400   /* //line comment within block comment */
+ 0 400 400   
+ 0 400 400   // /*block comment within line comment */
+ 0 400 400   
+ 0 400 400   // using open-block-comment symbol alone on line comment /*
+ 0 400 400   
+ 0 400 400   /* /* nested block comment */ */
+ 0 400 400   
+ 0 400 400   DISPLAY "this line of code is a test". 
+ 0 400 400   DISPLAY "//this line of code is a test".
+ 0 400 400   DISPLAY "/* this line of code is a test */".
+ 0 400 400   
+ 0 400 400   // using close-block-comment symbol alone on line comment */
+ 0 400 400   
+ 0 400 400   // /* improperly closed block comment within line comment */ */
+ 0 400 400   
+ 2 400 401 + /* 
+ 0 401 401 | //line comment 1 in block comment
+ 0 401 401 | //line comment 2 in block comment
+ 0 401 401 | //line comment 3 in block comment
+ 0 401 400 | */
+ 0 400 400   
+ 2 400 401 + /*
+ 0 401 401 | block comment text
+ 0 401 401 | //line comment text
+ 0 401 401 | /* inner block comment text*/
+ 0 401 400 | */
+ 0 400 400   
+ 0 400 400   DISPLAY "This is a open-block-comment symbol /*".
+ 0 400 400   DISPLAY "This is a close-block-comment symbol */".
+ 0 400 400   
+ 0 400 400   //* line comment plus * looks like open-block-comment
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   DISPLAY "this line of code is a test".
+ 0 400 400   
+ 2 400 401 + /*display statement within block comment
+ 0 401 401 | DISPLAY "this is a string".
+ 0 401 400 | */
+ 0 400 400   
+ 0 400 400   DISPLAY "//line comment within string".
+ 0 400 400   
+ 0 400 400   DISPLAY "/* //line comment within block comment within string */".
+ 0 400 400                                                                           
+ 0 400 400   /* Improperly closed block comment */ */
+ 0 400 400   
+ 0 400 400   DISPLAY "this line of code is a test".
+ 0 400 400   
+ 0 400 400   DISPLAY "line comment with leading whitespace". // this is a line comment
+ 0 400 400   DISPLAY "line comment without leading whitespace".// this is not a line comment
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 0 400 400   
+ 1 400 400   

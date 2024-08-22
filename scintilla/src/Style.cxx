@@ -27,6 +27,7 @@ bool FontSpecification::operator==(const FontSpecification &other) const noexcep
 	       weight == other.weight &&
 	       italic == other.italic &&
 	       size == other.size &&
+	       stretch == other.stretch &&
 	       characterSet == other.characterSet &&
 	       extraFontFlag == other.extraFontFlag &&
 	       checkMonospaced == other.checkMonospaced;
@@ -41,6 +42,8 @@ bool FontSpecification::operator<(const FontSpecification &other) const noexcept
 		return !italic;
 	if (size != other.size)
 		return size < other.size;
+	if (stretch != other.stretch)
+		return stretch < other.stretch;
 	if (characterSet != other.characterSet)
 		return characterSet < other.characterSet;
 	if (extraFontFlag != other.extraFontFlag)

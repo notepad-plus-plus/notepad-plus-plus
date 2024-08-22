@@ -546,4 +546,4 @@ static const char * const oscriptWordListDesc[] = {
 	0
 };
 
-LexerModule lmOScript(SCLEX_OSCRIPT, ColouriseOScriptDoc, "oscript", FoldOScriptDoc, oscriptWordListDesc);
+extern const LexerModule lmOScript(SCLEX_OSCRIPT, ColouriseOScriptDoc, "oscript", FoldOScriptDoc, oscriptWordListDesc);

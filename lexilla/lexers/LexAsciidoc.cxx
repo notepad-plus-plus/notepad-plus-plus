@@ -390,4 +390,4 @@ static void ColorizeAsciidocDoc(Sci_PositionU startPos, Sci_Position length, int
     sc.Complete();
 }
 
-LexerModule lmAsciidoc(SCLEX_ASCIIDOC, ColorizeAsciidocDoc, "asciidoc");
+extern const LexerModule lmAsciidoc(SCLEX_ASCIIDOC, ColorizeAsciidocDoc, "asciidoc");

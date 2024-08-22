@@ -444,6 +444,6 @@ static void FoldMagikDoc(Sci_PositionU startPos, Sci_Position length, int,
 /**
  * Injecting the module
  */
-LexerModule lmMagikSF(
+extern const LexerModule lmMagikSF(
     SCLEX_MAGIK, ColouriseMagikDoc, "magiksf", FoldMagikDoc, magikWordListDesc);
 

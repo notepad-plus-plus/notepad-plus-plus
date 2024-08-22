@@ -364,4 +364,4 @@ void SCI_METHOD LexerDMIS::Fold(Sci_PositionU startPos, Sci_Position lengthDoc, 
 }
 
 
-LexerModule lmDMIS(SCLEX_DMIS, LexerDMIS::LexerFactoryDMIS, "DMIS", DMISWordListDesc);
+extern const LexerModule lmDMIS(SCLEX_DMIS, LexerDMIS::LexerFactoryDMIS, "DMIS", DMISWordListDesc);

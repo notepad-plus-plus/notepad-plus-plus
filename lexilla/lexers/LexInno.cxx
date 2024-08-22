@@ -375,4 +375,4 @@ static void FoldInnoDoc(Sci_PositionU startPos, Sci_Position length, int, WordLi
 	}
 }
 
-LexerModule lmInno(SCLEX_INNOSETUP, ColouriseInnoDoc, "inno", FoldInnoDoc, innoWordListDesc);
+extern const LexerModule lmInno(SCLEX_INNOSETUP, ColouriseInnoDoc, "inno", FoldInnoDoc, innoWordListDesc);

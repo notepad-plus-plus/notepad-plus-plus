@@ -1259,4 +1259,4 @@ void SCI_METHOD LexerJulia::Fold(Sci_PositionU startPos, Sci_Position length, in
     }
 }
 
-LexerModule lmJulia(SCLEX_JULIA, LexerJulia::LexerFactoryJulia, "julia", juliaWordLists);
+extern const LexerModule lmJulia(SCLEX_JULIA, LexerJulia::LexerFactoryJulia, "julia", juliaWordLists);

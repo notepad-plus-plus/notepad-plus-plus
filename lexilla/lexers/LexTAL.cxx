@@ -397,4 +397,4 @@ static const char * const TALWordListDesc[] = {
 	0
 };
 
-LexerModule lmTAL(SCLEX_TAL, ColouriseTALDoc, "TAL", FoldTALDoc, TALWordListDesc);
+extern const LexerModule lmTAL(SCLEX_TAL, ColouriseTALDoc, "TAL", FoldTALDoc, TALWordListDesc);

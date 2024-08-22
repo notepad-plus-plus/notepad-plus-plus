@@ -4363,16 +4363,16 @@ void Editor::CopySelectionRange(SelectionText *ss, bool allowLineCopy) {
 		std::vector<SelectionRange> rangesInOrder = sel.RangesCopy();
 		if (sel.selType == Selection::SelTypes::rectangle)
 			std::sort(rangesInOrder.begin(), rangesInOrder.end());
-		const std::string_view separator = (sel.selType == Selection::SelTypes::rectangle) ? pdoc->EOLString() : copySeparator;
+		const std::string_view separator = (rangesInOrder.size() > 1) ? pdoc->EOLString() : copySeparator;
 		for (size_t part = 0; part < rangesInOrder.size(); part++) {
 			text.append(RangeText(rangesInOrder[part].Start().Position(), rangesInOrder[part].End().Position()));
-			if ((sel.selType == Selection::SelTypes::rectangle) || (part < rangesInOrder.size() - 1)) {
+			if ((rangesInOrder.size() > 1) || (part < rangesInOrder.size() - 1)) {
 				// Append unless simple selection or last part of multiple selection
 				text.append(separator);
 			}
 		}
 		ss->Copy(text, pdoc->dbcsCodePage,
-			vs.styles[StyleDefault].characterSet, sel.IsRectangular(), sel.selType == Selection::SelTypes::lines);
+			vs.styles[StyleDefault].characterSet, rangesInOrder.size() > 1, sel.selType == Selection::SelTypes::lines);
 	}
 }
 

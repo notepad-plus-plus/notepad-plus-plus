@@ -113,6 +113,32 @@ static QFont::StyleStrategy ChooseStrategy(FontQuality eff)
 	}
 }
 
+static QFont::Stretch QStretchFromFontStretch(Scintilla::FontStretch stretch)
+{
+	switch (stretch) {
+	case FontStretch::UltraCondensed:
+		return QFont::Stretch::UltraCondensed;
+	case FontStretch::ExtraCondensed:
+		return QFont::Stretch::ExtraCondensed;
+	case FontStretch::Condensed:
+		return QFont::Stretch::Condensed;
+	case FontStretch::SemiCondensed:
+		return QFont::Stretch::SemiCondensed;
+	case FontStretch::Normal:
+		return QFont::Stretch::Unstretched;
+	case FontStretch::SemiExpanded:
+		return QFont::Stretch::SemiExpanded;
+	case FontStretch::Expanded:
+		return QFont::Stretch::Expanded;
+	case FontStretch::ExtraExpanded:
+		return QFont::Stretch::ExtraExpanded;
+	case FontStretch::UltraExpanded:
+		return QFont::Stretch::UltraExpanded;
+	default:
+		return QFont::Stretch::Unstretched;
+	}
+}
+
 class FontAndCharacterSet : public Font {
 public:
 	CharacterSet characterSet = CharacterSet::Ansi;
@@ -123,6 +149,7 @@ public:
 		pfont->setFamily(QString::fromUtf8(fp.faceName));
 		pfont->setPointSizeF(fp.size);
 		pfont->setBold(static_cast<int>(fp.weight) > 500);
+		pfont->setStretch(QStretchFromFontStretch(fp.stretch));
 		pfont->setItalic(fp.italic);
 	}
 };

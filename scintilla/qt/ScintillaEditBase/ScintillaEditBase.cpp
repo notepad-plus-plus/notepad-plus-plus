@@ -445,8 +445,7 @@ void ScintillaEditBase::MoveImeCarets(Scintilla::Position offset)
 	// Move carets relatively by bytes
 	for (size_t r=0; r < sqt->sel.Count(); r++) {
 		const Sci::Position positionInsert = sqt->sel.Range(r).Start().Position();
-		sqt->sel.Range(r).caret.SetPosition(positionInsert + offset);
-		sqt->sel.Range(r).anchor.SetPosition(positionInsert + offset);
+		sqt->sel.Range(r) = SelectionRange(positionInsert + offset);
  	}
 }
 

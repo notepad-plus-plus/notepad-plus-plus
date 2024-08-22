@@ -94,7 +94,8 @@ $(DIR_O)/StyleContext.obj: \
 	../lexlib/CharacterSet.h
 $(DIR_O)/WordList.obj: \
 	../lexlib/WordList.cxx \
-	../lexlib/WordList.h
+	../lexlib/WordList.h \
+	../lexlib/CharacterSet.h
 $(DIR_O)/LexA68k.obj: \
 	../lexers/LexA68k.cxx \
 	../../scintilla/include/ILexer.h \
@@ -1491,6 +1492,18 @@ $(DIR_O)/LexTeX.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexTOML.obj: \
+	../lexers/LexTOML.cxx \
+	../../scintilla/include/ILexer.h \
+	../../scintilla/include/Sci_Position.h \
+	../../scintilla/include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/WordList.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/Accessor.h \
+	../lexlib/StyleContext.h \
+	../lexlib/CharacterSet.h \
+	../lexlib/LexerModule.h
 $(DIR_O)/LexTxt2tags.obj: \
 	../lexers/LexTxt2tags.cxx \
 	../../scintilla/include/ILexer.h \
@@ -1514,7 +1527,9 @@ $(DIR_O)/LexVB.obj: \
 	../lexlib/Accessor.h \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexVerilog.obj: \
 	../lexers/LexVerilog.cxx \
 	../../scintilla/include/ILexer.h \

@@ -220,4 +220,4 @@ static const char * const SASWordLists[] = {
     0,
 };
 
-LexerModule lmSAS(SCLEX_SAS, ColouriseSASDoc, "sas", FoldSASDoc, SASWordLists);
+extern const LexerModule lmSAS(SCLEX_SAS, ColouriseSASDoc, "sas", FoldSASDoc, SASWordLists);

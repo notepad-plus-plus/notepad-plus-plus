@@ -100,6 +100,8 @@ public:
 			pango_font_description_set_size(fd.get(), pango_units_from_double(fp.size));
 			pango_font_description_set_weight(fd.get(), static_cast<PangoWeight>(fp.weight));
 			pango_font_description_set_style(fd.get(), fp.italic ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
+			pango_font_description_set_stretch(fd.get(),
+				static_cast<PangoStretch>(static_cast<int>(fp.stretch)-1));
 		}
 	}
 	~FontHandle() override = default;

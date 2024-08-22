@@ -22,6 +22,7 @@
 #include "Geometry.h"
 #include "Platform.h"
 
+#include "DictionaryForCF.h"
 #include "QuartzTextLayout.h"
 
 NSRect PRectangleToNSRect(const Scintilla::Internal::PRectangle &rc);

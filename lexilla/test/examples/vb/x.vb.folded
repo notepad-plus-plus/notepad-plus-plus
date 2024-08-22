@@ -1,4 +1,4 @@
- 0 400   0   ' String"
+ 1 400   0   ' String"
  0 400   0   Dim a As String = "hello, world"
  0 400   0   Dim b As String = "hello    world"
  0 400   0   Dim c As String = "Joe said ""Hello"" to me"
@@ -6,11 +6,11 @@
  0 400   0   Dim e As String = "The brown fox
  0 400   0   jumps over
  0 400   0   the lazy dog"
- 0 400   0   ' Character
+ 1 400   0   ' Character
  0 400   0   ""C "c"C "cc"C
- 0 400   0   ' Date
+ 1 400   0   ' Date
  0 400   0   d = #5/31/1993# or # 01/01/0001 12:00:00AM #
- 0 400   0   ' Number
+ 1 400   0   ' Number
  0 400   0   123_456___789
  0 400   0   123_
  0 400   0   &b10101_01010

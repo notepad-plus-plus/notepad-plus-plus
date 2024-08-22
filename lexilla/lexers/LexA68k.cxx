@@ -345,4 +345,4 @@ static const char * const a68kWordListDesc[] =
     0
 };
 
-LexerModule lmA68k(SCLEX_A68K, ColouriseA68kDoc, "a68k", 0, a68kWordListDesc);
+extern const LexerModule lmA68k(SCLEX_A68K, ColouriseA68kDoc, "a68k", 0, a68kWordListDesc);

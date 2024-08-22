@@ -384,4 +384,4 @@ static const char * const COBOLWordListDesc[] = {
     0
 };
 
-LexerModule lmCOBOL(SCLEX_COBOL, ColouriseCOBOLDoc, "COBOL", FoldCOBOLDoc, COBOLWordListDesc);
+extern const LexerModule lmCOBOL(SCLEX_COBOL, ColouriseCOBOLDoc, "COBOL", FoldCOBOLDoc, COBOLWordListDesc);

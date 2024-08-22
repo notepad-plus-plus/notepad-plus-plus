@@ -100,6 +100,7 @@
 		287F3C6C246F90300040E76F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287F3C6B246F90300040E76F /* QuartzCore.framework */; };
 		28B962A52B6AF44F00ACCD96 /* UndoHistory.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28B962A32B6AF44F00ACCD96 /* UndoHistory.cxx */; };
 		28B962A62B6AF44F00ACCD96 /* UndoHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 28B962A42B6AF44F00ACCD96 /* UndoHistory.h */; };
+		28CC23042C6F10F300D75568 /* DictionaryForCF.h in Headers */ = {isa = PBXBuildFile; fileRef = 28CC23032C6F10F300D75568 /* DictionaryForCF.h */; };
 		28EA9CAE255894B4007710C4 /* CharacterCategoryMap.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */; };
 		28EA9CAF255894B4007710C4 /* CharacterType.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 28EA9CAB255894B4007710C4 /* CharacterType.cxx */; };
 		28EA9CB0255894B4007710C4 /* CharacterCategoryMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */; };
@@ -203,6 +204,7 @@
 		287F3E0F246F9AE50040E76F /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = SOURCE_ROOT; };
 		28B962A32B6AF44F00ACCD96 /* UndoHistory.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UndoHistory.cxx; path = ../../src/UndoHistory.cxx; sourceTree = "<group>"; };
 		28B962A42B6AF44F00ACCD96 /* UndoHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UndoHistory.h; path = ../../src/UndoHistory.h; sourceTree = "<group>"; };
+		28CC23032C6F10F300D75568 /* DictionaryForCF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionaryForCF.h; path = ../DictionaryForCF.h; sourceTree = "<group>"; };
 		28EA9CAA255894B4007710C4 /* CharacterCategoryMap.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterCategoryMap.cxx; path = ../../src/CharacterCategoryMap.cxx; sourceTree = "<group>"; };
 		28EA9CAB255894B4007710C4 /* CharacterType.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterType.cxx; path = ../../src/CharacterType.cxx; sourceTree = "<group>"; };
 		28EA9CAC255894B4007710C4 /* CharacterCategoryMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterCategoryMap.h; path = ../../src/CharacterCategoryMap.h; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 		287F3C4E246F8E560040E76F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				28CC23032C6F10F300D75568 /* DictionaryForCF.h */,
 				282936DA24E2D55D00C84BA2 /* InfoBar.h */,
 				282936D424E2D55D00C84BA2 /* InfoBar.mm */,
 				282936D924E2D55D00C84BA2 /* InfoBarCommunicator.h */,
@@ -416,6 +419,7 @@
 				2829373B24E2D58800C84BA2 /* Position.h in Headers */,
 				282936E224E2D55D00C84BA2 /* ScintillaCocoa.h in Headers */,
 				2829373524E2D58800C84BA2 /* Style.h in Headers */,
+				28CC23042C6F10F300D75568 /* DictionaryForCF.h in Headers */,
 				282936E424E2D55D00C84BA2 /* PlatCocoa.h in Headers */,
 				2807B4EB28964CA40063A31A /* ChangeHistory.h in Headers */,
 				2829376C24E2D58800C84BA2 /* Selection.h in Headers */,
@@ -582,7 +586,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.5.1;
+				CURRENT_PROJECT_VERSION = 5.5.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -647,7 +651,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5.5.1;
+				CURRENT_PROJECT_VERSION = 5.5.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -680,7 +684,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5.5.1;
+				CURRENT_PROJECT_VERSION = 5.5.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -715,7 +719,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5.5.1;
+				CURRENT_PROJECT_VERSION = 5.5.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";

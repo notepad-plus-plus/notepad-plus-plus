@@ -589,6 +589,34 @@
     </table>
     <h2>Releases</h2>
     <h3>
+       <a href="https://www.scintilla.org/lexilla540.zip">Release 5.4.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released 21 August 2024.
+	</li>
+	<li>
+	Inside Lexilla, LexerModule instances are now const.
+	This will require changes to applications that modify Lexilla.cxx, which
+	may be done to add custom lexers.
+	</li>
+	<li>
+	Lexer added for TOML "toml".
+	</li>
+	<li>
+	Bash: Handle backslash in heredoc delimiter.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/257">Issue #257</a>.
+	</li>
+	<li>
+	Progress: Fix lexing of nested comments.
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/258">Pull request #258</a>.
+	</li>
+	<li>
+	Force lower-casing of case-insensitive keyword lists so keywords match in some lexers.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/259">Issue #259</a>.
+	</li>
+    </ul>
+    <h3>
        <a href="https://www.scintilla.org/lexilla533.zip">Release 5.3.3</a>
     </h3>
     <ul>

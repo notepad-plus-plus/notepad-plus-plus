@@ -495,4 +495,4 @@ static const char * const texWordListDesc[] = {
 	0,
 } ;
 
-LexerModule lmTeX(SCLEX_TEX,   ColouriseTeXDoc, "tex", FoldTexDoc, texWordListDesc);
+extern const LexerModule lmTeX(SCLEX_TEX,   ColouriseTeXDoc, "tex", FoldTexDoc, texWordListDesc);

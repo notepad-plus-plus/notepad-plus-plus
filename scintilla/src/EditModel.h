@@ -36,6 +36,7 @@ public:
 	bool hasFocus;
 	Selection sel;
 	bool primarySelection;
+	std::string copySeparator;
 
 	Scintilla::IMEInteraction imeInteraction;
 	Scintilla::Bidirectional bidirectional;

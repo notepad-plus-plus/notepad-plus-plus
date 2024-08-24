@@ -1146,8 +1146,7 @@ void ScintillaWin::MoveImeCarets(Sci::Position offset) noexcept {
 	// Move carets relatively by bytes.
 	for (size_t r=0; r<sel.Count(); r++) {
 		const Sci::Position positionInsert = sel.Range(r).Start().Position();
-		sel.Range(r).caret.SetPosition(positionInsert + offset);
-		sel.Range(r).anchor.SetPosition(positionInsert + offset);
+		sel.Range(r) = SelectionRange(positionInsert + offset);
 	}
 }
 
@@ -3233,8 +3232,7 @@ LRESULT ScintillaWin::ImeOnReconvert(LPARAM lParam) {
 		const Sci::Position docCompStart = rBase + adjust;
 
 		if (inOverstrike) { // the docCompLen of bytes will be overstriked.
-			sel.Range(r).caret.SetPosition(docCompStart);
-			sel.Range(r).anchor.SetPosition(docCompStart);
+			sel.Range(r) = SelectionRange(docCompStart);
 		} else {
 			// Ensure docCompStart+docCompLen be not beyond lineEnd.
 			// since docCompLen by byte might break eol.

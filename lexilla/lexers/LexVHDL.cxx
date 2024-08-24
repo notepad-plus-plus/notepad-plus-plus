@@ -561,7 +561,7 @@ static const char * const VHDLWordLists[] = {
         };
 
 
-LexerModule lmVHDL(SCLEX_VHDL, ColouriseVHDLDoc, "vhdl", FoldVHDLDoc, VHDLWordLists);
+extern const LexerModule lmVHDL(SCLEX_VHDL, ColouriseVHDLDoc, "vhdl", FoldVHDLDoc, VHDLWordLists);
 
 
 // Keyword:

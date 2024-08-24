@@ -194,4 +194,4 @@ static void FoldSearchResultDoc(Sci_PositionU startPos, Sci_Position length, int
 	styler.SetLevel(lineCurrent, SC_FOLDLEVELBASE);
 }
 
-LexerModule lmSearchResult(SCLEX_SEARCHRESULT, ColouriseSearchResultDoc, "searchResult", FoldSearchResultDoc, emptyWordListDesc);
+extern const LexerModule lmSearchResult(SCLEX_SEARCHRESULT, ColouriseSearchResultDoc, "searchResult", FoldSearchResultDoc, emptyWordListDesc);

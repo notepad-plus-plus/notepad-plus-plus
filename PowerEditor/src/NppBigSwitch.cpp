@@ -2374,6 +2374,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					_pFileBrowser->setForegroundColor(pStyle->_fgColor);
 					::SendMessage(_pFileBrowser->getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, refreshOnlyTreeView);
 				}
+
+				NppDarkMode::updateTreeViewStylePrev();
 			}
 
 			if (_pDocMap)

@@ -560,4 +560,4 @@ static const char *const emptyWordListDesc[] = {
 	0
 };
 
-LexerModule lmLatex(SCLEX_LATEX, LexerLaTeX::LexerFactoryLaTeX, "latex", emptyWordListDesc);
+extern const LexerModule lmLatex(SCLEX_LATEX, LexerLaTeX::LexerFactoryLaTeX, "latex", emptyWordListDesc);

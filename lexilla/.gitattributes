@@ -9,6 +9,7 @@
 **.iface text
 **.template text
 **.mk text
+**.mk text
 **.py text
 **.rc text
 **.css text
@@ -29,6 +30,7 @@
 **.aspx text
 **.php text
 **.vb text
+**.vbs text
 **.asm text
 **.cob text
 **.cmake text
@@ -47,6 +49,7 @@
 **.ml text
 **.nim text
 **.octave text
+**.p text
 **.pl text
 **.p6 text
 **.ps1 text
@@ -55,6 +58,7 @@
 **.rs text
 **.sql text
 **.tcl text
+**.toml text
 **.tsql text
 **.err text
 **.mms text

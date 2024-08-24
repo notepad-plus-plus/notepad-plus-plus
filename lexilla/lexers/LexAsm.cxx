@@ -9,12 +9,12 @@
 // Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
+#include <cstdio>
+#include <cstdarg>
 
 #include <string>
 #include <string_view>
@@ -37,17 +37,19 @@
 using namespace Scintilla;
 using namespace Lexilla;
 
-static inline bool IsAWordChar(const int ch) {
+namespace {
+
+bool IsAWordChar(const int ch) noexcept {
 	return (ch < 0x80) && (isalnum(ch) || ch == '.' ||
 		ch == '_' || ch == '?');
 }
 
-static inline bool IsAWordStart(const int ch) {
+bool IsAWordStart(const int ch) noexcept {
 	return (ch < 0x80) && (isalnum(ch) || ch == '_' || ch == '.' ||
 		ch == '%' || ch == '@' || ch == '$' || ch == '?');
 }
 
-static inline bool IsAsmOperator(const int ch) {
+bool IsAsmOperator(const int ch) noexcept {
 	if ((ch < 0x80) && (isalnum(ch)))
 		return false;
 	// '.' left out as it is used to make up numbers
@@ -60,14 +62,8 @@ static inline bool IsAsmOperator(const int ch) {
 	return false;
 }
 
-static bool IsStreamCommentStyle(int style) {
+constexpr bool IsStreamCommentStyle(int style) noexcept {
 	return style == SCE_ASM_COMMENTDIRECTIVE || style == SCE_ASM_COMMENTBLOCK;
-}
-
-static inline int LowerCase(int c) {
-	if (c >= 'A' && c <= 'Z')
-		return 'a' + c - 'A';
-	return c;
 }
 
 // An individual named option for use in an OptionSet
@@ -98,7 +94,7 @@ struct OptionsAsm {
 	}
 };
 
-static const char * const asmWordListDesc[] = {
+const char *const asmWordListDesc[] = {
 	"CPU instructions",
 	"FPU instructions",
 	"Registers",
@@ -107,7 +103,7 @@ static const char * const asmWordListDesc[] = {
 	"Extended instructions",
 	"Directives4Foldstart",
 	"Directives4Foldend",
-	0
+	nullptr
 };
 
 struct OptionSetAsm : public OptionSet<OptionsAsm> {
@@ -191,7 +187,7 @@ public:
 	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) override;
 
 	void * SCI_METHOD PrivateCall(int, void *) override {
-		return 0;
+		return nullptr;
 	}
 
 	static ILexer5 *LexerFactoryAsm() {
@@ -211,7 +207,7 @@ Sci_Position SCI_METHOD LexerAsm::PropertySet(const char *key, const char *val) 
 }
 
 Sci_Position SCI_METHOD LexerAsm::WordListSet(int n, const char *wl) {
-	WordList *wordListN = 0;
+	WordList *wordListN = nullptr;
 	switch (n) {
 	case 0:
 		wordListN = &cpuInstruction;
@@ -240,7 +236,7 @@ Sci_Position SCI_METHOD LexerAsm::WordListSet(int n, const char *wl) {
 	}
 	Sci_Position firstModification = -1;
 	if (wordListN) {
-		if (wordListN->Set(wl)) {
+		if (wordListN->Set(wl, true)) {
 			firstModification = 0;
 		}
 	}
@@ -319,7 +315,7 @@ void SCI_METHOD LexerAsm::Lex(Sci_PositionU startPos, Sci_Position length, int i
 				}
 				sc.SetState(SCE_ASM_DEFAULT);
 				if (IsDirective && !strcmp(s, "comment")) {
-					char delimiter = options.delimiter.empty() ? '~' : options.delimiter.c_str()[0];
+					const char delimiter = options.delimiter.empty() ? '~' : options.delimiter.c_str()[0];
 					while (IsASpaceOrTab(sc.ch) && !sc.atLineEnd) {
 						sc.ForwardSetState(SCE_ASM_DEFAULT);
 					}
@@ -329,7 +325,7 @@ void SCI_METHOD LexerAsm::Lex(Sci_PositionU startPos, Sci_Position length, int i
 				}
 			}
 		} else if (sc.state == SCE_ASM_COMMENTDIRECTIVE) {
-			char delimiter = options.delimiter.empty() ? '~' : options.delimiter.c_str()[0];
+			const char delimiter = options.delimiter.empty() ? '~' : options.delimiter.c_str()[0];
 			if (sc.ch == delimiter) {
 				while (!sc.MatchLineEnd()) {
 					sc.Forward();
@@ -392,7 +388,7 @@ void SCI_METHOD LexerAsm::Fold(Sci_PositionU startPos, Sci_Position length, int 
 
 	LexAccessor styler(pAccess);
 
-	Sci_PositionU endPos = startPos + length;
+	const Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
 	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelCurrent = SC_FOLDLEVELBASE;
@@ -402,16 +398,16 @@ void SCI_METHOD LexerAsm::Fold(Sci_PositionU startPos, Sci_Position length, int 
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	char word[100];
+	char word[100]{};
 	int wordlen = 0;
 	const bool userDefinedFoldMarkers = !options.foldExplicitStart.empty() && !options.foldExplicitEnd.empty();
 	for (Sci_PositionU i = startPos; i < endPos; i++) {
-		char ch = chNext;
+		const char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
-		int stylePrev = style;
+		const int stylePrev = style;
 		style = styleNext;
 		styleNext = styler.StyleAt(i + 1);
-		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+		const bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 		if (options.foldCommentMultiline && IsStreamCommentStyle(style)) {
 			if (!IsStreamCommentStyle(stylePrev)) {
 				levelNext++;
@@ -438,7 +434,7 @@ void SCI_METHOD LexerAsm::Fold(Sci_PositionU startPos, Sci_Position length, int 
  			}
  		}
 		if (options.foldSyntaxBased && (style == SCE_ASM_DIRECTIVE)) {
-			word[wordlen++] = static_cast<char>(LowerCase(ch));
+			word[wordlen++] = MakeLowerCase(ch);
 			if (wordlen == 100) {                   // prevent overflow
 				word[0] = '\0';
 				wordlen = 1;
@@ -456,7 +452,7 @@ void SCI_METHOD LexerAsm::Fold(Sci_PositionU startPos, Sci_Position length, int 
 		if (!IsASpace(ch))
 			visibleChars++;
 		if (atEOL || (i == endPos-1)) {
-			int levelUse = levelCurrent;
+			const int levelUse = levelCurrent;
 			int lev = levelUse | levelNext << 16;
 			if (visibleChars == 0 && options.foldCompact)
 				lev |= SC_FOLDLEVELWHITEFLAG;
@@ -476,6 +472,8 @@ void SCI_METHOD LexerAsm::Fold(Sci_PositionU startPos, Sci_Position length, int 
 	}
 }
 
-LexerModule lmAsm(SCLEX_ASM, LexerAsm::LexerFactoryAsm, "asm", asmWordListDesc);
-LexerModule lmAs(SCLEX_AS, LexerAsm::LexerFactoryAs, "as", asmWordListDesc);
+}
+
+extern const LexerModule lmAsm(SCLEX_ASM, LexerAsm::LexerFactoryAsm, "asm", asmWordListDesc);
+extern const LexerModule lmAs(SCLEX_AS, LexerAsm::LexerFactoryAs, "as", asmWordListDesc);
 

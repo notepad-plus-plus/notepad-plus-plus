@@ -505,7 +505,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	virtual int KeyDefault(Scintilla::Keys /* key */, Scintilla::KeyMod /*modifiers*/);
 	int KeyDownWithModifiers(Scintilla::Keys key, Scintilla::KeyMod modifiers, bool *consumed);
 
-	void Indent(bool forwards);
+	void Indent(bool forwards, bool lineTab);
 
 	virtual std::unique_ptr<CaseFolder> CaseFolderForEncoding();
 	Sci::Position FindText(Scintilla::uptr_t wParam, Scintilla::sptr_t lParam);

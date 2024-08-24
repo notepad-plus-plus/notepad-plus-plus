@@ -860,4 +860,4 @@ void SCI_METHOD LexerRust::Fold(Sci_PositionU startPos, Sci_Position length, int
 	}
 }
 
-LexerModule lmRust(SCLEX_RUST, LexerRust::LexerFactoryRust, "rust", rustWordLists);
+extern const LexerModule lmRust(SCLEX_RUST, LexerRust::LexerFactoryRust, "rust", rustWordLists);

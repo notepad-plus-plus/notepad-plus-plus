@@ -350,6 +350,10 @@ void UndoHistory::EndUndoAction() noexcept {
 	}
 }
 
+int UndoHistory::UndoSequenceDepth() const noexcept {
+	return undoSequenceDepth;
+}
+
 void UndoHistory::DropUndoSequence() noexcept {
 	undoSequenceDepth = 0;
 }

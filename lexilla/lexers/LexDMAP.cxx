@@ -233,4 +233,4 @@ static const char * const DMAPWordLists[] = {
     0,
 };
 /***************************************/
-LexerModule lmDMAP(SCLEX_DMAP, ColouriseDMAPDoc, "DMAP", FoldDMAPDoc, DMAPWordLists);
+extern const LexerModule lmDMAP(SCLEX_DMAP, ColouriseDMAPDoc, "DMAP", FoldDMAPDoc, DMAPWordLists);

@@ -643,4 +643,4 @@ const char *const batchWordListDesc[] = {
 
 }
 
-LexerModule lmBatch(SCLEX_BATCH, ColouriseBatchDoc, "batch", nullptr, batchWordListDesc);
+extern const LexerModule lmBatch(SCLEX_BATCH, ColouriseBatchDoc, "batch", nullptr, batchWordListDesc);

@@ -901,4 +901,4 @@ static const char * const tads3WordList[] = {
         0
 };
 
-LexerModule lmTADS3(SCLEX_TADS3, ColouriseTADS3Doc, "tads3", FoldTADS3Doc, tads3WordList);
+extern const LexerModule lmTADS3(SCLEX_TADS3, ColouriseTADS3Doc, "tads3", FoldTADS3Doc, tads3WordList);

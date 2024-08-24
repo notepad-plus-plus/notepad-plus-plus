@@ -483,4 +483,4 @@ static void ColorizeMarkdownDoc(Sci_PositionU startPos, Sci_Position length, int
     sc.Complete();
 }
 
-LexerModule lmMarkdown(SCLEX_MARKDOWN, ColorizeMarkdownDoc, "markdown");
+extern const LexerModule lmMarkdown(SCLEX_MARKDOWN, ColorizeMarkdownDoc, "markdown");

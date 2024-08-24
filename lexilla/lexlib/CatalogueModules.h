@@ -13,7 +13,7 @@
 namespace Lexilla {
 
 class CatalogueModules {
-	std::vector<LexerModule *> lexerCatalogue;
+	std::vector<const LexerModule *> lexerCatalogue;
 public:
 	const LexerModule *Find(int language) const noexcept {
 		for (const LexerModule *lm : lexerCatalogue) {
@@ -35,11 +35,11 @@ public:
 		return nullptr;
 	}
 
-	void AddLexerModule(LexerModule *plm) {
+	void AddLexerModule(const LexerModule *plm) {
 		lexerCatalogue.push_back(plm);
 	}
 
-	void AddLexerModules(std::initializer_list<LexerModule *> modules) {
+	void AddLexerModules(std::initializer_list<const LexerModule *> modules) {
 		lexerCatalogue.insert(lexerCatalogue.end(), modules);
 	}
 

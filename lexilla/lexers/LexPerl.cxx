@@ -1898,4 +1898,4 @@ void SCI_METHOD LexerPerl::Fold(Sci_PositionU startPos, Sci_Position length, int
 
 }
 
-LexerModule lmPerl(SCLEX_PERL, LexerPerl::LexerFactoryPerl, "perl", perlWordListDesc);
+extern const LexerModule lmPerl(SCLEX_PERL, LexerPerl::LexerFactoryPerl, "perl", perlWordListDesc);

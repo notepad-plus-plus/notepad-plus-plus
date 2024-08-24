@@ -211,4 +211,4 @@ static const char *const poWordListDesc[] = {
 	0
 };
 
-LexerModule lmPO(SCLEX_PO, ColourisePODoc, "po", FoldPODoc, poWordListDesc);
+extern const LexerModule lmPO(SCLEX_PO, ColourisePODoc, "po", FoldPODoc, poWordListDesc);

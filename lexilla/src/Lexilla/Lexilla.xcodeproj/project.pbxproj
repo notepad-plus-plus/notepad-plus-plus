@@ -156,6 +156,7 @@
 		510D44AFB91EE873E86ABDD4 /* LexAsciidoc.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14420BFC43876F16C5995 /* LexAsciidoc.cxx */; };
 		70BF497C8D265026B77C97DA /* LexJulia.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 315E4E969868C52C125686B2 /* LexJulia.cxx */; };
 		B32D4A2A9CEC222A5140E99F /* LexFSharp.cxx in Sources */ = {isa = PBXBuildFile; fileRef = F8E54626B22BD9493090F40B /* LexFSharp.cxx */; };
+		3D044C4CA34C6FD7E58E0091 /* LexTOML.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 42BC44CCB57D4E78DEE6E358 /* LexTOML.cxx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -310,6 +311,7 @@
 		3AF14420BFC43876F16C5995 /* LexAsciidoc.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexAsciidoc.cxx; path = ../../lexers/LexAsciidoc.cxx; sourceTree = SOURCE_ROOT; };
 		A383409E9A994F461550FEC1 /* LexGDScript.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexGDScript.cxx; path = ../../lexers/LexGDScript.cxx; sourceTree = SOURCE_ROOT; };
 		F8E54626B22BD9493090F40B /* LexFSharp.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexFSharp.cxx; path = ../../lexers/LexFSharp.cxx; sourceTree = SOURCE_ROOT; };
+		42BC44CCB57D4E78DEE6E358 /* LexTOML.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexTOML.cxx; path = ../../lexers/LexTOML.cxx; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -465,6 +467,7 @@
 				28BA72C924E34D9100272C2D /* LexTCL.cxx */,
 				28BA730324E34D9400272C2D /* LexTCMD.cxx */,
 				28BA730824E34D9400272C2D /* LexTeX.cxx */,
+				42BC44CCB57D4E78DEE6E358 /* LexTOML.cxx */,
 				28BA730F24E34D9500272C2D /* LexTxt2tags.cxx */,
 				28BA731F24E34D9600272C2D /* LexVB.cxx */,
 				28BA731A24E34D9500272C2D /* LexVerilog.cxx */,
@@ -729,6 +732,7 @@
 				70BF497C8D265026B77C97DA /* LexJulia.cxx in Sources */,
 				510D44AFB91EE873E86ABDD4 /* LexAsciidoc.cxx in Sources */,
 				00D544CC992062D2E3CD4BF6 /* LexGDScript.cxx in Sources */,
+				3D044C4CA34C6FD7E58E0091 /* LexTOML.cxx in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,7 +862,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.3.3;
+				CURRENT_PROJECT_VERSION = 5.4.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -886,7 +890,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.3.3;
+				CURRENT_PROJECT_VERSION = 5.4.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;

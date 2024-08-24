@@ -221,6 +221,25 @@ class TestSimple(unittest.TestCase):
 		self.assertEqual(self.ed.CanRedo(), 0)
 		self.assertEqual(self.ed.CanUndo(), 1)
 
+	def testUndoSequence(self):
+		data = b"xy"
+		self.assertEqual(self.ed.UndoSequence, 0)
+		self.ed.InsertText(0, data)
+		self.assertEqual(self.ed.UndoSequence, 0)
+		# Check that actions between BeginUndoAction and EndUndoAction are undone together
+		self.ed.BeginUndoAction()
+		self.assertEqual(self.ed.UndoSequence, 1)
+		self.ed.InsertText(0, data)
+		self.ed.InsertText(1, data)
+		# xxyyxy
+		self.assertEqual(self.ed.Length, 6)
+		self.ed.EndUndoAction()
+		self.assertEqual(self.ed.UndoSequence, 0)
+		self.ed.Undo()
+		# xy as 2 inserts removed
+		self.assertEqual(self.ed.Length, 2)
+		self.assertEqual(self.ed.UndoSequence, 0)
+
 	def testUndoSavePoint(self):
 		data = b"xy"
 		self.assertEqual(self.ed.Modify, 0)
@@ -1974,9 +1993,7 @@ class TestMultiSelection(unittest.TestCase):
 		self.assertEqual(self.ed.Contents(), result)
 
 	def testMultipleCopy(self):
-		self.ed.ClearAll()
-		t = b"abc\n123\nxyz"
-		self.ed.AddText(len(t), t)
+		self.ed.SetContents(b"abc\n123\nxyz")
 		self.ed.SetSelection(4, 5)	# 1
 		self.ed.AddSelection(1, 3) 	# bc
 		self.ed.AddSelection(10, 11)	# z
@@ -1985,6 +2002,21 @@ class TestMultiSelection(unittest.TestCase):
 		self.ed.ClearAll()
 		self.ed.Paste()
 		self.assertEqual(self.ed.Contents(), b"1bcz")
+
+	def testCopySeparator(self):
+		self.assertEqual(self.ed.GetCopySeparator(), b"")
+		self.ed.CopySeparator = b"_"
+		self.assertEqual(self.ed.GetCopySeparator(), b"_")
+		self.ed.SetContents(b"abc\n123\nxyz")
+		self.ed.SetSelection(4, 5)	# 1
+		self.ed.AddSelection(1, 3) 	# bc
+		self.ed.AddSelection(10, 11)	# z
+		self.ed.Copy()
+		self.ed.ClearAll()
+		self.ed.Paste()
+		# 1,bc,z separated by _
+		self.assertEqual(self.ed.Contents(), b"1_bc_z")
+		self.ed.CopySeparator = b""
 
 	def testPasteConversion(self):
 		# Test that line ends are converted to current mode

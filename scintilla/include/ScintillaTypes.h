@@ -165,6 +165,18 @@ enum class FontWeight {
 	Bold = 700,
 };
 
+enum class FontStretch {
+	UltraCondensed = 1,
+	ExtraCondensed = 2,
+	Condensed = 3,
+	SemiCondensed = 4,
+	Normal = 5,
+	SemiExpanded = 6,
+	Expanded = 7,
+	ExtraExpanded = 8,
+	UltraExpanded = 9,
+};
+
 enum class Element {
 	List = 0,
 	ListBack = 1,

@@ -2329,4 +2329,4 @@ static const char * const userDefineWordLists[] = {
             0,
         };
 
-LexerModule lmUserDefine(SCLEX_USER, ColouriseUserDoc, "user", FoldUserDoc, userDefineWordLists);
+extern const LexerModule lmUserDefine(SCLEX_USER, ColouriseUserDoc, "user", FoldUserDoc, userDefineWordLists);

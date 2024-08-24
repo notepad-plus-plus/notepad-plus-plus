@@ -428,4 +428,4 @@ const char *const emptyWordListDesc[] = {
 
 }
 
-LexerModule lmErrorList(SCLEX_ERRORLIST, ColouriseErrorListDoc, "errorlist", nullptr, emptyWordListDesc);
+extern const LexerModule lmErrorList(SCLEX_ERRORLIST, ColouriseErrorListDoc, "errorlist", nullptr, emptyWordListDesc);

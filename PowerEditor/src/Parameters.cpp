@@ -8266,6 +8266,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			
 		case L_RAKU:
 			id = IDM_LANG_RAKU; break;
+
+		case L_TOML:
+			id = IDM_LANG_TOML; break;
 			
 		case L_SEARCHRESULT :
 			id = -1;	break;

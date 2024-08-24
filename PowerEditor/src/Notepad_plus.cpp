@@ -1251,7 +1251,6 @@ void Notepad_plus::setCodePageForInvisibleView(Buffer const *pBuffer)
 
 bool Notepad_plus::replaceInOpenedFiles()
 {
-
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
@@ -1263,10 +1262,10 @@ bool Notepad_plus::replaceInOpenedFiles()
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
 
-    if (_mainWindowStatus & WindowMainActive)
-    {
+	if (_mainWindowStatus & WindowMainActive)
+	{
 		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
-	    {
+		{
 			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
 				continue;
@@ -1278,6 +1277,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
@@ -1287,7 +1287,6 @@ bool Notepad_plus::replaceInOpenedFiles()
 			{
 				nbTotal += nb;
 			}
-			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
@@ -1314,6 +1313,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
@@ -1323,7 +1323,6 @@ bool Notepad_plus::replaceInOpenedFiles()
 			{
 				nbTotal += nb;
 			}
-			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
@@ -1352,6 +1351,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 		}
 		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
+
 	return true;
 }
 

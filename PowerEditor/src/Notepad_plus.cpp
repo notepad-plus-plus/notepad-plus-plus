@@ -3769,7 +3769,7 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 			// colon optionally followed by only whitespace and/or start-of-comment, but NOT on a line that is already a comment
-			const char colonExpr[] = "^[^#]*\\K:[ \t]*(#|$)";
+			const char colonExpr[] = ":[ \t]*(#|$)";
 
 			auto posColon = _pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr));
 

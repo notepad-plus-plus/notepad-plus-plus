@@ -3,12 +3,15 @@
  ** Tests WordList, WordClassifier, and SubStyles
  **/
 
+#include <cassert>
+
 #include <string>
 #include <string_view>
 #include <vector>
 #include <map>
 
 #include "WordList.h"
+#include "CharacterSet.h"
 #include "SubStyles.h"
 
 #include "catch.hpp"
@@ -148,8 +151,8 @@ TEST_CASE("WordClassifier") {
 
 	SECTION("ValueFor") {
 		wc.Allocate(key, 2);
-		wc.SetIdentifiers(key, "else if then");
-		wc.SetIdentifiers(type, "double float int long");
+		wc.SetIdentifiers(key, "else if then", false);
+		wc.SetIdentifiers(type, "double float int long", false);
 		REQUIRE(wc.ValueFor("if") == key);
 		REQUIRE(wc.ValueFor("double") == type);
 		REQUIRE(wc.ValueFor("fish") < 0);

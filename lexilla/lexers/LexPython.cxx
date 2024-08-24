@@ -1086,5 +1086,5 @@ void SCI_METHOD LexerPython::Fold(Sci_PositionU startPos, Sci_Position length, i
 
 }
 
-LexerModule lmPython(SCLEX_PYTHON, LexerPython::LexerFactoryPython, "python",
+extern const LexerModule lmPython(SCLEX_PYTHON, LexerPython::LexerFactoryPython, "python",
 		     pythonWordListDesc);

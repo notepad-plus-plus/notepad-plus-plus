@@ -611,6 +611,7 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 		bool Quoted = false;		// true if Quote in ('\'','"','`')
 		bool Escaped = false;		// backslash in delimiter, common in configure script
 		bool Indent = false;		// indented delimiter (for <<-)
+		int BackslashCount = 0;
 		int DelimiterLength = 0;	// strlen(Delimiter)
 		char Delimiter[HERE_DELIM_MAX]{};	// the Delimiter
 		HereDocCls() noexcept = default;
@@ -831,6 +832,7 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 					HereDoc.Quote = sc.chNext;
 					HereDoc.Quoted = false;
 					HereDoc.Escaped = false;
+					HereDoc.BackslashCount = 0;
 					HereDoc.DelimiterLength = 0;
 					HereDoc.Delimiter[HereDoc.DelimiterLength] = '\0';
 					if (sc.chNext == '\'' || sc.chNext == '\"') {	// a quoted here-doc delimiter (' or ")
@@ -858,22 +860,21 @@ void SCI_METHOD LexerBash::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				} else if (HereDoc.State == 1) { // collect the delimiter
 					// * if single quoted, there's no escape
 					// * if double quoted, there are \\ and \" escapes
-					if ((HereDoc.Quote == '\'' && sc.ch != HereDoc.Quote) ||
-					    (HereDoc.Quoted && sc.ch != HereDoc.Quote && sc.ch != '\\') ||
-					    (HereDoc.Quote != '\'' && sc.chPrev == '\\') ||
-					    (setHereDoc2.Contains(sc.ch))) {
-						HereDoc.Append(sc.ch);
-					} else if (HereDoc.Quoted && sc.ch == HereDoc.Quote) {	// closing quote => end of delimiter
-						sc.ForwardSetState(SCE_SH_DEFAULT);
-					} else if (sc.ch == '\\') {
+					if (HereDoc.Quoted && sc.ch == HereDoc.Quote && (HereDoc.BackslashCount & 1) == 0) { // closing quote => end of delimiter
+						sc.ForwardSetState(SCE_SH_DEFAULT | insideCommand);
+					} else if (sc.ch == '\\' && HereDoc.Quote != '\'') {
 						HereDoc.Escaped = true;
-						if (HereDoc.Quoted && sc.chNext != HereDoc.Quote && sc.chNext != '\\') {
+						HereDoc.BackslashCount += 1;
+						if ((HereDoc.BackslashCount & 1) == 0 || (HereDoc.Quoted && !AnyOf(sc.chNext, '\"', '\\'))) {
 							// in quoted prefixes only \ and the quote eat the escape
 							HereDoc.Append(sc.ch);
 						} else {
 							// skip escape prefix
 						}
-					} else if (!HereDoc.Quoted) {
+					} else if (HereDoc.Quoted || setHereDoc2.Contains(sc.ch) || (sc.ch > 32 && sc.ch < 127 && (HereDoc.BackslashCount & 1) != 0)) {
+						HereDoc.BackslashCount = 0;
+						HereDoc.Append(sc.ch);
+					} else {
 						sc.SetState(SCE_SH_DEFAULT | insideCommand);
 					}
 					if (HereDoc.DelimiterLength >= HERE_DELIM_MAX - 1) {	// force blowup
@@ -1287,4 +1288,4 @@ void SCI_METHOD LexerBash::Fold(Sci_PositionU startPos_, Sci_Position length, in
 	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
 }
 
-LexerModule lmBash(SCLEX_BASH, LexerBash::LexerFactoryBash, "bash", bashWordListDesc);
+extern const LexerModule lmBash(SCLEX_BASH, LexerBash::LexerFactoryBash, "bash", bashWordListDesc);

@@ -811,12 +811,18 @@ void ScintillaEditView::setXmlLexer(LangType type)
 {
 	if (type == L_XML)
 	{
+		const wchar_t *pKwArray[NB_LIST] = {NULL};
+		
 		setLexerFromLangID(L_XML);
 		
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(L""));
 
-        makeStyle(type);
+        makeStyle(type, pKwArray);
+
+		// the XML portion of the lexer only allows substyles for attributes, not for tags (since it treats all tags the same),
+		//	so allocate all 8 substyles to attributes
+		populateSubStyleKeywords(type, SCE_H_ATTRIBUTE, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
 
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.xml.allow.scripts"), reinterpret_cast<LPARAM>("0"));
 	}
@@ -838,7 +844,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 
 void ScintillaEditView::setHTMLLexer()
 {
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_HTML, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -849,11 +855,15 @@ void ScintillaEditView::setHTMLLexer()
 	}
 
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_HTML, LANG_INDEX_INSTR)));
+	
+	// HTML allows substyle lists for both tags and attributes, so allocate four of each
+	populateSubStyleKeywords(L_HTML, SCE_H_TAG, 4, LANG_INDEX_SUBSTYLE1, pKwArray);
+	populateSubStyleKeywords(L_HTML, SCE_H_ATTRIBUTE, 4, LANG_INDEX_SUBSTYLE5, pKwArray);
 }
 
 void ScintillaEditView::setEmbeddedJSLexer()
 {
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_JS, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -864,6 +874,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	}
 
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_JS, LANG_INDEX_INSTR)));
+	populateSubStyleKeywords(L_JS, SCE_HJ_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_DEFAULT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENTDOC, true);
@@ -873,7 +884,7 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 {
 	setLexerFromLangID(isJson5 ? L_JSON5 : L_JSON);
 
-	const wchar_t *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 
 	makeStyle(L_JSON, pKwArray);
 
@@ -905,7 +916,7 @@ void ScintillaEditView::setJsonLexer(bool isJson5)
 
 void ScintillaEditView::setEmbeddedPhpLexer()
 {
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_PHP, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -916,6 +927,7 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 	}
 
 	execute(SCI_SETKEYWORDS, 4, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_PHP, LANG_INDEX_INSTR)));
+	populateSubStyleKeywords(L_PHP, SCE_HPHP_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
 
 	execute(SCI_STYLESETEOLFILLED, SCE_HPHP_DEFAULT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HPHP_COMMENT, true);
@@ -923,7 +935,7 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 
 void ScintillaEditView::setEmbeddedAspLexer()
 {
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_ASP, pKwArray);
 
 	basic_string<char> keywordList("");
@@ -936,6 +948,8 @@ void ScintillaEditView::setEmbeddedAspLexer()
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("asp.default.language"), reinterpret_cast<LPARAM>("2"));
 
 	execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(getCompleteKeywordList(keywordList, L_VB, LANG_INDEX_INSTR)));
+
+	populateSubStyleKeywords(L_ASP, SCE_HB_WORD, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
 
     execute(SCI_STYLESETEOLFILLED, SCE_HBA_DEFAULT, true);
 }
@@ -1124,7 +1138,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 		}
     }
 
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(langType, pKwArray);
 
 	basic_string<char> keywordListInstruction("");
@@ -1155,6 +1169,8 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(cppTypes));
 	execute(SCI_SETKEYWORDS, 3, reinterpret_cast<LPARAM>(cppGlobalclass));
 
+	populateSubStyleKeywords(langType, SCE_C_IDENTIFIER, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
+
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
@@ -1172,7 +1188,7 @@ void ScintillaEditView::setJsLexer()
 	const wchar_t *doxygenKeyWords = NppParameters::getInstance().getWordList(L_CPP, LANG_INDEX_TYPE2);
 
 	setLexerFromLangID(L_JAVASCRIPT);
-	const wchar_t *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_JAVASCRIPT, pKwArray);
 
 	if (doxygenKeyWords)
@@ -1219,6 +1235,9 @@ void ScintillaEditView::setJsLexer()
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(jsInstrs));
 		execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(jsTypes));
 		execute(SCI_SETKEYWORDS, 3, reinterpret_cast<LPARAM>(jsInstrs2));
+
+		populateSubStyleKeywords(L_JAVASCRIPT, SCE_C_IDENTIFIER, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
+
 	}
 	else // New js styler is not available, we use the old styling for the sake of retro-compatibility
 	{
@@ -1288,7 +1307,7 @@ void ScintillaEditView::setTclLexer()
 
 	setLexerFromLangID(L_TCL);
 
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_TCL, pKwArray);
 
 	basic_string<char> keywordListInstruction("");
@@ -1315,7 +1334,7 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 {
 	setLexerFromLangID(L_OBJC);
 
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 
 	makeStyle(langType, pKwArray);
 
@@ -1384,7 +1403,7 @@ void ScintillaEditView::setTypeScriptLexer()
 		execute(SCI_SETKEYWORDS, 2, reinterpret_cast<LPARAM>(doxygenKeyWords_char));
 	}
 
-	const wchar_t* pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 	makeStyle(L_TYPESCRIPT, pKwArray);
 
 	auto getKeywordList = [&pKwArray](const int i) 
@@ -1406,6 +1425,8 @@ void ScintillaEditView::setTypeScriptLexer()
 	execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(tsInstructions));
 	execute(SCI_SETKEYWORDS, 1, reinterpret_cast<LPARAM>(tsTypes));
 
+	populateSubStyleKeywords(L_TYPESCRIPT, SCE_C_IDENTIFIER, 8, LANG_INDEX_SUBSTYLE1, pKwArray);
+
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
@@ -1424,11 +1445,28 @@ void ScintillaEditView::setKeywords(LangType langType, const char *keywords, int
 	execute(SCI_SETKEYWORDS, index, reinterpret_cast<LPARAM>(getCompleteKeywordList(wordList, langType, index)));
 }
 
-void ScintillaEditView::setLexer(LangType langType, int whichList)
+void ScintillaEditView::populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray)
+{
+	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+	int firstID = execute(SCI_ALLOCATESUBSTYLES, baseStyleID, numSubStyles) & 0xFF;
+
+	if(pKwArray && (firstID>=0))
+	{
+		for (int i = 0; i < numSubStyles; i++)
+		{
+			int ss = firstLangIndex + i;
+			int styleID = firstID + i;
+			basic_string<char> userWords = pKwArray[ss] ? wmc.wchar2char(pKwArray[ss], CP_ACP) : "";
+			execute(SCI_SETIDENTIFIERS, styleID, reinterpret_cast<LPARAM>(getCompleteKeywordList(userWords, langType, ss)));
+		}
+	}
+}
+
+void ScintillaEditView::setLexer(LangType langType, int whichList, int baseStyleID, int numSubStyles)
 {
 	setLexerFromLangID(langType);
 
-	const wchar_t *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const wchar_t *pKwArray[NB_LIST] = {NULL};
 
 	makeStyle(langType, pKwArray);
 
@@ -1486,6 +1524,11 @@ void ScintillaEditView::setLexer(LangType langType, int whichList)
 	{
 		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_TYPE7], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE7);
+	}
+	
+	if (baseStyleID != STYLE_NOT_USED)
+	{
+		populateSubStyleKeywords(langType, baseStyleID, numSubStyles, LANG_INDEX_SUBSTYLE1, pKwArray);
 	}
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));

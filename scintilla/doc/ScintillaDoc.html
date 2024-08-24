@@ -1858,6 +1858,8 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_CUTALLOWLINE">SCI_CUTALLOWLINE</a><br />
      <a class="message" href="#SCI_SETPASTECONVERTENDINGS">SCI_SETPASTECONVERTENDINGS(bool convert)</a><br />
      <a class="message" href="#SCI_GETPASTECONVERTENDINGS">SCI_GETPASTECONVERTENDINGS &rarr; bool</a><br />
+     <a class="message" href="#SCI_SETCOPYSEPARATOR">SCI_SETCOPYSEPARATOR(&lt;unused&gt;, const char *separator)</a><br />
+     <a class="message" href="#SCI_GETCOPYSEPARATOR">SCI_GETCOPYSEPARATOR(&lt;unused&gt;, char *separator) &rarr; int</a><br />
      <a class="message" href="#SCI_REPLACERECTANGULAR">SCI_REPLACERECTANGULAR(position length, const char *text)</a><br />
     </code>
 
@@ -1905,6 +1907,11 @@ struct Sci_TextToFindFull {
      <a class="seealso" href="#SCI_SETEOLMODE">SCI_SETEOLMODE</a>.
      Defaults to true.</p>
 
+    <p><b id="SCI_SETCOPYSEPARATOR">SCI_SETCOPYSEPARATOR(&lt;unused&gt;, const char *separator)</b><br />
+     <b id="SCI_GETCOPYSEPARATOR">SCI_GETCOPYSEPARATOR(&lt;unused&gt;, char *separator) &rarr; int</b><br />
+     When a multiple selection is copied, this string property is added between each part.
+     Defaults to empty.</p>
+
     <p><b id="SCI_REPLACERECTANGULAR">SCI_REPLACERECTANGULAR(position length, const char *text)</b><br/>
       Replaces the selected text or empty selection with the given text.
       The insertion is performed similarly to rectangular pastes: new lines in the given text are interpreted as
@@ -1929,6 +1936,7 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_GETUNDOCOLLECTION">SCI_GETUNDOCOLLECTION &rarr; bool</a><br />
      <a class="message" href="#SCI_BEGINUNDOACTION">SCI_BEGINUNDOACTION</a><br />
      <a class="message" href="#SCI_ENDUNDOACTION">SCI_ENDUNDOACTION</a><br />
+     <a class="message" href="#SCI_GETUNDOSEQUENCE">SCI_GETUNDOSEQUENCE &rarr; int</a><br />
      <a class="message" href="#SCI_ADDUNDOACTION">SCI_ADDUNDOACTION(int token, int flags)</a><br />
     </code>
 
@@ -1972,10 +1980,16 @@ struct Sci_TextToFindFull {
 
     <p><b id="SCI_BEGINUNDOACTION">SCI_BEGINUNDOACTION</b><br />
      <b id="SCI_ENDUNDOACTION">SCI_ENDUNDOACTION</b><br />
-     Send these two messages to Scintilla to mark the beginning and end of a set of operations that
+     Send these two messages to Scintilla to mark the beginning and end of a sequence of operations that
     you want to undo all as one operation but that you have to generate as several operations.
     Alternatively, you can use these to mark a set of operations that you do not want to have
     combined with the preceding or following operations if they are undone.</p>
+
+    <p><b id="SCI_GETUNDOSEQUENCE">SCI_GETUNDOSEQUENCE &rarr; int</b><br />
+     Determine if an undo sequence is active with a positive value indicating that a sequence is active and 0 that there is no current sequence.
+     The value returned is the nesting depth of the sequence, that is, the number of times <code>SCI_BEGINUNDOACTION</code>
+     was called without a correspnding <code>SCI_ENDUNDOACTION</code>.
+     A negative value indicates an error.</p>
 
     <p><b id="SCI_ADDUNDOACTION">SCI_ADDUNDOACTION(int token, int flags)</b><br />
      The container can add its own actions into the undo stack by calling
@@ -3334,6 +3348,8 @@ struct Sci_TextToFindFull {
     <a class="message" href="#SCI_STYLESETWEIGHT">SCI_STYLESETWEIGHT(int style, int
     weight)</a><br />
     <a class="message" href="#SCI_STYLEGETWEIGHT">SCI_STYLEGETWEIGHT(int style) &rarr; int</a><br />
+    <a class="message" href="#SCI_STYLESETSTRETCH">SCI_STYLESETSTRETCH(int style, int stretch)</a><br />
+    <a class="message" href="#SCI_STYLEGETSTRETCH">SCI_STYLEGETSTRETCH(int style) &rarr; int</a><br />
     <a class="message" href="#SCI_STYLESETITALIC">SCI_STYLESETITALIC(int style, bool
     italic)</a><br />
     <a class="message" href="#SCI_STYLEGETITALIC">SCI_STYLEGETITALIC(int style) &rarr; bool</a><br />
@@ -3393,6 +3409,8 @@ struct Sci_TextToFindFull {
     <b id="SCI_STYLEGETBOLD">SCI_STYLEGETBOLD(int style) &rarr; bool</b><br />
     <b id="SCI_STYLESETWEIGHT">SCI_STYLESETWEIGHT(int style, int weight)</b><br />
     <b id="SCI_STYLEGETWEIGHT">SCI_STYLEGETWEIGHT(int style) &rarr; int</b><br />
+    <b id="SCI_STYLESETSTRETCH">SCI_STYLESETSTRETCH(int style, int stretch)</b><br />
+    <b id="SCI_STYLEGETSTRETCH">SCI_STYLEGETSTRETCH(int style) &rarr; int</b><br />
     <b id="SCI_STYLESETITALIC">SCI_STYLESETITALIC(int style, bool italic)</b><br />
     <b id="SCI_STYLEGETITALIC">SCI_STYLEGETITALIC(int style) &rarr; bool</b><br />
      These messages (plus <a class="message"
@@ -3421,6 +3439,68 @@ struct Sci_TextToFindFull {
     The <code>SCI_STYLESETBOLD</code> message takes a boolean argument with 0 choosing <code>SC_WEIGHT_NORMAL</code>
     and 1 <code>SC_WEIGHT_BOLD</code>.
     </p>
+    <p>The stretch of a font can be set with <code>SCI_STYLESETSTRETCH</code> which can produce condensed or expanded text.
+    The weight is a number between 1 and 9 which corresponds to a horizontal magnification between 50% and 200%
+    with 1 being very condensed, 5 normal, and 9 very expanded.
+    While any value can be used, fonts and platforms often only support between 2 and 3 stretches.
+    The best supported and useful values are
+    <code>SC_STRETCH_CONDENSED</code>,
+    <code>SC_STRETCH_NORMAL</code>, and
+    <code>SC_STRETCH_EXPANDED</code>.
+    The Inconsolata variable font supports many stretch values and can be useful for experimenting.
+    Condensed text can be used to display more text in a narrower window and expanded text may be used
+    for clearer text that is easier to read.
+    The API is based on the Cascading Style Sheets font-stretch property.
+    </p>
+    <table class="standard" summary="Stretch">
+      <tbody valign="top">
+        <tr>
+          <th align="left"><code>SC_STRETCH_ULTRA_CONDENSED</code></th>
+          <td>1</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_EXTRA_CONDENSED</code></th>
+          <td>2</td>
+          <td>62.5%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_CONDENSED</code></th>
+          <td>3</td>
+          <td>75%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_SEMI_CONDENSED</code></th>
+          <td>4</td>
+          <td>87.5%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_NORMAL</code></th>
+          <td>5</td>
+          <td>100%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_SEMI_EXPANDED</code></th>
+          <td>6</td>
+          <td>112.5%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_EXPANDED</code></th>
+          <td>7</td>
+          <td>125%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_EXTRA_EXPANDED</code></th>
+          <td>8</td>
+          <td>150%</td>
+        </tr>
+        <tr>
+          <th align="left"><code>SC_STRETCH_ULTRA_EXPANDED</code></th>
+          <td>9</td>
+          <td>200%</td>
+        </tr>
+      </tbody>
+    </table>
 
     <p><b id="SCI_STYLESETUNDERLINE">SCI_STYLESETUNDERLINE(int style, bool
     underline)</b><br />
@@ -6288,6 +6368,8 @@ struct Sci_TextToFindFull {
      <a class="message" href="#SCI_AUTOCGETMAXHEIGHT">SCI_AUTOCGETMAXHEIGHT &rarr; int</a><br />
      <a class="message" href="#SCI_AUTOCSETMAXWIDTH">SCI_AUTOCSETMAXWIDTH(int characterCount)</a><br />
      <a class="message" href="#SCI_AUTOCGETMAXWIDTH">SCI_AUTOCGETMAXWIDTH &rarr; int</a><br />
+     <a class="message" href="#SCI_AUTOCSETSTYLE">SCI_AUTOCSETSTYLE(int style)</a><br />
+     <a class="message" href="#SCI_AUTOCGETSTYLE">SCI_AUTOCGETSTYLE &rarr; int</a><br />
      <a class="element" href="#SC_ELEMENT_LIST">SC_ELEMENT_LIST : colouralpha</a><br />
      <a class="element" href="#SC_ELEMENT_LIST_BACK">SC_ELEMENT_LIST_BACK : colouralpha</a><br />
      <a class="element" href="#SC_ELEMENT_LIST_SELECTED">SC_ELEMENT_LIST_SELECTED : colouralpha</a><br />
@@ -6510,7 +6592,7 @@ struct Sci_TextToFindFull {
      </p>
 
     <p>
-      <b id="SCI_AUTOCSETSTYLE">SCI_AUTOCSETSTYLE</b><br />
+      <b id="SCI_AUTOCSETSTYLE">SCI_AUTOCSETSTYLE(int style)</b><br />
       <b id="SCI_AUTOCGETSTYLE">SCI_AUTOCGETSTYLE &rarr; int</b><br />
 
       Get or set the style used by autocompletion lists to determine the font facename, size and character set used to display characters. Defaults
@@ -6913,6 +6995,9 @@ struct Sci_TextToFindFull {
 
           <td><code>SCI_VERTICALCENTRECARET</code></td>
 
+          <td><code>SCI_LINEINDENT</code></td>
+
+          <td><code>SCI_LINEDEDENT</code></td>
         </tr>
 
         <tr>
@@ -6954,6 +7039,9 @@ struct Sci_TextToFindFull {
      but if the cursor is already at the point, it goes on to the start or end of the document line,
      as appropriate for <code>SCI_[[VC]HOME|LINEEND]*</code>.
      </p>
+
+    <p>The <code>SCI_LINE[INDENT|DEDENT]</code> commands are like <code>SCI_[BACK]TAB</code> but force the
+    multiline behaviour of the second.</p>
 
     <p>The <code>SCI_SCROLLTO[START|END]</code> commands scroll the document to the start
     or end without changing the selection. These commands match macOS platform conventions for the behaviour of the

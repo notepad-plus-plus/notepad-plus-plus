@@ -811,4 +811,4 @@ void SCI_METHOD LexerNim::Fold(Sci_PositionU startPos, Sci_Position length, int,
     }
 }
 
-LexerModule lmNim(SCLEX_NIM, LexerNim::LexerFactoryNim, "nim", nimWordListDesc);
+extern const LexerModule lmNim(SCLEX_NIM, LexerNim::LexerFactoryNim, "nim", nimWordListDesc);

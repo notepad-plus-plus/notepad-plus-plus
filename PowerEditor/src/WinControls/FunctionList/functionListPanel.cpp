@@ -837,7 +837,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 		{
 			FunctionListPanel::initPreferencesMenu();
 
-			NppParameters& nppParams = NppParameters::getInstance();
+			NppParameters& nppParam = NppParameters::getInstance();
 
 			setDpi();
 			const int editWidth = _dpiManager.scale(100);
@@ -919,7 +919,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			// tips text for toolbar buttons
-			NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
+			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 			_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
@@ -943,7 +943,12 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSearchEdit), MAKELPARAM(TRUE, 0));
 			}
 
-			std::vector<int> imgIds{ IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF };
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF }
+				, { IDI_FUNCLIST_ROOT_DM, IDI_FUNCLIST_NODE_DM, IDI_FUNCLIST_LEAF_DM }
+				, { IDI_FUNCLIST_ROOT2, IDI_FUNCLIST_NODE2, IDI_FUNCLIST_LEAF2 }
+			);
+
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
 			_treeView.setImageList(imgIds);
 			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
@@ -966,7 +971,20 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				NppDarkMode::autoThemeChildControls(_hSelf);
 				::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 			}
-			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			else
+			{
+				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			}
+
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF }
+				, { IDI_FUNCLIST_ROOT_DM, IDI_FUNCLIST_NODE_DM, IDI_FUNCLIST_LEAF_DM }
+				, { IDI_FUNCLIST_ROOT2, IDI_FUNCLIST_NODE2, IDI_FUNCLIST_LEAF2 }
+			);
+
+			_treeView.setImageList(imgIds);
+			_treeViewSearchResult.setImageList(imgIds);
+
 			return TRUE;
 		}
 

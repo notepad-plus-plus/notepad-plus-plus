@@ -226,7 +226,9 @@ namespace NppDarkMode
 
 	void disableVisualStyle(HWND hwnd, bool doDisable);
 	void calculateTreeViewStyle();
-	void setTreeViewStyle(HWND hwnd);
+	void updateTreeViewStylePrev();
+	TreeViewStyle getTreeViewStyle();
+	void setTreeViewStyle(HWND hWnd, bool force = false);
 	bool isThemeDark();
 	void setBorder(HWND hwnd, bool border = true);
 

@@ -48,12 +48,6 @@ using namespace Lexilla;
 namespace {
    // Use an unnamed namespace to protect the functions and classes from name conflicts
 
-   bool IsSpaceEquiv(int state) {
-      return (state == SCE_ABL_COMMENT ||
-              state == SCE_ABL_LINECOMMENT ||
-              state == SCE_ABL_DEFAULT);
-   }
-
    void highlightTaskMarker(StyleContext &sc, LexAccessor &styler, WordList &markerList){
       if ((isoperator(sc.chPrev) || IsASpace(sc.chPrev)) && markerList.Length()) {
          const int lengthMarker = 50;
@@ -221,19 +215,11 @@ Sci_Position SCI_METHOD LexerABL::WordListSet(int n, const char *wl) {
    return firstModification;
 }
 
-#if defined(__clang__)
-#if __has_warning("-Wunused-but-set-variable")
-// Disable warning for visibleChars
-#pragma clang diagnostic ignored "-Wunused-but-set-variable"
-#endif
-#endif
-
 void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
    LexAccessor styler(pAccess);
 
    setWordStart = CharacterSet(CharacterSet::setAlpha, "_", 0x80, true);
 
-   int visibleChars = 0;
    int visibleChars1 = 0;
    int styleBeforeTaskMarker = SCE_ABL_DEFAULT;
    bool continuationLine = false;
@@ -252,10 +238,15 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
       }
    }
 
+   // Initialize the block comment /* */ nesting level if lexing is starting inside
+   // a block comment.
+   if (initStyle == SCE_ABL_COMMENT && lineCurrent > 0) {
+       commentNestingLevel = styler.GetLineState(lineCurrent - 1);
+   }
+
     // Look back to set variables that are actually invisible secondary states. The reason to avoid formal states is to cut down on state's bits
    if (startPos > 0) {
       Sci_Position back = startPos;
-      bool checkCommentNestingLevel = (initStyle == SCE_ABL_COMMENT);
       bool checkIsSentenceStart = (initStyle == SCE_ABL_DEFAULT || initStyle == SCE_ABL_IDENTIFIER);
       char ch;
       char st;
@@ -264,14 +255,14 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
       char chPrev_2;
       char chPrev_3;
 
-      while (back >= 0 && (checkCommentNestingLevel || checkIsSentenceStart)) {
+      while (back >= 0 && checkIsSentenceStart) {
          ch = styler.SafeGetCharAt(back);
          styler.Flush();  // looking at styles so need to flush
          st = styler.StyleAt(back);
 
          chPrev = styler.SafeGetCharAt(back-1);
          // isSentenceStart is a non-visible state, used to identify where statements and preprocessor declerations can start
-         if (checkIsSentenceStart && st != SCE_ABL_COMMENT && st != SCE_ABL_LINECOMMENT && st != SCE_ABL_CHARACTER  && st != SCE_ABL_STRING ) {
+         if (st != SCE_ABL_COMMENT && st != SCE_ABL_LINECOMMENT && st != SCE_ABL_CHARACTER  && st != SCE_ABL_STRING ) {
             chPrev_1 = styler.SafeGetCharAt(back-2);
             chPrev_2 = styler.SafeGetCharAt(back-3);
             chPrev_3 = styler.SafeGetCharAt(back-4);
@@ -288,20 +279,6 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
                isSentenceStart = false;
             }
          }
-
-         // commentNestingLevel is a non-visible state, used to identify the nesting level of a comment
-         if (checkCommentNestingLevel) {
-            if (chPrev == '/' && ch == '*') {
-               commentNestingLevel++;
-               // eat the '/' so we don't miscount a */ if we see /*/*
-               --back;
-            }
-            if (chPrev == '*' && ch == '/') {
-               commentNestingLevel--;
-               // eat the '*' so we don't miscount a /* if we see */*/
-               --back;
-            }
-         }
          --back;
       }
    }
@@ -310,14 +287,26 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
    Sci_Position lineEndNext = styler.LineEnd(lineCurrent);
 
    for (; sc.More();) {
+
       if (sc.atLineStart) {
-         visibleChars = 0;
          visibleChars1 = 0;
       }
+
       if (sc.atLineEnd) {
-         lineCurrent++;
-         lineEndNext = styler.LineEnd(lineCurrent);
+          // Update the line state, so it can be seen by next line
+          if (sc.state == SCE_ABL_COMMENT) {
+              // Inside a block comment; store the nesting level
+              styler.SetLineState(lineCurrent, commentNestingLevel);
+          }
+          else {
+              // Not inside a block comment; nesting level is 0
+              styler.SetLineState(lineCurrent, 0);
+          }
+
+          lineCurrent++;
+          lineEndNext = styler.LineEnd(lineCurrent);
       }
+
       // Handle line continuation generically.
       if (sc.ch == '~') {
          if (static_cast<Sci_Position>((sc.currentPos+1)) >= lineEndNext) {
@@ -494,9 +483,6 @@ void SCI_METHOD LexerABL::Lex(Sci_PositionU startPos, Sci_Position length, int i
       if (!IsASpace(sc.ch)) {
          visibleChars1++;
       }
-      if (!IsASpace(sc.ch) && !IsSpaceEquiv(sc.state)) {
-         visibleChars++;
-      }
       continuationLine = false;
       sc.Forward();
    }
@@ -575,4 +561,4 @@ void SCI_METHOD LexerABL::Fold(Sci_PositionU startPos, Sci_Position length, int 
    }
 }
 
-LexerModule lmProgress(SCLEX_PROGRESS, LexerABL::LexerFactoryABL, "abl", ablWordLists);
+extern const LexerModule lmProgress(SCLEX_PROGRESS, LexerABL::LexerFactoryABL, "abl", ablWordLists);

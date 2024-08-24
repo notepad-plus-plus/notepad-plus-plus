@@ -66,7 +66,7 @@ void FontRealised::Realise(Surface &surface, int zoomLevel, Technology technolog
 
 	const float deviceHeight = static_cast<float>(surface.DeviceHeightFont(measurements.sizeZoomed));
 	const FontParameters fp(fs.fontName, deviceHeight / FontSizeMultiplier, fs.weight,
-		fs.italic, fs.extraFontFlag, technology, fs.characterSet, localeName);
+		fs.italic, fs.extraFontFlag, technology, fs.characterSet, localeName, fs.stretch);
 	font = Font::Allocate(fp);
 
 	// floor here is historical as platform layers have tweaked their values to match.

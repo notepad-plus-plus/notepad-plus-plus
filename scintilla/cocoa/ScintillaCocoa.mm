@@ -2456,7 +2456,7 @@ void ScintillaCocoa::SetDocPointer(Document *document) {
 namespace {
 
 unsigned int TimeOfEvent(NSEvent *event) {
-	return static_cast<unsigned int>(event.timestamp * 1000);
+	return static_cast<unsigned int>(std::lround(event.timestamp * 1000.0) % 2000000000);
 }
 
 }

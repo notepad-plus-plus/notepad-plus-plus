@@ -398,4 +398,4 @@ static const char * const TACLWordListDesc[] = {
 	0
 };
 
-LexerModule lmTACL(SCLEX_TACL, ColouriseTACLDoc, "TACL", FoldTACLDoc, TACLWordListDesc);
+extern const LexerModule lmTACL(SCLEX_TACL, ColouriseTACLDoc, "TACL", FoldTACLDoc, TACLWordListDesc);

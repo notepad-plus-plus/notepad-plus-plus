@@ -626,6 +626,6 @@ static void ColourisePowerProDocWrapper(Sci_PositionU startPos, Sci_Position len
 	ColourisePowerProDoc(startPos, length, initStyle, keywordlists, styler, false);
 }
 
-LexerModule lmPowerPro(SCLEX_POWERPRO, ColourisePowerProDocWrapper, "powerpro", FoldPowerProDoc, powerProWordLists);
+extern const LexerModule lmPowerPro(SCLEX_POWERPRO, ColourisePowerProDocWrapper, "powerpro", FoldPowerProDoc, powerProWordLists);
 
 

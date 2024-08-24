@@ -203,4 +203,4 @@ static const char * const StataWordLists[] = {
     0,
 };
 
-LexerModule lmStata(SCLEX_STATA, ColouriseStataDoc, "stata", FoldStataDoc, StataWordLists);
+extern const LexerModule lmStata(SCLEX_STATA, ColouriseStataDoc, "stata", FoldStataDoc, StataWordLists);

@@ -608,4 +608,4 @@ static const char * const dataflexWordListDesc[] = {
 	0
 };
 
-LexerModule lmDataflex(SCLEX_DATAFLEX, ColouriseDataFlexDoc, "dataflex", FoldDataFlexDoc, dataflexWordListDesc);
+extern const LexerModule lmDataflex(SCLEX_DATAFLEX, ColouriseDataFlexDoc, "dataflex", FoldDataFlexDoc, dataflexWordListDesc);

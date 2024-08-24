@@ -3770,9 +3770,13 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 			_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
-			const char colonExpr[] = ":[ \t]*(#|$)";  // colon optionally followed by only whitespace and/or start-of-comment
+			// colon optionally followed by only whitespace and/or start-of-comment, but NOT on a line that is already a comment
+			const char colonExpr[] = "^[^#]*\\K:[ \t]*(#|$)";
 
-			if (_pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr)) >= 0)
+			auto posColon = _pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr));
+
+			// when colon found, additionally check that it is not in a comment, inside a string, etc.
+			if ((posColon >= 0) && (_pEditView->execute(SCI_GETSTYLEINDEXAT, posColon) == SCE_P_OPERATOR))
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
 			}
@@ -8616,7 +8620,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			else
 			{
 				nppParams.reloadStylers(themePath.c_str());
-				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
+				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, TRUE, 0);
 			}
 		}
 

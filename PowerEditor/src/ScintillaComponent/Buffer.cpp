@@ -134,7 +134,7 @@ void Buffer::setLangType(LangType lang, const wchar_t* userLangName)
 		_userLangExt = userLangName;
 
 	_needLexer = true;	//change of lang means lexern needs updating
-	doNotify(BufferChangeLanguage|BufferChangeLexing);
+	doNotify(BufferChangeLanguage | BufferChangeLexing);
 }
 
 

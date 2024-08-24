@@ -1252,6 +1252,10 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.raku.comment.pod"), reinterpret_cast<LPARAM>("1"));
 	};
 
+	void setTomlLexer(){
+		setLexer(L_TOML, LIST_0);
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {

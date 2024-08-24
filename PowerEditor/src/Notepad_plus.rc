@@ -1041,6 +1041,7 @@ BEGIN
         MENUITEM "TCL",                     IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
+        MENUITEM "TOML",                    IDM_LANG_TOML
         MENUITEM "txt2tags",                IDM_LANG_TXT2TAGS
         MENUITEM "TypeScript",              IDM_LANG_TYPESCRIPT
         MENUITEM "Verilog",                 IDM_LANG_VERILOG
@@ -1193,6 +1194,7 @@ BEGIN
         MENUITEM "TCL",                   IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
+        MENUITEM "TOML",                  IDM_LANG_TOML
         MENUITEM "txt2tags",              IDM_LANG_TXT2TAGS
         MENUITEM "TypeScript",            IDM_LANG_TYPESCRIPT
     END

@@ -102,7 +102,7 @@ namespace Lexilla {
 	class LexerModule;
 }
 // Add a static lexer (in the same binary) to Lexilla's list
-void AddStaticLexerModule(Lexilla::LexerModule *plm);
+void AddStaticLexerModule(const Lexilla::LexerModule *plm);
 #endif
 
 #endif

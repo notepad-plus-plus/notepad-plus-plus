@@ -190,4 +190,4 @@ static const char * const confWordListDesc[] = {
 	0
 };
 
-LexerModule lmConf(SCLEX_CONF, ColouriseConfDoc, "conf", 0, confWordListDesc);
+extern const LexerModule lmConf(SCLEX_CONF, ColouriseConfDoc, "conf", 0, confWordListDesc);

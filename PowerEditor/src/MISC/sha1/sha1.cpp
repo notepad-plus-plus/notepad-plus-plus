@@ -145,7 +145,7 @@ bool CSHA1::HashFile(const wchar_t* tszFileName)
 {
 	if(tszFileName == NULL) return false;
 
-	FILE* fpIn = _tfopen(tszFileName, L"rb");
+	FILE* fpIn = _wfopen(tszFileName, L"rb");
 	if(fpIn == NULL) return false;
 
 	UINT_8* pbData = new UINT_8[SHA1_MAX_FILE_BUFFER];
@@ -211,25 +211,25 @@ bool CSHA1::ReportHash(wchar_t* tszReport, REPORT_TYPE rtReportType) const
 
 	if((rtReportType == REPORT_HEX) || (rtReportType == REPORT_HEX_SHORT))
 	{
-		_sntprintf(tszTemp, 15, L"%02X", m_digest[0]);
-		_tcscpy(tszReport, tszTemp);
+		_snwprintf(tszTemp, 15, L"%02X", m_digest[0]);
+		wcscpy(tszReport, tszTemp);
 
 		const wchar_t* lpFmt = ((rtReportType == REPORT_HEX) ? L" %02X" : L"%02X");
 		for(size_t i = 1; i < 20; ++i)
 		{
-			_sntprintf(tszTemp, 15, lpFmt, m_digest[i]);
-			_tcscat(tszReport, tszTemp);
+			_snwprintf(tszTemp, 15, lpFmt, m_digest[i]);
+			wcscat(tszReport, tszTemp);
 		}
 	}
 	else if(rtReportType == REPORT_DIGIT)
 	{
-		_sntprintf(tszTemp, 15, L"%u", m_digest[0]);
-		_tcscpy(tszReport, tszTemp);
+		_snwprintf(tszTemp, 15, L"%u", m_digest[0]);
+		wcscpy(tszReport, tszTemp);
 
 		for(size_t i = 1; i < 20; ++i)
 		{
-			_sntprintf(tszTemp, 15, L" %u", m_digest[i]);
-			_tcscat(tszReport, tszTemp);
+			_snwprintf(tszTemp, 15, L" %u", m_digest[i]);
+			wcscat(tszReport, tszTemp);
 		}
 	}
 	else return false;

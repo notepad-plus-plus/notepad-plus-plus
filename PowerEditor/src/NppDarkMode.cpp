@@ -464,7 +464,7 @@ namespace NppDarkMode
 
 	void initAdvancedOptions()
 	{
-		NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+		const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 		g_advOptions = nppGui._darkmode._advOptions;
 	}
 
@@ -591,6 +591,7 @@ namespace NppDarkMode
 		return invert_c;
 	}
 
+	static TreeViewStyle g_treeViewStylePrev = TreeViewStyle::classic;
 	static TreeViewStyle g_treeViewStyle = TreeViewStyle::classic;
 	static COLORREF g_treeViewBg = NppParameters::getInstance().getCurrentDefaultBgColor();
 	static double g_lightnessTreeView = 50.0;
@@ -1094,7 +1095,7 @@ namespace NppDarkMode
 	static void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
 	{
 		RECT rcClient{};
-		WCHAR szText[256] = { '\0' };
+		wchar_t szText[256] = { '\0' };
 		DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
 		DWORD uiState = static_cast<DWORD>(SendMessage(hwnd, WM_QUERYUISTATE, 0, 0));
 		auto nStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
@@ -1414,7 +1415,7 @@ namespace NppDarkMode
 
 		hOldFont = static_cast<HFONT>(::SelectObject(hdc, hFont));
 
-		WCHAR szText[256] = { '\0' };
+		wchar_t szText[256] = { '\0' };
 		GetWindowText(hwnd, szText, _countof(szText));
 
 		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
@@ -1486,14 +1487,12 @@ namespace NppDarkMode
 		DWORD_PTR dwRefData
 	)
 	{
-		UNREFERENCED_PARAMETER(uIdSubclass);
-
 		auto pButtonData = reinterpret_cast<ButtonData*>(dwRefData);
 
 		switch (uMsg)
 		{
 		case WM_NCDESTROY:
-			RemoveWindowSubclass(hWnd, GroupboxSubclass, g_groupboxSubclassID);
+			RemoveWindowSubclass(hWnd, GroupboxSubclass, uIdSubclass);
 			delete pButtonData;
 			break;
 
@@ -2324,7 +2323,7 @@ namespace NppDarkMode
 		::EnableThemeDialogTexture(hwndParent, theme && !NppDarkMode::isEnabled() ? ETDT_ENABLETAB : ETDT_DISABLE);
 
 		EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM lParam) WINAPI_LAMBDA {
-			auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
+			const auto& p = *reinterpret_cast<NppDarkModeParams*>(lParam);
 			constexpr size_t classNameLen = 32;
 			wchar_t className[classNameLen]{};
 			GetClassName(hwnd, className, classNameLen);
@@ -2577,8 +2576,8 @@ namespace NppDarkMode
 		TreeView_SetTextColor(hwnd, NppParameters::getInstance().getCurrentDefaultFgColor());
 		TreeView_SetBkColor(hwnd, NppParameters::getInstance().getCurrentDefaultBgColor());
 
-		NppDarkMode::calculateTreeViewStyle();
-		NppDarkMode::setTreeViewStyle(hwnd);
+		//NppDarkMode::calculateTreeViewStyle();
+		NppDarkMode::setTreeViewStyle(hwnd, p._theme);
 
 		if (p._theme)
 		{
@@ -3253,48 +3252,72 @@ namespace NppDarkMode
 		}
 	}
 
-	void setTreeViewStyle(HWND hwnd)
+	void updateTreeViewStylePrev()
 	{
-		auto style = static_cast<long>(::GetWindowLongPtr(hwnd, GWL_STYLE));
-		bool hasHotStyle = (style & TVS_TRACKSELECT) == TVS_TRACKSELECT;
-		bool change = false;
-		switch (g_treeViewStyle)
-		{
-			case TreeViewStyle::light:
-			{
-				if (!hasHotStyle)
-				{
-					style |= TVS_TRACKSELECT;
-					change = true;
-				}
-				SetWindowTheme(hwnd, L"Explorer", nullptr);
-				break;
-			}
-			case TreeViewStyle::dark:
-			{
-				if (!hasHotStyle)
-				{
-					style |= TVS_TRACKSELECT;
-					change = true;
-				}
-				SetWindowTheme(hwnd, g_isAtLeastWindows10 ? L"DarkMode_Explorer" : nullptr, nullptr);
-				break;
-			}
-			case TreeViewStyle::classic:
-			{
-				if (hasHotStyle)
-				{
-					style &= ~TVS_TRACKSELECT;
-					change = true;
-				}
-				SetWindowTheme(hwnd, nullptr, nullptr);
-				break;
-			}
-		}
+		g_treeViewStylePrev = g_treeViewStyle;
+	}
 
-		if (change)
+	TreeViewStyle getTreeViewStyle()
+	{
+		const auto style = g_treeViewStyle;
+		return style;
+	}
+
+	void setTreeViewStyle(HWND hWnd, bool force)
+	{
+		if (force || g_treeViewStylePrev != g_treeViewStyle)
 		{
-			::SetWindowLongPtr(hwnd, GWL_STYLE, style);
+			auto style = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+			const bool hasHotStyle = (style & TVS_TRACKSELECT) == TVS_TRACKSELECT;
+			bool change = false;
+			std::wstring strSubAppName;
+
+			switch (g_treeViewStyle)
+			{
+				case TreeViewStyle::light:
+				{
+					if (!hasHotStyle)
+					{
+						style |= TVS_TRACKSELECT;
+						change = true;
+					}
+					strSubAppName = L"Explorer";
+					break;
+				}
+
+				case TreeViewStyle::dark:
+				{
+					if (NppDarkMode::isExperimentalSupported())
+					{
+						if (!hasHotStyle)
+						{
+							style |= TVS_TRACKSELECT;
+							change = true;
+						}
+						strSubAppName = L"DarkMode_Explorer";
+						break;
+					}
+					[[fallthrough]];
+				}
+
+				case TreeViewStyle::classic:
+				{
+					if (hasHotStyle)
+					{
+						style &= ~TVS_TRACKSELECT;
+						change = true;
+					}
+					strSubAppName = L"";
+					break;
+				}
+			}
+
+			if (change)
+			{
+				::SetWindowLongPtr(hWnd, GWL_STYLE, style);
+			}
+
+			::SetWindowTheme(hWnd, strSubAppName.empty() ? nullptr : strSubAppName.c_str(), nullptr);
 		}
 	}
 
@@ -3424,47 +3447,4 @@ namespace NppDarkMode
 		return static_cast<INT_PTR>(NppDarkMode::onCtlColor(hdc));
 	}
 
-	struct HLSColour
-	{
-		WORD _hue;
-		WORD _lightness;
-		WORD _saturation;
-
-		COLORREF toRGB() const { return ColorHLSToRGB(_hue, _lightness, _saturation); }
-	};
-
-	using IndividualTabColours = std::array<HLSColour, 5>;
-
-	static constexpr IndividualTabColours individualTabHuesFor_Dark  { { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
-	static constexpr IndividualTabColours individualTabHues          { { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}}};
-
-
-	COLORREF getIndividualTabColour(int colourIndex, bool themeDependant, bool saturated)
-	{
-		if (colourIndex < 0 || colourIndex > 4) return {};
-
-		HLSColour result;
-		if (themeDependant)
-		{
-			result = individualTabHuesFor_Dark[colourIndex];
-
-			if (saturated)
-			{
-				result._lightness = 146U;
-				result._saturation = std::min<WORD>(240U, result._saturation + 100U);
-			}
-		}
-		else
-		{
-			result = individualTabHues[colourIndex];
-
-			if (saturated)
-			{
-				result._lightness = 140U;
-				result._saturation = std::min<WORD>(240U, result._saturation + 30U);
-			}
-		}
-
-		return result.toRGB();
-	}
 }

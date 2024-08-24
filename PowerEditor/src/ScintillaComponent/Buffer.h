@@ -83,7 +83,7 @@ public:
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 
-	void closeBuffer(BufferID, ScintillaEditView * identifer);		//called by Notepad++
+	void closeBuffer(BufferID, const ScintillaEditView* identifer);		//called by Notepad++
 
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 
@@ -228,8 +228,8 @@ public:
 
 	void setDirty(bool dirty);
 
-	void setPosition(const Position & pos, ScintillaEditView * identifier);
-	Position & getPosition(ScintillaEditView * identifier);
+	void setPosition(const Position & pos, const ScintillaEditView * identifier);
+	Position & getPosition(const ScintillaEditView * identifier);
 
 	void setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier);
 	const std::vector<size_t> & getHeaderLineState(const ScintillaEditView * identifier) const;
@@ -239,21 +239,21 @@ public:
 	const wchar_t * getUserDefineLangName() const	{ return _userLangExt.c_str(); }
 
 	const wchar_t * getCommentLineSymbol() const {
-		Lang *l = getCurrentLang();
+		const Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentLineSymbol;
 	}
 
 	const wchar_t * getCommentStart() const {
-		Lang *l = getCurrentLang();
+		const Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentStart;
 	}
 
 	const wchar_t * getCommentEnd() const {
-		Lang *l = getCurrentLang();
+		const Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentEnd;
@@ -268,7 +268,7 @@ public:
 
 	//these two return reference count after operation
 	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
-	int removeReference(ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
+	int removeReference(const ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
 
 	void setHideLineChanged(bool isHide, size_t location);
 

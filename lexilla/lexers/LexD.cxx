@@ -568,4 +568,4 @@ void SCI_METHOD LexerD::Fold(Sci_PositionU startPos, Sci_Position length, int in
 	}
 }
 
-LexerModule lmD(SCLEX_D, LexerD::LexerFactoryD, "d", dWordLists);
+extern const LexerModule lmD(SCLEX_D, LexerD::LexerFactoryD, "d", dWordLists);

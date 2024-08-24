@@ -262,14 +262,15 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	bool isWow64Off = false;
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	if (!PathFileExists(_fullPathName.c_str()))
+	bool fileExists = doesFileExist(_fullPathName.c_str());
+	if (!fileExists)
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 	}
 
 	bool isOK = false;
-	if (_currentStatus == DOC_INACCESSIBLE && !PathFileExists(_fullPathName.c_str()))	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
+	if (_currentStatus == DOC_INACCESSIBLE && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
 	{
 		_currentStatus = DOC_DELETED;//DOC_INACCESSIBLE;
 		_isInaccessible = true;
@@ -279,7 +280,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	else if (_currentStatus != DOC_DELETED && !fileExists)	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -288,7 +289,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str()))
+	else if (_currentStatus == DOC_DELETED && fileExists)
 	{	//document has returned from its grave
 		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
@@ -326,7 +327,6 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		{
 			if (res == 1)
 			{
-				NppParameters& nppParam = NppParameters::getInstance();
 				if (nppParam.doNppLogNetworkDriveIssue())
 				{
 					wstring issueFn = nppLogNetworkDriveIssue;
@@ -441,7 +441,7 @@ wstring Buffer::getFileTime(fileTimeType ftt) const
 }
 
 
-void Buffer::setPosition(const Position & pos, ScintillaEditView * identifier)
+void Buffer::setPosition(const Position & pos, const ScintillaEditView * identifier)
 {
 	int index = indexOfReference(identifier);
 	if (index == -1)
@@ -450,7 +450,7 @@ void Buffer::setPosition(const Position & pos, ScintillaEditView * identifier)
 }
 
 
-Position& Buffer::getPosition(ScintillaEditView* identifier)
+Position& Buffer::getPosition(const ScintillaEditView* identifier)
 {
 	int index = indexOfReference(identifier);
 	return _positions.at(index);
@@ -522,7 +522,7 @@ int Buffer::addReference(ScintillaEditView * identifier)
 }
 
 
-int Buffer::removeReference(ScintillaEditView * identifier)
+int Buffer::removeReference(const ScintillaEditView * identifier)
 {
 	int indexToPop = indexOfReference(identifier);
 	if (indexToPop == -1)
@@ -560,25 +560,25 @@ void Buffer::setDeferredReload() // triggers a reload on the next Document acces
 
 bool Buffer::allowBraceMach() const
 {
-	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	return (!_isLargeFile || nppGui._largeFileRestriction._allowBraceMatch) || !nppGui._largeFileRestriction._isEnabled;
 }
 
 bool Buffer::allowAutoCompletion() const
 {
-	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	return (!_isLargeFile || nppGui._largeFileRestriction._allowAutoCompletion) || !nppGui._largeFileRestriction._isEnabled;
 }
 
 bool Buffer::allowSmartHilite() const
 {
-	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	return (!_isLargeFile || nppGui._largeFileRestriction._allowSmartHilite) || !nppGui._largeFileRestriction._isEnabled;
 }
 
 bool Buffer::allowClickableLink() const
 {
-	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	return (!_isLargeFile || nppGui._largeFileRestriction._allowClickableLink) || !nppGui._largeFileRestriction._isEnabled;
 }
 
@@ -666,7 +666,7 @@ void FileManager::addBufferReference(BufferID buffer, ScintillaEditView * identi
 }
 
 
-void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
+void FileManager::closeBuffer(BufferID id, const ScintillaEditView* identifier)
 {
 	int index = getBufferIndexByID(id);
 	Buffer* buf = getBufferByIndex(index);
@@ -692,7 +692,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	//Get file size
 	int64_t fileSize = -1;
 	const wchar_t* pPath = filename;
-	if (!::PathFileExists(pPath))
+	if (!doesFileExist(pPath))
 	{
 		pPath = backupFileName;
 	}
@@ -711,7 +711,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	// * the auto-completion feature will be disabled for large files
 	// * the session snapshotsand periodic backups feature will be disabled for large files
 	// * the backups on save feature will be disabled for large files
-	NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	bool isLargeFile = false;
 	if (nppGui._largeFileRestriction._isEnabled)
 		isLargeFile = fileSize >= nppGui._largeFileRestriction._largeFileSizeDefInByte;
@@ -750,8 +750,8 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		}
 	}
 
-	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
-	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
+	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
+	if (isSnapshotMode && !doesFileExist(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
 		wcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
 	}
@@ -765,11 +765,11 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	loadedFileFormat._eolFormat = EolType::unknown;
 	loadedFileFormat._language = L_TEXT;
 
-	bool res = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
+	bool loadRes = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
 
 	delete[] data;
 
-	if (res)
+	if (loadRes)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath, isLargeFile);
 		BufferID id = newBuf;
@@ -778,7 +778,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		if (backupFileName != NULL)
 		{
 			newBuf->_backupFileName = backupFileName;
-			if (!PathFileExists(fullpath))
+			if (!doesFileExist(fullpath))
 				newBuf->_currentStatus = DOC_UNNAMED;
 		}
 
@@ -893,13 +893,13 @@ bool FileManager::reloadBufferDeferred(BufferID id)
 
 bool FileManager::deleteFile(BufferID id)
 {
-	Buffer* buf = getBufferByID(id);
+	const Buffer* buf = getBufferByID(id);
 	wstring fileNamePath = buf->getFullPathName();
 
 	// Make sure to form a string with double '\0' terminator.
 	fileNamePath.append(1, '\0');
 
-	if (!PathFileExists(fileNamePath.c_str()))
+	if (!doesFileExist(fileNamePath.c_str()))
 		return false;
 
 	SHFILEOPSTRUCT fileOpStruct = {};
@@ -1004,7 +1004,7 @@ bool FileManager::backupCurrentBuffer()
 				backupFilePath += L"\\backup\\";
 
 				// if "backup" folder doesn't exist, create it.
-				if (!PathFileExists(backupFilePath.c_str()))
+				if (!doesFileExist(backupFilePath.c_str()))
 				{
 					::CreateDirectory(backupFilePath.c_str(), NULL);
 				}
@@ -1014,7 +1014,7 @@ bool FileManager::backupCurrentBuffer()
 				const int temBufLen = 32;
 				wchar_t tmpbuf[temBufLen];
 				time_t ltime = time(0);
-				struct tm* today = localtime(&ltime);
+				const struct tm* today = localtime(&ltime);
 				if (!today)
 					return false;
 
@@ -1079,7 +1079,7 @@ bool FileManager::backupCurrentBuffer()
 				{
 					if (buffer->isUntitled()) // "new #" file is saved successfully, then we replace its only physical existence by its temp
 					{
-						if (::PathFileExists(fullpath))
+						if (doesFileExist(fullpath))
 							::ReplaceFile(fullpath, fullpathTemp.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
 						else
 							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
@@ -1183,7 +1183,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			return SavingStatus::NotEnoughRoom;
 	}
 
-	if (PathFileExists(fullpath))
+	if (doesFileExist(fullpath))
 	{
 		attrib = ::GetFileAttributes(fullpath);
 
@@ -1574,7 +1574,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		}
 		else // x64
 		{
-			NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+			const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 			if (!nppGui._largeFileRestriction._suppress2GBWarning) 
 			{
 				int res = pNativeSpeaker->messageBox("WantToOpenHugeFile",
@@ -1654,7 +1654,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 
             if (isFirstTime)
             {
-				NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+				const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 
 				// check if file contain any BOM
                 if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
@@ -1831,7 +1831,7 @@ int FileManager::getFileNameFromBuffer(BufferID id, wchar_t * fn2copy)
 	if (getBufferIndexByID(id) == -1)
 		return -1;
 
-	Buffer* buf = getBufferByID(id);
+	const Buffer* buf = getBufferByID(id);
 
 	if (fn2copy)
 		lstrcpy(fn2copy, buf->getFullPathName());

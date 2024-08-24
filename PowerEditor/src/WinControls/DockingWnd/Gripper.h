@@ -37,7 +37,7 @@ static const WORD DotPattern[] =
 };
 
 
-#define MDLG_CLASS_NAME TEXT("moveDlg")
+#define MDLG_CLASS_NAME L"moveDlg"
 
 
 class Gripper final

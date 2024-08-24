@@ -71,4 +71,4 @@ static void FoldIndentDoc(Sci_PositionU startPos, Sci_Position length, int /* in
 	}
 }
 
-LexerModule lmIndent(SCLEX_INDENT, ColouriseIndentDoc, "indent", FoldIndentDoc);
+extern const LexerModule lmIndent(SCLEX_INDENT, ColouriseIndentDoc, "indent", FoldIndentDoc);

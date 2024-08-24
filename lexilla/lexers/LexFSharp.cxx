@@ -766,4 +766,4 @@ void FoldLexicalGroup(LexAccessor &styler, int &levelNext, const Sci_Position li
 }
 } // namespace
 
-LexerModule lmFSharp(SCLEX_FSHARP, LexerFSharp::LexerFactoryFSharp, "fsharp", fsharpWordLists);
+extern const LexerModule lmFSharp(SCLEX_FSHARP, LexerFSharp::LexerFactoryFSharp, "fsharp", fsharpWordLists);

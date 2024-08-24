@@ -221,9 +221,9 @@ bool FunctionParsersManager::loadFuncListFromXmlTree(const wstring & xmlDirPath,
 		std::vector<wstring> classNameExprArray2;
 		std::vector<wstring> functionNameExprArray2;
 		getUnitPaserParameters(functionParser, mainExpr2, functionNameExprArray2, classNameExprArray2);
-		FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr2.c_str(), functionNameExprArray2, classNameExprArray2);
+		FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr2, functionNameExprArray2, classNameExprArray2);
 
-		_parsers[index]->_parser = new FunctionMixParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray, funcUnitPaser);
+		_parsers[index]->_parser = new FunctionMixParser(id, displayName, commentExpr.c_str(), mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray, funcUnitPaser);
 	}
 	else if (classRangeParser)
 	{

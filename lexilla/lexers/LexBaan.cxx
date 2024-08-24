@@ -992,4 +992,4 @@ void SCI_METHOD LexerBaan::Fold(Sci_PositionU startPos, Sci_Position length, int
 	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
 }
 
-LexerModule lmBaan(SCLEX_BAAN, LexerBaan::LexerFactoryBaan, "baan", baanWordLists);
+extern const LexerModule lmBaan(SCLEX_BAAN, LexerBaan::LexerFactoryBaan, "baan", baanWordLists);

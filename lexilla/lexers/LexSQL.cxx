@@ -72,7 +72,7 @@ public :
 		sqlStatement.Set(lineNumber, sqlStatesLine);
 	}
 
-	sql_state_t IgnoreWhen (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IgnoreWhen (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_IGNORE_WHEN;
 		else
@@ -81,7 +81,7 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t IntoCondition (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IntoCondition (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_INTO_CONDITION;
 		else
@@ -90,7 +90,7 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t IntoExceptionBlock (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IntoExceptionBlock (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_INTO_EXCEPTION;
 		else
@@ -99,7 +99,7 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t IntoDeclareBlock (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IntoDeclareBlock (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_INTO_DECLARE;
 		else
@@ -108,7 +108,7 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t IntoMergeStatement (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IntoMergeStatement (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_MERGE_STATEMENT;
 		else
@@ -117,7 +117,7 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t CaseMergeWithoutWhenFound (sql_state_t sqlStatesLine, bool found) {
+	sql_state_t CaseMergeWithoutWhenFound (sql_state_t sqlStatesLine, bool found) noexcept {
 		if (found)
 			sqlStatesLine |= MASK_CASE_MERGE_WITHOUT_WHEN_FOUND;
 		else
@@ -125,7 +125,7 @@ public :
 
 		return sqlStatesLine;
 	}
-	sql_state_t IntoSelectStatementOrAssignment (sql_state_t sqlStatesLine, bool found) {
+	sql_state_t IntoSelectStatementOrAssignment (sql_state_t sqlStatesLine, bool found) noexcept {
 		if (found)
 			sqlStatesLine |= MASK_INTO_SELECT_STATEMENT_OR_ASSIGNEMENT;
 		else
@@ -133,21 +133,21 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t BeginCaseBlock (sql_state_t sqlStatesLine) {
+	sql_state_t BeginCaseBlock (sql_state_t sqlStatesLine) noexcept {
 		if ((sqlStatesLine & MASK_NESTED_CASES) < MASK_NESTED_CASES) {
 			sqlStatesLine++;
 		}
 		return sqlStatesLine;
 	}
 
-	sql_state_t EndCaseBlock (sql_state_t sqlStatesLine) {
+	sql_state_t EndCaseBlock (sql_state_t sqlStatesLine) noexcept {
 		if ((sqlStatesLine & MASK_NESTED_CASES) > 0) {
 			sqlStatesLine--;
 		}
 		return sqlStatesLine;
 	}
 
-	sql_state_t IntoCreateStatement (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IntoCreateStatement (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_INTO_CREATE;
 		else
@@ -156,7 +156,7 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t IntoCreateViewStatement (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IntoCreateViewStatement (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_INTO_CREATE_VIEW;
 		else
@@ -165,7 +165,7 @@ public :
 		return sqlStatesLine;
 	}
 
-	sql_state_t IntoCreateViewAsStatement (sql_state_t sqlStatesLine, bool enable) {
+	sql_state_t IntoCreateViewAsStatement (sql_state_t sqlStatesLine, bool enable) noexcept {
 		if (enable)
 			sqlStatesLine |= MASK_INTO_CREATE_VIEW_AS_STATEMENT;
 		else
@@ -174,45 +174,45 @@ public :
 		return sqlStatesLine;
 	}
 
-	bool IsIgnoreWhen (sql_state_t sqlStatesLine) {
+	bool IsIgnoreWhen (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_IGNORE_WHEN) != 0;
 	}
 
-	bool IsIntoCondition (sql_state_t sqlStatesLine) {
+	bool IsIntoCondition (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_INTO_CONDITION) != 0;
 	}
 
-	bool IsIntoCaseBlock (sql_state_t sqlStatesLine) {
+	bool IsIntoCaseBlock (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_NESTED_CASES) != 0;
 	}
 
-	bool IsIntoExceptionBlock (sql_state_t sqlStatesLine) {
+	bool IsIntoExceptionBlock (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_INTO_EXCEPTION) != 0;
 	}
-	bool IsIntoSelectStatementOrAssignment (sql_state_t sqlStatesLine) {
+	bool IsIntoSelectStatementOrAssignment (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_INTO_SELECT_STATEMENT_OR_ASSIGNEMENT) != 0;
 	}
-	bool IsCaseMergeWithoutWhenFound (sql_state_t sqlStatesLine) {
+	bool IsCaseMergeWithoutWhenFound (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_CASE_MERGE_WITHOUT_WHEN_FOUND) != 0;
 	}
 
-	bool IsIntoDeclareBlock (sql_state_t sqlStatesLine) {
+	bool IsIntoDeclareBlock (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_INTO_DECLARE) != 0;
 	}
 
-	bool IsIntoMergeStatement (sql_state_t sqlStatesLine) {
+	bool IsIntoMergeStatement (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_MERGE_STATEMENT) != 0;
 	}
 
-	bool IsIntoCreateStatement (sql_state_t sqlStatesLine) {
+	bool IsIntoCreateStatement (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_INTO_CREATE) != 0;
 	}
 
-	bool IsIntoCreateViewStatement (sql_state_t sqlStatesLine) {
+	bool IsIntoCreateViewStatement (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_INTO_CREATE_VIEW) != 0;
 	}
 
-	bool IsIntoCreateViewAsStatement (sql_state_t sqlStatesLine) {
+	bool IsIntoCreateViewAsStatement (sql_state_t sqlStatesLine) noexcept {
 		return (sqlStatesLine & MASK_INTO_CREATE_VIEW_AS_STATEMENT) != 0;
 	}
 
@@ -359,14 +359,14 @@ public :
 		return new LexerSQL();
 	}
 private:
-	bool IsStreamCommentStyle(int style) {
+	bool IsStreamCommentStyle(int style) noexcept {
 		return style == SCE_SQL_COMMENT ||
 		       style == SCE_SQL_COMMENTDOC ||
 		       style == SCE_SQL_COMMENTDOCKEYWORD ||
 		       style == SCE_SQL_COMMENTDOCKEYWORDERROR;
 	}
 
-	bool IsCommentStyle (int style) {
+	bool IsCommentStyle (int style) noexcept {
 		switch (style) {
 		case SCE_SQL_COMMENT :
 		case SCE_SQL_COMMENTDOC :
@@ -437,7 +437,7 @@ Sci_Position SCI_METHOD LexerSQL::WordListSet(int n, const char *wl) {
 	}
 	Sci_Position firstModification = -1;
 	if (wordListN) {
-		if (wordListN->Set(wl)) {
+		if (wordListN->Set(wl, true)) {
 			firstModification = 0;
 		}
 	}
@@ -777,13 +777,13 @@ void SCI_METHOD LexerSQL::Fold(Sci_PositionU startPos, Sci_Position length, int 
 		// If new keyword (cannot trigger on elseif or nullif, does less tests)
 		if (style == SCE_SQL_WORD && stylePrev != SCE_SQL_WORD) {
 			constexpr int MAX_KW_LEN = 9;	// Maximum length of folding keywords
-			char s[MAX_KW_LEN + 2];
+			char s[MAX_KW_LEN + 2]{};
 			unsigned int j = 0;
 			for (; j < MAX_KW_LEN + 1; j++) {
 				if (!iswordchar(styler[i + j])) {
 					break;
 				}
-				s[j] = static_cast<char>(tolower(styler[i + j]));
+				s[j] = MakeLowerCase(styler[i + j]);
 			}
 			if (j == MAX_KW_LEN + 1) {
 				// Keyword too long, don't test it
@@ -971,4 +971,4 @@ void SCI_METHOD LexerSQL::Fold(Sci_PositionU startPos, Sci_Position length, int 
 
 }
 
-LexerModule lmSQL(SCLEX_SQL, LexerSQL::LexerFactorySQL, "sql", sqlWordListDesc);
+extern const LexerModule lmSQL(SCLEX_SQL, LexerSQL::LexerFactorySQL, "sql", sqlWordListDesc);

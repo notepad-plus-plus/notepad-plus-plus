@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include "TabBar.h"
 #include "Parameters.h"
+#include "DoubleBuffer/DoubleBuffer.h"
 
 #define	IDC_DRAG_TAB     1404
 #define	IDC_DRAG_INTERDIT_TAB 1405
@@ -62,7 +63,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLin
 	_hSelf = ::CreateWindowEx(
 				0,
 				WC_TABCONTROL,
-				TEXT("Tab"),
+				L"Tab",
 				style,
 				0, 0, 0, 0,
 				_hParent,
@@ -117,7 +118,7 @@ void TabBar::destroy()
 }
 
 
-int TabBar::insertAtEnd(const TCHAR *subTabName)
+int TabBar::insertAtEnd(const wchar_t *subTabName)
 {
 	TCITEM tie{};
 	tie.mask = TCIF_TEXT | TCIF_IMAGE;
@@ -126,12 +127,12 @@ int TabBar::insertAtEnd(const TCHAR *subTabName)
 	if (_hasImgLst)
 		index = 0;
 	tie.iImage = index;
-	tie.pszText = (TCHAR *)subTabName;
+	tie.pszText = (wchar_t *)subTabName;
 	return int(::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie)));
 }
 
 
-void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
+void TabBar::getCurrentTitle(wchar_t *title, int titleLen)
 {
 	TCITEM tci{};
 	tci.mask = TCIF_TEXT;
@@ -300,7 +301,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE | TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 	style |= TCS_OWNERDRAWFIXED;
 
-	_hSelf = ::CreateWindowEx(0, WC_TABCONTROL,	TEXT("Tab"), style,	0, 0, 0, 0, _hParent, NULL, _hInst, 0);
+	_hSelf = ::CreateWindowEx(0, WC_TABCONTROL,	L"Tab", style,	0, 0, 0, 0, _hParent, NULL, _hInst, 0);
 
 	if (!_hSelf)
 	{
@@ -343,6 +344,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
+
+	DoubleBuffer::subclass(_hSelf);
 
 	setFont();
 
@@ -962,30 +965,30 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_ERASEBKGND:
 		{
-			// Skip background erasing and set fErase in PAINTSTRUCT instead,
-			// WM_PAINT does all the painting in all cases
-			return FALSE;
+			if (!NppDarkMode::isEnabled())
+			{
+				break;	// Let the control paint background the default way
+			}
+
+			RECT rc{};
+			::GetClientRect(hwnd, &rc);
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+			return TRUE;
 		}
 
 		case WM_PAINT:
+		case WM_PRINTCLIENT:
 		{
-			PAINTSTRUCT ps{};
-			HDC hdc = _dblBuf.beginPaint(hwnd, &ps);
-
 			LONG_PTR dwStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
 			if (!NppDarkMode::isEnabled() || !(dwStyle & TCS_OWNERDRAWFIXED))
 			{
-				// Even if the tab bar common control is used directly, e.g. in non-dark mode,
-				// it suffers from flickering during updates, so let it paint into a back buffer
-				::DefWindowProc(hwnd, WM_ERASEBKGND, reinterpret_cast<WPARAM>(hdc), 0);
-				::DefWindowProc(hwnd, WM_PRINT, reinterpret_cast<WPARAM>(hdc), PRF_NONCLIENT | PRF_CLIENT);
-				_dblBuf.endPaint(hwnd, &ps);
-				return 0;
+				break;	// Let the control paint itself the default way
 			}
 
-			const bool hasMultipleLines = ((dwStyle & TCS_BUTTONS) == TCS_BUTTONS);
+			PAINTSTRUCT ps{};
+			HDC hdc = (Message == WM_PAINT) ? ::BeginPaint(hwnd, &ps) : reinterpret_cast<HDC>(wParam);
 
-			FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
+			const bool hasMultipleLines = ((dwStyle & TCS_BUTTONS) == TCS_BUTTONS);
 
 			UINT id = ::GetDlgCtrlID(hwnd);
 
@@ -1020,8 +1023,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 				dis.itemState |= ODS_NOFOCUSRECT; // maybe, does it handle it already?
 
-				RECT rcIntersect{};
-				if (IntersectRect(&rcIntersect, &ps.rcPaint, &dis.rcItem))
+				if (::RectVisible(hdc, &dis.rcItem))
 				{
 					if (!hasMultipleLines)
 					{
@@ -1113,7 +1115,11 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			SelectObject(hdc, holdPen);
 
-			_dblBuf.endPaint(hwnd, &ps);
+			if (Message == WM_PAINT)
+			{
+				::EndPaint(hwnd, &ps);
+			}
+
 			return 0;
 		}
 
@@ -1145,11 +1151,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	int nTab = pDrawItemStruct->itemID;
 	if (nTab < 0)
 	{
-		::MessageBox(NULL, TEXT("nTab < 0"), TEXT(""), MB_OK);
+		::MessageBox(NULL, L"nTab < 0", L"", MB_OK);
 	}
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
-	TCHAR label[MAX_PATH] = { '\0' };
+	wchar_t label[MAX_PATH] = { '\0' };
 	TCITEM tci{};
 	tci.mask = TCIF_TEXT|TCIF_IMAGE;
 	tci.pszText = label;
@@ -1157,7 +1163,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 	if (!::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci)))
 	{
-		std::wstring errorMessageTitle = TEXT("TabBarPlus::drawItem wrong: ! TCM_GETITEM");
+		std::wstring errorMessageTitle = L"TabBarPlus::drawItem wrong: ! TCM_GETITEM";
 		std::wstring errorMessage = GetLastErrorAsString(GetLastError());
 		::MessageBox(NULL, errorMessage.c_str(), errorMessageTitle.c_str(), MB_OK);
 	}
@@ -1244,10 +1250,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 	}
 
-	const int individualColourId = getIndividualTabColour(nTab);
+	const int individualColourId = getIndividualTabColourId(nTab);
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
 	RECT barRect = rect;
+	NppParameters& nppParam = NppParameters::getInstance();
 	if (isSelected)
 	{
 		hBrush = ::CreateSolidBrush(colorActiveBg);
@@ -1273,7 +1280,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 			if (individualColourId != -1)
 			{
-				topBarColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, isFocused);
+				topBarColour = nppParam.getIndividualTabColour(individualColourId, isDarkMode, isFocused);
 			}
 
 			hBrush = ::CreateSolidBrush(topBarColour);
@@ -1293,7 +1300,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 		else if (individualColourId != -1)
 		{
-			brushColour = NppDarkMode::getIndividualTabColour(individualColourId, isDarkMode, false);
+			brushColour = nppParam.getIndividualTabColour(individualColourId, isDarkMode, false);
 		}
 		else
 		{
@@ -1385,7 +1392,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 			SelectObject(hDC, _hLargeFont);
 	}
 	SIZE charPixel{};
-	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
+	::GetTextExtentPoint(hDC, L" ", 1, &charPixel);
 	int spaceUnit = charPixel.cx;
 
 	TEXTMETRIC textMetrics{};
@@ -1398,9 +1405,9 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	// This code will read in one character at a time and remove every first ampersand (&).
 	// ex. If input "test && test &&& test &&&&" then output will be "test & test && test &&&".
 	// Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
-	TCHAR decodedLabel[MAX_PATH] = { '\0' };
-	const TCHAR* in = label;
-	TCHAR* out = decodedLabel;
+	wchar_t decodedLabel[MAX_PATH] = { '\0' };
+	const wchar_t* in = label;
+	wchar_t* out = decodedLabel;
 	while (*in != 0)
 		if (*in == '&')
 			while (*(++in) == '&')
@@ -1460,9 +1467,9 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 		::SetCursor(::LoadCursor(NULL, IDC_ARROW));
 	else
 	{
-		TCHAR className[256] = { '\0' };
+		wchar_t className[256] = { '\0' };
 		::GetClassName(hWin, className, 256);
-		if ((!lstrcmp(className, TEXT("Scintilla"))) || (!lstrcmp(className, WC_TABCONTROL)))
+		if ((!lstrcmp(className, L"Scintilla")) || (!lstrcmp(className, WC_TABCONTROL)))
 		{
 			if (::GetKeyState(VK_LCONTROL) & 0x80000000)
 				::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_PLUS_TAB)));
@@ -1495,8 +1502,8 @@ void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 	TCITEM itemData_nDraggedTab{}, itemData_shift{};
 	itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
 	const int stringSize = 256;
-	TCHAR str1[stringSize] = { '\0' };
-	TCHAR str2[stringSize] = { '\0' };
+	wchar_t str1[stringSize] = { '\0' };
+	wchar_t str2[stringSize] = { '\0' };
 
 	itemData_nDraggedTab.pszText = str1;
 	itemData_nDraggedTab.cchTextMax = (stringSize);

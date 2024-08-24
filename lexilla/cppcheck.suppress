@@ -11,6 +11,9 @@ useInitializationList
 // produces same result on empty collections
 useStlAlgorithm
 
+// Common for lexer object destructors
+missingOverride
+
 // Some non-explicit constructors are used for conversions or are private to lexers
 noExplicitConstructor
 
@@ -153,7 +156,6 @@ constVariableReference:lexilla/lexers/LexTCL.cxx
 invalidscanf:lexilla/lexers/LexTCMD.cxx
 constParameterReference:lexilla/lexers/LexTeX.cxx
 variableScope:lexilla/lexers/LexTeX.cxx
-knownConditionTrueFalse:lexilla/lexers/LexTxt2tags.cxx
 knownConditionTrueFalse:lexilla/lexers/LexVB.cxx
 constParameterReference:lexilla/lexers/LexVerilog.cxx
 variableScope:lexilla/lexers/LexVerilog.cxx
@@ -205,3 +207,9 @@ knownConditionTrueFalse:lexilla/test/unit/testCharacterSet.cxx
 
 // cppcheck fails REQUIRE from Catch
 comparisonOfFuncReturningBoolError:lexilla/test/unit/*.cxx
+
+// cppcheck fails SECTION from Catch
+syntaxError:lexilla/test/unit/*.cxx
+
+// argv has a standardised type
+constParameter:lexilla/examples/CheckLexilla/CheckLexilla.c

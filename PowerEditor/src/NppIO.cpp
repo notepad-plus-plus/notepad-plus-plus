@@ -255,15 +255,12 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 		}
 	}
 
-	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
-	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
+	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
+	if (isSnapshotMode && !doesFileExist(longFileName)) // UNTITLED
 	{
 		wcscpy_s(longFileName, targetFileName.c_str());
 	}
     _lastRecentFileList.remove(longFileName);
-
-	wstring fileName2Find;
-	wstring gs_fileName{ targetFileName };
 
 
 	// "fileName" could be:
@@ -277,6 +274,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	// if case 1 & 2 not found, search case 3
 	if (foundBufID == BUFFER_INVALID)
 	{
+		wstring fileName2Find;
 		fileName2Find = longFileName;
 		foundBufID = MainFileManager.getBufferFromName(fileName2Find.c_str());
 	}
@@ -297,13 +295,13 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
         return foundBufID;
     }
 
-    if (isFileSession(longFileName) && PathFileExists(longFileName))
+    if (isFileSession(longFileName) && doesFileExist(longFileName))
     {
         fileLoadSession(longFileName);
         return BUFFER_INVALID;
     }
 
-	if (isFileWorkspace(longFileName) && PathFileExists(longFileName))
+	if (isFileWorkspace(longFileName) && doesFileExist(longFileName))
 	{
 		nppParam.setWorkSpaceFilePath(0, longFileName);
 		// This line switches to Project Panel 1 while starting up Npp
@@ -313,7 +311,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	}
 
     bool isWow64Off = false;
-    if (!PathFileExists(longFileName))
+    if (!doesFileExist(longFileName))
     {
         nppParam.safeWow64EnableWow64FsRedirection(FALSE);
         isWow64Off = true;
@@ -327,13 +325,13 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{
-		if (!PathFileExists(longFileName) && !globbing)
+		if (!doesFileExist(longFileName) && !globbing)
 		{
 			wstring longFileDir(longFileName);
 			PathRemoveFileSpec(longFileDir);
 
 			bool isCreateFileSuccessful = false;
-			if (PathFileExists(longFileDir.c_str()))
+			if (doesDirectoryExist(longFileDir.c_str()))
 			{
 				int res = _nativeLangSpeaker.messageBox("CreateNewFileOrNot",
 					_pPublicInterface->getHSelf(),
@@ -414,7 +412,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 
 		if (buffer != BUFFER_INVALID)
 		{
-			isSnapshotMode = (backupFileName != NULL && ::PathFileExists(backupFileName));
+			isSnapshotMode = (backupFileName != NULL && doesFileExist(backupFileName));
 			if (isSnapshotMode)
 			{
 				// To notify plugins that a snapshot dirty file is loaded on startup
@@ -792,13 +790,13 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		bool isWow64Off = false;
 		NppParameters& nppParam = NppParameters::getInstance();
 		const wchar_t *fn = buf->getFullPathName();
-		if (!PathFileExists(fn))
+		if (!doesFileExist(fn))
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;
 		}
 
-		if (PathFileExists(buf->getFullPathName()))
+		if (doesFileExist(buf->getFullPathName()))
 			fileFullPath = buf->getFullPathName();
 
 		// We enable Wow64 system, if it was disabled
@@ -993,6 +991,45 @@ int Notepad_plus::setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAl
 		}
 		l = (NppParameters::getInstance()).getLangFromIndex(i++);
 	}
+	
+	LangType lt = (LangType)langType;
+	wstring fileUdlString(getLangDesc(lt, true));
+
+	for (size_t u=0; u<(size_t)nppParam.getNbUserLang(); u++)
+	{
+		UserLangContainer& ulc = nppParam.getULCFromIndex(u);
+		const wchar_t *extList = ulc.getExtention();
+		const wchar_t *lName = ulc.getName();
+
+		wstring list(L"");
+		list += extList;
+
+		wstring stringFilters = exts2Filters(list, showAllExt ? -1 : 40);
+		const wchar_t *filters = stringFilters.c_str();
+
+		if (filters[0])
+		{
+			fDlg.setExtFilter(lName, filters);
+
+			if (lt == L_USER)
+			{
+				wstring loopUdlString(L"udf - ");
+				loopUdlString += lName;
+
+				if (!ltFound)
+				{
+					ltFound = fileUdlString.compare(loopUdlString) == 0;
+				}
+
+				if (!ltFound)
+				{
+					++ltIndex;
+				}
+			}
+		}
+	}
+	
+	
 
     if (!ltFound)
         return -1;
@@ -1007,7 +1044,15 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager.getBufferByID(bufferID);
 
-	if (buf->isUntitled() && buf->docLength() == 0)
+	int viewToClose = currentView();
+	if (curView != -1)
+		viewToClose = curView;
+
+	// Determinate if it's a cloned buffer
+	DocTabView* nonCurrentTab = (viewToClose == MAIN_VIEW) ? &_subDocTab : &_mainDocTab;
+	bool isCloned = nonCurrentTab->getIndexByBuffer(bufferID) != -1;
+
+	if ((buf->isUntitled() && buf->docLength() == 0) || isCloned)
 	{
 		// Do nothing
 	}
@@ -1031,12 +1076,12 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		}
 	}
 
-	int viewToClose = currentView();
-	if (curView != -1)
-		viewToClose = curView;
-
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-	doClose(bufferID, viewToClose, isSnapshotMode);
+	bool doDeleteBackup = isSnapshotMode;
+	if (isSnapshotMode && isCloned) // if Buffer is cloned then we don't delete backup file
+		doDeleteBackup = false;
+
+	doClose(bufferID, viewToClose, doDeleteBackup);
 	return true;
 }
 
@@ -1068,7 +1113,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		{
 			if (isSnapshotMode)
 			{
-				if (buf->getBackupFileName() == L"" || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
+				if (buf->getBackupFileName() == L"" || !doesFileExist(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
 				{
 					// warning user and save it if user want it.
 					activateBuffer(id, MAIN_VIEW);
@@ -1152,7 +1197,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		{
 			if (isSnapshotMode)
 			{
-				if (buf->getBackupFileName() == L"" || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
+				if (buf->getBackupFileName() == L"" || !doesFileExist(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
 				{
 					// warning user and save it if user want it.
 					activateBuffer(id, SUB_VIEW);
@@ -1604,7 +1649,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				// Get the current file's directory
 				wstring path = fn;
 				::PathRemoveFileSpec(path);
-				fn_bak = path.c_str();
+				fn_bak = path;
 				fn_bak += L"\\";
 
 				// If verbose, save it in a sub folder
@@ -1620,7 +1665,7 @@ bool Notepad_plus::fileSave(BufferID id)
 			fn_bak = fn_bak_expanded;
 
 			// Make sure the directory exists
-			if (!::PathFileExists(fn_bak.c_str()))
+			if (!doesDirectoryExist(fn_bak.c_str()))
 			{
 				SHCreateDirectory(NULL, fn_bak.c_str());
 			}
@@ -1633,14 +1678,14 @@ bool Notepad_plus::fileSave(BufferID id)
 			}
 			else if (backup == bak_verbose)
 			{
-				constexpr int temBufLen = 32;
-				wchar_t tmpbuf[temBufLen]{};
 				time_t ltime = time(0);
 				const struct tm* today;
 
 				today = localtime(&ltime);
 				if (today)
 				{
+					constexpr int temBufLen = 32;
+					wchar_t tmpbuf[temBufLen]{};
 					wcsftime(tmpbuf, temBufLen, L"%Y-%m-%d_%H%M%S", today);
 
 					fn_bak += name;
@@ -1804,6 +1849,8 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	fDlg.setExtIndex(langTypeIndex + 1); // +1 for "All types"
 
+	fDlg.setSaveAsCopy(isSaveCopy);
+
 	wstring localizedTitle;
 	if (isSaveCopy)
 	{
@@ -1854,6 +1901,15 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 				_lastRecentFileList.remove(fn.c_str());
 			}
 
+			if (res && isSaveCopy && fDlg.getOpenTheCopyAfterSaveAsCopy())
+			{
+				BufferID bid = doOpen(fn);
+				if (bid != BUFFER_INVALID)
+				{
+					switchToFile(bid);
+				}
+			}
+
 			return res;
 		}
 		else		//cannot save, other view has buffer already open, activate it
@@ -1887,7 +1943,7 @@ bool Notepad_plus::fileRename(BufferID id)
 	scnN.nmhdr.idFrom = (uptr_t)bufferID;
 
 	bool success = false;
-	bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
+	bool isFileExisting = doesFileExist(buf->getFullPathName());
 	if (isFileExisting)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
@@ -1990,7 +2046,7 @@ bool Notepad_plus::fileRenameUntitled(BufferID id, const wchar_t* tabNewName)
 	}
 	Buffer* buf = MainFileManager.getBufferByID(bufferID);
 
-	bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
+	bool isFileExisting = doesFileExist(buf->getFullPathName());
 	if (isFileExisting) return false;
 
 	// We are just going to rename the tab nothing else
@@ -2241,19 +2297,20 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		}
 
 		bool isWow64Off = false;
-		if (!PathFileExists(pFn))
+		if (!doesFileExist(pFn))
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;
 		}
-		if (PathFileExists(pFn))
+
+		if (doesFileExist(pFn))
 		{
 			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty())
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
 			else
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
 		}
-		else if (isSnapshotMode && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
+		else if (isSnapshotMode && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
 		{
 			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
 		}
@@ -2319,7 +2376,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 
 			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
 
-			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty() && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
+			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty() && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
 			buf->setRTL(session._mainViewFiles[i]._isRTL);
@@ -2370,13 +2427,13 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		}
 
 		bool isWow64Off = false;
-		if (!PathFileExists(pFn))
+		if (!doesFileExist(pFn))
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;
 		}
 
-		if (PathFileExists(pFn))
+		if (doesFileExist(pFn))
 		{
 			//check if already open in main. If so, clone
 			BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
@@ -2393,7 +2450,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 			}
 		}
-		else if (isSnapshotMode && PathFileExists(session._subViewFiles[k]._backupFilePath.c_str()))
+		else if (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
 		{
 			lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
 		}
@@ -2450,7 +2507,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly);
 
-			if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty() && PathFileExists(session._subViewFiles[k]._backupFilePath.c_str()))
+			if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty() && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
 			buf->setRTL(session._subViewFiles[k]._isRTL);
@@ -2545,9 +2602,9 @@ bool Notepad_plus::fileLoadSession(const wchar_t *fn)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 		const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
-		wstring sessionExt = L"";
 		if (*ext != '\0')
 		{
+			wstring sessionExt = L"";
 			if (*ext != '.')
 				sessionExt += L".";
 			sessionExt += ext;
@@ -2561,7 +2618,7 @@ bool Notepad_plus::fileLoadSession(const wchar_t *fn)
 	}
 	else
 	{
-		if (PathFileExists(fn))
+		if (doesFileExist(fn))
 			sessionFileName = fn;
 	}
 
@@ -2615,7 +2672,7 @@ const wchar_t * Notepad_plus::fileSaveSession(size_t nbFile, wchar_t ** fileName
 		{
 			for (size_t i = 0 ; i < nbFile ; ++i)
 			{
-				if (PathFileExists(fileNames[i]))
+				if (doesFileExist(fileNames[i]))
 					currentSession._mainViewFiles.push_back(wstring(fileNames[i]));
 			}
 		}
@@ -2643,9 +2700,9 @@ const wchar_t * Notepad_plus::fileSaveSession(size_t nbFile, wchar_t ** fileName
 	CustomFileDialog fDlg(_pPublicInterface->getHSelf());
 	const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedSessionExt.c_str();
 
-	wstring sessionExt = L"";
 	if (*ext != '\0')
 	{
+		wstring sessionExt = L"";
 		if (*ext != '.')
 			sessionExt += L".";
 		sessionExt += ext;

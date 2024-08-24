@@ -46,8 +46,8 @@ u78 Utf8_16_Read::utf8_7bits_8bits()
 {
 	int rv = 1;
 	int ASCII7only = 1;
-	utf8 *sx	= (utf8 *)m_pBuf;
-	utf8 *endx	= sx + m_nLen;
+	utf8* sx = (utf8 *)m_pBuf;
+	utf8* endx = sx + m_nLen;
 
 	while (sx<endx)
 	{
@@ -299,7 +299,7 @@ Utf8_16_Write::~Utf8_16_Write()
 	closeFile();
 }
 
-bool Utf8_16_Write::openFile(const TCHAR *name)
+bool Utf8_16_Write::openFile(const wchar_t *name)
 {
 	m_pFile = std::make_unique<Win32_IO_File>(name);
 

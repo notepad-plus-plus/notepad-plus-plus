@@ -25,6 +25,7 @@
 #include <unordered_map>
 #include "CustomFileDialog.h"
 #include "Parameters.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -53,6 +54,10 @@ namespace // anonymous
 
 	static const int IDC_FILE_CUSTOM_CHECKBOX = 4;
 	static const int IDC_FILE_TYPE_CHECKBOX = IDC_FILE_CUSTOM_CHECKBOX + 1;
+
+	static const unsigned char SAVE_AS_COPY_OPEN = 0x01;
+	static const unsigned char SAVE_AS_COPY_DLG = 0x02;
+
 
 	// Returns a first extension from the extension specification string.
 	// Multiple extensions are separated with ';'.
@@ -365,15 +370,21 @@ public:
 		return E_NOTIMPL;
 	}
 
-	FileDialogEventHandler(IFileDialog* dlg, const std::vector<Filter>& filterSpec, int fileIndex, int wildcardIndex)
+	FileDialogEventHandler(IFileDialog* dlg, const std::vector<Filter>& filterSpec, int fileIndex, int wildcardIndex, bool isSaveAsCopy)
 		: _cRef(1), _dialog(dlg), _customize(dlg), _filterSpec(filterSpec), _currentType(fileIndex + 1),
-		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0)
+		_lastSelectedType(fileIndex + 1), _wildcardType(wildcardIndex >= 0 ? wildcardIndex + 1 : 0),
+		_isSaveAsCopy(isSaveAsCopy)
 	{
 		installHooks();
 	}
 
 	~FileDialogEventHandler()
 	{
+		if (_hwndButtonTooltip)
+		{
+			DestroyWindow(_hwndButtonTooltip);
+			_hwndButtonTooltip = nullptr;
+		}
 		eraseHandles();
 		removeHooks();
 	}
@@ -396,7 +407,21 @@ private:
 		{
 			EnumChildWindows(hwndDlg, &EnumChildProc, reinterpret_cast<LPARAM>(this));
 			if (_hwndButton)
+			{
 				s_handleMap[_hwndButton] = this;
+				if (_isSaveAsCopy && !_hwndButtonTooltip)
+				{
+					NppParameters& nppParam = NppParameters::getInstance();
+					NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+					wstring tipText = pNativeSpeaker->getLocalizedStrFromID("fileSaveAsCopySaveButton-tip",
+						L"Hold Shift while pressing Save to open the copy after saving.");
+					int ctrlId = GetDlgCtrlID(_hwndButton);
+					if (ctrlId != 0)
+					{
+						_hwndButtonTooltip = CreateToolTip(ctrlId, hwndDlg, 0, const_cast<LPWSTR>(tipText.c_str()), pNativeSpeaker->isRTL());
+					}
+				}
+			}
 			if (_hwndNameEdit)
 				s_handleMap[_hwndNameEdit] = this;
 		}
@@ -636,9 +661,11 @@ private:
 	HHOOK _prevCallHook = nullptr;
 	HWND _hwndNameEdit = nullptr;
 	HWND _hwndButton = nullptr;
+	HWND _hwndButtonTooltip = nullptr;
 	UINT _currentType = 0;  // File type currenly selected in dialog.
 	UINT _lastSelectedType = 0;  // Last selected non-wildcard file type.
 	UINT _wildcardType = 0;  // Wildcard *.* file type index (usually 1).
+	bool _isSaveAsCopy = false;
 };
 std::unordered_map<HWND, FileDialogEventHandler*> FileDialogEventHandler::s_handleMap;
 
@@ -670,7 +697,7 @@ public:
 		// Init the event handler.
 		// Pass the initially selected file type.
 		if (SUCCEEDED(hr))
-			_events.Attach(new FileDialogEventHandler(_dialog, _filterSpec, _fileTypeIndex, _wildcardIndex));
+			_events.Attach(new FileDialogEventHandler(_dialog, _filterSpec, _fileTypeIndex, _wildcardIndex, (_savingAsCopyInfo & SAVE_AS_COPY_DLG) != 0));
 
 		// If "assign type" is OFF, then change the file type to *.*
 		if (_enableFileTypeCheckbox && !_fileTypeCheckboxValue && _wildcardIndex >= 0)
@@ -803,6 +830,15 @@ public:
 			hr = _dialog->Show(_hwndOwner);
 			okPressed = SUCCEEDED(hr);
 
+			if (((_savingAsCopyInfo & SAVE_AS_COPY_DLG) != 0) && okPressed && ((GetKeyState(VK_SHIFT) & 0x8000) != 0))
+			{
+				_savingAsCopyInfo |= SAVE_AS_COPY_OPEN;
+			}
+			else
+			{
+				_savingAsCopyInfo &= ~SAVE_AS_COPY_OPEN;
+			}
+
 			NppParameters& params = NppParameters::getInstance();
 			NppGUI& nppGUI = params.getNppGUI();
 			if (nppGUI._openSaveDir == dir_last)
@@ -902,6 +938,7 @@ public:
 	bool _enableFileTypeCheckbox = false;
 	bool _fileTypeCheckboxValue = false;	// initial value
 	wstring _fileTypeCheckboxLabel;
+	unsigned char _savingAsCopyInfo = 0;
 
 private:
 	com_ptr<IFileDialog> _dialog;
@@ -987,6 +1024,23 @@ void CustomFileDialog::setCheckbox(const wchar_t* text, bool isActive)
 void CustomFileDialog::setExtIndex(int extTypeIndex)
 {
 	_impl->_fileTypeIndex = extTypeIndex;
+}
+
+void CustomFileDialog::setSaveAsCopy(bool isSavingAsCopy)
+{
+	if (isSavingAsCopy)
+	{
+		_impl->_savingAsCopyInfo |= SAVE_AS_COPY_DLG;
+	}
+	else
+	{
+		_impl->_savingAsCopyInfo &= ~SAVE_AS_COPY_DLG;
+	}
+}
+
+bool CustomFileDialog::getOpenTheCopyAfterSaveAsCopy(void)
+{
+	return (_impl->_savingAsCopyInfo & SAVE_AS_COPY_OPEN) != 0;
 }
 
 bool CustomFileDialog::getCheckboxState() const

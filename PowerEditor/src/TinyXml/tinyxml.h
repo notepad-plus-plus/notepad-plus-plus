@@ -366,7 +366,7 @@ public:
 	void SetValue( const std::wstring& _value )    
 	{	  
 		StringToBuffer buf( _value );
-		SetValue( buf.buffer ? buf.buffer : TEXT("") );    	
+		SetValue( buf.buffer ? buf.buffer : L"" );    	
 	}	
 	#endif
 
@@ -614,13 +614,13 @@ public:
 	void SetName( const std::wstring& _name )	
 	{	
 		StringToBuffer buf( _name );
-		SetName ( buf.buffer ? buf.buffer : TEXT("error") );	
+		SetName ( buf.buffer ? buf.buffer : L"error" );	
 	}
 	/// STL string form.	
 	void SetValue( const std::wstring& _value )	
 	{	
 		StringToBuffer buf( _value );
-		SetValue( buf.buffer ? buf.buffer : TEXT("error") );	
+		SetValue( buf.buffer ? buf.buffer : L"error" );	
 	}
 	#endif
 
@@ -1092,7 +1092,7 @@ public:
 	*/
 	void ClearError()						{	error = false; 
 												errorId = 0; 
-												errorDesc = TEXT(""); 
+												errorDesc = L""; 
 												errorLocation.row = errorLocation.col = 0; 
 												//errorLocation.last = 0; 
 											}
@@ -1130,9 +1130,9 @@ private:
 	Take an example:
 	@verbatim
 	<Document>
-		<Element attributeA = TEXT("valueA")>
-			<Child attributeB = TEXT("value1") />
-			<Child attributeB = TEXT("value2") />
+		<Element attributeA = L"valueA">
+			<Child attributeB = L"value1" />
+			<Child attributeB = L"value2" />
 		</Element>
 	<Document>
 	@endverbatim

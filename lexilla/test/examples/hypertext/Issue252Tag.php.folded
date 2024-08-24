@@ -1,0 +1,23 @@
+ 0 400   0   <!-- Check PHP start tags for issue 252 -->
+ 1 400   0   
+ 0 400   0   <!-- Full PHP tag: enabled -->
+ 2 400   0 + <?php
+ 0 401   0 | echo __FILE__.__LINE__;
+ 0 401   0 | ?>
+ 1 400   0   
+ 0 400   0   <!-- Short echo tag: enabled -->
+ 0 400   0   <?= 'echo' ?>
+ 1 400   0   
+ 0 400   0   <!-- Short tag: disabled -->
+ 0 400   0   <?
+ 0 400   0   echo 'short'
+ 2 400   0 + ?>
+ 1 401   0 | 
+ 0 401   0 | <!-- ASP language selection: disabled -->
+ 2 401   0 + <%@language=JScript%>
+ 1 402   0 | 
+ 0 402   0 | <!-- ASP tag: disabled -->
+ 0 402   0 | <%
+ 0 402   0 | Response.Write('short')
+ 2 402   0 + %>
+ 0 403   0 | 

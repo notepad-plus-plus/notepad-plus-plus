@@ -139,7 +139,7 @@ private:
 	size_t getBodyClosePos(size_t begin, const wchar_t *bodyOpenSymbol, const wchar_t *bodyCloseSymbol);
 	void notified(LPNMHDR notification);
 	void addInStateArray(TreeStateNode tree2Update, const wchar_t *searchText, bool isSorted);
-	TreeParams* getFromStateArray(std::wstring fullFilePath);
+	TreeParams* getFromStateArray(const std::wstring& fullFilePath);
 	bool openSelection(const TreeView &treeView);
 	bool shouldSort();
 	void setSort(bool isEnabled);

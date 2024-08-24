@@ -192,7 +192,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPENFOLDERASWORSPACE:
 		{
-			NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+			const NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			wstring openWorkspaceStr = pNativeSpeaker->getAttrNameStr(L"Select a folder to add in Folder as Workspace panel",
 				FOLDERASWORKSPACE_NODE, "SelectFolderFromBrowserString");
 			wstring folderPath = folderBrowser(_pPublicInterface->getHSelf(), openWorkspaceStr);
@@ -586,8 +586,8 @@ void Notepad_plus::command(int id)
 				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
 			}
 
-			// Full file path
-			if (::PathFileExists(curentWord))
+			// Full file path: could be a folder or a file
+			if (doesPathExist(curentWord))
 			{
 				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
 				fullFilePath += L"\"";
@@ -598,7 +598,7 @@ void Notepad_plus::command(int id)
 					(id == IDM_EDIT_OPENASFILE && !::PathIsDirectory(curentWord)))
 					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
-			else // Full file path - need concatenate with current full file path
+			else // Relative file path - need concatenate with current full file path
 			{
 				wchar_t currentDir[CURRENTWORD_MAXLENGTH] = { '\0' };
 				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
@@ -609,8 +609,8 @@ void Notepad_plus::command(int id)
 				fullFilePath += L"\\";
 				fullFilePath += curentWord;
 
-				if ((id == IDM_EDIT_OPENASFILE &&
-					(!::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
+				if ((id == IDM_EDIT_OPENASFILE && 
+					(!doesFileExist(fullFilePath.c_str() + 1)))) // + 1 for skipping the 1st char '"'
 				{
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
@@ -619,6 +619,8 @@ void Notepad_plus::command(int id)
 						MB_OK | MB_APPLMODAL);
 					return;
 				}
+				// else id == IDM_EDIT_OPENINFOLDER - do it anyway. (even the last part does not exist, it doesn't matter)
+
 				fullFilePath += L"\"";
 				::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
@@ -975,7 +977,7 @@ void Notepad_plus::command(int id)
 		{
 			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
 			{
-				NppParameters& nppParam = NppParameters::getInstance();
+				const NppParameters& nppParam = NppParameters::getInstance();
 				launchFileBrowser(nppParam.getFileBrowserRoots(), nppParam.getFileBrowserSelectedItemPath());
 				if (_pFileBrowser != nullptr)
 				{
@@ -1382,7 +1384,7 @@ void Notepad_plus::command(int id)
 			if (_findReplaceDlg.isCreated())
 			{
 				FindOption op = _findReplaceDlg.getCurrentOptions();
-				NppParameters& nppParams = NppParameters::getInstance();
+				const NppParameters& nppParams = NppParameters::getInstance();
 				if ((id == IDM_SEARCH_FINDPREV) && (op._searchType == FindRegex) && !nppParams.regexBackward4PowerUser())
 				{
 					// regex upward search is disabled
@@ -2450,7 +2452,7 @@ void Notepad_plus::command(int id)
 
 					// Don't put the quots for Edge, otherwise it doesn't work
 					//fullCurrentPath = L"\"";
-					wstring fullCurrentPath = currentBuf->getFullPathName();
+					fullCurrentPath = currentBuf->getFullPathName();
 					//fullCurrentPath += L"\"";
 
 					::ShellExecute(NULL, L"open", L"shell:Appsfolder\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge", fullCurrentPath.c_str(), NULL, SW_SHOW);
@@ -2683,8 +2685,6 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_SUMMARY:
 		{
-			wstring characterNumber = L"";
-
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			int64_t fileLen = curBuf->getFileLength();
 
@@ -2692,6 +2692,7 @@ void Notepad_plus::command(int id)
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 			if (pNativeSpeaker)
 			{
+				wstring characterNumber = L"";
 
 				if (fileLen != -1)
 				{
@@ -2769,7 +2770,7 @@ void Notepad_plus::command(int id)
 			else
 			{
 				const wchar_t *longFileName = curBuf->getFullPathName();
-				if (::PathFileExists(longFileName))
+				if (doesFileExist(longFileName))
 				{
 					if (curBuf->isDirty())
 					{
@@ -2884,7 +2885,6 @@ void Notepad_plus::command(int id)
 
 				if (_pEditView->execute(SCI_CANUNDO) == TRUE)
 				{
-					wstring msg, title;
 					int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
 						_pPublicInterface->getHSelf(),
 						L"You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?",
@@ -2967,7 +2967,7 @@ void Notepad_plus::command(int id)
         {
 			int index = id - IDM_FORMAT_ENCODE;
 
-			EncodingMapper& em = EncodingMapper::getInstance();
+			const EncodingMapper& em = EncodingMapper::getInstance();
 			int encoding = em.getEncodingFromIndex(index);
 			if (encoding == -1)
 			{
@@ -2978,7 +2978,6 @@ void Notepad_plus::command(int id)
             Buffer* buf = _pEditView->getCurrentBuffer();
             if (buf->isDirty())
             {
-				wstring warning, title;
 				int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWarning",
 					_pPublicInterface->getHSelf(),
 					L"You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?",
@@ -2996,7 +2995,6 @@ void Notepad_plus::command(int id)
 
             if (_pEditView->execute(SCI_CANUNDO) == TRUE)
             {
-				wstring msg, title;
 				int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
 					_pPublicInterface->getHSelf(),
 					L"You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?",
@@ -3340,7 +3338,7 @@ void Notepad_plus::command(int id)
 				L"Editing contextMenu",
 				MB_OK|MB_APPLMODAL);
 
-            NppParameters& nppParams = NppParameters::getInstance();
+            const NppParameters& nppParams = NppParameters::getInstance();
             BufferID bufID = doOpen((nppParams.getContextMenuPath()));
 			switchToFile(bufID);
             break;
@@ -3547,7 +3545,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_DEBUGINFO:
 		{
+			const bool isFirstTime = !_debugInfoDlg.isCreated();
 			_debugInfoDlg.doDialog();
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_debugInfoDlg.getHSelf(), "DebugInfo");
 			break;
 		}
 
@@ -3577,7 +3578,7 @@ void Notepad_plus::command(int id)
 				{
 					wstring noEasterEggsPath((NppParameters::getInstance()).getNppPath());
 					noEasterEggsPath.append(L"\\noEasterEggs.xml");
-					if (!::PathFileExists(noEasterEggsPath.c_str()))
+					if (!doesFileExist(noEasterEggsPath.c_str()))
 						showAllQuotes();
 					return;
 				}
@@ -3585,7 +3586,7 @@ void Notepad_plus::command(int id)
 				{
 					wstring noEasterEggsPath((NppParameters::getInstance()).getNppPath());
 					noEasterEggsPath.append(L"\\noEasterEggs.xml");
-					if (!::PathFileExists(noEasterEggsPath.c_str()))
+					if (!doesFileExist(noEasterEggsPath.c_str()))
 						showQuoteFromIndex(iQuote);
 					return;
 				}
@@ -4225,7 +4226,7 @@ void Notepad_plus::command(int id)
 			else if ((id >= ID_USER_CMD) && (id < ID_USER_CMD_LIMIT))
 			{
 				int i = id - ID_USER_CMD;
-				vector<UserCommand> & theUserCommands = (NppParameters::getInstance()).getUserCommandList();
+				const vector<UserCommand> & theUserCommands = (NppParameters::getInstance()).getUserCommandList();
 				UserCommand ucmd = theUserCommands[i];
 
 				Command cmd(string2wstring(ucmd.getCmd(), CP_UTF8));

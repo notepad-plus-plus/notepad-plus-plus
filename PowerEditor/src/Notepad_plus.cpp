@@ -475,7 +475,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// ------------ //
 	// Menu Section //
 	// ------------ //
-
+	nppParam.initTabCustomColors();
 	setupColorSampleBitmapsOnMainMenuItems();
 
 	// Macro Menu
@@ -598,7 +598,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	for (int i = 0; i < nbLRFile; ++i)
 	{
 		wstring * stdStr = nppParam.getLRFile(i);
-		if (!nppGUI._checkHistoryFiles || PathFileExists(stdStr->c_str()))
+		if (!nppGUI._checkHistoryFiles || doesFileExist(stdStr->c_str()))
 		{
 			_lastRecentFileList.add(stdStr->c_str());
 		}
@@ -1120,10 +1120,10 @@ void Notepad_plus::saveFindHistory()
 }
 
 
-int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
+int Notepad_plus::getHtmlXmlEncoding(const wchar_t* fileName) const
 {
 	// Get Language type
-	wchar_t *ext = PathFindExtension(fileName);
+	wchar_t* ext = PathFindExtension(fileName);
 	if (*ext == '.') //extension found
 	{
 		ext += 1;
@@ -1139,7 +1139,7 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 		return -1;
 
 	// Get the beginning of file data
-	FILE *f = _wfopen(fileName, L"rb");
+	FILE* f = _wfopen(fileName, L"rb");
 	if (!f)
 		return -1;
 	const int blockSize = 1024; // To ensure that length is long enough to capture the encoding in html
@@ -1151,13 +1151,13 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 	_invisibleEditView.execute(SCI_CLEARALL);
 	_invisibleEditView.execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
 
-	const char *encodingAliasRegExpr = "[a-zA-Z0-9_-]+";
 	const size_t encodingStrLen = 128;
 	if (langT == L_XML)
 	{
 		// find encoding by RegExpr
 
-		const char *xmlHeaderRegExpr = "<?xml[ \\t]+version[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]+encoding[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]*.*?>";
+		const char* encodingAliasRegExpr = "[a-zA-Z0-9_-]+";
+		const char* xmlHeaderRegExpr = "<?xml[ \\t]+version[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]+encoding[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]*.*?>";
 
         size_t startPos = 0;
 		size_t endPos = lenFile-1;
@@ -1168,10 +1168,10 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 		auto posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), reinterpret_cast<LPARAM>(xmlHeaderRegExpr));
 		if (posFound >= 0)
 		{
-            const char *encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
+            const char* encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
 			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), reinterpret_cast<LPARAM>(encodingBlockRegExpr));
 
-            const char *encodingRegExpr = "\".+\"";
+            const char* encodingRegExpr = "\".+\"";
 			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingRegExpr), reinterpret_cast<LPARAM>(encodingRegExpr));
 
 			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), reinterpret_cast<LPARAM>(encodingAliasRegExpr));
@@ -1196,11 +1196,11 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t *fileName) const
 	}
 	else // if (langT == L_HTML)
 	{
-		const char *htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[\"'] */*>";
-		const char *htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[ \\t\"']http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*/*>";
-		const char *charsetBlock = "charset[ \\t]*=[ \\t]*[^\"']+";
-		const char *intermediaire = "=[ \\t]*.+";
-		const char *encodingStrRE = "[^ \\t=]+";
+		const char* htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[\"'] */*>";
+		const char* htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[ \\t\"']http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*/*>";
+		const char* charsetBlock = "charset[ \\t]*=[ \\t]*[^\"']+";
+		const char* intermediaire = "=[ \\t]*.+";
+		const char* encodingStrRE = "[^ \\t=]+";
 
 		intptr_t startPos = 0;
 		auto endPos = lenFile - 1;
@@ -1876,7 +1876,7 @@ void Notepad_plus::getMatchedFileNames(const wchar_t *dir, size_t level, const v
 bool Notepad_plus::createFilelistForFiles(vector<wstring> & fileNames)
 {
 	const wchar_t *dir2Search = _findReplaceDlg.getDir2Search();
-	if (!dir2Search[0] || !::PathFileExists(dir2Search))
+	if (!dir2Search[0] || !doesDirectoryExist(dir2Search))
 	{
 		return false;
 	}
@@ -2579,7 +2579,7 @@ void Notepad_plus::checkDocState()
 
 	bool isCurrentDirty = curBuf->isDirty();
 	bool isSeveralDirty = isCurrentDirty;
-	bool isFileExisting = PathFileExists(curBuf->getFullPathName()) != FALSE;
+	bool isFileExisting = doesFileExist(curBuf->getFullPathName());
 	if (!isCurrentDirty)
 	{
 		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
@@ -2694,9 +2694,12 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 		{ IDM_SEARCH_GONEXTMARKER_DEF, SCE_UNIVERSAL_FOUND_STYLE, { IDM_SEARCH_GOPREVMARKER_DEF, IDM_SEARCH_MARKEDTOCLIP } }
 	};
 
+	NppParameters& nppParam = NppParameters::getInstance();
+	StyleArray& styleArray = nppParam.getMiscStylerArray();
+
 	for (size_t j = 0; j < sizeof(bitmapOnStyleMenuItemsInfo) / sizeof(bitmapOnStyleMenuItemsInfo[0]); ++j)
 	{
-		const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
+		const Style * pStyle = styleArray.findByID(bitmapOnStyleMenuItemsInfo[j].styleIndic);
 		if (pStyle)
 		{
 			HBITMAP hNewBitmap = generateSolidColourMenuItemIcon(pStyle->_bgColor);
@@ -2712,7 +2715,7 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 	// Adds tab colour icons
 	for (int i = 0; i < 5; ++i)
 	{
-		COLORREF colour = NppDarkMode::getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
+		COLORREF colour = nppParam.getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
 		HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
 		SetMenuItemBitmaps(_mainMenuHandle, IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 	}
@@ -3214,7 +3217,7 @@ bool scanToUrlStart(wchar_t *text, int textLen, int start, int* distance, int* s
 // The query pattern going through looks like this:
 // - ?abc;def;fgh="i j k"&'l m n'+opq
 //
-void scanToUrlEnd(wchar_t *text, int textLen, int start, int* distance)
+void scanToUrlEnd(const wchar_t *text, int textLen, int start, int* distance)
 {
 	int p = start;
 	wchar_t q = 0;
@@ -3557,11 +3560,20 @@ intptr_t Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char t
 
 void Notepad_plus::maintainIndentation(wchar_t ch)
 {
+	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+	if (nppGui._maintainIndent == autoIndent_none)
+		return;
+
 	intptr_t eolMode = _pEditView->execute(SCI_GETEOLMODE);
 	intptr_t curLine = _pEditView->getCurrentLineNumber();
 	intptr_t prevLine = curLine - 1;
 	intptr_t indentAmountPrevLine = 0;
 	intptr_t tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+
+	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
+	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+		return;
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 	ExternalLexerAutoIndentMode autoIndentMode = ExternalLexerAutoIndentMode::Standard;
@@ -3575,10 +3587,30 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			return;
 	}
 
-	// Do not alter indentation if we were at the beginning of the line and we pressed Enter
-	if ((((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
-		(eolMode == SC_EOL_CR && ch == '\r')) && prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+	if (nppGui._maintainIndent == autoIndent_basic) // Basic indentation mode only
+	{
+		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+			(eolMode == SC_EOL_CR && ch == '\r'))
+		{
+			// Search the non-empty previous line
+			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+				prevLine--;
+
+			if (prevLine >= 0)
+			{
+				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+			}
+
+			if (indentAmountPrevLine > 0)
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+		}
+
 		return;
+	}
+
+	// else nppGui._maintainIndent == autoIndent_advance
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
 		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS || type == L_PERL || 
@@ -3736,9 +3768,13 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 			_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
-			const char colonExpr[] = ":[ \t]*(#|$)";  // colon optionally followed by only whitespace and/or start-of-comment
+			// colon optionally followed by only whitespace and/or start-of-comment, but NOT on a line that is already a comment
+			const char colonExpr[] = "^[^#]*\\K:[ \t]*(#|$)";
 
-			if (_pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr)) >= 0)
+			auto posColon = _pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr));
+
+			// when colon found, additionally check that it is not in a comment, inside a string, etc.
+			if ((posColon >= 0) && (_pEditView->execute(SCI_GETSTYLEINDEXAT, posColon) == SCE_P_OPERATOR))
 			{
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
 			}
@@ -4205,7 +4241,7 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 		size_t result = 0;
 
 		size_t endpos = _pEditView->execute(SCI_GETLENGTH);
-		unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc said the pointer can be invalidated by any other "execute"
+		const unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc said the pointer can be invalidated by any other "execute"
 
 #ifdef _OPENMP // parallel counting of characters with OpenMP
 		if (endpos > 50000) // starting threads takes time; for small files it is better to simply count in one thread
@@ -4438,7 +4474,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			// display error & do nothing
 			_nativeLangSpeaker.messageBox("DroppingFolderAsProjectModeWarning",
 				_pPublicInterface->getHSelf(),
-				L"You can only drop files or folders but not both, because you're in dropping Folder as Project mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work.",
+				L"You can only drop files or folders but not both, because you're in dropping Folder as Project mode.\rYou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work.",
 				L"Invalid action",
 				MB_OK | MB_APPLMODAL);
 		}
@@ -4793,25 +4829,25 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 	wchar_t nppName[MAX_PATH];
 	::GetModuleFileName(NULL, nppName, MAX_PATH);
-	wstring command = L"\"";
-	command += nppName;
-	command += L"\"";
-	command += L" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession";
+	wstring cmdLine = L"\"";
+	cmdLine += nppName;
+	cmdLine += L"\"";
+	cmdLine += L" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession";
 
 	if (x)
 	{
 		wchar_t pX[10]{};
 		_itow(x, pX, 10);
-		command += L" -x";
-		command += pX;
+		cmdLine += L" -x";
+		cmdLine += pX;
 	}
 
 	if (y)
 	{
 		wchar_t pY[10]{};
 		_itow(y, pY, 10);
-		command += L" -y";
-		command += pY;
+		cmdLine += L" -y";
+		cmdLine += pY;
 	}
 
 	LangType lt = buf->getLangType();
@@ -4823,15 +4859,15 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	// user applies Markdown to a file named "myMarkdown.abc".
 	if (lt != L_USER)
 	{
-		command += L" -l";
-		command += ScintillaEditView::_langNameInfoArray[lt]._langName;
+		cmdLine += L" -l";
+		cmdLine += ScintillaEditView::_langNameInfoArray[lt]._langName;
 	}
-	command += L" -n";
-	command += to_wstring(_pEditView->getCurrentLineNumber() + 1);
-	command += L" -c";
-	command += to_wstring(_pEditView->getCurrentColumnNumber() + 1);
+	cmdLine += L" -n";
+	cmdLine += to_wstring(_pEditView->getCurrentLineNumber() + 1);
+	cmdLine += L" -c";
+	cmdLine += to_wstring(_pEditView->getCurrentColumnNumber() + 1);
 
-	Command cmd(command);
+	Command cmd(cmdLine);
 	cmd.run(_pPublicInterface->getHSelf());
 	if (mode == TransferMove)
 	{
@@ -5571,17 +5607,19 @@ bool Notepad_plus::doStreamComment()
 	bool move_caret = caretPosition < selectionEnd;
 
 	// if there is no selection?
-	if (selectionEnd - selectionStart <= 0)
+	if (selectionEnd <= selectionStart)
 	{
 		auto selLine = _pEditView->execute(SCI_LINEFROMPOSITION, selectionStart);
 		selectionStart = _pEditView->execute(SCI_GETLINEINDENTPOSITION, selLine);
 		selectionEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, selLine);
 	}
+
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 	_pEditView->insertGenericTextFrom(selectionStart, start_comment.c_str());
 	selectionEnd += start_comment_length;
 	selectionStart += start_comment_length;
 	_pEditView->insertGenericTextFrom(selectionEnd, end_comment.c_str());
+
 	if (move_caret)
 	{
 		// moving caret to the beginning of selected block
@@ -6269,7 +6307,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 				continue;
 
 			if (!includUntitledDoc)
-				if (!PathFileExists(buf->getFullPathName()))
+				if (!doesFileExist(buf->getFullPathName()))
 					continue;
 
 
@@ -6294,7 +6332,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
 
 			sfi._isMonitoring = buf->isMonitoringOn();
-			sfi._individualTabColour = docTab[k]->getIndividualTabColour(static_cast<int>(i));
+			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
@@ -6592,6 +6630,10 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
     if (mask & (BufferChangeReadonly))
 	{
 		checkDocState();
+		
+		// enable/disable possible Undo and Paste commands according to the current R/O status
+		checkClipboard();
+		checkUndoState();
 
 		bool isSysReadOnly = buffer->getFileReadOnly();
 		bool isUserReadOnly = buffer->getUserReadOnly();
@@ -6603,7 +6645,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTATUS_READONLY : 0) | (isDirty ? DOCSTATUS_BUFFERDIRTY : 0));
 		scnN.nmhdr.code = NPPN_READONLYCHANGED;
 		_pluginsManager.notify(&scnN);
-
 	}
 
 	if (_pDocumentListPanel)
@@ -6918,7 +6959,7 @@ vector<wstring> Notepad_plus::addNppComponents(const wchar_t *destDir, const wch
 		wstring destDirName = (NppParameters::getInstance()).getNppPath();
         pathAppend(destDirName, destDir);
 
-        if (!::PathFileExists(destDirName.c_str()))
+        if (!doesDirectoryExist(destDirName.c_str()))
         {
             ::CreateDirectory(destDirName.c_str(), NULL);
         }
@@ -6928,7 +6969,7 @@ vector<wstring> Notepad_plus::addNppComponents(const wchar_t *destDir, const wch
         size_t sz = fns.size();
         for (size_t i = 0 ; i < sz ; ++i)
         {
-            if (::PathFileExists(fns.at(i).c_str()))
+            if (doesFileExist(fns.at(i).c_str()))
             {
                 // copy to plugins directory
                 wstring destName = destDirName;
@@ -6954,7 +6995,7 @@ vector<wstring> Notepad_plus::addNppPlugins(const wchar_t *extFilterName, const 
         // Get plugins dir
 		wstring destDirName = (NppParameters::getInstance()).getPluginRootDir();
 
-        if (!::PathFileExists(destDirName.c_str()))
+        if (!doesDirectoryExist(destDirName.c_str()))
         {
             ::CreateDirectory(destDirName.c_str(), NULL);
         }
@@ -6962,7 +7003,7 @@ vector<wstring> Notepad_plus::addNppPlugins(const wchar_t *extFilterName, const 
         size_t sz = fns.size();
         for (size_t i = 0 ; i < sz ; ++i)
         {
-            if (::PathFileExists(fns.at(i).c_str()))
+            if (doesFileExist(fns.at(i).c_str()))
             {
                 // copy to plugins directory
                 wstring destName = destDirName;
@@ -6974,7 +7015,7 @@ vector<wstring> Notepad_plus::addNppPlugins(const wchar_t *extFilterName, const 
 
 				wstring name = nameExt.substr(0, pos);
 				pathAppend(destName, name);
-				if (!::PathFileExists(destName.c_str()))
+				if (!doesDirectoryExist(destName.c_str()))
 				{
 					::CreateDirectory(destName.c_str(), NULL);
 				}
@@ -7191,6 +7232,11 @@ bool Notepad_plus::reloadLang()
 	if (_pluginsAdminDlg.isCreated())
 	{
 		_nativeLangSpeaker.changePluginsAdminDlgLang(_pluginsAdminDlg);
+	}
+
+	if (_debugInfoDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_debugInfoDlg.getHSelf(), "DebugInfo");
 	}
 
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
@@ -8489,7 +8535,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 				pathAppend(themePath, xmlFileName);
 			}
 
-			if (::PathFileExists(themePath.c_str()) == FALSE || themePath.empty())
+			if (themePath.empty() || !doesFileExist(themePath.c_str()))
 			{
 				themePath = themeSwitcher.getThemeDirPath();
 				pathAppend(themePath, xmlFileName);
@@ -8506,7 +8552,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			themeName = themeSwitcher.getDefaultThemeLabel();
 		}
 
-		if (::PathFileExists(themePath.c_str()) == TRUE)
+		if (doesFileExist(themePath.c_str()))
 		{
 			nppParams.getNppGUI()._themeName = themePath;
 
@@ -8517,7 +8563,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			else
 			{
 				nppParams.reloadStylers(themePath.c_str());
-				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, 0, 0);
+				::SendMessage(_pPublicInterface->getHSelf(), WM_UPDATESCINTILLAS, TRUE, 0);
 			}
 		}
 
@@ -9008,7 +9054,7 @@ void Notepad_plus::changedHistoryGoTo(int idGoTo)
 	}
 }
 
-HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, std::vector<int>& commandIds)
+HMENU Notepad_plus::createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds)
 {
 	HMENU hNewMenu = ::CreatePopupMenu();
 	for (const auto& cmdID : commandIds)
@@ -9081,7 +9127,7 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId)
 	return FALSE;
 }
 
-BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, std::vector<int> cmdIDs)
+BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, const std::vector<int>& cmdIDs)
 {
 	if (cmdIDs.empty())
 		return notifyTBShowMenu(lpnmtb, menuPosId);

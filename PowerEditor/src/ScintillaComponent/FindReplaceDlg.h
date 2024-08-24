@@ -391,7 +391,7 @@ public :
 
 	void execSavedCommand(int cmd, uptr_t intValue, const std::wstring& stringValue);
 	void clearMarks(const FindOption& opt);
-	void setStatusbarMessage(const std::wstring & msg, FindStatus staus, std::wstring tooltipMsg = L"");
+	void setStatusbarMessage(const std::wstring & msg, FindStatus staus, const std::wstring& tooltipMsg = L"");
 	void setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView);
 	std::wstring getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();
@@ -500,7 +500,7 @@ private:
 	static const int FR_OP_FIP = 16;
 	void saveInMacro(size_t cmd, int cmdType);
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-	bool replaceInFilesConfirmCheck(std::wstring directory, std::wstring fileTypes);
+	bool replaceInFilesConfirmCheck(const std::wstring& directory, const std::wstring& fileTypes);
 	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck(void);
 

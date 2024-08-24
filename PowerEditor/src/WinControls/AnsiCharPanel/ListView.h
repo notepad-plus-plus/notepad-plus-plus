@@ -24,9 +24,9 @@
 
 struct columnInfo {
 	size_t _width;
-	generic_string _label;
+	std::wstring _label;
 
-	columnInfo(const generic_string & label, size_t width) : _width(width), _label(label) {};
+	columnInfo(const std::wstring & label, size_t width) : _width(width), _label(label) {};
 };
 
 class ListView : public Window
@@ -44,10 +44,10 @@ public:
 		_columnInfos.push_back(column2Add);
 	};
 
-	void setColumnText(size_t i, generic_string txt2Set) {
+	void setColumnText(size_t i, std::wstring txt2Set) {
 		LVCOLUMN lvColumn{};
 		lvColumn.mask = LVCF_TEXT;
-		lvColumn.pszText = const_cast<TCHAR *>(txt2Set.c_str());
+		lvColumn.pszText = const_cast<wchar_t *>(txt2Set.c_str());
 		ListView_SetColumn(_hSelf, i, &lvColumn);
 	}
 
@@ -56,9 +56,9 @@ public:
 		_extraStyle = extraStyle;
 	};
 
-	size_t findAlphabeticalOrderPos(const generic_string& string2search, SortDirection sortDir);
+	size_t findAlphabeticalOrderPos(const std::wstring& string2search, SortDirection sortDir);
 
-	void addLine(const std::vector<generic_string> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
+	void addLine(const std::vector<std::wstring> & values2Add, LPARAM lParam = 0, int pos2insert = -1);
 	
 	size_t nbItem() const {
 		return ListView_GetItemCount(_hSelf);

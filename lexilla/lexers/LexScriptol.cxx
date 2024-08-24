@@ -379,4 +379,4 @@ static void FoldSolDoc(Sci_PositionU startPos, Sci_Position length, int initStyl
 	}
 }
 
-LexerModule lmScriptol(SCLEX_SCRIPTOL, ColouriseSolDoc, "scriptol", FoldSolDoc);
+extern const LexerModule lmScriptol(SCLEX_SCRIPTOL, ColouriseSolDoc, "scriptol", FoldSolDoc);

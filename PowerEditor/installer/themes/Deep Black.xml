@@ -30,6 +30,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="cpp" desc="C++" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="C0C0C0" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -48,6 +56,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="go" desc="Go" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="C0C0C0" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -67,6 +83,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="java" desc="Java" ext="">
             <WordsStyle name="DEFAULT" styleID="11" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -84,6 +108,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="cs" desc="C#" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="EDF8F9" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -102,6 +134,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="raku" desc="Raku" ext="">
             <WordsStyle name="DEFAULT"                      styleID="0" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="" fontSize="" />
@@ -152,6 +192,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="EDF8F9" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -219,6 +267,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="CDATA" styleID="17" fgColor="C0C0C0" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VALUE" styleID="19" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="0080FF" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER TAGS 1" styleID="192" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER TAGS 2" styleID="193" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER TAGS 3" styleID="194" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER TAGS 4" styleID="195" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER ATTRIBUTES 1" styleID="196" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER ATTRIBUTES 2" styleID="197" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER ATTRIBUTES 3" styleID="198" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER ATTRIBUTES 4" styleID="199" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="php" desc="php" ext="">
             <WordsStyle name="QUESTION MARK" styleID="18" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -233,8 +289,16 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT" styleID="124" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="C0C0C0" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PREDEFINED" styleID="213" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="FUNCS AND METHODS 1" styleID="214" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="FUNCS AND METHODS 2" styleID="215" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="208" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="209" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="210" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="211" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="212" fgColor="00FFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
         </LexerType>
-        <LexerType name="javascript" desc="JavaScript" ext="">
+        <LexerType name="javascript" desc="JavaScript (embedded)" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -248,6 +312,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT" styleID="42" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENTLINE" styleID="43" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENTDOC" styleID="44" fgColor="772CB7" bgColor="070707" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="200" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="201" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="202" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="203" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="204" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="205" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="206" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="207" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="json" desc="JSON" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="C3BE98" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -275,6 +347,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="IDENTIFIER" styleID="86" fgColor="FFFFFF" bgColor="C4F9FD" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ASPSYMBOL" styleID="15" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SCRIPTTYPE" styleID="16" fgColor="FFFFFF" bgColor="FFC000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="216" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="217" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="218" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="219" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="220" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="221" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="222" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="223" fgColor="FFCC00" bgColor="C4F9FD" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="xml" desc="XML" ext="">
             <WordsStyle name="XMLSTART" styleID="12" fgColor="00FF80" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -292,6 +372,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="C0C0C0" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="0080FF" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER ATTRIBUTES 1" styleID="192" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER ATTRIBUTES 2" styleID="193" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER ATTRIBUTES 3" styleID="194" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER ATTRIBUTES 4" styleID="195" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER ATTRIBUTES 5" styleID="196" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER ATTRIBUTES 6" styleID="197" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER ATTRIBUTES 7" styleID="198" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER ATTRIBUTES 8" styleID="199" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="ini" desc="ini file" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -467,6 +555,10 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="USER KEYWORD 2" styleID="17" fgColor="0000A0" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="type4" />
             <WordsStyle name="USER KEYWORD 3" styleID="18" fgColor="0000A0" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="type5" />
             <WordsStyle name="USER KEYWORD 4" styleID="19" fgColor="0000A0" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="type6" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
         </LexerType>
         <LexerType name="tex" desc="TeX" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -514,6 +606,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="00FF00" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="bash" desc="bash" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -530,6 +630,14 @@ https://notepad-plus-plus.org/donate/
             <WordsStyle name="BACKTICKS" styleID="11" fgColor="804040" bgColor="E1FFF3" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="HERE DELIM" styleID="12" fgColor="FF6600" bgColor="FF0000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="HERE Q" styleID="13" fgColor="99CC99" bgColor="0000FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle1" />
+            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
+            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
+            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
+            <WordsStyle name="USER SCALAR 1" styleID="132" fgColor="FF8040" bgColor="FFFFD9" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER SCALAR 2" styleID="133" fgColor="FF8040" bgColor="FFFFD9" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
+            <WordsStyle name="USER SCALAR 3" styleID="134" fgColor="FF8040" bgColor="FFFFD9" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
+            <WordsStyle name="USER SCALAR 4" styleID="135" fgColor="FF8040" bgColor="FFFFD9" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="fortran" desc="Fortran" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.8">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -222,7 +222,7 @@ Translation note:
 					<Item id="43051" name="Remove Non-Bookmarked Lines"/>
 					<Item id="43050" name="Inverse Bookmark"/>
 					<Item id="43052" name="Find characters in rang&amp;e..."/>
-					<Item id="43053" name="Select All Between &amp;Matching Braces"/>
+					<Item id="43053" name="Select All In-betw&amp;een {} [] or ()"/>
 					<Item id="43009" name="Go to &amp;Matching Brace"/>
 					<Item id="43010" name="Find &amp;Previous"/>
 					<Item id="43011" name="&amp;Incremental Search"/>
@@ -355,6 +355,7 @@ Translation note:
 					<Item id="10005" name="Move to Start"/>
 					<Item id="10006" name="Move to End"/>
 					<Item id="46001" name="Style Configurator..."/>
+					<Item id="46016" name="None (NormalText)"/>
 					<Item id="46250" name="Define your language..."/>
 					<Item id="46300" name="Open User Defined Language folder..."/>
 					<Item id="46301" name="Notepad++ User Defined Languages Collection"/>
@@ -1100,6 +1101,14 @@ Translation note:
 					<Item id="6506" name="Disabled items"/>
 					<Item id="6507" name="Make language menu compact"/>
 					<Item id="6508" name="Language Menu"/>
+					<Item id="6335" name="Treat backslash as escape character for SQL"/>
+				</Language>
+
+				<Indentation title="Indentation">
+					<Item id="7161" name="Auto-indent"/>
+					<Item id="7162" name="None"/>
+					<Item id="7163" name="Basic"/>
+					<Item id="7164" name="Advanced"/>
 					<Item id="6301" name="Indent Settings"/>
 					<Item id="6302" name="Space character(s)"/>
 					<Item id="6303" name="Indent size:"/>
@@ -1107,8 +1116,7 @@ Translation note:
 					<Item id="6311" name="Tab character"/>
 					<Item id="6510" name="Use default value"/>
 					<Item id="6512" name="Backspace key unindents instead of removing single space"/>
-					<Item id="6335" name="Treat backslash as escape character for SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Highlighting">
 					<Item id="6351" name="Style All Occurrences of Token"/>
@@ -1192,7 +1200,7 @@ Translation note:
 				<Backup title="Backup">
 					<Item id="6817" name="Session snapshot and periodic backup"/>
 					<Item id="6818" name="Enable session snapshot and periodic backup"/>
-					<Item id="6819" name="Backup in every"/>
+					<Item id="6819" name="Trigger backup on modification in every"/>
 					<Item id="6821" name="seconds"/>
 					<Item id="6822" name="Backup path:"/>
 					<Item id="6309" name="Remember current session for next launch"/>
@@ -1298,7 +1306,7 @@ Translation note:
 
 				<MISC title="MISC.">
 					<ComboBox id="6347">
-						<Element name="Enable"/>
+						<Element name="Enable for current file"/>
 						<Element name="Enable for all opened files"/>
 						<Element name="Disable"/>
 					</ComboBox>
@@ -1387,6 +1395,11 @@ You can re-activate this dialog in Preferences later."/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="&amp;Always yes"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Debug Info">
+				<Item id="1752" name="&amp;Copy debug info to clipboard"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1416,7 +1429,7 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
 			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
-you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
 			<SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Column Mode Tip" message="
 There are 3 ways to switch to column-select mode:
@@ -1529,6 +1542,7 @@ NOTE: Choosing not to create the placeholders or closing them later, your sessio
 Press the OK button to open the Find dialog or set focus on it.
 			
 If you require the backward regex searching feature, consult the user manual for instructions on enabling it."/>
+			<PrintError title="0" message="Cannot start printer document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
@@ -1664,8 +1678,8 @@ Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
-			<find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
+			<find-status-top-reached value="Find: Found the last occurrence from the bottom. The beginning of the document has been reached."/>
+			<find-status-end-reached value="Find: Found the last occurrence from the top. The end of the document has been reached."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
 			<find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
@@ -1679,8 +1693,8 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
 			<find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
-			<find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
-			<find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
+			<find-status-replace-end-reached value="Replace: Replaced the last occurrence from the top. The end of document has been reached"/>
+			<find-status-replace-top-reached value="Replace: Replaced the last occurrence from the bottom. The begin of document has been reached"/>
 			<find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
 			<find-status-replaced-without-continuing value="Replace: 1 occurrence was replaced."/>
 			<find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
@@ -1793,6 +1807,12 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
 			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
 			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
+			<fileSaveAsCopySaveButton-tip value="Hold Shift while pressing Save to open the copy after saving."/>
+			<autoIndentBasic-tip value="Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line."/>
+			<autoIndentAdvanced-tip value="Enable smart indentation for &quot;C-like&quot; languages and Python. The &quot;C-like&quot; languages include:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
+
+If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

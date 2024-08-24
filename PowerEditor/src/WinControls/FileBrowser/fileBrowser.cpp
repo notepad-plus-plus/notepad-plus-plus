@@ -180,8 +180,14 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 			FileBrowser::initPopupMenus();
 
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }
+				, { IDI_FB_ROOTOPEN_DM, IDI_FB_ROOTCLOSE_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM }
+				, { IDI_FB_ROOTOPEN2, IDI_FB_ROOTCLOSE2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2 }
+			);
+
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
-			_treeView.setImageList(CX_BITMAP, CY_BITMAP, 5, IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
+			_treeView.setImageList(imgIds);
 
 			_treeView.addCanNotDropInList(INDEX_OPEN_ROOT);
 			_treeView.addCanNotDropInList(INDEX_CLOSE_ROOT);
@@ -211,7 +217,19 @@ intptr_t CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 				NppDarkMode::autoThemeChildControls(_hSelf);
 				::SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_iconListVector.at(NppDarkMode::isEnabled() ? 1 : 0)));
 			}
-			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			else
+			{
+				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			}
+
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE }
+				, { IDI_FB_ROOTOPEN_DM, IDI_FB_ROOTCLOSE_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM }
+				, { IDI_FB_ROOTOPEN2, IDI_FB_ROOTCLOSE2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2 }
+			);
+
+			_treeView.setImageList(imgIds);
+
 			return TRUE;
 		}
 
@@ -504,9 +522,7 @@ void FileBrowser::openSelectFile()
 	_selectedNodeFullPath = getNodePath(selectedNode);
 
 	// test the path - if it's a file, open it, otherwise just fold or unfold it
-	if (!::PathFileExists(_selectedNodeFullPath.c_str()))
-		return;
-	if (::PathIsDirectory(_selectedNodeFullPath.c_str()))
+	if (!doesFileExist(_selectedNodeFullPath.c_str()))
 		return;
 
 	::PostMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(_selectedNodeFullPath.c_str()));
@@ -580,7 +596,7 @@ void FileBrowser::notified(LPNMHDR notification)
 
 					// Check the validity of modified file path
 					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-					if (::PathFileExists(filePath->c_str()))
+					if (doesPathExist(filePath->c_str()))
 					{
 						tvItem.iImage = INDEX_LEAF;
 						tvItem.iSelectedImage = INDEX_LEAF;
@@ -802,7 +818,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			if (!selectedNode) return;
 
 			wstring path = getNodePath(selectedNode);
-			if (::PathFileExists(path.c_str()))
+			if (doesPathExist(path.c_str()))
 			{
 				wchar_t cmdStr[1024] = {};
 				if (getNodeType(selectedNode) == browserNodeType_file)
@@ -823,7 +839,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 				selectedNode = _treeView.getParent(selectedNode);
 
 			wstring path = getNodePath(selectedNode);
-			if (::PathFileExists(path.c_str()))
+			if (doesPathExist(path.c_str()))
 			{
 				Command cmd(NppParameters::getInstance().getNppGUI()._commandLineInterpreter.c_str());
 				cmd.run(nullptr, path.c_str());
@@ -893,7 +909,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			if (!selectedNode) return;
 			wstring path = getNodePath(selectedNode);
 
-			if (::PathFileExists(path.c_str()))
+			if (doesPathExist(path.c_str()))
 				::ShellExecute(NULL, L"open", path.c_str(), NULL, NULL, SW_SHOWNORMAL);
 		}
 		break;
@@ -955,10 +971,7 @@ void FileBrowser::getDirectoryStructure(const wchar_t *dir, const std::vector<ws
 
 void FileBrowser::addRootFolder(wstring rootFolderPath)
 {
-	if (!::PathFileExists(rootFolderPath.c_str()))
-		return;
-
-	if (!::PathIsDirectory(rootFolderPath.c_str()))
+	if (!doesDirectoryExist(rootFolderPath.c_str()))
 		return;
 
 	// make sure there's no '\' at the end
@@ -1013,6 +1026,7 @@ void FileBrowser::addRootFolder(wstring rootFolderPath)
 	FolderInfo directoryStructure(rootLabel, nullptr);
 	getDirectoryStructure(rootFolderPath.c_str(), patterns2Match, directoryStructure, true, false);
 	HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
+	_treeView.customSorting(hRootItem, categorySortFunc, 0, true); // needed here for possible *nix like storages (Samba, WebDAV, WSL, ...)
 	_treeView.expand(hRootItem);
 	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();
@@ -1203,7 +1217,7 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 		group._files.erase(std::remove_if(group._files.begin(), group._files.end(), 
 			[&group](const auto & file)
 			{
-				return !::PathFileExists((group._commonPath + file).c_str());
+				return !doesPathExist((group._commonPath + file).c_str());
 			}),
 			group._files.end());
 

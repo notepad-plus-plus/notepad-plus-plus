@@ -21,33 +21,33 @@
 
 #define CURRENTWORD_MAXLENGTH 2048
 
-const TCHAR fullCurrentPath[] = TEXT("FULL_CURRENT_PATH");
-const TCHAR currentDirectory[] = TEXT("CURRENT_DIRECTORY");
-const TCHAR onlyFileName[] = TEXT("FILE_NAME");
-const TCHAR fileNamePart[] = TEXT("NAME_PART");
-const TCHAR fileExtPart[] = TEXT("EXT_PART");
-const TCHAR currentWord[] = TEXT("CURRENT_WORD");
-const TCHAR nppDir[] = TEXT("NPP_DIRECTORY");
-const TCHAR nppFullFilePath[] = TEXT("NPP_FULL_FILE_PATH");
-const TCHAR currentLine[] = TEXT("CURRENT_LINE");
-const TCHAR currentColumn[] = TEXT("CURRENT_COLUMN");
-const TCHAR currentLineStr[] = TEXT("CURRENT_LINESTR");
+const wchar_t fullCurrentPath[] = L"FULL_CURRENT_PATH";
+const wchar_t currentDirectory[] = L"CURRENT_DIRECTORY";
+const wchar_t onlyFileName[] = L"FILE_NAME";
+const wchar_t fileNamePart[] = L"NAME_PART";
+const wchar_t fileExtPart[] = L"EXT_PART";
+const wchar_t currentWord[] = L"CURRENT_WORD";
+const wchar_t nppDir[] = L"NPP_DIRECTORY";
+const wchar_t nppFullFilePath[] = L"NPP_FULL_FILE_PATH";
+const wchar_t currentLine[] = L"CURRENT_LINE";
+const wchar_t currentColumn[] = L"CURRENT_COLUMN";
+const wchar_t currentLineStr[] = L"CURRENT_LINESTR";
 
-int whichVar(TCHAR *str);
-void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t strDestLen, HWND hWnd);
+int whichVar(wchar_t *str);
+void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t strDestLen, HWND hWnd);
 
 class Command {
 public :
 	Command() = default;
-	explicit Command(const TCHAR *cmd) : _cmdLine(cmd){};
-	explicit Command(const generic_string& cmd) : _cmdLine(cmd){};
+	explicit Command(const wchar_t *cmd) : _cmdLine(cmd){};
+	explicit Command(const std::wstring& cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
-	HINSTANCE run(HWND hWnd, const TCHAR* cwd);
+	HINSTANCE run(HWND hWnd, const wchar_t* cwd);
 
 protected :
-	generic_string _cmdLine;
+	std::wstring _cmdLine;
 private :
-	void extractArgs(TCHAR *cmd2Exec, size_t cmd2ExecLen, TCHAR *args, size_t argsLen, const TCHAR *cmdEntier);
+	void extractArgs(wchar_t *cmd2Exec, size_t cmd2ExecLen, wchar_t *args, size_t argsLen, const wchar_t *cmdEntier);
 };
 
 class RunDlg : public Command, public StaticDialog
@@ -62,7 +62,7 @@ protected :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
-	void addTextToCombo(const TCHAR *txt2Add) const;
-	void removeTextFromCombo(const TCHAR *txt2Remove) const;
+	void addTextToCombo(const wchar_t *txt2Add) const;
+	void removeTextFromCombo(const wchar_t *txt2Remove) const;
 };
 

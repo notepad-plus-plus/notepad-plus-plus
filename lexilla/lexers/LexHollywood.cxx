@@ -516,4 +516,4 @@ void SCI_METHOD LexerHollywood::Fold(Sci_PositionU startPos, Sci_Position length
 	styler.SetLevel(lineCurrent, levelPrev | flagsNext);	
 }
 
-LexerModule lmHollywood(SCLEX_HOLLYWOOD, LexerHollywood::LexerFactoryHollywood, "hollywood", hollywoodWordListDesc);
+extern const LexerModule lmHollywood(SCLEX_HOLLYWOOD, LexerHollywood::LexerFactoryHollywood, "hollywood", hollywoodWordListDesc);

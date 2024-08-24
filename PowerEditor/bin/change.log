@@ -6,7 +6,7 @@ Notepad++ v8.6.9 bug-fixes & new enhancements:
  4. Fix the regression where the Find dialog size is not remembered across sessions.
  5. Fix the regression of content lost by using Encoding "Convert to..." commands. 
  6. Fix the regression of exception/crash on Windows Server Core 2022.
- 7. Prevent DirectWrite from being enabled under Windows Sever.
+ 7. Prevent DirectWrite from being enabled under Windows Server.
  8. Enhance the quality of Fluent toolbar icon sets for different DPI settings.
  9. Improve the look & feel of tabbar close button in dark mode.
 10. Improve the dark mode tab bar icon in the search results panel.

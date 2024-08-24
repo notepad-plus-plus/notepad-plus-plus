@@ -20,13 +20,13 @@
 #include "DockingDlgInterface.h"
 #include "documentMap_rc.h"
 
-#define DM_PANELTITLE     TEXT("Document Map")
+#define DM_PANELTITLE     L"Document Map"
 
 #define DOCUMENTMAP_SCROLL        (WM_USER + 4) // DM_SETDEFID uses WM_USER + 1
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 5) // DM_REPOSITION uses WM_USER + 2
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
 
-const TCHAR VIEWZONE_DOCUMENTMAP[64] = TEXT("Document map");
+const wchar_t VIEWZONE_DOCUMENTMAP[64] = L"Document map";
 
 class ScintillaEditView;
 class Buffer;
@@ -150,5 +150,5 @@ private:
 	// for needToRecomputeWith function
 	intptr_t _displayZoom = -1;
 	intptr_t _displayWidth = 0;
-	generic_string id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
+	std::wstring id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 };

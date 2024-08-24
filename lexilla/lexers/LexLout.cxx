@@ -213,4 +213,4 @@ static const char * const loutWordLists[] = {
             0,
         };
 
-LexerModule lmLout(SCLEX_LOUT, ColouriseLoutDoc, "lout", FoldLoutDoc, loutWordLists);
+extern const LexerModule lmLout(SCLEX_LOUT, ColouriseLoutDoc, "lout", FoldLoutDoc, loutWordLists);

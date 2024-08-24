@@ -24,10 +24,10 @@
 struct DlgInfo
 {
     Window *_dlg;
-    generic_string _name;
-	generic_string _internalName;
+    std::wstring _name;
+	std::wstring _internalName;
 
-	DlgInfo(Window *dlg, const TCHAR *name, const TCHAR *internalName = TEXT("")): _dlg(dlg), _name(name), _internalName(internalName) {};
+	DlgInfo(Window *dlg, const wchar_t *name, const wchar_t *internalName = L""): _dlg(dlg), _name(name), _internalName(internalName) {};
 };
 
 typedef std::vector<DlgInfo> WindowVector;
@@ -60,8 +60,8 @@ public :
 		int indexClicked = int(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 		activateWindowAt(indexClicked);
 	};
-	void renameTab(size_t index, const TCHAR *newName);
-	bool renameTab(const TCHAR *internalName, const TCHAR *newName);
+	void renameTab(size_t index, const wchar_t *newName);
+	bool renameTab(const wchar_t *internalName, const wchar_t *newName);
 
 private:
 	WindowVector *_pWinVector = nullptr;

@@ -38,7 +38,7 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
 }
 
 
-void ToolTip::Show(RECT rectTitle, const TCHAR * pszTitle, int iXOff, int iWidthOff)
+void ToolTip::Show(RECT rectTitle, const wchar_t * pszTitle, int iXOff, int iWidthOff)
 {
 	if (isVisible())
 		destroy();
@@ -62,7 +62,7 @@ void ToolTip::Show(RECT rectTitle, const TCHAR * pszTitle, int iXOff, int iWidth
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), TRUE);
 
 	// Bleuargh...  const_cast.  Will have to do for now.
-	_ti.lpszText  = const_cast<TCHAR *>(pszTitle);
+	_ti.lpszText  = const_cast<wchar_t *>(pszTitle);
 	::SendMessage(_hSelf, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&_ti));
 	::SendMessage(_hSelf, TTM_TRACKPOSITION, 0, MAKELONG(_ti.rect.left + iXOff, _ti.rect.top + iWidthOff));
 	::SendMessage(_hSelf, TTM_TRACKACTIVATE, true, reinterpret_cast<LPARAM>(&_ti));

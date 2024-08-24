@@ -27,11 +27,12 @@ constStatement:scintilla/src/Document.cxx
 // ILexer5* is not pointing at logically const
 constParameterPointer:scintilla/src/Document.cxx
 
-// Doesn't seem to understand that values change in loops
-knownConditionTrueFalse:scintilla/src/Document.cxx
-
 // Some non-explicit constructors are used for conversions or are private to lexers
 noExplicitConstructor
+
+// RangesCopy is deliberately returning a copy.
+// The copy is always mutated so returning a refererence just enables lifetime problems.
+returnByReference:scintilla/src/Selection.h
 
 // MarginView access to all bits is safe and is better defined in later versions of C++
 shiftTooManyBitsSigned:scintilla/src/MarginView.cxx

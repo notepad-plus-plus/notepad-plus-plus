@@ -133,5 +133,5 @@ static void ColouriseKixDoc(Sci_PositionU startPos, Sci_Position length, int ini
 }
 
 
-LexerModule lmKix(SCLEX_KIX, ColouriseKixDoc, "kix");
+extern const LexerModule lmKix(SCLEX_KIX, ColouriseKixDoc, "kix");
 

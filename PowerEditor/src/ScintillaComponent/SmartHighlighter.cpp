@@ -26,7 +26,7 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 	//Nothing to do
 }
 
-void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite)
+void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const std::wstring & word2Hilite)
 {
 	// save target locations for other search functions
 	auto originalStartPos = pHighlightView->execute(SCI_GETTARGETSTART);
@@ -52,7 +52,7 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	{
 		// fetch find dialog's setting
 		NppParameters& nppParams = NppParameters::getInstance();
-		FindHistory &findHistory = nppParams.getFindHistory();
+		const FindHistory &findHistory = nppParams.getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
 		isCaseSensentive = findHistory._isMatchCase;
 	}
@@ -125,7 +125,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	{
 		// fetch find dialog's setting
 		NppParameters& nppParams = NppParameters::getInstance();
-		FindHistory &findHistory = nppParams.getFindHistory();
+		const FindHistory &findHistory = nppParams.getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
 	}
 	else
@@ -156,7 +156,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
-	const TCHAR * text2FindW = wmc.char2wchar(text2Find, cp);
+	const wchar_t * text2FindW = wmc.char2wchar(text2Find, cp);
 
 	highlightViewWithWord(pHighlightView, text2FindW);
 

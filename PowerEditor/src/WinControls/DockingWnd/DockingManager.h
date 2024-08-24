@@ -23,7 +23,7 @@
 #include "DockingCont.h"
 #include "SplitterContainer.h"
 
-#define DSPC_CLASS_NAME TEXT("dockingManager")
+#define DSPC_CLASS_NAME L"dockingManager"
 #define	CONT_MAP_MAX	50
 
 class DockingSplitter;
@@ -48,7 +48,7 @@ public :
 	void createDockableDlg(tTbData data, int iCont = CONT_LEFT, bool isVisible = false);
 	void setActiveTab(int iCont, int iItem);
 	void showDockableDlg(HWND hDlg, BOOL view);
-	void showDockableDlg(TCHAR* pszName, BOOL view);
+	void showDockableDlg(wchar_t* pszName, BOOL view);
 
 	DockingCont* toggleActiveTb(DockingCont* pContSrc, UINT message, BOOL bNew = FALSE, LPRECT rcFloat = NULL);
 	DockingCont* toggleVisTb(DockingCont* pContSrc, UINT message, LPRECT rcFloat = NULL);

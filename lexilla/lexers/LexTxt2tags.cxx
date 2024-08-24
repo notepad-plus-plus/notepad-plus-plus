@@ -476,6 +476,6 @@ static void ColorizeTxt2tagsDoc(Sci_PositionU startPos, Sci_Position length, int
     sc.Complete();
 }
 
-LexerModule lmTxt2tags(SCLEX_TXT2TAGS, ColorizeTxt2tagsDoc, "txt2tags");
+extern const LexerModule lmTxt2tags(SCLEX_TXT2TAGS, ColorizeTxt2tagsDoc, "txt2tags");
 
 

@@ -360,15 +360,35 @@ IDR_FIND_RESULT_ICO2            ICON        "icons/light/panels/tabbar/findResul
 IDR_FIND_RESULT_ICO_DM          ICON        "icons/dark/panels/tabbar/findResult.ico"
 
 
-IDI_PROJECT_WORKSPACE           BITMAP      "icons/standard/panels/treeview/project_work_space.bmp"
-IDI_PROJECT_WORKSPACEDIRTY      BITMAP      "icons/standard/panels/treeview/project_work_space_dirty.bmp"
-IDI_PROJECT_PROJECT             BITMAP      "icons/standard/panels/treeview/project_root.bmp"
-IDI_PROJECT_FOLDEROPEN          BITMAP      "icons/standard/panels/treeview/project_folder_open.bmp"
-IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons/standard/panels/treeview/project_folder_close.bmp"
-IDI_PROJECT_FILE                BITMAP      "icons/standard/panels/treeview/project_file.bmp"
-IDI_PROJECT_FILEINVALID         BITMAP      "icons/standard/panels/treeview/project_file_invalid.bmp"
-IDI_FB_ROOTOPEN                 BITMAP      "icons/standard/panels/treeview/fb_root_open.bmp"
-IDI_FB_ROOTCLOSE                BITMAP      "icons/standard/panels/treeview/fb_root_close.bmp"
+IDI_PROJECT_WORKSPACE           ICON        "icons/standard/panels/treeview/project_work_space.ico"
+IDI_PROJECT_WORKSPACEDIRTY      ICON        "icons/standard/panels/treeview/project_work_space_dirty.ico"
+IDI_PROJECT_PROJECT             ICON        "icons/standard/panels/treeview/project_root.ico"
+IDI_PROJECT_FOLDEROPEN          ICON        "icons/standard/panels/treeview/project_folder_open.ico"
+IDI_PROJECT_FOLDERCLOSE         ICON        "icons/standard/panels/treeview/project_folder_close.ico"
+IDI_PROJECT_FILE                ICON        "icons/standard/panels/treeview/project_file.ico"
+IDI_PROJECT_FILEINVALID         ICON        "icons/standard/panels/treeview/project_file_invalid.ico"
+IDI_FB_ROOTOPEN                 ICON        "icons/standard/panels/treeview/fb_root_open.ico"
+IDI_FB_ROOTCLOSE                ICON        "icons/standard/panels/treeview/fb_root_close.ico"
+
+IDI_PROJECT_WORKSPACE_DM        ICON        "icons/dark/panels/treeview/project_work_space.ico"
+IDI_PROJECT_WORKSPACEDIRTY_DM   ICON        "icons/dark/panels/treeview/project_work_space_dirty.ico"
+IDI_PROJECT_PROJECT_DM          ICON        "icons/dark/panels/treeview/project_root.ico"
+IDI_PROJECT_FOLDEROPEN_DM       ICON        "icons/dark/panels/treeview/project_folder_open.ico"
+IDI_PROJECT_FOLDERCLOSE_DM      ICON        "icons/dark/panels/treeview/project_folder_close.ico"
+IDI_PROJECT_FILE_DM             ICON        "icons/dark/panels/treeview/project_file.ico"
+IDI_PROJECT_FILEINVALID_DM      ICON        "icons/dark/panels/treeview/project_file_invalid.ico"
+IDI_FB_ROOTOPEN_DM              ICON        "icons/dark/panels/treeview/fb_root_open.ico"
+IDI_FB_ROOTCLOSE_DM             ICON        "icons/dark/panels/treeview/fb_root_close.ico"
+
+IDI_PROJECT_WORKSPACE2          ICON        "icons/light/panels/treeview/project_work_space.ico"
+IDI_PROJECT_WORKSPACEDIRTY2     ICON        "icons/light/panels/treeview/project_work_space_dirty.ico"
+IDI_PROJECT_PROJECT2            ICON        "icons/light/panels/treeview/project_root.ico"
+IDI_PROJECT_FOLDEROPEN2         ICON        "icons/light/panels/treeview/project_folder_open.ico"
+IDI_PROJECT_FOLDERCLOSE2        ICON        "icons/light/panels/treeview/project_folder_close.ico"
+IDI_PROJECT_FILE2               ICON        "icons/light/panels/treeview/project_file.ico"
+IDI_PROJECT_FILEINVALID2        ICON        "icons/light/panels/treeview/project_file_invalid.ico"
+IDI_FB_ROOTOPEN2                ICON        "icons/light/panels/treeview/fb_root_open.ico"
+IDI_FB_ROOTCLOSE2               ICON        "icons/light/panels/treeview/fb_root_close.ico"
 
 IDI_FB_SELECTCURRENTFILE        ICON        "icons/standard/panels/toolbar/fb_select_current_file.ico"
 IDI_FB_FOLDALL                  ICON        "icons/standard/panels/toolbar/fb_fold_all.ico"
@@ -377,9 +397,15 @@ IDI_FB_SELECTCURRENTFILE_DM     ICON        "icons/dark/panels/toolbar/fb_select
 IDI_FB_FOLDALL_DM               ICON        "icons/dark/panels/toolbar/fb_fold_all.ico"
 IDI_FB_EXPANDALL_DM             ICON        "icons/dark/panels/toolbar/fb_expand_all.ico"
 
-//IDI_FUNCLIST_ROOT               BITMAP      "icons/standard/panels/treeview/project_file.bmp" // same file as IDI_PROJECT_FILE
-IDI_FUNCLIST_NODE               BITMAP      "icons/standard/panels/treeview/funcList_node.bmp"
-IDI_FUNCLIST_LEAF               BITMAP      "icons/standard/panels/treeview/funcList_leaf.bmp"
+//IDI_FUNCLIST_ROOT               ICON        "icons/standard/panels/treeview/project_file.ico" // same file as IDI_PROJECT_FILE
+IDI_FUNCLIST_NODE               ICON        "icons/standard/panels/treeview/funcList_node.ico"
+IDI_FUNCLIST_LEAF               ICON        "icons/standard/panels/treeview/funcList_leaf.ico"
+
+IDI_FUNCLIST_NODE_DM            ICON        "icons/dark/panels/treeview/funcList_node.ico"
+IDI_FUNCLIST_LEAF_DM            ICON        "icons/dark/panels/treeview/funcList_leaf.ico"
+
+IDI_FUNCLIST_NODE2              ICON        "icons/light/panels/treeview/funcList_node.ico"
+IDI_FUNCLIST_LEAF2              ICON        "icons/light/panels/treeview/funcList_leaf.ico"
 
 IDI_FUNCLIST_SORTBUTTON            ICON     "icons/standard/panels/toolbar/funclstSort.ico"
 IDI_FUNCLIST_RELOADBUTTON          ICON     "icons/standard/panels/toolbar/funclstReload.ico"
@@ -600,7 +626,7 @@ BEGIN
         MENUITEM "Previous Search Resul&t",     IDM_SEARCH_GOTOPREVFOUND
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE
         MENUITEM "Go to &Matching Brace",       IDM_SEARCH_GOTOMATCHINGBRACE
-        MENUITEM "Select All Between &Matching Braces", IDM_SEARCH_SELECTMATCHINGBRACES
+        MENUITEM "Select All In-betw&een {} [] or ()", IDM_SEARCH_SELECTMATCHINGBRACES
         MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
         MENUITEM SEPARATOR
         POPUP "Change History"
@@ -1310,7 +1336,7 @@ END
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 270, 240
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
-FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+FONT 8, L"MS Shell Dlg", 0, 0, 0x1
 BEGIN
     EDITTEXT        IDC_BUILD_DATETIME,150,2,150,10, ES_READONLY | NOT WS_BORDER
     CONTROL         "", IDI_NPPABOUT_LOGO,"Static",SS_OWNERDRAW,10,5,128,128
@@ -1343,11 +1369,11 @@ IDD_DEBUGINFOBOX DIALOGEX 0, 0, 246, 195
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Debug Info"
-FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+FONT 8, L"MS Shell Dlg", 0, 0, 0x1
 BEGIN
     GROUPBOX        "",IDC_STATIC,8,3,230,151,BS_CENTER
     EDITTEXT        IDC_DEBUGINFO_EDIT,18,16,210,128,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
-    PUSHBUTTON      "&Copy debug info into clipboard",IDC_DEBUGINFO_COPYLINK,8,157,126,14
+    PUSHBUTTON      "&Copy debug info to clipboard",IDC_DEBUGINFO_COPYLINK,8,157,126,14
     DEFPUSHBUTTON   "OK",IDOK,98,175,50,14
 END
 
@@ -1355,7 +1381,7 @@ IDD_DOSAVEORNOTBOX DIALOGEX 0, 0, 312, 80
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Save"
-FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+FONT 8, L"MS Shell Dlg", 0, 0, 0x1
 BEGIN
     LTEXT           "",IDC_DOSAVEORNOTTEXT,7,10,290,40,SS_EDITCONTROL
     DEFPUSHBUTTON   "&Yes",IDYES,10,60,50,14
@@ -1369,7 +1395,7 @@ IDD_DOSAVEALLBOX DIALOGEX 0, 0, 260, 95
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Save"
-FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+FONT 8, L"MS Shell Dlg", 0, 0, 0x1
 BEGIN
     LTEXT           "",IDC_DOSAVEALLTEXT,7,10,250,70,SS_EDITCONTROL
     DEFPUSHBUTTON   "&Yes",IDYES,47,75,50,14
@@ -1381,7 +1407,7 @@ IDD_GOLINE DIALOGEX 0, 0, 258, 75
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE
 CAPTION "Go To..."
-FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x0
+FONT 8, L"MS Shell Dlg", 0, 0, 0x0
 BEGIN
     CONTROL         "&Line",IDC_RADIO_GOTOLINE,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,8,5,80,10
     CONTROL         "&Offset",IDC_RADIO_GOTOOFFSET,"Button",BS_AUTORADIOBUTTON,98,5,80,10

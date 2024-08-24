@@ -56,7 +56,8 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			TBBUTTON tbButtons[2]{};
 
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+			NppParameters& nppParam = NppParameters::getInstance();
+			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring workspace_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 0, PM_WORKSPACEMENUENTRY);
 			wstring edit_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 1, PM_EDITMENUENTRY);
 
@@ -77,8 +78,14 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }
+				, { IDI_PROJECT_WORKSPACE_DM, IDI_PROJECT_WORKSPACEDIRTY_DM, IDI_PROJECT_PROJECT_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM, IDI_PROJECT_FILEINVALID_DM }
+				, { IDI_PROJECT_WORKSPACE2, IDI_PROJECT_WORKSPACEDIRTY2, IDI_PROJECT_PROJECT2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2, IDI_PROJECT_FILEINVALID2 }
+			);
+
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
-			_treeView.setImageList(CX_BITMAP, CY_BITMAP, 7, IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
+			_treeView.setImageList(imgIds);
 
 			_treeView.addCanNotDropInList(INDEX_LEAF);
 			_treeView.addCanNotDropInList(INDEX_LEAF_INVALID);
@@ -103,7 +110,19 @@ intptr_t CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				NppDarkMode::autoThemeChildControls(_hSelf);
 			}
-			NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			else
+			{
+				NppDarkMode::setTreeViewStyle(_treeView.getHSelf());
+			}
+
+			std::vector<int> imgIds = _treeView.getImageIds(
+				{ IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID }
+				, { IDI_PROJECT_WORKSPACE_DM, IDI_PROJECT_WORKSPACEDIRTY_DM, IDI_PROJECT_PROJECT_DM, IDI_PROJECT_FOLDEROPEN_DM, IDI_PROJECT_FOLDERCLOSE_DM, IDI_PROJECT_FILE_DM, IDI_PROJECT_FILEINVALID_DM }
+				, { IDI_PROJECT_WORKSPACE2, IDI_PROJECT_WORKSPACEDIRTY2, IDI_PROJECT_PROJECT2, IDI_PROJECT_FOLDEROPEN2, IDI_PROJECT_FOLDERCLOSE2, IDI_PROJECT_FILE2, IDI_PROJECT_FILEINVALID2 }
+			);
+
+			_treeView.setImageList(imgIds);
+
 			return TRUE;
 		}
 
@@ -337,7 +356,7 @@ bool ProjectPanel::openWorkSpace(const wchar_t *projectFileName, bool force)
 		return false;
 	}
 
-	if (!::PathFileExists(projectFileName))
+	if (!doesFileExist(projectFileName))
 	{
 		delete pXmlDocProject;
 		return false;
@@ -454,7 +473,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const wchar
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 		if (tvItem.lParam)
 		{
-			wstring *fn = (wstring *)tvItem.lParam;
+			const wstring *fn = reinterpret_cast<const wstring *>(tvItem.lParam);
 			wstring newFn = getRelativePath(*fn, fn2write);
 			TiXmlNode *fileLeaf = node->InsertEndChild(TiXmlElement(L"File"));
 			fileLeaf->ToElement()->SetAttribute(L"name", newFn.c_str());
@@ -538,7 +557,7 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 			const wchar_t *strValue = (childNode->ToElement())->Attribute(L"name");
 			wstring fullPath = getAbsoluteFilePath(strValue);
 			wchar_t *strValueLabel = ::PathFindFileName(strValue);
-			int iImage = ::PathFileExists(fullPath.c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
+			int iImage = doesFileExist(fullPath.c_str()) ? INDEX_LEAF : INDEX_LEAF_INVALID;
 
 			wstring* fullPathStr = new wstring(fullPath);
 			fullPathStrs.push_back(fullPathStr);
@@ -574,7 +593,7 @@ void ProjectPanel::openSelectFile()
 	if (nType == nodeType_file && fn)
 	{
 		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-		if (::PathFileExists(fn->c_str()))
+		if (doesFileExist(fn->c_str()))
 		{
 			::PostMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fn->c_str()));
 			tvItem.iImage = INDEX_LEAF;
@@ -643,7 +662,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 					// Check the validity of modified file path
 					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-					if (::PathFileExists(filePath->c_str()))
+					if (doesFileExist(filePath->c_str()))
 					{
 						tvItem.iImage = INDEX_LEAF;
 						tvItem.iSelectedImage = INDEX_LEAF;
@@ -1073,7 +1092,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				}
 			}
 
-			if (::PathFileExists(_workSpaceFilePath.c_str()))
+			if (doesFileExist(_workSpaceFilePath.c_str()))
 			{
 				openWorkSpace(_workSpaceFilePath.c_str(), forceOpen);
 			}
@@ -1179,7 +1198,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				*fn = newValue;
 				wchar_t *strValueLabel = ::PathFindFileName(fn->c_str());
 				wcscpy_s(textBuffer, strValueLabel);
-				int iImage = ::PathFileExists(fn->c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
+				int iImage = doesFileExist(fn->c_str()) ? INDEX_LEAF : INDEX_LEAF_INVALID;
 				tvItem.iImage = tvItem.iSelectedImage = iImage;
 				SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 				setWorkSpaceDirty(true);
@@ -1214,9 +1233,10 @@ bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 void ProjectPanel::setFileExtFilter(CustomFileDialog & fDlg)
 {
 	const wchar_t *ext = NppParameters::getInstance().getNppGUI()._definedWorkspaceExt.c_str();
-	wstring workspaceExt = L"";
 	if (*ext != '\0')
 	{
+		wstring workspaceExt = L"";
+
 		if (*ext != '.')
 			workspaceExt += L".";
 		workspaceExt += ext;

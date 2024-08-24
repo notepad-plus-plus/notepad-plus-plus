@@ -5,7 +5,7 @@ on: [push]
 jobs:
     build:
 
-        runs-on: macos-11
+        runs-on: macos-latest
 
         strategy:
             matrix:
@@ -18,16 +18,16 @@ jobs:
               (cd .. && wget --no-verbose https://www.scintilla.org/scintilla500.zip)
               (cd .. && unzip scintilla500.zip)
         - name: Unit Test
-          run: (cd test/unit && make DEBUG=1 CXX=${{matrix.cpp_compiler}} test)
+          run: (cd test/unit && make DEBUG=1 CXX=${{matrix.cpp_compiler}} --jobs=$(getconf _NPROCESSORS_ONLN) test)
         - name: Build Lexilla
-          run: (cd src && make DEBUG=1 CXX=${{matrix.cpp_compiler}})
+          run: (cd src && make DEBUG=1 CXX=${{matrix.cpp_compiler}} --jobs=$(getconf _NPROCESSORS_ONLN))
         - uses: actions/upload-artifact@v4
           with:
               name: liblexilla.dylib
               path: bin/liblexilla.dylib
         - name: Test lexing and folding
-          run: (cd test && make DEBUG=1 CXX=${{matrix.cpp_compiler}} test)
+          run: (cd test && make DEBUG=1 CXX=${{matrix.cpp_compiler}} --jobs=$(getconf _NPROCESSORS_ONLN) test)
         - name: CheckLexilla C Example
-          run: (cd examples/CheckLexilla && make DEBUG=1 check)
+          run: (cd examples/CheckLexilla && make DEBUG=1 --jobs=$(getconf _NPROCESSORS_ONLN) check)
         - name: SimpleLexer Example
-          run: (cd examples/SimpleLexer && make DEBUG=1 CXX=${{matrix.cpp_compiler}} check)
+          run: (cd examples/SimpleLexer && make DEBUG=1 CXX=${{matrix.cpp_compiler}} --jobs=$(getconf _NPROCESSORS_ONLN) check)

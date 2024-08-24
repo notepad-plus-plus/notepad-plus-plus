@@ -106,7 +106,7 @@ public:
 	FontQuartz(const FontParameters &fp) {
 		style = std::make_unique<QuartzTextStyle>();
 		// Create the font with attributes
-		QuartzFont font(fp.faceName, strlen(fp.faceName), fp.size, fp.weight, fp.italic);
+		QuartzFont font(fp.faceName, strlen(fp.faceName), fp.size, fp.weight, fp.stretch, fp.italic);
 		CTFontRef fontRef = font.getFontID();
 		style->setFontRef(fontRef, fp.characterSet);
 	}

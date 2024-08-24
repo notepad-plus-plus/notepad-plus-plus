@@ -309,7 +309,7 @@ static const char * const gui4cliWordListDesc[] = {
 };
 
 // Declare language & pass our function pointers to Scintilla
-LexerModule lmGui4Cli(SCLEX_GUI4CLI, ColouriseGui4CliDoc, "gui4cli", FoldGui4Cli, gui4cliWordListDesc);
+extern const LexerModule lmGui4Cli(SCLEX_GUI4CLI, ColouriseGui4CliDoc, "gui4cli", FoldGui4Cli, gui4cliWordListDesc);
 
 #undef debug
 

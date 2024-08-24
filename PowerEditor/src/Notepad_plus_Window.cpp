@@ -228,7 +228,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 
 	fileNames.clear();
 
-	wstring nppThemeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
+	wstring nppThemeDir = nppDir; // <- should use the pointer to avoid the constructor of copy
 	pathAppend(nppThemeDir, L"themes\\");
 
 	// Set theme directory to their installation directory
@@ -246,7 +246,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 			{
 				wstring appDataThemePath = appDataThemeDir;
 
-				if (!::PathFileExists(appDataThemePath.c_str()))
+				if (!doesDirectoryExist(appDataThemePath.c_str()))
 				{
 					::CreateDirectory(appDataThemePath.c_str(), NULL);
 				}
@@ -271,7 +271,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 				pathAppend(themePath, xmlFileName);
 			}
 
-			if (::PathFileExists(themePath.c_str()) == FALSE || themePath.empty())
+			if (themePath.empty() || !doesFileExist(themePath.c_str()))
 			{
 				themePath = themeSwitcher.getThemeDirPath();
 				pathAppend(themePath, xmlFileName);
@@ -283,11 +283,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 			themePath = themeInfo.second;
 		}
 
-		if (::PathFileExists(themePath.c_str()) == TRUE)
+		if (doesFileExist(themePath.c_str()))
 		{
 			nppGUI._themeName.assign(themePath);
 			nppParams.reloadStylers(themePath.c_str());
-			::SendMessage(_hSelf, WM_UPDATESCINTILLAS, 0, 0);
+			::SendMessage(_hSelf, WM_UPDATESCINTILLAS, TRUE, 0);
 		}
 	}
 
@@ -362,7 +362,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		}
 		else if (cmdLineParams->_quoteType == 2) // content drom file
 		{
-			if (::PathFileExists(cmdLineParams->_easterEggName.c_str()))
+			if (doesFileExist(cmdLineParams->_easterEggName.c_str()))
 			{
 				std::string content = getFileContent(cmdLineParams->_easterEggName.c_str());
 				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();

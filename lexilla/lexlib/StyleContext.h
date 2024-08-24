@@ -120,6 +120,9 @@ public:
 	Sci_Position LengthCurrent() const noexcept {
 		return currentPos - styler.GetStartSegment();
 	}
+	char GetRelativeChar(Sci_Position n, char chDefault='\0') {
+		return styler.SafeGetCharAt(currentPos + n, chDefault);
+	}
 	int GetRelative(Sci_Position n, char chDefault='\0') {
 		const unsigned char chRelative = styler.SafeGetCharAt(currentPos + n, chDefault);
 		return chRelative;

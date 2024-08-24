@@ -128,7 +128,7 @@ protected:
 	std::string m_lastPropertyValue;
 };
 
-LexerModule lmEDIFACT(SCLEX_EDIFACT, LexerEDIFACT::Factory, "edifact");
+extern const LexerModule lmEDIFACT(SCLEX_EDIFACT, LexerEDIFACT::Factory, "edifact");
 
 ///////////////////////////////////////////////////////////////////////////////
 

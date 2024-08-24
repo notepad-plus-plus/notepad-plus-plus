@@ -77,7 +77,7 @@ bool isInListA(const char *token, const char *list)
 	if ((!token) || (!list))
 		return false;
 
-	char word[64] = { '\0' };
+	char word[64] {};
 	size_t i = 0;
 	size_t j = 0;
 	for (size_t len = strlen(list); i <= len; ++i)

@@ -19,10 +19,10 @@
 
 
 struct Token {
-	TCHAR * token;
+	wchar_t * token;
 	int length;
 	bool isIdentifier;
-	Token(TCHAR * tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {};
+	Token(wchar_t * tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {};
 };
 
 struct FunctionValues {
@@ -33,11 +33,11 @@ struct FunctionValues {
 	FunctionValues() : lastIdentifier(-1), lastFunctionIdentifier(-1), param(0), scopeLevel(-1) {};
 };
 
-inline bool lower(TCHAR c) {
+inline bool lower(wchar_t c) {
 	return (c >= 'a' && c <= 'z');	
 }
 
-inline bool match(TCHAR c1, TCHAR c2) {
+inline bool match(wchar_t c1, wchar_t c2) {
 	if (c1 == c2)	return true;
 	if (lower(c1))
 		return ((c1-32) == c2);
@@ -48,7 +48,7 @@ inline bool match(TCHAR c1, TCHAR c2) {
 
 //test string case insensitive ala Scintilla
 //0 if equal, <0 of before, >0 if after (name1 that is)
-int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1)
+int testNameNoCase(const wchar_t * name1, const wchar_t * name2, int len = -1)
 {
 	if (len == -1)
 	{
@@ -145,7 +145,7 @@ bool FunctionCallTip::getCursorFunction()
 		return false;	//cannot be a func, need name and separator
 	}
 	
-	TCHAR lineData[maxLen] = TEXT("");
+	wchar_t lineData[maxLen] = L"";
 
 	_pEditView->getLine(line, lineData, len);
 
@@ -154,15 +154,15 @@ bool FunctionCallTip::getCursorFunction()
 	//token is identifier or some expression, whitespace is ignored
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
-	TCHAR ch;
+
 	for (int i = 0; i < offset; ++i) 	//we dont care about stuff after the offset
     {
 		//tokenVector.push_back(pair(lineData+i, len));
-		ch = lineData[i];
+		wchar_t ch = lineData[i];
 		if (isBasicWordChar(ch) || isAdditionalWordChar(ch))	//part of identifier
         {
 			tokenLen = 0;
-			TCHAR * begin = lineData+i;
+			wchar_t * begin = lineData+i;
             while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset)
 			{
 				++tokenLen;
@@ -195,7 +195,7 @@ bool FunctionCallTip::getCursorFunction()
 	int scopeLevel = 0;
 	for (size_t i = 0; i < vsize; ++i)
 	{
-		Token & curToken = tokenVector.at(i);
+		const Token & curToken = tokenVector.at(i);
 		if (curToken.isIdentifier)
 		{
 			curValue.lastIdentifier = static_cast<int32_t>(i);
@@ -275,7 +275,7 @@ bool FunctionCallTip::getCursorFunction()
 		{	//check if we need to reload data
 			delete [] _funcName;
 
-			_funcName = new TCHAR[funcToken.length+1];
+			_funcName = new wchar_t[funcToken.length+1];
 			wcscpy_s(_funcName, funcToken.length+1, funcToken.token);
 			res = loadFunction();
 		}
@@ -298,10 +298,10 @@ bool FunctionCallTip::loadFunction()
 	//Iterate through all keywords and find the correct function keyword
 	TiXmlElement *funcNode = _pXmlKeyword;
 	
-	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")))
+	for (; funcNode; funcNode = funcNode->NextSiblingElement(L"KeyWord"))
 	{
-		const TCHAR * name = NULL;
-		name = funcNode->Attribute(TEXT("name"));
+		const wchar_t * name = NULL;
+		name = funcNode->Attribute(L"name");
 		if (!name)		//malformed node
 			continue;
 		int compVal = 0;
@@ -311,10 +311,10 @@ bool FunctionCallTip::loadFunction()
 			compVal = lstrcmp(name, _funcName);
 		if (!compVal) 	//found it!
         {
-			const TCHAR * val = funcNode->Attribute(TEXT("func"));
+			const wchar_t * val = funcNode->Attribute(L"func");
 			if (val)
 			{
-				if (!lstrcmp(val, TEXT("yes"))) 
+				if (!lstrcmp(val, L"yes")) 
                 {
 					//what we've been looking for
 					_curFunction = funcNode;
@@ -335,25 +335,25 @@ bool FunctionCallTip::loadFunction()
 
 	stringVec paramVec;
 
-	TiXmlElement *overloadNode = _curFunction->FirstChildElement(TEXT("Overload"));
+	TiXmlElement *overloadNode = _curFunction->FirstChildElement(L"Overload");
 	TiXmlElement *paramNode = NULL;
-	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(TEXT("Overload")) )
+	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(L"Overload") )
 	{
-		const TCHAR * retVal = overloadNode->Attribute(TEXT("retVal"));
+		const wchar_t * retVal = overloadNode->Attribute(L"retVal");
 		if (!retVal)
 			continue;	//malformed node
 		_retVals.push_back(retVal);
 
-		const TCHAR * description = overloadNode->Attribute(TEXT("descr"));
+		const wchar_t * description = overloadNode->Attribute(L"descr");
 		if (description)
 			_descriptions.push_back(description);
 		else
-			_descriptions.push_back(TEXT(""));	//"no description available"
+			_descriptions.push_back(L"");	//"no description available"
 
-		paramNode = overloadNode->FirstChildElement(TEXT("Param"));
-		for (; paramNode ; paramNode = paramNode->NextSiblingElement(TEXT("Param")) )
+		paramNode = overloadNode->FirstChildElement(L"Param");
+		for (; paramNode ; paramNode = paramNode->NextSiblingElement(L"Param") )
 		{
-			const TCHAR * param = paramNode->Attribute(TEXT("name"));
+			const wchar_t * param = paramNode->Attribute(L"name");
 			if (!param)
 				continue;	//malformed node
 			paramVec.push_back(param);
@@ -397,14 +397,14 @@ void FunctionCallTip::showCalltip()
 		}
 	}
 
-	generic_stringstream callTipText;
+	std::basic_stringstream<wchar_t> callTipText;
 
 	if (_currentNbOverloads > 1)
 	{
-		callTipText << TEXT("\001") << _currentOverload + 1 << TEXT(" of ") << _currentNbOverloads << TEXT("\002");
+		callTipText << L"\001" << _currentOverload + 1 << L" of " << _currentNbOverloads << L"\002";
 	}
 
-	callTipText << _retVals.at(_currentOverload) << TEXT(' ') << _funcName << TEXT(' ') << _start;
+	callTipText << _retVals.at(_currentOverload) << ' ' << _funcName << ' ' << _start;
 
 	int highlightstart = 0;
 	int highlightend = 0;
@@ -418,13 +418,13 @@ void FunctionCallTip::showCalltip()
 		}
 		callTipText << params.at(i);
 		if (i < nbParams - 1)
-			callTipText << _param << TEXT(' ');
+			callTipText << _param << ' ';
 	}
 
 	callTipText << _stop;
 	if (_descriptions.at(_currentOverload)[0])
 	{
-		callTipText << TEXT("\n") << _descriptions.at(_currentOverload);
+		callTipText << L"\n" << _descriptions.at(_currentOverload);
 	}
 
 	if (isVisible())

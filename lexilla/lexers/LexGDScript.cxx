@@ -768,5 +768,5 @@ void SCI_METHOD LexerGDScript::Fold(Sci_PositionU startPos, Sci_Position length,
 	//styler.SetLevel(lineCurrent, indentCurrent);
 }
 
-LexerModule lmGDScript(SCLEX_GDSCRIPT, LexerGDScript::LexerFactoryGDScript, "gdscript",
+extern const LexerModule lmGDScript(SCLEX_GDSCRIPT, LexerGDScript::LexerFactoryGDScript, "gdscript",
 		     gdscriptWordListDesc);

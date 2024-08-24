@@ -10,6 +10,7 @@
     <title>
       Scintilla
     </title>
+    <link rel="canonical" href="https://scintilla.org/ScintillaHistory.html" />
     <style type="text/css">
         table {
             border-collapse: collapse;
@@ -580,9 +581,62 @@
 	<td>Chengzhi Li</td>
 	<td>Gary James</td>
 	<td>Tsuyoshi Miyake</td>
+	<td>Martijn Laan</td>
     </tr>
     </table>
     <h2>Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla552.zip">Release 5.5.2</a>
+    </h3>
+    <ul>
+	<li>
+	Released 21 August 2024.
+	</li>
+	<li>
+	Add SCI_SETCOPYSEPARATOR for separator between parts of a multiple selection when copied to the clipboard.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1530/">Feature #1530</a>.
+	</li>
+	<li>
+	Add SCI_GETUNDOSEQUENCE to determine whether an undo sequence is active and its nesting depth.
+	</li>
+	<li>
+	Add SCI_STYLESETSTRETCH to support condensed and expanded text styles.
+	</li>
+	<li>
+	Add SCI_LINEINDENT and SCI_LINEDEDENT.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1524/">Feature #1524</a>.
+	</li>
+	<li>
+	Fix bug on Cocoa where double-click stopped working when system had been running for a long time.
+	</li>
+	<li>
+	On Cocoa implement more values of font weight and stretch.
+	</li>
+    </ul>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla551.zip">Release 5.5.1</a>
+    </h3>
+    <ul>
+	<li>
+	Released 22 July 2024.
+	</li>
+	<li>
+	SCI_CUTALLOWLINE added which is similar to SCI_COPYALLOWLINE but also deletes the copied text.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1518/">Feature #1518</a>.
+	</li>
+	<li>
+	Can set font used for autocompletion lists with SCI_AUTOCSETSTYLE.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1523/">Feature #1523</a>.
+	</li>
+	<li>
+	Increase maximum zoom set interactively to +60 points.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1517/">Feature #1517</a>.
+	</li>
+	<li>
+	Fix flickering cursor after some mouse action sequences.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2443/">Bug #2443</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla550.zip">Release 5.5.0</a>
     </h3>

@@ -36,7 +36,7 @@ public:
 
 	void init(HINSTANCE hInst, HWND parent) override {
 		StaticDialog::init(hInst, parent);
-		TCHAR temp[MAX_PATH];
+		wchar_t temp[MAX_PATH];
 		::GetModuleFileName(hInst, temp, MAX_PATH);
 		_moduleName = ::PathFindFileName(temp);
 	}
@@ -44,7 +44,7 @@ public:
 	void create(tTbData* data, bool isRTL = false) {
 		assert(data != nullptr);
 		StaticDialog::create(_dlgID, isRTL);
-		TCHAR temp[MAX_PATH];
+		wchar_t temp[MAX_PATH];
 		::GetWindowText(_hSelf, temp, MAX_PATH);
 		_pluginName = temp;
 
@@ -78,7 +78,7 @@ public:
 		_isClosed = toClose;
 	}
 
-	const TCHAR * getPluginFileName() const {
+	const wchar_t * getPluginFileName() const {
 		return _moduleName.c_str();
 	}
 
@@ -86,8 +86,8 @@ protected :
 	int	_dlgID = -1;
 	bool _isFloating = true;
 	int _iDockedPos = 0;
-	generic_string _moduleName;
-	generic_string _pluginName;
+	std::wstring _moduleName;
+	std::wstring _pluginName;
 	bool _isClosed = false;
 
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override {

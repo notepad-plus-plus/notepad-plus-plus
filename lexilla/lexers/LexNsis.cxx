@@ -663,5 +663,5 @@ static const char * const nsisWordLists[] = {
 	0, };
 
 
-LexerModule lmNsis(SCLEX_NSIS, ColouriseNsisDoc, "nsis", FoldNsisDoc, nsisWordLists);
+extern const LexerModule lmNsis(SCLEX_NSIS, ColouriseNsisDoc, "nsis", FoldNsisDoc, nsisWordLists);
 

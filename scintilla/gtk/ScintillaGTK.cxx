@@ -2379,8 +2379,7 @@ void ScintillaGTK::MoveImeCarets(Sci::Position pos) {
 	// Move carets relatively by bytes
 	for (size_t r=0; r<sel.Count(); r++) {
 		const Sci::Position positionInsert = sel.Range(r).Start().Position();
-		sel.Range(r).caret.SetPosition(positionInsert + pos);
-		sel.Range(r).anchor.SetPosition(positionInsert + pos);
+		sel.Range(r) = SelectionRange(positionInsert + pos);
 	}
 }
 

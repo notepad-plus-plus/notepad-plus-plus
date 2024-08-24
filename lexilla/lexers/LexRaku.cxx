@@ -1631,4 +1631,4 @@ void SCI_METHOD LexerRaku::Fold(Sci_PositionU startPos, Sci_Position length, int
  * --- Scintilla: LexerModule ---
  *----------------------------------------------------------------------------*/
 
-LexerModule lmRaku(SCLEX_RAKU, LexerRaku::LexerFactoryRaku, "raku", rakuWordLists);
+extern const LexerModule lmRaku(SCLEX_RAKU, LexerRaku::LexerFactoryRaku, "raku", rakuWordLists);

@@ -131,7 +131,7 @@ void parseCommandLine(const wchar_t* commandLine, ParamVector& paramVector)
 						++zArg; // zArg == 2
 					}
 				}
-				else if (isBetweenFileNameQuotes)
+				else //if (isBetweenFileNameQuotes)
 				{
 					isBetweenFileNameQuotes = false;
 					//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
@@ -253,7 +253,7 @@ std::wstring getLocalizationPathFromParam(ParamVector & params)
 	if (!getParamVal('L', params, locStr))
 		return L"";
 	locStr = stringToLower(stringReplace(locStr, L"_", L"-")); // convert to lowercase format with "-" as separator
-	return NppParameters::getLocPathFromStr(locStr.c_str());
+	return NppParameters::getLocPathFromStr(locStr);
 }
 
 intptr_t getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent)
@@ -624,7 +624,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	std::wstring updaterParams = L"-v";
 	updaterParams += VERSION_INTERNAL_VALUE;
 
-	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
+	bool isUpExist = nppGui._doesExistUpdater = doesFileExist(updaterFullPath.c_str());
 
     if (doUpdateNpp) // check more detail
     {

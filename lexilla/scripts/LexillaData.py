@@ -62,14 +62,14 @@ def FindModules(lexFile):
         for line in f.readlines():
             lineNum += 1
             line = line.rstrip()
-            if partLine or line.startswith("LexerModule"):
+            if partLine or line.startswith("extern const LexerModule"):
                 if ")" in line:
                     line = partLine + line
                     original = line
                     line = line.replace("(", " ")
                     line = line.replace(")", " ")
                     line = line.replace(",", " ")
-                    parts = line.split()
+                    parts = line.split()[2:]
                     lexerName = parts[4]
                     if not (lexerName.startswith('"') and lexerName.endswith('"')):
                         print(f"{lexFile}:{lineNum}: Bad LexerModule statement:\n{original}")

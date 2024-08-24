@@ -451,7 +451,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	return showAutoComplete(autocFuncAndWord, false);
 }
 
-void AutoCompletion::getWordArray(vector<wstring> & wordArray, wchar_t *beginChars, wchar_t *allChars)
+void AutoCompletion::getWordArray(vector<wstring> & wordArray, const wchar_t *beginChars, const wchar_t *allChars)
 {
 	const size_t bufSize = 256;
 	const NppGUI & nppGUI = NppParameters::getInstance().getNppGUI();
@@ -1106,15 +1106,16 @@ bool AutoCompletion::setLanguage(LangType language)
 		TiXmlNode * pNode = _pXmlFile->FirstChild(L"NotepadPlus");
 		if (!pNode)
 			return false;
+
 		pAutoNode = pNode = pNode->FirstChildElement(L"AutoComplete");
 		if (!pNode)
 			return false;
+
 		pNode = pNode->FirstChildElement(L"KeyWord");
 		if (!pNode)
 			return false;
+
 		_pXmlKeyword = reinterpret_cast<TiXmlElement *>(pNode);
-		if (!_pXmlKeyword)
-			return false;
 		_funcCompletionActive = true;
 	}
 
@@ -1216,7 +1217,7 @@ const wchar_t * AutoCompletion::getApiFileName()
 {
 	if (_curLang == L_USER)
 	{
-		Buffer * currentBuf = _pEditView->getCurrentBuffer();
+		const Buffer* currentBuf = _pEditView->getCurrentBuffer();
 		if (currentBuf->isUserDefineLangExt())
 		{
 			return currentBuf->getUserDefineLangName();
@@ -1297,7 +1298,7 @@ void AutoCompletion::setColour(COLORREF colour2Set, AutocompleteColorIndex i)
 	}
 }
 
-void AutoCompletion::drawAutocomplete(ScintillaEditView* pEditView)
+void AutoCompletion::drawAutocomplete(const ScintillaEditView* pEditView)
 {
 	pEditView->setElementColour(SC_ELEMENT_LIST, _autocompleteText);
 	pEditView->setElementColour(SC_ELEMENT_LIST_BACK, _autocompleteBg);

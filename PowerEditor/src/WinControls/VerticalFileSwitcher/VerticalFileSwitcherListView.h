@@ -49,10 +49,10 @@ public:
 	int closeItem(BufferID bufferID, int iView);
 	void activateItem(BufferID bufferID, int iView);
 	void setItemIconStatus(BufferID bufferID);
-	generic_string getFullFilePath(size_t i) const;
+	std::wstring getFullFilePath(size_t i) const;
 	void setItemColor(BufferID bufferID);
 	
-	void insertColumn(const TCHAR *name, int width, int index);
+	void insertColumn(const wchar_t *name, int width, int index);
 	void resizeColumns(int totalWidth);
 	void deleteColumn(size_t i) {
 		ListView_DeleteColumn(_hSelf, i);

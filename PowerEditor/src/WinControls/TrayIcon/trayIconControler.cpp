@@ -17,7 +17,7 @@
 
 #include "trayIconControler.h"
 
-trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hicon, const TCHAR *tip)
+trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hicon, const wchar_t *tip)
 {
   _nid.cbSize = sizeof(_nid);
   _nid.hWnd = hwnd;
@@ -27,7 +27,7 @@ trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hic
   _nid.hIcon = hicon;
   wcscpy_s(_nid.szTip, tip);
   
-  ::RegisterWindowMessage(TEXT("TaskbarCreated"));
+  ::RegisterWindowMessage(L"TaskbarCreated");
   _isIconShowed = false;
 }
 

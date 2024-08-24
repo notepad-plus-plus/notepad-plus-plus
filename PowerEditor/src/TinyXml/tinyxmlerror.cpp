@@ -32,20 +32,20 @@ distribution.
 // It also cleans up the code a bit.
 //
 
-const TCHAR* TiXmlBase::errorString[ TIXML_ERROR_STRING_COUNT ] =
+const wchar_t* TiXmlBase::errorString[ TIXML_ERROR_STRING_COUNT ] =
 {
-	TEXT("No error"),
-	TEXT("Error"),
-	TEXT("Failed to open file"),
-	TEXT("Memory allocation failed."),
-	TEXT("Error parsing Element."),
-	TEXT("Failed to read Element name"),
-	TEXT("Error reading Element value."),
-	TEXT("Error reading Attributes."),
-	TEXT("Error: empty tag."),
-	TEXT("Error reading end tag."),
-	TEXT("Error parsing Unknown."),
-	TEXT("Error parsing Comment."),
-	TEXT("Error parsing Declaration."),
-	TEXT("Error document empty.")
+	L"No error",
+	L"Error",
+	L"Failed to open file",
+	L"Memory allocation failed.",
+	L"Error parsing Element.",
+	L"Failed to read Element name",
+	L"Error reading Element value.",
+	L"Error reading Attributes.",
+	L"Error: empty tag.",
+	L"Error reading end tag.",
+	L"Error parsing Unknown.",
+	L"Error parsing Comment.",
+	L"Error parsing Declaration.",
+	L"Error document empty."
 };

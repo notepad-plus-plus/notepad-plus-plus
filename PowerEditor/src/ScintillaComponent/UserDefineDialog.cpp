@@ -1132,7 +1132,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
         case WM_NOTIFY:
         {
-            NMHDR *nmhdr = (NMHDR *)lParam;
+            const NMHDR *nmhdr = reinterpret_cast<const NMHDR *>(lParam);
             if (nmhdr->code == TCN_SELCHANGE)
             {
                 if (nmhdr->hwndFrom == _ctrlTab.getHSelf())

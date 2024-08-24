@@ -37,9 +37,9 @@ enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_SMALL2, TB_LARGE2, TB_STANDARD};
 struct iconLocator {
 	size_t _listIndex = 0;
 	size_t _iconIndex = 0;
-	generic_string _iconLocation;
+	std::wstring _iconLocation;
 
-	iconLocator(size_t iList, size_t iIcon, const generic_string& iconLoc)
+	iconLocator(size_t iList, size_t iIcon, const std::wstring& iconLoc)
 		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc){};
 };
 
@@ -91,7 +91,7 @@ public :
         return true;
     };
 
-	bool changeIcons(size_t whichLst, size_t iconIndex, const TCHAR *iconLocation){
+	bool changeIcons(size_t whichLst, size_t iconIndex, const wchar_t *iconLocation){
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
 

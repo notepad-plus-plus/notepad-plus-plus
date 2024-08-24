@@ -168,6 +168,7 @@
 // cocoa
 #include "QuartzTextStyle.h"
 #include "QuartzTextStyleAttribute.h"
+#include "DictionaryForCF.h"
 #include "QuartzTextLayout.h"
 #import "InfoBarCommunicator.h"
 #include "InfoBar.h"

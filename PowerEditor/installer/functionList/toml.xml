@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+		<!-- ========================================= [ Initialisation File ] -->
+		<!-- File format used for TOML                                         -->
+
+		<parser
+			displayName="TOML Table"
+			id         ="toml_table"
+			commentExpr="(?x)
+							(?m-s:[#].*$)                                 # Single Line Comment
+						"
+		>
+			<function
+				mainExpr="^\h*[\[[\w\.&quot;\-&apos;]+\]"
+			>
+				<functionName>
+					<nameExpr expr="[\w\.&quot;\-&apos;]+" />
+				</functionName>
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>

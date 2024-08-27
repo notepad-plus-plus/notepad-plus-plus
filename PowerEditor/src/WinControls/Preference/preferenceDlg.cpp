@@ -812,15 +812,16 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 									::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXT, index, reinterpret_cast<LPARAM>(langName));
 									if (langName[0])
 									{
-										// Make English as basic language
-										if (localizationSwitcher.switchToLang(L"English"))
+										// Make English as basic language, but if we switch from another language to English, we can skip it
+										if ((lstrcmpW(langName, L"English") != 0) && localizationSwitcher.switchToLang(L"English"))
 										{
-											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
+											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, FALSE, 0);
 										}
+
 										// Change the language 
 										if (localizationSwitcher.switchToLang(langName))
 										{
-											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
+											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, TRUE, 0);
 											::InvalidateRect(_hParent, NULL, TRUE);
 										}
 									}

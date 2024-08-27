@@ -980,6 +980,15 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// lParam[in]: newName - the desired new name of the tab
 	// Return TRUE upon success; FALSE upon failure
 
+	#define NPPM_GETNATIVELANGFILENAME (NPPMSG + 116)
+	// int NPPM_GETNATIVELANGFILENAME(size_t strLen, char* nativeLangFileName)
+	// Get the Current native language file name string.
+	// Users should call it with nativeLangFileName as NULL to get the required number of char (not including the terminating nul character),
+	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current native language file name string.
+	// wParam[in]: strLen is "commandLineStr" buffer length
+	// lParam[out]: commandLineStr recieves all copied native language file name string
+	// Return the number of char copied/to copy
+
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0
 	#define FULL_CURRENT_PATH 1
@@ -1195,4 +1204,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
                                                    // This notification is implemented in Notepad++ v8.6.5.
 	//scnNotification->nmhdr.code = NPPN_GLOBALMODIFIED;
 	//scnNotification->nmhdr.hwndFrom = BufferID;
+	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero
+
+	#define NPPN_NATIVELANGCHANGED (NPPN_FIRST + 31)  // To notify plugins that the current native language is just changed to another one.
+                                                      // Use NPPM_GETNATIVELANGFILENAME to get current native language file name.
+                                                      // Use NPPM_GETMENUHANDLE(NPPPLUGINMENU, 0) to get submenu "Plugins" handle (HMENU)
+	//scnNotification->nmhdr.code = NPPN_NATIVELANGCHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero

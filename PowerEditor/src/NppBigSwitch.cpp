@@ -3747,6 +3747,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETNATIVELANGFILENAME:
+		{
+			string fileName = _nativeLangSpeaker.getFileName();
+			if (lParam != 0)
+			{
+				if (fileName.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				strcpy(reinterpret_cast<char*>(lParam), fileName.c_str());
+			}
+			return fileName.length();
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

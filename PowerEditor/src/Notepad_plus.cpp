@@ -7248,13 +7248,6 @@ bool Notepad_plus::reloadLang()
 	}
 
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
-
-	SCNotification scnN{};
-	scnN.nmhdr.code = NPPN_NATIVELANGCHANGED;
-	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-	scnN.nmhdr.idFrom = 0;
-	_pluginsManager.notify(&scnN);
-
 	return true;
 }
 

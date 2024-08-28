@@ -913,6 +913,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_RELOADNATIVELANG:
 		{
 			reloadLang();
+
+			bool doNotif = wParam;
+			if (doNotif)
+			{
+				SCNotification scnN{};
+				scnN.nmhdr.code = NPPN_NATIVELANGCHANGED;
+				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+				scnN.nmhdr.idFrom = 0;
+				_pluginsManager.notify(&scnN);
+			}
 			return TRUE;
 		}
 

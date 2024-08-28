@@ -1181,7 +1181,8 @@ void FindReplaceDlg::resizeDialogElements()
 	const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 
 	//elements that need to be resized horizontally (all edit/combo boxes etc.)
-	const auto resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
+	const std::vector<int> resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
+	const size_t nComboboxes = resizeWindowIDs.size();
 
 	//elements that need to be moved
 	const auto moveCheckIds = {
@@ -1275,24 +1276,20 @@ void FindReplaceDlg::resizeDialogElements()
 
 	getMappedChildRect(hSwapBtn, rcSwapBtn);
 
-	nCtrls = resizeWindowIDs.size() + moveLaterIDs.size() + (isLessModeOn ? 0 : moveTransIDs.size()) + 1; // 1 is for tab control
+	nCtrls = nComboboxes + moveLaterIDs.size() + (isLessModeOn ? 0 : moveTransIDs.size()) + 1; // 1 is for tab control
 	hdwp = ::BeginDeferWindowPos(static_cast<int>(nCtrls));
 
-	for (int id : resizeWindowIDs)
+	std::vector<DWORD> endSelections(nComboboxes, 0);
+
+	for (size_t i = 0; i < nComboboxes; ++i)
 	{
-		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
+		HWND resizeHwnd = ::GetDlgItem(_hSelf, resizeWindowIDs[i]);
 		getMappedChildRect(resizeHwnd, rcTmp);
 
 		// Combo box for some reasons selects text on resize. So let's check before resize if selection is present and clear it manually after resize.
-		DWORD endSelection = 0;
-		::SendMessage(resizeHwnd, CB_GETEDITSEL, 0, reinterpret_cast<LPARAM>(&endSelection));
+		::SendMessage(resizeHwnd, CB_GETEDITSEL, 0, reinterpret_cast<LPARAM>(&endSelections[i]));
 
 		hdwp = setOrDeferWindowPos(hdwp, resizeHwnd, nullptr, 0, 0, rcSwapBtn.left - rcTmp.left - gap, rcTmp.bottom - rcTmp.top, SWP_NOMOVE | flags);
-
-		if (endSelection == 0)
-		{
-			::SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
-		}
 	}
 
 	RECT rcFPrevBtn{};
@@ -1346,6 +1343,15 @@ void FindReplaceDlg::resizeDialogElements()
 
 	if (hdwp)
 		::EndDeferWindowPos(hdwp);
+
+	for (size_t i = 0; i < nComboboxes ; ++i)
+	{
+		if (endSelections[i] == 0)
+		{
+			HWND resizeHwnd = ::GetDlgItem(_hSelf, resizeWindowIDs[i]);
+			::SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
+		}
+	}
 
 	::SetWindowPos(::GetDlgItem(_hSelf, IDFINDWHAT), nullptr, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_FRAMECHANGED | flags);
 }

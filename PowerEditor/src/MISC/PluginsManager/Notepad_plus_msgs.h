@@ -982,7 +982,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETNATIVELANGFILENAME (NPPMSG + 116)
 	// int NPPM_GETNATIVELANGFILENAME(size_t strLen, char* nativeLangFileName)
-	// Get the Current native language file name string.
+	// Get the Current native language file name string. Use it after getting NPPN_READY notification to find out which native language is used.
 	// Users should call it with nativeLangFileName as NULL to get the required number of char (not including the terminating nul character),
 	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current native language file name string.
 	// wParam[in]: strLen is "commandLineStr" buffer length
@@ -1041,7 +1041,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 // Notification code
 #define NPPN_FIRST 1000
-	#define NPPN_READY (NPPN_FIRST + 1) // To notify plugins that all the procedures of launchment of notepad++ are done.
+	#define NPPN_READY (NPPN_FIRST + 1) // To notify plugins that all the initialization for launching Notepad++ is complete.
 	//scnNotification->nmhdr.code = NPPN_READY;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;

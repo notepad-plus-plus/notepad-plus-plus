@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.6.8">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -222,8 +222,8 @@ Translation note:
 					<Item id="43051" name="Quitar liñas non marcadas"/>
 					<Item id="43050" name="Invertir marcas"/>
 					<Item id="43052" name="Buscar caract&amp;eres por tipo..."/>
-					<Item id="43053" name="Selecci&amp;onar todo o coincidente"/>
-					<Item id="43009" name="Ir ao delimi&amp;tador simétrico"/>
+					<Item id="43053" name="Seleccionar todo o que ha&amp;xa entre {} [] ou ()"/>
+					<Item id="43009" name="Ir ao corc&amp;hete"/>
 					<Item id="43010" name="Buscar a&amp;nterior"/>
 					<Item id="43011" name="Busca &amp;incremental"/>
 					<Item id="43013" name="Buscar en ar&amp;quivos"/>
@@ -355,6 +355,7 @@ Translation note:
 					<Item id="10005" name="Ir ao inicio"/>
 					<Item id="10006" name="Ir ao final"/>
 					<Item id="46001" name="Configurador de estilos..."/>
+					<Item id="46016" name="Ningún (texto normal)"/>
 					<Item id="46250" name="Defina a súa linguaxe..."/>
 					<Item id="46300" name="Abrir carpeta da linguaxe definida polo usuario..."/>
 					<Item id="46301" name="Colección de linguaxes definidas para o usuario (online)"/>
@@ -997,7 +998,7 @@ Translation note:
 
 				<Scintillas2 title="Edición 2">
 					<Item id="6521" name="Edición múltiple"/>
-					<Item id="6522" name="Activar a edición múltiple (Ctrl+clic do rato/selección)"/>
+					<Item id="6522" name="Activar a edición múltiple (Ctrl + clic do rato/selección)"/>
 					<Item id="6523" name="Habilitar a selección de columnas para a edición múltiple"/>
 					<Item id="6247" name="EOL (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predeterminado"/>
@@ -1016,14 +1017,14 @@ Translation note:
 					<Item id="7131" name="Modo claro"/>
 					<Item id="7132" name="Modo escuro"/>
 					<Item id="7133" name="Según Windows"/>
-					<Item id="7102" name="Tono negro"/>
-					<Item id="7103" name="Tono vermello"/>
-					<Item id="7104" name="Tono verde"/>
-					<Item id="7105" name="Tono azul"/>
-					<Item id="7107" name="Tono violeta"/>
-					<Item id="7108" name="Tono cian"/>
-					<Item id="7109" name="Tono oliva"/>
-					<Item id="7115" name="Tono personalizado"/>
+					<Item id="7102" name="Ton negro"/>
+					<Item id="7103" name="Ton vermello"/>
+					<Item id="7104" name="Ton verde"/>
+					<Item id="7105" name="Ton azul"/>
+					<Item id="7107" name="Ton violeta"/>
+					<Item id="7108" name="Ton cian"/>
+					<Item id="7109" name="Ton oliva"/>
+					<Item id="7115" name="Ton personalizado"/>
 					<Item id="7116" name="Fondo da interfaz"/>
 					<Item id="7117" name="Pestanas de opcións"/>
 					<Item id="7118" name="Ventá activa"/>
@@ -1100,15 +1101,22 @@ Translation note:
 					<Item id="6506" name="Desactivadas"/>
 					<Item id="6507" name="Compactar o menú de linguaxes"/>
 					<Item id="6508" name="Menú de linguaxes"/>
+					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
+				</Language>
+
+				<Indentation title="Sangrías">
+					<Item id="7161" name="Automática"/>
+					<Item id="7162" name="Ningunha"/>
+					<Item id="7163" name="Básica"/>
+					<Item id="7164" name="Avanzada"/>
 					<Item id="6301" name="Configuración de sangrías"/>
 					<Item id="6302" name="Espazos"/>
 					<Item id="6303" name="Tamaño:"/>
 					<Item id="6310" name="Sangría como:"/>
 					<Item id="6311" name="Tabulacións"/>
 					<Item id="6510" name="Usar valor por defecto"/>
-					<Item id="6512" name="A tecla de retroceso elimina a sangría en lugar do espazo."/>
-					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
-				</Language>
+					<Item id="6512" name="Borrar sangrías e non espazos coa tecla de retroceso."/>
+				</Indentation>
 
 				<Highlighting title="Resaltado">
 					<Item id="6351" name="Aplicar estilo a tódalas coincidencias"/>
@@ -1121,7 +1129,7 @@ Translation note:
 					<Item id="6338" name="Só palabras completas"/>
 					<Item id="6339" name="Usar configuración de busca"/>
 					<Item id="6340" name="Resaltar outra vista"/>
-					<Item id="6329" name="Resaltar etiquetas coincidentes"/>
+					<Item id="6329" name="Resaltado etiquetas coincidentes"/>
 					<Item id="6327" name="Habilitar"/>
 					<Item id="6328" name="Resaltar atributos de etiquetas"/>
 					<Item id="6330" name="Resaltar zona comentario/php/asp"/>
@@ -1192,7 +1200,7 @@ Translation note:
 				<Backup title="Copias de seguridade">
 					<Item id="6817" name="Copias de seguridade e de sesións"/>
 					<Item id="6818" name="Automatizar copias de seguridade e de sesións"/>
-					<Item id="6819" name="Realizar copias cada"/>
+					<Item id="6819" name="Activar copia de seguridade no caso de modificación cada"/>
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Gardar en:"/>
 					<Item id="6309" name="Recordar a sesión actual no próximo inicio"/>
@@ -1277,7 +1285,7 @@ Translation note:
 				<Cloud title="Nube &amp; Ligazóns">
 					<Item id="6262" name="Axustes da nube"/>
 					<Item id="6263" name="Sen nube"/>
-					<Item id="6267" name="Indique abaixo a ruta da ubicación da nube:"/>
+					<Item id="6267" name="Especifique a ruta da ubicación na nube:"/>
 					<Item id="6318" name="Configuración das ligazóns"/>
 					<Item id="6319" name="Habilitar"/>
 					<Item id="6320" name="Sen subliñado"/>
@@ -1291,14 +1299,14 @@ Translation note:
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
-					<Item id="6276" name="Escriba abaixo o seu motor de busca:"/>
+					<Item id="6276" name="Especifique o seu motor de busca:"/>
 					<!-- Don't change anything after Example: -->
 					<Item id="6278" name="Exemplo: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 
 				<MISC title="Varios">
 					<ComboBox id="6347">
-						<Element name="Habilitar"/>
+						<Element name="Habilitar para o arquivo actual"/>
 						<Element name="Habilitar para tódolos arquivos abertos"/>
 						<Element name="Deshabilitar"/>
 					</ComboBox>
@@ -1387,6 +1395,11 @@ Pode reactivalo en Preferencias se o desexa."/>
 				<Item id="7" name="&amp;Non"/>
 				<Item id="4" name="Sem&amp;pre si"/>
 			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
+
+			<DebugInfo title="Información de depuración">
+				<Item id="1752" name="&amp;Copiar información de depuración ao portapapeis"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1533,6 +1546,7 @@ NOTA: ¡Se elixe non crear os marcadores de posición ou cerrarlos máis tarde, 
 Pulse o botón Aceptar para abrir o cadro de diálogo Buscar ou fixar o foco nel.
 			
 Se necesita a función de busca regex cara atrás, consulte o manual do usuario para obter instruccións sobre como activala."/>
+			<PrintError title="0" message="Non se pode iniciar a impresión do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial do portapapeis"/>
@@ -1643,7 +1657,7 @@ Se necesita a función de busca regex cara atrás, consulte o manual do usuario 
 			<word-chars-list-tip value="Isto permítelle incluir caracteres adicionais nos caracteres da palabra actual ao facer dobre clic para seleccionar ou buscar coa opción &quot;Só palabras completas&quot; marcada."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-			<eol-custom-color-tip value="Ir ao &quot;Configurador de estilos&quot; para cambiar a cor personalizada EOL por defecto (&quot;EOL custom color&quot;)."/>
+			<eol-custom-color-tip value="Vaia a &quot;Configurador de estilos&quot; para cambiar a cor personalizada EOL por defecto (&quot;EOL custom color&quot;)."/>
 
 			<word-chars-list-warning-begin value="Cuidado: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ espazo(s)"/>
@@ -1668,8 +1682,8 @@ Buscar en tódolos arquivos pero excluir as carpetas de probas, bin &amp;&amp; b
 Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexistros de forma recursiva:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Seleccione a carpeta na que desexa buscar"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Encontrada a primera coincidencia empezando polo final. Chegouse ao inicio do documento."/>
-			<find-status-end-reached value="Encontrada a primera coincidencia empezando polo inicio. Chegouse ao final do documento."/>
+			<find-status-top-reached value="Chegouse ao inicio do documento, encontrada a primeira coincidencia empezando desde o final."/>
+			<find-status-end-reached value="Chegouse ao final do documento, encontrada a primeira coincidencia empezando desde o inicio."/>
 			<find-status-replaceinfiles-1-replaced value="Substituír en arquivos: cambiado 1 elemento."/>
 			<find-status-replaceinfiles-nb-replaced value="Substituír en arquivos: $INT_REPLACE$ coincidencias cambiadas."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituír en arquivos abertos: cambiada 1 coincidencia."/>
@@ -1683,8 +1697,8 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<find-status-replaceall-1-replaced value="1 coincidencia cambiada"/>
 			<find-status-replaceall-nb-replaced value=" $INT_REPLACE$ coincidencias cambiadas."/>
 			<find-status-replaceall-readonly value="Atención: non se pode substituír o texto. O documento actual é de só lectura."/>
-			<find-status-replace-end-reached value="Cambiada a primera coincidencia desde o inicio. Chegouse ao final do documento."/>
-			<find-status-replace-top-reached value="Cambiada a primera coincidencia desde o final. Chegouse ao inicio do documento."/>
+			<find-status-replace-end-reached value="Chegouse ao final do documento, cambiada a primeira coincidencia desde o inicio."/>
+			<find-status-replace-top-reached value="Chegouse ao inicio do documento, cambiada a primeira coincidencia desde o final."/>
 			<find-status-replaced-next-found value="Cambiada 1 coincidencia. Encontrada a seguinte."/>
 			<find-status-replaced-without-continuing value="Cambiada 1 coincidencia"/>
 			<find-status-replaced-next-not-found value="Cambiada 1 coincidencia. Non se encontraron máis."/>
@@ -1763,12 +1777,12 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<contextMenu-styleOneToken value="Dar estilo a unha coincidencia"/>
 			<contextMenu-clearStyle value="Borrar estilo"/>
 			<contextMenu-PluginCommands value="Comandos de complementos"/>
-			<largeFileRestriction-tip value="Algunhas funcións poden diminuír o rendemento con arquivos grandes. Estas funcións pódense desactivar automaticamente ao abrir un arquivo grande. Pode personalizalas aquí.
+			<largeFileRestriction-tip value="Algunhas funcións poden diminuír o rendemento en arquivos grandes. Pódense desactivar automaticamente ao abrir arquivos deste tamaño. Aquí pode personalizar ditas funcións.
 
 NOTA:
 1. A modificación das opcións implica reabrir os arquivos grandes que teña abertos para obter un comportamento adecuado.
 
-2. Se &quot;Desactivar globalmente o axuste do texto&quot; está marcado e abre un arquivo grande, &quot;Axuste do texto&quot; desactivarase para tódolos arquivos. Pode volver a activalo a través do menú Vista en &quot;Axuste do texto&quot;."/>
+2. Se &quot;Desactivar globalmente o axuste do texto&quot; está marcado e abre un arquivo grande, &quot;Axuste do texto&quot; desactivarase para tódolos arquivos. Pode volver a activalo no menú Vista, opción &quot;Axuste do texto&quot;."/>
 			<npcNote-tip value="Representación de espazos en branco seleccionados &quot;non ASCII&quot; e caracteres non imprimibles (de control).
 
 NOTA:
@@ -1793,10 +1807,16 @@ Para ver a lista completa, consulte o manual do usuario.
 Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do usuario."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Vaia ao Configurador de estilos para cambiar a cor personalizada por defecto dos espazos en branco e caracteres non imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip value="Vaia a &quot;Configurador de estilos&quot; para cambiar a cor personalizada por defecto dos espazos en branco e caracteres non imprimibles seleccionados. (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar axustes de apariencia de caracteres non imprimibles aos caracteres de control C0, C1 e Unicode EOL (liña seguinte, separador de liña e separador de párrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres seleccionados na zona de edición para marcar automáticamente o recadro &quot;Selección&quot; cando se activa o diálogo Buscar. O valor máximo é 1024. Estableza o valor en 0 para desactivar a comprobación automática."/>
 			<verticalEdge-tip value="Engada o seu marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores utilizando espazos en branco para separar os distintos números."/>
+			<fileSaveAsCopySaveButton-tip value="Manteña pulsada a tecla Maiús mentras pulsa Gardar para abrir a copia despois de guardala."/>
+			<autoIndentBasic-tip value="Asegúrese de que a sangría da liña actual (é dicir, a nova liña creada ao pulsar a tecla ENTER) coincide coa sangría da liña anterior."/>
+			<autoIndentAdvanced-tip value="Habilitar a sangría intelixente para linguaxes &quot;C-like&quot; e Python. As linguaxes &quot;C-like&quot; inclúen:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
+
+Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas, a sangría permanecerá no modo básico."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

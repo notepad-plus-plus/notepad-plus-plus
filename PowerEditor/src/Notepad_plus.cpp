@@ -1251,7 +1251,6 @@ void Notepad_plus::setCodePageForInvisibleView(Buffer const *pBuffer)
 
 bool Notepad_plus::replaceInOpenedFiles()
 {
-
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
@@ -1263,10 +1262,10 @@ bool Notepad_plus::replaceInOpenedFiles()
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
 
-    if (_mainWindowStatus & WindowMainActive)
-    {
+	if (_mainWindowStatus & WindowMainActive)
+	{
 		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
-	    {
+		{
 			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
 				continue;
@@ -1278,6 +1277,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
@@ -1287,7 +1287,6 @@ bool Notepad_plus::replaceInOpenedFiles()
 			{
 				nbTotal += nb;
 			}
-			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
@@ -1314,6 +1313,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
@@ -1323,7 +1323,6 @@ bool Notepad_plus::replaceInOpenedFiles()
 			{
 				nbTotal += nb;
 			}
-			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
@@ -1352,6 +1351,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 		}
 		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
+
 	return true;
 }
 
@@ -3769,7 +3769,7 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 			// colon optionally followed by only whitespace and/or start-of-comment, but NOT on a line that is already a comment
-			const char colonExpr[] = "^[^#]*\\K:[ \t]*(#|$)";
+			const char colonExpr[] = ":[ \t]*(#|$)";
 
 			auto posColon = _pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr));
 
@@ -4058,6 +4058,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_GOLANG;
         case IDM_LANG_RAKU:
             return L_RAKU;
+        case IDM_LANG_TOML:
+            return L_TOML;
         case IDM_LANG_USER:
             return L_USER;
 		default:

@@ -161,6 +161,7 @@ LanguageNameInfo ScintillaEditView::_langNameInfoArray[L_EXTERNAL + 1] = {
 	{L"hollywood",        L"Hollywood",              L"Hollywood script",                                  L_HOLLYWOOD,       "hollywood"},
 	{L"go",               L"Go",                     L"Go source file",                                    L_GOLANG,          "cpp"},
 	{L"raku",             L"Raku",                   L"Raku source file",                                  L_RAKU,            "raku"},
+	{L"toml",             L"TOML",                   L"Tom's Obvious Minimal Language file",               L_TOML,            "toml"},
 	{L"ext",              L"External",               L"External",                                          L_EXTERNAL,        "null"}
 };
 
@@ -2062,6 +2063,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_RAKU:
 			setRakuLexer(); break;
+
+		case L_TOML:
+			setTomlLexer(); break;
 
 		case L_TEXT :
 		default :

@@ -4953,20 +4953,20 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(L"OK"));
-	COLORREF fgColor = RGB(0, 0, 0); // black by default
+	COLORREF fgColor = black; // black by default
 	PCTSTR ptStr =(PCTSTR)lpDrawItemStruct->itemData;
 
 	if (_statusbarFindStatus == FSNotFound)
 	{
-		fgColor = RGB(0xFF, 00, 00); // red
+		fgColor = _FSNotFoundTextColor;
 	}
 	else if (_statusbarFindStatus == FSMessage)
 	{
-		fgColor = RGB(0, 0, 0xFF); // blue
+		fgColor = _FSMessageTextColor;
 	}
 	else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 	{
-		fgColor = RGB(0, 166, 0); // green
+		fgColor = _FSReachedTextColor;
 	}
 	else if (_statusbarFindStatus == FSNoMessage)
 	{
@@ -4979,15 +4979,27 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 		if (_statusbarFindStatus == FSNotFound)
 		{
-			fgColor = RGB(0xFF, 0x50, 0x50); // red
+			HLSColour hls;
+			hls.changeHLSFrom(_FSNotFoundTextColor);
+			hls._lightness += 50;
+			hls._saturation -= 20;
+			fgColor = hls.toRGB(); // red
 		}
 		else if (_statusbarFindStatus == FSMessage)
 		{
-			fgColor = RGB(0x70, 0x70, 0xFF); // blue
+			HLSColour hls;
+			hls.changeHLSFrom(_FSMessageTextColor);
+			hls._lightness += 50;
+			hls._saturation -= 20;
+			fgColor = hls.toRGB(); // blue
 		}
 		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 		{
-			fgColor = RGB(0x50, 0xFF, 0x50); // green
+			HLSColour hls;
+			hls.changeHLSFrom(_FSReachedTextColor);
+			hls._lightness += 50;
+			hls._saturation -= 20;
+			fgColor = hls.toRGB(); // green
 		}
 	}
 

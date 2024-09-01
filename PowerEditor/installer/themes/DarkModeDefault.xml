@@ -1730,6 +1730,9 @@ License:             GPL2
         <WidgetStyle name="White space symbol" styleID="0" fgColor="5F5F5F" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="358A35" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="FF0080" />
+        <WidgetStyle name="Find status: Not found" styleID="0" fgColor="FF0000" />
+        <WidgetStyle name="Find status: Message" styleID="0" fgColor="0000FF" />
+        <WidgetStyle name="Find status: Search end reached" styleID="0" fgColor="008000" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="88B090" />
         <WidgetStyle name="Mark Style 2" styleID="24" bgColor="F8F893" />
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="F18C96" />

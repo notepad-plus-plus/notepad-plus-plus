@@ -1530,6 +1530,9 @@ Installation:
         <WidgetStyle name="White space symbol" styleID="0" fgColor="B58900" />
         <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="FDF6E3" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="6C71C4" />
+        <WidgetStyle name="Find status: Not found" styleID="0" fgColor="FF0000" />
+        <WidgetStyle name="Find status: Message" styleID="0" fgColor="0000FF" />
+        <WidgetStyle name="Find status: Search end reached" styleID="0" fgColor="008000" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="DC322F" />
         <WidgetStyle name="Mark Style 2" styleID="24" bgColor="268BD2" />
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="2AA198" />

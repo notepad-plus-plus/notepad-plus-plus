@@ -1919,6 +1919,8 @@ private:
 	std::array<HLSColour, 5> individualTabHuesFor_Dark{ { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
 	std::array<HLSColour, 5> individualTabHues{ { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}} };
 
+	std::array<COLORREF, 3> findDlgStatusMessageColor{ red, blue, darkGreen};
+
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
@@ -2027,8 +2029,12 @@ public:
 
 
 	void initTabCustomColors();
-	void setIndividualTabColour(COLORREF colour2Set, int colourIndex, bool isDarkMode);
-	COLORREF getIndividualTabColour(int colourIndex, bool isDarkMode, bool saturated);
+	void setIndividualTabColor(COLORREF colour2Set, int colourIndex, bool isDarkMode);
+	COLORREF getIndividualTabColor(int colourIndex, bool isDarkMode, bool saturated);
+
+	void initFindDlgStatusMsgCustomColors();
+	void setFindDlgStatusMsgIndexColor(COLORREF colour2Set, int colourIndex);
+	COLORREF getFindDlgStatusMsgColor(int colourIndex);
 
 private:
 	void getLangKeywordsFromXmlTree();

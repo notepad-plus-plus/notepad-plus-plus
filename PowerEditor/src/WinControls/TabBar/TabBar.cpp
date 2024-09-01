@@ -1280,7 +1280,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 
 			if (individualColourId != -1)
 			{
-				topBarColour = nppParam.getIndividualTabColour(individualColourId, isDarkMode, isFocused);
+				topBarColour = nppParam.getIndividualTabColor(individualColourId, isDarkMode, isFocused);
 			}
 
 			hBrush = ::CreateSolidBrush(topBarColour);
@@ -1300,7 +1300,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 		else if (individualColourId != -1)
 		{
-			brushColour = nppParam.getIndividualTabColour(individualColourId, isDarkMode, false);
+			brushColour = nppParam.getIndividualTabColor(individualColourId, isDarkMode, false);
 		}
 		else
 		{

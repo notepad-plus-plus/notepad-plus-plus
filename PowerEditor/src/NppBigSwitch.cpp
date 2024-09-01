@@ -2308,6 +2308,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			addHotSpot(& _subEditView);
 
 			_findReplaceDlg.updateFinderScintilla();
+			
+			_findReplaceDlg.redraw();
 
 			drawTabbarColoursFromStylerArray();
 

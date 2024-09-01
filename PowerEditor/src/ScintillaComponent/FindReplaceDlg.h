@@ -499,12 +499,7 @@ private:
 	static const int FR_OP_GLOBAL = 8;
 	static const int FR_OP_FIP = 16;
 	void saveInMacro(size_t cmd, int cmdType);
-
-	COLORREF _FSNotFoundTextColor = red;
-	COLORREF _FSMessageTextColor = blue;
-	COLORREF _FSReachedTextColor = darkGreen;
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
-
 	bool replaceInFilesConfirmCheck(const std::wstring& directory, const std::wstring& fileTypes);
 	bool replaceInProjectsConfirmCheck();
 	bool replaceInOpenDocsConfirmCheck(void);

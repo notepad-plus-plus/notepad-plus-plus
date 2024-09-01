@@ -360,6 +360,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 							restoreGlobalOverrideValues();
 							nppParamInst.initTabCustomColors();
+							nppParamInst.initFindDlgStatusMsgCustomColors();
 
 							_restoreInvalid = false;
 							_isDirty = false;
@@ -540,9 +541,18 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									{
 										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex, nullptr);
 									}
-									else if (isDocumentMapStyle())
+									else
 									{
-										ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
+										int findDlgStatusMsgIndex = whichFindDlgStatusMsgColourIndex();
+										if (findDlgStatusMsgIndex != -1)
+										{
+											NppParameters& nppParamInst = NppParameters::getInstance();
+											nppParamInst.setFindDlgStatusMsgIndexColor(_pFgColour->getColour(), findDlgStatusMsgIndex);
+										}
+										else if (isDocumentMapStyle())
+										{
+											ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
+										}
 									}
 									apply(applicationInfo);
 									return TRUE;
@@ -572,7 +582,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 												colourIndex -= TabBarPlus::individualTabColourId::id5;
 
 											NppParameters& nppParamInst = NppParameters::getInstance();
-											nppParamInst.setIndividualTabColour(_pBgColour->getColour(), colourIndex, NppDarkMode::isEnabled());
+											nppParamInst.setIndividualTabColor(_pBgColour->getColour(), colourIndex, NppDarkMode::isEnabled());
 										}
 									}
 
@@ -675,20 +685,19 @@ int WordStyleDlg::getApplicationInfo() const
 		(lstrcmp(styleName, L"Mark Style 3") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 4") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 5") == 0) ||
-		(lstrcmp(styleName, L"Tab color 1") == 0) ||
-		(lstrcmp(styleName, L"Tab color 2") == 0) ||
-		(lstrcmp(styleName, L"Tab color 3") == 0) ||
-		(lstrcmp(styleName, L"Tab color 4") == 0) ||
-		(lstrcmp(styleName, L"Tab color 5") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 1") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 2") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 3") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 4") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 5") == 0))
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_1) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_2) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_3) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_4) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_5) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_1) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_2) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_3) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_4) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_5) == 0))
 	{
 		return (GENERAL_CHANGE | COLOR_CHANGE_4_MENU);
 	}
-
 	return GENERAL_CHANGE;
 }
 
@@ -758,6 +767,28 @@ int WordStyleDlg::whichIndividualTabColourId()
 	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_5) == 0)
 		return TabBarPlus::individualTabColourId::id9;
 
+
+	return -1;
+}
+
+int WordStyleDlg::whichFindDlgStatusMsgColourIndex()
+{
+	constexpr size_t styleNameLen = 128;
+	wchar_t styleName[styleNameLen + 1] = { '\0' };
+
+	if (!WordStyleDlg::getStyleName(styleName, styleNameLen))
+	{
+		return -1;
+	}
+
+	if (lstrcmp(styleName, FINDDLG_STAUSNOTFOUND_COLOR) == 0)
+		return TabBarPlus::individualTabColourId::id0;
+
+	if (lstrcmp(styleName, FINDDLG_STAUSMESSAGE_COLOR) == 0)
+		return TabBarPlus::individualTabColourId::id1;
+
+	if (lstrcmp(styleName, FINDDLG_STAUSREACHED_COLOR) == 0)
+		return TabBarPlus::individualTabColourId::id2;
 
 	return -1;
 }

@@ -2715,7 +2715,7 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 	// Adds tab colour icons
 	for (int i = 0; i < 5; ++i)
 	{
-		COLORREF colour = nppParam.getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
+		COLORREF colour = nppParam.getIndividualTabColor(i, NppDarkMode::isDarkMenuEnabled(), true);
 		HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
 		SetMenuItemBitmaps(_mainMenuHandle, IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 	}

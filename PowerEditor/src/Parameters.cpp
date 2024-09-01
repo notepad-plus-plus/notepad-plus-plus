@@ -8833,62 +8833,62 @@ void NppParameters::initTabCustomColors()
 {
 	StyleArray& stylers = getMiscStylerArray();
 
-	const Style* pStyle = stylers.findByName(L"Tab color 1");
+	const Style* pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_1);
 	if (pStyle)
 	{
 		individualTabHues[0].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color 2");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_2);
 	if (pStyle)
 	{
 		individualTabHues[1].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color 3");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_3);
 	if (pStyle)
 	{
 		individualTabHues[2].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color 4");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_4);
 	if (pStyle)
 	{
 		individualTabHues[3].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color 5");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_5);
 	if (pStyle)
 	{
 		individualTabHues[4].changeHLSFrom(pStyle->_bgColor);
 	}
 
 
-	pStyle = stylers.findByName(L"Tab color dark mode 1");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_1);
 	if (pStyle)
 	{
 		individualTabHuesFor_Dark[0].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color dark mode 2");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_2);
 	if (pStyle)
 	{
 		individualTabHuesFor_Dark[1].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color dark mode 3");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_3);
 	if (pStyle)
 	{
 		individualTabHuesFor_Dark[2].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color dark mode 4");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_4);
 	if (pStyle)
 	{
 		individualTabHuesFor_Dark[3].changeHLSFrom(pStyle->_bgColor);
 	}
 
-	pStyle = stylers.findByName(L"Tab color dark mode 5");
+	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_5);
 	if (pStyle)
 	{
 		individualTabHuesFor_Dark[4].changeHLSFrom(pStyle->_bgColor);
@@ -8896,7 +8896,7 @@ void NppParameters::initTabCustomColors()
 }
 
 
-void NppParameters::setIndividualTabColour(COLORREF colour2Set, int colourIndex, bool isDarkMode)
+void NppParameters::setIndividualTabColor(COLORREF colour2Set, int colourIndex, bool isDarkMode)
 {
 	if (colourIndex < 0 || colourIndex > 4) return;
 
@@ -8908,7 +8908,7 @@ void NppParameters::setIndividualTabColour(COLORREF colour2Set, int colourIndex,
 	return;
 }
 
-COLORREF NppParameters::getIndividualTabColour(int colourIndex, bool isDarkMode, bool saturated)
+COLORREF NppParameters::getIndividualTabColor(int colourIndex, bool isDarkMode, bool saturated)
 {
 	if (colourIndex < 0 || colourIndex > 4) return {};
 
@@ -8935,4 +8935,44 @@ COLORREF NppParameters::getIndividualTabColour(int colourIndex, bool isDarkMode,
 	}
 
 	return result.toRGB();
+}
+
+void NppParameters::initFindDlgStatusMsgCustomColors()
+{
+	StyleArray& stylers = getMiscStylerArray();
+
+	const Style* pStyle = stylers.findByName(FINDDLG_STAUSNOTFOUND_COLOR);
+	if (pStyle)
+	{
+		findDlgStatusMessageColor[0] = pStyle->_fgColor;
+	}
+
+	pStyle = stylers.findByName(FINDDLG_STAUSMESSAGE_COLOR);
+	if (pStyle)
+	{
+		findDlgStatusMessageColor[1] = pStyle->_fgColor;
+	}
+
+	pStyle = stylers.findByName(FINDDLG_STAUSREACHED_COLOR);
+	if (pStyle)
+	{
+		findDlgStatusMessageColor[2] = pStyle->_fgColor;
+	}
+
+}
+
+void NppParameters::setFindDlgStatusMsgIndexColor(COLORREF colour2Set, int colourIndex)
+{
+	if (colourIndex < 0 || colourIndex > 2) return;
+
+	findDlgStatusMessageColor[colourIndex] = colour2Set;
+
+	return;
+}
+
+COLORREF NppParameters::getFindDlgStatusMsgColor(int colourIndex)
+{
+	if (colourIndex < 0 || colourIndex > 2) return black;
+
+	return findDlgStatusMessageColor[colourIndex];
 }

@@ -528,6 +528,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							case CPN_COLOURPICKED:
 							{
 								int applicationInfo = getApplicationInfo();
+
 								int tabColourIndex = whichTabColourIndex();
 
 								if (reinterpret_cast<HWND>(lParam) == _pFgColour->getHSelf())
@@ -665,8 +666,10 @@ int WordStyleDlg::getApplicationInfo() const
 	}
 
 	if (lstrcmp(styleName, L"Default Style") == 0)
+	{
 		return (GENERAL_CHANGE | THEME_CHANGE);
-	
+	}
+
 	if ((lstrcmp(styleName, L"Mark Style 1") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 2") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 3") == 0) ||
@@ -682,7 +685,9 @@ int WordStyleDlg::getApplicationInfo() const
 		(lstrcmp(styleName, L"Tab color dark mode 3") == 0) ||
 		(lstrcmp(styleName, L"Tab color dark mode 4") == 0) ||
 		(lstrcmp(styleName, L"Tab color dark mode 5") == 0))
+	{
 		return (GENERAL_CHANGE | COLOR_CHANGE_4_MENU);
+	}
 
 	return GENERAL_CHANGE;
 }

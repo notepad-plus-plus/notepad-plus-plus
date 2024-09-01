@@ -26,10 +26,12 @@
 #define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) // WM_UPDATESCINTILLAS (BOOL doChangePanel, 0)
 #define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
-#define NO_VISUAL_CHANGE 0x00
-#define GENERAL_CHANGE 0x01
-#define THEME_CHANGE 0x02
-#define COLOR_CHANGE_4_MENU 0x04
+// The following parameters are for apply() method which will re-initialize the followings GUI with modified styler:
+// 2 Scintilla edit zones, Search result (displayed by Sintilla), Notepad++ GUI & components concerning theme
+#define NO_VISUAL_CHANGE    0x00  // No need to apply visual effect - User ext.
+#define GENERAL_CHANGE      0x01  // For Sintilla zones & Notepad++ GUI
+#define THEME_CHANGE        0x02  // For the components concerning theme, for example the background color of dockable panels 
+#define COLOR_CHANGE_4_MENU 0x04  // For the color items displayed on the menu
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 

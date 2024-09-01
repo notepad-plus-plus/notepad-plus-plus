@@ -28,10 +28,14 @@
 
 // The following parameters are for apply() method which will re-initialize the followings GUI with modified styler:
 // 2 Scintilla edit zones, Search result (displayed by Sintilla), Notepad++ GUI & components concerning theme
-#define NO_VISUAL_CHANGE    0x00  // No need to apply visual effect - User ext.
-#define GENERAL_CHANGE      0x01  // For Sintilla zones & Notepad++ GUI
-#define THEME_CHANGE        0x02  // For the components concerning theme, for example the background color of dockable panels 
-#define COLOR_CHANGE_4_MENU 0x04  // For the color items displayed on the menu
+#define NO_VISUAL_CHANGE            0x00  // No need to apply visual effect - User ext.
+#define GENERAL_CHANGE              0x01  // For Sintilla zones & Notepad++ GUI (Tabbar, Find dialog, etc...)
+#define THEME_CHANGE                0x02  // For the components concerning theme, for example the background color of dockable panels 
+#define COLOR_CHANGE_4_MENU         0x04  // For the color items displayed on the menu
+
+const wchar_t FINDDLG_STAUSNOTFOUND_COLOR[64] = L"Find status: Not found";
+const wchar_t FINDDLG_STAUSMESSAGE_COLOR[64] = L"Find status: Message";
+const wchar_t FINDDLG_STAUSREACHED_COLOR[64] = L"Find status: Search end reached";
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 
@@ -127,6 +131,7 @@ private :
 
 	int whichTabColourIndex() const;
 	int whichIndividualTabColourId();
+	int whichFindDlgStatusMsgColourIndex();
 	void apply(int applicationInfo);
 	int getApplicationInfo() const;
 	bool isDocumentMapStyle();

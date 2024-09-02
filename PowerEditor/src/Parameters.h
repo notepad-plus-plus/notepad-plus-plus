@@ -1401,7 +1401,11 @@ struct HLSColour
 	void loadFromRGB(COLORREF rgb) { ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
 	COLORREF toRGB() const { return ColorHLSToRGB(_hue, _lightness, _saturation); }
 
-	COLORREF toRGB4DarkModWithTuning(int lightnessMore, int saturationLess) const { return ColorHLSToRGB(_hue, _lightness + lightnessMore, _saturation - saturationLess); }
+	COLORREF toRGB4DarkModWithTuning(int lightnessMore, int saturationLess) const { 
+		return ColorHLSToRGB(_hue, 
+			static_cast<WORD>(static_cast<int>(_lightness) + lightnessMore), 
+			static_cast<WORD>(static_cast<int>(_saturation) - saturationLess));
+	}
 	COLORREF toRGB4DarkMod() const { return toRGB4DarkModWithTuning(50, 20); }
 };
 

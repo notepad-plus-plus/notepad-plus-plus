@@ -79,6 +79,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 			case WAIT_OBJECT_0 + 1:
 			// We've received a notification in the queue.
 			{
+				bool bDoneOnce = false;
 				DWORD dwAction = 0;
 				wstring fn;
 				// Process all available changes, ignore User actions
@@ -93,7 +94,12 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 					{
 						if (dwAction == FILE_ACTION_MODIFIED)
 						{
-							::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
+							if (!bDoneOnce)
+							{
+								::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
+								bDoneOnce = true;
+								Sleep(250);	// Limit refresh rate
+							}
 						}
 						else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))
 						{

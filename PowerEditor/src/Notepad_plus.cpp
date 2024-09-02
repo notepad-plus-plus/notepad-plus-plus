@@ -3497,12 +3497,12 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 				pView->execute(SCI_INDICATORCLEARRANGE, startEncoded + startPos, lenEncoded);
 			startWide += lenWide;
 			startEncoded += lenEncoded;
+
 			if ((startWide >= wideTextLen) || ((startEncoded + startPos) >= endPos))
 				break;
 		}
-		assert ((startEncoded + startPos) == endPos);
-		assert (startWide == wideTextLen);
 	}
+
 	delete[] wideText;
 }
 

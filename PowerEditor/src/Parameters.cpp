@@ -8836,62 +8836,62 @@ void NppParameters::initTabCustomColors()
 	const Style* pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_1);
 	if (pStyle)
 	{
-		individualTabHues[0].changeHLSFrom(pStyle->_bgColor);
+		individualTabHues[0].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_2);
 	if (pStyle)
 	{
-		individualTabHues[1].changeHLSFrom(pStyle->_bgColor);
+		individualTabHues[1].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_3);
 	if (pStyle)
 	{
-		individualTabHues[2].changeHLSFrom(pStyle->_bgColor);
+		individualTabHues[2].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_4);
 	if (pStyle)
 	{
-		individualTabHues[3].changeHLSFrom(pStyle->_bgColor);
+		individualTabHues[3].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_5);
 	if (pStyle)
 	{
-		individualTabHues[4].changeHLSFrom(pStyle->_bgColor);
+		individualTabHues[4].loadFromRGB(pStyle->_bgColor);
 	}
 
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_1);
 	if (pStyle)
 	{
-		individualTabHuesFor_Dark[0].changeHLSFrom(pStyle->_bgColor);
+		individualTabHuesFor_Dark[0].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_2);
 	if (pStyle)
 	{
-		individualTabHuesFor_Dark[1].changeHLSFrom(pStyle->_bgColor);
+		individualTabHuesFor_Dark[1].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_3);
 	if (pStyle)
 	{
-		individualTabHuesFor_Dark[2].changeHLSFrom(pStyle->_bgColor);
+		individualTabHuesFor_Dark[2].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_4);
 	if (pStyle)
 	{
-		individualTabHuesFor_Dark[3].changeHLSFrom(pStyle->_bgColor);
+		individualTabHuesFor_Dark[3].loadFromRGB(pStyle->_bgColor);
 	}
 
 	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_5);
 	if (pStyle)
 	{
-		individualTabHuesFor_Dark[4].changeHLSFrom(pStyle->_bgColor);
+		individualTabHuesFor_Dark[4].loadFromRGB(pStyle->_bgColor);
 	}
 }
 
@@ -8901,9 +8901,9 @@ void NppParameters::setIndividualTabColor(COLORREF colour2Set, int colourIndex, 
 	if (colourIndex < 0 || colourIndex > 4) return;
 
 	if (isDarkMode)
-		individualTabHuesFor_Dark[colourIndex].changeHLSFrom(colour2Set);
+		individualTabHuesFor_Dark[colourIndex].loadFromRGB(colour2Set);
 	else
-		individualTabHues[colourIndex].changeHLSFrom(colour2Set);
+		individualTabHues[colourIndex].loadFromRGB(colour2Set);
 
 	return;
 }

@@ -4980,27 +4980,18 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 		if (_statusbarFindStatus == FSNotFound)
 		{
-			HLSColour hls;
-			hls.changeHLSFrom(nppParamInst.getFindDlgStatusMsgColor(0));
-			hls._lightness += 50;
-			hls._saturation -= 20;
-			fgColor = hls.toRGB();
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(0));
+			fgColor = hls.toRGB4DarkMod();
 		}
 		else if (_statusbarFindStatus == FSMessage)
 		{
-			HLSColour hls;
-			hls.changeHLSFrom(nppParamInst.getFindDlgStatusMsgColor(1));
-			hls._lightness += 50;
-			hls._saturation -= 20;
-			fgColor = hls.toRGB();
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(1));
+			fgColor = hls.toRGB4DarkMod();
 		}
 		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 		{
-			HLSColour hls;
-			hls.changeHLSFrom(nppParamInst.getFindDlgStatusMsgColor(2));
-			hls._lightness += 50;
-			hls._saturation -= 20;
-			fgColor = hls.toRGB();
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(2));
+			fgColor = hls.toRGB4DarkMod();
 		}
 	}
 

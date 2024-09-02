@@ -1390,12 +1390,19 @@ private:
 
 struct HLSColour
 {
-	WORD _hue;
-	WORD _lightness;
-	WORD _saturation;
+	WORD _hue = 0;
+	WORD _lightness = 0;
+	WORD _saturation = 0;
 
-	void changeHLSFrom(COLORREF rgb) { ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
+	HLSColour() = default;
+	HLSColour(WORD hue, WORD lightness, WORD saturation): _hue(hue), _lightness(lightness), _saturation(saturation) {}
+	HLSColour(COLORREF rgb) { ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
+
+	void loadFromRGB(COLORREF rgb) { ColorRGBToHLS(rgb, &_hue, &_lightness, &_saturation); }
 	COLORREF toRGB() const { return ColorHLSToRGB(_hue, _lightness, _saturation); }
+
+	COLORREF toRGB4DarkModWithTuning(int lightnessMore, int saturationLess) const { return ColorHLSToRGB(_hue, _lightness + lightnessMore, _saturation - saturationLess); }
+	COLORREF toRGB4DarkMod() const { return toRGB4DarkModWithTuning(50, 20); }
 };
 
 struct UdlXmlFileState final {

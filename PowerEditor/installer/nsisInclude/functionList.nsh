@@ -203,11 +203,26 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\hollywood.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "Toml" Toml_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\toml.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "TeX" Tex_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\tex.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "LaTeX" Latex_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\latex.xml"
+	${MementoSectionEnd}
+
 	${MementoSection} "NppExecScript" NppExecScript_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\nppexec.xml"
 	${MementoSectionEnd}
-	
+
 	SetOverwrite off
 	${MementoSection} "Override Map" OverrideMap_FL
 		SetOutPath "$INSTDIR\functionList"
@@ -368,7 +383,19 @@ SectionGroup un.functionListComponent
 
 	Section un.Hollywood_FL
 		Delete "$INSTDIR\functionList\hollywood.xml"
-	SectionEnd	
+	SectionEnd
+
+	Section un.Toml_FL
+		Delete "$INSTDIR\functionList\toml.xml"
+	SectionEnd
+
+	Section un.Tex_FL
+		Delete "$INSTDIR\functionList\tex.xml"
+	SectionEnd
+
+	Section un.Latex_FL
+		Delete "$INSTDIR\functionList\latex.xml"
+	SectionEnd
 
 	Section un.NppExecScript_FL
 		Delete "$INSTDIR\functionList\nppexec.xml"

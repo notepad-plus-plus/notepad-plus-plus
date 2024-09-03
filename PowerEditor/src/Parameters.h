@@ -1927,9 +1927,7 @@ private:
 
 	std::wstring _loadedSessionFullFilePath;
 
-	std::array<HLSColour, 5> individualTabHuesFor_Dark{ { HLSColour{37, 60, 60}, HLSColour{70, 60, 60}, HLSColour{144, 70, 60}, HLSColour{255, 60, 60}, HLSColour{195, 60, 60} } };
 	std::array<HLSColour, 5> individualTabHues{ { HLSColour{37, 210, 150}, HLSColour{70, 210, 150}, HLSColour{144, 210, 150}, HLSColour{255, 210, 150}, HLSColour{195, 210, 150}} };
-
 	std::array<COLORREF, 3> findDlgStatusMessageColor{ red, blue, darkGreen};
 
 public:
@@ -2040,7 +2038,7 @@ public:
 
 
 	void initTabCustomColors();
-	void setIndividualTabColor(COLORREF colour2Set, int colourIndex, bool isDarkMode);
+	void setIndividualTabColor(COLORREF colour2Set, int colourIndex);
 	COLORREF getIndividualTabColor(int colourIndex, bool isDarkMode, bool saturated);
 
 	void initFindDlgStatusMsgCustomColors();

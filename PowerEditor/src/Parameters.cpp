@@ -8862,49 +8862,13 @@ void NppParameters::initTabCustomColors()
 	{
 		individualTabHues[4].loadFromRGB(pStyle->_bgColor);
 	}
-
-
-	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_1);
-	if (pStyle)
-	{
-		individualTabHuesFor_Dark[0].loadFromRGB(pStyle->_bgColor);
-	}
-
-	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_2);
-	if (pStyle)
-	{
-		individualTabHuesFor_Dark[1].loadFromRGB(pStyle->_bgColor);
-	}
-
-	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_3);
-	if (pStyle)
-	{
-		individualTabHuesFor_Dark[2].loadFromRGB(pStyle->_bgColor);
-	}
-
-	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_4);
-	if (pStyle)
-	{
-		individualTabHuesFor_Dark[3].loadFromRGB(pStyle->_bgColor);
-	}
-
-	pStyle = stylers.findByName(TABBAR_INDIVIDUALCOLOR_DM_5);
-	if (pStyle)
-	{
-		individualTabHuesFor_Dark[4].loadFromRGB(pStyle->_bgColor);
-	}
 }
 
 
-void NppParameters::setIndividualTabColor(COLORREF colour2Set, int colourIndex, bool isDarkMode)
+void NppParameters::setIndividualTabColor(COLORREF colour2Set, int colourIndex)
 {
 	if (colourIndex < 0 || colourIndex > 4) return;
-
-	if (isDarkMode)
-		individualTabHuesFor_Dark[colourIndex].loadFromRGB(colour2Set);
-	else
-		individualTabHues[colourIndex].loadFromRGB(colour2Set);
-
+	individualTabHues[colourIndex].loadFromRGB(colour2Set);
 	return;
 }
 
@@ -8912,10 +8876,11 @@ COLORREF NppParameters::getIndividualTabColor(int colourIndex, bool isDarkMode, 
 {
 	if (colourIndex < 0 || colourIndex > 4) return {};
 
-	HLSColour result;
+	HLSColour result = individualTabHues[colourIndex];
+
 	if (isDarkMode)
 	{
-		result = individualTabHuesFor_Dark[colourIndex];
+		result = result.toRGB4DarkModWithTuning(-150, 65);
 
 		if (saturated)
 		{
@@ -8925,8 +8890,6 @@ COLORREF NppParameters::getIndividualTabColor(int colourIndex, bool isDarkMode, 
 	}
 	else
 	{
-		result = individualTabHues[colourIndex];
-
 		if (saturated)
 		{
 			result._lightness = 140U;

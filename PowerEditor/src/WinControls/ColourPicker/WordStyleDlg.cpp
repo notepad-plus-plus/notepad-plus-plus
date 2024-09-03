@@ -578,11 +578,8 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 										if (colourIndex != -1)
 										{
-											if (colourIndex >= TabBarPlus::individualTabColourId::id5)
-												colourIndex -= TabBarPlus::individualTabColourId::id5;
-
 											NppParameters& nppParamInst = NppParameters::getInstance();
-											nppParamInst.setIndividualTabColor(_pBgColour->getColour(), colourIndex, NppDarkMode::isEnabled());
+											nppParamInst.setIndividualTabColor(_pBgColour->getColour(), colourIndex);
 										}
 									}
 
@@ -689,12 +686,7 @@ int WordStyleDlg::getApplicationInfo() const
 		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_2) == 0) ||
 		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_3) == 0) ||
 		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_4) == 0) ||
-		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_5) == 0) ||
-		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_1) == 0) ||
-		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_2) == 0) ||
-		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_3) == 0) ||
-		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_4) == 0) ||
-		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_5) == 0))
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_5) == 0))
 	{
 		return (GENERAL_CHANGE | COLOR_CHANGE_4_MENU);
 	}
@@ -750,23 +742,6 @@ int WordStyleDlg::whichIndividualTabColourId()
 
 	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_5) == 0)
 		return TabBarPlus::individualTabColourId::id4;
-
-
-	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_1) == 0)
-		return TabBarPlus::individualTabColourId::id5;
-
-	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_2) == 0)
-		return TabBarPlus::individualTabColourId::id6;
-
-	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_3) == 0)
-		return TabBarPlus::individualTabColourId::id7;
-
-	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_4) == 0)
-		return TabBarPlus::individualTabColourId::id8;
-
-	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_5) == 0)
-		return TabBarPlus::individualTabColourId::id9;
-
 
 	return -1;
 }

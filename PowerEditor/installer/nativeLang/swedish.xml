@@ -1177,10 +1177,10 @@ Translation note:
 
 				<Searching title="Sökning">
 					<Item id="6902" name="Använd typsnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
-					<Item id="6903" name="Sökdialogen förblir öppen efter sökningar som matar ut till resultatfönstret"/>
+					<Item id="6903" name="Låt sökdialogen förbli öppen efter sökningar som visas i resultatfönstret"/>
 					<Item id="6904" name="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
 					<Item id="6905" name="Ersätt: Hoppa inte till nästa förekomst"/>
-					<Item id="6906" name="Resultatfönstret: Visa endast en post per funnen rad om det är möjligt"/>
+					<Item id="6906" name="Sökresultatsfönstret: Visa endast en post per funnen rad om det är möjligt"/>
 					<Item id="6907" name="När sökdialogen öppnas"/>
 					<Item id="6908" name="Fyll sökfältet med markerad text"/>
 					<Item id="6909" name="Markera ord under textmarkören när ingenting är markerat"/>
@@ -1248,7 +1248,7 @@ Translation note:
 					<Item id="6175" name="Omvänd standardordning av datum och tid (kort och långt format)"/>
 					<Item id="6172" name="Anpassat format:"/>
 					<Item id="6181" name="Paneltillstånd och [-nosession] *"/>
-					<Item id="6182" name="Kom ihåg paneltillstånden (om de är öppna) i andra instanser (vid flera instanser) eller när kommandoradsparametern [-nosession] används"/>
+					<Item id="6182" name="Kom ihåg panelens tillstånd (om den är öppen) i andra instanser (vid flera instanser) eller när kommandoradsparametern [-nosession] används"/>
 					<Item id="6183" name="Urklippshistorik"/>
 					<Item id="6184" name="Dokumentlista"/>
 					<Item id="6185" name="Teckenpanel"/>
@@ -1780,12 +1780,12 @@ OBS:
 1. När dessa alternativ modifieras måste alla stora filer stängas och öppnas igen för att fungera ordentligt.
 
 2. Om &quot;Inaktivera radbrytning globalt&quot; markeras och du öppnar en stor fil kommer &quot;Radbrytning&quot; inaktiveras för alla filer. Du kan återaktivera detta via menyn &quot;Visa -&gt; Radbrytning&quot;."/>
-			<npcNote-tip value="Representation av utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII.
+			<npcNote-tip value="Hur utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII ska återges.
 
 OBS:
-När representationer används inaktiveras teckeneffekter hos texten.
+När ett utseende används kommer teckeneffekter i texten att inaktiveras.
 
-Se användarmanualen för den fullständiga listan över utvalda blanksteg och icke utskrivbara tecken.
+Se användarmanualen för en fullständig lista över utvalda blanksteg och icke utskrivbara tecken.
 
 Klicka på denna knapp för att öppna webbplatsen med användarmanualen."/>
 			<npcAbbreviation-tip value="Förkortning : namn
@@ -1793,20 +1793,20 @@ NBSP : hårt blanksteg
 ZWSP : breddlöst blanksteg
 ZWNBSP : breddlöst hårt blanksteg
 
-Se användarmanualen för den fullständiga listan.
+Se användarmanualen för en fullständig lista.
 Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen."/>
 			<npcCodepoint-tip value="Kodpunkt : namn
 U+00A0 : hårt blanksteg
 U+200B : breddlöst blanksteg
 U+FEFF : breddlöst hårt blanksteg
 
-Se användarmanualen för den fullständiga listan.
+Se användarmanualen för en fullständig lista.
 Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Tillämpa utseendeinställningar för icke utskrivbara tecken på C0- och C1-kontrolltecken samt Unicode-radslutstecken (nästa rad, radavgränsare och paragrafavgränsare)."/>
-			<searchingInSelThresh-tip value="Antal markerade tecken i redigeringsområdet att automatiskt kontrollera kryssrutan &quot;I markering&quot; när sökdialogen aktiveras. Det maximala värdet är 1024. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
+			<searchingInSelThresh-tip value="Antalet markerade tecken i redigeringsområdet för att automatiskt markera kryssrutan &quot;I markering&quot; i sökdialogen. Det maximala värdet är 1024. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
 			<verticalEdge-tip value="Lägg till din kolumnmarkör genom att ange dess position med ett decimaltal. Separera talen med blanksteg för att ange flera kolumnmarkörer."/>
 			<fileSaveAsCopySaveButton-tip value="Håll ned Shift och klicka på sparaknappen för att öppna kopian efteråt."/>
 			<autoIndentBasic-tip value="Ser till att indraget för aktuell rad (d.v.s. radbrytningen som skapas med ENTER-tangenten) stämmer överens med indraget från den föregående raden."/>

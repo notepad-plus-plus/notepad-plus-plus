@@ -98,7 +98,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 							{
 								::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
 								bDoneOnce = true;
-								Sleep(250);
+								Sleep(250);	// Limit refresh rate
 							}
 						}
 						else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))

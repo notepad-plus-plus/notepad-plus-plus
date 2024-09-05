@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 14 June 2024 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 30 July 2024 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.6.9">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -222,7 +222,7 @@
 					<Item id="43051" name="Izbriši retke bez oz&amp;naka"/>
 					<Item id="43050" name="Preokreni o&amp;znake"/>
 					<Item id="43052" name="Prona&amp;đi znakove u rasponu..."/>
-					<Item id="43053" name="Odaberi sve između pripadaju&amp;ćih zagrada"/>
+					<Item id="43053" name="Odaberi sve između pripadaju&amp;ćih zagrada {} [] ()"/>
 					<Item id="43009" name="Pronađ&amp;i pripadajuću zagradu"/>
 					<Item id="43010" name="Pronađi pret&amp;hodno"/>
 					<Item id="43011" name="Inkre&amp;mentalno pretraživanje..."/>
@@ -354,16 +354,16 @@
 					<Item id="10004" name="&amp;Otvori u novoj instanci"/>
 					<Item id="10005" name="Premjesti na po&amp;četak"/>
 					<Item id="10006" name="Premjesti na kra&amp;j"/>
+					<Item id="46001" name="Prilagodba &amp;izgleda..."/>
+					<Item id="46016" name="Obični &amp;tekst"/>
 
 					<Item id="46015" name="MS-DOS stil"/>
-					<Item id="46016" name="Obični &amp;tekst"/>
 					<Item id="46017" name="Resursi"/>
 					<Item id="46019" name="INI datoteka"/>
 					<Item id="46033" name="Asembler"/>
 					<Item id="46035" name="Properties"/>
 					<Item id="46079" name="Registar"/>
 
-					<Item id="46001" name="Prilagodba &amp;izgleda..."/>
 					<Item id="46250" name="&amp;Definiraj svoju sintaksu..."/>
 					<Item id="46300" name="&amp;Otvori mapu korisnički definiranih sintaksi..."/>
 					<Item id="46301" name="Online &amp;zbirka korisnički definiranih sintaksi"/>
@@ -1111,15 +1111,22 @@
 					<Item id="6506" name="Isključene sintakse"/>
 					<Item id="6507" name="Kompaktni izbornik sintaksi"/>
 					<Item id="6508" name="Izbornik sintaksi"/>
+					<Item id="6335" name="Tretiraj Backslash kao escape znak za SQL"/>
+				</Language>
+
+				<Indentation title="Uvlake">
+					<Item id="7161" name="Automatske uvlake"/>
+					<Item id="7162" name="Ništa"/>
+					<Item id="7163" name="Osnovno"/>
+					<Item id="7164" name="Napredno"/>
 					<Item id="6301" name="Postavke uvlaka"/>
 					<Item id="6302" name="razmake"/>
 					<Item id="6303" name="Širina uvlake: "/>
 					<Item id="6310" name="Za uvlake koristi:"/>
 					<Item id="6311" name="tabulatore"/>
 					<Item id="6510" name="Koristi zadanu vrijednost"/>
-					<Item id="6512" name="Tipka Backspace poništava uvlake umjesto brisanja jednog razmaka"/>
-					<Item id="6335" name="Tretiraj Backslash kao escape znak za SQL"/>
-				</Language>
+					<Item id="6512" name="Tipka Backspace poništava uvlake, umjesto brisanja jednog razmaka"/>
+				</Indentation>
 
 				<Highlighting title="Označavanje">
 					<Item id="6351" name="Označi sva pojavljivanja"/>
@@ -1203,15 +1210,15 @@
 				<Backup title="Sigurnosna kopija">
 					<Item id="6817" name="Snimke sesije i periodične sigurnosne kopije"/>
 					<Item id="6818" name="Uključi snimke sesije i periodične sigurnosne kopije"/>
-					<Item id="6819" name="Sigurnosna kopija svakih"/>
+					<Item id="6819" name="Sigurnos. kopija svakih"/>
 					<Item id="6821" name="sekundi"/>
-					<Item id="6822" name="Put kopija:"/>
+					<Item id="6822" name="Put sigur. kopija:"/>
 					<Item id="6309" name="Trenutnu sesiju upamti do sljedećeg pokretanja"/>
 					<Item id="6825" name="Zapamti nedostupne datoteke iz prošle sesije"/>
 					<Item id="6801" name="Sigurnosna kopija pri spremanju"/>
 					<Item id="6315" name="Isključeno"/>
 					<Item id="6316" name="Jednostavno spremanje kopija"/>
-					<Item id="6317" name="S datumom i vremenom u imenu"/>
+					<Item id="6317" name="Datum i vrijeme u imenu"/>
 					<Item id="6804" name="Korisnički zadana mapa sigurnosnih kopija"/>
 					<Item id="6803" name="Mapa:"/>
 				</Backup>
@@ -1402,6 +1409,11 @@ Ovaj dijalog možete kasnije ponovo aktivirati u Postavkama."/>
 				<Item id="7" name="&amp;Ne"/>
 				<Item id="4" name="&amp;Uvijek da"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Debug informacije">
+				<Item id="1752" name="&amp;Kopiraj podatke u međuspremnik"/>
+				<Item id="1" name="U redu"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1526,7 +1538,7 @@ Molim, testirajte te naredbe u aktualnoj verziji Notepada++ i, ako je potrebno, 
 
 Alternativno, možete se vratiti na Notepad++ v8.5.2 i vratiti svoje prethodne podatke.
 Notepad++ će sigurnosno kopirati vaš stari &quot;shortcuts.xml&quot; i spremiti ga kao &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Promjenite naziv datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i vaše bi naredbe trebale biti vraćene i ispravno raditi."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+Promijenite naziv datoteke &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, i vaše bi naredbe trebale biti vraćene i ispravno raditi."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NotEnoughRoom4Saving title="Neuspjelo spremanje" message="Spremanje datoteke nije uspjelo.
 Izgleda da nema dovoljno mjesta na mediju za spremanje datoteke. Vaša datoteka nije spremljena."/>
 			<FileInaccessibleUserSession title="Datoteka nedostupna" message="Neke datoteke iz vaše ručno spremljene sesije &quot;$STR_REPLACE$&quot; su nedostupne. Mogu se otvoriti kao prazni dokumenti samo za čitanje, kao rezervirana mjesta.
@@ -1547,6 +1559,7 @@ Molim, isključite DirectWrite način u odjeljku &quot;Razno&quot; u Postavkama 
 Pritisnite gumb U redu kako bi otvorili dijaloški okvir Traži ili postavite fokus na njega.
 			
 Ako vam je potrebna značajka pretraživanja regularnih izraza unatrag, potražite u korisničkom priručniku upute o tome kako ju omogućiti."/>
+			<PrintError title="0" message="Nije moguće pokrenuti dokument pisača."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Povijest međuspremnika"/>
@@ -1682,8 +1695,8 @@ Nađi u svim datotekama s izuzetkom mapa tests, bin i bin64:
 Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Odaberite mapu za pretraživanje"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Pronađi: Nađeno prvo pojavljivanje od dna. Dostignut je početak dokumenta."/>
-			<find-status-end-reached value="Pronađi: Nađeno prvo pojavljivanje od vrha. Dostignut je kraj dokumenta."/>
+			<find-status-top-reached value="Pronađi: Nađeno zadnje pojavljivanje od dna. Dostignut je početak dokumenta."/>
+			<find-status-end-reached value="Pronađi: Nađeno zadnje pojavljivanje od vrha. Dostignut je kraj dokumenta."/>
 			<find-status-replaceinfiles-1-replaced value="Zamijeni u datotekama: 1 podudaranje je zamijenjeno"/>
 			<find-status-replaceinfiles-nb-replaced value="Zamijeni u datotekama: $INT_REPLACE$ podudaranja je zamijenjeno"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Zamijeni u otvorenim datotekama: 1 podudaranje je zamijenjeno"/>
@@ -1697,8 +1710,8 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<find-status-replaceall-1-replaced value="Zamijeni sve: 1 podudaranje je zamijenjeno"/>
 			<find-status-replaceall-nb-replaced value="Zamijeni sve: $INT_REPLACE$ podudaranja je zamijenjeno"/>
 			<find-status-replaceall-readonly value="Zamijeni sve: Ne mogu zamijeniti tekst. Trenutni dokument je samo za čitanje"/>
-			<find-status-replace-end-reached value="Zamijeni: Zamijenjeno prvo podudaranje od vrha. Dostignut je kraj dokumenta"/>
-			<find-status-replace-top-reached value="Zamijeni: Zamijenjeno prvo podudaranje od dna. Dostignut je početak dokumenta"/>
+			<find-status-replace-end-reached value="Zamijeni: Zamijenjeno zadnje podudaranje od vrha. Dostignut je kraj dokumenta"/>
+			<find-status-replace-top-reached value="Zamijeni: Zamijenjeno zadnje podudaranje od dna. Dostignut je početak dokumenta"/>
 			<find-status-replaced-next-found value="Zamijeni: 1 podudaranje je zamijenjeno. Nađeno sljedeće podudaranje."/>
 			<find-status-replaced-without-continuing value="Zamijeni: 1 podudaranje je zamijenjeno."/>
 			<find-status-replaced-next-not-found value="Zamijeni: 1 podudaranje je zamijenjeno. Sljedeće podudaranje nije nađeno."/>
@@ -1813,6 +1826,12 @@ Kliknite &quot;?&quot; gumb s desne strane za otvaranje web stranice s Korisnič
 Maksimalna vrijednost je 1024.
 Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
 			<verticalEdge-tip value="Dodajte svoju oznaku stupca označavanjem njenog položaja decimalnim brojem. Možete definirati više oznaka stupaca korištenjem razmaka za odvajanje različitih brojeva."/>
+			<fileSaveAsCopySaveButton-tip value="Držite tipku Shift dok klikate Spremi kopiju kao... kako biste otvorili kopiju nakon spremanja."/>
+			<autoIndentBasic-tip value="Osigurajte da uvlaka trenutnog retka (tj. novog retka stvorenog pritiskom na tipku ENTER) odgovara uvlaci prethodnog retka."/>
+			<autoIndentAdvanced-tip value="Omogućite pametne uvlake za jezike poput C-a i Pythona. Jezici slični C-u uključuju:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
+
+Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezicima, uvlaka će ostati u osnovnom načinu."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

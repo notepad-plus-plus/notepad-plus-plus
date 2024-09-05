@@ -547,7 +547,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_DOOPEN:
 		case WM_DOOPEN:
 		{
-			BufferID id = doOpen(reinterpret_cast<const wchar_t *>(lParam));
+			auto& cmdLine = nppParam.getCmdLineString();
+			bool bReadOnly = cmdLine.find(_T("-ro ")) != -1 && cmdLine.find(_T("-openFoldersAsWorkspace ")) != -1;
+
+			BufferID id = doOpen(reinterpret_cast<const wchar_t*>(lParam), false, bReadOnly);
 			if (id != BUFFER_INVALID)
 				return switchToFile(id);
 			break;

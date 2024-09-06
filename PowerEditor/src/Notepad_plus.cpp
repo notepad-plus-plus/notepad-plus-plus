@@ -8863,13 +8863,19 @@ void Notepad_plus::monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStartin
 	if (pBuf)
 	{
 		if (isStarting)
+		{
 			pBuf->startMonitoring();
+			pBuf->saveReadOnlyState();
+			pBuf->setUserReadOnly(true);
+		}
 		else
+		{
 			pBuf->stopMonitoring();
+			pBuf->setUserReadOnly(pBuf->restoreReadOnlyState());
+		}
 
 		checkMenuItem(IDM_VIEW_MONITORING, isStarting);
 		_toolBar.setCheck(IDM_VIEW_MONITORING, isStarting);
-		pBuf->setUserReadOnly(isStarting);
 	}
 }
 

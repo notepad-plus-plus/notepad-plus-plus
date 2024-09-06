@@ -203,6 +203,13 @@ public:
 		doNotify(BufferChangeReadonly);
 	}
 
+	void saveReadOnlyState() { _wasReadOnly = _isUserReadOnly; };
+
+	bool restoreReadOnlyState() {
+		_isUserReadOnly = _wasReadOnly; 
+		return _isUserReadOnly;
+	};
+
 	EolType getEolFormat() const { return _eolFormat; }
 
 	void setEolFormat(EolType format) {
@@ -374,6 +381,7 @@ private:
 	UniMode _unicodeMode = uniUTF8;
 	int _encoding = -1;
 	bool _isUserReadOnly = false;
+	bool _wasReadOnly = false;
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 	//these properties have to be duplicated because of multiple references
 

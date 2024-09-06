@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
     <AutoComplete language="LUA">
-        <Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=".:" />
+        <Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=".:" />
 
         <!-- Lua syntax-->
         <KeyWord name="break" func="no" />

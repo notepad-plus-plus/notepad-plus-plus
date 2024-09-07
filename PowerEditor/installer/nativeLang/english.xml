@@ -411,8 +411,8 @@ Translation note:
 					<Item id="11005" name="Path Z to A"/>
 					<Item id="11006" name="Type A to Z"/>
 					<Item id="11007" name="Type Z to A"/>
-					<Item id="11008" name="Size Smaller to Larger"/>
-					<Item id="11009" name="Size Larger to Smaller"/>
+					<Item id="11008" name="Content Length Ascending"/>
+					<Item id="11009" name="Content Length Descending"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -746,14 +746,14 @@ Translation note:
 					<Item id="44113" name="Apply Tab Color 3"/>
 					<Item id="44114" name="Apply Tab Color 4"/>
 					<Item id="44115" name="Apply Tab Color 5"/>
-					<Item id="11002" name="Sort By Name A to Z"/>
-					<Item id="11003" name="Sort By Name Z to A"/>
-					<Item id="11004" name="Sort By Path A to Z"/>
-					<Item id="11005" name="Sort By Path Z to A"/>
-					<Item id="11006" name="Sort By Type A to Z"/>
-					<Item id="11007" name="Sort By Type Z to A"/>
-					<Item id="11008" name="Sort By Size Smaller to Larger"/>
-					<Item id="11009" name="Sort By Size Larger to Smaller"/>
+					<Item id="11002" name="Sort by Name A to Z"/>
+					<Item id="11003" name="Sort by Name Z to A"/>
+					<Item id="11004" name="Sort by Path A to Z"/>
+					<Item id="11005" name="Sort by Path Z to A"/>
+					<Item id="11006" name="Sort by Type A to Z"/>
+					<Item id="11007" name="Sort by Type Z to A"/>
+					<Item id="11008" name="Sort by Content Length Ascending"/>
+					<Item id="11009" name="Sort by Content Length Descending"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Shortcut">

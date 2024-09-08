@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -448,7 +448,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_dockingManager.init(_pPublicInterface->getHinst(), hwnd, &_pMainWindow);
 
-	if (nppGUI._isMinimizedToTray && _pTrayIco == nullptr)
+	if ((nppGUI._isMinimizedToTray || nppGUI._isClosedToTray) && _pTrayIco == nullptr)
 	{
 		HICON icon = nullptr;
 		Notepad_plus_Window::loadTrayIcon(_pPublicInterface->getHinst(), &icon);

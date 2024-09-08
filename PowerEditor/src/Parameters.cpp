@@ -5018,6 +5018,18 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!lstrcmp(nm, L"CloseToTray"))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const wchar_t* val = n->Value();
+				if (val)
+				{
+					_nppGUI._isClosedToTray = (lstrcmp(val, L"yes") == 0);
+				}
+			}
+		}
 		else if (!lstrcmp(nm, L"RememberLastSession"))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -7380,6 +7392,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name="TrayIcon">no</GUIConfig>
 	{
 		insertGUIConfigBoolNode(newGUIRoot, L"TrayIcon", _nppGUI._isMinimizedToTray);
+	}
+
+	// <GUIConfig name="CloseToTray">no</GUIConfig>
+	{
+		insertGUIConfigBoolNode(newGUIRoot, L"CloseToTray", _nppGUI._isClosedToTray);
 	}
 
 	// <GUIConfig name="MaintainIndent">yes</GUIConfig>

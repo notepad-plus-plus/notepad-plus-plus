@@ -1314,6 +1314,7 @@ Translation note:
 						<Element name="Wyłącz"/>
 					</ComboBox>
 					<Item id="6308" name="Minimalizuj do zasobnika systemowego"/>
+					<Item id="6362" name="Zamknij do zasobnika systemowego"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>
 					<Item id="6313" name="Uaktualniaj po cichu"/>
 					<Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
@@ -1807,4 +1808,3 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

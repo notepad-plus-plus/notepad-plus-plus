@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
-			  June 13th (v8.6.9), July 26th (v8.7)
+			  June 13th (v8.6.9), Sept. 8th (v8.7)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -440,8 +440,8 @@ Additionnal information about Corsican localization:
 					<Item id="11005" name="Chjassu d’accessu da Z à A"/>
 					<Item id="11006" name="Tipu da A à Z"/>
 					<Item id="11007" name="Tipu da Z à A"/>
-					<Item id="11008" name="Dimensione da chjuca à maiò"/>
-					<Item id="11009" name="Dimensione da maiò à chjuca"/>
+					<Item id="11008" name="Lunghezza di cuntenutu crescente"/>
+					<Item id="11009" name="Lunghezza di cuntenutu discendente"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -780,8 +780,8 @@ Additionnal information about Corsican localization:
 					<Item id="11005" name="Ordinà da chjassu d’accessu da Z à A"/>
 					<Item id="11006" name="Ordinà da tipu da A à Z"/>
 					<Item id="11007" name="Ordinà da tipu da Z à A"/>
-					<Item id="11008" name="Ordinà da dimensione da chjuca à maiò"/>
-					<Item id="11009" name="Ordinà da dimensione da maiò à chjuca"/>
+					<Item id="11008" name="Ordinà da lunghezza di cuntenutu crescente"/>
+					<Item id="11009" name="Ordinà da lunghezza di cuntenutu discendente"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Accurtatoghju">
@@ -1220,7 +1220,7 @@ Additionnal information about Corsican localization:
 					<Item id="6424" name="In sottulistinu"/>
 					<Item id="6425" name="Nome di schedariu solu"/>
 					<Item id="6426" name="Chjassu cumpletu di schedariu"/>
-					<Item id="6427" name="Persunalizà a longhezza massima :"/>
+					<Item id="6427" name="Persunalizà a lunghezza massima :"/>
 				</RecentFilesHistory>
 
 				<Backup title="Salvaguardia">
@@ -1790,7 +1790,7 @@ Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o
 			<find-result-title-info-extra value=" - Modu di filtru di linea : affisseghja solu i risultati filtrati"/>
 			<find-result-hits value="($INT_REPLACE$ risultati)"/>
 			<find-result-line-prefix value="Linea"/><!-- Must not begin with space or tab character -->
-			<find-regex-zero-length-match value="currispundenza di longhezza à zeru"/>
+			<find-regex-zero-length-match value="currispundenza di lunghezza à zeru"/>
 			<session-save-folder-as-workspace value="Arregistrà u cartulare cum’è spaziu di travagliu"/>
 			<tab-untitled-string value="novu "/>
 			<file-save-assign-type value="&amp;Aghjunghje un’estensione"/>

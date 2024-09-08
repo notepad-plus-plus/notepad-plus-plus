@@ -409,8 +409,8 @@
 					<Item id="11005" name="Cesta od Z po A"/>
 					<Item id="11006" name="Typ od A po Z"/>
 					<Item id="11007" name="Typ od Z po A"/>
-					<Item id="11008" name="Veľkosť ↑"/>
-					<Item id="11009" name="Veľkosť ↓"/>
+					<Item id="11008" name="Dĺžka obsahu ↑"/>
+					<Item id="11009" name="Dĺžka obsahu ↓"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -750,8 +750,8 @@
 					<Item id="11005" name="Zoradiť podľa cesty od Z po A"/>
 					<Item id="11006" name="Zoradiť podľa typu od A po Z"/>
 					<Item id="11007" name="Zoradiť podľa typu od Z po A"/>
-					<Item id="11008" name="Zoradiť podľa veľkosti ↑"/>
-					<Item id="11009" name="Zoradiť podľa veľkosti ↓"/>
+					<Item id="11008" name="Zoradiť podľa dĺžky obsahu ↑"/>
+					<Item id="11009" name="Zoradiť podľa dĺžky obsahu ↓"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Skratka">
@@ -1692,15 +1692,15 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-count-1-match value="Spočítať: 1 výskyt"/>
 			<find-status-count-nb-matches value="Spočítať: $INT_REPLACE$ výskytov"/>
 			<find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
-			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
-			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
-			<find-status-replace-end-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
-			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
+			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu"/>
+			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie"/>
+			<find-status-replace-end-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu"/>
+			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu"/>
 			<find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
 			<find-status-replaced-without-continuing value="Nahradiť: bol nahradený 1 výskyt."/>
 			<find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty."/>
-			<find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt."/>
-			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie."/>
+			<find-status-replace-not-found value="Nahradiť: Nenašiel sa žiaden výskyt"/>
+			<find-status-replace-readonly value="Nahradiť: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie"/>
 			<find-status-cannot-find value="Hľadať: Text &quot;$STR_REPLACE$&quot; sa nepodarilo nájsť"/>
 			<find-status-cannot-find-pebkac-maybe value="Uvedený výskyt sa nedá nájsť. Možno ste zabudli skontrolovať &quot;Cyklicky&quot; (začiarknuté), &quot;Rozlišovať malé/VEĽKÉ písmená&quot; (nezačiarknuté), alebo &quot;Hľadať iba celé slová&quot; (nezačiarknuté)."/>
 			<find-status-scope-selection value="v označenom texte"/>

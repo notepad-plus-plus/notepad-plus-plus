@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.6.9"><!-- based on english.xml 8.6.9 du 17.07.2024 -->
+	<Native-Langue name="Français" filename="french.xml" version="8.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -21,12 +21,12 @@ Translation note:
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="E&amp;xécution"/>
 					<Item menuId="Plugins" name="Modules d’ex&amp;tension"/>
-					<Item menuId="Window" name="&amp;Onglets ouverts"/>
+					<Item menuId="Window" name="&amp;Documents"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Utiliser le chemin du fichier en cours et :"/>
-					<Item subMenuId="file-closeMore" name="Fermer plusieurs fichiers"/>
+					<Item subMenuId="file-openFolder" name="Utiliser le chemin du fichier avec :"/>
+					<Item subMenuId="file-closeMore" name="Fermer plusieurs documents"/>
 					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
 					<Item subMenuId="edit-insert" name="Insertion"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copier dans le presse-papiers"/>
@@ -52,7 +52,7 @@ Translation note:
 					<Item subMenuId="view-currentFileIn" name="Afficher le fichier dans"/>
 					<Item subMenuId="view-showSymbol" name="Symboles spéciaux"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
-					<Item subMenuId="view-moveCloneDocument" name="Déplacer/cloner le document en cours"/>
+					<Item subMenuId="view-moveCloneDocument" name="Déplacer le document"/>
 					<Item subMenuId="view-tab" name="Onglet"/>
 					<Item subMenuId="view-collapseLevel" name="Replier le niveau"/>
 					<Item subMenuId="view-uncollapseLevel" name="Déplier le niveau"/>
@@ -87,15 +87,15 @@ Translation note:
 				<Commands>
 					<Item id="41001" name="&amp;Nouveau"/>
 					<Item id="41002" name="&amp;Ouvrir..."/>
-					<Item id="41019" name="ouvrir l’explorateur Windows"/>
-					<Item id="41020" name="ouvrir l’invite de commande (Cmd)"/>
-					<Item id="41025" name="ouvrir le dossier en tant qu’espace de travail"/>
+					<Item id="41019" name="l’explorateur Windows™"/>
+					<Item id="41020" name="l’invite de commande (Cmd)"/>
+					<Item id="41025" name="ce dossier en tant qu’espace de travail"/>
 					<Item id="41003" name="Fermer"/>
 					<Item id="41004" name="Fermer tout"/>
-					<Item id="41005" name="Fermer tout sauf l’onglet en cours"/>
-					<Item id="41009" name="Fermer tous les onglets de gauche"/>
-					<Item id="41018" name="Fermer tous les onglets de droite"/>
-					<Item id="41024" name="Fermer tous les onglets non-modifiés"/>
+					<Item id="41005" name="Fermer tout sauf le document actuel"/>
+					<Item id="41009" name="Fermer tous les documents de gauche"/>
+					<Item id="41018" name="Fermer tous les documents de droite"/>
+					<Item id="41024" name="Fermer tous les documents non-modifiés"/>
 					<Item id="41006" name="&amp;Enregistrer"/>
 					<Item id="41007" name="En&amp;registrer tout"/>
 					<Item id="41008" name="Enregistrer &amp;sous..."/>
@@ -329,7 +329,7 @@ Translation note:
 					<Item id="44081" name="Panneau de projet #1"/>
 					<Item id="44082" name="Panneau de projet #2"/>
 					<Item id="44083" name="Panneau de projet #3"/>
-					<Item id="45001" name="Convertir en format Windows (CR+LF)"/>
+					<Item id="45001" name="Convertir en format Windows™ (CR+LF)"/>
 					<Item id="45002" name="Convertir en format UNIX (LF)"/>
 					<Item id="45003" name="Convertir en format Mac (CR)"/>
 					<Item id="45004" name="ANSI"/>
@@ -664,10 +664,10 @@ Translation note:
 				<DeleteContextMenu name="Supprimer"/>
 				<ClearContextMenu name="Effacer"/>
 				<MainCommandNames>
-					<Item id="41019" name="Ouvrir l’explorateur Windows sur le répertoire du fichier"/>
+					<Item id="41019" name="Ouvrir l’explorateur Windows™ sur le répertoire du fichier"/>
 					<Item id="41020" name="Ouvrir l’invite de commande sur le répertoire du fichier "/>
 					<Item id="41021" name="Ouvrir le dernier fichier fermé"/>
-					<Item id="45001" name="Convertir les sauts de ligne en Windows (CR LF)"/>
+					<Item id="45001" name="Convertir les sauts de ligne en Windows™ (CR LF)"/>
 					<Item id="45002" name="Convertir les sauts de ligne en Unix (LF)"/>
 					<Item id="45003" name="Convertir les sauts de ligne en Macintosh (CR)"/>
 					<Item id="43022" name="Appliquer les marques du style 1"/>
@@ -1020,7 +1020,7 @@ Translation note:
 				<DarkMode title="Mode Sombre">
 					<Item id="7131" name="Mode lumineux"/>
 					<Item id="7132" name="Mode sombre"/>
-					<Item id="7133" name="Suivre Windows"/>
+					<Item id="7133" name="Suivre Windows™"/>
 					<Item id="7102" name="noir"/>
 					<Item id="7103" name="rouge"/>
 					<Item id="7104" name="vert"/>
@@ -1072,7 +1072,7 @@ Translation note:
 
 				<NewDoc title="Nouveau document">
 					<Item id="6401" name="Format (fin de ligne)"/>
-					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6402" name="Windows™ (CR LF)"/>
 					<Item id="6403" name="Unix (LF)"/>
 					<Item id="6404" name="Macintosh (CR)"/>
 					<Item id="6405" name="Encodage"/>
@@ -1311,7 +1311,7 @@ Translation note:
 
 				<MISC title="Divers">
 					<ComboBox id="6347">
-						<Element name="Activer pour l’onglet en cours"/>
+						<Element name="Activer pour l’onglet actuel"/>
 						<Element name="Activer pour tous les onglets"/>
 						<Element name="Désactiver"/>
 					</ComboBox>
@@ -1405,7 +1405,7 @@ Choisir « Toujours_oui » si vous ne voulez plus répondre cette question.
 Vous pourrez réactiver cette boîte de dialogue dans les « Préférences » ultérieurement dans la partie « Divers » « Enregistrer tout »."/>
 				<Item id="6" name="&amp;Oui"/>
 				<Item id="7" name="&amp;Non"/>
-				<Item id="4" name="Toujours_oui"/>
+				<Item id="4" name="Toujours oui"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 		</Dialog>
 
@@ -1469,9 +1469,9 @@ Voulez-vous le recharger ?"/>
 
 Ce fichier a été modifié par un autre programme.
 Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ ?"/>
-			<PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système d’exploitation préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
-			<XpUpdaterProblem title="Mettre à jour Notepad++" message="Le programme de mise à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de Windows XP.
-Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+			<PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système d’exploitation préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/><!-- HowToReproduce: Launch "Document Map" under Windows™ XP. -->
+			<XpUpdaterProblem title="Mettre à jour Notepad++" message="Le programme de mise à jour de Notepad++ est incompatible avec XP en raison de la couche de sécurité obsolète de Windows™ XP.
+Voulez-vous télécharger la dernière version de Notepad++ sur le site officiel ?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows™ XP. -->
 			<GUpProxyConfNeedAdminMode title="Paramétrage de Proxy" message=" Afin de pouvoir configurer le proxy, 
  relancez Notepad++ en mode « Administrateur »."/>
 			<DocTooDirtyToMonitor title="Journal de surveillance" message="Le document a été modifié. Veuillez l’enregistrer d’abord."/>
@@ -1524,7 +1524,7 @@ Notepad++ sera relancé après.
 Continuer ?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ a besoin d’être redémarré" message="Vous devez redémarrer Notepad++ pour charger les modules d’extension installés."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="Notepad++ a besoin d’être redémarré" message="Vous devez redémarrer Notepad++ pour activer l’historique de modification."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Fermeture de session Windows" message="La session Windows en cours est sur le point d’être fermée, mais vous avez des données non-sauvegardées. Voulez-vous quitter Notepad++ maintenant ?"/>
+			<WindowsSessionExit title="Notepad++ - Fermeture de session Windows™" message="La session Windows™ en cours est sur le point d’être fermée, mais vous avez des données non-sauvegardées. Voulez-vous quitter Notepad++ maintenant ?"/>
 			<LanguageMenuCompactWarning title="Menu compact des langages" message="Cette option sera appliquée au prochain lancement."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Les modifications non-enregistrées vont être perdues !
 Voulez-vous enregistrer vos modifications avant de changer de thème ?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
@@ -1571,7 +1571,7 @@ Si vous avez besoin de la fonction de recherche d’expression régulière inver
 			<ColumnPath name="Chemin"/>
 			<ColumnType name="Type"/>
 			<ColumnSize name="Taille"/>
-			<NbDocsTotal name="nombre de fichiers :"/>
+			<NbDocsTotal name="nombre de documents :"/>
 			<MenuCopyName name="Copier le(s) nom(s)"/>
 			<MenuCopyPath name="Copier le(s) chemin(s) complet(s)"/>
 		</WindowsDlg>
@@ -1768,7 +1768,7 @@ Rechercher dans tous les fichiers mais exclure tous les dossiers - journal ou jo
 			<replace-in-open-docs-confirm-message value="Voulez-vous vraiment remplacer toutes les occurrences dans tous les documents ouverts ?"/>
 			<find-result-caption value="Résultats de recherche"/>
 			<find-result-title value="Rechercher"/><!-- Must not begin with space or tab character -->
-			<find-result-title-info value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ fichiers de $INT_REPLACE3$ fichiers analysés)"/>
+			<find-result-title-info value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ documents de $INT_REPLACE3$ documents analysés)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ résultats dans $INT_REPLACE2$ sélections de $INT_REPLACE3$ recherchés)"/>
 			<find-result-title-info-options-searchmode-normal value="Normal"/>
 			<find-result-title-info-options-searchmode-extended value="Étendu"/>

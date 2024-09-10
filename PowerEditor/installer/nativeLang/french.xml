@@ -508,9 +508,9 @@ Translation note:
 				<Item id="1723" name="▼ Suivant"/>
 				<Item id="1725" name="Copier le texte marqué"/>
 				<Menu>
-					<Item id="1726" name="⇅ Permuter les contenus de \"Rechercher\" et \"Remplacer par\""/>
-					<Item id="1727" name="⤵ Copier le contenu de \"Rechercher\" vers \"Remplacer par\""/>
-					<Item id="1728" name="⤴ Copier le contenu de \"Remplacer par\" vers \"Rechercher\""/>
+					<Item id="1726" name="⇅ Permuter les contenus de ''Rechercher'' et ''Remplacer par''"/>
+					<Item id="1727" name="⤵ Copier le contenu de ''Rechercher'' vers ''Remplacer par''"/>
+					<Item id="1728" name="⤴ Copier le contenu de ''Remplacer par'' vers ''Rechercher''"/>
 				</Menu>
 			</Find>
 

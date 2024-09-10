@@ -1600,7 +1600,7 @@ Si vous avez besoin de la fonction de recherche d’expression régulière inver
 
 		<FolderAsWorkspace>
 			<PanelTitle name="Dossier en tant qu’espace de travail"/>
-			<SelectFolderFromBrowserString name="Sélectionner un dossier pour l’ajouter comme dossier en tant qu’« espace de travail »"/>
+			<SelectFolderFromBrowserString name="Sélectionner un dossier pour l’ajouter comme dossier en tant qu’espace de travail"/>
 			<ExpandAllFoldersTip name="Déplier tous les dossiers"/>
 			<CollapseAllFoldersTip name="Replier tous les dossiers"/>
 			<LocateCurrentFileTip name="Localiser le fichier courant"/>
@@ -1779,7 +1779,7 @@ Rechercher dans tous les fichiers mais exclure tous les dossiers - journal ou jo
 			<find-result-hits value="($INT_REPLACE$ résultats)"/>
 			<find-result-line-prefix value="Ligne"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="la chaîne vide trouvée"/>
-			<session-save-folder-as-workspace value="Enregistrer le dossier en tant qu’« espace de travail »"/>
+			<session-save-folder-as-workspace value="Enregistrer le dossier en tant qu’espace de travail"/>
 			<tab-untitled-string value="nouveau "/>
 			<file-save-assign-type value="Conc&amp;aténer extension"/>
 			<close-panel-tip value="Fermer"/>

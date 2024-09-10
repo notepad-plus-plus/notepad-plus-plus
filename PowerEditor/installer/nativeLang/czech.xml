@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.6.9  24/Jun/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.0  10/Sep/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.6.9">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -262,7 +262,7 @@
 					<Item id="43050" name="Inverze záložky"/>
 					<Item id="43051" name="Odstranit řádky neoznačené záložkami"/>
 					<Item id="43052" name="Najít znaky z rozsa&amp;hu..."/>
-					<Item id="43053" name="Vybrat vše &amp;mezi souvisejícími závorkami"/>
+					<Item id="43053" name="Vybrat vše &amp;mezi souvisejícími závorkami {}, [] nebo ()"/>
 					<Item id="43054" name="&amp;Označit..."/>
 					<Item id="43055" name="1. stylem"/>
 					<Item id="43056" name="2. stylem"/>
@@ -421,8 +421,8 @@
 					<Item id="11005" name="Cesty - od Z do A"/>
 					<Item id="11006" name="Typu - od A do Z"/>
 					<Item id="11007" name="Typu - od Z do A"/>
-					<Item id="11008" name="Velikosti - od menších k větším"/>
-					<Item id="11009" name="Velikosti - od větších k menším"/>
+					<Item id="11008" name="Délky obsahu - vzestupně"/>
+					<Item id="11009" name="Délky obsahu - sestupně"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -758,8 +758,8 @@
 					<Item id="11005" name="Setřídit podle: Cesty - od Z do A"/>
 					<Item id="11006" name="Setřídit podle: Typu - od A do Z"/>
 					<Item id="11007" name="Setřídit podle: Typu - od Z do A"/>
-					<Item id="11008" name="Setřídit podle: Velikosti - od menších k větším"/>
-					<Item id="11009" name="Setřídit podle: Velikosti - od větších k menším"/>
+					<Item id="11008" name="Setřídit podle: Délky obsahu - vzestupně"/>
+					<Item id="11009" name="Setřídit podle: Délky obsahu - sestupně"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			
@@ -1133,15 +1133,21 @@
 					<Item id="6506" name="Nepoužívané syntaxe"/>
 					<Item id="6507" name="Použít kompaktní menu pro syntaxe"/>
 					<Item id="6508" name="Nabídka syntaxí"/>
+					<Item id="6335" name="Zpětné lomítko je escape znak pro SQL"/>
+				</Language>
+				<Indentation title="Odsazování">
 					<Item id="6301" name="Nastavení odsazení"/>
 					<Item id="6302" name="Mezerami"/>
-					<Item id="6303" name="Velikost odsazení:"/>
+					<Item id="6303" name="Velikost:"/>
 					<Item id="6310" name="Odsazovat:"/>
 					<Item id="6311" name="Tabulátorem"/>
 					<Item id="6510" name="Použít implicitní"/>
 					<Item id="6512" name="Klávesou Backspace zmenšovat odsazení místo odstranění pouhé jedné mezery"/>
-					<Item id="6335" name="Zpětné lomítko je escape znak pro SQL"/>
-				</Language>
+					<Item id="7161" name="Automatické odsazování"/>
+					<Item id="7162" name="Žádné"/>
+					<Item id="7163" name="Základní"/>
+					<Item id="7164" name="Pokročilé"/>
+				</Indentation>
 				<Highlighting title="Zvýrazňování">
 					<Item id="6326" name="Povolit"/>
 					<Item id="6327" name="Povolit"/>
@@ -1255,7 +1261,7 @@
 					<Item id="6804" name="Uživatelský adresář pro zálohy"/>
 					<Item id="6817" name="Body obnovení a periodické zálohování"/>
 					<Item id="6818" name="Aktivovat ukládání bodů pro obnovení relace a periodické zálohování"/>
-					<Item id="6819" name="Zálohovat každých"/>
+					<Item id="6819" name="Zálohovat při změně každých"/>
 					<Item id="6821" name="sekund (při modif.)"/>
 					<Item id="6822" name="Cesta k zálohám:"/>
 					<Item id="6825" name="Pamatovat si nedostupné soubory z poslední relace (zástupné dokumenty/karty)"/>
@@ -1420,6 +1426,11 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v &quot;Nastavení&quot;."/>
 				<Item id="4" name="&amp;Pokaždé ano"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 
+			<DebugInfo title="Informace k ladění">
+				<Item id="1752" name="&amp;Zkopírujte informace do Schránky"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
+
 		</Dialog>
 
 		<MessageBox>
@@ -1531,6 +1542,7 @@ Doporučujeme Vám, abyste si nyní zazálohovali Váš soubor &quot;session.xml
 Stisknutím tlačítka OK otevřete dialogové okno Najít nebo ho přepnete do popředí.
 			
 Pokud opravdu potřebujete funkci zpětného vyhledávání při regulárních výrazech, pokyny pro její zapnutí najdete v uživatelské příručce."/>
+			<PrintError title="0" message="Nelze spustit tisk dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1673,8 +1685,8 @@ Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
 Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
 *.* !\\log*+"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Vyberte složku, kde chcete vyhledávat"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
-			<find-status-end-reached value="Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
+			<find-status-top-reached value="Vyhledávání: Nalezen poslední výskyt zdola. Bylo dosaženo začátku tohoto dokumentu"/>
+			<find-status-end-reached value="Vyhledávání: Nalezen poslední výskyt shora. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value="Nahrazování v souborech: 1 výskyt nahrazen"/>
 			<find-status-replaceinfiles-nb-replaced value="Nahrazování v souborech: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahrazování v otevřených souborech: 1 výskyt nahrazen"/>
@@ -1688,8 +1700,8 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-status-replaceall-1-replaced value="Nahrazování všeho: 1 výskyt nahrazen"/>
 			<find-status-replaceall-nb-replaced value="Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-replaceall-readonly value="Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
-			<find-status-replace-end-reached value="Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
-			<find-status-replace-top-reached value="Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
+			<find-status-replace-end-reached value="Nahrazování: Nahrazen poslední výskyt shora. Bylo dosaženo konce dokumentu"/>
+			<find-status-replace-top-reached value="Nahrazování: Nahrazen poslední výskyt odspodu. Bylo dosaženo začátku dokumentu"/>
 			<find-status-replaced-next-found value="Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
 			<find-status-replaced-without-continuing value="Nahrazování: 1 výskyt byl nahrazen."/>
 			<find-status-replaced-next-not-found value="Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen."/>
@@ -1804,6 +1816,12 @@ Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživ
 			<npcIncludeCcUniEol-tip value="Použije nastavení vzhledu netisknutelných znaků pro řídící znaky C0, C1 (reprezentují další informace o textu jako jsou další řádek, oddělovač řádků, oddělovač odstavců) a pro Unicode EOL znaky." />
 			<searchingInSelThresh-tip value="Minimální počet vybraných znaků editační zóny, aby došlo k automatickému zaškrtnutí políčka &quot;Ve vybraném&quot; při aktivaci dialogu &quot;Najít&quot;. Nejvyšší možná hodnota je 1024. Pokud chcete toto automatické zaškrtávání zcela vypnout, nastavte hodnotu na 0."/>
 			<verticalEdge-tip value="Přidejte Vaši sloupcovou značku poukázáním na její pozici (decimální číslo). Můžete definovat více značek sloupců použitím více čísel oddělených prázdnými znaky."/>
+			<fileSaveAsCopySaveButton-tip value="Chcete-li po uložení kopii i otevřít, přidržte Shift při stisknutí tlačítka."/>
+			<autoIndentBasic-tip value="Zajistí, aby odsazení aktuálního řádku (tj. nového řádku vytvořeného stisknutím klávesy ENTER) odpovídalo odsazení předchozího řádku."/>
+			<autoIndentAdvanced-tip value="Dovolí inteligentní odsazování pro jazyky &quot;podobné C&quot; a Python. Mezi jazyky &quot;podobné C&quot; zde patří:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
+
+Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíněných jazyků, zůstane odsazení v Základním režimu."/>
 		</MiscStrings>
 
 	</Native-Langue>

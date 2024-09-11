@@ -411,8 +411,8 @@ Translation note:
 					<Item id="11005" name="Sökväg, Ö till A"/>
 					<Item id="11006" name="Typ, A till Ö"/>
 					<Item id="11007" name="Typ, Ö till A"/>
-					<Item id="11008" name="Storlek, mindre till större"/>
-					<Item id="11009" name="Storlek, större till mindre"/>
+					<Item id="11008" name="Innehållets längd, stigande"/>
+					<Item id="11009" name="Innehållets längd, fallande"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -752,8 +752,8 @@ Translation note:
 					<Item id="11005" name="Sortera efter sökväg, Ö till A"/>
 					<Item id="11006" name="Sortera efter typ, A till Ö"/>
 					<Item id="11007" name="Sortera efter typ, Ö till A"/>
-					<Item id="11008" name="Sortera efter storlek, mindre till större"/>
-					<Item id="11009" name="Sortera efter storlek, större till mindre"/>
+					<Item id="11008" name="Sortera efter innehållets längd, stigande"/>
+					<Item id="11009" name="Sortera efter innehållets längd, fallande"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kortkommando">
@@ -1651,7 +1651,7 @@ Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsö
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders.  -->
-			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; markerat."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att markera eller söker med alternativet &quot;Matcha hela ord&quot; markerat."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för radslut (&quot;EOL custom color&quot;)."/>

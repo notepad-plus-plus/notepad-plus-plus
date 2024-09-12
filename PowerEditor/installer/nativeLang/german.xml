@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-09-08"><!-- basiert auf english.xml 8.6.9 vom 07.09.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-09-12"><!-- basiert auf english.xml 8.6.9 vom 07.09.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -233,7 +233,7 @@ Translation note:
 					<Item id="43052" name="Nach &amp;Zeichencodes suchen …"/>
 					<Item id="43053" name="&amp;Alles zwischen {}, [] oder () auswählen"/>
 					<Item id="43009" name="Zugehörige &amp;Klammer suchen"/>
-					<Item id="43010" name="&amp;Rückwärts suchen"/>
+					<Item id="43010" name="&amp;Finde vorherige"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>
 					<Item id="43013" name="In &amp;Dateien suchen …"/>
 					<Item id="43014" name="Wort am Cursor suchen (&amp;ohne Verlauf)"/>
@@ -479,9 +479,9 @@ Translation note:
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2" name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
-				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
+				<Item id="1603" name="Nur ganze &amp;Wörter suchen"/>
 				<Item id="1604" name="Groß-/&amp;Kleinschreibung beachten"/>
-				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
+				<Item id="1605" name="Re&amp;guläre Ausdrücke"/>
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1614" name="Z&amp;ählen"/>
 				<Item id="1615" name="&amp;Alle markieren"/>

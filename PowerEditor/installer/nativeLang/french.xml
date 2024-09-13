@@ -25,7 +25,7 @@ Translation note:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Utiliser le chemin du fichier avec :"/>
+					<Item subMenuId="file-openFolder" name="Ouvrir le chemin du fichier avec"/>
 					<Item subMenuId="file-closeMore" name="Fermer plusieurs documents"/>
 					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
 					<Item subMenuId="edit-insert" name="Insertion"/>
@@ -89,7 +89,7 @@ Translation note:
 					<Item id="41002" name="&amp;Ouvrir..."/>
 					<Item id="41019" name="l’explorateur Windows™"/>
 					<Item id="41020" name="l’invite de commande (Cmd)"/>
-					<Item id="41025" name="ce dossier en tant qu’espace de travail"/>
+					<Item id="41025" name="un espace de travail au départ d’ici"/>
 					<Item id="41003" name="Fermer"/>
 					<Item id="41004" name="Fermer tout"/>
 					<Item id="41005" name="Fermer tout sauf le document courant"/>
@@ -208,7 +208,7 @@ Translation note:
 					<Item id="42057" name="Insérer une ligne vide avant la ligne courante"/>
 					<Item id="42058" name="Insérer une ligne vide après la ligne courante"/>
 					<Item id="43001" name="&amp;Rechercher..."/>
-					<Item id="43002" name="Chercher le &amp;suivant"/>
+					<Item id="43002" name="Rechercher le &amp;suivant"/>
 					<Item id="43003" name="Rem&amp;placer..."/>
 					<Item id="43004" name="Attein&amp;dre..."/>
 					<Item id="43005" name="Mettre/enlever un signet"/>
@@ -224,11 +224,11 @@ Translation note:
 					<Item id="43052" name="Rechercher des caractères dans une plage..."/>
 					<Item id="43053" name="Sélectionner tout entre les 2   { } ou [ ] ou ( )"/>
 					<Item id="43009" name="Aller au délimiteur symétrique"/>
-					<Item id="43010" name="Chercher le &amp;précédent"/>
+					<Item id="43010" name="Rechercher le &amp;précédent"/>
 					<Item id="43011" name="Recherche &amp;incrémentielle..."/>
 					<Item id="43013" name="Rechercher dans les fichiers d’un dossier"/>
-					<Item id="43014" name="Chercher le suivant (sélection volatile)"/>
-					<Item id="43015" name="Chercher le précédent (sélection volatile)"/>
+					<Item id="43014" name="Rechercher le suivant (sélection volatile)"/>
+					<Item id="43015" name="Rechercher le précédent (sélection volatile)"/>
 					<Item id="43022" name="Appliquer le style 1"/>
 					<Item id="43023" name="Dégager le style 1"/>
 					<Item id="43024" name="Appliquer le style 2"/>
@@ -330,8 +330,8 @@ Translation note:
 					<Item id="44082" name="Panneau de projet #2"/>
 					<Item id="44083" name="Panneau de projet #3"/>
 					<Item id="45001" name="Convertir en format Windows™ (CR+LF)"/>
-					<Item id="45002" name="Convertir en format UNIX (LF)"/>
-					<Item id="45003" name="Convertir en format Mac (CR)"/>
+					<Item id="45002" name="Convertir en format Unix™ (LF)"/>
+					<Item id="45003" name="Convertir en format Macintoch™ (CR)"/>
 					<Item id="45004" name="ANSI"/>
 					<Item id="45005" name="UTF-8-BOM"/>
 					<Item id="45006" name="UTF-16 BE BOM (Gros boutiste)"/>
@@ -427,7 +427,7 @@ Translation note:
 				<Item CMDID="1" name="Ouvrir depuis ce répertoire avec :"/>
 				<Item CMDID="41019" name="l’explorateur"/>
 				<Item CMDID="41020" name="l’invite de commande"/>
-				<Item CMDID="41025" name="l’espace de travail"/>
+				<Item CMDID="41025" name="le dossier comme espace de travail"/>
 				<Item CMDID="41023" name="l’application par défaut"/>
 				<Item CMDID="41017" name="Renommer"/>
 				<Item CMDID="41016" name="Mettre à la corbeille"/>
@@ -436,7 +436,7 @@ Translation note:
 				<Item CMDID="42028" name="Lecture seule"/>
 				<Item CMDID="42033" name="Enlever l’attribut lecture seule du fichier"/>
 				<Item CMDID="2" name="Copier dans le presse-papiers"/>
-				<Item CMDID="42029" name="Copier le chemin complet du fichiert"/>
+				<Item CMDID="42029" name="Copier le chemin complet du fichier"/>
 				<Item CMDID="42030" name="Copier le nom du fichier"/>
 				<Item CMDID="42031" name="Copier le chemin de dossier du fichier"/>
 				<Item CMDID="3" name="Déplacer le document"/>
@@ -508,9 +508,9 @@ Translation note:
 				<Item id="1723" name="▼ Suivant"/>
 				<Item id="1725" name="Copier le texte marqué"/>
 				<Menu>
-					<Item id="1726" name="⇅ Permuter les contenus de ''Rechercher'' et ''Remplacer par''"/>
-					<Item id="1727" name="⤵ Copier le contenu de ''Rechercher'' vers ''Remplacer par''"/>
-					<Item id="1728" name="⤴ Copier le contenu de ''Remplacer par'' vers ''Rechercher''"/>
+					<Item id="1726" name="⇅ Permuter les contenus de 'Rechercher' et 'Remplacer par'"/>
+					<Item id="1727" name="⤵ Copier le contenu de 'Rechercher' vers 'Remplacer par'"/>
+					<Item id="1728" name="⤴ Copier le contenu de 'Remplacer par' vers 'Rechercher'"/>
 				</Menu>
 			</Find>
 
@@ -668,8 +668,8 @@ Translation note:
 					<Item id="41020" name="Ouvrir l’invite de commande sur le répertoire du fichier "/>
 					<Item id="41021" name="Ouvrir le dernier fichier fermé"/>
 					<Item id="45001" name="Convertir les sauts de ligne en Windows™ (CR LF)"/>
-					<Item id="45002" name="Convertir les sauts de ligne en Unix (LF)"/>
-					<Item id="45003" name="Convertir les sauts de ligne en Macintosh (CR)"/>
+					<Item id="45002" name="Convertir les sauts de ligne en Unix™ (LF)"/>
+					<Item id="45003" name="Convertir les sauts de ligne en Macintosh™ (CR)"/>
 					<Item id="43022" name="Appliquer les marques du style 1"/>
 					<Item id="43024" name="Appliquer les marques du style 2"/>
 					<Item id="43026" name="Appliquer les marques du style 3"/>
@@ -1073,8 +1073,8 @@ Translation note:
 				<NewDoc title="Nouveau document">
 					<Item id="6401" name="Format (fin de ligne)"/>
 					<Item id="6402" name="Windows™ (CR LF)"/>
-					<Item id="6403" name="Unix (LF)"/>
-					<Item id="6404" name="Macintosh (CR)"/>
+					<Item id="6403" name="Unix™ (LF)"/>
+					<Item id="6404" name="Macintosh™ (CR)"/>
 					<Item id="6405" name="Encodage"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>

@@ -25,7 +25,7 @@ Translation note:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Ouvrir le chemin du fichier avec"/>
+					<Item subMenuId="file-openFolder" name="Ouvrir le chemin du fichier avec :"/>
 					<Item subMenuId="file-closeMore" name="Fermer plusieurs documents"/>
 					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
 					<Item subMenuId="edit-insert" name="Insertion"/>
@@ -197,8 +197,8 @@ Translation note:
 					<Item id="42029" name="Copier le chemin complet du document courant"/>
 					<Item id="42030" name="Copier le nom du document courant"/>
 					<Item id="42031" name="Copier le chemin du dossier courant"/>
-					<Item id="42087" name="Copier l’ensemble des noms de chaque document"/>
-					<Item id="42088" name="Copier l’ensemble des chemins de chaque dossier"/>
+					<Item id="42087" name="Copier l’ensemble des noms des documents"/>
+					<Item id="42088" name="Copier l’ensemble des chemins des dossiers"/>
 					<Item id="42032" name="Exécuter une macro en boucle..."/>
 					<Item id="42033" name="Enlever l’attribut de lecture seule du fichier"/>
 					<Item id="42035" name="Commenter (mode ligne)"/>
@@ -411,8 +411,8 @@ Translation note:
 					<Item id="11005" name="Chemin d’accès du fichier de Z à A"/>
 					<Item id="11006" name="Type de A à Z"/>
 					<Item id="11007" name="Type de Z à A"/>
-					<Item id="11008" name="Longueur de contenu décroissante"/>
-					<Item id="11009" name="Longueur de contenu croissante"/>
+					<Item id="11008" name="Longueur de contenu croissante"/>
+					<Item id="11009" name="Longueur de contenu décroissante"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -424,7 +424,7 @@ Translation note:
 				<Item CMDID="41024" name="Fermer tous les documents non-modifiés"/>
 				<Item CMDID="41006" name="Enregistrer"/>
 				<Item CMDID="41008" name="Enregistrer sous..."/>
-				<Item CMDID="1" name="Ouvrir depuis ce répertoire avec :"/>
+				<Item CMDID="1" name="Ouvrir d’ici avec :"/>
 				<Item CMDID="41019" name="l’explorateur"/>
 				<Item CMDID="41020" name="l’invite de commande"/>
 				<Item CMDID="41025" name="le dossier comme espace de travail"/>
@@ -1311,8 +1311,8 @@ Translation note:
 
 				<MISC title="Divers">
 					<ComboBox id="6347">
-						<Element name="Activer pour l’onglet courant"/>
-						<Element name="Activer pour tous les onglets"/>
+						<Element name="Activer pour le fichier courant"/>
+						<Element name="Activer pour tous les fichiers"/>
 						<Element name="Désactiver"/>
 					</ComboBox>
 					<Item id="6308" name="Réduire dans la barre de notifications"/>
@@ -1600,7 +1600,7 @@ Si vous avez besoin de la fonction de recherche d’expression régulière inver
 
 		<FolderAsWorkspace>
 			<PanelTitle name="Dossier en tant qu’espace de travail"/>
-			<SelectFolderFromBrowserString name="Sélectionner un dossier pour l’ajouter comme dossier en tant qu’espace de travail"/>
+			<SelectFolderFromBrowserString name="Sélectionner un dossier pour l’ajouter en « Dossier comme espace de travail »"/>
 			<ExpandAllFoldersTip name="Déplier tous les dossiers"/>
 			<CollapseAllFoldersTip name="Replier tous les dossiers"/>
 			<LocateCurrentFileTip name="Localiser le fichier courant"/>

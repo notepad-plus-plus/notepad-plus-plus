@@ -25,7 +25,7 @@ Translation note:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Ouvrir le chemin du fichier avec :"/>
+					<Item subMenuId="file-openFolder" name="Utiliser le chemin pour ouvrir :"/>
 					<Item subMenuId="file-closeMore" name="Fermer plusieurs documents"/>
 					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
 					<Item subMenuId="edit-insert" name="Insertion"/>
@@ -56,7 +56,7 @@ Translation note:
 					<Item subMenuId="view-tab" name="Onglet"/>
 					<Item subMenuId="view-collapseLevel" name="Replier le niveau"/>
 					<Item subMenuId="view-uncollapseLevel" name="Déplier le niveau"/>
-					<Item subMenuId="view-project" name="Projet"/>
+					<Item subMenuId="view-project" name="Panneaux de projets"/>
 					<Item subMenuId="encoding-characterSets" name="Codage de caractères"/>
 					<Item subMenuId="encoding-arabic" name="Arabe"/>
 					<Item subMenuId="encoding-baltic" name="Langues baltes"/>
@@ -89,13 +89,13 @@ Translation note:
 					<Item id="41002" name="&amp;Ouvrir..."/>
 					<Item id="41019" name="l’explorateur Windows™"/>
 					<Item id="41020" name="l’invite de commande (Cmd)"/>
-					<Item id="41025" name="un espace de travail au départ d’ici"/>
+					<Item id="41025" name="un espace de travail depuis ici"/>
 					<Item id="41003" name="Fermer"/>
 					<Item id="41004" name="Fermer tout"/>
-					<Item id="41005" name="Fermer tout sauf le document courant"/>
-					<Item id="41009" name="Fermer tous les documents de gauche"/>
-					<Item id="41018" name="Fermer tous les documents de droite"/>
-					<Item id="41024" name="Fermer tous les documents non-modifiés"/>
+					<Item id="41005" name="Fermer tout sauf document courant"/>
+					<Item id="41009" name="Fermer tous documents à gauche"/>
+					<Item id="41018" name="Fermer tous documents à droite"/>
+					<Item id="41024" name="Fermer tous documents non-modifiés"/>
 					<Item id="41006" name="&amp;Enregistrer"/>
 					<Item id="41007" name="En&amp;registrer tout"/>
 					<Item id="41008" name="Enregistrer &amp;sous..."/>
@@ -197,8 +197,8 @@ Translation note:
 					<Item id="42029" name="Copier le chemin complet du document courant"/>
 					<Item id="42030" name="Copier le nom du document courant"/>
 					<Item id="42031" name="Copier le chemin du dossier courant"/>
-					<Item id="42087" name="Copier l’ensemble des noms des documents"/>
-					<Item id="42088" name="Copier l’ensemble des chemins des dossiers"/>
+					<Item id="42087" name="Copier l’ensemble des noms de documents"/>
+					<Item id="42088" name="Copier l’ensemble des chemins de dossiers"/>
 					<Item id="42032" name="Exécuter une macro en boucle..."/>
 					<Item id="42033" name="Enlever l’attribut de lecture seule du fichier"/>
 					<Item id="42035" name="Commenter (mode ligne)"/>
@@ -326,9 +326,9 @@ Translation note:
 					<Item id="44036" name="Défilement horizontal synchrone"/>
 					<Item id="44041" name="Afficher les marques de coupures de ligne"/>
 					<Item id="44072" name="Basculer sur l’autre zone d’édition"/>
-					<Item id="44081" name="Panneau de projet #1"/>
-					<Item id="44082" name="Panneau de projet #2"/>
-					<Item id="44083" name="Panneau de projet #3"/>
+					<Item id="44081" name="Projet #1"/>
+					<Item id="44082" name="Projet #2"/>
+					<Item id="44083" name="Projet #3"/>
 					<Item id="45001" name="Convertir en format Windows™ (CR+LF)"/>
 					<Item id="45002" name="Convertir en format Unix™ (LF)"/>
 					<Item id="45003" name="Convertir en format Macintoch™ (CR)"/>
@@ -418,17 +418,17 @@ Translation note:
 			<TabBar>
 				<Item CMDID="41003" name="Fermer"/>
 				<Item CMDID="0" name="Fermeture multiple"/>
-				<Item CMDID="41005" name="Fermer tout sauf l’onglet courant"/>
-				<Item CMDID="41009" name="Fermer tous les onglets sur la gauche"/>
-				<Item CMDID="41018" name="Fermer tous les onglets sur la droite"/>
+				<Item CMDID="41005" name="Fermer tout sauf le document courant"/>
+				<Item CMDID="41009" name="Fermer tous les documents de gauche"/>
+				<Item CMDID="41018" name="Fermer tous les documents de droite"/>
 				<Item CMDID="41024" name="Fermer tous les documents non-modifiés"/>
 				<Item CMDID="41006" name="Enregistrer"/>
 				<Item CMDID="41008" name="Enregistrer sous..."/>
-				<Item CMDID="1" name="Ouvrir d’ici avec :"/>
-				<Item CMDID="41019" name="l’explorateur"/>
-				<Item CMDID="41020" name="l’invite de commande"/>
-				<Item CMDID="41025" name="le dossier comme espace de travail"/>
-				<Item CMDID="41023" name="l’application par défaut"/>
+				<Item CMDID="1" name="Utiliser le chemin pour :"/>
+				<Item CMDID="41019" name="ouvrir l’explorateur"/>
+				<Item CMDID="41020" name="ouvrir l’invite (Cmd)"/>
+				<Item CMDID="41025" name="le dossier d’espace de travail"/>
+				<Item CMDID="41023" name="Ouvrir avec l’application par défaut"/>
 				<Item CMDID="41017" name="Renommer"/>
 				<Item CMDID="41016" name="Mettre à la corbeille"/>
 				<Item CMDID="41014" name="Recharger"/>
@@ -438,7 +438,7 @@ Translation note:
 				<Item CMDID="2" name="Copier dans le presse-papiers"/>
 				<Item CMDID="42029" name="Copier le chemin complet du fichier"/>
 				<Item CMDID="42030" name="Copier le nom du fichier"/>
-				<Item CMDID="42031" name="Copier le chemin de dossier du fichier"/>
+				<Item CMDID="42031" name="Copier le chemin du dossier "/>
 				<Item CMDID="3" name="Déplacer le document"/>
 				<Item CMDID="10005" name="Déplacer au début"/>
 				<Item CMDID="10006" name="Déplacer à la fin"/>
@@ -497,7 +497,7 @@ Translation note:
 				<Item id="1626" name="Mode ét&amp;endu (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="&amp;Remplacer tout"/>
 				<Item id="1665" name="&amp;Remplacer tout"/>
-				<Item id="1661" name="Suivre le doc. courant"/>
+				<Item id="1661" name="Dossier du doc. courant"/>
 				<Item id="1662" name="Panneau de projet #1"/>
 				<Item id="1663" name="Panneau de projet #2"/>
 				<Item id="1664" name="Panneau de projet #3"/>
@@ -727,14 +727,14 @@ Translation note:
 					<Item id="44066" name="Déplier le niveau 6"/>
 					<Item id="44067" name="Déplier le niveau 7"/>
 					<Item id="44068" name="Déplier le niveau 8"/>
-					<Item id="44081" name="Afficher/fermer le panneau de projet 1"/>
-					<Item id="44082" name="Afficher/fermer le panneau de projet 2"/>
-					<Item id="44083" name="Afficher/fermer le panneau de projet 3"/>
-					<Item id="44085" name="Afficher/fermer le dossier en tant qu’espace de travail"/>
-					<Item id="44080" name="Afficher/fermer Plan du document"/>
-					<Item id="44070" name="Afficher/fermer le commutateur de documents"/>
-					<Item id="44084" name="Afficher/fermer la liste des fonctions"/>
-					<Item id="50005" name="Démarrer/arrêter enregist. macro"/>
+					<Item id="44081" name="Afficher ou fermer le panneau de projet 1"/>
+					<Item id="44082" name="Afficher ou fermer le panneau de projet 2"/>
+					<Item id="44083" name="Afficher ou fermer le panneau de projet 3"/>
+					<Item id="44085" name="Afficher ou fermer le dossier en tant qu’espace de travail"/>
+					<Item id="44080" name="Afficher ou fermer le plan du document"/>
+					<Item id="44070" name="Afficher ou fermer le commutateur de documents"/>
+					<Item id="44084" name="Afficher ou fermer la liste des fonctions"/>
+					<Item id="50005" name="Démarrer ou arrêter l’enregistrement de macro"/>
 					<Item id="44104" name="Basculer vers le panneau de projet 1"/>
 					<Item id="44105" name="Basculer vers le panneau de projet 2"/>
 					<Item id="44106" name="Basculer vers le panneau de projet 3"/>
@@ -753,8 +753,8 @@ Translation note:
 					<Item id="11005" name="Trier par chemin d’accès du fichier de Z à A"/>
 					<Item id="11006" name="Trier par type de A à Z"/>
 					<Item id="11007" name="Trier par type de Z à A"/>
-					<Item id="11008" name="Trier par taille de +petite à +grande"/>
-					<Item id="11009" name="Trier par taille de +grande à +petite"/>
+					<Item id="11008" name="Trier par taille croissante"/>
+					<Item id="11009" name="Trier par taille décroissante"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 
@@ -1243,21 +1243,21 @@ Translation note:
 				</AutoCompletion>
 
 				<MultiInstance title="Multi-instances &amp; Format date">
-					<Item id="6151" name="Options d’instance multiple *"/>
+					<Item id="6151" name="Options d’instances multiples *"/>
 					<Item id="6152" name="Ouverture de session dans une nouvelle instance (et enregistrer la session automatiquement en sortant)"/>
-					<Item id="6153" name="Toujours en mode instance multiple"/>
+					<Item id="6153" name="Toujours en mode instances multiples"/>
 					<Item id="6154" name="Par défaut (instance unique)"/>
 					<Item id="6155" name="* Vous devez redémarrer Notepad++ pour que la modification soit prise en compte"/>
 					<Item id="6171" name="Personnalisation de l’insertion de la date et de l’heure"/>
 					<Item id="6175" name="Inverser l’ordre « date &amp;&amp; heure » par défaut (format court &amp;&amp; format long)"/>
 					<Item id="6172" name="Format personnalisé :"/>
-					<Item id="6181" name="État du panneau et [-nosession] *"/>
-					<Item id="6182" name="Se rappeler de l’état du panneau (panneau ouvert) dans les autres instances (mode multi-instance) ou avec la ligne de commande [-nosession]"/>
+					<Item id="6181" name="État des panneaux et [-nosession] *"/>
+					<Item id="6182" name="Se rappeler de l’état des panneaux (panneau(x) ouvert(s)) dans les autres instances (mode multi-instances) ou avec la ligne de commande [-nosession]"/>
 					<Item id="6183" name="Historique du presse-papier"/>
 					<Item id="6184" name="Commutateur de documents"/>
-					<Item id="6185" name="Panneau du caractère"/>
+					<Item id="6185" name="Panneau des caractères"/>
 					<Item id="6186" name="Dossier en tant qu’espace de travail"/>
-					<Item id="6187" name="Panneaux projet"/>
+					<Item id="6187" name="Panneaux des projet"/>
 					<Item id="6188" name="Plan du document"/>
 					<Item id="6189" name="Liste des fonctions"/>
 					<Item id="6190" name="Panneaux d’extension"/>
@@ -1275,11 +1275,11 @@ Translation note:
 				</Delimiter>
 
 				<Performance title="Performances">
-					<Item id="7141" name="Restriction des fichiers volumineux"/>
-					<Item id="7143" name="Activer la restriction des fichiers volumineux (pas de coloration syntaxique)"/>
-					<Item id="7144" name="Définir la taille du fichier volumineux :"/>
+					<Item id="7141" name="Restriction pour les fichiers volumineux"/>
+					<Item id="7143" name="Activer la restriction pour les fichiers volumineux (pas de coloration syntaxique)"/>
+					<Item id="7144" name="Taille définie pour fichier volumineux :"/>
 					<Item id="7146" name="Mo   (1 - 4096)"/>
-					<Item id="7147" name="Permettre de colorer délimiteur symétrique"/>
+					<Item id="7147" name="Permettre de colorer les délimiteurs symétriques { } [ ] ( )"/>
 					<Item id="7148" name="Permettre d’activer la complétion automatique"/>
 					<Item id="7149" name="Permettre d’activer le coloriage automatique"/>
 					<Item id="7150" name="Désactiver le retour automatique à la ligne de façon globale"/>
@@ -1291,7 +1291,7 @@ Translation note:
 					<Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
 					<Item id="6263" name="Sauvegarde en local"/>
 					<Item id="6267" name="Chemin d’accès à votre « Cloud » :"/>
-					<Item id="6318" name="Paramétrage de lien cliquable"/>
+					<Item id="6318" name="Paramétrage des liens cliquables"/>
 					<Item id="6319" name="Activer"/>
 					<Item id="6320" name="Ne pas souligner"/>
 					<Item id="6350" name="Activer la mode d’arrière-plan"/>
@@ -1600,7 +1600,7 @@ Si vous avez besoin de la fonction de recherche d’expression régulière inver
 
 		<FolderAsWorkspace>
 			<PanelTitle name="Dossier en tant qu’espace de travail"/>
-			<SelectFolderFromBrowserString name="Sélectionner un dossier pour l’ajouter en « Dossier comme espace de travail »"/>
+			<SelectFolderFromBrowserString name="Sélectionner un dossier pour l’ajouter en « Dossier en tant qu’espace de travail »"/>
 			<ExpandAllFoldersTip name="Déplier tous les dossiers"/>
 			<CollapseAllFoldersTip name="Replier tous les dossiers"/>
 			<LocateCurrentFileTip name="Localiser le fichier courant"/>

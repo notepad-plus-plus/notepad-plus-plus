@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-09-12"><!-- basiert auf english.xml 8.6.9 vom 07.09.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-09-14"><!-- basiert auf english.xml 8.6.9 vom 07.09.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -420,8 +420,8 @@ Translation note:
 					<Item id="11005" name="Pfad Z bis A"/>
 					<Item id="11006" name="Typ A bis Z"/>
 					<Item id="11007" name="Typ Z bis A"/>
-					<Item id="11008" name="Nach Inhaltslänge aufsteigend"/>
-					<Item id="11009" name="Nach Inhaltslänge absteigend"/>
+					<Item id="11008" name="Inhaltslänge aufsteigend"/>
+					<Item id="11009" name="Inhaltslänge absteigend"/>
 				</Commands>
 			</Main>
 			<TabBar>

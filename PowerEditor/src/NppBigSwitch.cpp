@@ -3761,7 +3761,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETNATIVELANGFILENAME:
 		{
-			string fileName = _nativeLangSpeaker.getFileName();
+			const char* fn = _nativeLangSpeaker.getFileName();
+
+			if (!fn) return 0;
+
+			string fileName = fn;
 			if (lParam != 0)
 			{
 				if (fileName.length() >= static_cast<size_t>(wParam))

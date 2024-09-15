@@ -3968,9 +3968,12 @@ void ScintillaEditView::hideLines()
 	size_t startMarker = startLine - 1;
 	size_t endMarker = endLine + 1;
 
-	// Remove all previous markers in between new ones
+	// Previous markers must be removed in the selected region:
+
+	removeMarker(startMarker, 1 << MARK_HIDELINESBEGIN);
 	for (size_t i = startLine; i <= endLine; ++i)
 		removeMarker(i, (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND));
+	removeMarker(endMarker, 1 << MARK_HIDELINESEND);
 
 	// When hiding lines just below/above other hidden lines,
 	// merge them into one hidden section:

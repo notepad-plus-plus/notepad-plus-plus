@@ -25,7 +25,7 @@ Translation note:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Ouvrir avec le chemin du fichier en cours :"/>
+					<Item subMenuId="file-openFolder" name="Ouvrir avec le chemin du fichier :"/>
 					<Item subMenuId="file-closeMore" name="Fermer plusieurs documents"/>
 					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
 					<Item subMenuId="edit-insert" name="Insertion"/>

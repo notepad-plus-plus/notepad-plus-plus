@@ -25,7 +25,7 @@ Translation note:
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Utiliser le chemin pour ouvrir :"/>
+					<Item subMenuId="file-openFolder" name="Ouvrir avec le chemin du fichier en cours :"/>
 					<Item subMenuId="file-closeMore" name="Fermer plusieurs documents"/>
 					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
 					<Item subMenuId="edit-insert" name="Insertion"/>
@@ -89,7 +89,7 @@ Translation note:
 					<Item id="41002" name="&amp;Ouvrir..."/>
 					<Item id="41019" name="l’explorateur Windows™"/>
 					<Item id="41020" name="l’invite de commande (Cmd)"/>
-					<Item id="41025" name="un espace de travail depuis ici"/>
+					<Item id="41025" name="ce dossier en tant qu'espace de travail"/>
 					<Item id="41003" name="Fermer"/>
 					<Item id="41004" name="Fermer tout"/>
 					<Item id="41005" name="Fermer tout sauf document courant"/>

@@ -985,9 +985,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					wcscpy_s(lpttt->szText, tipTmp.c_str());
 					return TRUE;
 				}
-				else if (hWin == _mainDocTab.getHSelf())
+				else 
 				{
-					BufferID idd = _mainDocTab.getBufferByIndex(id);
+					BufferID idd = BUFFER_INVALID;
+					if (hWin == _mainDocTab.getHSelf())
+						idd = _mainDocTab.getBufferByIndex(id);
+					else if (hWin == _subDocTab.getHSelf())
+						idd = _subDocTab.getBufferByIndex(id);
+					else
+						return FALSE;
+
 					Buffer * buf = MainFileManager.getBufferByID(idd);
 					if (buf == nullptr)
 						return FALSE;
@@ -1000,23 +1007,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					lpttt->lpszText = docTip;
 					return TRUE;
 				}
-				else if (hWin == _subDocTab.getHSelf())
-				{
-					BufferID idd = _subDocTab.getBufferByIndex(id);
-					Buffer * buf = MainFileManager.getBufferByID(idd);
-					if (buf == nullptr)
-						return FALSE;
-
-					tipTmp = buf->getFullPathName();
-
-					if (tipTmp.length() >= tipMaxLen)
-						return FALSE;
-					wcscpy_s(docTip, tipTmp.c_str());
-					lpttt->lpszText = docTip;
-					return TRUE;
-				}
-				else
-					return FALSE;
 			}
 			catch (...)
 			{

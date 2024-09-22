@@ -331,7 +331,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{
-		if (!doesFileExist(longFileName) && !globbing)
+		if (!doesPathExist(longFileName) && !globbing)
 		{
 			wstring longFileDir(longFileName);
 			PathRemoveFileSpec(longFileDir);

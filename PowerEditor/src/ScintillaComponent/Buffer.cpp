@@ -402,41 +402,40 @@ int64_t Buffer::getFileLength() const
 wstring Buffer::getFileTime(fileTimeType ftt) const
 {
 	wstring result;
+	wstring filePath;
 
-	if (_currentStatus != DOC_UNNAMED)
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	if (GetFileAttributesEx(_currentStatus == DOC_UNNAMED ? _backupFileName.c_str() : _fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
-		WIN32_FILE_ATTRIBUTE_DATA attributes{};
-		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+		FILETIME rawtime;
+		switch (ftt)
 		{
-			FILETIME rawtime;
-			switch (ftt)
-			{
-				case ft_created:
-					rawtime = attributes.ftCreationTime;
-					break;
-				case ft_modified:
-					rawtime = attributes.ftLastWriteTime;
-					break;
-				default:
-					rawtime = attributes.ftLastAccessTime;
-					break;
-			}
-
-			SYSTEMTIME utcSystemTime, localSystemTime;
-			FileTimeToSystemTime(&rawtime, &utcSystemTime);
-			SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
-
-			const size_t dateTimeStrLen = 256;
-			wchar_t bufDate[dateTimeStrLen] = {'\0'};
-			GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
-			result += bufDate;
-			result += ' ';
-
-			wchar_t bufTime[dateTimeStrLen] = {'\0'};
-			GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
-			result += bufTime;
+			case ft_created:
+				rawtime = attributes.ftCreationTime;
+				break;
+			case ft_modified:
+				rawtime = attributes.ftLastWriteTime;
+				break;
+			default:
+				rawtime = attributes.ftLastAccessTime;
+				break;
 		}
+
+		SYSTEMTIME utcSystemTime, localSystemTime;
+		FileTimeToSystemTime(&rawtime, &utcSystemTime);
+		SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
+
+		const size_t dateTimeStrLen = 256;
+		wchar_t bufDate[dateTimeStrLen] = {'\0'};
+		GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
+		result += bufDate;
+		result += ' ';
+
+		wchar_t bufTime[dateTimeStrLen] = {'\0'};
+		GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
+		result += bufTime;
 	}
+
 	return result;
 }
 
@@ -779,7 +778,10 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		{
 			newBuf->_backupFileName = backupFileName;
 			if (!doesFileExist(fullpath))
+			{
 				newBuf->_currentStatus = DOC_UNNAMED;
+				newBuf->setTabCreatedTimeStringFromBakFile();
+			}
 		}
 
 		const FILETIME zeroTimeStamp = {};
@@ -1085,7 +1087,8 @@ bool FileManager::backupCurrentBuffer()
 							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
 					}
 
-					buffer->setModifiedStatus(false);
+					buffer->setTabCreatedTimeStringFromBakFile();
+
 					result = true;	//all done
 				}
 			}

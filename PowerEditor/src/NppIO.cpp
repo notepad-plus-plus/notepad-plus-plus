@@ -1949,7 +1949,8 @@ bool Notepad_plus::fileRename(BufferID id)
 	scnN.nmhdr.idFrom = (uptr_t)bufferID;
 
 	bool success = false;
-	bool isFileExisting = doesFileExist(buf->getFullPathName());
+	wstring oldFileNamePath = buf->getFullPathName();
+	bool isFileExisting = doesFileExist(oldFileNamePath.c_str());
 	if (isFileExisting)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
@@ -2023,18 +2024,18 @@ bool Notepad_plus::fileRename(BufferID id)
 				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 				{
-					std::wstring oldBackUpFile = buf->getBackupFileName();
+					std::wstring oldBackUpFileName = buf->getBackupFileName();
+					std::wstring newBackUpFileName = oldBackUpFileName;
 
-					// Change the backup file name and let MainFileManager decide the new filename
-					buf->setBackupFileName(L"");
+					size_t index = newBackUpFileName.find_last_of(oldFileNamePath) - oldFileNamePath.length() + 1;
+					newBackUpFileName.replace(index, oldFileNamePath.length(), tabNewNameStr);
 
-					// Create new backup
-					buf->setModifiedStatus(true);
-					bool bRes = MainFileManager.backupCurrentBuffer();
+					if (doesFileExist(newBackUpFileName.c_str()))
+						::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+					else
+						::MoveFileEx(oldBackUpFileName.c_str(), newBackUpFileName.c_str(), MOVEFILE_REPLACE_EXISTING);
 
-					// Delete old backup
-					if (bRes)
-						::DeleteFile(oldBackUpFile.c_str());
+					buf->setBackupFileName(newBackUpFileName);
 				}
 			}
 		}

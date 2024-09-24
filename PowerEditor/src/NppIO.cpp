@@ -1949,7 +1949,8 @@ bool Notepad_plus::fileRename(BufferID id)
 	scnN.nmhdr.idFrom = (uptr_t)bufferID;
 
 	bool success = false;
-	bool isFileExisting = doesFileExist(buf->getFullPathName());
+	wstring oldFileNamePath = buf->getFullPathName();
+	bool isFileExisting = doesFileExist(oldFileNamePath.c_str());
 	if (isFileExisting)
 	{
 		CustomFileDialog fDlg(_pPublicInterface->getHSelf());
@@ -1977,16 +1978,16 @@ bool Notepad_plus::fileRename(BufferID id)
 		// We are just going to rename the tab nothing else
 		// So just rename the tab and rename the backup file too if applicable
 
-		std::wstring staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", L"New name");
+		wstring staticName = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-newname", L"New name");
 
 		StringDlg strDlg;
-		std::wstring title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", L"Rename Current Tab");
+		wstring title = _nativeLangSpeaker.getLocalizedStrFromID("tabrename-title", L"Rename Current Tab");
 		strDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), title.c_str(), staticName.c_str(), buf->getFileName(), langNameLenMax - 1, filenameReservedChars.c_str(), true);
 
 		wchar_t *tabNewName = reinterpret_cast<wchar_t *>(strDlg.doDialog());
 		if (tabNewName)
 		{
-			std::wstring tabNewNameStr = tabNewName;
+			wstring tabNewNameStr = tabNewName;
 			trim(tabNewNameStr); // No leading and tailing space allowed
 
 			BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewNameStr.c_str());
@@ -2023,18 +2024,21 @@ bool Notepad_plus::fileRename(BufferID id)
 				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 				{
-					std::wstring oldBackUpFile = buf->getBackupFileName();
+					wstring oldBackUpFileName = buf->getBackupFileName();
+					if (oldBackUpFileName.empty())
+						return success;
 
-					// Change the backup file name and let MainFileManager decide the new filename
-					buf->setBackupFileName(L"");
+					wstring newBackUpFileName = oldBackUpFileName;
 
-					// Create new backup
-					buf->setModifiedStatus(true);
-					bool bRes = MainFileManager.backupCurrentBuffer();
+					size_t index = newBackUpFileName.find_last_of(oldFileNamePath) - oldFileNamePath.length() + 1;
+					newBackUpFileName.replace(index, oldFileNamePath.length(), tabNewNameStr);
 
-					// Delete old backup
-					if (bRes)
-						::DeleteFile(oldBackUpFile.c_str());
+					if (doesFileExist(newBackUpFileName.c_str()))
+						::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+					else
+						::MoveFileEx(oldBackUpFileName.c_str(), newBackUpFileName.c_str(), MOVEFILE_REPLACE_EXISTING);
+
+					buf->setBackupFileName(newBackUpFileName);
 				}
 			}
 		}
@@ -2043,17 +2047,17 @@ bool Notepad_plus::fileRename(BufferID id)
 	return success;
 }
 
-bool Notepad_plus::fileRenameUntitled(BufferID id, const wchar_t* tabNewName)
+bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNewName)
 {
 	BufferID bufferID = id;
 	if (id == BUFFER_INVALID)
 	{
 		bufferID = _pEditView->getCurrentBufferID();
 	}
+
 	Buffer* buf = MainFileManager.getBufferByID(bufferID);
 
-	bool isFileExisting = doesFileExist(buf->getFullPathName());
-	if (isFileExisting) return false;
+	if (!buf->isUntitled()) return false;
 
 	// We are just going to rename the tab nothing else
 	// So just rename the tab and rename the backup file too if applicable
@@ -2076,37 +2080,39 @@ bool Notepad_plus::fileRenameUntitled(BufferID id, const wchar_t* tabNewName)
 		sameNamedBufferId = _pNonDocTab->findBufferByName(tabNewNameStr.c_str());
 	}
 
-	if (sameNamedBufferId == BUFFER_INVALID)
+	if (sameNamedBufferId != BUFFER_INVALID) return false;
+
+
+	SCNotification scnN{};
+	scnN.nmhdr.code = NPPN_FILEBEFORERENAME;
+	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+	scnN.nmhdr.idFrom = (uptr_t)bufferID;
+	_pluginsManager.notify(&scnN);
+
+	buf->setFileName(tabNewNameStr.c_str());
+
+	scnN.nmhdr.code = NPPN_FILERENAMED;
+	_pluginsManager.notify(&scnN);
+
+	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+	if (isSnapshotMode)
 	{
-		SCNotification scnN{};
-		scnN.nmhdr.code = NPPN_FILEBEFORERENAME;
-		scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-		scnN.nmhdr.idFrom = (uptr_t)bufferID;
-		_pluginsManager.notify(&scnN);
+		wstring oldName = buf->getFullPathName();
+		wstring oldBackUpFileName = buf->getBackupFileName();
+		if (oldBackUpFileName.empty())
+			return false;
 
-		buf->setFileName(tabNewNameStr.c_str());
+		wstring newBackUpFileName = oldBackUpFileName;
 
-		scnN.nmhdr.code = NPPN_FILERENAMED;
-		_pluginsManager.notify(&scnN);
+		size_t index = newBackUpFileName.find_last_of(oldName) - oldName.length() + 1;
+		newBackUpFileName.replace(index, oldName.length(), tabNewNameStr);
 
-		bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
-		if (isSnapshotMode)
-		{
-			std::wstring oldBackUpFile = buf->getBackupFileName();
+		if (doesFileExist(newBackUpFileName.c_str()))
+			::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+		else
+			::MoveFileEx(oldBackUpFileName.c_str(), newBackUpFileName.c_str(), MOVEFILE_REPLACE_EXISTING);
 
-			// Change the backup file name and let MainFileManager decide the new filename
-			buf->setBackupFileName(L"");
-
-			// Create new backup
-			buf->setModifiedStatus(true);
-			bool bRes = MainFileManager.backupCurrentBuffer();
-
-			// Delete old backup
-			if (bRes)
-			{
-				::DeleteFile(oldBackUpFile.c_str());
-			}
-		}
+		buf->setBackupFileName(newBackUpFileName);
 	}
 
 	return true;

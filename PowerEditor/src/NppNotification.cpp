@@ -995,14 +995,27 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					else
 						return FALSE;
 
-					Buffer * buf = MainFileManager.getBufferByID(idd);
+					Buffer* buf = MainFileManager.getBufferByID(idd);
 					if (buf == nullptr)
 						return FALSE;
 
 					tipTmp = buf->getFullPathName();
 
+					wstring tabCreatedTime = buf->tabCreatedTimeString();
+					if (!tabCreatedTime.empty())
+					{
+						tipTmp += L"\r";
+						tipTmp += tabCreatedTime;
+						SendMessage(lpttt->hdr.hwndFrom, TTM_SETMAXTIPWIDTH, 0, 200);
+					}
+					else
+					{
+						SendMessage(lpttt->hdr.hwndFrom, TTM_SETMAXTIPWIDTH, 0, -1);
+					}
+
 					if (tipTmp.length() >= tipMaxLen)
 						return FALSE;
+
 					wcscpy_s(docTip, tipTmp.c_str());
 					lpttt->lpszText = docTip;
 					return TRUE;

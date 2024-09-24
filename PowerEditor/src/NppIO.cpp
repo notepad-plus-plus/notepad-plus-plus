@@ -2025,6 +2025,9 @@ bool Notepad_plus::fileRename(BufferID id)
 				if (isSnapshotMode)
 				{
 					std::wstring oldBackUpFileName = buf->getBackupFileName();
+					if (oldBackUpFileName.empty())
+						return success;
+
 					std::wstring newBackUpFileName = oldBackUpFileName;
 
 					size_t index = newBackUpFileName.find_last_of(oldFileNamePath) - oldFileNamePath.length() + 1;

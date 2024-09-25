@@ -398,10 +398,28 @@ int64_t Buffer::getFileLength() const
 	return -1;
 }
 
+wstring Buffer::getTimeString(FILETIME rawtime) const
+{
+	wstring result;
+	SYSTEMTIME utcSystemTime, localSystemTime;
+	FileTimeToSystemTime(&rawtime, &utcSystemTime);
+	SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
+
+	const size_t dateTimeStrLen = 256;
+	wchar_t bufDate[dateTimeStrLen] = { '\0' };
+	GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
+	result += bufDate;
+	result += ' ';
+
+	wchar_t bufTime[dateTimeStrLen] = { '\0' };
+	GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
+	result += bufTime;
+
+	return result;
+}
 
 wstring Buffer::getFileTime(fileTimeType ftt) const
 {
-	wstring result;
 	wstring filePath;
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
@@ -421,22 +439,10 @@ wstring Buffer::getFileTime(fileTimeType ftt) const
 				break;
 		}
 
-		SYSTEMTIME utcSystemTime, localSystemTime;
-		FileTimeToSystemTime(&rawtime, &utcSystemTime);
-		SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
-
-		const size_t dateTimeStrLen = 256;
-		wchar_t bufDate[dateTimeStrLen] = {'\0'};
-		GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
-		result += bufDate;
-		result += ' ';
-
-		wchar_t bufTime[dateTimeStrLen] = {'\0'};
-		GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
-		result += bufTime;
+		return getTimeString(rawtime);
 	}
 
-	return result;
+	return L"";
 }
 
 
@@ -1368,6 +1374,7 @@ BufferID FileManager::newEmptyDocument()
 
 	BufferID id = newBuf;
 	newBuf->_id = id;
+	newBuf->setTabCreatedTimeStringWithCurrentTime();
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 	++_nextBufferID;

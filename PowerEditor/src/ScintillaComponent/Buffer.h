@@ -282,6 +282,14 @@ public:
 		if (_currentStatus == DOC_UNNAMED)
 			_tabCreatedTimeString = getFileTime(Buffer::ft_created); // while DOC_UNNAMED, getFileTime will retrieve time from backup file
 	}
+	void setTabCreatedTimeStringWithCurrentTime() {
+		if (_currentStatus == DOC_UNNAMED)
+		{
+			FILETIME now{};
+			GetSystemTimeAsFileTime(&now);
+			_tabCreatedTimeString = getTimeString(now);
+		}
+	}
 
 	size_t docLength() const {
 		assert(_pManager != nullptr);
@@ -292,6 +300,7 @@ public:
 
 	enum fileTimeType { ft_created, ft_modified, ft_accessed };
 	std::wstring getFileTime(fileTimeType ftt) const;
+	std::wstring getTimeString(FILETIME rawtime) const;
 
 	Lang * getCurrentLang() const;
 

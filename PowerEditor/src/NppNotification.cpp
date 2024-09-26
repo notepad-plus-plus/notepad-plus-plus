@@ -1004,8 +1004,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					wstring tabCreatedTime = buf->tabCreatedTimeString();
 					if (!tabCreatedTime.empty())
 					{
-						tipTmp += L" : ";
+						tipTmp += L"\r";
 						tipTmp += tabCreatedTime;
+						SendMessage(lpttt->hdr.hwndFrom, TTM_SETMAXTIPWIDTH, 0, 200);
+					}
+					else
+					{
+						SendMessage(lpttt->hdr.hwndFrom, TTM_SETMAXTIPWIDTH, 0, -1);
 					}
 
 					if (tipTmp.length() >= tipMaxLen)

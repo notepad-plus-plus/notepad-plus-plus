@@ -1442,6 +1442,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 	newBuf->_id = id;
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
 	newBuf->_lang = ndds._lang;
+	newBuf->setTabCreatedTimeStringWithCurrentTime();
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 

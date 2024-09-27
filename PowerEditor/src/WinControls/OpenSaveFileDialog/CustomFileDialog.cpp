@@ -16,7 +16,6 @@
 
 
 #include <shobjidl.h>
-#include <shlwapi.h>	// PathIsDirectory
 #ifdef __MINGW32__
 #include <cwchar>
 #endif
@@ -142,7 +141,7 @@ namespace // anonymous
 		HRESULT hr = SHCreateItemFromParsingName(path,
 			nullptr,
 			IID_PPV_ARGS(&shellItem));
-		if (SUCCEEDED(hr) && shellItem && !::PathIsDirectory(path))
+		if (SUCCEEDED(hr) && shellItem && !::doesDirectoryExist(path))
 		{
 			com_ptr<IShellItem> parentItem;
 			hr = shellItem->GetParent(&parentItem);
@@ -506,7 +505,7 @@ private:
 		expandEnv(fileName);
 		bool nameChanged = transformPath(fileName);
 		// Update the controls.
-		if (!::PathIsDirectory(getAbsPath(fileName).c_str()))
+		if (doesDirectoryExist(getAbsPath(fileName).c_str()))
 		{
 			// Name is a file path.
 			// Add file extension if missing.

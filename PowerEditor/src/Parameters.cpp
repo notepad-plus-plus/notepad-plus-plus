@@ -1244,7 +1244,7 @@ bool NppParameters::load()
 	//
 	if (!_cmdSettingsDir.empty())
 	{
-		if (!::PathIsDirectory(_cmdSettingsDir.c_str()))
+		if (!doesDirectoryExist(_cmdSettingsDir.c_str()))
 		{
 			// The following text is not translatable.
 			// _pNativeLangSpeaker is initialized AFTER _userPath being dterminated because nativeLang.xml is from from _userPath.
@@ -8653,6 +8653,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 	}
 }
 
+#ifndef	_WIN64
 void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection)
 {
 	HMODULE kernel = GetModuleHandle(L"kernel32");
@@ -8678,6 +8679,7 @@ void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirect
 		}
 	}
 }
+#endif
 
 void NppParameters::setUdlXmlDirtyFromIndex(size_t i)
 {

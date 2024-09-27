@@ -595,7 +595,7 @@ void Notepad_plus::command(int id)
 				fullFilePath += L"\"";
 
 				if (id == IDM_EDIT_OPENINFOLDER ||
-					(id == IDM_EDIT_OPENASFILE && !::PathIsDirectory(curentWord)))
+					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(curentWord)))
 					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
 			else // Relative file path - need concatenate with current full file path

@@ -142,7 +142,7 @@ void Buffer::updateTimeStamp()
 {
 	FILETIME timeStampLive {};
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+	if (getFileAttributesExWaitSec(_fullPathName.c_str(), &attributes) != FALSE)
 	{
 		timeStampLive = attributes.ftLastWriteTime;
 	}
@@ -194,6 +194,7 @@ void Buffer::setFileName(const wchar_t *fn)
 
 	_fullPathName = fn;
 	_fileName = PathFindFileName(_fullPathName.c_str());
+	_isFromNetwork = PathIsNetworkPath(fn);
 
 	// for _lang
 	LangType determinatedLang = L_TEXT;
@@ -259,15 +260,19 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		return false;
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	bool isWow64Off = false;
 	NppParameters& nppParam = NppParameters::getInstance();
-
 	bool fileExists = doesFileExist(_fullPathName.c_str());
+
+#ifndef	_WIN64
+	bool isWow64Off = false;
 	if (!fileExists)
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
+
+		fileExists = doesFileExist(_fullPathName.c_str());
 	}
+#endif
 
 	bool isOK = false;
 	if (_currentStatus == DOC_INACCESSIBLE && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
@@ -289,9 +294,9 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus == DOC_DELETED && fileExists)
-	{	//document has returned from its grave
-		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+	else if (_currentStatus == DOC_DELETED && fileExists) //document has returned from its grave
+	{
+		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0) // fileExists so it's safe to call GetFileAttributesEx directly
 		{
 			_isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
 
@@ -306,7 +311,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 			isOK = true;
 		}
 	}
-	else if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+	else if (getFileAttributesExWaitSec(_fullPathName.c_str(), &attributes) != FALSE)
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
@@ -364,10 +369,12 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		return false;
 	}
 
+#ifndef	_WIN64
 	if (isWow64Off)
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 	}
+#endif
 	return isOK;
 }
 
@@ -420,8 +427,6 @@ wstring Buffer::getTimeString(FILETIME rawtime) const
 
 wstring Buffer::getFileTime(fileTimeType ftt) const
 {
-	wstring filePath;
-
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	if (GetFileAttributesEx(_currentStatus == DOC_UNNAMED ? _backupFileName.c_str() : _fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
@@ -1177,8 +1182,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	const wchar_t* currentBufFilePath = buffer->getFullPathName();
 	ULARGE_INTEGER freeBytesForUser;
 	 
-	BOOL getFreeSpaceRes = ::GetDiskFreeSpaceExW(dirDest, &freeBytesForUser, nullptr, nullptr);
-	if (getFreeSpaceRes != FALSE)
+	BOOL getFreeSpaceSuccessful = getDiskFreeSpaceWaitSec(dirDest, &freeBytesForUser);
+	if (getFreeSpaceSuccessful)
 	{
 		int64_t fileSize = buffer->getFileLength();
 		if (fileSize >= 0 && lstrcmp(fullpath, currentBufFilePath) == 0) // if file to save does exist, and it's an operation "Save" but not "Save As"

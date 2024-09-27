@@ -262,7 +262,8 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	}
 
 	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
-	if (isSnapshotMode && !doesFileExist(longFileName)) // UNTITLED
+	bool longFileNameExists = doesFileExist(longFileName);
+	if (isSnapshotMode && !longFileNameExists) // UNTITLED
 	{
 		wcscpy_s(longFileName, targetFileName.c_str());
 	}
@@ -301,13 +302,13 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
         return foundBufID;
     }
 
-    if (isFileSession(longFileName) && doesFileExist(longFileName))
+    if (isFileSession(longFileName) && longFileNameExists)
     {
         fileLoadSession(longFileName);
         return BUFFER_INVALID;
     }
 
-	if (isFileWorkspace(longFileName) && doesFileExist(longFileName))
+	if (isFileWorkspace(longFileName) && longFileNameExists)
 	{
 		nppParam.setWorkSpaceFilePath(0, longFileName);
 		// This line switches to Project Panel 1 while starting up Npp
@@ -316,12 +317,14 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 		return BUFFER_INVALID;
 	}
 
+#ifndef	_WIN64
     bool isWow64Off = false;
-    if (!doesFileExist(longFileName))
+    if (!longFileNameExists)
     {
         nppParam.safeWow64EnableWow64FsRedirection(FALSE);
         isWow64Off = true;
     }
+#endif
 
 	bool globbing;
 	if (isRawFileName)
@@ -388,11 +391,13 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 
 			if (!isCreateFileSuccessful)
 			{
+#ifndef	_WIN64
 				if (isWow64Off)
 				{
 					nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 					isWow64Off = false;
 				}
+#endif
 				return BUFFER_INVALID;
 			}
 		}
@@ -477,7 +482,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
     }
     else
     {
-        if (globbing || ::PathIsDirectory(targetFileName.c_str()))
+        if (globbing || doesDirectoryExist(targetFileName.c_str()))
         {
             vector<wstring> fileNames;
             vector<wstring> patterns;
@@ -542,12 +547,13 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
             _pluginsManager.notify(&scnN);
         }
     }
-
+#ifndef	_WIN64
     if (isWow64Off)
     {
         nppParam.safeWow64EnableWow64FsRedirection(TRUE);
         //isWow64Off = false;
     }
+#endif
     return buffer;
 }
 
@@ -659,98 +665,109 @@ bool Notepad_plus::doSave(BufferID id, const wchar_t * filename, bool isCopy)
 	}
 	else if (res == SavingStatus::SaveOpenFailed)
 	{
-		if (_isAdministrator)
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		if (buf->isFromNetwork())
 		{
-			// Already in admin mode? File is probably locked.
 			_nativeLangSpeaker.messageBox("FileLockedWarning",
 				_pPublicInterface->getHSelf(),
-				L"Please check whether if this file is opened in another program",
+				L"Please check whether the network where the file is located is connected.",
 				L"Save failed",
 				MB_OK | MB_ICONWARNING);
 		}
 		else
 		{
-			// try to open Notepad++ in admin mode
-			const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
-			bool isSnapshotMode = nppGui.isSnapshotMode();
-			bool isAlwaysInMultiInstMode = nppGui._multiInstSetting == multiInst;
-			if (isSnapshotMode && !isAlwaysInMultiInstMode) // if both rememberSession && backup mode are enabled and "Always In Multi-Instance Mode" option not activated:
-			{                                               // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.
-
-				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminMode",
-				_pPublicInterface->getHSelf(),
-				L"This file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?",
-				L"Save failed",
-				MB_YESNO);
-
-				if (openInAdminModeRes == IDYES)
-				{
-					wchar_t nppFullPath[MAX_PATH]{};
-					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
-
-					wstring args = L"-multiInst";
-					size_t shellExecRes = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), L"runas", nppFullPath, args.c_str(), L".", SW_SHOW);
-
-					// If the function succeeds, it returns a value greater than 32. If the function fails,
-					// it returns an error value that indicates the cause of the failure.
-					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
-
-					if (shellExecRes <= 32)
-					{
-						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
-							_pPublicInterface->getHSelf(),
-							L"Notepad++ cannot be opened in Administrator mode.",
-							L"Open in Administrator mode failed",
-							MB_OK);
-					}
-					else
-					{
-						::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
-					}
-
-				}
+			if (_isAdministrator)
+			{
+				// Already in admin mode? File is probably locked.
+				_nativeLangSpeaker.messageBox("FileLockedWarning",
+					_pPublicInterface->getHSelf(),
+					L"Please check whether if this file is opened in another program.",
+					L"Save failed",
+					MB_OK | MB_ICONWARNING);
 			}
-			else // rememberSession && backup mode are not both enabled, or "Always In Multi-Instance Mode" option is ON:
-			{    // Open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
+			else
+			{
+				// try to open Notepad++ in admin mode
+				const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
+				bool isSnapshotMode = nppGui.isSnapshotMode();
+				bool isAlwaysInMultiInstMode = nppGui._multiInstSetting == multiInst;
+				if (isSnapshotMode && !isAlwaysInMultiInstMode) // if both rememberSession && backup mode are enabled and "Always In Multi-Instance Mode" option not activated:
+				{                                               // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.
 
-				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminModeWithoutCloseCurrent",
-				_pPublicInterface->getHSelf(),
-				L"The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?",
-				L"Save failed",
-				MB_YESNO);
+					int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminMode",
+						_pPublicInterface->getHSelf(),
+						L"This file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?",
+						L"Save failed",
+						MB_YESNO);
 
-				if (openInAdminModeRes == IDYES)
-				{
-					wchar_t nppFullPath[MAX_PATH]{};
-					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
-
-					BufferID bufferID = _pEditView->getCurrentBufferID();
-					Buffer * buf = MainFileManager.getBufferByID(bufferID);
-
-					//process the fileNamePath into LRF
-					wstring fileNamePath = buf->getFullPathName();
-
-					wstring args = L"-multiInst -nosession ";
-					args += L"\"";
-					args += fileNamePath;
-					args += L"\"";
-					size_t shellExecRes = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), L"runas", nppFullPath, args.c_str(), L".", SW_SHOW);
-
-					// If the function succeeds, it returns a value greater than 32. If the function fails,
-					// it returns an error value that indicates the cause of the failure.
-					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
-
-					if (shellExecRes <= 32)
+					if (openInAdminModeRes == IDYES)
 					{
-						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
-							_pPublicInterface->getHSelf(),
-							L"Notepad++ cannot be opened in Administrator mode.",
-							L"Open in Administrator mode failed",
-							MB_OK);
+						wchar_t nppFullPath[MAX_PATH]{};
+						::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+
+						wstring args = L"-multiInst";
+						size_t shellExecRes = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), L"runas", nppFullPath, args.c_str(), L".", SW_SHOW);
+
+						// If the function succeeds, it returns a value greater than 32. If the function fails,
+						// it returns an error value that indicates the cause of the failure.
+						// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
+
+						if (shellExecRes <= 32)
+						{
+							_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
+								_pPublicInterface->getHSelf(),
+								L"Notepad++ cannot be opened in Administrator mode.",
+								L"Open in Administrator mode failed",
+								MB_OK);
+						}
+						else
+						{
+							::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
+						}
+
 					}
 				}
-			}
+				else // rememberSession && backup mode are not both enabled, or "Always In Multi-Instance Mode" option is ON:
+				{    // Open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
 
+					int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminModeWithoutCloseCurrent",
+						_pPublicInterface->getHSelf(),
+						L"The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?",
+						L"Save failed",
+						MB_YESNO);
+
+					if (openInAdminModeRes == IDYES)
+					{
+						wchar_t nppFullPath[MAX_PATH]{};
+						::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+
+						Buffer* buf = MainFileManager.getBufferByID(id);
+
+						//process the fileNamePath into LRF
+						wstring fileNamePath = buf->getFullPathName();
+
+						wstring args = L"-multiInst -nosession ";
+						args += L"\"";
+						args += fileNamePath;
+						args += L"\"";
+						size_t shellExecRes = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), L"runas", nppFullPath, args.c_str(), L".", SW_SHOW);
+
+						// If the function succeeds, it returns a value greater than 32. If the function fails,
+						// it returns an error value that indicates the cause of the failure.
+						// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
+
+						if (shellExecRes <= 32)
+						{
+							_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
+								_pPublicInterface->getHSelf(),
+								L"Notepad++ cannot be opened in Administrator mode.",
+								L"Open in Administrator mode failed",
+								MB_OK);
+						}
+					}
+				}
+
+			}
 		}
 	}
 
@@ -791,26 +808,33 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	wstring fileFullPath;
 	if (!buf->isUntitled())
 	{
-		// if the file doesn't exist, it could be redirected
-		// So we turn Wow64 off
-		bool isWow64Off = false;
-		NppParameters& nppParam = NppParameters::getInstance();
 		const wchar_t *fn = buf->getFullPathName();
-		if (!doesFileExist(fn))
+		bool fileExists = doesFileExist(fn);
+
+#ifndef	_WIN64
+		// For Notepad++ 32 bits, if the file doesn't exist, it could be redirected
+		// So we turn Wow64 off
+		NppParameters& nppParam = NppParameters::getInstance();
+		bool isWow64Off = false;
+		if (!fileExists)
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;
+			fileExists = doesFileExist(fn);
 		}
+#endif
 
-		if (doesFileExist(buf->getFullPathName()))
-			fileFullPath = buf->getFullPathName();
+		if (fileExists)
+			fileFullPath = fn;
 
+#ifndef	_WIN64
 		// We enable Wow64 system, if it was disabled
 		if (isWow64Off)
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 			//isWow64Off = false;
 		}
+#endif
 	}
 
 	size_t nbDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
@@ -2307,14 +2331,14 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			session._mainViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
-
+#ifndef	_WIN64
 		bool isWow64Off = false;
 		if (!doesFileExist(pFn))
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;
 		}
-
+#endif
 		if (doesFileExist(pFn))
 		{
 			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty())
@@ -2332,12 +2356,13 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (foundBufID == BUFFER_INVALID)
 				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
 		}
+#ifndef	_WIN64
 		if (isWow64Off)
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 			isWow64Off = false;
 		}
-
+#endif
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(MAIN_VIEW);
@@ -2437,14 +2462,14 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			session._subViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
-
+#ifndef	_WIN64
 		bool isWow64Off = false;
 		if (!doesFileExist(pFn))
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;
 		}
-
+#endif
 		if (doesFileExist(pFn))
 		{
 			//check if already open in main. If so, clone
@@ -2472,12 +2497,13 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (foundBufID == BUFFER_INVALID)
 				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, SUB_VIEW, userCreatedSessionName) : BUFFER_INVALID;
 		}
-
+#ifndef	_WIN64
 		if (isWow64Off)
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 			isWow64Off = false;
 		}
+#endif
 
 		if (lastOpened != BUFFER_INVALID)
 		{

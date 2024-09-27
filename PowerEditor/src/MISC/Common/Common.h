@@ -25,7 +25,8 @@
 #include <algorithm>
 #include <tchar.h>
 
-#pragma deprecated(PathFileExists) // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
+#pragma deprecated(PathFileExists)  // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
+#pragma deprecated(PathIsDirectory) // Use doesDirectoryExist instead.
 
 
 const bool dirUp = true;
@@ -280,6 +281,9 @@ private:
 	unsigned long _build = 0;
 };
 
-bool doesFileExist(const wchar_t* filePath);
-bool doesDirectoryExist(const wchar_t* dirPath);
-bool doesPathExist(const wchar_t* path);
+bool doesFileExist(const wchar_t* filePath, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
+bool doesDirectoryExist(const wchar_t* dirPath, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
+bool doesPathExist(const wchar_t* path, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
+
+DWORD getDiskFreeSpaceWaitSec(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
+DWORD getFileAttributesExWaitSec(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);

@@ -1759,7 +1759,9 @@ public:
 	std::wstring getWinVerBitStr() const;
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing = false; // an on the fly variable for find/replace functions
+#ifndef	_WIN64
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
+#endif
 
 	LocalizationSwitcher & getLocalizationSwitcher() {
 		return _localizationSwitcher;

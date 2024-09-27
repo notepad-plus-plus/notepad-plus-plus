@@ -1244,7 +1244,7 @@ bool NppParameters::load()
 	//
 	if (!_cmdSettingsDir.empty())
 	{
-		if (!::PathIsDirectory(_cmdSettingsDir.c_str()))
+		if (!doesDirectoryExist(_cmdSettingsDir.c_str()))
 		{
 			// The following text is not translatable.
 			// _pNativeLangSpeaker is initialized AFTER _userPath being dterminated because nativeLang.xml is from from _userPath.

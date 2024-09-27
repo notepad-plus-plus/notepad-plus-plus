@@ -477,7 +477,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
     }
     else
     {
-        if (globbing || ::PathIsDirectory(targetFileName.c_str()))
+        if (globbing || doesDirectoryExist(targetFileName.c_str()))
         {
             vector<wstring> fileNames;
             vector<wstring> patterns;

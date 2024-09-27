@@ -420,8 +420,6 @@ wstring Buffer::getTimeString(FILETIME rawtime) const
 
 wstring Buffer::getFileTime(fileTimeType ftt) const
 {
-	wstring filePath;
-
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	if (GetFileAttributesEx(_currentStatus == DOC_UNNAMED ? _backupFileName.c_str() : _fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{

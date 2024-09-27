@@ -1213,7 +1213,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 
 bool isAssoCommandExisting(LPCTSTR FullPathName)
 {
-	bool isAssoCommandExisting = false;
+	bool isAssoCmdExist = false;
 
 	bool isFileExisting = doesFileExist(FullPathName);
 
@@ -1228,11 +1228,11 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 		// check if association exist
 		hres = AssocQueryString(ASSOCF_VERIFY|ASSOCF_INIT_IGNOREUNKNOWN, ASSOCSTR_COMMAND, ext, NULL, buffer, &bufferLen);
 
-        isAssoCommandExisting = (hres == S_OK)                  // check if association exist and no error
-			&& (wcsstr(buffer, L"notepad++.exe")) == NULL; // check association with notepad++
+		isAssoCmdExist = (hres == S_OK)                  // check if association exist and no error
+			&& (wcsstr(buffer, L"notepad++.exe")) == NULL;   // check association with notepad++
 
 	}
-	return isAssoCommandExisting;
+	return isAssoCmdExist;
 }
 
 std::wstring s2ws(const std::string& str)
@@ -1764,20 +1764,60 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 	return false;
 }
 
+
+/*
 bool doesFileExist(const wchar_t* filePath)
 {
 	DWORD dwAttrib = ::GetFileAttributesW(filePath);
 	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
+*/
+
+struct GetAttrParamResult {
+	std::wstring _filePath;
+	DWORD _fileAttr;
+};
+
+DWORD WINAPI getFileAttributesWorker(void* data)
+{
+	GetAttrParamResult* inAndOut = static_cast<GetAttrParamResult*>(data);
+	inAndOut->_fileAttr = ::GetFileAttributesW(inAndOut->_filePath.c_str());
+	return TRUE;
+};
+
+DWORD getFileAttrWaitFewSec(const wchar_t* filePath)
+{
+	GetAttrParamResult data;
+	data._fileAttr = INVALID_FILE_ATTRIBUTES;
+	data._filePath = filePath;
+	HANDLE hThread = ::CreateThread(NULL, 0, getFileAttributesWorker, &data, 0, NULL);
+	if (!hThread)
+	{
+		return false;
+	}
+
+	// Wait for 3 sec
+	::WaitForSingleObject(hThread, 3000);
+	CloseHandle(hThread);
+
+	return data._fileAttr;
+};
+
+bool doesFileExist(const wchar_t* filePath)
+{
+	DWORD attr = getFileAttrWaitFewSec(filePath);
+	return (attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY));
+}
 
 bool doesDirectoryExist(const wchar_t* dirPath)
 {
-	DWORD dwAttrib = ::GetFileAttributesW(dirPath);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+	DWORD attr = getFileAttrWaitFewSec(dirPath);
+	return (attr != INVALID_FILE_ATTRIBUTES && (attr & FILE_ATTRIBUTE_DIRECTORY));
 }
 
 bool doesPathExist(const wchar_t* path)
 {
-	DWORD dwAttrib = ::GetFileAttributesW(path);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES);
+	DWORD attr = getFileAttrWaitFewSec(path);
+	return (attr != INVALID_FILE_ATTRIBUTES);
 }
+

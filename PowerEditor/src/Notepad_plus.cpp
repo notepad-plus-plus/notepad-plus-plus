@@ -2613,7 +2613,7 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_CONTAININGFOLDERASWORKSPACE, isFileExisting, MENU);
 
-	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isFileExisting ? isAssoCommandExisting(curBuf->getFullPathName()) : false, MENU);
 
 	enableCommand(IDM_VIEW_IN_FIREFOX, isFileExisting, MENU);
 	enableCommand(IDM_VIEW_IN_CHROME, isFileExisting, MENU);
@@ -4435,7 +4435,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		{
 			wchar_t pathDropped[MAX_PATH];
 			::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
-			if (::PathIsDirectory(pathDropped))
+			if (doesDirectoryExist(pathDropped))
 			{
 				size_t len = lstrlen(pathDropped);
 				if (len > 0 && pathDropped[len - 1] != wchar_t('\\'))
@@ -7040,7 +7040,7 @@ void Notepad_plus::setWorkingDir(const wchar_t *dir)
 	{
 		params.setWorkingDir(NULL);
 	}
-	else if (dir && PathIsDirectory(dir))
+	else if (dir && doesDirectoryExist(dir))
 	{
 		params.setWorkingDir(dir);
 	}

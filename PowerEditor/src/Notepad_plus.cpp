@@ -8864,9 +8864,10 @@ void Notepad_plus::monitoringStartOrStopAndUpdateUI(Buffer* pBuf, bool isStartin
 	{
 		if (isStarting)
 		{
+			pBuf->reload();
 			pBuf->startMonitoring();
 			pBuf->saveReadOnlyState();
-			pBuf->setUserReadOnly(true);
+			pBuf->setUserReadOnly(true);		
 		}
 		else
 		{

@@ -2579,7 +2579,8 @@ void Notepad_plus::checkDocState()
 
 	bool isCurrentDirty = curBuf->isDirty();
 	bool isSeveralDirty = isCurrentDirty;
-	bool isFileExisting = doesFileExist(curBuf->getFullPathName());
+	bool isNetworkProblem;
+	bool isFileExisting = doesFileExist(curBuf->getFullPathName(), 1000, &isNetworkProblem);
 	if (!isCurrentDirty)
 	{
 		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)

@@ -1764,60 +1764,105 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 	return false;
 }
 
-
-/*
-bool doesFileExist(const wchar_t* filePath)
-{
-	DWORD dwAttrib = ::GetFileAttributesW(filePath);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
-}
-*/
-
 struct GetAttrParamResult {
 	std::wstring _filePath;
-	DWORD _fileAttr;
+	DWORD _fileAttr = INVALID_FILE_ATTRIBUTES;
+	bool _isNetworkFailure = true;
 };
 
 DWORD WINAPI getFileAttributesWorker(void* data)
 {
 	GetAttrParamResult* inAndOut = static_cast<GetAttrParamResult*>(data);
 	inAndOut->_fileAttr = ::GetFileAttributesW(inAndOut->_filePath.c_str());
+	inAndOut->_isNetworkFailure = false;
 	return TRUE;
 };
 
-DWORD getFileAttrWaitFewSec(const wchar_t* filePath)
+DWORD getFileAttrWaitFewSec(const wchar_t* filePath, DWORD milleSec2wait, bool* isNetWorkProblem)
 {
-	static GetAttrParamResult data;
+	GetAttrParamResult data;
 	data._fileAttr = INVALID_FILE_ATTRIBUTES;
 	data._filePath = filePath;
+	data._isNetworkFailure = true;
+
 	HANDLE hThread = ::CreateThread(NULL, 0, getFileAttributesWorker, &data, 0, NULL);
 	if (!hThread)
 	{
 		return false;
 	}
 
-	// Wait for 3 sec
-	::WaitForSingleObject(hThread, 3000);
+	// Wait for few sec
+	::WaitForSingleObject(hThread, milleSec2wait == 0 ? 1000 : milleSec2wait);
+	TerminateThread(hThread, 2);
+
 	CloseHandle(hThread);
+
+	if (isNetWorkProblem != nullptr)
+		*isNetWorkProblem = data._isNetworkFailure;
 
 	return data._fileAttr;
 };
 
-bool doesFileExist(const wchar_t* filePath)
+bool doesFileExist(const wchar_t* filePath, DWORD milleSec2wait, bool* isNetWorkProblem)
 {
-	DWORD attr = getFileAttrWaitFewSec(filePath);
+	DWORD attr = getFileAttrWaitFewSec(filePath, milleSec2wait, isNetWorkProblem);
 	return (attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-bool doesDirectoryExist(const wchar_t* dirPath)
+bool doesDirectoryExist(const wchar_t* dirPath, DWORD milleSec2wait, bool* isNetWorkProblem)
 {
-	DWORD attr = getFileAttrWaitFewSec(dirPath);
+	DWORD attr = getFileAttrWaitFewSec(dirPath, milleSec2wait, isNetWorkProblem);
 	return (attr != INVALID_FILE_ATTRIBUTES && (attr & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-bool doesPathExist(const wchar_t* path)
+bool doesPathExist(const wchar_t* path, DWORD milleSec2wait, bool* isNetWorkProblem)
 {
-	DWORD attr = getFileAttrWaitFewSec(path);
+	DWORD attr = getFileAttrWaitFewSec(path, milleSec2wait, isNetWorkProblem);
 	return (attr != INVALID_FILE_ATTRIBUTES);
 }
 
+
+struct GetDiskFreeSpaceParamResult
+{
+	std::wstring _dirPath;
+	ULARGE_INTEGER _freeBytesForUser {};
+	DWORD _result = FALSE;
+	bool _isNetworkFailure = true;
+};
+
+DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
+{
+	GetDiskFreeSpaceParamResult* inAndOut = static_cast<GetDiskFreeSpaceParamResult*>(data);
+	inAndOut->_result = ::GetDiskFreeSpaceExW(inAndOut->_dirPath.c_str(), &(inAndOut->_freeBytesForUser), nullptr, nullptr);
+	inAndOut->_isNetworkFailure = false;
+	return TRUE;
+};
+
+
+DWORD getDiskFreeSpaceWaitFewSec(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milleSec2wait, bool* isNetWorkProblem)
+{
+	GetDiskFreeSpaceParamResult data;
+	data._dirPath = dirPath;
+	data._freeBytesForUser = {};
+	data._result = FALSE;
+	data._isNetworkFailure = true;
+
+	HANDLE hThread = ::CreateThread(NULL, 0, getDiskFreeSpaceExWorker, &data, 0, NULL);
+	if (!hThread)
+	{
+		return false;
+	}
+
+	// Wait for 1 sec
+	::WaitForSingleObject(hThread, milleSec2wait == 0 ? 1000 : milleSec2wait);
+	TerminateThread(hThread, 2);
+
+	CloseHandle(hThread);
+
+	*freeBytesForUser = data._freeBytesForUser;
+
+	if (isNetWorkProblem != nullptr)
+		*isNetWorkProblem = data._isNetworkFailure;
+
+	return data._result;
+};

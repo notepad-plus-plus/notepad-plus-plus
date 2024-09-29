@@ -55,7 +55,8 @@ enum SavingStatus {
 	SaveOK             = 0,
 	SaveOpenFailed     = 1,
 	SaveWritingFailed  = 2,
-	NotEnoughRoom      = 3
+	NotEnoughRoom      = 3,
+	NetworkProblem     = 4
 };
 
 struct BufferViewInfo {

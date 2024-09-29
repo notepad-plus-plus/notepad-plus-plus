@@ -1175,8 +1175,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	const wchar_t* currentBufFilePath = buffer->getFullPathName();
 	ULARGE_INTEGER freeBytesForUser;
 	 
-	BOOL getFreeSpaceRes = ::GetDiskFreeSpaceExW(dirDest, &freeBytesForUser, nullptr, nullptr);
-	if (getFreeSpaceRes != FALSE)
+	BOOL getFreeSpaceSuccessful = getDiskFreeSpaceWaitFewSec(dirDest, &freeBytesForUser);
+	if (getFreeSpaceSuccessful)
 	{
 		int64_t fileSize = buffer->getFileLength();
 		if (fileSize >= 0 && lstrcmp(fullpath, currentBufFilePath) == 0) // if file to save does exist, and it's an operation "Save" but not "Save As"
@@ -1305,6 +1305,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	}
 	else
 	{
+		//if (buffer->networkFailed)
+			//return SavingStatus::NetworkProblem;
 		return SavingStatus::SaveOpenFailed;
 	}
 }

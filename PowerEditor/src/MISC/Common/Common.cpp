@@ -1787,7 +1787,7 @@ DWORD WINAPI getFileAttributesWorker(void* data)
 
 DWORD getFileAttrWaitFewSec(const wchar_t* filePath)
 {
-	GetAttrParamResult data;
+	static GetAttrParamResult data;
 	data._fileAttr = INVALID_FILE_ATTRIBUTES;
 	data._filePath = filePath;
 	HANDLE hThread = ::CreateThread(NULL, 0, getFileAttributesWorker, &data, 0, NULL);

@@ -8653,6 +8653,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 	}
 }
 
+#ifndef	_WIN64
 void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection)
 {
 	HMODULE kernel = GetModuleHandle(L"kernel32");
@@ -8678,6 +8679,7 @@ void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirect
 		}
 	}
 }
+#endif
 
 void NppParameters::setUdlXmlDirtyFromIndex(size_t i)
 {

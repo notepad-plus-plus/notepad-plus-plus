@@ -55,8 +55,7 @@ enum SavingStatus {
 	SaveOK             = 0,
 	SaveOpenFailed     = 1,
 	SaveWritingFailed  = 2,
-	NotEnoughRoom      = 3,
-	NetworkProblem     = 4
+	NotEnoughRoom      = 3
 };
 
 struct BufferViewInfo {
@@ -187,6 +186,8 @@ public:
 
 	bool isUntitled() const { return ((_currentStatus & DOC_UNNAMED) == DOC_UNNAMED); }
 
+	bool isFromNetwork() const { return _isFromNetwork; }
+
 	bool isInaccessible() const { return _isInaccessible; }
 	void setInaccessibility(bool val) { _isInaccessible = val; }
 
@@ -280,7 +281,7 @@ public:
 
 	std::wstring tabCreatedTimeString() const { return _tabCreatedTimeString; }
 	void setTabCreatedTimeStringFromBakFile() {
-		if (_currentStatus == DOC_UNNAMED)
+		if (!_isFromNetwork && _currentStatus == DOC_UNNAMED)
 			_tabCreatedTimeString = getFileTime(Buffer::ft_created); // while DOC_UNNAMED, getFileTime will retrieve time from backup file
 	}
 	void setTabCreatedTimeStringWithCurrentTime() {
@@ -390,6 +391,7 @@ private:
 	UniMode _unicodeMode = uniUTF8;
 	int _encoding = -1;
 	bool _isUserReadOnly = false;
+	bool _isFromNetwork = false;
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 	//these properties have to be duplicated because of multiple references
 

@@ -285,4 +285,5 @@ bool doesFileExist(const wchar_t* filePath, DWORD milleSec2wait = 0, bool* isNet
 bool doesDirectoryExist(const wchar_t* dirPath, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
 bool doesPathExist(const wchar_t* path, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
 
-DWORD getDiskFreeSpaceWaitFewSec(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
+DWORD getDiskFreeSpaceWaitSec(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);
+DWORD getFileAttributesExWaitSec(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milleSec2wait = 0, bool* isNetWorkProblem = nullptr);

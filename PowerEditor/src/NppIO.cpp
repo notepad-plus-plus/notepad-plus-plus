@@ -2502,6 +2502,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		{
 			nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 			isWow64Off = false;
+		}
 #endif
 
 		if (lastOpened != BUFFER_INVALID)

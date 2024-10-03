@@ -709,12 +709,14 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 
 	if (pPath)
 	{
-		FILE* fp = _wfopen(pPath, L"rb");
-		if (fp)
+		WIN32_FILE_ATTRIBUTE_DATA attributes{};
+		if (getFileAttributesExWaitSec(pPath, &attributes) != FALSE)
 		{
-			_fseeki64(fp, 0, SEEK_END);
-			fileSize = _ftelli64(fp);
-			fclose(fp);
+			LARGE_INTEGER size{};
+			size.LowPart = attributes.nFileSizeLow;
+			size.HighPart = attributes.nFileSizeHigh;
+
+			fileSize = size.QuadPart;
 		}
 	}
 	
@@ -746,7 +748,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	}
 
 	WCHAR fullpath[MAX_PATH] = { 0 };
-	if (isWin32NamespacePrefixedFileName(filename))
+	if (isWin32NamespacePrefixedFileName(filename)) // This function checks for the \\?\ prefix
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
 		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
@@ -760,7 +762,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		}
 	}
 
-	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
+	bool isSnapshotMode = (backupFileName != NULL) && doesFileExist(backupFileName);
 	if (isSnapshotMode && !doesFileExist(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
 		wcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
@@ -1158,7 +1160,6 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;
-	DWORD attrib = 0;
 
 	WCHAR fullpath[MAX_PATH] = { 0 };
 	if (isWin32NamespacePrefixedFileName(filename))
@@ -1197,16 +1198,12 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			return SavingStatus::NotEnoughRoom;
 	}
 
-	if (doesFileExist(fullpath))
+	DWORD attrib = getFileAttrWaitSec(fullpath);
+	if (attrib != INVALID_FILE_ATTRIBUTES)
 	{
-		attrib = ::GetFileAttributes(fullpath);
-
-		if (attrib != INVALID_FILE_ATTRIBUTES)
-		{
-			isHiddenOrSys = (attrib & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
-			if (isHiddenOrSys)
-				::SetFileAttributes(filename, attrib & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
-		}
+		isHiddenOrSys = (attrib & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
+		if (isHiddenOrSys)
+			::SetFileAttributes(filename, attrib & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
 	}
 
 	UniMode mode = buffer->getUnicodeMode();

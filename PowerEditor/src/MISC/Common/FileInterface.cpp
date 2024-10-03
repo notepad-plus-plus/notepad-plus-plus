@@ -32,12 +32,16 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 
 		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
 		DWORD dispParam = CREATE_ALWAYS;
-		bool fileExists = doesFileExist(fname);
+		bool fileExists = false;
+
+		// Store the file creation date & attributes for a possible use later...
+		if (::GetFileAttributesEx(fname, GetFileExInfoStandard, &attributes_original)) // No thread (GetFileAttributesExWaitSec) to prevent eventual crash
+		{
+			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
+		}
+
 		if (fileExists)
 		{
-			// Store the file creation date & attributes for a possible use later...
-			::GetFileAttributesExW(fname, GetFileExInfoStandard, &attributes_original);
-
 			// Check the existence of Alternate Data Streams
 			WIN32_FIND_STREAM_DATA findData;
 			HANDLE hFind = FindFirstStreamW(fname, FindStreamInfoStandard, &findData, 0);
@@ -48,7 +52,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			}
 		}
 
-		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
+		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL); // No thread (CreateFileWaitSec) due to the lock guard in the caller which leads crash
 
 		// Race condition management:
 		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK

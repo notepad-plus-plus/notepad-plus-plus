@@ -3303,7 +3303,7 @@ void scanToUrlEnd(const wchar_t *text, int textLen, int start, int* distance)
 				break;
 
 			case sFragment:
-				if (!isUrlTextChar(text [p]))
+				if (text [p] != '?' && !isUrlTextChar(text [p]))
 				{
 					*distance = p - start;
 					return;

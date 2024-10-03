@@ -7792,11 +7792,11 @@ static const QuoteParams quotes[] =
 	{L"Mark Zuckerberg", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"\"Black lives matter\" doesn't mean other lives don't - it's simply asking that the black community also achieves the justice they deserve."},
 	{L"Michael Feldman", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"Java is, in many ways, C++--."},
 	{L"Don Ho", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"Je mange donc je chie."},
-	{L"Don Ho #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
-	{L"Don Ho #3", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"The smartphone is the best invention of the 21st century for avoiding eye contact with people you know while crossing the street."},
-	{L"Don Ho #4", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen."},
+	{L"Don Ho #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"RTFM is the true path for every developer.\nHowever, it only happens when there's no other way out."},
+	{L"Don Ho #3", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"The smartphone is the best invention of the 21st century for avoiding eye contact with acquaintances while crossing the street."},
+	{L"Don Ho #4", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"Museums in poor countries vs. museums in rich countries:\nThe former display what they have left.\nThe latter display what they have taken."},
 	{L"Don Ho #5", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"With great refactoring comes great regressions."},
-	{L"Don Ho #6", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"Naming a variable always reminds me the effort I put into my existence,\nfor giving some sense to my meaningless life."},
+	{L"Don Ho #6", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"Naming a variable always reminds me of the effort I put into my existence,\nfor giving some sense to my meaningless life."},
 	{L"Anonymous #1", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"An opinion without 3.14 is just an onion."},
 	{L"Anonymous #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 	{L"Anonymous #3", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"I'm not totally useless. I can be used as a bad example."},
@@ -8216,7 +8216,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 			BufferID currentBufID = pCurrentView->getCurrentBufferID();
 			if (currentBufID != targetBufID)
-				return TRUE;
+				return ERROR_SUCCESS;
 
 			char charToShow[4] = { '\0' };
 			::WideCharToMultiByte(CP_UTF8, 0, quoter + i, 1, charToShow, sizeof(charToShow), NULL, NULL);
@@ -8227,7 +8227,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		}
 	}
 
-    return TRUE;
+    return ERROR_SUCCESS;
 }
 
 
@@ -8310,7 +8310,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 
 	ReleaseMutex(textTrollerParams->_mutex);
-	return TRUE;
+	return ERROR_SUCCESS;
 }
 
 
@@ -8643,7 +8643,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 		::SendMessage(Notepad_plus_Window::gNppHWND, NPPM_INTERNAL_SAVEBACKUP, 0, 0);
 	}
-	return TRUE;
+	return ERROR_SUCCESS;
 }
 
 

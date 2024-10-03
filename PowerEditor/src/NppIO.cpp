@@ -129,7 +129,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	dirChanges.Terminate();
 	fileChanges.Terminate();
 	delete monitorInfo;
-	return EXIT_SUCCESS;
+	return ERROR_SUCCESS;
 }
 
 bool resolveLinkFile(std::wstring& linkFilePath)
@@ -261,7 +261,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 		}
 	}
 
-	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
+	bool isSnapshotMode = (backupFileName != NULL) && doesFileExist(backupFileName);
 	bool longFileNameExists = doesFileExist(longFileName);
 	if (isSnapshotMode && !longFileNameExists) // UNTITLED
 	{
@@ -423,18 +423,14 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 
 		if (buffer != BUFFER_INVALID)
 		{
-			isSnapshotMode = (backupFileName != NULL && doesFileExist(backupFileName));
-			if (isSnapshotMode)
-			{
-				// To notify plugins that a snapshot dirty file is loaded on startup
-				SCNotification scnN2{};
-				scnN2.nmhdr.hwndFrom = 0;
-				scnN2.nmhdr.idFrom = (uptr_t)buffer;
-				scnN2.nmhdr.code = NPPN_SNAPSHOTDIRTYFILELOADED;
-				_pluginsManager.notify(&scnN2);
+			// To notify plugins that a snapshot dirty file is loaded on startup
+			SCNotification scnN2{};
+			scnN2.nmhdr.hwndFrom = 0;
+			scnN2.nmhdr.idFrom = (uptr_t)buffer;
+			scnN2.nmhdr.code = NPPN_SNAPSHOTDIRTYFILELOADED;
+			_pluginsManager.notify(&scnN2);
 
-				buffer->setLoadedDirty(true);
-			}
+			buffer->setLoadedDirty(true);
 		}
 	}
 	else

@@ -1714,7 +1714,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 	// call Terminate() automatically.
 	changes.Terminate();
 	//printStr(L"Quit watching thread");
-	return EXIT_SUCCESS;
+	return ERROR_SUCCESS;
 }
 
 void FolderUpdater::processChange(DWORD dwAction, std::vector<wstring> filesToChange, FolderUpdater* thisFolderUpdater)

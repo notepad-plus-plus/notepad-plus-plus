@@ -8216,7 +8216,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 			BufferID currentBufID = pCurrentView->getCurrentBufferID();
 			if (currentBufID != targetBufID)
-				return TRUE;
+				return ERROR_SUCCESS;
 
 			char charToShow[4] = { '\0' };
 			::WideCharToMultiByte(CP_UTF8, 0, quoter + i, 1, charToShow, sizeof(charToShow), NULL, NULL);
@@ -8227,7 +8227,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		}
 	}
 
-    return TRUE;
+    return ERROR_SUCCESS;
 }
 
 
@@ -8310,7 +8310,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 
 	ReleaseMutex(textTrollerParams->_mutex);
-	return TRUE;
+	return ERROR_SUCCESS;
 }
 
 
@@ -8643,7 +8643,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 		::SendMessage(Notepad_plus_Window::gNppHWND, NPPM_INTERNAL_SAVEBACKUP, 0, 0);
 	}
-	return TRUE;
+	return ERROR_SUCCESS;
 }
 
 

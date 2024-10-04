@@ -129,7 +129,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	dirChanges.Terminate();
 	fileChanges.Terminate();
 	delete monitorInfo;
-	return EXIT_SUCCESS;
+	return ERROR_SUCCESS;
 }
 
 bool resolveLinkFile(std::wstring& linkFilePath)

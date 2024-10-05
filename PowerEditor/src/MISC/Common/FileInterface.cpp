@@ -35,7 +35,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		bool fileExists = false;
 
 		// Store the file creation date & attributes for a possible use later...
-		if (::GetFileAttributesEx(fname, GetFileExInfoStandard, &attributes_original)) // No thread (GetFileAttributesExWaitSec) to prevent eventual crash
+		if (getFileAttributesExWaitSec(fname, &attributes_original))
 		{
 			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 		}
@@ -52,7 +52,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			}
 		}
 
-		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL); // No thread (CreateFileWaitSec) due to the lock guard in the caller which leads crash
+		_hFile = ::createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
 
 		// Race condition management:
 		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
@@ -60,7 +60,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		if (dispParam == TRUNCATE_EXISTING && _hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
 		{
 			dispParam = CREATE_ALWAYS;
-			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
+			_hFile = ::createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
 		}
 
 		if (fileExists && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))

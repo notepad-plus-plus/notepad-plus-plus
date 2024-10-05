@@ -301,16 +301,41 @@ Utf8_16_Write::~Utf8_16_Write()
 
 bool Utf8_16_Write::openFile(const wchar_t *name)
 {
+	//std::wstring msg = name;
+	//msg += L"\t BEFORE std::make_unique<Win32_IO_File>(name)";
+	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
+
 	m_pFile = std::make_unique<Win32_IO_File>(name);
 
+	//msg = name;
+	//msg += L"\t AFTER std::make_unique<Win32_IO_File>(name)";
+	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
+
 	if (!m_pFile)
+	{
+		//msg = name;
+		//msg += L"\t !m_pFile -> return!!";
+		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 		return false;
+	}
+
+	//msg = name;
+	//msg += L"\t BEFORE \"!m_pFile->isOpened()\"";
+	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 
 	if (!m_pFile->isOpened())
 	{
+		//msg = name;
+		//msg += L"\t AFTER \"!m_pFile->isOpened() -> return false\"";
+		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
+
 		m_pFile = nullptr;
 		return false;
 	}
+
+	//msg = name;
+	//msg += L"\t AFTER \"!m_pFile->isOpened() -> return true\"";
+	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 
 	m_bFirstWrite = true;
 

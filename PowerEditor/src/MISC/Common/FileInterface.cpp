@@ -24,6 +24,9 @@ using namespace std;
 
 Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 {
+	//std::wstring msg = fname;
+	//msg += L"\t ENTERING Win32_IO_File::Win32_IO_File(name)";
+	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 	if (fname)
 	{
 		std::wstring fn = fname;
@@ -35,7 +38,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		bool fileExists = false;
 
 		// Store the file creation date & attributes for a possible use later...
-		if (::GetFileAttributesEx(fname, GetFileExInfoStandard, &attributes_original)) // No thread (GetFileAttributesExWaitSec) to prevent eventual crash
+		if (getFileAttributesExWaitSec(fname, &attributes_original))
 		{
 			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 		}
@@ -52,7 +55,15 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			}
 		}
 
-		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL); // No thread (CreateFileWaitSec) due to the lock guard in the caller which leads crash
+		//msg = fname;
+		//msg += L"\t BEFORE CreateFileW";
+		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
+
+		_hFile = ::createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
+
+		//msg = fname;
+		//msg += L"\t AFTER CreateFileW";
+		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 
 		// Race condition management:
 		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
@@ -60,7 +71,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		if (dispParam == TRUNCATE_EXISTING && _hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
 		{
 			dispParam = CREATE_ALWAYS;
-			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
+			_hFile = ::createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
 		}
 
 		if (fileExists && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))
@@ -91,6 +102,9 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 	}
+	//msg = fname;
+	//msg += L"\t QUITING Win32_IO_File::Win32_IO_File(name)";
+	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 }
 
 void Win32_IO_File::close()

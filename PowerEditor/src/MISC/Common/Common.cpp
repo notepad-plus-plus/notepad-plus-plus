@@ -126,7 +126,7 @@ void writeFileContent(const wchar_t *file2write, const char *content2write)
 }
 
 
-void writeLog(const wchar_t *logFileName, const char *log2write)
+void writeLog(const wchar_t* logFileName, const char* log2write)
 {
 	const DWORD accessParam{ GENERIC_READ | GENERIC_WRITE };
 	const DWORD shareParam{ FILE_SHARE_READ | FILE_SHARE_WRITE };
@@ -143,8 +143,8 @@ void writeLog(const wchar_t *logFileName, const char *log2write)
 		SYSTEMTIME currentTime = {};
 		::GetLocalTime(&currentTime);
 		wstring dateTimeStrW = getDateTimeStrFrom(L"yyyy-MM-dd HH:mm:ss", currentTime);
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::string log2writeStr = converter.to_bytes(dateTimeStrW);
+		wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		string log2writeStr = converter.to_bytes(dateTimeStrW);
 		log2writeStr += "  ";
 		log2writeStr += log2write;
 		log2writeStr += "\n";
@@ -157,6 +157,11 @@ void writeLog(const wchar_t *logFileName, const char *log2write)
 	}
 }
 
+void writeLog(const wchar_t* logFileName, const wchar_t* log2write)
+{
+	string log2WriteA = wstring2string(log2write, CP_ACP);
+	return writeLog(logFileName, log2WriteA.c_str());
+}
 
 wstring folderBrowser(HWND parent, const wstring & title, int outputCtrlID, const wchar_t *defaultStr)
 {

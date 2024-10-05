@@ -58,9 +58,10 @@ void printInt(int int2print);
 void printStr(const wchar_t *str2print);
 std::wstring commafyInt(size_t n);
 
-void writeLog(const wchar_t *logFileName, const char *log2write);
+void writeLog(const wchar_t* logFileName, const char* log2write);
+void writeLog(const wchar_t* logFileName, const wchar_t* log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
-std::wstring purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand = false);
+std::wstring purgeMenuItemString(const wchar_t* menuItemStr, bool keepAmpersand = false);
 std::vector<std::wstring> tokenizeString(const std::wstring & tokenString, const char delim);
 
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);

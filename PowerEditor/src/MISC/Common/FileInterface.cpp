@@ -51,25 +51,41 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 				FindClose(hFind);
 			}
 		}
-
+		wstring fnW = fname;
+		string fnA = wstring2string(fnW, CP_ACP);
+		string msg = "BEFORE createFileWaitSec : 1 ";
+		msg += fnA;
+		writeLog(L"c:\\tmp\\AAAAAAA", msg.c_str());
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL); // No thread (CreateFileWaitSec) due to the lock guard in the caller which leads crash
-
+		//_hFile = createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam); // No thread (CreateFileWaitSec) due to the lock guard in the caller which leads crash
+		msg = "AFTER createFileWaitSec : 1 ";
+		msg += fnA;
+		writeLog(L"c:\\tmp\\AAAAAAA", msg.c_str());
 		// Race condition management:
 		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
 		//  If file did exist while calling PathFileExistsW, but before calling CreateFileW, file is deleted:  use TRUNCATE_EXISTING will cause the error
 		if (dispParam == TRUNCATE_EXISTING && _hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
 		{
+			msg = "BEFORE createFileWaitSec : 2 ";
+			msg += fnA;
+			writeLog(L"c:\\tmp\\AAAAAAA", msg.c_str());
 			dispParam = CREATE_ALWAYS;
 			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
+			//_hFile = createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
+			msg = "AFTER createFileWaitSec : 2 ";
+			msg += fnA;
+			writeLog(L"c:\\tmp\\AAAAAAA", msg.c_str());
 		}
 
+		writeLog(L"c:\\tmp\\AAAAAAA", "3");
 		if (fileExists && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))
 		{
 			// restore back the original creation date & attributes
 			::SetFileTime(_hFile, &(attributes_original.ftCreationTime), NULL, NULL);
 			::SetFileAttributesW(fname, (_attribParam | attributes_original.dwFileAttributes));
+			writeLog(L"c:\\tmp\\AAAAAAA", "4");
 		}
-
+		writeLog(L"c:\\tmp\\AAAAAAA", "5");
 		NppParameters& nppParam = NppParameters::getInstance();
 		if (nppParam.isEndSessionStarted() && nppParam.doNppLogNulContentCorruptionIssue())
 		{
@@ -90,6 +106,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			}
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
+		writeLog(L"c:\\tmp\\AAAAAAA", "6");
 	}
 }
 

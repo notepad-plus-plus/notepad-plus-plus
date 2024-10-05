@@ -1940,3 +1940,60 @@ DWORD getFileAttributesExWaitSec(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_D
 
 	return data._result;
 }
+
+
+//----------------------------------------------------
+
+struct CreateFileParamResult
+{
+	wstring _filePath;
+	HANDLE _hFile = INVALID_HANDLE_VALUE;
+	DWORD _accessParam = GENERIC_READ | GENERIC_WRITE;
+	DWORD _shareParam = FILE_SHARE_READ | FILE_SHARE_WRITE;
+	DWORD _dispParam = CREATE_ALWAYS;
+	DWORD _attribParam = FILE_ATTRIBUTE_NORMAL;
+	bool _isNetworkFailure = true;
+	CreateFileParamResult(wstring filePath, DWORD accessParam, DWORD shareParam, DWORD dispParam, DWORD attribParam) :
+		_filePath(filePath), _accessParam(accessParam), _shareParam(shareParam), _dispParam(dispParam), _attribParam(attribParam) {};
+};
+
+DWORD WINAPI createFileWorker(void* data)
+{
+	CreateFileParamResult* inAndOut = static_cast<CreateFileParamResult*>(data);
+	inAndOut->_hFile = ::CreateFileW(inAndOut->_filePath.c_str(), inAndOut->_accessParam, inAndOut->_shareParam, NULL, inAndOut->_dispParam, inAndOut->_attribParam, NULL);
+	inAndOut->_isNetworkFailure = false;
+	return ERROR_SUCCESS;
+};
+
+HANDLE createFileWaitSec(const wchar_t* filePath, DWORD accessParam, DWORD shareParam, DWORD dispParam, DWORD attribParam, DWORD milliSec2wait, bool* isNetWorkProblem)
+{
+	CreateFileParamResult data(filePath, accessParam, shareParam, dispParam, attribParam);
+
+	HANDLE hThread = ::CreateThread(NULL, 0, createFileWorker, &data, 0, NULL);
+	if (!hThread)
+	{
+		return FALSE;
+	}
+
+	// wait for our worker thread to complete or terminate it when the required timeout has elapsed
+	DWORD dwWaitStatus = ::WaitForSingleObject(hThread, milliSec2wait == 0 ? DEFAULT_MILLISEC : milliSec2wait);
+	switch (dwWaitStatus)
+	{
+		case WAIT_OBJECT_0: // Ok, the state of our worker thread is signaled, so it finished itself in the timeout given		
+			// - nothing else to do here, except the thread handle closing later
+			break;
+
+		case WAIT_TIMEOUT: // the timeout interval elapsed, but the worker's state is still non-signaled
+		default: // any other dwWaitStatus is a BAD one here
+			// WAIT_FAILED or WAIT_ABANDONED
+			::TerminateThread(hThread, dwWaitStatus);
+			break;
+	}
+	CloseHandle(hThread);
+
+	if (isNetWorkProblem != nullptr)
+		*isNetWorkProblem = data._isNetworkFailure;
+
+	return data._hFile;
+}
+

@@ -1863,7 +1863,7 @@ FILE* wfopenWaitSec(const wchar_t* filePath, DWORD milliSec2wait, bool* isNetWor
 	HANDLE hThread = ::CreateThread(NULL, 0, wfopenWorker, &data, 0, NULL);
 	if (!hThread)
 	{
-		return FALSE;
+		return nullptr;
 	}
 
 	// wait for our worker thread to complete or terminate it when the required timeout has elapsed

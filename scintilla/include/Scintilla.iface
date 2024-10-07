@@ -410,6 +410,8 @@ ali SC_MARKNUM_FOLDERTAIL=FOLDER_TAIL
 ali SC_MARKNUM_FOLDERSUB=FOLDER_SUB
 ali SC_MARKNUM_FOLDEROPEN=FOLDER_OPEN
 
+val SC_MASK_HISTORY=0x01E00000
+
 # SC_MASK_FOLDERS doesn't go in an enumeration as larger than max 32-bit positive integer
 val SC_MASK_FOLDERS=0xFE000000
 
@@ -698,6 +700,23 @@ set void StyleSetCheckMonospaced=2254(int style, bool checkMonospaced)
 # Get whether a style may be monospaced.
 get bool StyleGetCheckMonospaced=2255(int style,)
 
+enu FontStretch=SC_STRETCH_
+val SC_STRETCH_ULTRA_CONDENSED=1
+val SC_STRETCH_EXTRA_CONDENSED=2
+val SC_STRETCH_CONDENSED=3
+val SC_STRETCH_SEMI_CONDENSED=4
+val SC_STRETCH_NORMAL=5
+val SC_STRETCH_SEMI_EXPANDED=6
+val SC_STRETCH_EXPANDED=7
+val SC_STRETCH_EXTRA_EXPANDED=8
+val SC_STRETCH_ULTRA_EXPANDED=9
+
+# Set the stretch of characters of a style.
+set void StyleSetStretch=2258(int style, FontStretch stretch)
+
+# Get the stretch of characters of a style.
+get FontStretch StyleGetStretch=2259(int style,)
+
 # Set the invisible representation for a style.
 set void StyleSetInvisibleRepresentation=2256(int style, string representation)
 
@@ -717,6 +736,8 @@ val SC_ELEMENT_SELECTION_SECONDARY_TEXT=14
 val SC_ELEMENT_SELECTION_SECONDARY_BACK=15
 val SC_ELEMENT_SELECTION_INACTIVE_TEXT=16
 val SC_ELEMENT_SELECTION_INACTIVE_BACK=17
+val SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_TEXT=18
+val SC_ELEMENT_SELECTION_INACTIVE_ADDITIONAL_BACK=19
 val SC_ELEMENT_CARET=40
 val SC_ELEMENT_CARET_ADDITIONAL=41
 val SC_ELEMENT_CARET_LINE_BACK=50
@@ -832,6 +853,9 @@ fun void BeginUndoAction=2078(,)
 
 # End a sequence of actions that is undone and redone as a unit.
 fun void EndUndoAction=2079(,)
+
+# Is an undo sequence active?
+get int GetUndoSequence=2799(,)
 
 # How many undo actions are in the history?
 get int GetUndoActions=2790(,)
@@ -1143,6 +1167,12 @@ set void AutoCSetMaxHeight=2210(int rowCount,)
 
 # Set the maximum height, in rows, of auto-completion and user lists.
 get int AutoCGetMaxHeight=2211(,)
+
+# Set the style number used for auto-completion and user lists fonts.
+set void AutoCSetStyle=2109(int style,)
+
+# Get the style number used for auto-completion and user lists fonts.
+get int AutoCGetStyle=2120(,)
 
 # Set the number of spaces used for one level of indentation.
 set void SetIndent=2122(int indentSize,)
@@ -1980,8 +2010,15 @@ fun void DeleteBack=2326(,)
 # If more than one line selected, indent the lines.
 fun void Tab=2327(,)
 
-# Dedent the selected lines.
+# Indent the current and selected lines.
+fun void LineIndent=2813(,)
+
+# If selection is empty or all on one line dedent the line if caret is at start, else move caret.
+# If more than one line selected, dedent the lines.
 fun void BackTab=2328(,)
+
+# Dedent the current and selected lines.
+fun void LineDedent=2814(,)
 
 # Insert a new line, may use a CRLF, CR or LF depending on EOL mode.
 fun void NewLine=2329(,)
@@ -2654,6 +2691,15 @@ get int GetLayoutThreads=2776(,)
 
 # Copy the selection, if selection empty copy the line with the caret
 fun void CopyAllowLine=2519(,)
+
+# Cut the selection, if selection empty cut the line with the caret
+fun void CutAllowLine=2810(,)
+
+# Set the string to separate parts when copying a multiple selection.
+set void SetCopySeparator=2811(, string separator)
+
+# Get the string to separate parts when copying a multiple selection.
+get int GetCopySeparator=2812(, stringresult separator)
 
 # Compact the document buffer and return a read-only pointer to the
 # characters in the document.

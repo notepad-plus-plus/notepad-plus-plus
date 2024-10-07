@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.3">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -120,16 +120,6 @@ Translation note:
 					<Item id="42007" name="&amp;Select All"/>
 					<Item id="42020" name="Begin/End &amp;Select"/>
 					<Item id="42089" name="Begin/End Select in Column Mode"/>
-					<Item id="42090" name="Ignore Case &amp;&amp; Whole Word"/>
-					<Item id="42091" name="Match Case Only"/>
-					<Item id="42092" name="Match Whole Word Only"/>
-					<Item id="42093" name="Match Case &amp;&amp; Whole Word"/>
-					<Item id="42094" name="Ignore Case &amp;&amp; Whole Word"/>
-					<Item id="42095" name="Match Case Only"/>
-					<Item id="42096" name="Match Whole Word Only"/>
-					<Item id="42097" name="Match Case &amp;&amp; Whole Word"/>
-					<Item id="42098" name="Undo the Latest Added Multi-Select"/>
-					<Item id="42099" name="Skip Current &amp;&amp; Go to Next Multi-select"/>
 					<Item id="42084" name="Date Time (short)"/>
 					<Item id="42085" name="Date Time (long)"/>
 					<Item id="42086" name="Date Time (customized)"/>
@@ -166,6 +156,16 @@ Translation note:
 					<Item id="42074" name="Open Containing Folder in Explorer"/>
 					<Item id="42075" name="Search on Internet"/>
 					<Item id="42076" name="Change Search Engine..."/>
+					<Item id="42090" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42091" name="Match Case Only"/>
+					<Item id="42092" name="Match Whole Word Only"/>
+					<Item id="42093" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42094" name="Ignore Case &amp;&amp; Whole Word"/>
+					<Item id="42095" name="Match Case Only"/>
+					<Item id="42096" name="Match Whole Word Only"/>
+					<Item id="42097" name="Match Case &amp;&amp; Whole Word"/>
+					<Item id="42098" name="Undo the Latest Added Multi-Select"/>
+					<Item id="42099" name="Skip Current &amp;&amp; Go to Next Multi-select"/>
 					<Item id="42018" name="Start Re&amp;cording"/>
 					<Item id="42019" name="S&amp;top Recording"/>
 					<Item id="42021" name="&amp;Playback"/>
@@ -222,7 +222,7 @@ Translation note:
 					<Item id="43051" name="Remove Non-Bookmarked Lines"/>
 					<Item id="43050" name="Inverse Bookmark"/>
 					<Item id="43052" name="Find characters in rang&amp;e..."/>
-					<Item id="43053" name="Select All Between &amp;Matching Braces"/>
+					<Item id="43053" name="Select All In-betw&amp;een {} [] or ()"/>
 					<Item id="43009" name="Go to &amp;Matching Brace"/>
 					<Item id="43010" name="Find &amp;Previous"/>
 					<Item id="43011" name="&amp;Incremental Search"/>
@@ -355,6 +355,7 @@ Translation note:
 					<Item id="10005" name="Move to Start"/>
 					<Item id="10006" name="Move to End"/>
 					<Item id="46001" name="Style Configurator..."/>
+					<Item id="46016" name="None (NormalText)"/>
 					<Item id="46250" name="Define your language..."/>
 					<Item id="46300" name="Open User Defined Language folder..."/>
 					<Item id="46301" name="Notepad++ User Defined Languages Collection"/>
@@ -468,7 +469,7 @@ Translation note:
 				<Item id="1" name="Find Next"/>
 				<Item id="1722" name="Backward direction"/>
 				<Item id="2" name="Close"/>
-				<Item id="1620" name="&amp;Find what :"/>
+				<Item id="1620" name="&amp;Find what:"/>
 				<Item id="1603" name="Match &amp;whole word only"/>
 				<Item id="1604" name="Match &amp;case"/>
 				<Item id="1605" name="Re&amp;gular expression"/>
@@ -477,7 +478,7 @@ Translation note:
 				<Item id="1615" name="Mark All"/>
 				<Item id="1616" name="Book&amp;mark line"/>
 				<Item id="1618" name="Purge for each search"/>
-				<Item id="1611" name="Rep&amp;lace with :"/>
+				<Item id="1611" name="Rep&amp;lace with:"/>
 				<Item id="1608" name="&amp;Replace"/>
 				<Item id="1609" name="Replace &amp;All"/>
 				<Item id="1687" name="On losing focus"/>
@@ -486,8 +487,8 @@ Translation note:
 				<Item id="1633" name="Clear all marks"/>
 				<Item id="1635" name="Replace All in All &amp;Opened Documents"/>
 				<Item id="1636" name="Find All in All &amp;Opened Documents"/>
-				<Item id="1654" name="Filter&amp;s :"/>
-				<Item id="1655" name="Dir&amp;ectory :"/>
+				<Item id="1654" name="Filter&amp;s:"/>
+				<Item id="1655" name="Dir&amp;ectory:"/>
 				<Item id="1656" name="Find All"/>
 				<Item id="1658" name="In all su&amp;b-folders"/>
 				<Item id="1659" name="In &amp;hidden folders"/>
@@ -514,9 +515,9 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Find"/>
-				<Item id="1685" name="Match case"/>
-				<Item id="1690" name="Highlight all"/>
+				<Item id="1681" name="Find:"/>
+				<Item id="1685" name="Match &amp;case"/>
+				<Item id="1690" name="&amp;Highlight all"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Find Characters in Range...">
@@ -971,7 +972,7 @@ Translation note:
 					<Item id="6123" name="Localization"/>
 				</Global>
 
-				<Scintillas title="Editing">
+				<Scintillas title="Editing 1">
 					<Item id="6216" name="Caret Settings"/>
 					<Item id="6217" name="Width:"/>
 					<Item id="6219" name="Blink rate:"/>
@@ -1076,7 +1077,7 @@ Translation note:
 					<Item id="6408" name="UTF-8 with BOM"/>
 					<Item id="6409" name="UTF-16 Big Endian with BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian with BOM"/>
-					<Item id="6411" name="Default language :"/>
+					<Item id="6411" name="Default language:"/>
 					<Item id="6419" name="New Document"/>
 					<Item id="6420" name="Apply to opened ANSI files"/>
 					<Item id="6432" name="Always open a new document in addition at startup"/>
@@ -1094,17 +1095,28 @@ Translation note:
 					<Item id="4009" name="Supported extensions:"/>
 					<Item id="4010" name="Registered extensions:"/>
 				</FileAssoc>
+
 				<Language title="Language">
 					<Item id="6505" name="Available items"/>
 					<Item id="6506" name="Disabled items"/>
 					<Item id="6507" name="Make language menu compact"/>
 					<Item id="6508" name="Language Menu"/>
-					<Item id="6301" name="Tab Settings"/>
-					<Item id="6302" name="Replace by space"/>
-					<Item id="6303" name="Tab size: "/>
-					<Item id="6510" name="Use default value"/>
 					<Item id="6335" name="Treat backslash as escape character for SQL"/>
 				</Language>
+
+				<Indentation title="Indentation">
+					<Item id="7161" name="Auto-indent"/>
+					<Item id="7162" name="None"/>
+					<Item id="7163" name="Basic"/>
+					<Item id="7164" name="Advanced"/>
+					<Item id="6301" name="Indent Settings"/>
+					<Item id="6302" name="Space character(s)"/>
+					<Item id="6303" name="Indent size:"/>
+					<Item id="6310" name="Indent using:"/>
+					<Item id="6311" name="Tab character"/>
+					<Item id="6510" name="Use default value"/>
+					<Item id="6512" name="Backspace key unindents instead of removing single space"/>
+				</Indentation>
 
 				<Highlighting title="Highlighting">
 					<Item id="6351" name="Style All Occurrences of Token"/>
@@ -1188,7 +1200,7 @@ Translation note:
 				<Backup title="Backup">
 					<Item id="6817" name="Session snapshot and periodic backup"/>
 					<Item id="6818" name="Enable session snapshot and periodic backup"/>
-					<Item id="6819" name="Backup in every"/>
+					<Item id="6819" name="Trigger backup on modification in every"/>
 					<Item id="6821" name="seconds"/>
 					<Item id="6822" name="Backup path:"/>
 					<Item id="6309" name="Remember current session for next launch"/>
@@ -1198,7 +1210,7 @@ Translation note:
 					<Item id="6316" name="Simple backup"/>
 					<Item id="6317" name="Verbose backup"/>
 					<Item id="6804" name="Custom Backup Directory"/>
-					<Item id="6803" name="Directory :"/>
+					<Item id="6803" name="Directory:"/>
 				</Backup>
 
 				<AutoCompletion title="Auto-Completion">
@@ -1294,7 +1306,7 @@ Translation note:
 
 				<MISC title="MISC.">
 					<ComboBox id="6347">
-						<Element name="Enable"/>
+						<Element name="Enable for current file"/>
 						<Element name="Enable for all opened files"/>
 						<Element name="Disable"/>
 					</ComboBox>
@@ -1383,6 +1395,11 @@ You can re-activate this dialog in Preferences later."/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="4" name="&amp;Always yes"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Debug Info">
+				<Item id="1752" name="&amp;Copy debug info to clipboard"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1412,7 +1429,7 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
 			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
-you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
 			<SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Column Mode Tip" message="
 There are 3 ways to switch to column-select mode:
@@ -1521,6 +1538,11 @@ Would you like to create those placeholders?
 NOTE: Choosing not to create the placeholders or closing them later, your session WILL BE MODIFIED ON EXIT! We suggest you backup your &quot;session.xml&quot; now."/>
 			<RTLvsDirectWrite title="Cannot run RTL" message="RTL is not compatible with DirectWrite mode. Please disable DirectWrite mode in MISC. section of Preferences dialog, and restart Notepad++."/>
 			<FileMemoryAllocationFailed title="Exception: File memory allocation failed" message="There is probably not enough contiguous free memory for the file being loaded by Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Regex backward search disabled" message="By default, backward regex searching is disabled due to potentially unexpected results. To perform a backward search, open the Find dialog and select either normal or extended search mode instead of regular expression.
+Press the OK button to open the Find dialog or set focus on it.
+			
+If you require the backward regex searching feature, consult the user manual for instructions on enabling it."/>
+			<PrintError title="0" message="Cannot start printer document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
@@ -1656,8 +1678,8 @@ Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
-			<find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
+			<find-status-top-reached value="Find: Found the last occurrence from the bottom. The beginning of the document has been reached."/>
+			<find-status-end-reached value="Find: Found the last occurrence from the top. The end of the document has been reached."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
 			<find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
@@ -1671,8 +1693,8 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
 			<find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
-			<find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
-			<find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
+			<find-status-replace-end-reached value="Replace: Replaced the last occurrence from the top. The end of document has been reached"/>
+			<find-status-replace-top-reached value="Replace: Replaced the last occurrence from the bottom. The begin of document has been reached"/>
 			<find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
 			<find-status-replaced-without-continuing value="Replace: 1 occurrence was replaced."/>
 			<find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
@@ -1719,8 +1741,8 @@ Find in all files but exclude all folders log or logs recursively:
 			<progress-cancel-info value="Cancelling operation, please wait..."/>
 			<find-in-files-progress-title value="Find In Files progress..."/>
 			<replace-in-files-confirm-title value="Are you sure?"/>
-			<replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in :"/>
-			<replace-in-files-confirm-filetype value="For file type :"/>
+			<replace-in-files-confirm-directory value="Are you sure you want to replace all occurrences in:"/>
+			<replace-in-files-confirm-filetype value="For file type:"/>
 			<replace-in-files-progress-title value="Replace In Files progress..."/>
 			<replace-in-projects-confirm-title value="Are you sure?"/>
 			<replace-in-projects-confirm-message value="Do you want to replace all occurrences in all documents in the selected Project Panel(s)?"/>
@@ -1730,6 +1752,11 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-result-title value="Search"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ hits in $INT_REPLACE2$ files of $INT_REPLACE3$ searched)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ hits in $INT_REPLACE2$ selections of $INT_REPLACE3$ searched)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Extended"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Case"/>
+			<find-result-title-info-options-word value="Word"/>
 			<find-result-title-info-extra value=" - Line Filter Mode: only display the filtered results"/>
 			<find-result-hits value="($INT_REPLACE$ hits)"/>
 			<find-result-line-prefix value="Line"/><!-- Must not begin with space or tab character -->
@@ -1780,6 +1807,12 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 			<npcIncludeCcUniEol-tip value="Apply non-printing characters appearance settings to C0, C1 control and Unicode EOL (next line, line separator and paragraph separator) characters."/>
 			<searchingInSelThresh-tip value="Number of selected characters in edit zone to automatically check the &quot;In selection&quot; checkbox when the Find dialog is activated. The maximum value is 1024. Set the value to 0 to disable auto-checking."/>
 			<verticalEdge-tip value="Add your column marker by indicating its position with a decimal number. You can define several column markers by using white space to separate the different numbers."/>
+			<fileSaveAsCopySaveButton-tip value="Hold Shift while pressing Save to open the copy after saving."/>
+			<autoIndentBasic-tip value="Ensure that the indentation of the current line (i.e. the new line created by pressing the ENTER key) matches the indentation of the previous line."/>
+			<autoIndentAdvanced-tip value="Enable smart indentation for &quot;C-like&quot; languages and Python. The &quot;C-like&quot; languages include:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
+
+If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

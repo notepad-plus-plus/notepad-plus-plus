@@ -36,11 +36,11 @@ SecurityMode SecurityGuard::_securityMode = sm_certif;
 
 SecurityGuard::SecurityGuard()
 {
-	_gupSha256.push_back(TEXT("4c8191f511c2ad67148ef809b40c1108aaa074130547157c335a959404d8d6f6")); // v5.1 32 bit (signed)
-	_gupSha256.push_back(TEXT("268a65829e86d5c3d324eea79b51e59f0a7d07c69d3ba0f700c9cb3aa772566f")); // v5.1 64 bit (signed)
+	_gupSha256.push_back(L"4c8191f511c2ad67148ef809b40c1108aaa074130547157c335a959404d8d6f6"); // v5.1 32 bit (signed)
+	_gupSha256.push_back(L"268a65829e86d5c3d324eea79b51e59f0a7d07c69d3ba0f700c9cb3aa772566f"); // v5.1 64 bit (signed)
 
-	_pluginListSha256.push_back(TEXT("a4a7e57d605f29b294378d0d94fc867b9febd6a1cc63f1bb69bcb7609dc25f2c")); // v1.0.8 32 bit (unsigned)
-	_pluginListSha256.push_back(TEXT("1c404fd3578273f5ecde585af82179ff3b63c635fb4fa24be21ebde708e403e4")); // v1.0.8 64 bit (unsigned)
+	_pluginListSha256.push_back(L"a4a7e57d605f29b294378d0d94fc867b9febd6a1cc63f1bb69bcb7609dc25f2c"); // v1.0.8 32 bit (unsigned)
+	_pluginListSha256.push_back(L"1c404fd3578273f5ecde585af82179ff3b63c635fb4fa24be21ebde708e403e4"); // v1.0.8 64 bit (unsigned)
 }
 
 bool SecurityGuard::checkModule([[maybe_unused]] const std::wstring& filePath, [[maybe_unused]] NppModule module2check)
@@ -76,9 +76,9 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 
 	wchar_t sha2hashStr[65] = { '\0' };
 	for (size_t i = 0; i < 32; i++)
-		wsprintf(sha2hashStr + i * 2, TEXT("%02x"), sha2hash[i]);
+		wsprintf(sha2hashStr + i * 2, L"%02x", sha2hash[i]);
 
-	std::vector<std::wstring>* moduleSha256 = nullptr;
+	const std::vector<std::wstring>* moduleSha256 = nullptr;
 
 	if (module2check == nm_gup)
 		moduleSha256 = &_gupSha256;
@@ -87,16 +87,16 @@ bool SecurityGuard::checkSha256(const std::wstring& filePath, NppModule module2c
 	else
 		return false;
 
-	for (auto i : *moduleSha256)
+	for (const auto& i : *moduleSha256)
 	{
 		if (i == sha2hashStr)
 		{
-			//::MessageBox(NULL, filePath.c_str(), TEXT("OK"), MB_OK);
+			//::MessageBox(NULL, filePath.c_str(), L"OK", MB_OK);
 			return true;
 		}
 	}
 
-	//::MessageBox(NULL, filePath.c_str(), TEXT("KO"), MB_OK);
+	//::MessageBox(NULL, filePath.c_str(), L"KO", MB_OK);
 	return false;
 }
 
@@ -113,7 +113,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 	{	
 		string dmsg("VerifyLibrary: ");
 		dmsg += ws2s(filepath);
-		writeLog(TEXT("c:\\tmp\\certifError.log"), dmsg.c_str());
+		writeLog(L"c:\\tmp\\certifError.log", dmsg.c_str());
 	}	
 
 	//
@@ -140,7 +140,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
 
 		if (doLogCertifError)
-			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: certificate revocation checking is disabled");
+			writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: certificate revocation checking is disabled");
 	}
 	else
 	{
@@ -149,7 +149,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		DWORD netstatus;
 		QOCINFO oci;
 		oci.dwSize = sizeof(oci);
-		CONST TCHAR* msftTEXTest_site = TEXT("http://www.msftncsi.com/ncsi.txt");
+		CONST wchar_t* msftTEXTest_site = L"http://www.msftncsi.com/ncsi.txt";
 		bool online = false;
 		online = (0 != IsNetworkAlive(&netstatus));
 		online = online && (0 == GetLastError());
@@ -159,7 +159,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 			winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
 
 			if (doLogCertifError)
-				writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: system is offline - certificate revocation wont be checked");
+				writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: system is offline - certificate revocation wont be checked");
 		}
 	}
 
@@ -176,7 +176,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		if (vtrust)
 		{
 			if (doLogCertifError)
-				writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: trust verification failed");
+				writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: trust verification failed");
 
 			return false;
 		}
@@ -184,7 +184,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		if (t2)
 		{
 			if (doLogCertifError)
-				writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: error encountered while cleaning up after WinVerifyTrust");
+				writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: error encountered while cleaning up after WinVerifyTrust");
 
 			return false;
 		}
@@ -248,7 +248,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 			throw string("Getting x509 field size problem.");
 		}
 
-		std::unique_ptr<TCHAR[]> subject_buffer(new TCHAR[subject_sze]);
+		std::unique_ptr<wchar_t[]> subject_buffer(new wchar_t[subject_sze]);
 		if (::CertNameToStr(X509_ASN_ENCODING, &context->pCertInfo->Subject, CERT_X500_NAME_STR, subject_buffer.get(), subject_sze) <= 1)
 		{
 			throw string("Failed to get x509 filed infos from certificate.");
@@ -271,13 +271,13 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		wstringstream ss;
 		for (unsigned i = 0; i < key_id_sze; i++)
 		{
-			ss << std::uppercase << std::setfill(TCHAR('0')) << std::setw(2) << std::hex
+			ss << std::uppercase << std::setfill(wchar_t('0')) << std::setw(2) << std::hex
 				<< key_id_buff[i];
 		}
 		key_id_hex = ss.str();
 
 		if (doLogCertifError)
-			writeLog(TEXT("c:\\tmp\\certifError.log"), ws2s(key_id_hex).c_str());
+			writeLog(L"c:\\tmp\\certifError.log", ws2s(key_id_hex).c_str());
 
 		// Getting the display name			
 		auto sze = ::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
@@ -287,7 +287,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		}
 
 		// Get display name.
-		std::unique_ptr<TCHAR[]> display_name_buffer(new TCHAR[sze]);
+		std::unique_ptr<wchar_t[]> display_name_buffer(new wchar_t[sze]);
 		if (::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, display_name_buffer.get(), sze) <= 1)
 		{
 			throw string("Cannot get certificate info." + ws2s(GetLastErrorAsString(GetLastError())));
@@ -300,14 +300,14 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		{
 			string msg = s;
 			msg += " - VerifyLibrary: error while getting certificate informations";
-			writeLog(TEXT("c:\\tmp\\certifError.log"), msg.c_str());
+			writeLog(L"c:\\tmp\\certifError.log", msg.c_str());
 		}
 		status = false;
 	}
 	catch (...) {
 		// Unknown error
 		if (doLogCertifError)
-			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: error while getting certificate informations");
+			writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: error while getting certificate informations");
 
 		status = false;
 	}
@@ -320,7 +320,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		status = false;
 
 		if (doLogCertifError)
-			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: Invalid certificate display name");
+			writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: Invalid certificate display name");
 	}
 
 	if (status && (_signer_subject != subject))
@@ -328,7 +328,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		status = false;
 
 		if (doLogCertifError)
-			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: Invalid certificate subject");
+			writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: Invalid certificate subject");
 	}
 
 	if (status && (_signer_key_id != key_id_hex))
@@ -336,7 +336,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		status = false;
 
 		if (doLogCertifError)
-			writeLog(TEXT("c:\\tmp\\certifError.log"), "VerifyLibrary: Invalid certificate key id");
+			writeLog(L"c:\\tmp\\certifError.log", "VerifyLibrary: Invalid certificate key id");
 	}
 
 	// Clean up.

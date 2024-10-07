@@ -20,6 +20,7 @@
 #include "columnEditor.h"
 #include "ScintillaEditView.h"
 
+using namespace std;
 
 void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
@@ -31,9 +32,12 @@ void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEd
 
 void ColumnEditorDlg::display(bool toShow) const
 {
-    Window::display(toShow);
-    if (toShow)
-        ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+	Window::display(toShow);
+	if (toShow)
+	{
+		::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+		::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
+	}
 }
 
 intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -54,9 +58,9 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			if (colEditParam._repeatNum != -1)
 				::SetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, colEditParam._repeatNum, FALSE);
 			
-			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("None")));
-			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Zeros")));
-			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Spaces")));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"None"));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Zeros"));
+			::SendDlgItemMessage(_hSelf, IDC_COL_LEADING_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Spaces"));
 			WPARAM curSel = 0;
 			switch (colEditParam._leadingChoice)
 			{
@@ -150,7 +154,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			setPositionDpi(lParam);
 
 			return TRUE;
@@ -169,7 +173,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
 					
 					constexpr int stringSize = 1024;
-					TCHAR str[stringSize]{};
+					wchar_t str[stringSize]{};
 					
 					bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
 					
@@ -196,7 +200,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							constexpr int lineAllocatedLen = 1024;
-							TCHAR *line = new TCHAR[lineAllocatedLen];
+							wchar_t *line = new wchar_t[lineAllocatedLen];
 
 							for (size_t i = cursorLine ; i <= static_cast<size_t>(endLine); ++i)
 							{
@@ -209,14 +213,14 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								if (lineLen > lineAllocatedLen)
 								{
 									delete [] line;
-									line = new TCHAR[lineLen];
+									line = new wchar_t[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
-								generic_string s2r(line);
+								wstring s2r(line);
 
 								if (lineEndCol < cursorCol)
 								{
-									generic_string s_space(cursorCol - lineEndCol, ' ');
+									wstring s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -236,13 +240,14 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 					}
 					else
 					{
-						int initialNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INITNUM_EDIT, NULL, TRUE);
-						int increaseNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INCREASENUM_EDIT, NULL, TRUE);
-						int repeat = ::GetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, NULL, TRUE);
+						size_t initialNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INITNUM_EDIT, NULL, TRUE);
+						size_t increaseNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INCREASENUM_EDIT, NULL, TRUE);
+						size_t repeat = ::GetDlgItemInt(_hSelf, IDC_COL_REPEATNUM_EDIT, NULL, TRUE);
 						if (repeat == 0)
 						{
 							repeat = 1; // Without this we might get an infinite loop while calculating the set "numbers" below.
 						}
+
 						UCHAR format = getFormat();
 						display(false);
 
@@ -269,31 +274,28 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							// Compute the numbers to be placed at each column.
-							std::vector<int> numbers;
+							std::vector<size_t> numbers;
+
+							size_t curNumber = initialNumber;
+							const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
+							while (numbers.size() < kiMaxSize)
 							{
-								int curNumber = initialNumber;
-								const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
-								while (numbers.size() < kiMaxSize)
+								for (size_t i = 0; i < repeat; i++)
 								{
-									for (int i = 0; i < repeat; i++)
-									{
-										numbers.push_back(curNumber);
-										if (numbers.size() >= kiMaxSize)
-										{
-											break;
-										}
-									}
-									curNumber += increaseNumber;
+									numbers.push_back(curNumber);
+
+									if (numbers.size() >= kiMaxSize)
+										break;
 								}
+								curNumber += increaseNumber;
 							}
-							assert(numbers.size() > 0);
 
 							constexpr int lineAllocatedLen = 1024;
-							TCHAR *line = new TCHAR[lineAllocatedLen];
+							wchar_t *line = new wchar_t[lineAllocatedLen];
 
 							UCHAR f = format & MASK_FORMAT;
 
-							int base = 10;
+							size_t base = 10;
 							if (f == BASE_16)
 								base = 16;
 							else if (f == BASE_08)
@@ -301,10 +303,10 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 							else if (f == BASE_02)
 								base = 2;
 
-							int endNumber = *numbers.rbegin();
-							int nbEnd = getNbDigits(endNumber, base);
-							int nbInit = getNbDigits(initialNumber, base);
-							int nb = std::max<int>(nbInit, nbEnd);
+							size_t endNumber = *numbers.rbegin();
+							size_t nbEnd = getNbDigits(endNumber, base);
+							size_t nbInit = getNbDigits(initialNumber, base);
+							size_t nb = std::max<size_t>(nbInit, nbEnd);
 
 
 							for (size_t i = cursorLine ; i <= size_t(endLine) ; ++i)
@@ -318,19 +320,20 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								if (lineLen > lineAllocatedLen)
 								{
 									delete [] line;
-									line = new TCHAR[lineLen];
+									line = new wchar_t[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
-								generic_string s2r(line);
+
+								wstring s2r(line);
 
 								//
-								// Calcule generic_string
+								// Calcule wstring
 								//
-								int2str(str, stringSize, numbers.at(i - cursorLine), base, nb, getLeading());
+								variedFormatNumber2String<wchar_t>(str, stringSize, numbers.at(i - cursorLine), base, nb, getLeading());
 
 								if (lineEndCol < cursorCol)
 								{
-									generic_string s_space(cursorCol - lineEndCol, ' ');
+									wstring s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -387,7 +390,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 						{
 							ColumnEditorParam& colEditParam = NppParameters::getInstance()._columnEditParam;
 							constexpr int stringSize = MAX_PATH;
-							TCHAR str[stringSize]{};
+							wchar_t str[stringSize]{};
 
 							switch (LOWORD(wParam))
 							{
@@ -402,7 +405,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, TEXT("")) == 0)
+									if (lstrcmp(str, L"") == 0)
 									{
 										colEditParam._initialNum = -1;
 										return TRUE;
@@ -416,7 +419,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, TEXT("")) == 0)
+									if (lstrcmp(str, L"") == 0)
 									{
 										colEditParam._increaseNum = -1;
 										return TRUE;
@@ -430,7 +433,7 @@ intptr_t CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 								{
 									::GetDlgItemText(_hSelf, LOWORD(wParam), str, stringSize);
 
-									if (lstrcmp(str, TEXT("")) == 0)
+									if (lstrcmp(str, L"") == 0)
 									{
 										colEditParam._repeatNum = -1;
 										return TRUE;

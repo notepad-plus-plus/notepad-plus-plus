@@ -758,7 +758,7 @@ bool TiXmlDocumentA::LoadFile( const char* filename )
 	return false;
 }
 
-bool TiXmlDocumentA::LoadUnicodeFilePath( const TCHAR* filename )
+bool TiXmlDocumentA::LoadUnicodeFilePath( const wchar_t* filename )
 {
 	
 	// Delete the existing data:
@@ -774,11 +774,11 @@ bool TiXmlDocumentA::LoadUnicodeFilePath( const TCHAR* filename )
 	// See STL_STRING_BUG above.
 	// Fixed with the StringToBuffer class.
 
-	FILE* file = _wfopen(filename, TEXT("r"));
+	FILE* file = _wfopen(filename, L"r");
 
 	if ( file )
 	{
-		// Get the file size, so we can pre-allocate the generic_string. HUGE speed impact.
+		// Get the file size, so we can pre-allocate the string. HUGE speed impact.
 		long length = 0;
 		fseek( file, 0, SEEK_END );
 		length = ftell( file );
@@ -829,10 +829,10 @@ bool TiXmlDocumentA::SaveFile( const char * filename ) const
 	}
 	return false;
 }
-bool TiXmlDocumentA::SaveUnicodeFilePath( const TCHAR* filename ) const
+bool TiXmlDocumentA::SaveUnicodeFilePath( const wchar_t* filename ) const
 {
 	// The old c stuff lives on...
-	FILE* fp = _wfopen( filename, TEXT("wc") );
+	FILE* fp = _wfopen( filename, L"wc" );
 	if ( fp )
 	{
 		Print( fp, 0 );

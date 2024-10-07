@@ -25,7 +25,7 @@ class SmartHighlighter {
 public:
 	explicit SmartHighlighter(FindReplaceDlg * pFRDlg);
 	void highlightView(ScintillaEditView * pHighlightView, ScintillaEditView * unfocusView);
-	void highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite);
+	void highlightViewWithWord(ScintillaEditView * pHighlightView, const std::wstring & word2Hilite);
 
 private:
 	FindReplaceDlg * _pFRDlg = nullptr;

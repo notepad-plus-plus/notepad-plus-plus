@@ -47,7 +47,12 @@ public:
 	static void initDpiAPI();
 
 	static int getSystemMetricsForDpi(int nIndex, UINT dpi);
+	int getSystemMetricsForDpi(int nIndex) const {
+		return getSystemMetricsForDpi(nIndex, _dpi);
+	}
 	static DPI_AWARENESS_CONTEXT setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
+	static BOOL adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
+
 
 	static UINT getDpiForSystem();
 	static UINT getDpiForWindow(HWND hWnd);
@@ -82,8 +87,8 @@ public:
 
 	static void setPositionDpi(LPARAM lParam, HWND hWnd, UINT flags = SWP_NOZORDER | SWP_NOACTIVATE);
 
-	static int scale(int x, UINT dpi, UINT dpi2) {
-		return MulDiv(x, dpi, dpi2);
+	static int scale(int x, UINT toDpi, UINT fromDpi) {
+		return MulDiv(x, toDpi, fromDpi);
 	}
 
 	static int scale(int x, UINT dpi) {
@@ -102,28 +107,12 @@ public:
 		return scale(x, USER_DEFAULT_SCREEN_DPI, getDpiForWindow(hWnd));
 	}
 
-	int scale(int x) {
+	int scale(int x) const {
 		return scale(x, _dpi);
 	}
 
-	int unscale(int x) {
+	int unscale(int x) const {
 		return unscale(x, _dpi);
-	}
-
-	int scaleX(int x) {
-		return scale(x);
-	}
-
-	int unscaleX(int x) {
-		return unscale(x);
-	}
-
-	int scaleY(int y) {
-		return scale(y);
-	}
-
-	int unscaleY(int y) {
-		return unscale(y);
 	}
 
 	static int scaleFont(int pt, UINT dpi) {
@@ -134,7 +123,7 @@ public:
 		return -(scale(pt, getDpiForWindow(hWnd), 72));
 	}
 
-	int scaleFont(int pt) {
+	int scaleFont(int pt) const {
 		return scaleFont(pt, _dpi);
 	}
 
@@ -142,9 +131,11 @@ public:
 	static LOGFONT getDefaultGUIFontForDpi(HWND hWnd, FontType type = FontType::message) {
 		return getDefaultGUIFontForDpi(getDpiForWindow(hWnd), type);
 	}
+	LOGFONT getDefaultGUIFontForDpi(FontType type = FontType::message) const {
+		return getDefaultGUIFontForDpi(_dpi, type);
+	}
 
-	static void sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam);
-	static void loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad = LR_DEFAULTCOLOR);
+	static void loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad = LR_DEFAULTCOLOR);
 
 private:
 	UINT _dpi = USER_DEFAULT_SCREEN_DPI;

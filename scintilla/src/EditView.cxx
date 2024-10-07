@@ -480,7 +480,7 @@ void EditView::LayoutLine(const EditModel &model, Surface *surface, const ViewSt
 		bool lastSegItalics = false;
 
 		std::vector<TextSegment> segments;
-		BreakFinder bfLayout(ll, nullptr, Range(0, numCharsInLine), posLineStart, 0, BreakFinder::BreakFor::Text, model.pdoc, &model.reprs, nullptr);
+		BreakFinder bfLayout(ll, nullptr, Range(0, numCharsInLine), posLineStart, 0, BreakFinder::BreakFor::Text, model.pdoc, model.reprs.get(), nullptr);
 		while (bfLayout.More()) {
 			segments.push_back(bfLayout.Next());
 		}
@@ -611,7 +611,7 @@ void EditView::UpdateBidiData(const EditModel &model, const ViewStyle &vstyle, L
 
 		for (int charsInLine = 0; charsInLine < ll->numCharsInLine; charsInLine++) {
 			const int charWidth = UTF8DrawBytes(&ll->chars[charsInLine], ll->numCharsInLine - charsInLine);
-			const Representation *repr = model.reprs.RepresentationFromCharacter(std::string_view(&ll->chars[charsInLine], charWidth));
+			const Representation *repr = model.reprs->RepresentationFromCharacter(std::string_view(&ll->chars[charsInLine], charWidth));
 
 			ll->bidiData->widthReprs[charsInLine] = 0.0f;
 			if (repr && ll->chars[charsInLine] != '\t') {
@@ -844,8 +844,16 @@ ColourRGBA SelectionBackground(const EditModel &model, const ViewStyle &vsDraw, 
 		element = Element::SelectionAdditionalBack;
 	if (!model.primarySelection)
 		element = Element::SelectionSecondaryBack;
-	if (!model.hasFocus && vsDraw.ElementColour(Element::SelectionInactiveBack))
-		element = Element::SelectionInactiveBack;
+	if (!model.hasFocus) {
+		if (inSelection == InSelection::inAdditional) {
+			if (ColourOptional colour = vsDraw.ElementColour(Element::SelectionInactiveAdditionalBack)) {
+				return *colour;
+			}
+		}
+		if (ColourOptional colour = vsDraw.ElementColour(Element::SelectionInactiveBack)) {
+			return *colour;
+		}
+	}
 	return vsDraw.ElementColour(element).value_or(colourBug);
 }
 
@@ -858,11 +866,12 @@ ColourOptional SelectionForeground(const EditModel &model, const ViewStyle &vsDr
 	if (!model.primarySelection)	// Secondary selection
 		element = Element::SelectionSecondaryText;
 	if (!model.hasFocus) {
-		if (vsDraw.ElementColour(Element::SelectionInactiveText)) {
-			element = Element::SelectionInactiveText;
-		} else {
-			return {};
+		if (inSelection == InSelection::inAdditional) {
+			if (ColourOptional colour = vsDraw.ElementColour(Element::SelectionInactiveAdditionalText)) {
+				return colour;
+			}
 		}
+		element = Element::SelectionInactiveText;
 	}
 	return vsDraw.ElementColour(element);
 }
@@ -998,12 +1007,12 @@ void EditView::DrawEOL(Surface *surface, const EditModel &model, const ViewStyle
 			std::string_view ctrlChar;
 			Sci::Position widthBytes = 1;
 			RepresentationAppearance appearance = RepresentationAppearance::Blob;
-			const Representation *repr = model.reprs.RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], ll->numCharsInLine - eolPos));
+			const Representation *repr = model.reprs->RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], ll->numCharsInLine - eolPos));
 			if (repr) {
 				// Representation of whole text
 				widthBytes = ll->numCharsInLine - eolPos;
 			} else {
-				repr = model.reprs.RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], 1));
+				repr = model.reprs->RepresentationFromCharacter(std::string_view(&ll->chars[eolPos], 1));
 			}
 			if (repr) {
 				ctrlChar = repr->stringRep;
@@ -1657,7 +1666,7 @@ void DrawBackground(Surface *surface, const EditModel &model, const ViewStyle &v
 	const XYPOSITION xStartVisible = subLineStart - xStart;
 
 	const BreakFinder::BreakFor breakFor = selBackDrawn ? BreakFinder::BreakFor::Selection : BreakFinder::BreakFor::Text;
-	BreakFinder bfBack(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, &model.reprs, &vsDraw);
+	BreakFinder bfBack(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, model.reprs.get(), &vsDraw);
 
 	const bool drawWhitespaceBackground = vsDraw.WhitespaceBackgroundDrawn() && !background;
 
@@ -1744,7 +1753,7 @@ void DrawEdgeLine(Surface *surface, const ViewStyle &vsDraw, const LineLayout *l
 void DrawMarkUnderline(Surface *surface, const EditModel &model, const ViewStyle &vsDraw,
 	Sci::Line line, PRectangle rcLine) {
 	int marks = model.GetMark(line);
-	for (int markBit = 0; (markBit < 32) && marks; markBit++) {
+	for (int markBit = 0; (markBit <= MarkerMax) && marks; markBit++) {
 		if ((marks & 1) && (vsDraw.markers[markBit].markType == MarkerSymbol::Underline) &&
 			(vsDraw.markers[markBit].layer == Layer::Base)) {
 			PRectangle rcUnderline = rcLine;
@@ -1864,7 +1873,7 @@ void DrawTranslucentLineState(Surface *surface, const EditModel &model, const Vi
 	}
 	const int marksOfLine = model.GetMark(line);
 	int marksDrawnInText = marksOfLine & vsDraw.maskDrawInText;
-	for (int markBit = 0; (markBit < 32) && marksDrawnInText; markBit++) {
+	for (int markBit = 0; (markBit <= MarkerMax) && marksDrawnInText; markBit++) {
 		if ((marksDrawnInText & 1) && (vsDraw.markers[markBit].layer == layer)) {
 			if (vsDraw.markers[markBit].markType == MarkerSymbol::Background) {
 				surface->FillRectangleAligned(rcLine, vsDraw.markers[markBit].BackWithAlpha());
@@ -1877,7 +1886,7 @@ void DrawTranslucentLineState(Surface *surface, const EditModel &model, const Vi
 		marksDrawnInText >>= 1;
 	}
 	int marksDrawnInLine = marksOfLine & vsDraw.maskInLine;
-	for (int markBit = 0; (markBit < 32) && marksDrawnInLine; markBit++) {
+	for (int markBit = 0; (markBit <= MarkerMax) && marksDrawnInLine; markBit++) {
 		if ((marksDrawnInLine & 1) && (vsDraw.markers[markBit].layer == layer)) {
 			surface->FillRectangleAligned(rcLine, vsDraw.markers[markBit].BackWithAlpha());
 		}
@@ -2128,7 +2137,7 @@ void EditView::DrawForeground(Surface *surface, const EditModel &model, const Vi
 	// Foreground drawing loop
 	const BreakFinder::BreakFor breakFor = (((phasesDraw == PhasesDraw::One) && selBackDrawn) || vsDraw.SelectionTextDrawn())
 		? BreakFinder::BreakFor::ForegroundAndSelection : BreakFinder::BreakFor::Foreground;
-	BreakFinder bfFore(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, &model.reprs, &vsDraw);
+	BreakFinder bfFore(ll, &model.sel, lineRange, posLineStart, xStartVisible, breakFor, model.pdoc, model.reprs.get(), &vsDraw);
 
 	while (bfFore.More()) {
 

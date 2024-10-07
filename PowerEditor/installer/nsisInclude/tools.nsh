@@ -208,3 +208,62 @@ Function writeInstallInfoInRegistry
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 FunctionEnd
 
+
+!define RUNPROC_WND_CLASS "Notepad++"
+!define RUNPROC_WAIT_FOR_EXIT_MAX_MS 5000 ;  5 seconds max
+!define RUNPROC_SYNC_TERM 0x00100001 ; dwDesiredAccess ... PROCESS_TERMINATE | SYNCHRONIZE
+!include WinMessages.nsh
+
+!macro FindAndCloseOrTerminateRunningNpp
+	; to not influence the global NSIS vars used here, push them on the stack and pop them out at the end 
+	Push $0 ; running process main HWND
+	Push $1 ; result of the waiting for the running process object
+	Push $2 ; running process HANDLE
+	Push $3 ; possible WIN32 error code (the GetLastError() result)
+
+  findRunningProcessByClassName:
+	FindWindow $0 '${RUNPROC_WND_CLASS}' ''
+	IntPtrCmp $0 0 processNotRunning
+	IsWindow $0 0 processNotRunning
+
+	IfSilent skipDetailPrint 0
+	DetailPrint "Closing the ${RUNPROC_WND_CLASS} app running..."
+  skipDetailPrint:
+
+	System::Call 'user32.dll::GetWindowThreadProcessId(i r0, *i .r1) i .r2'
+	System::Call 'kernel32.dll::OpenProcess(i ${RUNPROC_SYNC_TERM}, i 0, i r1) p .r2 ?e' ; ?e ... the NSIS system plugin will additionally put the GetLastError() code on top of the stack
+	pop $3 ; a possible WIN32 error code will be here
+	IntPtrCmp $2 0 openProcessFail
+
+	System::Call 'user32.dll::PostMessage(i $0, i ${WM_CLOSE}, i 0, i 0)'
+	System::Call 'kernel32.dll::WaitForSingleObject(i r2, i ${RUNPROC_WAIT_FOR_EXIT_MAX_MS}) i .r1'
+	IntCmp $1 0 closeProcessHandle ; 0 == WAIT_OBJECT_0 (signaled state of the process to close...)
+
+	; process could not be stopped by the usual WM_CLOSE way, so use a hard termination instead
+	IfSilent terminateProcess 0
+	MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION "Installer cannot stop the running ${RUNPROC_WND_CLASS} by usual closing request.$\n$\nDo you want to forcefully terminate that process?" /SD IDYES IDYES terminateProcess IDNO closeProcessHandle
+	; cancel was selected, so close the opened running process handle and quit immediately
+	System::Call 'kernel32.dll::CloseHandle(i r2) i .r1'
+	SetErrorLevel 5 ; set an exit code > 0 otherwise the installer returns 0 aka SUCCESS (5 == ERROR_ACCESS_DENIED)
+	Quit ; installer will end
+
+  terminateProcess:
+	System::Call 'kernel32.dll::TerminateProcess(i r2, i 0) i .r1'
+
+  closeProcessHandle:
+	System::Call 'kernel32.dll::CloseHandle(i r2) i .r1'
+	goto findRunningProcessByClassName ; loop, we need to check for all the possible instances of the process running
+
+  openProcessFail:
+	IfSilent skipOpenProcessFailMessage 0
+	MessageBox MB_OK|MB_ICONSTOP "Installer cannot stop the running ${RUNPROC_WND_CLASS}.\n\nOpenProcess WINAPI failed! (error code: $3)"
+  skipOpenProcessFailMessage:
+	SetErrorLevel $3 ; set an exit code > 0 otherwise the installer returns 0 aka SUCCESS
+	Quit ; installer will end
+
+  processNotRunning:
+	Pop $3
+	Pop $2
+	Pop $1
+	Pop $0
+!macroend

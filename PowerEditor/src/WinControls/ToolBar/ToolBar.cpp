@@ -22,11 +22,13 @@
 #include "FindReplaceDlg_rc.h"
 #include "NppDarkMode.h"
 
-const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
+using namespace std;
+
+constexpr DWORD WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT | CCS_TOP | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
 struct ToolbarIconIdUnit
 {
-	generic_string _id;
+	wstring _id;
 	bool hasDisabledIcon = false;
 };
 
@@ -67,31 +69,31 @@ ToolbarIconIdUnit toolbarIconIDs[] = {
 
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 {
-    _toolIcons =  toolIconsDocRoot->FirstChild(TEXT("NotepadPlus"));
+    _toolIcons =  toolIconsDocRoot->FirstChild(L"NotepadPlus");
 	if (_toolIcons)
 	{
-		_toolIcons = _toolIcons->FirstChild(TEXT("ToolBarIcons"));
+		_toolIcons = _toolIcons->FirstChild(L"ToolBarIcons");
 		if (_toolIcons)
 		{
-			generic_string iconFolderDir = NppParameters::getInstance().getUserPath();
-			generic_string toolbarIconsRootFolderName = TEXT("toolbarIcons");
+			wstring iconFolderDir = NppParameters::getInstance().getUserPath();
+			wstring toolbarIconsRootFolderName = L"toolbarIcons";
 			pathAppend(iconFolderDir, toolbarIconsRootFolderName);
-			generic_string folderName = (_toolIcons->ToElement())->Attribute(TEXT("icoFolderName"));
+			wstring folderName = (_toolIcons->ToElement())->Attribute(L"icoFolderName");
 			if (folderName.empty())
-				folderName = TEXT("default");
+				folderName = L"default";
 
 			pathAppend(iconFolderDir, folderName);
 
 			size_t i = 0;
-			generic_string disabled_suffix = L"_disabled";
-			generic_string ext = L".ico";
-			for (ToolbarIconIdUnit icoUnit : toolbarIconIDs)
+			wstring disabled_suffix = L"_disabled";
+			wstring ext = L".ico";
+			for (const ToolbarIconIdUnit& icoUnit : toolbarIconIDs)
 			{
-				generic_string locator = iconFolderDir;
+				wstring locator = iconFolderDir;
 				locator += L"\\";
 				locator += icoUnit._id;
 				locator += ext;
-				if (::PathFileExists(locator.c_str()))
+				if (doesFileExist(locator.c_str()))
 				{
 					_customIconVect.push_back(iconLocator(HLIST_DEFAULT, i, locator));
 					_customIconVect.push_back(iconLocator(HLIST_DEFAULT2, i, locator));
@@ -101,12 +103,12 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 
 				if (icoUnit.hasDisabledIcon)
 				{
-					generic_string locator_dis = iconFolderDir;
+					wstring locator_dis = iconFolderDir;
 					locator_dis += L"\\";
 					locator_dis += icoUnit._id;
 					locator_dis += disabled_suffix;
 					locator_dis += ext;
-					if (::PathFileExists(locator_dis.c_str()))
+					if (doesFileExist(locator_dis.c_str()))
 					{
 						_customIconVect.push_back(iconLocator(HLIST_DISABLE, i, locator_dis));
 						_customIconVect.push_back(iconLocator(HLIST_DISABLE2, i, locator_dis));
@@ -125,7 +127,10 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	Window::init(hInst, hPere);
 	
 	_state = type;
-	int iconSize = NppParameters::getInstance()._dpiManager.scaleX(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
+
+	_dpiManager.setDpi(hPere);
+
+	int iconSize = _dpiManager.scale(_state == TB_LARGE || _state == TB_LARGE2 ? 32 : 16);
 
 	_toolBarIcons.init(buttonUnitArray, arraySize, _vDynBtnReg);
 	_toolBarIcons.create(_hInst, iconSize);
@@ -142,30 +147,44 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	_pTBB = new TBBUTTON[_nbTotalButtons];	//add one for the extra separator
 
 	int cmd = 0;
-	int bmpIndex = -1, style;
+	int bmpIndex = -1;
+	BYTE style = 0;
 	size_t i = 0;
-	for (; i < _nbButtons ; ++i)
+	for (; i < _nbButtons && i < _nbTotalButtons; ++i)
 	{
 		cmd = buttonUnitArray[i]._cmdID;
-		if (cmd != 0)
+		switch (cmd)
 		{
-			++bmpIndex;
-			style = BTNS_BUTTON;
-		}
-		else
-		{
-			style = BTNS_SEP;
+			case 0:
+			{
+				style = BTNS_SEP;
+				break;
+			}
+
+			case IDM_VIEW_ALL_CHARACTERS:
+			{
+				++bmpIndex;
+				style = BTNS_DROPDOWN;
+				break;
+			}
+
+			default:
+			{
+				++bmpIndex;
+				style = BTNS_BUTTON;
+				break;
+			}
 		}
 
 		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
 		_pTBB[i].idCommand = cmd;
 		_pTBB[i].fsState = TBSTATE_ENABLED;
-		_pTBB[i].fsStyle = (BYTE)style; 
+		_pTBB[i].fsStyle = style;
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 	}
 
-	if (_nbDynButtons > 0)
+	if (_nbDynButtons > 0 && i < _nbTotalButtons)
 	{
 		//add separator
 		_pTBB[i].iBitmap = 0;
@@ -177,7 +196,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		++i;
 
 		//add plugin buttons
-		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
+		for (size_t j = 0; j < _nbDynButtons && i < _nbTotalButtons; ++j, ++i)
 		{
 			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
@@ -231,7 +250,7 @@ int ToolBar::getHeight() const
 
 void ToolBar::reduce() 
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	int iconDpiDynamicalSize = _dpiManager.scale(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_SMALL);
 	reset(true);	//recreate toolbar if previous state was Std icons or Big icons
@@ -240,7 +259,7 @@ void ToolBar::reduce()
 
 void ToolBar::enlarge()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	int iconDpiDynamicalSize = _dpiManager.scale(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE);
 	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
@@ -249,7 +268,7 @@ void ToolBar::enlarge()
 
 void ToolBar::reduceToSet2()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+	int iconDpiDynamicalSize = _dpiManager.scale(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 
 	setState(TB_SMALL2);
@@ -259,7 +278,7 @@ void ToolBar::reduceToSet2()
 
 void ToolBar::enlargeToSet2()
 {
-	int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(32);
+	int iconDpiDynamicalSize = _dpiManager.scale(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
 	setState(TB_LARGE2);
 	reset(true);	//recreate toolbar if previous state was Std icons or Small icons
@@ -300,7 +319,7 @@ void ToolBar::reset(bool create)
 		_hSelf = ::CreateWindowEx(
 			WS_EX_PALETTEWINDOW,
 			TOOLBARCLASSNAME,
-			TEXT(""),
+			L"",
 			WS_TOOLBARSTYLE | dwExtraStyle,
 			0, 0,
 			0, 0,
@@ -314,7 +333,7 @@ void ToolBar::reset(bool create)
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
-		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_HIDECLIPPEDBUTTONS);
+		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_DRAWDDARROWS | TBSTYLE_EX_HIDECLIPPEDBUTTONS | TBSTYLE_EX_DOUBLEBUFFER);
 		
 		change2CustomIconsIfAny();
 	}
@@ -339,11 +358,6 @@ void ToolBar::reset(bool create)
 			{
 				setDefaultImageListDM();
 				setDisableImageListDM();
-
-				if (NppDarkMode::isWindows11())
-				{
-					setHoveredImageListDM();
-				}
 			}
 			else
 			{
@@ -357,11 +371,6 @@ void ToolBar::reset(bool create)
 			{
 				setDefaultImageListDM2();
 				setDisableImageListDM2();
-
-				if (NppDarkMode::isWindows11())
-				{
-					setHoveredImageListDM2();
-				}
 			}
 			else
 			{
@@ -373,7 +382,7 @@ void ToolBar::reset(bool create)
 	else
 	{
 		//Else set the internal imagelist with standard bitmaps
-		int iconDpiDynamicalSize = NppParameters::getInstance()._dpiManager.scaleX(16);
+		int iconDpiDynamicalSize = _dpiManager.scale(16);
 		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
 
 		TBADDBITMAP addbmp = { 0, 0 };
@@ -398,7 +407,7 @@ void ToolBar::reset(bool create)
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
 		_nbCurrentButtons = _nbTotalButtons;
-		WORD btnSize = (_state == TB_LARGE ? 32 : 16);
+		WORD btnSize = static_cast<WORD>(_dpiManager.scale((_state == TB_LARGE || _state == TB_LARGE2) ? 32 : 16));
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, _nbTotalButtons, reinterpret_cast<LPARAM>(_pTBB));
 	}
@@ -490,7 +499,7 @@ void ToolBar::doPopop(POINT chevPoint)
 	if (start < _nbCurrentButtons)
 	{	//some buttons are hidden
 		HMENU menu = ::CreatePopupMenu();
-		generic_string text;
+		wstring text;
 		while (start < _nbCurrentButtons)
 		{
 			int cmd = _pTBB[start].idCommand;
@@ -502,12 +511,20 @@ void ToolBar::doPopop(POINT chevPoint)
 				else
 					AppendMenu(menu, MF_DISABLED|MF_GRAYED, cmd, text.c_str());
 			} else
-				AppendMenu(menu, MF_SEPARATOR, 0, TEXT(""));
+				AppendMenu(menu, MF_SEPARATOR, 0, L"");
 			
 			++start;
 		}
 		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);
 	}
+}
+
+void ToolBar::resizeIconsDpi(UINT dpi)
+{
+	_dpiManager.setDpi(dpi);
+	const int iconDpiDynamicalSize = _dpiManager.scale((_state == TB_LARGE || _state == TB_LARGE2) ? 32 : 16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	reset(true);
 }
 
 void ToolBar::addToRebar(ReBar * rebar) 

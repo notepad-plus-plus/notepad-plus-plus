@@ -109,7 +109,7 @@ protected:
 	std::string m_LineFeed;
 };
 
-LexerModule lmX12(SCLEX_X12, LexerX12::Factory, "x12");
+extern const LexerModule lmX12(SCLEX_X12, LexerX12::Factory, "x12");
 
 ///////////////////////////////////////////////////////////////////////////////
 

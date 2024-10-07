@@ -27,6 +27,7 @@
 #include <windows.h>
 #include <commctrl.h>
 #include "Window.h"
+#include "dpiManagerV2.h"
 
 //Notification message
 #define TCN_TABDROPPED (TCN_FIRST - 10)
@@ -41,10 +42,22 @@
 const int marge = 8;
 const int nbCtrlMax = 10;
 
-const TCHAR TABBAR_ACTIVEFOCUSEDINDCATOR[64] = TEXT("Active tab focused indicator");
-const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = TEXT("Active tab unfocused indicator");
-const TCHAR TABBAR_ACTIVETEXT[64] = TEXT("Active tab text");
-const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
+const wchar_t TABBAR_ACTIVEFOCUSEDINDCATOR[64] = L"Active tab focused indicator";
+const wchar_t TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = L"Active tab unfocused indicator";
+const wchar_t TABBAR_ACTIVETEXT[64] = L"Active tab text";
+const wchar_t TABBAR_INACTIVETEXT[64] = L"Inactive tabs";
+
+const wchar_t TABBAR_INDIVIDUALCOLOR_1[64] = L"Tab color 1";
+const wchar_t TABBAR_INDIVIDUALCOLOR_2[64] = L"Tab color 2";
+const wchar_t TABBAR_INDIVIDUALCOLOR_3[64] = L"Tab color 3";
+const wchar_t TABBAR_INDIVIDUALCOLOR_4[64] = L"Tab color 4";
+const wchar_t TABBAR_INDIVIDUALCOLOR_5[64] = L"Tab color 5";
+
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_1[64] = L"Tab color dark mode 1";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_2[64] = L"Tab color dark mode 2";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_3[64] = L"Tab color dark mode 3";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_4[64] = L"Tab color dark mode 4";
+const wchar_t TABBAR_INDIVIDUALCOLOR_DM_5[64] = L"Tab color dark mode 5";
 
 constexpr int g_TabIconSize = 16;
 constexpr int g_TabHeight = 22;
@@ -52,6 +65,7 @@ constexpr int g_TabHeightLarge = 25;
 constexpr int g_TabWidth = 45;
 constexpr int g_TabWidthCloseBtn = 60;
 constexpr int g_TabCloseBtnSize = 11;
+constexpr int g_TabCloseBtnSize_DM = 16;
 
 struct TBHDR
 {
@@ -69,9 +83,9 @@ public:
 	void destroy() override;
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 	void reSizeTo(RECT& rc2Ajust) override;
-	int insertAtEnd(const TCHAR *subTabName);
+	int insertAtEnd(const wchar_t *subTabName);
 	void activateAt(int index) const;
-	void getCurrentTitle(TCHAR *title, int titleLen);
+	void getCurrentTitle(wchar_t *title, int titleLen);
 
 	int32_t getCurrentTabIndex() const {
 		return static_cast<int32_t>(SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
@@ -94,7 +108,7 @@ public:
         return _nbItem;
     }
 
-	void setFont(const TCHAR *fontName, int fontSize);
+	void setFont();
 
 	void setVertical(bool b) {
 		_isVertical = b;
@@ -110,9 +124,12 @@ public:
 
 	int getNextOrPrevTabIdx(bool isNext) const;
 
+	DPIManagerV2& dpiManager() { return _dpiManager; };
+
 protected:
 	size_t _nbItem = 0;
 	bool _hasImgLst = false;
+
 	HFONT _hFont = nullptr;
 	HFONT _hLargeFont = nullptr;
 	HFONT _hVerticalFont = nullptr;
@@ -123,6 +140,8 @@ protected:
 	bool _isVertical = false;
 	bool _isMultiLine = false;
 
+	DPIManagerV2 _dpiManager;
+
 	long getRowCount() const {
 		return long(::SendMessage(_hSelf, TCM_GETROWCOUNT, 0, 0));
 	}
@@ -131,10 +150,11 @@ protected:
 
 struct CloseButtonZone
 {
-	CloseButtonZone();
 	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
 	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
+	void setParent(HWND parent) { _parent = parent; }
 
+	HWND _parent = nullptr;
 	int _width = 0;
 	int _height = 0;
 };
@@ -147,6 +167,10 @@ public :
 	TabBarPlus() = default;
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
+	};
+
+	enum individualTabColourId {
+		id0, id1, id2, id3, id4, id5, id6, id7, id8, id9
 	};
 
 	static void doDragNDrop(bool justDoIt) {
@@ -170,30 +194,30 @@ public :
 		_draggingPoint.y = 0;
 	};
 
-	static void doOwnerDrawTab();
+	static void doOwnerDrawTab(TabBarPlus* tbpObj);
 	static void doVertical();
 	static void doMultiLine();
-	static bool isOwnerDrawTab() {return true;};
 	static bool drawTopBar() {return _drawTopBar;};
 	static bool drawInactiveTab() {return _drawInactiveTab;};
 	static bool drawTabCloseButton() {return _drawTabCloseButton;};
 	static bool isDbClk2Close() {return _isDbClk2Close;};
 	static bool isVertical() { return _isCtrlVertical;};
 	static bool isMultiLine() { return _isCtrlMultiLine;};
+	static bool isReduced() { return _isReduced;};
 
-	static void setDrawTopBar(bool b) {
+	static void setDrawTopBar(bool b, TabBarPlus* tbpObj) {
 		_drawTopBar = b;
-		doOwnerDrawTab();
+		doOwnerDrawTab(tbpObj);
 	}
 
-	static void setDrawInactiveTab(bool b) {
+	static void setDrawInactiveTab(bool b, TabBarPlus* tbpObj) {
 		_drawInactiveTab = b;
-		doOwnerDrawTab();
+		doOwnerDrawTab(tbpObj);
 	}
 
-	static void setDrawTabCloseButton(bool b) {
+	static void setDrawTabCloseButton(bool b, TabBarPlus* tbpObj) {
 		_drawTabCloseButton = b;
-		doOwnerDrawTab();
+		doOwnerDrawTab(tbpObj);
 	}
 
 	static void setDbClk2Close(bool b) {
@@ -210,11 +234,17 @@ public :
 		doMultiLine();
 	}
 
-	static void setColour(COLORREF colour2Set, tabColourIndex i);
-	virtual int getIndividualTabColour(int tabIndex) = 0;
+	static void setReduced(bool b) {
+		_isReduced = b;
+	}
+
+	static void setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tbpObj);
+	virtual int getIndividualTabColourId(int tabIndex) = 0;
 
 	void currentTabToStart();
 	void currentTabToEnd();
+
+	void setCloseBtnImageList();
 
 protected:
     // it's the boss to decide if we do the drag N drop
@@ -234,6 +264,7 @@ protected:
 	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
 	CloseButtonZone _closeButtonZone;
+	HIMAGELIST _hCloseBtnImgLst = nullptr;
 	bool _isCloseHover = false;
 	int _whichCloseClickDown = -1;
 	bool _lmbdHit = false; // Left Mouse Button Down Hit
@@ -256,6 +287,7 @@ protected:
 	static bool _isDbClk2Close;
 	static bool _isCtrlVertical;
 	static bool _isCtrlMultiLine;
+	static bool _isReduced;
 
 	static COLORREF _activeTextColour;
 	static COLORREF _activeTopBarFocusedColour;

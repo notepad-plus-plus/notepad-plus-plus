@@ -504,4 +504,4 @@ static const char *const tcmdWordListDesc[] = {
 	0
 };
 
-LexerModule lmTCMD(SCLEX_TCMD, ColouriseTCMDDoc, "tcmd", FoldTCMDDoc, tcmdWordListDesc);
+extern const LexerModule lmTCMD(SCLEX_TCMD, ColouriseTCMDDoc, "tcmd", FoldTCMDDoc, tcmdWordListDesc);

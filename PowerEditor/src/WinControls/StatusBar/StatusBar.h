@@ -40,8 +40,8 @@ public:
 
 	int getHeight() const override;
 
-    bool setText(const TCHAR* str, int whichPart);
-	bool setOwnerDrawText(const TCHAR* str);
+    bool setText(const wchar_t* str, int whichPart);
+	bool setOwnerDrawText(const wchar_t* str);
 	void adjustParts(int clientWidth);
 
 
@@ -51,6 +51,6 @@ private:
 private:
     std::vector<int> _partWidthArray;
 	int *_lpParts = nullptr;
-	generic_string _lastSetText;
+	std::wstring _lastSetText;
 	StatusBarSubclassInfo* _pStatusBarInfo = nullptr;
 };

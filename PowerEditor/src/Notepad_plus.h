@@ -225,11 +225,11 @@ public:
 	//! \name File Operations
 	//@{
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
-	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, FILETIME fileNameTimestamp = {});
+	BufferID doOpen(const std::wstring& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const wchar_t *backupFileName = NULL, FILETIME fileNameTimestamp = {});
 	bool doReload(BufferID id, bool alert = true);
-	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
+	bool doSave(BufferID, const wchar_t * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
-	//bool doDelete(const TCHAR *fileName) const {return ::DeleteFile(fileName) != 0;};
+	//bool doDelete(const wchar_t *fileName) const {return ::DeleteFile(fileName) != 0;};
 
 	void fileOpen();
 	void fileNew();
@@ -244,16 +244,17 @@ public:
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAllConfirm();
 	bool fileSaveAll();
-	bool fileSaveSpecific(const generic_string& fileNameToSave);
+	bool fileSaveSpecific(const std::wstring& fileNameToSave);
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
+	bool fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNewName);
 
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
 	//@}
 
-	bool isFileSession(const TCHAR * filename);
-	bool isFileWorkspace(const TCHAR * filename);
+	bool isFileSession(const wchar_t * filename);
+	bool isFileWorkspace(const wchar_t * filename);
 	void filePrint(bool showDialog);
 	void saveScintillasZoom();
 
@@ -270,9 +271,9 @@ public:
 
 	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
 
-	bool fileLoadSession(const TCHAR* fn = nullptr);
-	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save, bool includeFileBrowser = false);
-	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR** fileNames = nullptr);
+	bool fileLoadSession(const wchar_t* fn = nullptr);
+	const wchar_t * fileSaveSession(size_t nbFile, wchar_t ** fileNames, const wchar_t *sessionFile2save, bool includeFileBrowser = false);
+	const wchar_t * fileSaveSession(size_t nbFile = 0, wchar_t** fileNames = nullptr);
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
@@ -288,25 +289,25 @@ public:
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFinderFiles(FindersInfo *findInFolderInfo);
 
-	bool createFilelistForFiles(std::vector<generic_string> & fileNames);
-	bool createFilelistForProjects(std::vector<generic_string> & fileNames);
+	bool createFilelistForFiles(std::vector<std::wstring> & fileNames);
+	bool createFilelistForProjects(std::vector<std::wstring> & fileNames);
 	bool findInFiles();
 	bool findInProjects();
-	bool findInFilelist(std::vector<generic_string> & fileList);
+	bool findInFilelist(std::vector<std::wstring> & fileList);
 	bool replaceInFiles();
 	bool replaceInProjects();
-	bool replaceInFilelist(std::vector<generic_string> & fileList);
+	bool replaceInFilelist(std::vector<std::wstring> & fileList);
 
-	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
-	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
-	std::vector<generic_string> addNppPlugins(const TCHAR *extFilterName, const TCHAR *extFilter);
-    int getHtmlXmlEncoding(const TCHAR *fileName) const;
+	void setFindReplaceFolderFilter(const wchar_t *dir, const wchar_t *filters);
+	std::vector<std::wstring> addNppComponents(const wchar_t *destDir, const wchar_t *extFilterName, const wchar_t *extFilter);
+	std::vector<std::wstring> addNppPlugins(const wchar_t *extFilterName, const wchar_t *extFilter);
+    int getHtmlXmlEncoding(const wchar_t *fileName) const;
 
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
 	};
 
-	bool emergency(const generic_string& emergencySavedDir);
+	bool emergency(const std::wstring& emergencySavedDir);
 
 	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
@@ -317,7 +318,7 @@ public:
 	void showQuoteFromIndex(int index) const;
 	void showQuote(const QuoteParams* quote) const;
 
-	generic_string getPluginListVerStr() const {
+	std::wstring getPluginListVerStr() const {
 		return _pluginsAdminDlg.getPluginListVerStr();
 	};
 
@@ -357,12 +358,8 @@ private:
 	ContextMenu _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
-	IconList _docTabIconList;
-	IconList _docTabIconListAlt;
-	IconList _docTabIconListDarkMode;
 
     StatusBar _statusBar;
-	bool _toReduceTabBar = false;
 	ReBar _rebarTop;
 	ReBar _rebarBottom;
 
@@ -524,10 +521,10 @@ private:
 	void performPostReload(int whichOne);
 //END: Document management
 
-	int doSaveOrNot(const TCHAR *fn, bool isMulti = false);
-	int doReloadOrNot(const TCHAR *fn, bool dirty);
-	int doCloseOrNot(const TCHAR *fn);
-	int doDeleteOrNot(const TCHAR *fn);
+	int doSaveOrNot(const wchar_t *fn, bool isMulti = false);
+	int doReloadOrNot(const wchar_t *fn, bool dirty);
+	int doCloseOrNot(const wchar_t *fn);
+	int doDeleteOrNot(const wchar_t *fn);
 	int doSaveAll();
 
 	void enableMenu(int cmdID, bool doEnable) const;
@@ -547,7 +544,7 @@ private:
 	void enableConvertMenuItems(EolType f) const;
 	void checkUnicodeMenuItems() const;
 
-	generic_string getLangDesc(LangType langType, bool getName = false);
+	std::wstring getLangDesc(LangType langType, bool getName = false);
 
 	void setLangStatus(LangType langType);
 
@@ -567,7 +564,7 @@ private:
 
 	bool isConditionExprLine(intptr_t lineNumber);
 	intptr_t findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
-	void maintainIndentation(TCHAR ch);
+	void maintainIndentation(wchar_t ch);
 
 	void addHotSpot(ScintillaEditView* view = nullptr);
 
@@ -613,8 +610,8 @@ private:
 	void pasteToMarkedLines();
 	void deleteMarkedline(size_t ln);
 	void inverseMarks();
-	void replaceMarkedline(size_t ln, const TCHAR *str);
-	generic_string getMarkedLine(size_t ln);
+	void replaceMarkedline(size_t ln, const wchar_t *str);
+	std::wstring getMarkedLine(size_t ln);
     void findMatchingBracePos(intptr_t& braceAtCaret, intptr_t& braceOpposite);
     bool braceMatch();
 
@@ -641,28 +638,28 @@ private:
 	bool findInOpenedFiles();
 	bool findInCurrentFile(bool isEntireDoc);
 
-	void getMatchedFileNames(const TCHAR *dir, size_t level, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
+	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames, bool isRecursive, bool isInHiddenDir);
 	void doSynScorll(HWND hW);
-	void setWorkingDir(const TCHAR *dir);
-	bool str2Cliboard(const generic_string & str2cpy);
+	void setWorkingDir(const wchar_t *dir);
+	bool str2Cliboard(const std::wstring & str2cpy);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
-	int getLangFromMenuName(const TCHAR * langName);
-	generic_string getLangFromMenu(const Buffer * buf);
+	int getLangFromMenuName(const wchar_t * langName);
+	std::wstring getLangFromMenu(const Buffer * buf);
 
-    generic_string exts2Filters(const generic_string& exts, int maxExtsLen = -1) const; // maxExtsLen default value -1 makes no limit of whole exts length
+    std::wstring exts2Filters(const std::wstring& exts, int maxExtsLen = -1) const; // maxExtsLen default value -1 makes no limit of whole exts length
 	int setFileOpenSaveDlgFilters(CustomFileDialog & fDlg, bool showAllExt, int langType = -1); // showAllExt should be true if it's used for open file dialog - all set exts should be used for filtering files
-	Style * getStyleFromName(const TCHAR *styleName);
-	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
+	Style * getStyleFromName(const wchar_t *styleName);
+	bool dumpFiles(const wchar_t * outdir, const wchar_t * fileprefix = L"");	//helper func
 	void drawTabbarColoursFromStylerArray();
 	void drawAutocompleteColoursFromTheme(COLORREF fgColor, COLORREF bgColor);
 	void drawDocumentMapColoursFromStylerArray();
 
-	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParams * pCmdParams) {
+	std::vector<std::wstring> loadCommandlineParams(const wchar_t * commandLine, const CmdLineParams * pCmdParams) {
 		const CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(*pCmdParams);
 		return loadCommandlineParams(commandLine, &dto);
 	}
-	std::vector<generic_string> loadCommandlineParams(const TCHAR * commandLine, const CmdLineParamsDTO * pCmdParams);
+	std::vector<std::wstring> loadCommandlineParams(const wchar_t * commandLine, const CmdLineParamsDTO * pCmdParams);
 	bool noOpenedDoc() const;
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
@@ -676,11 +673,12 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchDocumentListPanel(bool changeFromBtnCmd = false);
+	void changeDocumentListIconSet(bool changeFromBtnCmd);
 	void checkProjectMenuItem();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser(const std::vector<generic_string> & folders, const generic_string& selectedItemPath, bool fromScratch = false);
+	void launchFileBrowser(const std::vector<std::wstring> & folders, const std::wstring& selectedItemPath, bool fromScratch = false);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -714,4 +712,8 @@ private:
 
 	void clearChangesHistory();
 	void changedHistoryGoTo(int idGoTo);
+
+	HMENU createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds);
+	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId);
+	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, const std::vector<int>& cmdIDs);
 };

@@ -6,12 +6,12 @@
 #ifndef BOOST_EXCEPTION_7E48761AD92811DC9011477D56D89593
 #define BOOST_EXCEPTION_7E48761AD92811DC9011477D56D89593
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/exception/detail/is_output_streamable.hpp>
 #include <sstream>
 
 #ifndef BOOST_EXCEPTION_ENABLE_WARNINGS
-#if __GNUC__*100+__GNUC_MINOR__>301
+#if defined(__GNUC__) && __GNUC__*100+__GNUC_MINOR__>301
 #pragma GCC system_header
 #endif
 #ifdef __clang__

@@ -245,10 +245,106 @@ const std::vector<std::vector<const char*>> g_nonPrintingChars =
 	{"\xEF\xBF\xBB", "IAT", "U+FFFB"}        // U+FFFB : interlinear annotation terminator
 };
 
-int getNbDigits(int aNum, int base);
-//HMODULE loadSciLexerDll();
+size_t getNbDigits(size_t aNum, size_t base);
 
-TCHAR* int2str(TCHAR* str, int strLen, int number, int base, int nbDigits, ColumnEditorParam::leadingChoice lead);
+template<typename T>
+T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, size_t nbDigits, ColumnEditorParam::leadingChoice lead)
+{
+	if (nbDigits == 0 || nbDigits >= strLen) return NULL;
+
+	//
+	// Reset the output string
+	//
+	memset(str, 0, sizeof(T) * strLen);
+
+	//
+	// Form number string according its base
+	//
+	std::string numberStr;
+
+	if (base == 2)
+	{
+		std::string tmpStr;
+		size_t aNum = number;
+		do
+		{
+			tmpStr += aNum % 2 ? "1" : "0";
+			aNum = aNum / 2;
+
+		} while (aNum != 0);
+
+		size_t i = 0;
+		size_t j = tmpStr.length() - 1;
+		for (; j >= 0 && i < tmpStr.length(); i++, j--)
+		{
+			numberStr += tmpStr[j];
+		}
+	}
+	else if (base == 8)
+	{
+		std::stringstream stream;
+		stream << std::oct << number;
+		numberStr = stream.str();
+	}
+	else if (base == 16)
+	{
+		std::stringstream stream;
+		stream << std::hex << number;
+		numberStr = stream.str();
+	}
+	else //if (base == 10)
+	{
+		numberStr = std::to_string(number);
+	}
+
+	size_t numberStrLen = numberStr.length();
+	size_t noneUsedZoneLen = nbDigits - numberStrLen;
+
+	size_t nbStart = 0;
+	size_t nbEnd = 0;
+
+	size_t noneUsedStart = 0;
+	size_t noneUsedEnd = 0;
+
+	T noUsedSymbol = ' ';
+
+	//
+	// Determinate leading zero/space or none
+	//
+	if (lead == ColumnEditorParam::spaceLeading)
+	{
+		noneUsedStart = 0;
+		noneUsedEnd = nbStart = noneUsedZoneLen;
+		nbEnd = nbDigits;
+	}
+	else if (lead == ColumnEditorParam::zeroLeading)
+	{
+		noUsedSymbol = '0';
+
+		noneUsedStart = 0;
+		noneUsedEnd = nbStart = noneUsedZoneLen;
+		nbEnd = nbDigits;
+	}
+	else //if (lead != ColumnEditorParam::noneLeading)
+	{
+		nbStart = 0;
+		nbEnd = noneUsedStart = numberStrLen;
+		noneUsedEnd = nbDigits;
+	}
+
+	//
+	// Fill str with the correct position
+	//
+	size_t i = 0;
+	for (size_t k = nbStart; k < nbEnd; ++k)
+		str[k] = numberStr[i++];
+
+	size_t j = 0;
+	for (j = noneUsedStart; j < noneUsedEnd; ++j)
+		str[j] = noUsedSymbol;
+
+	return str;
+}
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
 
@@ -275,7 +371,7 @@ struct ColumnModeInfo {
 // SortClass for vector<ColumnModeInfo>
 // sort in _order : increased order
 struct SortInSelectOrder {
-	bool operator() (ColumnModeInfo & l, ColumnModeInfo & r) {
+	bool operator() (const ColumnModeInfo & l, const ColumnModeInfo & r) {
 		return (l._order < r._order);
 	}
 };
@@ -284,7 +380,7 @@ struct SortInSelectOrder {
 // SortClass for vector<ColumnModeInfo>
 // sort in _selLpos : increased order
 struct SortInPositionOrder {
-	bool operator() (ColumnModeInfo & l, ColumnModeInfo & r) {
+	bool operator() (const ColumnModeInfo & l, const ColumnModeInfo & r) {
 		return (l._selLpos < r._selLpos);
 	}
 };
@@ -292,9 +388,9 @@ struct SortInPositionOrder {
 typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
 struct LanguageNameInfo {
-	const TCHAR* _langName = nullptr;
-	const TCHAR* _shortName = nullptr;
-	const TCHAR* _longName = nullptr;
+	const wchar_t* _langName = nullptr;
+	const wchar_t* _shortName = nullptr;
+	const wchar_t* _longName = nullptr;
 	LangType _langID = L_TEXT;
 	const char* _lexerID = nullptr;
 };
@@ -355,10 +451,10 @@ public:
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 
 	void getText(char *dest, size_t start, size_t end) const;
-	void getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const;
-	void getGenericText(TCHAR *dest, size_t deslen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const;
-	generic_string getGenericTextAsString(size_t start, size_t end) const;
-	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
+	void getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const;
+	void getGenericText(wchar_t *dest, size_t deslen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const;
+	std::wstring getGenericTextAsString(size_t start, size_t end) const;
+	void insertGenericTextFrom(size_t position, const wchar_t *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
 	intptr_t getSelectedTextCount() {
@@ -370,18 +466,18 @@ public:
     char * getWordFromRange(char * txt, size_t size, size_t pos1, size_t pos2);
 	char * getSelectedText(char * txt, size_t size, bool expand = true);
     char * getWordOnCaretPos(char * txt, size_t size);
-    TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
-	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
-	intptr_t searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
-	void appandGenericText(const TCHAR * text2Append) const;
-	void addGenericText(const TCHAR * text2Append) const;
-	void addGenericText(const TCHAR * text2Append, intptr_t* mstart, intptr_t* mend) const;
-	intptr_t replaceTarget(const TCHAR * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
-	intptr_t replaceTargetRegExMode(const TCHAR * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
-	void showAutoComletion(size_t lenEntered, const TCHAR * list);
-	void showCallTip(size_t startPos, const TCHAR * def);
-	generic_string getLine(size_t lineNumber);
-	void getLine(size_t lineNumber, TCHAR * line, size_t lineBufferLen);
+    wchar_t * getGenericWordOnCaretPos(wchar_t * txt, int size);
+	wchar_t * getGenericSelectedText(wchar_t * txt, int size, bool expand = true);
+	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
+	void appandGenericText(const wchar_t * text2Append) const;
+	void addGenericText(const wchar_t * text2Append) const;
+	void addGenericText(const wchar_t * text2Append, intptr_t* mstart, intptr_t* mend) const;
+	intptr_t replaceTarget(const wchar_t * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
+	intptr_t replaceTargetRegExMode(const wchar_t * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
+	void showAutoComletion(size_t lenEntered, const wchar_t * list);
+	void showCallTip(size_t startPos, const wchar_t * def);
+	std::wstring getLine(size_t lineNumber);
+	void getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen);
 	void addText(size_t length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();
@@ -407,7 +503,7 @@ public:
 		return crange;
 	};
 
-	void getWordToCurrentPos(TCHAR * str, intptr_t strLen) const {
+	void getWordToCurrentPos(wchar_t * str, intptr_t strLen) const {
 		auto caretPos = execute(SCI_GETCURRENTPOS);
 		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
@@ -490,7 +586,7 @@ public:
 	void showNpc(bool willBeShowed = true, bool isSearchResult = false);
 
 	bool isShownNpc() {
-		auto& svp = NppParameters::getInstance().getSVP();
+		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._npcShow;
 	};
 
@@ -522,7 +618,7 @@ public:
 	void showCcUniEol(bool willBeShowed = true, bool isSearchResult = false);
 
 	bool isShownCcUniEol() {
-		auto& svp = NppParameters::getInstance().getSVP();
+		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._ccUniEolShow;
 	};
 
@@ -669,7 +765,7 @@ public:
 		if ((NppParameters::getInstance()).isTransparentAvailable())
 			convertSelectedTextTo(caseToConvert);
 		else
-			::MessageBox(_hSelf, TEXT("This function needs a newer OS version."), TEXT("Change Case Error"), MB_OK | MB_ICONHAND);
+			::MessageBox(_hSelf, L"This function needs a newer OS version.", L"Change Case Error", MB_OK | MB_ICONHAND);
 	};
 
 	bool isFoldIndentationBased() const;
@@ -686,8 +782,8 @@ public:
 
 	ColumnModeInfos getColumnModeSelectInfo();
 
-	void columnReplace(ColumnModeInfos & cmi, const TCHAR *str);
-	void columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, UCHAR format, ColumnEditorParam::leadingChoice lead);
+	void columnReplace(ColumnModeInfos & cmi, const wchar_t *str);
+	void columnReplace(ColumnModeInfos & cmi, size_t initial, size_t incr, size_t repeat, UCHAR format, ColumnEditorParam::leadingChoice lead);
 
 	void clearIndicator(int indicatorNumber) {
 		size_t docStart = 0;
@@ -763,7 +859,7 @@ public:
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 	void scrollPosToCenter(size_t pos);
-	generic_string getEOLString() const;
+	std::wstring getEOLString() const;
 	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
@@ -815,9 +911,10 @@ protected:
 	void restyleBuffer();
 	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
-	void setLexer(LangType langID, int whichList);
+	void populateSubStyleKeywords(LangType langType, int baseStyleID, int numSubStyles, int firstLangIndex, const wchar_t **pKwArray);
+	void setLexer(LangType langID, int whichList, int baseStyleID = STYLE_NOT_USED, int numSubStyles = 8);
 	bool setLexerFromLangID(int langID);
-	void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
+	void makeStyle(LangType langType, const wchar_t **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(const Style & styleToSet);	//by reference
 	void setSpecialIndicator(const Style & styleToSet) {
@@ -827,10 +924,11 @@ protected:
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);
+	void setHTMLLexer();
 	void setJsLexer();
 	void setTclLexer();
     void setObjCLexer(LangType type);
-	void setUserLexer(const TCHAR *userLangName = NULL);
+	void setUserLexer(const wchar_t *userLangName = NULL);
 	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
@@ -844,7 +942,7 @@ protected:
 	};
 
 	void setLuaLexer() {
-		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7, SCE_LUA_IDENTIFIER, 4);
 	};
 
 	void setMakefileLexer() {
@@ -868,7 +966,21 @@ protected:
 	};
 
 	void setBashLexer() {
-		setLexer(L_BASH, LIST_0);
+		setLexerFromLangID(L_BASH);
+
+		const wchar_t *pKwArray[NB_LIST] = {NULL};
+		makeStyle(L_BASH, pKwArray);
+
+		WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+		const char * keyWords_char = wmc.wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
+		setKeywords(L_BASH, keyWords_char, LANG_INDEX_INSTR);
+
+		populateSubStyleKeywords(L_BASH, SCE_SH_IDENTIFIER, 4, LANG_INDEX_SUBSTYLE1, pKwArray);
+		populateSubStyleKeywords(L_BASH, SCE_SH_SCALAR, 4, LANG_INDEX_SUBSTYLE5, pKwArray);
+
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setVBLexer() {
@@ -885,14 +997,14 @@ protected:
 	};
 
 	void setPythonLexer() {
-		setLexer(L_PYTHON, LIST_0 | LIST_1);
+		setLexer(L_PYTHON, LIST_0 | LIST_1, SCE_P_IDENTIFIER);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.python.decorator.attributes"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.python.identifier.attributes"), reinterpret_cast<LPARAM>("1"));
 	};
 	
 	void setGDScriptLexer() {
-		setLexer(L_GDSCRIPT, LIST_0 | LIST_1);
+		setLexer(L_GDSCRIPT, LIST_0 | LIST_1, SCE_GD_IDENTIFIER);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.keywords2.no.sub.identifiers"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.gdscript.whinge.level"), reinterpret_cast<LPARAM>("1"));
 	};
@@ -903,7 +1015,7 @@ protected:
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(L""));
 		setLexer(L_TEX, LIST_NONE);
 	};
 
@@ -1138,6 +1250,10 @@ protected:
 		setLexer(L_RAKU, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.raku.comment.multiline"), reinterpret_cast<LPARAM>("1"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.raku.comment.pod"), reinterpret_cast<LPARAM>("1"));
+	};
+
+	void setTomlLexer(){
+		setLexer(L_TOML, LIST_0);
 	};
 
     //--------------------

@@ -86,6 +86,12 @@
 #  define BOOST_SYMBOL_VISIBLE __global
 #endif
 
+// Deprecated symbol markup
+// Oracle Studio 12.4 supports deprecated attribute with a message; this is the first release that supports the attribute.
+#if (__SUNPRO_CC >= 0x5130)
+#define BOOST_DEPRECATED(msg) __attribute__((deprecated(msg)))
+#endif
+
 #if (__SUNPRO_CC < 0x5130)
 // C++03 features in 12.4:
 #define BOOST_NO_TWO_PHASE_NAME_LOOKUP
@@ -120,6 +126,7 @@
 #define BOOST_NO_CXX11_TEMPLATE_ALIASES
 #define BOOST_NO_CXX11_UNICODE_LITERALS
 #define BOOST_NO_CXX11_ALIGNAS
+#define BOOST_NO_CXX11_ALIGNOF
 #define BOOST_NO_CXX11_TRAILING_RESULT_TYPES
 #define BOOST_NO_CXX11_INLINE_NAMESPACES
 #define BOOST_NO_CXX11_FINAL
@@ -186,6 +193,9 @@
 #endif
 #if !defined(__cpp_if_constexpr) || (__cpp_if_constexpr < 201606)
 #  define BOOST_NO_CXX17_IF_CONSTEXPR
+#endif
+#if !defined(__cpp_nontype_template_parameter_auto) || (__cpp_nontype_template_parameter_auto < 201606)
+#  define BOOST_NO_CXX17_AUTO_NONTYPE_TEMPLATE_PARAMS
 #endif
 
 // Turn on threading support for Solaris 12.

@@ -23,8 +23,19 @@
 #include "Parameters.h"
 
 
-#define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) // WM_UPDATESCINTILLAS (BOOL doChangePanel, 0)
 #define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
+
+// The following parameters are for apply() method which will re-initialize the followings GUI with modified styler:
+// 2 Scintilla edit zones, Search result (displayed by Sintilla), Notepad++ GUI & components concerning theme
+#define NO_VISUAL_CHANGE            0x00  // No need to apply visual effect - User ext.
+#define GENERAL_CHANGE              0x01  // For Sintilla zones & Notepad++ GUI (Tabbar, Find dialog, etc...)
+#define THEME_CHANGE                0x02  // For the components concerning theme, for example the background color of dockable panels 
+#define COLOR_CHANGE_4_MENU         0x04  // For the color items displayed on the menu
+
+const wchar_t FINDDLG_STAUSNOTFOUND_COLOR[64] = L"Find status: Not found";
+const wchar_t FINDDLG_STAUSMESSAGE_COLOR[64] = L"Find status: Message";
+const wchar_t FINDDLG_STAUSREACHED_COLOR[64] = L"Find status: Search end reached";
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 
@@ -63,13 +74,13 @@ public :
 
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
     void doDialog(bool isRTL = false);
+	void destroy() override;
 	void prepare2Cancel();
 	void redraw(bool forceUpdate = false) const override;
 	void restoreGlobalOverrideValues();
-	void apply(bool needVisualApply = true);
 	void addLastThemeEntry();
-	bool selectThemeByName(const TCHAR* themeName);
-	bool goToSection(const TCHAR* sectionNames); // sectionNames is formed as following: "Language name:Style name"
+	bool selectThemeByName(const wchar_t* themeName);
+	bool goToSection(const wchar_t* sectionNames); // sectionNames is formed as following: "Language name:Style name"
 	                                             // ex: "Global Styles:EOL custom color" will set Language on "Global Styles", then set Style on "EOL custom color" if both are found.
 
 private :
@@ -96,7 +107,7 @@ private :
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;
-	generic_string _themeName;
+	std::wstring _themeName;
 
 	LexerStylerArray _styles2restored;
 	StyleArray _gstyles2restored;
@@ -108,6 +119,7 @@ private :
 	bool _isDirty = false;
 	bool _isThemeDirty = false;
 	bool _isShownGOCtrls = false;
+	bool _isThemeChanged = false;
 
 	std::pair<intptr_t, intptr_t> goToPreferencesSettings();
 
@@ -115,9 +127,13 @@ private :
 
 	Style& getCurrentStyler();
 
-	bool getStyleName(TCHAR *styleName, const size_t styleNameLen);
+	bool getStyleName(wchar_t *styleName, const size_t styleNameLen) const;
 
-	int whichTabColourIndex();
+	int whichTabColourIndex() const;
+	int whichIndividualTabColourId();
+	int whichFindDlgStatusMsgColourIndex();
+	void apply(int applicationInfo);
+	int getApplicationInfo() const;
 	bool isDocumentMapStyle();
 	void move2CtrlRight(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	void updateColour(bool which);
@@ -127,7 +143,7 @@ private :
 	void updateFontSize();
 	void updateUserKeywords();
 	void switchToTheme();
-	void updateThemeName(const generic_string& themeName);
+	void updateThemeName(const std::wstring& themeName);
 	void loadLangListFromNppParam();
 	void enableFontStyle(bool isEnable);
 	long notifyDataModified();

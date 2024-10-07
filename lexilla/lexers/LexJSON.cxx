@@ -35,7 +35,9 @@
 using namespace Scintilla;
 using namespace Lexilla;
 
-static const char *const JSONWordListDesc[] = {
+namespace {
+
+const char *const JSONWordListDesc[] = {
 	"JSON Keywords",
 	"JSON-LD Keywords",
 	0
@@ -248,10 +250,7 @@ class LexerJSON : public DefaultLexer {
 		}
 		Sci_Position firstModification = -1;
 		if (wordListN) {
-			WordList wlNew;
-			wlNew.Set(wl);
-			if (*wordListN != wlNew) {
-				wordListN->Set(wl);
+			if (wordListN->Set(wl)) {
 				firstModification = 0;
 			}
 		}
@@ -500,7 +499,9 @@ void SCI_METHOD LexerJSON::Fold(Sci_PositionU startPos,
 	}
 }
 
-LexerModule lmJSON(SCLEX_JSON,
+}
+
+extern const LexerModule lmJSON(SCLEX_JSON,
 				   LexerJSON::LexerFactoryJSON,
 				   "json",
 				   JSONWordListDesc);

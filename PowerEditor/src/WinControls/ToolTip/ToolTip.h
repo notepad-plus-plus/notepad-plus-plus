@@ -26,13 +26,16 @@ class ToolTip : public Window
 public:
 	ToolTip() = default;
 
-	void destroy() {
-		::DestroyWindow(_hSelf);
-		_hSelf = NULL;
+	void destroy() override {
+		if (_hSelf != nullptr)
+		{
+			::DestroyWindow(_hSelf);
+			_hSelf = nullptr;
+		}
 	};
 
-	virtual void init(HINSTANCE hInst, HWND hParent);
-	void Show(RECT rectTitle, const TCHAR* pszTitleText, int iXOff = 0, int iWidthOff = 0);
+	void init(HINSTANCE hInst, HWND hParent) override;
+	void Show(RECT rectTitle, const wchar_t* pszTitleText, int iXOff = 0, int iWidthOff = 0);
 
 protected:
 	BOOL		_bTrackMouse = FALSE;

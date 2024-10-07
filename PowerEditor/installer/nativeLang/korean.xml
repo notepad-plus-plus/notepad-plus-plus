@@ -1,9 +1,14 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-  <localization work version="7.8.1~8.5.5" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
+-->
+<!--
+  <localization work version="7.8.1~8.6.9" nick="Sapziller" name="ByungJo Yoon" mail="yunbj@naver.com"/> <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/>
 -->
 <NotepadPlus>
-	<Native-Langue name="한국어" filename="korean.xml" version="8.5.5">
+	<Native-Langue name="한국어" filename="korean.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!--  Main Menu Entries -->
@@ -37,6 +42,8 @@
 					<Item subMenuId="edit-blankOperations" name="공백 기능(&amp;B)"/>
 					<Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능(&amp;P)"/>
 					<Item subMenuId="edit-onSelection" name="선택시(&amp;O)"/>
+					<Item subMenuId="edit-multiSelectALL" name="다중 선택 전체"/>
+					<Item subMenuId="edit-multiSelectNext" name="다중 선택 다음"/>
 					<Item subMenuId="search-changeHistory" name="변경 이력"/>
 					<Item subMenuId="search-markAll" name="모든 토큰에 형식 적용(&amp;A)"/>
 					<Item subMenuId="search-markOne" name="한 개 토큰에 형식 적용(&amp;O)"/>
@@ -152,6 +159,16 @@
 					<Item id="42074" name="탐색기로 파일이 위치한 폴더 열기"/>
 					<Item id="42075" name="인터넷에서 검색"/>
 					<Item id="42076" name="검색 엔진 변경..."/>
+					<Item id="42090" name="대소문자 무시 &amp;&amp; 단어 전체"/>
+					<Item id="42091" name="대소문자 일치"/>
+					<Item id="42092" name="단어 전체 일치"/>
+					<Item id="42093" name="대소문자 일치 &amp;&amp; 단어 전체"/>
+					<Item id="42094" name="대소문자 무시 &amp;&amp; 단어 전체"/>
+					<Item id="42095" name="대소문자 일치"/>
+					<Item id="42096" name="단어 전체 일치"/>
+					<Item id="42097" name="대소문자 일치 &amp;&amp; 단어 전체"/>
+					<Item id="42098" name="최근 다중 선택 취소"/>
+					<Item id="42099" name="현재 선택 넘김 &amp;&amp; 다음 다중선택 이동"/>
 					<Item id="42018" name="기록 시작(&amp;c)"/>
 					<Item id="42019" name="기록 중지(&amp;t)"/>
 					<Item id="42021" name="실행(&amp;P)"/>
@@ -208,7 +225,7 @@
 					<Item id="43051" name="책갈피 안된 줄 삭제하기"/>
 					<Item id="43050" name="책갈피 반전"/>
 					<Item id="43052" name="다음 범위에서 문자 찾기...(&amp;e)"/>
-					<Item id="43053" name="중괄호 안의 문자 모두 선택(&amp;M)"/>
+					<Item id="43053" name="{} [] () 사이의 문자 모두 선택(&amp;e)"/>
 					<Item id="43009" name="일치하는 괄호 찾기(&amp;M)"/>
 					<Item id="43010" name="이전 찾기(&amp;P)"/>
 					<Item id="43011" name="증분 검색(&amp;I)"/>
@@ -290,6 +307,8 @@
 					<Item id="44092" name="7번 탭"/>
 					<Item id="44093" name="8번 탭"/>
 					<Item id="44094" name="9번 탭"/>
+					<Item id="44116" name="첫 탭"/>
+					<Item id="44117" name="마지막 탭"/>
 					<Item id="44095" name="다음 탭"/>
 					<Item id="44096" name="이전 탭"/>
 					<Item id="44097" name="모니터링 (tail -f)"/>
@@ -332,13 +351,14 @@
 					<Item id="45057" name="OEM 865: 노르웨이어"/>
 					<Item id="45053" name="OEM 860: 포트투갈어"/>
 					<Item id="45056" name="OEM 863: 프랑스어"/>
-
 					<Item id="10001" name="분할 창으로 이동"/>
 					<Item id="10002" name="분할 창으로 복제"/>
 					<Item id="10003" name="새 창으로 이동"/>
 					<Item id="10004" name="새 창에서 열기"/>
-
+					<Item id="10005" name="시작으로 이동"/>
+					<Item id="10006" name="끝으로 이동"/>
 					<Item id="46001" name="스타일 설정..."/>
+					<Item id="46016" name="없음 (일반 텍스트)"/>
 					<Item id="46250" name="언어 정의..."/>
 					<Item id="46300" name="사용자 정의 언어 폴더 열기..."/>
 					<Item id="46301" name="Notepad++ 사용자 정의 언어 모음집"/>
@@ -423,6 +443,8 @@
 				<Item CMDID="42030" name="파일 이름 복사"/>
 				<Item CMDID="42031" name="현재 디렉토리 경로 복사"/>
 				<Item CMDID="3" name="문서 이동"/>
+				<Item CMDID="10005" name="시작으로 이동"/>
+				<Item CMDID="10006" name="끝으로 이동"/>
 				<Item CMDID="10001" name="분할 창으로 이동"/>
 				<Item CMDID="10002" name="분할 창으로 복사"/>
 				<Item CMDID="10003" name="새 창으로 이동"/>
@@ -450,7 +472,7 @@
 				<Item id="1" name="다음 찾기"/>
 				<Item id="1722" name="이전 방향"/>
 				<Item id="2" name="닫기"/>
-				<Item id="1620" name="찾을 내용:(&amp;F)"/>
+				<Item id="1620" name="찾을 내용(&amp;F):"/>
 				<Item id="1603" name="단어 완전 일치(&amp;w)"/>
 				<Item id="1604" name="대소문자 구분(&amp;c)"/>
 				<Item id="1605" name="정규 표현식(&amp;g)"/>
@@ -459,7 +481,7 @@
 				<Item id="1615" name="모두 찾기"/>
 				<Item id="1616" name="줄을 책갈피(&amp;m)"/>
 				<Item id="1618" name="각 검색 결과 지우기"/>
-				<Item id="1611" name="바꿀 내용:(&amp;l)"/>
+				<Item id="1611" name="바꿀 내용(&amp;l):"/>
 				<Item id="1608" name="바꾸기(&amp;R)"/>
 				<Item id="1609" name="모두 바꾸기(&amp;A)"/>
 				<Item id="1687" name="비활성일 때"/>
@@ -468,8 +490,8 @@
 				<Item id="1633" name="책갈피 모두 지우기"/>
 				<Item id="1635" name="열린 파일에서 모두 바꾸기(&amp;O)"/>
 				<Item id="1636" name="열린 파일에서 모두 찾기(&amp;O)"/>
-				<Item id="1654" name="필터(&amp;s) :"/>
-				<Item id="1655" name="디렉토리(&amp;e) :"/>
+				<Item id="1654" name="필터(&amp;s):"/>
+				<Item id="1655" name="디렉토리(&amp;e):"/>
 				<Item id="1656" name="모두 찾기"/>
 				<Item id="1658" name="모든 하위 폴더 포함(&amp;b)"/>
 				<Item id="1659" name="숨김 폴더 포함(&amp;h)"/>
@@ -496,9 +518,9 @@
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="찾기"/>
-				<Item id="1685" name="대소문자 구분"/>
-				<Item id="1690" name="모두 강조"/>
+				<Item id="1681" name="찾기:"/>
+				<Item id="1685" name="대소문자 구분(&amp;c)"/>
+				<Item id="1690" name="모두 강조(&amp;H)"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="범위에서 문자 찾기...">
@@ -639,17 +661,7 @@
 				<ScintillaCommandsTab name="Scintilla 명령어"/>
 				<ConflictInfoOk name="이 항목은 충돌하는 단축키가 없습니다."/>
 				<ConflictInfoEditing name="충돌 없음..."/>
-				<WindowCategory name="창"/>
-				<FileCategory name="파일"/>
-				<EditCategory name="편집"/>
-				<SearchCategory name="찾기"/>
-				<ViewCategory name="보기"/>
-				<FormatCategory name="형식"/>
-				<LangCategory name="언어"/>
 				<AboutCategory name="프로그램에 대하여"/>
-				<SettingCategory name="설정"/>
-				<ToolCategory name="도구"/>
-				<ExecuteCategory name="실행"/>
 				<ModifyContextMenu name="수정"/>
 				<DeleteContextMenu name="삭제"/>
 				<ClearContextMenu name="지우기"/>
@@ -810,7 +822,6 @@
 					<Item id="21101" name="기본 형식"/>
 					<Item id="21102" name="스타일러"/>
 					<Item id="21105" name="설명서"/>
-					<Item id="21104" name="임시 웹사이트:"/>
 					<Item id="21106" name="최대 접기 (빈 줄 포함)(&amp;c)"/>
 					<Item id="21220" name="접기 형식 1"/>
 					<Item id="21224" name="열기:"/>
@@ -963,14 +974,14 @@
 
 					<Item id="6123" name="표시 언어"/>
 				</Global>
-				<Scintillas title="편집">
+
+				<Scintillas title="편집 1">
 					<Item id="6216" name="커서 설정"/>
 					<Item id="6217" name="너비:"/>
 					<Item id="6219" name="깜빡임 속도:"/>
 					<Item id="6221" name="빠름"/>
 					<Item id="6222" name="느림"/>
 					<Item id="6246" name="현재 레벨 접기/펼치기 명령어 전환 가능하게 만들기"/>
-					<Item id="6225" name="다중 편집 가능 (Ctrl+마우스 클릭/선택)"/>
 					<Item id="6227" name="자동 줄바꿈"/>
 					<Item id="6228" name="기본값"/>
 					<Item id="6229" name="정렬"/>
@@ -980,21 +991,30 @@
 					<Item id="6236" name="마지막 줄 이후로 스크롤 가능"/>
 					<Item id="6239" name="선택 영역 바깥에서 우클릭해도 선택 유지"/>
 					<Item id="6245" name="가상 공간 활성화"/>
+					<Item id="6214" name="선택하지 않고 줄 복사/자르기 활성화"/>
 					<Item id="6651" name="현재 줄 표시기"/>
 					<Item id="6652" name="없음"/>
 					<Item id="6653" name="배경 강조"/>
 					<Item id="6654" name="틀"/>
 					<Item id="6655" name="너비:"/>
+				</Scintillas>
+
+				<Scintillas2 title="편집 2">
+					<Item id="6521" name="다중 편집"/>
+					<Item id="6522" name="다중 편집 활성화 (Ctrl+마우스 클릭/선택)"/>
+					<Item id="6523" name="다중 편집을 위한 열 선택 활성화"/>
 					<Item id="6247" name="줄 끝 (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="기본값"/>
 					<Item id="6249" name="일반 텍스트"/>
 					<Item id="6250" name="사용자 정의 색상"/>
 					<Item id="6252" name="출력 불가능한 글자"/>
+					<Item id="6260" name="모양"/>
 					<Item id="6254" name="약어"/>
 					<Item id="6255" name="부호점"/>
 					<Item id="6256" name="사용자 정의 색상"/>
-					<Item id="6258" name="C0, C1 &amp;&amp; 유니코드 줄 끝 문자에 적용"/>
-				</Scintillas>
+					<Item id="6258" name="모양 설정을 C0, C1 &amp;&amp; 유니코드 줄 끝 문자에 적용"/>
+					<Item id="6259" name="제어 문자 (C0 부호) 문서 입력 방지"/>
+				</Scintillas2>
 
 				<DarkMode title="다크모드">
 					<Item id="7131" name="밝은색모드"/>
@@ -1036,11 +1056,11 @@
 					<Item id="6292" name="동적 넓이"/>
 					<Item id="6293" name="고정 넓이"/>
 					<Item id="6207" name="책갈피 표시"/>
-					<Item id="6223" name="변경 이력 표시"/>
+					<Item id="6295" name="변경 이력"/>
+					<Item id="6223" name="여백에 표시"/>
+					<Item id="6296" name="텍스트에 표시"/>
 					<Item id="6211" name="열표식 설정"/>
 					<Item id="6213" name="배경 모드"/>
-					<Item id="6237" name="십진수로 위치를 지정하여 열 표식을 추가하십시오.
-숫자 사이를 공백으로 구분하여 여러 개의 열 표식을 지정할 수 있습니다."/>
 					<Item id="6231" name="테두리 폭"/>
 					<Item id="6235" name="가장자리 없음"/>
 					<Item id="6208" name="채우기"/>
@@ -1060,7 +1080,7 @@
 					<Item id="6408" name="UTF-8 (BOM 포함)"/>
 					<Item id="6409" name="UCS-2 빅 엔디언 (BOM 포함)"/>
 					<Item id="6410" name="UCS-2 리틀 엔디언 (BOM 포함)"/>
-					<Item id="6411" name="기본 언어 :"/>
+					<Item id="6411" name="기본 언어:"/>
 					<Item id="6419" name="새 문서"/>
 					<Item id="6420" name="모든 열려있는 ANSI 파일에 적용"/>
 					<Item id="6432" name="시작할 때 항상 새 문서 추가로 열기"/>
@@ -1078,17 +1098,29 @@
 					<Item id="4009" name="지원하는 확장자:"/>
 					<Item id="4010" name="등록된 확장자:"/>
 				</FileAssoc>
-				<Language title="언어 메뉴">
+
+
+				<Language title="언어">
 					<Item id="6505" name="사용 가능한 항목"/>
 					<Item id="6506" name="사용하지 않는 항목"/>
 					<Item id="6507" name="언어 메뉴 축소"/>
 					<Item id="6508" name="언어 메뉴"/>
-					<Item id="6301" name="탭 설정"/>
-					<Item id="6302" name="공백으로 바꾸기"/>
-					<Item id="6303" name="탭 크기: "/>
-					<Item id="6510" name="기본값 사용"/>
 					<Item id="6335" name="SQL에서 백슬래쉬를 이스케이프 문자로 취급"/>
 				</Language>
+
+				<Indentation title="들여쓰기">
+					<Item id="7161" name="자동 들여쓰기"/>
+					<Item id="7162" name="없음"/>
+					<Item id="7163" name="기본"/>
+					<Item id="7164" name="고급"/>
+					<Item id="6301" name="들여쓰기 설정"/>
+					<Item id="6302" name="공백 문자"/>
+					<Item id="6303" name="들여쓰기 크기:"/>
+					<Item id="6310" name="들여쓰기 사용:"/>
+					<Item id="6311" name="탭 문자"/>
+					<Item id="6510" name="기본값 사용"/>
+					<Item id="6512" name="백스페이스 입력시 공백 문자 1개를 삭제하는 대신 들여쓰기 제거"/>
+				</Indentation>
 
 				<Highlighting title="강조 표시">
 					<Item id="6351" name="모든 토큰에 형식 적용"/>
@@ -1151,10 +1183,11 @@
 					<Item id="6903" name="결과 창에 찾기 결과 표시 후에도 찾기 창 유지"/>
 					<Item id="6904" name="모든 열린 문서에서 바꾸기를 실행할 때 확인"/>
 					<Item id="6905" name="바꾸기: 다음 찾기 위치로 이동하지 않기"/>
-					<Item id="6906" name="찾기 결과 창: 찾은 줄 당 한 개의 내용만 보임"/>
+					<Item id="6906" name="찾기 결과 창: 가능하면 찾은 줄 당 한 개의 내용만 보임"/>
 					<Item id="6907" name="찾기 대화창을 실행할 때"/>
 					<Item id="6908" name="선택된 텍스트로 찾기 창 채우기"/>
 					<Item id="6909" name="아무 것도 선택되지 않으면 커서 아래의 단어 선택"/>
+					<Item id="6910" name="&quot;선택 안&quot;에서 자동 검사 최소 크기:"/>
 				</Searching>
 
 				<RecentFilesHistory title="최근 파일 사용 기록">
@@ -1171,16 +1204,17 @@
 				<Backup title="백업">
 					<Item id="6817" name="세션 스냅샷 및 정기적 백업"/>
 					<Item id="6818" name="세션 스냅샷 및 정기적 백업 사용"/>
-					<Item id="6819" name="백업 주기"/>
+					<Item id="6819" name="마다 수정시 백업 활성화"/>
 					<Item id="6821" name="초"/>
 					<Item id="6822" name="백업 위치:"/>
 					<Item id="6309" name="종료시 현재 세션 기억"/>
+					<Item id="6825" name="이전 세션의 접근 불가 파일 기억"/>
 					<Item id="6801" name="저장할 때 백업"/>
 					<Item id="6315" name="안 함"/>
 					<Item id="6316" name="단순 백업"/>
 					<Item id="6317" name="다중 백업"/>
 					<Item id="6804" name="사용자 백업 디렉토리"/>
-					<Item id="6803" name="디렉토리 :"/>
+					<Item id="6803" name="디렉토리:"/>
 				</Backup>
 
 				<AutoCompletion title="자동 완성">
@@ -1249,6 +1283,7 @@
 					<Item id="7149" name="지능적 구문강조 허용"/>
 					<Item id="7150" name="전역적인 자동 줄바꿈 끄기"/>
 					<Item id="7151" name="URL 클릭 링크 허용"/>
+					<Item id="7152" name="2GB 보다 큰 파일을 열 때 경고 없앰"/>
 				</Performance>
 
 				<Cloud title="클라우드 &amp; 연결">
@@ -1275,7 +1310,7 @@
 
 				<MISC title="기타">
 					<ComboBox id="6347">
-						<Element name="사용"/>
+						<Element name="현재 파일에 사용"/>
 						<Element name="모든 열린 파일에 사용"/>
 						<Element name="사용 금지"/>
 					</ComboBox>
@@ -1363,7 +1398,12 @@
 				<Item id="6" name="예(&amp;Y)"/>
 				<Item id="7" name="아니오(&amp;N)"/>
 				<Item id="4" name="항상 예(&amp;A)"/>
-			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="디버그 정보">
+				<Item id="1752" name="디버그 정보를 클립보드에 복사 (&amp;C)"/>
+				<Item id="1" name="확인"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1381,7 +1421,8 @@
 			<DocReloadWarning title="다시 불러오기" message="변경 사항을 무시하고 현재 파일을 다시 불러오시겠습니까?"/>
 			<FileLockedWarning title="저장 실패" message="다른 프로그램에서 파일을 사용하는지 확인하십시오."/>
 			<FileAlreadyOpenedInNpp title="" message="이미 Notepad++에 열려 있는 파일입니다."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
-			<RenameTabTemporaryNameAlreadyInUse title="이름바꾸기 실패w" message="이름이 이미 다른 탭에서 사용중입니다."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameAlreadyInUse title="이름바꾸기 실패" message="이름이 이미 다른 탭에서 사용중입니다."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpry title="이름바꾸기 실패" message="빈 문자열이나 공백 문자(스페이스나 탭)만 있는 문자열은 사용할 수 없습니다."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="파일 삭제" message="파일을 삭제하지 못했습니다"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="열려는 파일이 너무 많습니다" message="$INT_REPLACE$개 파일을 열려고 합니다.
@@ -1487,6 +1528,25 @@ langs.xml 파일을 복구하시겠습니까?"/><!-- HowToReproduce: Close Notep
 대신, v8.5.2 로 버전을 낮추고, 이전 자료를 복구할 수 있습니다.
 Nodepad++ 은 오래된 &quot;shortcuts.xml&quot;을 &quot;shortcuts.xml.v8.5.2.backup&quot;으로 백업할 것입니다.
 &quot;shortcuts.xml.v.8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot; 같이 이름을 바꾸게 되면, 명령어가 저장되고 올바르게 동작할 것입니다."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+			<NotEnoughRoom4Saving title="저장 실패" message="파일 저장에 실패했습니다.
+디스크에 공간이 충분하지 않은 것 같습니다. 파일을 저장하지 않았습니다."/>
+			<FileInaccessibleUserSession title="파일 접근불가" message="수동 저장한 &quot;$STR_REPLACE$&quot; 세션의 일부 파일에 접근할 수 없습니다. 표시 목적의 비어있는 읽기 전용 파일로 열 수 있습니다.
+
+표시 목적의 빈 파일을 만드시겠습니까?
+
+주의: 파일을 만들지 않거나, 나중에 파일을 닫으면, 프로그램을 종료할 때 수동 저장 세션을 바꿀 수 없습니다."/>
+			<FileInaccessibleDefaultSessionXml title="파일 접근불가" message="이전 세션의 일부 파일에 접근할 수 없습니다. 표시 목적의 비어 있는 읽기 전용 파일로 열 수 있습니다.
+
+표시 목적의 빈 파일을 만드시겠습니까?
+
+주의: 파일을 만들지 않거나, 나중에 파일을 닫으면, 프로그램을 종료할 때 세션이 수정됩니다! &quot;session.xml&quot; 을 백업하세요."/>
+			<RTLvsDirectWrite title="오른쪽에서 왼쪽 쓰기 불가" message="오른쪽에서 왼쪽으로 쓰기는 직접쓰기 모드와 호환되지 않습니다. 설정의 기타 섹션에서 직접쓰기를 비활성화하고 Notepad++을 재시작해 주세요."/>
+			<FileMemoryAllocationFailed title="예외: 파일 메모리 할당 실패" message="Notepad++에서 파일을 읽어들일 수 있는 연속적인 빈 메모리 공간이 충분하지 않은 것 같습니다."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="표현식을 이용한 거꾸로 찾기 실패" message="기본적으로 표현식을 이용한 거꾸로 찾기는 예상치 못한 결과를 유발할 수 있어 비활성화되어 있습니다. 거꾸로 찾기를 하려면, 찾기 창을 열고 정규 표현식 대신 일반 혹은 확장 찾기 모드를 선택하세요.
+찾기 찾을 열거나 찾기 창을 앞으로 끌어오려면 확인 버튼을 누르세요.
+
+정규 표현식 기반의 거꾸로 찾기가 필요하다면, 이 기능 활성화에 대한 사용자 매뉴얼을 참조하세요."/>
+            <PrintError title="0" message="프린터 문서를 시작할 수 없습니다."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="클립보드 사용 기록"/>
@@ -1610,7 +1670,6 @@ Nodepad++ 은 오래된 &quot;shortcuts.xml&quot;을 &quot;shortcuts.xml.v8.5.2.
 			<default-open-save-select-folder value="기본 디렉토리로 사용할 폴더를 선택하십시오"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="반대쪽으로 검색하려면 Shift+Enter를 사용하십시오."/>
 			<two-find-buttons-tip value="찾기 버튼을 2개로 분할"/>
-			<file-rename-title value="이름 바꾸기"/>
 			<find-in-files-filter-tip value="cpp, cxx, h, hxx &amp;&amp; hpp 파일에서 찾기:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1623,33 +1682,30 @@ tests, bin &amp;&amp; bin64 디렉토리를 제외하고 모든 파일 찾기:
 log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾기:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
 			<find-in-files-select-folder value="찾기 시작할 폴더를 선택하십시오"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="찾기: 아래로부터 1곳을 찾았습니다. 문서의 처음에 도달했습니다."/>
-			<find-status-end-reached value="찾기: 위에서부터 1곳을 찾았습니다. 문서의 끝에 도달했습니다."/>
+			<find-status-top-reached value="찾기: 아래로부터 찾은 마지막 위치입니다. 문서의 처음에 도달했습니다."/>
+			<find-status-end-reached value="찾기: 위에서부터 찾은 마지막 위치입니다. 문서의 끝에 도달했습니다."/>
 			<find-status-replaceinfiles-1-replaced value="파일에서 바꾸기: 1곳을 바꾸었습니다."/>
 			<find-status-replaceinfiles-nb-replaced value="파일에서 바꾸기: $INT_REPLACE$곳을 바꾸었습니다."/>
-			<find-status-replaceinfiles-re-malformed value="열려있는 파일에서 바꾸기: 정규 표현식이 잘못되었습니다."/>
 			<find-status-replaceinopenedfiles-1-replaced value="열려있는 파일에서 바꾸기: 1곳을 바꾸었습니다."/>
 			<find-status-replaceinopenedfiles-nb-replaced value="열려있는 파일에서 바꾸기: $INT_REPLACE$곳을 바꾸었습니다."/>
-			<find-status-mark-re-malformed value="책갈피: 찾으려는 정규 표현식이 잘못되었습니다."/>
 			<find-status-invalid-re value="찾기: 정규 표현식이 잘못되었습니다."/>
 			<find-status-search-failed value="찾기: 찾기 실패"/>
 			<find-status-mark-1-match value="책갈피: 1곳이 일치합니다."/>
 			<find-status-mark-nb-matches value="책갈피: $INT_REPLACE$곳이 일치합니다."/>
-			<find-status-count-re-malformed value="찾아 세기: 찾으려는 정규 표현식이 잘못되었습니다."/>
 			<find-status-count-1-match value="찾아 세기: 1곳이 일치합니다."/>
 			<find-status-count-nb-matches value="찾아 세기: $INT_REPLACE$곳이 일치합니다."/>
-			<find-status-replaceall-re-malformed value="모두 바꾸기: 정규 표현식이 잘못되었습니다."/>
 			<find-status-replaceall-1-replaced value="모두 바꾸기: 1곳을 바꾸었습니다."/>
 			<find-status-replaceall-nb-replaced value="모두 바꾸기: $INT_REPLACE$곳을 바꾸었습니다."/>
 			<find-status-replaceall-readonly value="모두 바꾸기: 바꿀 수 없습니다. 문서가 읽기 전용입니다."/>
-			<find-status-replace-end-reached value="바꾸기: 위에서부터 1곳을 바꾸었습니다. 문서의 끝에 도달하였습니다."/>
-			<find-status-replace-top-reached value="바꾸기: 아래로부터 1곳을 바꾸었습니다. 문서의 처음에 도달하였습니다."/>
+			<find-status-replace-end-reached value="바꾸기: 위에서부터 바꾸기 작업한 마지막 위치입니다. 문서의 끝에 도달하였습니다."/>
+			<find-status-replace-top-reached value="바꾸기: 아래로부터 바꾸기 작업한 마지막 위치입니다. 문서의 처음에 도달하였습니다."/>
 			<find-status-replaced-next-found value="바꾸기: 1곳을 바꾸었습니다. 다음 바꿀 곳을 찾았습니다."/>
 			<find-status-replaced-without-continuing value="바꾸기: 1곳을 바꾸었습니다."/>
 			<find-status-replaced-next-not-found value="바꾸기: 1곳을 바꾸었습니다. 다음 바꿀 곳을 찾지 못했습니다."/>
 			<find-status-replace-not-found value="바꾸기: 바꿀 곳이 없습니다."/>
 			<find-status-replace-readonly value="바꾸기: 바꿀 수 없습니다. 문서가 읽기 전용입니다."/>
 			<find-status-cannot-find value="찾기: &quot;$STR_REPLACE$&quot;을 찾을 수 없습니다."/>
+			<find-status-cannot-find-pebkac-maybe value="동작을 적용할 곳을 찾지 못했습니다. &quot;첫 위치로 돌아가기&quot; (켬), &quot;대소문자 일치&quot; (끔), or &quot;모든 단어가 일치할 때만&quot; (끔) 인지 확인해 주세요."/>
 			<find-status-scope-selection value="선택 영역"/>
 			<find-status-scope-all value="파일 전체"/>
 			<find-status-scope-backward value="파일 시작에서 현재 커서 위치까지"/>
@@ -1659,9 +1715,7 @@ log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾�
 			<finder-collapse-all value="모두 접기"/>
 			<finder-uncollapse-all value="모두 펼치기"/>
 			<finder-copy value="선택된 줄 복사"/>
-			<finder-copy-verbatim value="복사"/>
 			<finder-copy-paths value="경로 이름 복사"/>
-			<finder-select-all value="모두 선택"/>
 			<finder-clear-all value="모두 지우기"/>
 			<finder-open-all value="모두 열기"/>
 			<finder-purge-for-every-search value="모든 찾기 삭제"/>
@@ -1688,12 +1742,11 @@ log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾�
 			<summary-nbsel2 value=" bytes) "/>
 			<summary-nbrange value=" 범위"/>
 			<progress-hits-title value="도달:"/>
-			<progress-cancel-button value="취소"/>
 			<progress-cancel-info value="작업 취소 중입니다. 기다려 주세요..."/>
 			<find-in-files-progress-title value="파일에서 찾기 진행중..."/>
 			<replace-in-files-confirm-title value="맞습니까?"/>
-			<replace-in-files-confirm-directory value="범위 내에서 모두 바꾸시겠습니까? :"/>
-			<replace-in-files-confirm-filetype value="파일 종류 :"/>
+			<replace-in-files-confirm-directory value="범위 내에서 모두 바꾸시겠습니까?:"/>
+			<replace-in-files-confirm-filetype value="파일 종류:"/>
 			<replace-in-files-progress-title value="파일에서 바꾸기 진행중..."/>
 			<replace-in-projects-confirm-title value="맞습니까?"/>
 			<replace-in-projects-confirm-message value="선택한 프로젝트 영역의 모든 문서에서 바꾸시겠습니까?"/>
@@ -1703,6 +1756,11 @@ log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾�
 			<find-result-title value="찾기"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE3$ 개 파일을 검색하여 $INT_REPLACE2$ 개 파일에서 $INT_REPLACE1$ 개 일치)"/>
 			<find-result-title-info-selections value="($INT_REPLACE3$ 개 파일의 $INT_REPLACE2$ 개 선택 영역에서 $INT_REPLACE1$ 개 일치)"/>
+			<find-result-title-info-options-searchmode-normal value="일반"/>
+			<find-result-title-info-options-searchmode-extended value="확장"/>
+			<find-result-title-info-options-searchmode-regexp value="정규표현식"/>
+			<find-result-title-info-options-case value="대소문자"/>
+			<find-result-title-info-options-word value="단어"/>
 			<find-result-title-info-extra value=" - 열 필터 상태: 걸러낸 결과만 표시"/>
 			<find-result-hits value="($INT_REPLACE$ 일치)"/>
 			<find-result-line-prefix value="줄"/><!-- Must not begin with space or tab character -->
@@ -1752,6 +1810,13 @@ U+FEFF : 너비 0의 단어 잘림 방지 공백
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="선택한 공백과 출력 불가능 문자의 사용자 정의 색깔을 변경하기 위해서는 스타일 편집기를 사용하세요. (&quot;출력 불가능 문자 사용자 정의 색&quot;)"/>
 			<npcIncludeCcUniEol-tip value="출력 불가능한 글자 모양 설정을 C0, c1 제어와 줄 끝 문자에 적용합니다. (다음 줄, 줄 분리자, 문단 분리자)."/>
+			<searchingInSelThresh-tip value="찾기 창을 활성화할 때 &quot;선택&quot; 체크박스를 자동으로 검사하기 위해 편집 영역에서 선택한 글자 수. 최대값은 1024입니다. 0으로 설정하면 자동 검사가 비활성화됩니다."/>
+			<verticalEdge-tip value="십진수로 위치를 나타내는 열 표시기를 추가하세요. 다른 숫자를 구분하기 위해 공백 문자를 사용하는 몇 가지 열 표시기를 정의할 수 있습니다."/>
+			<autoIndentBasic-tip value="현재 줄(예. ENTER키를 눌러 생성된 새 줄)이 이전 줄의 들여쓰기와 일치하는지 확인하세요."/>
+			<autoIndentAdvanced-tip value="&quot;C 같은&quot; 언어나 파이썬 언어에 대해 지능적 들여쓰기를 활성화하세요. &quot;C같은&quot; 언어는 다음과 같습니다.:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell, JSON.
+
+앞서 언어들에 대해 고급 모드를 선택하고 파일을 편집하지 않으면, 들여쓰기가 기본 모드로 유지됩니다."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

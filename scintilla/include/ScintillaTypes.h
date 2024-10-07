@@ -165,6 +165,18 @@ enum class FontWeight {
 	Bold = 700,
 };
 
+enum class FontStretch {
+	UltraCondensed = 1,
+	ExtraCondensed = 2,
+	Condensed = 3,
+	SemiCondensed = 4,
+	Normal = 5,
+	SemiExpanded = 6,
+	Expanded = 7,
+	ExtraExpanded = 8,
+	UltraExpanded = 9,
+};
+
 enum class Element {
 	List = 0,
 	ListBack = 1,
@@ -178,6 +190,8 @@ enum class Element {
 	SelectionSecondaryBack = 15,
 	SelectionInactiveText = 16,
 	SelectionInactiveBack = 17,
+	SelectionInactiveAdditionalText = 18,
+	SelectionInactiveAdditionalBack = 19,
 	Caret = 40,
 	CaretAdditional = 41,
 	CaretLineBack = 50,
@@ -689,6 +703,7 @@ using sptr_t = intptr_t;
 constexpr Position InvalidPosition = -1;
 constexpr int CpUtf8 = 65001;
 constexpr int MarkerMax = 31;
+constexpr int MaskHistory = 0x01E00000;
 constexpr int MaskFolders = 0xFE000000;
 constexpr int MaxMargin = 4;
 constexpr int FontSizeMultiplier = 100;

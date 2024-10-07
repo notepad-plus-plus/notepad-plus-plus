@@ -412,7 +412,7 @@ void SCI_METHOD LexerRegistry::Fold(Sci_PositionU startPos,
 	styler.SetLevel(currLine, level);
 }
 
-LexerModule lmRegistry(SCLEX_REGISTRY,
+extern const LexerModule lmRegistry(SCLEX_REGISTRY,
 					   LexerRegistry::LexerFactoryRegistry,
 					   "registry",
 					   RegistryWordListDesc);

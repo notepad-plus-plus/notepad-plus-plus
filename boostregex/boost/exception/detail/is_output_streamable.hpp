@@ -9,7 +9,7 @@
 #include <ostream>
 
 #ifndef BOOST_EXCEPTION_ENABLE_WARNINGS
-#if __GNUC__*100+__GNUC_MINOR__>301
+#if defined(__GNUC__) && __GNUC__*100+__GNUC_MINOR__>301
 #pragma GCC system_header
 #endif
 #ifdef __clang__

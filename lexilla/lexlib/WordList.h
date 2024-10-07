@@ -31,7 +31,7 @@ public:
 	bool operator!=(const WordList &other) const noexcept;
 	int Length() const noexcept;
 	void Clear() noexcept;
-	bool Set(const char *s);
+	bool Set(const char *s, bool lowerCase=false);
 	bool InList(const char *s) const noexcept;
 	bool InList(const std::string &s) const noexcept;
 	bool InListAbbreviated(const char *s, const char marker) const noexcept;

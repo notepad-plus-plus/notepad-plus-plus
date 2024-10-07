@@ -1,0 +1,11 @@
+ 0 400   0         * Fix string style to not continue to next line
+ 0 400   0   
+ 0 400   0               DISPLAY MESSAGE BOX
+ 0 400   0                 "The following process must be applied to Earnings, Deduct
+ 0 400   0         -       "ions and Company Contributions separately."
+ 0 400   0   
+ 0 400   0   LP61A            DISPLAY MESSAGE BOX 
+ 0 400   0   lp61b            "S*** strives to continually develop and improve its pr
+ 0 400   0   LP61B -          "oducts and services to deliver more value to our custo
+ 0 400   0   LP61B -          "mers." 
+ 0 400   0   

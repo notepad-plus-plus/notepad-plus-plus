@@ -82,7 +82,7 @@ public:
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
 
 	static void setColour(COLORREF colour2Set, AutocompleteColorIndex i);
-	static void drawAutocomplete(ScintillaEditView* pEditView);
+	static void drawAutocomplete(const ScintillaEditView* pEditView);
 
 protected:
 	static COLORREF _autocompleteBg;
@@ -106,14 +106,14 @@ private:
 
 	bool _ignoreCase = true;
 
-	std::vector<generic_string> _keyWordArray;
-	generic_string _keyWords;
+	std::vector<std::wstring> _keyWordArray;
+	std::wstring _keyWords;
 	size_t _keyWordMaxLen = 0;
 
 	FunctionCallTip _funcCalltip;
 
-	const TCHAR * getApiFileName();
-	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars, TCHAR *excludeChars);
+	const wchar_t * getApiFileName();
+	void getWordArray(std::vector<std::wstring> & wordArray, const wchar_t *beginChars, const wchar_t *excludeChars);
 
 	// Type of autocomplete function
 	enum AutocompleteType {

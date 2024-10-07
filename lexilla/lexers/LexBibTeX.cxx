@@ -299,7 +299,7 @@ static const char * const BibTeXWordLists[] = {
 };
 
 
-LexerModule lmBibTeX(SCLEX_BIBTEX, ColorizeBibTeX, "bib", 0, BibTeXWordLists);
+extern const LexerModule lmBibTeX(SCLEX_BIBTEX, ColorizeBibTeX, "bib", 0, BibTeXWordLists);
 
 // Entry Names
 //    article, book, booklet, conference, inbook,

@@ -21,6 +21,7 @@
 #include "Window.h"
 #include "Notepad_plus_msgs.h"
 #include "ImageListSet.h"
+#include "dpiManagerV2.h"
 
 #define REBAR_BAR_TOOLBAR		0
 #define REBAR_BAR_SEARCH		1
@@ -36,9 +37,9 @@ enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_SMALL2, TB_LARGE2, TB_STANDARD};
 struct iconLocator {
 	size_t _listIndex = 0;
 	size_t _iconIndex = 0;
-	generic_string _iconLocation;
+	std::wstring _iconLocation;
 
-	iconLocator(size_t iList, size_t iIcon, const generic_string& iconLoc)
+	iconLocator(size_t iList, size_t iIcon, const std::wstring& iconLoc)
 		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc){};
 };
 
@@ -90,7 +91,7 @@ public :
         return true;
     };
 
-	bool changeIcons(size_t whichLst, size_t iconIndex, const TCHAR *iconLocation){
+	bool changeIcons(size_t whichLst, size_t iconIndex, const wchar_t *iconLocation){
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
 
@@ -100,6 +101,8 @@ public :
 	void doPopop(POINT chevPoint);	//show the popup if buttons are hidden
 
 	void addToRebar(ReBar * rebar);
+
+	void resizeIconsDpi(UINT dpi);
 
 private :
 	TBBUTTON *_pTBB = nullptr;
@@ -115,6 +118,8 @@ private :
     std::vector<iconLocator> _customIconVect;
 
     TiXmlNode *_toolIcons = nullptr;
+
+	DPIManagerV2 _dpiManager;
 
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
@@ -146,14 +151,6 @@ private :
 
 	void setDisableImageListDM2() {
 		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLstSetDM2()));
-	};
-	
-	void setHoveredImageListDM() {
-		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
-	};
-
-	void setHoveredImageListDM2() {
-		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLstSet2()));
 	};
 
 	void reset(bool create = false);

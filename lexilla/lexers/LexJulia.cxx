@@ -192,10 +192,7 @@ Sci_Position SCI_METHOD LexerJulia::WordListSet(int n, const char *wl) {
 	}
 	Sci_Position firstModification = -1;
 	if (wordListN) {
-		WordList wlNew;
-		wlNew.Set(wl);
-		if (*wordListN != wlNew) {
-			wordListN->Set(wl);
+		if (wordListN->Set(wl)) {
 			firstModification = 0;
 		}
 	}
@@ -1262,4 +1259,4 @@ void SCI_METHOD LexerJulia::Fold(Sci_PositionU startPos, Sci_Position length, in
     }
 }
 
-LexerModule lmJulia(SCLEX_JULIA, LexerJulia::LexerFactoryJulia, "julia", juliaWordLists);
+extern const LexerModule lmJulia(SCLEX_JULIA, LexerJulia::LexerFactoryJulia, "julia", juliaWordLists);

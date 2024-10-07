@@ -1,0 +1,10 @@
+ 0 400   0         * Comment preceded by 6 characters to be styled
+ 0 400   0         * Include / to be styled as a comment
+ 0 400   0   
+ 0 400   0         * Comment colored in green
+ 0 400   0   ABCDE * Comment colored in green
+ 0 400   0   ABCDEF* Comment NOT colored in green
+ 0 400   0         / Comment NOT colored in green
+ 0 400   0   ABCDE / Comment NOT colored in green
+ 0 400   0   ABCDEF/ Comment NOT colored in green
+ 0 400   0   

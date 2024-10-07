@@ -692,4 +692,4 @@ void SCI_METHOD LexerVisualProlog::Fold(Sci_PositionU startPos, Sci_Position len
 }
 }
 
-LexerModule lmVisualProlog(SCLEX_VISUALPROLOG, LexerVisualProlog::LexerFactoryVisualProlog, "visualprolog", visualPrologWordLists);
+extern const LexerModule lmVisualProlog(SCLEX_VISUALPROLOG, LexerVisualProlog::LexerFactoryVisualProlog, "visualprolog", visualPrologWordLists);

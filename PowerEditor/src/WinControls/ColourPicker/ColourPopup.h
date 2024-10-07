@@ -37,13 +37,7 @@ public :
 	}
 
 	void create(int dialogID);
-
-	void doDialog(POINT p)
-	{
-		if (!isCreated())
-			create(IDD_COLOUR_POPUP);
-		::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
-	}
+	void doDialog(POINT p);
 
 	virtual void destroy()
 	{

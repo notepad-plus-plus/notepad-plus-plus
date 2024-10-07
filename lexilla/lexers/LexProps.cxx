@@ -5,12 +5,8 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
 
 #include <string>
 #include <string_view>
@@ -28,22 +24,24 @@
 
 using namespace Lexilla;
 
-static inline bool AtEOL(Accessor &styler, Sci_PositionU i) {
+namespace {
+
+bool AtEOL(Accessor &styler, Sci_PositionU i) {
 	return (styler[i] == '\n') ||
 	       ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n'));
 }
 
-static inline bool isassignchar(unsigned char ch) {
+constexpr bool isAssignChar(char ch) noexcept {
 	return (ch == '=') || (ch == ':');
 }
 
-static void ColourisePropsLine(
+void ColourisePropsLine(
 	const char *lineBuffer,
-    Sci_PositionU lengthLine,
-    Sci_PositionU startLine,
-    Sci_PositionU endPos,
-    Accessor &styler,
-    bool allowInitialSpaces) {
+	Sci_PositionU lengthLine,
+	Sci_PositionU startLine,
+	Sci_PositionU endPos,
+	Accessor &styler,
+	bool allowInitialSpaces) {
 
 	Sci_PositionU i = 0;
 	if (allowInitialSpaces) {
@@ -61,14 +59,14 @@ static void ColourisePropsLine(
 			styler.ColourTo(endPos, SCE_PROPS_SECTION);
 		} else if (lineBuffer[i] == '@') {
 			styler.ColourTo(startLine + i, SCE_PROPS_DEFVAL);
-			if (isassignchar(lineBuffer[i++]))
+			if (isAssignChar(lineBuffer[i++]))
 				styler.ColourTo(startLine + i, SCE_PROPS_ASSIGNMENT);
 			styler.ColourTo(endPos, SCE_PROPS_DEFAULT);
 		} else {
 			// Search for the '=' character
-			while ((i < lengthLine) && !isassignchar(lineBuffer[i]))
+			while ((i < lengthLine) && !isAssignChar(lineBuffer[i]))
 				i++;
-			if ((i < lengthLine) && isassignchar(lineBuffer[i])) {
+			if ((i < lengthLine) && isAssignChar(lineBuffer[i])) {
 				styler.ColourTo(startLine + i - 1, SCE_PROPS_KEY);
 				styler.ColourTo(startLine + i, SCE_PROPS_ASSIGNMENT);
 				styler.ColourTo(endPos, SCE_PROPS_DEFAULT);
@@ -81,7 +79,7 @@ static void ColourisePropsLine(
 	}
 }
 
-static void ColourisePropsDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
+void ColourisePropsDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	std::string lineBuffer;
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
@@ -109,7 +107,7 @@ static void ColourisePropsDoc(Sci_PositionU startPos, Sci_Position length, int, 
 
 // adaption by ksc, using the "} else {" trick of 1.53
 // 030721
-static void FoldPropsDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
+void FoldPropsDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	const bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 
 	const Sci_PositionU endPos = startPos + length;
@@ -117,7 +115,6 @@ static void FoldPropsDoc(Sci_PositionU startPos, Sci_Position length, int, WordL
 	Sci_Position lineCurrent = styler.GetLine(startPos);
 
 	char chNext = styler[startPos];
-	int styleNext = styler.StyleAt(startPos);
 	bool headerPoint = false;
 	int levelPrevious = (lineCurrent > 0) ? styler.LevelAt(lineCurrent - 1) : SC_FOLDLEVELBASE;
 
@@ -125,8 +122,7 @@ static void FoldPropsDoc(Sci_PositionU startPos, Sci_Position length, int, WordL
 		const char ch = chNext;
 		chNext = styler[i+1];
 
-		const int style = styleNext;
-		styleNext = styler.StyleAt(i + 1);
+		const int style = styler.StyleIndexAt(i);
 		const bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 
 		if (style == SCE_PROPS_SECTION) {
@@ -164,12 +160,14 @@ static void FoldPropsDoc(Sci_PositionU startPos, Sci_Position length, int, WordL
 	if (levelPrevious & SC_FOLDLEVELHEADERFLAG) {
 		level += 1;
 	}
-	int flagsNext = styler.LevelAt(lineCurrent);
+	const int flagsNext = styler.LevelAt(lineCurrent);
 	styler.SetLevel(lineCurrent, level | (flagsNext & ~SC_FOLDLEVELNUMBERMASK));
 }
 
-static const char *const emptyWordListDesc[] = {
-	0
+const char *const emptyWordListDesc[] = {
+	nullptr
 };
 
-LexerModule lmProps(SCLEX_PROPERTIES, ColourisePropsDoc, "props", FoldPropsDoc, emptyWordListDesc);
+}
+
+extern const LexerModule lmProps(SCLEX_PROPERTIES, ColourisePropsDoc, "props", FoldPropsDoc, emptyWordListDesc);

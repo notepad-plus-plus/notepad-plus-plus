@@ -140,4 +140,4 @@ static const char *const emptyWordListDesc[] = {
 	nullptr
 };
 
-LexerModule lmMake(SCLEX_MAKEFILE, ColouriseMakeDoc, "makefile", nullptr, emptyWordListDesc);
+extern const LexerModule lmMake(SCLEX_MAKEFILE, ColouriseMakeDoc, "makefile", nullptr, emptyWordListDesc);

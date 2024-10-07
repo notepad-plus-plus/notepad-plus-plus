@@ -36,6 +36,7 @@ public :
 			// So reload the macro list (issue #4526)
 			initMacroList();
 			::ShowWindow(_hSelf, SW_SHOW);
+			::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 		}
 	};
 

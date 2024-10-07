@@ -17,12 +17,12 @@
 
 SectionGroup "Auto-completion Files" autoCompletionComponent
 	SetOverwrite off
-	
+
 	${MementoSection} "C" C
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\c.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "C++" C++
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\cpp.xml"
@@ -32,27 +32,27 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\java.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "C#" C#
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\cs.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "HTML" HTML
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\html.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "RC" RC
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\rc.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "SQL" SQL
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\sql.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "PHP" PHP
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\php.xml"
@@ -72,7 +72,7 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\perl.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "JavaScript" JavaScript
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\javascript.xml"
@@ -82,37 +82,37 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\python.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "ActionScript" ActionScript
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\actionscript.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "LISP" LISP
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\lisp.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "VHDL" VHDL
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\vhdl.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "TeX" TeX
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\tex.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "DocBook" DocBook
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\xml.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "NSIS" NSIS
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\nsis.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "CMAKE" CMAKE
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\cmake.xml"
@@ -122,7 +122,7 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\batch.xml"
 	${MementoSectionEnd}
-	
+
 	${MementoSection} "CoffeeScript" CoffeeScript
 		SetOutPath "$INSTDIR\autoCompletion"
 		File ".\APIs\coffee.xml"
@@ -163,6 +163,15 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		File ".\APIs\gdscript.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "Go" Go
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\go.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "Raku" Raku
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\raku.xml"
+	${MementoSectionEnd}
 
 SectionGroupEnd
 
@@ -175,16 +184,16 @@ SectionGroup un.autoCompletionComponent
 
 	Section un.CSS
 		Delete "$INSTDIR\autoCompletion\css.xml"
-	SectionEnd	
-	
+	SectionEnd
+
 	Section un.HTML
 		Delete "$INSTDIR\autoCompletion\html.xml"
 	SectionEnd
-	
+
 	Section un.SQL
 		Delete "$INSTDIR\autoCompletion\sql.xml"
 	SectionEnd
-	
+
 	Section un.RC
 		Delete "$INSTDIR\autoCompletion\rc.xml"
 	SectionEnd
@@ -200,19 +209,19 @@ SectionGroup un.autoCompletionComponent
 	Section un.C
 		Delete "$INSTDIR\autoCompletion\c.xml"
 	SectionEnd
-	
+
 	Section un.C++
 		Delete "$INSTDIR\autoCompletion\cpp.xml"
 	SectionEnd
-	
+
 	Section un.Java
 		Delete "$INSTDIR\autoCompletion\java.xml"
 	SectionEnd
-	
+
 	Section un.C#
 		Delete "$INSTDIR\autoCompletion\cs.xml"
 	SectionEnd
-	
+
 	Section un.JavaScript
 		Delete "$INSTDIR\autoCompletion\javascript.xml"
 	SectionEnd
@@ -224,27 +233,27 @@ SectionGroup un.autoCompletionComponent
 	Section un.ActionScript
 		Delete "$INSTDIR\autoCompletion\actionscript.xml"
 	SectionEnd
-	
+
 	Section un.LISP
 		Delete "$INSTDIR\autoCompletion\lisp.xml"
 	SectionEnd
-	
+
 	Section un.VHDL
 		Delete "$INSTDIR\autoCompletion\vhdl.xml"
-	SectionEnd	
-	
+	SectionEnd
+
 	Section un.TeX
 		Delete "$INSTDIR\autoCompletion\tex.xml"
 	SectionEnd
-	
+
 	Section un.DocBook
 		Delete "$INSTDIR\autoCompletion\xml.xml"
 	SectionEnd
-	
+
 	Section un.NSIS
 		Delete "$INSTDIR\autoCompletion\nsis.xml"
 	SectionEnd
-	
+
 	Section un.CMAKE
 		Delete "$INSTDIR\autoCompletion\cmake.xml"
 	SectionEnd
@@ -252,7 +261,7 @@ SectionGroup un.autoCompletionComponent
 	Section un.BATCH
 		Delete "$INSTDIR\autoCompletion\batch.xml"
 	SectionEnd
-	
+
 	Section un.CoffeeScript
 		Delete "$INSTDIR\autoCompletion\coffee.xml"
 	SectionEnd
@@ -285,5 +294,12 @@ SectionGroup un.autoCompletionComponent
 		Delete "$INSTDIR\autoCompletion\gdscript.xml"
 	SectionEnd
 
+	Section un.Go
+		Delete "$INSTDIR\autoCompletion\go.xml"
+	SectionEnd
+
+	Section un.Raku
+		Delete "$INSTDIR\autoCompletion\raku.xml"
+	SectionEnd
 
 SectionGroupEnd

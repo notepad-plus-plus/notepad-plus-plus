@@ -29,23 +29,25 @@ class CustomFileDialog
 public:
 	explicit CustomFileDialog(HWND hwnd);
 	~CustomFileDialog();
-	void setTitle(const TCHAR* title);
-	void setExtFilter(const TCHAR* text, const TCHAR* ext);
-	void setExtFilter(const TCHAR* text, std::initializer_list<const TCHAR*> exts);
-	void setDefExt(const TCHAR* ext);
-	void setDefFileName(const TCHAR *fn);
-	void setFolder(const TCHAR* folder);
-	void setCheckbox(const TCHAR* text, bool isActive = true);
+	void setTitle(const wchar_t* title);
+	void setExtFilter(const wchar_t* text, const wchar_t* ext);
+	void setExtFilter(const wchar_t* text, std::initializer_list<const wchar_t*> exts);
+	void setDefExt(const wchar_t* ext);
+	void setDefFileName(const wchar_t *fn);
+	void setFolder(const wchar_t* folder);
+	void setCheckbox(const wchar_t* text, bool isActive = true);
 	void setExtIndex(int extTypeIndex);
+	void setSaveAsCopy(bool isSavingAsCopy);
+	bool getOpenTheCopyAfterSaveAsCopy(void);
 
-	void enableFileTypeCheckbox(const generic_string& text, bool value);
+	void enableFileTypeCheckbox(const std::wstring& text, bool value);
 	bool getFileTypeCheckboxValue() const;
 
 	// Empty string is not a valid file name and may signal that the dialog was canceled.
-	generic_string doSaveDlg();
-	generic_string pickFolder();
-	generic_string doOpenSingleFileDlg();
-	std::vector<generic_string> doOpenMultiFilesDlg();
+	std::wstring doSaveDlg();
+	std::wstring pickFolder();
+	std::wstring doOpenSingleFileDlg();
+	std::vector<std::wstring> doOpenMultiFilesDlg();
 
 	bool getCheckboxState() const;
 	bool isReadOnly() const;

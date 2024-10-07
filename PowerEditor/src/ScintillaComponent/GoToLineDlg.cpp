@@ -71,7 +71,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			setPositionDpi(lParam);
 
 			return TRUE;

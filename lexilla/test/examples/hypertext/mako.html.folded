@@ -1,0 +1,77 @@
+ 0 400   0   Mako examples extracted from https://docs.makotemplates.org/en/latest/syntax.html
+ 1 400   0   
+ 0 400   0   Expression
+ 0 400   0   ${x}
+ 0 400   0   ${}
+ 0 400   0   ${pow(x,2) + pow(y,2)}
+ 1 400   0   
+ 0 400   0   Expression Escaping
+ 0 400   0   ${"this is some text" | u}
+ 1 400   0   
+ 0 400   0   Control Structures
+ 0 400   0   % if x==5:
+ 0 400   0       this is some output
+ 0 400   0   % endif
+ 1 400   0   
+ 0 400   0   % for a in ['one', 'two', 'three', 'four', 'five']:
+ 0 400   0       % if a[0] == 't':
+ 0 400   0       its two or three
+ 0 400   0       % elif a[0] == 'f':
+ 0 400   0       four/five
+ 0 400   0       % else:
+ 0 400   0       one
+ 0 400   0       % endif
+ 0 400   0   % endfor
+ 1 400   0   
+ 0 400   0   The % sign can also be “escaped”, if you actually want to emit a percent sign as the first non whitespace character on a line, by escaping it as in %%:
+ 0 400   0   %% some text
+ 0 400   0       %% some more text
+ 1 400   0   
+ 0 400   0   The Loop Context
+ 0 400   0   The loop context provides additional information about a loop while inside of a % for structure:
+ 1 400   0   
+ 2 400   0 + <ul>
+ 0 401   0 | % for a in ("one", "two", "three"):
+ 0 401   0 |     <li>Item ${loop.index}: ${a}</li>
+ 0 401   0 | % endfor
+ 0 401   0 | </ul>
+ 1 400   0   
+ 0 400   0   A multiline version exists using <%doc> ...text... </%doc>:
+ 0 400   0   <%doc>
+ 0 400   0       these are comments
+ 0 400   0       more comments
+ 0 400   0   </%doc>
+ 1 400   0   
+ 0 400   0   Python Blocks
+ 0 400   0   Any arbitrary block of python can be dropped in using the <% %> tags:
+ 0 400   0   this is a template
+ 1 400   0   
+ 0 400   0   <%
+ 0 400   0       x = db.get_resource('foo')
+ 0 400   0       y = [z.element for z in x if x.frobnizzle==5]
+ 0 400   0   %>
+ 0 400   0   % for elem in y:
+ 0 400   0       element: ${elem}
+ 0 400   0   % endfor
+ 0 400   0   Within <% %>, you’re writing a regular block of Python code. While the code can appear with an arbitrary level of preceding whitespace, it has to be consistently formatted with itself. Mako’s compiler will adjust the block of Python to be consistent with the surrounding generated Python code.
+ 1 400   0   
+ 0 400   0   Module-level Blocks
+ 0 400   0   A variant on <% %> is the module-level code block, denoted by <%! %>. Code within these tags is executed at the module level of the template, and not within the rendering function of the template. Therefore, this code does not have access to the template’s context and is only executed when the template is loaded into memory (which can be only once per application, or more, depending on the runtime environment). Use the <%! %> tags to declare your template’s imports, as well as any pure-Python functions you might want to declare:
+ 1 400   0   
+ 0 400   0   <%!
+ 0 400   0       import mylib
+ 0 400   0       import re
+ 1 400   0   
+ 0 400   0       def filter(text):
+ 0 400   0           return re.sub(r'^@', '', text)
+ 0 400   0   %>
+ 1 400   0   
+ 0 400   0   Tags
+ 0 400   0   The rest of what Mako offers takes place in the form of tags. All tags use the same syntax, which is similar to an XML tag except that the first character of the tag name is a % character. The tag is closed either by a contained slash character, or an explicit closing tag:
+ 1 400   0   
+ 0 400   0   <%include file="foo.txt"/>
+ 1 400   0   
+ 0 400   0   <%def name="foo" buffered="True">
+ 0 400   0       this is a def
+ 0 400   0   </%def>
+ 0 400   0   

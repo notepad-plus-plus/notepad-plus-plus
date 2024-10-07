@@ -25,7 +25,7 @@
 #include "Notepad_plus_msgs.h"
 
 
-typedef const TCHAR * (__cdecl * PFUNCGETNAME)();
+typedef const wchar_t * (__cdecl * PFUNCGETNAME)();
 
 struct NppData
 {
@@ -52,7 +52,7 @@ const int menuItemSize = 64;
 
 struct FuncItem
 {
-	TCHAR _itemName[menuItemSize] = { '\0' };
+	wchar_t _itemName[menuItemSize] = { '\0' };
 	PFUNCPLUGINCMD _pFunc = nullptr;
 	int _cmdID = 0;
 	bool _init2Check = false;
@@ -63,7 +63,7 @@ typedef FuncItem * (__cdecl * PFUNCGETFUNCSARRAY)(int *);
 
 // You should implement (or define an empty function body) those functions which are called by Notepad++ plugin manager
 extern "C" __declspec(dllexport) void setInfo(NppData);
-extern "C" __declspec(dllexport) const TCHAR * getName();
+extern "C" __declspec(dllexport) const wchar_t * getName();
 extern "C" __declspec(dllexport) FuncItem * getFuncsArray(int *);
 extern "C" __declspec(dllexport) void beNotified(SCNotification *);
 extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam);

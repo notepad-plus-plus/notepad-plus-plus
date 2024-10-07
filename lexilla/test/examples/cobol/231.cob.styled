@@ -1,0 +1,9 @@
+{0}      {2}* Comment preceded by 6 characters to be styled{0}
+      {2}* Include / to be styled as a comment{0}
+
+      {2}* Comment colored in green{0}
+{11}ABCDE{0} {2}* Comment colored in green{0}
+{11}ABCDEF{2}* Comment NOT colored in green{0}
+      {2}/ Comment NOT colored in green{0}
+{11}ABCDE{0} {2}/ Comment NOT colored in green{0}
+{11}ABCDEF{2}/ Comment NOT colored in green{0}

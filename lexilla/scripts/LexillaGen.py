@@ -25,7 +25,7 @@ import LexFacer
 sys.path.append(str(thisPath.parent.parent / "src"))
 import DepGen
 
-# RegenerateXcodeProject and assiciated functions is copied from scintilla/scripts/LexGen.py
+# RegenerateXcodeProject and associated functions are copied from scintilla/scripts/LexGen.py
 
 def uid24():
     """ Last 24 digits of UUID, used for item IDs in Xcode. """

@@ -538,10 +538,7 @@ Sci_Position SCI_METHOD LexerPerl::WordListSet(int n, const char *wl) {
 	}
 	Sci_Position firstModification = -1;
 	if (wordListN) {
-		WordList wlNew;
-		wlNew.Set(wl);
-		if (*wordListN != wlNew) {
-			wordListN->Set(wl);
+		if (wordListN->Set(wl)) {
 			firstModification = 0;
 		}
 	}
@@ -1901,4 +1898,4 @@ void SCI_METHOD LexerPerl::Fold(Sci_PositionU startPos, Sci_Position length, int
 
 }
 
-LexerModule lmPerl(SCLEX_PERL, LexerPerl::LexerFactoryPerl, "perl", perlWordListDesc);
+extern const LexerModule lmPerl(SCLEX_PERL, LexerPerl::LexerFactoryPerl, "perl", perlWordListDesc);

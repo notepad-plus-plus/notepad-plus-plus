@@ -19,6 +19,8 @@
 #include <stdexcept>
 #include "ColourPopup.h"
 #include "NppDarkMode.h"
+#include "dpiManagerV2.h"
+
 
 DWORD colourItems[] = {
 	RGB(  0,   0,   0),	RGB( 64,   0,   0),	RGB(128,   0,   0),	RGB(128,  64,  64),	RGB(255,   0,   0),	RGB(255, 128, 128),
@@ -41,6 +43,22 @@ void ColourPopup::create(int dialogID)
 	}
 	Window::getClientRect(_rc);
 	display();
+}
+
+void ColourPopup::doDialog(POINT p)
+{
+	if (!isCreated())
+	{
+		const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
+
+		create(IDD_COLOUR_POPUP);
+
+		if (dpiContext != NULL)
+		{
+			DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+		}
+	}
+	::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
 }
 
 intptr_t CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
@@ -228,8 +246,15 @@ intptr_t CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					cc.Flags = CC_FULLOPEN | CC_RGBINIT | CC_ENABLEHOOK;
 
 					display(false);
-					 
-					if (ChooseColor(&cc)==TRUE) 
+
+					const auto dpiContext = DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
+					const bool isCreated = ChooseColor(&cc) == TRUE;
+					if (dpiContext != NULL)
+					{
+						DPIManagerV2::setThreadDpiAwarenessContext(dpiContext);
+					}
+
+					if (isCreated)
 					{
 						::SendMessage(_hParent, WM_PICKUP_COLOR, cc.rgbResult, 0);
 					}

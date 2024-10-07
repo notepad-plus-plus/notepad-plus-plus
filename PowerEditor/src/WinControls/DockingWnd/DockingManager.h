@@ -23,7 +23,7 @@
 #include "DockingCont.h"
 #include "SplitterContainer.h"
 
-#define DSPC_CLASS_NAME TEXT("dockingManager")
+#define DSPC_CLASS_NAME L"dockingManager"
 #define	CONT_MAP_MAX	50
 
 class DockingSplitter;
@@ -35,7 +35,7 @@ public :
 	~DockingManager();
 
 	void init(HINSTANCE hInst, HWND hWnd, Window ** ppWin);
-	virtual void reSizeTo(RECT & rc);
+	void reSizeTo(RECT & rc) override;
 
 	void setClientWnd(Window ** ppWin) {
 		_ppWindow = ppWin;
@@ -48,7 +48,7 @@ public :
 	void createDockableDlg(tTbData data, int iCont = CONT_LEFT, bool isVisible = false);
 	void setActiveTab(int iCont, int iItem);
 	void showDockableDlg(HWND hDlg, BOOL view);
-	void showDockableDlg(TCHAR* pszName, BOOL view);
+	void showDockableDlg(wchar_t* pszName, BOOL view);
 
 	DockingCont* toggleActiveTb(DockingCont* pContSrc, UINT message, BOOL bNew = FALSE, LPRECT rcFloat = NULL);
 	DockingCont* toggleVisTb(DockingCont* pContSrc, UINT message, LPRECT rcFloat = NULL);
@@ -73,14 +73,9 @@ public :
 		_vContainer[CONT_BOTTOM]->setCaptionTop(captionOnTop);
 	};
 
-	void setTabStyle(BOOL orangeLine) {
-		for (size_t i = 0; i < _vContainer.size(); ++i)
-			_vContainer[i]->setTabStyle(orangeLine);
-	};
-
 	int getDockedContSize(int iCont);
 	void setDockedContSize(int iCont, int iSize);
-	virtual void destroy();
+	void destroy() override;
 	void resize();
 
 private :
@@ -88,8 +83,6 @@ private :
 	RECT						_rcWork = {};
 	RECT						_rect = {};
 	Window						**_ppMainWindow = nullptr;
-	std::vector<HWND>			_vImageList;
-	HIMAGELIST					_hImageList = nullptr;
 	std::vector<DockingCont*>	_vContainer;
 	tDockMgr					_dockData;
 	static BOOL					_isRegistered;
@@ -107,7 +100,4 @@ private :
 	BOOL ContExists(size_t iCont);
 	int	 FindEmptyContainer();
 	LRESULT SendNotify(HWND hWnd, UINT message);
-	
-
 };
-

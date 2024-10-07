@@ -102,8 +102,7 @@
     C4609560 A108A0C6 26AA7F2B 38A65566 739353C5
 */
 
-#ifndef SHA1_H_A545E61D43E9404E8D736869AB3CBFE7
-#define SHA1_H_A545E61D43E9404E8D736869AB3CBFE7
+#pragma once
 
 #if !defined(SHA1_UTILITY_FUNCTIONS) && !defined(SHA1_NO_UTILITY_FUNCTIONS)
 #define SHA1_UTILITY_FUNCTIONS
@@ -147,28 +146,6 @@
 #define SHA1_WIPE_VARIABLES
 #endif
 
-#if defined(SHA1_HAS_TCHAR)
-#include <tchar.h>
-#else
-#ifdef _MSC_VER
-#include <tchar.h>
-#else
-#ifndef TCHAR
-#define TCHAR char
-#endif
-#ifndef _T
-#define _T(__x) (__x)
-#define _tmain main
-#define _tprintf printf
-#define _getts gets
-#define _tcslen strlen
-#define _tfopen fopen
-#define _tcscpy strcpy
-#define _tcscat strcat
-#define _sntprintf snprintf
-#endif
-#endif
-#endif
 
 ///////////////////////////////////////////////////////////////////////////
 // Define variable types
@@ -245,18 +222,18 @@ public:
 
 #ifdef SHA1_UTILITY_FUNCTIONS
 	// Hash in file contents
-	bool HashFile(const TCHAR* tszFileName);
+	bool HashFile(const wchar_t* tszFileName);
 #endif
 
 	// Finalize hash; call it before using ReportHash(Stl)
 	void Final();
 
 #ifdef SHA1_UTILITY_FUNCTIONS
-	bool ReportHash(TCHAR* tszReport, REPORT_TYPE rtReportType = REPORT_HEX) const;
+	bool ReportHash(wchar_t* tszReport, REPORT_TYPE rtReportType = REPORT_HEX) const;
 #endif
 
 #ifdef SHA1_STL_FUNCTIONS
-	bool ReportHashStl(std::basic_string<TCHAR>& strOut, REPORT_TYPE rtReportType =
+	bool ReportHashStl(std::basic_string<wchar_t>& strOut, REPORT_TYPE rtReportType =
 		REPORT_HEX) const;
 #endif
 
@@ -279,4 +256,3 @@ private:
 	SHA1_WORKSPACE_BLOCK* m_block; // SHA1 pointer to the byte array above
 };
 
-#endif // SHA1_H_A545E61D43E9404E8D736869AB3CBFE7

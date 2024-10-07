@@ -742,5 +742,5 @@ static const char *const modulaWordListDesc[] =
 	0
 };
 
-LexerModule lmModula( SCLEX_MODULA, ColouriseModulaDoc, "modula", FoldModulaDoc,
+extern const LexerModule lmModula( SCLEX_MODULA, ColouriseModulaDoc, "modula", FoldModulaDoc,
 					  modulaWordListDesc);

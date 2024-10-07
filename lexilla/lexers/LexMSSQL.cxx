@@ -367,4 +367,4 @@ static const char * const sqlWordListDesc[] = {
 	0,
 };
 
-LexerModule lmMSSQL(SCLEX_MSSQL, ColouriseMSSQLDoc, "mssql", FoldMSSQLDoc, sqlWordListDesc);
+extern const LexerModule lmMSSQL(SCLEX_MSSQL, ColouriseMSSQLDoc, "mssql", FoldMSSQLDoc, sqlWordListDesc);

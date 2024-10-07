@@ -92,6 +92,7 @@
 #define BOOST_NO_CXX11_TEMPLATE_ALIASES
 #define BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
 #define BOOST_NO_CXX11_ALIGNAS
+#define BOOST_NO_CXX11_ALIGNOF
 #define BOOST_NO_CXX11_TRAILING_RESULT_TYPES
 #define BOOST_NO_CXX11_INLINE_NAMESPACES
 #define BOOST_NO_CXX11_REF_QUALIFIERS
@@ -170,9 +171,11 @@
 #if !defined(__cpp_fold_expressions) || (__cpp_fold_expressions < 201603)
 #  define BOOST_NO_CXX17_FOLD_EXPRESSIONS
 #endif
-
 #if !defined(__cpp_if_constexpr) || (__cpp_if_constexpr < 201606)
 #  define BOOST_NO_CXX17_IF_CONSTEXPR
+#endif
+#if !defined(__cpp_nontype_template_parameter_auto) || (__cpp_nontype_template_parameter_auto < 201606)
+#  define BOOST_NO_CXX17_AUTO_NONTYPE_TEMPLATE_PARAMS
 #endif
 
 #ifdef c_plusplus

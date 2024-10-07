@@ -18,7 +18,7 @@
 
 #include "ScintillaEditView.h"
 
-typedef std::vector<const TCHAR *> stringVec;
+typedef std::vector<const wchar_t *> stringVec;
 
 class FunctionCallTip {
 	 friend class AutoCompletion;
@@ -27,8 +27,8 @@ public:
 	~FunctionCallTip() {/* cleanup(); */};
 	void setLanguageXML(TiXmlElement * pXmlKeyword);	//set calltip keyword node
 	bool updateCalltip(int ch, bool needShown = false);	//Ch is character typed, or 0 if another event occured. NeedShown is true if calltip should be attempted to displayed. Return true if calltip was made visible
-	void showNextOverload();							//show next overlaoded parameters
-	void showPrevOverload();							//show prev overlaoded parameters
+	void showNextOverload();							//show next overloaded parameters
+	void showPrevOverload();							//show prev overloaded parameters
 	bool isVisible() { return _pEditView?_pEditView->execute(SCI_CALLTIPACTIVE) == TRUE:false; };	//true if calltip visible
 	void close();					//Close calltip if visible
 
@@ -41,7 +41,7 @@ private:
 
 	TiXmlElement * _curFunction = nullptr;	//current function element
 	//cache some XML values n stuff
-	TCHAR * _funcName = nullptr;				//name of function
+	wchar_t * _funcName = nullptr;				//name of function
 	stringVec _retVals;				//vector of overload return values/types
 	std::vector<stringVec> _overloads;	//vector of overload params (=vector)
 	stringVec _descriptions;		//vecotr of function descriptions
@@ -49,11 +49,11 @@ private:
 	size_t _currentOverload = 0;			//current chosen overload
 	size_t _currentParam = 0;				//current highlighted param
 
-	TCHAR _start = '(';
-	TCHAR _stop = ')';
-	TCHAR _param = ',';
-	TCHAR _terminal = ';';
-    generic_string _additionalWordChar = TEXT("");
+	wchar_t _start = '(';
+	wchar_t _stop = ')';
+	wchar_t _param = ',';
+	wchar_t _terminal = ';';
+    std::wstring _additionalWordChar = L"";
 	bool _ignoreCase = true;
 	bool _selfActivated = false;
 
@@ -62,11 +62,11 @@ private:
 	void showCalltip();				//display calltip based on current variables
 	void reset();					//reset all vars in case function is invalidated
 	void cleanup();					//delete any leftovers
-    bool isBasicWordChar(TCHAR ch) const {
+    bool isBasicWordChar(wchar_t ch) const {
         return ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '_');
     };
-    bool isAdditionalWordChar(TCHAR ch) const {
-        const TCHAR *addChars = _additionalWordChar.c_str();
+    bool isAdditionalWordChar(wchar_t ch) const {
+        const wchar_t *addChars = _additionalWordChar.c_str();
         size_t len = _additionalWordChar.length();
         for (size_t i = 0 ; i < len ; ++i)
             if (ch == addChars[i])

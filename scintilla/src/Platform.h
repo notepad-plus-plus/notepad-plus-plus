@@ -108,6 +108,7 @@ struct FontParameters {
 	Scintilla::Technology technology;
 	Scintilla::CharacterSet characterSet;
 	const char *localeName;
+	Scintilla::FontStretch stretch;
 
 	constexpr FontParameters(
 		const char *faceName_,
@@ -117,7 +118,8 @@ struct FontParameters {
 		Scintilla::FontQuality extraFontFlag_= Scintilla::FontQuality::QualityDefault,
 		Scintilla::Technology technology_= Scintilla::Technology::Default,
 		Scintilla::CharacterSet characterSet_= Scintilla::CharacterSet::Ansi,
-		const char *localeName_=localeNameDefault) noexcept :
+		const char *localeName_=localeNameDefault,
+		Scintilla::FontStretch stretch_=Scintilla::FontStretch::Normal) noexcept :
 
 		faceName(faceName_),
 		size(size_),
@@ -126,7 +128,8 @@ struct FontParameters {
 		extraFontFlag(extraFontFlag_),
 		technology(technology_),
 		characterSet(characterSet_),
-		localeName(localeName_)
+		localeName(localeName_),
+		stretch(stretch_)
 	{
 	}
 

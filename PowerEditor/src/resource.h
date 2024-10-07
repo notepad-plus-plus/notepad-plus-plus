@@ -19,14 +19,14 @@
 //
 // Notepad++ version: begin
 //
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v8.6.5")
+#define NOTEPAD_PLUS_VERSION L"Notepad++ v8.7"
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
-// ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_INTERNAL_VALUE TEXT("8.65\0")
+// ex : #define VERSION_VALUE L"5.63\0"
+#define VERSION_INTERNAL_VALUE L"8.7\0"
 
-#define VERSION_PRODUCT_VALUE TEXT("8.6.5\0")
-#define VERSION_DIGITALVALUE 8, 6, 5, 0
+#define VERSION_PRODUCT_VALUE L"8.7\0"
+#define VERSION_DIGITALVALUE 8, 7, 0, 0
 
 // Notepad++ version: end
 
@@ -35,15 +35,17 @@
 #define IDC_STATIC    -1
 #endif
 
-#define IDI_NPPABOUT_LOGO        99
-#define IDI_M30ICON             100
-#define IDI_CHAMELEON           101
-#define IDI_CHAMELEON_DM        102
-//#define IDI_JESUISCHARLIE     102
-//#define IDI_GILETJAUNE        102
-//#define IDI_SAMESEXMARRIAGE   102
-#define IDR_RT_MANIFEST         103
-#define IDI_ICONABSENT          104
+#define IDI_NPPABOUT_LOGO           99
+#define IDI_M30ICON                100
+#define IDI_CHAMELEON              101
+#define IDI_CHAMELEON_DM           102
+//#define IDI_JESUISCHARLIE        102
+//#define IDI_GILETJAUNE           102
+//#define IDI_SAMESEXMARRIAGE      102
+#define IDI_TAIWANSSOVEREIGNTY     105
+#define IDI_TAIWANSSOVEREIGNTY_DM  106
+#define IDR_RT_MANIFEST            103
+#define IDI_ICONABSENT             104
 
 //
 // TOOLBAR ICO - set 1
@@ -93,57 +95,59 @@
 #define IDI_VIEW_FILEBROWSER_ICON         243
 #define IDI_VIEW_FUNCLIST_ICON            244
 #define IDI_VIEW_MONITORING_ICON          245
-#define IDI_VIEW_DOCLIST_ICON             392 //continuing from IDI_VIEW_DOCLIST_ICON_DM2's ID
+#define IDI_VIEW_MONITORING_DIS_ICON      246
+#define IDI_VIEW_DOCLIST_ICON             247
 
 //
 // TOOLBAR ICO - set 1, Dark Mode
 //
-#define IDI_NEW_ICON_DM                   246
-#define IDI_OPEN_ICON_DM                  247
-#define IDI_CLOSE_ICON_DM                 248
-#define IDI_CLOSEALL_ICON_DM              249
-#define IDI_SAVE_ICON_DM                  250
-#define IDI_SAVEALL_ICON_DM               251
-#define IDI_CUT_ICON_DM                   252
-#define IDI_COPY_ICON_DM                  253
-#define IDI_PASTE_ICON_DM                 254
-#define IDI_UNDO_ICON_DM                  255
-#define IDI_REDO_ICON_DM                  256
-#define IDI_FIND_ICON_DM                  257
-#define IDI_REPLACE_ICON_DM               258
-#define IDI_ZOOMIN_ICON_DM                259
-#define IDI_ZOOMOUT_ICON_DM               260
-#define IDI_VIEW_UD_DLG_ICON_DM           261
-#define IDI_PRINT_ICON_DM                 262
-#define IDI_STARTRECORD_ICON_DM           263
-#define IDI_STARTRECORD_DISABLE_ICON_DM   264
-#define IDI_STOPRECORD_ICON_DM            265
-#define IDI_STOPRECORD_DISABLE_ICON_DM    266
-#define IDI_PLAYRECORD_ICON_DM            267
-#define IDI_PLAYRECORD_DISABLE_ICON_DM    268
-#define IDI_SAVERECORD_ICON_DM            269
-#define IDI_SAVERECORD_DISABLE_ICON_DM    270
-#define IDI_MMPLAY_DIS_ICON_DM            271
-#define IDI_MMPLAY_ICON_DM                272
-#define IDI_VIEW_ALL_CHAR_ICON_DM         273
-#define IDI_VIEW_INDENT_ICON_DM           274
-#define IDI_VIEW_WRAP_ICON_DM             275
-#define IDI_SAVE_DISABLE_ICON_DM          276
-#define IDI_SAVEALL_DISABLE_ICON_DM       277
-#define IDI_CUT_DISABLE_ICON_DM           278
-#define IDI_COPY_DISABLE_ICON_DM          279
-#define IDI_PASTE_DISABLE_ICON_DM         280
-#define IDI_UNDO_DISABLE_ICON_DM          281
-#define IDI_REDO_DISABLE_ICON_DM          282
-#define IDI_SYNCV_ICON_DM                 283
-#define IDI_SYNCV_DISABLE_ICON_DM         284
-#define IDI_SYNCH_ICON_DM                 285
-#define IDI_SYNCH_DISABLE_ICON_DM         286
-#define IDI_VIEW_DOC_MAP_ICON_DM          287
-#define IDI_VIEW_FILEBROWSER_ICON_DM      288
-#define IDI_VIEW_FUNCLIST_ICON_DM         289
-#define IDI_VIEW_MONITORING_ICON_DM       290
-#define IDI_VIEW_DOCLIST_ICON_DM          393 //continuing from IDI_VIEW_DOCLIST_ICON's ID
+#define IDI_NEW_ICON_DM                   251
+#define IDI_OPEN_ICON_DM                  252
+#define IDI_CLOSE_ICON_DM                 253
+#define IDI_CLOSEALL_ICON_DM              254
+#define IDI_SAVE_ICON_DM                  255
+#define IDI_SAVEALL_ICON_DM               256
+#define IDI_CUT_ICON_DM                   257
+#define IDI_COPY_ICON_DM                  258
+#define IDI_PASTE_ICON_DM                 259
+#define IDI_UNDO_ICON_DM                  260
+#define IDI_REDO_ICON_DM                  261
+#define IDI_FIND_ICON_DM                  262
+#define IDI_REPLACE_ICON_DM               263
+#define IDI_ZOOMIN_ICON_DM                264
+#define IDI_ZOOMOUT_ICON_DM               265
+#define IDI_VIEW_UD_DLG_ICON_DM           266
+#define IDI_PRINT_ICON_DM                 267
+#define IDI_STARTRECORD_ICON_DM           268
+#define IDI_STARTRECORD_DISABLE_ICON_DM   269
+#define IDI_STOPRECORD_ICON_DM            270
+#define IDI_STOPRECORD_DISABLE_ICON_DM    271
+#define IDI_PLAYRECORD_ICON_DM            272
+#define IDI_PLAYRECORD_DISABLE_ICON_DM    273
+#define IDI_SAVERECORD_ICON_DM            274
+#define IDI_SAVERECORD_DISABLE_ICON_DM    275
+#define IDI_MMPLAY_DIS_ICON_DM            276
+#define IDI_MMPLAY_ICON_DM                277
+#define IDI_VIEW_ALL_CHAR_ICON_DM         278
+#define IDI_VIEW_INDENT_ICON_DM           279
+#define IDI_VIEW_WRAP_ICON_DM             280
+#define IDI_SAVE_DISABLE_ICON_DM          281
+#define IDI_SAVEALL_DISABLE_ICON_DM       282
+#define IDI_CUT_DISABLE_ICON_DM           283
+#define IDI_COPY_DISABLE_ICON_DM          284
+#define IDI_PASTE_DISABLE_ICON_DM         285
+#define IDI_UNDO_DISABLE_ICON_DM          286
+#define IDI_REDO_DISABLE_ICON_DM          287
+#define IDI_SYNCV_ICON_DM                 288
+#define IDI_SYNCV_DISABLE_ICON_DM         289
+#define IDI_SYNCH_ICON_DM                 290
+#define IDI_SYNCH_DISABLE_ICON_DM         291
+#define IDI_VIEW_DOC_MAP_ICON_DM          292
+#define IDI_VIEW_FILEBROWSER_ICON_DM      293
+#define IDI_VIEW_FUNCLIST_ICON_DM         294
+#define IDI_VIEW_MONITORING_ICON_DM       295
+#define IDI_VIEW_MONITORING_DIS_ICON_DM   296
+#define IDI_VIEW_DOCLIST_ICON_DM          297
 
 //
 // TOOLBAR ICO - set 2
@@ -193,57 +197,59 @@
 #define IDI_VIEW_FILEBROWSER_ICON2        343
 #define IDI_VIEW_FUNCLIST_ICON2           344
 #define IDI_VIEW_MONITORING_ICON2         345
-#define IDI_VIEW_DOCLIST_ICON2            394 //continuing from IDI_VIEW_DOCLIST_ICON_DM's ID
+#define IDI_VIEW_MONITORING_DIS_ICON2     346
+#define IDI_VIEW_DOCLIST_ICON2            347
 
 //
 // TOOLBAR ICO - set 2, Dark Mode
 //
-#define IDI_NEW_ICON_DM2                  346
-#define IDI_OPEN_ICON_DM2                 347
-#define IDI_CLOSE_ICON_DM2                348
-#define IDI_CLOSEALL_ICON_DM2             349
-#define IDI_SAVE_ICON_DM2                 350
-#define IDI_SAVEALL_ICON_DM2              351
-#define IDI_CUT_ICON_DM2                  352
-#define IDI_COPY_ICON_DM2                 353
-#define IDI_PASTE_ICON_DM2                354
-#define IDI_UNDO_ICON_DM2                 355
-#define IDI_REDO_ICON_DM2                 356
-#define IDI_FIND_ICON_DM2                 357
-#define IDI_REPLACE_ICON_DM2              358
-#define IDI_ZOOMIN_ICON_DM2               359
-#define IDI_ZOOMOUT_ICON_DM2              360
-#define IDI_VIEW_UD_DLG_ICON_DM2          361
-#define IDI_PRINT_ICON_DM2                362
-#define IDI_STARTRECORD_ICON_DM2          363
-#define IDI_STARTRECORD_DISABLE_ICON_DM2  364
-#define IDI_STOPRECORD_ICON_DM2           365
-#define IDI_STOPRECORD_DISABLE_ICON_DM2   366
-#define IDI_PLAYRECORD_ICON_DM2           367
-#define IDI_PLAYRECORD_DISABLE_ICON_DM2   368
-#define IDI_SAVERECORD_ICON_DM2           369
-#define IDI_SAVERECORD_DISABLE_ICON_DM2   370
-#define IDI_MMPLAY_DIS_ICON_DM2           371
-#define IDI_MMPLAY_ICON_DM2               372
-#define IDI_VIEW_ALL_CHAR_ICON_DM2        373
-#define IDI_VIEW_INDENT_ICON_DM2          374
-#define IDI_VIEW_WRAP_ICON_DM2            375
-#define IDI_SAVE_DISABLE_ICON_DM2         376
-#define IDI_SAVEALL_DISABLE_ICON_DM2      377
-#define IDI_CUT_DISABLE_ICON_DM2          378
-#define IDI_COPY_DISABLE_ICON_DM2         379
-#define IDI_PASTE_DISABLE_ICON_DM2        380
-#define IDI_UNDO_DISABLE_ICON_DM2         381
-#define IDI_REDO_DISABLE_ICON_DM2         382
-#define IDI_SYNCV_ICON_DM2                383
-#define IDI_SYNCV_DISABLE_ICON_DM2        384
-#define IDI_SYNCH_ICON_DM2                385
-#define IDI_SYNCH_DISABLE_ICON_DM2        386
-#define IDI_VIEW_DOC_MAP_ICON_DM2         387
-#define IDI_VIEW_FILEBROWSER_ICON_DM2     388
-#define IDI_VIEW_FUNCLIST_ICON_DM2        389
-#define IDI_VIEW_MONITORING_ICON_DM2      390
-#define IDI_VIEW_DOCLIST_ICON_DM2         391
+#define IDI_NEW_ICON_DM2                  351
+#define IDI_OPEN_ICON_DM2                 352
+#define IDI_CLOSE_ICON_DM2                353
+#define IDI_CLOSEALL_ICON_DM2             354
+#define IDI_SAVE_ICON_DM2                 355
+#define IDI_SAVEALL_ICON_DM2              356
+#define IDI_CUT_ICON_DM2                  357
+#define IDI_COPY_ICON_DM2                 358
+#define IDI_PASTE_ICON_DM2                359
+#define IDI_UNDO_ICON_DM2                 360
+#define IDI_REDO_ICON_DM2                 361
+#define IDI_FIND_ICON_DM2                 362
+#define IDI_REPLACE_ICON_DM2              363
+#define IDI_ZOOMIN_ICON_DM2               364
+#define IDI_ZOOMOUT_ICON_DM2              365
+#define IDI_VIEW_UD_DLG_ICON_DM2          366
+#define IDI_PRINT_ICON_DM2                367
+#define IDI_STARTRECORD_ICON_DM2          368
+#define IDI_STARTRECORD_DISABLE_ICON_DM2  369
+#define IDI_STOPRECORD_ICON_DM2           370
+#define IDI_STOPRECORD_DISABLE_ICON_DM2   371
+#define IDI_PLAYRECORD_ICON_DM2           372
+#define IDI_PLAYRECORD_DISABLE_ICON_DM2   373
+#define IDI_SAVERECORD_ICON_DM2           374
+#define IDI_SAVERECORD_DISABLE_ICON_DM2   375
+#define IDI_MMPLAY_DIS_ICON_DM2           376
+#define IDI_MMPLAY_ICON_DM2               377
+#define IDI_VIEW_ALL_CHAR_ICON_DM2        378
+#define IDI_VIEW_INDENT_ICON_DM2          379
+#define IDI_VIEW_WRAP_ICON_DM2            380
+#define IDI_SAVE_DISABLE_ICON_DM2         381
+#define IDI_SAVEALL_DISABLE_ICON_DM2      382
+#define IDI_CUT_DISABLE_ICON_DM2          383
+#define IDI_COPY_DISABLE_ICON_DM2         384
+#define IDI_PASTE_DISABLE_ICON_DM2        385
+#define IDI_UNDO_DISABLE_ICON_DM2         386
+#define IDI_REDO_DISABLE_ICON_DM2         387
+#define IDI_SYNCV_ICON_DM2                388
+#define IDI_SYNCV_DISABLE_ICON_DM2        389
+#define IDI_SYNCH_ICON_DM2                390
+#define IDI_SYNCH_DISABLE_ICON_DM2        391
+#define IDI_VIEW_DOC_MAP_ICON_DM2         392
+#define IDI_VIEW_FILEBROWSER_ICON_DM2     393
+#define IDI_VIEW_FUNCLIST_ICON_DM2        394
+#define IDI_VIEW_MONITORING_ICON_DM2      395
+#define IDI_VIEW_MONITORING_DIS_ICON_DM2  396
+#define IDI_VIEW_DOCLIST_ICON_DM2         397
 
 
 
@@ -259,7 +265,6 @@
 #define IDI_UNSAVED_DM_ICON      510
 #define IDI_MONITORING_DM_ICON   511
 #define IDI_READONLY_DM_ICON     512
-#define IDI_DELETE_ICON          525
 
 
 #define IDI_PROJECT_WORKSPACE          601
@@ -271,28 +276,57 @@
 #define IDI_PROJECT_FILEINVALID        607
 #define IDI_FB_ROOTOPEN                608
 #define IDI_FB_ROOTCLOSE               609
-#define IDI_FB_SELECTCURRENTFILE       610
-#define IDI_FB_FOLDALL                 611
-#define IDI_FB_EXPANDALL               612
-#define IDI_FB_SELECTCURRENTFILE_DM    613
-#define IDI_FB_FOLDALL_DM              614
-#define IDI_FB_EXPANDALL_DM            615
 
-#define IDI_FUNCLIST_ROOT              620
-#define IDI_FUNCLIST_NODE              621
-#define IDI_FUNCLIST_LEAF              622
+#define IDI_PROJECT_WORKSPACE_DM       611
+#define IDI_PROJECT_WORKSPACEDIRTY_DM  612
+#define IDI_PROJECT_PROJECT_DM         613
+#define IDI_PROJECT_FOLDEROPEN_DM      614
+#define IDI_PROJECT_FOLDERCLOSE_DM     615
+#define IDI_PROJECT_FILE_DM            616
+#define IDI_PROJECT_FILEINVALID_DM     617
+#define IDI_FB_ROOTOPEN_DM             618
+#define IDI_FB_ROOTCLOSE_DM            619
 
-#define IDI_FUNCLIST_SORTBUTTON              631
-#define IDI_FUNCLIST_RELOADBUTTON            632
-#define IDI_FUNCLIST_PREFERENCEBUTTON        633
-#define IDI_FUNCLIST_SORTBUTTON_DM           634
-#define IDI_FUNCLIST_RELOADBUTTON_DM         635
-#define IDI_FUNCLIST_PREFERENCEBUTTON_DM     636
+#define IDI_PROJECT_WORKSPACE2         621
+#define IDI_PROJECT_WORKSPACEDIRTY2    622
+#define IDI_PROJECT_PROJECT2           623
+#define IDI_PROJECT_FOLDEROPEN2        624
+#define IDI_PROJECT_FOLDERCLOSE2       625
+#define IDI_PROJECT_FILE2              626
+#define IDI_PROJECT_FILEINVALID2       627
+#define IDI_FB_ROOTOPEN2               628
+#define IDI_FB_ROOTCLOSE2              629
+
+#define IDI_FB_SELECTCURRENTFILE       630
+#define IDI_FB_FOLDALL                 631
+#define IDI_FB_EXPANDALL               632
+#define IDI_FB_SELECTCURRENTFILE_DM    633
+#define IDI_FB_FOLDALL_DM              634
+#define IDI_FB_EXPANDALL_DM            635
+
+#define IDI_FUNCLIST_ROOT              IDI_PROJECT_FILE // using same file
+#define IDI_FUNCLIST_NODE              641
+#define IDI_FUNCLIST_LEAF              642
+
+#define IDI_FUNCLIST_ROOT_DM           IDI_PROJECT_FILE_DM // using same file
+#define IDI_FUNCLIST_NODE_DM           644
+#define IDI_FUNCLIST_LEAF_DM           645
+
+#define IDI_FUNCLIST_ROOT2             IDI_PROJECT_FILE2 // using same file
+#define IDI_FUNCLIST_NODE2             647
+#define IDI_FUNCLIST_LEAF2             648
+
+#define IDI_FUNCLIST_SORTBUTTON              651
+#define IDI_FUNCLIST_RELOADBUTTON            652
+#define IDI_FUNCLIST_PREFERENCEBUTTON        653
+#define IDI_FUNCLIST_SORTBUTTON_DM           654
+#define IDI_FUNCLIST_RELOADBUTTON_DM         655
+#define IDI_FUNCLIST_PREFERENCEBUTTON_DM     656
 
 
 
 
-#define IDI_GET_INFO_FROM_TOOLTIP               641
+#define IDI_GET_INFO_FROM_TOOLTIP               661
 
 
 
@@ -368,6 +402,8 @@
 #define IDR_CLIPBOARDPANEL_ICO_DM 1561
 #define IDR_ASCIIPANEL_ICO2       1562
 #define IDR_ASCIIPANEL_ICO_DM     1563
+#define IDR_FIND_RESULT_ICO2      1564
+#define IDR_FIND_RESULT_ICO_DM    1565
 
 #define ID_MACRO                           20000
 //                                     O     .
@@ -609,9 +645,9 @@
 	#define NPPM_INTERNAL_RELOADNATIVELANG              (NOTEPADPLUS_USER_INTERNAL + 25)
 	#define NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED        (NOTEPADPLUS_USER_INTERNAL + 26)
 	#define NPPM_INTERNAL_SCINTILLAFINDERCLEARALL       (NOTEPADPLUS_USER_INTERNAL + 27)
-	#define NPPM_INTERNAL_CHANGETABBAEICONS             (NOTEPADPLUS_USER_INTERNAL + 28)
-	#define NPPM_INTERNAL_SETTING_TAB_REPLCESPACE       (NOTEPADPLUS_USER_INTERNAL + 29)
-	#define NPPM_INTERNAL_SETTING_TAB_SIZE              (NOTEPADPLUS_USER_INTERNAL + 30)
+	#define NPPM_INTERNAL_CHANGETABBARICONSET           (NOTEPADPLUS_USER_INTERNAL + 28)
+	#define NPPM_INTERNAL_SET_TAB_SETTINGS              (NOTEPADPLUS_USER_INTERNAL + 29)
+	//#define NPPM_INTERNAL_SETTING_TAB_SIZE            (NOTEPADPLUS_USER_INTERNAL + 30)
 	#define NPPM_INTERNAL_RELOADSTYLERS                 (NOTEPADPLUS_USER_INTERNAL + 31)
 	#define NPPM_INTERNAL_DOCORDERCHANGED               (NOTEPADPLUS_USER_INTERNAL + 32)
 	#define NPPM_INTERNAL_SETMULTISELCTION              (NOTEPADPLUS_USER_INTERNAL + 33)
@@ -680,14 +716,6 @@
     	#define CHECKDOCOPT_NONE 0
     	#define CHECKDOCOPT_UPDATESILENTLY 1
     	#define CHECKDOCOPT_UPDATEGO2END 2
-
-    //
-    // Used by netnote plugin
-    //
-	#define NPPM_INTERNAL_SETFILENAME (NPPMSG + 63)
-    //wParam: BufferID to rename
-    //lParam: name to set (TCHAR*)
-    //Buffer must have been previously unnamed (eg "new 1" document types)
 
 
 

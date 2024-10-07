@@ -48,6 +48,22 @@
 #endif
 
 //
+// disable explicitly enforced visibility
+//
+#if defined(BOOST_DISABLE_EXPLICIT_SYMBOL_VISIBILITY)
+
+#undef BOOST_SYMBOL_EXPORT
+#define BOOST_SYMBOL_EXPORT
+
+#undef BOOST_SYMBOL_IMPORT
+#define BOOST_SYMBOL_IMPORT
+
+#undef BOOST_SYMBOL_VISIBLE
+#define BOOST_SYMBOL_VISIBLE
+
+#endif
+
+//
 // look for long long by looking for the appropriate macros in <limits.h>.
 // Note that we use limits.h rather than climits for maximal portability,
 // remember that since these just declare a bunch of macros, there should be
@@ -668,6 +684,23 @@ namespace std{ using ::type_info; }
 #  define BOOST_NORETURN
 #endif
 
+// BOOST_DEPRECATED -------------------------------------------//
+// The macro can be used to mark deprecated symbols, such as functions, objects and types.
+// Any code that uses these symbols will produce warnings, possibly with a message specified
+// as an argument. The warnings can be suppressed by defining BOOST_ALLOW_DEPRECATED_SYMBOLS
+// or BOOST_ALLOW_DEPRECATED.
+#if !defined(BOOST_DEPRECATED) && __cplusplus >= 201402
+#define BOOST_DEPRECATED(msg) [[deprecated(msg)]]
+#endif
+
+#if defined(BOOST_ALLOW_DEPRECATED_SYMBOLS) || defined(BOOST_ALLOW_DEPRECATED)
+#undef BOOST_DEPRECATED
+#endif
+
+#if !defined(BOOST_DEPRECATED)
+#define BOOST_DEPRECATED(msg)
+#endif
+
 // Branch prediction hints
 // These macros are intended to wrap conditional expressions that yield true or false
 //
@@ -1015,6 +1048,9 @@ namespace std{ using ::type_info; }
 #else
 #define BOOST_CXX14_CONSTEXPR constexpr
 #endif
+#if !defined(BOOST_NO_CXX17_STRUCTURED_BINDINGS) && defined(BOOST_NO_CXX11_HDR_TUPLE)
+#  define BOOST_NO_CXX17_STRUCTURED_BINDINGS
+#endif
 
 //
 // C++17 inline variables
@@ -1039,8 +1075,21 @@ namespace std{ using ::type_info; }
 // Unused variable/typedef workarounds:
 //
 #ifndef BOOST_ATTRIBUTE_UNUSED
+#  if defined(__has_attribute) && defined(__SUNPRO_CC) && (__SUNPRO_CC > 0x5130)
+#    if __has_attribute(maybe_unused)
+#       define BOOST_ATTRIBUTE_UNUSED [[maybe_unused]]
+#    endif
+#  elif defined(__has_cpp_attribute)
+#    if __has_cpp_attribute(maybe_unused)
+#      define BOOST_ATTRIBUTE_UNUSED [[maybe_unused]]
+#    endif
+#  endif
+#endif
+
+#ifndef BOOST_ATTRIBUTE_UNUSED
 #  define BOOST_ATTRIBUTE_UNUSED
 #endif
+
 //
 // [[nodiscard]]:
 //
@@ -1205,6 +1254,46 @@ namespace std{ using ::type_info; }
 #endif
 #if (!__has_include(<semaphore>) || !defined(__cpp_lib_semaphore) || (__cpp_lib_semaphore < 201907L)) && !defined(BOOST_NO_CXX20_HDR_SEMAPHORE)
 #  define BOOST_NO_CXX20_HDR_SEMAPHORE
+#endif
+#endif
+
+#if (!defined(__has_include) || (BOOST_CXX_VERSION < 202003L))
+#  define BOOST_NO_CXX23_HDR_EXPECTED
+#  define BOOST_NO_CXX23_HDR_FLAT_MAP
+#  define BOOST_NO_CXX23_HDR_FLAT_SET
+#  define BOOST_NO_CXX23_HDR_GENERATOR
+#  define BOOST_NO_CXX23_HDR_MDSPAN
+#  define BOOST_NO_CXX23_HDR_PRINT
+#  define BOOST_NO_CXX23_HDR_SPANSTREAM
+#  define BOOST_NO_CXX23_HDR_STACKTRACE
+#  define BOOST_NO_CXX23_HDR_STDFLOAT
+#else
+#if (!__has_include(<expected>) || !defined(__cpp_lib_expected) || (__cpp_lib_expected < 202211L)) && !defined(BOOST_NO_CXX23_HDR_EXPECTED)
+#  define BOOST_NO_CXX23_HDR_EXPECTED
+#endif
+#if (!__has_include(<flat_map>) || !defined(__cpp_lib_flat_map) || (__cpp_lib_flat_map < 202207L)) && !defined(BOOST_NO_CXX23_HDR_FLAT_MAP)
+#  define BOOST_NO_CXX23_HDR_FLAT_MAP
+#endif
+#if (!__has_include(<flat_set>) || !defined(__cpp_lib_flat_set) || (__cpp_lib_flat_set < 202207L)) && !defined(BOOST_NO_CXX23_HDR_FLAT_SET)
+#  define BOOST_NO_CXX23_HDR_FLAT_SET
+#endif
+#if (!__has_include(<generator>) || !defined(__cpp_lib_generator) || (__cpp_lib_generator < 202207L)) && !defined(BOOST_NO_CXX23_HDR_GENERATOR)
+#  define BOOST_NO_CXX23_HDR_GENERATOR
+#endif
+#if (!__has_include(<mdspan>) || !defined(__cpp_lib_mdspan) || (__cpp_lib_mdspan < 202207L)) && !defined(BOOST_NO_CXX23_HDR_MDSPAN)
+#  define BOOST_NO_CXX23_HDR_MDSPAN
+#endif
+#if (!__has_include(<print>) || !defined(__cpp_lib_print) || (__cpp_lib_print < 202207L)) && !defined(BOOST_NO_CXX23_HDR_PRINT)
+#  define BOOST_NO_CXX23_HDR_PRINT
+#endif
+#if (!__has_include(<spanstream>) || !defined(__cpp_lib_spanstream) || (__cpp_lib_spanstream < 202106L)) && !defined(BOOST_NO_CXX23_HDR_SPANSTREAM)
+#  define BOOST_NO_CXX23_HDR_SPANSTREAM
+#endif
+#if (!__has_include(<stacktrace>) || !defined(__cpp_lib_stacktrace) || (__cpp_lib_stacktrace < 202011L)) && !defined(BOOST_NO_CXX23_HDR_STACKTRACE)
+#  define BOOST_NO_CXX23_HDR_STACKTRACE
+#endif
+#if !__has_include(<stdfloat>) && !defined(BOOST_NO_CXX23_HDR_STDFLOAT)
+#  define BOOST_NO_CXX23_HDR_STDFLOAT
 #endif
 #endif
 

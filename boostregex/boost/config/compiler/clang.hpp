@@ -240,6 +240,10 @@
 #  define BOOST_NO_CXX11_ALIGNAS
 #endif
 
+#if !__has_feature(cxx_alignof)
+#  define BOOST_NO_CXX11_ALIGNOF
+#endif
+
 #if !__has_feature(cxx_trailing_return)
 #  define BOOST_NO_CXX11_TRAILING_RESULT_TYPES
 #endif
@@ -317,6 +321,10 @@
 #  define BOOST_NO_CXX17_FOLD_EXPRESSIONS
 #endif
 
+#if (__clang_major__ < 4) || (__cplusplus < 201406L) /* non-standard value that is greater than 201402, which is reported by clang 4.0.0 for C++1z */
+#  define BOOST_NO_CXX17_AUTO_NONTYPE_TEMPLATE_PARAMS
+#endif
+
 #if __cplusplus < 201103L
 #define BOOST_NO_CXX11_SFINAE_EXPR
 #endif
@@ -325,10 +333,17 @@
 // All versions with __cplusplus above this value seem to support this:
 #  define BOOST_NO_CXX14_DIGIT_SEPARATORS
 #endif
-//
-// __builtin_unreachable:
-#if defined(__has_builtin) && __has_builtin(__builtin_unreachable)
+
+// Unreachable code markup
+#if defined(__has_builtin)
+#if __has_builtin(__builtin_unreachable)
 #define BOOST_UNREACHABLE_RETURN(x) __builtin_unreachable();
+#endif
+#endif
+
+// Deprecated symbol markup
+#if __has_attribute(deprecated)
+#define BOOST_DEPRECATED(msg) __attribute__((deprecated(msg)))
 #endif
 
 #if (__clang_major__ == 3) && (__clang_minor__ == 0)

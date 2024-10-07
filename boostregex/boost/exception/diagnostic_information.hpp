@@ -9,7 +9,7 @@
 #include <boost/config.hpp>
 #include <boost/exception/get_error_info.hpp>
 #include <boost/exception/info.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #ifndef BOOST_NO_RTTI
 #include <boost/core/demangle.hpp>
 #endif
@@ -21,7 +21,7 @@
 #endif
 
 #ifndef BOOST_EXCEPTION_ENABLE_WARNINGS
-#if __GNUC__*100+__GNUC_MINOR__>301
+#if defined(__GNUC__) && __GNUC__*100+__GNUC_MINOR__>301
 #pragma GCC system_header
 #endif
 #ifdef __clang__
@@ -149,11 +149,11 @@ boost
                     if( f )
                         {
                         tmp << *f;
-                        if( int const * l=get_error_info<throw_line>(*be) )
+                        if( l )
                             tmp << '(' << *l << "): ";
                         }
                     tmp << "Throw in function ";
-                    if( char const * const * fn=get_error_info<throw_function>(*be) )
+                    if( fn )
                         tmp << *fn;
                     else
                         tmp << "(unknown)";

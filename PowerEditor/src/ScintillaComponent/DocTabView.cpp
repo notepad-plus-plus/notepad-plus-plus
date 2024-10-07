@@ -23,8 +23,44 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-
 bool DocTabView::_hideTabBarStatus = false;
+
+
+int docTabIconIDs[] = { IDI_SAVED_ICON,  IDI_UNSAVED_ICON,  IDI_READONLY_ICON,  IDI_MONITORING_ICON };
+int docTabIconIDs_darkMode[] = { IDI_SAVED_DM_ICON,  IDI_UNSAVED_DM_ICON,  IDI_READONLY_DM_ICON,  IDI_MONITORING_DM_ICON };
+int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READONLY_ALT_ICON, IDI_MONITORING_ICON };
+
+
+
+void DocTabView::init(HINSTANCE hInst, HWND parent, ScintillaEditView* pView, unsigned char indexChoice)
+{
+	TabBarPlus::init(hInst, parent);
+	_pView = pView;
+
+	createIconSets();
+
+	_pIconListVector.push_back(&_docTabIconList);         // 0
+	_pIconListVector.push_back(&_docTabIconListAlt);      // 1
+	_pIconListVector.push_back(&_docTabIconListDarkMode); // 2
+
+	if (indexChoice >= _pIconListVector.size())
+		_iconListIndexChoice = 0;
+	else
+		_iconListIndexChoice = indexChoice;
+
+	if (_iconListIndexChoice != -1)
+		TabBar::setImageList(_pIconListVector[_iconListIndexChoice]->getHandle());
+	return;
+}
+
+void DocTabView::createIconSets()
+{
+	int iconDpiDynamicalSize = _dpiManager.scale(g_TabIconSize);
+
+	_docTabIconList.create(iconDpiDynamicalSize, _hInst, docTabIconIDs, sizeof(docTabIconIDs) / sizeof(int));
+	_docTabIconListAlt.create(iconDpiDynamicalSize, _hInst, docTabIconIDs_alt, sizeof(docTabIconIDs_alt) / sizeof(int));
+	_docTabIconListDarkMode.create(iconDpiDynamicalSize, _hInst, docTabIconIDs_darkMode, sizeof(docTabIconIDs_darkMode) / sizeof(int));
+}
 
 void DocTabView::addBuffer(BufferID buffer)
 {
@@ -40,14 +76,13 @@ void DocTabView::addBuffer(BufferID buffer)
 	if (_hasImgLst)
 		index = 0;
 	tie.iImage = index;
-	tie.pszText = const_cast<TCHAR *>(buf->getFileName());
+	tie.pszText = const_cast<wchar_t *>(buf->getFileName());
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);
 	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
 	bufferUpdated(buf, BufferChangeMask);
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
-
 
 void DocTabView::closeBuffer(BufferID buffer)
 {
@@ -61,7 +96,7 @@ void DocTabView::setIndividualTabColour(BufferID bufferId, int colorId)
 	bufferId->setDocColorId(colorId);
 }
 
-int DocTabView::getIndividualTabColour(int tabIndex)
+int DocTabView::getIndividualTabColourId(int tabIndex)
 {
 	BufferID bufferId = getBufferByIndex(tabIndex);
 	return bufferId->getDocColorId();
@@ -85,7 +120,7 @@ BufferID DocTabView::activeBuffer()
 }
 
 
-BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not found, something else otherwise
+BufferID DocTabView::findBufferByName(const wchar_t * fullfilename) //-1 if not found, something else otherwise
 {
 	TCITEM tie{};
 	tie.lParam = -1;
@@ -94,8 +129,8 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not fo
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		BufferID id = reinterpret_cast<BufferID>(tie.lParam);
-		Buffer * buf = MainFileManager.getBufferByID(id);
-		if (wcscmp(fullfilename, buf->getFullPathName()) == 0)
+		const Buffer* buf = MainFileManager.getBufferByID(id);
+		if (wcsicmp(fullfilename, buf->getFullPathName()) == 0)
 		{
 			return id;
 		}
@@ -155,7 +190,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	}
 
 	//We must make space for the added ampersand characters.
-	TCHAR encodedLabel[2 * MAX_PATH] = { '\0' };
+	wchar_t encodedLabel[2 * MAX_PATH] = { '\0' };
 
 	if (mask & BufferChangeFilename)
 	{
@@ -163,8 +198,8 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 		tie.pszText = encodedLabel;
 
 		{
-			const TCHAR* in = buffer->getFileName();
-			TCHAR* out = encodedLabel;
+			const wchar_t* in = buffer->getFileName();
+			wchar_t* out = encodedLabel;
 
 			//This code will read in one character at a time and duplicate every first ampersand(&).
 			//ex. If input is "test & test && test &&&" then output will be "test && test &&& test &&&&".

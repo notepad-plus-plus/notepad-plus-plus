@@ -1,10 +1,13 @@
 <head> <!-- About to script -->
 <?php
+decrypt "xyzzy";
 echo __FILE__.__LINE__;
 echo "<!-- -->\n";
 /* ?> */
 ?>
 <strong>for</strong><b>if</b>
+<?= 'short echo tag' ?>
+<? echo 'short tag' ?>
 <script>
 	alert("<?php echo "PHP" . ' Code'; ?>");
 	alert('<?= 'PHP' . "Code"; ?>');

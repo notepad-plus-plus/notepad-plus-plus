@@ -1,0 +1,76 @@
+Mako examples extracted from https://docs.makotemplates.org/en/latest/syntax.html
+
+Expression
+${x}
+${}
+${pow(x,2) + pow(y,2)}
+
+Expression Escaping
+${"this is some text" | u}
+
+Control Structures
+% if x==5:
+    this is some output
+% endif
+
+% for a in ['one', 'two', 'three', 'four', 'five']:
+    % if a[0] == 't':
+    its two or three
+    % elif a[0] == 'f':
+    four/five
+    % else:
+    one
+    % endif
+% endfor
+
+The % sign can also be “escaped”, if you actually want to emit a percent sign as the first non whitespace character on a line, by escaping it as in %%:
+%% some text
+    %% some more text
+
+The Loop Context
+The loop context provides additional information about a loop while inside of a % for structure:
+
+<ul>
+% for a in ("one", "two", "three"):
+    <li>Item ${loop.index}: ${a}</li>
+% endfor
+</ul>
+
+A multiline version exists using <%doc> ...text... </%doc>:
+<%doc>
+    these are comments
+    more comments
+</%doc>
+
+Python Blocks
+Any arbitrary block of python can be dropped in using the <% %> tags:
+this is a template
+
+<%
+    x = db.get_resource('foo')
+    y = [z.element for z in x if x.frobnizzle==5]
+%>
+% for elem in y:
+    element: ${elem}
+% endfor
+Within <% %>, you’re writing a regular block of Python code. While the code can appear with an arbitrary level of preceding whitespace, it has to be consistently formatted with itself. Mako’s compiler will adjust the block of Python to be consistent with the surrounding generated Python code.
+
+Module-level Blocks
+A variant on <% %> is the module-level code block, denoted by <%! %>. Code within these tags is executed at the module level of the template, and not within the rendering function of the template. Therefore, this code does not have access to the template’s context and is only executed when the template is loaded into memory (which can be only once per application, or more, depending on the runtime environment). Use the <%! %> tags to declare your template’s imports, as well as any pure-Python functions you might want to declare:
+
+<%!
+    import mylib
+    import re
+
+    def filter(text):
+        return re.sub(r'^@', '', text)
+%>
+
+Tags
+The rest of what Mako offers takes place in the form of tags. All tags use the same syntax, which is similar to an XML tag except that the first character of the tag name is a % character. The tag is closed either by a contained slash character, or an explicit closing tag:
+
+<%include file="foo.txt"/>
+
+<%def name="foo" buffered="True">
+    this is a def
+</%def>

@@ -45,12 +45,16 @@ using fnGetDpiForWindow = UINT (WINAPI*)(HWND hwnd);
 using fnGetSystemMetricsForDpi = int (WINAPI*)(int nIndex, UINT dpi);
 using fnSystemParametersInfoForDpi = BOOL (WINAPI*)(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni, UINT dpi);
 using fnSetThreadDpiAwarenessContext = DPI_AWARENESS_CONTEXT (WINAPI*)(DPI_AWARENESS_CONTEXT dpiContext);
+using fnAdjustWindowRectExForDpi = BOOL (WINAPI*)(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi);
+
 
 fnGetDpiForSystem _fnGetDpiForSystem = nullptr;
 fnGetDpiForWindow _fnGetDpiForWindow = nullptr;
 fnGetSystemMetricsForDpi _fnGetSystemMetricsForDpi = nullptr;
 fnSystemParametersInfoForDpi _fnSystemParametersInfoForDpi = nullptr;
 fnSetThreadDpiAwarenessContext _fnSetThreadDpiAwarenessContext = nullptr;
+fnAdjustWindowRectExForDpi _fnAdjustWindowRectExForDpi = nullptr;
+
 
 void DPIManagerV2::initDpiAPI()
 {
@@ -64,6 +68,8 @@ void DPIManagerV2::initDpiAPI()
 			ptrFn(hUser32, _fnGetSystemMetricsForDpi, "GetSystemMetricsForDpi");
 			ptrFn(hUser32, _fnSystemParametersInfoForDpi, "SystemParametersInfoForDpi");
 			ptrFn(hUser32, _fnSetThreadDpiAwarenessContext, "SetThreadDpiAwarenessContext");
+			ptrFn(hUser32, _fnAdjustWindowRectExForDpi, "AdjustWindowRectExForDpi");
+
 		}
 	}
 }
@@ -84,6 +90,15 @@ DPI_AWARENESS_CONTEXT DPIManagerV2::setThreadDpiAwarenessContext(DPI_AWARENESS_C
 		return _fnSetThreadDpiAwarenessContext(dpiContext);
 	}
 	return NULL;
+}
+
+BOOL DPIManagerV2::adjustWindowRectExForDpi(LPRECT lpRect, DWORD dwStyle, BOOL bMenu, DWORD dwExStyle, UINT dpi)
+{
+	if (_fnAdjustWindowRectExForDpi != nullptr)
+	{
+		return _fnAdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi);
+	}
+	return FALSE;
 }
 
 UINT DPIManagerV2::getDpiForSystem()
@@ -194,78 +209,7 @@ LOGFONT DPIManagerV2::getDefaultGUIFontForDpi(UINT dpi, FontType type)
 	return lf;
 }
 
-// currently send message only to selected buttons; listbox and edit controls with scrollbars
-void DPIManagerV2::sendMessageToChildControls(HWND hwndParent, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	struct WMessage
-	{
-		UINT _msg = 0;
-		WPARAM _wParam = 0;
-		LPARAM _lParam = 0;
-	};
-
-	struct WMessage p { msg, wParam, lParam };
-
-	::EnumChildWindows(hwndParent, [](HWND hwnd, LPARAM childLParam) WINAPI_LAMBDA_RETURN(BOOL) {
-		auto & p = *reinterpret_cast<WMessage*>(childLParam);
-		constexpr size_t classNameLen = 32;
-		TCHAR className[classNameLen]{};
-		::GetClassName(hwnd, className, classNameLen);
-		auto style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-
-		if (wcscmp(className, WC_BUTTON) == 0)
-		{
-			switch (style & BS_TYPEMASK)
-			{
-				case BS_CHECKBOX:
-				case BS_AUTOCHECKBOX:
-				case BS_3STATE:
-				case BS_AUTO3STATE:
-				case BS_RADIOBUTTON:
-				case BS_AUTORADIOBUTTON:
-				{
-					if ((style & BS_PUSHLIKE) != BS_PUSHLIKE)
-					{
-						::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
-					}
-					break;
-				}
-
-				default:
-				{
-					break;
-				}
-			}
-			return TRUE;
-		}
-
-		if (wcscmp(className, WC_EDIT) == 0)
-		{
-			bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
-			if (hasScrollBar)
-			{
-				::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
-			}
-			return TRUE;
-		}
-
-		if (wcscmp(className, WC_LISTBOX) == 0)
-		{
-			if ((style & LBS_COMBOBOX) != LBS_COMBOBOX)
-			{
-				bool hasScrollBar = ((style & WS_HSCROLL) == WS_HSCROLL) || ((style & WS_VSCROLL) == WS_VSCROLL);
-				if (hasScrollBar)
-				{
-					::SendMessage(hwnd, p._msg, p._wParam, p._lParam);
-				}
-			}
-			return TRUE;
-		}
-		return TRUE;
-	}, reinterpret_cast<LPARAM>(&p));
-}
-
-void DPIManagerV2::loadIcon(HINSTANCE hinst, wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
+void DPIManagerV2::loadIcon(HINSTANCE hinst, const wchar_t* pszName, int cx, int cy, HICON* phico, UINT fuLoad)
 {
 	if (::LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) != S_OK)
 	{

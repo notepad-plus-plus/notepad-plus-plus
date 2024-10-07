@@ -1,0 +1,35 @@
+{0}      {2}*     Enumerate all styles: 0, 2 to 11, 16{0}
+      {2}*     SCE_C_COMMENTLINE=2{0}
+
+      {2}*     SCE_C_DEFAULT=0{0}
+             
+
+      {2}*     SCE_C_IDENTIFIER=11{0}
+            {11}identifier{0}
+
+      {2}*     SCE_C_NUMBER=4{0}
+            {4}4{0}
+
+      {2}*     SCE_C_WORD=5{0}
+            {5}data{0}
+
+      {2}*     SCE_C_WORD2=16{0}
+            {16}cancel{0}
+
+      {2}*     SCE_C_UUID=8{0}
+            {8}remarks{0}
+
+      {2}*     SCE_C_COMMENTDOC=3 not implemented{0}
+{3}** at line start{0}
+
+      {2}*     SCE_C_STRING=6{0}
+            {6}"string"{0}
+
+      {2}*     SCE_C_CHARACTER=7{0}
+            {7}'c'{0}
+
+      {2}*     SCE_C_PREPROCESSOR=9{0}
+{9}?preprocessor{0}
+
+      {2}*     SCE_C_OPERATOR=10{0}
+            {10}+{0}

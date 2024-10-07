@@ -240,11 +240,10 @@ class LexerGDScript : public DefaultLexer {
 	OptionsGDScript options;
 	OptionSetGDScript osGDScript;
 	enum { ssIdentifier };
-	SubStyles subStyles;
+	SubStyles subStyles{styleSubable};
 public:
 	explicit LexerGDScript() :
-		DefaultLexer("gdscript", SCLEX_GDSCRIPT, lexicalClasses, ELEMENTS(lexicalClasses)),
-		subStyles(styleSubable, 0x80, 0x40, 0) {
+		DefaultLexer("gdscript", SCLEX_GDSCRIPT, lexicalClasses, ELEMENTS(lexicalClasses)) {
 	}
 	~LexerGDScript() override {
 	}
@@ -769,5 +768,5 @@ void SCI_METHOD LexerGDScript::Fold(Sci_PositionU startPos, Sci_Position length,
 	//styler.SetLevel(lineCurrent, indentCurrent);
 }
 
-LexerModule lmGDScript(SCLEX_GDSCRIPT, LexerGDScript::LexerFactoryGDScript, "gdscript",
+extern const LexerModule lmGDScript(SCLEX_GDSCRIPT, LexerGDScript::LexerFactoryGDScript, "gdscript",
 		     gdscriptWordListDesc);

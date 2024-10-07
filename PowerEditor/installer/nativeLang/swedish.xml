@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.6">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -165,7 +165,7 @@ Translation note:
 					<Item id="42096" name="Matcha hela ord"/>
 					<Item id="42097" name="Matcha skiftläge och hela ord"/>
 					<Item id="42098" name="Ångra senast tillagda multimarkering"/>
-					<Item id="42099" name="Hoppa över nuvarande och gå till nästa multimarkering"/>
+					<Item id="42099" name="Hoppa över aktuell och gå till nästa multimarkering"/>
 					<Item id="42018" name="Starta &amp;inspelning"/>
 					<Item id="42019" name="S&amp;toppa inspelning"/>
 					<Item id="42021" name="Spela &amp;upp"/>
@@ -222,7 +222,7 @@ Translation note:
 					<Item id="43051" name="Ta bort rader utan bokmärken"/>
 					<Item id="43050" name="Invertera bokmärken"/>
 					<Item id="43052" name="&amp;Hitta tecken i ett intervall..."/>
-					<Item id="43053" name="Markera alla mellan mat&amp;chande klamrar"/>
+					<Item id="43053" name="Markera alla mellan mat&amp;chande {} [] eller ()"/>
 					<Item id="43009" name="G&amp;å till matchande klamrar"/>
 					<Item id="43010" name="S&amp;ök föregående"/>
 					<Item id="43011" name="Steg&amp;vis sökning..."/>
@@ -285,7 +285,7 @@ Translation note:
 					<Item id="44022" name="Radbrytning"/>
 					<Item id="44023" name="Zooma &amp;in (Ctrl + mushjul upp)"/>
 					<Item id="44024" name="Zooma &amp;ut (Ctrl + mushjul ned)"/>
-					<Item id="44025" name="Visa mellanslag och tabb"/>
+					<Item id="44025" name="Visa blanksteg och tabb"/>
 					<Item id="44026" name="Visa radslut"/>
 					<Item id="44029" name="Expandera alla"/>
 					<Item id="44030" name="Minimera aktuell nivå"/>
@@ -304,6 +304,8 @@ Translation note:
 					<Item id="44092" name="Flik nr. 7"/>
 					<Item id="44093" name="Flik nr. 8"/>
 					<Item id="44094" name="Flik nr. 9"/>
+					<Item id="44116" name="Första fliken"/>
+					<Item id="44117" name="Sista fliken"/>
 					<Item id="44095" name="Nästa flik"/>
 					<Item id="44096" name="Föregående flik"/>
 					<Item id="44097" name="Övervakning (tail -f)"/>
@@ -346,13 +348,14 @@ Translation note:
 					<Item id="45057" name="OEM 865: Nordiska"/>
 					<Item id="45053" name="OEM 860: Portugisiska"/>
 					<Item id="45056" name="OEM 863: Franska"/>
-
 					<Item id="10001" name="Flytta till annan vy"/>
 					<Item id="10002" name="Klona till annan vy"/>
 					<Item id="10003" name="Flytta till ny instans"/>
 					<Item id="10004" name="Öppna i ny instans"/>
-
+					<Item id="10005" name="Flytta till början"/>
+					<Item id="10006" name="Flytta till slutet"/>
 					<Item id="46001" name="Stilkonfigurering..."/>
+					<Item id="46016" name="Inget (oformaterad text)"/>
 					<Item id="46250" name="Definiera ditt språk..."/>
 					<Item id="46300" name="Öppna mapp för användardefinierade språk..."/>
 					<Item id="46301" name="Samling av användardefinierade språk för Notepad++"/>
@@ -437,6 +440,8 @@ Translation note:
 				<Item CMDID="42030" name="Kopiera filens namn"/>
 				<Item CMDID="42031" name="Kopiera aktuella mappens sökväg"/>
 				<Item CMDID="3" name="Flytta dokument"/>
+				<Item CMDID="10005" name="Flytta till början"/>
+				<Item CMDID="10006" name="Flytta till slutet"/>
 				<Item CMDID="10001" name="Flytta till annan vy"/>
 				<Item CMDID="10002" name="Klona till annan vy"/>
 				<Item CMDID="10003" name="Flytta till ny instans"/>
@@ -470,7 +475,7 @@ Translation note:
 				<Item id="1605" name="&amp;Reguljärt uttryck"/>
 				<Item id="1606" name="L&amp;oopa"/>
 				<Item id="1614" name="Anta&amp;l sökträffar"/>
-				<Item id="1615" name="Markera alla"/>
+				<Item id="1615" name="Markera &amp;alla"/>
 				<Item id="1616" name="&amp;Bokmärk rad"/>
 				<Item id="1618" name="Rensa vid varje sökning"/>
 				<Item id="1611" name="Ers&amp;ätt med: "/>
@@ -479,7 +484,7 @@ Translation note:
 				<Item id="1687" name="Vid förlorat fokus"/>
 				<Item id="1688" name="Alltid"/>
 				<Item id="1632" name="I mar&amp;kering"/>
-				<Item id="1633" name="Rensa alla markeringar"/>
+				<Item id="1633" name="R&amp;ensa alla markeringar"/>
 				<Item id="1635" name="Ersätt alla i alla &amp;öppna dokument"/>
 				<Item id="1636" name="Sök alla i alla ö&amp;ppna dokument"/>
 				<Item id="1654" name="&amp;Filter: "/>
@@ -501,7 +506,7 @@ Translation note:
 				<Item id="1703" name="&amp;. matchar ny rad"/>
 				<Item id="1721" name="▲"/>
 				<Item id="1723" name="▼ Hitta nästa"/>
-				<Item id="1725" name="Kopiera markerad text"/>
+				<Item id="1725" name="Ko&amp;piera markerad text"/>
 				<Menu>
 					<Item id="1726" name="⇅ Byt Sök med Ersätt"/>
 					<Item id="1727" name="⤵ Kopiera från Sök till Ersätt"/>
@@ -510,9 +515,9 @@ Translation note:
 			</Find>
 
 			<IncrementalFind title="">
-				<Item id="1681" name="Sök"/>
-				<Item id="1685" name="Matcha skiftläge"/>
-				<Item id="1690" name="Markera alla"/>
+				<Item id="1681" name="Sök:"/>
+				<Item id="1685" name="&amp;Matcha skiftläge"/>
+				<Item id="1690" name="M&amp;arkera alla"/>
 			</IncrementalFind>
 
 			<FindCharsInRange title="Hitta tecken i intervall...">
@@ -599,8 +604,8 @@ Translation note:
 				<Item id="5504" name="&amp;Uppdatera"/>
 				<Item id="5505" name="&amp;Ta bort"/>
 				<Item id="5508" name="&amp;Nästa"/>
-				<Item id="5509" name="Version av insticksmodullista"/>
-				<Item id="5511" name="Kodförvar för insticksmodullista"/>
+				<Item id="5509" name="Insticksprogramslistans version:"/>
+				<Item id="5511" name="Insticksprogramslistans källkod"/>
 				<Item id="2" name="Stäng"/>
 			</PluginsAdminDlg>
 
@@ -814,7 +819,6 @@ Translation note:
 					<Item id="21101" name="Standardformat"/>
 					<Item id="21102" name="Format"/>
 					<Item id="21105" name="Dokumentation"/>
-					<Item id="21104" name="Tillfällig dokumentation:"/>
 					<Item id="21106" name="&amp;Kompakt gruppering (gruppera tomma rader)"/>
 					<Item id="21220" name="Stil för gruppering i kod 1"/>
 					<Item id="21224" name="Början:"/>
@@ -947,7 +951,7 @@ Translation note:
 
 					<Item id="6106" name="Flikfält"/>
 					<Item id="6107" name="Förminska"/>
-					<Item id="6108" name="Lås positioner (inget drag-och-släpp)"/>
+					<Item id="6108" name="Lås flikar (inget drag-och-släpp)"/>
 					<Item id="6109" name="Gör inaktiva flikar mörkare"/>
 					<Item id="6110" name="Markera aktiv flik med en färgad linje"/>
 					<Item id="6112" name="Visa flikstängningsknapp på varje flik"/>
@@ -963,41 +967,51 @@ Translation note:
 
 					<Item id="6131" name="Meny"/>
 					<Item id="6122" name="Dölj menyraden (använd Alt eller F10 för att visa)"/>
-					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan i menyfältet (kräver omstart av Notepad++)"/>
+					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på menyradens högersida (kräver omstart av Notepad++)"/>
 
 					<Item id="6123" name="Gränssnittsspråk"/>
 				</Global>
-				<Scintillas title="Redigering">
+
+				<Scintillas title="Redigering 1">
 					<Item id="6216" name="Inställningar för textmarkör"/>
 					<Item id="6217" name="Bredd:"/>
 					<Item id="6219" name="Blinkhastighet:"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
-					<Item id="6246" name="Möjliggör att styra kommandon för att gruppera/avgruppera nuvarande nivå"/>
+					<Item id="6246" name="Låt kommandon gruppera/avgruppera aktuell nivå"/>
 					<Item id="6227" name="Radbrytning"/>
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Justerad"/>
 					<Item id="6230" name="Indrag"/>
-					<Item id="6234" name="Inaktivera avancerade bläddringfunktioner p.g.a. problem med pekplattor"/>
+					<Item id="6234" name="Inaktivera avancerade skrollfunktioner p.g.a. problem med pekplattor"/>
 					<Item id="6215" name="Aktivera teckenutjämning"/>
-					<Item id="6236" name="Aktivera bläddring förbi sista raden"/>
+					<Item id="6236" name="Gör det möjligt att skrolla förbi sista raden"/>
 					<Item id="6239" name="Behåll markering när man klickar utanför markeringen"/>
 					<Item id="6245" name="Aktivera virtuellt utrymme"/>
+					<Item id="6214" name="Kopiera/klipp ut aktuell rad när ingenting är markerat"/>
 					<Item id="6651" name="Indikator för aktuell rad"/>
 					<Item id="6652" name="Ingen"/>
 					<Item id="6653" name="Markerad bakgrund"/>
 					<Item id="6654" name="Kontur"/>
-					<Item id="6655" name="Bredd"/>
+					<Item id="6655" name="Bredd:"/>
+				</Scintillas>
+
+				<Scintillas2 title="Redigering 2">
+					<Item id="6521" name="Multiredigering"/>
+					<Item id="6522" name="Aktivera multiredigering (Ctrl + musklick/markering)"/>
+					<Item id="6523" name="Aktivera kolumnmarkering för att multiredigera"/>
 					<Item id="6247" name="Radslut (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Standard"/>
-					<Item id="6249" name="Vanlig text"/>
+					<Item id="6249" name="Oformaterad text"/>
 					<Item id="6250" name="Anpassad färg"/>
 					<Item id="6252" name="Icke utskrivbara tecken"/>
+					<Item id="6260" name="Utseende"/>
 					<Item id="6254" name="Förkortning"/>
 					<Item id="6255" name="Kodpunkt"/>
 					<Item id="6256" name="Anpassad färg"/>
-					<Item id="6258" name="Tillämpa på C0, C1 och Unicode-radslut"/>
-				</Scintillas>
+					<Item id="6258" name="Tillämpa utseendeinställningar på C0, C1 och Unicode-radslut"/>
+					<Item id="6259" name="Förhindra att kontrolltecken (C0-kod) visas i dokument"/>
+				</Scintillas2>
 
 				<DarkMode title="Mörkt läge">
 					<Item id="7131" name="Ljust läge"/>
@@ -1027,7 +1041,7 @@ Translation note:
 					<Item id="7135" name="Toner"/>
 				</DarkMode>
 
-				<MarginsBorderEdge title="Marginaler/kantlinje">
+				<MarginsBorderEdge title="Marginaler/kantlinjer">
 					<Item id="6201" name="Stil på gruppering"/>
 					<Item id="6202" name="Enkel"/>
 					<Item id="6203" name="Pilar"/>
@@ -1039,11 +1053,11 @@ Translation note:
 					<Item id="6292" name="Dynamisk bredd"/>
 					<Item id="6293" name="Konstant bredd"/>
 					<Item id="6207" name="Visa bokmärken"/>
-					<Item id="6223" name="Visa förändringshistorik"/>
+					<Item id="6295" name="Förändringshistorik"/>
+					<Item id="6223" name="Visa i marginalerna"/>
+					<Item id="6296" name="Visa i texten"/>
 					<Item id="6211" name="Inställningar för lodrätt kantläge"/>
 					<Item id="6213" name="Bakgrundsläge"/>
-					<Item id="6237" name="Lägg till din kolumnmarkör genom att ange dess position med ett decimaltal.
-Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6231" name="Bredd på kantlinjer"/>
 					<Item id="6235" name="Kantlös"/>
 					<Item id="6208" name="Utfyllnad"/>
@@ -1065,7 +1079,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6410" name="UCS-2 Little Endian med BOM"/>
 					<Item id="6411" name="Standardspråk:"/>
 					<Item id="6419" name="Nytt dokument"/>
-					<Item id="6420" name="Tillämpa på öppnade filer med ANSI"/>
+					<Item id="6420" name="Tillämpa på öppnade ANSI-filer"/>
 					<Item id="6432" name="Öppna alltid ett nytt dokument vid uppstart"/>
 				</NewDoc>
 
@@ -1073,7 +1087,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6413" name="Standardmapp (öppna/spara)"/>
 					<Item id="6414" name="Använd aktuellt dokument"/>
 					<Item id="6415" name="Kom ihåg senast använd mapp"/>
-					<Item id="6431" name="Öppna alla filer inuti mappar som släpps istället för att öppna dem som arbetsytor"/>
+					<Item id="6431" name="Öppna alla filer från mappar som släpps i stället för att öppna dem som arbetsytor"/>
 				</DefaultDir>
 
 				<FileAssoc title="Filassociering">
@@ -1081,17 +1095,29 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="4009" name="Kompatibla filändelser:"/>
 					<Item id="4010" name="Registrerade filändelser:"/>
 				</FileAssoc>
+
+
 				<Language title="Språk">
 					<Item id="6505" name="Tillgängliga"/>
 					<Item id="6506" name="Inaktiverade"/>
 					<Item id="6507" name="Gör språkmenyn kompakt"/>
 					<Item id="6508" name="Språkmeny"/>
-					<Item id="6301" name="Tabb-inställningar"/>
-					<Item id="6302" name="Ersätt med mellanslag"/>
-					<Item id="6303" name="Tabb-storlek: "/>
-					<Item id="6510" name="Använd standardvärde"/>
 					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL"/>
 				</Language>
+
+				<Indentation title="Indrag">
+					<Item id="7161" name="Automatiskt indrag"/>
+					<Item id="7162" name="Inget"/>
+					<Item id="7163" name="Enkelt"/>
+					<Item id="7164" name="Avancerat"/>
+					<Item id="6301" name="Indragsinställningar"/>
+					<Item id="6302" name="Blankstegstecken"/>
+					<Item id="6303" name="Indragsstorlek:"/>
+					<Item id="6310" name="Indrag använder:"/>
+					<Item id="6311" name="Tabb-tecken"/>
+					<Item id="6510" name="Använd standardvärde"/>
+					<Item id="6512" name="Backsteg minskar indrag i stället för att radera blanksteg"/>
+				</Indentation>
 
 				<Highlighting title="Markering">
 					<Item id="6351" name="Stilsätt alla förekomster"/>
@@ -1136,7 +1162,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6722" name="Hö&amp;gerkant"/>
 					<Item id="6723" name="&amp;Lägg till"/>
 					<ComboBox id="6724">
-						<Element name="Full filsökväg"/>
+						<Element name="Fullständig filsökväg"/>
 						<Element name="Filnamn"/>
 						<Element name="Mappsökväg"/>
 						<Element name="Sidnummer"/>
@@ -1151,14 +1177,14 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 
 				<Searching title="Sökning">
 					<Item id="6902" name="Använd typsnitt med fast bredd i sökdialogen (kräver omstart av Notepad++)"/>
-					<Item id="6903" name="Sökdialogen stannar öppen efter sökningar som matar ut till resultatfönstret"/>
+					<Item id="6903" name="Låt sökdialogen förbli öppen efter sökningar som visas i resultatfönstret"/>
 					<Item id="6904" name="Visa bekräftelsedialog för &quot;Ersätt alla i alla öppna dokument&quot;"/>
 					<Item id="6905" name="Ersätt: Hoppa inte till nästa förekomst"/>
-					<Item id="6906" name="Resultatfönstret: Visa endast en post per funnen rad"/>
+					<Item id="6906" name="Sökresultatsfönstret: Visa endast en post per funnen rad om det är möjligt"/>
 					<Item id="6907" name="När sökdialogen öppnas"/>
 					<Item id="6908" name="Fyll sökfältet med markerad text"/>
 					<Item id="6909" name="Markera ord under textmarkören när ingenting är markerat"/>
-					<Item id="6910" name="Minimal storlek för att automatiskt markera &quot;I markering&quot;"/>
+					<Item id="6910" name="Minimal storlek för att markera &quot;I markering&quot; automatiskt"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">
@@ -1175,7 +1201,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 				<Backup title="Säkerhetskopiering">
 					<Item id="6817" name="Sessioner och säkerhetskopiering"/>
 					<Item id="6818" name="Ta ögonblicksbilder av sessioner och säkerhetskopiera regelbundet"/>
-					<Item id="6819" name="Säkerhetskopiera efter"/>
+					<Item id="6819" name="Säkerhetskopiera vid förändring efter"/>
 					<Item id="6821" name="sekund(er)"/>
 					<Item id="6822" name="Sökväg:"/>
 					<Item id="6309" name="Kom ihåg aktuell session vid nästa uppstart"/>
@@ -1188,7 +1214,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6803" name="Mapp:"/>
 				</Backup>
 
-				<AutoCompletion title="Autokomplettering">
+				<AutoCompletion title="Automatisk komplettering">
 					<Item id="6115" name="Automatiskt indrag"/>
 					<Item id="6807" name="Automatisk komplettering"/>
 					<Item id="6808" name="Aktivera vid varje inmatning"/>
@@ -1212,17 +1238,17 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6866" name="Matchat par 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Flera instanser">
+				<MultiInstance title="Flera instanser och datum">
 					<Item id="6151" name="Inställningar för flera instanser"/>
 					<Item id="6152" name="Öppna session i en ny instans (och spara sessionen automatiskt vid avslut)"/>
 					<Item id="6153" name="Alltid flera instanser"/>
 					<Item id="6154" name="Standard (en enda instans)"/>
 					<Item id="6155" name="* En omstart av Notepad++ krävs om denna inställning ändras"/>
 					<Item id="6171" name="Anpassa datum och tid att infoga"/>
-					<Item id="6175" name="Omvänd standardordning av datum och tid (kort och lång format)"/>
+					<Item id="6175" name="Omvänd standardordning av datum och tid (kort och långt format)"/>
 					<Item id="6172" name="Anpassat format:"/>
 					<Item id="6181" name="Paneltillstånd och [-nosession] *"/>
-					<Item id="6182" name="Kom ihåg paneltillstånd (panelen är öppen) i andra instanser (flera instanser) eller när kommandoradsparameter används [-nosession]"/>
+					<Item id="6182" name="Kom ihåg panelens tillstånd (om den är öppen) i andra instanser (vid flera instanser) eller när kommandoradsparametern [-nosession] används"/>
 					<Item id="6183" name="Urklippshistorik"/>
 					<Item id="6184" name="Dokumentlista"/>
 					<Item id="6185" name="Teckenpanel"/>
@@ -1237,7 +1263,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 					<Item id="6251" name="Inställningar för avgränsad markering (Ctrl + dubbelklick)"/>
 					<Item id="6252" name="Början"/>
 					<Item id="6255" name="Slutet"/>
-					<Item id="6256" name="Tillåt på flera rader"/>
+					<Item id="6256" name="Tillåt över flera rader"/>
 					<Item id="6161" name="Lista över ordtecken"/>
 					<Item id="6162" name="Använd standardlistan över ordtecken"/>
 					<Item id="6163" name="Inkludera dina tecken som delar av ord
@@ -1281,7 +1307,7 @@ Ange flera kolumnmarkörer genom att separera talen med blanksteg."/>
 
 				<MISC title="Övrigt">
 					<ComboBox id="6347">
-						<Element name="Aktivera"/>
+						<Element name="Aktivera för aktuell fil"/>
 						<Element name="Aktivera för alla öppnade filer"/>
 						<Element name="Inaktivera"/>
 					</ComboBox>
@@ -1370,6 +1396,11 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 				<Item id="7" name="N&amp;ej"/>
 				<Item id="4" name="&amp;Alltid"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			
+			<DebugInfo title="Felsökningsinformation">
+				<Item id="1752" name="&amp;Kopiera felsökningsinformation till urklipp"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1388,6 +1419,7 @@ Vill du fortsätta?"/><!-- HowToReproduce: when you openned file is modified and
 			<FileLockedWarning title="Misslyckades att spara" message="Kontrollera om denna fil är öppen i ett annat program"/>
 			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppen i Notepad++."/><!-- HowToReproduce: Open a new document and open a file "c:/tmp/foo", save this new document by choosing "c:/tmp/foo" as file to save, reply the override popup "yes", then this message appears. -->
 			<RenameTabTemporaryNameAlreadyInUse title="Misslyckades att byta namn" message="Det angivna filnamnet används redan i en annan flik."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
+			<RenameTabTemporaryNameIsEmpty title="Misslyckades att byta namn" message="Det angivna filnamnet kan varken vara tomt eller endast innehålla blanksteg eller tabb."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
 			<DeleteFileFailed title="Radera fil" message="Misslyckades att radera filen"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 
 			<NbFileToOpenImportantWarning title="För många filer att öppna" message="$INT_REPLACE$ filer håller på att öppnas.
@@ -1398,7 +1430,7 @@ Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inst�
 			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna finns inte."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Kunde inte läsa in sessionen" message="Sessionsfilen är antingen skadad eller ogiltig."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan endast släppa filer eller mappar men inte båda eftersom du är i läget för att släppa mappar som projekt.
-Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps istället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
+Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps i stället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
 			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Tips för kolumnläge" message="
 Det finns 3 sätt att växla till kolumnmarkeringsläget:
@@ -1484,10 +1516,10 @@ Vill du fortsätta?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att läsa in de insticksprogram du har installerat."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="Notepad++ behöver startas om" message="Du måste starta om Notepad++ för att aktivera förändringshistoriken."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Windows-session avslutas" message="Windows-sessionen håller på att avslutas men du har osparad data. Vill du avsluta Notepad++ nu?"/>
-			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer ändras vid nästa uppstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
+			<LanguageMenuCompactWarning title="Kompakt språkmeny" message="Detta alternativ kommer att ändras vid nästa uppstart."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Osparade ändringar håller på att ignoreras!
 Vill du spara dina ändringar innan du byter tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Kompatibilitet för makron och körbara kommandon" message="Dina makron och körbara kommandon som har sparats i Notepad++ v.8.5.2 (eller äldre) kanske inte är kompatibla med den nuvarande versionen av Notepad++.
+			<MacroAndRunCmdlWarning title="Kompatibilitet för makron och körbara kommandon" message="Dina makron och körbara kommandon som har sparats i Notepad++ v.8.5.2 (eller äldre) kanske inte är kompatibla med den aktuella versionen av Notepad++.
 Var god testa dessa kommandon och redigera dem vid behov.
 
 Annars kan du nedgradera till Notepad++ v8.5.2 och återställa din föregående data.
@@ -1496,13 +1528,22 @@ Byt namn på &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&q
 			<NotEnoughRoom4Saving title="Misslyckades att spara" message="Misslyckades att spara filen.
 Det verkar inte finnas tillräckligt mycket diskutrymme för att spara filen. Din fil sparades inte."/>
 			<FileInaccessibleUserSession title="Filen är otillgänglig" message="Vissa filer från din manuellt sparade session &quot;$STR_REPLACE$&quot; är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.
+
 Vill du skapa dessa platshållare?
+
 OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din manuellt sparade session INTE modifieras vid avslut."/>
 			<FileInaccessibleDefaultSessionXml title="Filen är otillgänglig" message="Vissa filer från din föregående session är otillgängliga. De kan öppnas som platshållare i form av tomma och skrivskyddade dokument.
+
 Vill du skapa dessa platshållare?
+
 OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din session MODIFIERAS VID AVSLUT! Vi föreslår att du nu säkerhetskopierar din &quot;session.xml&quot;."/>
 			<RTLvsDirectWrite title="Kan inte köra RTL" message="RTL är inte kompatibelt med DirectWrite-läget. Inaktivera DirectWrite-läget under avsnittet Övrigt i inställningarna och starta sedan om Notepad++."/>
 			<FileMemoryAllocationFailed title="Undantag: Minnesallokering av fil misslyckades" message="Det finns förmodligen inte tillräckligt mycket ledigt angränsande minne för att filen ska kunna läsas in av Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Reguljär bakåtsökning har inaktiverats" message="Som standard har reguljär bakåtsökning inaktiverats p.g.a. potentiellt oväntade resultat. Öppna sökdialogen och välj antingen normalt eller utökat sökläge i stället för reguljärt uttryck för att genomföra en bakåtsökning.
+Tryck på OK-knappen för att öppna sökdialogen eller sätta fokus på den.
+			
+Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsökning ifall du behöver detta."/>
+<PrintError title="0" message="Kan inte starta utskift av dokument."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1610,23 +1651,22 @@ OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din sessi
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders.  -->
-			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; valt."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; markerat."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för radslut (&quot;EOL custom color&quot;)."/>
 
 			<word-chars-list-warning-begin value="Observera: "/>
-			<word-chars-list-space-warning value="$INT_REPLACE$ mellanslag"/>
+			<word-chars-list-space-warning value="$INT_REPLACE$ blanksteg"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabb(ar)"/>
 			<word-chars-list-warning-end value="  i din teckenlista."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
 			<backup-select-folder value="Välj en mapp för säkerhetskopior"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Felaktig sökväg."/>
 			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska börja gälla."/>
-			<cloud-select-folder value="Välj en mapp som Notepad++ ska läsa/skriva sina inställningar"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
+			<cloud-select-folder value="Välj en mapp där Notepad++ ska läsa/skriva sina inställningar"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
 			<default-open-save-select-folder value="Välj en standardmapp"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Använd Shift + Enter för att söka i omvänd riktning"/>
 			<two-find-buttons-tip value="Sök med två knappar"/>
-			<file-rename-title value="Byt namn"/>
 			<find-in-files-filter-tip value="Hitta i cpp, cxx, h, hxx och hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
@@ -1639,34 +1679,30 @@ Hitta i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och
 Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
 			<find-in-files-select-folder value="Välj en mapp att söka från"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Sök: Hittade första förekomsten från slutet. Början av dokumentet har passerats."/>
-			<find-status-end-reached value="Sök: Hittade första förekomsten från början. Slutet av dokumentet har passerats."/>
+			<find-status-top-reached value="Sök: Hittade sista förekomsten från slutet. Början av dokumentet har passerats."/>
+			<find-status-end-reached value="Sök: Hittade sista förekomsten från början. Slutet av dokumentet har passerats."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersätt i filer: $INT_REPLACE$ förekomster ersattes"/>
-			<find-status-replaceinfiles-re-malformed value="Ersätt i öppna filer: Det reguljära uttrycket är felaktigt"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Ersätt i öppna filer: 1 förekomst ersattes"/>
 			<find-status-replaceinopenedfiles-nb-replaced value="Ersätt i öppna filer: $INT_REPLACE$ förekomster ersattes"/>
-			<find-status-mark-re-malformed value="Markera: Det reguljära uttrycket är felaktigt"/>
 			<find-status-invalid-re value="Sök: Felaktigt reguljärt uttryck"/>
 			<find-status-search-failed value="Sök: Sökningen misslyckades"/>
 			<find-status-mark-1-match value="Markera: 1 matchning"/>
 			<find-status-mark-nb-matches value="Markera: $INT_REPLACE$ matchningar"/>
-			<find-status-count-re-malformed value="Antal sökträffar: Det reguljära uttrycket för sökning är felaktigt"/>
 			<find-status-count-1-match value="Antal sökträffar: 1 matchning"/>
 			<find-status-count-nb-matches value="Antal sökträffar: $INT_REPLACE$ matchningar"/>
-			<find-status-replaceall-re-malformed value="Ersätt alla: Det reguljära uttrycket är felaktigt"/>
 			<find-status-replaceall-1-replaced value="Ersätt alla: 1 förekomst ersattes"/>
 			<find-status-replaceall-nb-replaced value="Ersätt alla: $INT_REPLACE$ förekomster ersattes"/>
 			<find-status-replaceall-readonly value="Ersätt alla: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
-			<find-status-replace-end-reached value="Ersätt: Ersatte första förekomsten från början. Slutet av dokumentet har passerats"/>
-			<find-status-replace-top-reached value="Ersätt: Ersatte första förekomsten från slutet. Början av dokumentet har passerats"/>
+			<find-status-replace-end-reached value="Ersätt: Ersatte sista förekomsten från början. Slutet av dokumentet har passerats"/>
+			<find-status-replace-top-reached value="Ersätt: Ersatte sista förekomsten från slutet. Början av dokumentet har passerats"/>
 			<find-status-replaced-next-found value="Ersätt: 1 förekomst har ersatts. Nästa förekomst har hittats"/>
 			<find-status-replaced-without-continuing value="Ersätt: 1 förekomst har ersatts."/>
 			<find-status-replaced-next-not-found value="Ersätt: 1 förekomst har ersatts. Hittade inte nästa förekomst"/>
 			<find-status-replace-not-found value="Ersätt: Inga förekomster hittades"/>
 			<find-status-replace-readonly value="Ersätt: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
 			<find-status-cannot-find value="Sök: Kan inte hitta texten &quot;$STR_REPLACE$&quot;"/>
-			<find-status-cannot-find-pebkac-maybe value="Kan inte hitta förekomsten. Du kanske har glömt att markera &quot;Loopa&quot;, avmarkera &quot;Matcha skiftläge&quot; eller avmarkera &quot;Matcha hela ord&quot;."/>
+			<find-status-cannot-find-pebkac-maybe value="Kan inte hitta förekomsten. Du kanske har glömt att markera &quot;Loopa&quot; eller avmarkera antingen &quot;Matcha skiftläge&quot; eller &quot;Matcha hela ord&quot;."/>
 			<find-status-scope-selection value="inom den markerade texten"/>
 			<find-status-scope-all value="i hela filen"/>
 			<find-status-scope-backward value="från filens början till textmarkören"/>
@@ -1676,9 +1712,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<finder-collapse-all value="Minimera alla"/>
 			<finder-uncollapse-all value="Expandera alla"/>
 			<finder-copy value="Kopiera markerad(e) rad(er)"/>
-			<finder-copy-verbatim value="Kopiera"/>
 			<finder-copy-paths value="Kopiera sökväg(ar)"/>
-			<finder-select-all value="Markera alla"/>
 			<finder-clear-all value="Rensa alla"/>
 			<finder-open-all value="Öppna alla"/>
 			<finder-purge-for-every-search value="Rensa efter varje sökning"/>
@@ -1705,7 +1739,6 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<summary-nbsel2 value=" byte) i "/>
 			<summary-nbrange value=" intervall"/>
 			<progress-hits-title value="Träffar:"/>
-			<progress-cancel-button value="Avbryt"/>
 			<progress-cancel-info value="Avbryter åtgärd, var god vänta..."/>
 			<find-in-files-progress-title value="Förlopp för &quot;Sök i filer&quot;..."/>
 			<replace-in-files-confirm-title value="Är du säker?"/>
@@ -1741,39 +1774,46 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<contextMenu-styleOneToken value="Stilsätt en förekomst"/>
 			<contextMenu-clearStyle value="Rensa stilsättning"/>
 			<contextMenu-PluginCommands value="Kommandon från insticksprogram"/>
-			<largeFileRestriction-tip value="Vissa funktioner kan förminska prestandan i stora filer. Dessa funktioner kan inaktiveras automatiskt när en stor fil öppnas. Du kan anpassa de här.
+			<largeFileRestriction-tip value="Vissa funktioner kan sänka prestandan i stora filer. Dessa funktioner kan inaktiveras automatiskt när en stor fil öppnas. Du kan anpassa de här.
 
 OBS:
-1. När dessa alternativ modifieras måste de öppnade stora filer stängas och öppnas igen för att fungera ordentligt.
+1. När dessa alternativ modifieras måste alla stora filer stängas och öppnas igen för att fungera ordentligt.
 
-2. Om &quot;Inaktivera radbrytning globalt&quot; markeras och du öppnar en stor fil kommer &quot;Radbrytning&quot; inaktiveras för alla filer. Du kan återaktivera detta via menyn &quot;Visa-&gt;Radbrytning&quot;."/>
-			<npcNote-tip value="Representation av utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII.
+2. Om &quot;Inaktivera radbrytning globalt&quot; markeras och du öppnar en stor fil kommer &quot;Radbrytning&quot; inaktiveras för alla filer. Du kan återaktivera detta via menyn &quot;Visa -&gt; Radbrytning&quot;."/>
+			<npcNote-tip value="Hur utvalda blanksteg och icke utskrivbara (kontroll)tecken som inte är ASCII ska återges.
 
 OBS:
-När representationer används inaktiveras teckeneffekter hos text.
+När ett utseende används kommer teckeneffekter i texten att inaktiveras.
 
-Se användarmanualen för den fullständiga listan över utvalda blanksteg och icke utskrivbara tecken.
+Se användarmanualen för en fullständig lista över utvalda blanksteg och icke utskrivbara tecken.
 
 Klicka på denna knapp för att öppna webbplatsen med användarmanualen."/>
 			<npcAbbreviation-tip value="Förkortning : namn
 NBSP : hårt blanksteg
-ZWSP : breddlöst mellanslag
+ZWSP : breddlöst blanksteg
 ZWNBSP : breddlöst hårt blanksteg
 
-Se användarmanualen för den fullständiga listan.
+Se användarmanualen för en fullständig lista.
 Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen."/>
 			<npcCodepoint-tip value="Kodpunkt : namn
 U+00A0 : hårt blanksteg
-U+200B : breddlöst mellanslag
+U+200B : breddlöst blanksteg
 U+FEFF : breddlöst hårt blanksteg
 
-Se användarmanualen för den fullständiga listan.
+Se användarmanualen för en fullständig lista.
 Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med användarmanualen."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för utvalda blanksteg och icke utskrivbara tecken (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Tillämpa utseendeinställningar för icke utskrivbara tecken på C0- och C1-kontrolltecken samt Unicode-radslutstecken (nästa rad, radavgränsare och paragrafavgränsare)."/>
-			<searchingInSelThresh-tip value="Antal markerade tecken i redigeringsområdet att automatiskt kontrollera kryssrutan &quot;I markering&quot; när sökdialogen aktiveras. Det maximala värdet är 1024. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
+			<searchingInSelThresh-tip value="Antalet markerade tecken i redigeringsområdet för att automatiskt markera kryssrutan &quot;I markering&quot; i sökdialogen. Det maximala värdet är 1024. Ändra värdet till 0 för att inaktivera automatisk kontroll."/>
+			<verticalEdge-tip value="Lägg till din kolumnmarkör genom att ange dess position med ett decimaltal. Separera talen med blanksteg för att ange flera kolumnmarkörer."/>
+			<fileSaveAsCopySaveButton-tip value="Håll ned Shift och klicka på sparaknappen för att öppna kopian efteråt."/>
+			<autoIndentBasic-tip value="Ser till att indraget för aktuell rad (d.v.s. radbrytningen som skapas med ENTER-tangenten) stämmer överens med indraget från den föregående raden."/>
+			<autoIndentAdvanced-tip value="Aktiverar smarta indrag för &quot;C-liknande&quot; språk och Python. &quot;C-liknande&quot; språk omfattar:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell och JSON.
+
+Om du väljer avancerat läge men inte redigerar filer i de omfattande språken kommer indraget förbli i enkelt läge."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

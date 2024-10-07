@@ -1,0 +1,4 @@
+ 2 400 401 + fn main() {
+ 0 401 401 |     let r#true = false;
+ 0 401 401 |     println!("{}", r#true);
+ 0 401 400 | }

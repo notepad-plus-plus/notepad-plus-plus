@@ -43,11 +43,12 @@ public :
 		{
 			updateLinesNumbers();
 			::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+			::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 		}
 		else
 		{
 			// clean Line Edit
-			::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));
+			::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, L"");
 		}
 	};
 

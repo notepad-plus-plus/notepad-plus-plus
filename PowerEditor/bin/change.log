@@ -1,28 +1,33 @@
-Notepad++ v8.6.5 bug-fixes & new enhancements:
+Notepad++ v8.7 bug-fixes & new enhancements:
 
- 1. Fix "Replace All" action not notifying plugins of modification regression by adding NPPN_GLOBALMODIFIED.
- 2. Fix plugins not receiving some Scintilla notification types regression.
- 3. Fix Shortcut Mapper pontential crash problem.
- 4. Fix period backup pontential crash due to the dead lock.
- 5. Fix NUL characters file corruption after power outrages.
- 6. Remedy losing session problem after power outrages.
- 7. Fix URLs are not detected after a "Replace All" regression.
- 8. Notify user while saving failure due to hardware problem.
- 9. Update to scintilla 5.4.3 (from 5.4.1) & Lexilla 5.3.1.
-10. Support template literal (template strings) in JavaScript & make `back-quoted strings` more readable.  
-11. Add support for Change History in the text, besides in the margin. Also, make Change History color configurable.
-12. Fix NPPM_RELOADFILE API return wrong result issue.
-13. Enhance Shortcut Mapper filter to find command items more easily
-14. Prevent typing control characters into document & make it optional.
-15. Fix possible no-GUI state when using systray.
-16. Make context menu popup location at current text position when invoked via keyboard.
-17. Fix Notepad++ blocked when closed minimized or from systray.
-18. Fix python wrong decorator attribute colors & add "ATTRIBUTE" color in styles.xml.model.
-19. Fix Mouse Wheel Scrolling in Shortcut Mapper & reduce also the memory use.
+ 1. Update to scintilla 5.5.2 & Lexilla 5.4.0.
+ 2. Fix monitoring large files with frequent writes freezing the UI issue.
+ 3. Fix regression of multiple selections in comboboxes of Find dialog.
+ 4. Fix a single undo reverting many changes issue.
+ 5. Improve Styler Configurator performance considerably.
+ 6. Fix CVE-2014-9456 (but CVE-2014-9456 is not a "Security Vulnerability").
+ 7. Make find dialog status messages color customizable via Style Configurator.
+ 8. Make individual tab color customizable via Style Configurator.
+ 9. Add new plugin command NPPM_GETNATIVELANGFILENAME & notification NPPN_NATIVELANGCHANGED for native language being changed. 
+10. Fix Folder as Workspace sorting problem for network storage (Samba, WebDAV, WSL, etc.).
+11. Fix closing unsaved clone document causing periodic backup loss issue.
+12. Fix Style Config's "User-defined keywords" not being saved properly after emptying it.
+13. Add user-defined keyword ability for some supported programming languages (ActionScript, ASP, Bash, C, C++, C#, GDScript, Go, HTML, Java, JavaScript).
+14. Add Fluent Icons for enhancing FunctionList, Folder as Workspace & project panels' icons in lite mode.
+15. Fix Python smart indent issue when a string or comment line ends with a colon.
+16. Add file type filters for UDL in Save dialogs.
+17. Add TOML language (TOML format) support.
+18. Add function list for TeX/LaTeX.
+19. Recognize Cython files as Python.
+20. Fix edit zone not getting focus while clicking the active tab.
+21. Add the ability to open the copy automatically after the “Save a Copy” command.
+22. Fix inability to paste after removing read-only via menu.
+23. Add one more option for auto-indent so C-Like language indent can be disabled.
+24. Fix Style Configurator regression: "URL hovered"'s "Go to Settings" not working.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6.5/
+https://notepad-plus-plus.org/downloads/v8.7/
 
 
 Included plugins:
@@ -34,4 +39,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.2.8
+* WinGUp (for Notepad++) v5.3

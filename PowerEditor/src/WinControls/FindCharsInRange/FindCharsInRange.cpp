@@ -97,7 +97,7 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 		case WM_DPICHANGED:
 		{
-			DPIManagerV2::setDpiWP(wParam);
+			_dpiManager.setDpiWP(wParam);
 			setPositionDpi(lParam);
 
 			return TRUE;
@@ -142,8 +142,8 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 						//STOP!
 						NppParameters::getInstance().getNativeLangSpeaker()->messageBox("FindCharRangeValueError",
 							_hSelf,
-							TEXT("You should type between 0 and 255."),
-							TEXT("Range Value problem"),
+							L"You should type between 0 and 255.",
+							L"Range Value problem",
 							MB_OK);
 						return TRUE;
 					}

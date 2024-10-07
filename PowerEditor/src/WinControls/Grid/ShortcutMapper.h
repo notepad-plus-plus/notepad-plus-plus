@@ -27,7 +27,7 @@ enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTIL
 class ShortcutMapper : public StaticDialog {
 public:
 	ShortcutMapper() : StaticDialog(), _currentState(STATE_MENU) {
-		_shortcutFilter = std::vector<generic_string>();
+		_shortcutFilter = std::vector<std::wstring>();
 		_dialogInitDone = false;
 	};
 	~ShortcutMapper() = default;
@@ -37,7 +37,7 @@ public:
         _currentState = initState;
     };
 
-	void destroy() {};
+	void destroy() override {};
 	void doDialog(bool isRTL = false) {
 		if (isRTL)
 		{
@@ -49,18 +49,19 @@ public:
 		else
 			::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTMAPPER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 	};
-	void getClientRect(RECT & rc) const;
+	void getClientRect(RECT & rc) const override;
 
-	bool findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
+	bool findKeyConflicts(__inout_opt std::wstring * const keyConflictLocation,
 							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
 
-	generic_string getTextFromCombo(HWND hCombo);
-	bool isFilterValid(Shortcut);
+	std::wstring getTextFromCombo(HWND hCombo);
+	bool isFilterValid(Shortcut sc);
 	bool isFilterValid(PluginCmdShortcut sc);
 	bool isFilterValid(ScintillaKeyMap sc);
 
-protected :
-	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+protected:
+	void resizeDialogElements();
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	BabyGridWrapper _babygrid;
@@ -70,16 +71,16 @@ private:
 	HWND _hTabCtrl = nullptr;
 
 	const static int _nbTab = 5;
-	generic_string _tabNames[_nbTab];
-	std::vector<generic_string> _shortcutFilter;
+	std::wstring _tabNames[_nbTab];
+	std::vector<std::wstring> _shortcutFilter;
 	std::vector<size_t> _shortcutIndex;
 
 	//save/restore the last view
 	std::vector<size_t> _lastHomeRow;
 	std::vector<size_t> _lastCursorRow;
 
-	generic_string _conflictInfoOk;
-	generic_string _conflictInfoEditing;
+	std::wstring _conflictInfoOk;
+	std::wstring _conflictInfoEditing;
 
 	std::vector<HFONT> _hGridFonts;
 
@@ -89,16 +90,15 @@ private:
 		GFONT_ROWS,
 		MAX_GRID_FONTS
 	};
-	LONG _clientWidth = 0;
-	LONG _clientHeight = 0;
-	LONG _initClientWidth = 0;
-	LONG _initClientHeight = 0;
+
+	SIZE _szMinDialog{};
+	SIZE _szBorder{};
 	bool _dialogInitDone = false;
 
 	void initTabs();
 	void initBabyGrid();
 	void fillOutBabyGrid();
-	generic_string getTabString(size_t i) const;
+	std::wstring getTabString(size_t i) const;
 
 	bool isConflict(const KeyCombo & lhs, const KeyCombo & rhs) const
 	{
@@ -108,4 +108,3 @@ private:
 				 (lhs._key	   == rhs._key	  ) );
 	}
 };
-

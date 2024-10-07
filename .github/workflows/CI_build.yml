@@ -1,6 +1,9 @@
 name: CI_build
 
 on: [push, pull_request]
+env:
+  PYTHON_ALLOW_CACHE: true
+  PYTHON_DIR_CACHE: D:\.cache\python
 
 jobs:
   before_build:
@@ -9,12 +12,15 @@ jobs:
     outputs:
       result: ${{ steps.filter.outputs.result }}
       matrix: ${{ steps.filter.outputs.matrix }}
+      title: ${{ steps.filter.outputs.title }}
+      python: ${{ steps.filter.outputs.python }}
 
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
       with:
         fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+
     - name: Commit filtering
       id: filter
       run: |
@@ -31,15 +37,9 @@ jobs:
         $isPush = "${{github.event_name }}" -eq "push" ? $true : $false
         $isMaster = $isPush -and $${{ github.ref_name == github.event.repository.master_branch }}
 
-        if ($isPush) {
-          $commit_message = (git show -s --format=%B)
-        }
-        else {
-          $last_commit = @(Invoke-RestMethod ${{ github.event.pull_request._links.commits.href }})[0] | Select-Object -Last 1
-          $commit_message = $last_commit.commit.message
-        }
-
+        $commit_message = $isPush ? (git show -s --format=%B) : (git log -1 --no-merges --pretty=%B)
         $commit_title = ($commit_message -split "[\r\n]+")[0]
+        Write-Output "title=$commit_title" >> $env:GITHUB_OUTPUT
         $files_modified = @(git diff --name-only HEAD~1)
         $files_needwork_all = @($files_modified | Where-Object {$_ -notmatch "\.(xml|$files_nowork)$|$folders_nowork|$folders_onejob" -or $_ -match "($files_needwork)$"})
 
@@ -56,20 +56,13 @@ jobs:
                 if (@($files_modified | Where-Object {$_ -notmatch "\.($files_nowork)$|$folders_nowork"}).length -eq 0 -or $commit_title -match "\[force none\]") {
                     Write-Output "Changed files on this commit don't require any additional tasks.`n"
                     Write-Output "result=OK" >> $env:GITHUB_OUTPUT
+                    Write-Output "PYTHON_ALLOW_CACHE=false" >> $env:GITHUB_ENV
+                    Exit
                 }
                 else {
-                    Write-Output "XML validation mode`n"
+                    Write-Output "Run only XML validation step"
                     if (@($files_modified | Where-Object {$_ -match $folders_onejob}).length -eq 0) {
-                        python -m pip install requests rfc3987 pywin32 lxml
-                        python PowerEditor\Test\xmlValidator\validator_xml.py
-                        if ($LastExitCode -eq 0) {
-                            Write-Output "`nAll XML files are valid.`n"
-                            Write-Output "result=OK" >> $env:GITHUB_OUTPUT
-                        }
-                        else {
-                            Write-Output "`nSome XML files are invalid.`n"
-                            $host.SetShouldExit($LastExitCode)
-                        }
+                        Write-Output "result=XML" >> $env:GITHUB_OUTPUT
                     }
                     else {
                       Write-Output "Run only one Win32/Debug job"
@@ -85,6 +78,67 @@ jobs:
         }
         else {
           Write-Output "Run standard jobs"
+        }
+
+        if ($commit_title -match "\[force nopythoncache\]") {
+          $env:PYTHON_ALLOW_CACHE = "false"
+          Write-Output "PYTHON_ALLOW_CACHE=false" >> $env:GITHUB_ENV
+        }
+        if ($Env:PYTHON_ALLOW_CACHE -eq "true") {
+          $python = ((python -V) -split " ")[1]
+          $requests = (Invoke-RestMethod https://pypi.org/pypi/requests/json).info.version
+          $rfc3987 = (Invoke-RestMethod https://pypi.org/pypi/rfc3987/json).info.version
+          $pywin32 = (Invoke-RestMethod https://pypi.org/pypi/pywin32/json).info.version
+          $lxml = (Invoke-RestMethod https://pypi.org/pypi/lxml/json).info.version
+          $key = "${{ runner.os }}-python_$python-requests_$requests-rfc3987_$rfc3987-pywin32_$pywin32-lxml_$lxml"
+          Write-Output "python=$key" >> $env:GITHUB_OUTPUT
+        }
+
+    - name: (cache) Lookup Python modules
+      if: env.PYTHON_ALLOW_CACHE == 'true'
+      uses: actions/cache/restore@v4
+      id: cache-lookup
+      with:
+        path: ${{ env.PYTHON_DIR_CACHE }}
+        key: ${{ steps.filter.outputs.python }}
+        lookup-only: true
+
+    - name: (cache) Restore Python modules
+      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.filter.outputs.result == 'XML' && steps.cache-lookup.outputs.cache-hit == 'true'
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ env.PYTHON_DIR_CACHE }}
+        key: ${{ steps.filter.outputs.python }}
+
+    - name: (cache) Install Python modules
+      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true'
+      run: |
+        python -m pip install --target ${{ env.PYTHON_DIR_CACHE }} requests rfc3987 pywin32 lxml
+
+    - name: (cache) Save Python modules
+      if: env.PYTHON_ALLOW_CACHE == 'true' && steps.cache-lookup.outputs.cache-hit != 'true' && github.event_name == 'push'
+      uses: actions/cache/save@v4
+      with:
+        path: ${{ env.PYTHON_DIR_CACHE }}
+        key: ${{ steps.filter.outputs.python }}
+
+    - name: XML validation
+      if: steps.filter.outputs.result == 'XML'
+      run: |
+        if ($Env:PYTHON_ALLOW_CACHE -eq "true" -and (Test-Path -Path ${{ env.PYTHON_DIR_CACHE }})) {
+          $Env:PYTHONPATH = "${{ env.PYTHON_DIR_CACHE }}"
+        }
+        else {
+          python -m pip install requests rfc3987 pywin32 lxml
+        }
+        python PowerEditor\Test\xmlValidator\validator_xml.py
+        if ($LastExitCode -eq 0) {
+            Write-Output "`nAll XML files are valid.`n"
+
+        }
+        else {
+            Write-Output "`nSome XML files are invalid.`n"
+            $host.SetShouldExit($LastExitCode)
         }
 
   build_windows:
@@ -149,11 +203,23 @@ jobs:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
           path: PowerEditor\visual.net\${{ matrix.build_configuration}}\Notepad++.exe
 
+    - name: (cache) Restore Python modules for Win32 / Debug
+      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug' && env.PYTHON_ALLOW_CACHE == 'true' && contains(needs.before_build.outputs.title, '[force nopythoncache]') != true
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ env.PYTHON_DIR_CACHE }}
+        key: ${{ needs.before_build.outputs.python }}
+
     - name: Run xml validation test for Win32 / Debug only
       if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
       working-directory: .\
       run: |
-           python -m pip install requests rfc3987 pywin32 lxml
+           if ($Env:PYTHON_ALLOW_CACHE -eq "true" -and $${{ !contains(needs.before_build.outputs.title, '[force nopythoncache]') }} -and (Test-Path -Path ${{ env.PYTHON_DIR_CACHE }})) {
+             $Env:PYTHONPATH = "${{ env.PYTHON_DIR_CACHE }}"
+           }
+           else {
+             python -m pip install requests rfc3987 pywin32 lxml
+           }
            python PowerEditor\Test\xmlValidator\validator_xml.py
 
 

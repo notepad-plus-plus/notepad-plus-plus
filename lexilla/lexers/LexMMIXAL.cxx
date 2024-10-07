@@ -182,5 +182,5 @@ static const char * const MMIXALWordListDesc[] = {
 	0
 };
 
-LexerModule lmMMIXAL(SCLEX_MMIXAL, ColouriseMMIXALDoc, "mmixal", 0, MMIXALWordListDesc);
+extern const LexerModule lmMMIXAL(SCLEX_MMIXAL, ColouriseMMIXALDoc, "mmixal", 0, MMIXALWordListDesc);
 

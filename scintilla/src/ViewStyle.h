@@ -179,6 +179,7 @@ public:
 	int marginNumberPadding; // the right-side padding of the number margin
 	int ctrlCharPadding; // the padding around control character text blobs
 	int lastSegItalicsOffset; // the offset so as not to clip italic characters at EOLs
+	int autocStyle;
 
 	using ElementMap = std::map<Scintilla::Element, ColourOptional>;
 	ElementMap elementColours;

@@ -595,4 +595,4 @@ static void ColouriseObjCDocSensitive(Sci_PositionU startPos, Sci_Position lengt
 	ColouriseObjCDoc(startPos, length, initStyle, keywordlists, styler, true);
 }
 
-LexerModule lmObjC(SCLEX_OBJC, ColouriseObjCDocSensitive, "objc", FoldObjCDoc, cppWordLists);
+extern const LexerModule lmObjC(SCLEX_OBJC, ColouriseObjCDocSensitive, "objc", FoldObjCDoc, cppWordLists);

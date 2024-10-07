@@ -9,6 +9,8 @@
 <NotepadPlus>
 	<functionList>
 		<!--
+		|   Complies to ADA 2022
+		|       http://www.ada-auth.org/standards/overview22.html
 		|   Based on:
 		|       http://stackoverflow.com/questions/32126855/notepad-and-ada
 		\-->
@@ -23,10 +25,10 @@
 				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 						^\h*                                                # optional leading whitespace at start-of-line
 						(?:
-							(?-i:function)
+							(?i:function)
 							\s+
 							(?'VALID_ID'                                    # valid identifier, use as subroutine
-								\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
+								\b(?!(?i:                                   # keywords (case-insensitive), not to be used as identifier
 									a(?:b(?:ort|s(?:tract)?)|cce(?:pt|ss)|l(?:iased|l)|nd|rray|t)
 								|	b(?:egin|ody)
 								|	c(?:ase|onstant)
@@ -39,7 +41,7 @@
 								|	mod
 								|	n(?:ew|ot|ull)
 								|	o(?:[fr]|thers|ut|verriding)
-								|	p(?:ackage|r(?:agma|ivate|o(?:cedure|tected)))
+								|	p(?:a(?:ckage|rallel)|r(?:agma|ivate|o(?:cedure|tected)))
 								|	r(?:a(?:is|ng)e|e(?:cord|m|names|queue|turn|verse))
 								|	s(?:e(?:lect|parate)|ome|ubtype|ynchronized)
 								|	t(?:a(?:gged|sk)|erminate|hen|ype)
@@ -47,7 +49,7 @@
 								|	w(?:h(?:en|ile)|ith)
 								|	xor
 								)\b)
-								[A-Za-z_]\w*                                # valid character combination for identifiers
+								[[:alpha:]](?:[\w.]*[[:alnum:]])?           # valid character combination for identifiers
 							)
 							(?'PARAMETERS'
 								\s*
@@ -55,30 +57,32 @@
 								[^()]*                                      # parameters
 								\)                                          # end-of-parameters indicator
 							)?                                              # parentheses and parameters optional
-							\s*return                                       # function returns a value with...
+							\s*
+							(?:return                                       # function returns a value with...
 							\s+(?&amp;VALID_ID)                             # ...type-name
+							)?
 						|
-							(?-i:procedure)
+							(?i:procedure)
 							\s+(?&amp;VALID_ID)
-							(?:(?&amp;PARAMETERS))?                         # Boost::Regex 1.58-1.59 do not correctly handle quantifiers on subroutine calls
+							(?&amp;PARAMETERS)?
 						)
-						\s*(?-i:\bis\b)                                     # end-of-definition indicator
+						\s*(?i:\bis\b|;)                                    # end-of-definition indicator
 					"
 			>
 				<functionName>
 					<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
 							(?:function|procedure)\s+
 							\K                                              # discard text matched so far
-							[A-Za-z_]\w*
+							[[:alpha:]](?:[\w.]*[[:alnum:]])?
 							(?:\s*\([^()]*\))?                              # parentheses and parameters optional
 							(?=
 								\s*
-								\b(?:return|is)
+								(?:\breturn|\bis|;)
 							)
 						"
 					/>
 					<!-- comment out the following node to display the method with its parameters -->
-<!--						<nameExpr expr="[A-Za-z_]\w*" /> -->
+					<!-- <nameExpr expr="[[:alpha:]](?:[\w.]*[[:alnum:]])?" /> -->
 				</functionName>
 			</function>
 		</parser>

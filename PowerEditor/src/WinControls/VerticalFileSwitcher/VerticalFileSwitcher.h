@@ -21,7 +21,7 @@
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
-#define FS_PROJECTPANELTITLE		TEXT("Document List")
+#define FS_PROJECTPANELTITLE		L"Document List"
 
 struct sortCompareData {
   HWND hListView = nullptr;
@@ -71,7 +71,7 @@ public:
 		_fileListView.setItemColor(bufferID);
 	};
 
-	generic_string getFullFilePath(size_t i) const {
+	std::wstring getFullFilePath(size_t i) const {
 		return _fileListView.getFullFilePath(i);
 	};
 

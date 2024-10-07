@@ -407,4 +407,4 @@ void SCI_METHOD LexerCIL::Fold(Sci_PositionU startPos, Sci_Position length,
     }
 }
 
-LexerModule lmCIL(SCLEX_CIL, LexerCIL::LexerFactoryCIL, "cil", cilWordListDesc);
+extern const LexerModule lmCIL(SCLEX_CIL, LexerCIL::LexerFactoryCIL, "cil", cilWordListDesc);

@@ -90,6 +90,7 @@ page Custom ExtraOptions
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchNpp"
 !insertmacro MUI_PAGE_FINISH
 
+
 !insertmacro MUI_UNPAGE_CONFIRM
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "un.CheckIfRunning"
 !insertmacro MUI_UNPAGE_INSTFILES
@@ -114,7 +115,8 @@ InstType "Minimalist"
 
 Var diffArchDir2Remove
 Var noUpdater
-
+Var closeRunningNpp
+Var runNppAfterSilentInstall
 
 !ifdef ARCH64 || ARCHARM64
 ; this is needed for the 64-bit InstallDirRegKey patch
@@ -150,6 +152,22 @@ Function .onInit
 	;
 	; --- PATCH END ---
 
+
+	; Begin of "/closeRunningNpp"
+	${GetParameters} $R0 
+	${GetOptions} $R0 "/closeRunningNpp" $R1 ; case insensitive 
+	IfErrors 0 closeRunningNppYes
+	StrCpy $closeRunningNpp "false"
+	Goto closeRunningNppCheckDone
+closeRunningNppYes:
+	StrCpy $closeRunningNpp "true"
+closeRunningNppCheckDone:
+	${If} $closeRunningNpp == "true"
+		; First try to use the usual app-closing by sending the WM_CLOSE.
+		; If that closing fails, use the forceful TerminateProcess way.
+		!insertmacro FindAndCloseOrTerminateRunningNpp ; this has to precede the following silent mode Notepad++ instance mutex check
+	${EndIf}
+
 	; handle the possible Silent Mode (/S) & already running Notepad++ (without this an incorrect partial installation is possible)
 	IfSilent 0 notInSilentMode
 	System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
@@ -159,7 +177,11 @@ Function .onInit
 	Quit ; silent installation is silent, currently we cannot continue without a user interaction (TODO: a new "/closeRunningNppAutomatically" installer optional param...)
 nppNotRunning:
 notInSilentMode:
+	; End of "/closeRunningNpp"
+	
+	
 
+	; Begin of "/noUpdater"
 	${GetParameters} $R0 
 	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
 	IfErrors withUpdater withoutUpdater
@@ -176,7 +198,21 @@ updaterDone:
 		!insertmacro UnSelectSection ${PluginsAdmin}
 		SectionSetText ${PluginsAdmin} ""
 	${EndIf}
+	; End of "/noUpdater"
 
+
+	; Begin of "/runNppAfterSilentInstall"
+	${GetParameters} $R0 
+	${GetOptions} $R0 "/runNppAfterSilentInstall" $R1 ;case insensitive 
+	IfErrors noRunNpp runNpp
+noRunNpp:
+	StrCpy $runNppAfterSilentInstall "false"
+	Goto runNppDone
+runNpp:
+	StrCpy $runNppAfterSilentInstall "true"
+runNppDone:
+	; End of "/runNppAfterSilentInstall"
+	
 
 	${If} ${SectionIsSelected} ${PluginsAdmin}
 		!insertmacro SetSectionFlag ${AutoUpdater} ${SF_RO}
@@ -342,6 +378,11 @@ FunctionEnd
 
 Section -FinishSection
   Call writeInstallInfoInRegistry
+  IfSilent 0 theEnd
+  	${If} $runNppAfterSilentInstall == "true"
+		Call LaunchNpp
+	${EndIf}
+theEnd:
 SectionEnd
 
 BrandingText "The best things in life are free. Notepad++ is free so Notepad++ is the best"

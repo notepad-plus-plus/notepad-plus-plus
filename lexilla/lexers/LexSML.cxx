@@ -225,5 +225,5 @@ static const char * const SMLWordListDesc[] = {
 	0
 };
 
-LexerModule lmSML(SCLEX_SML, ColouriseSMLDoc, "SML", FoldSMLDoc, SMLWordListDesc);
+extern const LexerModule lmSML(SCLEX_SML, ColouriseSMLDoc, "SML", FoldSMLDoc, SMLWordListDesc);
 

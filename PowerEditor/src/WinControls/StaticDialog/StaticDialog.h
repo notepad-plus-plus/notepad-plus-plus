@@ -38,13 +38,12 @@ struct DLGTEMPLATEEX
       // The structure has more fields but are variable length
 };
 
-class StaticDialog : public Window, public DPIManagerV2
+class StaticDialog : public Window
 {
 public :
 	virtual ~StaticDialog();
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
-	virtual void createForDpi(int dialogID, bool isRTL = false, bool msgDestParent = true, DPI_AWARENESS_CONTEXT dpiAContext = DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
 	virtual bool isCreated() const {
 		return (_hSelf != nullptr);
@@ -55,6 +54,7 @@ public :
 	void redrawDlgItem(const int nIDDlgItem, bool forceUpdate = false) const;
 
 	void goToCenter(UINT swpFlags = SWP_SHOWWINDOW);
+	bool moveForDpiChange();
 
 	void display(bool toShow = true, bool enhancedPositioningCheckWhenShowing = false) const;
 
@@ -73,21 +73,21 @@ public :
 	}
 
 	void setDpi() {
-		DPIManagerV2::setDpi(_hSelf);
+		_dpiManager.setDpi(_hSelf);
 	}
 
 	void setPositionDpi(LPARAM lParam, UINT flags = SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE) {
 		DPIManagerV2::setPositionDpi(lParam, _hSelf, flags);
 	}
 
-	void sendDpiMsgToChildCtrls(WPARAM wParam = 0, LPARAM lParam = 0) {
-		DPIManagerV2::sendMessageToChildControls(_hSelf, WM_DPICHANGED, wParam, lParam);
-	}
-
 	void destroy() override;
+
+	DPIManagerV2& dpiManager() { return _dpiManager; }
 
 protected:
 	RECT _rc{};
+	DPIManagerV2 _dpiManager;
+
 	static intptr_t CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 

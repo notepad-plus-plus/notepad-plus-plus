@@ -18,7 +18,7 @@
 #include "menuCmdID.h"
 
 
-#define SPC_CLASS_NAME TEXT("splitterContainer")
+#define SPC_CLASS_NAME L"splitterContainer"
 
 #define ROTATION_LEFT 2000
 #define ROTATION_RIGHT 2001

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 10 Mar 2024, for Notepad++ 8.6.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 26 Jul 2024, for Notepad++ 8.7.0
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.6.5">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -355,6 +355,7 @@ Translation note:
 					<Item id="10005" name="Mover para o Começo"/>
 					<Item id="10006" name="Mover para o Fim"/>
 					<Item id="46001" name="Configurador de estilos..."/>
+					<Item id="46016" name="Nenhum (Texto Normal)"/>
 					<Item id="46250" name="Defina a sua linguagem..."/>
 					<Item id="46300" name="Pasta de Linguagens definidas pelo usuário..."/>
 					<Item id="46301" name="Lista de Linguagens definidas pelo usuário"/>
@@ -468,7 +469,7 @@ Translation note:
 				<Item id="1" name="Localizar próximo"/>
 				<Item id="1722" name="Direção para trás"/>
 				<Item id="2" name="Fechar"/>
-				<Item id="1620" name="Localizar :"/>
+				<Item id="1620" name="Localizar:"/>
 				<Item id="1603" name="Coincidir palavra inteira"/>
 				<Item id="1604" name="Diferen&amp;ciar maiúsculas/minúsculas"/>
 				<Item id="1605" name="&amp;Expressão regular"/>
@@ -477,7 +478,7 @@ Translation note:
 				<Item id="1615" name="Localizar todos"/>
 				<Item id="1616" name="Marcar linha"/>
 				<Item id="1618" name="Limpar marcadores"/>
-				<Item id="1611" name="Substituir por :"/>
+				<Item id="1611" name="Substituir por:"/>
 				<Item id="1608" name="Substitui&amp;r"/>
 				<Item id="1609" name="Substituir &amp;todos"/>
 				<Item id="1687" name="Ao perder o foco"/>
@@ -486,8 +487,8 @@ Translation note:
 				<Item id="1633" name="Limpar"/>
 				<Item id="1635" name="Substituir em todos os documentos abertos"/>
 				<Item id="1636" name="Localizar em todos os documentos abertos"/>
-				<Item id="1654" name="Filtros :"/>
-				<Item id="1655" name="Pasta :"/>
+				<Item id="1654" name="Filtros:"/>
+				<Item id="1655" name="Pasta:"/>
 				<Item id="1656" name="Localizar todos"/>
 				<Item id="1658" name="Incluir subpastas"/>
 				<Item id="1659" name="Incluir pastas ocultas"/>
@@ -970,6 +971,7 @@ Translation note:
 
 					<Item id="6123" name="Localização"/>
 				</Global>
+				
 				<Scintillas title="Edição 1">
 					<Item id="6216" name="Configurações do cursor"/>
 					<Item id="6217" name="Largura:"/>
@@ -993,6 +995,7 @@ Translation note:
 					<Item id="6654" name="Enquadrado"/>
 					<Item id="6655" name="Largura:"/>
 				</Scintillas>
+				
 				<Scintillas2 title="Edição 2">
 					<Item id="6521" name="Multi-Edição"/>
 					<Item id="6522" name="Habilitar Multi-Edição (Ctrl+Clique do Mouse/seleção)"/>
@@ -1074,7 +1077,7 @@ Translation note:
 					<Item id="6408" name="UTF-8 com BOM"/>
 					<Item id="6409" name="UTF-16 Big Endian com BOM"/>
 					<Item id="6410" name="UTF-16 Little Endian com BOM"/>
-					<Item id="6411" name="Linguagem padrão :"/>
+					<Item id="6411" name="Linguagem padrão:"/>
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar ao abrir arquivos ANSI"/>
 					<Item id="6432" name="Sempre abrir um novo documento ao iniciar"/>
@@ -1092,18 +1095,29 @@ Translation note:
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registradas:"/>
 				</FileAssoc>
+				
 
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
 					<Item id="6506" name="Itens desabilitados"/>
 					<Item id="6507" name="Tornar o menu de linguagens compacto"/>
 					<Item id="6508" name="Menu de linguagens"/>
-					<Item id="6301" name="Configurações de tabulação"/>
-					<Item id="6302" name="Substituir por espaço"/>
-					<Item id="6303" name="Tamanho: "/>
-					<Item id="6510" name="Usar valor padrão"/>
 					<Item id="6335" name="Tratar a barra invertida como caractere de escape para SQL"/>
 				</Language>
+
+				<Indentation title="Indentação">
+					<Item id="7161" name="Auto-indentar"/>
+					<Item id="7162" name="Nenhuma"/>
+					<Item id="7163" name="Básica"/>
+					<Item id="7164" name="Avançada"/>
+					<Item id="6301" name="Configurações de Indentação"/>
+					<Item id="6302" name="Caracter(es) de espaço"/>
+					<Item id="6303" name="Tamanho de indentação:"/>
+					<Item id="6310" name="Indentar usando:"/>
+					<Item id="6311" name="Caracter de TAB"/>
+					<Item id="6510" name="Usar valor padrão"/>
+					<Item id="6512" name="Tecla backspace deleta indentação ao invés de remover um único caracter espaço"/>
+				</Indentation>
 
 				<Highlighting title="Destaque">
 					<Item id="6351" name="Marcar todos"/>
@@ -1187,7 +1201,7 @@ Translation note:
 				<Backup title="Backup">
 					<Item id="6817" name="Captura da sessão e backup periódico"/>
 					<Item id="6818" name="Habilitar captura da sessão e backup periódico"/>
-					<Item id="6819" name="Backup a cada"/>
+					<Item id="6819" name="Disparar backup em caso de modificação a cada"/>
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Caminho do backup:"/>
 					<Item id="6309" name="Lembrar sessão atual para a próxima inicialização"/>
@@ -1197,7 +1211,7 @@ Translation note:
 					<Item id="6316" name="Backup simples"/>
 					<Item id="6317" name="Backup completo"/>
 					<Item id="6804" name="Personalizar pasta de backup"/>
-					<Item id="6803" name="Pasta :"/>
+					<Item id="6803" name="Pasta:"/>
 				</Backup>
 
 				<AutoCompletion title="Autocompletar">
@@ -1293,7 +1307,7 @@ Translation note:
 
 				<MISC title="Diversos">
 					<ComboBox id="6347">
-						<Element name="Habilitar"/>
+						<Element name="Habilitar para o arquivo atual"/>
 						<Element name="Habilitar para todos os arquivos abertos"/>
 						<Element name="Desabilitar"/>
 					</ComboBox>
@@ -1382,6 +1396,12 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="4" name="Sem&amp;pre Sim"/>
 			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
+
+			<DebugInfo title="Informação de Depuração">
+				<Item id="1752" name="&amp;Copiar informação de depuração para a área de transferência"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>			
+			
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1411,7 +1431,7 @@ Suas configurações na nuvem serão canceladas. Por favor, redefina um valor co
 			<FilePathNotFoundWarning title="Abrir arquivo" message="O arquivo que você está tentando abrir não existe."/> <!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<SessionFileInvalidError title="Não foi possível carregar a sessão" message="O arquivo de sessão está corrompido ou não é válido."/><!-- HowToReproduce: Save current session via menu "File -> Save Session...", use another editor to modify the session you saved to make it an invalid xml file. Then load this invalid session via menu "File -> Load Session...". -->
 			<DroppingFolderAsProjectModeWarning title="Você só pode soltar arquivos ou pastas, mas não ambos, porque você está soltando Pasta como modo Projeto.
-Você tem que habilitar o &quot;Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho&quot; na seção &quot;Diretório padrão&quot; em Preferências para fazer esta operação funcionar."/>
+É necessário habilitar &quot;Abrir todos os arquivos da pasta em vez de usar a pasta como espaço de trabalho&quot; na seção &quot;Diretório padrão&quot; da opção Preferências para que esta operação funcione."/>
 			<SortingError title="Erro de Classificação" message="Não é possível realizar a classificação numérica devido à linha $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<ColumnModeTip title="Dica de Modo Coluna" message="
 Existem 3 maneiras de ativar o modo de seleção em colunas:
@@ -1519,6 +1539,12 @@ Deseja criar estes substitutos?
 
 OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua sessão SERÁ MODIFICADA QUANDO SAIR! É recomendável que você faça backup do seu arquivo &quot;session.xml&quot; agora."/>
 			<RTLvsDirectWrite title="Impossível executar o RTL" message="O RTL (Orientação de texto da Direita para a Esquerda) não é compatível com o modo DirectWrite. Por favor, desabilite a opção &quot;Usar DirectWrite&quot; na seção &quot;Diversos&quot; da opção &quot;Preferências&quot; do menu &quot;Configurações&quot;, e reinicie o Notepad++."/>
+			<FileMemoryAllocationFailed title="Exceção: A Alocação de memória para arquivo falhou" message="Pravavelmente não há memória livre contígua para que o arquivo possa ser carregado pelo Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
+			<FindRegexBackwardDisabled title="Busca tipo Regex para trás está desabilitada" message="Por padrão, as buscas Regex para trás são desabilitadas devido a erros que levam a resultados potencialmente inesperados. Para executar uma busca para trás, abra a caixa de diálogo Localizar e selecione busca normal ou estendida ao invés de expressão regular.
+Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco para ela.
+			
+Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
+			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1654,8 +1680,8 @@ Procurar em todos os arquivos, excluindo pastas de teste, lixeira&amp;&amp; bin6
 Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selecione uma pastaorigem da busca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Localizar: Encontrada a primeira ocorrência a partir do final. O início do documento foi alcançado."/>
-			<find-status-end-reached value="Localizar: Encontrada a primeira ocorrência a partir do início. O final do documento foi alcançado."/>
+			<find-status-top-reached value="Localizar: Encontrada a última ocorrência a partir do final. O início do documento foi alcançado."/>
+			<find-status-end-reached value="Localizar: Encontrada a última ocorrência a partir do início. O final do documento foi alcançado."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em Arquivos: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em Arquivos Abertos: 1 ocorrência foi substituída."/>
@@ -1669,8 +1695,8 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-replaceall-1-replaced value="Substituir todas: 1 ocorrência foi substituída."/>
 			<find-status-replaceall-nb-replaced value="Substituir todas: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceall-readonly value="Substituir todas: Texto não substituído. O documento é somente leitura."/>
-			<find-status-replace-end-reached value="Substituir: Substituída a primeira ocorrência a partir do início. O final do documento foi alcançado."/>
-			<find-status-replace-top-reached value="Substituir: Substituída a primeira ocorrência a partir do final. O início do documento foi alcançado."/>
+			<find-status-replace-end-reached value="Substituir: Substituída a última ocorrência a partir do início. O final do documento foi alcançado."/>
+			<find-status-replace-top-reached value="Substituir: Substituída a última ocorrência a partir do final. O início do documento foi alcançado."/>
 			<find-status-replaced-next-found value="Substituir: 1 ocorrência foi substituída. A próxima ocorrência encontrada."/>
 			<find-status-replaced-without-continuing value="Substituir: 1 ocorrência foi substituída."/>
 			<find-status-replaced-next-not-found value="Substituir: 1 ocorrência foi substituída. A próxima ocorrência não encontrada."/>
@@ -1717,8 +1743,8 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<progress-cancel-info value="Cancelando operação, aguarde..."/>
 			<find-in-files-progress-title value="Progresso do Localizar nos arquivos..."/>
 			<replace-in-files-confirm-title value="Tem certeza?"/>
-			<replace-in-files-confirm-directory value="Tem certeza de que deseja substituir todas as ocorrências em :"/>
-			<replace-in-files-confirm-filetype value="Para o tipo de arquivo :"/>
+			<replace-in-files-confirm-directory value="Tem certeza de que deseja substituir todas as ocorrências em:"/>
+			<replace-in-files-confirm-filetype value="Para o tipo de arquivo:"/>
 			<replace-in-files-progress-title value="Progresso do Substituir nos arquivos..."/>
 			<replace-in-projects-confirm-title value="Tem certeza?"/>
 			<replace-in-projects-confirm-message value="Deseja substituir todas as ocorrências em todos os documentos no(s) Painel(éis) de Projeto selecionado(s)?"/>
@@ -1783,6 +1809,11 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<npcIncludeCcUniEol-tip value="Aplicar as configurações de caracteres sem representação para os caracteres C0, C1 e EOL Unicode (próxima linha, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres selecionados no modo editor para marcar automaticamente a opção &quot;Na seleção&quot; quando a caixa de diálogo Localizar for ativada. O valor máximo é 1024. Use o valor 0 para desabilitar a auto-seleção."/>
 			<verticalEdge-tip value="Adicione seu marcador de coluna indicando a posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os números diferentes."/>
+			<fileSaveAsCopySaveButton-tip value="Pressione a tecla Shift enquanto clica em &quot;Salvar uma cópia como...&quot; para abrir a cópia após salvar."/>
+			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao pressionar a tecla ENTER) seja igual à indentação da linha anterior."/>
+			<autoIndentAdvanced-tip value="Habilitar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON
+Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>			
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

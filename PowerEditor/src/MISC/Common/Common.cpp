@@ -1977,7 +1977,7 @@ HANDLE createFileWaitSec(const wchar_t* filePath, DWORD accessParam, DWORD share
 	HANDLE hThread = ::CreateThread(NULL, 0, createFileWorker, &data, 0, NULL);
 	if (!hThread)
 	{
-		return FALSE;
+		return INVALID_HANDLE_VALUE;
 	}
 
 	// wait for our worker thread to complete or terminate it when the required timeout has elapsed

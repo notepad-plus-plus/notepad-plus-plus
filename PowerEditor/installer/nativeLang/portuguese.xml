@@ -40,7 +40,7 @@ Nota de tradução:
 					<Item subMenuId="edit-pasteSpecial" name="Colar especial"/>
 					<Item subMenuId="edit-onSelection" name="Na seleção"/>
 					<Item subMenuId="edit-multiSelectALL" name="Multisseleção TUDO"/>
-					<Item subMenuId="edit-multiSelectNext" name="Multisseleção Seguinte"/>
+					<Item subMenuId="edit-multiSelectNext" name="Multisseleção seguinte"/>
 					<Item subMenuId="search-changeHistory" name="Histórico de alterações"/>
 					<Item subMenuId="search-markAll" name="Marcar tudo"/>
 					<Item subMenuId="search-markOne" name="Marcar uma"/>
@@ -997,9 +997,9 @@ Nota de tradução:
 				</Scintillas>
 
 				<Scintillas2 title="Edição 2">
-					<Item id="6521" name="Multi-Edição"/>
-					<Item id="6522" name="Ativar multi-edição (Ctrl+Clique do rato/seleção)"/>
-					<Item id="6523" name="Ativar a seleção de colunas para multi-edição"/>
+					<Item id="6521" name="Multiedição"/>
+					<Item id="6522" name="Ativar multiedição (Ctrl+Clique do rato/seleção)"/>
+					<Item id="6523" name="Ativar a seleção de colunas para multiedição"/>
 					<Item id="6247" name="Fim de linha (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Predefinição"/>
 					<Item id="6249" name="Texto simples"/>

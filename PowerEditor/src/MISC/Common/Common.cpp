@@ -22,11 +22,10 @@
 #include <locale>
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
-
 #include "FileInterface.h"
 #include "Common.h"
 #include "Utf8.h"
-#include <Parameters.h>
+#include "Parameters.h"
 #include "Buffer.h"
 
 using namespace std;
@@ -2002,3 +2001,5 @@ HANDLE createFileWaitSec(const wchar_t* filePath, DWORD accessParam, DWORD share
 
 	return data._hFile;
 }
+
+

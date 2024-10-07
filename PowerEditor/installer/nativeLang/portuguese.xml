@@ -1106,7 +1106,7 @@ Nota de tradução:
 				</Language>
 
 				<Indentation title="Indentation">
-					<Item id="7161" name="Auto-indentar"/>
+					<Item id="7161" name="Autoindentar"/>
 					<Item id="7162" name="Nenhuma"/>
 					<Item id="7163" name="Básica"/>
 					<Item id="7164" name="Avançada"/>

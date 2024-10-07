@@ -29,7 +29,7 @@ Nota de tradução:
 					<Item subMenuId="file-closeMore" name="Fechar vários documentos"/>
 					<Item subMenuId="file-recentFiles" name="Ficheiros recentes"/>
 					<Item subMenuId="edit-insert" name="Inserir"/>
-					<Item subMenuId="edit-copyToClipboard" name="Copiar p/ a área de transferência"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copiar para área de transferência"/>
 					<Item subMenuId="edit-indent" name="Indentação"/>
 					<Item subMenuId="edit-convertCaseTo" name="Converter letra para"/>
 					<Item subMenuId="edit-lineOperations" name="Operações de linha"/>
@@ -50,7 +50,7 @@ Nota de tradução:
 					<Item subMenuId="search-copyStyledText" name="Copiar texto com estilo"/>
 					<Item subMenuId="search-bookmark" name="Marcador"/>
 					<Item subMenuId="view-currentFileIn" name="Ver ficheiro atual em"/>
-					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar símbolos"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/Clonar documento atual"/>
 					<Item subMenuId="view-tab" name="Separador"/>
@@ -325,7 +325,7 @@ Nota de tradução:
 					<Item id="44035" name="Sincronizar deslocamento vertical"/>
 					<Item id="44036" name="Sincronizar deslocamento horizontal"/>
 					<Item id="44041" name="Mostrar símbolo de moldar texto"/>
-					<Item id="44072" name="Focar noutra visão"/>
+					<Item id="44072" name="Focar noutra vista"/>
 					<Item id="44081" name="Painel do projeto 1"/>
 					<Item id="44082" name="Painel do projeto 2"/>
 					<Item id="44083" name="Painel do projeto 3"/>
@@ -373,10 +373,10 @@ Nota de tradução:
 					<Item id="48005" name="Importar plugin(s)..."/>
 					<Item id="48006" name="Importar tema(s)..."/>
 					<Item id="48018" name="Editar janela do menu de contexto"/>
-					<Item id="48009" name="Configurador de atalho(s)..."/>
+					<Item id="48009" name="Mapeador de atalho(s)..."/>
 					<Item id="48011" name="Preferências..."/>
 					<Item id="48014" name="Abrir pasta de plugins..."/>
-					<Item id="48015" name="Admin de plugins..."/>
+					<Item id="48015" name="Administrar plugins..."/>
 					<Item id="48501" name="Gerar..."/>
 					<Item id="48502" name="Gerar dos ficheiros..."/>
 					<Item id="48503" name="Gerar da seleção para a área de transferência"/>
@@ -1553,7 +1553,7 @@ Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual 
 			<ColumnName name="Nome"/>
 			<ColumnExt name="Ext."/>
 			<ColumnPath name="Caminho"/>
-			<ListGroups name="Agrupar por visualização"/>
+			<ListGroups name="Agrupar por vista"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Nome"/>

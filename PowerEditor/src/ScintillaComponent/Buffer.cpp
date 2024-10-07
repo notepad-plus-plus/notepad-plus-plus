@@ -702,22 +702,42 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	//Get file size
 	int64_t fileSize = -1;
 	const wchar_t* pPath = filename;
+	std::wstring msg = pPath;
+	msg += L"\t BEFORE doesFileExist";
+	writeLog(L"c:\\tmp\\QQQ", msg.c_str());
 	if (!doesFileExist(pPath))
 	{
 		pPath = backupFileName;
 	}
+	msg = pPath;
+	msg += L"\t AFTER doesFileExist";
+	writeLog(L"c:\\tmp\\QQQ", msg.c_str());
+
+
 
 	if (pPath)
 	{
+		msg = pPath;
+		msg += L"\t BEFORE getFileAttributesExWaitSec";
+		writeLog(L"c:\\tmp\\QQQ", msg.c_str());
+
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
 		if (getFileAttributesExWaitSec(pPath, &attributes) != FALSE)
 		{
+			msg = pPath;
+			msg += L"\t getFileAttributesExWaitSec OK - let's retrieve file length";
+			writeLog(L"c:\\tmp\\QQQ", msg.c_str());
+
 			LARGE_INTEGER size{};
 			size.LowPart = attributes.nFileSizeLow;
 			size.HighPart = attributes.nFileSizeHigh;
 
 			fileSize = size.QuadPart;
 		}
+
+		msg = pPath;
+		msg += L"\t AFTER getFileAttributesExWaitSec";
+		writeLog(L"c:\\tmp\\QQQ", msg.c_str());
 	}
 	
 	// * the auto-completion feature will be disabled for large files
@@ -777,7 +797,15 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	loadedFileFormat._eolFormat = EolType::unknown;
 	loadedFileFormat._language = L_TEXT;
 
+	msg = pPath;
+	msg += L"\t BEFORE loadFileData";
+	writeLog(L"c:\\tmp\\QQQ", msg.c_str());
+
 	bool loadRes = loadFileData(doc, fileSize, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, loadedFileFormat);
+
+	msg = pPath;
+	msg += L"\t AFTER loadFileData";
+	writeLog(L"c:\\tmp\\QQQ", msg.c_str());
 
 	delete[] data;
 
@@ -843,12 +871,22 @@ bool FileManager::reloadBuffer(BufferID id)
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
 	//Get file size
-	FILE* fp = _wfopen(buf->getFullPathName(), L"rb");
-	if (!fp)
+	int64_t fileSize = 0;
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	getFileAttributesExWaitSec(buf->getFullPathName(), &attributes);
+	if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+	{
 		return false;
-	_fseeki64(fp, 0, SEEK_END);
-	int64_t fileSize = _ftelli64(fp);
-	fclose(fp);
+	}
+	else
+	{
+		LARGE_INTEGER size{};
+		size.LowPart = attributes.nFileSizeLow;
+		size.HighPart = attributes.nFileSizeHigh;
+
+		fileSize = size.QuadPart;
+	}
+
 	
 	char* data = new char[blockSize + 8]; // +8 for incomplete multibyte char
 
@@ -1561,10 +1599,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
-	FILE *fp = _wfopen(filename, L"rb");
-	if (!fp)
-		return false;
-
+	// Check file size firstly
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	int64_t bufferSizeRequested = fileSize + std::min<int64_t>(1LL << 20, fileSize / 6);
 	
@@ -1582,7 +1617,6 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				L"File size problem",
 				MB_OK | MB_APPLMODAL);
 
-			fclose(fp);
 			return false;
 		}
 		else // x64
@@ -1602,12 +1636,24 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				}
 				else
 				{
-					fclose(fp);
 					return false;
 				}
 			}
 		}
 	}
+
+	wstring msg = filename;
+	msg += L"\t BEFORE _wfopen";
+	writeLog(L"c:\\tmp\\QQQ", msg.c_str());
+
+	FILE* fp = wfopenWaitSec(filename, 5000);
+
+	msg = filename;
+	msg += L"\t AFTER _wfopen";
+	writeLog(L"c:\\tmp\\QQQ", msg.c_str());
+
+	if (!fp)
+		return false;
 
 	//Setup scratchtilla for new filedata
 	_pscratchTilla->execute(SCI_SETSTATUS, SC_STATUS_OK); // reset error status
@@ -1641,8 +1687,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	bool success = true;
 	EolType format = EolType::unknown;
 	int sciStatus = SC_STATUS_OK;
-	wchar_t szException[64] = { '\0' };
-	__try
+	/*wchar_t szException[64] = {'\0'};
+	__try*/
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
 		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
@@ -1730,7 +1776,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		}
 		while (lenFile > 0);
 	}
-	__except(EXCEPTION_EXECUTE_HANDLER)
+	/*__except (EXCEPTION_EXECUTE_HANDLER)
 	{
 		switch (sciStatus)
 		{
@@ -1769,8 +1815,8 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				szException);
 		}
 		success = false;
-	}
-
+	}*/
+	
 	fclose(fp);
 
 	// broadcast the format

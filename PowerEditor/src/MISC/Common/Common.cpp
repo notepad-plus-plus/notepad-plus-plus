@@ -1837,6 +1837,58 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isNetWorkProb
 	return (attr != INVALID_FILE_ATTRIBUTES);
 }
 
+
+//----------------------------------------------------
+
+struct wfopenParamResult
+{
+	std::wstring _filePath;
+	FILE* _pFile = nullptr;
+	bool _isNetworkFailure = true;
+	wfopenParamResult(wstring filePath) : _filePath(filePath) {};
+};
+
+DWORD WINAPI wfopenWorker(void* data)
+{
+	wfopenParamResult* inAndOut = static_cast<wfopenParamResult*>(data);
+	inAndOut->_pFile = _wfopen(inAndOut->_filePath.c_str(), L"rb");
+	inAndOut->_isNetworkFailure = false;
+	return ERROR_SUCCESS;
+};
+
+FILE* wfopenWaitSec(const wchar_t* filePath, DWORD milliSec2wait, bool* isNetWorkProblem)
+{
+	wfopenParamResult data(filePath);
+
+	HANDLE hThread = ::CreateThread(NULL, 0, wfopenWorker, &data, 0, NULL);
+	if (!hThread)
+	{
+		return FALSE;
+	}
+
+	// wait for our worker thread to complete or terminate it when the required timeout has elapsed
+	DWORD dwWaitStatus = ::WaitForSingleObject(hThread, milliSec2wait == 0 ? DEFAULT_MILLISEC : milliSec2wait);
+	switch (dwWaitStatus)
+	{
+	case WAIT_OBJECT_0: // Ok, the state of our worker thread is signaled, so it finished itself in the timeout given		
+		// - nothing else to do here, except the thread handle closing later
+		break;
+
+	case WAIT_TIMEOUT: // the timeout interval elapsed, but the worker's state is still non-signaled
+	default: // any other dwWaitStatus is a BAD one here
+		// WAIT_FAILED or WAIT_ABANDONED
+		::TerminateThread(hThread, dwWaitStatus);
+		break;
+	}
+	CloseHandle(hThread);
+
+	if (isNetWorkProblem != nullptr)
+		*isNetWorkProblem = data._isNetworkFailure;
+
+	return data._pFile;
+}
+
+
 //----------------------------------------------------
 
 struct GetDiskFreeSpaceParamResult

@@ -1215,16 +1215,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	int encoding = buffer->getEncoding();
 
-	//wstring msg = fullpath;
-	//msg += L"\t BEFORE UnicodeConvertor.openFile : 1";
-	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
-
 	if (UnicodeConvertor.openFile(fullpath))
 	{
-		//msg = fullpath;
-		//msg += L"\t AFTER UnicodeConvertor.openFile : 2";
-		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
-
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
 
 		size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
@@ -1261,9 +1253,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 				}
 			}
 		}
-		//msg = fullpath;
-		//msg += L"\t BEFORE UnicodeConvertor.closeFile()";
-		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
+
 		UnicodeConvertor.closeFile();
 
 		// Error, we didn't write the entire document to disk.
@@ -1319,12 +1309,6 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	}
 	else
 	{
-		//msg = fullpath;
-		//msg += L"\t AFTER openFile : 3 ";
-		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
-		//msg = fullpath;
-		//msg += L" return SavingStatus::SaveOpenFailed";
-		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 		return SavingStatus::SaveOpenFailed;
 	}
 }

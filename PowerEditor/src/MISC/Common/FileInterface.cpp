@@ -24,9 +24,6 @@ using namespace std;
 
 Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 {
-	//std::wstring msg = fname;
-	//msg += L"\t ENTERING Win32_IO_File::Win32_IO_File(name)";
-	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 	if (fname)
 	{
 		std::wstring fn = fname;
@@ -55,15 +52,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			}
 		}
 
-		//msg = fname;
-		//msg += L"\t BEFORE CreateFileW";
-		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
-
 		_hFile = ::createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
-
-		//msg = fname;
-		//msg += L"\t AFTER CreateFileW";
-		//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 
 		// Race condition management:
 		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
@@ -102,9 +91,6 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 	}
-	//msg = fname;
-	//msg += L"\t QUITING Win32_IO_File::Win32_IO_File(name)";
-	//writeLog(L"c:\\tmp\\XXXX", msg.c_str());
 }
 
 void Win32_IO_File::close()

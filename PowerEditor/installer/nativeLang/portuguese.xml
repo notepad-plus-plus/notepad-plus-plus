@@ -1199,8 +1199,8 @@ Nota de tradução:
 				</RecentFilesHistory>
 
 				<Backup title="Cópia de segurança">
-					<Item id="6817" name="Captura de ecrã da sessão e cópia periódica"/>
-					<Item id="6818" name="Ativar a captura de ecrã da sessão e cópia periódica"/>
+					<Item id="6817" name="Cópia de segurança periódica e de instantâneo da sessão"/>
+					<Item id="6818" name="Ativar cópia de segurança periódica e de instantâneo da sessão"/>
 					<Item id="6819" name="Acionar a cópia de segurança em caso de modificação a cada"/>
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Caminho para cópia:"/>

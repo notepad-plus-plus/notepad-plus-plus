@@ -229,41 +229,41 @@ Nota de tradução:
 					<Item id="43013" name="Localizar nos ficheiros"/>
 					<Item id="43014" name="Localizar seguinte (temporário)"/>
 					<Item id="43015" name="Localizar anterior (temporário)"/>
-					<Item id="43022" name="Usar 1º Estilo"/>
-					<Item id="43023" name="Limpar 1º Estilo"/>
-					<Item id="43024" name="Usar 2º Estilo"/>
-					<Item id="43025" name="Limpar 2º Estilo"/>
-					<Item id="43026" name="Usar 3º Estilo"/>
-					<Item id="43027" name="Limpar 3º Estilo"/>
-					<Item id="43028" name="Usar 4º Estilo"/>
-					<Item id="43029" name="Limpar 4º Estilo"/>
-					<Item id="43030" name="Usar 5º Estilo"/>
-					<Item id="43031" name="Limpar 5º Estilo"/>
+					<Item id="43022" name="Usar 1.º Estilo"/>
+					<Item id="43023" name="Limpar 1.º Estilo"/>
+					<Item id="43024" name="Usar 2.º Estilo"/>
+					<Item id="43025" name="Limpar 2.º Estilo"/>
+					<Item id="43026" name="Usar 3.º Estilo"/>
+					<Item id="43027" name="Limpar 3.º Estilo"/>
+					<Item id="43028" name="Usar 4.º Estilo"/>
+					<Item id="43029" name="Limpar 4.º Estilo"/>
+					<Item id="43030" name="Usar 5.º Estilo"/>
+					<Item id="43031" name="Limpar 5.º Estilo"/>
 					<Item id="43032" name="Limpar todos os estilos"/>
-					<Item id="43033" name="1º Estilo"/>
-					<Item id="43034" name="2º Estilo"/>
-					<Item id="43035" name="3º Estilo"/>
-					<Item id="43036" name="4º Estilo"/>
-					<Item id="43037" name="5º Estilo"/>
+					<Item id="43033" name="1.º Estilo"/>
+					<Item id="43034" name="2.º Estilo"/>
+					<Item id="43035" name="3.º Estilo"/>
+					<Item id="43036" name="4.º Estilo"/>
+					<Item id="43037" name="5.º Estilo"/>
 					<Item id="43038" name="Estilo da pesquisa"/>
-					<Item id="43039" name="1º Estilo"/>
-					<Item id="43040" name="2º Estilo"/>
-					<Item id="43041" name="3º Estilo"/>
-					<Item id="43042" name="4º Estilo"/>
-					<Item id="43043" name="5º Estilo"/>
+					<Item id="43039" name="1.º Estilo"/>
+					<Item id="43040" name="2.º Estilo"/>
+					<Item id="43041" name="3.º Estilo"/>
+					<Item id="43042" name="4.º Estilo"/>
+					<Item id="43043" name="5.º Estilo"/>
 					<Item id="43044" name="Estilo da pesquisa"/>
-					<Item id="43055" name="1º Estilo"/>
-					<Item id="43056" name="2º Estilo"/>
-					<Item id="43057" name="3º Estilo"/>
-					<Item id="43058" name="4º Estilo"/>
-					<Item id="43059" name="5º Estilo"/>
+					<Item id="43055" name="1.º Estilo"/>
+					<Item id="43056" name="2.º Estilo"/>
+					<Item id="43057" name="3.º Estilo"/>
+					<Item id="43058" name="4.º Estilo"/>
+					<Item id="43059" name="5.º Estilo"/>
 					<Item id="43060" name="Todos os estilos"/>
 					<Item id="43061" name="Estilo da pesquisa (marcado)"/>
-					<Item id="43062" name="Usar 1º Estilo"/>
-					<Item id="43063" name="Usar 2º Estilo"/>
-					<Item id="43064" name="Usar 3º Estilo"/>
-					<Item id="43065" name="Usar 4º Estilo"/>
-					<Item id="43066" name="Usar 5º Estilo"/>
+					<Item id="43062" name="Usar 1.º Estilo"/>
+					<Item id="43063" name="Usar 2.º Estilo"/>
+					<Item id="43064" name="Usar 3.º Estilo"/>
+					<Item id="43065" name="Usar 4.º Estilo"/>
+					<Item id="43066" name="Usar 5.º Estilo"/>
 					<Item id="43067" name="Ir para a alteração seguinte"/>
 					<Item id="43068" name="Ir para a alteração anterior"/>
 					<Item id="43069" name="Limpar histórico de alterações"/>
@@ -295,15 +295,15 @@ Nota de tradução:
 					<Item id="44070" name="Lista de documentos"/>
 					<Item id="44084" name="Lista de funções"/>
 					<Item id="44085" name="Pasta como área de trabalho"/>
-					<Item id="44086" name="1º Separador"/>
-					<Item id="44087" name="2º Separador"/>
-					<Item id="44088" name="3º Separador"/>
-					<Item id="44089" name="4º Separador"/>
-					<Item id="44090" name="5º Separador"/>
-					<Item id="44091" name="6º Separador"/>
-					<Item id="44092" name="7º Separador"/>
-					<Item id="44093" name="8º Separador"/>
-					<Item id="44094" name="9º Separador"/>
+					<Item id="44086" name="1.º Separador"/>
+					<Item id="44087" name="2.º Separador"/>
+					<Item id="44088" name="3.º Separador"/>
+					<Item id="44089" name="4.º Separador"/>
+					<Item id="44090" name="5.º Separador"/>
+					<Item id="44091" name="6.º Separador"/>
+					<Item id="44092" name="7.º Separador"/>
+					<Item id="44093" name="8.º Separador"/>
+					<Item id="44094" name="9.º Separador"/>
 					<Item id="44116" name="Primeiro separador"/>
 					<Item id="44117" name="Último separador"/>
 					<Item id="44095" name="Separador seguinte"/>
@@ -669,39 +669,39 @@ Nota de tradução:
 					<Item id="45001" name="EOL conversão para Windows (CR LF)"/>
 					<Item id="45002" name="EOL conversão para Unix (LF)"/>
 					<Item id="45003" name="EOL conversão para Macintosh (CR)"/>
-					<Item id="43022" name="Marcar tudo usando o 1º Estilo"/>
-					<Item id="43024" name="Marcar tudo usando o 2º Estilo"/>
-					<Item id="43026" name="Marcar tudo usando o 3º Estilo"/>
-					<Item id="43028" name="Marcar tudo usando o 4º Estilo"/>
-					<Item id="43030" name="Marcar tudo usando o 5º Estilo"/>
-					<Item id="43062" name="Marcar um usando o 1º Estilo"/>
-					<Item id="43063" name="Marcar um usando o 2º Estilo"/>
-					<Item id="43064" name="Marcar um usando o 3º Estilo"/>
-					<Item id="43065" name="Marcar um usando o 4º Estilo"/>
-					<Item id="43066" name="Marcar um usando o 5º Estilo"/>
-					<Item id="43023" name="Limpar marcações usando o 1º Estilo"/>
-					<Item id="43025" name="Limpar marcações usando o 2º Estilo"/>
-					<Item id="43027" name="Limpar marcações usando o 3º Estilo"/>
-					<Item id="43029" name="Limpar marcações usando o 4º Estilo"/>
-					<Item id="43031" name="Limpar marcações usando o 5º Estilo"/>
+					<Item id="43022" name="Marcar tudo usando o 1.º Estilo"/>
+					<Item id="43024" name="Marcar tudo usando o 2.º Estilo"/>
+					<Item id="43026" name="Marcar tudo usando o 3.º Estilo"/>
+					<Item id="43028" name="Marcar tudo usando o 4.º Estilo"/>
+					<Item id="43030" name="Marcar tudo usando o 5.º Estilo"/>
+					<Item id="43062" name="Marcar um usando o 1.º Estilo"/>
+					<Item id="43063" name="Marcar um usando o 2.º Estilo"/>
+					<Item id="43064" name="Marcar um usando o 3.º Estilo"/>
+					<Item id="43065" name="Marcar um usando o 4.º Estilo"/>
+					<Item id="43066" name="Marcar um usando o 5.º Estilo"/>
+					<Item id="43023" name="Limpar marcações usando o 1.º Estilo"/>
+					<Item id="43025" name="Limpar marcações usando o 2.º Estilo"/>
+					<Item id="43027" name="Limpar marcações usando o 3.º Estilo"/>
+					<Item id="43029" name="Limpar marcações usando o 4.º Estilo"/>
+					<Item id="43031" name="Limpar marcações usando o 5.º Estilo"/>
 					<Item id="43032" name="Limpar marcações usando qualquer estilo"/>
-					<Item id="43033" name="Marca anterior usando o 1º Estilo"/>
-					<Item id="43034" name="Marca anterior usando o 2º Estilo"/>
-					<Item id="43035" name="Marca anterior usando o 3º Estilo"/>
-					<Item id="43036" name="Marca anterior usando o 4º Estilo"/>
-					<Item id="43037" name="Marca anterior usando o 5º Estilo"/>
+					<Item id="43033" name="Marca anterior usando o 1.º Estilo"/>
+					<Item id="43034" name="Marca anterior usando o 2.º Estilo"/>
+					<Item id="43035" name="Marca anterior usando o 3.º Estilo"/>
+					<Item id="43036" name="Marca anterior usando o 4.º Estilo"/>
+					<Item id="43037" name="Marca anterior usando o 5.º Estilo"/>
 					<Item id="43038" name="Marca anterior criada com marcação"/>
-					<Item id="43039" name="Marca seguinte usando o 1º Estilo"/>
-					<Item id="43040" name="Marca seguinte usando o 2º Estilo"/>
-					<Item id="43041" name="Marca seguinte usando o 3º Estilo"/>
-					<Item id="43042" name="Marca seguinte usando o 4º Estilo"/>
-					<Item id="43043" name="Marca seguinte usando o 5º Estilo"/>
+					<Item id="43039" name="Marca seguinte usando o 1.º Estilo"/>
+					<Item id="43040" name="Marca seguinte usando o 2.º Estilo"/>
+					<Item id="43041" name="Marca seguinte usando o 3.º Estilo"/>
+					<Item id="43042" name="Marca seguinte usando o 4.º Estilo"/>
+					<Item id="43043" name="Marca seguinte usando o 5.º Estilo"/>
 					<Item id="43044" name="Marca seguinte criada com marcação"/>
-					<Item id="43055" name="Copiar texto estilizado - 1º Estilo"/>
-					<Item id="43056" name="Copiar texto estilizado - 2º Estilo"/>
-					<Item id="43057" name="Copiar texto estilizado - 3º Estilo"/>
-					<Item id="43058" name="Copiar texto estilizado - 4º Estilo"/>
-					<Item id="43059" name="Copiar texto estilizado - 5º Estilo"/>
+					<Item id="43055" name="Copiar texto estilizado - 1.º Estilo"/>
+					<Item id="43056" name="Copiar texto estilizado - 2.º Estilo"/>
+					<Item id="43057" name="Copiar texto estilizado - 3.º Estilo"/>
+					<Item id="43058" name="Copiar texto estilizado - 4.º Estilo"/>
+					<Item id="43059" name="Copiar texto estilizado - 5.º Estilo"/>
 					<Item id="43060" name="Copiar texto estilizado - todos os estilos"/>
 					<Item id="43061" name="Copiar texto estilizado - localizar estilo (marcado)"/>
 					<Item id="44100" name="Ver ficheiro atual no Firefox"/>
@@ -837,14 +837,14 @@ Nota de tradução:
 					<Item id="21427" name="Estilizar"/>
 				</Folder>
 				<Keywords title="Listas das palavras-chave">
-					<Item id="22101" name="1º Grupo"/>
-					<Item id="22201" name="2º Grupo"/>
-					<Item id="22301" name="3º Grupo"/>
-					<Item id="22401" name="4º Grupo"/>
-					<Item id="22451" name="5º Grupo"/>
-					<Item id="22501" name="6º Grupo"/>
-					<Item id="22551" name="7º Grupo"/>
-					<Item id="22601" name="8º Grupo"/>
+					<Item id="22101" name="1.º Grupo"/>
+					<Item id="22201" name="2.º Grupo"/>
+					<Item id="22301" name="3.º Grupo"/>
+					<Item id="22401" name="4.º Grupo"/>
+					<Item id="22451" name="5.º Grupo"/>
+					<Item id="22501" name="6.º Grupo"/>
+					<Item id="22551" name="7.º Grupo"/>
+					<Item id="22601" name="8.º Grupo"/>
 					<Item id="22121" name="Modo prefixo"/>
 					<Item id="22221" name="Modo prefixo"/>
 					<Item id="22321" name="Modo prefixo"/>

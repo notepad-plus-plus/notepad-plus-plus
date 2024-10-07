@@ -194,9 +194,9 @@ Nota de tradução:
 					<Item id="42026" name="Direção do texto - direita para a esquerda"/>
 					<Item id="42027" name="Direção do texto - esquerda para a direita"/>
 					<Item id="42028" name="Definir como só de leitura"/>
-					<Item id="42029" name="Copiar localização do ficheiro atual"/>
+					<Item id="42029" name="Copiar caminho do ficheiro atual"/>
 					<Item id="42030" name="Copiar nome do ficheiro atual"/>
-					<Item id="42031" name="Copiar localização da pasta atual"/>
+					<Item id="42031" name="Copiar caminho da pasta atual"/>
 					<Item id="42087" name="Copiar todos os nomes de ficheiros"/>
 					<Item id="42088" name="Copiar todas as localizações de ficheiros"/>
 					<Item id="42032" name="Executar macro várias vezes..."/>
@@ -397,7 +397,7 @@ Nota de tradução:
 					<Item id="50010" name="Dica anterior dos parâmetros da função"/>
 					<Item id="50011" name="Dica seguinte dos parâmetros da função"/>
 					<Item id="50005" name="Alternar para gravação de macro"/>
-					<Item id="50006" name="Preenchimento da localização"/>
+					<Item id="50006" name="Preenchimento da caminho"/>
 					<Item id="44042" name="Ocultar linhas"/>
 					<Item id="42040" name="Abrir todos os ficheiros recentes"/>
 					<Item id="42041" name="Limpar a lista dos ficheiros recentes"/>
@@ -407,8 +407,8 @@ Nota de tradução:
 					<Item id="11001" name="Janelas..."/>
 					<Item id="11002" name="Nome de A a Z"/>
 					<Item id="11003" name="Nome de Z a A"/>
-					<Item id="11004" name="Localização de A a Z"/>
-					<Item id="11005" name="Localização de Z a A"/>
+					<Item id="11004" name="Caminho de A a Z"/>
+					<Item id="11005" name="Caminho de Z a A"/>
 					<Item id="11006" name="Tipo de A a Z"/>
 					<Item id="11007" name="Tipo de Z a A"/>
 					<Item id="11008" name="Tamanho de menor a maior"/>
@@ -436,9 +436,9 @@ Nota de tradução:
 				<Item CMDID="42028" name="Só de leitura"/>
 				<Item CMDID="42033" name="Limpar o símbolo só de leitura"/>
 				<Item CMDID="2" name="Copiar para a área de transferência"/>
-				<Item CMDID="42029" name="Copiar localização do ficheiro atual"/>
+				<Item CMDID="42029" name="Copiar caminho do ficheiro atual"/>
 				<Item CMDID="42030" name="Copiar nome do ficheiro"/>
-				<Item CMDID="42031" name="Copiar localização da pasta atual"/>
+				<Item CMDID="42031" name="Copiar caminho da pasta atual"/>
 				<Item CMDID="3" name="Mover documento"/>
 				<Item CMDID="10005" name="Mover para o início"/>
 				<Item CMDID="10006" name="Mover para o fim"/>
@@ -748,8 +748,8 @@ Nota de tradução:
 					<Item id="44115" name="Aplicar a cor do separador 5"/>
 					<Item id="11002" name="Ordenar por nome de A a Z"/>
 					<Item id="11003" name="Ordenar por nome de Z a A"/>
-					<Item id="11004" name="Ordenar por localização de A a Z"/>
-					<Item id="11005" name="Ordenar por localização de Z a A"/>
+					<Item id="11004" name="Ordenar por caminho de A a Z"/>
+					<Item id="11005" name="Ordenar por caminho de Z a A"/>
 					<Item id="11006" name="Ordenar por tipo de A a Z"/>
 					<Item id="11007" name="Ordenar por tipo de Z a A"/>
 					<Item id="11008" name="Ordenar por tamanho de menor a maior"/>
@@ -772,13 +772,13 @@ Nota de tradução:
 				<Item id="20003" name="Criar novo..."/>
 				<Item id="20004" name="Remover"/>
 				<Item id="20005" name="Guardar como..."/>
-				<Item id="20007" name="Linguagem: "/>
+				<Item id="20007" name="Linguagem do utilizador: "/>
 				<Item id="20009" name="Ext.:"/>
 				<Item id="20012" name="Ignorar maiúsculas/minúsculas"/>
 				<Item id="20011" name="Transparência"/>
 				<Item id="20015" name="Importar..."/>
 				<Item id="20016" name="Exportar..."/>
-				<Item id="20017" name="Remover Inic. rápida"/>
+				<Item id="20017" name="Remover inic. rápida"/>
 				<StylerDialog title="Janela do estilo">
 					<Item id="25030" name="Opções do tipo de letra:"/>
 					<Item id="25006" name="Cor do primeiro plano"/>
@@ -979,7 +979,7 @@ Nota de tradução:
 					<Item id="6221" name="R"/><!-- Rápida -->
 					<Item id="6222" name="L"/><!-- Lenta -->
 					<Item id="6246" name="Tornar os comandos de dobrar/desdobrar do nível atual comutáveis"/>
-					<Item id="6227" name="Continuar linha"/>
+					<Item id="6227" name="Ajustar linha"/>
 					<Item id="6228" name="Predefinição"/>
 					<Item id="6229" name="Alinhada"/>
 					<Item id="6230" name="Indentar"/>
@@ -1004,7 +1004,7 @@ Nota de tradução:
 					<Item id="6248" name="Predefinição"/>
 					<Item id="6249" name="Texto simples"/>
 					<Item id="6250" name="Cor personalizada"/>
-					<Item id="6252" name="Carateres sem representação"/>
+					<Item id="6252" name="Carateres não imprimíveis"/>
 					<Item id="6260" name="Aparência"/>
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Ponto de código"/>
@@ -1016,7 +1016,7 @@ Nota de tradução:
 				<DarkMode title="Modo Escuro">
 					<Item id="7131" name="Modo claro"/>
 					<Item id="7132" name="Modo escuro"/>
-					<Item id="7133" name="Predefinição do Windows"/>
+					<Item id="7133" name="Igual ao Windows"/>
 					<Item id="7102" name="Preto"/>
 					<Item id="7103" name="Vermelho"/>
 					<Item id="7104" name="Verde"/>
@@ -1162,9 +1162,9 @@ Nota de tradução:
 					<Item id="6722" name="Di&amp;reita"/>
 					<Item id="6723" name="&amp;Adicionar"/>
 					<ComboBox id="6724">
-						<Element name="Localização do nome completo do ficheiro"/>
+						<Element name="Caminho completo do nome do ficheiro"/>
 						<Element name="Nome do ficheiro"/>
-						<Element name="Diretório do ficheiro"/>
+						<Element name="Pasta do ficheiro"/>
 						<Element name="Página"/>
 						<Element name="Data e Hora (curto)"/>
 						<Element name="Data e Hora (longo)"/>
@@ -1194,7 +1194,7 @@ Nota de tradução:
 					<Item id="6429" name="Mostrar"/>
 					<Item id="6424" name="Sem submenu"/>
 					<Item id="6425" name="Só nome do ficheiro"/>
-					<Item id="6426" name="Localização completa nome ficheiro"/>
+					<Item id="6426" name="Caminho completo do nome do ficheiro"/>
 					<Item id="6427" name="Personalizar comprimento máximo:"/>
 				</RecentFilesHistory>
 
@@ -1203,7 +1203,7 @@ Nota de tradução:
 					<Item id="6818" name="Ativar a captura de ecrã da sessão e cópia periódica"/>
 					<Item id="6819" name="Acionar a cópia de segurança em caso de modificação a cada"/>
 					<Item id="6821" name="segundos"/>
-					<Item id="6822" name="Localização da cópia:"/>
+					<Item id="6822" name="Caminho para cópia:"/>
 					<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
 					<Item id="6825" name="Lembrar ficheiros inacessíveis da sessão anterior"/>
 					<Item id="6801" name="Efetuar cópia de segurança ao guardar"/>
@@ -1242,7 +1242,7 @@ Nota de tradução:
 					<Item id="6151" name="Definições de multi-instância *"/>
 					<Item id="6152" name="Abrir sessão numa nova instância (e guardar sessão automaticamente ao sair)"/>
 					<Item id="6153" name="Sempre no modo de multi-instância"/>
-					<Item id="6154" name="Instância única por predefinição ()"/>
+					<Item id="6154" name="Predefinição (instância única) ()"/>
 					<Item id="6155" name="* Deve reiniciar o Notepad++ depois de modificar estas definições"/>
 					<Item id="6171" name="Personalizar inserção de Data e Hora"/>
 					<Item id="6175" name="Inverter ordem predefinida de data e hora (formatos curto e longo)"/>
@@ -1316,9 +1316,9 @@ Nota de tradução:
 					<Item id="6313" name="Atualizar em segundo plano"/>
 					<Item id="6325" name="Depois de atualizar, ir para a última linha"/>
 					<Item id="6322" name="Extensão do ficheiro da sessão:"/>
-					<Item id="6323" name="Ativar atualização Autom. do Notepad++"/>
-					<Item id="6324" name="Mudança de documento (Ctrl+TAB)"/>
-					<Item id="6331" name="Apenas mostrar o nome do ficheiro na barra do título"/>
+					<Item id="6323" name="Ativar atualização autom. do Notepad++"/>
+					<Item id="6324" name="Alternador de documento (Ctrl+TAB)"/>
+					<Item id="6331" name="Mostrar apenas o nome do ficheiro na barra do título"/>
 					<Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
 					<Item id="6349" name="Usar DirectWrite (pode melhorar a renderização de carateres especiais, é necessário reiniciar o Notepad++)"/>
 					<Item id="6337" name="Extensão de ficheiro da área de trabalho:"/>
@@ -1332,8 +1332,8 @@ Nota de tradução:
 				</MISC>
 			</Preference>
 			<MultiMacro title="Executar uma macro várias vezes">
-				<Item id="1" name="Executar"/>
-				<Item id="2" name="Cancelar"/>
+				<Item id="1" name="Executa&amp;r"/>
+				<Item id="2" name="&amp;Cancelar"/>
 				<Item id="8006" name="Macro a executar"/>
 				<Item id="8001" name="Executar"/>
 				<Item id="8005" name="vez(es)"/>
@@ -1384,8 +1384,8 @@ Nota de tradução:
 				<Item id="6" name="Sim"/>
 				<Item id="7" name="&amp;Não"/>
 				<Item id="2" name="&amp;Cancelar"/>
-				<Item id="4" name="Sim a tudo"/>
-				<Item id="5" name="Não a tudo"/>
+				<Item id="4" name="Sim &amp;a tudo"/>
+				<Item id="5" name="Nã&amp;o a tudo"/>
 			</DoSaveOrNot>
 			<DoSaveAll title="Guardar toda a confirmação">
 				<Item id="1766" name="Tem a certeza que quer guardar todos os documentos modificados?
@@ -1552,17 +1552,17 @@ Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual 
 			<PanelTitle name="Lista de documentos"/>
 			<ColumnName name="Nome"/>
 			<ColumnExt name="Ext."/>
-			<ColumnPath name="Localização"/>
+			<ColumnPath name="Caminho"/>
 			<ListGroups name="Agrupar por visualização"/>
 		</DocList>
 		<WindowsDlg>
 			<ColumnName name="Nome"/>
-			<ColumnPath name="Localização"/>
+			<ColumnPath name="Caminho"/>
 			<ColumnType name="Tipo"/>
 			<ColumnSize name="Tamanho"/>
 			<NbDocsTotal name="total de documentos:"/>
 			<MenuCopyName name="Copiar nome(s)"/>
-			<MenuCopyPath name="Copiar nome da localização(ões)"/>
+			<MenuCopyPath name="Copiar nome do(s) caminhos(s)"/>
 		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Painel de inserção ASCII"/>
@@ -1595,7 +1595,7 @@ Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual 
 				<Item id="3513" name="Adicionar"/>
 				<Item id="3514" name="Executado pelo sistema"/>
 				<Item id="3515" name="Abrir"/>
-				<Item id="3516" name="Copiar localização"/>
+				<Item id="3516" name="Copiar caminho"/>
 				<Item id="3517" name="Localizar em Ficheiros..."/>
 				<Item id="3518" name="Explorar aqui"/>
 				<Item id="3519" name="CMD aqui"/>
@@ -1643,7 +1643,7 @@ Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual 
 				<FileMenu>
 					<Item id="3111" name="Renomear"/>
 					<Item id="3115" name="Remover"/>
-					<Item id="3116" name="Modificar localização do ficheiro"/>
+					<Item id="3116" name="Modificar caminho do ficheiro"/>
 					<Item id="3118" name="Mover para cima"/>
 					<Item id="3119" name="Mover Para baixo"/>
 				</FileMenu>
@@ -1660,11 +1660,11 @@ Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual 
 			<word-chars-list-space-warning value="$INT_REPLACE$ espaço(s)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
 			<word-chars-list-warning-end value="  na sua lista de carateres."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, check "Add your character as part of word\r(don't choose it unless you know what you're doing)", then type a white-space in the text field. -->
-			<backup-select-folder value="Selecione um localização para a pasta de cópia de segurança"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<backup-select-folder value="Selecione uma localização para a pasta de cópia de segurança"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
 			<cloud-invalid-warning value="Localização inválida."/>
 			<cloud-restart-warning value="Reinicie o Notepad++ para ter efeito."/>
 			<cloud-select-folder value="Selecione uma pasta a partir da qual o Notepad++ pode ler ou gravar as suas definições"/><!-- HowToReproduce: In "Cloud" section of Preferences dialog, check "Set your cloud location path here: ", then click the button "...". This message is displayed in the "Browse For Folder" dialog. -->
-			<default-open-save-select-folder value="Selecione um localização para a pasta predefinida"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+			<default-open-save-select-folder value="Selecione uma localização para a pasta predefinida"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
 			<shift-change-direction-tip value="Use Shift+Enter para pesquisar na direção oposta"/>
 			<two-find-buttons-tip value="Modo de 2 botões de localização"/>
 			<find-in-files-filter-tip value="Localizar em cpp, cxx, h, hxx &amp;e hpp:
@@ -1712,7 +1712,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
-			<finder-copy-paths value="Copiar nome da localização(ões)"/>
+			<finder-copy-paths value="Copiar nome do(s) caminho(s)"/>
 			<finder-clear-all value="Limpar tudo"/>
 			<finder-open-all value="Abrir tudo"/>
 			<finder-purge-for-every-search value="Eliminar para cada pesquisa"/>
@@ -1728,7 +1728,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<userdefined-title-save value="Guardar o nome da linguagem atual como..."/>
 			<userdefined-title-rename value="Renomear nome da linguagem atual"/>
 			<summary value="Resumo"/>
-			<summary-filepath value="Localização completa: "/>
+			<summary-filepath value="Caminho completo: "/>
 			<summary-filecreatetime value="Criado em: "/>
 			<summary-filemodifytime value="Modificado em: "/>
 			<summary-nbchar value="Carateres (sem quebras de linha): "/>

@@ -1984,15 +1984,16 @@ HANDLE createFileWaitSec(const wchar_t* filePath, DWORD accessParam, DWORD share
 	DWORD dwWaitStatus = ::WaitForSingleObject(hThread, milliSec2wait == 0 ? DEFAULT_MILLISEC : milliSec2wait);
 	switch (dwWaitStatus)
 	{
-	case WAIT_OBJECT_0: // Ok, the state of our worker thread is signaled, so it finished itself in the timeout given		
-		// - nothing else to do here, except the thread handle closing later
-		break;
+		case WAIT_OBJECT_0: // Ok, the state of our worker thread is signaled, so it finished itself in the timeout given		
+			// - nothing else to do here, except the thread handle closing later
+			break;
 
-	case WAIT_TIMEOUT: // the timeout interval elapsed, but the worker's state is still non-signaled
-	default: // any other dwWaitStatus is a BAD one here
-		// WAIT_FAILED or WAIT_ABANDONED
-		::TerminateThread(hThread, dwWaitStatus);
-		break;
+		case WAIT_TIMEOUT: // the timeout interval elapsed, but the worker's state is still non-signaled
+		default: // Timeout reached, or WAIT_FAILED or WAIT_ABANDONED
+			// attempt to cancel the operation
+			::CancelIoEx(data._hFile, NULL);
+			::TerminateThread(hThread, dwWaitStatus);
+			break;
 	}
 	CloseHandle(hThread);
 

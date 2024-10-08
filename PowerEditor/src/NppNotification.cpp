@@ -323,7 +323,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufferToClose, iView);
 			}
 
-			if (fileClose(bufferToClose, iView))
+			BufferID bufferToClose2ndCheck = notifyDocTab->getBufferByIndex(index);
+
+			if ((bufferToClose == bufferToClose2ndCheck) // Here we make sure the buffer is the same to prevent from the situation that the buffer to be close was already closed,
+			                                             // because the precedent call "activateBuffer(bufferToClose, iView)" could finally lead "doClose" call as well (in case of file non-existent).
+				&& fileClose(bufferToClose, iView))
 				checkDocState();
 
 			break;

@@ -1780,6 +1780,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		}
 		success = false;
 	}
+
 	fclose(fp);
 
 	// broadcast the format

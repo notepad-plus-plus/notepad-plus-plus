@@ -1614,7 +1614,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		}
 	}
 
-	FILE* fp = wfopenWithTimeout(filename);
+	FILE* fp = fopenWaitTimeout(filename);
 
 	if (!fp)
 		return false;
@@ -1780,7 +1780,6 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		}
 		success = false;
 	}
-	
 	fclose(fp);
 
 	// broadcast the format

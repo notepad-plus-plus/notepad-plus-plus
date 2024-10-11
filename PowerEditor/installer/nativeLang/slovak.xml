@@ -1309,6 +1309,14 @@
 						<Element name="Povoliť pre všetky otvorené súbory"/>
 						<Element name="Zakázať"/>
 					</ComboBox>
+					<Item id="6308" name="Minimalizovať do oblasti oznámení"/>
+					<Item id="6362" name="Zavrieť do oblasti oznámení"/>
+					<ComboBox id="6307">
+						<Element name="Nič do"/>
+						<Element name="Minimalizovať do"/>
+						<Element name="Zavrieť do"/>
+					</ComboBox>
+					<Item id="6308" name="oblasti oznámení"/>
 					<Item id="6312" name="Automatické zisťovanie stavu súboru"/>
 					<Item id="6313" name="Tichá aktualizácia"/>
 					<Item id="6325" name="Skočiť po aktualizácii na posledný riadok"/>

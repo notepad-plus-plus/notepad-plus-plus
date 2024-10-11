@@ -282,11 +282,10 @@ private:
 	unsigned long _build = 0;
 };
 
-DWORD getFileAttrWaitSec(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
+
+DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
+DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
+
 bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
 bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
 bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-
-DWORD getDiskFreeSpaceWaitSec(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-DWORD getFileAttributesExWaitSec(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-HANDLE createFileWaitSec(const wchar_t* filePath, DWORD accessParam, DWORD shareParam, DWORD dispParam, DWORD attribParam, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);

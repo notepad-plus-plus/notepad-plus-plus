@@ -1299,7 +1299,6 @@
 						<Element name="Omogoči za vse odprte datoteke"/>
 						<Element name="Onemogoči"/>
 					</ComboBox>
-					<Item id="6308" name="Minimiraj v sistemsko vrstico"/>
 					<Item id="6312" name="Samozaznava stanja datoteke"/>
 					<Item id="6313" name="Posodobi tiho"/>
 					<Item id="6325" name="Pomakni se do zadnje vrstice po posodobitvi"/>

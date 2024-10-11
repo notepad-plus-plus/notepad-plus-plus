@@ -1316,7 +1316,6 @@ Translation note:
 						<Element name="Attiva per tutte le schede"/>
 						<Element name="Disattiva"/>
 					</ComboBox>
-					<Item id="6308" name="Minimizza nell&apos;area di notifica"/>
 					<Item id="6312" name="Rilevamento Stato File"/>
 					<Item id="6313" name="Aggiorna senza notifica"/>
 					<Item id="6325" name="Vai all&apos;ultima riga dopo l&apos;aggiornamento"/>

@@ -884,8 +884,6 @@
 				</SearchEngine>
 
 				<MISC title="Įvairūs">
-					<Item id="6307" name="Įgalinti"/>
-					<Item id="6308" name="Minimizuoti į sisteminį skydelį"/>
 					<Item id="6312" name="Failų būsenos automatinis nustatymas"/>
 					<Item id="6313" name="Atnaujinti neklausiant"/>
 					<Item id="6318" name="Paspaudžiamų nuorodų nustatymai"/>

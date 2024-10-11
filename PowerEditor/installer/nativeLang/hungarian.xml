@@ -1158,7 +1158,6 @@ Több margó is megadható, különböző számok használatával szóközzel el
 						<Element name="Engedélyezés minden megnyitott fájlra"/>
 						<Element name="Tiltás"/>
 					</ComboBox>
-					<Item id="6308" name="Kicsinyítés az értesítési területre"/>
 					<Item id="6312" name="Fájl állapot automatikus észlelése"/>
 					<Item id="6313" name="Frissítés figyelmeztetés nélkül"/>
 					<Item id="6325" name="Ugrás az utolsó sorhoz a frissítés után"/>

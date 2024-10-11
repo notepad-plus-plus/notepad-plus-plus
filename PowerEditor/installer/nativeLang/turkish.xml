@@ -1315,7 +1315,6 @@
 						<Element name="Tüm sekmeler için etkinleştir"/>
 						<Element name="Etkisizleştir"/>
 					</ComboBox>
-					<Item id="6308" name="Sistem tepsisine küçült"/>
 					<Item id="6312" name="Dosya Durumunu Otomatik Algıla"/>
 					<Item id="6313" name="Sessiz güncelle"/>
 					<Item id="6325" name="Güncellemeden sonra son satıra kaydır"/>

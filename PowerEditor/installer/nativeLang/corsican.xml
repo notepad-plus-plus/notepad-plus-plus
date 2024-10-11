@@ -1338,7 +1338,6 @@ Additionnal information about Corsican localization:
 						<Element name="Attivà per tutti i schedarii aperti"/>
 						<Element name="Disattivà"/>
 					</ComboBox>
-					<Item id="6308" name="Impuculì in u spaziu di nutificazione di u sistema"/>
 					<Item id="6312" name="Detezione autumatica di statu di schedariu"/>
 					<Item id="6313" name="Mudificazione senza avertimentu"/>
 					<Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>

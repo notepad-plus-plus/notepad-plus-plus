@@ -1142,7 +1142,6 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
 						<Element name="Gaitu irekitako fitxategi guztientzat"/>
 						<Element name="Desgaitu"/>
 					</ComboBox>
-					<Item id="6308" name="Eraman sistemako tresna-barrara minimizatzean"/>
 					<Item id="6312" name="Fitxategi-egoeraren Antzemate Automatikoa"/>
 					<Item id="6313" name="Eguneratu isiliean"/>
 					<Item id="6325" name="Korritu azken lerrora eguneratu ondoren"/>

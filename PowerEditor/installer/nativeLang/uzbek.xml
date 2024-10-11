@@ -910,8 +910,6 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
 					<Item id="6335" name="Teskari tutuq belgisi (‘) SQL belgisi koʻrinishidir"/>
 				</Language>
 				<MISC title="Boshqalar">
-					<Item id="6307" name="Faollashtirmoq"/>
-					<Item id="6308" name="Treyga oʻtkazmoq"/>
 					<Item id="6312" name="Fayl oʻzgarishlarini kuzatmoq  (извне)"/>
 					<Item id="6313" name="Soʻrovsiz yangilamoq"/>
 					<Item id="6318" name="Veb-havolalar ishlovi"/>

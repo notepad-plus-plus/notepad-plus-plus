@@ -1305,7 +1305,6 @@ Translation note:
 						<Element name="Aktiver for alle åpne filer"/>
 						<Element name="Deaktiver"/>
 					</ComboBox>
-					<Item id="6308" name="Minimer til systemstatusfeltet"/>
 					<Item id="6312" name="Automatisk innhenting av filstatus"/>
 					<Item id="6313" name="Skjult oppdatering"/>
 					<Item id="6325" name="Bla til siste linje etter oppdatering"/>

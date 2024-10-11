@@ -448,7 +448,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_dockingManager.init(_pPublicInterface->getHinst(), hwnd, &_pMainWindow);
 
-	if ((nppGUI._isMinimizedToTray || nppGUI._isClosedToTray) && _pTrayIco == nullptr)
+	if ((nppGUI._isMinimizedToTray == sta_minimize || nppGUI._isMinimizedToTray == sta_close) && _pTrayIco == nullptr)
 	{
 		HICON icon = nullptr;
 		Notepad_plus_Window::loadTrayIcon(_pPublicInterface->getHinst(), &icon);

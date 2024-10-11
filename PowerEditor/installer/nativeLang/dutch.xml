@@ -1308,7 +1308,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 						<Element name="Inschakelen voor alle geopende documenten"/>
 						<Element name="Uitschakelen"/>
 					</ComboBox>
-					<Item id="6308" name="Naar systeemvak minimaliseren"/>
 					<Item id="6312" name="Bestandswijziging detecteren"/>
 					<Item id="6313" name="In stilte bijwerken"/>
 					<Item id="6325" name="Na bijwerken naar de laatste regel gaan"/>

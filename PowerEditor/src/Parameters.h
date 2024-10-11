@@ -121,6 +121,7 @@ enum urlMode {urlDisable = 0, urlNoUnderLineFg, urlUnderLineFg, urlNoUnderLineBg
               urlMax = urlUnderLineBg};
 
 enum AutoIndentMode { autoIndent_none = 0, autoIndent_advanced = 1, autoIndent_basic = 2 };
+enum SysTrayAction { sta_none = 0, sta_minimize = 1, sta_close = 2 };
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -821,8 +822,7 @@ struct NppGUI final
 	bool _findWindowLessMode = false;
 
 	bool _isMaximized = false;
-	bool _isMinimizedToTray = false;
-	bool _isClosedToTray = false;
+	int _isMinimizedToTray = sta_none;
 	bool _rememberLastSession = true; // remember next session boolean will be written in the settings
 	bool _keepSessionAbsentFileEntries = false;
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time

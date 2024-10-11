@@ -1316,7 +1316,6 @@
                         <Element name="Activare pentru toate fişierele deschise"/>
                         <Element name="Dezactivare"/>
                     </ComboBox>
-                    <Item id="6308" name="Micșorare în zona de sistem"/>
                     <Item id="6312" name="Autodetectare a stării fișierului"/>
                     <Item id="6313" name="Actualizare silențioasă"/>
                     <Item id="6325" name="Derulare la ultima linie după actualizare"/>

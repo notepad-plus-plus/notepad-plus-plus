@@ -142,7 +142,7 @@ void Buffer::updateTimeStamp()
 {
 	FILETIME timeStampLive {};
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	if (getFileAttributesExWaitSec(_fullPathName.c_str(), &attributes) != FALSE)
+	if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes) != FALSE)
 	{
 		timeStampLive = attributes.ftLastWriteTime;
 	}
@@ -311,7 +311,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 			isOK = true;
 		}
 	}
-	else if (getFileAttributesExWaitSec(_fullPathName.c_str(), &attributes) != FALSE)
+	else if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes) != FALSE)
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
@@ -710,7 +710,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	if (pPath)
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
-		if (getFileAttributesExWaitSec(pPath, &attributes) != FALSE)
+		if (getFileAttributesExWithTimeout(pPath, &attributes) != FALSE)
 		{
 			LARGE_INTEGER size{};
 			size.LowPart = attributes.nFileSizeLow;
@@ -1193,7 +1193,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	const wchar_t* currentBufFilePath = buffer->getFullPathName();
 	ULARGE_INTEGER freeBytesForUser;
 	 
-	BOOL getFreeSpaceSuccessful = getDiskFreeSpaceWaitSec(dirDest, &freeBytesForUser);
+	BOOL getFreeSpaceSuccessful = getDiskFreeSpaceWithTimeout(dirDest, &freeBytesForUser);
 	if (getFreeSpaceSuccessful)
 	{
 		int64_t fileSize = buffer->getFileLength();
@@ -1208,12 +1208,13 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			return SavingStatus::NotEnoughRoom;
 	}
 
-	DWORD attrib = getFileAttrWaitSec(fullpath);
-	if (attrib != INVALID_FILE_ATTRIBUTES)
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	getFileAttributesExWithTimeout(fullpath, &attributes);
+	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
 	{
-		isHiddenOrSys = (attrib & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
+		isHiddenOrSys = (attributes.dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
 		if (isHiddenOrSys)
-			::SetFileAttributes(filename, attrib & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
+			::SetFileAttributes(filename, attributes.dwFileAttributes & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
 	}
 
 	UniMode mode = buffer->getUnicodeMode();
@@ -1274,7 +1275,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		}
 
 		if (isHiddenOrSys)
-			::SetFileAttributes(fullpath, attrib);
+			::SetFileAttributes(fullpath, attributes.dwFileAttributes);
 
 		if (isCopy) // "Save a Copy As..." command
 		{

@@ -33,9 +33,9 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
 		DWORD dispParam = CREATE_ALWAYS;
 		bool fileExists = false;
-
+		bool hasNetworkProblem = false;
 		// Store the file creation date & attributes for a possible use later...
-		if (getFileAttributesExWaitSec(fname, &attributes_original))
+		if (getFileAttributesExWithTimeout(fname, &attributes_original, 0, &hasNetworkProblem))
 		{
 			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 		}
@@ -51,16 +51,22 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 				FindClose(hFind);
 			}
 		}
+		else
+		{
+			bool isFromNetwork = PathIsNetworkPath(fname);
+			if (isFromNetwork && hasNetworkProblem) // The file doesn't exist, and the file is a network file, plus the network problem has been detected due to timeout
+				return;                             // In this case, we don't call createFile to prevent hanging
+		}
 
-		_hFile = ::createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
+		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 
 		// Race condition management:
-		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
-		//  If file did exist while calling PathFileExistsW, but before calling CreateFileW, file is deleted:  use TRUNCATE_EXISTING will cause the error
+		//  If file didn't exist while calling getFileAttributesExWaitSec, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
+		//  If file did exist while calling getFileAttributesExWaitSec, but before calling CreateFileW, file is deleted:  use TRUNCATE_EXISTING will cause the error
 		if (dispParam == TRUNCATE_EXISTING && _hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
 		{
 			dispParam = CREATE_ALWAYS;
-			_hFile = ::createFileWaitSec(fname, _accessParam, _shareParam, dispParam, _attribParam);
+			_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 		}
 
 		if (fileExists && (dispParam == CREATE_ALWAYS) && (_hFile != INVALID_HANDLE_VALUE))

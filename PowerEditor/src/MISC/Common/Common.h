@@ -290,5 +290,3 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isNetWork
 DWORD getDiskFreeSpaceWaitSec(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
 DWORD getFileAttributesExWaitSec(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
 HANDLE createFileWaitSec(const wchar_t* filePath, DWORD accessParam, DWORD shareParam, DWORD dispParam, DWORD attribParam, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-FILE* fopenWaitTimeout(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-FILE* openFileWithTimeout(std::wstring filePath, DWORD timeoutMillis);

@@ -1614,7 +1614,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		}
 	}
 
-	FILE* fp = fopenWaitTimeout(filename);
+	FILE* fp = _wfopen(filename, L"rb");
 
 	if (!fp)
 		return false;

@@ -845,7 +845,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	//Get file size
 	int64_t fileSize = 0;
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	getFileAttributesExWaitSec(buf->getFullPathName(), &attributes);
+	getFileAttributesExWithTimeout(buf->getFullPathName(), &attributes);
 	if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
 	{
 		return false;

@@ -1210,7 +1210,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	getFileAttributesExWithTimeout(fullpath, &attributes);
-	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
+	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
 		isHiddenOrSys = (attributes.dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
 		if (isHiddenOrSys)

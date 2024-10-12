@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 08.09.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 23.10.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -1242,6 +1242,12 @@
 					</ComboBox>
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последния ред"/>
+					<ComboBox id="6307">
+						<Element name="Без действие в"/>
+						<Element name="Намаляване в"/>
+						<Element name="Затваряне в"/>
+					</ComboBox>
+					<Item id="6308" name="системната област"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6360" name="Изключване на всички звуци"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
@@ -1270,24 +1276,25 @@
 					<Item id="2212" name="Цвят на стила"/>
 					<Item id="2206" name="Цвят на шрифта"/>
 					<Item id="2207" name="Фон на шрифта"/>
-					<Item id="2226" name="Глобален цвят на текста"/>
-					<Item id="2227" name="Глобален цвят на фона"/>
+					<Item id="2226" name="Принудителен цвят на текста за всички стилове"/>
+					<Item id="2227" name="Принудителен цвят на фона за всички стилове"/>
 					<Item id="2213" name="Стил на шрифта"/>
 					<Item id="2208" name="Име:"/>
 					<Item id="2209" name="Размер:"/>
 					<Item id="2204" name="Получер"/>
 					<Item id="2205" name="Курсив"/>
 					<Item id="2218" name="Подчертан"/>
-					<Item id="2228" name="Глобален шрифт"/>
-					<Item id="2229" name="Глобален размер на шрифта"/>
-					<Item id="2230" name="Глобален получер шрифт"/>
-					<Item id="2231" name="Глобален курсив шрифт"/>
-					<Item id="2232" name="Глобален подчертан шрифт"/>
+					<Item id="2228" name="Принудителен шрифт за всички стилове"/>
+					<Item id="2229" name="Принудителен размер на шрифта за всички стилове"/>
+					<Item id="2230" name="Принудителен получер шрифт за всички стилове"/>
+					<Item id="2231" name="Принудителен курсив шрифт за всички стилове"/>
+					<Item id="2232" name="Принудително подчертаване за всички стилове"/>
 					<Item id="2214" name="По подразбиране"/>
 					<Item id="2216" name="Потребителско"/>
 					<Item id="2219" name="Ключови думи по подразбиране"/>
 					<Item id="2221" name="Потребителски ключови думи"/>
 					<Item id="2234" name="Отиване в настройките"/>
+					<Item id="2235" name="Какво е Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 			<!-- "Бързи клавиши..." -->
@@ -1622,8 +1629,8 @@
 			<!-- "Търсене", "Замяна", "Търсене във файлове", "Търсене в проекти", "Маркиране" -->
 			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter"/>
 			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
-			<find-status-top-reached value="Търсене: Намерено е последното повторение от краят. Началото на документа е достигнато."/>
-			<find-status-end-reached value="Търсене: Намерено е последното повторение от началото. Краят на документа е достигнат."/>
+			<find-status-top-reached value="Търсене: Достигнато е началото на документа, намерено е първото повторение от края."/>
+			<find-status-end-reached value="Търсене: Достигнат е краят на документа, намерено е първото повторение от началото."/>
 			<find-status-invalid-re value="Търсене: Неправилен регулярен израз"/>
 			<find-status-search-failed value="Търсене: Търсенето е неуспешно"/>
 			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да бъде намерен"/>
@@ -1634,14 +1641,14 @@
 			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: Заменени са $INT_REPLACE$ повторения"/>
 			<find-status-replaceall-1-replaced value="Замяна на всичко: Заменено е 1 повторение"/>
 			<find-status-replaceall-nb-replaced value="Замяна на всичко: Заменени са $INT_REPLACE$ повторения"/>
-			<find-status-replaceall-readonly value="Замяна на всичко: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
-			<find-status-replace-end-reached value="Замяна: Заменено е последното повторение от началото. Краят на документа е достигнат"/>
-			<find-status-replace-top-reached value="Замяна: Заменено е последното повторение от краят. Началото на документа е достигнато"/>
-			<find-status-replaced-next-found value="Замяна: Заменено е 1 повторение. Намерено е следващото повторение"/>
+			<find-status-replaceall-readonly value="Замяна на всичко: Текстът не може да бъде заменен. Текущият документ е само за четене."/>
+			<find-status-replace-end-reached value="Замяна: Достигнат е краят на документа, започване от началото"/>
+			<find-status-replace-top-reached value="Замяна: Достигнато е началото на документа, започване от края"/>
+			<find-status-replaced-next-found value="Замяна: Заменено е 1 повторение. Намерено е следващото повторение."/>
 			<find-status-replaced-without-continuing value="Замяна: Заменено е 1 повторение."/>
-			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 повторение. Не бяха намерени повече повторения"/>
+			<find-status-replaced-next-not-found value="Замяна: Заменено е 1 повторение. Не бяха намерени повече повторения."/>
 			<find-status-replace-not-found value="Замяна: Не е намерено повторение"/>
-			<find-status-replace-readonly value="Замяна: Текстът не може да бъде заменен. Текущият документ е само за четене"/>
+			<find-status-replace-readonly value="Замяна: Текстът не може да бъде заменен. Текущият документ е само за четене."/>
 			<find-status-mark-1-match value="Маркиране: 1 повторение"/>
 			<find-status-mark-nb-matches value="Маркиране: $INT_REPLACE$ повторения"/>
 			<find-status-count-1-match value="Брой повторения: 1"/>
@@ -1804,6 +1811,8 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<tab-untitled-string value="нов "/>
 			<close-panel-tip value="Затваряне"/>
 			<fileSaveAsCopySaveButton-tip value="Задръжте клавиша Shift, докато натискате Запис, за да отворите копието след запазване."/>
+			<!-- "Global override" и "Default Style" не се превеждат -->
+			<global-override-tip value="Активирането на &quot;Global override&quot; тук ще замени този параметър във всички езикови стилове. Това, което вероятно наистина искате, е да използвате настройките &quot;Default Style&quot; вместо това."/>
 		</MiscStrings>
 		<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

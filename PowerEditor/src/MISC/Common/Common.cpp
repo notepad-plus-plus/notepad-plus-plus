@@ -629,7 +629,7 @@ wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &file
 }
 
 
-wstring PathRemoveFileSpec(wstring& path)
+wstring pathRemoveFileSpec(wstring& path)
 {
     wstring::size_type lastBackslash = path.find_last_of(L'\\');
     if (lastBackslash == wstring::npos)

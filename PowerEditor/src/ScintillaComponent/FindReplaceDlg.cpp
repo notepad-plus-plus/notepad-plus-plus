@@ -2646,7 +2646,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (!(buf->getStatus() & (DOC_UNNAMED | DOC_DELETED)))
 						{
 							currPath = buf->getFullPathName();
-							PathRemoveFileSpec(currPath);
+							pathRemoveFileSpec(currPath);
 						}
 						if (currPath.empty() || !doesDirectoryExist(currPath.c_str()))
 							currPath = NppParameters::getInstance().getWorkingDir();

@@ -109,6 +109,9 @@ bool StaticDialog::moveForDpiChange()
 
 void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing) const
 {
+	bool bRemoveTemporaryWndStyle = false;
+	LONG exStyle = 0;
+
 	if (toShow)
 	{
 		if (enhancedPositioningCheckWhenShowing)
@@ -152,8 +155,35 @@ void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing
 				::SendMessageW(_hSelf, DM_REPOSITION, 0, 0);
 		}
 	}
+	else
+	{
+		// toHide
+
+		// As the WinOS Desktop Window Manager taskbar thumbnail live preview has obviously a problem
+		// with modeless only hidden dlgs which have the WS_DLGFRAME style (the preview initially shows such dialogs,
+		// even if they were already hidden), we will use a simple workaround:
+		// - we temporarily set the WS_EX_TOOLWINDOW style on such a problematic dlg, right before its hiding
+		// - then do the hiding as before and immediately remove that style
+		// This does the trick (probably because of the floating toolbar-wnds are not allowed on the taskbar
+		// (or in the ALT-TAB), so they will not be previewed at all...).
+		if (::IsWindowEnabled(_hParent)) // ? is it modeless dlg (modal ones are ok for the DWM)
+		{
+			if (::GetWindowLongW(_hSelf, GWL_STYLE) & WS_DLGFRAME) // ? has it the WS_DLGFRAME (problematic for the DWM)
+			{
+				exStyle = ::GetWindowLongW(_hSelf, GWL_EXSTYLE);
+				if (exStyle && !(exStyle & WS_EX_TOOLWINDOW)) // ? has not that style already
+				{
+					if (::SetWindowLongW(_hSelf, GWL_EXSTYLE, exStyle | WS_EX_TOOLWINDOW))
+						bRemoveTemporaryWndStyle = true; // WS_EX_TOOLWINDOW temporary assigned before the hiding
+				}
+			}
+		}
+	}
 
 	Window::display(toShow);
+
+	if (bRemoveTemporaryWndStyle)
+		::SetWindowLongW(_hSelf, GWL_EXSTYLE, exStyle & ~WS_EX_TOOLWINDOW);
 }
 
 RECT StaticDialog::getViewablePositionRect(RECT testPositionRc) const

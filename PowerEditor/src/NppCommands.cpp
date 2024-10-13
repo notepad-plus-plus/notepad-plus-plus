@@ -1281,7 +1281,7 @@ void Notepad_plus::command(int id)
 			else if (id == IDM_EDIT_CURRENTDIRTOCLIP)
 			{
 				wstring dir(buf->getFullPathName());
-				PathRemoveFileSpec(dir);
+				pathRemoveFileSpec(dir);
 				str2Cliboard(dir);
 			}
 			else if (id == IDM_EDIT_FILENAMETOCLIP)

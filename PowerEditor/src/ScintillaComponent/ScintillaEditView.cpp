@@ -462,7 +462,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				{
 					// convert the selection to Unicode, and get the number
 					// of bytes required for the converted text
-					textLength = sizeof(WCHAR) * ::MultiByteToWideChar(codepage, 0, selectedStr, (int)selectSize, NULL, 0);
+					textLength = sizeof(wchar_t) * ::MultiByteToWideChar(codepage, 0, selectedStr, (int)selectSize, NULL, 0);
 				}
 				else
 				{
@@ -485,7 +485,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					reconvert->dwTargetStrLen	 = reconvert->dwCompStrLen;
 					reconvert->dwTargetStrOffset = reconvert->dwCompStrOffset;
 
-					textLength *= sizeof(WCHAR);
+					textLength *= sizeof(wchar_t);
 				}
 
 				if (selectedStr != smallTextBuffer)
@@ -3535,7 +3535,7 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
-				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+				strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case UPPERCASE
@@ -3543,7 +3543,7 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
-				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+				strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case LOWERCASE
@@ -3559,12 +3559,12 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 						(isCharSingleQuote(strWToConvert[i - 1]) && ::IsCharAlphaNumericW(strWToConvert[i - 2])))
 					{
 						if (caseToConvert == PROPERCASE_FORCE)
-							strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+							strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					}
 					else if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					else if (caseToConvert == PROPERCASE_FORCE)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
 			break;
@@ -3581,12 +3581,12 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 				{
 					if (isNewSentence)
 					{
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 						isNewSentence = false;
 					}
 					else if (caseToConvert == SENTENCECASE_FORCE)
 					{
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					}
 					wasEolR = false;
 					wasEolN = false;
@@ -3627,9 +3627,9 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 			for (int i = 0; i < nbChars; ++i)
 			{
 				if (::IsCharLowerW(strWToConvert[i]))
-					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+					strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				else
-					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+					strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case INVERTCASE
@@ -3640,9 +3640,9 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 				if (::IsCharAlphaW(strWToConvert[i]))
 				{
 					if (std::rand() & true)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					else
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
 			break; 

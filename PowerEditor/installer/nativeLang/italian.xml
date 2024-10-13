@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.7.0
-    Last modified Sun, Jul 28th, 2024.
+    Italian translation for Notepad++ 8.7.1
+    Last modified Sun, Oct 13rd, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.0">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1312,10 +1312,16 @@ Translation note:
 
 				<MISC title="Varie">
 					<ComboBox id="6347">
-						<Element name="Attiva"/>
+						<Element name="Attiva file corrente"/>
 						<Element name="Attiva per tutte le schede"/>
 						<Element name="Disattiva"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Nessuna azione"/>
+						<Element name="Minimizza"/>
+						<Element name="Chiudi"/>
+					</ComboBox>
+					<Item id="6308" name="system tray"/>
 					<Item id="6312" name="Rilevamento Stato File"/>
 					<Item id="6313" name="Aggiorna senza notifica"/>
 					<Item id="6325" name="Vai all&apos;ultima riga dopo l&apos;aggiornamento"/>

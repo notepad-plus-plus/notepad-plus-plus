@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -2852,7 +2852,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_SYSCOMMAND:
 		{
 			const NppGUI & nppgui = (nppParam.getNppGUI());
-			if ((nppgui._isMinimizedToTray || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
+			if (((nppgui._isMinimizedToTray == sta_minimize || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE)) ||
+				(nppgui._isMinimizedToTray == sta_close && wParam == SC_CLOSE)
+			)
 			{
 				if (nullptr == _pTrayIco)
 				{
@@ -3150,7 +3152,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_SETUNTITLEDNAME:
 		{
 			if (!wParam || !lParam) return FALSE;
-			return fileRenameUntitled(reinterpret_cast<BufferID>(wParam), reinterpret_cast<const wchar_t*>(lParam));
+			return fileRenameUntitledPluginAPI(reinterpret_cast<BufferID>(wParam), reinterpret_cast<const wchar_t*>(lParam));
 		}
 
 		case NPPM_GETBOOKMARKID:
@@ -3761,7 +3763,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETNATIVELANGFILENAME:
 		{
-			string fileName = _nativeLangSpeaker.getFileName();
+			const char* fn = _nativeLangSpeaker.getFileName();
+
+			if (!fn) return 0;
+
+			string fileName = fn;
 			if (lParam != 0)
 			{
 				if (fileName.length() >= static_cast<size_t>(wParam))

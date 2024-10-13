@@ -1250,8 +1250,12 @@
 						<Element name="啟用於所有開啟文件"/>
 						<Element name="停止啟用"/>
 					</ComboBox>
-					<Item id="6307" name="啟用"/>
-					<Item id="6308" name="最小化至系統匣"/>
+					<ComboBox id="6307">
+						<Element name="無任何行動至"/>
+						<Element name="最小化至"/>
+						<Element name="關閉至"/>
+					</ComboBox>
+					<Item id="6308" name="系統匣"/>
 					<Item id="6312" name="自動更新檔案狀態"/>
 					<Item id="6313" name="於背景自動更新"/>
 					<Item id="6325" name="更新後捲動至最後一行"/>

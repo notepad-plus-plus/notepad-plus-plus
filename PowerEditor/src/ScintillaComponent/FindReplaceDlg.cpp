@@ -2648,7 +2648,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							currPath = buf->getFullPathName();
 							PathRemoveFileSpec(currPath);
 						}
-						if (currPath.empty() || !PathIsDirectory(currPath.c_str()))
+						if (currPath.empty() || !doesDirectoryExist(currPath.c_str()))
 							currPath = NppParameters::getInstance().getWorkingDir();
 						::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, currPath.c_str());
 					}

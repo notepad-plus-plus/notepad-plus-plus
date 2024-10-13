@@ -752,10 +752,6 @@
 				<MISC title="MISC.">
 					<Item id="6304" name="Recent Files History"/>
 					<Item id="6305" name="Don't check at launch time"/>
-
-					<Item id="6307" name="Enable"/>
-					<Item id="6308" name="Minimize to system tray"/>
-
 					<Item id="6312" name="File Status Auto-Detection"/>
 					<Item id="6313" name="Update silently"/>
 					<Item id="6318" name="Clickable Link Settings"/>

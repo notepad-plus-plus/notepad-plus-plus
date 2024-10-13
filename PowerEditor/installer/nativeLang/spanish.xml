@@ -1310,7 +1310,6 @@ Translation note:
 						<Element name="Habilitar para todos los archivos abiertos"/>
 						<Element name="Deshabilitar"/>
 					</ComboBox>
-					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
 					<Item id="6312" name="Autodetectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>
 					<Item id="6325" name="Ir a la última línea tras actualizar"/>

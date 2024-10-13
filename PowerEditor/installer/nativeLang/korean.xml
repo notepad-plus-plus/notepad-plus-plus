@@ -1314,7 +1314,6 @@ Translation note:
 						<Element name="모든 열린 파일에 사용"/>
 						<Element name="사용 금지"/>
 					</ComboBox>
-					<Item id="6308" name="시스템 트레이로 최소화"/>
 					<Item id="6312" name="파일 상태 자동 확인"/>
 					<Item id="6313" name="경고 없이 업데이트"/>
 					<Item id="6325" name="업데이트 후 마지막 줄로 이동"/>

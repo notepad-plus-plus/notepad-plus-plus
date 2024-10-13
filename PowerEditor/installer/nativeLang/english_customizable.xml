@@ -1310,7 +1310,12 @@ Translation note:
 						<Element name="Enable for all opened files"/>
 						<Element name="Disable"/>
 					</ComboBox>
-					<Item id="6308" name="Minimize to system tray"/>
+					<ComboBox id="6307">
+						<Element name="No action to"/>
+						<Element name="Minimize to"/>
+						<Element name="Close to"/>
+					</ComboBox>
+					<Item id="6308" name="system tray"/>
 					<Item id="6312" name="File Status Auto-Detection"/>
 					<Item id="6313" name="Update silently"/>
 					<Item id="6325" name="Scroll to the last line after update"/>
@@ -1816,4 +1821,3 @@ If you select advanced mode but do not edit files in the aforementioned language
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

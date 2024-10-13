@@ -1320,7 +1320,6 @@ Translation note:
 						<Element name="Für alle offenen Dateien aktivieren"/>
 						<Element name="Deaktivieren"/>
 					</ComboBox>
-					<Item id="6308" name="In den Infobereich (Tray) minimieren"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>

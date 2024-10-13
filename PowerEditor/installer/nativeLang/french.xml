@@ -1309,7 +1309,12 @@ Translation note:
 						<Element name="Activer avec tous les onglets"/>
 						<Element name="Désactiver"/>
 					</ComboBox>
-					<Item id="6308" name="Réduire dans la barre de notifications"/>
+					<ComboBox id="6307">
+						<Element name="Pas d'action dans"/>
+						<Element name="Réduire dans"/>
+						<Element name="Fermer dans"/>
+					</ComboBox>
+					<Item id="6308" name="la barre de notifications"/>
 					<Item id="6312" name="Surveillance de l’état des fichiers"/>
 					<Item id="6313" name="Mise à jour sans alerte"/>
 					<Item id="6325" name="Aller à la dernière ligne après mise à jour"/>

@@ -1311,7 +1311,6 @@ Translation note:
 						<Element name="Habilitar para todos os arquivos abertos"/>
 						<Element name="Desabilitar"/>
 					</ComboBox>
-					<Item id="6308" name="Minimizar na bandeja"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
 					<Item id="6313" name="Atualizar silenciosamente"/>
 					<Item id="6325" name="Ir para a última linha depois de atualizar"/>

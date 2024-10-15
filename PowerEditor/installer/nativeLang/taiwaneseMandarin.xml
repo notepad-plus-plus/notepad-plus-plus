@@ -597,6 +597,7 @@
 					<Item id="2231" name="開啟共用斜體"/>
 					<Item id="2232" name="開啟共用底線"/>
 					<Item id="2234" name="至相關的偏好設定"/>
+					<Item id="2235" name="什麼是「Global override」？"/>
 				</SubDialog>
 			</StyleConfig>
 			<ShortcutMapper title="管理快捷鍵">
@@ -1644,6 +1645,7 @@
 C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell 與 JSON
 
 如果你選擇進階模式但不編輯上述語言文件，縮排設定將保留為基本模式。"/>
+			<global-override-tip value="此處啟用「Global override」將覆蓋所有語言樣式中的此參數。你可能真正想要的是使用「Default Style」設置"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

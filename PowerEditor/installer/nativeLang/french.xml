@@ -630,14 +630,15 @@ Translation note:
 					<Item id="2219" name="Mots-clés prédéfinis"/>
 					<Item id="2221" name="Mots-clés utilisateur"/>
 					<Item id="2225" name="Langage :"/>
-					<Item id="2226" name="Appliquer le premier plan global"/>
-					<Item id="2227" name="Appliquer l’arrière-plan global"/>
-					<Item id="2228" name="Appliquer la police globale"/>
-					<Item id="2229" name="Appliquer la taille globale"/>
-					<Item id="2230" name="Appliquer le style gras global"/>
-					<Item id="2231" name="Appliquer le style italique global"/>
-					<Item id="2232" name="Appliquer le style souligné global"/>
-					<Item id="2234" name="Aller à la boîte de dialogue Préférences"/>
+					<Item id="2226" name="Forcer 1er plan pour tous les styles"/>
+					<Item id="2227" name="Forcer arrière-plan pour tous les styles"/>
+					<Item id="2228" name="Forcer police pour tous les styles"/>
+					<Item id="2229" name="Forcer taille pour tous les styles"/>
+					<Item id="2230" name="Forcer style gras pour tous les styles"/>
+					<Item id="2231" name="Forcer italique pour tous les styles"/>
+					<Item id="2232" name="Forcer souligné pour tous les styles"/>
+					<Item id="2234" name="Forcera boîte de dialogue Préférences"/>
+					<Item id="2235" name="C'est quoi « Global override » ?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1813,6 +1814,7 @@ Cliquez sur le bouton « ? » à droite pour ouvrir le site web du manuel utilis
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell et JSON
 
 Si vous sélectionnez le mode avancé sans modifier les fichiers des langues mentionnées ci-dessus, les paramètres d'indentation resteront en mode basique."/>
+			<global-override-tip value="Activer le « global override » ici substituera ces paramètres dans tous les styles pour tous les langages de programmation. Vous préférerez probablement utiliser les paramètres « Default Style » à la place"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

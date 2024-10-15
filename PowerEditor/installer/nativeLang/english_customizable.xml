@@ -632,11 +632,11 @@ Translation note:
 					<Item id="2225" name="Language:"/>
 					<Item id="2226" name="Force foreground color for all styles"/>
 					<Item id="2227" name="Force background color for all styles"/>
-					<Item id="2228" name="Force font for all styles"/>
-					<Item id="2229" name="Force font size for all styles"/>
-					<Item id="2230" name="Force bold for all styles"/>
-					<Item id="2231" name="Force italic for all styles"/>
-					<Item id="2232" name="Force underline for all styles"/>
+					<Item id="2228" name="Force font choice for all styles"/>
+					<Item id="2229" name="Force font size choice for all styles"/>
+					<Item id="2230" name="Force bold choice for all styles"/>
+					<Item id="2231" name="Force italic choice for all styles"/>
+					<Item id="2232" name="Force underline choice for all styles"/>
 					<Item id="2234" name="Go to settings"/>
 					<Item id="2235" name="What is Global override?"/>
 				</SubDialog>

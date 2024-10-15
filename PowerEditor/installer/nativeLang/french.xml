@@ -1814,7 +1814,7 @@ Cliquez sur le bouton « ? » à droite pour ouvrir le site web du manuel utilis
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell et JSON
 
 Si vous sélectionnez le mode avancé sans modifier les fichiers des langues mentionnées ci-dessus, les paramètres d'indentation resteront en mode basique."/>
-			<global-override-tip value="Activer le « global override » ici substituera ces paramètres dans tous les styles des langages. Vous préférerez probablement utiliser les paramètres « Default Style » à la place"/>
+			<global-override-tip value="Activer le « global override » ici substituera ces paramètres dans tous les styles pour tous les langages de programmation. Vous préférerez probablement utiliser les paramètres « Default Style » à la place"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

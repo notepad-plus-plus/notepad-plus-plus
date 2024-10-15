@@ -630,14 +630,15 @@ Translation note:
 					<Item id="2219" name="Default keywords"/>
 					<Item id="2221" name="User-defined keywords"/>
 					<Item id="2225" name="Language:"/>
-					<Item id="2226" name="Enable global foreground color"/>
-					<Item id="2227" name="Enable global background color"/>
-					<Item id="2228" name="Enable global font"/>
-					<Item id="2229" name="Enable global font size"/>
-					<Item id="2230" name="Enable global bold font style"/>
-					<Item id="2231" name="Enable global italic font style"/>
-					<Item id="2232" name="Enable global underline font style"/>
+					<Item id="2226" name="Force foreground color for all styles"/>
+					<Item id="2227" name="Force background color for all styles"/>
+					<Item id="2228" name="Force font for all styles"/>
+					<Item id="2229" name="Force font size for all styles"/>
+					<Item id="2230" name="Force bold for all styles"/>
+					<Item id="2231" name="Force italic for all styles"/>
+					<Item id="2232" name="Force underline for all styles"/>
 					<Item id="2234" name="Go to settings"/>
+					<Item id="2235" name="What is Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1818,6 +1819,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
 
 If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
+			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

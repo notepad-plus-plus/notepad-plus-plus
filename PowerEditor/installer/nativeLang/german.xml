@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-09-14"><!-- basiert auf english.xml 8.6.9 vom 07.09.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-10-15"><!-- basiert auf english.xml 8.6.9 vom 10.10.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1320,7 +1320,12 @@ Translation note:
 						<Element name="Für alle offenen Dateien aktivieren"/>
 						<Element name="Deaktivieren"/>
 					</ComboBox>
-					<Item id="6308" name="In den Infobereich (Tray) minimieren"/>
+					<ComboBox id="6307">
+						<Element name="Keine Aktion in den"/>
+						<Element name="Minimieren in den"/>
+						<Element name="Schließen in den"/>
+					</ComboBox>
+					<Item id="6308" name="Infobereich (Tray)"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
@@ -1826,4 +1831,3 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

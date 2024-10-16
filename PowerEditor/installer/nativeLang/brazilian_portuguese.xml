@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 26 Jul 2024, for Notepad++ 8.7.0
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 Oct 2024, for Notepad++ 8.7.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.0">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1679,8 +1679,8 @@ Procurar em todos os arquivos, excluindo pastas de teste, lixeira&amp;&amp; bin6
 Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selecione uma pastaorigem da busca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Localizar: Encontrada a última ocorrência a partir do final. O início do documento foi alcançado."/>
-			<find-status-end-reached value="Localizar: Encontrada a última ocorrência a partir do início. O final do documento foi alcançado."/>
+			<find-status-top-reached value="Localizar: O início do documento foi alcançado, a primeira ocorrência a partir do final foi encontrada."/>
+			<find-status-end-reached value="Localizar: O final do documento foi alcançado, a primeira ocorrência a partir do início foi encontrada."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em Arquivos: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em Arquivos Abertos: 1 ocorrência foi substituída."/>
@@ -1694,8 +1694,8 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-replaceall-1-replaced value="Substituir todas: 1 ocorrência foi substituída."/>
 			<find-status-replaceall-nb-replaced value="Substituir todas: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceall-readonly value="Substituir todas: Texto não substituído. O documento é somente leitura."/>
-			<find-status-replace-end-reached value="Substituir: Substituída a última ocorrência a partir do início. O final do documento foi alcançado."/>
-			<find-status-replace-top-reached value="Substituir: Substituída a última ocorrência a partir do final. O início do documento foi alcançado."/>
+			<find-status-replace-end-reached value="Substituir: O final do documento foi alcançado, a primeira ocorrência a partir do início foi substituída."/>
+			<find-status-replace-top-reached value="Substituir: O início do documento foi alcançado, a primeira ocorrência a partir do final foi substituída."/>			
 			<find-status-replaced-next-found value="Substituir: 1 ocorrência foi substituída. A próxima ocorrência encontrada."/>
 			<find-status-replaced-without-continuing value="Substituir: 1 ocorrência foi substituída."/>
 			<find-status-replaced-next-not-found value="Substituir: 1 ocorrência foi substituída. A próxima ocorrência não encontrada."/>

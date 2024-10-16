@@ -16,7 +16,7 @@ Translation note:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.6.9">
+	<Native-Langue name="polski" filename="polish.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -1313,6 +1313,12 @@ Translation note:
 						<Element name="Włącz dla otwartych plików"/>
 						<Element name="Wyłącz"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Bez akcji do"/>
+						<Element name="Minimalizuj do"/>
+						<Element name="Zamykaj do"/>
+					</ComboBox>
+					<Item id="6308" name="zasobnika systemowego"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>
 					<Item id="6313" name="Uaktualniaj po cichu"/>
 					<Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>

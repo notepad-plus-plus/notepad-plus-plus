@@ -1695,8 +1695,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
 			<find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
 			<find-status-replaceall-readonly value="Remplacer tout : l’opération a échoué. Le fichier est en lecture seule"/>
-			<find-status-replace-end-reached value="Remplacer : Fin du document atteinte, 1ère occurrence remplacée depuis le haut."/>
-			<find-status-replace-top-reached value="Remplacer : Début du document atteint, 1ère occurrence remplacée depuis le bas."/>
+			<find-status-replace-end-reached value="Remplacer : Fin du document atteinte, continuer depuis le début."/>
+			<find-status-replace-top-reached value="Remplacer : Début du document atteint, continuer depuis la fin."/>
 			<find-status-replaced-next-found value="Remplacer : 1 occurrence a été remplacée. L’occurrence suivante a été trouvée"/>
 			<find-status-replaced-without-continuing value="Remplacer : 1 occurrence a été remplacée."/>
 			<find-status-replaced-next-not-found value="Remplacer : 1 occurrence a été remplacée. L’occurrence suivante n’a pas été trouvée"/>

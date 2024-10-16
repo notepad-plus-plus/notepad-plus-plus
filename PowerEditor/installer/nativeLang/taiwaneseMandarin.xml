@@ -1560,8 +1560,8 @@
 			<find-status-replaceall-1-replaced value="全部取代：取代了 1 個字串。"/>
 			<find-status-replaceall-nb-replaced value="全部取代：取代了 $INT_REPLACE$ 個字串。"/>
 			<find-status-replaceall-readonly value="全部取代：檔案為唯讀，無法取代字串。"/>
-			<find-status-replace-end-reached value="取代：搜尋已抵達文件結尾，從上面搜尋並取代了第一個相符的字串。"/>
-			<find-status-replace-top-reached value="取代：搜尋已抵達文件開首，從下面搜尋並取代了第一個相符的字串。"/>
+			<find-status-replace-end-reached value="取代：搜尋已抵達文件結尾，從頂端繼續搜尋取代。"/>
+			<find-status-replace-top-reached value="取代：搜尋已抵達文件開頭，從尾端繼續搜尋取代。"/>
 			<find-status-replaced-next-found value="取代：取代了 1 個字串。找到下一個字串。"/>
 			<find-status-replaced-next-not-found value="取代：取代了 1 個字串。找不到下一個字串。"/>
 			<find-status-replace-not-found value="取代：找不到搜尋字串"/>

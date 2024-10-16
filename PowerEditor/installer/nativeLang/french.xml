@@ -1680,8 +1680,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers tests, bin &amp;&am
 Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récursivement:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Sélectionner un dossier pour rechercher à l’intérieur"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. Le début du document a été atteint"/>
-			<find-status-end-reached value="Rechercher : La dernière occurrence a été trouvée avant le bas. La fin du document a été atteinte"/>
+			<find-status-top-reached value="Rechercher : Début du document atteint, 1ère occurrence trouvée depuis le bas."/>
+			<find-status-end-reached value="Rechercher : Fin du document atteinte, 1ère occurrence trouvée depuis le haut."/>
 			<find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
 			<find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichiers : $INT_REPLACE$ occurrences ont été remplacées"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichiers ouverts : 1 occurrence a été remplacée"/>
@@ -1695,8 +1695,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
 			<find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
 			<find-status-replaceall-readonly value="Remplacer tout : l’opération a échoué. Le fichier est en lecture seule"/>
-			<find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
-			<find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
+			<find-status-replace-end-reached value="Remplacer : Fin du document atteinte, 1ère occurrence remplacée depuis le haut."/>
+			<find-status-replace-top-reached value="Remplacer : Début du document atteint, 1ère occurrence remplacée depuis le bas."/>
 			<find-status-replaced-next-found value="Remplacer : 1 occurrence a été remplacée. L’occurrence suivante a été trouvée"/>
 			<find-status-replaced-without-continuing value="Remplacer : 1 occurrence a été remplacée."/>
 			<find-status-replaced-next-not-found value="Remplacer : 1 occurrence a été remplacée. L’occurrence suivante n’a pas été trouvée"/>

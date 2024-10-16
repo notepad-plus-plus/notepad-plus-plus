@@ -1546,8 +1546,8 @@
 所有檔案但在所有的層級（遞歸地）不搜尋檔案夾 log 或 logs:
 *.* !+\log*"/>
 			<find-in-files-select-folder value="選擇一個你要從中搜尋的資料夾"/>
-			<find-status-top-reached value="搜尋：從下面找到相符的字串。搜尋已抵達文件開首。"/>
-			<find-status-end-reached value="搜尋：從上面找到相符的字串。搜尋已抵達文件結尾。"/>
+			<find-status-top-reached value="搜尋：搜尋已抵達文件開首，從下面找到第一個相符的字串。"/>
+			<find-status-end-reached value="搜尋：搜尋已抵達文件結尾，從上面找到第一個相符的字串。"/>
 			<find-status-replaceinfiles-1-replaced value="在檔案中取代：取代了 1 個字串。"/>
 			<find-status-replaceinfiles-nb-replaced value="在檔案中取代：取代了 $INT_REPLACE$ 個字串。"/>
 			<find-status-replaceinopenedfiles-1-replaced value="在所有開啟文件中取代：取代了 1 個字串。"/>
@@ -1560,8 +1560,8 @@
 			<find-status-replaceall-1-replaced value="全部取代：取代了 1 個字串。"/>
 			<find-status-replaceall-nb-replaced value="全部取代：取代了 $INT_REPLACE$ 個字串。"/>
 			<find-status-replaceall-readonly value="全部取代：檔案為唯讀，無法取代字串。"/>
-			<find-status-replace-end-reached value="取代：從上面取代了 1 個相符的字串。搜尋已抵達文件結尾。"/>
-			<find-status-replace-top-reached value="取代：從下面取代了 1 個相符的字串。搜尋已抵達文件開首。"/>
+			<find-status-replace-end-reached value="取代：搜尋已抵達文件結尾，從上面搜尋並取代了第一個相符的字串。"/>
+			<find-status-replace-top-reached value="取代：搜尋已抵達文件開首，從下面搜尋並取代了第一個相符的字串。"/>
 			<find-status-replaced-next-found value="取代：取代了 1 個字串。找到下一個字串。"/>
 			<find-status-replaced-next-not-found value="取代：取代了 1 個字串。找不到下一個字串。"/>
 			<find-status-replace-not-found value="取代：找不到搜尋字串"/>

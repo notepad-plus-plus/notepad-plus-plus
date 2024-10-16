@@ -1911,12 +1911,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 						if (findStatus == FSEndReached)
 						{
-							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-end-reached", L"Find: Found the last occurrence from the top. The end of the document has been reached.");
+							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
 							setStatusbarMessage(msg, FSEndReached);
 						}
 						else if (findStatus == FSTopReached)
 						{
-							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-top-reached", L"Find: Found the last occurrence from the bottom. The beginning of the document has been reached.");
+							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-top-reached", FIND_STATUS_TOP_REACHED_TEXT);
 							setStatusbarMessage(msg, FSTopReached);
 						}
 					}
@@ -2972,12 +2972,12 @@ bool FindReplaceDlg::processReplace(const wchar_t *txt2find, const wchar_t *txt2
 
 				if (status == FSEndReached)
 				{
-					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-end-reached", L"Replace: Replaced the last occurrence from the top. The end of document has been reached.");
+					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-end-reached", FIND_STATUS_REPLACE_END_REACHED_TEXT);
 					setStatusbarMessage(msg, FSEndReached);
 				}
 				else if (status == FSTopReached)
 				{
-					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", L"Replace: Replaced the last occurrence from the bottom. The begin of document has been reached.");
+					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", FIND_STATUS_REPLACE_TOP_REACHED_TEXT);
 					setStatusbarMessage(msg, FSTopReached);
 				}
 				else

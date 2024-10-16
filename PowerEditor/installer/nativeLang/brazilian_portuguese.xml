@@ -630,14 +630,18 @@ Translation note:
 					<Item id="2219" name="Palavras-chave padrão"/>
 					<Item id="2221" name="Palavras-chave definidas pelo usuário"/>
 					<Item id="2225" name="Linguagem:"/>
-					<Item id="2226" name="Habilitar cor de primeiro plano global"/>
-					<Item id="2227" name="Habilitar cor de plano de fundo global"/>
-					<Item id="2228" name="Habilitar fonte global"/>
-					<Item id="2229" name="Habilitar tamanho de fonte global"/>
-					<Item id="2230" name="Habilitar fonte em negrito global"/>
-					<Item id="2231" name="Habilitar fonte em itálico global"/>
-					<Item id="2232" name="Habilitar fonte sublinhada global"/>
+					<Item id="2226" name="Forçar cor de primeiro plano para todos os estilos"/>
+					<Item id="2227" name="Forçar cor de plano de fundo para todos os estilos"/>
+					<Item id="2228" name="Forçar fonte para todos os estilos"/>
+					<Item id="2229" name="Forçar tamanho de fonte para todos os estilos"/>
+					<Item id="2230" name="Forçar fonte em negrito para todos os estilos"/>
+					<Item id="2231" name="Forçar fonte em itálico para todos os estilos"/>
+					<Item id="2232" name="Forçar fonte sublinhada para todos os estilos"/>
 					<Item id="2234" name="Ir para configuração"/>
+					<Item id="2235" name="O que é Global override?"/>
+				</SubDialog>
+
+					
 				</SubDialog>
 			</StyleConfig>
 
@@ -1311,6 +1315,8 @@ Translation note:
 						<Element name="Habilitar para todos os arquivos abertos"/>
 						<Element name="Desabilitar"/>
 					</ComboBox>
+					<Item id="6308" name="Minimizar na bandeja"/>
+					<Item id="6362" name="Fechar na bandeja"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
 					<Item id="6313" name="Atualizar silenciosamente"/>
 					<Item id="6325" name="Ir para a última linha depois de atualizar"/>
@@ -1812,7 +1818,9 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao pressionar a tecla ENTER) seja igual à indentação da linha anterior."/>
 			<autoIndentAdvanced-tip value="Habilitar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON
-Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>			
+Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>
+			<!-- Não traduza "&quot;Global override&quot; e &quot;Default Style&quot; -->
+			<global-override-tip value="Habilitar o &quot;Global override&quot; aqui vai prevalecer sobre este parâmetro em todos os estilos de linguagem. O que provavelmente é desejado é usar as configurações de &quot;Default Style&quot;"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

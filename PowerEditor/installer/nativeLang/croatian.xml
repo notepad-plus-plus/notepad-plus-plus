@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 30 July 2024 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 12 September 2024 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.0">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -419,8 +419,8 @@
 					<Item id="11005" name="P&amp;ut od Z do A"/>
 					<Item id="11006" name="&amp;Tip od A do Z"/>
 					<Item id="11007" name="T&amp;ip od Z do A"/>
-					<Item id="11008" name="Veličina od m&amp;anjeg do većeg"/>
-					<Item id="11009" name="Veličina od &amp;većeg do manjeg"/>
+					<Item id="11008" name="Duljina sadržaja od m&amp;anje do veće"/>
+					<Item id="11009" name="Duljina sadržaja od &amp;veće do manje"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -761,8 +761,8 @@
 					<Item id="11005" name="Sortiraj po Putu od Z do A"/>
 					<Item id="11006" name="Sortiraj po Tipu od A do Z"/>
 					<Item id="11007" name="Sortiraj po Tipu od Z do A"/>
-					<Item id="11008" name="Sortiraj po Veličini od manjeg do većeg"/>
-					<Item id="11009" name="Sortiraj po Veličini od većeg do manjeg"/>
+					<Item id="11008" name="Sortiraj po Duljini sadržaja od manje do veće"/>
+					<Item id="11009" name="Sortiraj po Duljini sadržaja od veće do manje"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Prečaci">
@@ -1125,7 +1125,8 @@
 					<Item id="6310" name="Za uvlake koristi:"/>
 					<Item id="6311" name="tabulatore"/>
 					<Item id="6510" name="Koristi zadanu vrijednost"/>
-					<Item id="6512" name="Tipka Backspace poništava uvlake, umjesto brisanja jednog razmaka"/>
+					<Item id="6512" name="Tipka Backspace poništava uvlake,
+					umjesto brisanja jednog razmaka"/>
 				</Indentation>
 
 				<Highlighting title="Označavanje">

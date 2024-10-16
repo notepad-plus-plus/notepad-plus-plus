@@ -636,7 +636,7 @@
 					<Item id="2231" name="Vynútiť kurzívu pre všetky štýly"/>
 					<Item id="2232" name="Vynútiť podčiarknutie pre všetky štýly"/>
 					<Item id="2234" name="Prejsť na nastavenia"/>
-					<Item id="2235" name="Čo je &quot;Global override&quot?"/>
+					<Item id="2235" name="Čo je &quot;Global override&quot;?"/>
 				</SubDialog>
 			</StyleConfig>
 

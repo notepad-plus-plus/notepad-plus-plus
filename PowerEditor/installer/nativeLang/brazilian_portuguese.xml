@@ -463,7 +463,7 @@ Translation note:
 				<Item id="43105" name="Fechar Ícone da Bandeja"/>
 			</TrayIcon>
 		</Menu>
-
+		
 		<Dialog>
 			<Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar nos arquivos" titleFindInProjects="Localizar nos projetos" titleMark="Marcar">
 				<Item id="1" name="Localizar próximo"/>
@@ -639,9 +639,6 @@ Translation note:
 					<Item id="2232" name="Forçar fonte sublinhada para todos os estilos"/>
 					<Item id="2234" name="Ir para configuração"/>
 					<Item id="2235" name="O que é Global override?"/>
-				</SubDialog>
-
-					
 				</SubDialog>
 			</StyleConfig>
 

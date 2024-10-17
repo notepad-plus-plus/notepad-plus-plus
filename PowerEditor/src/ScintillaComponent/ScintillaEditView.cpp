@@ -3983,7 +3983,7 @@ void ScintillaEditView::hideLines()
 		// Special case: user wants to hide every line in between other hidden sections.
 		// Both "while" loops are executed (merge with above AND below hidden section):
 
-		while (scope == 0 && startMarker < nbLines)
+		while (scope == 0 && static_cast<intptr_t>(startMarker) >= 0)
 			removeMarker(--startMarker, 1 << MARK_HIDELINESBEGIN);
 
 		while (scope != 0 && endMarker < nbLines)
@@ -3994,7 +3994,7 @@ void ScintillaEditView::hideLines()
 		// User wants to hide some lines below/above other hidden section.
 		// If true, only one "while" loop is executed (merge with adjacent hidden section):
 
-		while (scope < 0 && startMarker < nbLines)
+		while (scope < 0 && static_cast<intptr_t>(startMarker) >= 0)
 			removeMarker(--startMarker, 1 << MARK_HIDELINESBEGIN);
 
 		while (scope > 0 && endMarker < nbLines)

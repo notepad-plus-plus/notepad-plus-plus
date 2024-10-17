@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-10-15"><!-- basiert auf english.xml 8.6.9 vom 10.10.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-10-17"><!-- basiert auf english.xml 8.6.9 vom 17.10.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -639,14 +639,15 @@ Translation note:
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Standardfarbe Vordergrund"/>
-					<Item id="2227" name="Standardfarbe Hintergrund"/>
-					<Item id="2228" name="Schriftart als Standard setzen"/>
-					<Item id="2229" name="Schriftgröße als Standard setzen"/>
-					<Item id="2230" name="Fettschrift als Standard setzen"/>
-					<Item id="2231" name="Kursivschrift als Standard setzen"/>
-					<Item id="2232" name="Unterstrichen als Standard setzen"/>
+					<Item id="2226" name="Standardfarbe Vordergrund für alle Stile erzwingen"/>
+					<Item id="2227" name="Standardfarbe Hintergrund für alle Stile erzwingen"/>
+					<Item id="2228" name="Schriftart als Standard für alle Stile erzwingen"/>
+					<Item id="2229" name="Schriftgröße als Standard für alle Stile erzwingen"/>
+					<Item id="2230" name="Fettschrift als Standard für alle Stile erzwingen"/>
+					<Item id="2231" name="Kursivschrift als Standard für alle Stile erzwingen"/>
+					<Item id="2232" name="Unterstrichen als Standard für alle Stile erzwingen"/>
 					<Item id="2234" name="Zu den Einstellungen"/>
+					<Item id="2235" name="Was ist 'Globale Überschreibung'?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1828,6 +1829,8 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON.
 
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Das Aktivieren der 'Globalen Überschreibung' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Standardschrift'"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

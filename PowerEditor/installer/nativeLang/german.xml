@@ -1830,7 +1830,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
-			<global-override-tip value="Das Aktivieren der 'Globalen Überschreibung' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Standardschrift'"/>
+			<global-override-tip value="Das Aktivieren der &quot;Global override&quot; überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für &quot;Default Style&quot;"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

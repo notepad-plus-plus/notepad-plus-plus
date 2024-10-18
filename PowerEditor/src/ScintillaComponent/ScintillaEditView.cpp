@@ -4026,15 +4026,20 @@ bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 	if (closePresent)
 	{
 		openPresent = false;
-		for (lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--)
+		intptr_t i = lineNumber - 1;
+		for (; i >= 0 && !openPresent; i--)
 		{
-			state = execute(SCI_MARKERGET, lineNumber);
+			state = execute(SCI_MARKERGET, i);
 			openPresent = (state & (1 << MARK_HIDELINESBEGIN)) != 0;
 		}
 
 		if (openPresent)
 		{
-			_currentBuffer->setHideLineChanged(false, lineNumber + 1);
+			_currentBuffer->setHideLineChanged(false, i + 1);
+		}
+		else // problem -> only close but no open: let's remove the errno close marker
+		{
+			execute(SCI_MARKERDELETE, lineNumber, MARK_HIDELINESEND);
 		}
 	}
 

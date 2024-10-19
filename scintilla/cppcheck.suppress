@@ -1,6 +1,12 @@
 // File to suppress cppcheck warnings for files that will not be fixed.
 // Does not suppress warnings where an additional occurrence of the warning may be of interest.
-// Configured for cppcheck 2.11
+// Configured for cppcheck 2.15
+
+// Just a report of how many checkers are run
+checkersReport
+
+// This just warns that cppcheck isn't exhaustive and it still appears in exhaustive mode
+normalCheckLevelMaxBranches
 
 // Coding style is to use assignments in constructor when there are many
 // members to initialize or the initialization is complex or has comments.
@@ -37,12 +43,6 @@ returnByReference:scintilla/src/Selection.h
 // MarginView access to all bits is safe and is better defined in later versions of C++
 shiftTooManyBitsSigned:scintilla/src/MarginView.cxx
 
-// DLL entry points are unused inside Scintilla
-unusedFunction:scintilla/win32/ScintillaDLL.cxx
-
-// ScintillaDocument is providing an API and there are no consumers of the API inside Scintilla
-unusedFunction:scintilla/qt/ScintillaEdit/ScintillaDocument.cpp
-
 // Doesn't understand changing dropWentOutside in Editor
 knownConditionTrueFalse:scintilla/win32/ScintillaWin.cxx
 
@@ -53,19 +53,10 @@ constParameterPointer:scintilla/win32/ScintillaWin.cxx
 knownConditionTrueFalse:scintilla/src/Editor.cxx
 knownConditionTrueFalse:scintilla/src/EditView.cxx
 
-// cppcheck seems to believe that unique_ptr<T *[]>::get returns void* instead of T**
-arithOperationsOnVoidPointer:scintilla/src/PerLine.cxx
-arithOperationsOnVoidPointer:scintilla/src/PositionCache.cxx
-
 // G_DEFINE_TYPE is too complex to pass to cppcheck
 unknownMacro:scintilla/gtk/PlatGTK.cxx
-
-// maskSmooth set depending on preprocessor allowing Wayland definition
-badBitmaskCheck:scintilla/gtk/ScintillaGTK.cxx
-
-// Changing events to const pointers changes signature and would require casts when hooking up
-constParameterPointer:scintilla/gtk/ScintillaGTK.cxx
-constParameterCallback:scintilla/gtk/ScintillaGTK.cxx
+// G_END_DECLS
+unknownMacro:scintilla/gtk/scintilla-marshal.h
 
 // Difficult to test accessibility so don't change
 constParameterPointer:scintilla/gtk/ScintillaGTKAccessible.cxx

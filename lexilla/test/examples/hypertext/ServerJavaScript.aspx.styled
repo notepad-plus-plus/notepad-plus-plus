@@ -1,4 +1,4 @@
-{21}<!{26}DOCTYPE html{21}>{0}
+{21}<!{22}DOCTYPE{21} {23}html{21}>{0}
 {1}<html>{0}
 {15}<%@{16}language=JScript{15}%>{0}
 {15}<%--{20} comment --{15}%>{0}

@@ -1,0 +1,52 @@
+{1}.tm{0} Hello world "FOO"
+{1}.if{0} 'foo'b a r'{1} .if{0} {3}23{2} .FOO{0} {3}2332{0} {5}"hell{10}\fB{5}o{10}\fP{5}"{0} {13}\
+{0} foo {5}"Hello world"{0}
+{1}.if{0} ({3}1{0} + {3}1{0}){1} .nop
+.if{0} {3}1{0} {13}\
+{1}  .tm{0} Bar
+{1}.if{0} {3}23{0}+{3}1{0} {13}\
+{1}  .tm{0} Bar
+{1}.if{0} {3}1{0} {4}\{{13}\
+{1}.  tm{0} TEST
+{1}.  tm{0} FOO
+{4}.\}
+{1}.
+{6}.\" Hello world
+{1}.if{0} {3}0{0} {4}\{{13}\
+{1}.  tm{0} Bar
+{1}.  tm{0} sffsdf{4}\}{0}
+{6}\# Hello world
+{1}.tm{0} End
+{1}.ig {0}ig
+{7}This is \fBignored\fP.
+
+This line as well.
+{1}.ig{0}
+{7}.tm Hello world
+{1}..{0}
+{1}.
+.de{0} Macro END
+{2}.  FOO{0}
+{2}.END{0}
+{8}\*[FOO*\[hello]fdsf]{0}sdfsdf
+{2}.END{0}
+{9}\$1{0} {6}\" will never be met in the wild...
+{10}\f[BI]{0}Hello world{10}\fP{0}
+{11}\na{0}-{11}\n(ab{0}-{11}\n[ab]{0}-
+{12}\m[green]{0}green text{12}\m[]{0}
+{13}\(lq{0}quoted text{13}\(rq{0}
+$PATH={14}\V[PATH]{0}
+{15}\O0{0}test
+{16}\s0{0}small{16}\s+1{0}larger{16}\s+[100]{0}very large{16}\s-'100'{0}smaller
+{17}\!transparent \fBline\fP
+{0}transparent{17}\?embed\?{0}
+{18}\A'id'{0}
+{19}\D'c 10'{0} {19}\l'10c'{0} {19}\L'10c'{0}
+{20}\h'12c'{0} {20}\v'4'{0}
+{21}\H@23@{0}
+{22}\o#abc#{0}
+{23}\S'45'{0}
+{24}\w'width of'{0}
+{25}\x'1'{0}
+{26}\X'device control'{0} {26}\Y[foo]{0}
+{27}\Z"No move"{0} {27}\zN{0}

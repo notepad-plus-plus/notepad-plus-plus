@@ -1,0 +1,18 @@
+ 2 400   0 + <script>
+ 0 401   0 | var pi/*/=3.1415/*/=3.14;
+ 0 401   0 | /*
+ 0 401   0 | <?xml>
+ 0 401   0 | <!doctype>
+ 0 401   0 | */
+ 0 401   0 | /**
+ 0 401   0 | <?xml>
+ 0 401   0 | <!doctype>
+ 0 401   0 | */
+ 0 401   0 | var template = `
+ 0 401   0 | <?xml encoding='${encoding}'>
+ 0 401   0 | <!doctype>
+ 0 401   0 | `;
+ 0 401   0 | /<?xml>/.test('<?xml>');
+ 0 401   0 | /<!doctype>/.test("<!doctype>");
+ 0 401   0 | </script>
+ 0 400   0   

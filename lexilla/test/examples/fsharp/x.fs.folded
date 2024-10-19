@@ -51,4 +51,4 @@
  0 400 400   unescapeWinPath "\\\"Program Files (x86)\\Windows NT\\Accessories\\\""
  0 400 400   |> System.IO.Directory.GetFiles
  0 400 400   |> printfn "%A"
- 1 400 400   
+ 0 400   0   

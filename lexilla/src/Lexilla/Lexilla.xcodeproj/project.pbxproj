@@ -157,6 +157,9 @@
 		70BF497C8D265026B77C97DA /* LexJulia.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 315E4E969868C52C125686B2 /* LexJulia.cxx */; };
 		B32D4A2A9CEC222A5140E99F /* LexFSharp.cxx in Sources */ = {isa = PBXBuildFile; fileRef = F8E54626B22BD9493090F40B /* LexFSharp.cxx */; };
 		3D044C4CA34C6FD7E58E0091 /* LexTOML.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 42BC44CCB57D4E78DEE6E358 /* LexTOML.cxx */; };
+		14314DCD945FDA90481F0A0D /* LexTroff.cxx in Sources */ = {isa = PBXBuildFile; fileRef = D2EF4913B8F91656C787F584 /* LexTroff.cxx */; };
+		0DFB4F5F94B018794ADB389D /* LexDart.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 1F274010A7943C43BA265511 /* LexDart.cxx */; };
+		CEC8496B8D9712E6EEDBC301 /* LexZig.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 71684CF6BCC80369BCE2F893 /* LexZig.cxx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -312,6 +315,9 @@
 		A383409E9A994F461550FEC1 /* LexGDScript.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexGDScript.cxx; path = ../../lexers/LexGDScript.cxx; sourceTree = SOURCE_ROOT; };
 		F8E54626B22BD9493090F40B /* LexFSharp.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexFSharp.cxx; path = ../../lexers/LexFSharp.cxx; sourceTree = SOURCE_ROOT; };
 		42BC44CCB57D4E78DEE6E358 /* LexTOML.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexTOML.cxx; path = ../../lexers/LexTOML.cxx; sourceTree = SOURCE_ROOT; };
+		D2EF4913B8F91656C787F584 /* LexTroff.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexTroff.cxx; path = ../../lexers/LexTroff.cxx; sourceTree = SOURCE_ROOT; };
+		1F274010A7943C43BA265511 /* LexDart.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexDart.cxx; path = ../../lexers/LexDart.cxx; sourceTree = SOURCE_ROOT; };
+		71684CF6BCC80369BCE2F893 /* LexZig.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexZig.cxx; path = ../../lexers/LexZig.cxx; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,6 +391,7 @@
 				28BA731524E34D9500272C2D /* LexCsound.cxx */,
 				28BA732924E34D9600272C2D /* LexCSS.cxx */,
 				28BA72E024E34D9200272C2D /* LexD.cxx */,
+				1F274010A7943C43BA265511 /* LexDart.cxx */,
 				28BA732C24E34D9600272C2D /* LexDataflex.cxx */,
 				28BA72DD24E34D9200272C2D /* LexDiff.cxx */,
 				28BA732024E34D9600272C2D /* LexDMAP.cxx */,
@@ -468,6 +475,7 @@
 				28BA730324E34D9400272C2D /* LexTCMD.cxx */,
 				28BA730824E34D9400272C2D /* LexTeX.cxx */,
 				42BC44CCB57D4E78DEE6E358 /* LexTOML.cxx */,
+				D2EF4913B8F91656C787F584 /* LexTroff.cxx */,
 				28BA730F24E34D9500272C2D /* LexTxt2tags.cxx */,
 				28BA731F24E34D9600272C2D /* LexVB.cxx */,
 				28BA731A24E34D9500272C2D /* LexVerilog.cxx */,
@@ -475,6 +483,7 @@
 				28BA731E24E34D9500272C2D /* LexVisualProlog.cxx */,
 				28BA730A24E34D9400272C2D /* LexX12.cxx */,
 				28BA72E724E34D9200272C2D /* LexYAML.cxx */,
+				71684CF6BCC80369BCE2F893 /* LexZig.cxx */,
 			);
 			name = Lexers;
 			sourceTree = "<group>";
@@ -733,6 +742,9 @@
 				510D44AFB91EE873E86ABDD4 /* LexAsciidoc.cxx in Sources */,
 				00D544CC992062D2E3CD4BF6 /* LexGDScript.cxx in Sources */,
 				3D044C4CA34C6FD7E58E0091 /* LexTOML.cxx in Sources */,
+				14314DCD945FDA90481F0A0D /* LexTroff.cxx in Sources */,
+				0DFB4F5F94B018794ADB389D /* LexDart.cxx in Sources */,
+				CEC8496B8D9712E6EEDBC301 /* LexZig.cxx in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,7 +808,6 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				"OTHER_LDFLAGS[arch=*]" = "-Wl,-ld_classic";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -852,7 +863,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				"OTHER_LDFLAGS[arch=*]" = "-Wl,-ld_classic";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -862,7 +872,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.4.0;
+				CURRENT_PROJECT_VERSION = 5.4.1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -890,7 +900,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5.4.0;
+				CURRENT_PROJECT_VERSION = 5.4.1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4F446KW87E;
 				DYLIB_COMPATIBILITY_VERSION = 1;

@@ -29,10 +29,12 @@ bool LexAccessor::MatchIgnoreCase(Sci_Position pos, const char *s) {
 	return true;
 }
 
-void LexAccessor::GetRange(Sci_PositionU startPos_, Sci_PositionU endPos_, char *s, Sci_PositionU len) {
+void LexAccessor::GetRange(Sci_PositionU startPos_, Sci_PositionU endPos_, char *s, Sci_PositionU len) const {
 	assert(s);
 	assert(startPos_ <= endPos_ && len != 0);
+	memset(s, '\0', len);
 	endPos_ = std::min(endPos_, startPos_ + len - 1);
+	endPos_ = std::min(endPos_, static_cast<Sci_PositionU>(lenDoc));
 	len = endPos_ - startPos_;
 	if (startPos_ >= static_cast<Sci_PositionU>(startPos) && endPos_ <= static_cast<Sci_PositionU>(endPos)) {
 		const char * const p = buf + (startPos_ - startPos);
@@ -40,10 +42,9 @@ void LexAccessor::GetRange(Sci_PositionU startPos_, Sci_PositionU endPos_, char 
 	} else {
 		pAccess->GetCharRange(s, startPos_, len);
 	}
-	s[len] = '\0';
 }
 
-void LexAccessor::GetRangeLowered(Sci_PositionU startPos_, Sci_PositionU endPos_, char *s, Sci_PositionU len) {
+void LexAccessor::GetRangeLowered(Sci_PositionU startPos_, Sci_PositionU endPos_, char *s, Sci_PositionU len) const {
 	assert(s);
 	GetRange(startPos_, endPos_, s, len);
 	while (*s) {
@@ -54,16 +55,18 @@ void LexAccessor::GetRangeLowered(Sci_PositionU startPos_, Sci_PositionU endPos_
 	}
 }
 
-std::string LexAccessor::GetRange(Sci_PositionU startPos_, Sci_PositionU endPos_) {
+std::string LexAccessor::GetRange(Sci_PositionU startPos_, Sci_PositionU endPos_) const {
 	assert(startPos_ < endPos_);
+	endPos_ = std::min(endPos_, static_cast<Sci_PositionU>(lenDoc));
 	const Sci_PositionU len = endPos_ - startPos_;
 	std::string s(len, '\0');
 	GetRange(startPos_, endPos_, s.data(), len + 1);
 	return s;
 }
 
-std::string LexAccessor::GetRangeLowered(Sci_PositionU startPos_, Sci_PositionU endPos_) {
+std::string LexAccessor::GetRangeLowered(Sci_PositionU startPos_, Sci_PositionU endPos_) const {
 	assert(startPos_ < endPos_);
+	endPos_ = std::min(endPos_, static_cast<Sci_PositionU>(lenDoc));
 	const Sci_PositionU len = endPos_ - startPos_;
 	std::string s(len, '\0');
 	GetRangeLowered(startPos_, endPos_, s.data(), len + 1);

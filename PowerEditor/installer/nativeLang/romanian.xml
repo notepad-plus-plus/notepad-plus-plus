@@ -1824,7 +1824,7 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
                         <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsește e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
                         <verticalEdge-tip value="Adăugați-vă marcatorul de coloană prinm indicarea poziției sale cu un număr zecimal. Vă puteți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
-			<global-override-tip value="Activând &quot;Suprascrierea globală&quot; aici va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb setările &quot;Stilului implicit&quot;"/>
+			<global-override-tip value="Activând &quot;Global override&quot; aici se va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb, setările din &quot;Default Style&quot;"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

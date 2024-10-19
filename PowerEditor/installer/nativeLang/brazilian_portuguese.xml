@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 Oct 2024, for Notepad++ 8.7.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Oct 2024, for Notepad++ 8.7.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -522,8 +522,8 @@ Translation note:
 
 			<FindCharsInRange title="Localizar caracteres em um intervalo...">
 				<Item id="2" name="Fechar"/>
-				<Item id="2901" name="Caracteres não ASCII (128-255)"/>
-				<Item id="2902" name="Caracteres ASCII (0-127)"/>
+				<Item id="2901" name="Caracteres não ASCII (128–255)"/>
+				<Item id="2902" name="Caracteres ASCII (0–127)"/>
 				<Item id="2903" name="Meu intervalo:"/>
 				<Item id="2906" name="&amp;Acima"/>
 				<Item id="2907" name="&amp;Abaixo"/>
@@ -534,12 +534,12 @@ Translation note:
 
 			<GoToLine title="Ir para...">
 				<Item id="2007" name="&amp;Linha"/>
-				<Item id="2008" name="&amp;Caractere"/>
+				<Item id="2008" name="&amp;Posição"/>
 				<Item id="1" name="Ir"/>
 				<Item id="2" name="Cancelar"/>
-				<Item id="2004" name="Você está aqui :"/>
-				<Item id="2005" name="Deseja ir para :"/>
-				<Item id="2006" name="Você não pode exceder :"/>
+				<Item id="2004" name="Você está aqui:"/>
+				<Item id="2005" name="Deseja ir para:"/>
+				<Item id="2006" name="Você não pode exceder:"/>
 			</GoToLine>
 
 			<Run title="Executar...">
@@ -1096,7 +1096,7 @@ Translation note:
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registradas:"/>
 				</FileAssoc>
-				
+
 
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
@@ -1312,8 +1312,12 @@ Translation note:
 						<Element name="Habilitar para todos os arquivos abertos"/>
 						<Element name="Desabilitar"/>
 					</ComboBox>
-					<Item id="6308" name="Minimizar na bandeja"/>
-					<Item id="6362" name="Fechar na bandeja"/>
+					<ComboBox id="6307">
+						<Element name="Sem ação para"/>
+						<Element name="Minimizar para"/>
+						<Element name="Fechar para"/>
+					</ComboBox>
+					<Item id="6308" name="bandeja"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
 					<Item id="6313" name="Atualizar silenciosamente"/>
 					<Item id="6325" name="Ir para a última linha depois de atualizar"/>

@@ -1,4 +1,5 @@
-{1}# This is a full-line comment
+{1}# coding:utf-8
+# This is a full-line comment
 {6}key{0} {8}={0} {10}"value"{0}  {1}# This is a comment at the end of a line
 {6}another{0} {8}={0} {10}"# This is not a comment"{0}
 

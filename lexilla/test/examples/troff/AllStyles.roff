@@ -1,0 +1,52 @@
+.tm Hello world "FOO"
+.if 'foo'b a r' .if 23 .FOO 2332 "hell\fBo\fP" \
+ foo "Hello world"
+.if (1 + 1) .nop
+.if 1 \
+  .tm Bar
+.if 23+1 \
+  .tm Bar
+.if 1 \{\
+.  tm TEST
+.  tm FOO
+.\}
+.
+.\" Hello world
+.if 0 \{\
+.  tm Bar
+.  tm sffsdf\}
+\# Hello world
+.tm End
+.ig ig
+This is \fBignored\fP.
+
+This line as well.
+.ig
+.tm Hello world
+..
+.
+.de Macro END
+.  FOO
+.END
+\*[FOO*\[hello]fdsf]sdfsdf
+.END
+\$1 \" will never be met in the wild...
+\f[BI]Hello world\fP
+\na-\n(ab-\n[ab]-
+\m[green]green text\m[]
+\(lqquoted text\(rq
+$PATH=\V[PATH]
+\O0test
+\s0small\s+1larger\s+[100]very large\s-'100'smaller
+\!transparent \fBline\fP
+transparent\?embed\?
+\A'id'
+\D'c 10' \l'10c' \L'10c'
+\h'12c' \v'4'
+\H@23@
+\o#abc#
+\S'45'
+\w'width of'
+\x'1'
+\X'device control' \Y[foo]
+\Z"No move" \zN

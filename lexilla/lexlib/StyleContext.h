@@ -184,10 +184,10 @@ public:
 	// Non-inline
 	bool MatchIgnoreCase(const char *s);
 	bool MatchIgnoreCase2(const char *s);
-	void GetCurrent(char *s, Sci_PositionU len);
-	void GetCurrentLowered(char *s, Sci_PositionU len);
+	void GetCurrent(char *s, Sci_PositionU len) const;
+	void GetCurrentLowered(char *s, Sci_PositionU len) const;
 	enum class Transform { none, lower };
-	void GetCurrentString(std::string &string, Transform transform);
+	void GetCurrentString(std::string &string, Transform transform) const;
 };
 
 }

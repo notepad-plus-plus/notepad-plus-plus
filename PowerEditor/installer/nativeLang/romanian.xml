@@ -105,11 +105,11 @@
                     <Item id="41012" name="Încărcare a sesiunii..."/>
                     <Item id="41013" name="Salvare a sesiunii..."/>
                     <Item id="41014" name="&amp;Reîncărcare de pe disc"/>
-                    <Item id="41015" name="Salvare a unei copii ca..."/>
+                    <Item id="41015" name="Salvează o copie ca..."/>
                     <Item id="41016" name="Ștergere"/>
                     <Item id="41017" name="Redenumire..."/>
-                    <Item id="41021" name="Restaurare a fișierelor închise recent"/>
-                    <Item id="41022" name="Deschidere a unui folder ca spațiu de lucru"/>
+                    <Item id="41021" name="Restaurează fișiere închise recent"/>
+                    <Item id="41022" name="Deschide un folder ca spațiu de lucru"/>
                     <Item id="41023" name="Deschidere în vizualizatorul implicit"/>
                     <Item id="42001" name="Dec&amp;upare"/>
                     <Item id="42002" name="&amp;Copiere"/>
@@ -117,7 +117,7 @@
                     <Item id="42004" name="&amp;Revenire"/>
                     <Item id="42005" name="&amp;Lipire"/>
                     <Item id="42006" name="Șter&amp;gere"/>
-                    <Item id="42007" name="Selectare t&amp;ot"/>
+                    <Item id="42007" name="Selectare t&amp;otală"/>
                     <Item id="42020" name="Selectare început/sfârșit"/>
                     <Item id="42089" name="Începere/Terminare selecție în modul coloană"/>
                     <Item id="42084" name="Dată Timp (scurt)"/>

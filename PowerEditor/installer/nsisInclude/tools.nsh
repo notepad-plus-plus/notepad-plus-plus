@@ -72,9 +72,11 @@ FunctionEnd
 Var Dialog
 Var NoUserDataCheckboxHandle
 Var ShortcutCheckboxHandle
+Var ShowDetailsCheckboxHandle
 Var WinVer
 Var noUserDataChecked
 Var createShortcutChecked
+Var showDetailsChecked
 
 ; The definition of "OnChange" event for checkbox
 Function OnChange_NoUserDataCheckBox
@@ -83,6 +85,10 @@ FunctionEnd
 
 Function OnChange_ShortcutCheckBox
 	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+FunctionEnd
+
+Function OnChange_ShowDetailsCheckbox
+	${NSD_GetState} $ShowDetailsCheckboxHandle $showDetailsChecked
 FunctionEnd
 
 Function ExtraOptions
@@ -98,8 +104,8 @@ Function ExtraOptions
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
-	
-	${NSD_CreateCheckbox} 0 120 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
+
+	${NSD_CreateCheckbox} 0 80 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
 	Pop $NoUserDataCheckboxHandle
 	IfFileExists $INSTDIR\doLocalConf.xml doLocalConfExists doLocalConfDoesNotExists
 	doLocalConfExists:
@@ -108,7 +114,11 @@ Function ExtraOptions
 		StrCpy $noUserDataChecked ${BST_CHECKED}
 	doLocalConfDoesNotExists:
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
-	
+
+	${NSD_CreateCheckbox} 0 160 100% 30u "Show installation details"
+	Pop $ShowDetailsCheckboxHandle
+	${NSD_OnClick} $ShowDetailsCheckboxHandle OnChange_ShowDetailsCheckbox
+
 	StrLen $0 $PROGRAMFILES
 	StrCpy $1 $InstDir $0
 

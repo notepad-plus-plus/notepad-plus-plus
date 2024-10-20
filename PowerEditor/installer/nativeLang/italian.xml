@@ -635,8 +635,8 @@ Translation note:
 					<Item id="2219" name="Parole chiave predefinite"/>
 					<Item id="2221" name="Parole chiave definite dall&apos;utente"/>
 					<Item id="2225" name="Linguaggio:"/>
-					<Item id="2226" name="Forza colore di primo piano per tutti gli stili"/>
-					<Item id="2227" name="Forza colore di sfondo per tutti gli stili"/>
+					<Item id="2226" name="Forza primo piano per tutti gli stili"/>
+					<Item id="2227" name="Forza col. sfondo per tutti gli stili"/>
 					<Item id="2228" name="Forza lo stile del carattere per tutti gli stili"/>
 					<Item id="2229" name="Forza dimensione del carattere per tutti gli stili"/>
 					<Item id="2230" name="Forza il grassetto per tutti gli stili"/>

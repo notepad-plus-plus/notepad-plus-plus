@@ -626,7 +626,7 @@
                     <Item id="2231" name="Forțează alegerea stilului fontului înclinat pentru toate stilurile"/>
                     <Item id="2232" name="Forțează alegerea stilului fontului subliniat pentru toate stilurile"/>
                     <Item id="2234" name="Mergi la setări"/>
-					<Item id="2235" name="Ce este Global override (Suprascrierea globală)?"/>
+					<Item id="2235" name="Ce este Global override?"/>
                 </SubDialog>                
             </StyleConfig>
 
@@ -1266,18 +1266,18 @@
                 </MultiInstance>
 
                 <Delimiter title="Separatori">
-                    <Item id="6251" name="Setări separatori selecție (Ctrl + dublu clic cu mouse-ul)"/>
+                    <Item id="6251" name="Setări pentru separatorii de selecție (Ctrl + dublu clic cu mouse-ul)"/>
                     <Item id="6252" name="Început"/>
                     <Item id="6255" name="Sfârșit"/>
-                    <Item id="6256" name="Permitere pe linii multiple"/>
+                    <Item id="6256" name="Permite pe mai multe rânduri"/>
                     <Item id="6161" name="Lista de caractere"/>
                     <Item id="6162" name="Folosește lista de caractere implicită așa cum e"/>
-                    <Item id="6163" name="Adăugare a caracterelor personale la listă
-(nu alegeți decât dacă știți bine ce înseamnă)"/>
+                    <Item id="6163" name="Adaugă-ți caractere personale ca parte a cuvântului
+(nu o alege decât dacă știi ce faci)"/>
                 </Delimiter>
 				
                 <Performance title="Performanță">
-                    <Item id="7141" name="Restricția fișierelor mari"/>
+                    <Item id="7141" name="Restricții pentru fișierele mari"/>
                     <Item id="7143" name="Permiterea restricției fișierelor mari (fără sintaxă evidențiată)"/>
                     <Item id="7144" name="Definirea mărimii fișierelor mari:"/>
                     <Item id="7146" name="MB   (1 - 2046)"/>
@@ -1306,9 +1306,9 @@
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
                     <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="Stabilire motor de căutare:"/>
+                    <Item id="6276" name="Stabilește un motor de căutare:"/>
                     <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="Exemplu: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                    <Item id="6278" name="De exemplu: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 
                 <MISC title="DIVERSE">
@@ -1317,6 +1317,12 @@
                         <Element name="Activare pentru toate fişierele deschise"/>
                         <Element name="Dezactivare"/>
                     </ComboBox>
+					<ComboBox id="6307">
+						<Element name="Nicio acțiune în"/>
+						<Element name="Minimizează în"/>
+						<Element name="Închide în"/>
+					</ComboBox>
+					<Item id="6308" name="bara de sistem"/>
 					<Item id="6362" name="Închide în bara de sistem"/>
                     <Item id="6312" name="Detectează automat starea fișierului"/>
                     <Item id="6313" name="Actualizare silențioasă"/>
@@ -1820,9 +1826,15 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Mergi la Configurator de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplică setările de aparență ale caracterelor neimprimabile la controalele C0, C1 și a caracterelor Unicode EOL (linie următoare, separator de linie și separator de paragraf)."/>
-                        <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsește e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
-                        <verticalEdge-tip value="Adăugați-vă marcatorul de coloană prinm indicarea poziției sale cu un număr zecimal. Vă puteți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+            <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsește e activat. Valoarea maximă este 1024. Setați valoarea la 0 pentru a dezactiva verificarea automată."/>
+            <verticalEdge-tip value="Adaugă-ți marcatorul de coloană prin indicarea poziției sale cu un număr zecimal. Îți poți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
+			<fileSaveAsCopySaveButton-tip value="Ține apăsat pe Shift în timp ce apeși pe Salvare pentru a deschide copia după salvare.."/>
+			<autoIndentBasic-tip value="Asigură-te că indentarea liniei curente (adică noua linie creată prin apăsarea tastei ENTER) se potrivește cu indentarea liniei anterioare."/>
+			<autoIndentAdvanced-tip value="Activează indentarea inteligentă pentru limbajele &quot;ca C&quot; și pentru Python. Limbajele &quot;ca C&quot; includ:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell și JSON.
+
+Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate mai sus, indentarea va rămâne în modul de bază."/>
+			<!-- Nu tradu "&quot;Global override&quot; și &quot;Default Style&quot; -->
 			<global-override-tip value="Activând aici &quot;Global override&quot; se va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb, setările &quot;Default Style&quot;"/>
         </MiscStrings>
     </Native-Langue>

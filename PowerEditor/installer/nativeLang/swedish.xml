@@ -1311,7 +1311,6 @@ Translation note:
 						<Element name="Aktivera för alla öppnade filer"/>
 						<Element name="Inaktivera"/>
 					</ComboBox>
-					<Item id="6308" name="Minimera till systemfältet"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>
 					<Item id="6325" name="Gå till sista raden efter uppdatering"/>

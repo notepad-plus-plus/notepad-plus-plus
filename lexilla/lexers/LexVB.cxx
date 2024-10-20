@@ -363,6 +363,9 @@ void LexerVB::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, ID
 }
 
 void LexerVB::Fold(Sci_PositionU startPos, Sci_Position length, int, IDocument *pAccess) {
+	if (!options.fold)
+		return;
+
 	Accessor styler(pAccess, nullptr);
 	const Sci_Position endPos = startPos + length;
 

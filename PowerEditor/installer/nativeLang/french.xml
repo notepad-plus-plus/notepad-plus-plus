@@ -630,14 +630,15 @@ Translation note:
 					<Item id="2219" name="Mots-clés prédéfinis"/>
 					<Item id="2221" name="Mots-clés utilisateur"/>
 					<Item id="2225" name="Langage :"/>
-					<Item id="2226" name="Appliquer le premier plan global"/>
-					<Item id="2227" name="Appliquer l’arrière-plan global"/>
-					<Item id="2228" name="Appliquer la police globale"/>
-					<Item id="2229" name="Appliquer la taille globale"/>
-					<Item id="2230" name="Appliquer le style gras global"/>
-					<Item id="2231" name="Appliquer le style italique global"/>
-					<Item id="2232" name="Appliquer le style souligné global"/>
-					<Item id="2234" name="Aller à la boîte de dialogue Préférences"/>
+					<Item id="2226" name="Forcer 1er plan pour tous les styles"/>
+					<Item id="2227" name="Forcer arrière-plan pour tous les styles"/>
+					<Item id="2228" name="Forcer police pour tous les styles"/>
+					<Item id="2229" name="Forcer taille pour tous les styles"/>
+					<Item id="2230" name="Forcer style gras pour tous les styles"/>
+					<Item id="2231" name="Forcer italique pour tous les styles"/>
+					<Item id="2232" name="Forcer souligné pour tous les styles"/>
+					<Item id="2234" name="Forcera boîte de dialogue Préférences"/>
+					<Item id="2235" name="C'est quoi « Global override » ?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1309,7 +1310,12 @@ Translation note:
 						<Element name="Activer avec tous les onglets"/>
 						<Element name="Désactiver"/>
 					</ComboBox>
-					<Item id="6308" name="Réduire dans la barre de notifications"/>
+					<ComboBox id="6307">
+						<Element name="Pas d'action dans"/>
+						<Element name="Réduire dans"/>
+						<Element name="Fermer dans"/>
+					</ComboBox>
+					<Item id="6308" name="la barre de notifications"/>
 					<Item id="6312" name="Surveillance de l’état des fichiers"/>
 					<Item id="6313" name="Mise à jour sans alerte"/>
 					<Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
@@ -1674,8 +1680,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers tests, bin &amp;&am
 Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récursivement:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Sélectionner un dossier pour rechercher à l’intérieur"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. Le début du document a été atteint"/>
-			<find-status-end-reached value="Rechercher : La dernière occurrence a été trouvée avant le bas. La fin du document a été atteinte"/>
+			<find-status-top-reached value="Rechercher : Début du document atteint, 1ère occurrence trouvée depuis le bas."/>
+			<find-status-end-reached value="Rechercher : Fin du document atteinte, 1ère occurrence trouvée depuis le haut."/>
 			<find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
 			<find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichiers : $INT_REPLACE$ occurrences ont été remplacées"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichiers ouverts : 1 occurrence a été remplacée"/>
@@ -1689,8 +1695,8 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
 			<find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
 			<find-status-replaceall-readonly value="Remplacer tout : l’opération a échoué. Le fichier est en lecture seule"/>
-			<find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
-			<find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
+			<find-status-replace-end-reached value="Remplacer : Fin du document atteinte, continuer depuis le début."/>
+			<find-status-replace-top-reached value="Remplacer : Début du document atteint, continuer depuis la fin."/>
 			<find-status-replaced-next-found value="Remplacer : 1 occurrence a été remplacée. L’occurrence suivante a été trouvée"/>
 			<find-status-replaced-without-continuing value="Remplacer : 1 occurrence a été remplacée."/>
 			<find-status-replaced-next-not-found value="Remplacer : 1 occurrence a été remplacée. L’occurrence suivante n’a pas été trouvée"/>
@@ -1808,6 +1814,7 @@ Cliquez sur le bouton « ? » à droite pour ouvrir le site web du manuel utilis
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell et JSON
 
 Si vous sélectionnez le mode avancé sans modifier les fichiers des langues mentionnées ci-dessus, les paramètres d'indentation resteront en mode basique."/>
+			<global-override-tip value="Activer le « global override » ici substituera ces paramètres dans tous les styles pour tous les langages de programmation. Vous préférerez probablement utiliser les paramètres « Default Style » à la place"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

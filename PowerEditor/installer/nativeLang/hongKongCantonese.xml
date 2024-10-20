@@ -1338,7 +1338,6 @@
 						<Element name="喺所有打開咗嘅檔案啟用"/>
 						<Element name="停用"/>
 					</ComboBox>
-					<Item id="6308" name="最小化視窗嗰陣縮去系統匣"/>
 					<Item id="6312" name="自動偵測檔案狀態"/>
 					<Item id="6313" name="靜靜雞喺背景更新"/>
 					<Item id="6325" name="更新後轆去最後一行"/>

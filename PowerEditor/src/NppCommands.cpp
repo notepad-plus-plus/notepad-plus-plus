@@ -595,7 +595,7 @@ void Notepad_plus::command(int id)
 				fullFilePath += L"\"";
 
 				if (id == IDM_EDIT_OPENINFOLDER ||
-					(id == IDM_EDIT_OPENASFILE && !::PathIsDirectory(curentWord)))
+					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(curentWord)))
 					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
 			else // Relative file path - need concatenate with current full file path
@@ -1281,7 +1281,7 @@ void Notepad_plus::command(int id)
 			else if (id == IDM_EDIT_CURRENTDIRTOCLIP)
 			{
 				wstring dir(buf->getFullPathName());
-				PathRemoveFileSpec(dir);
+				pathRemoveFileSpec(dir);
 				str2Cliboard(dir);
 			}
 			else if (id == IDM_EDIT_FILENAMETOCLIP)
@@ -1400,12 +1400,12 @@ void Notepad_plus::command(int id)
 					_findReplaceDlg.processFindNext(s.c_str(), &op, &status);
 					if (status == FSEndReached)
 					{
-						wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", L"Find: Found the 1st occurrence from the top. The end of the document has been reached.");
+						wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
 						_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
 					}
 					else if (status == FSTopReached)
 					{
-						wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", L"Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached.");
+						wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", FIND_STATUS_TOP_REACHED_TEXT);
 						_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
 					}
 				}
@@ -1437,12 +1437,12 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.processFindNext(str, &op, &status);
 			if (status == FSEndReached)
 			{
-				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", L"Find: Found the 1st occurrence from the top. The end of the document has been reached.");
+				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
 				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
 			}
 			else if (status == FSTopReached)
 			{
-				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", L"Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached.");
+				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", FIND_STATUS_TOP_REACHED_TEXT);
 				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
 			}
         }
@@ -1488,12 +1488,12 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.processFindNext(str, &op, &status);
 			if (status == FSEndReached)
 			{
-				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", L"Find: Found the 1st occurrence from the top. The end of the document has been reached.");
+				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
 				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
 			}
 			else if (status == FSTopReached)
 			{
-				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", L"Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached.");
+				wstring msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", FIND_STATUS_TOP_REACHED_TEXT);
 				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
 			}
 		}

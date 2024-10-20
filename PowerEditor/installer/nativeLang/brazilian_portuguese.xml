@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2, last update by Marcello, 26 Jul 2024, for Notepad++ 8.7.0
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Oct 2024, for Notepad++ 8.7.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.0">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -463,7 +463,7 @@ Translation note:
 				<Item id="43105" name="Fechar Ícone da Bandeja"/>
 			</TrayIcon>
 		</Menu>
-
+		
 		<Dialog>
 			<Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar nos arquivos" titleFindInProjects="Localizar nos projetos" titleMark="Marcar">
 				<Item id="1" name="Localizar próximo"/>
@@ -522,8 +522,8 @@ Translation note:
 
 			<FindCharsInRange title="Localizar caracteres em um intervalo...">
 				<Item id="2" name="Fechar"/>
-				<Item id="2901" name="Caracteres não ASCII (128-255)"/>
-				<Item id="2902" name="Caracteres ASCII (0-127)"/>
+				<Item id="2901" name="Caracteres não ASCII (128–255)"/>
+				<Item id="2902" name="Caracteres ASCII (0–127)"/>
 				<Item id="2903" name="Meu intervalo:"/>
 				<Item id="2906" name="&amp;Acima"/>
 				<Item id="2907" name="&amp;Abaixo"/>
@@ -534,12 +534,12 @@ Translation note:
 
 			<GoToLine title="Ir para...">
 				<Item id="2007" name="&amp;Linha"/>
-				<Item id="2008" name="&amp;Caractere"/>
+				<Item id="2008" name="&amp;Posição"/>
 				<Item id="1" name="Ir"/>
 				<Item id="2" name="Cancelar"/>
-				<Item id="2004" name="Você está aqui :"/>
-				<Item id="2005" name="Deseja ir para :"/>
-				<Item id="2006" name="Você não pode exceder :"/>
+				<Item id="2004" name="Você está aqui:"/>
+				<Item id="2005" name="Deseja ir para:"/>
+				<Item id="2006" name="Você não pode exceder:"/>
 			</GoToLine>
 
 			<Run title="Executar...">
@@ -630,14 +630,15 @@ Translation note:
 					<Item id="2219" name="Palavras-chave padrão"/>
 					<Item id="2221" name="Palavras-chave definidas pelo usuário"/>
 					<Item id="2225" name="Linguagem:"/>
-					<Item id="2226" name="Habilitar cor de primeiro plano global"/>
-					<Item id="2227" name="Habilitar cor de plano de fundo global"/>
-					<Item id="2228" name="Habilitar fonte global"/>
-					<Item id="2229" name="Habilitar tamanho de fonte global"/>
-					<Item id="2230" name="Habilitar fonte em negrito global"/>
-					<Item id="2231" name="Habilitar fonte em itálico global"/>
-					<Item id="2232" name="Habilitar fonte sublinhada global"/>
+					<Item id="2226" name="Forçar cor de primeiro plano para todos os estilos"/>
+					<Item id="2227" name="Forçar cor de plano de fundo para todos os estilos"/>
+					<Item id="2228" name="Forçar fonte para todos os estilos"/>
+					<Item id="2229" name="Forçar tamanho de fonte para todos os estilos"/>
+					<Item id="2230" name="Forçar fonte em negrito para todos os estilos"/>
+					<Item id="2231" name="Forçar fonte em itálico para todos os estilos"/>
+					<Item id="2232" name="Forçar fonte sublinhada para todos os estilos"/>
 					<Item id="2234" name="Ir para configuração"/>
+					<Item id="2235" name="O que é Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1095,7 +1096,7 @@ Translation note:
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registradas:"/>
 				</FileAssoc>
-				
+
 
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
@@ -1311,7 +1312,12 @@ Translation note:
 						<Element name="Habilitar para todos os arquivos abertos"/>
 						<Element name="Desabilitar"/>
 					</ComboBox>
-					<Item id="6308" name="Minimizar na bandeja"/>
+					<ComboBox id="6307">
+						<Element name="Sem ação para"/>
+						<Element name="Minimizar para"/>
+						<Element name="Fechar para"/>
+					</ComboBox>
+					<Item id="6308" name="bandeja"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
 					<Item id="6313" name="Atualizar silenciosamente"/>
 					<Item id="6325" name="Ir para a última linha depois de atualizar"/>
@@ -1680,8 +1686,8 @@ Procurar em todos os arquivos, excluindo pastas de teste, lixeira&amp;&amp; bin6
 Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selecione uma pastaorigem da busca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Localizar: Encontrada a última ocorrência a partir do final. O início do documento foi alcançado."/>
-			<find-status-end-reached value="Localizar: Encontrada a última ocorrência a partir do início. O final do documento foi alcançado."/>
+			<find-status-top-reached value="Localizar: O início do documento foi alcançado, a primeira ocorrência a partir do final foi encontrada."/>
+			<find-status-end-reached value="Localizar: O final do documento foi alcançado, a primeira ocorrência a partir do início foi encontrada."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>
 			<find-status-replaceinfiles-nb-replaced value="Substituir em Arquivos: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Substituir em Arquivos Abertos: 1 ocorrência foi substituída."/>
@@ -1695,8 +1701,8 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<find-status-replaceall-1-replaced value="Substituir todas: 1 ocorrência foi substituída."/>
 			<find-status-replaceall-nb-replaced value="Substituir todas: $INT_REPLACE$ ocorrências foram substituídas."/>
 			<find-status-replaceall-readonly value="Substituir todas: Texto não substituído. O documento é somente leitura."/>
-			<find-status-replace-end-reached value="Substituir: Substituída a última ocorrência a partir do início. O final do documento foi alcançado."/>
-			<find-status-replace-top-reached value="Substituir: Substituída a última ocorrência a partir do final. O início do documento foi alcançado."/>
+			<find-status-replace-end-reached value="Substituir: O final do documento foi alcançado, a primeira ocorrência a partir do início foi substituída."/>
+			<find-status-replace-top-reached value="Substituir: O início do documento foi alcançado, a primeira ocorrência a partir do final foi substituída."/>			
 			<find-status-replaced-next-found value="Substituir: 1 ocorrência foi substituída. A próxima ocorrência encontrada."/>
 			<find-status-replaced-without-continuing value="Substituir: 1 ocorrência foi substituída."/>
 			<find-status-replaced-next-not-found value="Substituir: 1 ocorrência foi substituída. A próxima ocorrência não encontrada."/>
@@ -1813,7 +1819,9 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao pressionar a tecla ENTER) seja igual à indentação da linha anterior."/>
 			<autoIndentAdvanced-tip value="Habilitar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON
-Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>			
+Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>
+			<!-- Não traduza "&quot;Global override&quot; e &quot;Default Style&quot; -->
+			<global-override-tip value="Habilitar o &quot;Global override&quot; aqui vai prevalecer sobre este parâmetro em todos os estilos de linguagem. O que provavelmente é desejado é usar as configurações de &quot;Default Style&quot;"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

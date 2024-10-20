@@ -888,8 +888,6 @@
 				</SearchEngine>
 				
 				<MISC title="Autres">
-					<Item id="6307" name="Activar"/>
-					<Item id="6308" name="Minimizar dins la barra d'estat sistèma"/>
 					<Item id="6312" name="Auto-deteccion de l'estatut de fichièr"/>
 					<Item id="6313" name="Actualizacion discreta"/>
 					<Item id="6318" name="Paramètre de ligam clicable"/>

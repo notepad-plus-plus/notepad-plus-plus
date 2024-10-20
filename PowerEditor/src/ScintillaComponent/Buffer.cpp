@@ -142,7 +142,7 @@ void Buffer::updateTimeStamp()
 {
 	FILETIME timeStampLive {};
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+	if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes) != FALSE)
 	{
 		timeStampLive = attributes.ftLastWriteTime;
 	}
@@ -194,6 +194,7 @@ void Buffer::setFileName(const wchar_t *fn)
 
 	_fullPathName = fn;
 	_fileName = PathFindFileName(_fullPathName.c_str());
+	_isFromNetwork = PathIsNetworkPath(fn);
 
 	// for _lang
 	LangType determinatedLang = L_TEXT;
@@ -259,15 +260,19 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		return false;
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	bool isWow64Off = false;
 	NppParameters& nppParam = NppParameters::getInstance();
-
 	bool fileExists = doesFileExist(_fullPathName.c_str());
+
+#ifndef	_WIN64
+	bool isWow64Off = false;
 	if (!fileExists)
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
+
+		fileExists = doesFileExist(_fullPathName.c_str());
 	}
+#endif
 
 	bool isOK = false;
 	if (_currentStatus == DOC_INACCESSIBLE && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted
@@ -289,9 +294,9 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
-	else if (_currentStatus == DOC_DELETED && fileExists)
-	{	//document has returned from its grave
-		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+	else if (_currentStatus == DOC_DELETED && fileExists) //document has returned from its grave
+	{
+		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0) // fileExists so it's safe to call GetFileAttributesEx directly
 		{
 			_isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
 
@@ -306,7 +311,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 			isOK = true;
 		}
 	}
-	else if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+	else if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes) != FALSE)
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
@@ -364,10 +369,12 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		return false;
 	}
 
+#ifndef	_WIN64
 	if (isWow64Off)
 	{
 		nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 	}
+#endif
 	return isOK;
 }
 
@@ -398,46 +405,49 @@ int64_t Buffer::getFileLength() const
 	return -1;
 }
 
+wstring Buffer::getTimeString(FILETIME rawtime) const
+{
+	wstring result;
+	SYSTEMTIME utcSystemTime, localSystemTime;
+	FileTimeToSystemTime(&rawtime, &utcSystemTime);
+	SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
+
+	const size_t dateTimeStrLen = 256;
+	wchar_t bufDate[dateTimeStrLen] = { '\0' };
+	GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
+	result += bufDate;
+	result += ' ';
+
+	wchar_t bufTime[dateTimeStrLen] = { '\0' };
+	GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
+	result += bufTime;
+
+	return result;
+}
 
 wstring Buffer::getFileTime(fileTimeType ftt) const
 {
-	wstring result;
-
-	if (_currentStatus != DOC_UNNAMED)
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	if (GetFileAttributesEx(_currentStatus == DOC_UNNAMED ? _backupFileName.c_str() : _fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
-		WIN32_FILE_ATTRIBUTE_DATA attributes{};
-		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+		FILETIME rawtime;
+		switch (ftt)
 		{
-			FILETIME rawtime;
-			switch (ftt)
-			{
-				case ft_created:
-					rawtime = attributes.ftCreationTime;
-					break;
-				case ft_modified:
-					rawtime = attributes.ftLastWriteTime;
-					break;
-				default:
-					rawtime = attributes.ftLastAccessTime;
-					break;
-			}
-
-			SYSTEMTIME utcSystemTime, localSystemTime;
-			FileTimeToSystemTime(&rawtime, &utcSystemTime);
-			SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
-
-			const size_t dateTimeStrLen = 256;
-			wchar_t bufDate[dateTimeStrLen] = {'\0'};
-			GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufDate, dateTimeStrLen);
-			result += bufDate;
-			result += ' ';
-
-			wchar_t bufTime[dateTimeStrLen] = {'\0'};
-			GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, bufTime, dateTimeStrLen);
-			result += bufTime;
+			case ft_created:
+				rawtime = attributes.ftCreationTime;
+				break;
+			case ft_modified:
+				rawtime = attributes.ftLastWriteTime;
+				break;
+			default:
+				rawtime = attributes.ftLastAccessTime;
+				break;
 		}
+
+		return getTimeString(rawtime);
 	}
-	return result;
+
+	return L"";
 }
 
 
@@ -699,12 +709,14 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 
 	if (pPath)
 	{
-		FILE* fp = _wfopen(pPath, L"rb");
-		if (fp)
+		WIN32_FILE_ATTRIBUTE_DATA attributes{};
+		if (getFileAttributesExWithTimeout(pPath, &attributes) != FALSE)
 		{
-			_fseeki64(fp, 0, SEEK_END);
-			fileSize = _ftelli64(fp);
-			fclose(fp);
+			LARGE_INTEGER size{};
+			size.LowPart = attributes.nFileSizeLow;
+			size.HighPart = attributes.nFileSizeHigh;
+
+			fileSize = size.QuadPart;
 		}
 	}
 	
@@ -735,8 +747,8 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		ownDoc = true;
 	}
 
-	WCHAR fullpath[MAX_PATH] = { 0 };
-	if (isWin32NamespacePrefixedFileName(filename))
+	wchar_t fullpath[MAX_PATH] = { 0 };
+	if (isWin32NamespacePrefixedFileName(filename)) // This function checks for the \\?\ prefix
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
 		wcsncpy_s(fullpath, _countof(fullpath), filename, _TRUNCATE);
@@ -750,7 +762,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		}
 	}
 
-	bool isSnapshotMode = backupFileName != NULL && doesFileExist(backupFileName);
+	bool isSnapshotMode = (backupFileName != NULL) && doesFileExist(backupFileName);
 	if (isSnapshotMode && !doesFileExist(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
 		wcscpy_s(fullpath, MAX_PATH, filename); // we restore fullpath with filename, in our case is "new  #"
@@ -779,7 +791,10 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		{
 			newBuf->_backupFileName = backupFileName;
 			if (!doesFileExist(fullpath))
+			{
 				newBuf->_currentStatus = DOC_UNNAMED;
+				newBuf->setTabCreatedTimeStringFromBakFile();
+			}
 		}
 
 		const FILETIME zeroTimeStamp = {};
@@ -828,12 +843,22 @@ bool FileManager::reloadBuffer(BufferID id)
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
 	//Get file size
-	FILE* fp = _wfopen(buf->getFullPathName(), L"rb");
-	if (!fp)
+	int64_t fileSize = 0;
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	getFileAttributesExWithTimeout(buf->getFullPathName(), &attributes);
+	if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+	{
 		return false;
-	_fseeki64(fp, 0, SEEK_END);
-	int64_t fileSize = _ftelli64(fp);
-	fclose(fp);
+	}
+	else
+	{
+		LARGE_INTEGER size{};
+		size.LowPart = attributes.nFileSizeLow;
+		size.HighPart = attributes.nFileSizeHigh;
+
+		fileSize = size.QuadPart;
+	}
+
 	
 	char* data = new char[blockSize + 8]; // +8 for incomplete multibyte char
 
@@ -1004,7 +1029,7 @@ bool FileManager::backupCurrentBuffer()
 				backupFilePath += L"\\backup\\";
 
 				// if "backup" folder doesn't exist, create it.
-				if (!doesFileExist(backupFilePath.c_str()))
+				if (!doesDirectoryExist(backupFilePath.c_str()))
 				{
 					::CreateDirectory(backupFilePath.c_str(), NULL);
 				}
@@ -1085,7 +1110,8 @@ bool FileManager::backupCurrentBuffer()
 							::MoveFileEx(fullpathTemp.c_str(), fullpath, MOVEFILE_REPLACE_EXISTING);
 					}
 
-					buffer->setModifiedStatus(false);
+					buffer->setTabCreatedTimeStringFromBakFile();
+
 					result = true;	//all done
 				}
 			}
@@ -1144,9 +1170,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;
-	DWORD attrib = 0;
 
-	WCHAR fullpath[MAX_PATH] = { 0 };
+	wchar_t fullpath[MAX_PATH] = { 0 };
 	if (isWin32NamespacePrefixedFileName(filename))
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
@@ -1168,8 +1193,8 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	const wchar_t* currentBufFilePath = buffer->getFullPathName();
 	ULARGE_INTEGER freeBytesForUser;
 	 
-	BOOL getFreeSpaceRes = ::GetDiskFreeSpaceExW(dirDest, &freeBytesForUser, nullptr, nullptr);
-	if (getFreeSpaceRes != FALSE)
+	BOOL getFreeSpaceSuccessful = getDiskFreeSpaceWithTimeout(dirDest, &freeBytesForUser);
+	if (getFreeSpaceSuccessful)
 	{
 		int64_t fileSize = buffer->getFileLength();
 		if (fileSize >= 0 && lstrcmp(fullpath, currentBufFilePath) == 0) // if file to save does exist, and it's an operation "Save" but not "Save As"
@@ -1183,16 +1208,13 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			return SavingStatus::NotEnoughRoom;
 	}
 
-	if (doesFileExist(fullpath))
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	getFileAttributesExWithTimeout(fullpath, &attributes);
+	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
-		attrib = ::GetFileAttributes(fullpath);
-
-		if (attrib != INVALID_FILE_ATTRIBUTES)
-		{
-			isHiddenOrSys = (attrib & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
-			if (isHiddenOrSys)
-				::SetFileAttributes(filename, attrib & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
-		}
+		isHiddenOrSys = (attributes.dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
+		if (isHiddenOrSys)
+			::SetFileAttributes(filename, attributes.dwFileAttributes & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
 	}
 
 	UniMode mode = buffer->getUnicodeMode();
@@ -1253,7 +1275,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		}
 
 		if (isHiddenOrSys)
-			::SetFileAttributes(fullpath, attrib);
+			::SetFileAttributes(fullpath, attributes.dwFileAttributes);
 
 		if (isCopy) // "Save a Copy As..." command
 		{
@@ -1365,6 +1387,7 @@ BufferID FileManager::newEmptyDocument()
 
 	BufferID id = newBuf;
 	newBuf->_id = id;
+	newBuf->setTabCreatedTimeStringWithCurrentTime();
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 	++_nextBufferID;
@@ -1432,6 +1455,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool isMainEditZone)
 	newBuf->_id = id;
 	const NewDocDefaultSettings& ndds = (nppParamInst.getNppGUI()).getNewDocDefaultSettings();
 	newBuf->_lang = ndds._lang;
+	newBuf->setTabCreatedTimeStringWithCurrentTime();
 	_buffers.push_back(newBuf);
 	++_nbBufs;
 
@@ -1548,10 +1572,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * filename, char* data, Utf8_16_Read * unicodeConvertor, LoadedFileFormat& fileFormat)
 {
-	FILE *fp = _wfopen(filename, L"rb");
-	if (!fp)
-		return false;
-
+	// Check file size firstly
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	int64_t bufferSizeRequested = fileSize + std::min<int64_t>(1LL << 20, fileSize / 6);
 	
@@ -1569,7 +1590,6 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				L"File size problem",
 				MB_OK | MB_APPLMODAL);
 
-			fclose(fp);
 			return false;
 		}
 		else // x64
@@ -1589,12 +1609,33 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				}
 				else
 				{
-					fclose(fp);
 					return false;
 				}
 			}
 		}
 	}
+
+	// Check if the file is located on a network. If it is, verify the existence of the file's directory.
+	// Note: We're checking the directory's existence instead of the file itself to avoid the GetAttributesEx cache issue.
+	// Just before calling loadFileData, the doesFileExist function was called, which should return false if there's a network problem.
+	// If execution reaches here during a network connection problem, it means doesFileExist returned true incorrectly due to GetAttributesEx caching.
+	// Therefore, we avoid calling doesFileExist again and instead call doesDirectoryExist to ensure accuracy.
+	bool isNetworkDirDisconnected = false;
+	if (PathIsNetworkPath(filename))
+	{
+		wchar_t dir[MAX_PATH]{};
+		wcscpy_s(dir,filename);
+		PathRemoveFileSpec(dir);
+		isNetworkDirDisconnected = !doesDirectoryExist(dir);
+	}
+	if (isNetworkDirDisconnected)
+		return false; // If network ressource is not reachable, we stop here for not having hanging issue because of _wfopen
+
+
+	FILE* fp = _wfopen(filename, L"rb");
+
+	if (!fp)
+		return false;
 
 	//Setup scratchtilla for new filedata
 	_pscratchTilla->execute(SCI_SETSTATUS, SC_STATUS_OK); // reset error status
@@ -1628,7 +1669,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	bool success = true;
 	EolType format = EolType::unknown;
 	int sciStatus = SC_STATUS_OK;
-	wchar_t szException[64] = { '\0' };
+	wchar_t szException[64] = {'\0'};
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
@@ -1717,7 +1758,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		}
 		while (lenFile > 0);
 	}
-	__except(EXCEPTION_EXECUTE_HANDLER)
+	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
 		switch (sciStatus)
 		{

@@ -32,12 +32,16 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 
 		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
 		DWORD dispParam = CREATE_ALWAYS;
-		bool fileExists = doesFileExist(fname);
+		bool fileExists = false;
+		bool isTimeoutReached = false;
+		// Store the file creation date & attributes for a possible use later...
+		if (getFileAttributesExWithTimeout(fname, &attributes_original, 0, &isTimeoutReached))
+		{
+			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes_original.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
+		}
+
 		if (fileExists)
 		{
-			// Store the file creation date & attributes for a possible use later...
-			::GetFileAttributesExW(fname, GetFileExInfoStandard, &attributes_original);
-
 			// Check the existence of Alternate Data Streams
 			WIN32_FIND_STREAM_DATA findData;
 			HANDLE hFind = FindFirstStreamW(fname, FindStreamInfoStandard, &findData, 0);
@@ -47,12 +51,18 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 				FindClose(hFind);
 			}
 		}
+		else
+		{
+			bool isFromNetwork = PathIsNetworkPath(fname);
+			if (isFromNetwork && isTimeoutReached) // The file doesn't exist, and the file is a network file, plus the network problem has been detected due to timeout
+				return;                             // In this case, we don't call createFile to prevent hanging
+		}
 
 		_hFile = ::CreateFileW(fname, _accessParam, _shareParam, NULL, dispParam, _attribParam, NULL);
 
 		// Race condition management:
-		//  If file didn't exist while calling PathFileExistsW, but before calling CreateFileW, file is created:  use CREATE_ALWAYS is OK
-		//  If file did exist while calling PathFileExistsW, but before calling CreateFileW, file is deleted:  use TRUNCATE_EXISTING will cause the error
+		//  If file didn't exist while calling getFileAttributesExWithTimeout, but before calling CreateFileW, file is created: use CREATE_ALWAYS is OK
+		//  If file did exist while calling getFileAttributesExWithTimeout, but before calling CreateFileW, file is deleted: use TRUNCATE_EXISTING will cause the error
 		if (dispParam == TRUNCATE_EXISTING && _hFile == INVALID_HANDLE_VALUE && ::GetLastError() == ERROR_FILE_NOT_FOUND)
 		{
 			dispParam = CREATE_ALWAYS;
@@ -110,7 +120,7 @@ void Win32_IO_File::close()
 
 					std::wstring curFilePath;
 					const DWORD cchPathBuf = MAX_PATH + 128;
-					WCHAR pathbuf[cchPathBuf]{};
+					wchar_t pathbuf[cchPathBuf]{};
 					// the dwFlags used below are the most error-proof and informative
 					DWORD dwRet = ::GetFinalPathNameByHandle(_hFile, pathbuf, cchPathBuf, FILE_NAME_OPENED | VOLUME_NAME_NT);
 					if ((dwRet == 0) || (dwRet >= cchPathBuf))

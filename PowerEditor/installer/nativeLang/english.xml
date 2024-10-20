@@ -630,14 +630,16 @@ Translation note:
 					<Item id="2219" name="Default keywords"/>
 					<Item id="2221" name="User-defined keywords"/>
 					<Item id="2225" name="Language:"/>
-					<Item id="2226" name="Enable global foreground color"/>
-					<Item id="2227" name="Enable global background color"/>
-					<Item id="2228" name="Enable global font"/>
-					<Item id="2229" name="Enable global font size"/>
-					<Item id="2230" name="Enable global bold font style"/>
-					<Item id="2231" name="Enable global italic font style"/>
-					<Item id="2232" name="Enable global underline font style"/>
+					<Item id="2226" name="Force foreground color for all styles"/>
+					<Item id="2227" name="Force background color for all styles"/>
+					<Item id="2228" name="Force font choice for all styles"/>
+					<Item id="2229" name="Force font size choice for all styles"/>
+					<Item id="2230" name="Force bold choice for all styles"/>
+					<Item id="2231" name="Force italic choice for all styles"/>
+					<Item id="2232" name="Force underline choice for all styles"/>
 					<Item id="2234" name="Go to settings"/>
+					<!-- Don't translate "&quot;Global override&quot; -->
+					<Item id="2235" name="What is Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1311,7 +1313,12 @@ Translation note:
 						<Element name="Enable for all opened files"/>
 						<Element name="Disable"/>
 					</ComboBox>
-					<Item id="6308" name="Minimize to system tray"/>
+					<ComboBox id="6307">
+						<Element name="No action to"/>
+						<Element name="Minimize to"/>
+						<Element name="Close to"/>
+					</ComboBox>
+					<Item id="6308" name="system tray"/>
 					<Item id="6312" name="File Status Auto-Detection"/>
 					<Item id="6313" name="Update silently"/>
 					<Item id="6325" name="Scroll to the last line after update"/>
@@ -1679,8 +1686,8 @@ Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Find: Found the last occurrence from the bottom. The beginning of the document has been reached."/>
-			<find-status-end-reached value="Find: Found the last occurrence from the top. The end of the document has been reached."/>
+			<find-status-top-reached value="Find: Reached document beginning, first occurrence from the bottom found."/>
+			<find-status-end-reached value="Find: Reached document end, first occurrence from the top found."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
 			<find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
@@ -1694,8 +1701,8 @@ Find in all files but exclude all folders log or logs recursively:
 			<find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
 			<find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
 			<find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
-			<find-status-replace-end-reached value="Replace: Replaced the last occurrence from the top. The end of document has been reached"/>
-			<find-status-replace-top-reached value="Replace: Replaced the last occurrence from the bottom. The begin of document has been reached"/>
+			<find-status-replace-end-reached value="Replace: Reached document end, started from top."/>
+			<find-status-replace-top-reached value="Replace: Reached document beginning, started from bottom."/>
 			<find-status-replaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found."/>
 			<find-status-replaced-without-continuing value="Replace: 1 occurrence was replaced."/>
 			<find-status-replaced-next-not-found value="Replace: 1 occurrence was replaced. No more occurrences were found."/>
@@ -1814,7 +1821,8 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
 
 If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

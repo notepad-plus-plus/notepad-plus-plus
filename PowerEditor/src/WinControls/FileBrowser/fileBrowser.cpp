@@ -1235,7 +1235,7 @@ bool FileBrowser::addToTree(FilesToChange & group, HTREEITEM node)
 
 		// Not found, good - Action
 		for (auto & file : group._files) {
-			if (::PathIsDirectory((group._commonPath + file).c_str()))
+			if (doesDirectoryExist((group._commonPath + file).c_str()))
 			{
 				SortingData4lParam* customData = new SortingData4lParam(L"", file, true);
 				sortingDataArray.push_back(customData);
@@ -1468,7 +1468,7 @@ bool FolderInfo::addToStructure(wstring & fullpath, std::vector<wstring> linarPa
 	{
 		fullpath += L"\\";
 		fullpath += linarPathArray[0];
-		if (PathIsDirectory(fullpath.c_str()))
+		if (doesDirectoryExist(fullpath.c_str()))
 		{
 			// search in folders, if found - no good
 			for (const auto& folder : _subFolders)
@@ -1714,7 +1714,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 	// call Terminate() automatically.
 	changes.Terminate();
 	//printStr(L"Quit watching thread");
-	return EXIT_SUCCESS;
+	return ERROR_SUCCESS;
 }
 
 void FolderUpdater::processChange(DWORD dwAction, std::vector<wstring> filesToChange, FolderUpdater* thisFolderUpdater)

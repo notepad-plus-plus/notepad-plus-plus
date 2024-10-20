@@ -1,0 +1,53 @@
+ 0 400   0   .tm Hello world "FOO"
+ 0 400   0   .if 'foo'b a r' .if 23 .FOO 2332 "hell\fBo\fP" \
+ 0 400   0    foo "Hello world"
+ 0 400   0   .if (1 + 1) .nop
+ 0 400   0   .if 1 \
+ 0 400   0     .tm Bar
+ 0 400   0   .if 23+1 \
+ 0 400   0     .tm Bar
+ 2 400   0 + .if 1 \{\
+ 0 401   0 | .  tm TEST
+ 0 401   0 | .  tm FOO
+ 0 401   0 | .\}
+ 1 400   0   .
+ 0 400   0   .\" Hello world
+ 2 400   0 + .if 0 \{\
+ 0 401   0 | .  tm Bar
+ 0 401   0 | .  tm sffsdf\}
+ 0 400   0   \# Hello world
+ 0 400   0   .tm End
+ 2 400   0 + .ig ig
+ 0 401   0 | This is \fBignored\fP.
+ 0 401   0 | 
+ 0 401   0 | This line as well.
+ 2 400   0 + .ig
+ 0 401   0 | .tm Hello world
+ 0 400   0   ..
+ 1 400   0   .
+ 2 400   0 + .de Macro END
+ 0 401   0 | .  FOO
+ 0 401   0 | .END
+ 0 400   0   \*[FOO*\[hello]fdsf]sdfsdf
+ 0 400   0   .END
+ 0 400   0   \$1 \" will never be met in the wild...
+ 0 400   0   \f[BI]Hello world\fP
+ 0 400   0   \na-\n(ab-\n[ab]-
+ 0 400   0   \m[green]green text\m[]
+ 0 400   0   \(lqquoted text\(rq
+ 0 400   0   $PATH=\V[PATH]
+ 0 400   0   \O0test
+ 0 400   0   \s0small\s+1larger\s+[100]very large\s-'100'smaller
+ 0 400   0   \!transparent \fBline\fP
+ 0 400   0   transparent\?embed\?
+ 0 400   0   \A'id'
+ 0 400   0   \D'c 10' \l'10c' \L'10c'
+ 0 400   0   \h'12c' \v'4'
+ 0 400   0   \H@23@
+ 0 400   0   \o#abc#
+ 0 400   0   \S'45'
+ 0 400   0   \w'width of'
+ 0 400   0   \x'1'
+ 0 400   0   \X'device control' \Y[foo]
+ 0 400   0   \Z"No move" \zN
+ 0 400   0   

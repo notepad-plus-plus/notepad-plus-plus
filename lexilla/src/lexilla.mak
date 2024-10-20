@@ -113,6 +113,7 @@ LEX_OBJS=\
 	$(DIR_O)\LexCsound.obj \
 	$(DIR_O)\LexCSS.obj \
 	$(DIR_O)\LexD.obj \
+	$(DIR_O)\LexDart.obj \
 	$(DIR_O)\LexDataflex.obj \
 	$(DIR_O)\LexDiff.obj \
 	$(DIR_O)\LexDMAP.obj \
@@ -196,6 +197,7 @@ LEX_OBJS=\
 	$(DIR_O)\LexTCMD.obj \
 	$(DIR_O)\LexTeX.obj \
 	$(DIR_O)\LexTOML.obj \
+	$(DIR_O)\LexTroff.obj \
 	$(DIR_O)\LexTxt2tags.obj \
 	$(DIR_O)\LexVB.obj \
 	$(DIR_O)\LexVerilog.obj \
@@ -203,6 +205,7 @@ LEX_OBJS=\
 	$(DIR_O)\LexVisualProlog.obj \
 	$(DIR_O)\LexX12.obj \
 	$(DIR_O)\LexYAML.obj \
+	$(DIR_O)\LexZig.obj \
 	$(DIR_O)\LexObjC.obj \
 	$(DIR_O)\LexSearchResult.obj \
 	$(DIR_O)\LexUser.obj

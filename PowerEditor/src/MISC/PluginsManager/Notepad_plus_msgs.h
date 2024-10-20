@@ -985,6 +985,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Get the Current native language file name string. Use it after getting NPPN_READY notification to find out which native language is used.
 	// Users should call it with nativeLangFileName as NULL to get the required number of char (not including the terminating nul character),
 	// allocate language file name string buffer with the return value + 1, then call it again to get the current native language file name string.
+	// If there's no localization file applied, the returned value is 0.
 	// wParam[in]: strLen is "language file name string" buffer length
 	// lParam[out]: language file name string receives all copied native language file name string
 	// Return the number of char copied/to copy

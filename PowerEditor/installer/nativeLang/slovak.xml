@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.0">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -628,14 +628,15 @@
 					<Item id="2219" name="Predvolené kľúčové slová"/>
 					<Item id="2221" name="Používateľom definované kľúčové slová"/>
 					<Item id="2225" name="Jazyk:"/>
-					<Item id="2226" name="Povoliť globálnu farbu popredia"/>
-					<Item id="2227" name="Povoliť globálnu farbu pozadia"/>
-					<Item id="2228" name="Povoliť globálny typ písma"/>
-					<Item id="2229" name="Povoliť globálnu veľkosť písma"/>
-					<Item id="2230" name="Povoliť globálny štýl pre tučné písmo"/>
-					<Item id="2231" name="Povoliť globálny štýl pre kurzívu"/>
-					<Item id="2232" name="Povoliť glob. štýl pre podčiark. písmo"/>
+					<Item id="2226" name="Vynútiť farbu popredia pre všetky štýly"/>
+					<Item id="2227" name="Vynútiť farbu pozadia pre všetky štýly"/>
+					<Item id="2228" name="Vynútiť písmo pre všetky štýly"/>
+					<Item id="2229" name="Vynútiť veľkosť písma pre všetky štýly"/>
+					<Item id="2230" name="Vynútiť tučné písmo pre všetky štýly"/>
+					<Item id="2231" name="Vynútiť kurzívu pre všetky štýly"/>
+					<Item id="2232" name="Vynútiť podčiarknutie pre všetky štýly"/>
 					<Item id="2234" name="Prejsť na nastavenia"/>
+					<Item id="2235" name="Čo je &quot;Global override&quot;?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1310,6 +1311,13 @@
 						<Element name="Zakázať"/>
 					</ComboBox>
 					<Item id="6308" name="Minimalizovať do oblasti oznámení"/>
+					<Item id="6362" name="Zavrieť do oblasti oznámení"/>
+					<ComboBox id="6307">
+						<Element name="Nič do"/>
+						<Element name="Minimalizovať do"/>
+						<Element name="Zavrieť do"/>
+					</ComboBox>
+					<Item id="6308" name="oblasti oznámení"/>
 					<Item id="6312" name="Automatické zisťovanie stavu súboru"/>
 					<Item id="6313" name="Tichá aktualizácia"/>
 					<Item id="6325" name="Skočiť po aktualizácii na posledný riadok"/>
@@ -1679,8 +1687,8 @@ Hľadá vo všetkých súboroch okrem priečinkov tests, bin &amp;&amp; bin64:
 Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs rekurzívne:
 *.* !+\log*"/>
 			<find-in-files-select-folder value="Vyberte priečinok, v ktorom chcete hľadať"/>
-			<find-status-top-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu."/>
-			<find-status-end-reached value="Hľadať: Našiel sa posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu."/>
+			<find-status-top-reached value="Hľadať: Dosiahnutý začiatok dokumentu, nájdený prvý výskyt zdola."/>
+			<find-status-end-reached value="Hľadať: Dosiahnutý koniec dokumentu, nájdený prvý výskyt zhora."/>
 			<find-status-replaceinfiles-1-replaced value="Nahradiť v súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceinfiles-nb-replaced value="Nahradiť v súboroch: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu."/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahradiť v otvorených súboroch: Bol nahradený 1 výskyt hľadaného výrazu."/>
@@ -1694,8 +1702,8 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<find-status-replaceall-1-replaced value="Nahradiť všetko: Bol nahradený 1 výskyt hľadaného výrazu."/>
 			<find-status-replaceall-nb-replaced value="Nahradiť všetko: Bolo nahradených $INT_REPLACE$ výskytov hľadaného výrazu"/>
 			<find-status-replaceall-readonly value="Nahradiť všetko: Text nie je možné nahradiť. Aktuálny dokument je iba na čítanie"/>
-			<find-status-replace-end-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý koniec dokumentu"/>
-			<find-status-replace-top-reached value="Nahradiť: Bol nahradený posledný výskyt hľadaného výrazu. Bol dosiahnutý začiatok dokumentu"/>
+			<find-status-replace-end-reached value="Nahradiť: Dosiahnutý koniec dokumentu, nahradený prvý výskyt zhora."/>
+			<find-status-replace-top-reached value="Nahradiť: Dosiahnutý začiatok dokumentu, nahradený prvý výskyt zdola."/>
 			<find-status-replaced-next-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Nájdený ďalší výskyt."/>
 			<find-status-replaced-without-continuing value="Nahradiť: bol nahradený 1 výskyt."/>
 			<find-status-replaced-next-not-found value="Nahradiť: Bol nahradený 1 výskyt hľadaného výrazu. Neboli nájdené žiadne ďalšie výskyty."/>
@@ -1813,6 +1821,8 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<autoIndentAdvanced-tip value="Povoľte inteligentné odsadenie pre jazyky podobné jazyku C a Python. Medzi jazyky podobné jazyku C patria:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell a JSON.
 Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Ak tu povolíte &quot;Global override&quot;, tento parameter sa prepíše vo všetkých štýloch pre všetky programovacie jazyky. Pravdepodobne chcete namiesto toho použiť nastavenie &quot;Default Style&quot;"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

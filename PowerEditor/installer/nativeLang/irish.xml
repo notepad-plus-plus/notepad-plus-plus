@@ -996,7 +996,6 @@ You can define several column markers by using white space to separate the diffe
 						<Element name="Cumasaigh for all opened files"/>
 						<Element name="Díchumasaigh"/>
 					</ComboBox>
-					<Item id="6308" name="Minimize to system tray"/>
 					<Item id="6312" name="File Status Auto-Detection"/>
 					<Item id="6313" name="Nuashonraigh go ciúin é"/>
 					<Item id="6318" name="Clickable Link Settings"/>

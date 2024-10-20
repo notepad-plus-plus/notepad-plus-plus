@@ -3,7 +3,7 @@
  * Lexer for F# 5.0
  * Copyright (c) 2021 Robert Di Pardo <dipardo.r@gmail.com>
  * Parts of LexerFSharp::Lex were adapted from LexCaml.cxx by Robert Roessler ("RR").
- * Parts of LexerFSharp::Fold were adapted from LexCPP.cxx by Neil Hodgson and Udo Lechner.
+ * Parts of LexerFSharp::Fold were adapted from LexBash.cxx by Neil Hodgson and Kein-Hong Man.
  * The License.txt file describes the conditions under which this software may be distributed.
  */
 // clang-format off
@@ -442,8 +442,12 @@ void SCI_METHOD LexerFSharp::Lex(Sci_PositionU start, Sci_Position length, int i
 				break;
 			case SCE_FSHARP_LINENUM:
 			case SCE_FSHARP_PREPROCESSOR:
-			case SCE_FSHARP_COMMENTLINE:
 				if (sc.MatchLineEnd()) {
+					state = SCE_FSHARP_DEFAULT;
+				}
+				break;
+			case SCE_FSHARP_COMMENTLINE:
+				if (sc.atLineStart) {
 					state = SCE_FSHARP_DEFAULT;
 					advance = false;
 				}
@@ -647,27 +651,26 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 	}
 
 	LexAccessor styler(pAccess);
-	const Sci_Position startPos = static_cast<Sci_Position>(start);
+	Sci_Position startPos = static_cast<Sci_Position>(start);
 	const Sci_PositionU endPos = start + length;
 	Sci_Position lineCurrent = styler.GetLine(startPos);
+	if (lineCurrent > 0) {
+		lineCurrent--;
+		startPos = styler.LineStart(lineCurrent);
+		initStyle = (startPos > 0) ? styler.StyleAt(startPos - 1) : SCE_FSHARP_DEFAULT;
+	}
 	Sci_Position lineNext = lineCurrent + 1;
 	Sci_Position lineStartNext = styler.LineStart(lineNext);
 	int style = initStyle;
 	int styleNext = styler.StyleAt(startPos);
 	char chNext = styler[startPos];
-	int levelNext;
-	int levelCurrent = SC_FOLDLEVELBASE;
+	int levelCurrent = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
+	int levelNext = levelCurrent;
 	int visibleChars = 0;
 
-	if (lineCurrent > 0) {
-		levelCurrent = styler.LevelAt(lineCurrent - 1) >> 0x10;
-	}
-
-	levelNext = levelCurrent;
-
-	for (Sci_PositionU i = start; i < endPos; i++) {
+	for (Sci_PositionU i = static_cast<Sci_PositionU>(startPos); i < endPos; i++) {
 		const Sci_Position currentPos = static_cast<Sci_Position>(i);
-		const bool atEOL = (currentPos == (lineStartNext - 1) || styler.SafeGetCharAt(currentPos) == '\r');
+		const bool atEOL = (currentPos == (lineStartNext - 1));
 		const bool atLineOrDocEnd = (atEOL || (i == (endPos - 1)));
 		const int stylePrev = style;
 		const char ch = chNext;
@@ -708,10 +711,6 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 			FoldLexicalGroup(styler, levelNext, lineCurrent, "open ", SCE_FSHARP_KEYWORD);
 		}
 
-		if (!IsASpace(ch)) {
-			visibleChars++;
-		}
-
 		if (atLineOrDocEnd) {
 			int levelUse = levelCurrent;
 			int lev = levelUse | levelNext << 16;
@@ -719,7 +718,7 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 			if (visibleChars == 0 && options.foldCompact) {
 				lev |= SC_FOLDLEVELWHITEFLAG;
 			}
-			if (levelUse < levelNext) {
+			if ((levelUse < levelNext) && (visibleChars > 0)) {
 				lev |= SC_FOLDLEVELHEADERFLAG;
 			}
 			if (lev != styler.LevelAt(lineCurrent)) {
@@ -731,12 +730,14 @@ void SCI_METHOD LexerFSharp::Fold(Sci_PositionU start, Sci_Position length, int 
 			lineNext = lineCurrent + 1;
 			lineStartNext = styler.LineStart(lineNext);
 			levelCurrent = levelNext;
+		}
 
-			if (atEOL && (currentPos == (styler.Length() - 1))) {
-				styler.SetLevel(lineCurrent, (levelCurrent | levelCurrent << 16) | SC_FOLDLEVELWHITEFLAG);
-			}
+		if (!IsASpace(ch)) {
+			visibleChars++;
 		}
 	}
+	const int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
+	styler.SetLevel(lineCurrent, levelCurrent | flagsNext);
 }
 
 bool LineContains(LexAccessor &styler, const char *word, const Sci_Position start, const int chAttr) {

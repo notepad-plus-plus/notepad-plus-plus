@@ -144,30 +144,28 @@ CharacterExtracted::CharacterExtracted(const unsigned char *charBytes, size_t wi
 }
 
 Document::Document(DocumentOption options) :
+	refCount(0),
 	cb(!FlagSet(options, DocumentOption::StylesNone), FlagSet(options, DocumentOption::TextLarge)),
-	durationStyleOneByte(0.000001, 0.0000001, 0.00001) {
-	refCount = 0;
+	endStyled(0),
+	styleClock(0),
+	enteredModification(0),
+	enteredStyling(0),
+	enteredReadOnlyCount(0),
+	insertionSet(false),
 #ifdef _WIN32
-	eolMode = EndOfLine::CrLf;
+	eolMode(EndOfLine::CrLf),
 #else
-	eolMode = EndOfLine::Lf;
+	eolMode(EndOfLine::Lf),
 #endif
-	dbcsCodePage = CpUtf8;
-	lineEndBitSet = LineEndType::Default;
-	endStyled = 0;
-	styleClock = 0;
-	enteredModification = 0;
-	enteredStyling = 0;
-	enteredReadOnlyCount = 0;
-	insertionSet = false;
-	tabInChars = 8;
-	indentInChars = 0;
-	actualIndentInChars = 8;
-	useTabs = true;
-	tabIndents = true;
-	backspaceUnindents = false;
-
-	matchesValid = false;
+	dbcsCodePage(CpUtf8),
+	lineEndBitSet(LineEndType::Default),
+	tabInChars(8),
+	indentInChars(0),
+	actualIndentInChars(8),
+	useTabs(true),
+	tabIndents(true),
+	backspaceUnindents(false),
+	durationStyleOneByte(0.000001, 0.0000001, 0.00001) {
 
 	perLineData[ldMarkers] = std::make_unique<LineMarkers>();
 	perLineData[ldLevels] = std::make_unique<LineLevels>();

@@ -462,7 +462,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				{
 					// convert the selection to Unicode, and get the number
 					// of bytes required for the converted text
-					textLength = sizeof(WCHAR) * ::MultiByteToWideChar(codepage, 0, selectedStr, (int)selectSize, NULL, 0);
+					textLength = sizeof(wchar_t) * ::MultiByteToWideChar(codepage, 0, selectedStr, (int)selectSize, NULL, 0);
 				}
 				else
 				{
@@ -485,7 +485,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					reconvert->dwTargetStrLen	 = reconvert->dwCompStrLen;
 					reconvert->dwTargetStrOffset = reconvert->dwCompStrOffset;
 
-					textLength *= sizeof(WCHAR);
+					textLength *= sizeof(wchar_t);
 				}
 
 				if (selectedStr != smallTextBuffer)
@@ -3535,7 +3535,7 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
-				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+				strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case UPPERCASE
@@ -3543,7 +3543,7 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 		{
 			for (int i = 0; i < nbChars; ++i)
 			{
-				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+				strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case LOWERCASE
@@ -3559,12 +3559,12 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 						(isCharSingleQuote(strWToConvert[i - 1]) && ::IsCharAlphaNumericW(strWToConvert[i - 2])))
 					{
 						if (caseToConvert == PROPERCASE_FORCE)
-							strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+							strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					}
 					else if ((i < 1) ? true : !::IsCharAlphaNumericW(strWToConvert[i - 1]))
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					else if (caseToConvert == PROPERCASE_FORCE)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
 			break;
@@ -3581,12 +3581,12 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 				{
 					if (isNewSentence)
 					{
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 						isNewSentence = false;
 					}
 					else if (caseToConvert == SENTENCECASE_FORCE)
 					{
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					}
 					wasEolR = false;
 					wasEolN = false;
@@ -3627,9 +3627,9 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 			for (int i = 0; i < nbChars; ++i)
 			{
 				if (::IsCharLowerW(strWToConvert[i]))
-					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+					strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				else
-					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+					strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 			}
 			break; 
 		} //case INVERTCASE
@@ -3640,9 +3640,9 @@ void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const 
 				if (::IsCharAlphaW(strWToConvert[i]))
 				{
 					if (std::rand() & true)
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharUpperW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 					else
-						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
+						strWToConvert[i] = (wchar_t)(UINT_PTR)::CharLowerW(reinterpret_cast<LPWSTR>(strWToConvert[i]));
 				}
 			}
 			break; 
@@ -3968,9 +3968,12 @@ void ScintillaEditView::hideLines()
 	size_t startMarker = startLine - 1;
 	size_t endMarker = endLine + 1;
 
-	// Remove all previous markers in between new ones
+	// Previous markers must be removed in the selected region:
+
+	removeMarker(startMarker, 1 << MARK_HIDELINESBEGIN);
 	for (size_t i = startLine; i <= endLine; ++i)
 		removeMarker(i, (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND));
+	removeMarker(endMarker, 1 << MARK_HIDELINESEND);
 
 	// When hiding lines just below/above other hidden lines,
 	// merge them into one hidden section:
@@ -3980,10 +3983,10 @@ void ScintillaEditView::hideLines()
 		// Special case: user wants to hide every line in between other hidden sections.
 		// Both "while" loops are executed (merge with above AND below hidden section):
 
-		while (scope == 0)
+		while (scope == 0 && static_cast<intptr_t>(startMarker) >= 0)
 			removeMarker(--startMarker, 1 << MARK_HIDELINESBEGIN);
 
-		while (scope != 0)
+		while (scope != 0 && endMarker < nbLines)
 			removeMarker(++endMarker, 1 << MARK_HIDELINESEND);
 	}
 	else
@@ -3991,10 +3994,10 @@ void ScintillaEditView::hideLines()
 		// User wants to hide some lines below/above other hidden section.
 		// If true, only one "while" loop is executed (merge with adjacent hidden section):
 
-		while (scope < 0)
+		while (scope < 0 && static_cast<intptr_t>(startMarker) >= 0)
 			removeMarker(--startMarker, 1 << MARK_HIDELINESBEGIN);
 
-		while (scope > 0)
+		while (scope > 0 && endMarker < nbLines)
 			removeMarker(++endMarker, 1 << MARK_HIDELINESEND);
 	}
 
@@ -4023,15 +4026,20 @@ bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 	if (closePresent)
 	{
 		openPresent = false;
-		for (lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--)
+		intptr_t i = lineNumber - 1;
+		for (; i >= 0 && !openPresent; i--)
 		{
-			state = execute(SCI_MARKERGET, lineNumber);
+			state = execute(SCI_MARKERGET, i);
 			openPresent = (state & (1 << MARK_HIDELINESBEGIN)) != 0;
 		}
 
 		if (openPresent)
 		{
-			_currentBuffer->setHideLineChanged(false, lineNumber + 1);
+			_currentBuffer->setHideLineChanged(false, i + 1);
+		}
+		else // problem -> only close but no open: let's remove the errno close marker
+		{
+			execute(SCI_MARKERDELETE, lineNumber, MARK_HIDELINESEND);
 		}
 	}
 

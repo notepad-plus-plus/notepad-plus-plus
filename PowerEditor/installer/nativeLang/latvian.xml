@@ -785,8 +785,6 @@
 				</Cloud>
 
 				<MISC title="Citi">
-					<Item id="6307" name="Ieslēgt"/>
-					<Item id="6308" name="Minimizējot pārvietot sistēmas ikonu joslā"/>
 					<Item id="6309" name="Atcerēties pašreizējo sesiju līdz nākošajai palaišanas reizei"/>
 					<Item id="6312" name="Faila statusa automātiska noteikšana"/>
 					<Item id="6313" name="Atjaunināt klusi"/>

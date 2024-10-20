@@ -1324,7 +1324,6 @@
 						<Element name="Uključi za sve otvorene datoteke"/>
 						<Element name="Isključi"/>
 					</ComboBox>
-					<Item id="6308" name="Minimiziraj u paletu sustava"/>
 					<Item id="6312" name="Automatsko prepoznavanje stanja datoteke"/>
 					<Item id="6313" name="Tiho ažuriranje"/>
 					<Item id="6325" name="Po ažuriranju idi na zadnji redak"/>

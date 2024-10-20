@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.6.9">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -635,14 +635,15 @@ Translation note:
 					<Item id="2219" name="デフォルトのキーワード"/>
 					<Item id="2221" name="ユーザー定義のキーワード"/>
 					<Item id="2225" name="言語:"/>
-					<Item id="2226" name="文字色を他のスタイルにも適用"/>
-					<Item id="2227" name="背景色を他のスタイルにも適用"/>
-					<Item id="2228" name="フォント名を他のスタイルにも適用"/>
-					<Item id="2229" name="フォントサイズを他のスタイルにも適用"/>
-					<Item id="2230" name="太字を他のスタイルにも適用"/>
-					<Item id="2231" name="斜体を他のスタイルにも適用"/>
-					<Item id="2232" name="下線を他のスタイルにも適用"/>
+					<Item id="2226" name="文字色をすべてのスタイルに適用"/>
+					<Item id="2227" name="背景色をすべてのスタイルに適用"/>
+					<Item id="2228" name="フォント名をすべてのスタイルに適用"/>
+					<Item id="2229" name="フォントサイズをすべてのスタイルに適用"/>
+					<Item id="2230" name="太字をすべてのスタイルに適用"/>
+					<Item id="2231" name="斜体をすべてのスタイルに適用"/>
+					<Item id="2232" name="下線をすべてのスタイルに適用"/>
 					<Item id="2234" name="関連する環境設定を開く"/>
+					<Item id="2235" name="Global override について"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1317,7 +1318,12 @@ Translation note:
 						<Element name="開いている全ファイルで有効"/>
 						<Element name="無効"/>
 					</ComboBox>
-					<Item id="6308" name="タスクトレイに格納"/>
+					<ComboBox id="6307">
+						<Element name="格納しない"/>
+						<Element name="最小化時に"/>
+						<Element name="閉じるときに"/>
+					</ComboBox>
+					<Item id="6308" name="タスクトレイへ格納"/>
 					<Item id="6312" name="ファイルの状態監視"/>
 					<Item id="6313" name="自動で最新状態に更新"/>
 					<Item id="6325" name="更新後最後の行にスクロール"/>
@@ -1681,8 +1687,8 @@ OKボタンを押すと検索ダイアログが開きます。
 例）階層にかかわらず log や logs といったフォルダー内を除き、すべてのファイル内を検索する：
 *.* !+\log*"/>
 			<find-in-files-select-folder value="検索するディレクトリを選択してください"/>
-			<find-status-top-reached value="検索：末尾からの最後の一致でした。文書の先頭を通過しました"/>
-			<find-status-end-reached value="検索：先頭からの最後の一致でした。文書の末尾を通過しました"/>
+			<find-status-top-reached value="検索：文書頭に到達したため、末尾から検索します"/>
+			<find-status-end-reached value="検索：文書末に到達したため、先頭から検索します"/>
 			<find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>
 			<find-status-replaceinfiles-nb-replaced value="複数ファイル内を検索：$INT_REPLACE$ 件を置換しました"/>
 			<find-status-replaceinopenedfiles-1-replaced value="すべての文書で置換：1 件を置換しました"/>
@@ -1696,8 +1702,8 @@ OKボタンを押すと検索ダイアログが開きます。
 			<find-status-replaceall-1-replaced value="すべて置換：1 件を置換しました"/>
 			<find-status-replaceall-nb-replaced value="すべて置換：$INT_REPLACE$ 件を置換しました"/>
 			<find-status-replaceall-readonly value="すべて置換：置換できません。この文書は読み取り専用です"/>
-			<find-status-replace-end-reached value="置換：先頭からの最後の一致を置換しました。文書の末尾を通過しました"/>
-			<find-status-replace-top-reached value="置換：末尾からの最後の一致を置換しました。文書の先頭を通過しました"/>
+			<find-status-replace-end-reached value="置換：文書末に到達したため、先頭から置換します"/>
+			<find-status-replace-top-reached value="置換：文書頭に到達したため、末尾から置換します"/>
 			<find-status-replaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
 			<find-status-replaced-without-continuing value="置換：1 件を置換しました。"/>
 			<find-status-replaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
@@ -1811,6 +1817,8 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell、JSON を指します。
 
 「高度」を選択しても、上記の言語以外を編集している場合は「基本」と同じになります。"/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="&quot;Global override&quot; を使用すると、すべての言語のスタイル設定が、チェックを入れたもので上書きされます。&quot;Default Style&quot; を使われるほうが、お望みの挙動に近いかもしれません。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

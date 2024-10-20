@@ -1311,7 +1311,6 @@ Nota de tradução:
 						<Element name="Ativar para todos os ficheiros abertos"/>
 						<Element name="Desativar"/>
 					</ComboBox>
-					<Item id="6308" name="Minimizar para a área de notificação"/>
 					<Item id="6312" name="Deteção automática do estado do ficheiro"/>
 					<Item id="6313" name="Atualizar em segundo plano"/>
 					<Item id="6325" name="Depois de atualizar, ir para a última linha"/>

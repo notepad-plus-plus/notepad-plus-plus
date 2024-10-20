@@ -638,7 +638,7 @@ Translation note:
 					<Item id="2231" name="Tvinga kursiv stil för alla stilar"/>
 					<Item id="2232" name="Tvinga understrykning för alla stilar"/>
 					<Item id="2234" name="Gå till inställningarna"/>
-					<Item id="2235" name="Vad är global åsidosättning?"/>
+					<Item id="2235" name="Vad är Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 

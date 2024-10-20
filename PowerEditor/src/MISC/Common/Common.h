@@ -154,7 +154,7 @@ protected:
 
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
-std::wstring PathRemoveFileSpec(std::wstring & path);
+std::wstring pathRemoveFileSpec(std::wstring & path);
 std::wstring pathAppend(std::wstring &strDest, const std::wstring & str2append);
 COLORREF getCtrlBgColor(HWND hWnd);
 std::wstring stringToUpper(std::wstring strToConvert);

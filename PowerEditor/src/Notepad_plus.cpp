@@ -6679,7 +6679,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		checkDocState();
 		setTitle();
 		wstring dir(buffer->getFullPathName());
-		PathRemoveFileSpec(dir);
+		pathRemoveFileSpec(dir);
 		setWorkingDir(dir.c_str());
 	}
 
@@ -6744,7 +6744,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	setDisplayFormat(buf->getEolFormat());
 	enableConvertMenuItems(buf->getEolFormat());
 	wstring dir(buf->getFullPathName());
-	PathRemoveFileSpec(dir);
+	pathRemoveFileSpec(dir);
 	setWorkingDir(dir.c_str());
 	setTitle();
 	//Make sure the colors of the tab controls match

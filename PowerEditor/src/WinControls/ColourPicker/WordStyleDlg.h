@@ -71,6 +71,13 @@ class WordStyleDlg : public StaticDialog
 {
 public :
 	WordStyleDlg() = default;
+	~WordStyleDlg() {
+		_goToSettings.destroy();
+		_globalOverrideLinkTip.destroy();
+
+		if (_globalOverrideTip)
+			::DestroyWindow(_globalOverrideTip);
+	};
 
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
     void doDialog(bool isRTL = false);
@@ -104,6 +111,8 @@ private :
 	HWND _hStyleInfoStaticText = nullptr;
 
 	URLCtrl _goToSettings;
+	URLCtrl _globalOverrideLinkTip;
+	HWND _globalOverrideTip = nullptr;
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;

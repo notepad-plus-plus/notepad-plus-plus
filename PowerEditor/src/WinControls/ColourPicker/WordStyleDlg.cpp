@@ -124,7 +124,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			for (size_t i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(wchar_t)) ; ++i)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[i]));
 
-			const std::vector<wstring> & fontlist = (NppParameters::getInstance()).getFontList();
+			const std::vector<wstring> & fontlist = nppParamInst.getFontList();
 			for (size_t i = 0, len = fontlist.size() ; i < len ; ++i)
 			{
 				auto j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontlist[i].c_str()));
@@ -156,6 +156,18 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_goToSettings.create(::GetDlgItem(_hSelf, IDC_GLOBAL_GOTOSETTINGS_LINK), L"");
 			std::pair<intptr_t, intptr_t> pageAndCtrlID = goToPreferencesSettings();
 			_goToSettings.display(pageAndCtrlID.first != -1);
+
+			HWND hWhatIsGlobalOverride = ::GetDlgItem(_hSelf, IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK);
+			_globalOverrideLinkTip.init(_hInst, _hSelf);
+			_globalOverrideLinkTip.create(hWhatIsGlobalOverride, L"");
+
+			const Style& style = getCurrentStyler();
+			bool showWhatIsGlobalOverride = (style._styleDesc == L"Global override");
+			_globalOverrideLinkTip.display(showWhatIsGlobalOverride);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
+			wstring globalOverrideTipStr = pNativeSpeaker->getLocalizedStrFromID("global-override-tip", L"Enabling \"Global override\" here will override that parameter in all language styles. What you probably really want is to use the \"Default Style\" settings instead");
+			_globalOverrideTip = CreateToolTip(IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK, _hSelf, _hInst, const_cast<PTSTR>(globalOverrideTipStr.c_str()), false);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -1085,7 +1097,7 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 
 	const Style& style = getCurrentStyler();
 
-	// Global override style
+	// Check if it's one of following Global Styles:
 	if (style._styleDesc == L"Current line background colour")
 	{
 		result.first = edit1;
@@ -1472,5 +1484,6 @@ void WordStyleDlg::showGlobalOverrideCtrls(bool show)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BOLD_CHECK), show ? SW_SHOW : SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_ITALIC_CHECK), show ? SW_SHOW : SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK), show ? SW_SHOW : SW_HIDE);
 	_isShownGOCtrls = show;
 }

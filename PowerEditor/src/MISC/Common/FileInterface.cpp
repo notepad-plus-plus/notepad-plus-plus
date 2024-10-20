@@ -37,7 +37,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		// Store the file creation date & attributes for a possible use later...
 		if (getFileAttributesExWithTimeout(fname, &attributes_original, 0, &isTimeoutReached))
 		{
-			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
+			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes_original.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 		}
 
 		if (fileExists)
@@ -120,7 +120,7 @@ void Win32_IO_File::close()
 
 					std::wstring curFilePath;
 					const DWORD cchPathBuf = MAX_PATH + 128;
-					WCHAR pathbuf[cchPathBuf]{};
+					wchar_t pathbuf[cchPathBuf]{};
 					// the dwFlags used below are the most error-proof and informative
 					DWORD dwRet = ::GetFinalPathNameByHandle(_hFile, pathbuf, cchPathBuf, FILE_NAME_OPENED | VOLUME_NAME_NT);
 					if ((dwRet == 0) || (dwRet >= cchPathBuf))

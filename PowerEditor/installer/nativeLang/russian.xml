@@ -672,7 +672,7 @@ Updated to v8.7.1:
 					<Item id="2231" name="Общий курсив шрифтов"/>
 					<Item id="2232" name="Общее подчёркивание шрифтов"/>
 					<Item id="2234" name="Перейти к настройкам"/>
-					<Item id="2235" name="Что значит Глобальное Замещение?"/>
+					<Item id="2235" name="Что делает 'Global override'?"/>
 				</SubDialog>
 			</StyleConfig>
 			<ShortcutMapper title="Управление Клавишами Быстрого Доступа">

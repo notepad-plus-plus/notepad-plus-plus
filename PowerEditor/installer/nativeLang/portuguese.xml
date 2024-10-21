@@ -639,7 +639,7 @@ Nota de tradução:
 					<Item id="2232" name="Forçar tipo de letra sublinhada para todos os estilos"/>
 					<Item id="2234" name="Ir para definições"/>
 					<!-- Don't translate "&quot;Global override&quot; -->
-					<Item id="2235" name="O que é Substituição global?"/>
+					<Item id="2235" name="O que é Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1822,7 +1822,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Se selecionar o modo avançado mas não editar ficheiros nas linguagens acima mencionadas, a indentação manter-se-á no modo básico."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
-			<global-override-tip value="Ativar a &quot;Substituição global&quot; aqui irá substituir esse parâmetro em todos os estilos de linguagem. O que provavelmente pretende é usar as definições de &quot;Estilo predefinido&quot; em vez disso"/>
+			<global-override-tip value="Ativar o &quot;Global override&quot; aqui irá substituir esse parâmetro em todos os estilos de linguagem. O que provavelmente pretende é usar as definições de &quot;Default Style&quot; em vez disso"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
@@ -1851,7 +1851,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 20 October 2024 by Hugo Carvalho
+Last modified: 21 October 2024 by Hugo Carvalho
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

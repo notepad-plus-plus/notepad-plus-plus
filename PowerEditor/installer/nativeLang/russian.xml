@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.0:
+Updated to v8.7.1:
 - added new lines
-- add Alt command
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.0">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -38,7 +37,7 @@ Updated to v8.7.0:
 					<Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
 					<Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
 					<Item subMenuId="edit-onSelection" name="Выделенное"/>
-					<Item subMenuId="edit-multiSelectALL" name="Мультивыбор Все"/>
+					<Item subMenuId="edit-multiSelectALL" name="Мультивыбор Всех"/>
 					<Item subMenuId="edit-multiSelectNext" name="Мультивыбор Далее"/>
 					<Item subMenuId="search-changeHistory" name="История Изменений"/>
 					<Item subMenuId="search-markAll" name="Пометить все совпадения"/>
@@ -140,8 +139,9 @@ Updated to v8.7.0:
 					<Item id="42095" name="Учитывать только Регистр"/>
 					<Item id="42096" name="Учитывать только Целые Слова"/>
 					<Item id="42097" name="Учитывать Регистр и Целые Слова"/>
-					<Item id="42098" name="Отменить Последний Добавленный"/>
-					<Item id="42099" name="Пропустить Текущий и Перейти к След."/>
+
+					<Item id="42098" name="Отменить последний добавл. Мультивыбор"/>
+					<Item id="42099" name="Пропустить тек. и перейти к след. Мультивыбору"/>
 
 					<Item id="42029" name="&amp;Путь и Имя файла в буфер"/>
 					<Item id="42030" name="&amp;Имя файла в буфер"/>
@@ -169,7 +169,7 @@ Updated to v8.7.0:
 					<Item id="42014" name="Переместить строку Вверх"/>
 					<Item id="42015" name="Переместить строку Вниз"/>
 					<Item id="42055" name="Удалить пустые строки"/>
-					<Item id="42056" name="Удалить пустые строки  (содер. символы Пробела)"/>
+					<Item id="42056" name="Удалить пустые строки  (содер. Пробелы)"/>
 					<Item id="42057" name="Вставить пустую строку Перед текущей"/>
 					<Item id="42058" name="Вставить пустую строку После текущей"/>
 
@@ -406,8 +406,8 @@ Updated to v8.7.0:
 					<Item id="46016" name="Обычный Текст"/>
 
 					<Item id="48011" name="&amp;Настройки..."/>
-					<Item id="46001" name="&amp;Определение стилей..."/>
-					<Item id="48009" name="&amp;Клавиши Быстрого Доступа..."/>
+					<Item id="46001" name="&amp;Конфигуратор стилей..."/>
+					<Item id="48009" name="Клавиши &amp;Быстрого Доступа..."/>
 					<Item id="48005" name="Импортировать Плагин(ы)"/>
 					<Item id="48006" name="Импортировать Тему(ы)"/>
 					<Item id="48018" name="Редакт. Контекстное Меню"/>
@@ -643,7 +643,7 @@ Updated to v8.7.0:
 				<Item id="5511" name="Домашняя страница"/>
 				<Item id="2" name="За&amp;крыть"/>
 			</PluginsAdminDlg>
-			<StyleConfig title="Определение стилей">
+			<StyleConfig title="Конфигуратор стилей">
 				<Item id="2" name="&amp;Отмена"/>
 				<Item id="2301" name="&amp;Сохранить"/>
 				<Item id="2303" name="Прозрачность"/>
@@ -672,6 +672,7 @@ Updated to v8.7.0:
 					<Item id="2231" name="Общий курсив шрифтов"/>
 					<Item id="2232" name="Общее подчёркивание шрифтов"/>
 					<Item id="2234" name="Перейти к настройкам"/>
+					<Item id="2235" name="Что делает 'Global override'?"/>
 				</SubDialog>
 			</StyleConfig>
 			<ShortcutMapper title="Управление Клавишами Быстрого Доступа">
@@ -827,7 +828,7 @@ Updated to v8.7.0:
 				<Item id="20015" name="Импортир..."/>
 				<Item id="20016" name="Экспортир..."/>
 				<Item id="20017" name="Открепить"/>
-				<StylerDialog title="Настройка Стилистики">
+				<StylerDialog title="Настройки Стиля">
 					<Item id="1" name="О&amp;К"/>
 					<Item id="2" name="&amp;Отмена"/>
 					<Item id="25030" name="Стиль шрифта:"/>
@@ -1081,7 +1082,7 @@ Updated to v8.7.0:
 					<Item id="7108" name="Голубая"/>
 					<Item id="7109" name="Оливковая"/>
 
-					<Item id="7115" name="Настраиваемая тема"/>
+					<Item id="7115" name="Настраиваемая"/>
 					<Item id="7116" name="Панель"/>
 					<Item id="7117" name="Текущий выбор"/>
 					<Item id="7118" name="Вкладки"/>
@@ -1135,7 +1136,7 @@ Updated to v8.7.0:
 					<Item id="6411" name="Синтаксис по умолч.:"/>
 					<Item id="6419" name="Новый Документ"/>
 					<Item id="6420" name="Применить к откр. ANSI файлам"/>
-					<Item id="6432" name="Всегда открывать дополнительный новый документ при запуске"/>
+					<Item id="6432" name="Всегда открывать дополн. новый документ при запуске"/>
 				</NewDoc>
 				<DefaultDir title="Путь По Умолчанию">
 					<Item id="6413" name="Директория Сохранения и Открытия Файла"/>
@@ -1250,7 +1251,12 @@ Updated to v8.7.0:
 						<Element name="Всех открытых файлов"/>
 						<Element name="Отключено"/>
 					</ComboBox>
-					<Item id="6308" name="Сворачивать приложение в трей"/>
+					<ComboBox id="6307">
+						<Element name="Бездействие"/>
+						<Element name="Свернуть в"/>
+						<Element name="Закрыть в"/>
+					</ComboBox>
+					<Item id="6308" name="системный трей"/>
 					<Item id="6312" name="Отслеживание Изменений в Файлах"/>
 					<Item id="6313" name="Обновлять не спрашивая"/>
 					<Item id="6325" name="К последней строке после обновл."/>
@@ -1268,8 +1274,6 @@ Updated to v8.7.0:
 					<Item id="6349" name="Использ. DirectWrite (может улучшить отображение спецсимволов, необходим перезапуск)"/>
 					<Item id="6360" name="Отключить все звуки"/>
 					<Item id="6361" name="Запрашивать подтверждение для команды 'Сохранить Все'"/>
-					<Item id="6362" name="Список Функций"/>
-					<Item id="6363" name="Сортировать функции по имени"/>
 				</MISC>
 				<MultiInstance title="Режим Откр. и Дата">
 					<Item id="6151" name="Режим Открытия Файлов*"/>
@@ -1651,7 +1655,7 @@ Notepad++ сделает резервную копию вашего старог
 			<word-chars-list-space-warning value="$INT_REPLACE$ пробел(ов)"/>
 			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(ов)"/>
 			<word-chars-list-warning-end value="  в вашем списке символов."/>
-			<eol-custom-color-tip value="Перейдите в меню Определение стилей, чтобы задать свой цвет для индикатора конца строки (&quot;EOL custom color&quot;)."/>
+			<eol-custom-color-tip value="Перейдите в меню Конфигуратор Стилей, чтобы задать свой цвет для индикатора конца строки (&quot;EOL custom color&quot;)."/>
 			<backup-select-folder value="Выберите папку в качестве директории резервного копирования"/>
 			<cloud-invalid-warning value="Недопустимый путь."/>
 			<cloud-restart-warning value="Перезапустите Notepad++, чтобы изменения вступили в силу."/>
@@ -1671,8 +1675,8 @@ Notepad++ сделает резервную копию вашего старог
 Искать во всех файлах, но исключить все папки log или рекурсивные logs:
 *.* !+\log*"/>
 			<find-in-files-select-folder value="Выберите папку для поиска"/>
-			<find-status-top-reached value="Поиск: Найдено последнее совпадение снизу. Достигнуто начало документа."/>
-			<find-status-end-reached value="Поиск: Найдено последнее совпадение сверху. Достигнут конец документа."/>
+			<find-status-end-reached value="Поиск: Достигнут конец. Найдено первое совпадение сверху."/>
+			<find-status-top-reached value="Поиск: Достигнуто начало. Найдено первое совпадение снизу."/>
 			<find-status-replaceinfiles-1-replaced value="Замена в файлах: заменено 1 совпадение"/>
 			<find-status-replaceinfiles-nb-replaced value="Замена в файлах: заменено $INT_REPLACE$ совпадений"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замена в открытых файлах: заменено 1 совпадение"/>
@@ -1687,10 +1691,10 @@ Notepad++ сделает резервную копию вашего старог
 			<find-status-replaceall-1-replaced value="Замена всех: заменено 1 совпадение"/>
 			<find-status-replaceall-nb-replaced value="Замена всех: заменено $INT_REPLACE$ совпадений"/>
 			<find-status-replaceall-readonly value="Замена всех: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
-			<find-status-replace-end-reached value="Замена: Заменено последнее совпадение сверху. Достигнут конец документа."/>
-			<find-status-replace-top-reached value="Замена: Заменено последнее совпадение снизу. Достигнуто начало документа."/>
+			<find-status-replace-end-reached value="Замена: Достигнут конец. Заменено последнее нижнее совпадение."/>
+			<find-status-replace-top-reached value="Замена: Достигнуто начало. Заменено последнее верхнее совпадение."/>
 			<find-status-replaced-next-found value="Замена: заменено 1 совпадение. Найдено следующее совпадение."/>
-			<find-status-replaced-next-not-found value="Замена: заменено 1 совпадение. Совпадений больше не найдено."/>
+			<find-status-replaced-next-not-found value="Замена: заменено 1 совпадение. Совпадений больше нет."/>
 			<find-status-replace-not-found value="Замена: совпадений не найдено"/>
 			<find-status-replace-readonly value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения."/>
 			<find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
@@ -1706,7 +1710,7 @@ Notepad++ сделает резервную копию вашего старог
 			<finder-uncollapse-all value="Развернуть все блоки"/>
 			<finder-copy value="Копировать (выбранные строки)"/>
 			<finder-copy-paths value="Путь и Имя файла в буфер"/>
-			<finder-clear-all value="Очистить окно поиска"/>
+			<finder-clear-all value="Очистить Окно Поиска"/>
 			<finder-open-all value="Открыть все файлы"/>
 			<finder-wrap-long-lines value="Перенос слов длинных строк"/>
 			<common-ok value="О&amp;К"/>
@@ -1766,10 +1770,9 @@ Notepad++ сделает резервную копию вашего старог
 			<file-save-assign-type value="&amp;Добавлять расширение"/>
 			<close-panel-tip value="Закрыть"/>
 			<IncrementalFind-FSFound value="$INT_REPLACE$ совпадений"/>
-			<IncrementalFind-FSNotFound value="Фраза не найдена"/>
+			<IncrementalFind-FSNotFound value="Выражение не найдено"/>
 			<IncrementalFind-FSTopReached value="Выше совпадений нет, продолжено снизу"/>
 			<IncrementalFind-FSEndReached value="Ниже совпадений нет, продолжено сверху"/>
-			<file-opencontainingfolder-cmd-tip value="Изменены глобальные настройки среды. Если вам нужно обновить среду cmd, перезапустите Notepad++ из только что открытого проводника."/>
 			<contextMenu-styleAlloccurrencesOfToken value="Пометить все Совпадения"/>
 			<contextMenu-styleOneToken value="Пометить только Одно"/>
 			<contextMenu-clearStyle value="Очистить Пометки"/>
@@ -1809,7 +1812,7 @@ U+FEFF : неразрывный пробел нулевой ширины
 Нажмите в меню &quot;?&quot; Онлайн Руководство, чтобы открыть веб-сайт."/>
 
 			<fileSaveAsCopySaveButton-tip value="Удерживайте Shift, одновременно нажимая кнопку 'Сохранить', чтобы открыть копию после сохранения."/>
-			<npcCustomColor-tip value="Перейдите в &quot;Определение Стилей&quot;, чтобы задать польз. цвет по умолчанию для выбранных пробелов и непечатаемых символов (&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip value="Перейдите в &quot;Конфигуратор Стилей&quot;, чтобы задать польз. цвет по умолчанию для выбранных пробелов и непечатаемых символов (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Примените настройки внешнего вида для непечатаемых символов C0, C1 и Юникод EOL (следующая строка, разделитель строк и разделитель абзацев)."/>
 			<searchingInSelThresh-tip value="Количество выбранных символов в зоне редактирования для автоматической установки флажка 'В выделенном' при активном окне Поиска. Максимальное значение — 1024. Установите значение 0, чтобы отключить."/>
 			<verticalEdge-tip value="Добавьте свой маркер столбца, указав его положение числом. Вы можете добавить несколько маркеров столбца, используя пробелы для разделения чисел."/>
@@ -1818,6 +1821,7 @@ U+FEFF : неразрывный пробел нулевой ширины
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell и JSON.
 
 Если редактируемые файлы не на вышеупомянутых языках, тогда отступы будут производиться в 'Базовом' режиме."/>
+			<global-override-tip value="Использование &quot;Global override&quot; влияет на все стили языков без исключения, замещая их настройки своими.&#x0A;Возможно, вместо этого вам будет удобнее использовать настройки &quot;Default Style&quot;."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

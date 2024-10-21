@@ -532,17 +532,6 @@ static wstring removeTrailingSlash(const wstring& path)
 		return path;
 }
 
-static bool isDirectory(const wstring& path)
-{
-	DWORD type = ::GetFileAttributes(path.c_str());
-	return type != INVALID_FILE_ATTRIBUTES && (type & FILE_ATTRIBUTE_DIRECTORY);
-}
-
-static bool isFile(const wstring& path)
-{
-	DWORD type = ::GetFileAttributes(path.c_str());
-	return type != INVALID_FILE_ATTRIBUTES && ! (type & FILE_ATTRIBUTE_DIRECTORY);
-}
 
 static bool isAllowedBeforeDriveLetter(wchar_t c)
 {
@@ -578,11 +567,11 @@ static bool getPathsForPathCompletion(const wstring& input, wstring &rawPath_out
 	{
 		return false;
 	}
-	else if (isFile(rawPath) || isFile(removeTrailingSlash(rawPath)))
+	else if (doesFileExist(removeTrailingSlash(rawPath).c_str()))
 	{
 		return false;
 	}
-	else if (isDirectory(rawPath))
+	else if (doesDirectoryExist(rawPath.c_str()))
 	{
 		rawPath_out = rawPath;
 		pathToMatch_out = rawPath;

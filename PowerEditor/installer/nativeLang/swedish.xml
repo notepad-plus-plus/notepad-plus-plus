@@ -34,7 +34,7 @@ Translation note:
 					<Item subMenuId="edit-convertCaseTo" name="&amp;Ändra skiftläge"/>
 					<Item subMenuId="edit-lineOperations" name="&amp;Radoperationer"/>
 					<Item subMenuId="edit-comment" name="Ko&amp;mmentera/avkommentera"/>
-					<Item subMenuId="edit-autoCompletion" name="Autokomple&amp;ttering"/>
+					<Item subMenuId="edit-autoCompletion" name="Automatisk komple&amp;ttering"/>
 					<Item subMenuId="edit-eolConversion" name="Kon&amp;vertering av radbrytningar"/>
 					<Item subMenuId="edit-blankOperations" name="&amp;Blanksteg"/>
 					<Item subMenuId="edit-pasteSpecial" name="Klistra in s&amp;pecial"/>
@@ -411,8 +411,8 @@ Translation note:
 					<Item id="11005" name="Sökväg, Ö till A"/>
 					<Item id="11006" name="Typ, A till Ö"/>
 					<Item id="11007" name="Typ, Ö till A"/>
-					<Item id="11008" name="Storlek, mindre till större"/>
-					<Item id="11009" name="Storlek, större till mindre"/>
+					<Item id="11008" name="Innehållets längd, stigande"/>
+					<Item id="11009" name="Innehållets längd, fallande"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -630,14 +630,15 @@ Translation note:
 					<Item id="2219" name="Fördefinierade nyckelord"/>
 					<Item id="2221" name="Användardefinierade nyckelord"/>
 					<Item id="2225" name="Språk:"/>
-					<Item id="2226" name="Aktivera global förgrundsfärg"/>
-					<Item id="2227" name="Aktivera global bakgrundsfärg"/>
-					<Item id="2228" name="Aktivera globalt teckensnitt"/>
-					<Item id="2229" name="Aktivera global teckenstorlek"/>
-					<Item id="2230" name="Aktivera global fet teckenstil"/>
-					<Item id="2231" name="Aktivera global kursiv teckenstil"/>
-					<Item id="2232" name="Aktivera global understruken teckenstil"/>
+					<Item id="2226" name="Tvinga förgrundsfärg för alla stilar"/>
+					<Item id="2227" name="Tvinga bakgrundsfärg för alla stilar"/>
+					<Item id="2228" name="Tvinga teckensnitt för alla stilar"/>
+					<Item id="2229" name="Tvinga teckenstorlek för alla stilar"/>
+					<Item id="2230" name="Tvinga fet stil för alla stilar"/>
+					<Item id="2231" name="Tvinga kursiv stil för alla stilar"/>
+					<Item id="2232" name="Tvinga understrykning för alla stilar"/>
 					<Item id="2234" name="Gå till inställningarna"/>
+					<Item id="2235" name="Vad är Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -752,8 +753,8 @@ Translation note:
 					<Item id="11005" name="Sortera efter sökväg, Ö till A"/>
 					<Item id="11006" name="Sortera efter typ, A till Ö"/>
 					<Item id="11007" name="Sortera efter typ, Ö till A"/>
-					<Item id="11008" name="Sortera efter storlek, mindre till större"/>
-					<Item id="11009" name="Sortera efter storlek, större till mindre"/>
+					<Item id="11008" name="Sortera efter innehållets längd, stigande"/>
+					<Item id="11009" name="Sortera efter innehållets längd, fallande"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kortkommando">
@@ -983,9 +984,9 @@ Translation note:
 					<Item id="6228" name="Standard"/>
 					<Item id="6229" name="Justerad"/>
 					<Item id="6230" name="Indrag"/>
-					<Item id="6234" name="Inaktivera avancerade skrollfunktioner p.g.a. problem med pekplattor"/>
+					<Item id="6234" name="Inaktivera avancerade rullningsfunktioner p.g.a. problem med pekplattor"/>
 					<Item id="6215" name="Aktivera teckenutjämning"/>
-					<Item id="6236" name="Gör det möjligt att skrolla förbi sista raden"/>
+					<Item id="6236" name="Gör det möjligt att rulla förbi den sista raden"/>
 					<Item id="6239" name="Behåll markering när man klickar utanför markeringen"/>
 					<Item id="6245" name="Aktivera virtuellt utrymme"/>
 					<Item id="6214" name="Kopiera/klipp ut aktuell rad när ingenting är markerat"/>
@@ -1202,7 +1203,7 @@ Translation note:
 					<Item id="6817" name="Sessioner och säkerhetskopiering"/>
 					<Item id="6818" name="Ta ögonblicksbilder av sessioner och säkerhetskopiera regelbundet"/>
 					<Item id="6819" name="Säkerhetskopiera vid förändring efter"/>
-					<Item id="6821" name="sekund(er)"/>
+					<Item id="6821" name="sekunder"/>
 					<Item id="6822" name="Sökväg:"/>
 					<Item id="6309" name="Kom ihåg aktuell session vid nästa uppstart"/>
 					<Item id="6825" name="Kom ihåg otillgängliga filer från föregående session"/>
@@ -1311,7 +1312,12 @@ Translation note:
 						<Element name="Aktivera för alla öppnade filer"/>
 						<Element name="Inaktivera"/>
 					</ComboBox>
-					<Item id="6308" name="Minimera till systemfältet"/>
+					<ComboBox id="6307">
+						<Element name="Ingen åtgärd för"/>
+						<Element name="Minimera till"/>
+						<Element name="Stäng till"/>
+					</ComboBox>
+					<Item id="6308" name="systemfältet"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>
 					<Item id="6325" name="Gå till sista raden efter uppdatering"/>
@@ -1651,7 +1657,7 @@ Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsö
 		</ProjectManager>
 		<MiscStrings>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders.  -->
-			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söka med alternativet &quot;Matcha enbart hela ord&quot; markerat."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att markera eller söker med alternativet &quot;Matcha hela ord&quot; markerat."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Gå till stilkonfigureringen för att ändra den anpassade standardfärgen för radslut (&quot;EOL custom color&quot;)."/>
@@ -1679,8 +1685,8 @@ Hitta i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och
 Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
 			<find-in-files-select-folder value="Välj en mapp att söka från"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Sök: Hittade sista förekomsten från slutet. Början av dokumentet har passerats."/>
-			<find-status-end-reached value="Sök: Hittade sista förekomsten från början. Slutet av dokumentet har passerats."/>
+			<find-status-top-reached value="Sök: Början av dokumentet har nåtts, där första förekomsten från slutet hittades."/>
+			<find-status-end-reached value="Sök: Slutet av dokumentet har nåtts, där första förekomsten från början hittades."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersätt i filer: $INT_REPLACE$ förekomster ersattes"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Ersätt i öppna filer: 1 förekomst ersattes"/>
@@ -1694,8 +1700,8 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<find-status-replaceall-1-replaced value="Ersätt alla: 1 förekomst ersattes"/>
 			<find-status-replaceall-nb-replaced value="Ersätt alla: $INT_REPLACE$ förekomster ersattes"/>
 			<find-status-replaceall-readonly value="Ersätt alla: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
-			<find-status-replace-end-reached value="Ersätt: Ersatte sista förekomsten från början. Slutet av dokumentet har passerats"/>
-			<find-status-replace-top-reached value="Ersätt: Ersatte sista förekomsten från slutet. Början av dokumentet har passerats"/>
+			<find-status-replace-end-reached value="Ersätt: Slutet av dokumentet har nåtts efter att ha börjat från början."/>
+			<find-status-replace-top-reached value="Ersätt: Början av dokumentet har nåtts efter att ha börjat från slutet."/>
 			<find-status-replaced-next-found value="Ersätt: 1 förekomst har ersatts. Nästa förekomst har hittats"/>
 			<find-status-replaced-without-continuing value="Ersätt: 1 förekomst har ersatts."/>
 			<find-status-replaced-next-not-found value="Ersätt: 1 förekomst har ersatts. Hittade inte nästa förekomst"/>
@@ -1774,7 +1780,7 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<contextMenu-styleOneToken value="Stilsätt en förekomst"/>
 			<contextMenu-clearStyle value="Rensa stilsättning"/>
 			<contextMenu-PluginCommands value="Kommandon från insticksprogram"/>
-			<largeFileRestriction-tip value="Vissa funktioner kan sänka prestandan i stora filer. Dessa funktioner kan inaktiveras automatiskt när en stor fil öppnas. Du kan anpassa de här.
+			<largeFileRestriction-tip value="Vissa funktioner kan sänka prestandan i stora filer. Dessa funktioner kan inaktiveras automatiskt när en stor fil öppnas. Du kan anpassa dem här.
 
 OBS:
 1. När dessa alternativ modifieras måste alla stora filer stängas och öppnas igen för att fungera ordentligt.
@@ -1814,6 +1820,8 @@ Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med anv
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell och JSON.
 
 Om du väljer avancerat läge men inte redigerar filer i de omfattande språken kommer indraget förbli i enkelt läge."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Om &quot;Global override&quot; aktiveras här kommer samma parameter att åsidosättas i alla språkstilar. Du vill förmodligen egentligen använda inställningen &quot;Default Style&quot; i stället"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

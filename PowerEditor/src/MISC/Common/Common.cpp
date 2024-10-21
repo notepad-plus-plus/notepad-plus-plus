@@ -22,11 +22,10 @@
 #include <locale>
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
-
 #include "FileInterface.h"
 #include "Common.h"
 #include "Utf8.h"
-#include <Parameters.h>
+#include "Parameters.h"
 #include "Buffer.h"
 
 using namespace std;
@@ -126,7 +125,7 @@ void writeFileContent(const wchar_t *file2write, const char *content2write)
 }
 
 
-void writeLog(const wchar_t *logFileName, const char *log2write)
+void writeLog(const wchar_t* logFileName, const char* log2write)
 {
 	const DWORD accessParam{ GENERIC_READ | GENERIC_WRITE };
 	const DWORD shareParam{ FILE_SHARE_READ | FILE_SHARE_WRITE };
@@ -143,8 +142,8 @@ void writeLog(const wchar_t *logFileName, const char *log2write)
 		SYSTEMTIME currentTime = {};
 		::GetLocalTime(&currentTime);
 		wstring dateTimeStrW = getDateTimeStrFrom(L"yyyy-MM-dd HH:mm:ss", currentTime);
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::string log2writeStr = converter.to_bytes(dateTimeStrW);
+		wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		string log2writeStr = converter.to_bytes(dateTimeStrW);
 		log2writeStr += "  ";
 		log2writeStr += log2write;
 		log2writeStr += "\n";
@@ -157,6 +156,11 @@ void writeLog(const wchar_t *logFileName, const char *log2write)
 	}
 }
 
+void writeLog(const wchar_t* logFileName, const wchar_t* log2write)
+{
+	string log2WriteA = wstring2string(log2write, CP_ACP);
+	return writeLog(logFileName, log2WriteA.c_str());
+}
 
 wstring folderBrowser(HWND parent, const wstring & title, int outputCtrlID, const wchar_t *defaultStr)
 {
@@ -625,7 +629,7 @@ wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &file
 }
 
 
-wstring PathRemoveFileSpec(wstring& path)
+wstring pathRemoveFileSpec(wstring& path)
 {
     wstring::size_type lastBackslash = path.find_last_of(L'\\');
     if (lastBackslash == wstring::npos)
@@ -1213,7 +1217,7 @@ bool isCertificateValidated(const wstring & fullFilePath, const wstring & subjec
 
 bool isAssoCommandExisting(LPCTSTR FullPathName)
 {
-	bool isAssoCommandExisting = false;
+	bool isAssoCmdExist = false;
 
 	bool isFileExisting = doesFileExist(FullPathName);
 
@@ -1228,11 +1232,11 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 		// check if association exist
 		hres = AssocQueryString(ASSOCF_VERIFY|ASSOCF_INIT_IGNOREUNKNOWN, ASSOCSTR_COMMAND, ext, NULL, buffer, &bufferLen);
 
-        isAssoCommandExisting = (hres == S_OK)                  // check if association exist and no error
-			&& (wcsstr(buffer, L"notepad++.exe")) == NULL; // check association with notepad++
+		isAssoCmdExist = (hres == S_OK)                  // check if association exist and no error
+			&& (wcsstr(buffer, L"notepad++.exe")) == NULL;   // check association with notepad++
 
 	}
-	return isAssoCommandExisting;
+	return isAssoCmdExist;
 }
 
 std::wstring s2ws(const std::string& str)
@@ -1764,20 +1768,138 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 	return false;
 }
 
-bool doesFileExist(const wchar_t* filePath)
+
+#define DEFAULT_MILLISEC 1000
+
+
+//----------------------------------------------------
+
+struct GetDiskFreeSpaceParamResult
 {
-	DWORD dwAttrib = ::GetFileAttributesW(filePath);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+	std::wstring _dirPath;
+	ULARGE_INTEGER _freeBytesForUser {};
+	DWORD _result = FALSE;
+	bool _isTimeoutReached = true;
+
+	GetDiskFreeSpaceParamResult(wstring dirPath) : _dirPath(dirPath) {};
+};
+
+DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
+{
+	GetDiskFreeSpaceParamResult* inAndOut = static_cast<GetDiskFreeSpaceParamResult*>(data);
+	inAndOut->_result = ::GetDiskFreeSpaceExW(inAndOut->_dirPath.c_str(), &(inAndOut->_freeBytesForUser), nullptr, nullptr);
+	inAndOut->_isTimeoutReached = false;
+	return ERROR_SUCCESS;
+};
+
+DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isTimeoutReached)
+{
+	GetDiskFreeSpaceParamResult data(dirPath);
+
+	HANDLE hThread = ::CreateThread(NULL, 0, getDiskFreeSpaceExWorker, &data, 0, NULL);
+	if (!hThread)
+	{
+		return FALSE;
+	}
+
+	// wait for our worker thread to complete or terminate it when the required timeout has elapsed
+	DWORD dwWaitStatus = ::WaitForSingleObject(hThread, milliSec2wait == 0 ? DEFAULT_MILLISEC : milliSec2wait);
+	switch (dwWaitStatus)
+	{
+		case WAIT_OBJECT_0: // Ok, the state of our worker thread is signaled, so it finished itself in the timeout given		
+			// - nothing else to do here, except the thread handle closing later
+			break;
+
+		case WAIT_TIMEOUT: // the timeout interval elapsed, but the worker's state is still non-signaled
+		default: // any other dwWaitStatus is a BAD one here
+			// WAIT_FAILED or WAIT_ABANDONED
+			::TerminateThread(hThread, dwWaitStatus);
+			break;
+	}
+	CloseHandle(hThread);
+
+	*freeBytesForUser = data._freeBytesForUser;
+
+	if (isTimeoutReached != nullptr)
+		*isTimeoutReached = data._isTimeoutReached;
+
+	return data._result;
 }
 
-bool doesDirectoryExist(const wchar_t* dirPath)
+
+//----------------------------------------------------
+
+struct GetAttrExParamResult
 {
-	DWORD dwAttrib = ::GetFileAttributesW(dirPath);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+	wstring _filePath;
+	WIN32_FILE_ATTRIBUTE_DATA _attributes{};
+	DWORD _result = FALSE;
+	bool _isTimeoutReached = true;
+
+	GetAttrExParamResult(wstring filePath): _filePath(filePath) {
+		_attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	}
+};
+
+DWORD WINAPI getFileAttributesExWorker(void* data)
+{
+	GetAttrExParamResult* inAndOut = static_cast<GetAttrExParamResult*>(data);
+	inAndOut->_result = ::GetFileAttributesEx(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
+	inAndOut->_isTimeoutReached = false;
+	return ERROR_SUCCESS;
+};
+
+DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait, bool* isTimeoutReached)
+{
+	GetAttrExParamResult data(filePath);
+
+	HANDLE hThread = ::CreateThread(NULL, 0, getFileAttributesExWorker, &data, 0, NULL);
+	if (!hThread)
+	{
+		return FALSE;
+	}
+
+	// wait for our worker thread to complete or terminate it when the required timeout has elapsed
+	DWORD dwWaitStatus = ::WaitForSingleObject(hThread, milliSec2wait == 0 ? DEFAULT_MILLISEC : milliSec2wait);
+	switch (dwWaitStatus)
+	{
+		case WAIT_OBJECT_0: // Ok, the state of our worker thread is signaled, so it finished itself in the timeout given		
+			// - nothing else to do here, except the thread handle closing later
+			break;
+
+		case WAIT_TIMEOUT: // the timeout interval elapsed, but the worker's state is still non-signaled
+		default: // any other dwWaitStatus is a BAD one here
+			// WAIT_FAILED or WAIT_ABANDONED
+			::TerminateThread(hThread, dwWaitStatus);
+			break;
+	}
+	CloseHandle(hThread);
+
+	*fileAttr = data._attributes;
+
+	if (isTimeoutReached != nullptr)
+		*isTimeoutReached = data._isTimeoutReached;
+
+	return data._result;
 }
 
-bool doesPathExist(const wchar_t* path)
+bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait, bool* isTimeoutReached)
 {
-	DWORD dwAttrib = ::GetFileAttributesW(path);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES);
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	getFileAttributesExWithTimeout(filePath, &attributes, milliSec2wait, isTimeoutReached);
+	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait, bool* isTimeoutReached)
+{
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	getFileAttributesExWithTimeout(dirPath, &attributes, milliSec2wait, isTimeoutReached);
+	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReached)
+{
+	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	getFileAttributesExWithTimeout(path, &attributes, milliSec2wait, isTimeoutReached);
+	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }

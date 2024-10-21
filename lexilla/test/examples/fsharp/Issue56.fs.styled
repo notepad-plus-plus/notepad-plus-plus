@@ -1,8 +1,8 @@
-{9}// not folded{0}
-
-{9}// first line in comment fold{0}
-{9}// second . . .{0}
-{9}// third . . .{0}
+{9}// not folded
+{0}
+{9}// first line in comment fold
+// second . . .
+// third . . .
 {1}namespace{0} {6}Issue56{0}
 
 {1}open{0} {3}System{0}

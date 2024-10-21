@@ -1200,7 +1200,6 @@ Updated to v8.6 fixed version
 					</ComboBox>
 					<Item id="6114" name="Käytössä"/>
 					<Item id="6117" name="Ota käyttöön MRU-käyttäytyminen"/>
-					<Item id="6308" name="Pienennä ilmoitusalueelle"/>
 					<Item id="6312" name="Tiedostotilan automaattinen tunnistus"/>
 					<Item id="6313" name="Äänetön päivitys"/>
 					<Item id="6314" name="Käytä hakuikkunassa tasalevyistä fonttia (sovellus on käynnistettävä uudelleen)"/>

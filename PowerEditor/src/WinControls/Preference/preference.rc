@@ -596,14 +596,17 @@ BEGIN
     CONTROL         "Peek on tab",IDC_CHECK_ENABLEDOCPEEKER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,269,58,140,10
     CONTROL         "Peek on document map",IDC_CHECK_ENABLEDOCPEEKONMAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,269,71,140,10
 
+    COMBOBOX        IDC_COMBO_SYSTRAY_ACTION_HOICE,37,77,94,100,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "system tray",IDC_SYSTRAY_STATIC,137,78,88,8
+
     // "Enable Notepad++ auto-updater" should be always the 1st item, because it'll be hidden if GUP.exe is absent
-    CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,94,210,10
-    CONTROL         "Mute all sounds",IDC_CHECK_MUTE_SOUNDS,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,109,190,10
-    CONTROL         "Autodetect character encoding",IDC_CHECK_DETECTENCODING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,124,217,10
-    CONTROL         "Minimize to system tray",IDC_CHECK_MIN2SYSTRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,139,217,10
+    CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,109,210,10
+    CONTROL         "Mute all sounds",IDC_CHECK_MUTE_SOUNDS,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,37,124,190,10
+    CONTROL         "Autodetect character encoding",IDC_CHECK_DETECTENCODING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,139,217,10
     CONTROL         "Show only filename in title bar",IDC_CHECK_SHORTTITLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,154,217,10
     CONTROL         "Use DirectWrite (May improve rendering special characters, need to restart Notepad++)",IDC_CHECK_DIRECTWRITE_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,169,377,10
     CONTROL         "Enable Save All confirm dialog",IDC_CHECK_SAVEALLCONFIRM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,184,217,10
+
 
     RTEXT           "Session file ext.:",IDC_SESSIONFILEEXT_STATIC,270,130,108,8
     EDITTEXT        IDC_EDIT_SESSIONFILEEXT,380,127,34,12,ES_AUTOHSCROLL

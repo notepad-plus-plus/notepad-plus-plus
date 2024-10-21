@@ -1196,7 +1196,6 @@ Bạn có thể định nghĩa một vài mốc đánh dấu bằng cách sử d
 						<Element name="Bật cho mọi tệp được mở"/>
 						<Element name="Tắt"/>
 					</ComboBox>
-					<Item id="6308" name="Thu nhỏ hẳn vào khay hệ thống"/>
 					<Item id="6312" name="Tự phát hiện trạng thái tệp"/>
 					<Item id="6313" name="Lặng lẽ cập nhật"/>
 					<Item id="6325" name="Cuộn xuống dòng cuối sau khi cập nhật"/>

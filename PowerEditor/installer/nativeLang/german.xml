@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-09-08"><!-- basiert auf english.xml 8.6.9 vom 07.09.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-10-20"><!-- basiert auf english.xml 8.6.9 vom 20.10.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -233,7 +233,7 @@ Translation note:
 					<Item id="43052" name="Nach &amp;Zeichencodes suchen …"/>
 					<Item id="43053" name="&amp;Alles zwischen {}, [] oder () auswählen"/>
 					<Item id="43009" name="Zugehörige &amp;Klammer suchen"/>
-					<Item id="43010" name="&amp;Rückwärts suchen"/>
+					<Item id="43010" name="&amp;Finde vorherige"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>
 					<Item id="43013" name="In &amp;Dateien suchen …"/>
 					<Item id="43014" name="Wort am Cursor suchen (&amp;ohne Verlauf)"/>
@@ -420,8 +420,8 @@ Translation note:
 					<Item id="11005" name="Pfad Z bis A"/>
 					<Item id="11006" name="Typ A bis Z"/>
 					<Item id="11007" name="Typ Z bis A"/>
-					<Item id="11008" name="Nach Inhaltslänge aufsteigend"/>
-					<Item id="11009" name="Nach Inhaltslänge absteigend"/>
+					<Item id="11008" name="Inhaltslänge aufsteigend"/>
+					<Item id="11009" name="Inhaltslänge absteigend"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -479,9 +479,9 @@ Translation note:
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2" name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
-				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
+				<Item id="1603" name="Nur ganze &amp;Wörter suchen"/>
 				<Item id="1604" name="Groß-/&amp;Kleinschreibung beachten"/>
-				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
+				<Item id="1605" name="Re&amp;guläre Ausdrücke"/>
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1614" name="Z&amp;ählen"/>
 				<Item id="1615" name="&amp;Alle markieren"/>
@@ -639,14 +639,16 @@ Translation note:
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Standardfarbe Vordergrund"/>
-					<Item id="2227" name="Standardfarbe Hintergrund"/>
-					<Item id="2228" name="Schriftart als Standard setzen"/>
-					<Item id="2229" name="Schriftgröße als Standard setzen"/>
-					<Item id="2230" name="Fettschrift als Standard setzen"/>
-					<Item id="2231" name="Kursivschrift als Standard setzen"/>
-					<Item id="2232" name="Unterstrichen als Standard setzen"/>
+					<Item id="2226" name="Standardfarbe Vordergrund für alle Stile erzwingen"/>
+					<Item id="2227" name="Standardfarbe Hintergrund für alle Stile erzwingen"/>
+					<Item id="2228" name="Schriftart als Standard für alle Stile erzwingen"/>
+					<Item id="2229" name="Schriftgröße als Standard für alle Stile erzwingen"/>
+					<Item id="2230" name="Fettschrift als Standard für alle Stile erzwingen"/>
+					<Item id="2231" name="Kursivschrift als Standard für alle Stile erzwingen"/>
+					<Item id="2232" name="Unterstrichen als Standard für alle Stile erzwingen"/>
 					<Item id="2234" name="Zu den Einstellungen"/>
+					<!-- Don't translate "&quot;Global override&quot; -->
+					<Item id="2235" name="Was bedeutet Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1320,7 +1322,12 @@ Translation note:
 						<Element name="Für alle offenen Dateien aktivieren"/>
 						<Element name="Deaktivieren"/>
 					</ComboBox>
-					<Item id="6308" name="In den Infobereich (Tray) minimieren"/>
+					<ComboBox id="6307">
+						<Element name="Keine Aktion in den"/>
+						<Element name="Minimieren in den"/>
+						<Element name="Schließen in den"/>
+					</ComboBox>
+					<Item id="6308" name="Infobereich (Tray)"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
@@ -1688,8 +1695,8 @@ Suche in allen Dateien, exkludiere die Verzeichnisse test, bin &amp;&amp; bin64:
 Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Wählen Sie ein Verzeichnis zum Durchsuchen"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Suche: Letzter Treffer von unten gefunden. Der Anfang des Dokumentes wurde erreicht."/>
-			<find-status-end-reached value="Suche: Letzter Treffer von oben gefunden. Das Ende des Dokumentes wurde erreicht."/>
+			<find-status-top-reached value="Suche: Dokumentenanfang wurde erreicht - erster Treffer von unten gefunden."/>
+			<find-status-end-reached value="Suche: Dokumentenende wurde erreicht - erster Treffer von oben gefunden."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Treffer wurde ersetzt"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Treffer wurden ersetzt"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Treffer wurde ersetzt"/>
@@ -1703,8 +1710,8 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Treffer wurde ersetzt"/>
 			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Treffer wurden ersetzt"/>
 			<find-status-replaceall-readonly value="Alle ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
-			<find-status-replace-end-reached value="Ersetzen: Letzter Treffer von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
-			<find-status-replace-top-reached value="Ersetzen: Letzter Treffer von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
+			<find-status-replace-end-reached value="Ersetzen: Dokumentenende wurde erreicht - von oben beginnend"/>
+			<find-status-replace-top-reached value="Ersetzen: Dokumentenanfang wurde erreicht - von unten beginnend"/>
 			<find-status-replaced-next-found value="Ersetzen: 1 Treffer wurde ersetzt. Nächster Treffer gefunden"/>
 			<find-status-replaced-without-continuing value="Ersetzen: 1 Treffer wurde ersetzt."/>
 			<find-status-replaced-next-not-found value="Ersetzen: 1 Treffer wurde ersetzt. Keine weiteren Treffer gefunden"/>
@@ -1823,7 +1830,8 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON.
 
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Das Aktivieren der &quot;Global override&quot; überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für &quot;Default Style&quot;"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

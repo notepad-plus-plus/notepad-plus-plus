@@ -25,7 +25,8 @@
 #include <algorithm>
 #include <tchar.h>
 
-#pragma deprecated(PathFileExists) // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
+#pragma deprecated(PathFileExists)  // Use doesFileExist, doesDirectoryExist or doesPathExist (for file or directory) instead.
+#pragma deprecated(PathIsDirectory) // Use doesDirectoryExist instead.
 
 
 const bool dirUp = true;
@@ -57,9 +58,10 @@ void printInt(int int2print);
 void printStr(const wchar_t *str2print);
 std::wstring commafyInt(size_t n);
 
-void writeLog(const wchar_t *logFileName, const char *log2write);
+void writeLog(const wchar_t* logFileName, const char* log2write);
+void writeLog(const wchar_t* logFileName, const wchar_t* log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
-std::wstring purgeMenuItemString(const wchar_t * menuItemStr, bool keepAmpersand = false);
+std::wstring purgeMenuItemString(const wchar_t* menuItemStr, bool keepAmpersand = false);
 std::vector<std::wstring> tokenizeString(const std::wstring & tokenString, const char delim);
 
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);
@@ -152,7 +154,7 @@ protected:
 
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
-std::wstring PathRemoveFileSpec(std::wstring & path);
+std::wstring pathRemoveFileSpec(std::wstring & path);
 std::wstring pathAppend(std::wstring &strDest, const std::wstring & str2append);
 COLORREF getCtrlBgColor(HWND hWnd);
 std::wstring stringToUpper(std::wstring strToConvert);
@@ -280,6 +282,10 @@ private:
 	unsigned long _build = 0;
 };
 
-bool doesFileExist(const wchar_t* filePath);
-bool doesDirectoryExist(const wchar_t* dirPath);
-bool doesPathExist(const wchar_t* path);
+
+DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+
+bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);

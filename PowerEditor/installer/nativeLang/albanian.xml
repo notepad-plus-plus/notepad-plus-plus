@@ -798,8 +798,6 @@
 				</Cloud>
 
 				<MISC title="MISC.">
-					<Item id="6307" name="Aftëso"/>
-					<Item id="6308" name="Minimizo në tabaken e sistemit"/>
 					<Item id="6312" name="Statusi i filit Auto-Detekto"/>
 					<Item id="6313" name="Aktualizo në qetësi"/>
 					<Item id="6318" name="Rregullimet e lidhjes së klikueshme"/>

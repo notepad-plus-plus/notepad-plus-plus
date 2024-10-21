@@ -16,7 +16,7 @@ Translation note:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.6.9">
+	<Native-Langue name="polski" filename="polish.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -648,6 +648,8 @@ Translation note:
 					<Item id="2231" name="Stosuj kursywę globalnie"/>
 					<Item id="2232" name="Stosuj podkreślenie globalnie"/>
 					<Item id="2234" name="Przejdź do okna ustawień"/>
+					<!-- Don't translate "&quot;Global override&quot; -->
+					<Item id="2235" name="Co to jest Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1313,7 +1315,12 @@ Translation note:
 						<Element name="Włącz dla otwartych plików"/>
 						<Element name="Wyłącz"/>
 					</ComboBox>
-					<Item id="6308" name="Minimalizuj do zasobnika systemowego"/>
+					<ComboBox id="6307">
+						<Element name="Bez akcji do"/>
+						<Element name="Minimalizuj do"/>
+						<Element name="Zamykaj do"/>
+					</ComboBox>
+					<Item id="6308" name="zasobnika systemowego"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>
 					<Item id="6313" name="Uaktualniaj po cichu"/>
 					<Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
@@ -1675,8 +1682,8 @@ Szukaj wśród wszystkich plików z wyjątkiem folderów tests, bin i bin64:
 Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folderów log i logs:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Wybierz folder, który ma zostać przeszukany przez Notepad++"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Szukanie: Plik przeszukano do góry. Znaleziono 1. wystąpienie od dołu."/>
-			<find-status-end-reached value="Szukanie: Plik przeszukano do dołu. Znaleziono 1. wystąpienie od góry."/>
+			<find-status-top-reached value="Szukanie: Osiągnięto początek dokumentu, znaleziono 1. wystąpienie od dołu."/>
+			<find-status-end-reached value="Szukanie: Osiągnięto koniec dokumentu, znaleziono 1. wystąpienie od góry."/>
 			<find-status-replaceinfiles-1-replaced value="Zamienianie w plikach: Zamieniono 1 wystąpienie"/>
 			<find-status-replaceinfiles-nb-replaced value="Liczba zamienionych wystąpień w plikach: $INT_REPLACE$"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Zamienianie w otwartych plikach: Zamieniono 1 wystąpienie"/>
@@ -1690,14 +1697,14 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<find-status-replaceall-1-replaced value="Zamienianie wszystkiego: Zamieniono 1 wystąpienie"/>
 			<find-status-replaceall-nb-replaced value="Liczba wszystkich zamienionych wystąpień: $INT_REPLACE$"/>
 			<find-status-replaceall-readonly value="Zamienianie wszystkiego: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
-			<find-status-replace-end-reached value="Zamienianie: Plik przeszukano do dołu. Zamieniono 1. wystąpienie od góry."/>
-			<find-status-replace-top-reached value="Zamienianie: Plik przeszukano do góry. Zamieniono 1. wystąpienie od dołu."/>
+			<find-status-replace-end-reached value="Zamienianie: Osiągnięto koniec dokumentu. Zaczynam od góry."/>
+			<find-status-replace-top-reached value="Zamienianie: Osiągnięto początek dokumentu. Zaczynam od dołu."/>
 			<find-status-replaced-next-found value="Zamienianie: Zamieniono 1 wystąpienie. Znaleziono kolejne do zamiany."/>
 			<find-status-replaced-without-continuing value="Zamienianie: Zamieniono 1 wystąpienie."/>
 			<find-status-replaced-next-not-found value="Zamienianie: Zamieniono 1 wystąpienie. Nie znaleziono kolejnych do zamiany."/>
-			<find-status-replace-not-found value="Zamienianie: Nie znaleziono wystąpień do zamiany."/>
-			<find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
-			<find-status-cannot-find value="Szukanie: Nie udało się znaleźć „$STR_REPLACE$”."/>
+			<find-status-replace-not-found value="Zamienianie: Nie znaleziono wystąpień do zamiany"/>
+			<find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu"/>
+			<find-status-cannot-find value="Szukanie: Nie udało się znaleźć „$STR_REPLACE$”"/>
 			<find-status-cannot-find-pebkac-maybe value="Nie można znaleźć podanego wystąpienia. Być może zapomniano sprawdzić opcję „Wracaj na początek pliku” (włączona), „Uwzględnij wielkość liter” (wyłączona) lub „Znajdź tylko całe wyrazy” (wyłączona)."/>
 			<find-status-scope-selection value="w zaznaczonym tekście"/>
 			<find-status-scope-all value="w całym pliku"/>
@@ -1804,7 +1811,14 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 			<npcIncludeCcUniEol-tip value="Zastosuj ustawienia wyglądu znaków niedrukowalnych do znaków kontrolnych C0 i C1 oraz znaków EOL (następna linia, separator linii i separator akapitu) z Unicode."/>
 			<searchingInSelThresh-tip value="Liczba wybranych znaków w obszasze edycji, przy których w aktywnym oknie „Szukaj” następuje automatyczne zaznaczenie opcji „W zaznaczeniu”. Maksymalna wartość to 1024. Ustaw wartość na 0, aby wyłączyć automatyczne zaznaczenie tej opcji."/>
 			<verticalEdge-tip value="Dodaj znacznik kolumny, wskazując jej pozycję liczbą dziesiętną. Można zdefiniować kilka znaczników kolumn rozdzielając różne liczby znakami spacji."/>
+			<fileSaveAsCopySaveButton-tip value="Przytrzymaj Shift klikając Zapisz, aby otworzyć kopię po zapisaniu."/>
+			<autoIndentBasic-tip value="Automatycznie wcięcie podczas wprowadzania nowej linii. Wcięcie nowej linii jest takie samo jak w poprzedniej linii."/>
+			<autoIndentAdvanced-tip value="Inteligentne wcięcie dla języków &quot;C-podobnych&quot; i Python. Języki &quot;C-podobne&quot; obejmują:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
+
+Jeśli wybierzesz tryb zaawansowany, ale nie edytujesz plików w wymienionych językach, wcięcie pozostanie w trybie podstawowym."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Włączenie opcji w &quot;Global override&quot; spowoduje nadpisanie tego parametru we wszystkich stylach językowych. Prawdopodobnie chcesz użyć ustawień &quot;Default Style&quot; zamiast tego"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

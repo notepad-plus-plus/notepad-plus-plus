@@ -1,36 +1,33 @@
-Notepad++ v8.6.9 bug-fixes & new enhancements:
+Notepad++ v8.7 bug-fixes & new enhancements:
 
- 1. Make installation and updates easy & quiet by adding "Yes (Silent)" button.
- 2. Add new options '/closeRunningNpp' & '/runNppAfterSilentInstall' in the installer.
- 3. Fix crash of "Next Search Result" command on the empty search result.
- 4. Fix the regression where the Find dialog size is not remembered across sessions.
- 5. Fix the regression of content lost by using Encoding "Convert to..." commands. 
- 6. Fix the regression of exception/crash on Windows Server Core 2022.
- 7. Prevent DirectWrite from being enabled under Windows Server.
- 8. Enhance the quality of Fluent toolbar icon sets for different DPI settings.
- 9. Improve the look & feel of tabbar close button in dark mode.
-10. Improve the dark mode tab bar icon in the search results panel.
-11. Add ability to pre-populate the predefined color sets for custom tones.
-12. Add "Show All Character" popup menu on toolbar button.
-13. Fix the rectangular selection copy-paste bug.
-14. Allow opening shortcut files (*.lnk) directly if the file extension is changed.
-15. Fix the lost panels issue.
-16. Add Backspace unindent option.
-17. Fix CSS more indentation bug.
-18. Include F13-F24 keys in Shortcut Mapper.
-19. Fix the problem where the last empty clean untitled tab cannot be closed after renaming.
-20. Add plugin a command (NPPM_SETUNTITLEDNAME) to rename untitled tab.
-21. Display a message box with information about disabled backward regex searching.
-22. Fix the display glitch for unsaved tabs containing tab characters.
-23. Fix status bar and tab bar flicker during the GUI updated (fixed only for dark mode).
-24. Fix the issue with "Begin/End Select" command after deletion.
-25. Resolve the integer overflow problem in the Column Editor.
-26. Adjust the position of hits text in the File Progress dialog.
-27. Fix the deployment of other software blocked due to NppShell.
+ 1. Update to scintilla 5.5.2 & Lexilla 5.4.0.
+ 2. Fix monitoring large files with frequent writes freezing the UI issue.
+ 3. Fix regression of multiple selections in comboboxes of Find dialog.
+ 4. Fix a single undo reverting many changes issue.
+ 5. Improve Styler Configurator performance considerably.
+ 6. Fix CVE-2014-9456 (but CVE-2014-9456 is not a "Security Vulnerability").
+ 7. Make find dialog status messages color customizable via Style Configurator.
+ 8. Make individual tab color customizable via Style Configurator.
+ 9. Add new plugin command NPPM_GETNATIVELANGFILENAME & notification NPPN_NATIVELANGCHANGED for native language being changed. 
+10. Fix Folder as Workspace sorting problem for network storage (Samba, WebDAV, WSL, etc.).
+11. Fix closing unsaved clone document causing periodic backup loss issue.
+12. Fix Style Config's "User-defined keywords" not being saved properly after emptying it.
+13. Add user-defined keyword ability for some supported programming languages (ActionScript, ASP, Bash, C, C++, C#, GDScript, Go, HTML, Java, JavaScript).
+14. Add Fluent Icons for enhancing FunctionList, Folder as Workspace & project panels' icons in lite mode.
+15. Fix Python smart indent issue when a string or comment line ends with a colon.
+16. Add file type filters for UDL in Save dialogs.
+17. Add TOML language (TOML format) support.
+18. Add function list for TeX/LaTeX.
+19. Recognize Cython files as Python.
+20. Fix edit zone not getting focus while clicking the active tab.
+21. Add the ability to open the copy automatically after the “Save a Copy” command.
+22. Fix inability to paste after removing read-only via menu.
+23. Add one more option for auto-indent so C-Like language indent can be disabled.
+24. Fix Style Configurator regression: "URL hovered"'s "Go to Settings" not working.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.6.9/
+https://notepad-plus-plus.org/downloads/v8.7/
 
 
 Included plugins:

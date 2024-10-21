@@ -854,8 +854,6 @@ https://github.com/AndresTraks/
 				</SearchEngine>
 
 				<MISC title="Muu">
-					<Item id="6307" name="Võimalda"/>
-					<Item id="6308" name="Minimeeri süsteemisalve"/>
 					<Item id="6312" name="Faili oleku automaatne tuvastamine"/>
 					<Item id="6313" name="Värskenda vaikselt"/>
 					<Item id="6318" name="Hüperlinkide avamise sätted"/>

@@ -64,18 +64,19 @@ BEGIN
     LTEXT           "User-defined keywords",IDC_USER_KEYWORDS_STATIC,350,135,126,8
     EDITTEXT        IDC_USER_KEYWORDS_EDIT,347,146,136,52,ES_MULTILINE | WS_VSCROLL
 
-    CONTROL         "Enable global foreground colour",IDC_GLOBAL_FG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,134,132,10
-    CONTROL         "Enable global background colour",IDC_GLOBAL_BG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,149,131,10
-    CONTROL         "Enable global font",IDC_GLOBAL_FONT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,134,153,10
-    CONTROL         "Enable global font size",IDC_GLOBAL_FONTSIZE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,149,135,10
-    CONTROL         "Enable global bold font style",IDC_GLOBAL_BOLD_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,164,135,10
-    CONTROL         "Enable global italic font style",IDC_GLOBAL_ITALIC_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,179,135,10
-    CONTROL         "Enable global underline font style",IDC_GLOBAL_UNDERLINE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,194,135,10
+    CONTROL         "Force foreground color for all styles",IDC_GLOBAL_FG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,134,132,10
+    CONTROL         "Force background color for all styles",IDC_GLOBAL_BG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,149,132,10
+    CONTROL         "Force font choice for all styles",IDC_GLOBAL_FONT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,134,153,10
+    CONTROL         "Force font size choice for all styles",IDC_GLOBAL_FONTSIZE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,149,135,10
+    CONTROL         "Force bold choice for all styles",IDC_GLOBAL_BOLD_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,164,135,10
+    CONTROL         "Force italic choice for all styles",IDC_GLOBAL_ITALIC_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,179,135,10
+    CONTROL         "Force underline choice for all styles",IDC_GLOBAL_UNDERLINE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,194,135,10
+
+    LTEXT           "Go to settings",IDC_GLOBAL_GOTOSETTINGS_LINK,210,153,131,10,WS_TABSTOP
+    LTEXT           "What is Global override?",IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK,191,173,132,10,WS_TABSTOP
     
     PUSHBUTTON      "Save && Close",IDC_SAVECLOSE_BUTTON,264,222,69,14
     PUSHBUTTON      "Cancel",IDCANCEL,337,222,50,14
-
-    LTEXT           "Go to settings",IDC_GLOBAL_GOTOSETTINGS_LINK,210,153,131,10,WS_TABSTOP
 
     CONTROL         "Transparency",IDC_SC_TRANSPARENT_CHECK,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,431,221,63,10
     CONTROL         "",IDC_SC_PERCENTAGE_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TRANSPARENTBKGND | NOT WS_VISIBLE | WS_TABSTOP,441,235,53,10

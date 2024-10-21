@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 08.09.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 12.10.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -1242,6 +1242,12 @@
 					</ComboBox>
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последния ред"/>
+					<ComboBox id="6307">
+						<Element name="Без действие в"/>
+						<Element name="Намаляване в"/>
+						<Element name="Затваряне в"/>
+					</ComboBox>
+					<Item id="6308" name="системната област"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6360" name="Изключване на всички звуци"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>

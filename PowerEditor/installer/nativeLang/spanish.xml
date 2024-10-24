@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.7.0">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -630,14 +630,16 @@ Translation note:
 					<Item id="2219" name="Palabras clave predeterminadas"/>
 					<Item id="2221" name="Palabras clave definidas por el usuario"/>
 					<Item id="2225" name="Lenguaje:"/>
-					<Item id="2226" name="Habilitar color global de fuentes"/>
-					<Item id="2227" name="Habilitar color global de fondo"/>
-					<Item id="2228" name="Habilitar tipo global de fuente"/>
-					<Item id="2229" name="Habilitar tamaño global de fuente"/>
-					<Item id="2230" name="Habilitar estilo global en negrita"/>
-					<Item id="2231" name="Habilitar estilo global en cursiva"/>
-					<Item id="2232" name="Habilitar estilo global en subrayado"/>
+					<Item id="2226" name="Forzar el color de primer plano para todos los estilos"/>
+					<Item id="2227" name="Forzar el color de fondo para todos los estilos"/>
+					<Item id="2228" name="Forzar la elección del tipo de letra para todos los estilos"/>
+					<Item id="2229" name="Forzar tamaño de fuente para todos los estilos"/>
+					<Item id="2230" name="Forzar negrita para todos los estilos"/>
+					<Item id="2231" name="Forzar cursiva para todos los estilos"/>
+					<Item id="2232" name="Forzar subrayado en todos los estilos"/>
 					<Item id="2234" name="Ir a Configuración"/>
+					<Item id="2235" name="¿Qué es &quot;Global override&quot;?"/>
+					<!-- Don't translate "&quot;Global override&quot;" -->
 				</SubDialog>
 			</StyleConfig>
 
@@ -1310,6 +1312,12 @@ Translation note:
 						<Element name="Habilitar para todos los archivos abiertos"/>
 						<Element name="Deshabilitar"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Ninguna acción en"/>
+						<Element name="Minimizar en"/>
+						<Element name="Cerrar en"/>
+					</ComboBox>
+					<Item id="6308" name="la barra de notificaciones"/>
 					<Item id="6312" name="Autodetectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>
 					<Item id="6325" name="Ir a la última línea tras actualizar"/>
@@ -1818,6 +1826,8 @@ Haga clic en el botón derecho &quot;?&quot; para abrir el sitio web del manual 
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell y JSON
 
 Si selecciona el modo avanzado pero no edita archivos en los lenguajes mencionados, la sangría permanecerá en el modo básico."/>
+			<!-- Don't translate &quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Activando &quot;Global override&quot; aquí, anulará esa opción en todos los estilos de lenguaje. Es posible que desee usar la configuración &quot;Default Style&quot;."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

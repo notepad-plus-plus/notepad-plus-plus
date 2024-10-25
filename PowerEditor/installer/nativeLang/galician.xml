@@ -638,7 +638,8 @@ Translation note:
 					<Item id="2231" name="Forzar cursiva para tódolos estilos"/>
 					<Item id="2232" name="Forzar subliñado para tódolos estilos"/>
 					<Item id="2234" name="Ir a Configuración"/>
-					<Item id="2235" name="¿Que é a anulación global?"/>
+					<Item id="2235" name="Que é &quot;Global override&quot;?"/>
+					<!-- Don't translate "&quot;Global override&quot;" -->
 				</SubDialog>
 			</StyleConfig>
 
@@ -1823,7 +1824,7 @@ Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do us
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
 Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas, a sangría permanecerá no modo básico."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate &quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Activando &quot;Global override&quot; aquí, anulará esa opción en tódolos estilos de linguaxe. É posible que desexe usar a configuración &quot;Default Style&quot;."/>
 		</MiscStrings>
 	</Native-Langue>

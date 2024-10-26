@@ -26,10 +26,16 @@
 #define WM_UPDATESCINTILLAS      (WORDSTYLE_USER + 1) // WM_UPDATESCINTILLAS (BOOL doChangePanel, 0)
 #define WM_UPDATEMAINMENUBITMAPS (WORDSTYLE_USER + 2)
 
-#define NO_VISUAL_CHANGE 0x00
-#define GENERAL_CHANGE 0x01
-#define THEME_CHANGE 0x02
-#define COLOR_CHANGE_4_MENU 0x04
+// The following parameters are for apply() method which will re-initialize the followings GUI with modified styler:
+// 2 Scintilla edit zones, Search result (displayed by Sintilla), Notepad++ GUI & components concerning theme
+#define NO_VISUAL_CHANGE            0x00  // No need to apply visual effect - User ext.
+#define GENERAL_CHANGE              0x01  // For Sintilla zones & Notepad++ GUI (Tabbar, Find dialog, etc...)
+#define THEME_CHANGE                0x02  // For the components concerning theme, for example the background color of dockable panels 
+#define COLOR_CHANGE_4_MENU         0x04  // For the color items displayed on the menu
+
+const wchar_t FINDDLG_STAUSNOTFOUND_COLOR[64] = L"Find status: Not found";
+const wchar_t FINDDLG_STAUSMESSAGE_COLOR[64] = L"Find status: Message";
+const wchar_t FINDDLG_STAUSREACHED_COLOR[64] = L"Find status: Search end reached";
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 
@@ -65,6 +71,13 @@ class WordStyleDlg : public StaticDialog
 {
 public :
 	WordStyleDlg() = default;
+	~WordStyleDlg() {
+		_goToSettings.destroy();
+		_globalOverrideLinkTip.destroy();
+
+		if (_globalOverrideTip)
+			::DestroyWindow(_globalOverrideTip);
+	};
 
 	void create(int dialogID, bool isRTL = false, bool msgDestParent = true) override;
     void doDialog(bool isRTL = false);
@@ -98,6 +111,8 @@ private :
 	HWND _hStyleInfoStaticText = nullptr;
 
 	URLCtrl _goToSettings;
+	URLCtrl _globalOverrideLinkTip;
+	HWND _globalOverrideTip = nullptr;
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;
@@ -125,6 +140,7 @@ private :
 
 	int whichTabColourIndex() const;
 	int whichIndividualTabColourId();
+	int whichFindDlgStatusMsgColourIndex();
 	void apply(int applicationInfo);
 	int getApplicationInfo() const;
 	bool isDocumentMapStyle();

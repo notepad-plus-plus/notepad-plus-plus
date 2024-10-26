@@ -1240,7 +1240,6 @@ Brug mellemrum til at angive flere markører."/>
 						<Element name="Aktivér for alle åbne filer"/>
 						<Element name="Deaktivér"/>
 					</ComboBox>
-					<Item id="6308" name="Minimér til ikon ved uret"/>
 					<Item id="6312" name="Registrér filstatus automatisk"/>
 					<Item id="6313" name="Opdater i baggrunden"/>
 					<Item id="6325" name="Rul til sidste linie efter opdatering"/>

@@ -1181,7 +1181,8 @@ void FindReplaceDlg::resizeDialogElements()
 	const bool isLessModeOn = NppParameters::getInstance().getNppGUI()._findWindowLessMode;
 
 	//elements that need to be resized horizontally (all edit/combo boxes etc.)
-	const auto resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
+	const std::vector<int> resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
+	const size_t nComboboxes = resizeWindowIDs.size();
 
 	//elements that need to be moved
 	const auto moveCheckIds = {
@@ -1275,24 +1276,20 @@ void FindReplaceDlg::resizeDialogElements()
 
 	getMappedChildRect(hSwapBtn, rcSwapBtn);
 
-	nCtrls = resizeWindowIDs.size() + moveLaterIDs.size() + (isLessModeOn ? 0 : moveTransIDs.size()) + 1; // 1 is for tab control
+	nCtrls = nComboboxes + moveLaterIDs.size() + (isLessModeOn ? 0 : moveTransIDs.size()) + 1; // 1 is for tab control
 	hdwp = ::BeginDeferWindowPos(static_cast<int>(nCtrls));
 
-	for (int id : resizeWindowIDs)
+	std::vector<DWORD> endSelections(nComboboxes, 0);
+
+	for (size_t i = 0; i < nComboboxes; ++i)
 	{
-		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
+		HWND resizeHwnd = ::GetDlgItem(_hSelf, resizeWindowIDs[i]);
 		getMappedChildRect(resizeHwnd, rcTmp);
 
 		// Combo box for some reasons selects text on resize. So let's check before resize if selection is present and clear it manually after resize.
-		DWORD endSelection = 0;
-		::SendMessage(resizeHwnd, CB_GETEDITSEL, 0, reinterpret_cast<LPARAM>(&endSelection));
+		::SendMessage(resizeHwnd, CB_GETEDITSEL, 0, reinterpret_cast<LPARAM>(&endSelections[i]));
 
 		hdwp = setOrDeferWindowPos(hdwp, resizeHwnd, nullptr, 0, 0, rcSwapBtn.left - rcTmp.left - gap, rcTmp.bottom - rcTmp.top, SWP_NOMOVE | flags);
-
-		if (endSelection == 0)
-		{
-			::SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
-		}
 	}
 
 	RECT rcFPrevBtn{};
@@ -1346,6 +1343,15 @@ void FindReplaceDlg::resizeDialogElements()
 
 	if (hdwp)
 		::EndDeferWindowPos(hdwp);
+
+	for (size_t i = 0; i < nComboboxes ; ++i)
+	{
+		if (endSelections[i] == 0)
+		{
+			HWND resizeHwnd = ::GetDlgItem(_hSelf, resizeWindowIDs[i]);
+			::SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
+		}
+	}
 
 	::SetWindowPos(::GetDlgItem(_hSelf, IDFINDWHAT), nullptr, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_FRAMECHANGED | flags);
 }
@@ -1905,12 +1911,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 						if (findStatus == FSEndReached)
 						{
-							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-end-reached", L"Find: Found the last occurrence from the top. The end of the document has been reached.");
+							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-end-reached", FIND_STATUS_END_REACHED_TEXT);
 							setStatusbarMessage(msg, FSEndReached);
 						}
 						else if (findStatus == FSTopReached)
 						{
-							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-top-reached", L"Find: Found the last occurrence from the bottom. The beginning of the document has been reached.");
+							wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-top-reached", FIND_STATUS_TOP_REACHED_TEXT);
 							setStatusbarMessage(msg, FSTopReached);
 						}
 					}
@@ -2640,9 +2646,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (!(buf->getStatus() & (DOC_UNNAMED | DOC_DELETED)))
 						{
 							currPath = buf->getFullPathName();
-							PathRemoveFileSpec(currPath);
+							pathRemoveFileSpec(currPath);
 						}
-						if (currPath.empty() || !PathIsDirectory(currPath.c_str()))
+						if (currPath.empty() || !doesDirectoryExist(currPath.c_str()))
 							currPath = NppParameters::getInstance().getWorkingDir();
 						::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, currPath.c_str());
 					}
@@ -2966,12 +2972,12 @@ bool FindReplaceDlg::processReplace(const wchar_t *txt2find, const wchar_t *txt2
 
 				if (status == FSEndReached)
 				{
-					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-end-reached", L"Replace: Replaced the last occurrence from the top. The end of document has been reached.");
+					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-end-reached", FIND_STATUS_REPLACE_END_REACHED_TEXT);
 					setStatusbarMessage(msg, FSEndReached);
 				}
 				else if (status == FSTopReached)
 				{
-					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", L"Replace: Replaced the last occurrence from the bottom. The begin of document has been reached.");
+					wstring msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", FIND_STATUS_REPLACE_TOP_REACHED_TEXT);
 					setStatusbarMessage(msg, FSTopReached);
 				}
 				else
@@ -4947,20 +4953,21 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	//printStr(L"OK"));
-	COLORREF fgColor = RGB(0, 0, 0); // black by default
+	COLORREF fgColor = black; // black by default
 	PCTSTR ptStr =(PCTSTR)lpDrawItemStruct->itemData;
-
+	NppParameters& nppParamInst = NppParameters::getInstance();
+	
 	if (_statusbarFindStatus == FSNotFound)
 	{
-		fgColor = RGB(0xFF, 00, 00); // red
+		fgColor = nppParamInst.getFindDlgStatusMsgColor(0);
 	}
 	else if (_statusbarFindStatus == FSMessage)
 	{
-		fgColor = RGB(0, 0, 0xFF); // blue
+		fgColor = nppParamInst.getFindDlgStatusMsgColor(1);
 	}
 	else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 	{
-		fgColor = RGB(0, 166, 0); // green
+		fgColor = nppParamInst.getFindDlgStatusMsgColor(2);
 	}
 	else if (_statusbarFindStatus == FSNoMessage)
 	{
@@ -4973,15 +4980,18 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 		if (_statusbarFindStatus == FSNotFound)
 		{
-			fgColor = RGB(0xFF, 0x50, 0x50); // red
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(0));
+			fgColor = hls.toRGB4DarkMod();
 		}
 		else if (_statusbarFindStatus == FSMessage)
 		{
-			fgColor = RGB(0x70, 0x70, 0xFF); // blue
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(1));
+			fgColor = hls.toRGB4DarkMod();
 		}
 		else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
 		{
-			fgColor = RGB(0x50, 0xFF, 0x50); // green
+			HLSColour hls(nppParamInst.getFindDlgStatusMsgColor(2));
+			fgColor = hls.toRGB4DarkMod();
 		}
 	}
 

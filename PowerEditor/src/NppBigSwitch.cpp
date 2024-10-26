@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -78,7 +78,7 @@ bool SetOSAppRestart()
 		pathAppend(nppIssueLog, issueFn);
 	}
 
-	WCHAR wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
+	wchar_t wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
 	DWORD cchCmdLine = _countof(wszCmdLine);
 	DWORD dwPreviousFlags = 0;
 	HRESULT hr = ::GetApplicationRestartSettings(::GetCurrentProcess(), wszCmdLine, &cchCmdLine, &dwPreviousFlags);
@@ -913,6 +913,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_RELOADNATIVELANG:
 		{
 			reloadLang();
+
+			bool doNotif = wParam;
+			if (doNotif)
+			{
+				SCNotification scnN{};
+				scnN.nmhdr.code = NPPN_NATIVELANGCHANGED;
+				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+				scnN.nmhdr.idFrom = 0;
+				_pluginsManager.notify(&scnN);
+			}
 			return TRUE;
 		}
 
@@ -2298,6 +2308,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			addHotSpot(& _subEditView);
 
 			_findReplaceDlg.updateFinderScintilla();
+			
+			_findReplaceDlg.redraw();
 
 			drawTabbarColoursFromStylerArray();
 
@@ -2840,7 +2852,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_SYSCOMMAND:
 		{
 			const NppGUI & nppgui = (nppParam.getNppGUI());
-			if ((nppgui._isMinimizedToTray || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
+			if (((nppgui._isMinimizedToTray == sta_minimize || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE)) ||
+				(nppgui._isMinimizedToTray == sta_close && wParam == SC_CLOSE)
+			)
 			{
 				if (nullptr == _pTrayIco)
 				{
@@ -3138,7 +3152,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_SETUNTITLEDNAME:
 		{
 			if (!wParam || !lParam) return FALSE;
-			return fileRenameUntitled(reinterpret_cast<BufferID>(wParam), reinterpret_cast<const wchar_t*>(lParam));
+			return fileRenameUntitledPluginAPI(reinterpret_cast<BufferID>(wParam), reinterpret_cast<const wchar_t*>(lParam));
 		}
 
 		case NPPM_GETBOOKMARKID:
@@ -3730,7 +3744,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			const Buffer* buf = _pEditView->getCurrentBuffer();
 			wstring path = buf ? buf->getFullPathName() : L"";
-			PathRemoveFileSpec(path);
+			pathRemoveFileSpec(path);
 			setWorkingDir(path.c_str());
 			return TRUE;
 		}
@@ -3745,6 +3759,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			scnN.nmhdr.idFrom = 0;
 			_pluginsManager.notify(&scnN);
 			return TRUE;
+		}
+
+		case NPPM_GETNATIVELANGFILENAME:
+		{
+			const char* fn = _nativeLangSpeaker.getFileName();
+
+			if (!fn) return 0;
+
+			string fileName = fn;
+			if (lParam != 0)
+			{
+				if (fileName.length() >= static_cast<size_t>(wParam))
+				{
+					return 0;
+				}
+				strcpy(reinterpret_cast<char*>(lParam), fileName.c_str());
+			}
+			return fileName.length();
 		}
 
 		default:

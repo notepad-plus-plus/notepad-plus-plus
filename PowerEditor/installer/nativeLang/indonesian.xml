@@ -1231,7 +1231,6 @@ Anda dapat mendefinisikan beberapa penanda kolom dengan menggunakan spasi putih 
 						<Element name="Aktifkan untuk semua berkas terbuka"/>
 						<Element name="Nonaktifkan"/>
 					</ComboBox>
-					<Item id="6308" name="Minimalkan ke baki sistem"/>
 					<Item id="6312" name="Deteksi Otomatis Status Berkas"/>
 					<Item id="6313" name="Perbarui diam-diam"/>
 					<Item id="6325" name="Gulir ke baris terakhir setelah diperbarui"/>

@@ -39,7 +39,6 @@ const COLORREF grey      	            = RGB(128,   128,  128);
 const COLORREF liteGrey  	            = RGB(192,   192,  192);
 const COLORREF veryLiteGrey  	        = RGB(224,   224,  224);
 const COLORREF brown     	            = RGB(128,    64,    0);
-//const COLORREF greenBlue 	            = RGB(192,   128,   64);
 const COLORREF darkYellow				= RGB(0xFF, 0xC0,    0);
 const COLORREF yellow    	            = RGB(0xFF, 0xFF,    0);
 const COLORREF lightYellow				= RGB(0xFF, 0xFF, 0xD5);

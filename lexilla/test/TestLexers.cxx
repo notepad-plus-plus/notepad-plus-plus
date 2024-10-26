@@ -897,16 +897,21 @@ bool TestFile(const std::filesystem::path &path, const PropertyMap &propertyMap)
 	const std::optional<int> perLineDisable = propertyMap.GetPropertyValue("testlexers.per.line.disable");
 	const bool disablePerLineTests = perLineDisable.value_or(false);
 
+	plex->Release();
+
 	// Test line by line lexing/folding
 	if (success && !disablePerLineTests) {
-		doc.Set(text);
-		StyleLineByLine(doc, plex);
-		const auto [styledTextNewPerLine, foldedTextNewPerLine] = MarkedAndFoldedDocument(pdoc);
+		TestDocument docPerLine;
+		docPerLine.Set(text);
+		Scintilla::ILexer5 *plexPerLine = Lexilla::MakeLexer(*language);
+		if (!SetProperties(plexPerLine, *language, propertyMap, path)) {
+			return false;
+		}
+		StyleLineByLine(docPerLine, plexPerLine);
+		const auto [styledTextNewPerLine, foldedTextNewPerLine] = MarkedAndFoldedDocument(&docPerLine);
 		success = success && CheckSame(styledText, styledTextNewPerLine, "per-line styles", suffixStyled, path);
 		success = success && CheckSame(foldedText, foldedTextNewPerLine, "per-line folds", suffixFolded, path);
 	}
-
-	plex->Release();
 
 	if (success) {
 		Scintilla::ILexer5 *plexCRLF = Lexilla::MakeLexer(*language);

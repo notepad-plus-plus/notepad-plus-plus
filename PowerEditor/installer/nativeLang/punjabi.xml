@@ -798,8 +798,6 @@
 				</Cloud>
 
 				<MISC title="MISC.">
-					<Item id="6307" name="ਯੋਗ"/>
-					<Item id="6308" name="ਸਿਸਟਮ ਟਰੇ ਨੂੰ ਨਿਊਨਤਮ"/>
 					<Item id="6312" name="ਫਾਇਲ ਹਾਲਤ ਸਵੈ-ਖੋਜ"/>
 					<Item id="6313" name="ਚੁੱਪ ਅੱਪਡੇਟ"/>
 					<Item id="6318" name="ਕਲਿੱਕਯੋਗ ਲਿੰਕ ਸੈਟਿੰਗ"/>

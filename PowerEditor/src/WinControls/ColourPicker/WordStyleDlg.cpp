@@ -124,7 +124,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			for (size_t i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(wchar_t)) ; ++i)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[i]));
 
-			const std::vector<wstring> & fontlist = (NppParameters::getInstance()).getFontList();
+			const std::vector<wstring> & fontlist = nppParamInst.getFontList();
 			for (size_t i = 0, len = fontlist.size() ; i < len ; ++i)
 			{
 				auto j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontlist[i].c_str()));
@@ -156,6 +156,18 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_goToSettings.create(::GetDlgItem(_hSelf, IDC_GLOBAL_GOTOSETTINGS_LINK), L"");
 			std::pair<intptr_t, intptr_t> pageAndCtrlID = goToPreferencesSettings();
 			_goToSettings.display(pageAndCtrlID.first != -1);
+
+			HWND hWhatIsGlobalOverride = ::GetDlgItem(_hSelf, IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK);
+			_globalOverrideLinkTip.init(_hInst, _hSelf);
+			_globalOverrideLinkTip.create(hWhatIsGlobalOverride, L"");
+
+			const Style& style = getCurrentStyler();
+			bool showWhatIsGlobalOverride = (style._styleDesc == L"Global override");
+			_globalOverrideLinkTip.display(showWhatIsGlobalOverride);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParamInst.getNativeLangSpeaker();
+			wstring globalOverrideTipStr = pNativeSpeaker->getLocalizedStrFromID("global-override-tip", L"Enabling \"Global override\" here will override that parameter in all language styles. What you probably really want is to use the \"Default Style\" settings instead");
+			_globalOverrideTip = CreateToolTip(IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK, _hSelf, _hInst, const_cast<PTSTR>(globalOverrideTipStr.c_str()), false);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
@@ -360,6 +372,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 							restoreGlobalOverrideValues();
 							nppParamInst.initTabCustomColors();
+							nppParamInst.initFindDlgStatusMsgCustomColors();
 
 							_restoreInvalid = false;
 							_isDirty = false;
@@ -528,6 +541,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 							case CPN_COLOURPICKED:
 							{
 								int applicationInfo = getApplicationInfo();
+
 								int tabColourIndex = whichTabColourIndex();
 
 								if (reinterpret_cast<HWND>(lParam) == _pFgColour->getHSelf())
@@ -539,9 +553,18 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 									{
 										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex, nullptr);
 									}
-									else if (isDocumentMapStyle())
+									else
 									{
-										ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
+										int findDlgStatusMsgIndex = whichFindDlgStatusMsgColourIndex();
+										if (findDlgStatusMsgIndex != -1)
+										{
+											NppParameters& nppParamInst = NppParameters::getInstance();
+											nppParamInst.setFindDlgStatusMsgIndexColor(_pFgColour->getColour(), findDlgStatusMsgIndex);
+										}
+										else if (isDocumentMapStyle())
+										{
+											ViewZoneDlg::setColour(_pFgColour->getColour(), ViewZoneDlg::ViewZoneColorIndex::focus);
+										}
 									}
 									apply(applicationInfo);
 									return TRUE;
@@ -571,7 +594,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 												colourIndex -= TabBarPlus::individualTabColourId::id5;
 
 											NppParameters& nppParamInst = NppParameters::getInstance();
-											nppParamInst.setIndividualTabColour(_pBgColour->getColour(), colourIndex, NppDarkMode::isEnabled());
+											nppParamInst.setIndividualTabColor(_pBgColour->getColour(), colourIndex, NppDarkMode::isEnabled());
 										}
 									}
 
@@ -665,25 +688,28 @@ int WordStyleDlg::getApplicationInfo() const
 	}
 
 	if (lstrcmp(styleName, L"Default Style") == 0)
+	{
 		return (GENERAL_CHANGE | THEME_CHANGE);
-	
+	}
+
 	if ((lstrcmp(styleName, L"Mark Style 1") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 2") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 3") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 4") == 0) ||
 		(lstrcmp(styleName, L"Mark Style 5") == 0) ||
-		(lstrcmp(styleName, L"Tab color 1") == 0) ||
-		(lstrcmp(styleName, L"Tab color 2") == 0) ||
-		(lstrcmp(styleName, L"Tab color 3") == 0) ||
-		(lstrcmp(styleName, L"Tab color 4") == 0) ||
-		(lstrcmp(styleName, L"Tab color 5") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 1") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 2") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 3") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 4") == 0) ||
-		(lstrcmp(styleName, L"Tab color dark mode 5") == 0))
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_1) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_2) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_3) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_4) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_5) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_1) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_2) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_3) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_4) == 0) ||
+		(lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_5) == 0))
+	{
 		return (GENERAL_CHANGE | COLOR_CHANGE_4_MENU);
-
+	}
 	return GENERAL_CHANGE;
 }
 
@@ -753,6 +779,28 @@ int WordStyleDlg::whichIndividualTabColourId()
 	if (lstrcmp(styleName, TABBAR_INDIVIDUALCOLOR_DM_5) == 0)
 		return TabBarPlus::individualTabColourId::id9;
 
+
+	return -1;
+}
+
+int WordStyleDlg::whichFindDlgStatusMsgColourIndex()
+{
+	constexpr size_t styleNameLen = 128;
+	wchar_t styleName[styleNameLen + 1] = { '\0' };
+
+	if (!WordStyleDlg::getStyleName(styleName, styleNameLen))
+	{
+		return -1;
+	}
+
+	if (lstrcmp(styleName, FINDDLG_STAUSNOTFOUND_COLOR) == 0)
+		return TabBarPlus::individualTabColourId::id0;
+
+	if (lstrcmp(styleName, FINDDLG_STAUSMESSAGE_COLOR) == 0)
+		return TabBarPlus::individualTabColourId::id1;
+
+	if (lstrcmp(styleName, FINDDLG_STAUSREACHED_COLOR) == 0)
+		return TabBarPlus::individualTabColourId::id2;
 
 	return -1;
 }
@@ -1049,7 +1097,7 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 
 	const Style& style = getCurrentStyler();
 
-	// Global override style
+	// Check if it's one of following Global Styles:
 	if (style._styleDesc == L"Current line background colour")
 	{
 		result.first = edit1;
@@ -1436,5 +1484,6 @@ void WordStyleDlg::showGlobalOverrideCtrls(bool show)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BOLD_CHECK), show ? SW_SHOW : SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_ITALIC_CHECK), show ? SW_SHOW : SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show ? SW_SHOW : SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK), show ? SW_SHOW : SW_HIDE);
 	_isShownGOCtrls = show;
 }

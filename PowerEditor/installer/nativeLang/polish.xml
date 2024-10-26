@@ -7,16 +7,16 @@ Translation note:
 <!--
 	History of Polish translation for Notepad++:
 
-		- Updated by Arkadiusz Michalski (webref.pl) to version 8.6.9 (05.07.2024)
-		- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
-		- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
-		- Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.6 (02.04.2024)
+	- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
+	- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
+	- Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.6 (02.04.2024)
+	- Updated by Arkadiusz Michalski (webref.pl) to version 8.6.9 (05.07.2024)
 
 	The most recent version of this file can usually be downloaded from:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.6.9">
+	<Native-Langue name="polski" filename="polish.xml" version="8.7.0">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -366,6 +366,7 @@ Translation note:
 					<Item id="10005" name="Przenieś kartę na początek"/>
 					<Item id="10006" name="Przenieś kartę na koniec"/>
 					<Item id="46001" name="Konfigurator stylów..."/>
+					<Item id="46016" name="Brak (Prosty tekst)"/>
 					<Item id="46250" name="Zdefiniuj własny język..."/>
 					<Item id="46300" name="Otwórz folder ze zdefiniowanymi językami..."/>
 					<Item id="46301" name="Repozytorium z gotowymi definicjami języków"/>
@@ -376,7 +377,7 @@ Translation note:
 					<Item id="47002" name="Repozytorium z kodem programu"/>
 					<Item id="47003" name="Dokumentacja online"/>
 					<Item id="47004" name="Forum społeczności"/>
-					<Item id="47012" name="Informacje o środowisku..."/>
+					<Item id="47012" name="Dane debugowania..."/>
 					<Item id="47005" name="Pobierz wtyczki"/>
 					<Item id="47006" name="Uaktualnij Notepad++"/>
 					<Item id="47009" name="Ustaw proxy do aktualizacji..."/>
@@ -603,8 +604,8 @@ Translation note:
 
 			<SHA512FromTextDlg title="Generowanie skrótu SHA-512">
 				<Item id="1932" name="&amp;Generuj dla każdej linii osobny skrót"/>
-				<Item id="1934" name="Co&amp;py to Clipboard"/>
-				<Item id="2" name="&amp;Close"/>
+				<Item id="1934" name="&amp;Kopiuj do schowka"/>
+				<Item id="2" name="&amp;Zamknij"/>
 			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Zarządzanie wtyczkami" titleAvailable="Dostępne" titleUpdates="Aktualizacje" titleInstalled="Zainstalowane" titleIncompatible="Niekompatybilne">
 				<ColumnPlugin name="Wtyczka"/>
@@ -648,6 +649,8 @@ Translation note:
 					<Item id="2231" name="Stosuj kursywę globalnie"/>
 					<Item id="2232" name="Stosuj podkreślenie globalnie"/>
 					<Item id="2234" name="Przejdź do okna ustawień"/>
+					<!-- Don't translate "&quot;Global override&quot; -->
+					<Item id="2235" name="Co to jest Global override?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1035,18 +1038,18 @@ Translation note:
 					<Item id="7108" name="Cyjanowy"/>
 					<Item id="7109" name="Oliwkowy"/>
 					<Item id="7115" name="Własny"/>
-					<Item id="7116" name="Top"/>
-					<Item id="7117" name="Menu hot track"/>
-					<Item id="7118" name="Active"/>
-					<Item id="7119" name="Main"/>
-					<Item id="7120" name="Error"/>
-					<Item id="7121" name="Text"/>
-					<Item id="7122" name="Darker text"/>
-					<Item id="7123" name="Disabled text"/>
-					<Item id="7124" name="Edge"/>
-					<Item id="7125" name="Link"/>
-					<Item id="7126" name="Edge highlight"/>
-					<Item id="7127" name="Edge disabled"/>
+					<Item id="7116" name="Tło"/>
+					<Item id="7117" name="Wybrane menu"/>
+					<Item id="7118" name="Aktywny"/>
+					<Item id="7119" name="Główny"/>
+					<Item id="7120" name="Błąd"/>
+					<Item id="7121" name="Tekst"/>
+					<Item id="7122" name="Ciemniejszy tekst"/>
+					<Item id="7123" name="Nieaktywny tekst"/>
+					<Item id="7124" name="Krawędź"/>
+					<Item id="7125" name="Łącze WWW"/>
+					<Item id="7126" name="Podświetlona krawędź"/>
+					<Item id="7127" name="Nieaktywna krawędź"/>
 					<Item id="7130" name="Resetuj"/>
 					<Item id="7135" name="Odcienie"/>
 				</DarkMode>
@@ -1111,6 +1114,14 @@ Translation note:
 					<Item id="6506" name="Wyłączone"/>
 					<Item id="6507" name="Kompaktowe menu języków"/>
 					<Item id="6508" name="Menu języków"/>
+					<Item id="6335" name="Używaj „\” jako znaku ucieczki SQL"/>
+				</Language>
+				
+				<Indentation title="Wcięcia">
+					<Item id="7161" name="Auto-wcięcia"/>
+					<Item id="7162" name="Brak"/>
+					<Item id="7163" name="Proste"/>
+					<Item id="7164" name="Zaawansowane"/>
 					<Item id="6301" name="Ustawienia wcięć"/>
 					<Item id="6302" name="Znaku/znaków spacji"/>
 					<Item id="6303" name="Rozmiar wcięcia:"/>
@@ -1118,8 +1129,7 @@ Translation note:
 					<Item id="6311" name="Znaku tabulacji"/>
 					<Item id="6510" name="Używaj domyślnej wartości"/>
 					<Item id="6512" name="Klawisz Backspace usuwa wcięcia zamiast usuwać pojedyncze spacje"/>
-					<Item id="6335" name="Używaj „\” jako znaku ucieczki SQL"/>
-				</Language>
+				</Indentation>
 
 				<Highlighting title="Podświetlanie">
 					<Item id="6351" name="Wyróżniając każde"/>
@@ -1313,7 +1323,12 @@ Translation note:
 						<Element name="Włącz dla otwartych plików"/>
 						<Element name="Wyłącz"/>
 					</ComboBox>
-					<Item id="6308" name="Minimalizuj do zasobnika systemowego"/>
+					<ComboBox id="6307">
+						<Element name="Bez akcji do"/>
+						<Element name="Minimalizuj do"/>
+						<Element name="Zamykaj do"/>
+					</ComboBox>
+					<Item id="6308" name="zasobnika systemowego"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>
 					<Item id="6313" name="Uaktualniaj po cichu"/>
 					<Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
@@ -1398,6 +1413,11 @@ W oknie ustawień możesz przywrócić to potwierdzenie w dowolnym momencie."/>
 				<Item id="7" name="&amp;Nie"/>
 				<Item id="4" name="&amp;Zawsze tak"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Dane debugowania">
+				<Item id="1752" name="&amp;Kopiuj do schowka"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1675,8 +1695,8 @@ Szukaj wśród wszystkich plików z wyjątkiem folderów tests, bin i bin64:
 Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folderów log i logs:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Wybierz folder, który ma zostać przeszukany przez Notepad++"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Szukanie: Plik przeszukano do góry. Znaleziono 1. wystąpienie od dołu."/>
-			<find-status-end-reached value="Szukanie: Plik przeszukano do dołu. Znaleziono 1. wystąpienie od góry."/>
+			<find-status-top-reached value="Szukanie: Osiągnięto początek dokumentu, znaleziono 1. wystąpienie od dołu."/>
+			<find-status-end-reached value="Szukanie: Osiągnięto koniec dokumentu, znaleziono 1. wystąpienie od góry."/>
 			<find-status-replaceinfiles-1-replaced value="Zamienianie w plikach: Zamieniono 1 wystąpienie"/>
 			<find-status-replaceinfiles-nb-replaced value="Liczba zamienionych wystąpień w plikach: $INT_REPLACE$"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Zamienianie w otwartych plikach: Zamieniono 1 wystąpienie"/>
@@ -1690,14 +1710,14 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<find-status-replaceall-1-replaced value="Zamienianie wszystkiego: Zamieniono 1 wystąpienie"/>
 			<find-status-replaceall-nb-replaced value="Liczba wszystkich zamienionych wystąpień: $INT_REPLACE$"/>
 			<find-status-replaceall-readonly value="Zamienianie wszystkiego: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
-			<find-status-replace-end-reached value="Zamienianie: Plik przeszukano do dołu. Zamieniono 1. wystąpienie od góry."/>
-			<find-status-replace-top-reached value="Zamienianie: Plik przeszukano do góry. Zamieniono 1. wystąpienie od dołu."/>
+			<find-status-replace-end-reached value="Zamienianie: Osiągnięto koniec dokumentu. Zaczynam od góry."/>
+			<find-status-replace-top-reached value="Zamienianie: Osiągnięto początek dokumentu. Zaczynam od dołu."/>
 			<find-status-replaced-next-found value="Zamienianie: Zamieniono 1 wystąpienie. Znaleziono kolejne do zamiany."/>
 			<find-status-replaced-without-continuing value="Zamienianie: Zamieniono 1 wystąpienie."/>
 			<find-status-replaced-next-not-found value="Zamienianie: Zamieniono 1 wystąpienie. Nie znaleziono kolejnych do zamiany."/>
-			<find-status-replace-not-found value="Zamienianie: Nie znaleziono wystąpień do zamiany."/>
-			<find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu."/>
-			<find-status-cannot-find value="Szukanie: Nie udało się znaleźć „$STR_REPLACE$”."/>
+			<find-status-replace-not-found value="Zamienianie: Nie znaleziono wystąpień do zamiany"/>
+			<find-status-replace-readonly value="Zamienianie: Nie można zamienić. Plik jest dostępny tylko do odczytu"/>
+			<find-status-cannot-find value="Szukanie: Nie udało się znaleźć „$STR_REPLACE$”"/>
 			<find-status-cannot-find-pebkac-maybe value="Nie można znaleźć podanego wystąpienia. Być może zapomniano sprawdzić opcję „Wracaj na początek pliku” (włączona), „Uwzględnij wielkość liter” (wyłączona) lub „Znajdź tylko całe wyrazy” (wyłączona)."/>
 			<find-status-scope-selection value="w zaznaczonym tekście"/>
 			<find-status-scope-all value="w całym pliku"/>
@@ -1785,16 +1805,16 @@ Pełną listę wybranych białych znaków i znaków niedrukowalnych znajdziesz w
 
 Kliknij ten przycisk aby otworzyć stronę z dokumentacją."/>
 			<npcAbbreviation-tip value="Skrót : nazwa
-NBSP : no-break space
-ZWSP : zero-width space
-ZWNBSP : zero-width no-break space
+NBSP : no-break space (spacja niełamiąca)
+ZWSP : zero-width space (spacje o zerowej szerokości)
+ZWNBSP : zero-width no-break space (spacja niełamiąca o zerowej szerokości)
 
 Pełną listę znajdziesz w dokumentacji.
 Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 			<npcCodepoint-tip value="Kod : nazwa
-U+00A0 : no-break space
-U+200B : zero-width space
-U+FEFF : zero-width no-break space
+U+00A0 : no-break space (spacja niełamiąca)
+U+200B : zero-width space (spacje o zerowej szerokości)
+U+FEFF : zero-width no-break space (spacja niełamiąca o zerowej szerokości)
 
 Pełną listę znajdziesz w dokumentacji.
 Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
@@ -1804,7 +1824,14 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 			<npcIncludeCcUniEol-tip value="Zastosuj ustawienia wyglądu znaków niedrukowalnych do znaków kontrolnych C0 i C1 oraz znaków EOL (następna linia, separator linii i separator akapitu) z Unicode."/>
 			<searchingInSelThresh-tip value="Liczba wybranych znaków w obszasze edycji, przy których w aktywnym oknie „Szukaj” następuje automatyczne zaznaczenie opcji „W zaznaczeniu”. Maksymalna wartość to 1024. Ustaw wartość na 0, aby wyłączyć automatyczne zaznaczenie tej opcji."/>
 			<verticalEdge-tip value="Dodaj znacznik kolumny, wskazując jej pozycję liczbą dziesiętną. Można zdefiniować kilka znaczników kolumn rozdzielając różne liczby znakami spacji."/>
+			<fileSaveAsCopySaveButton-tip value="Przytrzymaj Shift klikając Zapisz, aby otworzyć kopię po zapisaniu."/>
+			<autoIndentBasic-tip value="Automatycznie wcięcie podczas wprowadzania nowej linii. Wcięcie nowej linii jest takie samo jak w poprzedniej linii."/>
+			<autoIndentAdvanced-tip value="Inteligentne wcięcie dla języków &quot;C-podobnych&quot; i Python. Języki &quot;C-podobne&quot; obejmują:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
+
+Jeśli wybierzesz tryb zaawansowany, ale nie edytujesz plików w wymienionych językach, wcięcie pozostanie w trybie podstawowym."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Włączenie opcji w &quot;Global override&quot; spowoduje nadpisanie tego parametru we wszystkich stylach językowych. Prawdopodobnie chcesz użyć ustawień &quot;Default Style&quot; zamiast tego"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

@@ -39,7 +39,7 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_MMIXAL, L_NIM, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
 			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG,\
 			   L_TYPESCRIPT, L_JSON5, L_MSSQL, L_GDSCRIPT, L_HOLLYWOOD,\
-               L_GOLANG, L_RAKU,\
+			   L_GOLANG, L_RAKU, L_TOML,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
@@ -892,7 +892,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Users should call it with commandLineStr as NULL to get the required number of wchar_t (not including the terminating nul character),
 	// allocate commandLineStr buffer with the return value + 1, then call it again to get the current command line string.
 	// wParam[in]: strLen is "commandLineStr" buffer length
-	// lParam[out]: commandLineStr recieves all copied command line string
+	// lParam[out]: commandLineStr receives all copied command line string
 	// Return the number of wchar_t copied/to copy
 
 
@@ -980,6 +980,16 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// lParam[in]: newName - the desired new name of the tab
 	// Return TRUE upon success; FALSE upon failure
 
+	#define NPPM_GETNATIVELANGFILENAME (NPPMSG + 116)
+	// int NPPM_GETNATIVELANGFILENAME(size_t strLen, char* nativeLangFileName)
+	// Get the Current native language file name string. Use it after getting NPPN_READY notification to find out which native language is used.
+	// Users should call it with nativeLangFileName as NULL to get the required number of char (not including the terminating nul character),
+	// allocate language file name string buffer with the return value + 1, then call it again to get the current native language file name string.
+	// If there's no localization file applied, the returned value is 0.
+	// wParam[in]: strLen is "language file name string" buffer length
+	// lParam[out]: language file name string receives all copied native language file name string
+	// Return the number of char copied/to copy
+
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0
 	#define FULL_CURRENT_PATH 1
@@ -1032,7 +1042,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 // Notification code
 #define NPPN_FIRST 1000
-	#define NPPN_READY (NPPN_FIRST + 1) // To notify plugins that all the procedures of launchment of notepad++ are done.
+	#define NPPN_READY (NPPN_FIRST + 1) // To notify plugins that all the initialization for launching Notepad++ is complete.
 	//scnNotification->nmhdr.code = NPPN_READY;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
@@ -1195,4 +1205,11 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
                                                    // This notification is implemented in Notepad++ v8.6.5.
 	//scnNotification->nmhdr.code = NPPN_GLOBALMODIFIED;
 	//scnNotification->nmhdr.hwndFrom = BufferID;
+	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero
+
+	#define NPPN_NATIVELANGCHANGED (NPPN_FIRST + 31)  // To notify plugins that the current native language is just changed to another one.
+                                                      // Use NPPM_GETNATIVELANGFILENAME to get current native language file name.
+                                                      // Use NPPM_GETMENUHANDLE(NPPPLUGINMENU, 0) to get submenu "Plugins" handle (HMENU)
+	//scnNotification->nmhdr.code = NPPN_NATIVELANGCHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero

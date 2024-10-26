@@ -906,7 +906,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="6346" name="Previsualitza en el mapa del document"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 					<Item id="6314" name="Empra lletra monoespai al diàleg de cerca (demana reiniciar Notepad++)"/>
-					<Item id="6308" name="Minimitza a la safata del sistema"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
 					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
 					<Item id="6348" name="No omplis el camp del diàleg de cerca amb la paraula seleccionada"/>
@@ -914,7 +913,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="6319" name="Habilita"/>
 					<Item id="6320" name="No subratllis"/>
 					<Item id="6312" name="Autodetecció d'estat del fitxer"/>
-					<Item id="6307" name="Habilita"/>
 					<Item id="6313" name="Actualitza en silenci"/>
 					<Item id="6325" name="Vés a l'última línia després d'actualitzar"/>
 					<Item id="6322" name="Ext. del fitxer de sessió:"/>

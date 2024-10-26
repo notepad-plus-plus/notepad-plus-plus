@@ -1,4 +1,5 @@
- 0 400   0   # This is a full-line comment
+ 2 400   0 + # coding:utf-8
+ 0 401   0 | # This is a full-line comment
  0 400   0   key = "value"  # This is a comment at the end of a line
  0 400   0   another = "# This is not a comment"
  0 400   0   

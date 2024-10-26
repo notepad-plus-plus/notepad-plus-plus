@@ -1,4 +1,4 @@
-﻿// This file is part of Notepad++ project
+// This file is part of Notepad++ project
 // Copyright (C)2021 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
@@ -448,7 +448,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_dockingManager.init(_pPublicInterface->getHinst(), hwnd, &_pMainWindow);
 
-	if (nppGUI._isMinimizedToTray && _pTrayIco == nullptr)
+	if ((nppGUI._isMinimizedToTray == sta_minimize || nppGUI._isMinimizedToTray == sta_close) && _pTrayIco == nullptr)
 	{
 		HICON icon = nullptr;
 		Notepad_plus_Window::loadTrayIcon(_pPublicInterface->getHinst(), &icon);
@@ -476,6 +476,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Menu Section //
 	// ------------ //
 	nppParam.initTabCustomColors();
+	nppParam.initFindDlgStatusMsgCustomColors();
 	setupColorSampleBitmapsOnMainMenuItems();
 
 	// Macro Menu
@@ -1251,7 +1252,6 @@ void Notepad_plus::setCodePageForInvisibleView(Buffer const *pBuffer)
 
 bool Notepad_plus::replaceInOpenedFiles()
 {
-
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
@@ -1263,10 +1263,10 @@ bool Notepad_plus::replaceInOpenedFiles()
 	const bool isEntireDoc = true;
 	bool hasInvalidRegExpr = false;
 
-    if (_mainWindowStatus & WindowMainActive)
-    {
+	if (_mainWindowStatus & WindowMainActive)
+	{
 		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
-	    {
+		{
 			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
 				continue;
@@ -1278,6 +1278,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
@@ -1287,7 +1288,6 @@ bool Notepad_plus::replaceInOpenedFiles()
 			{
 				nbTotal += nb;
 			}
-			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
@@ -1314,6 +1314,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 
 			_invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			int nb = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
+			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 			if (nb == FIND_INVALID_REGULAR_EXPRESSION)
 			{
 				hasInvalidRegExpr = true;
@@ -1323,7 +1324,6 @@ bool Notepad_plus::replaceInOpenedFiles()
 			{
 				nbTotal += nb;
 			}
-			_invisibleEditView.execute(SCI_ENDUNDOACTION);
 		}
 	}
 
@@ -1352,6 +1352,7 @@ bool Notepad_plus::replaceInOpenedFiles()
 		}
 		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
+
 	return true;
 }
 
@@ -2579,7 +2580,8 @@ void Notepad_plus::checkDocState()
 
 	bool isCurrentDirty = curBuf->isDirty();
 	bool isSeveralDirty = isCurrentDirty;
-	bool isFileExisting = doesFileExist(curBuf->getFullPathName());
+	bool isNetworkProblem;
+	bool isFileExisting = doesFileExist(curBuf->getFullPathName(), 1000, &isNetworkProblem);
 	if (!isCurrentDirty)
 	{
 		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
@@ -2613,7 +2615,7 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_CONTAININGFOLDERASWORKSPACE, isFileExisting, MENU);
 
-	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isFileExisting ? isAssoCommandExisting(curBuf->getFullPathName()) : false, MENU);
 
 	enableCommand(IDM_VIEW_IN_FIREFOX, isFileExisting, MENU);
 	enableCommand(IDM_VIEW_IN_CHROME, isFileExisting, MENU);
@@ -2715,7 +2717,7 @@ void Notepad_plus::setupColorSampleBitmapsOnMainMenuItems()
 	// Adds tab colour icons
 	for (int i = 0; i < 5; ++i)
 	{
-		COLORREF colour = nppParam.getIndividualTabColour(i, NppDarkMode::isDarkMenuEnabled(), true);
+		COLORREF colour = nppParam.getIndividualTabColor(i, NppDarkMode::isDarkMenuEnabled(), true);
 		HBITMAP hBitmap = generateSolidColourMenuItemIcon(colour);
 		SetMenuItemBitmaps(_mainMenuHandle, IDM_VIEW_TAB_COLOUR_1 + i, MF_BYCOMMAND, hBitmap, hBitmap);
 	}
@@ -3301,7 +3303,7 @@ void scanToUrlEnd(const wchar_t *text, int textLen, int start, int* distance)
 				break;
 
 			case sFragment:
-				if (!isUrlTextChar(text [p]))
+				if (text [p] != '?' && !isUrlTextChar(text [p]))
 				{
 					*distance = p - start;
 					return;
@@ -3497,12 +3499,12 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 				pView->execute(SCI_INDICATORCLEARRANGE, startEncoded + startPos, lenEncoded);
 			startWide += lenWide;
 			startEncoded += lenEncoded;
+
 			if ((startWide >= wideTextLen) || ((startEncoded + startPos) >= endPos))
 				break;
 		}
-		assert ((startEncoded + startPos) == endPos);
-		assert (startWide == wideTextLen);
 	}
+
 	delete[] wideText;
 }
 
@@ -3769,7 +3771,7 @@ void Notepad_plus::maintainIndentation(wchar_t ch)
 			_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 			// colon optionally followed by only whitespace and/or start-of-comment, but NOT on a line that is already a comment
-			const char colonExpr[] = "^[^#]*\\K:[ \t]*(#|$)";
+			const char colonExpr[] = ":[ \t]*(#|$)";
 
 			auto posColon = _pEditView->execute(SCI_SEARCHINTARGET, strlen(colonExpr), reinterpret_cast<LPARAM>(colonExpr));
 
@@ -4058,6 +4060,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_GOLANG;
         case IDM_LANG_RAKU:
             return L_RAKU;
+        case IDM_LANG_TOML:
+            return L_TOML;
         case IDM_LANG_USER:
             return L_USER;
 		default:
@@ -4433,7 +4437,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		{
 			wchar_t pathDropped[MAX_PATH];
 			::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
-			if (::PathIsDirectory(pathDropped))
+			if (doesDirectoryExist(pathDropped))
 			{
 				size_t len = lstrlen(pathDropped);
 				if (len > 0 && pathDropped[len - 1] != wchar_t('\\'))
@@ -6676,7 +6680,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		checkDocState();
 		setTitle();
 		wstring dir(buffer->getFullPathName());
-		PathRemoveFileSpec(dir);
+		pathRemoveFileSpec(dir);
 		setWorkingDir(dir.c_str());
 	}
 
@@ -6741,7 +6745,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	setDisplayFormat(buf->getEolFormat());
 	enableConvertMenuItems(buf->getEolFormat());
 	wstring dir(buf->getFullPathName());
-	PathRemoveFileSpec(dir);
+	pathRemoveFileSpec(dir);
 	setWorkingDir(dir.c_str());
 	setTitle();
 	//Make sure the colors of the tab controls match
@@ -7038,7 +7042,7 @@ void Notepad_plus::setWorkingDir(const wchar_t *dir)
 	{
 		params.setWorkingDir(NULL);
 	}
-	else if (dir && PathIsDirectory(dir))
+	else if (dir && doesDirectoryExist(dir))
 	{
 		params.setWorkingDir(dir);
 	}
@@ -7759,6 +7763,7 @@ static const QuoteParams quotes[] =
 	{L"Notepad++ #1", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"I hate reading other people's code.\nSo I wrote mine, made it as open source project, and watch others suffer."},
 	{L"Notepad++ #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 	{L"Notepad++ #3", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n"},
+	{L"Notepad++ #4", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Whatever you do, always give 100%.\nUnless you're donating to Notepad++, then 50% is OK.\nhttps://notepad-plus-plus.org/donate/\n"},
 	{L"Richard Stallman", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
 	{L"Martin Golding", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{L"L. Peter Deutsch", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"To iterate is human, to recurse divine."},
@@ -7789,10 +7794,11 @@ static const QuoteParams quotes[] =
 	{L"Mark Zuckerberg", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"\"Black lives matter\" doesn't mean other lives don't - it's simply asking that the black community also achieves the justice they deserve."},
 	{L"Michael Feldman", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"Java is, in many ways, C++--."},
 	{L"Don Ho", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"Je mange donc je chie."},
-	{L"Don Ho #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
-	{L"Don Ho #3", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"The smartphone is the best invention of the 21st century for avoiding eye contact with people you know while crossing the street."},
-	{L"Don Ho #4", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen."},
+	{L"Don Ho #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"RTFM is the true path for every developer.\nHowever, it only happens when there's no other way out."},
+	{L"Don Ho #3", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"The smartphone is the best invention of the 21st century for avoiding eye contact with acquaintances while crossing the street."},
+	{L"Don Ho #4", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"Museums in poor countries vs. museums in rich countries:\nThe former display what they have left.\nThe latter display what they have taken."},
 	{L"Don Ho #5", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"With great refactoring comes great regressions."},
+	{L"Don Ho #6", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"Naming a variable always reminds me of the effort I put into my existence,\nfor giving some sense to my meaningless life."},
 	{L"Anonymous #1", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"An opinion without 3.14 is just an onion."},
 	{L"Anonymous #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 	{L"Anonymous #3", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"I'm not totally useless. I can be used as a bad example."},
@@ -7815,7 +7821,7 @@ static const QuoteParams quotes[] =
 	{L"Anonymous #20", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"Never make eye contact while eating a banana."},
 	{L"Anonymous #21", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"I love my sixpack so much, I protect it with a layer of fat."},
 	{L"Anonymous #22", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
-	{L"Anonymous #23", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"A programmer is told to \"go to hell\".\nHe finds the worst part of that statement is the \"go to\"."},
+	{L"Anonymous #23", QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, L"A C++ programmer is told to \"go to hell\".\nHe finds the most offensive part of that statement is the \"go to\"."},
 	{L"Anonymous #24", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"An Architect's dream is an Engineer's nightmare."},
 	{L"Anonymous #25", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
 	{L"Anonymous #26", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Q: What's the difference between git and github?\nA: It's the difference between porn and pornhub.\n"},
@@ -8212,7 +8218,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 			BufferID currentBufID = pCurrentView->getCurrentBufferID();
 			if (currentBufID != targetBufID)
-				return TRUE;
+				return ERROR_SUCCESS;
 
 			char charToShow[4] = { '\0' };
 			::WideCharToMultiByte(CP_UTF8, 0, quoter + i, 1, charToShow, sizeof(charToShow), NULL, NULL);
@@ -8223,7 +8229,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		}
 	}
 
-    return TRUE;
+    return ERROR_SUCCESS;
 }
 
 
@@ -8306,7 +8312,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 
 	ReleaseMutex(textTrollerParams->_mutex);
-	return TRUE;
+	return ERROR_SUCCESS;
 }
 
 
@@ -8639,7 +8645,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 		::SendMessage(Notepad_plus_Window::gNppHWND, NPPM_INTERNAL_SAVEBACKUP, 0, 0);
 	}
-	return TRUE;
+	return ERROR_SUCCESS;
 }
 
 

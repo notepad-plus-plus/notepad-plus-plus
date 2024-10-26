@@ -1014,6 +1014,23 @@ Installation:
             <WordsStyle name="COMMAND" styleID="4" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="TEXT" styleID="5" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="toml" desc="TOML" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="FF0000" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FDF6E3" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="2" fgColor="000000" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="KEYWORD" styleID="3" fgColor="8000FF" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="FF0000" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TABLE" styleID="5" fgColor="804000" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEY" styleID="6" fgColor="0000FF" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ERROR" styleID="7" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" colorStyle="3" />
+            <WordsStyle name="OPERATOR" styleID="8" fgColor="808000" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="STRING SQ" styleID="9" fgColor="808080" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="STRING DQ" styleID="10" fgColor="808080" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="TRIPLE STRING SQ" styleID="11" fgColor="808080" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="TRIPLE STRING DQ" styleID="12" fgColor="808080" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ESCAPE CHAR" styleID="13" fgColor="8080FF" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DATETIME" styleID="14" fgColor="FF8040" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
+        </LexerType>
         <LexerType name="vb" desc="VB / VBS" ext="">
             <WordsStyle name="DEFAULT" styleID="7" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="2" fontSize="" />
@@ -1123,6 +1140,9 @@ Installation:
         <WidgetStyle name="White space symbol" styleID="0" fgColor="B58900" />
         <WidgetStyle name="Smart Highlighting" styleID="29" bgColor="002B36" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="6C71C4" />
+        <WidgetStyle name="Find status: Not found" styleID="0" fgColor="FF0000" />
+        <WidgetStyle name="Find status: Message" styleID="0" fgColor="0000FF" />
+        <WidgetStyle name="Find status: Search end reached" styleID="0" fgColor="008000" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="DC322F" />
         <WidgetStyle name="Mark Style 2" styleID="24" bgColor="268BD2" />
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="2AA198" />
@@ -1135,6 +1155,16 @@ Installation:
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="FDF6E3" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="073642" bgColor="93A1A1" />
+        <WidgetStyle name="Tab color 1" styleID="0" bgColor="F3F0CB" />
+        <WidgetStyle name="Tab color 2" styleID="0" bgColor="DBF3CB" />
+        <WidgetStyle name="Tab color 3" styleID="0" bgColor="CBDBF3" />
+        <WidgetStyle name="Tab color 4" styleID="0" bgColor="F3DBCB" />
+        <WidgetStyle name="Tab color 5" styleID="0" bgColor="F3CBEE" />
+        <WidgetStyle name="Tab color dark mode 1" styleID="0" bgColor="807848" />
+        <WidgetStyle name="Tab color dark mode 2" styleID="0" bgColor="568048" />
+        <WidgetStyle name="Tab color dark mode 3" styleID="0" bgColor="507094" />
+        <WidgetStyle name="Tab color dark mode 4" styleID="0" bgColor="804849" />
+        <WidgetStyle name="Tab color dark mode 5" styleID="0" bgColor="754880" />
         <WidgetStyle name="URL hovered" styleID="0" fgColor="808040" />
         <WidgetStyle name="Document map" styleID="0" fgColor="657B83" bgColor="FDF6E3" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />

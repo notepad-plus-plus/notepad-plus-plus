@@ -743,8 +743,6 @@
 				</Delimiter>
 
 				<MISC title="Miscelánea">
-					<Item id="6307" name="Habilitar"/>
-					<Item id="6308" name="Minimizar a bandeja del sistema"/>
 					<Item id="6309" name="Recordar sesión actual en el próximo inicio"/>
 					<Item id="6312" name="Auto-detectar estado del archivo"/>
 					<Item id="6313" name="Actualización automática"/>

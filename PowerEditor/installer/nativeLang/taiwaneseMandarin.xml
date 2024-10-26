@@ -597,6 +597,7 @@
 					<Item id="2231" name="開啟共用斜體"/>
 					<Item id="2232" name="開啟共用底線"/>
 					<Item id="2234" name="至相關的偏好設定"/>
+					<Item id="2235" name="什麼是「Global override」？"/>
 				</SubDialog>
 			</StyleConfig>
 			<ShortcutMapper title="管理快捷鍵">
@@ -1250,8 +1251,12 @@
 						<Element name="啟用於所有開啟文件"/>
 						<Element name="停止啟用"/>
 					</ComboBox>
-					<Item id="6307" name="啟用"/>
-					<Item id="6308" name="最小化至系統匣"/>
+					<ComboBox id="6307">
+						<Element name="無任何行動至"/>
+						<Element name="最小化至"/>
+						<Element name="關閉至"/>
+					</ComboBox>
+					<Item id="6308" name="系統匣"/>
 					<Item id="6312" name="自動更新檔案狀態"/>
 					<Item id="6313" name="於背景自動更新"/>
 					<Item id="6325" name="更新後捲動至最後一行"/>
@@ -1541,8 +1546,8 @@
 所有檔案但在所有的層級（遞歸地）不搜尋檔案夾 log 或 logs:
 *.* !+\log*"/>
 			<find-in-files-select-folder value="選擇一個你要從中搜尋的資料夾"/>
-			<find-status-top-reached value="搜尋：從下面找到相符的字串。搜尋已抵達文件開首。"/>
-			<find-status-end-reached value="搜尋：從上面找到相符的字串。搜尋已抵達文件結尾。"/>
+			<find-status-top-reached value="搜尋：搜尋已抵達文件開首，從下面找到第一個相符的字串。"/>
+			<find-status-end-reached value="搜尋：搜尋已抵達文件結尾，從上面找到第一個相符的字串。"/>
 			<find-status-replaceinfiles-1-replaced value="在檔案中取代：取代了 1 個字串。"/>
 			<find-status-replaceinfiles-nb-replaced value="在檔案中取代：取代了 $INT_REPLACE$ 個字串。"/>
 			<find-status-replaceinopenedfiles-1-replaced value="在所有開啟文件中取代：取代了 1 個字串。"/>
@@ -1555,8 +1560,8 @@
 			<find-status-replaceall-1-replaced value="全部取代：取代了 1 個字串。"/>
 			<find-status-replaceall-nb-replaced value="全部取代：取代了 $INT_REPLACE$ 個字串。"/>
 			<find-status-replaceall-readonly value="全部取代：檔案為唯讀，無法取代字串。"/>
-			<find-status-replace-end-reached value="取代：從上面取代了 1 個相符的字串。搜尋已抵達文件結尾。"/>
-			<find-status-replace-top-reached value="取代：從下面取代了 1 個相符的字串。搜尋已抵達文件開首。"/>
+			<find-status-replace-end-reached value="取代：搜尋已抵達文件結尾，從頂端繼續搜尋取代。"/>
+			<find-status-replace-top-reached value="取代：搜尋已抵達文件開頭，從尾端繼續搜尋取代。"/>
 			<find-status-replaced-next-found value="取代：取代了 1 個字串。找到下一個字串。"/>
 			<find-status-replaced-next-not-found value="取代：取代了 1 個字串。找不到下一個字串。"/>
 			<find-status-replace-not-found value="取代：找不到搜尋字串"/>
@@ -1640,6 +1645,7 @@
 C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell 與 JSON
 
 如果你選擇進階模式但不編輯上述語言文件，縮排設定將保留為基本模式。"/>
+			<global-override-tip value="此處啟用「Global override」將覆蓋所有語言樣式中的此些參數。你可能真正想要的是使用「Default Style」設置"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

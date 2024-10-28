@@ -505,7 +505,7 @@ private:
 		expandEnv(fileName);
 		bool nameChanged = transformPath(fileName);
 		// Update the controls.
-		if (doesDirectoryExist(getAbsPath(fileName).c_str()))
+		if (!doesDirectoryExist(getAbsPath(fileName).c_str()))
 		{
 			// Name is a file path.
 			// Add file extension if missing.

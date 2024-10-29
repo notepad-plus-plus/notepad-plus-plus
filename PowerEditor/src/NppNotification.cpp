@@ -333,6 +333,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			break;
 		}
 
+		case TCN_TABPINNED:
+		{
+			int index = tabNotification->_tabOrigin;
+			BufferID bufferToBePinned = notifyDocTab->getBufferByIndex(index);
+			Buffer * buf = MainFileManager.getBufferByID(bufferToBePinned);
+
+			command(IDM_VIEW_GOTO_START);
+
+			buf->setPinned(true);
+
+			break;
+		}
+
 		case TCN_SELCHANGE:
 		{
 			int iView = -1;

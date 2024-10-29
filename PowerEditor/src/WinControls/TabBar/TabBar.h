@@ -36,6 +36,7 @@
 #define TCN_MOUSEHOVERING (TCN_FIRST - 13)
 #define TCN_MOUSELEAVING (TCN_FIRST - 14)
 #define TCN_MOUSEHOVERSWITCHING (TCN_FIRST - 15)
+#define TCN_TABPINNED (TCN_FIRST - 16)
 
 #define WM_TABSETSTYLE	(WM_APP + 0x024)
 
@@ -65,7 +66,9 @@ constexpr int g_TabHeightLarge = 25;
 constexpr int g_TabWidth = 45;
 constexpr int g_TabWidthCloseBtn = 60;
 constexpr int g_TabCloseBtnSize = 11;
+constexpr int g_TabPinBtnSize = 11;
 constexpr int g_TabCloseBtnSize_DM = 16;
+constexpr int g_TabPinBtnSize_DM = 16;
 
 struct TBHDR
 {
@@ -150,13 +153,18 @@ protected:
 
 struct CloseButtonZone
 {
+	void init(HWND parent, int id) {
+		_parent = parent;
+		_id = id;
+	}
+
 	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
 	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
-	void setParent(HWND parent) { _parent = parent; }
 
 	HWND _parent = nullptr;
 	int _width = 0;
 	int _height = 0;
+	int _id = -1;
 };
 
 
@@ -245,6 +253,7 @@ public :
 	void currentTabToEnd();
 
 	void setCloseBtnImageList();
+	void setPinBtnImageList();
 
 protected:
     // it's the boss to decide if we do the drag N drop
@@ -264,9 +273,14 @@ protected:
 	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
 	CloseButtonZone _closeButtonZone;
+	CloseButtonZone _pinButtonZone;
+
 	HIMAGELIST _hCloseBtnImgLst = nullptr;
+	HIMAGELIST _hPinBtnImgLst = nullptr;
 	bool _isCloseHover = false;
+	bool _isPinHover = false;
 	int _whichCloseClickDown = -1;
+	int _whichPinClickDown = -1;
 	bool _lmbdHit = false; // Left Mouse Button Down Hit
 	HWND _tooltips = nullptr;
 
@@ -276,7 +290,7 @@ protected:
 		return (((TabBarPlus *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 	void setActiveTab(int tabIndex);
-	void exchangeTabItemData(int oldTab, int newTab);
+	bool exchangeTabItemData(int oldTab, int& newTab);
 	void exchangeItemData(POINT point);
 
 
@@ -284,6 +298,7 @@ protected:
 	static bool _drawInactiveTab;
 	static bool _drawTopBar;
 	static bool _drawTabCloseButton;
+	static bool _drawTabPinButton;
 	static bool _isDbClk2Close;
 	static bool _isCtrlVertical;
 	static bool _isCtrlMultiLine;

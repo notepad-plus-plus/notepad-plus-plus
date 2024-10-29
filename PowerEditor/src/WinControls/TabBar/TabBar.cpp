@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdexcept>
+#include "Buffer.h"
 #include "TabBar.h"
 #include "Parameters.h"
 #include "DoubleBuffer/DoubleBuffer.h"
@@ -29,6 +30,7 @@ bool TabBarPlus::_doDragNDrop = false;
 bool TabBarPlus::_drawTopBar = true;
 bool TabBarPlus::_drawInactiveTab = true;
 bool TabBarPlus::_drawTabCloseButton = false;
+bool TabBarPlus::_drawTabPinButton = true;
 bool TabBarPlus::_isDbClk2Close = false;
 bool TabBarPlus::_isCtrlVertical = false;
 bool TabBarPlus::_isCtrlMultiLine = false;
@@ -277,6 +279,12 @@ void TabBarPlus::destroy()
 		::ImageList_Destroy(_hCloseBtnImgLst);
 		_hCloseBtnImgLst = nullptr;
 	}
+
+	if (_hPinBtnImgLst != nullptr)
+	{
+		::ImageList_Destroy(_hPinBtnImgLst);
+		_hPinBtnImgLst = nullptr;
+	}
 }
 
 
@@ -285,7 +293,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	Window::init(hInst, parent);
 
 	const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
-	_closeButtonZone.setParent(_hParent);
+	_closeButtonZone.init(_hParent, 0);
+	_pinButtonZone.init(_hParent, 1);
 	_dpiManager.setDpi(dpi);
 
 	int vertical = isVertical ? (TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY) : 0;
@@ -350,6 +359,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	setFont();
 
 	setCloseBtnImageList();
+	setPinBtnImageList();
 }
 
 void TabBar::setFont()
@@ -405,8 +415,8 @@ void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
 
 			if (tbpObj)
 			{
-				const int paddingSizeDynamicW = tbpObj->_dpiManager.scale(6);
-				const int paddingSizePlusClosebuttonDynamicW = tbpObj->_dpiManager.scale(10);
+				const int paddingSizeDynamicW = tbpObj->_dpiManager.scale(6 + 4);
+				const int paddingSizePlusClosebuttonDynamicW = tbpObj->_dpiManager.scale(10 + 4);
 				::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton ? paddingSizePlusClosebuttonDynamicW : paddingSizeDynamicW, 0));
 			}
 		}
@@ -447,7 +457,8 @@ void TabBarPlus::currentTabToStart()
 
 	for (int i = currentTabIndex, j = currentTabIndex - 1; j >= 0; --i, --j)
 	{
-		exchangeTabItemData(i, j);
+		if (!exchangeTabItemData(i, j))
+			break;
 	}
 }
 
@@ -459,7 +470,8 @@ void TabBarPlus::currentTabToEnd()
 
 	for (int i = currentTabIndex, j = currentTabIndex + 1; j < static_cast<int>(_nbItem); ++i, ++j)
 	{
-		exchangeTabItemData(i, j);
+		if (!exchangeTabItemData(i, j))
+			break;
 	}
 }
 
@@ -499,6 +511,45 @@ void TabBarPlus::setCloseBtnImageList()
 
 	_closeButtonZone._width = btnSize;
 	_closeButtonZone._height = btnSize;
+}
+
+
+void TabBarPlus::setPinBtnImageList()
+{
+	int iconSize = 0;
+	std::vector<int> ids;
+
+	if (NppDarkMode::isEnabled())
+	{
+		iconSize = g_TabPinBtnSize_DM;
+		ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVER_DM, IDR_CLOSETAB_PUSH_DM };
+	}
+	else
+	{
+		iconSize = g_TabPinBtnSize;
+		ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVER, IDR_CLOSETAB_PUSH };
+	}
+
+	if (_hPinBtnImgLst != nullptr)
+	{
+		::ImageList_Destroy(_hPinBtnImgLst);
+		_hPinBtnImgLst = nullptr;
+	}
+
+	const int btnSize = _dpiManager.scale(iconSize);
+
+	_hPinBtnImgLst = ::ImageList_Create(btnSize, btnSize, ILC_COLOR32 | ILC_MASK, static_cast<int>(ids.size()), 0);
+
+	for (const auto& id : ids)
+	{
+		HICON hIcon = nullptr;
+		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(id), btnSize, btnSize, &hIcon);
+		::ImageList_AddIcon(_hPinBtnImgLst, hIcon);
+		::DestroyIcon(hIcon);
+	}
+
+	_pinButtonZone._width = btnSize;
+	_pinButtonZone._height = btnSize;
 }
 
 void TabBarPlus::doVertical()
@@ -566,6 +617,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			NppDarkMode::setDarkTooltips(hwnd, NppDarkMode::ToolTipsType::tabbar);
 			setCloseBtnImageList();
+			setPinBtnImageList();
 			return TRUE;
 		}
 
@@ -667,9 +719,10 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 					// clear hover state of the close button,
 					// WM_MOUSEMOVE won't handle this properly since the tab position will change
-					if (_isCloseHover)
+					if (_isCloseHover || _isPinHover)
 					{
 						_isCloseHover = false;
+						_isPinHover = false;
 						::InvalidateRect(_hSelf, &_currentHoverTabRect, false);
 					}
 
@@ -698,6 +751,13 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				if (_closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					_whichCloseClickDown = getTabIndexAt(xPos, yPos);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REFRESHTABAR, 0);
+					return TRUE;
+				}
+
+				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				{
+					_whichPinClickDown = getTabIndexAt(xPos, yPos);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REFRESHTABAR, 0);
 					return TRUE;
 				}
@@ -822,7 +882,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					RECT currentHoverTabRectOld = _currentHoverTabRect;
 					bool isCloseHoverOld = _isCloseHover;
 
-					if (_currentHoverTabItem != -1) // is hovering
+					if (_currentHoverTabItem != -1) // tab item is being hovered
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
 						_isCloseHover = _closeButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
@@ -848,6 +908,39 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 						trackMouseEvent(TME_LEAVE);
 					}
 				}
+
+				if (_drawTabPinButton)
+				{
+					RECT currentHoverTabRectOld = _currentHoverTabRect;
+					bool isPinHoverOld = _isPinHover;
+
+					if (_currentHoverTabItem != -1) // tab item is being hovered
+					{
+						::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
+						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
+						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
+					}
+					else
+					{
+						SetRectEmpty(&_currentHoverTabRect);
+						_isPinHover = false;
+					}
+
+					if (isFromTabToTab || _isPinHover != isPinHoverOld)
+					{
+						if (isPinHoverOld && (isFromTabToTab || !_isPinHover))
+							InvalidateRect(hwnd, &currentHoverTabRectOld, FALSE);
+
+						if (_isPinHover)
+							InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
+					}
+
+					if (_isPinHover)
+					{
+						// Mouse moves out from pin zone will send WM_MOUSELEAVE message
+						trackMouseEvent(TME_LEAVE);
+					}
+				}
 				// Mouse moves out from tab zone will send WM_MOUSELEAVE message
 				// but it doesn't track mouse moving from a tab to another
 				trackMouseEvent(TME_LEAVE);
@@ -858,13 +951,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_MOUSELEAVE:
 		{
-			if (_isCloseHover)
+			if (_isCloseHover || _isPinHover)
 				InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
 
 			_currentHoverTabItem = -1;
 			_whichCloseClickDown = -1;
+			_whichPinClickDown = -1;
 			SetRectEmpty(&_currentHoverTabRect);
 			_isCloseHover = false;
+			_isPinHover = false;
 
 			notify(TCN_MOUSELEAVING, _currentHoverTabItem);
 			break;
@@ -912,7 +1007,26 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					}
 					return TRUE;
 				}
+				else if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				{
+					notify(TCN_TABPINNED, currentTabOn);
+					_whichPinClickDown = -1;
+
+					// Get the next tab at same position
+					// If valid tab is found then
+					//	 update the current hover tab RECT (_currentHoverTabRect)
+					//	 update pin hover flag (_isPinHover), so that x will be highlighted or not based on new _currentHoverTabRect
+					int nextTab = getTabIndexAt(xPos, yPos);
+					if (nextTab != -1)
+					{
+						::SendMessage(_hSelf, TCM_GETITEMRECT, nextTab, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
+						_isPinHover = _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical);
+					}
+					return TRUE;
+				}
+
 				_whichCloseClickDown = -1;
+				_whichPinClickDown = -1;
 			}
 
 			break;
@@ -1149,25 +1263,18 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 	RECT rect = pDrawItemStruct->rcItem;
 
 	int nTab = pDrawItemStruct->itemID;
-	if (nTab < 0)
-	{
-		::MessageBox(NULL, L"nTab < 0", L"", MB_OK);
-	}
+	assert(nTab >= 0);
+
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
 	wchar_t label[MAX_PATH] = { '\0' };
 	TCITEM tci{};
-	tci.mask = TCIF_TEXT|TCIF_IMAGE;
+	tci.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 	tci.pszText = label;
 	tci.cchTextMax = MAX_PATH-1;
 
-	if (!::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci)))
-	{
-		std::wstring errorMessageTitle = L"TabBarPlus::drawItem wrong: ! TCM_GETITEM";
-		std::wstring errorMessage = GetLastErrorAsString(GetLastError());
-		::MessageBox(NULL, errorMessage.c_str(), errorMessageTitle.c_str(), MB_OK);
-	}
-
+	::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci));
+	
 	const COLORREF colorActiveBg = isDarkMode ? NppDarkMode::getSofterBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
 	const COLORREF colorInactiveBgBase = isDarkMode ? NppDarkMode::getBackgroundColor() : ::GetSysColor(COLOR_BTNFACE);
 	
@@ -1328,21 +1435,49 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		{
 			if (_whichCloseClickDown == -1) // hover
 			{
-				idxCloseImg += 2;
+				idxCloseImg = 2;
 			}
 			else if (_whichCloseClickDown == _currentHoverTabItem) // pushed
 			{
-				idxCloseImg += 3;
+				idxCloseImg = 3;
 			}
 		}
 		else if (!isSelected) // inactive
 		{
-			idxCloseImg += 1;
+			idxCloseImg = 1;
 		}
 
 		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
 
 		::ImageList_Draw(_hCloseBtnImgLst, idxCloseImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
+	}
+
+	// draw pin button
+	if (_drawTabPinButton && _hPinBtnImgLst != nullptr)
+	{
+		// 3 status for each inactive tab and selected tab pin item :
+		// normal / hover / pushed
+		int idxPinImg = 0; // selected
+
+		if (_isPinHover && (_currentHoverTabItem == nTab))
+		{
+			if (_whichPinClickDown == -1) // hover
+			{
+				idxPinImg = 2;
+			}
+			else if (_whichPinClickDown == _currentHoverTabItem) // pushed
+			{
+				idxPinImg = 3;
+			}
+		}
+		else if (!isSelected) // inactive
+		{
+			idxPinImg = 1;
+		}
+
+		RECT buttonRect = _pinButtonZone.getButtonRectFrom(rect, _isVertical);
+
+		::ImageList_Draw(_hPinBtnImgLst, idxPinImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
 	}
 
 	// draw image
@@ -1496,7 +1631,7 @@ void TabBarPlus::setActiveTab(int tabIndex)
 	notify(TCN_SELCHANGE, tabIndex);
 }
 
-void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
+bool TabBarPlus::exchangeTabItemData(int oldTab, int& newTab)
 {
 	//1. shift their data, and insert the source
 	TCITEM itemData_nDraggedTab{}, itemData_shift{};
@@ -1512,30 +1647,58 @@ void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 	itemData_shift.cchTextMax = (stringSize);
 
 	::SendMessage(_hSelf, TCM_GETITEM, oldTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+	Buffer* chosenBuf = reinterpret_cast<Buffer*>(itemData_nDraggedTab.lParam);
+	int i = oldTab;
 
 	if (oldTab > newTab)
 	{
-		for (int i = oldTab; i > newTab; i--)
+		for (; i > newTab; i--)
 		{
 			::SendMessage(_hSelf, TCM_GETITEM, i - 1, reinterpret_cast<LPARAM>(&itemData_shift));
-			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+			Buffer* shiftBuf = reinterpret_cast<Buffer*>(itemData_shift.lParam);
+
+			if (chosenBuf->isPinned() == shiftBuf->isPinned())
+			{
+				::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+			}
+			else
+			{
+				newTab = oldTab;
+				break;
+			}
 		}
 	}
 	else
 	{
-		for (int i = oldTab; i < newTab; ++i)
+		for (; i < newTab; ++i)
 		{
 			::SendMessage(_hSelf, TCM_GETITEM, i + 1, reinterpret_cast<LPARAM>(&itemData_shift));
-			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+			Buffer* shiftBuf = reinterpret_cast<Buffer*>(itemData_shift.lParam);
+
+			if (chosenBuf->isPinned() == shiftBuf->isPinned())
+			{
+				::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+			}
+			else
+			{
+				newTab = oldTab;
+				break;
+			}
 		}
 	}
-	::SendMessage(_hSelf, TCM_SETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
-	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
-	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+	if (oldTab != newTab)
+	{
+		::SendMessage(_hSelf, TCM_SETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
-	//2. set to focus
-	setActiveTab(newTab);
+		// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
+		::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+
+		//2. set to focus
+		setActiveTab(newTab);
+	}
+
+	return (oldTab != newTab);
 }
 
 void TabBarPlus::exchangeItemData(POINT point)
@@ -1556,9 +1719,11 @@ void TabBarPlus::exchangeItemData(POINT point)
 				return;
 			}
 
-			exchangeTabItemData(_nTabDragged, nTab);
-			_previousTabSwapped = _nTabDragged;
-			_nTabDragged = nTab;
+			if (exchangeTabItemData(_nTabDragged, nTab))
+			{
+				_previousTabSwapped = _nTabDragged;
+				_nTabDragged = nTab;
+			}
 		}
 		else
 		{
@@ -1593,14 +1758,32 @@ RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) c
 	if (isVertical)
 	{
 		fromBorder = (tabRect.right - tabRect.left - _width + 1) / 2;
+		if (_id == 0)
+		{
+			buttonRect.top = tabRect.top + fromBorder;
+		}
+		else if (_id == 1)
+		{
+			buttonRect.top = tabRect.top + fromBorder + _height + 1;
+		}
+
 		buttonRect.left = tabRect.left + fromBorder;
 	}
 	else
 	{
 		fromBorder = (tabRect.bottom - tabRect.top - _height + 1) / 2;
-		buttonRect.left = tabRect.right - fromBorder - _width;
+		if (_id == 0)
+		{
+			buttonRect.left = tabRect.right - fromBorder - _width;
+		}
+		else if (_id == 1)
+		{
+			buttonRect.left = tabRect.right - fromBorder - _width * 2 - 1;
+		}
+
+		buttonRect.top = tabRect.top + fromBorder;
 	}
-	buttonRect.top = tabRect.top + fromBorder;
+	
 	buttonRect.bottom = buttonRect.top + _height;
 	buttonRect.right = buttonRect.left + _width;
 

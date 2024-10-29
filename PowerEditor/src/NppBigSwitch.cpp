@@ -78,7 +78,7 @@ bool SetOSAppRestart()
 		pathAppend(nppIssueLog, issueFn);
 	}
 
-	WCHAR wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
+	wchar_t wszCmdLine[RESTART_MAX_CMD_LINE] = { 0 };
 	DWORD cchCmdLine = _countof(wszCmdLine);
 	DWORD dwPreviousFlags = 0;
 	HRESULT hr = ::GetApplicationRestartSettings(::GetCurrentProcess(), wszCmdLine, &cchCmdLine, &dwPreviousFlags);
@@ -3744,7 +3744,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			const Buffer* buf = _pEditView->getCurrentBuffer();
 			wstring path = buf ? buf->getFullPathName() : L"";
-			PathRemoveFileSpec(path);
+			pathRemoveFileSpec(path);
 			setWorkingDir(path.c_str());
 			return TRUE;
 		}

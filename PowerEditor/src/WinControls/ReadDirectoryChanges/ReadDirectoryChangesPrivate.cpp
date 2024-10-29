@@ -121,7 +121,7 @@ VOID CALLBACK CReadChangesRequest::NotificationCompletion(
 	// Can't use sizeof(FILE_NOTIFY_INFORMATION) because
 	// the structure is padded to 16 bytes.
 	assert((dwNumberOfBytesTransfered == 0) ||
-		(dwNumberOfBytesTransfered >= offsetof(FILE_NOTIFY_INFORMATION, FileName) + sizeof(WCHAR)));
+		(dwNumberOfBytesTransfered >= offsetof(FILE_NOTIFY_INFORMATION, FileName) + sizeof(wchar_t)));
 
 	pBlock->BackupBuffer(dwNumberOfBytesTransfered);
 

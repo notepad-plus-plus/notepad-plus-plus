@@ -45,6 +45,8 @@ OK	u "https://duckduckgo.com/?q=windows+delete+"GameBarPresenceWriter.exe" u
 OK	u "https://duckduckgo/com/?q=windows+delete+GameBarPresenceWriter.exe" u
 OK	u "https://duckduckgo.com/?q=windows+delete+""GameBarPresenceWriter.exe" u
 OK	u https://www.youtube.com/watch?v=VmcftreqQ6E&list=PnQIRE5O5JpiLL&index=xxx u
+OK	u https://example.com/#/app/0?context u
+OK	u https://example.com#/example/app/0?context u
 OK	u "http://github.com/notepad-plus-plus/notepad-plus-plus" u
 OK	u "https://github.com /notepad-plus-plus/notepad-plus-plus" u
 OK	u "https://github.com/notepad plus plus/notepad-plus-plus" u

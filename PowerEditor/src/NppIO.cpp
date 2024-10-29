@@ -46,7 +46,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	const wchar_t *fullFileName = (const wchar_t *)buf->getFullPathName();
 
 	//The folder to watch :
-	WCHAR folderToMonitor[MAX_PATH]{};
+	wchar_t folderToMonitor[MAX_PATH]{};
 	wcscpy_s(folderToMonitor, fullFileName);
 
 	::PathRemoveFileSpecW(folderToMonitor);
@@ -143,7 +143,7 @@ bool resolveLinkFile(std::wstring& linkFilePath)
 	bool isResolved = false;
 
 	IShellLink* psl = nullptr;
-	WCHAR targetFilePath[MAX_PATH]{};
+	wchar_t targetFilePath[MAX_PATH]{};
 	WIN32_FIND_DATA wfd{};
 
 	HRESULT hres = CoInitialize(NULL);
@@ -234,7 +234,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	//If [GetFullPathName] fails for any other reason, the return value is zero.
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	WCHAR longFileName[longFileNameBufferSize] = { 0 };
+	wchar_t longFileName[longFileNameBufferSize] = { 0 };
 
 	if (isRawFileName)
 	{
@@ -337,7 +337,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 		if (!doesPathExist(longFileName) && !globbing)
 		{
 			wstring longFileDir(longFileName);
-			PathRemoveFileSpec(longFileDir);
+			pathRemoveFileSpec(longFileDir);
 
 			bool isCreateFileSuccessful = false;
 			if (doesDirectoryExist(longFileDir.c_str()))
@@ -1674,7 +1674,7 @@ bool Notepad_plus::fileSave(BufferID id)
 			{
 				// Get the current file's directory
 				wstring path = fn;
-				::PathRemoveFileSpec(path);
+				::pathRemoveFileSpec(path);
 				fn_bak = path;
 				fn_bak += L"\\";
 

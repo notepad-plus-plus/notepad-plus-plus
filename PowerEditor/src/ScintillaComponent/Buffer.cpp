@@ -747,7 +747,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		ownDoc = true;
 	}
 
-	WCHAR fullpath[MAX_PATH] = { 0 };
+	wchar_t fullpath[MAX_PATH] = { 0 };
 	if (isWin32NamespacePrefixedFileName(filename)) // This function checks for the \\?\ prefix
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
@@ -1171,7 +1171,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	Buffer* buffer = getBufferByID(id);
 	bool isHiddenOrSys = false;
 
-	WCHAR fullpath[MAX_PATH] = { 0 };
+	wchar_t fullpath[MAX_PATH] = { 0 };
 	if (isWin32NamespacePrefixedFileName(filename))
 	{
 		// use directly the raw file name, skip the GetFullPathName WINAPI
@@ -1210,7 +1210,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	getFileAttributesExWithTimeout(fullpath, &attributes);
-	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
+	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
 		isHiddenOrSys = (attributes.dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
 		if (isHiddenOrSys)
@@ -1614,6 +1614,23 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 			}
 		}
 	}
+
+	// Check if the file is located on a network. If it is, verify the existence of the file's directory.
+	// Note: We're checking the directory's existence instead of the file itself to avoid the GetAttributesEx cache issue.
+	// Just before calling loadFileData, the doesFileExist function was called, which should return false if there's a network problem.
+	// If execution reaches here during a network connection problem, it means doesFileExist returned true incorrectly due to GetAttributesEx caching.
+	// Therefore, we avoid calling doesFileExist again and instead call doesDirectoryExist to ensure accuracy.
+	bool isNetworkDirDisconnected = false;
+	if (PathIsNetworkPath(filename))
+	{
+		wchar_t dir[MAX_PATH]{};
+		wcscpy_s(dir,filename);
+		PathRemoveFileSpec(dir);
+		isNetworkDirDisconnected = !doesDirectoryExist(dir);
+	}
+	if (isNetworkDirDisconnected)
+		return false; // If network ressource is not reachable, we stop here for not having hanging issue because of _wfopen
+
 
 	FILE* fp = _wfopen(filename, L"rb");
 

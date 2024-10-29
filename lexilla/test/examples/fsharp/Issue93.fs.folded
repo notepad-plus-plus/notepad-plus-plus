@@ -44,4 +44,4 @@
  0 401 400 |     *)
  2 400 401 +     // Prints:
  0 401 400 |     // "not an evaluated expression"
- 1 400 400   
+ 0 400   0   

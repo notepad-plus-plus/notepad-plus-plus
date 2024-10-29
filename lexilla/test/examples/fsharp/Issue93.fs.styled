@@ -13,16 +13,16 @@
         *)
     *)
 *){0}
-{9}// declare a namespace{0}
-{9}// for the module{0}
+{9}// declare a namespace
+// for the module
 {1}namespace{0} {6}Issue93{0}
 
 {1}module{0} {6}NestedComments{0} {12}={0}
     {1}open{0} {3}FSharp{0}.{6}Quotations{0}
     {1}open{0} {3}FSharp{0}.{6}Quotations{0}.{6}Patterns{0}
-    {9}// print the arguments{0}
-    {9}// of an evaluated expression{0}
-    {8}(* Example:
+    {9}// print the arguments
+{0}    {9}// of an evaluated expression
+{0}    {8}(* Example:
         (*
             printArgs <@ 1 + 2 @> ;;
             // 1
@@ -42,5 +42,5 @@
             printArgs constExpr ;;
         *)
     *){0}
-    {9}// Prints:{0}
-    {9}// "not an evaluated expression"{0}
+    {9}// Prints:
+{0}    {9}// "not an evaluated expression"

@@ -476,6 +476,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Menu Section //
 	// ------------ //
 	nppParam.initTabCustomColors();
+	nppParam.initFindDlgStatusMsgCustomColors();
 	setupColorSampleBitmapsOnMainMenuItems();
 
 	// Macro Menu
@@ -3302,7 +3303,7 @@ void scanToUrlEnd(const wchar_t *text, int textLen, int start, int* distance)
 				break;
 
 			case sFragment:
-				if (!isUrlTextChar(text [p]))
+				if (text [p] != '?' && !isUrlTextChar(text [p]))
 				{
 					*distance = p - start;
 					return;
@@ -6679,7 +6680,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		checkDocState();
 		setTitle();
 		wstring dir(buffer->getFullPathName());
-		PathRemoveFileSpec(dir);
+		pathRemoveFileSpec(dir);
 		setWorkingDir(dir.c_str());
 	}
 
@@ -6744,7 +6745,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	setDisplayFormat(buf->getEolFormat());
 	enableConvertMenuItems(buf->getEolFormat());
 	wstring dir(buf->getFullPathName());
-	PathRemoveFileSpec(dir);
+	pathRemoveFileSpec(dir);
 	setWorkingDir(dir.c_str());
 	setTitle();
 	//Make sure the colors of the tab controls match
@@ -7762,6 +7763,7 @@ static const QuoteParams quotes[] =
 	{L"Notepad++ #1", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"I hate reading other people's code.\nSo I wrote mine, made it as open source project, and watch others suffer."},
 	{L"Notepad++ #2", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 	{L"Notepad++ #3", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n"},
+	{L"Notepad++ #4", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Whatever you do, always give 100%.\nUnless you're donating to Notepad++, then 50% is OK.\nhttps://notepad-plus-plus.org/donate/\n"},
 	{L"Richard Stallman", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
 	{L"Martin Golding", QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, L"Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{L"L. Peter Deutsch", QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, L"To iterate is human, to recurse divine."},

@@ -67,7 +67,7 @@ Mingw-w64 is known to work. Other compilers will probably not work.
 Only Scintilla will build with GTK+ on Windows. SciTE will not work.
 
 Make builds both a static library version of Scintilla with lexers (scintilla.a) and
-a shared library without lexers (libscintilla.so or or libscintilla.dll).
+a shared library without lexers (libscintilla.so or libscintilla.dll).
 
 To build Scintilla, make in the scintilla/gtk directory
 	cd scintilla\gtk

@@ -629,7 +629,7 @@ wstring BuildMenuFileName(int filenameLen, unsigned int pos, const wstring &file
 }
 
 
-wstring PathRemoveFileSpec(wstring& path)
+wstring pathRemoveFileSpec(wstring& path)
 {
     wstring::size_type lastBackslash = path.find_last_of(L'\\');
     if (lastBackslash == wstring::npos)
@@ -1779,7 +1779,8 @@ struct GetDiskFreeSpaceParamResult
 	std::wstring _dirPath;
 	ULARGE_INTEGER _freeBytesForUser {};
 	DWORD _result = FALSE;
-	bool _isNetworkFailure = true;
+	bool _isTimeoutReached = true;
+
 	GetDiskFreeSpaceParamResult(wstring dirPath) : _dirPath(dirPath) {};
 };
 
@@ -1787,11 +1788,11 @@ DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
 {
 	GetDiskFreeSpaceParamResult* inAndOut = static_cast<GetDiskFreeSpaceParamResult*>(data);
 	inAndOut->_result = ::GetDiskFreeSpaceExW(inAndOut->_dirPath.c_str(), &(inAndOut->_freeBytesForUser), nullptr, nullptr);
-	inAndOut->_isNetworkFailure = false;
+	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };
 
-DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isNetWorkProblem)
+DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	GetDiskFreeSpaceParamResult data(dirPath);
 
@@ -1819,8 +1820,8 @@ DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBy
 
 	*freeBytesForUser = data._freeBytesForUser;
 
-	if (isNetWorkProblem != nullptr)
-		*isNetWorkProblem = data._isNetworkFailure;
+	if (isTimeoutReached != nullptr)
+		*isTimeoutReached = data._isTimeoutReached;
 
 	return data._result;
 }
@@ -1833,7 +1834,8 @@ struct GetAttrExParamResult
 	wstring _filePath;
 	WIN32_FILE_ATTRIBUTE_DATA _attributes{};
 	DWORD _result = FALSE;
-	bool _isNetworkFailure = true;
+	bool _isTimeoutReached = true;
+
 	GetAttrExParamResult(wstring filePath): _filePath(filePath) {
 		_attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	}
@@ -1843,11 +1845,11 @@ DWORD WINAPI getFileAttributesExWorker(void* data)
 {
 	GetAttrExParamResult* inAndOut = static_cast<GetAttrExParamResult*>(data);
 	inAndOut->_result = ::GetFileAttributesEx(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
-	inAndOut->_isNetworkFailure = false;
+	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };
 
-DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait, bool* isNetWorkProblem)
+DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	GetAttrExParamResult data(filePath);
 
@@ -1875,29 +1877,29 @@ DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBU
 
 	*fileAttr = data._attributes;
 
-	if (isNetWorkProblem != nullptr)
-		*isNetWorkProblem = data._isNetworkFailure;
+	if (isTimeoutReached != nullptr)
+		*isTimeoutReached = data._isTimeoutReached;
 
 	return data._result;
 }
 
-bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait, bool* isNetWorkProblem)
+bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	getFileAttributesExWithTimeout(filePath, &attributes, milliSec2wait, isNetWorkProblem);
+	getFileAttributesExWithTimeout(filePath, &attributes, milliSec2wait, isTimeoutReached);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait, bool* isNetWorkProblem)
+bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	getFileAttributesExWithTimeout(dirPath, &attributes, milliSec2wait, isNetWorkProblem);
+	getFileAttributesExWithTimeout(dirPath, &attributes, milliSec2wait, isTimeoutReached);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isNetWorkProblem)
+bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	getFileAttributesExWithTimeout(path, &attributes, milliSec2wait, isNetWorkProblem);
+	getFileAttributesExWithTimeout(path, &attributes, milliSec2wait, isTimeoutReached);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }

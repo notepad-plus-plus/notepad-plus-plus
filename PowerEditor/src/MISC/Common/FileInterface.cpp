@@ -33,11 +33,11 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
 		DWORD dispParam = CREATE_ALWAYS;
 		bool fileExists = false;
-		bool hasNetworkProblem = false;
+		bool isTimeoutReached = false;
 		// Store the file creation date & attributes for a possible use later...
-		if (getFileAttributesExWithTimeout(fname, &attributes_original, 0, &hasNetworkProblem))
+		if (getFileAttributesExWithTimeout(fname, &attributes_original, 0, &isTimeoutReached))
 		{
-			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
+			fileExists = (attributes_original.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes_original.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 		}
 
 		if (fileExists)
@@ -54,7 +54,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		else
 		{
 			bool isFromNetwork = PathIsNetworkPath(fname);
-			if (isFromNetwork && hasNetworkProblem) // The file doesn't exist, and the file is a network file, plus the network problem has been detected due to timeout
+			if (isFromNetwork && isTimeoutReached) // The file doesn't exist, and the file is a network file, plus the network problem has been detected due to timeout
 				return;                             // In this case, we don't call createFile to prevent hanging
 		}
 
@@ -120,7 +120,7 @@ void Win32_IO_File::close()
 
 					std::wstring curFilePath;
 					const DWORD cchPathBuf = MAX_PATH + 128;
-					WCHAR pathbuf[cchPathBuf]{};
+					wchar_t pathbuf[cchPathBuf]{};
 					// the dwFlags used below are the most error-proof and informative
 					DWORD dwRet = ::GetFinalPathNameByHandle(_hFile, pathbuf, cchPathBuf, FILE_NAME_OPENED | VOLUME_NAME_NT);
 					if ((dwRet == 0) || (dwRet >= cchPathBuf))

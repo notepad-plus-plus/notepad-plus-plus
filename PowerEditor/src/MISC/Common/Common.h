@@ -154,7 +154,7 @@ protected:
 
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 
-std::wstring PathRemoveFileSpec(std::wstring & path);
+std::wstring pathRemoveFileSpec(std::wstring & path);
 std::wstring pathAppend(std::wstring &strDest, const std::wstring & str2append);
 COLORREF getCtrlBgColor(HWND hWnd);
 std::wstring stringToUpper(std::wstring strToConvert);
@@ -283,9 +283,9 @@ private:
 };
 
 
-DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
+DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
 
-bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
-bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isNetWorkProblem = nullptr);
+bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);

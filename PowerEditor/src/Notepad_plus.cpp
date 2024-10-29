@@ -405,6 +405,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabBarPlus::setDrawTopBar((tabBarStatus & TAB_DRAWTOPBAR) != 0, &_mainDocTab);
 	TabBarPlus::setDrawInactiveTab((tabBarStatus & TAB_DRAWINACTIVETAB) != 0, &_mainDocTab);
 	TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0, &_mainDocTab);
+	TabBarPlus::setDrawTabPinButton((tabBarStatus & TAB_PINBUTTON) != 0, &_mainDocTab);
 	TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
@@ -918,6 +919,7 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::drawInactiveTab() ? TAB_DRAWINACTIVETAB : 0) | \
 						(TabBarPlus::isReduced() ? TAB_REDUCE : 0) | \
 						(TabBarPlus::drawTabCloseButton() ? TAB_CLOSEBUTTON : 0) | \
+						(TabBarPlus::drawTabPinButton() ? TAB_PINBUTTON : 0) | \
 						(TabBarPlus::isDbClk2Close() ? TAB_DBCLK2CLOSE : 0) | \
 						(TabBarPlus::isVertical() ? TAB_VERTICAL : 0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE : 0) |\
@@ -4909,6 +4911,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//First put the doc in the other view if not present (if it is, activate it).
 	//Then if needed close in the original tab
 	BufferID current = _pEditView->getCurrentBufferID();
+	Buffer* buf = MainFileManager.getBufferByID(current);
+
 	int viewToGo = otherView();
 	int indexFound = _pNonDocTab->getIndexByBuffer(current);
 	if (indexFound != -1)	//activate it
@@ -4929,7 +4933,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		}
 
 		loadBufferIntoView(current, viewToGo);
-		Buffer *buf = MainFileManager.getBufferByID(current);
+		
 		_pEditView->saveCurrentPos();	//allow copying of position
 		buf->setPosition(buf->getPosition(_pEditView), _pNonEditView);
 		_pNonEditView->restoreCurrentPosPreStep();	//set position
@@ -4948,7 +4952,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//Close the document if we transfered the document instead of cloning it
 	if (mode == TransferMove)
 	{
-		Buffer *buf = MainFileManager.getBufferByID(current);
 		monitoringWasOn = buf->isMonitoringOn();
 
 		//just close the activate document, since thats the one we moved (no search)
@@ -4958,6 +4961,13 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//Activate the other view since thats where the document went
 	switchEditViewTo(viewToGo);
 
+	if (buf->isPinned())
+	{
+		buf->setPinned(false);
+		_pDocTab->tabToStart();
+		buf->setPinned(true);
+	}
+
 	if (monitoringWasOn)
 	{
 		command(IDM_VIEW_MONITORING);
@@ -4965,7 +4975,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 	if (_pDocumentListPanel != nullptr)
 	{
-		Buffer* buf = MainFileManager.getBufferByID(current);
 		_pDocumentListPanel->setItemColor(buf);
 	}
 }
@@ -6333,7 +6342,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			}
 
 			const wchar_t* langName = languageName.c_str();
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->isPinned(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
 
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));

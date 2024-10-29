@@ -3693,6 +3693,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_subDocTab.resizeIconsDpi();
 			_mainDocTab.setCloseBtnImageList();
 			_subDocTab.setCloseBtnImageList();
+			_mainDocTab.setPinBtnImageList();
+			_subDocTab.setPinBtnImageList();
 			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
 
 			changeDocumentListIconSet(false);
@@ -3777,6 +3779,57 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				strcpy(reinterpret_cast<char*>(lParam), fileName.c_str());
 			}
 			return fileName.length();
+		}
+
+		case NPPM_INTERNAL_DRAWTABBARPINBOTTUN:
+		{
+			TabBarPlus::setDrawTabPinButton(!TabBarPlus::drawTabPinButton(), &_mainDocTab);
+
+			bool drawTabPinButton = TabBarPlus::drawTabPinButton();
+			bool drawTabCloseButton = TabBarPlus::drawTabCloseButton();
+
+			if (!drawTabPinButton)
+			{
+				unPinnedForAllBuffers();
+			}
+
+			if (drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(1);
+			}
+			else if (!drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(0);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(0);
+			}
+			else if (drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
+			else //if (!drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
+
+			// This part is just for updating (redraw) the tabs
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabPinButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			return TRUE;
 		}
 
 		default:

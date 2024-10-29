@@ -64,17 +64,18 @@ const int UDD_DOCKED = 2; // 0000 0010
 // 2 : 0000 0010 hide & docked
 // 3 : 0000 0011 show & docked
 
-const int TAB_DRAWTOPBAR = 1;      //0000 0000 0001
-const int TAB_DRAWINACTIVETAB = 2; //0000 0000 0010
-const int TAB_DRAGNDROP = 4;       //0000 0000 0100
-const int TAB_REDUCE = 8;          //0000 0000 1000
-const int TAB_CLOSEBUTTON = 16;    //0000 0001 0000
-const int TAB_DBCLK2CLOSE = 32;    //0000 0010 0000
-const int TAB_VERTICAL = 64;       //0000 0100 0000
-const int TAB_MULTILINE = 128;     //0000 1000 0000
-const int TAB_HIDE = 256;          //0001 0000 0000
-const int TAB_QUITONEMPTY = 512;   //0010 0000 0000
-const int TAB_ALTICONS = 1024;     //0100 0000 0000
+const int TAB_DRAWTOPBAR        =    1;    //0000 0000 0001
+const int TAB_DRAWINACTIVETAB   =    2;    //0000 0000 0010
+const int TAB_DRAGNDROP         =    4;    //0000 0000 0100
+const int TAB_REDUCE            =    8;    //0000 0000 1000
+const int TAB_CLOSEBUTTON       =   16;    //0000 0001 0000
+const int TAB_DBCLK2CLOSE       =   32;    //0000 0010 0000
+const int TAB_VERTICAL          =   64;    //0000 0100 0000
+const int TAB_MULTILINE         =  128;    //0000 1000 0000
+const int TAB_HIDE              =  256;    //0001 0000 0000
+const int TAB_QUITONEMPTY       =  512;    //0010 0000 0000
+const int TAB_ALTICONS          = 1024;    //0100 0000 0000
+const int TAB_PINBUTTON         = 2048;    //1000 0000 0000
 
 const bool activeText = true;
 const bool activeNumeric = false;
@@ -216,8 +217,8 @@ public:
 
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const wchar_t* fn, const wchar_t *ln, int encoding, bool userReadOnly, const Position& pos, const wchar_t *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
-		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
+	sessionFileInfo(const wchar_t* fn, const wchar_t *ln, int encoding, bool userReadOnly,bool isPinned, const Position& pos, const wchar_t *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
+		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _isPinned(isPinned), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -235,6 +236,7 @@ struct sessionFileInfo : public Position
 	bool _isMonitoring = false;
 	int _individualTabColour = -1;
 	bool _isRTL = false;
+	bool _isPinned = false;
 	std::wstring _backupFilePath;
 	FILETIME _originalFileLastModifTimestamp {};
 
@@ -791,15 +793,7 @@ struct NppGUI final
 	bool _statusBarShow = true;
 	bool _menuBarShow = true;
 
-	// 1st bit : draw top bar;
-	// 2nd bit : draw inactive tabs
-	// 3rd bit : enable drag & drop
-	// 4th bit : reduce the height
-	// 5th bit : enable vertical
-	// 6th bit : enable multiline
-
-	// 0:don't draw; 1:draw top bar 2:draw inactive tabs 3:draw both 7:draw both+drag&drop
-	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON);
+	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON | TAB_PINBUTTON);
 
 	bool _splitterPos = POS_VERTICAL;
 	int _userDefineDlgStatus = UDD_DOCKED;

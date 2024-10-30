@@ -292,6 +292,12 @@ public:
 			_tabCreatedTimeString = getTimeString(now);
 		}
 	}
+	void clearTabCreatedTimeString() {
+		if (_currentStatus != DOC_UNNAMED)
+		{
+			_tabCreatedTimeString = L"";
+		}
+	}
 
 	size_t docLength() const {
 		assert(_pManager != nullptr);

@@ -1005,12 +1005,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					tipTmp = buf->getFullPathName();
 
-					wstring tabCreatedTime = buf->tabCreatedTimeString();
-					if (!tabCreatedTime.empty())
+					
+					if (buf->isUntitled())
 					{
-						tipTmp += L"\r";
-						tipTmp += tabCreatedTime;
-						SendMessage(lpttt->hdr.hwndFrom, TTM_SETMAXTIPWIDTH, 0, 200);
+						wstring tabCreatedTime = buf->tabCreatedTimeString();
+						if (!tabCreatedTime.empty())
+						{
+							tipTmp += L"\r";
+							tipTmp += tabCreatedTime;
+							SendMessage(lpttt->hdr.hwndFrom, TTM_SETMAXTIPWIDTH, 0, 200);
+						}
 					}
 					else
 					{

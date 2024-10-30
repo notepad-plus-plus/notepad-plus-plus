@@ -1387,7 +1387,7 @@ Translation note:
 				<Item id="1720" name="&amp;. matches newline"/>
 			</FindInFinder>
 			<DoSaveOrNot title="Save">
-				<Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/><!-- Don't translate $STR_REPLACE$ -->
+				<Item id="1761" name="Save file &quot;$STR_REPLACE$&quot; ?"/>
 				<Item id="6" name="&amp;Yes"/>
 				<Item id="7" name="&amp;No"/>
 				<Item id="2" name="&amp;Cancel"/>

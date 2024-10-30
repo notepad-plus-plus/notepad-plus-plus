@@ -405,6 +405,15 @@
 #define IDR_FIND_RESULT_ICO2      1564
 #define IDR_FIND_RESULT_ICO_DM    1565
 
+#define IDR_PINTAB           1566
+#define IDR_PINTAB_INACT     1567
+#define IDR_PINTAB_HOVER     1568
+#define IDR_PINTAB_PUSH      1569
+#define IDR_PINTAB_DM        1570
+#define IDR_PINTAB_INACT_DM  1571
+#define IDR_PINTAB_HOVER_DM  1572
+#define IDR_PINTAB_PUSH_DM   1573
+
 #define ID_MACRO                           20000
 //                                     O     .
 //                                     C     .

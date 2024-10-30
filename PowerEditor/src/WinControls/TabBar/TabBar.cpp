@@ -526,12 +526,12 @@ void TabBarPlus::setPinBtnImageList()
 	if (NppDarkMode::isEnabled())
 	{
 		iconSize = g_TabPinBtnSize_DM;
-		ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVER_DM, IDR_CLOSETAB_PUSH_DM };
+		ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_DM, IDR_PINTAB_HOVER_DM, IDR_PINTAB_PUSH_DM };
 	}
 	else
 	{
 		iconSize = g_TabPinBtnSize;
-		ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVER, IDR_CLOSETAB_PUSH };
+		ids = { IDR_PINTAB, IDR_PINTAB_INACT, IDR_PINTAB_HOVER, IDR_PINTAB_PUSH };
 	}
 
 	if (_hPinBtnImgLst != nullptr)
@@ -1463,20 +1463,30 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		// normal / hover / pushed
 		int idxPinImg = 0; // selected
 
-		if (_isPinHover && (_currentHoverTabItem == nTab))
+		bool isPinned = reinterpret_cast<Buffer*>(tci.lParam)->isPinned();
+
+		if (isPinned)
 		{
-			if (_whichPinClickDown == -1) // hover
-			{
-				idxPinImg = 2;
-			}
-			else if (_whichPinClickDown == _currentHoverTabItem) // pushed
-			{
-				idxPinImg = 3;
-			}
+			idxPinImg = 3;
 		}
-		else if (!isSelected) // inactive
+		else
 		{
-			idxPinImg = 1;
+
+			if (_isPinHover && (_currentHoverTabItem == nTab))
+			{
+				if (_whichPinClickDown == -1) // hover
+				{
+					idxPinImg = 2;
+				}
+				else if (_whichPinClickDown == _currentHoverTabItem) // pushed
+				{
+					idxPinImg = 3;
+				}
+			}
+			else if (!isSelected) // inactive
+			{
+				idxPinImg = 1;
+			}
 		}
 
 		RECT buttonRect = _pinButtonZone.getButtonRectFrom(rect, _isVertical);

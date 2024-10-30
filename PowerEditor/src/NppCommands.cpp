@@ -3345,11 +3345,11 @@ void Notepad_plus::command(int id)
         }
 
         case IDM_VIEW_GOTO_START:
-			_pDocTab->currentTabToStart();
+			_pDocTab->tabToStart();
 			break;
 
         case IDM_VIEW_GOTO_END:
-			_pDocTab->currentTabToEnd();
+			_pDocTab->tabToEnd();
 			break;
 
         case IDM_VIEW_GOTO_ANOTHER_VIEW:

@@ -449,26 +449,30 @@ void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tb
 	doOwnerDrawTab(tbpObj);
 }
 
-void TabBarPlus::currentTabToStart()
+void TabBarPlus::tabToStart(int index)
 {
-	int currentTabIndex = getCurrentTabIndex();
-	if (currentTabIndex <= 0)
+	if (index < 0 || index >= _nbItem)
+		index = getCurrentTabIndex();
+
+	if (index <= 0)
 		return;
 
-	for (int i = currentTabIndex, j = currentTabIndex - 1; j >= 0; --i, --j)
+	for (int i = index, j = index - 1; j >= 0; --i, --j)
 	{
 		if (!exchangeTabItemData(i, j))
 			break;
 	}
 }
 
-void TabBarPlus::currentTabToEnd()
+void TabBarPlus::tabToEnd(int index)
 {
-	int currentTabIndex = getCurrentTabIndex();
-	if (currentTabIndex >= static_cast<int>(_nbItem))
+	if (index < 0 || index >= _nbItem)
+		index = getCurrentTabIndex();
+
+	if (index >= static_cast<int>(_nbItem))
 		return;
 
-	for (int i = currentTabIndex, j = currentTabIndex + 1; j < static_cast<int>(_nbItem); ++i, ++j)
+	for (int i = index, j = index + 1; j < static_cast<int>(_nbItem); ++i, ++j)
 	{
 		if (!exchangeTabItemData(i, j))
 			break;

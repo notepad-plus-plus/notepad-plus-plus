@@ -317,7 +317,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			int index = tabNotification->_tabOrigin;
 			BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
 			Buffer * buf = MainFileManager.getBufferByID(bufferToClose);
-			int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
+			int iView = isFromPrimary ? MAIN_VIEW : SUB_VIEW;
 			if (buf->isDirty())
 			{
 				activateBuffer(bufferToClose, iView);
@@ -339,9 +339,26 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			BufferID bufferToBePinned = notifyDocTab->getBufferByIndex(index);
 			Buffer * buf = MainFileManager.getBufferByID(bufferToBePinned);
 
-			command(IDM_VIEW_GOTO_START);
+			bool isPinned = buf->isPinned();
 
-			buf->setPinned(true);
+			if (_mainDocTab.getHSelf() == notification->nmhdr.hwndFrom)
+			{
+				if (!isPinned)
+					_mainDocTab.tabToStart(index);
+				else
+					_mainDocTab.tabToEnd(index);
+			}
+			else if (_subDocTab.getHSelf() == notification->nmhdr.hwndFrom)
+			{
+				if (!isPinned)
+					_subDocTab.tabToStart(index);
+				else
+					_subDocTab.tabToEnd(index);
+			}
+			else
+				return FALSE;
+
+			buf->setPinned(!isPinned);
 
 			break;
 		}

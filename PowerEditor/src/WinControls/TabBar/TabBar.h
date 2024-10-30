@@ -249,8 +249,8 @@ public :
 	static void setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tbpObj);
 	virtual int getIndividualTabColourId(int tabIndex) = 0;
 
-	void currentTabToStart();
-	void currentTabToEnd();
+	void tabToStart(int index = -1);
+	void tabToEnd(int index = -1);
 
 	void setCloseBtnImageList();
 	void setPinBtnImageList();

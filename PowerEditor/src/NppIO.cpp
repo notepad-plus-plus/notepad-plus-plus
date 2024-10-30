@@ -1651,10 +1651,7 @@ bool Notepad_plus::fileSave(BufferID id)
 	{
 		if (buf->isUntitled())
 		{
-			bool isOK = fileSaveAs(bufferID);
-			if (isOK)
-				buf->clearTabCreatedTimeString();
-			return isOK;
+			return fileSaveAs(bufferID);
 		}
 
 		const NppGUI & nppgui = (NppParameters::getInstance()).getNppGUI();

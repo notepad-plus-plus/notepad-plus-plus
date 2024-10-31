@@ -290,7 +290,7 @@ protected:
 		return (((TabBarPlus *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 	void setActiveTab(int tabIndex);
-	bool exchangeTabItemData(int oldTab, int& newTab);
+	bool exchangeTabItemData(int oldTab, int newTab);
 	void exchangeItemData(POINT point);
 
 

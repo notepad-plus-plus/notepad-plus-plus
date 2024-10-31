@@ -1471,7 +1471,6 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 		}
 		else
 		{
-
 			if (_isPinHover && (_currentHoverTabItem == nTab))
 			{
 				if (_whichPinClickDown == -1) // hover
@@ -1645,7 +1644,7 @@ void TabBarPlus::setActiveTab(int tabIndex)
 	notify(TCN_SELCHANGE, tabIndex);
 }
 
-bool TabBarPlus::exchangeTabItemData(int oldTab, int& newTab)
+bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 {
 	//1. shift their data, and insert the source
 	TCITEM itemData_nDraggedTab{}, itemData_shift{};
@@ -1662,57 +1661,38 @@ bool TabBarPlus::exchangeTabItemData(int oldTab, int& newTab)
 
 	::SendMessage(_hSelf, TCM_GETITEM, oldTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 	Buffer* chosenBuf = reinterpret_cast<Buffer*>(itemData_nDraggedTab.lParam);
-	int i = oldTab;
 
+	::SendMessage(_hSelf, TCM_GETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_shift));
+	Buffer* shiftBuf = reinterpret_cast<Buffer*>(itemData_shift.lParam);
+
+	if (chosenBuf->isPinned() != shiftBuf->isPinned())
+		return false;
+
+	int i = oldTab;
 	if (oldTab > newTab)
 	{
 		for (; i > newTab; i--)
 		{
-			::SendMessage(_hSelf, TCM_GETITEM, i - 1, reinterpret_cast<LPARAM>(&itemData_shift));
-			Buffer* shiftBuf = reinterpret_cast<Buffer*>(itemData_shift.lParam);
-
-			if (chosenBuf->isPinned() == shiftBuf->isPinned())
-			{
-				::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
-			}
-			else
-			{
-				newTab = oldTab;
-				break;
-			}
+			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
 		}
 	}
 	else
 	{
 		for (; i < newTab; ++i)
 		{
-			::SendMessage(_hSelf, TCM_GETITEM, i + 1, reinterpret_cast<LPARAM>(&itemData_shift));
-			Buffer* shiftBuf = reinterpret_cast<Buffer*>(itemData_shift.lParam);
-
-			if (chosenBuf->isPinned() == shiftBuf->isPinned())
-			{
-				::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
-			}
-			else
-			{
-				newTab = oldTab;
-				break;
-			}
+			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
 		}
 	}
 
-	if (oldTab != newTab)
-	{
-		::SendMessage(_hSelf, TCM_SETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+	::SendMessage(_hSelf, TCM_SETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
-		// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
-		::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
+	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
 
-		//2. set to focus
-		setActiveTab(newTab);
-	}
+	//2. set to focus
+	setActiveTab(newTab);
 
-	return (oldTab != newTab);
+	return true;
 }
 
 void TabBarPlus::exchangeItemData(POINT point)

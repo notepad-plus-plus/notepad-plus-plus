@@ -1673,6 +1673,7 @@ bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 	{
 		for (; i > newTab; i--)
 		{
+			::SendMessage(_hSelf, TCM_GETITEM, i - 1, reinterpret_cast<LPARAM>(&itemData_shift));
 			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
 		}
 	}
@@ -1680,6 +1681,7 @@ bool TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
 	{
 		for (; i < newTab; ++i)
 		{
+			::SendMessage(_hSelf, TCM_GETITEM, i + 1, reinterpret_cast<LPARAM>(&itemData_shift));
 			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
 		}
 	}

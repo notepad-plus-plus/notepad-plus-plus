@@ -1403,7 +1403,7 @@
 				<Item id="6" name="Да"/>
 				<Item id="7" name="Не"/>
 				<Item id="4" name="Увек да"/>
-			</DoSaveAll><!-- : Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 
 			<DebugInfo title="Информације за дебаговање">
 				<Item id="1752" name="Копирај у clipboard"/>

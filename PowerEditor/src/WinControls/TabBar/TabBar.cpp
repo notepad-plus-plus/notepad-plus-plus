@@ -451,7 +451,7 @@ void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tb
 
 void TabBarPlus::tabToStart(int index)
 {
-	if (index < 0 || index >= _nbItem)
+	if (index < 0 || index >= static_cast<int>(_nbItem))
 		index = getCurrentTabIndex();
 
 	if (index <= 0)
@@ -466,7 +466,7 @@ void TabBarPlus::tabToStart(int index)
 
 void TabBarPlus::tabToEnd(int index)
 {
-	if (index < 0 || index >= _nbItem)
+	if (index < 0 || index >= static_cast<int>(_nbItem))
 		index = getCurrentTabIndex();
 
 	if (index >= static_cast<int>(_nbItem))

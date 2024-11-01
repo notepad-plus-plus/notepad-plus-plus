@@ -4909,6 +4909,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//First put the doc in the other view if not present (if it is, activate it).
 	//Then if needed close in the original tab
 	BufferID current = _pEditView->getCurrentBufferID();
+	Buffer* buf = MainFileManager.getBufferByID(current);
+
 	int viewToGo = otherView();
 	int indexFound = _pNonDocTab->getIndexByBuffer(current);
 	if (indexFound != -1)	//activate it
@@ -4929,7 +4931,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		}
 
 		loadBufferIntoView(current, viewToGo);
-		Buffer *buf = MainFileManager.getBufferByID(current);
+		
 		_pEditView->saveCurrentPos();	//allow copying of position
 		buf->setPosition(buf->getPosition(_pEditView), _pNonEditView);
 		_pNonEditView->restoreCurrentPosPreStep();	//set position
@@ -4948,7 +4950,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//Close the document if we transfered the document instead of cloning it
 	if (mode == TransferMove)
 	{
-		Buffer *buf = MainFileManager.getBufferByID(current);
 		monitoringWasOn = buf->isMonitoringOn();
 
 		//just close the activate document, since thats the one we moved (no search)
@@ -4958,6 +4959,13 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//Activate the other view since thats where the document went
 	switchEditViewTo(viewToGo);
 
+	if (buf->isPinned())
+	{
+		buf->setPinned(false);
+		_pDocTab->tabToStart();
+		buf->setPinned(true);
+	}
+
 	if (monitoringWasOn)
 	{
 		command(IDM_VIEW_MONITORING);
@@ -4965,7 +4973,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 	if (_pDocumentListPanel != nullptr)
 	{
-		Buffer* buf = MainFileManager.getBufferByID(current);
 		_pDocumentListPanel->setItemColor(buf);
 	}
 }

@@ -335,9 +335,9 @@ IDR_CLOSETAB_INACT_DM           ICON        "icons/dark/tabbar/closeTabButton_in
 IDR_CLOSETAB_HOVER_DM           ICON        "icons/dark/tabbar/closeTabButton_hover.ico"
 IDR_CLOSETAB_PUSH_DM            ICON        "icons/dark/tabbar/closeTabButton_push.ico"
 
-IDR_PINTAB                      ICON        "icons/standard/tabbar/closeTabButton.ico"
-IDR_PINTAB_INACT                ICON        "icons/standard/tabbar/closeTabButton_inact.ico"
-IDR_PINTAB_HOVER                ICON        "icons/standard/tabbar/closeTabButton_hover.ico"
+IDR_PINTAB                      ICON        "icons/standard/tabbar/pinTabButton.ico"
+IDR_PINTAB_INACT                ICON        "icons/standard/tabbar/pinTabButton_inact.ico"
+IDR_PINTAB_HOVER                ICON        "icons/standard/tabbar/pinTabButton_hover.ico"
 IDR_PINTAB_PUSH                 ICON        "icons/standard/tabbar/pinTabButton_push.ico"
 IDR_PINTAB_DM                   ICON        "icons/dark/tabbar/closeTabButton.ico"
 IDR_PINTAB_INACT_DM             ICON        "icons/dark/tabbar/closeTabButton_inact.ico"

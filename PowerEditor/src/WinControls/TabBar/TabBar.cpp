@@ -1749,6 +1749,7 @@ bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical)
 RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) const
 {
 	RECT buttonRect{};
+	const int inBetween = 8;
 
 	int fromBorder = 0;
 	if (isVertical)
@@ -1760,7 +1761,7 @@ RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) c
 		}
 		else if (_id == 1)
 		{
-			buttonRect.top = tabRect.top + fromBorder + _height + 1;
+			buttonRect.top = tabRect.top + fromBorder + _height + inBetween;
 		}
 
 		buttonRect.left = tabRect.left + fromBorder;
@@ -1774,7 +1775,7 @@ RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) c
 		}
 		else if (_id == 1)
 		{
-			buttonRect.left = tabRect.right - fromBorder - _width * 2 - 1;
+			buttonRect.left = tabRect.right - fromBorder - _width * 2 - inBetween;
 		}
 
 		buttonRect.top = tabRect.top + fromBorder;

@@ -216,8 +216,8 @@ public:
 
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const wchar_t* fn, const wchar_t *ln, int encoding, bool userReadOnly, const Position& pos, const wchar_t *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
-		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
+	sessionFileInfo(const wchar_t* fn, const wchar_t *ln, int encoding, bool userReadOnly,bool isPinned, const Position& pos, const wchar_t *backupFilePath, FILETIME originalFileLastModifTimestamp, const MapPosition & mapPos) :
+		Position(pos), _encoding(encoding), _isUserReadOnly(userReadOnly), _isPinned(isPinned), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -235,6 +235,7 @@ struct sessionFileInfo : public Position
 	bool _isMonitoring = false;
 	int _individualTabColour = -1;
 	bool _isRTL = false;
+	bool _isPinned = false;
 	std::wstring _backupFilePath;
 	FILETIME _originalFileLastModifTimestamp {};
 

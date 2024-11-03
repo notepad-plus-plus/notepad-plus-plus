@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-10-20"><!-- basiert auf english.xml 8.6.9 vom 20.10.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-03"><!-- basiert auf english.xml 8.6.9 vom 20.10.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -639,16 +639,16 @@ Translation note:
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Standardfarbe Vordergrund für alle Stile erzwingen"/>
-					<Item id="2227" name="Standardfarbe Hintergrund für alle Stile erzwingen"/>
-					<Item id="2228" name="Schriftart als Standard für alle Stile erzwingen"/>
-					<Item id="2229" name="Schriftgröße als Standard für alle Stile erzwingen"/>
-					<Item id="2230" name="Fettschrift als Standard für alle Stile erzwingen"/>
-					<Item id="2231" name="Kursivschrift als Standard für alle Stile erzwingen"/>
-					<Item id="2232" name="Unterstrichen als Standard für alle Stile erzwingen"/>
+					<Item id="2226" name="Erzwinge Vordergrundfarbe f. alle Stile"/>
+					<Item id="2227" name="Erzwinge Hintergrundfarbe f. alle Stile"/>
+					<Item id="2228" name="Erzwinge Schriftart für alle Stile"/>
+					<Item id="2229" name="Erzwinge Schriftgröße für alle Stile"/>
+					<Item id="2230" name="Erzwinge Fettschrift für alle Stile"/>
+					<Item id="2231" name="Erzwinge Kursivschrift für alle Stile"/>
+					<Item id="2232" name="Erzwinge Unterstrichen für alle Stile"/>
 					<Item id="2234" name="Zu den Einstellungen"/>
 					<!-- Don't translate "&quot;Global override&quot; -->
-					<Item id="2235" name="Was bedeutet Global override?"/>
+					<Item id="2235" name="Was bedeutet &quot;Global override&quot;?"/>
 				</SubDialog>
 			</StyleConfig>
 

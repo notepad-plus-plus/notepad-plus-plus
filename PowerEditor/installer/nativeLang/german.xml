@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-10-20"><!-- basiert auf english.xml 8.6.9 vom 20.10.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-19"><!-- basiert auf english.xml 8.6.9 vom 18.11.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -639,16 +639,16 @@ Translation note:
 					<Item id="2219" name="Standard-Schlüsselwörter:"/>
 					<Item id="2221" name="Benutzerdefinierte Schlüsselwörter:"/>
 					<Item id="2225" name="Sprache:"/>
-					<Item id="2226" name="Standardfarbe Vordergrund für alle Stile erzwingen"/>
-					<Item id="2227" name="Standardfarbe Hintergrund für alle Stile erzwingen"/>
-					<Item id="2228" name="Schriftart als Standard für alle Stile erzwingen"/>
-					<Item id="2229" name="Schriftgröße als Standard für alle Stile erzwingen"/>
-					<Item id="2230" name="Fettschrift als Standard für alle Stile erzwingen"/>
-					<Item id="2231" name="Kursivschrift als Standard für alle Stile erzwingen"/>
-					<Item id="2232" name="Unterstrichen als Standard für alle Stile erzwingen"/>
+					<Item id="2226" name="Erzwinge Vordergrundfarbe f. alle Stile"/>
+					<Item id="2227" name="Erzwinge Hintergrundfarbe f. alle Stile"/>
+					<Item id="2228" name="Erzwinge Schriftart für alle Stile"/>
+					<Item id="2229" name="Erzwinge Schriftgröße für alle Stile"/>
+					<Item id="2230" name="Erzwinge Fettschrift für alle Stile"/>
+					<Item id="2231" name="Erzwinge Kursivschrift für alle Stile"/>
+					<Item id="2232" name="Erzwinge Unterstrichen für alle Stile"/>
 					<Item id="2234" name="Zu den Einstellungen"/>
-					<!-- Don't translate "&quot;Global override&quot; -->
-					<Item id="2235" name="Was bedeutet Global override?"/>
+					<!-- Don't translate "Global override" -->
+					<Item id="2235" name="Was bedeutet 'Global override'?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -967,6 +967,7 @@ Translation note:
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
 					<Item id="6112" name="Schließen-Kreuz auf jedem Tab"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
+					<Item id="6115" name="Pin-Tab-Funktion aktivieren"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
@@ -1325,6 +1326,7 @@ Translation note:
 						<Element name="Keine Aktion in den"/>
 						<Element name="Minimieren in den"/>
 						<Element name="Schließen in den"/>
+						<Element name="Minimieren / Schließen in den"/>
 					</ComboBox>
 					<Item id="6308" name="Infobereich (Tray)"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
@@ -1727,9 +1729,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<finder-collapse-all value="Alles einklappen"/>
 			<finder-uncollapse-all value="Alles aufklappen"/>
 			<finder-copy value="Kopiere ausgewählte Zeile(n)"/>
-			<finder-copy-paths value="Pfadnamen kopieren"/>
+			<finder-copy-selected-paths value="Gewählte(n) Pfadnamen kopieren"/>
 			<finder-clear-all value="Alles löschen"/>
-			<finder-open-all value="Alles öffnen"/>
+			<finder-open-selected-paths value="Gewählte(n) Pfadnamen öffnen"/>
 			<finder-purge-for-every-search value="Vor jeder Suche leeren"/>
 			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>
@@ -1829,8 +1831,8 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON.
 
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
-			<global-override-tip value="Das Aktivieren der &quot;Global override&quot; überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für &quot;Default Style&quot;"/>
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="Das Aktivieren der 'Global override' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Default Style'"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

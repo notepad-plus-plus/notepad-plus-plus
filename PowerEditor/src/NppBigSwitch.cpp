@@ -3788,6 +3788,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			bool drawTabPinButton = TabBarPlus::drawTabPinButton();
 			bool drawTabCloseButton = TabBarPlus::drawTabCloseButton();
 
+			if (!drawTabPinButton)
+			{
+				unPinnedForAllBuffers();
+			}
+
 			if (drawTabCloseButton && drawTabPinButton)
 			{
 				_mainDocTab.setTabCloseButtonOrder(0);

@@ -1111,6 +1111,23 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	return true;
 }
 
+void Notepad_plus::unPinnedForAllBuffers()
+{
+	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	{
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		buf->setPinned(false);
+	}
+
+	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+	{
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		buf->setPinned(false);
+	}
+}
+
 bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 {
 	bool noSaveToAll = false;

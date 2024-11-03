@@ -738,9 +738,12 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDOWN :
 		{
+			int xPos = LOWORD(lParam);
+			int yPos = HIWORD(lParam);
+
 			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 			{
-				int nTab = getTabIndexAt(LOWORD(lParam), HIWORD(lParam));
+				int nTab = getTabIndexAt(xPos, yPos);
 				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
 				{
 					setActiveTab(nTab);
@@ -749,16 +752,16 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (_drawTabCloseButton)
 			{
-				int xPos = LOWORD(lParam);
-				int yPos = HIWORD(lParam);
-
 				if (_closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					_whichCloseClickDown = getTabIndexAt(xPos, yPos);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REFRESHTABAR, 0);
 					return TRUE;
 				}
+			}
 
+			if (_drawTabPinButton)
+			{
 				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					_whichPinClickDown = getTabIndexAt(xPos, yPos);
@@ -1011,7 +1014,12 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					}
 					return TRUE;
 				}
-				else if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				_whichCloseClickDown = -1;
+			}
+
+			if (_drawTabCloseButton)
+			{
+				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					notify(TCN_TABPINNED, currentTabOn);
 					_whichPinClickDown = -1;
@@ -1028,8 +1036,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					}
 					return TRUE;
 				}
-
-				_whichCloseClickDown = -1;
 				_whichPinClickDown = -1;
 			}
 
@@ -1262,7 +1268,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 	return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 }
 
-void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
+void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 {
 	RECT rect = pDrawItemStruct->rcItem;
 
@@ -1479,7 +1485,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode)
 				}
 				else if (_whichPinClickDown == _currentHoverTabItem) // pushed
 				{
-					idxPinImg = 3;
+					idxPinImg = 2;
 				}
 			}
 			else if (!isSelected) // inactive

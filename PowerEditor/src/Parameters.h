@@ -75,6 +75,7 @@ const int TAB_MULTILINE = 128;     //0000 1000 0000
 const int TAB_HIDE = 256;          //0001 0000 0000
 const int TAB_QUITONEMPTY = 512;   //0010 0000 0000
 const int TAB_ALTICONS = 1024;     //0100 0000 0000
+const int TAB_PINBUTTON = 2048;    //1000 0000 0000
 
 const bool activeText = true;
 const bool activeNumeric = false;
@@ -800,7 +801,7 @@ struct NppGUI final
 	// 6th bit : enable multiline
 
 	// 0:don't draw; 1:draw top bar 2:draw inactive tabs 3:draw both 7:draw both+drag&drop
-	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON);
+	int _tabStatus = (TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP | TAB_REDUCE | TAB_CLOSEBUTTON | TAB_PINBUTTON);
 
 	bool _splitterPos = POS_VERTICAL;
 	int _userDefineDlgStatus = UDD_DOCKED;

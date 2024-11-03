@@ -208,6 +208,7 @@ public :
 	static bool drawTopBar() {return _drawTopBar;};
 	static bool drawInactiveTab() {return _drawInactiveTab;};
 	static bool drawTabCloseButton() {return _drawTabCloseButton;};
+	static bool drawTabPinButton() {return _drawTabPinButton;};
 	static bool isDbClk2Close() {return _isDbClk2Close;};
 	static bool isVertical() { return _isCtrlVertical;};
 	static bool isMultiLine() { return _isCtrlMultiLine;};
@@ -225,6 +226,11 @@ public :
 
 	static void setDrawTabCloseButton(bool b, TabBarPlus* tbpObj) {
 		_drawTabCloseButton = b;
+		doOwnerDrawTab(tbpObj);
+	}
+
+	static void setDrawTabPinButton(bool b, TabBarPlus* tbpObj) {
+		_drawTabPinButton = b;
 		doOwnerDrawTab(tbpObj);
 	}
 

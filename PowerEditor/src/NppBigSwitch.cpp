@@ -3781,6 +3781,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return fileName.length();
 		}
 
+		case NPPM_INTERNAL_DRAWTABBARPINBOTTUN:
+		{
+			TabBarPlus::setDrawTabPinButton(!TabBarPlus::drawTabPinButton(), &_mainDocTab);
+
+			// This part is just for updating (redraw) the tabs
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabPinButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			return TRUE;
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

@@ -153,18 +153,19 @@ protected:
 
 struct CloseButtonZone
 {
-	void init(HWND parent, int id) {
+	void init(HWND parent, int order) {
 		_parent = parent;
-		_id = id;
+		_order = order;
 	}
 
 	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
 	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
+	void setOrder(int newOrder) { _order = newOrder; };
 
 	HWND _parent = nullptr;
 	int _width = 0;
 	int _height = 0;
-	int _id = -1;
+	int _order = -1; // from right to left: 0, 1
 };
 
 
@@ -260,6 +261,14 @@ public :
 
 	void setCloseBtnImageList();
 	void setPinBtnImageList();
+
+	void setTabPinButtonOrder(int newOrder) {
+		_pinButtonZone.setOrder(newOrder);
+	}
+
+	void setTabCloseButtonOrder(int newOrder) {
+		_closeButtonZone.setOrder(newOrder);
+	}
 
 protected:
     // it's the boss to decide if we do the drag N drop

@@ -415,9 +415,21 @@ void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
 
 			if (tbpObj)
 			{
-				const int paddingSizeDynamicW = tbpObj->_dpiManager.scale(6 + 4);
-				const int paddingSizePlusClosebuttonDynamicW = tbpObj->_dpiManager.scale(10 + 4);
-				::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton ? paddingSizePlusClosebuttonDynamicW : paddingSizeDynamicW, 0));
+				int paddingSize = 0;
+				if (_drawTabCloseButton && _drawTabPinButton) // 2 buttons
+				{
+					paddingSize = 14;
+				}
+				else if (!_drawTabCloseButton && !_drawTabPinButton) // no button
+				{
+					paddingSize = 6;
+				}
+				else // only 1 button
+				{
+					paddingSize = 10;
+				}
+				const int paddingSizeDynamicW = tbpObj->_dpiManager.scale(paddingSize);
+				::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(paddingSizeDynamicW, 0));
 			}
 		}
 	}
@@ -1017,7 +1029,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				_whichCloseClickDown = -1;
 			}
 
-			if (_drawTabCloseButton)
+			if (_drawTabPinButton)
 			{
 				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
@@ -1738,7 +1750,6 @@ void TabBarPlus::exchangeItemData(POINT point)
 		_previousTabSwapped = -1;
 		_isDraggingInside = false;
 	}
-
 }
 
 
@@ -1761,11 +1772,11 @@ RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) c
 	if (isVertical)
 	{
 		fromBorder = (tabRect.right - tabRect.left - _width + 1) / 2;
-		if (_id == 0)
+		if (_order == 0)
 		{
 			buttonRect.top = tabRect.top + fromBorder;
 		}
-		else if (_id == 1)
+		else if (_order == 1)
 		{
 			buttonRect.top = tabRect.top + fromBorder + _height + inBetween;
 		}
@@ -1775,11 +1786,11 @@ RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) c
 	else
 	{
 		fromBorder = (tabRect.bottom - tabRect.top - _height + 1) / 2;
-		if (_id == 0)
+		if (_order == 0)
 		{
 			buttonRect.left = tabRect.right - fromBorder - _width;
 		}
-		else if (_id == 1)
+		else if (_order == 1)
 		{
 			buttonRect.left = tabRect.right - fromBorder - _width * 2 - inBetween;
 		}

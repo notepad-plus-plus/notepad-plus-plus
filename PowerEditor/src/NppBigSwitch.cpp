@@ -3785,6 +3785,38 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			TabBarPlus::setDrawTabPinButton(!TabBarPlus::drawTabPinButton(), &_mainDocTab);
 
+			bool drawTabPinButton = TabBarPlus::drawTabPinButton();
+			bool drawTabCloseButton = TabBarPlus::drawTabCloseButton();
+
+			if (drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(1);
+			}
+			else if (!drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(0);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(0);
+			}
+			else if (drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
+			else //if (!drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
+
 			// This part is just for updating (redraw) the tabs
 			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
 			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabPinButton() ? g_TabWidthCloseBtn : g_TabWidth);

@@ -638,7 +638,7 @@ Translation note:
 					<Item id="2231" name="Force italic choice for all styles"/>
 					<Item id="2232" name="Force underline choice for all styles"/>
 					<Item id="2234" name="Go to settings"/>
-					<!-- Don't translate "&quot;Global override&quot; -->
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="What is Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -1821,7 +1821,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
 
 If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
 		</MiscStrings>
 	</Native-Langue>

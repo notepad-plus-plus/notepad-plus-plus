@@ -639,7 +639,7 @@
 					<Item id="2231" name="Присилна искошена слова за све стилове"/>
 					<Item id="2232" name="Присилна подвучена слова за све стилове"/>
 					<Item id="2234" name="Иди на подешавања"/>
-					<!-- Don't translate "&quot;Global override&quot; -->
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Шта је &quot;Global override?&quot;"/>
 				</SubDialog>
 			</StyleConfig>
@@ -1822,7 +1822,7 @@ U+FEFF : zero-width no-break space
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell и JSON.
 
 Ако изабереш напредни мод, а не измениш датотеке у поменутим језицима, увлачење ће остати исто као у основном моду."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Омогућавањем &quot;Global override&quot; овде прегазићеш тај параметар за све стилове језика. Вероватно желиш да користиш &quot;Default Style&quot; уместо тога"/>
 		</MiscStrings>
 	</Native-Langue>

@@ -638,7 +638,7 @@
 					<Item id="2231" name="Prisilna iskošena slova za sve stilove"/>
 					<Item id="2232" name="Prisilna podvučena slova za sve stilove"/>
 					<Item id="2234" name="Idi na podešavanja"/>
-					<!-- Don't translate "&quot;Global override&quot; -->
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Šta je &quot;Global override?&quot;"/>
 				</SubDialog>
 			</StyleConfig>
@@ -1821,7 +1821,7 @@ Klikni na &quot;?&quot; desno da otvoriš sajt sa uputstvom."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
 
 Ako izabereš napredni mod, a ne izmeniš datoteke u pomenutim jezicima, uvlačenje će ostati isto kao u osnovnom modu."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Omogućavanjem &quot;Global override&quot; ovde pregazićeš taj parametar za sve stilove jezika. Verovatno želiš da koristiš &quot;Default Style&quot; umesto toga"/>
 		</MiscStrings>
 	</Native-Langue>

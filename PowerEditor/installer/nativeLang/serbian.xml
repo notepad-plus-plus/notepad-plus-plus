@@ -1817,7 +1817,7 @@ Klikni na &quot;?&quot; desno da otvoriš sajt sa uputstvom."/>
 			<verticalEdge-tip value="Dodaj marker koloni pokazujući njenu poziciju decimalnim brojem. Možeš definisati više markera tako što ćeš odvojiti brojeve whitespace-ovima."/>
 			<fileSaveAsCopySaveButton-tip value="Drži Shift dok pritiskaš &quot;Sačuvaj&quot; da otvoriš kopiju nakon čuvanja."/>
 			<autoIndentBasic-tip value="Postaraj se da uvlačenje trenutne linije (npr. napravi novu liniju pristikom na ENTER) bude isto kao i uvlačenje prethodne linije."/>
-			<autoIndentAdvanced-tip value="Omogući pametno uvlačenje za &quot;C-like&quot; jezike i Python. &quot;C-like&quot;jezici uključuju:
+			<autoIndentAdvanced-tip value="Omogući pametno uvlačenje za &quot;C-like&quot; jezike i Python. &quot;C-like&quot; jezici uključuju:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
 
 Ako izabereš napredni mod, a ne izmeniš datoteke u pomenutim jezicima, uvlačenje će ostati isto kao u osnovnom modu."/>

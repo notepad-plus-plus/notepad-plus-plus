@@ -1818,7 +1818,7 @@ U+FEFF : zero-width no-break space
 			<verticalEdge-tip value="Додај маркер колони показујући њену позицију децималним бројем. Можеш дефинисати више маркера тако што ћеш одвојити бројеве whitespace-овима."/>
 			<fileSaveAsCopySaveButton-tip value="Држи Shift док притискаш &quot;Сачувај&quot; да отвориш копију након чувања."/>
 			<autoIndentBasic-tip value="Постарај се да увлачење тренутне линије (нпр. направи нову линију пристиком на ENTER) буде исто као и увлачење претходне линије."/>
-			<autoIndentAdvanced-tip value="Омогући паметно увлачење за &quot;C-like&quot; језике и Python. &quot;C-like&quot;језици укључују:
+			<autoIndentAdvanced-tip value="Омогући паметно увлачење за &quot;C-like&quot; језике и Python. &quot;C-like&quot; језици укључују:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell и JSON.
 
 Ако изабереш напредни мод, а не измениш датотеке у поменутим језицима, увлачење ће остати исто као у основном моду."/>

@@ -1,33 +1,21 @@
-Notepad++ v8.7 bug-fixes & new enhancements:
+Notepad++ v8.7.1 bug-fixes & new enhancements:
 
- 1. Update to scintilla 5.5.2 & Lexilla 5.4.0.
- 2. Fix monitoring large files with frequent writes freezing the UI issue.
- 3. Fix regression of multiple selections in comboboxes of Find dialog.
- 4. Fix a single undo reverting many changes issue.
- 5. Improve Styler Configurator performance considerably.
- 6. Fix CVE-2014-9456 (but CVE-2014-9456 is not a "Security Vulnerability").
- 7. Make find dialog status messages color customizable via Style Configurator.
- 8. Make individual tab color customizable via Style Configurator.
- 9. Add new plugin command NPPM_GETNATIVELANGFILENAME & notification NPPN_NATIVELANGCHANGED for native language being changed. 
-10. Fix Folder as Workspace sorting problem for network storage (Samba, WebDAV, WSL, etc.).
-11. Fix closing unsaved clone document causing periodic backup loss issue.
-12. Fix Style Config's "User-defined keywords" not being saved properly after emptying it.
-13. Add user-defined keyword ability for some supported programming languages (ActionScript, ASP, Bash, C, C++, C#, GDScript, Go, HTML, Java, JavaScript).
-14. Add Fluent Icons for enhancing FunctionList, Folder as Workspace & project panels' icons in lite mode.
-15. Fix Python smart indent issue when a string or comment line ends with a colon.
-16. Add file type filters for UDL in Save dialogs.
-17. Add TOML language (TOML format) support.
-18. Add function list for TeX/LaTeX.
-19. Recognize Cython files as Python.
-20. Fix edit zone not getting focus while clicking the active tab.
-21. Add the ability to open the copy automatically after the “Save a Copy” command.
-22. Fix inability to paste after removing read-only via menu.
-23. Add one more option for auto-indent so C-Like language indent can be disabled.
-24. Fix Style Configurator regression: "URL hovered"'s "Go to Settings" not working.
+ 1. Update cURL in Notepad++ updater (WinGUp) for fixing cURL's CVE-2024-7264 issue.
+ 2. Fix opened network files hanging while the network disconnected.
+ 3. Fix not being able to open folder via cammand argument regression.
+ 4. Update to Scintilla 5.5.3 & Lexilla 5.4.1.
+ 5. Fix modified Find dialog status msg colors not being remembered through sessions.
+ 6. Fix hanging issue while hiding lines.
+ 7. Make left behide hide line close marker removable.
+ 8. Fix Find dialog status bar wrong messaging (regression).
+ 9. Fix URL parsing issue with '?' after '#'.
+10. Add "Close to system tray" ability.
+11. Add tab created time tooltip for new opened untitled tab.
+12. Improve GUI to avoid user confusion between Global override & Default Styles.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7/
+https://notepad-plus-plus.org/downloads/v8.7.1/
 
 
 Included plugins:
@@ -39,4 +27,4 @@ Included plugins:
 
 Updater (Installer only):
 
-* WinGUp (for Notepad++) v5.3
+* WinGUp (for Notepad++) v5.3.1

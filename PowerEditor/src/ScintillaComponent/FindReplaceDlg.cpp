@@ -1708,7 +1708,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				enableFindDlgItem(IDREDOTMATCHNL, false);
 			}
 			enableProjectCheckmarks();
-			return FALSE;
+			return 0;
 		}
 
 		case NPPM_MODELESSDIALOG :

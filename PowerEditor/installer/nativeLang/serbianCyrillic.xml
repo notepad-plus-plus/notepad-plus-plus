@@ -1812,7 +1812,7 @@ U+FEFF : zero-width no-break space
 Кликни на &quot;?&quot; десно да отвориш сајт са упутством."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Иди у &quot;Кофигурацију стилова&quot; да промениш подразумевану боју за whitespace и нештампајуће карактере (&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip value="Иди у &quot;Конфигурацију стилова&quot; да промениш подразумевану боју за whitespace и нештампајуће карактере (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Примени подешавања изгледа за нештампајуће карактере на C0, C1 контролу и Unicode EOL (наредна линија, сепаратор линије и сепаратор параграфа) карактере."/>
 			<searchingInSelThresh-tip value="Број изабраних карактера у зони за уређивање за аутоматско укључивање &quot;У избору&quot; када је дијалог за проналажење активан. Максимум је 1024. Постави 0 да искључиш аутоматску проверу."/>
 			<verticalEdge-tip value="Додај маркер колони показујући њену позицију децималним бројем. Можеш дефинисати више маркера тако што ћеш одвојити бројеве whitespace-овима."/>

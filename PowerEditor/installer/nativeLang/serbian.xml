@@ -1811,7 +1811,7 @@ Za potpunu listu pogledati uputstvo.
 Klikni na &quot;?&quot; desno da otvoriš sajt sa uputstvom."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Idi u &quot;Kofiguraciju stilova&quot; da promeniš podrazumevanu boju za whitespace i neštampajuće karaktere (&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip value="Idi u &quot;Konfiguraciju stilova&quot; da promeniš podrazumevanu boju za whitespace i neštampajuće karaktere (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Primeni podešavanja izgleda za neštampajuće karaktere na C0, C1 kontrolu i Unicode EOL (naredna linija, separator linije i separator paragrafa) karaktere."/>
 			<searchingInSelThresh-tip value="Broj izabranih karaktera u zoni za uređivanje za automatsko uključivanje &quot;U izboru&quot; kada je dijalog za pronalaženje aktivan. Maksimum je 1024. Postavi 0 da isključiš automatsku proveru."/>
 			<verticalEdge-tip value="Dodaj marker koloni pokazujući njenu poziciju decimalnim brojem. Možeš definisati više markera tako što ćeš odvojiti brojeve whitespace-ovima."/>

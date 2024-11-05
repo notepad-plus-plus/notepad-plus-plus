@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Oct 2024, for Notepad++ 8.7.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Nov 2024, for Notepad++ 8.7.2
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.1">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -638,6 +638,7 @@ Translation note:
 					<Item id="2231" name="Forçar fonte em itálico para todos os estilos"/>
 					<Item id="2232" name="Forçar fonte sublinhada para todos os estilos"/>
 					<Item id="2234" name="Ir para configuração"/>
+					<!-- Não traduzir "Global override" -->
 					<Item id="2235" name="O que é Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -957,6 +958,7 @@ Translation note:
 					<Item id="6110" name="Destacar topo da aba ativa"/>
 					<Item id="6112" name="Mostrar o botão fechar em cada aba"/>
 					<Item id="6113" name="Fechar documento com duplo clique"/>
+					<Item id="6115" name="Habilitar recurso de fixar aba"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Multilinhas"/>
 					<Item id="6120" name="Vertical"/>
@@ -1315,6 +1317,7 @@ Translation note:
 						<Element name="Sem ação para"/>
 						<Element name="Minimizar para"/>
 						<Element name="Fechar para"/>
+						<Element name="Minimizar / Fechar para"/>
 					</ComboBox>
 					<Item id="6308" name="bandeja"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
@@ -1550,6 +1553,7 @@ Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco
 			
 Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
 			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FileToLoadSizeCheckFailed title="A checagem de tamanho do arquivo a carregar falhou" message="Não é possível obter o tamanho do arquivo antes de carregá-lo!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1718,9 +1722,9 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
-			<finder-copy-paths value="Copiar nome(s) de caminho(s)"/>
+			<finder-copy-selected-paths value="Copiar caminho(s) selecionado(s)"/>
 			<finder-clear-all value="Limpar tudo"/>
-			<finder-open-all value="Abrir tudo"/>
+			<finder-open-selected-paths value="Abrir caminho(s) selecionado(s)"/>
 			<finder-purge-for-every-search value="Limpar a cada pesquisa"/>
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="OK"/>
@@ -1819,7 +1823,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<autoIndentAdvanced-tip value="Habilitar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON
 Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>
-			<!-- Não traduza "&quot;Global override&quot; e &quot;Default Style&quot; -->
+			<!-- Não traduzir "Global override" e "Default Style" -->
 			<global-override-tip value="Habilitar o &quot;Global override&quot; aqui vai prevalecer sobre este parâmetro em todos os estilos de linguagem. O que provavelmente é desejado é usar as configurações de &quot;Default Style&quot;"/>
 		</MiscStrings>
 	</Native-Langue>

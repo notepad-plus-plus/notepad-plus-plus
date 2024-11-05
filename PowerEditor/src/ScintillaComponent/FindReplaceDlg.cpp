@@ -682,24 +682,45 @@ void Finder::deleteResult()
 	assert(size_t(_scintView.execute(SCI_GETLINECOUNT)) == _pMainFoundInfos->size() + 1);
 }
 
-vector<wstring> Finder::getResultFilePaths() const
+vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 {
-	vector<wstring> paths;
-	size_t len = _pMainFoundInfos->size();
-	for (size_t i = 0; i < len; ++i)
-	{
-		// make sure that path is not already in
-		wstring & path2add = (*_pMainFoundInfos)[i]._fullPath;
-		bool found = path2add.empty();
-		for (size_t j = 0; j < paths.size() && !found; ++j)
-		{
-			if (paths[j] == path2add)
-				found = true;
+	std::vector<wstring> paths;
+	size_t fromLine = 0, toLine = 0;
 
-		}
-		if (!found)
-			paths.push_back(path2add);
+	if (onlyInSelectedText)
+	{
+		const pair<size_t, size_t> lineRange = _scintView.getSelectionLinesRange();
+		fromLine = lineRange.first;
+		toLine = lineRange.second;
 	}
+	else
+	{
+		toLine = _scintView.execute(SCI_GETLINECOUNT) - 1;
+	}
+
+	for (size_t line = fromLine; line <= toLine; ++line)
+	{
+		const int lineFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
+		if (lineFoldLevel == fileHeaderLevel)
+		{
+			wstring lineStr = _scintView.getLine(line);
+
+			// fileHeaderLevel line format examples:
+			// spacespaceD:\folder\file.ext (2 hits)
+			// spacespacenew 1 (1 hit)
+			const size_t startIndex = 2;  // for number of leading spaces
+			auto endIndex = lineStr.find_last_of(L'(');
+			--endIndex;  // adjust for space in front of (
+			wstring path = lineStr.substr(startIndex, endIndex - startIndex);
+
+			// make sure that path is not already in before adding
+			if (std::find(paths.begin(), paths.end(), path) == paths.end())
+			{
+				paths.push_back(path);
+			}
+		}
+	}
+
 	return paths;
 }
 
@@ -5350,7 +5371,7 @@ void Finder::removeAll()
 
 void Finder::openAll()
 {
-	for (auto&& path : getResultFilePaths())
+	for (auto&& path : getResultFilePaths(true))
 	{
 		::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(path.c_str()));
 	}
@@ -5359,7 +5380,7 @@ void Finder::openAll()
 void Finder::copyPathnames()
 {
 	wstring toClipboard;
-	for (auto&& path : getResultFilePaths())
+	for (auto&& path : getResultFilePaths(true))
 	{
 		toClipboard += path + L"\r\n";
 	}
@@ -5710,12 +5731,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				wstring copyLines = pNativeSpeaker->getLocalizedStrFromID("finder-copy", L"Copy Selected Line(s)");
 				wstring copyVerbatim = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_COPY, L"Copy", true);
 				copyVerbatim += L"\tCtrl+C";
-				wstring copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", L"Copy Pathname(s)");
+				wstring copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", L"Copy Selected Pathname(s)");
 				wstring selectAll = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_SELECTALL, L"Select all", true);
 				selectAll += L"\tCtrl+A";
 				wstring clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", L"Clear all");
 				wstring purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", L"Purge for every search");
-				wstring openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", L"Open all");
+				wstring openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", L"Open Selected Pathname(s)");
 				wstring wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", L"Word wrap long lines");
 
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, findInFinder));

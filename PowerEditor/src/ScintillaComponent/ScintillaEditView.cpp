@@ -2801,7 +2801,7 @@ void ScintillaEditView::showCallTip(size_t startPos, const wchar_t * def)
 	execute(SCI_CALLTIPSHOW, startPos, reinterpret_cast<LPARAM>(defA));
 }
 
-wstring ScintillaEditView::getLine(size_t lineNumber)
+wstring ScintillaEditView::getLine(size_t lineNumber) const
 {
 	size_t lineLen = execute(SCI_LINELENGTH, lineNumber);
 	const size_t bufSize = lineLen + 1;
@@ -2810,7 +2810,7 @@ wstring ScintillaEditView::getLine(size_t lineNumber)
 	return buf.get();
 }
 
-void ScintillaEditView::getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen)
+void ScintillaEditView::getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen) const
 {
 	// make sure the buffer length is enough to get the whole line
 	size_t lineLen = execute(SCI_LINELENGTH, lineNumber);

@@ -143,7 +143,7 @@ public:
 	void gotoNextFoundResult(int direction);
 	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value 0 means this argument is not used
 	void deleteResult();
-	std::vector<std::wstring> getResultFilePaths() const;
+	std::vector<std::wstring> getResultFilePaths(bool onlyInSelectedText = false) const;
 	bool canFind(const wchar_t *fileName, size_t lineNumber, size_t* indexToStartFrom) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
 	std::wstring getHitsString(int count) const;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Oct 2024, for Notepad++ 8.7.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 04 Nov 2024, for Notepad++ 8.7.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -638,6 +638,7 @@ Translation note:
 					<Item id="2231" name="Forçar fonte em itálico para todos os estilos"/>
 					<Item id="2232" name="Forçar fonte sublinhada para todos os estilos"/>
 					<Item id="2234" name="Ir para configuração"/>
+					<!-- Não traduzir "Global override" -->
 					<Item id="2235" name="O que é Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -1820,7 +1821,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<autoIndentAdvanced-tip value="Habilitar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON
 Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>
-			<!-- Não traduza "&quot;Global override&quot; e &quot;Default Style&quot; -->
+			<!-- Não traduzir "Global override" e "Default Style" -->
 			<global-override-tip value="Habilitar o &quot;Global override&quot; aqui vai prevalecer sobre este parâmetro em todos os estilos de linguagem. O que provavelmente é desejado é usar as configurações de &quot;Default Style&quot;"/>
 		</MiscStrings>
 	</Native-Langue>

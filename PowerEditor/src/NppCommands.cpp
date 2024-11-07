@@ -2323,7 +2323,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_REFRESHTABAR :
 		{
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			//::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			::InvalidateRect(_mainDocTab.getHSelf(), NULL, TRUE);
+			::InvalidateRect(_subDocTab.getHSelf(), NULL, TRUE);
+			
 			break;
 		}
         case IDM_VIEW_LOCKTABBAR:

@@ -529,10 +529,6 @@ void TabBarPlus::setCloseBtnImageList()
 	_closeButtonZone._height = btnSize;
 }
 
-constexpr int unpinnedIdx = 0;
-constexpr int unpinnedHoverIdx = 1;
-constexpr int pinnedIdx = 2;
-constexpr int pinnedHoverIdx = 3;
 
 void TabBarPlus::setPinBtnImageList()
 {
@@ -543,13 +539,11 @@ void TabBarPlus::setPinBtnImageList()
 	{
 		iconSize = g_TabPinBtnSize_DM;
 		ids = { IDR_PINTAB_DM, IDR_PINTAB_HOVER_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVER_DM };
-		//ids = { IDR_PINTAB_DM, IDR_PINTAB_PINNED_DM };
 	}
 	else
 	{
 		iconSize = g_TabPinBtnSize;
 		ids = { IDR_PINTAB, IDR_PINTAB_HOVER, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVER };
-		//ids = { IDR_PINTAB, IDR_PINTAB_PINNED };
 	}
 
 	if (_hPinBtnImgLst != nullptr)
@@ -1457,22 +1451,22 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	{
 		// 3 status for each inactive tab and selected tab close item :
 		// normal / hover / pushed
-		int idxCloseImg = 0; // selected
+		int idxCloseImg = _closeTabIdx; // selected
 
 		if (_isCloseHover && (_currentHoverTabItem == nTab))
 		{
 			if (_whichCloseClickDown == -1) // hover
 			{
-				idxCloseImg = 2;
+				idxCloseImg = _closeTabHoverIdx;
 			}
 			else if (_whichCloseClickDown == _currentHoverTabItem) // pushed
 			{
-				idxCloseImg = 3;
+				idxCloseImg = _closeTabPushIdx;
 			}
 		}
 		else if (!isSelected) // inactive
 		{
-			idxCloseImg = 1;
+			idxCloseImg = _closeTabInactIdx;
 		}
 
 		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
@@ -1483,21 +1477,13 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	// draw pin button
 	if (_drawTabPinButton && _hPinBtnImgLst != nullptr)
 	{
-		// 3 status for each inactive tab and selected tab pin item :
-		// normal / hover / pushed
+		// Each tab combined with the following stats :
+		// (active / inactive) | (pinned / unpinned) | (hover / not hover / pushed)
 		
 
 		bool isPinned = reinterpret_cast<Buffer*>(tci.lParam)->isPinned();
+		int idxPinImg = _unpinnedIdx; // current: upinned as default
 
-		int idxPinImg = unpinnedIdx; // current: upinned as default
-
-		const wchar_t* pName = reinterpret_cast<Buffer*>(tci.lParam)->getFileName();
-		std::wstring log2write = pName;
-		std::wstring begin = log2write + L" BEGIN:";
-		std::wstring end = log2write + L" END.";
-		
-		
-		writeLog(L"c:\\tmp\\pin.log", begin.c_str());
 
 		if (isPinned)
 		{
@@ -1507,34 +1493,25 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 				{
 					if (_whichPinClickDown == -1) // hover
 					{
-						log2write += L" Pinned inactive hover";
-						writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-						idxPinImg = pinnedHoverIdx;
+						idxPinImg = _pinnedHoverIdx;
 					}
 					else if (_whichPinClickDown == _currentHoverTabItem) // pushed
 					{
-						log2write += L" Pinned inactive push";
-						writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-						idxPinImg = unpinnedIdx;
+						idxPinImg = _unpinnedIdx;
 					}
 
 				}
 				else // pinned inactive
 				{
-					log2write += L" Pinned inactive";
-					writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-					idxPinImg = pinnedIdx;
+					idxPinImg = _pinnedIdx;
 				}
 			}
 			else // current
 			{
-				log2write += L" Pinned current";
-				writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-				idxPinImg = _isPinHover ? pinnedHoverIdx : pinnedIdx;
+				if (_isPinHover && (_currentHoverTabItem == nTab)) // hover
+					idxPinImg = _pinnedHoverIdx;
+				else
+					idxPinImg = _pinnedIdx;
 			}
 
 		}
@@ -1546,43 +1523,31 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 				{
 					if (_whichPinClickDown == -1) // hover
 					{
-						log2write += L" UnPinned inactive hover";
-						writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-						idxPinImg = unpinnedHoverIdx;
+						idxPinImg = _unpinnedHoverIdx;
 					}
 					else if (_whichPinClickDown == _currentHoverTabItem) // pushed
 					{
-						log2write += L" UnPinned inactive push";
-						writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-						idxPinImg = pinnedIdx;
+						idxPinImg = _pinnedIdx;
 					}
 
 				}
 				else // unpinned inactive
 				{
-					log2write += L" UnPinned inactive";
-					writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-					idxPinImg = unpinnedIdx;
+					idxPinImg = _unpinnedIdx;
 				}
 			}
 			else // current
 			{
-				log2write += L" UnPinned current";
-				writeLog(L"c:\\tmp\\pin.log", log2write.c_str());
-
-				idxPinImg = _isPinHover ? unpinnedHoverIdx : unpinnedIdx;
+				if (_isPinHover && (_currentHoverTabItem == nTab)) // hover
+					idxPinImg = _unpinnedHoverIdx;
+				else
+					idxPinImg = _unpinnedIdx;
 			}
 		}
 
 		RECT buttonRect = _pinButtonZone.getButtonRectFrom(rect, _isVertical);
 
 		::ImageList_Draw(_hPinBtnImgLst, idxPinImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
-
-		writeLog(L"c:\\tmp\\pin.log", end.c_str());
-		writeLog(L"c:\\tmp\\pin.log", L"");
 	}
 
 	// draw image

@@ -291,7 +291,17 @@ protected:
 	CloseButtonZone _pinButtonZone;
 
 	HIMAGELIST _hCloseBtnImgLst = nullptr;
+	const int _closeTabIdx = 0;
+	const int _closeTabInactIdx = 1;
+	const int _closeTabHoverIdx = 2;
+	const int _closeTabPushIdx = 3;
+
 	HIMAGELIST _hPinBtnImgLst = nullptr;
+	const int _unpinnedIdx = 0;
+	const int _unpinnedHoverIdx = 1;
+	const int _pinnedIdx = 2;
+	const int _pinnedHoverIdx = 3;
+
 	bool _isCloseHover = false;
 	bool _isPinHover = false;
 	int _whichCloseClickDown = -1;

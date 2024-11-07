@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.0  10/Sep/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.1  25/Oct/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.0">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -642,14 +642,15 @@
 					<Item id="2219" name="Standardní klíčová slova"/>
 					<Item id="2221" name="Vlastní klíčová slova"/>
 					<Item id="2225" name="Syntaxe:"/>
-					<Item id="2226" name="Povolit globálně barvu popředí"/>
-					<Item id="2227" name="Povolit globálně barvu pozadí"/>
-					<Item id="2228" name="Povolit globálně font"/>
-					<Item id="2229" name="Povolit globálně velikost písma"/>
-					<Item id="2230" name="Povolit globálně tučný styl písma"/>
-					<Item id="2231" name="Povolit globálně ležatý styl písma"/>
-					<Item id="2232" name="Povolit globálně podtržený styl písma"/>
+					<Item id="2226" name="Vynutit barvu popředí pro všechny styly"/>
+					<Item id="2227" name="Vynutit barvu pozadí pro všechny styly"/>
+					<Item id="2228" name="Vynutit písmo pro všechny styly"/>
+					<Item id="2229" name="Vynutit velikost písma pro všechny styly"/>
+					<Item id="2230" name="Vynutit tučné písmo pro všechny styly"/>
+					<Item id="2231" name="Vynutit kurzívu pro všechny styly"/>
+					<Item id="2232" name="Vynutit podtržení pro všechny styly"/>
 					<Item id="2234" name="Přejít do nastavení"/>
+					<Item id="2235" name="Co znamená &quot;Global override&quot;?"/>
 				</SubDialog>
 			</StyleConfig>
 			
@@ -1229,9 +1230,15 @@
 						<Element name="Povoleno pro všechny otevřené soubory"/>
 						<Element name="Zakázáno"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Nepoužívat"/>
+						<Element name="Minimalizovat do"/>
+						<Element name="Zavírat do"/>
+					</ComboBox>
 					<Item id="6114" name="Povolit přepínání"/>
 					<Item id="6115" name="Automatické odsazování"/>
 					<Item id="6117" name="Povolit MRU (nedávno použité)"/>
+					<Item id="6308" name="oznamovací oblast"/>
 					<Item id="6312" name="Automatická detekce stavu souboru"/>
 					<Item id="6313" name="Aktualizovat skrytě"/>
 					<Item id="6322" name="Přípona souboru relace:"/>
@@ -1683,8 +1690,8 @@ Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
 Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
 *.* !\\log*+"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Vyberte složku, kde chcete vyhledávat"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Vyhledávání: Nalezen poslední výskyt zdola. Bylo dosaženo začátku tohoto dokumentu"/>
-			<find-status-end-reached value="Vyhledávání: Nalezen poslední výskyt shora. Bylo dosaženo konce tohoto dokumentu"/>
+			<find-status-top-reached value="Vyhledávání: Dosažen začátek dokumentu, nalezen první výskyt zdola."/>
+			<find-status-end-reached value="Vyhledávání: Dosažen konec dokumentu, nalezen první výskyt shora."/>
 			<find-status-replaceinfiles-1-replaced value="Nahrazování v souborech: 1 výskyt nahrazen"/>
 			<find-status-replaceinfiles-nb-replaced value="Nahrazování v souborech: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Nahrazování v otevřených souborech: 1 výskyt nahrazen"/>
@@ -1698,8 +1705,8 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-status-replaceall-1-replaced value="Nahrazování všeho: 1 výskyt nahrazen"/>
 			<find-status-replaceall-nb-replaced value="Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-replaceall-readonly value="Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
-			<find-status-replace-end-reached value="Nahrazování: Nahrazen poslední výskyt shora. Bylo dosaženo konce dokumentu"/>
-			<find-status-replace-top-reached value="Nahrazování: Nahrazen poslední výskyt odspodu. Bylo dosaženo začátku dokumentu"/>
+			<find-status-replace-end-reached value="Nahrazování: Dosažen konec dokumentu, nahrazen první výskyt zhora."/>
+			<find-status-replace-top-reached value="Nahrazování: Dosažen začátek dokumentu, nahrazen první výskyt zdola."/>
 			<find-status-replaced-next-found value="Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
 			<find-status-replaced-without-continuing value="Nahrazování: 1 výskyt byl nahrazen."/>
 			<find-status-replaced-next-not-found value="Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen."/>
@@ -1772,8 +1779,8 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<close-panel-tip value="Zavřít"/>
 			<IncrementalFind-FSFound value="výskytů: $INT_REPLACE$"/>
 			<IncrementalFind-FSNotFound value="Výraz nenalezen."/>
-			<IncrementalFind-FSTopReached value="Bylo dosaženo začátku stránky, pokračování odspodu"/>
-			<IncrementalFind-FSEndReached value="Bylo dosaženo konce stránky, pokračování odshora"/>
+			<IncrementalFind-FSTopReached value="Dosažen začátek stránky, pokračování odspodu."/>
+			<IncrementalFind-FSEndReached value="Dosažen konec stránky, pokračování odshora."/>
 			<contextMenu-styleAlloccurrencesOfToken value="Označit všechny výskyty tokenu stylem"/>
 			<contextMenu-styleOneToken value="Označit token (jeden) stylem"/>
 			<contextMenu-clearStyle value="Odstranit označení stylem u tokenů"/>
@@ -1820,6 +1827,8 @@ Kliknutím na &quot;?&quot; tlačítko vpravo otevřete webovou stránku s Uživ
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
 
 Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíněných jazyků, zůstane odsazení v Základním režimu."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Použitím &quot;Global override&quot; přepíšete nastavení ve všech stylech pro všechny syntaxe. Nejspíše chcete namísto toho použít nastavení &quot;Default Style&quot;."/>
 		</MiscStrings>
 
 	</Native-Langue>

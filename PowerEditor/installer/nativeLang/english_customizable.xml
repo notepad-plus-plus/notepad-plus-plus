@@ -638,7 +638,7 @@ Translation note:
 					<Item id="2231" name="Force italic choice for all styles"/>
 					<Item id="2232" name="Force underline choice for all styles"/>
 					<Item id="2234" name="Go to settings"/>
-					<!-- Don't translate "&quot;Global override&quot; -->
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="What is Global override?"/>
 				</SubDialog>
 			</StyleConfig>

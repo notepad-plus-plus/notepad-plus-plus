@@ -537,7 +537,7 @@ void TabBarPlus::setPinBtnImageList()
 
 	if (NppDarkMode::isEnabled())
 	{
-		iconSize = g_TabPinBtnSize_DM;
+		iconSize = g_TabPinBtnSize;
 		ids = { IDR_PINTAB_DM, IDR_PINTAB_HOVER_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVER_DM };
 	}
 	else

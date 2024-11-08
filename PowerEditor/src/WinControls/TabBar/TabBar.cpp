@@ -1792,7 +1792,7 @@ void TabBarPlus::exchangeItemData(POINT point)
 }
 
 
-bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const
+bool TabButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const
 {
 	RECT buttonRect = getButtonRectFrom(tabRect, isVertical);
 
@@ -1802,10 +1802,11 @@ bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical)
 	return false;
 }
 
-RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) const
+RECT TabButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) const
 {
 	RECT buttonRect{};
-	const int inBetween = 8;
+	const UINT dpi = DPIManagerV2::getDpiForWindow(_parent);
+	const int inBetween = DPIManagerV2::scale(NppDarkMode::isEnabled() ? 4 : 8, dpi);
 
 	int fromBorder = 0;
 	if (isVertical)

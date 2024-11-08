@@ -151,7 +151,7 @@ protected:
 };
 
 
-struct CloseButtonZone
+struct TabButtonZone
 {
 	void init(HWND parent, int order) {
 		_parent = parent;
@@ -287,8 +287,8 @@ protected:
 	RECT _currentHoverTabRect{};
 	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
-	CloseButtonZone _closeButtonZone;
-	CloseButtonZone _pinButtonZone;
+	TabButtonZone _closeButtonZone;
+	TabButtonZone _pinButtonZone;
 
 	HIMAGELIST _hCloseBtnImgLst = nullptr;
 	const int _closeTabIdx = 0;

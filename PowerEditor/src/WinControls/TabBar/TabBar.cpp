@@ -418,7 +418,7 @@ void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
 				int paddingSize = 0;
 				if (_drawTabCloseButton && _drawTabPinButton) // 2 buttons
 				{
-					paddingSize = 14;
+					paddingSize = 16;
 				}
 				else if (!_drawTabCloseButton && !_drawTabPinButton) // no button
 				{

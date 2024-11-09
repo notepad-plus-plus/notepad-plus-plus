@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.7.0
-    Last modified Sun, Oct 20th, 2024.
+    Italian translation for Notepad++ 8.7.2
+    Last modified Sat, Nov 9th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.1">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -962,6 +962,7 @@ Translation note:
 					<Item id="6110" name="Barra colorata sulla scheda attiva"/>
 					<Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
 					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>
+					<Item id="6115" name="Abilita il fissaggio delle schede"/>
 					<Item id="6118" name="Nascondi"/>
 					<Item id="6119" name="Utilizza più righe"/>
 					<Item id="6120" name="Verticale"/>

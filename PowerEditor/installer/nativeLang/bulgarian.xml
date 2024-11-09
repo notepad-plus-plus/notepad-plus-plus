@@ -1158,7 +1158,6 @@
 					<Item id="6860" name="Двойка #1:"/>
 					<Item id="6863" name="Двойка #2:"/>
 					<Item id="6866" name="Двойка #3:"/>
-					<Item id="6115" name="Автоматичен отстъп"/>
 				</AutoCompletion>
 				<!-- Прозорци и дата -->
 				<MultiInstance title="Прозорци и дата">

@@ -1171,7 +1171,6 @@
 				</Backup>
 
 				<AutoCompletion title="字詞自動完成功能">
-					<Item id="6115" name="自動縮排"/>
 					<Item id="6807" name="自動完成功能"/>
 					<Item id="6808" name="啟動自動完成功能"/>
 					<Item id="6809" name="函式"/>

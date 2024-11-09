@@ -1111,7 +1111,6 @@ The comments are here for explanation, it's not necessary to translate them.
 				</Backup>
 
 				<AutoCompletion title="Аўтазавяршэнне">
-					<Item id="6115" name="Аўтаводступ"/>
 					<Item id="6807" name="Аўтазавяршэнне"/>
 					<Item id="6808" name="Уключыць аўтазавяршэнне для кожнага ўвядзення"/>
 					<Item id="6809" name="Завяршэнне функцый"/>

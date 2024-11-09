@@ -1227,7 +1227,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autouzupełnianie">
-					<Item id="6115" name="Autowcięcia"/>
 					<Item id="6807" name="Autouzupełnianie"/>
 					<Item id="6808" name="Włącz dla wszystkich:"/>
 					<Item id="6809" name="Funkcji"/>

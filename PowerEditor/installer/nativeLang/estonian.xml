@@ -797,7 +797,6 @@ https://github.com/AndresTraks/
 				</Backup>
 
 				<AutoCompletion title="Automaattäitmine">
-					<Item id="6115" name="Automaatne taane"/>
 					<Item id="6807" name="Automaattäitmine"/>
 					<Item id="6808" name="Luba automaattäitmine iga sisendi puhul"/>
 					<Item id="6809" name="Funktsioonide lõpetamine"/>

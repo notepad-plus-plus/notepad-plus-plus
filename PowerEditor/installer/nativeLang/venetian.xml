@@ -1221,7 +1221,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Otoconpletamento">
-					<Item id="6115" name="Indentasion otomàtica"/>
 					<Item id="6807" name="Oto-Conpletamento"/>
 					<Item id="6808" name="Ativa ƚ&apos;oto-conpletamento so ogni input"/>
 					<Item id="6809" name="Conpletamento funsion"/>

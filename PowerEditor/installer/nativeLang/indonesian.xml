@@ -1136,7 +1136,6 @@ Anda dapat mendefinisikan beberapa penanda kolom dengan menggunakan spasi putih 
 				</Backup>
 
 				<AutoCompletion title="Pelengkapan Otomatis (PO)">
-					<Item id="6115" name="Indentasi otomatis"/>
 					<Item id="6807" name="Pelengkapan Otomatis (PO)"/>
 					<Item id="6808" name="Aktifkan PO pada tiap input"/>
 					<Item id="6809" name="Pelengkapan fungsi"/>

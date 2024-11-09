@@ -1242,7 +1242,6 @@ Additionnal information about Corsican localization:
 				</Backup>
 
 				<AutoCompletion title="Empiimentu autumaticu">
-					<Item id="6115" name="Indentazione autumatica"/>
 					<Item id="6807" name="Empiimentu autumaticu"/>
 					<Item id="6808" name="Attivà st’empiimentu à ogni entrata"/>
 					<Item id="6809" name="Cumpiimentu di funzione"/>

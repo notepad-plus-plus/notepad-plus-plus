@@ -934,7 +934,6 @@ You can define several column markers by using white space to separate the diffe
 				</Backup>
 
 				<AutoCompletion title="Auto-Completion">
-					<Item id="6115" name="Auto-indent"/>
 					<Item id="6807" name="Auto-Completion"/>
 					<Item id="6808" name="Cumasaigh auto-completion on each input"/>
 					<Item id="6809" name="Function completion"/>

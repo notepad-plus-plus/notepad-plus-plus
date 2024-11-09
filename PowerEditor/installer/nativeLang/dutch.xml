@@ -1212,7 +1212,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 				</Backup>
 
 				<AutoCompletion title="Automatisch aanvullen">
-					<Item id="6115" name="Automatisch inspringen"/>
 					<Item id="6807" name="Automatisch aanvullen"/>
 					<Item id="6808" name="Inschakelen"/>
 					<Item id="6809" name="Functies aanvullen"/>

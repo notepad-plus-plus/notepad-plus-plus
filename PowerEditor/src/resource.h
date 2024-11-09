@@ -405,6 +405,15 @@
 #define IDR_FIND_RESULT_ICO2      1564
 #define IDR_FIND_RESULT_ICO_DM    1565
 
+#define IDR_PINTAB                1566
+#define IDR_PINTAB_HOVER          1567
+#define IDR_PINTAB_PINNED         1568
+#define IDR_PINTAB_PINNEDHOVER    1569
+#define IDR_PINTAB_DM             1570
+#define IDR_PINTAB_HOVER_DM       1571
+#define IDR_PINTAB_PINNED_DM      1572
+#define IDR_PINTAB_PINNEDHOVER_DM 1573
+
 #define ID_MACRO                           20000
 //                                     O     .
 //                                     C     .
@@ -697,6 +706,8 @@
 	#define NPPM_INTERNAL_CHECKUNDOREDOSTATE            (NOTEPADPLUS_USER_INTERNAL + 77)
 	#define NPPM_INTERNAL_LINECUTCOPYWITHOUTSELECTION   (NOTEPADPLUS_USER_INTERNAL + 78)
 	#define NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL       (NOTEPADPLUS_USER_INTERNAL + 79)
+
+	#define NPPM_INTERNAL_DRAWTABBARPINBOTTUN           (NOTEPADPLUS_USER_INTERNAL + 80)
 
 // See Notepad_plus_msgs.h
 //#define NOTEPADPLUS_USER   (WM_USER + 1000)

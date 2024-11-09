@@ -64,13 +64,13 @@ BEGIN
     LTEXT           "User-defined keywords",IDC_USER_KEYWORDS_STATIC,350,135,126,8
     EDITTEXT        IDC_USER_KEYWORDS_EDIT,347,146,136,52,ES_MULTILINE | WS_VSCROLL
 
-    CONTROL         "Force foreground color for all styles",IDC_GLOBAL_FG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,134,132,10
-    CONTROL         "Force background color for all styles",IDC_GLOBAL_BG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,149,132,10
+    CONTROL         "Force foreground color for all styles",IDC_GLOBAL_FG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,134,153,10
+    CONTROL         "Force background color for all styles",IDC_GLOBAL_BG_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,149,153,10
     CONTROL         "Force font choice for all styles",IDC_GLOBAL_FONT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,134,153,10
-    CONTROL         "Force font size choice for all styles",IDC_GLOBAL_FONTSIZE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,149,135,10
-    CONTROL         "Force bold choice for all styles",IDC_GLOBAL_BOLD_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,164,135,10
-    CONTROL         "Force italic choice for all styles",IDC_GLOBAL_ITALIC_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,179,135,10
-    CONTROL         "Force underline choice for all styles",IDC_GLOBAL_UNDERLINE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,194,135,10
+    CONTROL         "Force font size choice for all styles",IDC_GLOBAL_FONTSIZE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,149, 153,10
+    CONTROL         "Force bold choice for all styles",IDC_GLOBAL_BOLD_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,164,153,10
+    CONTROL         "Force italic choice for all styles",IDC_GLOBAL_ITALIC_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,179,153,10
+    CONTROL         "Force underline choice for all styles",IDC_GLOBAL_UNDERLINE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,194,153,10
 
     LTEXT           "Go to settings",IDC_GLOBAL_GOTOSETTINGS_LINK,210,153,131,10,WS_TABSTOP
     LTEXT           "What is Global override?",IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK,191,173,132,10,WS_TABSTOP

@@ -2323,7 +2323,9 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_REFRESHTABAR :
 		{
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			::InvalidateRect(_mainDocTab.getHSelf(), NULL, TRUE);
+			::InvalidateRect(_subDocTab.getHSelf(), NULL, TRUE);
+			
 			break;
 		}
         case IDM_VIEW_LOCKTABBAR:
@@ -2348,6 +2350,38 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN:
 		{
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton(), &_mainDocTab);
+
+			bool drawTabPinButton = TabBarPlus::drawTabPinButton();
+			bool drawTabCloseButton = TabBarPlus::drawTabCloseButton();
+
+			if (drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(1);
+			}
+			else if (!drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(0);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(0);
+			}
+			else if (drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
+			else //if (!drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
 
 			// This part is just for updating (redraw) the tabs
 			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
@@ -3345,11 +3379,11 @@ void Notepad_plus::command(int id)
         }
 
         case IDM_VIEW_GOTO_START:
-			_pDocTab->currentTabToStart();
+			_pDocTab->tabToStart();
 			break;
 
         case IDM_VIEW_GOTO_END:
-			_pDocTab->currentTabToEnd();
+			_pDocTab->tabToEnd();
 			break;
 
         case IDM_VIEW_GOTO_ANOTHER_VIEW:

@@ -2239,62 +2239,6 @@ void Notepad_plus::command(int id)
 			_isFolding = false;
 			break;
 
-
-		case IDM_VIEW_TOOLBAR_REDUCE:
-		{
-            toolBarStatusType state = _toolBar.getState();
-
-            if (state != TB_SMALL)
-            {
-			    _toolBar.reduce();
-            }
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_ENLARGE:
-		{
-            toolBarStatusType state = _toolBar.getState();
-
-            if (state != TB_LARGE)
-            {
-			    _toolBar.enlarge();
-            }
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_REDUCE_SET2:
-		{
-			toolBarStatusType state = _toolBar.getState();
-
-			if (state != TB_SMALL2)
-			{
-				_toolBar.reduceToSet2();
-			}
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_ENLARGE_SET2:
-		{
-			toolBarStatusType state = _toolBar.getState();
-
-			if (state != TB_LARGE2)
-			{
-				_toolBar.enlargeToSet2();
-			}
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_STANDARD:
-		{
-			toolBarStatusType state = _toolBar.getState();
-
-            if (state != TB_STANDARD)
-            {
-				_toolBar.setToBmpIcons();
-			}
-		}
-		break;
-
 		case IDM_VIEW_FULLSCREENTOGGLE:
 		{
 			if (!_beforeSpecialView._isDistractionFree)

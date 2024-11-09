@@ -3781,6 +3781,61 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return fileName.length();
 		}
 
+		case NPPM_INTERNAL_TOOLBARREDUCE:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_SMALL)
+			{
+				_toolBar.reduce();
+			}
+		}
+		break;
+
+		case NPPM_INTERNAL_TOOLBARENLARGE:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_LARGE)
+			{
+				_toolBar.enlarge();
+			}
+		}
+		break;
+
+		case NPPM_INTERNAL_TOOLBARREDUCESET2:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_SMALL2)
+			{
+				_toolBar.reduceToSet2();
+			}
+		}
+		break;
+
+		case NPPM_INTERNAL_TOOLBARENLARGESET2:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_LARGE2)
+			{
+				_toolBar.enlargeToSet2();
+			}
+		}
+		break;
+
+		case NPPM_INTERNAL_TOOLBARSTANDARD:
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+			if (state != TB_STANDARD)
+			{
+				_toolBar.setToBmpIcons();
+			}
+		}
+		break;
+
 		case NPPM_INTERNAL_REDUCETABBAR:
 		{
 			bool isReduceed = TabBarPlus::isReduced();

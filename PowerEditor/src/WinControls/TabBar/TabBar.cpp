@@ -29,7 +29,7 @@ bool TabBarPlus::_doDragNDrop = false;
 
 bool TabBarPlus::_drawTopBar = true;
 bool TabBarPlus::_drawInactiveTab = true;
-bool TabBarPlus::_drawTabCloseButton = false;
+bool TabBarPlus::_drawTabCloseButton = true;
 bool TabBarPlus::_drawTabPinButton = true;
 bool TabBarPlus::_isDbClk2Close = false;
 bool TabBarPlus::_isCtrlVertical = false;

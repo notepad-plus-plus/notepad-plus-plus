@@ -1218,7 +1218,6 @@
 				</Backup>
 
 				<AutoCompletion title="Automatsko dopunjavanje">
-					<Item id="6115" name="Automatsko uvlačenje"/>
 					<Item id="6807" name="Automatsko dopunjavanje"/>
 					<Item id="6808" name="Pri svakom unosu"/>
 					<Item id="6809" name="Dopunjavanje funkcija"/>

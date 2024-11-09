@@ -1215,7 +1215,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Автозавершення">
-					<Item id="6115" name="Автовідступ"/>
 					<Item id="6807" name="Автозавершення"/>
 					<Item id="6808" name="Автозавершення для кожного введення"/>
 					<Item id="6809" name="Завершення функцій"/>

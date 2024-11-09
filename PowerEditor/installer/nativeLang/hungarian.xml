@@ -1082,7 +1082,6 @@ Több margó is megadható, különböző számok használatával szóközzel el
 				</Backup>
 
 				<AutoCompletion title="Automatikus kiegészítés">
-					<Item id="6115" name="Automatikus behúzás"/>
 					<Item id="6807" name="Automatikus kiegészítés"/>
 					<Item id="6808" name="Automatikus kiegészítés minden bevitelhez"/>
 					<Item id="6809" name="Függvény kiegészítés (Nyelv függő)"/>

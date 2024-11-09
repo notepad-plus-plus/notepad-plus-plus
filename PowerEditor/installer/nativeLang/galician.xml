@@ -1216,7 +1216,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autocompletado">
-					<Item id="6115" name="Autotabulación"/>
 					<Item id="6807" name="Autocompletado"/>
 					<Item id="6808" name="Activar o autocompletado en cada entrada"/>
 					<Item id="6809" name="Autocompletar función"/>

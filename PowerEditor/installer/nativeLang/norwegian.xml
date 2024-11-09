@@ -1209,7 +1209,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autofullføring">
-					<Item id="6115" name="Automatisk innrykk"/>
 					<Item id="6807" name="Automatisk fullføring"/>
 					<Item id="6808" name="Aktiver automatisk fullføring"/>
 					<Item id="6809" name="Fullfør funksjoner"/>

@@ -1236,7 +1236,6 @@
 						<Element name="Zavírat do"/>
 					</ComboBox>
 					<Item id="6114" name="Povolit přepínání"/>
-					<Item id="6115" name="Automatické odsazování"/>
 					<Item id="6117" name="Povolit MRU (nedávno použité)"/>
 					<Item id="6308" name="oznamovací oblast"/>
 					<Item id="6312" name="Automatická detekce stavu souboru"/>
@@ -1272,8 +1271,6 @@
 					<Item id="6825" name="Pamatovat si nedostupné soubory z poslední relace (zástupné dokumenty/karty)"/>
 				</Backup>
 				<AutoCompletion title="Automat. dokončování">
-					<Item id="6115" name="Automatické odsazování"/>
-					<Item id="6807" name="Automatické dokončování"/>
 					<Item id="6808" name="Povolit autom. dokončování každého vstupu"/>
 					<Item id="6809" name="Dokončování funkcí"/>
 					<Item id="6810" name="Dokončování slov"/>

@@ -304,7 +304,6 @@
 					<Item id="6112" name="Prikaži dugme za zatvaranje na svakom tabu"/>
 					<Item id="6113" name="Dupli klik za zatvaranje dokumenta"/>
 					<Item id="6114" name="Dozvoli promenu dokumenta (Ctrl+Tab)"/>
-					<Item id="6115" name="Auto-poravnanje"/>
 					<Item id="6116" name="Zapamti zadnji folder koji je korišæen"/>
 					<Item id="6117" name="Omoguæi MRU ponašanje za promenu dokumenta"/>
 				</Global>

@@ -1069,7 +1069,6 @@ Zutabe-markatzaile anitz zehaztu ditzakezu zenbakiak zuriuneen bidez banatuta."/
 				</Backup>
 
 				<AutoCompletion title="Osaketa automatikoa">
-					<Item id="6115" name="Koskatze automatikoa"/>
 					<Item id="6807" name="Osaketa automatikoa"/>
 					<Item id="6808" name="Gaitu osaketa automatikoa sarrera bakoitzean"/>
 					<Item id="6809" name="Funtzio-osaketa"/>

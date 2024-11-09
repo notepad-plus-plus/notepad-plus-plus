@@ -958,6 +958,7 @@
 					<Item id="6110" name="Obeleži trenutni tab"/>
 					<Item id="6112" name="Dugme za zatvaranje na svakom tab-u"/>
 					<Item id="6113" name="Dvoklik za zatvaranje dokumenta"/>
+					<Item id="6115" name="Omogući pin-ovanje tab-a"/>
 					<Item id="6118" name="Sakrij"/>
 					<Item id="6119" name="U više redova"/>
 					<Item id="6120" name="Uspravno"/>

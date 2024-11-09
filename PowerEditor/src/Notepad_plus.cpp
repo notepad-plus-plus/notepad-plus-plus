@@ -6685,7 +6685,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	if (mask & (BufferChangeDirty|BufferChangeFilename))
 	{
 		if (mask & BufferChangeFilename)
-			command(IDM_VIEW_REFRESHTABAR);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+
 		checkDocState();
 		setTitle();
 		wstring dir(buffer->getFullPathName());

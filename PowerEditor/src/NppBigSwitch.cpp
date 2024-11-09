@@ -3695,7 +3695,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_subDocTab.setCloseBtnImageList();
 			_mainDocTab.setPinBtnImageList();
 			_subDocTab.setPinBtnImageList();
-			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REDUCETABBAR, 0, 0);
 
 			changeDocumentListIconSet(false);
 
@@ -3781,7 +3781,125 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return fileName.length();
 		}
 
-		case NPPM_INTERNAL_DRAWTABBARPINBOTTUN:
+		case NPPM_INTERNAL_REDUCETABBAR:
+		{
+			bool isReduceed = TabBarPlus::isReduced();
+
+			//Resize the tab height
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
+
+			TabCtrl_SetPadding(_mainDocTab.getHSelf(), _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
+			TabCtrl_SetPadding(_subDocTab.getHSelf(), _subDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
+
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
+			//change the font
+			const auto& hf = _mainDocTab.getFont(isReduceed);
+			if (hf)
+			{
+				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+			}
+
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			break;
+		}
+
+		case NPPM_INTERNAL_REFRESHTABAR:
+		{
+			::InvalidateRect(_mainDocTab.getHSelf(), NULL, TRUE);
+			::InvalidateRect(_subDocTab.getHSelf(), NULL, TRUE);
+
+			break;
+		}
+		case NPPM_INTERNAL_LOCKTABBAR:
+		{
+			bool isDrag = TabBarPlus::doDragNDropOrNot();
+			TabBarPlus::doDragNDrop(!isDrag);
+			break;
+		}
+
+
+		case NPPM_INTERNAL_DRAWINACIVETAB:
+		{
+			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab(), &_mainDocTab);
+			break;
+		}
+		case NPPM_INTERNAL_DRAWTABTOPBAR:
+		{
+			TabBarPlus::setDrawTopBar(!TabBarPlus::drawTopBar(), &_mainDocTab);
+			break;
+		}
+
+		case NPPM_INTERNAL_TABDBCLK2CLOSE:
+		{
+			TabBarPlus::setDbClk2Close(!TabBarPlus::isDbClk2Close());
+			break;
+		}
+
+		case NPPM_INTERNAL_VERTICALTABBAR:
+		{
+			TabBarPlus::setVertical(!TabBarPlus::isVertical());
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			break;
+		}
+
+		case NPPM_INTERNAL_MULTILINETABBAR:
+		{
+			TabBarPlus::setMultiLine(!TabBarPlus::isMultiLine());
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			break;
+		}
+
+		case NPPM_INTERNAL_DRAWTABBARCLOSEBUTTON:
+		{
+			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton(), &_mainDocTab);
+
+			bool drawTabPinButton = TabBarPlus::drawTabPinButton();
+			bool drawTabCloseButton = TabBarPlus::drawTabCloseButton();
+
+			if (drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(1);
+			}
+			else if (!drawTabCloseButton && drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(0);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(0);
+			}
+			else if (drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(0);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(0);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
+			else //if (!drawTabCloseButton && !drawTabPinButton)
+			{
+				_mainDocTab.setTabCloseButtonOrder(-1);
+				_mainDocTab.setTabPinButtonOrder(-1);
+				_subDocTab.setTabCloseButtonOrder(-1);
+				_subDocTab.setTabPinButtonOrder(-1);
+			}
+
+			// This part is just for updating (redraw) the tabs
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			break;
+		}
+
+		case NPPM_INTERNAL_DRAWTABBARPINBUTTON:
 		{
 			TabBarPlus::setDrawTabPinButton(!TabBarPlus::drawTabPinButton(), &_mainDocTab);
 

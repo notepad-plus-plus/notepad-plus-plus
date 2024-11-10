@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.7.2
-    Last modified Sat, Nov 9th, 2024.
+    Last modified Sun, Nov 10th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -1222,7 +1222,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Auto-completamento">
-					<Item id="6115" name="Auto-indentazione"/>
 					<Item id="6807" name="Auto-Completamento"/>
 					<Item id="6808" name="Attiva l&apos;auto-completamento su ogni input"/>
 					<Item id="6809" name="Completamento funzioni"/>

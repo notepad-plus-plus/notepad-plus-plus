@@ -892,7 +892,7 @@ void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), enableSlider);
 	redrawDlgItem(IDC_CARETLINEFRAME_WIDTH_STATIC);
 	redrawDlgItem(IDC_CARETLINEFRAME_WIDTH_DISPLAY);
-	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
+	::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_HILITECURRENTLINE, 0, 0);
 }
 
 bool hasOnlyNumSpaceInClipboard()
@@ -1155,17 +1155,17 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_LWDEF:
 					svp._lineWrapMethod = LINEWRAP_DEFAULT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LWDEF, 0, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWALIGN:
 					svp._lineWrapMethod = LINEWRAP_ALIGNED;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LWALIGN, 0, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWINDENT:
 					svp._lineWrapMethod = LINEWRAP_INDENT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LWINDENT, 0, 0);
 					return TRUE;
 
 				default :
@@ -2236,20 +2236,20 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 					svp._lineNumberMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_GETCHECK, 0, 0));
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DYNAMIC), svp._lineNumberMarginShow);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CONSTANT), svp._lineNumberMarginShow);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINENUMBER, 0, 0);
 					return TRUE;
 				case IDC_RADIO_DYNAMIC:
 					svp._lineNumberMarginDynamicWidth = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_DYNAMIC, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINENUMBER, 0, 0);
 					return TRUE;
 				case IDC_RADIO_CONSTANT:
 					svp._lineNumberMarginDynamicWidth = !(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_CONSTANT, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINENUMBER, 0, 0);
 					return TRUE;
 				
 				case IDC_CHECK_BOOKMARKMARGE:
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SYMBOLMARGIN, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_CHANGHISTORYMARGIN:
@@ -2323,24 +2323,24 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 
 				case IDC_RADIO_SIMPLE:
 					svp._folderStyle = FOLDER_STYLE_SIMPLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_SIMPLE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLSIMPLE, 0, 0);
 					return TRUE;
 				case IDC_RADIO_ARROW:
 					svp._folderStyle = FOLDER_STYLE_ARROW;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_ARROW, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLARROW, 0, 0);
 					return TRUE;
 				case IDC_RADIO_CIRCLE:
 					svp._folderStyle = FOLDER_STYLE_CIRCLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_CIRCLE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLCIRCLE, 0, 0);
 					return TRUE;
 				case IDC_RADIO_BOX:
 					svp._folderStyle = FOLDER_STYLE_BOX;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLBOX, 0, 0);
 					return TRUE;
 					
 				case IDC_RADIO_FOLDMARGENONE:
 					svp._folderStyle = FOLDER_STYLE_NONE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLNONE, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_EDGEBGMODE:

@@ -2253,22 +2253,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return MainFileManager.getFileNameFromBuffer(reinterpret_cast<BufferID>(wParam), reinterpret_cast<wchar_t *>(lParam));
 		}
 
-		case NPPM_INTERNAL_ENABLECHECKDOCOPT:
-		{
-			NppGUI& nppgui = nppParam.getNppGUI();
-			if (wParam == CHECKDOCOPT_NONE)
-				nppgui._fileAutoDetection = cdDisabled;
-			else if (wParam == CHECKDOCOPT_UPDATESILENTLY)
-				nppgui._fileAutoDetection = (cdEnabledOld | cdAutoUpdate);
-			else if (wParam == CHECKDOCOPT_UPDATEGO2END)
-				nppgui._fileAutoDetection = (cdEnabledOld | cdGo2end);
-			else if (wParam == (CHECKDOCOPT_UPDATESILENTLY | CHECKDOCOPT_UPDATEGO2END))
-				nppgui._fileAutoDetection = (cdEnabledOld | cdGo2end | cdAutoUpdate);
-
-			return TRUE;
-		}
-
-
 		case WM_ACTIVATE:
 		{
 			if (wParam != WA_INACTIVE && _pEditView && _pNonEditView)
@@ -3083,7 +3067,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 			svp._lineNumberMarginDynamicWidth = lParam == LINENUMWIDTH_DYNAMIC;
-			::SendMessage(hwnd, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+			::SendMessage(hwnd, NPPM_INTERNAL_LINENUMBER, 0, 0);
 
 			return TRUE;
 		}
@@ -3780,6 +3764,79 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 			return fileName.length();
 		}
+
+		case NPPM_INTERNAL_HILITECURRENTLINE:
+		{
+			const ScintillaViewParams& svp = nppParam.getSVP();
+
+			const COLORREF bgColour{ nppParam.getCurLineHilitingColour() };
+			const LPARAM frameWidth{ (svp._currentLineHiliteMode == LINEHILITE_FRAME) ? svp._currentLineFrameWidth : 0 };
+
+			if (svp._currentLineHiliteMode != LINEHILITE_NONE)
+			{
+				_mainEditView.setElementColour(SC_ELEMENT_CARET_LINE_BACK, bgColour);
+				_subEditView.setElementColour(SC_ELEMENT_CARET_LINE_BACK, bgColour);
+			}
+			else
+			{
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, 0);
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, 0);
+			}
+
+			_mainEditView.execute(SCI_SETCARETLINEFRAME, frameWidth);
+			_subEditView.execute(SCI_SETCARETLINEFRAME, frameWidth);
+		}
+		break;
+
+		case NPPM_INTERNAL_LINENUMBER:
+		case NPPM_INTERNAL_SYMBOLMARGIN:
+		{
+			int margin;
+			if (message == NPPM_INTERNAL_LINENUMBER)
+				margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
+			else //if (message == IDM_VIEW_SYMBOLMARGIN)
+				margin = ScintillaEditView::_SC_MARGE_SYMBOL;
+
+			if (_mainEditView.hasMarginShowed(margin))
+			{
+				_mainEditView.showMargin(margin, false);
+				_subEditView.showMargin(margin, false);
+			}
+			else
+			{
+				_mainEditView.showMargin(margin);
+				_subEditView.showMargin(margin);
+			}
+		}
+		break;
+
+		case NPPM_INTERNAL_LWDEF:
+		case NPPM_INTERNAL_LWALIGN:
+		case NPPM_INTERNAL_LWINDENT:
+		{
+			int mode = (message == NPPM_INTERNAL_LWALIGN) ? SC_WRAPINDENT_SAME : \
+				(message == NPPM_INTERNAL_LWINDENT) ? SC_WRAPINDENT_INDENT : SC_WRAPINDENT_FIXED;
+			_mainEditView.execute(SCI_SETWRAPINDENTMODE, mode);
+			_subEditView.execute(SCI_SETWRAPINDENTMODE, mode);
+		}
+		break;
+
+		case NPPM_INTERNAL_FOLDSYMBOLSIMPLE:
+		case NPPM_INTERNAL_FOLDSYMBOLARROW:
+		case NPPM_INTERNAL_FOLDSYMBOLCIRCLE:
+		case NPPM_INTERNAL_FOLDSYMBOLBOX:
+		case NPPM_INTERNAL_FOLDSYMBOLNONE:
+		{
+			folderStyle fStyle = 
+				(message == NPPM_INTERNAL_FOLDSYMBOLSIMPLE) ? FOLDER_STYLE_SIMPLE : \
+				(message == NPPM_INTERNAL_FOLDSYMBOLARROW) ? FOLDER_STYLE_ARROW : \
+				(message == NPPM_INTERNAL_FOLDSYMBOLCIRCLE) ? FOLDER_STYLE_CIRCLE : \
+				(message == NPPM_INTERNAL_FOLDSYMBOLNONE) ? FOLDER_STYLE_NONE : FOLDER_STYLE_BOX;
+
+			_mainEditView.setMakerStyle(fStyle);
+			_subEditView.setMakerStyle(fStyle);
+		}
+		break;
 
 		case NPPM_INTERNAL_TOOLBARREDUCE:
 		{

@@ -900,6 +900,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	//Get file size
 	int64_t fileSize = 0;
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	getFileAttributesExWithTimeout(buf->getFullPathName(), &attributes);
 	if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
 	{
@@ -1264,6 +1265,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	}
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	getFileAttributesExWithTimeout(fullpath, &attributes);
 	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{

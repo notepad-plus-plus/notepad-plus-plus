@@ -710,6 +710,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	if (pPath)
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
+		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 		if (getFileAttributesExWithTimeout(pPath, &attributes) != FALSE)
 		{
 			LARGE_INTEGER size{};
@@ -718,6 +719,31 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 
 			fileSize = size.QuadPart;
 		}
+		else
+		{
+			// there is a possibility that the WIN32API method used above may fail for some types
+			// of network storage (these probably do not have an IO class implementation for the
+			// 'GetFileExInfoStandard' needed), so try the POSIX way instead
+			FILE* fp = _wfopen(pPath, L"rb");
+			if (fp)
+			{
+				_fseeki64(fp, 0, SEEK_END);
+				fileSize = _ftelli64(fp);
+				fclose(fp);
+			}
+		}
+	}
+
+	if (fileSize == -1)
+	{
+		// we cannot continue (or the Scintilla will throw the SC_STATUS_FAILURE in the loadFileData later)
+		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("FileToLoadSizeCheckFailed",
+			_pNotepadPlus->_pEditView->getHSelf(),
+			L"Cannot obtain the file size before loading!",
+			L"File to load size-check failed",
+			MB_OK | MB_APPLMODAL);
+		return BUFFER_INVALID;
 	}
 	
 	// * the auto-completion feature will be disabled for large files

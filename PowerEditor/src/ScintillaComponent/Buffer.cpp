@@ -705,6 +705,10 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	if (!doesFileExist(pPath))
 	{
 		pPath = backupFileName;
+
+		// TEMP: DEBUG:
+		::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"!doesFileExist, pPath = backupFileName", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+		::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), pPath, L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 	}
 
 	if (pPath)
@@ -718,6 +722,10 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 			size.HighPart = attributes.nFileSizeHigh;
 
 			fileSize = size.QuadPart;
+
+			// TEMP: DEBUG:
+			if (fileSize == -1)
+				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout succeeded, filesize still -1", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 		}
 		else
 		{
@@ -727,9 +735,34 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 			FILE* fp = _wfopen(pPath, L"rb");
 			if (fp)
 			{
-				_fseeki64(fp, 0, SEEK_END);
-				fileSize = _ftelli64(fp);
+				if (_fseeki64(fp, 0, SEEK_END) != 0)
+				{
+					// TEMP: DEBUG:
+					::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout failed, _wfopen succeeded, _fseeki64 failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+				}
+				else
+				{
+					fileSize = _ftelli64(fp);
+					// TEMP: DEBUG:
+					if (fileSize == -1)
+					{
+						errno_t err = 0;
+						_get_errno(&err);
+						wstring strErr = to_wstring(err);
+						::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout failed, _wfopen succeeded, _ftelli64 failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+						::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strErr.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+					}
+				}
 				fclose(fp);
+			}
+			else
+			{
+				// TEMP: DEBUG:
+				errno_t err = 0;
+				_get_errno(&err);
+				wstring strErr = to_wstring(err);
+				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout failed, _wfopen failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strErr.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 			}
 		}
 	}

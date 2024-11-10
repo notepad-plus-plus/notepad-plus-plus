@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-06"><!-- basiert auf english.xml 8.7.1 vom 04.11.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-10"><!-- basiert auf english.xml 8.6.9 vom 09.11.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -967,6 +967,7 @@ Translation note:
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
 					<Item id="6112" name="Schließen-Kreuz auf jedem Tab"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
+					<Item id="6115" name="Pin-Tab-Funktion aktivieren"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
@@ -1226,7 +1227,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autovervollständigung">
-					<Item id="6115" name="Automatische Einrückung"/>
 					<Item id="6807" name="Autovervollständigung"/>
 					<Item id="6808" name="Autovervollständigung aktivieren"/>
 					<Item id="6809" name="Funktionsvervollständigung"/>

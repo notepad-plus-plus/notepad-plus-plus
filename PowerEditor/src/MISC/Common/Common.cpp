@@ -1778,7 +1778,8 @@ struct GetDiskFreeSpaceParamResult
 {
 	std::wstring _dirPath;
 	ULARGE_INTEGER _freeBytesForUser {};
-	DWORD _result = FALSE;
+	BOOL _result = FALSE;
+	DWORD _error = NO_ERROR;
 	bool _isTimeoutReached = true;
 
 	GetDiskFreeSpaceParamResult(wstring dirPath) : _dirPath(dirPath) {};
@@ -1788,11 +1789,13 @@ DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
 {
 	GetDiskFreeSpaceParamResult* inAndOut = static_cast<GetDiskFreeSpaceParamResult*>(data);
 	inAndOut->_result = ::GetDiskFreeSpaceExW(inAndOut->_dirPath.c_str(), &(inAndOut->_freeBytesForUser), nullptr, nullptr);
+	if (!(inAndOut->_result))
+		inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };
 
-DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isTimeoutReached)
+BOOL getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	GetDiskFreeSpaceParamResult data(dirPath);
 
@@ -1816,7 +1819,7 @@ DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBy
 			::TerminateThread(hThread, dwWaitStatus);
 			break;
 	}
-	CloseHandle(hThread);
+	::CloseHandle(hThread);
 
 	*freeBytesForUser = data._freeBytesForUser;
 
@@ -1833,7 +1836,8 @@ struct GetAttrExParamResult
 {
 	wstring _filePath;
 	WIN32_FILE_ATTRIBUTE_DATA _attributes{};
-	DWORD _result = FALSE;
+	BOOL _result = FALSE;
+	DWORD _error = NO_ERROR;
 	bool _isTimeoutReached = true;
 
 	GetAttrExParamResult(wstring filePath): _filePath(filePath) {
@@ -1844,12 +1848,15 @@ struct GetAttrExParamResult
 DWORD WINAPI getFileAttributesExWorker(void* data)
 {
 	GetAttrExParamResult* inAndOut = static_cast<GetAttrExParamResult*>(data);
-	inAndOut->_result = ::GetFileAttributesEx(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
+	inAndOut->_result = ::GetFileAttributesExW(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
+	if (!(inAndOut->_result))
+		inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };
 
-DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait, bool* isTimeoutReached)
+BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr,
+	DWORD milliSec2wait, bool* isTimeoutReached, DWORD* pdwError, bool wantMsgIfError)
 {
 	GetAttrExParamResult data(filePath);
 
@@ -1873,33 +1880,45 @@ DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBU
 			::TerminateThread(hThread, dwWaitStatus);
 			break;
 	}
-	CloseHandle(hThread);
+	::CloseHandle(hThread);
 
 	*fileAttr = data._attributes;
 
 	if (isTimeoutReached != nullptr)
 		*isTimeoutReached = data._isTimeoutReached;
 
+	if (pdwError != nullptr)
+		*pdwError = data._error;
+
+	if (wantMsgIfError && !(data._result) && (data._error != NO_ERROR))
+	{
+		wstring strErr = L"GetFileAttributesExW failed with error code " + to_wstring(data._error) + L":\n- " + GetLastErrorAsString(data._error);
+		::MessageBoxW(NULL, strErr.c_str(), L"Notepad++ - getFileAttributesExWithTimeout", MB_OK | MB_APPLMODAL);
+	}
+
 	return data._result;
 }
 
-bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait, bool* isTimeoutReached)
+bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait, bool* isTimeoutReached, DWORD* pdwError, bool wantMsgIfError)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	getFileAttributesExWithTimeout(filePath, &attributes, milliSec2wait, isTimeoutReached);
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	getFileAttributesExWithTimeout(filePath, &attributes, milliSec2wait, isTimeoutReached, pdwError, wantMsgIfError);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait, bool* isTimeoutReached)
+bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait, bool* isTimeoutReached, DWORD* pdwError, bool wantMsgIfError)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	getFileAttributesExWithTimeout(dirPath, &attributes, milliSec2wait, isTimeoutReached);
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	getFileAttributesExWithTimeout(dirPath, &attributes, milliSec2wait, isTimeoutReached, pdwError, wantMsgIfError);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReached)
+bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReached, DWORD* pdwError, bool wantMsgIfError)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	getFileAttributesExWithTimeout(path, &attributes, milliSec2wait, isTimeoutReached);
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	getFileAttributesExWithTimeout(path, &attributes, milliSec2wait, isTimeoutReached, pdwError, wantMsgIfError);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }

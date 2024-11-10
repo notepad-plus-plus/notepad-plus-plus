@@ -142,6 +142,7 @@ void Buffer::updateTimeStamp()
 {
 	FILETIME timeStampLive {};
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes) != FALSE)
 	{
 		timeStampLive = attributes.ftLastWriteTime;
@@ -260,6 +261,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		return false;
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	NppParameters& nppParam = NppParameters::getInstance();
 	bool fileExists = doesFileExist(_fullPathName.c_str());
 
@@ -702,54 +704,49 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	//Get file size
 	int64_t fileSize = -1;
 	const wchar_t* pPath = filename;
-	if (!doesFileExist(pPath))
+	DWORD dwError = NO_ERROR;
+	if (!doesFileExist(pPath, 0, nullptr, &dwError, true))
 	{
-		pPath = backupFileName;
-
-		// TEMP: DEBUG:
-		::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"!doesFileExist, pPath = backupFileName", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
-		::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), pPath, L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+		if (dwError == NO_ERROR)
+		{
+			pPath = backupFileName;
+		}
 	}
 
 	if (pPath)
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
 		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-		if (getFileAttributesExWithTimeout(pPath, &attributes) != FALSE)
+		if ((dwError == NO_ERROR) && getFileAttributesExWithTimeout(pPath, &attributes))
 		{
 			LARGE_INTEGER size{};
 			size.LowPart = attributes.nFileSizeLow;
 			size.HighPart = attributes.nFileSizeHigh;
 
 			fileSize = size.QuadPart;
-
-			// TEMP: DEBUG:
-			if (fileSize == -1)
-				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout succeeded, filesize still -1", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 		}
 		else
 		{
-			// there is a possibility that the WIN32API method used above may fail for some types
+			// there is a possibility that the WIN32API GetFileAttributesExW may fail for some types
 			// of network storage (these probably do not have an IO class implementation for the
-			// 'GetFileExInfoStandard' needed), so try the POSIX way instead
+			// 'GetFileExInfoStandard' needed), so try the simple POSIX way instead
 			FILE* fp = _wfopen(pPath, L"rb");
 			if (fp)
 			{
 				if (_fseeki64(fp, 0, SEEK_END) != 0)
 				{
-					// TEMP: DEBUG:
-					::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout failed, _wfopen succeeded, _fseeki64 failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+					// DEBUG:
+					::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"_fseeki64 failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 				}
 				else
 				{
 					fileSize = _ftelli64(fp);
-					// TEMP: DEBUG:
+					// DEBUG:
 					if (fileSize == -1)
 					{
 						errno_t err = 0;
 						_get_errno(&err);
-						wstring strErr = to_wstring(err);
-						::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout failed, _wfopen succeeded, _ftelli64 failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+						wstring strErr = L"_ftelli64 failed with errno: " + to_wstring(err);
 						::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strErr.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 					}
 				}
@@ -757,11 +754,10 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 			}
 			else
 			{
-				// TEMP: DEBUG:
+				// DEBUG:
 				errno_t err = 0;
 				_get_errno(&err);
-				wstring strErr = to_wstring(err);
-				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"getFileAttributesExWithTimeout failed, _wfopen failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+				wstring strErr = L"_wfopen failed with errno: " + to_wstring(err);
 				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strErr.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 			}
 		}
@@ -778,7 +774,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 			MB_OK | MB_APPLMODAL);
 		return BUFFER_INVALID;
 	}
-	
+
 	// * the auto-completion feature will be disabled for large files
 	// * the session snapshotsand periodic backups feature will be disabled for large files
 	// * the backups on save feature will be disabled for large files

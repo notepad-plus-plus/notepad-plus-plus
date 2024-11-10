@@ -499,12 +499,12 @@ void TabBarPlus::setCloseBtnImageList()
 	if (NppDarkMode::isEnabled())
 	{
 		iconSize = g_TabCloseBtnSize_DM;
-		ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVER_DM, IDR_CLOSETAB_PUSH_DM };
+		ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVERIN_DM, IDR_CLOSETAB_HOVEROUT_DM, IDR_CLOSETAB_PUSH_DM };
 	}
 	else
 	{
 		iconSize = g_TabCloseBtnSize;
-		ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVER, IDR_CLOSETAB_PUSH };
+		ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVERIN, IDR_CLOSETAB_HOVEROUT, IDR_CLOSETAB_PUSH };
 	}
 
 	if (_hCloseBtnImgLst != nullptr)
@@ -912,13 +912,19 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 						_isCloseHover = false;
 					}
 
-					if (isFromTabToTab || _isCloseHover != isCloseHoverOld)
+					if (isFromTabToTab || _isCloseHover != isCloseHoverOld || _currentHoverTabItem != -1)
 					{
 						if (isCloseHoverOld && (isFromTabToTab || !_isCloseHover))
 							InvalidateRect(hwnd, &currentHoverTabRectOld, FALSE);
 
 						if (_isCloseHover)
 							InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
+
+						if (_currentHoverTabItem != -1 || isFromTabToTab)
+						{
+							InvalidateRect(hwnd, &currentHoverTabRectOld, FALSE);
+							InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
+						}
 					}
 
 					if (_isCloseHover)
@@ -970,8 +976,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_MOUSELEAVE:
 		{
-			if (_isCloseHover || _isPinHover)
-				InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
+			InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
 
 			_currentHoverTabItem = -1;
 			_whichCloseClickDown = -1;
@@ -1455,18 +1460,22 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 
 		if (_isCloseHover && (_currentHoverTabItem == nTab))
 		{
-			if (_whichCloseClickDown == -1) // hover
+			if (_whichCloseClickDown == -1) // hover in
 			{
-				idxCloseImg = _closeTabHoverIdx;
+				idxCloseImg = _closeTabHoverInIdx;
 			}
 			else if (_whichCloseClickDown == _currentHoverTabItem) // pushed
 			{
 				idxCloseImg = _closeTabPushIdx;
 			}
 		}
+		/*else if (_currentHoverTabItem == nTab) // hover outside
+		{
+			idxCloseImg = _closeTabHoverOutIdx;
+		}*/
 		else if (!isSelected) // inactive
 		{
-			idxCloseImg = _closeTabInactIdx;
+			idxCloseImg = (_currentHoverTabItem == nTab) ? _closeTabHoverOutIdx : _closeTabInactIdx;
 		}
 
 		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);

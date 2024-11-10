@@ -293,8 +293,9 @@ protected:
 	HIMAGELIST _hCloseBtnImgLst = nullptr;
 	const int _closeTabIdx = 0;
 	const int _closeTabInactIdx = 1;
-	const int _closeTabHoverIdx = 2;
-	const int _closeTabPushIdx = 3;
+	const int _closeTabHoverInIdx = 2;
+	const int _closeTabHoverOutIdx = 3;
+	const int _closeTabPushIdx = 4;
 
 	HIMAGELIST _hPinBtnImgLst = nullptr;
 	const int _unpinnedIdx = 0;

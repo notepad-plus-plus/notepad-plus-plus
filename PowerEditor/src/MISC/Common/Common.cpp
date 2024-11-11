@@ -1789,8 +1789,7 @@ DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
 {
 	GetDiskFreeSpaceParamResult* inAndOut = static_cast<GetDiskFreeSpaceParamResult*>(data);
 	inAndOut->_result = ::GetDiskFreeSpaceExW(inAndOut->_dirPath.c_str(), &(inAndOut->_freeBytesForUser), nullptr, nullptr);
-	if (!(inAndOut->_result))
-		inAndOut->_error = ::GetLastError();
+	inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };
@@ -1802,6 +1801,7 @@ BOOL getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeByt
 	HANDLE hThread = ::CreateThread(NULL, 0, getDiskFreeSpaceExWorker, &data, 0, NULL);
 	if (!hThread)
 	{
+		data._error = ::GetLastError();
 		return FALSE;
 	}
 
@@ -1826,6 +1826,11 @@ BOOL getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeByt
 	if (isTimeoutReached != nullptr)
 		*isTimeoutReached = data._isTimeoutReached;
 
+	if (data._error == NO_ERROR)
+	{
+		data._error = dwWaitStatus; // WAIT_OBJECT_0 is numerically the same as NO_ERROR
+	}
+
 	return data._result;
 }
 
@@ -1849,8 +1854,7 @@ DWORD WINAPI getFileAttributesExWorker(void* data)
 {
 	GetAttrExParamResult* inAndOut = static_cast<GetAttrExParamResult*>(data);
 	inAndOut->_result = ::GetFileAttributesExW(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
-	if (!(inAndOut->_result))
-		inAndOut->_error = ::GetLastError();
+	inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };
@@ -1863,6 +1867,12 @@ BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUT
 	HANDLE hThread = ::CreateThread(NULL, 0, getFileAttributesExWorker, &data, 0, NULL);
 	if (!hThread)
 	{
+		data._error = ::GetLastError();
+		if (wantMsgIfError)
+		{
+			wstring strErr = L"CreateThread failed with error code " + to_wstring(data._error) + L" - " + GetLastErrorAsString(data._error);
+			::MessageBoxW(NULL, strErr.c_str(), L"Notepad++ - getFileAttributesExWithTimeout", MB_OK | MB_APPLMODAL);
+		}
 		return FALSE;
 	}
 
@@ -1887,12 +1897,17 @@ BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUT
 	if (isTimeoutReached != nullptr)
 		*isTimeoutReached = data._isTimeoutReached;
 
+	if (data._error == NO_ERROR)
+	{
+		data._error = dwWaitStatus; // WAIT_OBJECT_0 is numerically the same as NO_ERROR
+	}
+
 	if (pdwError != nullptr)
 		*pdwError = data._error;
 
 	if (wantMsgIfError && !(data._result) && (data._error != NO_ERROR))
 	{
-		wstring strErr = L"GetFileAttributesExW failed with error code " + to_wstring(data._error) + L":\n- " + GetLastErrorAsString(data._error);
+		wstring strErr = L"Failure code " + to_wstring(data._error) + L" - " + GetLastErrorAsString(data._error);
 		::MessageBoxW(NULL, strErr.c_str(), L"Notepad++ - getFileAttributesExWithTimeout", MB_OK | MB_APPLMODAL);
 	}
 

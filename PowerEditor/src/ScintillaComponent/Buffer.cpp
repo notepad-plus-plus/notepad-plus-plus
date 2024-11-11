@@ -707,7 +707,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	DWORD dwError = NO_ERROR;
 	if (!doesFileExist(pPath, 0, nullptr, &dwError, true))
 	{
-		if (dwError == NO_ERROR)
+		if ((dwError == ERROR_FILE_NOT_FOUND) || (dwError == ERROR_PATH_NOT_FOUND))
 		{
 			pPath = backupFileName;
 		}

@@ -1317,6 +1317,7 @@ Translation note:
 						<Element name="No action to"/>
 						<Element name="Minimize to"/>
 						<Element name="Close to"/>
+						<Element name="Minimize / Close to"/>
 					</ComboBox>
 					<Item id="6308" name="system tray"/>
 					<Item id="6312" name="File Status Auto-Detection"/>

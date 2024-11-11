@@ -2425,8 +2425,9 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"No action to"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize to"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Close to"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize / Close to"));
 
-			if (nppGUI._isMinimizedToTray < 0 || nppGUI._isMinimizedToTray > sta_close)
+			if (nppGUI._isMinimizedToTray < 0 || nppGUI._isMinimizedToTray > sta_minimize_close)
 				nppGUI._isMinimizedToTray = sta_none;
 
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_SETCURSEL, nppGUI._isMinimizedToTray, 0);

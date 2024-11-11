@@ -2835,9 +2835,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_SYSCOMMAND:
 		{
-			const NppGUI & nppgui = (nppParam.getNppGUI());
-			if (((nppgui._isMinimizedToTray == sta_minimize || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE)) ||
-				(nppgui._isMinimizedToTray == sta_close && wParam == SC_CLOSE)
+			const NppGUI & nppgui = nppParam.getNppGUI();
+			auto toTray = nppgui._isMinimizedToTray;
+			if (((toTray == sta_minimize || toTray == sta_minimize_close || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE)) ||
+				((toTray == sta_close || toTray == sta_minimize_close) && wParam == SC_CLOSE)
 			)
 			{
 				if (nullptr == _pTrayIco)

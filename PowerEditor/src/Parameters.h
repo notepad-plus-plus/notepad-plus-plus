@@ -122,7 +122,7 @@ enum urlMode {urlDisable = 0, urlNoUnderLineFg, urlUnderLineFg, urlNoUnderLineBg
               urlMax = urlUnderLineBg};
 
 enum AutoIndentMode { autoIndent_none = 0, autoIndent_advanced = 1, autoIndent_basic = 2 };
-enum SysTrayAction { sta_none = 0, sta_minimize = 1, sta_close = 2 };
+enum SysTrayAction { sta_none = 0, sta_minimize = 1, sta_close = 2, sta_minimize_close = 3 };
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;

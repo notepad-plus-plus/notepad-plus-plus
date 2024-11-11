@@ -293,15 +293,17 @@ protected:
 	HIMAGELIST _hCloseBtnImgLst = nullptr;
 	const int _closeTabIdx = 0;
 	const int _closeTabInactIdx = 1;
-	const int _closeTabHoverInIdx = 2;
-	const int _closeTabHoverOutIdx = 3;
+	const int _closeTabHoverInIdx = 2; // hover inside of box
+	const int _closeTabHoverOnTabIdx = 3; // hover on the tab, but outside of box
 	const int _closeTabPushIdx = 4;
 
 	HIMAGELIST _hPinBtnImgLst = nullptr;
 	const int _unpinnedIdx = 0;
-	const int _unpinnedHoverIdx = 1;
-	const int _pinnedIdx = 2;
-	const int _pinnedHoverIdx = 3;
+	const int _unpinnedInactIdx = 1;
+	const int _unpinnedHoverInIdx = 2; // hover inside of box
+	const int _unpinnedHoverOnTabIdx = 3; // hover on the tab, but outside of box
+	const int _pinnedIdx = 4;
+	const int _pinnedHoverIdx = 5;
 
 	bool _isCloseHover = false;
 	bool _isPinHover = false;

@@ -1326,6 +1326,7 @@ Translation note:
 						<Element name="Bez akcji do"/>
 						<Element name="Minimalizuj do"/>
 						<Element name="Zamykaj do"/>
+						<Element name="Minimalizuj / Zamykaj do"/>
 					</ComboBox>
 					<Item id="6308" name="zasobnika systemowego"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>

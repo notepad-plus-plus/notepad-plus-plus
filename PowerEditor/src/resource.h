@@ -412,13 +412,13 @@
 #define IDR_PINTAB_HOVERIN          1568
 #define IDR_PINTAB_HOVERONTAB       1569
 #define IDR_PINTAB_PINNED           1570
-#define IDR_PINTAB_PINNEDHOVER      1571
+#define IDR_PINTAB_PINNEDHOVERIN    1571
 #define IDR_PINTAB_DM               1572
 #define IDR_PINTAB_INACT_DM         1573
 #define IDR_PINTAB_HOVERIN_DM       1574
 #define IDR_PINTAB_HOVERONTAB_DM    1575
 #define IDR_PINTAB_PINNED_DM        1576
-#define IDR_PINTAB_PINNEDHOVER_DM   1577
+#define IDR_PINTAB_PINNEDHOVERIN_DM 1577
 
 #define ID_MACRO                           20000
 //                                     O     .

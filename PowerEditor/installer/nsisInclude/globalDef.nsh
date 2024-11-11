@@ -52,7 +52,7 @@
 ; ------------------------------------------------------------------------
 
 !define APPNAMEANDVERSION	"${APPNAME} v${APPVERSION}"
-!define CompanyName		"Don HO don.h@free.fr"
+!define CompanyName		"Notepad++ Team"
 !define Description		"Notepad++ : a free (GNU) source code editor"
 !define Version		"${nppVer_1}.${nppVer_2}.${nppVer_3}.${nppVer_4}"
 !define ProdVer		"${VERSION_MAJOR}.${VERSION_MINOR}"

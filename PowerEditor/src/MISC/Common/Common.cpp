@@ -1905,9 +1905,11 @@ BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUT
 	if (pdwError != nullptr)
 		*pdwError = data._error;
 
-	if (wantMsgIfError && !(data._result) && (data._error != NO_ERROR))
+	//if (wantMsgIfError && (data._error != NO_ERROR))
+	if (wantMsgIfError)
 	{
 		wstring strErr = L"Failure code " + to_wstring(data._error) + L" - " + GetLastErrorAsString(data._error);
+		strErr += L"\n\ndata._filePath: " + data._filePath + L"\n\ndata._attributes.dwFileAttributes: " + to_wstring(data._attributes.dwFileAttributes) + L"\n\ndata._result: " + to_wstring(data._result) + L"\n\ndata._isTimeoutReached: " + to_wstring(data._isTimeoutReached);
 		::MessageBoxW(NULL, strErr.c_str(), L"Notepad++ - getFileAttributesExWithTimeout", MB_OK | MB_APPLMODAL);
 	}
 

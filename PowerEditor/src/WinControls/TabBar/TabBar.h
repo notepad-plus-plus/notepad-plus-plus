@@ -270,6 +270,13 @@ public :
 		_closeButtonZone.setOrder(newOrder);
 	}
 
+	// Hack for forcing the tab width change
+	// ref: https://github.com/notepad-plus-plus/notepad-plus-plus/pull/15781#issuecomment-2469387409
+	void refresh() {
+		int index = insertAtEnd(L"");
+		deletItemAt(index);
+	}
+
 protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;
@@ -344,21 +351,18 @@ protected:
 	void drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode = false);
 	void draggingCursor(POINT screenPoint);
 
-	int getTabIndexAt(const POINT & p)
-	{
+	int getTabIndexAt(const POINT & p) const {
 		return getTabIndexAt(p.x, p.y);
 	}
 
-	int32_t getTabIndexAt(int x, int y)
-	{
+	int32_t getTabIndexAt(int x, int y) const {
 		TCHITTESTINFO hitInfo{};
 		hitInfo.pt.x = x;
 		hitInfo.pt.y = y;
 		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hitInfo)));
 	}
 
-	bool isPointInParentZone(POINT screenPoint) const
-	{
+	bool isPointInParentZone(POINT screenPoint) const {
 		RECT parentZone{};
         ::GetWindowRect(_hParent, &parentZone);
 	    return (((screenPoint.x >= parentZone.left) && (screenPoint.x <= parentZone.right)) &&

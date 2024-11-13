@@ -288,13 +288,38 @@ void TabBarPlus::destroy()
 }
 
 
-void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLine)
+void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLine, unsigned char buttonsStatus)
 {
 	Window::init(hInst, parent);
 
 	const UINT dpi = DPIManagerV2::getDpiForWindow(_hParent);
-	_closeButtonZone.init(_hParent, 0);
-	_pinButtonZone.init(_hParent, 1);
+
+	int closeOrder = -1;
+	int pinOder = -1;
+
+	if (buttonsStatus == 0) // 0000: both buttons disabled
+	{
+		closeOrder = -1;
+		pinOder = -1;
+	}
+	else if (buttonsStatus == 1) // 0001: close enabled, pin disabled
+	{
+		closeOrder = 0;
+		pinOder = -1;
+	}
+	else if (buttonsStatus == 2) // 0010: close disabled, pin enabled
+	{
+		closeOrder = -1;
+		pinOder = 0;
+	}
+	else if (buttonsStatus == 3) // 0011: both buttons enabled
+	{
+		closeOrder = 0;
+		pinOder = 1;
+	}
+
+	_closeButtonZone.init(_hParent, closeOrder);
+	_pinButtonZone.init(_hParent, pinOder);
 	_dpiManager.setDpi(dpi);
 
 	int vertical = isVertical ? (TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY) : 0;

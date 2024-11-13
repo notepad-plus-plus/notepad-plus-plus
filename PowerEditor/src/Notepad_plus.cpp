@@ -268,8 +268,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainDocTab.dpiManager().setDpiWithParent(hwnd);
 	_subDocTab.dpiManager().setDpiWithParent(hwnd);
 
-	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, indexDocTabIcon);
-	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, indexDocTabIcon);
+	unsigned char buttonsStatus = 0;
+	buttonsStatus |= (tabBarStatus & TAB_CLOSEBUTTON) ? 1 : 0;
+	buttonsStatus |= (tabBarStatus & TAB_PINBUTTON) ? 2 : 0;
+
+	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, indexDocTabIcon, buttonsStatus);
+	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, indexDocTabIcon, buttonsStatus);
 
 	_mainEditView.display();
 

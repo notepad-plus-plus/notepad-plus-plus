@@ -186,7 +186,7 @@ public :
         _doDragNDrop = justDoIt;
     };
 
-	void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false) override;
+	void init(HINSTANCE hInst, HWND hwnd, bool isVertical, bool isMultiLine, unsigned char buttonsStatus = 0);
 
 	void destroy() override;
 

@@ -32,9 +32,9 @@ int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READON
 
 
 
-void DocTabView::init(HINSTANCE hInst, HWND parent, ScintillaEditView* pView, unsigned char indexChoice)
+void DocTabView::init(HINSTANCE hInst, HWND parent, ScintillaEditView* pView, unsigned char indexChoice, unsigned char buttonsStatus)
 {
-	TabBarPlus::init(hInst, parent);
+	TabBarPlus::init(hInst, parent, false, false, buttonsStatus);
 	_pView = pView;
 
 	createIconSets();

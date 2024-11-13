@@ -1475,7 +1475,13 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		{
 			brushColour = colorActiveBg;
 		}
-
+		
+		if (_currentHoverTabItem == nTab)
+		{
+			HLSColour hls(brushColour);
+			brushColour = hls.toRGB4DarkModWithTuning(25, 0);
+		}
+		
 		hBrush = ::CreateSolidBrush(brushColour);
 		::FillRect(hDC, &inactiveRect, hBrush);
 		::DeleteObject(static_cast<HGDIOBJ>(hBrush));

@@ -707,10 +707,13 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	DWORD dwError = NO_ERROR;
 	if (!doesFileExist(pPath, 0, nullptr, &dwError, true))
 	{
-		if ((dwError == ERROR_FILE_NOT_FOUND) || (dwError == ERROR_PATH_NOT_FOUND))
-		{
-			pPath = backupFileName;
-		}
+		// DEBUG:
+		wstring strMsg = L"Filesize check, !doesFileExist -> pPath = backupFileName\n\n pPath: ";
+		strMsg += pPath;
+		strMsg += L"\n\nbackupFileName: ";
+		strMsg += backupFileName;
+		::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strMsg.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+		pPath = backupFileName;
 	}
 
 	if (pPath)
@@ -724,6 +727,10 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 			size.HighPart = attributes.nFileSizeHigh;
 
 			fileSize = size.QuadPart;
+
+			// DEBUG:
+			wstring strMsg = L"Filesize check, getFileAttributesExWithTimeout way, reported in bytes: " + to_wstring(fileSize);
+			::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strMsg.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 		}
 		else
 		{
@@ -736,28 +743,33 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 				if (_fseeki64(fp, 0, SEEK_END) != 0)
 				{
 					// DEBUG:
-					::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"_fseeki64 failed", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
+					::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), L"Filesize check, _fseeki64 failed!", L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 				}
 				else
 				{
 					fileSize = _ftelli64(fp);
+					
 					// DEBUG:
 					if (fileSize == -1)
 					{
 						errno_t err = 0;
 						_get_errno(&err);
-						wstring strErr = L"_ftelli64 failed with errno: " + to_wstring(err);
+						wstring strErr = L"Filesize check, _ftelli64 failed with errno: " + to_wstring(err);
 						::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strErr.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 					}
 				}
 				fclose(fp);
+
+				// DEBUG:
+				wstring strMsg = L"Filesize check, POSIX way, reported in bytes: " + to_wstring(fileSize);
+				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strMsg.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 			}
 			else
 			{
 				// DEBUG:
 				errno_t err = 0;
 				_get_errno(&err);
-				wstring strErr = L"_wfopen failed with errno: " + to_wstring(err);
+				wstring strErr = L"Filesize check, _wfopen failed with errno: " + to_wstring(err);
 				::MessageBoxW(_pNotepadPlus->_pEditView->getHSelf(), strErr.c_str(), L"DEBUG: FileManager::loadFile", MB_OK | MB_APPLMODAL);
 			}
 		}

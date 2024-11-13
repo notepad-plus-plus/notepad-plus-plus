@@ -1788,6 +1788,7 @@ struct GetDiskFreeSpaceParamResult
 DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
 {
 	GetDiskFreeSpaceParamResult* inAndOut = static_cast<GetDiskFreeSpaceParamResult*>(data);
+	::SetLastError(NO_ERROR);
 	inAndOut->_result = ::GetDiskFreeSpaceExW(inAndOut->_dirPath.c_str(), &(inAndOut->_freeBytesForUser), nullptr, nullptr);
 	inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
@@ -1853,6 +1854,7 @@ struct GetAttrExParamResult
 DWORD WINAPI getFileAttributesExWorker(void* data)
 {
 	GetAttrExParamResult* inAndOut = static_cast<GetAttrExParamResult*>(data);
+	::SetLastError(NO_ERROR);
 	inAndOut->_result = ::GetFileAttributesExW(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
 	inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
@@ -1908,7 +1910,8 @@ BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUT
 	//if (wantMsgIfError && (data._error != NO_ERROR))
 	if (wantMsgIfError)
 	{
-		wstring strErr = L"Failure code " + to_wstring(data._error) + L" - " + GetLastErrorAsString(data._error);
+		wstring strErr = L"Failure code " + to_wstring(data._error) + L" - ";
+		strErr += (data._error != NO_ERROR) ? GetLastErrorAsString(data._error) : L"The operation completed successfully.";
 		strErr += L"\n\ndata._filePath: " + data._filePath + L"\n\ndata._attributes.dwFileAttributes: " + to_wstring(data._attributes.dwFileAttributes) + L"\n\ndata._result: " + to_wstring(data._result) + L"\n\ndata._isTimeoutReached: " + to_wstring(data._isTimeoutReached);
 		::MessageBoxW(NULL, strErr.c_str(), L"Notepad++ - getFileAttributesExWithTimeout", MB_OK | MB_APPLMODAL);
 	}

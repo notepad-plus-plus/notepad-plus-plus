@@ -392,6 +392,15 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		TheFirstOne = false;
 
 	std::wstring cmdLineString = pCmdLine ? pCmdLine : L"";
+
+	// DEBUG:
+	if (!cmdLineString.empty())
+	{
+		std::wstring strMsg = L"Passed pCmdLine param: \n\n";
+		strMsg += pCmdLine;
+		::MessageBoxW(NULL, strMsg.c_str(), L"DEBUG: Notepad++ wWinMain", MB_OK | MB_APPLMODAL);
+	}
+
 	ParamVector params;
 	parseCommandLine(pCmdLine, params);
 
@@ -451,6 +460,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	NppParameters& nppParameters = NppParameters::getInstance();
 
 	nppParameters.setCmdLineString(cmdLineString);
+
+	// DEBUG:
+	if (!cmdLineString.empty())
+	{
+		std::wstring strMsg = L"_cmdLineString pCmdLine param copy: \n\n" + nppParameters.getCmdLineString();
+		::MessageBoxW(NULL, strMsg.c_str(), L"DEBUG: Notepad++ wWinMain", MB_OK | MB_APPLMODAL);
+	}
 
 	std::wstring path;
 	if (getParamValFromString(FLAG_SETTINGS_DIR, params, path))
@@ -543,6 +559,14 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	for (size_t i = 0; i < nbFilesToOpen; ++i)
 	{
 		const wchar_t * currentFile = params.at(i).c_str();
+
+		// DEBUG:
+		if (!cmdLineString.empty())
+		{
+			std::wstring strMsg = L"Parsed ParamVector params.at(" + std::to_wstring(i) + L").c_str(): \n\n" + currentFile;
+			::MessageBoxW(NULL, strMsg.c_str(), L"DEBUG: Notepad++ wWinMain", MB_OK | MB_APPLMODAL);
+		}
+
 		if (currentFile[0])
 		{
 			//check if relative or full path. Relative paths dont have a colon for driveletter
@@ -551,6 +575,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			quotFileName += relativeFilePathToFullFilePath(currentFile);
 			quotFileName += L"\" ";
 		}
+	}
+
+	// DEBUG:
+	if (!cmdLineString.empty())
+	{
+		std::wstring strMsg = L"Resulted quotFileName string: \n\n" + quotFileName;
+		::MessageBoxW(NULL, strMsg.c_str(), L"DEBUG: Notepad++ wWinMain", MB_OK | MB_APPLMODAL);
 	}
 
 	//Only after loading all the file paths set the working directory

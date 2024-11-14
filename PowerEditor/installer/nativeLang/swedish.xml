@@ -958,6 +958,7 @@ Translation note:
 					<Item id="6110" name="Markera aktiv flik med en färgad linje"/>
 					<Item id="6112" name="Visa flikstängningsknapp på varje flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
+					<Item id="6115" name="Gör det möjligt att fästa flikar"/>
 					<Item id="6118" name="Dölj"/>
 					<Item id="6119" name="Flera rader"/>
 					<Item id="6120" name="Vertikalt"/>
@@ -1217,7 +1218,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Automatisk komplettering">
-					<Item id="6115" name="Automatiskt indrag"/>
 					<Item id="6807" name="Automatisk komplettering"/>
 					<Item id="6808" name="Aktivera vid varje inmatning"/>
 					<Item id="6809" name="Funktionskomplettering"/>
@@ -1317,6 +1317,7 @@ Translation note:
 						<Element name="Ingen åtgärd för"/>
 						<Element name="Minimera till"/>
 						<Element name="Stäng till"/>
+						<Element name="Minimera/Stäng till"/>
 					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
@@ -1719,9 +1720,9 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<finder-collapse-all value="Minimera alla"/>
 			<finder-uncollapse-all value="Expandera alla"/>
 			<finder-copy value="Kopiera markerad(e) rad(er)"/>
-			<finder-copy-paths value="Kopiera sökväg(ar)"/>
+			<finder-copy-paths value="Kopiera markerad(e) sökväg(ar)"/>
 			<finder-clear-all value="Rensa alla"/>
-			<finder-open-all value="Öppna alla"/>
+			<finder-open-all value="Öppna markerad(e) sökväg(ar)"/>
 			<finder-purge-for-every-search value="Rensa efter varje sökning"/>
 			<finder-wrap-long-lines value="Radbryt långa rader"/>
 			<common-ok value="OK"/>

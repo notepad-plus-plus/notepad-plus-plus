@@ -2049,7 +2049,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
-	vector<wstring> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths();
+	vector<wstring> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths(false);
 
 	findInFolderInfo->_pDestFinder->beginNewFilesSearch();
 	findInFolderInfo->_pDestFinder->addSearchLine(findInFolderInfo->_findOption._str2Search.c_str());

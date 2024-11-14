@@ -1304,7 +1304,7 @@
 					<Item id="6278" name="Príklad: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 
-				<MISC title=="Rôzne">
+				<MISC title="Rôzne">
 					<ComboBox id="6347">
 						<Element name="Povoliť pre aktuálny súbor"/>
 						<Element name="Povoliť pre všetky otvorené súbory"/>

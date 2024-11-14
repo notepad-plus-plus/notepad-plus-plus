@@ -1304,18 +1304,17 @@
 					<Item id="6278" name="Príklad: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 
-				<MISC title="Rôzne">
+				<MISC title=="Rôzne">
 					<ComboBox id="6347">
 						<Element name="Povoliť pre aktuálny súbor"/>
 						<Element name="Povoliť pre všetky otvorené súbory"/>
 						<Element name="Zakázať"/>
 					</ComboBox>
-					<Item id="6308" name="Minimalizovať do oblasti oznámení"/>
-					<Item id="6362" name="Zavrieť do oblasti oznámení"/>
 					<ComboBox id="6307">
 						<Element name="Nič do"/>
 						<Element name="Minimalizovať do"/>
 						<Element name="Zavrieť do"/>
+						<Element name="Minimalizovať/Zavrieť do"/>
 					</ComboBox>
 					<Item id="6308" name="oblasti oznámení"/>
 					<Item id="6312" name="Automatické zisťovanie stavu súboru"/>
@@ -1720,9 +1719,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<finder-collapse-all value="Zbaliť všetko"/>
 			<finder-uncollapse-all value="Rozbaliť všetko"/>
 			<finder-copy value="Kopírovať vybrané riadky"/>
-			<finder-copy-paths value="Kopírovať názov súboru(ov)"/>
+			<finder-copy-paths value="Kopírovať vybrané cesty k súborom"/>
 			<finder-clear-all value="Vymazať všetko"/>
-			<finder-open-all value="Otvoriť všetko"/>
+			<finder-open-all value="Otvoriť vybrané cesty k súborom"/>
 			<finder-purge-for-every-search value="Vymazať pri každom hľadaní"/>
 			<finder-wrap-long-lines value="Zalamovať dlhé riadky"/>
 			<common-ok value="OK"/>

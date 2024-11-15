@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 04 Nov 2024, for Notepad++ 8.7.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Nov 2024, for Notepad++ 8.7.2
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.1">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -958,6 +958,7 @@ Translation note:
 					<Item id="6110" name="Destacar topo da aba ativa"/>
 					<Item id="6112" name="Mostrar o botão fechar em cada aba"/>
 					<Item id="6113" name="Fechar documento com duplo clique"/>
+					<Item id="6115" name="Habilitar recurso de fixar aba"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Multilinhas"/>
 					<Item id="6120" name="Vertical"/>
@@ -1217,7 +1218,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autocompletar">
-					<Item id="6115" name="Autoindentar"/>
 					<Item id="6807" name="Autocompletar"/>
 					<Item id="6808" name="Habilitar autocompletar para cada entrada"/>
 					<Item id="6809" name="Completar função"/>
@@ -1317,6 +1317,7 @@ Translation note:
 						<Element name="Sem ação para"/>
 						<Element name="Minimizar para"/>
 						<Element name="Fechar para"/>
+						<Element name="Minimizar / Fechar para"/>
 					</ComboBox>
 					<Item id="6308" name="bandeja"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
@@ -1720,9 +1721,9 @@ Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
-			<finder-copy-paths value="Copiar nome(s) de caminho(s)"/>
+			<finder-copy-paths value="Copiar caminho(s) selecionado(s)"/>
 			<finder-clear-all value="Limpar tudo"/>
-			<finder-open-all value="Abrir tudo"/>
+			<finder-open-all value="Abrir caminho(s) selecionado(s)"/>
 			<finder-purge-for-every-search value="Limpar a cada pesquisa"/>
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="OK"/>

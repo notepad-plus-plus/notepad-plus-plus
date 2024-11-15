@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-10"><!-- basiert auf english.xml 8.6.9 vom 09.11.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-15"><!-- basiert auf english.xml 8.6.9 vom 14.11.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1326,6 +1326,7 @@ Translation note:
 						<Element name="Keine Aktion in den"/>
 						<Element name="Minimieren in den"/>
 						<Element name="Schließen in den"/>
+						<Element name="Minimieren / Schließen in den"/>
 					</ComboBox>
 					<Item id="6308" name="Infobereich (Tray)"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
@@ -1728,9 +1729,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<finder-collapse-all value="Alles einklappen"/>
 			<finder-uncollapse-all value="Alles aufklappen"/>
 			<finder-copy value="Kopiere ausgewählte Zeile(n)"/>
-			<finder-copy-paths value="Pfadnamen kopieren"/>
+			<finder-copy-paths value="Gewählte(n) Pfadnamen kopieren"/>
 			<finder-clear-all value="Alles löschen"/>
-			<finder-open-all value="Alles öffnen"/>
+			<finder-open-all value="Gewählte(n) Pfadnamen öffnen"/>
 			<finder-purge-for-every-search value="Vor jeder Suche leeren"/>
 			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>

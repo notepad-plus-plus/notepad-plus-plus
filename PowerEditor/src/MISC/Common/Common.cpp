@@ -1778,7 +1778,7 @@ struct GetDiskFreeSpaceParamResult
 {
 	std::wstring _dirPath;
 	ULARGE_INTEGER _freeBytesForUser {};
-	DWORD _result = FALSE;
+	BOOL _result = FALSE;
 	bool _isTimeoutReached = true;
 
 	GetDiskFreeSpaceParamResult(wstring dirPath) : _dirPath(dirPath) {};
@@ -1792,7 +1792,7 @@ DWORD WINAPI getDiskFreeSpaceExWorker(void* data)
 	return ERROR_SUCCESS;
 };
 
-DWORD getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isTimeoutReached)
+BOOL getDiskFreeSpaceWithTimeout(const wchar_t* dirPath, ULARGE_INTEGER* freeBytesForUser, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	GetDiskFreeSpaceParamResult data(dirPath);
 
@@ -1833,7 +1833,7 @@ struct GetAttrExParamResult
 {
 	wstring _filePath;
 	WIN32_FILE_ATTRIBUTE_DATA _attributes{};
-	DWORD _result = FALSE;
+	BOOL _result = FALSE;
 	bool _isTimeoutReached = true;
 
 	GetAttrExParamResult(wstring filePath): _filePath(filePath) {
@@ -1849,7 +1849,7 @@ DWORD WINAPI getFileAttributesExWorker(void* data)
 	return ERROR_SUCCESS;
 };
 
-DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait, bool* isTimeoutReached)
+BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	GetAttrExParamResult data(filePath);
 

@@ -1886,6 +1886,7 @@ DWORD getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBU
 bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	getFileAttributesExWithTimeout(filePath, &attributes, milliSec2wait, isTimeoutReached);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 }
@@ -1893,6 +1894,7 @@ bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait, bool* isTimeout
 bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	getFileAttributesExWithTimeout(dirPath, &attributes, milliSec2wait, isTimeoutReached);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 }
@@ -1900,6 +1902,7 @@ bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait, bool* isTim
 bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReached)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	getFileAttributesExWithTimeout(path, &attributes, milliSec2wait, isTimeoutReached);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }

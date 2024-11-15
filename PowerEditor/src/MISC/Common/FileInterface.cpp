@@ -31,6 +31,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 		_path = converter.to_bytes(fn);
 
 		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
+		attributes_original.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 		DWORD dispParam = CREATE_ALWAYS;
 		bool fileExists = false;
 		bool isTimeoutReached = false;

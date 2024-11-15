@@ -14,7 +14,9 @@
 class CReadFileChanges
 {
 public:
-	CReadFileChanges() {};
+	CReadFileChanges() {
+		_lastFileInfo.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	};
 	~CReadFileChanges() {};
 	void AddFile(LPCTSTR szDirectory, DWORD dwNotifyFilter);
 	BOOL DetectChanges();
@@ -24,6 +26,5 @@ private:
 	LPCTSTR _szFile = nullptr;
 	DWORD _dwNotifyFilter = 0;
 	WIN32_FILE_ATTRIBUTE_DATA _lastFileInfo = {};
-
 };
 

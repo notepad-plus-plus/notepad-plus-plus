@@ -649,7 +649,7 @@ Translation note:
 					<Item id="2231" name="Stosuj kursywę globalnie"/>
 					<Item id="2232" name="Stosuj podkreślenie globalnie"/>
 					<Item id="2234" name="Przejdź do okna ustawień"/>
-					<!-- Don't translate "&quot;Global override&quot; -->
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Co to jest Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -969,6 +969,7 @@ Translation note:
 					<Item id="6110" name="Pokazuj kolorową belkę na aktywnej karcie"/>
 					<Item id="6112" name="Pokazuj przycisk zamknięcia na kartach"/>
 					<Item id="6113" name="Podwójne kliknięcie zamyka kartę"/>
+					<Item id="6115" name="Włącz funkcję przypinania kart"/>
 					<Item id="6118" name="Ukryty"/>
 					<Item id="6119" name="Wieloliniowy"/>
 					<Item id="6120" name="Pionowy"/>
@@ -1318,8 +1319,8 @@ Translation note:
 
 				<MISC title="Inne">
 					<ComboBox id="6347">
-						<Element name="Włącz"/>
-						<Element name="Włącz dla otwartych plików"/>
+						<Element name="Włącz dla bieżącego pliku"/>
+						<Element name="Włącz dla wszystkich plików"/>
 						<Element name="Wyłącz"/>
 					</ComboBox>
 					<ComboBox id="6307">
@@ -1728,9 +1729,9 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<finder-collapse-all value="Zwiń wszystko"/>
 			<finder-uncollapse-all value="Rozwiń wszystko"/>
 			<finder-copy value="Kopiuj zaznaczone linie"/>
-			<finder-copy-paths value="Kopiuj ścieżki"/>
+			<finder-copy-paths value="Kopiuj zaznaczone ścieżki"/>
 			<finder-clear-all value="Wyczyść wszystko"/>
-			<finder-open-all value="Otwórz wszystko"/>
+			<finder-open-all value="Otwórz zaznaczone ścieżki"/>
 			<finder-purge-for-every-search value="Opróżnij przed każdym wyszukiwaniem"/>
 			<finder-wrap-long-lines value="Zawijaj długie wiersze"/>
 			<common-ok value="OK"/>
@@ -1830,7 +1831,7 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
 
 Jeśli wybierzesz tryb zaawansowany, ale nie edytujesz plików w wymienionych językach, wcięcie pozostanie w trybie podstawowym."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Włączenie opcji w &quot;Global override&quot; spowoduje nadpisanie tego parametru we wszystkich stylach językowych. Prawdopodobnie chcesz użyć ustawień &quot;Default Style&quot; zamiast tego"/>
 		</MiscStrings>
 	</Native-Langue>

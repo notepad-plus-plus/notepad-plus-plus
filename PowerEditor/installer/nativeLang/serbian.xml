@@ -1317,6 +1317,7 @@
 						<Element name="Nema akcije za"/>
 						<Element name="Minimiziraj"/>
 						<Element name="Blizu"/>
+						<Element name="Minimiziraj / Blizu"/>
 					</ComboBox>
 					<Item id="6308" name="sistemska traka"/>
 					<Item id="6312" name="Samoprepoznavanje statusa datoteke"/>
@@ -1719,9 +1720,9 @@ Pronađi u svim datotekama, ali isključi sve foldere log ili logs rekurzivno:
 			<finder-collapse-all value="Sklopi sve"/>
 			<finder-uncollapse-all value="Rasklopi sve"/>
 			<finder-copy value="Kopiraj izabrane linije"/>
-			<finder-copy-paths value="Kopiraj nazive putanja"/>
+			<finder-copy-paths value="Kopiraj nazive izabranih putanja"/>
 			<finder-clear-all value="Ukloni sve"/>
-			<finder-open-all value="Otvori sve"/>
+			<finder-open-all value="Otvori izabrane putanje"/>
 			<finder-purge-for-every-search value="Posebno za svaku pretragu"/>
 			<finder-wrap-long-lines value="Prelomi reči dugačkih linija"/>
 			<common-ok value="OK"/>

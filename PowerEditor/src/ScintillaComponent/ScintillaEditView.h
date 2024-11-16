@@ -476,8 +476,8 @@ public:
 	intptr_t replaceTargetRegExMode(const wchar_t * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	void showAutoComletion(size_t lenEntered, const wchar_t * list);
 	void showCallTip(size_t startPos, const wchar_t * def);
-	std::wstring getLine(size_t lineNumber);
-	void getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen);
+	std::wstring getLine(size_t lineNumber) const;
+	void getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen) const;
 	void addText(size_t length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();

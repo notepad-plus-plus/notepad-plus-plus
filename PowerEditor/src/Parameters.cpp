@@ -5037,6 +5037,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						_nppGUI._isMinimizedToTray = sta_minimize;
 					else if (lstrcmp(val, L"2") == 0)
 						_nppGUI._isMinimizedToTray = sta_close;
+					else if (lstrcmp(val, L"3") == 0)
+						_nppGUI._isMinimizedToTray = sta_minimize_close;
 				}
 			}
 		}

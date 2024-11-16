@@ -1008,7 +1008,7 @@ bool WordStyleDlg::goToSection(const wchar_t* sectionNames)
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, i, 0);
 	setVisualFromStyleList();
 
-	getFocus();
+	grabFocus();
 
 	return true;
 }

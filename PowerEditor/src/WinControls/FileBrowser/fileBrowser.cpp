@@ -449,7 +449,7 @@ bool FileBrowser::selectItemFromPath(const wstring& itemPath) const
 			if (foundItem)
 			{
 				_treeView.selectItem(foundItem);
-				_treeView.getFocus();
+				_treeView.grabFocus();
 				return true;
 			}
 		}

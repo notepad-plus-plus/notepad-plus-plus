@@ -1322,7 +1322,8 @@ Translation note:
 					<ComboBox id="6307">
 						<Element name="格納しない"/>
 						<Element name="最小化時に"/>
-						<Element name="閉じるときに"/>
+						<Element name="終了時に"/>
+						<Element name="最小化/終了時に"/>
 					</ComboBox>
 					<Item id="6308" name="タスクトレイへ格納"/>
 					<Item id="6312" name="ファイルの状態監視"/>
@@ -1721,9 +1722,9 @@ OKボタンを押すと検索ダイアログが開きます。
 			<finder-collapse-all value="すべて畳む"/>
 			<finder-uncollapse-all value="すべて展開する"/>
 			<finder-copy value="選択行をコピー"/>
-			<finder-copy-paths value="すべてのパスをコピー"/>
+			<finder-copy-paths value="選択行のパスをコピー"/>
 			<finder-clear-all value="すべてクリア"/>
-			<finder-open-all value="すべて開く"/>
+			<finder-open-all value="選択行を開く"/>
 			<finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
 			<finder-wrap-long-lines value="長い行を折り返す"/>
 			<common-ok value="OK"/>

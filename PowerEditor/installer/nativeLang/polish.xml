@@ -1319,8 +1319,8 @@ Translation note:
 
 				<MISC title="Inne">
 					<ComboBox id="6347">
-						<Element name="Włącz"/>
-						<Element name="Włącz dla otwartych plików"/>
+						<Element name="Włącz dla bieżącego pliku"/>
+						<Element name="Włącz dla wszystkich plików"/>
 						<Element name="Wyłącz"/>
 					</ComboBox>
 					<ComboBox id="6307">

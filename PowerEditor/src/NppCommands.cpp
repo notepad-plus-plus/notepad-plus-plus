@@ -895,7 +895,7 @@ void Notepad_plus::command(int id)
 		{
 			if (_pDocumentListPanel && _pDocumentListPanel->isVisible())
 			{
-				_pDocumentListPanel->getFocus();
+				_pDocumentListPanel->grabFocus();
 			}
 			else
 			{
@@ -1035,7 +1035,7 @@ void Notepad_plus::command(int id)
 		{
 			if (_pFuncList && _pFuncList->isVisible())
 			{
-				_pFuncList->getFocus();
+				_pFuncList->grabFocus();
 			}
 			else
 			{

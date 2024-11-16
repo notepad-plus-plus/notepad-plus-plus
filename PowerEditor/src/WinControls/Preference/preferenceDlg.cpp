@@ -104,7 +104,7 @@ bool PreferenceDlg::goToSection(size_t iPage, intptr_t ctrlID)
 {
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SETCURSEL, iPage, 0);
 	showDialogByIndex(iPage);
-	getFocus();
+	grabFocus();
 
 	if (ctrlID != -1)
 	{
@@ -2047,7 +2047,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 
 				NppDarkMode::refreshDarkMode(_hSelf, forceRefresh);
-				getFocus(); // to make black mode title bar appear
+				grabFocus(); // to make black mode title bar appear
 				return TRUE;
 			}
 

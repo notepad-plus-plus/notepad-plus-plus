@@ -577,10 +577,15 @@ bool Finder::notify(SCNotification *notification)
 		case SCN_PAINTED :
 			if (isDoubleClicked)
 			{
-				(*_ppEditView)->getFocus();
+				(*_ppEditView)->grabFocus();
 				isDoubleClicked = false;
 			}
 			break;
+
+		case SCN_UPDATEUI:
+			::SendMessage(_hParent, NPPM_INTERNAL_CHECKUNDOREDOSTATE, 0, 0);
+			break;
+
 	}
 	return false;
 }
@@ -2352,7 +2357,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
-						getFocus();
+						grabFocus();
 					}
 				}
 				return TRUE;
@@ -2401,7 +2406,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (isMacroRecording)
 							saveInMacro(wParam, FR_OP_FIND);
 						
-						getFocus();
+						grabFocus();
 					}
 				}
 				return TRUE;
@@ -2451,7 +2456,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
 						
-						getFocus();
+						grabFocus();
 					}
 				}
 				return TRUE;
@@ -2874,7 +2879,7 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
 				{
-					(*_ppEditView)->getFocus();
+					(*_ppEditView)->grabFocus();
 				}
 				else
 				{
@@ -3676,7 +3681,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		{
 			// Show finder
 			_pFinder->display();
-			getFocus(); // no hits
+			grabFocus(); // no hits
 		}
 	}
 	else // error - search folder doesn't exist
@@ -3776,7 +3781,7 @@ Finder * FindReplaceDlg::createFinder()
 
 	// Show finder
 	pFinder->display();
-	pFinder->_scintView.getFocus();
+	pFinder->_scintView.grabFocus();
 
 	return pFinder;
 }
@@ -5905,7 +5910,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			{
 				case IDCANCEL :
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
-					(*(_pFRDlg->_ppEditView))->getFocus();
+					(*(_pFRDlg->_ppEditView))->grabFocus();
 					display(false);
 					return TRUE;
 

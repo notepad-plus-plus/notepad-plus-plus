@@ -2257,7 +2257,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam != WA_INACTIVE && _pEditView && _pNonEditView)
 			{
-				_pEditView->getFocus();
+				_pEditView->grabFocus();
 				auto x = _pEditView->execute(SCI_GETXOFFSET);
 				_pEditView->execute(SCI_SETXOFFSET, x);
 				x = _pNonEditView->execute(SCI_GETXOFFSET);
@@ -2880,7 +2880,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				//case WM_LBUTTONDBLCLK:
 				case WM_LBUTTONUP :
 				{
-					_pEditView->getFocus();
+					_pEditView->grabFocus();
 					::ShowWindow(hwnd, SW_SHOW);
 					_dockingManager.showFloatingContainers(true);
 					restoreMinimizeDialogs();

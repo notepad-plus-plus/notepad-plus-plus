@@ -118,7 +118,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					notification.nmhdr.idFrom = ::GetDlgCtrlID(_hSelf);
 					::SendMessage(_hParent, WM_NOTIFY, LINKTRIGGERED, reinterpret_cast<LPARAM>(&notification));
 
-                    (*_ppEditView)->getFocus();
+                    (*_ppEditView)->grabFocus();
                     return TRUE;
                 }
 

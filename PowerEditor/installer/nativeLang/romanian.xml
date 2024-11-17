@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.7.1
--    Ultima modificare a fost făcută 20 octombrie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.7.2
+-    Ultima modificare a fost făcută 17 noiembrie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.1">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -26,8 +26,8 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Deschidere a folderului gazdă"/>
-                    <Item subMenuId="file-closeMore" name="Închiderea &amp;mai multor documente"/>
+                    <Item subMenuId="file-openFolder" name="Deschide folderul gazdă"/>
+                    <Item subMenuId="file-closeMore" name="Închide &amp;mai multe documente"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Fișiere recente"/>
                     <Item subMenuId="edit-insert" name="Inserare"/>					
                     <Item subMenuId="edit-copyToClipboard"  name="Copiere în clipboard"/>
@@ -91,26 +91,26 @@
                     <Item id="41020" name="cmd"/>
                     <Item id="41025" name="Folder ca spațiu de lucru"/>
                     <Item id="41003" name="În&amp;chidere"/>
-                    <Item id="41004" name="Închi&amp;dere toate"/>
+                    <Item id="41004" name="Închi&amp;de-le pe toate"/>
                     <Item id="41005" name="Închide-le pe toate fără documentul curent"/>
                     <Item id="41009" name="Închide-le pe toate dinspre stânga"/>
                     <Item id="41018" name="Închide-le pe toate dinspre dreapta"/>
                     <Item id="41024" name="Închide-le pe cele nemodificate"/>
                     <Item id="41006" name="&amp;Salvare"/>
-                    <Item id="41007" name="Salvar&amp;e toate"/>
+                    <Item id="41007" name="Salvea&amp;ză-le pe toate"/>
                     <Item id="41008" name="S&amp;alvare ca..."/>
                     <Item id="41010" name="Tipărire..."/>
                     <Item id="1001"  name="Tipărire acum"/>
                     <Item id="41011" name="I&amp;eșire"/>
                     <Item id="41012" name="Încărcare a sesiunii..."/>
                     <Item id="41013" name="Salvare a sesiunii..."/>
-                    <Item id="41014" name="&amp;Reîncărcare de pe disc"/>
+                    <Item id="41014" name="&amp;Reîncarcă de pe disc"/>
                     <Item id="41015" name="Salvează o copie ca..."/>
                     <Item id="41016" name="Ștergere"/>
                     <Item id="41017" name="Redenumire..."/>
-                    <Item id="41021" name="Restaurează fișiere închise recent"/>
+                    <Item id="41021" name="Restaurează fișierele închise recent"/>
                     <Item id="41022" name="Deschide un folder ca spațiu de lucru"/>
-                    <Item id="41023" name="Deschidere în vizualizatorul implicit"/>
+                    <Item id="41023" name="Deschide-l în vizualizatorul implicit"/>
                     <Item id="42001" name="Dec&amp;upare"/>
                     <Item id="42002" name="&amp;Copiere"/>
                     <Item id="42003" name="A&amp;nulare"/>
@@ -383,13 +383,13 @@
                     <Item id="50002" name="Sugestii de parametri pentru funcții"/>
                     <Item id="50010" name="Sugestia precedentă a parametrilor funcției"/>
                     <Item id="50011" name="Sugestia următoare a parametrilor funcției"/>
-                    <Item id="50005" name="Comutarea înregistrării macro"/>
-                    <Item id="50006" name="Completare a căilor"/>
+                    <Item id="50005" name="Comută înregistrarea macro-ului"/>
+                    <Item id="50006" name="Completează căile"/>
                     <Item id="44042" name="Ascundere a liniilor"/>
-                    <Item id="42040" name="Deschidere a tuturor fișierelor recente"/>
-                    <Item id="42041" name="Golire a listei de fișiere recente"/>
-                    <Item id="48016" name="Modificare scurtătură/Ștergere macro..."/>
-                    <Item id="48017" name="Modificare scurtătură/Ștergere comandă..."/>
+                    <Item id="42040" name="Deschide toate fișierele recente"/>
+                    <Item id="42041" name="Golește lista de fișiere recente"/>
+                    <Item id="48016" name="Modifică scurtătura/Șterge macro-ul..."/>
+                    <Item id="48017" name="Modifică scurtătura/Ștergere comanda..."/>
 					
                     <Item id="11001" name="&amp;Ferestre..."/>
                     <Item id="11002" name="Numele de la A la Z"/>
@@ -1192,8 +1192,8 @@
                     <Item id="6909" name="Selectare cuvântului sub semnul de omisiune când nimic nu e selectat"/>
                 </Searching>
 
-                <RecentFilesHistory title="Istoric fișiere recente">
-                    <Item id="6304" name="Istoric fișiere recente"/>
+                <RecentFilesHistory title="Istoricul fișierelor recente">
+                    <Item id="6304" name="Istoricul fișierelor recente"/>
                     <Item id="6306" name="Număr maxim intrări:"/>
                     <Item id="6305" name="Nu verifica la pornire"/>
                     <Item id="6429" name="Afișare"/>
@@ -1320,6 +1320,7 @@
 						<Element name="Nicio acțiune în"/>
 						<Element name="Minimizează în"/>
 						<Element name="Închide în"/>
+						<Element name="Minimizează / Închide to"/>
 					</ComboBox>
 					<Item id="6308" name="bara de sistem"/>
 					<Item id="6362" name="Închide în bara de sistem"/>
@@ -1727,13 +1728,13 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <find-status-scope-backward value="de la începutul fișierului la semnul de omisiune"/>
             <find-status-scope-forward value="de la semnul de omisiune la sfârșitul fișierului"/>
             <finder-find-in-finder value="Căutare în rezultatele găsite..."/>
-            <finder-close-this value="Închidere căutător"/>
+            <finder-close-this value="Închide căutătorul"/>
             <finder-collapse-all value="Restrânge toate"/>
             <finder-uncollapse-all value="Extinde toate"/>
             <finder-copy value="Copiere"/>
-			<finder-copy-paths value="Copiază numele căii(căilor)"/>
-            <finder-clear-all value="Golire toate"/>
-            <finder-open-all value="Deschidere toate"/>
+			<finder-copy-paths value="Copiază numele căii(căilor) selectat(e)"/>
+            <finder-clear-all value="Golește-le toate"/>
+            <finder-open-all value="Deschide-le toate"/>
 			<finder-purge-for-every-search value="Curăță pentru fiecare căutare"/>
 			<finder-wrap-long-lines value="Limitarea lungimii liniilor pentru cuvintele lungi"/>
             <common-ok value="OK"/>
@@ -1744,10 +1745,10 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<splitter-rotate-left value="Rotire la stânga"/>
 			<splitter-rotate-right value="Rotire la dreapta"/>
             <recent-file-history-maxfile value="Maxim fişiere: "/>
-            <language-tabsize value="Mărime filă: "/>
-            <userdefined-title-new value="Creare limbaj nou..."/>
-            <userdefined-title-save value="Salvare limbaj curent ca..."/>
-            <userdefined-title-rename value="Redenumire limbaj curent"/>
+            <language-tabsize value="Mărimea filei: "/>
+            <userdefined-title-new value="Crează limbaj nou..."/>
+            <userdefined-title-save value="Salvează limbajul curent ca..."/>
+            <userdefined-title-rename value="Redenumește limbajul curent"/>
             <autocomplete-nb-char value="Nr. car.: "/>
             <edit-verticaledge-nb-col value="Nr. coloane:"/>
 			
@@ -1833,7 +1834,7 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell și JSON.
 
 Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate mai sus, indentarea va rămâne în modul de bază."/>
-			<!-- Nu tradu "&quot;Global override&quot; și &quot;Default Style&quot; -->
+			<!-- Nu tradu Global override și Default Style -->
 			<global-override-tip value="Activând aici &quot;Global override&quot; se va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb, setările &quot;Default Style&quot;"/>
         </MiscStrings>
     </Native-Langue>

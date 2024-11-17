@@ -703,28 +703,32 @@ vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 		toLine = _scintView.execute(SCI_GETLINECOUNT) - 1;
 	}
 
+	size_t len = _pMainFoundInfos->size();  // First, get the number of elements in the container
 	for (size_t line = fromLine; line <= toLine; ++line)
 	{
+		bool found = false;  // Was it found?
 		const int lineFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
 		if (lineFoldLevel == fileHeaderLevel)
 		{
-			wstring lineStr = _scintView.getLine(line);
-
-			// fileHeaderLevel line format examples:
-			// spacespaceD:\folder\file.ext (2 hits)
-			// spacespacenew 1 (1 hit)
-			const size_t startIndex = 2;  // for number of leading spaces
-			auto endIndex = lineStr.find_last_of(L'(');
-			--endIndex;  // adjust for space in front of (
-			wstring path = lineStr.substr(startIndex, endIndex - startIndex);
-
-			// make sure that path is not already in before adding
-			if (std::find(paths.begin(), paths.end(), path) == paths.end())
+			line++;  // Move to the next line
+			if (line < len)
+				found = true;  // Found it
+		}
+		else if (lineFoldLevel == resultLevel)
+		{
+			if (line < len)
+				found = true;  // Found it
+		}
+		if (found)
+		{
+			wstring& path = (*_pMainFoundInfos)[line]._fullPath;  // Get the path from the container
+			if (path.find('\\') != std::wstring::npos && std::find(paths.begin(), paths.end(), path) == paths.end())  // Contains a path separator and does not exist in the container
 			{
 				paths.push_back(path);
 			}
 		}
 	}
+
 
 	return paths;
 }
@@ -5736,12 +5740,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				wstring copyLines = pNativeSpeaker->getLocalizedStrFromID("finder-copy", L"Copy Selected Line(s)");
 				wstring copyVerbatim = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_COPY, L"Copy", true);
 				copyVerbatim += L"\tCtrl+C";
-				wstring copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", L"Copy Selected Pathname(s)");
+				wstring copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-selected-paths", L"Copy Selected Pathname(s)");
 				wstring selectAll = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_SELECTALL, L"Select all", true);
 				selectAll += L"\tCtrl+A";
 				wstring clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", L"Clear all");
 				wstring purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", L"Purge for every search");
-				wstring openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", L"Open Selected Pathname(s)");
+				wstring openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-selected-paths", L"Open Selected Pathname(s)");
 				wstring wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", L"Word wrap long lines");
 
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, findInFinder));

@@ -1720,9 +1720,9 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<finder-collapse-all value="Minimera alla"/>
 			<finder-uncollapse-all value="Expandera alla"/>
 			<finder-copy value="Kopiera markerad(e) rad(er)"/>
-			<finder-copy-paths value="Kopiera markerad(e) sökväg(ar)"/>
+			<finder-copy-selected-paths value="Kopiera markerad(e) sökväg(ar)"/>
 			<finder-clear-all value="Rensa alla"/>
-			<finder-open-all value="Öppna markerad(e) sökväg(ar)"/>
+			<finder-open-selected-paths value="Öppna markerad(e) sökväg(ar)"/>
 			<finder-purge-for-every-search value="Rensa efter varje sökning"/>
 			<finder-wrap-long-lines value="Radbryt långa rader"/>
 			<common-ok value="OK"/>

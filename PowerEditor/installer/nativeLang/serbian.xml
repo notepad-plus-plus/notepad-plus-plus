@@ -1720,9 +1720,9 @@ Pronađi u svim datotekama, ali isključi sve foldere log ili logs rekurzivno:
 			<finder-collapse-all value="Sklopi sve"/>
 			<finder-uncollapse-all value="Rasklopi sve"/>
 			<finder-copy value="Kopiraj izabrane linije"/>
-			<finder-copy-paths value="Kopiraj nazive izabranih putanja"/>
+			<finder-copy-selected-paths value="Kopiraj nazive izabranih putanja"/>
 			<finder-clear-all value="Ukloni sve"/>
-			<finder-open-all value="Otvori izabrane putanje"/>
+			<finder-open-selected-paths value="Otvori izabrane putanje"/>
 			<finder-purge-for-every-search value="Posebno za svaku pretragu"/>
 			<finder-wrap-long-lines value="Prelomi reči dugačkih linija"/>
 			<common-ok value="OK"/>

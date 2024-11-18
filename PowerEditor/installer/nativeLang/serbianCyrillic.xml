@@ -1721,9 +1721,9 @@ Notepad++ ће backup-овати старији &quot;shortcuts.xml&quot; и с�
 			<finder-collapse-all value="Склопи све"/>
 			<finder-uncollapse-all value="Расклопи све"/>
 			<finder-copy value="Копирај изабране линије"/>
-			<finder-copy-paths value="Копирај називе изабраних путања"/>
+			<finder-copy-selected-paths value="Копирај називе изабраних путања"/>
 			<finder-clear-all value="Уклони све"/>
-			<finder-open-all value="Отвори изабране путање"/>
+			<finder-open-selected-paths value="Отвори изабране путање"/>
 			<finder-purge-for-every-search value="Посебно за сваку претрагу"/>
 			<finder-wrap-long-lines value="Преломи речи дугачких линија"/>
 			<common-ok value="ОК"/>

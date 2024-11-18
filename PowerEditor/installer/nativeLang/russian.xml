@@ -1762,7 +1762,6 @@ Notepad++ сделает резервную копию вашего старог
 			<find-result-title-info-selections value="(найдено $INT_REPLACE1$ совпадений в $INT_REPLACE2$ выделениях из $INT_REPLACE3$)"/>
 			<find-result-title-info-extra value=" - Режим Фильтрации Строк: только отображает результаты фильтрования"/>
 			<find-result-hits value="(совпадений: $INT_REPLACE$)"/>
-			<find-result-hits-and-line-hits value="($INT_REPLACE1$ совпадений в $INT_REPLACE2$ строках)"/>
 			<find-regex-zero-length-match value="совпадение нулевой длины"/>
 			<session-save-folder-as-workspace value="Сохранить Папку как Проект"/>
 			<tab-untitled-string value="новый "/>

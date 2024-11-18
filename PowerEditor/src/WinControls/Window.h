@@ -29,61 +29,52 @@ public:
 	//@}
 
 
-	virtual void init(HINSTANCE hInst, HWND parent)
-	{
+	virtual void init(HINSTANCE hInst, HWND parent) {
 		_hInst = hInst;
 		_hParent = parent;
 	}
 
 	virtual void destroy() = 0;
 
-	virtual void display(bool toShow = true) const
-	{
+	virtual void display(bool toShow = true) const {
 		::ShowWindow(_hSelf, toShow ? SW_SHOW : SW_HIDE);
 	}
 
 
-	virtual void reSizeTo(RECT & rc) // should NEVER be const !!!
-	{
+	virtual void reSizeTo(RECT & rc) { // should NEVER be const !!!
 		::MoveWindow(_hSelf, rc.left, rc.top, rc.right, rc.bottom, TRUE);
 		redraw();
 	}
 
 
-	virtual void reSizeToWH(RECT& rc) // should NEVER be const !!!
-	{
+	virtual void reSizeToWH(RECT& rc) { // should NEVER be const !!!
 		::MoveWindow(_hSelf, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, TRUE);
 		redraw();
 	}
 
 
-	virtual void redraw(bool forceUpdate = false) const
-	{
+	virtual void redraw(bool forceUpdate = false) const {
 		::InvalidateRect(_hSelf, nullptr, TRUE);
 		if (forceUpdate)
 			::UpdateWindow(_hSelf);
 	}
 
 
-    virtual void getClientRect(RECT & rc) const
-	{
+    virtual void getClientRect(RECT & rc) const {
 		::GetClientRect(_hSelf, &rc);
 	}
 
-	virtual void getWindowRect(RECT & rc) const
-	{
+	virtual void getWindowRect(RECT & rc) const {
 		::GetWindowRect(_hSelf, &rc);
 	}
 
-	virtual int getWidth() const
-	{
+	virtual int getWidth() const {
 		RECT rc;
 		::GetClientRect(_hSelf, &rc);
 		return (rc.right - rc.left);
 	}
 
-	virtual int getHeight() const
-	{
+	virtual int getHeight() const {
 		RECT rc;
 		::GetClientRect(_hSelf, &rc);
 		if (::IsWindowVisible(_hSelf) == TRUE)
@@ -96,8 +87,7 @@ public:
     	return (::IsWindowVisible(_hSelf)?true:false);
 	}
 
-	HWND getHSelf() const
-	{
+	HWND getHSelf() const {
 		return _hSelf;
 	}
 
@@ -105,13 +95,11 @@ public:
 		return _hParent;
 	}
 
-	void getFocus() const {
+	void grabFocus() const {
 		::SetFocus(_hSelf);
 	}
 
-    HINSTANCE getHinst() const
-	{
-		//assert(_hInst != 0);
+    HINSTANCE getHinst() const {
 		return _hInst;
 	}
 

@@ -722,10 +722,7 @@ vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 		if (found)
 		{
 			wstring& path = (*_pMainFoundInfos)[line]._fullPath;  // Get the path from the container
-			if (path.find('\\') != std::wstring::npos && std::find(paths.begin(), paths.end(), path) == paths.end())  // Contains a path separator and does not exist in the container
-			{
-				paths.push_back(path);
-			}
+			paths.push_back(path);
 		}
 	}
 

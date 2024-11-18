@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.1">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1719,9 +1719,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<finder-collapse-all value="Zbaliť všetko"/>
 			<finder-uncollapse-all value="Rozbaliť všetko"/>
 			<finder-copy value="Kopírovať vybrané riadky"/>
-			<finder-copy-paths value="Kopírovať vybrané cesty k súborom"/>
+			<finder-copy-selected-paths value="Kopírovať vybrané cesty k súborom"/>
 			<finder-clear-all value="Vymazať všetko"/>
-			<finder-open-all value="Otvoriť vybrané cesty k súborom"/>
+			<finder-open-selected-paths value="Otvoriť vybrané cesty k súborom"/>
 			<finder-purge-for-every-search value="Vymazať pri každom hľadaní"/>
 			<finder-wrap-long-lines value="Zalamovať dlhé riadky"/>
 			<common-ok value="OK"/>

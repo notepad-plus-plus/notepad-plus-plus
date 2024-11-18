@@ -1844,7 +1844,7 @@ struct GetAttrExParamResult
 DWORD WINAPI getFileAttributesExWorker(void* data)
 {
 	GetAttrExParamResult* inAndOut = static_cast<GetAttrExParamResult*>(data);
-	inAndOut->_result = ::GetFileAttributesEx(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
+	inAndOut->_result = ::GetFileAttributesExW(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };

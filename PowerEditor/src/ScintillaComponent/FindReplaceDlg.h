@@ -352,8 +352,19 @@ public :
 		if (_pFinder) 
 		{
 			_pFinder->display();
-			_pFinder->_scintView.getFocus();
+			_pFinder->_scintView.grabFocus();
 		}
+	};
+
+	bool allowCopyAction() {
+		HWND focusedHwnd = GetFocus();
+		Finder* finder = getFinderFrom(focusedHwnd);
+
+		if (finder)
+		{
+			return finder->_scintView.hasSelection();
+		}
+		return false;
 	};
 
 	HWND getHFindResults() {

@@ -312,6 +312,8 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="STRINGRAW" styleID="20" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="999966" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="51" fgColor="CCCCCC" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="REGEX" styleID="52" fgColor="339999" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

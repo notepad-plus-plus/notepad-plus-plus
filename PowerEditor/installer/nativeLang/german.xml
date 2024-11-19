@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-15"><!-- basiert auf english.xml 8.6.9 vom 14.11.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-19"><!-- basiert auf english.xml 8.6.9 vom 18.11.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1729,9 +1729,9 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<finder-collapse-all value="Alles einklappen"/>
 			<finder-uncollapse-all value="Alles aufklappen"/>
 			<finder-copy value="Kopiere ausgewählte Zeile(n)"/>
-			<finder-copy-paths value="Gewählte(n) Pfadnamen kopieren"/>
+			<finder-copy-selected-paths value="Gewählte(n) Pfadnamen kopieren"/>
 			<finder-clear-all value="Alles löschen"/>
-			<finder-open-all value="Gewählte(n) Pfadnamen öffnen"/>
+			<finder-open-selected-paths value="Gewählte(n) Pfadnamen öffnen"/>
 			<finder-purge-for-every-search value="Vor jeder Suche leeren"/>
 			<finder-wrap-long-lines value="Zeilenumbruch bei langen Zeilen"/>
 			<common-ok value="OK"/>

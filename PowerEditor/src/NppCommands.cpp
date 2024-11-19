@@ -895,7 +895,7 @@ void Notepad_plus::command(int id)
 		{
 			if (_pDocumentListPanel && _pDocumentListPanel->isVisible())
 			{
-				_pDocumentListPanel->getFocus();
+				_pDocumentListPanel->grabFocus();
 			}
 			else
 			{
@@ -1035,7 +1035,7 @@ void Notepad_plus::command(int id)
 		{
 			if (_pFuncList && _pFuncList->isVisible())
 			{
-				_pFuncList->getFocus();
+				_pFuncList->grabFocus();
 			}
 			else
 			{
@@ -2239,146 +2239,6 @@ void Notepad_plus::command(int id)
 			_isFolding = false;
 			break;
 
-
-		case IDM_VIEW_TOOLBAR_REDUCE:
-		{
-            toolBarStatusType state = _toolBar.getState();
-
-            if (state != TB_SMALL)
-            {
-			    _toolBar.reduce();
-            }
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_ENLARGE:
-		{
-            toolBarStatusType state = _toolBar.getState();
-
-            if (state != TB_LARGE)
-            {
-			    _toolBar.enlarge();
-            }
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_REDUCE_SET2:
-		{
-			toolBarStatusType state = _toolBar.getState();
-
-			if (state != TB_SMALL2)
-			{
-				_toolBar.reduceToSet2();
-			}
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_ENLARGE_SET2:
-		{
-			toolBarStatusType state = _toolBar.getState();
-
-			if (state != TB_LARGE2)
-			{
-				_toolBar.enlargeToSet2();
-			}
-		}
-		break;
-
-		case IDM_VIEW_TOOLBAR_STANDARD:
-		{
-			toolBarStatusType state = _toolBar.getState();
-
-            if (state != TB_STANDARD)
-            {
-				_toolBar.setToBmpIcons();
-			}
-		}
-		break;
-
-		case IDM_VIEW_REDUCETABBAR:
-		{
-			bool isReduceed = TabBarPlus::isReduced();
-
-			//Resize the tab height
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
-			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
-			
-			TabCtrl_SetPadding(_mainDocTab.getHSelf(), _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
-			TabCtrl_SetPadding(_subDocTab.getHSelf(), _subDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
-
-			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-
-			//change the font
-			const auto& hf = _mainDocTab.getFont(isReduceed);
-			if (hf)
-			{
-				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-			}
-
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			break;
-		}
-
-		case IDM_VIEW_REFRESHTABAR :
-		{
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			break;
-		}
-        case IDM_VIEW_LOCKTABBAR:
-		{
-			bool isDrag = TabBarPlus::doDragNDropOrNot();
-            TabBarPlus::doDragNDrop(!isDrag);
-            break;
-		}
-
-
-		case IDM_VIEW_DRAWTABBAR_INACIVETAB:
-		{
-			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab(), &_mainDocTab);
-			break;
-		}
-		case IDM_VIEW_DRAWTABBAR_TOPBAR:
-		{
-			TabBarPlus::setDrawTopBar(!TabBarPlus::drawTopBar(), &_mainDocTab);
-			break;
-		}
-
-		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN:
-		{
-			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton(), &_mainDocTab);
-
-			// This part is just for updating (redraw) the tabs
-			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
-			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			break;
-		}
-
-		case IDM_VIEW_DRAWTABBAR_DBCLK2CLOSE :
-		{
-			TabBarPlus::setDbClk2Close(!TabBarPlus::isDbClk2Close());
-			break;
-		}
-
-		case IDM_VIEW_DRAWTABBAR_VERTICAL :
-		{
-			TabBarPlus::setVertical(!TabBarPlus::isVertical());
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			break;
-		}
-
-		case IDM_VIEW_DRAWTABBAR_MULTILINE :
-		{
-			TabBarPlus::setMultiLine(!TabBarPlus::isMultiLine());
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			break;
-		}
-
 		case IDM_VIEW_FULLSCREENTOGGLE:
 		{
 			if (!_beforeSpecialView._isDistractionFree)
@@ -3345,11 +3205,11 @@ void Notepad_plus::command(int id)
         }
 
         case IDM_VIEW_GOTO_START:
-			_pDocTab->currentTabToStart();
+			_pDocTab->tabToStart();
 			break;
 
         case IDM_VIEW_GOTO_END:
-			_pDocTab->currentTabToEnd();
+			_pDocTab->tabToEnd();
 			break;
 
         case IDM_VIEW_GOTO_ANOTHER_VIEW:
@@ -4115,79 +3975,6 @@ void Notepad_plus::command(int id)
 				if (lastOpened != BUFFER_INVALID)
 					switchToFile(lastOpened);
 			}
-		}
-		break;
-
-		case IDM_VIEW_LINENUMBER:
-		case IDM_VIEW_SYMBOLMARGIN:
-		{
-			int margin;
-			if (id == IDM_VIEW_LINENUMBER)
-				margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
-			else //if (id == IDM_VIEW_SYMBOLMARGIN)
-				margin = ScintillaEditView::_SC_MARGE_SYMBOL;
-
-			if (_mainEditView.hasMarginShowed(margin))
-			{
-				_mainEditView.showMargin(margin, false);
-				_subEditView.showMargin(margin, false);
-			}
-			else
-			{
-				_mainEditView.showMargin(margin);
-				_subEditView.showMargin(margin);
-			}
-		}
-		break;
-
-		case IDM_VIEW_FOLDERMAGIN_SIMPLE:
-		case IDM_VIEW_FOLDERMAGIN_ARROW:
-		case IDM_VIEW_FOLDERMAGIN_CIRCLE:
-		case IDM_VIEW_FOLDERMAGIN_BOX:
-		case IDM_VIEW_FOLDERMAGIN:
-		{
-			folderStyle fStyle = (id == IDM_VIEW_FOLDERMAGIN_SIMPLE) ? FOLDER_STYLE_SIMPLE : \
-				(id == IDM_VIEW_FOLDERMAGIN_ARROW) ? FOLDER_STYLE_ARROW : \
-				(id == IDM_VIEW_FOLDERMAGIN_CIRCLE) ? FOLDER_STYLE_CIRCLE : \
-				(id == IDM_VIEW_FOLDERMAGIN) ? FOLDER_STYLE_NONE : FOLDER_STYLE_BOX;
-
-			_mainEditView.setMakerStyle(fStyle);
-			_subEditView.setMakerStyle(fStyle);
-		}
-		break;
-
-		case IDM_VIEW_CURLINE_HILITING:
-		{
-			NppParameters& nppParams = NppParameters::getInstance();
-			const ScintillaViewParams& svp = nppParams.getSVP();
-
-			const COLORREF bgColour { nppParams.getCurLineHilitingColour() };
-			const LPARAM frameWidth { (svp._currentLineHiliteMode == LINEHILITE_FRAME) ? svp._currentLineFrameWidth : 0 };
-
-			if (svp._currentLineHiliteMode != LINEHILITE_NONE)
-			{
-				_mainEditView.setElementColour(SC_ELEMENT_CARET_LINE_BACK, bgColour);
-				_subEditView.setElementColour(SC_ELEMENT_CARET_LINE_BACK, bgColour);
-			}
-			else
-			{
-				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, 0);
-				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_CARET_LINE_BACK, 0);
-			}
-
-			_mainEditView.execute(SCI_SETCARETLINEFRAME, frameWidth);
-			_subEditView.execute(SCI_SETCARETLINEFRAME, frameWidth);
-		}
-		break;
-
-		case IDM_VIEW_LWDEF:
-		case IDM_VIEW_LWALIGN:
-		case IDM_VIEW_LWINDENT:
-		{
-			int mode = (id == IDM_VIEW_LWALIGN) ? SC_WRAPINDENT_SAME : \
-				(id == IDM_VIEW_LWINDENT) ? SC_WRAPINDENT_INDENT : SC_WRAPINDENT_FIXED;
-			_mainEditView.execute(SCI_SETWRAPINDENTMODE, mode);
-			_subEditView.execute(SCI_SETWRAPINDENTMODE, mode);
 		}
 		break;
 

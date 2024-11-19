@@ -1218,7 +1218,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="자동 완성">
-					<Item id="6115" name="자동 들여쓰기"/>
 					<Item id="6807" name="자동 완성"/>
 					<Item id="6808" name="각 입력에 자동 완성 사용"/>
 					<Item id="6809" name="함수 완성"/>

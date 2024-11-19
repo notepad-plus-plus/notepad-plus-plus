@@ -1133,7 +1133,6 @@ Updated to v8.2.1:
 					<Item id="6822" name="Арезервтә копиа амҩа:"/>
 				</Backup>
 				<AutoCompletion title="Автохыркәшара">
-					<Item id="6115" name="Авто-хьаҵ Ацәаҳәа Ҿыц аҟны"/>
 					<Item id="6807" name="Автохыркәшара"/>
 					<Item id="6808" name="Иаҿактәуп аҭагаларақәа рыцԥхьаӡа рзы автоматикала ахарҭәара"/>
 					<Item id="6809" name="Афункциақәа рхыркәшара"/>
@@ -1485,7 +1484,6 @@ Updated to v8.2.1:
 			<find-result-title-info-selections value="($INT_REPLACE1$ аиқәшәарақәа $INT_REPLACE2$ аҟны иалкаақәоу $INT_REPLACE3$ рҟынтәи)"/>
 			<find-result-title-info-extra value=" - Ацәаҳәақәа рФильтр Арежим: иаанарԥшуеит афильтрра алҵшәақәа мацара"/>
 			<find-result-hits value="(Аиқәшәарақәа $INT_REPLACE$)"/>
-			<find-result-hits-and-line-hits value="($INT_REPLACE1$ аиқәшәарақәа ацәаҳәақәа $INT_REPLACE2$ рҟны)"/>
 			<find-regex-zero-length-match value="ноль аура змоу аиқәшәара"/>
 			<session-save-folder-as-workspace value="Еиқәырхатәуп Акаталог Апроект ҳасабла"/>
 			<tab-untitled-string value="аҿыц "/>

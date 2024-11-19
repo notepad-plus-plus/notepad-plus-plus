@@ -1110,7 +1110,6 @@ Bạn có thể định nghĩa một vài mốc đánh dấu bằng cách sử d
 				</Backup>
 
 				<AutoCompletion title="Tự động hoàn thành">
-					<Item id="6115" name="Tự động thụt lề"/>
 					<Item id="6807" name="Tự động hoàn thành"/>
 					<Item id="6808" name="Bật tự động hoàn thành mỗi khi nhập"/>
 					<Item id="6809" name="Hoàn thành hàm"/>

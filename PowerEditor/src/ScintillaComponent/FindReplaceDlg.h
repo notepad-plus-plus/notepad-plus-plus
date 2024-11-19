@@ -143,7 +143,7 @@ public:
 	void gotoNextFoundResult(int direction);
 	std::pair<intptr_t, intptr_t> gotoFoundLine(size_t nOccurrence = 0); // value 0 means this argument is not used
 	void deleteResult();
-	std::vector<std::wstring> getResultFilePaths() const;
+	std::vector<std::wstring> getResultFilePaths(bool onlyInSelectedText) const;
 	bool canFind(const wchar_t *fileName, size_t lineNumber, size_t* indexToStartFrom) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
 	std::wstring getHitsString(int count) const;
@@ -352,8 +352,19 @@ public :
 		if (_pFinder) 
 		{
 			_pFinder->display();
-			_pFinder->_scintView.getFocus();
+			_pFinder->_scintView.grabFocus();
 		}
+	};
+
+	bool allowCopyAction() {
+		HWND focusedHwnd = GetFocus();
+		Finder* finder = getFinderFrom(focusedHwnd);
+
+		if (finder)
+		{
+			return finder->_scintView.hasSelection();
+		}
+		return false;
 	};
 
 	HWND getHFindResults() {

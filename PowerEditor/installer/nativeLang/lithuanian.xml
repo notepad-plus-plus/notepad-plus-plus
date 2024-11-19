@@ -827,7 +827,6 @@
 				</Backup>
 
 				<AutoCompletion title="Automatinis baigimas">
-					<Item id="6115" name="Automatinė įtrauka"/>
 					<Item id="6807" name="Automatinis baigimas"/>
 					<Item id="6808" name="Įgalinti automatinį baigimą"/>
 					<Item id="6809" name="Funkcijų baigimas"/>

@@ -1216,7 +1216,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Auto-Completion">
-					<Item id="6115" name="Auto-indent"/>
 					<Item id="6807" name="Auto-Completion"/>
 					<Item id="6808" name="Enable auto-completion on each input"/>
 					<Item id="6809" name="Function completion"/>
@@ -1316,6 +1315,7 @@ Translation note:
 						<Element name="No action to"/>
 						<Element name="Minimize to"/>
 						<Element name="Close to"/>
+						<Element name="Minimize / Close to"/>
 					</ComboBox>
 					<Item id="6308" name="system tray"/>
 					<Item id="6312" name="File Status Auto-Detection"/>
@@ -1718,9 +1718,9 @@ Find in all files but exclude all folders log or logs recursively:
 			<finder-collapse-all value="Fold all"/>
 			<finder-uncollapse-all value="Unfold all"/>
 			<finder-copy value="Copy Selected Line(s)"/>
-			<finder-copy-paths value="Copy Pathname(s)"/>
+			<finder-copy-selected-paths value="Copy Selected Pathname(s)"/>
 			<finder-clear-all value="Clear all"/>
-			<finder-open-all value="Open all"/>
+			<finder-open-selected-paths value="Open Selected Pathname(s)"/>
 			<finder-purge-for-every-search value="Purge for every search"/>
 			<finder-wrap-long-lines value="Word wrap long lines"/>
 			<common-ok value="OK"/>

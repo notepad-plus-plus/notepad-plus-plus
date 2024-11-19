@@ -1226,7 +1226,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autovervollständigung">
-					<Item id="6115" name="Automatische Einrückung"/>
 					<Item id="6807" name="Autovervollständigung"/>
 					<Item id="6808" name="Autovervollständigung aktivieren"/>
 					<Item id="6809" name="Funktionsvervollständigung"/>

@@ -35,7 +35,7 @@ public :
 		TabBarPlus::destroy();
 	};
 
-	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, unsigned char indexChoice);
+	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, unsigned char indexChoice, unsigned char buttonsStatus);
 
 	void createIconSets();
 

@@ -957,6 +957,7 @@ Translation note:
 					<Item id="6110" name="Barre colorée sur l’onglet actif"/>
 					<Item id="6112" name="Bouton de fermeture sur chaque onglet"/>
 					<Item id="6113" name="Fermer l’onglet par double clic"/>
+					<Item id="6115" name="Activer l’option épingler l’onglet"/>
 					<Item id="6118" name="Cacher"/>
 					<Item id="6119" name="Multiligne"/>
 					<Item id="6120" name="Verticale"/>
@@ -1214,7 +1215,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autocomplétion">
-					<Item id="6115" name="Indentation automatique"/>
 					<Item id="6807" name="Autocomplétion"/>
 					<Item id="6808" name="Activer la complétion automatique"/>
 					<Item id="6809" name="Complétion de fonction"/>

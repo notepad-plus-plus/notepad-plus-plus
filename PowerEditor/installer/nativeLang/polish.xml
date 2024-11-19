@@ -1227,7 +1227,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="Autouzupełnianie">
-					<Item id="6115" name="Autowcięcia"/>
 					<Item id="6807" name="Autouzupełnianie"/>
 					<Item id="6808" name="Włącz dla wszystkich:"/>
 					<Item id="6809" name="Funkcji"/>
@@ -1327,6 +1326,7 @@ Translation note:
 						<Element name="Bez akcji do"/>
 						<Element name="Minimalizuj do"/>
 						<Element name="Zamykaj do"/>
+						<Element name="Minimalizuj / Zamykaj do"/>
 					</ComboBox>
 					<Item id="6308" name="zasobnika systemowego"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>

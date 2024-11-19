@@ -1242,7 +1242,6 @@
 				</Backup>
 
 				<AutoCompletion title="自動完成">
-					<Item id="6115" name="自動縮排"/>
 					<Item id="6807" name="自動完成"/>
 					<Item id="6808" name="打每隻字都行自動完成"/>
 					<Item id="6809" name="函式自動完成"/>

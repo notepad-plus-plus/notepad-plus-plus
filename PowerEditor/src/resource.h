@@ -339,71 +339,86 @@
 
 #define IDC_MACRO_RECORDING 1408
 
-#define IDR_SAVEALL            1500
-#define IDR_CLOSEFILE          1501
-#define IDR_CLOSEALL           1502
-#define IDR_FIND               1503
-#define IDR_REPLACE            1504
-#define IDR_ZOOMIN             1505
-#define IDR_ZOOMOUT            1506
-#define IDR_WRAP               1507
-#define IDR_INVISIBLECHAR      1508
-#define IDR_INDENTGUIDE        1509
-#define IDR_SHOWPANNEL         1510
-#define IDR_STARTRECORD        1511
-#define IDR_STOPRECORD         1512
-#define IDR_PLAYRECORD         1513
-#define IDR_SAVERECORD         1514
-#define IDR_SYNCV              1515
-#define IDR_SYNCH              1516
-#define IDR_FILENEW            1517
-#define IDR_FILEOPEN           1518
-#define IDR_FILESAVE           1519
-#define IDR_PRINT              1520
-#define IDR_CUT                1521
-#define IDR_COPY               1522
-#define IDR_PASTE              1523
-#define IDR_UNDO               1524
-#define IDR_REDO               1525
-#define IDR_M_PLAYRECORD       1526
-#define IDR_DOCMAP             1527
-#define IDR_FUNC_LIST          1528
-#define IDR_FILEBROWSER        1529
-#define IDR_CLOSETAB           1530
-#define IDR_CLOSETAB_INACT     1531
-#define IDR_CLOSETAB_HOVER     1532
-#define IDR_CLOSETAB_PUSH      1533
-#define IDR_FUNC_LIST_ICO      1534
-#define IDR_DOCMAP_ICO         1535
-#define IDR_PROJECTPANEL_ICO   1536
-#define IDR_CLIPBOARDPANEL_ICO 1537
-#define IDR_ASCIIPANEL_ICO     1538
-#define IDR_DOCSWITCHER_ICO    1539
-#define IDR_FILEBROWSER_ICO    1540
-#define IDR_FILEMONITORING     1541
-#define IDR_CLOSETAB_DM        1542
-#define IDR_CLOSETAB_INACT_DM  1543
-#define IDR_CLOSETAB_HOVER_DM  1544
-#define IDR_CLOSETAB_PUSH_DM   1545
-#define IDR_DOCLIST            1546
-#define IDR_DOCLIST_ICO        1547
+#define IDR_SAVEALL                 1500
+#define IDR_CLOSEFILE               1501
+#define IDR_CLOSEALL                1502
+#define IDR_FIND                    1503
+#define IDR_REPLACE                 1504
+#define IDR_ZOOMIN                  1505
+#define IDR_ZOOMOUT                 1506
+#define IDR_WRAP                    1507
+#define IDR_INVISIBLECHAR           1508
+#define IDR_INDENTGUIDE             1509
+#define IDR_SHOWPANNEL              1510
+#define IDR_STARTRECORD             1511
+#define IDR_STOPRECORD              1512
+#define IDR_PLAYRECORD              1513
+#define IDR_SAVERECORD              1514
+#define IDR_SYNCV                   1515
+#define IDR_SYNCH                   1516
+#define IDR_FILENEW                 1517
+#define IDR_FILEOPEN                1518
+#define IDR_FILESAVE                1519
+#define IDR_PRINT                   1520
+#define IDR_CUT                     1521
+#define IDR_COPY                    1522
+#define IDR_PASTE                   1523
+#define IDR_UNDO                    1524
+#define IDR_REDO                    1525
+#define IDR_M_PLAYRECORD            1526
+#define IDR_DOCMAP                  1527
+#define IDR_FUNC_LIST               1528
+#define IDR_FILEBROWSER             1529
+#define IDR_CLOSETAB                1530
+#define IDR_CLOSETAB_INACT          1531
+#define IDR_CLOSETAB_HOVERIN        1532
+#define IDR_CLOSETAB_HOVERONTAB     1533
+#define IDR_CLOSETAB_PUSH           1534
+#define IDR_FUNC_LIST_ICO           1535
+#define IDR_DOCMAP_ICO              1536
+#define IDR_PROJECTPANEL_ICO        1537
+#define IDR_CLIPBOARDPANEL_ICO      1538
+#define IDR_ASCIIPANEL_ICO          1539
+#define IDR_DOCSWITCHER_ICO         1540
+#define IDR_FILEBROWSER_ICO         1541
+#define IDR_FILEMONITORING          1542
+#define IDR_CLOSETAB_DM             1543
+#define IDR_CLOSETAB_INACT_DM       1544
+#define IDR_CLOSETAB_HOVERIN_DM     1545
+#define IDR_CLOSETAB_HOVERONTAB_DM  1546
+#define IDR_CLOSETAB_PUSH_DM        1547
+#define IDR_DOCLIST                 1548
+#define IDR_DOCLIST_ICO             1549
 
-#define IDR_FILEBROWSER_ICO2      1550
-#define IDR_FILEBROWSER_ICO_DM    1551
-#define IDR_FUNC_LIST_ICO2        1552
-#define IDR_FUNC_LIST_ICO_DM      1553
-#define IDR_DOCMAP_ICO2           1554
-#define IDR_DOCMAP_ICO_DM         1555
-#define IDR_DOCLIST_ICO2          1556
-#define IDR_DOCLIST_ICO_DM        1557
-#define IDR_PROJECTPANEL_ICO2     1558
-#define IDR_PROJECTPANEL_ICO_DM   1559
-#define IDR_CLIPBOARDPANEL_ICO2   1560
-#define IDR_CLIPBOARDPANEL_ICO_DM 1561
-#define IDR_ASCIIPANEL_ICO2       1562
-#define IDR_ASCIIPANEL_ICO_DM     1563
-#define IDR_FIND_RESULT_ICO2      1564
-#define IDR_FIND_RESULT_ICO_DM    1565
+#define IDR_FILEBROWSER_ICO2        1550
+#define IDR_FILEBROWSER_ICO_DM      1551
+#define IDR_FUNC_LIST_ICO2          1552
+#define IDR_FUNC_LIST_ICO_DM        1553
+#define IDR_DOCMAP_ICO2             1554
+#define IDR_DOCMAP_ICO_DM           1555
+#define IDR_DOCLIST_ICO2            1556
+#define IDR_DOCLIST_ICO_DM          1557
+#define IDR_PROJECTPANEL_ICO2       1558
+#define IDR_PROJECTPANEL_ICO_DM     1559
+#define IDR_CLIPBOARDPANEL_ICO2     1560
+#define IDR_CLIPBOARDPANEL_ICO_DM   1561
+#define IDR_ASCIIPANEL_ICO2         1562
+#define IDR_ASCIIPANEL_ICO_DM       1563
+#define IDR_FIND_RESULT_ICO2        1564
+#define IDR_FIND_RESULT_ICO_DM      1565
+
+#define IDR_PINTAB                  1566
+#define IDR_PINTAB_INACT            1567
+#define IDR_PINTAB_HOVERIN          1568
+#define IDR_PINTAB_HOVERONTAB       1569
+#define IDR_PINTAB_PINNED           1570
+#define IDR_PINTAB_PINNEDHOVERIN    1571
+#define IDR_PINTAB_DM               1572
+#define IDR_PINTAB_INACT_DM         1573
+#define IDR_PINTAB_HOVERIN_DM       1574
+#define IDR_PINTAB_HOVERONTAB_DM    1575
+#define IDR_PINTAB_PINNED_DM        1576
+#define IDR_PINTAB_PINNEDHOVERIN_DM 1577
 
 #define ID_MACRO                           20000
 //                                     O     .
@@ -697,26 +712,38 @@
 	#define NPPM_INTERNAL_CHECKUNDOREDOSTATE            (NOTEPADPLUS_USER_INTERNAL + 77)
 	#define NPPM_INTERNAL_LINECUTCOPYWITHOUTSELECTION   (NOTEPADPLUS_USER_INTERNAL + 78)
 	#define NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL       (NOTEPADPLUS_USER_INTERNAL + 79)
+	#define NPPM_INTERNAL_DRAWTABBARPINBUTTON           (NOTEPADPLUS_USER_INTERNAL + 80)
+	#define NPPM_INTERNAL_DRAWTABBARCLOSEBUTTON         (NOTEPADPLUS_USER_INTERNAL + 81)
+	#define NPPM_INTERNAL_REFRESHTABAR                  (NOTEPADPLUS_USER_INTERNAL + 82)
+	#define NPPM_INTERNAL_REDUCETABBAR                  (NOTEPADPLUS_USER_INTERNAL + 83)
+	#define NPPM_INTERNAL_LOCKTABBAR                    (NOTEPADPLUS_USER_INTERNAL + 84)
+	#define NPPM_INTERNAL_DRAWINACIVETAB                (NOTEPADPLUS_USER_INTERNAL + 85)
+	#define NPPM_INTERNAL_DRAWTABTOPBAR                 (NOTEPADPLUS_USER_INTERNAL + 86)
+	#define NPPM_INTERNAL_TABDBCLK2CLOSE                (NOTEPADPLUS_USER_INTERNAL + 87)
+	#define NPPM_INTERNAL_VERTICALTABBAR                (NOTEPADPLUS_USER_INTERNAL + 88)
+	#define NPPM_INTERNAL_MULTILINETABBAR               (NOTEPADPLUS_USER_INTERNAL + 89)
+	#define NPPM_INTERNAL_TOOLBARREDUCE                 (NOTEPADPLUS_USER_INTERNAL + 90)
+	#define NPPM_INTERNAL_TOOLBARREDUCESET2             (NOTEPADPLUS_USER_INTERNAL + 91)
+	#define NPPM_INTERNAL_TOOLBARENLARGE                (NOTEPADPLUS_USER_INTERNAL + 92)
+	#define NPPM_INTERNAL_TOOLBARENLARGESET2            (NOTEPADPLUS_USER_INTERNAL + 93)
+	#define NPPM_INTERNAL_TOOLBARSTANDARD               (NOTEPADPLUS_USER_INTERNAL + 94)
+	#define NPPM_INTERNAL_LINENUMBER                    (NOTEPADPLUS_USER_INTERNAL + 95)
+	#define NPPM_INTERNAL_SYMBOLMARGIN                  (NOTEPADPLUS_USER_INTERNAL + 96)
+	#define NPPM_INTERNAL_HILITECURRENTLINE             (NOTEPADPLUS_USER_INTERNAL + 97)
+	#define NPPM_INTERNAL_FOLDSYMBOLSIMPLE              (NOTEPADPLUS_USER_INTERNAL + 98)
+	#define NPPM_INTERNAL_FOLDSYMBOLARROW               (NOTEPADPLUS_USER_INTERNAL + 99)
+	#define NPPM_INTERNAL_FOLDSYMBOLCIRCLE              (NOTEPADPLUS_USER_INTERNAL + 100)
+	#define NPPM_INTERNAL_FOLDSYMBOLBOX                 (NOTEPADPLUS_USER_INTERNAL + 101)
+	#define NPPM_INTERNAL_FOLDSYMBOLNONE                (NOTEPADPLUS_USER_INTERNAL + 102)
+	#define NPPM_INTERNAL_LWDEF                         (NOTEPADPLUS_USER_INTERNAL + 103)
+	#define NPPM_INTERNAL_LWALIGN                       (NOTEPADPLUS_USER_INTERNAL + 104)
+	#define NPPM_INTERNAL_LWINDENT                      (NOTEPADPLUS_USER_INTERNAL + 105)
+	#define NPPM_INTERNAL_CHECKDOCSTATUS                (NOTEPADPLUS_USER_INTERNAL + 106)
+
+
 
 // See Notepad_plus_msgs.h
-//#define NOTEPADPLUS_USER   (WM_USER + 1000)
-
-    //
-    // Used by Doc Monitor plugin
-    //
-	#define NPPM_INTERNAL_CHECKDOCSTATUS (NPPMSG + 53)
-    // VOID NPPM_CHECKDOCSTATUS(0, 0)
-    // check all opened documents status.
-    // If files are modified, then reloaod (with or without prompt, it depends on settings).
-    // if files are deleted, then prompt user to close the documents
-
-	#define NPPM_INTERNAL_ENABLECHECKDOCOPT (NPPMSG + 54)
-    // VOID NPPM_ENABLECHECKDOCOPT(OPT, 0)
-        // where OPT is :
-    	#define CHECKDOCOPT_NONE 0
-    	#define CHECKDOCOPT_UPDATESILENTLY 1
-    	#define CHECKDOCOPT_UPDATEGO2END 2
-
+//#define NPPMSG   (WM_USER + 1000)
 
 
 #define SCINTILLA_USER     (WM_USER + 2000)

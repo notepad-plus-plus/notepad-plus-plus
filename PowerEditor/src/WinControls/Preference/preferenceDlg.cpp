@@ -104,7 +104,7 @@ bool PreferenceDlg::goToSection(size_t iPage, intptr_t ctrlID)
 {
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SETCURSEL, iPage, 0);
 	showDialogByIndex(iPage);
-	getFocus();
+	grabFocus();
 
 	if (ctrlID != -1)
 	{
@@ -333,32 +333,32 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case TB_LARGE:
 				{
 					checkOrUncheckBtn(IDC_RADIO_BIGICON, BST_CHECKED);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGE, 0, 0);
 					break;
 				}
 				case TB_SMALL2:
 				{
 					checkOrUncheckBtn(IDC_RADIO_SMALLICON2, BST_CHECKED);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE_SET2, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCESET2, 0, 0);
 					break;
 				}
 				case TB_LARGE2:
 				{
 					checkOrUncheckBtn(IDC_RADIO_BIGICON2, BST_CHECKED);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE_SET2, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGESET2, 0, 0);
 					break;
 				}
 				case TB_STANDARD:
 				{
 					checkOrUncheckBtn(IDC_RADIO_STANDARD, BST_CHECKED);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARSTANDARD, 0, 0);
 					break;
 				}
 				//case TB_SMALL:
 				default:
 				{
 					checkOrUncheckBtn(IDC_RADIO_SMALLICON, BST_CHECKED);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCE, 0, 0);
 				}
 			}
 
@@ -610,6 +610,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ORANGE, BM_SETCHECK, tabBarStatus & TAB_DRAWTOPBAR, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DRAWINACTIVE, BM_SETCHECK, tabBarStatus & TAB_DRAWINACTIVETAB, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLETABCLOSE, BM_SETCHECK, tabBarStatus & TAB_CLOSEBUTTON, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLETABPIN, BM_SETCHECK, tabBarStatus & TAB_PINBUTTON, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DBCLICK2CLOSE, BM_SETCHECK, tabBarStatus & TAB_DBCLK2CLOSE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_VERTICAL, BM_SETCHECK, tabBarStatus & TAB_VERTICAL, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_MULTILINE, BM_SETCHECK, tabBarStatus & TAB_MULTILINE, 0);
@@ -699,6 +700,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ORANGE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DRAWINACTIVE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLETABCLOSE), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLETABPIN), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DBCLICK2CLOSE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_LAST_EXIT), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_ALTICONS), !toBeHidden);
@@ -708,11 +710,11 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				}
 				
 				case  IDC_CHECK_TAB_VERTICAL:
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_VERTICAL, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_VERTICALTABBAR, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_TAB_MULTILINE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_MULTILINETABBAR, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_TAB_LAST_EXIT:
@@ -737,28 +739,32 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					const bool isChecked = isCheckedOrNot(IDC_CHECK_REDUCE);
 					TabBarPlus::setReduced(isChecked);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_REDUCETABBAR, 0, 0);
 					return TRUE;
 				}
 
 				case IDC_CHECK_LOCK :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LOCKTABBAR, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LOCKTABBAR, 0, 0);
 					return TRUE;
 					
 				case IDC_CHECK_ORANGE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_TOPBAR, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWTABTOPBAR, 0, 0);
 					return TRUE;
 					
 				case IDC_CHECK_DRAWINACTIVE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_INACIVETAB, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWINACIVETAB, 0, 0);
 					return TRUE;
 					
 				case IDC_CHECK_ENABLETABCLOSE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWTABBARCLOSEBUTTON, 0, 0);
+					return TRUE;
+
+				case IDC_CHECK_ENABLETABPIN:
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWTABBARPINBUTTON, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_DBCLICK2CLOSE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_DBCLK2CLOSE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TABDBCLK2CLOSE, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_HIDE :
@@ -769,27 +775,27 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				return TRUE;
 					
 				case IDC_RADIO_SMALLICON :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCE, 0, 0);
 					NppDarkMode::setToolBarIconSet(0, NppDarkMode::isEnabled());
 					return TRUE;
 					
 				case IDC_RADIO_BIGICON :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGE, 0, 0);
 					NppDarkMode::setToolBarIconSet(1, NppDarkMode::isEnabled());
 					return TRUE;
 
 				case IDC_RADIO_SMALLICON2:
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE_SET2, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCESET2, 0, 0);
 					NppDarkMode::setToolBarIconSet(2, NppDarkMode::isEnabled());
 					return TRUE;
 
 				case IDC_RADIO_BIGICON2:
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_ENLARGE_SET2, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGESET2, 0, 0);
 					NppDarkMode::setToolBarIconSet(3, NppDarkMode::isEnabled());
 					return TRUE;
 
 				case IDC_RADIO_STANDARD :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARSTANDARD, 0, 0);
 					NppDarkMode::setToolBarIconSet(4, NppDarkMode::isEnabled());
 					return TRUE;
 
@@ -886,7 +892,7 @@ void EditingSubDlg::changeLineHiliteMode(bool enableSlider)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_CARETLINEFRAME_WIDTH_SLIDER), enableSlider);
 	redrawDlgItem(IDC_CARETLINEFRAME_WIDTH_STATIC);
 	redrawDlgItem(IDC_CARETLINEFRAME_WIDTH_DISPLAY);
-	::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
+	::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_HILITECURRENTLINE, 0, 0);
 }
 
 bool hasOnlyNumSpaceInClipboard()
@@ -1149,17 +1155,17 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_LWDEF:
 					svp._lineWrapMethod = LINEWRAP_DEFAULT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LWDEF, 0, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWALIGN:
 					svp._lineWrapMethod = LINEWRAP_ALIGNED;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LWALIGN, 0, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWINDENT:
 					svp._lineWrapMethod = LINEWRAP_INDENT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LWINDENT, 0, 0);
 					return TRUE;
 
 				default :
@@ -2041,7 +2047,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 
 				NppDarkMode::refreshDarkMode(_hSelf, forceRefresh);
-				getFocus(); // to make black mode title bar appear
+				grabFocus(); // to make black mode title bar appear
 				return TRUE;
 			}
 
@@ -2230,20 +2236,20 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 					svp._lineNumberMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_GETCHECK, 0, 0));
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DYNAMIC), svp._lineNumberMarginShow);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CONSTANT), svp._lineNumberMarginShow);
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINENUMBER, 0, 0);
 					return TRUE;
 				case IDC_RADIO_DYNAMIC:
 					svp._lineNumberMarginDynamicWidth = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_DYNAMIC, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINENUMBER, 0, 0);
 					return TRUE;
 				case IDC_RADIO_CONSTANT:
 					svp._lineNumberMarginDynamicWidth = !(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_CONSTANT, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_LINENUMBER, 0, 0);
 					return TRUE;
 				
 				case IDC_CHECK_BOOKMARKMARGE:
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SYMBOLMARGIN, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_CHANGHISTORYMARGIN:
@@ -2317,24 +2323,24 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 
 				case IDC_RADIO_SIMPLE:
 					svp._folderStyle = FOLDER_STYLE_SIMPLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_SIMPLE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLSIMPLE, 0, 0);
 					return TRUE;
 				case IDC_RADIO_ARROW:
 					svp._folderStyle = FOLDER_STYLE_ARROW;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_ARROW, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLARROW, 0, 0);
 					return TRUE;
 				case IDC_RADIO_CIRCLE:
 					svp._folderStyle = FOLDER_STYLE_CIRCLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_CIRCLE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLCIRCLE, 0, 0);
 					return TRUE;
 				case IDC_RADIO_BOX:
 					svp._folderStyle = FOLDER_STYLE_BOX;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLBOX, 0, 0);
 					return TRUE;
 					
 				case IDC_RADIO_FOLDMARGENONE:
 					svp._folderStyle = FOLDER_STYLE_NONE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_FOLDSYMBOLNONE, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_EDGEBGMODE:
@@ -2419,8 +2425,9 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"No action to"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize to"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Close to"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize / Close to"));
 
-			if (nppGUI._isMinimizedToTray < 0 || nppGUI._isMinimizedToTray > sta_close)
+			if (nppGUI._isMinimizedToTray < 0 || nppGUI._isMinimizedToTray > sta_minimize_close)
 				nppGUI._isMinimizedToTray = sta_none;
 
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_SETCURSEL, nppGUI._isMinimizedToTray, 0);

@@ -268,8 +268,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainDocTab.dpiManager().setDpiWithParent(hwnd);
 	_subDocTab.dpiManager().setDpiWithParent(hwnd);
 
-	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, indexDocTabIcon);
-	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, indexDocTabIcon);
+	unsigned char buttonsStatus = 0;
+	buttonsStatus |= (tabBarStatus & TAB_CLOSEBUTTON) ? 1 : 0;
+	buttonsStatus |= (tabBarStatus & TAB_PINBUTTON) ? 2 : 0;
+
+	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, indexDocTabIcon, buttonsStatus);
+	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, indexDocTabIcon, buttonsStatus);
 
 	_mainEditView.display();
 
@@ -405,6 +409,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabBarPlus::setDrawTopBar((tabBarStatus & TAB_DRAWTOPBAR) != 0, &_mainDocTab);
 	TabBarPlus::setDrawInactiveTab((tabBarStatus & TAB_DRAWINACTIVETAB) != 0, &_mainDocTab);
 	TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0, &_mainDocTab);
+	TabBarPlus::setDrawTabPinButton((tabBarStatus & TAB_PINBUTTON) != 0, &_mainDocTab);
 	TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
@@ -448,7 +453,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_dockingManager.init(_pPublicInterface->getHinst(), hwnd, &_pMainWindow);
 
-	if ((nppGUI._isMinimizedToTray == sta_minimize || nppGUI._isMinimizedToTray == sta_close) && _pTrayIco == nullptr)
+	if (nppGUI._isMinimizedToTray != sta_none && _pTrayIco == nullptr)
 	{
 		HICON icon = nullptr;
 		Notepad_plus_Window::loadTrayIcon(_pPublicInterface->getHinst(), &icon);
@@ -875,7 +880,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
 
-	_mainEditView.getFocus();
+	_mainEditView.grabFocus();
 
 	return TRUE;
 }
@@ -918,6 +923,7 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::drawInactiveTab() ? TAB_DRAWINACTIVETAB : 0) | \
 						(TabBarPlus::isReduced() ? TAB_REDUCE : 0) | \
 						(TabBarPlus::drawTabCloseButton() ? TAB_CLOSEBUTTON : 0) | \
+						(TabBarPlus::drawTabPinButton() ? TAB_PINBUTTON : 0) | \
 						(TabBarPlus::isDbClk2Close() ? TAB_DBCLK2CLOSE : 0) | \
 						(TabBarPlus::isVertical() ? TAB_VERTICAL : 0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE : 0) |\
@@ -2049,7 +2055,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
-	vector<wstring> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths();
+	vector<wstring> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths(false);
 
 	findInFolderInfo->_pDestFinder->beginNewFilesSearch();
 	findInFolderInfo->_pDestFinder->addSearchLine(findInFolderInfo->_findOption._str2Search.c_str());
@@ -2560,7 +2566,20 @@ void Notepad_plus::checkClipboard()
 	if (!NppParameters::getInstance().getSVP()._lineCopyCutWithoutSelection)
 	{
 		enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR);
-		enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);
+
+		if (hasSelection)
+		{
+			enableCommand(IDM_EDIT_COPY, true, MENU | TOOLBAR);
+		}
+		else if (_findReplaceDlg.allowCopyAction())
+		{
+			enableCommand(IDM_EDIT_COPY, false, TOOLBAR);
+			enableCommand(IDM_EDIT_COPY, true, MENU);
+		}
+		else
+		{
+			enableCommand(IDM_EDIT_COPY, false, MENU | TOOLBAR);
+		}
 	}
 	enableCommand(IDM_EDIT_PASTE, canPaste, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);
@@ -4746,7 +4765,7 @@ int Notepad_plus::switchEditViewTo(int gid)
 	if (currentView() == gid)
 	{
 		//make sure focus is ok, then leave
-		_pEditView->getFocus();	//set the focus
+		_pEditView->grabFocus();	//set the focus
 		return gid;
 	}
 
@@ -4762,7 +4781,7 @@ int Notepad_plus::switchEditViewTo(int gid)
 	std::swap(_pEditView, _pNonEditView);
 
 	_pEditView->beSwitched();
-    _pEditView->getFocus();	//set the focus
+    _pEditView->grabFocus();	//set the focus
 
 	if (_pDocMap)
 	{
@@ -4909,6 +4928,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//First put the doc in the other view if not present (if it is, activate it).
 	//Then if needed close in the original tab
 	BufferID current = _pEditView->getCurrentBufferID();
+	Buffer* buf = MainFileManager.getBufferByID(current);
+
 	int viewToGo = otherView();
 	int indexFound = _pNonDocTab->getIndexByBuffer(current);
 	if (indexFound != -1)	//activate it
@@ -4929,7 +4950,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		}
 
 		loadBufferIntoView(current, viewToGo);
-		Buffer *buf = MainFileManager.getBufferByID(current);
+		
 		_pEditView->saveCurrentPos();	//allow copying of position
 		buf->setPosition(buf->getPosition(_pEditView), _pNonEditView);
 		_pNonEditView->restoreCurrentPosPreStep();	//set position
@@ -4948,7 +4969,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//Close the document if we transfered the document instead of cloning it
 	if (mode == TransferMove)
 	{
-		Buffer *buf = MainFileManager.getBufferByID(current);
 		monitoringWasOn = buf->isMonitoringOn();
 
 		//just close the activate document, since thats the one we moved (no search)
@@ -4958,6 +4978,13 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//Activate the other view since thats where the document went
 	switchEditViewTo(viewToGo);
 
+	if (buf->isPinned())
+	{
+		buf->setPinned(false);
+		_pDocTab->tabToStart();
+		buf->setPinned(true);
+	}
+
 	if (monitoringWasOn)
 	{
 		command(IDM_VIEW_MONITORING);
@@ -4965,7 +4992,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 	if (_pDocumentListPanel != nullptr)
 	{
-		Buffer* buf = MainFileManager.getBufferByID(current);
 		_pDocumentListPanel->setItemColor(buf);
 	}
 }
@@ -5926,7 +5952,7 @@ void Notepad_plus::fullScreenToggle()
         int y = nppRect.top;
         ::MoveWindow(_restoreButton.getHSelf(), x, y, w, h, FALSE);
 
-        _pEditView->getFocus();
+        _pEditView->grabFocus();
 	}
 	else	//toggle fullscreen off
 	{
@@ -6060,7 +6086,7 @@ void Notepad_plus::postItToggle()
         int y = nppRect.top + 1;
         ::MoveWindow(_restoreButton.getHSelf(), x, y, w, h, FALSE);
 
-        _pEditView->getFocus();
+        _pEditView->grabFocus();
 	}
 	else	//PostIt enabled, disable it
 	{
@@ -6333,7 +6359,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			}
 
 			const wchar_t* langName = languageName.c_str();
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getUserReadOnly(), buf->isPinned(), buf->getPosition(editView), buf->getBackupFileName().c_str(), buf->getLastModifiedTimestamp(), buf->getMapPosition());
 
 			sfi._isMonitoring = buf->isMonitoringOn();
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
@@ -6676,7 +6702,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	if (mask & (BufferChangeDirty|BufferChangeFilename))
 	{
 		if (mask & BufferChangeFilename)
-			command(IDM_VIEW_REFRESHTABAR);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+
 		checkDocState();
 		setTitle();
 		wstring dir(buffer->getFullPathName());
@@ -7683,7 +7710,7 @@ void Notepad_plus::launchDocMap()
 	_pDocMap->wrapMap();
 	_pDocMap->display();
 
-	_pEditView->getFocus();
+	_pEditView->grabFocus();
 }
 
 

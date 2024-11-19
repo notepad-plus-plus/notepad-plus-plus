@@ -1222,7 +1222,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="自動補完">
-					<Item id="6115" name="自動インデント"/>
 					<Item id="6807" name="自動補完"/>
 					<Item id="6808" name="入力毎に補完を行う"/>
 					<Item id="6809" name="関数名補完"/>

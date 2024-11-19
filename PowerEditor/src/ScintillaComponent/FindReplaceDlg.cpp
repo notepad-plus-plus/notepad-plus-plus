@@ -577,10 +577,15 @@ bool Finder::notify(SCNotification *notification)
 		case SCN_PAINTED :
 			if (isDoubleClicked)
 			{
-				(*_ppEditView)->getFocus();
+				(*_ppEditView)->grabFocus();
 				isDoubleClicked = false;
 			}
 			break;
+
+		case SCN_UPDATEUI:
+			::SendMessage(_hParent, NPPM_INTERNAL_CHECKUNDOREDOSTATE, 0, 0);
+			break;
+
 	}
 	return false;
 }
@@ -682,24 +687,46 @@ void Finder::deleteResult()
 	assert(size_t(_scintView.execute(SCI_GETLINECOUNT)) == _pMainFoundInfos->size() + 1);
 }
 
-vector<wstring> Finder::getResultFilePaths() const
+vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 {
-	vector<wstring> paths;
-	size_t len = _pMainFoundInfos->size();
-	for (size_t i = 0; i < len; ++i)
-	{
-		// make sure that path is not already in
-		wstring & path2add = (*_pMainFoundInfos)[i]._fullPath;
-		bool found = path2add.empty();
-		for (size_t j = 0; j < paths.size() && !found; ++j)
-		{
-			if (paths[j] == path2add)
-				found = true;
+	std::vector<wstring> paths;
+	size_t fromLine = 0, toLine = 0;
 
-		}
-		if (!found)
-			paths.push_back(path2add);
+	if (onlyInSelectedText)
+	{
+		const pair<size_t, size_t> lineRange = _scintView.getSelectionLinesRange();
+		fromLine = lineRange.first;
+		toLine = lineRange.second;
 	}
+	else
+	{
+		toLine = _scintView.execute(SCI_GETLINECOUNT) - 1;
+	}
+
+	size_t len = _pMainFoundInfos->size();  // First, get the number of elements in the container
+	for (size_t line = fromLine; line <= toLine; ++line)
+	{
+		bool found = false;  // Was it found?
+		const int lineFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
+		if (lineFoldLevel == fileHeaderLevel)
+		{
+			line++;  // Move to the next line
+			if (line < len)
+				found = true;  // Found it
+		}
+		else if (lineFoldLevel == resultLevel)
+		{
+			if (line < len)
+				found = true;  // Found it
+		}
+		if (found)
+		{
+			wstring& path = (*_pMainFoundInfos)[line]._fullPath;  // Get the path from the container
+			paths.push_back(path);
+		}
+	}
+
+
 	return paths;
 }
 
@@ -2331,7 +2358,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
-						getFocus();
+						grabFocus();
 					}
 				}
 				return TRUE;
@@ -2380,7 +2407,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if (isMacroRecording)
 							saveInMacro(wParam, FR_OP_FIND);
 						
-						getFocus();
+						grabFocus();
 					}
 				}
 				return TRUE;
@@ -2430,7 +2457,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							setStatusbarMessage(result, FSMessage, reasonMsg);
 						}
 						
-						getFocus();
+						grabFocus();
 					}
 				}
 				return TRUE;
@@ -2853,7 +2880,7 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
 				{
-					(*_ppEditView)->getFocus();
+					(*_ppEditView)->grabFocus();
 				}
 				else
 				{
@@ -3655,7 +3682,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		{
 			// Show finder
 			_pFinder->display();
-			getFocus(); // no hits
+			grabFocus(); // no hits
 		}
 	}
 	else // error - search folder doesn't exist
@@ -3755,7 +3782,7 @@ Finder * FindReplaceDlg::createFinder()
 
 	// Show finder
 	pFinder->display();
-	pFinder->_scintView.getFocus();
+	pFinder->_scintView.grabFocus();
 
 	return pFinder;
 }
@@ -5350,7 +5377,7 @@ void Finder::removeAll()
 
 void Finder::openAll()
 {
-	for (auto&& path : getResultFilePaths())
+	for (auto&& path : getResultFilePaths(true))
 	{
 		::SendMessage(_hParent, WM_DOOPEN, 0, reinterpret_cast<LPARAM>(path.c_str()));
 	}
@@ -5359,7 +5386,7 @@ void Finder::openAll()
 void Finder::copyPathnames()
 {
 	wstring toClipboard;
-	for (auto&& path : getResultFilePaths())
+	for (auto&& path : getResultFilePaths(true))
 	{
 		toClipboard += path + L"\r\n";
 	}
@@ -5606,6 +5633,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 	{
 		case WM_COMMAND :
 		{
+			if (HIWORD(wParam) == SCEN_SETFOCUS)
+			{
+				::SendMessage(_hParent, NPPM_INTERNAL_CHECKUNDOREDOSTATE, 0, 0);
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case NPPM_INTERNAL_FINDINFINDERDLG:
@@ -5710,12 +5743,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				wstring copyLines = pNativeSpeaker->getLocalizedStrFromID("finder-copy", L"Copy Selected Line(s)");
 				wstring copyVerbatim = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_COPY, L"Copy", true);
 				copyVerbatim += L"\tCtrl+C";
-				wstring copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-paths", L"Copy Pathname(s)");
+				wstring copyPaths = pNativeSpeaker->getLocalizedStrFromID("finder-copy-selected-paths", L"Copy Selected Pathname(s)");
 				wstring selectAll = pNativeSpeaker->getNativeLangMenuString(IDM_EDIT_SELECTALL, L"Select all", true);
 				selectAll += L"\tCtrl+A";
 				wstring clearAll = pNativeSpeaker->getLocalizedStrFromID("finder-clear-all", L"Clear all");
 				wstring purgeForEverySearch = pNativeSpeaker->getLocalizedStrFromID("finder-purge-for-every-search", L"Purge for every search");
-				wstring openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-all", L"Open all");
+				wstring openAll = pNativeSpeaker->getLocalizedStrFromID("finder-open-selected-paths", L"Open Selected Pathname(s)");
 				wstring wrapLongLines = pNativeSpeaker->getLocalizedStrFromID("finder-wrap-long-lines", L"Word wrap long lines");
 
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, findInFinder));
@@ -5884,7 +5917,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			{
 				case IDCANCEL :
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
-					(*(_pFRDlg->_ppEditView))->getFocus();
+					(*(_pFRDlg->_ppEditView))->grabFocus();
 					display(false);
 					return TRUE;
 

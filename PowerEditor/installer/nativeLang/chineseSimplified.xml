@@ -1203,7 +1203,6 @@ Translation note:
 				</Backup>
 
 				<AutoCompletion title="自动补全">
-					<Item id="6115" name="自动缩进"/>
 					<Item id="6807" name="自动补全"/>
 					<Item id="6808" name="所有输入均启用自动补全"/>
 					<Item id="6809" name="函数自动补全"/>

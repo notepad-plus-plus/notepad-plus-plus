@@ -722,7 +722,6 @@
 				</Backup>
 
 				<AutoCompletion title="Auto-Completion">
-					<Item id="6115" name="অটো-ইন্ডেন্ট"/>
 					<Item id="6807" name="স্বয়ং সম্পূর্ণতা(Auto-Completion)"/>
 					<Item id="6808" name="প্রতিটি ইনপুট জন্য স্বয়ংক্রিয় সমাপ্তির সক্রিয়"/>
 					<Item id="6809" name="শেষ ফাংশন"/>

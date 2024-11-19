@@ -878,7 +878,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		if (buffID == BUFFER_INVALID && fileFullPath.length() > 0)
 			_lastRecentFileList.add(fileFullPath.c_str());
 	}
-	command(IDM_VIEW_REFRESHTABAR);
+	::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
 
 	if (NppParameters::getInstance().getNppGUI()._tabStatus & TAB_QUITONEMPTY)
 	{
@@ -1109,6 +1109,23 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 
 	doClose(bufferID, viewToClose, doDeleteBackup);
 	return true;
+}
+
+void Notepad_plus::unPinnedForAllBuffers()
+{
+	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+	{
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		buf->setPinned(false);
+	}
+
+	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+	{
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		Buffer* buf = MainFileManager.getBufferByID(id);
+		buf->setPinned(false);
+	}
 }
 
 bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
@@ -2407,6 +2424,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
 			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
+			buf->setPinned(session._mainViewFiles[i]._isPinned);
 
 			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty() && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
@@ -2539,6 +2557,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly);
+			buf->setPinned(session._subViewFiles[k]._isPinned);
 
 			if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty() && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
 				buf->setDirty(true);

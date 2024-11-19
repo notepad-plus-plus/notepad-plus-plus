@@ -910,13 +910,15 @@
 					<Item id="6130" name="Filled Fluent UI: 大圖示"/>
 					<Item id="6105" name="標準: : 小圖示"/>
 					<Item id="6106" name="頁籤列"/>
-					<Item id="6107" name="小型"/>
+					<Item id="6107" name="縮小"/>
+					<Item id="6128" name="替代圖示"/>
 					<Item id="6108" name="鎖定（禁止拖曳）"/>
 					<Item id="6109" name="非使用中的頁籤變暗"/>
 					<Item id="6110" name="使用中的頁籤加色條"/>
 					<Item id="6111" name="顯示狀態列"/>
 					<Item id="6112" name="在每個頁籤顯示關閉按鈕"/>
 					<Item id="6113" name="雙擊滑鼠關閉文件"/>
+					<Item id="6115" name="啟用固定標籤頁功能"/>
 					<Item id="6118" name="隱藏"/>
 					<Item id="6119" name="多行"/>
 					<Item id="6120" name="直式"/>
@@ -1169,7 +1171,6 @@
 				</Backup>
 
 				<AutoCompletion title="字詞自動完成功能">
-					<Item id="6115" name="自動縮排"/>
 					<Item id="6807" name="自動完成功能"/>
 					<Item id="6808" name="啟動自動完成功能"/>
 					<Item id="6809" name="函式"/>

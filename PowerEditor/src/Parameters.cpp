@@ -2440,7 +2440,12 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 					if (boolStrReadOnly)
 						isUserReadOnly = _wcsicmp(L"yes", boolStrReadOnly) == 0;
 
-					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, position, backupFilePath, fileModifiedTimestamp, mapPosition);
+					bool isPinned = false;
+					const wchar_t* boolStrPinned = (childNode->ToElement())->Attribute(L"tabPinned");
+					if (boolStrPinned)
+						isPinned = _wcsicmp(L"yes", boolStrPinned) == 0;
+
+					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, isPinned, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
 					const wchar_t* intStrTabColour = (childNode->ToElement())->Attribute(L"tabColourId");
 					if (intStrTabColour)
@@ -3675,6 +3680,7 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 				(fileNameNode->ToElement())->SetAttribute(L"originalFileLastModifTimestampHigh", static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
 				(fileNameNode->ToElement())->SetAttribute(L"tabColourId", static_cast<int32_t>(viewSessionFiles[i]._individualTabColour));
 				(fileNameNode->ToElement())->SetAttribute(L"RTL", viewSessionFiles[i]._isRTL ? L"yes" : L"no");
+				(fileNameNode->ToElement())->SetAttribute(L"tabPinned", viewSessionFiles[i]._isPinned ? L"yes" : L"no");
 
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(L"mapFirstVisibleDisplayLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));
@@ -4908,6 +4914,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					isFailed = true;
 			}
 
+			val = element->Attribute(L"pinButton");
+			if (val)
+			{
+				if (!lstrcmp(val, L"yes"))
+					_nppGUI._tabStatus |= TAB_PINBUTTON;
+				else if (!lstrcmp(val, L"no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
+
 			val = element->Attribute(L"doubleClick2Close");
 			if (val)
 			{
@@ -5020,6 +5037,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						_nppGUI._isMinimizedToTray = sta_minimize;
 					else if (lstrcmp(val, L"2") == 0)
 						_nppGUI._isMinimizedToTray = sta_close;
+					else if (lstrcmp(val, L"3") == 0)
+						_nppGUI._isMinimizedToTray = sta_minimize_close;
 				}
 			}
 		}
@@ -7242,6 +7261,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_CLOSEBUTTON) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"closeButton", pStr);
+
+		pStr = (_nppGUI._tabStatus & TAB_PINBUTTON) ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"pinButton", pStr);
 
 		pStr = (_nppGUI._tabStatus & TAB_DBCLK2CLOSE) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"doubleClick2Close", pStr);

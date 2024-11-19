@@ -1219,7 +1219,6 @@
 				</Backup>
 
 				<AutoCompletion title="Otomatik Tamamlama">
-					<Item id="6115" name="Otomatik olarak girinti bırak"/>
 					<Item id="6807" name="Otomatik Olarak Tamamla"/>
 					<Item id="6808" name="Yazarken otomatik tamamlamayı etkinleştir"/>
 					<Item id="6809" name="Fonksiyonu tamamla"/>

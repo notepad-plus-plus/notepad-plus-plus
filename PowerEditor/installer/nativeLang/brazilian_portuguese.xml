@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 17 Nov 2024, for Notepad++ 8.7.2
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Nov 2024, for Notepad++ 8.7.2
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -1552,7 +1552,8 @@ OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua
 Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco para ela.
 			
 Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
-			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->-->
+			<FileToLoadSizeCheckFailed title="A checagem de tamanho do arquivo a carregar falhou" message="Não é possível obter o tamanho do arquivo antes de carregá-lo!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

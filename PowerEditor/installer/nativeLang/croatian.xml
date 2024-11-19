@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 21 October 2024 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 18 November 2024 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.1">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -639,15 +639,15 @@
 					<Item id="2219" name="Zadane ključne riječi"/>
 					<Item id="2221" name="Korisnički određene ključne riječi"/>
 					<Item id="2225" name="Sintaksa:"/>
-					<Item id="2226" name="Uključi zadanu boju teksta za sve stilove"/>
-					<Item id="2227" name="Uključi zadanu boju pozadine za sve stilove"/>
-					<Item id="2228" name="Uključi zadani font za sve stilove"/>
-					<Item id="2229" name="Uključi zadanu veličinu fonta za sve stilove"/>
-					<Item id="2230" name="Uključi podebljani font kao zadano za sve stilove"/>
-					<Item id="2231" name="Uključi kurzivni font kao zadano za sve stilove"/>
-					<Item id="2232" name="Uključi podcrtani font kao zadano za sve stilove"/>
+					<Item id="2226" name="Obvezna boja teksta svih stilova"/>
+					<Item id="2227" name="Obvezna boja pozadine svih stilova"/>
+					<Item id="2228" name="Obvezni font za sve stilove"/>
+					<Item id="2229" name="Obvezna veličina fonta za sve stilove"/>
+					<Item id="2230" name="Obvezni podebljani font za sve stilove"/>
+					<Item id="2231" name="Obvezni kurzivni font za sve stilove"/>
+					<Item id="2232" name="Obvezni podcrtani font za sve stilove"/>
 					<Item id="2234" name="Idi na postavke"/>
-					<!-- Don't translate "&quot;Global override&quot; -->
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Što je Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -967,6 +967,7 @@
 					<Item id="6110" name="Vrh aktivnog jezička u boji"/>
 					<Item id="6112" name="Gumb za zatvaranje na svakom jezičku"/>
 					<Item id="6113" name="Zatvori karticu dvoklikom"/>
+					<Item id="6115" name="Omogući prikvačivanje kartica"/>
 					<Item id="6118" name="Sakrij"/>
 					<Item id="6119" name="U više redaka"/>
 					<Item id="6120" name="Okomito"/>
@@ -1330,6 +1331,7 @@
 						<Element name="Bez akcije u"/>
 						<Element name="Minimiziraj u"/>
 						<Element name="Zatvori u"/>
+						<Element name="Minimiziraj / Zatvori u"/>
 					</ComboBox>
 					<Item id="6308" name="sistemsku traku"/>
 					<Item id="6312" name="Automatsko prepoznavanje stanja datoteke"/>
@@ -1735,9 +1737,9 @@ Nađi u svim datotekama s izuzetkom svih mapa log ili logs rekurzivno:
 			<finder-collapse-all value="Smotaj sve"/>
 			<finder-uncollapse-all value="Razmotaj sve"/>
 			<finder-copy value="Kopiraj odabrani redak/odabrane retke"/>
-			<finder-copy-paths value="Kopiraj naziv puta/nazive putova"/>
+			<finder-copy-selected-paths value="Kopiraj odabrani naziv puta/nazive putova"/>
 			<finder-clear-all value="Očisti sve"/>
-			<finder-open-all value="Otvori sve"/>
+			<finder-open-selected-paths value="Otvori odabrani naziv puta/nazive putova"/>
 			<finder-purge-for-every-search value="Očisti za svako pretraživanje"/>
 			<finder-wrap-long-lines value="Prijelom dugih redaka"/>
 			<common-ok value="U redu"/>
@@ -1839,8 +1841,8 @@ Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
 
 Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezicima, uvlaka će ostati u osnovnom načinu."/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
-			<global-override-tip value="Omogućavanje &quot;Global override&quot; ovdje, nadjačat će taj parametar u svim stilovima jezika. Ono što vjerojatno stvarno želite, je koristiti postavke &quot;Default Style&quot; umjesto toga."/>
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="Omogućavanje &quot;Global override&quot; ovdje, nadjačat će taj parametar u svim stilovima sintaksi. Ono što vjerojatno stvarno želite, je koristiti postavke &quot;Default Style&quot; umjesto toga."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

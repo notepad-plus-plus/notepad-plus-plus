@@ -5633,6 +5633,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 	{
 		case WM_COMMAND :
 		{
+			if (HIWORD(wParam) == SCEN_SETFOCUS)
+			{
+				::SendMessage(_hParent, NPPM_INTERNAL_CHECKUNDOREDOSTATE, 0, 0);
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case NPPM_INTERNAL_FINDINFINDERDLG:

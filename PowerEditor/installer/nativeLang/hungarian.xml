@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac gmail pont com, stocki.r kukac gmail pont com -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation -->
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
-<!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.1 updated at 2024.11.19 -->
+<!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.2 updated at 2024.11.20 -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.1">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -245,20 +245,20 @@
 					<Item id="43035" name="&amp;3. stílusú kiemeléshez"/>
 					<Item id="43036" name="&amp;4. stílusú kiemeléshez"/>
 					<Item id="43037" name="&amp;5. stílusú kiemeléshez"/>
-					<Item id="43038" name="&amp;„Keresés”-sel kiemelt találathoz"/>
+					<Item id="43038" name="„&amp;Keresés”-sel kiemelt találathoz"/>
 					<Item id="43039" name="&amp;1. stílusú kiemeléshez"/>
 					<Item id="43040" name="&amp;2. stílusú kiemeléshez"/>
 					<Item id="43041" name="&amp;3. stílusú kiemeléshez"/>
 					<Item id="43042" name="&amp;4. stílusú kiemeléshez"/>
 					<Item id="43043" name="&amp;5. stílusú kiemeléshez"/>
-					<Item id="43044" name="&amp;„Keresés”-sel kiemelt találathoz"/>
+					<Item id="43044" name="„&amp;Keresés”-sel kiemelt találathoz"/>
 					<Item id="43055" name="&amp;1. stílussal kiemelteké"/>
 					<Item id="43056" name="&amp;2. stílussal kiemelteké"/>
 					<Item id="43057" name="&amp;3. stílussal kiemelteké"/>
 					<Item id="43058" name="&amp;4. stílussal kiemelteké"/>
 					<Item id="43059" name="&amp;5. stílussal kiemelteké"/>
 					<Item id="43060" name="&amp;Az összes, stílussal kiemelt másolása"/>
-					<Item id="43061" name="&amp;„Keresés”-sel kiemeltek másolása"/>
+					<Item id="43061" name="„&amp;Keresés”-sel kiemeltek másolása"/>
 					<Item id="43062" name="&amp;1. stílussal"/>
 					<Item id="43063" name="&amp;2. stílussal"/>
 					<Item id="43064" name="&amp;3. stílussal"/>

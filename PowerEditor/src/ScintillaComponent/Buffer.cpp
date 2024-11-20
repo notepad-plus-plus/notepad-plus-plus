@@ -142,7 +142,8 @@ void Buffer::updateTimeStamp()
 {
 	FILETIME timeStampLive {};
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
-	if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes) != FALSE)
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+	if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes))
 	{
 		timeStampLive = attributes.ftLastWriteTime;
 	}
@@ -260,6 +261,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		return false;
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	NppParameters& nppParam = NppParameters::getInstance();
 	bool fileExists = doesFileExist(_fullPathName.c_str());
 
@@ -311,7 +313,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 			isOK = true;
 		}
 	}
-	else if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes) != FALSE)
+	else if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes))
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
@@ -381,6 +383,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 void Buffer::reload()
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
 		_timeStamp = attributes.ftLastWriteTime;
@@ -395,6 +398,7 @@ int64_t Buffer::getFileLength() const
 		return -1;
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
 		LARGE_INTEGER size{};
@@ -428,6 +432,7 @@ wstring Buffer::getTimeString(FILETIME rawtime) const
 wstring Buffer::getFileTime(fileTimeType ftt) const
 {
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	if (GetFileAttributesEx(_currentStatus == DOC_UNNAMED ? _backupFileName.c_str() : _fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
 		FILETIME rawtime;
@@ -710,7 +715,8 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	if (pPath)
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
-		if (getFileAttributesExWithTimeout(pPath, &attributes) != FALSE)
+		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
+		if (getFileAttributesExWithTimeout(pPath, &attributes))
 		{
 			LARGE_INTEGER size{};
 			size.LowPart = attributes.nFileSizeLow;
@@ -719,9 +725,21 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 			fileSize = size.QuadPart;
 		}
 	}
-	
+
+	if (fileSize == -1)
+	{
+		// we cannot continue (or Scintilla will throw SC_STATUS_FAILURE in the loadFileData later)
+		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("FileToLoadSizeCheckFailed",
+			_pNotepadPlus->_pEditView->getHSelf(),
+			L"Cannot obtain the file size before loading!",
+			L"File to load size-check failed",
+			MB_OK | MB_APPLMODAL);
+		return BUFFER_INVALID;
+	}
+
 	// * the auto-completion feature will be disabled for large files
-	// * the session snapshotsand periodic backups feature will be disabled for large files
+	// * the session snapshots and periodic backups feature will be disabled for large files
 	// * the backups on save feature will be disabled for large files
 	const NppGUI& nppGui = NppParameters::getInstance().getNppGUI();
 	bool isLargeFile = false;
@@ -845,6 +863,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	//Get file size
 	int64_t fileSize = 0;
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	getFileAttributesExWithTimeout(buf->getFullPathName(), &attributes);
 	if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
 	{
@@ -1209,6 +1228,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	}
 
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
+	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	getFileAttributesExWithTimeout(fullpath, &attributes);
 	if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{

@@ -1270,7 +1270,7 @@ bool NppParameters::load()
 	if (doesFileExist(langs_xml_path.c_str()))
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
-
+		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 		if (GetFileAttributesEx(langs_xml_path.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
 			if (attributes.nFileSizeLow == 0 && attributes.nFileSizeHigh == 0)

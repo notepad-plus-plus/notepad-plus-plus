@@ -699,60 +699,60 @@
                     <Item id="43055" name="Copiază textul stilat al primului stil"/>
                     <Item id="43056" name="Copiază textul stilat al celui de-al doilea stil"/>
                     <Item id="43057" name="Copiază textul stilat al celui de-al treilea stil"/>
-                    <Item id="43058" name="Copy Styled Text of 4th Style"/>
-                    <Item id="43059" name="Copy Styled Text of 5th Style"/>
-                    <Item id="43060" name="Copy Styled Text of All Styles"/>
-                    <Item id="43061" name="Copy Styled Text of Find Mark style"/>
-                    <Item id="44100" name="View current file in Firefox"/>
-                    <Item id="44101" name="View current file in Chrome"/>
-                    <Item id="44103" name="View current file in IE"/>
-                    <Item id="44102" name="View current file in Edge"/>
-                    <Item id="50003" name="Switch to previous document"/>
-                    <Item id="50004" name="Switch to next document"/>
-                    <Item id="44051" name="Fold Level 1"/>
-                    <Item id="44052" name="Fold Level 2"/>
-                    <Item id="44053" name="Fold Level 3"/>
-                    <Item id="44054" name="Fold Level 4"/>
-                    <Item id="44055" name="Fold Level 5"/>
-                    <Item id="44056" name="Fold Level 6"/>
-                    <Item id="44057" name="Fold Level 7"/>
-                    <Item id="44058" name="Fold Level 8"/>
-                    <Item id="44061" name="Unfold Level 1"/>
-                    <Item id="44062" name="Unfold Level 2"/>
-                    <Item id="44063" name="Unfold Level 3"/>
-                    <Item id="44064" name="Unfold Level 4"/>
-                    <Item id="44065" name="Unfold Level 5"/>
-                    <Item id="44066" name="Unfold Level 6"/>
-                    <Item id="44067" name="Unfold Level 7"/>
-                    <Item id="44068" name="Unfold Level 8"/>
-                    <Item id="44081" name="Toggle Project Panel 1"/>
-                    <Item id="44082" name="Toggle Project Panel 2"/>
-                    <Item id="44083" name="Toggle Project Panel 3"/>
-                    <Item id="44085" name="Toggle Folder as Workspace"/>
-                    <Item id="44080" name="Toggle Document Map"/>
-                    <Item id="44070" name="Toggle Document List"/>
-                    <Item id="44084" name="Toggle Function List"/>
-                    <Item id="50005" name="Toggle macro recording"/>
-                    <Item id="44104" name="Switch to Project Panel 1"/>
-                    <Item id="44105" name="Switch to Project Panel 2"/>
-                    <Item id="44106" name="Switch to Project Panel 3"/>
-                    <Item id="44107" name="Switch to Folder as Workspace"/>
-                    <Item id="44109" name="Switch to Document List"/>
-                    <Item id="44108" name="Switch to Function List"/>
-                    <Item id="44110" name="Remove Tab Color"/>
-                    <Item id="44111" name="Apply Tab Color 1"/>
-                    <Item id="44112" name="Apply Tab Color 2"/>
-                    <Item id="44113" name="Apply Tab Color 3"/>
-                    <Item id="44114" name="Apply Tab Color 4"/>
-                    <Item id="44115" name="Apply Tab Color 5"/>
-                    <Item id="11002" name="Sort By Name A to Z"/>
-                    <Item id="11003" name="Sort By Name Z to A"/>
-                    <Item id="11004" name="Sort By Path A to Z"/>
-                    <Item id="11005" name="Sort By Path Z to A"/>
-                    <Item id="11006" name="Sort By Type A to Z"/>
-                    <Item id="11007" name="Sort By Type Z to A"/>
-                    <Item id="11008" name="Sort By Size Smaller to Larger"/>
-                    <Item id="11009" name="Sort By Size Larger to Smaller"/>
+                    <Item id="43058" name="Copiază textul stilat al celui de-al patrulea stil"/>
+                    <Item id="43059" name="Copiază textul stilat al celui de-al cincelea stil"/>
+                    <Item id="43060" name="Copiază textul stilat al tuturor stilurilor"/>
+                    <Item id="43061" name="Copiază textul stilat al stilului Găsește marcajul"/>
+                    <Item id="44100" name="Vezi fișierul curent în Firefox"/>
+                    <Item id="44101" name="Vezi fișierul curent în Chrome"/>
+                    <Item id="44103" name="Vezi fișierul curent în IE"/>
+                    <Item id="44102" name="Vezi fișierul curent în Edge"/>
+                    <Item id="50003" name="Comută la documentul anterior"/>
+                    <Item id="50004" name="Comută la documentul următor"/>
+                    <Item id="44051" name="Nivel de îndoire 1"/>
+                    <Item id="44052" name="Nivel de îndoire 2"/>
+                    <Item id="44053" name="Nivel de îndoire 3"/>
+                    <Item id="44054" name="Nivel de îndoire 4"/>
+                    <Item id="44055" name="Nivel de îndoire 5"/>
+                    <Item id="44056" name="Nivel de îndoire 6"/>
+                    <Item id="44057" name="Nivel de îndoire 7"/>
+                    <Item id="44058" name="Nivel de îndoire 8"/>
+                    <Item id="44061" name="Nivel de desfășurare 1"/>
+                    <Item id="44062" name="Nivel de desfășurare 2"/>
+                    <Item id="44063" name="Nivel de desfășurare 3"/>
+                    <Item id="44064" name="Nivel de desfășurare 4"/>
+                    <Item id="44065" name="Nivel de desfășurare 5"/>
+                    <Item id="44066" name="Nivel de desfășurare 6"/>
+                    <Item id="44067" name="Nivel de desfășurare 7"/>
+                    <Item id="44068" name="Nivel de desfășurare 8"/>
+                    <Item id="44081" name="Comută la panoul de proiecte 1"/>
+                    <Item id="44082" name="Comută la panoul de proiecte 2"/>
+                    <Item id="44083" name="Comută la panoul de proiecte 3"/>
+                    <Item id="44085" name="Comută folderul ca spațiu de lucru"/>
+                    <Item id="44080" name="Comută la harta documentului"/>
+                    <Item id="44070" name="Comută la lista de documente"/>
+                    <Item id="44084" name="Comută la lista de funcții"/>
+                    <Item id="50005" name="Comută la lista de macro-uri"/>
+                    <Item id="44104" name="Comută la panoul de proiecte 1"/>
+                    <Item id="44105" name="Comută la panoul de proiecte 2"/>
+                    <Item id="44106" name="Comută la panoul de proiecte 3"/>
+                    <Item id="44107" name="Comută folderul ca spațiu de lucru"/>
+                    <Item id="44109" name="Comută la lista de documente"/>
+                    <Item id="44108" name="Comută la lista de funcții"/>
+                    <Item id="44110" name="Șterge culoarea filei"/>
+                    <Item id="44111" name="Aplică culoarea filei 1"/>
+                    <Item id="44112" name="Aplică culoarea filei 2"/>
+                    <Item id="44113" name="Aplică culoarea filei 3"/>
+                    <Item id="44114" name="Aplică culoarea filei 4"/>
+                    <Item id="44115" name="Aplică culoarea filei 5"/>
+                    <Item id="11002" name="Sortează după nume de la A la Z"/>
+                    <Item id="11003" name="Sortează după nume de la Z la A"/>
+                    <Item id="11004" name="Sortează după cale de la A la Z"/>
+                    <Item id="11005" name="Sortează după cale de la Z la A"/>
+                    <Item id="11006" name="Sortează după tip de la A la Z"/>
+                    <Item id="11007" name="Sortează după tip de la Z la A"/>
+                    <Item id="11008" name="Sortează după dimensiune de la mai mic la mai mare"/>
+                    <Item id="11009" name="Sortează după dimensiune de la mai mare la mai mic"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Combinație">

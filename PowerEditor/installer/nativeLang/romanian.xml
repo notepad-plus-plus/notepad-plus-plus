@@ -951,15 +951,16 @@
                    
                     <Item id="6106" name="Bara de file"/>
                     <Item id="6107" name="Micșorată"/>
-                    <Item id="6108" name="Blocare (filele nu se pot muta)"/>
-                    <Item id="6109" name="Întunecare a filelor inactive"/>
+                    <Item id="6108" name="Blocată (filele nu se pot muta)"/>
+                    <Item id="6109" name="Se întunecă filele inactive"/>
                     <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
-                    <Item id="6112" name="Afișare a butonului de închidere pe fiecare filă"/>
+                    <Item id="6112" name="Afișează butonul de închidere pe fiecare filă"/>
                     <Item id="6113" name="Închide documentele cu dublu clic"/>
-                    <Item id="6118" name="Ascundere"/>
+					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
+                    <Item id="6118" name="Ascunde"/>
                     <Item id="6119" name="Linii multiple"/>
                     <Item id="6120" name="Verticală"/>
-                    <Item id="6121" name="Ieșire la închiderea ultimei file"/>
+                    <Item id="6121" name="Ieși la închiderea ultimei file"/>
                     <Item id="6128" name="Iconițe alternative"/>
 					
                     <Item id="6133" name="Bara de stare"/>
@@ -976,9 +977,9 @@
                 </Global>
 				
                 <Scintillas title="Editare 1">
-                    <Item id="6216" name="Setările cursorului"/>
+                    <Item id="6216" name="Setări pentru cursor"/>
                     <Item id="6217" name="Lățime:"/>
-                    <Item id="6219" name="Viteză de clipire:"/>
+                    <Item id="6219" name="Viteza de clipire:"/>
                     <Item id="6221" name="100"/>
                     <Item id="6222" name="0"/>
                     <Item id="6224" name="Setări pentru editare multiplă"/>	
@@ -1327,7 +1328,7 @@
                 <MISC title="DIVERSE">
                     <ComboBox id="6347">
                         <Element name="Activare"/>
-                        <Element name="Activare pentru toate fişierele deschise"/>
+                        <Element name="Se activează pentru toate fişierele deschise"/>
                         <Element name="Dezactivare"/>
                     </ComboBox>
 					<ComboBox id="6307">
@@ -1340,9 +1341,9 @@
 					<Item id="6362" name="Închide în bara de sistem"/>
                     <Item id="6312" name="Detectează automat starea fișierului"/>
                     <Item id="6313" name="Actualizare silențioasă"/>
-                    <Item id="6325" name="Derulare la ultima linie după actualizare"/>
+                    <Item id="6325" name="Derulează la ultima linie după actualizare"/>
                     <Item id="6322" name="Extensie a fișierului de sesiune:"/>
-                    <Item id="6323" name="Activare a autoactualizării Notepad++"/>
+                    <Item id="6323" name="Activează actualizarea automată a Notepad++"/>
                     <Item id="6324" name="Comutator de documente (Ctrl+TAB)"/>
                     <Item id="6331" name="Afișează numele fișierului în bara de titlu"/>
                     <Item id="6334" name="Detectează automat codificarea caracterelor"/>
@@ -1741,14 +1742,14 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <find-status-scope-all value="în întregul fișier"/>
             <find-status-scope-backward value="de la începutul fișierului la semnul de omisiune"/>
             <find-status-scope-forward value="de la semnul de omisiune la sfârșitul fișierului"/>
-            <finder-find-in-finder value="Căutare în rezultatele găsite..."/>
+            <finder-find-in-finder value="Caută în rezultatele găsite..."/>
             <finder-close-this value="Închide căutătorul"/>
-            <finder-collapse-all value="Restrânge toate"/>
-            <finder-uncollapse-all value="Extinde toate"/>
+            <finder-collapse-all value="Restrânge-le pe toate"/>
+            <finder-uncollapse-all value="Extinde-le pe toate"/>
             <finder-copy value="Copiere"/>
 			<finder-copy-paths value="Copiază numele căii(căilor) selectat(e)"/>
             <finder-clear-all value="Golește-le toate"/>
-            <finder-open-all value="Deschide-le toate"/>
+            <finder-open-all value="Deschide calea (căile) selectat(e)"/>
 			<finder-purge-for-every-search value="Curăță pentru fiecare căutare"/>
 			<finder-wrap-long-lines value="Limitarea lungimii liniilor pentru cuvintele lungi"/>
             <common-ok value="OK"/>

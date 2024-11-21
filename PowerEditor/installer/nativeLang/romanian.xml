@@ -414,6 +414,7 @@
 					<Item CMDID="1" name="Deschidere în"/>
 					<Item CMDID="41019" name="Deschide folderul gazdă în Explorer"/>
                     <Item CMDID="41020" name="Deschide folderul gazdă în cmd"/>
+					<Item CMDID="41025" name="Deschide folderul care-l conține ca spațiu de lucru"/>
                     <Item CMDID="41021" name="Deschide-l în vizualizatorul implicit"/>
 					<Item CMDID="41023" name="Deschide-l în vizualizatorul implicit"/>
                     <Item CMDID="41017" name="Redenumire"/>
@@ -956,7 +957,7 @@
                     <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
                     <Item id="6112" name="Afișează butonul de închidere pe fiecare filă"/>
                     <Item id="6113" name="Închide documentele cu dublu clic"/>
-		    <Item id="6115" name="Activează caracteristica de fixare a filei"/>
+					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
                     <Item id="6118" name="Ascunde"/>
                     <Item id="6119" name="Linii multiple"/>
                     <Item id="6120" name="Verticală"/>
@@ -1573,6 +1574,7 @@ Apasă butonul OK pentru a deschide căsuța de dialog Găsește sau pentru a se
 			
 Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utilizatorului manualul de utilizare pentru instrucțiuni privind activarea acesteia."/>
 			<PrintError title="0" message="Nu se poate porni documentul imprimantei."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FileToLoadSizeCheckFailed title="Verificarea dimensiunii fișierului descărcat a eșuat" message="Nu se poate obține dimensiunea fișierului înainte de încărcare!"/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>
@@ -1747,9 +1749,9 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <finder-collapse-all value="Restrânge-le pe toate"/>
             <finder-uncollapse-all value="Extinde-le pe toate"/>
             <finder-copy value="Copiere"/>
-			<finder-copy-paths value="Copiază numele căii(căilor) selectat(e)"/>
+			<finder-copy-paths value="Copiază numele căii (căilor) selectate"/>
             <finder-clear-all value="Golește-le toate"/>
-            <finder-open-all value="Deschide calea (căile) selectat(e)"/>
+            <finder-open-all value="Deschide calea (căile) selectată(e)"/>
 			<finder-purge-for-every-search value="Curăță pentru fiecare căutare"/>
 			<finder-wrap-long-lines value="Limitarea lungimii liniilor pentru cuvintele lungi"/>
             <common-ok value="OK"/>

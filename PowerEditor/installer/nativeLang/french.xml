@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.6.8">
+	<Native-Langue name="Français" filename="french.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -535,8 +535,8 @@ Translation note:
 			<GoToLine title="Aller à...">
 				<Item id="2007" name="Ligne"/>
 				<Item id="2008" name="Position"/>
-				<Item id="1" name="&amp;Zyva !"/>
-				<Item id="2" name="Je vais nulle part"/>
+				<Item id="1" name="&amp;Aller"/>
+				<Item id="2" name="Annuler"/>
 				<Item id="2004" name="Vous êtes ici :"/>
 				<Item id="2005" name="Vous allez à :"/>
 				<Item id="2006" name="Pas plus loin que :"/>
@@ -1314,6 +1314,7 @@ Translation note:
 						<Element name="Pas d'action dans"/>
 						<Element name="Réduire dans"/>
 						<Element name="Fermer dans"/>
+						<Element name="Réduire / Fermer dans"/>
 					</ComboBox>
 					<Item id="6308" name="la barre de notifications"/>
 					<Item id="6312" name="Surveillance de l’état des fichiers"/>
@@ -1713,9 +1714,9 @@ Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récurs
 			<finder-collapse-all value="Replier tout"/>
 			<finder-uncollapse-all value="Déplier tout"/>
 			<finder-copy value="Copier la(les) ligne(s) sélectionnée(s)"/>
-			<finder-copy-paths value="Copier le(s) chemin(s)"/>
+			<finder-copy-selected-paths value="Copier le(s) chemin(s) sélectionné(s)"/>
 			<finder-clear-all value="Effacer tout"/>
-			<finder-open-all value="Ouvrir tout"/>
+			<finder-open-selected-paths value="Ouvrir le(s) chemin(s) sélectionné(s)"/>
 			<finder-purge-for-every-search value="Purger chaque recherche"/>
 			<finder-wrap-long-lines value="Retour à la ligne automatique"/>
 			<common-ok value="OK"/>

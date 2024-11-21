@@ -956,7 +956,7 @@
                     <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
                     <Item id="6112" name="Afișează butonul de închidere pe fiecare filă"/>
                     <Item id="6113" name="Închide documentele cu dublu clic"/>
-					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
+		    <Item id="6115" name="Activează caracteristica de fixare a filei"/>
                     <Item id="6118" name="Ascunde"/>
                     <Item id="6119" name="Linii multiple"/>
                     <Item id="6120" name="Verticală"/>

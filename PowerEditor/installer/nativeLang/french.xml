@@ -535,8 +535,8 @@ Translation note:
 			<GoToLine title="Aller à...">
 				<Item id="2007" name="Ligne"/>
 				<Item id="2008" name="Position"/>
-				<Item id="1" name="&amp;Zyva !"/>
-				<Item id="2" name="Je vais nulle part"/>
+				<Item id="1" name="J'y vais"/>
+				<Item id="2" name="Annuler"/>
 				<Item id="2004" name="Vous êtes ici :"/>
 				<Item id="2005" name="Vous allez à :"/>
 				<Item id="2006" name="Pas plus loin que :"/>

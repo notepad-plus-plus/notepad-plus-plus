@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.1">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -955,6 +955,7 @@
 					<Item id="6110" name="Farebne zvýrazniť aktívnu kartu"/>
 					<Item id="6112" name="Zobraziť tlačidlo zatvorenia na karte"/>
 					<Item id="6113" name="Dvojklikom zavrieť dokument"/>
+					<Item id="6115" name="Povoliť funkciu pripnúť kartu"/>
 					<Item id="6118" name="Skryť"/>
 					<Item id="6119" name="Viacriadkový"/>
 					<Item id="6120" name="Vertikálny"/>
@@ -1309,12 +1310,11 @@
 						<Element name="Povoliť pre všetky otvorené súbory"/>
 						<Element name="Zakázať"/>
 					</ComboBox>
-					<Item id="6308" name="Minimalizovať do oblasti oznámení"/>
-					<Item id="6362" name="Zavrieť do oblasti oznámení"/>
 					<ComboBox id="6307">
 						<Element name="Nič do"/>
 						<Element name="Minimalizovať do"/>
 						<Element name="Zavrieť do"/>
+						<Element name="Minimalizovať/Zavrieť do"/>
 					</ComboBox>
 					<Item id="6308" name="oblasti oznámení"/>
 					<Item id="6312" name="Automatické zisťovanie stavu súboru"/>
@@ -1551,6 +1551,7 @@ Stlačením tlačidla OK otvorte dialógové okno Hľadať alebo ho prepnite do 
 			
 Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, pokyny na jej zapnutie nájdete v používateľskej príručke."/>
 			<PrintError title="0" message="Nie je možné spustiť tlač dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FileToLoadSizeCheckFailed title="Kontrola veľkosti načítavaného súboru zlyhala" message="Nie je možné zistiť veľkosť súboru pred načítaním!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>
@@ -1719,9 +1720,9 @@ Hľadá vo všetkých súboroch okrem všetkých priečinkov log alebo logs reku
 			<finder-collapse-all value="Zbaliť všetko"/>
 			<finder-uncollapse-all value="Rozbaliť všetko"/>
 			<finder-copy value="Kopírovať vybrané riadky"/>
-			<finder-copy-paths value="Kopírovať názov súboru(ov)"/>
+			<finder-copy-selected-paths value="Kopírovať vybrané cesty k súborom"/>
 			<finder-clear-all value="Vymazať všetko"/>
-			<finder-open-all value="Otvoriť všetko"/>
+			<finder-open-selected-paths value="Otvoriť vybrané cesty k súborom"/>
 			<finder-purge-for-every-search value="Vymazať pri každom hľadaní"/>
 			<finder-wrap-long-lines value="Zalamovať dlhé riadky"/>
 			<common-ok value="OK"/>

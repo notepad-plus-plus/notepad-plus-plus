@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.1:
+Updated to v8.7.2:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1013,6 +1013,7 @@ Updated to v8.7.1:
 					<Item id="6111" name="Отображать Строку Состояния"/>
 					<Item id="6112" name="Кнопка закрытия на вкладке"/>
 					<Item id="6113" name="Закрывать двойным щелчком"/>
+					<Item id="6115" name="Возможность закрепления вкладки"/>
 					<Item id="6118" name="Скрыть"/>
 					<Item id="6119" name="Каскадное отображение"/>
 					<Item id="6120" name="Вертикально с левой стороны"/>
@@ -1253,10 +1254,11 @@ Updated to v8.7.1:
 					</ComboBox>
 					<ComboBox id="6307">
 						<Element name="Бездействие"/>
-						<Element name="Свернуть в"/>
-						<Element name="Закрыть в"/>
+						<Element name="Свернуть"/>
+						<Element name="Закрыть"/>
+						<Element name="Свернуть / Закрыть"/>
 					</ComboBox>
-					<Item id="6308" name="системный трей"/>
+					<Item id="6308" name="в системный трей"/>
 					<Item id="6312" name="Отслеживание Изменений в Файлах"/>
 					<Item id="6313" name="Обновлять не спрашивая"/>
 					<Item id="6325" name="К последней строке после обновл."/>
@@ -1542,6 +1544,7 @@ Notepad++ сделает резервную копию вашего старог
 			
 Если вам нужна функция обратного поиска регулярных выражений, обратитесь к руководству пользователя за инструкциями по её включению."/>
 			<PrintError title="0" message="Невозможно запустить печать документа."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FileToLoadSizeCheckFailed title="Не удалось проверить размер загружаемого файла" message="Невозможно установить размер файла перед его загрузкой!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>
@@ -1708,10 +1711,10 @@ Notepad++ сделает резервную копию вашего старог
 			<finder-collapse-all value="Свернуть все блоки"/>
 			<finder-uncollapse-all value="Развернуть все блоки"/>
 			<finder-copy value="Копировать (выбранные строки)"/>
-			<finder-copy-paths value="Путь и Имя файла в буфер"/>
+			<finder-copy-selected-paths value="Путь и Имя выделенных файлов в буфер"/>
 			<finder-clear-all value="Очистить Окно Поиска"/>
-			<finder-open-all value="Открыть все файлы"/>
-			<finder-wrap-long-lines value="Перенос слов длинных строк"/>
+			<finder-open-selected-paths value="Открыть все выделенные файлы"/>
+			<finder-wrap-long-lines value="Перенос длинных строк"/>
 			<common-ok value="О&amp;К"/>
 			<common-cancel value="&amp;Отмена"/>
 			<common-name value="Имя: "/>

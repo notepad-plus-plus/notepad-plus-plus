@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.0">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -643,6 +643,7 @@ Translation note:
 					<Item id="2231" name="斜体をすべてのスタイルに適用"/>
 					<Item id="2232" name="下線をすべてのスタイルに適用"/>
 					<Item id="2234" name="関連する環境設定を開く"/>
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Global override について"/>
 				</SubDialog>
 			</StyleConfig>
@@ -963,6 +964,7 @@ Translation note:
 
 					<Item id="6112" name="タブに「閉じる」ボタンを表示"/>
 					<Item id="6113" name="ダブルクリックでドキュメントを閉じる"/>
+					<Item id="6115" name="タブのピン留め機能を有効にする"/>
 					<Item id="6118" name="隠す"/>
 					<Item id="6119" name="多段表示"/>
 					<Item id="6120" name="縦に表示する"/>
@@ -1320,7 +1322,8 @@ Translation note:
 					<ComboBox id="6307">
 						<Element name="格納しない"/>
 						<Element name="最小化時に"/>
-						<Element name="閉じるときに"/>
+						<Element name="終了時に"/>
+						<Element name="最小化/終了時に"/>
 					</ComboBox>
 					<Item id="6308" name="タスクトレイへ格納"/>
 					<Item id="6312" name="ファイルの状態監視"/>
@@ -1719,9 +1722,9 @@ OKボタンを押すと検索ダイアログが開きます。
 			<finder-collapse-all value="すべて畳む"/>
 			<finder-uncollapse-all value="すべて展開する"/>
 			<finder-copy value="選択行をコピー"/>
-			<finder-copy-paths value="すべてのパスをコピー"/>
+			<finder-copy-selected-paths value="選択行のパスをコピー"/>
 			<finder-clear-all value="すべてクリア"/>
-			<finder-open-all value="すべて開く"/>
+			<finder-open-selected-paths value="選択行を開く"/>
 			<finder-purge-for-every-search value="検索時に以前の結果をクリア"/>
 			<finder-wrap-long-lines value="長い行を折り返す"/>
 			<common-ok value="OK"/>
@@ -1816,7 +1819,7 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell、JSON を指します。
 
 「高度」を選択しても、上記の言語以外を編集している場合は「基本」と同じになります。"/>
-			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="&quot;Global override&quot; を使用すると、すべての言語のスタイル設定が、チェックを入れたもので上書きされます。&quot;Default Style&quot; を使われるほうが、お望みの挙動に近いかもしれません。"/>
 		</MiscStrings>
 	</Native-Langue>

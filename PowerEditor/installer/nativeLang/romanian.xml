@@ -1749,9 +1749,9 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <finder-collapse-all value="Restrânge-le pe toate"/>
             <finder-uncollapse-all value="Extinde-le pe toate"/>
             <finder-copy value="Copiere"/>
-			<finder-copy-paths value="Copiază numele căii (căilor) selectate"/>
+			<finder-copy-selected-paths value="Copiază numele căii (căilor) selectate"/>
             <finder-clear-all value="Golește-le toate"/>
-            <finder-open-all value="Deschide calea (căile) selectată(e)"/>
+            <finder-open-selected-paths value="Deschide calea (căile) selectată(e)"/>
 			<finder-purge-for-every-search value="Curăță pentru fiecare căutare"/>
 			<finder-wrap-long-lines value="Limitarea lungimii liniilor pentru cuvintele lungi"/>
             <common-ok value="OK"/>

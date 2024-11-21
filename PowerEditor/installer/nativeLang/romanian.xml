@@ -447,13 +447,13 @@
                 <Item id="43102" name="Nou"/>
                 <Item id="43103" name="Nou și lipește"/>
                 <Item id="43104" name="Deschide..."/>
-                <Item id="43013" name="Găsește în fișiere..."/>
+                <Item id="43013" name="Găsire în fișiere..."/>
                 <Item id="43105" name="Închide iconița din bara de iconițe"/>
             </TrayIcon>
         </Menu>
 		
         <Dialog>
-            <Find title="Caută, caută și vei găsi" titleFind="Găsire" titleReplace="Înlocuire" titleFindInFiles="Găsește în fișiere" titleFindInProjects="Găsește în proiecte" titleMark="Marcare">
+            <Find title="Caută, caută și vei găsi" titleFind="Găsire" titleReplace="Înlocuire" titleFindInFiles="Găsire în fișiere" titleFindInProjects="Găsire în proiecte" titleMark="Marcare">
                 <Item id="1"    name="Găsește următorul"/>
                 <Item id="1722" name="Inversează direcția de căutare"/>
                 <Item id="2"    name="Închidere"/>
@@ -473,7 +473,7 @@
                 <Item id="1688" name="Întotdeauna"/>
                 <Item id="1632" name="În selecț&amp;ie"/>
                 <Item id="1633" name="Anulează toate marcările"/>
-                <Item id="1635" name="Înlocuiește-le pe toate în toate &amp;documentele deschise"/>
+                <Item id="1635" name="Înlocuiește tot în toate &amp;documentele deschise"/>
                 <Item id="1636" name="Caută-le pe toate în toate &amp;documentele deschise"/>
                 <Item id="1654" name="Fil&amp;tre:"/>
                 <Item id="1655" name="Fold&amp;er:"/>
@@ -1651,7 +1651,7 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
                     <Item id="3126" name="Salvare ca..."/>
                     <Item id="3127" name="Salvare copie ca..."/>
                     <Item id="3121" name="Adăugare proiect nou"/>
-					<Item id="3128" name="Găsește în proiecte..."/>
+					<Item id="3128" name="Găsire în proiecte..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Redenumire"/>
@@ -1843,7 +1843,7 @@ Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Man
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Mergi la Configurator de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplică setările de aparență ale caracterelor neimprimabile la controalele C0, C1 și a caracterelor Unicode EOL (linie următoare, separator de linie și separator de paragraf)."/>
-            <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsește e activat. Valoarea maximă este 1024. Setează valoarea la 0 pentru a dezactiva verificarea automată."/>
+            <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsire e activat. Valoarea maximă este 1024. Setează valoarea la 0 pentru a dezactiva verificarea automată."/>
             <verticalEdge-tip value="Adaugă-ți marcatorul de coloană prin indicarea poziției sale cu un număr zecimal. Îți poți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
 			<fileSaveAsCopySaveButton-tip value="Ține apăsat pe Shift în timp ce apeși pe Salvare pentru a deschide copia după salvare.."/>
 			<autoIndentBasic-tip value="Asigură-te că indentarea liniei curente (adică noua linie creată prin apăsarea tastei ENTER) se potrivește cu indentarea liniei anterioare."/>

@@ -1551,7 +1551,6 @@ Stlačením tlačidla OK otvorte dialógové okno Hľadať alebo ho prepnite do 
 			
 Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, pokyny na jej zapnutie nájdete v používateľskej príručke."/>
 			<PrintError title="0" message="Nie je možné spustiť tlač dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Kontrola veľkosti načítavaného súboru zlyhala" message="Nie je možné zistiť veľkosť súboru pred načítaním!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

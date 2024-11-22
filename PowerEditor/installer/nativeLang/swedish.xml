@@ -1552,7 +1552,6 @@ Tryck på OK-knappen för att öppna sökdialogen eller sätta fokus på den.
 			
 Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsökning ifall du behöver detta."/>
 			<PrintError title="0" message="Kan inte starta utskift av dokument."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Storlekskontrollen för oinläst fil misslyckades" message="Kan inte hämta filens storlek innan den har lästs in!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>

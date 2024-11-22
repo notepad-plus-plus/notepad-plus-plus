@@ -1556,7 +1556,6 @@ Premere il pulsante Conferma per aprire o attivare la finestra di dialogo Trova.
 
 Nel caso fosse necessaria la funzione di ricerca Espressione regolare a ritroso, consultare il manuale dell'utente per istruzioni su come abilitarla."/>
 			<PrintError title="0" message="Impossibile avviare la stampa del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Verifica dimensione file non andata a buon fine" message="Impossibile ottenere la dimensione del file prima del caricamento!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>

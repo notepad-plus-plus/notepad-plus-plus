@@ -1548,7 +1548,6 @@ Stisknutím tlačítka OK otevřete dialogové okno Najít nebo ho přepnete do 
 			
 Pokud opravdu potřebujete funkci zpětného vyhledávání při regulárních výrazech, pokyny pro její zapnutí najdete v uživatelské příručce."/>
 			<PrintError title="0" message="Nelze spustit tisk dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Selhala kontrola velikosti načítaného souboru" message="Nebylo možné zjistit velikost souboru před jeho načtením!"/>
 		</MessageBox>
 		
 		<ClipboardHistory>

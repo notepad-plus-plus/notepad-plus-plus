@@ -1574,7 +1574,6 @@ Apasă butonul OK pentru a deschide căsuța de dialog Găsește sau pentru a se
 			
 Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utilizatorului manualul de utilizare pentru instrucțiuni privind activarea acesteia."/>
 			<PrintError title="0" message="Nu se poate porni documentul imprimantei."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Verificarea dimensiunii fișierului descărcat a eșuat" message="Nu se poate obține dimensiunea fișierului înainte de încărcare!"/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>

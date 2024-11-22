@@ -1552,7 +1552,6 @@ Pritisnite OK da otvorite dijalog za pronalaženje ili da se fokusirate na njega
 			
 Ako zahtevate obrnuti smer pretrage regularnih izraza, konsultujte uputstvo sa instrukcijama kako da ga omogućite."/>
 			<PrintError title="0" message="Dokument za štampanje se ne može započeti."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Neuspešna provera veličine učitavane datoteke" message="Veličina datoteke se ne može dobiti pre učitavanja!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Istorija clipboard-a"/>

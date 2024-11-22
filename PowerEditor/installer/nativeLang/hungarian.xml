@@ -1552,7 +1552,6 @@ Nyomja meg az OK gombot a „Keresés” párbeszédpanel megnyitásához vagy a
 
 Ha szüksége van a visszafelé történő reguláris keresésre, a Felhasználói kézikönyvben megtalálja a funkció engedélyezésével kapcsolatos útmutatásokat."/>
 			<PrintError title="0" message="Nem indítható el a dokumentum nyomtatása"/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="A betöltendő fájl méretellenőrzése sikertelen" message="Nem sikerült megállapítani a fájl méretét betöltés előtt!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>

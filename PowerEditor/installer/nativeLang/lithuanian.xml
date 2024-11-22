@@ -1168,7 +1168,6 @@ Ar norite paleisti Notepad++ administratoriaus teisėmis?"/>
 			<finder-copy value="Kopijuoti"/>
 			<finder-select-all value="Pažymėti viską"/>
 			<finder-clear-all value="Išvalyti viską"/>
-			<finder-open-all value="Atidaryti viską"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

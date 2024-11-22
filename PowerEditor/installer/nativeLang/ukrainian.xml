@@ -1637,9 +1637,7 @@ Translation note:
 			<finder-collapse-all value="Згорнути все"/>
 			<finder-uncollapse-all value="Розгорнути все"/>
 			<finder-copy value="Копіювати вибрані рядки"/>
-			<finder-copy-paths value="Копіювати назви шляхів"/>
 			<finder-clear-all value="Очистити все"/>
-			<finder-open-all value="Відкрити все"/>
 			<finder-purge-for-every-search value="Очищати для кожного пошуку"/>
 			<finder-wrap-long-lines value="Обтинати слова в довгих рядках"/>
 			<common-ok value="OK"/>

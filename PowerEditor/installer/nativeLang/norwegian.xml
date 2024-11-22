@@ -1729,7 +1729,6 @@ Finn i alle filer, men ekskluder alle mapper log eller logs rekursivt:
 			<finder-copy value="Kopier valgte linje(r)"/>
 			<finder-select-all value="Velg alle"/>
 			<finder-clear-all value="Slett alt"/>
-			<finder-open-all value="Åpne alle"/>
 			<finder-purge-for-every-search value="Rens for hvert søk"/>
 			<finder-wrap-long-lines value="Bryt lange linjer"/>
 			<common-ok value="OK"/>

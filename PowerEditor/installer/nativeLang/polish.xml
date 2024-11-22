@@ -1729,9 +1729,7 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<finder-collapse-all value="Zwiń wszystko"/>
 			<finder-uncollapse-all value="Rozwiń wszystko"/>
 			<finder-copy value="Kopiuj zaznaczone linie"/>
-			<finder-copy-paths value="Kopiuj zaznaczone ścieżki"/>
 			<finder-clear-all value="Wyczyść wszystko"/>
-			<finder-open-all value="Otwórz zaznaczone ścieżki"/>
 			<finder-purge-for-every-search value="Opróżnij przed każdym wyszukiwaniem"/>
 			<finder-wrap-long-lines value="Zawijaj długie wiersze"/>
 			<common-ok value="OK"/>

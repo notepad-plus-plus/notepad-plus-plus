@@ -1724,9 +1724,7 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<finder-collapse-all value="Riduci tutto"/>
 			<finder-uncollapse-all value="Espandi tutto"/>
 			<finder-copy value="Copia righe selezionate"/>
-			<finder-copy-paths value="Copia Percorso/i selezionati"/>
 			<finder-clear-all value="Pulisci tutto"/>
-			<finder-open-all value="Apri tutti quelli selezionati"/>
 			<finder-purge-for-every-search value="Pulisci ad ogni ricerca"/>
 			<finder-wrap-long-lines value="Attiva il Ritorno a capo automatico"/>
 			<common-ok value="Conferma"/>

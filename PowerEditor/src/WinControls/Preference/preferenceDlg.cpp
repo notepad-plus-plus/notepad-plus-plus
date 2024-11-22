@@ -242,6 +242,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
+			if (_generalSubDlg._tipInactiveTabBackgroundColor != nullptr)
+				NppDarkMode::setDarkTooltips(_generalSubDlg._tipInactiveTabBackgroundColor, NppDarkMode::ToolTipsType::tooltip);
+
 			if (_editing2SubDlg._tip != nullptr)
 				NppDarkMode::setDarkTooltips(_editing2SubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 
@@ -641,6 +644,18 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (index != CB_ERR)
                 ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_SETCURSEL, index, 0);
 
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
+			wstring tipColorInactTabBgShow = pNativeSpeaker->getLocalizedStrFromID("inactive-tab-bkgnd-custom-color-tip",
+				L"Go to Style Configurator to change the custom background color for inactive tabs (\"Inactive tabs\") after enabling here");
+			_tipInactiveTabBackgroundColor = CreateToolTip(IDC_BUTTON_INACTTABBKGNDCOL_LAUNCHSTYLECONF, _hSelf, _hInst, const_cast<PTSTR>(tipColorInactTabBgShow.c_str()), pNativeSpeaker->isRTL());
+			if (_tipInactiveTabBackgroundColor != nullptr)
+			{
+				::SendMessage(_tipInactiveTabBackgroundColor, TTM_SETMAXTIPWIDTH, 0, 260);
+				// Make tip stay 30 seconds
+				::SendMessage(_tipInactiveTabBackgroundColor, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
+
 			return TRUE;
 		}
 
@@ -755,6 +770,13 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWINACIVETAB, 0, 0);
 					return TRUE;
 					
+				case IDC_BUTTON_INACTTABBKGNDCOL_LAUNCHSTYLECONF:
+				{
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_INACTIVETABS_LAUNCHSTYLECONF, 0, 0);
+					return TRUE;
+				}
+
 				case IDC_CHECK_ENABLETABCLOSE :
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWTABBARCLOSEBUTTON, 0, 0);
 					return TRUE;

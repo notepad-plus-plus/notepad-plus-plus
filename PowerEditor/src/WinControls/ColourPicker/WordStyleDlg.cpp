@@ -1166,6 +1166,11 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 		result.first = edit2;
 		result.second = IDC_CHECK_WITHCUSTOMCOLOR_CRLF;
 	}
+	else if (style._styleDesc == L"Inactive tabs")
+	{
+		result.first = general;
+		result.second = IDC_CHECK_DRAWINACTIVE;
+	}
 	else if (style._styleDesc == g_npcStyleName)
 	{
 		result.first = edit2;

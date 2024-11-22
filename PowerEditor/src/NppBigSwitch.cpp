@@ -3382,6 +3382,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_INACTIVETABS_LAUNCHSTYLECONF:
+		{
+			// Launch _configStyleDlg (create or display it)
+			command(IDM_LANGSTYLE_CONFIG_DLG);
+
+			// go into the section we need
+			_configStyleDlg.goToSection(L"Global Styles:Inactive tabs");
+
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_LAUNCHPREFERENCES:
 		{
 			// Launch _configStyleDlg (create or display it)

@@ -954,7 +954,7 @@ Translation note:
 					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="Reduce"/>
 					<Item id="6108" name="Lock (no drag and drop)"/>
-					<Item id="6109" name="Darken inactive tabs"/>
+					<Item id="6109" name="Color background of inactive tabs"/>
 					<Item id="6110" name="Draw a colored bar on active tab"/>
 					<Item id="6112" name="Show close button on each tab"/>
 					<Item id="6113" name="Double click to close document"/>
@@ -1662,6 +1662,9 @@ If you require the backward regex searching feature, consult the user manual for
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
 			<eol-custom-color-tip value="Go to Style Configurator to change the default EOL custom color (&quot;EOL custom color&quot;).."/>
+
+			<!-- Don't translate "(&quot;Inactive tabs&quot;)" -->
+			<inactive-tab-bkgnd-custom-color-tip value="Go to Style Configurator to change the custom background color for inactive tabs (&quot;Inactive tabs&quot;) after enabling here" />
 
 			<word-chars-list-warning-begin value="Be aware: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>

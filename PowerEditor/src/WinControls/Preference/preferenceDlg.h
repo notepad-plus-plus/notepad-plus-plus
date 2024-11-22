@@ -34,11 +34,20 @@ private :
 
 class GeneralSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	GeneralSubDlg() = default;
+	~GeneralSubDlg() {
+		if (_tipInactiveTabBackgroundColor != nullptr)
+		{
+			::DestroyWindow(_tipInactiveTabBackgroundColor);
+			_tipInactiveTabBackgroundColor = nullptr;
+		}
+	};
 	void setTabbarAlternateIcons(bool enable = false);
 
 private :
+	HWND _tipInactiveTabBackgroundColor = nullptr;
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 

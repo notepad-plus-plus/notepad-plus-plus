@@ -1553,7 +1553,6 @@ Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco
 			
 Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
 			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="A checagem de tamanho do arquivo a carregar falhou" message="Não é possível obter o tamanho do arquivo antes de carregá-lo!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>

@@ -1697,9 +1697,7 @@ Zoeken in alle bestanden maar alle log- of logs-mappen recursief uitsluiten:
 			<finder-collapse-all value="Alles samenvouwen"/>
 			<finder-uncollapse-all value="Alles uitvouwen"/>
 			<finder-copy value="Geselecteerde regel(s) kopiëren"/>
-			<finder-copy-paths value="Padnaam/-namen kopiëren"/>
 			<finder-clear-all value="Alles wissen"/>
-			<finder-open-all value="Alles openen"/>
 			<finder-purge-for-every-search value="Leegmaken voor elke zoekopdracht"/>
 			<finder-wrap-long-lines value="Lange regels laten teruglopen"/>
 			<common-ok value="Ok"/>

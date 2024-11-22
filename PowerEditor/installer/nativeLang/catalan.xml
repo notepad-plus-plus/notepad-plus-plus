@@ -1175,7 +1175,6 @@ By Hiro5 <groccat at gmail>
 			<finder-copy value="Copia"/>
 			<finder-select-all value="Selecciona-ho tot"/>
 			<finder-clear-all value="Neteja-ho tot"/>
-			<finder-open-all value="Obre-ho tot"/>
 			<common-ok value="D'acord"/>
 			<common-cancel value="Cancel·la"/>
 			<common-name value="Nom: "/>

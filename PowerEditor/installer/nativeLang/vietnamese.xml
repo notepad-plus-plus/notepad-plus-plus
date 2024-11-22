@@ -1544,10 +1544,8 @@ Tìm trong tất cả các tệp nhưng loại trừ tất cả thư mục log h
 			<finder-uncollapse-all value="Duỗi tất cả"/>
 			<finder-copy value="Sao chép các dòng được chọn"/>
 			<finder-copy-verbatim value="Sao chép"/>
-			<finder-copy-paths value="Sao chép tên đường dẫn"/>
 			<finder-select-all value="Sao chép tất cả"/>
 			<finder-clear-all value="Xoá sạch tất cả"/>
-			<finder-open-all value="Mở tất cả"/>
 			<finder-purge-for-every-search value="Tẩy sạch cho mỗi lần tìm kiếm"/>
 			<finder-wrap-long-lines value="Bọc từ ở các dòng dài"/>
 			<common-ok value="OK"/>

@@ -1718,9 +1718,7 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
-			<finder-copy-paths value="Copiar nome do(s) caminho(s)"/>
 			<finder-clear-all value="Limpar tudo"/>
-			<finder-open-all value="Abrir tudo"/>
 			<finder-purge-for-every-search value="Eliminar para cada pesquisa"/>
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="Confirmar"/>

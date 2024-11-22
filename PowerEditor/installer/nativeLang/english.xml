@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.6.9">
+	<Native-Langue name="English" filename="english.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1552,7 +1552,6 @@ Press the OK button to open the Find dialog or set focus on it.
 			
 If you require the backward regex searching feature, consult the user manual for instructions on enabling it."/>
 			<PrintError title="0" message="Cannot start printer document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="File to load size-check failed" message="Cannot obtain the file size before loading!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

@@ -1542,10 +1542,8 @@ The comments are here for explanation, it's not necessary to translate them.
 			<finder-uncollapse-all value="Разгарнуць усе"/>
 			<finder-copy value="Капіяваць выбраныя радкі"/>
 			<finder-copy-verbatim value="Капіяваць"/>
-			<finder-copy-paths value="Капіяваць назвы шляхоў"/>
 			<finder-select-all value="Выбраць усе"/>
 			<finder-clear-all value="Ачысціць усе"/>
-			<finder-open-all value="Адкрыць усе"/>
 			<finder-purge-for-every-search value="Ачышчаць для кожнага пошуку"/>
 			<finder-wrap-long-lines value="Пераносіць словы ў доўгіх радках"/>
 			<common-ok value="Добра"/>

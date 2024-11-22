@@ -1194,7 +1194,6 @@
 			<finder-copy value="نسخ"/>
 			<finder-select-all value="تحديد الكل"/>
 			<finder-clear-all value="مسح الكل"/>
-			<finder-open-all value="فتح الكل"/>
 			<common-ok value="موافق"/>
 			<common-cancel value="إلغاء"/>
 			<common-name value="الاسم: "/>

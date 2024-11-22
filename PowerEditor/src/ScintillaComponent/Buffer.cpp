@@ -729,12 +729,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 	if (fileSize == -1)
 	{
 		// we cannot continue (or Scintilla will throw SC_STATUS_FAILURE in the loadFileData later)
-		NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
-		pNativeSpeaker->messageBox("FileToLoadSizeCheckFailed",
-			_pNotepadPlus->_pEditView->getHSelf(),
-			L"Cannot obtain the file size before loading!",
-			L"File to load size-check failed",
-			MB_OK | MB_APPLMODAL);
+		::MessageBox(_pNotepadPlus->_pEditView->getHSelf(), L"Cannot obtain the file size before loading!", L"File to load size-check failed", MB_OK | MB_APPLMODAL);
 		return BUFFER_INVALID;
 	}
 

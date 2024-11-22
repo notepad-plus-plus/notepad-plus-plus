@@ -1487,10 +1487,8 @@ Updated to v8.6 fixed version
 			<finder-uncollapse-all value="Laajenna kaikki"/>
 			<finder-copy value="Kopioi valitut rivit"/>
 			<finder-copy-verbatim value="Kopioi"/>
-			<finder-copy-paths value="Kopioi polut"/>
 			<finder-select-all value="Valitse kaikki"/>
 			<finder-clear-all value="Tyhjennä kaikki"/>
-			<finder-open-all value="Avaa kaikki"/>
 			<finder-purge-for-every-search value="Tyhjennä kutakin hakua varten"/>
 			<finder-wrap-long-lines value="Rivitä pitkät rivit"/>
 			<common-ok value="OK"/>

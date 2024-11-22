@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.1  25/Oct/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.2  21/Nov/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.1">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -987,14 +987,15 @@
 					<Item id="6103" name="Fluent UI: malé ikony"/>
 					<Item id="6104" name="Fluent UI: velké ikony"/>
 					<Item id="6105" name="Standardní: malé ikony"/>
-					<Item id="6106" name="Lišta záložek"/>
+					<Item id="6106" name="Lišta karet (tab) dokumentů"/>
 					<Item id="6107" name="Zmenšit"/>
-					<Item id="6108" name="Uzamknout (nelze přetahovat záložky)"/>
-					<Item id="6109" name="Znevýraznit neaktivní záložky"/>
-					<Item id="6110" name="Zobrazovat barevný pruh na aktivní záložce"/>
-					<Item id="6112" name="Přidat zavírací tlačítko každé záložce"/>
-					<Item id="6113" name="Dvojité kliknutí zavře záložku"/>
+					<Item id="6108" name="Uzamknout (nelze přetahovat karty)"/>
+					<Item id="6109" name="Znevýraznit neaktivní karty"/>
+					<Item id="6110" name="Zobrazovat barevný pruh na aktivní kartě"/>
+					<Item id="6112" name="Přidat zavírací tlačítko každé kartě"/>
+					<Item id="6113" name="Dvojité kliknutí zavře kartu"/>
 					<Item id="6114" name="Povolit přepínání mezi dokumenty"/>
+					<Item id="6115" name="Povolit připínání karet"/>
 					<Item id="6116" name="Zapamatovat si poslední používaný adresář"/>
 					<Item id="6117" name="Používat historii dokumentů"/>
 					<Item id="6118" name="Skrýt"/>
@@ -1234,6 +1235,7 @@
 						<Element name="Nepoužívat"/>
 						<Element name="Minimalizovat do"/>
 						<Element name="Zavírat do"/>
+						<Element name="Minimalizovat a Zavírat do"/>
 					</ComboBox>
 					<Item id="6114" name="Povolit přepínání"/>
 					<Item id="6117" name="Povolit MRU (nedávno použité)"/>
@@ -1271,6 +1273,7 @@
 					<Item id="6825" name="Pamatovat si nedostupné soubory z poslední relace (zástupné dokumenty/karty)"/>
 				</Backup>
 				<AutoCompletion title="Automat. dokončování">
+					<Item id="6807" name="Automatické dokončování"/>
 					<Item id="6808" name="Povolit autom. dokončování každého vstupu"/>
 					<Item id="6809" name="Dokončování funkcí"/>
 					<Item id="6810" name="Dokončování slov"/>
@@ -1720,15 +1723,15 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<finder-collapse-all value="Sbalit vše"/>
 			<finder-uncollapse-all value="Rozbalit vše"/>
 			<finder-copy value="Kopírovat vybrané řádky"/>
-			<finder-copy-paths value="Kopírovat souborovou cestu(y)"/>
+			<finder-copy-selected-paths value="Kopírovat cesty u vybraných souborů"/>
 			<finder-clear-all value="Smazat vše"/>
-			<finder-open-all value="Otevřít vše"/>
+			<finder-open-selected-paths value="Otevřít vybrané soubory"/>
 			<finder-purge-for-every-search value="Vymazat před každým vyhledáváním"/>
 			<finder-wrap-long-lines value="Zalomit dlouhé řádky"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Storno"/>
 			<common-name value="Název"/>
-			<tabrename-title value="Přejmenovat aktuální záložku (Tab)"/>
+			<tabrename-title value="Přejmenovat aktuální kartu (tab)"/>
 			<tabrename-newname value="Nový název"/>
 			<splitter-rotate-left value="Otočit doleva"/>
 			<splitter-rotate-right value="Otočit doprava"/>

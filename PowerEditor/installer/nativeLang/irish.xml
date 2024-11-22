@@ -1301,7 +1301,6 @@ Find in all files except exe, obj &amp;&amp; log:
 			<finder-copy value="Cóipeáil"/>
 			<finder-select-all value="Roghnaigh uile"/>
 			<finder-clear-all value="Glan uile"/>
-			<finder-open-all value="Oscail uile"/>
 			<common-ok value="Tá go maith"/>
 			<common-cancel value="Cealaigh"/>
 			<common-name value="Ainm: "/>

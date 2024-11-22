@@ -1716,9 +1716,7 @@ Runa en tuti i files, ma escludi tute ƚe carteƚe o sotocarteƚe log o logs:
 			<finder-collapse-all value="Coƚasa tuto cuanto\"/>
 			<finder-uncollapse-all value="Espandi tuto cuanto"/>
 			<finder-copy value="Còpia ƚe righe seƚesionà"/>
-			<finder-copy-paths value="Còpia Percorso/i"/>
 			<finder-clear-all value="Puƚisi tuto cuanto"/>
-			<finder-open-all value="Vèrxi tuto cuanto"/>
 			<finder-purge-for-every-search value="Pulisi par ogni riserca"/>
 			<finder-wrap-long-lines value="A capo otomàtico par ƚe righe ƚonghe"/>
 			<common-ok value="Conferma"/>

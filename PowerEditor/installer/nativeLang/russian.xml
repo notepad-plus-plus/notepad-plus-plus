@@ -1544,7 +1544,6 @@ Notepad++ сделает резервную копию вашего старог
 			
 Если вам нужна функция обратного поиска регулярных выражений, обратитесь к руководству пользователя за инструкциями по её включению."/>
 			<PrintError title="0" message="Невозможно запустить печать документа."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Не удалось проверить размер загружаемого файла" message="Невозможно установить размер файла перед его загрузкой!"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

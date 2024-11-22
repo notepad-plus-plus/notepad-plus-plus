@@ -1598,10 +1598,8 @@ Temukan dalam semua berkas kecuali semua folder log atau logs secara berulang:
 			<finder-uncollapse-all value="Buka semua lipatan"/>
 			<finder-copy value="Salin Baris Terpilih"/>
 			<finder-copy-verbatim value="Salin"/>
-			<finder-copy-paths value="Salin Nama Jalur"/>
 			<finder-select-all value="Pilih semua"/>
 			<finder-clear-all value="Bersihkan semua"/>
-			<finder-open-all value="Buka semua"/>
 			<finder-purge-for-every-search value="Hapus untuk tiap pencarian"/>
 			<finder-wrap-long-lines value="Kemas kata baris panjang"/>
 			<common-ok value="Oke"/>

@@ -1688,9 +1688,7 @@ Notepad++ 会备份旧的 “shortcuts.xml”，并将其保存为 “shortcuts.
 			<finder-collapse-all value="全部折叠"/>
 			<finder-uncollapse-all value="全部展开"/>
 			<finder-copy value="复制选中行"/>
-			<finder-copy-paths value="复制路径"/>
 			<finder-clear-all value="全部清除"/>
-			<finder-open-all value="全部打开"/>
 			<finder-purge-for-every-search value="每次搜索时清除"/>
 			<finder-wrap-long-lines value="自动换行"/>
 			<common-ok value="确定"/>

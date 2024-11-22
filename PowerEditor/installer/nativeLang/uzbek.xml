@@ -1239,7 +1239,6 @@ Siz bir necha marker ustunlarini probellar orqali belgilashingiz mumkin."/>
 			<finder-copy value="Nusxalamoq"/>
 			<finder-select-all value="Barini belgilamoq"/>
 			<finder-clear-all value="Barini tozalamoq"/>
-			<finder-open-all value="Barini ochmoq"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

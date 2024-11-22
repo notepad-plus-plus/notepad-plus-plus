@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.6.3">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1256,6 +1256,7 @@
 						<Element name="無任何行動至"/>
 						<Element name="最小化至"/>
 						<Element name="關閉至"/>
+						<Element name="最小化 / 關閉至"/>
 					</ComboBox>
 					<Item id="6308" name="系統匣"/>
 					<Item id="6312" name="自動更新檔案狀態"/>
@@ -1578,11 +1579,12 @@
 			<finder-collapse-all value="層數全部收折"/>
 			<finder-uncollapse-all value="層數全部展開"/>
 			<finder-copy value="複製全行"/>
+			<finder-copy-selected-paths value="複製選取路徑到剪貼簿"/>
 			<finder-clear-all value="全部清除"/>
-			<finder-open-all value="全部開啟"/>
+			<finder-open-selected-paths value="開啟選取路徑檔案"/>
 			<finder-wrap-long-lines value="自動換行"/>
-			<common-ok value="OK啦"/>
-			<common-cancel value="取消啦"/>
+			<common-ok value="OK"/>
+			<common-cancel value="取消"/>
 			<common-name value="名稱："/>
 			<tabrename-title value="重新命名現有頁籤"/>
 			<tabrename-newname value="新的名稱："/>

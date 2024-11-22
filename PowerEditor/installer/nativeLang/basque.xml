@@ -1484,10 +1484,8 @@ Bilatu fitxategi guztietan baina alde batera utzi log ala logs karpetak modu err
 			<finder-uncollapse-all value="Zabaldu guztiak"/>
 			<finder-copy value="Kopiatu Aukeratutako Lerroa(k)"/>
 			<finder-copy-verbatim value="Kopiatu"/>
-			<finder-copy-paths value="Kopiatu Bide-izena(k)"/>
 			<finder-select-all value="Aukeratu guztia"/>
 			<finder-clear-all value="Garbitu guztia"/>
-			<finder-open-all value="Ireki guztia"/>
 			<finder-purge-for-every-search value="Garbitu bilaketa bakoitzean"/>
 			<finder-wrap-long-lines value="Lerro luzeetako hitzen itzulbiraketa"/>
 			<common-ok value="Ados"/>

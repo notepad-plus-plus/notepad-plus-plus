@@ -1709,9 +1709,7 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<finder-collapse-all value="Tümünü Katla"/>
 			<finder-uncollapse-all value="Tümünü Aç"/>
 			<finder-copy value="Seçili Satır(lar)ı Kopyala"/>
-			<finder-copy-paths value="Yol Ad(lar)ını Kopyala"/>
 			<finder-clear-all value="Tümünü Temizle"/>
-			<finder-open-all value="Tümünü Aç"/>
 			<finder-purge-for-every-search value="Her Arama İçin Temizle"/>
 			<finder-wrap-long-lines value="Uzun Satırlarda Metin Kaydır"/>
 			<common-ok value="Tamam"/>

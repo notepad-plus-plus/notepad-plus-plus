@@ -1688,9 +1688,7 @@ Najdi v vseh datotekah, vendar rekurzivno izključite vse mape dnevnikov ali vse
 			<finder-collapse-all value="Zloži vse"/>
 			<finder-uncollapse-all value="Razgrni vse"/>
 			<finder-copy value="Kopiraj izbrane vrstice"/>
-			<finder-copy-paths value="Kopiraj ime(na) poti"/>
 			<finder-clear-all value="Počisti vse"/>
-			<finder-open-all value="Odpri vse"/>
 			<finder-purge-for-every-search value="Počisti za vsakim iskanjem"/>
 			<finder-wrap-long-lines value="Prelomi dolge vrstice"/>
 			<common-ok value="V redu"/>

@@ -8,7 +8,7 @@ Translation note:
 
 -->
 <NotepadPlus>
-	<Native-Langue name="Norsk" filename="norwegian.xml" version="8.6.8">
+	<Native-Langue name="Norsk" filename="norwegian.xml" version="8.6.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -358,6 +358,7 @@ Translation note:
 					<Item id="10005" name="Flytt til start"/>
 					<Item id="10006" name="Flytt til slutt"/>
 					<Item id="46001" name="Stil konfigurator..."/>
+					<Item id="46016" name="Ingen (Normal tekst)"/>					
 					<Item id="46250" name="Opprett/tilpass språk..."/>
 					<Item id="46300" name="Åpne språkmappe..."/>
 					<Item id="46301" name="Notepad++ språksamling"/>
@@ -640,6 +641,8 @@ Translation note:
 					<Item id="2231" name="Bruk global kursiv skriftstil"/>
 					<Item id="2232" name="Bruk global understreket skriftstil"/>
 					<Item id="2234" name="Gå til innstillinger"/>
+					<!-- Don't translate "Global override" -->
+					<Item id="2235" name="Hva er Global overstyring?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -1113,6 +1116,20 @@ Translation note:
 					<Item id="6335" name="Behandle omvendt skråstrek som escape-tegn for SQL"/>
 				</Language>
 
+				<Indentation title="Innrykk">
+					<Item id="7161" name="Auto-innrykk"/>
+					<Item id="7162" name="Ingen"/>
+					<Item id="7163" name="Grunnleggende"/>
+					<Item id="7164" name="Avansert"/>
+					<Item id="6301" name="Innrykk innstillinger"/>
+					<Item id="6302" name="Mellomrom tegn"/>
+					<Item id="6303" name="Størrelse på innrykk:"/>
+					<Item id="6310" name="Innrykk ved hjelp av:"/>
+					<Item id="6311" name="Tabulator tegb"/>
+					<Item id="6510" name="Bruk standardverdi"/>
+					<Item id="6512" name="Tilbaketast fjerner innrykk i stedet for å fjerne enkeltmellomrom"/>
+				</Indentation>
+
 				<Highlighting title="Utheving">
 					<Item id="6351" name="Merk alle forekomster"/>
 					<Item id="6352" name="Store/små bokstaver"/>
@@ -1304,6 +1321,13 @@ Translation note:
 						<Element name="Aktiver for alle åpne filer"/>
 						<Element name="Deaktiver"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Ingen handling til"/>
+						<Element name="Minimer til"/>
+						<Element name="Lukk til"/>
+						<Element name="Minimer / Lukk til"/>
+					</ComboBox>
+					<Item id="6308" name="systemstatusfeltet"/>
 					<Item id="6312" name="Automatisk innhenting av filstatus"/>
 					<Item id="6313" name="Skjult oppdatering"/>
 					<Item id="6325" name="Bla til siste linje etter oppdatering"/>
@@ -1388,6 +1412,11 @@ Du kan aktivere denne dialogboksen på nytt i Innstillinger senere."/>
 				<Item id="7" name="&amp;Nei"/>
 				<Item id="4" name="Alltid Ja"/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
+
+			<DebugInfo title="Debug Info">
+				<Item id="1752" name="&amp;Kopier debug info til utklippstavle"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1700,7 +1729,6 @@ Finn i alle filer, men ekskluder alle mapper log eller logs rekursivt:
 			<finder-copy value="Kopier valgte linje(r)"/>
 			<finder-select-all value="Velg alle"/>
 			<finder-clear-all value="Slett alt"/>
-			<finder-open-all value="Åpne alle"/>
 			<finder-purge-for-every-search value="Rens for hvert søk"/>
 			<finder-wrap-long-lines value="Bryt lange linjer"/>
 			<common-ok value="OK"/>
@@ -1794,6 +1822,14 @@ Klikk på &quot;?&quot; knappen til høyre for å åpne nettside med Brukermanua
 			<npcIncludeCcUniEol-tip value="Bruk innstillinger for ikke-skrivbare tegns utseende, på C0-, C1-kontroll- og Unicode EOL-tegn (neste linje, linjeskilletegn og avsnittsskilletegn)."/>
 			<searchingInSelThresh-tip value="Antall valgte tegn i redigeringssonen for automatisk å kontrollere &quot;Valgte&quot; avmerkingsboks når dialogboksen Søk er aktivert. Maksimumsverdien er 1024. Sett verdien til 0 for å deaktivere automatisk kontroll."/>
 			<verticalEdge-tip value="Legg til kolonnemarkøren ved å angi posisjonen med et desimaltall. Du kan definere flere kolonnemarkører ved å bruke mellomrom til å skille de forskjellige tallene."/>
+			<fileSaveAsCopySaveButton-tip value="Hold nede Shift mens du trykker på Lagre for å åpne kopien etter lagring."/>
+			<autoIndentBasic-tip value="Sørg for at innrykket på den gjeldende linjen (dvs. den nye linjen som opprettes ved å trykke på ENTER-tasten) samsvarer med innrykket til forrige linje."/>
+			<autoIndentAdvanced-tip value="Aktiver smart innrykk for &quot;C-lignende&quot; språk og Python. De &quot;C-lignende&quot; språkene inkluderere:
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell og JSON.
+
+Hvis du velger avansert modus, men ikke redigerer filer på de nevnte språkene, vil innrykket forbli i grunnleggende modus."/>
+			<!-- Don't translate "Global override" and "Default Style" -->
+			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

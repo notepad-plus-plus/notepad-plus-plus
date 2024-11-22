@@ -1581,7 +1581,6 @@ Appughjate nant’à u buttone Vai per apre a finestra di dialogu di ricerca o p
 			
 S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjite l’istruzzioni per attivalla in u manuale di l’utilizatore."/>
 			<PrintError title="0" message="Ùn si pò lancià u ducumentu di stampetta."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
-			<FileToLoadSizeCheckFailed title="Fiascu di u cuntrollu di dimensione di u schedariu à caricà" message="Ùn si pò ottene a dimensione di schedariu prima u caricamentu !"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>

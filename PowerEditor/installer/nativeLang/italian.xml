@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.7.2
-    Last modified Tue, Nov 19th, 2024.
+    Last modified Sat, Nov 30th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.2">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -98,6 +98,7 @@ Translation note:
 					<Item id="41003" name="&amp;Chiudi"/>
 					<Item id="41004" name="C&amp;hiudi tutto"/>
 					<Item id="41005" name="Chiudi tutte tranne la scheda corrente"/>
+					<Item id="41026" name="Chiudi tutti tranne i documenti fissati"/>
 					<Item id="41009" name="Chiudi le schede a sinistra della corrente"/>
 					<Item id="41018" name="Chiudi le schede a destra della corrente"/>
 					<Item id="41024" name="Chiudi tutte quelle non modificate"/>
@@ -335,7 +336,7 @@ Translation note:
 					<Item id="44082" name="Pannello 2"/>
 					<Item id="44083" name="Pannello 3"/>
 					<Item id="45001" name="Windows (CR+LF)"/>
-					<Item id="45002" name="UNIX (LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
 					<Item id="45004" name="ANSI"/>
 					<Item id="45005" name="UTF-8-BOM"/>
@@ -424,9 +425,11 @@ Translation note:
 				<Item CMDID="41003" name="Chiudi"/>
 				<Item CMDID="0" name="Chiudi schede multiple"/>
 				<Item CMDID="41005" name="Chiudi tutte tranne questa"/>
+				<Item CMDID="41026" name="Chiudi tutto tranne quelli fissati"/>
 				<Item CMDID="41009" name="Chiudi tutte le schede a sinistra"/>
 				<Item CMDID="41018" name="Chiudi tutte le schede a destra"/>
 				<Item CMDID="41024" name="Chiudi tutti i documenti non modificati"/>
+				<Item CMDID="44048" name="Fissa Scheda" alternativeName="Rimuovi fissaggio Scheda"/>
 				<Item CMDID="41006" name="Salva"/>
 				<Item CMDID="41008" name="Salva con nome..."/>
 				<Item CMDID="1" name="Apri in"/>
@@ -643,6 +646,7 @@ Translation note:
 					<Item id="2231" name="Forza il corsivo per tutti gli stili"/>
 					<Item id="2232" name="Forza il sottolineato per tutti gli stili"/>
 					<Item id="2234" name="Vai alle impostazioni"/>
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Cosa è Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -673,7 +677,7 @@ Translation note:
 					<Item id="41020" name="Apri la cartella nel Prompt dei Comandi"/>
 					<Item id="41021" name="Ripristina i file recenti"/>
 					<Item id="45001" name="Fine riga in formato Windows (CR+LF)"/>
-					<Item id="45002" name="Fine riga in formato UNIX (LF)"/>
+					<Item id="45002" name="Fine riga in formato Unix (LF)"/>
 					<Item id="45003" name="Fine riga in formato Macintosh (CR)"/>
 					<Item id="43022" name="Marca tutto usando il 1º stile"/>
 					<Item id="43024" name="Marca tutto usando il 2º stile"/>
@@ -958,7 +962,7 @@ Translation note:
 					<Item id="6106" name="Barra delle schede"/>
 					<Item id="6107" name="Compatta"/>
 					<Item id="6108" name="Blocca schede (no trascinamento)"/>
-					<Item id="6109" name="Oscura le schede inattive"/>
+					<Item id="6109" name="Cambia il colore della scheda inattiva"/>
 					<Item id="6110" name="Barra colorata sulla scheda attiva"/>
 					<Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
 					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>
@@ -1724,7 +1728,9 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<finder-collapse-all value="Riduci tutto"/>
 			<finder-uncollapse-all value="Espandi tutto"/>
 			<finder-copy value="Copia righe selezionate"/>
+			<finder-copy-selected-paths value="Copia i Percorsi Selezionati"/>
 			<finder-clear-all value="Pulisci tutto"/>
+			<finder-open-selected-paths value="Apri i Percorsi Selezionati"/>
 			<finder-purge-for-every-search value="Pulisci ad ogni ricerca"/>
 			<finder-wrap-long-lines value="Attiva il Ritorno a capo automatico"/>
 			<common-ok value="Conferma"/>

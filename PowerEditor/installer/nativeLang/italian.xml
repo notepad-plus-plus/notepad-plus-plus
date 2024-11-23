@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.7.2
-    Last modified Tue, Nov 19th, 2024.
+    Last modified Sat, Nov 23th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -335,7 +335,7 @@ Translation note:
 					<Item id="44082" name="Pannello 2"/>
 					<Item id="44083" name="Pannello 3"/>
 					<Item id="45001" name="Windows (CR+LF)"/>
-					<Item id="45002" name="UNIX (LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
 					<Item id="45004" name="ANSI"/>
 					<Item id="45005" name="UTF-8-BOM"/>
@@ -643,6 +643,7 @@ Translation note:
 					<Item id="2231" name="Forza il corsivo per tutti gli stili"/>
 					<Item id="2232" name="Forza il sottolineato per tutti gli stili"/>
 					<Item id="2234" name="Vai alle impostazioni"/>
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Cosa è Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -673,7 +674,7 @@ Translation note:
 					<Item id="41020" name="Apri la cartella nel Prompt dei Comandi"/>
 					<Item id="41021" name="Ripristina i file recenti"/>
 					<Item id="45001" name="Fine riga in formato Windows (CR+LF)"/>
-					<Item id="45002" name="Fine riga in formato UNIX (LF)"/>
+					<Item id="45002" name="Fine riga in formato Unix (LF)"/>
 					<Item id="45003" name="Fine riga in formato Macintosh (CR)"/>
 					<Item id="43022" name="Marca tutto usando il 1º stile"/>
 					<Item id="43024" name="Marca tutto usando il 2º stile"/>
@@ -1724,7 +1725,9 @@ Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 			<finder-collapse-all value="Riduci tutto"/>
 			<finder-uncollapse-all value="Espandi tutto"/>
 			<finder-copy value="Copia righe selezionate"/>
+			<finder-copy-selected-paths value="Copia i Percorsi Selezionati"/>
 			<finder-clear-all value="Pulisci tutto"/>
+			<finder-open-selected-paths value="Apri i Percorsi Selezionati"/>
 			<finder-purge-for-every-search value="Pulisci ad ogni ricerca"/>
 			<finder-wrap-long-lines value="Attiva il Ritorno a capo automatico"/>
 			<common-ok value="Conferma"/>

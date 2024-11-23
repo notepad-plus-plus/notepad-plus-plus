@@ -4924,6 +4924,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else
 					isFailed = true;
 			}
+			else
+			{
+				_nppGUI._tabStatus |= TAB_PINBUTTON;
+			}
 
 			val = element->Attribute(L"doubleClick2Close");
 			if (val)

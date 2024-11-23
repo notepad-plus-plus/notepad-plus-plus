@@ -36,7 +36,6 @@ class GeneralSubDlg : public StaticDialog
 {
 public :
 	GeneralSubDlg() = default;
-	~GeneralSubDlg() = default;
 	void setTabbarAlternateIcons(bool enable = false);
 
 private :

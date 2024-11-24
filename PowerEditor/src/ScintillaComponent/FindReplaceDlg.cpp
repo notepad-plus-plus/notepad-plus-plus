@@ -719,13 +719,16 @@ vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 			if (line < len)
 				found = true;  // Found it
 		}
+
 		if (found)
 		{
-			wstring& path = (*_pMainFoundInfos)[line]._fullPath;  // Get the path from the container
-			paths.push_back(path);
+			wstring& path = (*_pMainFoundInfos)[line]._fullPath;
+			if (std::find(paths.begin(), paths.end(), path) == paths.end())
+			{
+				paths.push_back(path);
+			}
 		}
 	}
-
 
 	return paths;
 }

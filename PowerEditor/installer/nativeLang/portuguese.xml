@@ -5,7 +5,7 @@ Nota de tradução:
 2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.1">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -92,10 +92,11 @@ Nota de tradução:
 					<Item id="41025" name="Pasta como área de trabalho"/>
 					<Item id="41003" name="Fe&amp;char"/>
 					<Item id="41004" name="F&amp;echar tudo"/>
-					<Item id="41005" name="Fechar TUDO exceto documento atual"/>
-					<Item id="41009" name="Fechar TUDO à esquerda"/>
-					<Item id="41018" name="Fechar TUDO à direita"/>
-					<Item id="41024" name="Fechar TUDO inalterado"/>
+					<Item id="41005" name="Fechar tudo EXCETO documento atual"/>
+					<Item id="41026" name="Fechar tudo EXCETO documentos afixados"/>
+					<Item id="41009" name="Fechar tudo à esquerda"/>
+					<Item id="41018" name="Fechar tudo à direita"/>
+					<Item id="41024" name="Fechar tudo inalterado"/>
 					<Item id="41006" name="&amp;Guardar"/>
 					<Item id="41007" name="Guardar tudo"/>
 					<Item id="41008" name="Guardar &amp;como..."/>
@@ -276,7 +277,7 @@ Nota de tradução:
 					<Item id="43501" name="Fechar selecionado"/>
 					<Item id="43502" name="Fechar outros"/>
 					<Item id="43503" name="Copiar nomes selecionados"/>
-					<Item id="43504" name="Copiar nomes de localizações selecionadas"/>
+					<Item id="43504" name="Copiar nomes dos caminhos selecionados"/>
 					<Item id="44009" name="Anotação"/>
 					<Item id="44010" name="Fechar tudo"/>
 					<Item id="44011" name="Modo sem distração"/>
@@ -418,10 +419,12 @@ Nota de tradução:
 			<TabBar>
 				<Item CMDID="41003" name="Fechar"/>
 				<Item CMDID="0" name="Fechar vários separadores"/>
-				<Item CMDID="41005" name="Fechar TUDO EXCETO este"/>
-				<Item CMDID="41009" name="Fechar TUDO à esquerda"/>
-				<Item CMDID="41018" name="Fechar TUDO à direita"/>
-				<Item CMDID="41024" name="Fechar TUDO inalterado"/>
+				<Item CMDID="41005" name="Fechar tudo EXCETO este"/>
+				<Item CMDID="41026" name="Fechar tudo EXCETO afixados"/>
+				<Item CMDID="41009" name="Fechar tudo à esquerda"/>
+				<Item CMDID="41018" name="Fechar tudo à direita"/>
+				<Item CMDID="41024" name="Fechar tudo inalterado"/>
+				<Item CMDID="44048" name="Afixar separador" alternativeName="Desafixar separador"/>
 				<Item CMDID="41006" name="Guardar"/>
 				<Item CMDID="41008" name="Guardar como..."/>
 				<Item CMDID="1" name="Abrir em"/>
@@ -671,33 +674,33 @@ Nota de tradução:
 					<Item id="45001" name="EOL conversão para Windows (CR LF)"/>
 					<Item id="45002" name="EOL conversão para Unix (LF)"/>
 					<Item id="45003" name="EOL conversão para Macintosh (CR)"/>
-					<Item id="43022" name="Marcar tudo usando o 1.º Estilo"/>
-					<Item id="43024" name="Marcar tudo usando o 2.º Estilo"/>
-					<Item id="43026" name="Marcar tudo usando o 3.º Estilo"/>
-					<Item id="43028" name="Marcar tudo usando o 4.º Estilo"/>
-					<Item id="43030" name="Marcar tudo usando o 5.º Estilo"/>
-					<Item id="43062" name="Marcar um usando o 1.º Estilo"/>
-					<Item id="43063" name="Marcar um usando o 2.º Estilo"/>
-					<Item id="43064" name="Marcar um usando o 3.º Estilo"/>
-					<Item id="43065" name="Marcar um usando o 4.º Estilo"/>
-					<Item id="43066" name="Marcar um usando o 5.º Estilo"/>
-					<Item id="43023" name="Limpar marcações usando o 1.º Estilo"/>
-					<Item id="43025" name="Limpar marcações usando o 2.º Estilo"/>
-					<Item id="43027" name="Limpar marcações usando o 3.º Estilo"/>
-					<Item id="43029" name="Limpar marcações usando o 4.º Estilo"/>
-					<Item id="43031" name="Limpar marcações usando o 5.º Estilo"/>
-					<Item id="43032" name="Limpar marcações usando qualquer estilo"/>
-					<Item id="43033" name="Marca anterior usando o 1.º Estilo"/>
-					<Item id="43034" name="Marca anterior usando o 2.º Estilo"/>
-					<Item id="43035" name="Marca anterior usando o 3.º Estilo"/>
-					<Item id="43036" name="Marca anterior usando o 4.º Estilo"/>
-					<Item id="43037" name="Marca anterior usando o 5.º Estilo"/>
+					<Item id="43022" name="Marcar tudo utilizando o 1.º Estilo"/>
+					<Item id="43024" name="Marcar tudo utilizando o 2.º Estilo"/>
+					<Item id="43026" name="Marcar tudo utilizando o 3.º Estilo"/>
+					<Item id="43028" name="Marcar tudo utilizando o 4.º Estilo"/>
+					<Item id="43030" name="Marcar tudo utilizando o 5.º Estilo"/>
+					<Item id="43062" name="Marcar um utilizando o 1.º Estilo"/>
+					<Item id="43063" name="Marcar um utilizando o 2.º Estilo"/>
+					<Item id="43064" name="Marcar um utilizando o 3.º Estilo"/>
+					<Item id="43065" name="Marcar um utilizando o 4.º Estilo"/>
+					<Item id="43066" name="Marcar um utilizando o 5.º Estilo"/>
+					<Item id="43023" name="Limpar marcações utilizando o 1.º Estilo"/>
+					<Item id="43025" name="Limpar marcações utilizando o 2.º Estilo"/>
+					<Item id="43027" name="Limpar marcações utilizando o 3.º Estilo"/>
+					<Item id="43029" name="Limpar marcações utilizando o 4.º Estilo"/>
+					<Item id="43031" name="Limpar marcações utilizando o 5.º Estilo"/>
+					<Item id="43032" name="Limpar marcações utilizando qualquer estilo"/>
+					<Item id="43033" name="Marca anterior utilizando o 1.º Estilo"/>
+					<Item id="43034" name="Marca anterior utilizando o 2.º Estilo"/>
+					<Item id="43035" name="Marca anterior utilizando o 3.º Estilo"/>
+					<Item id="43036" name="Marca anterior utilizando o 4.º Estilo"/>
+					<Item id="43037" name="Marca anterior utilizando o 5.º Estilo"/>
 					<Item id="43038" name="Marca anterior criada com marcação"/>
-					<Item id="43039" name="Marca seguinte usando o 1.º Estilo"/>
-					<Item id="43040" name="Marca seguinte usando o 2.º Estilo"/>
-					<Item id="43041" name="Marca seguinte usando o 3.º Estilo"/>
-					<Item id="43042" name="Marca seguinte usando o 4.º Estilo"/>
-					<Item id="43043" name="Marca seguinte usando o 5.º Estilo"/>
+					<Item id="43039" name="Marca seguinte utilizando o 1.º Estilo"/>
+					<Item id="43040" name="Marca seguinte utilizando o 2.º Estilo"/>
+					<Item id="43041" name="Marca seguinte utilizando o 3.º Estilo"/>
+					<Item id="43042" name="Marca seguinte utilizando o 4.º Estilo"/>
+					<Item id="43043" name="Marca seguinte utilizando o 5.º Estilo"/>
 					<Item id="43044" name="Marca seguinte criada com marcação"/>
 					<Item id="43055" name="Copiar texto estilizado - 1.º Estilo"/>
 					<Item id="43056" name="Copiar texto estilizado - 2.º Estilo"/>
@@ -958,6 +961,7 @@ Nota de tradução:
 					<Item id="6110" name="Barra colorida no separador ativo"/>
 					<Item id="6112" name="Botão de fechar em cada separador"/>
 					<Item id="6113" name="Clique duplo para fechar documento"/>
+					<Item id="6115" name="Ativar a funcionalidade de fixar separador"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Múltiplas linhas"/>
 					<Item id="6120" name="Vertical"/>
@@ -1007,11 +1011,11 @@ Nota de tradução:
 					<Item id="6249" name="Texto simples"/>
 					<Item id="6250" name="Cor personalizada"/>
 					<Item id="6252" name="Carateres não imprimíveis"/>
-					<Item id="6260" name="Aparência"/>
+					<Item id="6260" name="Aspeto"/>
 					<Item id="6254" name="Abreviatura"/>
 					<Item id="6255" name="Ponto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
-					<Item id="6258" name="Aplicar definições de Aparência a carateres C0, C1 &amp;e Fim de linha do Unicode"/>
+					<Item id="6258" name="Aplicar definições de Aspeto a carateres C0, C1 &amp;e Fim de linha do Unicode"/>
 					<Item id="6259" name="Impedir a introdução de caracteres de controlo (código C0) no documento"/>
 				</Scintillas2>
 
@@ -1115,7 +1119,7 @@ Nota de tradução:
 					<Item id="6301" name="Definições de indentação"/>
 					<Item id="6302" name="Caráter(es) de espaço"/>
 					<Item id="6303" name="Tamanho de indentação:"/>
-					<Item id="6310" name="Indentar usando:"/>
+					<Item id="6310" name="Indentar utilizando:"/>
 					<Item id="6311" name="Caráter de TAB"/>
 					<Item id="6510" name="Usar valor predefinido"/>
 					<Item id="6512" name="A tecla Backspace remove a identação em vez do espaço"/>
@@ -1316,6 +1320,7 @@ Nota de tradução:
 						<Element name="Sem ação para"/>
 						<Element name="Minimizar para"/>
 						<Element name="Fechar para"/>
+						<Element name="Minimizar/Fechar para"/>
 					</ComboBox>
 					<Item id="6308" name="área de notificação"/>
 					<Item id="6312" name="Deteção automática do estado do ficheiro"/>
@@ -1718,7 +1723,9 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
+			<finder-copy-selected-paths value="Copiar nome do caminho selecionado(s)"/>
 			<finder-clear-all value="Limpar tudo"/>
+			<finder-open-selected-paths value="Abrir nome do caminho selecionado(s)"/>
 			<finder-purge-for-every-search value="Eliminar para cada pesquisa"/>
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="Confirmar"/>
@@ -1811,7 +1818,7 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Util
 			<npcCustomColor-tip value="Ir para o Configurador de estilos para alterar a cor personalizada predefinida para espaços em branco selecionados e carateres não-impressos (&quot;Cor personalizada de carateres sem representação&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplicar as definições de carateres sem representação para os carateres C0, C1 e EOL do Unicode (linha seguinte, separador de linha e separador de parágrafo)."/>
 			<searchingInSelThresh-tip value="Número de carateres selecionados na zona de edição para verificar automaticamente a caixa de verificação &quot;Na seleção&quot; quando a caixa de diálogo Localizar é ativada. O valor máximo é 1024. Defina o valor para 0 para desativar a verificação automática."/>
-			<verticalEdge-tip value="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal. É possível definir vários marcadores de coluna usando um espaço em branco para separar os diferentes números."/>
+			<verticalEdge-tip value="Adicione o seu marcador de coluna, indicando a sua posição com um número decimal. É possível definir vários marcadores de coluna utilizando um espaço em branco para separar os diferentes números."/>
 			<fileSaveAsCopySaveButton-tip value="Mantenha premida a tecla Shift enquanto prime Guardar para abrir a cópia depois de a guardar."/>
 			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao premir a tecla ENTER) seja igual à indentação da linha anterior."/>
 			<autoIndentAdvanced-tip value="Ativar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
@@ -1846,9 +1853,9 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
 
 Filipe Mota <blackspirits@gmail.com>
-27/03/2023 (version 8.5.1, 8.6.3)
+27/03/2023 (version 8.5.1, 8.6.3, 8.7)
 
-Last modified: 21 October 2024 by Hugo Carvalho
+Last modified: 30 November 2024 by Hugo Carvalho and BlackSpirits
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

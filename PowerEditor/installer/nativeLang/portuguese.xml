@@ -5,7 +5,7 @@ Nota de tradução:
 2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.1">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -276,7 +276,7 @@ Nota de tradução:
 					<Item id="43501" name="Fechar selecionado"/>
 					<Item id="43502" name="Fechar outros"/>
 					<Item id="43503" name="Copiar nomes selecionados"/>
-					<Item id="43504" name="Copiar nomes de localizações selecionadas"/>
+					<Item id="43504" name="Copiar nomes dos caminhos selecionados"/>
 					<Item id="44009" name="Anotação"/>
 					<Item id="44010" name="Fechar tudo"/>
 					<Item id="44011" name="Modo sem distração"/>
@@ -958,6 +958,7 @@ Nota de tradução:
 					<Item id="6110" name="Barra colorida no separador ativo"/>
 					<Item id="6112" name="Botão de fechar em cada separador"/>
 					<Item id="6113" name="Clique duplo para fechar documento"/>
+					<Item id="6115" name="Ativar a funcionalidade de fixar separador"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Múltiplas linhas"/>
 					<Item id="6120" name="Vertical"/>
@@ -1316,6 +1317,7 @@ Nota de tradução:
 						<Element name="Sem ação para"/>
 						<Element name="Minimizar para"/>
 						<Element name="Fechar para"/>
+						<Element name="Minimizar / Fechar para"/>
 					</ComboBox>
 					<Item id="6308" name="área de notificação"/>
 					<Item id="6312" name="Deteção automática do estado do ficheiro"/>
@@ -1718,7 +1720,9 @@ Localizar em todos os ficheiros mas excluir todos os registos de pastas ou regis
 			<finder-collapse-all value="Recolher tudo"/>
 			<finder-uncollapse-all value="Expandir tudo"/>
 			<finder-copy value="Copiar linha(s) selecionada(s)"/>
+			<finder-copy-selected-paths value="Copiar nome do caminho selecionado(s)"/>
 			<finder-clear-all value="Limpar tudo"/>
+			<finder-open-selected-paths value="Abrir nome do caminho selecionado(s)"/>
 			<finder-purge-for-every-search value="Eliminar para cada pesquisa"/>
 			<finder-wrap-long-lines value="Quebra de linha em linhas longas"/>
 			<common-ok value="Confirmar"/>
@@ -1848,7 +1852,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3)
 
-Last modified: 21 October 2024 by Hugo Carvalho
+Last modified: 24 November 2024 by Hugo Carvalho
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

@@ -1,9 +1,7 @@
 name: CI_build
 
-#on: [push, pull_request]
-on:
-  push:
-    branches: [ dev ]
+on: [push, pull_request]
+
 env:
   PYTHON_ALLOW_CACHE: true
   PYTHON_DIR_CACHE: D:\.cache\python

@@ -655,11 +655,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_tabPopupMenu.enableItem(IDM_FILE_RENAME, !isInaccessible);
 
 			bool isTabPinEnabled = TabBarPlus::drawTabPinButton();
-			_tabPopupMenu.enableItem(IDM_PINTAB, isTabPinEnabled);
-
+			wstring newName;
 			if (isTabPinEnabled)
 			{
-				wstring newName;
 				wstring defaultName;
 				bool isAlternative;
 				if (buf->isPinned())
@@ -675,6 +673,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_nativeLangSpeaker.getAlternativeNameFromTabContextMenu(newName, IDM_PINTAB, isAlternative, defaultName);
 				::ModifyMenu(_tabPopupMenu.getMenuHandle(), IDM_PINTAB, MF_BYCOMMAND, IDM_PINTAB, newName.c_str());
 			}
+			else
+			{
+				_nativeLangSpeaker.getAlternativeNameFromTabContextMenu(newName, IDM_PINTAB, false, L"Pin Tab");
+				::ModifyMenu(_tabPopupMenu.getMenuHandle(), IDM_PINTAB, MF_BYCOMMAND, IDM_PINTAB, newName.c_str());
+			}
+
+			_tabPopupMenu.enableItem(IDM_PINTAB, isTabPinEnabled);
 
 			_tabPopupMenu.display(p);
 			return TRUE;

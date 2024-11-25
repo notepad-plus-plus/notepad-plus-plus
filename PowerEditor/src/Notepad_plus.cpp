@@ -235,7 +235,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	const ScintillaViewParams & svp = nppParam.getSVP();
 
 	int tabBarStatus = nppGUI._tabStatus;
-	TabBarPlus::setReduced((tabBarStatus & TAB_REDUCE) != 0);
+	TabBarPlus::setReduced((tabBarStatus & TAB_REDUCE) != 0, &_mainDocTab);
 
 	const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
 	unsigned char indexDocTabIcon = 0;
@@ -394,10 +394,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	}
 
 	int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
-	int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
-
-	TabCtrl_SetPadding(_mainDocTab.getHSelf(), _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
-	TabCtrl_SetPadding(_subDocTab.getHSelf(), _subDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
+	int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthButton : g_TabWidth);
 
 	TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 	TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);

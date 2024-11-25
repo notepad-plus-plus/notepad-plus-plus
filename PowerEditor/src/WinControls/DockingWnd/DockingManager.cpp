@@ -952,11 +952,13 @@ int DockingManager::GetContainer(DockingCont* pCont)
 int DockingManager::FindEmptyContainer()
 {
     int      iRetCont       = -1;
-    BOOL*    pPrevDockList  = (BOOL*) new BOOL[_vContainer.size()+1];
-    BOOL*    pArrayPos      = &pPrevDockList[1];
+	const size_t dockingContVectorSize = _vContainer.size();
+	const size_t prevDockListBufSize = dockingContVectorSize + 1;
+	BOOL* pPrevDockList = new BOOL[prevDockListBufSize];
+	BOOL* pArrayPos = &pPrevDockList[1]; // make a room for the possible iPrevCont==-1 later
 
-    // delete all entries
-    for (size_t iCont = 0, len = _vContainer.size()+1; iCont < len; ++iCont)
+    // reset all entries
+    for (size_t iCont = 0, len = prevDockListBufSize; iCont < len; ++iCont)
     {
         pPrevDockList[iCont] = FALSE;
     }
@@ -968,12 +970,20 @@ int DockingManager::FindEmptyContainer()
 
         for (size_t iTb = 0, len = vTbData.size(); iTb < len; ++iTb)
         {
-            pArrayPos[vTbData[iTb]->iPrevCont] = TRUE;
+			if (vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize))
+			{
+				pArrayPos[vTbData[iTb]->iPrevCont] = TRUE;
+			}
+			else
+			{
+				// ? invalid config.xml input data
+				assert(vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize));
+			}
         }
     }
 
     // find free container
-    for (size_t iCont = DOCKCONT_MAX, len = _vContainer.size(); iCont < len; ++iCont)
+    for (size_t iCont = DOCKCONT_MAX, len = dockingContVectorSize; iCont < len; ++iCont)
     {
         if (pArrayPos[iCont] == FALSE)
         {

@@ -970,14 +970,15 @@ int DockingManager::FindEmptyContainer()
 
         for (size_t iTb = 0, len = vTbData.size(); iTb < len; ++iTb)
         {
-			if (vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize))
+			if ((vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize)) && (vTbData[iTb]->iPrevCont >= -1))
 			{
 				pArrayPos[vTbData[iTb]->iPrevCont] = TRUE;
 			}
 			else
 			{
 				// ? invalid config.xml input data
-				assert(vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize));
+				assert((vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize)) && (vTbData[iTb]->iPrevCont >= -1));
+				vTbData[iTb]->iPrevCont = -1; // reset
 			}
         }
     }

@@ -422,6 +422,7 @@ Translation note:
 				<Item CMDID="41009" name="Fermer les onglets sur la gauche"/>
 				<Item CMDID="41018" name="Fermer les onglets sur la droite"/>
 				<Item CMDID="41024" name="Fermer tous les documents non-modifiés"/>
+				<Item CMDID="44048" name="Epingler l’onglet" alternativeName="Désépingler l’onglet"/>
 				<Item CMDID="41006" name="Enregistrer"/>
 				<Item CMDID="41008" name="Enregistrer sous..."/>
 				<Item CMDID="1" name="Ouvrir dans"/>

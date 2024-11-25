@@ -320,7 +320,7 @@
     //#define    IDM_VIEW_DOCCHANGEMARGIN           (IDM_VIEW + 45)
     //#define    IDM_VIEW_LWDEF                     (IDM_VIEW + 46)
     //#define    IDM_VIEW_LWALIGN                   (IDM_VIEW + 47)
-    //#define    IDM_VIEW_LWINDENT                  (IDM_VIEW + 48)
+    #define    IDM_PINTAB                         (IDM_VIEW + 48)
     #define    IDM_VIEW_SUMMARY                   (IDM_VIEW + 49)
 
     #define    IDM_VIEW_FOLD                      (IDM_VIEW + 50)

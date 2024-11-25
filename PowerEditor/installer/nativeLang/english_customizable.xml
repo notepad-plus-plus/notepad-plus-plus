@@ -422,6 +422,7 @@ Translation note:
 				<Item CMDID="41009" name="Close All to the Left"/>
 				<Item CMDID="41018" name="Close All to the Right"/>
 				<Item CMDID="41024" name="Close All Unchanged"/>
+				<Item CMDID="44048" name="Pin Tab" alternativeName="Unpin Tab"/>
 				<Item CMDID="41006" name="Save"/>
 				<Item CMDID="41008" name="Save As..."/>
 				<Item CMDID="1" name="Open into"/>

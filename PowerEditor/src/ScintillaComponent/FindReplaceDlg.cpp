@@ -5460,23 +5460,27 @@ wstring & Finder::prepareStringForClipboard(wstring & s) const
 
 void Finder::copy()
 {
-	if (_scintView.execute(SCI_GETSELECTIONS) > 1) // multi-selection
-	{
-		// don't do anything if user has made a column/rectangular selection
-		return;
-	}
+	const pair<size_t, size_t> lineRange = _scintView.getSelectionLinesRange();
+	size_t fromLine = lineRange.first;
+	size_t toLine = lineRange.second;
 
-	size_t fromLine = 0, toLine = 0;
+	if (_scintView.execute(SCI_GETSELECTIONEMPTY) || fromLine == toLine)
 	{
-		const pair<size_t, size_t> lineRange = _scintView.getSelectionLinesRange();
-		fromLine = lineRange.first;
-		toLine = lineRange.second;
-
-		// Abuse fold levels to find out which lines to copy to clipboard.
-		// We get the current line and then the next line which has a smaller fold level (SCI_GETLASTCHILD).
-		// Then we loop all lines between them and determine which actually contain search results.
 		const int selectedLineFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, fromLine) & SC_FOLDLEVELNUMBERMASK;
-		toLine = _scintView.execute(SCI_GETLASTCHILD, toLine, selectedLineFoldLevel);
+		if (selectedLineFoldLevel != resultLevel)
+		{
+			// caret on Search "..." header line
+			// or
+			// caret is on a line with a pathname
+			
+			// locate the final resultLevel line under its parent grouping
+			toLine = _scintView.execute(SCI_GETLASTCHILD, fromLine, selectedLineFoldLevel);
+			const int toLineFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, toLine) & SC_FOLDLEVELNUMBERMASK;
+			if (toLineFoldLevel != resultLevel)
+			{
+				return;  // the search had 0 hits, so no resultLevel lines, nothing to copy
+			}
+		}
 	}
 
 	std::vector<wstring> lines;

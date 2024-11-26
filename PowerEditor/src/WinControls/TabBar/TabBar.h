@@ -64,7 +64,7 @@ constexpr int g_TabIconSize = 16;
 constexpr int g_TabHeight = 22;
 constexpr int g_TabHeightLarge = 25;
 constexpr int g_TabWidth = 45;
-constexpr int g_TabWidthCloseBtn = 60;
+constexpr int g_TabWidthButton = 60;
 constexpr int g_TabCloseBtnSize = 11;
 constexpr int g_TabPinBtnSize = 11;
 constexpr int g_TabCloseBtnSize_DM = 16;
@@ -249,8 +249,9 @@ public :
 		doMultiLine();
 	}
 
-	static void setReduced(bool b) {
+	static void setReduced(bool b, TabBarPlus* tbpObj) {
 		_isReduced = b;
+		doOwnerDrawTab(tbpObj);
 	}
 
 	static void setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tbpObj);

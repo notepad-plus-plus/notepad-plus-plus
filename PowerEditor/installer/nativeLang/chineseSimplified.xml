@@ -1102,10 +1102,24 @@ Translation note:
 					<Item id="6508" name="程序语言菜单"/>
 					<Item id="6301" name="制表符设置"/>
 					<Item id="6302" name="替换为空格"/>
-					<Item id="6303" name="制表符宽度: "/>
+					<Item id="6303" name="制表符宽度:"/>
 					<Item id="6510" name="使用默认值"/>
 					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
 				</Language>
+
+				<Indentation title="缩进">
+					<Item id="7161" name="自动缩进"/>
+					<Item id="7162" name="无"/>
+					<Item id="7163" name="基本"/>
+					<Item id="7164" name="高深"/>
+					<Item id="6301" name="缩进设置"/>
+					<Item id="6302" name="空格字符"/>
+					<Item id="6303" name="缩进大小:"/>
+					<Item id="6310" name="缩进方式:"/>
+					<Item id="6311" name="制表符"/>
+					<Item id="6510" name="使用默认值"/>
+					<Item id="6512" name="退格键取消缩进而不是删除单个空格"/>
+				</Indentation>
 
 				<Highlighting title="高亮">
 					<Item id="6351" name="用格式标记全部"/>

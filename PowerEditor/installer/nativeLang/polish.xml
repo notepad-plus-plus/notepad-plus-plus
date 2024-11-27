@@ -9,14 +9,14 @@ Translation note:
 
 	- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
 	- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
-	- Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.6.6 (02.04.2024)
+	- Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.7.2 (27.11.2024)
 	- Updated by Arkadiusz Michalski (webref.pl) to version 8.6.9 (05.07.2024)
 
 	The most recent version of this file can usually be downloaded from:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.7.0">
+	<Native-Langue name="polski" filename="polish.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -104,9 +104,11 @@ Translation note:
 					<Item id="41003" name="Za&amp;mknij"/>
 					<Item id="41004" name="Zamknij &amp;wszystko"/>
 					<Item id="41005" name="Zamknij wszystko prócz bieżącego pliku"/>
+					<Item id="41026" name="Zamknij wszystko oprócz przypiętych"/>
 					<Item id="41009" name="Zamknij wszystko na lewo od bieżącego pliku"/>
 					<Item id="41018" name="Zamknij wszystko na prawo od bieżącego pliku"/>
 					<Item id="41024" name="Zamknij wszystko, gdzie nie dokonano zmian"/>
+					<Item id="44048" name="Przypnij kartę" alternativeName="Odepnij kartę"/>
 					<Item id="41006" name="&amp;Zapisz"/>
 					<Item id="41007" name="Zapisz w&amp;szystko"/>
 					<Item id="41008" name="Z&amp;apisz jako..."/>
@@ -429,10 +431,12 @@ Translation note:
 			<TabBar>
 				<Item CMDID="41003" name="Zamknij"/>
 				<Item CMDID="0" name="Zamknij wiele kart"/>
-				<Item CMDID="41005" name="Zamknij wszystkie PRÓCZ tej"/>
+				<Item CMDID="41005" name="Zamknij wszystkie oprócz tej"/>
+				<Item CMDID="41026" name="Zamknij wszystko oprócz przypiętych"/>
 				<Item CMDID="41009" name="Zamknij wszystkie po lewej"/>
 				<Item CMDID="41018" name="Zamknij wszystkie po prawej"/>
 				<Item CMDID="41024" name="Zamknij wszystkie niezmodyfikowane"/>
+				<Item CMDID="44048" name="Przypnij kartę" alternativeName="Odepnij kartę"/>
 				<Item CMDID="41006" name="Zapisz"/>
 				<Item CMDID="41008" name="Zapisz jako..."/>
 				<Item CMDID="1" name="Otwórz w"/>
@@ -965,7 +969,7 @@ Translation note:
 					<Item id="6106" name="Pasek kart"/>
 					<Item id="6107" name="Mały"/>
 					<Item id="6108" name="Zablokowany (bez przeciągania)"/>
-					<Item id="6109" name="Przyciemniaj nieaktywne karty"/>
+					<Item id="6109" name="Zmień kolor nieaktywnej karty"/>
 					<Item id="6110" name="Pokazuj kolorową belkę na aktywnej karcie"/>
 					<Item id="6112" name="Pokazuj przycisk zamknięcia na kartach"/>
 					<Item id="6113" name="Podwójne kliknięcie zamyka kartę"/>

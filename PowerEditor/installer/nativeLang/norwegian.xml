@@ -8,7 +8,7 @@ Translation note:
 
 -->
 <NotepadPlus>
-	<Native-Langue name="Norsk" filename="norwegian.xml" version="8.6.9">
+	<Native-Langue name="Norsk" filename="norwegian.xml" version="8.7.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -421,10 +421,12 @@ Translation note:
 			<TabBar>
 				<Item CMDID="41003" name="Lukk"/>
 				<Item CMDID="0" name="Lukk flere faner"/>
-				<Item CMDID="41005" name="Lukk alle utenom denne"/>
+				<Item CMDID="41005" name="Lukk alle UTENOM Denne"/>
+				<Item CMDID="41026" name="Lukke alle UTENOM Festede faner"/>
 				<Item CMDID="41009" name="Lukk alle til venstre"/>
 				<Item CMDID="41018" name="Lukk alle til høyre"/>
 				<Item CMDID="41024" name="Lukk alle uendrede"/>
+				<Item CMDID="44048" name="Fest fane" alternativeName="Løsne fane"/>
 				<Item CMDID="41006" name="Lagre"/>
 				<Item CMDID="41008" name="Lagre som..."/>
 				<Item CMDID="1" name="Åpne i"/>
@@ -1101,18 +1103,12 @@ Translation note:
 					<Item id="4010" name="Registrerte typer:"/>
 				</FileAssoc>
 
+
 				<Language title="Språk">
 					<Item id="6505" name="Tilgjengelige"/>
 					<Item id="6506" name="Deaktiverte"/>
 					<Item id="6507" name="Kompakt språkmeny"/>
 					<Item id="6508" name="Språkmeny"/>
-					<Item id="6301" name="Tabulator"/>
-					<Item id="6302" name="Erstatt med mellomrom"/>
-					<Item id="6303" name="Størrelse: "/>
-					<Item id="6510" name="Bruk standardverdi"/>
-					<Item id="6311" name="Tab-tast"/>
-					<Item id="6510" name="Bruk standardverdi"/>
-					<Item id="6512" name="Backspace-tasten fjerner tabulator i stedet for å fjerne mellomrom tegn"/>
 					<Item id="6335" name="Behandle omvendt skråstrek som escape-tegn for SQL"/>
 				</Language>
 
@@ -1729,6 +1725,7 @@ Finn i alle filer, men ekskluder alle mapper log eller logs rekursivt:
 			<finder-copy value="Kopier valgte linje(r)"/>
 			<finder-select-all value="Velg alle"/>
 			<finder-clear-all value="Slett alt"/>
+			<finder-open-all value="Åpne alle"/>
 			<finder-purge-for-every-search value="Rens for hvert søk"/>
 			<finder-wrap-long-lines value="Bryt lange linjer"/>
 			<common-ok value="OK"/>
@@ -1833,4 +1830,3 @@ Hvis du velger avansert modus, men ikke redigerer filer på de nevnte språkene,
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
-

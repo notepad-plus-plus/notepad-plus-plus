@@ -4,7 +4,7 @@ Updated to v8.7.2:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.2">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -100,6 +100,7 @@ Updated to v8.7.2:
 					<Item id="41004" name="Закрыть вс&amp;е"/>
 
 					<Item id="41005" name="Закрыть все Кроме Текущей"/>
+					<Item id="41026" name="Закрыть все Кроме Закреплённых"/>
 					<Item id="41009" name="Закрыть все Слева"/>
 					<Item id="41018" name="Закрыть все Справа"/>
 					<Item id="41024" name="Закрыть все Без Изменений"/>
@@ -466,9 +467,11 @@ Updated to v8.7.2:
 				<Item CMDID="41003" name="Закрыть"/>
 				<Item CMDID="0" name="Закрытие Вкладок"/>
 				<Item CMDID="41005" name="Закрыть все Кроме Текущей"/>
+				<Item CMDID="41026" name="Закрыть все Кроме Закреплённых"/>
 				<Item CMDID="41009" name="Закрыть все Вкладки Слева"/>
 				<Item CMDID="41018" name="Закрыть все Вкладки Справа"/>
 				<Item CMDID="41024" name="Закрыть все Без Изменений"/>
+				<Item CMDID="44048" name="Закрепить Вкладку" alternativeName="Открепить Вкладку"/>
 				<Item CMDID="41006" name="Сохранить"/>
 				<Item CMDID="41008" name="Сохранить как..."/>
 				<Item CMDID="1" name="Открыть папку файла"/>
@@ -1008,7 +1011,7 @@ Updated to v8.7.2:
 					<Item id="6106" name="Панель Вкладок"/>
 					<Item id="6107" name="Уменьшенный размер"/>
 					<Item id="6108" name="Запретить перетаскивание"/>
-					<Item id="6109" name="Неактивные вкладки серого цвета"/>
+					<Item id="6109" name="Сменить цвет неактивной вкладки"/>
 					<Item id="6110" name="Оранжевая линия над активной"/>
 					<Item id="6111" name="Отображать Строку Состояния"/>
 					<Item id="6112" name="Кнопка закрытия на вкладке"/>

@@ -458,6 +458,7 @@ BEGIN
         POPUP "Close &Multiple Documents"
         BEGIN
             MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
+            MENUITEM "Close All but Pinned Documents",   IDM_FILE_CLOSEALL_BUT_PINNED
             MENUITEM "Close All to the Left",            IDM_FILE_CLOSEALL_TOLEFT
             MENUITEM "Close All to the Right",           IDM_FILE_CLOSEALL_TORIGHT
             MENUITEM "Close All Unchanged",              IDM_FILE_CLOSEALL_UNCHANGED

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.7.2">
+	<Native-Langue name="English" filename="english.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="&amp;Close"/>
 					<Item id="41004" name="Clos&amp;e All"/>
 					<Item id="41005" name="Close All BUT Current Document"/>
+					<Item id="41026" name="Close All BUT Pinned Documents"/>
 					<Item id="41009" name="Close All to the Left"/>
 					<Item id="41018" name="Close All to the Right"/>
 					<Item id="41024" name="Close All Unchanged"/>

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.7.2">
+	<Native-Langue name="Français" filename="french.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="Fermer"/>
 					<Item id="41004" name="Fermer tout"/>
 					<Item id="41005" name="Fermer tout sauf le document actuel"/>
+					<Item id="41026" name="Fermer tout sauf les documents épinglés"/>
 					<Item id="41009" name="Fermer tout à gauche"/>
 					<Item id="41018" name="Fermer tout à droite"/>
 					<Item id="41024" name="Fermer tous les documents non-modifiés"/>

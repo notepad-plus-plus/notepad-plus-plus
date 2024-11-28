@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.7.2">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -85,6 +85,7 @@
 					<Item id="41003" name="關閉(&amp;C)"/>
 					<Item id="41004" name="全部關閉(&amp;E)"/>
 					<Item id="41005" name="除此之外全部關閉"/>
+					<Item id="41026" name="除固定標籤頁之外 全部關閉"/>
 					<Item id="41009" name="關閉左側所有檔案"/>
 					<Item id="41018" name="關閉右側所有檔案"/>
 					<Item id="41024" name="關閉所有未更改的檔案"/>

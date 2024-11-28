@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Nov 2024, for Notepad++ 8.7.2
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 27 Nov 2024, for Notepad++ 8.7.2
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -422,6 +422,7 @@ Translation note:
 				<Item CMDID="41009" name="Fechar todas à esquerda"/>
 				<Item CMDID="41018" name="Fechar todas à direita"/>
 				<Item CMDID="41024" name="Fechar todas inalteradas"/>
+				<Item CMDID="44048" name="Fixar Aba" alternativeName="Desafixar Aba"/>
 				<Item CMDID="41006" name="Salvar"/>
 				<Item CMDID="41008" name="Salvar como..."/>
 				<Item CMDID="1" name="Abrir em"/>
@@ -954,7 +955,7 @@ Translation note:
 					<Item id="6106" name="Barra de abas"/>
 					<Item id="6107" name="Reduzir"/>
 					<Item id="6108" name="Travar (sem arrastar e soltar)"/>
-					<Item id="6109" name="Esmaecer abas inativas"/>
+					<Item id="6109" name="Mudar cor de aba inativa"/>
 					<Item id="6110" name="Destacar topo da aba ativa"/>
 					<Item id="6112" name="Mostrar o botão fechar em cada aba"/>
 					<Item id="6113" name="Fechar documento com duplo clique"/>

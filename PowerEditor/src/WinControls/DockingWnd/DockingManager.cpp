@@ -951,25 +951,25 @@ int DockingManager::GetContainer(DockingCont* pCont)
 
 int DockingManager::FindEmptyContainer()
 {
-    int      iRetCont       = -1;
+	int iRetCont = -1;
 	const size_t dockingContVectorSize = _vContainer.size();
 	const size_t prevDockListBufSize = dockingContVectorSize + 1;
 	BOOL* pPrevDockList = new BOOL[prevDockListBufSize];
 	BOOL* pArrayPos = &pPrevDockList[1]; // make a room for the possible iPrevCont==-1 later
 
-    // reset all entries
-    for (size_t iCont = 0, len = prevDockListBufSize; iCont < len; ++iCont)
-    {
-        pPrevDockList[iCont] = FALSE;
-    }
+	// reset all entries
+	for (size_t iCont = 0, len = prevDockListBufSize; iCont < len; ++iCont)
+	{
+		pPrevDockList[iCont] = FALSE;
+	}
 
-    // search for used floated containers
-    for (size_t iCont = 0; iCont < DOCKCONT_MAX; ++iCont)
-    {
-        vector<tTbData*>    vTbData = _vContainer[iCont]->getDataOfAllTb();
+	// search for used floating containers
+	for (size_t iCont = 0; iCont < DOCKCONT_MAX; ++iCont)
+	{
+		vector<tTbData*> vTbData = _vContainer[iCont]->getDataOfAllTb();
 
-        for (size_t iTb = 0, len = vTbData.size(); iTb < len; ++iTb)
-        {
+		for (size_t iTb = 0, len = vTbData.size(); iTb < len; ++iTb)
+		{
 			if ((vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize)) && (vTbData[iTb]->iPrevCont >= -1))
 			{
 				pArrayPos[vTbData[iTb]->iPrevCont] = TRUE;
@@ -978,27 +978,27 @@ int DockingManager::FindEmptyContainer()
 			{
 				// ? invalid config.xml input data
 				assert((vTbData[iTb]->iPrevCont < static_cast<int>(dockingContVectorSize)) && (vTbData[iTb]->iPrevCont >= -1));
-				vTbData[iTb]->iPrevCont = -1; // reset
+				vTbData[iTb]->iPrevCont = -1; // reset (local copy only)
 			}
-        }
-    }
+		}
+	}
 
-    // find free container
-    for (size_t iCont = DOCKCONT_MAX, len = dockingContVectorSize; iCont < len; ++iCont)
-    {
-        if (pArrayPos[iCont] == FALSE)
-        {
-            // and test if container is hidden
-            if (!_vContainer[iCont]->isVisible())
-            {
+	// find free container
+	for (size_t iCont = DOCKCONT_MAX, len = dockingContVectorSize; iCont < len; ++iCont)
+	{
+		if (pArrayPos[iCont] == FALSE)
+		{
+			// and test if container is hidden
+			if (!_vContainer[iCont]->isVisible())
+			{
 				iRetCont = static_cast<int32_t>(iCont);
-                break;
-            }
-        }
-    }
+				break;
+			}
+		}
+	}
 
-    delete [] pPrevDockList;
+	delete [] pPrevDockList;
 
-    // search for empty arrays
-    return iRetCont;
+	// search for empty arrays
+	return iRetCont;
 }

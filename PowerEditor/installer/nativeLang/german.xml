@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-19"><!-- basiert auf english.xml 8.6.9 vom 18.11.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-28"><!-- basiert auf english.xml 8.7.2 vom 27.11.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -431,6 +431,7 @@ Translation note:
 				<Item CMDID="41009" name="Dateien links von aktueller Datei schlie&amp;ßen"/>
 				<Item CMDID="41018" name="Dateien rech&amp;ts von aktueller Datei schließen"/>
 				<Item CMDID="41024" name="Alle unveränderten Dateien schließen"/>
+				<Item CMDID="44048" name="Tab Fixieren" alternativeName="Tab Lösen"/>
 				<Item CMDID="41006" name="&amp;Speichern"/>
 				<Item CMDID="41008" name="Speichern &amp;unter …"/>
 				<Item CMDID="1" name="Öffne in"/>
@@ -963,11 +964,11 @@ Translation note:
 					<Item id="6106" name="Dateireiter (Tabs)"/>
 					<Item id="6107" name="Verkleinern"/>
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
-					<Item id="6109" name="Inaktive Tabs dunkler darstellen"/>
+					<Item id="6109" name="Farbe für Inaktive Tabs ändern"/>
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
 					<Item id="6112" name="Schließen-Kreuz auf jedem Tab"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
-					<Item id="6115" name="Pin-Tab-Funktion aktivieren"/>
+					<Item id="6115" name="Pin-Tab-Funktion aktivieren (fixieren/lösen)"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>

@@ -13,7 +13,7 @@ Additionnal information about Corsican localization:
 2. History of Corsican translation for Notepad++:
 
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
-			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2)
+			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
 			  May 7th (v8.5.3), June 9th (v8.5.4), Aug. 1st (v8.5.5), Aug. 7th (v8.5.6), Oct. 7th (v8.5.8),
 			  Nov. 15th (v8.5.9), Nov. 22nd (v8.6), Dec. 19th (v8.6.1), Dec. 29th (v8.6.1)
@@ -34,7 +34,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.2">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -122,6 +122,7 @@ Additionnal information about Corsican localization:
 					<Item id="41003" name="&amp;Chjode"/>
 					<Item id="41004" name="Chjodeli &amp;tutti"/>
 					<Item id="41005" name="Tuttu chjode FOR di u ducumentu attuale"/>
+					<Item id="41026" name="Tuttu chjode FOR di i ducumenti fissati"/>
 					<Item id="41009" name="Tuttu chjode ciò chì hè à manu manca"/>
 					<Item id="41018" name="Tuttu chjode ciò chì hè à manu diritta"/>
 					<Item id="41024" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
@@ -447,10 +448,12 @@ Additionnal information about Corsican localization:
 			<TabBar>
 				<Item CMDID="41003" name="Chjode"/>
 				<Item CMDID="0" name="Chjode parechje unghjette"/>
-				<Item CMDID="41005" name="Tuttu chjode for di què"/>
+				<Item CMDID="41005" name="Tuttu chjode FOR di què"/>
+				<Item CMDID="41026" name="Tuttu chjode FOR di i ducumenti fissati"/>
 				<Item CMDID="41009" name="Tuttu chjode ciò chì hè à manu manca"/>
 				<Item CMDID="41018" name="Tuttu chjode ciò chì hè à manu diritta"/>
 				<Item CMDID="41024" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>
+				<Item CMDID="44048" name="Fissà l’unghjetta" alternativeName="Liberà l’unghjetta"/>
 				<Item CMDID="41006" name="Arregistrà"/>
 				<Item CMDID="41008" name="Arregistrà cù u nome…"/>
 				<Item CMDID="1" name="Apre in"/>
@@ -981,7 +984,7 @@ Additionnal information about Corsican localization:
 					<Item id="6106" name="Barra d’unghjette"/>
 					<Item id="6107" name="Riduce"/>
 					<Item id="6108" name="Bluccà (senza sguillà é depone)"/>
-					<Item id="6109" name="Abbughjà l’unghjette inattive"/>
+					<Item id="6109" name="Cambià u culore di l’unghjette inattive"/>
 					<Item id="6110" name="Barra culurita nant’à l’unghjetta attiva"/>
 					<Item id="6112" name="Buttonu di chjusura per ogni unghjetta"/>
 					<Item id="6113" name="Doppiu cliccu per chjode u ducumentu"/>

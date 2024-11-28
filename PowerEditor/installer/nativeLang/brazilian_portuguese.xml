@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Nov 2024, for Notepad++ 8.7.2
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 29 Nov 2024, for Notepad++ 8.7.3
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.2">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="&amp;Fechar"/>
 					<Item id="41004" name="F&amp;echar todos"/>
 					<Item id="41005" name="Fechar todos exceto o atual"/>
+					<Item id="41026" name="Fechar todos, exceto fixados"/>
 					<Item id="41009" name="Fechar todos à esquerda"/>
 					<Item id="41018" name="Fechar todos à direita"/>
 					<Item id="41024" name="Fechar todos inalterados"/>
@@ -419,9 +420,11 @@ Translation note:
 				<Item CMDID="41003" name="Fechar"/>
 				<Item CMDID="0" name="Fechar Múltiplas Abas"/>
 				<Item CMDID="41005" name="Fechar Todas Abas, exceto esta"/>
+				<Item CMDID="41026" name="Fechar Todas, exceto as fixadas"/>
 				<Item CMDID="41009" name="Fechar todas à esquerda"/>
 				<Item CMDID="41018" name="Fechar todas à direita"/>
 				<Item CMDID="41024" name="Fechar todas inalteradas"/>
+				<Item CMDID="44048" name="Fixar Aba" alternativeName="Desafixar Aba"/>
 				<Item CMDID="41006" name="Salvar"/>
 				<Item CMDID="41008" name="Salvar como..."/>
 				<Item CMDID="1" name="Abrir em"/>
@@ -954,7 +957,7 @@ Translation note:
 					<Item id="6106" name="Barra de abas"/>
 					<Item id="6107" name="Reduzir"/>
 					<Item id="6108" name="Travar (sem arrastar e soltar)"/>
-					<Item id="6109" name="Esmaecer abas inativas"/>
+					<Item id="6109" name="Mudar cor de aba inativa"/>
 					<Item id="6110" name="Destacar topo da aba ativa"/>
 					<Item id="6112" name="Mostrar o botão fechar em cada aba"/>
 					<Item id="6113" name="Fechar documento com duplo clique"/>
@@ -1408,8 +1411,7 @@ Você pode reativar esta janela de confirmação em Preferências depois."/>
 			<DebugInfo title="Informação de Depuração">
 				<Item id="1752" name="&amp;Copiar informação de depuração para a área de transferência"/>
 				<Item id="1" name="OK"/>
-			</DebugInfo>			
-			
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1820,7 +1822,8 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 			<fileSaveAsCopySaveButton-tip value="Pressione a tecla Shift enquanto clica em &quot;Salvar uma cópia como...&quot; para abrir a cópia após salvar."/>
 			<autoIndentBasic-tip value="Garantir que a indentação da linha atual (por exemplo, a nova linha criada ao pressionar a tecla ENTER) seja igual à indentação da linha anterior."/>
 			<autoIndentAdvanced-tip value="Habilitar a indentação inteligente para linguagens com regras baseadas nas linguagens &quot;C&quot; e Python. As linguagens baseadas em &quot;C&quot; incluem:
-C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON
+C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
+
 Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>
 			<!-- Não traduzir "Global override" e "Default Style" -->
 			<global-override-tip value="Habilitar o &quot;Global override&quot; aqui vai prevalecer sobre este parâmetro em todos os estilos de linguagem. O que provavelmente é desejado é usar as configurações de &quot;Default Style&quot;"/>

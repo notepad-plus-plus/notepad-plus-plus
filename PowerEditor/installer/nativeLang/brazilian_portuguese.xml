@@ -93,7 +93,7 @@ Translation note:
 					<Item id="41003" name="&amp;Fechar"/>
 					<Item id="41004" name="F&amp;echar todos"/>
 					<Item id="41005" name="Fechar todos exceto o atual"/>
-					<Item id="41026" name="Fechar todos EXCETO documentos fixados"/>
+					<Item id="41026" name="Fechar todos, exceto fixados"/>
 					<Item id="41009" name="Fechar todos à esquerda"/>
 					<Item id="41018" name="Fechar todos à direita"/>
 					<Item id="41024" name="Fechar todos inalterados"/>

@@ -448,7 +448,8 @@ Additionnal information about Corsican localization:
 			<TabBar>
 				<Item CMDID="41003" name="Chjode"/>
 				<Item CMDID="0" name="Chjode parechje unghjette"/>
-				<Item CMDID="41005" name="Tuttu chjode for di què"/>
+				<Item CMDID="41005" name="Tuttu chjode FOR di què"/>
+				<Item CMDID="41026" name="Tuttu chjode FOR di i ducumenti fissati"/>
 				<Item CMDID="41009" name="Tuttu chjode ciò chì hè à manu manca"/>
 				<Item CMDID="41018" name="Tuttu chjode ciò chì hè à manu diritta"/>
 				<Item CMDID="41024" name="Tuttu chjode ciò ch’ùn hè micca cambiatu"/>

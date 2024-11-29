@@ -104,6 +104,7 @@ Translation note:
 					<Item id="41003" name="Za&amp;mknij"/>
 					<Item id="41004" name="Zamknij &amp;wszystko"/>
 					<Item id="41005" name="Zamknij wszystko prócz bieżącego pliku"/>
+					<Item CMDID="41026" name="Zamknij wszystko oprócz przypiętych"/>
 					<Item id="41009" name="Zamknij wszystko na lewo od bieżącego pliku"/>
 					<Item id="41018" name="Zamknij wszystko na prawo od bieżącego pliku"/>
 					<Item id="41024" name="Zamknij wszystko, gdzie nie dokonano zmian"/>

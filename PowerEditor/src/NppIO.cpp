@@ -1122,7 +1122,7 @@ void Notepad_plus::unPinnedForAllBuffers()
 
 	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
 	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
+		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer* buf = MainFileManager.getBufferByID(id);
 		buf->setPinned(false);
 	}

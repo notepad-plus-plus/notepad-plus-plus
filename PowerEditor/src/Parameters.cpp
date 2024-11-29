@@ -6774,9 +6774,8 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 	HWND hwndNpp = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
 	if (hwndNpp)
 	{
-		// TODO: 
-		// the problem here is that this code-branch cannot be currently reached
-		// (as it is called at the Notepad++ startup in the wWinMain nppParameters.load())
+		// this code-branch is currently reached only if the Notepad++ multi-instance mode is ON and it is not the 1st Notepad++ instance
+		// (the feedDockingManager() is called at the Notepad++ init via the wWinMain nppParameters.load()))
 
 		HMONITOR hCurMon = ::MonitorFromWindow(hwndNpp, MONITOR_DEFAULTTONEAREST);
 		if (hCurMon)
@@ -6794,8 +6793,13 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 		RECT rcNpp{};
 		if (::GetClientRect(hwndNpp, &rcNpp))
 		{
-			nppSize.cx = rcNpp.right;
-			nppSize.cy = rcNpp.bottom;
+			// rcNpp RECT could have zero size here! (if the 1st instance of Notepad++ is minimized to the task-bar (systray is ok))
+			if ((rcNpp.right > _nppGUI._dockingData._minDockedPanelVisibility) && (rcNpp.bottom > _nppGUI._dockingData._minDockedPanelVisibility))
+			{
+				// adjust according to the current Notepad++ client-wnd area
+				nppSize.cx = rcNpp.right;
+				nppSize.cy = rcNpp.bottom;
+			}
 		}
 	}
 	else

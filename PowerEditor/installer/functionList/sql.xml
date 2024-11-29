@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 <!-- ==========================================================================\
 |
 |   To learn how to make your own language parser, please check the following
@@ -9,15 +9,35 @@
 <NotepadPlus>
 	<functionList>
 		<!-- ========================================================= [ PL/SQL ] -->
-		<parser id="plsql_function" displayName="PL/SQL" commentExpr="((/\*.*?\*)/|(//.*?$))">
-				<function
-				mainExpr="^[ \t]*((PROCEDURE)|(FUNCTION))[\s]+[A-Za-z][\w_]*([\s]*(?'open'\().*?(\)))?(([\s]*;)|([\s]*([ia]s)\s)|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)\s))))"
+		<parser id="plsql_function" displayName="PL/SQL" commentExpr="((\/\*([^\*]|\*[^\/])*\*\/)|(--.*?$))">
+			<function
+				mainExpr="(?isx)^[ \t]*(CREATE([\s]+OR[\s]+REPLACE)?[\s]+)?                   # Declaration beginning
+						((NON)?EDITIONABLE\s+)?                                                 # Optional editionable clause
+						((PACKAGE([\s]+BODY)?)|(PROCEDURE)|(FUNCTION))                          # Object type
+						(([\s]+[A-Z]\w*)|(\s*\x22[^\x22]+\x22)\.([A-Z]\w*|\x22[^\x22]+\x22\s*)  # Object name in form SCHEMA.OBJECT
+						 |(\s+[A-Z]\w*|\s*\x22[^\x22]+\x22\s*))                                 # Object name alone (session schema default)
+						(\s+|\s*\([^\)]*\)\s*)                                                  # Parameters
+						(SHARING\s*=\s*(METADATA|NONE)\s+)?                                     # Optional sharing parameter
+						((AUTHID\s+(CURRENT_USER|DEFINER)\s+)|(ACCESSIBLE\s+BY\s*\([^\)]+\)\s*)|(DEFAULT\s+COLLATION\s+\w+\s+))* # Other optional procedure clauses
+						(RETURN((\s+[A-Z][\w\.]*)|\s*\x22[^\x22]\x22[\w\.]*)(%TYPE)?\s+)?       # Return datatype for functions
+						(IS|AS|;)\s"
 				displayMode="$className->$functionName"
 			>
-			<functionName>
-					<nameExpr expr="[\s]+[A-Za-z][\w_]*([\s]*(?'open'\().*?(\)))?(([\s]*;)|([\s]*([ia]s)\s)|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)\s))))"/>
-					<nameExpr expr="[A-Za-z][\w_]*([\s]*(?'open'\().*?(\)))?(([\s]*;)|([\s]*([ia]s)\s)|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)\s))))"/>
-					<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]+(RETURN)([\s]+[\w%\.]+)+))*"/>
+				<className>
+					<nameExpr expr="(?isx)PACKAGE([\s]+BODY)?                                                 # Object type
+										(([\s]+[A-Z]\w*\s+)|(\s*\x22[^\x22]+\x22)\.([A-Z]\w*|\x22[^\x22]+\x22\s*)  # Object name in form SCHEMA.OBJECT
+										 |(\s+[A-Z]\w*|\s*\x22[^\x22]+\x22\s*))                                    # Object name alone (session schema default)
+										(SHARING\s*=\s*(METADATA|NONE)\s+)?                                        # Optional sharing parameter
+										(IS|AS)\s"/>
+				</className>
+				<functionName>
+					<nameExpr expr="(?isx)(([\s]+[A-Z]\w*)|(\s*\x22[^\x22]+\x22)\.([A-Z]\w*|\x22[^\x22]+\x22\s*)    # Object name in form SCHEMA.OBJECT
+										 |(\s+[A-Z]\w*|\s*\x22[^\x22]+\x22\s*))                                          # Object name alone (session schema default)
+										(\s+|\s*\([^\)]*\)\s*)                                                           # Parameters
+										(SHARING\s*=\s*(METADATA|NONE)\s+)?                                              # Optional sharing parameter
+										((AUTHID\s+(CURRENT_USER|DEFINER)\s+)|(ACCESSIBLE\s+BY\s*\([^\)]+\)\s*)|(DEFAULT\s+COLLATION\s+\w+\s+))* # Other optional procedure clauses
+										(RETURN((\s+[A-Z][\w\.]*)|\s*\x22[^\x22]\x22[\w\.]*)(%TYPE)?\s+)?                # Return datatype for functions
+										(IS\s|AS\s|;)"/>
 				</functionName>
 			</function>
 		</parser>

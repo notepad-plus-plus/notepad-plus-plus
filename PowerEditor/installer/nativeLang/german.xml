@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-28"><!-- basiert auf english.xml 8.7.2 vom 27.11.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-11-29"><!-- basiert auf english.xml 8.7.3 vom 28.11.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -102,6 +102,7 @@ Translation note:
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
 					<Item id="41005" name="&amp;Alle Dateien bis auf die aktuelle schließen"/>
+					<Item id="41026" name="Alle Dateien bis auf &amp;fixierte schließen"/>
 					<Item id="41009" name="Dateien &amp;links von aktueller Datei schließen"/>
 					<Item id="41018" name="Dateien &amp;rechts von aktueller Datei schließen"/>
 					<Item id="41024" name="Alle unveränderten Dateien schließen"/>

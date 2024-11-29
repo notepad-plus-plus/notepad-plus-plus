@@ -420,6 +420,7 @@ Translation note:
 				<Item CMDID="41003" name="Close"/>
 				<Item CMDID="0" name="Close Multiple Tabs"/>
 				<Item CMDID="41005" name="Close All BUT This"/>
+				<Item CMDID="41026" name="Close All BUT Pinned"/>
 				<Item CMDID="41009" name="Close All to the Left"/>
 				<Item CMDID="41018" name="Close All to the Right"/>
 				<Item CMDID="41024" name="Close All Unchanged"/>

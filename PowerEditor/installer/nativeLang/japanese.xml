@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.1">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="閉じる(&amp;C)"/>
 					<Item id="41004" name="すべて閉じる(&amp;E)"/>
 					<Item id="41005" name="現在の文書以外を閉じる"/>
+					<Item id="41026" name="ピン留めしたタブ以外を閉じる"/>
 					<Item id="41009" name="左をすべて閉じる"/>
 					<Item id="41018" name="右をすべて閉じる"/>
 					<Item id="41024" name="未変更をすべて閉じる"/>
@@ -423,9 +424,11 @@ Translation note:
 				<Item CMDID="41003" name="閉じる"/>
 				<Item CMDID="0" name="複数のタブを閉じる"/>
 				<Item CMDID="41005" name="他のタブをすべて閉じる"/>
+				<Item CMDID="41026" name="ピン留めしたタブ以外を閉じる"/>
 				<Item CMDID="41009" name="左をすべて閉じる"/>
 				<Item CMDID="41018" name="右をすべて閉じる"/>
 				<Item CMDID="41024" name="未変更をすべて閉じる"/>
+				<Item CMDID="44048" name="ピン留め" alternativeName="ピン留めを外す"/>
 				<Item CMDID="41006" name="上書き保存"/>
 				<Item CMDID="41008" name="名前を付けて保存..."/>
 				<Item CMDID="1" name="開く"/>
@@ -959,7 +962,7 @@ Translation note:
 					<Item id="6106" name="タブバー"/>
 					<Item id="6107" name="小さく表示"/>
 					<Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
-					<Item id="6109" name="非アクティブのタブを暗くする"/>
+					<Item id="6109" name="非アクティブなタブの色を変える"/>
 					<Item id="6110" name="アクティブタブにオレンジの線を表示"/>
 
 					<Item id="6112" name="タブに「閉じる」ボタンを表示"/>

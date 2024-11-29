@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 27 Nov 2024, for Notepad++ 8.7.3
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 28 Nov 2024, for Notepad++ 8.7.3
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="&amp;Fechar"/>
 					<Item id="41004" name="F&amp;echar todos"/>
 					<Item id="41005" name="Fechar todos exceto o atual"/>
+					<Item id="41026" name="Fechar todos EXCETO documentos fixados"/>
 					<Item id="41009" name="Fechar todos à esquerda"/>
 					<Item id="41018" name="Fechar todos à direita"/>
 					<Item id="41024" name="Fechar todos inalterados"/>

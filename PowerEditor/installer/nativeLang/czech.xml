@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.2  21/Nov/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.3  29/Nov/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.2">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -91,7 +91,7 @@
 					<Item id="41002" name="&amp;Otevřít..."/>
 					<Item id="41003" name="Zavřít &amp;aktuální"/>
 					<Item id="41004" name="Za&amp;vřít vše"/>
-					<Item id="41005" name="Zavřít vše KROMĚ aktuálního dokumentu"/>
+					<Item id="41005" name="Zavřít vše KROMĚ aktuálního"/>
 					<Item id="41006" name="&amp;Uložit"/>
 					<Item id="41007" name="Uložit v&amp;še"/>
 					<Item id="41008" name="Uložit &amp;jako..."/>
@@ -113,6 +113,7 @@
 					<Item id="41023" name="Otevřít v &amp;implicitním prohlížeči"/>
 					<Item id="41024" name="Zavřít všechny nezměněné"/>
 					<Item id="41025" name="Složka jako Pracovní plocha"/>
+					<Item id="41026" name="Zavřít vše KROMĚ připnutých"/>
 					<Item id="42001" name="Vyjmou&amp;t"/>
 					<Item id="42002" name="&amp;Kopírovat"/>
 					<Item id="42003" name="&amp;Zpět"/>
@@ -428,10 +429,12 @@
 			<TabBar>
 				<Item CMDID="41003" name="Zavřít"/>
 				<Item CMDID="0" name="Zavřít vícero souborů/karet"/>
-				<Item CMDID="41005" name="Zavřít vše kromě aktuálního"/>
+				<Item CMDID="41005" name="Zavřít vše KROMĚ aktuálního"/>
+				<Item CMDID="41026" name="Zavřít vše KROMĚ připnutých"/>
 				<Item CMDID="41009" name="Zavřít vše nalevo"/>
 				<Item CMDID="41018" name="Zavřít vše napravo"/>
 				<Item CMDID="41024" name="Zavřít všechny nezměněné"/>
+				<Item CMDID="44048" name="Připnout kartu" alternativeName="Odepnout kartu"/>
 				<Item CMDID="41006" name="Uložit"/>
 				<Item CMDID="41008" name="Uložit jako..."/>
 				<Item CMDID="1" name="Otevřít v"/>
@@ -990,7 +993,7 @@
 					<Item id="6106" name="Lišta karet (tab) dokumentů"/>
 					<Item id="6107" name="Zmenšit"/>
 					<Item id="6108" name="Uzamknout (nelze přetahovat karty)"/>
-					<Item id="6109" name="Znevýraznit neaktivní karty"/>
+					<Item id="6109" name="Změnit barvu pozadí neaktivní karty"/>
 					<Item id="6110" name="Zobrazovat barevný pruh na aktivní kartě"/>
 					<Item id="6112" name="Přidat zavírací tlačítko každé kartě"/>
 					<Item id="6113" name="Dvojité kliknutí zavře kartu"/>

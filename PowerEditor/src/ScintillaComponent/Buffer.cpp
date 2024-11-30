@@ -185,7 +185,6 @@ void Buffer::updateTimeStamp()
 // and determinate its language by its extension.
 void Buffer::setFileName(const wchar_t *fn)
 {
-	NppParameters& nppParamInst = NppParameters::getInstance();
 	if (_fullPathName == fn)
 	{
 		updateTimeStamp();
@@ -199,24 +198,12 @@ void Buffer::setFileName(const wchar_t *fn)
 
 	// for _lang
 	LangType determinatedLang = L_TEXT;
-	wchar_t *ext = PathFindExtension(_fullPathName.c_str());
-	if (*ext == '.') // extension found
-	{
-		ext += 1;
+	const wchar_t* userLangName = NppParameters::getInstance().determineLangFromExt(_fileName, &determinatedLang);
 
-		// Define User Lang firstly
-		const wchar_t* langName = nppParamInst.getUserDefinedLangNameFromExt(ext, _fileName);
-		if (langName)
-		{
-			determinatedLang = L_USER;
-			_userLangExt = langName;
-		}
-		else // if it's not user lang, then check if it's supported lang
-		{
-			_userLangExt.clear();
-			determinatedLang = nppParamInst.getLangFromExt(ext);
-		}
-	}
+	if (userLangName)
+		_userLangExt = userLangName;
+	else
+		_userLangExt.clear();
 
 	if (determinatedLang == L_TEXT)	// language can probably be refined
 	{
@@ -1239,8 +1226,6 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 	Utf8_16_Write UnicodeConvertor;
 	UnicodeConvertor.setEncoding(mode);
 
-	int encoding = buffer->getEncoding();
-
 	if (UnicodeConvertor.openFile(fullpath))
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
@@ -1248,6 +1233,23 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
 		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
 		boolean isWrittenSuccessful = false;
+
+		int encoding = buffer->getEncoding();
+
+		// find encoding for untitled .nfo, .html, .xml files
+		if (buffer->isUntitled() && encoding == -1)
+		{
+			LangType determinatedLang = L_TEXT;
+			NppParameters::getInstance().determineLangFromExt(fullpath, &determinatedLang);
+			
+			if (determinatedLang == L_ASCII)
+				encoding = NPP_CP_DOS_437;
+			else if (determinatedLang == L_XML || determinatedLang == L_HTML)
+				encoding = _pNotepadPlus->getHtmlXmlEncodingBuf(buf, lengthDoc, determinatedLang);
+
+			if (encoding != -1)	
+				buffer->setEncoding(encoding);
+		}
 
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{

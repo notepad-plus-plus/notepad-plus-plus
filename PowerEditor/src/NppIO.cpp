@@ -416,6 +416,15 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 		encoding = getHtmlXmlEncoding(longFileName);
     }
 
+    if (encoding == -1)
+	{
+		LangType determinatedLang = L_TEXT;
+		nppParam.determineLangFromExt(longFileName, &determinatedLang);
+		if (determinatedLang == L_ASCII) {
+			encoding = NPP_CP_DOS_437; // force DOS_437 encoding for .nfo files
+		}
+	}
+
 	BufferID buffer;
 	if (isSnapshotMode)
 	{

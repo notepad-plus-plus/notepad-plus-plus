@@ -4527,6 +4527,28 @@ LangType NppParameters::getLangIDFromStr(const wchar_t *langName)
 	return L_TEXT;
 }
 
+const wchar_t* NppParameters::determineLangFromExt(wchar_t* fileName, LangType* determinatedLang)
+{
+	wchar_t *ext = PathFindExtension(fileName);
+	if (*ext == '.') // extension found
+	{
+		ext += 1;
+
+		// Define User Lang firstly
+		const wchar_t* langName = getUserDefinedLangNameFromExt(ext, fileName);
+		if (langName)
+		{
+			*determinatedLang = L_USER;
+			return langName;
+		}
+		else // if it's not user lang, then check if it's supported lang
+		{
+			*determinatedLang = getLangFromExt(ext);
+		}
+	}
+	return nullptr;
+}
+
 std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationCode)
 {
 	if (localizationCode == L"en" || localizationCode == L"en-au" || localizationCode == L"en-bz" || localizationCode == L"en-ca" || localizationCode == L"en-cb" || localizationCode == L"en-gb" || localizationCode == L"en-ie" || localizationCode == L"en-jm" || localizationCode == L"en-nz" || localizationCode == L"en-ph" || localizationCode == L"en-tt" || localizationCode == L"en-us" || localizationCode == L"en-za" || localizationCode == L"en-zw")

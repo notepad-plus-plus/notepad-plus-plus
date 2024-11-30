@@ -1526,6 +1526,8 @@ public:
 		return nullptr;
 	}
 
+	const wchar_t* determineLangFromExt(wchar_t* fileName, LangType* determinatedLang);
+
 	int getNbLRFile() const {return _nbRecentFile;};
 
 	std::wstring *getLRFile(int index) const {

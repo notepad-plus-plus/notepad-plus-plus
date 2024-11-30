@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.7.2
--    Ultima modificare a fost făcută 21 noiembrie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.7.3
+-    Ultima modificare a fost făcută 30 noiembrie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.2">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -93,6 +93,7 @@
                     <Item id="41003" name="În&amp;chidere"/>
                     <Item id="41004" name="Închi&amp;de-le pe toate"/>
                     <Item id="41005" name="Închide-le pe toate fără documentul curent"/>
+					<Item id="41026" name="Închide-le pe toate în afară de documentele fixate"/>
                     <Item id="41009" name="Închide-le pe toate dinspre stânga"/>
                     <Item id="41018" name="Închide-le pe toate dinspre dreapta"/>
                     <Item id="41024" name="Închide-le pe cele nemodificate"/>
@@ -406,9 +407,11 @@
                     <Item CMDID="41003" name="Închidere"/>
 					<Item CMDID="0" name="Închide ferestrele multiple"/>
                     <Item CMDID="41005" name="Închide-le pe toate fără aceasta"/>
+					<Item CMDID="41026" name="Închide-le pe toate ÎN AFARĂ DE cele fixate"/>
 					<Item CMDID="41009" name="Închide-le pe cele din stânga"/>
 					<Item CMDID="41018" name="Închide-le pe cele din dreapta"/>
 					<Item CMDID="41024" name="Închide toate ferestrele neschimbate"/>
+					<Item CMDID="44048" name="Fixează fila" alternativeName="Anulează fixarea filei"/>
                     <Item CMDID="41006" name="Salvare"/>
                     <Item CMDID="41008" name="Salvare ca..."/>
 					<Item CMDID="1" name="Deschidere în"/>
@@ -953,7 +956,7 @@
                     <Item id="6106" name="Bara de file"/>
                     <Item id="6107" name="Micșorată"/>
                     <Item id="6108" name="Blocată (filele nu se pot muta)"/>
-                    <Item id="6109" name="Se întunecă filele inactive"/>
+                    <Item id="6109" name="Schimbă culoarea filei inactive"/>
                     <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
                     <Item id="6112" name="Afișează butonul de închidere pe fiecare filă"/>
                     <Item id="6113" name="Închide documentele cu dublu clic"/>

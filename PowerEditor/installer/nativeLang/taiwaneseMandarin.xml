@@ -392,9 +392,10 @@
 				<Item CMDID="41003" name="關閉"/>
 				<Item CMDID="0" name="關閉多個檔案"/>
 				<Item CMDID="41005" name="除此之外全部關閉"/>
-				<Item CMDID="41009" name="關閉左側所有檔案"/>
-				<Item CMDID="41018" name="關閉右側所有檔案"/>
-				<Item CMDID="41024" name="關閉所有未更改的檔案"/>
+				<Item CMDID="41026" name="除固定標籤頁之外 全部關閉"/>
+				<Item CMDID="41009" name="關閉左側所有文件"/>
+				<Item CMDID="41018" name="關閉右側所有文件"/>
+				<Item CMDID="41024" name="關閉所有未更改的文件"/>
 				<Item CMDID="44048" name="固定標籤頁" alternativeName="取消固定標籤頁"/>
 				<Item CMDID="41006" name="儲存"/>
 				<Item CMDID="41008" name="另存新檔..."/>

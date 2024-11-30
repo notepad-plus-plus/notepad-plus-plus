@@ -419,7 +419,8 @@ Translation note:
 			<TabBar>
 				<Item CMDID="41003" name="Fermer"/>
 				<Item CMDID="0" name="Fermer plusieurs onglets"/>
-				<Item CMDID="41005" name="Fermer tout sauf ce fichier"/>
+				<Item CMDID="41005" name="Fermer tout sauf ce document"/>
+				<Item CMDID="41026" name="Fermer tout sauf les documents épinglés"/>
 				<Item CMDID="41009" name="Fermer les onglets sur la gauche"/>
 				<Item CMDID="41018" name="Fermer les onglets sur la droite"/>
 				<Item CMDID="41024" name="Fermer tous les documents non-modifiés"/>

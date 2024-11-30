@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.7.2
--    Ultima modificare a fost făcută 21 noiembrie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.7.3
+-    Ultima modificare a fost făcută 30 noiembrie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
  -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.2">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -30,7 +30,7 @@
                     <Item subMenuId="file-closeMore" name="Închide &amp;mai multe documente"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Fișiere recente"/>
                     <Item subMenuId="edit-insert" name="Inserare"/>					
-                    <Item subMenuId="edit-copyToClipboard"  name="Copiere în clipboard"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Copiază în clipboard"/>
                     <Item subMenuId="edit-indent" name="Indentare"/>
                     <Item subMenuId="edit-convertCaseTo" name="Convertește literele în"/>
                     <Item subMenuId="edit-lineOperations" name="Operații pentru linii"/>
@@ -50,7 +50,7 @@
                     <Item subMenuId="search-copyStyledText" name="&amp;Copiază textul stilat"/>
                     <Item subMenuId="search-bookmark" name="Semn de carte"/>
                     <Item subMenuId="view-currentFileIn" name="Afișează fișierul curent în"/>
-                    <Item subMenuId="view-showSymbol"  name="Arată simboluri"/>
+                    <Item subMenuId="view-showSymbol"  name="Arată simbolurile"/>
                     <Item subMenuId="view-zoom"  name="Dimensiune"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Mută/Clonează documentul curent"/>
                     <Item subMenuId="view-tab"  name="Fila"/>
@@ -92,7 +92,8 @@
                     <Item id="41025" name="Folder ca spațiu de lucru"/>
                     <Item id="41003" name="În&amp;chidere"/>
                     <Item id="41004" name="Închi&amp;de-le pe toate"/>
-                    <Item id="41005" name="Închide-le pe toate fără documentul curent"/>
+                    <Item id="41005" name="Închide-le pe toate, cu excepția documentului curent"/>
+					<Item id="41026" name="Închide-le pe toate, cu excepția documentelor fixate"/>
                     <Item id="41009" name="Închide-le pe toate dinspre stânga"/>
                     <Item id="41018" name="Închide-le pe toate dinspre dreapta"/>
                     <Item id="41024" name="Închide-le pe cele nemodificate"/>
@@ -102,7 +103,7 @@
                     <Item id="41010" name="Tipărire..."/>
                     <Item id="1001"  name="Tipărește acum"/>
                     <Item id="41011" name="I&amp;eșire"/>
-                    <Item id="41012" name="Încărcă sesiunea..."/>
+                    <Item id="41012" name="Încarcă sesiunea..."/>
                     <Item id="41013" name="Salvează sesiunea..."/>
                     <Item id="41014" name="&amp;Reîncarcă de pe disc"/>
                     <Item id="41015" name="Salvează o copie ca..."/>
@@ -159,39 +160,39 @@
                     <Item id="42018" name="Pornește în&amp;registrarea (Start înregistrare)"/>
                     <Item id="42019" name="Oprește înregistrarea (S&amp;top înregistrare)"/>
                     <Item id="42021" name="&amp;Redare"/>
-                    <Item id="42022" name="Comutare comentariu linie"/>
+                    <Item id="42022" name="Comută comentariul de linie"/>
                     <Item id="42023" name="Comentariu multilinie"/>
                     <Item id="42047" name="Anulează comentariu multilinie"/>
-                    <Item id="42024" name="Eliminare spații la sfârșit de linii"/>
-                    <Item id="42042" name="Eliminare spații la început de linii" />
-                    <Item id="42043" name="Eliminare spații capete linii"/>
+                    <Item id="42024" name="Elimină spațiile de la sfârșit de linii"/>
+                    <Item id="42042" name="Elimină spațiile de la început de linii" />
+                    <Item id="42043" name="Elimină spațiile cu capete de linii"/>
                     <Item id="42044" name="Convertește sfârșitul de linie în spațiu"/>
-                    <Item id="42045" name="Eliminare spații inutile și sfârșit de linii"/>
+                    <Item id="42045" name="Elimină spațiile inutile și sfârșit de linii"/>
                     <Item id="42046" name="Tab(ulator) în spațiu"/>
                     <Item id="42054" name="Spații în Tab (toate)"/>
                     <Item id="42053" name="Spații în Tab (la început de linie)"/>
-                    <Item id="42038" name="Lipire conținut HTML"/>
-                    <Item id="42039" name="Lipire conțint RTF"/>
-                    <Item id="42048" name="Copiere conținut binar"/>
+                    <Item id="42038" name="Lipește conțintul HTML"/>
+                    <Item id="42039" name="Lipește conțintul RTF"/>
+                    <Item id="42048" name="Copiază conținutul binar"/>
                     <Item id="42049" name="Decupare conținut binar"/>
-                    <Item id="42050" name="Lipire conținut binar"/>
-		            <Item id="42082" name="Copiere a legăturii"/>											   
+                    <Item id="42050" name="Lipește conținutul binar"/>
+		            <Item id="42082" name="Copiază legătura"/>											   
                     <Item id="42037" name="Mod coloană..."/>
                     <Item id="42034" name="Editor de coloane..."/>
                     <Item id="42051" name="Panou de caractere"/>
                     <Item id="42052" name="Istoricul clipboard-ului"/>
-                    <Item id="42025" name="&amp;Salvare macro înregistrat"/>
-                    <Item id="42026" name="Direcție a textului DLS"/>
-                    <Item id="42027" name="Direcție a textului SLD"/>
-                    <Item id="42028" name="Setare a stării doar citire"/>
-                    <Item id="42029" name="Copiere a căii fișierui în clipboard"/>
-                    <Item id="42030" name="Copiere a numelui fișierului în clipboard"/>
-                    <Item id="42031" name="Copiere a căii folder în clipboard"/>
-                    <Item id="42087" name="Copierea tuturor numelor fișierelor"/>
-                    <Item id="42088" name="Copierea tuturor căilor fișierelor"/>
+                    <Item id="42025" name="&amp;Salvează macro-ul înregistrat"/>
+                    <Item id="42026" name="Direcția textului DLS"/>
+                    <Item id="42027" name="Direcția textului SLD"/>
+                    <Item id="42028" name="Setează starea doar citire"/>
+                    <Item id="42029" name="Copiază calea fișierului în clipboard"/>
+                    <Item id="42030" name="Copiază numele fișierului în clipboard"/>
+                    <Item id="42031" name="Copiază calea folderului în clipboard"/>
+                    <Item id="42087" name="Copiază toate numele fișierelor"/>
+                    <Item id="42088" name="Copiază toate căile fișierelor"/>
                     <Item id="42032" name="&amp;Executare macro în mod repetat..."/>
-                    <Item id="42033" name="Eliminare a stării doar citire"/>
-                    <Item id="42035" name="Comentare a liniei"/>
+                    <Item id="42033" name="Elimină starea doar citire"/>
+                    <Item id="42035" name="Comentează linia"/>
                     <Item id="42036" name="Elimină comentariul linie"/>
                     <Item id="42055" name="Elimină liniile goale"/>
                     <Item id="42056" name="Elimină liniile goale (ce conțin spații goale)"/>
@@ -209,7 +210,7 @@
                     <Item id="43019" name="Copiază liniile cu semne de carte"/>
                     <Item id="43020" name="Lipește la (înlocuire) liniile cu semne de carte"/>
                     <Item id="43021" name="Elimină liniile cu semne de carte"/> 
-                    <Item id="43051" name="Elimină liniilefără semne de carte"/>
+                    <Item id="43051" name="Elimină liniile fără semne de carte"/>
                     <Item id="43050" name="Inversează semnele de carte"/>
                     <Item id="43052" name="Căutare caractere în interval..."/>
                     <Item id="43053" name="Selectează tot ce e între acolade"/>
@@ -320,16 +321,16 @@
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintoch (CR)"/>
-                    <Item id="45004" name="Codificare în ANSI"/>
-                    <Item id="45005" name="Codificare în UTF-8-BOM"/>
-                    <Item id="45006" name="Codificare în UTF-16 BE BOM"/>
-                    <Item id="45007" name="Codificare în UTF-16 LE BOM"/>
-                    <Item id="45008" name="Codificare în UTF-8"/>
-                    <Item id="45009" name="Convertire în ANSI"/>
-                    <Item id="45010" name="Convertire în UTF-8"/>
-                    <Item id="45011" name="Convertire în UTF-8-BOM"/>
-                    <Item id="45012" name="Convertire în UTF-16 BE BOM"/>
-                    <Item id="45013" name="Convertire în UTF-16 LE BOM"/>
+                    <Item id="45004" name="Codifică în ANSI"/>
+                    <Item id="45005" name="Codifică în UTF-8-BOM"/>
+                    <Item id="45006" name="Codifică în UTF-16 BE BOM"/>
+                    <Item id="45007" name="Codifică în UTF-16 LE BOM"/>
+                    <Item id="45008" name="Codifică în UTF-8"/>
+                    <Item id="45009" name="Convertește în ANSI"/>
+                    <Item id="45010" name="Convertește în UTF-8"/>
+                    <Item id="45011" name="Convertește în UTF-8-BOM"/>
+                    <Item id="45012" name="Convertește în UTF-16 BE BOM"/>
+                    <Item id="45013" name="Convertește în UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (Tradițional)"/>
                     <Item id="45061" name="GB2312 (Simplificat)"/>
                     <Item id="45054" name="OEM 861: Islandez"/>
@@ -337,10 +338,10 @@
                     <Item id="45053" name="OEM 860: Portughez"/>
                     <Item id="45056" name="OEM 863: Francez"/>
 							
-                    <Item id="10001" name="Mutare în alt panou"/>
-                    <Item id="10002" name="Clonare în alt panou"/>
-                    <Item id="10003" name="Mutare în instanță nouă"/>
-                    <Item id="10004" name="Deschidere în instanță nouă"/>
+                    <Item id="10001" name="Mută în alt panou"/>
+                    <Item id="10002" name="Clonează în alt panou"/>
+                    <Item id="10003" name="Mută în instanță nouă"/>
+                    <Item id="10004" name="Deschide în instanță nouă"/>
 					
                     <Item id="46001" name="Configurator de stiluri..."/>
                     <Item id="46250" name="Definește limbajul..."/>
@@ -353,10 +354,10 @@
                     <Item id="47002" name="Pagină proiect Notepad++"/>
                     <Item id="47003" name="Documentație online"/>
                     <Item id="47004" name="Comunitatea Notepad++ (Forum)"/>
-                    <Item id="47012" name="Informații depanare"/>
-                    <Item id="47005" name="Descărcaţi mai multe module"/>
+                    <Item id="47012" name="Informații de depanare"/>
+                    <Item id="47005" name="Descarcă mai multe module"/>
                     <Item id="47006" name="Actualizează Notepad++"/>
-                    <Item id="47009" name="Seteaz proxy-ul pentru actualizare..."/>
+                    <Item id="47009" name="Setează proxy-ul pentru actualizare..."/>
                     <Item id="48005" name="Importare modul(e) ..."/>
                     <Item id="48006" name="Importă tema(ele) de afișare..."/>
                     <Item id="48018" name="Editează meniul contextual"/>
@@ -405,25 +406,27 @@
             <TabBar>											  
                     <Item CMDID="41003" name="Închidere"/>
 					<Item CMDID="0" name="Închide ferestrele multiple"/>
-                    <Item CMDID="41005" name="Închide-le pe toate fără aceasta"/>
+                    <Item CMDID="41005" name="Închide-le pe toate, cu excepția aceasteia"/>
+					<Item CMDID="41026" name="Închide-le pe toate, CU EXCEPȚIA celor fixate"/>
 					<Item CMDID="41009" name="Închide-le pe cele din stânga"/>
 					<Item CMDID="41018" name="Închide-le pe cele din dreapta"/>
 					<Item CMDID="41024" name="Închide toate ferestrele neschimbate"/>
+					<Item CMDID="44048" name="Fixează fila" alternativeName="Anulează fixarea filei"/>
                     <Item CMDID="41006" name="Salvare"/>
                     <Item CMDID="41008" name="Salvare ca..."/>
-					<Item CMDID="1" name="Deschidere în"/>
+					<Item CMDID="1" name="Deschide în"/>
 					<Item CMDID="41019" name="Deschide folderul gazdă în Explorer"/>
                     <Item CMDID="41020" name="Deschide folderul gazdă în cmd"/>
 					<Item CMDID="41025" name="Deschide folderul care-l conține ca spațiu de lucru"/>
                     <Item CMDID="41021" name="Deschide-l în vizualizatorul implicit"/>
 					<Item CMDID="41023" name="Deschide-l în vizualizatorul implicit"/>
                     <Item CMDID="41017" name="Redenumire"/>
-                    <Item CMDID="41016" name="Mută în Coșul de gunoi"/>
+                    <Item CMDID="41016" name="Mută în Coșul de gunoi "/>
 					<Item CMDID="41014" name="Reîncarcă"/>
 					<Item CMDID="41010" name="Tipărire..."/>
                     <Item CMDID="42028" name="Blochează salvarea modificărilor"/>
                     <Item CMDID="42033" name="Anulează blocarea salvării modificărilor"/>
-					<Item CMDID="2" name="Copiere în clipboard"/>
+					<Item CMDID="2" name="Copiază în clipboard"/>
 					<Item CMDID="42029" name="Copiază calea fișierului în clipboard"/>
                     <Item CMDID="42030" name="Copiază numele fișierului în clipboard"/>
                     <Item CMDID="42031" name="Copiază calea folderului în clipboard"/>
@@ -433,7 +436,7 @@
                     <Item CMDID="10001" name="Mută în altă vedere"/>
                     <Item CMDID="10002" name="Clonează în altă vedere"/>
                     <Item CMDID="10003" name="Mută în instanță nouă"/>
-                    <Item CMDID="10004" name="Deschidere în instanță nouă"/>
+                    <Item CMDID="10004" name="Deschide în instanță nouă"/>
 					<Item CMDID="4" name="Aplică culoarea într-o filă"/>
 					<Item CMDID="44111" name="Aplică culoarea 1"/>
 					<Item CMDID="44112" name="Aplică culoarea 2"/>
@@ -538,50 +541,50 @@
             </Run>
 
             <MD5FromFilesDlg title="Generează sumă de control MD5 din fișiere">
-                <Item id="1922" name="Alegere fișiere pentru vgenerare MD5..."/>
-                <Item id="1924" name="Copiere în memorie"/>
+                <Item id="1922" name="Alege fișierele pentru generare MD5..."/>
+                <Item id="1924" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generează sumă de control MD5">
                 <Item id="1932" name="Consideră fiecare linie ca un &amp;șir separat"/>
-                <Item id="1934" name="Copiere în memorie"/>
+                <Item id="1934" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Generează sumă de control SHA-256 din fișiere">
                 <Item id="1922" name="Alege fișiere pentru &amp;a genera SHA-256..."/>
-                <Item id="1924" name="Co&amp;piere în memorie"/>
+                <Item id="1924" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Generează sumă de control SHA-256">
                 <Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
-                <Item id="1934" name="Co&amp;piere în memorie"/>
+                <Item id="1934" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromTextDlg>
 
 			<SHA1FromFilesDlg title="Generează sumă de control SHA-1 din fișiere">
 				<Item id="1922" name="Alegere fișiere pentru &amp;a genera SHA-1..."/>
-				<Item id="1924" name="Co&amp;piere în memorie"/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromFilesDlg>
 
 			<SHA1FromTextDlg title="Generează sumă de control SHA-1">
 				<Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
-				<Item id="1934" name="Co&amp;piere în memorie"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Generează sumă de control SHA-512 din fișiere">
 				<Item id="1922" name="Alegere fișiere pentru &amp;a genera SHA-512..."/>
-				<Item id="1924" name="Co&amp;piere în memorie"/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromFilesDlg>
 
 			<SHA512FromTextDlg title="Generează sumă de control SHA-512">
 				<Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
-				<Item id="1934" name="Co&amp;piere în memorie"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromTextDlg>
             
@@ -953,7 +956,7 @@
                     <Item id="6106" name="Bara de file"/>
                     <Item id="6107" name="Micșorată"/>
                     <Item id="6108" name="Blocată (filele nu se pot muta)"/>
-                    <Item id="6109" name="Se întunecă filele inactive"/>
+                    <Item id="6109" name="Schimbă culoarea filei inactive"/>
                     <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
                     <Item id="6112" name="Afișează butonul de închidere pe fiecare filă"/>
                     <Item id="6113" name="Închide documentele cu dublu clic"/>
@@ -1005,7 +1008,7 @@
                     <Item id="6236" name="Activează derularea dincolo de ultima linie"/>
                     <Item id="6239" name="Activează selecția atunci când se dă clic dreapta în afara selecției"/>		
                     <Item id="6245" name="Activează spațiul virtual"/>
-                    <Item id="6214" name="Activează Copiere/Tăiere linie fără selecție"/>
+                    <Item id="6214" name="Activează Copiază/Taie linia fără selecție"/>
                     <Item id="6651" name="Indicatorul liniei curente"/>
                     <Item id="6652" name="Niciunul"/>
                     <Item id="6653" name="Fundal evidențiat"/>
@@ -1088,7 +1091,7 @@
                     <Item id="6402" name="Windows (CR LF)"/>
                     <Item id="6403" name="Unix (LF)"/>
                     <Item id="6404" name="Macintoch (CR)"/>
-                    <Item id="6405" name="Codificare"/>
+                    <Item id="6405" name="Codifică"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 cu BOM"/>
@@ -1104,7 +1107,7 @@
                     <Item id="6413" name="Folder implicit (Deschidere/Salvare)"/>
                     <Item id="6414" name="Folderul documentului curent"/>
                     <Item id="6415" name="Memorează ultimul folder folosit"/>
-                    <Item id="6431" name="La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru"/>
+                    <Item id="6431" name="La plasarea unui folder se deschid fișierele din el fără a-l stabili ca spațiu de lucru"/>
                 </DefaultDir>
 
                 <FileAssoc title="Asociere a fișierelor">
@@ -1201,7 +1204,7 @@
                     <Item id="6903" name="Dialogul de căutare rămâne deschis după căutarea care iese în fereastra cu rezultate"/>
                     <Item id="6904" name="Confirmă înlocuirea peste tot în toate documentele deschise"/>
                     <Item id="6905" name="Înlocuire: Nu trece la următoarea apariție"/>
-                    <Item id="6906" name="Fereastra rezultatelor căutării: afișarea unei singure intrări în fereastra găsită"/>
+                    <Item id="6906" name="Fereastra rezultatelor căutării: afișează o singură intrare în fereastra găsită"/>
                     <Item id="6907" name="Când căsuța de dialog căutare este invocată"/>
                     <Item id="6908" name="Se umple câmpul de căutare în textul selectat"/>
                     <Item id="6909" name="Selectează cuvântul sub semnul de omisiune când nimic nu e selectat"/>
@@ -1210,8 +1213,8 @@
 
                 <RecentFilesHistory title="Istoricul fișierelor recente">
                     <Item id="6304" name="Istoricul fișierelor recente"/>
-                    <Item id="6306" name="Număr maxim intrări:"/>
-                    <Item id="6305" name="Nu verifica la pornire"/>
+                    <Item id="6306" name="Numărul maxim intrări:"/>
+                    <Item id="6305" name="Nu-l verifica la pornire"/>
                     <Item id="6429" name="Afișare"/>
                     <Item id="6424" name="În submeniu"/>
                     <Item id="6425" name="Numai nume fișiere"/>
@@ -1356,7 +1359,7 @@
                     <Item id="6345" name="Previzualizează pe filă"/>
                     <Item id="6346" name="Previzualizează pe harta documentului"/>
                     <Item id="6360" name="Pune pe mut toate sunetele"/>
-                    <Item id="6361" name="Activează dialogul de confirmare Salvare tot"/>
+                    <Item id="6361" name="Activează dialogul de confirmare Salvează-le pe toate"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Executare macro în mod repetat">
@@ -1436,7 +1439,7 @@ Poți reactiva acest dialog mai târziu, în Preferințe."/>
 Trebuie să reporniți Notepad++ pentru a se aplica modificările efectuate în contextMenu.xml."/>
             <NppHelpAbsentWarning title="Fișierul nu există" message="
 nu există. Vă rugăm să-l descărcați de pe site-ul Notepad++."/>
-            <SaveCurrentModifWarning title="Salvare modificare curentă" message="Ar trebui să salvați modificările curente.
+            <SaveCurrentModifWarning title="Salvează modificarea curentă" message="Ar trebui să salvați modificările curente.
 Toate modificările salvate nu vor putea fi refăcute.
 
 Continuați?"/>
@@ -1457,7 +1460,7 @@ Sigur doriți să le deschideți?"/>
             <SettingsOnCloudError title="Setări pentru Cloud" message="Calea setărilor pentru Cloud se află pe o unitate doar cu drepturi de citire
 sau într-un folder ce are nevoie de drepturi de acces pentru scriere.
 Setările pentru cloud vor fi anulate. Reintroduceți o cale validă în panoul [Preferințe]."/>
-             <FilePathNotFoundWarning title="Deschidere fișier" message="Fișierul pe care doriți să-l deschideți nu există."/>
+             <FilePathNotFoundWarning title="Deschide fișierul" message="Fișierul pe care doriți să-l deschideți nu există."/>
              <SessionFileInvalidError title="Nu s-a putut încărca sesiunea" message="Sesiunea fișierului este fie coruptă, fie nevalidă."/>
             <DroppingFolderAsProjectModeWarning title="Acțiune nevalidă" message="Puteți plasa doar fișiere sau doar foldere, dar nu ambele deodată, deoarece sunteți în modul &quot;Folder ca proiect&quot;.
 Pentru a putea efectua această operație, trebuie să activați opțiunea &quot;La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru&quot; din secțiunea &quot;Folder implicit&quot; din panoul [Preferințe]."/>
@@ -1475,7 +1478,7 @@ Sunt trei moduri de a comuta în modul de selectare a coloanei:
       Pune marcajul la sfârșitul dorit al poziției blocului coloanei, apoi
        execută &quot;din nou, comanda Selectează Început/Sfârșit în Modul coloană&quot;"/>
             <BufferInvalidWarning title="Salvare eșuată" message="Nu se poate salva: Bufferul nu este valid."/>
-            <DoSaveOrNot title="Salvare" message="Salvați fișierul &quot;$STR_REPLACE$&quot; ?"/>
+            <DoSaveOrNot title="Salvare" message="Salvează fișierul &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Păstrare fișiere inexistente" message="Fișierul &quot;$STR_REPLACE$&quot; nu mai există.
 Îl păstrați în editor?"/>
             <DoDeleteOrNot title="Ștergere fișier" message="Fișierul &quot;$STR_REPLACE$&quot;
@@ -1521,9 +1524,9 @@ Eliminați rădăcina acestuia din panou înainte de a adăuga folderul &quot;$S
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Spațiul de lucru nu a fost salvat."/>
 			<ProjectPanelSaveError title="$STR_REPLACE$" message="A apărut o eroare în timp ce s-a scris în fișierul spațiului tău de lucru.
 Spațiul tău de lucru nu a putut fi salvat."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Deschidere spațiu de lucru" message="Spațiul de lucru curent a fost modificat. Doriți să salvați proiectul curent?"/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Deschide spațiul de lucru" message="Spațiul de lucru curent a fost modificat. Doriți să salvați proiectul curent?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Spațiu de lucru nou" message="Spațiul de lucru curent a fost modificat. Doriți să salvați proiectul curent?"/>
-            <ProjectPanelOpenFailed title="Deschidere spațiu de lucru" message="Spațiul de lucru nu a putut fi deschis.
+            <ProjectPanelOpenFailed title="Deschide spațiul de lucru" message="Spațiul de lucru nu a putut fi deschis.
 Se pare că fișierul ce trebuie dschis nu este un fișier de proiect valid."/>
             <ProjectPanelRemoveFolderFromProject title="Eliminare folder din proiect" message="Toate subelementele acestuia vor fi eliminate.
 Sigur doriți să eliminați acest folder din proiect?"/>
@@ -1540,7 +1543,7 @@ alegeți altul."/>
 Doriți să lansați Notepad++ în mod Administrator?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
 Doriți să lansați Notepad++ în mod Administrator?"/>
-            <OpenInAdminModeFailed title="Deschidere în mod Administrator eșuat" message="Notepad++ nu poate fi deschis în mod Administrator."/>        
+            <OpenInAdminModeFailed title="Deschiderea în Modul Administrator a eșuat" message="Notepad++ nu poate fi deschis în mod Administrator."/>        
             <ViewInBrowser title="Afişare fişier curent în navigator" message="Aplicaţia nu poate fi găsită în sistem."/>
 			<ExitToUpdatePlugins title="Urmează să ieși din Notepad++" message="Dacă apeși DA, o să ieși din Notepad++ pentru a continua operațiunile.
 Notepad++ va fi repornit după ce toate operațiunile vor fi terminate.
@@ -1621,11 +1624,11 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
 			<LocateCurrentFileTip name="Localizează fișierul curent"/>
             <Menu>
                 <Item id="3511" name="Eliminare"/>
-                <Item id="3512" name="Eliminare toate"/>
+                <Item id="3512" name="Elimină-le pe toate"/>
                 <Item id="3513" name="Adăugare"/>
                 <Item id="3514" name="Executat de sistem"/>
                 <Item id="3515" name="Deschidere"/>
-                <Item id="3516" name="Copiere cale"/>
+                <Item id="3516" name="Copiază calea"/>
                 <Item id="3517" name="Căutare în fișiere..."/>
                 <Item id="3518" name="Explorer aici"/>
                 <Item id="3519" name="CMD aici"/>
@@ -1648,7 +1651,7 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
                     <Item id="3124" name="Reîncărcate spațiu de lucru"/>
                     <Item id="3125" name="Salvare"/>
                     <Item id="3126" name="Salvare ca..."/>
-                    <Item id="3127" name="Salvare copie ca..."/>
+                    <Item id="3127" name="Salvare o copie ca..."/>
                     <Item id="3121" name="Adăugare proiect nou"/>
 					<Item id="3128" name="Găsire în proiecte..."/>
                 </WorkspaceMenu>
@@ -1673,7 +1676,7 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
                 <FileMenu>
                     <Item id="3111" name="Redenumire"/>
                     <Item id="3115" name="Eliminare"/>
-                    <Item id="3116" name="Modificare cale fișier"/>
+                    <Item id="3116" name="Modifică calea fișierului"/>
                     <Item id="3118" name="Urcare"/>
                     <Item id="3119" name="Coborâre"/>
                 </FileMenu>

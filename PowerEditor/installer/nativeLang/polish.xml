@@ -108,7 +108,7 @@ Translation note:
 					<Item id="41009" name="Zamknij wszystko na lewo od bieżącego pliku"/>
 					<Item id="41018" name="Zamknij wszystko na prawo od bieżącego pliku"/>
 					<Item id="41024" name="Zamknij wszystko, gdzie nie dokonano zmian"/>
-					<Item CMDID="44048" name="Przypnij kartę" alternativeName="Odepnij kartę"/>
+					<Item id="44048" name="Przypnij kartę" alternativeName="Odepnij kartę"/>
 					<Item id="41006" name="&amp;Zapisz"/>
 					<Item id="41007" name="Zapisz w&amp;szystko"/>
 					<Item id="41008" name="Z&amp;apisz jako..."/>

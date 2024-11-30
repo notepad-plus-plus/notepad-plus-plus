@@ -3224,32 +3224,25 @@ bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring&
 
 LangType NppParameters::getLangFromExt(const wchar_t *ext)
 {
-	int i = getNbLang();
-	i--;
+	// first check a user defined extensions for styles
+	LexerStylerArray &lexStyleList = getLStylerArray();
+	for (size_t i = 0 ; i < lexStyleList.getNbLexer(); ++i)
+	{
+		LexerStyler &styler = lexStyleList.getLexerFromIndex(i);
+		const wchar_t *extList = styler.getLexerUserExt();
+
+		if (isInList(ext, extList))
+			return getLangIDFromStr(styler.getLexerName());
+	}
+
+	// then check languages extensions
+	int i = getNbLang() - 1;
 	while (i >= 0)
 	{
 		Lang *l = getLangFromIndex(i--);
-
 		const wchar_t *defList = l->getDefaultExtList();
-		const wchar_t *userList = NULL;
 
-		LexerStylerArray &lsa = getLStylerArray();
-		const wchar_t *lName = l->getLangName();
-		LexerStyler *pLS = lsa.getLexerStylerByName(lName);
-
-		if (pLS)
-			userList = pLS->getLexerUserExt();
-
-		std::wstring list;
-		if (defList)
-			list += defList;
-
-		if (userList)
-		{
-			list += L" ";
-			list += userList;
-		}
-		if (isInList(ext, list.c_str()))
+		if (defList && isInList(ext, defList))
 			return l->getLangID();
 	}
 	return L_TEXT;

@@ -427,7 +427,7 @@
 			<TabBar>
 				<Item CMDID="41003" name="Zatvori"/>
 				<Item CMDID="0" name="Zatvori višestruke kartice"/>
-				<Item CMDID="41005" name="Zatvori sve osim ove"/>
+				<Item CMDID="41005" name="Zatvori sve osim trenutne"/>
 				<Item CMDID="41026" name="Zatvori sve osim prikvačenih"/>
 				<Item CMDID="41009" name="Zatvori sve s lijeve strane"/>
 				<Item CMDID="41018" name="Zatvori sve s desne strane"/>

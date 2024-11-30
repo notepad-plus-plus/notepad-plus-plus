@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.2">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -89,8 +89,9 @@
 					<Item id="41020" name="v Príkazovom riadku"/>
 					<Item id="41025" name="Priečinok ako pracovný priestor"/>
 					<Item id="41003" name="Zavrieť"/>
-					<Item id="41004" name="Z&amp;atvoriť všetko"/>
-					<Item id="41005" name="Zavrieť všetky okrem aktuálneho"/>
+					<Item id="41004" name="Z&amp;avrieť všetky"/>
+					<Item id="41005" name="Zavrieť všetky OKREM aktuálnej"/>
+					<Item id="41026" name="Zavrieť všetky OKREM pripnutých"/>
 					<Item id="41009" name="Zavrieť všetky vľavo"/>
 					<Item id="41018" name="Zavrieť všetky vpravo"/>
 					<Item id="41024" name="Zavrieť všetky nezmenené"/>
@@ -417,9 +418,11 @@
 				<Item CMDID="41003" name="Zavrieť"/>
 				<Item CMDID="0" name="Zavrieť viacero kariet"/>
 				<Item CMDID="41005" name="Zavrieť všetky OKREM tejto"/>
+				<Item CMDID="41026" name="Zavrieť všetky OKREM pripnutých"/>
 				<Item CMDID="41009" name="Zavrieť všetky vľavo"/>
 				<Item CMDID="41018" name="Zavrieť všetky vpravo"/>
 				<Item CMDID="41024" name="Zavrieť všetky nezmenené"/>
+				<Item CMDID="44048" name="Pripnúť kartu" alternativeName="Odopnúť kartu"/>
 				<Item CMDID="41006" name="Uložiť"/>
 				<Item CMDID="41008" name="Uložiť ako…"/>
 				<Item CMDID="1" name="Otvoriť do"/>
@@ -951,7 +954,7 @@
 					<Item id="6106" name="Panel kariet"/>
 					<Item id="6107" name="Zmenšiť"/>
 					<Item id="6108" name="Zamknúť (Vypne Drag 'N' Drop)"/>
-					<Item id="6109" name="Stmaviť neaktívne karty"/>
+					<Item id="6109" name="Zmeniť farbu neaktívnej karty"/>
 					<Item id="6110" name="Farebne zvýrazniť aktívnu kartu"/>
 					<Item id="6112" name="Zobraziť tlačidlo zatvorenia na karte"/>
 					<Item id="6113" name="Dvojklikom zavrieť dokument"/>

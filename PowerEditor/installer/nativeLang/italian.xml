@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.7.2
-    Last modified Sat, Nov 23th, 2024.
+    Last modified Sat, Nov 30th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.2">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -98,6 +98,7 @@ Translation note:
 					<Item id="41003" name="&amp;Chiudi"/>
 					<Item id="41004" name="C&amp;hiudi tutto"/>
 					<Item id="41005" name="Chiudi tutte tranne la scheda corrente"/>
+					<Item id="41026" name="Chiudi tutti tranne i documenti fissati"/>
 					<Item id="41009" name="Chiudi le schede a sinistra della corrente"/>
 					<Item id="41018" name="Chiudi le schede a destra della corrente"/>
 					<Item id="41024" name="Chiudi tutte quelle non modificate"/>
@@ -424,9 +425,11 @@ Translation note:
 				<Item CMDID="41003" name="Chiudi"/>
 				<Item CMDID="0" name="Chiudi schede multiple"/>
 				<Item CMDID="41005" name="Chiudi tutte tranne questa"/>
+				<Item CMDID="41026" name="Chiudi tutto tranne quelli fissati"/>
 				<Item CMDID="41009" name="Chiudi tutte le schede a sinistra"/>
 				<Item CMDID="41018" name="Chiudi tutte le schede a destra"/>
 				<Item CMDID="41024" name="Chiudi tutti i documenti non modificati"/>
+				<Item CMDID="44048" name="Fissa Scheda" alternativeName="Rimuovi fissaggio Scheda"/>
 				<Item CMDID="41006" name="Salva"/>
 				<Item CMDID="41008" name="Salva con nome..."/>
 				<Item CMDID="1" name="Apri in"/>
@@ -959,7 +962,7 @@ Translation note:
 					<Item id="6106" name="Barra delle schede"/>
 					<Item id="6107" name="Compatta"/>
 					<Item id="6108" name="Blocca schede (no trascinamento)"/>
-					<Item id="6109" name="Oscura le schede inattive"/>
+					<Item id="6109" name="Cambia il colore della scheda inattiva"/>
 					<Item id="6110" name="Barra colorata sulla scheda attiva"/>
 					<Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
 					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>

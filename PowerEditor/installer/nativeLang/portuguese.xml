@@ -92,10 +92,11 @@ Nota de tradução:
 					<Item id="41025" name="Pasta como área de trabalho"/>
 					<Item id="41003" name="Fe&amp;char"/>
 					<Item id="41004" name="F&amp;echar tudo"/>
-					<Item id="41005" name="Fechar TUDO exceto documento atual"/>
-					<Item id="41009" name="Fechar TUDO à esquerda"/>
-					<Item id="41018" name="Fechar TUDO à direita"/>
-					<Item id="41024" name="Fechar TUDO inalterado"/>
+					<Item id="41005" name="Fechar tudo EXCETO documento atual"/>
+					<Item id="41026" name="Fechar tudo EXCETO documentos afixados"/>
+					<Item id="41009" name="Fechar tudo à esquerda"/>
+					<Item id="41018" name="Fechar tudo à direita"/>
+					<Item id="41024" name="Fechar tudo inalterado"/>
 					<Item id="41006" name="&amp;Guardar"/>
 					<Item id="41007" name="Guardar tudo"/>
 					<Item id="41008" name="Guardar &amp;como..."/>
@@ -418,10 +419,12 @@ Nota de tradução:
 			<TabBar>
 				<Item CMDID="41003" name="Fechar"/>
 				<Item CMDID="0" name="Fechar vários separadores"/>
-				<Item CMDID="41005" name="Fechar TUDO EXCETO este"/>
-				<Item CMDID="41009" name="Fechar TUDO à esquerda"/>
-				<Item CMDID="41018" name="Fechar TUDO à direita"/>
-				<Item CMDID="41024" name="Fechar TUDO inalterado"/>
+				<Item CMDID="41005" name="Fechar tudo EXCETO este"/>
+				<Item CMDID="41026" name="Fechar tudo EXCETO afixados"/>
+				<Item CMDID="41009" name="Fechar tudo à esquerda"/>
+				<Item CMDID="41018" name="Fechar tudo à direita"/>
+				<Item CMDID="41024" name="Fechar tudo inalterado"/>
+				<Item CMDID="44048" name="Afixar separador" alternativeName="Desafixar separador"/>
 				<Item CMDID="41006" name="Guardar"/>
 				<Item CMDID="41008" name="Guardar como..."/>
 				<Item CMDID="1" name="Abrir em"/>
@@ -1850,9 +1853,9 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
 
 Filipe Mota <blackspirits@gmail.com>
-27/03/2023 (version 8.5.1, 8.6.3)
+27/03/2023 (version 8.5.1, 8.6.3, 8.7)
 
-Last modified: 25 November 2024 by Hugo Carvalho
+Last modified: 30 November 2024 by Hugo Carvalho and BlackSpirits
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

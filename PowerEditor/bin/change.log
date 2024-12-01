@@ -1,3 +1,13 @@
+Notepad++ v8.7.3 bug-fixes & new features :
+
+1. Fix a crash while disabling "Pin tab" feature.
+2. Fix drag&drop a folder in Notepad++ launch redundant dialog regression.
+3. Fix docked panels invisibility in multi-instance mode.
+4. Add "Pin/Unpin Tab" context menu item.
+5. Add "Close All BUT Pinned" command.
+6. Fix a possible buffer overflow issue.
+
+
 Notepad++ v8.7.2 new features & bug-fixes:
 
 1. Add Pin tab feature.
@@ -10,7 +20,7 @@ Notepad++ v8.7.2 new features & bug-fixes:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.2/
+https://notepad-plus-plus.org/downloads/v8.7.3/
 
 
 Included plugins:

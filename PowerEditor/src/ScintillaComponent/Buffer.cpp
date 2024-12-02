@@ -156,7 +156,7 @@ void Buffer::updateTimeStamp()
 	//               It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
 	//               Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
 	{
-		//if (res == 1)
+		if (res == 1)
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			if (nppParam.doNppLogNetworkDriveIssue())
@@ -169,8 +169,7 @@ void Buffer::updateTimeStamp()
 				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 				std::string msg = converter.to_bytes(_fullPathName);
 				char buf[1024];
-				sprintf(buf, "  res==%d in updateTimeStamp(): timeStampLive (%lu/%lu) < _timeStamp (%lu/%lu)",
-					res, timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%lu/%lu) < _timeStamp (%lu/%lu)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				msg += buf;
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
@@ -333,7 +332,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		//                It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
 		//                Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
 		{
-			//if (res == 1)
+			if (res == 1)
 			{
 				if (nppParam.doNppLogNetworkDriveIssue())
 				{
@@ -345,9 +344,8 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 					std::string msg = converter.to_bytes(_fullPathName);
 					char buf[1024];
-					sprintf(buf, "  res==%d in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) < _timeStamp (%lu/%lu)",
-				res, attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
-msg += buf;
+					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) < _timeStamp (%lu/%lu)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+					msg += buf;
 					writeLog(nppIssueLog.c_str(), msg.c_str());
 				}
 			}

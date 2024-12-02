@@ -3231,9 +3231,8 @@ LangType NppParameters::getLangFromExt(const wchar_t *ext)
 		LexerStyler &styler = lexStyleList.getLexerFromIndex(i);
 		const wchar_t *extList = styler.getLexerUserExt();
 
-		if (isInList(ext, extList)) {
+		if (isInList(ext, extList))
 			return getLangIDFromStr(styler.getLexerName());
-		}
 	}
 
 	// then check languages extensions

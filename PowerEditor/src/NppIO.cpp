@@ -420,7 +420,9 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
 	{
 		LangType determinatedLang = L_TEXT;
 		nppParam.determineLangFromExt(longFileName, &determinatedLang);
-		if (determinatedLang == L_ASCII) {
+
+		if (determinatedLang == L_ASCII)
+		{
 			encoding = NPP_CP_DOS_437; // force DOS_437 encoding for .nfo files
 		}
 	}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated 18 November 2024 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated 30 November 2024 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.2">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@
 					<Item id="41003" name="&amp;Zatvori"/>
 					<Item id="41004" name="Z&amp;atvori sve"/>
 					<Item id="41005" name="Zatvori sve &amp;osim trenutne"/>
+					<Item id="41026" name="Zatvori sve osim &amp;prikvačenih"/>
 					<Item id="41009" name="Zatvori sve s &amp;lijeve strane"/>
 					<Item id="41018" name="Zatvori sve s &amp;desne strane"/>
 					<Item id="41024" name="Zatvori sve &amp;nepromijenjene"/>
@@ -426,10 +427,12 @@
 			<TabBar>
 				<Item CMDID="41003" name="Zatvori"/>
 				<Item CMDID="0" name="Zatvori višestruke kartice"/>
-				<Item CMDID="41005" name="Zatvori sve osim ove"/>
+				<Item CMDID="41005" name="Zatvori sve osim trenutne"/>
+				<Item CMDID="41026" name="Zatvori sve osim prikvačenih"/>
 				<Item CMDID="41009" name="Zatvori sve s lijeve strane"/>
 				<Item CMDID="41018" name="Zatvori sve s desne strane"/>
 				<Item CMDID="41024" name="Zatvori sve nepromijenjene"/>
+				<Item CMDID="44048" name="Prikvači karticu" alternativeName="Otkvači karticu"/>
 				<Item CMDID="41006" name="Spremi"/>
 				<Item CMDID="41008" name="Spremi kao..."/>
 				<Item CMDID="1" name="Otvori mapu"/>
@@ -963,7 +966,7 @@
 					<Item id="6106" name="Vrpca s kartičnim jezičcima"/>
 					<Item id="6107" name="Smanji"/>
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
-					<Item id="6109" name="Zatamni neaktivne jezičke"/>
+					<Item id="6109" name="Promijeni boju neaktivnih jezičaka"/>
 					<Item id="6110" name="Vrh aktivnog jezička u boji"/>
 					<Item id="6112" name="Gumb za zatvaranje na svakom jezičku"/>
 					<Item id="6113" name="Zatvori karticu dvoklikom"/>

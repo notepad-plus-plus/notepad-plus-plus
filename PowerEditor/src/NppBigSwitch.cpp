@@ -3894,32 +3894,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
-		case NPPM_INTERNAL_REDUCETABBAR:
-		{
-			bool isReduceed = TabBarPlus::isReduced();
-
-			//Resize the tab height
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
-			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
-
-			TabCtrl_SetPadding(_mainDocTab.getHSelf(), _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
-			TabCtrl_SetPadding(_subDocTab.getHSelf(), _subDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? 10 : 6), 0);
-
-			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-
-			//change the font
-			const auto& hf = _mainDocTab.getFont(isReduceed);
-			if (hf)
-			{
-				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
-			}
-
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			break;
-		}
-
 		case NPPM_INTERNAL_REFRESHTABAR:
 		{
 			::InvalidateRect(_mainDocTab.getHSelf(), NULL, TRUE);
@@ -3966,6 +3940,33 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
+		case NPPM_INTERNAL_REDUCETABBAR:
+		{
+			TabBarPlus::setReduced(!TabBarPlus::isReduced(), &_mainDocTab);
+			bool isReduceed = TabBarPlus::isReduced();
+
+			//Resize the tab height
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale((TabBarPlus::drawTabCloseButton() || TabBarPlus::drawTabPinButton()) ? g_TabWidthButton : g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
+
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
+			//change the font
+			const auto& hf = _mainDocTab.getFont(isReduceed);
+			if (hf)
+			{
+				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+			}
+
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+
+			_mainDocTab.refresh();
+			_subDocTab.refresh();
+			break;
+		}
+
 		case NPPM_INTERNAL_DRAWTABBARCLOSEBUTTON:
 		{
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton(), &_mainDocTab);
@@ -4004,7 +4005,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			// This part is just for updating (redraw) the tabs
 			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthButton : g_TabWidth);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
@@ -4058,7 +4059,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			// This part is just for updating (redraw) the tabs
 			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabPinButton() ? g_TabWidthCloseBtn : g_TabWidth);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabPinButton() ? g_TabWidthButton : g_TabWidth);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 

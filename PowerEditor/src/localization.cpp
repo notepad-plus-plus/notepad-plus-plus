@@ -491,14 +491,14 @@ static const int tabCmSubMenuEntryPos[] =
 //   |       |
 //   |       |
      1,   // 0  Close Multiple Tabs
-     4,   // 1  Open into
-    13,   // 2  Copy to Clipboard
-    14,   // 3  Move Document
-    15,   // 4  Apply Color to Tab
+     5,   // 1  Open into
+    14,   // 2  Copy to Clipboard
+    15,   // 3  Move Document
+    16,   // 4  Apply Color to Tab
 };
 
 
-void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
+void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM) const
 {
 	if (_nativeLangA != nullptr)
 	{
@@ -546,6 +546,42 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 			}
 		}
 	}
+}
+
+void NativeLangSpeaker::getAlternativeNameFromTabContextMenu(wstring& output, int cmdID, bool isAlternative, const wstring& defaultValue) const
+{
+	if (_nativeLangA != nullptr)
+	{
+		TiXmlNodeA* tabBarMenu = _nativeLangA->FirstChild("Menu");
+		if (tabBarMenu)
+		{
+			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+			if (tabBarMenu)
+			{
+				WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
+
+				for (TiXmlNodeA* childNode = tabBarMenu->FirstChildElement("Item");
+					childNode;
+					childNode = childNode->NextSibling("Item"))
+				{
+					TiXmlElementA* element = childNode->ToElement();
+					int cmd;
+					element->Attribute("CMDID", &cmd);
+
+					if (cmd == cmdID) // menu item CMD
+					{
+						const char* pName = element->Attribute(isAlternative ? "alternativeName" : "name");
+						if (pName)
+						{
+							output = wmc.char2wchar(pName, _nativeLangEncoding);
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+	output = defaultValue;
 }
 
 void NativeLangSpeaker::changeLangTabDropContextMenu(HMENU hCM)

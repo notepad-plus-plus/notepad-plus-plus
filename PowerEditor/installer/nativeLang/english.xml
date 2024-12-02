@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.7.2">
+	<Native-Langue name="English" filename="english.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="&amp;Close"/>
 					<Item id="41004" name="Clos&amp;e All"/>
 					<Item id="41005" name="Close All BUT Current Document"/>
+					<Item id="41026" name="Close All BUT Pinned Documents"/>
 					<Item id="41009" name="Close All to the Left"/>
 					<Item id="41018" name="Close All to the Right"/>
 					<Item id="41024" name="Close All Unchanged"/>
@@ -419,9 +420,11 @@ Translation note:
 				<Item CMDID="41003" name="Close"/>
 				<Item CMDID="0" name="Close Multiple Tabs"/>
 				<Item CMDID="41005" name="Close All BUT This"/>
+				<Item CMDID="41026" name="Close All BUT Pinned"/>
 				<Item CMDID="41009" name="Close All to the Left"/>
 				<Item CMDID="41018" name="Close All to the Right"/>
 				<Item CMDID="41024" name="Close All Unchanged"/>
+				<Item CMDID="44048" name="Pin Tab" alternativeName="Unpin Tab"/>
 				<Item CMDID="41006" name="Save"/>
 				<Item CMDID="41008" name="Save As..."/>
 				<Item CMDID="1" name="Open into"/>
@@ -954,7 +957,7 @@ Translation note:
 					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="Reduce"/>
 					<Item id="6108" name="Lock (no drag and drop)"/>
-					<Item id="6109" name="Darken inactive tabs"/>
+					<Item id="6109" name="Change inactive tab color"/>
 					<Item id="6110" name="Draw a colored bar on active tab"/>
 					<Item id="6112" name="Show close button on each tab"/>
 					<Item id="6113" name="Double click to close document"/>

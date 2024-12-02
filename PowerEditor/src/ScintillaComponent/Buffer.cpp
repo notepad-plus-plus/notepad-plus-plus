@@ -1236,19 +1236,17 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 		int encoding = buffer->getEncoding();
 
-		// find encoding for untitled .nfo, .html, .xml files
+		// find encoding for untitled .nfo
 		if (buffer->isUntitled() && encoding == -1)
 		{
 			LangType determinatedLang = L_TEXT;
 			NppParameters::getInstance().determineLangFromExt(fullpath, &determinatedLang);
 			
 			if (determinatedLang == L_ASCII)
+			{
 				encoding = NPP_CP_DOS_437;
-			else if (determinatedLang == L_XML || determinatedLang == L_HTML)
-				encoding = _pNotepadPlus->getHtmlXmlEncodingBuf(buf, lengthDoc, determinatedLang);
-
-			if (encoding != -1)	
 				buffer->setEncoding(encoding);
+			}
 		}
 
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write

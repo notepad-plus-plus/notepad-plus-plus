@@ -246,7 +246,6 @@ public:
 	std::vector<std::wstring> addNppComponents(const wchar_t *destDir, const wchar_t *extFilterName, const wchar_t *extFilter);
 	std::vector<std::wstring> addNppPlugins(const wchar_t *extFilterName, const wchar_t *extFilter);
     int getHtmlXmlEncoding(const wchar_t *fileName) const;
-    int getHtmlXmlEncodingBuf(const char *data, size_t dataSize, LangType langT) const;
 
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();

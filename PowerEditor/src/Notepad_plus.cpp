@@ -1150,14 +1150,10 @@ int Notepad_plus::getHtmlXmlEncoding(const wchar_t* fileName) const
 	char data[blockSize];
 	size_t lenFile = fread(data, 1, blockSize, f);
 	fclose(f);
-	return getHtmlXmlEncodingBuf(data, lenFile, langT);
-}
 
-int Notepad_plus::getHtmlXmlEncodingBuf(const char *data, size_t dataSize, LangType langT) const
-{
 	// Put data in _invisibleEditView
 	_invisibleEditView.execute(SCI_CLEARALL);
-	_invisibleEditView.execute(SCI_APPENDTEXT, dataSize, reinterpret_cast<LPARAM>(data));
+	_invisibleEditView.execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
 
 	const size_t encodingStrLen = 128;
 	if (langT == L_XML)
@@ -1168,7 +1164,7 @@ int Notepad_plus::getHtmlXmlEncodingBuf(const char *data, size_t dataSize, LangT
 		const char* xmlHeaderRegExpr = "<?xml[ \\t]+version[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]+encoding[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]*.*?>";
 
         size_t startPos = 0;
-		size_t endPos = dataSize - 1;
+		size_t endPos = lenFile-1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
 		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
@@ -1211,7 +1207,7 @@ int Notepad_plus::getHtmlXmlEncodingBuf(const char *data, size_t dataSize, LangT
 		const char* encodingStrRE = "[^ \\t=]+";
 
 		intptr_t startPos = 0;
-		auto endPos = dataSize - 1;
+		auto endPos = lenFile - 1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
 		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);

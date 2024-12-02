@@ -12,7 +12,7 @@ Modifications from 2021-01-28 and onwards by Thomas De Rocker (RockyTDR, notepad
 Last modified on 2024-11-22 by Thomas De Rocker (RockyTDR).
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.7.2">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -100,6 +100,7 @@ Last modified on 2024-11-22 by Thomas De Rocker (RockyTDR).
 					<Item id="41003" name="&amp;Sluiten"/>
 					<Item id="41004" name="&amp;Alles sluiten"/>
 					<Item id="41005" name="Overige documenten sluiten"/>
+					<Item id="41026" name="Alle documenten sluiten, behalve vastgemaakte"/>
 					<Item id="41009" name="Documenten aan de linkerkant sluiten"/>
 					<Item id="41018" name="Documenten aan de rechterkant sluiten"/>
 					<Item id="41024" name="Ongewijzigde documenten sluiten"/>
@@ -426,9 +427,11 @@ Last modified on 2024-11-22 by Thomas De Rocker (RockyTDR).
 				<Item CMDID="41003" name="Sluiten"/>
 				<Item CMDID="0" name="Meerdere tabs sluiten"/>
 				<Item CMDID="41005" name="Overige documenten sluiten"/>
+				<Item CMDID="41026" name="Alles sluiten, behalve vastgemaakte"/>
 				<Item CMDID="41009" name="Documenten aan de linkerkant sluiten"/>
 				<Item CMDID="41018" name="Documenten aan de rechterkant sluiten"/>
 				<Item CMDID="41024" name="Ongewijzigde documenten sluiten"/>
+				<Item CMDID="44048" name="Tab vastmaken" alternativeName="Tab losmaken"/>
 				<Item CMDID="41006" name="Opslaan"/>
 				<Item CMDID="41008" name="Opslaan als..."/>
 				<Item CMDID="1" name="Openen in"/>
@@ -961,7 +964,7 @@ Last modified on 2024-11-22 by Thomas De Rocker (RockyTDR).
 					<Item id="6106" name="Tabblad-balk"/>
 					<Item id="6107" name="Kleine tabs"/>
 					<Item id="6108" name="Slepen en neerzetten uitschakelen"/>
-					<Item id="6109" name="Inactieve tabbladen camoufleren"/>
+					<Item id="6109" name="Kleur van inactieve tab wijzigen"/>
 					<Item id="6110" name="Actieve tabbladen accentueren"/>
 					<Item id="6112" name="Knop sluiten op elke tab weergeven"/>
 					<Item id="6113" name="Document sluiten door dubbelklikken"/>

@@ -20,6 +20,7 @@
 #include <uxtheme.h> // for EnableThemeDialogTexture
 #include <format>
 #include <windowsx.h> // for GET_X_LPARAM, GET_Y_LPARAM
+#include <codecvt>
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
@@ -2182,7 +2183,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			Buffer* currBuf = getCurrentBuffer();
 			if (currBuf && currBuf->isMonitoringOn())
-				doesFileExist(currBuf->getFullPathName());
+			{
+				bool bWorkerThreadTerminated = true;
+				bool fileExists = doesFileExist(currBuf->getFullPathName(), 0, &bWorkerThreadTerminated);
+				if (!fileExists && bWorkerThreadTerminated)
+				{
+					if (nppParam.doNppLogNetworkDriveIssue())
+					{
+						wstring issueFn = nppLogNetworkDriveIssue;
+						issueFn += L".log";
+						wstring nppIssueLog = nppParam.getUserPath();
+						pathAppend(nppIssueLog, issueFn);
+						std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+						std::string msg = converter.to_bytes(currBuf->getFullPathName());
+						msg += "  in NPPM_INTERNAL_CHECKDOCSTATUS message handler, doesFileExist check failed, its worker thread had to be forcefully terminated due to timeout reached!";
+						writeLog(nppIssueLog.c_str(), msg.c_str());
+					}
+				}
+			}
 
 			const NppGUI & nppgui = nppParam.getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)

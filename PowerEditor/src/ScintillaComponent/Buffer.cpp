@@ -141,22 +141,18 @@ void Buffer::setLangType(LangType lang, const wchar_t* userLangName)
 void Buffer::updateTimeStamp()
 {
 	FILETIME timeStampLive {};
+
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-	if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes))
+	bool bWorkerThreadTerminated = true;
+	BOOL bCheckSucceeded = getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes, 0, &bWorkerThreadTerminated);
+	if (bCheckSucceeded && (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES) && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
 		timeStampLive = attributes.ftLastWriteTime;
 	}
-
-	LONG res = CompareFileTime(&_timeStamp, &timeStampLive);
-	if (res == -1 || res == 1)
-	// (res == -1) => timeStampLive is later, it means the file has been modified outside of Notepad++ - usual case
-	// 
-	// (res == 1) => timeStampLive (get directly from the file on disk) is earlier than buffer's timestamp - unusual case
-	//               It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
-	//               Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
+	else
 	{
-		if (res == 1)
+		if (_currentStatus != DOC_UNNAMED)
 		{
 			NppParameters& nppParam = NppParameters::getInstance();
 			if (nppParam.doNppLogNetworkDriveIssue())
@@ -168,11 +164,58 @@ void Buffer::updateTimeStamp()
 
 				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 				std::string msg = converter.to_bytes(_fullPathName);
-				char buf[1024];
-				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%lu/%lu) < _timeStamp (%lu/%lu)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
-				msg += buf;
+				msg += "  in Buffer::updateTimeStamp(), getFileAttributesExWithTimeout returned ";
+				if (bCheckSucceeded)
+					msg += "TRUE, ";
+				else
+					msg += "FALSE, ";
+				if (bWorkerThreadTerminated)
+					msg += "its worker thread had to be forcefully terminated due to timeout reached, ";
+				else
+					msg += "its worker thread finished successfully within the timeout given, ";
+				if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+					msg += "dwFileAttributes == INVALID_FILE_ATTRIBUTES !";
+				else if (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+					msg += "dwFileAttributes reported has the FILE_ATTRIBUTE_DIRECTORY flag set!";
+				else
+					msg += "dwFileAttributes: " + std::to_string(attributes.dwFileAttributes) + " !";
+
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
+		}
+	}
+
+	LONG res = CompareFileTime(&_timeStamp, &timeStampLive);
+	if (res == -1 || res == 1)
+	// (res == -1) => timeStampLive is later, it means the file has been modified outside of Notepad++ - usual case
+	// 
+	// (res == 1) => timeStampLive (get directly from the file on disk) is earlier than buffer's timestamp - unusual case
+	//               It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
+	//               Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
+	{
+		NppParameters& nppParam = NppParameters::getInstance();
+		if (nppParam.doNppLogNetworkDriveIssue())
+		{
+			wstring issueFn = nppLogNetworkDriveIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::string msg = converter.to_bytes(_fullPathName);
+			char buf[1024]{};
+			if (res == 1)
+			{
+				sprintf_s(buf, _countof(buf) - 1, "  in updateTimeStamp(): timeStampLive (%lu/%lu) < _timeStamp (%lu/%lu)",
+					timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+			}
+			else
+			{
+				// TEMP: DEBUG: usual case
+				sprintf_s(buf, _countof(buf) - 1, "  in updateTimeStamp(): timeStampLive (%lu/%lu) > _timeStamp (%lu/%lu)",
+					timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+			}
+			msg += buf;
+			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 		_timeStamp = timeStampLive;
 		doNotify(BufferChangeTimestamp);
@@ -260,10 +303,58 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	if (_currentStatus == DOC_UNNAMED || isMonitoringOn())
 		return false;
 
+	NppParameters& nppParam = NppParameters::getInstance();
+
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
-	NppParameters& nppParam = NppParameters::getInstance();
-	bool fileExists = doesFileExist(_fullPathName.c_str());
+	bool bWorkerThreadTerminated = true;
+	bool fileExists = doesFileExist(_fullPathName.c_str(), 0, &bWorkerThreadTerminated);
+	if (!fileExists && bWorkerThreadTerminated)
+	{
+		if (nppParam.doNppLogNetworkDriveIssue())
+		{
+			wstring issueFn = nppLogNetworkDriveIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::string msg = converter.to_bytes(_fullPathName);
+			msg += "  in Buffer::checkFileState(), doesFileExist check failed, its worker thread had to be forcefully terminated due to timeout reached!";
+			writeLog(nppIssueLog.c_str(), msg.c_str());
+		}
+	}
+	else if (!fileExists && !bWorkerThreadTerminated)
+	{
+		// TEMP: DEBUG: looks like the file is really gone
+		if (nppParam.doNppLogNetworkDriveIssue())
+		{
+			wstring issueFn = nppLogNetworkDriveIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::string msg = converter.to_bytes(_fullPathName);
+			msg += "  in Buffer::checkFileState(), doesFileExist check returned FALSE, its worker thread finished successfully within the timeout given (OK).";
+			writeLog(nppIssueLog.c_str(), msg.c_str());
+		}
+	}
+	else if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+	{
+		if (nppParam.doNppLogNetworkDriveIssue())
+		{
+			wstring issueFn = nppLogNetworkDriveIssue;
+			issueFn += L".log";
+			wstring nppIssueLog = nppParam.getUserPath();
+			pathAppend(nppIssueLog, issueFn);
+
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::string msg = converter.to_bytes(_fullPathName);
+			msg += "  in Buffer::checkFileState(), doesFileExist check succeeded, but dwFileAttributes reported has the FILE_ATTRIBUTE_DIRECTORY flag set!";
+			writeLog(nppIssueLog.c_str(), msg.c_str());
+		}
+	}
 
 #ifndef	_WIN64
 	bool isWow64Off = false;
@@ -291,29 +382,26 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
-		_isDirty = true;	//dirty sicne no match with filesystem
+		_isDirty = true;	//dirty since no match with filesystem
 		_timeStamp = {};
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
 	else if (_currentStatus == DOC_DELETED && fileExists) //document has returned from its grave
 	{
-		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0) // fileExists so it's safe to call GetFileAttributesEx directly
+		_isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
+
+		_currentStatus = DOC_MODIFIED;
+		_timeStamp = attributes.ftLastWriteTime;
+
+		if (_reloadFromDiskRequestGuard.try_lock())
 		{
-			_isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
-
-			_currentStatus = DOC_MODIFIED;
-			_timeStamp = attributes.ftLastWriteTime;
-
-			if (_reloadFromDiskRequestGuard.try_lock())
-			{
-				doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
-				_reloadFromDiskRequestGuard.unlock();
-			}
-			isOK = true;
+			doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+			_reloadFromDiskRequestGuard.unlock();
 		}
+		isOK = true;
 	}
-	else if (getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes))
+	else if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
@@ -324,30 +412,35 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		}
 
 		LONG res = CompareFileTime(&_timeStamp, &attributes.ftLastWriteTime);
-
 		if (res == -1 || res == 1)
-		// (res == -1) => attributes.ftLastWriteTime is later, it means the file has been modified outside of Notepad++ - usual case
-		// 
-		// (res == 1)  => The timestamp get directly from the file on disk is earlier than buffer's timestamp - unusual case
-		//                It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
-		//                Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
+			// (res == -1) => attributes.ftLastWriteTime is later, it means the file has been modified outside of Notepad++ - usual case
+			// 
+			// (res == 1)  => The timestamp get directly from the file on disk is earlier than buffer's timestamp - unusual case
+			//                It can happen when user copies a backup of editing file somewhere-else firstly, then modifies the editing file in Notepad++ and saves it.
+			//                Now user copies the backup back to erase the modified editing file outside Notepad++ (via Explorer).
 		{
-			if (res == 1)
+			if (nppParam.doNppLogNetworkDriveIssue())
 			{
-				if (nppParam.doNppLogNetworkDriveIssue())
+				wstring issueFn = nppLogNetworkDriveIssue;
+				issueFn += L".log";
+				wstring nppIssueLog = nppParam.getUserPath();
+				pathAppend(nppIssueLog, issueFn);
+				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+				std::string msg = converter.to_bytes(_fullPathName);
+				char buf[1024]{};
+				if (res == 1)
 				{
-					wstring issueFn = nppLogNetworkDriveIssue;
-					issueFn += L".log";
-					wstring nppIssueLog = nppParam.getUserPath();
-					pathAppend(nppIssueLog, issueFn);
-
-					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-					std::string msg = converter.to_bytes(_fullPathName);
-					char buf[1024];
-					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) < _timeStamp (%lu/%lu)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
-					msg += buf;
-					writeLog(nppIssueLog.c_str(), msg.c_str());
+					sprintf_s(buf, _countof(buf) - 1, "  in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) < _timeStamp (%lu/%lu)",
+						attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				}
+				else
+				{
+					// TEMP: DEBUG: usual state after a file modification
+					sprintf_s(buf, _countof(buf) - 1, "  in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) > _timeStamp (%lu/%lu)",
+						attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
+				}
+				msg += buf;
+				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 			_timeStamp = attributes.ftLastWriteTime;
 			mask |= BufferChangeTimestamp;
@@ -361,9 +454,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 			if (_reloadFromDiskRequestGuard.try_lock())
 			{
 				doNotify(mask);
-
 				_reloadFromDiskRequestGuard.unlock();
-
 				return true;
 			}
 		}
@@ -377,6 +468,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		nppParam.safeWow64EnableWow64FsRedirection(TRUE);
 	}
 #endif
+
 	return isOK;
 }
 

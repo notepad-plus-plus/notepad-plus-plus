@@ -421,7 +421,8 @@ Translation note:
 			<TabBar>
 				<Item CMDID="41003" name="Lukk"/>
 				<Item CMDID="0" name="Lukk flere faner"/>
-				<Item CMDID="41005" name="Lukk alle utenom denne"/>
+				<Item CMDID="41005" name="Lukk alle UTENOM Denne"/>
+				<Item CMDID="41026" name="Lukke alle UTENOM Festede faner"/>
 				<Item CMDID="41009" name="Lukk alle til venstre"/>
 				<Item CMDID="41018" name="Lukk alle til høyre"/>
 				<Item CMDID="41024" name="Lukk alle uendrede"/>

@@ -1769,7 +1769,7 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 }
 
 
-#define DEFAULT_MILLISEC 1000
+#define DEFAULT_MILLISEC 3000
 
 
 //----------------------------------------------------

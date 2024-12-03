@@ -1859,12 +1859,11 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			setSpecialStyle(nfoStyle);
 			execute(SCI_STYLECLEARALL);
 
-			Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
+			Buffer* buf = MainFileManager.getBufferByID(_currentBufferID);
 
-			if (buf->getEncoding() != NPP_CP_DOS_437)
+			if (buf->getEncoding() == NPP_CP_DOS_437)
 			{
-			   buf->setEncoding(NPP_CP_DOS_437);
-			   ::SendMessage(_hParent, WM_COMMAND, IDM_FILE_RELOAD, 0);
+				MainFileManager.reloadBuffer(buf);
 			}
 		}
 		break;

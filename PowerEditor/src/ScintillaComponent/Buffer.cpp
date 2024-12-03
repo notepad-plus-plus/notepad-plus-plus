@@ -815,18 +815,17 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 		if (res != 0) // res == 1 or res == -1
 			newBuf->_timeStamp = fileNameTimestamp;
 
-		_buffers.push_back(newBuf);
-		++_nbBufs;
-		Buffer* buf = _buffers.at(_nbBufs - 1);
-
 		// restore the encoding (ANSI based) while opening the existing file
-		buf->setEncoding(-1);
+		newBuf->setEncoding(-1);
 
 		// if not a large file, no file extension, and the language has been detected,  we use the detected value
-		if (!newBuf->_isLargeFile && ((buf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT)))
-			buf->setLangType(loadedFileFormat._language);
+		if (!newBuf->_isLargeFile && ((newBuf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT)))
+			newBuf->setLangType(loadedFileFormat._language);
 
-		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
+		setLoadedBufferEncodingAndEol(newBuf, UnicodeConvertor, loadedFileFormat._encoding, loadedFileFormat._eolFormat);
+
+		_buffers.push_back(newBuf);
+		++_nbBufs;
 
 		//determine buffer properties
 		++_nextBufferID;

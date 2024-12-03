@@ -5426,37 +5426,59 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
 				if (wcsnicmp(linebufStr.c_str(), comment.c_str(), !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length) == 0)
 				{
-					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
-
-					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
-					_pEditView->replaceSelWith("");
-
-					// SELECTION RANGE ADJUSTMENT .......................
-					if (i == selStartLine) // first selected line
+					size_t count = !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
+					if (count == 0)
 					{
-						if (selectionStart > lineIndent + len)
-							selectionStart -= len;
-						else if (selectionStart > lineIndent)
-							selectionStart = lineIndent;
-					} // ................................................
-					if (i == selEndLine) // last selected line
+						return 0;
+					}
+
+					unsigned short const* lhs_ptr = reinterpret_cast<unsigned short const*>(linebufStr.c_str());
+					unsigned short const* rhs_ptr = reinterpret_cast<unsigned short const*>(comment.c_str());
+
+					int result;
+					int lhs_value;
+					int rhs_value;
+					do
 					{
-						if (selectionEnd > lineIndent + len)
-							selectionEnd -= len;
-						else if (selectionEnd > lineIndent)
+						lhs_value = __ascii_towlower(*lhs_ptr++);
+						rhs_value = __ascii_towlower(*rhs_ptr++);
+						result = lhs_value - rhs_value;
+					} while (rhs_value != 32);
+					
+					if (result == 0) {
+						size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
+
+						_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
+						_pEditView->replaceSelWith("");
+
+						// SELECTION RANGE ADJUSTMENT .......................
+						if (i == selStartLine) // first selected line
 						{
-							selectionEnd = lineIndent;
-							if (lineIndent == lineStart && i != selStartLine)
-								++selectionEnd; // avoid caret return in this case
-						}
-					} // ................................................
-					else // every iteration except the last selected line
-						selectionEnd -= len;
-					// ..................................................
+							if (selectionStart > lineIndent + len)
+								selectionStart -= len;
+							else if (selectionStart > lineIndent)
+								selectionStart = lineIndent;
+						} // ................................................
+						if (i == selEndLine) // last selected line
+						{
+							if (selectionEnd > lineIndent + len)
+								selectionEnd -= len;
+							else if (selectionEnd > lineIndent)
+							{
+								selectionEnd = lineIndent;
+								if (lineIndent == lineStart && i != selStartLine)
+									++selectionEnd; // avoid caret return in this case
+							}
+						} // ................................................
+						else // every iteration except the last selected line
+							selectionEnd -= len;
+						// ..................................................
 
-					++nUncomments;
-					continue;
+						++nUncomments;
+						continue;
+					}
 				}
+
 			}
 			else // isSingleLineAdvancedMode
 			{

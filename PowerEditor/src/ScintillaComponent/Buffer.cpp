@@ -145,8 +145,9 @@ void Buffer::updateTimeStamp()
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	bool bWorkerThreadTerminated = true;
-	BOOL bCheckSucceeded = getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes, 0, &bWorkerThreadTerminated);
-	if (bCheckSucceeded && (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES) && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+	DWORD dwWin32ApiError = NO_ERROR;
+	BOOL bGetFileAttributesExSucceeded = getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes, 0, &bWorkerThreadTerminated, &dwWin32ApiError);
+	if (bGetFileAttributesExSucceeded && (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES) && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
 		timeStampLive = attributes.ftLastWriteTime;
 	}
@@ -161,25 +162,25 @@ void Buffer::updateTimeStamp()
 				issueFn += L".log";
 				wstring nppIssueLog = nppParam.getUserPath();
 				pathAppend(nppIssueLog, issueFn);
-
 				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 				std::string msg = converter.to_bytes(_fullPathName);
 				msg += "  in Buffer::updateTimeStamp(), getFileAttributesExWithTimeout returned ";
-				if (bCheckSucceeded)
-					msg += "TRUE, ";
+				if (bGetFileAttributesExSucceeded)
+					msg += "TRUE";
 				else
-					msg += "FALSE, ";
+					msg += "FALSE";
 				if (bWorkerThreadTerminated)
-					msg += "its worker thread had to be forcefully terminated due to timeout reached, ";
+				{
+					msg += ", its worker thread had to be forcefully terminated due to timeout reached!";
+				}
 				else
-					msg += "its worker thread finished successfully within the timeout given, ";
-				if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
-					msg += "dwFileAttributes == INVALID_FILE_ATTRIBUTES !";
-				else if (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-					msg += "dwFileAttributes reported has the FILE_ATTRIBUTE_DIRECTORY flag set!";
-				else
-					msg += "dwFileAttributes: " + std::to_string(attributes.dwFileAttributes) + " !";
-
+				{
+					msg += ", its worker thread finished successfully within the timeout given, ";
+					if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+						msg += "dwFileAttributes == INVALID_FILE_ATTRIBUTES ! (WIN32API Error Code: " + std::to_string(dwWin32ApiError) + ")";
+					else
+						msg += "dwFileAttributes has the FILE_ATTRIBUTE_DIRECTORY flag set!";
+				}
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 		}
@@ -308,8 +309,10 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	WIN32_FILE_ATTRIBUTE_DATA attributes{};
 	attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 	bool bWorkerThreadTerminated = true;
-	bool fileExists = doesFileExist(_fullPathName.c_str(), 0, &bWorkerThreadTerminated);
-	if (!fileExists && bWorkerThreadTerminated)
+	DWORD dwWin32ApiError = NO_ERROR;
+	BOOL bGetFileAttributesExSucceeded = getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes, 0, &bWorkerThreadTerminated, &dwWin32ApiError);
+	bool fileExists = (bGetFileAttributesExSucceeded && (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES) && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
+	if (!fileExists)
 	{
 		if (nppParam.doNppLogNetworkDriveIssue())
 		{
@@ -317,41 +320,25 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 			issueFn += L".log";
 			wstring nppIssueLog = nppParam.getUserPath();
 			pathAppend(nppIssueLog, issueFn);
-
 			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 			std::string msg = converter.to_bytes(_fullPathName);
-			msg += "  in Buffer::checkFileState(), doesFileExist check failed, its worker thread had to be forcefully terminated due to timeout reached!";
-			writeLog(nppIssueLog.c_str(), msg.c_str());
-		}
-	}
-	else if (!fileExists && !bWorkerThreadTerminated)
-	{
-		// TEMP: DEBUG: looks like the file is really gone
-		if (nppParam.doNppLogNetworkDriveIssue())
-		{
-			wstring issueFn = nppLogNetworkDriveIssue;
-			issueFn += L".log";
-			wstring nppIssueLog = nppParam.getUserPath();
-			pathAppend(nppIssueLog, issueFn);
-
-			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			std::string msg = converter.to_bytes(_fullPathName);
-			msg += "  in Buffer::checkFileState(), doesFileExist check returned FALSE, its worker thread finished successfully within the timeout given (OK).";
-			writeLog(nppIssueLog.c_str(), msg.c_str());
-		}
-	}
-	else if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES && (attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-	{
-		if (nppParam.doNppLogNetworkDriveIssue())
-		{
-			wstring issueFn = nppLogNetworkDriveIssue;
-			issueFn += L".log";
-			wstring nppIssueLog = nppParam.getUserPath();
-			pathAppend(nppIssueLog, issueFn);
-
-			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			std::string msg = converter.to_bytes(_fullPathName);
-			msg += "  in Buffer::checkFileState(), doesFileExist check succeeded, but dwFileAttributes reported has the FILE_ATTRIBUTE_DIRECTORY flag set!";
+			msg += "  in Buffer::checkFileState(), getFileAttributesExWithTimeout returned ";
+			if (bGetFileAttributesExSucceeded)
+				msg += "TRUE";
+			else
+				msg += "FALSE";
+			if (bWorkerThreadTerminated)
+			{
+				msg += ", its worker thread had to be forcefully terminated due to timeout reached!";
+			}
+			else
+			{
+				msg += ", its worker thread finished successfully within the timeout given, ";
+				if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+					msg += "dwFileAttributes == INVALID_FILE_ATTRIBUTES ! (WIN32API Error Code: " + std::to_string(dwWin32ApiError) + ")";
+				else
+					msg += "dwFileAttributes has the FILE_ATTRIBUTE_DIRECTORY flag set!";
+			}
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 	}
@@ -389,6 +376,8 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	}
 	else if (_currentStatus == DOC_DELETED && fileExists) //document has returned from its grave
 	{
+		// fileExists==true here means that we can use the attributes safely
+
 		_isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
 
 		_currentStatus = DOC_MODIFIED;
@@ -401,7 +390,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		}
 		isOK = true;
 	}
-	else if (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES)
+	else if (bGetFileAttributesExSucceeded)
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
@@ -442,6 +431,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 				msg += buf;
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
+
 			_timeStamp = attributes.ftLastWriteTime;
 			mask |= BufferChangeTimestamp;
 			_currentStatus = DOC_MODIFIED;

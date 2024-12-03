@@ -816,10 +816,7 @@ BufferID FileManager::loadFile(const wchar_t* filename, Document doc, int encodi
 			newBuf->_timeStamp = fileNameTimestamp;
 
 		// restore the encoding (ANSI based) while opening the existing file
-		if (newBuf->_lang == L_ASCII)
-			newBuf->setEncoding(NPP_CP_DOS_437);
-		else
-			newBuf->setEncoding(-1);
+		newBuf->setEncoding(-1);
 
 		// if not a large file, no file extension, and the language has been detected,  we use the detected value
 		if (!newBuf->_isLargeFile && ((newBuf->getLangType() == L_TEXT) && (loadedFileFormat._language != L_TEXT)))

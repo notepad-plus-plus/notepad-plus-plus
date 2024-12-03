@@ -132,6 +132,8 @@ void Buffer::setLangType(LangType lang, const wchar_t* userLangName)
 	_lang = lang;
 	if (_lang == L_USER)
 		_userLangExt = userLangName;
+	else if (_lang == L_ASCII)
+		_encoding = NPP_CP_DOS_437;
 
 	_needLexer = true;	//change of lang means lexern needs updating
 	doNotify(BufferChangeLanguage | BufferChangeLexing);

@@ -6699,7 +6699,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	if (mask & (BufferChangeDirty|BufferChangeFilename))
 	{
 		if (mask & BufferChangeFilename)
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 
 		checkDocState();
 		setTitle();

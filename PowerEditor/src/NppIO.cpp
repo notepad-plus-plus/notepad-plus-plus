@@ -878,7 +878,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		if (buffID == BUFFER_INVALID && fileFullPath.length() > 0)
 			_lastRecentFileList.add(fileFullPath.c_str());
 	}
-	::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+	::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 
 	if (NppParameters::getInstance().getNppGUI()._tabStatus & TAB_QUITONEMPTY)
 	{

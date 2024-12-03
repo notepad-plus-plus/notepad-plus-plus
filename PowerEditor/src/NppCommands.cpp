@@ -3991,7 +3991,7 @@ void Notepad_plus::command(int id)
 			nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
 			nmhdr._tabOrigin = _pDocTab->getCurrentTabIndex();
 			::SendMessage(_pPublicInterface->getHSelf(), WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
-			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 		}
 		break;
 

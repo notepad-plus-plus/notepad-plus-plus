@@ -230,6 +230,61 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += nppGui.isSnapshotMode() ? L"ON" : L"OFF";
 			_debugInfoStr += L"\r\n";
 
+			// Placeholders
+			_debugInfoStr += L"Placeholders : ";
+			_debugInfoStr += nppGui._keepSessionAbsentFileEntries ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// DirectWrite
+			_debugInfoStr += L"DirectWrite : ";
+			_debugInfoStr += (nppGui._writeTechnologyEngine == directWriteTechnology) ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
+			// Multi-instance
+			_debugInfoStr += L"Multi-instance Mode : ";
+			switch (nppGui._multiInstSetting)
+			{
+				case monoInst:
+					_debugInfoStr += L"monoInst";
+					break;
+				case multiInstOnSession:
+					_debugInfoStr += L"multiInstOnSession";
+					break;
+				case multiInst:
+					_debugInfoStr += L"multiInst";
+					break;
+				default:
+					_debugInfoStr += L"unknown(" + std::to_wstring(nppGui._multiInstSetting) + L")";
+			}
+			_debugInfoStr += L"\r\n";
+
+			// File Status Auto-Detection
+			_debugInfoStr += L"File Status Auto-Detection : ";
+			if (nppGui._fileAutoDetection == cdDisabled)
+			{
+				_debugInfoStr += L"cdDisabled";
+			}
+			else
+			{
+				if (nppGui._fileAutoDetection & cdEnabledOld)
+					_debugInfoStr += L"cdEnabledOld (for all opened files/tabs)";
+				else if (nppGui._fileAutoDetection & cdEnabledNew)
+					_debugInfoStr += L"cdEnabledNew (for current file/tab only)";
+				else
+					_debugInfoStr += L"cdUnknown (?!)";
+
+				if (nppGui._fileAutoDetection & cdAutoUpdate)
+					_debugInfoStr += L" + cdAutoUpdate";
+				if (nppGui._fileAutoDetection & cdGo2end)
+					_debugInfoStr += L" + cdGo2end";
+			}
+			_debugInfoStr += L"\r\n";
+
+			// Dark Mode
+			_debugInfoStr += L"Dark Mode : ";
+			_debugInfoStr += nppGui._darkmode._isEnabled ? L"ON" : L"OFF";
+			_debugInfoStr += L"\r\n";
+
 			// OS information
 			HKEY hKey = nullptr;
 			DWORD dataSize = 0;

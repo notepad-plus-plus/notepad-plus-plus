@@ -5,7 +5,7 @@
 2. Tüm yorumlar açıklama içindir, çeviri için değil.
 -->
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="8.6.9">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -93,6 +93,7 @@
 					<Item id="41003" name="&amp;Kapat"/>
 					<Item id="41004" name="Tümünü Kapa&amp;t"/>
 					<Item id="41005" name="Diğer Sekmeleri Kapat"/>
+					<Item id="41026" name="Sabitlenmiş Belgeler Hariç Diğerlerini Kapat"/>
 					<Item id="41009" name="Soldaki Sekmeleri Kapat"/>
 					<Item id="41018" name="Sağdaki Sekmeleri Kapat"/>
 					<Item id="41024" name="Tüm Değiştirilmemişleri Kapat"/>
@@ -411,17 +412,19 @@
 					<Item id="11005" name="Dizine Göre Z'den A'ya"/>
 					<Item id="11006" name="Türe Göre A'dan Z'ye"/>
 					<Item id="11007" name="Türe Göre Z'den A'ya"/>
-					<Item id="11008" name="Boyutu Küçükten Büyüğe"/>
-					<Item id="11009" name="Boyutu Büyükten Küçüğe"/>
+					<Item id="11008" name="İçerik Boyutu Artan"/>
+					<Item id="11009" name="İçerik Boyutu Azalan"/>
 				</Commands>
 			</Main>
 			<TabBar>
 				<Item CMDID="41003" name="Kapat"/>
 				<Item CMDID="0" name="Çoklu Sekme Kapat"/>
 				<Item CMDID="41005" name="BU Hariç Tümünü Kapat"/>
+				<Item CMDID="41026" name="Sabitlenmiş Harici Kapat"/>
 				<Item CMDID="41009" name="Soldakilerin Tümünü Kapat"/>
 				<Item CMDID="41018" name="Sağdakilerin Tümünü Kapat"/>
 				<Item CMDID="41024" name="Tüm Değişmeyenleri Kapat"/>
+				<Item CMDID="44048" name="Sekmeyi Sabitle" alternativeName="Sekme Sabitlemesini Kaldır"/>
 				<Item CMDID="41006" name="Kaydet"/>
 				<Item CMDID="41008" name="Farklı Kaydet..."/>
 				<Item CMDID="1" name="Şurada Aç"/>
@@ -633,14 +636,16 @@
 					<Item id="2219" name="Varsayılan anahtar sözcükler"/>
 					<Item id="2221" name="Kullanıcı tanımlı anahtar sözcükler"/>
 					<Item id="2225" name="Dil:"/>
-					<Item id="2226" name="Genel ön plan rengini kullan"/>
-					<Item id="2227" name="Genel arka plan rengini kullan"/>
-					<Item id="2228" name="Genel yazı tipini kullan"/>
-					<Item id="2229" name="Genel yazı boyutunu kullan"/>
-					<Item id="2230" name="Genel kalın yazı tipi stilini kullan"/>
-					<Item id="2231" name="Genel eğik yazı tipi stilini kullan"/>
-					<Item id="2232" name="Genel altı çizili yazı tipi stilini kullan"/>
+					<Item id="2226" name="Ön plan rengini tüm stillere zorla"/>
+					<Item id="2227" name="Arka plan rengini tüm stillere zorla"/>
+					<Item id="2228" name="Yazı tipini seçimini tüm stillere zorla"/>
+					<Item id="2229" name="Yazı boyutu seçimini tüm stillere zorla"/>
+					<Item id="2230" name="Kalın yazı tipi seçimini tüm stillere zorla"/>
+					<Item id="2231" name="Eğik yazı tipi seçimini tüm stillere zorla"/>
+					<Item id="2232" name="Altı çizili yazı tipi seçimini tüm stillere zorla"/>
 					<Item id="2234" name="Ayarlara git"/>
+					<!-- "Global override" yazısını çevirme -->
+					<Item id="2235" name="Global override nedir?"/>
 				</SubDialog>
 
 			</StyleConfig>
@@ -755,8 +760,8 @@
 					<Item id="11005" name="Dizine Göre Z'den A'ya Sırala"/>
 					<Item id="11006" name="Türe Göre A'dan Z'ye Sırala"/>
 					<Item id="11007" name="Türe Göre Z'den A'ya Sırala"/>
-					<Item id="11008" name="Boyutu Küçükten Büyüğe Sırala"/>
-					<Item id="11009" name="Boyutu Büyükten küçüğe Sırala"/>
+					<Item id="11008" name="İçerik Boyutuna Göre Sırala Artan"/>
+					<Item id="11009" name="İçerik Boyutuna Göre Sırala Azalan"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kısayol">
@@ -955,10 +960,11 @@
 					<Item id="6106" name="Sekme Çubuğu"/>
 					<Item id="6107" name="Küçült"/>
 					<Item id="6108" name="Kilitle (sürükle ve bırak devre dışı)"/>
-					<Item id="6109" name="Etkin olmayan sekmeleri karart"/>
+					<Item id="6109" name="Etkin olmayan sekme rengini değiştir"/>
 					<Item id="6110" name="Etkin sekmede renkli bir çubuk çiz"/>
 					<Item id="6112" name="Her sekmede kapatma tuşunu göster"/>
 					<Item id="6113" name="Çift tıklandığında belgeyi kapat"/>
+					<Item id="6115" name="Sekme sabitleme özelliğini etkinleştir"/>
 					<Item id="6118" name="Gizle"/>
 					<Item id="6119" name="Çoklu satır"/>
 					<Item id="6120" name="Dikey"/>
@@ -1314,6 +1320,13 @@
 						<Element name="Tüm sekmeler için etkinleştir"/>
 						<Element name="Etkisizleştir"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Eylem Yok"/>
+						<Element name="Küçült"/>
+						<Element name="Kapat"/>
+						<Element name="Küçült / Kapat"/>
+					</ComboBox>
+					<Item id="6308" name="Görev Çubuğu"/>
 					<Item id="6312" name="Dosya Durumunu Otomatik Algıla"/>
 					<Item id="6313" name="Sessiz güncelle"/>
 					<Item id="6325" name="Güncellemeden sonra son satıra kaydır"/>
@@ -1676,8 +1689,8 @@ Eğer geriye doğru düzenli ifade arama özelliğine ihtiyacınız varsa, kulla
 Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da logs:
 *.* !+\log*"/><!-- NasılTekrarlanır: Bul penceresinde Farenin ucu "Dosyalarda Bul" sekmesi içinde "Filtreler" etiketi üzerinde tutulur. -->
 			<find-in-files-select-folder value="İçinde arama yapılacak bir klasör seçin"/><!-- NasılTekrarlanır: Bul > Dosyalarda Bul > [...] -->
-			<find-status-top-reached value="Bulma: Sondan 1. eşleşme bulundu. Dosyanın başına ulaşıldı."/>
-			<find-status-end-reached value="Bulma: Baştan 1. eşleşme bulundu. Dosyanın sonuna ulaşıldı."/>
+			<find-status-top-reached value="Bulma: Dosyanın başına ulaşıldı, sondan birinci eşleşme bulundu."/>
+			<find-status-end-reached value="Bulma: Dosyanın sonuna ulaşıldı, baştan birinci eşleşme bulundu."/>
 			<find-status-replaceinfiles-1-replaced value="Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
 			<find-status-replaceinfiles-nb-replaced value="Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Açılmış Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
@@ -1691,8 +1704,8 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<find-status-replaceall-1-replaced value="Tümünü Değiştir: 1 eşleşme değiştirildi"/>
 			<find-status-replaceall-nb-replaced value="Tümünü Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
 			<find-status-replaceall-readonly value="Tümünü Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
-			<find-status-replace-end-reached value="Değiştir: Baştan 1. eşleşme değiştirildi. Dosyanın sonuna ulaşıldı"/>
-			<find-status-replace-top-reached value="Değiştir: Sondan 1. eşleşme değiştirildi. Dosyanın başına ulaşıldı"/>
+			<find-status-replace-end-reached value="Değiştir: Dosyanın sonuna ulaşıldı, en üstten başlanarak."/>
+			<find-status-replace-top-reached value="Değiştir: Dosyanın başına ulaşıldı, en alttan başlanarak."/>
 			<find-status-replaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu."/>
 			<find-status-replaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Daha fazla eşleşme bulunamadı."/>
 			<find-status-replaced-without-continuing value="Değiştir: 1 eşleşme değiştirildi."/>
@@ -1709,7 +1722,9 @@ Tüm dosyalarda bul ama şu klasörleri tekrarlı olarak hariç tut - log ya da 
 			<finder-collapse-all value="Tümünü Katla"/>
 			<finder-uncollapse-all value="Tümünü Aç"/>
 			<finder-copy value="Seçili Satır(lar)ı Kopyala"/>
+			<finder-copy-selected-paths value="Seçilmiş Yol Ad(lar)ını Kopyala"/>
 			<finder-clear-all value="Tümünü Temizle"/>
+			<finder-open-selected-paths value="Seçilmiş Yol Ad(lar)ını Aç"/>
 			<finder-purge-for-every-search value="Her Arama İçin Temizle"/>
 			<finder-wrap-long-lines value="Uzun Satırlarda Metin Kaydır"/>
 			<common-ok value="Tamam"/>
@@ -1808,6 +1823,8 @@ Sağdaki &quot;?&quot; düğmesine tıklayarak Kullanıcı Kılavuzu'nun olduğu
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell ve JSON
 
 Eğer gelişmiş modu seçerseniz fakat belirtilen dilleri düzenlemezseniz, girinti basit modda kalacaktır."/>
+			<!-- "Global override" ve "Default Style" kelimelerini değiştirme -->
+			<global-override-tip value="Burada &quot;Global override&quot; etkinleştirmek tüm dil stillerindeki parametreyi değiştirecektir. Yapmak istediğiniz ise, muhtemelen ayarlardaki &quot;Default Style&quot; seçeneğini kullanmak"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

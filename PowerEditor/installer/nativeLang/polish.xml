@@ -431,10 +431,12 @@ Translation note:
 			<TabBar>
 				<Item CMDID="41003" name="Zamknij"/>
 				<Item CMDID="0" name="Zamknij wiele kart"/>
-				<Item CMDID="41005" name="Zamknij wszystkie PRÓCZ tej"/>
+				<Item CMDID="41005" name="Zamknij wszystkie oprócz tej"/>
+				<Item CMDID="41026" name="Zamknij wszystko oprócz przypiętych"/>
 				<Item CMDID="41009" name="Zamknij wszystkie po lewej"/>
 				<Item CMDID="41018" name="Zamknij wszystkie po prawej"/>
 				<Item CMDID="41024" name="Zamknij wszystkie niezmodyfikowane"/>
+				<Item CMDID="44048" name="Przypnij kartę" alternativeName="Odepnij kartę"/>
 				<Item CMDID="41006" name="Zapisz"/>
 				<Item CMDID="41008" name="Zapisz jako..."/>
 				<Item CMDID="1" name="Otwórz w"/>

@@ -1,3 +1,10 @@
+Notepad++ v8.7.4 regression-fix & bug-fixes:
+
+1. Fix regression of multi-line tabbar height not updated after closing tabs.
+2. Fix the extension defined by user not override language default extensions.
+3. Fix encoding of nfo file cannot be changed bug.
+
+
 Notepad++ v8.7.3 bug-fixes & new features :
 
 1. Fix a crash while disabling "Pin tab" feature.
@@ -20,7 +27,7 @@ Notepad++ v8.7.2 new features & bug-fixes:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.3/
+https://notepad-plus-plus.org/downloads/v8.7.4/
 
 
 Included plugins:

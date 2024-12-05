@@ -18,7 +18,6 @@
 #include <algorithm>
 #include <time.h>
 #include <locale>
-#include <codecvt>
 #include <sys/stat.h>
 #include "Buffer.h"
 #include "Scintilla.h"
@@ -168,8 +167,7 @@ void Buffer::updateTimeStamp()
 				wstring nppIssueLog = nppParam.getUserPath();
 				pathAppend(nppIssueLog, issueFn);
 
-				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-				std::string msg = converter.to_bytes(_fullPathName);
+				std::string msg = wstring2string(_fullPathName, CP_UTF8);
 				char buf[1024];
 				sprintf(buf, "  in updateTimeStamp(): timeStampLive (%lu/%lu) < _timeStamp (%lu/%lu)", timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				msg += buf;
@@ -343,8 +341,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 					wstring nppIssueLog = nppParam.getUserPath();
 					pathAppend(nppIssueLog, issueFn);
 
-					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-					std::string msg = converter.to_bytes(_fullPathName);
+					std::string msg = wstring2string(_fullPathName, CP_UTF8);
 					char buf[1024];
 					sprintf(buf, "  in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) < _timeStamp (%lu/%lu)", attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 					msg += buf;

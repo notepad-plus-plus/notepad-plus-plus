@@ -18,7 +18,6 @@
 #include <shlwapi.h>
 #include <uxtheme.h>
 #include <cassert>
-#include <codecvt>
 #include <locale>
 #include "StaticDialog.h"
 #include "CustomFileDialog.h"
@@ -142,8 +141,7 @@ void writeLog(const wchar_t* logFileName, const char* log2write)
 		SYSTEMTIME currentTime = {};
 		::GetLocalTime(&currentTime);
 		wstring dateTimeStrW = getDateTimeStrFrom(L"yyyy-MM-dd HH:mm:ss", currentTime);
-		wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		string log2writeStr = converter.to_bytes(dateTimeStrW);
+		string log2writeStr = wstring2string(dateTimeStrW, CP_UTF8);
 		log2writeStr += "  ";
 		log2writeStr += log2write;
 		log2writeStr += "\n";
@@ -1237,22 +1235,6 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 
 	}
 	return isAssoCmdExist;
-}
-
-std::wstring s2ws(const std::string& str)
-{
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in Notepad++ string conversion s2ws!", L"Error in Notepad++ string conversion s2ws!");
-
-	return converterX.from_bytes(str);
-}
-
-std::string ws2s(const std::wstring& wstr)
-{
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX("Error in Notepad++ string conversion ws2s!", L"Error in Notepad++ string conversion ws2s!");
-
-	return converterX.to_bytes(wstr);
 }
 
 bool deleteFileOrFolder(const wstring& f2delete)

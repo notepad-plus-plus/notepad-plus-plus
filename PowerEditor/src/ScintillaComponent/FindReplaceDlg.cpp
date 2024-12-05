@@ -4154,7 +4154,7 @@ void FindReplaceDlg::setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditV
 	std::wstring result = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", L"Find: Invalid Regular Expression");
 	string s = msg;
 	
-	setStatusbarMessage(result, FSNotFound, s2ws(s));
+	setStatusbarMessage(result, FSNotFound, string2wstring(s, CP_UTF8));
 }
 
 wstring FindReplaceDlg::getScopeInfoForStatusBar(FindOption const *pFindOpt) const

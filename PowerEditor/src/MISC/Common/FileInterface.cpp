@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <locale>
-#include <codecvt>
 #include <shlwapi.h>
 #include "FileInterface.h"
 #include "Parameters.h"
@@ -27,8 +26,7 @@ Win32_IO_File::Win32_IO_File(const wchar_t *fname)
 	if (fname)
 	{
 		std::wstring fn = fname;
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		_path = converter.to_bytes(fn);
+		_path = wstring2string(fn, CP_UTF8);
 
 		WIN32_FILE_ATTRIBUTE_DATA attributes_original{};
 		attributes_original.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
@@ -127,8 +125,7 @@ void Win32_IO_File::close()
 					if ((dwRet == 0) || (dwRet >= cchPathBuf))
 					{
 						// probably insufficient path-buffer length, the classic style must suffice
-						std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-						curFilePath = converter.from_bytes(_path);
+						curFilePath = string2wstring(_path, CP_UTF8);
 					}
 					else
 					{
@@ -156,8 +153,7 @@ Please try using another storage and also check if your saved data is not corrup
 					std::wstring nppIssueLog = nppParam.getUserPath();
 					pathAppend(nppIssueLog, nppFlushFileBuffersFailsLog);
 
-					std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-					std::string errNumberMsgA = converter.to_bytes(errNumberMsg);
+					std::string errNumberMsgA = wstring2string(errNumberMsg, CP_UTF8);
 
 					writeLog(nppIssueLog.c_str(), errNumberMsgA.c_str());
 				}
@@ -239,8 +235,7 @@ bool Win32_IO_File::write(const void *wbuf, size_t buf_size)
 			std::string msg = _path;
 			msg += " written failed: ";
 			std::wstring lastErrorMsg = GetLastErrorAsString(::GetLastError());
-			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			msg += converter.to_bytes(lastErrorMsg);
+			msg += wstring2string(lastErrorMsg, CP_UTF8);
 			writeLog(nppIssueLog.c_str(), msg.c_str());
 		}
 

@@ -5440,8 +5440,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 					int rhs_value;
 					do
 					{
-						lhs_value = __ascii_towlower(*lhs_ptr++);
-						rhs_value = __ascii_towlower(*rhs_ptr++);
+						lhs_value = towlower(*lhs_ptr++);
+						rhs_value = towlower(*rhs_ptr++);
 						result = lhs_value - rhs_value;
 					} while (rhs_value != 32);
 					

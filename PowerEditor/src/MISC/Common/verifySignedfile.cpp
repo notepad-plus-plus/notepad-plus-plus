@@ -112,7 +112,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 	if (doLogCertifError)
 	{	
 		string dmsg("VerifyLibrary: ");
-		dmsg += ws2s(filepath);
+		dmsg += wstring2string(filepath, CP_UTF8);
 		writeLog(L"c:\\tmp\\certifError.log", dmsg.c_str());
 	}	
 
@@ -208,14 +208,14 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 
 		if (!result)
 		{
-			throw string("Checking certificate of ") + ws2s(filepath) + " : " + ws2s(GetLastErrorAsString(GetLastError()));
+			throw string("Checking certificate of ") + wstring2string(filepath, CP_UTF8) + " : " + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8);
 		}
 
 		// Get signer information size.
 		result = ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, NULL, &dwSignerInfo);
 		if (!result)
 		{
-			throw string("CryptMsgGetParam first call: ") + ws2s(GetLastErrorAsString(GetLastError()));
+			throw string("CryptMsgGetParam first call: ") + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8);
 		}
 
 		// Get Signer Information.
@@ -228,7 +228,7 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		result = ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
 		if (!result)
 		{
-			throw string("CryptMsgGetParam: ") + ws2s(GetLastErrorAsString(GetLastError()));
+			throw string("CryptMsgGetParam: ") + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8);
 		}
 
 		// Get the signer certificate from temporary certificate store.	
@@ -238,10 +238,10 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		PCCERT_CONTEXT context = ::CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&cert_info, NULL);
 		if (!context)
 		{
-			throw string("Certificate context: ") + ws2s(GetLastErrorAsString(GetLastError()));
+			throw string("Certificate context: ") + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8);
 		}
 
-		// Getting the full subject				
+		// Getting the full subject
 		auto subject_sze = ::CertNameToStr(X509_ASN_ENCODING, &context->pCertInfo->Subject, CERT_X500_NAME_STR, NULL, 0);
 		if (subject_sze <= 1)
 		{
@@ -259,13 +259,13 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		DWORD key_id_sze = 0;
 		if (!::CertGetCertificateContextProperty(context, CERT_KEY_IDENTIFIER_PROP_ID, NULL, &key_id_sze))
 		{
-			throw string("x509 property not found") + ws2s(GetLastErrorAsString(GetLastError()));
+			throw string("x509 property not found") + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8);
 		}
 
 		std::unique_ptr<BYTE[]> key_id_buff(new BYTE[key_id_sze]);
 		if (!::CertGetCertificateContextProperty(context, CERT_KEY_IDENTIFIER_PROP_ID, key_id_buff.get(), &key_id_sze))
 		{
-			throw string("Getting certificate property problem.") + ws2s(GetLastErrorAsString(GetLastError()));
+			throw string("Getting certificate property problem.") + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8);
 		}
 
 		wstringstream ss;
@@ -277,20 +277,20 @@ bool SecurityGuard::verifySignedLibrary(const std::wstring& filepath)
 		key_id_hex = ss.str();
 
 		if (doLogCertifError)
-			writeLog(L"c:\\tmp\\certifError.log", ws2s(key_id_hex).c_str());
+			writeLog(L"c:\\tmp\\certifError.log", wstring2string(key_id_hex, CP_UTF8).c_str());
 
 		// Getting the display name			
 		auto sze = ::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
 		if (sze <= 1)
 		{
-			throw string("Getting data size problem.") + ws2s(GetLastErrorAsString(GetLastError()));
+			throw string("Getting data size problem.") + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8);
 		}
 
 		// Get display name.
 		std::unique_ptr<wchar_t[]> display_name_buffer(new wchar_t[sze]);
 		if (::CertGetNameString(context, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, display_name_buffer.get(), sze) <= 1)
 		{
-			throw string("Cannot get certificate info." + ws2s(GetLastErrorAsString(GetLastError())));
+			throw string("Cannot get certificate info." + wstring2string(GetLastErrorAsString(GetLastError()), CP_UTF8));
 		}
 		display_name = display_name_buffer.get();
 

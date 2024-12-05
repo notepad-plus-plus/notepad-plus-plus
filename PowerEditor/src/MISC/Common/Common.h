@@ -181,9 +181,6 @@ HWND CreateToolTipRect(int toolID, HWND hWnd, HINSTANCE hInst, const PTSTR pszTe
 bool isCertificateValidated(const std::wstring & fullFilePath, const std::wstring & subjectName2check);
 bool isAssoCommandExisting(LPCTSTR FullPathName);
 
-std::wstring s2ws(const std::string& str);
-std::string ws2s(const std::wstring& wstr);
-
 bool deleteFileOrFolder(const std::wstring& f2delete);
 
 void getFilesInFolder(std::vector<std::wstring>& files, const std::wstring& extTypeFilter, const std::wstring& inFolder);

@@ -147,7 +147,7 @@ private:
 		std::wstring msg = L"An exception occurred due to plugin: ";
 		msg += pluginName;
 		msg += L"\r\n\r\nException reason: ";
-		msg += s2ws(e.what());
+		msg += string2wstring(e.what(), CP_UTF8);
 
 		::MessageBox(NULL, msg.c_str(), L"Plugin Exception", MB_OK);
 	}

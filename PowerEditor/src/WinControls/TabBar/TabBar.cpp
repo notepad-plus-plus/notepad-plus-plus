@@ -792,7 +792,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				if (_closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					_whichCloseClickDown = getTabIndexAt(xPos, yPos);
-					::SendMessage(_hParent, NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+					::SendMessage(_hParent, WM_SIZE, 0, 0);
 					return TRUE;
 				}
 			}
@@ -802,7 +802,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					_whichPinClickDown = getTabIndexAt(xPos, yPos);
-					::SendMessage(_hParent, NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+					::SendMessage(_hParent, WM_SIZE, 0, 0);
 					return TRUE;
 				}
 			}

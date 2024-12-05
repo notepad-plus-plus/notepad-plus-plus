@@ -1721,9 +1721,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<finder-collapse-all value="Contraer todo"/>
 			<finder-uncollapse-all value="Expandir todo"/>
 			<finder-copy value="Copiar liña(s) seleccionada(s)"/>
-			<finder-copy-paths value="Copiar nome(s) de ruta(s)"/>
 			<finder-clear-all value="Limpar todo"/>
-			<finder-open-all value="Abrir todo"/>
 			<finder-purge-for-every-search value="Depurar para cada busca"/>
 			<finder-wrap-long-lines value="Axustar lonxitude do texto"/>
 			<common-ok value="OK"/>

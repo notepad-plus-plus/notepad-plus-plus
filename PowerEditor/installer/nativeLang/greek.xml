@@ -1382,10 +1382,8 @@ Find in all files except exe, obj &amp;&amp; log:
 			<finder-uncollapse-all value="Uncollapse all"/>
 			<finder-copy value="Copy Selected Line(s)"/>
 			<finder-copy-verbatim value="Copy"/>
-			<finder-copy-paths value="Copy Pathname(s)"/>
 			<finder-select-all value="Select all"/>
 			<finder-clear-all value="Clear all"/>
-			<finder-open-all value="Open all"/>
 			<finder-purge-for-every-search value="Purge for every search"/>
 			<finder-wrap-long-lines value="Word wrap long lines"/>
 			<common-ok value="OK"/>

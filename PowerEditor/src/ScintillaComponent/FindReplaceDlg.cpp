@@ -719,16 +719,16 @@ vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 			if (line < len)
 				found = true;  // Found it
 		}
+
 		if (found)
 		{
-			wstring& path = (*_pMainFoundInfos)[line]._fullPath;  // Get the path from the container
-			if (path.find('\\') != std::wstring::npos && std::find(paths.begin(), paths.end(), path) == paths.end())  // Contains a path separator and does not exist in the container
+			wstring& path = (*_pMainFoundInfos)[line]._fullPath;
+			if (std::find(paths.begin(), paths.end(), path) == paths.end())
 			{
 				paths.push_back(path);
 			}
 		}
 	}
-
 
 	return paths;
 }
@@ -5636,6 +5636,12 @@ intptr_t CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 	{
 		case WM_COMMAND :
 		{
+			if (HIWORD(wParam) == SCEN_SETFOCUS)
+			{
+				::SendMessage(_hParent, NPPM_INTERNAL_CHECKUNDOREDOSTATE, 0, 0);
+				return TRUE;
+			}
+
 			switch (wParam)
 			{
 				case NPPM_INTERNAL_FINDINFINDERDLG:

@@ -638,6 +638,7 @@ Translation note:
 					<Item id="2231" name="Tvinga kursiv stil för alla stilar"/>
 					<Item id="2232" name="Tvinga understrykning för alla stilar"/>
 					<Item id="2234" name="Gå till inställningarna"/>
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="Vad är Global override?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -957,6 +958,7 @@ Translation note:
 					<Item id="6110" name="Markera aktiv flik med en färgad linje"/>
 					<Item id="6112" name="Visa flikstängningsknapp på varje flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
+					<Item id="6115" name="Gör det möjligt att fästa flikar"/>
 					<Item id="6118" name="Dölj"/>
 					<Item id="6119" name="Flera rader"/>
 					<Item id="6120" name="Vertikalt"/>
@@ -1315,6 +1317,7 @@ Translation note:
 						<Element name="Ingen åtgärd för"/>
 						<Element name="Minimera till"/>
 						<Element name="Stäng till"/>
+						<Element name="Minimera/Stäng till"/>
 					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
@@ -1342,7 +1345,7 @@ Translation note:
 				<Item id="8006" name="Makro att köra"/>
 				<Item id="8001" name="Kör"/>
 				<Item id="8005" name="gånger"/>
-				<Item id="8002" name="Kör &amp;till filens slut"/>
+				<Item id="8002" name="Kör &amp;till slutet av filen"/>
 			</MultiMacro>
 			<Window title="Fönster">
 				<Item id="1" name="&amp;Aktivera"/>
@@ -1548,7 +1551,7 @@ OBS: Om du inte skapar platshållarna eller stänger dem senare kommer din sessi
 Tryck på OK-knappen för att öppna sökdialogen eller sätta fokus på den.
 			
 Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsökning ifall du behöver detta."/>
-<PrintError title="0" message="Kan inte starta utskift av dokument."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<PrintError title="0" message="Kan inte starta utskift av dokument."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1684,8 +1687,8 @@ Hitta i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och
 Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
 			<find-in-files-select-folder value="Välj en mapp att söka från"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Sök: Början av dokumentet har nåtts, där första förekomsten från slutet hittades."/>
-			<find-status-end-reached value="Sök: Slutet av dokumentet har nåtts, där första förekomsten från början hittades."/>
+			<find-status-top-reached value="Sök: Början av dokumentet har nåtts, där första förekomsten hittades ifrån slutet."/>
+			<find-status-end-reached value="Sök: Slutet av dokumentet har nåtts, där första förekomsten hittades ifrån början."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersätt i filer: $INT_REPLACE$ förekomster ersattes"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Ersätt i öppna filer: 1 förekomst ersattes"/>
@@ -1699,8 +1702,8 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<find-status-replaceall-1-replaced value="Ersätt alla: 1 förekomst ersattes"/>
 			<find-status-replaceall-nb-replaced value="Ersätt alla: $INT_REPLACE$ förekomster ersattes"/>
 			<find-status-replaceall-readonly value="Ersätt alla: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
-			<find-status-replace-end-reached value="Ersätt: Slutet av dokumentet har nåtts efter att ha börjat från början."/>
-			<find-status-replace-top-reached value="Ersätt: Början av dokumentet har nåtts efter att ha börjat från slutet."/>
+			<find-status-replace-end-reached value="Ersätt: Slutet av dokumentet har nåtts ifrån början."/>
+			<find-status-replace-top-reached value="Ersätt: Början av dokumentet har nåtts ifrån slutet."/>
 			<find-status-replaced-next-found value="Ersätt: 1 förekomst har ersatts. Nästa förekomst har hittats"/>
 			<find-status-replaced-without-continuing value="Ersätt: 1 förekomst har ersatts."/>
 			<find-status-replaced-next-not-found value="Ersätt: 1 förekomst har ersatts. Hittade inte nästa förekomst"/>
@@ -1710,16 +1713,16 @@ Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot;
 			<find-status-cannot-find-pebkac-maybe value="Kan inte hitta förekomsten. Du kanske har glömt att markera &quot;Loopa&quot; eller avmarkera antingen &quot;Matcha skiftläge&quot; eller &quot;Matcha hela ord&quot;."/>
 			<find-status-scope-selection value="inom den markerade texten"/>
 			<find-status-scope-all value="i hela filen"/>
-			<find-status-scope-backward value="från filens början till textmarkören"/>
-			<find-status-scope-forward value="från textmarkören till filens slut"/>
+			<find-status-scope-backward value="från början av filen till textmarkören"/>
+			<find-status-scope-forward value="från textmarkören till slutet av filen"/>
 			<finder-find-in-finder value="Sök i detta sökresultat..."/>
 			<finder-close-this value="Stäng denna sökning"/>
 			<finder-collapse-all value="Minimera alla"/>
 			<finder-uncollapse-all value="Expandera alla"/>
 			<finder-copy value="Kopiera markerad(e) rad(er)"/>
-			<finder-copy-paths value="Kopiera sökväg(ar)"/>
+			<finder-copy-selected-paths value="Kopiera markerad(e) sökväg(ar)"/>
 			<finder-clear-all value="Rensa alla"/>
-			<finder-open-all value="Öppna alla"/>
+			<finder-open-selected-paths value="Öppna markerad(e) sökväg(ar)"/>
 			<finder-purge-for-every-search value="Rensa efter varje sökning"/>
 			<finder-wrap-long-lines value="Radbryt långa rader"/>
 			<common-ok value="OK"/>

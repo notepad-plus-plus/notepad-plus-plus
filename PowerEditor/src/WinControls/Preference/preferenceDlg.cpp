@@ -737,8 +737,6 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_CHECK_REDUCE:
 				{
-					const bool isChecked = isCheckedOrNot(IDC_CHECK_REDUCE);
-					TabBarPlus::setReduced(isChecked);
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_REDUCETABBAR, 0, 0);
 					return TRUE;
 				}

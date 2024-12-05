@@ -1,21 +1,33 @@
-Notepad++ v8.7.1 bug-fixes & new enhancements:
+Notepad++ v8.7.4 regression-fix & bug-fixes:
 
- 1. Update cURL in Notepad++ updater (WinGUp) for fixing cURL's CVE-2024-7264 issue.
- 2. Fix opened network files hanging while the network disconnected.
- 3. Fix not being able to open folder via cammand argument regression.
- 4. Update to Scintilla 5.5.3 & Lexilla 5.4.1.
- 5. Fix modified Find dialog status msg colors not being remembered through sessions.
- 6. Fix hanging issue while hiding lines.
- 7. Make left behide hide line close marker removable.
- 8. Fix Find dialog status bar wrong messaging (regression).
- 9. Fix URL parsing issue with '?' after '#'.
-10. Add "Close to system tray" ability.
-11. Add tab created time tooltip for new opened untitled tab.
-12. Improve GUI to avoid user confusion between Global override & Default Styles.
+1. Fix regression of multi-line tabbar height not updated after closing tabs.
+2. Fix the extension defined by user not override language default extensions.
+3. Fix encoding of nfo file cannot be changed bug.
+
+
+Notepad++ v8.7.3 bug-fixes & new features :
+
+1. Fix a crash while disabling "Pin tab" feature.
+2. Fix drag&drop a folder in Notepad++ launch redundant dialog regression.
+3. Fix docked panels invisibility in multi-instance mode.
+4. Add "Pin/Unpin Tab" context menu item.
+5. Add "Close All BUT Pinned" command.
+6. Fix a possible buffer overflow issue.
+
+
+Notepad++ v8.7.2 new features & bug-fixes:
+
+1. Add Pin tab feature.
+2. Tabbar enhancement: Hide inactive tab Close & Pin buttons.  
+3. Tabbar enhancement: Highlight inactive darken tab on mouse hover.
+4. Fix Ctrl-C not doing copy from Search result issue.
+5. Add "Minimize / Close to" option for System tray.
+6. Add ability to open/copy selected files from Search-results.
+7. Fix replace field focus losing when Notepad++ is switched back.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.1/
+https://notepad-plus-plus.org/downloads/v8.7.4/
 
 
 Included plugins:

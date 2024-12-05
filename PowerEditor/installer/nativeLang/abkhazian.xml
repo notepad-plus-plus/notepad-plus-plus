@@ -1437,10 +1437,8 @@ Updated to v8.2.1:
 			<finder-uncollapse-all value="Еиҵыхтәуп зегьы"/>
 			<finder-copy value="Икопиатәуп иалкаау ацәаҳәа(қәа)"/>
 			<finder-copy-verbatim value="Икопиатәуп"/>
-			<finder-copy-paths value="Икопиатәуп афаил амҩа(қәа)"/>
 			<finder-select-all value="Иалкаатәуп зегьы"/>
 			<finder-clear-all value="Ирыцқьатәуп иԥшаау зегьы"/>
-			<finder-open-all value="Иаарттәуп афаилқәа зегьы"/>
 			<finder-wrap-long-lines value="Иауу ацәаҳәақәа рҟны ажәақәа риагара"/>
 			<common-ok value="ОК"/>
 			<common-cancel value="Аҟәыхра"/>

@@ -411,8 +411,8 @@ Translation note:
 					<Item id="11005" name="Шлях Z до А"/>
 					<Item id="11006" name="Тип від A до Z"/>
 					<Item id="11007" name="Тип від Z до A"/>
-					<Item id="11008" name="За збільшенням розміру"/>
-					<Item id="11009" name="За зменшенням розміру"/>
+					<Item id="11008" name="Довжина вмісту за зростанням"/>
+					<Item id="11009" name="Довжина вмісту за спаданням"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -630,14 +630,16 @@ Translation note:
 					<Item id="2219" name="Ключові слова Np++"/>
 					<Item id="2221" name="Ключові слова користувача"/>
 					<Item id="2225" name="Мова:"/>
-					<Item id="2226" name="Глобальний колір переднього плану"/>
-					<Item id="2227" name="Глобальний колір тла"/>
-					<Item id="2228" name="Загальний шрифт"/>
-					<Item id="2229" name="Загальний розмір шрифту"/>
-					<Item id="2230" name="Загальний жирний шрифт"/>
-					<Item id="2231" name="Загальний шрифт курсивом"/>
-					<Item id="2232" name="Загальний підкреслений шрифт"/>
+					<Item id="2226" name="Примусовий колір переднього плану для всіх стилів"/>
+					<Item id="2227" name="Примусовий колір тла для всіх стилів"/>
+					<Item id="2228" name="Примусовий шрифт для всіх стилів"/>
+					<Item id="2229" name="Примусовий розмір шрифту для всіх стилів"/>
+					<Item id="2230" name="Примусовий жирний шрифт для всіх стилів"/>
+					<Item id="2231" name="Примусовий курсив для всіх стилів"/>
+					<Item id="2232" name="Примусове підкреслення для всіх стилів"/>
 					<Item id="2234" name="Перейти до налаштувань"/>
+					<!-- Don't translate "&quot;Global override&quot; -->
+					<Item id="2235" name="Що таке глобальне перевизначення?"/>
 				</SubDialog>
 			</StyleConfig>
 
@@ -752,8 +754,8 @@ Translation note:
 					<Item id="11005" name="Сортувати за шляхом від Z до A"/>
 					<Item id="11006" name="Сортувати за типом від A до Z"/>
 					<Item id="11007" name="Сортувати за типом від Z до A"/>
-					<Item id="11008" name="Сортувати за збільшенням розміру"/>
-					<Item id="11009" name="Сортувати за зменшенням розміру"/>
+					<Item id="11008" name="Сортувати за довжиною вмісту за зростанням"/>
+					<Item id="11009" name="Сортувати за довжиною вмісту за спаданням"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Комбінація клавіш">
@@ -1309,6 +1311,12 @@ Translation note:
 						<Element name="Увімкнути для всіх відкритих файлів"/>
 						<Element name="Вимкнути"/>
 					</ComboBox>
+					<ComboBox id="6307">
+						<Element name="Немає дій для"/>
+						<Element name="Згорнути до"/>
+						<Element name="Закрити до"/>
+					</ComboBox>
+					<Item id="6308" name="системного лотка"/>
 					<Item id="6312" name="Автовизначення стану файла"/>
 					<Item id="6313" name="Оновлювати без запиту"/>
 					<Item id="6325" name="Прокрутити до ост. рядка після оновл."/>
@@ -1596,8 +1604,8 @@ Translation note:
 			<two-find-buttons-tip value="2-кнопковий режим пошуку"/>
 			<find-in-files-filter-tip value="Знайти в cpp, cxx, h, hxx &amp;&amp; hpp: *.cpp *.cxx *.h *.hxx *.hpp  Знайти в усіх файлах, за винятком exe, obj &amp;&amp; log: *.* !*.exe !*.obj !*.log  Знайти в усіх файлах, але виключити теки tests, bin &amp;&amp; bin64: *.* !\tests !\bin*  Знайти в усіх файлах, але виключити всі теки log чи logs рекурсивно: *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Виберіть початкову теку пошуку"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-status-top-reached value="Знайти: знайдено останній збіг знизу. Досягнуто початку документа."/>
-			<find-status-end-reached value="Знайти: знайдено останній збіг згори. Досягнуто кінця документа."/>
+			<find-status-top-reached value="Знайти: досягнуто початку документа, перший випадок знайдено знизу."/>
+			<find-status-end-reached value="Знайти: досягнуто кінця документа, перший випадок знайдено зверху."/>
 			<find-status-replaceinfiles-1-replaced value="Замінити у файлах: виконано 1 заміну"/>
 			<find-status-replaceinfiles-nb-replaced value="Замінити у файлах: виконано $INT_REPLACE$ замін"/>
 			<find-status-replaceinopenedfiles-1-replaced value="Замінити у відкритих файлах: виконано 1 заміну"/>
@@ -1611,8 +1619,8 @@ Translation note:
 			<find-status-replaceall-1-replaced value="Замінити все: виконано 1 заміну"/>
 			<find-status-replaceall-nb-replaced value="Замінити все: виконано $INT_REPLACE$ замін"/>
 			<find-status-replaceall-readonly value="Замінити все: неможливо замінити текст. Документ лише для читання"/>
-			<find-status-replace-end-reached value="Замінити: замінено останній збіг згори. Досягнуто кінця документа"/>
-			<find-status-replace-top-reached value="Замінити: замінено останній збіг знизу. Досягнуто початку документа"/>
+			<find-status-replace-end-reached value="Замінити: досягнуто кінця документа, починається зверху."/>
+			<find-status-replace-top-reached value="Замінити: досягнуто початку документа, починається знизу."/>
 			<find-status-replaced-next-found value="Замінити: виконано 1 заміну. Знайдено наступний збіг."/>
 			<find-status-replaced-without-continuing value="Замінити: виконано 1 заміну."/>
 			<find-status-replaced-next-not-found value="Замінити: виконано 1 заміну. Інших збігів не знайдено."/>
@@ -1629,9 +1637,7 @@ Translation note:
 			<finder-collapse-all value="Згорнути все"/>
 			<finder-uncollapse-all value="Розгорнути все"/>
 			<finder-copy value="Копіювати вибрані рядки"/>
-			<finder-copy-paths value="Копіювати назви шляхів"/>
 			<finder-clear-all value="Очистити все"/>
-			<finder-open-all value="Відкрити все"/>
 			<finder-purge-for-every-search value="Очищати для кожного пошуку"/>
 			<finder-wrap-long-lines value="Обтинати слова в довгих рядках"/>
 			<common-ok value="OK"/>
@@ -1704,6 +1710,8 @@ Translation note:
 			<fileSaveAsCopySaveButton-tip value="Утримуйте Shift, натискаючи Зберегти, щоб відкрити копію після збереження."/>
 			<autoIndentBasic-tip value="Переконайтеся, що відступ поточного рядка (тобто новий рядок, створений натисканням клавіші ENTER) збігається з відступом попереднього рядка."/>
 			<autoIndentAdvanced-tip value="Увімкнути інтелектуальний відступ для &quot;C-подібних&quot; мов і Python. &quot;C-подібні&quot; мови включають: C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell і JSON.  Якщо вибрати розширений режим, але не редагувати файли вищезазначеними мовами, відступ залишиться в базовому режимі."/>
+			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
+			<global-override-tip value="Увімкнення &quot;Глобального перевизначення&quot; тут замінить цей параметр у всіх мовних стилях. Натомість ви, ймовірно, хочете використовувати &quot;Типовий стиль&quot;"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

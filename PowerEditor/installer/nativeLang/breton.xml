@@ -1231,7 +1231,6 @@ Klask en holl restroù paneve exe, obj &amp;&amp; log:
 			<finder-copy value="Eilañ"/>
 			<finder-select-all value="Diuzañ pep-tra"/>
 			<finder-clear-all value="Diverkañ pep-tra"/>
-			<finder-open-all value="Digeriñ pep-tra"/>
 			<common-ok value="Mat eo"/>
 			<common-cancel value="Nullañ"/>
 			<common-name value="Anv: "/>

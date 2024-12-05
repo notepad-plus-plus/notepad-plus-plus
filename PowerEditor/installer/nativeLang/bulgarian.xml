@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 23.10.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 20.11.2024 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -888,6 +888,7 @@
 					<Item id="6109" name="Потъмняване на неактивните"/>
 					<Item id="6110" name="Цветна лента върху активния"/>
 					<Item id="6112" name="Бутони за затваряне"/>
+					<Item id="6115" name="Закачане на раздел"/>
 					<Item id="6113" name="Двойно щракане за затваряне"/>
 					<Item id="6121" name="Изход при затваряне на последният раздел"/>
 					<Item id="6131" name="Меню"/>
@@ -1087,7 +1088,7 @@
 					<ComboBox id="6724">
 						<Element name="Пълен път на файла"/>
 						<Element name="Име на файла"/>
-						<Element name="Дир. на файла"/>
+						<Element name="Директория на файла"/>
 						<Element name="Страница"/>
 						<Element name="Кратка дата"/>
 						<Element name="Дълга дата"/>
@@ -1242,11 +1243,12 @@
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последния ред"/>
 					<ComboBox id="6307">
-						<Element name="Без действие в"/>
-						<Element name="Намаляване в"/>
-						<Element name="Затваряне в"/>
+						<Element name="Без действие"/>
+						<Element name="Минимизиране"/>
+						<Element name="Затваряне"/>
+						<Element name="Минимизиране и затваряне"/>
 					</ComboBox>
-					<Item id="6308" name="системната област"/>
+					<Item id="6308" name="в системната област"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6360" name="Изключване на всички звуци"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
@@ -1275,19 +1277,19 @@
 					<Item id="2212" name="Цвят на стила"/>
 					<Item id="2206" name="Цвят на шрифта"/>
 					<Item id="2207" name="Фон на шрифта"/>
-					<Item id="2226" name="Принудителен цвят на текста за всички стилове"/>
-					<Item id="2227" name="Принудителен цвят на фона за всички стилове"/>
+					<Item id="2226" name="Наложен цвят на текста за вс. стилове"/>
+					<Item id="2227" name="Наложен цвят на фона за вс. стилове"/>
 					<Item id="2213" name="Стил на шрифта"/>
 					<Item id="2208" name="Име:"/>
 					<Item id="2209" name="Размер:"/>
 					<Item id="2204" name="Получер"/>
 					<Item id="2205" name="Курсив"/>
 					<Item id="2218" name="Подчертан"/>
-					<Item id="2228" name="Принудителен шрифт за всички стилове"/>
-					<Item id="2229" name="Принудителен размер на шрифта за всички стилове"/>
-					<Item id="2230" name="Принудителен получер шрифт за всички стилове"/>
-					<Item id="2231" name="Принудителен курсив шрифт за всички стилове"/>
-					<Item id="2232" name="Принудително подчертаване за всички стилове"/>
+					<Item id="2228" name="Наложен шрифт за всички стилове"/>
+					<Item id="2229" name="Наложен размер на шрифта за вс. стилове"/>
+					<Item id="2230" name="Наложен получер шрифт за вс. стилове"/>
+					<Item id="2231" name="Наложен курсив шрифт за вс. стилове"/>
+					<Item id="2232" name="Наложено подчертаване за вс. стилове"/>
 					<Item id="2214" name="По подразбиране"/>
 					<Item id="2216" name="Потребителско"/>
 					<Item id="2219" name="Ключови думи по подразбиране"/>
@@ -1661,10 +1663,10 @@
 			<finder-collapse-all value="Свиване на всички"/>
 			<finder-uncollapse-all value="Разгъване на всички"/>
 			<finder-copy value="Копиране на избраните редове"/>
-			<finder-copy-paths value="Копиране пълния път на файловете"/>
+			<finder-copy-selected-paths value="Копиране на избран(ите) път(ища)"/>
 			<finder-select-all value="Избиране на всичко"/>
 			<finder-clear-all value="Изчистване на всичко"/>
-			<finder-open-all value="Отваряне на всички"/>
+			<finder-open-selected-paths value="Отваряне на избран(ите) път(ища)"/>
 			<finder-wrap-long-lines value="На повече редове"/>
 			<finder-purge-for-every-search value="Изчистване при всяко търсене"/>
 			<find-in-files-filter-tip value="Търсене в cpp, cxx, h, hxx и hpp:
@@ -1811,7 +1813,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<close-panel-tip value="Затваряне"/>
 			<fileSaveAsCopySaveButton-tip value="Задръжте клавиша Shift, докато натискате Запис, за да отворите копието след запазване."/>
 			<!-- "Global override" и "Default Style" не се превеждат -->
-			<global-override-tip value="Активирането на &quot;Global override&quot; тук ще замени този параметър във всички езикови стилове. Това, което вероятно наистина искате, е да използвате настройките &quot;Default Style&quot; вместо това."/>
+			<global-override-tip value="Активирането на &quot;Global override&quot; ще замени тези параметри във всички езикови стилове. Това, което вероятно искате, е да използвате настройките в &quot;Default Style&quot; вместо тези."/>
 		</MiscStrings>
 		<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

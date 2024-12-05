@@ -72,6 +72,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_W,       IDM_FILE_CLOSE,                               true,  false, false, nullptr },
 	{ VK_W,       IDM_FILE_CLOSEALL,                            true,  false, true,  nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_BUT_CURRENT,                false, false, false, nullptr },
+	{ VK_NULL,    IDM_FILE_CLOSEALL_BUT_PINNED,                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TOLEFT,                     false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TORIGHT,                    false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_UNCHANGED,                  false, false, false, nullptr },
@@ -1270,7 +1271,7 @@ bool NppParameters::load()
 	if (doesFileExist(langs_xml_path.c_str()))
 	{
 		WIN32_FILE_ATTRIBUTE_DATA attributes{};
-
+		attributes.dwFileAttributes = INVALID_FILE_ATTRIBUTES;
 		if (GetFileAttributesEx(langs_xml_path.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
 			if (attributes.nFileSizeLow == 0 && attributes.nFileSizeHigh == 0)
@@ -3223,32 +3224,25 @@ bool NppParameters::exportUDLToFile(size_t langIndex2export, const std::wstring&
 
 LangType NppParameters::getLangFromExt(const wchar_t *ext)
 {
-	int i = getNbLang();
-	i--;
+	// first check a user defined extensions for styles
+	LexerStylerArray &lexStyleList = getLStylerArray();
+	for (size_t i = 0 ; i < lexStyleList.getNbLexer(); ++i)
+	{
+		LexerStyler &styler = lexStyleList.getLexerFromIndex(i);
+		const wchar_t *extList = styler.getLexerUserExt();
+
+		if (isInList(ext, extList))
+			return getLangIDFromStr(styler.getLexerName());
+	}
+
+	// then check languages extensions
+	int i = getNbLang() - 1;
 	while (i >= 0)
 	{
 		Lang *l = getLangFromIndex(i--);
-
 		const wchar_t *defList = l->getDefaultExtList();
-		const wchar_t *userList = NULL;
 
-		LexerStylerArray &lsa = getLStylerArray();
-		const wchar_t *lName = l->getLangName();
-		LexerStyler *pLS = lsa.getLexerStylerByName(lName);
-
-		if (pLS)
-			userList = pLS->getLexerUserExt();
-
-		std::wstring list;
-		if (defList)
-			list += defList;
-
-		if (userList)
-		{
-			list += L" ";
-			list += userList;
-		}
-		if (isInList(ext, list.c_str()))
+		if (defList && isInList(ext, defList))
 			return l->getLangID();
 	}
 	return L_TEXT;
@@ -4923,6 +4917,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._tabStatus |= 0;
 				else
 					isFailed = true;
+			}
+			else
+			{
+				_nppGUI._tabStatus |= TAB_PINBUTTON;
 			}
 
 			val = element->Attribute(L"doubleClick2Close");
@@ -6769,9 +6767,8 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 	HWND hwndNpp = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
 	if (hwndNpp)
 	{
-		// TODO: 
-		// the problem here is that this code-branch cannot be currently reached
-		// (as it is called at the Notepad++ startup in the wWinMain nppParameters.load())
+		// this code-branch is currently reached only if the Notepad++ multi-instance mode is ON and it is not the 1st Notepad++ instance
+		// (the feedDockingManager() is called at the Notepad++ init via the wWinMain nppParameters.load()))
 
 		HMONITOR hCurMon = ::MonitorFromWindow(hwndNpp, MONITOR_DEFAULTTONEAREST);
 		if (hCurMon)
@@ -6789,8 +6786,13 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 		RECT rcNpp{};
 		if (::GetClientRect(hwndNpp, &rcNpp))
 		{
-			nppSize.cx = rcNpp.right;
-			nppSize.cy = rcNpp.bottom;
+			// rcNpp RECT could have zero size here! (if the 1st instance of Notepad++ is minimized to the task-bar (systray is ok))
+			if ((rcNpp.right > _nppGUI._dockingData._minDockedPanelVisibility) && (rcNpp.bottom > _nppGUI._dockingData._minDockedPanelVisibility))
+			{
+				// adjust according to the current Notepad++ client-wnd area
+				nppSize.cx = rcNpp.right;
+				nppSize.cy = rcNpp.bottom;
+			}
 		}
 	}
 	else

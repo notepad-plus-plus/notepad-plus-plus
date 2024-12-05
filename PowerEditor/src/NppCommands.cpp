@@ -277,13 +277,18 @@ void Notepad_plus::command(int id)
 		{
 			bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 			fileCloseAll(isSnapshotMode, false);
-            checkDocState();
+			checkDocState();
 			break;
 		}
 
 		case IDM_FILE_CLOSEALL_BUT_CURRENT :
 			fileCloseAllButCurrent();
-            checkDocState();
+			checkDocState();
+			break;
+
+		case IDM_FILE_CLOSEALL_BUT_PINNED :
+			fileCloseAllButPinned();
+			checkDocState();
 			break;
 
 		case IDM_FILE_CLOSEALL_TOLEFT :
@@ -3978,6 +3983,18 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_PINTAB:
+		{
+			TBHDR nmhdr{};
+			nmhdr._hdr.hwndFrom = _pDocTab->getHSelf();
+			nmhdr._hdr.code = TCN_TABPINNED;
+			nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
+			nmhdr._tabOrigin = _pDocTab->getCurrentTabIndex();
+			::SendMessage(_pPublicInterface->getHSelf(), WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+		}
+		break;
+
 		default :
 			if (id > IDM_FILEMENU_LASTONE && id < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1))
 			{
@@ -4046,6 +4063,7 @@ void Notepad_plus::command(int id)
 			case IDM_FILE_CLOSE :
 			case IDM_FILE_CLOSEALL :
 			case IDM_FILE_CLOSEALL_BUT_CURRENT :
+			case IDM_FILE_CLOSEALL_BUT_PINNED :
 			case IDM_FILE_CLOSEALL_TOLEFT :
 			case IDM_FILE_CLOSEALL_TORIGHT :
 			case IDM_FILE_CLOSEALL_UNCHANGED:

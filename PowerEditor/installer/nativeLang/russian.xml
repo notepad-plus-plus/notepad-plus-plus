@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.1:
+Updated to v8.7.2:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -100,6 +100,7 @@ Updated to v8.7.1:
 					<Item id="41004" name="Закрыть вс&amp;е"/>
 
 					<Item id="41005" name="Закрыть все Кроме Текущей"/>
+					<Item id="41026" name="Закрыть все Кроме Закреплённых"/>
 					<Item id="41009" name="Закрыть все Слева"/>
 					<Item id="41018" name="Закрыть все Справа"/>
 					<Item id="41024" name="Закрыть все Без Изменений"/>
@@ -466,9 +467,11 @@ Updated to v8.7.1:
 				<Item CMDID="41003" name="Закрыть"/>
 				<Item CMDID="0" name="Закрытие Вкладок"/>
 				<Item CMDID="41005" name="Закрыть все Кроме Текущей"/>
+				<Item CMDID="41026" name="Закрыть все Кроме Закреплённых"/>
 				<Item CMDID="41009" name="Закрыть все Вкладки Слева"/>
 				<Item CMDID="41018" name="Закрыть все Вкладки Справа"/>
 				<Item CMDID="41024" name="Закрыть все Без Изменений"/>
+				<Item CMDID="44048" name="Закрепить Вкладку" alternativeName="Открепить Вкладку"/>
 				<Item CMDID="41006" name="Сохранить"/>
 				<Item CMDID="41008" name="Сохранить как..."/>
 				<Item CMDID="1" name="Открыть папку файла"/>
@@ -1008,11 +1011,12 @@ Updated to v8.7.1:
 					<Item id="6106" name="Панель Вкладок"/>
 					<Item id="6107" name="Уменьшенный размер"/>
 					<Item id="6108" name="Запретить перетаскивание"/>
-					<Item id="6109" name="Неактивные вкладки серого цвета"/>
+					<Item id="6109" name="Сменить цвет неактивной вкладки"/>
 					<Item id="6110" name="Оранжевая линия над активной"/>
 					<Item id="6111" name="Отображать Строку Состояния"/>
 					<Item id="6112" name="Кнопка закрытия на вкладке"/>
 					<Item id="6113" name="Закрывать двойным щелчком"/>
+					<Item id="6115" name="Возможность закрепления вкладки"/>
 					<Item id="6118" name="Скрыть"/>
 					<Item id="6119" name="Каскадное отображение"/>
 					<Item id="6120" name="Вертикально с левой стороны"/>
@@ -1253,10 +1257,11 @@ Updated to v8.7.1:
 					</ComboBox>
 					<ComboBox id="6307">
 						<Element name="Бездействие"/>
-						<Element name="Свернуть в"/>
-						<Element name="Закрыть в"/>
+						<Element name="Свернуть"/>
+						<Element name="Закрыть"/>
+						<Element name="Свернуть / Закрыть"/>
 					</ComboBox>
-					<Item id="6308" name="системный трей"/>
+					<Item id="6308" name="в системный трей"/>
 					<Item id="6312" name="Отслеживание Изменений в Файлах"/>
 					<Item id="6313" name="Обновлять не спрашивая"/>
 					<Item id="6325" name="К последней строке после обновл."/>
@@ -1708,10 +1713,10 @@ Notepad++ сделает резервную копию вашего старог
 			<finder-collapse-all value="Свернуть все блоки"/>
 			<finder-uncollapse-all value="Развернуть все блоки"/>
 			<finder-copy value="Копировать (выбранные строки)"/>
-			<finder-copy-paths value="Путь и Имя файла в буфер"/>
+			<finder-copy-selected-paths value="Путь и Имя выделенных файлов в буфер"/>
 			<finder-clear-all value="Очистить Окно Поиска"/>
-			<finder-open-all value="Открыть все файлы"/>
-			<finder-wrap-long-lines value="Перенос слов длинных строк"/>
+			<finder-open-selected-paths value="Открыть все выделенные файлы"/>
+			<finder-wrap-long-lines value="Перенос длинных строк"/>
 			<common-ok value="О&amp;К"/>
 			<common-cancel value="&amp;Отмена"/>
 			<common-name value="Имя: "/>

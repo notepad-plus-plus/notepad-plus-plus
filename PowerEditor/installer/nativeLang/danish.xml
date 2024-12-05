@@ -1613,10 +1613,8 @@ Find i alle filer, undtagen i mapperne log med undermapper:
 			<finder-uncollapse-all value="Udvid alle"/>
 			<finder-copy value="Kopiér valgte linie(r)"/>
 			<finder-copy value="Kopier"/>
-			<finder-copy-paths value="Kopiér stinavn(e)"/>
 			<finder-select-all value="Markér alle"/>
 			<finder-clear-all value="Ryd alle"/>
-			<finder-open-all value="Åbn alle"/>
 			<finder-purge-for-every-search value="Ryd ved ny søgning"/>
 			<finder-wrap-long-lines value="Ombryd lange linier"/>
 			<common-ok value="OK"/>

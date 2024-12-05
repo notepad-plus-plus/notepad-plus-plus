@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.1  25/Oct/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.3  29/Nov/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.1">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -91,7 +91,7 @@
 					<Item id="41002" name="&amp;Otevřít..."/>
 					<Item id="41003" name="Zavřít &amp;aktuální"/>
 					<Item id="41004" name="Za&amp;vřít vše"/>
-					<Item id="41005" name="Zavřít vše KROMĚ aktuálního dokumentu"/>
+					<Item id="41005" name="Zavřít vše KROMĚ aktuálního"/>
 					<Item id="41006" name="&amp;Uložit"/>
 					<Item id="41007" name="Uložit v&amp;še"/>
 					<Item id="41008" name="Uložit &amp;jako..."/>
@@ -113,6 +113,7 @@
 					<Item id="41023" name="Otevřít v &amp;implicitním prohlížeči"/>
 					<Item id="41024" name="Zavřít všechny nezměněné"/>
 					<Item id="41025" name="Složka jako Pracovní plocha"/>
+					<Item id="41026" name="Zavřít vše KROMĚ připnutých"/>
 					<Item id="42001" name="Vyjmou&amp;t"/>
 					<Item id="42002" name="&amp;Kopírovat"/>
 					<Item id="42003" name="&amp;Zpět"/>
@@ -428,10 +429,12 @@
 			<TabBar>
 				<Item CMDID="41003" name="Zavřít"/>
 				<Item CMDID="0" name="Zavřít vícero souborů/karet"/>
-				<Item CMDID="41005" name="Zavřít vše kromě aktuálního"/>
+				<Item CMDID="41005" name="Zavřít vše KROMĚ aktuálního"/>
+				<Item CMDID="41026" name="Zavřít vše KROMĚ připnutých"/>
 				<Item CMDID="41009" name="Zavřít vše nalevo"/>
 				<Item CMDID="41018" name="Zavřít vše napravo"/>
 				<Item CMDID="41024" name="Zavřít všechny nezměněné"/>
+				<Item CMDID="44048" name="Připnout kartu" alternativeName="Odepnout kartu"/>
 				<Item CMDID="41006" name="Uložit"/>
 				<Item CMDID="41008" name="Uložit jako..."/>
 				<Item CMDID="1" name="Otevřít v"/>
@@ -987,14 +990,15 @@
 					<Item id="6103" name="Fluent UI: malé ikony"/>
 					<Item id="6104" name="Fluent UI: velké ikony"/>
 					<Item id="6105" name="Standardní: malé ikony"/>
-					<Item id="6106" name="Lišta záložek"/>
+					<Item id="6106" name="Lišta karet (tab) dokumentů"/>
 					<Item id="6107" name="Zmenšit"/>
-					<Item id="6108" name="Uzamknout (nelze přetahovat záložky)"/>
-					<Item id="6109" name="Znevýraznit neaktivní záložky"/>
-					<Item id="6110" name="Zobrazovat barevný pruh na aktivní záložce"/>
-					<Item id="6112" name="Přidat zavírací tlačítko každé záložce"/>
-					<Item id="6113" name="Dvojité kliknutí zavře záložku"/>
+					<Item id="6108" name="Uzamknout (nelze přetahovat karty)"/>
+					<Item id="6109" name="Změnit barvu pozadí neaktivní karty"/>
+					<Item id="6110" name="Zobrazovat barevný pruh na aktivní kartě"/>
+					<Item id="6112" name="Přidat zavírací tlačítko každé kartě"/>
+					<Item id="6113" name="Dvojité kliknutí zavře kartu"/>
 					<Item id="6114" name="Povolit přepínání mezi dokumenty"/>
+					<Item id="6115" name="Povolit připínání karet"/>
 					<Item id="6116" name="Zapamatovat si poslední používaný adresář"/>
 					<Item id="6117" name="Používat historii dokumentů"/>
 					<Item id="6118" name="Skrýt"/>
@@ -1234,6 +1238,7 @@
 						<Element name="Nepoužívat"/>
 						<Element name="Minimalizovat do"/>
 						<Element name="Zavírat do"/>
+						<Element name="Minimalizovat a Zavírat do"/>
 					</ComboBox>
 					<Item id="6114" name="Povolit přepínání"/>
 					<Item id="6117" name="Povolit MRU (nedávno použité)"/>
@@ -1271,6 +1276,7 @@
 					<Item id="6825" name="Pamatovat si nedostupné soubory z poslední relace (zástupné dokumenty/karty)"/>
 				</Backup>
 				<AutoCompletion title="Automat. dokončování">
+					<Item id="6807" name="Automatické dokončování"/>
 					<Item id="6808" name="Povolit autom. dokončování každého vstupu"/>
 					<Item id="6809" name="Dokončování funkcí"/>
 					<Item id="6810" name="Dokončování slov"/>
@@ -1720,15 +1726,15 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<finder-collapse-all value="Sbalit vše"/>
 			<finder-uncollapse-all value="Rozbalit vše"/>
 			<finder-copy value="Kopírovat vybrané řádky"/>
-			<finder-copy-paths value="Kopírovat souborovou cestu(y)"/>
+			<finder-copy-selected-paths value="Kopírovat cesty u vybraných souborů"/>
 			<finder-clear-all value="Smazat vše"/>
-			<finder-open-all value="Otevřít vše"/>
+			<finder-open-selected-paths value="Otevřít vybrané soubory"/>
 			<finder-purge-for-every-search value="Vymazat před každým vyhledáváním"/>
 			<finder-wrap-long-lines value="Zalomit dlouhé řádky"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Storno"/>
 			<common-name value="Název"/>
-			<tabrename-title value="Přejmenovat aktuální záložku (Tab)"/>
+			<tabrename-title value="Přejmenovat aktuální kartu (tab)"/>
 			<tabrename-newname value="Nový název"/>
 			<splitter-rotate-left value="Otočit doleva"/>
 			<splitter-rotate-right value="Otočit doprava"/>

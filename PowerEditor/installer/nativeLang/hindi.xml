@@ -1215,7 +1215,6 @@
 			<finder-copy value="कॉपी करें"/>
 			<finder-select-all value="सब सेलेक्ट करें"/>
 			<finder-clear-all value="सब क्लियर करें"/>
-			<finder-open-all value="सब ओपन करें"/>
 			<common-ok value="ओके"/>
 			<common-cancel value="रद्द करें"/>
 			<common-name value="नाम: "/>

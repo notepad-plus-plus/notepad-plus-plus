@@ -878,7 +878,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		if (buffID == BUFFER_INVALID && fileFullPath.length() > 0)
 			_lastRecentFileList.add(fileFullPath.c_str());
 	}
-	::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_REFRESHTABAR, 0, 0);
+	::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 
 	if (NppParameters::getInstance().getNppGUI()._tabStatus & TAB_QUITONEMPTY)
 	{
@@ -1122,7 +1122,7 @@ void Notepad_plus::unPinnedForAllBuffers()
 
 	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
 	{
-		BufferID id = _mainDocTab.getBufferByIndex(i);
+		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer* buf = MainFileManager.getBufferByID(id);
 		buf->setPinned(false);
 	}
@@ -1436,6 +1436,41 @@ bool Notepad_plus::fileCloseAllToRight()
 	return fileCloseAllGiven(bufsToClose);
 }
 
+void Notepad_plus::fileCloseAllButPinned()
+{
+	std::vector<BufferViewInfo> bufsToClose;
+
+	int iPinned = -1;
+	for (int j = 0; j < int(_mainDocTab.nbItem()); ++j)
+	{
+		if (_mainDocTab.getBufferByIndex(j)->isPinned())
+			iPinned++;
+		else
+			break;
+	}
+	
+	for (int i = int(_mainDocTab.nbItem()) - 1; i > iPinned; i--)
+	{
+		bufsToClose.push_back(BufferViewInfo(_mainDocTab.getBufferByIndex(i), MAIN_VIEW));
+	}
+
+
+	iPinned = -1;
+	for (int j = 0; j < int(_subDocTab.nbItem()); ++j)
+	{
+		if (_subDocTab.getBufferByIndex(j)->isPinned())
+			iPinned++;
+		else
+			break;
+	}
+	for (int i = int(_subDocTab.nbItem()) - 1; i > iPinned; i--)
+	{
+		bufsToClose.push_back(BufferViewInfo(_subDocTab.getBufferByIndex(i), SUB_VIEW));
+	}
+	
+	fileCloseAllGiven(bufsToClose);
+}
+
 bool Notepad_plus::fileCloseAllUnchanged()
 {
 	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
@@ -1472,10 +1507,10 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	for (size_t i = 0; i < _mainDocTab.nbItem() && !noSaveToAll; ++i)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
+		Buffer* buf = MainFileManager.getBufferByID(id);
 		if (id == current)
 			continue;
 
-		Buffer * buf = MainFileManager.getBufferByID(id);
 		if (buf->isUntitled() && buf->docLength() == 0)
 		{
 			// Do nothing

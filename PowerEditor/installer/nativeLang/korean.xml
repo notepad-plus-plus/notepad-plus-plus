@@ -1713,9 +1713,7 @@ log나 logs를 포함한 하위 디렉토리를 제외하고 모든 파일 찾�
 			<finder-collapse-all value="모두 접기"/>
 			<finder-uncollapse-all value="모두 펼치기"/>
 			<finder-copy value="선택된 줄 복사"/>
-			<finder-copy-paths value="경로 이름 복사"/>
 			<finder-clear-all value="모두 지우기"/>
-			<finder-open-all value="모두 열기"/>
 			<finder-purge-for-every-search value="모든 찾기 삭제"/>
 			<finder-wrap-long-lines value="긴 줄을 단어 단위로 줄바꿈"/>
 			<common-ok value="확인"/>

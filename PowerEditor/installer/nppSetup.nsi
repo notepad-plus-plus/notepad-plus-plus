@@ -283,6 +283,11 @@ FunctionEnd
 
 
 Section -"Notepad++" mainSection
+	${If} $showDetailsChecked == ${BST_CHECKED}
+		SetDetailsView show
+		SetAutoClose false
+	${endIf}
+
 	${If} $diffArchDir2Remove != ""
 		!insertmacro uninstallRegKey
 		!insertmacro uninstallDir $diffArchDir2Remove 

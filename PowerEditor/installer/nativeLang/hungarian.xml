@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Hungarian Language created by György Bata, updated by Richárd Stockinger (2024.) -->
+<!-- Hungarian Language created by György Bata, updated by Richárd Stockinger (2024.11.20+, v8.7.2+) -->
 <!-- Email: batagy.ford kukac gmail pont com, stocki.r kukac gmail pont com -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation -->
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
-<!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.2 updated at 2024.11.20 -->
+<!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.3 updated at 2024.12.05 -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.2">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -92,10 +92,11 @@
 					<Item id="41025" name="M&amp;appa mint munkaterület"/>
 					<Item id="41003" name="&amp;Bezárás"/>
 					<Item id="41004" name="Az összes &amp;bezárása"/>
-					<Item id="41005" name="&amp;A többi fül bezárása"/>
-					<Item id="41009" name="&amp;Balra lévő fülek bezárása"/>
-					<Item id="41018" name="&amp;Jobbra lévő fülek bezárása"/>
-					<Item id="41024" name="A&amp;z összes változatlan bezárása"/>
+					<Item id="41005" name="&amp;Az összes bezárása, KIVÉVE ezt"/>
+					<Item id="41026" name="A&amp;z összes bezárása, KIVÉVE a kitűzötteket"/>
+					<Item id="41009" name="&amp;Balra lévők bezárása"/>
+					<Item id="41018" name="&amp;Jobbra lévők bezárása"/>
+					<Item id="41024" name="Az ö&amp;sszes változatlan bezárása"/>
 					<Item id="41006" name="Me&amp;ntés"/>
 					<Item id="41007" name="A&amp;z összes mentése"/>
 					<Item id="41008" name="Menté&amp;s másként…"/>
@@ -419,9 +420,11 @@
 				<Item CMDID="41003" name="Bezárás"/>
 				<Item CMDID="0" name="Több fül bezárása"/>
 				<Item CMDID="41005" name="Az összes bezárása, KIVÉVE ezt"/>
+				<Item CMDID="41026" name="Az összes bezárása, KIVÉVE a kitűzötteket"/>
 				<Item CMDID="41009" name="Balra lévők bezárása"/>
 				<Item CMDID="41018" name="Jobbra lévők bezárása"/>
 				<Item CMDID="41024" name="Az összes változatlan bezárása"/>
+				<Item CMDID="44048" name="Fül kitűzése" alternativeName="Kitűzés feloldása"/>
 				<Item CMDID="41006" name="Mentés"/>
 				<Item CMDID="41008" name="Mentés másként…"/>
 				<Item CMDID="1" name="Megnyitás máshol"/>

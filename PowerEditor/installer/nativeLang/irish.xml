@@ -47,8 +47,8 @@
 					<Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
 					<Item subMenuId="view-project" name="Tionscadal"/>
 					<Item subMenuId="encoding-characterSets" name="Character Set"/>
-					<Item subMenuId="encoding-arabic" name="Arabic"/>
-					<Item subMenuId="encoding-baltic" name="Baltic"/>
+					<Item subMenuId="encoding-arabic" name="Araibis"/>
+					<Item subMenuId="encoding-baltic" name="Baltach"/>
 					<Item subMenuId="encoding-celtic" name="Ceilteach"/>
 					<Item subMenuId="encoding-cyrillic" name="Cyrillic"/>
 					<Item subMenuId="encoding-centralEuropean" name="Lár na hEorpa"/>
@@ -64,7 +64,7 @@
 					<Item subMenuId="encoding-westernEuropean" name="Iarthar na hEorpa"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
 					<Item subMenuId="language-userDefinedLanguage" name="User Defined Language"/>
-					<Item subMenuId="settings-import" name="Import"/>
+					<Item subMenuId="settings-import" name="Iompórtáil"/>
 					<Item subMenuId="tools-md5" name="MD5"/>
 					<Item subMenuId="tools-sha256" name="SHA-256"/>
 				</SubEntries>
@@ -204,17 +204,17 @@
 					<Item id="43030" name="Using 5th Style"/>
 					<Item id="43031" name="Glan 5th Style"/>
 					<Item id="43032" name="Glan All Styles"/>
-					<Item id="43033" name="1st style"/>
-					<Item id="43034" name="2nd style"/>
-					<Item id="43035" name="3rd style"/>
-					<Item id="43036" name="4th style"/>
-					<Item id="43037" name="5th style"/>
+					<Item id="43033" name="1ú stíl"/>
+					<Item id="43034" name="2ú stíl"/>
+					<Item id="43035" name="3ú stíl"/>
+					<Item id="43036" name="4ú stíl"/>
+					<Item id="43037" name="5ú stíl"/>
 					<Item id="43038" name="Find style"/>
-					<Item id="43039" name="1st style"/>
-					<Item id="43040" name="2nd style"/>
-					<Item id="43041" name="3rd style"/>
-					<Item id="43042" name="4th style"/>
-					<Item id="43043" name="5th style"/>
+					<Item id="43039" name="1ú stíl"/>
+					<Item id="43040" name="2ú stíl"/>
+					<Item id="43041" name="3ú stíl"/>
+					<Item id="43042" name="4ú stíl"/>
+					<Item id="43043" name="5ú stíl"/>
 					<Item id="43044" name="Find style"/>
 					<Item id="43045" name="Search Results Window"/>
 					<Item id="43046" name="Next Search Result"/>
@@ -275,7 +275,7 @@
 					<Item id="45011" name="Tiontaigh go UTF-8-BOM"/>
 					<Item id="45012" name="Tiontaigh go UCS-2 BE BOM"/>
 					<Item id="45013" name="Tiontaigh go UCS-2 LE BOM"/>
-					<Item id="45060" name="Big5 (Traditional)"/>
+					<Item id="45060" name="Big5 (Traidisiúnta)"/>
 					<Item id="45061" name="GB2312 (Simplithe)"/>
 					<Item id="45054" name="OEM 861: Íoslainnis"/>
 					<Item id="45057" name="OEM 865: Nordic"/>
@@ -296,7 +296,7 @@
 					<Item id="47001" name="Baile Notepad++"/>
 					<Item id="47002" name="Notepad++ Project Page"/>
 					<Item id="47003" name="Online Documentation"/>
-					<Item id="47004" name="Notepad++ Community (Forum)"/>
+					<Item id="47004" name="Pobal le Notepad++ (Fóram)"/>
 					<Item id="47012" name="Debug Info..."/>
 					<Item id="47005" name="Get More Plugins"/>
 					<Item id="47006" name="Nuashonraigh Notepad++"/>

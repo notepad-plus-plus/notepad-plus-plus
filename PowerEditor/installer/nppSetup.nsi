@@ -85,7 +85,7 @@ page Custom ExtraOptions
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "CheckIfRunning"
 !insertmacro MUI_PAGE_INSTFILES
 
-!define MUI_FINISHPAGE_NOAUTOCLOSE
+
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchNpp"
 !insertmacro MUI_PAGE_FINISH

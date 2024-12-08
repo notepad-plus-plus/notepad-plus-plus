@@ -318,7 +318,15 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	if (isWINE || // There is a performance issue under WINE when DirectWrite is ON, so we turn it off if user uses Notepad++ under WINE
 		isCoreWindows()) // In the case of Windows Server Core, DirectWrite cannot be on.
-		nppGui._writeTechnologyEngine = defaultTechnology;
+	{
+		nppGui._writeTechnologyEngine = directWriteTechnologyUnavailable;
+	}
+	else
+	{
+		// allow IDC_CHECK_DIRECTWRITE_ENABLE to be set in Preferences > MISC. again
+		if (nppGui._writeTechnologyEngine == directWriteTechnologyUnavailable)
+			nppGui._writeTechnologyEngine = defaultTechnology;
+	}
 
 	if (nppGui._writeTechnologyEngine == directWriteTechnology)
 	{

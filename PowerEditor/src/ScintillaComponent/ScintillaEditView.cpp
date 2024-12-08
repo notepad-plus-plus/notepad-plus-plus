@@ -317,7 +317,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		isWINE = ::GetProcAddress(hNtdllModule, "wine_get_version");
 
 	if (isWINE || // There is a performance issue under WINE when DirectWrite is ON, so we turn it off if user uses Notepad++ under WINE
-		::IsWindowsServer()) // In the case of Windows Server Core, DirectWrite cannot be on.
+		isCoreWindows()) // In the case of Windows Server Core, DirectWrite cannot be on.
 		nppGui._writeTechnologyEngine = defaultTechnology;
 
 	if (nppGui._writeTechnologyEngine == directWriteTechnology)

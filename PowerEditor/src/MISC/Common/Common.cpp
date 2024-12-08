@@ -1906,3 +1906,62 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReac
 	getFileAttributesExWithTimeout(path, &attributes, milliSec2wait, isTimeoutReached);
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }
+
+
+#pragma warning(disable:4996) // 'GetVersionExW': was declared deprecated
+bool isCoreWindows()
+{
+	bool isCoreWindows = false;
+
+	// older Windows (Windows Server 2008 R2-) check 1st
+	OSVERSIONINFOEXW osviex{};
+	osviex.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXW);
+	if (::GetVersionEx(reinterpret_cast<LPOSVERSIONINFOW>(&osviex)))
+	{
+		DWORD dwReturnedProductType = 0;
+		if (::GetProductInfo(osviex.dwMajorVersion, osviex.dwMinorVersion, osviex.wServicePackMajor, osviex.wServicePackMinor, &dwReturnedProductType))
+		{
+			switch (dwReturnedProductType)
+			{
+				case PRODUCT_STANDARD_SERVER_CORE:
+				case PRODUCT_STANDARD_A_SERVER_CORE:
+				case PRODUCT_STANDARD_SERVER_CORE_V:
+				case PRODUCT_STANDARD_SERVER_SOLUTIONS_CORE:
+				case PRODUCT_SMALLBUSINESS_SERVER_PREMIUM_CORE:
+				case PRODUCT_ENTERPRISE_SERVER_CORE:
+				case PRODUCT_ENTERPRISE_SERVER_CORE_V:
+				case PRODUCT_DATACENTER_SERVER_CORE:
+				case PRODUCT_DATACENTER_A_SERVER_CORE:
+				case PRODUCT_DATACENTER_SERVER_CORE_V:
+				case PRODUCT_STORAGE_STANDARD_SERVER_CORE:
+				case PRODUCT_STORAGE_WORKGROUP_SERVER_CORE:
+				case PRODUCT_STORAGE_ENTERPRISE_SERVER_CORE:
+				case PRODUCT_STORAGE_EXPRESS_SERVER_CORE:
+				case PRODUCT_WEB_SERVER_CORE:
+					isCoreWindows = true;
+			}
+		}
+	}
+
+	if (!isCoreWindows)
+	{
+		// in Core Server 2012+, the recommended way to determine is via the Registry
+		HKEY hKey = nullptr;
+		if (::RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Server\\ServerLevels",
+			0, KEY_READ, &hKey) == ERROR_SUCCESS)
+		{
+			DWORD dwBuf = 0;
+			DWORD dataSize = sizeof(dwBuf);
+			if (::RegQueryValueExW(hKey, L"ServerCore", nullptr, nullptr, reinterpret_cast<LPBYTE>(&dwBuf), &dataSize) == ERROR_SUCCESS)
+			{
+				if (dwBuf == 1)
+					isCoreWindows = true;
+			}
+			::RegCloseKey(hKey);
+			hKey = nullptr;
+		}
+	}
+
+	return isCoreWindows;
+}
+#pragma warning(default:4996)

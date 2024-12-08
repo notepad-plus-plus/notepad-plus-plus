@@ -435,6 +435,8 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="STRINGRAW" styleID="20" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="000000" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="51" fgColor="808080" bgColor="FFB0FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="REGEX" styleID="52" fgColor="8000FF" bgColor="FFB0FF" fontName="" fontStyle="0" fontSize="" />

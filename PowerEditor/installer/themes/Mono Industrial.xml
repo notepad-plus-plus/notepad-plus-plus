@@ -336,6 +336,8 @@ Credits:
             <WordsStyle name="STRINGRAW" styleID="20" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STRINGEOL" styleID="51" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="REGEX" styleID="52" fgColor="FFFFFF" bgColor="222C28" fontName="" fontStyle="0" fontSize="10" />

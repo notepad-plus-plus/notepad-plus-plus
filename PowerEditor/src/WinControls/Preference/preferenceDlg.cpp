@@ -3298,7 +3298,7 @@ intptr_t CALLBACK IndentationSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			wstring tipAutoIndentAdvanced2show = pNativeSpeaker->getLocalizedStrFromID("autoIndentAdvanced-tip",
 				L"Enable smart indentation for \"C-like\" languages and Python. The \"C-like\" languages include:\n"\
-				L"C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.\n"\
+				L"C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell, TypeScript, Go, Swift and JSON.\n"\
 				L"\n"\
 				L"If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode.");
 

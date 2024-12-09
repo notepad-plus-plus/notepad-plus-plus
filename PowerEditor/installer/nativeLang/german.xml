@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-12-03"><!-- basiert auf english.xml 8.7.3 vom 29.11.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2024-12-19"><!-- basiert auf english.xml 8.7.3 vom 17.12.2024 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -967,7 +967,7 @@ Translation note:
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Farbe inaktiver Tabs ändern"/>
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
-					<Item id="6112" name="Schließen-Kreuz auf jedem Tab"/>
+					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6115" name="Pin-Tab-Funktion aktivieren (fixieren/lösen)"/>
 					<Item id="6118" name="Ausblenden"/>
@@ -1199,6 +1199,7 @@ Translation note:
 					<Item id="6908" name="Im Suchfeld gewählten Text einsetzen"/>
 					<Item id="6909" name="Das Wort unter dem Cursor verwenden wenn nichts gewählt ist"/>
 					<Item id="6910" name="Mindestgröße für die automatische Aktivierung von 'In Auswahl'"/>
+					<Item id="6913" name="Suche im Dateiverzeichnisfeld basierend auf dem aktiven Dokument ausfüllen"/>
 				</Searching>
 
 				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
@@ -1698,6 +1699,7 @@ Suche in allen Dateien, exkludiere die Verzeichnisse test, bin &amp;&amp; bin64:
 Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Wählen Sie ein Verzeichnis zum Durchsuchen"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Verzeichnisfeld auf Basis des aktiven Dokuments ausfüllen"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Suche: Dokumentenanfang wurde erreicht - erster Treffer von unten gefunden."/>
 			<find-status-end-reached value="Suche: Dokumentenende wurde erreicht - erster Treffer von oben gefunden."/>
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Treffer wurde ersetzt"/>

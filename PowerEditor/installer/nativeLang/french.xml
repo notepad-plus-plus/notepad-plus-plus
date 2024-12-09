@@ -958,7 +958,7 @@ Translation note:
 					<Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
 					<Item id="6109" name="Colorer les onglets inactifs"/>
 					<Item id="6110" name="Barre colorée sur l’onglet actif"/>
-					<Item id="6112" name="Bouton de fermeture sur chaque onglet"/>
+					<Item id="6112" name="Activer bouton de fermeture"/>
 					<Item id="6113" name="Fermer l’onglet par double clic"/>
 					<Item id="6115" name="Activer l’option épingler l’onglet"/>
 					<Item id="6118" name="Cacher"/>

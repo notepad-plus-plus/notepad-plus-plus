@@ -58,7 +58,7 @@ BEGIN
     CONTROL         "Lock (no drag and drop)",IDC_CHECK_LOCK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,229,73,164,10
     CONTROL         "Change inactive tab color",IDC_CHECK_DRAWINACTIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,229,86,164,10
     CONTROL         "Draw a coloured bar on active tab",IDC_CHECK_ORANGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,229,99,164,10
-    CONTROL         "Show close button on each tab",IDC_CHECK_ENABLETABCLOSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,229,112,164,10
+    CONTROL         "Show close button",IDC_CHECK_ENABLETABCLOSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,229,112,164,10
     CONTROL         "Enable pin tab feature", IDC_CHECK_ENABLETABPIN,"Button", BS_AUTOCHECKBOX | WS_TABSTOP, 229, 125, 164, 10
     CONTROL         "Double click to close document",IDC_CHECK_DBCLICK2CLOSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,229,138,164,10
     CONTROL         "Exit on close the last tab",IDC_CHECK_TAB_LAST_EXIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,229,151,164,10

@@ -959,7 +959,7 @@ Translation note:
 					<Item id="6108" name="Lock (no drag and drop)"/>
 					<Item id="6109" name="Change inactive tab color"/>
 					<Item id="6110" name="Draw a colored bar on active tab"/>
-					<Item id="6112" name="Show close button on each tab"/>
+					<Item id="6112" name="Show close button"/>
 					<Item id="6113" name="Double click to close document"/>
 					<Item id="6118" name="Hide"/>
 					<Item id="6119" name="Multi-line"/>

@@ -919,7 +919,7 @@
 					<Item id="6109" name="非使用中的頁籤變暗"/>
 					<Item id="6110" name="使用中的頁籤加色條"/>
 					<Item id="6111" name="顯示狀態列"/>
-					<Item id="6112" name="在每個頁籤顯示關閉按鈕"/>
+					<Item id="6112" name="顯示關閉按鈕"/>
 					<Item id="6113" name="雙擊滑鼠關閉文件"/>
 					<Item id="6115" name="啟用固定標籤頁功能"/>
 					<Item id="6118" name="隱藏"/>

@@ -2399,9 +2399,36 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		}
 		else
 		{
-			BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
-			if (foundBufID == BUFFER_INVALID)
-				lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
+			bool recoveredBackup = false;
+			//If it's in snapshot mode, there's a backupFilePath present, but the existing path doesn't exist
+			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty())
+			{
+				//Jusko was here, December 2024 <3
+				// This functionality provides a "fallback" 
+				//Rip backup file name from hardcoded original path
+				wstring tempBackupPath = wstring(session._mainViewFiles[i]._backupFilePath);
+				wstring backupFileName = tempBackupPath.substr(tempBackupPath.find_last_of('\\') + 1);
+
+				//Read the CWD, and append the backup folder path and the missing backup's file name 
+				const size_t size = 1024;
+				wchar_t currentWorkingDirectory[size];
+				_wgetcwd(currentWorkingDirectory, size);
+				wstring recoveryBackupPath = wstring(currentWorkingDirectory);
+				recoveryBackupPath += L"\\backup\\";
+				recoveryBackupPath += backupFileName;
+
+				//If a new backup with the same file name as the missing backup is found in the backup folder relative to the CWD, load it.
+				if (doesFileExist(recoveryBackupPath.c_str())) {
+					recoveredBackup = true;
+					lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, recoveryBackupPath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+				}
+			}
+			if (!recoveredBackup) {
+				BufferID foundBufID = MainFileManager.getBufferFromName(pFn);
+				if (foundBufID == BUFFER_INVALID)
+					lastOpened = nppGUI._keepSessionAbsentFileEntries ? MainFileManager.newPlaceholderDocument(pFn, MAIN_VIEW, userCreatedSessionName) : BUFFER_INVALID;
+
+			}
 		}
 #ifndef	_WIN64
 		if (isWow64Off)

@@ -1947,14 +1947,15 @@ bool isCoreWindows()
 	{
 		// in Core Server 2012+, the recommended way to determine is via the Registry
 		HKEY hKey = nullptr;
-		if (::RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Server\\ServerLevels",
+		if (::RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
 			0, KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
-			DWORD dwBuf = 0;
-			DWORD dataSize = sizeof(dwBuf);
-			if (::RegQueryValueExW(hKey, L"ServerCore", nullptr, nullptr, reinterpret_cast<LPBYTE>(&dwBuf), &dataSize) == ERROR_SUCCESS)
+			constexpr size_t bufLen = 127;
+			wchar_t wszBuf[bufLen + 1]{}; // +1 ... to be always NULL-terminated string
+			DWORD dataSize = sizeof(wchar_t) * bufLen;
+			if (::RegQueryValueExW(hKey, L"InstallationType", nullptr, nullptr, reinterpret_cast<LPBYTE>(&wszBuf), &dataSize) == ERROR_SUCCESS)
 			{
-				if (dwBuf == 1)
+				if (lstrcmpiW(wszBuf, L"Server Core") == 0)
 					isCoreWindows = true;
 			}
 			::RegCloseKey(hKey);

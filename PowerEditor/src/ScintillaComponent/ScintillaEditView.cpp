@@ -230,6 +230,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
 	}
 
+	execute(SCI_SETIDLESTYLING, SC_IDLESTYLING_ALL, 0); //Add this code to enable background style rendering
+	execute(SCI_SETMODEVENTMASK, SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT); //Adding this code can greatly reduce the response time of various functions of the editor
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
 	showMargin(_SC_MARGE_FOLDER, true);
 
@@ -2258,6 +2260,15 @@ bool ScintillaEditView::setLexerFromLangID(int langID) // Internal lexer only
 	return true;
 }
 
+Document ScintillaEditView::getBlankDocument()
+{
+	if (_blankDocument == 0)
+	{
+		_blankDocument = static_cast<Document>(execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE));
+		execute(SCI_ADDREFDOCUMENT, 0, _blankDocument);
+	}
+	return _blankDocument;
+}
 
 void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 {
@@ -2280,9 +2291,34 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	_currentBufferID = buffer;	//the magical switch happens here
 	_currentBuffer = newBuf;
+
+
+	LRESULT notifFlag = execute(SCI_GETMODEVENTMASK);
+
+	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
+	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt) || (_currentBuffer->isUntitled());
+	if (!isFirstActiveBuffer)  // When entering the tab for the second or more times
+	{
+		execute(SCI_SETMODEVENTMASK, 0);  // Turn OFF the notifications
+		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
+		execute(SCI_SETMODEVENTMASK, notifFlag);  // Turn ON the notifications
+		defineDocType(_currentBuffer->getLangType());  // Set document type in blank document
+	}
+
+	_currentBuffer->setLastLangType(currentLangInt);  // Update this variable
+
+
+
+
+
+
+
+
 	// change the doc, this operation will decrease
 	// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
 	// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
+
+	execute(SCI_SETMODEVENTMASK, 0);  // Turn OFF the notifications
 	execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
 
 	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
@@ -2304,6 +2340,12 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	// restore the collapsed info
 	const std::vector<size_t> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
+	execute(SCI_SETMODEVENTMASK, notifFlag);  // Turn ON the notifications
+
+	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
+	// defineDocType() function should be called here, but not be after the fold info loop
+	if (isFirstActiveBuffer)  // This is necessary when entering the tab for the first time
+		defineDocType(_currentBuffer->getLangType());
 
 	restoreCurrentPosPreStep();
 

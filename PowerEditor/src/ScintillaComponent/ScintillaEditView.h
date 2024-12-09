@@ -428,11 +428,18 @@ public:
 
 	virtual void destroy()
 	{
+		if (_blankDocument != 0)
+		{
+			execute(SCI_RELEASEDOCUMENT, 0, _blankDocument);  // release document
+			_blankDocument = 0;
+		}
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 		_pScintillaFunc = NULL;
 	};
 
+	Document getBlankDocument();
+	
 	virtual void init(HINSTANCE hInst, HWND hPere);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
@@ -872,6 +879,9 @@ public:
 	void setElementColour(int element, COLORREF color) const { execute(SCI_SETELEMENTCOLOUR, element, color | 0xFF000000); };
 
 protected:
+	Document _blankDocument = 0;
+
+
 	static bool _SciInit;
 
 	static int _refCount;

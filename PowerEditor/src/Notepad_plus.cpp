@@ -5730,6 +5730,10 @@ bool Notepad_plus::switchToFile(BufferID id)
 	{
 		switchEditViewTo(iView);
 		activateBuffer(id, currentView());
+		if (iView == MAIN_VIEW)
+		{
+			_pEditView->execute(SCI_STARTSTYLING, 0, 0); // Add this code to start background style rendering from position 0
+		}
 		return true;
 	}
 	return false;

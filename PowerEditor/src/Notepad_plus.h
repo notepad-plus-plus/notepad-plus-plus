@@ -50,6 +50,8 @@
 extern std::chrono::steady_clock::time_point g_nppStartTimePoint;
 extern std::chrono::steady_clock::duration g_pluginsLoadingTime;
 
+extern std::atomic<bool> g_bNppExitFlag;
+
 
 #define MENU 0x01
 #define TOOLBAR 0x02

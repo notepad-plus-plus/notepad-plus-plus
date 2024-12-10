@@ -8653,23 +8653,22 @@ void Notepad_plus::launchDocumentBackupTask()
 
 DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 {
-	bool isSnapshotMode = true;
-	while (isSnapshotMode)
-	{
-		NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGUI = (NppParameters::getInstance()).getNppGUI();
 
-		size_t timer = nppParam.getNppGUI()._snapshotBackupTiming;
+	while (!g_bNppExitFlag.load() && nppGUI.isSnapshotMode())
+	{
+		size_t timer = nppGUI._snapshotBackupTiming;
 		if (timer < 1000)
 			timer = 1000;
 
 		::Sleep(DWORD(timer));
 
-		isSnapshotMode = nppParam.getNppGUI().isSnapshotMode();
-		if (!isSnapshotMode)
+		if (g_bNppExitFlag.load() || !nppGUI.isSnapshotMode())
 			break;
 
 		::SendMessage(Notepad_plus_Window::gNppHWND, NPPM_INTERNAL_SAVEBACKUP, 0, 0);
 	}
+
 	return ERROR_SUCCESS;
 }
 

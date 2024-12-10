@@ -20,6 +20,7 @@
 #include <uxtheme.h> // for EnableThemeDialogTexture
 #include <format>
 #include <windowsx.h> // for GET_X_LPARAM, GET_Y_LPARAM
+#include <atomic>
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
@@ -39,7 +40,7 @@ using namespace std;
 #define WM_DPICHANGED 0x02E0
 #endif
 
-atomic<bool> g_bNppExitFlag{ false };
+std::atomic<bool> g_bNppExitFlag{ false };
 
 
 struct SortTaskListPred final

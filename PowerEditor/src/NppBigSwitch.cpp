@@ -20,6 +20,7 @@
 #include <uxtheme.h> // for EnableThemeDialogTexture
 #include <format>
 #include <windowsx.h> // for GET_X_LPARAM, GET_Y_LPARAM
+#include <atomic>
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
@@ -38,6 +39,8 @@ using namespace std;
 #ifndef WM_DPICHANGED
 #define WM_DPICHANGED 0x02E0
 #endif
+
+std::atomic<bool> g_bNppExitFlag{ false };
 
 
 struct SortTaskListPred final
@@ -2720,6 +2723,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 					return 0; // abort quitting
 				}
+
+				// from this point on the Notepad++ exit is inevitable
+				g_bNppExitFlag.store(true); // thread-safe op
+				// currently it is used only in the Notepad_plus::backupDocument worker thread,
+				// use it in such a thread like:	if (g_bNppExitFlag.load()) -> finish work of & exit the thread
 
 				if (_beforeSpecialView._isFullScreen)	//closing, return to windowed mode
 					fullScreenToggle();

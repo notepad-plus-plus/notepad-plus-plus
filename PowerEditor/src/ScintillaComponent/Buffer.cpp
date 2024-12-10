@@ -1086,7 +1086,7 @@ bool FileManager::backupCurrentBuffer()
 			{
 				size_t lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
 				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
-				boolean isWrittenSuccessful = false;
+				bool isWrittenSuccessful = false;
 
 				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 				{
@@ -1248,7 +1248,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 		size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
 		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
-		boolean isWrittenSuccessful = false;
+		bool isWrittenSuccessful = false;
 
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{

@@ -1751,7 +1751,7 @@ bool Version::isCompatibleTo(const Version& from, const Version& to) const
 }
 
 
-#define DEFAULT_MILLISEC 1000
+#define DEFAULT_MILLISEC 3000
 
 
 //----------------------------------------------------
@@ -1816,6 +1816,7 @@ struct GetAttrExParamResult
 	wstring _filePath;
 	WIN32_FILE_ATTRIBUTE_DATA _attributes{};
 	BOOL _result = FALSE;
+	DWORD _error = NO_ERROR;
 	bool _isTimeoutReached = true;
 
 	GetAttrExParamResult(wstring filePath): _filePath(filePath) {
@@ -1826,12 +1827,16 @@ struct GetAttrExParamResult
 DWORD WINAPI getFileAttributesExWorker(void* data)
 {
 	GetAttrExParamResult* inAndOut = static_cast<GetAttrExParamResult*>(data);
+	::SetLastError(NO_ERROR);
 	inAndOut->_result = ::GetFileAttributesExW(inAndOut->_filePath.c_str(), GetFileExInfoStandard, &(inAndOut->_attributes));
+	if (!(inAndOut->_result))
+		inAndOut->_error = ::GetLastError();
 	inAndOut->_isTimeoutReached = false;
 	return ERROR_SUCCESS;
 };
 
-BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr, DWORD milliSec2wait, bool* isTimeoutReached)
+BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUTE_DATA* fileAttr,
+	DWORD milliSec2wait, bool* isTimeoutReached, DWORD* pdwWin32ApiError)
 {
 	GetAttrExParamResult data(filePath);
 
@@ -1855,12 +1860,15 @@ BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUT
 			::TerminateThread(hThread, dwWaitStatus);
 			break;
 	}
-	CloseHandle(hThread);
+	::CloseHandle(hThread);
 
 	*fileAttr = data._attributes;
 
 	if (isTimeoutReached != nullptr)
 		*isTimeoutReached = data._isTimeoutReached;
+
+	if (pdwWin32ApiError != nullptr)
+		*pdwWin32ApiError = data._error;
 
 	return data._result;
 }

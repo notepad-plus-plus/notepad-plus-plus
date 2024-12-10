@@ -2191,7 +2191,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (nppgui._fileAutoDetection != cdDisabled)
 			{
 				bool bCheckOnlyCurrentBuffer = (nppgui._fileAutoDetection & cdEnabledNew) ? true : false;
-
 				checkModifiedDocument(bCheckOnlyCurrentBuffer);
 				return TRUE;
 			}

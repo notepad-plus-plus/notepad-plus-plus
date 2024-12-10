@@ -285,7 +285,7 @@
                     <Item id="44019" name="Afișează toate caracterele"/>
                     <Item id="44020" name="Afișează ghidul de indentare"/>
                     <Item id="44022" name="Limitează lungimea liniilor (Încadrare cuvânt)"/>
-                    <Item id="44023" name="&amp;Mărire (Ctrl+rotița mouse-ului în sus)"/>
+                    <Item id="44023" name="&amp;Mărește (Ctrl+rotița mouse-ului în sus)"/>
                     <Item id="44024" name="Micșo&amp;rare (Ctrl+rotița mouse-ului în jos)"/>
                     <Item id="44025" name="Afișează spațiile libere și Tab-urile (tabulatoarele)"/>
                     <Item id="44026" name="Afișează sfârșitul de linie"/>
@@ -960,7 +960,7 @@
                 <Item id="6001" name="Închidere"/>
                 <Global title="General">
                     <Item id="6101" name="Bara de unelte"/>
-                    <Item id="6102" name="Ascunde-o"/>
+                    <Item id="6102" name="Ascunde-o (Ascundere)"/>
                     <Item id="6103" name="Pictograme mici"/>
                     <Item id="6104" name="Pictograme mari"/>
                     <Item id="6129" name="UI fluent umplut: mic"/>
@@ -972,17 +972,17 @@
                     <Item id="6108" name="Blocată (filele nu se pot muta)"/>
                     <Item id="6109" name="Schimbă culoarea filei inactive"/>
                     <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
-                    <Item id="6112" name="Afișează butonul de închidere pe fiecare filă"/>
+                    <Item id="6112" name="Afișează butonul de închidere"/>
                     <Item id="6113" name="Închide documentele cu dublu clic"/>
 					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
-                    <Item id="6118" name="Ascunde-o"/>
+                    <Item id="6118" name="Ascunde-o (Ascundere)"/>
                     <Item id="6119" name="Linii multiple"/>
                     <Item id="6120" name="Verticală"/>
                     <Item id="6121" name="Ieși la închiderea ultimei file"/>
                     <Item id="6128" name="Iconițe alternative"/>
 					
                     <Item id="6133" name="Bara de stare"/>
-					<Item id="6134" name="Ascunde-o"/>
+					<Item id="6134" name="Ascunde-o (Ascundere)"/>
                  
                     <Item id="6131" name="Meniu"/>
                     <Item id="6122" name="Ascunde bara de meniu (comutare cu Alt sau F10)"/>
@@ -1001,7 +1001,7 @@
                     <Item id="6221" name="100"/>
                     <Item id="6222" name="0"/>
                     <Item id="6224" name="Setări pentru editare multiplă"/>	
-                    <Item id="6246" name="Se face comutabilă a comenzilor de pliere/desfășurare la nivelul actual"/>
+                    <Item id="6246" name="Se fac comutabile comenzilor de pliere/desfășurare la nivelul actual"/>
                     <Item id="6225" name="Activare (Ctrl+clic mouse pe selecție)"/>
                     <Item id="6227" name="Limitează linia"/>
                     <Item id="6228" name="Implicit"/>
@@ -1013,17 +1013,17 @@
                     <Item id="6209" name="Număr de coloane: "/>
                     <Item id="6234" name="Dezactivează funcția de derulare avansată (dacă ai probleme cu touchpad-ul)"/>		
                     <Item id="6215" name="Activează fontul finisat"/>		
-                    <Item id="6211" name="Setări margine verticală"/>
-                    <Item id="6212" name="Mod linie"/>
-                    <Item id="6213" name="Mod în fundal"/>
+                    <Item id="6211" name="Setări pentru marginea verticală"/>
+                    <Item id="6212" name="Modul linie"/>
+                    <Item id="6213" name="Modul în fundal"/>
                     <Item id="6214" name="Activează evidențierea linie curentă"/>
                     <Item id="6231" name="Lățimea bordurii"/>
                     <Item id="6235" name="Fără bordură" />					
                     <Item id="6236" name="Activează derularea dincolo de ultima linie"/>
                     <Item id="6239" name="Activează selecția atunci când se dă clic dreapta în afara selecției"/>		
                     <Item id="6245" name="Activează spațiul virtual"/>
-                    <Item id="6214" name="Activează Copiază/Taie linia fără selecție"/>
-                    <Item id="6651" name="Indicatorul liniei curente"/>
+                    <Item id="6214" name="Activează funcția Copiază/Taie linia fără selecție"/>
+                    <Item id="6651" name="Indicator de linie curentă"/>
                     <Item id="6652" name="Niciunul"/>
                     <Item id="6653" name="Fundal evidențiat"/>
                     <Item id="6654" name="Cadru"/>
@@ -1145,12 +1145,12 @@
                 </Language>
 
 				<Indentation title="Indentare">
-					<Item id="7161" name="Autoidentare"/>
+					<Item id="7161" name="Identare automată"/>
 					<Item id="7162" name="Niciuna"/>
 					<Item id="7163" name="De bază"/>
 					<Item id="7164" name="Avansată"/>
 					<Item id="6301" name="Setări de identare"/>
-					<Item id="6302" name="Caracterul (Caracterele) Spațiu"/>
+					<Item id="6302" name="Caracterul (Caracterele) Spațiu (Space)"/>
 					<Item id="6303" name="Mărimea identării:"/>
 					<Item id="6310" name="Indentează folosind:"/>
 					<Item id="6311" name="Caracterul Tab (Tabulator)"/>
@@ -1159,7 +1159,7 @@
 				</Indentation>
 
                 <Highlighting title="Evidențiere">
-                    <Item id="6351" name="Stilarea tuturor aparițiilor unice"/>
+                    <Item id="6351" name="Stilează toate aparițiile unice"/>
                     <Item id="6352" name="Potrivește pentru litere MARI/mici"/>
                     <Item id="6353" name="Potrivește pentru cuvinte întregi"/>
                     <Item id="6333" name="Evidențiere inteligentă"/>
@@ -1413,7 +1413,7 @@
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Revocare"/>
 			</ColumnEditor>
-	        <FindInFinder title="Găsește în rezultatele găsite">
+	        <FindInFinder title="Găsește în rezultatele căutării">
 				<Item id="1"    name="Găsește-le pe toate"/>
 				<Item id="2"    name="Închidere"/>
 				<Item id="1711" name="&amp;Căutare:"/>
@@ -1434,11 +1434,11 @@
 				<Item id="4" name="Da la &amp;toate"/>
 				<Item id="5" name="N&amp;u la toate"/>
 			</DoSaveOrNot>
-			<DoSaveAll title="Confirmarea de Salvează-le pe toate">
-				<Item id="1766" name="Ești sigur că vrei să salvezi toate documentele modificate?
+			<DoSaveAll title="Confirmarea pentru Salvează-le pe toate">
+				<Item id="1766" name="Ești sigur(ă) că vrei să salvezi toate documentele modificate?
 
-Alege „Întotdeauna da” dacă nu vrei să vezi acest dialog din nou.
-Poți reactiva acest dialog mai târziu, în Preferințe."/>
+Alege „Întotdeauna da” dacă nu vrei să mai vezi această casetă de dialog.
+Poți reactiva această casetă de dialog mai târziu, în Preferințe."/>
 				<Item id="6" name="&amp;Da"/>
 				<Item id="7" name="&amp;Nu"/>
 				<Item id="4" name="&amp;Întotdeauna da"/>
@@ -1453,8 +1453,7 @@ Poți reactiva acest dialog mai târziu, în Preferințe."/>
 		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Editează meniul contextual" message="Editarea fișierului contextMenu.xml îți permite să modifici meniul contextual al Notepad++.
 Trebuie să repornești Notepad++ pentru a se aplica modificările efectuate în contextMenu.xml."/>
-            <NppHelpAbsentWarning title="Fișierul nu există" message="
-nu există. Te rugăm să-l descărci de pe site-ul Notepad++."/>
+            <NppHelpAbsentWarning title="Fișierul nu există" message="Fișierul nu există. Te rugăm să-l descărci de pe site-ul Notepad++."/>
             <SaveCurrentModifWarning title="Salvează modificarea curentă" message="Ar trebui să salvezi modificările curente.
 Toate modificările salvate nu vor putea fi refăcute.
 
@@ -1463,12 +1462,12 @@ Continui?"/>
 Toate modificările salvate nu vor putea fi refăcute.
 
 Continui?"/>
-            <CannotMoveDoc title="Mută în instanță nouă Notepad++" message="Documentul este modificat, salvează-l și încearcă din nou."/>
+            <CannotMoveDoc title="Mută în instanță nouă a Notepad++" message="Documentul este modificat, salvează-l și încearcă din nou."/>
             <DocReloadWarning title="Reîncărcare" message="Ești sigur(ă) că dorești să reîncarci fișierul curent și să pierzi modificările efectuate în Notepad++?"/>
             <FileLockedWarning title="Salvare eșuată" message="Verifică dacă acest fișier nu este accesat și de un alt program."/>
             <FileAlreadyOpenedInNpp title="Salvare eșuată" message="Fișierul este deja deschis în Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Redenumire eșuată" message="Numele specificat este deja folosit într-o altă filă."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<RenameTabTemporaryNameIsEmpty title="Redenumire eșuată" message="Numele specificat nu poate fi gol sau nu poate conține numai spațiu(i) sau tabulație(i)/TAB(-uri)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
+			<RenameTabTemporaryNameIsEmpty title="Redenumire eșuată" message="Numele specificat nu poate fi gol sau nu poate conține numai spațiu (spații) sau tabulator(i)/TAB(-uri)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
             <DeleteFileFailed title="Ștergerea fișierului" message="Ștergerea fișierului eșuată."/>
 
 			<NbFileToOpenImportantWarning title="Numărul de fișiere ce urmează să fie deschise este prea mare" message="Fișierele $INT_REPLACE$ urmează să fie deschise.
@@ -1538,8 +1537,8 @@ Elimini rădăcina acestuia din panou înainte de a adăuga folderul „$STR_REP
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Spațiul de lucru a fost modificat. Dorești să-l salvezi?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Spațiul de lucru nu a fost salvat."/>
-			<ProjectPanelSaveError title="$STR_REPLACE$" message="A apărut o eroare în timp ce s-a scris în fișierul spațiului tău de lucru.
-Spațiul tău de lucru nu a putut fi salvat."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="A apărut o eroare în timp ce s-a scris în fișierul spațiului tău (dvs.) de lucru.
+Spațiul tău (dvs.) de lucru nu a putut fi salvat."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Deschide spațiul de lucru" message="Spațiul de lucru curent a fost modificat. Dorești să salvezi proiectul curent?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Spațiu de lucru nou" message="Spațiul de lucru curent a fost modificat. orești să salvezi proiectul curent?"/>
             <ProjectPanelOpenFailed title="Deschide spațiul de lucru" message="Spațiul de lucru nu a putut fi deschis.
@@ -1773,17 +1772,17 @@ Găsește în toate fișierele, dar exclude toate folderele log sau logs în mod
             <finder-copy value="Copiază linia selectată (liniile selectate)"/>
 			<finder-copy-selected-paths value="Copiază numele căii (căilor) selectate"/>
             <finder-clear-all value="Golește-le pe toate"/>
-            <finder-open-selected-paths value="Deschide calea (căile) selectată(e)"/>
-			<finder-purge-for-every-search value="Curăță pentru fiecare căutare"/>
+            <finder-open-selected-paths value="Deschide calea selectată (căile selectate)"/>
+			<finder-purge-for-every-search value="Curăță după fiecare căutare"/>
 			<finder-wrap-long-lines value="Limitează lungimea liniilor pentru cuvintele lungi"/>
             <common-ok value="OK"/>
             <common-cancel value="Revocare"/>
             <common-name value="Nume: "/>
             <tabrename-title value="Redenumește fila curentă"/>
             <tabrename-newname value="Nume nou: "/>
-			<splitter-rotate-left value="Rotire la stânga"/>
-			<splitter-rotate-right value="Rotire la dreapta"/>
-            <recent-file-history-maxfile value="Maxim de fişiere: "/>
+			<splitter-rotate-left value="Rotește la stânga"/>
+			<splitter-rotate-right value="Rotește la dreapta"/>
+            <recent-file-history-maxfile value="Numărul maxim de fişiere: "/>
             <language-tabsize value="Mărimea filei: "/>			
             <userdefined-title-new value="Crează un limbaj nou..."/>
             <userdefined-title-save value="Salvează limbajul curent ca..."/>
@@ -1806,7 +1805,7 @@ Găsește în toate fișierele, dar exclude toate folderele log sau logs în mod
 			<replace-in-files-confirm-title value="Ești sigur(ă)?"/>
 			<replace-in-files-confirm-directory value="Ești sigur(ă) că vrei să înlocuișeti toate aparițiile în:"/>
 			<replace-in-files-confirm-filetype value="Pentru tipul de fișier:"/>
-			<replace-in-files-progress-title value="Progresul Înlocuire în fișiere..."/>
+			<replace-in-files-progress-title value="Progresul pentru Înlocuire în fișiere..."/>
 			<replace-in-projects-confirm-title value="Ești sigur(ă)?"/>
 			<replace-in-projects-confirm-message value="Vrei să înlocuiești toate aparițiile în toate documentele în Panoul(urile) de proiecte selectat(e)?"/>
 			<replace-in-open-docs-confirm-title value="Ești sigur(ă)?"/>

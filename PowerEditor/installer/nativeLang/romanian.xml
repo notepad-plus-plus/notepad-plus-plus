@@ -219,7 +219,7 @@
                     <Item id="43008" name="Golește toate semnele de carte"/>
                     <Item id="43018" name="Decupează liniile cu semne de carte"/>
                     <Item id="43019" name="Copiază liniile cu semne de carte"/>
-                    <Item id="43020" name="Lipește la (Înlocuire) liniile cu semne de carte"/>
+                    <Item id="43020" name="Lipește la (Înlocuiește) liniile cu semne de carte"/>
                     <Item id="43021" name="Elimină liniile cu semne de carte"/> 
                     <Item id="43051" name="Elimină liniile fără semne de carte"/>
                     <Item id="43050" name="Inversează semnele de carte"/>

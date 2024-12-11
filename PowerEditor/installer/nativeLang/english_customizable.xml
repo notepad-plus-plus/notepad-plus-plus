@@ -500,7 +500,6 @@ Translation note:
 				<Item id="1626" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Replace in Files"/>
 				<Item id="1665" name="Replace in Projects"/>
-				<Item id="1661" name="Follow current doc."/>
 				<Item id="1662" name="Project Panel 1"/>
 				<Item id="1663" name="Project Panel 2"/>
 				<Item id="1664" name="Project Panel 3"/>
@@ -1189,6 +1188,7 @@ Translation note:
 					<Item id="6908" name="Fill Find Field with Selected Text"/>
 					<Item id="6909" name="Select Word Under Caret when Nothing Selected"/>
 					<Item id="6910" name="Minimum Size for Auto-Checking &quot;In selection&quot;:"/>
+					<Item id="6913" name="Fill Find in Files Directory Field Based On Active Document"/>
 				</Searching>
 
 				<RecentFilesHistory title="Recent Files History">
@@ -1688,6 +1688,7 @@ Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Fill directory field based on active document"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Find: Reached document beginning, first occurrence from the bottom found."/>
 			<find-status-end-reached value="Find: Reached document end, first occurrence from the top found."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>

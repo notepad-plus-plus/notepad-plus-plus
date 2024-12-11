@@ -6927,10 +6927,11 @@ void Notepad_plus::setFindReplaceFolderFilter(const wchar_t *dir, const wchar_t 
 {
 	wstring fltr;
 	NppParameters& nppParam = NppParameters::getInstance();
+	NppGUI& nppGui = nppParam.getNppGUI();
 	FindHistory & findHistory = nppParam.getFindHistory();
 
 	// get current directory in case it's not provided.
-	if (!dir && findHistory._isFolderFollowDoc)
+	if (!dir && nppGui._fillDirFieldFromActiveDoc)
 	{
 		dir = nppParam.getWorkingDir();
 	}

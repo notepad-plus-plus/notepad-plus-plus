@@ -266,6 +266,12 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_2ButtonsTip)
 		::DestroyWindow(_2ButtonsTip);
 
+	if (_dirBrowserTip)
+		::DestroyWindow(_dirBrowserTip);
+	
+	if (_dirFromActiveDocTip)
+		::DestroyWindow(_dirFromActiveDocTip);
+
 	if (_filterTip)
 		::DestroyWindow(_filterTip);
 
@@ -383,7 +389,6 @@ void FindReplaceDlg::fillFindHistory()
 
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK, BM_SETCHECK, findHistory._isFifInHiddenFolder, 0);
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
-	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, BM_SETCHECK, findHistory._isFolderFollowDoc, 0);
 
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT1_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_1, 0);
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT2_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_2, 0);
@@ -1216,14 +1221,14 @@ void FindReplaceDlg::resizeDialogElements()
 
 	//elements that need to be moved
 	const auto moveCheckIds = {
-		IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK,IDD_FINDINFILES_RECURSIVE_CHECK, IDD_FINDINFILES_INHIDDENDIR_CHECK,
+		IDD_FINDINFILES_RECURSIVE_CHECK, IDD_FINDINFILES_INHIDDENDIR_CHECK,
 		IDD_FINDINFILES_PROJECT1_CHECK, IDD_FINDINFILES_PROJECT2_CHECK, IDD_FINDINFILES_PROJECT3_CHECK,
 	};
 
 	const auto moveBtnIDs = {
 		IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDCANCEL,
-		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
+		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_FINDINFILES_SETDIRFROMDOC_BUTTON,
 	};
 
 	const auto moveOtherCtrlsIDs = {
@@ -1502,7 +1507,9 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			NppDarkMode::setDarkTooltips(_shiftTrickUpTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_2ButtonsTip, NppDarkMode::ToolTipsType::tooltip);
 			NppDarkMode::setDarkTooltips(_filterTip, NppDarkMode::ToolTipsType::tooltip);
-
+			NppDarkMode::setDarkTooltips(_dirBrowserTip, NppDarkMode::ToolTipsType::tooltip);
+			NppDarkMode::setDarkTooltips(_dirFromActiveDocTip, NppDarkMode::ToolTipsType::tooltip);
+			
 			if (_statusbarTooltipWnd)
 			{
 				NppDarkMode::setDarkTooltips(_statusbarTooltipWnd, NppDarkMode::ToolTipsType::tooltip);
@@ -1586,6 +1593,12 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			 wstring findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", L"Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log\r\rFind in all files but exclude folders tests, bin && bin64:\r*.* !\\tests !\\bin*\r\rFind in all files but exclude all folders log or logs recursively:\r*.* !+\\log*");
 			 _filterTip = CreateToolTip(IDD_FINDINFILES_FILTERS_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()), _isRTL);
+
+			 wstring dirBrowserTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-select-folder", L"Select a folder to search from");
+			 _dirBrowserTip = CreateToolTip(IDD_FINDINFILES_BROWSE_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(dirBrowserTip.c_str()), _isRTL);
+
+			 wstring dirFromActiveDocTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-dir-from-active-doc-tip", L"Fill directory field based on active document");
+			 _dirFromActiveDocTip = CreateToolTip(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(dirFromActiveDocTip.c_str()), _isRTL);
 
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDPREV), L"▲");
 			::SetWindowTextW(::GetDlgItem(_hSelf, IDC_FINDNEXT), L"▼ Find Next");
@@ -2661,28 +2674,19 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				}
 				return TRUE;
 
-				case IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK :
+				case IDD_FINDINFILES_SETDIRFROMDOC_BUTTON :
 				{
-					if (_currentStatus == FINDINFILES_DLG)
-						findHistory._isFolderFollowDoc = isCheckedOrNot(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK);
-
-					if (findHistory._isFolderFollowDoc)
+					wstring currPath;
+					const Buffer* buf = (*_ppEditView)->getCurrentBuffer();
+					if (!(buf->getStatus() & (DOC_UNNAMED | DOC_DELETED)))
 					{
-						// Working directory depends on "Default Directory" preferences.
-						// It might be set to an absolute path value.
-						// So try to get the current buffer's path first.
-						wstring currPath;
-						const Buffer* buf = (*_ppEditView)->getCurrentBuffer();
-						if (!(buf->getStatus() & (DOC_UNNAMED | DOC_DELETED)))
-						{
-							currPath = buf->getFullPathName();
-							pathRemoveFileSpec(currPath);
-						}
-						if (currPath.empty() || !doesDirectoryExist(currPath.c_str()))
-							currPath = NppParameters::getInstance().getWorkingDir();
-						::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, currPath.c_str());
+						currPath = buf->getFullPathName();
+						pathRemoveFileSpec(currPath);
 					}
-
+					if (!currPath.empty() && doesDirectoryExist(currPath.c_str()))
+					{
+						setFindInFilesDirFilter(currPath.c_str(), NULL);
+					}
 				}
 				return TRUE;
 
@@ -4025,7 +4029,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDD_FINDINFILES_PROJECT1_CHECK, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_PROJECT2_CHECK, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_PROJECT3_CHECK, isEnable && projectPanels);
-	showFindDlgItem(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, isEnable && (!projectPanels));
+	showFindDlgItem(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, isEnable && (!projectPanels));
 }
 
 void FindReplaceDlg::getPatterns(vector<wstring> & patternVect)

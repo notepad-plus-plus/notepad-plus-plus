@@ -851,6 +851,7 @@ struct NppGUI final
 	bool _confirmReplaceInAllOpenDocs = true;
 	bool _replaceStopsWithoutFindingNext = false;
 	int _inSelectionAutocheckThreshold = FINDREPLACE_INSELECTION_THRESHOLD_DEFAULT;
+	bool _fillDirFieldFromActiveDoc = false;
 	bool _muteSounds = false;
 	bool _enableFoldCmdToggable = false;
 	bool _hideMenuRightShortcuts = false;
@@ -1243,7 +1244,6 @@ struct FindHistory final
 	int _transparency = 150;
 
 	bool _isFilterFollowDoc = false;
-	bool _isFolderFollowDoc = false;
 
 	bool _isBookmarkLine = false;
 	bool _isPurge = false;

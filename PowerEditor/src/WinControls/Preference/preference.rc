@@ -379,24 +379,23 @@ BEGIN
     EDITTEXT        IDC_EDIT_VIEWPANEL,158,161,280,12,ES_AUTOHSCROLL | ES_READONLY
 END
 
-
 IDD_PREFERENCE_SUB_SEARCHING DIALOGEX 115, 10, 460, 205
-STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    GROUPBOX        "When Find Dialog is Invoked", IDD_FILL_FIND_FIELD_GRP_STATIC, 31, 4, 323, 65, BS_CENTER
+    STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+    FONT 8, "MS Shell Dlg", 0, 0, 0x1
+    BEGIN
+    GROUPBOX        "When Find Dialog is Invoked", IDD_FILL_FIND_FIELD_GRP_STATIC, 31, 4, 323, 85, BS_CENTER
     RTEXT           "Minimum Size for Auto-Checking ""In selection"":", IDC_INSELECTION_THRESHOLD_STATIC, 37, 16, 210, 8
-    PUSHBUTTON      "?",IDC_INSELECTION_THRESH_QUESTION_BUTTON,283,14,16,14,NOT WS_TABSTOP
-    EDITTEXT        IDC_INSELECTION_THRESHOLD_EDIT, 250, 15, 27, 12, ES_CENTER | ES_NUMBER | WS_TABSTOP
-    CONTROL         "Fill Find Field with Selected Text", IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 38, 275, 10
-    CONTROL         "Select Word Under Caret when Nothing Selected", IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 52, 53, 275, 10
-    CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)", IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 74, 350, 10
-    CONTROL         "Find dialog remains open after search that outputs to results window", IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 89, 350, 10
-    CONTROL         "Confirm Replace All in All Opened Documents", IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 104, 350, 10
-    CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 119, 350, 10
-    CONTROL         "Search Result window: show only one entry per found line if possible", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 134, 350, 10
+    PUSHBUTTON      "?", IDC_INSELECTION_THRESH_QUESTION_BUTTON, 283, 14, 16, 14, NOT WS_TABSTOP
+    EDITTEXT        IDC_INSELECTION_THRESHOLD_EDIT, 250, 15, 27, 12, ES_CENTER | ES_NUMBER
+    CONTROL         "Fill Find Field with Selected Text", IDC_CHECK_FILL_FIND_FIELD_WITH_SELECTED, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 59, 300, 10
+    CONTROL         "Select Word Under Caret when Nothing Selected", IDC_CHECK_FILL_FIND_FIELD_SELECT_CARET, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 52, 73, 275, 10
+    CONTROL         "Fill Find in Files Directory Field Based On Active Document", IDC_CHECK_FILL_DIR_FIELD_FROM_ACTIVE_DOC, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 44, 311, 8
+    CONTROL         "Use Monospaced font in Find dialog (Need to restart Notepad++)", IDC_CHECK_MONOSPACEDFONT_FINDDLG, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 104, 350, 10
+    CONTROL         "Find dialog remains open after search that outputs to results window", IDC_CHECK_FINDDLG_ALWAYS_VISIBLE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 119, 350, 10
+    CONTROL         "Confirm Replace All in All Opened Documents", IDC_CHECK_CONFIRMREPLOPENDOCS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 134, 350, 10
+    CONTROL         "Replace: Don't move to the following occurrence", IDC_CHECK_REPLACEANDSTOP, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 149, 350, 10
+    CONTROL         "Search Result window: show only one entry per found line if possible", IDC_CHECK_SHOWONCEPERFOUNDLINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 37, 164, 350, 10
 END
-
 
 IDD_PREFERENCE_SUB_BACKUP DIALOGEX 115, 10, 460, 205
 STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD

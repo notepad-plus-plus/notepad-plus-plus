@@ -412,7 +412,6 @@ public :
 	bool removeFinder(Finder *finder2remove);
 	DIALOG_TYPE getCurrentStatus() {return _currentStatus;};
 	Finder* getFinderFrom(HWND hwnd);
-
 	int regexBackwardMsgBox();
 
 protected :
@@ -445,6 +444,7 @@ private:
 	HWND _shiftTrickUpTip = nullptr;
 	HWND _2ButtonsTip = nullptr;
 	HWND _filterTip = nullptr;
+	HWND _dirFromActiveDocTip = nullptr;
 
 	bool _isRTL = false;
 

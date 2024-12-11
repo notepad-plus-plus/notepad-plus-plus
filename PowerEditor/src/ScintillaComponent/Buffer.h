@@ -151,6 +151,10 @@ private:
 class Buffer final {
 	friend class FileManager;
 public:
+
+	int getLastLangType() const { return _lastLangType; }
+	void setLastLangType(int val) { _lastLangType = val; }
+
 	//Loading a document:
 	//constructor with ID.
 	//Set a reference (pointer to a container mostly, like DocTabView or ScintillaEditView)
@@ -380,6 +384,12 @@ private:
 
 
 private:
+	
+	
+	int _lastLangType = -1;
+
+	
+	
 	FileManager * _pManager = nullptr;
 	bool _canNotify = false; // All the notification should be disabled at the beginning 
 	int _references = 0; // if no references file inaccessible, can be closed

@@ -2430,7 +2430,20 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 					langName = (childNode->ToElement())->Attribute(L"lang");
 					int encoding = -1;
 					const wchar_t *encStr = (childNode->ToElement())->Attribute(L"encoding", &encoding);
-					const wchar_t *backupFilePath = (childNode->ToElement())->Attribute(L"backupFilePath");
+
+					const wchar_t *pBackupFilePath = (childNode->ToElement())->Attribute(L"backupFilePath");
+					std::wstring currentBackupFilePath = NppParameters::getInstance().getUserPath() + L"\\backup\\"; 
+					if (pBackupFilePath)
+					{
+						std::wstring backupFilePath = pBackupFilePath;
+						if (!backupFilePath.starts_with(currentBackupFilePath))
+						{
+							// reconstruct backupFilePath
+							wchar_t* fn = PathFindFileName(pBackupFilePath);
+							currentBackupFilePath += fn;
+							pBackupFilePath = currentBackupFilePath.c_str();
+						}
+					}
 
 					FILETIME fileModifiedTimestamp{};
 					(childNode->ToElement())->Attribute(L"originalFileLastModifTimestamp", reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwLowDateTime));
@@ -2446,7 +2459,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 					if (boolStrPinned)
 						isPinned = _wcsicmp(L"yes", boolStrPinned) == 0;
 
-					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, isPinned, position, backupFilePath, fileModifiedTimestamp, mapPosition);
+					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, isPinned, position, pBackupFilePath, fileModifiedTimestamp, mapPosition);
 
 					const wchar_t* intStrTabColour = (childNode->ToElement())->Attribute(L"tabColourId");
 					if (intStrTabColour)

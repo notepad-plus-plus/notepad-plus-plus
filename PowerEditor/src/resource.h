@@ -565,6 +565,7 @@
 #define ID_NOMORETHAN_STATIC   (IDD_GOLINE + 6)
 #define IDC_RADIO_GOTOLINE   (IDD_GOLINE + 7)
 #define IDC_RADIO_GOTOOFFSET   (IDD_GOLINE + 8)
+#define IDC_COPY_OFFSET   (IDD_GOLINE + 9)
 
 // voir columnEditor_rc.h
 //#define IDD_COLUMNEDIT   2020

@@ -122,6 +122,35 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
                     return TRUE;
                 }
 
+				case IDC_COPY_OFFSET:
+					if (OpenClipboard(_hSelf))
+					{
+						char clipboardText[256];
+						size_t position = 0;
+						if (_mode == go2line)
+							position = (*_ppEditView)->getCurrentLineNumber() + 1;
+						else
+							position = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+			
+						snprintf(clipboardText, sizeof(clipboardText), "%zu", position);
+
+						EmptyClipboard();
+						size_t textLen = strlen(clipboardText) + 1;
+						HGLOBAL hGlobal = GlobalAlloc(GMEM_MOVEABLE, textLen);
+						if (hGlobal)
+						{
+							char* pGlobal = static_cast<char*>(GlobalLock(hGlobal));
+							if (pGlobal)
+							{
+								memcpy(pGlobal, clipboardText, textLen);
+								GlobalUnlock(hGlobal);
+								SetClipboardData(CF_TEXT, hGlobal);
+							}
+						}
+						CloseClipboard();
+					}
+					return TRUE;
+
 				case IDC_RADIO_GOTOLINE:
 				case IDC_RADIO_GOTOOFFSET:
 				{

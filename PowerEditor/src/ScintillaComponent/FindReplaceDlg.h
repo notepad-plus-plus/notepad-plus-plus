@@ -444,7 +444,6 @@ private:
 	HWND _shiftTrickUpTip = nullptr;
 	HWND _2ButtonsTip = nullptr;
 	HWND _filterTip = nullptr;
-	HWND _dirBrowserTip = nullptr;
 	HWND _dirFromActiveDocTip = nullptr;
 
 	bool _isRTL = false;

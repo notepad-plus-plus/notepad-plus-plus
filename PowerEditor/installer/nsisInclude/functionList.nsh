@@ -218,6 +218,11 @@ SectionGroup "Function List Files" functionListComponent
 		File ".\functionList\latex.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "VisualBasic" VB_FL
+		SetOutPath "$INSTDIR\functionList"
+		File ".\functionList\vb.xml"
+	${MementoSectionEnd}
+
 	${MementoSection} "NppExecScript" NppExecScript_FL
 		SetOutPath "$INSTDIR\functionList"
 		File ".\functionList\nppexec.xml"
@@ -395,6 +400,10 @@ SectionGroup un.functionListComponent
 
 	Section un.Latex_FL
 		Delete "$INSTDIR\functionList\latex.xml"
+	SectionEnd
+
+	Section un.VB_FL
+		Delete "$INSTDIR\functionList\vb.xml"
 	SectionEnd
 
 	Section un.NppExecScript_FL

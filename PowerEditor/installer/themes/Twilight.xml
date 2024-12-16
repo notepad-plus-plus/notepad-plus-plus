@@ -846,7 +846,6 @@ Credits:
         <LexerType name="verilog" desc="Verilog" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="CF6A4C" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="TAGNAME" styleID="2" fgColor="9B703F" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="F9EE98" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="KEYWORD" styleID="7" fgColor="CDA869" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="type1" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="CDA869" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />

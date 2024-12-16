@@ -1013,7 +1013,6 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <LexerType name="verilog" desc="Verilog" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="TAGNAME" styleID="2" fgColor="A88AB6" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="KEYWORD" styleID="7" fgColor="9865A8" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="8F8F8F" bgColor="2E2E2E" fontName="" fontStyle="1" fontSize="">if else for while</WordsStyle>

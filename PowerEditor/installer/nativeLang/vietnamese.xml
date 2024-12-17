@@ -456,7 +456,6 @@ The comments are here for explanation, it's not necessary to translate them.
 				<Item id="1626" name="Mở rộng (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Thay thế trong tệp"/>
 				<Item id="1665" name="Thay thế trong các dự án"/>
-				<Item id="1661" name="Theo tài liệu hiện tại."/>
 				<Item id="1662" name="Bảng dự án 1"/>
 				<Item id="1663" name="Bảng dự án 2"/>
 				<Item id="1664" name="Bảng dự án 3"/>

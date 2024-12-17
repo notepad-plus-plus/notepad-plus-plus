@@ -504,7 +504,6 @@ Translation note:
 				<Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
 				<Item id="1660" name="ファイル内置換"/>
 				<Item id="1665" name="プロジェクト内置換"/>
-				<Item id="1661" name="現在のフォルダー"/>
 				<Item id="1662" name="プロジェクトパネル 1"/>
 				<Item id="1663" name="プロジェクトパネル 2"/>
 				<Item id="1664" name="プロジェクトパネル 3"/>

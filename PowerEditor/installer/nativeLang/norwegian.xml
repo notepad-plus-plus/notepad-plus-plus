@@ -502,7 +502,6 @@ Translation note:
 				<Item id="1626" name="Utvidet (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Erstatt i filer"/>
 				<Item id="1665" name="Erstatt i prosjekt"/>
-				<Item id="1661" name="Følg gjeldende dokument"/>
 				<Item id="1662" name="Prosjektpanel 1"/>
 				<Item id="1663" name="Prosjektpanel 2"/>
 				<Item id="1664" name="Prosjektpanel 3"/>

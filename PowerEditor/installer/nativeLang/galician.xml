@@ -497,7 +497,6 @@ Translation note:
 				<Item id="1626" name="E&amp;xtendido (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Substituír en arquivos"/>
 				<Item id="1665" name="Substituír en proxectos"/>
-				<Item id="1661" name="Seguir documento actual"/>
 				<Item id="1662" name="Panel de proxecto 1"/>
 				<Item id="1663" name="Panel de proxecto 2"/>
 				<Item id="1664" name="Panel de proxecto 3"/>

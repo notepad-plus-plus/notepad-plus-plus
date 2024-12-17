@@ -500,7 +500,6 @@ Translation note:
 				<Item id="1626" name="확장 (\n, \r, \t, \0, \x...)(&amp;x)"/>
 				<Item id="1660" name="파일에서 바꾸기"/>
 				<Item id="1665" name="프로젝트에서 바꾸기"/>
-				<Item id="1661" name="현재 문서 따라가기"/>
 				<Item id="1662" name="프로젝트 영역 1"/>
 				<Item id="1663" name="프로젝트 영역 2"/>
 				<Item id="1664" name="프로젝트 영역 3"/>

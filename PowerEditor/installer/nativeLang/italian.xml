@@ -505,7 +505,6 @@ Translation note:
 				<Item id="1626" name="Estesa (\n, \r, \t, \0, \&amp;x...)"/>
 				<Item id="1660" name="Sostituisci nei file"/>
 				<Item id="1665" name="Sostituisci nei Progetti"/>
-				<Item id="1661" name="Segui documento corrente"/>
 				<Item id="1662" name="Pannello Progetto 1"/>
 				<Item id="1663" name="Pannello Progetto 2"/>
 				<Item id="1664" name="Pannello Progetto 3"/>

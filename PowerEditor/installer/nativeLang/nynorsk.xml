@@ -310,7 +310,6 @@
 				<Item id="1625" name="Normal"/>
 				<Item id="1626" name="Utvida (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Bytt ut i filer"/>
-				<Item id="1661" name="Følg aktivt dokument"/>
 				<Item id="1641" name="Søk etter alle i aktivt dokument"/>
 				<Item id="1686" name="Gjennomsiktig"/>
 			</Find>

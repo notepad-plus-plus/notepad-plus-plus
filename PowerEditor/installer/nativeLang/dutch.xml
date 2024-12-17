@@ -503,7 +503,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 				<Item id="1626" name="&amp;Uitgebreid (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Vervangen in bestanden"/>
 				<Item id="1665" name="Vervangen in projecten"/>
-				<Item id="1661" name="Huidige bestandsmap"/>
 				<Item id="1662" name="Projectpaneel 1"/>
 				<Item id="1663" name="Projectpaneel 2"/>
 				<Item id="1664" name="Projectpaneel 3"/>

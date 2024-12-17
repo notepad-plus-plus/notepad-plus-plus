@@ -557,7 +557,6 @@
 				<Item id="1626" name="加強（例如 \n, \r, \t, \0, \x...）(&amp;X)"/>
 				<Item id="1660" name="所有檔案全部取代"/>
 				<Item id="1665" name="喺 projects 嘅檔案執行取代"/><!-- #new v7.9.4 -->
-				<Item id="1661" name="使用目前文件嘅資料夾"/>
 				<Item id="1662" name="Project Panel 1"/><!-- #new v7.9.4 -->
 				<Item id="1663" name="Project Panel 2"/><!-- #new v7.9.4 -->
 				<Item id="1664" name="Project Panel 3"/><!-- #new v7.9.4 -->

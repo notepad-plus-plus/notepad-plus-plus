@@ -289,7 +289,6 @@
 				<Item id="1625" name="Normal"/>
 				<Item id="1626" name="Genişləndirilmiş (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Fayllarda əvəz et"/>
-				<Item id="1661" name="Bu sənəddən sonrakı"/>
 				<Item id="1641" name="Bu sənəddə hamısını tap"/>
 				<Item id="1686" name="Şəffaflıq"/>
 			</Find>

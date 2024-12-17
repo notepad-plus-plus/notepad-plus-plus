@@ -2676,6 +2676,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						currPath = buf->getFullPathName();
 						pathRemoveFileSpec(currPath);
 					}
+
 					if (!currPath.empty() && doesDirectoryExist(currPath.c_str()))
 					{
 						setFindInFilesDirFilter(currPath.c_str(), NULL);
@@ -4507,6 +4508,7 @@ void FindReplaceDlg::setFindInFilesDirFilter(const wchar_t *dir, const wchar_t *
 		_options._directory = dir;
 		::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
 	}
+
 	if (filters)
 	{
 		_options._filters = filters;

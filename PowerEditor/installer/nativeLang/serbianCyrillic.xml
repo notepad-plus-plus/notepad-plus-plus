@@ -6,7 +6,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Српски" filename="serbianCyrillic.xml"  version="8.7.2">
+	<Native-Langue name="Српски" filename="serbianCyrillic.xml"  version="8.7.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -94,6 +94,7 @@
 					<Item id="41003" name="Затвори"/>
 					<Item id="41004" name="З&amp;атвори све"/>
 					<Item id="41005" name="Затвори све ОСИМ тренутног документа"/>
+					<Item id="41026" name="Затвори све ОСИМ pin-ованих докумената"/>
 					<Item id="41009" name="Затвори све са леве стране"/>
 					<Item id="41018" name="Затвори све са десне стране"/>
 					<Item id="41024" name="Затвори све непромењено"/>
@@ -420,9 +421,11 @@
 				<Item CMDID="41003" name="Затвори"/>
 				<Item CMDID="0" name="Затвори више tab-ова"/>
 				<Item CMDID="41005" name="Затвори све ОСИМ тренутног документа"/>
+				<Item CMDID="41026" name="Затвори све ОСИМ pin-ованих докумената"/>
 				<Item CMDID="41009" name="Затвори све са леве стране"/>
 				<Item CMDID="41018" name="Затвори све са десне стране"/>
 				<Item CMDID="41024" name="Затвори све непромењено"/>
+				<Item CMDID="44048" name="Pin-уј tab" alternativeName="Unpin-уј tab"/>
 				<Item CMDID="41006" name="Сачувај"/>
 				<Item CMDID="41008" name="Сачувај као..."/>
 				<Item CMDID="1" name="Отвори у"/>
@@ -531,7 +534,7 @@
 				<Item id="2909" name="Обмотај"/>
 				<Item id="2910" name="&amp;Пронађи"/>
 			</FindCharsInRange>
-			
+
 			<GoToLine title="Иди...">
 				<Item id="2007" name="Линија"/>
 				<Item id="2008" name="Карактер"/>
@@ -954,9 +957,9 @@
 					<Item id="6106" name="Трака tab-ова"/>
 					<Item id="6107" name="Смањи"/>
 					<Item id="6108" name="Закључај (без превлачења)"/>
-					<Item id="6109" name="Потамни неактивне tab-ове"/>
+					<Item id="6109" name="Промени боју неактивног tab-а"/>
 					<Item id="6110" name="Обележи тренутни tab"/>
-					<Item id="6112" name="Дугме за затварање на сваком tab-у"/>
+					<Item id="6112" name="Прикажи дугме за затварање"/>
 					<Item id="6113" name="Двоклик за затварање документа"/>
 					<Item id="6115" name="Омогући pin-овање tab-а"/>
 					<Item id="6118" name="Сакриј"/>

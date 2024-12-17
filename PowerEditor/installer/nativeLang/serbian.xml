@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski(Serbian)" filename="serbian.xml"  version="8.7.2">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.7.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@
 					<Item id="41003" name="Zatvori"/>
 					<Item id="41004" name="Z&amp;atvori sve"/>
 					<Item id="41005" name="Zatvori sve OSIM trenutnog dokumenta"/>
+					<Item id="41026" name="Zatvori sve OSIM pin-ovanih dokumenata"/>
 					<Item id="41009" name="Zatvori sve sa leve strane"/>
 					<Item id="41018" name="Zatvori sve sa desne strane"/>
 					<Item id="41024" name="Zatvori sve nepromenjeno"/>
@@ -419,9 +420,11 @@
 				<Item CMDID="41003" name="Zatvori"/>
 				<Item CMDID="0" name="Zatvori više tab-ova"/>
 				<Item CMDID="41005" name="Zatvori sve OSIM trenutnog dokumenta"/>
+				<Item CMDID="41026" name="Zatvori sve OSIM pin-ovanih"/>
 				<Item CMDID="41009" name="Zatvori sve sa leve strane"/>
 				<Item CMDID="41018" name="Zatvori sve sa desne strane"/>
 				<Item CMDID="41024" name="Zatvori sve nepromenjeno"/>
+				<Item CMDID="44048" name="Pin-uj tab" alternativeName="Unpin-uj tab"/>
 				<Item CMDID="41006" name="Sačuvaj"/>
 				<Item CMDID="41008" name="Sačuvaj kao..."/>
 				<Item CMDID="1" name="Otvori u"/>
@@ -953,9 +956,9 @@
 					<Item id="6106" name="Traka tab-ova"/>
 					<Item id="6107" name="Smanji"/>
 					<Item id="6108" name="Zaključaj (bez prevlačenja)"/>
-					<Item id="6109" name="Potamni neaktivne tab-ove"/>
+					<Item id="6109" name="Promeni boju neaktivnog tab-a"/>
 					<Item id="6110" name="Obeleži trenutni tab"/>
-					<Item id="6112" name="Dugme za zatvaranje na svakom tab-u"/>
+					<Item id="6112" name="Prikaži dugme za zatvaranje"/>
 					<Item id="6113" name="Dvoklik za zatvaranje dokumenta"/>
 					<Item id="6115" name="Omogući pin-ovanje tab-a"/>
 					<Item id="6118" name="Sakrij"/>

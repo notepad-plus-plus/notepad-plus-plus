@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
 -    Traducerea în română pentru Notepad++ 8.7.5
--    Ultima modificare a fost făcută 10 decembrie 2024 de către Miloiu Andrei-Valentin
+-    Ultima modificare a fost făcută 19 decembrie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
@@ -1224,6 +1224,7 @@
                     <Item id="6908" name="Se umple câmpul de căutare în textul selectat"/>
                     <Item id="6909" name="Selectează cuvântul sub semnul de omisiune când nimic nu e selectat"/>
 					<Item id="6910" name="Mărimea minimă pentru verificare automată „În selecție”:"/>
+					<Item id="6913" name="Completează în câmpul directorului din „Căutare în fișiere” pe baza documentului activ"/>
                 </Searching>
 
                 <RecentFilesHistory title="Istoricul fișierelor recente">
@@ -1732,6 +1733,7 @@ Găsește în toate fișierele, dar exclude folderele tests, bin și bin64:
 Găsește în toate fișierele, dar exclude toate folderele log sau logs în mod recursiv:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selectează un folder de căutare în"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Completează câmpul directorului pe baza documentului activ"/><!-- HowToReproduce: Search > Find in Files > [<<] -->			
             <find-status-top-reached value="Căutare: S-a ajuns la începutul documentului, prima apariție din partea de jos a fost găsită."/>
             <find-status-end-reached value="Căutare: S-a ajuns la sfârșitul documentului, prima apariție din partea de sus a fost găsită."/>
             <find-status-replaceinfiles-1-replaced value="Înlocuire în fișiere: a fost înlocuită o potrivire"/>

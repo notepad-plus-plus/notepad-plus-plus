@@ -472,7 +472,7 @@ Translation note:
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleFindInProjects="プロジェクト内検索" titleMark="マーク">
+			<Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="複数ファイル内検索" titleFindInProjects="プロジェクト内検索" titleMark="マーク">
 				<Item id="1" name="次を検索"/>
 				<Item id="1722" name="逆方向に検索する"/>
 				<Item id="2" name="閉じる"/>
@@ -502,7 +502,7 @@ Translation note:
 				<Item id="1624" name="検索モード"/>
 				<Item id="1625" name="標準(&amp;N)"/>
 				<Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
-				<Item id="1660" name="ファイル内置換"/>
+				<Item id="1660" name="複数ファイル内置換"/>
 				<Item id="1665" name="プロジェクト内置換"/>
 				<Item id="1662" name="プロジェクトパネル 1"/>
 				<Item id="1663" name="プロジェクトパネル 2"/>
@@ -1195,6 +1195,7 @@ Translation note:
 					<Item id="6908" name="検索文字列欄に、選択中の文字列を自動入力する"/>
 					<Item id="6909" name="何も選択されていないときは、カーソル位置の単語を自動入力する"/>
 					<Item id="6910" name="この文字数以上を選択時に「選択内のみ」を自動でオン"/>
+					<Item id="6913" name="「複数ファイル内検索」にて、現在の文書のディレクトリを初期値にする"/>
 				</Searching>
 
 
@@ -1691,6 +1692,7 @@ OKボタンを押すと検索ダイアログが開きます。
 例）階層にかかわらず log や logs といったフォルダー内を除き、すべてのファイル内を検索する：
 *.* !+\log*"/>
 			<find-in-files-select-folder value="検索するディレクトリを選択してください"/>
+			<find-in-files-dir-from-active-doc-tip value="現在の文書のディレクトリを記入する"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="検索：文書頭に到達したため、末尾から検索します"/>
 			<find-status-end-reached value="検索：文書末に到達したため、先頭から検索します"/>
 			<find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>

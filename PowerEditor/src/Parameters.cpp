@@ -4703,7 +4703,7 @@ std::wstring NppParameters::getLocPathFromStr(const std::wstring & localizationC
 		return L"aranese.xml";
 	if (localizationCode == L"exy")
 		return L"extremaduran.xml";
-	if (localizationCode == L"keb")
+	if (localizationCode == L"kab")
 		return L"kabyle.xml";
 	if (localizationCode == L"lij")
 		return L"ligurian.xml";

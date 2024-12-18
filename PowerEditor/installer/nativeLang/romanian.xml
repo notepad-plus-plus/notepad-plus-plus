@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.7.2
--    Ultima modificare a fost făcută 21 noiembrie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.7.5
+-    Ultima modificare a fost făcută 19 decembrie 2024 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
-     Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
- -->
+     Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.2">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -19,9 +18,9 @@
                     <Item menuId="language" name="&amp;Limbaj"/>
                     <Item menuId="settings" name="Se&amp;tări"/>
                     <Item menuId="tools" name="&amp;Unelte"/>
-                    <Item menuId="macro" name="&amp;Macro"/>
+                    <Item menuId="macro" name="&amp;Macrocomenzi"/>
                     <Item menuId="run" name="E&amp;xecutare"/>
-                    <Item menuId="Plugins" name="Mo&amp;dule"/>
+                    <Item menuId="Plugins" name="Mo&amp;dule (Plugin-uri)"/>
                     <Item menuId="Window" name="Fe&amp;restre"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
@@ -30,30 +29,31 @@
                     <Item subMenuId="file-closeMore" name="Închide &amp;mai multe documente"/>
                     <Item subMenuId="file-recentFiles" name="&amp;Fișiere recente"/>
                     <Item subMenuId="edit-insert" name="Inserare"/>					
-                    <Item subMenuId="edit-copyToClipboard"  name="Copiere în clipboard"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Copiază în clipboard"/>
                     <Item subMenuId="edit-indent" name="Indentare"/>
                     <Item subMenuId="edit-convertCaseTo" name="Convertește literele în"/>
                     <Item subMenuId="edit-lineOperations" name="Operații pentru linii"/>
-                    <Item subMenuId="edit-comment" name="Creare/Anulare comentariu"/>
-                    <Item subMenuId="edit-autoCompletion" name="Autocompletare"/>
+                    <Item subMenuId="edit-comment" name="Crează/Anulează comentariul"/>
+                    <Item subMenuId="edit-autoCompletion" name="Completare automată"/>
                     <Item subMenuId="edit-eolConversion" name="Convertește sfârșitul de linie"/>
                     <Item subMenuId="edit-blankOperations" name="Operații pentru spațiile libere"/>
                     <Item subMenuId="edit-pasteSpecial" name="Lipire specială"/>
                     <Item subMenuId="edit-onSelection" name="Pe selecție"/>
-		    <Item subMenuId="search-changeHistory" name="Schimbă istoricul"/>
-		    <Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
+					<Item subMenuId="edit-multiSelectALL" name="Selectare multiplă pentru TOT"/>
+					<Item subMenuId="edit-multiSelectNext" name="Selectare multiplă pentru URMĂTORUL"/>
+					<Item subMenuId="search-changeHistory" name="Istoricul schimbărilor"/>
                     <Item subMenuId="search-markAll" name="Marcare totală"/>
                     <Item subMenuId="search-markOne" name="Marcare &amp;unică a selecției"/>
                     <Item subMenuId="search-unmarkAll" name="Demarcare totală"/>
-                    <Item subMenuId="search-jumpUp" name="Deplasare în sus"/>
-                    <Item subMenuId="search-jumpDown" name="Deplasare în jos"/>
+                    <Item subMenuId="search-jumpUp" name="Sari în sus"/>
+                    <Item subMenuId="search-jumpDown" name="Sari în jos"/>
                     <Item subMenuId="search-copyStyledText" name="&amp;Copiază textul stilat"/>
                     <Item subMenuId="search-bookmark" name="Semn de carte"/>
                     <Item subMenuId="view-currentFileIn" name="Afișează fișierul curent în"/>
-                    <Item subMenuId="view-showSymbol"  name="Arată simboluri"/>
+                    <Item subMenuId="view-showSymbol"  name="Arată simbolurile"/>
                     <Item subMenuId="view-zoom"  name="Dimensiune"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Mută/Clonează documentul curent"/>
-                    <Item subMenuId="view-tab"  name="Fila"/>
+                    <Item subMenuId="view-tab"  name="Filă"/>
                     <Item subMenuId="view-collapseLevel" name="Restrânge nivelul"/>
                     <Item subMenuId="view-uncollapseLevel" name="Extinde nivelul"/>
                     <Item subMenuId="view-project" name="Proiect"/>
@@ -80,34 +80,36 @@
 					<Item subMenuId="tools-sha1" name="SHA-1"/>
                     <Item subMenuId="tools-sha256"  name="SHA-256"/>  
 					<Item subMenuId="tools-sha512" name="SHA-512"/>
-                    <Item subMenuId="window-sortby" name="Sortare ca"/>					
+                    <Item subMenuId="window-sortby" name="Sortare după"/>					
                 </SubEntries>
 				
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Nou"/>
                     <Item id="41002" name="&amp;Deschidere"/>
-                    <Item id="41019" name="Explorator"/>
+                    <Item id="41019" name="Explorator (Explorer)"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41025" name="Folder ca spațiu de lucru"/>
                     <Item id="41003" name="În&amp;chidere"/>
                     <Item id="41004" name="Închi&amp;de-le pe toate"/>
-                    <Item id="41005" name="Închide-le pe toate fără documentul curent"/>
-                    <Item id="41009" name="Închide-le pe toate dinspre stânga"/>
-                    <Item id="41018" name="Închide-le pe toate dinspre dreapta"/>
-                    <Item id="41024" name="Închide-le pe cele nemodificate"/>
+                    <Item id="41005" name="Închide-le PE TOATE, CU EXCEPȚIA documentului curent"/>
+					<Item id="41026" name="Închide-le PE TOATE, CU EXCEPȚIA documentelor fixate"/>
+                    <Item id="41009" name="Închide-le PE TOATE cele din stânga"/>
+                    <Item id="41018" name="Închide-le PE TOATE cele din dreapta"/>
+                    <Item id="41024" name="Închide-le PE TOATE cele nemodificate"/>
+					<Item id="44048" name="Fixează cardul" alternativeName="Desprinde cardul"/>
                     <Item id="41006" name="&amp;Salvare"/>
                     <Item id="41007" name="Salvea&amp;ză-le pe toate"/>
                     <Item id="41008" name="S&amp;alvare ca..."/>
                     <Item id="41010" name="Tipărire..."/>
                     <Item id="1001"  name="Tipărește acum"/>
                     <Item id="41011" name="I&amp;eșire"/>
-                    <Item id="41012" name="Încărcă sesiunea..."/>
+                    <Item id="41012" name="Încarcă sesiunea..."/>
                     <Item id="41013" name="Salvează sesiunea..."/>
-                    <Item id="41014" name="&amp;Reîncarcă de pe disc"/>
+                    <Item id="41014" name="&amp;Reîncarcă-l de pe disc"/>
                     <Item id="41015" name="Salvează o copie ca..."/>
-                    <Item id="41016" name="Ștergere"/>
-                    <Item id="41017" name="Redenumire..."/>
+                    <Item id="41016" name="Mută în Coșul de gunoi (Coșul de reciclare)"/>
+                    <Item id="41017" name="Redenumește-l..."/>
                     <Item id="41021" name="Restaurează fișierele închise recent"/>
                     <Item id="41022" name="Deschide un folder ca spațiu de lucru"/>
                     <Item id="41023" name="Deschide-l în vizualizatorul implicit"/>
@@ -120,24 +122,24 @@
                     <Item id="42007" name="Selectează t&amp;ot"/>
                     <Item id="42020" name="Selectează începutul/sfârșitul"/>
                     <Item id="42089" name="Începe/Termină selecția în modul coloană"/>
-                    <Item id="42084" name="Dată Oră (scurt)"/>
-                    <Item id="42085" name="Dată Oră (lung)"/>
-                    <Item id="42086" name="Dată Oră (personalizat)"/>
+                    <Item id="42084" name="Dată și oră (forma scurtă)"/>
+                    <Item id="42085" name="Dată și oră (forma lungă)"/>
+                    <Item id="42086" name="Dată și oră (format personalizat)"/>
                     <Item id="42008" name="Mărește indentarea liniei"/>
-                    <Item id="42009" name="Reduce indentarea liniei"/>
+                    <Item id="42009" name="Redu indentarea liniei"/>
                     <Item id="42010" name="Dublează linia curentă"/>
                     <Item id="42079" name="Șterge liniile dublate"/>
                     <Item id="42077" name="Elimină liniile consecutive dublate"/>
                     <Item id="42012" name="Întrerupe liniile"/>
                     <Item id="42013" name="Unește liniile"/>
-                    <Item id="42014" name="Urcă linia curentă"/>   
-                    <Item id="42015" name="Coboară linia curentă"/>
-                    <Item id="42059" name="Sortează liniile ascendent"/>
-                    <Item id="42060" name="Sortează liniile descendent"/>
-                    <Item id="42080" name="Sortează liniile în ordine lexicală ignorând majusculele"/>
-                    <Item id="42081" name="Sortează liniile în ordine lexicală ignorând minusculele"/>
-                    <Item id="42061" name="Sortează liniile ca cifre ascendent"/>
-                    <Item id="42062" name="Sortează liniile ca cifre descendent"/>
+                    <Item id="42014" name="Mută în sus linia curentă"/>   
+                    <Item id="42015" name="Mută în jos linia curentă"/>
+                    <Item id="42059" name="Sortează liniile lexicografic ascendent"/>
+                    <Item id="42060" name="Sortează liniile lexicografic descendent"/>
+                    <Item id="42080" name="Sortează liniile în ordine lexicografică ascendentă ignorând majusculele"/>
+                    <Item id="42081" name="Sortează liniile în ordine lexicografică descendentă ignorând majusculele"/>
+                    <Item id="42061" name="Sortează liniile ca numere întregi crescător"/>
+                    <Item id="42062" name="Sortează liniile ca numere întregi descrescător"/>
                     <Item id="42063" name="Sortează liniile ca zecimale (virgulă) ascendent"/>
                     <Item id="42064" name="Sortează liniile ca zecimale (virgulă) descendent"/>
                     <Item id="42065" name="Sortează liniile ca zecimale (punct) ascendent"/>
@@ -150,71 +152,81 @@
                     <Item id="42068" name="Prima literă din cuvânt mare (îm&amp;binare)"/>
                     <Item id="42069" name="Prima literă din p&amp;ropoziție mare"/>
                     <Item id="42070" name="Prima literă din propoziție mare (îmbinare)"/>
-                    <Item id="42071" name="&amp;iNVERsARE LiTEre"/>
+                    <Item id="42071" name="&amp;iNVERSARE lITERELE"/>
                     <Item id="42072" name="&amp;LiTerE AleaTOarE"/>
                     <Item id="42073" name="Deschide fișierul"/>
                     <Item id="42074" name="Deschide folderul gazdă în Explorer"/>
                     <Item id="42075" name="Căutare pe Internet"/>
                     <Item id="42076" name="Schimbă motorul de căutare..."/>
+					<Item id="42090" name="Ignoră majusculele și cuvintele întregi"/>
+					<Item id="42091" name="Potrivește doar majusculele"/>
+					<Item id="42092" name="Potrivește numai cuvântul întreg"/>
+					<Item id="42093" name="Potrivește majuscule și cuvinte întregi"/>
+					<Item id="42094" name="Ignoră majusculele și cuvintele întregi"/>
+					<Item id="42095" name="Potrivește doar majusculele"/>
+					<Item id="42096" name="Potrivește numai cuvântul întreg"/>
+					<Item id="42097" name="Potrivește majusculele și cuvintele întregi"/>
+					<Item id="42098" name="Anulează cea mai recentă selecție multiplă adăugată"/>
+					<Item id="42099" name="Omite selecția curentă și mergi la următoarea selecție multiplă"/>
                     <Item id="42018" name="Pornește în&amp;registrarea (Start înregistrare)"/>
                     <Item id="42019" name="Oprește înregistrarea (S&amp;top înregistrare)"/>
                     <Item id="42021" name="&amp;Redare"/>
-                    <Item id="42022" name="Comutare comentariu linie"/>
-                    <Item id="42023" name="Comentariu multilinie"/>
-                    <Item id="42047" name="Anulează comentariu multilinie"/>
-                    <Item id="42024" name="Eliminare spații la sfârșit de linii"/>
-                    <Item id="42042" name="Eliminare spații la început de linii" />
-                    <Item id="42043" name="Eliminare spații capete linii"/>
-                    <Item id="42044" name="Convertește sfârșitul de linie în spațiu"/>
-                    <Item id="42045" name="Eliminare spații inutile și sfârșit de linii"/>
-                    <Item id="42046" name="Tab(ulator) în spațiu"/>
-                    <Item id="42054" name="Spații în Tab (toate)"/>
-                    <Item id="42053" name="Spații în Tab (la început de linie)"/>
-                    <Item id="42038" name="Lipire conținut HTML"/>
-                    <Item id="42039" name="Lipire conțint RTF"/>
-                    <Item id="42048" name="Copiere conținut binar"/>
-                    <Item id="42049" name="Decupare conținut binar"/>
-                    <Item id="42050" name="Lipire conținut binar"/>
-		            <Item id="42082" name="Copiere a legăturii"/>											   
-                    <Item id="42037" name="Mod coloană..."/>
+                    <Item id="42022" name="Comută comentariul pe o singură linie"/>
+                    <Item id="42023" name="Comentariu multilinie (bloc)"/>
+                    <Item id="42047" name="Anulează comentariul multilinie (bloc)"/>
+                    <Item id="42024" name="Elimină spațiile de la sfârșit de linii"/>
+                    <Item id="42042" name="Elimină spațiile de la început de linii" />
+                    <Item id="42043" name="Elimină spațiile cu capete de linii"/>
+                    <Item id="42044" name="Convertește sfârșitul de linie (EOL) în spațiu"/>
+                    <Item id="42045" name="Elimină ambele și din sfârșitul de linie (EOL) la spațiu"/>
+                    <Item id="42046" name="Din Tab (tabulator) în spațiu"/>
+                    <Item id="42054" name="Din spații în Tab (tabulator) (toate)"/>
+                    <Item id="42053" name="Spații în Tab (tabulator) (la început de linie)"/>
+                    <Item id="42038" name="Lipește conțintul HTML"/>
+                    <Item id="42039" name="Lipește conțintul RTF"/>
+                    <Item id="42048" name="Copiază conținutul binar"/>
+                    <Item id="42049" name="Decupează conținutul binar"/>
+                    <Item id="42050" name="Lipește conținutul binar"/>
+		            <Item id="42082" name="Copiază legătura (link-ul)"/>											   
+                    <Item id="42037" name="Modul coloană..."/>
                     <Item id="42034" name="Editor de coloane..."/>
                     <Item id="42051" name="Panou de caractere"/>
                     <Item id="42052" name="Istoricul clipboard-ului"/>
-                    <Item id="42025" name="&amp;Salvare macro înregistrat"/>
-                    <Item id="42026" name="Direcție a textului DLS"/>
-                    <Item id="42027" name="Direcție a textului SLD"/>
-                    <Item id="42028" name="Setare a stării doar citire"/>
-                    <Item id="42029" name="Copiere a căii fișierui în clipboard"/>
-                    <Item id="42030" name="Copiere a numelui fișierului în clipboard"/>
-                    <Item id="42031" name="Copiere a căii folder în clipboard"/>
-                    <Item id="42087" name="Copierea tuturor numelor fișierelor"/>
-                    <Item id="42088" name="Copierea tuturor căilor fișierelor"/>
-                    <Item id="42032" name="&amp;Executare macro în mod repetat..."/>
-                    <Item id="42033" name="Eliminare a stării doar citire"/>
-                    <Item id="42035" name="Comentare a liniei"/>
-                    <Item id="42036" name="Elimină comentariul linie"/>
+                    <Item id="42025" name="&amp;Salvează macrocomanda înregistrată în prezent..."/>
+                    <Item id="42026" name="Text de la dreapta la stânga (RTL)"/>
+                    <Item id="42027" name="Text de la stânga la dreapta (LTR)"/>
+                    <Item id="42028" name="Setează modul doar citire"/>
+                    <Item id="42029" name="Copiază calea actuală a fișierului"/>
+                    <Item id="42030" name="Copiază numele actual al fișierului"/>
+                    <Item id="42031" name="Copiază calea actuală a folderului"/>
+                    <Item id="42087" name="Copiază toate numele fișierelor"/>
+                    <Item id="42088" name="Copiază toate căile fișierelor"/>
+                    <Item id="42032" name="&amp;Execută o macrocomandă de mai multe ori..."/>
+                    <Item id="42033" name="Elimină eticheta doar citire"/>
+                    <Item id="42035" name="Comentează pe o singură linie"/>
+                    <Item id="42036" name="Anulează comentariul pe o singură linie"/>
                     <Item id="42055" name="Elimină liniile goale"/>
-                    <Item id="42056" name="Elimină liniile goale (ce conțin spații goale)"/>
-                    <Item id="42057" name="Inserează o linie goală deasupra"/>
-                    <Item id="42058" name="Inserează o linie goală dedesubt"/>
+                    <Item id="42056" name="Elimină liniile goale (ce conțin caractere goale)"/>
+                    <Item id="42057" name="Inserează o linie goală deasupra actualei linii"/>
+                    <Item id="42058" name="Inserează o linie goală dedesubtul actualei linii"/>
                     <Item id="43001" name="Cău&amp;tare..."/>
-                    <Item id="43002" name="Căutare &amp;următor"/>
+                    <Item id="43002" name="Caută &amp;următorul"/>
                     <Item id="43003" name="Î&amp;nlocuire..."/>
                     <Item id="43004" name="&amp;Salt la..."/>
                     <Item id="43005" name="Comută semnul de carte"/>
                     <Item id="43006" name="Semnul de carte următor"/>
                     <Item id="43007" name="Semnul de carte anterior"/>
-                    <Item id="43008" name="Golește semnele de carte"/>
+                    <Item id="43008" name="Golește toate semnele de carte"/>
                     <Item id="43018" name="Decupează liniile cu semne de carte"/>
                     <Item id="43019" name="Copiază liniile cu semne de carte"/>
-                    <Item id="43020" name="Lipește la (înlocuire) liniile cu semne de carte"/>
+                    <Item id="43020" name="Lipește la (Înlocuiește) liniile cu semne de carte"/>
                     <Item id="43021" name="Elimină liniile cu semne de carte"/> 
-                    <Item id="43051" name="Elimină liniilefără semne de carte"/>
+                    <Item id="43051" name="Elimină liniile fără semne de carte"/>
                     <Item id="43050" name="Inversează semnele de carte"/>
-                    <Item id="43052" name="Căutare caractere în interval..."/>
-                    <Item id="43053" name="Selectează tot ce e între acolade"/>
+                    <Item id="43052" name="Găsește caracterele în intervalul..."/>
+                    <Item id="43053" name="Selectează-le pe toate între cele 2 {} [] or ()"/>
                     <Item id="43009" name="Salt la acolada pereche"/>
-                    <Item id="43010" name="Căutare &amp;anterior"/>
+                    <Item id="43010" name="Găsește &amp;anteriorul"/>
                     <Item id="43011" name="Căutare &amp;incrementală"/>
                     <Item id="43013" name="Căutare în fișiere"/>
                     <Item id="43014" name="Căutare (volatilă) a următorului"/>
@@ -229,18 +241,18 @@
                     <Item id="43029" name="Elimină stilul 4"/>
                     <Item id="43030" name="Folosește stilul 5"/>
                     <Item id="43031" name="Elimină stilul 5"/>
-                    <Item id="43032" name="Eliminare toate stilurile"/>
-                    <Item id="43033" name="stilul 1"/>
-                    <Item id="43034" name="stilul 2"/>
-                    <Item id="43035" name="stilul 3"/>
-                    <Item id="43036" name="stilul 4"/>
-                    <Item id="43037" name="stilul 5"/>
+                    <Item id="43032" name="Elimină toate stilurile"/>
+                    <Item id="43033" name="Stilul 1"/>
+                    <Item id="43034" name="Stilul 2"/>
+                    <Item id="43035" name="Stilul 3"/>
+                    <Item id="43036" name="Stilul 4"/>
+                    <Item id="43037" name="Stilul 5"/>
                     <Item id="43038" name="Caută un stil"/>
-                    <Item id="43039" name="stilul 1"/>
-                    <Item id="43040" name="stilul 2"/>
-                    <Item id="43041" name="stilul 3"/>
-                    <Item id="43042" name="stilul 4"/>
-                    <Item id="43043" name="stilul 5"/>
+                    <Item id="43039" name="Stilul 1"/>
+                    <Item id="43040" name="Stilul 2"/>
+                    <Item id="43041" name="Stilul 3"/>
+                    <Item id="43042" name="Stilul 4"/>
+                    <Item id="43043" name="Stilul 5"/>
                     <Item id="43044" name="Caută un stil"/>
                     <Item id="43055" name="Stilul 1"/>
                     <Item id="43056" name="Stilul 2"/>
@@ -258,29 +270,29 @@
 					<Item id="43068" name="Du-te la schimbarea anterioară"/>
 					<Item id="43069" name="Golește istoricul schimbărilor"/>
                     <Item id="43045" name="Fereastra cu rezultatele căutării"/>
-                    <Item id="43046" name="Următorul rezultat găsit"/>
-                    <Item id="43047" name="Rezultatul găsit anterior"/>
-                    <Item id="43048" name="Selectează și caută următorul"/>
-                    <Item id="43049" name="Selectează și caută anteriorul"/>
+                    <Item id="43046" name="Rezultatul căutării urmă&amp;toare"/>
+                    <Item id="43047" name="Rezultatul căutării an&amp;terioare"/>
+                    <Item id="43048" name="&amp;Selectează și găsește următorul"/>
+                    <Item id="43049" name="&amp;Selectează și găsește anteriorul"/>
                     <Item id="43054" name="&amp;Marcare..."/>
 					<Item id="43501" name="Închide selecția"/>
-                    <Item id="43502" name="Închide-le pe altele"/>
+                    <Item id="43502" name="Închide-le pe celelalte"/>
                     <Item id="43503" name="Copiază numele selectate"/>
                     <Item id="43504" name="Copiază căile selectate"/>
-                    <Item id="44009" name="&amp;Comută bara de unelte și titlul filelor"/>					 
-                    <Item id="44010" name="Pliază tot"/>
+                    <Item id="44009" name="&amp;Modul post-it (Numai documentul curent vizibil)"/>					 
+                    <Item id="44010" name="Restrânge-le pe toate"/>
                     <Item id="44011" name="Modul fără distracție"/>
                     <Item id="44019" name="Afișează toate caracterele"/>
-                    <Item id="44020" name="Afișează ghidajul de indentare"/>
+                    <Item id="44020" name="Afișează ghidul de indentare"/>
                     <Item id="44022" name="Limitează lungimea liniilor (Încadrare cuvânt)"/>
-                    <Item id="44023" name="&amp;Mărire (Ctrl+rotița mouse-ului în sus)"/>
+                    <Item id="44023" name="&amp;Mărește (Ctrl+rotița mouse-ului în sus)"/>
                     <Item id="44024" name="Micșo&amp;rare (Ctrl+rotița mouse-ului în jos)"/>
-                    <Item id="44025" name="Afișează spațiile libere și Tab-urile"/>
+                    <Item id="44025" name="Afișează spațiile libere și Tab-urile (tabulatoarele)"/>
                     <Item id="44026" name="Afișează sfârșitul de linie"/>
-                    <Item id="44029" name="Depliază-le pe toate"/>
+                    <Item id="44029" name="Desfășoară-le pe toate"/>
                     <Item id="44030" name="Restrânge nivelul curent"/>
                     <Item id="44031" name="Extinde nivelul curent"/>
-                    <Item id="44049" name="Sumar..."/>
+                    <Item id="44049" name="Rezumat..."/>
                     <Item id="44080" name="Harta documentului"/>
 					<Item id="44070" name="Lista documentelor"/>									   
                     <Item id="44084" name="Lista funcțiilor"/>
@@ -294,6 +306,8 @@
                     <Item id="44092" name="Fila &amp;7"/>
                     <Item id="44093" name="Fila &amp;8"/>
                     <Item id="44094" name="Fila &amp;9"/>
+					<Item id="44116" name="Prima filă"/>
+					<Item id="44117" name="Ultima filă"/>
                     <Item id="44095" name="Fila următoare"/>
                     <Item id="44096" name="Fila anterioară"/>
                     <Item id="44097" name="Monitorizare (tail -f)"/>
@@ -306,13 +320,13 @@
                     <Item id="44114" name="Aplică culoarea 4"/>
                     <Item id="44115" name="Aplică culoarea 5"/>
                     <Item id="44130" name="Afișează caracterele neafișabile"/>
-					<Item id="44131" name="Afișează caracterele de control &amp;&amp; Unicode EOL"/>
-                    <Item id="44032" name="Comută la ecran complet"/>
-                    <Item id="44033" name="Restaurează dimensiunea afișării"/>
+					<Item id="44131" name="Afișează caracterele de control și sfârșitul de linie Unicode (Unicode EOL)"/>
+                    <Item id="44032" name="Comută la modul ecran complet"/>
+                    <Item id="44033" name="Restabilește scalarea implicită"/>
                     <Item id="44034" name="Întotdeauna deasupra"/>
                     <Item id="44035" name="Sincronizează derularea verticală"/>
                     <Item id="44036" name="Sincronizează derularea orizontală"/>
-                    <Item id="44041" name="Afișează simbolul de limitare"/>
+                    <Item id="44041" name="Afișează semnul de întrerupere de linie"/>
                     <Item id="44072" name="Focalizează pe altă afișare" />
                     <Item id="44081" name="Panoul proiectului 1" />
                     <Item id="44082" name="Panoul proiectului 2" />
@@ -320,62 +334,63 @@
                     <Item id="45001" name="Windows (CR LF)"/>
                     <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintoch (CR)"/>
-                    <Item id="45004" name="Codificare în ANSI"/>
-                    <Item id="45005" name="Codificare în UTF-8-BOM"/>
-                    <Item id="45006" name="Codificare în UTF-16 BE BOM"/>
-                    <Item id="45007" name="Codificare în UTF-16 LE BOM"/>
-                    <Item id="45008" name="Codificare în UTF-8"/>
-                    <Item id="45009" name="Convertire în ANSI"/>
-                    <Item id="45010" name="Convertire în UTF-8"/>
-                    <Item id="45011" name="Convertire în UTF-8-BOM"/>
-                    <Item id="45012" name="Convertire în UTF-16 BE BOM"/>
-                    <Item id="45013" name="Convertire în UTF-16 LE BOM"/>
+                    <Item id="45004" name="Codifică în ANSI"/>
+                    <Item id="45005" name="Codifică în UTF-8-BOM"/>
+                    <Item id="45006" name="Codifică în UTF-16 BE BOM"/>
+                    <Item id="45007" name="Codifică în UTF-16 LE BOM"/>
+                    <Item id="45008" name="Codifică în UTF-8"/>
+                    <Item id="45009" name="Convertește în ANSI"/>
+                    <Item id="45010" name="Convertește în UTF-8"/>
+                    <Item id="45011" name="Convertește în UTF-8-BOM"/>
+                    <Item id="45012" name="Convertește în UTF-16 BE BOM"/>
+                    <Item id="45013" name="Convertește în UTF-16 LE BOM"/>
                     <Item id="45060" name="Big5 (Tradițional)"/>
                     <Item id="45061" name="GB2312 (Simplificat)"/>
                     <Item id="45054" name="OEM 861: Islandez"/>
                     <Item id="45057" name="OEM 865: Nordic"/>
                     <Item id="45053" name="OEM 860: Portughez"/>
-                    <Item id="45056" name="OEM 863: Francez"/>
-							
-                    <Item id="10001" name="Mutare în alt panou"/>
-                    <Item id="10002" name="Clonare în alt panou"/>
-                    <Item id="10003" name="Mutare în instanță nouă"/>
-                    <Item id="10004" name="Deschidere în instanță nouă"/>
-					
-                    <Item id="46001" name="Configurator de stiluri..."/>
+                    <Item id="45056" name="OEM 863: Francez"/>						
+                    <Item id="10001" name="Mută în alt panou"/>
+                    <Item id="10002" name="Clonează în alt panou"/>
+                    <Item id="10003" name="Mută în instanță nouă"/>
+                    <Item id="10004" name="Deschide în instanță nouă"/>
+					<Item id="10005" name="Mută la început"/>
+					<Item id="10006" name="Mută la sfârșit"/>
+                    <Item id="46001" name="Configuratorul de stiluri..."/>
+					<Item id="46016" name="Niciunul (Text normal)"/>
                     <Item id="46250" name="Definește limbajul..."/>
                     <Item id="46300" name="Deschide folderul de limbă definit de utilizator..."/>
  				    <Item id="46301" name="Colecția de limbi Notepad++ definită de utilizator"/>
-                    <Item id="46180" name="Definit(ă) de utilizator"/>
+                    <Item id="46180" name="Definit de utilizator"/>
                     <Item id="47000" name="Despre Notepad++"/>
-                    <Item id="47010" name="Argumente linie de comandă..."/>
-                    <Item id="47001" name="Pagină web Notepad++"/>
-                    <Item id="47002" name="Pagină proiect Notepad++"/>
+                    <Item id="47010" name="Argumente pentru linia de comandă..."/>
+                    <Item id="47001" name="Pagina web a Notepad++"/>
+                    <Item id="47002" name="Pagina proiectului Notepad++"/>
                     <Item id="47003" name="Documentație online"/>
                     <Item id="47004" name="Comunitatea Notepad++ (Forum)"/>
-                    <Item id="47012" name="Informații depanare"/>
-                    <Item id="47005" name="Descărcaţi mai multe module"/>
+                    <Item id="47012" name="Informații de depanare"/>
+                    <Item id="47005" name="Descarcă mai multe module (plugin-uri)"/>
                     <Item id="47006" name="Actualizează Notepad++"/>
-                    <Item id="47009" name="Seteaz proxy-ul pentru actualizare..."/>
-                    <Item id="48005" name="Importare modul(e) ..."/>
-                    <Item id="48006" name="Importă tema(ele) de afișare..."/>
+                    <Item id="47009" name="Setează proxy-ul pentru actualizare..."/>
+                    <Item id="48005" name="Importă modulul/modulele (plugin-ul/plugin-urile) ..."/>
+                    <Item id="48006" name="Importă tema (temele) de afișare..."/>
                     <Item id="48018" name="Editează meniul contextual"/>
                     <Item id="48009" name="Lista combinațiilor de taste..."/>
                     <Item id="48011" name="Preferințe..."/>
-                    <Item id="48014" name="Deschide folderul pentru module..."/>
-                    <Item id="48015" name="Administrează modulele..."/>            		
+                    <Item id="48014" name="Deschide folderul pentru module (plugin-uri)..."/>
+                    <Item id="48015" name="Administrează modulele (plugin-urile)..."/>            		
                     <Item id="48501" name="Generare..."/>
-                    <Item id="48502" name="Generare din fișiere..."/>
-                    <Item id="48503" name="Generare din selecție în memorie"/>
+                    <Item id="48502" name="Generează din fișiere..."/>
+                    <Item id="48503" name="Generează din selecție în memorie"/>
                     <Item id="48504" name="Generare..."/>
-                    <Item id="48505" name="Generare din fișiere..."/>
-                    <Item id="48506" name="Generare din selecție în memorie"/>        
-		    <Item id="48507" name="Generare..."/>
-		    <Item id="48508" name="Generare din fișiere..."/>
+                    <Item id="48505" name="Generează din fișiere..."/>
+                    <Item id="48506" name="Generează din selecție în memorie"/>        
+					<Item id="48507" name="Generare..."/>
+					<Item id="48508" name="Generează din fișiere..."/>
                     <Item id="48509" name="Generează din selecție în memorie"/>
-		    <Item id="48510" name="Generare..."/>
-		    <Item id="48511" name="Generare din fișiere..."/>
-		    <Item id="48512" name="Generare din selecție în memorie"/>
+					<Item id="48510" name="Generare..."/>
+					<Item id="48511" name="Generează din fișiere..."/>
+					<Item id="48512" name="Generează din selecție în memorie"/>
                     <Item id="49000" name="&amp;Executare..."/>
 
                     <Item id="50000" name="Completează funcțiile"/>
@@ -383,13 +398,13 @@
                     <Item id="50002" name="Sugestii de parametri pentru funcții"/>
                     <Item id="50010" name="Sugestia precedentă a parametrilor funcției"/>
                     <Item id="50011" name="Sugestia următoare a parametrilor funcției"/>
-                    <Item id="50005" name="Comută înregistrarea macro-ului"/>
+                    <Item id="50005" name="Comută înregistrarea macrocomenzii"/>
                     <Item id="50006" name="Completează căile"/>
                     <Item id="44042" name="Ascunde liniile"/>
                     <Item id="42040" name="Deschide toate fișierele recente"/>
                     <Item id="42041" name="Golește lista de fișiere recente"/>
-                    <Item id="48016" name="Modifică scurtătura/Șterge macro-ul..."/>
-                    <Item id="48017" name="Modifică scurtătura/Ștergere comanda..."/>
+                    <Item id="48016" name="Modifică scurtătura/ Șterge macrocomanda..."/>
+                    <Item id="48017" name="Modifică scurtătura/ Șterge comanda..."/>
 					
                     <Item id="11001" name="&amp;Ferestre..."/>
                     <Item id="11002" name="Numele de la A la Z"/>
@@ -405,35 +420,37 @@
             <TabBar>											  
                     <Item CMDID="41003" name="Închidere"/>
 					<Item CMDID="0" name="Închide ferestrele multiple"/>
-                    <Item CMDID="41005" name="Închide-le pe toate fără aceasta"/>
-					<Item CMDID="41009" name="Închide-le pe cele din stânga"/>
-					<Item CMDID="41018" name="Închide-le pe cele din dreapta"/>
-					<Item CMDID="41024" name="Închide toate ferestrele neschimbate"/>
+                    <Item CMDID="41005" name="Închide-le PE TOATE, CU EXCEPȚIA aceasteia"/>
+					<Item CMDID="41026" name="Închide-le PE TOATE, CU EXCEPȚIA celor fixate"/>
+					<Item CMDID="41009" name="Închide-le PE TOATE cele din stânga"/>
+					<Item CMDID="41018" name="Închide-le PE TOATE cele din dreapta"/>
+					<Item CMDID="41024" name="Închide TOATE ferestrele neschimbate"/>
+					<Item CMDID="44048" name="Fixează fila" alternativeName="Anulează fixarea filei"/>
                     <Item CMDID="41006" name="Salvare"/>
                     <Item CMDID="41008" name="Salvare ca..."/>
-					<Item CMDID="1" name="Deschidere în"/>
+					<Item CMDID="1" name="Deschide în"/>
 					<Item CMDID="41019" name="Deschide folderul gazdă în Explorer"/>
                     <Item CMDID="41020" name="Deschide folderul gazdă în cmd"/>
 					<Item CMDID="41025" name="Deschide folderul care-l conține ca spațiu de lucru"/>
-                    <Item CMDID="41021" name="Deschide-l în vizualizatorul implicit"/>
+					<Item CMDID="41021" name="Deschide-l în vizualizatorul implicit"/>
 					<Item CMDID="41023" name="Deschide-l în vizualizatorul implicit"/>
                     <Item CMDID="41017" name="Redenumire"/>
-                    <Item CMDID="41016" name="Mută în Coșul de gunoi"/>
+                    <Item CMDID="41016" name="Mută în Coșul de gunoi (Coșul de reciclare)"/>
 					<Item CMDID="41014" name="Reîncarcă"/>
 					<Item CMDID="41010" name="Tipărire..."/>
-                    <Item CMDID="42028" name="Blochează salvarea modificărilor"/>
-                    <Item CMDID="42033" name="Anulează blocarea salvării modificărilor"/>
-					<Item CMDID="2" name="Copiere în clipboard"/>
+                    <Item CMDID="42028" name="Modul doar citire"/>
+                    <Item CMDID="42033" name="Șterge marcajul pentru modul doar citire"/>
+					<Item CMDID="2" name="Copiază în clipboard"/>
 					<Item CMDID="42029" name="Copiază calea fișierului în clipboard"/>
                     <Item CMDID="42030" name="Copiază numele fișierului în clipboard"/>
                     <Item CMDID="42031" name="Copiază calea folderului în clipboard"/>
 					<Item CMDID="3" name="Mută documentul"/>
-				    <Item CMDID="10005" name="Mută la început"/>
-				    <Item CMDID="10006" name="Mută la sfârșit"/>
-                    <Item CMDID="10001" name="Mută în altă vedere"/>
-                    <Item CMDID="10002" name="Clonează în altă vedere"/>
-                    <Item CMDID="10003" name="Mută în instanță nouă"/>
-                    <Item CMDID="10004" name="Deschidere în instanță nouă"/>
+				    <Item CMDID="10005" name="Mută-l la început"/>
+				    <Item CMDID="10006" name="Mută-l la sfârșit"/>
+                    <Item CMDID="10001" name="Mută-l în altă vedere"/>
+                    <Item CMDID="10002" name="Clonează-l în altă vedere"/>
+                    <Item CMDID="10003" name="Mută-l în instanță nouă"/>
+                    <Item CMDID="10004" name="Deschide-l în instanță nouă"/>
 					<Item CMDID="4" name="Aplică culoarea într-o filă"/>
 					<Item CMDID="44111" name="Aplică culoarea 1"/>
 					<Item CMDID="44112" name="Aplică culoarea 2"/>
@@ -465,15 +482,15 @@
                 <Item id="1614" name="&amp;Numărare"/>
                 <Item id="1615" name="Marcare totală"/>
                 <Item id="1616" name="Pune semn de carte pe linie"/>
-                <Item id="1618" name="Elimină marcările înainte de fiecare căutare"/>
+                <Item id="1618" name="Elimină marcajele înainte de fiecare căutare"/>
                 <Item id="1611" name="Înloc&amp;uire cu:"/>
                 <Item id="1608" name="Î&amp;nlocuire"/>
                 <Item id="1609" name="Înlocuire &amp;totală"/>
                 <Item id="1687" name="La pierderea focalizării"/>
                 <Item id="1688" name="Întotdeauna"/>
                 <Item id="1632" name="În selecț&amp;ie"/>
-                <Item id="1633" name="Anulează toate marcările"/>
-                <Item id="1635" name="Înlocuiește tot în toate &amp;documentele deschise"/>
+                <Item id="1633" name="Anulează toate marcajele"/>
+                <Item id="1635" name="Înlocuire totală în toate &amp;documentele deschise"/>
                 <Item id="1636" name="Caută-le pe toate în toate &amp;documentele deschise"/>
                 <Item id="1654" name="Fil&amp;tre:"/>
                 <Item id="1655" name="Fold&amp;er:"/>
@@ -488,7 +505,7 @@
                 <Item id="1662" name="Panoul de proiecte 1"/>
                 <Item id="1663" name="Panoul de proiecte 2"/>
                 <Item id="1664" name="Panoul de proiecte 3"/>
-                <Item id="1641" name="Căutare toate în documentul curent"/>
+                <Item id="1641" name="Caută-le pe toate în documentul curent"/>
                 <Item id="1686" name="Transpa&amp;rență"/>										
                 <Item id="1703" name="&amp;. este \r sau \n"/>
                 <Item id="1721" name="▲"/>
@@ -504,7 +521,7 @@
             <IncrementalFind title="">
                 <Item id="1681" name="Căutare"/>
                 <Item id="1685" name="Potrivește majusculele"/>							 
-                <Item id="1690" name="Evidențiază tot"/>
+                <Item id="1690" name="Evidențiază-le pe toate"/>
             </IncrementalFind>
 
             <FindCharsInRange title="Caută caracterele în interval...">
@@ -532,76 +549,76 @@
             <Run title="Executare...">
                 <Item id="1903" name="Program de executat"/>
                 <Item id="1"    name="Executare"/>
-                <Item id="2"    name="Anulare"/>
+                <Item id="2"    name="Revocare"/>
                 <Item id="1904" name="Salvare..."/>
             </Run>
 
             <MD5FromFilesDlg title="Generează sumă de control MD5 din fișiere">
-                <Item id="1922" name="Alegere fișiere pentru vgenerare MD5..."/>
-                <Item id="1924" name="Copiere în memorie"/>
+                <Item id="1922" name="Alege fișierele pentru generare MD5..."/>
+                <Item id="1924" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generează sumă de control MD5">
-                <Item id="1932" name="Consideră fiecare linie ca un &amp;șir separat"/>
-                <Item id="1934" name="Copiere în memorie"/>
+                <Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
+                <Item id="1934" name="Copiază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </MD5FromTextDlg>
 
             <SHA256FromFilesDlg title="Generează sumă de control SHA-256 din fișiere">
                 <Item id="1922" name="Alege fișiere pentru &amp;a genera SHA-256..."/>
-                <Item id="1924" name="Co&amp;piere în memorie"/>
+                <Item id="1924" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromFilesDlg>
 
             <SHA256FromTextDlg title="Generează sumă de control SHA-256">
-                <Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
-                <Item id="1934" name="Co&amp;piere în memorie"/>
+                <Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
+                <Item id="1934" name="Co&amp;piază în memorie"/>
                 <Item id="2"    name="&amp;Închidere"/>
             </SHA256FromTextDlg>
 
 			<SHA1FromFilesDlg title="Generează sumă de control SHA-1 din fișiere">
 				<Item id="1922" name="Alegere fișiere pentru &amp;a genera SHA-1..."/>
-				<Item id="1924" name="Co&amp;piere în memorie"/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromFilesDlg>
 
 			<SHA1FromTextDlg title="Generează sumă de control SHA-1">
-				<Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
-				<Item id="1934" name="Co&amp;piere în memorie"/>
+				<Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Generează sumă de control SHA-512 din fișiere">
-				<Item id="1922" name="Alegere fișiere pentru &amp;a genera SHA-512..."/>
-				<Item id="1924" name="Co&amp;piere în memorie"/>
+				<Item id="1922" name="Alege fișiere pentru &amp;a genera SHA-512..."/>
+				<Item id="1924" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromFilesDlg>
 
 			<SHA512FromTextDlg title="Generează sumă de control SHA-512">
-				<Item id="1932" name="Consideră fiecare linie ca &amp;un șir separat"/>
-				<Item id="1934" name="Co&amp;piere în memorie"/>
+				<Item id="1932" name="Tratează fiecare linie ca pe un &amp;șir separat"/>
+				<Item id="1934" name="Co&amp;piază în memorie"/>
 				<Item id="2" name="&amp;Închidere"/>
 			</SHA512FromTextDlg>
             
-            <PluginsAdminDlg title="Administrare module" titleAvailable = "Disponibile" titleUpdates = "Actualizări" titleInstalled = "Instalate">
-                <ColumnPlugin   name="Modul"/>
+            <PluginsAdminDlg title="Administrează modulele (plugin-urile)" titleAvailable = "Disponibile" titleUpdates = "Actualizări" titleInstalled = "Instalate">
+                <ColumnPlugin   name="Modul (Plugin)"/>
                 <ColumnVersion  name="Versiune"/>
                 <Item id="5501" name="Căutare:"/>
                 <Item id="5503" name="Instalare"/>
                 <Item id="5504" name="Actualizare"/>
                 <Item id="5505" name="Eliminare"/>
-                <Item id="5508" name="Următor"/>
-                <Item id="5509" name="Lista de versiuni ale modulelor: "/>
-                <Item id="5511" name="Lista depozitului de module"/>
+                <Item id="5508" name="Următorul"/>
+                <Item id="5509" name="Lista versiunilor plugin-urilor: "/>
+                <Item id="5511" name="Lista depozitelor de plugin-uri"/>
                 <Item id="2"    name="Închidere"/>
             </PluginsAdminDlg>
 			
-            <StyleConfig title="Configurator de stiluri">
-                <Item id="2"    name="Anulare"/>
-                <Item id="2301" name="Salvare &amp;&amp; închidere"/>
+            <StyleConfig title="Configuratorul de stiluri">
+                <Item id="2"    name="Revocare"/>
+                <Item id="2301" name="Salvare și închidere"/>
                 <Item id="2303" name="Transparență"/>       
-                <Item id="2306" name="Selectare a temei: "/>
+                <Item id="2306" name="Selectează tema: "/>
                 <SubDialog>
                     <Item id="2204" name="Îngroșat"/>
                     <Item id="2205" name="Înclinat (Aldin)"/>
@@ -618,36 +635,36 @@
                     <Item id="2219" name="Cuvinte-cheie implicite"/>
                     <Item id="2221" name="Cuvinte-cheie date de utilizator"/>
                     <Item id="2225" name="Limbaj:"/>
-                    <Item id="2226" name="Forțează culoarea de prim-plan pentru toate stilurile"/>
-                    <Item id="2227" name="Forțează culoarea de fundal pentru toate stilurile"/>
-                    <Item id="2228" name="Forțează alegerea fontului pentru toate stilurile"/>
-                    <Item id="2229" name="Forțează alegerea mărimii fontului pentru toate stilurile"/>
-                    <Item id="2230" name="Forțează alegerea stilului fontului îngroșat pentru toate stilurile"/>
-                    <Item id="2231" name="Forțează alegerea stilului fontului înclinat pentru toate stilurile"/>
-                    <Item id="2232" name="Forțează alegerea stilului fontului subliniat pentru toate stilurile"/>
+                    <Item id="2226" name="Forțare culoare font pt. toate stilurile"/>
+                    <Item id="2227" name="Forțare culoare fundal pt. toate stilurile"/>
+                    <Item id="2228" name="Forțare alegere font pentru toate stilurile"/>
+                    <Item id="2229" name="Forțare alegere dim. font pt. toate stilurile"/>
+                    <Item id="2230" name="Forț. aleg. stil font îngroșat pt. toate stilurile"/>
+                    <Item id="2231" name="Forț. aleg. stil font înclinat pt. toate stilurile"/>
+                    <Item id="2232" name="Forț. aleg. stil font subliniat pt. toate stilurile"/>
                     <Item id="2234" name="Mergi la setări"/>
 					<Item id="2235" name="Ce este Global override?"/>
                 </SubDialog>                
             </StyleConfig>
 
             <ShortcutMapper title="Lista combinațiilor de taste">
-                <Item id="2602" name="Modificare"/>
-                <Item id="2603" name="Ștergere"/>
-                <Item id="2606" name="Golire"/>
-                <Item id="2607" name="Filtrare: "/>
+                <Item id="2602" name="Modifică"/>
+                <Item id="2603" name="Șterge"/>
+                <Item id="2606" name="Golește"/>
+                <Item id="2607" name="Filtrează: "/>
                 <Item id="1" name="Închidere"/>
                 <ColumnName name="Nume"/>
-                <ColumnShortcut name="Combinație"/>
+                <ColumnShortcut name="Scurtătură (Comandă rapidă)"/>
                 <ColumnCategory name="Categorie"/>
-                <ColumnPlugin name="Modul"/>
-                <MainMenuTab name="Meniu"/>
-                <MacrosTab name="Macro"/>
-                <RunCommandsTab name="Comenzi lansare"/>
-                <PluginCommandsTab name="Comenzi module"/>
+                <ColumnPlugin name="Modul (Plugin)"/>
+                <MainMenuTab name="Meniul principal"/>
+                <MacrosTab name="Macrocomenzi"/>
+                <RunCommandsTab name="Comenzi de lansare"/>
+                <PluginCommandsTab name="Comenzi pentru module (plugin-uri)"/>
                 <ScintillaCommandsTab name="Comenzi Scintilla"/>
-                <ConflictInfoOk name="Nu sunt conflicte pentru acest element."/>
-                <ConflictInfoEditing name="Nu sunt conflicte ..."/>
-                <WindowCategory name="Fereastră"/>
+                <ConflictInfoOk name="Nu există conflicte de comenzi rapide pentru acest element."/>
+                <ConflictInfoEditing name="Nu există conflicte . . ."/>
+				<WindowCategory name="Fereastră"/>
                 <FileCategory name="Fișier"/>
                 <EditCategory name="Editare"/>
                 <SearchCategory name="Căutare"/>
@@ -655,52 +672,52 @@
                 <FormatCategory name="Formatare"/>
                 <LangCategory name="Limbă"/>
                 <AboutCategory name="Despre"/>
-                <SettingCategory name="Setări"/>
+				<SettingCategory name="Setări"/>
                 <ToolCategory name="Unelte"/>
                 <ExecuteCategory name="Execută"/>
                 <ModifyContextMenu name="Modifică"/>
                 <DeleteContextMenu name="Șterge"/>
-                <ClearContextMenu name="Curăță"/>
+                <ClearContextMenu name="Golește"/>
                 <MainCommandNames>
-                    <Item id="41019" name="Deschide dosarul conținător în Explorator (Explorer)"/>
-                    <Item id="41020" name="Deschide dosarul conținător în Panoul de comandă (Command Prompt)"/>
+                    <Item id="41019" name="Deschide folderul conținător în Explorator (Explorer)"/>
+                    <Item id="41020" name="Deschide folderul conținător în Panoul de comandă (Command Prompt)"/>
                     <Item id="41021" name="Restaurează fișierul închis recent"/>
                     <Item id="45001" name="Convertește EOL la Windows (CR LF)"/>
                     <Item id="45002" name="Convertește EOL la Unix (LF)"/>
                     <Item id="45003" name="Convertește EOL la Macintosh (CR)"/>
-                    <Item id="43022" name="Stilează-le pe toate folosind primul stil"/>
-                    <Item id="43024" name="Stilează-le pe toate folosind cel de al doilea stil"/>
-                    <Item id="43026" name="Stilează-le pe toate folosind cel de al treilea stil"/>
-                    <Item id="43028" name="Stilează-le pe toate folosind cel de al patrulea stil"/>
-                    <Item id="43030" name="Stilează-le pe toate folosind cel de al cincelea stil"/>
-                    <Item id="43062" name="Stilează unul folosind primul stil"/>
-                    <Item id="43063" name="Stilează unul folosind al doilea stil"/>
-                    <Item id="43064" name="Stilează unul folosind al treilea stil"/>
-                    <Item id="43065" name="Stilează unul folosind al patrulea stil"/>
-                    <Item id="43066" name="Stilează unul folosind al cincelea stil"/>
-                    <Item id="43023" name="Golește primul stil"/>
-                    <Item id="43025" name="Golește cel de-al doilea stil"/>
-                    <Item id="43027" name="Golește cel de-al treilea stil"/>
-                    <Item id="43029" name="Golește cel de-al patrulea stil"/>
-                    <Item id="43031" name="Golește cel de-al cincelea stil"/>
+                    <Item id="43022" name="Stilează-le pe toate folosind stilul 1"/>
+                    <Item id="43024" name="Stilează-le pe toate folosind stilul 2"/>
+                    <Item id="43026" name="Stilează-le pe toate folosind stilul 3"/>
+                    <Item id="43028" name="Stilează-le pe toate folosind stilul 4"/>
+                    <Item id="43030" name="Stilează-le pe toate folosind stilul 5"/>
+                    <Item id="43062" name="Stilează unul folosind stilul 1"/>
+                    <Item id="43063" name="Stilează unul folosind stilul 2"/>
+                    <Item id="43064" name="Stilează unul folosind stilul 3"/>
+                    <Item id="43065" name="Stilează unul folosind stilul 4"/>
+                    <Item id="43066" name="Stilează unul folosind stilul 5"/>
+                    <Item id="43023" name="Golește stilul 1"/>
+                    <Item id="43025" name="Golește stilul 2"/>
+                    <Item id="43027" name="Golește stilul 3"/>
+                    <Item id="43029" name="Golește stilul 4"/>
+                    <Item id="43031" name="Golește stilul 5"/>
                     <Item id="43032" name="Golește toate stilurile"/>
-                    <Item id="43033" name="Stilul anterior al primului stil"/>
-                    <Item id="43034" name="Stilul anterior al celui de-al doilea stil"/>
-                    <Item id="43035" name="Stilul anterior al celui de-al treilea stil"/>
-                    <Item id="43036" name="Stilul anterior al celui de-al patrulea stil"/>
-                    <Item id="43037" name="Stilul anterior al celui de-al cincelea stil"/>
+                    <Item id="43033" name="Stilul anterior stilului 1"/>
+                    <Item id="43034" name="Stilul anterior stilului 2"/>
+                    <Item id="43035" name="Stilul anterior stilului 3"/>
+                    <Item id="43036" name="Stilul anterior stilului 4"/>
+                    <Item id="43037" name="Stilul anterior stilului 5"/>
                     <Item id="43038" name="Stilul anterior al stilului Găsește marcajul"/>
-                    <Item id="43039" name="Stilul următor al primului stil"/>
-                    <Item id="43040" name="Stilul următor al celui de-al doilea stil"/>
-                    <Item id="43041" name="Stilul următor al celui de-al treilea stil"/>
-                    <Item id="43042" name="Stilul următor al celui de-al patrulea stil"/>
-                    <Item id="43043" name="Stilul următor al celui de-al cincelea stil"/>
+                    <Item id="43039" name="Stilul următor stilului 1"/>
+                    <Item id="43040" name="Stilul următor stilului 2"/>
+                    <Item id="43041" name="Stilul următor stilului 3"/>
+                    <Item id="43042" name="Stilul următor stilului 4"/>
+                    <Item id="43043" name="Stilul următor stilului 5"/>
                     <Item id="43044" name="Stilul următor al stilului Găsește marcajul"/>
-                    <Item id="43055" name="Copiază textul stilat al primului stil"/>
-                    <Item id="43056" name="Copiază textul stilat al celui de-al doilea stil"/>
-                    <Item id="43057" name="Copiază textul stilat al celui de-al treilea stil"/>
-                    <Item id="43058" name="Copiază textul stilat al celui de-al patrulea stil"/>
-                    <Item id="43059" name="Copiază textul stilat al celui de-al cincelea stil"/>
+                    <Item id="43055" name="Copiază textul stilat al stilului 1"/>
+                    <Item id="43056" name="Copiază textul stilat al stilului 2"/>
+                    <Item id="43057" name="Copiază textul stilat al stilului 3"/>
+                    <Item id="43058" name="Copiază textul stilat al stilului 4"/>
+                    <Item id="43059" name="Copiază textul stilat al stilului 5"/>
                     <Item id="43060" name="Copiază textul stilat al tuturor stilurilor"/>
                     <Item id="43061" name="Copiază textul stilat al stilului Găsește marcajul"/>
                     <Item id="44100" name="Vezi fișierul curent în Firefox"/>
@@ -709,22 +726,22 @@
                     <Item id="44102" name="Vezi fișierul curent în Edge"/>
                     <Item id="50003" name="Comută la documentul anterior"/>
                     <Item id="50004" name="Comută la documentul următor"/>
-                    <Item id="44051" name="Nivel de îndoire 1"/>
-                    <Item id="44052" name="Nivel de îndoire 2"/>
-                    <Item id="44053" name="Nivel de îndoire 3"/>
-                    <Item id="44054" name="Nivel de îndoire 4"/>
-                    <Item id="44055" name="Nivel de îndoire 5"/>
-                    <Item id="44056" name="Nivel de îndoire 6"/>
-                    <Item id="44057" name="Nivel de îndoire 7"/>
-                    <Item id="44058" name="Nivel de îndoire 8"/>
-                    <Item id="44061" name="Nivel de desfășurare 1"/>
-                    <Item id="44062" name="Nivel de desfășurare 2"/>
-                    <Item id="44063" name="Nivel de desfășurare 3"/>
-                    <Item id="44064" name="Nivel de desfășurare 4"/>
-                    <Item id="44065" name="Nivel de desfășurare 5"/>
-                    <Item id="44066" name="Nivel de desfășurare 6"/>
-                    <Item id="44067" name="Nivel de desfășurare 7"/>
-                    <Item id="44068" name="Nivel de desfășurare 8"/>
+                    <Item id="44051" name="Nivelul de îndoire 1"/>
+                    <Item id="44052" name="Nivelul de îndoire 2"/>
+                    <Item id="44053" name="Nivelul de îndoire 3"/>
+                    <Item id="44054" name="Nivelul de îndoire 4"/>
+                    <Item id="44055" name="Nivelul de îndoire 5"/>
+                    <Item id="44056" name="Nivelul de îndoire 6"/>
+                    <Item id="44057" name="Nivelul de îndoire 7"/>
+                    <Item id="44058" name="Nivelul de îndoire 8"/>
+                    <Item id="44061" name="Nivelul de desfășurare 1"/>
+                    <Item id="44062" name="Nivelul de desfășurare 2"/>
+                    <Item id="44063" name="Nivelul de desfășurare 3"/>
+                    <Item id="44064" name="Nivelul de desfășurare 4"/>
+                    <Item id="44065" name="Nivelul de desfășurare 5"/>
+                    <Item id="44066" name="Nivelul de desfășurare 6"/>
+                    <Item id="44067" name="Nivelul de desfășurare 7"/>
+                    <Item id="44068" name="Nivelul de desfășurare 8"/>
                     <Item id="44081" name="Comută la panoul de proiecte 1"/>
                     <Item id="44082" name="Comută la panoul de proiecte 2"/>
                     <Item id="44083" name="Comută la panoul de proiecte 3"/>
@@ -732,7 +749,7 @@
                     <Item id="44080" name="Comută la harta documentului"/>
                     <Item id="44070" name="Comută la lista de documente"/>
                     <Item id="44084" name="Comută la lista de funcții"/>
-                    <Item id="50005" name="Comută la lista de macro-uri"/>
+                    <Item id="50005" name="Comută la lista de macrocomenzi"/>
                     <Item id="44104" name="Comută la panoul de proiecte 1"/>
                     <Item id="44105" name="Comută la panoul de proiecte 2"/>
                     <Item id="44106" name="Comută la panoul de proiecte 3"/>
@@ -757,7 +774,7 @@
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Combinație">
                 <Item id="1" name="OK"/>
-                <Item id="2" name="Anulare"/>
+                <Item id="2" name="Revocare"/>
                 <Item id="5006" name="Nume"/>
                 <Item id="5008" name="Adăugare"/>
                 <Item id="5009" name="Eliminare"/>
@@ -773,176 +790,176 @@
                 <Item id="20005" name="Salvare ca..."/>
                 <Item id="20007" name="Limbaj utilizator: "/>
                 <Item id="20009" name="Ext.:"/>
-                <Item id="20012" name="Ignoră tip litere"/>
+                <Item id="20012" name="Ignoră tipul de litere"/>
                 <Item id="20011" name="Transparență"/>
                 <Item id="20015" name="Importare..."/>
                 <Item id="20016" name="Export..."/>
 				<Item id="20017" name="Deconectează"/>
-				<StylerDialog title="Dialog stilizare">
-					<Item id="25030" name="Opțiuni font:"/>
-					<Item id="25006" name="Culoare prim-plan"/>
-					<Item id="25007" name="Culoare fundal"/>
+				<StylerDialog title="Dialogul stilizatorului">
+					<Item id="25030" name="Opțiuni pentru font:"/>
+					<Item id="25006" name="Culoare de prim-plan"/>
+					<Item id="25007" name="Culoare de fundal"/>
 					<Item id="25031" name="Nume:"/>
 					<Item id="25032" name="Mărime:"/>
 					<Item id="25001" name="Îngroșat"/>
 					<Item id="25002" name="Înclinat"/>
 					<Item id="25003" name="Subliniere"/>
 					<Item id="25029" name="Stiluri integrate:"/>
-					<Item id="25008" name="Delimitator 1"/>
-					<Item id="25009" name="Delimitator 2"/>
-					<Item id="25010" name="Delimitator 3"/>
-					<Item id="25011" name="Delimitator 4"/>
-					<Item id="25012" name="Delimitator 5"/>
-					<Item id="25013" name="Delimitator 6"/>
-					<Item id="25014" name="Delimitator 7"/>
-					<Item id="25015" name="Delimitator 8"/>
-					<Item id="25018" name="Cuvânt-cheie 1"/>
-					<Item id="25019" name="Cuvânt-cheie 2"/>
-					<Item id="25020" name="Cuvânt-cheie 3"/>
-					<Item id="25021" name="Cuvânt-cheie 4"/>
-					<Item id="25022" name="Cuvânt-cheie 5"/>
-					<Item id="25023" name="Cuvânt-cheie 6"/>
-					<Item id="25024" name="Cuvânt-cheie 7"/>
-					<Item id="25025" name="Cuvânt-cheie 8"/>
+					<Item id="25008" name="Delimitatorul 1"/>
+					<Item id="25009" name="Delimitatorul 2"/>
+					<Item id="25010" name="Delimitatorul 3"/>
+					<Item id="25011" name="Delimitatorul 4"/>
+					<Item id="25012" name="Delimitatorul 5"/>
+					<Item id="25013" name="Delimitatorul 6"/>
+					<Item id="25014" name="Delimitatorul 7"/>
+					<Item id="25015" name="Delimitatorul 8"/>
+					<Item id="25018" name="Cuvântul-cheie 1"/>
+					<Item id="25019" name="Cuvântul-cheie 2"/>
+					<Item id="25020" name="Cuvântul-cheie 3"/>
+					<Item id="25021" name="Cuvântul-cheie 4"/>
+					<Item id="25022" name="Cuvântul-cheie 5"/>
+					<Item id="25023" name="Cuvântul-cheie 6"/>
+					<Item id="25024" name="Cuvântul-cheie 7"/>
+					<Item id="25025" name="Cuvântul-cheie 8"/>
 					<Item id="25016" name="Comentariu"/>
 					<Item id="25017" name="Comentariu linie"/>
-					<Item id="25026" name="Operator 1"/>
-					<Item id="25027" name="Operator 2"/>
+					<Item id="25026" name="Operatorul 1"/>
+					<Item id="25027" name="Operatorul 2"/>
 					<Item id="25028" name="Numere"/>
 					<Item id="25033" name="Transparent"/>
 					<Item id="25034" name="Transparent"/>
 					<Item id="1" name="OK"/>
-					<Item id="2" name="Anulare"/>
+					<Item id="2" name="Revocare"/>
                 </StylerDialog>
-                <Folder title="Foldere &amp;&amp; Implicite">
+                <Folder title="Foldere și implicite">
                     <Item id="21101" name="Stil implicit"/>
-                    <Item id="21102" name="Stilizare"/>
+                    <Item id="21102" name="Stilizator"/>
                     <Item id="21105" name="Documentație:"/>
                     <Item id="21104" name="Documentație online:"/>
-                    <Item id="21106" name="Pliere &amp;compactă (pliere și linii goale)"/>
-                    <Item id="21220" name="Stil 1 pliere în cod:"/>
+                    <Item id="21106" name="Pliere &amp;compactă (pliază și liniile goale)"/>
+                    <Item id="21220" name="Pliază în stilul de cod 1:"/>
                     <Item id="21224" name="Deschidere:"/>
                     <Item id="21225" name="Mijloc:"/>
                     <Item id="21226" name="Închidere:"/>
-                    <Item id="21227" name="Stilizare"/>
-                    <Item id="21320" name="Stil 2 pliere în cod (separatori necesari):"/>
+                    <Item id="21227" name="Stilizator"/>
+                    <Item id="21320" name="Pliază în stilul de cod  2 (sunt necesari separatori):"/>
                     <Item id="21324" name="Deschidere:"/>
                     <Item id="21325" name="Mijloc:"/>
                     <Item id="21326" name="Închidere:"/>
-                    <Item id="21327" name="Stilizare"/>
-                    <Item id="21420" name="Stil pliere în comentarii bloc:"/>
+                    <Item id="21327" name="Stilizator"/>
+                    <Item id="21420" name="Stil de pliere în comentarii bloc:"/>
                     <Item id="21424" name="Deschidere:"/>
                     <Item id="21425" name="Mijloc:"/>
                     <Item id="21426" name="Închidere:"/>
-                    <Item id="21427" name="Stilizare"/>
+                    <Item id="21427" name="Stilizator"/>
                 </Folder>
-                <Keywords title="Lista cuvintelor cheie">
-                    <Item id="22101" name="Grup 1"/>
-                    <Item id="22201" name="Grup 2"/>
-                    <Item id="22301" name="Grup 3"/>
-                    <Item id="22401" name="Grup 4"/>
-                    <Item id="22451" name="Grup 5"/>
-                    <Item id="22501" name="Grup 6"/>
-                    <Item id="22551" name="Grup 7"/>
-                    <Item id="22601" name="Grup 8"/>
-                    <Item id="22121" name="Mod prefix"/>
-                    <Item id="22221" name="Mod prefix"/>
-                    <Item id="22321" name="Mod prefix"/>
-                    <Item id="22421" name="Mod prefix"/>
-                    <Item id="22471" name="Mod prefix"/>
-                    <Item id="22521" name="Mod prefix"/>
-                    <Item id="22571" name="Mod prefix"/>
-                    <Item id="22621" name="Mod prefix"/>
-					<Item id="22122" name="Stilizare"/>
-                    <Item id="22222" name="Stilizare"/>
-                    <Item id="22322" name="Stilizare"/>
-                    <Item id="22422" name="Stilizare"/>
-                    <Item id="22472" name="Stilizare"/>
-                    <Item id="22522" name="Stilizare"/>
-                    <Item id="22572" name="Stilizare"/>
-                    <Item id="22622" name="Stilizare"/>
+                <Keywords title="Lista cuvintelor-cheie">
+                    <Item id="22101" name="Grupul 1"/>
+                    <Item id="22201" name="Grupul 2"/>
+                    <Item id="22301" name="Grupul 3"/>
+                    <Item id="22401" name="Grupul 4"/>
+                    <Item id="22451" name="Grupul 5"/>
+                    <Item id="22501" name="Grupul 6"/>
+                    <Item id="22551" name="Grupul 7"/>
+                    <Item id="22601" name="Grupul 8"/>
+                    <Item id="22121" name="Modul prefix"/>
+                    <Item id="22221" name="Modul prefix"/>
+                    <Item id="22321" name="Modul prefix"/>
+                    <Item id="22421" name="Modul prefix"/>
+                    <Item id="22471" name="Modul prefix"/>
+                    <Item id="22521" name="Modul prefix"/>
+                    <Item id="22571" name="Modul prefix"/>
+                    <Item id="22621" name="Modul prefix"/>
+					<Item id="22122" name="Stilizator"/>
+                    <Item id="22222" name="Stilizator"/>
+                    <Item id="22322" name="Stilizator"/>
+                    <Item id="22422" name="Stilizator"/>
+                    <Item id="22472" name="Stilizator"/>
+                    <Item id="22522" name="Stilizator"/>
+                    <Item id="22572" name="Stilizator"/>
+                    <Item id="22622" name="Stilizator"/>
                 </Keywords>
-                <Comment title="Comentarii &amp;&amp; Numere">
+                <Comment title="Comentarii și numere">
                     <Item id="23003" name="Poziție comentariu pe linie"/>
                     <Item id="23004" name="Permite oriunde"/>
                     <Item id="23005" name="Forțare la început de linie"/>
-                    <Item id="23006" name="Permite precedare cu spații"/>
-                    <Item id="23001" name="Permite pliere comentarii"/>
-                    <Item id="23326" name="Stilizare"/>
+                    <Item id="23006" name="Permite precedarea cu spații"/>
+                    <Item id="23001" name="Permite plierea comentariilor"/>
+                    <Item id="23326" name="Stilizator"/>
                     <Item id="23323" name="Început"/>
                     <Item id="23324" name="Caracter continuare"/>
                     <Item id="23325" name="Sfârșit"/>
                     <Item id="23301" name="Stil comentariu pe linie"/>
-                    <Item id="23124" name="Stilizare"/>
+                    <Item id="23124" name="Stilizator"/>
                     <Item id="23122" name="Început"/>
                     <Item id="23123" name="Sfârșit"/>
-                    <Item id="23101" name="Stil comentariu bloc"/>
-                    <Item id="23201" name="Stil numere"/>
-                    <Item id="23220" name="Stilizare"/>
-                    <Item id="23230" name="Prefix 1"/>
-                    <Item id="23232" name="Prefix 2"/>
-                    <Item id="23234" name="Extras 1"/>
-                    <Item id="23236" name="Extras 2"/>
-                    <Item id="23238" name="Sufix 1"/>
-                    <Item id="23240" name="Sufix 2"/>
+                    <Item id="23101" name="Stil de comentariu bloc"/>
+                    <Item id="23201" name="Stil de numere"/>
+                    <Item id="23220" name="Stilizator"/>
+                    <Item id="23230" name="Prefixul 1"/>
+                    <Item id="23232" name="Prefixul 2"/>
+                    <Item id="23234" name="Extrasul 1"/>
+                    <Item id="23236" name="Extrasul 2"/>
+                    <Item id="23238" name="Sufixul 1"/>
+                    <Item id="23240" name="Sufixul 2"/>
                     <Item id="23242" name="Interval:"/>
                     <Item id="23244" name="Separator zecimal"/>
                     <Item id="23245" name="Punct"/>
                     <Item id="23246" name="Virgulă"/>
                     <Item id="23247" name="Ambele"/>
                 </Comment>
-                <Operator title="Operatori &amp;&amp; Separatori">
-                    <Item id="24101" name="Stil operatori"/>
-					<Item id="24113" name="Stilizare"/>
+                <Operator title="Operatori și separatori">
+                    <Item id="24101" name="Stil pentru operatori"/>
+					<Item id="24113" name="Stilizator"/>
 					<Item id="24116" name="Operatori 1"/>
 					<Item id="24117" name="Operatori 2 (separatori necesari)"/>
-					<Item id="24201" name="Stil separator 1"/>
+					<Item id="24201" name="Stilul separator 1"/>
 					<Item id="24220" name="Deschidere:"/>
 					<Item id="24221" name="Escape:"/>
 					<Item id="24222" name="Închidere:"/>
-					<Item id="24223" name="Stilizare"/>
-					<Item id="24301" name="Stil separator 2"/>
+					<Item id="24223" name="Stilizator"/>
+					<Item id="24301" name="Stilul separator 2"/>
 					<Item id="24320" name="Deschidere:"/>
 					<Item id="24321" name="Escape:"/>
 					<Item id="24322" name="Închidere:"/>
-					<Item id="24323" name="Stilizare"/>
-					<Item id="24401" name="Stil separator 3"/>
+					<Item id="24323" name="Stilizator"/>
+					<Item id="24401" name="Stilul separator 3"/>
 					<Item id="24420" name="Deschidere:"/>
 					<Item id="24421" name="Escape:"/>
 					<Item id="24422" name="Închidere:"/>
-					<Item id="24423" name="Stilizare"/>
-					<Item id="24451" name="Stil separator 4"/>
+					<Item id="24423" name="Stilizator"/>
+					<Item id="24451" name="Stilul separator 4"/>
 					<Item id="24470" name="Deschidere:"/>
 					<Item id="24471" name="Escape:"/>
 					<Item id="24472" name="Închidere:"/>
-					<Item id="24473" name="Stilizare"/>
-					<Item id="24501" name="Stil separator 5"/>
+					<Item id="24473" name="Stilizator"/>
+					<Item id="24501" name="Stilul separator 5"/>
 					<Item id="24520" name="Deschidere:"/>
 					<Item id="24521" name="Escape:"/>
 					<Item id="24522" name="Închidere:"/>
-					<Item id="24523" name="Stilizare"/>
-					<Item id="24551" name="Stil separator 6"/>
+					<Item id="24523" name="Stilizator"/>
+					<Item id="24551" name="Stilul separator 6"/>
 					<Item id="24570" name="Deschidere:"/>
 					<Item id="24571" name="Escape:"/>
 					<Item id="24572" name="Închidere:"/>
-					<Item id="24573" name="Stilizare"/>
-					<Item id="24601" name="Stil separator 7"/>
+					<Item id="24573" name="Stilizator"/>
+					<Item id="24601" name="Stilul separator 7"/>
 					<Item id="24620" name="Deschidere:"/>
 					<Item id="24621" name="Escape:"/>
 					<Item id="24622" name="Închidere:"/>
-					<Item id="24623" name="Stilizare"/>
-					<Item id="24651" name="Stil separator 8"/>
+					<Item id="24623" name="Stilizator"/>
+					<Item id="24651" name="Stilul separator 8"/>
 					<Item id="24670" name="Deschidere:"/>
 					<Item id="24671" name="Escape:"/>
 					<Item id="24672" name="Închidere:"/>
-					<Item id="24673" name="Stilizare"/>
+					<Item id="24673" name="Stilizator"/>
                 </Operator>
             </UserDefine>
             <Preference title="Preferințe">
                 <Item id="6001" name="Închidere"/>
-                <Global title="Generale">
+                <Global title="General">
                     <Item id="6101" name="Bara de unelte"/>
-                    <Item id="6102" name="Ascundere"/>
+                    <Item id="6102" name="Ascunde-o (Ascundere)"/>
                     <Item id="6103" name="Pictograme mici"/>
                     <Item id="6104" name="Pictograme mari"/>
                     <Item id="6129" name="UI fluent umplut: mic"/>
@@ -952,19 +969,19 @@
                     <Item id="6106" name="Bara de file"/>
                     <Item id="6107" name="Micșorată"/>
                     <Item id="6108" name="Blocată (filele nu se pot muta)"/>
-                    <Item id="6109" name="Se întunecă filele inactive"/>
+                    <Item id="6109" name="Schimbă culoarea filei inactive"/>
                     <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
-                    <Item id="6112" name="Afișează butonul de închidere pe fiecare filă"/>
+                    <Item id="6112" name="Afișează butonul de închidere"/>
                     <Item id="6113" name="Închide documentele cu dublu clic"/>
 					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
-                    <Item id="6118" name="Ascunde"/>
+                    <Item id="6118" name="Ascunde-o (Ascundere)"/>
                     <Item id="6119" name="Linii multiple"/>
                     <Item id="6120" name="Verticală"/>
                     <Item id="6121" name="Ieși la închiderea ultimei file"/>
                     <Item id="6128" name="Iconițe alternative"/>
 					
                     <Item id="6133" name="Bara de stare"/>
-					<Item id="6134" name="Ascunde"/>
+					<Item id="6134" name="Ascunde-o (Ascundere)"/>
                  
                     <Item id="6131" name="Meniu"/>
                     <Item id="6122" name="Ascunde bara de meniu (comutare cu Alt sau F10)"/>
@@ -972,7 +989,7 @@
 					
                     <Item id="6123" name="Limba"/>
 					<Item id="6125" name="Panoul cu lista de documente"/>
-                    <Item id="6126" name="Afișare"/>
+                    <Item id="6126" name="Afișează"/>
                     <Item id="6127" name="Dezactivează coloana de module"/>
                 </Global>
 				
@@ -983,51 +1000,51 @@
                     <Item id="6221" name="100"/>
                     <Item id="6222" name="0"/>
                     <Item id="6224" name="Setări pentru editare multiplă"/>	
-                    <Item id="6246" name="Se face comutabilă a comenzilor de pliere/desfășurare la nivelul actual"/>
+                    <Item id="6246" name="Se fac comutabile comenzilor de pliere/desfășurare la nivelul actual"/>
                     <Item id="6225" name="Activare (Ctrl+clic mouse pe selecție)"/>
-                    <Item id="6227" name="Limitare a liniei"/>
+                    <Item id="6227" name="Limitează linia"/>
                     <Item id="6228" name="Implicit"/>
-                    <Item id="6229" name="Aliniere"/>
-                    <Item id="6230" name="Indentare"/>
+                    <Item id="6229" name="Aliniat"/>
+                    <Item id="6230" name="Indentat"/>
                     <Item id="6206" name="Afișează numerele de linii"/>
                     <Item id="6207" name="Afișează semnele de carte"/>
                     <Item id="6208" name="Afișează marginea verticală"/>
                     <Item id="6209" name="Număr de coloane: "/>
-                    <Item id="6234" name="Dezactivează funcția derulare avansată (dacă aveți probleme cu touchpad-ul)"/>		
-                    <Item id="6215" name="Activează fontul finisat"/>
-                    <Item id="6211" name="Setări margine verticală"/>
-                    <Item id="6212" name="Mod linie"/>
-                    <Item id="6213" name="Mod în fundal"/>
+                    <Item id="6234" name="Dezactivează funcția de derulare avansată (dacă ai probleme cu touchpad-ul)"/>		
+                    <Item id="6215" name="Activează fontul finisat"/>		
+                    <Item id="6211" name="Setări pentru marginea verticală"/>
+                    <Item id="6212" name="Modul linie"/>
+                    <Item id="6213" name="Modul în fundal"/>
                     <Item id="6214" name="Activează evidențierea linie curentă"/>
                     <Item id="6231" name="Lățimea bordurii"/>
                     <Item id="6235" name="Fără bordură" />					
                     <Item id="6236" name="Activează derularea dincolo de ultima linie"/>
                     <Item id="6239" name="Activează selecția atunci când se dă clic dreapta în afara selecției"/>		
                     <Item id="6245" name="Activează spațiul virtual"/>
-                    <Item id="6214" name="Activează Copiere/Tăiere linie fără selecție"/>
-                    <Item id="6651" name="Indicatorul liniei curente"/>
+                    <Item id="6214" name="Activează funcția Copiază/Taie linia fără selecție"/>
+                    <Item id="6651" name="Indicator de linie curentă"/>
                     <Item id="6652" name="Niciunul"/>
                     <Item id="6653" name="Fundal evidențiat"/>
                     <Item id="6654" name="Cadru"/>
                     <Item id="6655" name="Lățime"/>			
                 </Scintillas>
 				
-		<Scintillas2 title="Editare 2">
-		     <Item id="6247" name="EOL- Sfârșit de linie (CRLF)"/> <!-- Don't translate "(CRLF)" -->
-		     <Item id="6248" name="Implicit"/>
-		     <Item id="6249" name="Text simplu"/>
-                     <Item id="6250" name="Culoare personalizată"/>
-		     <Item id="6252" name="Caractere neafișabile"/>
-		     <Item id="6254" name="Abreviere"/>
-		     <Item id="6255" name="Punct de cod"/>
-		     <Item id="6256" name="Culoare personalizată"/>
-		     <Item id="6258" name="Aplicare la C0, C1 &amp;&amp; Unicode EOL"/>
-		     <Item id="6259" name="Previne introducerea caracterului de control (codul C0) în document"/>
-		     <Item id="6260" name="Aspect"/>
-		     <Item id="6521" name="Editare multiplă"/>
-		     <Item id="6522" name="Activează editarea multiplă (Ctrl+Mouse clic/selecție)"/>
-		     <Item id="6523" name="Activează selecția coloanelor pentru editare multiplă"/>
-		</Scintillas2>
+				<Scintillas2 title="Editare 2">
+					 <Item id="6247" name="EOL- Sfârșit de linie (CRLF)"/> <!-- Don't translate "(CRLF)" -->
+					 <Item id="6248" name="Implicit"/>
+					 <Item id="6249" name="Text simplu"/>
+					 <Item id="6250" name="Culoare personalizată"/>
+					 <Item id="6252" name="Caractere neafișabile"/>
+					 <Item id="6254" name="Abreviere"/>
+					 <Item id="6255" name="Punct de cod"/>
+					 <Item id="6256" name="Culoare personalizată"/>
+					 <Item id="6258" name="Aplică la C0, C1 și Unicode EOL"/>
+					 <Item id="6259" name="Previne introducerea caracterului de control (codul C0) în document"/>
+					 <Item id="6260" name="Aspect"/>
+					 <Item id="6521" name="Editare multiplă"/>
+					 <Item id="6522" name="Activează editarea multiplă (Ctrl+Mouse clic/selecție)"/>
+					 <Item id="6523" name="Activează selecția coloanelor pentru editare multiplă"/>
+				</Scintillas2>
 				
                 <DarkMode title="Modul întunecat">
                     <Item id="7131" name="Modul luminos"/>
@@ -1078,8 +1095,8 @@
                     <Item id="6209" name="Stânga"/>
                     <Item id="6210" name="Dreapta"/>
                     <Item id="6212" name="Fără distracție"/>
-		    <Item id="6295" name="Istoricul schimbărilor"/>
-		    <Item id="6296" name="Afișează în text"/>
+					<Item id="6295" name="Istoricul schimbărilor"/>
+					<Item id="6296" name="Afișează în text"/>
                 </MarginsBorderEdge>
 				
                 <NewDoc title="Document nou">
@@ -1087,7 +1104,7 @@
                     <Item id="6402" name="Windows (CR LF)"/>
                     <Item id="6403" name="Unix (LF)"/>
                     <Item id="6404" name="Macintoch (CR)"/>
-                    <Item id="6405" name="Codificare"/>
+                    <Item id="6405" name="Codifică"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
                     <Item id="6408" name="UTF-8 cu BOM"/>
@@ -1095,7 +1112,7 @@
                     <Item id="6410" name="UTF-16 Little Endian"/>
                     <Item id="6411" name="Limbaj implicit:"/>
                     <Item id="6419" name="Document nou"/>
-                    <Item id="6420" name="Aplicare la fișierele ANSI deschise"/>
+                    <Item id="6420" name="Se aplică la fișierele ANSI deschise"/>
 					<Item id="6432" name="Deschide întotdeauna un document nou în plus la pornire"/>
                 </NewDoc>
 
@@ -1103,7 +1120,7 @@
                     <Item id="6413" name="Folder implicit (Deschidere/Salvare)"/>
                     <Item id="6414" name="Folderul documentului curent"/>
                     <Item id="6415" name="Memorează ultimul folder folosit"/>
-                    <Item id="6431" name="La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru"/>
+                    <Item id="6431" name="La plasarea unui folder se deschid fișierele din el fără a-l stabili ca spațiu de lucru"/>
                 </DefaultDir>
 
                 <FileAssoc title="Asociere a fișierelor">
@@ -1111,27 +1128,28 @@
                     <Item id="4009" name="Extensii asociate:"/>
                     <Item id="4010" name="Extensii înregistrate:"/>
                 </FileAssoc>
+				
                 <Language title="Limbaje">
                     <Item id="6505" name="Articole disponibile"/>
                     <Item id="6506" name="Articole dezactivate"/>
                     <Item id="6507" name="Compactează Meniul de limbaje"/>
                     <Item id="6508" name="Meniul de limbaje"/>
-                    <Item id="6301" name="Setări de indentare"/>
+					<Item id="6301" name="Setări de indentare"/>
                     <Item id="6302" name="Caracter(e) spațiu"/>
                     <Item id="6303" name="Mărimea indentării:"/>
 					<Item id="6310" name="Indentează folosind:"/>
 					<Item id="6311" name="Caracterul Tab(ulator)"/>
-                    <Item id="6510" name="Aplicare valoare implicită" />
+                    <Item id="6510" name="Aplică valoarea implicită" />
                     <Item id="6335" name="Consideră '\' ca și caracter de ieșire (escape) pentru SQL"/>
                 </Language>
 
 				<Indentation title="Indentare">
-					<Item id="7161" name="Autoidentare"/>
+					<Item id="7161" name="Identare automată"/>
 					<Item id="7162" name="Niciuna"/>
 					<Item id="7163" name="De bază"/>
 					<Item id="7164" name="Avansată"/>
 					<Item id="6301" name="Setări de identare"/>
-					<Item id="6302" name="Caracterul (Caracterele) Spațiu"/>
+					<Item id="6302" name="Caracterul (Caracterele) Spațiu (Space)"/>
 					<Item id="6303" name="Mărimea identării:"/>
 					<Item id="6310" name="Indentează folosind:"/>
 					<Item id="6311" name="Caracterul Tab (Tabulator)"/>
@@ -1140,7 +1158,7 @@
 				</Indentation>
 
                 <Highlighting title="Evidențiere">
-                    <Item id="6351" name="Stilarea tuturor aparițiilor unice"/>
+                    <Item id="6351" name="Stilează toate aparițiile unice"/>
                     <Item id="6352" name="Potrivește pentru litere MARI/mici"/>
                     <Item id="6353" name="Potrivește pentru cuvinte întregi"/>
                     <Item id="6333" name="Evidențiere inteligentă"/>
@@ -1153,7 +1171,7 @@
                     <Item id="6329" name="Evidențiază etichetele pereche"/>
                     <Item id="6327" name="Activare"/>
                     <Item id="6328" name="Evidențiază atributele etichetelor"/>
-                    <Item id="6330" name="Evidențiază zonele comentariilor/php/asp"/>
+                    <Item id="6330" name="Evidențiază zona comentariilor/php/asp"/>
                 </Highlighting>
 
                 <Print title="Tipărire">
@@ -1162,7 +1180,7 @@
                     <Item id="6603" name="WYSIWYG"/>
                     <Item id="6604" name="Inversare"/>
                     <Item id="6605" name="Alb și negru"/>
-                    <Item id="6606" name="Fără culoare fundal"/>
+                    <Item id="6606" name="Fără culoare de fundal"/>
                     <Item id="6607" name="Setări margine (unitate:mm)"/>
                     <Item id="6612" name="Stânga"/>
                     <Item id="6613" name="Sus"/>
@@ -1200,17 +1218,18 @@
                     <Item id="6903" name="Dialogul de căutare rămâne deschis după căutarea care iese în fereastra cu rezultate"/>
                     <Item id="6904" name="Confirmă înlocuirea peste tot în toate documentele deschise"/>
                     <Item id="6905" name="Înlocuire: Nu trece la următoarea apariție"/>
-                    <Item id="6906" name="Fereastra rezultatelor căutării: afișarea unei singure intrări în fereastra găsită"/>
+                    <Item id="6906" name="Fereastra rezultatelor căutării: afișează o singură intrare în fereastra găsită"/>
                     <Item id="6907" name="Când căsuța de dialog căutare este invocată"/>
                     <Item id="6908" name="Se umple câmpul de căutare în textul selectat"/>
                     <Item id="6909" name="Selectează cuvântul sub semnul de omisiune când nimic nu e selectat"/>
-					<Item id="6910" name="Mărimea minimă pentru verificare automată &quot;În selecție&quot;:"/>
+					<Item id="6910" name="Mărimea minimă pentru verificare automată „În selecție”:"/>
+					<Item id="6913" name="Completează în câmpul directorului din „Căutare în fișiere” pe baza documentului activ"/>
                 </Searching>
 
                 <RecentFilesHistory title="Istoricul fișierelor recente">
                     <Item id="6304" name="Istoricul fișierelor recente"/>
-                    <Item id="6306" name="Număr maxim intrări:"/>
-                    <Item id="6305" name="Nu verifica la pornire"/>
+                    <Item id="6306" name="Numărul maxim intrări:"/>
+                    <Item id="6305" name="Nu-l verifica la pornire"/>
                     <Item id="6429" name="Afișare"/>
                     <Item id="6424" name="În submeniu"/>
                     <Item id="6425" name="Numai nume fișiere"/>
@@ -1218,54 +1237,54 @@
                     <Item id="6427" name="Lungime maximă personalizată:"/>
                 </RecentFilesHistory>
 
-                <Backup title="Conservări">
-                    <Item id="6817" name="Capturează sesiunile și conservarea periodică"/>
-                    <Item id="6818" name="Activează capturarea sesiunii și conservarea periodică"/>
-                    <Item id="6819" name="Conservare la fiecare"/>
+                <Backup title="Copii de rezervă (Backup-uri)">
+                    <Item id="6817" name="Instantanee ale sesiunii și copii de rezervă (backup-uri) periodice"/>
+                    <Item id="6818" name="Activează instantaneele sesiunii și copiile de rezervă (backup-urile) periodice"/>
+                    <Item id="6819" name="Se face o copie de rezervă (un backup) la fiecare"/>
                     <Item id="6821" name="secunde"/>
-                    <Item id="6822" name="Cale conservări:"/>
-                    <Item id="6309" name="Memorează sesiunea curentă pentru următoarea pornire"/>
+                    <Item id="6822" name="Cale backup-uri:"/>
+                    <Item id="6309" name="Memorează sesiunea curentă pentru următoarea lansare"/>
 					<Item id="6825" name="Memorează fișierele inaccesibile din sesiunea anterioară"/>
-                    <Item id="6801" name="Conservare la salvare"/>
-                    <Item id="6315" name="Fără conservare"/>
-                    <Item id="6316" name="Conservare simplă"/>
-                    <Item id="6317" name="Conservare cu detalii"/>
-                    <Item id="6804" name="Folder personal pentru conservări"/>
+                    <Item id="6801" name="Copie de rezervă (backup) la salvare"/>
+                    <Item id="6315" name="Fără copii de rezervă"/>
+                    <Item id="6316" name="Copie de rezervă simplă"/>
+                    <Item id="6317" name="Copie de rezervă cu detalii"/>
+                    <Item id="6804" name="Folder personal pentru copiile de rezervă (backup-uri)"/>
                     <Item id="6803" name="Folder:"/>
                 </Backup>
 
-                <AutoCompletion title="Autocompletare">
-                    <Item id="6807" name="Autocompletare"/>
-                    <Item id="6808" name="Activează autocompletarea la tastare"/>
-                    <Item id="6809" name="Completează funcțiile"/>
-                    <Item id="6810" name="Completează cuvintele"/>
-                    <Item id="6814" name="Valoare validă: 1 - 9"/>
-                    <Item id="6816" name="Completează funcțiile și cuvintele"/>
+                <AutoCompletion title="Completare automată">
+                    <Item id="6807" name="Completare automată (Autocompletare)"/>
+                    <Item id="6808" name="Activează autocompletarea la fiecare tastare"/>
+                    <Item id="6809" name="Completare a funcțiilor"/>
+                    <Item id="6810" name="Completare a cuvintelor"/>
+					<Item id="6814" name="Valoare validă: 1 - 9"/>
+                    <Item id="6816" name="Completare a funcțiilor și a cuvintelor"/>
 					<Item id="6869" name="Inserează selecția"/>
 					<Item id="6870" name="TAB"/><!-- TAB key on the keyboard, it's not necessary to translate it normally -->
 					<Item id="6871" name="ENTER"/><!-- ENTER key on the keyboard, it's not necessary to translate it normally -->
-                    <Item id="6824" name="Ignoră cifrele"/>
+                    <Item id="6824" name="Ignoră numerele"/>
                     <Item id="6811" name="De la"/>
-                    <Item id="6813" name="al n-ulea caracter"/>
-                    <Item id="6872" name="Se scurtează lista de completare automată"/>
+                    <Item id="6813" name="la al n-ulea caracter"/>
+                    <Item id="6872" name="Fă lista de completare automată scurtă"/>
                     <Item id="6815" name="Sugestii pentru parametrii funcțiilor la tastare"/>
-                    <Item id="6851" name="Autoinserare"/>
-                    <Item id="6857" name="etichete html/xml"/>
-                    <Item id="6858" name="Deschis"/>
-                    <Item id="6859" name="Închis"/>
-                    <Item id="6860" name="Pereche de caractere 1:"/>
-                    <Item id="6863" name="Pereche de caractere 2:"/>
-                    <Item id="6866" name="Pereche de caractere 3:"/>
+                    <Item id="6851" name="Inserare automată"/>
+                    <Item id="6857" name=" tag de închidere html/xml"/>
+                    <Item id="6858" name="Deschide"/>
+                    <Item id="6859" name="Închide"/>
+                    <Item id="6860" name="Perechea potrivită 1:"/>
+                    <Item id="6863" name="Perechea potrivită 2:"/>
+                    <Item id="6866" name="Perechea potrivită 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Instanțe multiple">
-                    <Item id="6151" name="Setări instanțe multiple"/>
-                    <Item id="6152" name="Deschide sesiunea în instanță nouă Notepad++"/>
+                <MultiInstance title="Instanțe multiple și dată">
+                    <Item id="6151" name="Setări pentru instanțele multiple *"/>
+                    <Item id="6152" name="Deschide sesiunea în instanță nouă Notepad++ (și salvează automat sesiunea la ieșire)"/>
                     <Item id="6153" name="Întotdeauna în mod instanță multiplă"/>
                     <Item id="6154" name="Implicit (instanță unică)"/>
                     <Item id="6155" name="* Modificarea acestor setări necesită repornirea Notepad++"/>
-                    <Item id="6171" name="Personalizează inserările pentru dată și timp"/>
-                    <Item id="6175" name="Se inversează ordinea implicită a datei și orei (formatele scurte &amp;&amp; lungi)"/>
+                    <Item id="6171" name="Personalizează inserările pentru dată și oră"/>
+                    <Item id="6175" name="Inversează ordinea implicită a datei și a orei (pentru formatele scurte și lungi)"/>
                     <Item id="6172" name="Format personalizat:"/>
                     <Item id="6181" name="Stadiul panoului și [-nosession (fără sesiune)] *"/>
                     <Item id="6182" name="Se reține starea panoului (panoul este deschis) în alte cazuri (modul cu mai multe instanțe) sau când se folosește parametrul liniei de comandă [-nosession (fără sesiune)]"/>
@@ -1273,33 +1292,33 @@
                     <Item id="6184" name="Lista documentelor"/>
                     <Item id="6185" name="Panoul de caractere"/>
                     <Item id="6186" name="Folder ca spațiu de lucru"/>
-                    <Item id="6187" name="Panourile de proiect"/>
+                    <Item id="6187" name="Panourile proiectelor"/>
                     <Item id="6188" name="Harta documentului"/>
                     <Item id="6189" name="Lista funcțiilor"/>
-                    <Item id="6190" name="Panoul de module"/>
+                    <Item id="6190" name="Panoul de module (de plugin-uri)"/>
                 </MultiInstance>
 
-                <Delimiter title="Separatori">
-                    <Item id="6251" name="Setări pentru separatorii de selecție (Ctrl + dublu clic cu mouse-ul)"/>
+                <Delimiter title="Delimitator">
+                    <Item id="6251" name="Setări pentru delimitatoarele de selecție (Ctrl + dublu clic din mouse)"/>
                     <Item id="6252" name="Început"/>
                     <Item id="6255" name="Sfârșit"/>
-                    <Item id="6256" name="Se permite pe mai multe rânduri"/>
-                    <Item id="6161" name="Lista de caractere"/>
+                    <Item id="6256" name="Permite pe mai multe rânduri"/>
+                    <Item id="6161" name="Lista de caractere ale cuvintelor"/>
                     <Item id="6162" name="Folosește lista de caractere implicită așa cum e"/>
-                    <Item id="6163" name="Adaugă-ți caractere personale ca parte a cuvântului
+                    <Item id="6163" name="Adaugă-ți caracterele personale ca parte a cuvântului
 (nu o alege decât dacă știi ce faci)"/>
                 </Delimiter>
 				
                 <Performance title="Performanță">
                     <Item id="7141" name="Restricții pentru fișierele mari"/>
                     <Item id="7143" name="Permite restricții pentru fișierele mari (fără sintaxă evidențiată)"/>
-                    <Item id="7144" name="Definește mărimea fișierelor mari:"/>
+                    <Item id="7144" name="Definește dimensiunea fișierelor mari:"/>
                     <Item id="7146" name="MB   (1 - 2046)"/>
                     <Item id="7147" name="Permite potrivirea acoladelor"/>
-                    <Item id="7148" name="Permite autocompletarea"/>
+                    <Item id="7148" name="Permite completarea automată"/>
                     <Item id="7149" name="Permite evidențierea inteligentă"/>
-                    <Item id="7150" name="Dezactivează Limitarea lungimii liniilor la nivel global"/>
-                    <Item id="7151" name="Permite legăturile apăsabile de URL-uri"/>
+                    <Item id="7150" name="Dezactivează limitarea lungimii liniilor la nivel global"/>
+                    <Item id="7151" name="Permite link-ul (legătura) pe care se poate da clic pe URL"/>
                     <Item id="7152" name="Înlătură avertismentul de deschidere a fișierelor de cel puțin 2GB (≥2GB)"/>
                 </Performance>
 
@@ -1308,14 +1327,14 @@
                     <Item id="6263" name="Fără Cloud"/>
                     <Item id="6267" name="Stabilește calea de localizare pentru cloud:"/>
                     <Item id="6318" name="Setări de legătură pe care se poate da clic"/>
-                    <Item id="6319" name="Activare"/>
+                    <Item id="6319" name="Activează-le"/>
                     <Item id="6320" name="Fără subliniere"/>
-                    <Item id="6350" name="Activează modulul cutiei întregi"/>
+                    <Item id="6350" name="Activează modulul casetei întregi"/>
                     <Item id="6264" name="Scheme personalizate URI:"/>
                 </Cloud>
 
                 <SearchEngine title="Motor de căutare">
-                    <Item id="6271" name="Motor de căutare (pentru comanda &quot;Căutare pe Internet&quot;)"/>
+                    <Item id="6271" name="Motor de căutare (pentru comanda „Căutare pe Internet” )"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -1345,23 +1364,23 @@
                     <Item id="6322" name="Extensie a fișierului de sesiune:"/>
                     <Item id="6323" name="Activează actualizarea automată a Notepad++"/>
                     <Item id="6324" name="Comutator de documente (Ctrl+TAB)"/>
-                    <Item id="6331" name="Afișează numele fișierului în bara de titlu"/>
+                    <Item id="6331" name="Afișează numai numele fișierului în bara de titlu"/>
                     <Item id="6334" name="Detectează automat codificarea caracterelor"/>
                     <Item id="6349" name="Folosește DirectWrite (Poate îmbunătăți afișarea caracterelor speciale, necesită repornirea Notepad++)"/>
                     <Item id="6337" name="Extensie fișiere spațiu de lucru:" />
                     <Item id="6114" name="Activare"/>
-                    <Item id="6117" name="În ordinea utilizării"/>             
-                    <Item id="6344" name="Previzualizează documentul"/>
+                    <Item id="6117" name="Activează comportamentul MRU"/>             
+                    <Item id="6344" name="Vizualizatorul de documente"/>
                     <Item id="6345" name="Previzualizează pe filă"/>
                     <Item id="6346" name="Previzualizează pe harta documentului"/>
                     <Item id="6360" name="Pune pe mut toate sunetele"/>
-                    <Item id="6361" name="Activează dialogul de confirmare Salvare tot"/>
+                    <Item id="6361" name="Activează dialogul de confirmare Salvează-le pe toate"/>
                 </MISC>
             </Preference>
-            <MultiMacro title="Executare macro în mod repetat">
+            <MultiMacro title="Execută macrocomenzi în mod repetat">
                 <Item id="1" name="E&amp;xecutare"/>
-                <Item id="2" name="&amp;Anulare"/>
-                <Item id="8006" name="Macro:"/>
+                <Item id="2" name="&amp;Revocare"/>
+                <Item id="8006" name="Macro de rulat:"/>
                 <Item id="8001" name="Executare"/>
                 <Item id="8005" name="ori"/>
                 <Item id="8002" name="Execută până la &amp;sfârșitul fișierului"/>
@@ -1370,97 +1389,97 @@
                 <Item id="1" name="&amp;Activare"/>
                 <Item id="2" name="&amp;OK"/>
                 <Item id="7002" name="&amp;Salvare"/>
-                <Item id="7003" name="În&amp;chide selecția"/>
-                <Item id="7004" name="Sort. &amp;ferestrele"/>
+                <Item id="7003" name="În&amp;chide ferestre"/>
+                <Item id="7004" name="Sortează &amp;filele"/>
             </Window>
-            <ColumnEditor title="Editor coloane">
+            <ColumnEditor title="Editor de coloane">
                 <Item id="2023" name="Text de inserat"/>
                 <Item id="2033" name="Număr de inserat"/>
                 <Item id="2030" name="Număr inițial:"/>
-                <Item id="2031" name="Incrementare cu:"/>
+                <Item id="2031" name="Incrementează cu:"/>
+				<Item id="2038" name="&amp;Conducere:"/>
 				<ComboBox id="2039">
 					<Element name="Nimic"/>
 					<Element name="Zerouri"/>
 					<Element name="Spații"/>
 				</ComboBox>
                 <Item id="2035" name="Precede zerouri"/>
-                <Item id="2036" name="Repetare:"/>
-                <Item id="2032" name="Formatare"/>
+                <Item id="2036" name="Repetă:"/>
+                <Item id="2032" name="Format"/>
                 <Item id="2024" name="Zecimal"/>
                 <Item id="2025" name="Octal"/>
                 <Item id="2026" name="Hexazecimal"/>
                 <Item id="2027" name="Binar"/>
                 <Item id="1" name="OK"/>
-                <Item id="2" name="Anulare"/>
-				</ColumnEditor>
-	            <FindInFinder title="Găsește în rezultatele găsite">
-					<Item id="1"    name="Găsește-le toate"/>
-					<Item id="2"    name="Închidere"/>
-					<Item id="1711" name="&amp;Căutare:"/>
-					<Item id="1713" name="Căutare doar în liniile &amp;găsite"/>
-					<Item id="1714" name="Potrivește doar cu&amp;vintele întregi"/>
-					<Item id="1715" name="Potrivește &amp;literele"/>
-					<Item id="1716" name="Mod căutare"/>
-					<Item id="1717" name="&amp;Normal"/>
-					<Item id="1719" name="&amp;Expresie regulată"/>
-					<Item id="1718" name="E&amp;xtins (\n, \r, \t, \0, \x...)"/>
-					<Item id="1720" name="&amp;. este \r sau \n"/>
+                <Item id="2" name="Revocare"/>
+			</ColumnEditor>
+	        <FindInFinder title="Găsește în rezultatele căutării">
+				<Item id="1"    name="Găsește-le pe toate"/>
+				<Item id="2"    name="Închidere"/>
+				<Item id="1711" name="&amp;Căutare:"/>
+				<Item id="1713" name="Caută doar în liniile &amp;găsite"/>
+				<Item id="1714" name="Potrivește doar cu&amp;vintele întregi"/>
+				<Item id="1715" name="Potrivește &amp;majusculele"/>
+				<Item id="1716" name="Modul de căutare"/>
+				<Item id="1717" name="&amp;Normal"/>
+				<Item id="1719" name="&amp;Expresie regulată"/>
+				<Item id="1718" name="E&amp;xtins (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. este \r sau \n"/>
             </FindInFinder>
 			<DoSaveOrNot title="Salvează">
-				<Item id="1761" name="Salvează fișierul &quot;$STR_REPLACE$&quot; ?"/>
+				<Item id="1761" name="Salvezi fișierul „$STR_REPLACE$” ?"/>
 				<Item id="6" name="&amp;Da"/>
 				<Item id="7" name="&amp;Nu"/>
-				<Item id="2" name="&amp;Anulează"/>
+				<Item id="2" name="&amp;Revocare"/>
 				<Item id="4" name="Da la &amp;toate"/>
 				<Item id="5" name="N&amp;u la toate"/>
 			</DoSaveOrNot>
-			<DoSaveAll title="Confirmarea de Salvează tot">
-				<Item id="1766" name="Ești sigur că vrei să salvezi toate documentele modificate?
+			<DoSaveAll title="Confirmarea pentru Salvează-le pe toate">
+				<Item id="1766" name="Ești sigur(ă) că vrei să salvezi toate documentele modificate?
 
-Alege &quot;Întotdeauna da&quot; dacă nu vrei să vezi acest dialog din nou.
-Poți reactiva acest dialog mai târziu, în Preferințe."/>
+Alege „Întotdeauna da” dacă nu vrei să mai vezi această casetă de dialog.
+Poți reactiva această casetă de dialog mai târziu, în Preferințe."/>
 				<Item id="6" name="&amp;Da"/>
 				<Item id="7" name="&amp;Nu"/>
 				<Item id="4" name="&amp;Întotdeauna da"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
         
 			<DebugInfo title="Informații de depanare">
-				<Item id="1752" name="&amp;Copiază informațiile de depanare în clipboard"/>
+				<Item id="1752" name="&amp;Copiază info. de depanare în clipboard"/>
 				<Item id="1" name="OK"/>
 			</DebugInfo>
 		</Dialog>
         <MessageBox> 
 		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <ContextMenuXmlEditWarning title="Editare meniu contextual" message="Editarea fișierului contextMenu.xml vă permite să modificați meniul contextual al Notepad++.
-Trebuie să reporniți Notepad++ pentru a se aplica modificările efectuate în contextMenu.xml."/>
-            <NppHelpAbsentWarning title="Fișierul nu există" message="
-nu există. Vă rugăm să-l descărcați de pe site-ul Notepad++."/>
-            <SaveCurrentModifWarning title="Salvare modificare curentă" message="Ar trebui să salvați modificările curente.
+            <ContextMenuXmlEditWarning title="Editează meniul contextual" message="Editarea fișierului contextMenu.xml îți permite să modifici meniul contextual al Notepad++.
+Trebuie să repornești Notepad++ pentru a se aplica modificările efectuate în contextMenu.xml."/>
+            <NppHelpAbsentWarning title="Fișierul nu există" message="Fișierul nu există. Te rugăm să-l descărci de pe site-ul Notepad++."/>
+            <SaveCurrentModifWarning title="Salvează modificarea curentă" message="Ar trebui să salvezi modificările curente.
 Toate modificările salvate nu vor putea fi refăcute.
 
-Continuați?"/>
-            <LoseUndoAbilityWarning title="Atenționare pierdere posibilitate revenire" message="Ar trebui să salvați modificările curente.
+Continui?"/>
+            <LoseUndoAbilityWarning title="Atenționare de pierdere a posibilității de revenire" message="Ar trebui să salvezi modificările curente.
 Toate modificările salvate nu vor putea fi refăcute.
 
-Continuați?"/>
-            <CannotMoveDoc title="Mutare în instanță nouă Notepad++" message="Documentul este modificat, salvați-l și încercați din nou."/>
-            <DocReloadWarning title="Reîncărcare" message="Sigur doriți să reîncărcați fișierul curent și să pierdeți modificările efectuate în Notepad++?"/>
-            <FileLockedWarning title="Salvare eșuată" message="Verificați dacă acest fișier nu este accesat și de un alt program."/>
+Continui?"/>
+            <CannotMoveDoc title="Mută în instanță nouă a Notepad++" message="Documentul este modificat, salvează-l și încearcă din nou."/>
+            <DocReloadWarning title="Reîncărcare" message="Ești sigur(ă) că dorești să reîncarci fișierul curent și să pierzi modificările efectuate în Notepad++?"/>
+            <FileLockedWarning title="Salvare eșuată" message="Verifică dacă acest fișier nu este accesat și de un alt program."/>
             <FileAlreadyOpenedInNpp title="Salvare eșuată" message="Fișierul este deja deschis în Notepad++."/>
 			<RenameTabTemporaryNameAlreadyInUse title="Redenumire eșuată" message="Numele specificat este deja folosit într-o altă filă."/><!-- HowToReproduce: Rename the tab of an untitled document and provide a name that is the same as an already-existing tab of an untitled document. -->
-			<RenameTabTemporaryNameIsEmpty title="Redenumire eșuată" message="Numele specificat nu poate fi gol sau nu poate conține numai spațiu(i) sau tabulație(i)/TAB(-uri)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
+			<RenameTabTemporaryNameIsEmpty title="Redenumire eșuată" message="Numele specificat nu poate fi gol sau nu poate conține numai spațiu (spații) sau tabulator(i)/TAB(-uri)."/><!-- HowToReproduce: Rename the tab of an untitled document and provide an empty string or only some white speces. -->
             <DeleteFileFailed title="Ștergerea fișierului" message="Ștergerea fișierului eșuată."/>
 
-            <NbFileToOpenImportantWarning title="Numărul fișierelor de deschis este prea mare" message="$INT_REPLACE$ fișiere sunt pe cale să fie deschise.
-Sigur doriți să le deschideți?"/>
+			<NbFileToOpenImportantWarning title="Numărul de fișiere ce urmează să fie deschise este prea mare" message="Fișierele $INT_REPLACE$ urmează să fie deschise.
+Ești sigur(ă) că vrei să le deschizi?"/>
             <SettingsOnCloudError title="Setări pentru Cloud" message="Calea setărilor pentru Cloud se află pe o unitate doar cu drepturi de citire
 sau într-un folder ce are nevoie de drepturi de acces pentru scriere.
-Setările pentru cloud vor fi anulate. Reintroduceți o cale validă în panoul [Preferințe]."/>
-             <FilePathNotFoundWarning title="Deschidere fișier" message="Fișierul pe care doriți să-l deschideți nu există."/>
+Setările pentru cloud vor fi anulate. Reintrodu o cale validă în panoul [Preferințe]."/>
+             <FilePathNotFoundWarning title="Deschide fișierul" message="Fișierul pe care dorești să-l deschizi nu există."/>
              <SessionFileInvalidError title="Nu s-a putut încărca sesiunea" message="Sesiunea fișierului este fie coruptă, fie nevalidă."/>
-            <DroppingFolderAsProjectModeWarning title="Acțiune nevalidă" message="Puteți plasa doar fișiere sau doar foldere, dar nu ambele deodată, deoarece sunteți în modul &quot;Folder ca proiect&quot;.
-Pentru a putea efectua această operație, trebuie să activați opțiunea &quot;La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru&quot; din secțiunea &quot;Folder implicit&quot; din panoul [Preferințe]."/>
-            <SortingError title="Eroare sortare" message="Nu se poate executa sortarea numerică datorită liniei $INT_REPLACE$."/>
+            <DroppingFolderAsProjectModeWarning title="Acțiune nevalidă" message="Poți plasa doar fișiere sau doar foldere, dar nu ambele deodată, deoarece ești în modul „Folder ca proiect”.
+Pentru a putea efectua această operație, trebuie să activezi opțiunea „La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru” din secțiunea „Folder implicit” din panoul [Preferințe]."/>
+            <SortingError title="Eroare de sortare" message="Nu se poate executa sortarea numerică datorită liniei $INT_REPLACE$."/>
             <ColumnModeTip title="Pont mod coloană" message="
 Sunt trei moduri de a comuta în modul de selectare a coloanei:
 
@@ -1470,106 +1489,110 @@ Sunt trei moduri de a comuta în modul de selectare a coloanei:
 
 3. (Tastatură sau mouse)
       Pune marcajul la începutul dorit al poziției blocului coloanei, apoi
-       execută &quot;comanda Selectează Început/Sfârșit în Modul coloană&quot;
+       execută „comanda Selectează Început/Sfârșit în Modul coloană”
       Pune marcajul la sfârșitul dorit al poziției blocului coloanei, apoi
-       execută &quot;din nou, comanda Selectează Început/Sfârșit în Modul coloană&quot;"/>
+       execută din nou, comanda „Selectează Început/Sfârșit în Modul coloană”"/>
             <BufferInvalidWarning title="Salvare eșuată" message="Nu se poate salva: Bufferul nu este valid."/>
-            <DoSaveOrNot title="Salvare" message="Salvați fișierul &quot;$STR_REPLACE$&quot; ?"/>
-            <DoCloseOrNot title="Păstrare fișiere inexistente" message="Fișierul &quot;$STR_REPLACE$&quot; nu mai există.
-Îl păstrați în editor?"/>
-            <DoDeleteOrNot title="Ștergere fișier" message="Fișierul &quot;$STR_REPLACE$&quot;
+            <DoSaveOrNot title="Salvare" message="Salvezi fișierul „$STR_REPLACE$” ?"/>
+            <DoCloseOrNot title="Păstrează fișierele inexistente" message="Fișierul „$STR_REPLACE$” nu mai există.
+Îl păstrezi în editor?"/>
+            <DoDeleteOrNot title="Ștergere fișier" message="Fișierul „$STR_REPLACE$”
 va fi mutat în coșul de reciclare și acest document va fi închis.
-Continuați?"/>
+Continui?"/>
             <NoBackupDoSaveFile title="Salvare" message="Fișierul de rezervă nu poate fi găsit (a fost șters cu alt program).
-Salvați-l sau veți pierde datele.
-Doriți să salvați fișierul &quot;$STR_REPLACE$&quot;?"/>
-            <DoReloadOrNot title="Reîncărcare" message="&quot;$STR_REPLACE$&quot;
+Salvează-l sau vei pierde datele.
+Dorești să salvezi fișierul „$STR_REPLACE$”?"/>
+            <DoReloadOrNot title="Reîncărcare" message="„$STR_REPLACE$”
 
 Acest fișier a fost modificat de un alt program.
-Doriți să-l reîncărcați?"/>
-            <DoReloadOrNotAndLooseChange title="Reîncărcare" message="&quot;$STR_REPLACE$&quot;
+Dorești să îl reîncarci?"/>
+            <DoReloadOrNotAndLooseChange title="Reîncărcare" message="„$STR_REPLACE$”
 
 Acest fișier a fost modificat de un alt program.
-Doriți să-l reîncărcați și să anulați modificările efectuate în Notepad++?"/>
-            <PrehistoricSystemDetected title="S-a detectat un sistem preistoric" message="Se pare că încă folosiți un sistem foarte vechi. Această funcție se poate executa doar pe un sistem modern."/>
+Dorești să-l reîncarci și să anulezi modificările efectuate în Notepad++?"/>
+            <PrehistoricSystemDetected title="S-a detectat un sistem preistoric" message="Se pare că încă folosești un sistem foarte vechi. Această funcție se poate executa doar pe un sistem modern."/>
             <XpUpdaterProblem title="Actualizator Notepad++" message="Actualizatorul Notepad++ nu este compatibil cu Windows XP datorită nivelelor de securitate depășite ale acestuia.
-Doriți să vizitați pagina de descărcare a Notepad++ pentru a descărca ultima versiune?"/>
+Dorești să vizitezi pagina de descărcare a Notepad++ ca să descarci ultima versiune?"/>
 			<GUpProxyConfNeedAdminMode title="Setări proxy" message="Te rugăm să repornești Notepad++ în modul Admin pentru a configura setările proxy."/>
-			<DocTooDirtyToMonitor title="Problemă monitorizare" message="Documentul este necorespunzător. Salvați modificările înainte de a-l monitoriza."/>
-            <DocNoExistToMonitor title="Problemă monitorizare" message="Pentru a putea fi monitorizat fișierul trebuie să existe."/>
-            <FileTooBigToOpen title="Problemă dimensiune fișier" message="Fișierul este prea mare pentru a fi deschis cu Notepad++"/>
+			<DocTooDirtyToMonitor title="Problemă de monitorizare" message="Documentul este necorespunzător. Salvează modificările înainte de a-l monitoriza."/>
+            <DocNoExistToMonitor title="Problemă de monitorizare" message="Pentru a putea fi monitorizat fișierul trebuie să existe."/>
+            <FileTooBigToOpen title="Problemă cu dimensiunea fișierului" message="Fișierul este prea mare pentru a fi deschis cu Notepad++"/>
 			<FileLoadingException title="Cod de excepție: $STR_REPLACE$" message="A apărut o eroare în timpul încărcării fișierului!"/>
 			<WantToOpenHugeFile title="Avertizare de deschidere a unui fișier uriaș" message="Dechiderea unui fișier uriaș de peste 2GB ar putea dura câteva minute.
 Vrei să îl deschizi?"/>
-            <CreateNewFileOrNot title="Creare fișier nou" message="Fișierul &quot;$STR_REPLACE$&quot; nu există. Îl creați?."/>
-            <CreateNewFileError title="Creare fișier nou" message="Nu se poate crea fișierul &quot;$STR_REPLACE$&quot;."/>
-            <OpenFileError title="EROARE" message="Nu se poate deschide fișierul &quot;$STR_REPLACE$&quot;."/>
-			<OpenFileNoFolderError title="Nu se poate deschide fișierul" message="&quot;$STR_REPLACE1$&quot; nu poate fi deschis:
-Dosarul &quot;$STR_REPLACE2$&quot; nu există."/>
-            <FileBackupFailed title="Eșuare conservare fișier" message="Versiunea anterioară a fișierului nu a putut fi salvată în folderul de conservări aflat în &quot;$STR_REPLACE$&quot;.
+            <CreateNewFileOrNot title="Crează un fișier nou" message="Fișierul „$STR_REPLACE$” nu există. Îl creezi?."/>
+            <CreateNewFileError title="Crează un fișier nou" message="Nu se poate crea fișierul „$STR_REPLACE$”."/>
+            <OpenFileError title="EROARE" message="Nu se poate deschide fișierul „$STR_REPLACE$”."/>
+			<OpenFileNoFolderError title="Nu se poate deschide fișierul" message="„$STR_REPLACE1$” nu poate fi deschis:
+Folderul „$STR_REPLACE2$” nu există."/>
+            <FileBackupFailed title="Conservarea fișierului a eșuat" message="Versiunea anterioară a fișierului nu a putut fi salvată în folderul de conservări aflat în „$STR_REPLACE$”.
 
-Doriți totuși să salvați fișierul curent?"/>
-            <LoadStylersFailed title="Eșuare încărcare stylers.xml" message="Încărcare eșuată &quot;$STR_REPLACE$&quot;!"/>
-            <LoadLangsFailed title="Configurator" message="Eșuare încărcare langs.xml!
-Doriți să recuperați fișierul langs.xml?"/>
-            <LoadLangsFailedFinal title="Configurator" message="Eșuare încărcare langs.xml!"/>
-            <FolderAsWorspaceSubfolderExists title="Problemă la adăugarea folderului ca spațiu de lucru" message="Există un subfolder al folderului pe care doriți să-l adăugați.
-Eliminați rădăcina acestuia din panou înainte de a adăuga folderul &quot;$STR_REPLACE$&quot;."/>
+Dorești totuși să salvezi fișierul curent?"/>
+            <LoadStylersFailed title="Încărcarea fișierului stylers.xml a eșuat" message="Încărcare eșuată pentru „$STR_REPLACE$”!"/>
+            <LoadLangsFailed title="Configurator" message="Încărcarea fișierului langs.xml a eșuat!
+Dorești să recuperezi fișierul langs.xml?"/>
+            <LoadLangsFailedFinal title="Configurator" message="Încărcarea fișierului langs.xml a eșuat!"/>
+            <FolderAsWorspaceSubfolderExists title="Problemă la adăugarea folderului ca spațiu de lucru" message="Există un subfolder al folderului pe care dorești să-l adăugi.
+Elimini rădăcina acestuia din panou înainte de a adăuga folderul „$STR_REPLACE$”."/>
 
-            <ProjectPanelChanged title="$STR_REPLACE$" message="Spațiul de lucru a fost modificat. Doriți să-l salvați?"/>
+            <ProjectPanelChanged title="$STR_REPLACE$" message="Spațiul de lucru a fost modificat. Dorești să-l salvezi?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Spațiul de lucru nu a fost salvat."/>
-			<ProjectPanelSaveError title="$STR_REPLACE$" message="A apărut o eroare în timp ce s-a scris în fișierul spațiului tău de lucru.
-Spațiul tău de lucru nu a putut fi salvat."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Deschidere spațiu de lucru" message="Spațiul de lucru curent a fost modificat. Doriți să salvați proiectul curent?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="Spațiu de lucru nou" message="Spațiul de lucru curent a fost modificat. Doriți să salvați proiectul curent?"/>
-            <ProjectPanelOpenFailed title="Deschidere spațiu de lucru" message="Spațiul de lucru nu a putut fi deschis.
+			<ProjectPanelSaveError title="$STR_REPLACE$" message="A apărut o eroare în timp ce s-a scris în fișierul spațiului tău (dvs.) de lucru.
+Spațiul tău (dvs.) de lucru nu a putut fi salvat."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Deschide spațiul de lucru" message="Spațiul de lucru curent a fost modificat. Dorești să salvezi proiectul curent?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Spațiu de lucru nou" message="Spațiul de lucru curent a fost modificat. orești să salvezi proiectul curent?"/>
+            <ProjectPanelOpenFailed title="Deschide spațiul de lucru" message="Spațiul de lucru nu a putut fi deschis.
 Se pare că fișierul ce trebuie dschis nu este un fișier de proiect valid."/>
-            <ProjectPanelRemoveFolderFromProject title="Eliminare folder din proiect" message="Toate subelementele acestuia vor fi eliminate.
-Sigur doriți să eliminați acest folder din proiect?"/>
-            <ProjectPanelRemoveFileFromProject title="Eliminare fișier din proiect" message="Sigur doriți să eliminați acest fișier din proiect?"/>
-            <ProjectPanelReloadError title="Reîncărcare spațiu de lucru" message="Nu se poate găsi fișierul ce trebuie reîncărcat."/>
-            <ProjectPanelReloadDirty title="Reîncărcare spațiu de lucru" message="Spațiul de lucru a fost modificat. Reîncărcarea va ignora toate modificările efectuate.
-Doriți să continuați?"/>
+            <ProjectPanelRemoveFolderFromProject title="Elimină folderul din proiect" message="Toate subelementele acestuia vor fi eliminate.
+Ești sigur(ă) că dorești să elimini acest folder din proiect?"/>
+            <ProjectPanelRemoveFileFromProject title="Elimină fișierul din proiect" message="Ești sigur(ă) că dorești să elimini acest fișier din proiect?"/>
+            <ProjectPanelReloadError title="Reîncarcă spațiul de lucru" message="Nu se poate găsi fișierul ce trebuie reîncărcat."/>
+            <ProjectPanelReloadDirty title="Reîncarcă spațiul de lucru" message="Spațiul de lucru a fost modificat. Reîncărcarea va ignora toate modificările efectuate.
+Dorești să continui?"/>
             <UDLNewNameError title="Eroare UDL" message="Acest nume este utilizat de alt limbaj,
-alegeți altul."/>
-            <UDLRemoveCurrentLang title="Eliminare limbaj curent" message="Sunteți sigur?"/>
-            <SCMapperDoDeleteOrNot title="Sunteți sigur?" message="Sigur doriți să eliminați această combinație de taste?"/>
-            <FindCharRangeValueError title="Problemă valoare interval" message="Ar trebui să introduceți o valoare între 0 și 255."/>
+te rugăm să alegi altul."/>
+            <UDLRemoveCurrentLang title="Eliminare limbaj curent" message="Ești sigur(ă)?"/>
+            <SCMapperDoDeleteOrNot title="Ești sigur(ă)?" message="Ești sigur(ă) că dorești să elimini această combinație de taste?"/>
+            <FindCharRangeValueError title="Problemă cu valoarea de interval" message="Ar trebui să introduci o valoare între 0 și 255."/>
             <OpenInAdminMode title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
-Doriți să lansați Notepad++ în mod Administrator?"/>
+Vrei să lansezi Notepad++ în mod Administrator?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
-Doriți să lansați Notepad++ în mod Administrator?"/>
-            <OpenInAdminModeFailed title="Deschidere în mod Administrator eșuat" message="Notepad++ nu poate fi deschis în mod Administrator."/>        
+Vrei să lansezi Notepad++ în mod Administrator?"/>
+            <OpenInAdminModeFailed title="Deschiderea în Modul Administrator a eșuat" message="Notepad++ nu poate fi deschis în mod Administrator."/>        
             <ViewInBrowser title="Afişare fişier curent în navigator" message="Aplicaţia nu poate fi găsită în sistem."/>
 			<ExitToUpdatePlugins title="Urmează să ieși din Notepad++" message="Dacă apeși DA, o să ieși din Notepad++ pentru a continua operațiunile.
 Notepad++ va fi repornit după ce toate operațiunile vor fi terminate.
 Vrei să continui?"/>
 			<NeedToRestartToLoadPlugins title="Notepad++ trebuie să fie relansat" message="Trebuie să repornești Notepad++ pentru a încărcarca modulele instalate."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="Notepad++ trebuie să fie relansat" message="Trebuie să repornești Notepad++ pentru a activa Istoricul schimbărilor."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
-			<WindowsSessionExit title="Notepad++ - Ieșirea sesiunii Windows" message="Sesiunea Windows este pe cale de a se termina, dar ai anumite date nesavate. Vre să ieși din Notepad++ acum?"/>
+			<WindowsSessionExit title="Notepad++ - Ieșirea sesiunii Windows" message="Sesiunea Windows este pe cale de a se termina, dar ai anumite date nesavate. Vrei să ieși din Notepad++ acum?"/>
 			<LanguageMenuCompactWarning title="Meniul de limbi compact" message="Această opțiune va fi schimbată la următoarea lansare."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Schimbările nesalvate urmează să fie anulate!
-Vreți să salvați schimbările înainte de a schimba tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
+Vrei să salvezi schimbările înainte de a schimba tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
 			<MacroAndRunCmdlWarning title="Compatibilitatea comenzilor Macro și Rulează" message="Comenzile tale Macro și Rulează salvate în Notepad++ v.8.5.2 (sau mai vechi) pot să nu fie compatibilie cu versiunea curentă de Notepad++.
-Te rugăm să testezi comenzile și dacă e nevoie, să le re-editezi.
+Te rugăm să testezi comenzile și dacă e nevoie, să le reeditezi.
 
 Alternativ, poți să revii la Notepad++ v8.5.2 și poți restaura datele anterioare.
-Notepad++ îți va restaura vechiul &quot;shortcuts.xml&quot; și îl va salva ca &quot;shortcuts.xml.v8.5.2.backup&quot;.
-Redenumind &quot;shortcuts.xml.v8.5.2.backup&quot; -&gt; &quot;shortcuts.xml&quot;, comenzile tale ar trebui restaurate și să lucreze perfect."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
+Notepad++ îți va restaura vechiul „shortcuts.xml” și îl va salva ca „shortcuts.xml.v8.5.2.backup”.
+Redenumind „shortcuts.xml.v8.5.2.backup” -&gt; „shortcuts.xml”, comenzile tale ar trebui restaurate și să lucreze perfect."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NbFileToOpenImportantWarning title="Numărul de fișiere ce urmează să fie deschise este prea mare" message="Fișierele $INT_REPLACE$ urmează să fie deschise.
-Ești sigur că vrei să le deschizi?"/>
+Ești sigur(ă) că vrei să le deschizi?"/>
 			<NotEnoughRoom4Saving title="Salvare eșuată" message="Nu s-a putut salva fișierul.
 Se pare că nu este suficient spațiu pe disc pentru a salva fișierul. Fișierul tău (dvs.) nu este salvat."/>		
-			<FileInaccessibleUserSession title="Fișier inaccesibil" message="Unele fișiere din sesiunea ta &quot;$STR_REPLACE$&quot; salvată manual sunt inaccesibile. Ele pot fi deschise ca documente goale sau în modul doar citire ca și substituenți.
+			<FileInaccessibleUserSession title="Fișier inaccesibil" message="Unele fișiere din sesiunea ta „$STR_REPLACE$” salvată manual sunt inaccesibile. Ele pot fi deschise ca documente goale sau în modul doar citire ca și substituenți.
+
 Vrei să creezi acei subsituenți?
+
 NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta salvată manual NU va fi modificată la ieșire."/>
 			<FileInaccessibleDefaultSessionXml title="Fișier inaccesibil" message="Unele fișiere din sesiunea ta anterioară sunt inaccesbilie. Ele pot fi deschise ca documente goale sau în modul doar citire ca și substituenți.
+
 Dorești să creezi acei substituenți?
-NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta VA FI MODIFICATĂ LA IEȘIRE! Îți sugerăm să-ți faci acum o copie de rezervă a fișierului tău &quot;sesiune.xml&quot;."/>
+
+NOTĂ: Prin alegerea de a nu crea substituenți sau de a-i închide mai târziu, sesiunea ta VA FI MODIFICATĂ LA IEȘIRE! Îți sugerăm să-ți faci acum o copie de rezervă a fișierului tău „sesiune.xml”."/>
 			<RTLvsDirectWrite title="Nu se poate rula RTL" message="RTL nu este compatibil cu modul DirectWrite. Te rugăm să dezactivezi modul DirectWrite din secțiunea DIVERSE a dialogului Preferințe, și să repornești Notepad++."/>
 			<FileMemoryAllocationFailed title="Excepție: Alocarea memoriei fișierelor a eșuat" message="Probabil că nu e suficientă memorie continuă pentru ca fișierul să fie încărcat de Notepad++."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
-			<FindRegexBackwardDisabled title="Căutarea inversă regex a fost dezactivată" message="În mod implicit, căutarea inversă regex este dezactivată din cauza unor rezultate potențial neașteptate. Pentru a efectua o căutare inversă, deschide căsuța de dialog Găsește și selectează modul de căutare fie normal, fie extins instead of regular expression.
-Apasă butonul OK pentru a deschide căsuța de dialog Găsește sau pentru a seta focalizarea pe ea.
+			<FindRegexBackwardDisabled title="Căutarea inversă regex a fost dezactivată" message="În mod implicit, căutarea inversă regex este dezactivată din cauza unor rezultate potențial neașteptate. Pentru a efectua o căutare inversă, deschide căsuța de dialog Găsire și selectează modul de căutare fie normal, fie extins instead of regular expression.
+Apasă butonul OK pentru a deschide căsuța de dialog Găsire sau pentru a seta focalizarea pe ea.
 			
 Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utilizatorului manualul de utilizare pentru instrucțiuni privind activarea acesteia."/>
 			<PrintError title="0" message="Nu se poate porni documentul imprimantei."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
@@ -1578,7 +1601,7 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
             <PanelTitle name="Istoricul clipboard-ului"/>
         </ClipboardHistory>
         <DocList>
-            <PanelTitle name="Comutare document"/>
+            <PanelTitle name="Comută documentul"/>
             <ColumnName name="Nume"/>
             <ColumnExt name="Extern"/>
 			<ColumnPath name="Cale"/>
@@ -1589,12 +1612,12 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
             <ColumnPath name="Cale"/>
             <ColumnType name="Tip"/>
             <ColumnSize name="Mărime"/>
-            <NbDocsTotal name="documente totale:"/>
-            <MenuCopyName name="Numele de copiat"/>
-            <MenuCopyPath name="Numele căii/căilor de copiat"/>
+            <NbDocsTotal name="total documente:"/>
+            <MenuCopyName name="Copiază numele"/>
+            <MenuCopyPath name="Copiază numele căii/căilor"/>
         </WindowsDlg>	
         <AsciiInsertion>
-            <PanelTitle name="Panou inserare ASCII"/>
+            <PanelTitle name="Panou de inserare a codurilor ASCII"/>
             <ColumnVal name="Valoare"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Caracter"/>
@@ -1603,29 +1626,29 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
             <ColumnHtmlHexNb name="Număr hexazecimal HTML"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="Hartă document"/>
+            <PanelTitle name="Harta documentului"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Lista funcțiilor"/>
             <SortTip name="Sortare" />
             <ReloadTip name="Reactualizare" />
 			<PreferencesTip name="Preferințe"/>
-			<PreferencesInitialSort name="Funcțiile de sortare (de la A la Z), implicit"/>
+			<PreferencesInitialSort name="Sortează funcțiile (de la A la Z) în mod implicit"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Folder ca spațiu de lucru"/>
-            <SelectFolderFromBrowserString name="Selectare folder adăugat în panoul [Folder ca spațiu de lucru]"/>
-			<ExpandAllFoldersTip name="Desfășurare totală"/>
-			<CollapseAllFoldersTip name="Înfășurare totală"/>
+            <SelectFolderFromBrowserString name="Selectează un folder de adăugat în panoul Folder ca spațiu de lucru"/>
+			<ExpandAllFoldersTip name="Desfășoară totul"/>
+			<CollapseAllFoldersTip name="Înfășoară totul"/>
 			<LocateCurrentFileTip name="Localizează fișierul curent"/>
             <Menu>
                 <Item id="3511" name="Eliminare"/>
-                <Item id="3512" name="Eliminare toate"/>
+                <Item id="3512" name="Elimină-le pe toate"/>
                 <Item id="3513" name="Adăugare"/>
                 <Item id="3514" name="Executat de sistem"/>
                 <Item id="3515" name="Deschidere"/>
-                <Item id="3516" name="Copiere cale"/>
-                <Item id="3517" name="Căutare în fișiere..."/>
+                <Item id="3516" name="Copiază calea"/>
+                <Item id="3517" name="Găsire în fișiere..."/>
                 <Item id="3518" name="Explorer aici"/>
                 <Item id="3519" name="CMD aici"/>
 				<Item id="3520" name="Copiază numele fișierului"/>
@@ -1634,8 +1657,8 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
         <ProjectManager>
             <PanelTitle name="Proiect"/>
             <WorkspaceRootName name="Spațiu de lucru"/>
-            <NewProjectName name="Nume proiect"/>
-            <NewFolderName name="Nume folder"/>
+            <NewProjectName name="Numele proiectului"/>
+            <NewFolderName name="Numele folderului"/>
             <Menus>
                 <Entries>
                     <Item id="0" name="Spațiu de lucru"/>
@@ -1643,71 +1666,73 @@ Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utili
                 </Entries>
                 <WorkspaceMenu>
                     <Item id="3122" name="Spațiu de lucru nou"/>
-                    <Item id="3123" name="Deschidere spațiu de lucru"/>
-                    <Item id="3124" name="Reîncărcate spațiu de lucru"/>
+                    <Item id="3123" name="Deschide spațiu de lucru"/>
+                    <Item id="3124" name="Reîncarcă spațiu de lucru"/>
                     <Item id="3125" name="Salvare"/>
                     <Item id="3126" name="Salvare ca..."/>
-                    <Item id="3127" name="Salvare copie ca..."/>
-                    <Item id="3121" name="Adăugare proiect nou"/>
+                    <Item id="3127" name="Salvare o copie ca..."/>
+                    <Item id="3121" name="Adaugă un proiect nou"/>
 					<Item id="3128" name="Găsire în proiecte..."/>
                 </WorkspaceMenu>
                 <ProjectMenu>
                     <Item id="3111" name="Redenumire"/>
-                    <Item id="3112" name="Adăugare folder"/>
-                    <Item id="3113" name="Adăugare fișiere..."/>
-                    <Item id="3117" name="Adăugare fișiere din folder..."/>
+                    <Item id="3112" name="Adaugă un folder"/>
+                    <Item id="3113" name="Adaugă fișiere..."/>
+                    <Item id="3117" name="Adaugă fișiere din director (folder)..."/>
                     <Item id="3114" name="Eliminare"/>
-                    <Item id="3118" name="Urcare"/>
-                    <Item id="3119" name="Coborâre"/>
+                    <Item id="3118" name="Mută în sus"/>
+                    <Item id="3119" name="Mută în jos"/>
                 </ProjectMenu>
                 <FolderMenu>
                     <Item id="3111" name="Redenumire"/>
-                    <Item id="3112" name="Adăugare folder"/>
-                    <Item id="3113" name="Adăugare fișiere..."/>
-                    <Item id="3117" name="Adăugare fișiere din folder..."/>
+                    <Item id="3112" name="Adaugă un folder"/>
+                    <Item id="3113" name="Adaugă fișiere..."/>
+                    <Item id="3117" name="Adaugă fișiere din director (folder)..."/>
                     <Item id="3114" name="Eliminare"/>
-                    <Item id="3118" name="Urcare"/>
-                    <Item id="3119" name="Coborâre"/>
+                    <Item id="3118" name="Mută în sus"/>
+                    <Item id="3119" name="Mută în jos"/>
                 </FolderMenu>
                 <FileMenu>
                     <Item id="3111" name="Redenumire"/>
                     <Item id="3115" name="Eliminare"/>
-                    <Item id="3116" name="Modificare cale fișier"/>
-                    <Item id="3118" name="Urcare"/>
-                    <Item id="3119" name="Coborâre"/>
+                    <Item id="3116" name="Modifică calea fișierului"/>
+                    <Item id="3118" name="Mută în sus"/>
+                    <Item id="3119" name="Mută în jos
+					"/>
                 </FileMenu>
             </Menus>
         </ProjectManager>
         <MiscStrings>
             <!-- $INT_REPLACE$ and $STR_REPLACE$ are a place holders, don't translate these place holders -->
-            <word-chars-list-tip value="Se permite includerea de caractere adiționale în lista curentă de caractere când se dă dublu clic pe o selectare la căutarea cu opțiunea &quot;Potrivește doar cuvintele întregi&quot; activată."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
+            <word-chars-list-tip value="Se permite includerea de caractere adiționale în lista curentă de caractere când se dă dublu clic pe o selectare la căutarea cu opțiunea „Potrivește doar cuvintele întregi” activată."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 			
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-			<eol-custom-color-tip value="Mergi în Configuratorul de stiluri pentru a schimba culoarea particularizată a EOL-ului implicit(&quot;EOL culoare particularizată&quot;).."/>
+			<eol-custom-color-tip value="Mergi în Configuratorul de stiluri pentru a schimba culoarea particularizată a sfârșitului de linie (EOL-ului) implicit (&quot;EOL custom color&quot; sau „culoare particularizată pentru sfârșitul de linie (EOL)”).."/>
 			
             <word-chars-list-warning-begin value="Atenție: "/>
-            <word-chars-list-space-warning value="$INT_REPLACE$ spațiu(i)"/>
-            <word-chars-list-tab-warning value="$INT_REPLACE$ Tab(-uri)"/>
+            <word-chars-list-space-warning value="$INT_REPLACE$ spațiul (spațiile)"/>
+            <word-chars-list-tab-warning value="$INT_REPLACE$ Tab-ul (Tab-urile)"/>
             <word-chars-list-warning-end value="  în lista ta de caractere."/>
-			<backup-select-folder value="Selectează un dosar ca director pentru copii de rezervă"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
+			<backup-select-folder value="Selectează un folder (dosar) ca director pentru copii de rezervă"/><!-- HowToReproduce: Settings > Preferences > Backup > [...] -->
             <cloud-invalid-warning value="Cale nevalidă."/>
-            <cloud-restart-warning value="Reporniți Notepad++ pentru aplicare modificări."/>
-            <cloud-select-folder value="Selectare folder din/în care Notepad++ citește/scrie setările sale"/>
-			<default-open-save-select-folder value="Selectează un dosar ca director implicit"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
-            <shift-change-direction-tip value="Folosiți Shift+Enter pentru a căuta în direcția opusă"/>
+            <cloud-restart-warning value="Repornește Notepad++ pentru a aplica modificările."/>
+            <cloud-select-folder value="Selectează folderul (dosarul) din/în care Notepad++ citește/scrie setările sale"/>
+			<default-open-save-select-folder value="Selectează un folder (dosar) ca director implicit"/><!-- HowToReproduce: Settings > Preferences > Default Directory > [...] -->
+            <shift-change-direction-tip value="Folosește Shift+Enter pentru a căuta în direcția opusă"/>
             <two-find-buttons-tip value="Modul Găsește cu 2 butoane"/>
-			<find-in-files-filter-tip value="Găsește în cpp, cxx, h, hxx &amp;&amp; hpp:
+			<find-in-files-filter-tip value="Găsește în cpp, cxx, h, hxx și hpp:
 *.cpp *.cxx *.h *.hxx *.hpp
 
-Găsește în toate fișierele, exceptând exe, obj &amp;&amp; log:
+Găsește în toate fișierele, exceptând exe, obj și log:
 *.* !*.exe !*.obj !*.log
 
-Găsește în toate fișierele, dar exclude dosarele tests, bin &amp;&amp; bin64:
+Găsește în toate fișierele, dar exclude folderele tests, bin și bin64:
 *.* !\tests !\bin*
 
-Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod recursiv:
+Găsește în toate fișierele, dar exclude toate folderele log sau logs în mod recursiv:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
-			<find-in-files-select-folder value="Selectează un dosar de căutare în"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-select-folder value="Selectează un folder de căutare în"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Completează câmpul directorului pe baza documentului activ"/><!-- HowToReproduce: Search > Find in Files > [<<] -->			
             <find-status-top-reached value="Căutare: S-a ajuns la începutul documentului, prima apariție din partea de jos a fost găsită."/>
             <find-status-end-reached value="Căutare: S-a ajuns la sfârșitul documentului, prima apariție din partea de sus a fost găsită."/>
             <find-status-replaceinfiles-1-replaced value="Înlocuire în fișiere: a fost înlocuită o potrivire"/>
@@ -1717,18 +1742,16 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <find-status-replaceinopenedfiles-nb-replaced value="Înlocuire în fișierele deschise: s-au înlocuit $INT_REPLACE$ potriviri."/>
             <find-status-mark-re-malformed value="Marcare: expresia regulată de căutare este eronată."/>
             <find-status-invalid-re value="Căutare: expresie regulată nevalidă."/>
-			<find-status-search-failed value="Găsește: căutare eșuată"/>
+			<find-status-search-failed value="Găsire: căutare eșuată"/>
             <find-status-mark-1-match value="O potrivire"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ potriviri"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ (de) potriviri"/>
             <find-status-count-re-malformed value="Contorizare: expresia regulată de căutare este eronată."/>
             <find-status-count-1-match value="Contorizare: o potrivire."/>
-            <find-status-count-nb-matches value="Contorizare: $INT_REPLACE$ potriviri."/>
+            <find-status-count-nb-matches value="Contorizare: $INT_REPLACE$ (de) potriviri."/>
             <find-status-replaceall-re-malformed value="Înlocuire totală: expresia regulată este eronată."/>
             <find-status-replaceall-1-replaced value="Înlocuire totală: a fost înlocuită o potrivire."/>
-            <find-status-replaceall-nb-replaced value="Înlocuire totală: s-au înlocuit $INT_REPLACE$ potriviri."/>
+            <find-status-replaceall-nb-replaced value="Înlocuire totală: au fost înlocuite $INT_REPLACE$ (de) potriviri."/>
 			<find-status-replaceall-re-malformed value="Înlocuire totală: Expresia regulată este defectă"/>
-			<find-status-replaceall-1-replaced value="Înlocuire totală: 1 potrivire a fost înlocuită"/>
-			<find-status-replaceall-nb-replaced value="Înlocuire totală: $INT_REPLACE$ potriviri au fost înlocuite"/>
             <find-status-replaceall-readonly value="Înlocuire totală: textul nu poate fi înlocuit. Documentul curent are blocată salvarea modificărilor."/>
             <find-status-replace-end-reached value="Înlocuire: S-a ajuns la sfârșitul documentului, a început de sus."/>
             <find-status-replace-top-reached value="Înlocuire: S-a ajuns la începutul documentului, a început de jos."/>
@@ -1737,7 +1760,8 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <find-status-replaced-next-not-found value="Înlocuire: s-a înlocuit 1 potrivire. Nu s-au mai găsit potriviri."/>
             <find-status-replace-not-found value="Înlocuire: nu s-au găsit potriviri"/>
             <find-status-replace-readonly value="Înlocuire: textul nu poate fi înlocuit. Documentul curent are blocată salvarea modificărilor."/>
-            <find-status-cannot-find value="Căutare: nu se poate găsi textul &quot;$STR_REPLACE$&quot;."/>
+            <find-status-cannot-find value="Căutare: nu se poate găsi textul „$STR_REPLACE$”."/>
+			<find-status-cannot-find-pebkac-maybe value="Apariția dată nu poate fi găsită. Poate ai uitat să verifici „Înfășoară” (în PORNIT), „Potrivește literele” (în OPRIT) sau „Potrivește doar cuvintele întregi” (în OPRIT)."/>
             <find-status-scope-selection value="în textul selectat"/>
             <find-status-scope-all value="în întregul fișier"/>
             <find-status-scope-backward value="de la începutul fișierului la semnul de omisiune"/>
@@ -1746,28 +1770,26 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
             <finder-close-this value="Închide căutătorul"/>
             <finder-collapse-all value="Restrânge-le pe toate"/>
             <finder-uncollapse-all value="Extinde-le pe toate"/>
-            <finder-copy value="Copiere"/>
+            <finder-copy value="Copiază linia selectată (liniile selectate)"/>
 			<finder-copy-selected-paths value="Copiază numele căii (căilor) selectate"/>
-            <finder-clear-all value="Golește-le toate"/>
-            <finder-open-selected-paths value="Deschide calea (căile) selectată(e)"/>
-			<finder-purge-for-every-search value="Curăță pentru fiecare căutare"/>
-			<finder-wrap-long-lines value="Limitarea lungimii liniilor pentru cuvintele lungi"/>
+            <finder-clear-all value="Golește-le pe toate"/>
+            <finder-open-selected-paths value="Deschide calea selectată (căile selectate)"/>
+			<finder-purge-for-every-search value="Curăță după fiecare căutare"/>
+			<finder-wrap-long-lines value="Limitează lungimea liniilor pentru cuvintele lungi"/>
             <common-ok value="OK"/>
-            <common-cancel value="Anulare"/>
+            <common-cancel value="Revocare"/>
             <common-name value="Nume: "/>
             <tabrename-title value="Redenumește fila curentă"/>
             <tabrename-newname value="Nume nou: "/>
-			<splitter-rotate-left value="Rotire la stânga"/>
-			<splitter-rotate-right value="Rotire la dreapta"/>
-            <recent-file-history-maxfile value="Maxim de fişiere: "/>
-            <language-tabsize value="Mărimea filei: "/>
+			<splitter-rotate-left value="Rotește la stânga"/>
+			<splitter-rotate-right value="Rotește la dreapta"/>
+            <recent-file-history-maxfile value="Numărul maxim de fişiere: "/>
+            <language-tabsize value="Mărimea filei: "/>			
             <userdefined-title-new value="Crează un limbaj nou..."/>
             <userdefined-title-save value="Salvează limbajul curent ca..."/>
             <userdefined-title-rename value="Redenumește limbajul curent"/>
             <autocomplete-nb-char value="Nr. car.: "/>
-            <edit-verticaledge-nb-col value="Nr. coloane:"/>
-			
-			<summary value="Rezumat"/>
+            <edit-verticaledge-nb-col value="Nr. coloane:"/>	<summary value="Rezumat"/>
 			<summary-filepath value="Calea întreagă a fișierului: "/>
 			<summary-filecreatetime value="Creat: "/>
 			<summary-filemodifytime value="Modificat: "/>
@@ -1776,16 +1798,16 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<summary-nbline value="Linii: "/>
 			<summary-nbbyte value="Lungimea documentului: "/>
 			<summary-nbsel1 value=" caracterele selectate ("/>
-			<summary-nbsel2 value=" octeți) în "/>
+			<summary-nbsel2 value=" octeți/bytes) în "/>
 			<summary-nbrange value=" intervale"/>
 			<progress-hits-title value="Coincidențe:"/>
 			<progress-cancel-info value="Se anulează operația, te rugăm să aștepți..."/>
 			<find-in-files-progress-title value="Progresul funcției Găsește în fișiere..."/>
-			<replace-in-files-confirm-title value="Ești sigur?"/>
-			<replace-in-files-confirm-directory value="Ești sigur că vrei să înlocuișeti toate aparițiile în:"/>
+			<replace-in-files-confirm-title value="Ești sigur(ă)?"/>
+			<replace-in-files-confirm-directory value="Ești sigur(ă) că vrei să înlocuișeti toate aparițiile în:"/>
 			<replace-in-files-confirm-filetype value="Pentru tipul de fișier:"/>
-			<replace-in-files-progress-title value="Progresul Înlocuire în fișiere..."/>
-			<replace-in-projects-confirm-title value="Ești sigur?"/>
+			<replace-in-files-progress-title value="Progresul pentru Înlocuire în fișiere..."/>
+			<replace-in-projects-confirm-title value="Ești sigur(ă)?"/>
 			<replace-in-projects-confirm-message value="Vrei să înlocuiești toate aparițiile în toate documentele în Panoul(urile) de proiecte selectat(e)?"/>
 			<replace-in-open-docs-confirm-title value="Ești sigur(ă)?"/>
 			<replace-in-open-docs-confirm-message value="Ești sigur(ă) că vrei să înlocuiești toate aparițiile în toate documentele deschise?"/>
@@ -1793,11 +1815,16 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<find-result-title value="Căutare"/><!-- Must not begin with space or tab character -->
 			<find-result-title-info value="($INT_REPLACE1$ coincidențe în $INT_REPLACE2$ fișiere de $INT_REPLACE3$ căutate)"/>
 			<find-result-title-info-selections value="($INT_REPLACE1$ coincidențe în $INT_REPLACE2$ selecții de $INT_REPLACE3$ căutate)"/>
+			<find-result-title-info-options-searchmode-normal value="Normal"/>
+			<find-result-title-info-options-searchmode-extended value="Extins"/>
+			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
+			<find-result-title-info-options-case value="Literă"/>
+			<find-result-title-info-options-word value="Cuvânt"/>
 			<find-result-title-info-extra value=" - Modul de filtrare de linie: se afișează numai rezultatele filtrate"/>
 			<find-result-hits value="($INT_REPLACE$ coincidențe)"/>
 			<find-result-line-prefix value="Linie"/><!-- Must not begin with space or tab character -->
 			<find-regex-zero-length-match value="potrivire de lungime zero"/>
-			<session-save-folder-as-workspace value="Salvează dosarul ca Spațiu de lucru"/>
+			<session-save-folder-as-workspace value="Salvează folderul ca Spațiu de lucru"/>
 			<tab-untitled-string value="nou "/>
 			<file-save-assign-type value="&amp;Adaugă extensia"/>
 			<close-panel-tip value="Închide"/>
@@ -1808,14 +1835,14 @@ Găsește în toate fișierele, dar exclude toate dosarele log sau logs în mod 
 			<contextMenu-styleAlloccurrencesOfToken value="Se stilează toate aparițiiile semnului"/>
 			<contextMenu-styleOneToken value="Semnul cu stilul unu"/>
 			<contextMenu-clearStyle value="Șterge stilul"/>
-			<contextMenu-PluginCommands value="Comenzile de module"/>
+			<contextMenu-PluginCommands value="Comenzile pentru module (plugin-uri)"/>
 			<largeFileRestriction-tip value="Câteva caracteristici pot încetini performanța în fișierele mari. Aceste caracteristici pot fi dezactivate automat la deschiderea fișierelor mari. Le poți personaliza aici.
 
 NOTĂ:
 1. Modificând aici opțiunile necesită repornirea fișierelor mari deschise pentru a obține un comportament adecvat.
 
-2. Dacă &quot;funcția Dezactivează Limitare lungime linii global&quot; este bifată și deschizi un fișier mare, &quot;funcția Limitare lungime linii&quot; va fi dezactivată pentru toate fișierle. O poți reactiva folosind meniul &quot;Afișare-&gt;Limitare lungime linii&quot;."/>
-			<npcNote-tip value="Se reprezintă caracterele &quot;non-ASCII&quot; spațiu alb și cele neafișabile (de control) selectate.
+2. Dacă funcția „Dezactivează limitarea lungimii liniilor global” este bifată și deschizi un fișier mare, funcția „Limitarea lungimii liniilor” va fi dezactivată pentru toate fișierle. O poți reactiva folosind meniul „Afișare-&gt;Limitează lungimea liniilor”."/>
+			<npcNote-tip value="Se reprezintă caracterele „non-ASCII” spațiu alb și cele neafișabile (de control) selectate.
 
 NOTĂ:
 Folosind reprezentarea se vor dezactiva efectele de caracter dintr-un text.
@@ -1829,23 +1856,23 @@ ZWSP: spațiu cu lățime zero
 ZWNBSP: spațiu cu lățime zero și fără pauză
 
 Pentru lista completă verifică Manualul utilizatorului.
-Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>
+Apasă pe „?” butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>
 			<npcCodepoint-tip value="Punct de cod: nume
 U+00A0: spațiu fără pauză
 U+200B: spațiu cu lățime zero
 U+FEFF: spațiu cu lățime zero și fără pauză
 
 Pentru lista completă verifică Manualul utilizatorului.
-Apasă pe &quot;?&quot; butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>
+Apasă pe „?” butonul din dreapta pentru a deschide site-ul web cu Manualul utilizatorului."/>
 
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
-			<npcCustomColor-tip value="Mergi la Configurator de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Non-printing characters custom color&quot;)."/>
+			<npcCustomColor-tip value="Mergi la Configuratorul de stiluri pentru a schimba culorile personalizate implicite pentru caracterele selectate de spațiu alb și a celor neimprimabile (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Aplică setările de aparență ale caracterelor neimprimabile la controalele C0, C1 și a caracterelor Unicode EOL (linie următoare, separator de linie și separator de paragraf)."/>
-            <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare &quot;În selecție&quot; atunci când dialogul Găsire e activat. Valoarea maximă este 1024. Setează valoarea la 0 pentru a dezactiva verificarea automată."/>
+            <searchingInSelThresh-tip value="Numărul de caractere selectate în zona de editare pentru a bifa automat caseta de selectare „În selecție” atunci când dialogul Găsire e activat. Valoarea maximă este 1024. Setează valoarea la 0 pentru a dezactiva verificarea automată."/>
             <verticalEdge-tip value="Adaugă-ți marcatorul de coloană prin indicarea poziției sale cu un număr zecimal. Îți poți defini mulți marcatori de coloană folosind spațiul alb pentru a separa numerele diferite."/>
 			<fileSaveAsCopySaveButton-tip value="Ține apăsat pe Shift în timp ce apeși pe Salvare pentru a deschide copia după salvare.."/>
 			<autoIndentBasic-tip value="Asigură-te că indentarea liniei curente (adică noua linie creată prin apăsarea tastei ENTER) se potrivește cu indentarea liniei anterioare."/>
-			<autoIndentAdvanced-tip value="Activează indentarea inteligentă pentru limbajele &quot;ca C&quot; și pentru Python. Limbajele &quot;ca C&quot; includ:
+			<autoIndentAdvanced-tip value="Activează indentarea inteligentă pentru limbajele „ca C” și pentru Python. Limbajele „ca C” includ:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell și JSON.
 
 Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate mai sus, indentarea va rămâne în modul de bază."/>

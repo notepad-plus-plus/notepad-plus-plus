@@ -314,35 +314,6 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 	DWORD dwWin32ApiError = NO_ERROR;
 	BOOL bGetFileAttributesExSucceeded = getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes, 0, &bWorkerThreadTerminated, &dwWin32ApiError);
 	bool fileExists = (bGetFileAttributesExSucceeded && (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES) && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
-	if (!fileExists)
-	{
-		if (nppParam.doNppLogNetworkDriveIssue())
-		{
-			wstring issueFn = nppLogNetworkDriveIssue;
-			issueFn += L".log";
-			wstring nppIssueLog = nppParam.getUserPath();
-			pathAppend(nppIssueLog, issueFn);
-			std::string msg = wstring2string(_fullPathName, CP_UTF8);
-			msg += "  in Buffer::checkFileState(), getFileAttributesExWithTimeout returned ";
-			if (bGetFileAttributesExSucceeded)
-				msg += "TRUE";
-			else
-				msg += "FALSE";
-			if (bWorkerThreadTerminated)
-			{
-				msg += ", its worker thread had to be forcefully terminated due to timeout reached!";
-			}
-			else
-			{
-				msg += ", its worker thread finished successfully within the timeout given, ";
-				if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
-					msg += "dwFileAttributes == INVALID_FILE_ATTRIBUTES ! (WIN32API Error Code: " + std::to_string(dwWin32ApiError) + ")";
-				else
-					msg += "dwFileAttributes has the FILE_ATTRIBUTE_DIRECTORY flag set!";
-			}
-			writeLog(nppIssueLog.c_str(), msg.c_str());
-		}
-	}
 
 #ifndef	_WIN64
 	bool isWow64Off = false;
@@ -351,9 +322,41 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		nppParam.safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 
-		fileExists = doesFileExist(_fullPathName.c_str());
+		bGetFileAttributesExSucceeded = getFileAttributesExWithTimeout(_fullPathName.c_str(), &attributes, 0, &bWorkerThreadTerminated, &dwWin32ApiError);
+		fileExists = (bGetFileAttributesExSucceeded && (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES) && !(attributes.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 	}
 #endif
+
+	if (!fileExists && nppParam.doNppLogNetworkDriveIssue())
+	{
+		wstring issueFn = nppLogNetworkDriveIssue;
+		issueFn += L".log";
+		wstring nppIssueLog = nppParam.getUserPath();
+		pathAppend(nppIssueLog, issueFn);
+		std::string msg = wstring2string(_fullPathName, CP_UTF8);
+		msg += "  in Buffer::checkFileState(), getFileAttributesExWithTimeout returned ";
+		if (bGetFileAttributesExSucceeded)
+		{
+			msg += "TRUE";
+		}
+		else
+		{
+			msg += "FALSE";
+		}
+		if (bWorkerThreadTerminated)
+		{
+			msg += ", its worker thread had to be forcefully terminated due to timeout reached!";
+		}
+		else
+		{
+			msg += ", its worker thread finished successfully within the timeout given, ";
+			if (attributes.dwFileAttributes == INVALID_FILE_ATTRIBUTES)
+				msg += "dwFileAttributes == INVALID_FILE_ATTRIBUTES ! (WIN32API Error Code: " + std::to_string(dwWin32ApiError) + ")";
+			else
+				msg += "dwFileAttributes has the FILE_ATTRIBUTE_DIRECTORY flag set!";
+		}
+		writeLog(nppIssueLog.c_str(), msg.c_str());
+	}
 
 	bool isOK = false;
 	if (_currentStatus == DOC_INACCESSIBLE && !fileExists)	//document is absent on its first load - we set readonly and not dirty, and make it be as document which has been deleted

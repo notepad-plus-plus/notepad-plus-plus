@@ -2182,29 +2182,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			Buffer* currBuf = getCurrentBuffer();
 			if (currBuf && currBuf->isMonitoringOn())
-			{
-				bool bWorkerThreadTerminated = true;
-				bool fileExists = doesFileExist(currBuf->getFullPathName(), 0, &bWorkerThreadTerminated);
-				if (!fileExists && bWorkerThreadTerminated)
-				{
-					if (nppParam.doNppLogNetworkDriveIssue())
-					{
-						wstring issueFn = nppLogNetworkDriveIssue;
-						issueFn += L".log";
-						wstring nppIssueLog = nppParam.getUserPath();
-						pathAppend(nppIssueLog, issueFn);
-						std::string msg = wstring2string(currBuf->getFullPathName(), CP_UTF8);
-						msg += "  in NPPM_INTERNAL_CHECKDOCSTATUS message handler, doesFileExist check failed, its worker thread had to be forcefully terminated due to timeout reached!";
-						writeLog(nppIssueLog.c_str(), msg.c_str());
-					}
-				}
-			}
+				doesFileExist(currBuf->getFullPathName());
 
 			const NppGUI & nppgui = nppParam.getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)
 			{
 				bool bCheckOnlyCurrentBuffer = (nppgui._fileAutoDetection & cdEnabledNew) ? true : false;
-
 				checkModifiedDocument(bCheckOnlyCurrentBuffer);
 				return TRUE;
 			}

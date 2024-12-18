@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.6.9">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.7.3">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="S&amp;täng"/>
 					<Item id="41004" name="Stän&amp;g alla"/>
 					<Item id="41005" name="Stäng alla FÖRUTOM aktuellt dokument"/>
+					<Item id="41026" name="Stäng alla FÖRUTOM fästa dokument"/>
 					<Item id="41009" name="Stäng alla åt vänster"/>
 					<Item id="41018" name="Stäng alla åt höger"/>
 					<Item id="41024" name="Stäng alla oförändrade"/>
@@ -419,9 +420,11 @@ Translation note:
 				<Item CMDID="41003" name="Stäng"/>
 				<Item CMDID="0" name="Stäng flera flikar"/>
 				<Item CMDID="41005" name="Stäng alla FÖRUTOM denna"/>
+				<Item CMDID="41026" name="Stäng alla FÖRUTOM fästa"/>
 				<Item CMDID="41009" name="Stäng alla åt vänster"/>
 				<Item CMDID="41018" name="Stäng alla åt höger"/>
 				<Item CMDID="41024" name="Stäng alla oförändrade"/>
+				<Item CMDID="44048" name="Fäst flik" alternativeName="Lösgör flik"/>
 				<Item CMDID="41006" name="Spara"/>
 				<Item CMDID="41008" name="Spara som..."/>
 				<Item CMDID="1" name="Öppna i"/>
@@ -953,9 +956,10 @@ Translation note:
 					<Item id="6106" name="Flikfält"/>
 					<Item id="6107" name="Förminska"/>
 					<Item id="6108" name="Lås flikar (inget drag-och-släpp)"/>
+					<Item id="6109" name="Ändra färgen för inaktiva flikar"/>
 					<Item id="6109" name="Gör inaktiva flikar mörkare"/>
 					<Item id="6110" name="Markera aktiv flik med en färgad linje"/>
-					<Item id="6112" name="Visa flikstängningsknapp på varje flik"/>
+					<Item id="6112" name="Visa knapp för att stänga flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
 					<Item id="6115" name="Gör det möjligt att fästa flikar"/>
 					<Item id="6118" name="Dölj"/>
@@ -1187,6 +1191,7 @@ Translation note:
 					<Item id="6908" name="Fyll sökfältet med markerad text"/>
 					<Item id="6909" name="Markera ord under textmarkören när ingenting är markerat"/>
 					<Item id="6910" name="Minimal storlek för att markera &quot;I markering&quot; automatiskt"/>
+					<Item id="6913" name="Fyll mappfältet i &quot;Sök i filer&quot; med aktivt dokument"/>
 				</Searching>
 
 				<RecentFilesHistory title="Senast öppnade filer">
@@ -1686,6 +1691,7 @@ Hitta i alla filer men exkludera mapparna &quot;tests&quot;, &quot;bin&quot; och
 Hitta i alla filer men exkludera mapparna &quot;log&quot; eller &quot;logs&quot; rekursivt:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" secction of Find dialog. -->
 			<find-in-files-select-folder value="Välj en mapp att söka från"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Fyll mappfältet med aktivt dokument"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Sök: Början av dokumentet har nåtts, där första förekomsten hittades ifrån slutet."/>
 			<find-status-end-reached value="Sök: Slutet av dokumentet har nåtts, där första förekomsten hittades ifrån början."/>
 			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>

@@ -1192,6 +1192,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				{
 					dis.itemState |= ODS_FOCUS;
 				}
+
 				if (i == nSelTab)
 				{
 					dis.itemState |= ODS_SELECTED;

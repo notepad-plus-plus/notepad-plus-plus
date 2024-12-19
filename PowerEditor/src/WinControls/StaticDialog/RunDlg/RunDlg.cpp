@@ -123,6 +123,7 @@ void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t
 				}
 			}
 		}
+
 		if (iBegin != -1)
 		{
 			if (iEnd != -1)

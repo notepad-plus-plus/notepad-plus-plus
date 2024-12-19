@@ -190,6 +190,7 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 				{
 					::FillRect(lplvcd->nmcd.hdc, &rcSubItem2, hBrush);
 				}
+
 				if (colCount == 3)
 				{
 					::FillRect(lplvcd->nmcd.hdc, &rcSubItem3, hBrush);

@@ -165,6 +165,7 @@ bool IsColorSchemeChangeMessage(LPARAM lParam)
 		_RefreshImmersiveColorPolicyState();
 		is = true;
 	}
+
 	if (_GetIsImmersiveColorUsingHighContrast)
 		_GetIsImmersiveColorUsingHighContrast(IHCM_REFRESH);
 	return is;
@@ -209,10 +210,13 @@ bool IsWindowOrParentUsingDarkScrollBar(HWND hwnd)
 	HWND hwndRoot = GetAncestor(hwnd, GA_ROOT);
 
 	std::lock_guard<std::mutex> lock(g_darkScrollBarMutex);
-	if (g_darkScrollBarWindows.count(hwnd)) {
+	if (g_darkScrollBarWindows.count(hwnd))
+	{
 		return true;
 	}
-	if (hwnd != hwndRoot && g_darkScrollBarWindows.count(hwndRoot)) {
+
+	if (hwnd != hwndRoot && g_darkScrollBarWindows.count(hwndRoot))
+	{
 		return true;
 	}
 
@@ -233,7 +237,8 @@ void FixDarkScrollBar()
 				auto MyOpenThemeData = [](HWND hWnd, LPCWSTR classList) WINAPI_LAMBDA_RETURN(HTHEME) {
 					if (wcscmp(classList, L"ScrollBar") == 0)
 					{
-						if (IsWindowOrParentUsingDarkScrollBar(hWnd)) {
+						if (IsWindowOrParentUsingDarkScrollBar(hWnd))
+						{
 							hWnd = nullptr;
 							classList = L"Explorer::ScrollBar";
 						}

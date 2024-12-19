@@ -231,8 +231,10 @@ wstring & LastRecentFileList::getItem(int id)
 		if (_lrfl.at(i)._id == id)
 			break;
 	}
+
 	if (i == _size)
 		i = 0;
+
 	return _lrfl.at(i)._name;	//if not found, return first
 }
 
@@ -256,6 +258,7 @@ void LastRecentFileList::setUserMaxNbLRF(int size)
 			toPop--;
 			_size--;
 		}
+
 		updateMenu();
 		_size = _userMax;
 	}

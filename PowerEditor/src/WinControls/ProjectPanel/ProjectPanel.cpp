@@ -1142,6 +1142,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				_treeView.removeItem(hTreeItem);
 				setWorkSpaceDirty(true);
 			}
+
 			if (getNodeType(parent) == nodeType_folder)
 				_treeView.setItemImage(parent, INDEX_CLOSED_NODE, INDEX_CLOSED_NODE);
 		}

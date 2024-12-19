@@ -513,8 +513,10 @@ bool PluginsManager::loadPlugins(const wchar_t* dir, const PluginViewList* plugi
 		}
 
 	}
+
 	if (hFindFolder && (hFindFolder != INVALID_HANDLE_VALUE))
 		::FindClose(hFindFolder);
+
 	if (hFindDll && (hFindDll != INVALID_HANDLE_VALUE))
 		::FindClose(hFindDll);
 

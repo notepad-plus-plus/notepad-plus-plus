@@ -235,6 +235,7 @@ bool FindCharsInRangeDlg::getRangeFromUI(unsigned char & startRange, unsigned ch
 		endRange = 255;
 		return true;
 	}
+
 	if (isCheckedOrNot(IDC_ASCCI_RADIO))
 	{
 		startRange = 0;

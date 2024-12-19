@@ -209,6 +209,7 @@ void Buffer::updateTimeStamp()
 				//sprintf_s(buf, _countof(buf) - 1, "  in updateTimeStamp(): timeStampLive (%lu/%lu) > _timeStamp (%lu/%lu)",
 				//	timeStampLive.dwLowDateTime, timeStampLive.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 			}
+
 			if (buf[0] != '\0')
 			{
 				wstring issueFn = nppLogNetworkDriveIssue;
@@ -220,6 +221,7 @@ void Buffer::updateTimeStamp()
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 		}
+
 		_timeStamp = timeStampLive;
 		doNotify(BufferChangeTimestamp);
 	}
@@ -343,6 +345,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 		{
 			msg += "FALSE";
 		}
+
 		if (bWorkerThreadTerminated)
 		{
 			msg += ", its worker thread had to be forcefully terminated due to timeout reached!";
@@ -423,6 +426,7 @@ bool Buffer::checkFileState() // returns true if the status has been changed (it
 					//sprintf_s(buf, _countof(buf) - 1, "  in checkFileState(): attributes.ftLastWriteTime (%lu/%lu) > _timeStamp (%lu/%lu)",
 					//	attributes.ftLastWriteTime.dwLowDateTime, attributes.ftLastWriteTime.dwHighDateTime, _timeStamp.dwLowDateTime, _timeStamp.dwHighDateTime);
 				}
+
 				if (buf[0] != '\0')
 				{
 					wstring issueFn = nppLogNetworkDriveIssue;
@@ -1196,6 +1200,7 @@ bool FileManager::backupCurrentBuffer()
 						grabSize -= incompleteMultibyteChar;
 						isWrittenSuccessful = UnicodeConvertor.writeFile(newData, newDataLen);
 					}
+
 					if (lengthDoc == 0)
 						isWrittenSuccessful = true;
 				}
@@ -1461,6 +1466,7 @@ size_t FileManager::nextUntitledNewNumber() const
 				break;
 			}
 		}
+
 		if (!numberAvailable)
 			newNumber++;
 
@@ -1730,6 +1736,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 		PathRemoveFileSpec(dir);
 		isNetworkDirDisconnected = !doesDirectoryExist(dir);
 	}
+
 	if (isNetworkDirDisconnected)
 		return false; // If network ressource is not reachable, we stop here for not having hanging issue because of _wfopen
 
@@ -1793,6 +1800,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				success = false;
 				break;
 			}
+
 			if (lenFile == 0) break;
 
             if (isFirstTime)
@@ -1888,6 +1896,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				_stprintf_s(szException, _countof(szException), L"%d (Scintilla)", sciStatus);
 				break;
 		}
+
 		if (sciStatus != SC_STATUS_BADALLOC)
 		{
 			pNativeSpeaker->messageBox("FileLoadingException",

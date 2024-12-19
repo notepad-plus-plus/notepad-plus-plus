@@ -859,17 +859,20 @@ bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 	{
 		return false;
 	}
+
 	if (!::OpenClipboard(hwnd))
 	{
 		::GlobalFree(hglbCopy);
 		return false;
 	}
+
 	if (!::EmptyClipboard())
 	{
 		::GlobalFree(hglbCopy);
 		::CloseClipboard();
 		return false;
 	}
+
 	// Lock the handle and copy the text to the buffer.
 	wchar_t *pStr = (wchar_t *)::GlobalLock(hglbCopy);
 	if (!pStr)
@@ -878,6 +881,7 @@ bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 		::CloseClipboard();
 		return false;
 	}
+
 	wcscpy_s(pStr, len2Allocate / sizeof(wchar_t), str2cpy.c_str());
 	::GlobalUnlock(hglbCopy);
 	// Place the handle on the clipboard.
@@ -888,6 +892,7 @@ bool str2Clipboard(const wstring &str2cpy, HWND hwnd)
 		::CloseClipboard();
 		return false;
 	}
+
 	if (!::CloseClipboard())
 	{
 		return false;
@@ -907,9 +912,11 @@ bool buf2Clipboard(const std::vector<Buffer*>& buffers, bool isFullPath, HWND hw
 			if (fileName)
 				selection += fileName;
 		}
+
 		if (!selection.empty() && !selection.ends_with(crlf))
 			selection += crlf;
 	}
+
 	if (!selection.empty())
 		return str2Clipboard(selection, hwnd);
 	return false;

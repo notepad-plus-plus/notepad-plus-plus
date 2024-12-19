@@ -303,6 +303,7 @@ public:
 						{
 							aNumIndex++;
 						}
+
 						if (b[bNumIndex] == L'-')
 						{
 							bNumIndex++;
@@ -471,6 +472,7 @@ public:
 						{
 							aNumIndex++;
 						}
+
 						if (b[bNumIndex] == L'-')
 						{
 							bNumIndex++;

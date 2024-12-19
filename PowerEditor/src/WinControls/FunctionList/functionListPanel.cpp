@@ -192,6 +192,7 @@ void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const wchar_t
 			found = true;
 		}
 	}
+
 	if (!found)
 	{
 		TreeParams params;

@@ -594,6 +594,7 @@ void Gripper::drawRectangle(const POINT* pPt)
 		::PatBlt(hdcMem, rcOld.left  , rcOld.top  , rcOld.right  , rcOld.bottom  , PATINVERT);
 		::PatBlt(hdcMem, rcOld.left+3, rcOld.top+3, rcOld.right-6, rcOld.bottom-6, PATINVERT);
 	}
+
 	if (pPt != NULL)
 	{	// draw the new drag-rectangle
 		::PatBlt(hdcMem, rcNew.left  , rcNew.top  , rcNew.right  , rcNew.bottom  , PATINVERT);

@@ -74,6 +74,7 @@ bool ControlsTab::renameTab(const wchar_t *internalName, const wchar_t *newName)
 			break;
 		}
 	}
+
 	if (!foundIt)
 		return false;
 

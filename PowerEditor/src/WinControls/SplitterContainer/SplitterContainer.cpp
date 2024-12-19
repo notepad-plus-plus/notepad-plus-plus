@@ -42,6 +42,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize, S
 		_dwSplitterStyle |= SV_FIXED;
 		_dwSplitterStyle &= ~SV_RESIZEWTHPERCNT;
 	}
+
 	if (!_isRegistered)
 	{
 		WNDCLASS splitterContainerClass{};
@@ -133,6 +134,7 @@ void SplitterContainer::rotateTo(DIRECTION direction)
 		_dwSplitterStyle |= SV_VERTICAL;
 		doSwitchWindow = (direction == DIRECTION::RIGHT);
 	}
+
 	if (doSwitchWindow)
 	{
 		Window *tmp = _pWin0;

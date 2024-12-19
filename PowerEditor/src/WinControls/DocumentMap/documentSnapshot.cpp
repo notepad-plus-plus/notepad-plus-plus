@@ -106,11 +106,13 @@ void DocumentPeeker::scrollSnapshotWith(const MapPosition & mapPos, int textZone
 			_rc.bottom = _rc.top + static_cast<LONG>(mapPos._height);
 			hasBeenChanged = true;
 		}
+
 		if (mapPos._width != -1 && _rc.right != _rc.left + mapPos._width)
 		{
 			_rc.right = _rc.left + static_cast<LONG>(mapPos._width);
 			hasBeenChanged = true;
 		}
+
 		if (hasBeenChanged)
 			::MoveWindow(_pPeekerView->getHSelf(), 0, 0, _rc.right - _rc.left, _rc.bottom - _rc.top, TRUE);
 		//

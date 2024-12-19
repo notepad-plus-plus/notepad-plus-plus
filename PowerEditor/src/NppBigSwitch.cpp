@@ -2176,17 +2176,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_CHECKDOCSTATUS:
 		{
-			// This is an workaround to deal with Microsoft issue in ReadDirectoryChanges notification
-			// If command prompt is used to write file continuously (e.g. ping -t 8.8.8.8 > ping.log)
-			// Then ReadDirectoryChanges does not detect the change.
-			// Fortunately, notification is sent if right click or double click happens on that file
-			// Let's leverage this as workaround to enhance npp file monitoring functionality.
-			// So calling "doesFileExist" is a workaround here.
-
-			Buffer* currBuf = getCurrentBuffer();
-			if (currBuf && currBuf->isMonitoringOn())
-				doesFileExist(currBuf->getFullPathName());
-
 			const NppGUI & nppgui = nppParam.getNppGUI();
 			if (nppgui._fileAutoDetection != cdDisabled)
 			{

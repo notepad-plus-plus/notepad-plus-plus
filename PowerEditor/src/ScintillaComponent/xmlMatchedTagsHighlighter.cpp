@@ -124,6 +124,7 @@ vector< pair<intptr_t, intptr_t> > XmlMatchedTagsHighlighter::getAttributesPos(i
 			state = attr_invalid;
 		}
 	}
+
 	if (state == attr_value)
 		attributes.push_back(pair<intptr_t, intptr_t>(start+startPos, start+i-1));
 

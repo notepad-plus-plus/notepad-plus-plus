@@ -169,6 +169,7 @@ void Buffer::updateTimeStamp()
 					msg += "TRUE";
 				else
 					msg += "FALSE";
+
 				if (bWorkerThreadTerminated)
 				{
 					msg += ", its worker thread had to be forcefully terminated due to timeout reached!";
@@ -184,9 +185,13 @@ void Buffer::updateTimeStamp()
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 		}
+
+		// if getting timestamp operation fails, no timestamp to compare then no need to continue
+		return;
 	}
 
 	LONG res = CompareFileTime(&_timeStamp, &timeStampLive);
+
 	if (res == -1 || res == 1)
 	// (res == -1) => timeStampLive is later, it means the file has been modified outside of Notepad++ - usual case
 	// 

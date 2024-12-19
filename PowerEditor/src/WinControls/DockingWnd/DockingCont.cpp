@@ -780,6 +780,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				{
 					dis.itemState |= ODS_FOCUS;
 				}
+
 				if (i == nSelTab)
 				{
 					dis.itemState |= ODS_SELECTED;

@@ -394,6 +394,7 @@ void ToolBar::reset(bool create)
 			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 		}
+
 		if (_nbDynButtons > 0)
 		{
 			for (size_t j = 0; j < _nbDynButtons; ++j)

@@ -63,9 +63,11 @@ public:
 			#endif
 			::ReleaseDC(0, _hdc);
 		}
+
 		if (_hbm) {
 			::DeleteObject(_hbm);
 		}
+
 		if (_hbrush) {
 			::DeleteObject(_hbrush);
 		}

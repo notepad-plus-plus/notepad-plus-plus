@@ -101,6 +101,7 @@ struct NumericStringEquivalence
 					lcmp = *str1 - *str2;
 				break;
 			}
+
 			if (_istdigit(*str1) && _istdigit(*str2))
 			{
 				lcmp = wcstol(str1, &p1, 10) - wcstol(str2, &p2, 10);
@@ -417,6 +418,7 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							string docSizeText = to_string(docSize);
 							text = wstring(docSizeText.begin(), docSizeText.end());
 						}
+
 						if (static_cast<int>(text.length()) < pLvdi->item.cchTextMax)
 						{
 							// Copy the resulting text to destination with a null terminator.

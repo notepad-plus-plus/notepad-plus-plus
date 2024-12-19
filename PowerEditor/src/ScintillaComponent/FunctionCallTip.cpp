@@ -257,6 +257,7 @@ bool FunctionCallTip::getCursorFunction()
 			valueVec.pop_back();
 		}
 	}
+
 	if (curValue.lastFunctionIdentifier > -1)
 	{
 		Token funcToken = tokenVector.at(curValue.lastFunctionIdentifier);
@@ -271,6 +272,7 @@ bool FunctionCallTip::getCursorFunction()
 			else
 				same = wcsncmp(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 		}
+
 		if (!same)
 		{	//check if we need to reload data
 			delete [] _funcName;

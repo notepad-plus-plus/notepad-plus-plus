@@ -621,6 +621,7 @@ void NativeLangSpeaker::changeLangTabDropContextMenu(HMENU hCM)
 			int cmdID = ::GetMenuItemID(hCM, POS_GO2VIEW);
 			::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION|MF_STRING, cmdID, goToViewG);
 		}
+
 		if (cloneToViewA && cloneToViewA[0])
 		{
 			const wchar_t *cloneToViewG = wmc.char2wchar(cloneToViewA, _nativeLangEncoding);

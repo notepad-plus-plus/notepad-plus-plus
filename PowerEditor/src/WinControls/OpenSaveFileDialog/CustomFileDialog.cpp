@@ -148,6 +148,7 @@ namespace // anonymous
 			if (SUCCEEDED(hr))
 				shellItem = parentItem;
 		}
+
 		if (SUCCEEDED(hr))
 			hr = dialog->SetFolder(shellItem);
 		return SUCCEEDED(hr);
@@ -421,6 +422,7 @@ private:
 					}
 				}
 			}
+
 			if (_hwndNameEdit)
 				s_handleMap[_hwndNameEdit] = this;
 		}

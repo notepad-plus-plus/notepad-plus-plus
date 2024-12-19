@@ -221,6 +221,7 @@ void Buffer::updateTimeStamp()
 				writeLog(nppIssueLog.c_str(), msg.c_str());
 			}
 		}
+
 		_timeStamp = timeStampLive;
 		doNotify(BufferChangeTimestamp);
 	}

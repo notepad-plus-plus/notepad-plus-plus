@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.2:
+Updated to v8.7.4:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.3">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.4">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1013,7 +1013,7 @@ Updated to v8.7.2:
 					<Item id="6109" name="Сменить цвет неактивной вкладки"/>
 					<Item id="6110" name="Оранжевая линия над активной"/>
 					<Item id="6111" name="Отображать Строку Состояния"/>
-					<Item id="6112" name="Кнопка закрытия на вкладке"/>
+					<Item id="6112" name="Кнопка закрытия"/>
 					<Item id="6113" name="Закрывать двойным щелчком"/>
 					<Item id="6115" name="Возможность закрепления вкладки"/>
 					<Item id="6118" name="Скрыть"/>
@@ -1201,6 +1201,7 @@ Updated to v8.7.2:
 					<Item id="6908" name="Заполнять поле поиска выделенным текстом"/>
 					<Item id="6909" name="Выделять слово под курсором, когда ничего не выбрано"/>
 					<Item id="6910" name="Миним. размер для автоматич. установки 'В выделенном'"/>
+					<Item id="6913" name="Заполнять поле поиска в Папке на основе текущего документа"/>
 				</Searching>
 				<RecentFilesHistory title="История Открытия">
 					<Item id="6304" name="История Последних Закрытых Файлов"/>
@@ -1678,6 +1679,7 @@ Notepad++ сделает резервную копию вашего старог
 Искать во всех файлах, но исключить все папки log или рекурсивные logs:
 *.* !+\log*"/>
 			<find-in-files-select-folder value="Выберите папку для поиска"/>
+			<find-in-files-dir-from-active-doc-tip value="Заполнять поле Папки на основе текущего документа"/>
 			<find-status-end-reached value="Поиск: Достигнут конец. Найдено первое совпадение сверху."/>
 			<find-status-top-reached value="Поиск: Достигнуто начало. Найдено первое совпадение снизу."/>
 			<find-status-replaceinfiles-1-replaced value="Замена в файлах: заменено 1 совпадение"/>

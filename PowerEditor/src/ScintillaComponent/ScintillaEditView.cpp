@@ -1861,7 +1861,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 			Buffer* buf = MainFileManager.getBufferByID(_currentBufferID);
 
-			if (buf->getEncoding() == NPP_CP_DOS_437)
+			if (buf->getEncoding() == NPP_CP_DOS_437 && !buf->isDirty())
 			{
 				MainFileManager.reloadBuffer(buf);
 			}

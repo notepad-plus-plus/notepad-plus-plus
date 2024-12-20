@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.7.2
-    Last modified Sat, Nov 30th, 2024.
+    Italian translation for Notepad++ 8.7.5
+    Last modified Fri, Dec 20th, 2024.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.3">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -963,7 +963,7 @@ Translation note:
 					<Item id="6108" name="Blocca schede (no trascinamento)"/>
 					<Item id="6109" name="Cambia il colore della scheda inattiva"/>
 					<Item id="6110" name="Barra colorata sulla scheda attiva"/>
-					<Item id="6112" name="Pulsante di chiusura su ogni scheda"/>
+					<Item id="6112" name="Visualizza pulsante di chiusura"/>
 					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>
 					<Item id="6115" name="Abilita il fissaggio delle schede"/>
 					<Item id="6118" name="Nascondi"/>
@@ -1195,6 +1195,7 @@ Translation note:
 					<Item id="6908" name="Compila il campo di ricerca con il testo selezionato"/>
 					<Item id="6909" name="Proponi la parola del cursore quando non è selezionato nulla"/>
 					<Item id="6910" name="Dim. minima per l'abilitazione automatica di &quot;Nella selezione&quot;:"/>
+					<Item id="6913" name="Compila il campo Cartella di Cerca nei file con quella del doc. corrente"/>
 				</Searching>
 
 				<RecentFilesHistory title="Cronologia File Recenti">
@@ -1694,6 +1695,7 @@ Cerca in tutti i file, ma escludi la cartella tests, bin e bin64:
 Cerca in tutti i file, ma escludi tutte le cartelle o sottocartelle log o logs:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Seleziona la cartella di ricerca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Compila il campo Cartella in base al documento attivo"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Trova: è stato raggiunto l&apos;inizio del documento, la prima corrispondenza dal basso."/>
 			<find-status-end-reached value="Trova: è stata raggiunta la fine del documento, la prima corrispondenza dall&apos;alto."/>
 			<find-status-replaceinfiles-1-replaced value="Sostituisci: 1 corrispondenza è stata sostituita"/>

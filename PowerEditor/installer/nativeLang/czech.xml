@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.3  29/Nov/2024  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.5  20/Dec/2024  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.3">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1215,7 +1215,8 @@
 					<Item id="6907" name="Při vyvolání dialogového okna &quot;Najít&quot;"/>
 					<Item id="6908" name="Předvyplnit vyhledávací pole označeným textem"/>
 					<Item id="6909" name="Když není nic označeno, předvyplnit slovem na pozici kurzoru"/>
-					<Item id="6910" name="Minimální délka pro automatické zaškrtávaní &quot;Ve vybraném&quot;"/>
+					<Item id="6910" name="Minimální délka pro automatické zaškrtávaní &quot;Ve vybraném&quot;:"/>
+					<Item id="6913" name="Předvyplnit pole &quot;Adresář:&quot; v dialogu &quot;Najít v souborech&quot; podle aktivního dokumentu"/>
 				</Searching>
 				<RecentFilesHistory title="Historie posl. souborů">
 					<Item id="6304" name="Historie posledních souborů"/>
@@ -1692,6 +1693,7 @@ Hledat ve všech souborech, ale vynechat složky tests, bin &amp;&amp; bin64:
 Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo logs:
 *.* !\\log*+"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Vyberte složku, kde chcete vyhledávat"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Vyplní pole &quot;Adresář:&quot; podle aktivního dokumentu."/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Vyhledávání: Dosažen začátek dokumentu, nalezen první výskyt zdola."/>
 			<find-status-end-reached value="Vyhledávání: Dosažen konec dokumentu, nalezen první výskyt shora."/>
 			<find-status-replaceinfiles-1-replaced value="Nahrazování v souborech: 1 výskyt nahrazen"/>

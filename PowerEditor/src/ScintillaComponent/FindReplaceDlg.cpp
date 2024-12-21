@@ -691,7 +691,6 @@ void Finder::deleteResult()
 
 vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 {
-	std::vector<wstring> paths;
 	size_t fromLine = 0, toLine = 0;
 
 	if (onlyInSelectedText)
@@ -705,35 +704,39 @@ vector<wstring> Finder::getResultFilePaths(bool onlyInSelectedText) const
 		toLine = _scintView.execute(SCI_GETLINECOUNT) - 1;
 	}
 
-	size_t len = _pMainFoundInfos->size();  // First, get the number of elements in the container
+	size_t len = _pMainFoundInfos->size();
+	vector<wstring> paths;
+
 	for (size_t line = fromLine; line <= toLine; ++line)
 	{
-		bool found = false;  // Was it found?
 		const int lineFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
 		if (lineFoldLevel == fileHeaderLevel)
 		{
-			line++;  // Move to the next line
-			if (line < len)
-				found = true;  // Found it
-		}
-		else if (lineFoldLevel == resultLevel)
-		{
-			if (line < len)
-				found = true;  // Found it
+			// fileHeaderLevel lines don't have path info; have to look into the NEXT line for it,
+			// but only need to do something special here if we are on the LAST line of the selection
+			if (line == toLine)
+			{
+				++line;
+			}
 		}
 
-		if (found)
+		if (line < len)
 		{
-			wstring& path = (*_pMainFoundInfos)[line]._fullPath;
-			if (std::find(paths.begin(), paths.end(), path) == paths.end())
+			wstring& path2add = (*_pMainFoundInfos)[line]._fullPath;
+			if (!path2add.empty())
 			{
-				paths.push_back(path);
+				// make sure that path is not already in
+				if (std::find(paths.begin(), paths.end(), path2add) == paths.end())
+				{
+					paths.push_back(path2add);
+				}
 			}
 		}
 	}
 
 	return paths;
 }
+
 
 bool Finder::canFind(const wchar_t *fileName, size_t lineNumber, size_t* indexToStartFrom) const
 {

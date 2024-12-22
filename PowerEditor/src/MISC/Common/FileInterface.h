@@ -55,6 +55,6 @@ private:
 	std::string _path;
 
 	const DWORD _accessParam  { GENERIC_READ | GENERIC_WRITE };
-	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE };
+	const DWORD _shareParam   { FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE};
 	const DWORD _attribParam  { FILE_ATTRIBUTE_NORMAL };
 };

@@ -275,3 +275,16 @@
 {3}//! This module provides functions for retrieving the current date and
 //! time with varying degrees of precision and accuracy. It does not
 //! depend on libc, but will use functions from it if available.
+{0}
+{13}const{0} {17}@"identifier with spaces in it"{0} {5}={0} {4}0xff{5};{0}
+{13}const{0} {17}@"1SmallStep4Man"{0} {5}={0} {4}112358{5};{0}
+
+{13}const{0} {10}c{0} {5}={0} {12}@import{5}({7}"std"{5}).{10}c{5};{0}
+{13}pub{0} {13}extern{0} {7}"c"{0} {13}fn{0} {17}@"error"{5}(){0} {11}void{5};{0}
+{13}pub{0} {13}extern{0} {7}"c"{0} {13}fn{0} {17}@"fstat$INODE64"{5}({11}fd{5}:{0} {10}c{5}.{10}fd_t{5},{0} {10}buf{5}:{0} {5}*{10}c{5}.{10}Stat{5}){0} {10}c_int{5};{0}
+
+{13}const{0} {10}Color{0} {5}={0} {13}enum{0} {5}{{0}
+    {10}red{5},{0}
+    {17}@"really red"{5},{0}
+{5}};{0}
+{13}const{0} {10}color{5}:{0} {10}Color{0} {5}={0} {5}.{17}@"really red"{5};{0}

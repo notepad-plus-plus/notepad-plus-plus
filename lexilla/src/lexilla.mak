@@ -158,6 +158,7 @@ LEX_OBJS=\
 	$(DIR_O)\LexMySQL.obj \
 	$(DIR_O)\LexNim.obj \
 	$(DIR_O)\LexNimrod.obj \
+	$(DIR_O)\LexNix.obj \
 	$(DIR_O)\LexNsis.obj \
 	$(DIR_O)\LexNull.obj \
 	$(DIR_O)\LexOpal.obj \

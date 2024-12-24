@@ -130,7 +130,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 22 March 2024 NH</p>
+    <p>Last edited 26 October 2024 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -8654,7 +8654,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <p>If the value argument is 0 then the length that should be allocated to store the value is returned;
     again, the terminating 0 is not included.</p>
 
-    <p><b id="SCI_GETPROPERTYEXPANDED">SCI_GETPROPERTYEXPANDED(const char *key, char *value) &rarr; int</b><br />
+    <p><b id="SCI_GETPROPERTYEXPANDED">SCI_GETPROPERTYEXPANDED(const char *key, char *value NUL-terminated) &rarr; int</b><br />
     This is now the same as <a class="message" href="#SCI_GETPROPERTY"><code>SCI_GETPROPERTY</code></a>
     - no expansion is performed.</p>
 
@@ -8742,13 +8742,13 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <p><b id="SCI_GETNAMEDSTYLES">SCI_GETNAMEDSTYLES &rarr; int</b><br />
      Retrieve the number of named styles for the lexer.</p>
 
-    <p><b id="SCI_NAMEOFSTYLE">SCI_NAMEOFSTYLE(int style, char *name) &rarr; int</b><br />
+    <p><b id="SCI_NAMEOFSTYLE">SCI_NAMEOFSTYLE(int style, char *name NUL-terminated) &rarr; int</b><br />
      Retrieve the name of a style. This is a C preprocessor symbol like "SCE_C_COMMENTDOC".</p>
 
-    <p><b id="SCI_TAGSOFSTYLE">SCI_TAGSOFSTYLE(int style, char *tags) &rarr; int</b><br />
+    <p><b id="SCI_TAGSOFSTYLE">SCI_TAGSOFSTYLE(int style, char *tags NUL-terminated) &rarr; int</b><br />
      Retrieve the tags of a style. This is a space-separated set of words like "comment documentation".</p>
 
-    <p><b id="SCI_DESCRIPTIONOFSTYLE">SCI_DESCRIPTIONOFSTYLE(int style, char *description) &rarr; int</b><br />
+    <p><b id="SCI_DESCRIPTIONOFSTYLE">SCI_DESCRIPTIONOFSTYLE(int style, char *description NUL-terminated) &rarr; int</b><br />
      Retrieve an English-language description of a style which may be suitable for display in a user interface.
      This looks like "Doc comment: block comments beginning with /** or /*!".</p>
 
@@ -9517,6 +9517,16 @@ struct SCNotification {
         </tr>
 
         <tr>
+          <td align="left"><code id="SC_MOD_CHANGEEOLANNOTATION">SC_MOD_CHANGEEOLANNOTATION</code></td>
+
+          <td align="right">0x400000</td>
+
+          <td>An EOL annotation has changed.</td>
+
+          <td><code>line</code></td>
+        </tr>
+
+        <tr>
           <td align="left"><code id="SC_MOD_INSERTCHECK">SC_MOD_INSERTCHECK</code></td>
 
           <td align="right">0x100000</td>
@@ -9568,7 +9578,7 @@ struct SCNotification {
         <tr>
           <td align="left"><code>SC_MODEVENTMASKALL</code></td>
 
-          <td align="right">0x1FFFFF</td>
+          <td align="right">0x7FFFFF</td>
 
           <td>This is a mask for all valid flags. This is the default mask state set by <a
           class="message" href="#SCI_SETMODEVENTMASK"><code>SCI_SETMODEVENTMASK</code></a>.</td>

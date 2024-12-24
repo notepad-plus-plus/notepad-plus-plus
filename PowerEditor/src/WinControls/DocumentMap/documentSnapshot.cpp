@@ -62,7 +62,9 @@ void DocumentPeeker::syncDisplay(Buffer *buf, const ScintillaEditView & scintSou
 {
 	if (_pPeekerView)
 	{
+		_pPeekerView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_pPeekerView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(buf->getDocument()));
+		_pPeekerView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_pPeekerView->setCurrentBuffer(buf);
 
 		//

@@ -1244,7 +1244,9 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 	if (UnicodeConvertor.openFile(fullpath))
 	{
+		_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
+		_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 		size_t lengthDoc = _pscratchTilla->getCurrentDocLen();
 		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
@@ -1286,7 +1288,9 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		// Error, we didn't write the entire document to disk.
 		if (!isWrittenSuccessful)
 		{
+			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			return SavingStatus::SaveWritingFailed;
 		}
 
@@ -1295,7 +1299,9 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 		if (isCopy) // "Save a Copy As..." command
 		{
+			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			return SavingStatus::SaveOK;	//all done - we don't change the current buffer's path to "fullpath", since it's "Save a Copy As..." action.
 		}
 
@@ -1322,7 +1328,9 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
+		_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+		_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 		wstring backupFilePath = buffer->getBackupFileName();
 		if (!backupFilePath.empty())
@@ -1655,7 +1663,9 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 
 	//Setup scratchtilla for new filedata
 	_pscratchTilla->execute(SCI_SETSTATUS, SC_STATUS_OK); // reset error status
+	_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
+	_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
 	if (ro)
 	{
@@ -1843,7 +1853,9 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 	if (ro)
 		_pscratchTilla->execute(SCI_SETREADONLY, true);
 
+	_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+	_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 	return success;
 }
@@ -1900,8 +1912,10 @@ int FileManager::getFileNameFromBuffer(BufferID id, wchar_t * fn2copy)
 size_t FileManager::docLength(Buffer* buffer) const
 {
 	Document curDoc = _pscratchTilla->execute(SCI_GETDOCPOINTER);
+	_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
 	size_t docLen = _pscratchTilla->getCurrentDocLen();
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
+	_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	return docLen;
 }

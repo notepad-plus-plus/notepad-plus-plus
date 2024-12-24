@@ -24,7 +24,9 @@ void DocumentMap::reloadMap()
 	if (_pMapView && _ppEditView)
 	{
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
+		_pMapView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_pMapView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(currentDoc));
+		_pMapView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 		//
 		// sync with the current document
@@ -52,7 +54,9 @@ void DocumentMap::showInMapTemporarily(Buffer *buf2show, ScintillaEditView *from
 {
 	if (_pMapView && fromEditView)
 	{
+		_pMapView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_pMapView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(buf2show->getDocument()));
+		_pMapView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_pMapView->setCurrentBuffer(buf2show);
 
 		// folding

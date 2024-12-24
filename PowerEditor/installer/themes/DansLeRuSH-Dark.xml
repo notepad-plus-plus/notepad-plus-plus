@@ -528,6 +528,8 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="STRINGRAW" styleID="20" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="">XmlUtil loadXmlString TopologyXmlTree NotificationArea loadXmlFile debug</WordsStyle>
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="51" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="REGEX" styleID="52" fgColor="E6C74E" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />

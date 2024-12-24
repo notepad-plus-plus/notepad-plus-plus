@@ -431,6 +431,8 @@
             <WordsStyle name="STRINGRAW" styleID="20" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="51" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="REGEX" styleID="52" fgColor="8000FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

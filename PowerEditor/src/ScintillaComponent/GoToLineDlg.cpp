@@ -87,6 +87,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 				case IDOK :
                 {
+					(*_ppEditView)->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
                     long long line = getLine();
                     if (line != -1)
                     {
@@ -111,6 +112,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 							(*_ppEditView)->execute(SCI_GOTOPOS, posToGoto);
 						}
 					}
+					(*_ppEditView)->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 					SCNotification notification{};
 					notification.nmhdr.code = SCN_PAINTED;

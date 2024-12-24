@@ -1273,7 +1273,9 @@ bool Notepad_plus::replaceInOpenedFiles()
 			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
 				continue;
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			setCodePageForInvisibleView(pBuf);
 
@@ -1309,7 +1311,9 @@ bool Notepad_plus::replaceInOpenedFiles()
 			pBuf = MainFileManager.getBufferByID(bufId);
 			if (pBuf->isReadOnly())
 				continue;
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			setCodePageForInvisibleView(pBuf);
 
@@ -1330,7 +1334,9 @@ bool Notepad_plus::replaceInOpenedFiles()
 		}
 	}
 
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 
@@ -1983,7 +1989,9 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 		if (id != BUFFER_INVALID)
 		{
 			Buffer * pBuf = MainFileManager.getBufferByID(id);
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			setCodePageForInvisibleView(pBuf);
 
@@ -2022,7 +2030,9 @@ bool Notepad_plus::replaceInFilelist(std::vector<wstring> & fileNames)
 
 	progress.close();
 
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 
@@ -2087,7 +2097,9 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		if (id != BUFFER_INVALID)
 		{
 			Buffer * pBuf = MainFileManager.getBufferByID(id);
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			setCodePageForInvisibleView(pBuf);
 
@@ -2122,7 +2134,9 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 	const bool searchedInSelection = false;
 	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, int(filesCount), !searchedInSelection, &(findInFolderInfo->_findOption));
 
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	_pEditView = pOldView;
 
 	return true;
@@ -2188,7 +2202,9 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 		if (id != BUFFER_INVALID)
 		{
 			Buffer * pBuf = MainFileManager.getBufferByID(id);
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			setCodePageForInvisibleView(pBuf);
 
@@ -2223,7 +2239,9 @@ bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
 
 	_findReplaceDlg.finishFilesSearch(nbTotal, int(filesCount), isEntireDoc);
 
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
@@ -2267,7 +2285,9 @@ bool Notepad_plus::findInOpenedFiles()
 		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 		{
 			pBuf = MainFileManager.getBufferByID(_mainDocTab.getBufferByIndex(i));
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			setCodePageForInvisibleView(pBuf);
 
@@ -2298,7 +2318,9 @@ bool Notepad_plus::findInOpenedFiles()
 			{
 				continue;  // clone was already searched in main; skip re-searching in sub
 			}
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			setCodePageForInvisibleView(pBuf);
 
@@ -2322,7 +2344,9 @@ bool Notepad_plus::findInOpenedFiles()
 
 	_findReplaceDlg.finishFilesSearch(nbTotal, int(nbUniqueBuffers), isEntireDoc);
 
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
@@ -2360,7 +2384,9 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	_findReplaceDlg.beginNewFilesSearch();
 
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 	setCodePageForInvisibleView(pBuf);
 
@@ -2395,7 +2421,9 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 
 	_findReplaceDlg.finishFilesSearch(nbTotal, 1, isEntireDoc);
 
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
@@ -3875,7 +3903,9 @@ void Notepad_plus::setLanguage(LangType langType)
 			reset = true;
 			_subEditView.saveCurrentPos();
 			prev = _subEditView.execute(SCI_GETDOCPOINTER);
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		}
 	}
 	
@@ -3890,7 +3920,9 @@ void Notepad_plus::setLanguage(LangType langType)
 
 	if (reset)
 	{
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_subEditView.restoreCurrentPosPreStep();
 	}
 }
@@ -6363,7 +6395,9 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			sfi._individualTabColour = docTab[k]->getIndividualTabColourId(static_cast<int>(i));
 			sfi._isRTL = buf->isRTL();
 
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			size_t maxLine = static_cast<size_t>(_invisibleEditView.execute(SCI_GETLINECOUNT));
 
 			for (size_t j = 0 ; j < maxLine ; ++j)
@@ -6385,7 +6419,9 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			viewFiles->push_back(sfi);
 		}
 	}
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 }
 
 bool Notepad_plus::str2Cliboard(const wstring & str2cpy)

@@ -574,13 +574,17 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	if (mainVisisble)
 	{
 		_mainEditView.saveCurrentPos();
+		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	}
 
 	if (subVisisble)
 	{
 		_subEditView.saveCurrentPos();
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	}
 
 	if (!mainVisisble && !subVisisble)
@@ -592,13 +596,17 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	Buffer * pBuf = MainFileManager.getBufferByID(id);
 	if (mainVisisble)
 	{
+		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_mainEditView.restoreCurrentPosPreStep();
 	}
 
 	if (subVisisble)
 	{
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_subEditView.restoreCurrentPosPreStep();
 	}
 
@@ -2473,12 +2481,16 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j)
 			{
 				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
 			}
+			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			++i;
 		}
 		else
@@ -2604,12 +2616,16 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j)
 			{
 				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
 			}
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			++k;
 		}

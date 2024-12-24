@@ -230,6 +230,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
 	}
 
+	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+	execute(SCI_SETIDLESTYLING, SC_IDLESTYLING_ALL, 0);
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
 	showMargin(_SC_MARGE_FOLDER, true);
 
@@ -345,6 +347,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 			delete[] defaultCharList;
 		}
 	}
+	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
 }
@@ -2109,6 +2112,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		if (currentIndentMode != docIndentMode)
 			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
 	}
+
+	execute(SCI_SETLAYOUTCACHE, SC_CACHE_DOCUMENT, 0);
+	execute(SCI_STARTSTYLING, 0, 0);
 }
 
 BufferID ScintillaEditView::attachDefaultDoc()
@@ -2283,7 +2289,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	// change the doc, this operation will decrease
 	// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
 	// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
+	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
+	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
 	// defineDocType() function should be called here, but not be after the fold info loop

@@ -7,6 +7,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <cstdint>
 #include <cassert>
 #include <cstring>
 #include <cstdio>
@@ -832,15 +833,9 @@ Sci::Position Document::MovePositionOutsideChar(Sci::Position pos, Sci::Position
 				// Else invalid UTF-8 so return position of isolated trail byte
 			}
 		} else {
-			// Anchor DBCS calculations at start of line because start of line can
-			// not be a DBCS trail byte.
-			const Sci::Position posStartLine = LineStartPosition(pos);
-			if (pos == posStartLine)
-				return pos;
-
 			// Step back until a non-lead-byte is found.
 			Sci::Position posCheck = pos;
-			while ((posCheck > posStartLine) && IsDBCSLeadByteNoExcept(cb.CharAt(posCheck-1)))
+			while ((posCheck > 0) && IsDBCSLeadByteNoExcept(cb.CharAt(posCheck-1)))
 				posCheck--;
 
 			// Check from known start of character.
@@ -915,14 +910,11 @@ Sci::Position Document::NextPosition(Sci::Position pos, int moveDir) const noexc
 				if (pos > cb.Length())
 					pos = cb.Length();
 			} else {
-				// Anchor DBCS calculations at start of line because start of line can
-				// not be a DBCS trail byte.
-				const Sci::Position posStartLine = LineStartPosition(pos);
-				// See http://msdn.microsoft.com/en-us/library/cc194792%28v=MSDN.10%29.aspx
-				// http://msdn.microsoft.com/en-us/library/cc194790.aspx
-				if ((pos - 1) <= posStartLine) {
-					return pos - 1;
-				} else if (IsDBCSLeadByteNoExcept(cb.CharAt(pos - 1))) {
+				// How to Go Backward in a DBCS String
+				// https://msdn.microsoft.com/en-us/library/cc194792.aspx
+				// DBCS-Enabled Programs vs. Non-DBCS-Enabled Programs
+				// https://msdn.microsoft.com/en-us/library/cc194790.aspx
+				if (IsDBCSLeadByteNoExcept(cb.CharAt(pos - 1))) {
 					// Should actually be trail byte
 					if (IsDBCSDualByteAt(pos - 2)) {
 						return pos - 2;
@@ -933,7 +925,7 @@ Sci::Position Document::NextPosition(Sci::Position pos, int moveDir) const noexc
 				} else {
 					// Otherwise, step back until a non-lead-byte is found.
 					Sci::Position posTemp = pos - 1;
-					while (posStartLine <= --posTemp && IsDBCSLeadByteNoExcept(cb.CharAt(posTemp)))
+					while (--posTemp >= 0 && IsDBCSLeadByteNoExcept(cb.CharAt(posTemp)))
 						;
 					// Now posTemp+1 must point to the beginning of a character,
 					// so figure out whether we went back an even or an odd
@@ -1168,6 +1160,29 @@ bool Document::IsDBCSTrailByteNoExcept(char ch) const noexcept {
 			((trail >= 0x81) && (trail <= 0xFE));
 	}
 	return false;
+}
+
+unsigned char Document::DBCSMinTrailByte() const noexcept {
+	switch (dbcsCodePage) {
+	case 932:
+		// Shift_jis
+		return 0x40;
+	case 936:
+		// GBK
+		return 0x40;
+	case 949:
+		// Korean Wansung KS C-5601-1987
+		return 0x41;
+	case 950:
+		// Big5
+		return 0x40;
+	case 1361:
+		// Korean Johab KS C-5601-1992
+		return 0x31;
+	default:
+		// UTF-8 or single byte, should not occur as not DBCS
+		return 0;
+	}
 }
 
 int Document::DBCSDrawBytes(std::string_view text) const noexcept {
@@ -2828,33 +2843,36 @@ static char BraceOpposite(char ch) noexcept {
 
 // TODO: should be able to extend styled region to find matching brace
 Sci::Position Document::BraceMatch(Sci::Position position, Sci::Position /*maxReStyle*/, Sci::Position startPos, bool useStartPos) noexcept {
-	const char chBrace = CharAt(position);
-	const char chSeek = BraceOpposite(chBrace);
+	const unsigned char chBrace = CharAt(position);
+	const unsigned char chSeek = BraceOpposite(chBrace);
 	if (chSeek == '\0')
-		return - 1;
+		return -1;
 	const int styBrace = StyleIndexAt(position);
 	int direction = -1;
 	if (chBrace == '(' || chBrace == '[' || chBrace == '{' || chBrace == '<')
 		direction = 1;
 	int depth = 1;
-	position = useStartPos ? startPos : NextPosition(position, direction);
-	while ((position >= 0) && (position < LengthNoExcept())) {
-		const char chAtPos = CharAt(position);
-		const int styAtPos = StyleIndexAt(position);
-		if ((position > GetEndStyled()) || (styAtPos == styBrace)) {
-			if (chAtPos == chBrace)
-				depth++;
-			if (chAtPos == chSeek)
-				depth--;
-			if (depth == 0)
-				return position;
-		}
-		const Sci::Position positionBeforeMove = position;
-		position = NextPosition(position, direction);
-		if (position == positionBeforeMove)
-			break;
+	position = useStartPos ? startPos : position + direction;
+
+	// Avoid using MovePositionOutsideChar to check DBCS trail byte
+	unsigned char maxSafeChar = 0xff;
+	if (dbcsCodePage != 0 && dbcsCodePage != CpUtf8) {
+		maxSafeChar = DBCSMinTrailByte() - 1;
 	}
-	return - 1;
+
+	while ((position >= 0) && (position < LengthNoExcept())) {
+		const unsigned char chAtPos = CharAt(position);
+		if (chAtPos == chBrace || chAtPos == chSeek) {
+			if (((position > GetEndStyled()) || (StyleIndexAt(position) == styBrace)) &&
+				(chAtPos <= maxSafeChar || position == MovePositionOutsideChar(position, direction, false))) {
+				depth += (chAtPos == chBrace) ? 1 : -1;
+				if (depth == 0)
+					return position;
+			}
+		}
+		position += direction;
+	}
+	return -1;
 }
 
 /**
@@ -2882,14 +2900,13 @@ namespace {
 */
 class RESearchRange {
 public:
-	const Document *doc;
 	int increment;
 	Sci::Position startPos;
 	Sci::Position endPos;
 	Sci::Line lineRangeStart;
 	Sci::Line lineRangeEnd;
 	Sci::Line lineRangeBreak;
-	RESearchRange(const Document *doc_, Sci::Position minPos, Sci::Position maxPos) noexcept : doc(doc_) {
+	RESearchRange(const Document *doc, Sci::Position minPos, Sci::Position maxPos) noexcept {
 		increment = (minPos <= maxPos) ? 1 : -1;
 
 		// Range endpoints should not be inside DBCS characters or between a CR and LF,

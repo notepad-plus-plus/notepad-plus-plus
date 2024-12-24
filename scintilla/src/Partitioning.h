@@ -182,7 +182,7 @@ public:
 		T upper = Partitions();
 		do {
 			const T middle = (upper + lower + 1) / 2; 	// Round high
-			T posMiddle = body.ValueAt(middle);
+			T posMiddle = body[middle];
 			if (middle > stepPartition)
 				posMiddle += stepLength;
 			if (pos < posMiddle) {

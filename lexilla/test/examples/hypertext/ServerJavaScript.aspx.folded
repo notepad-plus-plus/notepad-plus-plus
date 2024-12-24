@@ -15,6 +15,7 @@
  0 401   0 | <%var x=3;//comment%>
  0 401   0 | <%x=3;//comment ?> %>
  0 401   0 | <%Response.Write(x)%>
+ 0 401   0 | <%Response.Write(`template ${2+2}`)%>
  0 401   0 | End
  0 401   0 | </html>
  0 400   0   

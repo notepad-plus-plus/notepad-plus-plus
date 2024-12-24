@@ -27,8 +27,6 @@ private:
 	}
 public:
 	SparseVector() : empty() {
-		starts = Partitioning<Sci::Position>(8);
-		values = SplitVector<T>();
 		values.InsertEmpty(0, 2);
 	}
 	Sci::Position Length() const noexcept {
@@ -158,7 +156,7 @@ public:
 		Check();
 	}
 	void DeleteAll() {
-		starts = Partitioning<Sci::Position>(8);
+		starts = Partitioning<Sci::Position>();
 		values = SplitVector<T>();
 		values.InsertEmpty(0, 2);
 	}

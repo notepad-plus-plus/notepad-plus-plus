@@ -60,7 +60,4 @@ xcodebuild clean
 xcodebuild
 cd ..
 
-cd ScintillaEditPy
-python2 sepbuild.py
-cd ..
 cd ../..

@@ -1034,6 +1034,20 @@ $(DIR_O)/LexNimrod.obj: \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
 	../lexlib/LexerModule.h
+$(DIR_O)/LexNix.obj: \
+	../lexers/LexNix.cxx \
+	../../scintilla/include/ILexer.h \
+	../../scintilla/include/Sci_Position.h \
+	../../scintilla/include/Scintilla.h \
+	../include/SciLexer.h \
+	../lexlib/WordList.h \
+	../lexlib/LexAccessor.h \
+	../lexlib/Accessor.h \
+	../lexlib/StyleContext.h \
+	../lexlib/CharacterSet.h \
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexNsis.obj: \
 	../lexers/LexNsis.cxx \
 	../../scintilla/include/ILexer.h \

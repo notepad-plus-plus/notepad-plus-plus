@@ -18,7 +18,6 @@ class AutoComplete {
 	std::string fillUpChars;
 	char separator;
 	char typesep; // Type separator
-	enum { maxItemLen=1000 };
 	std::vector<int> sortMatrix;
 
 public:
@@ -67,11 +66,11 @@ public:
 	bool IsFillUpChar(char ch) const noexcept;
 
 	/// The separator character is used when interpreting the list in SetList
-	void SetSeparator(char separator_);
+	void SetSeparator(char separator_) noexcept;
 	char GetSeparator() const noexcept;
 
 	/// The typesep character is used for separating the word from the type
-	void SetTypesep(char separator_);
+	void SetTypesep(char separator_) noexcept;
 	char GetTypesep() const noexcept;
 
 	/// The list string contains a sequence of words separated by the separator character

@@ -7,6 +7,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <cstdint>
 #include <cassert>
 #include <cstring>
 #include <cstdio>
@@ -92,7 +93,7 @@ bool AutoComplete::IsFillUpChar(char ch) const noexcept {
 	return ch && (fillUpChars.find(ch) != std::string::npos);
 }
 
-void AutoComplete::SetSeparator(char separator_) {
+void AutoComplete::SetSeparator(char separator_) noexcept {
 	separator = separator_;
 }
 
@@ -100,7 +101,7 @@ char AutoComplete::GetSeparator() const noexcept {
 	return separator;
 }
 
-void AutoComplete::SetTypesep(char separator_) {
+void AutoComplete::SetTypesep(char separator_) noexcept {
 	typesep = separator_;
 }
 
@@ -108,28 +109,32 @@ char AutoComplete::GetTypesep() const noexcept {
 	return typesep;
 }
 
+namespace {
+
 struct Sorter {
-	AutoComplete *ac;
+	const bool ignoreCase;
 	const char *list;
 	std::vector<int> indices;
 
-	Sorter(AutoComplete *ac_, const char *list_) : ac(ac_), list(list_) {
+	Sorter(const AutoComplete *ac, const char *list_) : ignoreCase(ac->ignoreCase), list(list_) {
 		int i = 0;
 		if (!list[i]) {
 			// Empty list has a single empty member
 			indices.push_back(i); // word start
 			indices.push_back(i); // word end
 		}
+		const char separator = ac->GetSeparator();
+		const char typesep = ac->GetTypesep();
 		while (list[i]) {
 			indices.push_back(i); // word start
-			while (list[i] != ac->GetTypesep() && list[i] != ac->GetSeparator() && list[i])
+			while (list[i] != typesep && list[i] != separator && list[i])
 				++i;
 			indices.push_back(i); // word end
-			if (list[i] == ac->GetTypesep()) {
-				while (list[i] != ac->GetSeparator() && list[i])
+			if (list[i] == typesep) {
+				while (list[i] != separator && list[i])
 					++i;
 			}
-			if (list[i] == ac->GetSeparator()) {
+			if (list[i] == separator) {
 				++i;
 				// preserve trailing separator as blank entry
 				if (!list[i]) {
@@ -141,34 +146,41 @@ struct Sorter {
 		indices.push_back(i); // index of last position
 	}
 
-	bool operator()(int a, int b) noexcept {
-		const int lenA = indices[a * 2 + 1] - indices[a * 2];
-		const int lenB = indices[b * 2 + 1] - indices[b * 2];
+	bool operator()(int a, int b) const noexcept {
+		const unsigned indexA = a * 2;
+		const unsigned indexB = b * 2;
+		const int lenA = indices[indexA + 1] - indices[indexA];
+		const int lenB = indices[indexB + 1] - indices[indexB];
 		const int len  = std::min(lenA, lenB);
 		int cmp;
-		if (ac->ignoreCase)
-			cmp = CompareNCaseInsensitive(list + indices[a * 2], list + indices[b * 2], len);
+		if (ignoreCase)
+			cmp = CompareNCaseInsensitive(list + indices[indexA], list + indices[indexB], len);
 		else
-			cmp = strncmp(list + indices[a * 2], list + indices[b * 2], len);
+			cmp = strncmp(list + indices[indexA], list + indices[indexB], len);
 		if (cmp == 0)
 			cmp = lenA - lenB;
 		return cmp < 0;
 	}
 };
 
+void FillSortMatrix(std::vector<int> &sortMatrix, int itemCount) {
+	sortMatrix.clear();
+	for (int i = 0; i < itemCount; i++) {
+		sortMatrix.push_back(i);
+	}
+}
+
+}
+
 void AutoComplete::SetList(const char *list) {
 	if (autoSort == Ordering::PreSorted) {
 		lb->SetList(list, separator, typesep);
-		sortMatrix.clear();
-		for (int i = 0; i < lb->Length(); ++i)
-			sortMatrix.push_back(i);
+		FillSortMatrix(sortMatrix, lb->Length());
 		return;
 	}
 
-	Sorter IndexSort(this, list);
-	sortMatrix.clear();
-	for (int i = 0; i < static_cast<int>(IndexSort.indices.size()) / 2; ++i)
-		sortMatrix.push_back(i);
+	const Sorter IndexSort(this, list);
+	FillSortMatrix(sortMatrix, static_cast<int>(IndexSort.indices.size() / 2));
 	std::sort(sortMatrix.begin(), sortMatrix.end(), IndexSort);
 	if (autoSort == Ordering::Custom || sortMatrix.size() < 2) {
 		lb->SetList(list, separator, typesep);
@@ -177,28 +189,25 @@ void AutoComplete::SetList(const char *list) {
 	}
 
 	std::string sortedList;
-	char item[maxItemLen];
 	for (size_t i = 0; i < sortMatrix.size(); ++i) {
-		int wordLen = IndexSort.indices[sortMatrix[i] * 2 + 2] - IndexSort.indices[sortMatrix[i] * 2];
-		if (wordLen > maxItemLen-2)
-			wordLen = maxItemLen - 2;
-		memcpy(item, list + IndexSort.indices[sortMatrix[i] * 2], wordLen);
-		if ((i+1) == sortMatrix.size()) {
+		const unsigned index = sortMatrix[i] * 2;
+		sortMatrix[i] = static_cast<int>(i);
+		// word length include trailing typesep and separator
+		const int wordLen = IndexSort.indices[index + 2] - IndexSort.indices[index];
+		const std::string_view item(list + IndexSort.indices[index], wordLen);
+		sortedList += item;
+		if ((i + 1) == sortMatrix.size()) {
 			// Last item so remove separator if present
-			if ((wordLen > 0) && (item[wordLen-1] == separator))
-				wordLen--;
+			if (!item.empty() && item.back() == separator) {
+				sortedList.pop_back();
+			}
 		} else {
 			// Item before last needs a separator
-			if ((wordLen == 0) || (item[wordLen-1] != separator)) {
-				item[wordLen] = separator;
-				wordLen++;
+			if (item.empty() || item.back() != separator) {
+				sortedList += separator;
 			}
 		}
-		item[wordLen] = '\0';
-		sortedList += item;
 	}
-	for (int i = 0; i < static_cast<int>(sortMatrix.size()); ++i)
-		sortMatrix[i] = i;
 	lb->SetList(sortedList.c_str(), separator, typesep);
 }
 
@@ -290,7 +299,7 @@ void AutoComplete::Select(const char *word) {
 		if (autoSort == Ordering::Custom) {
 			// Check for a logically earlier match
 			for (int i = location + 1; i <= end; ++i) {
-				std::string item = lb->GetValue(sortMatrix[i]);
+				const std::string item = lb->GetValue(sortMatrix[i]);
 				if (CompareNCaseInsensitive(word, item.c_str(), lenWord))
 					break;
 				if (sortMatrix[i] < sortMatrix[location] && !strncmp(word, item.c_str(), lenWord))

@@ -147,7 +147,7 @@ constexpr int statePrintForState(int state, script_mode inScriptType) noexcept {
 			StateToPrint = state + ((inScriptType == eNonHtmlScript) ? 0 : SCE_HA_PYTHON);
 		} else if ((state >= SCE_HB_START) && (state <= SCE_HB_STRINGEOL)) {
 			StateToPrint = state + ((inScriptType == eNonHtmlScript) ? 0 : SCE_HA_VBS);
-		} else if ((state >= SCE_HJ_START) && (state <= SCE_HJ_REGEX)) {
+		} else if ((state >= SCE_HJ_START) && (state <= SCE_HJ_TEMPLATELITERAL)) {
 			StateToPrint = state + ((inScriptType == eNonHtmlScript) ? 0 : SCE_HA_JS);
 		}
 	}
@@ -666,6 +666,10 @@ constexpr bool isPHPStringState(int state) noexcept {
 	    (state == SCE_HPHP_SIMPLESTRING) ||
 	    (state == SCE_HPHP_HSTRING_VARIABLE) ||
 	    (state == SCE_HPHP_COMPLEX_VARIABLE);
+}
+
+constexpr bool StyleNeedsBacktrack(int state) noexcept {
+	return InTagState(state) || isPHPStringState(state);
 }
 
 enum class AllowPHP : int {
@@ -1190,7 +1194,6 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 	if (isPHPScript && (startPos == 0)) {
 		initStyle = SCE_HPHP_DEFAULT;
 	}
-	styler.StartAt(startPos);
 	std::string lastTag;
 	std::string prevWord;
 	PhpNumberState phpNumber;
@@ -1201,23 +1204,18 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 	int makoComment = 0;
 	std::string djangoBlockType;
 	// If inside a tag, it may be a script tag, so reread from the start of line starting tag to ensure any language tags are seen
-	if (InTagState(state)) {
-		while ((startPos > 0) && (InTagState(styler.StyleIndexAt(startPos - 1)))) {
+	// PHP string can be heredoc, must find a delimiter first. Reread from beginning of line containing the string, to get the correct lineState
+	if (StyleNeedsBacktrack(state)) {
+		while ((startPos > 0) && (StyleNeedsBacktrack(styler.StyleIndexAt(startPos - 1)))) {
 			const Sci_Position backLineStart = styler.LineStart(styler.GetLine(startPos-1));
 			length += startPos - backLineStart;
 			startPos = backLineStart;
 		}
-		state = (startPos > 0) ? styler.StyleIndexAt(startPos - 1) : SCE_H_DEFAULT;
-	}
-	// String can be heredoc, must find a delimiter first. Reread from beginning of line containing the string, to get the correct lineState
-	if (isPHPStringState(state)) {
-		while (startPos > 0 && (isPHPStringState(state) || !isLineEnd(styler[startPos - 1]))) {
-			startPos--;
-			length++;
-			state = styler.StyleIndexAt(startPos);
+		if (startPos > 0) {
+			state = styler.StyleIndexAt(startPos - 1);
+		} else {
+			state = isPHPScript ? SCE_HPHP_DEFAULT : SCE_H_DEFAULT;
 		}
-		if (startPos == 0)
-			state = SCE_H_DEFAULT;
 	}
 	styler.StartAt(startPos);
 
@@ -2339,6 +2337,7 @@ void SCI_METHOD LexerHTML::Lex(Sci_PositionU startPos, Sci_Position length, int 
 				}
 				styler.ColourTo(i, StateToPrint);
 				state = SCE_HJ_DEFAULT;
+				continue;
 			} else if (ch == '\\') {
 				// Gobble up the quoted character
 				if (chNext == '\\' || chNext == '/') {

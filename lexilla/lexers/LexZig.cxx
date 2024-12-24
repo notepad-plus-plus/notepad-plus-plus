@@ -162,6 +162,7 @@ LexicalClass lexicalClasses[] = {
 	14, "SCE_ZIG_KW_SECONDARY", "identifier", "Secondary keywords",
 	15, "SCE_ZIG_KW_TERTIARY", "identifier", "Tertiary keywords",
 	16, "SCE_ZIG_KW_TYPE", "identifier", "Global types",
+	17, "SCE_ZIG_IDENTIFIER_STRING", "identifier", "Identifier using @\"\" syntax",
 };
 
 class LexerZig : public DefaultLexer {
@@ -307,6 +308,7 @@ void LexerZig::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 		case SCE_ZIG_CHARACTER:
 		case SCE_ZIG_STRING:
 		case SCE_ZIG_MULTISTRING:
+		case SCE_ZIG_IDENTIFIER_STRING:
 			if (sc.atLineStart) {
 				sc.SetState(SCE_ZIG_DEFAULT);
 			} else if (sc.ch == '\\' && sc.state != SCE_ZIG_MULTISTRING) {
@@ -318,16 +320,9 @@ void LexerZig::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 					escSeq.digitsLeft = 9;
 					sc.Forward();
 				}
-			} else if ((sc.ch == '\'' && sc.state == SCE_ZIG_CHARACTER) || (sc.ch == '\"' && sc.state == SCE_ZIG_STRING)) {
+			} else if ((sc.ch == '\'' && sc.state == SCE_ZIG_CHARACTER) ||
+					(sc.ch == '\"' && (sc.state == SCE_ZIG_STRING || sc.state == SCE_ZIG_IDENTIFIER_STRING))) {
 				sc.ForwardSetState(SCE_ZIG_DEFAULT);
-			} else if (sc.state != SCE_ZIG_CHARACTER) {
-				if (sc.ch == '{' || sc.ch == '}') {
-					if (sc.ch == sc.chNext) {
-						escSeq.resetEscapeState(sc.state);
-						sc.SetState(SCE_ZIG_ESCAPECHAR);
-						sc.Forward();
-                    }
-                }
 			}
 			break;
 
@@ -373,6 +368,9 @@ void LexerZig::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle
 				sc.SetState(SCE_ZIG_NUMBER);
 			} else if ((sc.ch == '@' && IsIdentifierStartEx(sc.chNext)) || IsIdentifierStartEx(sc.ch)) {
 				sc.SetState((sc.ch == '@') ? SCE_ZIG_BUILTIN_FUNCTION : SCE_ZIG_IDENTIFIER);
+			} else if (sc.ch == '@' && sc.chNext == '"') {
+				sc.SetState(SCE_ZIG_IDENTIFIER_STRING);
+				sc.Forward();
 			} else if (IsAGraphic(sc.ch)) {
 				sc.SetState(SCE_ZIG_OPERATOR);
 			}

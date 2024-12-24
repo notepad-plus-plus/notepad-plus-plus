@@ -2,5 +2,10 @@
  0 401   0 | /a|b/i.test("baby");
  0 401   0 | // arrow function
  0 401   0 | () => /a|b/i.test("baby");
+ 0 401   0 | // Issue 289
+ 0 401   0 | /a/g.test('a');
+ 0 401   0 | /a/gm.test('a');
+ 0 401   0 | 'a'.replace(/a/g, 'b');
+ 0 401   0 | 'a'.replace(/a/gm, 'b');
  0 401   0 | </script>
  0 400   0   

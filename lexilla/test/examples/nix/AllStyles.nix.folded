@@ -1,0 +1,350 @@
+ 0 400 400   # coding:utf-8
+ 0 400 400   
+ 0 400 400   1 + 2
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400    x = 1;
+ 0 400 400    y = 2;
+ 0 400 400   in x + y
+ 0 400 400   
+ 0 400 400   let x=1;y=2;in x+y
+ 0 400 400   
+ 2 400 401 + {
+ 0 401 401 |   string = "hello";
+ 0 401 401 |   integer = 1;
+ 0 401 401 |   float = 3.141;
+ 0 401 401 |   bool = true;
+ 0 401 401 |   null = null;
+ 0 401 401 |   list = [ 1 "two" false ];
+ 2 401 402 +   attribute-set = {
+ 0 402 402 |     a = "hello";
+ 0 402 402 |     b = 2;
+ 0 402 402 |     c = 2.718;
+ 0 402 402 |     d = false;
+ 0 402 401 |   }; # comments are supported
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + rec {
+ 0 401 401 |   one = 1;
+ 0 401 401 |   two = one + 1;
+ 0 401 401 |   three = two + 1;
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   { one = 1; three = 3; two = 2; }
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     a = 1;
+ 0 400 400   in
+ 0 400 400   a + a
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     b = a + 1;
+ 0 400 400     a = 1;
+ 0 400 400   in
+ 0 400 400   a + b
+ 0 400 400   
+ 2 400 401 + {
+ 0 401 401 |   a = let x = 1; in x;
+ 0 401 401 |   b = x;
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     attrset = { x = 1; };
+ 0 400 400   in
+ 0 400 400   attrset.x
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     attrset = { a = { b = { c = 1; }; }; };
+ 0 400 400   in
+ 0 400 400   attrset.a.b.c
+ 0 400 400   
+ 0 400 400   { a.b.c = 1; }
+ 0 400 400   
+ 0 400 400   let
+ 2 400 401 +   a = {
+ 0 401 401 |     x = 1;
+ 0 401 401 |     y = 2;
+ 0 401 401 |     z = 3;
+ 0 401 400 |   };
+ 0 400 400   in
+ 0 400 400   with a; [ x y z ]
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     x = 1;
+ 0 400 400     y = 2;
+ 0 400 400   in
+ 2 400 401 + {
+ 0 401 401 |   inherit x y;
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     a = { x = 1; y = 2; };
+ 0 400 400   in
+ 2 400 401 + {
+ 0 401 401 |   inherit (a) x y;
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     inherit ({ x = 1; y = 2; }) x y;
+ 0 400 400   in [ x y ]
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     name = "Nix${}";
+ 0 400 400   in
+ 0 400 400   "hello ${name}"
+ 0 400 400   
+ 2 400 401 + graphviz = (import ../tools/graphics/graphviz) {
+ 0 401 401 |   inherit fetchurl stdenv libpng libjpeg expat x11 yacc;
+ 0 401 401 |   inherit (xorg) libXaw;
+ 0 401 400 | };
+ 0 400 400   
+ 0 400 400   let negate = x: !x;
+ 0 400 400       concat = x: y: x + y;
+ 0 400 400   in if negate true then concat "foo" "bar" else ""
+ 0 400 400   
+ 0 400 400   # A number
+ 0 400 400   # Equals 1 + 1
+ 0 400 400   # asd
+ 0 400 400   
+ 2 400 401 + /* /*
+ 0 401 401 | Block comments
+ 0 401 401 | can span multiple lines.
+ 0 401 400 | */ "hello"
+ 0 400 400   "hello"
+ 0 400 400   
+ 0 400 400   /* /* nope */ 1
+ 0 400 400   
+ 0 400 400   map (concat "foo") [ "bar" "bla" "abc" ]
+ 0 400 400   
+ 2 400 401 + { localServer ? false
+ 0 401 401 | , httpServer ? false
+ 0 401 401 | , sslSupport ? false
+ 0 401 401 | , pythonBindings ? false
+ 0 401 401 | , javaSwigBindings ? false
+ 0 401 401 | , javahlBindings ? false
+ 0 401 401 | , stdenv, fetchurl
+ 0 401 401 | , openssl ? null, httpd ? null, db4 ? null, expat, swig ? null, j2sdk ? null
+ 0 401 400 | }:
+ 0 400 400   
+ 0 400 400   assert localServer -> db4 != null;
+ 0 400 400   assert httpServer -> httpd != null && httpd.expat == expat;
+ 0 400 400   assert sslSupport -> openssl != null && (httpServer -> httpd.openssl == openssl);
+ 0 400 400   assert pythonBindings -> swig != null && swig.pythonSupport;
+ 0 400 400   assert javaSwigBindings -> swig != null && swig.javaSupport;
+ 0 400 400   assert javahlBindings -> j2sdk != null;
+ 0 400 400   
+ 2 400 401 + stdenv.mkDerivation {
+ 0 401 401 |   name = "subversion-1.1.1";
+ 0 401 401 |   openssl = if sslSupport then openssl else null;
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + configureFlags = ''
+ 0 401 401 |   -system-zlib -system-libpng -system-libjpeg
+ 2 401 403 +   ${if openglSupport then ''-dlopen-opengl
+ 0 403 403 |     -L${mesa}/lib -I${mesa}/include
+ 0 403 401 |     -L${libXmu}/lib -I${libXmu}/include'' else ""}
+ 0 401 401 |   ${if threadSupport then "-thread" else "-no-thread"}
+ 0 401 400 | '';
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     a = "no";
+ 0 400 400     a.b.c.d = "foo"
+ 0 400 400   in
+ 0 400 400   "${a + " ${a + " ${a}"}"}"
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     out = "Nix";
+ 0 400 400   in
+ 0 400 400   "echo ${out} > $out"
+ 0 400 400   
+ 0 400 400   <nixpkgs/lib>
+ 0 400 400   
+ 2 400 401 + ''
+ 0 401 401 | multi
+ 0 401 401 | ''${}
+ 0 401 401 | '''
+ 0 401 401 | line
+ 0 401 401 | ''\n
+ 0 401 401 | string
+ 0 401 400 | ''
+ 0 400 400   
+ 2 400 401 + ''
+ 0 401 401 |   one
+ 0 401 401 |    two
+ 0 401 401 |     three
+ 0 401 400 | ''
+ 0 400 400   
+ 0 400 400   x: x + 1
+ 0 400 400   
+ 0 400 400   x: y: x + y
+ 0 400 400   
+ 0 400 400   { a, b }: a + b
+ 0 400 400   
+ 0 400 400   { a, b ? 0 }: a + b
+ 0 400 400   
+ 0 400 400   { a, b, ...}: a + b
+ 0 400 400   
+ 0 400 400   args@{ a, b, ... }: a + b + args.c
+ 0 400 400   
+ 0 400 400   { a, b, ... }@args: a + b + args.c
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = x: x + 1;
+ 0 400 400   in f
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = x: x + 1;
+ 0 400 400   in f 1
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = x: x.a;
+ 0 400 400     v = { a = 1; };
+ 0 400 400   in
+ 0 400 400   f v
+ 0 400 400   
+ 0 400 400   (x: x + 1) 1
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400    f = x: x + 1;
+ 0 400 400    a = 1;
+ 0 400 400   in [ (f a) ]
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400    f = x: x + 1;
+ 0 400 400    a = 1;
+ 0 400 400   in [ f a ]
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = x: y: x + y;
+ 0 400 400   in
+ 0 400 400   f 1 2
+ 0 400 400   
+ 0 400 400   {a, b}: a + b
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = {a, b}: a + b;
+ 0 400 400   in
+ 0 400 400   f { a = 1; b = 2; }
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = {a, b}: a + b;
+ 0 400 400   in
+ 0 400 400   f { a = 1; b = 2; c = 3; }
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = {a, b ? 0}: a + b;
+ 0 400 400   in
+ 0 400 400   f { a = 1; }
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = {a ? 0, b ? 0}: a + b;
+ 0 400 400   in
+ 0 400 400   f { } # empty attribute set
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = {a, b, ...}: a + b;
+ 0 400 400   in
+ 0 400 400   f { a = 1; b = 2; c = 3; }
+ 0 400 400   
+ 0 400 400   {a, b, ...}@args: a + b + args.c
+ 0 400 400   
+ 0 400 400   args@{a, b, ...}: a + b + args.c
+ 0 400 400   
+ 0 400 400   let
+ 0 400 400     f = {a, b, ...}@args: a + b + args.c;
+ 0 400 400   in
+ 0 400 400   f { a = 1; b = 2; c = 3; }
+ 0 400 400   
+ 0 400 400   { pkgs ? import <nixpkgs> {} }:
+ 0 400 400   let
+ 0 400 400     message = "hello world";
+ 0 400 400   in
+ 2 400 401 + pkgs.mkShellNoCC {
+ 0 401 401 |   packages = with pkgs; [ cowsay ];
+ 2 401 402 +   shellHook = ''
+ 0 402 402 |     cowsay ${message}
+ 0 402 401 |   '';
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + { config, pkgs, ... }: {
+ 0 401 401 | 
+ 0 401 401 |   imports = [ ./hardware-configuration.nix ];
+ 0 401 401 | 
+ 0 401 401 |   environment.systemPackages = with pkgs; [ git ];
+ 0 401 401 | 
+ 0 401 401 |   # ...
+ 0 401 400 | }
+ 0 400 400   
+ 0 400 400   { lib, stdenv, fetchurl }:
+ 0 400 400   
+ 2 400 401 + stdenv.mkDerivation rec {
+ 0 401 401 | 
+ 0 401 401 |   pname = "hello";
+ 0 401 401 | 
+ 0 401 401 |   version = "2.12";
+ 0 401 401 | 
+ 2 401 402 +   src = fetchurl {
+ 0 402 402 |     url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
+ 0 402 402 |     sha256 = "1ayhp9v4m4rdhjmnl2bq3cibrbqqkgjbl3s7yk2nhlh8vj3ay16g";
+ 0 402 401 |   };
+ 0 401 401 | 
+ 2 401 402 +   meta = with lib; {
+ 0 402 402 |     license = licenses.gpl3Plus;
+ 0 402 401 |   };
+ 0 401 401 | 
+ 0 401 400 | }
+ 0 400 400   
+ 2 400 401 + {
+ 0 401 401 |   baseName = baseNameOf name;
+ 0 401 401 | 
+ 0 401 401 |   pullImage =
+ 0 401 401 |     let
+ 0 401 401 |       fixName = name: builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] name;
+ 0 401 401 |     in
+ 2 401 402 +     { imageName
+ 0 402 402 |       # To find the digest of an image, you can use skopeo:
+ 0 402 402 |       # see doc/functions.xml
+ 0 402 402 |     , imageDigest
+ 0 402 402 |     , sha256
+ 0 402 402 |     , os ? "linux"
+ 0 402 402 |     , # Image architecture, defaults to the architecture of the `hostPlatform` when unset
+ 0 402 402 |       arch ? defaultArchitecture
+ 0 402 402 |       # This is used to set name to the pulled image
+ 0 402 402 |     , finalImageName ? imageName
+ 0 402 402 |       # This used to set a tag to the pulled image
+ 0 402 402 |     , finalImageTag ? "latest"
+ 0 402 402 |       # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
+ 0 402 402 |     , tlsVerify ? true
+ 0 402 402 | 
+ 0 402 402 |     , name ? fixName "docker-image-${finalImageName}-${finalImageTag}.tar"
+ 0 402 401 |     }:
+ 0 401 401 | 
+ 0 401 401 |     runCommand name
+ 2 401 402 +       {
+ 0 402 402 |         inherit imageDigest;
+ 0 402 402 |         imageName = finalImageName;
+ 0 402 402 |         imageTag = finalImageTag;
+ 0 402 402 |         impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+ 0 402 402 |         outputHashMode = "flat";
+ 0 402 402 |         outputHashAlgo = "sha256";
+ 0 402 402 |         outputHash = sha256;
+ 0 402 402 | 
+ 0 402 402 |         nativeBuildInputs = [ skopeo ];
+ 0 402 402 |         SSL_CERT_FILE = "${cacert.out}/etc/ssl/certs/ca-bundle.crt";
+ 0 402 402 | 
+ 0 402 402 |         sourceURL = "docker://${imageName}@${imageDigest}";
+ 0 402 402 |         destNameTag = "${finalImageName}:${finalImageTag}";
+ 0 402 402 |       } ''
+ 0 402 402 |       skopeo \
+ 0 402 402 |         --insecure-policy \
+ 0 402 402 |         --tmpdir=$TMPDIR \
+ 0 402 402 |         --override-os ${os} \
+ 0 402 402 |         --override-arch ${arch} \
+ 0 402 402 |         copy \
+ 0 402 402 |         --src-tls-verify=${lib.boolToString tlsVerify} \
+ 0 402 402 |         "$sourceURL" "docker-archive://$out:$destNameTag" \
+ 0 402 402 |         | cat  # pipe through cat to force-disable progress bar
+ 0 402 401 |     '';
+ 0 401 401 | 
+ 0 401 400 | }
+ 0 400   0   

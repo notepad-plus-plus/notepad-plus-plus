@@ -1391,7 +1391,9 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 
 		if (isCopy) // "Save a Copy As..." command
 		{
+			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			_pscratchTilla->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			return SavingStatus::SaveOK;	//all done - we don't change the current buffer's path to "fullpath", since it's "Save a Copy As..." action.
 		}
 

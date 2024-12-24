@@ -3713,10 +3713,13 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_TOML:
 		case IDM_LANG_USER :
 		{
-            setLanguage(menuID2LangType(id));
+			LangType lang = menuID2LangType(id);
+			setLanguage(lang);
+
 			// Manually set language, don't change language even file extension changes.
 			Buffer *buffer = _pEditView->getCurrentBuffer();
 			buffer->langHasBeenSetFromMenu();
+			buffer->setLastLangType(static_cast<int>(lang));
 
 			if (_pDocMap)
 			{

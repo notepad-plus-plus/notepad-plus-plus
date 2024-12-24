@@ -93,6 +93,9 @@ const bool fold_uncollapse = true;
 const bool fold_collapse = false;
 #define MAX_FOLD_COLLAPSE_LEVEL	8
 
+#define MODEVENTMASK_OFF         0
+#define MODEVENTMASK_ON          SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR
+
 enum TextCase : UCHAR
 {
 	UPPERCASE,
@@ -428,6 +431,11 @@ public:
 
 	virtual void destroy()
 	{
+		if (_blankDocument != 0)
+		{
+			execute(SCI_RELEASEDOCUMENT, 0, _blankDocument);
+			_blankDocument = 0;
+		}
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 		_pScintillaFunc = NULL;
@@ -871,6 +879,8 @@ public:
 	bool pasteToMultiSelection() const;
 	void setElementColour(int element, COLORREF color) const { execute(SCI_SETELEMENTCOLOUR, element, color | 0xFF000000); };
 
+	Document getBlankDocument();
+
 protected:
 	static bool _SciInit;
 
@@ -893,6 +903,9 @@ protected:
 	//Store the current buffer so it can be retrieved later
 	BufferID _currentBufferID = nullptr;
 	Buffer * _currentBuffer = nullptr;
+
+	Buffer* _prevBuffer = nullptr;
+	Document _blankDocument = 0;
 
 	int _codepage = CP_ACP;
 	bool _wrapRestoreNeeded = false;

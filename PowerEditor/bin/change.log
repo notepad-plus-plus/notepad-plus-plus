@@ -1,3 +1,20 @@
+Notepad++ v8.7.5 regression-fixes, bug-fixes & enhancements:
+
+ 1. Fix nfo file losing modification issue (regression from v8.7.4).
+ 2. Fix network file wrong modification detection (regression from v8.7.1).
+ 3. Fix regression "Open Selected PathName(s)" command not working while all selected.
+ 4. Fix unusuability after deleting files in split view.
+ 5. Fix unsaved documents lost on next launch if portable Notepad++ change path.    
+ 6. Refactoring for the better performance & smaller binary size.
+ 7. Improve "Copy Selected Lines" command.
+ 8. Add Visual Basic function list.
+ 9. Add Swift, TypeScript, and Go for advanced Auto-indent.
+10. Fix UDL comment line not working due to conflict with stream comment definition.
+11. Enhance "Follow current doc." GUI action/option in Find in files.
+12. Fix Reload Workspace not working.
+13. Add "Show details" functionality in installer.
+
+
 Notepad++ v8.7.4 regression-fix & bug-fixes:
 
 1. Fix regression of multi-line tabbar height not updated after closing tabs.
@@ -27,7 +44,7 @@ Notepad++ v8.7.2 new features & bug-fixes:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.4/
+https://notepad-plus-plus.org/downloads/v8.7.5/
 
 
 Included plugins:

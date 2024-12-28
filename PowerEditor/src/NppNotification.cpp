@@ -443,10 +443,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				LPNMMOUSE lpnm = (LPNMMOUSE)notification;
 				if (lpnm->dwItemSpec == DWORD(STATUSBAR_CUR_POS))
 				{
-					bool isFirstTime = !_goToLineDlg.isCreated();
-					_goToLineDlg.doDialog(_nativeLangSpeaker.isRTL());
-					if (isFirstTime)
-						_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+					command(IDM_SEARCH_GOTOLINE);
 				}
 				else if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_SIZE))
 				{

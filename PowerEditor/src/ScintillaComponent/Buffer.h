@@ -216,6 +216,10 @@ public:
 
 	void setLangType(LangType lang, const wchar_t * userLangName = L"");
 
+	int getLastLangType() const { return _lastLangType; }
+
+	void setLastLangType(int val) { _lastLangType = val; }
+
 	UniMode getUnicodeMode() const { return _unicodeMode; }
 
 	void setUnicodeMode(UniMode mode);
@@ -388,6 +392,7 @@ private:
 	//document properties
 	Document _doc;	//invariable
 	LangType _lang = L_TEXT;
+	int _lastLangType = -1;
 	std::wstring _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
 	EolType _eolFormat = EolType::osdefault;

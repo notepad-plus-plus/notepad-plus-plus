@@ -2117,6 +2117,16 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	execute(SCI_STARTSTYLING, 0, 0);
 }
 
+Document ScintillaEditView::getBlankDocument()
+{
+	if(_blankDocument==0)
+	{
+		_blankDocument=static_cast<Document>(execute(SCI_CREATEDOCUMENT,0,SC_DOCUMENTOPTION_TEXT_LARGE));
+		execute(SCI_ADDREFDOCUMENT,0,_blankDocument);
+	}
+	return _blankDocument;
+}
+
 BufferID ScintillaEditView::attachDefaultDoc()
 {
 	// get the doc pointer attached (by default) on the view Scintilla
@@ -2250,7 +2260,29 @@ void ScintillaEditView::restyleBuffer()
 
 void ScintillaEditView::styleChange()
 {
-	defineDocType(_currentBuffer->getLangType());
+	const bool isSameLangType = _prevBuffer != nullptr && ((_prevBuffer == _currentBuffer) || (_prevBuffer->getLangType() == _currentBuffer->getLangType()));
+	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
+	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt) || (_currentBuffer->isUntitled());
+
+	if (isFirstActiveBuffer)
+	{
+		defineDocType(_currentBuffer->getLangType());
+	}
+	else if (!isSameLangType)  // When entering the tab for the second or more times
+	{
+		Document prevDoc = execute(SCI_GETDOCPOINTER);
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+
+		defineDocType(_currentBuffer->getLangType());
+
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, prevDoc);
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+	}
+
+	_currentBuffer->setLastLangType(currentLangInt);
 	restyleBuffer();
 }
 
@@ -2284,18 +2316,42 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	// put the state into the future ex buffer
 	_currentBuffer->setHeaderLineState(lineStateVector, this);
 
+	_prevBuffer = _currentBuffer;
+
 	_currentBufferID = buffer;	//the magical switch happens here
 	_currentBuffer = newBuf;
-	// change the doc, this operation will decrease
-	// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
-	// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
-	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-	execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
-	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
-	// defineDocType() function should be called here, but not be after the fold info loop
-	defineDocType(_currentBuffer->getLangType());
+	const bool isSameLangType = _prevBuffer != nullptr && ((_prevBuffer == _currentBuffer) || (_prevBuffer->getLangType() == _currentBuffer->getLangType()));
+	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
+	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt) || (_currentBuffer->isUntitled());
+
+	if (isFirstActiveBuffer)  // Entering the tab for the first time
+	{
+		// change the doc, this operation will decrease
+		// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
+		// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+
+		// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
+		// defineDocType() function should be called here, but not be after the fold info loop
+		defineDocType(_currentBuffer->getLangType());
+	}
+	else if (!isSameLangType) // When entering the tab for the second or more times
+	{
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+
+		defineDocType(_currentBuffer->getLangType());
+
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+	}
+
+	_currentBuffer->setLastLangType(currentLangInt);
 
 	setWordChars();
 

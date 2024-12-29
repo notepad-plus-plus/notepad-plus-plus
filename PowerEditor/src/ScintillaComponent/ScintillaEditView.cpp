@@ -2260,29 +2260,7 @@ void ScintillaEditView::restyleBuffer()
 
 void ScintillaEditView::styleChange()
 {
-	const bool isSameLangType = _prevBuffer != nullptr && ((_prevBuffer == _currentBuffer) || (_prevBuffer->getLangType() == _currentBuffer->getLangType()));
-	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
-	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt) || (_currentBuffer->isUntitled());
-
-	if (isFirstActiveBuffer)
-	{
-		defineDocType(_currentBuffer->getLangType());
-	}
-	else if (!isSameLangType)  // When entering the tab for the second or more times
-	{
-		Document prevDoc = execute(SCI_GETDOCPOINTER);
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-
-		defineDocType(_currentBuffer->getLangType());
-
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, prevDoc);
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-	}
-
-	_currentBuffer->setLastLangType(currentLangInt);
+	defineDocType(_currentBuffer->getLangType());
 	restyleBuffer();
 }
 
@@ -2323,9 +2301,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	const bool isSameLangType = _prevBuffer != nullptr && ((_prevBuffer == _currentBuffer) || (_prevBuffer->getLangType() == _currentBuffer->getLangType()));
 	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
-	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt) || (_currentBuffer->isUntitled());
+	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt);
 
-	if (isFirstActiveBuffer)  // Entering the tab for the first time
+	if (isFirstActiveBuffer)  // Entering the tab for the 1st time
 	{
 		// change the doc, this operation will decrease
 		// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
@@ -2338,8 +2316,17 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		// defineDocType() function should be called here, but not be after the fold info loop
 		defineDocType(_currentBuffer->getLangType());
 	}
-	else if (!isSameLangType) // When entering the tab for the second or more times
+	else if (isSameLangType) // After the 2nd entering with the same language type
 	{
+		// No need to call defineDocType() since it's the same language type
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+	}
+	else // Entering the tab for the 2nd or more times, with the different language type
+	{
+		// In order to improve the performance of switch-in on the 2nd or more times for the large files,
+		// a blank document is used for accelerate defineDocType() call.
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);

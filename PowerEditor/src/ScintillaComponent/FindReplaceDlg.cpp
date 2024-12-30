@@ -1692,6 +1692,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_ACTIVATE :
 		{
+			bool inSelAutoChangeSoAbortSearch = false;
+
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
 				Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
@@ -1708,7 +1710,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 				enableFindDlgItem(IDC_IN_SELECTION_CHECK, inSelEnabled);
 
-				bool inSelChecked = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
+				bool inSelChecked = isCheckedOrNot(IDC_IN_SELECTION_CHECK), origInSelChecked = inSelChecked;
 
 				const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
 				if (nppGui._inSelectionAutocheckThreshold != 0)
@@ -1718,6 +1720,30 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					inSelChecked = inSelEnabled && (nbSelected >= nppGui._inSelectionAutocheckThreshold);
 
 					setChecked(IDC_IN_SELECTION_CHECK, inSelChecked);
+				}
+
+				if (inSelChecked != origInSelChecked)
+				{
+					const auto btnIdsWhereInSelIsRelevant = { IDCCOUNTALL, 
+						IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
+					for (auto btnId : btnIdsWhereInSelIsRelevant)
+					{
+						MSG msg;
+						while (PeekMessage(&msg, ::GetDlgItem(_hSelf, btnId), 0, 0, PM_REMOVE))
+						{
+							// user has activated the Find window by clicking on a button
+							// that will run a search where In-selection is a key parameter;
+							// however, after the button click In-selection has auto-
+							// changed on the user; we need to prevent a search action from
+							// running with an In-selection state the user does NOT intend!
+							inSelAutoChangeSoAbortSearch = true;
+							// the msg that will run the search has already been removed from
+							// the queue, so only need to set a flag so we can warn the user
+							// that his search did not run and he needs to verify settings
+							break;
+						}
+						if (inSelAutoChangeSoAbortSearch) break;
+					}
 				}
 
 				_options._isInSelection = inSelEnabled && inSelChecked;
@@ -1746,7 +1772,18 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			{
 				enableFindDlgItem(IDREDOTMATCHNL, false);
 			}
+
 			enableProjectCheckmarks();
+
+			if (inSelAutoChangeSoAbortSearch)
+			{
+				// TODO: center on Find, respect dark mode, localization
+				::MessageBox(NULL, L"The state of 'In selection' has automatically "
+					"been changed; verify its current state before "
+					"continuing with a Search operation.", L"Search Warning",
+					/*MB_ICONWARNING |*/ MB_OK);
+			}
+
 			return 0;
 		}
 

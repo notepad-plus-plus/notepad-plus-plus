@@ -1692,6 +1692,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_ACTIVATE :
 		{
+			bool isInSelectionAutoChange = false;
+
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
 				Sci_CharacterRangeFull cr = (*_ppEditView)->getSelection();
@@ -1709,6 +1711,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				enableFindDlgItem(IDC_IN_SELECTION_CHECK, inSelEnabled);
 
 				bool inSelChecked = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
+				bool origInSelChecked = inSelChecked;
 
 				const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
 				if (nppGui._inSelectionAutocheckThreshold != 0)
@@ -1718,6 +1721,29 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					inSelChecked = inSelEnabled && (nbSelected >= nppGui._inSelectionAutocheckThreshold);
 
 					setChecked(IDC_IN_SELECTION_CHECK, inSelChecked);
+				}
+
+				/*
+				In the scenario where the user clicks the action button (Count, 
+				Find All in Current Document, Replace All, Mark All, or Clear All marks) 
+				without activating the Find/Replace dialog, the "In Selection" checkbox could 
+				be auto-changed after the button click. To prevent the search from running with 
+				this unintended state, the search message has been removed from the queue. 
+				Then, launch a message box to alert the user that the search didn't run and 
+				they need to verify the settings.
+				*/
+				if (inSelChecked != origInSelChecked)
+				{
+					const std::vector<int> inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
+					for (const auto& id : inSelActionIds)
+					{
+						MSG msg;
+						if (PeekMessage(&msg, ::GetDlgItem(_hSelf, id), 0, 0, PM_REMOVE))
+						{
+							isInSelectionAutoChange = true;
+							break;
+						}
+					}
 				}
 
 				_options._isInSelection = inSelEnabled && inSelChecked;
@@ -1746,7 +1772,21 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			{
 				enableFindDlgItem(IDREDOTMATCHNL, false);
 			}
+
 			enableProjectCheckmarks();
+
+			if (isInSelectionAutoChange)
+			{
+				NppParameters& nppParamInst = NppParameters::getInstance();
+				(nppParamInst.getNativeLangSpeaker())->messageBox(
+					"FindAutoChangeOfInSelectionWarning",
+					_hSelf,
+					L"The \"In selection\" checkbox state has been automatically modified.\r\n"
+					L"Please verify the search condition before performing the action.",
+					L"Search warning",
+					MB_OK | MB_APPLMODAL);
+			}
+
 			return 0;
 		}
 

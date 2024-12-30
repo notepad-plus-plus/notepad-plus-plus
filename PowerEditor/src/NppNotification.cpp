@@ -71,7 +71,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case SCN_SAVEPOINTREACHED:
 		case SCN_SAVEPOINTLEFT:
 		{
-			if (!notifyView) return FALSE;
+			//if (!notifyView) return FALSE; // Could be _invisibleEditView or _fileEditView (see the following code)
 
 			Buffer * buf = 0;
 			if (isFromPrimary)

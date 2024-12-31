@@ -2128,20 +2128,23 @@ bool Notepad_plus::fileRename(BufferID id)
 
 bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNewName)
 {
+	if (tabNewName == nullptr) return false;
+	
 	BufferID bufferID = id;
 	if (id == BUFFER_INVALID)
 	{
 		bufferID = _pEditView->getCurrentBufferID();
 	}
 
-	Buffer* buf = MainFileManager.getBufferByID(bufferID);
+	int bufferIndex = MainFileManager.getBufferIndexByID(bufferID);
+	if (bufferIndex == -1) return false;
 
-	if (!buf->isUntitled()) return false;
+	Buffer* buf = MainFileManager.getBufferByIndex(bufferIndex);
+
+	if (buf == nullptr || !buf->isUntitled()) return false;
 
 	// We are just going to rename the tab nothing else
 	// So just rename the tab and rename the backup file too if applicable
-
-	if (!tabNewName) return false;
 
 	std::wstring tabNewNameStr = tabNewName;
 

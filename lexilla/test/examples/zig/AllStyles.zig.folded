@@ -275,4 +275,17 @@
  2 400 401 + //! This module provides functions for retrieving the current date and
  0 401 401 | //! time with varying degrees of precision and accuracy. It does not
  0 401 400 | //! depend on libc, but will use functions from it if available.
+ 0 400 400   
+ 0 400 400   const @"identifier with spaces in it" = 0xff;
+ 0 400 400   const @"1SmallStep4Man" = 112358;
+ 0 400 400   
+ 0 400 400   const c = @import("std").c;
+ 0 400 400   pub extern "c" fn @"error"() void;
+ 0 400 400   pub extern "c" fn @"fstat$INODE64"(fd: c.fd_t, buf: *c.Stat) c_int;
+ 0 400 400   
+ 2 400 401 + const Color = enum {
+ 0 401 401 |     red,
+ 0 401 401 |     @"really red",
+ 0 401 400 | };
+ 0 400 400   const color: Color = .@"really red";
  0 400   0   

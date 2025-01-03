@@ -36,10 +36,23 @@
 using namespace Scintilla;
 using namespace Lexilla;
 
-static const int NUM_RUST_KEYWORD_LISTS = 7;
-static const int MAX_RUST_IDENT_CHARS = 1023;
+namespace {
 
-static bool IsStreamCommentStyle(int style) {
+constexpr int NUM_RUST_KEYWORD_LISTS = 7;
+constexpr int MAX_RUST_IDENT_CHARS = 1023;
+
+
+enum class StringType : int {
+	STRING = SCE_RUST_STRING,
+	BYTESTRING = SCE_RUST_BYTESTRING,
+	CSTRING = SCE_RUST_CSTRING,
+
+	RAW_STRING = SCE_RUST_STRINGR,
+	RAW_BYTESTRING = SCE_RUST_BYTESTRINGR,
+	RAW_CSTRING = SCE_RUST_CSTRINGR
+};
+
+static bool IsStreamCommentStyle(int style) noexcept {
 	return style == SCE_RUST_COMMENTBLOCK ||
 		   style == SCE_RUST_COMMENTBLOCKDOC;
 }
@@ -73,15 +86,15 @@ struct OptionsRust {
 };
 
 static const char * const rustWordLists[NUM_RUST_KEYWORD_LISTS + 1] = {
-			"Primary keywords and identifiers",
-			"Built in types",
-			"Other keywords",
-			"Keywords 4",
-			"Keywords 5",
-			"Keywords 6",
-			"Keywords 7",
-			0,
-		};
+	"Primary keywords and identifiers",
+	"Built in types",
+	"Other keywords",
+	"Keywords 4",
+	"Keywords 5",
+	"Keywords 6",
+	"Keywords 7",
+	0,
+};
 
 struct OptionSetRust : public OptionSet<OptionsRust> {
 	OptionSetRust() {
@@ -208,7 +221,7 @@ static void GrabString(char* s, Accessor& styler, Sci_Position start, Sci_Positi
 }
 
 static void ScanRawIdentifier(Accessor& styler, Sci_Position& pos) {
-	Sci_Position start = pos;
+	const Sci_Position start = pos;
 	while (IsIdentifierContinue(styler.SafeGetCharAt(pos, '\0')))
 		pos++;
 
@@ -226,7 +239,7 @@ static void ScanRawIdentifier(Accessor& styler, Sci_Position& pos) {
 }
 
 static void ScanIdentifier(Accessor& styler, Sci_Position& pos, WordList *keywords) {
-	Sci_Position start = pos;
+	const Sci_Position start = pos;
 	while (IsIdentifierContinue(styler.SafeGetCharAt(pos, '\0')))
 		pos++;
 
@@ -254,9 +267,9 @@ static void ScanIdentifier(Accessor& styler, Sci_Position& pos, WordList *keywor
 
 /* Scans a sequence of digits, returning true if it found any. */
 static bool ScanDigits(Accessor& styler, Sci_Position& pos, int base) {
-	Sci_Position old_pos = pos;
+	const Sci_Position old_pos = pos;
 	for (;;) {
-		int c = styler.SafeGetCharAt(pos, '\0');
+		const int c = styler.SafeGetCharAt(pos, '\0');
 		if (IsADigit(c, base) || c == '_')
 			pos++;
 		else
@@ -397,7 +410,7 @@ static bool IsValidStringEscape(int c) {
 
 static bool ScanNumericEscape(Accessor &styler, Sci_Position& pos, Sci_Position num_digits, bool stop_asap) {
 	for (;;) {
-		int c = styler.SafeGetCharAt(pos, '\0');
+		const int c = styler.SafeGetCharAt(pos, '\0');
 		if (!IsADigit(c, 16))
 			break;
 		num_digits--;
@@ -508,7 +521,7 @@ static void ResumeBlockComment(Accessor &styler, Sci_Position& pos, Sci_Position
 	int c = styler.SafeGetCharAt(pos, '\0');
 	bool maybe_doc_comment = false;
 	if (c == '*') {
-		int n = styler.SafeGetCharAt(pos + 1, '\0');
+		const int n = styler.SafeGetCharAt(pos + 1, '\0');
 		if (n != '*' && n != '/') {
 			maybe_doc_comment = true;
 		}
@@ -517,7 +530,7 @@ static void ResumeBlockComment(Accessor &styler, Sci_Position& pos, Sci_Position
 	}
 
 	for (;;) {
-		int n = styler.SafeGetCharAt(pos + 1, '\0');
+		const int n = styler.SafeGetCharAt(pos + 1, '\0');
 		if (pos == styler.LineEnd(styler.GetLine(pos)))
 			styler.SetLineState(styler.GetLine(pos), level);
 		if (c == '*') {
@@ -585,7 +598,7 @@ static void ResumeLineComment(Accessor &styler, Sci_Position& pos, Sci_Position 
 
 static void ScanComments(Accessor &styler, Sci_Position& pos, Sci_Position max) {
 	pos++;
-	int c = styler.SafeGetCharAt(pos, '\0');
+	const int c = styler.SafeGetCharAt(pos, '\0');
 	pos++;
 	if (c == '/')
 		ResumeLineComment(styler, pos, max, UnknownComment);
@@ -593,7 +606,7 @@ static void ScanComments(Accessor &styler, Sci_Position& pos, Sci_Position max) 
 		ResumeBlockComment(styler, pos, max, UnknownComment, 1);
 }
 
-static void ResumeString(Accessor &styler, Sci_Position& pos, Sci_Position max, bool ascii_only) {
+static void ResumeString(Accessor &styler, Sci_Position& pos, Sci_Position max, StringType string_type) {
 	int c = styler.SafeGetCharAt(pos, '\0');
 	bool error = false;
 	while (c != '"' && !error) {
@@ -604,13 +617,13 @@ static void ResumeString(Accessor &styler, Sci_Position& pos, Sci_Position max, 
 		if (pos == styler.LineEnd(styler.GetLine(pos)))
 			styler.SetLineState(styler.GetLine(pos), 0);
 		if (c == '\\') {
-			int n = styler.SafeGetCharAt(pos + 1, '\0');
+			const int n = styler.SafeGetCharAt(pos + 1, '\0');
 			if (IsValidStringEscape(n)) {
 				pos += 2;
 			} else if (n == 'x') {
 				pos += 2;
 				error = !ScanNumericEscape(styler, pos, 2, true);
-			} else if (n == 'u' && !ascii_only) {
+			} else if (n == 'u' && (string_type != StringType::BYTESTRING)) {
 				pos += 2;
 				if (styler.SafeGetCharAt(pos, '\0') != '{') {
 					// old-style
@@ -624,7 +637,7 @@ static void ResumeString(Accessor &styler, Sci_Position& pos, Sci_Position max, 
 					else
 						error = true;
 				}
-			} else if (n == 'U' && !ascii_only) {
+			} else if (n == 'U' && (string_type != StringType::BYTESTRING)) {
 				pos += 2;
 				error = !ScanNumericEscape(styler, pos, 8, true);
 			} else {
@@ -632,7 +645,7 @@ static void ResumeString(Accessor &styler, Sci_Position& pos, Sci_Position max, 
 				error = true;
 			}
 		} else {
-			if (ascii_only && !IsASCII((char)c))
+			if (string_type == StringType::BYTESTRING && !IsASCII((char)c))
 				error = true;
 			else
 				pos++;
@@ -641,15 +654,16 @@ static void ResumeString(Accessor &styler, Sci_Position& pos, Sci_Position max, 
 	}
 	if (!error)
 		pos++;
-	styler.ColourTo(pos - 1, ascii_only ? SCE_RUST_BYTESTRING : SCE_RUST_STRING);
+
+	styler.ColourTo(pos - 1, static_cast<int>(string_type));
 }
 
-static void ResumeRawString(Accessor &styler, Sci_Position& pos, Sci_Position max, int num_hashes, bool ascii_only) {
+static void ResumeRawString(Accessor &styler, Sci_Position& pos, Sci_Position max, int num_hashes, StringType string_type) {
 	for (;;) {
 		if (pos == styler.LineEnd(styler.GetLine(pos)))
 			styler.SetLineState(styler.GetLine(pos), num_hashes);
 
-		int c = styler.SafeGetCharAt(pos, '\0');
+		const int c = styler.SafeGetCharAt(pos, '\0');
 		if (c == '"') {
 			pos++;
 			int trailing_num_hashes = 0;
@@ -664,15 +678,16 @@ static void ResumeRawString(Accessor &styler, Sci_Position& pos, Sci_Position ma
 		} else if (pos >= max) {
 			break;
 		} else {
-			if (ascii_only && !IsASCII((char)c))
+			if ((string_type == StringType::RAW_BYTESTRING) && !IsASCII((char)c))
 				break;
 			pos++;
 		}
 	}
-	styler.ColourTo(pos - 1, ascii_only ? SCE_RUST_BYTESTRINGR : SCE_RUST_STRINGR);
+
+	styler.ColourTo(pos - 1, static_cast<int>(string_type));
 }
 
-static void ScanRawString(Accessor &styler, Sci_Position& pos, Sci_Position max, bool ascii_only) {
+static void ScanRawString(Accessor &styler, Sci_Position& pos, Sci_Position max, StringType string_type) {
 	pos++;
 	int num_hashes = 0;
 	while (styler.SafeGetCharAt(pos, '\0') == '#') {
@@ -683,7 +698,7 @@ static void ScanRawString(Accessor &styler, Sci_Position& pos, Sci_Position max,
 		styler.ColourTo(pos - 1, SCE_RUST_LEXERROR);
 	} else {
 		pos++;
-		ResumeRawString(styler, pos, max, num_hashes, ascii_only);
+		ResumeRawString(styler, pos, max, num_hashes, string_type);
 	}
 }
 
@@ -691,7 +706,7 @@ void SCI_METHOD LexerRust::Lex(Sci_PositionU startPos, Sci_Position length, int 
 	PropSetSimple props;
 	Accessor styler(pAccess, &props);
 	Sci_Position pos = startPos;
-	Sci_Position max = pos + length;
+	const Sci_Position max = pos + length;
 
 	styler.StartAt(pos);
 	styler.StartSegment(pos);
@@ -701,19 +716,22 @@ void SCI_METHOD LexerRust::Lex(Sci_PositionU startPos, Sci_Position length, int 
 	} else if (initStyle == SCE_RUST_COMMENTLINE || initStyle == SCE_RUST_COMMENTLINEDOC) {
 		ResumeLineComment(styler, pos, max, initStyle == SCE_RUST_COMMENTLINEDOC ? DocComment : NotDocComment);
 	} else if (initStyle == SCE_RUST_STRING) {
-		ResumeString(styler, pos, max, false);
+		ResumeString(styler, pos, max, StringType::STRING);
 	} else if (initStyle == SCE_RUST_BYTESTRING) {
-		ResumeString(styler, pos, max, true);
+		ResumeString(styler, pos, max, StringType::BYTESTRING);
 	} else if (initStyle == SCE_RUST_STRINGR) {
-		ResumeRawString(styler, pos, max, styler.GetLineState(styler.GetLine(pos) - 1), false);
+		ResumeRawString(styler, pos, max, styler.GetLineState(styler.GetLine(pos) - 1), StringType::RAW_STRING);
 	} else if (initStyle == SCE_RUST_BYTESTRINGR) {
-		ResumeRawString(styler, pos, max, styler.GetLineState(styler.GetLine(pos) - 1), true);
+		ResumeRawString(styler, pos, max, styler.GetLineState(styler.GetLine(pos) - 1), StringType::RAW_BYTESTRING);
+	} else if (initStyle == SCE_RUST_CSTRING) {
+		ResumeRawString(styler, pos, max, styler.GetLineState(styler.GetLine(pos) - 1), StringType::CSTRING);
+	} else if (initStyle == SCE_RUST_CSTRINGR) {
+		ResumeRawString(styler, pos, max, styler.GetLineState(styler.GetLine(pos) - 1), StringType::RAW_CSTRING);
 	}
-
 	while (pos < max) {
-		int c = styler.SafeGetCharAt(pos, '\0');
-		int n = styler.SafeGetCharAt(pos + 1, '\0');
-		int n2 = styler.SafeGetCharAt(pos + 2, '\0');
+		const int c = styler.SafeGetCharAt(pos, '\0');
+		const int n = styler.SafeGetCharAt(pos + 1, '\0');
+		const int n2 = styler.SafeGetCharAt(pos + 2, '\0');
 
 		if (pos == 0 && c == '#' && n == '!' && n2 != '[') {
 			pos += 2;
@@ -726,13 +744,19 @@ void SCI_METHOD LexerRust::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			pos += 2;
 			ScanRawIdentifier(styler, pos);
 		} else if (c == 'r' && (n == '#' || n == '"')) {
-			ScanRawString(styler, pos, max, false);
+			ScanRawString(styler, pos, max, StringType::RAW_STRING);
 		} else if (c == 'b' && n == 'r' && (n2 == '#' || n2 == '"')) {
 			pos++;
-			ScanRawString(styler, pos, max, true);
+			ScanRawString(styler, pos, max, StringType::RAW_BYTESTRING);
 		} else if (c == 'b' && n == '"') {
 			pos += 2;
-			ResumeString(styler, pos, max, true);
+			ResumeString(styler, pos, max, StringType::BYTESTRING);
+		} else if (c == 'c' && n == 'r' && (n2 == '#' || n2 == '"')) {
+			pos++;
+			ScanRawString(styler, pos, max, StringType::RAW_CSTRING);
+		} else if (c == 'c' && n == '"') {
+			pos += 2;
+			ResumeString(styler, pos, max, StringType::CSTRING);
 		} else if (c == 'b' && n == '\'') {
 			pos++;
 			ScanCharacterLiteralOrLifetime(styler, pos, true);
@@ -753,7 +777,7 @@ void SCI_METHOD LexerRust::Lex(Sci_PositionU startPos, Sci_Position length, int 
 			ScanCharacterLiteralOrLifetime(styler, pos, false);
 		} else if (c == '"') {
 			pos++;
-			ResumeString(styler, pos, max, false);
+			ResumeString(styler, pos, max, StringType::STRING);
 		} else {
 			pos++;
 			styler.ColourTo(pos - 1, SCE_RUST_LEXERROR);
@@ -770,7 +794,7 @@ void SCI_METHOD LexerRust::Fold(Sci_PositionU startPos, Sci_Position length, int
 
 	LexAccessor styler(pAccess);
 
-	Sci_PositionU endPos = startPos + length;
+	const Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
 	bool inLineComment = false;
 	Sci_Position lineCurrent = styler.GetLine(startPos);
@@ -785,12 +809,12 @@ void SCI_METHOD LexerRust::Fold(Sci_PositionU startPos, Sci_Position length, int
 	int style = initStyle;
 	const bool userDefinedFoldMarkers = !options.foldExplicitStart.empty() && !options.foldExplicitEnd.empty();
 	for (Sci_PositionU i = startPos; i < endPos; i++) {
-		char ch = chNext;
+		const char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
-		int stylePrev = style;
+		const int stylePrev = style;
 		style = styleNext;
 		styleNext = styler.StyleAt(i + 1);
-		bool atEOL = i == (lineStartNext-1);
+		const bool atEOL = i == (lineStartNext-1);
 		if ((style == SCE_RUST_COMMENTLINE) || (style == SCE_RUST_COMMENTLINEDOC))
 			inLineComment = true;
 		if (options.foldComment && options.foldCommentMultiline && IsStreamCommentStyle(style) && !inLineComment) {
@@ -810,7 +834,7 @@ void SCI_METHOD LexerRust::Fold(Sci_PositionU startPos, Sci_Position length, int
 				}
 			} else {
 				if ((ch == '/') && (chNext == '/')) {
-					char chNext2 = styler.SafeGetCharAt(i + 2);
+					const char chNext2 = styler.SafeGetCharAt(i + 2);
 					if (chNext2 == '{') {
 						levelNext++;
 					} else if (chNext2 == '}') {
@@ -858,6 +882,8 @@ void SCI_METHOD LexerRust::Fold(Sci_PositionU startPos, Sci_Position length, int
 			inLineComment = false;
 		}
 	}
+}
+
 }
 
 extern const LexerModule lmRust(SCLEX_RUST, LexerRust::LexerFactoryRust, "rust", rustWordLists);

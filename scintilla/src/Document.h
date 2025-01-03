@@ -369,6 +369,7 @@ public:
 	bool SCI_METHOD IsDBCSLeadByte(char ch) const override;
 	bool IsDBCSLeadByteNoExcept(char ch) const noexcept;
 	bool IsDBCSTrailByteNoExcept(char ch) const noexcept;
+	unsigned char DBCSMinTrailByte() const noexcept;
 	int DBCSDrawBytes(std::string_view text) const noexcept;
 	bool IsDBCSDualByteAt(Sci::Position pos) const noexcept;
 	size_t SafeSegment(std::string_view text) const noexcept;

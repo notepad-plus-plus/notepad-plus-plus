@@ -80,8 +80,6 @@ void RunStyles<DISTANCE, STYLE>::RemoveRunIfSameAsPrevious(DISTANCE run) {
 
 template <typename DISTANCE, typename STYLE>
 RunStyles<DISTANCE, STYLE>::RunStyles() {
-	starts = Partitioning<DISTANCE>(8);
-	styles = SplitVector<STYLE>();
 	styles.InsertValue(0, 2, 0);
 }
 
@@ -136,7 +134,8 @@ FillResult<DISTANCE> RunStyles<DISTANCE, STYLE>::FillRange(DISTANCE position, ST
 		return resultNoChange;
 	}
 	DISTANCE runEnd = RunFromPosition(end);
-	if (styles.ValueAt(runEnd) == value) {
+	const STYLE valueCurrent = styles.ValueAt(runEnd);
+	if (valueCurrent == value) {
 		// End already has value so trim range.
 		end = starts.PositionFromPartition(runEnd);
 		if (position >= end) {
@@ -145,6 +144,22 @@ FillResult<DISTANCE> RunStyles<DISTANCE, STYLE>::FillRange(DISTANCE position, ST
 		}
 		fillLength = end - position;
 	} else {
+		const DISTANCE startRun = starts.PositionFromPartition(runEnd);
+		if (position > startRun) {
+			const DISTANCE runNext = runEnd + 1;
+			const DISTANCE endRun = starts.PositionFromPartition(runNext);
+			if (end < endRun) {
+				// New piece is completely inside a run with a different value so its a simple
+				// insertion of two points [ (position, value), (end, valueCurrent) ]
+				const DISTANCE range[] { position, end};
+				starts.InsertPartitions(runEnd + 1, range, 2);
+				// Temporary runEndIndex silences non-useful arithmetic overflow warnings
+				const ptrdiff_t runEndIndex = runEnd;
+				styles.Insert(runEndIndex + 1, value);
+				styles.Insert(runEndIndex + 2, valueCurrent);
+				return { true, position, fillLength };
+			}
+		}
 		runEnd = SplitRun(end);
 	}
 	DISTANCE runStart = RunFromPosition(position);
@@ -172,9 +187,8 @@ FillResult<DISTANCE> RunStyles<DISTANCE, STYLE>::FillRange(DISTANCE position, ST
 		runEnd = RunFromPosition(end);
 		RemoveRunIfEmpty(runEnd);
 		return result;
-	} else {
-		return resultNoChange;
 	}
+	return resultNoChange;
 }
 
 template <typename DISTANCE, typename STYLE>
@@ -213,7 +227,7 @@ void RunStyles<DISTANCE, STYLE>::InsertSpace(DISTANCE position, DISTANCE insertL
 
 template <typename DISTANCE, typename STYLE>
 void RunStyles<DISTANCE, STYLE>::DeleteAll() {
-	starts = Partitioning<DISTANCE>(8);
+	starts = Partitioning<DISTANCE>();
 	styles = SplitVector<STYLE>();
 	styles.InsertValue(0, 2, 0);
 }

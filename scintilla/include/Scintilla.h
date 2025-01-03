@@ -1399,7 +1399,7 @@ struct Sci_RangeToFormatFull {
 
 #ifndef __cplusplus
 /* For the GTK+ platform, g-ir-scanner needs to have these typedefs. This
- * is not required in C++ code and actually seems to break ScintillaEditPy */
+ * is not required in C++ code and has caused problems in the past. */
 typedef struct Sci_NotifyHeader Sci_NotifyHeader;
 typedef struct SCNotification SCNotification;
 #endif

@@ -3,6 +3,7 @@
  **/
 
 #include <cstddef>
+#include <cstdint>
 #include <cstring>
 #include <stdexcept>
 #include <string_view>
@@ -726,6 +727,55 @@ TEST_CASE("Document") {
 
 		substituted = doc.Substitute(substituteText);
 		REQUIRE(substituted == "\ta\n");
+	}
+
+	SECTION("BraceMatch") {
+		DocPlus doc("{}(()())[]", CpUtf8);
+		constexpr Sci::Position maxReStyle = 0; // unused parameter
+		Sci::Position pos = doc.document.BraceMatch(0, maxReStyle, 0, false);
+		REQUIRE(pos == 1);
+		pos = doc.document.BraceMatch(1, maxReStyle, 0, false);
+		REQUIRE(pos == 0);
+		pos = doc.document.BraceMatch(8, maxReStyle, 0, false);
+		REQUIRE(pos == 9);
+		pos = doc.document.BraceMatch(9, maxReStyle, 0, false);
+		REQUIRE(pos == 8);
+		pos = doc.document.BraceMatch(2, maxReStyle, 0, false);
+		REQUIRE(pos == 7);
+		pos = doc.document.BraceMatch(7, maxReStyle, 0, false);
+		REQUIRE(pos == 2);
+
+		// BraceMatchNext()
+		pos = doc.document.BraceMatch(2, maxReStyle, 3, true);
+		REQUIRE(pos == 7);
+		pos = doc.document.BraceMatch(2, maxReStyle, 4, true);
+		REQUIRE(pos == 4);
+		pos = doc.document.BraceMatch(2, maxReStyle, 5, true);
+		REQUIRE(pos == 7);
+		pos = doc.document.BraceMatch(2, maxReStyle, 6, true);
+		REQUIRE(pos == 6);
+		pos = doc.document.BraceMatch(2, maxReStyle, 7, true);
+		REQUIRE(pos == 7);
+
+		pos = doc.document.BraceMatch(7, maxReStyle, 6, true);
+		REQUIRE(pos == 2);
+		pos = doc.document.BraceMatch(7, maxReStyle, 5, true);
+		REQUIRE(pos == 5);
+		pos = doc.document.BraceMatch(7, maxReStyle, 4, true);
+		REQUIRE(pos == 2);
+		pos = doc.document.BraceMatch(7, maxReStyle, 3, true);
+		REQUIRE(pos == 3);
+		pos = doc.document.BraceMatch(7, maxReStyle, 2, true);
+		REQUIRE(pos == 2);
+	}
+
+	SECTION("BraceMatch DBCS") {
+		DocPlus doc("{\x81}\x81{}", 932); // { U+00B1 U+FF0B }
+		constexpr Sci::Position maxReStyle = 0; // unused parameter
+		Sci::Position pos = doc.document.BraceMatch(0, maxReStyle, 0, false);
+		REQUIRE(pos == 5);
+		pos = doc.document.BraceMatch(5, maxReStyle, 0, false);
+		REQUIRE(pos == 0);
 	}
 
 }

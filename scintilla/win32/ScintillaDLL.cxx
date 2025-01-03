@@ -5,6 +5,8 @@
 // Copyright 1998-2018 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#include <cstdint>
+
 #undef _WIN32_WINNT
 #define _WIN32_WINNT 0x0500
 #undef WINVER

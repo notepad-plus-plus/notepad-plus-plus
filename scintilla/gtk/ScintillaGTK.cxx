@@ -1502,8 +1502,8 @@ void ScintillaGTK::PrimaryClearSelection(GtkClipboard *clip, gpointer pSci) {
 void ScintillaGTK::ClaimSelection() {
 	// X Windows has a 'primary selection' as well as the clipboard.
 	// Whenever the user selects some text, we become the primary selection
-	ClearPrimarySelection();
 	if (!sel.Empty()) {
+		ClearPrimarySelection();
 		if (gtk_clipboard_set_with_data(
 			gtk_clipboard_get(GDK_SELECTION_PRIMARY),
 			clipboardCopyTargets, nClipboardCopyTargets,

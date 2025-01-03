@@ -329,6 +329,7 @@ intptr_t CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			_pMapView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
 			_pMapView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
 			_pMapView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
+			_pMapView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
 
 			_pMapView->showIndentGuideLine(false);
 			_pMapView->display();

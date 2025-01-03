@@ -224,6 +224,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_subEditView.init(_pPublicInterface->getHinst(), hwnd);
 
 	_fileEditView.init(_pPublicInterface->getHinst(), hwnd);
+	_fileEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
 	MainFileManager.init(this, &_fileEditView); //get it up and running asap.
 
 	nppParam.setFontList(hwnd);
@@ -280,6 +281,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_invisibleEditView.init(_pPublicInterface->getHinst(), hwnd);
 	_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);
 	_invisibleEditView.execute(SCI_EMPTYUNDOBUFFER);
+	_invisibleEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
 	_invisibleEditView.wrap(false); // Make sure no slow down
 
 	// Configuration of 2 scintilla views
@@ -629,8 +631,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	if (nppParam.hasCustomContextMenu())
 	{
-		_mainEditView.execute(SCI_USEPOPUP, FALSE);
-		_subEditView.execute(SCI_USEPOPUP, FALSE);
+		_mainEditView.execute(SCI_USEPOPUP, SC_POPUP_NEVER);
+		_subEditView.execute(SCI_USEPOPUP, SC_POPUP_NEVER);
 	}
 
 	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle);

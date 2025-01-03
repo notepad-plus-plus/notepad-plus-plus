@@ -29,6 +29,7 @@ intptr_t CALLBACK DocumentPeeker::run_dlgProc(UINT message, WPARAM /*wParam*/, L
 			_pPeekerView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
 			_pPeekerView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
 			_pPeekerView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
+			_pPeekerView->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
 
 			_pPeekerView->showIndentGuideLine(false);
 

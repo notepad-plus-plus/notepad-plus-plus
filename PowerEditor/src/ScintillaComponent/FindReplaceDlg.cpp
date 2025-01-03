@@ -3595,7 +3595,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		_pFinder->setFinderReadOnly(true);
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
+		_pFinder->_scintView.execute(SCI_USEPOPUP, SC_POPUP_NEVER);
+		_pFinder->_scintView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
 		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
 		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 1);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
@@ -3693,11 +3694,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		::SendMessage(_hSelf, WM_NEXTDLGCTL, reinterpret_cast<WPARAM>(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO)), TRUE);
 }
 
-Finder * FindReplaceDlg::createFinder()
+Finder* FindReplaceDlg::createFinder()
 {
 	NppParameters& nppParam = NppParameters::getInstance();
 
-	Finder *pFinder = new Finder();
+	Finder* pFinder = new Finder();
 	pFinder->init(_hInst, (*_ppEditView)->getHParent(), _ppEditView);
 
 	tTbData	data{};
@@ -3743,7 +3744,8 @@ Finder * FindReplaceDlg::createFinder()
 
 	pFinder->setFinderReadOnly(true);
 	pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-	pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
+	pFinder->_scintView.execute(SCI_USEPOPUP, SC_POPUP_NEVER);
+	pFinder->_scintView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
 	pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
 	pFinder->_scintView.execute(SCI_SETCARETWIDTH, 1);
 	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);

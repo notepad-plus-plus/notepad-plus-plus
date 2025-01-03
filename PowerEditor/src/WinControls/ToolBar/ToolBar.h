@@ -33,6 +33,7 @@
 
 enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_SMALL2, TB_LARGE2, TB_STANDARD};
 
+constexpr int SEPARATOR_CMD_ID = 0;
 
 struct iconLocator {
 	size_t _listIndex = 0;
@@ -41,6 +42,34 @@ struct iconLocator {
 
 	iconLocator(size_t iList, size_t iIcon, const std::wstring& iconLoc)
 		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc){};
+};
+
+struct CommandInfo {
+	int _cmdID = -1;
+	std::wstring _commandName;
+	std::wstring _pluginName;
+	bool _hasToolbarButton = false;
+	bool _hideToolbarButton = false;
+	bool _isFromHiddenPlugin = false;
+};
+
+struct ToolbarButtonConfig {
+	std::vector<CommandInfo> _commandInfos;
+	std::vector<std::wstring> _hiddenPlugins;
+};
+
+struct TBConfigConsts
+{
+	inline static const std::wstring _notepadPlus = L"NotepadPlus";
+	inline static const std::wstring _toolbarButtons = L"ToolbarButtons";
+	inline static const std::wstring _plugin = L"Plugin";
+	inline static const std::wstring _button = L"Button";
+	inline static const std::wstring _name = L"Name";
+	inline static const std::wstring _hide = L"Hide";
+	inline static const std::wstring _hideAll = L"HideAll";
+	inline static const std::wstring _builtInName = L"Built-In";
+	inline static const wchar_t _trueStr[] = L"yes";
+	inline static const wchar_t _falseStr[] = L"no";
 };
 
 class ReBar;
@@ -55,7 +84,7 @@ public :
 
     void initTheme(TiXmlDocument *toolIconsDocRoot);
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
-		ToolBarButtonUnit *buttonUnitArray, int arraySize);
+		ToolBarButtonUnit *buttonUnitArray, int arraySize, const ToolbarButtonConfig& toolbarButtonConfig);
 
 	virtual void destroy();
 	void enable(int cmdID, bool doEnable) const {
@@ -103,6 +132,9 @@ public :
 	void addToRebar(ReBar * rebar);
 
 	void resizeIconsDpi(UINT dpi);
+
+	ToolbarButtonConfig initToolbarButtonVisibilityConfig(ToolBarButtonUnit standardCommandToolbarIcons[], int toolbarIconsArrayCount);
+	void writeToolbarButtonsConfig(const ToolbarButtonConfig& config);
 
 private :
 	TBBUTTON *_pTBB = nullptr;

@@ -2358,7 +2358,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	restoreCurrentPosPreStep();
 
-	runMarkers(true, 0, true, false);
+	//runMarkers(true, 0, true, false);
+	restoreHiddenLines();
 
 	setCRLF();
 
@@ -4225,6 +4226,30 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 		}
 	}
 }
+
+void ScintillaEditView::restoreHiddenLines()
+{
+	int line = 0;
+
+	while (line != -1)
+	{
+		line = static_cast<int>(execute(SCI_MARKERNEXT, line, 1 << MARK_HIDELINESBEGIN));
+		
+		if (line != -1)
+		{
+			int startHiding = line + 1;
+			line = static_cast<int>(execute(SCI_MARKERNEXT, line, 1 << MARK_HIDELINESEND));
+
+			if (line != -1)
+			{
+				execute(SCI_HIDELINES, startHiding, line - 1);
+
+			}
+		}
+	}
+}
+
+
 
 
 void ScintillaEditView::setTabSettings(Lang* lang)

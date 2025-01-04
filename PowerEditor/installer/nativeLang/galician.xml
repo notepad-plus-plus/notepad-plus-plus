@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.7.1">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.7.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@ Translation note:
 					<Item id="41003" name="&amp;Pechar pestana activa"/>
 					<Item id="41004" name="P&amp;echar tódalas pestanas"/>
 					<Item id="41005" name="Pechar as outras pestanas"/>
+					<Item id="41026" name="Pechar todo excepto os documentos fixados"/>
 					<Item id="41009" name="Pechar todo á esquerda"/>
 					<Item id="41018" name="Pechar todo á dereita"/>
 					<Item id="41024" name="Pechar todo sen cambios"/>
@@ -419,9 +420,11 @@ Translation note:
 				<Item CMDID="41003" name="Pechar"/>
 				<Item CMDID="0" name="Pechar múltiples pestanas"/>
 				<Item CMDID="41005" name="Pechar todo MENOS esto"/>
+				<Item CMDID="41026" name="Pechar todo excepto os documentos fixados"/>
 				<Item CMDID="41009" name="Pechar todo á esquerda"/>
 				<Item CMDID="41018" name="Pechar todo á dereita"/>
 				<Item CMDID="41024" name="Pechar todo sin cambios"/>
+				<Item CMDID="44048" name="Fixar pestana" alternativeName="Liberar pestana"/>
 				<Item CMDID="41006" name="Gardar"/>
 				<Item CMDID="41008" name="Gardar como..."/>
 				<Item CMDID="1" name="Abrir en"/>
@@ -595,8 +598,8 @@ Translation note:
 				<Item id="1934" name="Co&amp;piar ao portapapeis"/>
 				<Item id="2" name="Pe&amp;char"/>
 			</SHA512FromTextDlg>
-			<PluginsAdminDlg title="Administrar complementos" titleAvailable="Dispoñible" titleUpdates="Actualizar" titleInstalled="Instalado" titleIncompatible="Incompatible">
-				<ColumnPlugin name="Complemento"/>
+			<PluginsAdminDlg title="Administrar complementos" titleAvailable="Dispoñibles" titleUpdates="Actualizar" titleInstalled="Instalados" titleIncompatible="Incompatibles">
+				<ColumnPlugin name="Complementos"/>
 				<ColumnVersion name="Versión"/>
 				<Item id="5501" name="&amp;Buscar:"/>
 				<Item id="5503" name="&amp;Instalar"/>
@@ -629,16 +632,16 @@ Translation note:
 					<Item id="2219" name="Palabras clave predeterminadas"/>
 					<Item id="2221" name="Palabras clave definidas polo usuario"/>
 					<Item id="2225" name="Linguaxe:"/>
-					<Item id="2226" name="Forzar a cor de primeiro plano para tódolos estilos"/>
-					<Item id="2227" name="Forzar a cor de fondo para tódolos estilos"/>
-					<Item id="2228" name="Forzar a elección do tipo de letra para todos los estilos"/>
-					<Item id="2229" name="Forzar tamaño de fonte para tódolos estilos"/>
-					<Item id="2230" name="Forzar grosa para tódolos estilos"/>
-					<Item id="2231" name="Forzar cursiva para tódolos estilos"/>
-					<Item id="2232" name="Forzar subliñado para tódolos estilos"/>
+					<Item id="2226" name="Forzar cor para primeiro plano"/>
+					<Item id="2227" name="Forzar cor de fondo"/>
+					<Item id="2228" name="Forzar a elección do tipo de letra"/>
+					<Item id="2229" name="Forzar tamaño de fonte"/>
+					<Item id="2230" name="Forzar fonte grosa"/>
+					<Item id="2231" name="Forzar fonte en cursiva"/>
+					<Item id="2232" name="Forzar fonte subliñada"/>
 					<Item id="2234" name="Ir a Configuración"/>
 					<Item id="2235" name="Que é &quot;Global override&quot;?"/>
-					<!-- Don't translate "&quot;Global override&quot;" -->
+					<!-- Don't translate "Global override" -->
 				</SubDialog>
 			</StyleConfig>
 
@@ -955,8 +958,9 @@ Translation note:
 					<Item id="6108" name="Bloquear (impedir arrastrar e soltar)"/>
 					<Item id="6109" name="Oscurecer pestanas inactivas"/>
 					<Item id="6110" name="Barra de cor na pestana activa"/>
-					<Item id="6112" name="Botón de peche en cada pestana"/>
+					<Item id="6112" name="Botón de peche"/>
 					<Item id="6113" name="Dobre clic para pechar pestana"/>
+					<Item id="6115" name="Activar a opción de fixar pestanas"/>
 					<Item id="6118" name="Oculta"/>
 					<Item id="6119" name="Multiliña"/>
 					<Item id="6120" name="Vertical"/>
@@ -967,8 +971,8 @@ Translation note:
 					<Item id="6134" name="Ocultar"/>
 
 					<Item id="6131" name="Menú"/>
-					<Item id="6122" name="Ocultar barra de opcións (Alt ou F10 para activar/desactivar)"/>
-					<Item id="6132" name="Ocultar atallos ＋ ▼ ✕ na dereita da barra de menús (é necesario reiniciar Notepad++)"/>
+					<Item id="6122" name="Ocultar barra de opcións (Alt ou F10 para mostrala/ocultala)"/>
+					<Item id="6132" name="Ocultar atallos ＋ ▼ ✕  na dereita da barra de menús (reiniciar Notepad++)"/>
 
 					<Item id="6123" name="Idioma"/>
 				</Global>
@@ -1185,6 +1189,7 @@ Translation note:
 					<Item id="6908" name="Encher o campo de busca co texto seleccionado"/>
 					<Item id="6909" name="Seleccionar a palabra baixo o cursor se non hai nada seleccionado"/>
 					<Item id="6910" name="Tamaño para a comprobación automática en &quot;Selección&quot;"/>
+					<Item id="6913" name="Completar o campo de busca na ruta dos arquivos en función do documento activo"/>
 				</Searching>
 
 				<RecentFilesHistory title="Arquivos recentes">
@@ -1314,6 +1319,7 @@ Translation note:
 						<Element name="Ningunha acción na"/>
 						<Element name="Minimizar na"/>
 						<Element name="Pechar na"/>
+						<Element name="Minimizar / Pechar na"/>
 					</ComboBox>
 					<Item id="6308" name="barra de notificacións"/>
 					<Item id="6312" name="Autodetectar estado do arquivo"/>
@@ -1402,7 +1408,7 @@ Pode reactivalo en Preferencias se o desexa."/>
 			</DoSaveAll><!-- HowToReproduce: Check the &quot;Enable Save All confirm dialog&quot; checkbox in Preference->MISC, now click &quot;Save all&quot; -->
 
 			<DebugInfo title="Información de depuración">
-				<Item id="1752" name="&amp;Copiar información de depuración ao portapapeis"/>
+				<Item id="1752" name="&amp;Copiar información ao portapapeis"/>
 				<Item id="1" name="OK"/>
 			</DebugInfo>
 		</Dialog>
@@ -1441,7 +1447,7 @@ Hai 3 formas de cambiar ao modo de selección de columnas:
 
 1- Co teclado e o rato
  Manter pulsado Alt mentras arrastra co botón esquerdo do rato.
-
+ 
 2- So co teclado
  Manter pulsado Alt+Maiúsculas mentras se usan as teclas de frechas.
 
@@ -1662,7 +1668,7 @@ Se necesita a función de busca regex cara atrás, consulte o manual do usuario 
 			<word-chars-list-tip value="Isto permítelle incluir caracteres adicionais nos caracteres da palabra actual ao facer dobre clic para seleccionar ou buscar coa opción &quot;Só palabras completas&quot; marcada."/><!-- HowToReproduce: In "Delimiter" section of Preferences dialog, hover your mouse on the "?" button. -->
 
 			<!-- Don't translate "(&quot;EOL custom color&quot;)" -->
-			<eol-custom-color-tip value="Vaia a &quot;Configurador de estilos&quot; para cambiar a cor personalizada EOL por defecto (&quot;EOL custom color&quot;)."/>
+			<eol-custom-color-tip value="Abre o &quot;Configurador de estilos&quot; para cambiar a cor personalizada EOL por defecto (&quot;EOL custom color&quot;)."/>
 
 			<word-chars-list-warning-begin value="Cuidado: "/>
 			<word-chars-list-space-warning value="$INT_REPLACE$ espazo(s)"/>
@@ -1687,6 +1693,7 @@ Buscar en tódolos arquivos pero excluir as carpetas de probas, bin &amp;&amp; b
 Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexistros de forma recursiva:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Seleccione a carpeta na que desexa buscar"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Completar o campo Directorio según o documento activo"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Chegouse ao inicio do documento, encontrada a primeira coincidencia empezando desde o final."/>
 			<find-status-end-reached value="Chegouse ao final do documento, encontrada a primeira coincidencia empezando desde o inicio."/>
 			<find-status-replaceinfiles-1-replaced value="Substituír en arquivos: cambiado 1 elemento."/>
@@ -1720,7 +1727,9 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<finder-collapse-all value="Contraer todo"/>
 			<finder-uncollapse-all value="Expandir todo"/>
 			<finder-copy value="Copiar liña(s) seleccionada(s)"/>
+			<finder-copy-selected-paths value="Copiar nome(s) de ruta(s) seleccionada(s)"/>
 			<finder-clear-all value="Limpar todo"/>
+			<finder-open-selected-paths value="Abrir ruta(s) seleccionada(s)"/>
 			<finder-purge-for-every-search value="Depurar para cada busca"/>
 			<finder-wrap-long-lines value="Axustar lonxitude do texto"/>
 			<common-ok value="OK"/>
@@ -1780,7 +1789,7 @@ Buscar en tódolos arquivos pero excluir tódalas carpetas de rexistro ou rexist
 			<contextMenu-styleOneToken value="Dar estilo a unha coincidencia"/>
 			<contextMenu-clearStyle value="Borrar estilo"/>
 			<contextMenu-PluginCommands value="Comandos de complementos"/>
-			<largeFileRestriction-tip value="Algunhas funcións poden diminuír o rendemento en arquivos grandes. Pódense desactivar automaticamente ao abrir arquivos deste tamaño. Aquí pode personalizar ditas funcións.
+			<largeFileRestriction-tip value="Algunhas funcións poden diminuír o rendemento en arquivos grandes. Poden desactivarse de forma automática ao abrir arquivos deste tamaño. Pode personalizar aquí ditas funcións.
 
 NOTA:
 1. A modificación das opcións implica reabrir os arquivos grandes que teña abertos para obter un comportamento adecuado.
@@ -1814,13 +1823,13 @@ Faga clic no botón dereito &quot;?&quot; para abrir o sitio web do manual do us
 			<npcIncludeCcUniEol-tip value="Aplicar axustes de apariencia de caracteres non imprimibles aos caracteres de control C0, C1 e Unicode EOL (liña seguinte, separador de liña e separador de párrafo)."/>
 			<searchingInSelThresh-tip value="Número de caracteres seleccionados na zona de edición para marcar automáticamente o recadro &quot;Selección&quot; cando se activa o diálogo Buscar. O valor máximo é 1024. Estableza o valor en 0 para desactivar a comprobación automática."/>
 			<verticalEdge-tip value="Engada o seu marcador de columna indicando a súa posición cun número decimal. Pode definir varios marcadores utilizando espazos en branco para separar os distintos números."/>
-			<fileSaveAsCopySaveButton-tip value="Manteña pulsada a tecla Maiús mentras pulsa Gardar para abrir a copia despois de guardala."/>
+			<fileSaveAsCopySaveButton-tip value="Manteña pulsada a tecla Maiús mentras pulsa Gardar para abrir a copia despois de gardala."/>
 			<autoIndentBasic-tip value="Asegúrese de que a sangría da liña actual (é dicir, a nova liña creada ao pulsar a tecla ENTER) coincide coa sangría da liña anterior."/>
 			<autoIndentAdvanced-tip value="Habilitar a sangría intelixente para linguaxes &quot;C-like&quot; e Python. As linguaxes &quot;C-like&quot; inclúen:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
 Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas, a sangría permanecerá no modo básico."/>
-			<!-- Don't translate &quot;Global override&quot; and &quot;Default Style&quot; -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activando &quot;Global override&quot; aquí, anulará esa opción en tódolos estilos de linguaxe. É posible que desexe usar a configuración &quot;Default Style&quot;."/>
 		</MiscStrings>
 	</Native-Langue>

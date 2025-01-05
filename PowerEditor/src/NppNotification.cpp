@@ -188,7 +188,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				if (!_isFolding)
 				{
-					addHotSpot();
+					int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
+					Buffer* currentBuf = _pEditView->getCurrentBuffer();
+					if (urlAction != urlDisable && currentBuf->allowClickableLink())
+					{
+						addHotSpot();
+					}
 				}
 
 				if (_pDocMap)
@@ -405,17 +410,22 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			NppParameters& nppParam = NppParameters::getInstance();
 			NppGUI& nppGui = nppParam.getNppGUI();
 
+			Buffer* currentBuf = notifyView->getCurrentBuffer();
+			
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
 			{
-				addHotSpot(notifyView);
+				int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
+				if (urlAction != urlDisable && currentBuf->allowClickableLink())
+				{
+					addHotSpot(notifyView);
+				}
 			}
 
 			// if it's searching/replacing, then do nothing
 			if (nppParam._isFindReplacing)
 				break;
 
-			Buffer* currentBuf = _pEditView->getCurrentBuffer();
 			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf() && currentBuf->allowSmartHilite()) // notification come from unfocus view - both views ae visible
 			{
 				if (nppGui._smartHiliteOnAnotherView)
@@ -516,7 +526,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			// if it's searching/replacing, then do nothing
 			if ((_linkTriggered && !nppParam._isFindReplacing) || notification->wParam == LINKTRIGGERED)
 			{
-				addHotSpot();
+				int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
+				Buffer* currentBuf = _pEditView->getCurrentBuffer();
+				if (urlAction != urlDisable && currentBuf->allowClickableLink())
+				{
+					addHotSpot();
+				}
 				_linkTriggered = false;
 			}
 

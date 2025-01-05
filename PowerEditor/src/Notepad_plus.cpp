@@ -3444,6 +3444,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
 	if (_isAttemptingCloseOnQuit)
 		return; // don't recalculate URLs when shutting down
+
 	ScintillaEditView* pView = view ? view : _pEditView;
 	Buffer* currentBuf = pView->getCurrentBuffer();
 
@@ -3466,6 +3467,7 @@ void Notepad_plus::addHotSpot(ScintillaEditView* view)
 	pView->getVisibleStartAndEndPosition(&startPos, &endPos);
 	if (startPos >= endPos) return;
 	pView->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
+
 	if (urlAction == urlDisable || !currentBuf->allowClickableLink())
 	{
 		pView->execute(SCI_INDICATORCLEARRANGE, startPos, endPos - startPos);

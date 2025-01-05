@@ -1777,11 +1777,16 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			if (inSelAutoChangeSoAbortSearch)
 			{
-				// TODO: center on Find, respect dark mode, localization
-				::MessageBox(NULL, L"The state of 'In selection' has automatically "
-					"been changed; verify its current state before "
-					"continuing with a Search operation.", L"Search Warning",
-					/*MB_ICONWARNING |*/ MB_OK);
+				// show this to the user only after all UI changes have been made,
+				// so user doesn't see something out-of-date if he looks at the
+				// search window while the msgbox is still open
+				NppParameters& nppParamInst = NppParameters::getInstance();
+				(nppParamInst.getNativeLangSpeaker())->messageBox(
+					"FindAutoChangeOfInSelectionWarning",
+					_hSelf,
+					L"The \"In selection\" checkbox state has been automatically modified. Please verify the search condition before performing the action.",
+					L"Search warning",
+					MB_OK | MB_APPLMODAL);
 			}
 
 			return 0;

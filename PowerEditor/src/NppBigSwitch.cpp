@@ -2276,11 +2276,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			//reset styler for change in Stylers.xml
 			_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
 			_mainEditView.performGlobalStyles();
-			addHotSpot(& _mainEditView);
 
 			_subEditView.defineDocType(_subEditView.getCurrentBuffer()->getLangType());
 			_subEditView.performGlobalStyles();
-			addHotSpot(& _subEditView);
+
+			int urlAction = nppParam.getNppGUI()._styleURL;
+			if (urlAction != urlDisable)
+			{
+				if (_mainEditView.getCurrentBuffer()->allowClickableLink())
+					addHotSpot(&_mainEditView);
+
+				if (_subEditView.getCurrentBuffer()->allowClickableLink())
+					addHotSpot(&_subEditView);
+			}
 
 			_findReplaceDlg.updateFinderScintilla();
 			
@@ -3692,14 +3700,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_UPDATECLICKABLELINKS:
 		{
 			ScintillaEditView* pView = reinterpret_cast<ScintillaEditView*>(wParam);
-			if (pView == NULL)
+
+			int urlAction = nppParam.getNppGUI()._styleURL;
+			if (urlAction != urlDisable)
 			{
-				addHotSpot(_pEditView);
-				addHotSpot(_pNonEditView);
-			}
-			else
-			{
-				addHotSpot(pView);
+				if (pView == NULL)
+				{
+					if (_pEditView->getCurrentBuffer()->allowClickableLink())
+						addHotSpot(_pEditView);
+
+					if (_pNonEditView->getCurrentBuffer()->allowClickableLink())
+						addHotSpot(_pNonEditView);
+				}
+				else
+				{
+					if (pView->getCurrentBuffer()->allowClickableLink())
+						addHotSpot(pView);
+				}
 			}
 			return TRUE;
 		}
@@ -3734,8 +3751,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DOCMODIFIEDBYREPLACEALL:
 		{
-			if (wParam == reinterpret_cast<WPARAM>(_pEditView->getCurrentBuffer()))
-				addHotSpot(_pEditView);
+			Buffer* currentBuf = _pEditView->getCurrentBuffer();
+			if (wParam == reinterpret_cast<WPARAM>(currentBuf))
+			{
+				int urlAction = nppParam.getNppGUI()._styleURL;
+				if (urlAction != urlDisable && currentBuf->allowClickableLink())
+				{
+					addHotSpot(_pEditView);
+				}
+			}
+
 			SCNotification scnN{};
 			scnN.nmhdr.code = NPPN_GLOBALMODIFIED;
 			scnN.nmhdr.hwndFrom = reinterpret_cast<void*>(wParam);

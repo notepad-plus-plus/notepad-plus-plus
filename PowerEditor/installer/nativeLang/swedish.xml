@@ -500,6 +500,7 @@ Translation note:
 				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Ersätt i filer"/>
 				<Item id="1665" name="Ersätt i projekt"/>
+				<Item id="1661" name="Följ nuvarande dokument"/>
 				<Item id="1662" name="Projektpanel nr. 1"/>
 				<Item id="1663" name="Projektpanel nr. 2"/>
 				<Item id="1664" name="Projektpanel nr. 3"/>
@@ -956,9 +957,9 @@ Translation note:
 					<Item id="6106" name="Flikfält"/>
 					<Item id="6107" name="Förminska"/>
 					<Item id="6108" name="Lås flikar (inget drag-och-släpp)"/>
-					<Item id="6109" name="Ändra färgen för inaktiva flikar"/>
 					<Item id="6109" name="Gör inaktiva flikar mörkare"/>
 					<Item id="6110" name="Markera aktiv flik med en färgad linje"/>
+					<Item id="6111" name="Visa knappar på inaktiva flikar"/>
 					<Item id="6112" name="Visa knapp för att stänga flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
 					<Item id="6115" name="Gör det möjligt att fästa flikar"/>
@@ -1515,10 +1516,10 @@ Vill du fortsätta?"/>
 Använd ett annat namn."/>
 			<UDLRemoveCurrentLang title="Ta bort aktuellt språk" message="Är du säker?"/>
 			<SCMapperDoDeleteOrNot title="Är du säker?" message="Är du säker på att du vill radera detta kortkommando?"/>
-			<FindCharRangeValueError title="Felaktigt intervall" message="Du måste ange ett värde mellan 0 och 255."/>
-			<OpenInAdminMode title="Misslyckades att spara" message="Filen kunde inte sparas och kan vara skrivskyddad.
+			<FindCharRangeValueError title="Felaktigt intervall" message="Du måste ange ett värde mellan 0 och 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
+			<OpenInAdminMode title="Misslyckades att spara" message="Filen kunde inte sparas och kanske är skrivskyddad.
 Vill du starta Notepad++ som administratör?"/>
-			<OpenInAdminModeWithoutCloseCurrent title="Misslyckades att spara" message="Filen kunde inte sparas och kan vara skrivskyddad.
+			<OpenInAdminModeWithoutCloseCurrent title="Misslyckades att spara" message="Filen kunde inte sparas och kanske är skrivskyddad.
 Vill du starta Notepad++ som administratör?"/>
 			<OpenInAdminModeFailed title="Misslyckades att starta som administratör" message="Notepad++ kan inte öppnas som administratör."/><!-- HowToReproduce: When you have no Admin privilege and you try to save a modified file in a protected location (for example: any file in sub-folder of "C:\Program Files\". This message will appear after replying "Yes" to "Open in Admin mode" dialog. -->
 			<ViewInBrowser title="Visa aktuell fil i webbläsaren" message="Programmet hittas inte på din dator."/>
@@ -1556,6 +1557,8 @@ Tryck på OK-knappen för att öppna sökdialogen eller sätta fokus på den.
 			
 Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsökning ifall du behöver detta."/>
 			<PrintError title="0" message="Kan inte starta utskift av dokument."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Sökvarning" message="Tillståndet hos kryssrutan &quot;I markering&quot; har ändrats automatiskt.
+Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>

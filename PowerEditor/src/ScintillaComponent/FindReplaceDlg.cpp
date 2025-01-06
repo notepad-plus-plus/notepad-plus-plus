@@ -1692,7 +1692,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_ACTIVATE :
 		{
-			bool inSelAutoChangeSoAbortSearch = false;
+			bool isInSelectionAutoChange = false;
 
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
@@ -1710,7 +1710,8 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 				enableFindDlgItem(IDC_IN_SELECTION_CHECK, inSelEnabled);
 
-				bool inSelChecked = isCheckedOrNot(IDC_IN_SELECTION_CHECK), origInSelChecked = inSelChecked;
+				bool inSelChecked = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
+				bool origInSelChecked = inSelChecked;
 
 				const NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
 				if (nppGui._inSelectionAutocheckThreshold != 0)
@@ -1722,27 +1723,29 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					setChecked(IDC_IN_SELECTION_CHECK, inSelChecked);
 				}
 
+				/*
+				In the scenario where the user clicks the action button (Count, 
+				Find All in Current Document, Replace All, Mark All, or Clear All marks) 
+				without activating the Find/Replace dialog, the "In Selection" checkbox could 
+				be auto-changed after the button click. To prevent the search from running with 
+				this unintended state, the search message has been removed from the queue. 
+				Then, launch a message box to alert the user that the search didn't run and 
+				they need to verify the settings.
+				*/
 				if (inSelChecked != origInSelChecked)
 				{
-					const auto btnIdsWhereInSelIsRelevant = { IDCCOUNTALL, 
-						IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
-					for (auto btnId : btnIdsWhereInSelIsRelevant)
+					const auto inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
+					for (auto id : inSelActionIds)
 					{
 						MSG msg;
-						while (PeekMessage(&msg, ::GetDlgItem(_hSelf, btnId), 0, 0, PM_REMOVE))
+						while (PeekMessage(&msg, ::GetDlgItem(_hSelf, id), 0, 0, PM_REMOVE))
 						{
-							// user has activated the Find window by clicking on a button
-							// that will run a search where In-selection is a key parameter;
-							// however, after the button click In-selection has auto-
-							// changed on the user; we need to prevent a search action from
-							// running with an In-selection state the user does NOT intend!
-							inSelAutoChangeSoAbortSearch = true;
-							// the msg that will run the search has already been removed from
-							// the queue, so only need to set a flag so we can warn the user
-							// that his search did not run and he needs to verify settings
+							isInSelectionAutoChange = true;
+
 							break;
 						}
-						if (inSelAutoChangeSoAbortSearch) break;
+
+						if (isInSelectionAutoChange) break;
 					}
 				}
 
@@ -1775,16 +1778,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 			enableProjectCheckmarks();
 
-			if (inSelAutoChangeSoAbortSearch)
+			if (isInSelectionAutoChange)
 			{
-				// show this to the user only after all UI changes have been made,
-				// so user doesn't see something out-of-date if he looks at the
-				// search window while the msgbox is still open
 				NppParameters& nppParamInst = NppParameters::getInstance();
 				(nppParamInst.getNativeLangSpeaker())->messageBox(
 					"FindAutoChangeOfInSelectionWarning",
 					_hSelf,
-					L"The \"In selection\" checkbox state has been automatically modified. Please verify the search condition before performing the action.",
+					L"The \"In selection\" checkbox state has been automatically modified.\r\n"
+					L"Please verify the search condition before performing the action.",
 					L"Search warning",
 					MB_OK | MB_APPLMODAL);
 			}

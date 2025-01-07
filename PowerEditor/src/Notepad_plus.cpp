@@ -3440,6 +3440,24 @@ bool isUrl(wchar_t * text, int textLen, int start, int* segmentLen)
 	return false;
 }
 
+void Notepad_plus::removeAllHotSpot()
+{
+	DocTabView* twoDocView[] { &_mainDocTab, &_subDocTab };
+	for (DocTabView* pDocView : twoDocView)
+	{
+		for (size_t i = 0; i < pDocView->nbItem(); ++i)
+		{
+			BufferID id = pDocView->getBufferByIndex(i);
+			Buffer* buf = MainFileManager.getBufferByID(id);
+
+			if (buf->allowClickableLink()) // if it's not allowed clickabled link in the buffer, there's nothing to be cleared
+			{
+				MainFileManager.removeHotSpot(buf);
+			}
+		}
+	}
+}
+
 void Notepad_plus::addHotSpot(ScintillaEditView* view)
 {
 	if (_isAttemptingCloseOnQuit)

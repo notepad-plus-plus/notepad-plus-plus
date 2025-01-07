@@ -514,6 +514,7 @@ private:
 	void maintainIndentation(wchar_t ch);
 
 	void addHotSpot(ScintillaEditView* view = nullptr);
+	void removeAllHotSpot();
 
     void bookmarkAdd(intptr_t lineno) const {
 		if (lineno == -1)

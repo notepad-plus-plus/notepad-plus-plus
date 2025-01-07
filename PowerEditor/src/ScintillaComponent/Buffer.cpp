@@ -2007,3 +2007,16 @@ size_t FileManager::docLength(Buffer* buffer) const
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
 	return docLen;
 }
+
+
+void FileManager::removeHotSpot(Buffer* buffer) const
+{
+	Document curDoc = _pscratchTilla->execute(SCI_GETDOCPOINTER);
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
+
+	_pscratchTilla->execute(SCI_SETINDICATORCURRENT, URL_INDIC);
+	size_t docLen = _pscratchTilla->getCurrentDocLen();
+	_pscratchTilla->execute(SCI_INDICATORCLEARRANGE, 0, docLen);
+
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, curDoc);
+}

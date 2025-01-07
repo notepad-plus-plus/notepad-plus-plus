@@ -3699,6 +3699,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_UPDATECLICKABLELINKS:
 		{
+			if (wParam == 1)
+			{
+				removeAllHotSpot();
+				return TRUE;
+			}
+
 			ScintillaEditView* pView = reinterpret_cast<ScintillaEditView*>(wParam);
 
 			int urlAction = nppParam.getNppGUI()._styleURL;

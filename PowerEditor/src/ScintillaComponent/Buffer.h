@@ -113,6 +113,7 @@ public:
 	};
 	int getFileNameFromBuffer(BufferID id, wchar_t * fn2copy);
 	size_t docLength(Buffer * buffer) const;
+	void removeHotSpot(Buffer * buffer) const;
 	size_t nextUntitledNewNumber() const;
 
 private:

@@ -1734,18 +1734,15 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				*/
 				if (inSelChecked != origInSelChecked)
 				{
-					const auto inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
-					for (auto id : inSelActionIds)
+					const std::vector<int> inSelActionIds = { IDCCOUNTALL, IDC_FINDALL_CURRENTFILE, IDREPLACEALL, IDCMARKALL, IDC_CLEAR_ALL };
+					for (const auto& id : inSelActionIds)
 					{
 						MSG msg;
-						while (PeekMessage(&msg, ::GetDlgItem(_hSelf, id), 0, 0, PM_REMOVE))
+						if (PeekMessage(&msg, ::GetDlgItem(_hSelf, id), 0, 0, PM_REMOVE))
 						{
 							isInSelectionAutoChange = true;
-
 							break;
 						}
-
-						if (isInSelectionAutoChange) break;
 					}
 				}
 

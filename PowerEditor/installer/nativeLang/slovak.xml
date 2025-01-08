@@ -1513,7 +1513,7 @@ Chcete pokračovať?"/>
 Zvoľte, prosím, iný."/>
 			<UDLRemoveCurrentLang title="Odstrániť aktuálny jazyk" message="Ste si istý?"/>
 			<SCMapperDoDeleteOrNot title="Ste si istý?" message="Naozaj chcete odstrániť túto klávesovú skratku?"/>
-			<FindCharRangeValueError title="Problém s rozsahom hodnoty" message="Zadajte hodnotu v rozsahu 0 až 255."/>
+			<FindCharRangeValueError title="Problém s rozsahom hodnoty" message="Zadajte hodnotu v rozsahu 0 až 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Uloženie zlyhalo" message="Súbor nie je možné uložiť, môže byť chránený.
 Chcete spustiť Notepad++ v režime správcu?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Uloženie zlyhalo" message="Súbor nie je možné uložiť, môže byť chránený.
@@ -1554,6 +1554,8 @@ Stlačením tlačidla OK otvorte dialógové okno Hľadať alebo ho prepnite do 
 			
 Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, pokyny na jej zapnutie nájdete v používateľskej príručke."/>
 			<PrintError title="0" message="Nie je možné spustiť tlač dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Upozornenie na vyhľadávanie" message="Stav začiarkavacieho poľa &quot;Vo výbere&quot; sa automaticky zmení.
+Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

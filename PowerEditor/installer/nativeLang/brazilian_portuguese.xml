@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 17 Dec 2024, for Notepad++ 8.7.5
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Jan 2025, for Notepad++ 8.7.6
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.5">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -958,6 +958,7 @@ Translation note:
 					<Item id="6108" name="Travar (sem arrastar e soltar)"/>
 					<Item id="6109" name="Mudar cor de aba inativa"/>
 					<Item id="6110" name="Destacar topo da aba ativa"/>
+					<Item id="6111" name="Mostrar botões em abas inativas"/>
 					<Item id="6112" name="Mostrar o botão fechar"/>
 					<Item id="6113" name="Fechar documento com duplo clique"/>
 					<Item id="6115" name="Habilitar recurso de fixar aba"/>
@@ -971,8 +972,8 @@ Translation note:
 					<Item id="6134" name="Ocultar"/>
 
 					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Ocultar barra de menus (use Alt ou F10 para alternar)"/>
-					<Item id="6132" name="Esconder atalhos à direita ＋ ▼ ✕ da barra de menus (é necessário reiniciar o Notepad++)"/>
+					<Item id="6122" name="Ocultar (use Alt ou F10 para alternar)"/>
+					<Item id="6132" name="Ocultar atalhos à direita ＋ ▼ ✕"/>
 
 					<Item id="6123" name="Localização"/>
 				</Global>
@@ -1190,6 +1191,7 @@ Translation note:
 					<Item id="6908" name="Preencher o texto selecionado no campo de localização"/>
 					<Item id="6909" name="Selecionar palavra da posição atual do cursor quando nada for selecionado"/>
 					<Item id="6910" name="Tamanho Mínimo para Auto-Selecionar Opção &quot;Na seleção&quot;"/>
+					<Item id="6913" name="Preencher o campo 'Pasta' de 'Localizar nos arquivos' Baseado no Documento Ativo"/>
 				</Searching>
 
 				<RecentFilesHistory title="Histórico de arquivos recentes">
@@ -1513,7 +1515,7 @@ Deseja continuar?"/>
 Por favor, dê outro."/>
 			<UDLRemoveCurrentLang title="Remover a linguagem atual" message="Você tem certeza?"/>
 			<SCMapperDoDeleteOrNot title="Você tem certeza?" message="Tem certeza de que deseja excluir este atalho?"/>
-			<FindCharRangeValueError title="Problema do Valor do intervalo" message="Você deve digitar entre 0 e 255."/>
+			<FindCharRangeValueError title="Problema do Valor do intervalo" message="Você deve escolher entre 0 e 255."/> <!-- Como Reproduzir: No menu 'Localizar', depois 'Localizar caracteres em um intervalo', selecione 'Meu intervalo', digite 999 nas duas caixas de edição, e clique em 'Localizar'. -->
 			<OpenInAdminMode title="Falha ao salvar" message="O arquivo não pode ser salvo e pode estar protegido.
 Deseja iniciar o Notepad++ no modo Administrador?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Falha ao salvar" message="O arquivo não pode ser salvo e pode estar protegido.
@@ -1553,7 +1555,9 @@ OBSERVAÇÃO: Ao escolher não criar os substitutos ou ao fechá-los depois, sua
 Pressione o botão OK para abrir a caixa de diálogo Localizar ou alterne o foco para ela.
 			
 Se for necessário executar uma busca regex para trás, consulte o manual de usuário para instruções sobre como habilitar este recurso."/>
-			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" para usar o título do "Erro" padrão do Windows. -->
+			<FindAutoChangeOfInSelectionWarning title="Aviso da Localização" message="O estado da caixa de seleção &quot;Na seleção&quot; foi modificado automaticamente.
+Por favor verifique a condição de localização antes de continuar."/> <!-- Como Reproduzir: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1688,7 +1692,8 @@ Procurar em todos os arquivos, excluindo pastas de teste, lixeira&amp;&amp; bin6
 
 Procurar em todos os arquivos, excluindo pastas de log ou logs recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
-			<find-in-files-select-folder value="Selecione uma pastaorigem da busca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-select-folder value="Selecione uma pasta origem da busca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Preencha o campo Pasta baseado no documento ativo"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Localizar: O início do documento foi alcançado, a primeira ocorrência a partir do final foi encontrada."/>
 			<find-status-end-reached value="Localizar: O final do documento foi alcançado, a primeira ocorrência a partir do início foi encontrada."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em Arquivos: 1 ocorrência foi substituída."/>

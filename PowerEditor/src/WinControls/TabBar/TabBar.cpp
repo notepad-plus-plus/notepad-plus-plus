@@ -1522,15 +1522,15 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	}
 
 	// draw pin button
-	if (_drawTabPinButton && _hPinBtnImgLst != nullptr)
+	Buffer* buf = reinterpret_cast<Buffer*>(tci.lParam);
+	if (_drawTabPinButton && _hPinBtnImgLst != nullptr && buf)
 	{
 		// Each tab combined with the following stats :
 		// (active / inactive) | (pinned / unpinned) | (hover / not hover / pushed)
 		
 
-		bool isPinned = reinterpret_cast<Buffer*>(tci.lParam)->isPinned();
+		bool isPinned = buf->isPinned();
 		int idxPinImg = _unpinnedIdx; // current: upinned as default
-
 
 		if (isPinned)
 		{

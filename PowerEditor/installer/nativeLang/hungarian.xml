@@ -1514,7 +1514,7 @@ Kívánja folytatni?"/>
 kérjük, adjon meg más elnevezést"/>
 			<UDLRemoveCurrentLang title="Az aktuális nyelv eltávolítása" message="Biztos benne?"/>
 			<SCMapperDoDeleteOrNot title="Billentyűparancs" message="Biztosan el kívánja távolítani ezt a billentyűparancsot?"/>
-			<FindCharRangeValueError title="Értéktartomány-probléma" message="Kérjük, egy 0 és 255 közötti értéket adjon meg"/>
+			<FindCharRangeValueError title="Értéktartomány-probléma" message="Kérjük, egy 0 és 255 közötti értéket adjon meg"/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Sikertelen mentés" message="A fájl mentése sikertelen volt; lehet, hogy védett.
 El kívánja indítani a Notepad++-t rendszergazdaként?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Sikertelen mentés" message="A fájl mentése sikertelen volt; lehet, hogy védett.
@@ -1555,6 +1555,8 @@ Nyomja meg az OK gombot a „Keresés” párbeszédpanel megnyitásához vagy a
 
 Ha szüksége van a visszafelé történő reguláris keresésre, a Felhasználói kézikönyvben megtalálja a funkció engedélyezésével kapcsolatos útmutatásokat."/>
 			<PrintError title="0" message="Nem indítható el a dokumentum nyomtatása"/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Keresési figyelmeztetés" message="Az „A kijelölésben” jelölőnégyzet állapota automatikusan módosítva lett.
+Kérjük, a művelet végrehajtása előtt ellenőrizze a keresési feltételeket"/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>

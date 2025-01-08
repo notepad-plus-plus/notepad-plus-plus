@@ -99,6 +99,9 @@ void DocTabView::setIndividualTabColour(BufferID bufferId, int colorId)
 int DocTabView::getIndividualTabColourId(int tabIndex)
 {
 	BufferID bufferId = getBufferByIndex(tabIndex);
+	if (!bufferId)
+		return -1;
+
 	return bufferId->getDocColorId();
 }
 

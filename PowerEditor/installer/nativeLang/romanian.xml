@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.7.5
--    Ultima modificare a fost făcută 19 decembrie 2024 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.7.6
+-    Ultima modificare a fost făcută 15 ianuarie 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.5">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.6">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -413,8 +413,8 @@
                     <Item id="11005" name="Căile de la Z la A"/>
                     <Item id="11006" name="Tipurile de la A la Z"/>
                     <Item id="11007" name="Tipurile de la Z la A"/>
-                    <Item id="11008" name="Mărimile de la mai mic la mai mare"/>
-                    <Item id="11009" name="Mărimile de la mai mare la mai mic"/>
+                    <Item id="11008" name="Lungimea conținutului în ordine crescătoare"/>
+                    <Item id="11009" name="Lungimea conținutului în ordine descrescătoare"/>
                 </Commands>
             </Main>
             <TabBar>											  
@@ -768,8 +768,8 @@
                     <Item id="11005" name="Sortează după cale de la Z la A"/>
                     <Item id="11006" name="Sortează după tip de la A la Z"/>
                     <Item id="11007" name="Sortează după tip de la Z la A"/>
-                    <Item id="11008" name="Sortează după dimensiune de la mai mic la mai mare"/>
-                    <Item id="11009" name="Sortează după dimensiune de la mai mare la mai mic"/>
+                    <Item id="11008" name="Sortează după lungimea conținutului în ordine crescătoare"/>
+                    <Item id="11009" name="Sortează după lungimea conținutului în ordine descrescătoare"/>
                 </MainCommandNames>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Combinație">
@@ -984,8 +984,8 @@
 					<Item id="6134" name="Ascunde-o (Ascundere)"/>
                  
                     <Item id="6131" name="Meniu"/>
-                    <Item id="6122" name="Ascunde bara de meniu (comutare cu Alt sau F10)"/>
-                    <Item id="6132" name="Ascunde butoanele din dreapta ＋ ▼ ✕ din bara de meniu (necesită repornirea Notepad++)"/>
+                    <Item id="6122" name="Ascunde (folosește tasta Alt sau F10 pentru comutare)"/>
+                    <Item id="6132" name="Ascunde comenzile rapide (scurtăturile) din dreapta ＋ ▼ ✕"/>
 					
                     <Item id="6123" name="Limba"/>
 					<Item id="6125" name="Panoul cu lista de documente"/>
@@ -1223,7 +1223,7 @@
                     <Item id="6908" name="Se umple câmpul de căutare în textul selectat"/>
                     <Item id="6909" name="Selectează cuvântul sub semnul de omisiune când nimic nu e selectat"/>
 					<Item id="6910" name="Mărimea minimă pentru verificare automată „În selecție”:"/>
-					<Item id="6913" name="Completează în câmpul directorului din „Căutare în fișiere” pe baza documentului activ"/>
+					<Item id="6913" name="Completează câmpul Găsește în directorul de fișiere pe baza documentului activ"/>
                 </Searching>
 
                 <RecentFilesHistory title="Istoricul fișierelor recente">
@@ -1553,7 +1553,7 @@ Dorești să continui?"/>
 te rugăm să alegi altul."/>
             <UDLRemoveCurrentLang title="Eliminare limbaj curent" message="Ești sigur(ă)?"/>
             <SCMapperDoDeleteOrNot title="Ești sigur(ă)?" message="Ești sigur(ă) că dorești să elimini această combinație de taste?"/>
-            <FindCharRangeValueError title="Problemă cu valoarea de interval" message="Ar trebui să introduci o valoare între 0 și 255."/>
+            <FindCharRangeValueError title="Problemă cu valoarea de interval" message="Ar trebui să introduci o valoare între 0 și 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
             <OpenInAdminMode title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
 Vrei să lansezi Notepad++ în mod Administrator?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
@@ -1563,7 +1563,7 @@ Vrei să lansezi Notepad++ în mod Administrator?"/>
 			<ExitToUpdatePlugins title="Urmează să ieși din Notepad++" message="Dacă apeși DA, o să ieși din Notepad++ pentru a continua operațiunile.
 Notepad++ va fi repornit după ce toate operațiunile vor fi terminate.
 Vrei să continui?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ trebuie să fie relansat" message="Trebuie să repornești Notepad++ pentru a încărcarca modulele instalate."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<NeedToRestartToLoadPlugins title="Notepad++ trebuie să fie relansat" message="Trebuie să repornești Notepad++ pentru a încărcarca modulele (plugin-urile) instalate."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="Notepad++ trebuie să fie relansat" message="Trebuie să repornești Notepad++ pentru a activa Istoricul schimbărilor."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Ieșirea sesiunii Windows" message="Sesiunea Windows este pe cale de a se termina, dar ai anumite date nesavate. Vrei să ieși din Notepad++ acum?"/>
 			<LanguageMenuCompactWarning title="Meniul de limbi compact" message="Această opțiune va fi schimbată la următoarea lansare."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
@@ -1596,6 +1596,9 @@ Apasă butonul OK pentru a deschide căsuța de dialog Găsire sau pentru a seta
 			
 Dacă ai nevoie de funcția de căutare inversă regex, consultă manualul utilizatorului manualul de utilizare pentru instrucțiuni privind activarea acesteia."/>
 			<PrintError title="0" message="Nu se poate porni documentul imprimantei."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Avertisment de căutare" message="Starea casetei de selectare &quot;În selecție&quot; a fost modificată automat.
+Te rugăm să verifici condiția de căutare înainte de a efectua acțiunea."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ trebuie repornit" message="Notepad++ trebuie repornit ca să afișeze comenzile rapide (scurtăturile) din meniul din dreapta."/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Istoricul clipboard-ului"/>
@@ -1877,6 +1880,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate mai sus, indentarea va rămâne în modul de bază."/>
 			<!-- Nu tradu Global override și Default Style -->
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activând aici &quot;Global override&quot; se va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb, setările &quot;Default Style&quot;"/>
         </MiscStrings>
     </Native-Langue>

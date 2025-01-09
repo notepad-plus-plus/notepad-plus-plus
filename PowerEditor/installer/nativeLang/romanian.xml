@@ -1553,7 +1553,7 @@ Dorești să continui?"/>
 te rugăm să alegi altul."/>
             <UDLRemoveCurrentLang title="Eliminare limbaj curent" message="Ești sigur(ă)?"/>
             <SCMapperDoDeleteOrNot title="Ești sigur(ă)?" message="Ești sigur(ă) că dorești să elimini această combinație de taste?"/>
-            <FindCharRangeValueError title="Problemă cu valoarea de interval" message="Ar trebui să tastezi o valoare între 0 și 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
+            <FindCharRangeValueError title="Problemă cu valoarea de interval" message="Ar trebui să introduci o valoare între 0 și 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
             <OpenInAdminMode title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
 Vrei să lansezi Notepad++ în mod Administrator?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.7.5
-    Last modified Fri, Dec 20th, 2024.
+    Italian translation for Notepad++ 8.7.6
+    Last modified Sat, Jan 11th, 2025.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -1519,7 +1519,7 @@ Continuare?"/>
 usarne un altro."/>
 			<UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Rimuovere il linguaggio corrente?"/>
 			<SCMapperDoDeleteOrNot title="Eliminazione scorciatoia" message="Eliminare questa scorciatoia?"/>
-			<FindCharRangeValueError title="Intervallo di valori errato" message="Inserire un valore tra 0 e 255."/>
+			<FindCharRangeValueError title="Intervallo di valori errato" message="Inserire un valore tra 0 e 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
 Avviare Notepad++ come amministratore?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
@@ -1560,6 +1560,8 @@ Premere il pulsante Conferma per aprire o attivare la finestra di dialogo Trova.
 
 Nel caso fosse necessaria la funzione di ricerca Espressione regolare a ritroso, consultare il manuale dell'utente per istruzioni su come abilitarla."/>
 			<PrintError title="0" message="Impossibile avviare la stampa del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Avviso di ricerca" message="Il valore della casella di controllo &quot;Nella selezione&quot; è stato modificato automaticamente.
+Verificare le condizioni di ricerca prima di eseguire l'azione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronologia Appunti"/>

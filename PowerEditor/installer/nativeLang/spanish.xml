@@ -1519,7 +1519,7 @@ Parece que el archivo para abrir no es un archivo de proyecto válido."/>
 Es necesario darle otro."/>
 			<UDLRemoveCurrentLang title="Eliminar el lenguaje actual" message="¿Está seguro?"/>
 			<SCMapperDoDeleteOrNot title="Confirmación" message="¿Está seguro de que desea eliminar este acceso directo?"/>
-			<FindCharRangeValueError title="Problema de valor de rango" message="Debe escribir entre 0 y 255."/>
+			<FindCharRangeValueError title="Problema de valor de rango" message="Debe escribir entre 0 y 255."/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Error al guardar" message="El archivo no se puede guardar y puede estar protegido.
 ¿Desea iniciar Notepad++ en modo Administrador?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Error al guardar" message="El archivo no se puede guardar y puede estar protegido.
@@ -1560,6 +1560,8 @@ Pulse el botón Aceptar para abrir el cuadro de diálogo Buscar o fijar el foco 
 			
 Si necesita la función de búsqueda regex hacia atrás, consulte el manual del usuario para obtener instrucciones sobre cómo activarla."/>
 			<PrintError title="0" message="No se puede iniciar la impresión del documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Advertencia de búsqueda" message="El estado del recuadro &quot;En la selección&quot; se ha modificado automáticamente.
+Por favor, compruebe la condición de búsqueda antes de realizar la acción."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del portapapeles"/>

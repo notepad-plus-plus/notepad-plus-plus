@@ -2108,9 +2108,7 @@ bool Notepad_plus::fileRename(BufferID id)
 						return success;
 
 					wstring newBackUpFileName = oldBackUpFileName;
-
-					size_t index = newBackUpFileName.find_last_of(oldFileNamePath) - oldFileNamePath.length() + 1;
-					newBackUpFileName.replace(index, oldFileNamePath.length(), tabNewNameStr);
+					newBackUpFileName.replace(newBackUpFileName.rfind(oldFileNamePath), oldFileNamePath.length(), tabNewNameStr);
 
 					if (doesFileExist(newBackUpFileName.c_str()))
 						::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
@@ -2129,7 +2127,7 @@ bool Notepad_plus::fileRename(BufferID id)
 bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNewName)
 {
 	if (tabNewName == nullptr) return false;
-	
+
 	BufferID bufferID = id;
 	if (id == BUFFER_INVALID)
 	{
@@ -2171,6 +2169,7 @@ bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNe
 	scnN.nmhdr.idFrom = (uptr_t)bufferID;
 	_pluginsManager.notify(&scnN);
 
+	wstring oldName = buf->getFullPathName();
 	buf->setFileName(tabNewNameStr.c_str());
 
 	scnN.nmhdr.code = NPPN_FILERENAMED;
@@ -2179,15 +2178,14 @@ bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNe
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 	if (isSnapshotMode)
 	{
-		wstring oldName = buf->getFullPathName();
 		wstring oldBackUpFileName = buf->getBackupFileName();
 		if (oldBackUpFileName.empty())
-			return false;
+		{
+			return true;
+		}
 
 		wstring newBackUpFileName = oldBackUpFileName;
-
-		size_t index = newBackUpFileName.find_last_of(oldName) - oldName.length() + 1;
-		newBackUpFileName.replace(index, oldName.length(), tabNewNameStr);
+		newBackUpFileName.replace(newBackUpFileName.rfind(oldName), oldName.length(), tabNewNameStr);
 
 		if (doesFileExist(newBackUpFileName.c_str()))
 			::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);

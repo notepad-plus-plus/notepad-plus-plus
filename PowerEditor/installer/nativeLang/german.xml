@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2024-12-19"><!-- basiert auf english.xml 8.7.3 vom 17.12.2024 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-12"><!-- basiert auf english.xml 8.7.3 vom 08.01.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -505,7 +505,7 @@ Translation note:
 				<Item id="1658" name="&amp;Unterverzeichnisse"/>
 				<Item id="1659" name="&amp;Versteckte Ordner"/>
 				<Item id="1624" name="Suchmodus"/>
-				<Item id="1625" name="Norma&amp;l"/>
+				<Item id="1625" name="&amp;Normal"/>
 				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x…)"/>
 				<Item id="1660" name="Ersetzen in Dateien"/>
 				<Item id="1665" name="Ersetzen in Projekten"/>
@@ -1153,7 +1153,7 @@ Translation note:
 				<Print title="Drucken">
 					<Item id="6601" name="Zeilennu&amp;mmern drucken"/>
 					<Item id="6602" name="Farbo&amp;ptionen"/>
-					<Item id="6603" name="Wie angezeigt (W&amp;YSIWYG"/>
+					<Item id="6603" name="Wie angezeigt (W&amp;YSIWYG)"/>
 					<Item id="6604" name="I&amp;nvertieren"/>
 					<Item id="6605" name="Schwarz auf &amp;weiß"/>
 					<Item id="6606" name="Keine &amp;Hintergrundfarbe"/>
@@ -1523,7 +1523,7 @@ Soll fortgefahren werden?"/>
 Bitte wählen Sie einen anderen Namen."/>
 			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
 			<SCMapperDoDeleteOrNot title="Bestätigung" message="Soll die Tastenkombination wirklich gelöscht werden?"/>
-			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/>
+			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.
 Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.
@@ -1564,6 +1564,8 @@ OK auswählen um die Suche zu öffnen oder in den Vordergrund zu bringen.
 			
 Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung im Benutzerhandbuch nachgeschlagen werden."/>
 			<PrintError title="0" message="Druckerdokument kann nicht gestartet werden."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Suchwarnung" message="Der Status des Kontrollkästchens 'In Auswahl' wurde automatisch geändert.
+			Bitte die Suchbedingungen überprüfen, bevor die Aktion ausgeführt wird."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1777,7 +1779,7 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-result-title-info-options-searchmode-normal value="Normal"/>
 			<find-result-title-info-options-searchmode-extended value="Erweitert"/>
 			<find-result-title-info-options-searchmode-regexp value="RegEx"/>
-			<find-result-title-info-options-case value="Fall"/>
+			<find-result-title-info-options-case value="Groß-/Kleinschreibung"/>
 			<find-result-title-info-options-word value="Wort"/>
 			<find-result-title-info-extra value=" - Zeilenfilter-Modus: nur die Treffer anzeigen"/>
 			<find-result-hits value="($INT_REPLACE$ Treffer)"/>

@@ -488,7 +488,7 @@ Translation note:
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1614" name="Z&amp;ählen"/>
 				<Item id="1615" name="&amp;Alle markieren"/>
-				<Item id="1616" name="&amp;Lesezeichen setzen"/>
+				<Item id="1616" name="Lesezei&amp;chen setzen"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
 				<Item id="1611" name="Erset&amp;zen durch:"/>
 				<Item id="1608" name="&amp;Ersetzen"/>
@@ -505,7 +505,7 @@ Translation note:
 				<Item id="1658" name="&amp;Unterverzeichnisse"/>
 				<Item id="1659" name="&amp;Versteckte Ordner"/>
 				<Item id="1624" name="Suchmodus"/>
-				<Item id="1625" name="&amp;Normal"/>
+				<Item id="1625" name="Norma&amp;l"/>
 				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x…)"/>
 				<Item id="1660" name="Ersetzen in Dateien"/>
 				<Item id="1665" name="Ersetzen in Projekten"/>

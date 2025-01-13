@@ -558,7 +558,7 @@
 
 #define IDD_GOLINE        2000
 #define ID_GOLINE_EDIT    (IDD_GOLINE + 1)
-#define ID_CURRLINE        (IDD_GOLINE + 2)
+#define ID_CURRLINE_EDIT   (IDD_GOLINE + 2)
 #define ID_LASTLINE        (IDD_GOLINE + 3)
 #define ID_URHERE_STATIC           (IDD_GOLINE + 4)
 #define ID_UGO_STATIC                 (IDD_GOLINE + 5)

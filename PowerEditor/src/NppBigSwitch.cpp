@@ -4088,6 +4088,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_DRAWINACTIVETABBARBUTTON:
+		{
+			::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+			::SendMessage(_subDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
+
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			_mainDocTab.refresh();
+			_subDocTab.refresh();
+
+			return TRUE;
+		}
+
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

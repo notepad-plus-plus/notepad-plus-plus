@@ -926,6 +926,7 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::isDbClk2Close() ? TAB_DBCLK2CLOSE : 0) | \
 						(TabBarPlus::isVertical() ? TAB_VERTICAL : 0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE : 0) |\
+						(nppGUI._tabStatus & TAB_INACTIVETABSHOWBUTTON) | \
 						(nppGUI._tabStatus & TAB_HIDE) | \
 						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
 						(nppGUI._tabStatus & TAB_ALTICONS);

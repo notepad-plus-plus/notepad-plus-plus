@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.7.4">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.7.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -420,7 +420,7 @@
 				<Item CMDID="41003" name="Zatvori"/>
 				<Item CMDID="0" name="Zatvori više tab-ova"/>
 				<Item CMDID="41005" name="Zatvori sve OSIM trenutnog dokumenta"/>
-				<Item CMDID="41026" name="Zatvori sve OSIM pin-ovanih"/>
+				<Item CMDID="41026" name="Zatvori sve OSIM pin-ovanih dokumenata"/>
 				<Item CMDID="41009" name="Zatvori sve sa leve strane"/>
 				<Item CMDID="41018" name="Zatvori sve sa desne strane"/>
 				<Item CMDID="41024" name="Zatvori sve nepromenjeno"/>
@@ -958,6 +958,7 @@
 					<Item id="6108" name="Zaključaj (bez prevlačenja)"/>
 					<Item id="6109" name="Promeni boju neaktivnog tab-a"/>
 					<Item id="6110" name="Obeleži trenutni tab"/>
+					<Item id="6111" name="Prikaži dugmiće na neaktivnim tab-ovima"/>
 					<Item id="6112" name="Prikaži dugme za zatvaranje"/>
 					<Item id="6113" name="Dvoklik za zatvaranje dokumenta"/>
 					<Item id="6115" name="Omogući pin-ovanje tab-a"/>
@@ -972,7 +973,7 @@
 
 					<Item id="6131" name="Meni"/>
 					<Item id="6122" name="Sakrij (koristi Alt ili F10 za uključivanje/isključivanje)"/>
-					<Item id="6132" name="Sakrij desne prečice ＋ ▼ ✕ iz menija (Mora se ponovo pokrenuti Notepad++)"/>
+					<Item id="6132" name="Sakrij desne prečice ＋ ▼ ✕"/>
 
 					<Item id="6123" name="Lokalizacija"/>
 				</Global>
@@ -1190,6 +1191,7 @@
 					<Item id="6908" name="Postavi izabrani tekst u polje za pretragu"/>
 					<Item id="6909" name="Izaberi reč ispod pokazivača kad ništa nije izabrano"/>
 					<Item id="6910" name="Minimalna veličina za automatsku proveru za &quot;U izboru&quot;:"/>
+					<Item id="6913" name="Postavi aktivni dokument u direktorijum polje u &quot;Pronađi u datotekama&quot;"/>
 				</Searching>
 
 				<RecentFilesHistory title="Istorija nedavnih dat.">
@@ -1513,7 +1515,7 @@ Da li ste sigurni da želite ukloniti ovaj folder iz projekta?"/>
 molimo dajte nov naziv."/>
 			<UDLRemoveCurrentLang title="Uklanjanje trenutnog jezika" message="Da li ste sigurni?"/>
 			<SCMapperDoDeleteOrNot title="Da li ste sigurni?" message="Da li ste sigurni da želite obrisati ovu prečicu?"/>
-			<FindCharRangeValueError title="Problem sa opsegom" message="Trebalo bi da koristite vrednost između 0 i 255."/>
+			<FindCharRangeValueError title="Problem sa opsegom" message="Trebalo bi da koristite vrednost između 0 i 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Neuspešno čuvanje" message="Datoteka ne može biti sačuvana i možda je zaštićena.
 Žalite li pokrenuti Notepad++ kao administrator?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Neuspešno čuvanje" message="Datoteka ne može biti sačuvana i možda je zaštićena.
@@ -1554,6 +1556,9 @@ Pritisnite OK da otvorite dijalog za pronalaženje ili da se fokusirate na njega
 			
 Ako zahtevate obrnuti smer pretrage regularnih izraza, konsultujte uputstvo sa instrukcijama kako da ga omogućite."/>
 			<PrintError title="0" message="Dokument za štampanje se ne može započeti."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Upozorenje pretrage" message="Vrednost &quot;U izboru&quot; je automatski izmenjena.
+Molimo potvrdite uslove pretrage pre izvršenja akcije."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ se mora ponovo pokrenuti" message="Notepad++ se mora ponovo pokrenuti da bi prikazao prečice u desnom meniju."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Istorija clipboard-a"/>
@@ -1689,6 +1694,7 @@ Pronađi u svim datotekama, ali isključi foldere tests, bin &amp;&amp; bin64:
 Pronađi u svim datotekama, ali isključi sve foldere log ili logs rekurzivno:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Izaberi folder iz kog ćeš pretražiti"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Postavi aktivni dokument u direktorijum polje"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Pronađi: Dostignut početak dokumenta, prva pojava od kraja pronađena."/>
 			<find-status-end-reached value="Pronađi: Dostignut kraj dokumenta, prva pojava od početka pronađena."/>
 			<find-status-replaceinfiles-1-replaced value="Zameni u datotekama: 1 pojava zamenjena"/>

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-12"><!-- basiert auf english.xml 8.7.3 vom 08.01.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-14"><!-- basiert auf english.xml 8.7.3 vom 14.01.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -967,6 +967,7 @@ Translation note:
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Farbe inaktiver Tabs ändern"/>
 					<Item id="6110" name="Aktiven Tab farbig hervorheben"/>
+					<Item id="6111" name="Tasten auf inaktiven Tabs anzeigen"/>
 					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6115" name="Pin-Tab-Funktion aktivieren (fixieren/lösen)"/>

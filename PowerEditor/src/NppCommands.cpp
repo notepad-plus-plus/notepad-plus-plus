@@ -3117,7 +3117,7 @@ void Notepad_plus::command(int id)
 				pNativeSpeaker->messageBox("NeedToRestartToLoadPlugins",
 					_pPublicInterface->getHSelf(),
 					L"You have to restart Notepad++ to load plugins you installed.",
-					L"Notepad++ need to be relaunched",
+					L"Notepad++ needs to be relaunched",
 					MB_OK | MB_APPLMODAL);
 			}
             break;

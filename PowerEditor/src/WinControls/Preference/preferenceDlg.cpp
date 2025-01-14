@@ -687,6 +687,22 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDERIGHTSHORTCUTSOFMENUBAR, BM_GETCHECK, 0, 0));
 					NppGUI& nppGUI = nppParam.getNppGUI();
 					nppGUI._hideMenuRightShortcuts = isChecked;
+					static bool isFirstShow = true;
+					if (isChecked)
+					{
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_HIDEMENURIGHTSHORTCUTS, 0, isChecked ? TRUE : FALSE);
+					}
+					else if (isFirstShow)
+					{
+						NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+						pNativeSpeaker->messageBox("Need2Restart2ShowMenuShortcuts",
+							_hSelf,
+							L"Notepad++ needs to be restarted to show right menu shorcuts.",
+							L"Notepad++ need to be restarted",
+							MB_OK | MB_APPLMODAL);
+
+						isFirstShow = false;
+					}
 				}
 				return TRUE;
 
@@ -2263,7 +2279,7 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 							pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
 								_hSelf,
 								L"You have to restart Notepad++ to enable Change History.",
-								L"Notepad++ need to be relaunched",
+								L"Notepad++ needs to be relaunched",
 								MB_OK | MB_APPLMODAL);
 							
 							changeHistoryWarningHasBeenGiven = true;
@@ -2295,7 +2311,7 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 							pNativeSpeaker->messageBox("ChangeHistoryEnabledWarning",
 								_hSelf,
 								L"You have to restart Notepad++ to enable Change History.",
-								L"Notepad++ need to be relaunched",
+								L"Notepad++ needs to be relaunched",
 								MB_OK | MB_APPLMODAL);
 							
 							changeHistoryWarningHasBeenGiven = true;

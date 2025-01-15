@@ -969,8 +969,8 @@
 					<Item id="6134" name="Skryť"/>
 
 					<Item id="6131" name="Ponuka"/>
-					<Item id="6122" name="Skryť panel ponuky (Prepínanie klávesom Alt alebo F10)"/>
-					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕ z panela ponuky (Vyžaduje reštart Notepad++)"/>
+					<Item id="6122" name="Skryť (Prepínanie klávesom Alt alebo F10)"/>
+					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕"/>
 
 					<Item id="6123" name="Lokalizácia"/>
 				</Global>
@@ -1557,6 +1557,7 @@ Ak potrebujete funkciu spätného vyhľadávania pomocou regulárnych výrazov, 
 			<PrintError title="0" message="Nie je možné spustiť tlač dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Upozornenie na vyhľadávanie" message="Stav začiarkavacieho poľa &quot;Vo výbere&quot; sa automaticky zmení.
 Prosím, overte podmienku vyhľadávania pred vykonaním akcie."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ je potrebné reštartovať" message="Notepad++ je potrebné reštartovať, aby sa zobrazili ovládacie prvky."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="História schránky"/>

@@ -795,6 +795,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 						nppParam.getNppGUI()._tabStatus &= ~TAB_INACTIVETABSHOWBUTTON;
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_INACTTABDRAWBUTTON, BM_SETCHECK, FALSE, 0);
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWINACTIVETABBARBUTTON, 0, 0);
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_INACTTABDRAWBUTTON), showCloseButton || enablePinButton);
 

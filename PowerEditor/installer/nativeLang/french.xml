@@ -957,6 +957,7 @@ Translation note:
 					<Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
 					<Item id="6109" name="Colorer les onglets inactifs"/>
 					<Item id="6110" name="Barre colorée sur l’onglet actif"/>
+					<Item id="6111" name="Afficher les boutons sur les onglets inactifs"/>
 					<Item id="6112" name="Activer bouton de fermeture"/>
 					<Item id="6113" name="Fermer l’onglet par double clic"/>
 					<Item id="6115" name="Activer l’option épingler l’onglet"/>
@@ -971,7 +972,7 @@ Translation note:
 
 					<Item id="6131" name="Menu"/>
 					<Item id="6122" name="Cacher (Alt ou F10 pour basculer)"/>
-					<Item id="6132" name="Cacher ＋ ▼ ✕ depuis le menu (nécessité de redémarrage)"/>
+					<Item id="6132" name="Cacher ＋ ▼ ✕"/>
 
 					<Item id="6123" name="Langue"/>
 				</Global>
@@ -1548,6 +1549,7 @@ REMARQUE : Si vous choisissez de ne pas créer d’espaces réservés ou de les 
 Appuyez sur le bouton OK pour ouvrir la boîte de dialogue de recherche ou lui donner la priorité.
 
 Si vous avez besoin de la fonction de recherche d’expression régulière inversée, consultez le manuel de l’utilisateur pour savoir comment l’activer."/>
+			<Need2Restart2ShowMenuShortcuts title="Redémarrer Notepad++" message="Vous avez besoins de redémarrer Notepad++ afin d'afficher menu ＋ ▼ ✕ "/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papier"/>

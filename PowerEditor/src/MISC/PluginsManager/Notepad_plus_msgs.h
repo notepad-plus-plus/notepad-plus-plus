@@ -111,7 +111,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// return value: The number of files in XML session file
 
 	#define NPPM_GETSESSIONFILES (NPPMSG + 14)
-	// NPPM_GETSESSIONFILES (wchar_t** sessionFileArray, wchar_t* sessionFileName)
+	// BOOL NPPM_GETSESSIONFILES (wchar_t** sessionFileArray, wchar_t* sessionFileName)
 	// the files' full path name from a session file.
 	// wParam[out]: sessionFileArray is the array in which the files' full path of the same group are written. To allocate the array with the proper size, send message NPPM_GETNBSESSIONFILES.
 	// lParam[in]: sessionFileName is XML session full path
@@ -974,7 +974,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Note: there's no symetric command NPPM_SETTABCOLORID. Plugins can use NPPM_MENUCOMMAND to set current tab color with the desired tab color ID.
 
 	#define NPPM_SETUNTITLEDNAME (NPPMSG + 115)
-	// int NPPM_SETUNTITLEDNAME(BufferID id, const wchar_t* newName)
+	// BOOL NPPM_SETUNTITLEDNAME(BufferID id, const wchar_t* newName)
 	// Rename the tab name for an untitled tab.
 	// wParam[in]: id - BufferID of the tab. -1 for currently active tab
 	// lParam[in]: newName - the desired new name of the tab

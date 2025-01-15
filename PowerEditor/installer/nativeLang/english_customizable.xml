@@ -356,7 +356,7 @@ Translation note:
 					<Item id="10005" name="Move to Start"/>
 					<Item id="10006" name="Move to End"/>
 					<Item id="46001" name="Style Configurator..."/>
-					<Item id="46016" name="None (NormalText)"/>
+					<Item id="46016" name="None (Normal Text)"/>
 					<Item id="46250" name="Define your language..."/>
 					<Item id="46300" name="Open User Defined Language folder..."/>
 					<Item id="46301" name="Notepad++ User Defined Languages Collection"/>
@@ -412,8 +412,8 @@ Translation note:
 					<Item id="11005" name="Path Z to A"/>
 					<Item id="11006" name="Type A to Z"/>
 					<Item id="11007" name="Type Z to A"/>
-					<Item id="11008" name="Size Smaller to Larger"/>
-					<Item id="11009" name="Size Larger to Smaller"/>
+					<Item id="11008" name="Content Length Ascending"/>
+					<Item id="11009" name="Content Length Descending"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -750,14 +750,14 @@ Translation note:
 					<Item id="44113" name="Apply Tab Color 3"/>
 					<Item id="44114" name="Apply Tab Color 4"/>
 					<Item id="44115" name="Apply Tab Color 5"/>
-					<Item id="11002" name="Sort By Name A to Z"/>
-					<Item id="11003" name="Sort By Name Z to A"/>
-					<Item id="11004" name="Sort By Path A to Z"/>
-					<Item id="11005" name="Sort By Path Z to A"/>
-					<Item id="11006" name="Sort By Type A to Z"/>
-					<Item id="11007" name="Sort By Type Z to A"/>
-					<Item id="11008" name="Sort By Size Smaller to Larger"/>
-					<Item id="11009" name="Sort By Size Larger to Smaller"/>
+					<Item id="11002" name="Sort by Name A to Z"/>
+					<Item id="11003" name="Sort by Name Z to A"/>
+					<Item id="11004" name="Sort by Path A to Z"/>
+					<Item id="11005" name="Sort by Path Z to A"/>
+					<Item id="11006" name="Sort by Type A to Z"/>
+					<Item id="11007" name="Sort by Type Z to A"/>
+					<Item id="11008" name="Sort by Content Length Ascending"/>
+					<Item id="11009" name="Sort by Content Length Descending"/>
 				</MainCommandNames>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Shortcut">
@@ -958,8 +958,10 @@ Translation note:
 					<Item id="6108" name="Lock (no drag and drop)"/>
 					<Item id="6109" name="Change inactive tab color"/>
 					<Item id="6110" name="Draw a colored bar on active tab"/>
+					<Item id="6111" name="Show buttons on inactive tabs"/>
 					<Item id="6112" name="Show close button"/>
 					<Item id="6113" name="Double click to close document"/>
+					<Item id="6115" name="Enable pin tab feature"/>
 					<Item id="6118" name="Hide"/>
 					<Item id="6119" name="Multi-line"/>
 					<Item id="6120" name="Vertical"/>
@@ -970,8 +972,8 @@ Translation note:
 					<Item id="6134" name="Hide"/>
 
 					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
-					<Item id="6132" name="Hide right shortcuts ＋ ▼ ✕ from the menu bar (Need to restart Notepad++)"/>
+					<Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
+					<Item id="6132" name="Hide right shortcuts ＋ ▼ ✕"/>
 
 					<Item id="6123" name="Localization"/>
 				</Global>
@@ -1099,6 +1101,7 @@ Translation note:
 					<Item id="4009" name="Supported extensions:"/>
 					<Item id="4010" name="Registered extensions:"/>
 				</FileAssoc>
+
 
 				<Language title="Language">
 					<Item id="6505" name="Available items"/>
@@ -1522,8 +1525,8 @@ Do you want to launch Notepad++ in Administrator mode?"/>
 			<ExitToUpdatePlugins title="Notepad++ is about to exit" message="If you click YES, you will quit Notepad++ to continue the operations.
 Notepad++ will be restarted after all the operations are terminated.
 Continue?"/>
-			<NeedToRestartToLoadPlugins title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
-			<ChangeHistoryEnabledWarning title="Notepad++ need to be relaunched" message="You have to restart Notepad++ to enable Change History."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
+			<NeedToRestartToLoadPlugins title="Notepad++ needs to be relaunched" message="You have to restart Notepad++ to load plugins you installed."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<ChangeHistoryEnabledWarning title="Notepad++ needs to be relaunched" message="You have to restart Notepad++ to enable Change History."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Windows session exit" message="Windows session is about to be terminated but you have some data unsaved. Do you want to exit Notepad++ now?"/>
 			<LanguageMenuCompactWarning title="Compact Language Menu" message="This option will be changed on the next launch."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Unsaved changes are about to be discarded!
@@ -1555,6 +1558,7 @@ If you require the backward regex searching feature, consult the user manual for
 			<PrintError title="0" message="Cannot start printer document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Search warning" message="The &quot;In selection&quot; checkbox state has been automatically modified.
 Please verify the search condition before performing the action."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ needs to be restarted" message="Notepad++ needs to be restarted to show right menu shorcuts."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>
@@ -1690,7 +1694,7 @@ Find in all files but exclude folders tests, bin &amp;&amp; bin64:
 Find in all files but exclude all folders log or logs recursively:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Select a folder to search from"/><!-- HowToReproduce: Search > Find in Files > [...] -->
-			<find-in-files-dir-from-active-doc-tip value="Fill directory field based on active document"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
+			<find-in-files-dir-from-active-doc-tip value="Fill Directory field based on active document"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Find: Reached document beginning, first occurrence from the bottom found."/>
 			<find-status-end-reached value="Find: Reached document end, first occurrence from the top found."/>
 			<find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
@@ -1826,6 +1830,7 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
 
 If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
 		</MiscStrings>
 	</Native-Langue>

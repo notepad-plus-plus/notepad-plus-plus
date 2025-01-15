@@ -917,7 +917,7 @@
 					<Item id="6108" name="鎖定（禁止拖曳）"/>
 					<Item id="6109" name="非使用中的頁籤變暗"/>
 					<Item id="6110" name="使用中的頁籤加色條"/>
-					<Item id="6111" name="顯示狀態列"/>
+					<Item id="6111" name="在非使用頁籤上顯示按鈕"/>
 					<Item id="6112" name="顯示關閉按鈕"/>
 					<Item id="6113" name="雙擊滑鼠關閉文件"/>
 					<Item id="6115" name="啟用固定標籤頁功能"/>
@@ -927,7 +927,7 @@
 					<Item id="6121" name="關閉最後一個文件時關閉程式"/>
 					<Item id="6131" name="選單"/>
 					<Item id="6122" name="隱藏（用 Alt 或 F10 切換）"/>
-					<Item id="6132" name="隱藏選單中右邊的 ＋ ▼ ✕ 捷徑（需要重新啟動 Notepad++）"/>
+					<Item id="6132" name="隱藏選單中右邊的 ＋ ▼ ✕ 捷徑"/>
 					<Item id="6123" name="語言"/>
 					<Item id="6125" name="文件切換器"/>
 					<Item id="6127" name="停用副檔名欄"/>
@@ -1428,6 +1428,7 @@
 請注意，如果你選擇不創建佔位欄或稍後關閉它們，工作階段檔案將在 Notepad++ 關閉時被修改。我們建議你現在備份工作階段檔案 &quot;session.xml&quot; 。"/>
 			<RTLvsDirectWrite title="無法執行「文字由右至左」指令" message="「文字由右至左」指令與「直接寫入」模式不相容。 請在偏好設定對話框的「其他」中停用「直接寫入」模式，然後重新​​啟動 Notepad++ 。"/>
 			<FileMemoryAllocationFailed title="例外狀況：檔案記憶體分配失敗" message="可能沒有足夠的連續可用記憶體供 Notepad++ 載入檔案。"/>
+			<Need2Restart2ShowMenuShortcuts title="重新啟動 Notepad++" message="Notepad++ 需要重新啟動才能顯示選單右邊捷徑。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="剪貼簿記錄"/>

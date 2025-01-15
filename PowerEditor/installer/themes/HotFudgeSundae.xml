@@ -537,6 +537,8 @@ Installation:
             <WordsStyle name="STRINGRAW" styleID="20" fgColor="BCBB80" bgColor="2b0f01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="BCBB80" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="B7975D" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="51" fgColor="C11418" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="REGEX" styleID="52" fgColor="0088CE" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />

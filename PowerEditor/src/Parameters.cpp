@@ -4932,6 +4932,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._tabStatus |= TAB_PINBUTTON;
 			}
 
+			val = element->Attribute(L"buttonsOninactiveTabs");
+			if (val)
+			{
+				if (!lstrcmp(val, L"yes"))
+					_nppGUI._tabStatus |= TAB_INACTIVETABSHOWBUTTON;
+				else if (!lstrcmp(val, L"no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
+
 			val = element->Attribute(L"doubleClick2Close");
 			if (val)
 			{
@@ -7281,6 +7292,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_PINBUTTON) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"pinButton", pStr);
+
+		pStr = (_nppGUI._tabStatus & TAB_INACTIVETABSHOWBUTTON) ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"buttonsOninactiveTabs", pStr);
 
 		pStr = (_nppGUI._tabStatus & TAB_DBCLK2CLOSE) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"doubleClick2Close", pStr);

@@ -2244,6 +2244,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							findAllIn(FILES_IN_DIR);
 							nppParamInst._isFindReplacing = false;
 						}
+						else
+						{
+							// move input focus to "Directory:" edit control
+							::SendMessage(_hSelf, WM_NEXTDLGCTL, reinterpret_cast<WPARAM>(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO)), TRUE);
+						}
 					}
 					else if (_currentStatus == FINDINPROJECTS_DLG)
 					{
@@ -2295,6 +2300,11 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
 							nppParamInst._isFindReplacing = false;
 						}
+					}
+					else
+					{
+						// move input focus to "Directory:" edit control
+						::SendMessage(_hSelf, WM_NEXTDLGCTL, reinterpret_cast<WPARAM>(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO)), TRUE);
 					}
 				}
 				return TRUE;

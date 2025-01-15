@@ -791,23 +791,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Hide or show the right shortcuts "＋" "▼" "✕" of main menu bar
 	if (nppGUI._hideMenuRightShortcuts)
 	{
-		int nbRemoved = 0;
-		const int bufferSize = 64;
-		wchar_t buffer[bufferSize];
-		int nbItem = GetMenuItemCount(_mainMenuHandle);
-		for (int i = nbItem - 1; i >= 0; --i)
-		{
-			::GetMenuStringW(_mainMenuHandle, i, buffer, bufferSize, MF_BYPOSITION);
-			if (lstrcmp(buffer, L"✕") == 0 || lstrcmp(buffer, L"▼") == 0 || lstrcmp(buffer, L"＋") == 0)
-			{
-				::RemoveMenu(_mainMenuHandle, i, MF_BYPOSITION);
-				++nbRemoved;
-			}
-			if (nbRemoved == 3)
-				break;
-		}
-		if (nbRemoved > 0)
-			::DrawMenuBar(hwnd);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_HIDEMENURIGHTSHORTCUTS, 0, 0);
 	}
 
 	//
@@ -926,6 +910,7 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::isDbClk2Close() ? TAB_DBCLK2CLOSE : 0) | \
 						(TabBarPlus::isVertical() ? TAB_VERTICAL : 0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE : 0) |\
+						(nppGUI._tabStatus & TAB_INACTIVETABSHOWBUTTON) | \
 						(nppGUI._tabStatus & TAB_HIDE) | \
 						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
 						(nppGUI._tabStatus & TAB_ALTICONS);
@@ -5034,6 +5019,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 		// Before switching off, synchronize backup file
 		MainFileManager.backupCurrentBuffer();
 	}
+
 	Buffer * pBuf = MainFileManager.getBufferByID(id);
 	bool reload = pBuf->getNeedReload();
 	if (reload)
@@ -5041,6 +5027,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne, bool forceApplyHili
 		MainFileManager.reloadBuffer(id);
 		pBuf->setNeedReload(false);
 	}
+
 	if (whichOne == MAIN_VIEW)
 	{
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible

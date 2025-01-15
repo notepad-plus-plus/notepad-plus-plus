@@ -718,6 +718,8 @@ Installation:
             <WordsStyle name="STRINGRAW" styleID="20" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRINGEOL" styleID="51" fgColor="DC322F" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="REGEX" styleID="52" fgColor="268BD2" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />

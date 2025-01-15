@@ -882,6 +882,8 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_DEFAULT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENTDOC, true);
+	execute(SCI_STYLESETEOLFILLED, SCE_HJ_TEMPLATELITERAL, true);
+	execute(SCI_STYLESETEOLFILLED, SCE_HJA_TEMPLATELITERAL, true);
 }
 
 void ScintillaEditView::setJsonLexer(bool isJson5)
@@ -2277,10 +2279,9 @@ bool ScintillaEditView::setLexerFromLangID(int langID) // Internal lexer only
 
 void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 {
-	if (buffer == BUFFER_INVALID)
-		return;
-	if (!force && buffer == _currentBuffer)
-		return;
+	if (buffer == BUFFER_INVALID) return;
+	if (!force && buffer == _currentBuffer)	return;
+
 	Buffer * newBuf = MainFileManager.getBufferByID(buffer);
 
 	// before activating another document, we get the current position
@@ -2299,7 +2300,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	_currentBufferID = buffer;	//the magical switch happens here
 	_currentBuffer = newBuf;
 
-	const bool isSameLangType = _prevBuffer != nullptr && ((_prevBuffer == _currentBuffer) || (_prevBuffer->getLangType() == _currentBuffer->getLangType()));
+	const bool isSameLangType = (_prevBuffer != nullptr) && (_prevBuffer->getLangType() == _currentBuffer->getLangType());
 	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
 	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt);
 
@@ -2322,6 +2323,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+
+		if (force)
+			defineDocType(_currentBuffer->getLangType());
 	}
 	else // Entering the tab for the 2nd or more times, with the different language type
 	{

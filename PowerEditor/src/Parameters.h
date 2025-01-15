@@ -64,18 +64,19 @@ const int UDD_DOCKED = 2; // 0000 0010
 // 2 : 0000 0010 hide & docked
 // 3 : 0000 0011 show & docked
 
-const int TAB_DRAWTOPBAR        =    1;    //0000 0000 0001
-const int TAB_DRAWINACTIVETAB   =    2;    //0000 0000 0010
-const int TAB_DRAGNDROP         =    4;    //0000 0000 0100
-const int TAB_REDUCE            =    8;    //0000 0000 1000
-const int TAB_CLOSEBUTTON       =   16;    //0000 0001 0000
-const int TAB_DBCLK2CLOSE       =   32;    //0000 0010 0000
-const int TAB_VERTICAL          =   64;    //0000 0100 0000
-const int TAB_MULTILINE         =  128;    //0000 1000 0000
-const int TAB_HIDE              =  256;    //0001 0000 0000
-const int TAB_QUITONEMPTY       =  512;    //0010 0000 0000
-const int TAB_ALTICONS          = 1024;    //0100 0000 0000
-const int TAB_PINBUTTON         = 2048;    //1000 0000 0000
+const int TAB_DRAWTOPBAR            =    1;    // 0000 0000 0000 0001
+const int TAB_DRAWINACTIVETAB       =    2;    // 0000 0000 0000 0010
+const int TAB_DRAGNDROP             =    4;    // 0000 0000 0000 0100
+const int TAB_REDUCE                =    8;    // 0000 0000 0000 1000
+const int TAB_CLOSEBUTTON           =   16;    // 0000 0000 0001 0000
+const int TAB_DBCLK2CLOSE           =   32;    // 0000 0000 0010 0000
+const int TAB_VERTICAL              =   64;    // 0000 0000 0100 0000
+const int TAB_MULTILINE             =  128;    // 0000 0000 1000 0000
+const int TAB_HIDE                  =  256;    // 0000 0001 0000 0000
+const int TAB_QUITONEMPTY           =  512;    // 0000 0010 0000 0000
+const int TAB_ALTICONS              = 1024;    // 0000 0100 0000 0000
+const int TAB_PINBUTTON             = 2048;    // 0000 1000 0000 0000
+const int TAB_INACTIVETABSHOWBUTTON = 4096;    // 0001 0000 0000 0000
 
 const bool activeText = true;
 const bool activeNumeric = false;

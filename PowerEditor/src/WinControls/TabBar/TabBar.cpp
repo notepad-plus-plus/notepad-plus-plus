@@ -521,15 +521,27 @@ void TabBarPlus::setCloseBtnImageList()
 	int iconSize = 0;
 	std::vector<int> ids;
 
+	NppParameters& nppParam = NppParameters::getInstance();
+	bool showInactiveTabButtons = nppParam.getNppGUI()._tabStatus & TAB_INACTIVETABSHOWBUTTON;
+
 	if (NppDarkMode::isEnabled())
 	{
 		iconSize = g_TabCloseBtnSize_DM;
-		ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVERIN_DM, IDR_CLOSETAB_HOVERONTAB_DM, IDR_CLOSETAB_PUSH_DM };
+
+		if (showInactiveTabButtons)
+			ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_DM, IDR_CLOSETAB_HOVERIN_DM, IDR_CLOSETAB_HOVERONTAB_DM, IDR_CLOSETAB_PUSH_DM };
+		else
+			ids = { IDR_CLOSETAB_DM, IDR_CLOSETAB_INACT_EMPTY_DM, IDR_CLOSETAB_HOVERIN_DM, IDR_CLOSETAB_HOVERONTAB_DM, IDR_CLOSETAB_PUSH_DM };
 	}
 	else
 	{
 		iconSize = g_TabCloseBtnSize;
-		ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVERIN, IDR_CLOSETAB_HOVERONTAB, IDR_CLOSETAB_PUSH };
+
+		if (showInactiveTabButtons)
+			ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT, IDR_CLOSETAB_HOVERIN, IDR_CLOSETAB_HOVERONTAB, IDR_CLOSETAB_PUSH };
+		else
+			ids = { IDR_CLOSETAB, IDR_CLOSETAB_INACT_EMPTY, IDR_CLOSETAB_HOVERIN, IDR_CLOSETAB_HOVERONTAB, IDR_CLOSETAB_PUSH };
+		
 	}
 
 	if (_hCloseBtnImgLst != nullptr)
@@ -560,15 +572,26 @@ void TabBarPlus::setPinBtnImageList()
 	int iconSize = 0;
 	std::vector<int> ids;
 
+	NppParameters& nppParam = NppParameters::getInstance();
+	bool showInactiveTabButtons = nppParam.getNppGUI()._tabStatus & TAB_INACTIVETABSHOWBUTTON;
+
 	if (NppDarkMode::isEnabled())
 	{
 		iconSize = g_TabPinBtnSize_DM;
-		ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_DM, IDR_PINTAB_HOVERIN_DM, IDR_PINTAB_HOVERONTAB_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVERIN_DM };
+
+		if (showInactiveTabButtons)
+			ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_DM, IDR_PINTAB_HOVERIN_DM, IDR_PINTAB_HOVERONTAB_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVERIN_DM };
+		else
+			ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_EMPTY_DM, IDR_PINTAB_HOVERIN_DM, IDR_PINTAB_HOVERONTAB_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVERIN_DM };
 	}
 	else
 	{
 		iconSize = g_TabPinBtnSize;
-		ids = { IDR_PINTAB, IDR_PINTAB_INACT, IDR_PINTAB_HOVERIN, IDR_PINTAB_HOVERONTAB, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVERIN };
+
+		if (showInactiveTabButtons)
+			ids = { IDR_PINTAB, IDR_PINTAB_INACT, IDR_PINTAB_HOVERIN, IDR_PINTAB_HOVERONTAB, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVERIN };
+		else
+			ids = { IDR_PINTAB, IDR_PINTAB_INACT_EMPTY, IDR_PINTAB_HOVERIN, IDR_PINTAB_HOVERONTAB, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVERIN };
 	}
 
 	if (_hPinBtnImgLst != nullptr)
@@ -1522,15 +1545,15 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	}
 
 	// draw pin button
-	if (_drawTabPinButton && _hPinBtnImgLst != nullptr)
+	Buffer* buf = reinterpret_cast<Buffer*>(tci.lParam);
+	if (_drawTabPinButton && _hPinBtnImgLst != nullptr && buf)
 	{
 		// Each tab combined with the following stats :
 		// (active / inactive) | (pinned / unpinned) | (hover / not hover / pushed)
 		
 
-		bool isPinned = reinterpret_cast<Buffer*>(tci.lParam)->isPinned();
+		bool isPinned = buf->isPinned();
 		int idxPinImg = _unpinnedIdx; // current: upinned as default
-
 
 		if (isPinned)
 		{

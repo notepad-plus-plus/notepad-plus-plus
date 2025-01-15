@@ -665,7 +665,7 @@
             <WordsStyle name="USER TAGS2" styleID="193" fgColor="0000FF" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="substyle2" />
             <WordsStyle name="USER TAGS3" styleID="194" fgColor="0000FF" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="substyle3" />
             <WordsStyle name="USER TAGS4" styleID="195" fgColor="0000FF" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="substyle4" />
-            <WordsStyle name="USER ATTRIBUTES1" styleID="196" fgColor="FF0000" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="substyle5" />
+            <WordsStyle name="USER ATTRIBUTES1" styleID="196" fgColor="FF0000" bgColor="FFFF80" fontName="" fontStyle="0" fontSize="" keywordClass="substyle5">download</WordsStyle>
             <WordsStyle name="USER ATTRIBUTES2" styleID="197" fgColor="FF0000" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="substyle6" />
             <WordsStyle name="USER ATTRIBUTES3" styleID="198" fgColor="FF0000" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="substyle7" />
             <WordsStyle name="USER ATTRIBUTES4" styleID="199" fgColor="FF0000" bgColor="FFFF80" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
@@ -746,6 +746,8 @@
             <WordsStyle name="KEYWORD" styleID="47" fgColor="000080" bgColor="F2F4FF" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
             <WordsStyle name="DOUBLE STRING" styleID="48" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLE STRING" styleID="49" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (CLIENT)" styleID="53" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TEMPLATE LIT. (SERVER)" styleID="68" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="000000" bgColor="F2F4FF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="REGEX" styleID="52" fgColor="8000FF" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="42" fgColor="008000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />

@@ -149,6 +149,70 @@ KeyIDNAME namedKeyArray[] = {
 
 #define nbKeys sizeof(namedKeyArray)/sizeof(KeyIDNAME)
 
+bool mapped_vk_oem = false;
+map<UCHAR, char*> map_of_vk_oem;
+void _map_vk_oem()
+{
+	const size_t MAX_MAPSTR_CHARS=16;
+	const LANGID EN_US = 0x0409;
+	
+	// this function should only be called once, so update the flag
+	mapped_vk_oem = true;
+	
+	// determine the active keyboard "language"
+	LANGID current_lang_id = LOWORD(GetKeyboardLayout(0));
+	
+	// for each of the namedKeyArray, check if it's VK_OEM_*, and update the map of VK_OEM names as needed
+	for (size_t i = 0 ; i < nbKeys ; ++i)
+	{
+		// only need to map the VK_OEM_* keys, which are all at or above 0xA0
+		if(namedKeyArray[i].id >= 0xA0) 
+		{
+			// first make sure there's a slot in the map for the current id=>STR mapping
+			if (map_of_vk_oem.find(namedKeyArray[i].id) == map_of_vk_oem.end())
+			{
+				char* pstr = new char[MAX_MAPSTR_CHARS+1];
+				map_of_vk_oem[namedKeyArray[i].id] = pstr;
+			}
+
+			// now update the STR in the mapping
+			UINT v2c = MapVirtualKeyW((UINT)namedKeyArray[i].id, MAPVK_VK_TO_CHAR);
+			
+			// if it's a "dead key" (pre-accent modifier), it will be marked with 0x80000000, and I need to strip that...
+			bool is_dk = (v2c&0x80000000)==0x80000000; 
+			if(is_dk) 
+			{
+				v2c = v2c & 0x7FFFFFFF;
+			}
+			
+			// if it's a normal character, just put it in the map; if the codepoint is higher than 0x7F, need to convert from codepoint to MultiByte UTF8-encoded text
+			if(v2c<0x80)
+			{
+				sprintf_s(map_of_vk_oem[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "%c", v2c);
+			}
+			else 
+			{
+				// convert from codepoint to MultiByte UTF8-encoded text
+				wchar_t v2w[2] = { (wchar_t)v2c, 0x00 };
+				char bytes[8] = {0};
+				int len = WideCharToMultiByte(CP_UTF8, 0, &v2w[0], -1, NULL, 0, NULL, NULL);
+				if(len > 0)
+				{
+					WideCharToMultiByte(CP_UTF8, 0, &v2w[0], -1, &bytes[0], len, NULL, NULL);
+				}
+				sprintf_s(map_of_vk_oem[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "%s", bytes);
+			}
+
+			// en-US only: change from ` to ~, because that's what's historically been shown
+			if(current_lang_id==EN_US && map_of_vk_oem[namedKeyArray[i].id][0]=='`')
+			{
+				map_of_vk_oem[namedKeyArray[i].id][0] = '~';
+			}
+		}
+	}
+	return;
+}
+
 string Shortcut::toString() const
 {
 	string sc;
@@ -283,6 +347,7 @@ size_t ScintillaKeyMap::getSize() const
 
 void getKeyStrFromVal(UCHAR keyVal, string & str)
 {
+	if(!mapped_vk_oem) { _map_vk_oem(); }
 	str = "";
 	bool found = false;
 	size_t i;
@@ -294,8 +359,17 @@ void getKeyStrFromVal(UCHAR keyVal, string & str)
 			break;
 		}
 	}
-	if (found)
-		str = namedKeyArray[i].name;
+	if (found) 
+	{
+		if(namedKeyArray[i].id >= 0xA0) 
+		{
+			str = map_of_vk_oem[namedKeyArray[i].id];
+		}
+		else
+		{
+			str = namedKeyArray[i].name;
+		}
+	}
 	else 
 		str = "Unlisted";
 }
@@ -387,6 +461,8 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
+			if(!mapped_vk_oem) { _map_vk_oem(); }
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? string2wstring(getMenuName(), CP_UTF8).c_str() : string2wstring(getName(), CP_UTF8).c_str());	//display the menu name, with ampersands, for macros
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
@@ -399,7 +475,14 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			int iFound = -1;
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
+				if (map_of_vk_oem.find(namedKeyArray[i].id) != map_of_vk_oem.end()) 
+				{
+					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(map_of_vk_oem[namedKeyArray[i].id], CP_UTF8).c_str()));
+				} 
+				else 
+				{
+					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
+				}
 
 				if (_keyCombo._key == namedKeyArray[i].id)
 					iFound = static_cast<int32_t>(i);
@@ -1074,12 +1157,21 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
+			if(!mapped_vk_oem) { _map_vk_oem(); }
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, string2wstring(_name, CP_UTF8).c_str());
 			_keyCombo = _keyCombos[0];
 
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
+				if (map_of_vk_oem.find(namedKeyArray[i].id) != map_of_vk_oem.end()) 
+				{
+					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(map_of_vk_oem[namedKeyArray[i].id], CP_UTF8).c_str()));
+				} 
+				else 
+				{
+					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
+				}
 			}
 
 			for (size_t i = 0; i < _size; ++i)

@@ -149,6 +149,60 @@ KeyIDNAME namedKeyArray[] = {
 
 #define nbKeys sizeof(namedKeyArray)/sizeof(KeyIDNAME)
 
+#define MAX_MAPSTR_CHARS 16
+map<UCHAR, char[MAX_MAPSTR_CHARS+1]> oemVirtualKeyMap;
+std::vector<UCHAR> oemVkUsedIDs;
+void mapOemVirtualKeys()
+{
+	const LANGID EN_US = 0x0409;
+	
+	// this function should only be called once, so update the flag
+	static bool isMapped = false;
+	if (isMapped) return;
+	
+	// determine the active keyboard "language"
+	LANGID current_lang_id = LOWORD(GetKeyboardLayout(0));
+	
+	// for each of the namedKeyArray, check if it's VK_OEM_*, and update the map of VK_OEM names as needed
+	for (size_t i = 0 ; i < nbKeys ; ++i)
+	{
+		// only need to map the VK_OEM_* keys, which are all at or above 0xA0
+		if (namedKeyArray[i].id >= 0xA0) 
+		{
+			// now update the STR in the mapping
+			UINT v2c = MapVirtualKeyW((UINT)namedKeyArray[i].id, MAPVK_VK_TO_CHAR);
+			
+			// if it's a "dead key" (pre-accent modifier) or "ligature key", it will be marked with high order bits; mask those out...
+			v2c = v2c & 0x1FFFFF;	// highest unicode is U+1F_FFFF, so that's the highest valid codepoint
+			
+			// if it's a normal character, just put it in the map; if the codepoint is higher than 0x7F, need to convert from codepoint to MultiByte UTF8-encoded text
+			if (v2c < 0x80)
+			{
+				sprintf_s(oemVirtualKeyMap[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "%c", v2c);
+			}
+			else 
+			{
+				// convert from codepoint to MultiByte UTF8-encoded text
+				wchar_t v2w[2] = { (wchar_t)v2c, 0x00 };
+				char bytes[8] = {0};
+				int len = WideCharToMultiByte(CP_UTF8, 0, &v2w[0], -1, NULL, 0, NULL, NULL);
+				if (len > 0)
+				{
+					WideCharToMultiByte(CP_UTF8, 0, &v2w[0], -1, &bytes[0], len, NULL, NULL);
+				}
+				sprintf_s(oemVirtualKeyMap[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "%s", bytes);
+			}
+
+			// en-US only: change from ` to ~, because that's what's historically been shown
+			if (current_lang_id==EN_US && oemVirtualKeyMap[namedKeyArray[i].id][0]=='`')
+			{
+				oemVirtualKeyMap[namedKeyArray[i].id][0] = '~';
+			}
+		}
+	}
+	isMapped = true;
+}
+
 string Shortcut::toString() const
 {
 	string sc;
@@ -283,6 +337,7 @@ size_t ScintillaKeyMap::getSize() const
 
 void getKeyStrFromVal(UCHAR keyVal, string & str)
 {
+	mapOemVirtualKeys();
 	str = "";
 	bool found = false;
 	size_t i;
@@ -294,8 +349,17 @@ void getKeyStrFromVal(UCHAR keyVal, string & str)
 			break;
 		}
 	}
-	if (found)
+	if (found) 
+	{
+		// by default, assume it will just use the original name
 		str = namedKeyArray[i].name;
+		
+		// but if that key is mapped on this keyboard, then use the mapped name
+		if (oemVirtualKeyMap.find(namedKeyArray[i].id) != oemVirtualKeyMap.end())
+		{
+			str = oemVirtualKeyMap[namedKeyArray[i].id];
+		}
+	}
 	else 
 		str = "Unlisted";
 }
@@ -387,6 +451,8 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
+			mapOemVirtualKeys();
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _canModifyName ? string2wstring(getMenuName(), CP_UTF8).c_str() : string2wstring(getName(), CP_UTF8).c_str());	//display the menu name, with ampersands, for macros
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
@@ -396,13 +462,28 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			::SendDlgItemMessage(_hSelf, IDC_ALT_CHECK, BM_SETCHECK, _keyCombo._isAlt?BST_CHECKED:BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_SHIFT_CHECK, BM_SETCHECK, _keyCombo._isShift?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
+
+			// while buiding the IDC_KEY_COMBO keys, update the map to which VirtualKey is used for each index
 			int iFound = -1;
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
+				const char* nameStr = namedKeyArray[i].name;
+				
+				// use the virtual key value, if it's been mapped
+				if (oemVirtualKeyMap.find(namedKeyArray[i].id) != oemVirtualKeyMap.end()) 
+				{
+					nameStr = oemVirtualKeyMap[namedKeyArray[i].id];
+				} 
+				
+				// only add a key to the IDC_KEY_COMBO list if the string is not empty
+				if (nameStr[0])
+				{
+					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(nameStr, CP_UTF8).c_str()));
+					oemVkUsedIDs.push_back(namedKeyArray[i].id);
+				}
 
 				if (_keyCombo._key == namedKeyArray[i].id)
-					iFound = static_cast<int32_t>(i);
+					iFound = static_cast<int32_t>(oemVkUsedIDs.size());
 			}
 
 			if (iFound != -1)
@@ -522,8 +603,8 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						if (LOWORD(wParam) == IDC_KEY_COMBO)
 						{
-							auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
-							_keyCombo._key = namedKeyArray[i].id;
+							auto iSel = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+							_keyCombo._key = oemVkUsedIDs[iSel];
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 							::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
 							updateConflictState();
@@ -1074,12 +1155,26 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 		{
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 
+			mapOemVirtualKeys();
+
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, string2wstring(_name, CP_UTF8).c_str());
 			_keyCombo = _keyCombos[0];
 
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(namedKeyArray[i].name, CP_UTF8).c_str()));
+				const char* nameStr = namedKeyArray[i].name;
+				
+				if (oemVirtualKeyMap.find(namedKeyArray[i].id) != oemVirtualKeyMap.end()) 
+				{
+					nameStr = oemVirtualKeyMap[namedKeyArray[i].id];
+				} 
+				
+				// only add a key to the IDC_KEY_COMBO list if the string is not empty
+				if (nameStr[0])
+				{
+					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(nameStr, CP_UTF8).c_str()));
+					oemVkUsedIDs.push_back(namedKeyArray[i].id);
+				}
 			}
 
 			for (size_t i = 0; i < _size; ++i)
@@ -1228,8 +1323,8 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 						{
 							case IDC_KEY_COMBO:
 							{
-								auto i = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
-								_keyCombo._key = namedKeyArray[i].id;
+								auto iSel = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
+								_keyCombo._key = oemVkUsedIDs[iSel];
 								::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled() ? SW_HIDE : SW_SHOW);
 								validateDialog();
 								return TRUE;

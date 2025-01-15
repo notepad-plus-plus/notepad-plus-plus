@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 9th (v8.7.6)
+	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -999,8 +999,8 @@ Additionnal information about Corsican localization:
 					<Item id="6134" name="Piattà"/>
 
 					<Item id="6131" name="Listinu"/>
-					<Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà o disattivà)"/>
-					<Item id="6132" name="Piattà l’accurtatoghji diritti ＋ ▼ ✕ da a barra di listinu (Richiede di rilancià Notepad++)"/>
+					<Item id="6122" name="Piattà (impiegà u tastu Alt o F10 per attivà o disattivà)"/>
+					<Item id="6132" name="Piattà l’accurtatoghji di diritta ＋ ▼ ✕"/>
 
 					<Item id="6123" name="Lingua"/>
 				</Global>
@@ -1587,6 +1587,7 @@ S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjit
 			<PrintError title="0" message="Ùn si pò lancià u ducumentu di stampetta."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Avertimentu di ricerca" message="U statu di l’ozzione « In a selezzione » hè statu mudificatu autumaticamente.
 Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>

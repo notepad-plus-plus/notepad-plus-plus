@@ -1213,3 +1213,10 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//scnNotification->nmhdr.code = NPPN_NATIVELANGCHANGED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp
 	//scnNotification->nmhdr.idFrom = 0; // preserved for the future use, must be zero
+
+	#define NPPN_NEWSEARCHRESULTSREADY (NPPN_FIRST + 32)  // To notify plugins that new data are ready in the "Search results" panel
+	//scnNotification->nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
+	//scnNotification->nmhdr.hwndFrom = search-results ("finder") scintilla hwnd
+	//scnNotification->nmhdr.idFrom = see below:
+		// where LOWORD(idFrom) = 0 (no search error) or non-zero (search error occurred)
+		// where HIWORD(idFrom) = search type: 0 (curr doc), 1 (all open docs), 2 (in files), 3 (in project)

@@ -2119,19 +2119,37 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 bool Notepad_plus::findInFiles()
 {
 	std::vector<wstring> fileNames;
-	if (! createFilelistForFiles(fileNames))
-		return false;
-
-	return findInFilelist(fileNames);
+	bool success = createFilelistForFiles(fileNames);
+	if (success)
+	{
+		success = findInFilelist(fileNames);
+	}
+	
+	SCNotification scnN{};
+	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
+	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
+	scnN.nmhdr.idFrom = MAKELONG(success ? 0 : 1, 2); // 2: find-in-files
+	_pluginsManager.notify(&scnN);
+	
+	return success;
 }
 
 bool Notepad_plus::findInProjects()
 {
-	vector<wstring> fileNames;
-	if (! createFilelistForProjects(fileNames))
-		return false;
+	std::vector<wstring> fileNames;
+	bool success = createFilelistForProjects(fileNames);
+	if (success)
+	{
+		success = findInFilelist(fileNames);
+	}
+	
+	SCNotification scnN{};
+	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
+	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
+	scnN.nmhdr.idFrom = MAKELONG(success ? 0 : 1, 3); // 3: find-in-projects
+	_pluginsManager.notify(&scnN);
 
-	return findInFilelist(fileNames);
+	return success;
 }
 
 bool Notepad_plus::findInFilelist(std::vector<wstring> & fileNames)
@@ -2315,6 +2333,12 @@ bool Notepad_plus::findInOpenedFiles()
 
 	_findReplaceDlg.putFindResult(nbTotal);
 
+	SCNotification scnN{};
+	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
+	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
+	scnN.nmhdr.idFrom = MAKELONG(!hasInvalidRegExpr ? 0 : 1, 1); // 1: find-all-in-all-opened-documents
+	_pluginsManager.notify(&scnN);
+
 	if (hasInvalidRegExpr)
 	{
 		_findReplaceDlg.setStatusbarMessageWithRegExprErr(&_invisibleEditView);
@@ -2387,6 +2411,12 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
+
+	SCNotification scnN{};
+	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
+	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
+	scnN.nmhdr.idFrom = MAKELONG(!hasInvalidRegExpr ? 0 : 1, 0);  // 0: find-all-in-current-document
+	_pluginsManager.notify(&scnN);
 
 	if (hasInvalidRegExpr)
 	{

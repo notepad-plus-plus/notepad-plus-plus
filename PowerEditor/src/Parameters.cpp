@@ -6910,40 +6910,32 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 			int w = FWI_PANEL_WH_DEFAULT;
 			int h = FWI_PANEL_WH_DEFAULT;
 
+			bool bInputDataOk = false;
 			if (floatElement->Attribute(L"x", &x))
 			{
-				if ((x > (maxMonitorSize.cx - 1)) || (x < 0))
-					x = 0; // invalid, reset
+				if (floatElement->Attribute(L"y", &y))
+				{
+					if (floatElement->Attribute(L"width", &w))
+					{
+						if (floatElement->Attribute(L"height", &h))
+						{
+							RECT rect{ x,y,w,h };
+							bInputDataOk = isWindowVisibleOnAnyMonitor(rect);
+						}
+					}
+				}
 			}
-			if (floatElement->Attribute(L"y", &y))
+
+			if (!bInputDataOk)
 			{
-				if ((y > (maxMonitorSize.cy - 1)) || (y < 0))
-					y = 0; // invalid, reset
+				// reset to adjusted factory defaults
+				// (and the panel will automatically be on the current primary monitor due to the x,y == 0,0)
+				x = 0;
+				y = 0;
+				w = _nppGUI._dockingData._minFloatingPanelSize.cx;
+				h = _nppGUI._dockingData._minFloatingPanelSize.cy + FWI_PANEL_WH_DEFAULT;
 			}
-			if (floatElement->Attribute(L"width", &w))
-			{
-				if (w > maxMonitorSize.cx)
-				{
-					w = maxMonitorSize.cx; // invalid, reset
-				}
-				else
-				{
-					if (w < _nppGUI._dockingData._minFloatingPanelSize.cx)
-						w = _nppGUI._dockingData._minFloatingPanelSize.cx; // invalid, reset
-				}
-			}
-			if (floatElement->Attribute(L"height", &h))
-			{
-				if (h > maxMonitorSize.cy)
-				{
-					h = maxMonitorSize.cy; // invalid, reset
-				}
-				else
-				{
-					if (h < _nppGUI._dockingData._minFloatingPanelSize.cy)
-						h = _nppGUI._dockingData._minFloatingPanelSize.cy; // invalid, reset
-				}
-			}
+
 			_nppGUI._dockingData._floatingWindowInfo.push_back(FloatingWindowInfo(cont, x, y, w, h));
 		}
 	}

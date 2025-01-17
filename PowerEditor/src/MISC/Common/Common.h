@@ -288,3 +288,8 @@ BOOL getFileAttributesExWithTimeout(const wchar_t* filePath, WIN32_FILE_ATTRIBUT
 bool doesFileExist(const wchar_t* filePath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
 bool doesDirectoryExist(const wchar_t* dirPath, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
 bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isTimeoutReached = nullptr);
+
+
+// to find required buffer size, call this 1st with pBufferOut==nullptr and dwBufferSizeInOut==0
+bool loadRawDataFromResource(const int iResourceIn, LPBYTE pBufferOut, DWORD& dwBufferSizeInOut,
+	const HMODULE hModuleIn = nullptr);

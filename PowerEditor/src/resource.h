@@ -46,6 +46,7 @@
 #define IDI_TAIWANSSOVEREIGNTY_DM  106
 #define IDR_RT_MANIFEST            103
 #define IDI_ICONABSENT             104
+#define IDR_DATA_SCILEX_VERSION    107
 
 //
 // TOOLBAR ICO - set 1

@@ -195,6 +195,30 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"Built with : (unknown)\r\n";
 #endif
 
+			// Scintilla/Lexilla version
+			_debugInfoStr += L"Scintilla/Lexilla included : ";
+			{
+				wstring strSciLexVer;
+				DWORD dwBufSizeReq = 0;
+				if (loadRawDataFromResource(IDR_DATA_SCILEX_VERSION, nullptr, dwBufSizeReq))
+				{
+					if (dwBufSizeReq > 0)
+					{
+						std::unique_ptr<char[]> pBuf(new char[dwBufSizeReq + 1]);
+						if (loadRawDataFromResource(IDR_DATA_SCILEX_VERSION, reinterpret_cast<LPBYTE>(pBuf.get()), dwBufSizeReq))
+						{
+							pBuf.get()[dwBufSizeReq] = '\0'; // string buffer nul-termination
+							strSciLexVer = wmc.char2wchar(pBuf.get(), CP_ACP);
+						}
+					}
+				}
+				if (strSciLexVer.empty())
+					_debugInfoStr += L"N/A";
+				else
+					_debugInfoStr += strSciLexVer;
+			}
+			_debugInfoStr += L"\r\n";
+
 			// Binary path
 			_debugInfoStr += L"Path : ";
 			wchar_t nppFullPath[MAX_PATH]{};

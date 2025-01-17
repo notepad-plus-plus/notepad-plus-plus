@@ -1905,6 +1905,11 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReac
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }
 
+#if defined(__GNUC__)
+#define LAMBDA_STDCALL __attribute__((__stdcall__))
+#else
+#define LAMBDA_STDCALL 
+#endif
 
 // check if the window rectangle intersects with any currently active monitor's working area
 // (this func handles also possible extended monitors mode aka the MS Virtual Screen)
@@ -1917,7 +1922,7 @@ bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn)
 	};
 
 	// callback func to check for intersection with each existing monitor
-	auto callback = []([[maybe_unused]] HMONITOR hMon, [[maybe_unused]] HDC hdc, LPRECT lprcMon, LPARAM lpInOut) -> BOOL
+	auto callback = []([[maybe_unused]] HMONITOR hMon, [[maybe_unused]] HDC hdc, LPRECT lprcMon, LPARAM lpInOut) -> BOOL LAMBDA_STDCALL
 	{
 		Param4InOut* paramInOut = reinterpret_cast<Param4InOut*>(lpInOut);
 		RECT rectIntersection{};

@@ -464,7 +464,6 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 
 			// while buiding the IDC_KEY_COMBO keys, update the map to which VirtualKey is used for each index
-			int iPullDown = 0;
 			int iFound = -1;
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
@@ -1161,7 +1160,6 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, string2wstring(_name, CP_UTF8).c_str());
 			_keyCombo = _keyCombos[0];
 
-			int iPullDown = 0;
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
 				const char* nameStr = namedKeyArray[i].name;

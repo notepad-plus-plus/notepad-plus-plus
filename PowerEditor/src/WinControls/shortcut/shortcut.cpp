@@ -151,7 +151,7 @@ KeyIDNAME namedKeyArray[] = {
 
 #define MAX_MAPSTR_CHARS 16
 map<UCHAR, char[MAX_MAPSTR_CHARS+1]> oemVirtualKeyMap;
-size_t oemVirtualKeyUsed[256]{};
+std::vector<UCHAR> oemVkUsedIDs;
 void mapOemVirtualKeys()
 {
 	const LANGID EN_US = 0x0409;
@@ -480,12 +480,11 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				if (nameStr[0])
 				{
 					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(nameStr, CP_UTF8).c_str()));
-					oemVirtualKeyUsed[iPullDown] = i;
-					++iPullDown;	// move to next slot in pulldown list
+					oemVkUsedIDs.push_back(namedKeyArray[i].id);
 				}
 
 				if (_keyCombo._key == namedKeyArray[i].id)
-					iFound = static_cast<int32_t>(iPullDown-1);	// -1 because iPullDown has already been incremented
+					iFound = static_cast<int32_t>(oemVkUsedIDs.size());
 			}
 
 			if (iFound != -1)
@@ -605,9 +604,8 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						if (LOWORD(wParam) == IDC_KEY_COMBO)
 						{
-							auto iPullDown = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
-							auto i = oemVirtualKeyUsed[iPullDown];
-							_keyCombo._key = namedKeyArray[i].id;
+							auto iSel = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+							_keyCombo._key = oemVkUsedIDs[iSel];
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 							::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
 							updateConflictState();
@@ -1177,8 +1175,7 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				if (nameStr[0])
 				{
 					::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(string2wstring(nameStr, CP_UTF8).c_str()));
-					oemVirtualKeyUsed[iPullDown] = i;
-					++iPullDown;
+					oemVkUsedIDs.push_back(namedKeyArray[i].id);
 				}
 			}
 
@@ -1328,9 +1325,8 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 						{
 							case IDC_KEY_COMBO:
 							{
-								auto iPullDown = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
-								auto i = oemVirtualKeyUsed[iPullDown];
-								_keyCombo._key = namedKeyArray[i].id;
+								auto iSel = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
+								_keyCombo._key = oemVkUsedIDs[iSel];
 								::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled() ? SW_HIDE : SW_SHOW);
 								validateDialog();
 								return TRUE;

@@ -2128,7 +2128,7 @@ bool Notepad_plus::findInFiles()
 	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
 	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
-	scnN.nmhdr.idFrom = MAKELONG(success ? 0 : 1, 2); // 2: find-in-files
+	scnN.nmhdr.idFrom = success ? 0 : 1;
 	_pluginsManager.notify(&scnN);
 	
 	return success;
@@ -2146,7 +2146,7 @@ bool Notepad_plus::findInProjects()
 	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
 	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
-	scnN.nmhdr.idFrom = MAKELONG(success ? 0 : 1, 3); // 3: find-in-projects
+	scnN.nmhdr.idFrom = success ? 0 : 1;
 	_pluginsManager.notify(&scnN);
 
 	return success;
@@ -2336,7 +2336,7 @@ bool Notepad_plus::findInOpenedFiles()
 	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
 	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
-	scnN.nmhdr.idFrom = MAKELONG(!hasInvalidRegExpr ? 0 : 1, 1); // 1: find-all-in-all-opened-documents
+	scnN.nmhdr.idFrom = !hasInvalidRegExpr ? 0 : 1;
 	_pluginsManager.notify(&scnN);
 
 	if (hasInvalidRegExpr)
@@ -2415,7 +2415,7 @@ bool Notepad_plus::findInCurrentFile(bool isEntireDoc)
 	SCNotification scnN{};
 	scnN.nmhdr.code = NPPN_NEWSEARCHRESULTSREADY;
 	scnN.nmhdr.hwndFrom = _findReplaceDlg.getHFindResults();
-	scnN.nmhdr.idFrom = MAKELONG(!hasInvalidRegExpr ? 0 : 1, 0);  // 0: find-all-in-current-document
+	scnN.nmhdr.idFrom = !hasInvalidRegExpr ? 0 : 1;
 	_pluginsManager.notify(&scnN);
 
 	if (hasInvalidRegExpr)

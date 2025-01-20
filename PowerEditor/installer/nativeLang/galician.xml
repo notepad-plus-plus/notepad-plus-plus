@@ -958,6 +958,7 @@ Translation note:
 					<Item id="6108" name="Bloquear (impedir arrastrar e soltar)"/>
 					<Item id="6109" name="Oscurecer pestanas inactivas"/>
 					<Item id="6110" name="Barra de cor na pestana activa"/>
+					<Item id="6111" name="Mostrar botóns nas pestanas inactivas"/>
 					<Item id="6112" name="Botón de peche"/>
 					<Item id="6113" name="Dobre clic para pechar pestana"/>
 					<Item id="6115" name="Activar a opción de fixar pestanas"/>
@@ -971,8 +972,8 @@ Translation note:
 					<Item id="6134" name="Ocultar"/>
 
 					<Item id="6131" name="Menú"/>
-					<Item id="6122" name="Ocultar barra de opcións (Alt ou F10 para mostrala/ocultala)"/>
-					<Item id="6132" name="Ocultar atallos ＋ ▼ ✕  na dereita da barra de menús (reiniciar Notepad++)"/>
+					<Item id="6122" name="Ocultar (use Alt ou F10 para alternar)"/>
+					<Item id="6132" name="Ocultar atallos ＋ ▼ ✕ "/>
 
 					<Item id="6123" name="Idioma"/>
 				</Global>
@@ -1527,7 +1528,7 @@ Parece que o arquivo para abrir no é un arquivo de proxecto válido."/>
 			<ExitToUpdatePlugins title="Está a punto de saír de Notepad++" message="Se fai clic en SI, salirá de Notepad++ para continuar coas operacións.
 Notepad++ reiniciarase despois de que rematen todas.
 ¿Continuar?"/>
-			<NeedToRestartToLoadPlugins title="Necesita reiniciar Notepad++" message="Debe reiniciar Notepad++ para cargar os complementos que instalou."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
+			<NeedToRestartToLoadPlugins title="É necesario reiniciar Notepad++" message="Debe reiniciar Notepad++ para cargar os complementos que instalou."/><!-- HowToReproduce: Import a plugin via menu "Settings->Import->Import Plugin(s)...". -->
 			<ChangeHistoryEnabledWarning title="É necesario reiniciar Notepad++" message="Ten que reiniciar Notepad++ para activar o historial de cambios."/><!-- HowToReproduce: uncheck "Display Change History" via Preferences dialog "Marges/Border/Edge. -->
 			<WindowsSessionExit title="Notepad++ - Saír da sesión de Windows" message="Está a punto de rematar a sesión de Windows, pero hai algúns datos sin gardar. ¿Desexa saír agora de Notepad++?"/>
 			<LanguageMenuCompactWarning title="Menú compacto de linguaxes" message="Esta opción cambiarase no seguinte inicio."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
@@ -1560,6 +1561,7 @@ Se necesita a función de busca regex cara atrás, consulte o manual do usuario 
 			<PrintError title="0" message="Non se pode iniciar a impresión do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Advertencia da busca" message="O estado do recadro &quot;Na selección&quot; modificouse automáticamente.
 Por favor, comprobe a condición da busca antes de realizar a acción."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="É necesario reiniciar Notepad++" message="Debe reiniciar Notepad++ para mostrar os accesos directos da dereita no menú."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial do portapapeis"/>

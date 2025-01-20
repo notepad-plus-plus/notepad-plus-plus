@@ -102,7 +102,7 @@ KeyIDNAME namedKeyArray[] = {
 {"Numpad 9", VK_NUMPAD9},
 {"Num *", VK_MULTIPLY},
 {"Num +", VK_ADD},
-// {"Num Enter"), VK_SEPARATOR},	//this one doesnt seem to work
+// {"Num Enter"), VK_SEPARATOR},	//this one doesnt seem to work: see below
 {"Num -", VK_SUBTRACT},
 {"Num .", VK_DECIMAL},
 {"Num /", VK_DIVIDE},
@@ -145,6 +145,79 @@ KeyIDNAME namedKeyArray[] = {
 {"/", VK_OEM_2},
 
 {"<>", VK_OEM_102},
+
+// add placeholders for the VirtualKeys that aren't on the standard en-US keyboard
+{"", VK_OEM_8},	// VK_OEM_8 not on US keyboards, despite being named
+{"", VK_SEPARATOR}, // used for the ',' in "1,234,567.89", but it's not on most keyboards, so keep it in the custom section
+{"", 0x88},		// RESERVED
+{"", 0x89},		// RESERVED
+{"", 0x8A},		// RESERVED
+{"", 0x8B},		// RESERVED
+{"", 0x8C},		// RESERVED
+{"", 0x8D},		// RESERVED
+{"", 0x8E},		// RESERVED
+{"", 0x8F},		// RESERVED
+{"", 0x92},		// OEM SPECIFIC
+{"", 0x93},		// OEM SPECIFIC
+{"", 0x94},		// OEM SPECIFIC
+{"", 0x95},		// OEM SPECIFIC
+{"", 0x96},		// OEM SPECIFIC
+{"", 0x97},		// UNASSIGNED
+{"", 0x98},		// UNASSIGNED
+{"", 0x99},		// UNASSIGNED
+{"", 0x9A},		// UNASSIGNED
+{"", 0x9B},		// UNASSIGNED
+{"", 0x9C},		// UNASSIGNED
+{"", 0x9D},		// UNASSIGNED
+{"", 0x9E},		// UNASSIGNED
+{"", 0x9F},		// UNASSIGNED
+{"", 0xB8},		// RESERVED
+{"", 0xB9},		// RESERVED
+{"", 0xC1},		// RESERVED: ABNT_C1
+{"", 0xC2},		// RESERVED: ABNT_C2
+{"", 0xC3},		// RESERVED
+{"", 0xC4},		// RESERVED
+{"", 0xC5},		// RESERVED
+{"", 0xC6},		// RESERVED
+{"", 0xC7},		// RESERVED
+{"", 0xC8},		// RESERVED
+{"", 0xC9},		// RESERVED
+{"", 0xCA},		// RESERVED
+{"", 0xCB},		// RESERVED
+{"", 0xCC},		// RESERVED
+{"", 0xCD},		// RESERVED
+{"", 0xCE},		// RESERVED
+{"", 0xCF},		// RESERVED
+{"", 0xD0},		// RESERVED
+{"", 0xD1},		// RESERVED
+{"", 0xD2},		// RESERVED
+{"", 0xD3},		// RESERVED
+{"", 0xD4},		// RESERVED
+{"", 0xD5},		// RESERVED
+{"", 0xD6},		// RESERVED
+{"", 0xD7},		// RESERVED
+{"", 0xD8},		// RESERVED
+{"", 0xD9},		// RESERVED
+{"", 0xDA},		// RESERVED
+{"", 0xE0},		// RESERVED
+{"", 0xE1},		// OEM SPECIFIC
+{"", 0xE3},		// OEM SPECIFIC
+{"", 0xE4},		// OEM SPECIFIC
+{"", 0xE6},		// OEM SPECIFIC
+{"", 0xE8},		// UNASSIGNED
+{"", 0xE9},		// OEM SPECIFIC
+{"", 0xEA},		// OEM SPECIFIC
+{"", 0xEB},		// OEM SPECIFIC
+{"", 0xEC},		// OEM SPECIFIC
+{"", 0xED},		// OEM SPECIFIC
+{"", 0xEE},		// OEM SPECIFIC
+{"", 0xEF},		// OEM SPECIFIC
+{"", 0xF0},		// OEM SPECIFIC
+{"", 0xF1},		// OEM SPECIFIC
+{"", 0xF2},		// OEM SPECIFIC
+{"", 0xF3},		// OEM SPECIFIC
+{"", 0xF4},		// OEM SPECIFIC
+{"", 0xF5},		// OEM SPECIFIC
 };
 
 #define nbKeys sizeof(namedKeyArray)/sizeof(KeyIDNAME)
@@ -163,11 +236,14 @@ void mapOemVirtualKeys()
 	// determine the active keyboard "language"
 	LANGID current_lang_id = LOWORD(GetKeyboardLayout(0));
 	
+	std::vector<UCHAR> localizableNumpad{VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE, VK_SEPARATOR};
+	
 	// for each of the namedKeyArray, check if it's VK_OEM_*, and update the map of VK_OEM names as needed
 	for (size_t i = 0 ; i < nbKeys ; ++i)
 	{
-		// only need to map the VK_OEM_* keys, which are all at or above 0xA0
-		if (namedKeyArray[i].id >= 0xA0) 
+		// only need to map the VK_OEM_* keys, which are all at or above 0xA0, or any of the localizable keys on the keypad
+		bool keyIsLocalizableOnNumpad = (std::find(localizableNumpad.begin(), localizableNumpad.end(), namedKeyArray[i].id) != localizableNumpad.end());
+		if ((namedKeyArray[i].id >= 0xA0) || keyIsLocalizableOnNumpad)
 		{
 			// now update the STR in the mapping
 			UINT v2c = MapVirtualKeyW((UINT)namedKeyArray[i].id, MAPVK_VK_TO_CHAR);
@@ -193,10 +269,22 @@ void mapOemVirtualKeys()
 				sprintf_s(oemVirtualKeyMap[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "%s", bytes);
 			}
 
-			// en-US only: change from ` to ~, because that's what's historically been shown
-			if (current_lang_id==EN_US && oemVirtualKeyMap[namedKeyArray[i].id][0]=='`')
+			// look for edge cases for naming
+			if (current_lang_id == EN_US && oemVirtualKeyMap[namedKeyArray[i].id][0] == '`')
 			{
+				// en-US only: change from ` to ~, because that's what's historically been shown
 				oemVirtualKeyMap[namedKeyArray[i].id][0] = '~';
+			}
+			else if (oemVirtualKeyMap[namedKeyArray[i].id][0] && keyIsLocalizableOnNumpad)
+			{
+				// make sure any localized numeric-keypad characters have the "Num" as a prefix
+				char old_char = oemVirtualKeyMap[namedKeyArray[i].id][0];
+				sprintf_s(oemVirtualKeyMap[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "Num %c", old_char);
+			}
+			else if (oemVirtualKeyMap[namedKeyArray[i].id][0] == '.' && namedKeyArray[i].id != VK_DECIMAL && namedKeyArray[i].id != VK_OEM_PERIOD)
+			{
+				// the '.' being associated with something other than VK_DECIMAL and VK_OEM_PERIOD must be on the numeric keypad, probably as ABNT2_C2
+				sprintf_s(oemVirtualKeyMap[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "Num .");
 			}
 		}
 	}
@@ -354,7 +442,7 @@ void getKeyStrFromVal(UCHAR keyVal, string & str)
 		// by default, assume it will just use the original name
 		str = namedKeyArray[i].name;
 		
-		// but if that key is mapped on this keyboard, then use the mapped name
+		// but if that key is mapped on this keyboard, then use the mapped name (if the name is empty, it is not on the active keyboard)
 		if (oemVirtualKeyMap.find(namedKeyArray[i].id) != oemVirtualKeyMap.end())
 		{
 			str = oemVirtualKeyMap[namedKeyArray[i].id];

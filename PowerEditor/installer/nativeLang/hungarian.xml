@@ -958,6 +958,7 @@
 					<Item id="6108" name="F&amp;ülek rögzítése („fogd és vidd” kikapcsolása)"/>
 					<Item id="6109" name="Az &amp;inaktív fülek elsötétítése"/>
 					<Item id="6110" name="Az &amp;aktív fül színes sávval jelölése"/>
+					<Item id="6111" name="Gombok megjele&amp;nítése az inaktív füleken"/>
 					<Item id="6112" name="Be&amp;zárásgomb megjelenítése"/>
 					<Item id="6113" name="Bez&amp;árás dupla kattintással"/>
 					<Item id="6115" name="Fülek kitűzésének engedélyezése"/>
@@ -971,8 +972,8 @@
 					<Item id="6134" name="&amp;Elrejtés"/>
 
 					<Item id="6131" name="Menüsor"/>
-					<Item id="6122" name="&amp;Menüsor elrejtése (ideiglenes megjelenítés: Alt vagy F10)"/>
-					<Item id="6132" name="A j&amp;obb oldali parancsikonok (＋ ▼ ✕) elrejtése a menüsorról (Notepad++-újraindítást igényel)"/>
+					<Item id="6122" name="Elrejtés (ideiglenes &amp;megjelenítés: Alt vagy F10)"/>
+					<Item id="6132" name="A j&amp;obb oldali parancsikonok (＋ ▼ ✕) elrejtése"/>
 
 					<Item id="6123" name="N&amp;yelv"/>
 				</Global>
@@ -1514,7 +1515,7 @@ Kívánja folytatni?"/>
 kérjük, adjon meg más elnevezést"/>
 			<UDLRemoveCurrentLang title="Az aktuális nyelv eltávolítása" message="Biztos benne?"/>
 			<SCMapperDoDeleteOrNot title="Billentyűparancs" message="Biztosan el kívánja távolítani ezt a billentyűparancsot?"/>
-			<FindCharRangeValueError title="Értéktartomány-probléma" message="Kérjük, egy 0 és 255 közötti értéket adjon meg"/>
+			<FindCharRangeValueError title="Értéktartomány-probléma" message="Kérjük, egy 0 és 255 közötti értéket adjon meg"/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Sikertelen mentés" message="A fájl mentése sikertelen volt; lehet, hogy védett.
 El kívánja indítani a Notepad++-t rendszergazdaként?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Sikertelen mentés" message="A fájl mentése sikertelen volt; lehet, hogy védett.
@@ -1555,6 +1556,9 @@ Nyomja meg az OK gombot a „Keresés” párbeszédpanel megnyitásához vagy a
 
 Ha szüksége van a visszafelé történő reguláris keresésre, a Felhasználói kézikönyvben megtalálja a funkció engedélyezésével kapcsolatos útmutatásokat."/>
 			<PrintError title="0" message="Nem indítható el a dokumentum nyomtatása"/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Keresési figyelmeztetés" message="Az „A kijelölésben” jelölőnégyzet állapota automatikusan módosítva lett.
+Kérjük, a művelet végrehajtása előtt ellenőrizze a keresési feltételeket"/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="A Notepad++ újraindítása szükséges" message="Újra kell indítani a Notepad++-t a jobb oldali parancsikonok megjelenítéséhez"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Vágólap-előzmények"/>

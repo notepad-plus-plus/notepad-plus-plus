@@ -5,7 +5,7 @@ Nota de tradução:
 2. Todos os comentários são de caráter explicativo, não são de tradução.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.3">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -958,7 +958,8 @@ Nota de tradução:
 					<Item id="6108" name="Bloquear (sem arrastar e largar)"/>
 					<Item id="6109" name="Escurecer separadores inativos"/>
 					<Item id="6110" name="Barra colorida no separador ativo"/>
-					<Item id="6112" name="Botão de fechar em cada separador"/>
+					<Item id="6111" name="Mostrar botões nos separadores inactivos"/>
+					<Item id="6112" name="Mostrar o botão de fechar"/>
 					<Item id="6113" name="Clique duplo para fechar documento"/>
 					<Item id="6115" name="Ativar a funcionalidade de fixar separador"/>
 					<Item id="6118" name="Ocultar"/>
@@ -1190,6 +1191,7 @@ Nota de tradução:
 					<Item id="6908" name="Preencher o campo Localizar com o texto selecionado"/>
 					<Item id="6909" name="Selecionar a palavra sob acento circunflexo quando nada selecionado"/>
 					<Item id="6910" name="Tamanho mínimo para Verificação automática &quot;Na seleção&quot;:"/>
+					<Item id="6913" name="Preencher o campo Localizar na pasta de ficheiros com base no documento ativo"/>
 				</Searching>
 
 				<RecentFilesHistory title="Histórico de ficheiros recentes">
@@ -1513,7 +1515,7 @@ Deseja continuar?"/>
 por favor dê outra."/>
 			<UDLRemoveCurrentLang title="Remover a linguagem atual" message="Tem a certeza?"/>
 			<SCMapperDoDeleteOrNot title="Tem a certeza?" message="Tem a certeza que deseja eliminar este atalho?"/>
-			<FindCharRangeValueError title="Problema de valor" message="Deve introduzir entre 0 e 255."/>
+			<FindCharRangeValueError title="Problema de valor" message="Deve introduzir entre 0 e 255."/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Ocorreu um erro ao guardar" message="O ficheiro não pode ser guardado e pode estar protegido.
 Deseja iniciar o Notepad++ em modo de Administrador?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Ocorreu um erro ao guardar" message="O ficheiro não pode ser guardado e pode estar protegido.
@@ -1554,6 +1556,8 @@ Prima o botão OK para abrir a caixa de diálogo Localizar ou definir o foco na 
 			
 Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual do utilizador para obter instruções sobre como ativá-la."/>
 			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Aviso de pesquisa" message="O estado da caixa de verificação &quot;Na seleção&quot; foi automaticamente modificado.
+Verifique a condição de pesquisa antes de executar a ação."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1689,6 +1693,7 @@ Localizar em todos os ficheiros mas excluir testes de pastas, bin &amp;e bin64:
 Localizar em todos os ficheiros mas excluir todos os registos de pastas ou registos recursivamente:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selecione uma pasta para pesquisar dentro"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Preencher o campo Pasta com base no documento ativo"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Localizar: O início do documento foi alcançado, a primeira ocorrência a partir do final foi encontrada."/>
 			<find-status-end-reached value="Localizar: O final do documento foi alcançado, a primeira ocorrência a partir do início foi encontrada."/>
 			<find-status-replaceinfiles-1-replaced value="Substituir em ficheiros: 1 ocorrência foi substituída"/>
@@ -1854,7 +1859,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3, 8.7)
 
-Last modified: 30 November 2024 by Hugo Carvalho and BlackSpirits
+Last modified: 14 January 2025 by Hugo Carvalho
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

@@ -640,6 +640,7 @@ Translation note:
 					<Item id="2231" name="Forcer italique pour tous les styles"/>
 					<Item id="2232" name="Forcer souligné pour tous les styles"/>
 					<Item id="2234" name="Forcera boîte de dialogue Préférences"/>
+					<!-- Don't translate "Global override" -->
 					<Item id="2235" name="C'est quoi « Global override » ?"/>
 				</SubDialog>
 			</StyleConfig>
@@ -1101,6 +1102,7 @@ Translation note:
 					<Item id="4010" name="Extensions associées :"/>
 				</FileAssoc>
 
+
 				<Language title="Langage">
 					<Item id="6505" name="Langages disponibles"/>
 					<Item id="6506" name="Langages cachés"/>
@@ -1120,6 +1122,7 @@ Translation note:
 					<Item id="6310" name="Indenter par :"/>
 					<Item id="6311" name="Caractère de tabulation"/>
 					<Item id="6510" name="Utiliser la valeur par défaut"/>
+					<Item id="6512" name="Retour arrière désindente au lieu de supprimer un espace seul"/>
 				</Indentation>
 
 				<Highlighting title="Coloration">
@@ -1188,6 +1191,7 @@ Translation note:
 					<Item id="6908" name="Remplir le champ de recherche avec le texte sélectionné"/>
 					<Item id="6909" name="Sélectionner le mot sous le curseur si rien n’est sélectionné"/>
 					<Item id="6910" name="Taille minimale pour l’auto-coche de « Dans la sélection » :"/>
+					<Item id="6913" name="Remplir le champ Répertoire de la Recherche dans les fichiers en se basant sur la document actif"/>
 				</Searching>
 
 				<RecentFilesHistory title="Fichiers récents">
@@ -1354,7 +1358,6 @@ Translation note:
 				<Item id="7003" name="Fermer fenêtres"/>
 				<Item id="7004" name="Trier les onglets"/>
 			</Window>
-
 			<ColumnEditor title="Édition en colonnes">
 				<Item id="2023" name="&amp;Texte à insérer"/>
 				<Item id="2033" name="&amp;Nombre à insérer"/>
@@ -1400,12 +1403,16 @@ Translation note:
 				<Item id="1766" name="Voulez-vous vraiment enregistrer tous les documents modifiés ?
 
 Choisissez « Toujours Oui » si vous ne voulez plus répondre cette question.
-
 Vous pourrez réactiver cette boîte de dialogue dans les Préférences ultérieurement."/>
 				<Item id="6" name="&amp;Oui"/>
 				<Item id="7" name="&amp;Non"/>
 				<Item id="4" name="Toujours Oui"/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
+
+			<DebugInfo title="Informations de débogage">
+				<Item id="1752" name="&amp;Copier les informations de débogage dans le presse-papier"/>
+				<Item id="1" name="OK"/>
+			</DebugInfo>
 		</Dialog>
 		<MessageBox>
 			<!-- $INT_REPLACE$ and $STR_REPLACE$ are place holders, don't translate these place holders. -->
@@ -1447,7 +1454,6 @@ Il existe 3 façons d’activer le mode colonne :
 3. (Clavier ou Souris)
       Mettre le curseur à la position du début désiré du bloc de colonne, puis
        exécuter la commande « Début/fin de sélection en mode colonne » ;
-
       Déplacer le curseur à la position de fin désirée du bloc de colonne, puis
        exécuter la commande « Début/fin de sélection en mode colonne » à nouveau."/>
 			<BufferInvalidWarning title="Échec de sauvegarde" message="Échec de sauvegarde : le tampon des données de fichier est invalide."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
@@ -1509,7 +1515,7 @@ Voulez-vous continuer ?"/>
 veuillez en donner un autre."/>
 			<UDLRemoveCurrentLang title="Supprimer la langage actuelle" message="Êtes-vous sûr de vouloir supprimer la langage actuelle ?"/>
 			<SCMapperDoDeleteOrNot title="Supprimer un raccourci clavier" message="Êtes-vous sûr de vouloir supprimer ce raccourci clavier ?"/>
-			<FindCharRangeValueError title="Valeur en dehors des limites" message="Veuillez entrer une valeur entre 0 et 255."/>
+			<FindCharRangeValueError title="Valeur en dehors des limites" message="Veuillez entrer une valeur entre 0 et 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="L’enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
 Voulez-vous lancer Notepad++ en mode « Administrateur » ?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="L’enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
@@ -1549,6 +1555,9 @@ REMARQUE : Si vous choisissez de ne pas créer d’espaces réservés ou de les 
 Appuyez sur le bouton OK pour ouvrir la boîte de dialogue de recherche ou lui donner la priorité.
 
 Si vous avez besoin de la fonction de recherche d’expression régulière inversée, consultez le manuel de l’utilisateur pour savoir comment l’activer."/>
+			<PrintError title="0" message="Impossible de démarrer l'imprimante de document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Avertissement de recherche" message="L'état de laa case à cocher &quot;Dans la sélection&quot; a été automatiquement modifié.
+Veuillez vérifier la condition de recherche avant de procéder à l'action."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
 			<Need2Restart2ShowMenuShortcuts title="Redémarrer Notepad++" message="Vous avez besoins de redémarrer Notepad++ afin d'afficher menu ＋ ▼ ✕ "/>
 		</MessageBox>
 		<ClipboardHistory>
@@ -1685,6 +1694,7 @@ Rechercher dans tous les fichiers mais pas dans les dossiers tests, bin &amp;&am
 Rechercher dans tous les fichiers mais pas dans les dossiers log ou logs récursivement:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Sélectionner un dossier pour rechercher à l’intérieur"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Remplir le champ Répertoire en se basant sur la document actif"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Rechercher : Début du document atteint, 1ère occurrence trouvée depuis le bas."/>
 			<find-status-end-reached value="Rechercher : Fin du document atteinte, 1ère occurrence trouvée depuis le haut."/>
 			<find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
@@ -1814,11 +1824,13 @@ Cliquez sur le bouton « ? » à droite pour ouvrir le site web du manuel utilis
 			<npcIncludeCcUniEol-tip value="Applique les paramètres d’apparence des caractères non-imprimables aux contrôles C0, C1 et aux caractères Unicode EOL (ligne suivante, séparateur de ligne et séparateur de paragraphe)."/>
 			<searchingInSelThresh-tip value="Nombre de caractères sélectionnés dans la zone d’édition pour cocher automatiquement la case « Dans sélection » quand la fenêtre de recherche est activée. La valeur maximale est 1024. Mettre la valeur à 0 pour désactiver l’auto-coche."/>
 			<verticalEdge-tip value="Ajoutez votre marqueur de colonne en indiquant sa position avec un nombre entier. Vous pouvez définir plusieurs marqueurs de colonne en utilisant un espace pour séparer les différents nombres."/>
+			<fileSaveAsCopySaveButton-tip value="Maintenez Shift en appuyant sur Enregistrer pour ouvrir une copie après enregistrement."/>
 			<autoIndentBasic-tip value="Assurez-vous que la ligne courante (c'est-à-dire la nouvelle ligne saisie en appuyant sur ENTRÉE) a la même indentation que la ligne précédente."/>
 			<autoIndentAdvanced-tip value="Activer l'indentation intelligente pour les langages de « type C » et Python. Les langages de « type C » comprennent :
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell et JSON
 
 Si vous sélectionnez le mode avancé sans modifier les fichiers des langues mentionnées ci-dessus, les paramètres d'indentation resteront en mode basique."/>
+			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activer le « global override » ici substituera ces paramètres dans tous les styles pour tous les langages de programmation. Vous préférerez probablement utiliser les paramètres « Default Style » à la place"/>
 		</MiscStrings>
 	</Native-Langue>

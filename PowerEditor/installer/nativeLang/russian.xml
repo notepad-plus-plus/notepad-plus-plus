@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.4:
+Updated to v8.7.6:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.4">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.6">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1012,6 +1012,7 @@ Updated to v8.7.4:
 					<Item id="6108" name="Запретить перетаскивание"/>
 					<Item id="6109" name="Сменить цвет неактивной вкладки"/>
 					<Item id="6110" name="Оранжевая линия над активной"/>
+					<Item id="6111" name="Кнопки на неактивных вкладках"/>
 					<Item id="6112" name="Кнопка закрытия"/>
 					<Item id="6113" name="Закрывать двойным щелчком"/>
 					<Item id="6115" name="Возможность закрепления вкладки"/>
@@ -1023,7 +1024,7 @@ Updated to v8.7.4:
 					<Item id="6123" name="Язык интерфейса"/>
 					<Item id="6128" name="Альтернативные значки"/>
 					<Item id="6131" name="Панель Меню"/>
-					<Item id="6132" name="Скрыть кнопки ＋ ▼ ✕ в строке меню (Необходим перезапуск Notepad++)"/>
+					<Item id="6132" name="Скрыть кнопки ＋ ▼ ✕ в строке меню"/>
 					<Item id="6133" name="Строка статуса"/>
 					<Item id="6134" name="Скрыть"/>
 				</Global>
@@ -1546,6 +1547,9 @@ Notepad++ сделает резервную копию вашего старог
 			
 Если вам нужна функция обратного поиска регулярных выражений, обратитесь к руководству пользователя за инструкциями по её включению."/>
 			<PrintError title="0" message="Невозможно запустить печать документа."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Предупреждение о поиске" message="Состояние флажка &quot;В выделенном&quot; было автоматически изменено.
+Пожалуйста, проверьте условие поиска перед выполнением действия."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ необходимо перезапустить" message="Notepad++ необходимо перезапустить, чтобы отобразить нужные значки меню."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

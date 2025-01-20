@@ -12,6 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
+	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -34,7 +35,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.3">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -985,7 +986,7 @@ Additionnal information about Corsican localization:
 					<Item id="6108" name="Bluccà (senza sguillà é depone)"/>
 					<Item id="6109" name="Cambià u culore di l’unghjette inattive"/>
 					<Item id="6110" name="Barra culurita nant’à l’unghjetta attiva"/>
-					<Item id="6112" name="Buttonu di chjusura per ogni unghjetta"/>
+					<Item id="6112" name="Affissà u buttone di chjusura"/>
 					<Item id="6113" name="Doppiu cliccu per chjode u ducumentu"/>
 					<Item id="6115" name="Attivà a funzione di fissazione di l’unghjetta"/>
 					<Item id="6118" name="Piattà"/>
@@ -998,8 +999,8 @@ Additionnal information about Corsican localization:
 					<Item id="6134" name="Piattà"/>
 
 					<Item id="6131" name="Listinu"/>
-					<Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà o disattivà)"/>
-					<Item id="6132" name="Piattà l’accurtatoghji diritti ＋ ▼ ✕ da a barra di listinu (Richiede di rilancià Notepad++)"/>
+					<Item id="6122" name="Piattà (impiegà u tastu Alt o F10 per attivà o disattivà)"/>
+					<Item id="6132" name="Piattà l’accurtatoghji di diritta ＋ ▼ ✕"/>
 
 					<Item id="6123" name="Lingua"/>
 				</Global>
@@ -1215,6 +1216,7 @@ Additionnal information about Corsican localization:
 					<Item id="6908" name="Riempie u campu di ricerca cù u testu selezziunatu"/>
 					<Item id="6909" name="Selezziunà a parolla sottu à u cursore s’è nunda hè selezziunatu"/>
 					<Item id="6910" name="Dimensione minima per a verificazione autumatica di l’ozzione « In a selezzione »"/>
+					<Item id="6913" name="Riempie u campu Cartulare di a ricerca in schedarii secondu à u ducumentu attivu"/>
 				</Searching>
 
 				<RecentFilesHistory title="Schedarii recenti">
@@ -1435,7 +1437,7 @@ Pudete attivà torna st’ozzione in u dialogu di e preferenze."/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 
 			<DebugInfo title="Infurmazioni di spannatura">
-				<Item id="1752" name="&amp;Cupià l’infurmazione di spannatura in u preme’papei"/>
+				<Item id="1752" name="&amp;Cupià l’infurmazioni in u preme’papei"/>
 				<Item id="1" name="Vai"/>
 			</DebugInfo>
 		</Dialog>
@@ -1542,7 +1544,7 @@ Vulete cuntinuà ?"/>
 ci vole à dà un altru."/>
 			<UDLRemoveCurrentLang title="Caccià u linguaghju attuale" message="Site sicuri ?"/>
 			<SCMapperDoDeleteOrNot title="Cunfirmazione" message="Da veru, vulete squassà st’accurtatoghju ?"/>
-			<FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à stampittà trà 0 è 255."/>
+			<FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à stampittà trà 0 è 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
 Vulete dimarrà Notepad++ in modu Amministratore ?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
@@ -1583,6 +1585,9 @@ Appughjate nant’à u buttone Vai per apre a finestra di dialogu di ricerca o p
 			
 S’è vo avete bisognu di a funzione di ricerca RegEx à l’arritrosa, lighjite l’istruzzioni per attivalla in u manuale di l’utilizatore."/>
 			<PrintError title="0" message="Ùn si pò lancià u ducumentu di stampetta."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Avertimentu di ricerca" message="U statu di l’ozzione « In a selezzione » hè statu mudificatu autumaticamente.
+Ci vole à verificà a cundizione di ricerca prima di fà l’azzione."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ richiede d’esse rilanciatu" message="Ci vole à rilancià Notepad++ per affissà l’accurtatoghji di u listinu di diritta."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Cronolugia di u preme’papei"/>
@@ -1718,6 +1723,7 @@ Circà in tutti i schedarii ma esclude i cartulari tests, bin è bin64 :
 Circà in tutti i schedarii ma esclude tutti i cartulari è sottucartulari log o logs :
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Selezziunà u cartulare per facci a ricerca"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Riempie u campu Cartulare secondu à u ducumentu attivu"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Circà : U principiu di u ducumentu hè statu toccu, prima occurrenza trova da a fine."/>
 			<find-status-end-reached value="Circà : A fine di u ducumentu hè stata tocca, prima occurrenza trova da u principiu."/>
 			<find-status-replaceinfiles-1-replaced value="Rimpiazzà in schedarii : 1 occurrenza hè stata rimpiazzata"/>

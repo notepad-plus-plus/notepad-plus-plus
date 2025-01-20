@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.3">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -963,7 +963,7 @@ Translation note:
 					<Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
 					<Item id="6109" name="非アクティブなタブの色を変える"/>
 					<Item id="6110" name="アクティブタブにオレンジの線を表示"/>
-
+					<Item id="6111" name="非アクティブなタブにもボタンを表示"/>
 					<Item id="6112" name="タブに「閉じる」ボタンを表示"/>
 					<Item id="6113" name="ダブルクリックでドキュメントを閉じる"/>
 					<Item id="6115" name="タブのピン留め機能を有効にする"/>
@@ -977,8 +977,8 @@ Translation note:
 					<Item id="6134" name="隠す"/>
 
 					<Item id="6131" name="メニュー"/>
-					<Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
-					<Item id="6132" name="メインメニュー右端の ＋ ▼ ✕ ボタンを非表示にする(Notepad++ の再起動が必要)"/>
+					<Item id="6122" name="隠す(表示するには Alt か F10 を押す)"/>
+					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする"/>
 
 					<Item id="6123" name="言語"/>
 				</Global>
@@ -1518,7 +1518,7 @@ langs.xml を復元しますか？"/>
 違う名前にして下さい。"/>
 			<UDLRemoveCurrentLang title="現在の言語を削除" message="よろしいですか？"/>
 			<SCMapperDoDeleteOrNot title="よろしいですか？" message="このショートカットを削除してよろしいですか？"/>
-			<FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/>
+			<FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
 Notepad++ を管理者権限で立ち上げますか？"/>
 			<OpenInAdminModeWithoutCloseCurrent title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
@@ -1559,6 +1559,9 @@ OKボタンを押すと検索ダイアログが開きます。
 
 もし正規表現での逆方向の検索を有効にされたい場合は、オンラインマニュアルをご確認ください。"/>
 			<PrintError title="0" message="印刷を開始できませんでした。"/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="検索条件についての注意" message="「選択内のみ」のチェックボックスが自動で変更されました。
+検索条件が予期したものであるか確認してから、操作を続けてください。"/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ を再起動してください" message="メニュー右端のボタンを表示するには、Notepad++ を再起動してください。"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="クリップボード履歴"/>

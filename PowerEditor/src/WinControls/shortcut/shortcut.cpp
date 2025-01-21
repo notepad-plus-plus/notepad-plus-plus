@@ -236,14 +236,14 @@ void mapOemVirtualKeys()
 	// determine the active keyboard "language"
 	LANGID current_lang_id = LOWORD(GetKeyboardLayout(0));
 	
-	std::vector<UCHAR> localizableKeypad{VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE, VK_SEPARATOR};
+	std::vector<UCHAR> localizableNumpad{VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE, VK_SEPARATOR};
 	
 	// for each of the namedKeyArray, check if it's VK_OEM_*, and update the map of VK_OEM names as needed
 	for (size_t i = 0 ; i < nbKeys ; ++i)
 	{
 		// only need to map the VK_OEM_* keys, which are all at or above 0xA0, or any of the localizable keys on the keypad
-		bool keyIsLocalizableOnKeypad = (std::find(localizableKeypad.begin(), localizableKeypad.end(), namedKeyArray[i].id) != localizableKeypad.end());
-		if ((namedKeyArray[i].id >= 0xA0) || keyIsLocalizableOnKeypad)
+		bool keyIsLocalizableOnNumpad = (std::find(localizableNumpad.begin(), localizableNumpad.end(), namedKeyArray[i].id) != localizableNumpad.end());
+		if ((namedKeyArray[i].id >= 0xA0) || keyIsLocalizableOnNumpad)
 		{
 			// now update the STR in the mapping
 			UINT v2c = MapVirtualKeyW((UINT)namedKeyArray[i].id, MAPVK_VK_TO_CHAR);
@@ -270,18 +270,18 @@ void mapOemVirtualKeys()
 			}
 
 			// look for edge cases for naming
-			if (current_lang_id==EN_US && oemVirtualKeyMap[namedKeyArray[i].id][0]=='`')
+			if (current_lang_id == EN_US && oemVirtualKeyMap[namedKeyArray[i].id][0] == '`')
 			{
 				// en-US only: change from ` to ~, because that's what's historically been shown
 				oemVirtualKeyMap[namedKeyArray[i].id][0] = '~';
 			}
-			else if (oemVirtualKeyMap[namedKeyArray[i].id][0] && keyIsLocalizableOnKeypad)
+			else if (oemVirtualKeyMap[namedKeyArray[i].id][0] && keyIsLocalizableOnNumpad)
 			{
 				// make sure any localized numeric-keypad characters have the "Num" as a prefix
 				char old_char = oemVirtualKeyMap[namedKeyArray[i].id][0];
 				sprintf_s(oemVirtualKeyMap[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "Num %c", old_char);
 			}
-			else if (oemVirtualKeyMap[namedKeyArray[i].id][0]=='.' && namedKeyArray[i].id!=VK_DECIMAL && namedKeyArray[i].id!=VK_OEM_PERIOD)
+			else if (oemVirtualKeyMap[namedKeyArray[i].id][0] == '.' && namedKeyArray[i].id != VK_DECIMAL && namedKeyArray[i].id != VK_OEM_PERIOD)
 			{
 				// the '.' being associated with something other than VK_DECIMAL and VK_OEM_PERIOD must be on the numeric keypad, probably as ABNT2_C2
 				sprintf_s(oemVirtualKeyMap[namedKeyArray[i].id], MAX_MAPSTR_CHARS, "Num .");

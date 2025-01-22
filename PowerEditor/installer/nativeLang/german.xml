@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-17"><!-- basiert auf english.xml 8.7.3 vom 15.01.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-22"><!-- basiert auf english.xml 8.7.3 vom 15.01.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -990,7 +990,7 @@ Translation note:
 				<Scintillas title="Bearbeiten 1">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite:"/>
-					<Item id="6219" name="Geschwindigkeit:"/>
+					<Item id="6219" name="Blinkfrequenz:"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Befehl zum Ein- und Ausfalten der aktuellen Ebene umschaltbar machen"/>

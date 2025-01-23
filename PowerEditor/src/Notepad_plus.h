@@ -69,7 +69,7 @@ enum WindowStatus {	//bitwise mask
 	WindowSubActive		= 0x02,
 	WindowBothActive	= 0x03,	//little helper shortcut
 	WindowUserActive	= 0x04,
-	WindowMask			= 0x07
+	WindowMask		= 0x07
 };
 
 enum trimOp {

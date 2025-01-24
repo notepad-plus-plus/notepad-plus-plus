@@ -1807,12 +1807,12 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
             setTclLexer(); break;
 
 
-        case L_OBJC :
-            setObjCLexer(typeDoc); break;
+		case L_OBJC :
+			setObjCLexer(typeDoc); break;
 
 	    case L_PHP :
 		case L_ASP :
-        case L_JSP :
+		case L_JSP :
 		case L_HTML :
 		case L_XML :
 			setXmlLexer(typeDoc); break;
@@ -1842,7 +1842,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 				setUserLexer();
 			break; }
 
-        case L_ASCII :
+		case L_ASCII :
 		{
 			LexerStyler *pStyler = (NppParameters::getInstance().getLStylerArray()).getLexerStylerByName(L"nfo");
 
@@ -1910,52 +1910,52 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			setFortran77Lexer(); break;
 
 		case L_LISP :
-            setLispLexer(); break;
+			setLispLexer(); break;
 
 		case L_SCHEME :
-            setSchemeLexer(); break;
+			setSchemeLexer(); break;
 
 		case L_ASM :
-            setAsmLexer(); break;
+			setAsmLexer(); break;
 
 		case L_DIFF :
-            setDiffLexer(); break;
+			setDiffLexer(); break;
 
 		case L_PROPS :
-            setPropsLexer(); break;
+			setPropsLexer(); break;
 
 		case L_PS :
-            setPostscriptLexer(); break;
+			setPostscriptLexer(); break;
 
 		case L_RUBY :
-            setRubyLexer(); break;
+			setRubyLexer(); break;
 
 		case L_SMALLTALK :
-            setSmalltalkLexer(); break;
+			setSmalltalkLexer(); break;
 
 		case L_VHDL :
-            setVhdlLexer(); break;
+			setVhdlLexer(); break;
 
 		case L_KIX :
-            setKixLexer(); break;
+			setKixLexer(); break;
 
 		case L_CAML :
-            setCamlLexer(); break;
+			setCamlLexer(); break;
 
 		case L_ADA :
-            setAdaLexer(); break;
+			setAdaLexer(); break;
 
 		case L_VERILOG :
-            setVerilogLexer(); break;
+			setVerilogLexer(); break;
 
 		case L_AU3 :
-            setAutoItLexer(); break;
+			setAutoItLexer(); break;
 
 		case L_MATLAB :
-            setMatlabLexer(); break;
+			setMatlabLexer(); break;
 
 		case L_HASKELL :
-            setHaskellLexer(); break;
+			setHaskellLexer(); break;
 
 		case L_INNO :
 			setInnoLexer(); break;
@@ -1966,19 +1966,19 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_YAML :
 			setYamlLexer(); break;
 
-        case L_COBOL :
+		case L_COBOL :
 			setCobolLexer(); break;
 
-        case L_GUI4CLI :
+		case L_GUI4CLI :
 			setGui4CliLexer(); break;
 
-        case L_D :
+		case L_D :
 			setDLexer(); break;
 
-        case L_POWERSHELL :
+		case L_POWERSHELL :
 			setPowerShellLexer(); break;
 
-        case L_R :
+		case L_R :
 			setRLexer(); break;
 
 		case L_COFFEESCRIPT :
@@ -2114,9 +2114,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		if (currentIndentMode != docIndentMode)
 			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
 	}
-
-	execute(SCI_SETLAYOUTCACHE, SC_CACHE_DOCUMENT, 0);
-	execute(SCI_STARTSTYLING, 0, 0);
 }
 
 Document ScintillaEditView::getBlankDocument()

@@ -845,6 +845,7 @@ public:
 			typeDoc == L_ASN1 || typeDoc == L_GDSCRIPT);
 	};
 
+	void setLanguage(LangType langType);
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
 
 	void addCustomWordChars();

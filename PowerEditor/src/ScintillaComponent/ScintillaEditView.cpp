@@ -1707,6 +1707,34 @@ void ScintillaEditView::setNpcAndCcUniEOL(long color)
 	redraw();
 }
 
+void ScintillaEditView::setLanguage(LangType langType)
+{
+	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
+
+	if (_currentBuffer->getLastLangType() != -1)
+	{
+		saveCurrentPos();
+		Document prev = execute(SCI_GETDOCPOINTER);
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+
+		_currentBuffer->setLangType(langType);
+		
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+		execute(SCI_SETDOCPOINTER, 0, prev);
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+
+		maintainStateForNpc();
+		setCRLF();
+		restoreCurrentPosPreStep();
+	}
+	else
+	{
+		_currentBuffer->setLangType(langType);
+	}
+}
+
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
 	StyleArray & stylers = NppParameters::getInstance().getMiscStylerArray();

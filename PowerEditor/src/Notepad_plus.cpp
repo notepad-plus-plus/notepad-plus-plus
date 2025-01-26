@@ -3872,38 +3872,30 @@ BOOL Notepad_plus::processTabSwitchAccel(MSG* msg) const
 
 void Notepad_plus::setLanguage(LangType langType)
 {
-	//Add logic to prevent changing a language when a document is shared between two views
-	//If so, release one document
-	bool reset = false;
-	Document prev = 0;
-	if (bothActive())
+	if (bothActive())  // Add logic to prevent changing a language when a document is shared between two views
+	                   // If so, release one document
 	{
 		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID())
 		{
-			reset = true;
 			_subEditView.saveCurrentPos();
-			prev = _subEditView.execute(SCI_GETDOCPOINTER);
+			Document subPrev = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+
+			_mainEditView.setLanguage(langType);
+
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+			_subEditView.execute(SCI_SETDOCPOINTER, 0, subPrev);
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			_subEditView.maintainStateForNpc();
+			_subEditView.setCRLF();
+			_subEditView.restoreCurrentPosPreStep();
 		}
-	}
-	
-	if (reset)
-	{
-		_mainEditView.getCurrentBuffer()->setLangType(langType);
 	}
 	else
 	{
-		_pEditView->getCurrentBuffer()->setLangType(langType);
-	}
-
-	if (reset)
-	{
-		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
-		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-		_subEditView.restoreCurrentPosPreStep();
+		_pEditView->setLanguage(langType);
 	}
 }
 

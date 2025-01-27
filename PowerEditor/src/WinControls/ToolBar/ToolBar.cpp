@@ -26,7 +26,7 @@ using namespace std;
 
 constexpr DWORD WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT | CCS_TOP | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
-const std::wstring TOOLBAR_CONFIG_FILE = L"toolbarButtonVisibility.xml";
+const std::wstring TOOLBAR_CONFIG_EXAMPLE_FILE = L"toolbarButtonVisibility_example.xml";
 
 struct ToolbarIconIdUnit
 {
@@ -124,17 +124,34 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 	}
 }
 
-ToolbarButtonConfig ToolBar::initToolbarButtonVisibilityConfig(ToolBarButtonUnit standardCommandToolbarIcons[], int toolbarIconsArrayCount)
+ToolbarButtonConfig ToolBar::initToolbarButtonVisibilityConfig(ToolBarButtonUnit standardCommandToolbarIcons[], ToolbarButtonConfigLoadResult toolbarButtonXmlResult, int toolbarIconsArrayCount)
 {
 	vector<CommandInfo> commandInfos{};
+	vector<CommandInfo> commandInfos_fromConfig{};
 	std::vector<DynamicCmdIcoBmp> registedPluginButtonCommands = this->_vDynBtnReg;
 	std::vector<ToolBarButtonUnit> vStandardCommandToolbarIcons{};
 	std::vector<wstring> hiddenPlugins{};
 	ToolbarButtonConfig toolbarButtonsConfig{};
-	bool xmlFileNeedsUpdate = false;
+	bool useDefaults = true;
 
 	// -----------------------------------------------------------------------------------------------
-	// Prepare initial toolbar configuration before loading XML file
+	// Determine if it's even necessary to gather the default command info
+	// -----------------------------------------------------------------------------------------------
+	
+	// First check if the example xml file exists. If not we will need to load the default commands to create it
+	NppParameters& nppParams = NppParameters::getInstance();
+	std::wstring exampleConfigPath = nppParams.getUserPath();
+	exampleConfigPath = pathAppend(exampleConfigPath, TOOLBAR_CONFIG_EXAMPLE_FILE);
+
+	// If the xml file wasn't loaded, and the example file already exists, we can skip loading the default commands since they don't need to be updated
+	bool exampleFileExists = doesFileExist(exampleConfigPath.c_str());
+	if (!toolbarButtonXmlResult._success && exampleFileExists)
+	{
+		return toolbarButtonsConfig;
+	}
+
+	// -----------------------------------------------------------------------------------------------
+	// Prepare initial toolbar configuration before applying loaded user XML config
 	// -----------------------------------------------------------------------------------------------
 
 	// Get info about all plugin commands
@@ -193,55 +210,103 @@ ToolbarButtonConfig ToolBar::initToolbarButtonVisibilityConfig(ToolBarButtonUnit
 		commandInfos.push_back(standardCommandInfo);
 	}
 
-	// -----------------------------------------------------------------------------------------------
-	// Load and apply toolbar button config XML file, to update command infos with user settings
-	// -----------------------------------------------------------------------------------------------
-
-	// Get folder path for Notepad++ AppData directory, then load the XML config file if it's there
-	TiXmlDocument xmlDoc{};
-	bool loadFileSucceeded = false;
-	wstring nppPath = NppParameters::getInstance().getAppDataNppDir();
-	if (!nppPath.empty())
+	// ------------------------------------------------------------------------------------------------------------------------------------
+	// Create example xml file if it doesn't exist already
+	// ------------------------------------------------------------------------------------------------------------------------------------
+	
+	// Creating the example config file before applying loaded XML config so that the example always has default values of everything visible
+	if (!exampleFileExists)
 	{
-		nppPath = pathAppend(nppPath, TOOLBAR_CONFIG_FILE);
-		loadFileSucceeded = xmlDoc.LoadFile(nppPath.c_str());
+		ToolbarButtonConfig defaultToolbarButtonsConfig{
+			._commandInfos = commandInfos,
+			._hiddenPlugins = hiddenPlugins
+		};
+		writeToolbarButtonsExampleConfig(exampleConfigPath, defaultToolbarButtonsConfig);
 	}
 
-	// Make list of plugins found in the config to compare against loaded plugins in memory later, to know if config xml needs updating
-	std::vector<std::wstring> pluginNamesInConfig{};
-	std::vector<std::wstring> pluginNamesInMemory{};
-
-	// Make the list of loaded plugins that have toolbar buttons
-	for (CommandInfo& cmd : commandInfos)
+	// ------------------------------------------------------------------------------------------------------------------------------------
+	// If the XML file was loaded successfully, update the toolbar config with the settings in memory with those matching from the XML file
+	// ------------------------------------------------------------------------------------------------------------------------------------
+	if (toolbarButtonXmlResult._success)
 	{
-		// Don't count commands that aren't toolbar buttons. Some plugins don't have toolbar buttons, so they won't be in the XML config
-		if (!cmd._hasToolbarButton)
+		commandInfos_fromConfig = toolbarButtonXmlResult._config._commandInfos;
+		hiddenPlugins = toolbarButtonXmlResult._config._hiddenPlugins;
+		useDefaults = toolbarButtonXmlResult._config._useAllDefaults; // Should be false if successfully loaded
+
+		for (CommandInfo& cmd : commandInfos)
 		{
-			continue;
+			// Don't bother with commands that aren't toolbar buttons
+			if (!cmd._hasToolbarButton)
+			{
+				continue;
+			}
+
+			// Find the matching command info from the XML file by command name and plugin name
+			std::vector< CommandInfo>::iterator iter = std::find_if(commandInfos_fromConfig.begin(), commandInfos_fromConfig.end(), [&cmd](const CommandInfo& cmdFromConfig)
+				{
+					return cmd._commandName == cmdFromConfig._commandName && cmd._pluginName == cmdFromConfig._pluginName;
+				});
+
+			// If it was found in the XML file, apply those settings
+			if (iter != commandInfos_fromConfig.end())
+			{
+				cmd._hideToolbarButton = iter->_hideToolbarButton;
+				cmd._isFromHiddenPlugin = iter->_isFromHiddenPlugin;
+			}
+			else // If the command wasn't found in the XML file, the plugin might be new, or the command was removed from the XML file, so mark the xml for update
+			{
+				// At least still apply the _isFromHiddenPlugin setting if the plugin is in the hidden list
+				if (std::find(hiddenPlugins.begin(), hiddenPlugins.end(), cmd._pluginName) != hiddenPlugins.end())
+				{
+					cmd._isFromHiddenPlugin = true;
+				}
+			}
 		}
-		// Ensure no duplicates in the list
-		if (std::find(pluginNamesInMemory.begin(), pluginNamesInMemory.end(), cmd._pluginName) == pluginNamesInMemory.end())
+
+		// Ensure all commands for hidden plugins are hidden, even those not in the XML config for some reason
+		for (CommandInfo& cmd : commandInfos)
 		{
-			pluginNamesInMemory.push_back(cmd._pluginName);
+			if (std::find(hiddenPlugins.begin(), hiddenPlugins.end(), cmd._pluginName) != hiddenPlugins.end())
+			{
+				cmd._isFromHiddenPlugin = true;
+			}
 		}
 	}
 
-	// Temporary vector of CommandInfos to hold data from the XML file before updating the main vector
+	// -----------------------------------------------------------------------------------------------------
+	// Assignment of final configuration variables. Without any XML file, all buttons are visible by default
+	// -----------------------------------------------------------------------------------------------------
+	toolbarButtonsConfig._commandInfos = commandInfos;
+	toolbarButtonsConfig._hiddenPlugins = hiddenPlugins;
+	toolbarButtonsConfig._useAllDefaults = useDefaults;
+
+	return toolbarButtonsConfig;
+}
+
+ToolbarButtonConfigLoadResult ToolBar::loadToolbarVisibilityXML(std::wstring xmlFilePath) {
+	// Variables to hold data from the XML file before returning as part of ToolbarButtonConfigLoadResult struct
+	ToolbarButtonConfigLoadResult xmlResult{};
+	xmlResult._success = false;
+	ToolbarButtonConfig toolbarButtonsConfig{};
 	std::vector<CommandInfo> commandInfos_fromConfig;
+	std::vector<std::wstring> hiddenPlugins;
+
+	// Load the XML config file if it's there
+	TiXmlDocument xmlDoc{};
+	bool loadFileSucceeded = xmlDoc.LoadFile(xmlFilePath);
 
 	// Parse the loaded file if applicable, and update the commandInfos vector with the user's settings
 	if (loadFileSucceeded != true)
 	{
-		xmlFileNeedsUpdate = true;
-	} 
+		return xmlResult;
+	}
 	else
 	{
 		// Root element, nothing special at this level
 		TiXmlElement* rootPtr = xmlDoc.RootElement();
 		if (!rootPtr)
 		{
-			writeToolbarButtonsConfig(toolbarButtonsConfig);
-			return toolbarButtonsConfig;
+			return xmlResult; // Abort on null root
 		}
 		// Convert pointer to a reference for cleaner usage
 		TiXmlElement& root = *rootPtr;
@@ -250,8 +315,7 @@ ToolbarButtonConfig ToolBar::initToolbarButtonVisibilityConfig(ToolBarButtonUnit
 		TiXmlElement* toolbarButtonsPtr = root.FirstChildElement(TBConfigConsts::_toolbarButtons);
 		if (!toolbarButtonsPtr)
 		{
-			writeToolbarButtonsConfig(toolbarButtonsConfig);
-			return toolbarButtonsConfig;
+			return xmlResult; // Abort on null toolbarButtons
 		}
 		TiXmlElement& toolbarButtons = *toolbarButtonsPtr;
 
@@ -273,8 +337,6 @@ ToolbarButtonConfig ToolBar::initToolbarButtonVisibilityConfig(ToolBarButtonUnit
 				continue;
 			}
 
-			pluginNamesInConfig.push_back(pluginName_fromConfig);
-
 			if (hideAllBool)
 			{
 				hiddenPlugins.emplace_back(pluginName_fromConfig);
@@ -294,14 +356,12 @@ ToolbarButtonConfig ToolBar::initToolbarButtonVisibilityConfig(ToolBarButtonUnit
 				// If name or showOnToolbar is null, skip this button because something is wrong
 				if (!name_fromConfig || !hideFromToolbar_fromConfig)
 				{
-					xmlFileNeedsUpdate = true;
 					continue;
 				}
 
 				// If showOnToolbar is invalid (not "true" or "false"), skip to the next button setting
 				if (!lstrcmpi(hideFromToolbar_fromConfig, TBConfigConsts::_trueStr) && !lstrcmpi(hideFromToolbar_fromConfig, TBConfigConsts::_falseStr))
 				{
-					xmlFileNeedsUpdate = true;
 					continue;
 				}
 
@@ -321,100 +381,21 @@ ToolbarButtonConfig ToolBar::initToolbarButtonVisibilityConfig(ToolBarButtonUnit
 		}
 	}
 
-	// ---------------------------------------------------------------------------------------------------------
-	// With XML Data loaded, match the command infos from memory and apply the settings from the XML file
-	// ---------------------------------------------------------------------------------------------------------
-
-	for (CommandInfo& cmd : commandInfos)
-	{
-		// Don't bother with commands that aren't toolbar buttons
-		if (!cmd._hasToolbarButton)
-		{
-			continue;
-		}
-
-		// Find the matching command info from the XML file by command name and plugin name
-		std::vector< CommandInfo>::iterator iter = std::find_if(commandInfos_fromConfig.begin(), commandInfos_fromConfig.end(), [&cmd](const CommandInfo& cmdFromConfig)
-		{
-			return cmd._commandName == cmdFromConfig._commandName && cmd._pluginName == cmdFromConfig._pluginName;
-		});
-
-		// If it was found in the XML file, apply those settings
-		if (iter != commandInfos_fromConfig.end())
-		{
-			cmd._hideToolbarButton = iter->_hideToolbarButton;
-			cmd._isFromHiddenPlugin = iter->_isFromHiddenPlugin;
-		}
-		else // If the command wasn't found in the XML file, the plugin might be new, or the command was removed from the XML file, so mark the xml for update
-		{
-			xmlFileNeedsUpdate = true;
-			// At least still apply the _isFromHiddenPlugin setting if the plugin is in the hidden list
-			if (std::find(hiddenPlugins.begin(), hiddenPlugins.end(), cmd._pluginName) != hiddenPlugins.end())
-			{
-				cmd._isFromHiddenPlugin = true;
-			}
-		}
-	}
-
-	// Check the reverse - If there were any XML settings that aren't in memory, like removed plugins, and mark the XML file for update
-	if (!xmlFileNeedsUpdate)
-	{
-		for (const CommandInfo& cmdFromConfig : commandInfos_fromConfig)
-		{
-			bool foundInMemory = false;
-			for (const CommandInfo& cmd : commandInfos)
-			{
-				if (cmdFromConfig._commandName == cmd._commandName && cmdFromConfig._pluginName == cmd._pluginName)
-				{
-					foundInMemory = true;
-					break;
-				}
-			}
-
-			if (!foundInMemory)
-			{
-				xmlFileNeedsUpdate = true;
-				break;
-			}
-		}
-	}
-	
-
-	// ------------------------------------------------------------------------------------------------
-	// Final processing and assignment of the toolbar button configuration
-	// ------------------------------------------------------------------------------------------------
-
-	// Ensure all commands for hidden plugins are hidden, even those not in the XML config for some reason
-	for (CommandInfo& cmd : commandInfos)
-	{
-		if (std::find(hiddenPlugins.begin(), hiddenPlugins.end(), cmd._pluginName) != hiddenPlugins.end())
-		{
-			cmd._isFromHiddenPlugin = true;
-		}
-	}
-
-	// Assign the final configuration to the struct before writing it to the XML file and returning
-	toolbarButtonsConfig._commandInfos = commandInfos;
+	// Return the final config struct with command info from the config
+	toolbarButtonsConfig._commandInfos = commandInfos_fromConfig;
 	toolbarButtonsConfig._hiddenPlugins = hiddenPlugins;
+	toolbarButtonsConfig._useAllDefaults = false; // User has loaded a config, so this is no longer the default
 
-	// Finally update the XML file if needed. Existing valid settings will be retained in the updated version.
-	if (xmlFileNeedsUpdate)
-	{
-		writeToolbarButtonsConfig(toolbarButtonsConfig);
-	}
+	xmlResult._config = toolbarButtonsConfig;
+	xmlResult._success = true;
 
-	return toolbarButtonsConfig;
+	return xmlResult;
 }
 
-void ToolBar::writeToolbarButtonsConfig(const ToolbarButtonConfig& config)
+void ToolBar::writeToolbarButtonsExampleConfig(std::wstring exampleXmlPath, const ToolbarButtonConfig& config)
 {
-	TiXmlDocument doc{};
-
-	NppParameters& nppParams = NppParameters::getInstance();
-	std::wstring configPath = nppParams.getAppDataNppDir();
-	configPath = pathAppend(configPath, TOOLBAR_CONFIG_FILE);
-
 	// Create XML declaration
+	TiXmlDocument doc{};
 	TiXmlDeclaration decl(L"1.0", L"UTF-8", L"");
 	doc.InsertEndChild(decl);
 
@@ -489,7 +470,7 @@ void ToolBar::writeToolbarButtonsConfig(const ToolbarButtonConfig& config)
 	}
 
 	// Save the file
-	doc.SaveFile(configPath.c_str());
+	doc.SaveFile(exampleXmlPath.c_str());
 }
 
 bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit *buttonUnitArray, int arraySize, const ToolbarButtonConfig& toolbarButtonConfig)
@@ -528,14 +509,16 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 		cmd = buttonUnitArray[i]._cmdID;
 		BYTE buttonState = TBSTATE_ENABLED; // Default to showing the button
 
-		// Check the toolbar button config to see if the button should be shown
-		for (const CommandInfo& command : toolbarButtonConfig._commandInfos)
-		{
-			if ((command._cmdID == cmd && (command._isFromHiddenPlugin || command._hideToolbarButton)) // Check via matching command ID number
-				|| (cmd == SEPARATOR_CMD_ID && isAllBuiltInButtonsHidden)) // Hide separators if all built-in buttons set to hidden
+		// Check the toolbar button config to see if the button should be shown. Only bother checking if not using the default config
+		if (!toolbarButtonConfig._useAllDefaults) {
+			for (const CommandInfo& command : toolbarButtonConfig._commandInfos)
 			{
-				buttonState |= TBSTATE_HIDDEN;
-				break;
+				if ((command._cmdID == cmd && (command._isFromHiddenPlugin || command._hideToolbarButton)) // Check via matching command ID number
+					|| (cmd == SEPARATOR_CMD_ID && isAllBuiltInButtonsHidden)) // Hide separators if all built-in buttons set to hidden
+				{
+					buttonState |= TBSTATE_HIDDEN;
+					break;
+				}
 			}
 		}
 
@@ -609,12 +592,14 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			BYTE buttonState = TBSTATE_ENABLED; // Default to showing the button
 
 			// Check the toolbar button config to see if the button should be shown
-			for (auto& command : toolbarButtonConfig._commandInfos)
-			{
-				if (command._hasToolbarButton && command._cmdID == cmd && (command._isFromHiddenPlugin || command._hideToolbarButton))
+			if (!toolbarButtonConfig._useAllDefaults) {
+				for (auto& command : toolbarButtonConfig._commandInfos)
 				{
-					buttonState |= TBSTATE_HIDDEN;
-					break;
+					if (command._hasToolbarButton && command._cmdID == cmd && (command._isFromHiddenPlugin || command._hideToolbarButton))
+					{
+						buttonState |= TBSTATE_HIDDEN;
+						break;
+					}
 				}
 			}
 

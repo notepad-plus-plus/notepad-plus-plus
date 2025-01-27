@@ -709,7 +709,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	// Setup config for toolbar buttons visibility before toolbar initialization
 	int toolbarIconsArrayCount = sizeof(toolBarIcons) / sizeof(ToolBarButtonUnit);
-	ToolbarButtonConfig toolbarButtonConfig = _toolBar.initToolbarButtonVisibilityConfig(toolBarIcons, toolbarIconsArrayCount);
+	ToolbarButtonConfig toolbarButtonConfig = _toolBar.initToolbarButtonVisibilityConfig(toolBarIcons, nppParam._toolbarVisibilityXmlResult, toolbarIconsArrayCount);
 
 	_toolBar.init(_pPublicInterface->getHinst(), hwnd, tbStatus, toolBarIcons, toolbarIconsArrayCount, toolbarButtonConfig);
 

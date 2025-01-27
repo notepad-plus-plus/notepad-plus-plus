@@ -25,6 +25,7 @@
 #include "UserDefineDialog.h"
 #include "WindowsDlgRc.h"
 #include "Notepad_plus_Window.h"
+#include "Toolbar.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4996) // for GetVersionEx()
@@ -1495,6 +1496,13 @@ bool NppParameters::load()
 		_pXmlToolIconsDoc = nullptr;
 		isAllLoaded = false;
 	}
+
+	//------------------------------//
+	// toolbarButtonVisibility.xml : for per user //
+	//------------------------------//
+	std::wstring toolbarVisibilityXmlPath(_userPath);
+	pathAppend(toolbarVisibilityXmlPath, L"toolbarButtonVisibility.xml");
+	_toolbarVisibilityXmlResult = ToolBar::loadToolbarVisibilityXML(toolbarVisibilityXmlPath);
 
 	//------------------------------//
 	// shortcuts.xml : for per user //

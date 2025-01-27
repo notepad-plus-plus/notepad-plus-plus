@@ -56,6 +56,12 @@ struct CommandInfo {
 struct ToolbarButtonConfig {
 	std::vector<CommandInfo> _commandInfos;
 	std::vector<std::wstring> _hiddenPlugins;
+	bool _useAllDefaults = true; // Allow us to skip checking button visibility altogether
+};
+
+struct ToolbarButtonConfigLoadResult {
+	bool _success = false;
+	ToolbarButtonConfig _config;
 };
 
 struct TBConfigConsts
@@ -133,8 +139,9 @@ public :
 
 	void resizeIconsDpi(UINT dpi);
 
-	ToolbarButtonConfig initToolbarButtonVisibilityConfig(ToolBarButtonUnit standardCommandToolbarIcons[], int toolbarIconsArrayCount);
-	void writeToolbarButtonsConfig(const ToolbarButtonConfig& config);
+	ToolbarButtonConfig initToolbarButtonVisibilityConfig(ToolBarButtonUnit standardCommandToolbarIcons[], ToolbarButtonConfigLoadResult toolbarButtonXmlResult, int toolbarIconsArrayCount);
+	static ToolbarButtonConfigLoadResult loadToolbarVisibilityXML(std::wstring xmlFilePath);
+	static void writeToolbarButtonsExampleConfig(std::wstring exampleXmlPath, const ToolbarButtonConfig& config);
 
 private :
 	TBBUTTON *_pTBB = nullptr;

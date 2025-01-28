@@ -19,15 +19,6 @@
 
 #include <commctrl.h>
 
-
-#if defined(__GNUC__) && __GNUC__ > 8
-#define WINAPI_LAMBDA_RETURN(return_t) -> return_t WINAPI
-#elif defined(__GNUC__)
-#define WINAPI_LAMBDA_RETURN(return_t) WINAPI -> return_t
-#else
-#define WINAPI_LAMBDA_RETURN(return_t) -> return_t
-#endif
-
 template <typename P>
 bool ptrFn(HMODULE handle, P& pointer, const char* name)
 {

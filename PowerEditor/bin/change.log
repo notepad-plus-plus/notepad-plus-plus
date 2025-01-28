@@ -1,50 +1,23 @@
-Notepad++ v8.7.5 regression-fixes, bug-fixes & enhancements:
+Notepad++ v8.7.6 regression-fixes, bug-fixes & enhancements:
 
- 1. Fix nfo file losing modification issue (regression from v8.7.4).
- 2. Fix network file wrong modification detection (regression from v8.7.1).
- 3. Fix regression "Open Selected PathName(s)" command not working while all selected.
- 4. Fix unusuability after deleting files in split view.
- 5. Fix unsaved documents lost on next launch if portable Notepad++ change path.    
- 6. Refactoring for the better performance & smaller binary size.
- 7. Improve "Copy Selected Lines" command.
- 8. Add Visual Basic function list.
- 9. Add Swift, TypeScript, and Go for advanced Auto-indent.
-10. Fix UDL comment line not working due to conflict with stream comment definition.
-11. Enhance "Follow current doc." GUI action/option in Find in files.
-12. Fix Reload Workspace not working.
-13. Add "Show details" functionality in installer.
+ 1. Update to scintilla 5.5.3 & Lexilla 5.4.1.
+ 2. Enhance performance of syntax highlighting for large files.
+ 3. Make "Show close/pin button on each inactive tab" optional.
+ 4. Add ShortcutMapper Multilingual ability, allowing the use of specific keys for non-en-US keyboards.
+ 5. Fix vertical tab crashes when enabling/disabling the pin tab feature.
+ 6. Fix crash when passing an invalid buffer with NPPM_SETUNTITLEDNAME.
+ 7. Fix floating panels position resetting regression in multi-monitor configurations.
+ 8. Fix incorrect "Replace all" behavior during the second replace in selection.
+ 9. Fix backup file renaming bug for untitled tabs.
+10. Enhance UX in "Find in file" action when the Directory field is empty.
+11. Make the current line/position copyable in the Go to Line dialog.
+12. GUI enhancement: hide right menu shortcuts on the fly.
+13. Minor enhancements for JavaScript, CSS & HTML.
 
-
-Notepad++ v8.7.4 regression-fix & bug-fixes:
-
-1. Fix regression of multi-line tabbar height not updated after closing tabs.
-2. Fix the extension defined by user not override language default extensions.
-3. Fix encoding of nfo file cannot be changed bug.
-
-
-Notepad++ v8.7.3 bug-fixes & new features :
-
-1. Fix a crash while disabling "Pin tab" feature.
-2. Fix drag&drop a folder in Notepad++ launch redundant dialog regression.
-3. Fix docked panels invisibility in multi-instance mode.
-4. Add "Pin/Unpin Tab" context menu item.
-5. Add "Close All BUT Pinned" command.
-6. Fix a possible buffer overflow issue.
-
-
-Notepad++ v8.7.2 new features & bug-fixes:
-
-1. Add Pin tab feature.
-2. Tabbar enhancement: Hide inactive tab Close & Pin buttons.  
-3. Tabbar enhancement: Highlight inactive darken tab on mouse hover.
-4. Fix Ctrl-C not doing copy from Search result issue.
-5. Add "Minimize / Close to" option for System tray.
-6. Add ability to open/copy selected files from Search-results.
-7. Fix replace field focus losing when Notepad++ is switched back.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.5/
+https://notepad-plus-plus.org/downloads/v8.7.6/
 
 
 Included plugins:

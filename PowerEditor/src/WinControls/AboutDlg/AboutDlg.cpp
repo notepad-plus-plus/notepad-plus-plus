@@ -195,6 +195,21 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_debugInfoStr += L"Built with : (unknown)\r\n";
 #endif
 
+			// Scintilla/Lexilla version
+			_debugInfoStr += L"Scintilla/Lexilla included : ";
+			{
+				string strSciLexVer = NPP_SCINTILLA_VERSION;
+				strSciLexVer += "/";
+				strSciLexVer += NPP_LEXILLA_VERSION;
+				_debugInfoStr += wmc.char2wchar(strSciLexVer.c_str(), CP_ACP);
+			}
+			_debugInfoStr += L"\r\n";
+
+			// Boost (Regex) version
+			_debugInfoStr += L"Boost (Regex) included : ";
+			_debugInfoStr += wmc.char2wchar(NPP_BOOST_VERSION, CP_ACP);
+			_debugInfoStr += L"\r\n";
+
 			// Binary path
 			_debugInfoStr += L"Path : ";
 			wchar_t nppFullPath[MAX_PATH]{};

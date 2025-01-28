@@ -18,7 +18,6 @@
 #include "AboutDlg.h"
 #include "Parameters.h"
 #include "localization.h"
-#include <memory>
 
 using namespace std;
 

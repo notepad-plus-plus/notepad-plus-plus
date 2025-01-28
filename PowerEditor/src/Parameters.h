@@ -1852,6 +1852,7 @@ public:
 	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; };
 
 	ColumnEditorParam _columnEditParam;
+	ToolbarButtonConfigLoadResult _toolbarVisibilityXmlResult{};
 
 private:
 	NppParameters();

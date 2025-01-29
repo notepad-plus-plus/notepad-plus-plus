@@ -347,7 +347,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 			delete[] defaultCharList;
 		}
 	}
-	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+	execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
 }
@@ -2308,7 +2308,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 
 		// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
 		// defineDocType() function should be called here, but not be after the fold info loop
@@ -2319,7 +2319,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		// No need to call defineDocType() since it's the same language type
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 
 		if (force)
 			defineDocType(_currentBuffer->getLangType());
@@ -2330,13 +2330,13 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		// a blank document is used for accelerate defineDocType() call.
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 
 		defineDocType(_currentBuffer->getLangType());
 
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 	}
 
 	_currentBuffer->setLastLangType(currentLangInt);

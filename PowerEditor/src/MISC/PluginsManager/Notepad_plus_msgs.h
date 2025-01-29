@@ -990,6 +990,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// lParam[out]: language file name string receives all copied native language file name string
 	// Return the number of char copied/to copy
 
+	#define NPPM_ADDSCINTILLANOTIFS (NPPMSG + 117)
+	// int NPPM_ADDSCINTILLANOTIFS(0, unsigned long mask2Add)
+
+	// wParam: 0 (not used)
+	// lParam[out]: language file name string receives all copied native language file name string
+	// Return TRUE
+
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0
 	#define FULL_CURRENT_PATH 1

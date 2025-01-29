@@ -1852,6 +1852,8 @@ public:
 	bool isStylerDocLoaded() const { return _pXmlUserStylerDoc != nullptr; };
 
 	ColumnEditorParam _columnEditParam;
+	unsigned long getModeEventMask() const { return _modeEventMask; };
+	void addModeEventMask(unsigned long mask2Add) { _modeEventMask |= mask2Add; };
 
 private:
 	NppParameters();
@@ -2100,5 +2102,5 @@ private:
 	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const std::wstring& menuEntryName, const std::wstring& menuItemName); // return -1 if not found
 	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const std::wstring& pluginName, const std::wstring& pluginCmdName); // return -1 if not found
 	winVer getWindowsVersion();
-
+	unsigned long _modeEventMask = SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR;
 };

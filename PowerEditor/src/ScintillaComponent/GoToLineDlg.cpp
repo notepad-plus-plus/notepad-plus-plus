@@ -112,7 +112,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 							(*_ppEditView)->execute(SCI_GOTOPOS, posToGoto);
 						}
 					}
-					(*_ppEditView)->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+					(*_ppEditView)->execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 
 					SCNotification notification{};
 					notification.nmhdr.code = SCN_PAINTED;

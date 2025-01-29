@@ -3885,7 +3885,7 @@ void Notepad_plus::setLanguage(LangType langType)
 			prev = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
-			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+			_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 		}
 	}
 	
@@ -3902,7 +3902,7 @@ void Notepad_plus::setLanguage(LangType langType)
 	{
 		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
-		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+		_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
 		_subEditView.restoreCurrentPosPreStep();
 	}
 }

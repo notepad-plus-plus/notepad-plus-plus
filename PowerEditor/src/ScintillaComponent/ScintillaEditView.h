@@ -93,8 +93,7 @@ const bool fold_uncollapse = true;
 const bool fold_collapse = false;
 #define MAX_FOLD_COLLAPSE_LEVEL	8
 
-#define MODEVENTMASK_OFF         0
-#define MODEVENTMASK_ON          SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR
+#define MODEVENTMASK_OFF 0
 
 enum TextCase : UCHAR
 {

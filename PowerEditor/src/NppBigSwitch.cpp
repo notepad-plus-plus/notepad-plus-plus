@@ -3792,6 +3792,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return fileName.length();
 		}
 
+		case NPPM_ADDSCNMODIFIEDFLAGS:
+		{
+			nppParam.addScintillaModEventMask(static_cast<unsigned long>(lParam));
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_HILITECURRENTLINE:
 		{
 			const ScintillaViewParams& svp = nppParam.getSVP();

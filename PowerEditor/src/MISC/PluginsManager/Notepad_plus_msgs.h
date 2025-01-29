@@ -990,6 +990,33 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// lParam[out]: language file name string receives all copied native language file name string
 	// Return the number of char copied/to copy
 
+	#define NPPM_ADDSCNMODIFIEDFLAGS (NPPMSG + 117)
+	// BOOL NPPM_ADDSCNMODIFIEDFLAGS(0, unsigned long scnMotifiedFlags2Add)
+	// Add needed SCN_MODIFIED flags so your plugin will recieve the notification SCN_MODIFIED of these events for your specific treatments.
+	// By default, Notepad++ only forwards SCN_MODIFIED with the following 5 flags/events SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR to plugins.
+	// If your plugin need to process other events of SCN_MODIFIED, you should add the flags you need by sending this message to Notepad++, just after recieving NPPN_READY.
+	// wParam: 0 (not used)
+	// lParam[in]: scnMotifiedFlags2Add - Scintilla SCN_MODIFIED flags to add. 
+	// Return TRUE
+	//
+	// Example:
+	//
+	//  extern "C" __declspec(dllexport) void beNotified(SCNotification* notifyCode)
+	//  {
+	//  	switch (notifyCode->nmhdr.code)
+	//  	{
+	//  		case NPPN_READY:
+	//  		{
+	//  			// Add SC_MOD_DELETETEXT and SC_MOD_INSERTTEXT notifications
+	//  			::SendMessage(nppData._nppHandle, NPPM_ADDSCNMODIFIEDFLAGS, 0, SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT); 
+	//  		}
+	//  		break;
+	//  		...
+	//  	}
+	//  	...
+	//  }
+
+
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0
 	#define FULL_CURRENT_PATH 1

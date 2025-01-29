@@ -15,7 +15,7 @@ SRC_OBJS=\
 
 INCLUDES=$(INCLUDES) -I../../boostregex
 
-CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX
+CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX -DBOOST_REGEX_STANDALONE
 
 
 $(DIR_O)\UTF8DocumentIterator.obj:: ../../boostregex/UTF8DocumentIterator.cxx

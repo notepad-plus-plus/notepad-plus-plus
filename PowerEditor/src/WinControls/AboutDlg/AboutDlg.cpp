@@ -18,6 +18,7 @@
 #include "AboutDlg.h"
 #include "Parameters.h"
 #include "localization.h"
+#include "NppLibsVersion.h"
 
 using namespace std;
 
@@ -205,9 +206,9 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			}
 			_debugInfoStr += L"\r\n";
 
-			// Boost (Regex) version
-			_debugInfoStr += L"Boost (Regex) included : ";
-			_debugInfoStr += wmc.char2wchar(NPP_BOOST_VERSION, CP_ACP);
+			// Boost Regex version
+			_debugInfoStr += L"Boost Regex included : ";
+			_debugInfoStr += wmc.char2wchar(NPP_BOOST_REGEX_VERSION, CP_ACP);
 			_debugInfoStr += L"\r\n";
 
 			// Binary path

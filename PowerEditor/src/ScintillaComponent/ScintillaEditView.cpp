@@ -252,8 +252,9 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	const COLORREF hiddenLinesGreen = RGB(0x77, 0xCC, 0x77);
 	long hiddenLinesGreenWithAlpha = hiddenLinesGreen | 0xFF000000;
 	setElementColour(SC_ELEMENT_HIDDEN_LINE, hiddenLinesGreenWithAlpha);
-
-	if (NppParameters::getInstance()._dpiManager.scaleX(100) >= 150)
+	
+	NppParameters& nppParams = NppParameters::getInstance();
+	if (nppParams._dpiManager.scaleX(100) >= 150)
 	{
 		execute(SCI_RGBAIMAGESETWIDTH, 18);
 		execute(SCI_RGBAIMAGESETHEIGHT, 18);
@@ -311,7 +312,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT4, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT5, true);
 
-	NppGUI& nppGui = (NppParameters::getInstance()).getNppGUI();
+	NppGUI& nppGui = nppParams.getNppGUI();
 
 	HMODULE hNtdllModule = ::GetModuleHandle(L"ntdll.dll");
 	FARPROC isWINE = nullptr;
@@ -347,7 +348,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 			delete[] defaultCharList;
 		}
 	}
-	execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+	unsigned long MODEVENTMASK_ON = nppParams.getScintillaModEventMask();
+	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
 }
@@ -382,6 +384,7 @@ LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message
 		return ::DefWindowProc(hwnd, Message, wParam, lParam);
 
 }
+
 LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
@@ -2301,6 +2304,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
 	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt);
 
+	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 	if (isFirstActiveBuffer)  // Entering the tab for the 1st time
 	{
 		// change the doc, this operation will decrease
@@ -2308,7 +2312,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 		// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
 		// defineDocType() function should be called here, but not be after the fold info loop
@@ -2319,7 +2323,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		// No need to call defineDocType() since it's the same language type
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 		if (force)
 			defineDocType(_currentBuffer->getLangType());
@@ -2330,13 +2334,13 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 		// a blank document is used for accelerate defineDocType() call.
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
-		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 		defineDocType(_currentBuffer->getLangType());
 
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	}
 
 	_currentBuffer->setLastLangType(currentLangInt);

@@ -571,12 +571,13 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	//an empty Document is inserted during reload if needed.
 	bool mainVisisble = (_mainEditView.getCurrentBufferID() == id);
 	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
+	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 	if (mainVisisble)
 	{
 		_mainEditView.saveCurrentPos();
 		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, 0);
-		_mainEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	}
 
 	if (subVisisble)
@@ -584,7 +585,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_subEditView.saveCurrentPos();
 		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
-		_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	}
 
 	if (!mainVisisble && !subVisisble)
@@ -598,7 +599,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	{
 		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-		_mainEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_mainEditView.restoreCurrentPosPreStep();
 	}
 
@@ -606,7 +607,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	{
 		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-		_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_subEditView.restoreCurrentPosPreStep();
 	}
 
@@ -2482,16 +2483,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
 			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			_mainEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j)
 			{
 				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
 			}
 			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			_mainEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			++i;
 		}
 		else
@@ -2617,16 +2619,17 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j)
 			{
 				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
 			}
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 			++k;
 		}

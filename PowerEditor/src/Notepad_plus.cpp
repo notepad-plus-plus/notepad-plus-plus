@@ -3876,6 +3876,7 @@ void Notepad_plus::setLanguage(LangType langType)
 	//If so, release one document
 	bool reset = false;
 	Document prev = 0;
+	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 	if (bothActive())
 	{
 		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID())
@@ -3885,7 +3886,7 @@ void Notepad_plus::setLanguage(LangType langType)
 			prev = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
-			_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		}
 	}
 	
@@ -3902,7 +3903,7 @@ void Notepad_plus::setLanguage(LangType langType)
 	{
 		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
-		_subEditView.execute(SCI_SETMODEVENTMASK, NppParameters::getInstance().getModeEventMask());
+		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 		_subEditView.restoreCurrentPosPreStep();
 	}
 }

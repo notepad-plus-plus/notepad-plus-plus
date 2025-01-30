@@ -991,11 +991,31 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Return the number of char copied/to copy
 
 	#define NPPM_ADDSCINTILLANOTIFS (NPPMSG + 117)
-	// int NPPM_ADDSCINTILLANOTIFS(0, unsigned long mask2Add)
-
+	// BOOL NPPM_ADDSCINTILLANOTIFS(0, unsigned long scintillaNotifs2Add)
+	// Add needed Scintilla notifications so your plugin will recieve these notifications for your specific treatments. 
+	// By default, Notepad++ forwards only the following 5 notification SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR to plugins.
+	// If your plugin need to process other Scintilla notifications, you should add the notification you need by sending this message to Notepad++, just after recieving NPPN_READY.
 	// wParam: 0 (not used)
-	// lParam[out]: language file name string receives all copied native language file name string
+	// lParam[in]: scintillaNotifs2Add - Scintilla notifications to add. 
 	// Return TRUE
+	//
+	// Example:
+	//
+	//  extern "C" __declspec(dllexport) void beNotified(SCNotification* notifyCode)
+	//  {
+	//  	switch (notifyCode->nmhdr.code)
+	//  	{
+	//  		case NPPN_READY:
+	//  		{
+	//  			// Add SC_MOD_DELETETEXT and SC_MOD_INSERTTEXT notifications
+	//  			::SendMessage(nppData._nppHandle, NPPM_ADDSCINTILLANOTIFS, 0, SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT); 
+	//  		}
+	//  		break;
+	//  		...
+	//  	}
+	//  	...
+	//  }
+
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

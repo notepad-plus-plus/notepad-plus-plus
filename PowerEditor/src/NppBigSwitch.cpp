@@ -3794,7 +3794,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ADDSCINTILLANOTIFS:
 		{
-			nppParam.addModeEventMask(static_cast<unsigned long>(wParam));
+			nppParam.addModeEventMask(static_cast<unsigned long>(lParam));
 			return TRUE;
 		}
 

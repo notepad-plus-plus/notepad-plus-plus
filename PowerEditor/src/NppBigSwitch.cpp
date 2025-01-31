@@ -3792,7 +3792,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return fileName.length();
 		}
 
-		case NPPM_ADDSCINTILLANOTIFS:
+		case NPPM_ADDSCNMODIFIEDFLAGS:
 		{
 			nppParam.addScintillaModEventMask(static_cast<unsigned long>(lParam));
 			return TRUE;

@@ -990,13 +990,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// lParam[out]: language file name string receives all copied native language file name string
 	// Return the number of char copied/to copy
 
-	#define NPPM_ADDSCINTILLANOTIFS (NPPMSG + 117)
-	// BOOL NPPM_ADDSCINTILLANOTIFS(0, unsigned long scintillaNotifs2Add)
-	// Add needed Scintilla notifications so your plugin will recieve these notifications for your specific treatments. 
-	// By default, Notepad++ forwards only the following 5 notification SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR to plugins.
-	// If your plugin need to process other Scintilla notifications, you should add the notification you need by sending this message to Notepad++, just after recieving NPPN_READY.
+	#define NPPM_ADDSCNMODIFIEDFLAGS (NPPMSG + 117)
+	// BOOL NPPM_ADDSCNMODIFIEDFLAGS(0, unsigned long scnMotifiedFlags2Add)
+	// Add needed SCN_MODIFIED flags so your plugin will recieve the notification SCN_MODIFIED of these events for your specific treatments.
+	// By default, Notepad++ only forwards SCN_MODIFIED with the following 5 flags/events SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO | SC_MOD_CHANGEINDICATOR to plugins.
+	// If your plugin need to process other events of SCN_MODIFIED, you should add the flags you need by sending this message to Notepad++, just after recieving NPPN_READY.
 	// wParam: 0 (not used)
-	// lParam[in]: scintillaNotifs2Add - Scintilla notifications to add. 
+	// lParam[in]: scnMotifiedFlags2Add - Scintilla SCN_MODIFIED flags to add. 
 	// Return TRUE
 	//
 	// Example:
@@ -1008,7 +1008,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//  		case NPPN_READY:
 	//  		{
 	//  			// Add SC_MOD_DELETETEXT and SC_MOD_INSERTTEXT notifications
-	//  			::SendMessage(nppData._nppHandle, NPPM_ADDSCINTILLANOTIFS, 0, SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT); 
+	//  			::SendMessage(nppData._nppHandle, NPPM_ADDSCNMODIFIEDFLAGS, 0, SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT); 
 	//  		}
 	//  		break;
 	//  		...

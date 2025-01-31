@@ -87,6 +87,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 				case IDOK :
                 {
+					auto MODEVENTMASK_ON = (*_ppEditView)->execute(SCI_GETMODEVENTMASK);
 					(*_ppEditView)->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
                     long long line = getLine();
                     if (line != -1)

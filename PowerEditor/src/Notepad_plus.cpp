@@ -3876,6 +3876,7 @@ void Notepad_plus::setLanguage(LangType langType)
 	//If so, release one document
 	bool reset = false;
 	Document prev = 0;
+	auto MODEVENTMASK_ON = _subEditView.execute(SCI_GETMODEVENTMASK);
 	if (bothActive())
 	{
 		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID())

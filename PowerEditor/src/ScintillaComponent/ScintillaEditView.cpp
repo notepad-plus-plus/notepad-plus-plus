@@ -230,6 +230,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
 	}
 
+	auto MODEVENTMASK_ON = execute(SCI_GETMODEVENTMASK);
 	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	execute(SCI_SETIDLESTYLING, SC_IDLESTYLING_ALL, 0);
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
@@ -2300,6 +2301,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	const bool isSameLangType = (_prevBuffer != nullptr) && (_prevBuffer->getLangType() == _currentBuffer->getLangType());
 	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
 	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt);
+	auto MODEVENTMASK_ON = execute(SCI_GETMODEVENTMASK);
 
 	if (isFirstActiveBuffer)  // Entering the tab for the 1st time
 	{

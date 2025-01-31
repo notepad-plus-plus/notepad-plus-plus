@@ -571,9 +571,11 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	//an empty Document is inserted during reload if needed.
 	bool mainVisisble = (_mainEditView.getCurrentBufferID() == id);
 	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
+	auto MODEVENTMASK_ON = _mainEditView.execute(SCI_GETMODEVENTMASK);
 	if (mainVisisble)
 	{
 		_mainEditView.saveCurrentPos();
+		
 		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
@@ -2376,6 +2378,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 		_mainEditView.changeTextDirection(buf->isRTL());
 		return true;
 	}
+
+	auto MODEVENTMASK_ON = _mainEditView.execute(SCI_GETMODEVENTMASK);
 
 	for (size_t i = 0; i < session.nbMainFiles() ; )
 	{

@@ -1007,8 +1007,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//  	{
 	//  		case NPPN_READY:
 	//  		{
-	//  			// Add SC_MOD_DELETETEXT and SC_MOD_INSERTTEXT notifications
-	//  			::SendMessage(nppData._nppHandle, NPPM_ADDSCNMODIFIEDFLAGS, 0, SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT); 
+	//  			// Add SC_MOD_BEFOREDELETE and SC_MOD_BEFOREINSERT to listen to the 2 events of SCN_MODIFIED
+	//  			::SendMessage(nppData._nppHandle, NPPM_ADDSCNMODIFIEDFLAGS, 0, SC_MOD_BEFOREDELETE | SC_MOD_BEFOREINSERT); 
 	//  		}
 	//  		break;
 	//  		...

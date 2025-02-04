@@ -267,6 +267,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (_indentationSubDlg._tipAutoIndentAdvanced)
 				NppDarkMode::setDarkTooltips(_indentationSubDlg._tipAutoIndentAdvanced, NppDarkMode::ToolTipsType::tooltip);
 
+			if (_miscSubDlg._tipScintillaRenderingTechnology)
+				NppDarkMode::setDarkTooltips(_miscSubDlg._tipScintillaRenderingTechnology, NppDarkMode::ToolTipsType::tooltip);
+
 			// groupbox label in dark mode support disabled text color
 			if (NppDarkMode::isEnabled())
 			{
@@ -2474,20 +2477,40 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			bCheck = (nppGUI._fileAutoDetection & cdGo2end) ? true : false;
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, bCheck ? BST_CHECKED : BST_UNCHECKED, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"No action to"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize to"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Close to"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize / Close to"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"No action to"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize to"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Close to"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize / Close to"));
 
 			if (nppGUI._isMinimizedToTray < 0 || nppGUI._isMinimizedToTray > sta_minimize_close)
 				nppGUI._isMinimizedToTray = sta_none;
 
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_SETCURSEL, nppGUI._isMinimizedToTray, 0);
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_SETCURSEL, nppGUI._isMinimizedToTray, 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"GDI (most compatible)"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (default)"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (retain frames)"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (draw to GDI DC)"));
+
+			if ((nppGUI._writeTechnologyEngine < 0) || (nppGUI._writeTechnologyEngine > directWriteDcTechnology))
+				nppGUI._writeTechnologyEngine = directWriteTechnology;
+
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_SETCURSEL, nppGUI._writeTechnologyEngine, 0);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+			wstring tipScintillaRenderingTechnology2Show = pNativeSpeaker->getLocalizedStrFromID("scintillaRenderingTechnology-tip",
+				L"May improve rendering of special characters or resolve some issues with graphics card drivers, restart Notepad++ to apply the changes.\n\
+				Scintilla DirectWrite-Retain differs from its default DirectWrite mode by requesting that the rendered frame is retained after being presented, while DirectWrite-DC differs by using the DirectWrite to draw into a GDI Device Context.\n\
+				GDI (Graphics Device Interface) is an older component of Microsoft Windows responsible for handling graphical objects and transmitting them to output devices (monitors, printers...). \n\
+				DirectWrite/Direct2D APIs are newer rendering technologies, more feature rich and powerfull.");
+			_tipScintillaRenderingTechnology = CreateToolTip(IDC_BUTTON_SC_TECHNOLOGY_TIP, _hSelf, _hInst,
+				const_cast<PTSTR>(tipScintillaRenderingTechnology2Show.c_str()), pNativeSpeaker->isRTL());
+			if (_tipScintillaRenderingTechnology)
+				::SendMessage(_tipScintillaRenderingTechnology, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((35000), (0))); // stay 35 secs
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SAVEALLCONFIRM, BM_SETCHECK, nppGUI._saveAllConfirm, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DIRECTWRITE_ENABLE, BM_SETCHECK, nppGUI._writeTechnologyEngine == directWriteTechnology, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MUTE_SOUNDS, BM_SETCHECK, nppGUI._muteSounds ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -2618,12 +2641,6 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 
-				case IDC_CHECK_DIRECTWRITE_ENABLE:
-				{
-					nppGUI._writeTechnologyEngine = isCheckedOrNot(IDC_CHECK_DIRECTWRITE_ENABLE) ? directWriteTechnology : defaultTechnology;
-					return TRUE;
-				}
-
 				case IDC_CHECK_ENABLEDOCPEEKER:
 				{
 					nppGUI._isDocPeekOnTab = isCheckedOrNot(IDC_CHECK_ENABLEDOCPEEKER);
@@ -2689,10 +2706,14 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 							return TRUE;
 						}
 
-						else if (LOWORD(wParam) == IDC_COMBO_SYSTRAY_ACTION_HOICE)
+						else if (LOWORD(wParam) == IDC_COMBO_SYSTRAY_ACTION_CHOICE)
 						{
-							int index = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_HOICE, CB_GETCURSEL, 0, 0));
-							nppGUI._isMinimizedToTray = index;
+							nppGUI._isMinimizedToTray = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_GETCURSEL, 0, 0));
+						}
+
+						else if (LOWORD(wParam) == IDC_COMBO_SC_TECHNOLOGY_CHOICE)
+						{
+							nppGUI._writeTechnologyEngine = static_cast<writeTechnologyEngine>(::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_GETCURSEL, 0, 0));
 						}
 					}
 				}

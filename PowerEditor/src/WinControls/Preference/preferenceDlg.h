@@ -25,11 +25,20 @@
 
 class MiscSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public :
 	MiscSubDlg() = default;
+	~MiscSubDlg() {
+		if (_tipScintillaRenderingTechnology)
+		{
+			::DestroyWindow(_tipScintillaRenderingTechnology);
+			_tipScintillaRenderingTechnology = nullptr;
+		}
+	};
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+	HWND _tipScintillaRenderingTechnology = nullptr;
 };
 
 class GeneralSubDlg : public StaticDialog

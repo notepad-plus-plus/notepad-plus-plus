@@ -2499,14 +2499,11 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
 			wstring tipScintillaRenderingTechnology2Show = pNativeSpeaker->getLocalizedStrFromID("scintillaRenderingTechnology-tip",
-				L"May improve rendering of special characters or resolve some issues with graphics card drivers, restart Notepad++ to apply the changes.\n\
-				Scintilla DirectWrite-Retain differs from its default DirectWrite mode by requesting that the rendered frame is retained after being presented, while DirectWrite-DC differs by using the DirectWrite to draw into a GDI Device Context.\n\
-				GDI (Graphics Device Interface) is an older component of Microsoft Windows responsible for handling graphical objects and transmitting them to output devices (monitors, printers...). \n\
-				DirectWrite/Direct2D APIs are newer rendering technologies, more feature rich and powerfull.");
-			_tipScintillaRenderingTechnology = CreateToolTip(IDC_BUTTON_SC_TECHNOLOGY_TIP, _hSelf, _hInst,
+				L"May improve rendering of special characters or resolve some issues with graphics card drivers, restart Notepad++ to apply the changes.");
+			_tipScintillaRenderingTechnology = CreateToolTip(IDC_COMBO_SC_TECHNOLOGY_CHOICE, _hSelf, _hInst,
 				const_cast<PTSTR>(tipScintillaRenderingTechnology2Show.c_str()), pNativeSpeaker->isRTL());
 			if (_tipScintillaRenderingTechnology)
-				::SendMessage(_tipScintillaRenderingTechnology, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((35000), (0))); // stay 35 secs
+				::SendMessage(_tipScintillaRenderingTechnology, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((20000), (0))); // stay 20 secs
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SAVEALLCONFIRM, BM_SETCHECK, nppGUI._saveAllConfirm, 0);

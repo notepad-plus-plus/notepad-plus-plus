@@ -600,8 +600,7 @@ BEGIN
     LTEXT           "system tray",IDC_SYSTRAY_STATIC,152,78,88,8
 
     COMBOBOX        IDC_COMBO_SC_TECHNOLOGY_CHOICE,37,96,110,100,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "rendering mode",IDC_SC_TECHNOLOGY_STATIC,152,97,67,8
-    PUSHBUTTON      "?",IDC_BUTTON_SC_TECHNOLOGY_TIP,220,94,16,14,NOT WS_TABSTOP
+    LTEXT           "rendering mode",IDC_SC_TECHNOLOGY_STATIC,152,97,88,8
 
     // "Enable Notepad++ auto-updater" should be always the 1st item, because it'll be hidden if GUP.exe is absent
     CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,118,210,10

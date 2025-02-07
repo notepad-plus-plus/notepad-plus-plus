@@ -482,26 +482,26 @@ Translation note:
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2" name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
-				<Item id="1603" name="Nur ganze &amp;Wörter suchen"/>
+				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
 				<Item id="1604" name="Groß-/&amp;Kleinschreibung beachten"/>
-				<Item id="1605" name="Re&amp;guläre Ausdrücke"/>
+				<Item id="1605" name="Reguläre Ausdr&amp;ücke"/>
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1614" name="Z&amp;ählen"/>
-				<Item id="1615" name="&amp;Alle markieren"/>
-				<Item id="1616" name="Lesezei&amp;chen setzen"/>
+				<Item id="1615" name="Alle &amp;markieren"/>
+				<Item id="1616" name="Lesezeichen se&amp;tzen"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
 				<Item id="1611" name="Erset&amp;zen durch:"/>
 				<Item id="1608" name="&amp;Ersetzen"/>
-				<Item id="1609" name="Alle erse&amp;tzen"/>
+				<Item id="1609" name="&amp;Alle ersetzen"/>
 				<Item id="1687" name="Wenn inaktiv"/>
 				<Item id="1688" name="Immer"/>
-				<Item id="1632" name="In &amp;Auswahl"/>
+				<Item id="1632" name="In Aus&amp;wahl"/>
 				<Item id="1633" name="Markierung aufheben"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
 				<Item id="1654" name="Filter:"/>
 				<Item id="1655" name="Verzeichnis:"/>
-				<Item id="1656" name="Alle su&amp;chen"/>
+				<Item id="1656" name="Alle suc&amp;hen"/>
 				<Item id="1658" name="&amp;Unterverzeichnisse"/>
 				<Item id="1659" name="&amp;Versteckte Ordner"/>
 				<Item id="1624" name="Suchmodus"/>
@@ -1119,7 +1119,7 @@ Translation note:
 					<Item id="6508" name="Sprachmenü"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</Language>
-				
+
 				<Indentation title="Einrückungen">
 					<Item id="7161" name="Autom. Einrückung"/>
 					<Item id="7162" name="Keine"/>
@@ -1562,7 +1562,7 @@ HINWEIS: Wenn die Platzhalter nicht erstellt oder später geschlossen werden, wi
 			<FileMemoryAllocationFailed title="Ausnahmefehler: Dateispeicherzuweisung fehlgeschlagen" message="Eventuell gibt es nicht genügend zusammenhängenden freien Speicher für die von Notepad++ geladene Datei."/><!-- HowToReproduce: Try to open multiple files with total size > ~700MB in the x86 Notepad++ (it will depend on the PC memory configuration and the current system memory usage...). -->
 			<FindRegexBackwardDisabled title="Regex-Rückwärtssuche nicht aktiv" message="Standardmäßig ist die Regex-Rückwärtssuche deaktiviert da möglicherweise unerwartete Ergebnisse auftreten. Um dennoch eine Regex-Rückwärtssuche durchzuführen, ist in der Suche entweder die normale oder erweiterte Suche statt regulärer Ausdrucke auszuwählen.
 OK auswählen um die Suche zu öffnen oder in den Vordergrund zu bringen.
-			
+
 Falls die Regex-Rückwärtssuche dennoch benötigt wird, kann deren Aktivierung im Benutzerhandbuch nachgeschlagen werden."/>
 			<PrintError title="0" message="Druckerdokument kann nicht gestartet werden."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Suchwarnung" message="Der Status des Kontrollkästchens 'In Auswahl' wurde automatisch geändert.

@@ -1318,7 +1318,7 @@ Translation note:
 						<Element name="Disable"/>
 					</ComboBox>
 					<ComboBox id="6307">
-						<Element name="No action to"/>
+						<Element name="No action on"/>
 						<Element name="Minimize to"/>
 						<Element name="Close to"/>
 						<Element name="Minimize / Close to"/>

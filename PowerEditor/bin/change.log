@@ -1,3 +1,8 @@
+Notepad++ v8.7.7 regression-fix from v8.7.6:
+
+ 1. Add new API NPPM_ADDSCNMODIFIEDFLAGS to fix eventual regression regarding SCN_MODIFIED for some plugins.
+
+
 Notepad++ v8.7.6 regression-fixes, bug-fixes & enhancements:
 
  1. Update to scintilla 5.5.3 & Lexilla 5.4.1.
@@ -17,7 +22,7 @@ Notepad++ v8.7.6 regression-fixes, bug-fixes & enhancements:
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.6/
+https://notepad-plus-plus.org/downloads/v8.7.7/
 
 
 Included plugins:

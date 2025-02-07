@@ -571,6 +571,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	//an empty Document is inserted during reload if needed.
 	bool mainVisisble = (_mainEditView.getCurrentBufferID() == id);
 	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
+	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 	if (mainVisisble)
 	{
 		_mainEditView.saveCurrentPos();
@@ -2482,6 +2483,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
 			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
@@ -2617,6 +2619,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+			unsigned long MODEVENTMASK_ON = nppParam.getScintillaModEventMask();
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);

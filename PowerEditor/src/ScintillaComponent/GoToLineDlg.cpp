@@ -112,6 +112,7 @@ intptr_t CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 							(*_ppEditView)->execute(SCI_GOTOPOS, posToGoto);
 						}
 					}
+					unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 					(*_ppEditView)->execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
 					SCNotification notification{};

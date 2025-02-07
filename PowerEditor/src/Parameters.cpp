@@ -1192,9 +1192,11 @@ bool NppParameters::load()
 			::CreateDirectory(_userPath.c_str(), NULL);
 
 		_appdataNppDir = _userPluginConfDir = _userPath;
+
 		pathAppend(_userPluginConfDir, L"plugins");
 		if (!doesDirectoryExist(_userPluginConfDir.c_str()))
 			::CreateDirectory(_userPluginConfDir.c_str(), NULL);
+
 		pathAppend(_userPluginConfDir, L"Config");
 		if (!doesDirectoryExist(_userPluginConfDir.c_str()))
 			::CreateDirectory(_userPluginConfDir.c_str(), NULL);

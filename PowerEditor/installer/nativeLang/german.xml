@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-17"><!-- basiert auf english.xml 8.7.3 vom 15.01.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-31"><!-- basiert auf english.xml 8.7.3 vom 15.01.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -66,7 +66,7 @@ Translation note:
 					<Item subMenuId="view-collapseLevel" name="T&amp;extblöcke schließen"/>
 					<Item subMenuId="view-uncollapseLevel" name="Te&amp;xtblöcke öffnen"/>
 					<Item subMenuId="view-project" name="Projektver&amp;waltung"/>
-					<Item subMenuId="encoding-characterSets" name="&amp;Weitere"/>
+					<Item subMenuId="encoding-characterSets" name="&amp;Weitere Codepages"/>
 					<Item subMenuId="encoding-arabic" name="&amp;Arabisch"/>
 					<Item subMenuId="encoding-baltic" name="&amp;Baltisch"/>
 					<Item subMenuId="encoding-celtic" name="&amp;Keltisch"/>
@@ -562,49 +562,49 @@ Translation note:
 
 			<MD5FromFilesDlg title="MD5-Hashwert aus Dateien erstellen">
 				<Item id="1922" name="Dateien für &amp;MD5-Hashes wählen …"/>
-				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1924" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</MD5FromFilesDlg>
 
 			<MD5FromTextDlg title="MD5-Hashwert erstellen">
 				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
-				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1934" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</MD5FromTextDlg>
 
 			<SHA256FromFilesDlg title="SHA-256-Hashwert aus Dateien erstellen">
 				<Item id="1922" name="Dateien für &amp;SHA-256-Hashes wählen …"/>
-				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1924" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA256FromFilesDlg>
 
 			<SHA256FromTextDlg title="SHA-256-Hashwert erstellen">
 				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
-				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1934" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA256FromTextDlg>
 
 			<SHA1FromFilesDlg title="Erstelle SHA-1-Auszug aus Dateien">
-				<Item id="1922" name="Wähle Dateien um SHA-1 zu &amp;generieren …"/>
-				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1922" name="Wähle Dateien zum &amp;Generieren …"/>
+				<Item id="1924" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA1FromFilesDlg>
 
 			<SHA1FromTextDlg title="Erstelle SHA-1-Auszug">
 				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
-				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1934" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA1FromTextDlg>
 
 			<SHA512FromFilesDlg title="Erstelle SHA-512-Auszug aus Dateien">
-				<Item id="1922" name="Wähle Dateien um SHA-512 zu &amp;generieren …"/>
-				<Item id="1924" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1922" name="Wähle Dateien zum &amp;Generieren …"/>
+				<Item id="1924" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA512FromFilesDlg>
 
 			<SHA512FromTextDlg title="Erstelle SHA-512-Auszug">
 				<Item id="1932" name="Jede &amp;Zeile als eigene Zeichenkette behandeln"/>
-				<Item id="1934" name="In die Zwischenablage &amp;kopieren"/>
+				<Item id="1934" name="&amp;Kopiere in Zwischenablage"/>
 				<Item id="2" name="S&amp;chließen"/>
 			</SHA512FromTextDlg>
 			<PluginsAdminDlg title="Plugin-Verwaltung" titleAvailable="Verfügbar" titleUpdates="Aktualisierungen" titleInstalled="Installiert" titleIncompatible="Inkompatibel">
@@ -990,7 +990,7 @@ Translation note:
 				<Scintillas title="Bearbeiten 1">
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite:"/>
-					<Item id="6219" name="Geschwindigkeit:"/>
+					<Item id="6219" name="Blinkfrequenz:"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
 					<Item id="6246" name="Befehl zum Ein- und Ausfalten der aktuellen Ebene umschaltbar machen"/>
@@ -1056,7 +1056,7 @@ Translation note:
 					<Item id="7135" name="Farbtöne"/>
 				</DarkMode>
 
-				<MarginsBorderEdge title="Ränder/Rahmen/Umrandungen">
+				<MarginsBorderEdge title="Ränder/Rahmen/Umrandung">
 					<Item id="6201" name="Faltungsstil am Rand"/>
 					<Item id="6202" name="Einfach"/>
 					<Item id="6203" name="Pfeile"/>
@@ -1102,7 +1102,7 @@ Translation note:
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6431" name="Verzeichnis-Drag&amp;&amp;Drop öffnet alle enthaltenen Dateien statt &quot;Verzeichnis als Arbeitsbereich&quot; zu starten"/>
+					<Item id="6431" name="Verzeichnis-Drag&amp;&amp;Drop öffnet alle Dateien darin statt &quot;Verzeichnis als Arbeitsbereich&quot; zu starten"/>
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">
@@ -1152,12 +1152,12 @@ Translation note:
 				</Highlighting>
 
 				<Print title="Drucken">
-					<Item id="6601" name="Zeilennu&amp;mmern drucken"/>
+					<Item id="6601" name="Zeilennu&amp;mmern mitdrucken"/>
 					<Item id="6602" name="Farbo&amp;ptionen"/>
 					<Item id="6603" name="Wie angezeigt (W&amp;YSIWYG)"/>
 					<Item id="6604" name="I&amp;nvertieren"/>
 					<Item id="6605" name="Schwarz auf &amp;weiß"/>
-					<Item id="6606" name="Keine &amp;Hintergrundfarbe"/>
+					<Item id="6606" name="Ohne &amp;Hintergrundfarbe"/>
 					<Item id="6607" name="Seitenrän&amp;der (mm)"/>
 					<Item id="6612" name="&amp;Links"/>
 					<Item id="6613" name="&amp;Oben"/>
@@ -1263,7 +1263,7 @@ Translation note:
 					<Item id="6175" name="Datum vor Zeit ausgeben (kurzes &amp;&amp; langes Format)"/>
 					<Item id="6172" name="Eigenes Format:"/>
 					<Item id="6181" name="Status Bedienfeld und [-nosession] *"/>
-					<Item id="6182" name="Merke Bedienfeld-Status (Bedienfeld ist geöffnet) in anderen Instanzen (Mehrinstanzen-Modus) oder beim Verwenden von Kommandozeilenparameter [-nosession]"/>
+					<Item id="6182" name="Merke Bedienfeld-Status (Bedienfeld ist geöffnet) in anderen Instanzen (Mehr- Instanzen-Modus) oder beim Verwenden von Kommandozeilenparameter [-nosession]"/>
 					<Item id="6183" name="Verlauf der Zwischenablage"/>
 					<Item id="6184" name="Dokumentenliste"/>
 					<Item id="6185" name="Zeichen-Tabelle"/>
@@ -1341,7 +1341,7 @@ Translation note:
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in der Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
-					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern - erfordert Neustart von Notepad++)"/>
+					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern/erfordert Neustart von Notepad++)"/>
 					<Item id="6337" name="Arbeitsbereichdatei-Erw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
@@ -1419,7 +1419,7 @@ Diese Wahl kann jederzeit in den Einstellungen angepasst werden."/>
 			</DoSaveAll><!-- HowToReproduce: Check the 'Enable Save All confirm dialog' checkbox in Preference->MISC, now click 'Save all' -->
 
 			<DebugInfo title="Debug-Info">
-				<Item id="1752" name="Debug-Info in die Zwischenablage &amp;kopieren"/>
+				<Item id="1752" name="&amp;Kopiere Debug-Info in Zwischenabl."/>
 				<Item id="1" name="OK"/>
 			</DebugInfo>
 		</Dialog>
@@ -1805,7 +1805,7 @@ ACHTUNG:
 1. Wenn Sie die Optionen hier ändern, müssen Sie die aktuell geöffneten großen Dateien erneut öffnen um die Änderung zu erhalten.
 
 2. Wenn &quot;Wortumbruch global deaktivieren&quot; aktiv ist und Sie eine große Datei öffnen, wird &quot;Wortumbruch&quot; für alle Dateien deaktiviert. Sie können das aber über das Menü &quot;Ansicht-&gt;Wortumbruch&quot; wieder aktivieren."/>
-			<npcNote-tip value="Darstellung von ausgewählten &quot;Nicht-ASCII&quot; Leerzeichen und nicht druckbaren (Steuer-)Zeichen.
+			<npcNote-tip value="Darstellung von ausgewählten &quot;Nicht-ASCII&quot; Leerzeichen und nicht druckbaren (Steuer-) Zeichen.
 
 HINWEIS:
 Die Verwendung der Darstellung deaktiviert die Zeicheneffekte im Text.
@@ -1831,7 +1831,7 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 			<!-- Don't translate "(&quot;Non-printing characters custom color&quot;)" -->
 			<npcCustomColor-tip value="Im Stil-Konfigurator kann die Standardfarbe für die speziellen Leerzeichen und die nicht druckbaren Zeichen angepasst werden (&quot;Non-printing characters custom color&quot;)."/>
 			<npcIncludeCcUniEol-tip value="Einstellungen für das Erscheinungsbild von nicht druckbaren Zeichen auf die Steuerzeichen C0, C1 und Unicode EOL (nächste Zeile, Zeilen- und Absatztrenner) anwenden."/>
-			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Den Wert auf 0 setzen, um die automatische Markierung zu deaktivieren."/>
+			<searchingInSelThresh-tip value="Anzahl der ausgewählten Zeichen (max. 1024) in der Bearbeitungszone, um das Kontrollkästchen 'In Auswahl' automatisch zu aktivieren, wenn der Suchdialog aktiviert wird. Diesen Wert auf 0 setzen, um die automatische Markierung zu deaktivieren."/>
 			<verticalEdge-tip value="Eine Spaltenmarkierung kann hinzugefügt werden, indem ihre Position mit einer Dezimalzahl angeben wird. Mehrere Spaltenmarkierungen können definiert werden, indem die verschiedenen Zahlen durch Leerzeichen getrennt werden."/>
 			<fileSaveAsCopySaveButton-tip value="Drücke die Shift-Taste während des Speicherns um die Kopie nach dem Speichern zu öffnen."/>
 			<autoIndentBasic-tip value="Stelle sicher, dass die Einrückung in der aktuellen Zeile (z.B. erstellt durch das Drücken der ENTER-Taste) mit der Einrückung in der vorigen Zeile übereinstimmt."/>

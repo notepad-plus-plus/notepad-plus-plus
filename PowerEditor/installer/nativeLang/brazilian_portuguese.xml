@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Jan 2025, for Notepad++ 8.7.6
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Feb 2025, for Notepad++ 8.7.8
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.6">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -822,6 +822,7 @@ Translation note:
 				<Folder title="Dobragem e padrão">
 					<Item id="21101" name="Estilo padrão"/>
 					<Item id="21102" name="Estilo"/>
+					<Item id="21103" name="Ajuda online para Linguagens definidas pelo usuário"/>
 					<Item id="21105" name="Documentação:"/>
 					<Item id="21106" name="Dobrar e compactar (dobrar linhas vazias também)"/>
 					<Item id="21220" name="Dobragem de código estilo 1:"/>
@@ -1323,7 +1324,14 @@ Translation note:
 						<Element name="Fechar para"/>
 						<Element name="Minimizar / Fechar para"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (mais compatível)"/>
+						<Element name="DirectWrite (padrão)"/>
+						<Element name="DirectWrite (mantém estrutura)"/>
+						<Element name="DirectWrite (estendendo a GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="bandeja"/>
+					<Item id="6363" name="modo renderização"/>
 					<Item id="6312" name="Autodetectar estado de arquivos"/>
 					<Item id="6313" name="Atualizar silenciosamente"/>
 					<Item id="6325" name="Ir para a última linha depois de atualizar"/>
@@ -1332,7 +1340,6 @@ Translation note:
 					<Item id="6324" name="Alternador de documentos (Ctrl+TAB)"/>
 					<Item id="6331" name="Exibir somente o nome do arquivo no título"/>
 					<Item id="6334" name="Autodetectar codificação do caractere"/>
-					<Item id="6349" name="Usar DirectWrite (Pode melhorar a renderização de caracteres especiais, é necessário reiniciar o Notepad++)"/>
 					<Item id="6337" name="Extensão do arquivo de espaço de trabalho:"/>
 					<Item id="6114" name="Habilitar"/>
 					<Item id="6117" name="Habilitar comportamento MRU"/>
@@ -1558,6 +1565,7 @@ Se for necessário executar uma busca regex para trás, consulte o manual de usu
 			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" para usar o título do "Erro" padrão do Windows. -->
 			<FindAutoChangeOfInSelectionWarning title="Aviso da Localização" message="O estado da caixa de seleção &quot;Na seleção&quot; foi modificado automaticamente.
 Por favor verifique a condição de localização antes de continuar."/> <!-- Como Reproduzir: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+		<Need2Restart2ShowMenuShortcuts title="O Notepad++ precisa ser reiniciado" message="O Notepad++ precisa ser reiniciado para mostrar os atalhos de botão direito."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1831,6 +1839,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>
 			<!-- Não traduzir "Global override" e "Default Style" -->
 			<global-override-tip value="Habilitar o &quot;Global override&quot; aqui vai prevalecer sobre este parâmetro em todos os estilos de linguagem. O que provavelmente é desejado é usar as configurações de &quot;Default Style&quot;"/>
+			<scintillaRenderingTechnology-tip value="Pode melhorar a renderização de caracteres especiais ou resolver alguns problemas gráficos, reinicie o Notepad++ para aplicar as mudanças."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

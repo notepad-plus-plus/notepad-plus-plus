@@ -822,6 +822,7 @@ Translation note:
 				<Folder title="Folder &amp;&amp; Default">
 					<Item id="21101" name="Default style"/>
 					<Item id="21102" name="Styler"/>
+					<Item id="21103" name="User Defined Languages online help"/>
 					<Item id="21105" name="Documentation"/>
 					<Item id="21106" name="Fold &amp;compact (fold empty lines too)"/>
 					<Item id="21220" name="Folding in code 1 style"/>

@@ -24,7 +24,7 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     GROUPBOX        "Documentation",IDC_WEB_HELP_DESCGROUP_STATIC,12,14,210,49
-    CTEXT           "https://ivan-radic.github.io/udl-documentation/",IDC_WEB_HELP_LINK,19,35,200,13
+    CTEXT           "User Defined Languages online help",IDC_WEB_HELP_LINK,19,35,200,13
     PUSHBUTTON      "Styler",IDC_DEFAULT_STYLER,87,94,54,14
     GROUPBOX        "Default style",IDC_DEFAULT_DESCGROUP_STATIC,12,71,210,49
     CONTROL         "Fold &compact (fold empty lines too)",IDC_FOLDER_FOLD_COMPACT,

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Jan 2025, for Notepad++ 8.7.6
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 08 Feb 2025, for Notepad++ 8.7.8
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.6">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -822,6 +822,7 @@ Translation note:
 				<Folder title="Dobragem e padrão">
 					<Item id="21101" name="Estilo padrão"/>
 					<Item id="21102" name="Estilo"/>
+					<Item id="21103" name="Ajuda online para Linguagens definidas pelo usuário"/>
 					<Item id="21105" name="Documentação:"/>
 					<Item id="21106" name="Dobrar e compactar (dobrar linhas vazias também)"/>
 					<Item id="21220" name="Dobragem de código estilo 1:"/>

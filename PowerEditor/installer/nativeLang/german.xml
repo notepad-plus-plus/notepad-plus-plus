@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-31"><!-- basiert auf english.xml 8.7.3 vom 15.01.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-02-09"><!-- basiert auf english.xml 8.7.3 vom 08.02.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -831,6 +831,7 @@ Translation note:
 				<Folder title="Textblöcke &amp;&amp; Voreinstellung">
 					<Item id="21101" name="Standardschrift"/>
 					<Item id="21102" name="Stil …"/>
+					<Item id="21103" name="Online Hilfe für benutzerdefinierte Sprache"/>
 					<Item id="21105" name="Dokumentation:"/>
 					<Item id="21106" name="Leerzeilen mit einfalten (kompakte Faltung)"/>
 					<Item id="21220" name="Textblöcke im Code 1:"/>
@@ -1327,7 +1328,7 @@ Translation note:
 						<Element name="Deaktivieren"/>
 					</ComboBox>
 					<ComboBox id="6307">
-						<Element name="Keine Aktion in den"/>
+						<Element name="Keine Aktion bei"/>
 						<Element name="Minimieren in den"/>
 						<Element name="Schließen in den"/>
 						<Element name="Minimieren / Schließen in den"/>

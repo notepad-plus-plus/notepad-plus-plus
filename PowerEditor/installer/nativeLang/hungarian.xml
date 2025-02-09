@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.3 updated at 2024.12.05 -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.3">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -401,7 +401,7 @@
 					<Item id="50006" name="E&amp;lérésiútvonal-kiegészítés"/>
 					<Item id="44042" name="&amp;Sorok elrejtése"/>
 					<Item id="42040" name="Az összes legutóbbi &amp;fájl megnyitása"/>
-					<Item id="42041" name="A legutóbbi &amp;fájlok listájának eltakarítása"/>
+					<Item id="42041" name="A legutóbbi &amp;fájlok listájának törlése"/>
 					<Item id="48016" name="Billentyűparancs módosítása / makró törlése…"/>
 					<Item id="48017" name="&amp;Billentyűparancs módosítása / parancs törlése…"/>
 
@@ -822,6 +822,7 @@
 				<Folder title="Blokkösszecsukások és alapértelmezések">
 					<Item id="21101" name="Alapértelmezett stílus"/>
 					<Item id="21102" name="Stílusbeáll."/>
+					<Item id="21103" name="A felhasználói nyelvek online súgója"/>
 					<Item id="21105" name="Dokumentáció"/>
 					<Item id="21106" name="Kompakt (több-blokkos) összecsukás"/>
 					<Item id="21220" name="Kódösszecsukás 1. stílussal („ragadós” elemekként is)"/>
@@ -1318,7 +1319,7 @@
 						<Element name="Kikapcsolás"/>
 					</ComboBox>
 					<ComboBox id="6307">
-						<Element name="Ne tegye a Notepad++-t"/>
+						<Element name="Ne végezzen műveletet"/>
 						<Element name="Kicsinyítés"/>
 						<Element name="Bezárás"/>
 						<Element name="Kicsinyítés / Bezárás"/>
@@ -1729,9 +1730,9 @@ Keresés minden fájlban – kivéve rekurzívan a log vagy logs mappákat:
 			<finder-uncollapse-all value="Minden blokk kibontása"/>
 			<finder-copy value="Kijelölt sor(ok) másolása"/>
 			<finder-copy-selected-paths value="A kijelölt elérési út/utak másolása"/>
-			<finder-clear-all value="Az összes eltakarítása"/>
+			<finder-clear-all value="Az összes eredmény eltávolítása"/>
 			<finder-open-selected-paths value="A kijelölt elérési út/utak megnyitása"/>
-			<finder-purge-for-every-search value="Az előző eredmények eltakarítása minden kereséskor"/>
+			<finder-purge-for-every-search value="Az előző eredmények eltávolítása minden kereséskor"/>
 			<finder-wrap-long-lines value="A hosszú sorok tördelése"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Mégse"/>

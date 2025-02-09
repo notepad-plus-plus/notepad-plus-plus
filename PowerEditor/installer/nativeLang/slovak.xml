@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.5">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -819,6 +819,7 @@
 				<Folder title="Balenie a predvoľby">
 					<Item id="21101" name="Predvolený štýl"/>
 					<Item id="21102" name="Nastaviť štýl…"/>
+					<Item id="21103" name="Online pomocník pre používateľom definovaný jazyk"/>
 					<Item id="21105" name="Dokumentácia"/>
 					<Item id="21106" name="Zbaliť kompaktne (zbaliť aj prázdne riadky)"/>
 					<Item id="21220" name="Zbalenie v štýle kódu 1"/>

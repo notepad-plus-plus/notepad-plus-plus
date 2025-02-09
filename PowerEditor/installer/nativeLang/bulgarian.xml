@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 16.01.2025 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 21.02.2025 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -605,7 +605,6 @@
 				<!-- "Търсене във файлове" -->
 				<Item id="1655" name="П&amp;апка:"/>
 				<Item id="1660" name="Замяна във файловете"/>
-				
 				<Item id="1658" name="Във всички по&amp;дпапки"/>
 				<Item id="1659" name="В &amp;скрити папки"/>
 				<!-- "Търсене в проекти" -->
@@ -741,6 +740,7 @@
 				<!-- Настройки по подразбиране -->
 				<Folder title="Настройки по подразбиране">
 					<Item id="21105" name="Документация"/>
+					<Item id="21103" name="Онлайн помощ за дефиниране на езици"/>
 					<Item id="21101" name="Стил по подразбиране"/>
 					<Item id="21102" name="Настройки"/>
 					<Item id="21106" name="&amp;Компактно свиване (и на празни редове)"/>
@@ -872,7 +872,7 @@
 				<!-- Основни -->
 				<Global title="Основни">
 					<Item id="6123" name="Език на интерфейса"/>
-          <Item id="6131" name="Меню"/>
+					<Item id="6131" name="Меню"/>
 					<Item id="6122" name="Скриване (Alt или F10 за показване)"/>
 					<Item id="6132" name="Скриване на бутоните ＋ ▼ ✕"/>
 					<Item id="6133" name="Лента на състоянието"/>
@@ -894,9 +894,9 @@
 					<Item id="6109" name="Промяна на цвета на неактивните"/>
 					<Item id="6110" name="Цветна лента върху активния"/>
 					<Item id="6112" name="Бутон за затваряне"/>
-					<Item id="6115" name="Закачане на раздел"/>
-          <Item id="6111" name="Показване на бутони в неактивните раздели"/>
-					<Item id="6113" name="Двойно щракане за затваряне"/>
+					<Item id="6115" name="Бутон за закачане"/>
+					<Item id="6111" name="Показване на бутони в неактивните"/>
+					<Item id="6113" name="Двойно щракване за затваряне"/>
 					<Item id="6121" name="Изход при затваряне на последният раздел"/>
 				</Global>
 				<!-- Редактиране 1 -->
@@ -1254,11 +1254,17 @@
 						<Element name="Минимизиране и затваряне"/>
 					</ComboBox>
 					<Item id="6308" name="в системната област"/>
+					<ComboBox id="6362">
+						<Element name="GDI (най-съвместим)"/>
+						<Element name="DirectWrite (по подразбиране)"/>
+						<Element name="DirectWrite (запазване на рамки)"/>
+						<Element name="DirectWrite (рисуване в GDI DC)"/>
+					</ComboBox>
+					<Item id="6363" name="режим на изобразяване"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6360" name="Изключване на всички звуци"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
-					<Item id="6349" name="Използване на DirectWrite за изобразяване на текст (изисква се рестартиране на Notepad++)"/>
 					<Item id="6361" name="Диалогов прозорец за потвърждение при &quot;Запис на всички&quot;"/>
 					<Item id="6324" name="Превключване между раздели (Ctrl + Tab)"/>
 					<Item id="6114" name="Включено"/>
@@ -1812,14 +1818,15 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<contextMenu-styleOneToken value="Открояване само на еднo избранo"/>
 			<contextMenu-clearStyle value="Изчистване на открояването"/>
 			<contextMenu-PluginCommands value="Команди от добавки"/>
+			<!-- "Global override" и "Default Style" не се превеждат -->
+			<global-override-tip value="Активирането на &quot;Global override&quot; ще замени тези параметри във всички езикови стилове. Това, което вероятно искате, е да използвате настройките в &quot;Default Style&quot; вместо тези."/>
 			<!-- Други -->
 			<splitter-rotate-left value="Завъртане наляво"/>
 			<splitter-rotate-right value="Завъртане надясно"/>
 			<tab-untitled-string value="нов "/>
 			<close-panel-tip value="Затваряне"/>
 			<fileSaveAsCopySaveButton-tip value="Задръжте клавиша Shift, докато натискате Запис, за да отворите копието след запазване."/>
-			<!-- "Global override" и "Default Style" не се превеждат -->
-			<global-override-tip value="Активирането на &quot;Global override&quot; ще замени тези параметри във всички езикови стилове. Това, което вероятно искате, е да използвате настройките в &quot;Default Style&quot; вместо тези."/>
+			<scintillaRenderingTechnology-tip value="Може да се подобри изобразяването на специални символи или да се решат някои графични проблеми. Изисква се рестартиране на Notepad++."/>
 		</MiscStrings>
 		<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
@@ -2015,10 +2022,10 @@ Notepad++ ще направи резервно копие на стария фа
 
 Ако се нуждаете от функцията за търсене в обратна посока с регулярен израз, направете справка в ръководството на потребителя за инструкции за активирането ѝ."/>
 			<PrintError title="0" message="Не може да започне отпечатването на документа."/>
-      <FindAutoChangeOfInSelectionWarning title="Предупреждение при търсене" message="Състоянието на отметката &quot;В избраното&quot; е променено автоматично.
+			<FindAutoChangeOfInSelectionWarning title="Предупреждение при търсене" message="Състоянието на отметката &quot;В избраното&quot; е променено автоматично.
 
 Проверете условието за търсене, преди да извършите действието."/>
-      <Need2Restart2ShowMenuShortcuts title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира, за да се появят бутоните от дясното меню."/>
+			<Need2Restart2ShowMenuShortcuts title="Рестартиране на Notepad++" message="Notepad++ трябва да се рестартира, за да се появят бутоните от дясното меню."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

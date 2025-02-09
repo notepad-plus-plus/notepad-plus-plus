@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-01-31"><!-- basiert auf english.xml 8.7.3 vom 15.01.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-02-20"><!-- basiert auf english.xml 8.7.8 vom 19.02.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -831,6 +831,7 @@ Translation note:
 				<Folder title="Textblöcke &amp;&amp; Voreinstellung">
 					<Item id="21101" name="Standardschrift"/>
 					<Item id="21102" name="Stil …"/>
+					<Item id="21103" name="Online Hilfe für benutzerdefinierte Sprache"/>
 					<Item id="21105" name="Dokumentation:"/>
 					<Item id="21106" name="Leerzeilen mit einfalten (kompakte Faltung)"/>
 					<Item id="21220" name="Textblöcke im Code 1:"/>
@@ -1327,12 +1328,19 @@ Translation note:
 						<Element name="Deaktivieren"/>
 					</ComboBox>
 					<ComboBox id="6307">
-						<Element name="Keine Aktion in den"/>
+						<Element name="Keine Aktion bei"/>
 						<Element name="Minimieren in den"/>
 						<Element name="Schließen in den"/>
 						<Element name="Minimieren / Schließen in den"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (am kompatibelsten)"/>
+						<Element name="DirectWrite (Standard)"/>
+						<Element name="DirectWrite (Frames beibehalten)"/>
+						<Element name="DirectWrite (zeichnen in GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="Infobereich (Tray)"/>
+					<Item id="6363" name="Darstellungsmodus"/>
 					<Item id="6312" name="Automatische Änderungserkennung"/>
 					<Item id="6313" name="Ohne Rückfrage aktualisieren"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
@@ -1341,7 +1349,6 @@ Translation note:
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6331" name="Nur Dateinamen in der Titelleiste anzeigen"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
-					<Item id="6349" name="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern/erfordert Neustart von Notepad++)"/>
 					<Item id="6337" name="Arbeitsbereichdatei-Erw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
@@ -1841,6 +1848,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Das Aktivieren der 'Global override' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Default Style'"/>
+			<scintillaRenderingTechnology-tip value="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern oder einige Grafikprobleme beheben - erfordert einen Neustart von Notepad++."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

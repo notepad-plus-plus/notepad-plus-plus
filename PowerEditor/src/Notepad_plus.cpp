@@ -1403,7 +1403,9 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 
 	intptr_t changeDataCount = 0;
 	intptr_t newCurrentPos = 0;
-	vector<intptr_t> folding;
+	//vector<intptr_t> folding; // deleted code
+
+	command(IDM_VIEW_UNFOLDALL); // Expand all first to improve the efficiency of subsequent processing
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
@@ -1602,9 +1604,9 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 			}
 		}
 
-		if ((_pEditView->execute(SCI_GETFOLDLEVEL, idx) & SC_FOLDLEVELHEADERFLAG))
-			if (_pEditView->execute(SCI_GETFOLDEXPANDED, idx) == 0)
-				folding.push_back(idx);
+		//if ((_pEditView->execute(SCI_GETFOLDLEVEL, idx) & SC_FOLDLEVELHEADERFLAG)) // deleted code
+		//	if (_pEditView->execute(SCI_GETFOLDEXPANDED, idx) == 0) // deleted code
+		//		folding.push_back(idx); // deleted code
 
 		if (changeDataLineCount)
 			_pEditView->execute(SCI_REPLACETARGET, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(destination));
@@ -1624,8 +1626,8 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 		else
 			_pEditView->execute(SCI_GOTOPOS, _pEditView->execute(SCI_POSITIONFROMLINE, currentLine) + newCurrentPos);
 
-		for (size_t i = 0; i < folding.size(); ++i)
-			_pEditView->fold(folding[i], false);
+		//for (size_t i = 0; i < folding.size(); ++i) // deleted code
+		//	_pEditView->fold(folding[i], false); // deleted code
 	}
 	else
 		restoreSelection();

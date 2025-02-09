@@ -2194,13 +2194,17 @@ void Notepad_plus::command(int id)
 			bool isToggleEnabled = NppParameters::getInstance().getNppGUI()._enableFoldCmdToggable;
 			bool mode = id == IDM_VIEW_FOLD_CURRENT ? fold_collapse : fold_uncollapse;
 
-			if (isToggleEnabled)
+			intptr_t headerLine = _pEditView->getHeaderLine();
+			if (headerLine != -1)
 			{
-				bool isFolded = _pEditView->isCurrentLineFolded();
-				mode = isFolded ? fold_uncollapse : fold_collapse;
-			}
+				if (isToggleEnabled)
+				{
+					bool isFolded = _pEditView->isCurrentLineFolded(headerLine); // bool isFolded = _pEditView->isCurrentLineFolded();
+					mode = isFolded ? fold_uncollapse : fold_collapse;
+				}
 
-			_pEditView->foldCurrentPos(mode);
+				_pEditView->foldCurrentPos(headerLine, mode); // _pEditView->foldCurrentPos(mode);
+			}
 		}
 		break;
 

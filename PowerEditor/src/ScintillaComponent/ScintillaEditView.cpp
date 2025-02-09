@@ -538,14 +538,17 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				MultiCaretInfo(int len, size_t n) : _len2remove(len), _selIndex(n) {};
 			};
 
-			SHORT ctrl = GetKeyState(VK_CONTROL);
-			SHORT alt = GetKeyState(VK_MENU);
-			SHORT shift = GetKeyState(VK_SHIFT);
+			//SHORT ctrl = GetKeyState(VK_CONTROL);
+			//SHORT alt = GetKeyState(VK_MENU);
+			//SHORT shift = GetKeyState(VK_SHIFT);
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
 			bool column2MultSelect = (NppParameters::getInstance()).getSVP()._columnSel2MultiEdit;
 
 			if (wParam == VK_DELETE)
 			{
+				SHORT ctrl = GetKeyState(VK_CONTROL);
+				SHORT alt = GetKeyState(VK_MENU);
+				SHORT shift = GetKeyState(VK_SHIFT);
 				if (!(shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // DEL & Multi-edit
 				{
 					size_t nbSelections = execute(SCI_GETSELECTIONS);
@@ -566,8 +569,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 							{
 								size_t docLen = getCurrentDocLen();
 
-								char eolStr[3];
-								Sci_TextRangeFull tr;
+								char eolStr[3] = { '\0' };
+								Sci_TextRangeFull tr{};
 								tr.chrg.cpMin = posStart;
 								tr.chrg.cpMax = posEnd + 2;
 								if (tr.chrg.cpMax > static_cast<Sci_Position>(docLen))
@@ -2375,10 +2378,11 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	setWordChars();
 
-	if (_currentBuffer->getNeedsLexing())
-	{
-		restyleBuffer();
-	}
+	// Before that, it has been executed.
+	//if (_currentBuffer->getNeedsLexing())
+	//{
+	//	restyleBuffer();
+	//}
 
 	maintainStateForNpc();
 
@@ -2418,6 +2422,15 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
     return;	//all done
 }
 
+void ScintillaEditView::scrollCaret() const noexcept
+{
+	execute(SCI_SETXCARETPOLICY, CARET_SLOP | CARET_STRICT | CARET_EVEN, 50);
+	execute(SCI_SETYCARETPOLICY, CARET_SLOP | CARET_STRICT | CARET_EVEN, 5);
+	execute(SCI_SCROLLCARET, 0, 0);
+	execute(SCI_SETXCARETPOLICY, CARET_SLOP | CARET_EVEN, 50);
+	execute(SCI_SETYCARETPOLICY, CARET_EVEN, 0);
+}
+
 void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVector)
 {
 	// xCodeOptimization1304: For active document get folding state from Scintilla.
@@ -2439,10 +2452,33 @@ void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVect
 void ScintillaEditView::syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew)
 {
 	size_t nbLineState = lineStateVectorNew.size();
-	for (size_t i = 0 ; i < nbLineState ; ++i)
+	if (nbLineState > 0)
 	{
-		auto line = lineStateVectorNew.at(i);
-		fold(line, false);
+		if (nbLineState > MAX_FOLD_LINES_MORE_THAN) // Block WM_SETREDRAW messages
+			::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
+
+		for (size_t i = 0; i < nbLineState; ++i)
+		{
+			auto line = lineStateVectorNew.at(i);
+			fold(static_cast<intptr_t>(line), false, false); // fold(line, false);
+		}
+
+		if (nbLineState > MAX_FOLD_LINES_MORE_THAN)
+		{
+			::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+			scrollCaret();
+			::InvalidateRect(_hSelf, nullptr, TRUE);
+		}
+
+		auto headerLine = lineStateVectorNew.at(0);
+		SCNotification scnN{};
+		scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = 0;
+		scnN.line = headerLine;
+		scnN.foldLevelNow = 0;
+
+		::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
 	}
 }
 
@@ -2528,6 +2564,20 @@ struct FoldLevelStack
 
 }
 
+intptr_t ScintillaEditView::getHeaderLine(intptr_t currentLine/* = -1*/) const noexcept
+{
+	auto currentLine2 = (currentLine == -1) ? getCurrentLineNumber() : currentLine;
+	intptr_t headerLine;
+	auto level = execute(SCI_GETFOLDLEVEL, currentLine2);
+
+	if (level & SC_FOLDLEVELHEADERFLAG)
+		headerLine = currentLine2;
+	else
+		headerLine = execute(SCI_GETFOLDPARENT, currentLine2);
+
+	return headerLine;
+}
+
 void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mode)
 {
 	execute(SCI_COLOURISE, 0, -1);
@@ -2537,6 +2587,9 @@ void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mo
 
 	const intptr_t maxLine = execute(SCI_GETLINECOUNT);
 	intptr_t line = 0;
+
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
+		::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
 
 	while (line < maxLine)
 	{
@@ -2550,7 +2603,8 @@ void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mo
 			{
 				if (isFolded(line) != mode)
 				{
-					fold(line, mode);
+					intptr_t headerLine = getHeaderLine(line);
+					fold(headerLine, mode); // fold(line, mode);
 				}
 				// skip all children lines, required to avoid buffer overrun.
 				line = execute(SCI_GETLASTCHILD, line, -1);
@@ -2560,6 +2614,13 @@ void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mo
 	}
 
 	runMarkers(true, 0, true, false);
+
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
+	{
+		::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+		scrollCaret();
+		::InvalidateRect(_hSelf, nullptr, TRUE);
+	}
 }
 
 void ScintillaEditView::collapse(int level2Collapse, bool mode)
@@ -2573,8 +2634,10 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 	execute(SCI_COLOURISE, 0, -1);
 
 	intptr_t maxLine = execute(SCI_GETLINECOUNT);
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
+		::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
 
-	for (int line = 0; line < maxLine; ++line)
+	for (intptr_t line = 0; line < maxLine; ++line) // for (int line = 0; line < maxLine; ++line)
 	{
 		intptr_t level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG)
@@ -2583,85 +2646,124 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 			if (level2Collapse == (level & SC_FOLDLEVELNUMBERMASK))
 				if (isFolded(line) != mode)
 				{
-					fold(line, mode);
+					intptr_t headerLine = getHeaderLine(line);
+					fold(headerLine, mode); // fold(line, mode);
 				}
 		}
 	}
 
 	runMarkers(true, 0, true, false);
-}
 
-void ScintillaEditView::foldCurrentPos(bool mode)
-{
-	auto currentLine = getCurrentLineNumber();
-	fold(currentLine, mode);
-}
-
-bool ScintillaEditView::isCurrentLineFolded() const
-{
-	auto currentLine = getCurrentLineNumber();
-
-	intptr_t headerLine;
-	auto level = execute(SCI_GETFOLDLEVEL, currentLine);
-
-	if (level & SC_FOLDLEVELHEADERFLAG)
-		headerLine = currentLine;
-	else
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
 	{
-		headerLine = execute(SCI_GETFOLDPARENT, currentLine);
+		::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+		scrollCaret();
+		::InvalidateRect(_hSelf, nullptr, TRUE);
+	}
+}
+
+void ScintillaEditView::foldCurrentPos(intptr_t headerLine/* = -1*/, bool mode/* = false*/) // void ScintillaEditView::foldCurrentPos(bool mode)
+{
+	auto headerLine2 = (headerLine == -1) ? getHeaderLine() : headerLine; // auto currentLine = getCurrentLineNumber();
+	fold(headerLine2, mode); // fold(currentLine, mode);
+}
+
+bool ScintillaEditView::isCurrentLineFolded(intptr_t headerLine/* = -1*/) const noexcept // bool ScintillaEditView::isCurrentLineFolded() const
+{
+	//auto currentLine = getCurrentLineNumber();
+
+	//intptr_t headerLine;
+	//auto level = execute(SCI_GETFOLDLEVEL, currentLine);
+
+	//if (level & SC_FOLDLEVELHEADERFLAG)
+	//	headerLine = currentLine;
+	//else
+	//{
+	//	headerLine = execute(SCI_GETFOLDPARENT, currentLine);
+	//	if (headerLine == -1)
+	//		return false;
+	//}
+
+	//bool isExpanded = execute(SCI_GETFOLDEXPANDED, headerLine);
+	//return !isExpanded;
+
+	if (headerLine == -1)
+	{
+		headerLine = getHeaderLine();
 		if (headerLine == -1)
 			return false;
 	}
-
 	bool isExpanded = execute(SCI_GETFOLDEXPANDED, headerLine);
 	return !isExpanded;
 }
 
-void ScintillaEditView::fold(size_t line, bool mode)
+void ScintillaEditView::fold(intptr_t headerLine, bool mode, bool isNotify/* = true*/)
 {
-	auto endStyled = execute(SCI_GETENDSTYLED);
-	auto len = execute(SCI_GETTEXTLENGTH);
+	if (headerLine == -1)
+		return;
 
-	if (endStyled < len)
-		execute(SCI_COLOURISE, 0, -1);
+	execute(SCI_FOLDLINE, headerLine, mode);
 
-	intptr_t headerLine;
-	auto level = execute(SCI_GETFOLDLEVEL, line);
-
-	if (level & SC_FOLDLEVELHEADERFLAG)
-		headerLine = line;
-	else
+	if (isNotify)
 	{
-		headerLine = execute(SCI_GETFOLDPARENT, line);
-		if (headerLine == -1)
-			return;
-	}
-
-	if (isFolded(headerLine) != mode)
-	{
-		execute(SCI_TOGGLEFOLD, headerLine);
-
 		SCNotification scnN{};
 		scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
 		scnN.nmhdr.hwndFrom = _hSelf;
 		scnN.nmhdr.idFrom = 0;
 		scnN.line = headerLine;
-		scnN.foldLevelNow = isFolded(headerLine)?1:0; //folded:1, unfolded:0
+		scnN.foldLevelNow = (mode) ? 1 : 0;
 
 		::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
 	}
 }
 
-void ScintillaEditView::foldAll(bool mode)
+void ScintillaEditView::foldAll(size_t mode, bool isNotify/* = true*/) // void ScintillaEditView::foldAll(bool mode)
 {
-	auto maxLine = execute(SCI_GETLINECOUNT);
+	//auto maxLine = execute(SCI_GETLINECOUNT);
 
-	for (int line = 0; line < maxLine; ++line)
+	//for (int line = 0; line < maxLine; ++line)
+	//{
+	//	auto level = execute(SCI_GETFOLDLEVEL, line);
+	//	if (level & SC_FOLDLEVELHEADERFLAG)
+	//		if (isFolded(line) != mode)
+	//			fold(line, mode);
+	//}
+
+	auto maxLine = execute(SCI_GETLINECOUNT);
+	if (maxLine > 1)
 	{
-		auto level = execute(SCI_GETFOLDLEVEL, line);
-		if (level & SC_FOLDLEVELHEADERFLAG)
-			if (isFolded(line) != mode)
-				fold(line, mode);
+		::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
+		execute(SCI_FOLDALL, mode | SC_FOLDACTION_CONTRACT_EVERY_LEVEL, 0);
+		::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+		scrollCaret();
+		::InvalidateRect(_hSelf, nullptr, TRUE);
+
+		if (isNotify)
+		{
+			intptr_t headerLine = -1;
+			intptr_t maxLine2 = (maxLine < 1000000) ? maxLine : 1000000;
+			for (intptr_t line = 0; line < maxLine2; ++line)
+			{
+				auto level = execute(SCI_GETFOLDLEVEL, line);
+				if (level & SC_FOLDLEVELHEADERFLAG)
+				{
+					headerLine = line;
+					break;
+				}
+			}
+
+			if (headerLine != -1)
+			{
+				SCNotification scnN{};
+				scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
+				scnN.nmhdr.hwndFrom = _hSelf;
+				scnN.nmhdr.idFrom = 0;
+				scnN.line = headerLine;
+				scnN.foldLevelNow = isFolded(headerLine) ? 1 : 0;
+
+				::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
+			}
+		}
 	}
 }
 
@@ -3005,7 +3107,8 @@ void ScintillaEditView::marginClick(Sci_Position position, int modifiers)
         {
 			// Toggle this line
 			bool mode = isFolded(lineClick);
-			fold(lineClick, !mode);
+			intptr_t headerLine = getHeaderLine(static_cast<intptr_t>(lineClick));
+			fold(headerLine, !mode); // fold(lineClick, !mode);
 			runMarkers(true, lineClick, true, false);
 		}
 	}
@@ -4167,6 +4270,19 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 				Skip to LASTCHILD
 				Set last start to lastchild
 	*/
+
+	const auto flag_MARK_HIDELINESBEGIN = (1 << MARK_HIDELINESBEGIN);
+	const auto flag_MARK_HIDELINESEND = (1 << MARK_HIDELINESEND);
+	intptr_t nextLine = execute(SCI_MARKERNEXT, searchStart, static_cast<LPARAM>(flag_MARK_HIDELINESBEGIN));
+	if (nextLine >= 0)
+	{
+		searchStart = static_cast<size_t>(nextLine);
+	}
+	else
+	{
+		return;
+	}
+
 	size_t maxLines = execute(SCI_GETLINECOUNT);
 	if (doHide)
 	{
@@ -4175,7 +4291,7 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 		for (auto i = searchStart; i < maxLines; ++i)
 		{
 			auto state = execute(SCI_MARKERGET, i);
-			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
+			if (((state & (flag_MARK_HIDELINESEND)) != 0)) // if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
 			{
 				if (isInSection)
 				{
@@ -4184,13 +4300,24 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 					{
 						return;	//done, only single section requested
 					}	//otherwise keep going
+
+					intptr_t nextLine2 = execute(SCI_MARKERNEXT, i, static_cast<LPARAM>(flag_MARK_HIDELINESBEGIN));
+					if (nextLine2 > 0)
+					{
+						i = static_cast<size_t>(nextLine2);
+					}
+					else
+					{
+						return;
+					}
 				}
 				isInSection = false;
 			}
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
+			else if ((state & (flag_MARK_HIDELINESBEGIN)) != 0) // if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
 			{
 				isInSection = true;
 				startHiding = i+1;
+				++i;
 			}
 
 		}
@@ -4202,7 +4329,7 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 		for (auto i = searchStart; i < maxLines; ++i)
 		{
 			auto state = execute(SCI_MARKERGET, i);
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
+			if ((state & (flag_MARK_HIDELINESBEGIN)) != 0 && !isInSection) // if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
 			{
 				isInSection = true;
 				if (doDelete)
@@ -4214,7 +4341,7 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 					startShowing = i + 1;
 				}
 			}
-			else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
+			else if ((state & (flag_MARK_HIDELINESEND)) != 0) // else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
 			{
 				if (doDelete)
 				{
@@ -4223,6 +4350,17 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 					{
 						return;	//done, only single section requested
 					}	//otherwise keep going
+
+					intptr_t nextLine2 = execute(SCI_MARKERNEXT, i, static_cast<LPARAM>(flag_MARK_HIDELINESBEGIN));
+					if (nextLine2 > 0)
+					{
+						i = static_cast<size_t>(nextLine2);
+					}
+					else
+					{
+						return;
+					}
+
 					isInSection = false;
 				}
 				else if (isInSection)
@@ -4244,6 +4382,17 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 					{
 						return;	//done, only single section requested
 					}	//otherwise keep going
+
+					intptr_t nextLine2 = execute(SCI_MARKERNEXT, i, static_cast<LPARAM>(flag_MARK_HIDELINESBEGIN));
+					if (nextLine2 > 0)
+					{
+						i = static_cast<size_t>(nextLine2);
+					}
+					else
+					{
+						return;
+					}
+
 					isInSection = false;
 				}
 			}
@@ -4262,28 +4411,24 @@ void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDo
 
 void ScintillaEditView::restoreHiddenLines()
 {
-	int line = 0;
+	intptr_t line = 0;
 
 	while (line != -1)
 	{
-		line = static_cast<int>(execute(SCI_MARKERNEXT, line, 1 << MARK_HIDELINESBEGIN));
-		
+		line = static_cast<intptr_t>(execute(SCI_MARKERNEXT, line, 1 << MARK_HIDELINESBEGIN));
+
 		if (line != -1)
 		{
-			int startHiding = line + 1;
-			line = static_cast<int>(execute(SCI_MARKERNEXT, line, 1 << MARK_HIDELINESEND));
+			intptr_t startHiding = line + 1;
+			line = static_cast<intptr_t>(execute(SCI_MARKERNEXT, line, 1 << MARK_HIDELINESEND));
 
 			if (line != -1)
 			{
 				execute(SCI_HIDELINES, startHiding, line - 1);
-
 			}
 		}
 	}
 }
-
-
-
 
 void ScintillaEditView::setTabSettings(Lang* lang)
 {

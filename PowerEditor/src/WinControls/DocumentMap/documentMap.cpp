@@ -291,14 +291,14 @@ void DocumentMap::doMove()
 	::MoveWindow(_vzDlg.getHSelf(), rc.left, rc.top, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
-void DocumentMap::fold(size_t line, bool foldOrNot)
+void DocumentMap::fold(intptr_t headerLine, bool foldOrNot) // void DocumentMap::fold(size_t line, bool foldOrNot)
 {
-	_pMapView->fold(line, foldOrNot);
+	_pMapView->fold(headerLine, foldOrNot, false); // _pMapView->fold(line, foldOrNot);
 }
 
 void DocumentMap::foldAll(bool mode)
 {
-	_pMapView->foldAll(mode);
+	_pMapView->foldAll(mode, false); // _pMapView->foldAll(mode);
 }
 
 void DocumentMap::scrollMap(bool direction, moveMode whichMode)

@@ -129,7 +129,7 @@ public:
 	void scrollMap(bool direction, moveMode whichMode);
 	void scrollMapWith(const MapPosition & mapPos);
 	void doMove();
-	void fold(size_t line, bool foldOrNot);
+	void fold(intptr_t headerLine, bool foldOrNot); // void fold(size_t line, bool foldOrNot);
 	void foldAll(bool mode);
 	void setSyntaxHiliting();
 	void changeTextDirection(bool isRTL);

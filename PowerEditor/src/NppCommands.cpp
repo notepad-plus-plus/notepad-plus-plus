@@ -2199,11 +2199,11 @@ void Notepad_plus::command(int id)
 			{
 				if (isToggleEnabled)
 				{
-					bool isFolded = _pEditView->isCurrentLineFolded(headerLine); // bool isFolded = _pEditView->isCurrentLineFolded();
+					bool isFolded = _pEditView->isCurrentLineFolded(headerLine);
 					mode = isFolded ? fold_uncollapse : fold_collapse;
 				}
 
-				_pEditView->foldCurrentPos(headerLine, mode); // _pEditView->foldCurrentPos(mode);
+				_pEditView->foldCurrentPos(headerLine, mode);
 			}
 		}
 		break;

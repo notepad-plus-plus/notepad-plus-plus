@@ -784,13 +784,13 @@ public:
 	intptr_t getHeaderLine(intptr_t currentLine = -1) const noexcept;
 	void collapseFoldIndentationBased(int level2Collapse, bool mode);
 	void collapse(int level2Collapse, bool mode);
-	void foldAll(size_t mode, bool isNotify = true);  // void foldAll(bool mode);
-	void fold(intptr_t headerLine, bool mode, bool isNotify = true); // void fold(size_t line, bool mode);
+	void foldAll(size_t mode, bool isNotify = true);
+	void fold(intptr_t headerLine, bool mode, bool isNotify = true);
 	bool isFolded(size_t line) const {
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
-	bool isCurrentLineFolded(intptr_t headerLine = -1) const noexcept; // bool isCurrentLineFolded() const;
-	void foldCurrentPos(intptr_t headerLine = -1, bool mode = false); // void foldCurrentPos(bool mode);
+	bool isCurrentLineFolded(intptr_t headerLine = -1) const noexcept;
+	void foldCurrentPos(intptr_t headerLine = -1, bool mode = false);
 	int getCodepage() const {return _codepage;};
 
 	ColumnModeInfos getColumnModeSelectInfo();

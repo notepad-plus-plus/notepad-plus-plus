@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.5">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -827,6 +827,7 @@ Translation note:
 				<Folder title="デフォルト・折り畳み設定">
 					<Item id="21101" name="デフォルトスタイル設定"/>
 					<Item id="21102" name="スタイル設定"/>
+					<Item id="21103" name="ユーザー定義についてのオンラインヘルプ"/>
 					<Item id="21105" name="ドキュメンテーション"/>
 					<Item id="21106" name="コンパクトに畳む(空行を含む)(&amp;C)"/>
 					<Item id="21220" name="スタイル1で畳む"/>
@@ -1328,7 +1329,14 @@ Translation note:
 						<Element name="終了時に"/>
 						<Element name="最小化/終了時に"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (互換性を優先)"/>
+						<Element name="DirectWrite (標準)"/>
+						<Element name="DirectWrite (フレームを保持)"/>
+						<Element name="DirectWrite (GDI DCに描画)"/>
+					</ComboBox>
 					<Item id="6308" name="タスクトレイへ格納"/>
+					<Item id="6363" name="描画モード"/>
 					<Item id="6312" name="ファイルの状態監視"/>
 					<Item id="6313" name="自動で最新状態に更新"/>
 					<Item id="6325" name="更新後最後の行にスクロール"/>
@@ -1337,7 +1345,6 @@ Translation note:
 					<Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
 					<Item id="6331" name="タイトルバーにファイル名のみ表示"/>
 					<Item id="6334" name="文字コードを自動判別"/>
-					<Item id="6349" name="DirectWriteを使用する（特殊な文字の描画が改善されます。Notepad++ の再起動が必要）"/>
 					<Item id="6337" name="ワークスペースファイルの拡張子:"/>
 					<Item id="6114" name="有効"/>
 					<Item id="6117" name="最近使用した順で切り替える"/>
@@ -1828,6 +1835,7 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 「高度」を選択しても、上記の言語以外を編集している場合は「基本」と同じになります。"/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="&quot;Global override&quot; を使用すると、すべての言語のスタイル設定が、チェックを入れたもので上書きされます。&quot;Default Style&quot; を使われるほうが、お望みの挙動に近いかもしれません。"/>
+			<scintillaRenderingTechnology-tip value="特殊な文字の描画や、グラフィックス関連の問題が改善することがあります。Notepad++ の再起動が必要です。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

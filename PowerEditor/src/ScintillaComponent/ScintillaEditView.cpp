@@ -4411,7 +4411,8 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 		return;
 
 	NppParameters& nppParamInst = NppParameters::getInstance();
-	if (isRTL && (nppParamInst.getNppGUI()._writeTechnologyEngine > defaultTechnology)) // RTL is not compatible with Direct Write Technology
+	if (isRTL && (nppParamInst.getNppGUI()._writeTechnologyEngine > defaultTechnology) 
+		&& (nppParamInst.getNppGUI()._writeTechnologyEngine < directWriteTechnologyUnavailable)) // RTL is not compatible with DirectWrite Technology
 	{
 		static bool theWarningIsGiven = false;
 

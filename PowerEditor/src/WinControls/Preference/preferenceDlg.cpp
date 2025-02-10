@@ -2477,7 +2477,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			bCheck = (nppGUI._fileAutoDetection & cdGo2end) ? true : false;
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, bCheck ? BST_CHECKED : BST_UNCHECKED, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"No action to"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"No action on"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize to"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Close to"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SYSTRAY_ACTION_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Minimize / Close to"));
@@ -2492,8 +2492,18 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (retain frames)"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (draw to GDI DC)"));
 
-			if ((nppGUI._writeTechnologyEngine < 0) || (nppGUI._writeTechnologyEngine > directWriteDcTechnology))
+			if ((nppGUI._writeTechnologyEngine < 0) || (nppGUI._writeTechnologyEngine > directWriteTechnologyUnavailable))
 				nppGUI._writeTechnologyEngine = directWriteTechnology;
+      
+      if (nppGUI._writeTechnologyEngine != directWriteTechnologyUnavailable)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_SETCURSEL, nppGUI._writeTechnologyEngine, 0);
+			}
+			else
+			{
+				::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_SETCURSEL, defaultTechnology, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE), false);
+			}
 
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_SETCURSEL, nppGUI._writeTechnologyEngine, 0);
 

@@ -781,6 +781,7 @@
 				<Folder title="摺疊設定與預設樣式">
 					<Item id="21101" name="預設樣式設定"/>
 					<Item id="21102" name="樣式"/>
+					<Item id="21103" name="自訂程式語言線上說明文件"/>
 					<Item id="21105" name="資訊與教程："/>
 					<Item id="21106" name="最大化摺疊（包括空行）"/>
 					<Item id="21220" name="摺疊設定一："/>

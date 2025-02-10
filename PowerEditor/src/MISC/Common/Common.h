@@ -292,3 +292,5 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait = 0, bool* isTimeout
 
 // check if the window rectangle intersects with any currently active monitor's working area
 bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn);
+
+bool isCoreWindows();

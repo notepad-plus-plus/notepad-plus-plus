@@ -822,6 +822,7 @@ Translation note:
 				<Folder title="Relief syntaxique &amp;&amp; défaut">
 					<Item id="21101" name="Style par défaut"/>
 					<Item id="21102" name="Style"/>
+					<Item id="21103" name="Aide en ligne de Langage utilisateur"/>
 					<Item id="21105" name="Documentation"/>
 					<Item id="21106" name="Compacter le relief (pliage des lignes vides)"/>
 					<Item id="21220" name="Relief syntaxique mode 1"/>

@@ -11,8 +11,8 @@
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
         <GUIConfig name="CheckHistoryFiles">no</GUIConfig>
-        <GUIConfig name="TrayIcon">no</GUIConfig>
-        <GUIConfig name="MaitainIndent">yes</GUIConfig>
+        <GUIConfig name="TrayIcon">0</GUIConfig>
+        <GUIConfig name="MaintainIndent">1</GUIConfig>
         <GUIConfig name="TagsMatchHighLight" TagAttrHighLight="yes" HighLightNonHtmlZone="no">yes</GUIConfig>
         <GUIConfig name="RememberLastSession">yes</GUIConfig>
         <GUIConfig name="DetectEncoding">yes</GUIConfig>

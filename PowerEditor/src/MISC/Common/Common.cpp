@@ -1905,6 +1905,7 @@ bool doesPathExist(const wchar_t* path, DWORD milliSec2wait, bool* isTimeoutReac
 	return (attributes.dwFileAttributes != INVALID_FILE_ATTRIBUTES);
 }
 
+
 #if defined(__GNUC__)
 #define LAMBDA_STDCALL __attribute__((__stdcall__))
 #else
@@ -1957,3 +1958,62 @@ bool isWindowVisibleOnAnyMonitor(const RECT& rectWndIn)
 	::EnumDisplayMonitors(NULL, &rectVirtualScreen, callback, reinterpret_cast<LPARAM>(&param4InOut));
 	return param4InOut.isWndVisibleOut;
 }
+
+#pragma warning(disable:4996) // 'GetVersionExW': was declared deprecated
+bool isCoreWindows()
+{
+	bool isCoreWindows = false;
+
+	// older Windows (Windows Server 2008 R2-) check 1st
+	OSVERSIONINFOEXW osviex{};
+	osviex.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXW);
+	if (::GetVersionEx(reinterpret_cast<LPOSVERSIONINFOW>(&osviex)))
+	{
+		DWORD dwReturnedProductType = 0;
+		if (::GetProductInfo(osviex.dwMajorVersion, osviex.dwMinorVersion, osviex.wServicePackMajor, osviex.wServicePackMinor, &dwReturnedProductType))
+		{
+			switch (dwReturnedProductType)
+			{
+				case PRODUCT_STANDARD_SERVER_CORE:
+				case PRODUCT_STANDARD_A_SERVER_CORE:
+				case PRODUCT_STANDARD_SERVER_CORE_V:
+				case PRODUCT_STANDARD_SERVER_SOLUTIONS_CORE:
+				case PRODUCT_SMALLBUSINESS_SERVER_PREMIUM_CORE:
+				case PRODUCT_ENTERPRISE_SERVER_CORE:
+				case PRODUCT_ENTERPRISE_SERVER_CORE_V:
+				case PRODUCT_DATACENTER_SERVER_CORE:
+				case PRODUCT_DATACENTER_A_SERVER_CORE:
+				case PRODUCT_DATACENTER_SERVER_CORE_V:
+				case PRODUCT_STORAGE_STANDARD_SERVER_CORE:
+				case PRODUCT_STORAGE_WORKGROUP_SERVER_CORE:
+				case PRODUCT_STORAGE_ENTERPRISE_SERVER_CORE:
+				case PRODUCT_STORAGE_EXPRESS_SERVER_CORE:
+				case PRODUCT_WEB_SERVER_CORE:
+					isCoreWindows = true;
+			}
+		}
+	}
+
+	if (!isCoreWindows)
+	{
+		// in Core Server 2012+, the recommended way to determine is via the Registry
+		HKEY hKey = nullptr;
+		if (::RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
+			0, KEY_READ, &hKey) == ERROR_SUCCESS)
+		{
+			constexpr size_t bufLen = 127;
+			wchar_t wszBuf[bufLen + 1]{}; // +1 ... to be always NULL-terminated string
+			DWORD dataSize = sizeof(wchar_t) * bufLen;
+			if (::RegQueryValueExW(hKey, L"InstallationType", nullptr, nullptr, reinterpret_cast<LPBYTE>(&wszBuf), &dataSize) == ERROR_SUCCESS)
+			{
+				if (lstrcmpiW(wszBuf, L"Server Core") == 0)
+					isCoreWindows = true;
+			}
+			::RegCloseKey(hKey);
+			hKey = nullptr;
+		}
+	}
+
+	return isCoreWindows;
+}
+#pragma warning(default:4996)

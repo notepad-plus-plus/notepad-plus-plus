@@ -154,7 +154,7 @@ intptr_t CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LP
         case WM_INITDIALOG:
         {
             _pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_WEB_HELP_LINK), L"https://ivan-radic.github.io/udl-documentation/");
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_WEB_HELP_LINK), L"https://npp-user-manual.org/docs/user-defined-language-system/");
             return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
         }
 

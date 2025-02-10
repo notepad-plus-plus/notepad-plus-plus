@@ -2192,7 +2192,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_UNFOLD_CURRENT:
 		{
 			bool isToggleEnabled = NppParameters::getInstance().getNppGUI()._enableFoldCmdToggable;
-			bool mode = id == IDM_VIEW_FOLD_CURRENT ? fold_collapse : fold_uncollapse;
+			bool mode = id == IDM_VIEW_FOLD_CURRENT ? folding_fold : folding_unfold;
 
 			intptr_t headerLine = _pEditView->getHeaderLine();
 			if (headerLine != -1)
@@ -2200,7 +2200,7 @@ void Notepad_plus::command(int id)
 				if (isToggleEnabled)
 				{
 					bool isFolded = _pEditView->isCurrentLineFolded(headerLine);
-					mode = isFolded ? fold_uncollapse : fold_collapse;
+					mode = isFolded ? folding_unfold : folding_fold;
 				}
 
 				_pEditView->foldCurrentPos(headerLine, mode);
@@ -2212,11 +2212,11 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_UNFOLDALL:
 		{
 			_isFolding = true; // So we can ignore events while folding is taking place
-			bool doCollapse = (id==IDM_VIEW_FOLDALL)?fold_collapse:fold_uncollapse;
- 			_pEditView->foldAll(doCollapse);
+			bool doFold = (id == IDM_VIEW_FOLDALL) ? folding_fold : folding_unfold;
+ 			_pEditView->foldAll(doFold);
 			if (_pDocMap)
 			{
-				_pDocMap->foldAll(doCollapse);
+				_pDocMap->foldAll(doFold);
 			}
 			_isFolding = false;
 		}
@@ -2231,7 +2231,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_FOLD_7:
 		case IDM_VIEW_FOLD_8:
 			_isFolding = true; // So we can ignore events while folding is taking place
- 			_pEditView->collapse(id - IDM_VIEW_FOLD - 1, fold_collapse);
+ 			_pEditView->collapse(id - IDM_VIEW_FOLD - 1, folding_fold);
 			_isFolding = false;
 			break;
 
@@ -2244,7 +2244,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_UNFOLD_7:
 		case IDM_VIEW_UNFOLD_8:
 			_isFolding = true; // So we can ignore events while folding is taking place
- 			_pEditView->collapse(id - IDM_VIEW_UNFOLD - 1, fold_uncollapse);
+ 			_pEditView->collapse(id - IDM_VIEW_UNFOLD - 1, folding_unfold);
 			_isFolding = false;
 			break;
 

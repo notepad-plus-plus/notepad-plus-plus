@@ -89,9 +89,8 @@ const int CP_GREEK = 1253;
 #define LIST_7 128
 #define LIST_8 256
 
-const size_t fold_toggle = SC_FOLDACTION_TOGGLE;
-const bool fold_uncollapse = true;
-const bool fold_collapse = false;
+const bool folding_unfold = true;
+const bool folding_fold = false;
 #define MAX_FOLD_COLLAPSE_LEVEL	8
 
 #define MODEVENTMASK_OFF 0
@@ -781,7 +780,7 @@ public:
 	};
 
 	bool isFoldIndentationBased() const;
-	intptr_t getHeaderLine(intptr_t currentLine = -1) const noexcept;
+	intptr_t getHeaderLine(intptr_t line = -1) const noexcept;
 	void collapseFoldIndentationBased(int level2Collapse, bool mode);
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(size_t mode, bool isNotify = true);

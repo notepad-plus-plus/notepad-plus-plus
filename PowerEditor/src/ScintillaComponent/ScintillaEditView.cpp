@@ -2480,7 +2480,7 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 		if (mask & BufferChangeLanguage)
 		{
 			defineDocType(buffer->getLangType());
-			foldAll(fold_uncollapse);
+			foldAll(folding_unfold);
 		}
 
 		if (mask & BufferChangeLexing)
@@ -2554,16 +2554,16 @@ struct FoldLevelStack
 
 }
 
-intptr_t ScintillaEditView::getHeaderLine(intptr_t currentLine/* = -1*/) const noexcept
+intptr_t ScintillaEditView::getHeaderLine(intptr_t line/* = -1*/) const noexcept
 {
-	auto currentLine2 = (currentLine == -1) ? getCurrentLineNumber() : currentLine;
+	auto l = (line == -1) ? getCurrentLineNumber() : line;
 	intptr_t headerLine;
-	auto level = execute(SCI_GETFOLDLEVEL, currentLine2);
+	auto level = execute(SCI_GETFOLDLEVEL, l);
 
 	if (level & SC_FOLDLEVELHEADERFLAG)
-		headerLine = currentLine2;
+		headerLine = l;
 	else
-		headerLine = execute(SCI_GETFOLDPARENT, currentLine2);
+		headerLine = execute(SCI_GETFOLDPARENT, l);
 
 	return headerLine;
 }

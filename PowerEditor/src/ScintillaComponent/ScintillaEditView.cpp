@@ -326,12 +326,12 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	}
 	else
 	{
-		// allow IDC_CHECK_DIRECTWRITE_ENABLE to be set in Preferences > MISC. again
+		// allow IDC_COMBO_SC_TECHNOLOGY_CHOICE to be set in Preferences > MISC. again
 		if (nppGui._writeTechnologyEngine == directWriteTechnologyUnavailable)
 			nppGui._writeTechnologyEngine = defaultTechnology;
 	}
 
-	if (nppGui._writeTechnologyEngine > defaultTechnology)
+	if ((nppGui._writeTechnologyEngine > defaultTechnology) && (nppGui._writeTechnologyEngine < directWriteTechnologyUnavailable))
 	{
 		execute(SCI_SETTECHNOLOGY, nppGui._writeTechnologyEngine);
 		// If useDirectWrite is turned off, leave the technology setting untouched,

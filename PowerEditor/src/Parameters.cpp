@@ -6223,6 +6223,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._writeTechnologyEngine = directWriteRetainTechnology;
 				else if (lstrcmp(optNameWriteTechnologyEngine, L"3") == 0)
 					_nppGUI._writeTechnologyEngine = directWriteDcTechnology;
+				else if (lstrcmp(optNameWriteTechnologyEngine, L"4") == 0)
+					_nppGUI._writeTechnologyEngine = directWriteTechnologyUnavailable;
 				//else
 					// retain default value preset
 			}

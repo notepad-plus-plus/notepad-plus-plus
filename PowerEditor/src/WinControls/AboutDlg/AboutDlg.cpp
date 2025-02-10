@@ -251,6 +251,9 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				case directWriteDcTechnology:
 					_debugInfoStr += L"SC_TECHNOLOGY_DIRECTWRITEDC (3)";
 					break;
+				case directWriteTechnologyUnavailable:
+					_debugInfoStr += L"DirectWrite Technology Unavailable (4, same as SC_TECHNOLOGY_DEFAULT)";
+					break;
 				default:
 					_debugInfoStr += L"unknown (" + std::to_wstring(nppGui._writeTechnologyEngine) + L")";
 			}

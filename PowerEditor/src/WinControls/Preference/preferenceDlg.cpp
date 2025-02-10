@@ -2494,8 +2494,8 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 			if ((nppGUI._writeTechnologyEngine < 0) || (nppGUI._writeTechnologyEngine > directWriteTechnologyUnavailable))
 				nppGUI._writeTechnologyEngine = directWriteTechnology;
-      
-      if (nppGUI._writeTechnologyEngine != directWriteTechnologyUnavailable)
+
+			if (nppGUI._writeTechnologyEngine != directWriteTechnologyUnavailable)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_SETCURSEL, nppGUI._writeTechnologyEngine, 0);
 			}

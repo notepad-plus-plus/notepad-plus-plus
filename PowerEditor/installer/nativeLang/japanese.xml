@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.5">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -827,6 +827,7 @@ Translation note:
 				<Folder title="デフォルト・折り畳み設定">
 					<Item id="21101" name="デフォルトスタイル設定"/>
 					<Item id="21102" name="スタイル設定"/>
+					<Item id="21103" name="ユーザー定義についてのオンラインヘルプ"/>
 					<Item id="21105" name="ドキュメンテーション"/>
 					<Item id="21106" name="コンパクトに畳む(空行を含む)(&amp;C)"/>
 					<Item id="21220" name="スタイル1で畳む"/>

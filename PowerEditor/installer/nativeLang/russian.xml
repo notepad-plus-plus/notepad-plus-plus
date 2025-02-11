@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.6:
+Updated to v8.7.8:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -827,8 +827,8 @@ Updated to v8.7.6:
 				<Item id="20009" name="Расшир.:"/>
 				<Item id="20012" name="Любой регистр"/>
 				<Item id="20011" name="Прозрачность"/>
-				<Item id="20015" name="Импортир..."/>
-				<Item id="20016" name="Экспортир..."/>
+				<Item id="20015" name="Импорт..."/>
+				<Item id="20016" name="Экспорт..."/>
 				<Item id="20017" name="Открепить"/>
 				<StylerDialog title="Настройки Стиля">
 					<Item id="1" name="О&amp;К"/>
@@ -869,6 +869,7 @@ Updated to v8.7.6:
 				<Folder title="Стандартный">
 					<Item id="21101" name="Стиль по умолчанию"/>
 					<Item id="21102" name="Настроить"/>
+					<Item id="21103" name="Онлайн-помощь по польз. языкам"/>
 					<Item id="21104" name="Сайт документации: "/>
 					<Item id="21105" name="Документация:"/>
 					<Item id="21106" name="Компакт. свёрт. (пустые линии тоже)"/>

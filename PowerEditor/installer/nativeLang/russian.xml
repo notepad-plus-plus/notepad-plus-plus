@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.6:
+Updated to v8.7.8:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.6">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -827,8 +827,8 @@ Updated to v8.7.6:
 				<Item id="20009" name="Расшир.:"/>
 				<Item id="20012" name="Любой регистр"/>
 				<Item id="20011" name="Прозрачность"/>
-				<Item id="20015" name="Импортир..."/>
-				<Item id="20016" name="Экспортир..."/>
+				<Item id="20015" name="Импорт..."/>
+				<Item id="20016" name="Экспорт..."/>
 				<Item id="20017" name="Открепить"/>
 				<StylerDialog title="Настройки Стиля">
 					<Item id="1" name="О&amp;К"/>
@@ -869,6 +869,7 @@ Updated to v8.7.6:
 				<Folder title="Стандартный">
 					<Item id="21101" name="Стиль по умолчанию"/>
 					<Item id="21102" name="Настроить"/>
+					<Item id="21103" name="Онлайн-помощь по польз. языкам"/>
 					<Item id="21104" name="Сайт документации: "/>
 					<Item id="21105" name="Документация:"/>
 					<Item id="21106" name="Компакт. свёрт. (пустые линии тоже)"/>
@@ -1261,6 +1262,12 @@ Updated to v8.7.6:
 						<Element name="Закрыть"/>
 						<Element name="Свернуть / Закрыть"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (наиболее совместимый)"/>
+						<Element name="DirectWrite (по умолчанию)"/>
+						<Element name="DirectWrite (сохранить кадры)"/>
+						<Element name="DirectWrite (отображать GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="в системный трей"/>
 					<Item id="6312" name="Отслеживание Изменений в Файлах"/>
 					<Item id="6313" name="Обновлять не спрашивая"/>
@@ -1276,9 +1283,9 @@ Updated to v8.7.6:
 					<Item id="6344" name="Предосмотр Документа"/>
 					<Item id="6345" name="Миниатюра под Вкладкой"/>
 					<Item id="6346" name="Отображать в Карте Документа"/>
-					<Item id="6349" name="Использ. DirectWrite (может улучшить отображение спецсимволов, необходим перезапуск)"/>
 					<Item id="6360" name="Отключить все звуки"/>
 					<Item id="6361" name="Запрашивать подтверждение для команды 'Сохранить Все'"/>
+					<Item id="6363" name="режим визуализации"/>
 				</MISC>
 				<MultiInstance title="Режим Откр. и Дата">
 					<Item id="6151" name="Режим Открытия Файлов*"/>
@@ -1829,6 +1836,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 
 Если редактируемые файлы не на вышеупомянутых языках, тогда отступы будут производиться в 'Базовом' режиме."/>
 			<global-override-tip value="Использование &quot;Global override&quot; влияет на все стили языков без исключения, замещая их настройки своими.&#x0A;Возможно, вместо этого вам будет удобнее использовать настройки &quot;Default Style&quot;."/>
+			<scintillaRenderingTechnology-tip value="Может улучшить отображение специальных символов или решить некоторые проблемы с графикой. Перезапустите Notepad++, чтобы изменения вступили в силу."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

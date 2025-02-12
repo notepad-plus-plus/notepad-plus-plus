@@ -1719,7 +1719,7 @@ void ScintillaEditView::setLanguage(LangType langType)
 {
 	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 
-	if (_currentBuffer->getLastLangType() != -1)
+	if (_currentBuffer->getLastLangType() > 0)
 	{
 		saveCurrentPos();
 		Document prev = execute(SCI_GETDOCPOINTER);
@@ -2336,7 +2336,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	_currentBufferID = buffer;	//the magical switch happens here
 	_currentBuffer = newBuf;
 
-	const bool isSameLangType = (_prevBuffer != nullptr) && (_prevBuffer->getLangType() == _currentBuffer->getLangType());
+	const bool isSameLangType = (_prevBuffer != nullptr) && (_prevBuffer->getLangType() == _currentBuffer->getLangType()) &&
+		(_currentBuffer->getLangType() != L_USER ||	wcscmp(_prevBuffer->getUserDefineLangName(), _currentBuffer->getUserDefineLangName()) == 0);
+
 	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
 	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt);
 

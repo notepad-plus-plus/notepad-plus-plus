@@ -173,6 +173,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		File ".\APIs\raku.xml"
 	${MementoSectionEnd}
 
+	${MementoSection} "SAS" SAS
+		SetOutPath "$INSTDIR\autoCompletion"
+		File ".\APIs\sas.xml"
+	${MementoSectionEnd}
+
 SectionGroupEnd
 
 
@@ -300,6 +305,10 @@ SectionGroup un.autoCompletionComponent
 
 	Section un.Raku
 		Delete "$INSTDIR\autoCompletion\raku.xml"
+	SectionEnd
+
+	Section un.SAS
+		Delete "$INSTDIR\autoCompletion\sas.xml"
 	SectionEnd
 
 SectionGroupEnd

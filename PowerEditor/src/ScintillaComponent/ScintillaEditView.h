@@ -1270,6 +1270,10 @@ protected:
 		setLexer(L_TOML, LIST_0);
 	};
 
+	void setSasLexer(){
+		setLexer(L_SAS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {

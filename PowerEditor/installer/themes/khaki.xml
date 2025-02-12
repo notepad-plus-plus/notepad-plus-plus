@@ -742,7 +742,7 @@ Installation:
             <WordsStyle name="POD" styleID="3" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="POD VERBATIM" styleID="31" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="ERROR" styleID="1" fgColor="d700d7" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
-       </LexerType>
+        </LexerType>
         <LexerType name="php" desc="php" ext="">
             <WordsStyle name="QUESTION MARK" styleID="18" fgColor="af5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="118" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
@@ -921,6 +921,21 @@ Installation:
             <WordsStyle name="DATA SECTION" styleID="19" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING Q" styleID="24" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="BOOLEAN" styleID="25" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+        </LexerType>
+        <LexerType name="sas" desc="SAS" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="COMMENT BLOCK" styleID="3" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="005f00" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="5" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="6" fgColor="000087" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="7" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="MACRO" styleID="11" fgColor="000087" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="MACRO KEYWORD" styleID="12" fgColor="000087" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="MACRO FUNCTION" styleID="14" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+            <WordsStyle name="FUNCTION" styleID="13" fgColor="5F5F00" bgColor="D7D7AF" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="STATEMENT" styleID="15" fgColor="87005f" bgColor="d7d7af" fontName="" fontStyle="" fontSize="" keywordClass="type2" />
         </LexerType>
         <LexerType name="scheme" desc="Scheme" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />

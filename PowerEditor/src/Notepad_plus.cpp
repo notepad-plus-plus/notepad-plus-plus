@@ -4084,6 +4084,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_RAKU;
         case IDM_LANG_TOML:
             return L_TOML;
+        case IDM_LANG_SAS:
+            return L_SAS;
         case IDM_LANG_USER:
             return L_USER;
 		default:

@@ -320,8 +320,16 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		isWINE = ::GetProcAddress(hNtdllModule, "wine_get_version");
 
 	if (isWINE || // There is a performance issue under WINE when DirectWrite is ON, so we turn it off if user uses Notepad++ under WINE
-		::IsWindowsServer()) // In the case of Windows Server Core, DirectWrite cannot be on.
-		nppGui._writeTechnologyEngine = defaultTechnology;
+		isCoreWindows()) // In the case of Windows Server Core, DirectWrite cannot be on.
+	{
+		nppGui._writeTechnologyEngine = directWriteTechnologyUnavailable;
+	}
+	else
+	{
+		// allow IDC_CHECK_DIRECTWRITE_ENABLE to be set in Preferences > MISC. again
+		if (nppGui._writeTechnologyEngine == directWriteTechnologyUnavailable)
+			nppGui._writeTechnologyEngine = defaultTechnology;
+	}
 
 	if (nppGui._writeTechnologyEngine == directWriteTechnology)
 	{
@@ -546,6 +554,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				SHORT ctrl = GetKeyState(VK_CONTROL);
 				SHORT alt = GetKeyState(VK_MENU);
 				SHORT shift = GetKeyState(VK_SHIFT);
+
 				if (!(shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // DEL & Multi-edit
 				{
 					size_t nbSelections = execute(SCI_GETSELECTIONS);
@@ -568,6 +577,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 								char eolStr[3] = { '\0' };
 								Sci_TextRangeFull tr{};
+
 								tr.chrg.cpMin = posStart;
 								tr.chrg.cpMax = posEnd + 2;
 								if (tr.chrg.cpMax > static_cast<Sci_Position>(docLen))
@@ -1711,7 +1721,7 @@ void ScintillaEditView::setLanguage(LangType langType)
 {
 	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 
-	if (_currentBuffer->getLastLangType() != -1)
+	if (_currentBuffer->getLastLangType() > 0)
 	{
 		saveCurrentPos();
 		Document prev = execute(SCI_GETDOCPOINTER);
@@ -2328,7 +2338,9 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	_currentBufferID = buffer;	//the magical switch happens here
 	_currentBuffer = newBuf;
 
-	const bool isSameLangType = (_prevBuffer != nullptr) && (_prevBuffer->getLangType() == _currentBuffer->getLangType());
+	const bool isSameLangType = (_prevBuffer != nullptr) && (_prevBuffer->getLangType() == _currentBuffer->getLangType()) &&
+		(_currentBuffer->getLangType() != L_USER ||	wcscmp(_prevBuffer->getUserDefineLangName(), _currentBuffer->getUserDefineLangName()) == 0);
+
 	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
 	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt);
 
@@ -2480,7 +2492,7 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 		if (mask & BufferChangeLanguage)
 		{
 			defineDocType(buffer->getLangType());
-			foldAll(folding_unfold);
+			foldAll(fold_expand);
 		}
 
 		if (mask & BufferChangeLexing)

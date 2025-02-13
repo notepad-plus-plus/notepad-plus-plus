@@ -89,8 +89,9 @@ const int CP_GREEK = 1253;
 #define LIST_7 128
 #define LIST_8 256
 
-const bool folding_unfold = true;
-const bool folding_fold = false;
+const bool fold_expand = true;
+const bool fold_collapse = false;
+
 #define MAX_FOLD_COLLAPSE_LEVEL	8
 
 #define MODEVENTMASK_OFF 0

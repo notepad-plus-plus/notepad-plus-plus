@@ -546,14 +546,15 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				MultiCaretInfo(int len, size_t n) : _len2remove(len), _selIndex(n) {};
 			};
 
-			SHORT ctrl = GetKeyState(VK_CONTROL);
-			SHORT alt = GetKeyState(VK_MENU);
-			SHORT shift = GetKeyState(VK_SHIFT);
 			bool isColumnSelection = (execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE) || (execute(SCI_GETSELECTIONMODE) == SC_SEL_THIN);
 			bool column2MultSelect = (NppParameters::getInstance()).getSVP()._columnSel2MultiEdit;
 
 			if (wParam == VK_DELETE)
 			{
+				SHORT ctrl = GetKeyState(VK_CONTROL);
+				SHORT alt = GetKeyState(VK_MENU);
+				SHORT shift = GetKeyState(VK_SHIFT);
+
 				if (!(shift & 0x8000) && !(ctrl & 0x8000) && !(alt & 0x8000)) // DEL & Multi-edit
 				{
 					size_t nbSelections = execute(SCI_GETSELECTIONS);
@@ -574,8 +575,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 							{
 								size_t docLen = getCurrentDocLen();
 
-								char eolStr[3];
-								Sci_TextRangeFull tr;
+								char eolStr[3] = { '\0' };
+								Sci_TextRangeFull tr {};
 								tr.chrg.cpMin = posStart;
 								tr.chrg.cpMax = posEnd + 2;
 								if (tr.chrg.cpMax > static_cast<Sci_Position>(docLen))
@@ -2464,7 +2465,7 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 		if (mask & BufferChangeLanguage)
 		{
 			defineDocType(buffer->getLangType());
-			foldAll(fold_uncollapse);
+			foldAll(fold_expand);
 		}
 
 		if (mask & BufferChangeLexing)

@@ -2385,12 +2385,6 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	_currentBuffer->setLastLangType(currentLangInt);
 
 	setWordChars();
-
-	if (_currentBuffer->getNeedsLexing())
-	{
-		restyleBuffer();
-	}
-
 	maintainStateForNpc();
 
 	// Everything should be updated, but the language

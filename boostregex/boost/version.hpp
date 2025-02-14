@@ -27,6 +27,6 @@
 //  number, y is the minor version number, and z is the patch level if not 0.
 //  This is used by <config/auto_link.hpp> to select which library version to link to.
 
-#define BOOST_LIB_VERSION "1_85"
+#define BOOST_LIB_VERSION "1_666"
 
 #endif

@@ -25,6 +25,8 @@ SRC_EXCLUDE := $(SRC_DIRECTORY)/tools/%
 BIN_DIRECTORY := ../bin
 INSTALLER_DIRECTORY := ../installer
 
+PREBUILD_EVENT_CMD := ../src/NppLibsVersionH-generator.bat
+
 TARGET_BINARY := notepad++.exe
 SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml tabContextMenu_example.xml toolbarIcons.xml
 BIN_DATA := change.log doLocalConf.xml nppLogNulContentCorruptionIssue.xml readme.txt userDefineLangs/
@@ -230,8 +232,12 @@ RC_TARGETS := $(patsubst %.rc,$(BUILD_DIRECTORY)/%.res,$(sort $(filter %.rc,$(GC
 
 SUBMAKEFLAGS += $(if $(NUMBER_OF_PROCESSORS),-j$(NUMBER_OF_PROCESSORS),)
 
-all: $(SCINTILLA_TARGET) $(LEXILLA_TARGET)
+all: pre-build-event $(SCINTILLA_TARGET) $(LEXILLA_TARGET)
 	$(AT)$(MAKE) -f $(firstword $(MAKEFILE_LIST)) $(SUBMAKEFLAGS) binary
+
+pre-build-event:
+	@echo Executing pre-build events...
+	$(AT)$(call normalize-path,$(PREBUILD_EVENT_CMD))
 
 $(BUILD_DIRECTORY):
 	@echo + creating BUILD_DIRECTORY $@

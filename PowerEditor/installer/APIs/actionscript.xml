@@ -24,6 +24,7 @@
 		<KeyWord name="appendChild" />
 		<KeyWord name="apply" />
 		<KeyWord name="arguments" />
+		<KeyWord name="ArgumentError" />
 		<KeyWord name="arguments.callee" />
 		<KeyWord name="arguments.caller" />
 		<KeyWord name="Array" />
@@ -69,6 +70,7 @@
 		<KeyWord name="charCodeAt" />
 		<KeyWord name="childNodes" />
 		<KeyWord name="chr" />
+		<KeyWord name="Class" />
 		<KeyWord name="clear" />
 		<KeyWord name="clearInterval" />
 		<KeyWord name="cloneNode" />
@@ -98,7 +100,10 @@
 		<KeyWord name="Date" />
 		<KeyWord name="Date.UTC" />
 		<KeyWord name="decode" />
+		<KeyWord name="decodeURI" />
+		<KeyWord name="decodeURIComponent" />
 		<KeyWord name="default" />
+		<KeyWord name="DefinitionError" />
 		<KeyWord name="delete" />
 		<KeyWord name="DELETEKEY" />
 		<KeyWord name="do" />
@@ -112,14 +117,18 @@
 		<KeyWord name="else" />
 		<KeyWord name="embedFonts" />
 		<KeyWord name="enabled" />
+		<KeyWord name="encodeURI" />
+		<KeyWord name="encodeURIComponent" />
 		<KeyWord name="END" />
 		<KeyWord name="endFill" />
 		<KeyWord name="ENTER" />
 		<KeyWord name="enterFrame" />
 		<KeyWord name="eq" />
+		<KeyWord name="Error" />
 		<KeyWord name="escape" />
 		<KeyWord name="ESCAPE" />
 		<KeyWord name="eval" />
+		<KeyWord name="EvalError" />
 		<KeyWord name="evaluate" />
 		<KeyWord name="exp" />
 		<KeyWord name="false" />
@@ -133,6 +142,7 @@
 		<KeyWord name="fscommand" />
 		<KeyWord name="FStyleFormat" />
 		<KeyWord name="function" />
+		<KeyWord name="Function" />
 		<KeyWord name="ge" />
 		<KeyWord name="get" />
 		<KeyWord name="getAscii" />
@@ -223,9 +233,10 @@
 		<KeyWord name="isPropertyEnumerable" />
 		<KeyWord name="isPrototypeOf" />
 		<KeyWord name="isToggled" />
+		<KeyWord name="isXMLName" />
 		<KeyWord name="italic" />
-		<KeyWord name="john@3wgraphics.net" />
 		<KeyWord name="join" />
+		<KeyWord name="JSON" />
 		<KeyWord name="Key" />
 		<KeyWord name="Key.ALT" />
 		<KeyWord name="Key.BACKSPACE" />
@@ -332,6 +343,7 @@
 		<KeyWord name="moveTo" />
 		<KeyWord name="MovieClip" />
 		<KeyWord name="multiline" />
+		<KeyWord name="Namespace" />
 		<KeyWord name="NaN" />
 		<KeyWord name="ne" />
 		<KeyWord name="NEGATIVE_INFINITY" />
@@ -413,9 +425,13 @@
 		<KeyWord name="prototype" />
 		<KeyWord name="publish" />
 		<KeyWord name="push" />
+		<KeyWord name="QName" />
 		<KeyWord name="random" />
+		<KeyWord name="RangeError" />
 		<KeyWord name="receiveAudio" />
 		<KeyWord name="receiveVideo" />
+		<KeyWord name="ReferenceError" />
+		<KeyWord name="RegExp" />
 		<KeyWord name="registerClass" />
 		<KeyWord name="release" />
 		<KeyWord name="releaseOutside" />
@@ -440,6 +456,7 @@
 		<KeyWord name="scroll" />
 		<KeyWord name="scrollString" />
 		<KeyWord name="security" />
+		<KeyWord name="SecurityError" />
 		<KeyWord name="seek" />
 		<KeyWord name="selectable" />
 		<KeyWord name="Selection" />
@@ -532,6 +549,7 @@
 		<KeyWord name="super" />
 		<KeyWord name="swapDepths" />
 		<KeyWord name="switch" />
+		<KeyWord name="SyntaxError" />
 		<KeyWord name="System" />
 		<KeyWord name="System.capabilities" />
 		<KeyWord name="System.capabilities.hasAccessibility" />
@@ -577,7 +595,9 @@
 		<KeyWord name="trackAsMenu" />
 		<KeyWord name="true" />
 		<KeyWord name="type" />
+		<KeyWord name="TypeError" />
 		<KeyWord name="typeof" />
+		<KeyWord name="uint" />
 		<KeyWord name="undefined" />
 		<KeyWord name="underline" />
 		<KeyWord name="unescape" />
@@ -589,12 +609,15 @@
 		<KeyWord name="unwatch" />
 		<KeyWord name="UP" />
 		<KeyWord name="updateAfterEvent" />
+		<KeyWord name="URIError" />
 		<KeyWord name="url" />
 		<KeyWord name="useHandCursor" />
 		<KeyWord name="UTC" />
 		<KeyWord name="valueOf" />
 		<KeyWord name="var" />
 		<KeyWord name="variable" />
+		<KeyWord name="Vector" />
+		<KeyWord name="VerifyError" />
 		<KeyWord name="version" />
 		<KeyWord name="Video" />
 		<KeyWord name="void" />
@@ -605,6 +628,7 @@
 		<KeyWord name="wordWrap" />
 		<KeyWord name="XML" />
 		<KeyWord name="xmlDecl" />
+		<KeyWord name="XMLList" />
 		<KeyWord name="XMLNode" />
 		<KeyWord name="XMLSocket" />
 		<KeyWord name="_alpha" />

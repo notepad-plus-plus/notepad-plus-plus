@@ -68,8 +68,6 @@ typedef void * SCINTILLA_PTR;
 #define WM_FINDINPROJECTS           (SCINTILLA_USER + 15)
 #define WM_REPLACEINPROJECTS        (SCINTILLA_USER + 16)
 
-const int NB_FOLDER_STATE = 7;
-
 // Codepage
 const int CP_CHINESE_TRADITIONAL = 950;
 const int CP_CHINESE_SIMPLIFIED = 936;
@@ -89,9 +87,13 @@ const int CP_GREEK = 1253;
 #define LIST_7 128
 #define LIST_8 256
 
+
 const bool fold_expand = true;
 const bool fold_collapse = false;
+
+const int NB_FOLDER_STATE = 7;
 #define MAX_FOLD_COLLAPSE_LEVEL	8
+#define MAX_FOLD_LINES_MORE_THAN 99
 
 #define MODEVENTMASK_OFF 0
 
@@ -454,8 +456,7 @@ public:
 
 	void activateBuffer(BufferID buffer, bool force);
 
-	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
-	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
+
 
 	void getText(char *dest, size_t start, size_t end) const;
 	void getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end) const;
@@ -740,8 +741,6 @@ public:
 	void updateLineNumberWidth();
 	void performGlobalStyles();
 
-	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);
-
 	std::pair<size_t, size_t> getSelectionLinesRange(intptr_t selectionNumber = -1) const;
     void currentLinesUp() const;
     void currentLinesDown() const;
@@ -775,14 +774,18 @@ public:
 			::MessageBox(_hSelf, L"This function needs a newer OS version.", L"Change Case Error", MB_OK | MB_ICONHAND);
 	};
 
+	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
+	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 	bool isFoldIndentationBased() const;
-	void collapseFoldIndentationBased(int level2Collapse, bool mode);
-	void collapse(int level2Collapse, bool mode);
+	void foldIndentationBasedLevel(int level, bool mode);
+	void foldLevel(int level, bool mode);
 	void foldAll(bool mode);
-	void fold(size_t line, bool mode);
+	void fold(size_t line, bool mode, bool shouldBeNotified = true);
 	bool isFolded(size_t line) const {
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
+	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);
+
 	bool isCurrentLineFolded() const;
 	void foldCurrentPos(bool mode);
 	int getCodepage() const {return _codepage;};
@@ -810,33 +813,13 @@ public:
 	void styleChange();
 
 	void hideLines();
-
-	bool markerMarginClick(intptr_t lineNumber);	//true if it did something
-	void notifyMarkers(Buffer * buf, bool isHide, size_t location, bool del);
-	void runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete);
+	bool hidelineMarkerClicked(intptr_t lineNumber);	//true if it did something
+	void notifyHidelineMarkers(Buffer * buf, bool isHide, size_t location, bool del);
+	void hideMarkedLines(size_t searchStart, bool endOfDoc);
+	void showHiddenLines(size_t searchStart, bool endOfDoc, bool doDelete);
 	void restoreHiddenLines();
 
 	bool hasSelection() const { return !execute(SCI_GETSELECTIONEMPTY); };
-
-	bool isSelecting() const {
-		static Sci_CharacterRangeFull previousSelRange = getSelection();
-		Sci_CharacterRangeFull currentSelRange = getSelection();
-
-		if (currentSelRange.cpMin == currentSelRange.cpMax)
-		{
-			previousSelRange = currentSelRange;
-			return false;
-		}
-
-		if ((previousSelRange.cpMin == currentSelRange.cpMin) || (previousSelRange.cpMax == currentSelRange.cpMax))
-		{
-			previousSelRange = currentSelRange;
-			return true;
-		}
-
-		previousSelRange = currentSelRange;
-		return false;
-	};
 
 	bool isPythonStyleIndentation(LangType typeDoc) const{
 		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\

@@ -649,13 +649,13 @@ void Buffer::setHideLineChanged(bool isHide, size_t location)
 {
 	//First run through all docs without removing markers
 	for (int i = 0; i < _references; ++i)
-		_referees.at(i)->notifyMarkers(this, isHide, location, false); // (i == _references-1));
+		_referees.at(i)->notifyHidelineMarkers(this, isHide, location, false); // (i == _references-1));
 
 	if (!isHide) // no deleting if hiding lines
 	{
 		//Then all docs to remove markers.
 		for (int i = 0; i < _references; ++i)
-			_referees.at(i)->notifyMarkers(this, isHide, location, true);
+			_referees.at(i)->notifyHidelineMarkers(this, isHide, location, true);
 	}
 }
 

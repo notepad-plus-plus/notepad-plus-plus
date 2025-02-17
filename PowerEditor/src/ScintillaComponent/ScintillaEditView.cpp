@@ -2399,10 +2399,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	syncFoldStateWith(lineStateVectorNew);
 
 	restoreCurrentPosPreStep();
-
-	//runMarkers(true, 0, true, false);
 	restoreHiddenLines();
-
 	setCRLF();
 
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -2448,10 +2445,24 @@ void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVect
 void ScintillaEditView::syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew)
 {
 	size_t nbLineState = lineStateVectorNew.size();
-	for (size_t i = 0 ; i < nbLineState ; ++i)
+
+	if (nbLineState > 0)
 	{
-		auto line = lineStateVectorNew.at(i);
-		fold(line, false);
+		if (nbLineState > MAX_FOLD_LINES_MORE_THAN) // Block WM_SETREDRAW messages
+			::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
+
+		for (size_t i = 0; i < nbLineState; ++i)
+		{
+			auto line = lineStateVectorNew.at(i);
+			fold(line, fold_collapse, false);
+		}
+
+		if (nbLineState > MAX_FOLD_LINES_MORE_THAN)
+		{
+			::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+			execute(SCI_SCROLLCARET);
+			::InvalidateRect(_hSelf, nullptr, TRUE);
+		}
 	}
 }
 
@@ -2537,15 +2548,18 @@ struct FoldLevelStack
 
 }
 
-void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mode)
+void ScintillaEditView::foldIndentationBasedLevel(int level2Collapse, bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);
-
 	FoldLevelStack levelStack;
 	++level2Collapse; // 1-based level number
 
 	const intptr_t maxLine = execute(SCI_GETLINECOUNT);
 	intptr_t line = 0;
+
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
+	{
+		::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
+	}
 
 	while (line < maxLine)
 	{
@@ -2568,20 +2582,33 @@ void ScintillaEditView::collapseFoldIndentationBased(int level2Collapse, bool mo
 		++line;
 	}
 
-	runMarkers(true, 0, true, false);
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
+	{
+		::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+		execute(SCI_SCROLLCARET);
+		::InvalidateRect(_hSelf, nullptr, TRUE);
+	}
+
+	if (mode == fold_expand)
+		hideMarkedLines(0, true);
 }
 
-void ScintillaEditView::collapse(int level2Collapse, bool mode)
+
+void ScintillaEditView::foldLevel(int level2Collapse, bool mode)
 {
+
 	if (isFoldIndentationBased())
 	{
-		collapseFoldIndentationBased(level2Collapse, mode);
+		foldIndentationBasedLevel(level2Collapse, mode);
 		return;
 	}
 
-	execute(SCI_COLOURISE, 0, -1);
-
 	intptr_t maxLine = execute(SCI_GETLINECOUNT);
+
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
+	{
+		::SendMessage(_hSelf, WM_SETREDRAW, FALSE, 0);
+	}
 
 	for (int line = 0; line < maxLine; ++line)
 	{
@@ -2597,7 +2624,15 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 		}
 	}
 
-	runMarkers(true, 0, true, false);
+	if (maxLine > MAX_FOLD_LINES_MORE_THAN)
+	{
+		::SendMessage(_hSelf, WM_SETREDRAW, TRUE, 0);
+		execute(SCI_SCROLLCARET);
+		::InvalidateRect(_hSelf, nullptr, TRUE);
+	}
+
+	if (mode == fold_expand)
+		hideMarkedLines(0, true);
 }
 
 void ScintillaEditView::foldCurrentPos(bool mode)
@@ -2626,14 +2661,8 @@ bool ScintillaEditView::isCurrentLineFolded() const
 	return !isExpanded;
 }
 
-void ScintillaEditView::fold(size_t line, bool mode)
+void ScintillaEditView::fold(size_t line, bool mode, bool shouldBeNotified/* = true*/)
 {
-	auto endStyled = execute(SCI_GETENDSTYLED);
-	auto len = execute(SCI_GETTEXTLENGTH);
-
-	if (endStyled < len)
-		execute(SCI_COLOURISE, 0, -1);
-
 	intptr_t headerLine;
 	auto level = execute(SCI_GETFOLDLEVEL, line);
 
@@ -2650,27 +2679,27 @@ void ScintillaEditView::fold(size_t line, bool mode)
 	{
 		execute(SCI_TOGGLEFOLD, headerLine);
 
-		SCNotification scnN{};
-		scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
-		scnN.nmhdr.hwndFrom = _hSelf;
-		scnN.nmhdr.idFrom = 0;
-		scnN.line = headerLine;
-		scnN.foldLevelNow = isFolded(headerLine)?1:0; //folded:1, unfolded:0
-
-		::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
+		if (shouldBeNotified)
+		{
+			SCNotification scnN{};
+			scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
+			scnN.nmhdr.hwndFrom = _hSelf;
+			scnN.nmhdr.idFrom = 0;
+			scnN.line = headerLine;
+			scnN.foldLevelNow = isFolded(headerLine) ? 1 : 0; //folded:1, unfolded:0
+			::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
+		}
 	}
 }
 
 void ScintillaEditView::foldAll(bool mode)
 {
-	auto maxLine = execute(SCI_GETLINECOUNT);
+	execute(SCI_FOLDALL, (mode == fold_expand ? SC_FOLDACTION_EXPAND : SC_FOLDACTION_CONTRACT) | SC_FOLDACTION_CONTRACT_EVERY_LEVEL, 0);
 
-	for (int line = 0; line < maxLine; ++line)
+	if (mode == fold_expand)
 	{
-		auto level = execute(SCI_GETFOLDLEVEL, line);
-		if (level & SC_FOLDLEVELHEADERFLAG)
-			if (isFolded(line) != mode)
-				fold(line, mode);
+		hideMarkedLines(0, true);
+		execute(SCI_SCROLLCARET);
 	}
 }
 
@@ -3015,7 +3044,9 @@ void ScintillaEditView::marginClick(Sci_Position position, int modifiers)
 			// Toggle this line
 			bool mode = isFolded(lineClick);
 			fold(lineClick, !mode);
-			runMarkers(true, lineClick, true, false);
+
+			if (!mode == fold_expand) // after toggling
+				hideMarkedLines(lineClick, true);
 		}
 	}
 }
@@ -3067,7 +3098,8 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, intptr_t
 			++line;
 	}
 
-	runMarkers(true, 0, true, false);
+	if (doExpand)
+		hideMarkedLines(0, true);
 }
 
 
@@ -4015,19 +4047,21 @@ void ScintillaEditView::scrollPosToCenter(size_t pos)
 
 void ScintillaEditView::hideLines()
 {
-	//Folding can screw up hide lines badly if it unfolds a hidden section.
-	//Adding runMarkers(hide, foldstart) directly (folding on single document) can help
+	// Unfolding can screw up hide lines badly if it unfolds a hidden section.
+	// Using hideMarkedLines() after unfolding can help
 
-	//Special func on buffer. If markers are added, create notification with location of start, and hide bool set to true
 	size_t startLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONSTART));
 	size_t endLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONEND));
-	//perform range check: cannot hide very first and very last lines
-	//Offset them one off the edges, and then check if they are within the reasonable
+
+	// perform range check: cannot hide very first and very last lines
+	// Offset them one off the edges, and then check if they are within the reasonable
 	size_t nbLines = execute(SCI_GETLINECOUNT);
 	if (nbLines < 3)
 		return;	//cannot possibly hide anything
+
 	if (!startLine)
 		++startLine;
+
 	if (endLine == (nbLines-1))
 		--endLine;
 
@@ -4064,8 +4098,10 @@ void ScintillaEditView::hideLines()
 	// Previous markers must be removed in the selected region:
 
 	removeMarker(startMarker, 1 << MARK_HIDELINESBEGIN);
+
 	for (size_t i = startLine; i <= endLine; ++i)
 		removeMarker(i, (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND));
+	
 	removeMarker(endMarker, 1 << MARK_HIDELINESEND);
 
 	// When hiding lines just below/above other hidden lines,
@@ -4100,7 +4136,7 @@ void ScintillaEditView::hideLines()
 	_currentBuffer->setHideLineChanged(true, startMarker);
 }
 
-bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
+bool ScintillaEditView::hidelineMarkerClicked(intptr_t lineNumber)
 {
 	auto state = execute(SCI_MARKERGET, lineNumber);
 	bool openPresent = (state & (1 << MARK_HIDELINESBEGIN)) != 0;
@@ -4139,135 +4175,147 @@ bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 	return true;
 }
 
-void ScintillaEditView::notifyMarkers(Buffer * buf, bool isHide, size_t location, bool del)
+void ScintillaEditView::notifyHidelineMarkers(Buffer * buf, bool isHide, size_t location, bool del)
 {
 	if (buf != _currentBuffer)	//if not visible buffer dont do a thing
 		return;
-	runMarkers(isHide, location, false, del);
+
+	if (isHide)
+		hideMarkedLines(location, false);
+	else
+		showHiddenLines(location, false, del);
 }
 
 //Run through full document. When switching in or opening folding
 //hide is false only when user click on margin
-void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete)
-{
-	//Removes markers if opening
-	/*
-	AllLines = (start,ENDOFDOCUMENT)
-	Hide:
-		Run through all lines.
-			Find open hiding marker:
-				set hiding start
-			Find closing:
-				if (hiding):
-					Hide lines between now and start
-					if (endOfDoc = false)
-						return
-					else
-						search for other hidden sections
 
-	Show:
-		Run through all lines
-			Find open hiding marker
-				set last start
-			Find closing:
-				Show from last start. Stop.
-			Find closed folding header:
-				Show from last start to folding header
-				Skip to LASTCHILD
-				Set last start to lastchild
-	*/
+//Removes markers if opening
+/*
+AllLines = (start,ENDOFDOCUMENT)
+Hide:
+	Run through all lines.
+		Find open hiding marker:
+			set hiding start
+		Find closing:
+			if (hiding):
+				Hide lines between now and start
+				if (endOfDoc = false)
+					return
+				else
+					search for other hidden sections
+
+Show:
+	Run through all lines
+		Find open hiding marker
+			set last start
+		Find closing:
+			Show from last start. Stop.
+		Find closed folding header:
+			Show from last start to folding header
+			Skip to LASTCHILD
+			Set last start to lastchild
+*/
+	
+void ScintillaEditView::hideMarkedLines(size_t searchStart, bool toEndOfDoc)
+{
 	size_t maxLines = execute(SCI_GETLINECOUNT);
-	if (doHide)
+
+	auto startHiding = searchStart;
+	bool isInSection = false;
+
+	for (auto i = searchStart; i < maxLines; ++i)
 	{
-		auto startHiding = searchStart;
-		bool isInSection = false;
-		for (auto i = searchStart; i < maxLines; ++i)
+		auto state = execute(SCI_MARKERGET, i);
+		if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
 		{
-			auto state = execute(SCI_MARKERGET, i);
-			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
+			if (isInSection)
 			{
-				if (isInSection)
+				execute(SCI_HIDELINES, startHiding, i-1);
+				if (!toEndOfDoc)
 				{
-					execute(SCI_HIDELINES, startHiding, i-1);
-					if (!endOfDoc)
-					{
-						return;	//done, only single section requested
-					}	//otherwise keep going
-				}
+					return;	//done, only single section requested
+				}	//otherwise keep going
+			}
+			isInSection = false;
+		}
+
+		if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
+		{
+			isInSection = true;
+			startHiding = i+1;
+		}
+
+	}
+}
+	
+void ScintillaEditView::showHiddenLines(size_t searchStart, bool toEndOfDoc, bool doDelete)
+{
+	size_t maxLines = execute(SCI_GETLINECOUNT);
+
+	auto startShowing = searchStart;
+	bool isInSection = false;
+	for (auto i = searchStart; i < maxLines; ++i)
+	{
+		auto state = execute(SCI_MARKERGET, i);
+		if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
+		{
+			isInSection = true;
+			if (doDelete)
+			{
+				execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+			}
+			else
+			{
+				startShowing = i + 1;
+			}
+		}
+		else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
+		{
+			if (doDelete)
+			{
+				execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
+				if (!toEndOfDoc)
+				{
+					return;	//done, only single section requested
+				}	//otherwise keep going
 				isInSection = false;
 			}
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
+			else if (isInSection)
 			{
-				isInSection = true;
-				startHiding = i+1;
-			}
-
-		}
-	}
-	else
-	{
-		auto startShowing = searchStart;
-		bool isInSection = false;
-		for (auto i = searchStart; i < maxLines; ++i)
-		{
-			auto state = execute(SCI_MARKERGET, i);
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
-			{
-				isInSection = true;
-				if (doDelete)
-				{
-					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
-				}
-				else
-				{
-					startShowing = i + 1;
-				}
-			}
-			else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
-			{
-				if (doDelete)
-				{
-					execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
-					if (!endOfDoc)
+				if (startShowing >= i)
+				{	//because of fold skipping, we passed the close tag. In that case we cant do anything
+					if (!toEndOfDoc)
 					{
-						return;	//done, only single section requested
-					}	//otherwise keep going
-					isInSection = false;
-				}
-				else if (isInSection)
-				{
-					if (startShowing >= i)
-					{	//because of fold skipping, we passed the close tag. In that case we cant do anything
-						if (!endOfDoc)
-						{
-							return;
-						}
-						else
-						{
-							isInSection = false; // assume we passed the close tag
-							continue;
-						}
+						return;
 					}
-					execute(SCI_SHOWLINES, startShowing, i-1);
-					if (!endOfDoc)
+					else
 					{
-						return;	//done, only single section requested
-					}	//otherwise keep going
-					isInSection = false;
+						isInSection = false; // assume we passed the close tag
+						continue;
+					}
 				}
-			}
 
-			auto levelLine = execute(SCI_GETFOLDLEVEL, i, 0);
-			if (levelLine & SC_FOLDLEVELHEADERFLAG)
-			{	//fold section. Dont show lines if fold is closed
-				if (isInSection && !isFolded(i))
+				execute(SCI_SHOWLINES, startShowing, i-1);
+
+				if (!toEndOfDoc)
 				{
-					execute(SCI_SHOWLINES, startShowing, i);
-				}
+					return;	//done, only single section requested
+				}	//otherwise keep going
+				isInSection = false;
+			}
+		}
+
+		auto levelLine = execute(SCI_GETFOLDLEVEL, i, 0);
+		if (levelLine & SC_FOLDLEVELHEADERFLAG)
+		{	//fold section. Dont show lines if fold is closed
+			if (isInSection && !isFolded(i))
+			{
+				execute(SCI_SHOWLINES, startShowing, i);
 			}
 		}
 	}
 }
+
 
 void ScintillaEditView::restoreHiddenLines()
 {
@@ -4285,7 +4333,6 @@ void ScintillaEditView::restoreHiddenLines()
 			if (line != -1)
 			{
 				execute(SCI_HIDELINES, startHiding, line - 1);
-
 			}
 		}
 	}

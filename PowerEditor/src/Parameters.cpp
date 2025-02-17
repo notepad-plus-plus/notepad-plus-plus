@@ -6214,7 +6214,22 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			const wchar_t * optNameWriteTechnologyEngine = element->Attribute(L"writeTechnologyEngine");
 			if (optNameWriteTechnologyEngine)
-				_nppGUI._writeTechnologyEngine = (lstrcmp(optNameWriteTechnologyEngine, L"1") == 0) ? directWriteTechnology : defaultTechnology;
+			{
+				if (lstrcmp(optNameWriteTechnologyEngine, L"0") == 0)
+					_nppGUI._writeTechnologyEngine = defaultTechnology;
+				else if (lstrcmp(optNameWriteTechnologyEngine, L"1") == 0)
+					_nppGUI._writeTechnologyEngine = directWriteTechnology;
+				else if (lstrcmp(optNameWriteTechnologyEngine, L"2") == 0)
+					_nppGUI._writeTechnologyEngine = directWriteRetainTechnology;
+				else if (lstrcmp(optNameWriteTechnologyEngine, L"3") == 0)
+					_nppGUI._writeTechnologyEngine = directWriteDcTechnology;
+				else if (lstrcmp(optNameWriteTechnologyEngine, L"4") == 0)
+					_nppGUI._writeTechnologyEngine = directWriteDX11Technology;
+				else if (lstrcmp(optNameWriteTechnologyEngine, L"5") == 0)
+					_nppGUI._writeTechnologyEngine = directWriteTechnologyUnavailable;
+				//else
+					// retain default value preset
+			}
 
 			const wchar_t * optNameFolderDroppedOpenFiles = element->Attribute(L"isFolderDroppedOpenFiles");
 			if (optNameFolderDroppedOpenFiles)

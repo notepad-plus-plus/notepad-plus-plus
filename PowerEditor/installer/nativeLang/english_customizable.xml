@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.7.3">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1324,7 +1324,14 @@ Translation note:
 						<Element name="Close to"/>
 						<Element name="Minimize / Close to"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (most compatible)"/>
+						<Element name="DirectWrite (default)"/>
+						<Element name="DirectWrite (retain frames)"/>
+						<Element name="DirectWrite (draw to GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="system tray"/>
+					<Item id="6363" name="rendering mode"/>
 					<Item id="6312" name="File Status Auto-Detection"/>
 					<Item id="6313" name="Update silently"/>
 					<Item id="6325" name="Scroll to the last line after update"/>
@@ -1333,7 +1340,6 @@ Translation note:
 					<Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
 					<Item id="6331" name="Show only filename in title bar"/>
 					<Item id="6334" name="Autodetect character encoding"/>
-					<Item id="6349" name="Use DirectWrite (May improve rendering special characters, need to restart Notepad++)"/>
 					<Item id="6337" name="Workspace file ext.:"/>
 					<Item id="6114" name="Enable"/>
 					<Item id="6117" name="Enable MRU behaviour"/>
@@ -1833,6 +1839,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
+			<scintillaRenderingTechnology-tip value="May improve rendering of special characters or resolve some graphics issues, restart Notepad++ to apply the changes."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

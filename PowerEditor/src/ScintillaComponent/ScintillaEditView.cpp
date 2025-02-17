@@ -327,14 +327,14 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	}
 	else
 	{
-		// allow IDC_CHECK_DIRECTWRITE_ENABLE to be set in Preferences > MISC. again
+		// allow IDC_COMBO_SC_TECHNOLOGY_CHOICE to be set in Preferences > MISC. again
 		if (nppGui._writeTechnologyEngine == directWriteTechnologyUnavailable)
 			nppGui._writeTechnologyEngine = defaultTechnology;
 	}
 
-	if (nppGui._writeTechnologyEngine == directWriteTechnology)
+	if ((nppGui._writeTechnologyEngine > defaultTechnology) && (nppGui._writeTechnologyEngine < directWriteTechnologyUnavailable))
 	{
-		execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DIRECTWRITE);
+		execute(SCI_SETTECHNOLOGY, nppGui._writeTechnologyEngine);
 		// If useDirectWrite is turned off, leave the technology setting untouched,
 		// so that existing plugins using SCI_SETTECHNOLOGY behave like before
 	}
@@ -4412,7 +4412,8 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 		return;
 
 	NppParameters& nppParamInst = NppParameters::getInstance();
-	if (isRTL && nppParamInst.getNppGUI()._writeTechnologyEngine == directWriteTechnology) // RTL is not compatible with Direct Write Technology
+	if (isRTL && (nppParamInst.getNppGUI()._writeTechnologyEngine > defaultTechnology)
+		&& (nppParamInst.getNppGUI()._writeTechnologyEngine < directWriteTechnologyUnavailable)) // RTL is not compatible with DirectWrite
 	{
 		static bool theWarningIsGiven = false;
 

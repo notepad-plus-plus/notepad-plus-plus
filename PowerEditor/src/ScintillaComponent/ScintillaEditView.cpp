@@ -2663,15 +2663,7 @@ void ScintillaEditView::fold(size_t line, bool mode)
 
 void ScintillaEditView::foldAll(bool mode)
 {
-	auto maxLine = execute(SCI_GETLINECOUNT);
-
-	for (int line = 0; line < maxLine; ++line)
-	{
-		auto level = execute(SCI_GETFOLDLEVEL, line);
-		if (level & SC_FOLDLEVELHEADERFLAG)
-			if (isFolded(line) != mode)
-				fold(line, mode);
-	}
+	execute(SCI_FOLDALL, (mode ? SC_FOLDACTION_EXPAND : SC_FOLDACTION_CONTRACT) | SC_FOLDACTION_CONTRACT_EVERY_LEVEL, 0);
 }
 
 void ScintillaEditView::getText(char *dest, size_t start, size_t end) const

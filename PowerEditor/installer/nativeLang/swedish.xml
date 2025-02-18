@@ -823,6 +823,7 @@ Translation note:
 				<Folder title="Gruppering och standard">
 					<Item id="21101" name="Standardformat"/>
 					<Item id="21102" name="Format"/>
+					<Item id="21103" name="Internethjälp om användardefinierade språk"/>
 					<Item id="21105" name="Dokumentation"/>
 					<Item id="21106" name="&amp;Kompakt gruppering (gruppera tomma rader)"/>
 					<Item id="21220" name="Stil för gruppering i kod 1"/>

@@ -180,28 +180,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			break;
 		}
 
-		case SCN_FOLDINGSTATECHANGED:
-		{
-			if ((notification->nmhdr.hwndFrom == _mainEditView.getHSelf()) || (notification->nmhdr.hwndFrom == _subEditView.getHSelf()))
-			{
-				size_t lineClicked = notification->line;
-
-				if (!_isFolding)
-				{
-					int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
-					Buffer* currentBuf = _pEditView->getCurrentBuffer();
-					if (urlAction != urlDisable && currentBuf->allowClickableLink())
-					{
-						addHotSpot();
-					}
-				}
-
-				if (_pDocMap)
-					_pDocMap->fold(lineClicked, _pEditView->isFolded(lineClicked));
-			}
-			return TRUE;
-		}
-
 		case SCN_CHARADDED:
 		{
 			if (!notifyView) return FALSE;
@@ -582,6 +560,30 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		// ======= End of SCN_*
 		//
 
+		case SCN_FOLDINGSTATECHANGED: // Notification not part of Scintilla, but Notepad++ added
+		{
+			if ((notification->nmhdr.hwndFrom == _mainEditView.getHSelf()) || (notification->nmhdr.hwndFrom == _subEditView.getHSelf()))
+			{
+				size_t lineClicked = notification->line;
+
+				/*
+				if (!_isFolding)
+				{
+					int urlAction = (NppParameters::getInstance()).getNppGUI()._styleURL;
+					Buffer* currentBuf = _pEditView->getCurrentBuffer();
+					if (urlAction != urlDisable && currentBuf->allowClickableLink())
+					{
+						addHotSpot();
+					}
+				}
+				*/
+
+				if (_pDocMap)
+					_pDocMap->fold(lineClicked, _pEditView->isFolded(lineClicked));
+			}
+
+			return TRUE;
+		}
 
 		case TCN_MOUSEHOVERING:
 		case TCN_MOUSEHOVERSWITCHING:

@@ -1412,7 +1412,7 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 			
 			<DebugInfo title="Felsökningsinformation">
-				<Item id="1752" name="&amp;Kopiera felsökningsinformation till urklipp"/>
+				<Item id="1752" name="&amp;Kopiera felsökningsinfo till urklipp"/>
 				<Item id="1" name="OK"/>
 			</DebugInfo>
 		</Dialog>

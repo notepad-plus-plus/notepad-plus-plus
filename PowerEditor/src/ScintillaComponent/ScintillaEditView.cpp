@@ -2598,7 +2598,7 @@ void ScintillaEditView::foldIndentationBasedLevel(int level2Collapse, bool mode)
 		::InvalidateRect(_hSelf, nullptr, TRUE);
 	}
 
-	//runMarkers(true, 0, true, false);
+	hideMarkedLines(0, true);
 }
 
 
@@ -2639,7 +2639,7 @@ void ScintillaEditView::foldLevel(int level2Collapse, bool mode)
 		::InvalidateRect(_hSelf, nullptr, TRUE);
 	}
 
-	runMarkers(true, 0, true, false);
+	hideMarkedLines(0, true);
 }
 
 void ScintillaEditView::foldCurrentPos(bool mode)
@@ -3045,7 +3045,7 @@ void ScintillaEditView::marginClick(Sci_Position position, int modifiers)
 			// Toggle this line
 			bool mode = isFolded(lineClick);
 			fold(lineClick, !mode);
-			runMarkers(true, lineClick, true, false);
+			hideMarkedLines(lineClick, true);
 		}
 	}
 }
@@ -3097,7 +3097,7 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, intptr_t
 			++line;
 	}
 
-	runMarkers(true, 0, true, false);
+	hideMarkedLines(0, true);
 }
 
 
@@ -4046,7 +4046,7 @@ void ScintillaEditView::scrollPosToCenter(size_t pos)
 void ScintillaEditView::hideLines()
 {
 	//Folding can screw up hide lines badly if it unfolds a hidden section.
-	//Adding runMarkers(hide, foldstart) directly (folding on single document) can help
+	//Adding hideMarkedLines() & showHiddenLines() directly (folding on single document) can help
 
 	//Special func on buffer. If markers are added, create notification with location of start, and hide bool set to true
 	size_t startLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONSTART));
@@ -4169,138 +4169,147 @@ bool ScintillaEditView::markerMarginClick(intptr_t lineNumber)
 	return true;
 }
 
-void ScintillaEditView::notifyMarkers(Buffer * buf, bool isHide, size_t location, bool del)
+void ScintillaEditView::notifyHideMarkers(Buffer * buf, bool isHide, size_t location, bool del)
 {
 	if (buf != _currentBuffer)	//if not visible buffer dont do a thing
 		return;
-	runMarkers(isHide, location, false, del);
+
+	if (isHide)
+		hideMarkedLines(location, false);
+	else
+		showHiddenLines(location, false, del);
 }
 
 //Run through full document. When switching in or opening folding
 //hide is false only when user click on margin
-void ScintillaEditView::runMarkers(bool doHide, size_t searchStart, bool endOfDoc, bool doDelete)
-{
-	//Removes markers if opening
-	/*
-	AllLines = (start,ENDOFDOCUMENT)
-	Hide:
-		Run through all lines.
-			Find open hiding marker:
-				set hiding start
-			Find closing:
-				if (hiding):
-					Hide lines between now and start
-					if (endOfDoc = false)
-						return
-					else
-						search for other hidden sections
 
-	Show:
-		Run through all lines
-			Find open hiding marker
-				set last start
-			Find closing:
-				Show from last start. Stop.
-			Find closed folding header:
-				Show from last start to folding header
-				Skip to LASTCHILD
-				Set last start to lastchild
-	*/
+//Removes markers if opening
+/*
+AllLines = (start,ENDOFDOCUMENT)
+Hide:
+	Run through all lines.
+		Find open hiding marker:
+			set hiding start
+		Find closing:
+			if (hiding):
+				Hide lines between now and start
+				if (endOfDoc = false)
+					return
+				else
+					search for other hidden sections
+
+Show:
+	Run through all lines
+		Find open hiding marker
+			set last start
+		Find closing:
+			Show from last start. Stop.
+		Find closed folding header:
+			Show from last start to folding header
+			Skip to LASTCHILD
+			Set last start to lastchild
+*/
+	
+void ScintillaEditView::hideMarkedLines(size_t searchStart, bool toEndOfDoc)
+{
 	size_t maxLines = execute(SCI_GETLINECOUNT);
-	if (doHide)
+
+	auto startHiding = searchStart;
+	bool isInSection = false;
+
+	for (auto i = searchStart; i < maxLines; ++i)
 	{
-		auto startHiding = searchStart;
-		bool isInSection = false;
-		for (auto i = searchStart; i < maxLines; ++i)
+		auto state = execute(SCI_MARKERGET, i);
+		if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
 		{
-			auto state = execute(SCI_MARKERGET, i);
-			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) )
+			if (isInSection)
 			{
-				if (isInSection)
+				execute(SCI_HIDELINES, startHiding, i-1);
+				if (!toEndOfDoc)
 				{
-					execute(SCI_HIDELINES, startHiding, i-1);
-					if (!endOfDoc)
-					{
-						return;	//done, only single section requested
-					}	//otherwise keep going
-				}
+					return;	//done, only single section requested
+				}	//otherwise keep going
+			}
+			isInSection = false;
+		}
+
+		if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
+		{
+			isInSection = true;
+			startHiding = i+1;
+		}
+
+	}
+}
+	
+void ScintillaEditView::showHiddenLines(size_t searchStart, bool toEndOfDoc, bool doDelete)
+{
+	size_t maxLines = execute(SCI_GETLINECOUNT);
+
+	auto startShowing = searchStart;
+	bool isInSection = false;
+	for (auto i = searchStart; i < maxLines; ++i)
+	{
+		auto state = execute(SCI_MARKERGET, i);
+		if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
+		{
+			isInSection = true;
+			if (doDelete)
+			{
+				execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+			}
+			else
+			{
+				startShowing = i + 1;
+			}
+		}
+		else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
+		{
+			if (doDelete)
+			{
+				execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
+				if (!toEndOfDoc)
+				{
+					return;	//done, only single section requested
+				}	//otherwise keep going
 				isInSection = false;
 			}
-
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
+			else if (isInSection)
 			{
-				isInSection = true;
-				startHiding = i+1;
-			}
-
-		}
-	}
-	else
-	{
-		auto startShowing = searchStart;
-		bool isInSection = false;
-		for (auto i = searchStart; i < maxLines; ++i)
-		{
-			auto state = execute(SCI_MARKERGET, i);
-			if ((state & (1 << MARK_HIDELINESBEGIN)) != 0 && !isInSection)
-			{
-				isInSection = true;
-				if (doDelete)
-				{
-					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
-				}
-				else
-				{
-					startShowing = i + 1;
-				}
-			}
-			else if ( (state & (1 << MARK_HIDELINESEND)) != 0)
-			{
-				if (doDelete)
-				{
-					execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
-					if (!endOfDoc)
+				if (startShowing >= i)
+				{	//because of fold skipping, we passed the close tag. In that case we cant do anything
+					if (!toEndOfDoc)
 					{
-						return;	//done, only single section requested
-					}	//otherwise keep going
-					isInSection = false;
-				}
-				else if (isInSection)
-				{
-					if (startShowing >= i)
-					{	//because of fold skipping, we passed the close tag. In that case we cant do anything
-						if (!endOfDoc)
-						{
-							return;
-						}
-						else
-						{
-							isInSection = false; // assume we passed the close tag
-							continue;
-						}
+						return;
 					}
-
-					execute(SCI_SHOWLINES, startShowing, i-1);
-
-					if (!endOfDoc)
+					else
 					{
-						return;	//done, only single section requested
-					}	//otherwise keep going
-					isInSection = false;
+						isInSection = false; // assume we passed the close tag
+						continue;
+					}
 				}
-			}
 
-			auto levelLine = execute(SCI_GETFOLDLEVEL, i, 0);
-			if (levelLine & SC_FOLDLEVELHEADERFLAG)
-			{	//fold section. Dont show lines if fold is closed
-				if (isInSection && !isFolded(i))
+				execute(SCI_SHOWLINES, startShowing, i-1);
+
+				if (!toEndOfDoc)
 				{
-					execute(SCI_SHOWLINES, startShowing, i);
-				}
+					return;	//done, only single section requested
+				}	//otherwise keep going
+				isInSection = false;
+			}
+		}
+
+		auto levelLine = execute(SCI_GETFOLDLEVEL, i, 0);
+		if (levelLine & SC_FOLDLEVELHEADERFLAG)
+		{	//fold section. Dont show lines if fold is closed
+			if (isInSection && !isFolded(i))
+			{
+				execute(SCI_SHOWLINES, startShowing, i);
 			}
 		}
 	}
 }
+
 
 void ScintillaEditView::restoreHiddenLines()
 {
@@ -4318,7 +4327,6 @@ void ScintillaEditView::restoreHiddenLines()
 			if (line != -1)
 			{
 				execute(SCI_HIDELINES, startHiding, line - 1);
-
 			}
 		}
 	}

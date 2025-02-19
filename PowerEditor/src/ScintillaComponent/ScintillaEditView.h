@@ -815,34 +815,13 @@ public:
 	void styleChange();
 
 	void hideLines();
-
-	bool markerMarginClick(intptr_t lineNumber);	//true if it did something
-	void notifyHideMarkers(Buffer * buf, bool isHide, size_t location, bool del);
+	bool hidelineMarkerClicked(intptr_t lineNumber);	//true if it did something
+	void notifyHidelineMarkers(Buffer * buf, bool isHide, size_t location, bool del);
 	void hideMarkedLines(size_t searchStart, bool endOfDoc);
 	void showHiddenLines(size_t searchStart, bool endOfDoc, bool doDelete);
 	void restoreHiddenLines();
 
 	bool hasSelection() const { return !execute(SCI_GETSELECTIONEMPTY); };
-
-	bool isSelecting() const {
-		static Sci_CharacterRangeFull previousSelRange = getSelection();
-		Sci_CharacterRangeFull currentSelRange = getSelection();
-
-		if (currentSelRange.cpMin == currentSelRange.cpMax)
-		{
-			previousSelRange = currentSelRange;
-			return false;
-		}
-
-		if ((previousSelRange.cpMin == currentSelRange.cpMin) || (previousSelRange.cpMax == currentSelRange.cpMax))
-		{
-			previousSelRange = currentSelRange;
-			return true;
-		}
-
-		previousSelRange = currentSelRange;
-		return false;
-	};
 
 	bool isPythonStyleIndentation(LangType typeDoc) const{
 		return (typeDoc == L_PYTHON || typeDoc == L_COFFEESCRIPT || typeDoc == L_HASKELL ||\

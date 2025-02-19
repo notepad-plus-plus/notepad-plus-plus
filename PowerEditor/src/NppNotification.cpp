@@ -147,7 +147,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYMBOL) && !notification->modifiers)
 			{
-				if (!_pEditView->markerMarginClick(lineClick))
+				if (!_pEditView->hidelineMarkerClicked(lineClick))
 					bookmarkToggle(lineClick);
 			}
 			break;

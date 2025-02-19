@@ -2598,7 +2598,8 @@ void ScintillaEditView::foldIndentationBasedLevel(int level2Collapse, bool mode)
 		::InvalidateRect(_hSelf, nullptr, TRUE);
 	}
 
-	hideMarkedLines(0, true);
+	if (mode == fold_expand)
+		hideMarkedLines(0, true);
 }
 
 
@@ -2639,7 +2640,8 @@ void ScintillaEditView::foldLevel(int level2Collapse, bool mode)
 		::InvalidateRect(_hSelf, nullptr, TRUE);
 	}
 
-	hideMarkedLines(0, true);
+	if (mode == fold_expand)
+		hideMarkedLines(0, true);
 }
 
 void ScintillaEditView::foldCurrentPos(bool mode)
@@ -2701,7 +2703,10 @@ void ScintillaEditView::fold(size_t line, bool mode, bool shouldBeNotified/* = t
 
 void ScintillaEditView::foldAll(bool mode)
 {
-	execute(SCI_FOLDALL, (mode ? SC_FOLDACTION_EXPAND : SC_FOLDACTION_CONTRACT) | SC_FOLDACTION_CONTRACT_EVERY_LEVEL, 0);
+	execute(SCI_FOLDALL, (mode == fold_expand ? SC_FOLDACTION_EXPAND : SC_FOLDACTION_CONTRACT) | SC_FOLDACTION_CONTRACT_EVERY_LEVEL, 0);
+
+	if (mode == fold_expand)
+		hideMarkedLines(0, true);
 }
 
 void ScintillaEditView::getText(char *dest, size_t start, size_t end) const
@@ -3045,7 +3050,9 @@ void ScintillaEditView::marginClick(Sci_Position position, int modifiers)
 			// Toggle this line
 			bool mode = isFolded(lineClick);
 			fold(lineClick, !mode);
-			hideMarkedLines(lineClick, true);
+
+			if (!mode == fold_expand) // after toggling
+				hideMarkedLines(lineClick, true);
 		}
 	}
 }
@@ -3097,7 +3104,8 @@ void ScintillaEditView::expand(size_t& line, bool doExpand, bool force, intptr_t
 			++line;
 	}
 
-	hideMarkedLines(0, true);
+	if (doExpand)
+		hideMarkedLines(0, true);
 }
 
 
@@ -4045,19 +4053,21 @@ void ScintillaEditView::scrollPosToCenter(size_t pos)
 
 void ScintillaEditView::hideLines()
 {
-	//Folding can screw up hide lines badly if it unfolds a hidden section.
-	//Adding hideMarkedLines() & showHiddenLines() directly (folding on single document) can help
+	// Unfolding can screw up hide lines badly if it unfolds a hidden section.
+	// Using hideMarkedLines() after unfolding can help
 
-	//Special func on buffer. If markers are added, create notification with location of start, and hide bool set to true
 	size_t startLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONSTART));
 	size_t endLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONEND));
-	//perform range check: cannot hide very first and very last lines
-	//Offset them one off the edges, and then check if they are within the reasonable
+
+	// perform range check: cannot hide very first and very last lines
+	// Offset them one off the edges, and then check if they are within the reasonable
 	size_t nbLines = execute(SCI_GETLINECOUNT);
 	if (nbLines < 3)
 		return;	//cannot possibly hide anything
+
 	if (!startLine)
 		++startLine;
+
 	if (endLine == (nbLines-1))
 		--endLine;
 
@@ -4094,8 +4104,10 @@ void ScintillaEditView::hideLines()
 	// Previous markers must be removed in the selected region:
 
 	removeMarker(startMarker, 1 << MARK_HIDELINESBEGIN);
+
 	for (size_t i = startLine; i <= endLine; ++i)
 		removeMarker(i, (1 << MARK_HIDELINESBEGIN) | (1 << MARK_HIDELINESEND));
+	
 	removeMarker(endMarker, 1 << MARK_HIDELINESEND);
 
 	// When hiding lines just below/above other hidden lines,

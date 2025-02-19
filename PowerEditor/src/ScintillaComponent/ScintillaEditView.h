@@ -741,8 +741,6 @@ public:
 	void updateLineNumberWidth();
 	void performGlobalStyles();
 
-	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);
-
 	std::pair<size_t, size_t> getSelectionLinesRange(intptr_t selectionNumber = -1) const;
     void currentLinesUp() const;
     void currentLinesDown() const;
@@ -787,6 +785,7 @@ public:
 	bool isFolded(size_t line) const {
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
+	void expand(size_t& line, bool doExpand, bool force = false, intptr_t visLevels = 0, intptr_t level = -1);
 
 	bool isCurrentLineFolded() const;
 	void foldCurrentPos(bool mode);

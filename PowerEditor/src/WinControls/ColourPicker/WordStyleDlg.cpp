@@ -516,9 +516,9 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 										notifyDataModified();
 										apply(GENERAL_CHANGE);
 										break;
-									case IDC_LANGUAGES_LIST :
+									case IDC_LANGUAGES_COMBO :
 									{
-										int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETCURSEL, 0, 0));
+										int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0));
 										if (i != LB_ERR)
 										{
 											bool prevThemeState = _isThemeDirty;
@@ -641,17 +641,17 @@ void WordStyleDlg::loadLangListFromNppParam()
 	_globalStyles = nppParamInst.getGlobalStylers();
 
 	// Clean up Language List
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_RESETCONTENT, 0, 0);
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_RESETCONTENT, 0, 0);
 
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Global Styles"));
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"Global Styles"));
 	// All the lexers
 	for (size_t i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
 	{
-		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_lsArray.getLexerDescFromIndex(i)));
+		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_lsArray.getLexerDescFromIndex(i)));
 	}
 
 	const int index2Begin = 0;
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, index2Begin, 0);
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_SETCURSEL, index2Begin, 0);
 	setStyleListFromLexer(index2Begin);
 }
 
@@ -993,10 +993,10 @@ bool WordStyleDlg::goToSection(const wchar_t* sectionNames)
 	if (sections.size() == 0 || sections.size() >= 3)
 		return false;
 
-	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[0].c_str());
+	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_FINDSTRING, (WPARAM)-1, (LPARAM)sections[0].c_str());
 	if (i == LB_ERR)
 		return false;
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, i, 0);
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_SETCURSEL, i, 0);
 	setStyleListFromLexer(static_cast<int>(i));
 
 	if (sections.size() == 1)
@@ -1204,14 +1204,14 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	str[0] = '\0';
 
-	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
+	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
-	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXTLEN, i, 0);
+	auto lbTextLen = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_GETLBTEXTLEN, i, 0);
 	if (static_cast<size_t>(lbTextLen) > strLen)
 		return;
 
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(str));
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(str));
 
 	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)

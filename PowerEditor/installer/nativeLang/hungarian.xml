@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.3 updated at 2024.12.05 -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.3">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -401,7 +401,7 @@
 					<Item id="50006" name="E&amp;lérésiútvonal-kiegészítés"/>
 					<Item id="44042" name="&amp;Sorok elrejtése"/>
 					<Item id="42040" name="Az összes legutóbbi &amp;fájl megnyitása"/>
-					<Item id="42041" name="A legutóbbi &amp;fájlok listájának eltakarítása"/>
+					<Item id="42041" name="A legutóbbi &amp;fájlok listájának törlése"/>
 					<Item id="48016" name="Billentyűparancs módosítása / makró törlése…"/>
 					<Item id="48017" name="&amp;Billentyűparancs módosítása / parancs törlése…"/>
 
@@ -822,6 +822,7 @@
 				<Folder title="Blokkösszecsukások és alapértelmezések">
 					<Item id="21101" name="Alapértelmezett stílus"/>
 					<Item id="21102" name="Stílusbeáll."/>
+					<Item id="21103" name="A felhasználói nyelvek online súgója"/>
 					<Item id="21105" name="Dokumentáció"/>
 					<Item id="21106" name="Kompakt (több-blokkos) összecsukás"/>
 					<Item id="21220" name="Kódösszecsukás 1. stílussal („ragadós” elemekként is)"/>
@@ -1097,7 +1098,7 @@
 				</DefaultDir>
 
 				<FileAssoc title="Fájltársítások">
-					<Item id="4008" name="A beállításhoz, kérjük, zárja be a Notepad++-t, majd rendszergazdaként indítsa el újra"/>
+					<Item id="4008" name="A beállításhoz, kérjük, zárja be a Notepad++-t, majd rendszergazdaként indítsa újra"/>
 					<Item id="4009" name="&amp;Elérhető kiterjesztések:"/>
 					<Item id="4010" name="&amp;Társított kiterjesztések:"/>
 				</FileAssoc>
@@ -1148,7 +1149,7 @@
 					<Item id="6603" name="Ahogy látszik (&amp;WYSIWYG)"/>
 					<Item id="6604" name="Ford&amp;ított színek"/>
 					<Item id="6605" name="F&amp;ekete-fehér"/>
-					<Item id="6606" name="H&amp;áttérszín nélküli"/>
+					<Item id="6606" name="H&amp;áttérszín nélkül"/>
 					<Item id="6607" name="Margóbeállítások (mm-ben)"/>
 					<Item id="6612" name="B&amp;al"/>
 					<Item id="6613" name="&amp;Felső"/>
@@ -1318,12 +1319,19 @@
 						<Element name="Kikapcsolás"/>
 					</ComboBox>
 					<ComboBox id="6307">
-						<Element name="Ne tegye a Notepad++-t"/>
+						<Element name="Ne végezzen műveletet"/>
 						<Element name="Kicsinyítés"/>
 						<Element name="Bezárás"/>
 						<Element name="Kicsinyítés / Bezárás"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (legjobb kompatibilitás)"/>
+						<Element name="DirectWrite (alapértelmezett)"/>
+						<Element name="DirectWrite (képkockamegőrzéssel)"/>
+						<Element name="DirectWrite (GDI DC-be rajzolással)"/>
+					</ComboBox>
 					<Item id="6308" name="az értesítési területre"/>
+					<Item id="6363" name="renderelési mód"/>
 					<Item id="6312" name="&amp;Automatikus fájlállapot-felismerés"/>
 					<Item id="6313" name="&amp;Figyelmeztetés nélküli fájlfrissítés"/>
 					<Item id="6325" name="F&amp;rissítés után az utolsó sorhoz görgetés"/>
@@ -1332,7 +1340,6 @@
 					<Item id="6324" name="Dokumentumváltó panel (Ctrl + Tab)"/>
 					<Item id="6331" name="&amp;Csak a fájlnév megjelenítése a címsorban"/>
 					<Item id="6334" name="Au&amp;tomatikus karakterkódolás-felismerés"/>
-					<Item id="6349" name="&amp;DirectWrite használata (javíthatja a különleges karakterek renderelését – Notepad++-újraindítást igényel)"/>
 					<Item id="6337" name="A m&amp;unkaterületfájl kiterjesztése:"/>
 					<Item id="6114" name="&amp;Engedélyezés"/>
 					<Item id="6117" name="A &amp;legutóbbi használat sorrendjével"/>
@@ -1476,7 +1483,7 @@ Szeretné újratölteni, és elvetni a Notepad++-ban végzett módosításokat?"
 			<PrehistoricSystemDetected title="Őskori rendszer észlelve" message="Úgy tűnik, hogy még mindig egy őskori rendszert használ. Sajnáljuk, de ez a funkció csak modern operációs rendszereken működik."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Notepad++-frissítés" message="A Notepad++ frissítőrendszere (a Windows XP elavult biztonsági rétege miatt) nem kompatibilis az XP-vel.
 Meglátogatja a Notepad++ weboldalát a legújabb verzió letöltéséhez?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
-			<GUpProxyConfNeedAdminMode title="Proxybeállítások" message="A proxybeállításokhoz, kérjük, rendszergazdaként indítsa el újra a Notepad++-t"/>
+			<GUpProxyConfNeedAdminMode title="Proxybeállítások" message="A proxybeállításokhoz, kérjük, rendszergazdaként indítsa újra a Notepad++-t"/>
 			<DocTooDirtyToMonitor title="Fájlfelügyeleti probléma" message="A dokumentum módosítva lett. Kérjük, mentse el a módosításokat, mielőtt felügyeli a fájlt"/>
 			<DocNoExistToMonitor title="Fájlfelügyeleti probléma" message="A fájl felügyeletéhez léteznie kell annak"/>
 			<FileTooBigToOpen title="Fájlméretprobléma" message="A fájl túl nagy ahhoz, hogy a Notepad++ megnyithassa azt"/><!-- HowToReproduce: Try to open a 4GB file (it's not easy to reproduce, it depends on your system). -->
@@ -1729,9 +1736,9 @@ Keresés minden fájlban – kivéve rekurzívan a log vagy logs mappákat:
 			<finder-uncollapse-all value="Minden blokk kibontása"/>
 			<finder-copy value="Kijelölt sor(ok) másolása"/>
 			<finder-copy-selected-paths value="A kijelölt elérési út/utak másolása"/>
-			<finder-clear-all value="Az összes eltakarítása"/>
+			<finder-clear-all value="Az összes eredmény eltávolítása"/>
 			<finder-open-selected-paths value="A kijelölt elérési út/utak megnyitása"/>
-			<finder-purge-for-every-search value="Az előző eredmények eltakarítása minden kereséskor"/>
+			<finder-purge-for-every-search value="Az előző eredmények eltávolítása minden kereséskor"/>
 			<finder-wrap-long-lines value="A hosszú sorok tördelése"/>
 			<common-ok value="OK"/>
 			<common-cancel value="Mégse"/>
@@ -1832,6 +1839,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait szerkeszti, a behúzás „Alapszintű” módban marad"/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="A „Global override”-lehetőségek itt történő bekapcsolása minden nyelv stílusát felülírja az adott beállítással. Ha bizonytalan, valószínűleg a „Default Style” beállításait szeretné használni"/>
+			<scintillaRenderingTechnology-tip value="Javíthatja a különleges karakterek megjelenítését, vagy megoldhat egyes grafikai problémákat – a módosítások érvénybe léptetéséhez a Notepad++ újraindítása szükséges"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

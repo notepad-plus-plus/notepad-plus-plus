@@ -1321,7 +1321,14 @@
 						<Element name="Zavrieť do"/>
 						<Element name="Minimalizovať/Zavrieť do"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (najkompatibilnejšie)"/>
+						<Element name="DirectWrite (predvolené)"/>
+						<Element name="DirectWrite (zachovanie rámcov)"/>
+						<Element name="DirectWrite (vykresliť do GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="oblasti oznámení"/>
+					<Item id="6363" name="režim renderovania"/>
 					<Item id="6312" name="Automatické zisťovanie stavu súboru"/>
 					<Item id="6313" name="Tichá aktualizácia"/>
 					<Item id="6325" name="Skočiť po aktualizácii na posledný riadok"/>
@@ -1330,7 +1337,6 @@
 					<Item id="6324" name="Prepínanie dokumentov (Ctrl+Tab)"/>
 					<Item id="6331" name="Zobrazovať v záhlaví okna iba názov súboru"/>
 					<Item id="6334" name="Automatické zisťovanie kódovania znakov"/>
-					<Item id="6349" name="Použiť DirectWrite (Môže ovplyvniť renderovanie špeciálnych znakov, vyžaduje sa reštart Notepad++)"/>
 					<Item id="6337" name="Prípona súboru prac. priestoru:"/>
 					<Item id="6114" name="Povoliť"/>
 					<Item id="6117" name="Podľa naposledy použitého súboru"/>
@@ -1831,6 +1837,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Ak tu povolíte &quot;Global override&quot;, tento parameter sa prepíše vo všetkých štýloch pre všetky programovacie jazyky. Pravdepodobne chcete namiesto toho použiť nastavenie &quot;Default Style&quot;"/>
+			<scintillaRenderingTechnology-tip value="Môže zlepšiť vykresľovanie špeciálnych znakov alebo vyriešiť niektoré grafické problémy, na uplatnenie zmien musíte reštartovať Notepad++."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

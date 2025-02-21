@@ -85,12 +85,12 @@ void ToolBar::initHideButtonsConf(TiXmlDocument* toolButtonsDocRoot, ToolBarButt
 				const wchar_t* isHideAll = stdBtnElement->Attribute(L"hideAll");
 				if (isHideAll && (lstrcmp(isHideAll, L"yes") == 0))
 				{
-					for (size_t i = 0; i < arraySize; ++i)
+					for (int i = 0; i < arraySize; ++i)
 						_toolbarStdButtonsConfArray[i] = false;
 					return;
 				}
 				
-				for (size_t i = 0; i < arraySize; ++i)
+				for (int i = 0; i < arraySize; ++i)
 					_toolbarStdButtonsConfArray[i] = true;
 
 				for (TiXmlNode* childNode = standardToolButtons->FirstChildElement(L"Button");

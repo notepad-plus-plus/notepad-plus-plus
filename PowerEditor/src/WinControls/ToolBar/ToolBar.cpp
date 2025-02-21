@@ -67,6 +67,81 @@ ToolbarIconIdUnit toolbarIconIDs[] = {
 	{ L"save-macro", true }
 };
 
+void ToolBar::initHideButtonsConf(TiXmlDocument* toolButtonsDocRoot, ToolBarButtonUnit* buttonUnitArray, int arraySize)
+{
+	TiXmlNode* toolButtons = toolButtonsDocRoot->FirstChild(L"NotepadPlus");
+	if (toolButtons)
+	{
+		toolButtons = toolButtons->FirstChild(L"ToolbarButtons");
+		if (toolButtons)
+		{
+			// Standard toolbar button
+			TiXmlNode* standardToolButtons = toolButtons->FirstChild(L"Standard");
+			if (standardToolButtons)
+			{
+				_toolbarStdButtonsConfArray = new bool[arraySize];
+
+				TiXmlElement* stdBtnElement = standardToolButtons->ToElement();
+				const wchar_t* isHideAll = stdBtnElement->Attribute(L"hideAll");
+				if (isHideAll && (lstrcmp(isHideAll, L"yes") == 0))
+				{
+					for (int i = 0; i < arraySize; ++i)
+						_toolbarStdButtonsConfArray[i] = false;
+					return;
+				}
+				
+				for (int i = 0; i < arraySize; ++i)
+					_toolbarStdButtonsConfArray[i] = true;
+
+				for (TiXmlNode* childNode = standardToolButtons->FirstChildElement(L"Button");
+					childNode;
+					childNode = childNode->NextSibling(L"Button"))
+				{
+					TiXmlElement* element = childNode->ToElement();
+					int cmdID =0;
+					const wchar_t* cmdIDStr = element->Attribute(L"id", &cmdID);
+
+					int index = 0;
+					const wchar_t* orderStr = element->Attribute(L"index", &index);
+
+					const wchar_t* isHide = element->Attribute(L"hide");
+
+					if (cmdIDStr && orderStr && isHide && (lstrcmp(isHide, L"yes") == 0))
+					{
+						if (index < arraySize && buttonUnitArray[index]._cmdID == cmdID)
+							_toolbarStdButtonsConfArray[index] = false;
+					}
+				}
+			}
+
+			// Plugin toolbar button
+			TiXmlNode* pluginToolButtons = toolButtons->FirstChild(L"Plugin");
+			if (pluginToolButtons)
+			{
+				TiXmlElement* pluginBtnElement = pluginToolButtons->ToElement();
+				const wchar_t* isHideAll = pluginBtnElement->Attribute(L"hideAll");
+				if (isHideAll && (lstrcmp(isHideAll, L"yes") == 0))
+				{
+					_toolbarPluginButtonsConf._isHideAll = true;
+					return;
+				}
+
+				for (TiXmlNode* childNode = pluginToolButtons->FirstChildElement(L"Button");
+					childNode;
+					childNode = childNode->NextSibling(L"Button"))
+				{
+					bool doShow = true;
+					TiXmlElement* element = childNode->ToElement();
+					const wchar_t* isHide = element->Attribute(L"hide");
+
+					doShow = !(isHide && (lstrcmp(isHide, L"yes") == 0));
+					_toolbarPluginButtonsConf._showPluginButtonsArray.push_back(doShow);
+				}
+			}
+		}
+	}
+}
+
 void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 {
     _toolIcons =  toolIconsDocRoot->FirstChild(L"NotepadPlus");
@@ -122,7 +197,7 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 	}
 }
 
-bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit *buttonUnitArray, int arraySize)
+bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit* buttonUnitArray, int arraySize)
 {
 	Window::init(hInst, hPere);
 	
@@ -141,7 +216,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	InitCommonControlsEx(&icex);
 
 	//Create the list of buttons
-	_nbButtons    = arraySize;
+	_nbButtons = arraySize;
 	_nbDynButtons = _vDynBtnReg.size();
 	_nbTotalButtons = _nbButtons + (_nbDynButtons ? _nbDynButtons + 1 : 0);
 	_pTBB = new TBBUTTON[_nbTotalButtons];	//add one for the extra separator
@@ -150,6 +225,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 	int bmpIndex = -1;
 	BYTE style = 0;
 	size_t i = 0;
+
 	for (; i < _nbButtons && i < _nbTotalButtons; ++i)
 	{
 		cmd = buttonUnitArray[i]._cmdID;
@@ -158,38 +234,42 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			case 0:
 			{
 				style = BTNS_SEP;
-				break;
 			}
+			break;
 
 			case IDM_VIEW_ALL_CHARACTERS:
 			{
 				++bmpIndex;
 				style = BTNS_DROPDOWN;
-				break;
 			}
+			break;
 
 			default:
 			{
 				++bmpIndex;
 				style = BTNS_BUTTON;
-				break;
 			}
 		}
 
 		_pTBB[i].iBitmap = (cmd != 0 ? bmpIndex : 0);
 		_pTBB[i].idCommand = cmd;
-		_pTBB[i].fsState = TBSTATE_ENABLED;
+		_pTBB[i].fsState = TBSTATE_ENABLED | (_toolbarStdButtonsConfArray ? (_toolbarStdButtonsConfArray[i] ? 0 : TBSTATE_HIDDEN) : 0);
 		_pTBB[i].fsStyle = style;
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 	}
 
+	bool doHideAllPluginButtons = _toolbarPluginButtonsConf._isHideAll;
+	size_t nbPluginButtonsConf = _toolbarPluginButtonsConf._showPluginButtonsArray.size();
+
 	if (_nbDynButtons > 0 && i < _nbTotalButtons)
 	{
+		unsigned char addedStateFlag = doHideAllPluginButtons ? TBSTATE_HIDDEN : (nbPluginButtonsConf > 0 ? (_toolbarPluginButtonsConf._showPluginButtonsArray[0] ? 0 : TBSTATE_HIDDEN) : 0);
+
 		//add separator
 		_pTBB[i].iBitmap = 0;
 		_pTBB[i].idCommand = 0;
-		_pTBB[i].fsState = TBSTATE_ENABLED;
+		_pTBB[i].fsState = TBSTATE_ENABLED | addedStateFlag;
 		_pTBB[i].fsStyle = BTNS_SEP;
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
@@ -201,9 +281,11 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBar
 			cmd = _vDynBtnReg[j]._message;
 			++bmpIndex;
 
+			addedStateFlag = doHideAllPluginButtons ? TBSTATE_HIDDEN : (nbPluginButtonsConf > j + 1 ? (_toolbarPluginButtonsConf._showPluginButtonsArray[j + 1] ? 0 : TBSTATE_HIDDEN) : 0);
+
 			_pTBB[i].iBitmap = bmpIndex;
 			_pTBB[i].idCommand = cmd;
-			_pTBB[i].fsState = TBSTATE_ENABLED;
+			_pTBB[i].fsState = TBSTATE_ENABLED | addedStateFlag;
 			_pTBB[i].fsStyle = BTNS_BUTTON; 
 			_pTBB[i].dwData = 0; 
 			_pTBB[i].iString = 0;

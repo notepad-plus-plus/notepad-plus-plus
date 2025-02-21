@@ -75,6 +75,7 @@ Function copyCommonFiles
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
 	File "..\src\tabContextMenu_example.xml"
+	File "..\src\toolbarButtonsConf_example.xml"
 	File "..\src\toolbarIcons.xml"
 
 	SetOverwrite on

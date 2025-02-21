@@ -999,7 +999,6 @@ Credits:
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="BDAE9D" bgColor="2A211C" fontName="DejaVu Sans Mono" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="BDAE9D" bgColor="2A211C" fontName="DejaVu Sans Mono" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="888A85" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="E5C138" bgColor="2A211C" fontName="" fontStyle="1" fontSize="10" />
@@ -1052,5 +1051,6 @@ Credits:
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="BDAE9D" bgColor="2A211C" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="BDAE9D" bgColor="2A211C" fontName="DejaVu Sans Mono" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

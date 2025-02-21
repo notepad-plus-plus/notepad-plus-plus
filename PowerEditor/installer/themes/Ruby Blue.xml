@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- 
+<!--
 Notepad++ Custom stylers
 Style name: 		Port Ruby Blue
 File name: 			stylers.xml
 Created by:			tomsolo (aka tonoslo on sourceforge.net)
 				http://www.3276.hu
-Featured language:	Php, Css, Sql, JavaScript, Html, XML. 
+Featured language:	Php, Css, Sql, JavaScript, Html, XML.
 Note: 			If u create other languages with this style please send me the modified styler.xml : tonoslo at users.sourceforge.net (ty!)
 Other info:			this style is based on and inspired by Textmate (a Mac source editor, http:/www.textmate.org) user submitted theme:
 				Ruby Blue theme created by John W. Long, http://wiseheartdesign.com/articles/2006/03/11/ruby-blue-textmate-theme)
@@ -13,14 +13,14 @@ Other info:			this style is based on and inspired by Textmate (a Mac source edit
 				This style available under the terms of the GNU Free License.
 
 
-Requirements: 
-	1. The style is based on DejaVu fonts, go to 
+Requirements:
+	1. The style is based on DejaVu fonts, go to
 	http://dejavu.sourceforge.net/wiki/index.php/Main_Page
 	and grab this font pack and install (use DejaVu Mono).
 	2. Use Cleartype, for nice smooth font on screen (optional).
 	3. Notepad 3.5 install :)
 
-Install: copy your installed Notepad++ directory root, overwrite old stylers.xml (backup old file first), 
+Install: copy your installed Notepad++ directory root, overwrite old stylers.xml (backup old file first),
 or copy c:\Documents and Settings\**USERNAME**\Application Data\Notepad++\
 overwrite old stylers.xml (backup old file first)
 
@@ -31,7 +31,7 @@ ENJOY!
 If u like, please donate Notepad++:
 http://sourceforge.net/donate/index.php?group_id=95717
 
- 
+
 
 2006.03.27.
 
@@ -377,7 +377,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="COMPACT IRI" styleID="10" fgColor="0000FF" bgColor="112435" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="112435" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
             <WordsStyle name="LD KEYWORD" styleID="12" fgColor="FF0000" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
-            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />		
+            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />
 		</LexerType>
         <LexerType name="asp" desc="asp" ext="asp">
             <WordsStyle name="DEFAULT" styleID="81" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
@@ -844,7 +844,6 @@ http://sourceforge.net/donate/index.php?group_id=95717
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FF8000" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="FFFFFF" bgColor="112435" fontName="DejaVu Sans Mono" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="0080FF" bgColor="112435" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
@@ -897,5 +896,6 @@ http://sourceforge.net/donate/index.php?group_id=95717
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="FFFFFF" bgColor="112435" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FF8000" fontName="Courier New" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

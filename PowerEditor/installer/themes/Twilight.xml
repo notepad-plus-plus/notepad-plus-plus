@@ -383,7 +383,7 @@ Credits:
             <WordsStyle name="COMPACT IRI" styleID="10" fgColor="0000FF" bgColor="141414" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="11" fgColor="18AF8A" bgColor="141414" fontName="" fontStyle="1" fontSize="" keywordClass="instre1"/>
             <WordsStyle name="LD KEYWORD" styleID="12" fgColor="FF0000" bgColor="141414" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
-            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />		
+            <WordsStyle name="ERROR" styleID="13" fgColor="FFFF80" bgColor="FF0000" fontName="" fontStyle="0" fontSize="" />
 		</LexerType>
         <LexerType name="asp" desc="asp" ext="asp">
             <WordsStyle name="DEFAULT" styleID="81" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
@@ -994,7 +994,6 @@ Credits:
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="F8F8F8" bgColor="141414" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="F8F8F8" bgColor="141414" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="888A85" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FCE94F" bgColor="141414" fontName="" fontStyle="1" fontSize="10" />
@@ -1047,5 +1046,6 @@ Credits:
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="F8F8F8" bgColor="141414" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="F8F8F8" bgColor="141414" fontName="Consolas" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

@@ -5,7 +5,7 @@ Notepad++ Custom Style
   Style name:    Obsidian v2
       Author:    Joni Eskelinen
         Date:    2009-04-06 (last changed 2013-04-23)
-   Languages:    php, html, css, xml, javascript, python, sql, c, c++, 
+   Languages:    php, html, css, xml, javascript, python, sql, c, c++,
                    assembly, bash, batch, lua at least for detail. Everything else more or less...
         Info:    Inspired by Oblivion theme for gedit.
 
@@ -997,7 +997,6 @@ Notepad++ Custom Style
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="394448" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="F3DB2E" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
@@ -1050,5 +1049,6 @@ Notepad++ Custom Style
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="E0E2E4" bgColor="293134" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

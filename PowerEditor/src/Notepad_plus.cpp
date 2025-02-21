@@ -150,11 +150,17 @@ Notepad_plus::Notepad_plus()
 	nppParam.setNativeLangSpeaker(&_nativeLangSpeaker);
 
 	TiXmlDocument *toolIconsDocRoot = nppParam.getCustomizedToolIcons();
+	TiXmlDocument *toolButtonsDocRoot = nppParam.getCustomizedToolButtons();
 
 	if (toolIconsDocRoot)
 	{
-        _toolBar.initTheme(toolIconsDocRoot);
-    }
+		_toolBar.initTheme(toolIconsDocRoot);
+	}
+
+	if (toolButtonsDocRoot)
+	{
+		_toolBar.initHideButtonsConf(toolButtonsDocRoot, toolBarIcons, sizeof(toolBarIcons) / sizeof(ToolBarButtonUnit));
+	}
 
 	// Determine if user is administrator.
 	BOOL is_admin;

@@ -43,6 +43,12 @@ struct iconLocator {
 		: _listIndex(iList), _iconIndex(iIcon), _iconLocation(iconLoc){};
 };
 
+struct ToolbarPluginButtonsConf
+{
+	bool _isHideAll = false;
+	std::vector<bool> _showPluginButtonsArray;
+};
+
 class ReBar;
 class TiXmlDocument;
 class TiXmlNode;
@@ -53,9 +59,10 @@ public :
 	ToolBar() = default;
 	~ToolBar() = default;
 
-    void initTheme(TiXmlDocument *toolIconsDocRoot);
-	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
-		ToolBarButtonUnit *buttonUnitArray, int arraySize);
+    void initTheme(TiXmlDocument* toolIconsDocRoot);
+    void initHideButtonsConf(TiXmlDocument* toolButtonsDocRoot, ToolBarButtonUnit* buttonUnitArray, int arraySize);
+
+	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit* buttonUnitArray, int arraySize);
 
 	virtual void destroy();
 	void enable(int cmdID, bool doEnable) const {
@@ -116,8 +123,10 @@ private :
 	ReBar * _pRebar = nullptr;
 	REBARBANDINFO _rbBand = {};
     std::vector<iconLocator> _customIconVect;
+	bool* _toolbarStdButtonsConfArray = nullptr;
+	ToolbarPluginButtonsConf _toolbarPluginButtonsConf;
 
-    TiXmlNode *_toolIcons = nullptr;
+    TiXmlNode* _toolIcons = nullptr;
 
 	DPIManagerV2 _dpiManager;
 

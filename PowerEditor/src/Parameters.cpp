@@ -1498,6 +1498,21 @@ bool NppParameters::load()
 		isAllLoaded = false;
 	}
 
+	//---------------------------------------//
+	// toolbarButtonsConf.xml : for per user //
+	//---------------------------------------//
+	std::wstring toolbarButtonsConfXmlPath(_userPath);
+	pathAppend(toolbarButtonsConfXmlPath, L"toolbarButtonsConf.xml");
+
+	_pXmlToolButtonsConfDoc = new TiXmlDocument(toolbarButtonsConfXmlPath);
+	loadOkay = _pXmlToolButtonsConfDoc->LoadFile();
+	if (!loadOkay)
+	{
+		delete _pXmlToolButtonsConfDoc;
+		_pXmlToolButtonsConfDoc = nullptr;
+		isAllLoaded = false;
+	}
+
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//
@@ -1724,6 +1739,7 @@ void NppParameters::destroyInstance()
 
 	delete _pXmlNativeLangDocA;
 	delete _pXmlToolIconsDoc;
+	delete _pXmlToolButtonsConfDoc;
 	delete _pXmlShortcutDocA;
 	delete _pXmlContextMenuDocA;
 	delete _pXmlTabContextMenuDocA;

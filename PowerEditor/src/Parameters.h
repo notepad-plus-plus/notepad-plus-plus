@@ -1630,7 +1630,8 @@ public:
 
 	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
 
-	TiXmlDocument * getCustomizedToolIcons() const {return _pXmlToolIconsDoc;};
+	TiXmlDocument* getCustomizedToolIcons() const {return _pXmlToolIconsDoc;};
+	TiXmlDocument* getCustomizedToolButtons() const {return _pXmlToolButtonsConfDoc;};
 
 	bool isTransparentAvailable() const {
 		return (_winVersion >= WV_VISTA);
@@ -1875,6 +1876,7 @@ private:
 	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
 	TiXmlDocument *_pXmlToolIconsDoc = nullptr; // toolbarIcons.xml
+	TiXmlDocument * _pXmlToolButtonsConfDoc = nullptr; // toolbarButtonsConf.xml
 
 	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
 

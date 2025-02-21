@@ -1108,7 +1108,6 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="Source Code Pro" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="C7C7C7" bgColor="2E2E2E" fontName="Source Code Pro" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="4D4D4D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="9865A8" bgColor="A88AB6" fontName="" fontStyle="1" fontSize="10" />
@@ -1161,5 +1160,6 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="Source Code Pro" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

@@ -629,7 +629,7 @@ License:             GPL2
             <WordsStyle name="OPERATOR" styleID="11" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="12" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CONSTANT" styleID="13" fgColor="9F9D6D" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HEXNUMBER" styleID="14" fgColor="939393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />                                                                                                                                                            
+            <WordsStyle name="HEXNUMBER" styleID="14" fgColor="939393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="html" desc="HTML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
@@ -1689,7 +1689,6 @@ License:             GPL2
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="DCDCCC" bgColor="3F3F3F" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="4F5F5F" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="F0F9F9" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
@@ -1742,5 +1741,6 @@ License:             GPL2
         <WidgetStyle name="URL hovered" styleID="0" fgColor="A3DCA3" />
         <WidgetStyle name="Document map" styleID="0" fgColor="000000" bgColor="FFFFFF" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="Consolas" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

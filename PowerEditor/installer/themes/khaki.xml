@@ -11,7 +11,7 @@ Last Modified:       1/14/2015
                      Added support for CoffeeScript.
  					 2023-09-30: update Perl support.
 Released:            4/17/2012
-License:             Feel free to modify this theme. 
+License:             Feel free to modify this theme.
                      This theme is available under the terms of the Creative Commons
                      Attribution 3.0 Unported License. You are free to to copy,
                      distribute and transmit the work, to adapt the work, or to make
@@ -19,7 +19,7 @@ License:             Feel free to modify this theme.
                      attribute the work in the manner specified by the author or
                      licensor (but not in any way that suggests that they endorse you
                      or your use of the work). See
-                     http://creativecommons.org/licenses/by/3.0/ 
+                     http://creativecommons.org/licenses/by/3.0/
                      for a legal description of the license terms. Briefly, this
                      means: please note in derivatives of this theme, that they are
                      based on my work. Of course, if you are using this file as no
@@ -1120,7 +1120,6 @@ Installation:
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="5F5F00" bgColor="D7D7AF" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="5F5F00" bgColor="D7D7AF" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="AFAF87" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="D7D7AF" bgColor="005F00" fontName="" fontStyle="1" fontSize="" />
@@ -1173,5 +1172,6 @@ Installation:
         <WidgetStyle name="URL hovered" styleID="0" fgColor="808040" />
         <WidgetStyle name="Document map" styleID="0" fgColor="5F5F00" bgColor="D7D7AF" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="5F5F00" bgColor="D7D7AF" fontName="Consolas" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

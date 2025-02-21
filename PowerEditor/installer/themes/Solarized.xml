@@ -616,7 +616,7 @@ Installation:
             <WordsStyle name="OPERATOR" styleID="11" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="12" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CONSTANT" styleID="13" fgColor="DC322F" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HEXNUMBER" styleID="14" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />                                                                                                                                                            
+            <WordsStyle name="HEXNUMBER" styleID="14" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="html" desc="HTML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="839496" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
@@ -1521,7 +1521,6 @@ Installation:
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="839496" bgColor="002B36" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="839496" bgColor="002B36" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="DC322F" bgColor="859900" fontName="" fontStyle="1" fontSize="" />
@@ -1574,5 +1573,6 @@ Installation:
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="839496" bgColor="002B36" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="839496" bgColor="002B36" fontName="Consolas" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

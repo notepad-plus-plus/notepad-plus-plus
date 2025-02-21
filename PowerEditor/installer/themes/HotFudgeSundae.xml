@@ -1123,7 +1123,6 @@ Installation:
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="B7975D" bgColor="2B0F01" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="B7975D" bgColor="2B0F01" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="8B642B" bgColor="2B0F01" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="2B0F01" bgColor="EC6221" fontName="" fontStyle="1" fontSize="" />
@@ -1176,5 +1175,6 @@ Installation:
         <WidgetStyle name="URL hovered" styleID="0" fgColor="FFFFFF" />
         <WidgetStyle name="Document map" styleID="0" fgColor="B7975D" bgColor="2B0F01" />
         <WidgetStyle name="EOL custom color" styleID="0" fgColor="808080" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="B7975D" bgColor="2B0F01" fontName="Consolas" fontStyle="0" fontSize="10" />
     </GlobalStyles>
 </NotepadPlus>

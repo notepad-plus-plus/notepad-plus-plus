@@ -774,7 +774,6 @@ public:
 			::MessageBox(_hSelf, L"This function needs a newer OS version.", L"Change Case Error", MB_OK | MB_ICONHAND);
 	};
 
-	void scrollToCaret() const noexcept;
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 	bool isFoldIndentationBased() const;

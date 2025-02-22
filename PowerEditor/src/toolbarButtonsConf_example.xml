@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
 	<ToolbarButtons>
+<!--
+This file makes your toolbar buttons hideable.
+
+Usage:
+Move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\Notepad++\toolbarButtonsConf.xml"
+(or beside "notepad++.exe" if you're using the portable package).
+Modify the attributes "hideAll" or "hide" of the items with "yes" or "no" values.
+Save the file and relaunch Notepad++ to hide/show the buttons you selected.
+
+Notice:
+1. The values of the attributes "index" and "id" shouldn't be modified because they are used for synchronizing with internal data to maintain the coherence of this file.
+2. The attribute "name" is informative only, so the values of "name" can be modified for the user's convenience.
+3. The "yes" value of the "hideAll" attribute will override all values of the "hide" attribute.
+-->
 		<Standard hideAll="no">
 			<Button hide="no" index="0"  id="41001" name="New" />
 			<Button hide="no" index="1"  id="41002" name="Open..." />
@@ -44,12 +58,19 @@
 			<Button hide="no" index="39" id="42032" name="Run a Macro Multiple Times..." />
 			<Button hide="no" index="40" id="42025" name="Save Current Recorded Macro..." />
 		</Standard>
-
+<!--
+In this section we can hide toolbar buttons for installed plugins based on their order in the toolbar (including separators).
+"Name" attribute has no effect, use it as a reminder.
+When installing / uninstalling plugins, add/remove button entries as necessary so your button settings correspond to the changed toolbar button order.
+-->
 		<Plugin hideAll="no">
-			<Button hide="no" name="SEPARATOR" />        <!-- order="1" -->
-			<Button hide="no" name="Plugin button 1" />  <!-- order="2" -->
-			<Button hide="no" name="Plugin button 2" />  <!-- order="3" -->
-			<Button hide="no" name="Plugin button 3" />  <!-- order="4" -->
+			<Button hide="no" name="SEPARATOR" />        <!-- The 1st button -->
+			<Button hide="no" name="Plugin button 1" />  <!-- The 2nd button -->
+			<Button hide="no" name="Plugin button 2" />  <!-- The 3rd button -->
+			<Button hide="no" name="Plugin button 3" />  <!-- The 4th button -->
+			<!--Button hide="no" name="Plugin button 4" /-->  <!-- uncomment "Button" tags if need -->
+			<!--Button hide="no" name="Plugin button 5" /-->  <!-- uncomment "Button" tags if need -->
+			<!-- Add more "Button" tags here... -->
 		</Plugin>
 	</ToolbarButtons>
 </NotepadPlus>

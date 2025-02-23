@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.7.6
-    Last modified Wed, Jan 15th, 2025.
+    Italian translation for Notepad++ 8.7.8
+    Last modified Sun, Feb 23rd, 2025.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.6">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -335,7 +335,7 @@ Translation note:
 					<Item id="44081" name="Pannello 1"/>
 					<Item id="44082" name="Pannello 2"/>
 					<Item id="44083" name="Pannello 3"/>
-					<Item id="45001" name="Windows (CR+LF)"/>
+					<Item id="45001" name="Windows (CR LF)"/>
 					<Item id="45002" name="Unix (LF)"/>
 					<Item id="45003" name="Macintosh (CR)"/>
 					<Item id="45004" name="ANSI"/>
@@ -827,6 +827,7 @@ Translation note:
 				<Folder title="Cartelle e Predefiniti">
 					<Item id="21101" name="Impostazioni stile predefinito"/>
 					<Item id="21102" name="Stile"/>
+					<Item id="21103" name="Help Online per i linguaggi definiti dall'utente"/>
 					<Item id="21105" name="Documentazione"/>
 					<Item id="21106" name="Delimita compatto (racchiudi righe vuote)"/>
 					<Item id="21220" name="Delimitatori nel codice 1° stile"/>
@@ -1328,7 +1329,14 @@ Translation note:
 						<Element name="Chiudi"/>
 						<Element name="Minimizza / Chiudi"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (compatibilità)"/>
+						<Element name="DirectWrite (predefinito)"/>
+						<Element name="DirectWrite (retain frames)"/>
+						<Element name="DirectWrite (draw to GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="Area di notifica"/>
+					<Item id="6363" name="modalità rendering"/>
 					<Item id="6312" name="Rilevamento Stato File"/>
 					<Item id="6313" name="Aggiorna senza notifica"/>
 					<Item id="6325" name="Vai all&apos;ultima riga dopo l&apos;aggiornamento"/>
@@ -1337,7 +1345,6 @@ Translation note:
 					<Item id="6324" name="Cambia Documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Visualizza solo il nome file nella barra del titolo"/>
 					<Item id="6334" name="Rileva automaticamente la codifica caratteri"/>
-					<Item id="6349" name="Utilizza DirectWrite (può migliorare la visualizzazione dei caratteri speciali, richiede il riavvio di Notepad++)"/>
 					<Item id="6337" name="Est. file Area di Lavoro:"/>
 					<Item id="6114" name="Abilita"/>
 					<Item id="6117" name="Precedenza ai file più recenti"/>
@@ -1837,6 +1844,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei linguaggi sopra menzionati, il rientro rimarrà in modalità base."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Abilitando qui &quot;Global override&quot;, quel parametro verrà sovrascritto in tutti gli stili di lingua. Ciò che probabilmente vuoi usare è invece l'impostazione &quot;Default Style&quot;"/>
+			<scintillaRenderingTechnology-tip value="Potrebbe migliorare il rendering dei caratteri speciali o risolvere alcuni problemi grafici, riavviare Notepad++ per applicare le modifiche."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

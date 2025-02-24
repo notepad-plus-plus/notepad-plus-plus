@@ -1223,6 +1223,8 @@ bool FileManager::backupCurrentBuffer()
 
 					buffer->setTabCreatedTimeStringFromBakFile();
 
+					buffer->setModifiedStatus(false);
+
 					result = true;	//all done
 				}
 			}

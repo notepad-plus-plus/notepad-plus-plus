@@ -1331,7 +1331,6 @@ Translation note:
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar solo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
-					<Item id="6349" name="Usar DirectWrite (puede mejorar la representación de caracteres especiales, es necesario reiniciar Notepad++)"/>
 					<Item id="6337" name="Ext. del archivo área de trabajo:"/>
 					<Item id="6114" name="Permitir"/>
 					<Item id="6117" name="Ordenar por el usado más reciente"/>

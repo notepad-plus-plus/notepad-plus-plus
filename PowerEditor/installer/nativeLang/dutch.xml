@@ -1314,7 +1314,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
 					<Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
 					<Item id="6334" name="Tekenset automatisch detecteren"/>
-					<Item id="6349" name="DirectWrite gebruiken (kan weergave van speciale tekens verbeteren. Notepad++ moet opnieuw gestart worden)"/>
 					<Item id="6337" name="Bestandsextensie werkruimte:"/>
 					<Item id="6114" name="Inschakelen"/>
 					<Item id="6117" name="Volgorde van wisselen onthouden"/>

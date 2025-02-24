@@ -1305,7 +1305,6 @@
 					<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>
 					<Item id="6331" name="V naslovni vrstici prikaži le ime datoteke"/>
 					<Item id="6334" name="Samodejno zaznavanje kodiranja znakov"/>
-					<Item id="6349" name="Uporabite DirectWrite (lahko izboljša upodabljanje posebnih znakov; ponovno morate zagnati Notepad++)"/>
 					<Item id="6337" name="Delovni prostor pripone datoteke:"/>
 					<Item id="6114" name="Omogoči"/>
 					<Item id="6117" name="Omogoči MRU obnašanje"/>

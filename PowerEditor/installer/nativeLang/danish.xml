@@ -1245,7 +1245,6 @@ Brug mellemrum til at angive flere markører."/>
 					<Item id="6324" name="Dokumentskifter (Ctrl+tabulator)"/>
 					<Item id="6331" name="Vis kun filnavn i titellinien"/>
 					<Item id="6334" name="Registrér tegnsæt automatisk"/>
-					<Item id="6349" name="Brug DirectWrite (kan forbedre gengivelse af specialtegn. Notepad++ skal genstartes)"/>
 					<Item id="6337" name="Arbejdsrum filtype:"/>
 					<Item id="6114" name="Aktivér"/>
 					<Item id="6117" name="Skift mellem senest brugte"/>

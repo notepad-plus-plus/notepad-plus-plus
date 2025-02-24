@@ -1333,7 +1333,6 @@ Translation note:
 					<Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
 					<Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
 					<Item id="6334" name="Détecter l’encodage automatiquement"/>
-					<Item id="6349" name="Utiliser « DirectWrite » (il pourrait améliorer le rendu des caractères spéciaux. Nécessité de redémarrage)"/>
 					<Item id="6337" name="Ext. fichier espace de travail :"/>
 					<Item id="6114" name="Activer"/>
 					<Item id="6117" name="Activer la liste de MRU"/>

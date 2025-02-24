@@ -1213,7 +1213,6 @@ Updated to v8.6 fixed version
 					<Item id="6344" name="Asiakirjan kurkkija"/>
 					<Item id="6345" name="Kurkista välilehteen"/>
 					<Item id="6346" name="Kurkista asiakirjakarttaan"/>
-					<Item id="6349" name="DirectWrite käytössä (Saattaa parantaa erikoismerkkien ulkoasua, sovellus on käynnistettävä uudelleen)"/>
 					<Item id="6360" name="Vaimenna kaikki äänet"/>
 					<Item id="6361" name="Käytä vahvistusikkunaa tallennettaessa kaikki"/>
 				</MISC>

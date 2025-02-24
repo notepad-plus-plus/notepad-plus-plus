@@ -1361,7 +1361,6 @@ Translation note:
 					<Item id="6324" name="文档切换 (Ctrl+TAB)"/>
 					<Item id="6331" name="在标题栏仅显示文件名"/>
 					<Item id="6334" name="自动检测字符编码"/>
-					<Item id="6349" name="使用DirectWrite（可改善特殊字符渲染，需要重启Notepad++）"/>
 					<Item id="6337" name="工作区文件扩展名:"/>
 					<Item id="6114" name="启用"/>
 					<Item id="6117" name="按最近使用顺序切换"/>

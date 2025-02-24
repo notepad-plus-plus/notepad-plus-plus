@@ -1334,7 +1334,6 @@
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
-					<Item id="6349" name="DirectWrite Kullan (Özel karakterlerin gösterilmesini iyileştirebilir, Notepad++ yeniden başlatılmalıdır)"/>
 					<Item id="6350" name="Tam Çerçeve Modunu Etkinleştir"/>
 					<Item id="6337" name="Çalışma alanı dosya uzantısı:"/>
 					<Item id="6114" name="Etkin"/>

@@ -1331,7 +1331,6 @@ Translation note:
 					<Item id="6324" name="Bytt dokument	(Ctrl+Tab)"/>
 					<Item id="6331" name="Bare vis filnavn i tittellinjen"/>
 					<Item id="6334" name="Auto-oppdag tegnkoding"/>
-					<Item id="6349" name="Bruk DirectWrite (kan forbedre gjengivelsen av spesialtegn, må starte Notepad++ på nytt)"/>
 					<Item id="6337" name="Arbeidsområde filtype:"/>
 					<Item id="6114" name="Aktiver"/>
 					<Item id="6117" name="Aktiver MRU for dokument snarvei"/>

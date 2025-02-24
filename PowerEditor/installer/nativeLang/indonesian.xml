@@ -1236,7 +1236,6 @@ Anda dapat mendefinisikan beberapa penanda kolom dengan menggunakan spasi putih 
 					<Item id="6324" name="Penukar Dokumen (Ctrl+TAB)"/>
 					<Item id="6331" name="Tampilkan nama berkas saja di bilah judul"/>
 					<Item id="6334" name="Otomatis deteksi pengodean karakter"/>
-					<Item id="6349" name="Gunakan DirectWrite (Mungkin meningkatkan perenderan karakter khusus, perlu memulai ulang Notepad++)"/>
 					<Item id="6337" name="Ekst. berkas Ruang Kerja:"/>
 					<Item id="6114" name="Aktifkan"/>
 					<Item id="6117" name="Aktifkan perilaku MRU"/>

@@ -1367,7 +1367,6 @@
                     <Item id="6324" name="Comutator de documente (Ctrl+TAB)"/>
                     <Item id="6331" name="Afișează numai numele fișierului în bara de titlu"/>
                     <Item id="6334" name="Detectează automat codificarea caracterelor"/>
-                    <Item id="6349" name="Folosește DirectWrite (Poate îmbunătăți afișarea caracterelor speciale, necesită repornirea Notepad++)"/>
                     <Item id="6337" name="Extensie fișiere spațiu de lucru:" />
                     <Item id="6114" name="Activare"/>
                     <Item id="6117" name="Activează comportamentul MRU"/>             

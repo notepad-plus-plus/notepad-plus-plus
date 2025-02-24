@@ -1320,7 +1320,6 @@ Translation note:
 					<Item id="6324" name="문서 전환 (Ctrl+Tab)"/>
 					<Item id="6331" name="제목 표시줄에 파일 이름만 표시"/>
 					<Item id="6334" name="문자 인코딩 자동 감지"/>
-					<Item id="6349" name="바로 쓰기 사용 (특수 문자 그리기 속도가 개선될 수 있음, Notepad++ 재시작 필요)"/>
 					<Item id="6337" name="작업 영역 파일 확장자:"/>
 					<Item id="6114" name="사용"/>
 					<Item id="6117" name="가장 최근 사용한 문서로 이동"/>

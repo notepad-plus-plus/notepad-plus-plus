@@ -1341,7 +1341,6 @@ Translation note:
 					<Item id="6324" name="Przełączanie dokumentów (Ctrl+TAB)"/>
 					<Item id="6331" name="Pokazuj w pasku tytułu tylko nazwę pliku"/>
 					<Item id="6334" name="Automatycznie wykrywaj kodowanie"/>
-					<Item id="6349" name="Użyj DirectWrite (może poprawić wyświetlanie znaków specjalnych, wymagany restart Notepad++)"/>
 					<Item id="6337" name="Rozszerzenie pliku projektu:"/>
 					<Item id="6114" name="Włącz"/>
 					<Item id="6117" name="Zgodnie z ostatnim użyciem (MRU)"/>

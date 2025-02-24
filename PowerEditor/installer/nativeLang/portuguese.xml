@@ -1332,7 +1332,6 @@ Nota de tradução:
 					<Item id="6324" name="Alternador de documento (Ctrl+TAB)"/>
 					<Item id="6331" name="Mostrar apenas o nome do ficheiro na barra do título"/>
 					<Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
-					<Item id="6349" name="Usar DirectWrite (pode melhorar a renderização de carateres especiais, é necessário reiniciar o Notepad++)"/>
 					<Item id="6337" name="Extensão de ficheiro da área de trabalho:"/>
 					<Item id="6114" name="Ativar"/>
 					<Item id="6117" name="Ativar comportamento MRU"/>

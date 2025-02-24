@@ -1343,7 +1343,6 @@
 					<Item id="6324" name="文件切換器（Ctrl + Tab 掣）"/>
 					<Item id="6331" name="標題列淨係顯示檔案名"/>
 					<Item id="6334" name="自動偵測檔案編碼"/>
-					<Item id="6349" name="使用 DirectWrite（可以令特殊字符呈現得好啲，需要重開 Notepad++）"/>
 					<Item id="6337" name="資料夾工作區檔案副檔名："/>
 					<Item id="6114" name="啟用"/>
 					<Item id="6117" name="啟用 MRU 行為功能"/>

@@ -1332,7 +1332,6 @@
 					<Item id="6324" name="Biranje dokumenta (Ctrl+TAB)"/>
 					<Item id="6331" name="Prikaži samo naziv datoteke u naslovnoj traci"/>
 					<Item id="6334" name="Automatski detektuj kodiranje karaktera"/>
-					<Item id="6349" name="Koristi DirectWrite (Može poboljšati render. spec. karaktera, potrebno ponovo pokrenuti Notepad++)"/>
 					<Item id="6337" name="Workspace ekstenzija dat.:"/>
 					<Item id="6114" name="Omogući"/>
 					<Item id="6117" name="Omogući MRU način rada"/>

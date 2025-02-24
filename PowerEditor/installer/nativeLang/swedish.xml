@@ -1333,7 +1333,6 @@ Translation note:
 					<Item id="6324" name="Byt dokument (Ctrl + tabb)"/>
 					<Item id="6331" name="Visa endast filnamn i namnlisten"/>
 					<Item id="6334" name="Identifiera teckenkodning automatiskt"/>
-					<Item id="6349" name="Använd DirectWrite (kan förbättra renderingen av specialtecken, kräver omstart av Notepad++)"/>
 					<Item id="6337" name="Filändelse för arbetsytafil:"/>
 					<Item id="6114" name="Aktivera"/>
 					<Item id="6117" name="Kom ihåg senast öppnade filer"/>

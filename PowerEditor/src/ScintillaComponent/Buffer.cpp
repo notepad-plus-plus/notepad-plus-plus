@@ -1079,7 +1079,7 @@ For existing file (c:\tmp\foo.h)
 	- Editing
 	when a file starts being modified, a file will be created with name: FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776)
 	the Buffer object will associate with this FILENAME@CREATION_TIMESTAMP file (backup\foo.h@198776).
-	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notificatin).
+	1. sync: (each N seconds) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notification).
 	2. sync: each save file, or close file, the backup file will be deleted (if buffer is not dirty).
 	3. before switch off to another tab (or close files on exit), check 1 & 2 (sync with backup).
 
@@ -1097,7 +1097,7 @@ For untitled document (new  4)
 	- Editing
 	when a untitled document starts being modified, a backup file will be created with name: UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776)
 	the Buffer object will associate with this UNTITLED_NAME@CREATION_TIMESTAMP file (backup\new  4@198776).
-	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notificatin).
+	1. sync: (each N seconds) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notification).
 	2. sync: if untitled document is saved, or closed, the backup file will be deleted.
 	3. before switch off to another tab (or close documents on exit), check 1 & 2 (sync with backup).
 

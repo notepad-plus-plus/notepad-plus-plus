@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.7.3">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -823,6 +823,7 @@ Translation note:
 				<Folder title="Gruppering och standard">
 					<Item id="21101" name="Standardformat"/>
 					<Item id="21102" name="Format"/>
+					<Item id="21103" name="Internethjälp om användardefinierade språk"/>
 					<Item id="21105" name="Dokumentation"/>
 					<Item id="21106" name="&amp;Kompakt gruppering (gruppera tomma rader)"/>
 					<Item id="21220" name="Stil för gruppering i kod 1"/>
@@ -972,9 +973,9 @@ Translation note:
 					<Item id="6133" name="Statusfält"/>
 					<Item id="6134" name="Dölj"/>
 
-					<Item id="6131" name="Meny"/>
-					<Item id="6122" name="Dölj menyraden (använd Alt eller F10 för att visa)"/>
-					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på menyradens högersida (kräver omstart av Notepad++)"/>
+					<Item id="6131" name="Menyrad"/>
+					<Item id="6122" name="Dölj (använd Alt eller F10 för att visa)"/>
+					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan"/>
 
 					<Item id="6123" name="Gränssnittsspråk"/>
 				</Global>
@@ -1324,7 +1325,14 @@ Translation note:
 						<Element name="Stäng till"/>
 						<Element name="Minimera/Stäng till"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (mest kompatibel)"/>
+						<Element name="DirectWrite (standard)"/>
+						<Element name="DirectWrite (behåll bildrutor)"/>
+						<Element name="DirectWrite (rita till GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
+					<Item id="6363" name="renderingsläge"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>
 					<Item id="6325" name="Gå till sista raden efter uppdatering"/>
@@ -1410,7 +1418,7 @@ Du kan aktivera denna dialogruta i inställningarna senare."/>
 			</DoSaveAll><!-- HowToReproduce: Check the "Enable Save All confirm dialog" checkbox in Preference->MISC, now click "Save all" -->
 			
 			<DebugInfo title="Felsökningsinformation">
-				<Item id="1752" name="&amp;Kopiera felsökningsinformation till urklipp"/>
+				<Item id="1752" name="&amp;Kopiera felsökningsinfo till urklipp"/>
 				<Item id="1" name="OK"/>
 			</DebugInfo>
 		</Dialog>
@@ -1558,6 +1566,7 @@ Se användarmanualen för instruktioner om hur man aktiverar reguljär bakåtsö
 			<PrintError title="0" message="Kan inte starta utskift av dokument."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Sökvarning" message="Tillståndet hos kryssrutan &quot;I markering&quot; har ändrats automatiskt.
 Kontrollera sökvillkoren innan du utför åtgärden."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ behöver startas om" message="Notepad++ behöver startas om för att visa knapparna på högersidan."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -1831,6 +1840,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Om du väljer avancerat läge men inte redigerar filer i de omfattande språken kommer indraget förbli i enkelt läge."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Om &quot;Global override&quot; aktiveras här kommer samma parameter att åsidosättas i alla språkstilar. Du vill förmodligen egentligen använda inställningen &quot;Default Style&quot; i stället"/>
+			<scintillaRenderingTechnology-tip value="Kan förbättra renderingen av specialtecken eller lösa några grafikproblem. Starta om Notepad++ för att tillämpa ändringarna."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

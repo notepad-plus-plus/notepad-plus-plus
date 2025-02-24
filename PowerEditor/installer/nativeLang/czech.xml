@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.6  18/Jan/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.8  24/Feb/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.6">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -839,6 +839,7 @@
 					<Item id="21101" name="Výchozí nastavení návrhu"/>
 					<Item id="21105" name="Dokumentace"/>
 					<Item id="21102" name="Návrhář"/>
+					<Item id="21103" name="Online nápověda pro Uživatelsky definované syntaxe"/>
 					<Item id="21106" name="Sbalit do kompaktní formy (i prázdné řádky)"/>
 					<Item id="21201" name="Nastavení klíčových slov pro otevření složky"/>
 					<Item id="21301" name="Nastavení klíčových slov pro uzavření složky"/>
@@ -1241,6 +1242,12 @@
 						<Element name="Zavírat do"/>
 						<Element name="Minimalizovat a Zavírat do"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (nejkompatibilnější)"/>
+						<Element name="DirectWrite (výchozí)"/>
+						<Element name="DirectWrite (zachovávat snímky)"/>
+						<Element name="DirectWrite (vykreslovat do GDI DC)"/>
+					</ComboBox>
 					<Item id="6114" name="Povolit přepínání"/>
 					<Item id="6117" name="Povolit MRU (nedávno použité)"/>
 					<Item id="6308" name="oznamovací oblast"/>
@@ -1258,6 +1265,7 @@
 					<Item id="6346" name="Na přehledné mapě dokumentu"/>
 					<Item id="6360" name="Ztlumit všechny zvuky"/>
 					<Item id="6361" name="Povolit potvrzovací dialog &quot;Uložit všechny&quot;"/>
+					<Item id="6363" name="vykreslovací režim"/>
 				</MISC>
 				<Backup title="Zálohování">
 					<Item id="6219" name="Uživatelsky definovaný adresář pro zálohování"/>
@@ -1837,6 +1845,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíněných jazyků, zůstane odsazení v Základním režimu."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Použitím &quot;Global override&quot; přepíšete nastavení ve všech stylech pro všechny syntaxe. Nejspíše chcete namísto toho použít nastavení &quot;Default Style&quot;."/>
+			<scintillaRenderingTechnology-tip value="Může zlepšit vykreslování speciálních znaků nebo vyřešit některé problémy s grafikou. Restartujte Notepad++, aby se změny projevily."/>
 		</MiscStrings>
 
 	</Native-Langue>

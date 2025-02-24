@@ -218,6 +218,7 @@ SET(include_files
 			./MISC/sha2/sha-256.h
 			./MISC/sha512/sha512.h
 			./NppDarkMode.h
+			./NppLibsVersion.h
 			./ScintillaComponent/columnEditor_rc.h
 			./ScintillaComponent/FindReplaceDlg_rc.h
 			./ScintillaComponent/ScintillaRef.h

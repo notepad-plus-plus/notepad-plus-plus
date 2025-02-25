@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
 -    Traducerea în română pentru Notepad++ 8.7.8
--    Ultima modificare a fost făcută 8 februarie 2025 de către Miloiu Andrei-Valentin
+-    Ultima modificare a fost făcută 25 februarie 2025 de către Miloiu Andrei Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
@@ -834,7 +834,6 @@
                 <Folder title="Foldere și implicite">
                     <Item id="21101" name="Stil implicit"/>
                     <Item id="21102" name="Stilizator"/>
-					<Item id="21103" name="Ajutor online pentru limbile definite de utilizator"/>
                     <Item id="21105" name="Documentație:"/>
                     <Item id="21104" name="Documentație online:"/>
                     <Item id="21106" name="Pliere &amp;compactă (pliază și liniile goale)"/>
@@ -1357,7 +1356,14 @@
 						<Element name="Închide în"/>
 						<Element name="Minimizează / Închide în"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (cel mai comapitibil)"/>
+						<Element name="DirectWrite (implicit)"/>
+						<Element name="DirectWrite (reține cadrele)"/>
+						<Element name="DirectWrite (desenează în GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="bara de sistem"/>
+					<Item id="6363" name="modul de randare"/>
 					<Item id="6362" name="Închide în bara de sistem"/>
                     <Item id="6312" name="Detectează automat starea fișierului"/>
                     <Item id="6313" name="Actualizare silențioasă"/>
@@ -1882,6 +1888,7 @@ Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate m
 			<!-- Nu tradu Global override și Default Style -->
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activând aici &quot;Global override&quot; se va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb, setările &quot;Default Style&quot;"/>
+			<scintillaRenderingTechnology-tip value="Poate îmbunătăți randarea caracterelor speciale sau poate rezolva unele probleme de grafică, repornește Notepad++ pentru aplicarea modificărilor."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

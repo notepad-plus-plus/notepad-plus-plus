@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.7.3">
+	<Native-Langue name="Français" filename="french.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1324,6 +1324,12 @@ Translation note:
 						<Element name="Fermer dans"/>
 						<Element name="Réduire / Fermer dans"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (le plus compatible)"/>
+						<Element name="DirectWrite (défaut)"/>
+						<Element name="DirectWrite (mode de rétention)"/>
+						<Element name="DirectWrite (rendu sur GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="la barre de notifications"/>
 					<Item id="6312" name="Surveillance de l’état des fichiers"/>
 					<Item id="6313" name="Mise à jour sans alerte"/>
@@ -1832,6 +1838,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Si vous sélectionnez le mode avancé sans modifier les fichiers des langues mentionnées ci-dessus, les paramètres d'indentation resteront en mode basique."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activer le « global override » ici substituera ces paramètres dans tous les styles pour tous les langages de programmation. Vous préférerez probablement utiliser les paramètres « Default Style » à la place"/>
+			<scintillaRenderingTechnology-tip value="Cela peut améliorer le rendu des caractères spéciaux ou résoudre certains problèmes graphiques. Veuillez redémarrer Notepad++ pour appliquer le changement."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

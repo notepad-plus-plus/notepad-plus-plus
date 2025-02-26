@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.7.3">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1261,6 +1261,12 @@
 						<Element name="關閉至"/>
 						<Element name="最小化 / 關閉至"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI（最相容模式）"/>
+						<Element name="DirectWrite（通用模式）"/>
+						<Element name="DirectWrite（保留模式）"/>
+						<Element name="DirectWrite（繪製到 GDI DC）"/>
+					</ComboBox>
 					<Item id="6308" name="系統匣"/>
 					<Item id="6312" name="自動更新檔案狀態"/>
 					<Item id="6313" name="於背景自動更新"/>
@@ -1652,6 +1658,7 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 
 如果你選擇進階模式但不編輯上述語言文件，縮排設定將保留為基本模式。"/>
 			<global-override-tip value="此處啟用「Global override」將覆蓋所有語言樣式中的此些參數。你可能真正想要的是使用「Default Style」設置"/>
+			<scintillaRenderingTechnology-tip value="變更選項可能會改善特殊字元的顯示或解決一些圖形問題。請重新啟動 Notepad++ 以套用變更。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

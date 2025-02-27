@@ -1,0 +1,80 @@
+{4}// tests for code folding
+{0}
+{4}// multi line comments
+{2}{ 
+line1
+line2
+}{0}
+
+{4}// begin .. end
+{9}begin{0}
+{1}some{0} {1}commands{0}
+{9}end{13};{0}
+
+{9}record{0} {1}test{0}
+  {1}var1{13}:{0} {1}type1{13};{0}
+  {1}var2{13}:{0} {1}type2{13};{0}
+  {9}end{13};{0} {4}//record
+{0}  
+{4}//asm
+{9}asm{14}
+  some statement
+  {9}end{13};{0} {4}//asm
+{0}  
+{4}//try (from https://wiki.freepascal.org/Try)
+{9}try{0}
+  {4}// code that might generate an exception
+{9}except{0}
+  {4}// will only be executed in case of an exception
+{0}  {9}on{0} {1}E{13}:{0} {1}EDatabaseError{0} {9}do{0}
+    {1}ShowMessage{13}({0} {10}'Database error: '{13}+{0} {1}E{13}.{1}ClassName{0} {13}+{0} {12}#13#10{0} {13}+{0} {1}E{13}.{9}Message{0} {13});{0}
+  {9}on{0} {1}E{13}:{0} {1}Exception{0} {9}do{0}
+    {1}ShowMessage{13}({0} {10}'Error: '{13}+{0} {1}E{13}.{1}ClassName{0} {13}+{0} {12}#13#10{0} {13}+{0} {1}E{13}.{9}Message{0} {13});{0}
+{9}end{13};{0}
+  
+{4}//try nested (from https://wiki.freepascal.org/Try)
+{9}try{0}
+  {9}try{0}
+    {4}// code dealing with database that might generate an exception
+{0}  {9}except{0}
+    {4}// will only be executed in case of an exception
+{0}    {9}on{0} {1}E{13}:{0} {1}EDatabaseError{0} {9}do{0}
+      {1}ShowMessage{13}({0} {10}'Database error: '{13}+{0} {1}E{13}.{1}ClassName{0} {13}+{0} {12}#13#10{0} {13}+{0} {1}E{13}.{9}Message{0} {13});{0}
+    {9}on{0} {1}E{13}:{0} {1}Exception{0} {9}do{0}
+      {1}ShowMessage{13}({0} {10}'Error: '{13}+{0} {1}E{13}.{1}ClassName{0} {13}+{0} {12}#13#10{0} {13}+{0} {1}E{13}.{9}Message{0} {13});{0}
+  {9}end{13};{0}
+{9}finally{0}
+  {4}// clean up database-related resources
+{9}end{13};{0}
+
+{4}//case
+{9}case{0} {1}x{0} {9}of{0}
+  {7}1{13}:{0} {9}do{0} {1}something{13};{0}
+  {7}2{13}:{0} {9}do{0} {1}some{0} {1}other{0} {1}thing{13};{0}
+{9}else{0}
+  {9}do{0} {1}default{13};{0}
+  {9}end{13};{0} {4}//case
+{0}  
+{4}//if then else  
+{9}if{0} {1}x{13}={1}y{0} {9}then{0} 
+  {9}do{0} {1}something{13};{0}
+{9}else{0}
+  {9}do{0} {1}some{0} {1}other{0} {1}thing{13};{0}
+  
+{4}//for loop  
+{9}for{0} {1}i{13}:={7}1{0} {9}to{0} {7}10{0} {9}do{0}
+  {1}writeln{13}({1}i{13}){0}
+
+{4}//do until
+{9}repeat{0}
+  {1}write{13}({1}a{13});{0}
+  {1}i{13}:={1}i{13}+{7}1{13};{0}
+{9}until{0} {1}i{13}>{7}10{13};{0}
+
+{4}//preprocessor if, else, endif
+{5}{$DEFINE label}{0}
+{5}{$IFDEF label}{0}
+  {1}command{0} {7}1{0}
+{5}{$ELSE}{0}
+  {1}command{0} {7}2{0}
+{5}{$ENDIF}{0}

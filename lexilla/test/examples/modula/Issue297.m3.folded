@@ -1,0 +1,7 @@
+ 0 400 400   INTERFACE Issue297;
+ 1 400 400   
+ 0 400 400   TYPE
+ 0 400 400     INTEGER32 = [-16_7fffffff-1 .. 16_7fffffff];
+ 1 400 400   
+ 0 400 3ff   END Issue297.
+ 1 3ff 3ff   

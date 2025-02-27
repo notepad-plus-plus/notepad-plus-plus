@@ -4,33 +4,27 @@
 
 /*
     Currently tested:
-        SplitVector
-        Partitioning
-        RunStyles
-        ContractionState
+        CellBuffer
+        CharacterCategoryMap
         CharClassify
+        ContractionState
         Decoration
         DecorationList
-        CellBuffer
+        Document
+        Geometry
+        Partitioning
+        PerLine
+        RESearch
+        RunStyles
+        Selection
+        SplitVector
         UniConversion
 
     To do:
-        PerLine *
         Range
         StyledText
         CaseFolder ...
-        Document
-        RESearch
-        Selection
         Style
-
-        lexlib:
-        Accessor
-        LexAccessor
-        CharacterSet
-        OptionSet
-        PropSetSimple
-        StyleContext
 */
 
 #include <cstdio>

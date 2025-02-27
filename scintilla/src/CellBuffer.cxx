@@ -1075,6 +1075,10 @@ int CellBuffer::UndoSequenceDepth() const noexcept {
 	return uh->UndoSequenceDepth();
 }
 
+bool CellBuffer::AfterUndoSequenceStart() const noexcept {
+	return uh->AfterUndoSequenceStart();
+}
+
 void CellBuffer::AddUndoAction(Sci::Position token, bool mayCoalesce) {
 	bool startSequence = false;
 	uh->AppendAction(ActionType::container, token, nullptr, 0, startSequence, mayCoalesce);

@@ -6,4 +6,11 @@
  2 400   0 + puts <<中
  0 401   0 | #{1+2}
  0 401   0 | 中
+ 1 400   0   
+ 0 400   0   def STDERR::error(x) = puts(x)
+ 0 400   0   def STDERR.error(x) = puts(x)
+ 1 400   0   
+ 2 400   0 + STDERR.error <<EOF
+ 0 401   0 | STDERR heredoc
+ 0 401   0 | EOF
  0 400   0   

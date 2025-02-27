@@ -113,6 +113,12 @@
  0 400   0   #44:symbol
  0 400   0   %s(#{1 + 1})
  1 400   0   
+ 0 400   0   #128:user keywords 1
+ 0 400   0   decrypt
+ 1 400   0   
+ 0 400   0   #129:user keywords 2
+ 0 400   0   encrypt
+ 1 400   0   
  0 400   0   #19:data section
  0 400   0   __END__
  1 400   0   

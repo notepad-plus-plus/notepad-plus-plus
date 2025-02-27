@@ -68,6 +68,7 @@ Geometry.o \
 PerLine.o \
 RESearch.o \
 RunStyles.o \
+Selection.o \
 UndoHistory.o \
 UniConversion.o \
 UniqueString.o

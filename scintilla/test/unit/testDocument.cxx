@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string_view>
 #include <vector>
+#include <map>
 #include <set>
 #include <optional>
 #include <algorithm>
@@ -33,6 +34,7 @@
 #include "Decoration.h"
 #include "CaseFolder.h"
 #include "Document.h"
+#include "UniConversion.h"
 
 #include "catch.hpp"
 
@@ -65,23 +67,6 @@ const Folding foldings1252[] = {
 	{0x9f, 0xff, 0x01},
 	{0xc0, 0xe0, 0x17},
 	{0xd8, 0xf8, 0x07},
-};
-
-// Table of case folding for non-ASCII bytes in Windows Russian code page 1251
-const Folding foldings1251[] = {
-	{0x80, 0x90, 0x01},
-	{0x81, 0x83, 0x01},
-	{0x8a, 0x9a, 0x01},
-	{0x8c, 0x9c, 0x04},
-	{0xa1, 0xa2, 0x01},
-	{0xa3, 0xbc, 0x01},
-	{0xa5, 0xb4, 0x01},
-	{0xa8, 0xb8, 0x01},
-	{0xaa, 0xba, 0x01},
-	{0xaf, 0xbf, 0x01},
-	{0xb2, 0xb3, 0x01},
-	{0xbd, 0xbe, 0x01},
-	{0xc0, 0xe0, 0x20},
 };
 
 std::string ReadFile(const std::string &path) {
@@ -954,6 +939,61 @@ TEST_CASE("SafeSegment") {
 		length = doc.document.SafeSegment(text);
 		REQUIRE(text[length - 1] == '\x9e');
 		REQUIRE(text[length] == '\xf0');
+	}
+
+	SECTION("UTF-8 Character Fragments") {
+		// PositionCache breaks long texts into fixed length sub-strings that are passed to SafeSegment
+		// so the final character in the sub-string may be incomplete without all needed trail bytes.
+		// For UTF-8, SafeSegment first discards any final bytes that do not represent a valid character
+		// then discards the final whole character.
+
+		const DocPlus doc("", CpUtf8);
+
+		// break before last character after discarding incomplete last character: 0 trail byte
+		std::string_view text = "Japanese\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e\xc2";	// Invalid text as ends with start byte
+		size_t length = doc.document.SafeSegment(text);
+		REQUIRE(text[length - 1] == '\xac');
+		REQUIRE(text[length] == '\xe8');
+		REQUIRE(UTF8IsValid(text.substr(0, length)));
+
+		// break before last character after discarding incomplete last character: 1 trail byte and 2 needed
+		text = "Japanese\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e\xe6\x97";	// Invalid text as ends with only 1 trail byte
+		length = doc.document.SafeSegment(text);
+		REQUIRE(text[length - 1] == '\xac');
+		REQUIRE(text[length] == '\xe8');
+		REQUIRE(UTF8IsValid(text.substr(0, length)));
+	}
+
+	SECTION("UTF-8 Combining Characters") {
+		const DocPlus doc("", CpUtf8);
+
+		// There may be combining characters like accents and tone marks after the
+		// last letter in a sub-string and these may be included in the sub-string
+		// or follow it.
+		// Correct display requires that the combining characters are measured and
+		// drawn with the letter they follow. Thus the final letter and any
+		// following combining characters are discarded.
+
+		// A Thai text example with 8 characters, each taking 3 bytes:
+		// HO HIP, SARA AA, KHO KHAI, MAI THO, O ANG, MO MA, SARA UU, LO LING
+		// Most are letters (Lo) but 2 characters are modifiers (Mn):
+		// MAI THO is a tone mark and SARA UU is a vowel.
+		const std::string_view text = "\xe0\xb8\xab\xe0\xb8\xb2\xe0\xb8\x82\xe0\xb9\x89\xe0\xb8\xad\xe0\xb8\xa1\xe0\xb8\xb9\xe0\xb8\xa5";
+		REQUIRE(text.length() == 8 * 3);
+		size_t length = doc.document.SafeSegment(text);
+		REQUIRE(length == (8 - 1) * 3);	// Discard last character
+
+		// Remove last character (letter LO LING) then run again.
+		// Should skip past SARA UU combining vowel mark to discard letter MO MA and SARA UU.
+		const std::string_view textWithoutLoLing = text.substr(0, length);
+		length = doc.document.SafeSegment(textWithoutLoLing);
+		REQUIRE(length == (8 - 3) * 3);	// Discard 2 characters
+
+		// Remove last character SARA UU combining vowel mark then run again
+		// Final letter may have following combining mark so discard producing same text as previous step.
+		const std::string_view textWithoutSaraUu = text.substr(0, (8 - 2) * 3);
+		length = doc.document.SafeSegment(textWithoutSaraUu);
+		REQUIRE(length == (8 - 3) * 3);	// Discard 1 character
 	}
 
 	SECTION("DBCS Shift-JIS") {

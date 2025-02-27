@@ -32,6 +32,10 @@ constexpr Point PointFromPOINT(POINT pt) noexcept {
 	return Point::FromInts(pt.x, pt.y);
 }
 
+constexpr SIZE SizeOfRect(RECT rc) noexcept {
+	return { rc.right - rc.left, rc.bottom - rc.top };
+}
+
 constexpr HWND HwndFromWindowID(WindowID wid) noexcept {
 	return static_cast<HWND>(wid);
 }
@@ -68,12 +72,21 @@ public:
 
 #if defined(USE_D2D)
 extern bool LoadD2D() noexcept;
-extern ID2D1Factory *pD2DFactory;
-extern IDWriteFactory *pIDWriteFactory;
+extern ID2D1Factory1 *pD2DFactory;
+extern IDWriteFactory1 *pIDWriteFactory;
+
+using DCRenderTarget = ComPtr<ID2D1DCRenderTarget>;
+
+using D3D11Device = ComPtr<ID3D11Device1>;
+
+HRESULT CreateDCRenderTarget(const D2D1_RENDER_TARGET_PROPERTIES *renderTargetProperties, DCRenderTarget &dcRT) noexcept;
+extern HRESULT CreateD3D(D3D11Device &device) noexcept;
+
+using WriteRenderingParams = ComPtr<IDWriteRenderingParams1>;
 
 struct RenderingParams {
-	std::unique_ptr<IDWriteRenderingParams, UnknownReleaser> defaultRenderingParams;
-	std::unique_ptr<IDWriteRenderingParams, UnknownReleaser> customRenderingParams;
+	WriteRenderingParams defaultRenderingParams;
+	WriteRenderingParams customRenderingParams;
 };
 
 struct ISetRenderingParams {

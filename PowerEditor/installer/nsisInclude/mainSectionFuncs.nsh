@@ -39,6 +39,12 @@ initUpdatePath:
 	StrCpy $PLUGIN_INST_PATH "$INSTDIR\plugins"
 	StrCpy $ALLUSERS_PLUGIN_CONF_PATH "$PLUGIN_INST_PATH\Config"
 	
+	; in Silent mode we cannot use the NSIS GUI for handling the doLocalConf mode
+	; but we need to directly use the previous user setting
+	IfSilent 0 +3
+	IfFileExists $INSTDIR\doLocalConf.xml 0 +2
+	StrCpy $noUserDataChecked ${BST_CHECKED}
+
 	${If} $noUserDataChecked == ${BST_CHECKED}
 
 		File "..\bin\doLocalConf.xml"

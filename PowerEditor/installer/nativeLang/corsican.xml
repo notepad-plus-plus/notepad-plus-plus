@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6)
+	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -35,7 +35,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.6">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -851,6 +851,7 @@ Additionnal information about Corsican localization:
 				<Folder title="Stilu di piegatura è predefinizione">
 					<Item id="21101" name="Stilu predefinitu"/>
 					<Item id="21102" name="Stilu"/>
+					<Item id="21103" name="Aiutu in linea di i linguaghji definiti da l’utilizatore"/>
 					<Item id="21105" name="Documentazione"/>
 					<Item id="21106" name="Piegatura &amp;cumpatta (piegà linee viote dinù)"/>
 					<Item id="21220" name="Stilu 1 di piegatura di codice"/>
@@ -986,6 +987,7 @@ Additionnal information about Corsican localization:
 					<Item id="6108" name="Bluccà (senza sguillà é depone)"/>
 					<Item id="6109" name="Cambià u culore di l’unghjette inattive"/>
 					<Item id="6110" name="Barra culurita nant’à l’unghjetta attiva"/>
+					<Item id="6111" name="Affissà i buttoni nant’à l’unghjette inattive"/>
 					<Item id="6112" name="Affissà u buttone di chjusura"/>
 					<Item id="6113" name="Doppiu cliccu per chjode u ducumentu"/>
 					<Item id="6115" name="Attivà a funzione di fissazione di l’unghjetta"/>
@@ -1350,7 +1352,14 @@ Additionnal information about Corsican localization:
 						<Element name="Chjode in"/>
 						<Element name="Impuculisce o chjode in"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (u più cumpatibile)"/>
+						<Element name="DirectWrite (predefinitu)"/>
+						<Element name="DirectWrite (cunservà e sequenze)"/>
+						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
+					</ComboBox>
 					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
+					<Item id="6363" name="modu di restituzione"/>
 					<Item id="6312" name="Detezione autumatica di statu di schedariu"/>
 					<Item id="6313" name="Mudificazione senza avertimentu"/>
 					<Item id="6325" name="Andà à l’ultima linea dopu a mudificazione"/>
@@ -1852,6 +1861,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i linguaghji mintulati insù, l’indentazione sterà in modu basicu."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Attivà quì l’ozzione « Global override » supranerà sti parametri à tutti i stili di tutti i linguaghji di prugrammazione. Preferiscerete di sicuru impiegà piuttostu i parametri « Default Style »"/>
+			<scintillaRenderingTechnology-tip value="Puderia amendà a trasfurmazione di i caratteri speziali o currege certi prublemi grafichi ; rilancià Notepad++ per piglià in contu i cambiamenti."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

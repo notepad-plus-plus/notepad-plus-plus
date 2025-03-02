@@ -135,7 +135,7 @@ SectionGroup "Localization" localization
 		CopyFiles "$PLUGINSDIR\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Irish" irish
-		CopyFiles "$PLUGINSDIR\nppLocalization\iriish.xml" "$INSTDIR\localization\irish.xml"
+		CopyFiles "$PLUGINSDIR\nppLocalization\irish.xml" "$INSTDIR\localization\irish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Italian" italian
 		CopyFiles "$PLUGINSDIR\nppLocalization\italian.xml" "$INSTDIR\localization\italian.xml"

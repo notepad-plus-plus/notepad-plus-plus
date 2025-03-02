@@ -4879,7 +4879,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, L"TabBar"))
 		{
 			bool isFailed = false;
-			int oldValue = _nppGUI._tabStatus;
+			size_t oldValue = _nppGUI._tabStatus;
 			const wchar_t* val = element->Attribute(L"dragAndDrop");
 			if (val)
 			{
@@ -4948,6 +4948,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			else
 			{
 				_nppGUI._tabStatus |= TAB_PINBUTTON;
+			}
+
+			val = element->Attribute(L"putPinButtonInFront");
+			if (val)
+			{
+				if (!lstrcmp(val, L"yes"))
+					_nppGUI._tabStatus |= TAB_PUTPINBUTTONINFRONT;
+				else if (!lstrcmp(val, L"no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
 			}
 
 			val = element->Attribute(L"buttonsOninactiveTabs");
@@ -7295,7 +7306,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 
-	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
+	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" putPinButtonInFront="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"TabBar");
@@ -7317,6 +7328,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_PINBUTTON) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"pinButton", pStr);
+
+		pStr = (_nppGUI._tabStatus & TAB_PUTPINBUTTONINFRONT) ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"putPinButtonInFront", pStr);
 
 		pStr = (_nppGUI._tabStatus & TAB_INACTIVETABSHOWBUTTON) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"buttonsOninactiveTabs", pStr);

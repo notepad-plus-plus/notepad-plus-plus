@@ -153,7 +153,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 
 	if (cmdLineParams->_isNoTab || (nppGUI._tabStatus & TAB_HIDE))
 	{
-		const int tabStatusOld = nppGUI._tabStatus;
+		const size_t tabStatusOld = nppGUI._tabStatus;
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
 		if (cmdLineParams->_isNoTab)
 		{

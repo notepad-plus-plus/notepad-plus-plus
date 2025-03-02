@@ -75,13 +75,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
-    <CodeAnalysisRuleSet>..\..\..\..\..\Users\Neil\SensibleRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\..\lexilla\src\Lexilla.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>..\..\..\lexilla\src\Lexilla.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -165,6 +166,7 @@
     <ClCompile Include="..\..\src\PerLine.cxx" />
     <ClCompile Include="..\..\src\RESearch.cxx" />
     <ClCompile Include="..\..\src\RunStyles.cxx" />
+    <ClCompile Include="..\..\src\Selection.cxx" />
     <ClCompile Include="..\..\src\UndoHistory.cxx" />
     <ClCompile Include="..\..\src\UniConversion.cxx" />
     <ClCompile Include="..\..\src\UniqueString.cxx" />

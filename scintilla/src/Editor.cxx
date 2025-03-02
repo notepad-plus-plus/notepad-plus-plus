@@ -711,6 +711,15 @@ void Editor::SetEmptySelection(Sci::Position currentPos_) {
 	SetEmptySelection(SelectionPosition(currentPos_));
 }
 
+void Editor::SetSelectionFromSerialized(const char *serialized) {
+	if (serialized) {
+		sel = Selection(serialized);
+		sel.Truncate(pdoc->Length());
+		SetRectangularRange();
+		InvalidateStyleRedraw();
+	}
+}
+
 void Editor::MultipleSelectAdd(AddNumber addNumber) {
 	if (SelectionEmpty() || !multipleSelection) {
 		// Select word at caret
@@ -924,6 +933,37 @@ Point Editor::PointMainCaret() {
 void Editor::SetLastXChosen() {
 	const Point pt = PointMainCaret();
 	lastXChosen = static_cast<int>(pt.x) + xOffset;
+}
+
+void Editor::RememberSelectionForUndo(int index) {
+	EnsureModelState();
+	if (modelState) {
+		modelState->RememberSelectionForUndo(index, sel);
+		needRedoRemembered = true;
+		// Remember selection at end of processing current message
+	}
+}
+
+void Editor::RememberSelectionOntoStack(int index) {
+	EnsureModelState();
+	if (modelState) {
+		// Is undo currently inside a group?
+		if (!pdoc->AfterUndoSequenceStart()) {
+			// Don't remember selections inside a grouped sequence as can only
+			// unto or redo to the start and end of the group.
+			modelState->RememberSelectionOntoStack(index, topLine);
+		}
+	}
+}
+
+void Editor::RememberCurrentSelectionForRedoOntoStack() {
+	if (needRedoRemembered && (pdoc->UndoSequenceDepth() == 0)) {
+		EnsureModelState();
+		if (modelState) {
+			modelState->RememberSelectionForRedoOntoStack(pdoc->UndoCurrent(), sel, topLine);
+			needRedoRemembered = false;
+		}
+	}
 }
 
 void Editor::ScrollTo(Sci::Line line, bool moveThumb) {
@@ -2085,13 +2125,13 @@ void Editor::InsertCharacter(std::string_view sv, CharacterSource charSource) {
 				}
 			}
 		}
+		ThinRectangularRange();
 	}
 	if (wrapOccurred) {
 		SetScrollBars();
 		SetVerticalScrollPos();
 		Redraw();
 	}
-	ThinRectangularRange();
 	// If in wrap mode rewrap current line so EnsureCaretVisible has accurate information
 	EnsureCaretVisible();
 	// Avoid blinking during rapid typing:
@@ -2367,22 +2407,44 @@ void Editor::SelectAll() {
 	Redraw();
 }
 
+void Editor::RestoreSelection(Sci::Position newPos, UndoRedo history) {
+	EnsureModelState();
+	if ((undoSelectionHistoryOption == UndoSelectionHistoryOption::Enabled) && modelState) {
+		// Undo wants the element after the current as it just undid it
+		const int index = pdoc->UndoCurrent() + (history == UndoRedo::undo ? 1 : 0);
+		const SelectionWithScroll selAndLine = modelState->SelectionFromStack(index, history);
+		if (!selAndLine.selection.empty()) {
+			ScrollTo(selAndLine.topLine);
+			sel = Selection(selAndLine.selection);
+			if (sel.IsRectangular()) {
+				const size_t mainForRectangular = sel.Main();
+				// Reconstitute ranges from rectangular range
+				SetRectangularRange();
+				// Restore main if possible.
+				if (mainForRectangular < sel.Count()) {
+					sel.SetMain(mainForRectangular);
+				}
+			}
+			newPos = -1; // Used selection from stack so don't use position returned from undo/redo.
+		}
+	}
+	if (newPos >= 0)
+		SetEmptySelection(newPos);
+	EnsureCaretVisible();
+}
+
 void Editor::Undo() {
 	if (pdoc->CanUndo()) {
 		InvalidateCaret();
 		const Sci::Position newPos = pdoc->Undo();
-		if (newPos >= 0)
-			SetEmptySelection(newPos);
-		EnsureCaretVisible();
+		RestoreSelection(newPos, UndoRedo::undo);
 	}
 }
 
 void Editor::Redo() {
 	if (pdoc->CanRedo()) {
 		const Sci::Position newPos = pdoc->Redo();
-		if (newPos >= 0)
-			SetEmptySelection(newPos);
-		EnsureCaretVisible();
+		RestoreSelection(newPos, UndoRedo::redo);
 	}
 }
 
@@ -2456,6 +2518,17 @@ void Editor::NotifyStyleNeeded(Document *, void *, Sci::Position endStyleNeeded)
 
 void Editor::NotifyErrorOccurred(Document *, void *, Status status) {
 	errorStatus = status;
+}
+
+void Editor::NotifyGroupCompleted(Document *, void *) noexcept {
+	// RememberCurrentSelectionForRedoOntoStack may throw (for memory exhaustion)
+	// but this method may not as it is called in UndoGroup destructor so ignore
+	// exception.
+	try {
+		RememberCurrentSelectionForRedoOntoStack();
+	} catch (...) {
+		// Ignore any exception
+	}
 }
 
 void Editor::NotifyChar(int ch, CharacterSource charSource) {
@@ -2726,6 +2799,15 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 			view.llc.Invalidate(LineLayout::ValidLevel::checkTextAndStyle);
 		}
 	} else {
+		if ((undoSelectionHistoryOption == UndoSelectionHistoryOption::Enabled) &&
+			FlagSet(mh.modificationType, ModificationFlags::User)) {
+			if (FlagSet(mh.modificationType, ModificationFlags::BeforeInsert | ModificationFlags::BeforeDelete)) {
+				RememberSelectionForUndo(pdoc->UndoCurrent());
+			}
+			if (FlagSet(mh.modificationType, ModificationFlags::InsertText | ModificationFlags::DeleteText)) {
+				RememberSelectionOntoStack(pdoc->UndoCurrent());
+			}
+		}
 		// Move selection and brace highlights
 		if (FlagSet(mh.modificationType, ModificationFlags::InsertText)) {
 			sel.MovePositions(true, mh.position, mh.length);
@@ -5460,6 +5542,7 @@ void Editor::SetDocPointer(Document *document) {
 		pdoc = document;
 	}
 	pdoc->AddRef();
+	modelState.reset();
 	pcs = ContractionStateCreate(pdoc->IsLarge());
 
 	// Ensure all positions within document
@@ -8421,8 +8504,8 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	case Message::GetLineSelStartPosition:
 	case Message::GetLineSelEndPosition: {
 			const SelectionSegment segmentLine(
-				SelectionPosition(pdoc->LineStart(LineFromUPtr(wParam))),
-				SelectionPosition(pdoc->LineEnd(LineFromUPtr(wParam))));
+				pdoc->LineStart(LineFromUPtr(wParam)),
+				pdoc->LineEnd(LineFromUPtr(wParam)));
 			for (size_t r=0; r<sel.Count(); r++) {
 				const SelectionSegment portion = sel.Range(r).Intersect(segmentLine);
 				if (portion.start.IsValid()) {
@@ -8614,6 +8697,22 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case Message::GetChangeHistory:
 		return static_cast<sptr_t>(changeHistoryOption);
+
+	case Message::SetUndoSelectionHistory:
+		ChangeUndoSelectionHistory(static_cast<UndoSelectionHistoryOption>(wParam));
+		break;
+
+	case Message::GetUndoSelectionHistory:
+		return static_cast<sptr_t>(undoSelectionHistoryOption);
+
+	case Message::SetSelectionSerialized:
+		SetSelectionFromSerialized(ConstCharPtrFromSPtr(lParam));
+		break;
+
+	case Message::GetSelectionSerialized: {
+		const std::string serialized = sel.ToString();
+		return BytesResult(lParam, serialized);
+	}
 
 	case Message::SetExtraAscent:
 		vs.extraAscent = static_cast<int>(wParam);
@@ -9024,6 +9123,11 @@ sptr_t Editor::WndProc(Message iMessage, uptr_t wParam, sptr_t lParam) {
 	default:
 		return DefWndProc(iMessage, wParam, lParam);
 	}
+
+	// If there was a change that needs its selection saved and it wasn't explicity saved
+	// then do that here.
+	RememberCurrentSelectionForRedoOntoStack();
+
 	//Platform::DebugPrintf("end wnd proc\n");
 	return 0;
 }

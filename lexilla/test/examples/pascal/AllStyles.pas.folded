@@ -1,0 +1,83 @@
+ 0 400   0   // Enumerate all primary styles: 0 to 14
+ 1 400   0   
+ 2 400   0 + {
+ 0 401   0 |   SCE_PAS_DEFAULT=0
+ 0 401   0 |   SCE_PAS_IDENTIFIER=1
+ 0 401   0 |   SCE_PAS_COMMENT=2
+ 0 401   0 |   SCE_PAS_COMMENT2=3
+ 0 401   0 |   SCE_PAS_COMMENTLINE=4
+ 0 401   0 |   SCE_PAS_PREPROCESSOR=5
+ 0 401   0 |   SCE_PAS_PREPROCESSOR2=6
+ 0 401   0 |   SCE_PAS_NUMBER=7
+ 0 401   0 |   SCE_PAS_HEXNUMBER=8
+ 0 401   0 |   SCE_PAS_WORD=9
+ 0 401   0 |   SCE_PAS_STRING=10
+ 0 401   0 |   SCE_PAS_STRINGEOL=11
+ 0 401   0 |   SCE_PAS_CHARACTER=12
+ 0 401   0 |   SCE_PAS_OPERATOR=13
+ 0 401   0 |   SCE_PAS_ASM=14
+ 0 401   0 | }
+ 1 400   0   
+ 0 400   0   // default=0
+ 1 400   0      
+ 0 400   0   // identifier=1
+ 0 400   0   function functionname(var paramerter1: type1):result1;
+ 0 400   0   procedure procedurename(const parameter2: type2);
+ 1 400   0   
+ 0 400   0   // comment=2
+ 0 400   0   {comment text}
+ 1 400   0   
+ 0 400   0   // comment2=3
+ 0 400   0   (* comment text *)
+ 1 400   0   
+ 2 400   0 + // commentline=4 
+ 0 401   0 | // example line
+ 1 400   0   
+ 0 400   0   // preprocessor=5
+ 0 400   0   {$DEFINE xyz}
+ 1 400   0   
+ 2 400   0 + {$IFDEF xyz}
+ 0 401   0 |    codeblock 1
+ 0 401   0 | {$else}
+ 0 401   0 |    codeblock 2
+ 0 401   0 | {$endif}
+ 1 400   0   
+ 0 400   0   // preprocessor2=6
+ 0 400   0   (*$DEFINE xyz*)
+ 1 400   0   
+ 0 400   0   // number=7
+ 0 400   0   123
+ 0 400   0   1.23
+ 0 400   0   -123
+ 0 400   0   -12.3
+ 0 400   0   +123
+ 0 400   0   123
+ 0 400   0   1.23e2
+ 0 400   0   -1.23E2
+ 1 400   0   
+ 0 400   0   // hexnumber=8
+ 0 400   0   $123
+ 0 400   0   $123ABCDEF
+ 0 400   0   $ABCDEF123
+ 1 400   0   
+ 0 400   0   // word=9
+ 0 400   0   absolute abstract and array as 
+ 1 400   0   
+ 0 400   0   // string=10
+ 0 400   0   'string'
+ 1 400   0   
+ 0 400   0   // stringeol=11
+ 0 400   0   'string
+ 1 400   0   
+ 0 400   0   // character=12
+ 0 400   0   #65
+ 1 400   0   
+ 0 400   0   // operator=13 
+ 0 400   0   $ & * + / < = > ^  
+ 1 400   0   
+ 0 400   0   // asm
+ 2 400   0 + asm 
+ 0 401   0 |   this is 
+ 0 401   0 |   inside assembler
+ 0 401   0 | end
+ 1 400   0   

@@ -496,7 +496,7 @@ struct OptionSetCPP : public OptionSet<OptionsCPP> {
 
 const char styleSubable[] = {SCE_C_IDENTIFIER, SCE_C_COMMENTDOCKEYWORD, 0};
 
-LexicalClass lexicalClasses[] = {
+const LexicalClass lexicalClasses[] = {
 	// Lexer Cpp SCLEX_CPP SCE_C_:
 	0, "SCE_C_DEFAULT", "default", "White space",
 	1, "SCE_C_COMMENT", "comment", "Comment: /* */.",
@@ -528,7 +528,7 @@ LexicalClass lexicalClasses[] = {
 	27, "SCE_C_ESCAPESEQUENCE", "literal string escapesequence", "Escape sequence",
 };
 
-const int sizeLexicalClasses = static_cast<int>(std::size(lexicalClasses));
+constexpr int sizeLexicalClasses{ std::size(lexicalClasses) };
 
 }
 
@@ -1725,7 +1725,7 @@ void LexerCPP::EvaluateTokens(Tokens &tokens, const SymbolTable &preprocessorDef
 
 	// Evaluate logical negations
 	for (size_t j=0; (j+1)<tokens.size();) {
-		if (setNegationOp.Contains(tokens[j][0])) {
+		if (setNegationOp.Contains(tokens[j][0]) && (tokens[j] != "!=")) {
 			int isTrue = atoi(tokens[j+1].c_str());
 			if (tokens[j] == "!")
 				isTrue = !isTrue;

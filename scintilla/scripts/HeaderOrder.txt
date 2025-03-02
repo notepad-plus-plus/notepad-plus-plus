@@ -52,6 +52,7 @@
 #include <memory>
 #include <numeric>
 #include <chrono>
+#include <charconv>
 #include <regex>
 #include <iostream>
 #include <sstream>
@@ -79,8 +80,10 @@
 #include <shellscalingapi.h>
 #include <zmouse.h>
 #include <ole2.h>
-#include <d2d1.h>
-#include <dwrite.h>
+#include <wrl.h>
+#include <d2d1_1.h>
+#include <d3d11_1.h>
+#include <dwrite_1.h>
 
 // Cocoa headers
 #include <Cocoa/Cocoa.h>

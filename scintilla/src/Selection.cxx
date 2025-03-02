@@ -9,11 +9,13 @@
 #include <cstdlib>
 
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <vector>
 #include <optional>
 #include <algorithm>
 #include <memory>
+#include <charconv>
 
 #include "Debugging.h"
 
@@ -21,6 +23,30 @@
 #include "Selection.h"
 
 using namespace Scintilla::Internal;
+
+namespace {
+
+// Generically convert a string to a integer value throwing if the conversion failed.
+// Failures include values that are out of range for the destination variable.
+template <typename T>
+void ValueFromString(std::string_view sv, T &value) {
+	const std::from_chars_result res = std::from_chars(sv.data(), sv.data() + sv.size(), value);
+	if (res.ec != std::errc{}) {
+		if (res.ec == std::errc::result_out_of_range)
+			throw std::runtime_error("from_chars out of range.");
+		throw std::runtime_error("from_chars failed.");
+	}
+}
+
+}
+
+SelectionPosition::SelectionPosition(std::string_view sv) : position(0) {
+	if (const size_t v = sv.find('v'); v != std::string_view::npos) {
+		ValueFromString(sv.substr(v + 1), virtualSpace);
+		sv = sv.substr(0, v);
+	}
+	ValueFromString(sv, position);
+}
 
 void SelectionPosition::MoveForInsertDelete(bool insertion, Sci::Position startChange, Sci::Position length, bool moveForEqual) noexcept {
 	if (insertion) {
@@ -52,32 +78,42 @@ void SelectionPosition::MoveForInsertDelete(bool insertion, Sci::Position startC
 	}
 }
 
-bool SelectionPosition::operator <(const SelectionPosition &other) const noexcept {
-	if (position == other.position)
-		return virtualSpace < other.virtualSpace;
-	else
-		return position < other.position;
-}
-
 bool SelectionPosition::operator >(const SelectionPosition &other) const noexcept {
 	if (position == other.position)
 		return virtualSpace > other.virtualSpace;
-	else
-		return position > other.position;
+	return position > other.position;
 }
 
 bool SelectionPosition::operator <=(const SelectionPosition &other) const noexcept {
-	if (position == other.position && virtualSpace == other.virtualSpace)
+	if (other == *this)
 		return true;
-	else
-		return other > *this;
+	return other > *this;
 }
 
 bool SelectionPosition::operator >=(const SelectionPosition &other) const noexcept {
-	if (position == other.position && virtualSpace == other.virtualSpace)
+	if (other == *this)
 		return true;
-	else
-		return *this > other;
+	return *this > other;
+}
+
+std::string SelectionPosition::ToString() const {
+	std::string result = std::to_string(position);
+	if (virtualSpace) {
+		result += 'v';
+		result += std::to_string(virtualSpace);
+	}
+	return result;
+}
+
+SelectionRange::SelectionRange(std::string_view sv) {
+	const size_t dash = sv.find('-');
+	if (dash == std::string_view::npos) {
+		anchor = SelectionPosition(sv);
+		caret = anchor;
+	} else {
+		anchor = SelectionPosition(sv.substr(0, dash));
+		caret = SelectionPosition(sv.substr(dash + 1));
+	}
 }
 
 Sci::Position SelectionRange::Length() const noexcept {
@@ -131,20 +167,15 @@ bool SelectionRange::ContainsCharacter(SelectionPosition spCharacter) const noex
 }
 
 SelectionSegment SelectionRange::Intersect(SelectionSegment check) const noexcept {
-	const SelectionSegment inOrder(caret, anchor);
-	if ((inOrder.start <= check.end) || (inOrder.end >= check.start)) {
-		SelectionSegment portion = check;
-		if (portion.start < inOrder.start)
-			portion.start = inOrder.start;
-		if (portion.end > inOrder.end)
-			portion.end = inOrder.end;
-		if (portion.start > portion.end)
-			return SelectionSegment();
-		else
-			return portion;
-	} else {
-		return SelectionSegment();
+	const SelectionSegment inOrder = AsSegment();
+	if ((inOrder.start > check.end) || (inOrder.end < check.start)) {
+		// Nothing in common, not even touching so return empty *invalid* segment
+		return {};
 	}
+	return {
+		std::max(check.start, inOrder.start),
+		std::min(check.end, inOrder.end)
+	};
 }
 
 void SelectionRange::Swap() noexcept {
@@ -181,9 +212,15 @@ bool SelectionRange::Trim(SelectionRange range) noexcept {
 			caret = end;
 		}
 		return Empty();
-	} else {
-		return false;
 	}
+	return false;
+}
+
+void SelectionRange::Truncate(Sci::Position length) noexcept {
+	if (anchor.Position() > length)
+		anchor.SetPosition(length);
+	if (caret.Position() > length)
+		caret.SetPosition(length);
 }
 
 // If range is all virtual collapse to start of virtual space
@@ -197,8 +234,71 @@ void SelectionRange::MinimizeVirtualSpace() noexcept {
 	}
 }
 
+std::string SelectionRange::ToString() const {
+	std::string result = anchor.ToString();
+	if (!(caret == anchor)) {
+		result += '-';
+		result += caret.ToString();
+	}
+	return result;
+}
+
 Selection::Selection() : mainRange(0), moveExtends(false), tentativeMain(false), selType(SelTypes::stream) {
 	AddSelection(SelectionRange(SelectionPosition(0)));
+}
+
+Selection::Selection(std::string_view sv) : mainRange(0), moveExtends(false), tentativeMain(false), selType(SelTypes::stream) {
+	if (sv.empty()) {
+		return;
+	}
+	try {
+		// Decode initial letter prefix if any
+		switch (sv.front()) {
+		case 'R':
+			selType = SelTypes::rectangle;
+			break;
+		case 'L':
+			selType = SelTypes::lines;
+			break;
+		case 'T':
+			selType = SelTypes::thin;
+			break;
+		default:
+			break;
+		}
+		if (selType != SelTypes::stream) {
+			sv.remove_prefix(1);
+		}
+
+		// Non-zero main index at end after '#'
+		if (const size_t hash = sv.find('#'); hash != std::string_view::npos) {
+			ValueFromString(sv.substr(hash + 1), mainRange);
+			sv = sv.substr(0, hash);
+		}
+
+		// Remainder is list of ranges
+		if (selType == SelTypes::rectangle || selType == SelTypes::thin) {
+			rangeRectangular = SelectionRange(sv);
+			// Ensure enough ranges exist for mainRange to be in bounds
+			for (size_t i = 0; i <= mainRange; i++) {
+				ranges.emplace_back(SelectionPosition(0));
+			}
+		} else {
+			size_t comma = sv.find(',');
+			while (comma != std::string_view::npos) {
+				ranges.emplace_back(sv.substr(0, comma));
+				sv.remove_prefix(comma + 1);
+				comma = sv.find(',');
+			}
+			ranges.emplace_back(sv);
+			if (mainRange >= ranges.size()) {
+				mainRange = ranges.size() - 1;
+			}
+		}
+	} catch (std::runtime_error &) {
+		// On failure, produce an empty selection.
+		Clear();
+	}
 }
 
 bool Selection::IsRectangular() const noexcept {
@@ -217,9 +317,13 @@ SelectionRange &Selection::Rectangular() noexcept {
 	return rangeRectangular;
 }
 
+SelectionRange Selection::RectangularCopy() const noexcept {
+	return rangeRectangular;
+}
+
 SelectionSegment Selection::Limits() const noexcept {
 	PLATFORM_ASSERT(!ranges.empty());
-	SelectionSegment sr(ranges[0].anchor, ranges[0].caret);
+	SelectionSegment sr = ranges[0].AsSegment();
 	for (size_t i=1; i<ranges.size(); i++) {
 		sr.Extend(ranges[i].anchor);
 		sr.Extend(ranges[i].caret);
@@ -230,9 +334,8 @@ SelectionSegment Selection::Limits() const noexcept {
 SelectionSegment Selection::LimitsForRectangularElseMain() const noexcept {
 	if (IsRectangular()) {
 		return Limits();
-	} else {
-		return SelectionSegment(ranges[mainRange].caret, ranges[mainRange].anchor);
 	}
+	return ranges[mainRange].AsSegment();
 }
 
 size_t Selection::Count() const noexcept {
@@ -267,9 +370,8 @@ const SelectionRange &Selection::RangeMain() const noexcept {
 SelectionPosition Selection::Start() const noexcept {
 	if (IsRectangular()) {
 		return rangeRectangular.Start();
-	} else {
-		return ranges[mainRange].Start();
 	}
+	return ranges[mainRange].Start();
 }
 
 bool Selection::MoveExtends() const noexcept {
@@ -428,11 +530,13 @@ void Selection::Clear() noexcept {
 	if (ranges.size() > 1) {
 		ranges.erase(ranges.begin() + 1, ranges.end());
 	}
-	mainRange = 0;
-	selType = SelTypes::stream;
-	moveExtends = false;
-	ranges[mainRange].Reset();
+	ranges[0].Reset();
+	rangesSaved.clear();
 	rangeRectangular.Reset();
+	mainRange = 0;
+	moveExtends = false;
+	tentativeMain = false;
+	selType = SelTypes::stream;
 }
 
 void Selection::RemoveDuplicates() noexcept {
@@ -456,3 +560,52 @@ void Selection::RotateMain() noexcept {
 	mainRange = (mainRange + 1) % ranges.size();
 }
 
+void Selection::SetRanges(const Ranges &rangesToSet) {
+	ranges = rangesToSet;
+}
+
+void Selection::Truncate(Sci::Position length) noexcept {
+	// This may be needed when applying a persisted selection onto a document that has been shortened.
+	for (SelectionRange &range : ranges) {
+		range.Truncate(length);
+	}
+	// Above may have made some non-unique empty ranges.
+	RemoveDuplicates();
+	rangeRectangular.Truncate(length);
+}
+
+std::string Selection::ToString() const {
+	std::string result;
+	switch (selType) {
+	case SelTypes::rectangle:
+		result += 'R';
+		break;
+	case SelTypes::lines:
+		result += 'L';
+		break;
+	case SelTypes::thin:
+		result += 'T';
+		break;
+	default:
+		// No handling of none as not a real value of enumeration, just used for empty arguments
+		// No prefix.
+		break;
+	}
+	if (selType == SelTypes::rectangle || selType == SelTypes::thin) {
+		result += rangeRectangular.ToString();
+	} else {
+		for (size_t r = 0; r < ranges.size(); r++) {
+			if (r > 0) {
+				result += ',';
+			}
+			result += ranges[r].ToString();
+		}
+	}
+
+	if (mainRange > 0) {
+		result += '#';
+		result += std::to_string(mainRange);
+	}
+
+	return result;
+}

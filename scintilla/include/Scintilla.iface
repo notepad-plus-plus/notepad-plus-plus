@@ -1334,6 +1334,22 @@ set void SetChangeHistory=2780(ChangeHistoryOption changeHistory,)
 # Report change history status.
 get ChangeHistoryOption GetChangeHistory=2781(,)
 
+enu UndoSelectionHistoryOption=SC_UNDO_SELECTION_HISTORY_
+val SC_UNDO_SELECTION_HISTORY_DISABLED=0
+val SC_UNDO_SELECTION_HISTORY_ENABLED=1
+
+# Enable or disable undo selection history.
+set void SetUndoSelectionHistory=2782(UndoSelectionHistoryOption undoSelectionHistory,)
+
+# Report undo selection history status.
+get UndoSelectionHistoryOption GetUndoSelectionHistory=2783(,)
+
+# Set selection from serialized form.
+set void SetSelectionSerialized=2784(, string selectionString)
+
+# Retrieve serialized form of selection.
+get position GetSelectionSerialized=2785(, stringresult selectionString)
+
 # Retrieve the display line at the top of the display.
 get line GetFirstVisibleLine=2152(,)
 
@@ -3076,6 +3092,7 @@ val SC_TECHNOLOGY_DEFAULT=0
 val SC_TECHNOLOGY_DIRECTWRITE=1
 val SC_TECHNOLOGY_DIRECTWRITERETAIN=2
 val SC_TECHNOLOGY_DIRECTWRITEDC=3
+val SC_TECHNOLOGY_DIRECT_WRITE_1=4
 
 ali SC_TECHNOLOGY_DIRECTWRITE=DIRECT_WRITE
 ali SC_TECHNOLOGY_DIRECTWRITERETAIN=DIRECT_WRITE_RETAIN

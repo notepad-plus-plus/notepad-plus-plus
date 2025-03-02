@@ -1346,7 +1346,13 @@ void Window::SetCursor(Cursor curs) {
 		gdkCurs = gdk_cursor_new_for_display(pdisplay, GDK_HAND2);
 		break;
 	case Cursor::reverseArrow:
+#ifdef G_OS_WIN32
+		// GDK_RIGHT_PTR is scaled incorrectly under Windows with HiDPI screens (GTK 3.24);
+		// GDK_HAND2 is mapped to a native Windows cursor by GTK
+		gdkCurs = gdk_cursor_new_for_display(pdisplay, GDK_HAND2);
+#else
 		gdkCurs = gdk_cursor_new_for_display(pdisplay, GDK_RIGHT_PTR);
+#endif
 		break;
 	default:
 		gdkCurs = gdk_cursor_new_for_display(pdisplay, GDK_LEFT_PTR);

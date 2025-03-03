@@ -4099,9 +4099,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		}
 
 		case NPPM_INTERNAL_DRAWINACTIVETABBARBUTTON:
-		case NPPM_INTERNAL_PUTTABPINBUTTONINFRONT:
+		case NPPM_INTERNAL_MOVETABPINBUTTONINFRONT:
 		{
-			if (message == NPPM_INTERNAL_PUTTABPINBUTTONINFRONT)
+			if (message == NPPM_INTERNAL_MOVETABPINBUTTONINFRONT)
 				TabBarPlus::setPutTabPinButtonInFront(!TabBarPlus::pinButtonInFront());
 
 			::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);

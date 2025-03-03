@@ -415,7 +415,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabBarPlus::setDrawInactiveTab((tabBarStatus & TAB_DRAWINACTIVETAB) != 0, &_mainDocTab);
 	TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0, &_mainDocTab);
 	TabBarPlus::setDrawTabPinButton((tabBarStatus & TAB_PINBUTTON) != 0, &_mainDocTab);
-	TabBarPlus::setPutTabPinButtonInFront((tabBarStatus & TAB_PUTPINBUTTONINFRONT) != 0);
+	TabBarPlus::setPutTabPinButtonInFront((tabBarStatus & TAB_MOVEPINBUTTONINFRONT) != 0);
 	TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
@@ -914,7 +914,7 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::isReduced() ? TAB_REDUCE : 0) | \
 						(TabBarPlus::drawTabCloseButton() ? TAB_CLOSEBUTTON : 0) | \
 						(TabBarPlus::drawTabPinButton() ? TAB_PINBUTTON : 0) | \
-						(TabBarPlus::pinButtonInFront() ? TAB_PUTPINBUTTONINFRONT : 0) | \
+						(TabBarPlus::pinButtonInFront() ? TAB_MOVEPINBUTTONINFRONT : 0) | \
 						(TabBarPlus::isDbClk2Close() ? TAB_DBCLK2CLOSE : 0) | \
 						(TabBarPlus::isVertical() ? TAB_VERTICAL : 0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE : 0) |\

@@ -615,12 +615,12 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			bool showCloseButton = tabBarStatus & TAB_CLOSEBUTTON;
 			bool enablePinButton = tabBarStatus & TAB_PINBUTTON;
-			bool putPinButtonInFront = tabBarStatus & TAB_PUTPINBUTTONINFRONT;
+			bool movePinButtonInFront = tabBarStatus & TAB_MOVEPINBUTTONINFRONT;
 			bool showButtonOnInactiveTabs = tabBarStatus & TAB_INACTIVETABSHOWBUTTON;
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLETABCLOSE, BM_SETCHECK, showCloseButton, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLETABPIN, BM_SETCHECK, enablePinButton, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_PUTPININFRONT, BM_SETCHECK, putPinButtonInFront, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MOVEPINBUTTONINFRONT, BM_SETCHECK, movePinButtonInFront, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_INACTTABDRAWBUTTON, BM_SETCHECK, showButtonOnInactiveTabs, 0);
 
 			if (!(showCloseButton || enablePinButton))
@@ -632,7 +632,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			if (!enablePinButton)
 			{
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PUTPININFRONT), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_MOVEPINBUTTONINFRONT), FALSE);
 			}
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DBCLICK2CLOSE, BM_SETCHECK, tabBarStatus & TAB_DBCLK2CLOSE, 0);
@@ -641,8 +641,12 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_LAST_EXIT, BM_SETCHECK, tabBarStatus & TAB_QUITONEMPTY, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, tabBarStatus & TAB_ALTICONS, 0);
 			
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HIDE, BM_SETCHECK, tabBarStatus & TAB_HIDE, 0);
-			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
+			if (tabBarStatus & TAB_HIDE)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HIDE, BM_SETCHECK, TRUE, 0);
+				::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
+			}
+
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDESTATUSBAR, BM_SETCHECK, !showStatus, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_SETCHECK, !showMenu, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDERIGHTSHORTCUTSOFMENUBAR, BM_SETCHECK, hideRightShortcutsFromMenu, 0);
@@ -741,11 +745,19 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DRAWINACTIVE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLETABCLOSE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLETABPIN), !toBeHidden);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PUTPININFRONT), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_MOVEPINBUTTONINFRONT), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_INACTTABDRAWBUTTON), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DBCLICK2CLOSE), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_LAST_EXIT), !toBeHidden);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_ALTICONS), !toBeHidden);
+
+					if (!toBeHidden)
+					{
+						bool showCloseButton = isCheckedOrNot(IDC_CHECK_ENABLETABCLOSE);
+						bool enablePinButton = isCheckedOrNot(IDC_CHECK_ENABLETABPIN);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_INACTTABDRAWBUTTON), showCloseButton || enablePinButton);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_MOVEPINBUTTONINFRONT), enablePinButton);
+					}
 
 					::SendMessage(::GetParent(_hParent), NPPM_HIDETABBAR, 0, toBeHidden);
 					return TRUE;
@@ -809,10 +821,11 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_INACTTABDRAWBUTTON, BM_SETCHECK, FALSE, 0);
 						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_DRAWINACTIVETABBARBUTTON, 0, 0);
 					}
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_INACTTABDRAWBUTTON), showCloseButton || enablePinButton);
 
 					if (wParam == IDC_CHECK_ENABLETABPIN)
 					{
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_PUTPININFRONT), enablePinButton);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_MOVEPINBUTTONINFRONT), enablePinButton);
 					}
 
 					return TRUE;
@@ -831,16 +844,16 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					return TRUE;
 				}
 
-				case IDC_CHECK_PUTPININFRONT:
+				case IDC_CHECK_MOVEPINBUTTONINFRONT:
 				{
-					const bool isChecked = isCheckedOrNot(IDC_CHECK_PUTPININFRONT);
+					const bool isChecked = isCheckedOrNot(IDC_CHECK_MOVEPINBUTTONINFRONT);
 					NppGUI& nppgui = nppParam.getNppGUI();
 					if (isChecked)
-						nppgui._tabStatus |= TAB_PUTPINBUTTONINFRONT;
+						nppgui._tabStatus |= TAB_MOVEPINBUTTONINFRONT;
 					else
-						nppgui._tabStatus &= ~TAB_PUTPINBUTTONINFRONT;
+						nppgui._tabStatus &= ~TAB_MOVEPINBUTTONINFRONT;
 
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_PUTTABPINBUTTONINFRONT, 0, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_MOVETABPINBUTTONINFRONT, 0, 0);
 					return TRUE;
 				}
 

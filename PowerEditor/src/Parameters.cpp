@@ -4950,11 +4950,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._tabStatus |= TAB_PINBUTTON;
 			}
 
-			val = element->Attribute(L"putPinButtonInFront");
+			val = element->Attribute(L"movePinButtonInFront");
 			if (val)
 			{
 				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus |= TAB_PUTPINBUTTONINFRONT;
+					_nppGUI._tabStatus |= TAB_MOVEPINBUTTONINFRONT;
 				else if (!lstrcmp(val, L"no"))
 					_nppGUI._tabStatus |= 0;
 				else
@@ -7306,7 +7306,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 
-	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" putPinButtonInFront="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
+	// <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" pinButton="yes" movePinButtonInFront="no" buttonsOninactiveTabs="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" quitOnEmpty="no" iconSetNumber="0" />
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"TabBar");
@@ -7329,8 +7329,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		pStr = (_nppGUI._tabStatus & TAB_PINBUTTON) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"pinButton", pStr);
 
-		pStr = (_nppGUI._tabStatus & TAB_PUTPINBUTTONINFRONT) ? L"yes" : L"no";
-		GUIConfigElement->SetAttribute(L"putPinButtonInFront", pStr);
+		pStr = (_nppGUI._tabStatus & TAB_MOVEPINBUTTONINFRONT) ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"movePinButtonInFront", pStr);
 
 		pStr = (_nppGUI._tabStatus & TAB_INACTIVETABSHOWBUTTON) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"buttonsOninactiveTabs", pStr);

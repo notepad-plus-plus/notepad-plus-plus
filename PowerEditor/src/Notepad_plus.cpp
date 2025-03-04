@@ -6737,6 +6737,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		else if (_subEditView.getCurrentBuffer() == buffer)
 			_autoCompleteSub.setLanguage(buffer->getLangType());
 
+		if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
+			_pFuncList->reload(); // sync FL with the current buffer lang
+
 		SCNotification scnN{};
 		scnN.nmhdr.code = NPPN_LANGCHANGED;
 		scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();

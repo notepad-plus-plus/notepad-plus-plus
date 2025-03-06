@@ -1721,7 +1721,7 @@ void ScintillaEditView::setLanguage(LangType langType)
 {
 	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
 
-	if (_currentBuffer->getLastLangType() > 0)
+	if (_currentBuffer->getLastLangType() > 0 && !_currentBuffer->isUntitled())
 	{
 		saveCurrentPos();
 		Document prev = execute(SCI_GETDOCPOINTER);

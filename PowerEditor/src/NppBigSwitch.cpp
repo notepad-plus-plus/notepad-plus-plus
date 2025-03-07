@@ -4135,6 +4135,15 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_RELOADFUNCTIONLIST:
+		{
+			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
+			{
+				_pFuncList->reload();
+			}
+			return TRUE;
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

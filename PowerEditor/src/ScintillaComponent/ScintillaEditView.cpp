@@ -1723,6 +1723,10 @@ void ScintillaEditView::setLanguage(LangType langType)
 
 	if (_currentBuffer->getLastLangType() > 0 && !_currentBuffer->isUntitled())
 	{
+		// To improve switching lexer performance, here's the tip:
+		// 1. Set current document to a blank document
+		// 2. Set a new lexer
+		// 3. Reset back to the current document
 		saveCurrentPos();
 		Document prev = execute(SCI_GETDOCPOINTER);
 		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
@@ -1738,6 +1742,11 @@ void ScintillaEditView::setLanguage(LangType langType)
 		maintainStateForNpc();
 		setCRLF();
 		restoreCurrentPosPreStep();
+
+		// When buffer sets lang type ("_currentBuffer->setLangType(langType);"), it'll call doNotify(BufferChangeLanguage | BufferChangeLexing),
+		// then FunctionList will be reloaded. However, it'll be reloaded on the blank document.
+		// That's why here we do again FunctionList reload, after the current document be reset back.
+		::SendMessage(_hParent, NPPM_INTERNAL_RELOADFUNCTIONLIST, 0, 0);
 	}
 	else
 	{

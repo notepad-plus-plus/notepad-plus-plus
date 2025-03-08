@@ -158,8 +158,8 @@ struct TabButtonZone
 		_order = order;
 	}
 
-	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
-	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
+	bool isHit(int x, int y, const RECT & tabRect, bool isVertical, int imageSize = 0) const;
+	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical, int imageSize = 0) const;
 	void setOrder(int newOrder) { _order = newOrder; };
 
 	HWND _parent = nullptr;
@@ -210,6 +210,7 @@ public :
 	static bool drawInactiveTab() {return _drawInactiveTab;};
 	static bool drawTabCloseButton() {return _drawTabCloseButton;};
 	static bool drawTabPinButton() {return _drawTabPinButton;};
+	static bool pinButtonInFront() {return _pinButtonInFront;};
 	static bool isDbClk2Close() {return _isDbClk2Close;};
 	static bool isVertical() { return _isCtrlVertical;};
 	static bool isMultiLine() { return _isCtrlMultiLine;};
@@ -237,6 +238,10 @@ public :
 
 	static void setDbClk2Close(bool b) {
 		_isDbClk2Close = b;
+	}
+
+	static void setPutTabPinButtonInFront(bool b) {
+		_pinButtonInFront = b;
 	}
 
 	static void setVertical(bool b) {
@@ -276,6 +281,15 @@ public :
 	void refresh() {
 		int index = insertAtEnd(L"");
 		deletItemAt(index);
+	}
+
+	void getImageRectFromImglst(RECT& imageRect) const	{
+		HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
+		IMAGEINFO info{};
+		TCITEM tci{};
+		tci.mask = TCIF_IMAGE;
+		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
+		imageRect = info.rcImage;
 	}
 
 protected:
@@ -335,6 +349,7 @@ protected:
 	static bool _drawTopBar;
 	static bool _drawTabCloseButton;
 	static bool _drawTabPinButton;
+	static bool _pinButtonInFront;
 	static bool _isDbClk2Close;
 	static bool _isCtrlVertical;
 	static bool _isCtrlMultiLine;

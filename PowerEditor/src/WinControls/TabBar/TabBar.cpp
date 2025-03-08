@@ -31,6 +31,7 @@ bool TabBarPlus::_drawTopBar = true;
 bool TabBarPlus::_drawInactiveTab = true;
 bool TabBarPlus::_drawTabCloseButton = true;
 bool TabBarPlus::_drawTabPinButton = true;
+bool TabBarPlus::_pinButtonInFront = false;
 bool TabBarPlus::_isDbClk2Close = false;
 bool TabBarPlus::_isCtrlVertical = false;
 bool TabBarPlus::_isCtrlMultiLine = false;
@@ -822,7 +823,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (_drawTabPinButton)
 			{
-				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				int imageSize = 0;
+				if (_pinButtonInFront)
+				{
+					RECT imageRect{};
+					getImageRectFromImglst(imageRect);
+					imageSize = imageRect.right - imageRect.left;
+				}
+
+				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical, imageSize))
 				{
 					_whichPinClickDown = getTabIndexAt(xPos, yPos);
 					::SendMessage(_hParent, WM_SIZE, 0, 0);
@@ -992,8 +1001,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					if (_currentHoverTabItem != -1) // tab item is being hovered
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
-						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
-						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
+
+						int imageSize = 0;
+						if (_pinButtonInFront)
+						{
+							RECT imageRect{};
+							getImageRectFromImglst(imageRect);
+							imageSize = imageRect.right - imageRect.left;
+						}
+						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical, imageSize);
 					}
 					else
 					{
@@ -1094,7 +1110,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (_drawTabPinButton)
 			{
-				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				int imageSize = 0;
+				if (_pinButtonInFront)
+				{
+					RECT imageRect{};
+					getImageRectFromImglst(imageRect);
+					imageSize = imageRect.right - imageRect.left;
+				}
+
+				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical, imageSize))
 				{
 					notify(TCN_TABPINNED, currentTabOn);
 					_whichPinClickDown = -1;
@@ -1107,7 +1131,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					if (nextTab != -1)
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, nextTab, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
-						_isPinHover = _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical);
+						_isPinHover = _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical, imageSize);
 					}
 					return TRUE;
 				}
@@ -1346,7 +1370,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 {
-	RECT rect = pDrawItemStruct->rcItem;
+	RECT tabItemRect = pDrawItemStruct->rcItem;
 
 	int nTab = pDrawItemStruct->itemID;
 	assert(nTab >= 0);
@@ -1383,11 +1407,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 
 	HDC hDC = pDrawItemStruct->hDC;
 
-	int nSavedDC = ::SaveDC(hDC);
+	int savedStateId = ::SaveDC(hDC);
 
 	::SetBkMode(hDC, TRANSPARENT);
 	HBRUSH hBrush = ::CreateSolidBrush(colorInactiveBgBase);
-	::FillRect(hDC, &rect, hBrush);
+	::FillRect(hDC, &tabItemRect, hBrush);
 	::DeleteObject(static_cast<HGDIOBJ>(hBrush));
 
 	// equalize drawing areas of active and inactive tabs
@@ -1398,34 +1422,34 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		// the drawing area of the active tab extends on all borders by default
 		const int xEdge = _dpiManager.getSystemMetricsForDpi(SM_CXEDGE);
 		const int yEdge = _dpiManager.getSystemMetricsForDpi(SM_CYEDGE);
-		::InflateRect(&rect, -xEdge, -yEdge);
+		::InflateRect(&tabItemRect, -xEdge, -yEdge);
 		// the active tab is also slightly higher by default (use this to shift the tab cotent up bx two pixels if tobBar is not drawn)
 		if (_isVertical)
 		{
-			rect.left += _drawTopBar ? paddingDynamicTwoX : 0;
-			rect.right -= _drawTopBar ? 0 : paddingDynamicTwoX;
+			tabItemRect.left += _drawTopBar ? paddingDynamicTwoX : 0;
+			tabItemRect.right -= _drawTopBar ? 0 : paddingDynamicTwoX;
 		}
 		else
 		{
-			rect.top += _drawTopBar ? paddingDynamicTwoY : 0;
-			rect.bottom -= _drawTopBar ? 0 : paddingDynamicTwoY;
+			tabItemRect.top += _drawTopBar ? paddingDynamicTwoY : 0;
+			tabItemRect.bottom -= _drawTopBar ? 0 : paddingDynamicTwoY;
 		}
 	}
 	else
 	{
 		if (_isVertical)
 		{
-			rect.left += paddingDynamicTwoX;
-			rect.right += paddingDynamicTwoX;
-			rect.top -= paddingDynamicTwoY;
-			rect.bottom += paddingDynamicTwoY;
+			tabItemRect.left += paddingDynamicTwoX;
+			tabItemRect.right += paddingDynamicTwoX;
+			tabItemRect.top -= paddingDynamicTwoY;
+			tabItemRect.bottom += paddingDynamicTwoY;
 		}
 		else
 		{
-			rect.left -= paddingDynamicTwoX;
-			rect.right += paddingDynamicTwoX;
-			rect.top += paddingDynamicTwoY;
-			rect.bottom += paddingDynamicTwoY;
+			tabItemRect.left -= paddingDynamicTwoX;
+			tabItemRect.right += paddingDynamicTwoX;
+			tabItemRect.top += paddingDynamicTwoY;
+			tabItemRect.bottom += paddingDynamicTwoY;
 		}
 	}
 
@@ -1435,18 +1459,18 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	{
 		if (_isVertical)
 		{
-			rect.left -= paddingDynamicTwoX;
+			tabItemRect.left -= paddingDynamicTwoX;
 		}
 		else
 		{
-			rect.top -= paddingDynamicTwoY;
+			tabItemRect.top -= paddingDynamicTwoY;
 		}
 	}
 
 	const int individualColourId = getIndividualTabColourId(nTab);
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
-	RECT barRect = rect;
+	RECT barRect = tabItemRect;
 	NppParameters& nppParam = NppParameters::getInstance();
 	if (isSelected)
 	{
@@ -1539,10 +1563,18 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			idxCloseImg = (_currentHoverTabItem == nTab) ? _closeTabHoverOnTabIdx : _closeTabInactIdx;
 		}
 
-		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
+		RECT buttonRect = _closeButtonZone.getButtonRectFrom(tabItemRect, _isVertical);
 
 		::ImageList_Draw(_hCloseBtnImgLst, idxCloseImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
 	}
+
+
+	HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
+	IMAGEINFO info{};
+	ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
+	RECT& imageRect = info.rcImage;
+
+	RECT pinButtonRect{};
 
 	// draw pin button
 	Buffer* buf = reinterpret_cast<Buffer*>(tci.lParam);
@@ -1615,36 +1647,31 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			}
 		}
 
-		RECT buttonRect = _pinButtonZone.getButtonRectFrom(rect, _isVertical);
+		int imageSize = _pinButtonInFront ? imageRect.right - imageRect.left : 0;
+		pinButtonRect = _pinButtonZone.getButtonRectFrom(tabItemRect, _isVertical, imageSize);
 
-		::ImageList_Draw(_hPinBtnImgLst, idxPinImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
+		::ImageList_Draw(_hPinBtnImgLst, idxPinImg, hDC, pinButtonRect.left, pinButtonRect.top, ILD_TRANSPARENT);
 	}
 
 	// draw image
-	HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
 
 	if (hImgLst && tci.iImage >= 0)
 	{
-		IMAGEINFO info{};
-		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
-
-		RECT& imageRect = info.rcImage;
-
 		int fromBorder;
 		int xPos, yPos;
 		if (_isVertical)
 		{
-			fromBorder = (rect.right - rect.left - (imageRect.right - imageRect.left) + 1) / 2;
-			xPos = rect.left + fromBorder;
-			yPos = rect.bottom - fromBorder - (imageRect.bottom - imageRect.top);
-			rect.bottom -= fromBorder + (imageRect.bottom - imageRect.top);
+			fromBorder = (tabItemRect.right - tabItemRect.left - (imageRect.right - imageRect.left) + 1) / 2;
+			xPos = tabItemRect.left + fromBorder;
+			yPos = tabItemRect.bottom - fromBorder - (imageRect.bottom - imageRect.top);
+			tabItemRect.bottom -= fromBorder + (imageRect.bottom - imageRect.top);
 		}
 		else
 		{
-			fromBorder = (rect.bottom - rect.top - (imageRect.bottom - imageRect.top) + 1) / 2;
-			yPos = rect.top + fromBorder;
-			xPos = rect.left + fromBorder;
-			rect.left += fromBorder + (imageRect.right - imageRect.left);
+			fromBorder = (tabItemRect.bottom - tabItemRect.top - (imageRect.bottom - imageRect.top) + 1) / 2;
+			yPos = tabItemRect.top + fromBorder;
+			xPos = tabItemRect.left + fromBorder;
+			tabItemRect.left += fromBorder + (imageRect.right - imageRect.left);
 		}
 		ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, isSelected ? ILD_TRANSPARENT : ILD_SELECTED);
 	}
@@ -1696,15 +1723,15 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		// center text horizontally (rotated text is positioned as if it were unrotated, therefore manual positioning is necessary)
 		flags |= DT_LEFT;
 		flags |= DT_BOTTOM;
-		rect.left += (rect.right - rect.left - textHeight) / 2;
-		rect.bottom += textHeight;
+		tabItemRect.left += (tabItemRect.right - tabItemRect.left - textHeight) / 2;
+		tabItemRect.bottom += textHeight;
 
 		// ignoring the descent when centering (text elements below the base line) is more pleasing to the eye
-		rect.left += textDescent / 2;
-		rect.right += textDescent / 2;
+		tabItemRect.left += textDescent / 2;
+		tabItemRect.right += textDescent / 2;
 
 		// 1 space distance to save icon
-		rect.bottom -= spaceUnit;
+		tabItemRect.bottom -= spaceUnit;
 	}
 	else
 	{
@@ -1714,24 +1741,24 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 
 		const int paddingText = ((pDrawItemStruct->rcItem.bottom - pDrawItemStruct->rcItem.top) - (textHeight + textDescent)) / 2;
 		const int paddingDescent = !hasMultipleLines ? ((textDescent + ((isDarkMode || !isSelected) ? 1 : 0)) / 2) : 0;
-		rect.top = pDrawItemStruct->rcItem.top + paddingText + paddingDescent;
-		rect.bottom = pDrawItemStruct->rcItem.bottom - paddingText + paddingDescent;
+		tabItemRect.top = pDrawItemStruct->rcItem.top + paddingText + paddingDescent;
+		tabItemRect.bottom = pDrawItemStruct->rcItem.bottom - paddingText + paddingDescent;
 
 		if (isDarkMode || !isSelected || _drawTopBar)
 		{
-			rect.top += paddingDynamicTwoY;
+			tabItemRect.top += paddingDynamicTwoY;
 		}
 
 		// 1 space distance to save icon
-		rect.left += spaceUnit;
+		tabItemRect.left += _pinButtonInFront ? spaceUnit + (pinButtonRect.right - pinButtonRect.left) + spaceUnit : spaceUnit;
 	}
 
 	COLORREF textColor = isSelected ? colorActiveText : colorInactiveText;
 
 	::SetTextColor(hDC, textColor);
 
-	::DrawText(hDC, decodedLabel, lstrlen(decodedLabel), &rect, flags);
-	::RestoreDC(hDC, nSavedDC);
+	::DrawText(hDC, decodedLabel, lstrlen(decodedLabel), &tabItemRect, flags);
+	::RestoreDC(hDC, savedStateId);
 }
 
 
@@ -1862,9 +1889,9 @@ void TabBarPlus::exchangeItemData(POINT point)
 }
 
 
-bool TabButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const
+bool TabButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical, int imageSize/* = 0 */) const
 {
-	RECT buttonRect = getButtonRectFrom(tabRect, isVertical);
+	RECT buttonRect = getButtonRectFrom(tabRect, isVertical, imageSize);
 
 	if (x >= buttonRect.left && x <= buttonRect.right && y >= buttonRect.top && y <= buttonRect.bottom)
 		return true;
@@ -1872,7 +1899,7 @@ bool TabButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) c
 	return false;
 }
 
-RECT TabButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) const
+RECT TabButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical, int imageSize/* = 0 */) const
 {
 	RECT buttonRect{};
 	const UINT dpi = DPIManagerV2::getDpiForWindow(_parent);
@@ -1898,11 +1925,17 @@ RECT TabButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) con
 		fromBorder = (tabRect.bottom - tabRect.top - _height + 1) / 2;
 		if (_order == 0)
 		{
-			buttonRect.left = tabRect.right - fromBorder - _width;
+			if (!imageSize)
+				buttonRect.left = tabRect.right - fromBorder - _width;
+			else
+				buttonRect.left = tabRect.left + inBetween + imageSize;
 		}
 		else if (_order == 1)
 		{
-			buttonRect.left = tabRect.right - fromBorder - _width * 2 - inBetween;
+			if (!imageSize)
+				buttonRect.left = tabRect.right - fromBorder - _width * 2 - inBetween;
+			else
+				buttonRect.left = tabRect.left + inBetween + imageSize;
 		}
 
 		buttonRect.top = tabRect.top + fromBorder;

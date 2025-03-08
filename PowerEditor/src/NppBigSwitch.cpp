@@ -4144,6 +4144,41 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_SQLBACKSLASHESCAPE:
+		{
+			// Go through all open files, and if there are any SQL files open, make sure the sql.backslash.escapes propery
+			//	is updated for each of the SQL buffers' Scintilla wrapper.
+			//	This message will only be called on the rare circumstance when the backslash-is-escape-for-sql preference is toggled, so this loop won't be run very often.
+			const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
+			HWND hwndNPP = reinterpret_cast<HWND>(lParam);
+
+			int currentView = static_cast<int>(::SendMessage(hwndNPP, NPPM_GETCURRENTVIEW, 0, 0));
+			int currentDoc[2] = {
+				static_cast<int>(::SendMessage(hwndNPP, NPPM_GETCURRENTDOCINDEX, 0, 0)),
+				static_cast<int>(::SendMessage(hwndNPP, NPPM_GETCURRENTDOCINDEX, 0, 1))
+			};
+
+			// loop through all buffers in each view, get it's language type, and if it is SQL then update its property
+			for (int view_idx = 0; view_idx < 2; view_idx++) {
+				ScintillaEditView* thisScintView = currentView == view_idx ? _pEditView : _pNonEditView;
+				int nOpenInThisView = static_cast<int>(::SendMessage(hwndNPP, NPPM_GETNBOPENFILES, 0, view_idx + 1));	// this command uses 0 for both, 1 for main, 2 for second
+
+				for (int buf_idx = 0; buf_idx < nOpenInThisView; buf_idx++) {
+					::SendMessage(hwndNPP, NPPM_ACTIVATEDOC, static_cast<WPARAM>(view_idx), static_cast<LPARAM>(buf_idx));
+					int langType = -1;
+					LRESULT retval = ::SendMessage(hwndNPP, NPPM_GETCURRENTLANGTYPE, 0, reinterpret_cast<LPARAM>(&langType));
+					if (retval && langType == L_SQL) {
+						thisScintView->execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
+					}
+				}
+
+				// since the buffer loop activated different buffers, return to orignally-active buffer
+				::SendMessage(hwndNPP, NPPM_ACTIVATEDOC, static_cast<WPARAM>(currentView), static_cast<LPARAM>(currentDoc[currentView]));
+			}
+
+			return TRUE;
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

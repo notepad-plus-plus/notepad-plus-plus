@@ -3900,6 +3900,8 @@ intptr_t CALLBACK LanguageSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL:
 				{
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
+					HWND hwndNPP = GetParent(_hParent);
+					::SendMessage(hwndNPP, NPPM_INTERNAL_SQLBACKSLASHESCAPE, 0, reinterpret_cast<LPARAM>(hwndNPP));
 					return TRUE;
 				}
 

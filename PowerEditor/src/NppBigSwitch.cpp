@@ -4144,6 +4144,44 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_SQLBACKSLASHESCAPE:
+		{
+			// Go through all open files, and if there are any SQL files open, make sure the sql.backslash.escapes propery
+			//	is updated for each of the SQL buffers' Scintilla wrapper.
+			//	This message will only be called on the rare circumstance when the backslash-is-escape-for-sql preference is toggled, so this loop won't be run very often.
+			const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
+			Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
+			Buffer* oldBuf = _invisibleEditView.getCurrentBuffer();
+
+			DocTabView* pTab[2] = { &_mainDocTab, &_subDocTab };
+			ScintillaEditView* pView[2] = { &_mainEditView, &_subEditView };
+
+			Buffer* pBuf = NULL;
+			for (size_t v = 0; v < 2; ++v)
+			{
+				for (size_t i = 0, len = pTab[v]->nbItem(); i < len; ++i)
+				{
+					pBuf = MainFileManager.getBufferByID(pTab[v]->getBufferByIndex(i));
+
+					if (pBuf->getLangType() == L_SQL)
+					{
+						_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+						_invisibleEditView.setCurrentBuffer(pBuf);
+
+						_invisibleEditView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
+
+						if (pBuf == pView[v]->getCurrentBuffer())
+						{
+							pView[v]->defineDocType(L_SQL);
+						}
+					}
+				}
+			}
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+			_invisibleEditView.setCurrentBuffer(oldBuf);
+			return TRUE;
+		}
+
 		default:
 		{
 			if (message == WDN_NOTIFY)

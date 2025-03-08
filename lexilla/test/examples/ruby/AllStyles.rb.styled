@@ -113,6 +113,12 @@
 {2}#44:symbol{0}
 {44}%s(#{1 + 1}){0}
 
+{2}#128:user keywords 1{0}
+{128}decrypt{0}
+
+{2}#129:user keywords 2{0}
+{129}encrypt{0}
+
 {2}#19:data section{0}
 {19}__END__
 

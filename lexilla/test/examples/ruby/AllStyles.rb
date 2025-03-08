@@ -113,6 +113,12 @@ while 1 do end
 #44:symbol
 %s(#{1 + 1})
 
+#128:user keywords 1
+decrypt
+
+#129:user keywords 2
+encrypt
+
 #19:data section
 __END__
 

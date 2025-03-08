@@ -366,7 +366,7 @@ static void ColouriseModulaDoc(	Sci_PositionU startPos,
 				if( isupper( sc.ch ) && isupper( sc.chNext ) ) {
 					for( i = 0; i < BUFLEN - 1; i++ ) {
 						buf[i] = sc.GetRelative(i);
-						if( !isalpha( buf[i] ) && !(buf[i] == '_') )
+						if( !(IsAlphaNumeric( buf[i] ) || buf[i] == '_') )
 							break;
 					}
 					kl = i;

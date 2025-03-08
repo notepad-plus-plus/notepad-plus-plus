@@ -1,0 +1,41 @@
+{4}// some example source code
+{0}
+{2}{
+  SCE_PAS_DEFAULT=0
+  SCE_PAS_IDENTIFIER=1
+  SCE_PAS_COMMENT=2
+  SCE_PAS_COMMENT2=3
+  SCE_PAS_COMMENTLINE=4
+  SCE_PAS_PREPROCESSOR=5
+  SCE_PAS_PREPROCESSOR2=6
+  SCE_PAS_NUMBER=7
+  SCE_PAS_HEXNUMBER=8
+  SCE_PAS_WORD=9
+  SCE_PAS_STRING=10
+  SCE_PAS_STRINGEOL=11
+  SCE_PAS_CHARACTER=12
+  SCE_PAS_OPERATOR=13
+  SCE_PAS_ASM=14
+}{0}
+
+{2}{ --------------------------------------------------------------------------- }{0}
+{9}function{0} {1}functionname{13}({1}paramerter1{13}:{0} {1}type1{13}):{1}result1{13};{0}
+  {9}var{0}
+    {1}i{13}:{0} {1}LongInt{13};{0}
+  {9}begin{0}
+  {9}for{0} {1}i{13}:={7}1{0} {9}to{0} {7}10{0} {9}do{0}
+    {9}begin{0}
+    {1}writeln{13}({1}i{13}){0}
+    {9}end{13};{0}
+  {1}result{13}:={1}true{13};{0}
+  {9}end{13};{0}
+{2}{ --------------------------------------------------------------------------- }{0}
+{9}procedure{0} {1}procedurename{13}({1}parameter2{13}:{0} {1}type2{13});{0}
+  {9}var{0}
+    {1}i{13}:{0} {1}LongInt{13};{0}
+  {9}begin{0}
+  {9}for{0} {1}i{13}:={7}1{0} {9}to{0} {7}10{0} {9}do{0}
+    {9}begin{0}
+    {1}writeln{13}({1}i{13}){0}
+    {9}end{13};{0}
+  {9}end{13};{0}

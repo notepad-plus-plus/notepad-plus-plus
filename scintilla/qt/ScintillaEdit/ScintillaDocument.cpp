@@ -55,6 +55,7 @@ public:
     void NotifyDeleted(Document *doc, void *userData) noexcept override;
     void NotifyStyleNeeded(Document *doc, void *userData, Sci::Position endPos) override;
     void NotifyErrorOccurred(Document *doc, void *userData, Status status) override;
+    void NotifyGroupCompleted(Document *doc, void *userData) noexcept override;
 };
 
 WatcherHelper::WatcherHelper(ScintillaDocument *owner_) : owner(owner_) {
@@ -86,6 +87,10 @@ void WatcherHelper::NotifyStyleNeeded(Document *, void *, Sci::Position endPos) 
 
 void WatcherHelper::NotifyErrorOccurred(Document *, void *, Status status) {
     emit owner->error_occurred(static_cast<int>(status));
+}
+
+void WatcherHelper::NotifyGroupCompleted(Document *, void *) noexcept {
+    // Needed to satisfy protocol. May implement an event in future.
 }
 
 ScintillaDocument::ScintillaDocument(QObject *parent, void *pdoc_) :

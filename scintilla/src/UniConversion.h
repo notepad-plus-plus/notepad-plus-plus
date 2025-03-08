@@ -43,9 +43,14 @@ inline int UnicodeFromUTF8(const unsigned char *us) noexcept {
 		return ((us[0] & 0x7) << 18) + ((us[1] & 0x3F) << 12) + ((us[2] & 0x3F) << 6) + (us[3] & 0x3F);
 	}
 }
+int UnicodeFromUTF8(std::string_view sv) noexcept;
 
 constexpr bool UTF8IsTrailByte(unsigned char ch) noexcept {
 	return (ch >= 0x80) && (ch < 0xc0);
+}
+
+constexpr bool UTF8IsFirstByte(unsigned char ch) noexcept {
+	return (ch >= 0xc2) && (ch <= 0xf4);
 }
 
 constexpr bool UTF8IsAscii(unsigned char ch) noexcept {

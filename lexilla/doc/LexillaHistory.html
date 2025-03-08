@@ -37,6 +37,7 @@
        Lexilla was originally code that was part of the Scintilla project.
        Thus it shares much of the history and contributors of Scintilla before it was extracted as its own project.
     </p>
+    <a href="#Releases">Releases</a>
     <h2>Contributors</h2>
     <p>
        Thanks to all the people that have contributed patches, bug reports and suggestions.
@@ -588,9 +589,42 @@
       </tr><tr>
 	<td>Henrik S. Johansen</td>
 	<td>Ekopalypse</td>
+	<td>HoTschir</td>
     </tr>
     </table>
-    <h2>Releases</h2>
+    <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/lexilla543.zip">Release 5.4.3</a>
+    </h3>
+    <ul>
+	<li>
+	Released 25 February 2025.
+	</li>
+	<li>
+	C++: Fix evaluation of != in preprocessor condition.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/299">Issue #299</a>.
+	</li>
+	<li>
+	Modula-3: Allow digits in uppercase identifiers.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/297">Issue #297</a>.
+	</li>
+	<li>
+	Pascal: Fix asm style extending past end.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/295">Issue #295</a>.
+	</li>
+	<li>
+	Python: Fix detection of attributes and decorators.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/294">Issue #294</a>,
+	<a href="https://github.com/ScintillaOrg/lexilla/pull/302">Pull request #302</a>.
+	</li>
+	<li>
+	Ruby: Implement substyles for identifiers SCE_RB_IDENTIFIER.
+	</li>
+	<li>
+	Ruby: Recognize name as SCE_RB_DEFNAME in def when `::` used as well as `.`.
+	<a href="https://github.com/ScintillaOrg/lexilla/issues/300">Issue #300</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/lexilla542.zip">Release 5.4.2</a>
     </h3>

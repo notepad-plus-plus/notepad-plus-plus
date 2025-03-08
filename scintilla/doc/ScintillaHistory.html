@@ -34,6 +34,7 @@
       </tr>
     </table>
     <h1>History of Scintilla</h1>
+    <a href="#Releases">Releases</a>
     <h2>Contributors</h2>
     <p>
        Thanks to all the people that have contributed patches, bug reports and suggestions.
@@ -586,7 +587,41 @@
 	<td>Pawel Z Wronek</td>
     </tr>
     </table>
-    <h2>Releases</h2>
+    <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla555.zip">Release 5.5.5</a>
+    </h3>
+    <ul>
+	<li>
+	Released 25 February 2025.
+	</li>
+	<li>
+	Remember selection with undo and redo. Controlled with SCI_SETUNDOSELECTIONHISTORY.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1273/">Feature #1273</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/1479/">Bug #1479</a>,
+	<a href="https://sourceforge.net/p/scintilla/bugs/1224/">Bug #1224</a>.
+	</li>
+	<li>
+	Serialize selection type and ranges with SCI_GETSELECTIONSERIALIZED and SCI_SETSELECTIONSERIALIZED.
+	</li>
+	<li>
+	For Win32, update Direct2D and DirectWrite interfaces used to 1.1 and add a lower-level approach to calling DirectWrite 1.1
+	by specifying SC_TECHNOLOGY_DIRECT_WRITE_1.
+	Since Windows Vista does not support these API versions, Scintilla o longer supports DirectWrite on Windows Vista and will
+	fall back to using GDI.
+	</li>
+	<li>
+	Fix segmentation of long lexemes to avoid breaking before modifiers like accents that must be drawn with their base letters.
+	For wrapping, try to break lines without separating letters from modifiers.
+	</li>
+	<li>
+	For GTK on Windows, replace reverse arrow cursor with hand as reverse arrow was small in scaled modes.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2460/">Bug #2460</a>.
+	</li>
+	<li>
+	Fix bug on Qt where double-click stopped working when Scintilla instance had been running for weeks.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla554.zip">Release 5.5.4</a>
     </h3>

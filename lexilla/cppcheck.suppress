@@ -31,7 +31,6 @@ passedByValue
 missingIncludeSystem
 
 // Passing temporary string into hidden object creator functions: they do not hold the argument
-danglingTemporaryLifetime:lexilla/access/LexillaAccess.cxx
 returnDanglingLifetime:lexilla/access/LexillaAccess.cxx
 
 // cppcheck 2.11 limits checking of complex functions unless --check-level=exhaustive but that
@@ -44,6 +43,9 @@ checkLevelNormal:lexilla/lexers/LexRuby.cxx
 
 // Physically but not logically const.
 constVariablePointer:lexilla/examples/CheckLexilla/CheckLexilla.c
+
+// cppcheck appears to be incorrectly determining control flow: target_end is used after write
+unreadVariable:lexilla/lexers/LexRuby.cxx
 
 // Suppress most lexer warnings since the lexers are maintained by others
 redundantCondition:lexilla/lexers/LexA68k.cxx
@@ -61,6 +63,7 @@ constParameterReference:lexilla/lexers/LexBash.cxx
 knownConditionTrueFalse:lexilla/lexers/LexBash.cxx
 variableScope:lexilla/lexers/LexBash.cxx
 constVariable:lexilla/lexers/LexBasic.cxx
+constParameterReference:lexilla/lexers/LexBullant.cxx
 constParameterReference:lexilla/lexers/LexCLW.cxx
 knownConditionTrueFalse:lexilla/lexers/LexCLW.cxx
 variableScope:lexilla/lexers/LexCmake.cxx
@@ -105,6 +108,7 @@ unreadVariable:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexJulia.cxx
 variableScope:lexilla/lexers/LexLaTeX.cxx
 constParameterReference:lexilla/lexers/LexLaTeX.cxx
+constParameterReference:lexilla/lexers/LexLisp.cxx
 constParameterPointer:lexilla/lexers/LexMagik.cxx
 constParameterReference:lexilla/lexers/LexMagik.cxx
 constParameterReference:lexilla/lexers/LexMarkdown.cxx
@@ -147,6 +151,8 @@ redundantInitialization:lexilla/lexers/LexRegistry.cxx
 constParameterReference:lexilla/lexers/LexRuby.cxx
 constParameterReference:lexilla/lexers/LexRust.cxx
 knownConditionTrueFalse:lexilla/lexers/LexScriptol.cxx
+constParameterReference:lexilla/lexers/LexScriptol.cxx
+constParameterPointer:lexilla/lexers/LexSmalltalk.cxx
 variableScope:lexilla/lexers/LexSpecman.cxx
 unreadVariable:lexilla/lexers/LexSpice.cxx
 constParameterReference:lexilla/lexers/LexSpice.cxx
@@ -157,6 +163,7 @@ clarifyCalculation:lexilla/lexers/LexTADS3.cxx
 constParameterReference:lexilla/lexers/LexTADS3.cxx
 constParameterReference:lexilla/lexers/LexTAL.cxx
 constVariableReference:lexilla/lexers/LexTCL.cxx
+constParameterPointer:lexilla/lexers/LexTCMD.cxx
 invalidscanf:lexilla/lexers/LexTCMD.cxx
 constParameterReference:lexilla/lexers/LexTeX.cxx
 variableScope:lexilla/lexers/LexTeX.cxx
@@ -166,6 +173,7 @@ constParameterReference:lexilla/lexers/LexVerilog.cxx
 variableScope:lexilla/lexers/LexVerilog.cxx
 badBitmaskCheck:lexilla/lexers/LexVerilog.cxx
 uselessCallsSubstr:lexilla/lexers/LexVerilog.cxx
+duplicateCondition:lexilla/lexers/LexVerilog.cxx
 constParameterReference:lexilla/lexers/LexVHDL.cxx
 constVariable:lexilla/lexers/LexVHDL.cxx
 shadowVariable:lexilla/lexers/LexVHDL.cxx
@@ -191,12 +199,60 @@ constParameterCallback:lexilla/lexers/LexPython.cxx
 constParameterCallback:lexilla/lexers/LexScriptol.cxx
 constParameterCallback:lexilla/lexers/LexVB.cxx
 
+constVariableReference:lexilla/lexers/LexA68k.cxx
+constVariableReference:lexilla/lexers/LexAPDL.cxx
+constVariableReference:lexilla/lexers/LexASY.cxx
+constVariableReference:lexilla/lexers/LexAVE.cxx
+constVariableReference:lexilla/lexers/LexAVS.cxx
+constVariableReference:lexilla/lexers/LexAU3.cxx
+constVariableReference:lexilla/lexers/LexAsn1.cxx
 constVariableReference:lexilla/lexers/LexBibTeX.cxx
+constVariableReference:lexilla/lexers/LexCaml.cxx
+constVariableReference:lexilla/lexers/LexCLW.cxx
+constVariableReference:lexilla/lexers/LexCmake.cxx
+constVariableReference:lexilla/lexers/LexCOBOL.cxx
+constVariableReference:lexilla/lexers/LexCoffeeScript.cxx
+constVariableReference:lexilla/lexers/LexCsound.cxx
 constVariableReference:lexilla/lexers/LexCSS.cxx
 constVariableReference:lexilla/lexers/LexCrontab.cxx
+constVariableReference:lexilla/lexers/LexDataflex.cxx
+constVariableReference:lexilla/lexers/LexDMAP.cxx
+constVariableReference:lexilla/lexers/LexECL.cxx
+constVariableReference:lexilla/lexers/LexEiffel.cxx
+constVariableReference:lexilla/lexers/LexEScript.cxx
+constVariableReference:lexilla/lexers/LexErlang.cxx
+constVariableReference:lexilla/lexers/LexFlagship.cxx
+constVariableReference:lexilla/lexers/LexForth.cxx
+constVariableReference:lexilla/lexers/LexFortran.cxx
+constVariableReference:lexilla/lexers/LexGAP.cxx
 constVariableReference:lexilla/lexers/LexGui4Cli.cxx
+constVariableReference:lexilla/lexers/LexKix.cxx
+constVariableReference:lexilla/lexers/LexKVIrc.cxx
+constVariableReference:lexilla/lexers/LexLout.cxx
+constVariableReference:lexilla/lexers/LexMagik.cxx
+constVariableReference:lexilla/lexers/LexMatlab.cxx
 constVariableReference:lexilla/lexers/LexMetapost.cxx
+constVariableReference:lexilla/lexers/LexMMIXAL.cxx
+constVariableReference:lexilla/lexers/LexMSSQL.cxx
+constVariableReference:lexilla/lexers/LexNsis.cxx
 constVariableReference:lexilla/lexers/LexOpal.cxx
+constVariableReference:lexilla/lexers/LexPOV.cxx
+constVariableReference:lexilla/lexers/LexPascal.cxx
+constVariableReference:lexilla/lexers/LexPB.cxx
+constVariableReference:lexilla/lexers/LexPowerPro.cxx
+constVariableReference:lexilla/lexers/LexPS.cxx
+constVariableReference:lexilla/lexers/LexRebol.cxx
+constVariableReference:lexilla/lexers/LexSAS.cxx
+constVariableReference:lexilla/lexers/LexSML.cxx
+constVariableReference:lexilla/lexers/LexSorcus.cxx
+constVariableReference:lexilla/lexers/LexSpecman.cxx
+constVariableReference:lexilla/lexers/LexStata.cxx
+constVariableReference:lexilla/lexers/LexTACL.cxx
+constVariableReference:lexilla/lexers/LexTADS3.cxx
+constVariableReference:lexilla/lexers/LexTAL.cxx
+constVariableReference:lexilla/lexers/LexTCMD.cxx
+constVariableReference:lexilla/lexers/LexTeX.cxx
+constVariableReference:lexilla/lexers/LexVHDL.cxx
 
 // Suppress everything in test example files
 *:lexilla/test/examples/*

@@ -1304,12 +1304,16 @@ $(DIR_O)/LexRuby.o: \
 	../../scintilla/include/Sci_Position.h \
 	../../scintilla/include/Scintilla.h \
 	../include/SciLexer.h \
+	../lexlib/InList.h \
 	../lexlib/WordList.h \
 	../lexlib/LexAccessor.h \
 	../lexlib/Accessor.h \
 	../lexlib/StyleContext.h \
 	../lexlib/CharacterSet.h \
-	../lexlib/LexerModule.h
+	../lexlib/LexerModule.h \
+	../lexlib/OptionSet.h \
+	../lexlib/SubStyles.h \
+	../lexlib/DefaultLexer.h
 $(DIR_O)/LexRust.o: \
 	../lexers/LexRust.cxx \
 	../../scintilla/include/ILexer.h \

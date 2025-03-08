@@ -261,6 +261,18 @@ unsigned int UTF16FromUTF32Character(unsigned int val, wchar_t *tbuf) noexcept {
 	return 2;
 }
 
+int UnicodeFromUTF8(std::string_view sv) noexcept {
+	if (!sv.empty()) {
+		const unsigned char uch = sv.front();
+		const unsigned int byteCount = UTF8BytesOfLead[uch];
+		if (sv.length() >= byteCount) {
+			return UnicodeFromUTF8(reinterpret_cast<const unsigned char *>(sv.data()));
+		}
+	}
+	// Failure so let the caller know  
+	return unicodeReplacementChar;
+}
+
 const unsigned char UTF8BytesOfLead[256] = {
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // 00 - 0F
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // 10 - 1F

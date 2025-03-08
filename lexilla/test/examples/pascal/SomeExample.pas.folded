@@ -1,0 +1,42 @@
+ 0 400   0   // some example source code
+ 1 400   0   
+ 2 400   0 + {
+ 0 401   0 |   SCE_PAS_DEFAULT=0
+ 0 401   0 |   SCE_PAS_IDENTIFIER=1
+ 0 401   0 |   SCE_PAS_COMMENT=2
+ 0 401   0 |   SCE_PAS_COMMENT2=3
+ 0 401   0 |   SCE_PAS_COMMENTLINE=4
+ 0 401   0 |   SCE_PAS_PREPROCESSOR=5
+ 0 401   0 |   SCE_PAS_PREPROCESSOR2=6
+ 0 401   0 |   SCE_PAS_NUMBER=7
+ 0 401   0 |   SCE_PAS_HEXNUMBER=8
+ 0 401   0 |   SCE_PAS_WORD=9
+ 0 401   0 |   SCE_PAS_STRING=10
+ 0 401   0 |   SCE_PAS_STRINGEOL=11
+ 0 401   0 |   SCE_PAS_CHARACTER=12
+ 0 401   0 |   SCE_PAS_OPERATOR=13
+ 0 401   0 |   SCE_PAS_ASM=14
+ 0 401   0 | }
+ 1 400   0   
+ 0 400   0   { --------------------------------------------------------------------------- }
+ 0 400   0   function functionname(paramerter1: type1):result1;
+ 0 400   0     var
+ 0 400   0       i: LongInt;
+ 2 400   0 +   begin
+ 0 401   0 |   for i:=1 to 10 do
+ 2 401   0 +     begin
+ 0 402   0 |     writeln(i)
+ 0 402   0 |     end;
+ 0 401   0 |   result:=true;
+ 0 401   0 |   end;
+ 0 400   0   { --------------------------------------------------------------------------- }
+ 0 400   0   procedure procedurename(parameter2: type2);
+ 0 400   0     var
+ 0 400   0       i: LongInt;
+ 2 400   0 +   begin
+ 0 401   0 |   for i:=1 to 10 do
+ 2 401   0 +     begin
+ 0 402   0 |     writeln(i)
+ 0 402   0 |     end;
+ 0 401   0 |   end;
+ 1 400   0   

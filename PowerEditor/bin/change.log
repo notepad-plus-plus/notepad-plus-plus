@@ -1,28 +1,23 @@
-Notepad++ v8.7.7 regression-fix from v8.7.6:
+Notepad++ v8.7.8 regression-fixes, bug-fixes & enhancements:
 
- 1. Add new API NPPM_ADDSCNMODIFIEDFLAGS to fix eventual regression regarding SCN_MODIFIED for some plugins.
-
-
-Notepad++ v8.7.6 regression-fixes, bug-fixes & enhancements:
-
- 1. Update to scintilla 5.5.3 & Lexilla 5.4.1.
- 2. Enhance performance of syntax highlighting for large files.
- 3. Make "Show close/pin button on each inactive tab" optional.
- 4. Add ShortcutMapper Multilingual ability, allowing the use of specific keys for non-en-US keyboards.
- 5. Fix vertical tab crashes when enabling/disabling the pin tab feature.
- 6. Fix crash when passing an invalid buffer with NPPM_SETUNTITLEDNAME.
- 7. Fix floating panels position resetting regression in multi-monitor configurations.
- 8. Fix incorrect "Replace all" behavior during the second replace in selection.
- 9. Fix backup file renaming bug for untitled tabs.
-10. Enhance UX in "Find in file" action when the Directory field is empty.
-11. Make the current line/position copyable in the Go to Line dialog.
-12. GUI enhancement: hide right menu shortcuts on the fly.
-13. Minor enhancements for JavaScript, CSS & HTML.
-
+ 1. Fix regression (v8.7.1 - v8.7.7) of saving backup file without modifications.
+ 2. Fix syntax highlighting regression while switching among UDL files.
+ 3. Add ability to hide selected toolbar buttons via a XML configuration.
+ 4. Optimize switching programming language performance for large files.
+ 5. Improve folding/unfolding performance for large files.
+ 6. Fix SQL Backslash Preference state regression (from v8.7).
+ 7. Fix count operation on regex causing Notepad++ to hang.
+ 8. Fix FunctionList not refreshing with current document lexer changes.
+ 9. Improve Style Configurator GUI organization.
+10. Adds SAS programming language support.
+11. Make existing DirectWrite rendering modes accessible.
+12. Allow DirectWrite use on non-Core Windows Server.    
+13. Use VTS instead of LTS for specific control code abbreviation.
+14. Fix installer silent mode doLocalConf.xml setting handling issue.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.7/
+https://notepad-plus-plus.org/downloads/v8.7.8/
 
 
 Included plugins:

@@ -240,7 +240,7 @@ public :
 		_isDbClk2Close = b;
 	}
 
-	static void setPutTabPinButtonInFront(bool b) {
+	static void setMoveTabPinButtonInFront(bool b) {
 		_pinButtonInFront = b;
 	}
 

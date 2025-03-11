@@ -4102,7 +4102,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_MOVETABPINBUTTONINFRONT:
 		{
 			if (message == NPPM_INTERNAL_MOVETABPINBUTTONINFRONT)
-				TabBarPlus::setPutTabPinButtonInFront(!TabBarPlus::pinButtonInFront());
+				TabBarPlus::setMoveTabPinButtonInFront(!TabBarPlus::pinButtonInFront());
 
 			::SendMessage(_mainDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);
 			::SendMessage(_subDocTab.getHSelf(), NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);

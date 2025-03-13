@@ -4151,7 +4151,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			//	This message will only be called on the rare circumstance when the backslash-is-escape-for-sql preference is toggled, so this loop won't be run very often.
 			const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
 			Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-			Buffer* oldBuf = _invisibleEditView.getCurrentBuffer();	//for manually setting the buffer, so notifications can be handled properly
+			Buffer* oldBuf = _invisibleEditView.getCurrentBuffer();
 
 			DocTabView* pTab[2] = { &_mainDocTab, &_subDocTab };
 			ScintillaEditView* pView[2] = { &_mainEditView, &_subEditView };
@@ -4172,7 +4172,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 						if (pBuf == pView[v]->getCurrentBuffer())
 						{
-							//pView[v]->activateBuffer(pBuf, true);
 							pView[v]->defineDocType(L_SQL);
 						}
 					}

@@ -4150,32 +4150,36 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			//	is updated for each of the SQL buffers' Scintilla wrapper.
 			//	This message will only be called on the rare circumstance when the backslash-is-escape-for-sql preference is toggled, so this loop won't be run very often.
 			const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
-			HWND hwndNPP = reinterpret_cast<HWND>(lParam);
+			Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
+			Buffer* oldBuf = _invisibleEditView.getCurrentBuffer();	//for manually setting the buffer, so notifications can be handled properly
 
-			int currentView = static_cast<int>(::SendMessage(hwndNPP, NPPM_GETCURRENTVIEW, 0, 0));
-			int currentDoc[2] = {
-				static_cast<int>(::SendMessage(hwndNPP, NPPM_GETCURRENTDOCINDEX, 0, 0)),
-				static_cast<int>(::SendMessage(hwndNPP, NPPM_GETCURRENTDOCINDEX, 0, 1))
-			};
+			DocTabView* pTab[2] = { &_mainDocTab, &_subDocTab };
+			ScintillaEditView* pView[2] = { &_mainEditView, &_subEditView };
 
-			// loop through all buffers in each view, get it's language type, and if it is SQL then update the sql.backslash.escapes property
-			for (int view_idx = 0; view_idx < 2; view_idx++)
+			Buffer* pBuf = NULL;
+			for (size_t v = 0; v < 2; ++v)
 			{
-				ScintillaEditView* thisScintView = currentView == view_idx ? _pEditView : _pNonEditView;
-				int nOpenInThisView = static_cast<int>(::SendMessage(hwndNPP, NPPM_GETNBOPENFILES, 0, view_idx + 1));	// this command uses 0 for both, 1 for main, 2 for second
-
-				for (int buf_idx = 0; buf_idx < nOpenInThisView; buf_idx++)
+				for (size_t i = 0, len = pTab[v]->nbItem(); i < len; ++i)
 				{
-					WPARAM bufferID = ::SendMessage(hwndNPP, NPPM_GETBUFFERIDFROMPOS, static_cast<WPARAM>(buf_idx), static_cast<LPARAM>(view_idx));
-					int langType = static_cast<int>(::SendMessage(hwndNPP, NPPM_GETBUFFERLANGTYPE, bufferID, 0));
-					if (langType == L_SQL)
+					pBuf = MainFileManager.getBufferByID(pTab[v]->getBufferByIndex(i));
+
+					if (pBuf->getLangType() == L_SQL)
 					{
-						::SendMessage(hwndNPP, NPPM_ACTIVATEDOC, static_cast<WPARAM>(view_idx), static_cast<LPARAM>(buf_idx));
-						thisScintView->execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
-						::SendMessage(hwndNPP, NPPM_ACTIVATEDOC, static_cast<WPARAM>(currentView), static_cast<LPARAM>(currentDoc[currentView]));
+						_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+						_invisibleEditView.setCurrentBuffer(pBuf);
+
+						_invisibleEditView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
+
+						if (pBuf == pView[v]->getCurrentBuffer())
+						{
+							//pView[v]->activateBuffer(pBuf, true);
+							pView[v]->defineDocType(L_SQL);
+						}
 					}
 				}
 			}
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+			_invisibleEditView.setCurrentBuffer(oldBuf);
 			return TRUE;
 		}
 

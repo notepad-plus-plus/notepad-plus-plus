@@ -432,11 +432,7 @@ void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
 	{
 		if (_hwndArray[i])
 		{
-			LONG_PTR style = ::GetWindowLongPtr(_hwndArray[i], GWL_STYLE);
-			style |= TCS_OWNERDRAWFIXED;
-
-			::SetWindowLongPtr(_hwndArray[i], GWL_STYLE, style);
-			::InvalidateRect(_hwndArray[i], NULL, TRUE);
+			::InvalidateRect(_hwndArray[i], NULL, TRUE); // needed by "Change inactive tab color" & "Draw a couloued bar on active tab"
 
 			if (tbpObj)
 			{
@@ -992,7 +988,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					if (_currentHoverTabItem != -1) // tab item is being hovered
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
-						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
 						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
 					}
 					else

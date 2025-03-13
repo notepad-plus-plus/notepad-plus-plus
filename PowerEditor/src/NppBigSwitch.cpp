@@ -4159,14 +4159,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			};
 
 			// loop through all buffers in each view, get it's language type, and if it is SQL then update the sql.backslash.escapes property
-			for (int view_idx = 0; view_idx < 2; view_idx++) {
+			for (int view_idx = 0; view_idx < 2; view_idx++)
+			{
 				ScintillaEditView* thisScintView = currentView == view_idx ? _pEditView : _pNonEditView;
 				int nOpenInThisView = static_cast<int>(::SendMessage(hwndNPP, NPPM_GETNBOPENFILES, 0, view_idx + 1));	// this command uses 0 for both, 1 for main, 2 for second
 
-				for (int buf_idx = 0; buf_idx < nOpenInThisView; buf_idx++) {
+				for (int buf_idx = 0; buf_idx < nOpenInThisView; buf_idx++)
+				{
 					WPARAM bufferID = ::SendMessage(hwndNPP, NPPM_GETBUFFERIDFROMPOS, static_cast<WPARAM>(buf_idx), static_cast<LPARAM>(view_idx));
 					int langType = static_cast<int>(::SendMessage(hwndNPP, NPPM_GETBUFFERLANGTYPE, bufferID, 0));
-					if (langType == L_SQL) {
+					if (langType == L_SQL)
+					{
 						::SendMessage(hwndNPP, NPPM_ACTIVATEDOC, static_cast<WPARAM>(view_idx), static_cast<LPARAM>(buf_idx));
 						thisScintView->execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 						::SendMessage(hwndNPP, NPPM_ACTIVATEDOC, static_cast<WPARAM>(currentView), static_cast<LPARAM>(currentDoc[currentView]));

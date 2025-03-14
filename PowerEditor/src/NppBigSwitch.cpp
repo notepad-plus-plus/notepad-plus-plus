@@ -4135,15 +4135,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_RELOADFUNCTIONLIST:
-		{
-			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
-			{
-				_pFuncList->reload();
-			}
-			return TRUE;
-		}
-
 		case NPPM_INTERNAL_SQLBACKSLASHESCAPE:
 		{
 			// Go through all open files, and if there are any SQL files open, make sure the sql.backslash.escapes propery

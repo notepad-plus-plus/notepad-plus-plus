@@ -544,6 +544,21 @@ void PreferenceDlg::destroy()
 	_performanceSubDlg.destroy();
 }
 
+void GeneralSubDlg::setTabbarAlternateIcons(bool enable)
+{
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	if (!enable)
+	{
+		nppGUI._tabStatus &= ~TAB_ALTICONS;
+		::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_UNCHECKED, 0);
+	}
+	else
+	{
+		nppGUI._tabStatus |= TAB_ALTICONS;
+		::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_CHECKED, 0);
+	}
+}
+
 intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
@@ -1809,18 +1824,6 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
 					::SendMessage(_hParent, NPPM_INTERNAL_SETTOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0);
-
-					const int tabIconSet = NppDarkMode::getTabIconSet(enableDarkMode);
-					if (tabIconSet != 1)
-					{
-						nppGUI._tabStatus &= ~TAB_ALTICONS;
-						::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_UNCHECKED, 0);
-					}
-					else
-					{
-						nppGUI._tabStatus |= TAB_ALTICONS;
-						::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_ALTICONS, BM_SETCHECK, BST_CHECKED, 0);
-					}
 
 					changed = true;
 				}

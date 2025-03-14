@@ -1717,42 +1717,6 @@ void ScintillaEditView::setNpcAndCcUniEOL(long color)
 	redraw();
 }
 
-void ScintillaEditView::setLanguage(LangType langType)
-{
-	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
-
-	if (_currentBuffer->getLastLangType() > 0 && !_currentBuffer->isUntitled())
-	{
-		// To improve switching lexer performance, here's the tip:
-		// 1. Set current document to a blank document
-		// 2. Set a new lexer
-		// 3. Reset back to the current document
-		saveCurrentPos();
-		Document prev = execute(SCI_GETDOCPOINTER);
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-
-		_currentBuffer->setLangType(langType);
-		
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, prev);
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-
-		maintainStateForNpc();
-		setCRLF();
-		restoreCurrentPosPreStep();
-
-		// When buffer sets lang type ("_currentBuffer->setLangType(langType);"), it'll call doNotify(BufferChangeLanguage | BufferChangeLexing),
-		// then FunctionList will be reloaded. However, it'll be reloaded on the blank document.
-		// That's why here we do again FunctionList reload, after the current document be reset back.
-		::SendMessage(_hParent, NPPM_INTERNAL_RELOADFUNCTIONLIST, 0, 0);
-	}
-	else
-	{
-		_currentBuffer->setLangType(langType);
-	}
-}
 
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
@@ -2171,10 +2135,10 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 Document ScintillaEditView::getBlankDocument()
 {
-	if(_blankDocument==0)
+	if (!_blankDocument)
 	{
-		_blankDocument=static_cast<Document>(execute(SCI_CREATEDOCUMENT,0,SC_DOCUMENTOPTION_TEXT_LARGE));
-		execute(SCI_ADDREFDOCUMENT,0,_blankDocument);
+		_blankDocument = static_cast<Document>(execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE));
+		execute(SCI_ADDREFDOCUMENT, 0, _blankDocument);
 	}
 	return _blankDocument;
 }

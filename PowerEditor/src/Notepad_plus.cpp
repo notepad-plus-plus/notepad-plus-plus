@@ -920,6 +920,7 @@ bool Notepad_plus::saveGUIParams()
 						(nppGUI._tabStatus & TAB_HIDE) | \
 						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
 						(nppGUI._tabStatus & TAB_ALTICONS);
+
 	nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 	bool b = udd->isDocked();
@@ -8531,7 +8532,15 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
 		if (tabIconSet != -1)
 		{
-			_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
+			if (tabIconSet != 1)
+			{
+				nppParams.getNppGUI()._tabStatus &= ~TAB_ALTICONS;
+			}
+			else
+			{
+				nppParams.getNppGUI()._tabStatus |= TAB_ALTICONS;
+			}
+
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBARICONSET, static_cast<WPARAM>(false), tabIconSet);
 		}
 		else

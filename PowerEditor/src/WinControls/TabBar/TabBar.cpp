@@ -432,6 +432,8 @@ void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
 	{
 		if (_hwndArray[i])
 		{
+			::InvalidateRect(_hwndArray[i], NULL, TRUE); // needed by "Change inactive tab color" & "Draw a couloued bar on active tab"
+
 			if (tbpObj)
 			{
 				int paddingSize = 0;

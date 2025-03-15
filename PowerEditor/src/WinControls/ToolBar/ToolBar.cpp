@@ -87,29 +87,30 @@ void ToolBar::initHideButtonsConf(TiXmlDocument* toolButtonsDocRoot, ToolBarButt
 				{
 					for (int i = 0; i < arraySize; ++i)
 						_toolbarStdButtonsConfArray[i] = false;
-					return;
 				}
-				
-				for (int i = 0; i < arraySize; ++i)
-					_toolbarStdButtonsConfArray[i] = true;
-
-				for (TiXmlNode* childNode = standardToolButtons->FirstChildElement(L"Button");
-					childNode;
-					childNode = childNode->NextSibling(L"Button"))
+				else
 				{
-					TiXmlElement* element = childNode->ToElement();
-					int cmdID =0;
-					const wchar_t* cmdIDStr = element->Attribute(L"id", &cmdID);
+					for (int i = 0; i < arraySize; ++i)
+						_toolbarStdButtonsConfArray[i] = true;
 
-					int index = 0;
-					const wchar_t* orderStr = element->Attribute(L"index", &index);
-
-					const wchar_t* isHide = element->Attribute(L"hide");
-
-					if (cmdIDStr && orderStr && isHide && (lstrcmp(isHide, L"yes") == 0))
+					for (TiXmlNode* childNode = standardToolButtons->FirstChildElement(L"Button");
+						childNode;
+						childNode = childNode->NextSibling(L"Button"))
 					{
-						if (index < arraySize && buttonUnitArray[index]._cmdID == cmdID)
-							_toolbarStdButtonsConfArray[index] = false;
+						TiXmlElement* element = childNode->ToElement();
+						int cmdID = 0;
+						const wchar_t* cmdIDStr = element->Attribute(L"id", &cmdID);
+
+						int index = 0;
+						const wchar_t* orderStr = element->Attribute(L"index", &index);
+
+						const wchar_t* isHide = element->Attribute(L"hide");
+
+						if (cmdIDStr && orderStr && isHide && (lstrcmp(isHide, L"yes") == 0))
+						{
+							if (index < arraySize && buttonUnitArray[index]._cmdID == cmdID)
+								_toolbarStdButtonsConfArray[index] = false;
+						}
 					}
 				}
 			}

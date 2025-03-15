@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.7.8">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1329,6 +1329,7 @@ Translation note:
 						<Element name="DirectWrite (default)"/>
 						<Element name="DirectWrite (retain frames)"/>
 						<Element name="DirectWrite (draw to GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="system tray"/>
 					<Item id="6363" name="rendering mode"/>

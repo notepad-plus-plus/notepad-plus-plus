@@ -2475,7 +2475,7 @@ intptr_t CALLBACK MiscSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (default)"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (retain frames)"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (draw to GDI DC)"));
-			//::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (DirectX 11)"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SC_TECHNOLOGY_CHOICE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(L"DirectWrite (DirectX 11)"));
 
 			if ((nppGUI._writeTechnologyEngine < 0) || (nppGUI._writeTechnologyEngine > directWriteTechnologyUnavailable))
 				nppGUI._writeTechnologyEngine = directWriteTechnology;

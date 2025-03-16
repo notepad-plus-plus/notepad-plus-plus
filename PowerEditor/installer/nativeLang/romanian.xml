@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.7.8
--    Ultima modificare a fost făcută 25 februarie 2025 de către Miloiu Andrei Valentin
+-    Traducerea în română pentru Notepad++ 8.7.9
+-    Ultima modificare a fost făcută 16 martie 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.8">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.9">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1361,6 +1361,7 @@
 						<Element name="DirectWrite (implicit)"/>
 						<Element name="DirectWrite (reține cadrele)"/>
 						<Element name="DirectWrite (desenează în GDI DC)"/>
+						<Element name="DirectWrite (cu DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="bara de sistem"/>
 					<Item id="6363" name="modul de randare"/>

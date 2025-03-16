@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 21.02.2025 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 16.03.2025 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -1259,6 +1259,7 @@
 						<Element name="DirectWrite (по подразбиране)"/>
 						<Element name="DirectWrite (запазване на рамки)"/>
 						<Element name="DirectWrite (рисуване в GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6363" name="режим на изобразяване"/>
 					<Item id="6323" name="Автоматично обновяване на Notepad++"/>

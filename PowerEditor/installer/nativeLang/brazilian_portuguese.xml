@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 19 Feb 2025, for Notepad++ 8.7.8
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 Mar 2025, for Notepad++ 8.7.9
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.8">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1329,6 +1329,7 @@ Translation note:
 						<Element name="DirectWrite (padrão)"/>
 						<Element name="DirectWrite (mantém estrutura)"/>
 						<Element name="DirectWrite (estendendo a GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="bandeja"/>
 					<Item id="6363" name="modo renderização"/>

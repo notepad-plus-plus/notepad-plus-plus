@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.7.8">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1330,6 +1330,7 @@ Translation note:
 						<Element name="DirectWrite (standard)"/>
 						<Element name="DirectWrite (behåll bildrutor)"/>
 						<Element name="DirectWrite (rita till GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
 					<Item id="6363" name="renderingsläge"/>

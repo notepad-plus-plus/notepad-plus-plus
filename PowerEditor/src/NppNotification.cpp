@@ -1102,8 +1102,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			_tabPopupMenu.enableItem(IDM_FILE_SAVEAS, !isInaccessible);
 			_tabPopupMenu.enableItem(IDM_FILE_RENAME, !isInaccessible);
-
-			bool isTabPinEnabled = TabBarPlus::drawTabPinButton();
+			
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool isTabPinEnabled = nppGUI._tabStatus & TAB_PINBUTTON;
 			wstring newName;
 			if (isTabPinEnabled)
 			{

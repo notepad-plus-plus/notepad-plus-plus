@@ -4880,13 +4880,15 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			bool isFailed = false;
 			int oldValue = _nppGUI._tabStatus;
+			_nppGUI._tabStatus = 0;
+
 			const wchar_t* val = element->Attribute(L"dragAndDrop");
 			if (val)
 			{
 				if (!lstrcmp(val, L"yes"))
-					_nppGUI._tabStatus = TAB_DRAGNDROP;
+					_nppGUI._tabStatus |= TAB_DRAGNDROP;
 				else if (!lstrcmp(val, L"no"))
-					_nppGUI._tabStatus = 0;
+					_nppGUI._tabStatus |= 0;
 				else
 					isFailed = true;
 			}
@@ -7300,10 +7302,10 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"TabBar");
 
-		const wchar_t *pStr = (_nppGUI._tabStatus & TAB_DRAWTOPBAR) ? L"yes" : L"no";
+		const wchar_t *pStr = (_nppGUI._tabStatus & TAB_DRAGNDROP) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"dragAndDrop", pStr);
 
-		pStr = (_nppGUI._tabStatus & TAB_DRAGNDROP) ? L"yes" : L"no";
+		pStr = (_nppGUI._tabStatus & TAB_DRAWTOPBAR) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"drawTopBar", pStr);
 
 		pStr = (_nppGUI._tabStatus & TAB_DRAWINACTIVETAB) ? L"yes" : L"no";

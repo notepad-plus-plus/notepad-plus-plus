@@ -1012,7 +1012,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
         {
             _pUserLang = _pCurrentUserLang;
 
-            _ctrlTab.init(_hInst, _hSelf, false);
+            _ctrlTab.init(_hInst, _hSelf);
             NppDarkMode::subclassTabControl(_ctrlTab.getHSelf());
 
             _folderStyleDlg.init(_hInst, _hSelf);

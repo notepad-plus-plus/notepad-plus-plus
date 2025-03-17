@@ -184,6 +184,7 @@ ifeq "$(WIN_DIR)" ""
 MKDIR := mkdir -p
 CPDIR := cp -r
 RMDIR := rm -rf
+DIR := ls -l
 CP := cp
 RM := rm -f
 CD-PREBUILD := PowerEditor/src
@@ -196,6 +197,7 @@ SHELL_DIRECTORY := $(subst |,$(SPACE),$(dir $(subst $(SPACE),|,$(SHELL))))
 MKDIR := $(SHELL_DIRECTORY)mkdir.exe -p
 CPDIR := $(SHELL_DIRECTORY)cp.exe -r
 RMDIR := $(SHELL_DIRECTORY)rm.exe -rf
+DIR := $(SHELL_DIRECTORY)ls -l
 CP := $(SHELL_DIRECTORY)cp.exe
 RM := $(SHELL_DIRECTORY)rm.exe -f
 CD-PREBUILD := PowerEditor/src
@@ -205,6 +207,7 @@ else
 MKDIR := mkdir
 CPDIR := xcopy /q /e /i /y
 RMDIR := rmdir /q /s
+DIR := dir
 CP := copy /y
 RM := del /q
 CD-PREBUILD := ../src
@@ -240,7 +243,7 @@ all: pre-build-event $(SCINTILLA_TARGET) $(LEXILLA_TARGET)
 
 pre-build-event:
 	@echo Executing pre-build events...
-	@cd $(CD-PREBUILD) && $(PREBUILD_EVENT_CMD)
+	@cmd /C && @$(DIR) && @cd $(CD-PREBUILD) && @$(DIR) && $(PREBUILD_EVENT_CMD)
 
 $(BUILD_DIRECTORY):
 	@echo + creating BUILD_DIRECTORY $@

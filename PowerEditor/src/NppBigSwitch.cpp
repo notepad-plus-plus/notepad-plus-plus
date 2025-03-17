@@ -3934,7 +3934,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_DRAWINACIVETAB:
 		case NPPM_INTERNAL_DRAWTABTOPBAR:
 		{
-			TabBarPlus::doOwnerDrawTab(&(_mainDocTab.dpiManager()));
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 			break;
 		}
 
@@ -3954,7 +3954,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_REDUCETABBAR:
 		{
-			TabBarPlus::doOwnerDrawTab(&(_mainDocTab.dpiManager()));
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 			bool isReduceed = nppParam.getNppGUI()._tabStatus & TAB_REDUCE;
 
 			//Resize the tab height
@@ -3985,7 +3985,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DRAWTABBARCLOSEBUTTON:
 		{
-			TabBarPlus::doOwnerDrawTab(&(_mainDocTab.dpiManager()));
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
@@ -4035,7 +4035,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DRAWTABBARPINBUTTON:
 		{
-			TabBarPlus::doOwnerDrawTab(&(_mainDocTab.dpiManager()));
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;

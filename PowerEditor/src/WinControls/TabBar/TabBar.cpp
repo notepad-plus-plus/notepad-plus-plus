@@ -415,7 +415,7 @@ void TabBar::setFont()
 }
 
 
-void TabBarPlus::doOwnerDrawTab(DPIManagerV2* pDPIManager)
+void TabBarPlus::triggerOwnerDrawTabbar(DPIManagerV2* pDPIManager)
 {
 
 	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
@@ -473,7 +473,7 @@ void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i, DPIManagerV2* 
 		default :
 			return;
 	}
-	doOwnerDrawTab(pDPIManager);
+	triggerOwnerDrawTabbar(pDPIManager);
 }
 
 void TabBarPlus::tabToStart(int index)

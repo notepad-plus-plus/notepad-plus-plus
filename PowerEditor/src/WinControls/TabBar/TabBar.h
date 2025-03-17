@@ -183,7 +183,7 @@ public :
 		_draggingPoint.y = 0;
 	};
 
-	static void doOwnerDrawTab(DPIManagerV2* pDPIManager);
+	static void triggerOwnerDrawTabbar(DPIManagerV2* pDPIManager);
 	static void doVertical();
 	static void doMultiLine();
 
@@ -212,9 +212,7 @@ public :
 	}
 
 protected:
-    // it's the boss to decide if we do the drag N drop
-    //static bool _doDragNDrop;
-	// drag N drop members
+	// drag & drop members
 	bool _mightBeDragging = false;
 	int _dragCount = 0;
 	bool _isDragging = false;

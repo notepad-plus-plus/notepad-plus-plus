@@ -405,7 +405,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
 	_mainDocTab.display();
-	TabBarPlus::doOwnerDrawTab(&(_mainDocTab.dpiManager()));
+	TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 
 	//
 	// Initialize the default foreground & background color

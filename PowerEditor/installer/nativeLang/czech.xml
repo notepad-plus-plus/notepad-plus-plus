@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.8  24/Feb/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.7.9  17/Mar/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.8">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1247,6 +1247,7 @@
 						<Element name="DirectWrite (výchozí)"/>
 						<Element name="DirectWrite (zachovávat snímky)"/>
 						<Element name="DirectWrite (vykreslovat do GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6114" name="Povolit přepínání"/>
 					<Item id="6117" name="Povolit MRU (nedávno použité)"/>

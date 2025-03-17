@@ -896,7 +896,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SAVEBACKUP:
 		{
-			if (NppParameters::getInstance().getNppGUI().isSnapshotMode())
+			if (nppParam.getNppGUI().isSnapshotMode())
 			{
 				MainFileManager.backupCurrentBuffer();
 			}
@@ -1209,7 +1209,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return TRUE;
 			}
 
-			if (NppParameters::getInstance().getNppGUI()._styleMRU)
+			if (nppParam.getNppGUI()._styleMRU)
 			{
 				tli->_currentIndex = 0;
 				std::sort(tli->_tlfsLst.begin(),tli->_tlfsLst.end(),SortTaskListPred(_mainDocTab,_subDocTab));
@@ -1888,7 +1888,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_ISTABBARREDUCED:
 		{
-			return TabBarPlus::isReduced() ? TRUE : FALSE;
+			return nppParam.getNppGUI()._tabStatus & TAB_REDUCE ? TRUE : FALSE;
 		}
 
 		// ADD: success->hwnd; failure->NULL
@@ -2299,11 +2299,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			drawDocumentMapColoursFromStylerArray();
 
 			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
-			const Style* pStyle = NppParameters::getInstance().getGlobalStylers().findByID(STYLE_DEFAULT);
+			const Style* pStyle = nppParam.getGlobalStylers().findByID(STYLE_DEFAULT);
 			if (pStyle)
 			{
-				NppParameters::getInstance().setCurrentDefaultFgColor(pStyle->_fgColor);
-				NppParameters::getInstance().setCurrentDefaultBgColor(pStyle->_bgColor);
+				nppParam.setCurrentDefaultFgColor(pStyle->_fgColor);
+				nppParam.setCurrentDefaultBgColor(pStyle->_bgColor);
 				drawAutocompleteColoursFromTheme(pStyle->_fgColor, pStyle->_bgColor);
 			}
 
@@ -3005,7 +3005,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETWINDOWSVERSION:
 		{
-			return (NppParameters::getInstance()).getWinVersion();
+			return nppParam.getWinVersion();
 		}
 
 		case NPPM_MAKECURRENTBUFFERDIRTY:
@@ -3151,24 +3151,25 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDETABBAR:
 		{
 			bool hide = (lParam != 0);
-			bool oldVal = DocTabView::getHideTabBarStatus();
+
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			bool oldVal = (nppGUI._tabStatus & TAB_HIDE);
 			if (hide == oldVal) return oldVal;
 
-			DocTabView::setHideTabBarStatus(hide);
-			::SendMessage(hwnd, WM_SIZE, 0, 0);
-
-			NppGUI & nppGUI = (NppParameters::getInstance()).getNppGUI();
 			if (hide)
 				nppGUI._tabStatus |= TAB_HIDE;
 			else
 				nppGUI._tabStatus &= ~TAB_HIDE;
+
+			::SendMessage(hwnd, WM_SIZE, 0, 0);
 
 			return oldVal;
 		}
 
 		case NPPM_ISTABBARHIDDEN:
 		{
-			return _mainDocTab.getHideTabBarStatus();
+			NppGUI& nppGUI = nppParam.getNppGUI();
+			return nppGUI._tabStatus & TAB_HIDE;
 		}
 
 		case NPPM_HIDETOOLBAR:
@@ -3297,7 +3298,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_mainEditView.setNpcAndCcUniEOL();
 			_subEditView.setNpcAndCcUniEOL();
 
-			const auto& svp = NppParameters::getInstance().getSVP();
+			const auto& svp = nppParam.getSVP();
 			if (svp._npcShow)
 			{
 				_findReplaceDlg.updateFinderScintillaForNpc(true);
@@ -3506,8 +3507,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR:
 		{
 			return (message == NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR
-					?(NppParameters::getInstance()).getCurrentDefaultFgColor()
-					:(NppParameters::getInstance()).getCurrentDefaultBgColor());
+					? nppParam.getCurrentDefaultFgColor()
+					: nppParam.getCurrentDefaultBgColor());
 		}
 
 		case NPPM_SHOWDOCLIST:
@@ -3573,7 +3574,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			ScintillaViewParams &svp = const_cast<ScintillaViewParams &>(nppParam.getSVP());
 
 			COLORREF multiEdgeColor = liteGrey;
-			const Style * pStyle = NppParameters::getInstance().getMiscStylerArray().findByName(L"Edge colour");
+			const Style * pStyle = nppParam.getMiscStylerArray().findByName(L"Edge colour");
 			if (pStyle)
 			{
 				multiEdgeColor = pStyle->_fgColor;
@@ -3930,52 +3931,38 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
-		case NPPM_INTERNAL_LOCKTABBAR:
-		{
-			bool isDrag = TabBarPlus::doDragNDropOrNot();
-			TabBarPlus::doDragNDrop(!isDrag);
-			break;
-		}
-
-
 		case NPPM_INTERNAL_DRAWINACIVETAB:
-		{
-			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab(), &_mainDocTab);
-			break;
-		}
 		case NPPM_INTERNAL_DRAWTABTOPBAR:
 		{
-			TabBarPlus::setDrawTopBar(!TabBarPlus::drawTopBar(), &_mainDocTab);
-			break;
-		}
-
-		case NPPM_INTERNAL_TABDBCLK2CLOSE:
-		{
-			TabBarPlus::setDbClk2Close(!TabBarPlus::isDbClk2Close());
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 			break;
 		}
 
 		case NPPM_INTERNAL_VERTICALTABBAR:
 		{
-			TabBarPlus::setVertical(!TabBarPlus::isVertical());
+			TabBarPlus::doVertical();
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}
 
 		case NPPM_INTERNAL_MULTILINETABBAR:
 		{
-			TabBarPlus::setMultiLine(!TabBarPlus::isMultiLine());
+			TabBarPlus::doMultiLine();
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}
 
 		case NPPM_INTERNAL_REDUCETABBAR:
 		{
-			TabBarPlus::setReduced(!TabBarPlus::isReduced(), &_mainDocTab);
-			bool isReduceed = TabBarPlus::isReduced();
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
+			bool isReduceed = nppParam.getNppGUI()._tabStatus & TAB_REDUCE;
 
 			//Resize the tab height
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale((TabBarPlus::drawTabCloseButton() || TabBarPlus::drawTabPinButton()) ? g_TabWidthButton : g_TabWidth);
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale((drawTabCloseButton || drawTabPinButton) ? g_TabWidthButton : g_TabWidth);
 			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
 
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
@@ -3998,10 +3985,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DRAWTABBARCLOSEBUTTON:
 		{
-			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton(), &_mainDocTab);
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 
-			bool drawTabPinButton = TabBarPlus::drawTabPinButton();
-			bool drawTabCloseButton = TabBarPlus::drawTabCloseButton();
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
 
 			if (drawTabCloseButton && drawTabPinButton)
 			{
@@ -4033,8 +4021,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 
 			// This part is just for updating (redraw) the tabs
-			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabCloseButton() ? g_TabWidthButton : g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(nppParam.getNppGUI()._tabStatus & TAB_REDUCE ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(drawTabCloseButton ? g_TabWidthButton : g_TabWidth);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
@@ -4047,10 +4035,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DRAWTABBARPINBUTTON:
 		{
-			TabBarPlus::setDrawTabPinButton(!TabBarPlus::drawTabPinButton(), &_mainDocTab);
+			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 
-			bool drawTabPinButton = TabBarPlus::drawTabPinButton();
-			bool drawTabCloseButton = TabBarPlus::drawTabCloseButton();
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
 
 			if (!drawTabPinButton)
 			{
@@ -4087,8 +4076,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 
 			// This part is just for updating (redraw) the tabs
-			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(TabBarPlus::isReduced() ? g_TabHeight : g_TabHeightLarge);
-			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(TabBarPlus::drawTabPinButton() ? g_TabWidthButton : g_TabWidth);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(nppParam.getNppGUI()._tabStatus & TAB_REDUCE ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale(drawTabPinButton ? g_TabWidthButton : g_TabWidth);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
@@ -4140,7 +4129,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// Go through all open files, and if there are any SQL files open, make sure the sql.backslash.escapes propery
 			//	is updated for each of the SQL buffers' Scintilla wrapper.
 			//	This message will only be called on the rare circumstance when the backslash-is-escape-for-sql preference is toggled, so this loop won't be run very often.
-			const bool kbBackSlash = NppParameters::getInstance().getNppGUI()._backSlashIsEscapeCharacterForSql;
+			const bool kbBackSlash = nppParam.getNppGUI()._backSlashIsEscapeCharacterForSql;
 			Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 			Buffer* oldBuf = _invisibleEditView.getCurrentBuffer();
 

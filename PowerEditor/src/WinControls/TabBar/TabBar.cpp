@@ -25,16 +25,7 @@
 #define	IDC_DRAG_PLUS_TAB 1406
 #define	IDC_DRAG_OUT_TAB 1407
 
-bool TabBarPlus::_doDragNDrop = false;
 
-bool TabBarPlus::_drawTopBar = true;
-bool TabBarPlus::_drawInactiveTab = true;
-bool TabBarPlus::_drawTabCloseButton = true;
-bool TabBarPlus::_drawTabPinButton = true;
-bool TabBarPlus::_isDbClk2Close = false;
-bool TabBarPlus::_isCtrlVertical = false;
-bool TabBarPlus::_isCtrlMultiLine = false;
-bool TabBarPlus::_isReduced = true;
 
 COLORREF TabBarPlus::_activeTextColour = ::GetSysColor(COLOR_BTNTEXT);
 COLORREF TabBarPlus::_activeTopBarFocusedColour = RGB(250, 170, 60);
@@ -42,25 +33,22 @@ COLORREF TabBarPlus::_activeTopBarUnfocusedColour = RGB(250, 210, 150);
 COLORREF TabBarPlus::_inactiveTextColour = grey;
 COLORREF TabBarPlus::_inactiveBgColour = RGB(192, 192, 192);
 
-HWND TabBarPlus::_hwndArray[nbCtrlMax] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+HWND TabBarPlus::_tabbrPlusInstanceHwndArray[nbCtrlMax] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 int TabBarPlus::_nbCtrl = 0;
 
 void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLine)
 {
 	Window::init(hInst, parent);
-	int vertical = isVertical?(TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY):0;
-
-	_isVertical = isVertical;
-	_isMultiLine = isMultiLine;
+	int verticalFlag = isVertical ? (TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY) : 0;
 
 	INITCOMMONCONTROLSEX icce{};
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-	int multiLine = isMultiLine ? TCS_MULTILINE : 0;
+	int multiLineFlag = isMultiLine ? TCS_MULTILINE : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
-		TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
+		TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | verticalFlag | multiLineFlag;
 
 	_hSelf = ::CreateWindowEx(
 				0,
@@ -236,8 +224,10 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	rowCount = TabCtrl_GetRowCount(_hSelf);
 	TabCtrl_GetItemRect(_hSelf, 0, &rowRect);
 
-	int larger = _isVertical ? rowRect.right : rowRect.bottom;
-	int smaller = _isVertical ? rowRect.left : rowRect.top;
+	bool isVertical = NppParameters::getInstance().getNppGUI()._tabStatus & TAB_VERTICAL;
+
+	int larger = isVertical ? rowRect.right : rowRect.bottom;
+	int smaller = isVertical ? rowRect.left : rowRect.top;
 	int marge = 0;
 
 	LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
@@ -253,9 +243,9 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 
 	::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
 	tabsHight = rowCount * (larger - smaller) + marge;
-	tabsHight += _dpiManager.getSystemMetricsForDpi(_isVertical ? SM_CXEDGE : SM_CYEDGE);
+	tabsHight += _dpiManager.getSystemMetricsForDpi(isVertical ? SM_CXEDGE : SM_CYEDGE);
 
-	if (_isVertical)
+	if (isVertical)
 	{
 		rc2Ajust.left += tabsHight;
 		rc2Ajust.right -= tabsHight;
@@ -323,8 +313,6 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 	_dpiManager.setDpi(dpi);
 
 	int vertical = isVertical ? (TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY) : 0;
-	_isVertical = isVertical;
-	_isMultiLine = isMultiLine;
 
 	INITCOMMONCONTROLSEX icce{};
 	icce.dwSize = sizeof(icce);
@@ -353,26 +341,27 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMult
 
 	::SendMessage(_hSelf, TCM_SETTOOLTIPS, reinterpret_cast<WPARAM>(_tooltips), 0);
 
-	if (!_hwndArray[_nbCtrl])
+	if (!_tabbrPlusInstanceHwndArray[_nbCtrl])
 	{
-		_hwndArray[_nbCtrl] = _hSelf;
-		_ctrlID = _nbCtrl;
+		_tabbrPlusInstanceHwndArray[_nbCtrl] = _hSelf;
 	}
 	else
 	{
 		int i = 0;
 		bool found = false;
 		for (; i < nbCtrlMax && !found; ++i)
-			if (!_hwndArray[i])
+			if (!_tabbrPlusInstanceHwndArray[i])
+			{
 				found = true;
+				break;
+			}
+
 		if (!found)
 		{
-			_ctrlID = -1;
 			destroy();
 			throw std::runtime_error("TabBarPlus::init : Tab Control error - Tab Control # is over its limit");
 		}
-		_hwndArray[i] = _hSelf;
-		_ctrlID = i;
+		_tabbrPlusInstanceHwndArray[i] = _hSelf;
 	}
 	++_nbCtrl;
 
@@ -426,22 +415,27 @@ void TabBar::setFont()
 }
 
 
-void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
+void TabBarPlus::triggerOwnerDrawTabbar(DPIManagerV2* pDPIManager)
 {
+
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+	bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+
 	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
-		if (_hwndArray[i])
+		if (_tabbrPlusInstanceHwndArray[i])
 		{
-			::InvalidateRect(_hwndArray[i], NULL, TRUE); // needed by "Change inactive tab color" & "Draw a couloued bar on active tab"
+			::InvalidateRect(_tabbrPlusInstanceHwndArray[i], NULL, TRUE); // needed by "Change inactive tab color" & "Draw a couloued bar on active tab"
 
-			if (tbpObj)
+			if (pDPIManager)
 			{
 				int paddingSize = 0;
-				if (_drawTabCloseButton && _drawTabPinButton) // 2 buttons
+				if (drawTabCloseButton && drawTabPinButton) // 2 buttons
 				{
 					paddingSize = 16;
 				}
-				else if (!_drawTabCloseButton && !_drawTabPinButton) // no button
+				else if (!drawTabCloseButton && !drawTabPinButton) // no button
 				{
 					paddingSize = 6;
 				}
@@ -449,15 +443,15 @@ void TabBarPlus::doOwnerDrawTab(TabBarPlus* tbpObj)
 				{
 					paddingSize = 10;
 				}
-				const int paddingSizeDynamicW = tbpObj->_dpiManager.scale(paddingSize);
-				::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(paddingSizeDynamicW, 0));
+				const int paddingSizeDynamicW = pDPIManager->scale(paddingSize);
+				::SendMessage(_tabbrPlusInstanceHwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(paddingSizeDynamicW, 0));
 			}
 		}
 	}
 }
 
 
-void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tbpObj)
+void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i, DPIManagerV2* pDPIManager)
 {
 	switch (i)
 	{
@@ -479,7 +473,7 @@ void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tb
 		default :
 			return;
 	}
-	doOwnerDrawTab(tbpObj);
+	triggerOwnerDrawTabbar(pDPIManager);
 }
 
 void TabBarPlus::tabToStart(int index)
@@ -614,20 +608,22 @@ void TabBarPlus::setPinBtnImageList()
 
 void TabBarPlus::doVertical()
 {
+	bool isVertical = NppParameters::getInstance().getNppGUI()._tabStatus & TAB_VERTICAL;
 	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
-		if (_hwndArray[i])
-			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isVertical(), TCS_VERTICAL);
+		if (_tabbrPlusInstanceHwndArray[i])
+			SendMessage(_tabbrPlusInstanceHwndArray[i], WM_TABSETSTYLE, isVertical, TCS_VERTICAL);
 	}
 }
 
 
 void TabBarPlus::doMultiLine()
 {
+	bool isMultiLine = NppParameters::getInstance().getNppGUI()._tabStatus & TAB_MULTILINE;
 	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
-		if (_hwndArray[i])
-			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
+		if (_tabbrPlusInstanceHwndArray[i])
+			SendMessage(_tabbrPlusInstanceHwndArray[i], WM_TABSETSTYLE, isMultiLine, TCS_MULTILINE);
 	}
 }
 
@@ -663,9 +659,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				style |= lParam;
 			else
 				style &= ~lParam;
-
-			_isVertical  = ((style & TCS_VERTICAL) != 0);
-			_isMultiLine = ((style & TCS_MULTILINE) != 0);
 
 			::SetWindowLongPtr(hwnd, GWL_STYLE, style);
 			::InvalidateRect(hwnd, NULL, TRUE);
@@ -704,12 +697,17 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			const bool isForward = ((short)HIWORD(wParam)) < 0; // wheel rotation towards the user will be considered as forward direction
 			const int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
-
+			
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool doDragNDrop = nppGUI._tabStatus & TAB_DRAGNDROP;
+			bool isMultiLine = nppGUI._tabStatus & TAB_MULTILINE;
+			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			
 			if ((wParam & MK_CONTROL) && (wParam & MK_SHIFT))
 			{
 				setActiveTab((isForward ? lastTabIndex : 0));
 			}
-			else if ((wParam & MK_SHIFT) && _doDragNDrop)
+			else if ((wParam & MK_SHIFT) && doDragNDrop)
 			{
 				int oldTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 				int newTabIndex = oldTabIndex + (isForward ? 1 : -1);
@@ -747,7 +745,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 				setActiveTab(tabIndex);
 			}
-			else if (!_isMultiLine) // don't scroll if in multi-line mode
+			else if (!isMultiLine) // don't scroll if in multi-line mode
 			{
 				RECT rcTabCtrl{}, rcLastTab{};
 				::SendMessage(_hSelf, TCM_GETITEMRECT, lastTabIndex, reinterpret_cast<LPARAM>(&rcLastTab));
@@ -759,7 +757,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				hti.pt = { xy, xy };
 				int scrollTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti)));
 
-				if (scrollTabIndex < 1 && (_isVertical ? rcLastTab.bottom < rcTabCtrl.bottom : rcLastTab.right < rcTabCtrl.right)) // nothing to scroll
+				if (scrollTabIndex < 1 && (isVertical ? rcLastTab.bottom < rcTabCtrl.bottom : rcLastTab.right < rcTabCtrl.right)) // nothing to scroll
 					return TRUE;
 
 				// maximal width/height of the msctls_updown32 class (arrow box in the tab bar), 
@@ -767,7 +765,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				LONG maxLengthUpDownCtrl = _dpiManager.scale(44); // sufficient static value
 
 				// scroll forward as long as the last tab is hidden; scroll backward till the first tab
-				if ((_isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || !isForward)
+				if ((isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || !isForward)
 				{
 					if (isForward)
 						++scrollTabIndex;
@@ -806,9 +804,14 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-			if (_drawTabCloseButton)
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+
+			if (drawTabCloseButton)
 			{
-				if (_closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				if (_closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical))
 				{
 					_whichCloseClickDown = getTabIndexAt(xPos, yPos);
 					::SendMessage(_hParent, WM_SIZE, 0, 0);
@@ -816,9 +819,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-			if (_drawTabPinButton)
+			if (drawTabPinButton)
 			{
-				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical))
 				{
 					_whichPinClickDown = getTabIndexAt(xPos, yPos);
 					::SendMessage(_hParent, WM_SIZE, 0, 0);
@@ -832,7 +835,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (wParam == 2)
 				return TRUE;
 
-			if (_doDragNDrop)
+			bool doDragNDrop = NppParameters::getInstance().getNppGUI()._tabStatus & TAB_DRAGNDROP;
+			if (doDragNDrop)
 			{
 				_mightBeDragging = true;
 			}
@@ -940,7 +944,12 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					// do nothing
 				}
 
-				if (_drawTabCloseButton)
+				NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+				bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+				bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+				bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+
+				if (drawTabCloseButton)
 				{
 					RECT currentHoverTabRectOld = _currentHoverTabRect;
 					bool isCloseHoverOld = _isCloseHover;
@@ -948,7 +957,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					if (_currentHoverTabItem != -1) // tab item is being hovered
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
-						_isCloseHover = _closeButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
+						_isCloseHover = _closeButtonZone.isHit(p.x, p.y, _currentHoverTabRect, isVertical);
 					}
 					else
 					{
@@ -980,7 +989,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					}
 				}
 
-				if (_drawTabPinButton)
+				if (drawTabPinButton)
 				{
 					RECT currentHoverTabRectOld = _currentHoverTabRect;
 					bool isPinHoverOld = _isPinHover;
@@ -988,7 +997,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					if (_currentHoverTabItem != -1) // tab item is being hovered
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
-						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, _isVertical);
+						_isPinHover = _pinButtonZone.isHit(p.x, p.y, _currentHoverTabRect, isVertical);
 					}
 					else
 					{
@@ -1065,9 +1074,14 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				return TRUE;
 			}
 
-			if (_drawTabCloseButton)
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+
+			if (drawTabCloseButton)
 			{
-				if ((_whichCloseClickDown == currentTabOn) && _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				if ((_whichCloseClickDown == currentTabOn) && _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical))
 				{
 					notify(TCN_TABDELETE, currentTabOn);
 					_whichCloseClickDown = -1;
@@ -1080,16 +1094,16 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					if (nextTab != -1)
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, nextTab, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
-						_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical);
+						_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical);
 					}
 					return TRUE;
 				}
 				_whichCloseClickDown = -1;
 			}
 
-			if (_drawTabPinButton)
+			if (drawTabPinButton)
 			{
-				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
+				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical))
 				{
 					notify(TCN_TABPINNED, currentTabOn);
 					_whichPinClickDown = -1;
@@ -1102,7 +1116,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					if (nextTab != -1)
 					{
 						::SendMessage(_hSelf, TCM_GETITEMRECT, nextTab, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
-						_isPinHover = _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical);
+						_isPinHover = _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical);
 					}
 					return TRUE;
 				}
@@ -1147,7 +1161,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDBLCLK:
 		{
-			if (_isDbClk2Close)
+			bool isDbClk2Close = NppParameters::getInstance().getNppGUI()._tabStatus & TAB_DBCLK2CLOSE;
+			if (isDbClk2Close)
 			{
 				int xPos = LOWORD(lParam);
 				int yPos = HIWORD(lParam);
@@ -1201,6 +1216,10 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int nTabs = TabCtrl_GetItemCount(hwnd);
 			int nFocusTab = TabCtrl_GetCurFocus(hwnd);
 			int nSelTab = TabCtrl_GetCurSel(hwnd);
+
+			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+
 			for (int i = 0; i < nTabs; ++i)
 			{
 				DRAWITEMSTRUCT dis = { ODT_TAB, id, (UINT)i, ODA_DRAWENTIRE, ODS_DEFAULT, hwnd, hdc, {}, 0 };
@@ -1222,7 +1241,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				{
 					if (!hasMultipleLines)
 					{
-						if (_isVertical)
+						if (isVertical)
 						{
 							POINT edges[] = {
 								{dis.rcItem.left, dis.rcItem.bottom - 1},
@@ -1271,7 +1290,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				RECT rcFirstTab{};
 				TabCtrl_GetItemRect(hwnd, 0, &rcFirstTab);
 
-				if (_isVertical)
+				if (isVertical)
 				{
 					POINT edges[] = {
 						{rcFirstTab.left, rcFirstTab.top},
@@ -1385,6 +1404,13 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	::FillRect(hDC, &rect, hBrush);
 	::DeleteObject(static_cast<HGDIOBJ>(hBrush));
 
+	NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+	bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+	bool drawTopBar = nppGUI._tabStatus & TAB_DRAWTOPBAR;
+	bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
+	bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+	bool drawInactiveTab = nppGUI._tabStatus & TAB_DRAWINACTIVETAB;
+
 	// equalize drawing areas of active and inactive tabs
 	int paddingDynamicTwoX = _dpiManager.scale(2);
 	int paddingDynamicTwoY = paddingDynamicTwoX;
@@ -1395,20 +1421,20 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		const int yEdge = _dpiManager.getSystemMetricsForDpi(SM_CYEDGE);
 		::InflateRect(&rect, -xEdge, -yEdge);
 		// the active tab is also slightly higher by default (use this to shift the tab cotent up bx two pixels if tobBar is not drawn)
-		if (_isVertical)
+		if (isVertical)
 		{
-			rect.left += _drawTopBar ? paddingDynamicTwoX : 0;
-			rect.right -= _drawTopBar ? 0 : paddingDynamicTwoX;
+			rect.left += drawTopBar ? paddingDynamicTwoX : 0;
+			rect.right -= drawTopBar ? 0 : paddingDynamicTwoX;
 		}
 		else
 		{
-			rect.top += _drawTopBar ? paddingDynamicTwoY : 0;
-			rect.bottom -= _drawTopBar ? 0 : paddingDynamicTwoY;
+			rect.top += drawTopBar ? paddingDynamicTwoY : 0;
+			rect.bottom -= drawTopBar ? 0 : paddingDynamicTwoY;
 		}
 	}
 	else
 	{
-		if (_isVertical)
+		if (isVertical)
 		{
 			rect.left += paddingDynamicTwoX;
 			rect.right += paddingDynamicTwoX;
@@ -1428,7 +1454,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	const bool hasMultipleLines = ((::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS) == TCS_BUTTONS);
 	if (hasMultipleLines)
 	{
-		if (_isVertical)
+		if (isVertical)
 		{
 			rect.left -= paddingDynamicTwoX;
 		}
@@ -1449,10 +1475,10 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		::FillRect(hDC, &pDrawItemStruct->rcItem, hBrush);
 		::DeleteObject(static_cast<HGDIOBJ>(hBrush));
 
-		if (_drawTopBar)
+		if (drawTopBar)
 		{
 			int topBarHeight = _dpiManager.scale(4);
-			if (_isVertical)
+			if (isVertical)
 			{
 				barRect.left -= (hasMultipleLines && isDarkMode) ? 0 : paddingDynamicTwoX;
 				barRect.right = barRect.left + topBarHeight;
@@ -1482,7 +1508,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		RECT inactiveRect = hasMultipleLines ? pDrawItemStruct->rcItem : barRect;
 		COLORREF brushColour{};
 
-		if (_drawInactiveTab && individualColourId == -1)
+		if (drawInactiveTab && individualColourId == -1)
 		{
 			brushColour = colorInactiveBg;
 		}
@@ -1512,7 +1538,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 	}
 
 	// draw close button
-	if (_drawTabCloseButton && _hCloseBtnImgLst != nullptr)
+	if (drawTabCloseButton && _hCloseBtnImgLst != nullptr)
 	{
 		// 3 status for each inactive tab and selected tab close item :
 		// normal / hover / pushed
@@ -1534,14 +1560,14 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			idxCloseImg = (_currentHoverTabItem == nTab) ? _closeTabHoverOnTabIdx : _closeTabInactIdx;
 		}
 
-		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
+		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, isVertical);
 
 		::ImageList_Draw(_hCloseBtnImgLst, idxCloseImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
 	}
 
 	// draw pin button
 	Buffer* buf = reinterpret_cast<Buffer*>(tci.lParam);
-	if (_drawTabPinButton && _hPinBtnImgLst != nullptr && buf)
+	if (drawTabPinButton && _hPinBtnImgLst != nullptr && buf)
 	{
 		// Each tab combined with the following stats :
 		// (active / inactive) | (pinned / unpinned) | (hover / not hover / pushed)
@@ -1610,7 +1636,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			}
 		}
 
-		RECT buttonRect = _pinButtonZone.getButtonRectFrom(rect, _isVertical);
+		RECT buttonRect = _pinButtonZone.getButtonRectFrom(rect, isVertical);
 
 		::ImageList_Draw(_hPinBtnImgLst, idxPinImg, hDC, buttonRect.left, buttonRect.top, ILD_TRANSPARENT);
 	}
@@ -1627,7 +1653,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 
 		int fromBorder;
 		int xPos, yPos;
-		if (_isVertical)
+		if (isVertical)
 		{
 			fromBorder = (rect.right - rect.left - (imageRect.right - imageRect.left) + 1) / 2;
 			xPos = rect.left + fromBorder;
@@ -1649,14 +1675,14 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 
 	if (isStandardSize)
 	{
-		if (_isVertical)
+		if (isVertical)
 			SelectObject(hDC, _hVerticalFont);
 		else
 			SelectObject(hDC, _hFont);
 	}
 	else
 	{
-		if (_isVertical)
+		if (isVertical)
 			SelectObject(hDC, _hVerticalLargeFont);
 		else
 			SelectObject(hDC, _hLargeFont);
@@ -1686,7 +1712,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			*out++ = *in++;
 	*out = '\0';
 
-	if (_isVertical)
+	if (isVertical)
 	{
 		// center text horizontally (rotated text is positioned as if it were unrotated, therefore manual positioning is necessary)
 		flags |= DT_LEFT;
@@ -1712,7 +1738,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		rect.top = pDrawItemStruct->rcItem.top + paddingText + paddingDescent;
 		rect.bottom = pDrawItemStruct->rcItem.bottom - paddingText + paddingDescent;
 
-		if (isDarkMode || !isSelected || _drawTopBar)
+		if (isDarkMode || !isSelected || drawTopBar)
 		{
 			rect.top += paddingDynamicTwoY;
 		}

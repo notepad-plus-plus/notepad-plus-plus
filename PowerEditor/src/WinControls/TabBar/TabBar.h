@@ -113,14 +113,6 @@ public:
 
 	void setFont();
 
-	void setVertical(bool b) {
-		_isVertical = b;
-	};
-
-	void setMultiLine(bool b) {
-		_isMultiLine = b;
-	};
-
 	HFONT& getFont(bool isReduced = true) {
 		return isReduced ? _hFont : _hLargeFont;
 	}
@@ -138,10 +130,6 @@ protected:
 	HFONT _hVerticalFont = nullptr;
 	HFONT _hVerticalLargeFont = nullptr;
 
-	int _ctrlID = 0;
-
-	bool _isVertical = false;
-	bool _isMultiLine = false;
 
 	DPIManagerV2 _dpiManager;
 
@@ -182,17 +170,9 @@ public :
 		id0, id1, id2, id3, id4, id5, id6, id7, id8, id9
 	};
 
-	static void doDragNDrop(bool justDoIt) {
-        _doDragNDrop = justDoIt;
-    };
-
 	void init(HINSTANCE hInst, HWND hwnd, bool isVertical, bool isMultiLine, unsigned char buttonsStatus = 0);
 
 	void destroy() override;
-
-    static bool doDragNDropOrNot() {
-        return _doDragNDrop;
-    };
 
 	POINT getDraggingPoint() const {
 		return _draggingPoint;
@@ -203,58 +183,11 @@ public :
 		_draggingPoint.y = 0;
 	};
 
-	static void doOwnerDrawTab(TabBarPlus* tbpObj);
+	static void triggerOwnerDrawTabbar(DPIManagerV2* pDPIManager);
 	static void doVertical();
 	static void doMultiLine();
-	static bool drawTopBar() {return _drawTopBar;};
-	static bool drawInactiveTab() {return _drawInactiveTab;};
-	static bool drawTabCloseButton() {return _drawTabCloseButton;};
-	static bool drawTabPinButton() {return _drawTabPinButton;};
-	static bool isDbClk2Close() {return _isDbClk2Close;};
-	static bool isVertical() { return _isCtrlVertical;};
-	static bool isMultiLine() { return _isCtrlMultiLine;};
-	static bool isReduced() { return _isReduced;};
 
-	static void setDrawTopBar(bool b, TabBarPlus* tbpObj) {
-		_drawTopBar = b;
-		doOwnerDrawTab(tbpObj);
-	}
-
-	static void setDrawInactiveTab(bool b, TabBarPlus* tbpObj) {
-		_drawInactiveTab = b;
-		doOwnerDrawTab(tbpObj);
-	}
-
-	static void setDrawTabCloseButton(bool b, TabBarPlus* tbpObj) {
-		_drawTabCloseButton = b;
-		doOwnerDrawTab(tbpObj);
-	}
-
-	static void setDrawTabPinButton(bool b, TabBarPlus* tbpObj) {
-		_drawTabPinButton = b;
-		doOwnerDrawTab(tbpObj);
-	}
-
-	static void setDbClk2Close(bool b) {
-		_isDbClk2Close = b;
-	}
-
-	static void setVertical(bool b) {
-		_isCtrlVertical = b;
-		doVertical();
-	}
-
-	static void setMultiLine(bool b) {
-		_isCtrlMultiLine = b;
-		doMultiLine();
-	}
-
-	static void setReduced(bool b, TabBarPlus* tbpObj) {
-		_isReduced = b;
-		doOwnerDrawTab(tbpObj);
-	}
-
-	static void setColour(COLORREF colour2Set, tabColourIndex i, TabBarPlus* tbpObj);
+	static void setColour(COLORREF colour2Set, tabColourIndex i, DPIManagerV2* pDPIManager);
 	virtual int getIndividualTabColourId(int tabIndex) = 0;
 
 	void tabToStart(int index = -1);
@@ -279,9 +212,7 @@ public :
 	}
 
 protected:
-    // it's the boss to decide if we do the drag N drop
-    static bool _doDragNDrop;
-	// drag N drop members
+	// drag & drop members
 	bool _mightBeDragging = false;
 	int _dragCount = 0;
 	bool _isDragging = false;
@@ -329,17 +260,6 @@ protected:
 	bool exchangeTabItemData(int oldTab, int newTab);
 	void exchangeItemData(POINT point);
 
-
-	// it's the boss to decide if we do the ownerDraw style tab
-	static bool _drawInactiveTab;
-	static bool _drawTopBar;
-	static bool _drawTabCloseButton;
-	static bool _drawTabPinButton;
-	static bool _isDbClk2Close;
-	static bool _isCtrlVertical;
-	static bool _isCtrlMultiLine;
-	static bool _isReduced;
-
 	static COLORREF _activeTextColour;
 	static COLORREF _activeTopBarFocusedColour;
 	static COLORREF _activeTopBarUnfocusedColour;
@@ -347,7 +267,7 @@ protected:
 	static COLORREF _inactiveBgColour;
 
 	static int _nbCtrl;
-	static HWND _hwndArray[nbCtrlMax];
+	static HWND _tabbrPlusInstanceHwndArray[nbCtrlMax];
 
 	void drawItem(DRAWITEMSTRUCT *pDrawItemStruct, bool isDarkMode = false);
 	void draggingCursor(POINT screenPoint);

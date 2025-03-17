@@ -60,16 +60,6 @@ public :
 
 	void setBuffer(size_t index, BufferID id);
 
-	static bool setHideTabBarStatus(bool hideOrNot) {
-		bool temp = _hideTabBarStatus;
-		_hideTabBarStatus = hideOrNot;
-		return temp;
-	};
-
-	static bool getHideTabBarStatus() {
-		return _hideTabBarStatus;
-	};
-
 	void reSizeTo(RECT & rc) override;
 
 	void resizeIconsDpi() {
@@ -102,7 +92,6 @@ public :
 
 private :
 	ScintillaEditView *_pView = nullptr;
-	static bool _hideTabBarStatus;
 
 	IconList _docTabIconList;
 	IconList _docTabIconListAlt;

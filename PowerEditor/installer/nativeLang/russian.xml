@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.8:
+Updated to v8.7.9:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.8">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1263,10 +1263,11 @@ Updated to v8.7.8:
 						<Element name="Свернуть / Закрыть"/>
 					</ComboBox>
 					<ComboBox id="6362">
-						<Element name="GDI (наиболее совместимый)"/>
-						<Element name="DirectWrite (по умолчанию)"/>
-						<Element name="DirectWrite (сохранить кадры)"/>
-						<Element name="DirectWrite (отображать GDI DC)"/>
+						<Element name="GDI (наиболее совмест.)"/>
+						<Element name="DirectWrite (по умолч.)"/>
+						<Element name="DirectWrite (сохр. кадры)"/>
+						<Element name="DirectWrite (отобр. GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="в системный трей"/>
 					<Item id="6312" name="Отслеживание Изменений в Файлах"/>

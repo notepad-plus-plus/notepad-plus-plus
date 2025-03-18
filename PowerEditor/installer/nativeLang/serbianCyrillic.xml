@@ -6,7 +6,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Српски" filename="serbianCyrillic.xml"  version="8.7.6">
+	<Native-Langue name="Српски" filename="serbianCyrillic.xml"  version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -366,7 +366,7 @@
 					<Item id="47010" name="Аргументи командне линије..."/>
 					<Item id="47001" name="Notepad++ интернет страница"/>
 					<Item id="47002" name="Страница Notepad++ пројекта"/>
-					<Item id="47003" name="Упутство преко интернета"/>
+					<Item id="47003" name="Online упутство"/>
 					<Item id="47004" name="Notepad++ дискусија (форум)"/>
 					<Item id="47012" name="Информације за дебаговање..."/>
 					<Item id="47005" name="Преузми нове додатке"/>
@@ -823,6 +823,7 @@
 				<Folder title="Фолдер и подразумевано">
 					<Item id="21101" name="Подразумевани стил"/>
 					<Item id="21102" name="Стилизуј"/>
+					<Item id="21103" name="Online помоћ кориснички дефинисаних језика"/>
 					<Item id="21105" name="Документација"/>
 					<Item id="21106" name="Склопи компактно (и празне линије)"/>
 					<Item id="21220" name="Склапање у коду 1. стила"/>
@@ -1324,7 +1325,15 @@
 						<Element name="Близу"/>
 						<Element name="Минимизирај / Близу"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (најкомпатибилнији)"/>
+						<Element name="DirectWrite (подразумевано)"/>
+						<Element name="DirectWrite (задржава оквире)"/>
+						<Element name="DirectWrite (цртај на GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
 					<Item id="6308" name="системска трака"/>
+					<Item id="6363" name="режим рендеровања"/>
 					<Item id="6312" name="Самопрепознавање статуса датотеке"/>
 					<Item id="6313" name="Тихо ажурирање"/>
 					<Item id="6325" name="Иди на последњу линију након ажур."/>
@@ -1832,6 +1841,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Ако изабереш напредни мод, а не измениш датотеке у поменутим језицима, увлачење ће остати исто као у основном моду."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Омогућавањем &quot;Global override&quot; овде прегазићеш тај параметар за све стилове језика. Вероватно желиш да користиш &quot;Default Style&quot; уместо тога"/>
+			<scintillaRenderingTechnology-tip value="Може побољшати рендеровање специјалних карактера и решити графичке проблеме, поново покрени Notepad++ да примениш промене."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

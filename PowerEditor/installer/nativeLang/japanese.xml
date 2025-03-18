@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.8">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1334,6 +1334,7 @@ Translation note:
 						<Element name="DirectWrite (標準)"/>
 						<Element name="DirectWrite (フレームを保持)"/>
 						<Element name="DirectWrite (GDI DCに描画)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="タスクトレイへ格納"/>
 					<Item id="6363" name="描画モード"/>

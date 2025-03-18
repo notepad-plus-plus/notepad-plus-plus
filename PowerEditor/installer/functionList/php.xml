@@ -51,7 +51,7 @@
 								|   o(?:r|bject)
 								|   p(?:r(?:i(?:nt|vate)|otected)|ublic)
 								|   re(?:quire(?:_once)?|turn)
-								|   s(?:elf|t(?:atic|ring)|witch)
+								|   s(?:t(?:atic|ring)|witch)
 								|   t(?:hrow|r(?:ait|ue|y))
 								|   u(?:nset|se)
 								|   var
@@ -132,7 +132,7 @@
 								|   o(?:r|bject)
 								|   p(?:r(?:i(?:nt|vate)|otected)|ublic)
 								|   re(?:quire(?:_once)?|turn)
-								|   s(?:elf|t(?:atic|ring)|witch)
+								|   s(?:t(?:atic|ring)|witch)
 								|   t(?:hrow|r(?:ait|ue|y))
 								|   u(?:nset|se)
 								|   var
@@ -176,7 +176,7 @@
 							|   o(?:r|bject)
 							|   p(?:r(?:i(?:nt|vate)|otected)|ublic)
 							|   re(?:quire(?:_once)?|turn)
-							|   s(?:elf|t(?:atic|ring)|witch)
+							|   s(?:t(?:atic|ring)|witch)
 							|   t(?:hrow|r(?:ait|ue|y))
 							|   u(?:nset|se)
 							|   var

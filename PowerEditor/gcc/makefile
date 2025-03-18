@@ -243,7 +243,7 @@ all: pre-build-event $(SCINTILLA_TARGET) $(LEXILLA_TARGET)
 
 pre-build-event:
 	@echo Executing pre-build events...
-	@cmd /S /C "cd $(CD-PREBUILD) && $(PREBUILD_EVENT_CMD)"
+	@cmd /S /C "dir && cd $(CD-PREBUILD) && dir && $(PREBUILD_EVENT_CMD)"
 
 $(BUILD_DIRECTORY):
 	@echo + creating BUILD_DIRECTORY $@

@@ -2133,16 +2133,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	}
 }
 
-Document ScintillaEditView::getBlankDocument()
-{
-	if (!_blankDocument)
-	{
-		_blankDocument = static_cast<Document>(execute(SCI_CREATEDOCUMENT, 0, SC_DOCUMENTOPTION_TEXT_LARGE));
-		execute(SCI_ADDREFDOCUMENT, 0, _blankDocument);
-	}
-	return _blankDocument;
-}
-
 BufferID ScintillaEditView::attachDefaultDoc()
 {
 	// get the doc pointer attached (by default) on the view Scintilla
@@ -2309,57 +2299,19 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 	// put the state into the future ex buffer
 	_currentBuffer->setHeaderLineState(lineStateVector, this);
 
-	_prevBuffer = _currentBuffer;
-
 	_currentBufferID = buffer;	//the magical switch happens here
 	_currentBuffer = newBuf;
 
-	const bool isSameLangType = (_prevBuffer != nullptr) && (_prevBuffer->getLangType() == _currentBuffer->getLangType()) &&
-		(_currentBuffer->getLangType() != L_USER ||	wcscmp(_prevBuffer->getUserDefineLangName(), _currentBuffer->getUserDefineLangName()) == 0);
-
-	const int currentLangInt = static_cast<int>(_currentBuffer->getLangType());
-	const bool isFirstActiveBuffer = (_currentBuffer->getLastLangType() != currentLangInt);
-
 	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
-	if (isFirstActiveBuffer)  // Entering the tab for the 1st time
-	{
-		// change the doc, this operation will decrease
-		// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
-		// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
-		// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
-		// defineDocType() function should be called here, but not be after the fold info loop
-		defineDocType(_currentBuffer->getLangType());
-	}
-	else if (isSameLangType) // After the 2nd entering with the same language type
-	{
-		// No need to call defineDocType() since it's the same language type
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
+	// change the doc, this operation will decrease
+	// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
+	// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
+	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
+	execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
+	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 
-		if (force)
-			defineDocType(_currentBuffer->getLangType());
-	}
-	else // Entering the tab for the 2nd or more times, with the different language type
-	{
-		// In order to improve the performance of switch-in on the 2nd or more times for the large files,
-		// a blank document is used for accelerate defineDocType() call.
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, getBlankDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-
-		defineDocType(_currentBuffer->getLangType());
-
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
-		execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
-		execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
-	}
-
-	_currentBuffer->setLastLangType(currentLangInt);
+	defineDocType(_currentBuffer->getLangType());
 
 	setWordChars();
 	maintainStateForNpc();

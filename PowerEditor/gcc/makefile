@@ -185,7 +185,7 @@ RMDIR := rm -rf
 DIR := ls -l
 CP := cp
 RM := rm -f
-PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat)"
+PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat"
 normalize-path = $1
 else ifneq "$(wildcard $(dir $(SHELL))ls.exe)" ""
 # a Windows system with a proper shell
@@ -198,7 +198,7 @@ RMDIR := $(SHELL_DIRECTORY)rm.exe -rf
 DIR := $(SHELL_DIRECTORY)ls -l
 CP := $(SHELL_DIRECTORY)cp.exe
 RM := $(SHELL_DIRECTORY)rm.exe -f
-PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat)"
+PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat"
 normalize-path = $1
 else
 # a standard Windows system

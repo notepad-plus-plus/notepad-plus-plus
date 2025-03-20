@@ -3720,7 +3720,6 @@ void Notepad_plus::command(int id)
 			// Manually set language, don't change language even file extension changes.
 			Buffer *buffer = _pEditView->getCurrentBuffer();
 			buffer->langHasBeenSetFromMenu();
-			buffer->setLastLangType(static_cast<int>(lang));
 
 			if (_pDocMap)
 			{

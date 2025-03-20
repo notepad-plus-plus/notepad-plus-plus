@@ -432,11 +432,6 @@ public:
 
 	virtual void destroy()
 	{
-		if (_blankDocument != 0)
-		{
-			execute(SCI_RELEASEDOCUMENT, 0, _blankDocument);
-			_blankDocument = 0;
-		}
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 		_pScintillaFunc = NULL;
@@ -862,8 +857,6 @@ public:
 	bool pasteToMultiSelection() const;
 	void setElementColour(int element, COLORREF color) const { execute(SCI_SETELEMENTCOLOUR, element, color | 0xFF000000); };
 
-	Document getBlankDocument();
-
 protected:
 	static bool _SciInit;
 
@@ -885,10 +878,7 @@ protected:
 
 	//Store the current buffer so it can be retrieved later
 	BufferID _currentBufferID = nullptr;
-	Buffer * _currentBuffer = nullptr;
-
-	Buffer* _prevBuffer = nullptr;
-	Document _blankDocument = 0;
+	Buffer* _currentBuffer = nullptr;
 
 	int _codepage = CP_ACP;
 	bool _wrapRestoreNeeded = false;

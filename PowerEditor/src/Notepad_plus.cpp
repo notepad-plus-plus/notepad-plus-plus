@@ -4650,10 +4650,6 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		{
 			idToClose = BUFFER_INVALID;
 		}
-		else
-		{
-			buf->setLastLangType(-1); // When replacing the "new" tab with an opened file, the last used language should be reset to its initial value so that the language can be reloaded later in the activateBuffer() function.
-		}
 	}
 
 	MainFileManager.addBufferReference(id, viewToOpen);

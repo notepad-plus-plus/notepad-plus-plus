@@ -25,8 +25,6 @@ SRC_EXCLUDE := $(SRC_DIRECTORY)/tools/%
 BIN_DIRECTORY := ../bin
 INSTALLER_DIRECTORY := ../installer
 
-PREBUILD_EVENT_CMD := NppLibsVersionH-generator.bat
-
 TARGET_BINARY := notepad++.exe
 SRC_DATA := contextMenu.xml langs.model.xml shortcuts.xml stylers.model.xml tabContextMenu_example.xml toolbarIcons.xml
 BIN_DATA := change.log doLocalConf.xml nppLogNulContentCorruptionIssue.xml readme.txt userDefineLangs/
@@ -187,7 +185,7 @@ RMDIR := rm -rf
 DIR := ls -l
 CP := cp
 RM := rm -f
-CD-PREBUILD := PowerEditor/src
+PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat)"
 normalize-path = $1
 else ifneq "$(wildcard $(dir $(SHELL))ls.exe)" ""
 # a Windows system with a proper shell
@@ -200,7 +198,7 @@ RMDIR := $(SHELL_DIRECTORY)rm.exe -rf
 DIR := $(SHELL_DIRECTORY)ls -l
 CP := $(SHELL_DIRECTORY)cp.exe
 RM := $(SHELL_DIRECTORY)rm.exe -f
-CD-PREBUILD := PowerEditor/src
+PREBUILD_EVENT_CMD := cmd //C "cd PowerEditor/src && NppLibsVersionH-generator.bat)"
 normalize-path = $1
 else
 # a standard Windows system
@@ -210,7 +208,7 @@ RMDIR := rmdir /q /s
 DIR := dir
 CP := copy /y
 RM := del /q
-CD-PREBUILD := ../src
+PREBUILD_EVENT_CMD := cd ..\src && NppLibsVersionH-generator.bat
 normalize-path = $(subst /,\,$1)
 endif
 
@@ -243,7 +241,7 @@ all: pre-build-event $(SCINTILLA_TARGET) $(LEXILLA_TARGET)
 
 pre-build-event:
 	@echo Executing pre-build events...
-	@cmd /S /C "dir && cd $(CD-PREBUILD) && dir && $(PREBUILD_EVENT_CMD)"
+	$(AT)$(PREBUILD_EVENT_CMD)
 
 $(BUILD_DIRECTORY):
 	@echo + creating BUILD_DIRECTORY $@

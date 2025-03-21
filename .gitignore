@@ -101,6 +101,7 @@ PowerEditor/visual.net/ARM64
 PowerEditor/src/tools/NppShell/build_ARM64
 PowerEditor/src/tools/NppShell/build_Win32
 PowerEditor/src/tools/NppShell/build_x64
+PowerEditor/src/NppLibsVersion.h
 
 # scintilla - generated files
 scintilla/bin/SciLexer.*

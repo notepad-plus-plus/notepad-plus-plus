@@ -18,7 +18,11 @@
 #include "AboutDlg.h"
 #include "Parameters.h"
 #include "localization.h"
+#if defined __has_include
+#if __has_include ("NppLibsVersion.h")
 #include "NppLibsVersion.h"
+#endif
+#endif
 
 using namespace std;
 

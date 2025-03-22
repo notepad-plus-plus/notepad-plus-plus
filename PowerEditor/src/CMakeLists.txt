@@ -432,7 +432,6 @@ ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 # ensure the pre-build event runs before the notepad++ target
 add_custom_command(
     TARGET notepad++ PRE_BUILD
-    OUTPUT ${CMAKE_SOURCE_DIR}/NppLibsVersion.h
     COMMAND ${PRE_BUILD_EVENT}
     COMMENT "Running pre-build event..."
 )

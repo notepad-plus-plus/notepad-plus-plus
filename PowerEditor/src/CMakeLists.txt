@@ -11,9 +11,6 @@ cmake_minimum_required(VERSION 3.4)
 
 PROJECT(Notepad++)
 
-# pre-build event equivalent
-SET(PRE_BUILD_EVENT "${CMAKE_SOURCE_DIR}/NppLibsVersionH-generator.bat")
-
 SET(projIncludDir	../../scintilla/include/
 					../../lexilla/include/
 					./
@@ -426,15 +423,18 @@ find_library(LEXILLA_STATIC_LIBRARY
 	REQUIRED
 )
 
-ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
-
-
-# ensure the pre-build event runs before the notepad++ target
-add_custom_command(
-    TARGET notepad++ PRE_BUILD
-    COMMAND ${PRE_BUILD_EVENT}
+execute_process(
+    COMMAND @cmd //C "${CMAKE_SOURCE_DIR}/NppLibsVersionH-generator.bat"
+    RESULT_VARIABLE pre-build-result
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "Running pre-build event..."
 )
+if(NOT pre-build-result EQUAL 0)
+    message(FATAL_ERROR "Pre-build event failed with exit code ${result}")
+endif()
+
+ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
+
 
 TARGET_LINK_LIBRARIES (notepad++ ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})
 

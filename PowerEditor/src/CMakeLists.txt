@@ -203,7 +203,6 @@ SET(src_files
 )
 
 SET(include_files
-			./NppLibsVersion.h
 			./clipboardFormats.h
 			./DarkMode/DarkMode.h
 			./DarkMode/IatHook.h

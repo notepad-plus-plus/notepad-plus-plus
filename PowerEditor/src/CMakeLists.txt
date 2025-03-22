@@ -11,6 +11,9 @@ cmake_minimum_required(VERSION 3.4)
 
 PROJECT(Notepad++)
 
+# pre-build event equivalent
+SET(PRE_BUILD_EVENT "${CMAKE_SOURCE_DIR}/NppLibsVersionH-generator.bat")
+
 SET(projIncludDir	../../scintilla/include/
 					../../lexilla/include/
 					./
@@ -200,6 +203,7 @@ SET(src_files
 )
 
 SET(include_files
+			./NppLibsVersion.h
 			./clipboardFormats.h
 			./DarkMode/DarkMode.h
 			./DarkMode/IatHook.h
@@ -423,7 +427,18 @@ find_library(LEXILLA_STATIC_LIBRARY
 	REQUIRED
 )
 
+# run pre-build event
+add_custom_command(
+    OUTPUT ${CMAKE_SOURCE_DIR}/NppLibsVersion.h
+    COMMAND ${PRE_BUILD_EVENT}
+    COMMENT "Running pre-build event..."
+)
+
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
+
+
+# ensure the pre-build event runs before the notepad++ target
+add_dependencies(notepad++ NppLibsVersion.h)
 
 
 TARGET_LINK_LIBRARIES (notepad++ ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})

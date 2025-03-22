@@ -18,6 +18,11 @@
 #include "AboutDlg.h"
 #include "Parameters.h"
 #include "localization.h"
+#if defined __has_include
+#if __has_include ("NppLibsVersion.h")
+#include "NppLibsVersion.h"
+#endif
+#endif
 
 using namespace std;
 
@@ -196,6 +201,21 @@ intptr_t CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 #elif !defined(_MSC_VER)
 			_debugInfoStr += L"Built with : (unknown)\r\n";
 #endif
+
+			// Scintilla/Lexilla version
+			_debugInfoStr += L"Scintilla/Lexilla included : ";
+			{
+				string strSciLexVer = NPP_SCINTILLA_VERSION;
+				strSciLexVer += "/";
+				strSciLexVer += NPP_LEXILLA_VERSION;
+				_debugInfoStr += wmc.char2wchar(strSciLexVer.c_str(), CP_ACP);
+			}
+			_debugInfoStr += L"\r\n";
+
+			// Boost Regex version
+			_debugInfoStr += L"Boost Regex included : ";
+			_debugInfoStr += wmc.char2wchar(NPP_BOOST_REGEX_VERSION, CP_ACP);
+			_debugInfoStr += L"\r\n";
 
 			// Binary path
 			_debugInfoStr += L"Path : ";

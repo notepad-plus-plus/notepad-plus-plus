@@ -437,7 +437,7 @@ ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
 
 # ensure the pre-build event runs before the notepad++ target
-add_dependencies(notepad++ NppLibsVersion.h)
+add_dependencies(notepad++ ${CMAKE_SOURCE_DIR}/NppLibsVersion.h)
 
 
 TARGET_LINK_LIBRARIES (notepad++ ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})

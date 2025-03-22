@@ -426,19 +426,16 @@ find_library(LEXILLA_STATIC_LIBRARY
 	REQUIRED
 )
 
-# run pre-build event
-add_custom_command(
-    OUTPUT ${CMAKE_SOURCE_DIR}/NppLibsVersion.h
-    COMMAND ${PRE_BUILD_EVENT}
-    COMMENT "Running pre-build event..."
-)
-
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
 
 # ensure the pre-build event runs before the notepad++ target
-add_dependencies(notepad++ ${CMAKE_SOURCE_DIR}/NppLibsVersion.h)
-
+add_custom_command(
+    TARGET notepad++ PRE_BUILD
+    OUTPUT ${CMAKE_SOURCE_DIR}/NppLibsVersion.h
+    COMMAND ${PRE_BUILD_EVENT}
+    COMMENT "Running pre-build event..."
+)
 
 TARGET_LINK_LIBRARIES (notepad++ ${SCINTILLA_STATIC_LIBRARY} ${LEXILLA_STATIC_LIBRARY} ${win32_LIBRARIES})
 

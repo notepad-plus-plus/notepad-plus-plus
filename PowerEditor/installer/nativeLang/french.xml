@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.7.8">
+	<Native-Langue name="Français" filename="french.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1329,8 +1329,10 @@ Translation note:
 						<Element name="DirectWrite (défaut)"/>
 						<Element name="DirectWrite (mode de rétention)"/>
 						<Element name="DirectWrite (rendu sur GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="la barre de notifications"/>
+					<Item id="6363" name="mode de rendu"/>
 					<Item id="6312" name="Surveillance de l’état des fichiers"/>
 					<Item id="6313" name="Mise à jour sans alerte"/>
 					<Item id="6325" name="Aller à la dernière ligne après mise à jour"/>

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="8.7.5">
+	<Native-Langue name="Español" filename="spanish.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -822,6 +822,7 @@ Translation note:
 				<Folder title="Carpeta &amp;&amp; Predeterminado">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21102" name="Estilo"/>
+					<Item id="21103" name="Ayuda en línea sobre lenguajes definidos por el usuario"/>
 					<Item id="21105" name="Documentación:"/>
 					<Item id="21106" name="Plegado &amp;compacto (líneas vacías también)"/>
 					<Item id="21220" name="Plegado en estilo código 1:"/>
@@ -1128,17 +1129,17 @@ Translation note:
 					<Item id="6351" name="Aplicar estilo a todas las coincidencias"/>
 					<Item id="6352" name="Coincidir MAYÚSCULAS/minúsculas"/>
 					<Item id="6353" name="Coincidir solo palabra completa"/>
-					<Item id="6333" name="Resaltado inteligente"/>
+					<Item id="6333" name="Seleccionar y mostrar todo"/>
 					<Item id="6326" name="Habilitar"/>
 					<Item id="6354" name="Coincidencias"/>
 					<Item id="6332" name="Coincidir MAYÚSCULAS/minúsculas"/>
 					<Item id="6338" name="Solo palabras completas"/>
 					<Item id="6339" name="Usar configuración de búsqueda"/>
-					<Item id="6340" name="Resaltar otra vista"/>
-					<Item id="6329" name="Resaltado etiquetas coincidentes"/>
+					<Item id="6340" name="También en la otra vista"/>
+					<Item id="6329" name="Resaltar etiquetas de apertura/cierre"/>
 					<Item id="6327" name="Habilitar"/>
 					<Item id="6328" name="Resaltar atributos de etiquetas"/>
-					<Item id="6330" name="Resaltar zona comentario/php/asp"/>
+					<Item id="6330" name="Resaltar la zona comentario/php/asp"/>
 				</Highlighting>
 
 				<Print title="Impresión">
@@ -1176,7 +1177,7 @@ Translation note:
 						<Element name="Hora"/>
 					</ComboBox>
 					<Item id="6725" name="&amp;Opciones:"/>
-					<Item id="6727" name="Sus ajustes de las variables"/>
+					<Item id="6727" name="Aquí se muestran los ajustes de las variables"/>
 					<Item id="6728" name="Encabezado y pie de página"/>
 				</Print>
 
@@ -1258,7 +1259,7 @@ Translation note:
 					<Item id="6184" name="Lista de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
 					<Item id="6186" name="Carpeta como espacio de trabajo"/>
-					<Item id="6187" name="Paneles de proyecto"/>
+					<Item id="6187" name="Paneles de proyectos"/>
 					<Item id="6188" name="Mapa del documento"/>
 					<Item id="6189" name="Lista de funciones"/>
 					<Item id="6190" name="Paneles de complementos"/>
@@ -1322,7 +1323,15 @@ Translation note:
 						<Element name="Cerrar en"/>
 						<Element name="Minimizar / Cerrar en"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (más compatible)"/>
+						<Element name="DirectWrite (por defecto)"/>
+						<Element name="DirectWrite(conservar cuadros)"/>
+						<Element name="DirectWrite (dibujar a GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
 					<Item id="6308" name="la barra de notificaciones"/>
+					<Item id="6363" name="modo de representación"/>
 					<Item id="6312" name="Autodetectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>
 					<Item id="6325" name="Ir a la última línea tras actualizar"/>
@@ -1836,6 +1845,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Si selecciona el modo avanzado pero no edita archivos en los lenguajes mencionados, la sangría permanecerá en el modo básico."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activando &quot;Global override&quot; aquí, anulará esa opción en todos los estilos de lenguaje. Es posible que desee usar la configuración &quot;Default Style&quot;."/>
+			<scintillaRenderingTechnology-tip value="Puede mejorar la representación de caracteres especiales o resolver algunos problemas gráficos. Reinicie Notepad++ para aplicar los cambios."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

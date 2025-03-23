@@ -6,9 +6,9 @@ rem Because in this batch file we have to go two dir-levels higher (for finding 
 rem from the external libraries) from both the solution/project dir and from the dir,
 rem where this batch file is located, we can run this batch file ok also manually
 rem and not only from that MSVS event.
-set outputResFile="..\..\PowerEditor\src\NppLibsVersion.h"
+set outputFile="..\..\PowerEditor\src\NppLibsVersion.h"
 
-if exist %outputResFile% del %outputResFile%
+if exist %outputFile% del %outputFile%
 
 rem First "for" finds and extracts specific one line string like "#define VERSION_SCINTILLA "5.5.4"".
 rem Second "for" then uses regex to extract only the "..." version part substring from it.
@@ -40,8 +40,8 @@ echo Lexilla version detected: %lexVerStr%
 echo Boost Regex version detected: %boostRegexVerStr%
 
 rem And finally create the output file:
-echo // NppLibsVersion.h>%outputResFile%
-echo // - maintained by NppLibsVersionH-generator.bat>>%outputResFile%
-echo #define NPP_SCINTILLA_VERSION %sciVerStr%>>%outputResFile%
-echo #define NPP_LEXILLA_VERSION %lexVerStr%>>%outputResFile%
-echo #define NPP_BOOST_REGEX_VERSION %boostRegexVerStr%>>%outputResFile%
+echo // NppLibsVersion.h>%outputFile%
+echo // - maintained by NppLibsVersionH-generator.bat>>%outputFile%
+echo #define NPP_SCINTILLA_VERSION %sciVerStr%>>%outputFile%
+echo #define NPP_LEXILLA_VERSION %lexVerStr%>>%outputFile%
+echo #define NPP_BOOST_REGEX_VERSION %boostRegexVerStr%>>%outputFile%

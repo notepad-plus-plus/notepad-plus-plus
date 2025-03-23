@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Galego" filename="galician.xml" version="8.7.5">
+	<Native-Langue name="Galego" filename="galician.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -639,7 +639,7 @@ Translation note:
 					<Item id="2230" name="Forzar fonte grosa"/>
 					<Item id="2231" name="Forzar fonte en cursiva"/>
 					<Item id="2232" name="Forzar fonte subliñada"/>
-					<Item id="2234" name="Ir a Configuración"/>
+					<Item id="2234" name="Ir á Configuración"/>
 					<Item id="2235" name="Que é &quot;Global override&quot;?"/>
 					<!-- Don't translate "Global override" -->
 				</SubDialog>
@@ -822,6 +822,7 @@ Translation note:
 				<Folder title="Carpeta &amp;&amp; Predeterminado">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21102" name="Estilo"/>
+					<Item id="21103" name="Axuda en liña sobre linguaxes definidos polo usuario"/>
 					<Item id="21105" name="Documentación:"/>
 					<Item id="21106" name="Pregado &amp;compacto (liñas baleiras tamén)"/>
 					<Item id="21220" name="Pregado en estilo código 1:"/>
@@ -1044,7 +1045,7 @@ Translation note:
 					<Item id="7126" name="Bordos de opcións"/>
 					<Item id="7127" name="Bordos desactivados"/>
 					<Item id="7130" name="Resetear"/>
-					<Item id="7135" name="Tonos"/>
+					<Item id="7135" name="Tons"/>
 				</DarkMode>
 
 				<MarginsBorderEdge title="Marxe, bordo e liñas">
@@ -1128,17 +1129,17 @@ Translation note:
 					<Item id="6351" name="Aplicar estilo a tódalas coincidencias"/>
 					<Item id="6352" name="Coincidir MAIÚSCULAS/minúsculas"/>
 					<Item id="6353" name="Coincidir só palabra completa"/>
-					<Item id="6333" name="Resaltado intelixente"/>
+					<Item id="6333" name="Seleccionar e mostrar todo"/>
 					<Item id="6326" name="Habilitar"/>
 					<Item id="6354" name="Coincidencias"/>
 					<Item id="6332" name="Coincidir MAIÚSCULAS/minúsculas"/>
 					<Item id="6338" name="Só palabras completas"/>
 					<Item id="6339" name="Usar configuración de busca"/>
-					<Item id="6340" name="Resaltar outra vista"/>
-					<Item id="6329" name="Resaltado etiquetas coincidentes"/>
+					<Item id="6340" name="Tamén na outra vista"/>
+					<Item id="6329" name="Resaltar etiquetas de apertura/peche"/>
 					<Item id="6327" name="Habilitar"/>
 					<Item id="6328" name="Resaltar atributos de etiquetas"/>
-					<Item id="6330" name="Resaltar zona comentario/php/asp"/>
+					<Item id="6330" name="Resaltar a zona comentario/php/asp"/>
 				</Highlighting>
 
 				<Print title="Impresión">
@@ -1176,7 +1177,7 @@ Translation note:
 						<Element name="Hora"/>
 					</ComboBox>
 					<Item id="6725" name="&amp;Opcións:"/>
-					<Item id="6727" name="Móstranse os seus axustes variables"/>
+					<Item id="6727" name="Aquí móstranse os axustes das variables"/>
 					<Item id="6728" name="Cabeceira e pé de páxina"/>
 				</Print>
 
@@ -1258,7 +1259,7 @@ Translation note:
 					<Item id="6184" name="Lista de documentos"/>
 					<Item id="6185" name="Panel de caracteres"/>
 					<Item id="6186" name="Carpeta como espazo de traballo"/>
-					<Item id="6187" name="Paneis de proxecto"/>
+					<Item id="6187" name="Paneis de proxectos"/>
 					<Item id="6188" name="Mapa do documento"/>
 					<Item id="6189" name="Lista de funcións"/>
 					<Item id="6190" name="Paneis de complementos"/>
@@ -1322,7 +1323,15 @@ Translation note:
 						<Element name="Pechar na"/>
 						<Element name="Minimizar / Pechar na"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (máis compatible)"/>
+						<Element name="DirectWrite (por defecto)"/>
+						<Element name="DirectWrite(conservar cadros)"/>
+						<Element name="DirectWrite (debuxar a GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
 					<Item id="6308" name="barra de notificacións"/>
+					<Item id="6363" name="modo de representación"/>
 					<Item id="6312" name="Autodetectar estado do arquivo"/>
 					<Item id="6313" name="Actualizar sen notificar"/>
 					<Item id="6325" name="Ir á última liña tras actualizar"/>
@@ -1834,6 +1843,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Se selecciona o modo avanzado pero non edita arquivos nas linguaxes mencionadas, a sangría permanecerá no modo básico."/>
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activando &quot;Global override&quot; aquí, anulará esa opción en tódolos estilos de linguaxe. É posible que desexe usar a configuración &quot;Default Style&quot;."/>
+			<scintillaRenderingTechnology-tip value="Pode mellorar a representación de caracteres especiais ou resolver algúns problemas gráficos. Reinicie Notepad++ para aplicar os cambios."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

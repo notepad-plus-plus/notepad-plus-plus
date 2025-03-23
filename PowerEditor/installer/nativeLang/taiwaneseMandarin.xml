@@ -1266,6 +1266,7 @@
 						<Element name="DirectWrite（通用模式）"/>
 						<Element name="DirectWrite（保留模式）"/>
 						<Element name="DirectWrite（繪製到 GDI DC）"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="系統匣"/>
 					<Item id="6312" name="自動更新檔案狀態"/>

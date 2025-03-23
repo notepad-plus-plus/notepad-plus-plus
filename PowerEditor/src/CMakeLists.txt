@@ -423,6 +423,15 @@ find_library(LEXILLA_STATIC_LIBRARY
 	REQUIRED
 )
 
+execute_process(
+    COMMAND cmd /C "cd ${CMAKE_SOURCE_DIR} && NppLibsVersionH-generator.bat"
+    RESULT_VARIABLE pre-build-result
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
+if(NOT pre-build-result EQUAL 0)
+    message(FATAL_ERROR "Pre-build event failed with exit code: ${pre-build-result}")
+endif()
+
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
 

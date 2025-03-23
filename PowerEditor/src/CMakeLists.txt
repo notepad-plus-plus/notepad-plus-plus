@@ -430,7 +430,7 @@ execute_process(
     COMMENT "Running pre-build event..."
 )
 if(NOT pre-build-result EQUAL 0)
-    message(FATAL_ERROR "Pre-build event failed with exit code ${result}")
+    message(FATAL_ERROR "Pre-build event failed with exit code ${pre-build-result}")
 endif()
 
 ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})

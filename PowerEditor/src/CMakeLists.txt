@@ -427,7 +427,6 @@ execute_process(
     COMMAND @cmd //C "${CMAKE_SOURCE_DIR}/NppLibsVersionH-generator.bat"
     RESULT_VARIABLE pre-build-result
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    COMMENT "Running pre-build event..."
 )
 if(NOT pre-build-result EQUAL 0)
     message(FATAL_ERROR "Pre-build event failed with exit code ${pre-build-result}")

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Nota de tradução:
-1. Instale o plugin XML Tools para formatar a sua tradução XML. Através do comando do menu "Plugins -> XML Tools-> Pretty print - indent only".
-2. Todos os comentários são de caráter explicativo, não são de tradução.
+Translation note:
+1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
+2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.5">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -822,6 +822,7 @@ Nota de tradução:
 				<Folder title="Pasta &amp;predefinida">
 					<Item id="21101" name="Estilo predefinido"/>
 					<Item id="21102" name="Estilizar"/>
+					<Item id="21103" name="Ajuda online para Linguagens definidas pelo utilizador"/>
 					<Item id="21105" name="Documentação:"/>
 					<Item id="21106" name="Dobrar compacto (também dobrar linhas sem dados)"/>
 					<Item id="21220" name="Dobrar no código estilo 1:"/>
@@ -1323,7 +1324,15 @@ Nota de tradução:
 						<Element name="Fechar para"/>
 						<Element name="Minimizar/Fechar para"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (mais compatível)"/>
+						<Element name="DirectWrite (padrão)"/>
+						<Element name="DirectWrite (mantém estrutura)"/>
+						<Element name="DirectWrite (estender a GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
 					<Item id="6308" name="área de notificação"/>
+					<Item id="6363" name="modo de renderização"/>
 					<Item id="6312" name="Deteção automática do estado do ficheiro"/>
 					<Item id="6313" name="Atualizar em segundo plano"/>
 					<Item id="6325" name="Depois de atualizar, ir para a última linha"/>
@@ -1556,7 +1565,8 @@ Prima o botão OK para abrir a caixa de diálogo Localizar ou definir o foco na 
 Se necessitar da funcionalidade de pesquisa regex retroativa, consulte o manual do utilizador para obter instruções sobre como ativá-la."/>
 			<PrintError title="0" message="Não foi posssível iniciar a impressão do documento."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Aviso de pesquisa" message="O estado da caixa de verificação &quot;Na seleção&quot; foi automaticamente modificado.
-Verifique a condição de pesquisa antes de executar a ação."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+Verifique a condição de localização antes de continuar."/><!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="O Notepad++ precisa de ser reiniciado" message="O Notepad++ precisa de ser reiniciado para mostrar os atalhos do menu do botão direito."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Histórico da área de transferência"/>
@@ -1830,6 +1840,7 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Se selecionar o modo avançado mas não editar ficheiros nas linguagens acima mencionadas, a indentação manter-se-á no modo básico."/>
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Ativar o &quot;Global override&quot; aqui irá substituir esse parâmetro em todos os estilos de linguagem. O que provavelmente pretende é usar as definições de &quot;Default Style&quot; em vez disso"/>
+			<scintillaRenderingTechnology-tip value="Pode melhorar a renderização de carateres especiais ou resolver alguns problemas gráficos, reinicie o Notepad++ para aplicar as alterações."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
@@ -1858,7 +1869,7 @@ Hugo Carvalho <hugokarvalho@hotmail.com>
 Filipe Mota <blackspirits@gmail.com>
 27/03/2023 (version 8.5.1, 8.6.3, 8.7)
 
-Last modified: 14 January 2025 by Hugo Carvalho
+Last modified: 24 March 2025 by Hugo Carvalho
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
 POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN

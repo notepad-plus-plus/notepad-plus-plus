@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: February 20, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: March 17, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.8">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.9">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -45,8 +45,8 @@
 					<Item subMenuId="search-markAll" name="Ozna&amp;či stilom sva pojavljivanja"/>
 					<Item subMenuId="search-markOne" name="Označi stilom &amp;jednom"/>
 					<Item subMenuId="search-unmarkAll" name="Poni&amp;šti oznake stilom"/>
-					<Item subMenuId="search-jumpUp" name="Skoči &amp;gore"/>
-					<Item subMenuId="search-jumpDown" name="Skoči &amp;dolje"/>
+					<Item subMenuId="search-jumpUp" name="Skoči &amp;gore na"/>
+					<Item subMenuId="search-jumpDown" name="Skoči &amp;dolje na"/>
 					<Item subMenuId="search-copyStyledText" name="Kopiraj &amp;tekst označen stilom"/>
 					<Item subMenuId="search-bookmark" name="Knji&amp;žne oznake"/>
 					<Item subMenuId="view-currentFileIn" name="&amp;Vidi trenutnu datoteku u pregledniku"/>
@@ -231,35 +231,35 @@
 					<Item id="43014" name="Pronađi ozn&amp;ačeno sljedeće (nepostojano)"/>
 					<Item id="43015" name="Pronađi označ&amp;eno prethodno (nepostojano)"/>
 					<Item id="43022" name="Koristi &amp;1. stil"/>
-					<Item id="43023" name="Očisti &amp;1. stil"/>
+					<Item id="43023" name="Ukloni &amp;1. stil"/>
 					<Item id="43024" name="Koristi &amp;2. stil"/>
-					<Item id="43025" name="Očisti &amp;2. stil"/>
+					<Item id="43025" name="Ukloni &amp;2. stil"/>
 					<Item id="43026" name="Koristi &amp;3. stil"/>
-					<Item id="43027" name="Očisti &amp;3. stil"/>
+					<Item id="43027" name="Ukloni &amp;3. stil"/>
 					<Item id="43028" name="Koristi &amp;4. stil"/>
-					<Item id="43029" name="Očisti &amp;4. stil"/>
+					<Item id="43029" name="Ukloni &amp;4. stil"/>
 					<Item id="43030" name="Koristi &amp;5. stil"/>
-					<Item id="43031" name="Očisti &amp;5. stil"/>
-					<Item id="43032" name="Očisti &amp;sve stilove"/>
+					<Item id="43031" name="Ukloni &amp;5. stil"/>
+					<Item id="43032" name="Ukloni &amp;sve stilove"/>
 					<Item id="43033" name="&amp;1. stil"/>
 					<Item id="43034" name="&amp;2. stil"/>
 					<Item id="43035" name="&amp;3. stil"/>
 					<Item id="43036" name="&amp;4. stil"/>
 					<Item id="43037" name="&amp;5. stil"/>
-					<Item id="43038" name="Stil oznake &amp;pronađenog"/>
+					<Item id="43038" name="Stil s oznakom &amp;pronađenog"/>
 					<Item id="43039" name="&amp;1. stil"/>
 					<Item id="43040" name="&amp;2. stil"/>
 					<Item id="43041" name="&amp;3. stil"/>
 					<Item id="43042" name="&amp;4. stil"/>
 					<Item id="43043" name="&amp;5. stil"/>
-					<Item id="43044" name="Stil oznake &amp;pronađenog"/>
+					<Item id="43044" name="Stil s oznakom &amp;pronađenog"/>
 					<Item id="43055" name="&amp;1. stil"/>
 					<Item id="43056" name="&amp;2. stil"/>
 					<Item id="43057" name="&amp;3. stil"/>
 					<Item id="43058" name="&amp;4. stil"/>
 					<Item id="43059" name="&amp;5. stil"/>
 					<Item id="43060" name="&amp;Svi stilovi"/>
-					<Item id="43061" name="Stil oznake &amp;pronađenog"/>
+					<Item id="43061" name="Stil s oznakom &amp;pronađenog"/>
 					<Item id="43062" name="Koristi &amp;1. stil"/>
 					<Item id="43063" name="Koristi &amp;2. stil"/>
 					<Item id="43064" name="Koristi &amp;3. stil"/>
@@ -1343,6 +1343,7 @@
 						<Element name="DirectWrite (zadano)"/>
 						<Element name="DirectWrite (zadržati okvire)"/>
 						<Element name="DirectWrite (povući u GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="sistemsku traku"/>
 					<Item id="6363" name="način iscrtavanja"/>

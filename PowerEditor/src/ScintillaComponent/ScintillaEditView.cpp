@@ -684,8 +684,8 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			bool rightClickKeepsSelection = ((NppParameters::getInstance()).getSVP())._rightClickKeepsSelection;
 			if (rightClickKeepsSelection)
 			{
-				size_t clickX = GET_X_LPARAM(lParam);
-				size_t marginX = execute(SCI_POINTXFROMPOSITION, 0, 0);
+				LONG clickX = GET_X_LPARAM(lParam);
+				LONG marginX = static_cast<LONG>(execute(SCI_POINTXFROMPOSITION, 0, 0)) + static_cast<LONG>(execute(SCI_GETXOFFSET, 0, 0));
 				if (clickX >= marginX)
 				{
 					// if right-click in the editing area (not the margins!),

@@ -1530,9 +1530,9 @@ bool isUnsupportedFileName(const wstring& fileName)
 
 			if (!invalidASCIIChar)
 			{
-				// strip input string to a filename without a possible path and extension(s)
+				// strip input string to a filename without a possible path and the last extension
 				wstring fileNameOnly;
-				size_t pos = fileName.find_first_of(L".");
+				size_t pos = fileName.rfind(L".");
 				if (pos != std::string::npos)
 					fileNameOnly = fileName.substr(0, pos);
 				else

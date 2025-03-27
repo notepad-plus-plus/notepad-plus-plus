@@ -1,23 +1,32 @@
+Notepad++ v8.7.9 regression-fixes, bug-fixes & enhancements:
+
+ 1. Fix incorrect syntax highlighting regressions.
+ 2. Update to Scintilla 5.5.5 & Lexilla 5.4.3.
+ 3. Fix bug where plugin button hiding settings in toolbarButtonsConf.xml are ignored. 
+ 4. Fix SQL Backslash Escape preference not taking effect immediately.	
+ 5. Add new low-level DirectX11 DirectWrite 1.1 Scintilla rendering mode.
+ 6. Add versions of external libraries (Scintilla/Lexilla/Boost) to Debug Info.
+
+
 Notepad++ v8.7.8 regression-fixes, bug-fixes & enhancements:
 
  1. Fix regression (v8.7.1 - v8.7.7) of saving backup file without modifications.
  2. Fix syntax highlighting regression while switching among UDL files.
  3. Add ability to hide selected toolbar buttons via a XML configuration.
- 4. Optimize switching programming language performance for large files.
- 5. Improve folding/unfolding performance for large files.
- 6. Fix SQL Backslash Preference state regression (from v8.7).
- 7. Fix count operation on regex causing Notepad++ to hang.
- 8. Fix FunctionList not refreshing with current document lexer changes.
- 9. Improve Style Configurator GUI organization.
-10. Adds SAS programming language support.
-11. Make existing DirectWrite rendering modes accessible.
-12. Allow DirectWrite use on non-Core Windows Server.    
-13. Use VTS instead of LTS for specific control code abbreviation.
-14. Fix installer silent mode doLocalConf.xml setting handling issue.
+ 4. Improve folding/unfolding performance for large files.
+ 5. Fix SQL Backslash Preference state regression (from v8.7).
+ 6. Fix count operation on regex causing Notepad++ to hang.
+ 7. Fix FunctionList not refreshing with current document lexer changes.
+ 8. Improve Style Configurator GUI organization.
+ 9. Adds SAS programming language support.
+10. Make existing DirectWrite rendering modes accessible.
+11. Allow DirectWrite use on non-Core Windows Server.    
+12. Use VTS instead of LTS for specific control code abbreviation.
+13. Fix installer silent mode doLocalConf.xml setting handling issue.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.8/
+https://notepad-plus-plus.org/downloads/v8.7.9/
 
 
 Included plugins:

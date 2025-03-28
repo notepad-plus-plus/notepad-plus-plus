@@ -344,7 +344,7 @@ string ScintillaKeyMap::toString() const
 	{
 		sc += toString(combo);
 		if (combo < nbCombos - 1)
-			sc += " or ";
+			sc += " / ";
 	}
 	return sc;
 }

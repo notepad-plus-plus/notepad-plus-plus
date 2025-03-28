@@ -587,7 +587,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			}
 			::SetForegroundWindow(hNotepad_plus);
 
-			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
+			if (params.size() > 0                         // if there are files to open, use the WM_COPYDATA system
+				|| !cmdLineParams._pluginMessage.empty()) // or pluginMessage is present, use the WM_COPYDATA system as well
 			{
 				CmdLineParamsDTO dto = CmdLineParamsDTO::FromCmdLineParams(cmdLineParams);
 

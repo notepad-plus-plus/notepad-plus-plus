@@ -77,6 +77,7 @@ const int TAB_QUITONEMPTY           =  512;    // 0000 0010 0000 0000
 const int TAB_ALTICONS              = 1024;    // 0000 0100 0000 0000
 const int TAB_PINBUTTON             = 2048;    // 0000 1000 0000 0000
 const int TAB_INACTIVETABSHOWBUTTON = 4096;    // 0001 0000 0000 0000
+const int TAB_SHOWONLYPINNEDBUTTON  = 8192;    // 0010 0000 0000 0000
 
 const bool activeText = true;
 const bool activeNumeric = false;

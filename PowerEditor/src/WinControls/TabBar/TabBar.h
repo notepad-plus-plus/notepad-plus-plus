@@ -243,6 +243,7 @@ protected:
 	const int _unpinnedHoverOnTabIdx = 3; // hover on the tab, but outside of box
 	const int _pinnedIdx = 4;
 	const int _pinnedHoverIdx = 5;
+	const int _unpinnedEmptyIdx = 6;
 
 	bool _isCloseHover = false;
 	bool _isPinHover = false;

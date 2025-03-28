@@ -25,8 +25,6 @@
 #define	IDC_DRAG_PLUS_TAB 1406
 #define	IDC_DRAG_OUT_TAB 1407
 
-
-
 COLORREF TabBarPlus::_activeTextColour = ::GetSysColor(COLOR_BTNTEXT);
 COLORREF TabBarPlus::_activeTopBarFocusedColour = RGB(250, 170, 60);
 COLORREF TabBarPlus::_activeTopBarUnfocusedColour = RGB(250, 210, 150);
@@ -570,18 +568,18 @@ void TabBarPlus::setPinBtnImageList()
 		iconSize = g_TabPinBtnSize_DM;
 
 		if (showInactiveTabButtons)
-			ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_DM, IDR_PINTAB_HOVERIN_DM, IDR_PINTAB_HOVERONTAB_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVERIN_DM };
+			ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_DM, IDR_PINTAB_HOVERIN_DM, IDR_PINTAB_HOVERONTAB_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVERIN_DM, IDR_PINTAB_INACT_EMPTY_DM };
 		else
-			ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_EMPTY_DM, IDR_PINTAB_HOVERIN_DM, IDR_PINTAB_HOVERONTAB_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVERIN_DM };
+			ids = { IDR_PINTAB_DM, IDR_PINTAB_INACT_EMPTY_DM, IDR_PINTAB_HOVERIN_DM, IDR_PINTAB_HOVERONTAB_DM, IDR_PINTAB_PINNED_DM, IDR_PINTAB_PINNEDHOVERIN_DM, IDR_PINTAB_INACT_EMPTY_DM };
 	}
 	else
 	{
 		iconSize = g_TabPinBtnSize;
 
 		if (showInactiveTabButtons)
-			ids = { IDR_PINTAB, IDR_PINTAB_INACT, IDR_PINTAB_HOVERIN, IDR_PINTAB_HOVERONTAB, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVERIN };
+			ids = { IDR_PINTAB, IDR_PINTAB_INACT, IDR_PINTAB_HOVERIN, IDR_PINTAB_HOVERONTAB, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVERIN, IDR_PINTAB_INACT_EMPTY };
 		else
-			ids = { IDR_PINTAB, IDR_PINTAB_INACT_EMPTY, IDR_PINTAB_HOVERIN, IDR_PINTAB_HOVERONTAB, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVERIN };
+			ids = { IDR_PINTAB, IDR_PINTAB_INACT_EMPTY, IDR_PINTAB_HOVERIN, IDR_PINTAB_HOVERONTAB, IDR_PINTAB_PINNED, IDR_PINTAB_PINNEDHOVERIN, IDR_PINTAB_INACT_EMPTY };
 	}
 
 	if (_hPinBtnImgLst != nullptr)
@@ -795,9 +793,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			int xPos = LOWORD(lParam);
 			int yPos = HIWORD(lParam);
 
+			int nTab = getTabIndexAt(xPos, yPos);
 			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
 			{
-				int nTab = getTabIndexAt(xPos, yPos);
 				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
 				{
 					setActiveTab(nTab);
@@ -808,6 +806,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
 			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
 			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+			bool isPinSimplest = nppGUI._tabStatus & TAB_SHOWONLYPINNEDBUTTON;
 
 			if (drawTabCloseButton)
 			{
@@ -819,9 +818,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
+			TCITEM tci{};
+			tci.mask = TCIF_PARAM;
+			::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci));
+			Buffer* buf = reinterpret_cast<Buffer*>(tci.lParam);
+
 			if (drawTabPinButton)
 			{
-				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical))
+				if (_pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical) &&
+					((isPinSimplest && buf->isPinned()) || !isPinSimplest))
 				{
 					_whichPinClickDown = getTabIndexAt(xPos, yPos);
 					::SendMessage(_hParent, WM_SIZE, 0, 0);
@@ -1078,6 +1083,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
 			bool drawTabCloseButton = nppGUI._tabStatus & TAB_CLOSEBUTTON;
 			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
+			bool isPinSimplest = nppGUI._tabStatus & TAB_SHOWONLYPINNEDBUTTON;
 
 			if (drawTabCloseButton)
 			{
@@ -1103,7 +1109,14 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (drawTabPinButton)
 			{
-				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical))
+				int nTab = getTabIndexAt(xPos, yPos);
+				TCITEM tci{};
+				tci.mask = TCIF_PARAM;
+				::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci));
+				Buffer* buf = reinterpret_cast<Buffer*>(tci.lParam);
+
+				if ((_whichPinClickDown == currentTabOn) && _pinButtonZone.isHit(xPos, yPos, _currentHoverTabRect, isVertical) &&
+					((isPinSimplest && buf->isPinned()) || !isPinSimplest))
 				{
 					notify(TCN_TABPINNED, currentTabOn);
 					_whichPinClickDown = -1;
@@ -1608,31 +1621,39 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 		}
 		else // unpinned
 		{
-			if (!isSelected) // inactive
+			bool isPinSimplest = nppGUI._tabStatus & TAB_SHOWONLYPINNEDBUTTON;
+			if (isPinSimplest)
 			{
-				if (_isPinHover && (_currentHoverTabItem == nTab))
-				{
-					if (_whichPinClickDown == -1) // hover
-					{
-						idxPinImg = _unpinnedHoverInIdx;
-					}
-					else if (_whichPinClickDown == _currentHoverTabItem) // pushed
-					{
-						idxPinImg = _pinnedIdx;
-					}
-
-				}
-				else // unpinned inactive
-				{
-					idxPinImg = (_currentHoverTabItem == nTab) ? _unpinnedHoverOnTabIdx : _unpinnedInactIdx;
-				}
+				idxPinImg = _unpinnedEmptyIdx;
 			}
-			else // current
+			else
 			{
-				if (_isPinHover && (_currentHoverTabItem == nTab)) // hover
-					idxPinImg = _unpinnedHoverInIdx;
-				else
-					idxPinImg = _unpinnedIdx;
+				if (!isSelected) // inactive
+				{
+					if (_isPinHover && (_currentHoverTabItem == nTab))
+					{
+						if (_whichPinClickDown == -1) // hover
+						{
+							idxPinImg = _unpinnedHoverInIdx;
+						}
+						else if (_whichPinClickDown == _currentHoverTabItem) // pushed
+						{
+							idxPinImg = _pinnedIdx;
+						}
+
+					}
+					else // unpinned inactive
+					{
+						idxPinImg = (_currentHoverTabItem == nTab) ? _unpinnedHoverOnTabIdx : _unpinnedInactIdx;
+					}
+				}
+				else // current
+				{
+					if (_isPinHover && (_currentHoverTabItem == nTab)) // hover
+						idxPinImg = _unpinnedHoverInIdx;
+					else
+						idxPinImg = _unpinnedIdx;
+				}
 			}
 		}
 

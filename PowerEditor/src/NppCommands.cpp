@@ -3420,7 +3420,7 @@ void Notepad_plus::command(int id)
         case IDM_ABOUT:
 		{
 			bool doAboutDlg = false;
-			const int maxSelLen = 32;
+			const int maxSelLen = 64;
 			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0);
 			if (textLen <= 0)
 				doAboutDlg = true;

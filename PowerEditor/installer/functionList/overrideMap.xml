@@ -100,6 +100,9 @@
 			<association id= "gdscript.xml"		 langID= "88"/>
 			<association id= "hollywood.xml"	 langID= "89"/>
 			<association id= "go.xml"			 langID= "90"/>
+			<association id= "raku.xml"			 langID= "91"/>
+			<association id= "toml.xml"			 langID= "92"/>
+			<association id= "sas.xml"			 langID= "93"/>
 
 			If you create your own parse rule of supported languages (above) for your specific need,
 			you can copy it without modifying the original one, and make it point to your rule.

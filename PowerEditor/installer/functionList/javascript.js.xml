@@ -15,9 +15,24 @@
 			id         ="javascript_function"
 			commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
 		>
+			<classRange mainExpr="\bclass\s+[A-Za-z_$][\w$]*[^{]*{" openSymbole="\{" closeSymbole="\}">
+				<className>
+					<!-- Make consecutive patterns to extract the identifier. -->
+					<nameExpr expr="class\s+[A-Za-z_$][\w$]*" />
+					<nameExpr expr="\s+[A-Za-z_$][\w$]*" />
+					<nameExpr expr="[A-Za-z_$][\w$]*" />
+				</className>
+				<function mainExpr="\b(?:(?:static|async)\s+)?\b(?!if|while|for|switch)\b[A-Za-z_$][\w$]*\s*\([^\)]*\)\s*{">
+					<functionName>
+						<funcNameExpr expr="[A-Za-z_$][\w$]*\s*\(" />-->
+						<funcNameExpr expr="[A-Za-z_$][\w$]*" />-->
+					</functionName>
+				</function>
+			</classRange>
+
 			<function
 				mainExpr="((^|\s+|[;\}\.])([A-Za-z_$][\w$]*\.)*[A-Za-z_$][\w$]*\s*[=:]|^|[\s;\}]+)\s*function(\s+[A-Za-z_$][\w$]*)?\s*\([^\)\(]*\)[\n\s]*\{"
-			>
+			>		
 				<functionName>
 					<nameExpr expr="[A-Za-z_$][\w$]*\s*[=:]|[A-Za-z_$][\w$]*\s*\(" />
 					<nameExpr expr="[A-Za-z_$][\w$]*" />

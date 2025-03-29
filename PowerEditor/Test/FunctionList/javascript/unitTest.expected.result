@@ -1,1 +1,1 @@
-{"leaves":["extractKeywords","convertBasicMarkup","function","function","function","function","defineModels","slugGenerator","slugGenerator","validatePresenceOf","function","function","function","function","function","function"],"root":"unitTest"}
+{"leaves":["extractKeywords","convertBasicMarkup","function","function","function","function","defineModels","slugGenerator","slugGenerator","validatePresenceOf","function","function","function","function","function","function"],"nodes":[{"leaves":["constructor","age"],"name":"Car"}],"root":"unitTest"}

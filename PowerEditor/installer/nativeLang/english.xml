@@ -1523,10 +1523,10 @@ Do you want to continue?"/>
 please give another one."/>
 			<UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
 			<UDL_importSuccessful title="User Defined Language" message="Import successful."/>
-			<UDL_importFails title="User Defined Language" message="Fail to import."/>
+			<UDL_importFails title="User Defined Language" message="Failed to import."/>
 			<UDL_saveBeforeImport title="User Defined Language" message="Before exporting, save your language definition by clicking &quot;Save As...&quot; button."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="User Defined Language" message="Export successful."/>
-			<UDL_exportFails title="User Defined Language" message="Fail to export."/>
+			<UDL_exportFails title="User Defined Language" message="Failed to export."/>
 			<SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
 			<FindCharRangeValueError title="Range Value problem" message="You should type between 0 and 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.

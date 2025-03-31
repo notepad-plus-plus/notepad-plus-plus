@@ -1417,7 +1417,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                         {
                             pNativeSpeaker->messageBox("UDL_importFails",
                                 _hSelf,
-                                L"Fail to import.",
+                                L"Failed to import.",
                                 L"User Defined Language",
                                 MB_OK | MB_APPLMODAL | MB_ICONEXCLAMATION,
                                 0);
@@ -1464,7 +1464,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                             {
                                 pNativeSpeaker->messageBox("UDL_exportFails",
                                     _hSelf,
-                                    L"Fail to export.",
+                                    L"Failed to export.",
                                     L"User Defined Language",
                                     MB_OK | MB_APPLMODAL | MB_ICONEXCLAMATION,
                                     0);

@@ -1522,6 +1522,11 @@ Do you want to continue?"/>
 			<UDLNewNameError title="UDL Error" message="This name is used by another language,
 please give another one."/>
 			<UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
+			<UDL_importSuccessful title="User Defined Language" message="Import successful."/>
+			<UDL_importFails title="User Defined Language" message="Failed to import."/>
+			<UDL_saveBeforeImport title="User Defined Language" message="Before exporting, save your language definition by clicking &quot;Save As...&quot; button."/>
+			<UDL_exportSuccessful title="User Defined Language" message="Export successful."/>
+			<UDL_exportFails title="User Defined Language" message="Failed to export."/>
 			<SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
 			<FindCharRangeValueError title="Range Value problem" message="You should type between 0 and 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.
@@ -1838,9 +1843,21 @@ Click on &quot;?&quot; button on right to open website with User Manual."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell and JSON.
 
 If you select advanced mode but do not edit files in the aforementioned languages, the indentation will remain in basic mode."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Enabling &quot;Global override&quot; here will override that parameter in all language styles. What you probably really want is to use the &quot;Default Style&quot; settings instead"/>
 			<scintillaRenderingTechnology-tip value="May improve rendering of special characters or resolve some graphics issues, restart Notepad++ to apply the changes."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="length: $STR_REPLACE1$    lines: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Sel: "/>
+			<statusbar-Sel-number value="Sel"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

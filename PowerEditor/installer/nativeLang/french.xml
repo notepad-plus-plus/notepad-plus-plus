@@ -1521,7 +1521,12 @@ Il semble que le fichier à ouvrir n’appartient pas au projet."/>
 Voulez-vous continuer ?"/>
 			<UDLNewNameError title="Erreur UDL" message="Ce nom est utilisé par un autre langage,
 veuillez en donner un autre."/>
-			<UDLRemoveCurrentLang title="Supprimer la langage actuelle" message="Êtes-vous sûr de vouloir supprimer la langage actuelle ?"/>
+			<UDLRemoveCurrentLang title="Suppression du UDL actuel" message="Êtes-vous sûr de vouloir supprimer le langage actuel ?"/>
+			<UDL_importSuccessful title="UDL" message="Importation réussie."/>
+			<UDL_importFails title="UDL" message="Échec de l'importation."/>
+			<UDL_saveBeforeImport title="UDL" message="Avant d'une exportation, enregistrez votre définition de langage en cliquant sur le bouton « Enregistrer sous... »."/>
+			<UDL_exportSuccessful title="UDL" message="Exportation réussie."/>
+			<UDL_exportFails title="UDL" message="Échec de l'exportation."/>
 			<SCMapperDoDeleteOrNot title="Supprimer un raccourci clavier" message="Êtes-vous sûr de vouloir supprimer ce raccourci clavier ?"/>
 			<FindCharRangeValueError title="Valeur en dehors des limites" message="Veuillez entrer une valeur entre 0 et 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="L’enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
@@ -1838,9 +1843,21 @@ Cliquez sur le bouton « ? » à droite pour ouvrir le site web du manuel utilis
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell et JSON
 
 Si vous sélectionnez le mode avancé sans modifier les fichiers des langues mentionnées ci-dessus, les paramètres d'indentation resteront en mode basique."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Activer le « global override » ici substituera ces paramètres dans tous les styles pour tous les langages de programmation. Vous préférerez probablement utiliser les paramètres « Default Style » à la place"/>
 			<scintillaRenderingTechnology-tip value="Cela peut améliorer le rendu des caractères spéciaux ou résoudre certains problèmes graphiques. Veuillez redémarrer Notepad++ pour appliquer le changement."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="longueur : $STR_REPLACE1$    lignes : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln : $STR_REPLACE1$    Col : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos : "/>
+			<statusbar-Sel value="Sel : "/>
+			<statusbar-Sel-number value="Sel"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

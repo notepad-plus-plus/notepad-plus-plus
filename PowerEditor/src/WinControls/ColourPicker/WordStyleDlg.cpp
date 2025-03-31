@@ -652,6 +652,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 
 	const int index2Begin = 0;
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_COMBO, CB_SETCURSEL, index2Begin, 0);
+	::RedrawWindow(::GetDlgItem(_hSelf, IDC_LANGUAGES_COMBO), nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
 	setStyleListFromLexer(index2Begin);
 }
 
@@ -1271,6 +1272,7 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	::SendMessage(_hFontNameCombo, CB_SETCURSEL, iFontName, 0);
 	::EnableWindow(_hFontNameCombo, style._isFontEnabled);
+	::RedrawWindow(_hFontNameCombo, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
 	InvalidateRect(_hFontNameStaticText, NULL, FALSE);
 
 	//-- font size
@@ -1284,6 +1286,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	}
 	::SendMessage(_hFontSizeCombo, CB_SETCURSEL, iFontSize, 0);
 	::EnableWindow(_hFontSizeCombo, style._isFontEnabled);
+	::RedrawWindow(_hFontSizeCombo, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
 	InvalidateRect(_hFontSizeStaticText, NULL, FALSE);
 	
 	//-- font style : bold & italic

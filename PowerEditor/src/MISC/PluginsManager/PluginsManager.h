@@ -94,8 +94,6 @@ public:
 
 	bool loadPlugins(const wchar_t *dir = NULL, const PluginViewList* pluginUpdateInfoList = nullptr, PluginViewList* pluginImcompatibleList = nullptr);
 
-    bool unloadPlugin(int index, HWND nppHandle);
-
 	void runPluginCommand(size_t i);
 	void runPluginCommand(const wchar_t *pluginName, int commandID);
 

@@ -4326,15 +4326,20 @@ void Notepad_plus::updateStatusBar()
 	// these sections of status bar NOT updated by this function:
 	// STATUSBAR_DOC_TYPE , STATUSBAR_EOF_FORMAT , STATUSBAR_UNICODE_TYPE
 
-	wchar_t strDocLen[256];
 	size_t docLen = _pEditView->getCurrentDocLen();
 	intptr_t nbLine = _pEditView->execute(SCI_GETLINECOUNT);
-	wsprintf(strDocLen, L"length : %s    lines : %s",
-		commafyInt(docLen).c_str(),
-		commafyInt(nbLine).c_str());
-	_statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
 
-	wchar_t strSel[64];
+	wstring docLenStr = commafyInt(docLen);
+	wstring nbLineStr = commafyInt(nbLine);
+
+	NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
+	wstring statusbarLengthLinesStr = pNativeSpeaker->getLocalizedStrFromID("statusbar-length-lines", L"length: $STR_REPLACE1$    lines: $STR_REPLACE2$");
+	statusbarLengthLinesStr = stringReplace(statusbarLengthLinesStr, L"$STR_REPLACE1$", docLenStr);
+	statusbarLengthLinesStr = stringReplace(statusbarLengthLinesStr, L"$STR_REPLACE2$", nbLineStr);
+
+	_statusBar.setText(statusbarLengthLinesStr.c_str(), STATUSBAR_DOC_SIZE);
+
+	wstring statusbarSelStr;
 
 	size_t nbSelections = _pEditView->execute(SCI_GETSELECTIONS);
 	if (nbSelections == 1)
@@ -4342,14 +4347,14 @@ void Notepad_plus::updateStatusBar()
 		if (_pEditView->execute(SCI_GETSELECTIONEMPTY))
 		{
 			size_t currPos = _pEditView->execute(SCI_GETCURRENTPOS);
-			wsprintf(strSel, L"Pos : %s", commafyInt(currPos + 1).c_str());
+			statusbarSelStr = pNativeSpeaker->getLocalizedStrFromID("statusbar-Pos", L"Pos: ");
+			statusbarSelStr += commafyInt(currPos + 1);
 		}
 		else
 		{
 			const std::pair<size_t, size_t> oneSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount();
-			wsprintf(strSel, L"Sel : %s | %s",
-				commafyInt(oneSelCharsAndLines.first).c_str(),
-				commafyInt(oneSelCharsAndLines.second).c_str());
+			statusbarSelStr = pNativeSpeaker->getLocalizedStrFromID("statusbar-Sel", L"Sel: ");
+			statusbarSelStr += commafyInt(oneSelCharsAndLines.first) + L" | " + commafyInt(oneSelCharsAndLines.second);
 		}
 	}
 	else if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
@@ -4382,33 +4387,35 @@ void Notepad_plus::updateStatusBar()
 			}
 		}
 
-		wsprintf(strSel, L"Sel : %sx%s %s %s",
-			commafyInt(nbSelections).c_str(),  // lines (rows) in rectangular selection
-			commafyInt(maxLineCharCount).c_str(),  // show maximum width for columns
-			sameCharCountOnEveryLine ? L"=" : L"->",
-			commafyInt(rectSelCharsAndLines.first).c_str());
+		wstring nbSelectionsStr = commafyInt(nbSelections);  // lines (rows) in rectangular selection
+		wstring	maxLineCharCountStr = commafyInt(maxLineCharCount);  // show maximum width for columns
+		wstring opStr = sameCharCountOnEveryLine ? L" = " : L" -> ";
+		wstring rectSelCharsStr = commafyInt(rectSelCharsAndLines.first);
+
+		statusbarSelStr = pNativeSpeaker->getLocalizedStrFromID("statusbar-Sel", L"Sel: ");
+		statusbarSelStr += nbSelectionsStr + L"x" + maxLineCharCountStr + opStr + rectSelCharsStr;
 	}
 	else  // multiple stream selections
 	{
 		const int maxSelsToProcessLineCount = 99;  // limit the number of selections to process, for performance reasons
 		const std::pair<size_t, size_t> multipleSelCharsAndLines = _pEditView->getSelectedCharsAndLinesCount(maxSelsToProcessLineCount);
 
-		wsprintf(strSel, L"Sel %s : %s | %s",
-			commafyInt(nbSelections).c_str(),
-			commafyInt(multipleSelCharsAndLines.first).c_str(),
-			nbSelections <= maxSelsToProcessLineCount ?
-				commafyInt(multipleSelCharsAndLines.second).c_str() :
-				L"...");  // show ellipsis for line count if too many selections are active
+		wstring nbSelectionsStr = commafyInt(nbSelections);
+		wstring multipleSelChars = commafyInt(multipleSelCharsAndLines.first);
+		wstring multipleSelLines = (nbSelections <= maxSelsToProcessLineCount) ? commafyInt(multipleSelCharsAndLines.second) :	L"...";  // show ellipsis for line count if too many selections are active
+
+		statusbarSelStr = pNativeSpeaker->getLocalizedStrFromID("statusbar-Sel-number", L"Sel");
+		statusbarSelStr += L" " + nbSelectionsStr + L" : " + multipleSelChars + L" | " + multipleSelLines;
 	}
 
-	wchar_t strLnColSel[128];
-	intptr_t curLN = _pEditView->getCurrentLineNumber();
-	intptr_t curCN = _pEditView->getCurrentColumnNumber();
-	wsprintf(strLnColSel, L"Ln : %s    Col : %s    %s",
-		commafyInt(curLN + 1).c_str(),
-		commafyInt(curCN + 1).c_str(),
-		strSel);
-	_statusBar.setText(strLnColSel, STATUSBAR_CUR_POS);
+	wstring lnStr = commafyInt(_pEditView->getCurrentLineNumber() + 1);
+	wstring colStr = commafyInt(_pEditView->getCurrentColumnNumber() + 1);
+	wstring statusbarLnColStr = pNativeSpeaker->getLocalizedStrFromID("statusbar-Ln-Col", L"Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$");
+	statusbarLnColStr = stringReplace(statusbarLnColStr, L"$STR_REPLACE1$", lnStr);
+	statusbarLnColStr = stringReplace(statusbarLnColStr, L"$STR_REPLACE2$", colStr);
+	wstring statusbarLnColSelStr = statusbarLnColStr + L"    " + statusbarSelStr;
+
+	_statusBar.setText(statusbarLnColSelStr.c_str(), STATUSBAR_CUR_POS);
 
 	_statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? L"OVR" : L"INS", STATUSBAR_TYPING_MODE);
 	

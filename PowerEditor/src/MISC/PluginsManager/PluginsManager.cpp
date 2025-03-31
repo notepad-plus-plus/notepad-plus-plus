@@ -30,34 +30,6 @@ using namespace std;
 const wchar_t * USERMSG = L" is not compatible with the current version of Notepad++.\n\n\
 Do you want to remove this plugin from the plugins directory to prevent this message from the next launch?";
 
-
-bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
-{
-    SCNotification scnN;
-	scnN.nmhdr.code = NPPN_SHUTDOWN;
-	scnN.nmhdr.hwndFrom = nppHandle;
-	scnN.nmhdr.idFrom = 0;
-	_pluginInfos[index]->_pBeNotified(&scnN);
-
-    //::DestroyMenu(_pluginInfos[index]->_pluginMenu);
-    //_pluginInfos[index]->_pluginMenu = NULL;
-
-	if (::FreeLibrary(_pluginInfos[index]->_hLib))
-	{
-		_pluginInfos[index]->_hLib = nullptr;
-		printStr(L"we're good");
-	}
-    else
-        printStr(L"not ok");
-
-    //delete _pluginInfos[index];
-//      printInt(index);
-    //vector<PluginInfo *>::iterator it = _pluginInfos.begin() + index;
-    //_pluginInfos.erase(it);
-    //printStr(L"remove");
-    return true;
-}
-
 static WORD getBinaryArchitectureType(const wchar_t *filePath)
 {
 	HANDLE hFile = CreateFile(filePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY, NULL);

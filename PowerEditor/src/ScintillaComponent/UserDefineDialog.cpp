@@ -1397,28 +1397,48 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                         wstring sourceFile = fDlg.doOpenSingleFileDlg();
                         if (sourceFile.empty()) break;
 
+                        NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
                         bool isSuccessful = nppParam.importUDLFromFile(sourceFile);
                         if (isSuccessful)
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             reloadLangCombo();
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
-                            printStr(L"Import successful.");
+                            
+                            pNativeSpeaker->messageBox("UDL_importSuccessful",
+                                _hSelf,
+                                L"Import successful.",
+                                L"User Defined Language",
+                                MB_OK | MB_APPLMODAL,
+                                0);
                         }
                         else
                         {
-                            printStr(L"Fail to import.");
+                            pNativeSpeaker->messageBox("UDL_importFails",
+                                _hSelf,
+                                L"Fail to import.",
+                                L"User Defined Language",
+                                MB_OK | MB_APPLMODAL | MB_ICONEXCLAMATION,
+                                0);
                         }
                         break;
                     }
 
                     case IDC_EXPORT_BUTTON :
                     {
+                        NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+
 						auto i2Export = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                         if (i2Export == 0)
                         {
                             // maybe a better option would be to simply send IDC_SAVEAS_BUTTON message, and display "Save As..." dialog?
-                            printStr(L"Before exporting, save your language definition by clicking \"Save As...\" button");
+                            pNativeSpeaker->messageBox("UDL_saveBeforeImport",
+                                _hSelf,
+                                L"Before exporting, save your language definition by clicking \"Save As...\" button",
+                                L"User Defined Language",
+                                MB_OK | MB_APPLMODAL,
+                                0);
                             break;
                         }
 
@@ -1433,11 +1453,21 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
                             bool isSuccessful = nppParam.exportUDLToFile(i2Export - 1, fileName2save);
                             if (isSuccessful)
                             {
-                                printStr(L"Export successful");
+                                pNativeSpeaker->messageBox("UDL_exportSuccessful",
+                                    _hSelf,
+                                    L"Export successful.",
+                                    L"User Defined Language",
+                                    MB_OK | MB_APPLMODAL,
+                                    0);
                             }
                             else
                             {
-                                printStr(L"Fail to export.");
+                                pNativeSpeaker->messageBox("UDL_exportFails",
+                                    _hSelf,
+                                    L"Fail to export.",
+                                    L"User Defined Language",
+                                    MB_OK | MB_APPLMODAL | MB_ICONEXCLAMATION,
+                                    0);
                             }
                         }
                         break;

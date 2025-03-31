@@ -1415,6 +1415,11 @@
 			<ProjectPanelReloadDirty title="重新載入工作區" message="目前的工作區已被修改。你要重新載入並捨棄所做的修改嗎？"/>
 			<UDLNewNameError title="自訂程式語言錯誤" message="此名稱已被另一個程式語言使用。請重新命名。"/>
 			<UDLRemoveCurrentLang title="刪除語言" message="你確定要刪除目前的自訂程式語言嗎？"/>
+			<UDL_importSuccessful title="自訂程式語言" message="匯入成功。"/>
+			<UDL_importFails title="自訂程式語言" message="匯入失敗。"/>
+			<UDL_saveBeforeImport title="自訂程式語言" message="在匯出之前，請點擊「另存...」按鈕以儲存你定義的程式語言。"/>
+			<UDL_exportSuccessful title="自訂程式語言" message="匯出成功。"/>
+			<UDL_exportFails title="自訂程式語言" message="匯出失敗。"/>
 			<SCMapperDoDeleteOrNot title="刪除快捷鍵" message="你確定要刪除這個快捷鍵嗎？"/>
 			<FindCharRangeValueError title="輸入值範圍錯誤" message="你輸入的值應在 0 到 255 之間。如要搜尋字元編號大於 255 的字元，請在「尋找」對話方塊中使用「規則運算式」。"/>
 			<ExitToUpdatePlugins title="關閉 Notepad++" message="Notepad++ 將自動關閉以進行後續作業。
@@ -1660,6 +1665,18 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 如果你選擇進階模式但不編輯上述語言文件，縮排設定將保留為基本模式。"/>
 			<global-override-tip value="此處啟用「Global override」將覆蓋所有語言樣式中的此些參數。你可能真正想要的是使用「Default Style」設置"/>
 			<scintillaRenderingTechnology-tip value="變更選項可能會改善特殊字元的顯示或解決一些圖形問題。請重新啟動 Notepad++ 以套用變更。"/>
+			
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="長度：$STR_REPLACE1$    行數：$STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="行：$STR_REPLACE1$    列：$STR_REPLACE2$"/>
+			
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="位置："/>
+			<statusbar-Sel value="選取："/>
+			<statusbar-Sel-number value="選取"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

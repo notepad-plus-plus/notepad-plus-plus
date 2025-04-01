@@ -2829,6 +2829,7 @@ void Notepad_plus::command(int id)
         case IDM_FORMAT_MAC_CYRILLIC :
         case IDM_FORMAT_KOI8U_CYRILLIC :
         case IDM_FORMAT_KOI8R_CYRILLIC :
+        case IDM_FORMAT_EUC_JP:
         {
 			int index = id - IDM_FORMAT_ENCODE;
 

@@ -925,6 +925,7 @@ BEGIN
             POPUP "Japanese"
             BEGIN
                 MENUITEM "Shift-JIS",           IDM_FORMAT_SHIFT_JIS
+                MENUITEM "EUC-JP",              IDM_FORMAT_EUC_JP
             END
 
             POPUP "Korean"

@@ -392,6 +392,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_8,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_WIN_1255,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_SHIFT_JIS,                         false, false, false, nullptr },
+	{ VK_NULL,    IDM_FORMAT_EUC_JP,                            false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_EUC_KR,                            false, false, false, nullptr },
 	//{ VK_NULL,    IDM_FORMAT_ISO_8859_10,                       false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_15,                       false, false, false, nullptr },

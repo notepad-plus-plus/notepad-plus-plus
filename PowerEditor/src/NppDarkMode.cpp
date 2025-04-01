@@ -178,131 +178,126 @@ namespace NppDarkMode
 
 	// black (default)
 	static const Colors darkColors{
-		HEXRGB(0x202020),	// background
-		HEXRGB(0x404040),	// softerBackground
-		HEXRGB(0x404040),	// hotBackground
-		HEXRGB(0x202020),	// pureBackground
-		HEXRGB(0xB00000),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x646464),	// edgeColor
-		HEXRGB(0x9B9B9B),	// hotEdgeColor
-		HEXRGB(0x484848)	// disabledEdgeColor
+		HEXRGB(0x202020),   // background
+		HEXRGB(0x383838),   // softerBackground
+		HEXRGB(0x454545),   // hotBackground
+		HEXRGB(0x202020),   // pureBackground
+		HEXRGB(0xB00000),   // errorBackground
+		HEXRGB(0xE0E0E0),   // textColor
+		HEXRGB(0xC0C0C0),   // darkerTextColor
+		HEXRGB(0x808080),   // disabledTextColor
+		HEXRGB(0xFFFF00),   // linkTextColor
+		HEXRGB(0x646464),   // edgeColor
+		HEXRGB(0x9B9B9B),   // hotEdgeColor
+		HEXRGB(0x484848)    // disabledEdgeColor
 	};
 
+	constexpr int offsetEdge = HEXRGB(0x1C1C1C);
+
 	// red tone
+	constexpr int offsetRed = HEXRGB(0x100000);
 	static const Colors darkRedColors{
-		HEXRGB(0x302020),	// background
-		HEXRGB(0x504040),	// softerBackground
-		HEXRGB(0x504040),	// hotBackground
-		HEXRGB(0x302020),	// pureBackground
-		HEXRGB(0xC00000),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x908080),	// edgeColor
-		HEXRGB(0xBBABAB),	// hotEdgeColor
-		HEXRGB(0x584848)	// disabledEdgeColor
+		darkColors.background + offsetRed,
+		darkColors.softerBackground + offsetRed,
+		darkColors.hotBackground + offsetRed,
+		darkColors.pureBackground + offsetRed,
+		darkColors.errorBackground,
+		darkColors.text,
+		darkColors.darkerText,
+		darkColors.disabledText,
+		darkColors.linkText,
+		darkColors.edge + offsetEdge + offsetRed,
+		darkColors.hotEdge + offsetRed,
+		darkColors.disabledEdge + offsetRed
 	};
 
 	// green tone
+	constexpr int offsetGreen = HEXRGB(0x001000);
 	static const Colors darkGreenColors{
-		HEXRGB(0x203020),	// background
-		HEXRGB(0x405040),	// softerBackground
-		HEXRGB(0x405040),	// hotBackground
-		HEXRGB(0x203020),	// pureBackground
-		HEXRGB(0xB01000),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x809080),	// edgeColor
-		HEXRGB(0xABBBAB),	// hotEdgeColor
-		HEXRGB(0x485848)	// disabledEdgeColor
+		darkColors.background + offsetGreen,
+		darkColors.softerBackground + offsetGreen,
+		darkColors.hotBackground + offsetGreen,
+		darkColors.pureBackground + offsetGreen,
+		darkColors.errorBackground,
+		darkColors.text,
+		darkColors.darkerText,
+		darkColors.disabledText,
+		darkColors.linkText,
+		darkColors.edge + offsetEdge + offsetGreen,
+		darkColors.hotEdge + offsetGreen,
+		darkColors.disabledEdge + offsetGreen
 	};
 
 	// blue tone
+	constexpr int offsetBlue = HEXRGB(0x000020);
 	static const Colors darkBlueColors{
-		HEXRGB(0x202040),	// background
-		HEXRGB(0x404060),	// softerBackground
-		HEXRGB(0x404060),	// hotBackground
-		HEXRGB(0x202040),	// pureBackground
-		HEXRGB(0xB00020),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x8080A0),	// edgeColor
-		HEXRGB(0xABABCB),	// hotEdgeColor
-		HEXRGB(0x484868)	// disabledEdgeColor
+		darkColors.background + offsetBlue,
+		darkColors.softerBackground + offsetBlue,
+		darkColors.hotBackground + offsetBlue,
+		darkColors.pureBackground + offsetBlue,
+		darkColors.errorBackground,
+		darkColors.text,
+		darkColors.darkerText,
+		darkColors.disabledText,
+		darkColors.linkText,
+		darkColors.edge + offsetEdge + offsetBlue,
+		darkColors.hotEdge + offsetBlue,
+		darkColors.disabledEdge + offsetBlue
 	};
 
 	// purple tone
+	constexpr int offsetPurple = HEXRGB(0x100020);
 	static const Colors darkPurpleColors{
-		HEXRGB(0x302040),	// background
-		HEXRGB(0x504060),	// softerBackground
-		HEXRGB(0x504060),	// hotBackground
-		HEXRGB(0x302040),	// pureBackground
-		HEXRGB(0xC00020),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x9080A0),	// edgeColor
-		HEXRGB(0xBBABCB),	// hotEdgeColor
-		HEXRGB(0x584868)	// disabledEdgeColor
+		darkColors.background + offsetPurple,
+		darkColors.softerBackground + offsetPurple,
+		darkColors.hotBackground + offsetPurple,
+		darkColors.pureBackground + offsetPurple,
+		darkColors.errorBackground,
+		darkColors.text,
+		darkColors.darkerText,
+		darkColors.disabledText,
+		darkColors.linkText,
+		darkColors.edge + offsetEdge + offsetPurple,
+		darkColors.hotEdge + offsetPurple,
+		darkColors.disabledEdge + offsetPurple
 	};
 
 	// cyan tone
+	constexpr int offsetCyan = HEXRGB(0x001020);
 	static const Colors darkCyanColors{
-		HEXRGB(0x203040),	// background
-		HEXRGB(0x405060),	// softerBackground
-		HEXRGB(0x405060),	// hotBackground
-		HEXRGB(0x203040),	// pureBackground
-		HEXRGB(0xB01020),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x8090A0),	// edgeColor
-		HEXRGB(0xBBBBCB),	// hotEdgeColor
-		HEXRGB(0x485868)	// disabledEdgeColor
+		darkColors.background + offsetCyan,
+		darkColors.softerBackground + offsetCyan,
+		darkColors.hotBackground + offsetCyan,
+		darkColors.pureBackground + offsetCyan,
+		darkColors.errorBackground,
+		darkColors.text,
+		darkColors.darkerText,
+		darkColors.disabledText,
+		darkColors.linkText,
+		darkColors.edge + offsetEdge + offsetCyan,
+		darkColors.hotEdge + offsetCyan,
+		darkColors.disabledEdge + offsetCyan
 	};
 
 	// olive tone
+	constexpr int offsetOlive = HEXRGB(0x101000);
 	static const Colors darkOliveColors{
-		HEXRGB(0x303020),	// background
-		HEXRGB(0x505040),	// softerBackground
-		HEXRGB(0x505040),	// hotBackground
-		HEXRGB(0x303020),	// pureBackground
-		HEXRGB(0xC01000),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x909080),	// edgeColor
-		HEXRGB(0xBBBBAB),	// hotEdgeColor
-		HEXRGB(0x585848)	// disabledEdgeColor
+		darkColors.background + offsetOlive,
+		darkColors.softerBackground + offsetOlive,
+		darkColors.hotBackground + offsetOlive,
+		darkColors.pureBackground + offsetOlive,
+		darkColors.errorBackground,
+		darkColors.text,
+		darkColors.darkerText,
+		darkColors.disabledText,
+		darkColors.linkText,
+		darkColors.edge + offsetEdge + offsetOlive,
+		darkColors.hotEdge + offsetOlive,
+		darkColors.disabledEdge + offsetOlive
 	};
 
 	// customized
-	Colors darkCustomizedColors{
-		HEXRGB(0x202020),	// background
-		HEXRGB(0x404040),	// softerBackground
-		HEXRGB(0x404040),	// hotBackground
-		HEXRGB(0x202020),	// pureBackground
-		HEXRGB(0xB00000),	// errorBackground
-		HEXRGB(0xE0E0E0),	// textColor
-		HEXRGB(0xC0C0C0),	// darkerTextColor
-		HEXRGB(0x808080),	// disabledTextColor
-		HEXRGB(0xFFFF00),	// linkTextColor
-		HEXRGB(0x646464),	// edgeColor
-		HEXRGB(0x9B9B9B),	// hotEdgeColor
-		HEXRGB(0x484848)	// disabledEdgeColor
-	};
+	Colors darkCustomizedColors{ darkColors };
 
 	ColorTone g_colorToneChoice = blackTone;
 

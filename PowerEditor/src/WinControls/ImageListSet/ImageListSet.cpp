@@ -43,7 +43,7 @@ void IconList::create(int iconSize, HINSTANCE hInst, int* iconIDArray, int iconI
 		addIcon(iconIDArray[i], iconSize, iconSize);
 }
 
-void IconList::addIcon(int iconID, int cx, int cy, int failIconID) const
+void IconList::addIcon(int iconID, int cx, int cy, int failIconID, bool isToolbarNormal) const
 {
 	HICON hIcon = nullptr;
 	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(iconID), cx, cy, &hIcon, LR_DEFAULTSIZE);
@@ -81,6 +81,8 @@ void IconList::addIcon(int iconID, int cx, int cy, int failIconID) const
 
 	if (hIcon != nullptr)
 	{
+		if (isToolbarNormal)
+			NppDarkMode::changeFluentIconColor(&hIcon);
 		::ImageList_AddIcon(_hImglst, hIcon);
 		::DestroyIcon(hIcon);
 	}
@@ -134,14 +136,14 @@ void ToolBarIcons::reInit(int size)
 	{
 		if (_tbiis[i]._defaultIcon != -1)
 		{
-			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon, size, size, _tbiis[i]._stdIcon, true);
 			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon, size, size, _tbiis[i]._stdIcon);
-			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT2].addIcon(_tbiis[i]._defaultIcon2, size, size, _tbiis[i]._stdIcon, true);
 			_iconListVector[HLIST_DISABLE2].addIcon(_tbiis[i]._grayIcon2, size, size, _tbiis[i]._stdIcon);
 
-			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT_DM].addIcon(_tbiis[i]._defaultDarkModeIcon, size, size, _tbiis[i]._stdIcon, true);
 			_iconListVector[HLIST_DISABLE_DM].addIcon(_tbiis[i]._grayDarkModeIcon, size, size, _tbiis[i]._stdIcon);
-			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2, size, size, _tbiis[i]._stdIcon);
+			_iconListVector[HLIST_DEFAULT_DM2].addIcon(_tbiis[i]._defaultDarkModeIcon2, size, size, _tbiis[i]._stdIcon, true);
 			_iconListVector[HLIST_DISABLE_DM2].addIcon(_tbiis[i]._grayDarkModeIcon2, size, size, _tbiis[i]._stdIcon);
 		}
 	}

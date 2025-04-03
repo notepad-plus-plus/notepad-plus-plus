@@ -6747,7 +6747,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 
 	_svp._npcCustomColor = parseYesNoBoolAttribute(L"npcCustomColor");
 	_svp._npcIncludeCcUniEol = parseYesNoBoolAttribute(L"npcIncludeCcUniEOL");
-	_svp._npcNoInputC0 = parseYesNoBoolAttribute(L"npcNoInputC0");
+	_svp._npcNoInputC0 = parseYesNoBoolAttribute(L"npcNoInputC0", true);
 
 	// C0, C1 control and Unicode EOL visibility state
 	_svp._ccUniEolShow = parseYesNoBoolAttribute(L"ccShow", true);

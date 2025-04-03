@@ -185,7 +185,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_cloudAndLinkSubDlg.create(IDD_PREFERENCE_SUB_CLOUD_LINK, false, false);
 
 			_searchEngineSubDlg.init(_hInst, _hSelf);
-			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);			
+			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);
 
 			_wVector.push_back(DlgInfo(&_generalSubDlg, L"General", L"Global"));
 			_wVector.push_back(DlgInfo(&_editingSubDlg, L"Editing 1", L"Scintillas"));
@@ -290,80 +290,21 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			const HWND hGeneralSubDlg = _generalSubDlg.getHSelf();
 
-			auto checkOrUncheckBtn = [&hGeneralSubDlg](int id, WPARAM check = BST_UNCHECKED) -> void
-			{
-				::SendDlgItemMessage(hGeneralSubDlg, id, BM_SETCHECK, check, 0);
-			};
-
-			const int iconState = NppDarkMode::getToolBarIconSet(static_cast<bool>(wParam));
 			NppParameters& nppParams = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParams.getNppGUI();
 
+			const int iconState = NppDarkMode::getToolBarIconSet(static_cast<bool>(wParam));
 			if (iconState != -1)
 			{
 				nppGUI._toolBarStatus = static_cast<toolBarStatusType>(iconState);
 			}
 			else
 			{
-				auto state = TB_STANDARD;
-				if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_SMALLICON))
-				{
-					state = TB_SMALL;
-				}
-				else if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_BIGICON))
-				{
-					state = TB_LARGE;
-				}
-				else if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_SMALLICON2))
-				{
-					state = TB_SMALL2;
-				}
-				else if (_generalSubDlg.isCheckedOrNot(IDC_RADIO_BIGICON2))
-				{
-					state = TB_LARGE2;
-				}
-				nppGUI._toolBarStatus = state;
+				const auto idxIconSet = std::min<int>(static_cast<int>(::SendDlgItemMessage(hGeneralSubDlg, IDC_COMBO_TOOLBAR_ICON, CB_GETCURSEL, 0, 0)), TB_STANDARD);
+				nppGUI._toolBarStatus = static_cast<toolBarStatusType>(idxIconSet);
 			}
 
-			checkOrUncheckBtn(IDC_RADIO_STANDARD);
-			checkOrUncheckBtn(IDC_RADIO_SMALLICON);
-			checkOrUncheckBtn(IDC_RADIO_BIGICON);
-			checkOrUncheckBtn(IDC_RADIO_SMALLICON2);
-			checkOrUncheckBtn(IDC_RADIO_BIGICON2);
-
-			switch (nppGUI._toolBarStatus)
-			{
-				case TB_LARGE:
-				{
-					checkOrUncheckBtn(IDC_RADIO_BIGICON, BST_CHECKED);
-					//::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGE, 0, 0);
-					break;
-				}
-				case TB_SMALL2:
-				{
-					checkOrUncheckBtn(IDC_RADIO_SMALLICON2, BST_CHECKED);
-					//::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCESET2, 0, 0);
-					break;
-				}
-				case TB_LARGE2:
-				{
-					checkOrUncheckBtn(IDC_RADIO_BIGICON2, BST_CHECKED);
-					//::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGESET2, 0, 0);
-					break;
-				}
-				case TB_STANDARD:
-				{
-					checkOrUncheckBtn(IDC_RADIO_STANDARD, BST_CHECKED);
-					//::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARSTANDARD, 0, 0);
-					break;
-				}
-				//case TB_SMALL:
-				default:
-				{
-					checkOrUncheckBtn(IDC_RADIO_SMALLICON, BST_CHECKED);
-					//::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCE, 0, 0);
-				}
-			}
+			::SendDlgItemMessage(hGeneralSubDlg, IDC_COMBO_TOOLBAR_ICON, CB_SETCURSEL, nppGUI._toolBarStatus, 0);
 
 			return TRUE;
 		}
@@ -566,7 +507,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 	switch (message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			toolBarStatusType tbStatus = nppGUI._toolBarStatus;
 			int tabBarStatus = nppGUI._tabStatus;
@@ -575,28 +516,21 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			bool showMenu = nppGUI._menuBarShow;
 			bool hideRightShortcutsFromMenu = nppGUI._hideMenuRightShortcuts;
 
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_SETCHECK, showTool?BST_UNCHECKED:BST_CHECKED, 0);
-			int ID2Check = 0;
-			switch (tbStatus)
+			auto addComboItem = [&](int comboBoxId, const wchar_t* itemText) -> void
 			{
-				case TB_SMALL :
-					ID2Check = IDC_RADIO_SMALLICON;
-					break;
-				case TB_LARGE :
-					ID2Check = IDC_RADIO_BIGICON;
-					break;
-				case TB_SMALL2 :
-					ID2Check = IDC_RADIO_SMALLICON2;
-					break;
-				case TB_LARGE2 :
-					ID2Check = IDC_RADIO_BIGICON2;
-					break;
-				case TB_STANDARD:
-				default :
-					ID2Check = IDC_RADIO_STANDARD;
-			}
-			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
-			
+				::SendDlgItemMessage(_hSelf, comboBoxId, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(itemText));
+			};
+
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_SETCHECK, showTool ? BST_UNCHECKED:BST_CHECKED, 0);
+
+			addComboItem(IDC_COMBO_TOOLBAR_ICON, L"Fluent UI: small");
+			addComboItem(IDC_COMBO_TOOLBAR_ICON, L"Fluent UI: large");
+			addComboItem(IDC_COMBO_TOOLBAR_ICON, L"Filled Fluent UI: small");
+			addComboItem(IDC_COMBO_TOOLBAR_ICON, L"Filled Fluent UI: large");
+			addComboItem(IDC_COMBO_TOOLBAR_ICON, L"Standard icons: small");
+
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_TOOLBAR_ICON, CB_SETCURSEL, tbStatus, 0);
+
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REDUCE, BM_SETCHECK, tabBarStatus & TAB_REDUCE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_LOCK, BM_SETCHECK, !(tabBarStatus & TAB_DRAGNDROP), 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ORANGE, BM_SETCHECK, tabBarStatus & TAB_DRAWTOPBAR, 0);
@@ -663,6 +597,10 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
 			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
@@ -923,30 +861,6 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				}
 				return TRUE;
 					
-				case IDC_RADIO_SMALLICON :
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCE, 0, 0);
-					NppDarkMode::setToolBarIconSet(0, NppDarkMode::isEnabled());
-					return TRUE;
-					
-				case IDC_RADIO_BIGICON :
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGE, 0, 0);
-					NppDarkMode::setToolBarIconSet(1, NppDarkMode::isEnabled());
-					return TRUE;
-
-				case IDC_RADIO_SMALLICON2:
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARREDUCESET2, 0, 0);
-					NppDarkMode::setToolBarIconSet(2, NppDarkMode::isEnabled());
-					return TRUE;
-
-				case IDC_RADIO_BIGICON2:
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARENLARGESET2, 0, 0);
-					NppDarkMode::setToolBarIconSet(3, NppDarkMode::isEnabled());
-					return TRUE;
-
-				case IDC_RADIO_STANDARD :
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_TOOLBARSTANDARD, 0, 0);
-					NppDarkMode::setToolBarIconSet(4, NppDarkMode::isEnabled());
-					return TRUE;
 
 				default :
 					switch (HIWORD(wParam))
@@ -955,7 +869,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						{
 							switch (LOWORD(wParam))
 							{
-								case IDC_COMBO_LOCALIZATION :
+								case IDC_COMBO_LOCALIZATION:
 								{
 									LocalizationSwitcher & localizationSwitcher = nppParam.getLocalizationSwitcher();
 									auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
@@ -980,8 +894,52 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 											::InvalidateRect(_hParent, NULL, TRUE);
 										}
 									}
+									return TRUE;
 								}
-								return TRUE;
+
+								case IDC_COMBO_TOOLBAR_ICON:
+								{
+									const auto idxIconSet = std::min<int>(static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COMBO_TOOLBAR_ICON, CB_GETCURSEL, 0, 0)), TB_STANDARD);
+									UINT msg = NPPM_INTERNAL_TOOLBARSTANDARD;
+									switch (idxIconSet)
+									{
+										case 0:
+										{
+											msg = NPPM_INTERNAL_TOOLBARREDUCE;
+											break;
+										}
+
+										case 1:
+										{
+											msg = NPPM_INTERNAL_TOOLBARENLARGE;
+											break;
+										}
+
+										case 2:
+										{
+											msg = NPPM_INTERNAL_TOOLBARREDUCESET2;
+											break;
+										}
+
+										case 3:
+										{
+											msg = NPPM_INTERNAL_TOOLBARENLARGESET2;
+											break;
+										}
+
+										case 4:
+										default:
+										{
+											msg = NPPM_INTERNAL_TOOLBARSTANDARD;
+											break;
+										}
+									}
+									::SendMessage(::GetParent(_hParent), msg, 0, 0);
+									NppDarkMode::setToolBarIconSet(idxIconSet, NppDarkMode::isEnabled());
+
+									return TRUE;
+								}
+
 								default:
 									break;
 							}

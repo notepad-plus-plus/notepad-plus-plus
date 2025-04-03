@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.9">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -943,15 +943,37 @@
 			<Preference title="Predvoľby">
 				<Item id="6001" name="Zavrieť"/>
 				<Global title="Všeobecné">
-					<Item id="6101" name="Panel nástrojov"/>
-					<Item id="6102" name="Skryť"/>
+					<Item id="6123" name="Jazyk"/>
+					<Item id="6131" name="Ponuka"/>
+					<Item id="6122" name="Skryť (prepínanie klávesom Alt alebo F10)"/>
+					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕"/>
+					<Item id="6133" name="Stavový riadok"/>
+					<Item id="6134" name="Skryť"/>
+				</Global>
+
+				<Toolbar title="Panel nástrojov">
 					<Item id="6103" name="Fluent UI: malé"/>
 					<Item id="6104" name="Fluent UI: veľké"/>
 					<Item id="6129" name="Vyplnené Fluent UI: malé"/>
 					<Item id="6130" name="Vyplnené Fluent UI: veľké"/>
 					<Item id="6105" name="Štandardné ikony: malé"/>
+					<Item id="6011" name="Zafarbenie"/>
+					<Item id="6012" name="Úplné"/>
+					<Item id="6013" name="Čiastočné"/>
+					<Item id="6014" name="Výber farby"/>
+					<Item id="6015" name="Predvolené"/>
+					<Item id="6016" name="Červená"/>
+					<Item id="6017" name="Modrá"/>
+					<Item id="6018" name="Zelená"/>
+					<Item id="6019" name="Fialová"/>
+					<Item id="6020" name="Azúrová"/>
+					<Item id="6021" name="Olivová"/>
+					<Item id="6022" name="Žltá"/>
+					<Item id="6023" name="Systémový motív"/>
+					<Item id="6024" name="Vlastná"/>
+				</Toolbar>
 
-					<Item id="6106" name="Panel kariet"/>
+				<Tabbar title="Panel kariet">
 					<Item id="6107" name="Zmenšiť"/>
 					<Item id="6108" name="Zamknúť (Vypne Drag 'N' Drop)"/>
 					<Item id="6109" name="Zmeniť farbu neaktívnej karty"/>
@@ -960,21 +982,13 @@
 					<Item id="6112" name="Zobraziť tlačidlo zatvorenia"/>
 					<Item id="6113" name="Dvojklikom zavrieť dokument"/>
 					<Item id="6115" name="Povoliť funkciu pripnúť kartu"/>
+					<Item id="6135" name="Zobraziť tlačidlo iba pripnuté"/>
 					<Item id="6118" name="Skryť"/>
 					<Item id="6119" name="Viacriadkový"/>
 					<Item id="6120" name="Vertikálny"/>
 					<Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 					<Item id="6128" name="Alternatívne ikony"/>
-
-					<Item id="6133" name="Stavový riadok"/>
-					<Item id="6134" name="Skryť"/>
-
-					<Item id="6131" name="Ponuka"/>
-					<Item id="6122" name="Skryť (Prepínanie klávesom Alt alebo F10)"/>
-					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Lokalizácia"/>
-				</Global>
+				</Tabbar>
 				
 				<Scintillas title="Úprava 1">
 					<Item id="6216" name="Nastavenie kurzora"/>
@@ -993,6 +1007,7 @@
 					<Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
 					<Item id="6245" name="Povoliť virtuálny priestor"/>
 					<Item id="6214" name="Povoliť Kopírovať/Vystrihnúť riadok bez označenia"/>
+					<Item id="6225" name="Použiť na vybraný text vlastnú farbu popredia"/>
 					<Item id="6651" name="Indikátor aktuálneho riadku"/>
 					<Item id="6652" name="Žiadny"/>
 					<Item id="6653" name="Zvýraznenie pozadia"/>
@@ -1029,10 +1044,10 @@
 					<Item id="7108" name="Azúrová"/>
 					<Item id="7109" name="Olivová"/>
 					<Item id="7115" name="Vlastná"/>
-					<Item id="7116" name="Horný panel"/>
-					<Item id="7117" name="Položka hlavnej ponuky"/>
-					<Item id="7118" name="Aktívna"/>
-					<Item id="7119" name="Hlavné"/>
+					<Item id="7116" name="Pozadie hlavného obsahu"/>
+					<Item id="7117" name="Zvýraznenie"/>
+					<Item id="7118" name="Pozadie prvkov"/>
+					<Item id="7119" name="Pozadie dialógového okna"/>
 					<Item id="7120" name="Chyba"/>
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Tmavší text"/>
@@ -1521,6 +1536,11 @@ Chcete pokračovať?"/>
 			<UDLNewNameError title="Chyba UDL" message="Tento názov už používa iný jazyk.
 Zvoľte, prosím, iný."/>
 			<UDLRemoveCurrentLang title="Odstrániť aktuálny jazyk" message="Ste si istý?"/>
+			<UDL_importSuccessful title="User Defined Language" message="Import prebehol úspešne."/>
+			<UDL_importFails title="User Defined Language" message="Nepodarilo sa importovať."/>
+			<UDL_saveBeforeImport title="User Defined Language" message="Pred exportom uložte definíciu jazyka kliknutím na tlačidlo &quot;Uložiť ako...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="User Defined Language" message="Export prebehol úspešne."/>
+			<UDL_exportFails title="User Defined Language" message="Nepodarilo sa exportovať."/>
 			<SCMapperDoDeleteOrNot title="Ste si istý?" message="Naozaj chcete odstrániť túto klávesovú skratku?"/>
 			<FindCharRangeValueError title="Problém s rozsahom hodnoty" message="Zadajte hodnotu v rozsahu 0 až 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Uloženie zlyhalo" message="Súbor nie je možné uložiť, môže byť chránený.
@@ -1836,9 +1856,22 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<autoIndentAdvanced-tip value="Povoľte inteligentné odsadenie pre jazyky podobné jazyku C a Python. Medzi jazyky podobné jazyku C patria:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell a JSON.
 Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
+
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Ak tu povolíte &quot;Global override&quot;, tento parameter sa prepíše vo všetkých štýloch pre všetky programovacie jazyky. Pravdepodobne chcete namiesto toho použiť nastavenie &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Môže zlepšiť vykresľovanie špeciálnych znakov alebo vyriešiť niektoré grafické problémy, na uplatnenie zmien musíte reštartovať Notepad++."/>
+			
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="dĺžka: $STR_REPLACE1$    riadky: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Rd: $STR_REPLACE1$    Stl: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Poz: "/>
+			<statusbar-Sel value="Ozn: "/>
+			<statusbar-Sel-number value="Ozn"/>
+			<toolbar-accent-tip value="Táto možnosť spôsobí, že ikony na paneli s nástrojmi budú mať farbu motívu Windowsu. Farba motívu je farba zvýraznenia používaná v tlačidlách, okrajoch a dlaždiciach ponuky Štart vo Windowse. Ak ju chcete zmeniť, prejdite do Nastavenia &gt; Prispôsobenie &gt; Farby, potom vyberte preferovanú farbu."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

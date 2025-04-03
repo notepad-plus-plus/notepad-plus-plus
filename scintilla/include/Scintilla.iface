@@ -2755,7 +2755,7 @@ set void SetExtraDescent=2527(int extraDescent,)
 get int GetExtraDescent=2528(,)
 
 # Which symbol was defined for markerNumber with MarkerDefine
-fun int MarkerSymbolDefined=2529(int markerNumber,)
+fun MarkerSymbol MarkerSymbolDefined=2529(int markerNumber,)
 
 # Set the text in the text margin for a line
 set void MarginSetText=2530(line line, string text)

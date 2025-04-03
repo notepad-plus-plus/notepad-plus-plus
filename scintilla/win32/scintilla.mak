@@ -10,13 +10,17 @@
 
 .SUFFIXES: .cxx
 
-DIR_O=.
+DIR_O=obj
 DIR_BIN=..\bin
 
 COMPONENT=$(DIR_BIN)\Scintilla.dll
 LIBSCI=$(DIR_BIN)\libscintilla.lib
 
 LD=link
+
+!IF "$(PLATFORM:64=)" == "arm"
+ARM64=1
+!ENDIF
 
 !IFDEF SUPPORT_XP
 ADD_DEFINE=-D_USING_V110_SDK71_
@@ -28,10 +32,11 @@ SUBSYSTEM=-SUBSYSTEM:WINDOWS,5.02
 SUBSYSTEM=-SUBSYSTEM:WINDOWS,5.01
 !ENDIF
 !ELSE
-CETCOMPAT=-CETCOMPAT
 !IFDEF ARM64
 ADD_DEFINE=-D_ARM64_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1
 SUBSYSTEM=-SUBSYSTEM:WINDOWS,10.00
+!ELSE
+CETCOMPAT=-CETCOMPAT
 !ENDIF
 !ENDIF
 
@@ -65,7 +70,10 @@ CXXFLAGS=$(CXXFLAGS) $(CXXNDEBUG)
 INCLUDES=-I../include -I../src
 CXXFLAGS=$(CXXFLAGS) $(INCLUDES)
 
-all:	$(COMPONENT) $(LIBSCI)
+all:	$(DIR_O) $(COMPONENT) $(LIBSCI)
+
+$(DIR_O):
+	mkdir "$(DIR_O)" 2>NUL || cd .
 
 clean:
 	-del /q $(DIR_O)\*.obj $(DIR_O)\*.pdb $(DIR_O)\*.asm $(COMPONENT) \
@@ -117,6 +125,9 @@ SRC_OBJS=\
 COMPONENT_OBJS = \
 	$(DIR_O)\HanjaDic.obj \
 	$(DIR_O)\PlatWin.obj \
+	$(DIR_O)\ListBox.obj \
+	$(DIR_O)\SurfaceGDI.obj \
+	$(DIR_O)\SurfaceD2D.obj \
 	$(DIR_O)\ScintillaBase.obj \
 	$(DIR_O)\ScintillaWin.obj \
 	$(SRC_OBJS)

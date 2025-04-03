@@ -3,16 +3,24 @@ name: "Build and check Lexilla on Win32 with Visual C++"
 on: [push]
 
 jobs:
+    # Compile for amd64 and cross-compile for arm64. Tests run only for amd64.
     build:
 
         runs-on: windows-latest
 
+        strategy:
+          matrix:
+            arch:
+              - amd64
+              - amd64_arm64
+        env:
+          TEST: ${{ matrix.arch == 'amd64' && 'test' || '' }}
         steps:
         - uses: actions/checkout@v4
         - name: Preparing nmake
           uses: ilammy/msvc-dev-cmd@v1
           with:
-            arch: x64
+            arch: ${{ matrix.arch }}
         - name: Install Scintilla source
           run: |
               pwd
@@ -24,7 +32,7 @@ jobs:
         - name: Unit Test
           run: |
               cd test/unit
-              nmake -f test.mak DEBUG=1 test
+              nmake -f test.mak DEBUG=1 $env:TEST
               cd ../..
         - name: Build Lexilla
           run: |
@@ -33,14 +41,15 @@ jobs:
               cd ..
         - uses: actions/upload-artifact@v4
           with:
-              name: lexilla.dll
+              name: lexilla${{ matrix.arch == 'amd64_arm64' && '-arm64' || '' }}.dll
               path: bin/lexilla.dll
         - name: Test lexing and folding
           run: |
               cd test
-              nmake -f testlexers.mak DEBUG=1 test
+              nmake -f testlexers.mak DEBUG=1 $env:TEST
               cd ..
         - name: CheckLexilla C Example
+          if: matrix.arch == 'amd64'
           run: |
               cd examples/CheckLexilla
               cl -MP CheckLexilla.c -I ../../include -Fe: CheckLexilla

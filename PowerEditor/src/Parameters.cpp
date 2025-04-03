@@ -1429,7 +1429,7 @@ bool NppParameters::load()
 
 	for (const auto& i : udlFiles)
 	{
-		auto udlDoc = new TiXmlDocument(i);
+		TiXmlDocument* udlDoc = new TiXmlDocument(i);
 		loadOkay = udlDoc->LoadFile();
 		if (!loadOkay)
 		{

@@ -13,6 +13,10 @@ namespace Scintilla::Internal {
 #ifndef USER_DEFAULT_SCREEN_DPI
 #define USER_DEFAULT_SCREEN_DPI		96
 #endif
+constexpr FLOAT dpiDefault = USER_DEFAULT_SCREEN_DPI;
+
+// Used for defining font size with LOGFONT
+constexpr int pointsPerInch = 72;
 
 extern void Platform_Initialise(void *hInstance) noexcept;
 
@@ -22,6 +26,10 @@ constexpr RECT RectFromPRectangle(PRectangle prc) noexcept {
 	const RECT rc = { static_cast<LONG>(prc.left), static_cast<LONG>(prc.top),
 		static_cast<LONG>(prc.right), static_cast<LONG>(prc.bottom) };
 	return rc;
+}
+
+constexpr PRectangle PRectangleFromRECT(RECT rc) noexcept {
+	return PRectangle::FromInts(rc.left, rc.top, rc.right, rc.bottom);
 }
 
 constexpr POINT POINTFromPoint(Point pt) noexcept {
@@ -36,6 +44,8 @@ constexpr SIZE SizeOfRect(RECT rc) noexcept {
 	return { rc.right - rc.left, rc.bottom - rc.top };
 }
 
+ColourRGBA ColourFromSys(int nIndex) noexcept;
+
 constexpr HWND HwndFromWindowID(WindowID wid) noexcept {
 	return static_cast<HWND>(wid);
 }
@@ -43,6 +53,10 @@ constexpr HWND HwndFromWindowID(WindowID wid) noexcept {
 inline HWND HwndFromWindow(const Window &w) noexcept {
 	return HwndFromWindowID(w.GetID());
 }
+
+extern HINSTANCE hinstPlatformRes;
+
+UINT CodePageFromCharSet(CharacterSet characterSet, UINT documentCodePage) noexcept;
 
 void *PointerFromWindow(HWND hWnd) noexcept;
 void SetWindowPointer(HWND hWnd, void *ptr) noexcept;
@@ -54,7 +68,21 @@ float GetDeviceScaleFactorWhenGdiScalingActive(HWND hWnd) noexcept;
 
 int SystemMetricsForDpi(int nIndex, UINT dpi) noexcept;
 
+void AdjustWindowRectForDpi(LPRECT lpRect, DWORD dwStyle, UINT dpi) noexcept;
+
 HCURSOR LoadReverseArrowCursor(UINT dpi) noexcept;
+
+// Encapsulate WM_PAINT handling so that EndPaint is always called even with unexpected returns or exceptions.
+struct Painter {
+	HWND hWnd{};
+	PAINTSTRUCT ps{};
+	explicit Painter(HWND hWnd_) noexcept : hWnd(hWnd_) {
+		::BeginPaint(hWnd, &ps);
+	}
+	~Painter() {
+		::EndPaint(hWnd, &ps);
+	}
+};
 
 class MouseWheelDelta {
 	int wheelDelta = 0;
@@ -70,29 +98,89 @@ public:
 	}
 };
 
-#if defined(USE_D2D)
-extern bool LoadD2D() noexcept;
-extern ID2D1Factory1 *pD2DFactory;
-extern IDWriteFactory1 *pIDWriteFactory;
-
-using DCRenderTarget = ComPtr<ID2D1DCRenderTarget>;
-
-using D3D11Device = ComPtr<ID3D11Device1>;
-
-HRESULT CreateDCRenderTarget(const D2D1_RENDER_TARGET_PROPERTIES *renderTargetProperties, DCRenderTarget &dcRT) noexcept;
-extern HRESULT CreateD3D(D3D11Device &device) noexcept;
-
-using WriteRenderingParams = ComPtr<IDWriteRenderingParams1>;
-
-struct RenderingParams {
-	WriteRenderingParams defaultRenderingParams;
-	WriteRenderingParams customRenderingParams;
+// Both GDI and DirectWrite can produce a HFONT for use in list boxes
+struct FontWin : public Font {
+	[[nodiscard]] virtual HFONT HFont() const noexcept = 0;
+	[[nodiscard]] virtual std::unique_ptr<FontWin> Duplicate() const = 0;
+	[[nodiscard]] virtual CharacterSet GetCharacterSet() const noexcept = 0;
 };
 
-struct ISetRenderingParams {
-	virtual void SetRenderingParams(std::shared_ptr<RenderingParams> renderingParams_) = 0;
+// Buffer to hold strings and string position arrays without always allocating on heap.
+// May sometimes have string too long to allocate on stack. So use a fixed stack-allocated buffer
+// when less than safe size otherwise allocate on heap and free automatically.
+template<typename T, int lengthStandard>
+class VarBuffer {
+	T bufferStandard[lengthStandard];
+public:
+	T *buffer;
+	explicit VarBuffer(size_t length) : buffer(nullptr) {
+		if (length > lengthStandard) {
+			buffer = new T[length];
+		} else {
+			buffer = bufferStandard;
+		}
+	}
+	// Deleted so VarBuffer objects can not be copied.
+	VarBuffer(const VarBuffer &) = delete;
+	VarBuffer(VarBuffer &&) = delete;
+	VarBuffer &operator=(const VarBuffer &) = delete;
+	VarBuffer &operator=(VarBuffer &&) = delete;
+
+	~VarBuffer() noexcept {
+		if (buffer != bufferStandard) {
+			delete[]buffer;
+			buffer = nullptr;
+		}
+	}
 };
-#endif
+
+constexpr int stackBufferLength = 400;
+class TextWide : public VarBuffer<wchar_t, stackBufferLength> {
+public:
+	int tlen;	// Using int instead of size_t as most Win32 APIs take int.
+	TextWide(std::string_view text, int codePage) :
+		VarBuffer<wchar_t, stackBufferLength>(text.length()) {
+		if (codePage == CpUtf8) {
+			tlen = static_cast<int>(UTF16FromUTF8(text, buffer, text.length()));
+		} else {
+			// Support Asian string display in 9x English
+			tlen = ::MultiByteToWideChar(codePage, 0, text.data(), static_cast<int>(text.length()),
+				buffer, static_cast<int>(text.length()));
+		}
+	}
+	[[nodiscard]] std::wstring_view AsView() const noexcept {
+		return std::wstring_view(buffer, tlen);
+	}
+};
+using TextPositions = VarBuffer<XYPOSITION, stackBufferLength>;
+
+// Manage the lifetime of a memory HBITMAP and its HDC so there are no leaks.
+class GDIBitMap {
+	HDC hdc{};
+	HBITMAP hbm{};
+	HBITMAP hbmOriginal{};
+
+public:
+	GDIBitMap() noexcept = default;
+	// Deleted so GDIBitMap objects can not be copied.
+	GDIBitMap(const GDIBitMap &) = delete;
+	GDIBitMap(GDIBitMap &&) = delete;
+	// Move would be OK but not needed yet
+	GDIBitMap &operator=(const GDIBitMap &) = delete;
+	GDIBitMap &operator=(GDIBitMap &&) = delete;
+	~GDIBitMap() noexcept;
+
+	void Create(HDC hdcBase, int width, int height, DWORD **pixels) noexcept;
+	void Release() noexcept;
+	HBITMAP Extract() noexcept;
+
+	[[nodiscard]] HDC DC() const noexcept {
+		return hdc;
+	}
+	[[nodiscard]] explicit operator bool() const noexcept {
+		return hdc && hbm;
+	}
+};
 
 }
 

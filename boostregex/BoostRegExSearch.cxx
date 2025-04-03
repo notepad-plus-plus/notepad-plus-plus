@@ -437,7 +437,7 @@ Sci::Position BoostRegexSearch::SearchParameters::nextCharacter(Sci::Position po
 	if (_skip_windows_line_end_as_one_character && _document->CharAt(position) == '\r' && _document->CharAt(position+1) == '\n')
 		return position + 2;
 	else
-		return _document->NextPosition(position, 1);
+		return std::max(_document->NextPosition(position, 1), position + 1);
 }
 
 bool BoostRegexSearch::SearchParameters::isLineStart(Sci::Position position) const

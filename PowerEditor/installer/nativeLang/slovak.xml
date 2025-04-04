@@ -1521,6 +1521,11 @@ Chcete pokračovať?"/>
 			<UDLNewNameError title="Chyba UDL" message="Tento názov už používa iný jazyk.
 Zvoľte, prosím, iný."/>
 			<UDLRemoveCurrentLang title="Odstrániť aktuálny jazyk" message="Ste si istý?"/>
+			<UDL_importSuccessful title="User Defined Language" message="Import prebehol úspešne."/>
+			<UDL_importFails title="User Defined Language" message="Nepodarilo sa importovať."/>
+			<UDL_saveBeforeImport title="User Defined Language" message="Pred exportom uložte definíciu jazyka kliknutím na tlačidlo &quot;Uložiť ako...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="User Defined Language" message="Export prebehol úspešne."/>
+			<UDL_exportFails title="User Defined Language" message="Nepodarilo sa exportovať."/>
 			<SCMapperDoDeleteOrNot title="Ste si istý?" message="Naozaj chcete odstrániť túto klávesovú skratku?"/>
 			<FindCharRangeValueError title="Problém s rozsahom hodnoty" message="Zadajte hodnotu v rozsahu 0 až 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Uloženie zlyhalo" message="Súbor nie je možné uložiť, môže byť chránený.
@@ -1836,9 +1841,21 @@ Kliknutím na tlačidlo &quot;?&quot; vpravo otvoríte webovú stránku s použ�
 			<autoIndentAdvanced-tip value="Povoľte inteligentné odsadenie pre jazyky podobné jazyku C a Python. Medzi jazyky podobné jazyku C patria:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell a JSON.
 Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených jazykoch, odsadenie zostane v základnom režime."/>
+
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Ak tu povolíte &quot;Global override&quot;, tento parameter sa prepíše vo všetkých štýloch pre všetky programovacie jazyky. Pravdepodobne chcete namiesto toho použiť nastavenie &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Môže zlepšiť vykresľovanie špeciálnych znakov alebo vyriešiť niektoré grafické problémy, na uplatnenie zmien musíte reštartovať Notepad++."/>
+			
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="dĺžka: $STR_REPLACE1$    riadky: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Rd: $STR_REPLACE1$    Stl: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Poz: "/>
+			<statusbar-Sel value="Ozn: "/>
+			<statusbar-Sel-number value="Ozn"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

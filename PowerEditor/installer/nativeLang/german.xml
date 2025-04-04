@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-03-16"><!-- basiert auf english.xml 8.7.9 vom 16.03.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-04-20"><!-- basiert auf english.xml 8.8 vom 19.04.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -955,15 +955,38 @@ Translation note:
 			<Preference title="Optionen">
 				<Item id="6001" name="S&amp;chließen"/>
 				<Global title="Allgemein">
-					<Item id="6101" name="Symbolleiste"/>
+					<Item id="6123" name="Sprache"/>
+					<Item id="6131" name="Menü"/>
+					<Item id="6122" name="Ausblenden (Umschalten mit Alt oder F10)"/>
+					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' ausblenden"/>
+					<Item id="6133" name="Statusleiste"/>
+					<Item id="6134" name="Ausblenden"/>
+				</Global>
+
+				<Toolbar title="Symbolleiste">
 					<Item id="6102" name="Ausblenden"/>
 					<Item id="6103" name="Fluent UI: klein"/>
 					<Item id="6104" name="Fluent UI: groß"/>
 					<Item id="6129" name="Ausgefüllte Fluent UI: klein"/>
 					<Item id="6130" name="Ausgefüllte Fluent UI: groß"/>
 					<Item id="6105" name="Standard-Symbole: klein"/>
+					<Item id="6011" name="Farben"/>
+					<Item id="6012" name="Alle"/>
+					<Item id="6013" name="Teilweise"/>
+					<Item id="6014" name="Farbwahl"/>
+					<Item id="6015" name="Standard"/>
+					<Item id="6016" name="Rot"/>
+					<Item id="6017" name="Blau"/>
+					<Item id="6018" name="Grün"/>
+					<Item id="6019" name="Lila"/>
+					<Item id="6020" name="Türkis"/>
+					<Item id="6021" name="Olivgrün"/>
+					<Item id="6022" name="Gelb"/>
+					<Item id="6023" name="System-Akzent"/>
+					<Item id="6024" name="Benutzerdefiniert"/>
+				</Toolbar>
 
-					<Item id="6106" name="Dateireiter (Tabs)"/>
+				<Tabbar title="Dateireiter (Tabs)">
 					<Item id="6107" name="Verkleinern"/>
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Farbe inaktiver Tabs ändern"/>
@@ -972,21 +995,13 @@ Translation note:
 					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6115" name="Pin-Tab-Funktion aktivieren (fixieren/lösen)"/>
+					<Item id="6135" name="Nur angeheftete Schaltfläche anzeigen"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 					<Item id="6128" name="Alternative Symbole"/>
-
-					<Item id="6133" name="Statusleiste"/>
-					<Item id="6134" name="Ausblenden"/>
-
-					<Item id="6131" name="Menü"/>
-					<Item id="6122" name="Ausblenden (Umschalten mit Alt oder F10)"/>
-					<Item id="6132" name="Schaltflächen '＋ ▼ ✕' ausblenden"/>
-
-					<Item id="6123" name="Sprache"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">
 					<Item id="6216" name="Cursoreinstellungen"/>
@@ -1005,6 +1020,7 @@ Translation note:
 					<Item id="6239" name="Auswahl bei Rechtsklick außerhalb der Auswahl beibehalten"/>
 					<Item id="6245" name="Virtuellen Raum aktivieren"/>
 					<Item id="6214" name="Zeile Kopieren/Ausschneiden ohne Auswahl aktivieren"/>
+					<Item id="6225" name="Benutzerdefinierte Farbe auf den gewählten Text im Vordergrund anwenden"/>
 					<Item id="6651" name="Anzeige der aktuellen Zeile"/>
 					<Item id="6652" name="Keine"/>
 					<Item id="6653" name="Hintergrund hervorheben"/>
@@ -1041,10 +1057,10 @@ Translation note:
 					<Item id="7108" name="Cyan"/>
 					<Item id="7109" name="Oliv"/>
 					<Item id="7115" name="Benutzerdefiniert"/>
-					<Item id="7116" name="Menü/Oberste Ebene"/>
-					<Item id="7117" name="Menü Hottrack"/>
-					<Item id="7118" name="Aktiv"/>
-					<Item id="7119" name="Inaktiv/Statusleiste"/>
+					<Item id="7116" name="Inhaltshintergrund"/>
+					<Item id="7117" name="Hervorhebung"/>
+					<Item id="7118" name="Kontrollhintergrund"/>
+					<Item id="7119" name="Dialoghintergrund"/>
 					<Item id="7120" name="Fehler"/>
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Dunklerer Text"/>
@@ -1531,6 +1547,11 @@ Soll fortgefahren werden?"/>
 			<UDLNewNameError title="UDL-Fehler" message="Dieser Name wird bereits von einer anderen Sprache verwendet.
 Bitte wählen Sie einen anderen Namen."/>
 			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
+			<UDL_importSuccessful title="Benutzerdefinierte Sprache" message="Erfolgreich importiert."/>
+			<UDL_importFails title="Benutzerdefinierte Sprache" message="Importieren fehlgeschlagen."/>
+			<UDL_saveBeforeImport title="Benutzerdefinierte Sprache" message="Vor dem Exportieren die benutzerdefinierte Sprache mit &quot;Speichern unter …&quot; sichern."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Benutzerdefinierte Sprache" message="Erfolgreich exportiert."/>
+			<UDL_exportFails title="Benutzerdefinierte Sprache" message="Exportieren fehlgeschlagen."/>
 			<SCMapperDoDeleteOrNot title="Bestätigung" message="Soll die Tastenkombination wirklich gelöscht werden?"/>
 			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.
@@ -1726,18 +1747,18 @@ Suche in allen Dateien, exkludiere alle Verzeichnisse log oder logs rekursiv:
 			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
 			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Treffer wurde ersetzt"/>
 			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Treffer wurden ersetzt"/>
-			<find-status-replaceall-readonly value="Alle ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
+			<find-status-replaceall-readonly value="Alle ersetzen: Konnte den Text nicht ersetzen (schreibgeschützte Datei)"/>
 			<find-status-replace-end-reached value="Ersetzen: Dokumentenende wurde erreicht - von oben beginnend"/>
 			<find-status-replace-top-reached value="Ersetzen: Dokumentenanfang wurde erreicht - von unten beginnend"/>
 			<find-status-replaced-next-found value="Ersetzen: 1 Treffer wurde ersetzt. Nächster Treffer gefunden"/>
 			<find-status-replaced-without-continuing value="Ersetzen: 1 Treffer wurde ersetzt."/>
 			<find-status-replaced-next-not-found value="Ersetzen: 1 Treffer wurde ersetzt. Keine weiteren Treffer gefunden"/>
 			<find-status-replace-not-found value="Ersetzen: Keine Treffer gefunden"/>
-			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
-			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
+			<find-status-replace-readonly value="Ersetzen: Konnte den Text nicht ersetzen (schreibgeschützte Datei)"/>
+			<find-status-cannot-find value="Suche: Konnte den Text &quot;$STR_REPLACE$&quot; nicht finden"/>
 			<find-status-cannot-find-pebkac-maybe value="Der angegebene Treffer kann nicht gefunden werden. Bitte überprüfen ob 'Am Ende von vorne beginnen' (auf EIN), 'Groß-/Kleinschreibung beachten' (auf AUS), oder 'Nur ganze Wörter suchen' (auf AUS) gesetzt sind."/>
 			<find-status-scope-selection value="im gewählten Text"/>
-			<find-status-scope-all value="in der gesamten Datei"/>
+			<find-status-scope-all value="in dieser Datei"/>
 			<find-status-scope-backward value="vom Dateianfang bis zum Cursor"/>
 			<find-status-scope-forward value="vom Cursor bis zum Dateiende"/>
 			<finder-find-in-finder value="In diesen Suchergebnissen finden …"/>
@@ -1847,9 +1868,22 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON.
 
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Das Aktivieren der 'Global override' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Default Style'"/>
 			<scintillaRenderingTechnology-tip value="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern oder einige Grafikprobleme beheben - erfordert einen Neustart von Notepad++."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="Länge: $STR_REPLACE1$    Zeilen: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Zei: $STR_REPLACE1$    Spa: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Gew: "/>
+			<statusbar-Sel-number value="Gew"/>
+			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Optionen &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

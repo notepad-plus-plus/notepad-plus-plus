@@ -170,6 +170,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_globalOverrideTip = CreateToolTip(IDC_GLOBAL_WHATISGLOBALOVERRIDE_LINK, _hSelf, _hInst, const_cast<PTSTR>(globalOverrideTipStr.c_str()), false);
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
+			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
 			goToCenter(SWP_SHOWWINDOW | SWP_NOSIZE);
 
@@ -178,13 +179,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 		case WM_CTLCOLOREDIT:
 		{
-			auto hdcStatic = reinterpret_cast<HDC>(wParam);
-			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
-			if (dlgCtrlID == IDC_USER_EXT_EDIT || dlgCtrlID == IDC_USER_KEYWORDS_EDIT)
-			{
-				return NppDarkMode::onCtlColorSofter(hdcStatic);
-			}
-			return NppDarkMode::onCtlColor(hdcStatic);
+			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:

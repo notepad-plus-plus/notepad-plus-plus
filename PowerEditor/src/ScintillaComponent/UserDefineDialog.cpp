@@ -1094,6 +1094,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
             NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
             NppDarkMode::setDarkScrollBar(_hSelf);
+            NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
 
             return TRUE;
         }

@@ -3047,6 +3047,85 @@ namespace NppDarkMode
 		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
+	static LRESULT darkTrackBarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
+	{
+		auto lpnmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+
+		switch (lpnmcd->dwDrawStage)
+		{
+			case CDDS_PREPAINT:
+			{
+				LRESULT lr = NppDarkMode::isEnabled() ? CDRF_NOTIFYITEMDRAW : CDRF_DODEFAULT;
+
+				if (isPlugin)
+				{
+					lr |= ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				}
+
+				return lr;
+			}
+
+			case CDDS_ITEMPREPAINT:
+			{
+				switch (lpnmcd->dwItemSpec)
+				{
+					case TBCD_THUMB:
+					{
+						if (::IsWindowEnabled(lpnmcd->hdr.hwndFrom) == FALSE)
+						{
+							::FillRect(lpnmcd->hdc, &lpnmcd->rc, NppDarkMode::getDisabledEdgeBrush());
+							LRESULT lr = CDRF_SKIPDEFAULT;
+							if (isPlugin)
+							{
+								lr |= ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+							}
+							return lr;
+						}
+						else if ((lpnmcd->uItemState & CDIS_SELECTED) == CDIS_SELECTED)
+						{
+							::FillRect(lpnmcd->hdc, &lpnmcd->rc, NppDarkMode::getSofterBackgroundBrush());
+							LRESULT lr = CDRF_SKIPDEFAULT;
+							if (isPlugin)
+							{
+								lr |= ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+							}
+							return lr;
+						}
+						break;
+					}
+
+					case TBCD_CHANNEL:
+					{
+						if (::IsWindowEnabled(lpnmcd->hdr.hwndFrom) == FALSE)
+						{
+							::FillRect(lpnmcd->hdc, &lpnmcd->rc, NppDarkMode::getDarkerBackgroundBrush());
+							NppDarkMode::paintRoundFrameRect(lpnmcd->hdc, lpnmcd->rc, NppDarkMode::getDisabledEdgePen(), 0, 0);
+						}
+						else
+						{
+							::FillRect(lpnmcd->hdc, &lpnmcd->rc, NppDarkMode::getSofterBackgroundBrush());
+						}
+
+						LRESULT lr = CDRF_SKIPDEFAULT;
+						if (isPlugin)
+						{
+							lr |= ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+						}
+						return lr;
+					}
+
+					default:
+						break;
+				}
+				break;
+			}
+
+			default:
+				break;
+		}
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
 	constexpr UINT_PTR g_pluginDockWindowSubclassID = 42;
 
 	static LRESULT CALLBACK PluginDockWindowSubclass(
@@ -3147,31 +3226,36 @@ namespace NppDarkMode
 				{
 					case NM_CUSTOMDRAW:
 					{
-						constexpr size_t classNameLen = 16;
-						wchar_t className[classNameLen]{};
-						GetClassName(nmhdr->hwndFrom, className, classNameLen);
-
-						if (wcscmp(className, TOOLBARCLASSNAME) == 0)
+						std::wstring className = getWndClassName(nmhdr->hwndFrom);
+						if (className == TOOLBARCLASSNAME)
 						{
 							return NppDarkMode::darkToolBarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
 
-						if (wcscmp(className, WC_LISTVIEW) == 0)
+						if (className == WC_LISTVIEW)
 						{
 							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
 
-						if (wcscmp(className, WC_TREEVIEW) == 0)
+						if (className == WC_TREEVIEW)
 						{
 							return NppDarkMode::darkTreeViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
+
+						if (className == TRACKBAR_CLASS)
+						{
+							return NppDarkMode::darkTrackBarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
+						}
+						break;
 					}
-					break;
+
+					default:
+						break;
 				}
 				break;
 			}
 		}
-		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd)
@@ -3295,36 +3379,40 @@ namespace NppDarkMode
 			case WM_NOTIFY:
 			{
 				auto nmhdr = reinterpret_cast<LPNMHDR>(lParam);
-
-				constexpr size_t classNameLen = 16;
-				wchar_t className[classNameLen]{};
-				GetClassName(nmhdr->hwndFrom, className, classNameLen);
-
 				switch (nmhdr->code)
 				{
 					case NM_CUSTOMDRAW:
 					{
-						if (wcscmp(className, TOOLBARCLASSNAME) == 0)
+						std::wstring className = getWndClassName(nmhdr->hwndFrom);
+						if (className == TOOLBARCLASSNAME)
 						{
 							return NppDarkMode::darkToolBarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
 
-						if (wcscmp(className, WC_LISTVIEW) == 0)
+						if (className == WC_LISTVIEW)
 						{
 							return NppDarkMode::darkListViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
 
-						if (wcscmp(className, WC_TREEVIEW) == 0)
+						if (className == WC_TREEVIEW)
 						{
 							return NppDarkMode::darkTreeViewNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
+
+						if (className == TRACKBAR_CLASS)
+						{
+							return NppDarkMode::darkTrackBarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
+						}
+						break;
 					}
-					break;
+
+					default:
+						break;
 				}
 				break;
 			}
 		}
-		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
 	void autoSubclassAndThemeWindowNotify(HWND hwnd)

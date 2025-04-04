@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.7.9
--    Ultima modificare a fost făcută 16 martie 2025 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.8
+-    Ultima modificare a fost făcută 21 aprilie 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.7.9">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -958,40 +958,53 @@
             <Preference title="Preferințe">
                 <Item id="6001" name="Închidere"/>
                 <Global title="General">
-                    <Item id="6101" name="Bara de unelte"/>
-                    <Item id="6102" name="Ascunde-o (Ascundere)"/>
-                    <Item id="6103" name="Pictograme mici"/>
-                    <Item id="6104" name="Pictograme mari"/>
+					<Item id="6123" name="Limba (Localizarea)"/>
+ 					<Item id="6131" name="Meniu"/>
+ 					<Item id="6122" name="Ascunde (folosește tasta Alt sau F10 ca să comuți)"/>
+ 					<Item id="6132" name="Ascunde butoanele din dreapta ＋ ▼ ✕"/>
+ 					<Item id="6133" name="Bara de stare"/>
+ 					<Item id="6134" name="Ascunde-o"/>
+                </Global> 				
+                   
+				<Toolbar title="Bara de unelte">
+                    <Item id="6118" name="Ascunde-o (Ascundere)"/>
+					<Item id="6103" name="UI fluent: mic"/>
+ 					<Item id="6104" name="UI fluent: mare"/>
                     <Item id="6129" name="UI fluent umplut: mic"/>
                     <Item id="6130" name="UI fluent umplut: mare"/>
-                    <Item id="6105" name="Pictograme standard"/>
-                   
-                    <Item id="6106" name="Bara de file"/>
-                    <Item id="6107" name="Micșorată"/>
-                    <Item id="6108" name="Blocată (filele nu se pot muta)"/>
-                    <Item id="6109" name="Schimbă culoarea filei inactive"/>
-                    <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
-                    <Item id="6112" name="Afișează butonul de închidere"/>
-                    <Item id="6113" name="Închide documentele cu dublu clic"/>
+                    <Item id="6105" name="Pictograme standard: mici"/>
+					<Item id="6011" name="Colorare"/>
+ 					<Item id="6012" name="Complet"/>
+ 					<Item id="6013" name="Parțial"/>
+ 					<Item id="6014" name="Alegerea culorii"/>
+ 					<Item id="6015" name="Implicită"/>
+ 					<Item id="6016" name="Roșu"/>
+ 					<Item id="6017" name="Albastru"/>
+ 					<Item id="6018" name="Verde"/>
+ 					<Item id="6019" name="Violet"/>
+ 					<Item id="6020" name="Cyan"/>
+ 					<Item id="6021" name="Măsliniu"/>
+ 					<Item id="6022" name="Galben"/>
+ 					<Item id="6023" name="Accent de sistem"/>
+ 					<Item id="6024" name="Personalizată"/>
+ 				</Toolbar>
+ 
+ 				<Tabbar title="Bara de file">
+					<Item id="6107" name="Redu-o"/>
+					<Item id="6108" name="Blocată (filele nu se pot muta)"/>
+					<Item id="6109" name="Schimbă culoarea filei inactive"/>
+					<Item id="6110" name="Desenează o linie colorată pe fila activă"/>
+					<Item id="6111" name="Afișează butoanele pe filele ianctive"/>
+					<Item id="6112" name="Afișează butonul de închidere"/>
+					<Item id="6113" name="Închide documentele cu dublu clic"/>
 					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
-                    <Item id="6118" name="Ascunde-o (Ascundere)"/>
-                    <Item id="6119" name="Linii multiple"/>
-                    <Item id="6120" name="Verticală"/>
-                    <Item id="6121" name="Ieși la închiderea ultimei file"/>
-                    <Item id="6128" name="Iconițe alternative"/>
-					
-                    <Item id="6133" name="Bara de stare"/>
-					<Item id="6134" name="Ascunde-o (Ascundere)"/>
-                 
-                    <Item id="6131" name="Meniu"/>
-                    <Item id="6122" name="Ascunde (folosește tasta Alt sau F10 pentru comutare)"/>
-                    <Item id="6132" name="Ascunde comenzile rapide (scurtăturile) din dreapta ＋ ▼ ✕"/>
-					
-                    <Item id="6123" name="Limba"/>
-					<Item id="6125" name="Panoul cu lista de documente"/>
-                    <Item id="6126" name="Afișează"/>
-                    <Item id="6127" name="Dezactivează coloana de module"/>
-                </Global>
+					<Item id="6135" name="Afișează numai butonul fixat"/>
+					<Item id="6118" name="Ascunde-o"/>
+					<Item id="6119" name="Linii multiple"/>
+					<Item id="6120" name="Vertical"/>
+					<Item id="6121" name="Ieși la închiderea ultimei file"/>
+					<Item id="6128" name="Iconițe alternative"/>
+				</Tabbar>
 				
                 <Scintillas title="Editare 1">
                     <Item id="6216" name="Setări pentru cursor"/>
@@ -1558,6 +1571,11 @@ Dorești să continui?"/>
             <UDLNewNameError title="Eroare UDL" message="Acest nume este utilizat de alt limbaj,
 te rugăm să alegi altul."/>
             <UDLRemoveCurrentLang title="Eliminare limbaj curent" message="Ești sigur(ă)?"/>
+			<UDL_importSuccessful title="Limbaj definit de utilizator" message="Importul s-a făcut cu succes."/>
+ 			<UDL_importFails title="Limbaj definit de utilizator" message="Nu s-a putut importa fișierul."/>
+ 			<UDL_saveBeforeImport title="Limbaj definit de utilizator" message="Înainte de exportare, salvează-ți definiția de limbaj dând clic pe butonul &quot;Salvare ca...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+ 			<UDL_exportSuccessful title="Limbaj definit de utilizator" message="Exportul s-a făcut cu succes."/>
+ 			<UDL_exportFails title="Limbaj definit de utilizator" message="Nu s-a putut exporta fișierul."/>
             <SCMapperDoDeleteOrNot title="Ești sigur(ă)?" message="Ești sigur(ă) că dorești să elimini această combinație de taste?"/>
             <FindCharRangeValueError title="Problemă cu valoarea de interval" message="Ar trebui să introduci o valoare între 0 și 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
             <OpenInAdminMode title="Salvare eșuată" message="Fișierul nu poate fi salvat și s-ar putea să fie protejat.
@@ -1887,8 +1905,21 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate mai sus, indentarea va rămâne în modul de bază."/>
 			<!-- Nu tradu Global override și Default Style -->
 			<!-- Don't translate "Global override" and "Default Style" -->
+			
 			<global-override-tip value="Activând aici &quot;Global override&quot; se va suprascrie acel parametru în toate stilurile de limbaj. Probabil că ceea ce vrei cu adevărat este să folosești în schimb, setările &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Poate îmbunătăți randarea caracterelor speciale sau poate rezolva unele probleme de grafică, repornește Notepad++ pentru aplicarea modificărilor."/>
-        </MiscStrings>
+
+ 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+ 			<statusbar-length-lines value="lung.: $STR_REPLACE1$    linii: $STR_REPLACE2$"/>
+ 
+ 			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+ 			<statusbar-Ln-Col value="Linii: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+ 
+ 			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+ 			<statusbar-Pos value="Pos: "/>
+ 			<statusbar-Sel value="Sel: "/>
+ 			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Această opțiune face ca pictogramele tale din bara de instrumente să urmeze culoarea de accent a sistemului Windows. Culoarea de accent este culoarea de evidențiere folosită la butoane, chenare și borduri din meniul Start din Windows. Ca să o schimbi, mergi la Setări &gt; Personalizare &gt; Culori, apoi selectează-ți culoarea de accent preferată."/>
+		</MiscStrings>
     </Native-Langue>
 </NotepadPlus>

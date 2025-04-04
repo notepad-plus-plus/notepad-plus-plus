@@ -1056,11 +1056,6 @@ namespace NppDarkMode
 			closeTheme();
 		}
 
-		const wchar_t* getThemeClass() const
-		{
-			return _themeClass;
-		}
-
 		bool ensureTheme(HWND hWnd)
 		{
 			if (!_hTheme && _themeClass)
@@ -2032,7 +2027,7 @@ namespace NppDarkMode
 		auto& themeData = comboboxData._themeData;
 		const auto& hTheme = themeData._hTheme;
 
-		const bool hasTheme = themeData.ensureTheme(hWnd);
+		const bool hasTheme = themeData.ensureTheme(hWnd) && (NppDarkMode::isExperimentalActive() == NppDarkMode::isEnabled());
 
 		COMBOBOXINFO cbi{};
 		cbi.cbSize = sizeof(COMBOBOXINFO);
@@ -2051,7 +2046,7 @@ namespace NppDarkMode
 		bool hasFocus = false;
 
 		::SelectObject(hdc, reinterpret_cast<HFONT>(::SendMessage(hWnd, WM_GETFONT, 0, 0)));
-		//::SetBkMode(hdc, TRANSPARENT);
+		::SetBkMode(hdc, TRANSPARENT); // for non-theme DrawText
 
 		RECT rcArrow{ cbi.rcButton };
 		rcArrow.left -= 1;
@@ -2265,6 +2260,7 @@ namespace NppDarkMode
 			}
 
 			case WM_DPICHANGED:
+			case WM_DPICHANGED_AFTERPARENT:
 			{
 				themeData.closeTheme();
 				return 0;

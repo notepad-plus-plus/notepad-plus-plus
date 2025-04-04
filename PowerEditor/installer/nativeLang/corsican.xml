@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8)
+	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 4th (v8.8)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -35,7 +35,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.8">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1357,6 +1357,7 @@ Additionnal information about Corsican localization:
 						<Element name="DirectWrite (predefinitu)"/>
 						<Element name="DirectWrite (cunservà e sequenze)"/>
 						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
 					<Item id="6363" name="modu di restituzione"/>
@@ -1551,6 +1552,11 @@ Vulete cuntinuà ?"/>
 			<UDLNewNameError title="Sbagliu UDL" message="Stu nome hè impiegatu da un altru linguaghju,
 ci vole à dà un altru."/>
 			<UDLRemoveCurrentLang title="Caccià u linguaghju attuale" message="Site sicuri ?"/>
+			<UDL_importSuccessful title="Linguaghju definitu da l’utilizatore" message="L’impurtazione hè riesciuta."/>
+			<UDL_importFails title="Linguaghju definitu da l’utilizatore" message="Fiascu à l’impurtazione."/>
+			<UDL_saveBeforeImport title="Linguaghju definitu da l’utilizatore" message="Prima d’espurtà, arregistrate a definizione di u vostru linguaghju via un cliccu nant’à u buttone « Arregistrà cù u nome… »."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Linguaghju definitu da l’utilizatore" message="L’espurtazione hè riesciuta."/>
+			<UDL_exportFails title="Linguaghju definitu da l’utilizatore" message="Fiascu à l’espurtazione."/>
 			<SCMapperDoDeleteOrNot title="Cunfirmazione" message="Da veru, vulete squassà st’accurtatoghju ?"/>
 			<FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à stampittà trà 0 è 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
@@ -1859,9 +1865,21 @@ Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore na
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell è JSON.
 
 S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i linguaghji mintulati insù, l’indentazione sterà in modu basicu."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Attivà quì l’ozzione « Global override » supranerà sti parametri à tutti i stili di tutti i linguaghji di prugrammazione. Preferiscerete di sicuru impiegà piuttostu i parametri « Default Style »"/>
 			<scintillaRenderingTechnology-tip value="Puderia amendà a trasfurmazione di i caratteri speziali o currege certi prublemi grafichi ; rilancià Notepad++ per piglià in contu i cambiamenti."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="longh : $STR_REPLACE1$    linee : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln : $STR_REPLACE1$    Cul : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pus : "/>
+			<statusbar-Sel value="Sel : "/>
+			<statusbar-Sel-number value="Sel"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

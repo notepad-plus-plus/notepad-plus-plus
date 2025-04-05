@@ -405,8 +405,13 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
 	_mainDocTab.display();
+
+	if (nppGUI._tabStatus & TAB_VERTICAL)
+		TabBarPlus::doVertical();
+
 	TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
 	drawTabbarColoursFromStylerArray();
+
 
 	//
 	// Initialize the default foreground & background color

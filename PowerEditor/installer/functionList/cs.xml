@@ -38,6 +38,16 @@
 					</functionName>
 				</function>
 			</classRange>
+			<function
+				mainExpr="^[\t\x20]*((static|const|virtual)\s+)?\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+)(\w+\s*::)?(?!(if|while|for))\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{">
+				<functionName>
+					<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
+					<nameExpr expr="(?!(if|while|for))\w+" />
+				</functionName>
+				<className>
+					<nameExpr expr="\w+(?=\s*::)" />
+				</className>
+			</function>
 		</parser>
 	</functionList>
 </NotepadPlus>

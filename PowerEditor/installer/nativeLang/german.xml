@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-03-16"><!-- basiert auf english.xml 8.7.9 vom 16.03.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-04-04"><!-- basiert auf english.xml 8.7.9 vom 03.04.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1531,6 +1531,11 @@ Soll fortgefahren werden?"/>
 			<UDLNewNameError title="UDL-Fehler" message="Dieser Name wird bereits von einer anderen Sprache verwendet.
 Bitte wählen Sie einen anderen Namen."/>
 			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
+			<UDL_importSuccessful title="Benutzerdefinierte Sprache" message="Erfolgreich importiert."/>
+			<UDL_importFails title="Benutzerdefinierte Sprache" message="Importieren fehlgeschlagen."/>
+			<UDL_saveBeforeImport title="Benutzerdefinierte Sprache" message="Vor dem Exportieren die benutzerdefinierte Sprache mit &quot;Speichern unter …&quot; sichern."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Benutzerdefinierte Sprache" message="Erfolgreich exportiert."/>
+			<UDL_exportFails title="Benutzerdefinierte Sprache" message="Exportieren fehlgeschlagen."/>
 			<SCMapperDoDeleteOrNot title="Bestätigung" message="Soll die Tastenkombination wirklich gelöscht werden?"/>
 			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.
@@ -1847,9 +1852,21 @@ Ein Klick auf &quot;?&quot; öffnet die Webseite des Benutzerhandbuchs."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell und JSON.
 
 Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den oben genannten Sprachen bearbeitet werden, bleibt die Einrückung im Standard-Modus."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Das Aktivieren der 'Global override' überschreibt die Parameter in allen Schriftstilen. Was aber wahrscheinlich stattdessen gewünscht ist, sind die Einstellungen für 'Default Style'"/>
 			<scintillaRenderingTechnology-tip value="Verwende DirectWrite (kann die Darstellung von Sonderzeichen verbessern oder einige Grafikprobleme beheben - erfordert einen Neustart von Notepad++."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="Länge: $STR_REPLACE1$    Zeilen: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Zei: $STR_REPLACE1$    Spa: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Gew: "/>
+			<statusbar-Sel-number value="Gew"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

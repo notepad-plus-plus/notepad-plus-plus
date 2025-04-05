@@ -3,6 +3,19 @@ $(DIR_O)/HanjaDic.obj: \
 	HanjaDic.cxx \
 	WinTypes.h \
 	HanjaDic.h
+$(DIR_O)/ListBox.obj: \
+	ListBox.cxx \
+	../include/ScintillaTypes.h \
+	../src/Debugging.h \
+	../src/Geometry.h \
+	../src/Platform.h \
+	../src/XPM.h \
+	../src/UniConversion.h \
+	../src/DBCS.h \
+	WinTypes.h \
+	PlatWin.h \
+	ListBox.h \
+	SurfaceD2D.h
 $(DIR_O)/PlatWin.obj: \
 	PlatWin.cxx \
 	../include/ScintillaTypes.h \
@@ -13,7 +26,9 @@ $(DIR_O)/PlatWin.obj: \
 	../src/UniConversion.h \
 	../src/DBCS.h \
 	WinTypes.h \
-	PlatWin.h
+	PlatWin.h \
+	ListBox.h \
+	SurfaceD2D.h
 $(DIR_O)/ScintillaDLL.obj: \
 	ScintillaDLL.cxx \
 	../include/ScintillaTypes.h \
@@ -29,6 +44,7 @@ $(DIR_O)/ScintillaWin.obj: \
 	../src/Debugging.h \
 	../src/Geometry.h \
 	../src/Platform.h \
+	../src/CharacterType.h \
 	../src/CharacterCategoryMap.h \
 	../src/Position.h \
 	../src/UniqueString.h \
@@ -49,6 +65,7 @@ $(DIR_O)/ScintillaWin.obj: \
 	../src/Document.h \
 	../src/CaseConvert.h \
 	../src/UniConversion.h \
+	../src/DBCS.h \
 	../src/Selection.h \
 	../src/PositionCache.h \
 	../src/EditModel.h \
@@ -60,8 +77,34 @@ $(DIR_O)/ScintillaWin.obj: \
 	../src/ScintillaBase.h \
 	WinTypes.h \
 	PlatWin.h \
+	SurfaceD2D.h \
 	HanjaDic.h \
 	ScintillaWin.h
+$(DIR_O)/SurfaceD2D.obj: \
+	SurfaceD2D.cxx \
+	../include/ScintillaTypes.h \
+	../src/Debugging.h \
+	../src/Geometry.h \
+	../src/Platform.h \
+	../src/XPM.h \
+	../src/UniConversion.h \
+	../src/DBCS.h \
+	WinTypes.h \
+	PlatWin.h \
+	SurfaceGDI.h \
+	SurfaceD2D.h
+$(DIR_O)/SurfaceGDI.obj: \
+	SurfaceGDI.cxx \
+	../include/ScintillaTypes.h \
+	../src/Debugging.h \
+	../src/Geometry.h \
+	../src/Platform.h \
+	../src/XPM.h \
+	../src/UniConversion.h \
+	../src/DBCS.h \
+	WinTypes.h \
+	PlatWin.h \
+	SurfaceGDI.h
 $(DIR_O)/AutoComplete.obj: \
 	../src/AutoComplete.cxx \
 	../include/ScintillaTypes.h \

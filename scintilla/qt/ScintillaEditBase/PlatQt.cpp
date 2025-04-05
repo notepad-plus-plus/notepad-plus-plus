@@ -667,7 +667,7 @@ void SurfaceImpl::DrawTextClippedUTF8(PRectangle rc,
 				  ColourRGBA back)
 {
 	SetClip(rc);
-	DrawTextNoClip(rc, font, ybase, text, fore, back);
+	DrawTextNoClipUTF8(rc, font, ybase, text, fore, back);
 	PopClip();
 }
 

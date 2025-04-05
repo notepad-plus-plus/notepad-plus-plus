@@ -1042,6 +1042,137 @@ TEST_CASE("SafeSegment") {
 	}
 }
 
+TEST_CASE("DiscardLastCombinedCharacter") {
+	SECTION("Short") {
+		const std::string_view base = "12345";
+		// Short strings (up to 4 bytes) aren't changed to avoid null and problematic results
+		for (size_t len = 0; len < 5; len++) {
+			std::string_view text = base.substr(0, len);
+			REQUIRE(text.length() == len);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(!changed);
+			REQUIRE(text.length() == len);
+		}
+	}
+
+	SECTION("ASCII") {
+		std::string_view text = "12345";
+		REQUIRE(text.length() == 5);
+		const bool changed = DiscardLastCombinedCharacter(text);
+		REQUIRE(changed);
+		REQUIRE(text.length() == 4);
+	}
+
+	SECTION("Control") {
+		{
+			std::string_view text = "12345\007";
+			REQUIRE(text.length() == 6);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			REQUIRE(text.length() == 5);
+		}
+		{
+			std::string_view text = "12345\007Z";
+			REQUIRE(text.length() == 7);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			REQUIRE(text.length() == 6);
+		}
+	}
+
+	SECTION("Japanese") {
+		std::string_view text = "Japanese\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e";
+		REQUIRE(text.length() == 17);
+		const bool changed = DiscardLastCombinedCharacter(text);
+		REQUIRE(changed);
+		REQUIRE(text.length() == 14);
+	}
+
+	SECTION("Thai Combining") {
+		// Ends with two combined characters
+		// 7 characters, 5 base characters and 2 combining
+		// HO HIP, SARA AA, KHO KHAI, MAI THO, O ANG, MO MA, SARA UU
+		std::string_view text = "\xe0\xb8\xab\xe0\xb8\xb2\xe0\xb8\x82\xe0\xb9\x89\xe0\xb8\xad\xe0\xb8\xa1\xe0\xb8\xb9";
+		REQUIRE(text.length() == 21);
+		const bool changed = DiscardLastCombinedCharacter(text);
+		REQUIRE(changed);
+		// Discarded 2 x 3-byte characters
+		REQUIRE(text.length() == 15);
+	}
+
+	SECTION("Invalid UTF-8") {
+		{
+			// Ends with isolated lead byte
+			std::string_view text = "1234\xe0";
+			REQUIRE(text.length() == 5);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			// Discarded final invalid byte
+			REQUIRE(text.length() == 4);
+		}
+		{
+			// Ends with isolated trail byte
+			std::string_view text = "1234\xb8";
+			REQUIRE(text.length() == 5);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			// Discarded final invalid byte
+			REQUIRE(text.length() == 4);
+		}
+		{
+			// Ends with lead byte and only one of two required trail bytes
+			std::string_view text = "1234\xe0\xb8";
+			REQUIRE(text.length() == 6);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			// Discarded final invalid byte
+			REQUIRE(text.length() == 5);
+		}
+	}
+
+	SECTION("Private Use UTF-8") {
+		{
+			// Ends with private use area U+F8FF - Apple uses for apple symbol.
+			std::string_view text = "1234\xEF\xA3\xBF";
+			REQUIRE(text.length() == 7);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			// Discarded whole final character
+			REQUIRE(text.length() == 4);
+		}
+		{
+			// At end: PUA + letter: PUA acts as base
+			std::string_view text = "1234\xEF\xA3\xBFZ";
+			REQUIRE(text.length() == 8);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			// Discarded just final character
+			REQUIRE(text.length() == 7);
+		}
+	}
+
+	SECTION("Surrogates") {
+		{
+			// Ends with surrogate U+D800.
+			std::string_view text = "1234\xED\xA0\x80";
+			REQUIRE(text.length() == 7);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			// Discarded final invalid byte
+			REQUIRE(text.length() == 6);
+		}
+		{
+			// Ends with surrogate U+DC00.
+			std::string_view text = "1234\xED\xB0\x80";
+			REQUIRE(text.length() == 7);
+			const bool changed = DiscardLastCombinedCharacter(text);
+			REQUIRE(changed);
+			// Discarded final invalid byte
+			REQUIRE(text.length() == 6);
+		}
+	}
+}
+
 TEST_CASE("PerLine") {
 	SECTION("LineMarkers") {
 		DocPlus doc("1\n2\n", CpUtf8);

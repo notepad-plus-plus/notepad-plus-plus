@@ -130,7 +130,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 12 February 2025 NH</p>
+    <p>Last edited 29 March 2025 NH</p>
 
     <p style="background:#90F0C0">Scintilla 5 has moved the lexers from Scintilla into a new
     <a href="Lexilla.html">Lexilla</a> project.<br />
@@ -3583,117 +3583,140 @@ struct Sci_TextToFindFull {
 <table class="standard" summary="Character Sets supported"><tbody>
   <tr>
     <th>Character Set</th>
+    <th>Value</th>
     <th>Windows</th>
     <th>GTK</th>
     <th>Cocoa</th></tr></tbody>
   <tbody>
-  <tr>
-    <td><code>SC_CHARSET_ANSI</code></td>
+  <tr class="section">
+    <th align="left"><code>SC_CHARSET_ANSI</code></th>
+    <td>0</td>
     <td>&check;</td>
     <td>&check;</td>
     <td>&check; (8859-1)</td></tr>
    <tr>
-    <td><code>SC_CHARSET_ARABIC</code></td>
+    <th align="left"><code>SC_CHARSET_ARABIC</code></th>
+    <td>178</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_BALTIC</code></td>
+    <th align="left"><code>SC_CHARSET_BALTIC</code></th>
+    <td>186</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_CHINESEBIG5</code></td>
+    <th align="left"><code>SC_CHARSET_CHINESEBIG5</code></th>
+    <td>136</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_DEFAULT</code></td>
+    <th align="left"><code>SC_CHARSET_DEFAULT</code></th>
+    <td>1</td>
     <td>&check;</td>
     <td>&check; (8859-1)</td>
     <td>&check; (8859-1)</td></tr>
    <tr>
-    <td><code>SC_CHARSET_EASTEUROPE</code></td>
+    <th align="left"><code>SC_CHARSET_EASTEUROPE</code></th>
+    <td>238</td>
     <td>&check;</td>
     <td>&check;</td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_GB2312</code></td>
+    <th align="left"><code>SC_CHARSET_GB2312</code></th>
+    <td>134</td>
     <td>&check;</td>
     <td>&check;</td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_GREEK</code></td>
+    <th align="left"><code>SC_CHARSET_GREEK</code></td>
+    <td>161</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_HANGUL</code></td>
+    <th align="left"><code>SC_CHARSET_HANGUL</code></th>
+    <td>129</td>
     <td>&check;</td>
     <td>&check;</td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_HEBREW</code></td>
+    <th align="left"><code>SC_CHARSET_HEBREW</code></th>
+    <td>177</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_JOHAB</code></td>
+    <th align="left"><code>SC_CHARSET_JOHAB</code></th>
+    <td>130</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_MAC</code></td>
+    <th align="left"><code>SC_CHARSET_MAC</code></th>
+    <td>77</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_OEM</code></td>
+    <th align="left"><code>SC_CHARSET_OEM</code></th>
+    <td>255</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_RUSSIAN</code></td>
+    <th align="left"><code>SC_CHARSET_RUSSIAN</code></th>
+    <td>204</td>
     <td>&check; (cp1251)</td>
     <td>&check; (koi8-r)</td>
     <td>&check; (cp1251)</td></tr>
    <tr>
-    <td><code>SC_CHARSET_SHIFTJIS</code></td>
+    <th align="left"><code>SC_CHARSET_SHIFTJIS</code></th>
+    <td>128</td>
     <td>&check;</td>
     <td>&check;</td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_SYMBOL</code></td>
+    <th align="left"><code>SC_CHARSET_SYMBOL</code></th>
+    <td>2</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_THAI</code></td>
+    <th align="left"><code>SC_CHARSET_THAI</code></th>
+    <td>222</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_TURKISH</code></td>
+    <th align="left"><code>SC_CHARSET_TURKISH</code></th>
+    <td>162</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_VIETNAMESE</code></td>
+    <th align="left"><code>SC_CHARSET_VIETNAMESE</code></th>
+    <td>163</td>
     <td>&check;</td>
     <td></td>
     <td>&check;</td></tr>
    <tr>
-    <td><code>SC_CHARSET_OEM866</code></td>
+    <th align="left"><code>SC_CHARSET_OEM866</code></th>
+    <td>866</td>
     <td></td>
     <td>&check; (cp866)</td>
     <td></td></tr>
    <tr>
-    <td><code>SC_CHARSET_CYRILLIC</code></td>
+    <th align="left"><code>SC_CHARSET_CYRILLIC</code></th>
+    <td>1251</td>
     <td></td>
     <td>&check; (cp1251)</td>
     <td>&check; (cp1251)</td></tr>
    <tr>
-    <td><code>SC_CHARSET_8859_15</code></td>
+    <th align="left"><code>SC_CHARSET_8859_15</code></th>
+    <td>1000</td>
     <td></td>
     <td>&check;</td>
     <td>&check;</td></tr>
@@ -4960,6 +4983,8 @@ struct Sci_TextToFindFull {
     </table>
 
     <p>Different shapes available for EOL annotations.
+    Different shapes depend on drawing API so <code>SC_TECHNOLOGY_DEFAULT</code> on Win32
+    only draws a rectangle.
     Only one shape can currently be used for the whole document - this illustration was produced by trickery.</p>
     <p><img src="StadiumVariants.png" alt="Different shapes available for EOL annotations" /></p>
 
@@ -9043,21 +9068,24 @@ struct SCNotification {
 	Sci_Position position;
 	/* SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, */
 	/* SCN_MARGINRIGHTCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, */
-	/* SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, */
-	/* SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, */
-	/* SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_AUTOCSELECTIONCHANGE */
+	/* SCN_CALLTIPCLICK, */
+	/* SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, */
+	/* SCN_INDICATORCLICK, SCN_INDICATORRELEASE, */
+	/* SCN_USERLISTSELECTION, SCN_AUTOCCOMPLETED, SCN_AUTOCSELECTION, */
+	/* SCN_AUTOCSELECTIONCHANGE */
 
 	int ch;
-	/* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, */
+	/* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETED, SCN_AUTOCSELECTION, */
 	/* SCN_USERLISTSELECTION */
 	int modifiers;
 	/* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, */
 	/* SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, */
+	/* SCN_MARGINCLICK, SCN_MARGINRIGHTCLICK */
 
 	int modificationType;	/* SCN_MODIFIED */
 	const char *text;
-	/* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED, */
-	/* SCN_AUTOCSELECTIONCHANGE */
+	/* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_URIDROPPED, */
+	/* SCN_AUTOCCOMPLETED, SCN_AUTOCSELECTION, SCN_AUTOCSELECTIONCHANGE */
 
 	Sci_Position length;		/* SCN_MODIFIED */
 	Sci_Position linesAdded;	/* SCN_MODIFIED */

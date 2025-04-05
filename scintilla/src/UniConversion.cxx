@@ -15,16 +15,83 @@
 
 namespace Scintilla::Internal {
 
+namespace {
+
+constexpr int first2Byte = 0x80;
+constexpr int first3Byte = 0x800;
+
+constexpr unsigned int maskSurrogate = 0x3FF;
+constexpr unsigned int shiftSurrogate = 10;
+
+// The top 2 bits are 0b10 to indicate a trail byte.
+// The lower 6 bits contain the value.
+constexpr unsigned int trailByteFlag = 0b1000'0000;
+constexpr unsigned int trailByteMask = 0b0011'1111;
+
+// With each UTF-8 length the bits are divided into length indicator
+// bits and value bits separated by a 0 bit.
+constexpr unsigned int leadByte2 = 0b1100'0000;
+constexpr unsigned int leadBits2 = 0b0001'1111;
+
+constexpr unsigned int leadByte3 = 0b1110'0000;
+constexpr unsigned int leadBits3 = 0b0000'1111;
+
+constexpr unsigned int leadByte4 = 0b1111'0000;
+constexpr unsigned int leadBits4 = 0b0000'0111;
+
+constexpr unsigned int shiftByte2 = 6;
+constexpr unsigned int shiftByte3 = 12;
+constexpr unsigned int shiftByte4 = 18;
+
+constexpr char LeadByte(unsigned int lengthValue, unsigned int uch) noexcept {
+	return static_cast<unsigned char>(lengthValue | uch);
+}
+
+constexpr char TrailByte(unsigned int uch) noexcept {
+	return trailByteFlag | (uch & trailByteMask);
+}
+
+constexpr unsigned char TrailByteValue(unsigned char c) noexcept {
+	return c & trailByteMask;
+}
+
+constexpr wchar_t SurrogateLead(int val) noexcept {
+	return static_cast<wchar_t>(((val - SUPPLEMENTAL_PLANE_FIRST) >> shiftSurrogate) + SURROGATE_LEAD_FIRST);
+}
+
+constexpr wchar_t SurrogateTrail(int val) noexcept {
+	return (val & maskSurrogate) + SURROGATE_TRAIL_FIRST;
+}
+
+void UTF8AppendCharacter(int uch, char *putf, size_t &k) noexcept {
+	if (uch < first2Byte) {
+		putf[k++] = LeadByte(0, uch);
+	} else if (uch < first3Byte) {
+		putf[k++] = LeadByte(leadByte2, uch >> shiftByte2);
+		putf[k++] = TrailByte(uch);
+	} else if (uch < SUPPLEMENTAL_PLANE_FIRST) {
+		putf[k++] = LeadByte(leadByte3, uch >> shiftByte3);
+		putf[k++] = TrailByte(uch >> shiftByte2);
+		putf[k++] = TrailByte(uch);
+	} else {
+		putf[k++] = LeadByte(leadByte4, uch >> shiftByte4);
+		putf[k++] = TrailByte(uch >> shiftByte3);
+		putf[k++] = TrailByte(uch >> shiftByte2);
+		putf[k++] = TrailByte(uch);
+	}
+}
+
+}
+
 size_t UTF8Length(std::wstring_view wsv) noexcept {
 	size_t len = 0;
 	for (size_t i = 0; i < wsv.length() && wsv[i];) {
-		const unsigned int uch = wsv[i];
-		if (uch < 0x80) {
+		const wchar_t uch = wsv[i];
+		if (uch < first2Byte) {
 			len++;
-		} else if (uch < 0x800) {
+		} else if (uch < first3Byte) {
 			len += 2;
-		} else if ((uch >= SURROGATE_LEAD_FIRST) &&
-			(uch <= SURROGATE_TRAIL_LAST)) {
+		} else if (IsSurrogate(uch)) {
 			len += 4;
 			i++;
 		} else {
@@ -50,26 +117,13 @@ size_t UTF8PositionFromUTF16Position(std::string_view u8Text, size_t positionUTF
 void UTF8FromUTF16(std::wstring_view wsv, char *putf, size_t len) noexcept {
 	size_t k = 0;
 	for (size_t i = 0; i < wsv.length() && wsv[i];) {
-		const unsigned int uch = wsv[i];
-		if (uch < 0x80) {
-			putf[k++] = static_cast<char>(uch);
-		} else if (uch < 0x800) {
-			putf[k++] = static_cast<char>(0xC0 | (uch >> 6));
-			putf[k++] = static_cast<char>(0x80 | (uch & 0x3f));
-		} else if ((uch >= SURROGATE_LEAD_FIRST) &&
-			(uch <= SURROGATE_TRAIL_LAST)) {
+		unsigned int uch = wsv[i];
+		if (IsSurrogate(wsv[i])) {
 			// Half a surrogate pair
 			i++;
-			const unsigned int xch = 0x10000 + ((uch & 0x3ff) << 10) + (wsv[i] & 0x3ff);
-			putf[k++] = static_cast<char>(0xF0 | (xch >> 18));
-			putf[k++] = static_cast<char>(0x80 | ((xch >> 12) & 0x3f));
-			putf[k++] = static_cast<char>(0x80 | ((xch >> 6) & 0x3f));
-			putf[k++] = static_cast<char>(0x80 | (xch & 0x3f));
-		} else {
-			putf[k++] = static_cast<char>(0xE0 | (uch >> 12));
-			putf[k++] = static_cast<char>(0x80 | ((uch >> 6) & 0x3f));
-			putf[k++] = static_cast<char>(0x80 | (uch & 0x3f));
+			uch = SUPPLEMENTAL_PLANE_FIRST + ((uch & maskSurrogate) << shiftSurrogate) + (wsv[i] & maskSurrogate);
 		}
+		UTF8AppendCharacter(uch, putf, k);
 		i++;
 	}
 	if (k < len)
@@ -78,21 +132,7 @@ void UTF8FromUTF16(std::wstring_view wsv, char *putf, size_t len) noexcept {
 
 void UTF8FromUTF32Character(int uch, char *putf) noexcept {
 	size_t k = 0;
-	if (uch < 0x80) {
-		putf[k++] = static_cast<char>(uch);
-	} else if (uch < 0x800) {
-		putf[k++] = static_cast<char>(0xC0 | (uch >> 6));
-		putf[k++] = static_cast<char>(0x80 | (uch & 0x3f));
-	} else if (uch < 0x10000) {
-		putf[k++] = static_cast<char>(0xE0 | (uch >> 12));
-		putf[k++] = static_cast<char>(0x80 | ((uch >> 6) & 0x3f));
-		putf[k++] = static_cast<char>(0x80 | (uch & 0x3f));
-	} else {
-		putf[k++] = static_cast<char>(0xF0 | (uch >> 18));
-		putf[k++] = static_cast<char>(0x80 | ((uch >> 12) & 0x3f));
-		putf[k++] = static_cast<char>(0x80 | ((uch >> 6) & 0x3f));
-		putf[k++] = static_cast<char>(0x80 | (uch & 0x3f));
-	}
+	UTF8AppendCharacter(uch, putf, k);
 	putf[k] = '\0';
 }
 
@@ -108,18 +148,12 @@ size_t UTF16Length(std::string_view svu8) noexcept {
 	return ulen;
 }
 
-constexpr unsigned char TrailByteValue(unsigned char c) {
-	// The top 2 bits are 0b10 to indicate a trail byte.
-	// The lower 6 bits contain the value.
-	return c & 0b0011'1111;
-}
-
 size_t UTF16FromUTF8(std::string_view svu8, wchar_t *tbuf, size_t tlen) {
 	size_t ui = 0;
 	for (size_t i = 0; i < svu8.length();) {
 		unsigned char ch = svu8[i];
 		const unsigned int byteCount = UTF8BytesOfLead[ch];
-		unsigned int value;
+		unsigned int value = 0;
 
 		if (i + byteCount > svu8.length()) {
 			// Trying to read past end but still have space to write
@@ -141,31 +175,31 @@ size_t UTF16FromUTF8(std::string_view svu8, wchar_t *tbuf, size_t tlen) {
 			tbuf[ui] = ch;
 			break;
 		case 2:
-			value = (ch & 0x1F) << 6;
+			value = (ch & leadBits2) << shiftByte2;
 			ch = svu8[i++];
 			value += TrailByteValue(ch);
 			tbuf[ui] = static_cast<wchar_t>(value);
 			break;
 		case 3:
-			value = (ch & 0xF) << 12;
+			value = (ch & leadBits3) << shiftByte3;
 			ch = svu8[i++];
-			value += (TrailByteValue(ch) << 6);
+			value += (TrailByteValue(ch) << shiftByte2);
 			ch = svu8[i++];
 			value += TrailByteValue(ch);
 			tbuf[ui] = static_cast<wchar_t>(value);
 			break;
 		default:
 			// Outside the BMP so need two surrogates
-			value = (ch & 0x7) << 18;
+			value = (ch & leadBits4) << shiftByte4;
 			ch = svu8[i++];
-			value += TrailByteValue(ch) << 12;
+			value += TrailByteValue(ch) << shiftByte3;
 			ch = svu8[i++];
-			value += TrailByteValue(ch) << 6;
+			value += TrailByteValue(ch) << shiftByte2;
 			ch = svu8[i++];
 			value += TrailByteValue(ch);
-			tbuf[ui] = static_cast<wchar_t>(((value - 0x10000) >> 10) + SURROGATE_LEAD_FIRST);
+			tbuf[ui] = SurrogateLead(value);
 			ui++;
-			tbuf[ui] = static_cast<wchar_t>((value & 0x3ff) + SURROGATE_TRAIL_FIRST);
+			tbuf[ui] = SurrogateTrail(value);
 			break;
 		}
 		ui++;
@@ -189,7 +223,7 @@ size_t UTF32FromUTF8(std::string_view svu8, unsigned int *tbuf, size_t tlen) {
 	for (size_t i = 0; i < svu8.length();) {
 		unsigned char ch = svu8[i];
 		const unsigned int byteCount = UTF8BytesOfLead[ch];
-		unsigned int value;
+		unsigned int value = 0;
 
 		if (i + byteCount > svu8.length()) {
 			// Trying to read past end but still have space to write
@@ -210,23 +244,23 @@ size_t UTF32FromUTF8(std::string_view svu8, unsigned int *tbuf, size_t tlen) {
 			value = ch;
 			break;
 		case 2:
-			value = (ch & 0x1F) << 6;
+			value = (ch & leadBits2) << shiftByte2;
 			ch = svu8[i++];
 			value += TrailByteValue(ch);
 			break;
 		case 3:
-			value = (ch & 0xF) << 12;
+			value = (ch & leadBits3) << shiftByte3;
 			ch = svu8[i++];
-			value += TrailByteValue(ch) << 6;
+			value += TrailByteValue(ch) << shiftByte2;
 			ch = svu8[i++];
 			value += TrailByteValue(ch);
 			break;
 		default:
-			value = (ch & 0x7) << 18;
+			value = (ch & leadBits4) << shiftByte4;
 			ch = svu8[i++];
-			value += TrailByteValue(ch) << 12;
+			value += TrailByteValue(ch) << shiftByte3;
 			ch = svu8[i++];
-			value += TrailByteValue(ch) << 6;
+			value += TrailByteValue(ch) << shiftByte2;
 			ch = svu8[i++];
 			value += TrailByteValue(ch);
 			break;
@@ -256,8 +290,8 @@ unsigned int UTF16FromUTF32Character(unsigned int val, wchar_t *tbuf) noexcept {
 		tbuf[0] = static_cast<wchar_t>(val);
 		return 1;
 	}
-	tbuf[0] = static_cast<wchar_t>(((val - SUPPLEMENTAL_PLANE_FIRST) >> 10) + SURROGATE_LEAD_FIRST);
-	tbuf[1] = static_cast<wchar_t>((val & 0x3ff) + SURROGATE_TRAIL_FIRST);
+	tbuf[0] = SurrogateLead(val);
+	tbuf[1] = SurrogateTrail(val);
 	return 2;
 }
 

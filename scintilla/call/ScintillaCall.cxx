@@ -2819,8 +2819,8 @@ int ScintillaCall::ExtraDescent() {
 	return static_cast<int>(Call(Message::GetExtraDescent));
 }
 
-int ScintillaCall::MarkerSymbolDefined(int markerNumber) {
-	return static_cast<int>(Call(Message::MarkerSymbolDefined, markerNumber));
+MarkerSymbol ScintillaCall::MarkerSymbolDefined(int markerNumber) {
+	return static_cast<Scintilla::MarkerSymbol>(Call(Message::MarkerSymbolDefined, markerNumber));
 }
 
 void ScintillaCall::MarginSetText(Line line, const char *text) {

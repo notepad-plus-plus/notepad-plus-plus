@@ -17,7 +17,7 @@ DEBUG_OPTIONS = -Zi -DEBUG -Od -MTd -DDEBUG $(STATIC_FLAG)
 DEBUG_OPTIONS = -O2 -MT -DNDEBUG $(STATIC_FLAG) -GL
 !ENDIF
 
-CXXFLAGS = /EHsc /std:c++latest $(DEBUG_OPTIONS) $(INCLUDEDIRS)
+CXXFLAGS = /EHsc /std:c++20 $(DEBUG_OPTIONS) $(INCLUDEDIRS)
 
 OBJS = TestLexers.obj TestDocument.obj LexillaAccess.obj
 

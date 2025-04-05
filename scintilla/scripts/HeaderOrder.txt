@@ -158,6 +158,9 @@
 // win32
 #include "WinTypes.h"
 #include "PlatWin.h"
+#include "ListBox.h"
+#include "SurfaceGDI.h"
+#include "SurfaceD2D.h"
 #include "HanjaDic.h"
 #include "ScintillaWin.h"
 

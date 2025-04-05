@@ -145,5 +145,27 @@ class TestPerformance(unittest.TestCase):
 		print("%6.3f testUTF8AsciiSearches" % duration)
 		self.xite.DoEvents()
 
+	def testShiftJISSearches(self):
+		self.ed.SetCodePage(932)
+		self.ed.StyleSetCharacterSet(32, 128)
+		oneLine = "Fold Margin=折りたたみ表示用の余白(&F)\n".encode('cp932')
+		manyLines = oneLine * 100000
+		manyLines = manyLines + "φ\n".encode('cp932')
+		#~ with open("932.txt", "wb") as fp:
+			#~ fp.write(manyLines)
+		self.ed.AddText(len(manyLines), manyLines)
+		searchString = "φ".encode('cp932')
+		start = timer()
+		for i in range(20):
+			self.ed.TargetStart = 0
+			self.ed.TargetEnd = self.ed.Length-1
+			self.ed.SearchFlags = 0
+			pos = self.ed.SearchInTarget(len(searchString), searchString)
+			self.assertTrue(pos > 0)
+		end = timer()
+		duration = end - start
+		print("%6.3f testShiftJISSearches" % duration)
+		self.xite.DoEvents()
+
 if __name__ == '__main__':
 	Xite.main("performanceTests")

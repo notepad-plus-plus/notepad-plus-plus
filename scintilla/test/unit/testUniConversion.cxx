@@ -121,6 +121,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF16FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 'a');
+		char back[4]{};
+		UTF8FromUTF16(std::wstring_view(tbuf, tlen), back, sizeof(back));
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF16FromUTF8 Example1") {
@@ -129,6 +132,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF16FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 0x24);
+		char back[4]{};
+		UTF8FromUTF16(std::wstring_view(tbuf, tlen), back, sizeof(back));
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF16FromUTF8 Example2") {
@@ -137,6 +143,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF16FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 0xA2);
+		char back[4]{};
+		UTF8FromUTF16(std::wstring_view(tbuf, tlen), back, sizeof(back));
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF16FromUTF8 Example3") {
@@ -145,6 +154,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF16FromUTF8(s, tbuf, 1);;
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 0x20AC);
+		char back[4]{};
+		UTF8FromUTF16(std::wstring_view(tbuf, tlen), back, sizeof(back));
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF16FromUTF8 Example4") {
@@ -154,6 +166,9 @@ TEST_CASE("UniConversion") {
 		REQUIRE(tlen == 2U);
 		REQUIRE(tbuf[0] == 0xD800);
 		REQUIRE(tbuf[1] == 0xDF48);
+		char back[5]{};
+		UTF8FromUTF16(std::wstring_view(tbuf, tlen), back, sizeof(back));
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF16FromUTF8 Invalid Trail byte in lead position") {
@@ -165,6 +180,7 @@ TEST_CASE("UniConversion") {
 		REQUIRE(tbuf[1] == 0xB5);
 		REQUIRE(tbuf[2] == 'y');
 		REQUIRE(tbuf[3] == 'z');
+		// Invalid so can't round trip
 	}
 
 	SECTION("UTF16FromUTF8 Invalid Lead byte at end") {
@@ -174,6 +190,7 @@ TEST_CASE("UniConversion") {
 		REQUIRE(tlen == 2U);
 		REQUIRE(tbuf[0] == 'a');
 		REQUIRE(tbuf[1] == 0xC2);
+		// Invalid so can't round trip
 	}
 
 	SECTION("UTF16FromUTF8 Invalid Lead byte implies 3 trails but only 2") {
@@ -183,6 +200,7 @@ TEST_CASE("UniConversion") {
 		REQUIRE(tlen == 2U);
 		REQUIRE(tbuf[0] == 'a');
 		REQUIRE(tbuf[1] == 0xF1);
+		// Invalid so can't round trip
 	}
 
 	// UTF32FromUTF8
@@ -193,6 +211,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF32FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == static_cast<unsigned int>('a'));
+		char back[5]{};
+		UTF8FromUTF32Character(tbuf[0], back);
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF32FromUTF8 Example1") {
@@ -201,6 +222,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF32FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 0x24);
+		char back[5]{};
+		UTF8FromUTF32Character(tbuf[0], back);
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF32FromUTF8 Example2") {
@@ -209,6 +233,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF32FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 0xA2);
+		char back[5]{};
+		UTF8FromUTF32Character(tbuf[0], back);
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF32FromUTF8 Example3") {
@@ -217,6 +244,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF32FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 0x20AC);
+		char back[5]{};
+		UTF8FromUTF32Character(tbuf[0], back);
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF32FromUTF8 Example4") {
@@ -225,6 +255,9 @@ TEST_CASE("UniConversion") {
 		const size_t tlen = UTF32FromUTF8(s, tbuf, 1);
 		REQUIRE(tlen == 1U);
 		REQUIRE(tbuf[0] == 0x10348);
+		char back[5]{};
+		UTF8FromUTF32Character(tbuf[0], back);
+		REQUIRE(strcmp(s, back) == 0);
 	}
 
 	SECTION("UTF32FromUTF8 Invalid Trail byte in lead position") {

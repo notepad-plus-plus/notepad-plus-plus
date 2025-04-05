@@ -1185,7 +1185,7 @@ Translation note:
 					<Item id="6727" name="編集内容がここにも表示されます"/>
 					<Item id="6728" name="ヘッダーとフッター"/>
 				</Print>
-                
+
 				<Searching title="検索">
 					<Item id="6902" name="検索画面で固定幅フォントを使用する（Notepad++ の再起動が必要）"/>
 					<Item id="6903" name="検索結果を結果ウィンドウに表示する時に、検索画面を自動で閉じないようにする"/>
@@ -1525,6 +1525,11 @@ langs.xml を復元しますか？"/>
 			<UDLNewNameError title="ユーザー定義 エラー" message="この名前は他の言語に使用されています。
 違う名前にして下さい。"/>
 			<UDLRemoveCurrentLang title="現在の言語を削除" message="よろしいですか？"/>
+			<UDL_importSuccessful title="ユーザー定義" message="インポートしました。"/>
+			<UDL_importFails title="ユーザー定義" message="インポートに失敗しました。"/>
+			<UDL_saveBeforeImport title="ユーザー定義" message="エクスポートを行う前に、「保存...」ボタンを押して作成した定義を保存してください。"/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="ユーザー定義" message="エクスポートしました。"/>
+			<UDL_exportFails title="ユーザー定義" message="エクスポートに失敗しました。"/>
 			<SCMapperDoDeleteOrNot title="よろしいですか？" message="このショートカットを削除してよろしいですか？"/>
 			<FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
@@ -1834,9 +1839,21 @@ U+FEFF : zero-width no-break space（ゼロ幅改行なしスペース）
 C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust、PowerShell、JSON を指します。
 
 「高度」を選択しても、上記の言語以外を編集している場合は「基本」と同じになります。"/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="&quot;Global override&quot; を使用すると、すべての言語のスタイル設定が、チェックを入れたもので上書きされます。&quot;Default Style&quot; を使われるほうが、お望みの挙動に近いかもしれません。"/>
 			<scintillaRenderingTechnology-tip value="特殊な文字の描画や、グラフィックス関連の問題が改善することがあります。Notepad++ の再起動が必要です。"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="長さ: $STR_REPLACE1$    行数: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="行: $STR_REPLACE1$    桁: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="位置: "/>
+			<statusbar-Sel value="選択: "/>
+			<statusbar-Sel-number value="選択"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

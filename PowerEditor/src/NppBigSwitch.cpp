@@ -297,9 +297,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				GetClientRect(hwnd, &rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return 0;
 			}
 			else
@@ -2032,7 +2032,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 										roundCornerValue = 5;
 									}
 
-									::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+									::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDlgBackgroundBrush());
 									lr |= CDRF_NOTIFYITEMDRAW;
 								}
 
@@ -2047,7 +2047,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								nmtbcd->clrText = NppDarkMode::getTextColor();
 								nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
 								nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
-								nmtbcd->clrBtnHighlight = NppDarkMode::getSofterBackgroundColor();
+								nmtbcd->clrBtnHighlight = NppDarkMode::getCtrlBackgroundColor();
 								nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
 								nmtbcd->nStringBkMode = TRANSPARENT;
 								nmtbcd->nHLStringBkMode = TRANSPARENT;
@@ -2087,7 +2087,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								}
 								else if ((nmtbcd->nmcd.uItemState & CDIS_CHECKED) == CDIS_CHECKED)
 								{
-									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getSofterBackgroundBrush());
+									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getCtrlBackgroundBrush());
 									auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getEdgePen());
 
 									::RoundRect(nmtbcd->nmcd.hdc, rcItem.left, rcItem.top, rcItem.right, rcItem.bottom, roundCornerValue, roundCornerValue);
@@ -3501,9 +3501,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (currentColors != NULL)
 			{
 				currentColors->background = NppDarkMode::getBackgroundColor();
-				currentColors->softerBackground = NppDarkMode::getSofterBackgroundColor();
+				currentColors->softerBackground = NppDarkMode::getCtrlBackgroundColor();
 				currentColors->hotBackground = NppDarkMode::getHotBackgroundColor();
-				currentColors->pureBackground = NppDarkMode::getDarkerBackgroundColor();
+				currentColors->pureBackground = NppDarkMode::getDlgBackgroundColor();
 				currentColors->errorBackground = NppDarkMode::getErrorBackgroundColor();
 				currentColors->text = NppDarkMode::getTextColor();
 				currentColors->darkerText = NppDarkMode::getDarkerTextColor();

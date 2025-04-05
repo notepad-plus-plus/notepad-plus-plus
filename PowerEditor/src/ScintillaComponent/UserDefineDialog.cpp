@@ -112,13 +112,13 @@ intptr_t CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wPara
 
         case WM_CTLCOLOREDIT:
         {
-            return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+            return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORDLG:
         case WM_CTLCOLORSTATIC:
         {
-            return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+            return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_PRINTCLIENT:
@@ -1101,7 +1101,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
 
         case WM_CTLCOLOREDIT:
         {
-            return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+            return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORLISTBOX:
@@ -1112,7 +1112,7 @@ intptr_t CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPA
         case WM_CTLCOLORDLG:
         case WM_CTLCOLORSTATIC:
         {
-            return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+            return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_PRINTCLIENT:
@@ -1636,31 +1636,19 @@ intptr_t CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return TRUE;
-			}
-			break;
-		}
-
-		case WM_ERASEBKGND:
-		{
-			if (NppDarkMode::isEnabled())
-			{
-				RECT rc{};
-				getClientRect(rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
 			}
 			break;
@@ -1894,7 +1882,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 
         case WM_CTLCOLOREDIT:
         {
-            return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+            return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_CTLCOLORLISTBOX:
@@ -1905,7 +1893,7 @@ intptr_t CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPA
         case WM_CTLCOLORDLG:
         case WM_CTLCOLORSTATIC:
         {
-            return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+            return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
         }
 
         case WM_PRINTCLIENT:

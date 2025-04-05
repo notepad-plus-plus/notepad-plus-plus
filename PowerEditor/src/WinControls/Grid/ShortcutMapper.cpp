@@ -132,10 +132,10 @@ void ShortcutMapper::initBabyGrid()
 		_babygrid.setUnprotectColor(NppDarkMode::getBackgroundColor());
 		_babygrid.setTitleColor(NppDarkMode::getBackgroundColor());
 
-		_babygrid.setBackgroundColor(NppDarkMode::getDarkerBackgroundColor());
+		_babygrid.setBackgroundColor(NppDarkMode::getDlgBackgroundColor());
 
 		_babygrid.setHighlightColor(NppDarkMode::getHotBackgroundColor());
-		_babygrid.setHighlightColorNoFocus(NppDarkMode::getSofterBackgroundColor());
+		_babygrid.setHighlightColorNoFocus(NppDarkMode::getCtrlBackgroundColor());
 		_babygrid.setProtectColor(NppDarkMode::getErrorBackgroundColor());
 		_babygrid.setHighlightColorProtect(RGB(244, 10, 20));
 		_babygrid.setHighlightColorProtectNoFocus(RGB(230, 100, 110));
@@ -616,13 +616,13 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:

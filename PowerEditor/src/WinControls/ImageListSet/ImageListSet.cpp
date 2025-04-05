@@ -92,14 +92,14 @@ void IconList::addIcon(HICON hIcon) const
 		ImageList_AddIcon(_hImglst, hIcon);
 }
 
-bool IconList::changeIcon(size_t index, const wchar_t *iconLocation) const
+bool IconList::changeIcon(size_t index, const wchar_t* iconLocation) const
 {
-	HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, iconLocation, IMAGE_ICON, _iconSize, _iconSize, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-	if (!hBmp)
+	HICON hIcon = nullptr;
+	DPIManagerV2::loadIcon(nullptr, iconLocation, _iconSize, _iconSize, &hIcon, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+	if (!hIcon)
 		return false;
-	size_t i = ImageList_ReplaceIcon(_hImglst, int(index), (HICON)hBmp);
-	ImageList_AddMasked(_hImglst, (HBITMAP)hBmp, RGB(255,0,255));
-	::DeleteObject(hBmp);
+	size_t i = ::ImageList_ReplaceIcon(_hImglst, static_cast<int>(index), hIcon);
+	::DestroyIcon(hIcon);
 	return (i == index);
 }
 
@@ -107,7 +107,7 @@ void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize, const
 {
 	for (int i = 0 ; i < arraySize ; ++i)
 		_tbiis.push_back(buttonUnitArray[i]);
-	
+
 	_moreCmds = moreCmds;
 }
 

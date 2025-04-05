@@ -142,7 +142,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		::SetWindowPlacement(_hSelf,&posInfo);
 		
 		if (NppDarkMode::isEnabled())
-			setStartupBgColor(NppDarkMode::getBackgroundColor()); //draw dark background when opening Npp without position data
+			setStartupBgColor(NppDarkMode::getDlgBackgroundColor()); //draw dark background when opening Npp without position data
 	}
 
 	if ((nppGUI._tabStatus & TAB_MULTILINE) != 0)
@@ -193,7 +193,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	}
 
 	if(cmdLineParams->isPointValid() && NppDarkMode::isEnabled())
-		setStartupBgColor(NppDarkMode::getBackgroundColor()); //draw dark background when opening Npp through cmd with position data
+		setStartupBgColor(NppDarkMode::getDlgBackgroundColor()); //draw dark background when opening Npp through cmd with position data
 
 	std::vector<wstring> fileNames;
 	std::vector<wstring> patterns;

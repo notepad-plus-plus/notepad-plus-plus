@@ -109,9 +109,9 @@ public:
 
 private:
 	ColourPicker* _pBackgroundColorPicker = nullptr;
-	ColourPicker* _pSofterBackgroundColorPicker = nullptr;
+	ColourPicker* _pCtrlBackgroundColorPicker = nullptr;
 	ColourPicker* _pHotBackgroundColorPicker = nullptr;
-	ColourPicker* _pPureBackgroundColorPicker = nullptr;
+	ColourPicker* _pDlgBackgroundColorPicker = nullptr;
 	ColourPicker* _pErrorBackgroundColorPicker = nullptr;
 	ColourPicker* _pTextColorPicker = nullptr;
 	ColourPicker* _pDarkerTextColorPicker = nullptr;

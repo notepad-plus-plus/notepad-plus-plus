@@ -291,8 +291,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 			RECT rc{};
 			::GetClientRect(hwnd, &rc);
-			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
-
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 			return TRUE;
 		}
 
@@ -492,7 +491,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 	if (NppDarkMode::isEnabled())
 	{
-		bgbrush = ::CreateSolidBrush(_isActive ? NppDarkMode::getSofterBackgroundColor() : NppDarkMode::getBackgroundColor());
+		bgbrush = ::CreateSolidBrush(_isActive ? NppDarkMode::getCtrlBackgroundColor() : NppDarkMode::getBackgroundColor());
 		SetTextColor(hDc, NppDarkMode::getTextColor());
 	}
 	else
@@ -727,8 +726,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 			RECT rc {};
 			::GetClientRect(hwnd, &rc);
-			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
-
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 			return TRUE;
 		}
 
@@ -747,7 +745,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 			PAINTSTRUCT ps{};
 			HDC hdc = ::BeginPaint(hwnd, &ps);
-			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDarkerBackgroundBrush());
+			::FillRect(hdc, &ps.rcPaint, NppDarkMode::getDlgBackgroundBrush());
 
 			UINT id = ::GetDlgCtrlID(hwnd);
 
@@ -1080,7 +1078,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT* pDrawItemStruct)
 
 	if (NppDarkMode::isEnabled())
 	{
-		::FillRect(hDc, &rc, isSelected ? NppDarkMode::getSofterBackgroundBrush() : NppDarkMode::getBackgroundBrush());
+		::FillRect(hDc, &rc, isSelected ? NppDarkMode::getCtrlBackgroundBrush() : NppDarkMode::getBackgroundBrush());
 		::OffsetRect(&rc, 0, -onePadding);
 	}
 	else if (isSelected) // draw orange bar
@@ -1206,14 +1204,14 @@ intptr_t CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			::ExcludeClipRect(hDC, rcClientTab.left, rcClientTab.top, rcClientTab.right, rcClientTab.bottom);
 			::ExcludeClipRect(hDC, rcCap.left, rcCap.top, rcCap.right, rcCap.bottom);
 
-			::FillRect(hDC, &rc, NppDarkMode::isEnabled() ? NppDarkMode::getDarkerBackgroundBrush() : ::GetSysColorBrush(COLOR_3DFACE));
+			::FillRect(hDC, &rc, NppDarkMode::isEnabled() ? NppDarkMode::getDlgBackgroundBrush() : ::GetSysColorBrush(COLOR_3DFACE));
 			return TRUE;
 		}
 
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_DRAWITEM :

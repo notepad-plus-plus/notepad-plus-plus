@@ -657,7 +657,7 @@ LRESULT CALLBACK RebarSubclass(
 			{
 				RECT rc{};
 				GetClientRect(hWnd, &rc);
-				FillRect((HDC)wParam, &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect((HDC)wParam, &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
 			else

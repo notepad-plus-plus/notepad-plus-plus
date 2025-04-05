@@ -164,7 +164,7 @@ LRESULT VerticalFileSwitcher::listViewNotifyCustomDraw(HWND hWnd, UINT uMsg, WPA
 			{
 				if (isSelected)
 				{
-					bgColor = NppDarkMode::getSofterBackgroundColor();
+					bgColor = NppDarkMode::getCtrlBackgroundColor();
 					applyColor = true;
 				}
 				else if (isHot)

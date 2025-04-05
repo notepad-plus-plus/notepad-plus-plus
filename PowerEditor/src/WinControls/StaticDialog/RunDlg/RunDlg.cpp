@@ -262,7 +262,7 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -273,25 +273,13 @@ intptr_t CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return TRUE;
-			}
-			break;
-		}
-
-		case WM_ERASEBKGND:
-		{
-			if (NppDarkMode::isEnabled())
-			{
-				RECT rc{};
-				getClientRect(rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
 			}
 			break;

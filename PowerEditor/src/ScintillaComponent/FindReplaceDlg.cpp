@@ -1094,7 +1094,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -1105,7 +1105,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1123,7 +1123,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			{
 				RECT rc{};
 				getClientRect(rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
 			break;
@@ -1467,7 +1467,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -1478,7 +1478,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1496,7 +1496,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			{
 				RECT rc{};
 				getClientRect(rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
 			break;
@@ -5920,7 +5920,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			{
 				if (FSNotFound != getFindStatus())
 				{
-					return NppDarkMode::onCtlColorSofter(hdc);
+					return NppDarkMode::onCtlColorCtrl(hdc);
 				}
 				else // text not found
 				{
@@ -5943,7 +5943,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -6070,7 +6070,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			{
 				RECT rcClient{};
 				GetClientRect(_hSelf, &rcClient);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
 			else
@@ -6410,7 +6410,7 @@ int Progress::createProgressWindow()
 
 	// Set border so user can distinguish easier progress bar,
 	// especially, when getBackgroundColor is very similar or same 
-	// as getDarkerBackgroundColor
+	// as getDlgBackgroundColor
 	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled());
 	NppDarkMode::disableVisualStyle(_hPBar, NppDarkMode::isEnabled());
 	if (NppDarkMode::isEnabled())
@@ -6558,7 +6558,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wparam));
+				return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wparam));
 			}
 			break;
 		}
@@ -6567,7 +6567,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wparam));
+				return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wparam));
 			}
 			// transparent background for text, same as main window background
 			return reinterpret_cast<LRESULT>(::GetSysColorBrush(NULL_BRUSH));
@@ -6587,10 +6587,11 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 			if (NppDarkMode::isEnabled())
 			{
 				RECT rc{};
-				GetClientRect(hwnd, &rc);
-				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::GetClientRect(hwnd, &rc);
+				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDlgBackgroundBrush());
+				return TRUE;
 			}
-			return TRUE;
+			break;
 		}
 
 		case WM_SETFOCUS:

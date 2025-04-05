@@ -1362,21 +1362,15 @@ intptr_t CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 			return TRUE;
 		}
 
-		case WM_ERASEBKGND:
-		{
-			if (NppDarkMode::isEnabled())
-			{
-				RECT rect{};
-				GetClientRect(_hSelf, &rect);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rect, NppDarkMode::getDarkerBackgroundBrush());
-				return TRUE;
-			}
-			break;
-		}
-
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
+		}
+
+		case WM_CTLCOLORDLG:
+		case WM_CTLCOLORSTATIC:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:

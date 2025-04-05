@@ -129,9 +129,9 @@ namespace NppDarkMode
 	void setDarkTone(ColorTone colorToneChoice);
 
 	COLORREF getBackgroundColor();
-	COLORREF getSofterBackgroundColor();
+	COLORREF getCtrlBackgroundColor();
 	COLORREF getHotBackgroundColor();
-	COLORREF getDarkerBackgroundColor();
+	COLORREF getDlgBackgroundColor();
 	COLORREF getErrorBackgroundColor();
 
 	COLORREF getTextColor();
@@ -144,8 +144,8 @@ namespace NppDarkMode
 	COLORREF getDisabledEdgeColor();
 
 	HBRUSH getBackgroundBrush();
-	HBRUSH getDarkerBackgroundBrush();
-	HBRUSH getSofterBackgroundBrush();
+	HBRUSH getDlgBackgroundBrush();
+	HBRUSH getCtrlBackgroundBrush();
 	HBRUSH getHotBackgroundBrush();
 	HBRUSH getErrorBackgroundBrush();
 
@@ -159,9 +159,9 @@ namespace NppDarkMode
 	HPEN getDisabledEdgePen();
 
 	void setBackgroundColor(COLORREF c);
-	void setSofterBackgroundColor(COLORREF c);
+	void setCtrlBackgroundColor(COLORREF c);
 	void setHotBackgroundColor(COLORREF c);
-	void setDarkerBackgroundColor(COLORREF c);
+	void setDlgBackgroundColor(COLORREF c);
 	void setErrorBackgroundColor(COLORREF c);
 	void setTextColor(COLORREF c);
 	void setDarkerTextColor(COLORREF c);
@@ -235,9 +235,9 @@ namespace NppDarkMode
 	void setDarkAutoCompletion();
 
 	LRESULT onCtlColor(HDC hdc);
-	LRESULT onCtlColorSofter(HDC hdc);
-	LRESULT onCtlColorDarker(HDC hdc);
+	LRESULT onCtlColorCtrl(HDC hdc);
+	LRESULT onCtlColorDlg(HDC hdc);
 	LRESULT onCtlColorError(HDC hdc);
-	LRESULT onCtlColorDarkerBGStaticText(HDC hdc, bool isTextEnabled);
-	INT_PTR onCtlColorListbox(WPARAM wParam, LPARAM lParam);
+	LRESULT onCtlColorDlgStaticText(HDC hdc, bool isTextEnabled);
+	LRESULT onCtlColorListbox(WPARAM wParam, LPARAM lParam);
 }

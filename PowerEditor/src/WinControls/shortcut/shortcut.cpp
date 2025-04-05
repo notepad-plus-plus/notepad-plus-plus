@@ -589,7 +589,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -600,16 +600,12 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
+			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_NAME_EDIT)
 			{
-				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
-				if (dlgCtrlID == IDC_NAME_EDIT)
-				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-				}
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1296,16 +1292,12 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			if (NppDarkMode::isEnabled())
+			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_NAME_EDIT)
 			{
-				auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
-				if (dlgCtrlID == IDC_NAME_EDIT)
-				{
-					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
-				}
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 			}
-			break;
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:

@@ -397,11 +397,9 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 				break;
 			}
 
-			RECT rc = {};
+			RECT rc{};
 			getClientRect(rc);
-
-			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
-
+			::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 			return 1;
 		}
 
@@ -531,10 +529,10 @@ void Splitter::drawSplitter()
 	if (isDarkMode)
 	{
 		hBrush = NppDarkMode::getBackgroundBrush();
-		hBrushTop = NppDarkMode::getSofterBackgroundBrush();
+		hBrushTop = NppDarkMode::getCtrlBackgroundBrush();
 
 		holdPen = static_cast<HPEN>(::SelectObject(hdc, NppDarkMode::getDarkerTextPen()));
-		::FillRect(hdc, &rc, NppDarkMode::getDarkerBackgroundBrush());
+		::FillRect(hdc, &rc, NppDarkMode::getDlgBackgroundBrush());
 	}
 	else
 	{

@@ -109,7 +109,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -119,7 +119,7 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_CTLCOLORDLG:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
@@ -131,9 +131,9 @@ intptr_t CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
 			if (isStaticText)
 			{
-				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, nppParam.isAdmin());
+				return NppDarkMode::onCtlColorDlgStaticText(hdcStatic, nppParam.isAdmin());
 			}
-			return NppDarkMode::onCtlColorDarker(hdcStatic);
+			return NppDarkMode::onCtlColorDlg(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:

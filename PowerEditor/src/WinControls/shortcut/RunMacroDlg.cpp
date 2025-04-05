@@ -60,7 +60,7 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -70,7 +70,7 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_CTLCOLORDLG:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
@@ -83,9 +83,9 @@ intptr_t CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			if (isStaticText)
 			{
 				const bool isTextEnabled = isCheckedOrNot(IDC_M_RUN_MULTI);
-				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
+				return NppDarkMode::onCtlColorDlgStaticText(hdcStatic, isTextEnabled);
 			}
-			return NppDarkMode::onCtlColorDarker(hdcStatic);
+			return NppDarkMode::onCtlColorDlg(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:

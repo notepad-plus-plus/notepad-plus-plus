@@ -208,7 +208,7 @@ static LRESULT CALLBACK StatusBarSubclass(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 				if (!isSizeGrip && i < (nParts - 1))
 				{
-					FillRect(hdc, &rcDivider, NppDarkMode::getSofterBackgroundBrush());
+					FillRect(hdc, &rcDivider, NppDarkMode::getCtrlBackgroundBrush());
 				}
 			}
 

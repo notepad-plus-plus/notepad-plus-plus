@@ -1138,12 +1138,12 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 	{
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
@@ -1155,7 +1155,7 @@ intptr_t CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				{
 					return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
 				}
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+				return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 			}
 			break;
 		}

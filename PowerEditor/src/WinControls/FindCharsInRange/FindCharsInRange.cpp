@@ -46,12 +46,12 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORDLG:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORSTATIC:
@@ -63,27 +63,15 @@ intptr_t CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			if (dlgCtrlID == IDC_STATIC)
 			{
 				const bool isTextEnabled = isCheckedOrNot(IDC_MYRANGE_RADIO);
-				return NppDarkMode::onCtlColorDarkerBGStaticText(hdcStatic, isTextEnabled);
+				return NppDarkMode::onCtlColorDlgStaticText(hdcStatic, isTextEnabled);
 			}
-			return NppDarkMode::onCtlColorDarker(hdcStatic);
+			return NppDarkMode::onCtlColorDlg(hdcStatic);
 		}
 
 		case WM_PRINTCLIENT:
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return TRUE;
-			}
-			break;
-		}
-
-		case WM_ERASEBKGND:
-		{
-			if (NppDarkMode::isEnabled())
-			{
-				RECT rc{};
-				getClientRect(rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
 				return TRUE;
 			}
 			break;

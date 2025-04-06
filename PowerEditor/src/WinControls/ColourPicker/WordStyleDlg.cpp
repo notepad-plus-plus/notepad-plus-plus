@@ -214,7 +214,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					// Selected text colour style
 					if (style._styleDesc == L"Selected text colour")
 					{
-						isTextEnabled = NppParameters::getInstance().isSelectFgColorEnabled();
+						isTextEnabled = NppParameters::getInstance().getSVP()._selectedTextForegroundSingleColor;
 					}
 				}
 				else if (dlgCtrlID == IDC_BG_STATIC)
@@ -1176,6 +1176,20 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 	return result;
 }
 
+void WordStyleDlg::syncWithSelFgSingleColorCtrl()
+{
+	const Style& style = getCurrentStyler();
+
+	// Selected text colour style
+	if (style._styleDesc == L"Selected text colour")
+	{
+		// Only in case that dialog is on "Selected text colour":
+		// Switch to a section then switch back for refresh current state of "Selected text colour"
+		goToSection(L"Global Styles:Default Style");
+		goToSection(L"Global Styles:Selected text colour");
+	}
+}
+
 void WordStyleDlg::setVisualFromStyleList()
 {
 	showGlobalOverrideCtrls(false);
@@ -1240,7 +1254,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	{
 		isEnable = false; // disable by default for "Selected text colour" style
 
-		if (NppParameters::getInstance().isSelectFgColorEnabled())
+		if (NppParameters::getInstance().getSVP()._selectedTextForegroundSingleColor)
 			isEnable = true;
 	}
 	::EnableWindow(_pFgColour->getHSelf(), isEnable);

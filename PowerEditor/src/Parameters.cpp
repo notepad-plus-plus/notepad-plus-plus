@@ -1655,20 +1655,6 @@ bool NppParameters::load()
 				delete _pXmlExternalLexerDoc[i];
 	}
 
-	//-------------------------------------------------------------//
-	// enableSelectFgColor.xml : for per user                      //
-	// This empty xml file is optional - user adds this empty file //
-	// manually in order to set selected text's foreground color.  //
-	//-------------------------------------------------------------//
-	std::wstring enableSelectFgColorPath = _userPath;
-	pathAppend(enableSelectFgColorPath, L"enableSelectFgColor.xml");
-
-	if (doesFileExist(enableSelectFgColorPath.c_str()))
-	{
-		_isSelectFgColorEnabled = true;
-	}
-
-
 	std::wstring filePath, filePath2, issueFileName;
 	//-------------------------------------------------------------//
 	// nppLogNetworkDriveIssue.xml                                 //
@@ -6650,6 +6636,16 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._rightClickKeepsSelection = false;
 	}
 
+	// Make selected text foreground single color
+	nm = element->Attribute(L"selectedTextForegroundSingleColor");
+	if (nm)
+	{
+		if (!lstrcmp(nm, L"yes"))
+			_svp._selectedTextForegroundSingleColor = true;
+		else if (!lstrcmp(nm, L"no"))
+			_svp._selectedTextForegroundSingleColor = false;
+	}
+
 	// Disable Advanced Scrolling
 	nm = element->Attribute(L"disableAdvancedScrolling");
 	if (nm)
@@ -7194,6 +7190,7 @@ bool NppParameters::writeScintillaParams()
 	(scintNode->ToElement())->SetAttribute(L"virtualSpace", _svp._virtualSpace ? L"yes" : L"no");
 	(scintNode->ToElement())->SetAttribute(L"scrollBeyondLastLine", _svp._scrollBeyondLastLine ? L"yes" : L"no");
 	(scintNode->ToElement())->SetAttribute(L"rightClickKeepsSelection", _svp._rightClickKeepsSelection ? L"yes" : L"no");
+	(scintNode->ToElement())->SetAttribute(L"selectedTextForegroundSingleColor", _svp._selectedTextForegroundSingleColor ? L"yes" : L"no");
 	(scintNode->ToElement())->SetAttribute(L"disableAdvancedScrolling", _svp._disableAdvancedScrolling ? L"yes" : L"no");
 	(scintNode->ToElement())->SetAttribute(L"wrapSymbolShow", _svp._wrapSymbolShow ? L"show" : L"hide");
 	(scintNode->ToElement())->SetAttribute(L"Wrap", _svp._doWrap ? L"yes" : L"no");

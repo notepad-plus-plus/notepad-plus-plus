@@ -994,6 +994,7 @@ struct ScintillaViewParams
 	bool _virtualSpace = false;
 	bool _scrollBeyondLastLine = true;
 	bool _rightClickKeepsSelection = false;
+	bool _selectedTextForegroundSingleColor = false;
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;
 	bool _showBorderEdge = true;
@@ -1941,7 +1942,6 @@ public:
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
-	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
 
 private:
@@ -2008,7 +2008,6 @@ private:
 	bool _isElevationRequired = false;
 	bool _isAdminMode = false;
 
-	bool _isSelectFgColorEnabled = false;
 	bool _isRegForOSAppRestartDisabled = false;
 
 	bool _doNppLogNetworkDriveIssue = false;

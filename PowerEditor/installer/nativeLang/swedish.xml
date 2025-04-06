@@ -1523,6 +1523,11 @@ Vill du fortsätta?"/>
 			<UDLNewNameError title="UDL-fel" message="Detta namn används av ett annat språk.
 Använd ett annat namn."/>
 			<UDLRemoveCurrentLang title="Ta bort aktuellt språk" message="Är du säker?"/>
+			<UDL_importSuccessful title="Användardefinierat språk" message="Importeringen slutfördes."/>
+			<UDL_importFails title="Användardefinierat språk" message="Misslyckades att importera."/>
+			<UDL_saveBeforeImport title="Användardefinierat språk" message="Spara dina språkdefinitioner genom att klicka på &quot;Spara som...&quot; innan du exporterar."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Användardefinierat språk" message="Exporteringen slutfördes."/>
+			<UDL_exportFails title="Användardefinierat språk" message="Misslyckades att exportera."/>
 			<SCMapperDoDeleteOrNot title="Är du säker?" message="Är du säker på att du vill radera detta kortkommando?"/>
 			<FindCharRangeValueError title="Felaktigt intervall" message="Du måste ange ett värde mellan 0 och 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Misslyckades att spara" message="Filen kunde inte sparas och kanske är skrivskyddad.
@@ -1839,9 +1844,21 @@ Klicka på knappen &quot;?&quot; till höger för att öppna webbplatsen med anv
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell och JSON.
 
 Om du väljer avancerat läge men inte redigerar filer i de omfattande språken kommer indraget förbli i enkelt läge."/>
+
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Om &quot;Global override&quot; aktiveras här kommer samma parameter att åsidosättas i alla språkstilar. Du vill förmodligen egentligen använda inställningen &quot;Default Style&quot; i stället"/>
 			<scintillaRenderingTechnology-tip value="Kan förbättra renderingen av specialtecken eller lösa några grafikproblem. Starta om Notepad++ för att tillämpa ändringarna."/>
+			
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="längd: $STR_REPLACE1$    rader: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Rd: $STR_REPLACE1$    Kol: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Mrk: "/>
+			<statusbar-Sel-number value="Mrk"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

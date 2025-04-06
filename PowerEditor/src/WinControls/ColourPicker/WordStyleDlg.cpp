@@ -214,7 +214,7 @@ intptr_t CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					// Selected text colour style
 					if (style._styleDesc == L"Selected text colour")
 					{
-						isTextEnabled = NppParameters::getInstance().isSelectFgColorEnabled();
+						isTextEnabled = NppParameters::getInstance().getSVP()._selectedTextForegroundSingleColor;
 					}
 				}
 				else if (dlgCtrlID == IDC_BG_STATIC)
@@ -1240,7 +1240,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	{
 		isEnable = false; // disable by default for "Selected text colour" style
 
-		if (NppParameters::getInstance().isSelectFgColorEnabled())
+		if (NppParameters::getInstance().getSVP()._selectedTextForegroundSingleColor)
 			isEnable = true;
 	}
 	::EnableWindow(_pFgColour->getHSelf(), isEnable);

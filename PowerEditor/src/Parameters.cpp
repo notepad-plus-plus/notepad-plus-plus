@@ -1655,20 +1655,6 @@ bool NppParameters::load()
 				delete _pXmlExternalLexerDoc[i];
 	}
 
-	//-------------------------------------------------------------//
-	// enableSelectFgColor.xml : for per user                      //
-	// This empty xml file is optional - user adds this empty file //
-	// manually in order to set selected text's foreground color.  //
-	//-------------------------------------------------------------//
-	std::wstring enableSelectFgColorPath = _userPath;
-	pathAppend(enableSelectFgColorPath, L"enableSelectFgColor.xml");
-
-	if (doesFileExist(enableSelectFgColorPath.c_str()))
-	{
-		_isSelectFgColorEnabled = true;
-	}
-
-
 	std::wstring filePath, filePath2, issueFileName;
 	//-------------------------------------------------------------//
 	// nppLogNetworkDriveIssue.xml                                 //

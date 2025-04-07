@@ -1872,6 +1872,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT);
 				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_ADDITIONAL_TEXT);
 			}
+
+			if (_configStyleDlg.isCreated())
+			{
+				_configStyleDlg.syncWithSelFgSingleColorCtrl();
+			}
+
 			return TRUE;
 		}
 

@@ -1176,6 +1176,18 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 	return result;
 }
 
+void WordStyleDlg::syncWithSelFgSingleColorCtrl()
+{
+	const Style& style = getCurrentStyler();
+
+	// Selected text colour style
+	if (style._styleDesc == L"Selected text colour")
+	{
+		goToSection(L"Global Styles:Default Style");
+		goToSection(L"Global Styles:Selected text colour");
+	}
+}
+
 void WordStyleDlg::setVisualFromStyleList()
 {
 	showGlobalOverrideCtrls(false);

@@ -963,6 +963,7 @@ Translation note:
 					<Item id="6112" name="Activer bouton de fermeture"/>
 					<Item id="6113" name="Fermer l’onglet par double clic"/>
 					<Item id="6115" name="Activer l’option épingler l’onglet"/>
+					<Item id="6135" name="Afficher uniquement le bouton épinglé"/>
 					<Item id="6118" name="Cacher"/>
 					<Item id="6119" name="Multiligne"/>
 					<Item id="6120" name="Verticale"/>
@@ -996,6 +997,7 @@ Translation note:
 					<Item id="6239" name="Conserver la sélection lors d’un clic droit en dehors de la sélection"/>
 					<Item id="6245" name="Activer l’espace virtuel"/>
 					<Item id="6214" name="Activer copier/couper la ligne sans sélection"/>
+					<Item id="6225" name="Appliquer la couleur personnalisée au premier plan du texte sélectionné"/>
 					<Item id="6651" name="Surligner la ligne courante"/>
 					<Item id="6652" name="Aucun"/>
 					<Item id="6653" name="Colorer l’arrière-plan"/>

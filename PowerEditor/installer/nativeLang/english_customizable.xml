@@ -963,6 +963,7 @@ Translation note:
 					<Item id="6112" name="Show close button"/>
 					<Item id="6113" name="Double click to close document"/>
 					<Item id="6115" name="Enable pin tab feature"/>
+					<Item id="6135" name="Show only pinned button"/>
 					<Item id="6118" name="Hide"/>
 					<Item id="6119" name="Multi-line"/>
 					<Item id="6120" name="Vertical"/>
@@ -996,6 +997,7 @@ Translation note:
 					<Item id="6239" name="Keep selection when right-click outside of selection"/>
 					<Item id="6245" name="Enable virtual space"/>
 					<Item id="6214" name="Enable Copy/Cut Line without selection"/>
+					<Item id="6225" name="Apply custom color to selected text foreground"/>
 					<Item id="6651" name="Current Line Indicator"/>
 					<Item id="6652" name="None"/>
 					<Item id="6653" name="Highlight Background"/>

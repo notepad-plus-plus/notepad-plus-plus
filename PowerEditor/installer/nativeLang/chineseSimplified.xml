@@ -1005,7 +1005,6 @@ Translation note:
 					<Item id="6221" name="快"/>
 					<Item id="6222" name="慢"/>
 					<Item id="6246" name="让当前级别的折叠/展开指令可以切换"/>
-					<Item id="6225" name="几个位置同时更改东西（Ctrl+按/按住鼠标左键）"/>
 					<Item id="6227" name="折行"/>
 					<Item id="6228" name="默认"/>
 					<Item id="6229" name="对齐"/>

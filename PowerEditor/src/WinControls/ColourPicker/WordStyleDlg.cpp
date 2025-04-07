@@ -1183,6 +1183,8 @@ void WordStyleDlg::syncWithSelFgSingleColorCtrl()
 	// Selected text colour style
 	if (style._styleDesc == L"Selected text colour")
 	{
+		// Only in case that dialog is on "Selected text colour":
+		// Switch to a section then switch back for refresh current state of "Selected text colour"
 		goToSection(L"Global Styles:Default Style");
 		goToSection(L"Global Styles:Selected text colour");
 	}

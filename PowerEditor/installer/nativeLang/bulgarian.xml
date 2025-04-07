@@ -3,7 +3,7 @@
 |
 |   Translators:.....: 2014–yyyy – Rusi Dimitrov;
 |                      2007–2012 – Milen Metev (Tragedy);
-|   Last revision:...: 16.03.2025 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
+|   Last revision:...: 21.04.2025 by Rusi Dimitrov <npp[at]rdd.anonaddy.com>
 |
 \========================================================================== -->
 <NotepadPlus>
@@ -877,14 +877,32 @@
 					<Item id="6132" name="Скриване на бутоните ＋ ▼ ✕"/>
 					<Item id="6133" name="Лента на състоянието"/>
 					<Item id="6134" name="Скриване"/>
-					<Item id="6101" name="Лента с инструменти"/>
+				</Global>
+				<!-- Лента с инструменти -->
+				<Toolbar title="Лента с инструменти">
 					<Item id="6102" name="Скриване"/>
 					<Item id="6103" name="Fluent UI: малки икони"/>
 					<Item id="6104" name="Fluent UI: големи икони"/>
 					<Item id="6129" name="Fluent UI: малки запълнени"/>
 					<Item id="6130" name="Fluent UI: големи запълнени"/>
 					<Item id="6105" name="Стандартни: малки икони"/>
-					<Item id="6106" name="Лента с отворени раздели"/>
+					<Item id="6011" name="Оцветяване"/>
+					<Item id="6012" name="Пълно"/>
+					<Item id="6013" name="Частично"/>
+					<Item id="6014" name="Избор на цвят"/>
+					<Item id="6016" name="Червен"/>
+					<Item id="6017" name="Син"/>
+					<Item id="6018" name="Зелен"/>
+					<Item id="6019" name="Пурпурен"/>
+					<Item id="6020" name="Синьо-зелен"/>
+					<Item id="6021" name="Маслинов"/>
+					<Item id="6022" name="Жълт"/>
+					<Item id="6015" name="По подразбиране"/>
+					<Item id="6023" name="Системен акцент"/>
+					<Item id="6024" name="Потребителски"/>
+				</Toolbar>
+				<!-- Лента с отворени раздели -->
+				<Tabbar title="Лента с отворени раздели">
 					<Item id="6118" name="Скриване"/>
 					<Item id="6119" name="На повече редове"/>
 					<Item id="6120" name="Вертикално"/>
@@ -895,10 +913,11 @@
 					<Item id="6110" name="Цветна лента върху активния"/>
 					<Item id="6112" name="Бутон за затваряне"/>
 					<Item id="6115" name="Бутон за закачане"/>
+					<Item id="6135" name="Бутон само на закачените"/>
 					<Item id="6111" name="Показване на бутони в неактивните"/>
 					<Item id="6113" name="Двойно щракване за затваряне"/>
 					<Item id="6121" name="Изход при затваряне на последният раздел"/>
-				</Global>
+				</Tabbar>
 				<!-- Редактиране 1 -->
 				<Scintillas title="Редактиране 1">
 					<Item id="6651" name="Индикация на текущият ред"/>
@@ -919,9 +938,10 @@
 					<Item id="6245" name="Включване на виртуалното пространство"/>
 					<Item id="6246" name="Превключване на командите за свиване/разгъване на текущото ниво"/>
 					<Item id="6239" name="Запазване на селекцията при щракане с десен бутон извън нея"/>
+					<Item id="6214" name="Включване на копиране/изрязване на ред без избиране"/>
+					<Item id="6225" name="Прилагане на потребителски цвят за преден план на избрания текст"/>
 					<Item id="6236" name="Превъртане след последният ред"/>
 					<Item id="6234" name="Без разширени функции за превъртане"/>
-					<Item id="6214" name="Включване на копиране/изрязване на ред без избиране"/>
 				</Scintillas>
 				<!-- Редактиране 2 -->
 				<Scintillas2 title="Редактиране 2">
@@ -955,10 +975,10 @@
 					<Item id="7108" name="Синьо-зелен"/>
 					<Item id="7109" name="Маслинов"/>
 					<Item id="7115" name="Цветове по избор"/>
-					<Item id="7116" name="Най-горе"/>
-					<Item id="7117" name="Избрано меню"/>
-					<Item id="7118" name="Активно"/>
-					<Item id="7119" name="Основа"/>
+					<Item id="7116" name="Фон за съдържанието"/>
+					<Item id="7117" name="Избран елемент"/>
+					<Item id="7118" name="Фон за управлението"/>
+					<Item id="7119" name="Фон за диалозите"/>
 					<Item id="7120" name="Грешка"/>
 					<Item id="7121" name="Текст"/>
 					<Item id="7122" name="По-тъмен текст"/>
@@ -1828,6 +1848,14 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 			<close-panel-tip value="Затваряне"/>
 			<fileSaveAsCopySaveButton-tip value="Задръжте клавиша Shift, докато натискате Запис, за да отворите копието след запазване."/>
 			<scintillaRenderingTechnology-tip value="Може да се подобри изобразяването на специални символи или да се решат някои графични проблеми. Изисква се рестартиране на Notepad++."/>
+			<!-- Лента на състоянието -->
+			<statusbar-length-lines value="дълж.: $STR_REPLACE1$    редове: $STR_REPLACE2$"/>
+			<statusbar-Ln-Col value="Ред: $STR_REPLACE1$    Кол: $STR_REPLACE2$"/>
+			<statusbar-Pos value="Поз: "/>
+			<statusbar-Sel value="Изб: "/>
+			<statusbar-Sel-number value="Изб"/>
+			<!-- Лента с инструменти -->
+			<toolbar-accent-tip value="Тази опция прави така, че иконите в лентата с инструменти да следват системния цвят на Windows. Цветът на акцента е цветът на подчертаване, използван в бутоните, границите и плочките на Start менюто в Windows. За да го промените, отидете в Settings &gt; Personalization &gt; Colors (Настройки &gt; Персонализиране &gt; Цветове), след което изберете предпочитания от вас цвят на акцента."/>
 		</MiscStrings>
 		<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
@@ -1975,6 +2003,11 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Продължаване?"/>
 			<UDLNewNameError title="UDL грешка" message="Това име вече се използва, задайте друго."/>
 			<UDLRemoveCurrentLang title="Премахване на синтаксис" message="Сигурни ли сте?"/>
+			<UDL_importSuccessful title="Потребителски синтаксис" message="Внасянето е успешно."/>
+			<UDL_importFails title="Потребителски синтаксис" message="Внасянето е неуспешно."/>
+			<UDL_saveBeforeImport title="Потребителски синтаксис" message="Преди да изнесете, запазете дефинирания синтаксис като щракнете на бутона &quot;Запис като...&quot;."/>
+			<UDL_exportSuccessful title="Потребителски синтаксис" message="Изнасянето е успешно."/>
+			<UDL_exportFails title="Потребителски синтаксис" message="Изнасянето е неуспешно."/>
 			<FindCharRangeValueError title="Проблем със стойност на обхвата" message="Трябва да въведете между 0 и 255."/>
 			<SCMapperDoDeleteOrNot title="Сигурни ли сте?" message="Сигурни ли сте, че искате този бърз клавиш да бъде изтрит?"/>
 			<ViewInBrowser title="Преглед на текущия файл в браузър" message="Програмата не може да бъде намерена във вашата система."/>

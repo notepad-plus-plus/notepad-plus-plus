@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.9:
+Updated to v8.8:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.9">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -817,7 +817,7 @@ Updated to v8.7.9:
 				<Item id="5007" name="Это удалит быстрый доступ для этой команды."/>
 				<Item id="5012" name="!!! НАЙДЕН КОНФЛИКТ !!!"/>
 			</ShortcutMapperSubDialg>
-			<UserDefine title="Пользовательское Определение Синтаксиса">
+			<UserDefine title="Пользовательский Синтаксис">
 				<Item id="20001" name="Прикрепить"/>
 				<Item id="20002" name="Новое имя"/>
 				<Item id="20003" name="Создать..."/>
@@ -999,16 +999,39 @@ Updated to v8.7.9:
 			<Preference title="Настройки">
 				<Item id="6001" name="За&amp;крыть"/>
 				<Global title="Основные">
-					<Item id="6101" name="Панель Инструментов"/>
-					<Item id="6102" name="Скрыть"/>
+					<Item id="6123" name="Язык интерфейса"/>
+					<Item id="6131" name="Панель Меню"/>
+					<Item id="6122" name="Скрыть Главное Меню (Alt или F10 для выбора)"/>
+					<Item id="6132" name="Скрыть кнопки ＋ ▼ ✕ в строке меню"/>
+					<Item id="6133" name="Строка статуса"/>
+					<Item id="6134" name="Скрыть"/>
+				</Global>
 
+				<Toolbar title="Панель Инструментов">
+					<Item id="6102" name="Скрыть"/>
 					<Item id="6103" name="Fluent UI: мелкие"/>
 					<Item id="6104" name="Fluent UI: крупные"/>
 					<Item id="6129" name="Заливка Fluent UI: мелкие"/>
 					<Item id="6130" name="Заливка Fluent UI: крупные"/>
 					<Item id="6105" name="Стандартные значки : мелкие"/>
 
-					<Item id="6106" name="Панель Вкладок"/>
+					<Item id="6011" name="Раскрашивание"/>
+					<Item id="6012" name="Полное"/>
+					<Item id="6013" name="Частичное"/>
+					<Item id="6014" name="Выбор цвета"/>
+					<Item id="6015" name="По Умолчанию"/>
+					<Item id="6016" name="Красный"/>
+					<Item id="6017" name="Синий"/>
+					<Item id="6018" name="Зелёный"/>
+					<Item id="6019" name="Фиолетовый"/>
+					<Item id="6020" name="Голубой"/>
+					<Item id="6021" name="Оливковый"/>
+					<Item id="6022" name="Желтый"/>
+					<Item id="6023" name="Системный"/>
+					<Item id="6024" name="Пользоват."/>
+				</Toolbar>
+
+				<Tabbar title="Панель Вкладок">
 					<Item id="6107" name="Уменьшенный размер"/>
 					<Item id="6108" name="Запретить перетаскивание"/>
 					<Item id="6109" name="Сменить цвет неактивной вкладки"/>
@@ -1017,18 +1040,14 @@ Updated to v8.7.9:
 					<Item id="6112" name="Кнопка закрытия"/>
 					<Item id="6113" name="Закрывать двойным щелчком"/>
 					<Item id="6115" name="Возможность закрепления вкладки"/>
+					<Item id="6135" name="Отображать только закрепленные кнопки"/>
 					<Item id="6118" name="Скрыть"/>
 					<Item id="6119" name="Каскадное отображение"/>
 					<Item id="6120" name="Вертикально с левой стороны"/>
 					<Item id="6121" name="Выходить при закр. послед. вкладки"/>
-					<Item id="6122" name="Скрыть Главное Меню (Alt или F10 для выбора)"/>
-					<Item id="6123" name="Язык интерфейса"/>
 					<Item id="6128" name="Альтернативные значки"/>
-					<Item id="6131" name="Панель Меню"/>
-					<Item id="6132" name="Скрыть кнопки ＋ ▼ ✕ в строке меню"/>
-					<Item id="6133" name="Строка статуса"/>
-					<Item id="6134" name="Скрыть"/>
-				</Global>
+				</Tabbar>
+
 				<Scintillas title="Правка 1">
 					<Item id="6216" name="Текстовый  Курсор"/>
 					<Item id="6217" name="Ширина"/>
@@ -1054,6 +1073,7 @@ Updated to v8.7.9:
 					<Item id="6236" name="Прокрутка за пределы последней строки документа"/>
 					<Item id="6234" name="Отключить расширенные функции прокрутки при проблеме с Тачпадом"/>
 					<Item id="6214" name="Возможность Копировать/Вырезать Строку без её выделения"/>
+					<Item id="6225" name="Применить польз. цвет к переднему плану выбранного текста"/>
 				</Scintillas>
 				<Scintillas2 title="Правка 2">
 					<Item id="6521" name="Мультиредактирование"/>
@@ -1087,10 +1107,10 @@ Updated to v8.7.9:
 					<Item id="7109" name="Оливковая"/>
 
 					<Item id="7115" name="Настраиваемая"/>
-					<Item id="7116" name="Панель"/>
+					<Item id="7116" name="Основа"/>
 					<Item id="7117" name="Текущий выбор"/>
-					<Item id="7118" name="Вкладки"/>
-					<Item id="7119" name="Основа"/>
+					<Item id="7118" name="Управление"/>
+					<Item id="7119" name="Опции"/>
 					<Item id="7120" name="Ошибки"/>
 					<Item id="7121" name="Текст"/>
 					<Item id="7122" name="Текст 2"/>
@@ -1527,6 +1547,11 @@ Updated to v8.7.9:
 			<ProjectPanelReloadDirty title="Перезагрузка Рабочей Области" message="Текущее рабочая область была изменена. Перезагрузка отменит все изменения.&#x0A;Вы хотите продолжить?"/>
 			<UDLNewNameError title="Ошибка Польз. Имени" message="Это имя используется другим языком.&#x0A;Пожалуйста, дайте ему другое имя."/>
 			<UDLRemoveCurrentLang title="Удаление текущего языка" message="Вы уверены?"/>
+			<UDL_importSuccessful title="Польз. Синтаксис" message="Импорт успешен."/>
+ 			<UDL_importFails title="Польз. Синтаксис" message="Не удалось импортировать."/>
+ 			<UDL_saveBeforeImport title="Польз. Синтаксис" message="Перед экспортом сохраните определение языка, нажав кнопку &quot;Сохранить как...&quot;."/>
+ 			<UDL_exportSuccessful title="Польз. Синтаксис" message="Экспорт успешен."/>
+ 			<UDL_exportFails title="Польз. Синтаксис" message="Не удалось экспортировать."/>
 			<SCMapperDoDeleteOrNot title="Удаление команды" message="Вы точно хотите удалить эту команду из списка?"/>
 			<FindCharRangeValueError title="Проблема со значением диапазона" message="Вы должны ввести от 0 и до 255."/>
 			<OpenInAdminMode title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
@@ -1838,6 +1863,12 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Если редактируемые файлы не на вышеупомянутых языках, тогда отступы будут производиться в 'Базовом' режиме."/>
 			<global-override-tip value="Использование &quot;Global override&quot; влияет на все стили языков без исключения, замещая их настройки своими.&#x0A;Возможно, вместо этого вам будет удобнее использовать настройки &quot;Default Style&quot;."/>
 			<scintillaRenderingTechnology-tip value="Может улучшить отображение специальных символов или решить некоторые проблемы с графикой. Перезапустите Notepad++, чтобы изменения вступили в силу."/>
+			<toolbar-accent-tip value="Эта опция позволяет значкам панели инструментов соответствовать системному оттенку элементов Windows. Цвет элементов — это цвет подсветки, используемый в кнопках, границах и плитках меню Пуск в Windows. Чтобы изменить его, перейдите в Параметры &gt; Персонализация &gt; Цвета, затем выберите предпочитаемый цвет элементов."/>
+			<statusbar-length-lines value="длина: $STR_REPLACE1$    строк: $STR_REPLACE2$"/>
+			<statusbar-Ln-Col value="Стр: $STR_REPLACE1$    Кол: $STR_REPLACE2$"/>
+			<statusbar-Pos value="Пол: "/>
+			<statusbar-Sel value="Выд: "/>
+			<statusbar-Sel-number value="Выд"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

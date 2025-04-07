@@ -1299,6 +1299,7 @@ intptr_t CALLBACK EditingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_CHECK_SELECTEDTEXTSINGLECOLOR:
 					svp._selectedTextForegroundSingleColor = isCheckedOrNot(IDC_CHECK_SELECTEDTEXTSINGLECOLOR);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_CHANGESELECTTEXTFORGROUND, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_DISABLEADVANCEDSCROLL:

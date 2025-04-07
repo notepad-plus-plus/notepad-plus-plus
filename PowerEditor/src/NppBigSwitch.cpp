@@ -1841,6 +1841,40 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CHANGESELECTTEXTFORGROUND:
+		{
+			StyleArray& stylers = nppParam.getMiscStylerArray();
+
+			COLORREF selectColorFore = black;
+			const Style* pStyle = stylers.findByName(L"Selected text colour");
+			if (pStyle)
+			{
+				selectColorFore = pStyle->_fgColor;
+			}
+
+			if ((nppParam.getSVP())._selectedTextForegroundSingleColor)
+			{
+				_mainEditView.setElementColour(SC_ELEMENT_SELECTION_TEXT, selectColorFore);
+				_mainEditView.setElementColour(SC_ELEMENT_SELECTION_INACTIVE_TEXT, selectColorFore);
+				_mainEditView.setElementColour(SC_ELEMENT_SELECTION_ADDITIONAL_TEXT, selectColorFore);
+
+				_subEditView.setElementColour(SC_ELEMENT_SELECTION_TEXT, selectColorFore);
+				_subEditView.setElementColour(SC_ELEMENT_SELECTION_INACTIVE_TEXT, selectColorFore);
+				_subEditView.setElementColour(SC_ELEMENT_SELECTION_ADDITIONAL_TEXT, selectColorFore);
+			}
+			else
+			{
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_TEXT);
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT);
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_ADDITIONAL_TEXT);
+
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_TEXT);
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT);
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_ADDITIONAL_TEXT);
+			}
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETWORDCHARS:
 		{
 			_mainEditView.setWordChars();

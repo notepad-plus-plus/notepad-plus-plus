@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.7.9:
+Updated to v8.8.0:
 - added new lines
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.7.9">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.8.0">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1028,6 +1028,7 @@ Updated to v8.7.9:
 					<Item id="6132" name="Скрыть кнопки ＋ ▼ ✕ в строке меню"/>
 					<Item id="6133" name="Строка статуса"/>
 					<Item id="6134" name="Скрыть"/>
+					<Item id="6135" name="Отображать только закрепленную кнопку"/>
 				</Global>
 				<Scintillas title="Правка 1">
 					<Item id="6216" name="Текстовый  Курсор"/>
@@ -1527,6 +1528,11 @@ Updated to v8.7.9:
 			<ProjectPanelReloadDirty title="Перезагрузка Рабочей Области" message="Текущее рабочая область была изменена. Перезагрузка отменит все изменения.&#x0A;Вы хотите продолжить?"/>
 			<UDLNewNameError title="Ошибка Польз. Имени" message="Это имя используется другим языком.&#x0A;Пожалуйста, дайте ему другое имя."/>
 			<UDLRemoveCurrentLang title="Удаление текущего языка" message="Вы уверены?"/>
+			<UDL_importSuccessful title="Польз. Определение Синтаксиса" message="Импорт успешен."/>
+ 			<UDL_importFails title="Польз. Определение Синтаксиса" message="Не удалось импортировать."/>
+ 			<UDL_saveBeforeImport title="Польз. Определение Синтаксиса" message="Перед экспортом сохраните определение языка, нажав кнопку &quot;Сохранить как...&quot;."/>
+ 			<UDL_exportSuccessful title="Польз. Определение Синтаксиса" message="Экспорт успешен."/>
+ 			<UDL_exportFails title="Польз. Определение Синтаксиса" message="Не удалось экспортировать."/>
 			<SCMapperDoDeleteOrNot title="Удаление команды" message="Вы точно хотите удалить эту команду из списка?"/>
 			<FindCharRangeValueError title="Проблема со значением диапазона" message="Вы должны ввести от 0 и до 255."/>
 			<OpenInAdminMode title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
@@ -1838,6 +1844,11 @@ C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell
 Если редактируемые файлы не на вышеупомянутых языках, тогда отступы будут производиться в 'Базовом' режиме."/>
 			<global-override-tip value="Использование &quot;Global override&quot; влияет на все стили языков без исключения, замещая их настройки своими.&#x0A;Возможно, вместо этого вам будет удобнее использовать настройки &quot;Default Style&quot;."/>
 			<scintillaRenderingTechnology-tip value="Может улучшить отображение специальных символов или решить некоторые проблемы с графикой. Перезапустите Notepad++, чтобы изменения вступили в силу."/>
+			<statusbar-length-lines value="длина: $STR_REPLACE1$    строк: $STR_REPLACE2$"/>
+			<statusbar-Ln-Col value="Стр: $STR_REPLACE1$    Кол: $STR_REPLACE2$"/>
+			<statusbar-Pos value="Пол: "/>
+			<statusbar-Sel value="Выд: "/>
+			<statusbar-Sel-number value="Выд"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-04-06"><!-- basiert auf english.xml 8.7.9 vom 03.04.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-04-08"><!-- basiert auf english.xml 8.7.9 vom 08.04.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -972,6 +972,7 @@ Translation note:
 					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
 					<Item id="6115" name="Pin-Tab-Funktion aktivieren (fixieren/lösen)"/>
+					<Item id="6135" name="Nur angeheftete Schaltfläche anzeigen"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
@@ -1005,6 +1006,7 @@ Translation note:
 					<Item id="6239" name="Auswahl bei Rechtsklick außerhalb der Auswahl beibehalten"/>
 					<Item id="6245" name="Virtuellen Raum aktivieren"/>
 					<Item id="6214" name="Zeile Kopieren/Ausschneiden ohne Auswahl aktivieren"/>
+					<Item id="6225" name="Benutzerdefinierte Farbe auf den gewählten Text im Vordergrund anwenden"/>
 					<Item id="6651" name="Anzeige der aktuellen Zeile"/>
 					<Item id="6652" name="Keine"/>
 					<Item id="6653" name="Hintergrund hervorheben"/>

@@ -964,6 +964,7 @@ Translation note:
 					<Item id="6112" name="Visa knapp för att stänga flik"/>
 					<Item id="6113" name="Dubbelklicka för att stänga dokument"/>
 					<Item id="6115" name="Gör det möjligt att fästa flikar"/>
+					<Item id="6135" name="Visa endast knapp för att fästa flikar"/>
 					<Item id="6118" name="Dölj"/>
 					<Item id="6119" name="Flera rader"/>
 					<Item id="6120" name="Vertikalt"/>
@@ -997,6 +998,7 @@ Translation note:
 					<Item id="6239" name="Behåll markering när man klickar utanför markeringen"/>
 					<Item id="6245" name="Aktivera virtuellt utrymme"/>
 					<Item id="6214" name="Kopiera/klipp ut aktuell rad när ingenting är markerat"/>
+					<Item id="6225" name="Tillämpa anpassad förgrundsfärg på markerad text"/>
 					<Item id="6651" name="Indikator för aktuell rad"/>
 					<Item id="6652" name="Ingen"/>
 					<Item id="6653" name="Markerad bakgrund"/>

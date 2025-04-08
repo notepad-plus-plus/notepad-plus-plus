@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.7.9">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -960,6 +960,7 @@
 					<Item id="6112" name="Zobraziť tlačidlo zatvorenia"/>
 					<Item id="6113" name="Dvojklikom zavrieť dokument"/>
 					<Item id="6115" name="Povoliť funkciu pripnúť kartu"/>
+					<Item id="6135" name="Zobraziť tlačidlo iba pripnuté"/>
 					<Item id="6118" name="Skryť"/>
 					<Item id="6119" name="Viacriadkový"/>
 					<Item id="6120" name="Vertikálny"/>
@@ -993,6 +994,7 @@
 					<Item id="6239" name="Ponechať označenie pri kliknutí pravým tlačidlom mimo označenia"/>
 					<Item id="6245" name="Povoliť virtuálny priestor"/>
 					<Item id="6214" name="Povoliť Kopírovať/Vystrihnúť riadok bez označenia"/>
+					<Item id="6225" name="Použiť na vybraný text vlastnú farbu popredia"/>
 					<Item id="6651" name="Indikátor aktuálneho riadku"/>
 					<Item id="6652" name="Žiadny"/>
 					<Item id="6653" name="Zvýraznenie pozadia"/>

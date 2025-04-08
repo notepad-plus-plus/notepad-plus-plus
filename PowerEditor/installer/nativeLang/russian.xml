@@ -817,7 +817,7 @@ Updated to v8.8.0:
 				<Item id="5007" name="Это удалит быстрый доступ для этой команды."/>
 				<Item id="5012" name="!!! НАЙДЕН КОНФЛИКТ !!!"/>
 			</ShortcutMapperSubDialg>
-			<UserDefine title="Пользовательское Определение Синтаксиса">
+			<UserDefine title="Пользовательский Синтаксис">
 				<Item id="20001" name="Прикрепить"/>
 				<Item id="20002" name="Новое имя"/>
 				<Item id="20003" name="Создать..."/>
@@ -1529,11 +1529,11 @@ Updated to v8.8.0:
 			<ProjectPanelReloadDirty title="Перезагрузка Рабочей Области" message="Текущее рабочая область была изменена. Перезагрузка отменит все изменения.&#x0A;Вы хотите продолжить?"/>
 			<UDLNewNameError title="Ошибка Польз. Имени" message="Это имя используется другим языком.&#x0A;Пожалуйста, дайте ему другое имя."/>
 			<UDLRemoveCurrentLang title="Удаление текущего языка" message="Вы уверены?"/>
-			<UDL_importSuccessful title="Польз. Определение Синтаксиса" message="Импорт успешен."/>
- 			<UDL_importFails title="Польз. Определение Синтаксиса" message="Не удалось импортировать."/>
- 			<UDL_saveBeforeImport title="Польз. Определение Синтаксиса" message="Перед экспортом сохраните определение языка, нажав кнопку &quot;Сохранить как...&quot;."/>
- 			<UDL_exportSuccessful title="Польз. Определение Синтаксиса" message="Экспорт успешен."/>
- 			<UDL_exportFails title="Польз. Определение Синтаксиса" message="Не удалось экспортировать."/>
+			<UDL_importSuccessful title="Польз. Синтаксис" message="Импорт успешен."/>
+ 			<UDL_importFails title="Польз. Синтаксис" message="Не удалось импортировать."/>
+ 			<UDL_saveBeforeImport title="Польз. Синтаксис" message="Перед экспортом сохраните определение языка, нажав кнопку &quot;Сохранить как...&quot;."/>
+ 			<UDL_exportSuccessful title="Польз. Синтаксис" message="Экспорт успешен."/>
+ 			<UDL_exportFails title="Польз. Синтаксис" message="Не удалось экспортировать."/>
 			<SCMapperDoDeleteOrNot title="Удаление команды" message="Вы точно хотите удалить эту команду из списка?"/>
 			<FindCharRangeValueError title="Проблема со значением диапазона" message="Вы должны ввести от 0 и до 255."/>
 			<OpenInAdminMode title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>

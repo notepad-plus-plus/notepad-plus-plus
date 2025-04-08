@@ -1034,10 +1034,10 @@ Translation note:
 					<Item id="7108" name="Cyan"/>
 					<Item id="7109" name="Olive"/>
 					<Item id="7115" name="Customized"/>
-					<Item id="7116" name="Top"/>
-					<Item id="7117" name="Menu hot track"/>
-					<Item id="7118" name="Active"/>
-					<Item id="7119" name="Main"/>
+					<Item id="7116" name="Content background"/>
+					<Item id="7117" name="Hot track item"/>
+					<Item id="7118" name="Control background"/>
+					<Item id="7119" name="Dialog background"/>
 					<Item id="7120" name="Error"/>
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Darker text"/>

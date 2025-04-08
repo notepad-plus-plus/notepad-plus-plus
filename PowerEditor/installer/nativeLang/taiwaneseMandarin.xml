@@ -989,17 +989,18 @@
 					<Item id="7108" name="青色"/>
 					<Item id="7109" name="橄欖色"/>
 					<Item id="7115" name="自訂色調"/>
-					<Item id="7116" name="上部"/>
-					<Item id="7117" name="選單追踪顯示"/>
-					<Item id="7118" name="現行的"/>
-					<Item id="7119" name="主要的"/>
+					<Item id="7116" name="內容背景"/>
+					<Item id="7117" name="追踪顯示"/>
+					<Item id="7118" name="控制件背景"/>
+					<Item id="7119" name="對話方塊背景"/>
 					<Item id="7120" name="錯誤 "/>
 					<Item id="7121" name="文字"/>
 					<Item id="7122" name="色調較暗文字"/>
 					<Item id="7123" name="暫停使用文字"/>
 					<Item id="7124" name="邊線"/>
-					<Item id="7126" name="熱焦邊線"/>
 					<Item id="7125" name="鏈接"/>
+					<Item id="7126" name="熱焦邊線"/>
+					<Item id="7127" name="停用邊線"/>
 					<Item id="7130" name="重設原始值"/>
 					<Item id="7135" name="色調"/>
 				</DarkMode>

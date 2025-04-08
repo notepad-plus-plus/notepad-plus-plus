@@ -25,9 +25,9 @@ namespace NppDarkMode
 	struct Colors
 	{
 		COLORREF background = 0;
-		COLORREF softerBackground = 0;
+		COLORREF softerBackground = 0; // ctrl background color
 		COLORREF hotBackground = 0;
-		COLORREF pureBackground = 0;
+		COLORREF pureBackground = 0;   // dlg background color
 		COLORREF errorBackground = 0;
 		COLORREF text = 0;
 		COLORREF darkerText = 0;

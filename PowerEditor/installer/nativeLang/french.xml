@@ -1034,10 +1034,10 @@ Translation note:
 					<Item id="7108" name="cyan"/>
 					<Item id="7109" name="olive"/>
 					<Item id="7115" name="Personnaliser"/>
-					<Item id="7116" name="Haut"/>
-					<Item id="7117" name="Surbrillance (menu)"/>
-					<Item id="7118" name="Activé"/>
-					<Item id="7119" name="Principale"/>
+					<Item id="7116" name="Arrière-plan de contenu"/>
+					<Item id="7117" name="Surbrillance"/>
+					<Item id="7118" name="Arrière-plan de contrôle"/>
+					<Item id="7119" name="Arrière-plan de dialogue"/>
 					<Item id="7120" name="Erreur"/>
 					<Item id="7121" name="Texte"/>
 					<Item id="7122" name="Texte plus sombre"/>

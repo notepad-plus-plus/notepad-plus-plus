@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-04-08"><!-- basiert auf english.xml 8.7.9 vom 08.04.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-04-10"><!-- basiert auf english.xml 8.7.9 vom 09.04.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1043,10 +1043,10 @@ Translation note:
 					<Item id="7108" name="Cyan"/>
 					<Item id="7109" name="Oliv"/>
 					<Item id="7115" name="Benutzerdefiniert"/>
-					<Item id="7116" name="Menü/Oberste Ebene"/>
-					<Item id="7117" name="Menü Hottrack"/>
-					<Item id="7118" name="Aktiv"/>
-					<Item id="7119" name="Inaktiv/Statusleiste"/>
+					<Item id="7116" name="Inhaltshintergrund"/>
+					<Item id="7117" name="Hervorhebung"/>
+					<Item id="7118" name="Kontrollhintergrund"/>
+					<Item id="7119" name="Dialoghintergrund"/>
 					<Item id="7120" name="Fehler"/>
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Dunklerer Text"/>

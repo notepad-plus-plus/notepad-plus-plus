@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 16 Mar 2025, for Notepad++ 8.7.9
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 07 Apr 2025, for Notepad++ 8.8.0
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.7.9">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -963,6 +963,7 @@ Translation note:
 					<Item id="6112" name="Mostrar o botão fechar"/>
 					<Item id="6113" name="Fechar documento com duplo clique"/>
 					<Item id="6115" name="Habilitar recurso de fixar aba"/>
+					<Item id="6135" name="Mostrar apenas botões fixados"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Multilinhas"/>
 					<Item id="6120" name="Vertical"/>
@@ -996,6 +997,7 @@ Translation note:
 					<Item id="6239" name="Manter a seleção ao clicar com o botão direito fora da seleção"/>
 					<Item id="6245" name="Habilitar espaço virtual"/>
 					<Item id="6214" name="Habilitar Copiar/Recortar Linha sem seleção"/>
+					<Item id="6225" name="Aplicar cor customizada em texto selecionado"/>
 					<Item id="6651" name="Indicador de linha atual"/>
 					<Item id="6652" name="Nenhum"/>
 					<Item id="6653" name="Destacar fundo"/>
@@ -1522,6 +1524,11 @@ Deseja continuar?"/>
 			<UDLNewNameError title="Erro UDL" message="Esse nome é usado por outro idioma.
 Por favor, dê outro."/>
 			<UDLRemoveCurrentLang title="Remover a linguagem atual" message="Você tem certeza?"/>
+			<UDL_importSuccessful title="Linguagem Definida pelo Usuário" message="Importação efetuada com sucesso."/>
+			<UDL_importFails title="Linguagem Definida pelo Usuário" message="Erro na importação."/>
+			<UDL_saveBeforeImport title="Linguagem Definida pelo Usuário" message="Antes de exportar, salve sua definição de linguagem clicando no botão &quot;Salvar como...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Linguagem Definida pelo Usuário" message="Exportação efetuada com sucesso."/>
+			<UDL_exportFails title="Linguagem Definida pelo Usuário" message="Erro na exportação."/>
 			<SCMapperDoDeleteOrNot title="Você tem certeza?" message="Tem certeza de que deseja excluir este atalho?"/>
 			<FindCharRangeValueError title="Problema do Valor do intervalo" message="Você deve escolher entre 0 e 255."/> <!-- Como Reproduzir: No menu 'Localizar', depois 'Localizar caracteres em um intervalo', selecione 'Meu intervalo', digite 999 nas duas caixas de edição, e clique em 'Localizar'. -->
 			<OpenInAdminMode title="Falha ao salvar" message="O arquivo não pode ser salvo e pode estar protegido.
@@ -1838,9 +1845,21 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Usu�
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
 Se você ativar o modo avançado mas não editar arquivos destas linguagens, a indentação continuará em modo básico."/>
+
 			<!-- Não traduzir "Global override" e "Default Style" -->
 			<global-override-tip value="Habilitar o &quot;Global override&quot; aqui vai prevalecer sobre este parâmetro em todos os estilos de linguagem. O que provavelmente é desejado é usar as configurações de &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Pode melhorar a renderização de caracteres especiais ou resolver alguns problemas gráficos, reinicie o Notepad++ para aplicar as mudanças."/>
+
+			<!-- Devido ao espaço limitado na barra de status, se as traduções para 'length' & 'lines' forem muito maiores do que o texto em Inglês, por favor deixe-os em Inglês ao invés de traduzi-los. -->
+ 			<statusbar-length-lines value="tamanho: $STR_REPLACE1$    linhas: $STR_REPLACE2$"/>
+
+			<!-- Devido ao espaço limitado na barra de status, se as traduções para 'Ln' & 'Col' forem muito maiores do que o texto em Inglês, por favor deixe-os em Inglês ao invés de traduzi-los. -->
+ 			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+ 
+			<!-- Devido ao espaço limitado na barra de status, se as traduções para 'Pos' & 'Sel' forem muito maiores do que o texto em Inglês, por favor deixe-os em Inglês ao invés de traduzi-los. -->
+ 			<statusbar-Pos value="Pos: "/>
+ 			<statusbar-Sel value="Sel: "/>
+ 			<statusbar-Sel-number value="Sel"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

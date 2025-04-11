@@ -963,6 +963,7 @@
 					<Item id="6112" name="Be&amp;zárásgomb megjelenítése"/>
 					<Item id="6113" name="Bez&amp;árás dupla kattintással"/>
 					<Item id="6115" name="Fülek kitűzésének engedélyezése"/>
+					<Item id="6135" name="C&amp;sak a „kitűzött” gombok megjelenítése"/>
 					<Item id="6118" name="Elre&amp;jtés"/>
 					<Item id="6119" name="T&amp;öbbsoros elrendezés"/>
 					<Item id="6120" name="Fü&amp;ggőleges megjelenítés"/>
@@ -996,6 +997,7 @@
 					<Item id="6239" name="Kijelölés &amp;megtartása a kijelölésen kívül jobb egérgombbal történő kattintáskor is"/>
 					<Item id="6245" name="S&amp;orvégi virtuális szóközök engedélyezése"/>
 					<Item id="6214" name="Ki&amp;jelölés nélküli sormásolás és -kivágás engedélyezése"/>
+					<Item id="6225" name="Eg&amp;yéni szín a kijelölt szöveg előteréhez"/>
 					<Item id="6651" name="Aktuálissor-jelölés"/>
 					<Item id="6652" name="&amp;Nincs"/>
 					<Item id="6653" name="&amp;Háttérkiemelés"/>
@@ -1032,10 +1034,10 @@
 					<Item id="7108" name="&amp;Cián"/>
 					<Item id="7109" name="&amp;Olívazöld"/>
 					<Item id="7115" name="&amp;Egyedi"/>
-					<Item id="7116" name="Elsődleges"/>
-					<Item id="7117" name="Menüelemre mutatás"/>
-					<Item id="7118" name="Aktív"/>
-					<Item id="7119" name="Főbb elemek"/>
+					<Item id="7116" name="Fő tartalom"/>
+					<Item id="7117" name="Elemre mutatás"/>
+					<Item id="7118" name="Elemek háttere"/>
+					<Item id="7119" name="Párbeszédablakok"/>
 					<Item id="7120" name="Hiba"/>
 					<Item id="7121" name="Szöveg"/>
 					<Item id="7122" name="Sötétebb szöveg"/>
@@ -1149,7 +1151,7 @@
 					<Item id="6603" name="Ahogy látszik (&amp;WYSIWYG)"/>
 					<Item id="6604" name="Ford&amp;ított színek"/>
 					<Item id="6605" name="F&amp;ekete-fehér"/>
-					<Item id="6606" name="H&amp;áttérszín nélkül"/>
+					<Item id="6606" name="H&amp;áttérszín nélküli"/>
 					<Item id="6607" name="Margóbeállítások (mm-ben)"/>
 					<Item id="6612" name="B&amp;al"/>
 					<Item id="6613" name="&amp;Felső"/>
@@ -1522,6 +1524,11 @@ Kívánja folytatni?"/>
 			<UDLNewNameError title="Felhasználóinyelv-hiba" message="Ezt a nevet már másik nyelv már használja;
 kérjük, adjon meg más elnevezést"/>
 			<UDLRemoveCurrentLang title="Az aktuális nyelv eltávolítása" message="Biztos benne?"/>
+			<UDL_importSuccessful title="Felhasználói nyelvek" message="Sikeres importálás"/>
+			<UDL_importFails title="Felhasználói nyelvek" message="Sikertelen importálás"/>
+			<UDL_saveBeforeImport title="Felhasználói nyelvek" message="Exportálás előtt, kérjük, mentse el a felhasználói nyelvet a „Klónozás…” gombra kattintva"/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Felhasználói nyelvek" message="Sikeres exportálás"/>
+			<UDL_exportFails title="Felhasználói nyelvek" message="Sikertelen exportálás"/>
 			<SCMapperDoDeleteOrNot title="Billentyűparancs" message="Biztosan el kívánja távolítani ezt a billentyűparancsot?"/>
 			<FindCharRangeValueError title="Értéktartomány-probléma" message="Kérjük, egy 0 és 255 közötti értéket adjon meg"/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Sikertelen mentés" message="A fájl mentése sikertelen volt; lehet, hogy védett.
@@ -1838,9 +1845,21 @@ Kattintson a jobb oldali „?” gombra a Felhasználói kézikönyv weboldalán
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell és JSON.
 
 Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait szerkeszti, a behúzás „Alapszintű” módban marad"/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="A „Global override”-lehetőségek itt történő bekapcsolása minden nyelv stílusát felülírja az adott beállítással. Ha bizonytalan, valószínűleg a „Default Style” beállításait szeretné használni"/>
 			<scintillaRenderingTechnology-tip value="Javíthatja a különleges karakterek megjelenítését, vagy megoldhat egyes grafikai problémákat – a módosítások érvénybe léptetéséhez a Notepad++ újraindítása szükséges"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="Hossz: $STR_REPLACE1$    Sorok: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Sor: $STR_REPLACE1$    Oszl.: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Poz.: "/>
+			<statusbar-Sel value="Kij.: "/>
+			<statusbar-Sel-number value="Kij."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

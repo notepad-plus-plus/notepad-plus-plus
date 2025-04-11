@@ -324,17 +324,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					toolBarStatusType state = TB_STANDARD;
 					auto& nppGUITbInfo = nppGUI._tbIconInfo;
-					NppDarkMode::TbIconInfo toolbarIconInfo{};
-					if (NppDarkMode::getToolbarIconInfo(&toolbarIconInfo))
-					{
-						nppGUITbInfo = toolbarIconInfo;
-						state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
-					}
-					else
-					{
-						nppGUITbInfo._tbColor = NppDarkMode::FluentColor::defaultColor;
-						state = _toolBar.getState();
-					}
+					const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
+					nppGUITbInfo = toolbarIconInfo;
+					state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
 
 					switch (state)
 					{

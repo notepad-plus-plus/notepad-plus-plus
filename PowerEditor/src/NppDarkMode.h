@@ -97,7 +97,7 @@ namespace NppDarkMode
 
 	struct TbIconInfo
 	{
-		int _tbIconSet = -1;
+		int _tbIconSet = 4;
 		// fluent icon color
 		FluentColor _tbColor = FluentColor::defaultColor;
 		// fluent icon custom color, used when _tbColor == FluentColor::custom
@@ -139,8 +139,8 @@ namespace NppDarkMode
 	void setWindowsMode(bool enable);
 	std::wstring getThemeName();
 	void setThemeName(const std::wstring& newThemeName);
-	bool getToolbarIconInfo(TbIconInfo* tbIconInfo, bool useDark);
-	bool getToolbarIconInfo(TbIconInfo* tbIconInfo);
+	TbIconInfo getToolbarIconInfo(bool useDark);
+	TbIconInfo getToolbarIconInfo();
 	void setToolbarIconSet(int state2Set, bool useDark);
 	void setToolbarIconSet(int state2Set);
 	void setToolbarFluentColor(FluentColor color2Set, bool useDark);

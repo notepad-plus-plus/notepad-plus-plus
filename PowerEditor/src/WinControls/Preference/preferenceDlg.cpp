@@ -293,32 +293,15 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			NppParameters& nppParams = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParams.getNppGUI();
 			auto& nppGUITbInfo = nppGUI._tbIconInfo;
-			NppDarkMode::TbIconInfo toolbarIconInfo{};
-			if (NppDarkMode::getToolbarIconInfo(&toolbarIconInfo, static_cast<bool>(wParam)))
-			{
-				nppGUITbInfo = toolbarIconInfo;
-				nppGUI._toolBarStatus = static_cast<toolBarStatusType>(toolbarIconInfo._tbIconSet);
-			}
-			else if(nppParams.getCustomizedToolIcons() == nullptr)
-			{
-				const auto boundMax = static_cast<int>(NppDarkMode::FluentColor::maxValue) - 1;
-				auto idxFluentColor = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_COMBO_TOOLBAR_ICON_COLOR, CB_GETCURSEL, 0, 0));
-				idxFluentColor = std::min<int>(idxFluentColor, boundMax);
-				nppGUITbInfo._tbColor = static_cast<NppDarkMode::FluentColor>(idxFluentColor);
-
-				const auto idxIconSet = std::min<int>(static_cast<int>(::SendDlgItemMessage(hGeneralSubDlg, IDC_COMBO_TOOLBAR_ICON, CB_GETCURSEL, 0, 0)), TB_STANDARD);
-				nppGUI._toolBarStatus = static_cast<toolBarStatusType>(idxIconSet);
-			}
-			else
-			{
-				nppGUITbInfo._tbColor = NppDarkMode::FluentColor::defaultColor;
-			}
+			const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo(static_cast<bool>(wParam));
+			nppGUITbInfo = toolbarIconInfo;
+			nppGUI._toolBarStatus = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
 
 			::SendDlgItemMessage(hGeneralSubDlg, IDC_COMBO_TOOLBAR_ICON, CB_SETCURSEL, nppGUI._toolBarStatus, 0);
 			::SendDlgItemMessage(hGeneralSubDlg, IDC_COMBO_TOOLBAR_ICON_COLOR, CB_SETCURSEL, static_cast<WPARAM>(nppGUITbInfo._tbColor), 0);
 			::SendDlgItemMessage(hGeneralSubDlg, IDC_CHECK_TOOLBAR_ICON_MONO, BM_SETCHECK, nppGUITbInfo._tbUseMono ? BST_CHECKED : BST_UNCHECKED, 0);
 
-			const bool enable = nppGUI._toolBarStatus != TB_STANDARD && nppParams.getCustomizedToolIcons() == nullptr;
+			const bool enable = nppGUI._toolBarStatus != TB_STANDARD;
 			::EnableWindow(::GetDlgItem(hGeneralSubDlg, IDC_COMBO_TOOLBAR_ICON_COLOR), enable ? TRUE : FALSE);
 			::EnableWindow(::GetDlgItem(hGeneralSubDlg, IDC_CHECK_TOOLBAR_ICON_MONO), enable ? TRUE : FALSE);
 
@@ -653,7 +636,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			setChecked(IDC_CHECK_TOOLBAR_ICON_MONO, nppGUITbInfo._tbUseMono);
 
-			const bool enable = tbStatus != TB_STANDARD && nppParam.getCustomizedToolIcons() == nullptr;
+			const bool enable = tbStatus != TB_STANDARD;
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_TOOLBAR_ICON_COLOR), enable ? TRUE : FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TOOLBAR_ICON_MONO), enable ? TRUE : FALSE);
 
@@ -1082,7 +1065,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 									::SendMessage(::GetParent(_hParent), msg, 0, 0);
 									NppDarkMode::setToolbarIconSet(idxIconSet, NppDarkMode::isEnabled());
 
-									const bool enable = idxIconSet != TB_STANDARD && nppParam.getCustomizedToolIcons() == nullptr;
+									const bool enable = idxIconSet != TB_STANDARD;
 									::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_TOOLBAR_ICON_COLOR), enable ? TRUE : FALSE);
 									::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TOOLBAR_ICON_MONO), enable ? TRUE : FALSE);
 									redrawDlgItem(IDC_STATIC_TOOLBAR_ICON_COLOR);

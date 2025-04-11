@@ -572,29 +572,20 @@ namespace NppDarkMode
 		return (lstrcmp(theme.c_str(), L"stylers.xml") == 0) ? L"" : theme;
 	}
 
-	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolButtons() != nullptr;
-
-	bool getToolbarIconInfo(TbIconInfo* tbIconInfo, bool useDark)
+	TbIconInfo getToolbarIconInfo(bool useDark)
 	{
-		if (g_isCustomToolIconUsed)
-		{
-			return false;
-		}
-
 		auto& toolbarInfo = useDark ? g_advOptions._darkDefaults._tbIconInfo
 			: g_advOptions._lightDefaults._tbIconInfo;
 
 		if (toolbarInfo._tbCustomColor == 0)
 			toolbarInfo._tbCustomColor = NppDarkMode::getAccentColor();
 
-		*tbIconInfo = toolbarInfo;
-
-		return true;
+		return toolbarInfo;
 	}
 
-	bool  getToolbarIconInfo(TbIconInfo* tbIconInfo)
+	TbIconInfo getToolbarIconInfo()
 	{
-		return NppDarkMode::getToolbarIconInfo(tbIconInfo, NppDarkMode::isEnabled());
+		return NppDarkMode::getToolbarIconInfo(NppDarkMode::isEnabled());
 	}
 
 	void setToolbarIconSet(int state2Set, bool useDark)
@@ -3875,17 +3866,17 @@ namespace NppDarkMode
 
 		HDC hdcScreen = nullptr;
 		HDC hdcBitmap = nullptr;
-		HBITMAP hbmNew = nullptr;
 		BITMAP bm{};
 		ICONINFO ii{};
+		HBITMAP hbmNew = nullptr;
 		std::unique_ptr<RGBQUAD[]> pixels;
 
 		const bool changeEverything = colorMappings[0].first == 0;
 
 		auto cleanup = [&]()
 			{
-				if (hdcBitmap) ::DeleteDC(hdcBitmap);
 				if (hdcScreen) ::ReleaseDC(nullptr, hdcScreen);
+				if (hdcBitmap) ::DeleteDC(hdcBitmap);
 				if (ii.hbmColor) ::DeleteObject(ii.hbmColor);
 				if (ii.hbmMask) ::DeleteObject(ii.hbmMask);
 				if (hbmNew) ::DeleteObject(hbmNew);
@@ -3976,9 +3967,6 @@ namespace NppDarkMode
 
 	bool changeFluentIconColor(HICON* phIcon)
 	{
-		if (g_isCustomToolIconUsed)
-			return false;
-
 		const auto cMain = NppDarkMode::isEnabled() ? cDefaultMainDark : cDefaultMainLight;
 		const auto cSecondary = NppDarkMode::isEnabled() ? cDefaultSecondaryDark : cDefaultSecondaryLight;
 		std::vector<std::pair<COLORREF, COLORREF>> colorMappings;

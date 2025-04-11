@@ -689,12 +689,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	//-- Tool Bar Section --//
 	
-	NppDarkMode::TbIconInfo toolbarIconInfo{};
-	if (NppDarkMode::getToolbarIconInfo(&toolbarIconInfo))
-	{
-		nppGUI._tbIconInfo = toolbarIconInfo;
-		nppGUI._toolBarStatus = static_cast<toolBarStatusType>(toolbarIconInfo._tbIconSet);
-	}
+	const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
+	nppGUI._tbIconInfo = toolbarIconInfo;
+	nppGUI._toolBarStatus = static_cast<toolBarStatusType>(nppGUI._tbIconInfo._tbIconSet);
 
 	toolBarStatusType tbStatus = nppGUI._toolBarStatus;
 	willBeShown = nppGUI._toolbarShow;
@@ -8526,17 +8523,9 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 
 		toolBarStatusType state = TB_STANDARD;
 		auto& nppGUITbInfo = nppParams.getNppGUI()._tbIconInfo;
-		NppDarkMode::TbIconInfo toolbarIconInfo{};
-		if (NppDarkMode::getToolbarIconInfo(&toolbarIconInfo))
-		{
-			nppGUITbInfo = toolbarIconInfo;
-			state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
-		}
-		else
-		{
-			nppGUITbInfo._tbColor = NppDarkMode::FluentColor::defaultColor;
-			state = _toolBar.getState();
-		}
+		const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
+		nppGUITbInfo = toolbarIconInfo;
+		state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
 
 		switch (state)
 		{

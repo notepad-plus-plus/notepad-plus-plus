@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
+
+<!--
+This file allows you to:
+1. Hide any toolbar buttons you don't need.
+2. Change the appearance of (replace) any or all toolbar icons.
+
+To archieve one or both of above gaols, you need to move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\Notepad++\toolbarButtonsConf.xml" (or place it beside "notepad++.exe" if you're using the portable package).
+Edit the relevant sections, save your change, and relaunch Notepad++ for the modifications to take effect. 
+-->
+
 	<ToolbarButtons>
 <!--
-This file makes your toolbar buttons hideable.
+The "Standard" section allows your toolbar's standard buttons (come with Notepad++) to be hidden.
 
-Usage:
-Move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\Notepad++\toolbarButtonsConf.xml"
-(or beside "notepad++.exe" if you're using the portable package).
-Modify the attributes "hideAll" or "hide" of the items with "yes" or "no" values.
-Save the file and relaunch Notepad++ to hide/show the buttons you selected.
+Usage: Modify the "hideAll" or "hide" attributes of the items by settings their values to "yes" or "no".
 
 Notice:
-1. The values of the attributes "index" and "id" shouldn't be modified because they are used for synchronizing with internal data to maintain the coherence of this file.
-2. The attribute "name" is informative only, so the values of "name" can be modified for the user's convenience.
-3. The "yes" value of the "hideAll" attribute will override all values of the "hide" attribute.
+1. The "index" and "id" attributes values must not be modified, as they are used to synchronize with internal data for maintaining the file's coherence.
+2. The "name" attribute is for informational purposes only, so its values can be modified for the user's convenience.
+3. Setting the "hideAll" attribute's value to "yes" will override all "hide" attribute values.
 -->
 		<Standard hideAll="no">
 			<Button hide="no" index="0"  id="41001" name="New" />
@@ -61,7 +67,7 @@ Notice:
 <!--
 In this section we can hide toolbar buttons for installed plugins based on their order in the toolbar (including separators).
 "Name" attribute has no effect, use it as a reminder.
-When installing / uninstalling plugins, add/remove button entries as necessary so your button settings correspond to the changed toolbar button order.
+When installing/uninstalling plugins, add/remove button entries as necessary so your button settings correspond to the changed toolbar button order.
 -->
 		<Plugin hideAll="no">
 			<Button hide="no" name="SEPARATOR" />        <!-- The 1st button -->
@@ -73,4 +79,71 @@ When installing / uninstalling plugins, add/remove button entries as necessary s
 			<!-- Add more "Button" tags here... -->
 		</Plugin>
 	</ToolbarButtons>
+	
+<!--
+The "ToolBarIcons" section (tag) is for customizing your toolbar icons, by using an alternative set of icons.
+
+To override the current toolbar icons, you need 2 things: this file and your icons set.
+You can get a sample icons set here:
+https://notepad-plus-plus.org/assets/data/nppLegacyIconSet.zip
+
+Instructions to customize your toolbar icons:
+
+1. Create a new folder named "toolbarIcons" in the directory where "toolbarButtonsConf.xml" file is located.
+2. Edit the "icoFolderName" attribute value of "ToolBarIcons" tag in "toolbarButtonsConf.xml" file. Specify the name of the icon set you want in the "icoFolderName" attribute. For example: <ToolBarIcons icoFolderName="myAwesomeIcons" />.
+3. Navigate to the "toolbarIcons" folder and create a new folder named exactly as the icon set name you specified in the "icoFolderName" attribute.
+4. Place all your customized icons in the foder "[toolbarButtonsConf.xml's folder]\toolbarIcons\myAwesomeIcons\".
+5. Finally, relaunch Notepad++ to see your icon set replace the default icons.
+
+Note: if the "icoFolderName" value is an empty string, the icons will be located in "[toolbarButtonsConf.xml's folder]\toolbarIcons\default\".
+
+Replacing icons: Each icon (45 in total) has a fixed and specific name. Please ignore the empty room - they are the separators.
+Naming convention:
+
+ 0    new.ico
+ 1    open.ico
+ 2    save.ico                    save_disabled.ico
+ 3    save-all.ico                save-all_disabled.ico
+ 4    close.ico
+ 5    close-all.ico
+ 6    print.ico
+ 7  
+ 8    cut.ico                     cut_disabled.ico
+ 9    copy.ico                    copy_disabled.ico
+10    paste.ico                   paste_disabled.ico
+11  
+12    undo.ico                    undo_disabled.ico
+13    redo.ico                    redo_disabled.ico
+14  
+15    find.ico
+16    replace.ico
+17  
+18    zoom-in.ico
+19    zoom-out.ico
+20  
+21    sync-vertical.ico
+22    sync-horizontal.ico
+23  
+24    word-wrap.ico
+25    all-chars.ico
+26    indent-guide.ico
+27  
+28    udl-dlg.ico
+29    doc-map.ico
+30    doc-list.ico
+31    function-list.ico
+32    folder-as-workspace.ico
+33  
+34    monitoring.ico              monitoring_disabled.ico
+35  
+36    record.ico                  record_disabled.ico
+37    stop-record.ico             stop-record_disabled.ico
+38    playback.ico                playback_disabled.ico
+39    playback-multiple.ico       playback-multiple_disabled.ico
+40    save-macro.ico              save-macro_disabled.ico
+
+It's not necessary to have a complete set of icons (45 icons). Any missing icons will simply remain unsubstituted.
+-->
+
+	<ToolBarIcons icoFolderName="" />
 </NotepadPlus>

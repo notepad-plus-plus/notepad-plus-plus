@@ -1031,10 +1031,10 @@
 					<Item id="7108" name="Azúrová"/>
 					<Item id="7109" name="Olivová"/>
 					<Item id="7115" name="Vlastná"/>
-					<Item id="7116" name="Horný panel"/>
-					<Item id="7117" name="Položka hlavnej ponuky"/>
-					<Item id="7118" name="Aktívna"/>
-					<Item id="7119" name="Hlavné"/>
+					<Item id="7116" name="Pozadie hlavného obsahu"/>
+					<Item id="7117" name="Zvýraznenie"/>
+					<Item id="7118" name="Pozadie prvkov"/>
+					<Item id="7119" name="Pozadie dialógového okna"/>
 					<Item id="7120" name="Chyba"/>
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Tmavší text"/>

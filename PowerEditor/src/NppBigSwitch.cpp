@@ -322,8 +322,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				nppGUI._darkmode._isEnabled = enableDarkMode;
 				if (!_preference.isCreated())
 				{
-					const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
-					toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
+					toolBarStatusType state = TB_STANDARD;
+					auto& nppGUITbInfo = nppGUI._tbIconInfo;
+					const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
+					nppGUITbInfo = toolbarIconInfo;
+					state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
+
 					switch (state)
 					{
 						case TB_SMALL:
@@ -3920,7 +3924,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_SMALL)
+			if (state != TB_SMALL || static_cast<BOOL>(wParam))
 			{
 				_toolBar.reduce();
 			}
@@ -3931,7 +3935,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_LARGE)
+			if (state != TB_LARGE || static_cast<BOOL>(wParam))
 			{
 				_toolBar.enlarge();
 			}
@@ -3942,7 +3946,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_SMALL2)
+			if (state != TB_SMALL2 || static_cast<BOOL>(wParam))
 			{
 				_toolBar.reduceToSet2();
 			}
@@ -3953,7 +3957,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_LARGE2)
+			if (state != TB_LARGE2 || static_cast<BOOL>(wParam))
 			{
 				_toolBar.enlargeToSet2();
 			}

@@ -17,6 +17,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <windows.h>
 
 
@@ -79,10 +80,36 @@ namespace NppDarkMode
 		dark = 2
 	};
 
+	enum class FluentColor
+	{
+		defaultColor    = 0,
+		accent          = 1,
+		red             = 2,
+		green           = 3,
+		blue            = 4,
+		purple          = 5,
+		cyan            = 6,
+		olive           = 7,
+		yellow          = 8,
+		custom          = 9,
+		maxValue        = 10
+	};
+
+	struct TbIconInfo
+	{
+		int _tbIconSet = 4;
+		// fluent icon color
+		FluentColor _tbColor = FluentColor::defaultColor;
+		// fluent icon custom color, used when _tbColor == FluentColor::custom
+		COLORREF _tbCustomColor = 0;
+		// does fluent icon use monochrome colorization
+		bool _tbUseMono = false;
+	};
+
 	struct AdvOptDefaults
 	{
 		std::wstring _xmlFileName;
-		int _toolBarIconSet = -1;
+		TbIconInfo _tbIconInfo{};
 		int _tabIconSet = -1;
 		bool _tabUseTheme = false;
 	};
@@ -91,8 +118,8 @@ namespace NppDarkMode
 	{
 		bool _enableWindowsMode = false;
 
-		NppDarkMode::AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", 0, 2, false };
-		NppDarkMode::AdvOptDefaults _lightDefaults{ L"", 4, 0, true };
+		NppDarkMode::AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", {0, FluentColor::defaultColor, 0, false}, 2, false};
+		NppDarkMode::AdvOptDefaults _lightDefaults{ L"", { 4, FluentColor::defaultColor, 0, false }, 0, true };
 	};
 
 	constexpr UINT WM_SETBUTTONIDEALSIZE = (WM_USER + 4200);
@@ -112,8 +139,16 @@ namespace NppDarkMode
 	void setWindowsMode(bool enable);
 	std::wstring getThemeName();
 	void setThemeName(const std::wstring& newThemeName);
-	int getToolBarIconSet(bool useDark);
-	void setToolBarIconSet(int state2Set, bool useDark);
+	TbIconInfo getToolbarIconInfo(bool useDark);
+	TbIconInfo getToolbarIconInfo();
+	void setToolbarIconSet(int state2Set, bool useDark);
+	void setToolbarIconSet(int state2Set);
+	void setToolbarFluentColor(FluentColor color2Set, bool useDark);
+	void setToolbarFluentColor(FluentColor color2Set);
+	void setToolbarFluentMonochrome(bool setMonochrome, bool useDark);
+	void setToolbarFluentMonochrome(bool setMonochrome);
+	void setToolbarFluentCustomColor(COLORREF color, bool useDark);
+	void setToolbarFluentCustomColor(COLORREF color);
 	int getTabIconSet(bool useDark);
 	void setTabIconSet(bool useAltIcons, bool useDark);
 	bool useTabTheme();
@@ -127,6 +162,8 @@ namespace NppDarkMode
 	double calculatePerceivedLightness(COLORREF c);
 
 	void setDarkTone(ColorTone colorToneChoice);
+
+	COLORREF getAccentColor();
 
 	COLORREF getBackgroundColor();
 	COLORREF getCtrlBackgroundColor();
@@ -240,4 +277,7 @@ namespace NppDarkMode
 	LRESULT onCtlColorError(HDC hdc);
 	LRESULT onCtlColorDlgStaticText(HDC hdc, bool isTextEnabled);
 	LRESULT onCtlColorListbox(WPARAM wParam, LPARAM lParam);
+
+	bool changeFluentIconColor(HICON* phIcon, const std::vector<std::pair<COLORREF, COLORREF>>& colorMappings, int tolerance = 3);
+	bool changeFluentIconColor(HICON* phIcon);
 }

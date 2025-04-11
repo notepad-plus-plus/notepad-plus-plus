@@ -689,11 +689,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	//-- Tool Bar Section --//
 	
-	const int toolbarState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
-	if (toolbarState != -1)
-	{
-		nppGUI._toolBarStatus = static_cast<toolBarStatusType>(toolbarState);
-	}
+	const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
+	nppGUI._tbIconInfo = toolbarIconInfo;
+	nppGUI._toolBarStatus = static_cast<toolBarStatusType>(nppGUI._tbIconInfo._tbIconSet);
+
 	toolBarStatusType tbStatus = nppGUI._toolBarStatus;
 	willBeShown = nppGUI._toolbarShow;
 
@@ -8522,8 +8521,12 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			}
 		}
 
-		const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
-		toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
+		toolBarStatusType state = TB_STANDARD;
+		auto& nppGUITbInfo = nppParams.getNppGUI()._tbIconInfo;
+		const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
+		nppGUITbInfo = toolbarIconInfo;
+		state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
+
 		switch (state)
 		{
 			case TB_SMALL:

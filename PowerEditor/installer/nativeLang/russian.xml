@@ -1089,10 +1089,10 @@ Updated to v8.8.0:
 					<Item id="7109" name="Оливковая"/>
 
 					<Item id="7115" name="Настраиваемая"/>
-					<Item id="7116" name="Панель"/>
+					<Item id="7116" name="Основа"/>
 					<Item id="7117" name="Текущий выбор"/>
-					<Item id="7118" name="Вкладки"/>
-					<Item id="7119" name="Основа"/>
+					<Item id="7118" name="Управление"/>
+					<Item id="7119" name="Опции"/>
 					<Item id="7120" name="Ошибки"/>
 					<Item id="7121" name="Текст"/>
 					<Item id="7122" name="Текст 2"/>

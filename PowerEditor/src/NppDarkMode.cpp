@@ -520,7 +520,7 @@ namespace NppDarkMode
 		return (lstrcmp(theme.c_str(), L"stylers.xml") == 0) ? L"" : theme;
 	}
 
-	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolIcons() != nullptr;
+	static bool g_isCustomToolIconUsed = NppParameters::getInstance().getCustomizedToolButtons() != nullptr;
 
 	void setToolBarIconSet(int state2Set, bool useDark)
 	{

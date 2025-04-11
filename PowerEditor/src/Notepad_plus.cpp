@@ -149,16 +149,11 @@ Notepad_plus::Notepad_plus()
 
 	nppParam.setNativeLangSpeaker(&_nativeLangSpeaker);
 
-	TiXmlDocument *toolIconsDocRoot = nppParam.getCustomizedToolIcons();
 	TiXmlDocument *toolButtonsDocRoot = nppParam.getCustomizedToolButtons();
-
-	if (toolIconsDocRoot)
-	{
-		_toolBar.initTheme(toolIconsDocRoot);
-	}
 
 	if (toolButtonsDocRoot)
 	{
+		_toolBar.initTheme(toolButtonsDocRoot);
 		_toolBar.initHideButtonsConf(toolButtonsDocRoot, toolBarIcons, sizeof(toolBarIcons) / sizeof(ToolBarButtonUnit));
 	}
 

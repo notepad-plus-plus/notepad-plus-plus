@@ -1483,21 +1483,6 @@ bool NppParameters::load()
 		isAllLoaded = false;
 	}
 
-	//---------------------------------//
-	// toolbarIcons.xml : for per user //
-	//---------------------------------//
-	std::wstring toolbarIconsPath(_userPath);
-	pathAppend(toolbarIconsPath, L"toolbarIcons.xml");
-
-	_pXmlToolIconsDoc = new TiXmlDocument(toolbarIconsPath);
-	loadOkay = _pXmlToolIconsDoc->LoadFile();
-	if (!loadOkay)
-	{
-		delete _pXmlToolIconsDoc;
-		_pXmlToolIconsDoc = nullptr;
-		isAllLoaded = false;
-	}
-
 	//---------------------------------------//
 	// toolbarButtonsConf.xml : for per user //
 	//---------------------------------------//
@@ -1724,7 +1709,6 @@ void NppParameters::destroyInstance()
 	}
 
 	delete _pXmlNativeLangDocA;
-	delete _pXmlToolIconsDoc;
 	delete _pXmlToolButtonsConfDoc;
 	delete _pXmlShortcutDocA;
 	delete _pXmlContextMenuDocA;

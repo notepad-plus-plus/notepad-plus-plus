@@ -1240,21 +1240,6 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
-	//---------------------------------//
-	// toolbarIcons.xml : for per user //
-	//---------------------------------//
-	generic_string toolbarIconsPath(_userPath);
-	PathAppend(toolbarIconsPath, TEXT("toolbarIcons.xml"));
-
-	_pXmlToolIconsDoc = new TiXmlDocument(toolbarIconsPath);
-	loadOkay = _pXmlToolIconsDoc->LoadFile();
-	if (!loadOkay)
-	{
-		delete _pXmlToolIconsDoc;
-		_pXmlToolIconsDoc = nullptr;
-		isAllLaoded = false;
-	}
-
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//

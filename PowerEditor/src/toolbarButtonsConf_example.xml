@@ -92,10 +92,10 @@ Instructions to customize your toolbar icons:
 1. Create a new folder named "toolbarIcons" in the directory where "toolbarButtonsConf.xml" file is located.
 2. Edit the "icoFolderName" attribute value of "ToolBarIcons" tag in "toolbarButtonsConf.xml" file. Specify the name of the icon set you want in the "icoFolderName" attribute. For example: <ToolBarIcons icoFolderName="myAwesomeIcons" />.
 3. Navigate to the "toolbarIcons" folder and create a new folder named exactly as the icon set name you specified in the "icoFolderName" attribute.
-4. Place all your customized icons in the foder "[toolbarIcons.xml's folder]\toolbarIcons\myAwesomeIcons\".
+4. Place all your customized icons in the foder "[toolbarButtonsConf.xml's folder]\toolbarIcons\myAwesomeIcons\".
 5. Finally, relaunch Notepad++ to see your icon set replace the default icons.
 
-Note: if the "icoFolderName" value is an empty string, the icons will be located in "[toolbarIcons.xml's folder]\toolbarIcons\default\".
+Note: if the "icoFolderName" value is an empty string, the icons will be located in "[toolbarButtonsConf.xml's folder]\toolbarIcons\default\".
 
 Replacing icons: Each icon (45 in total) has a fixed and specific name. Please ignore the empty room - they are the separators.
 Naming convention:

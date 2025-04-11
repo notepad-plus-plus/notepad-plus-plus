@@ -123,8 +123,6 @@ copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\DarkModeDefault.xml" .\minimalist\themes\
 If ErrorLevel 1 goto End
-copy /Y ..\src\toolbarIcons.xml .\minimalist\
-If ErrorLevel 1 goto End
 
 
 rmdir /S /Q .\minimalist64
@@ -160,8 +158,6 @@ copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\DarkModeDefault.xml" .\minimalist64\themes\
 If ErrorLevel 1 goto End
-copy /Y ..\src\toolbarIcons.xml .\minimalist64\
-If ErrorLevel 1 goto End
 
 
 rmdir /S /Q .\minimalistArm64
@@ -196,8 +192,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\minimalistArm64\
 If ErrorLevel 1 goto End
 copy /Y ".\themes\DarkModeDefault.xml" .\minimalistArm64\themes\
-If ErrorLevel 1 goto End
-copy /Y ..\src\toolbarIcons.xml .\minimalistArm64\
 If ErrorLevel 1 goto End
 
 
@@ -283,8 +277,6 @@ copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\toolbarIcons.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
 
 
 
@@ -313,8 +305,6 @@ copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin64\"notepad++.exe" .\zipped.package.release64\
 If ErrorLevel 1 goto End
-copy /Y ..\src\toolbarIcons.xml .\zipped.package.release64\
-If ErrorLevel 1 goto End
 
 
 rem Basic Copy needed files into Notepad++ ARM64 package folders
@@ -341,8 +331,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\nppLogNulContentCorruptionIssue.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 copy /Y ..\binarm64\"notepad++.exe" .\zipped.package.releaseArm64\
-If ErrorLevel 1 goto End
-copy /Y ..\src\toolbarIcons.xml .\zipped.package.releaseArm64\
 If ErrorLevel 1 goto End
 
 

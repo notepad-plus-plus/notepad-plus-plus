@@ -1038,10 +1038,10 @@ Translation note:
 					<Item id="7108" name="シアン"/>
 					<Item id="7109" name="オリーブ"/>
 					<Item id="7115" name="カスタム"/>
-					<Item id="7116" name="上部"/>
-					<Item id="7117" name="注目中のメニュー"/>
-					<Item id="7118" name="アクティブ タブ"/>
-					<Item id="7119" name="背景"/>
+					<Item id="7116" name="コンテンツの背景"/>
+					<Item id="7117" name="注目中の要素"/>
+					<Item id="7118" name="コントロールの背景"/>
+					<Item id="7119" name="ダイアログの背景"/>
 					<Item id="7120" name="エラー"/>
 					<Item id="7121" name="文字"/>
 					<Item id="7122" name="濃い文字"/>

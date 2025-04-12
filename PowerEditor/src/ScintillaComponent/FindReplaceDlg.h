@@ -405,7 +405,7 @@ public :
 
 	void execSavedCommand(int cmd, uptr_t intValue, const std::wstring& stringValue);
 	void clearMarks(const FindOption& opt);
-	void setStatusbarMessage(const std::wstring & msg, FindStatus staus, const std::wstring& tooltipMsg = L"");
+	void setStatusbarMessage(const std::wstring & msg, FindStatus status, const std::wstring& tooltipMsg = L"");
 	void setStatusbarMessageWithRegExprErr(ScintillaEditView* pEditView);
 	std::wstring getScopeInfoForStatusBar(FindOption const *pFindOpt) const;
 	Finder * createFinder();

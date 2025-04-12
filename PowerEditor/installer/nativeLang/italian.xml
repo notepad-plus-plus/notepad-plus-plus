@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.7.8
-    Last modified Sun, Feb 23rd, 2025.
+    Italian translation for Notepad++ 8.8.0
+    Last modified Sun, Apr 21st, 2025.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.7.8">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.8.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -951,15 +951,38 @@ Translation note:
 			<Preference title="Preferenze">
 				<Item id="6001" name="Chiudi"/>
 				<Global title="Generale">
-					<Item id="6101" name="Barra degli strumenti"/>
+					<Item id="6123" name="Lingua"/>
+					<Item id="6131" name="Menu"/>
+					<Item id="6122" name="Nascondi (Alt o F10 per visualizzare)"/>
+					<Item id="6132" name="Nascondi ＋ ▼ ✕"/>
+					<Item id="6133" name="Barra di stato"/>
+					<Item id="6134" name="Nascondi"/>
+				</Global>
+
+				<Toolbar title="Toolbar">
 					<Item id="6102" name="Nascondi"/>
 					<Item id="6103" name="Icone contornate (piccole)"/>
 					<Item id="6104" name="Icone contornate (grandi)"/>
 					<Item id="6129" name="Icone piene (piccole)"/>
 					<Item id="6130" name="Icone piene (grandi)"/>
 					<Item id="6105" name="Icone classiche (piccole)"/>
+					<Item id="6011" name="Colorazione"/>
+					<Item id="6012" name="Completa"/>
+					<Item id="6013" name="Parziale"/>
+					<Item id="6014" name="Scelta dei colori"/>
+					<Item id="6015" name="Predefinito"/>
+					<Item id="6016" name="Rosso"/>
+					<Item id="6017" name="Blù"/>
+					<Item id="6018" name="Verde"/>
+					<Item id="6019" name="Viola"/>
+					<Item id="6020" name="Ciano"/>
+					<Item id="6021" name="Olive"/>
+					<Item id="6022" name="Giallo"/>
+					<Item id="6023" name="Principale di sistema"/>
+					<Item id="6024" name="Personalizzata"/>
+				</Toolbar>
 
-					<Item id="6106" name="Barra delle schede"/>
+				<Tabbar title="Barra delle schede">
 					<Item id="6107" name="Compatta"/>
 					<Item id="6108" name="Blocca schede (no trascinamento)"/>
 					<Item id="6109" name="Cambia il colore della scheda inattiva"/>
@@ -968,21 +991,13 @@ Translation note:
 					<Item id="6112" name="Visualizza pulsante di chiusura"/>
 					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>
 					<Item id="6115" name="Abilita il fissaggio delle schede"/>
+					<Item id="6135" name="Show only pinned button"/>
 					<Item id="6118" name="Nascondi"/>
 					<Item id="6119" name="Utilizza più righe"/>
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esci alla chiusura dell&apos;ultima scheda"/>
 					<Item id="6128" name="Icone alternative"/>
-
-					<Item id="6133" name="Barra di stato"/>
-					<Item id="6134" name="Nascondi"/>
-
-					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Nascondi (Alt o F10 per visualizzare)"/>
-					<Item id="6132" name="Nascondi ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Lingua"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Modifica 1">
 					<Item id="6216" name="Cursore"/>
@@ -1001,6 +1016,7 @@ Translation note:
 					<Item id="6239" name="Mantieni la selezione quando clicchi con il tasto destro fuori da essa"/>
 					<Item id="6245" name="Attiva spazio virtuale"/>
 					<Item id="6214" name="Abilita Copia/Taglia Riga senza selezione"/>
+					<Item id="6225" name="Applica colore personalizzato al testo selezionato in secondo piano"/>
 					<Item id="6651" name="Indicatore di linea corrente"/>
 					<Item id="6652" name="Nessuno"/>
 					<Item id="6653" name="Evidenzia sfondo"/>
@@ -1037,10 +1053,10 @@ Translation note:
 					<Item id="7108" name="Ciano"/>
 					<Item id="7109" name="Verde oliva"/>
 					<Item id="7115" name="Personalizzata"/>
-					<Item id="7116" name="Alto"/>
-					<Item id="7117" name="Evidenziazione menu"/>
-					<Item id="7118" name="Attivo"/>
-					<Item id="7119" name="Principale"/>
+					<Item id="7116" name="Sfondo del contenuto"/>
+					<Item id="7117" name="Evidenziazione"/>
+					<Item id="7118" name="Sfondo controlli"/>
+					<Item id="7119" name="Sfondo finestra"/>
 					<Item id="7120" name="Errore"/>
 					<Item id="7121" name="Testo"/>
 					<Item id="7122" name="Testo scuro"/>
@@ -1334,6 +1350,7 @@ Translation note:
 						<Element name="DirectWrite (predefinito)"/>
 						<Element name="DirectWrite (retain frames)"/>
 						<Element name="DirectWrite (draw to GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="Area di notifica"/>
 					<Item id="6363" name="modalità rendering"/>
@@ -1526,6 +1543,11 @@ Continuare?"/>
 			<UDLNewNameError title="Errore UDL" message="Questo nome è utilizzato da un altro linguaggio,
 usarne un altro."/>
 			<UDLRemoveCurrentLang title="Rimuovere il linguaggio corrente" message="Rimuovere il linguaggio corrente?"/>
+			<UDL_importSuccessful title="Linguaggio definito dall'utente" message="Importazione riuscita."/>
+			<UDL_importFails title="Linguaggio definito dall'utente" message="Importazione non andata a buon fine."/>
+			<UDL_saveBeforeImport title="Linguaggio definito dall'utente" message="Prima dell'esportazione, salva la tua definizione del linguaggio cliccando su  &quot;Salva con nome...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Linguaggio definito dall'utente" message="Esportazione riuscita."/>
+			<UDL_exportFails title="Linguaggio definito dall'utente" message="Esportazione non andata a buon fine."/>
 			<SCMapperDoDeleteOrNot title="Eliminazione scorciatoia" message="Eliminare questa scorciatoia?"/>
 			<FindCharRangeValueError title="Intervallo di valori errato" message="Inserire un valore tra 0 e 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Salvataggio non andato a buon fine" message="Il file non può essere salvato e potrebbe essere protetto.
@@ -1842,9 +1864,22 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
 Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei linguaggi sopra menzionati, il rientro rimarrà in modalità base."/>
+
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Abilitando qui &quot;Global override&quot;, quel parametro verrà sovrascritto in tutti gli stili di lingua. Ciò che probabilmente vuoi usare è invece l'impostazione &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Potrebbe migliorare il rendering dei caratteri speciali o risolvere alcuni problemi grafici, riavviare Notepad++ per applicare le modifiche."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="lungh.: $STR_REPLACE1$    linee: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pos: "/>
+			<statusbar-Sel value="Sel: "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Questa opzione fa sì che le icone della barra degli strumenti seguano il colore principale del sistema Windows. Il colore principale è il colore di evidenziazione utilizzato per pulsanti, bordi e riquadri del menu Avvio in Windows. Per modificarlo, vai su Impostazioni &gt; Personalizzazione  &gt;  Colori, quindi seleziona il colore principale preferito."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

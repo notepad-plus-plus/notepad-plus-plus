@@ -4152,7 +4152,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
 }
 
-void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, const wstring& tooltipMsg)
+void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus status, const wstring& tooltipMsg)
 {
 	if (_statusbarTooltipWnd)
 	{
@@ -4162,7 +4162,7 @@ void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, 
 
 	_statusbarTooltipMsg = tooltipMsg;
 
-	if (staus == FSNotFound)
+	if (status == FSNotFound)
 	{
 		if (!NppParameters::getInstance().getNppGUI()._muteSounds)
 			::MessageBeep(0xFFFFFFFF);
@@ -4175,7 +4175,7 @@ void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, 
 		flashInfo.dwFlags = FLASHW_ALL;
 		FlashWindowEx(&flashInfo);
 	}
-	else if (staus == FSTopReached || staus == FSEndReached)
+	else if (status == FSTopReached || status == FSEndReached)
 	{
 		if (!isVisible())
 		{
@@ -4191,8 +4191,17 @@ void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, 
 
 	if (isVisible())
 	{
-		_statusbarFindStatus = staus;
-		_statusBar.setOwnerDrawText(msg.c_str());
+		_statusbarFindStatus = status;
+		if ((msg.length() > 0) && (msg.at(0) != L' '))
+		{
+			// fix visual glitch (text is visible, but positioned too far to the left)
+			wstring msgSpaceIndented = L' ' + msg;
+			_statusBar.setOwnerDrawText(msgSpaceIndented.c_str());
+		}
+		else
+		{
+			_statusBar.setOwnerDrawText(msg.c_str());
+		}
 	}
 }
 

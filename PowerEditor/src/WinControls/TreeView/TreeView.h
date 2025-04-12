@@ -123,7 +123,6 @@ public:
 protected:
 	HIMAGELIST _hImaLst = nullptr;
 	NppDarkMode::TreeViewStyle _tvStyleType = NppDarkMode::TreeViewStyle::classic;
-	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 

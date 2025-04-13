@@ -25,7 +25,6 @@
 #include <vssym32.h>
 
 #include "Parameters.h"
-#include "resource.h"
 #include "dpiManagerV2.h"
 
 #include <shlwapi.h>
@@ -34,7 +33,6 @@
 
 #ifdef __GNUC__
 #include <cmath>
-#include <memory>
 #define WINAPI_LAMBDA WINAPI
 #ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
 #define DWMWA_USE_IMMERSIVE_DARK_MODE 20
@@ -583,15 +581,15 @@ namespace NppDarkMode
 		return NppDarkMode::getToolbarIconInfo(NppDarkMode::isEnabled());
 	}
 
-	void setToolbarIconSet(toolBarStatusType state2Set, bool useDark)
+	void setToolbarIconSet(int state2Set, bool useDark)
 	{
 		if (useDark)
-			g_advOptions._darkDefaults._tbIconInfo._tbIconSet = state2Set;
+			g_advOptions._darkDefaults._tbIconInfo._tbIconSet = static_cast<toolBarStatusType>(state2Set);
 		else
-			g_advOptions._lightDefaults._tbIconInfo._tbIconSet = state2Set;
+			g_advOptions._lightDefaults._tbIconInfo._tbIconSet = static_cast<toolBarStatusType>(state2Set);
 	}
 
-	void setToolbarIconSet(toolBarStatusType state2Set)
+	void setToolbarIconSet(int state2Set)
 	{
 		NppDarkMode::setToolbarIconSet(state2Set, NppDarkMode::isEnabled());
 	}

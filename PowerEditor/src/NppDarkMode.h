@@ -17,10 +17,8 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <windows.h>
 
-enum toolBarStatusType : int;
 enum class FluentColor;
 struct TbIconInfo;
 struct AdvOptDefaults;
@@ -104,8 +102,8 @@ namespace NppDarkMode
 	void setThemeName(const std::wstring& newThemeName);
 	TbIconInfo getToolbarIconInfo(bool useDark);
 	TbIconInfo getToolbarIconInfo();
-	void setToolbarIconSet(toolBarStatusType state2Set, bool useDark);
-	void setToolbarIconSet(toolBarStatusType state2Set);
+	void setToolbarIconSet(int state2Set, bool useDark);
+	void setToolbarIconSet(int state2Set);
 	void setToolbarFluentColor(FluentColor color2Set, bool useDark);
 	void setToolbarFluentColor(FluentColor color2Set);
 	void setToolbarFluentMonochrome(bool setMonochrome, bool useDark);

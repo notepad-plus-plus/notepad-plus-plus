@@ -1061,7 +1061,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 									toolBarStatusType idxIconSet = TB_STANDARD;
 									UINT msg = getToolbarIconSetMsg(&idxIconSet);
 									::SendMessage(::GetParent(_hParent), msg, 0, 0);
-									NppDarkMode::setToolbarIconSet(idxIconSet, NppDarkMode::isEnabled());
+									NppDarkMode::setToolbarIconSet(idxIconSet);
 
 									const bool enable = idxIconSet != TB_STANDARD;
 									::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_TOOLBAR_ICON_COLOR), enable ? TRUE : FALSE);

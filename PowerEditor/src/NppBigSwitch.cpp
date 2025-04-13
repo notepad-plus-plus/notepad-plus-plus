@@ -2189,6 +2189,76 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						return FALSE;
 				}
 			}
+			else if (lpnmhdr->hwndFrom == _rebarTop.getHSelf()
+				|| lpnmhdr->hwndFrom == _rebarBottom.getHSelf())
+			{
+				switch (lpnmhdr->code)
+				{
+					case NM_CUSTOMDRAW:
+					{
+						auto lpnmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+
+						switch (lpnmcd->dwDrawStage)
+						{
+							case CDDS_PREPAINT:
+							{
+								if (!NppDarkMode::isEnabled())
+								{
+									return CDRF_DODEFAULT;
+								}
+
+								::FillRect(lpnmcd->hdc, &lpnmcd->rc, NppDarkMode::getDlgBackgroundBrush());
+								REBARBANDINFO rbBand{};
+								rbBand.cbSize = sizeof(REBARBANDINFO);
+								rbBand.fMask = RBBIM_STYLE | RBBIM_CHEVRONLOCATION | RBBIM_CHEVRONSTATE;
+								::SendMessage(lpnmcd->hdr.hwndFrom, RB_GETBANDINFO, 0, reinterpret_cast<LPARAM>(&rbBand));
+
+								LRESULT lr = CDRF_DODEFAULT;
+
+								if ((rbBand.fStyle & RBBS_USECHEVRON) == RBBS_USECHEVRON
+									&& (rbBand.rcChevronLocation.right - rbBand.rcChevronLocation.left) > 0)
+								{
+									static int roundCornerValue = 0;
+									if (NppDarkMode::isWindows11())
+									{
+										roundCornerValue = 5;
+									}
+
+									const bool isHot = (rbBand.uChevronState & STATE_SYSTEM_HOTTRACKED) == STATE_SYSTEM_HOTTRACKED;
+									const bool isPressed = (rbBand.uChevronState & STATE_SYSTEM_PRESSED) == STATE_SYSTEM_PRESSED;
+
+									if (isHot)
+									{
+										NppDarkMode::paintRoundRect(lpnmcd->hdc, rbBand.rcChevronLocation, NppDarkMode::getHotEdgePen(), NppDarkMode::getHotBackgroundBrush(), roundCornerValue, roundCornerValue);
+									}
+									else if (isPressed)
+									{
+										NppDarkMode::paintRoundRect(lpnmcd->hdc, rbBand.rcChevronLocation, NppDarkMode::getEdgePen(), NppDarkMode::getCtrlBackgroundBrush(), roundCornerValue, roundCornerValue);
+									}
+
+									::SetTextColor(lpnmcd->hdc, isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+									::SetBkMode(lpnmcd->hdc, TRANSPARENT);
+
+									constexpr auto dtFlags = DT_NOPREFIX | DT_CENTER | DT_TOP | DT_SINGLELINE | DT_NOCLIP;
+									::DrawText(lpnmcd->hdc, L"»", -1, &rbBand.rcChevronLocation, dtFlags);
+
+									lr = CDRF_SKIPDEFAULT;
+								}
+
+								return lr;
+							}
+
+							default:
+								break;
+						}
+
+						return CDRF_DODEFAULT;
+					}
+
+					default:
+						break;
+				}
+}
 
 			SCNotification *notification = reinterpret_cast<SCNotification *>(lParam);
 

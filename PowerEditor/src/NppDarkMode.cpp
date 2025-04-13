@@ -1024,13 +1024,18 @@ namespace NppDarkMode
 		::EnableDarkScrollBarForWindowAndChildren(hwnd);
 	}
 
-	void paintRoundFrameRect(HDC hdc, const RECT rect, const HPEN hpen, int width, int height)
+	void paintRoundRect(HDC hdc, const RECT rect, const HPEN hpen, const HBRUSH hBrush, int width, int height)
 	{
-		auto holdBrush = ::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
+		auto holdBrush = ::SelectObject(hdc, hBrush);
 		auto holdPen = ::SelectObject(hdc, hpen);
 		::RoundRect(hdc, rect.left, rect.top, rect.right, rect.bottom, width, height);
 		::SelectObject(hdc, holdBrush);
 		::SelectObject(hdc, holdPen);
+	}
+
+	void paintRoundFrameRect(HDC hdc, const RECT rect, const HPEN hpen, int width, int height)
+	{
+		NppDarkMode::paintRoundRect(hdc, rect, hpen, static_cast<HBRUSH>(::GetStockObject(NULL_BRUSH)), width, height);
 	}
 
 	struct ThemeData
@@ -2862,21 +2867,13 @@ namespace NppDarkMode
 
 				if ((nmtbcd->nmcd.uItemState & CDIS_HOT) == CDIS_HOT)
 				{
-					auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotBackgroundBrush());
-					auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getHotEdgePen());
-					::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
-					::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
-					::SelectObject(nmtbcd->nmcd.hdc, holdPen);
+					NppDarkMode::paintRoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc, NppDarkMode::getHotEdgePen(), NppDarkMode::getHotBackgroundBrush(), roundCornerValue, roundCornerValue);
 
 					nmtbcd->nmcd.uItemState &= ~(CDIS_CHECKED | CDIS_HOT);
 				}
 				else if ((nmtbcd->nmcd.uItemState & CDIS_CHECKED) == CDIS_CHECKED)
 				{
-					auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getCtrlBackgroundBrush());
-					auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getEdgePen());
-					::RoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc.left, nmtbcd->nmcd.rc.top, nmtbcd->nmcd.rc.right, nmtbcd->nmcd.rc.bottom, roundCornerValue, roundCornerValue);
-					::SelectObject(nmtbcd->nmcd.hdc, holdBrush);
-					::SelectObject(nmtbcd->nmcd.hdc, holdPen);
+					NppDarkMode::paintRoundRect(nmtbcd->nmcd.hdc, nmtbcd->nmcd.rc, NppDarkMode::getEdgePen(), NppDarkMode::getCtrlBackgroundBrush(), roundCornerValue, roundCornerValue);
 
 					nmtbcd->nmcd.uItemState &= ~CDIS_CHECKED;
 				}
@@ -3126,6 +3123,70 @@ namespace NppDarkMode
 		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
+	static LRESULT darkRebarNotifyCustomDraw(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool isPlugin)
+	{
+		auto lpnmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+
+		switch (lpnmcd->dwDrawStage)
+		{
+			case CDDS_PREPAINT:
+			{
+				if (!NppDarkMode::isEnabled())
+				{
+					return isPlugin ? ::DefSubclassProc(hWnd, uMsg, wParam, lParam) : CDRF_DODEFAULT;
+				}
+
+				::FillRect(lpnmcd->hdc, &lpnmcd->rc, NppDarkMode::getDlgBackgroundBrush());
+				REBARBANDINFO rbBand{};
+				rbBand.cbSize = sizeof(REBARBANDINFO);
+				rbBand.fMask = RBBIM_STYLE | RBBIM_CHEVRONLOCATION | RBBIM_CHEVRONSTATE;
+				::SendMessage(lpnmcd->hdr.hwndFrom, RB_GETBANDINFO, 0, reinterpret_cast<LPARAM>(&rbBand));
+
+				LRESULT lr = CDRF_DODEFAULT;
+
+				if ((rbBand.fStyle & RBBS_USECHEVRON) == RBBS_USECHEVRON
+					&& (rbBand.rcChevronLocation.right - rbBand.rcChevronLocation.left) > 0)
+				{
+					static int roundCornerValue = 0;
+					if (NppDarkMode::isWindows11())
+					{
+						roundCornerValue = 5;
+					}
+
+					const bool isHot = (rbBand.uChevronState & STATE_SYSTEM_HOTTRACKED) == STATE_SYSTEM_HOTTRACKED;
+					const bool isPressed = (rbBand.uChevronState & STATE_SYSTEM_PRESSED) == STATE_SYSTEM_PRESSED;
+
+					if (isHot)
+					{
+						NppDarkMode::paintRoundRect(lpnmcd->hdc, rbBand.rcChevronLocation, NppDarkMode::getHotEdgePen(), NppDarkMode::getHotBackgroundBrush(), roundCornerValue, roundCornerValue);
+					}
+					else if (isPressed)
+					{
+						NppDarkMode::paintRoundRect(lpnmcd->hdc, rbBand.rcChevronLocation, NppDarkMode::getEdgePen(), NppDarkMode::getCtrlBackgroundBrush(), roundCornerValue, roundCornerValue);
+					}
+
+					::SetTextColor(lpnmcd->hdc, isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+					::SetBkMode(lpnmcd->hdc, TRANSPARENT);
+
+					constexpr auto dtFlags = DT_NOPREFIX | DT_CENTER | DT_TOP | DT_SINGLELINE | DT_NOCLIP;
+					::DrawText(lpnmcd->hdc, L"»", -1, &rbBand.rcChevronLocation, dtFlags);
+
+					lr = CDRF_SKIPDEFAULT;
+				}
+
+				if (isPlugin)
+				{
+					lr |= ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+				}
+				return lr;
+			}
+
+			default:
+				break;
+		}
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
 	constexpr UINT_PTR g_pluginDockWindowSubclassID = 42;
 
 	static LRESULT CALLBACK PluginDockWindowSubclass(
@@ -3246,6 +3307,11 @@ namespace NppDarkMode
 						{
 							return NppDarkMode::darkTrackBarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
 						}
+
+						if (className == REBARCLASSNAME)
+						{
+							return NppDarkMode::darkRebarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, true);
+						}
 						break;
 					}
 
@@ -3355,6 +3421,105 @@ namespace NppDarkMode
 		return result;
 	}
 
+	constexpr UINT_PTR g_WindowCtlColorSubclassID = 42;
+
+	static LRESULT CALLBACK WindowCtlColorSubclass(
+		HWND hWnd,
+		UINT uMsg,
+		WPARAM wParam,
+		LPARAM lParam,
+		UINT_PTR uIdSubclass,
+		DWORD_PTR /*dwRefData*/
+	)
+	{
+		switch (uMsg)
+		{
+			case WM_NCDESTROY:
+			{
+				::RemoveWindowSubclass(hWnd, WindowCtlColorSubclass, uIdSubclass);
+				break;
+			}
+
+			case WM_ERASEBKGND:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					RECT rcClient{};
+					::GetClientRect(hWnd, &rcClient);
+					::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDlgBackgroundBrush());
+					return TRUE;
+				}
+				break;
+			}
+
+			case WM_CTLCOLOREDIT:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
+				}
+				break;
+			}
+
+			case WM_CTLCOLORLISTBOX:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return NppDarkMode::onCtlColorListbox(wParam, lParam);
+				}
+				break;
+			}
+
+			case WM_CTLCOLORDLG:
+			{
+
+				if (NppDarkMode::isEnabled())
+				{
+					return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+				}
+				break;
+			}
+
+			case WM_CTLCOLORSTATIC:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					auto hWndChild = reinterpret_cast<HWND>(lParam);
+					auto hdc = reinterpret_cast<HDC>(wParam);
+					if (getWndClassName(hWndChild) == WC_EDIT)
+					{
+						if (::IsWindowEnabled(hWndChild) == TRUE)
+						{
+							return NppDarkMode::onCtlColor(hdc);
+						}
+						return NppDarkMode::onCtlColorDlg(hdc);
+					}
+
+					return NppDarkMode::onCtlColorDlg(hdc);
+				}
+				break;
+			}
+
+			case WM_PRINTCLIENT:
+			{
+				if (NppDarkMode::isEnabled())
+				{
+					return TRUE;
+				}
+				break;
+			}
+		}
+		return ::DefSubclassProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	void autoSubclassCtlColor(HWND hWnd)
+	{
+		if (::GetWindowSubclass(hWnd, WindowCtlColorSubclass, g_WindowCtlColorSubclassID, nullptr) == FALSE)
+		{
+			::SetWindowSubclass(hWnd, WindowCtlColorSubclass, g_WindowCtlColorSubclassID, 0);
+		}
+	}
+
 	constexpr UINT_PTR g_windowNotifySubclassID = 42;
 
 	static LRESULT CALLBACK WindowNotifySubclass(
@@ -3402,6 +3567,11 @@ namespace NppDarkMode
 						if (className == TRACKBAR_CLASS)
 						{
 							return NppDarkMode::darkTrackBarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
+						}
+
+						if (className == REBARCLASSNAME)
+						{
+							return NppDarkMode::darkRebarNotifyCustomDraw(hWnd, uMsg, wParam, lParam, false);
 						}
 						break;
 					}

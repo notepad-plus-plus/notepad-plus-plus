@@ -193,6 +193,7 @@ namespace NppDarkMode
 	// enhancements to DarkMode.h
 	void enableDarkScrollBarForWindowAndChildren(HWND hwnd);
 
+	void paintRoundRect(HDC hdc, const RECT rect, const HPEN hpen, const HBRUSH hBrush, int width = 0, int height = 0);
 	inline void paintRoundFrameRect(HDC hdc, const RECT rect, const HPEN hpen, int width = 0, int height = 0);
 
 	void subclassButtonControl(HWND hwnd);
@@ -215,6 +216,7 @@ namespace NppDarkMode
 
 	void autoSubclassAndThemePluginDockWindow(HWND hwnd);
 	ULONG autoSubclassAndThemePlugin(HWND hwnd, ULONG dmFlags);
+	void autoSubclassCtlColor(HWND hWnd);
 	void autoSubclassAndThemeWindowNotify(HWND hwnd);
 
 	void setDarkTitleBar(HWND hwnd);

@@ -50,6 +50,9 @@ private :
 	int *_pIconIDArray = nullptr;
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
+
+	bool changeFluentIconColor(HICON* phIcon, const std::vector<std::pair<COLORREF, COLORREF>>& colorMappings, int tolerance = 3) const;
+	bool changeFluentIconColor(HICON* phIcon) const;
 };
 
 struct ToolBarButtonUnit

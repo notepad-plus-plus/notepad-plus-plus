@@ -689,11 +689,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	//-- Tool Bar Section --//
 	
-	const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
-	nppGUI._tbIconInfo = toolbarIconInfo;
-	nppGUI._toolBarStatus = static_cast<toolBarStatusType>(nppGUI._tbIconInfo._tbIconSet);
+	nppGUI._tbIconInfo = NppDarkMode::getToolbarIconInfo();
 
-	toolBarStatusType tbStatus = nppGUI._toolBarStatus;
+	toolBarStatusType tbStatus = nppGUI._tbIconInfo._tbIconSet;
 	willBeShown = nppGUI._toolbarShow;
 
 	// To notify plugins that toolbar icons can be registered
@@ -893,7 +891,7 @@ bool Notepad_plus::saveGUIParams()
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = nppParams.getNppGUI();
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
-	nppGUI._toolBarStatus = _toolBar.getState();
+	nppGUI._tbIconInfo._tbIconSet = _toolBar.getState();
 
 	nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
@@ -7290,11 +7288,11 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_CLIPBOARDPANEL_ICO;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_CLIPBOARDPANEL_ICO2;
+		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDR_CLIPBOARDPANEL_ICO;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_CLIPBOARDPANEL_ICO_DM;
-		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_CLIPBOARDPANEL_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pClipboardHistoryPanel->getHSelf());
 		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -7354,11 +7352,11 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_DOCLIST_ICO;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_DOCLIST_ICO2;
+		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDR_DOCLIST_ICO;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_DOCLIST_ICO_DM;
-		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_DOCLIST_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pDocumentListPanel->getHSelf());
 		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -7442,11 +7440,11 @@ void Notepad_plus::launchAnsiCharPanel()
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_ASCIIPANEL_ICO;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_ASCIIPANEL_ICO2;
+		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDR_ASCIIPANEL_ICO;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_ASCIIPANEL_ICO_DM;
-		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_ASCIIPANEL_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pAnsiCharPanel->getHSelf());
 		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -7493,12 +7491,12 @@ void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstr
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileBrowser->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
-		
-		int icoID = IDR_FILEBROWSER_ICO;
-		if (NppDarkMode::isEnabled())
+
+		int icoID = IDR_FILEBROWSER_ICO2;
+		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDR_FILEBROWSER_ICO;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_FILEBROWSER_ICO_DM;
-		else if (nppParams.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_FILEBROWSER_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFileBrowser->getHSelf());
 		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -7604,11 +7602,11 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_PROJECTPANEL_ICO;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_PROJECTPANEL_ICO2;
+		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDR_PROJECTPANEL_ICO;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_PROJECTPANEL_ICO_DM;
-		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_PROJECTPANEL_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, (*pProjPanel)->getHSelf());
 		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -7670,11 +7668,11 @@ void Notepad_plus::launchDocMap()
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_DOCMAP_ICO;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_DOCMAP_ICO2;
+		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDR_DOCMAP_ICO;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_DOCMAP_ICO_DM;
-		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_DOCMAP_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pDocMap->getHSelf());
 		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -7721,11 +7719,11 @@ void Notepad_plus::launchFunctionList()
 		
 		NppParameters& nppParam = NppParameters::getInstance();
 
-		int icoID = IDR_FUNC_LIST_ICO;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_FUNC_LIST_ICO2;
+		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDR_FUNC_LIST_ICO;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_FUNC_LIST_ICO_DM;
-		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_FUNC_LIST_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFuncList->getHSelf());
 		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -8521,13 +8519,10 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			}
 		}
 
-		toolBarStatusType state = TB_STANDARD;
 		auto& nppGUITbInfo = nppParams.getNppGUI()._tbIconInfo;
-		const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
-		nppGUITbInfo = toolbarIconInfo;
-		state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
+		nppGUITbInfo = NppDarkMode::getToolbarIconInfo();
 
-		switch (state)
+		switch (nppGUITbInfo._tbIconSet)
 		{
 			case TB_SMALL:
 				_toolBar.reduce();

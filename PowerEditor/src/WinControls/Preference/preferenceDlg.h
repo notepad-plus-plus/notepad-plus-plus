@@ -46,11 +46,11 @@ class GeneralSubDlg : public StaticDialog
 public :
 	GeneralSubDlg() = default;
 	void setTabbarAlternateIcons(bool enable = false);
-	void enableColorPicker(bool useDark, bool doEnable = true);
+	void enableColorPicker(bool useDark);
 
 private :
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
-	UINT getToolbarIconSetMsg(int* idxIconSet);
+	UINT getToolbarIconSetMsg(toolBarStatusType* idxIconSet);
 	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	ColourPicker* _pIconColorPicker = nullptr;
 };

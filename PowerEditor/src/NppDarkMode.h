@@ -20,6 +20,11 @@
 #include <vector>
 #include <windows.h>
 
+enum toolBarStatusType : int;
+enum class FluentColor;
+struct TbIconInfo;
+struct AdvOptDefaults;
+struct AdvancedOptions;
 
 namespace NppDarkMode
 {
@@ -80,48 +85,6 @@ namespace NppDarkMode
 		dark = 2
 	};
 
-	enum class FluentColor
-	{
-		defaultColor    = 0,
-		accent          = 1,
-		red             = 2,
-		green           = 3,
-		blue            = 4,
-		purple          = 5,
-		cyan            = 6,
-		olive           = 7,
-		yellow          = 8,
-		custom          = 9,
-		maxValue        = 10
-	};
-
-	struct TbIconInfo
-	{
-		int _tbIconSet = 4;
-		// fluent icon color
-		FluentColor _tbColor = FluentColor::defaultColor;
-		// fluent icon custom color, used when _tbColor == FluentColor::custom
-		COLORREF _tbCustomColor = 0;
-		// does fluent icon use monochrome colorization
-		bool _tbUseMono = false;
-	};
-
-	struct AdvOptDefaults
-	{
-		std::wstring _xmlFileName;
-		TbIconInfo _tbIconInfo{};
-		int _tabIconSet = -1;
-		bool _tabUseTheme = false;
-	};
-
-	struct AdvancedOptions
-	{
-		bool _enableWindowsMode = false;
-
-		NppDarkMode::AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", {0, FluentColor::defaultColor, 0, false}, 2, false};
-		NppDarkMode::AdvOptDefaults _lightDefaults{ L"", { 4, FluentColor::defaultColor, 0, false }, 0, true };
-	};
-
 	constexpr UINT WM_SETBUTTONIDEALSIZE = (WM_USER + 4200);
 
 	void initDarkMode();				// pulls options from NppParameters
@@ -141,8 +104,8 @@ namespace NppDarkMode
 	void setThemeName(const std::wstring& newThemeName);
 	TbIconInfo getToolbarIconInfo(bool useDark);
 	TbIconInfo getToolbarIconInfo();
-	void setToolbarIconSet(int state2Set, bool useDark);
-	void setToolbarIconSet(int state2Set);
+	void setToolbarIconSet(toolBarStatusType state2Set, bool useDark);
+	void setToolbarIconSet(toolBarStatusType state2Set);
 	void setToolbarFluentColor(FluentColor color2Set, bool useDark);
 	void setToolbarFluentColor(FluentColor color2Set);
 	void setToolbarFluentMonochrome(bool setMonochrome, bool useDark);
@@ -277,7 +240,4 @@ namespace NppDarkMode
 	LRESULT onCtlColorError(HDC hdc);
 	LRESULT onCtlColorDlgStaticText(HDC hdc, bool isTextEnabled);
 	LRESULT onCtlColorListbox(WPARAM wParam, LPARAM lParam);
-
-	bool changeFluentIconColor(HICON* phIcon, const std::vector<std::pair<COLORREF, COLORREF>>& colorMappings, int tolerance = 3);
-	bool changeFluentIconColor(HICON* phIcon);
 }

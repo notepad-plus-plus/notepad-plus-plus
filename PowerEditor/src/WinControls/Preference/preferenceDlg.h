@@ -45,14 +45,31 @@ class GeneralSubDlg : public StaticDialog
 {
 public :
 	GeneralSubDlg() = default;
-	void setTabbarAlternateIcons(bool enable = false);
-	void enableColorPicker(bool useDark, bool doEnable = true);
 
 private :
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+};
+
+class ToolbarSubDlg : public StaticDialog
+{
+public:
+	ToolbarSubDlg() = default;
+
+private:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	UINT getToolbarIconSetMsg(int* idxIconSet);
 	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
 	ColourPicker* _pIconColorPicker = nullptr;
+};
+
+class TabbarSubDlg : public StaticDialog
+{
+public:
+	TabbarSubDlg() = default;
+	void setTabbarAlternateIcons(bool enable = false);
+
+private:
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 
 class EditingSubDlg : public StaticDialog
@@ -390,6 +407,8 @@ private :
 	void showDialogByIndex(size_t index) const;
 	WindowVector _wVector;
 	GeneralSubDlg _generalSubDlg;
+	ToolbarSubDlg _toolbarSubDlg;
+	TabbarSubDlg _tabbarSubDlg;
 	EditingSubDlg _editingSubDlg;
 	Editing2SubDlg _editing2SubDlg;
 	DarkModeSubDlg _darkModeSubDlg;

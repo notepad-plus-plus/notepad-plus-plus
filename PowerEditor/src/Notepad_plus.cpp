@@ -8509,7 +8509,7 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 		const int tabIconSet = NppDarkMode::getTabIconSet(NppDarkMode::isEnabled());
 		if (tabIconSet != -1)
 		{
-			_preference._generalSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
+			_preference._tabbarSubDlg.setTabbarAlternateIcons(tabIconSet == 1);
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_CHANGETABBARICONSET, static_cast<WPARAM>(false), tabIconSet);
 		}
 		else

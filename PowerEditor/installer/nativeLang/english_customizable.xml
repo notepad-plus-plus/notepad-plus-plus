@@ -948,13 +948,11 @@ Translation note:
 				<Global title="General">
 					<Item id="6101" name="Toolbar"/>
 					<Item id="6102" name="Hide"/>
-					<ComboBox id="6135">
-						<Element name="Fluent UI: small"/>
-						<Element name="Fluent UI: large"/>
-						<Element name="Filled Fluent UI: small"/>
-						<Element name="Filled Fluent UI: large"/>
-						<Element name="Standard icons: small"/>
-					</ComboBox>
+					<Item id="6103" name="Fluent UI: small"/>
+					<Item id="6104" name="Fluent UI: large"/>
+					<Item id="6129" name="Filled Fluent UI: small"/>
+					<Item id="6130" name="Filled Fluent UI: large"/>
+					<Item id="6105" name="Standard icons: small"/>
 
 					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="Reduce"/>

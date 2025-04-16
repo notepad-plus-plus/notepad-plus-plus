@@ -97,11 +97,15 @@ namespace NppDarkMode
 
 	struct TbIconInfo
 	{
+		// 0: Fluent small, 1: Fluent big, 2: Filled Fluent small, 3: Filled Fluent big, 4: Standard small
 		int _tbIconSet = 4;
+
 		// fluent icon color
 		FluentColor _tbColor = FluentColor::defaultColor;
+
 		// fluent icon custom color, used when _tbColor == FluentColor::custom
 		COLORREF _tbCustomColor = 0;
+
 		// does fluent icon use monochrome colorization
 		bool _tbUseMono = false;
 	};

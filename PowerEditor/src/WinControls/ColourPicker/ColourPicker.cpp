@@ -116,6 +116,8 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			p.y = rc.top + rc.bottom;
 			::ClientToScreen(_hSelf, &p);
 
+			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURCLICKED), reinterpret_cast<LPARAM>(_hSelf));
+
 			if (!_pColourPopup)
 			{
 				_pColourPopup = new ColourPopup(_currentColour);

@@ -21,7 +21,8 @@
 
 class ColourPopup;
 
-#define CPN_COLOURPICKED (BN_CLICKED)
+#define CPN_COLOURPICKED  (BN_CLICKED)
+#define CPN_COLOURCLICKED (BN_SETFOCUS)
 
 class ColourPicker : public Window
 {

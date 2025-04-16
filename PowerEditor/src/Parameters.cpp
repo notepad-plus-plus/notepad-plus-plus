@@ -4803,7 +4803,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (val)
 			{
 				auto& tbColor = _nppGUI._tbIconInfo._tbColor;
-				tbColor = static_cast<NppDarkMode::FluentColor>(i);
+				tbColor = static_cast<FluentColor>(i);
 			}
 
 			val = element->Attribute(L"fluentCustomColor", &i);
@@ -4829,16 +4829,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = n->Value();
 				if (val)
 				{
+					auto& tbIconSet = _nppGUI._tbIconInfo._tbIconSet;
 					if (!lstrcmp(val, L"small"))
-						_nppGUI._toolBarStatus = TB_SMALL;
+						tbIconSet = TB_SMALL;
 					else if (!lstrcmp(val, L"large"))
-						_nppGUI._toolBarStatus = TB_LARGE;
+						tbIconSet = TB_LARGE;
 					else if (!lstrcmp(val, L"small2"))
-						_nppGUI._toolBarStatus = TB_SMALL2;
+						tbIconSet = TB_SMALL2;
 					else if (!lstrcmp(val, L"large2"))
-						_nppGUI._toolBarStatus = TB_LARGE2;
+						tbIconSet = TB_LARGE2;
 					else //if (!lstrcmp(val, L"standard"))
-						_nppGUI._toolBarStatus = TB_STANDARD;
+						tbIconSet = TB_STANDARD;
 				}
 
 			}
@@ -6393,14 +6394,15 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			auto& windowsMode = _nppGUI._darkmode._advOptions._enableWindowsMode;
 			windowsMode = parseYesNoBoolAttribute(L"enableWindowsMode");
 
-			constexpr int fluentColorMaxValue = static_cast<int>(NppDarkMode::FluentColor::maxValue) - 1;
+			constexpr int fluentColorMaxValue = static_cast<int>(FluentColor::maxValue) - 1;
+			constexpr int tbStdIcoSet = static_cast<int>(TB_STANDARD);
 
 			auto& darkDefaults = _nppGUI._darkmode._advOptions._darkDefaults;
 			auto& darkThemeName = darkDefaults._xmlFileName;
 			auto& darkTbInfo = darkDefaults._tbIconInfo;
 			darkThemeName = parseStringAttribute(L"darkThemeName", L"DarkModeDefault.xml");
-			darkTbInfo._tbIconSet = parseMinMaxAttribute(L"darkToolBarIconSet", 0, 4);
-			darkTbInfo._tbColor = static_cast<NppDarkMode::FluentColor>(parseMinMaxAttribute(L"darkTbFluentColor", 0, fluentColorMaxValue));
+			darkTbInfo._tbIconSet = static_cast<toolBarStatusType>(parseMinMaxAttribute(L"darkToolBarIconSet", static_cast<int>(TB_SMALL), tbStdIcoSet));
+			darkTbInfo._tbColor = static_cast<FluentColor>(parseMinMaxAttribute(L"darkTbFluentColor", 0, fluentColorMaxValue));
 			darkTbInfo._tbCustomColor = parseIntAttribute(L"darkTbFluentCustomColor", 0);
 			darkTbInfo._tbUseMono = parseYesNoBoolAttribute(L"darkTbFluentMono");
 			darkDefaults._tabIconSet = parseMinMaxAttribute(L"darkTabIconSet", 2);
@@ -6410,8 +6412,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			auto& lightThemeName = lightDefaults._xmlFileName;
 			auto& lightTbInfo = lightDefaults._tbIconInfo;
 			lightThemeName = parseStringAttribute(L"lightThemeName");
-			lightTbInfo._tbIconSet = parseMinMaxAttribute(L"lightToolBarIconSet", 4, 4);
-			lightTbInfo._tbColor = static_cast<NppDarkMode::FluentColor>(parseMinMaxAttribute(L"lightTbFluentColor", 0, fluentColorMaxValue));
+			lightTbInfo._tbIconSet = static_cast<toolBarStatusType>(parseMinMaxAttribute(L"lightToolBarIconSet", tbStdIcoSet, tbStdIcoSet));
+			lightTbInfo._tbColor = static_cast<FluentColor>(parseMinMaxAttribute(L"lightTbFluentColor", 0, fluentColorMaxValue));
 			lightTbInfo._tbCustomColor = parseIntAttribute(L"lightTbFluentCustomColor", 0);
 			lightTbInfo._tbUseMono = parseYesNoBoolAttribute(L"lightTbFluentMono");
 			lightDefaults._tabIconSet = parseMinMaxAttribute(L"lightTabIconSet", 0);
@@ -7301,24 +7303,48 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name="ToolBar" visible="yes">standard</GUIConfig>
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
+		auto& nppGUITbInfo = _nppGUI._tbIconInfo;
 		GUIConfigElement->SetAttribute(L"name", L"ToolBar");
-		const wchar_t *pStr = (_nppGUI._toolbarShow) ? L"yes" : L"no";
+		const wchar_t* pStr = (_nppGUI._toolbarShow) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"visible", pStr);
-		GUIConfigElement->SetAttribute(L"fluentColor", static_cast<int>(_nppGUI._tbIconInfo._tbColor));
-		GUIConfigElement->SetAttribute(L"fluentCustomColor", _nppGUI._tbIconInfo._tbCustomColor);
-		pStr = (_nppGUI._tbIconInfo._tbUseMono) ? L"yes" : L"no";
+		GUIConfigElement->SetAttribute(L"fluentColor", static_cast<int>(nppGUITbInfo._tbColor));
+		GUIConfigElement->SetAttribute(L"fluentCustomColor", nppGUITbInfo._tbCustomColor);
+		pStr = (nppGUITbInfo._tbUseMono) ? L"yes" : L"no";
 		GUIConfigElement->SetAttribute(L"fluentMono", pStr);
 
-		if (_nppGUI._toolBarStatus == TB_SMALL)
-			pStr = L"small";
-		else if (_nppGUI._toolBarStatus == TB_LARGE)
-			pStr = L"large";
-		else if (_nppGUI._toolBarStatus == TB_SMALL2)
-			pStr = L"small2";
-		else if (_nppGUI._toolBarStatus == TB_LARGE2)
-			pStr = L"large2";
-		else //if (_nppGUI._toolBarStatus == TB_STANDARD)
-			pStr = L"standard";
+		switch (nppGUITbInfo._tbIconSet)
+		{
+			case TB_SMALL:
+			{
+				pStr = L"small";
+				break;
+			}
+
+			case TB_LARGE:
+			{
+				pStr = L"large";
+				break;
+			}
+
+			case TB_SMALL2:
+			{
+				pStr = L"small2";
+				break;
+			}
+
+			case TB_LARGE2:
+			{
+				pStr = L"large2";
+				break;
+			}
+
+			case TB_STANDARD:
+			default:
+			{
+				pStr = L"standard";
+				break;
+			}
+		}
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 

@@ -17,9 +17,11 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <windows.h>
 
+enum class FluentColor;
+struct TbIconInfo;
+struct AdvancedOptions;
 
 namespace NppDarkMode
 {
@@ -80,52 +82,6 @@ namespace NppDarkMode
 		dark = 2
 	};
 
-	enum class FluentColor
-	{
-		defaultColor    = 0,
-		accent          = 1,
-		red             = 2,
-		green           = 3,
-		blue            = 4,
-		purple          = 5,
-		cyan            = 6,
-		olive           = 7,
-		yellow          = 8,
-		custom          = 9,
-		maxValue        = 10
-	};
-
-	struct TbIconInfo
-	{
-		// 0: Fluent small, 1: Fluent big, 2: Filled Fluent small, 3: Filled Fluent big, 4: Standard small
-		int _tbIconSet = 4;
-
-		// fluent icon color
-		FluentColor _tbColor = FluentColor::defaultColor;
-
-		// fluent icon custom color, used when _tbColor == FluentColor::custom
-		COLORREF _tbCustomColor = 0;
-
-		// does fluent icon use monochrome colorization
-		bool _tbUseMono = false;
-	};
-
-	struct AdvOptDefaults
-	{
-		std::wstring _xmlFileName;
-		TbIconInfo _tbIconInfo{};
-		int _tabIconSet = -1;
-		bool _tabUseTheme = false;
-	};
-
-	struct AdvancedOptions
-	{
-		bool _enableWindowsMode = false;
-
-		NppDarkMode::AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", {0, FluentColor::defaultColor, 0, false}, 2, false};
-		NppDarkMode::AdvOptDefaults _lightDefaults{ L"", { 4, FluentColor::defaultColor, 0, false }, 0, true };
-	};
-
 	constexpr UINT WM_SETBUTTONIDEALSIZE = (WM_USER + 4200);
 
 	void initDarkMode();				// pulls options from NppParameters
@@ -167,6 +123,7 @@ namespace NppDarkMode
 
 	void setDarkTone(ColorTone colorToneChoice);
 
+	COLORREF getAccentColor(bool useDark);
 	COLORREF getAccentColor();
 
 	COLORREF getBackgroundColor();
@@ -281,7 +238,4 @@ namespace NppDarkMode
 	LRESULT onCtlColorError(HDC hdc);
 	LRESULT onCtlColorDlgStaticText(HDC hdc, bool isTextEnabled);
 	LRESULT onCtlColorListbox(WPARAM wParam, LPARAM lParam);
-
-	bool changeFluentIconColor(HICON* phIcon, const std::vector<std::pair<COLORREF, COLORREF>>& colorMappings, int tolerance = 3);
-	bool changeFluentIconColor(HICON* phIcon);
 }

@@ -194,8 +194,8 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_searchEngineSubDlg.create(IDD_PREFERENCE_SUB_SEARCHENGINE, false, false);
 
 			_wVector.push_back(DlgInfo(&_generalSubDlg, L"General", L"Global"));
-			_wVector.push_back(DlgInfo(&_toolbarSubDlg, L"Tool Bar", L"Toolbar"));
-			_wVector.push_back(DlgInfo(&_tabbarSubDlg, L"Tab bar", L"Tabbar"));
+			_wVector.push_back(DlgInfo(&_toolbarSubDlg, L"Toolbar", L"Toolbar"));
+			_wVector.push_back(DlgInfo(&_tabbarSubDlg, L"Tab Bar", L"Tabbar"));
 			_wVector.push_back(DlgInfo(&_editingSubDlg, L"Editing 1", L"Scintillas"));
 			_wVector.push_back(DlgInfo(&_editing2SubDlg, L"Editing 2", L"Scintillas2"));
 			_wVector.push_back(DlgInfo(&_darkModeSubDlg, L"Dark Mode", L"DarkMode"));
@@ -289,6 +289,10 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				const bool isEnableAutoC = _autoCompletionSubDlg.isCheckedOrNot(IDD_AUTOC_ENABLECHECK);
 				::EnableWindow(::GetDlgItem(_autoCompletionSubDlg.getHSelf(), IDD_AUTOC_USEKEY_GRP_STATIC), isEnableAutoC);
+
+				const bool isFluentIcon = !_toolbarSubDlg.isCheckedOrNot(IDC_RADIO_STANDARD);
+				::EnableWindow(::GetDlgItem(_toolbarSubDlg.getHSelf(), IDC_TOOLBAR_GB_COLORCHOICE), isFluentIcon);
+				::EnableWindow(::GetDlgItem(_toolbarSubDlg.getHSelf(), IDC_TOOLBAR_GB_COLORIZATION), isFluentIcon);
 			}
 
 			return TRUE;
@@ -299,38 +303,36 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			NppParameters& nppParams = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParams.getNppGUI();
 			auto& nppGUITbInfo = nppGUI._tbIconInfo;
-			const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo(static_cast<bool>(wParam));
-			nppGUITbInfo = toolbarIconInfo;
-			nppGUI._toolBarStatus = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
+			nppGUITbInfo = NppDarkMode::getToolbarIconInfo(static_cast<bool>(wParam));
 
 			const HWND hToolbarlSubDlg = _toolbarSubDlg.getHSelf();
 
-			auto checkOrUncheckBtn = [&hToolbarlSubDlg](int id, WPARAM check = BST_UNCHECKED) -> void
+			auto checkOrUncheckBtn = [&hToolbarlSubDlg](int id, bool check = false) -> void
 				{
-					::SendDlgItemMessage(hToolbarlSubDlg, id, BM_SETCHECK, check, 0);
+					::SendDlgItemMessage(hToolbarlSubDlg, id, BM_SETCHECK, check ? BST_CHECKED : BST_UNCHECKED, 0);
 				};
 
-			checkOrUncheckBtn(IDC_RADIO_SMALLICON, nppGUI._toolBarStatus == TB_SMALL ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_BIGICON, nppGUI._toolBarStatus == TB_LARGE ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_SMALLICON2, nppGUI._toolBarStatus == TB_SMALL2 ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_BIGICON2, nppGUI._toolBarStatus == TB_LARGE2 ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_STANDARD, nppGUI._toolBarStatus == TB_STANDARD ? BST_CHECKED : BST_UNCHECKED);
+			checkOrUncheckBtn(IDC_RADIO_SMALLICON, nppGUITbInfo._tbIconSet == TB_SMALL);
+			checkOrUncheckBtn(IDC_RADIO_BIGICON, nppGUITbInfo._tbIconSet == TB_LARGE);
+			checkOrUncheckBtn(IDC_RADIO_SMALLICON2, nppGUITbInfo._tbIconSet == TB_SMALL2);
+			checkOrUncheckBtn(IDC_RADIO_BIGICON2, nppGUITbInfo._tbIconSet == TB_LARGE2);
+			checkOrUncheckBtn(IDC_RADIO_STANDARD, nppGUITbInfo._tbIconSet == TB_STANDARD);
 
-			checkOrUncheckBtn(IDC_RADIO_RED, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::red ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_GREEN, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::green ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_BLUE, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::blue ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_PURPLE, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::purple ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_CYAN, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::cyan ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_OLIVE, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::olive ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_YELLOW, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::yellow ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_ACCENTCOLOR, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::accent ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_CUSTOMCOLOR, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::custom ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_DEFAULTCOLOR, nppGUITbInfo._tbColor == NppDarkMode::FluentColor::defaultColor ? BST_CHECKED : BST_UNCHECKED);
+			checkOrUncheckBtn(IDC_RADIO_RED, nppGUITbInfo._tbColor == FluentColor::red);
+			checkOrUncheckBtn(IDC_RADIO_GREEN, nppGUITbInfo._tbColor == FluentColor::green);
+			checkOrUncheckBtn(IDC_RADIO_BLUE, nppGUITbInfo._tbColor == FluentColor::blue);
+			checkOrUncheckBtn(IDC_RADIO_PURPLE, nppGUITbInfo._tbColor == FluentColor::purple);
+			checkOrUncheckBtn(IDC_RADIO_CYAN, nppGUITbInfo._tbColor == FluentColor::cyan);
+			checkOrUncheckBtn(IDC_RADIO_OLIVE, nppGUITbInfo._tbColor == FluentColor::olive);
+			checkOrUncheckBtn(IDC_RADIO_YELLOW, nppGUITbInfo._tbColor == FluentColor::yellow);
+			checkOrUncheckBtn(IDC_RADIO_ACCENTCOLOR, nppGUITbInfo._tbColor == FluentColor::accent);
+			checkOrUncheckBtn(IDC_RADIO_CUSTOMCOLOR, nppGUITbInfo._tbColor == FluentColor::custom);
+			checkOrUncheckBtn(IDC_RADIO_DEFAULTCOLOR, nppGUITbInfo._tbColor == FluentColor::defaultColor);
 
-			checkOrUncheckBtn(IDC_RADIO_COMPLETE, nppGUITbInfo._tbUseMono ? BST_CHECKED : BST_UNCHECKED);
-			checkOrUncheckBtn(IDC_RADIO_PARTIAL, nppGUITbInfo._tbUseMono ? BST_UNCHECKED : BST_CHECKED);
+			checkOrUncheckBtn(IDC_RADIO_COMPLETE, nppGUITbInfo._tbUseMono);
+			checkOrUncheckBtn(IDC_RADIO_PARTIAL, !nppGUITbInfo._tbUseMono);
 
-			::SendMessage(hToolbarlSubDlg, NPPM_INTERNAL_CHANGETOOLBARCOLORABLESTATE, 0, 0);
+			::SendMessage(hToolbarlSubDlg, NPPM_INTERNAL_CHANGETOOLBARCOLORABLESTATE, static_cast<WPARAM>(true), 0);
 
 			return TRUE;
 		}
@@ -752,7 +754,6 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	{
 		case WM_INITDIALOG:
 		{
-			toolBarStatusType toolbarStatus = nppGUI._toolBarStatus;
 			auto& nppGUITbInfo = nppGUI._tbIconInfo;
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_SETCHECK, nppGUI._toolbarShow ? BST_UNCHECKED : BST_CHECKED, 0);
@@ -783,34 +784,34 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			ID2Check = 0;
 			switch (nppGUITbInfo._tbColor)
 			{
-				case NppDarkMode::FluentColor::custom:
+				case FluentColor::custom:
 					ID2Check = IDC_RADIO_CUSTOMCOLOR;
 					break;
-				case NppDarkMode::FluentColor::accent:
+				case FluentColor::accent:
 					ID2Check = IDC_RADIO_ACCENTCOLOR;
 					break;
-				case NppDarkMode::FluentColor::red:
+				case FluentColor::red:
 					ID2Check = IDC_RADIO_RED;
 					break;
-				case NppDarkMode::FluentColor::green:
+				case FluentColor::green:
 					ID2Check = IDC_RADIO_GREEN;
 					break;
-				case NppDarkMode::FluentColor::blue:
+				case FluentColor::blue:
 					ID2Check = IDC_RADIO_BLUE;
 					break;
-				case NppDarkMode::FluentColor::purple:
+				case FluentColor::purple:
 					ID2Check = IDC_RADIO_PURPLE;
 					break;
-				case NppDarkMode::FluentColor::cyan:
+				case FluentColor::cyan:
 					ID2Check = IDC_RADIO_CYAN;
 					break;
-				case NppDarkMode::FluentColor::olive:
+				case FluentColor::olive:
 					ID2Check = IDC_RADIO_OLIVE;
 					break;
-				case NppDarkMode::FluentColor::yellow:
+				case FluentColor::yellow:
 					ID2Check = IDC_RADIO_YELLOW;
 					break;
-				case NppDarkMode::FluentColor::defaultColor:
+				case FluentColor::defaultColor:
 				default:
 					ID2Check = IDC_RADIO_DEFAULTCOLOR;
 			}
@@ -827,7 +828,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_pIconColorPicker->display();
 			_pIconColorPicker->setColour(nppGUI._tbIconInfo._tbCustomColor);
 
-			if (toolbarStatus == TB_STANDARD)
+			if (nppGUITbInfo._tbIconSet == TB_STANDARD)
 			{
 				::SendMessage(_hSelf, NPPM_INTERNAL_CHANGETOOLBARCOLORABLESTATE, 0, 0);
 			}
@@ -839,10 +840,9 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			bool enableColor = !isCheckedOrNot(IDC_RADIO_STANDARD);
 
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TOOLBAR_GB_COLORIZATION), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_COMPLETE), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_PARTIAL), enableColor);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TOOLBAR_GB_COLORCHOICE), enableColor);
+			
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_RED), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_GREEN), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BLUE), enableColor);
@@ -856,11 +856,29 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			::EnableWindow(_pIconColorPicker->getHSelf(), enableColor);
 
+			const bool usePrevDarkMode = static_cast<bool>(wParam) ? !NppDarkMode::isEnabled() : NppDarkMode::isEnabled();
+
 			if (enableColor)
 			{
-				_pIconColorPicker->setColour(nppGUI._tbIconInfo._tbCustomColor);
-				_pIconColorPicker->redraw();
+				const auto& tbIconInfo = NppDarkMode::getToolbarIconInfo(usePrevDarkMode);
+				_pIconColorPicker->setColour(tbIconInfo._tbCustomColor);
 			}
+			else
+			{
+				COLORREF disabledColor = usePrevDarkMode ? NppDarkMode::getDlgBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
+				_pIconColorPicker->setColour(disabledColor);
+			}
+
+			_pIconColorPicker->redraw();
+
+			if (NppDarkMode::isEnabled())
+			{
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_TOOLBAR_GB_COLORCHOICE), enableColor);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_TOOLBAR_GB_COLORIZATION), enableColor);
+				redrawDlgItem(IDC_TOOLBAR_GB_COLORCHOICE);
+				redrawDlgItem(IDC_TOOLBAR_GB_COLORIZATION);
+			}
+
 			return TRUE;
 		}
 
@@ -943,7 +961,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_CUSTOMCOLOR:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::custom;
+					FluentColor c = FluentColor::custom;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -953,7 +971,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_ACCENTCOLOR:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::accent;
+					FluentColor c = FluentColor::accent;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -963,7 +981,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_RED:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::red;
+					FluentColor c = FluentColor::red;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -973,7 +991,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_GREEN:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::green;
+					FluentColor c = FluentColor::green;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -983,7 +1001,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_BLUE:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::blue;
+					FluentColor c = FluentColor::blue;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -993,7 +1011,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_PURPLE:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::purple;
+					FluentColor c = FluentColor::purple;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -1003,7 +1021,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_CYAN:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::cyan;
+					FluentColor c = FluentColor::cyan;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -1013,7 +1031,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_OLIVE:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::olive;
+					FluentColor c = FluentColor::olive;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -1023,7 +1041,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_YELLOW:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::yellow;
+					FluentColor c = FluentColor::yellow;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
@@ -1033,10 +1051,9 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDC_RADIO_DEFAULTCOLOR:
 				{
-					NppDarkMode::FluentColor c = NppDarkMode::FluentColor::defaultColor;
+					FluentColor c = FluentColor::defaultColor;
 					NppDarkMode::setToolbarFluentColor(c);
 					nppGUI._tbIconInfo._tbColor = c;
-
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
 					return TRUE;
@@ -1083,7 +1100,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							setChecked(IDC_RADIO_ACCENTCOLOR, false);
 							setChecked(IDC_RADIO_DEFAULTCOLOR, false);
 
-							NppDarkMode::FluentColor colorType = NppDarkMode::FluentColor::custom;
+							FluentColor colorType = FluentColor::custom;
 							NppDarkMode::setToolbarFluentColor(colorType);
 							nppGUI._tbIconInfo._tbColor = colorType;
 							UINT msg = getToolbarIconSetMsg(nullptr);
@@ -1096,7 +1113,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						{
 							if (reinterpret_cast<HWND>(lParam) == _pIconColorPicker->getHSelf())
 							{
-								NppDarkMode::FluentColor colorType = NppDarkMode::FluentColor::custom;
+								FluentColor colorType = FluentColor::custom;
 								NppDarkMode::setToolbarFluentColor(colorType);
 								nppGUI._tbIconInfo._tbColor = colorType;
 

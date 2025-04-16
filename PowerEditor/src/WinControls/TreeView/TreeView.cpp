@@ -291,7 +291,7 @@ bool TreeView::setImageList(const std::vector<int>& imageIds, int imgSize)
 	int dpiImgSize = DPIManagerV2::scale(imgSize, _hParent);
 
 	NppParameters& nppParam = NppParameters::getInstance();
-	const bool useStdIcons = nppParam.getNppGUI()._toolBarStatus == TB_STANDARD;
+	const bool useStdIcons = nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD;
 
 	if (_hImaLst != nullptr)
 	{
@@ -334,7 +334,7 @@ bool TreeView::setImageList(const std::vector<int>& imageIds, int imgSize)
 std::vector<int> TreeView::getImageIds(std::vector<int> stdIds, std::vector<int> darkIds, std::vector<int> lightIds)
 {
 	NppParameters& nppParam = NppParameters::getInstance();
-	const bool useStdIcons = nppParam.getNppGUI()._toolBarStatus == TB_STANDARD;
+	const bool useStdIcons = nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD;
 	if (useStdIcons)
 	{
 		return stdIds;

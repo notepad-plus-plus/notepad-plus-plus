@@ -322,13 +322,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				nppGUI._darkmode._isEnabled = enableDarkMode;
 				if (!_preference.isCreated())
 				{
-					toolBarStatusType state = TB_STANDARD;
 					auto& nppGUITbInfo = nppGUI._tbIconInfo;
-					const NppDarkMode::TbIconInfo toolbarIconInfo = NppDarkMode::getToolbarIconInfo();
-					nppGUITbInfo = toolbarIconInfo;
-					state = static_cast<toolBarStatusType>(nppGUITbInfo._tbIconSet);
+					nppGUITbInfo = NppDarkMode::getToolbarIconInfo();
 
-					switch (state)
+					switch (nppGUITbInfo._tbIconSet)
 					{
 						case TB_SMALL:
 							_toolBar.reduce();

@@ -3611,11 +3611,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-		int icoID = IDI_FIND_RESULT_ICON;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_FIND_RESULT_ICO2;
+		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDI_FIND_RESULT_ICON;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_FIND_RESULT_ICO_DM;
-		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_FIND_RESULT_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -3759,11 +3759,11 @@ Finder* FindReplaceDlg::createFinder()
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-	int icoID = IDI_FIND_RESULT_ICON;
-	if (NppDarkMode::isEnabled())
+	int icoID = IDR_FIND_RESULT_ICO2;
+	if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+		icoID = IDI_FIND_RESULT_ICON;
+	else if (NppDarkMode::isEnabled())
 		icoID = IDR_FIND_RESULT_ICO_DM;
-	else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
-		icoID = IDR_FIND_RESULT_ICO2;
 
 	const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);

@@ -59,7 +59,9 @@ private:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	UINT getToolbarIconSetMsg(int* idxIconSet);
 	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
+	void enableIconColorPicker(bool enable);
 	ColourPicker* _pIconColorPicker = nullptr;
+	
 };
 
 class TabbarSubDlg : public StaticDialog

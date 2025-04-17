@@ -22,7 +22,6 @@
 class ColourPopup;
 
 #define CPN_COLOURPICKED  (BN_CLICKED)
-#define CPN_COLOURCLICKED (BN_SETFOCUS)
 
 class ColourPicker : public Window
 {
@@ -38,12 +37,14 @@ public :
 	COLORREF getColour() const {return _currentColour;};
 	bool isEnabled() {return _isEnabled;};
 	void setEnabled(bool enabled) {_isEnabled = enabled;};
+	void disableRightClick() {_disableRightClick = true;};
 
 private :
 	COLORREF _currentColour = RGB(0xFF, 0x00, 0x00);
     WNDPROC _buttonDefaultProc = nullptr;
 	ColourPopup *_pColourPopup = nullptr;
 	bool _isEnabled = true;
+	bool _disableRightClick = false;
 
     static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
         return (((ColourPicker *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));

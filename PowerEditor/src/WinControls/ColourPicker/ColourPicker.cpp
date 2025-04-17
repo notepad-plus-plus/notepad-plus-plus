@@ -116,8 +116,6 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			p.y = rc.top + rc.bottom;
 			::ClientToScreen(_hSelf, &p);
 
-			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURCLICKED), reinterpret_cast<LPARAM>(_hSelf));
-
 			if (!_pColourPopup)
 			{
 				_pColourPopup = new ColourPopup(_currentColour);
@@ -135,6 +133,9 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 
 		case WM_RBUTTONDOWN:
 		{
+			if (_disableRightClick)
+				return FALSE;
+
 			_isEnabled = !_isEnabled;
 			redraw();
 			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURPICKED), reinterpret_cast<LPARAM>(_hSelf));

@@ -597,18 +597,18 @@ void ToolbarSubDlg::move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveW
 	::MoveWindow(handle2Move, p.x, p.y, handle2MoveWidth, handle2MoveHeight, TRUE);
 }
 
-void ToolbarSubDlg::enableIconColorPicker(bool enable)
+void ToolbarSubDlg::enableIconColorPicker(bool enable, bool useDark)
 {
 	::EnableWindow(_pIconColorPicker->getHSelf(), enable);
 
 	if (enable)
 	{
-		const auto& tbIconInfo = NppDarkMode::getToolbarIconInfo(NppDarkMode::isEnabled());
+		const auto& tbIconInfo = NppDarkMode::getToolbarIconInfo(useDark);
 		_pIconColorPicker->setColour(tbIconInfo._tbCustomColor);
 	}
 	else
 	{
-		COLORREF disabledColor = NppDarkMode::isEnabled() ? NppDarkMode::getDlgBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
+		COLORREF disabledColor = useDark ? NppDarkMode::getDlgBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
 		_pIconColorPicker->setColour(disabledColor);
 	}
 
@@ -855,7 +855,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				if (ID2Check != IDC_RADIO_CUSTOMCOLOR)
 				{
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 				}
 			}
 
@@ -881,7 +881,8 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_ACCENTCOLOR), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CUSTOMCOLOR), enableColor);
 
-			enableIconColorPicker(enableColor && enableCustom);
+			bool useDark = static_cast<bool>(wParam) ? !NppDarkMode::isEnabled() : NppDarkMode::isEnabled();
+			enableIconColorPicker(enableColor && enableCustom, useDark);
 
 
 			if (NppDarkMode::isEnabled())
@@ -981,7 +982,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(true);
+					enableIconColorPicker(true, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -992,7 +993,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1003,7 +1004,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1014,7 +1015,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1025,7 +1026,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1036,7 +1037,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1047,7 +1048,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1058,7 +1059,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1069,7 +1070,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 
@@ -1080,7 +1081,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppGUI._tbIconInfo._tbColor = c;
 					UINT msg = getToolbarIconSetMsg(nullptr);
 					::SendMessage(::GetParent(_hParent), msg, TRUE, 0);
-					enableIconColorPicker(false);
+					enableIconColorPicker(false, NppDarkMode::isEnabled());
 					return TRUE;
 				}
 

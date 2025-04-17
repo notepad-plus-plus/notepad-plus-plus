@@ -2552,7 +2552,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = true;
 		}
 #endif
-		if (doesFileExist(pFn))
+		if (doesFileExist(pFn) || (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str())))
 		{
 			//check if already open in main. If so, clone
 			BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
@@ -2568,10 +2568,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				else
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 			}
-		}
-		else if (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
-		{
-			lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
 		}
 		else
 		{

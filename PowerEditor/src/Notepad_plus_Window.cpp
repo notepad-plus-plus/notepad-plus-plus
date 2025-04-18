@@ -54,10 +54,11 @@ void Notepad_plus_Window::setStartupBgColor(COLORREF BgColor)
 	RECT windowClientArea;
 	HDC hdc = GetDCEx(_hSelf, NULL, DCX_CACHE | DCX_LOCKWINDOWUPDATE); //lock window update flag due to PaintLocker
 	GetClientRect(_hSelf, &windowClientArea);
-	FillRect(hdc, &windowClientArea, CreateSolidBrush(BgColor));
+	HBRUSH hBrush = ::CreateSolidBrush(BgColor);
+	::FillRect(hdc, &windowClientArea, hBrush);
+	::DeleteObject(hBrush);
 	ReleaseDC(_hSelf, hdc);
 }
-
 
 
 void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdLine, CmdLineParams *cmdLineParams)

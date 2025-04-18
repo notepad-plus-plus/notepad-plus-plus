@@ -392,13 +392,8 @@ namespace NppDarkMode
 		return opt;
 	}
 
-	constexpr COLORREF cDefaultMainDark = RGB(0xDE, 0xDE, 0xDE);
-	constexpr COLORREF cDefaultSecondaryDark = RGB(0x4C, 0xC2, 0xFF);
-	constexpr COLORREF cDefaultMainLight = RGB(0x21, 0x21, 0x21);
-	constexpr COLORREF cDefaultSecondaryLight = RGB(0x00, 0x78, 0xD4);
-
-	static COLORREF cAccentDark = cDefaultSecondaryDark;
-	static COLORREF cAccentLight = cDefaultSecondaryLight;
+	static COLORREF cAccentDark = g_cDefaultSecondaryDark;
+	static COLORREF cAccentLight = g_cDefaultSecondaryLight;
 
 	static COLORREF adjustClrLightness(COLORREF clr, bool useDark)
 	{
@@ -436,8 +431,8 @@ namespace NppDarkMode
 			return true;
 		}
 
-		cAccentDark = cDefaultSecondaryDark;
-		cAccentLight = cDefaultSecondaryLight;
+		cAccentDark = g_cDefaultSecondaryDark;
+		cAccentLight = g_cDefaultSecondaryLight;
 		return false;
 	}
 

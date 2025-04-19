@@ -971,30 +971,31 @@ namespace NppDarkMode
 			int iTextStateID = MBI_NORMAL;
 			int iBackgroundStateID = MBI_NORMAL;
 			{
-				if ((pUDMI->dis.itemState & ODS_INACTIVE) | (pUDMI->dis.itemState & ODS_DEFAULT))
-				{
-					// normal display
-					iTextStateID = MBI_NORMAL;
-					iBackgroundStateID = MBI_NORMAL;
-				}
-				if (pUDMI->dis.itemState & ODS_HOTLIGHT)
-				{
-					// hot tracking
-					iTextStateID = MBI_HOT;
-					iBackgroundStateID = MBI_HOT;
-				}
 				if (pUDMI->dis.itemState & ODS_SELECTED)
 				{
 					// clicked
 					iTextStateID = MBI_PUSHED;
 					iBackgroundStateID = MBI_PUSHED;
 				}
-				if ((pUDMI->dis.itemState & ODS_GRAYED) || (pUDMI->dis.itemState & ODS_DISABLED))
+				else if (pUDMI->dis.itemState & ODS_HOTLIGHT)
 				{
-					// disabled / grey text
+					// hot tracking
+					iTextStateID = (pUDMI->dis.itemState & ODS_INACTIVE) ? MBI_DISABLEDHOT : MBI_HOT;
+					iBackgroundStateID = MBI_HOT;
+				}
+				else if ((pUDMI->dis.itemState & ODS_GRAYED) || (pUDMI->dis.itemState & ODS_DISABLED) || (pUDMI->dis.itemState & ODS_INACTIVE))
+				{
+					// disabled / grey text / inactive
 					iTextStateID = MBI_DISABLED;
 					iBackgroundStateID = MBI_DISABLED;
 				}
+				else if (pUDMI->dis.itemState & ODS_DEFAULT)
+				{
+					// normal display
+					iTextStateID = MBI_NORMAL;
+					iBackgroundStateID = MBI_NORMAL;
+				}
+
 				if (pUDMI->dis.itemState & ODS_NOACCEL)
 				{
 					dwFlags |= DT_HIDEPREFIX;
@@ -1038,15 +1039,24 @@ namespace NppDarkMode
 
 			DTTOPTS dttopts{};
 			dttopts.dwSize = sizeof(DTTOPTS);
-			if (iTextStateID == MBI_NORMAL || iTextStateID == MBI_HOT || iTextStateID == MBI_PUSHED)
+			dttopts.dwFlags = DTT_TEXTCOLOR;
+			switch (iTextStateID)
 			{
-				dttopts.dwFlags |= DTT_TEXTCOLOR;
-				dttopts.crText = NppDarkMode::getTextColor();
-			}
-			else if (iTextStateID == MBI_DISABLED || iTextStateID == MBI_DISABLEDHOT || iTextStateID == MBI_DISABLEDPUSHED)
-			{
-				dttopts.dwFlags |= DTT_TEXTCOLOR;
-				dttopts.crText = NppDarkMode::getDisabledTextColor();
+				case MBI_NORMAL:
+				case MBI_HOT:
+				case MBI_PUSHED:
+				{
+					dttopts.crText = NppDarkMode::getTextColor();
+					break;
+				}
+
+				case MBI_DISABLED:
+				case MBI_DISABLEDHOT:
+				case MBI_DISABLEDPUSHED:
+				{
+					dttopts.crText = NppDarkMode::getDisabledTextColor();
+					break;
+				}
 			}
 
 			::DrawThemeTextEx(g_menuTheme, pUDMI->um.hdc, MENU_BARITEM, iTextStateID, menuString, mii.cch, dwFlags, &pUDMI->dis.rcItem, &dttopts);

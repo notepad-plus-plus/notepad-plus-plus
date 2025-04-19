@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english_customizable.xml" version="8.7.9">
+	<Native-Langue name="English" filename="english_customizable.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -946,15 +946,38 @@ Translation note:
 			<Preference title="Preferences">
 				<Item id="6001" name="Close"/>
 				<Global title="General">
-					<Item id="6101" name="Toolbar"/>
+					<Item id="6123" name="Localization"/>
+					<Item id="6131" name="Menu"/>
+					<Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
+					<Item id="6132" name="Hide right shortcuts ＋ ▼ ✕"/>
+					<Item id="6133" name="Status Bar"/>
+					<Item id="6134" name="Hide"/>
+				</Global>
+
+				<Toolbar title="Toolbar">
 					<Item id="6102" name="Hide"/>
 					<Item id="6103" name="Fluent UI: small"/>
 					<Item id="6104" name="Fluent UI: large"/>
 					<Item id="6129" name="Filled Fluent UI: small"/>
 					<Item id="6130" name="Filled Fluent UI: large"/>
 					<Item id="6105" name="Standard icons: small"/>
+					<Item id="6011" name="Colorization"/>
+					<Item id="6012" name="Complete"/>
+					<Item id="6013" name="Partial"/>
+					<Item id="6014" name="Color choice"/>
+					<Item id="6015" name="Default"/>
+					<Item id="6016" name="Red"/>
+					<Item id="6017" name="Blue"/>
+					<Item id="6018" name="Green"/>
+					<Item id="6019" name="Purple"/>
+					<Item id="6020" name="Cyan"/>
+					<Item id="6021" name="Olive"/>
+					<Item id="6022" name="Yellow"/>
+					<Item id="6023" name="System Accent"/>
+					<Item id="6024" name="Custom"/>
+				</Toolbar>
 
-					<Item id="6106" name="Tab Bar"/>
+				<Tabbar title="Tab Bar">
 					<Item id="6107" name="Reduce"/>
 					<Item id="6108" name="Lock (no drag and drop)"/>
 					<Item id="6109" name="Change inactive tab color"/>
@@ -969,16 +992,7 @@ Translation note:
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Exit on close the last tab"/>
 					<Item id="6128" name="Alternate icons"/>
-
-					<Item id="6133" name="Status Bar"/>
-					<Item id="6134" name="Hide"/>
-
-					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
-					<Item id="6132" name="Hide right shortcuts ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Localization"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Editing 1">
 					<Item id="6216" name="Caret Settings"/>
@@ -1526,7 +1540,7 @@ please give another one."/>
 			<UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
 			<UDL_importSuccessful title="User Defined Language" message="Import successful."/>
 			<UDL_importFails title="User Defined Language" message="Failed to import."/>
-			<UDL_saveBeforeImport title="User Defined Language" message="Before exporting, save your language definition by clicking &quot;Save As...&quot; button."/>
+			<UDL_saveBeforeImport title="User Defined Language" message="Before exporting, save your language definition by clicking &quot;Save As...&quot; button."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
 			<UDL_exportSuccessful title="User Defined Language" message="Export successful."/>
 			<UDL_exportFails title="User Defined Language" message="Failed to export."/>
 			<SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
@@ -1860,6 +1874,7 @@ If you select advanced mode but do not edit files in the aforementioned language
 			<statusbar-Pos value="Pos: "/>
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="This option makes your toolbar icons follow Windows system accent color. Accent color is the highlight color used in buttons, borders, and Start menu tiles in Windows. To change it, go to Settings &gt; Personalization &gt; Colors, then select your preferred accent color."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

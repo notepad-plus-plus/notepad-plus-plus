@@ -798,7 +798,6 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
 
-
 			ID2Check = 0;
 			switch (nppGUITbInfo._tbColor)
 			{
@@ -834,6 +833,10 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					ID2Check = IDC_RADIO_DEFAULTCOLOR;
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
+
+			NativeLangSpeaker* pNativeSpeaker = nppParam.getNativeLangSpeaker();
+			wstring findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("toolbar-accent-tip", L"This option makes your toolbar icons follow Windows system accent color. Accent color is the highlight color used in buttons, borders, and Start menu tiles in Windows. To change it, go to Settings > Personalization > Colors, then select your preferred accent color.");
+			_accentTip = CreateToolTip(IDD_ACCENT_TIP_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()), pNativeSpeaker->isRTL());
 
 			::SendDlgItemMessage(_hSelf, nppGUITbInfo._tbUseMono ? IDC_RADIO_COMPLETE : IDC_RADIO_PARTIAL, BM_SETCHECK, BST_CHECKED, 0);
 
@@ -879,6 +882,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_YELLOW), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DEFAULTCOLOR), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_ACCENTCOLOR), enableColor);
+			::EnableWindow(::GetDlgItem(_hSelf, IDD_ACCENT_TIP_STATIC), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CUSTOMCOLOR), enableColor);
 
 			bool useDark = static_cast<bool>(wParam) ? !NppDarkMode::isEnabled() : NppDarkMode::isEnabled();
@@ -919,6 +923,9 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			_pIconColorPicker->destroy();
 			delete _pIconColorPicker;
+
+			if (_accentTip)
+				::DestroyWindow(_accentTip);
 			return TRUE;
 		}
 

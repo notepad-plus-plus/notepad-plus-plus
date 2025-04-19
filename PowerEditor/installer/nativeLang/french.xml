@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.7.9">
+	<Native-Langue name="Français" filename="french.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -946,7 +946,15 @@ Translation note:
 			<Preference title="Préférences">
 				<Item id="6001" name="Fermer"/>
 				<Global title="Général">
-					<Item id="6101" name="Barre d’outils"/>
+					<Item id="6123" name="Langue"/>
+					<Item id="6131" name="Menu"/>
+					<Item id="6122" name="Cacher (Alt ou F10 pour basculer)"/>
+					<Item id="6132" name="Cacher ＋ ▼ ✕"/>
+					<Item id="6133" name="Barre d’état"/>
+					<Item id="6134" name="Masquer"/>
+				</Global>
+
+				<Toolbar title="Barre d’outils">
 					<Item id="6102" name="Cacher"/>
 					<Item id="6103" name="Icônes ajourées (petite)"/>
 					<Item id="6104" name="Icônes ajourées (grande)"/>
@@ -954,7 +962,23 @@ Translation note:
 					<Item id="6130" name="Icônes pleines (grande)"/>
 					<Item id="6105" name="Icônes standard (petite)"/>
 
-					<Item id="6106" name="Barre d’onglets"/>
+					<Item id="6011" name="Colorisation"/>
+					<Item id="6012" name="Complèt"/>
+					<Item id="6013" name="Partiel"/>
+					<Item id="6014" name="Choix de couleur"/>
+					<Item id="6015" name="Défaut"/>
+					<Item id="6016" name="Rouge"/>
+					<Item id="6017" name="Bleu"/>
+					<Item id="6018" name="Vert"/>
+					<Item id="6019" name="Violet"/>
+					<Item id="6020" name="Cyan"/>
+					<Item id="6021" name="Olive"/>
+					<Item id="6022" name="Jaune"/>
+					<Item id="6023" name="Couleur d'accentuation"/>
+					<Item id="6024" name="Personaliser"/>
+				</Toolbar>
+
+				<Tabbar title="Barre d’onglets">
 					<Item id="6107" name="Réduire la taille"/>
 					<Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
 					<Item id="6109" name="Colorer les onglets inactifs"/>
@@ -969,16 +993,7 @@ Translation note:
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Quitter lors de la fermeture du dernier onglet"/>
 					<Item id="6128" name="Icônes alternatives"/>
-
-					<Item id="6133" name="Barre d’état"/>
-					<Item id="6134" name="Masquer"/>
-
-					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Cacher (Alt ou F10 pour basculer)"/>
-					<Item id="6132" name="Cacher ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Langue"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Zones d’édition 1">
 					<Item id="6216" name="Curseur"/>
@@ -1860,6 +1875,7 @@ Si vous sélectionnez le mode avancé sans modifier les fichiers des langues men
 			<statusbar-Pos value="Pos : "/>
 			<statusbar-Sel value="Sel : "/>
 			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Cette option permet aux icônes de votre barre d'outils d'adopter la couleur d'accentuation du système Windows. La couleur d'accentuation est la couleur de surbrillance utilisée pour les boutons, les bordures et les tuiles du menu Démarrer sous Windows. Pour la modifier, accédez à Paramètres &gt; Personnalisation &gt; Couleurs, puis sélectionnez votre couleur d'accentuation préférée."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

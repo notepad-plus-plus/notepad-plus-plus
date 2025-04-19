@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.7.8">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -905,14 +905,39 @@
 			<Preference title="偏好設定">
 				<Item id="6001" name="儲存並關閉"/>
 				<Global title="一般">
-					<Item id="6101" name="工具列"/>
+					<Item id="6125" name="文件切換器"/>
+					<Item id="6131" name="選單"/>
+					<Item id="6122" name="隱藏（用 Alt 或 F10 切換）"/>
+					<Item id="6132" name="隱藏選單中右邊的 ＋ ▼ ✕ 捷徑"/>
+					<Item id="6123" name="語言"/>
+					<Item id="6133" name="狀態列"/>
+					<Item id="6134" name="隱藏"/>
+				</Global>
+
+				<Toolbar title="工具列">
 					<Item id="6102" name="隱藏"/>
 					<Item id="6103" name="Fluent UI: 小圖示"/>
 					<Item id="6104" name="Fluent UI: 大圖示"/>
 					<Item id="6129" name="Filled Fluent UI: 小圖示"/>
 					<Item id="6130" name="Filled Fluent UI: 大圖示"/>
-					<Item id="6105" name="標準: : 小圖示"/>
-					<Item id="6106" name="頁籤列"/>
+					<Item id="6105" name="標準: 小圖示"/>
+					<Item id="6011" name="著色"/>
+					<Item id="6012" name="全部"/>
+					<Item id="6013" name="部份"/>
+					<Item id="6014" name="顏色選擇"/>
+					<Item id="6015" name="內定色"/>
+					<Item id="6016" name="紅色"/>
+					<Item id="6017" name="綠色"/>
+					<Item id="6018" name="藍色"/>
+					<Item id="6019" name="紫色"/>
+					<Item id="6020" name="青色"/>
+					<Item id="6021" name="橄欖色"/>
+					<Item id="6022" name="黃色"/>
+					<Item id="6023" name="系統強調色"/>
+					<Item id="6024" name="自訂色調"/>
+				</Toolbar>
+
+				<Tabbar title="頁籤列">
 					<Item id="6107" name="縮小"/>
 					<Item id="6128" name="替代圖示"/>
 					<Item id="6108" name="鎖定（禁止拖曳）"/>
@@ -927,13 +952,7 @@
 					<Item id="6119" name="多行"/>
 					<Item id="6120" name="直式"/>
 					<Item id="6121" name="關閉最後一個文件時關閉程式"/>
-					<Item id="6131" name="選單"/>
-					<Item id="6122" name="隱藏（用 Alt 或 F10 切換）"/>
-					<Item id="6132" name="隱藏選單中右邊的 ＋ ▼ ✕ 捷徑"/>
-					<Item id="6123" name="語言"/>
-					<Item id="6125" name="文件切換器"/>
-					<Item id="6127" name="停用副檔名欄"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="編輯一">
 					<Item id="6216" name="游標設定"/>
@@ -1680,6 +1699,7 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<statusbar-Pos value="位置："/>
 			<statusbar-Sel value="選取："/>
 			<statusbar-Sel-number value="選取"/>
+			<toolbar-accent-tip value="此選項可讓您的工具列圖示遵循 Windows 系統強調色。強調色是 Windows 中的按鈕、邊框和開始功能表圖塊所使用的反白顯示顏色。要更改它，請轉到「設定」&gt;「個性化」&gt;「顏色」，然後選擇您喜歡的強調色。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

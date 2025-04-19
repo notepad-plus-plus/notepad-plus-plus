@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.7.9  17/Mar/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.0  14/Apr/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.7.9">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1015,6 +1015,7 @@
 					<Item id="6132" name="Skrýt ovládací prvky ＋ ▼ ✕"/>
 					<Item id="6133" name="Stavový řádek"/>
 					<Item id="6134" name="Skrýt"/>
+					<Item id="6135" name="Zobrazovat připínací tlačítko jen na připnutých"/>
 				</Global>
 				<Scintillas title="Editace 1">
 					<Item id="6214" name="Povolit Kopírování/Vyjmutí celého řádku bez výběru"/>
@@ -1024,6 +1025,7 @@
 					<Item id="6219" name="Rychlost blikání:"/>
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="P"/>
+					<Item id="6225" name="Použít na vybraný text vlastní barvu popředí"/>
 					<Item id="6227" name="Zalomení řádky"/>
 					<Item id="6228" name="Implicitní"/>
 					<Item id="6229" name="Jen zarovnání"/>
@@ -1064,10 +1066,10 @@
 					<Item id="7108" name="Modrozelený"/>
 					<Item id="7109" name="Olivový"/>
 					<Item id="7115" name="Vlastní"/>
-					<Item id="7116" name="Horní panel"/>
-					<Item id="7117" name="Hot-track položka menu"/>
-					<Item id="7118" name="Aktivní položky"/>
-					<Item id="7119" name="Hlavní položky"/>
+					<Item id="7116" name="Pozadí obsahu"/>
+					<Item id="7117" name="Zvýrazněná položka menu"/>
+					<Item id="7118" name="Pozadí ovládacích prvků"/>
+					<Item id="7119" name="Pozadí dialogového okna"/>
 					<Item id="7120" name="Chyby"/>
 					<Item id="7121" name="Text"/>
 					<Item id="7122" name="Tmavší text"/>
@@ -1522,6 +1524,11 @@ Vaše pracovní plocha nebyla uložena."/><!-- HowToReproduce: this message prev
 			<ProjectPanelReloadDirty title="Znovuotevření pracovní plochy" message="Nyní používaná pracovní plocha byla modifikována. Opětovným načtením přijdete o všechny provedené změny. Chcete pokračovat?"/>
 			<UDLNewNameError title="Chyba UDL" message="Tento název je již využíván jiným jazykem/syntaxí, prosím zadejte jiný."/>
 			<UDLRemoveCurrentLang title="Odstranění aktuální syntaxe" message="Jste si jisti?"/>
+			<UDL_importSuccessful title="Uživatelsky definovaná syntaxe" message="Import proběhl úspěšně."/>
+			<UDL_importFails title="Uživatelsky definovaná syntaxe" message="Import se nezdařil."/>
+			<UDL_saveBeforeImport title="Uživatelsky definovaná syntaxe" message="Před vlastním exportem uložte definovanou syntaxi kliknutím na tlačítko &quot;Uložit jako...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Uživatelsky definovaná syntaxe" message="Export proběhl úspěšně."/>
+			<UDL_exportFails title="Uživatelsky definovaná syntaxe" message="Export se nezdařil."/>
 			<SCMapperDoDeleteOrNot title="Jste si jisti?" message="Jste si jisti, že chcete smazat tuto klávesovou zkratku / příkaz?"/>
 			<FindCharRangeValueError title="Problém s rozsahem hodnoty" message="Měli byste napsat hodnotu z rozsahu 0 až 255."/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Ukládání selhalo" message="Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
@@ -1847,6 +1854,14 @@ Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíně
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Použitím &quot;Global override&quot; přepíšete nastavení ve všech stylech pro všechny syntaxe. Nejspíše chcete namísto toho použít nastavení &quot;Default Style&quot;."/>
 			<scintillaRenderingTechnology-tip value="Může zlepšit vykreslování speciálních znaků nebo vyřešit některé problémy s grafikou. Restartujte Notepad++, aby se změny projevily."/>
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="délka: $STR_REPLACE1$    řádků: $STR_REPLACE2$"/>
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Řd: $STR_REPLACE1$    Sl: $STR_REPLACE2$"/>
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Poz: "/>
+			<statusbar-Sel value="Ozn: "/>
+			<statusbar-Sel-number value="Ozn"/>
 		</MiscStrings>
 
 	</Native-Langue>

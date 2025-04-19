@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.0">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -943,15 +943,38 @@
 			<Preference title="Predvoľby">
 				<Item id="6001" name="Zavrieť"/>
 				<Global title="Všeobecné">
-					<Item id="6101" name="Panel nástrojov"/>
 					<Item id="6102" name="Skryť"/>
+					<Item id="6123" name="Jazyk"/>
+					<Item id="6131" name="Ponuka"/>
+					<Item id="6122" name="Skryť (prepínanie klávesom Alt alebo F10)"/>
+					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕"/>
+					<Item id="6133" name="Stavový riadok"/>
+					<Item id="6134" name="Skryť"/>
+				</Global>
+
+				<Toolbar title="Panel nástrojov">
 					<Item id="6103" name="Fluent UI: malé"/>
 					<Item id="6104" name="Fluent UI: veľké"/>
 					<Item id="6129" name="Vyplnené Fluent UI: malé"/>
 					<Item id="6130" name="Vyplnené Fluent UI: veľké"/>
 					<Item id="6105" name="Štandardné ikony: malé"/>
+					<Item id="6011" name="Zafarbenie"/>
+					<Item id="6012" name="Úplné"/>
+					<Item id="6013" name="Čiastočné"/>
+					<Item id="6014" name="Výber farby"/>
+					<Item id="6015" name="Predvolené"/>
+					<Item id="6016" name="Červená"/>
+					<Item id="6017" name="Modrá"/>
+					<Item id="6018" name="Zelená"/>
+					<Item id="6019" name="Fialová"/>
+					<Item id="6020" name="Azúrová"/>
+					<Item id="6021" name="Olivová"/>
+					<Item id="6022" name="Žltá"/>
+					<Item id="6023" name="Systémový motív"/>
+					<Item id="6024" name="Vlastná"/>
+				</Toolbar>
 
-					<Item id="6106" name="Panel kariet"/>
+				<Tabbar title="Panel kariet">
 					<Item id="6107" name="Zmenšiť"/>
 					<Item id="6108" name="Zamknúť (Vypne Drag 'N' Drop)"/>
 					<Item id="6109" name="Zmeniť farbu neaktívnej karty"/>
@@ -966,16 +989,7 @@
 					<Item id="6120" name="Vertikálny"/>
 					<Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 					<Item id="6128" name="Alternatívne ikony"/>
-
-					<Item id="6133" name="Stavový riadok"/>
-					<Item id="6134" name="Skryť"/>
-
-					<Item id="6131" name="Ponuka"/>
-					<Item id="6122" name="Skryť (Prepínanie klávesom Alt alebo F10)"/>
-					<Item id="6132" name="Skryť ovládacie prvky ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Lokalizácia"/>
-				</Global>
+				</Tabbar>
 				
 				<Scintillas title="Úprava 1">
 					<Item id="6216" name="Nastavenie kurzora"/>

@@ -250,6 +250,9 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			NppDarkMode::autoThemeChildControls(_hSelf);
 
+			if (_toolbarSubDlg._accentTip != nullptr)
+				NppDarkMode::setDarkTooltips(_toolbarSubDlg._accentTip, NppDarkMode::ToolTipsType::tooltip);
+
 			if (_editing2SubDlg._tip != nullptr)
 				NppDarkMode::setDarkTooltips(_editing2SubDlg._tip, NppDarkMode::ToolTipsType::tooltip);
 
@@ -882,12 +885,19 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_YELLOW), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_DEFAULTCOLOR), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_ACCENTCOLOR), enableColor);
-			::EnableWindow(::GetDlgItem(_hSelf, IDD_ACCENT_TIP_STATIC), enableColor);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_CUSTOMCOLOR), enableColor);
+
+			auto nStyle = ::GetWindowLongPtr(::GetDlgItem(_hSelf, IDD_ACCENT_TIP_STATIC), GWL_STYLE);
+			const bool isNotify = (nStyle & SS_NOTIFY) == SS_NOTIFY;
+			if (enableColor != isNotify)
+			{
+				nStyle ^= SS_NOTIFY;
+				::SetWindowLongPtr(::GetDlgItem(_hSelf, IDD_ACCENT_TIP_STATIC), GWL_STYLE, nStyle);
+				redrawDlgItem(IDD_ACCENT_TIP_STATIC);
+			}
 
 			bool useDark = static_cast<bool>(wParam) ? !NppDarkMode::isEnabled() : NppDarkMode::isEnabled();
 			enableIconColorPicker(enableColor && enableCustom, useDark);
-
 
 			if (NppDarkMode::isEnabled())
 			{
@@ -907,7 +917,13 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+			auto hdc = reinterpret_cast<HDC>(wParam);
+			const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDD_ACCENT_TIP_STATIC)
+			{
+				return NppDarkMode::onCtlColorDlgLinkText(hdc, !isCheckedOrNot(IDC_RADIO_STANDARD));
+			}
+			return NppDarkMode::onCtlColorDlg(hdc);
 		}
 
 		case WM_PRINTCLIENT:

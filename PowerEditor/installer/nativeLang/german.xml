@@ -986,7 +986,7 @@ Translation note:
 					<Item id="6024" name="Benutzerdefiniert"/>
 				</Toolbar>
 
-				<Tabbar title="Tab Bar">
+				<Tabbar title="Dateireiter (Tabs)r">
 					<Item id="6107" name="Verkleinern"/>
 					<Item id="6108" name="Tabs nicht mit der Maus verschiebbar"/>
 					<Item id="6109" name="Farbe inaktiver Tabs ändern"/>

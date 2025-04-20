@@ -55,13 +55,6 @@ class ToolbarSubDlg : public StaticDialog
 friend class PreferenceDlg;
 public:
 	ToolbarSubDlg() = default;
-	~ToolbarSubDlg() {
-		if (_accentTip)
-		{
-			::DestroyWindow(_accentTip);
-			_accentTip = nullptr;
-		}
-	};
 
 private:
 	HWND _accentTip = nullptr;

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.7.9">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -951,15 +951,38 @@ Translation note:
 			<Preference title="環境設定">
 				<Item id="6001" name="閉じる"/>
 				<Global title="全般設定">
-					<Item id="6101" name="ツールバー"/>
+					<Item id="6123" name="言語"/>
+					<Item id="6131" name="メニュー"/>
+					<Item id="6122" name="隠す(表示するには Alt か F10 を押す)"/>
+					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする"/>
+					<Item id="6133" name="ステータスバー"/>
+					<Item id="6134" name="隠す"/>
+				</Global>
+
+				<Toolbar title="ツールバー">
 					<Item id="6102" name="隠す"/>
 					<Item id="6103" name="Fluent UI 小"/>
 					<Item id="6104" name="Fluent UI 大"/>
 					<Item id="6129" name="Filled Fluent UI 小"/>
 					<Item id="6130" name="Filled Fluent UI 大"/>
 					<Item id="6105" name="標準アイコン 小"/>
+					<Item id="6011" name="色付け"/>
+					<Item id="6012" name="全体"/>
+					<Item id="6013" name="一部のみ"/>
+					<Item id="6014" name="色の設定"/>
+					<Item id="6015" name="標準"/>
+					<Item id="6016" name="赤"/>
+					<Item id="6017" name="青"/>
+					<Item id="6018" name="緑"/>
+					<Item id="6019" name="紫"/>
+					<Item id="6020" name="シアン"/>
+					<Item id="6021" name="オリーブ"/>
+					<Item id="6022" name="黄"/>
+					<Item id="6023" name="システムのアクセントカラー"/>
+					<Item id="6024" name="カスタム"/>
+				</Toolbar>
 
-					<Item id="6106" name="タブバー"/>
+				<Tabbar title="タブバー">
 					<Item id="6107" name="小さく表示"/>
 					<Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
 					<Item id="6109" name="非アクティブなタブの色を変える"/>
@@ -974,16 +997,7 @@ Translation note:
 					<Item id="6120" name="縦に表示する"/>
 					<Item id="6121" name="最後のタブを閉じると終了する"/>
 					<Item id="6128" name="別デザインのアイコンを使用する"/>
-
-					<Item id="6133" name="ステータスバー"/>
-					<Item id="6134" name="隠す"/>
-
-					<Item id="6131" name="メニュー"/>
-					<Item id="6122" name="隠す(表示するには Alt か F10 を押す)"/>
-					<Item id="6132" name="右端の ＋ ▼ ✕ ボタンを非表示にする"/>
-
-					<Item id="6123" name="言語"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="編集画面 1">
 					<Item id="6216" name="カーソル設定"/>
@@ -1002,6 +1016,7 @@ Translation note:
 					<Item id="6239" name="選択範囲外を右クリックしたときに選択を解除しない"/>
 					<Item id="6245" name="仮想空白を有効にする"/>
 					<Item id="6214" name="選択範囲がないときは行全体をコピー/切り取りする"/>
+					<Item id="6225" name="選択文字列の文字色にカスタム色を利用する"/>
 					<Item id="6651" name="現在行の強調表示"/>
 					<Item id="6652" name="なし"/>
 					<Item id="6653" name="背景を色付け"/>
@@ -1855,6 +1870,7 @@ C、C++、Java、C#、Objective-C、PHP、JavaScript、JSP、CSS、Perl、Rust�
 			<statusbar-Pos value="位置: "/>
 			<statusbar-Sel value="選択: "/>
 			<statusbar-Sel-number value="選択"/>
+			<toolbar-accent-tip value="これを選択すると、ツールバーのアイコン色が Windows のアクセントカラーに従います。Windows のアクセントカラーは、ボタン、枠、スタートメニューのタイルなどのハイライトに使われています。変更するには、Windows の「設定」→「個人用設定」→「色」に進み、アクセントカラーを変更してください。"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -239,5 +239,6 @@ namespace NppDarkMode
 	LRESULT onCtlColorDlg(HDC hdc);
 	LRESULT onCtlColorError(HDC hdc);
 	LRESULT onCtlColorDlgStaticText(HDC hdc, bool isTextEnabled);
+	LRESULT onCtlColorDlgLinkText(HDC hdc, bool isTextEnabled = true);
 	LRESULT onCtlColorListbox(WPARAM wParam, LPARAM lParam);
 }

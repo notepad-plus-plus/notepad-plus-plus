@@ -52,6 +52,7 @@ private :
 
 class ToolbarSubDlg : public StaticDialog
 {
+friend class PreferenceDlg;
 public:
 	ToolbarSubDlg() = default;
 

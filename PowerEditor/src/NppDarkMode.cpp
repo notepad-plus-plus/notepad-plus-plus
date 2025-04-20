@@ -4020,6 +4020,19 @@ namespace NppDarkMode
 		return reinterpret_cast<LRESULT>(NppDarkMode::getDlgBackgroundBrush());
 	}
 
+	LRESULT onCtlColorDlgLinkText(HDC hdc, bool isTextEnabled)
+	{
+		if (!NppDarkMode::isEnabled())
+		{
+			::SetTextColor(hdc, ::GetSysColor(isTextEnabled ? COLOR_HOTLIGHT : COLOR_GRAYTEXT));
+			return FALSE;
+		}
+
+		::SetTextColor(hdc, isTextEnabled ? NppDarkMode::getLinkTextColor() : NppDarkMode::getDisabledTextColor());
+		::SetBkColor(hdc, NppDarkMode::getDlgBackgroundColor());
+		return reinterpret_cast<LRESULT>(NppDarkMode::getDlgBackgroundBrush());
+	}
+
 	LRESULT onCtlColorListbox(WPARAM wParam, LPARAM lParam)
 	{
 		auto hdc = reinterpret_cast<HDC>(wParam);

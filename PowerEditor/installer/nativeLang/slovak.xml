@@ -943,7 +943,6 @@
 			<Preference title="Predvoľby">
 				<Item id="6001" name="Zavrieť"/>
 				<Global title="Všeobecné">
-					<Item id="6102" name="Skryť"/>
 					<Item id="6123" name="Jazyk"/>
 					<Item id="6131" name="Ponuka"/>
 					<Item id="6122" name="Skryť (prepínanie klávesom Alt alebo F10)"/>
@@ -1872,6 +1871,7 @@ Ak vyberiete pokročilý režim, ale neupravujete súbory vo vyššie uvedených
 			<statusbar-Pos value="Poz: "/>
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
+			<toolbar-accent-tip value="Táto možnosť spôsobí, že ikony na paneli s nástrojmi budú mať farbu motívu Windowsu. Farba motívu je farba zvýraznenia používaná v tlačidlách, okrajoch a dlaždiciach ponuky Štart vo Windowse. Ak ju chcete zmeniť, prejdite do Nastavenia &gt; Prispôsobenie &gt; Farby, potom vyberte preferovanú farbu."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

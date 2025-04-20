@@ -12,7 +12,7 @@ Additionnal information about Corsican localization:
 
 2. History of Corsican translation for Notepad++:
 
-	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8)
+	- Updated in 2025 by Patriccollu di Santa Maria è Sichè: Jan. 15th (v8.7.6), Mar. 1st (v8.7.8), Apr. 20th (v8.8)
 	- Updated in 2024 by Patriccollu di Santa Maria è Sichè: Feb. 5th (v8.6.3), Mar. 10th (v8.6.5), Apr. 30th (v8.6.6),
 			  June 13th (v8.6.9), Sept. 8th (v8.7), Oct. 21st (v8.7.1), Nov. 20th (v8.7.2), Nov. 29th (v8.7.3)
 	- Updated in 2023 by Patriccollu di Santa Maria è Sichè: Feb. 24th (v8.5), Mar. 12th (v8.5.1), Mar. 31st (v8.5.2),
@@ -35,7 +35,7 @@ Additionnal information about Corsican localization:
 	https://github.com/Patriccollu/Lingua_Corsa-Infurmatica/blob/ceppu/Prughjetti/Notepad%2B%2B/Traduzzione.md
 -->
 <NotepadPlus>
-	<Native-Langue name="Corsu" filename="corsican.xml" version="8.7.8">
+	<Native-Langue name="Corsu" filename="corsican.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -975,13 +975,38 @@ Additionnal information about Corsican localization:
 			<Preference title="Preferenze">
 				<Item id="6001" name="Chjode"/>
 				<Global title="Generale">
-					<Item id="6101" name="Barra d’attrezzi"/>
+					<Item id="6123" name="Lingua di l’interfaccia"/>
+					<Item id="6131" name="Listinu"/>
+					<Item id="6122" name="Piattà (impiegà u tastu Alt o F10 per attivà o disattivà)"/>
+					<Item id="6132" name="Piattà l’accurtatoghji di diritta ＋ ▼ ✕"/>
+					<Item id="6133" name="Barra di statu"/>
+					<Item id="6134" name="Piattà"/>
+				</Global>
+
+				<Toolbar title="Barra d’attrezzi">
 					<Item id="6102" name="Piattà"/>
 					<Item id="6103" name="Fluent UI : icone chjuche"/>
 					<Item id="6104" name="Fluent UI : icone maiò"/>
 					<Item id="6129" name="Filled Fluent UI : icone chjuche"/>
 					<Item id="6130" name="Filled Fluent UI : icone maiò"/>
 					<Item id="6105" name="Classiche : icone chjuche"/>
+					<Item id="6011" name="Culurazione"/>
+					<Item id="6012" name="Sana"/>
+					<Item id="6013" name="Parziale"/>
+					<Item id="6014" name="Scelta di culore"/>
+					<Item id="6015" name="Predefinitu"/>
+					<Item id="6016" name="Rossu"/>
+					<Item id="6017" name="Turchinu"/>
+					<Item id="6018" name="Verde"/>
+					<Item id="6019" name="Purpura"/>
+					<Item id="6020" name="Cianu"/>
+					<Item id="6021" name="Verde aliva"/>
+					<Item id="6022" name="Ghjallu"/>
+					<Item id="6023" name="Culore d’accentuazione"/>
+					<Item id="6024" name="Persunalizà"/>
+				</Toolbar>
+
+				<Tabbar title="Barra d’unghjette">
 					<Item id="6106" name="Barra d’unghjette"/>
 					<Item id="6107" name="Riduce"/>
 					<Item id="6108" name="Bluccà (senza sguillà é depone)"/>
@@ -991,21 +1016,14 @@ Additionnal information about Corsican localization:
 					<Item id="6112" name="Affissà u buttone di chjusura"/>
 					<Item id="6113" name="Doppiu cliccu per chjode u ducumentu"/>
 					<Item id="6115" name="Attivà a funzione di fissazione di l’unghjetta"/>
+					<Item id="6135" name="Affissà solu u buttone fissatu"/>
 					<Item id="6118" name="Piattà"/>
 					<Item id="6119" name="Multilinea"/>
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esce quandu l’ultima unghjetta si chjode"/>
 					<Item id="6128" name="Icone alternative"/>
-					
-					<Item id="6133" name="Barra di statu"/>
-					<Item id="6134" name="Piattà"/>
+				</Tabbar>
 
-					<Item id="6131" name="Listinu"/>
-					<Item id="6122" name="Piattà (impiegà u tastu Alt o F10 per attivà o disattivà)"/>
-					<Item id="6132" name="Piattà l’accurtatoghji di diritta ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Lingua"/>
-				</Global>
 				<Scintillas title="Mudificazione 1">
 					<Item id="6216" name="Parametri di cursore"/>
 					<Item id="6217" name="Larghezza :"/>
@@ -1023,6 +1041,7 @@ Additionnal information about Corsican localization:
 					<Item id="6239" name="Cunservà a selezzione in casu di cliccu dirittu fora di a selezzione"/>
 					<Item id="6245" name="Attivà u spaziu virtuale"/>
 					<Item id="6214" name="Attivà a copia o a tagliatura di linea senza selezzione"/>
+					<Item id="6225" name="Appiecà u culore persunalizatu à u primu pianu di u testu selezziunatu"/>
 					<Item id="6651" name="Indicadore di linea currente"/>
 					<Item id="6652" name="Nisunu"/>
 					<Item id="6653" name="Culurisce u sfondulu"/>
@@ -1059,10 +1078,10 @@ Additionnal information about Corsican localization:
 					<Item id="7108" name="Cianu"/>
 					<Item id="7109" name="Aliva"/>
 					<Item id="7115" name="Persunalizatu"/>
-					<Item id="7116" name="Altu"/>
-					<Item id="7117" name="Listinu di messa in evidenza"/>
-					<Item id="7118" name="Attivu"/>
-					<Item id="7119" name="Principale"/>
+					<Item id="7116" name="Sfondulu di cuntenutu"/>
+					<Item id="7117" name="Messa in evidenza"/>
+					<Item id="7118" name="Sfondulu di cuntrollu"/>
+					<Item id="7119" name="Sfondulu di dialogu"/>
 					<Item id="7120" name="Sbagliu"/>
 					<Item id="7121" name="Testu"/>
 					<Item id="7122" name="Testu più oscuru"/>
@@ -1357,6 +1376,7 @@ Additionnal information about Corsican localization:
 						<Element name="DirectWrite (predefinitu)"/>
 						<Element name="DirectWrite (cunservà e sequenze)"/>
 						<Element name="DirectWrite (disegnà nant’à GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="u spaziu di nutificazione di u sistema"/>
 					<Item id="6363" name="modu di restituzione"/>
@@ -1551,6 +1571,11 @@ Vulete cuntinuà ?"/>
 			<UDLNewNameError title="Sbagliu UDL" message="Stu nome hè impiegatu da un altru linguaghju,
 ci vole à dà un altru."/>
 			<UDLRemoveCurrentLang title="Caccià u linguaghju attuale" message="Site sicuri ?"/>
+			<UDL_importSuccessful title="Linguaghju definitu da l’utilizatore" message="L’impurtazione hè riesciuta."/>
+			<UDL_importFails title="Linguaghju definitu da l’utilizatore" message="Fiascu à l’impurtazione."/>
+			<UDL_saveBeforeImport title="Linguaghju definitu da l’utilizatore" message="Prima d’espurtà, arregistrate a definizione di u vostru linguaghju via un cliccu nant’à u buttone « Arregistrà cù u nome… »."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Linguaghju definitu da l’utilizatore" message="L’espurtazione hè riesciuta."/>
+			<UDL_exportFails title="Linguaghju definitu da l’utilizatore" message="Fiascu à l’espurtazione."/>
 			<SCMapperDoDeleteOrNot title="Cunfirmazione" message="Da veru, vulete squassà st’accurtatoghju ?"/>
 			<FindCharRangeValueError title="Penseru di valore di stesa" message="Ci vole à stampittà trà 0 è 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Arregistramentu fiascatu" message="U schedariu ùn pò micca esse arregistratu, forse hè prutettu.
@@ -1859,9 +1884,22 @@ Impiegà u buttone « ? » à diritta per apre u manuale di l’utilizatore na
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell è JSON.
 
 S’è vo selezziunate u modu espertu ma ùn mudificate micca i schedarii in i linguaghji mintulati insù, l’indentazione sterà in modu basicu."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Attivà quì l’ozzione « Global override » supranerà sti parametri à tutti i stili di tutti i linguaghji di prugrammazione. Preferiscerete di sicuru impiegà piuttostu i parametri « Default Style »"/>
 			<scintillaRenderingTechnology-tip value="Puderia amendà a trasfurmazione di i caratteri speziali o currege certi prublemi grafichi ; rilancià Notepad++ per piglià in contu i cambiamenti."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="longh : $STR_REPLACE1$    linee : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln : $STR_REPLACE1$    Cul : $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pus : "/>
+			<statusbar-Sel value="Sel : "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="St’ozzione permette à l’icone di a vostra barra d’attrezzi d’aduttà u culore d’accentuazione di u sistema Windows. U culore d’accentuazione hè u culore di messa in evidenza impiegatu da Windows per i buttoni, i bordi è e musaiche di u listinu « Démarrer ». Per mudificallu, accidite à Parametri &gt; Persunalizà &gt; Culori, eppò selezziunate u vostru culore d’accentuazione preferitu."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

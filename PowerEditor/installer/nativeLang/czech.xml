@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.0  14/Apr/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.0  20/Apr/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
@@ -429,10 +429,10 @@
 			<TabBar>
 				<Item CMDID="41003" name="Zavřít"/>
 				<Item CMDID="0" name="Zavřít vícero souborů/karet"/>
-				<Item CMDID="41005" name="Zavřít vše KROMĚ aktuálního"/>
-				<Item CMDID="41026" name="Zavřít vše KROMĚ připnutých"/>
-				<Item CMDID="41009" name="Zavřít vše nalevo"/>
-				<Item CMDID="41018" name="Zavřít vše napravo"/>
+				<Item CMDID="41005" name="Zavřít všechny KROMĚ aktuální"/>
+				<Item CMDID="41026" name="Zavřít všechny KROMĚ připnutých"/>
+				<Item CMDID="41009" name="Zavřít všechny nalevo"/>
+				<Item CMDID="41018" name="Zavřít všechny napravo"/>
 				<Item CMDID="41024" name="Zavřít všechny nezměněné"/>
 				<Item CMDID="44048" name="Připnout kartu" alternativeName="Odepnout kartu"/>
 				<Item CMDID="41006" name="Uložit"/>
@@ -985,12 +985,36 @@
 			<Preference title="Volby">
 				<Item id="6001" name="Zavřít"/>
 				<Global title="Obecné">
-					<Item id="6101" name="Nástrojová lišta"/>
+					<Item id="6122" name="Skrýt (klávesa Alt nebo F10 slouží jako přepínač)"/>
+					<Item id="6123" name="Lokalizace"/>
+					<Item id="6131" name="Hlavní menu"/>
+					<Item id="6132" name="Skrýt ovládací prvky ＋ ▼ ✕"/>
+					<Item id="6133" name="Stavový řádek"/>
+					<Item id="6134" name="Skrýt"/>
+				</Global>
+				<Toolbar title="Lišta nástrojových ikon">
 					<Item id="6102" name="Skrýt"/>
 					<Item id="6103" name="Fluent UI: malé ikony"/>
 					<Item id="6104" name="Fluent UI: velké ikony"/>
 					<Item id="6105" name="Standardní: malé ikony"/>
-					<Item id="6106" name="Lišta karet (tab) dokumentů"/>
+					<Item id="6129" name="Fluent UI: malé ikony s výplní"/>
+					<Item id="6130" name="Fluent UI: velké ikony s výplní"/>
+					<Item id="6011" name="Zabarvení"/>
+					<Item id="6012" name="Kompletní"/>
+					<Item id="6013" name="Částečné"/>
+					<Item id="6014" name="Výběr barvy"/>
+					<Item id="6015" name="Výchozí"/>
+					<Item id="6016" name="Červená"/>
+					<Item id="6017" name="Modrá"/>
+					<Item id="6018" name="Zelená"/>
+					<Item id="6019" name="Fialová"/>
+					<Item id="6020" name="Modrozelená"/>
+					<Item id="6021" name="Olivová"/>
+					<Item id="6022" name="Žlutá"/>
+					<Item id="6023" name="Systémová zvýrazňovací barva"/>
+					<Item id="6024" name="Uživatelem definovaná"/>
+				</Toolbar>
+				<Tabbar title="Lišta karet (tabs)">
 					<Item id="6107" name="Zmenšit"/>
 					<Item id="6108" name="Uzamknout (nelze přetahovat karty)"/>
 					<Item id="6109" name="Změnit barvu pozadí neaktivní karty"/>
@@ -998,25 +1022,14 @@
 					<Item id="6111" name="Zobrazovat tlačítka i na neaktivních kartách"/>
 					<Item id="6112" name="Přidat zavírací tlačítko každé kartě"/>
 					<Item id="6113" name="Dvojité kliknutí zavře kartu"/>
-					<Item id="6114" name="Povolit přepínání mezi dokumenty"/>
 					<Item id="6115" name="Povolit připínání karet"/>
-					<Item id="6116" name="Zapamatovat si poslední používaný adresář"/>
-					<Item id="6117" name="Používat historii dokumentů"/>
 					<Item id="6118" name="Skrýt"/>
 					<Item id="6119" name="Více řad"/>
 					<Item id="6120" name="Vertikální"/>
 					<Item id="6121" name="Ukončit při uzavření poslední karty"/>
-					<Item id="6122" name="Skrýt (klávesa Alt nebo F10 slouží jako přepínač)"/>
-					<Item id="6123" name="Lokalizace"/>
 					<Item id="6128" name="Alternativní ikony"/>
-					<Item id="6129" name="Fluent UI: malé ikony s výplní"/>
-					<Item id="6130" name="Fluent UI: velké ikony s výplní"/>
-					<Item id="6131" name="Hlavní menu"/>
-					<Item id="6132" name="Skrýt ovládací prvky ＋ ▼ ✕"/>
-					<Item id="6133" name="Stavový řádek"/>
-					<Item id="6134" name="Skrýt"/>
 					<Item id="6135" name="Zobrazovat připínací tlačítko jen na připnutých"/>
-				</Global>
+				</Tabbar>
 				<Scintillas title="Editace 1">
 					<Item id="6214" name="Povolit Kopírování/Vyjmutí celého řádku bez výběru"/>
 					<Item id="6215" name="Povolit vyhlazování fontu"/>
@@ -1729,7 +1742,7 @@ Hledat ve všech souborech, ale rekurzivně vynechat všechny složky log nebo l
 			<find-status-replaceall-1-replaced value="Nahrazování všeho: 1 výskyt nahrazen"/>
 			<find-status-replaceall-nb-replaced value="Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-replaceall-readonly value="Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
-			<find-status-replace-end-reached value="Nahrazování: Dosažen konec dokumentu, nahrazen první výskyt zhora."/>
+			<find-status-replace-end-reached value="Nahrazování: Dosažen konec dokumentu, nahrazen první výskyt shora."/>
 			<find-status-replace-top-reached value="Nahrazování: Dosažen začátek dokumentu, nahrazen první výskyt zdola."/>
 			<find-status-replaced-next-found value="Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen."/>
 			<find-status-replaced-without-continuing value="Nahrazování: 1 výskyt byl nahrazen."/>
@@ -1862,6 +1875,7 @@ Pokud zvolíte Pokročilý režim, ale nebudete upravovat soubory výše zmíně
 			<statusbar-Pos value="Poz: "/>
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
+			<toolbar-accent-tip value="Touto volbou vynutíte u ikon nástrojové lišty Notepadu++ použití systémové barvy Windows určené pro zvýrazňování. Tato barva je součástí zvýraznění interaktivních prvků uživatelského rozhraní jako jsou tlačítka, okraje nebo dlaždice Startovní nabídky Windows. Pro její případnou změnu přejděte do systémového Nastavení &gt; Přizpůsobení &gt; Barvy, poté vyberte preferovanou barvu pro zvýrazňování."/>
 		</MiscStrings>
 
 	</Native-Langue>

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
     Italian translation for Notepad++ 8.8.0
-    Last modified Sat, Apr 12nd, 2025.
+    Last modified Sun, Apr 21st, 2025.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -951,15 +951,38 @@ Translation note:
 			<Preference title="Preferenze">
 				<Item id="6001" name="Chiudi"/>
 				<Global title="Generale">
-					<Item id="6101" name="Barra degli strumenti"/>
+					<Item id="6123" name="Lingua"/>
+					<Item id="6131" name="Menu"/>
+					<Item id="6122" name="Nascondi (Alt o F10 per visualizzare)"/>
+					<Item id="6132" name="Nascondi ＋ ▼ ✕"/>
+					<Item id="6133" name="Barra di stato"/>
+					<Item id="6134" name="Nascondi"/>
+				</Global>
+
+				<Toolbar title="Toolbar">
 					<Item id="6102" name="Nascondi"/>
 					<Item id="6103" name="Icone contornate (piccole)"/>
 					<Item id="6104" name="Icone contornate (grandi)"/>
 					<Item id="6129" name="Icone piene (piccole)"/>
 					<Item id="6130" name="Icone piene (grandi)"/>
 					<Item id="6105" name="Icone classiche (piccole)"/>
+					<Item id="6011" name="Colorazione"/>
+					<Item id="6012" name="Completa"/>
+					<Item id="6013" name="Parziale"/>
+					<Item id="6014" name="Scelta dei colori"/>
+					<Item id="6015" name="Predefinito"/>
+					<Item id="6016" name="Rosso"/>
+					<Item id="6017" name="Blù"/>
+					<Item id="6018" name="Verde"/>
+					<Item id="6019" name="Viola"/>
+					<Item id="6020" name="Ciano"/>
+					<Item id="6021" name="Olive"/>
+					<Item id="6022" name="Giallo"/>
+					<Item id="6023" name="Principale di sistema"/>
+					<Item id="6024" name="Personalizzata"/>
+				</Toolbar>
 
-					<Item id="6106" name="Barra delle schede"/>
+				<Tabbar title="Barra delle schede">
 					<Item id="6107" name="Compatta"/>
 					<Item id="6108" name="Blocca schede (no trascinamento)"/>
 					<Item id="6109" name="Cambia il colore della scheda inattiva"/>
@@ -974,16 +997,7 @@ Translation note:
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esci alla chiusura dell&apos;ultima scheda"/>
 					<Item id="6128" name="Icone alternative"/>
-
-					<Item id="6133" name="Barra di stato"/>
-					<Item id="6134" name="Nascondi"/>
-
-					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Nascondi (Alt o F10 per visualizzare)"/>
-					<Item id="6132" name="Nascondi ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Lingua"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Modifica 1">
 					<Item id="6216" name="Cursore"/>
@@ -1850,9 +1864,11 @@ Premere il pulsante &quot;?&quot; a destra per aprire il sito Web con il manuale
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
 Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei linguaggi sopra menzionati, il rientro rimarrà in modalità base."/>
+
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Abilitando qui &quot;Global override&quot;, quel parametro verrà sovrascritto in tutti gli stili di lingua. Ciò che probabilmente vuoi usare è invece l'impostazione &quot;Default Style&quot;"/>
 			<scintillaRenderingTechnology-tip value="Potrebbe migliorare il rendering dei caratteri speciali o risolvere alcuni problemi grafici, riavviare Notepad++ per applicare le modifiche."/>
+
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-length-lines value="lungh.: $STR_REPLACE1$    linee: $STR_REPLACE2$"/>
 
@@ -1863,7 +1879,7 @@ Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei
 			<statusbar-Pos value="Pos: "/>
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
-
+			<toolbar-accent-tip value="Questa opzione fa sì che le icone della barra degli strumenti seguano il colore principale del sistema Windows. Il colore principale è il colore di evidenziazione utilizzato per pulsanti, bordi e riquadri del menu Avvio in Windows. Per modificarlo, vai su Impostazioni &gt; Personalizzazione  &gt;  Colori, quindi seleziona il colore principale preferito."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

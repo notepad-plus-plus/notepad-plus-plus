@@ -5,7 +5,7 @@
 		- Radoš Milićev (https://github.com/rammba)
 -->
 <NotepadPlus>
-	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.7.9">
+	<Native-Langue name="Srpski" filename="serbian.xml"  version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -946,15 +946,38 @@
 			<Preference title="Preference">
 				<Item id="6001" name="Zatvori"/>
 				<Global title="Opšte">
-					<Item id="6101" name="Traka sa alatima"/>
+					<Item id="6123" name="Lokalizacija"/>
+					<Item id="6131" name="Meni"/>
+					<Item id="6122" name="Sakrij (koristi Alt ili F10 za uključivanje/isključivanje)"/>
+					<Item id="6132" name="Sakrij desne prečice ＋ ▼ ✕"/>
+					<Item id="6133" name="Statusna traka"/>
+					<Item id="6134" name="Sakrij"/>
+				</Global>
+
+				<Toolbar title="Traka sa alatima">
 					<Item id="6102" name="Sakrij"/>
 					<Item id="6103" name="Male ikonice"/>
 					<Item id="6104" name="Velike ikonice"/>
 					<Item id="6129" name="Male ispunjene ikonice"/>
 					<Item id="6130" name="Velike ispunjene ikonice"/>
 					<Item id="6105" name="Standardne ikonice"/>
+					<Item id="6011" name="Kolorizacija"/>
+					<Item id="6012" name="Potpuno"/>
+					<Item id="6013" name="Delimično"/>
+					<Item id="6014" name="Odabir boje"/>
+					<Item id="6015" name="Podrazumevano"/>
+					<Item id="6016" name="Crveno"/>
+					<Item id="6017" name="Plavo"/>
+					<Item id="6018" name="Zeleno"/>
+					<Item id="6019" name="Ljubičasto"/>
+					<Item id="6020" name="Cijan"/>
+					<Item id="6021" name="Maslinasto"/>
+					<Item id="6022" name="Žuto"/>
+					<Item id="6023" name="Sistemski akcentovano"/>
+					<Item id="6024" name="Prilagođeno"/>
+				</Toolbar>
 
-					<Item id="6106" name="Traka tab-ova"/>
+				<Tabbar title="Traka tab-ova">
 					<Item id="6107" name="Smanji"/>
 					<Item id="6108" name="Zaključaj (bez prevlačenja)"/>
 					<Item id="6109" name="Promeni boju neaktivnog tab-a"/>
@@ -963,21 +986,13 @@
 					<Item id="6112" name="Prikaži dugme za zatvaranje"/>
 					<Item id="6113" name="Dvoklik za zatvaranje dokumenta"/>
 					<Item id="6115" name="Omogući pin-ovanje tab-a"/>
+					<Item id="6135" name="Prikaži samo pin-ovano dugme"/>
 					<Item id="6118" name="Sakrij"/>
 					<Item id="6119" name="U više redova"/>
 					<Item id="6120" name="Uspravno"/>
 					<Item id="6121" name="Zatvori zatvaranjem poslednjeg tab-a"/>
 					<Item id="6128" name="Obrni ikonice"/>
-
-					<Item id="6133" name="Statusna traka"/>
-					<Item id="6134" name="Sakrij"/>
-
-					<Item id="6131" name="Meni"/>
-					<Item id="6122" name="Sakrij (koristi Alt ili F10 za uključivanje/isključivanje)"/>
-					<Item id="6132" name="Sakrij desne prečice ＋ ▼ ✕"/>
-
-					<Item id="6123" name="Lokalizacija"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Uređivanje 1">
 					<Item id="6216" name="Podešavanja pokazivača"/>
@@ -996,6 +1011,7 @@
 					<Item id="6239" name="Zadrži izbor nakon desnog klika izvan trenutnog izbora"/>
 					<Item id="6245" name="Omogući virtuelni razmak"/>
 					<Item id="6214" name="Omogući kopiranje/isecanje linije bez odabira"/>
+					<Item id="6225" name="Primeni prilagođenu boju na odabrani tekst"/>
 					<Item id="6651" name="Pokazivač trenutne linije"/>
 					<Item id="6652" name="Ništa"/>
 					<Item id="6653" name="Istakni pozadinu"/>
@@ -1032,10 +1048,10 @@
 					<Item id="7108" name="Cijan"/>
 					<Item id="7109" name="Maslinasto"/>
 					<Item id="7115" name="Prilagođeno"/>
-					<Item id="7116" name="Vrh"/>
-					<Item id="7117" name="Odabir u meniju"/>
-					<Item id="7118" name="Aktivno"/>
-					<Item id="7119" name="Glavno"/>
+					<Item id="7116" name="Pozadina sadržaja"/>
+					<Item id="7117" name="Odabrano"/>
+					<Item id="7118" name="Pozadina kontrole"/>
+					<Item id="7119" name="Pozadina dijaloga"/>
 					<Item id="7120" name="Greška"/>
 					<Item id="7121" name="Tekst"/>
 					<Item id="7122" name="Tamniji tekst"/>
@@ -1522,6 +1538,11 @@ Da li ste sigurni da želite ukloniti ovaj folder iz projekta?"/>
 			<UDLNewNameError title="KDJ greška" message="Drugi jezik koristi ovaj naziv,
 molimo dajte nov naziv."/>
 			<UDLRemoveCurrentLang title="Uklanjanje trenutnog jezika" message="Da li ste sigurni?"/>
+			<UDL_importSuccessful title="Korisnički definisan jezik" message="Uspešno uvezeno."/>
+			<UDL_importFails title="Korisnički definisan jezik" message="Neuspešan uvoz."/>
+			<UDL_saveBeforeImport title="Korisnički definisan jezik" message="Pre izvoza, sačuvajte definiciju vašeg jezika klikom na &quot;Sačuvaj kao...&quot; dugme."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Korisnički definisan jezik" message="Uspešno izvezeno."/>
+			<UDL_exportFails title="Korisnički definisan jezik" message="Neuspešan izvoz."/>
 			<SCMapperDoDeleteOrNot title="Da li ste sigurni?" message="Da li ste sigurni da želite obrisati ovu prečicu?"/>
 			<FindCharRangeValueError title="Problem sa opsegom" message="Trebalo bi da koristite vrednost između 0 i 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Neuspešno čuvanje" message="Datoteka ne može biti sačuvana i možda je zaštićena.
@@ -1838,9 +1859,22 @@ Klikni na &quot;?&quot; desno da otvoriš sajt sa uputstvom."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
 
 Ako izabereš napredni mod, a ne izmeniš datoteke u pomenutim jezicima, uvlačenje će ostati isto kao u osnovnom modu."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Omogućavanjem &quot;Global override&quot; ovde pregazićeš taj parametar za sve stilove jezika. Verovatno želiš da koristiš &quot;Default Style&quot; umesto toga"/>
 			<scintillaRenderingTechnology-tip value="Može poboljšati renderovanje specijalnih karaktera i rešiti grafičke probleme, ponovo pokreni Notepad++ da primeniš promene."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="dužina: $STR_REPLACE1$    linija: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Kol: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Poz: "/>
+			<statusbar-Sel value="Izb: "/>
+			<statusbar-Sel-number value="Izb"/>
+			<toolbar-accent-tip value="Ova opcija čini da ikonice na traci sa alatima prate sistemsku akcentovanu boju. Akcentovana boja je boja za isticanje korišćena za dugmiće, ivice i u početnom meniju Windows-a. Da je promenite, idite u Podešavanja &gt; Personalizacija &gt; Boje i odaberite željenu akcentovanu boju."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

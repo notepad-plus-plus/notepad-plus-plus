@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.8.0
--    Ultima modificare a fost făcută 17 aprilie 2025 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.8
+-    Ultima modificare a fost făcută 21 aprilie 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.0">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -958,40 +958,53 @@
             <Preference title="Preferințe">
                 <Item id="6001" name="Închidere"/>
                 <Global title="General">
-                    <Item id="6101" name="Bara de unelte"/>
-                    <Item id="6102" name="Ascunde-o (Ascundere)"/>
-                    <Item id="6103" name="Pictograme mici"/>
-                    <Item id="6104" name="Pictograme mari"/>
+					<Item id="6123" name="Limba (Localizarea)"/>
+ 					<Item id="6131" name="Meniu"/>
+ 					<Item id="6122" name="Ascunde (folosește tasta Alt sau F10 ca să comuți)"/>
+ 					<Item id="6132" name="Ascunde butoanele din dreapta ＋ ▼ ✕"/>
+ 					<Item id="6133" name="Bara de stare"/>
+ 					<Item id="6134" name="Ascunde-o"/>
+                </Global> 				
+                   
+				<Toolbar title="Bara de unelte">
+                    <Item id="6118" name="Ascunde-o (Ascundere)"/>
+					<Item id="6103" name="UI fluent: mic"/>
+ 					<Item id="6104" name="UI fluent: mare"/>
                     <Item id="6129" name="UI fluent umplut: mic"/>
                     <Item id="6130" name="UI fluent umplut: mare"/>
-                    <Item id="6105" name="Pictograme standard"/>
-                   
-                    <Item id="6106" name="Bara de file"/>
-                    <Item id="6107" name="Micșorată"/>
-                    <Item id="6108" name="Blocată (filele nu se pot muta)"/>
-                    <Item id="6109" name="Schimbă culoarea filei inactive"/>
-                    <Item id="6110" name="Desenează o linie colorată pe fila activă"/>                  
-                    <Item id="6112" name="Afișează butonul de închidere"/>
-                    <Item id="6113" name="Închide documentele cu dublu clic"/>
+                    <Item id="6105" name="Pictograme standard: mici"/>
+					<Item id="6011" name="Colorare"/>
+ 					<Item id="6012" name="Complet"/>
+ 					<Item id="6013" name="Parțial"/>
+ 					<Item id="6014" name="Alegerea culorii"/>
+ 					<Item id="6015" name="Implicită"/>
+ 					<Item id="6016" name="Roșu"/>
+ 					<Item id="6017" name="Albastru"/>
+ 					<Item id="6018" name="Verde"/>
+ 					<Item id="6019" name="Violet"/>
+ 					<Item id="6020" name="Cyan"/>
+ 					<Item id="6021" name="Măsliniu"/>
+ 					<Item id="6022" name="Galben"/>
+ 					<Item id="6023" name="Accent de sistem"/>
+ 					<Item id="6024" name="Personalizată"/>
+ 				</Toolbar>
+ 
+ 				<Tabbar title="Bara de file">
+					<Item id="6107" name="Redu-o"/>
+					<Item id="6108" name="Blocată (filele nu se pot muta)"/>
+					<Item id="6109" name="Schimbă culoarea filei inactive"/>
+					<Item id="6110" name="Desenează o linie colorată pe fila activă"/>
+					<Item id="6111" name="Afișează butoanele pe filele ianctive"/>
+					<Item id="6112" name="Afișează butonul de închidere"/>
+					<Item id="6113" name="Închide documentele cu dublu clic"/>
 					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
-                    <Item id="6118" name="Ascunde-o (Ascundere)"/>
-                    <Item id="6119" name="Linii multiple"/>
-                    <Item id="6120" name="Verticală"/>
-                    <Item id="6121" name="Ieși la închiderea ultimei file"/>
-                    <Item id="6128" name="Iconițe alternative"/>
-					
-                    <Item id="6133" name="Bara de stare"/>
-					<Item id="6134" name="Ascunde-o (Ascundere)"/>
-                 
-                    <Item id="6131" name="Meniu"/>
-                    <Item id="6122" name="Ascunde (folosește tasta Alt sau F10 pentru comutare)"/>
-                    <Item id="6132" name="Ascunde comenzile rapide (scurtăturile) din dreapta ＋ ▼ ✕"/>
-					
-                    <Item id="6123" name="Limba"/>
-					<Item id="6125" name="Panoul cu lista de documente"/>
-                    <Item id="6126" name="Afișează"/>
-                    <Item id="6127" name="Dezactivează coloana de module"/>
-                </Global>
+					<Item id="6135" name="Afișează numai butonul fixat"/>
+					<Item id="6118" name="Ascunde-o"/>
+					<Item id="6119" name="Linii multiple"/>
+					<Item id="6120" name="Vertical"/>
+					<Item id="6121" name="Ieși la închiderea ultimei file"/>
+					<Item id="6128" name="Pictograme alternative"/>
+				</Tabbar>
 				
                 <Scintillas title="Editare 1">
                     <Item id="6216" name="Setări pentru cursor"/>
@@ -1907,6 +1920,7 @@ Dacă selectezi modul avansat, dar nu editezi fișiere în limbile menționate m
  			<statusbar-Pos value="Pos: "/>
  			<statusbar-Sel value="Sel: "/>
  			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Această opțiune face ca pictogramele tale din bara de instrumente să urmeze culoarea de accent a sistemului Windows. Culoarea de accent este culoarea de evidențiere folosită la butoane, chenare și borduri din meniul Start din Windows. Ca să o schimbi, mergi la Setări &gt; Personalizare &gt; Culori, apoi selectează-ți culoarea de accent preferată."/>
 		</MiscStrings>
     </Native-Langue>
 </NotepadPlus>

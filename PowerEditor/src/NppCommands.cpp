@@ -395,7 +395,6 @@ void Notepad_plus::command(int id)
 				{
 					_pEditView->execute(SCI_COPYALLOWLINE); // Copy without selected text, it will copy the whole line with EOL, for pasting before any line where the caret is.
 				}
-
 			}
 			else
 			{
@@ -405,6 +404,8 @@ void Notepad_plus::command(int id)
 				else
 					::SendMessage(focusedHwnd, WM_COPY, 0, 0);
 			}
+
+			checkClipboard(); // for enabling possible Paste command (otherwise a Notepad++ editor activity or focus switching was needed)
 
 			break;
 		}

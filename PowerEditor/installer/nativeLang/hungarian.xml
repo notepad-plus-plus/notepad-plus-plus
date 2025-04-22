@@ -5,7 +5,7 @@
 <!-- Prohardver topic: https://prohardver.hu/tema/re_notepad/friss.html -->
 <!-- For Notepad++ Version 8.4.3, modified on 2022.07.05 • For Notepad++ v8.7.3 updated at 2024.12.05 -->
 <NotepadPlus>
-	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.7.9">
+	<Native-Langue name="Magyar" filename="hungarian.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -946,15 +946,38 @@
 			<Preference title="Gépház">
 				<Item id="6001" name="&amp;Bezárás"/>
 				<Global title="Általános">
-					<Item id="6101" name="Eszköztár"/>
+					<Item id="6123" name="N&amp;yelv"/>
+					<Item id="6131" name="Menüsor"/>
+					<Item id="6122" name="Elrejtés (ideiglenes &amp;megjelenítés: Alt vagy F10)"/>
+					<Item id="6132" name="A j&amp;obb oldali parancsikonok (＋ ▼ ✕) elrejtése"/>
+					<Item id="6133" name="Állapotsor"/>
+					<Item id="6134" name="&amp;Elrejtés"/>
+				</Global>
+
+				<Toolbar title="Eszköztár">
 					<Item id="6102" name="El&amp;rejtés"/>
 					<Item id="6103" name="Kicsi &amp;Fluent UI-ikonok"/>
 					<Item id="6104" name="Nagy Fl&amp;uent UI-ikonok"/>
 					<Item id="6129" name="Kicsi ki&amp;töltött Fluent UI-ikonok"/>
 					<Item id="6130" name="Nagy kitö&amp;ltött Fluent UI-ikonok"/>
 					<Item id="6105" name="&amp;Hagyományos kicsi ikonok"/>
+					<Item id="6011" name="Színezés"/>
+					<Item id="6012" name="Teljes"/>
+					<Item id="6013" name="Részleges"/>
+					<Item id="6014" name="Színválasztás"/>
+					<Item id="6015" name="Alapértelmezett"/>
+					<Item id="6016" name="Piros"/>
+					<Item id="6017" name="Kék"/>
+					<Item id="6018" name="Zöld"/>
+					<Item id="6019" name="Lila"/>
+					<Item id="6020" name="Cián"/>
+					<Item id="6021" name="Olajzöld"/>
+					<Item id="6022" name="Sárga"/>
+					<Item id="6023" name="Rendszer kiemelőszíne"/>
+					<Item id="6024" name="Egyéni"/>
+				</Toolbar>
 
-					<Item id="6106" name="Dokumentumfülek"/>
+				<Tabbar title="Dokumentumfülek">
 					<Item id="6107" name="&amp;Csökkentett méret"/>
 					<Item id="6108" name="F&amp;ülek rögzítése („fogd és vidd” kikapcsolása)"/>
 					<Item id="6109" name="Az &amp;inaktív fülek elsötétítése"/>
@@ -963,21 +986,13 @@
 					<Item id="6112" name="Be&amp;zárásgomb megjelenítése"/>
 					<Item id="6113" name="Bez&amp;árás dupla kattintással"/>
 					<Item id="6115" name="Fülek kitűzésének engedélyezése"/>
+					<Item id="6135" name="C&amp;sak a „kitűzött” gombok megjelenítése"/>
 					<Item id="6118" name="Elre&amp;jtés"/>
 					<Item id="6119" name="T&amp;öbbsoros elrendezés"/>
 					<Item id="6120" name="Fü&amp;ggőleges megjelenítés"/>
 					<Item id="6121" name="&amp;Kilépés az utolsó fül bezárásakor"/>
 					<Item id="6128" name="Alternatí&amp;v ikonok"/>
-
-					<Item id="6133" name="Állapotsor"/>
-					<Item id="6134" name="&amp;Elrejtés"/>
-
-					<Item id="6131" name="Menüsor"/>
-					<Item id="6122" name="Elrejtés (ideiglenes &amp;megjelenítés: Alt vagy F10)"/>
-					<Item id="6132" name="A j&amp;obb oldali parancsikonok (＋ ▼ ✕) elrejtése"/>
-
-					<Item id="6123" name="N&amp;yelv"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Szerkesztés">
 					<Item id="6216" name="Kurzorbeállítások"/>
@@ -996,6 +1011,7 @@
 					<Item id="6239" name="Kijelölés &amp;megtartása a kijelölésen kívül jobb egérgombbal történő kattintáskor is"/>
 					<Item id="6245" name="S&amp;orvégi virtuális szóközök engedélyezése"/>
 					<Item id="6214" name="Ki&amp;jelölés nélküli sormásolás és -kivágás engedélyezése"/>
+					<Item id="6225" name="Eg&amp;yéni szín a kijelölt szöveg előteréhez"/>
 					<Item id="6651" name="Aktuálissor-jelölés"/>
 					<Item id="6652" name="&amp;Nincs"/>
 					<Item id="6653" name="&amp;Háttérkiemelés"/>
@@ -1032,10 +1048,10 @@
 					<Item id="7108" name="&amp;Cián"/>
 					<Item id="7109" name="&amp;Olívazöld"/>
 					<Item id="7115" name="&amp;Egyedi"/>
-					<Item id="7116" name="Elsődleges"/>
-					<Item id="7117" name="Menüelemre mutatás"/>
-					<Item id="7118" name="Aktív"/>
-					<Item id="7119" name="Főbb elemek"/>
+					<Item id="7116" name="Fő tartalom"/>
+					<Item id="7117" name="Elemre mutatás"/>
+					<Item id="7118" name="Elemek háttere"/>
+					<Item id="7119" name="Párbeszédablakok"/>
 					<Item id="7120" name="Hiba"/>
 					<Item id="7121" name="Szöveg"/>
 					<Item id="7122" name="Sötétebb szöveg"/>
@@ -1149,7 +1165,7 @@
 					<Item id="6603" name="Ahogy látszik (&amp;WYSIWYG)"/>
 					<Item id="6604" name="Ford&amp;ított színek"/>
 					<Item id="6605" name="F&amp;ekete-fehér"/>
-					<Item id="6606" name="H&amp;áttérszín nélkül"/>
+					<Item id="6606" name="H&amp;áttérszín nélküli"/>
 					<Item id="6607" name="Margóbeállítások (mm-ben)"/>
 					<Item id="6612" name="B&amp;al"/>
 					<Item id="6613" name="&amp;Felső"/>
@@ -1522,6 +1538,11 @@ Kívánja folytatni?"/>
 			<UDLNewNameError title="Felhasználóinyelv-hiba" message="Ezt a nevet már másik nyelv már használja;
 kérjük, adjon meg más elnevezést"/>
 			<UDLRemoveCurrentLang title="Az aktuális nyelv eltávolítása" message="Biztos benne?"/>
+			<UDL_importSuccessful title="Felhasználói nyelvek" message="Sikeres importálás"/>
+			<UDL_importFails title="Felhasználói nyelvek" message="Sikertelen importálás"/>
+			<UDL_saveBeforeImport title="Felhasználói nyelvek" message="Exportálás előtt, kérjük, mentse el a felhasználói nyelvet a „Klónozás…” gombra kattintva"/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Felhasználói nyelvek" message="Sikeres exportálás"/>
+			<UDL_exportFails title="Felhasználói nyelvek" message="Sikertelen exportálás"/>
 			<SCMapperDoDeleteOrNot title="Billentyűparancs" message="Biztosan el kívánja távolítani ezt a billentyűparancsot?"/>
 			<FindCharRangeValueError title="Értéktartomány-probléma" message="Kérjük, egy 0 és 255 közötti értéket adjon meg"/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Sikertelen mentés" message="A fájl mentése sikertelen volt; lehet, hogy védett.
@@ -1838,9 +1859,22 @@ Kattintson a jobb oldali „?” gombra a Felhasználói kézikönyv weboldalán
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell és JSON.
 
 Ha a „Haladó szintű” módot választja, de nem a fenti nyelvek fájljait szerkeszti, a behúzás „Alapszintű” módban marad"/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="A „Global override”-lehetőségek itt történő bekapcsolása minden nyelv stílusát felülírja az adott beállítással. Ha bizonytalan, valószínűleg a „Default Style” beállításait szeretné használni"/>
 			<scintillaRenderingTechnology-tip value="Javíthatja a különleges karakterek megjelenítését, vagy megoldhat egyes grafikai problémákat – a módosítások érvénybe léptetéséhez a Notepad++ újraindítása szükséges"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="Hossz: $STR_REPLACE1$    Sorok: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Sor: $STR_REPLACE1$    Oszl.: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Poz.: "/>
+			<statusbar-Sel value="Kij.: "/>
+			<statusbar-Sel-number value="Kij."/>
+			<toolbar-accent-tip value="A beállítással az eszköztár ikonjaira a Windows kiemelőszíne alkalmazható. A kiemelőszín egy, a Windows gombjaiban, szegélyeiben és a Start menüben az elemek hangsúlyozására használt szín. A módosításhoz kattintson a ⚙ Beállítások » Személyre szabás » Színek lehetőségre, majd válassza ki a kívánt Kiemelőszínt"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

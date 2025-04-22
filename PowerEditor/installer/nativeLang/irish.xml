@@ -754,13 +754,11 @@
 			<Preference title="Sainroghanna">
 				<Item id="6001" name="Dún"/>
 				<Global title="Coiteann">
-					<Item id="6101" name="Toolbar"/>
 					<Item id="6102" name="Folaigh"/>
 					<Item id="6103" name="Deilbhíní móra"/>
 					<Item id="6104" name="Deilbhíní beaga"/>
 					<Item id="6105" name="Deilbhíní caighdeánacha"/>
 
-					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="Laghdaigh"/>
 					<Item id="6108" name="Lock (no drag and drop)"/>
 					<Item id="6109" name="Darken inactive tabs"/>

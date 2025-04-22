@@ -714,12 +714,10 @@ Updater: Shamsiddinov Zafar
 			<Preference title="Tanlovlar">
 				<Item id="6001" name="Yopmoq"/>
 				<Global title="Asosiy">
-					<Item id="6101" name="Uskunalar paneli koʻrinishi"/>
 					<Item id="6102" name="Panelni berkitmoq"/>
 					<Item id="6103" name="Kichik yorliqlarda"/>
 					<Item id="6104" name="Katta yorliqlarda"/>
 					<Item id="6105" name="Standart yorliqlarda"/>
-					<Item id="6106" name="Xatchoʻplar paneli koʻrinishi"/>
 					<Item id="6107" name="Kichraytirilgan oʻlchamda"/>
 					<Item id="6108" name="Siljitishni ta’qiqlamoq"/>
 					<Item id="6109" name="Faol boʻlmagan xatchoʻplar kul rangda"/>

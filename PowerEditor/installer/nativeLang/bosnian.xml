@@ -408,13 +408,11 @@
 			<Preference title="Postavke">
 				<Item id="6001" name="Zatvori"/>
 				<Global title="Općenito">
-					<Item id="6101" name="Alatna traka"/>
 					<Item id="6102" name="Sakrij"/>
 					<Item id="6103" name="Male ikone"/>
 					<Item id="6104" name="Velike ikone"/>
 					<Item id="6105" name="Male standardne ikone"/>
 
-					<Item id="6106" name="Traka s tab barom"/>
 					<Item id="6107" name="Smanji"/>
 					<Item id="6108" name="Zaključaj (Bez funkcije drag and drop)"/>
 					<Item id="6109" name="Neaktivne tabove osjenči sivo"/>

@@ -444,12 +444,10 @@
 			<Preference title="Preferèntzias">
 				<Item id="6001" name="Serra"/>
 				<Global title="Generale">
-					<Item id="6101" name="Barra de is istrumentos"/>
 					<Item id="6102" name="Cua"/>
 					<Item id="6103" name="Iconas piticas"/>
 					<Item id="6104" name="Iconas mannas"/>
 					<Item id="6105" name="Iconas istandard"/>
-					<Item id="6106" name="Barra de is ischedas"/>
 					<Item id="6107" name="Ammustra ischedas piticas"/>
 					<Item id="6108" name="Arrea (tragu disabilitadu)"/>
 					<Item id="6109" name="Iscùriga is ischedas inativas"/>

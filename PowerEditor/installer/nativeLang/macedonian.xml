@@ -352,13 +352,11 @@
 			<Preference title="Претпоставки">
 				<Item id="6001" name="Затвори"/>
 				<Global title="Главно">
-					<Item id="6101" name="Мени со алатки"/>
 					<Item id="6102" name="Скриј"/>
 					<Item id="6103" name="Мали икони"/>
 					<Item id="6104" name="Големи икони"/>
 					<Item id="6105" name="Стандардни икони"/>
 
-					<Item id="6106" name="Мени со јазичиња"/>
 					<Item id="6107" name="Намали"/>
 					<Item id="6108" name="Заклучи (без drag and drop)"/>
 					<Item id="6109" name="Затемни ги неактивните јазичиња"/>

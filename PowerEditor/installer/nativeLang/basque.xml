@@ -840,7 +840,6 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Preference title="Hobespenak">
 				<Item id="6001" name="Itxi"/>
 				<Global title="Orokorra">
-					<Item id="6101" name="Tresna-barra"/>
 					<Item id="6102" name="Ezkutatu"/>
 					<Item id="6103" name="Fluent UI: txikiak"/>
 					<Item id="6104" name="Fluent UI: handiak"/>
@@ -848,7 +847,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6130" name="Filled Fluent UI: handiak"/>
 					<Item id="6105" name="Ikono arruntak: txikiak"/>
 
-					<Item id="6106" name="Fitxa-barra"/>
 					<Item id="6107" name="Gutxitu"/>
 					<Item id="6108" name="Blokeatu (ezin hartu eta eraman egin)"/>
 					<Item id="6109" name="Ilundu fitxa ez-aktiboak"/>

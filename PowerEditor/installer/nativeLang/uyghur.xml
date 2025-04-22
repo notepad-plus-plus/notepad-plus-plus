@@ -417,13 +417,11 @@
 			<Preference title="تاللاشلار">
 				<Item id="6001" name="يېپىش"/>
 				<Global title="ئومونىي">
-					<Item id="6101" name="قورال ئىستون"/>
 					<Item id="6102" name="يوشۇرۇش"/>
 					<Item id="6103" name="كىچىك سىنبەلگە"/>
 					<Item id="6104" name="چوڭ سىنبەلگە"/>
 					<Item id="6105" name="ئۆلچەملىك سىنبەلگە"/>
 
-					<Item id="6106" name="خەتكۈش ئىستونى"/>
 					<Item id="6107" name="كىچىكلىتىش"/>
 					<Item id="6108" name="قولۇپلاش (no drag ۋە drop)"/>
 					<Item id="6109" name="ئىشلەتمىگەن خەتكۈش بوزرەڭدە"/>

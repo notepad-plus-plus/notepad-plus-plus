@@ -942,7 +942,6 @@ Translation note:
 			<Preference title="Налаштування">
 				<Item id="6001" name="Закрити"/>
 				<Global title="Загальні">
-					<Item id="6101" name="Панель інструментів"/>
 					<Item id="6102" name="Приховати"/>
 					<Item id="6103" name="Fluent UI: маленький"/>
 					<Item id="6104" name="Fluent UI: великий"/>
@@ -950,7 +949,6 @@ Translation note:
 					<Item id="6130" name="Filled Fluent UI: великий"/>
 					<Item id="6105" name="Стандартні піктограми: маленькі"/>
 
-					<Item id="6106" name="Панель вкладок"/>
 					<Item id="6107" name="Зменшити"/>
 					<Item id="6108" name="Заборонити перетягування"/>
 					<Item id="6109" name="Затемнені неактивні вкладки"/>

@@ -966,14 +966,12 @@ Translation note:
 			<Preference title="首选项">
 				<Item id="6001" name="关闭"/>
 				<Global title="常用">
-					<Item id="6101" name="工具栏"/>
 					<Item id="6102" name="隐藏"/>
 					<Item id="6103" name="Fluent UI 图标：小"/>
 					<Item id="6104" name="Fluent UI 图标：大"/>
 					<Item id="6129" name="Fluent UI 填充图标：小"/>
 					<Item id="6130" name="Fluent UI 填充图标：大"/>
 					<Item id="6105" name="标准图标：小"/>
-					<Item id="6106" name="标签栏"/>
 					<Item id="6107" name="缩小"/>
 					<Item id="6108" name="锁定 (不允许拖放)"/>
 					<Item id="6109" name="非当前标签变暗"/>

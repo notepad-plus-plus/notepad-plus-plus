@@ -351,13 +351,11 @@
 			<Preference title="Voorkeure">
 				<Item id="6001" name="Maak Toe"/>
 				<Global title="Globaal">
-					<Item id="6101" name="Gereedskap staaf"/>
 					<Item id="6102" name="Steek weg"/>
 					<Item id="6103" name="Klein ikone"/>
 					<Item id="6104" name="Groot ikone"/>
 					<Item id="6105" name="Klein standaard ikone"/>
 
-					<Item id="6106" name="Tab staaf"/>
 					<Item id="6107" name="Verminder"/>
 					<Item id="6108" name="Sluit (No Drag N Drop)"/>
 					<Item id="6109" name="Teken die onaktiewe tabs"/>

@@ -687,13 +687,11 @@
 			<Preference title="Arventennoù">
 				<Item id="6001" name="Serriñ"/>
 				<Global title="Hollek">
-					<Item id="6101" name="Barrenn ostilhoù"/>
 					<Item id="6102" name="Kuzhat"/>
 					<Item id="6103" name="Ikonioù bihan"/>
 					<Item id="6104" name="Ikonioù bras"/>
 					<Item id="6105" name="Ikonioù standard"/>
 
-					<Item id="6106" name="Barrenn ivinelloù"/>
 					<Item id="6107" name="Bihanaat"/>
 					<Item id="6108" name="Morailhañ (stlejañ-dilec'hiañ ebet)"/>
 					<Item id="6109" name="Ivinelloù dioberiant teñvalet"/>

@@ -679,12 +679,10 @@
 			<Preference title="Preferences">
 				<Item id="6001" name="Oseclay"/>
 				<Global title="General">
-					<Item id="6101" name="Oolbartay"/>
 					<Item id="6102" name="Idehay"/>
 					<Item id="6103" name="Allsmay iconsyay"/>
 					<Item id="6104" name="Igbay iconsyay"/>
 					<Item id="6105" name="Andardstay iconsyay"/>
-					<Item id="6106" name="Abtay Arbay"/>
 					<Item id="6107" name="Educeray"/>
 					<Item id="6108" name="Ocklay (onay agdray andyay opdray)"/>
 					<Item id="6109" name="Arkenday inactiveyay abstay"/>

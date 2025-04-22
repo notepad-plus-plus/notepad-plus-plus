@@ -414,13 +414,11 @@
 			<Preference title="प्राधान्ये (Preferences)">
 				<Item id="6001" name="बंध"/>
 				<Global title="समान्य">
-					<Item id="6101" name="टूलबार"/>
 					<Item id="6102" name="लपवा"/>
 					<Item id="6103" name="छोटे आइकॉनस"/>
 					<Item id="6104" name="मोठे आइकॉनस"/>
 					<Item id="6105" name="आदर्श आइकॉन"/>
 
-					<Item id="6106" name="टॅब बार"/>
 					<Item id="6107" name="कमी करा"/>
 					<Item id="6108" name="लॉक करा (no drag and drop)"/>
 					<Item id="6109" name="निष्क्रिय टैब काळा करा"/>

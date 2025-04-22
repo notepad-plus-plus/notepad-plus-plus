@@ -1007,7 +1007,6 @@ Additionnal information about Corsican localization:
 				</Toolbar>
 
 				<Tabbar title="Barra d’unghjette">
-					<Item id="6106" name="Barra d’unghjette"/>
 					<Item id="6107" name="Riduce"/>
 					<Item id="6108" name="Bluccà (senza sguillà é depone)"/>
 					<Item id="6109" name="Cambià u culore di l’unghjette inattive"/>

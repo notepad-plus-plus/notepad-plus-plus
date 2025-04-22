@@ -599,13 +599,11 @@
 			<Preference title="Agordoj">
 				<Item id="6001" name="Bone"/>
 				<Global title="Ĝeneralaĵoj">
-					<Item id="6101" name="Ilobreto"/>
 					<Item id="6102" name="Kaŝu"/>
 					<Item id="6103" name="Malgrandaj bildsimboloj"/>
 					<Item id="6104" name="Grandaj bildsimboloj"/>
 					<Item id="6105" name="Klasikaj bildsimboloj"/>
 
-					<Item id="6106" name="Langetobreto"/>
 					<Item id="6107" name="Malprigrandigu"/>
 					<Item id="6108" name="Bloku (sen ŝovado)"/>
 					<Item id="6109" name="Malheligu neaktivajn langetojn"/>

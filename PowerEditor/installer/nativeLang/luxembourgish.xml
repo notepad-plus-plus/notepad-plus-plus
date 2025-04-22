@@ -310,12 +310,10 @@
 			<Preference title="Astellungen">
 				<Item id="6001" name="Zoumaachen"/>
 				<Global title="Allgemein">
-					<Item id="6101" name="Symbolleescht"/>
 					<Item id="6102" name="Ausblenden"/>
 					<Item id="6103" name="Kleng Icons"/>
 					<Item id="6104" name="Grouss Icons"/>
 					<Item id="6105" name="Kleng Standard-Icons"/>
-					<Item id="6106" name="Tableescht"/>
 					<Item id="6107" name="Verklengeren"/>
 					<Item id="6108" name="Sperren (keen Drag &amp;&amp; Drop)"/>
 					<Item id="6109" name="Inaktiv Reiter gro markéieren"/>

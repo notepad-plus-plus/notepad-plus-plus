@@ -945,7 +945,6 @@ Translation note:
 			<Preference title="Sở thích">
 				<Item id="6001" name="Đóng"/>
 				<Global title="Tổng quát">
-					<Item id="6101" name="Thanh công cụ"/>
 					<Item id="6102" name="Ẩn"/>
 					<Item id="6103" name="Fluent UI: nhỏ"/>
 					<Item id="6104" name="Fluent UI: lớn"/>
@@ -953,7 +952,6 @@ Translation note:
 					<Item id="6130" name="Fluent UI Đặc: lớn"/>
 					<Item id="6105" name="Biểu tượng chuẩn: nhỏ"/>
 
-					<Item id="6106" name="Thanh thẻ"/>
 					<Item id="6107" name="Giảm"/>
 					<Item id="6108" name="Khóa (không có kéo và thả)"/>
 					<Item id="6109" name="Làm tối các thẻ không hoạt động"/>

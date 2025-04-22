@@ -323,12 +323,10 @@ Desc: Malay translation for Notepad++
 				<Item id="6001" name="Tutup"/>
 
 				<Global title="Sejagat">
-					<Item id="6101" name="Palang alatan"/>
 					<Item id="6102" name="Sorok"/>
 					<Item id="6103" name="Arca kecil"/>
 					<Item id="6104" name="Arca besar"/>
 					<Item id="6105" name="Arca kecil piawai"/>
-					<Item id="6106" name="Palang tab"/>
 					<Item id="6107" name="Kecilkan"/>
 					<Item id="6108" name="Kunci (Tiada Drag N Drop)"/>
 					<Item id="6109" name="Lukiskan tab-tab tak aktif"/>

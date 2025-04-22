@@ -653,13 +653,11 @@
 			<Preference title="Nustatymai">
 				<Item id="6001" name="Uždaryti"/>
 				<Global title="Pagrindiniai">
-					<Item id="6101" name="Įrankių juosta"/>
 					<Item id="6102" name="Slėpti"/>
 					<Item id="6103" name="Mažos piktogramos"/>
 					<Item id="6104" name="Didelės piktogramos"/>
 					<Item id="6105" name="Įprastinės piktogramos"/>
 
-					<Item id="6106" name="Kortelių juosta"/>
 					<Item id="6107" name="Sumažinti"/>
 					<Item id="6108" name="Užrakinti (negalimas perstatymas)"/>
 					<Item id="6109" name="Tamsinti neaktyvias korteles"/>

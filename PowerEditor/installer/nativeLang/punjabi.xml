@@ -598,13 +598,11 @@
 			<Preference title="Preferences">
 				<Item id="6001" name="Close"/>
 				<Global title="General">
-					<Item id="6101" name="ਟੂਲਬਾਰ"/>
 					<Item id="6102" name="ਓਹਲੇ"/>
 					<Item id="6103" name="ਛੋਟੇ ਆਈਕਾਨ"/>
 					<Item id="6104" name="ਵੱਡੇ ਆਈਕਾਨ"/>
 					<Item id="6105" name="ਮਿਆਰੀ ਆਈਕਾਨ"/>
 
-					<Item id="6106" name="ਟੈਬ ਬਾਰ"/>
 					<Item id="6107" name="ਘਟਾਓ"/>
 					<Item id="6108" name="ਲਾਕ (ਕੋਈ ਚੁੱਕੋ ਅਤੇ)"/>
 					<Item id="6109" name="ਸਰਗਰਮ ਟੈਬ ਦਾ ਗੂਡ਼ਾਪਨ"/>

@@ -992,14 +992,12 @@
 				<Item id="6001" name="閂"/>
 
 				<Global title="一般">
-					<Item id="6101" name="工具列"/>
 					<Item id="6102" name="隱藏"/>
 					<Item id="6103" name="滑脫脫介面：細圖示"/><!-- "Fluent UI" -->
 					<Item id="6104" name="滑脫脫介面：大圖示"/><!-- "Fluent UI" -->
 					<Item id="6129" name="肥嘟嘟介面：細圖示"/><!-- "Filled Fluent UI" --><!-- #new v7.9.6 -->
 					<Item id="6130" name="肥嘟嘟介面：大圖示"/><!-- "Filled Fluent UI" --><!-- #new v7.9.6 -->
 					<Item id="6105" name="標準介面：細圖示"/>
-					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="縮細"/>
 					<Item id="6108" name="鎖定（唔畀 drag-and-drop）"/>
 					<Item id="6109" name="整暗啲唔係用緊嘅 tabs"/>

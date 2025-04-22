@@ -946,7 +946,6 @@ Translation note:
 			<Preference title="Preferências">
 				<Item id="6001" name="Fechar"/>
 				<Global title="Geral">
-					<Item id="6101" name="Barra de ferramentas"/>
 					<Item id="6102" name="Ocultar"/>
 					<Item id="6103" name="Ícones sem preenchimento: pequenos"/>
 					<Item id="6104" name="Ícones sem preenchimento: grandes"/>
@@ -954,7 +953,6 @@ Translation note:
 					<Item id="6130" name="Ícones com preenchimento: grandes"/>
 					<Item id="6105" name="Ícones predefinidos: pequenos"/>
 
-					<Item id="6106" name="Barra do separador"/>
 					<Item id="6107" name="Reduzir"/>
 					<Item id="6108" name="Bloquear (sem arrastar e largar)"/>
 					<Item id="6109" name="Escurecer separadores inativos"/>

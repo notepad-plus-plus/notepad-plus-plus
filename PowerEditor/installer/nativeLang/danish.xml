@@ -896,7 +896,6 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Preference title="Programindstillinger">
 				<Item id="6001" name="Luk"/>
 				<Global title="Generelt">
-					<Item id="6101" name="Værktøjslinie"/>
 					<Item id="6102" name="Skjul"/>
 					<Item id="6103" name="Små ikoner"/>
 					<Item id="6104" name="Store ikoner"/>
@@ -904,7 +903,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6130" name="Store udfyldte ikoner"/>
 					<Item id="6105" name="Standardikoner"/>
 
-					<Item id="6106" name="Fanelinie"/>
 					<Item id="6107" name="Lille"/>
 					<Item id="6108" name="Lås (deaktivér træk/slip)"/>
 					<Item id="6109" name="Nedton inaktive faner"/>

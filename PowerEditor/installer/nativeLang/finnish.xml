@@ -844,12 +844,10 @@ Updated to v8.6 fixed version
 			<Preference title="Asetukset">
 				<Item id="6001" name="&amp;Sulje"/>
 				<Global title="Yleiset">
-					<Item id="6101" name="Työkalurivi"/>
 					<Item id="6102" name="Piilota"/>
 					<Item id="6103" name="Pienet kuvakkeet"/>
 					<Item id="6104" name="Isot kuvakkeet"/>
 					<Item id="6105" name="Normaalikuvakkeet"/>
-					<Item id="6106" name="Välilehtipalkki"/>
 					<Item id="6107" name="Pienennä"/>
 					<Item id="6108" name="Lukitut (ei raahausmahdollisuutta)"/>
 					<Item id="6109" name="Tummenna passiiviset välilehdet"/>

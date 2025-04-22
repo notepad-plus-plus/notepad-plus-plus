@@ -947,7 +947,6 @@ Translation note:
 			<Preference title="Innstillinger">
 				<Item id="6001" name="Lukk"/>
 				<Global title="Generelt">
-					<Item id="6101" name="Verktøylinje"/>
 					<Item id="6102" name="Skjul"/>
 					<Item id="6103" name="Små ikoner"/>
 					<Item id="6104" name="Store ikoner"/>
@@ -955,7 +954,6 @@ Translation note:
 					<Item id="6130" name="Store fylte ikoner"/>
 					<Item id="6105" name="Små standardikoner"/>
 
-					<Item id="6106" name="Arkfane"/>
 					<Item id="6107" name="Små"/>
 					<Item id="6108" name="Lås (ikke dra og slipp)"/>
 					<Item id="6109" name="Marker ikke aktive faner"/>

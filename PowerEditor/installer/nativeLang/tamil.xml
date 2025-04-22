@@ -827,7 +827,6 @@
 			<Preference title="விருப்பங்கள்">
 				<Item id="6001" name="மூடு"/>
 				<Global title="பொது">
-					<Item id="6101" name="கருவிப்பட்டை"/>
 					<Item id="6102" name="மறை"/>
 					<Item id="6103" name="Fluent UI: சிறு படவுறு"/>
 					<Item id="6104" name="Fluent UI: பெரு படவுறு"/>
@@ -835,7 +834,6 @@
 					<Item id="6130" name="நிரப்பப்பட்ட Fluent UI: பெரு படவுறு"/>
 					<Item id="6105" name="நிலை படவுறு"/>
 
-					<Item id="6106" name="தாவல் பட்டை"/>
 					<Item id="6107" name="சிறிதாக்கு"/>
 					<Item id="6108" name="பூட்டு (இழுத்து விடுதல் இயங்காது)"/>
 					<Item id="6109" name="செயல்படாத தாவல்களை பட்டையிடு"/>

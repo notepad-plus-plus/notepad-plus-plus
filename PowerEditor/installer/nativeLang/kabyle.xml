@@ -562,13 +562,11 @@
 			<Preference title="Preferences">
 				<Item id="6001" name="Mdel"/>
 				<Global title="Amatu">
-					<Item id="6101" name="Taggagt n wallalen"/>
 					<Item id="6102" name="Ffer"/>
 					<Item id="6103" name="Tignitin timectaḥ"/>
 					<Item id="6104" name="Tignitin timeqranin"/>
 					<Item id="6105" name="Standard icons"/>
 
-					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="Reduce"/>
 					<Item id="6108" name="Lock (no drag and drop)"/>
 					<Item id="6109" name="Darken inactive tabs"/>

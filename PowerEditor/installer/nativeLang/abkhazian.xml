@@ -863,7 +863,6 @@ Updated to v8.2.1:
 			<Preference title="Архиарақәа">
 				<Item id="6001" name="Иарктәуп"/>
 				<Global title="Ихадақәоу">
-					<Item id="6101" name="Амаругақәа Рпанель"/>
 					<Item id="6102" name="Иҵәахтәуп"/>
 
 					<Item id="6103" name="Fluent UI: ахәыҷқәа"/>
@@ -872,7 +871,6 @@ Updated to v8.2.1:
 					<Item id="6130" name="Аҭарҭәара Fluent UI: адуқәа"/>
 					<Item id="6105" name="Истандарту адыргаҷқәа : ахәыҷқәа"/>
 
-					<Item id="6106" name="Агәылаҵақәа Рпанель"/>
 					<Item id="6107" name="Ирмаҷу ашәагаа"/>
 					<Item id="6108" name="Ақәырҳәазара мап ацәктәуп"/>
 					<Item id="6109" name="Иактивым агәылаҵақәа рцәыштәуп"/>

@@ -402,13 +402,11 @@
 			<Preference title="Preferencis">
 				<Item id="6001" name="Siere"/>
 				<Global title="Globâl">
-					<Item id="6101" name="Sbare dai imprescj"/>
 					<Item id="6102" name="Plate"/>
 					<Item id="6103" name="Iconis piçulis"/>
 					<Item id="6104" name="Iconis grandis"/>
 					<Item id="6105" name="Iconis standard piçulis"/>
 
-					<Item id="6106" name="Sbare des lengutis"/>
 					<Item id="6107" name="Dimensions piçulis"/>
 					<Item id="6108" name="Bloche (No Drag &amp;&amp; Drop)"/>
 					<Item id="6109" name="Scurìs lis lengutis no ativis"/>

@@ -946,7 +946,6 @@ Translation note:
 			<Preference title="Preferencias">
 				<Item id="6001" name="Pechar"/>
 				<Global title="Xerais">
-					<Item id="6101" name="Barra de ferramentas"/>
 					<Item id="6102" name="Ocultar"/>
 					<Item id="6103" name="Iconas pequenas sin recheo"/>
 					<Item id="6104" name="Iconas grandes sin recheo"/>
@@ -954,7 +953,6 @@ Translation note:
 					<Item id="6130" name="Iconas grandes con recheo"/>
 					<Item id="6105" name="Iconas pequenas predeterminadas"/>
 
-					<Item id="6106" name="Barra de pestanas"/>
 					<Item id="6107" name="Reducir texto"/>
 					<Item id="6108" name="Bloquear (impedir arrastrar e soltar)"/>
 					<Item id="6109" name="Oscurecer pestanas inactivas"/>

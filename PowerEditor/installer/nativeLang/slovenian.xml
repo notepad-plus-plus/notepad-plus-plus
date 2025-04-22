@@ -939,7 +939,6 @@
 			<Preference title="Nastavitve">
 				<Item id="6001" name="Zapri"/>
 				<Global title="Splošno">
-					<Item id="6101" name="Orodna vrstica"/>
 					<Item id="6102" name="Skrij"/>
 					<Item id="6103" name="Gladek UI: majhne"/>
 					<Item id="6104" name="Gladek UI: velike"/>
@@ -947,7 +946,6 @@
 					<Item id="6130" name="Zapolnjen gladek UI: velike"/>
 					<Item id="6105" name="Standardne ikone: majhne"/>
 					
-					<Item id="6106" name="Vrstica zavihkov"/>
 					<Item id="6107" name="Zmanjšaj"/>
 					<Item id="6108" name="Zakleni (brez povleci-in-spusti)"/>
 					<Item id="6109" name="Potemni neaktivne zavihke"/>

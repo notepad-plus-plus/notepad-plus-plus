@@ -943,7 +943,6 @@ Translation note:
 			<Preference title="환경설정">
 				<Item id="6001" name="닫기"/>
 				<Global title="일반">
-					<Item id="6101" name="도구 모음"/>
 					<Item id="6102" name="숨기기"/>
 					<Item id="6103" name="Fluent UI: 작음"/>
 					<Item id="6104" name="Fluent UI: 큼"/>
@@ -951,7 +950,6 @@ Translation note:
 					<Item id="6130" name="Filled Fluent UI: 큼"/>
 					<Item id="6105" name="표준 아이콘: 작음"/>
 
-					<Item id="6106" name="탭 표시줄"/>
 					<Item id="6107" name="작게"/>
 					<Item id="6108" name="잠금 (끌어넣기 불가)"/>
 					<Item id="6109" name="비활성 탭 어둡게 표시"/>

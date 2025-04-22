@@ -595,13 +595,11 @@
 			<Preference title="Preferencat">
 				<Item id="6001" name="Mbyll"/>
 				<Global title="E përgjithshme">
-					<Item id="6101" name="Linja e mjeteve"/>
 					<Item id="6102" name="Fsheh"/>
 					<Item id="6103" name="Ikona të vogla"/>
 					<Item id="6104" name="Ikona të mëdha"/>
 					<Item id="6105" name="Ikona standarde"/>
                     
-					<Item id="6106" name="Linja Tab"/>
 					<Item id="6107" name="Zvogëlo"/>
 					<Item id="6108" name="Kyë (jo tërhiq dhe lësho)"/>
 					<Item id="6109" name="Errëso tabelorët inaktivë"/>

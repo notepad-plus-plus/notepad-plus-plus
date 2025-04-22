@@ -558,13 +558,11 @@
 			<Preference title="Preferencias">
 				<Item id="6001" name="Cerrar"/>
 				<Global title="Generales">
-					<Item id="6101" name="Barra de herramientas"/>
 					<Item id="6102" name="Ocultar"/>
 					<Item id="6103" name="Iconos pequeños"/>
 					<Item id="6104" name="Iconos grandes"/>
 					<Item id="6105" name="Iconos predeterminados"/>
 
-					<Item id="6106" name="Barra de pestañas"/>
 					<Item id="6107" name="Reducir texto"/>
 					<Item id="6108" name="Bloquear (impedir arrastrar y soltar)"/>
 					<Item id="6109" name="Mostrar ventanas inactivas"/>

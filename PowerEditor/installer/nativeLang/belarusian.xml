@@ -868,7 +868,6 @@ The comments are here for explanation, it's not necessary to translate them.
 			<Preference title="Параметры">
 				<Item id="6001" name="Закрыць"/>
 				<Global title="Агульныя">
-					<Item id="6101" name="Панэль інструментаў"/>
 					<Item id="6102" name="Схаваць"/>
 					<Item id="6103" name="Fluent UI: маленькі"/>
 					<Item id="6104" name="Fluent UI: вялікі"/>
@@ -876,7 +875,6 @@ The comments are here for explanation, it's not necessary to translate them.
 					<Item id="6130" name="Filled Fluent UI: вялікі"/>
 					<Item id="6105" name="Стандартныя значкі: маленькія"/>
 
-					<Item id="6106" name="Панэль укладак"/>
 					<Item id="6107" name="Паменшыць"/>
 					<Item id="6108" name="Забараніць перацягванне"/>
 					<Item id="6109" name="Неактыўныя шэрыя ўкладкі"/>

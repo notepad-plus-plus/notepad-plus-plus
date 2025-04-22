@@ -255,13 +255,11 @@
 			<Preference title="Preferències">
 				<Item id="6001" name="Barrar"/>
 				<Global title="Globau">
-					<Item id="6101" name="Barra d'utís"/>
 					<Item id="6102" name="Amagar"/>
 					<Item id="6103" name="Icònes petites"/>
 					<Item id="6104" name="Icònes Granes"/>
 					<Item id="6105" name="Icònes petites estandard"/>
 
-					<Item id="6106" name="Barra de pestanhes"/>
 					<Item id="6107" name="Reduir"/>
 					<Item id="6108" name="Bloquejar (Non Arrastar)"/>
 					<Item id="6109" name="Diboishar es pestanhes inactiues"/>

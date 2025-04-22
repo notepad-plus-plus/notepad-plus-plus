@@ -660,13 +660,11 @@
 			<Preference title="Preferéncia">
 				<Item id="6001" name="Tampar"/>
 				<Global title="Global">
-					<Item id="6101" name="Barra d'aisinas"/>
 					<Item id="6102" name="Amagar"/>
 					<Item id="6103" name="Icònas pichonas"/>
 					<Item id="6104" name="Icònas bèlas"/>
 					<Item id="6105" name="Icònas pichonas estandard"/>
 
-					<Item id="6106" name="Barra d'onglets"/>
 					<Item id="6107" name="Redusir"/>
 					<Item id="6108" name="Verrolhar (pas de rebalar-depausar)"/>
 					<Item id="6109" name="Mostrar los onglets inactius"/>

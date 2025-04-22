@@ -379,6 +379,7 @@ void Notepad_plus::command(int id)
 			{
 				::SendMessage(focusedHwnd, WM_CUT, 0, 0);
 			}
+			checkClipboard(); // for enabling possible Paste command
 			break;
 		}
 
@@ -404,9 +405,7 @@ void Notepad_plus::command(int id)
 				else
 					::SendMessage(focusedHwnd, WM_COPY, 0, 0);
 			}
-
-			checkClipboard(); // for enabling possible Paste command (otherwise a Notepad++ editor activity or focus switching was needed)
-
+			checkClipboard(); // for enabling possible Paste command
 			break;
 		}
 
@@ -500,6 +499,8 @@ void Notepad_plus::command(int id)
 
 			if (id == IDM_EDIT_CUT_BINARY)
 				_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+
+			checkClipboard(); // for enabling possible Paste command
 		}
 		break;
 

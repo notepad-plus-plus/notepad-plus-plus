@@ -8610,6 +8610,26 @@ bool NppParameters::insertTabInfo(const wchar_t* langName, int tabInfo, bool bac
 			return true;
 		}
 	}
+
+	for (size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
+	{
+		TiXmlNode* langRoot = (_pXmlExternalLexerDoc[x]->FirstChild(L"NotepadPlus"))->FirstChildElement(L"Languages");
+		for (TiXmlNode* childNode = langRoot->FirstChildElement(L"Language");
+			childNode;
+			childNode = childNode->NextSibling(L"Language"))
+		{
+			TiXmlElement* element = childNode->ToElement();
+			const wchar_t* nm = element->Attribute(L"name");
+			if (nm && lstrcmp(langName, nm) == 0)
+			{
+				childNode->ToElement()->SetAttribute(L"tabSettings", tabInfo);
+				childNode->ToElement()->SetAttribute(L"backspaceUnindent", backspaceUnindent ? L"yes" : L"no");
+				_pXmlExternalLexerDoc[x]->SaveFile();
+				return true;
+			}
+		}
+	}
+
 	return false;
 }
 

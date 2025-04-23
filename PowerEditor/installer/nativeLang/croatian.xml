@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: March 17, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: April 24, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.7.9">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -955,13 +955,38 @@
 			<Preference title="Postavke">
 				<Item id="6001" name="Zatvori"/>
 				<Global title="Općenito">
+					<Item id="6123" name="Lokalizacija:"/>
+					<Item id="6131" name="Glavni izbornik"/>
+					<Item id="6122" name="Sakrij (za prikaz koristite Alt ili F10)"/>
+					<Item id="6132" name="Sakrij prečace ＋ ▼ ✕ s desne strane"/>
+					<Item id="6133" name="Statusna vrpca"/>
+					<Item id="6134" name="Sakrij"/>
+				</Global>
+
+				<Toolbar title="Alatna vrpca">
 					<Item id="6102" name="Sakrij"/>
 					<Item id="6103" name="Fluent UI ikone: male"/>
 					<Item id="6104" name="Fluent UI ikone: velike"/>
 					<Item id="6129" name="Fluent UI ikone: ispunjene male"/>
 					<Item id="6130" name="Fluent UI ikone: ispunjene velike"/>
 					<Item id="6105" name="Klasične ikone: male"/>
+					<Item id="6011" name="Kolorizacija"/>
+					<Item id="6012" name="Potpuno"/>
+					<Item id="6013" name="Djelomično"/>
+					<Item id="6014" name="Izbor boje"/>
+					<Item id="6015" name="Podrazumijevano"/>
+					<Item id="6016" name="Crveno"/>
+					<Item id="6017" name="Zeleno"/>
+					<Item id="6018" name="Plavo"/>
+					<Item id="6019" name="Ljubičasto"/>
+					<Item id="6020" name="Cijan"/>
+					<Item id="6021" name="Maslinasto"/>
+					<Item id="6022" name="Žuto"/>
+					<Item id="6023" name="Sistemski akcentirano"/>
+					<Item id="6024" name="Prilagođeno"/>
+				</Toolbar>
 
+				<Tabbar title="Vrpca kartičnih jezičaka">
 					<Item id="6107" name="Smanji"/>
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
 					<Item id="6109" name="Promijeni boju neaktivnih jezičaka"/>
@@ -970,21 +995,13 @@
 					<Item id="6112" name="Prikaži gumb za zatvaranje"/>
 					<Item id="6113" name="Zatvori karticu dvoklikom"/>
 					<Item id="6115" name="Omogući prikvačivanje kartica"/>
+					<Item id="6135" name="Prikaži pribadaču samo na prikvačenim karticama"/>
 					<Item id="6118" name="Sakrij"/>
 					<Item id="6119" name="U više redaka"/>
 					<Item id="6120" name="Okomito"/>
 					<Item id="6121" name="Izlaz iz programa pri zatvaranju zadnje kartice"/>
 					<Item id="6128" name="Alternativne ikone"/>
-
-					<Item id="6133" name="Statusna vrpca"/>
-					<Item id="6134" name="Sakrij"/>
-
-					<Item id="6131" name="Glavni izbornik"/>
-					<Item id="6122" name="Sakrij (za prikaz koristite Alt ili F10)"/>
-					<Item id="6132" name="Sakrij prečace ＋ ▼ ✕ s desne strane"/>
-
-					<Item id="6123" name="Lokalizacija:"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Uređivanje 1">
 					<Item id="6216" name="Postavke kursora"/>
@@ -1003,6 +1020,7 @@
 					<Item id="6239" name="Zadrži izbor nakon desnog klika izvan izbora"/>
 					<Item id="6245" name="Uključi virtualni prostor"/>
 					<Item id="6214" name="Omogući kopiranje/izrezivanje retka bez označavanja"/>
+					<Item id="6225" name="Primjeni korisničku boju na pozadinu odabranog teksta"/>
 					<Item id="6651" name="Indikator trenutno aktivnog retka"/>
 					<Item id="6652" name="Ništa"/>
 					<Item id="6653" name="Istaknuta pozadina"/>
@@ -1013,7 +1031,7 @@
 				<Scintillas2 title="Uređivanje 2">
 					<Item id="6521" name="Višestruko uređivanje"/>
 					<Item id="6522" name="Omogući Višestruko uređivanje (Ctrl+klik mišem/izbor)"/>
-					<Item id="6523" name="Omogući Rad u stupcima u Višestrukom uređivanju"/>
+					<Item id="6523" name="Omogući izbor stupca u Višestrukom uređivanju"/>
 					<Item id="6247" name="Kraj retka (CRLF)"/><!-- Don't translate "(CRLF)" -->
 					<Item id="6248" name="Zadano"/>
 					<Item id="6249" name="Obični tekst"/>
@@ -1039,10 +1057,10 @@
 					<Item id="7108" name="Cijan"/>
 					<Item id="7109" name="Maslinasto"/>
 					<Item id="7115" name="Prilagođeno"/>
-					<Item id="7116" name="Vrh"/>
-					<Item id="7117" name="Vruća linija izbornika"/>
-					<Item id="7118" name="Aktivno"/>
-					<Item id="7119" name="Glavno"/>
+					<Item id="7116" name="Pozadina sadržaja"/>
+					<Item id="7117" name="Označena stavka izbornika"/>
+					<Item id="7118" name="Pozadina kontrola"/>
+					<Item id="7119" name="Pozadina dijaloga"/>
 					<Item id="7120" name="Greška"/>
 					<Item id="7121" name="Tekst"/>
 					<Item id="7122" name="Tamniji tekst"/>
@@ -1535,6 +1553,11 @@ Jeste li sigurni da želite ukloniti ovu mapu iz projekta?"/>
 			<UDLNewNameError title="UDL greška" message="Ovo ime koristi druga sintaksa,
 molim izaberite neko drugo."/>
 			<UDLRemoveCurrentLang title="Ukloni trenutnu sintaksu" message="Jeste li sigurni?"/>
+			<UDL_importSuccessful title="Korisnički definirana sintaksa" message="Uvoz uspješan."/>
+			<UDL_importFails title="Korisnički definirana sintaksa" message="Uvoz nije uspio."/>
+			<UDL_saveBeforeImport title="Korisnički definirana sintaksa" message="Prije izvoza spremite svoju definiciju sintakse klikom na gumb &quot;Spremi kao...&quot;."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Korisnički definirana sintaksa" message="Izvoz uspješan."/>
+			<UDL_exportFails title="Korisnički definirana sintaksa" message="Izvoz nije uspio."/>
 			<SCMapperDoDeleteOrNot title="Jeste li sigurni?" message="Jeste li sigurni da želite izbrisati ovaj prečac?"/>>
 			<FindCharRangeValueError title="Problem s rasponom vrijednosti" message="Trebate upisati broj između 0 i 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Spremanje nije uspjelo" message="Datoteka ne može biti spremljena, možda je zaštićena od prepisivanja.
@@ -1855,9 +1878,22 @@ Postavite vrijednost na 0 za onemogućavanje automatskog uključivanja."/>
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
 
 Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezicima, uvlaka će ostati u osnovnom načinu."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
 			<global-override-tip value="Omogućavanje &quot;Global override&quot; ovdje, nadjačat će taj parametar u svim stilovima sintaksi. Ono što vjerojatno stvarno želite, je koristiti postavke &quot;Default Style&quot; umjesto toga."/>
 			<scintillaRenderingTechnology-tip value="Može poboljšati iscrtavanje posebnih znakova ili riješiti neke probleme s grafikom, ponovno pokrenite Notepad++ za primjenu promjena."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="duljina: $STR_REPLACE1$    redaka: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Red: $STR_REPLACE1$   Stu: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Poz: "/>
+			<statusbar-Sel value="Ozn: "/>
+			<statusbar-Sel-number value="Ozn"/>
+			<toolbar-accent-tip value="Uz ovu opciju ikone na alatnoj traci prate sistemsku akcentiranu boju. Akcentirana boja je boja za isticanje korištena za gumbe, rubove i u Start izborniku Windowsa. Kako bi ju promijenili, idite u Postavke &gt; Personalizacija &gt; Boje i odaberite željenu akcentiranu boju."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

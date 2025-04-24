@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: April 23, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: April 24, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
@@ -976,8 +976,8 @@
 					<Item id="6014" name="Izbor boje"/>
 					<Item id="6015" name="Podrazumijevano"/>
 					<Item id="6016" name="Crveno"/>
-					<Item id="6017" name="Plavo"/>
-					<Item id="6018" name="Zeleno"/>
+					<Item id="6017" name="Zeleno"/>
+					<Item id="6018" name="Plavo"/>
 					<Item id="6019" name="Ljubičasto"/>
 					<Item id="6020" name="Cijan"/>
 					<Item id="6021" name="Maslinasto"/>

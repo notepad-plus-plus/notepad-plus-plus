@@ -182,6 +182,8 @@
     #define    IDM_EDIT_MULTISELECTNEXTMATCHCASEWHOLEWORD       (IDM_EDIT + 97)
     #define    IDM_EDIT_MULTISELECTUNDO                         (IDM_EDIT + 98)
     #define    IDM_EDIT_MULTISELECTSSKIP                        (IDM_EDIT + 99)
+    #define    IDM_EDIT_SORTLINES_LOCALE_ASCENDING              (IDM_EDIT + 100)
+    #define    IDM_EDIT_SORTLINES_LOCALE_DESCENDING             (IDM_EDIT + 101)
 
     #define    IDM_EDIT_AUTOCOMPLETE                            (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE                (50000 + 1)

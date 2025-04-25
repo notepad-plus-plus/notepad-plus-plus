@@ -3383,19 +3383,22 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				wchar_t lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
+				{
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+					nbChar = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+				}
 
 				intptr_t start_mark = targetStart - lstart;
 				intptr_t end_mark = targetEnd - lstart;
 
 				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
-				wstring line = lineBuf;
-				line += L"\r\n";
+				lineBuf[nbChar++] = '\r';
+				lineBuf[nbChar++] = '\n';
 
 				SearchResultMarkingLine srml;
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
-				text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
+				text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, lineBuf, nbChar, totalLineNumber));
 
 				if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 				{
@@ -3424,15 +3427,19 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				wchar_t lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
+				{
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+					nbChar = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+				}
 
 				intptr_t start_mark = targetStart - lstart;
 				intptr_t end_mark = targetEnd - lstart;
 
 				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
 
-				wstring line = lineBuf;
-				line += L"\r\n";
+				lineBuf[nbChar++] = '\r';
+				lineBuf[nbChar++] = '\n';
+
 				SearchResultMarkingLine srml;
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
 
@@ -3444,7 +3451,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
 					}
-					text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
+					text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, lineBuf, nbChar, totalLineNumber));
 
 					if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 					{
@@ -5355,7 +5362,7 @@ void Finder::addSearchResultInfo(int count, int countSearched, bool searchedEnti
 	setFinderReadOnly(true);
 }
 
-const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, const wchar_t* foundline, size_t totalLineNumber)
+string Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, const wchar_t* foundline, size_t foundLineLen, size_t totalLineNumber)
 {
 	bool isRepeatedLine = false;
 
@@ -5393,10 +5400,13 @@ const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, cons
 
 	miLine._segmentPostions[0].first += headerStr.length();
 	miLine._segmentPostions[0].second += headerStr.length();
-	headerStr += foundline;
+
+	headerStr += wstring(foundline, foundLineLen);
+	
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	const char* text2AddUtf8 = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8, &miLine._segmentPostions[0].first, &miLine._segmentPostions[0].second); // certainly utf8 here
-	size_t text2AddUtf8Len = strlen(text2AddUtf8);
+	int text2AddUtf8Len = 0;
+	const char* text2AddUtf8 = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8, &miLine._segmentPostions[0].first, &miLine._segmentPostions[0].second, static_cast<int>(headerStr.length()), &text2AddUtf8Len); // certainly utf8 here
+	
 
 	// if current line is the repeated line of previous one, and settings make per found line show ONCE in the result even there are several found occurences in the same line, for:
 	if ((isRepeatedLine && 
@@ -5424,12 +5434,12 @@ const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, cons
 				cut--;
 
 			memcpy((void*)&text2AddUtf8[cut], endOfLongLine, lenEndOfLongLine + 1);
-			text2AddUtf8Len = cut + lenEndOfLongLine;
+			text2AddUtf8Len = static_cast<int>(cut + lenEndOfLongLine);
 		}
 
 		_pMainMarkings->push_back(miLine);
 
-		return text2AddUtf8;
+		return string(text2AddUtf8, text2AddUtf8Len);
 	}
 }
 

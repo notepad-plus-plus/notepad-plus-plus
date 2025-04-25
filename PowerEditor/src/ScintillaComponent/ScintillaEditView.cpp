@@ -2664,12 +2664,13 @@ void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t sta
 
 void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const
 {
+	size_t nbChar = end - start;
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	char *destA = new char[end - start + 1];
+	char *destA = new char[nbChar + 1];
 	getText(destA, start, end);
 	size_t cp = execute(SCI_GETCODEPAGE)    ;
-	const wchar_t *destW = wmc.char2wchar(destA, cp, mstart, mend);
-	wcsncpy_s(dest, destlen, destW, _TRUNCATE);
+	const wchar_t *destW = wmc.char2wchar(destA, cp, mstart, mend, static_cast<int>(nbChar));
+	memcpy_s(dest, destlen * sizeof(wchar_t), destW, nbChar * sizeof(wchar_t));
 	delete [] destA;
 }
 

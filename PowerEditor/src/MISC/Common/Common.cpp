@@ -405,16 +405,18 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t
 
 // "mstart" and "mend" are pointers to indexes in mbcs2Convert,
 // which are converted to the corresponding indexes in the returned wchar_t string.
-const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend)
+const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend, int mbcsLen)
 {
 	// Do not process NULL pointer
 	if (!mbcs2Convert) return NULL;
+
 	UINT cp = static_cast<UINT>(codepage);
-	int len = MultiByteToWideChar(cp, 0, mbcs2Convert, -1, NULL, 0);
+	int len = MultiByteToWideChar(cp, 0, mbcs2Convert, mbcsLen ? mbcsLen : -1, NULL, 0);
+
 	if (len > 0)
 	{
 		_wideCharStr.sizeTo(len);
-		len = MultiByteToWideChar(cp, 0, mbcs2Convert, -1, _wideCharStr, len);
+		len = MultiByteToWideChar(cp, 0, mbcs2Convert, mbcsLen ? mbcsLen : -1, _wideCharStr, len);
 
 		if ((size_t)*mstart < strlen(mbcs2Convert) && (size_t)*mend <= strlen(mbcs2Convert))
 		{
@@ -458,20 +460,22 @@ const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, siz
 }
 
 
-const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend)
+const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend, int wcharLenIn, int* lenOut)
 {
 	if (!wcharStr2Convert)
 		return nullptr;
 
 	UINT cp = static_cast<UINT>(codepage);
-	int len = WideCharToMultiByte(cp, 0, wcharStr2Convert, -1, NULL, 0, NULL, NULL);
+
+	int len = WideCharToMultiByte(cp, 0, wcharStr2Convert, wcharLenIn  ? wcharLenIn : -1, NULL, 0, NULL, NULL);
+
 	if (len > 0)
 	{
 		_multiByteStr.sizeTo(len);
-		len = WideCharToMultiByte(cp, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL); // not needed?
+		len = WideCharToMultiByte(cp, 0, wcharStr2Convert, wcharLenIn ? wcharLenIn : -1, _multiByteStr, len, NULL, NULL);
 
-        if (*mstart < lstrlenW(wcharStr2Convert) && *mend < lstrlenW(wcharStr2Convert))
-        {
+		if (*mstart < lstrlenW(wcharStr2Convert) && *mend < lstrlenW(wcharStr2Convert))
+		{
 			*mstart = WideCharToMultiByte(cp, 0, wcharStr2Convert, (int)*mstart, NULL, 0, NULL, NULL);
 			*mend = WideCharToMultiByte(cp, 0, wcharStr2Convert, (int)*mend, NULL, 0, NULL, NULL);
 			if (*mstart >= len || *mend >= len)
@@ -484,6 +488,8 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, si
 	else
 		_multiByteStr.empty();
 
+	if (lenOut)
+		*lenOut = len;
 	return _multiByteStr;
 }
 

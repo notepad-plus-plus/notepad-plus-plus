@@ -137,6 +137,8 @@ Translation note:
 					<Item id="42060" name="Sort Lines Lexicographically Descending"/>
 					<Item id="42080" name="Sort Lines Lex. Ascending Ignoring Case"/>
 					<Item id="42081" name="Sort Lines Lex. Descending Ignoring Case"/>
+					<Item id="42100" name="Sort Lines In Locale Order Ascending"/>
+					<Item id="42101" name="Sort Lines In Locale Order Descending"/>
 					<Item id="42061" name="Sort Lines As Integers Ascending"/>
 					<Item id="42062" name="Sort Lines As Integers Descending"/>
 					<Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>
@@ -1468,6 +1470,9 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
 			<DroppingFolderAsProjectModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in dropping Folder as Project mode.
 You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
 			<SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sort not performed" message="Sorting multiple selections is not supported."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Sort Failed" message="The reason the sort failed cannot be determined."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Sort Failed" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Column Mode Tip" message="
 There are 3 ways to switch to column-select mode:
 

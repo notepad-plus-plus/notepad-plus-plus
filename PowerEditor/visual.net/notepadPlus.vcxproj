@@ -106,6 +106,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DarkMode\DarkMode.cpp" />
+    <ClCompile Include="..\src\MISC\Common\SortLocale.cpp" />
     <ClCompile Include="..\src\MISC\Common\verifySignedfile.cpp" />
     <ClCompile Include="..\src\MISC\md5\md5Dlgs.cpp" />
     <ClCompile Include="..\src\MISC\sha1\calc_sha1.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="..\src\keys.h" />
     <ClInclude Include="..\src\localizationString.h" />
     <ClInclude Include="..\src\MISC\Common\Sorters.h" />
+    <ClInclude Include="..\src\MISC\Common\SortLocale.h" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
     <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />

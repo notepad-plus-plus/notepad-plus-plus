@@ -128,7 +128,7 @@ public:
 	void addFileNameTitle(const wchar_t * fileName);
 	void addFileHitCount(int count);
 	void addSearchResultInfo(int count, int countSearched, bool searchedEntireNotSelection, const FindOption *pFindOpt);
-	const char* foundLine(FoundInfo fi, SearchResultMarkingLine mi, const wchar_t* foundline, size_t totalLineNumber);
+	std::string foundLine(FoundInfo fi, SearchResultMarkingLine mi, const wchar_t* foundline, size_t foundLineLen, size_t totalLineNumber);
 	void setFinderStyle();
 	void setFinderStyleForNpc(bool onlyColor = false);
 	void removeAll();

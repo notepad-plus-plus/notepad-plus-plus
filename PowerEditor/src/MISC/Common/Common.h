@@ -87,17 +87,18 @@ public:
 		return instance;
 	}
 
-	const wchar_t * char2wchar(const char *mbStr, size_t codepage, int lenMbcs =-1, int* pLenOut=NULL, int* pBytesNotProcessed=NULL);
-	const wchar_t * char2wchar(const char *mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend);
-	const char * wchar2char(const wchar_t *wcStr, size_t codepage, int lenIn = -1, int* pLenOut = NULL);
-	const char * wchar2char(const wchar_t *wcStr, size_t codepage, intptr_t* mstart, intptr_t* mend);
+	const wchar_t* char2wchar(const char* mbStr, size_t codepage, int lenMbcs = -1, int* pLenOut = NULL, int* pBytesNotProcessed = NULL);
+	const wchar_t* char2wchar(const char* mbcs2Convert, size_t codepage, intptr_t* mstart, intptr_t* mend, int len = 0);
+	size_t getSizeW() { return _wideCharStr.size(); };
+	const char* wchar2char(const wchar_t* wcStr, size_t codepage, int lenIn = -1, int* pLenOut = NULL);
+	const char* wchar2char(const wchar_t* wcStr, size_t codepage, intptr_t* mstart, intptr_t* mend, int lenIn = 0, int* lenOut = nullptr);
+	size_t getSizeA() { return _multiByteStr.size(); };
 
-	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn = -1, int* pLenOut=NULL, int* pBytesNotProcessed=NULL)
-	{
+	const char* encode(UINT fromCodepage, UINT toCodepage, const char* txt2Encode, int lenIn = -1, int* pLenOut = NULL, int* pBytesNotProcessed = NULL) {
 		int lenWc = 0;
-        const wchar_t * strW = char2wchar(txt2Encode, fromCodepage, lenIn, &lenWc, pBytesNotProcessed);
-        return wchar2char(strW, toCodepage, lenWc, pLenOut);
-    }
+		const wchar_t* strW = char2wchar(txt2Encode, fromCodepage, lenIn, &lenWc, pBytesNotProcessed);
+		return wchar2char(strW, toCodepage, lenWc, pLenOut);
+	}
 
 protected:
 	WcharMbcsConvertor() = default;
@@ -112,45 +113,45 @@ protected:
 	WcharMbcsConvertor(WcharMbcsConvertor&&) = delete;
 	WcharMbcsConvertor& operator= (WcharMbcsConvertor&&) = delete;
 
-	template <class T>
-	class StringBuffer final
+	template <class T> class StringBuffer final
 	{
 	public:
 		~StringBuffer() { if (_allocLen) delete[] _str; }
 
-		void sizeTo(size_t size)
-		{
-			if (_allocLen < size)
+		void sizeTo(size_t size) {
+			if (_allocLen < size + 1)
 			{
 				if (_allocLen)
 					delete[] _str;
-				_allocLen = std::max<size_t>(size, initSize);
-				_str = new T[_allocLen];
+				_allocLen = std::max<size_t>(size + 1, initSize);
+				_str = new T[_allocLen]{};
 			}
+			_dataLen = size;
 		}
 
-		void empty()
-		{
+		void empty() {
 			static T nullStr = 0; // routines may return an empty string, with null terminator, without allocating memory; a pointer to this null character will be returned in that case
 			if (_allocLen == 0)
 				_str = &nullStr;
 			else
 				_str[0] = 0;
+			_dataLen = 0;
 		}
 
+		size_t size() const { return _dataLen; }
 		operator T* () { return _str; }
 		operator const T* () const { return _str; }
 
 	protected:
 		static const int initSize = 1024;
 		size_t _allocLen = 0;
+		size_t _dataLen = 0;
 		T* _str = nullptr;
 	};
 
 	StringBuffer<char> _multiByteStr;
 	StringBuffer<wchar_t> _wideCharStr;
 };
-
 
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 

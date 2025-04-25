@@ -986,7 +986,7 @@
 					<Item id="6024" name="Prilagođeno"/>
 				</Toolbar>
 
-				<Tabbar title="Vrpca s kartičnim jezičcima">
+				<Tabbar title="Vrpca kartičnih jezičaka">
 					<Item id="6107" name="Smanji"/>
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
 					<Item id="6109" name="Promijeni boju neaktivnih jezičaka"/>
@@ -1893,7 +1893,7 @@ Ako odaberete napredni način, ali ne uređujete datoteke na gore navedenim jezi
 			<statusbar-Pos value="Poz: "/>
 			<statusbar-Sel value="Ozn: "/>
 			<statusbar-Sel-number value="Ozn"/>
-			<toolbar-accent-tip value="Uz ovu opciju ikone na alatnoj traci prate sistemsku akcentiranu boju. Akcentovana boja je boja za isticanje korišćena za gumbe, rubove i u Start izborniku Windowsa. Kako bi ju promijenili, idite u Postavke &gt; Personalizacija &gt; Boje i odaberite željenu akcentiranu boju."/>
+			<toolbar-accent-tip value="Uz ovu opciju ikone na alatnoj traci prate sistemsku akcentiranu boju. Akcentirana boja je boja za isticanje korištena za gumbe, rubove i u Start izborniku Windowsa. Kako bi ju promijenili, idite u Postavke &gt; Personalizacija &gt; Boje i odaberite željenu akcentiranu boju."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

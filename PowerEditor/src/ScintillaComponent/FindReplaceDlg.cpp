@@ -3391,7 +3391,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				intptr_t start_mark = targetStart - lstart;
 				intptr_t end_mark = targetEnd - lstart;
 
-				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark, &nbChar);
 
 				lineBuf[nbChar++] = '\r';
 				lineBuf[nbChar++] = '\n';
@@ -3435,7 +3435,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				intptr_t start_mark = targetStart - lstart;
 				intptr_t end_mark = targetEnd - lstart;
 
-				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark, &nbChar);
 
 				lineBuf[nbChar++] = '\r';
 				lineBuf[nbChar++] = '\n';

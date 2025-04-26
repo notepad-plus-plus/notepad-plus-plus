@@ -2662,16 +2662,30 @@ void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t sta
 // "mstart" and "mend" are pointers to indexes in the read string,
 // which are converted to the corresponding indexes in the returned wchar_t string.
 
-void ScintillaEditView::getGenericText(wchar_t *dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend) const
+void ScintillaEditView::getGenericText(wchar_t* dest, size_t destlen, size_t start, size_t end, intptr_t* mstart, intptr_t* mend, intptr_t* outLen/* = nullptr*/) const
 {
 	size_t nbChar = end - start;
+	if (nbChar == 0)
+	{
+		dest[0] = L'\0';
+		return;
+	}
+
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	char *destA = new char[nbChar + 1];
+	char* destA = new char[nbChar + 1];
 	getText(destA, start, end);
-	size_t cp = execute(SCI_GETCODEPAGE)    ;
-	const wchar_t *destW = wmc.char2wchar(destA, cp, mstart, mend, static_cast<int>(nbChar));
-	memcpy_s(dest, destlen * sizeof(wchar_t), destW, nbChar * sizeof(wchar_t));
-	delete [] destA;
+	size_t cp = execute(SCI_GETCODEPAGE);
+	const wchar_t* destW = wmc.char2wchar(destA, cp, mstart, mend, static_cast<int>(nbChar));
+	size_t lenW = wmc.getSizeW();
+	if (lenW >= destlen)
+		lenW = destlen - 1;
+
+	memcpy_s(dest, destlen * sizeof(wchar_t), destW, lenW * sizeof(wchar_t));
+	dest[lenW] = L'\0';
+
+	if (outLen)
+		*outLen = lenW;
+	delete[] destA;
 }
 
 void ScintillaEditView::insertGenericTextFrom(size_t position, const wchar_t *text2insert) const

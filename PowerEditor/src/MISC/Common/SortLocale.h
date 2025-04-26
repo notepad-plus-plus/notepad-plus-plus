@@ -25,9 +25,8 @@ class SortLocale {
 public:
     std::wstring localeName;
     bool caseSensitive = false;
-    bool descending = false;
     bool digitsAsNumbers = true;
     bool ignoreDiacritics = false;
     bool ignoreSymbols = false;
-    bool sort(ScintillaEditView* sci);
+    bool sort(ScintillaEditView* sci, bool descending);
 };

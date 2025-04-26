@@ -856,8 +856,7 @@ void Notepad_plus::command(int id)
 		{
 			std::lock_guard<std::mutex> lock(command_mutex);
 			SortLocale sortLocale;
-			sortLocale.descending = id == IDM_EDIT_SORTLINES_LOCALE_DESCENDING;
-			sortLocale.sort(_pEditView);
+			sortLocale.sort(_pEditView, id == IDM_EDIT_SORTLINES_LOCALE_DESCENDING);
 		}
 		break;
 

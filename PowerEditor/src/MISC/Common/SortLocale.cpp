@@ -17,7 +17,7 @@
 
 #include "SortLocale.h"
 
-bool SortLocale::sort(ScintillaEditView* sci) {
+bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
 
     DWORD options = LCMAP_SORTKEY | NORM_LINGUISTIC_CASING;
     if (!caseSensitive) options |= LINGUISTIC_IGNORECASE;
@@ -30,12 +30,14 @@ bool SortLocale::sort(ScintillaEditView* sci) {
 
     intptr_t lines, startPos, topLine, endPos, bottomLine;
     bool rectangular = false;
+    bool noselection = false;
     bool forward = true;
     bool missingEOL = false;
 
     // Set:
     //    rectangular = true for rectangular selections; false all other times
-    //    forward = false for bottom-to-top rectangular selections; true all other times
+    //    noselection = true if nothing was selected; false all other times
+    //    forward = false if caret is less than anchor; true all other times
     //    missingEOL = true if selection ends includes last line of document with no terminating line ending; otherwise false
     //    topLine and bottomLine = line indices to be sorted, bottomLine included
     //    startPos and endPos = text range of all lines to be sorted, endPos not included
@@ -67,7 +69,10 @@ bool SortLocale::sort(ScintillaEditView* sci) {
         break;
     default:
         if (sci->execute(SCI_GETSELECTIONS) != 1) return false;
-        if (sci->execute(SCI_GETSELECTIONEMPTY)) {
+        intptr_t anchor = sci->execute(SCI_GETANCHOR);
+        intptr_t caret  = sci->execute(SCI_GETCURRENTPOS);
+        if (anchor == caret) {
+            noselection = true;
             topLine = startPos = 0;
             bottomLine = sci->execute(SCI_GETLINECOUNT) - 1;
             endPos = sci->execute(SCI_GETLENGTH);
@@ -75,9 +80,10 @@ bool SortLocale::sort(ScintillaEditView* sci) {
             else missingEOL = true;  // last line of document is not empty (no line ending)
         }
         else {
-            topLine = sci->execute(SCI_LINEFROMPOSITION, sci->execute(SCI_GETSELECTIONSTART));
+            forward = anchor < caret;
+            topLine = sci->execute(SCI_LINEFROMPOSITION, forward ? anchor : caret);
             startPos = sci->execute(SCI_POSITIONFROMLINE, topLine);
-            endPos = sci->execute(SCI_GETSELECTIONEND);
+            endPos = forward ? caret : anchor;
             bottomLine = sci->execute(SCI_LINEFROMPOSITION, endPos);
             if (sci->execute(SCI_POSITIONFROMLINE, bottomLine) == endPos) bottomLine--;  // selection ends at beginning of a line
             else if (bottomLine == sci->execute(SCI_GETLINECOUNT) - 1) { // selection ends in last line of document, with no line ending
@@ -95,7 +101,7 @@ bool SortLocale::sort(ScintillaEditView* sci) {
     struct SortLine {
         std::string key;
         std::string_view content;
-        intptr_t lineStart, lineLength, keyStart, keyLength;
+        intptr_t index, lineStart, lineLength, keyStart, keyLength;
         bool appendEOL = false;
     };
     std::vector<SortLine> sortLines(lines);
@@ -107,12 +113,13 @@ bool SortLocale::sort(ScintillaEditView* sci) {
     for (intptr_t n = lines - 1; n >= 0; --n) {
         SortLine& sl = sortLines[n];
         if (rectangular) {
-            intptr_t sn = forward ? n : lines - 1 - n;
+            sl.index = forward ? n : lines - 1 - n;
             sl.lineStart = sci->execute(SCI_POSITIONFROMLINE, topLine + n);
-            sl.keyStart = sci->execute(SCI_GETSELECTIONNSTART, sn);
-            sl.keyLength = sci->execute(SCI_GETSELECTIONNEND, sn) - sl.keyStart;
+            sl.keyStart = sci->execute(SCI_GETSELECTIONNSTART, sl.index);
+            sl.keyLength = sci->execute(SCI_GETSELECTIONNEND, sl.index) - sl.keyStart;
         }
         else {
+            sl.index = n;
             sl.lineStart = sl.keyStart = sci->execute(SCI_POSITIONFROMLINE, topLine + n);
             sl.keyLength = sci->execute(SCI_GETLINEENDPOSITION, topLine + n) - sl.keyStart;
         }
@@ -126,7 +133,7 @@ bool SortLocale::sort(ScintillaEditView* sci) {
         docEOL = eolMode == SC_EOL_CR ? "\r" : eolMode == SC_EOL_LF ? "\n" : "\r\n";
     }
 
-    // Next, get a direct pointer to everything to be sorted.
+    // Next, get a pointer into Scintilla's buffer for the range encompassing everything to be sorted.
     // Note that this pointer becomes invalid as soon as we access Scintilla again.
     // Then find the sort keys and content for each line, sort as requested, and build the replacement text.
 
@@ -148,8 +155,9 @@ bool SortLocale::sort(ScintillaEditView* sci) {
         }
     }
 
-    std::stable_sort(sortLines.begin(), sortLines.end(),
-        [this](const SortLine& a, const SortLine& b) { return descending ? a.key > b.key : a.key < b.key; });
+    if (descending) 
+         std::stable_sort(sortLines.begin(), sortLines.end(), [](const SortLine& a, const SortLine& b) { return a.key > b.key; });
+    else std::stable_sort(sortLines.begin(), sortLines.end(), [](const SortLine& a, const SortLine& b) { return a.key < b.key; });
 
     std::string r;
 
@@ -164,15 +172,48 @@ bool SortLocale::sort(ScintillaEditView* sci) {
         if (r.back() == '\r') r.pop_back();
     }
 
-    sci->execute(SCI_SETTARGETRANGE, startPos, endPos);
-    sci->execute(SCI_REPLACETARGETMINIMAL, r.length(), reinterpret_cast<LPARAM>(r.data()));
+    // Before updating Scintilla, get information we will need to restore the selection (as best we can)
 
-    // cpTop += ss.textStart;
-    // cpBottom += data.sci.PositionFromLine(ss.textLine + lines - 1);
-    // data.sci.SetRectangularSelectionAnchor(topToBottom ? cpTop : cpBottom);
-    // data.sci.SetRectangularSelectionCaret(topToBottom ? cpBottom : cpTop);
-    // data.sci.SetRectangularSelectionAnchorVirtualSpace(topToBottom ? vsTop : vsBottom);
-    // data.sci.SetRectangularSelectionCaretVirtualSpace(topToBottom ? vsBottom : vsTop);
+    intptr_t cpAnchor(0), cpCaret(0), vsAnchor(0), vsCaret(0), lnCaret(0);
+
+    if (rectangular) {
+        intptr_t ixTop = sortLines.front().index;
+        intptr_t ixBottom = sortLines.back().index;
+        intptr_t ixAnchor = forward ? ixTop : ixBottom;
+        intptr_t ixCaret = forward ? ixBottom : ixTop;
+        cpAnchor = sci->execute(SCI_GETSELECTIONNANCHOR, ixAnchor);
+        vsAnchor = sci->execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, ixAnchor);
+        cpCaret  = sci->execute(SCI_GETSELECTIONNCARET, ixCaret);
+        vsCaret  = sci->execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, ixCaret);
+        cpAnchor -= sci->execute(SCI_POSITIONFROMLINE, sci->execute(SCI_LINEFROMPOSITION, cpAnchor));
+        cpCaret  -= sci->execute(SCI_POSITIONFROMLINE, sci->execute(SCI_LINEFROMPOSITION, cpCaret));
+    }
+    else if (noselection) {
+        cpCaret = sci->execute(SCI_GETCURRENTPOS);
+        lnCaret = sci->execute(SCI_LINEFROMPOSITION, cpCaret);
+        cpCaret -= sci->execute(SCI_POSITIONFROMLINE, lnCaret);
+        for (intptr_t n = 0; n < lines; ++n) if (sortLines[n].index == lnCaret) {
+            lnCaret = n;
+            break;
+        }
+    }
+
+    // Update Scintilla and restore position or selection
+
+    sci->execute(SCI_SETTARGETRANGE, startPos, endPos);
+    sci->execute(SCI_REPLACETARGET, r.length(), reinterpret_cast<LPARAM>(r.data()));
+
+    if (rectangular) {
+        cpAnchor += sci->execute(SCI_POSITIONFROMLINE, forward ? topLine : bottomLine);
+        cpCaret += sci->execute(SCI_POSITIONFROMLINE, forward ? bottomLine : topLine);
+        sci->execute(SCI_SETRECTANGULARSELECTIONANCHOR, cpAnchor);
+        sci->execute(SCI_SETRECTANGULARSELECTIONCARET, cpCaret);
+        sci->execute(SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE, vsAnchor);
+        sci->execute(SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE, vsCaret);
+    }
+    else if (noselection) sci->execute(SCI_GOTOPOS, sci->execute(SCI_POSITIONFROMLINE, lnCaret) + cpCaret);
+    else if (forward) sci->execute(SCI_SETSEL, sci->execute(SCI_GETTARGETSTART), sci->execute(SCI_GETTARGETEND));
+    else sci->execute(SCI_SETSEL, sci->execute(SCI_GETTARGETEND), sci->execute(SCI_GETTARGETSTART));
 
     return true;
 

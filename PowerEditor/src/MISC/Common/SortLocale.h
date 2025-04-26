@@ -23,10 +23,14 @@
 
 class SortLocale {
 public:
+    struct Result {
+        UINT status;           // Will be 0 (successful sort), MB_ICONWARNING or MB_ICONERROR
+        std::wstring message;  // A message describing the status, if it isn't 0
+    };
     std::wstring localeName;
     bool caseSensitive = false;
     bool digitsAsNumbers = true;
     bool ignoreDiacritics = false;
     bool ignoreSymbols = false;
-    bool sort(ScintillaEditView* sci, bool descending);
+    Result sort(ScintillaEditView* sci, bool descending);
 };

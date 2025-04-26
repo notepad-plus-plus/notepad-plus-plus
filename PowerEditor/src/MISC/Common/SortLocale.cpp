@@ -17,7 +17,9 @@
 
 #include "SortLocale.h"
 
-bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
+static SortLocale::Result unknownError { MB_ICONERROR, L"The reason the sort failed cannot be determined." };
+
+SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
 
     DWORD options = LCMAP_SORTKEY | NORM_LINGUISTIC_CASING;
     if (!caseSensitive) options |= LINGUISTIC_IGNORECASE;
@@ -49,7 +51,7 @@ bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
     case SC_SEL_THIN :
     case SC_SEL_RECTANGLE:
         lines = sci->execute(SCI_GETSELECTIONS);
-        if (lines < 2) return false;
+        if (lines < 2) return { MB_ICONWARNING, L"Nothing to sort." };
         if (sci->execute(SCI_GETSELECTIONEMPTY)) noselection = true;
         rectangular = true;
         {
@@ -67,7 +69,7 @@ bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
         else endPos = sci->execute(SCI_POSITIONFROMLINE, bottomLine + 1);
         break;
     default:
-        if (sci->execute(SCI_GETSELECTIONS) != 1) return false;
+        if (sci->execute(SCI_GETSELECTIONS) != 1) return { MB_ICONWARNING, L"Sorting multiple selections is not supported." };
         intptr_t anchor = sci->execute(SCI_GETANCHOR);
         intptr_t caret  = sci->execute(SCI_GETCURRENTPOS);
         if (anchor == caret) {
@@ -92,117 +94,138 @@ bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
             else endPos = sci->execute(SCI_POSITIONFROMLINE, bottomLine + 1); // move end position to include line ending
         }
         lines = bottomLine - topLine + 1;
-        if (lines < 2) return false;
+        if (lines < 2) return { MB_ICONWARNING, L"Nothing to sort." };
     }
 
-    // Build a vector which will contain the sort keys and pointers to the lines to be sorted.
+    // Extensive memory allocation which follow is enclosed in a try block, so failures can be intercepted.
+    // No changes are made to the Scintilla document within the try block; failure when changing the document
+    // should be caught by the ordinary Notepad++ error capture routines.
+    // First declare some variables which will be required after the try block is finished.
 
-    struct SortLine {
-        std::string key;
-        std::string_view content;
-        intptr_t index, lineStart, lineLength, keyStart, keyLength;
-        bool appendEOL = false;
-    };
-    std::vector<SortLine> sortLines(lines);
-    if (missingEOL) sortLines.back().appendEOL = true;
-
-    // Get the information we need from Scintilla.
-
-    intptr_t cpNextLine = endPos;
-    for (intptr_t n = lines - 1; n >= 0; --n) {
-        SortLine& sl = sortLines[n];
-        if (rectangular) {
-            sl.index = forward ? n : lines - 1 - n;
-            sl.lineStart = sci->execute(SCI_POSITIONFROMLINE, topLine + n);
-            sl.keyStart = sci->execute(SCI_GETSELECTIONNSTART, sl.index);
-            sl.keyLength =
-                (noselection ? sci->execute(SCI_GETLINEENDPOSITION, topLine + n) : sci->execute(SCI_GETSELECTIONNEND, sl.index))
-                - sl.keyStart;
-        }
-        else {
-            sl.index = n;
-            sl.lineStart = sl.keyStart = sci->execute(SCI_POSITIONFROMLINE, topLine + n);
-            sl.keyLength = sci->execute(SCI_GETLINEENDPOSITION, topLine + n) - sl.keyStart;
-        }
-        sl.lineLength = cpNextLine - sl.lineStart;
-        cpNextLine = sl.lineStart;
-    }
-
-    std::string docEOL;
-    if (missingEOL) {
-        auto eolMode = sci->execute(SCI_GETEOLMODE);
-        docEOL = eolMode == SC_EOL_CR ? "\r" : eolMode == SC_EOL_LF ? "\n" : "\r\n";
-    }
-
-    // Next, get a pointer into Scintilla's buffer for the range encompassing everything to be sorted.
-    // Note that this pointer becomes invalid as soon as we access Scintilla again.
-    // Then find the sort keys and content for each line, sort as requested, and build the replacement text.
-
-    const char* const textPointer = reinterpret_cast<const char*>(sci->execute(SCI_GETRANGEPOINTER, startPos, endPos - startPos));
-
-    for (SortLine& sl : sortLines) {
-        sl.content = std::string_view(sl.lineStart - startPos + textPointer, sl.lineLength);
-        std::string_view keyText(sl.keyStart - startPos + textPointer, sl.keyLength);
-        if (!keyText.empty()) {
-            constexpr unsigned int safeSize = std::numeric_limits<int>::max() / 2;
-            size_t textLength = keyText.length();
-            int sortableLength = textLength > safeSize ? safeSize : static_cast<int>(textLength);
-            int wideLength = MultiByteToWideChar(codepage, 0, keyText.data(), sortableLength, 0, 0);
-            std::wstring wideText(wideLength, 0);
-            MultiByteToWideChar(codepage, 0, keyText.data(), sortableLength, wideText.data(), wideLength);
-            int m = LCMapStringEx(locale, options, wideText.data(), wideLength, 0, 0, 0, 0, 0);
-            sl.key.resize(m, 0);
-            LCMapStringEx(locale, options, wideText.data(), wideLength, reinterpret_cast<LPWSTR>(sl.key.data()), m, 0, 0, 0);
-        }
-    }
-
-    if (descending) 
-         std::stable_sort(sortLines.begin(), sortLines.end(), [](const SortLine& a, const SortLine& b) { return a.key > b.key; });
-    else std::stable_sort(sortLines.begin(), sortLines.end(), [](const SortLine& a, const SortLine& b) { return a.key < b.key; });
-
-    std::string r;
-
-    r.reserve(endPos - startPos + docEOL.length());
-    for (SortLine& sl : sortLines) {
-        r.append(sl.content);
-        if (sl.appendEOL) r.append(docEOL);
-    }
-
-    if (missingEOL) /* if we added a line ending, remove line ending from last line of sorted text */ {
-        if (r.back() == '\n') r.pop_back();
-        if (r.back() == '\r') r.pop_back();
-    }
-
-    // Before updating Scintilla, get information we will need to restore the selection (as best we can)
-
+    std::string sortedText;
     intptr_t cpAnchor(0), cpCaret(0), vsAnchor(0), vsCaret(0), lnCaret(0);
 
-    if (rectangular) {
-        intptr_t ixTop = sortLines.front().index;
-        intptr_t ixBottom = sortLines.back().index;
-        intptr_t ixAnchor = forward ? ixTop : ixBottom;
-        intptr_t ixCaret = forward ? ixBottom : ixTop;
-        cpAnchor = sci->execute(SCI_GETSELECTIONNANCHOR, ixAnchor);
-        vsAnchor = sci->execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, ixAnchor);
-        cpCaret  = sci->execute(SCI_GETSELECTIONNCARET, ixCaret);
-        vsCaret  = sci->execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, ixCaret);
-        cpAnchor -= sci->execute(SCI_POSITIONFROMLINE, sci->execute(SCI_LINEFROMPOSITION, cpAnchor));
-        cpCaret  -= sci->execute(SCI_POSITIONFROMLINE, sci->execute(SCI_LINEFROMPOSITION, cpCaret));
-    }
-    else if (noselection) {
-        cpCaret = sci->execute(SCI_GETCURRENTPOS);
-        lnCaret = sci->execute(SCI_LINEFROMPOSITION, cpCaret);
-        cpCaret -= sci->execute(SCI_POSITIONFROMLINE, lnCaret);
-        for (intptr_t n = 0; n < lines; ++n) if (sortLines[n].index == lnCaret) {
-            lnCaret = n;
-            break;
+    try {
+
+        // Build a vector which will contain the sort keys and pointers to the lines to be sorted.
+
+        struct SortLine {
+            std::string key;
+            std::string_view content;
+            intptr_t index, lineStart, lineLength, keyStart, keyLength;
+            bool appendEOL = false;
+        };
+        std::vector<SortLine> sortLines(lines);
+        if (missingEOL) sortLines.back().appendEOL = true;
+
+        // Get the information we need from Scintilla.
+
+        intptr_t cpNextLine = endPos;
+        for (intptr_t n = lines - 1; n >= 0; --n) {
+            SortLine& sl = sortLines[n];
+            if (rectangular) {
+                sl.index = forward ? n : lines - 1 - n;
+                sl.lineStart = sci->execute(SCI_POSITIONFROMLINE, topLine + n);
+                sl.keyStart = sci->execute(SCI_GETSELECTIONNSTART, sl.index);
+                sl.keyLength =
+                    (noselection ? sci->execute(SCI_GETLINEENDPOSITION, topLine + n) : sci->execute(SCI_GETSELECTIONNEND, sl.index))
+                    - sl.keyStart;
+            }
+            else {
+                sl.index = n;
+                sl.lineStart = sl.keyStart = sci->execute(SCI_POSITIONFROMLINE, topLine + n);
+                sl.keyLength = sci->execute(SCI_GETLINEENDPOSITION, topLine + n) - sl.keyStart;
+            }
+            sl.lineLength = cpNextLine - sl.lineStart;
+            cpNextLine = sl.lineStart;
         }
+
+        std::string docEOL;
+        if (missingEOL) {
+            auto eolMode = sci->execute(SCI_GETEOLMODE);
+            docEOL = eolMode == SC_EOL_CR ? "\r" : eolMode == SC_EOL_LF ? "\n" : "\r\n";
+        }
+
+        // Next, get a pointer into Scintilla's buffer for the range encompassing everything to be sorted.
+        // Note that this pointer becomes invalid as soon as we access Scintilla again.
+        // Then find the sort keys and content for each line, sort as requested, and build the replacement text.
+
+        const char* const textPointer = reinterpret_cast<const char*>(sci->execute(SCI_GETRANGEPOINTER, startPos, endPos - startPos));
+
+        for (SortLine& sl : sortLines) {
+            sl.content = std::string_view(sl.lineStart - startPos + textPointer, sl.lineLength);
+            std::string_view keyText(sl.keyStart - startPos + textPointer, sl.keyLength);
+            if (!keyText.empty()) {
+                constexpr unsigned int safeSize = std::numeric_limits<int>::max() / 2;
+                size_t textLength = keyText.length();
+                int sortableLength = textLength > safeSize ? safeSize : static_cast<int>(textLength);
+                int wideLength = MultiByteToWideChar(codepage, 0, keyText.data(), sortableLength, 0, 0);
+                std::wstring wideText(wideLength, 0);
+                MultiByteToWideChar(codepage, 0, keyText.data(), sortableLength, wideText.data(), wideLength);
+                int m = LCMapStringEx(locale, options, wideText.data(), wideLength, 0, 0, 0, 0, 0);
+                sl.key.resize(m, 0);
+                LCMapStringEx(locale, options, wideText.data(), wideLength, reinterpret_cast<LPWSTR>(sl.key.data()), m, 0, 0, 0);
+            }
+        }
+
+        if (descending)
+             std::stable_sort(sortLines.begin(), sortLines.end(), [](const SortLine& a, const SortLine& b) { return a.key > b.key; });
+        else std::stable_sort(sortLines.begin(), sortLines.end(), [](const SortLine& a, const SortLine& b) { return a.key < b.key; });
+
+        sortedText.reserve(endPos - startPos + docEOL.length());
+        for (SortLine& sl : sortLines) {
+            sortedText.append(sl.content);
+            if (sl.appendEOL) sortedText.append(docEOL);
+        }
+
+        if (missingEOL) /* if we added a line ending, remove line ending from last line of sorted text */ {
+            if (sortedText.back() == '\n') sortedText.pop_back();
+            if (sortedText.back() == '\r') sortedText.pop_back();
+        }
+
+        // Before updating Scintilla, get information we will need to restore the selection (as best we can)
+
+        if (rectangular) {
+            intptr_t ixTop = sortLines.front().index;
+            intptr_t ixBottom = sortLines.back().index;
+            intptr_t ixAnchor = forward ? ixTop : ixBottom;
+            intptr_t ixCaret = forward ? ixBottom : ixTop;
+            cpAnchor = sci->execute(SCI_GETSELECTIONNANCHOR, ixAnchor);
+            vsAnchor = sci->execute(SCI_GETSELECTIONNANCHORVIRTUALSPACE, ixAnchor);
+            cpCaret = sci->execute(SCI_GETSELECTIONNCARET, ixCaret);
+            vsCaret = sci->execute(SCI_GETSELECTIONNCARETVIRTUALSPACE, ixCaret);
+            cpAnchor -= sci->execute(SCI_POSITIONFROMLINE, sci->execute(SCI_LINEFROMPOSITION, cpAnchor));
+            cpCaret -= sci->execute(SCI_POSITIONFROMLINE, sci->execute(SCI_LINEFROMPOSITION, cpCaret));
+        }
+        else if (noselection) {
+            cpCaret = sci->execute(SCI_GETCURRENTPOS);
+            lnCaret = sci->execute(SCI_LINEFROMPOSITION, cpCaret);
+            cpCaret -= sci->execute(SCI_POSITIONFROMLINE, lnCaret);
+            for (intptr_t n = 0; n < lines; ++n) if (sortLines[n].index == lnCaret) {
+                lnCaret = n;
+                break;
+            }
+        }
+
     }
+
+    catch (const std::exception& e) {
+        try {
+            int errlen = MultiByteToWideChar(CP_ACP, 0, e.what(), -1, 0, 0);
+            if (errlen < 2) return unknownError;
+            std::wstring errmsg(errlen - 1, 0);
+            MultiByteToWideChar(CP_ACP, 0, e.what(), -1, errmsg.data(), errlen);
+            return { MB_ICONERROR, errmsg };
+        }
+        catch (...) { return unknownError; }
+    }
+
+    catch (...) { return unknownError; }
 
     // Update Scintilla and restore position or selection
 
     sci->execute(SCI_SETTARGETRANGE, startPos, endPos);
-    sci->execute(SCI_REPLACETARGET, r.length(), reinterpret_cast<LPARAM>(r.data()));
+    sci->execute(SCI_REPLACETARGET, sortedText.length(), reinterpret_cast<LPARAM>(sortedText.data()));
 
     if (rectangular) {
         cpAnchor += sci->execute(SCI_POSITIONFROMLINE, forward ? topLine : bottomLine);
@@ -216,6 +239,6 @@ bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
     else if (forward) sci->execute(SCI_SETSEL, sci->execute(SCI_GETTARGETSTART), sci->execute(SCI_GETTARGETEND));
     else sci->execute(SCI_SETSEL, sci->execute(SCI_GETTARGETEND), sci->execute(SCI_GETTARGETSTART));
 
-    return true;
+    return { 0, L"" };
 
 }

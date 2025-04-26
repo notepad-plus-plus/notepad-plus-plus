@@ -35,7 +35,7 @@ bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
     bool missingEOL = false;
 
     // Set:
-    //    rectangular = true for rectangular selections; false all other times
+    //    rectangular = true for rectangular and thin selections; false all other times
     //    noselection = true if nothing was selected; false all other times
     //    forward = false if caret is less than anchor; true all other times
     //    missingEOL = true if selection ends includes last line of document with no terminating line ending; otherwise false
@@ -43,15 +43,14 @@ bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
     //    startPos and endPos = text range of all lines to be sorted, endPos not included
     //    lines = number of lines to be sorted
     //
-    // Return false if there is a multiple selection other than a rectangular selection,
-    // a selection with no content, or a selection covering fewer than two lines.
+    // Return false if there is a multiple stream selection or a selection covering fewer than two lines.
 
     switch (sci->execute(SCI_GETSELECTIONMODE)) {
     case SC_SEL_THIN :
-        return false;
     case SC_SEL_RECTANGLE:
         lines = sci->execute(SCI_GETSELECTIONS);
-        if (lines < 2 || sci->execute(SCI_GETSELECTIONEMPTY)) return false;
+        if (lines < 2) return false;
+        if (sci->execute(SCI_GETSELECTIONEMPTY)) noselection = true;
         rectangular = true;
         {
             intptr_t rsa = sci->execute(SCI_GETRECTANGULARSELECTIONANCHOR);
@@ -116,7 +115,9 @@ bool SortLocale::sort(ScintillaEditView* sci, bool descending) {
             sl.index = forward ? n : lines - 1 - n;
             sl.lineStart = sci->execute(SCI_POSITIONFROMLINE, topLine + n);
             sl.keyStart = sci->execute(SCI_GETSELECTIONNSTART, sl.index);
-            sl.keyLength = sci->execute(SCI_GETSELECTIONNEND, sl.index) - sl.keyStart;
+            sl.keyLength =
+                (noselection ? sci->execute(SCI_GETLINEENDPOSITION, topLine + n) : sci->execute(SCI_GETSELECTIONNEND, sl.index))
+                - sl.keyStart;
         }
         else {
             sl.index = n;

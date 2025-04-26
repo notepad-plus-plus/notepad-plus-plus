@@ -131,6 +131,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING,  false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_ASCENDING,   false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_SORTLINES_LEXICO_CASE_INSENS_DESCENDING,  false, false, false, nullptr },
+	{ VK_NULL,    IDM_EDIT_SORTLINES_LOCALE_ASCENDING,          false, false, false, nullptr },
+	{ VK_NULL,    IDM_EDIT_SORTLINES_LOCALE_DESCENDING,         false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_SORTLINES_INTEGER_ASCENDING,         false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_SORTLINES_INTEGER_DESCENDING,        false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING,    false, false, false, nullptr },

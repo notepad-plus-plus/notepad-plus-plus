@@ -225,7 +225,21 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
     // Update Scintilla and restore position or selection
 
     sci->execute(SCI_SETTARGETRANGE, startPos, endPos);
+    sci->execute(SCI_SETSTATUS, 0);
     sci->execute(SCI_REPLACETARGET, sortedText.length(), reinterpret_cast<LPARAM>(sortedText.data()));
+    int replaceStatus = static_cast<int>(sci->execute(SCI_GETSTATUS));
+    sci->execute(SCI_SETSTATUS, 0);
+    if (replaceStatus != SC_STATUS_OK && replaceStatus < SC_STATUS_WARN_START) {
+        struct ScintillaMemory : std::exception {
+            const char* what() const noexcept override { return "Scintilla ran out of memory while updating the document."; }
+        };
+        struct ScintillaFail : std::exception {
+            const char* what() const noexcept override { return "Scintilla was unable to update the document."; }
+        };
+        SendMessage(sci->getHSelf(), WM_SETREDRAW, FALSE, 0);  // Without this, Scintilla can hang before message is displayed
+        if (replaceStatus == SC_STATUS_BADALLOC) throw ScintillaMemory();
+        else throw ScintillaFail();
+    }
 
     if (rectangular) {
         cpAnchor += sci->execute(SCI_POSITIONFROMLINE, forward ? topLine : bottomLine);

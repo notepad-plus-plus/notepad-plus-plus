@@ -229,40 +229,19 @@ jobs:
       working-directory: PowerEditor\visual.net\
       run: msbuild notepadPlus.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}"
 
-    - name: Archive artifacts for x64 / Release
-      if: matrix.build_platform == 'x64' && matrix.build_configuration == 'Release'
+    - name: Archive artifacts for ${{ matrix.build_platform}} / Release
+      if: matrix.build_configuration == 'Release'
       uses: actions/upload-artifact@v7
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\bin64\Notepad++.exe
+          path: PowerEditor\bin*\Notepad++.exe
 
-    - name: Archive artifacts for Win32 / Release
-      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Release'
+    - name: Archive artifacts for ${{ matrix.build_platform}} / Debug
+      if: matrix.build_configuration == 'Debug'
       uses: actions/upload-artifact@v7
       with:
           name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\bin\Notepad++.exe
-
-    - name: Archive artifacts for ARM64 / Release
-      if: matrix.build_platform == 'ARM64' && matrix.build_configuration == 'Release'
-      uses: actions/upload-artifact@v7
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\binarm64\Notepad++.exe
-
-    - name: Archive artifacts for ARM64|x64 / Debug
-      if: (matrix.build_platform == 'ARM64' || matrix.build_platform == 'x64') && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v7
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\visual.net\${{ matrix.build_platform}}\${{ matrix.build_configuration}}\Notepad++.exe
-
-    - name: Archive artifacts for Win32 / Debug
-      if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug'
-      uses: actions/upload-artifact@v7
-      with:
-          name: Notepad++.MSVC.${{ matrix.build_platform}}.${{ matrix.build_configuration}}
-          path: PowerEditor\visual.net\${{ matrix.build_configuration}}\Notepad++.exe
+          path: PowerEditor\**\${{ matrix.build_configuration}}\Notepad++.exe
 
     - name: (cache) Restore Python modules for Win32 / Debug
       if: matrix.build_platform == 'Win32' && matrix.build_configuration == 'Debug' && env.PYTHON_ALLOW_CACHE == 'true' && contains(needs.before_build.outputs.title, '[force nopythoncache]') != true

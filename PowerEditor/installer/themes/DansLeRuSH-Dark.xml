@@ -355,6 +355,51 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
             <WordsStyle name="DELETED" styleID="5" fgColor="A88AB6" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ADDED" styleID="6" fgColor="F57F3D" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="errorlist" desc="ErrorList" ext="">
+            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PYTHON Error" styleID="1" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="GCC Error" styleID="2" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="MS Error" styleID="3" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CMD Error" styleID="4" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BORLAND Error" styleID="5" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PERL Error" styleID="6" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="NET Error" styleID="7" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="LUA Error" styleID="8" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CTAG Error" styleID="9" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DIFF Changed" styleID="10" fgColor="FF0080" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DIFF Addition" styleID="11" fgColor="13A10E" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DIFF Deletion" styleID="12" fgColor="CC0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DIFF Message" styleID="13" fgColor="3A96DD" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PHP Error" styleID="14" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ELF Error" styleID="15" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IFC Error" styleID="16" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IFORT Error" styleID="17" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ABSF Error" styleID="18" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TIDY Error" styleID="19" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="JAVA Stack Error" styleID="20" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="VALUE Error" styleID="21" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="GCC Included-From Error" styleID="22" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="Escape Sequence" styleID="23" fgColor="C0C0C0" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="Unknown Escape Sequence" styleID="24" fgColor="FFFF78" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="GCC Excerpt Error" styleID="25" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BASH Error" styleID="26" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BLACK" styleID="40" fgColor="000000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR RED" styleID="41" fgColor="CD0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR GREEN" styleID="42" fgColor="00CD00" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BROWN" styleID="43" fgColor="AA5500" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BLUE" styleID="44" fgColor="0000FF" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR MAGENTA" styleID="45" fgColor="CD00CD" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR CYAN" styleID="46" fgColor="008888" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR GRAY" styleID="47" fgColor="E5E5E5" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR DARK GRAY" styleID="48" fgColor="7F7F7F" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BRIGHT RED" styleID="49" fgColor="FF0000" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BRIGHT GREEN" styleID="50" fgColor="00FC00" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR YELLOW" styleID="51" fgColor="CCCC00" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BRIGHT BLUE" styleID="52" fgColor="3B78FF" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BRIGHT MAGENTA" styleID="53" fgColor="FF00FF" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR BRIGHT CYAN" styleID="54" fgColor="00CDCD" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ANSI COLOR WHITE" styleID="55" fgColor="FFFFFF" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
         <LexerType name="fortran" desc="Fortran" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="C7C7C7" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="666666" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="" />

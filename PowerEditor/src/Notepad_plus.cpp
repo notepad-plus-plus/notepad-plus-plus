@@ -4064,6 +4064,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_TOML;
         case IDM_LANG_SAS:
             return L_SAS;
+        case IDM_LANG_ERRORLIST:
+            return L_ERRORLIST;
         case IDM_LANG_USER:
             return L_USER;
 		default:

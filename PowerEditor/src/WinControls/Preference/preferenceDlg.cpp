@@ -923,6 +923,7 @@ intptr_t CALLBACK ToolbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				return NppDarkMode::onCtlColorDlgLinkText(hdc, !isCheckedOrNot(IDC_RADIO_STANDARD));
 			}
+
 			return NppDarkMode::onCtlColorDlg(hdc);
 		}
 
@@ -2792,8 +2793,19 @@ intptr_t CALLBACK MarginsBorderEdgeSubDlg::run_dlgProc(UINT message, WPARAM wPar
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+		
 		case WM_CTLCOLORSTATIC:
 		{
+			auto hdc = reinterpret_cast<HDC>(wParam);
+			const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_BUTTON_VES_TIP)
+			{
+				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
+			}
+
 			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
@@ -6146,24 +6158,33 @@ intptr_t CALLBACK DelimiterSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			auto hdcStatic = reinterpret_cast<HDC>(wParam);
 			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 			bool isBlabla = (dlgCtrlID == IDD_STATIC_BLABLA) || (dlgCtrlID == IDD_STATIC_BLABLA2NDLINE);
-			if (NppDarkMode::isEnabled())
+
+			if (dlgCtrlID == IDD_WORDCHAR_QUESTION_BUTTON)
 			{
-				if (isBlabla)
+				return NppDarkMode::onCtlColorDlgLinkText(hdcStatic, true);
+			}
+			else
+			{
+				if (NppDarkMode::isEnabled())
 				{
-					return NppDarkMode::onCtlColor(hdcStatic);
+					if (isBlabla)
+					{
+						return NppDarkMode::onCtlColor(hdcStatic);
+					}
+					return NppDarkMode::onCtlColorDlg(hdcStatic);
 				}
-				return NppDarkMode::onCtlColorDlg(hdcStatic);
+				else if (isBlabla)
+				{
+					COLORREF bgColor = getCtrlBgColor(_hSelf);
+					SetTextColor(hdcStatic, RGB(0, 0, 0));
+					BYTE r = GetRValue(bgColor) - 30;
+					BYTE g = MyGetGValue(bgColor) - 30;
+					BYTE b = GetBValue(bgColor) - 30;
+					SetBkColor(hdcStatic, RGB(r, g, b));
+					return TRUE;
+				}
 			}
-			else if (isBlabla)
-			{
-				COLORREF bgColor = getCtrlBgColor(_hSelf);
-				SetTextColor(hdcStatic, RGB(0, 0, 0));
-				BYTE r = GetRValue(bgColor) - 30;
-				BYTE g = MyGetGValue(bgColor) - 30;
-				BYTE b = GetBValue(bgColor) - 30;
-				SetBkColor(hdcStatic, RGB(r, g, b));
-				return TRUE;
-			}
+
 			break;
 		}
 
@@ -6523,10 +6544,13 @@ intptr_t CALLBACK PerformanceSubDlg::run_dlgProc(UINT message , WPARAM wParam, L
 			auto hdcStatic = reinterpret_cast<HDC>(wParam);
 			auto dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
 
-			bool isStaticText = (dlgCtrlID == IDC_STATIC_PERFORMANCE_FILESIZE || dlgCtrlID == IDC_STATIC_PERFORMANCE_MB);
-			//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
-			if (isStaticText)
+			if (dlgCtrlID == IDD_PERFORMANCE_TIP_QUESTION_BUTTON)
 			{
+				return NppDarkMode::onCtlColorDlgLinkText(hdcStatic, true);
+			}
+			else if (dlgCtrlID == IDC_STATIC_PERFORMANCE_FILESIZE || dlgCtrlID == IDC_STATIC_PERFORMANCE_MB)
+			{
+				//set the static text colors to show enable/disable instead of ::EnableWindow which causes blurry text
 				bool isTextEnabled = isCheckedOrNot(IDC_CHECK_PERFORMANCE_ENABLE);
 				return NppDarkMode::onCtlColorDlgStaticText(hdcStatic, isTextEnabled);
 			}
@@ -6783,7 +6807,7 @@ intptr_t CALLBACK SearchEngineSubDlg::run_dlgProc(UINT message, WPARAM wParam, L
 	return FALSE;
 }
 
-intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters& nppParams = NppParameters::getInstance();
 	NppGUI& nppGUI = nppParams.getNppGUI();
@@ -6825,8 +6849,19 @@ intptr_t CALLBACK SearchingSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
+			auto hdc = reinterpret_cast<HDC>(wParam);
+			const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_INSELECTION_THRESH_QUESTION_BUTTON)
+			{
+				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
+			}
+
 			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 

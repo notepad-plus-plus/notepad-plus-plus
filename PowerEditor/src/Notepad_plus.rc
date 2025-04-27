@@ -111,7 +111,7 @@ IDI_SYNCV_ICON                  ICON      "icons/light/toolbar/regular/syncV_off
 IDI_SYNCV_DISABLE_ICON          ICON      "icons/light/toolbar/regular/syncV_dis.ico"
 IDI_SYNCH_ICON                  ICON      "icons/light/toolbar/regular/syncH_off.ico"
 IDI_SYNCH_DISABLE_ICON          ICON      "icons/light/toolbar/regular/syncH_dis.ico"
-IDI_VIEW_DOC_MAP_ICON           ICON      "icons/light/toolbar/regular/docMap_off.ico" 
+IDI_VIEW_DOC_MAP_ICON           ICON      "icons/light/toolbar/regular/docMap_off.ico"
 IDI_VIEW_DOCLIST_ICON           ICON      "icons/light/toolbar/regular/docList_off.ico"
 IDI_VIEW_FUNCLIST_ICON          ICON      "icons/light/toolbar/regular/funcList_off.ico"
 IDI_VIEW_FILEBROWSER_ICON       ICON      "icons/light/toolbar/regular/fileBrowser_off.ico"
@@ -768,7 +768,7 @@ BEGIN
             MENUITEM "Move to New Instance",    IDM_VIEW_GOTO_NEW_INSTANCE
             MENUITEM "Open in New Instance",    IDM_VIEW_LOAD_IN_NEW_INSTANCE
         END
-        
+
         POPUP "Tab"
         BEGIN
             MENUITEM "1st Tab",                 IDM_VIEW_TAB1
@@ -1004,6 +1004,7 @@ BEGIN
         MENUITEM "D",                       IDM_LANG_D
         MENUITEM "Diff",                    IDM_LANG_DIFF
         MENUITEM "Erlang",                  IDM_LANG_ERLANG
+        MENUITEM "ErrorList",               IDM_LANG_ERRORLIST
         MENUITEM "ESCRIPT",                 IDM_LANG_ESCRIPT
         MENUITEM "Forth",                   IDM_LANG_FORTH
         MENUITEM "Fortran (free form)",     IDM_LANG_FORTRAN
@@ -1119,6 +1120,7 @@ BEGIN
     POPUP "E"
     BEGIN
         MENUITEM "Erlang",                IDM_LANG_ERLANG
+        MENUITEM "ErrorList",             IDM_LANG_ERRORLIST
         MENUITEM "ESCRIPT",               IDM_LANG_ESCRIPT
     END
     POPUP "F"
@@ -1137,7 +1139,7 @@ BEGIN
     POPUP "H"
     BEGIN
         MENUITEM "Haskell",               IDM_LANG_HASKELL
-        MENUITEM "Hollywood",             IDM_LANG_HOLLYWOOD	
+        MENUITEM "Hollywood",             IDM_LANG_HOLLYWOOD
         MENUITEM "HTML",                  IDM_LANG_HTML
     END
     POPUP "I"
@@ -1282,7 +1284,7 @@ BEGIN
             MENUITEM "Generate from selection into clipboard", IDM_TOOL_SHA512_GENERATEINTOCLIPBOARD
         END
     END
-    
+
     POPUP "&Macro"
     BEGIN
         MENUITEM "Start Re&cording",                   IDM_MACRO_STARTRECORDINGMACRO

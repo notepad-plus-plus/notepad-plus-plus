@@ -2412,6 +2412,18 @@ void Notepad_plus::command(int id)
 			checkMenuItem(IDM_VIEW_ALL_CHARACTERS, allChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, allChecked);
 
+			// inform the relevant lexers about the update
+			std::vector<ScintillaEditView*> pViews{ &_mainEditView, &_subEditView };
+			for (auto pView : pViews)
+			{
+				Buffer* pBuf = pView->getCurrentBuffer();
+				if (pBuf->getLangType() == L_ERRORLIST)
+				{
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(isChecked));
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
+				}
+			}
+
 			break;
 		}
 
@@ -2436,6 +2448,18 @@ void Notepad_plus::command(int id)
 			_subEditView.showInvisibleChars(isChecked);
 
 			_findReplaceDlg.updateFinderScintillaForNpc();
+
+			// inform the relevant lexers about the update
+			std::vector<ScintillaEditView*> pViews{ &_mainEditView, &_subEditView };
+			for (auto pView : pViews)
+			{
+				Buffer* pBuf = pView->getCurrentBuffer();
+				if (pBuf->getLangType() == L_ERRORLIST)
+				{
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(isChecked));
+					pView->execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(isChecked));
+				}
+			}
 
 			break;
 		}
@@ -3712,6 +3736,7 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_RAKU:
 		case IDM_LANG_TOML:
 		case IDM_LANG_SAS:
+		case IDM_LANG_ERRORLIST:
 		case IDM_LANG_USER :
 		{
 			LangType lang = menuID2LangType(id);

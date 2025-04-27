@@ -25,6 +25,7 @@ class SortLocale {
 public:
     struct Result {
         UINT status;           // Will be 0 (successful sort), MB_ICONWARNING or MB_ICONERROR
+        std::string tagName;   // The tag name for translation
         std::wstring message;  // A message describing the status, if it isn't 0
     };
     std::wstring localeName;

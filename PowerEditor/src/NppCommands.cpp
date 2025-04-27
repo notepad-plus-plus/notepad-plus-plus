@@ -858,10 +858,11 @@ void Notepad_plus::command(int id)
 			SortLocale sortLocale;
 			auto result = sortLocale.sort(_pEditView, id == IDM_EDIT_SORTLINES_LOCALE_DESCENDING);
 			if (result.status)
-				_nativeLangSpeaker.messageBox("SortingError", _pPublicInterface->getHSelf(),
+				_nativeLangSpeaker.messageBox(result.tagName.data(),
+					_pPublicInterface->getHSelf(),
 					result.message.data(),
 					result.status == MB_ICONERROR ? L"Sort Failed" : L"Sort not performed",
-					result.status | MB_OK | MB_APPLMODAL, 0, 0);
+					result.status | MB_OK | MB_APPLMODAL, 0, result.message.data());
 		}
 		break;
 

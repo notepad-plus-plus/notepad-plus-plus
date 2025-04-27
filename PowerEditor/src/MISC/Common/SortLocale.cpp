@@ -17,7 +17,13 @@
 
 #include "SortLocale.h"
 
-static SortLocale::Result unknownError { MB_ICONERROR, L"The reason the sort failed cannot be determined." };
+static const SortLocale::Result sortSuccess { 0, "0", L"0" };
+static const SortLocale::Result warnNothing { MB_ICONWARNING, "SortLocaleNothing", L"Nothing to sort." };
+static const SortLocale::Result warnMultiple { MB_ICONWARNING, "SortLocaleMultiple", L"Sorting multiple selections is not supported." };
+static const SortLocale::Result errorUnknown { MB_ICONERROR, "SortLocaleUnknown", L"The reason the sort failed cannot be determined." };
+
+// The error for exceptions, { MB_ICONERROR, "SortLocaleExcept", exception-message } is built dynamically;
+// translations should use "$STR_REPLACE$" as the message, since the message is also passed as the string replacement.
 
 SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
 
@@ -51,7 +57,7 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
     case SC_SEL_THIN :
     case SC_SEL_RECTANGLE:
         lines = sci->execute(SCI_GETSELECTIONS);
-        if (lines < 2) return { MB_ICONWARNING, L"Nothing to sort." };
+        if (lines < 2) return warnNothing;
         if (sci->execute(SCI_GETSELECTIONEMPTY)) noselection = true;
         rectangular = true;
         {
@@ -69,7 +75,7 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
         else endPos = sci->execute(SCI_POSITIONFROMLINE, bottomLine + 1);
         break;
     default:
-        if (sci->execute(SCI_GETSELECTIONS) != 1) return { MB_ICONWARNING, L"Sorting multiple selections is not supported." };
+        if (sci->execute(SCI_GETSELECTIONS) != 1) return warnMultiple;
         intptr_t anchor = sci->execute(SCI_GETANCHOR);
         intptr_t caret  = sci->execute(SCI_GETCURRENTPOS);
         if (anchor == caret) {
@@ -94,7 +100,7 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
             else endPos = sci->execute(SCI_POSITIONFROMLINE, bottomLine + 1); // move end position to include line ending
         }
         lines = bottomLine - topLine + 1;
-        if (lines < 2) return { MB_ICONWARNING, L"Nothing to sort." };
+        if (lines < 2) return warnNothing;
     }
 
     // Extensive memory allocation which follow is enclosed in a try block, so failures can be intercepted.
@@ -212,15 +218,15 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
     catch (const std::exception& e) {
         try {
             int errlen = MultiByteToWideChar(CP_ACP, 0, e.what(), -1, 0, 0);
-            if (errlen < 2) return unknownError;
+            if (errlen < 2) return errorUnknown;
             std::wstring errmsg(errlen - 1, 0);
             MultiByteToWideChar(CP_ACP, 0, e.what(), -1, errmsg.data(), errlen);
-            return { MB_ICONERROR, errmsg };
+            return { MB_ICONERROR, "SortLocaleExcept", errmsg };
         }
-        catch (...) { return unknownError; }
+        catch (...) { return errorUnknown; }
     }
 
-    catch (...) { return unknownError; }
+    catch (...) { return errorUnknown; }
 
     // Update Scintilla and restore position or selection
 
@@ -253,6 +259,6 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
     else if (forward) sci->execute(SCI_SETSEL, sci->execute(SCI_GETTARGETSTART), sci->execute(SCI_GETTARGETEND));
     else sci->execute(SCI_SETSEL, sci->execute(SCI_GETTARGETEND), sci->execute(SCI_GETTARGETSTART));
 
-    return { 0, L"" };
+    return sortSuccess;
 
 }

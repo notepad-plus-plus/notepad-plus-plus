@@ -1,32 +1,28 @@
-Notepad++ v8.7.9 regression-fixes, bug-fixes & enhancements:
+Notepad++ v8.8 new features, regression-fixes & bug-fixes:
 
- 1. Fix incorrect syntax highlighting regressions.
- 2. Update to Scintilla 5.5.5 & Lexilla 5.4.3.
- 3. Fix bug where plugin button hiding settings in toolbarButtonsConf.xml are ignored. 
- 4. Fix SQL Backslash Escape preference not taking effect immediately.	
- 5. Add new low-level DirectX11 DirectWrite 1.1 Scintilla rendering mode.
- 6. Add versions of external libraries (Scintilla/Lexilla/Boost) to Debug Info.
-
-
-Notepad++ v8.7.8 regression-fixes, bug-fixes & enhancements:
-
- 1. Fix regression (v8.7.1 - v8.7.7) of saving backup file without modifications.
- 2. Fix syntax highlighting regression while switching among UDL files.
- 3. Add ability to hide selected toolbar buttons via a XML configuration.
- 4. Improve folding/unfolding performance for large files.
- 5. Fix SQL Backslash Preference state regression (from v8.7).
- 6. Fix count operation on regex causing Notepad++ to hang.
- 7. Fix FunctionList not refreshing with current document lexer changes.
- 8. Improve Style Configurator GUI organization.
- 9. Adds SAS programming language support.
-10. Make existing DirectWrite rendering modes accessible.
-11. Allow DirectWrite use on non-Core Windows Server.    
-12. Use VTS instead of LTS for specific control code abbreviation.
-13. Fix installer silent mode doLocalConf.xml setting handling issue.
+ 1. Update to scintilla 5.5.6 & Lexilla 5.4.4.
+ 2. Fix a hanging issue on regexp regression.
+ 3. Fix vertical tab bar messed up regression.
+ 4. Add option to apply different color to fluent toolbar icons.
+ 5. Add "Show only pinned button" option to prevent from inacurate click.	
+ 6. Fix broken cloned file state after Notepad++ restart.    
+ 7. Fix inactive buffer reloading problem.
+ 8. Dark mode enhancements: combobox, slider, treeview edit, inactive menu bar & toolbar chevron.
+ 9. Reorganize GUI (add Toolbar & Tab Bar sections) of Preferences dialog.
+10. Fix invalid dot-character(s) handling in filenames checking.
+11. Fix crash when using custom toolbar icons.
+12. Add class & method recognization ability for JavaScript function list.
+13. Remove toolbarIcons.xml, use toolbarButtonsConf.xml for toolbar custom icons & hiding buttons.
+14. Add GUI option in Preferences dialog instead of using zero length enableSelectFgColor.xml.
+15. Fix "Keep selection when right-click outside of selection" not working issue.
+16. Fix Find dialog status text too left visual glitch.
+17. Force npcNoInputC0 value as "true" by default to avoid C0 code input.
+18. Remove "-pluginMessage" argument unnecessary restriction.
+19. Fix an easter egg not showing issue.
 
 
 Get more info on
-https://notepad-plus-plus.org/downloads/v8.7.9/
+https://notepad-plus-plus.org/downloads/v8.8/
 
 
 Included plugins:

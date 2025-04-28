@@ -39,7 +39,7 @@ public :
 	};
 
 	HIMAGELIST getHandle() const {return _hImglst;};
-	void addIcon(int iconID, int cx = 16, int cy = 16, int failIconID = -1) const;
+	void addIcon(int iconID, int cx = 16, int cy = 16, int failIconID = -1, bool isToolbarNormal = false) const;
 	void addIcon(HICON hIcon) const;
 
 	bool changeIcon(size_t index, const wchar_t *iconLocation) const;
@@ -50,6 +50,9 @@ private :
 	int *_pIconIDArray = nullptr;
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
+
+	bool changeFluentIconColor(HICON* phIcon, const std::vector<std::pair<COLORREF, COLORREF>>& colorMappings, int tolerance = 3) const;
+	bool changeFluentIconColor(HICON* phIcon) const;
 };
 
 struct ToolBarButtonUnit
@@ -158,4 +161,3 @@ private :
 
 	std::vector<IconList> _iconListVector;
 };
-

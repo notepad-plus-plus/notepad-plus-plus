@@ -402,13 +402,11 @@
 			<Preference title="Preferencis">
 				<Item id="6001" name="Siere"/>
 				<Global title="Globâl">
-					<Item id="6101" name="Sbare dai imprescj"/>
 					<Item id="6102" name="Plate"/>
 					<Item id="6103" name="Iconis piçulis"/>
 					<Item id="6104" name="Iconis grandis"/>
 					<Item id="6105" name="Iconis standard piçulis"/>
 
-					<Item id="6106" name="Sbare des lengutis"/>
 					<Item id="6107" name="Dimensions piçulis"/>
 					<Item id="6108" name="Bloche (No Drag &amp;&amp; Drop)"/>
 					<Item id="6109" name="Scurìs lis lengutis no ativis"/>
@@ -431,7 +429,6 @@
 					<Item id="6221" name="V"/>
 					<Item id="6222" name="P"/>
 					<Item id="6224" name="Impostazions multi editing"/>
-					<Item id="6225" name="Ative (Ctrl+Clic dal mouse/selezion)"/>
 					<Item id="6201" name="Stîl margjin cartele"/>
 					<Item id="6202" name="Sempliç"/>
 					<Item id="6203" name="Frece"/>

@@ -946,7 +946,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 			<Preference title="Voorkeuren">
 				<Item id="6001" name="Sluiten"/>
 				<Global title="Algemeen">
-					<Item id="6101" name="Werkbalk"/>
 					<Item id="6102" name="Verbergen"/>
 					<Item id="6103" name="Fluent UI: klein"/>
 					<Item id="6104" name="Fluent UI: groot"/>
@@ -954,7 +953,6 @@ Last modified on 2024-06-06 by Thomas De Rocker (RockyTDR).
 					<Item id="6130" name="Gevulde fluent UI: groot"/>
 					<Item id="6105" name="Standaardpictogrammen: klein"/>
 
-					<Item id="6106" name="Tabblad-balk"/>
 					<Item id="6107" name="Kleine tabs"/>
 					<Item id="6108" name="Slepen en neerzetten uitschakelen"/>
 					<Item id="6109" name="Inactieve tabbladen camoufleren"/>

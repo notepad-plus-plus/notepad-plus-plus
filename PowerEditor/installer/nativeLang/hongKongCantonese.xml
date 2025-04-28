@@ -992,14 +992,12 @@
 				<Item id="6001" name="閂"/>
 
 				<Global title="一般">
-					<Item id="6101" name="工具列"/>
 					<Item id="6102" name="隱藏"/>
 					<Item id="6103" name="滑脫脫介面：細圖示"/><!-- "Fluent UI" -->
 					<Item id="6104" name="滑脫脫介面：大圖示"/><!-- "Fluent UI" -->
 					<Item id="6129" name="肥嘟嘟介面：細圖示"/><!-- "Filled Fluent UI" --><!-- #new v7.9.6 -->
 					<Item id="6130" name="肥嘟嘟介面：大圖示"/><!-- "Filled Fluent UI" --><!-- #new v7.9.6 -->
 					<Item id="6105" name="標準介面：細圖示"/>
-					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="縮細"/>
 					<Item id="6108" name="鎖定（唔畀 drag-and-drop）"/>
 					<Item id="6109" name="整暗啲唔係用緊嘅 tabs"/>
@@ -1024,7 +1022,6 @@
 					<Item id="6221" name="快"/>
 					<Item id="6222" name="慢"/>
 					<Item id="6246" name="「摺埋呢層」同「展開呢層」命令改為「切換」"/><!-- #new v8.4.2 -->
-					<Item id="6225" name="幾個位置同時改嘢（Ctrl + 撳／撳著滑鼠掣）"/>
 					<Item id="6227" name="自動換行"/><!-- #moved in v7.9.2 -->
 					<Item id="6228" name="預設"/><!-- #moved in v7.9.2 -->
 					<Item id="6229" name="對齊"/><!-- #moved in v7.9.2 -->

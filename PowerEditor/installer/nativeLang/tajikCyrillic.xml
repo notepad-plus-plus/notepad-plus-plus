@@ -588,13 +588,11 @@
 			<Preference title="Танзимот">
 				<Item id="6001" name="Бастан"/>
 				<Global title="Умумӣ">
-					<Item id="6101" name="Навори абзор"/>
 					<Item id="6102" name="Махфӣ кардан"/>
 					<Item id="6103" name="Айконҳои кучак"/>
 					<Item id="6104" name="Айконҳои бузург"/>
 					<Item id="6105" name="Айконҳои стандартӣ"/>
 
-					<Item id="6106" name="Навори гузоштаҳо"/>
 					<Item id="6107" name="Хурд кардан"/>
 					<Item id="6108" name="Қуфл (бе кашидану раҳо кардан)"/>
 					<Item id="6109" name="Забонаи гузоштаҳои ғайрифаъоли тира"/>
@@ -620,7 +618,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Танзимоти чанд-вироишӣ"/>
-					<Item id="6225" name="Фаъолсозӣ (Ctrl+Mouse click/selection)"/>
 					<Item id="6201" name="Сабки ҳошияи пӯша"/>
 					<Item id="6202" name="Сода"/>
 					<Item id="6203" name="Пайкон"/>

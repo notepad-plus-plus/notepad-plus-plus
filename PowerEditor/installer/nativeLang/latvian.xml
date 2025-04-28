@@ -581,13 +581,11 @@
 			<Preference title="Iestatījumi">
 				<Item id="6001" name="Aizvērt"/>
 				<Global title="Galvenie">
-					<Item id="6101" name="Rīkjosla"/>
 					<Item id="6102" name="Paslēpt"/>
 					<Item id="6103" name="Mazās ikonas"/>
 					<Item id="6104" name="Lielās ikonas"/>
 					<Item id="6105" name="Parastas ikonas"/>
 
-					<Item id="6106" name="Ciļņu josla"/>
 					<Item id="6107" name="Mazs izmērs"/>
 					<Item id="6108" name="Noslēgt (nevar vilkt un pārvietot)"/>
 					<Item id="6109" name="Patumšināt neaktīvās cilnes"/>
@@ -614,7 +612,6 @@
 					<Item id="6221" name="Ā"/>
 					<Item id="6222" name="L"/>
 					<Item id="6224" name="Uzlabotās rediģēšanas iestatījumi"/>
-					<Item id="6225" name="Ieslēgt (Ctrl+peles klikšķis/iezīme)"/>
 					<Item id="6201" name="Faila struktūras atzīmju stils (kreisā mala)"/>
 					<Item id="6202" name="Vienkāršs"/>
 					<Item id="6203" name="Bultveida"/>

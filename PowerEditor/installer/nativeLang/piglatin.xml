@@ -679,12 +679,10 @@
 			<Preference title="Preferences">
 				<Item id="6001" name="Oseclay"/>
 				<Global title="General">
-					<Item id="6101" name="Oolbartay"/>
 					<Item id="6102" name="Idehay"/>
 					<Item id="6103" name="Allsmay iconsyay"/>
 					<Item id="6104" name="Igbay iconsyay"/>
 					<Item id="6105" name="Andardstay iconsyay"/>
-					<Item id="6106" name="Abtay Arbay"/>
 					<Item id="6107" name="Educeray"/>
 					<Item id="6108" name="Ocklay (onay agdray andyay opdray)"/>
 					<Item id="6109" name="Arkenday inactiveyay abstay"/>
@@ -708,7 +706,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Ultimay-Editingyay Ettingssay"/>
-					<Item id="6225" name="Enableyay (Ctrl+mouse ickclay/electionsay)"/>
 					<Item id="6201" name="Olderfay Arginmay Ylestay"/>
 					<Item id="6202" name="Implesay"/>
 					<Item id="6203" name="Arrowyay"/>

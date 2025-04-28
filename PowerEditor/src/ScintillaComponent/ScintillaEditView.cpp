@@ -3068,10 +3068,9 @@ void ScintillaEditView::performGlobalStyles()
 	}
 	setElementColour(SC_ELEMENT_SELECTION_ADDITIONAL_BACK, selectMultiSelectColorBack);
 
-	if (nppParams.isSelectFgColorEnabled())
+	if (svp._selectedTextForegroundSingleColor)
 	{
-		//execute(SCI_SETSELFORE, 1, selectColorFore);
-		setElementColour(SC_ELEMENT_SELECTION_TEXT, selectColorFore);  // SCI_SETSELFORE is deprecated
+		setElementColour(SC_ELEMENT_SELECTION_TEXT, selectColorFore);
 		setElementColour(SC_ELEMENT_SELECTION_INACTIVE_TEXT, selectColorFore);
 		setElementColour(SC_ELEMENT_SELECTION_ADDITIONAL_TEXT, selectColorFore);
 	}

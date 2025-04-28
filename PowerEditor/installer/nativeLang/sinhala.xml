@@ -477,12 +477,10 @@
 
 				<Global title="General">
 
-					<Item id="6101" name="මෙවලම් තීරුව"/>
 					<Item id="6102" name="සඟවන්න"/>
 					<Item id="6103" name="කුඩා නිරූපක "/>
 					<Item id="6104" name="විශාල නිරූපක"/>
 					<Item id="6105" name="සම්මත නිරූපක"/>
-					<Item id="6106" name="පිමි තීරුව"/>
 					<Item id="6107" name="අඩුකරන්න"/>
 					<Item id="6108" name="අගුල (ගෙනැවිත් දැමීම තහනම්)"/>
 					<Item id="6109" name="අකර්මන්‍ය පිමි අදුරු කරන්න"/>
@@ -506,7 +504,6 @@
 					<Item id="6221" name="වේගයෙන්"/>
 					<Item id="6222" name="සෙමින්"/>
 					<Item id="6224" name="බහු සංස්කාරක සිටවුම්"/>
-					<Item id="6225" name="සබල කරනවා (Ctrl+Mouse click/selection)"/>
 					<Item id="6201" name="ගොනු දාර විදිය"/>
 					<Item id="6202" name="සරල"/>
 					<Item id="6203" name="ඊතලය"/>

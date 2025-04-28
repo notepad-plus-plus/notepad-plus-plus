@@ -414,13 +414,11 @@
 			<Preference title="प्राधान्ये (Preferences)">
 				<Item id="6001" name="बंध"/>
 				<Global title="समान्य">
-					<Item id="6101" name="टूलबार"/>
 					<Item id="6102" name="लपवा"/>
 					<Item id="6103" name="छोटे आइकॉनस"/>
 					<Item id="6104" name="मोठे आइकॉनस"/>
 					<Item id="6105" name="आदर्श आइकॉन"/>
 
-					<Item id="6106" name="टॅब बार"/>
 					<Item id="6107" name="कमी करा"/>
 					<Item id="6108" name="लॉक करा (no drag and drop)"/>
 					<Item id="6109" name="निष्क्रिय टैब काळा करा"/>
@@ -443,7 +441,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="बहु-संपादन संरचना"/>
-					<Item id="6225" name="सक्रिय (Ctrl+Mouse click/selection)"/>
 					<Item id="6201" name="फोंल्डर मार्जिन शैली"/>
 					<Item id="6202" name="साधा (Simple)"/>
 					<Item id="6203" name="बाण (Arrow)"/>

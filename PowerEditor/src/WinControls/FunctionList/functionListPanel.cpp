@@ -813,7 +813,7 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			{
 				if (textFound)
 				{
-					return NppDarkMode::onCtlColorSofter(hdc);
+					return NppDarkMode::onCtlColorCtrl(hdc);
 				}
 				else // text not found
 				{

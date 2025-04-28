@@ -946,7 +946,6 @@ Translation note:
 			<Preference title="Prefarense">
 				<Item id="6001" name="Sara su"/>
 				<Global title="Xeneraƚe">
-					<Item id="6101" name="Bara angagni"/>
 					<Item id="6102" name="Scondi"/>
 					<Item id="6103" name="Fluent UI: Icone picinine"/>
 					<Item id="6104" name="Fluent UI: Icone grandi"/>
@@ -954,7 +953,6 @@ Translation note:
 					<Item id="6130" name="Filled Fluent UI: Icone grandi"/>
 					<Item id="6105" name="Icone standard"/>
 
-					<Item id="6106" name="Bara de ƚe schede"/>
 					<Item id="6107" name="Conpata"/>
 					<Item id="6108" name="Bloca schede (no strasinamento)"/>
 					<Item id="6109" name="Oscura schede inative"/>

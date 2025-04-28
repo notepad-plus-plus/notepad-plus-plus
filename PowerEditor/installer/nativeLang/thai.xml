@@ -408,13 +408,11 @@
 			<Preference title="ตั้งค่ากำหนด">
 				<Item id="6001" name="ปิด"/>
 				<Global title="ทั่วไป">
-					<Item id="6101" name="แถบเครื่องมือ"/>
 					<Item id="6102" name="ซ่อน"/>
 					<Item id="6103" name="ไอคอนขนาดเล็ก"/>
 					<Item id="6104" name="ไอคอนขนาดใหญ่"/>
 					<Item id="6105" name="ไอคอนมาตรฐาน"/>
 
-					<Item id="6106" name="แถบแท็บ"/>
 					<Item id="6107" name="ลด"/>
 					<Item id="6108" name="ล็อก (ไม่ให้ drag and drop)"/>
 					<Item id="6109" name="ทำแท็บที่ไม่ใช้ให้มืดลง"/>
@@ -437,7 +435,6 @@
 					<Item id="6221" name="เร็ว"/>
 					<Item id="6222" name="ช้า"/>
 					<Item id="6224" name="ตั้งค่าหลายการแก้ไข"/>
-					<Item id="6225" name="เปิดใช้ (Ctrl+Mouse click/selection)"/>
 					<Item id="6201" name="สไตล์ของตัวแบ่งโฟลเดอร์"/>
 					<Item id="6202" name="เรียบง่าย"/>
 					<Item id="6203" name="ลูกศร"/>

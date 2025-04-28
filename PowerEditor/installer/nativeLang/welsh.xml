@@ -572,12 +572,10 @@ gan/by Aled Powell
 			<Preference title="Dewisiadau">
 				<Item id="6001" name="Cau"/>
 				<Global title="Cyffredin">
-					<Item id="6101" name="Bar Offer"/>
 					<Item id="6102" name="Cuddio"/>
 					<Item id="6103" name="Eiconau bach"/>
 					<Item id="6104" name="Eiconau mawr"/>
 					<Item id="6105" name="Eiconau safonol"/>
-					<Item id="6106" name="Bar Tabiau"/>
 					<Item id="6107" name="Lleihau"/>
 					<Item id="6108" name="Cloi (dim llusgo a disgyn)"/>
 					<Item id="6109" name="Tywyllu tabiau anweithredol"/>
@@ -602,7 +600,6 @@ gan/by Aled Powell
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Gosodiadau Aml-golygu"/>
-					<Item id="6225" name="Galluogi (Ctrl+Clic llygoden/dewis)"/>
 					<Item id="6201" name="Arddull Ymyl Ffolder"/>
 					<Item id="6202" name="Syml"/>
 					<Item id="6203" name="Saeth"/>

@@ -407,13 +407,11 @@
 				<Item id="6001" name="Bağla"/>
 
 				<Global title="Ümumi">
-					<Item id="6101" name="Alətlər paneli"/>
 					<Item id="6102" name="Gizlət"/>
 					<Item id="6103" name="Balaca ikonlar"/>
 					<Item id="6104" name="Böyük ikonlar"/>
 					<Item id="6105" name="Standart ikonlar"/>
 
-					<Item id="6106" name="Sənəd başlıqları"/>
 					<Item id="6107" name="Kiçiltmək"/>
 					<Item id="6108" name="Qıfılla (yer dəyişməsinə qadağa et)"/>
 					<Item id="6109" name="Aktiv olmayan başlıqlar boz olsun"/>
@@ -437,7 +435,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Multi-Redaktə nizamları"/>
-					<Item id="6225" name="İcazə ver (Ctrl+Mouse klik/Seçmək)"/>
 					<Item id="6201" name="Blokun qıraqlarının stili"/>
 					<Item id="6202" name="Sadə"/>
 					<Item id="6203" name="Oxlar"/>

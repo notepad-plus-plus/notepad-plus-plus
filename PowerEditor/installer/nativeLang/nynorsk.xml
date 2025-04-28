@@ -435,13 +435,11 @@
 			<Preference title="Innstillingar">
 				<Item id="6001" name="Lukk"/>
 				<Global title="Allment">
-					<Item id="6101" name="Verktøylinje"/>
 					<Item id="6102" name="Skjul"/>
 					<Item id="6103" name="Småe ikon"/>
 					<Item id="6104" name="Store ikon"/>
 					<Item id="6105" name="Standardikon"/>
 
-					<Item id="6106" name="Fanelinje"/>
 					<Item id="6107" name="Mindre"/>
 					<Item id="6108" name="Lås (ikkje dra-og-slepp)"/>
 					<Item id="6109" name="Gjer inaktive faner mørkare"/>
@@ -466,7 +464,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Multiredigering"/>
-					<Item id="6225" name="Bruk (Ctrl+museklikk/merking)"/>
 					<Item id="6201" name="Blokkinnstillingar"/>
 					<Item id="6202" name="Enkel"/>
 					<Item id="6203" name="Pil"/>

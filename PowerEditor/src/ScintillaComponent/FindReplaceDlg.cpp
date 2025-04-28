@@ -1094,7 +1094,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -1105,7 +1105,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1123,7 +1123,7 @@ intptr_t CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			{
 				RECT rc{};
 				getClientRect(rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
 			break;
@@ -1467,7 +1467,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 		case WM_CTLCOLOREDIT:
 		{
-			return NppDarkMode::onCtlColorSofter(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorCtrl(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_CTLCOLORLISTBOX:
@@ -1478,7 +1478,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -1496,7 +1496,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			{
 				RECT rc{};
 				getClientRect(rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
 			break;
@@ -3611,11 +3611,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-		int icoID = IDI_FIND_RESULT_ICON;
-		if (NppDarkMode::isEnabled())
+		int icoID = IDR_FIND_RESULT_ICO2;
+		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+			icoID = IDI_FIND_RESULT_ICON;
+		else if (NppDarkMode::isEnabled())
 			icoID = IDR_FIND_RESULT_ICO_DM;
-		else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
-			icoID = IDR_FIND_RESULT_ICO2;
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -3759,11 +3759,11 @@ Finder* FindReplaceDlg::createFinder()
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-	int icoID = IDI_FIND_RESULT_ICON;
-	if (NppDarkMode::isEnabled())
+	int icoID = IDR_FIND_RESULT_ICO2;
+	if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
+		icoID = IDI_FIND_RESULT_ICON;
+	else if (NppDarkMode::isEnabled())
 		icoID = IDR_FIND_RESULT_ICO_DM;
-	else if (nppParam.getNppGUI()._toolBarStatus != TB_STANDARD)
-		icoID = IDR_FIND_RESULT_ICO2;
 
 	const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -4152,7 +4152,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
 }
 
-void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, const wstring& tooltipMsg)
+void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus status, const wstring& tooltipMsg)
 {
 	if (_statusbarTooltipWnd)
 	{
@@ -4162,7 +4162,7 @@ void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, 
 
 	_statusbarTooltipMsg = tooltipMsg;
 
-	if (staus == FSNotFound)
+	if (status == FSNotFound)
 	{
 		if (!NppParameters::getInstance().getNppGUI()._muteSounds)
 			::MessageBeep(0xFFFFFFFF);
@@ -4175,7 +4175,7 @@ void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, 
 		flashInfo.dwFlags = FLASHW_ALL;
 		FlashWindowEx(&flashInfo);
 	}
-	else if (staus == FSTopReached || staus == FSEndReached)
+	else if (status == FSTopReached || status == FSEndReached)
 	{
 		if (!isVisible())
 		{
@@ -4191,8 +4191,17 @@ void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus staus, 
 
 	if (isVisible())
 	{
-		_statusbarFindStatus = staus;
-		_statusBar.setOwnerDrawText(msg.c_str());
+		_statusbarFindStatus = status;
+		if ((msg.length() > 0) && (msg.at(0) != L' '))
+		{
+			// fix visual glitch (text is visible, but positioned too far to the left)
+			wstring msgSpaceIndented = L' ' + msg;
+			_statusBar.setOwnerDrawText(msgSpaceIndented.c_str());
+		}
+		else
+		{
+			_statusBar.setOwnerDrawText(msg.c_str());
+		}
 	}
 }
 
@@ -5920,7 +5929,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			{
 				if (FSNotFound != getFindStatus())
 				{
-					return NppDarkMode::onCtlColorSofter(hdc);
+					return NppDarkMode::onCtlColorCtrl(hdc);
 				}
 				else // text not found
 				{
@@ -5943,7 +5952,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 		case WM_CTLCOLORDLG:
 		case WM_CTLCOLORSTATIC:
 		{
-			return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wParam));
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
 		case WM_PRINTCLIENT:
@@ -6070,7 +6079,7 @@ intptr_t CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPA
 			{
 				RECT rcClient{};
 				GetClientRect(_hSelf, &rcClient);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rcClient, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
 			else
@@ -6410,7 +6419,7 @@ int Progress::createProgressWindow()
 
 	// Set border so user can distinguish easier progress bar,
 	// especially, when getBackgroundColor is very similar or same 
-	// as getDarkerBackgroundColor
+	// as getDlgBackgroundColor
 	NppDarkMode::setBorder(_hPBar, NppDarkMode::isEnabled());
 	NppDarkMode::disableVisualStyle(_hPBar, NppDarkMode::isEnabled());
 	if (NppDarkMode::isEnabled())
@@ -6558,7 +6567,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wparam));
+				return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wparam));
 			}
 			break;
 		}
@@ -6567,7 +6576,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				return NppDarkMode::onCtlColorDarker(reinterpret_cast<HDC>(wparam));
+				return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wparam));
 			}
 			// transparent background for text, same as main window background
 			return reinterpret_cast<LRESULT>(::GetSysColorBrush(NULL_BRUSH));
@@ -6587,10 +6596,11 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 			if (NppDarkMode::isEnabled())
 			{
 				RECT rc{};
-				GetClientRect(hwnd, &rc);
-				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::GetClientRect(hwnd, &rc);
+				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDlgBackgroundBrush());
+				return TRUE;
 			}
-			return TRUE;
+			break;
 		}
 
 		case WM_SETFOCUS:

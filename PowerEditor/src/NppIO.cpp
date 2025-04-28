@@ -553,7 +553,6 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
     return buffer;
 }
 
-
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {
 	if (alert)
@@ -569,10 +568,10 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 
 	//In order to prevent Scintilla from restyling the entire document,
 	//an empty Document is inserted during reload if needed.
-	bool mainVisisble = (_mainEditView.getCurrentBufferID() == id);
-	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
+	bool mainVisible = (_mainEditView.getCurrentBufferID() == id);
+	bool subVisible = (_subEditView.getCurrentBufferID() == id);
 	unsigned long MODEVENTMASK_ON = NppParameters::getInstance().getScintillaModEventMask();
-	if (mainVisisble)
+	if (mainVisible)
 	{
 		_mainEditView.saveCurrentPos();
 		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
@@ -580,7 +579,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	}
 
-	if (subVisisble)
+	if (subVisible)
 	{
 		_subEditView.saveCurrentPos();
 		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
@@ -588,14 +587,14 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
 	}
 
-	if (!mainVisisble && !subVisisble)
+	if (!mainVisible && !subVisible)
 	{
 		return MainFileManager.reloadBufferDeferred(id);
 	}
 
 	bool res = MainFileManager.reloadBuffer(id);
 	Buffer * pBuf = MainFileManager.getBufferByID(id);
-	if (mainVisisble)
+	if (mainVisible)
 	{
 		_mainEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -603,7 +602,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_mainEditView.restoreCurrentPosPreStep();
 	}
 
-	if (subVisisble)
+	if (subVisible)
 	{
 		_subEditView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -613,7 +612,27 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 
 	// Once reload is complete, activate buffer which will take care of
 	// many settings such as update status bar, clickable link etc.
-	activateBuffer(id, currentView(), true);
+	if ( ((currentView() == MAIN_VIEW) && mainVisible) || ((currentView() == SUB_VIEW) && subVisible))
+	{
+		activateBuffer(id, currentView(), true);
+	}
+	else
+	{
+		// handle also the less usual case when the reloaded buffer is not in the current active view
+		int originalActiveView = currentView();
+		BufferID originalActiveBufferID = nullptr;
+		if (mainVisible)
+		{
+			originalActiveBufferID = _subEditView.getCurrentBufferID();
+			activateBuffer(id, MAIN_VIEW, true);
+		}
+		else
+		{
+			originalActiveBufferID = _mainEditView.getCurrentBufferID();
+			activateBuffer(id, SUB_VIEW, true);
+		}
+		activateBuffer(originalActiveBufferID, originalActiveView, true); // set back the original
+	}
 
 	auto svp = NppParameters::getInstance().getSVP();
 	if (svp._isChangeHistoryMarginEnabled || svp._isChangeHistoryIndicatorEnabled)
@@ -2533,7 +2552,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			isWow64Off = true;
 		}
 #endif
-		if (doesFileExist(pFn))
+		if (doesFileExist(pFn) || (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str())))
 		{
 			//check if already open in main. If so, clone
 			BufferID clonedBuf = _mainDocTab.findBufferByName(pFn);
@@ -2549,10 +2568,6 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 				else
 					lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 			}
-		}
-		else if (isSnapshotMode && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
-		{
-			lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
 		}
 		else
 		{

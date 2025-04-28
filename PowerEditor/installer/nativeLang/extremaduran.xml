@@ -298,13 +298,11 @@
 			<Preference title="Ozionis">
 				<Item id="6001" name="Fechal"/>
 				<Global title="Global">
-					<Item id="6101" name="Barra e herramientas"/>
 					<Item id="6102" name="Escuendel"/>
 					<Item id="6103" name="Iconus caquerus"/>
 					<Item id="6104" name="Iconus grandis"/>
 					<Item id="6105" name="Iconus caquerus pol defeutu"/>
 
-					<Item id="6106" name="Barra e pestañas"/>
 					<Item id="6107" name="Reuzil"/>
 					<Item id="6108" name="Bloqueal (impíl horreal i soltal)"/>
 					<Item id="6109" name="Muestral pestañas inahtivas"/>

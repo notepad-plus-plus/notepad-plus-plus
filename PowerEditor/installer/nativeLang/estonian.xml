@@ -623,13 +623,11 @@ https://github.com/AndresTraks/
 			<Preference title="Eelistused">
 				<Item id="6001" name="Sule"/>
 				<Global title="Üldine">
-					<Item id="6101" name="Tööriistariba"/>
 					<Item id="6102" name="Peida"/>
 					<Item id="6103" name="Väikesed ikoonid"/>
 					<Item id="6104" name="Suured ikoonid"/>
 					<Item id="6105" name="Tavasuuruses ikoonid"/>
 
-					<Item id="6106" name="Sakkide riba"/>
 					<Item id="6107" name="Vähenda"/>
 					<Item id="6108" name="Lukusta (keela pukseerimine)"/>
 					<Item id="6109" name="Tumenda mitte-aktiivsed sakid"/>
@@ -656,7 +654,6 @@ https://github.com/AndresTraks/
 					<Item id="6221" name="+"/>
 					<Item id="6222" name="-"/>
 					<Item id="6224" name="Mitmik-redigeerimise sätted"/>
-					<Item id="6225" name="Võimalda (Ctrl+hiireklikk/valik)"/>
 					<Item id="6201" name="Voltimisnuppude stiil"/>
 					<Item id="6202" name="Lihtne"/>
 					<Item id="6203" name="Nooled"/>

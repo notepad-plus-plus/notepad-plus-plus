@@ -887,7 +887,6 @@ Last modified by Sahid A.Z. on 3/3/2023
 			<Preference title="Preferensi">
 				<Item id="6001" name="Tutup"/>
 				<Global title="Umum">
-					<Item id="6101" name="Bilah Alat"/>
 					<Item id="6102" name="Sembunyikan"/>
 					<Item id="6103" name="Fluent UI: kecil"/>
 					<Item id="6104" name="Fluent UI: besar"/>
@@ -895,7 +894,6 @@ Last modified by Sahid A.Z. on 3/3/2023
 					<Item id="6130" name="Fluent UI Berisi: besar"/>
 					<Item id="6105" name="Ikon standar: kecil"/>
 
-					<Item id="6106" name="Bilah Tab"/>
 					<Item id="6107" name="Kecilkan"/>
 					<Item id="6108" name="Kunci (tanpa seret dan lepaskan)"/>
 					<Item id="6109" name="Tab nonaktif gelap"/>
@@ -922,7 +920,6 @@ Last modified by Sahid A.Z. on 3/3/2023
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6246" name="Jadikan perintah pelipatan/pembukaan level ini sebagai sakelar"/>
-					<Item id="6225" name="Aktifkan Multipengeditan (Ctrl+Klik/pilihan)"/>
 					<Item id="6227" name="Penggal Baris"/>
 					<Item id="6228" name="Baku"/>
 					<Item id="6229" name="Diratakan"/>

@@ -620,11 +620,14 @@ void Document::ClearLevels() {
 	Levels()->ClearLevels();
 }
 
-static bool IsSubordinate(FoldLevel levelStart, FoldLevel levelTry) noexcept {
+namespace {
+
+constexpr bool IsSubordinate(FoldLevel levelStart, FoldLevel levelTry) noexcept {
 	if (LevelIsWhitespace(levelTry))
 		return true;
-	else
-		return LevelNumber(levelStart) < LevelNumber(levelTry);
+	return LevelNumber(levelStart) < LevelNumber(levelTry);
+}
+
 }
 
 Sci::Line Document::GetLastChild(Sci::Line lineParent, std::optional<FoldLevel> level, Sci::Line lastLine) {
@@ -1229,8 +1232,8 @@ void DiscardEndFragment(std::string_view &text) noexcept {
 }
 
 constexpr bool IsBaseOfGrapheme(CharacterCategory cc) {
-	// \p{L}\p{N}\p{P}\p{Sm}\p{Sc}\p{So}\p{Zs}
 	switch (cc) {
+		// \p{L}\p{N}\p{P}\p{Sm}\p{Sc}\p{So}\p{Zs}
 	case ccLu:
 	case ccLl:
 	case ccLt:
@@ -1250,12 +1253,16 @@ constexpr bool IsBaseOfGrapheme(CharacterCategory cc) {
 	case ccSc:
 	case ccSo:
 	case ccZs:
+		// Control
+	case ccCc:
+	case ccCs:
+	case ccCo:
 		return true;
 	default:
 		// ccMn, ccMc, ccMe,
 		// ccSk,
 		// ccZl, ccZp,
-		// ccCc, ccCf, ccCs, ccCo, ccCn
+		// ccCf, ccCn
 		return false;
 	}
 }
@@ -1276,6 +1283,25 @@ CharacterExtracted LastCharacter(std::string_view text) noexcept {
 		static_cast<unsigned int>(utf8status & UTF8MaskWidth) };
 }
 
+constexpr Sci::Position NextTab(Sci::Position pos, Sci::Position tabSize) noexcept {
+	return ((pos / tabSize) + 1) * tabSize;
+}
+
+std::string CreateIndentation(Sci::Position indent, int tabSize, bool insertSpaces) {
+	std::string indentation;
+	if (!insertSpaces) {
+		while (indent >= tabSize) {
+			indentation += '\t';
+			indent -= tabSize;
+		}
+	}
+	while (indent > 0) {
+		indentation += ' ';
+		indent--;
+	}
+	return indentation;
+}
+
 }
 
 bool Scintilla::Internal::DiscardLastCombinedCharacter(std::string_view &text) noexcept {
@@ -1287,6 +1313,8 @@ bool Scintilla::Internal::DiscardLastCombinedCharacter(std::string_view &text) n
 	// ccs-base := [\p{L}\p{N}\p{P}\p{S}\p{Zs}]
 	// ccs-extend := [\p{M}\p{Join_Control}]
 	// Modified to move Sk (Symbol Modifier) from ccs-base to ccs-extend to preserve modified emoji
+	// May break before and after Control which is defined as most of ccC? but not some of ccCf and ccCn
+	// so treat ccCc, ccCs, ccCo as base for now.
 
 	std::string_view truncated = text;
 	while (truncated.length() > UTF8MaxBytes) {
@@ -1700,25 +1728,6 @@ void Document::DelCharBack(Sci::Position pos) {
 	} else {
 		DeleteChars(pos - 1, 1);
 	}
-}
-
-static constexpr Sci::Position NextTab(Sci::Position pos, Sci::Position tabSize) noexcept {
-	return ((pos / tabSize) + 1) * tabSize;
-}
-
-static std::string CreateIndentation(Sci::Position indent, int tabSize, bool insertSpaces) {
-	std::string indentation;
-	if (!insertSpaces) {
-		while (indent >= tabSize) {
-			indentation += '\t';
-			indent -= tabSize;
-		}
-	}
-	while (indent > 0) {
-		indentation += ' ';
-		indent--;
-	}
-	return indentation;
 }
 
 int SCI_METHOD Document::GetLineIndentation(Sci_Position line) {
@@ -2364,7 +2373,7 @@ Sci::Position Document::FindText(Sci::Position minPos, Sci::Position maxPos, con
 			constexpr size_t maxFoldingExpansion = 4;
 			std::vector<char> searchThing((lengthFind+1) * UTF8MaxBytes * maxFoldingExpansion + 1);
 			const size_t lenSearch =
-				pcf->Fold(&searchThing[0], searchThing.size(), search, lengthFind);
+				pcf->Fold(searchThing.data(), searchThing.size(), search, lengthFind);
 			while (forward ? (pos < endPos) : (pos >= endPos)) {
 				int widthFirstCharacter = 1;
 				Sci::Position posIndexDocument = pos;
@@ -2397,7 +2406,7 @@ Sci::Position Document::FindText(Sci::Position minPos, Sci::Position maxPos, con
 						// memcmp may examine lenFlat bytes in both arguments so assert it doesn't read past end of searchThing
 						assert((indexSearch + lenFlat) <= searchThing.size());
 						// Does folded match the buffer
-						characterMatches = 0 == memcmp(folded, &searchThing[0] + indexSearch, lenFlat);
+						characterMatches = 0 == memcmp(folded, searchThing.data() + indexSearch, lenFlat);
 					}
 					if (!characterMatches) {
 						break;
@@ -2423,7 +2432,7 @@ Sci::Position Document::FindText(Sci::Position minPos, Sci::Position maxPos, con
 			constexpr size_t maxBytesCharacter = 2;
 			constexpr size_t maxFoldingExpansion = 4;
 			std::vector<char> searchThing((lengthFind+1) * maxBytesCharacter * maxFoldingExpansion + 1);
-			const size_t lenSearch = pcf->Fold(&searchThing[0], searchThing.size(), search, lengthFind);
+			const size_t lenSearch = pcf->Fold(searchThing.data(), searchThing.size(), search, lengthFind);
 			while (forward ? (pos < endPos) : (pos >= endPos)) {
 				int widthFirstCharacter = 0;
 				Sci::Position indexDocument = 0;
@@ -2452,7 +2461,7 @@ Sci::Position Document::FindText(Sci::Position minPos, Sci::Position maxPos, con
 						// memcmp may examine lenFlat bytes in both arguments so assert it doesn't read past end of searchThing
 						assert((indexSearch + lenFlat) <= searchThing.size());
 						// Does folded match the buffer
-						characterMatches = 0 == memcmp(folded, &searchThing[0] + indexSearch, lenFlat);
+						characterMatches = 0 == memcmp(folded, searchThing.data() + indexSearch, lenFlat);
 					}
 					if (!characterMatches) {
 						break;
@@ -2477,7 +2486,7 @@ Sci::Position Document::FindText(Sci::Position minPos, Sci::Position maxPos, con
 		} else {
 			const Sci::Position endSearch = (startPos <= endPos) ? endPos - lengthFind + 1 : endPos;
 			std::vector<char> searchThing(lengthFind + 1);
-			pcf->Fold(&searchThing[0], searchThing.size(), search, lengthFind);
+			pcf->Fold(searchThing.data(), searchThing.size(), search, lengthFind);
 			while (forward ? (pos < endSearch) : (pos >= endSearch)) {
 				bool found = (pos + lengthFind) <= limitPos;
 				for (int indexSearch = 0; (indexSearch < lengthFind) && found; indexSearch++) {
@@ -2975,7 +2984,9 @@ Sci::Position Document::ExtendStyleRange(Sci::Position pos, int delta, bool sing
 	return pos;
 }
 
-static char BraceOpposite(char ch) noexcept {
+namespace {
+
+constexpr char BraceOpposite(char ch) noexcept {
 	switch (ch) {
 	case '(':
 		return ')';
@@ -2996,6 +3007,8 @@ static char BraceOpposite(char ch) noexcept {
 	default:
 		return '\0';
 	}
+}
+
 }
 
 // TODO: should be able to extend styled region to find matching brace
@@ -3075,7 +3088,7 @@ public:
 		lineRangeEnd = doc->SciLineFromPosition(endPos);
 		lineRangeBreak = lineRangeEnd + increment;
 	}
-	Range LineRange(Sci::Line line, Sci::Position lineStartPos, Sci::Position lineEndPos) const noexcept {
+	[[nodiscard]] Range LineRange(Sci::Line line, Sci::Position lineStartPos, Sci::Position lineEndPos) const noexcept {
 		Range range(lineStartPos, lineEndPos);
 		if (increment == 1) {
 			if (line == lineRangeStart)
@@ -3101,13 +3114,13 @@ public:
 		pdoc(pdoc_), end(end_) {
 	}
 
-	char CharAt(Sci::Position index) const noexcept override {
+	[[nodiscard]] char CharAt(Sci::Position index) const noexcept override {
 		if (index < 0 || index >= end)
 			return 0;
 		else
 			return pdoc->CharAt(index);
 	}
-	Sci::Position MovePositionOutsideChar(Sci::Position pos, Sci::Position moveDir) const noexcept override {
+	[[nodiscard]] Sci::Position MovePositionOutsideChar(Sci::Position pos, Sci::Position moveDir) const noexcept override {
 		return pdoc->MovePositionOutsideChar(pos, moveDir, false);
 	}
 };
@@ -3150,10 +3163,10 @@ public:
 	bool operator!=(const ByteIterator &other) const noexcept {
 		return doc != other.doc || position != other.position;
 	}
-	Sci::Position Pos() const noexcept {
+	[[nodiscard]] Sci::Position Pos() const noexcept {
 		return position;
 	}
-	Sci::Position PosRoundUp() const noexcept {
+	[[nodiscard]] Sci::Position PosRoundUp() const noexcept {
 		return position;
 	}
 };
@@ -3178,11 +3191,11 @@ class UTF8Iterator {
 	// These 3 fields determine the iterator position and are used for comparisons
 	const Document *doc;
 	Sci::Position position;
-	size_t characterIndex;
+	size_t characterIndex = 0;
 	// Remaining fields are derived from the determining fields so are excluded in comparisons
-	unsigned int lenBytes;
-	size_t lenCharacters;
-	wchar_t buffered[2];
+	unsigned int lenBytes = 0;
+	size_t lenCharacters = 0;
+	wchar_t buffered[2]{};
 public:
 	using iterator_category = std::bidirectional_iterator_tag;
 	using value_type = wchar_t;
@@ -3191,9 +3204,7 @@ public:
 	using reference = wchar_t&;
 
 	explicit UTF8Iterator(const Document *doc_=nullptr, Sci::Position position_=0) noexcept :
-		doc(doc_), position(position_), characterIndex(0), lenBytes(0), lenCharacters(0), buffered{} {
-		buffered[0] = 0;
-		buffered[1] = 0;
+		doc(doc_), position(position_) {
 		if (doc) {
 			ReadCharacter();
 		}
@@ -3245,10 +3256,10 @@ public:
 			position != other.position ||
 			characterIndex != other.characterIndex;
 	}
-	Sci::Position Pos() const noexcept {
+	[[nodiscard]] Sci::Position Pos() const noexcept {
 		return position;
 	}
-	Sci::Position PosRoundUp() const noexcept {
+	[[nodiscard]] Sci::Position PosRoundUp() const noexcept {
 		if (characterIndex)
 			return position + lenBytes;	// Force to end of character
 		else

@@ -957,7 +957,6 @@ Translation note:
 			<Preference title="Ustawienia">
 				<Item id="6001" name="Zamknij"/>
 				<Global title="Ogólne">
-					<Item id="6101" name="Pasek narzędzi"/>
 					<Item id="6102" name="Ukryj"/>
 					<Item id="6103" name="Fluent UI: małe ikony"/>
 					<Item id="6104" name="Fluent UI: duże ikony"/>
@@ -965,7 +964,6 @@ Translation note:
 					<Item id="6130" name="Filled Fluent UI: duże ikony"/>
 					<Item id="6105" name="Klasyczny wygląd: małe ikony"/>
 
-					<Item id="6106" name="Pasek kart"/>
 					<Item id="6107" name="Mały"/>
 					<Item id="6108" name="Zablokowany (bez przeciągania)"/>
 					<Item id="6109" name="Zmień kolor nieaktywnej karty"/>

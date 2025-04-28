@@ -692,13 +692,11 @@
 			<Preference title="पसंदगी (Preferences)">
 				<Item id="6001" name="बंद करें"/>
 				<Global title="समान्य">
-					<Item id="6101" name="टूलबार"/>
 					<Item id="6102" name="छिपायें"/>
 					<Item id="6103" name="छोटे आइकॉनस"/>
 					<Item id="6104" name="बड़े आइकॉनस"/>
 					<Item id="6105" name="स्टेंडर्ड आइकॉन"/>
 
-					<Item id="6106" name="टैब बार"/>
 					<Item id="6107" name="घटायें"/>
 					<Item id="6108" name="लॉक (no drag and drop)"/>
 					<Item id="6109" name="निष्क्रिय टैब को काला करें"/>
@@ -725,7 +723,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="मल्टी-एडिटिंग सेटिंग्स"/>
-					<Item id="6225" name="सक्रिय (Ctrl+Mouse click/selection)"/>
 					<Item id="6201" name="फोंल्डर मार्जिन स्टाइल"/>
 					<Item id="6202" name="आसान (Simple)"/>
 					<Item id="6203" name="तीर (Arrow)"/>

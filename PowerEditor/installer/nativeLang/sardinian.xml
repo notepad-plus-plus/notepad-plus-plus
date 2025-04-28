@@ -444,12 +444,10 @@
 			<Preference title="Preferèntzias">
 				<Item id="6001" name="Serra"/>
 				<Global title="Generale">
-					<Item id="6101" name="Barra de is istrumentos"/>
 					<Item id="6102" name="Cua"/>
 					<Item id="6103" name="Iconas piticas"/>
 					<Item id="6104" name="Iconas mannas"/>
 					<Item id="6105" name="Iconas istandard"/>
-					<Item id="6106" name="Barra de is ischedas"/>
 					<Item id="6107" name="Ammustra ischedas piticas"/>
 					<Item id="6108" name="Arrea (tragu disabilitadu)"/>
 					<Item id="6109" name="Iscùriga is ischedas inativas"/>
@@ -490,7 +488,6 @@
 					<Item id="6213" name="Modalidade 'isfundu'"/>
 					<Item id="6214" name="Evidèntzia custa riga"/>
 					<Item id="6224" name="Impostatziones sèberu mùltiplu"/>
-					<Item id="6225" name="Abìlita (Ctrl+Click/seletzione)"/>
 					<Item id="6226" name="Perunu"/>
 					<Item id="6227" name="A capu automàticu"/>
 					<Item id="6228" name="Default"/>

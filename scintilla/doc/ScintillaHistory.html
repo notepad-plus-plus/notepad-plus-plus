@@ -585,9 +585,56 @@
 	<td>Martijn Laan</td>
       </tr><tr>
 	<td>Pawel Z Wronek</td>
+	<td>Joachim Mairboeck</td>
+	<td>Gianluca Vaccari</td>
+	<td>8day</td>
+      </tr><tr>
+	<td>Ahmet Sait</td>
     </tr>
     </table>
     <h2 id="Releases">Releases</h2>
+    <h3>
+       <a href="https://www.scintilla.org/scintilla556.zip">Release 5.5.6</a>
+    </h3>
+    <ul>
+	<li>
+	Released 2 April 2025.
+	</li>
+	<li>
+	Disallow changing case of protected text.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2463/">Bug #2463</a>.
+	</li>
+	<li>
+	Return enumeration type from MarkerSymbolDefined to match MarkerDefine.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2469/">Bug #2469</a>.
+	</li>
+	<li>
+	On Win32, use DirectWrite for autocompletion lists when DirectWrite chosen for document text.
+	</li>
+	<li>
+	On Win32, optimize case-insensitive DBCS search to be around 5 times faster
+	by using 64K memory to cache folding data for each DBCS code page used.
+	</li>
+	<li>
+	On Win32, fix a crash with bidirectional text.
+	</li>
+	<li>
+	When using Visual C++ through nmake, fix building for ARM64.
+	<a href="https://sourceforge.net/p/scintilla/feature-requests/1546/">Feature #1546</a>.
+	</li>
+	<li>
+	On Qt, draw clipped UTF-8 text correctly.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2464/">Bug #2464</a>.
+	</li>
+	<li>
+	On Qt, avoid a dwell start when the mouse is moved outside the Scintilla widget.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2466/">Bug #2466</a>.
+	</li>
+	<li>
+	On Qt, autoCompleteSelection converts from local encoding when not in Unicode mode.
+	<a href="https://sourceforge.net/p/scintilla/bugs/2465/">Bug #2465</a>.
+	</li>
+    </ul>
     <h3>
        <a href="https://www.scintilla.org/scintilla555.zip">Release 5.5.5</a>
     </h3>

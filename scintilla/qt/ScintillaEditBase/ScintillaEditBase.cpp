@@ -373,6 +373,12 @@ void ScintillaEditBase::mouseMoveEvent(QMouseEvent *event)
 	sqt->ButtonMoveWithModifiers(pos, TimeOfEvent(time), modifiers);
 }
 
+void ScintillaEditBase::leaveEvent(QEvent *event)
+{
+	QWidget::leaveEvent(event);
+	sqt->MouseLeave();
+}
+
 void ScintillaEditBase::contextMenuEvent(QContextMenuEvent *event)
 {
 	const Point pos = PointFromQPoint(event->globalPos());
@@ -810,7 +816,7 @@ void ScintillaEditBase::notifyParent(NotificationData scn)
 			break;
 
 		case Notification::AutoCSelection:
-			emit autoCompleteSelection(scn.lParam, QString::fromUtf8(scn.text));
+			emit autoCompleteSelection(scn.lParam, sqt->IsUnicodeMode() ? QString::fromUtf8(scn.text) : QString::fromLocal8Bit(scn.text));
 			break;
 
 		case Notification::AutoCCancelled:

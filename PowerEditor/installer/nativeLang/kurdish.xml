@@ -627,13 +627,11 @@
 			<Preference title="بژاردەكان">
 				<Item id="6001" name="داخستن"/>
 				<Global title="گشتی">
-					<Item id="6101" name="تووڵامراز"/>
 					<Item id="6102" name="شاردنەوە"/>
 					<Item id="6103" name="ئایكۆنی بچووك"/>
 					<Item id="6104" name="ئایكۆنی گەورە"/>
 					<Item id="6105" name="ئایكۆنی ستاندارد"/>
 
-					<Item id="6106" name="Tab Bar"/>
 					<Item id="6107" name="Reduce"/>
 					<Item id="6108" name="Lock (no drag and drop)"/>
 					<Item id="6109" name="Darken inactive tabs"/>
@@ -660,7 +658,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Multi-Editing Settings"/>
-					<Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
 					<Item id="6201" name="Folder Margin Style"/>
 					<Item id="6202" name="Simple"/>
 					<Item id="6203" name="Arrow"/>

@@ -653,13 +653,11 @@
 			<Preference title="Nustatymai">
 				<Item id="6001" name="Uždaryti"/>
 				<Global title="Pagrindiniai">
-					<Item id="6101" name="Įrankių juosta"/>
 					<Item id="6102" name="Slėpti"/>
 					<Item id="6103" name="Mažos piktogramos"/>
 					<Item id="6104" name="Didelės piktogramos"/>
 					<Item id="6105" name="Įprastinės piktogramos"/>
 
-					<Item id="6106" name="Kortelių juosta"/>
 					<Item id="6107" name="Sumažinti"/>
 					<Item id="6108" name="Užrakinti (negalimas perstatymas)"/>
 					<Item id="6109" name="Tamsinti neaktyvias korteles"/>
@@ -686,7 +684,6 @@
 					<Item id="6221" name="G"/>
 					<Item id="6222" name="L"/>
 					<Item id="6224" name="Daugybinis redagavimas"/>
-					<Item id="6225" name="Įgalinti (Ctrl+Pelės pažymėjimas)"/>
 					<Item id="6201" name="Suskleidimo paraštė"/>
 					<Item id="6202" name="Paprasta"/>
 					<Item id="6203" name="Rodyklės"/>

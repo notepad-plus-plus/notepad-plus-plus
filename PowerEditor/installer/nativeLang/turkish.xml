@@ -948,7 +948,6 @@
 			<Preference title="Tercihler">
 				<Item id="6001" name="Kapat"/>
 				<Global title="Genel">
-					<Item id="6101" name="Araç Çubuğu"/>
 					<Item id="6102" name="Gizle"/>
 					<Item id="6103" name="Fluent Arayüz: küçük"/>
 					<Item id="6104" name="Fluent Arayüz: geniş"/>
@@ -956,7 +955,6 @@
 					<Item id="6130" name="Dolgun Fluent Arayüz: geniş"/>
 					<Item id="6105" name="Standart Simgeler: küçük"/>
 
-					<Item id="6106" name="Sekme Çubuğu"/>
 					<Item id="6107" name="Küçült"/>
 					<Item id="6108" name="Kilitle (sürükle ve bırak devre dışı)"/>
 					<Item id="6109" name="Etkin olmayan sekme rengini değiştir"/>

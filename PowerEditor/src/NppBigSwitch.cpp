@@ -297,9 +297,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (NppDarkMode::isEnabled())
 			{
-				RECT rc = {};
+				RECT rc{};
 				GetClientRect(hwnd, &rc);
-				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDarkerBackgroundBrush());
+				::FillRect(reinterpret_cast<HDC>(wParam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return 0;
 			}
 			else
@@ -322,9 +322,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				nppGUI._darkmode._isEnabled = enableDarkMode;
 				if (!_preference.isCreated())
 				{
-					const int iconState = NppDarkMode::getToolBarIconSet(NppDarkMode::isEnabled());
-					toolBarStatusType state = (iconState == -1) ? _toolBar.getState() : static_cast<toolBarStatusType>(iconState);
-					switch (state)
+					auto& nppGUITbInfo = nppGUI._tbIconInfo;
+					nppGUITbInfo = NppDarkMode::getToolbarIconInfo();
+
+					switch (nppGUITbInfo._tbIconSet)
 					{
 						case TB_SMALL:
 							_toolBar.reduce();
@@ -1841,6 +1842,46 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_CHANGESELECTTEXTFORGROUND:
+		{
+			StyleArray& stylers = nppParam.getMiscStylerArray();
+
+			COLORREF selectColorFore = black;
+			const Style* pStyle = stylers.findByName(L"Selected text colour");
+			if (pStyle)
+			{
+				selectColorFore = pStyle->_fgColor;
+			}
+
+			if ((nppParam.getSVP())._selectedTextForegroundSingleColor)
+			{
+				_mainEditView.setElementColour(SC_ELEMENT_SELECTION_TEXT, selectColorFore);
+				_mainEditView.setElementColour(SC_ELEMENT_SELECTION_INACTIVE_TEXT, selectColorFore);
+				_mainEditView.setElementColour(SC_ELEMENT_SELECTION_ADDITIONAL_TEXT, selectColorFore);
+
+				_subEditView.setElementColour(SC_ELEMENT_SELECTION_TEXT, selectColorFore);
+				_subEditView.setElementColour(SC_ELEMENT_SELECTION_INACTIVE_TEXT, selectColorFore);
+				_subEditView.setElementColour(SC_ELEMENT_SELECTION_ADDITIONAL_TEXT, selectColorFore);
+			}
+			else
+			{
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_TEXT);
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT);
+				_mainEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_ADDITIONAL_TEXT);
+
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_TEXT);
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_INACTIVE_TEXT);
+				_subEditView.execute(SCI_RESETELEMENTCOLOUR, SC_ELEMENT_SELECTION_ADDITIONAL_TEXT);
+			}
+
+			if (_configStyleDlg.isCreated())
+			{
+				_configStyleDlg.syncWithSelFgSingleColorCtrl();
+			}
+
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETWORDCHARS:
 		{
 			_mainEditView.setWordChars();
@@ -1992,7 +2033,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 										roundCornerValue = 5;
 									}
 
-									::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDarkerBackgroundBrush());
+									::FillRect(nmtbcd->nmcd.hdc, &nmtbcd->nmcd.rc, NppDarkMode::getDlgBackgroundBrush());
 									lr |= CDRF_NOTIFYITEMDRAW;
 								}
 
@@ -2007,7 +2048,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								nmtbcd->clrText = NppDarkMode::getTextColor();
 								nmtbcd->clrTextHighlight = NppDarkMode::getTextColor();
 								nmtbcd->clrBtnFace = NppDarkMode::getBackgroundColor();
-								nmtbcd->clrBtnHighlight = NppDarkMode::getSofterBackgroundColor();
+								nmtbcd->clrBtnHighlight = NppDarkMode::getCtrlBackgroundColor();
 								nmtbcd->clrHighlightHotTrack = NppDarkMode::getHotBackgroundColor();
 								nmtbcd->nStringBkMode = TRANSPARENT;
 								nmtbcd->nHLStringBkMode = TRANSPARENT;
@@ -2047,7 +2088,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 								}
 								else if ((nmtbcd->nmcd.uItemState & CDIS_CHECKED) == CDIS_CHECKED)
 								{
-									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getSofterBackgroundBrush());
+									auto holdBrush = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getCtrlBackgroundBrush());
 									auto holdPen = ::SelectObject(nmtbcd->nmcd.hdc, NppDarkMode::getEdgePen());
 
 									::RoundRect(nmtbcd->nmcd.hdc, rcItem.left, rcItem.top, rcItem.right, rcItem.bottom, roundCornerValue, roundCornerValue);
@@ -2148,6 +2189,76 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						return FALSE;
 				}
 			}
+			else if (lpnmhdr->hwndFrom == _rebarTop.getHSelf()
+				|| lpnmhdr->hwndFrom == _rebarBottom.getHSelf())
+			{
+				switch (lpnmhdr->code)
+				{
+					case NM_CUSTOMDRAW:
+					{
+						auto lpnmcd = reinterpret_cast<LPNMCUSTOMDRAW>(lParam);
+
+						switch (lpnmcd->dwDrawStage)
+						{
+							case CDDS_PREPAINT:
+							{
+								if (!NppDarkMode::isEnabled())
+								{
+									return CDRF_DODEFAULT;
+								}
+
+								::FillRect(lpnmcd->hdc, &lpnmcd->rc, NppDarkMode::getDlgBackgroundBrush());
+								REBARBANDINFO rbBand{};
+								rbBand.cbSize = sizeof(REBARBANDINFO);
+								rbBand.fMask = RBBIM_STYLE | RBBIM_CHEVRONLOCATION | RBBIM_CHEVRONSTATE;
+								::SendMessage(lpnmcd->hdr.hwndFrom, RB_GETBANDINFO, 0, reinterpret_cast<LPARAM>(&rbBand));
+
+								LRESULT lr = CDRF_DODEFAULT;
+
+								if ((rbBand.fStyle & RBBS_USECHEVRON) == RBBS_USECHEVRON
+									&& (rbBand.rcChevronLocation.right - rbBand.rcChevronLocation.left) > 0)
+								{
+									static int roundCornerValue = 0;
+									if (NppDarkMode::isWindows11())
+									{
+										roundCornerValue = 5;
+									}
+
+									const bool isHot = (rbBand.uChevronState & STATE_SYSTEM_HOTTRACKED) == STATE_SYSTEM_HOTTRACKED;
+									const bool isPressed = (rbBand.uChevronState & STATE_SYSTEM_PRESSED) == STATE_SYSTEM_PRESSED;
+
+									if (isHot)
+									{
+										NppDarkMode::paintRoundRect(lpnmcd->hdc, rbBand.rcChevronLocation, NppDarkMode::getHotEdgePen(), NppDarkMode::getHotBackgroundBrush(), roundCornerValue, roundCornerValue);
+									}
+									else if (isPressed)
+									{
+										NppDarkMode::paintRoundRect(lpnmcd->hdc, rbBand.rcChevronLocation, NppDarkMode::getEdgePen(), NppDarkMode::getCtrlBackgroundBrush(), roundCornerValue, roundCornerValue);
+									}
+
+									::SetTextColor(lpnmcd->hdc, isHot ? NppDarkMode::getTextColor() : NppDarkMode::getDarkerTextColor());
+									::SetBkMode(lpnmcd->hdc, TRANSPARENT);
+
+									constexpr auto dtFlags = DT_NOPREFIX | DT_CENTER | DT_TOP | DT_SINGLELINE | DT_NOCLIP;
+									::DrawText(lpnmcd->hdc, L"»", -1, &rbBand.rcChevronLocation, dtFlags);
+
+									lr = CDRF_SKIPDEFAULT;
+								}
+
+								return lr;
+							}
+
+							default:
+								break;
+						}
+
+						return CDRF_DODEFAULT;
+					}
+
+					default:
+						break;
+				}
+}
 
 			SCNotification *notification = reinterpret_cast<SCNotification *>(lParam);
 
@@ -3461,9 +3572,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (currentColors != NULL)
 			{
 				currentColors->background = NppDarkMode::getBackgroundColor();
-				currentColors->softerBackground = NppDarkMode::getSofterBackgroundColor();
+				currentColors->softerBackground = NppDarkMode::getCtrlBackgroundColor();
 				currentColors->hotBackground = NppDarkMode::getHotBackgroundColor();
-				currentColors->pureBackground = NppDarkMode::getDarkerBackgroundColor();
+				currentColors->pureBackground = NppDarkMode::getDlgBackgroundColor();
 				currentColors->errorBackground = NppDarkMode::getErrorBackgroundColor();
 				currentColors->text = NppDarkMode::getTextColor();
 				currentColors->darkerText = NppDarkMode::getDarkerTextColor();
@@ -3880,7 +3991,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_SMALL)
+			if (state != TB_SMALL || static_cast<BOOL>(wParam))
 			{
 				_toolBar.reduce();
 			}
@@ -3891,7 +4002,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_LARGE)
+			if (state != TB_LARGE || static_cast<BOOL>(wParam))
 			{
 				_toolBar.enlarge();
 			}
@@ -3902,7 +4013,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_SMALL2)
+			if (state != TB_SMALL2 || static_cast<BOOL>(wParam))
 			{
 				_toolBar.reduceToSet2();
 			}
@@ -3913,7 +4024,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			toolBarStatusType state = _toolBar.getState();
 
-			if (state != TB_LARGE2)
+			if (state != TB_LARGE2 || static_cast<BOOL>(wParam))
 			{
 				_toolBar.enlargeToSet2();
 			}

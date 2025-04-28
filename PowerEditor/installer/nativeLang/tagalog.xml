@@ -351,13 +351,11 @@
 			<Preference title="Kanaisan">
 				<Item id="6001" name="Isara"/>
 				<Global title="Global">
-					<Item id="6101" name="Tool bar"/>
 					<Item id="6102" name="Itago"/>
 					<Item id="6103" name="Maliliit na icon"/>
 					<Item id="6104" name="Malalaking icon"/>
 					<Item id="6105" name="Maliliit na standard na icon"/>
 
-					<Item id="6106" name="Tab bar"/>
 					<Item id="6107" name="Pauntiin"/>
 					<Item id="6108" name="Ikalang (Walang Drag at Drop)"/>
 					<Item id="6109" name="Iguhit ang mga inactive tab"/>

@@ -608,13 +608,11 @@
 			<Preference title="مزیت ها">
 				<Item id="6001" name="بستن"/>
 				<Global title="عمومی">
-					<Item id="6101" name="نوارابزار"/>
 					<Item id="6102" name="مخفی کن"/>
 					<Item id="6103" name="آیکون کوچک"/>
 					<Item id="6104" name="آیکون بزرگ"/>
 					<Item id="6105" name="آیکون استاندارد"/>
 
-					<Item id="6106" name="نوار تب"/>
 					<Item id="6107" name="کاهش"/>
 					<Item id="6108" name="(قفل (بدون کشیدن و رهاکردن"/>
 					<Item id="6109" name="تیرگی تب های غیرفعال"/>
@@ -641,7 +639,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="تنظیمات چند-ویرایشی"/>
-					<Item id="6225" name="فعال کردن (Ctrl+کلیک ماوس/انتخاب)"/>
 					<Item id="6201" name="سبک حاشیه تاکننده"/>
 					<Item id="6202" name="ساده"/>
 					<Item id="6203" name="پیکان"/>

@@ -668,13 +668,11 @@
 			<Preference title="Izintandokazi">
 				<Item id="6001" name="Vala"/>
 				<Global title="Jikelele">
-					<Item id="6101" name="Ibha yamathuluzi"/>
 					<Item id="6102" name="Fihla"/>
 					<Item id="6103" name="Izithonjana ezincane"/>
 					<Item id="6104" name="Izithombe ezinkulu"/>
 					<Item id="6105" name="Izithonjana ezijwayelekile"/>
 
-					<Item id="6106" name="Ibha yamathebhu"/>
 					<Item id="6107" name="Nciphisa"/>
 					<Item id="6108" name="Khiya (akukho ukuhudula nokudonsa)"/>
 					<Item id="6109" name="Amathebhu angasebenzi"/>
@@ -701,7 +699,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Izilungiselelo eziningi zokuhlela"/>
-					<Item id="6225" name="Nika amandla (ctrl + chofoza umouse / ukukhetha)"/>
 					<Item id="6201" name="Isitayela seMargin isilawuli"/>
 					<Item id="6202" name="Okulula"/>
 					<Item id="6203" name="Umcibisholo"/>

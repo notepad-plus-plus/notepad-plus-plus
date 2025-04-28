@@ -70,12 +70,14 @@ variableScope:lexilla/lexers/LexCmake.cxx
 knownConditionTrueFalse:lexilla/lexers/LexCmake.cxx
 constParameterReference:lexilla/lexers/LexCmake.cxx
 constParameterReference:lexilla/lexers/LexCOBOL.cxx
+constVariablePointer:lexilla/lexers/LexCOBOL.cxx
 constParameterReference:lexilla/lexers/LexCoffeeScript.cxx
 constParameterPointer:lexilla/lexers/LexCoffeeScript.cxx
 knownConditionTrueFalse:lexilla/lexers/LexCoffeeScript.cxx
 constVariableReference:lexilla/lexers/LexConf.cxx
 constParameterReference:lexilla/lexers/LexCPP.cxx
 variableScope:lexilla/lexers/LexCSS.cxx
+constVariablePointer:lexilla/lexers/LexCSS.cxx
 knownConditionTrueFalse:lexilla/lexers/LexDataflex.cxx
 constParameterReference:lexilla/lexers/LexDataflex.cxx
 variableScope:lexilla/lexers/LexDataflex.cxx
@@ -118,6 +120,7 @@ unreadVariable:lexilla/lexers/LexMatlab.cxx
 variableScope:lexilla/lexers/LexMatlab.cxx
 variableScope:lexilla/lexers/LexMetapost.cxx
 constParameterReference:lexilla/lexers/LexModula.cxx
+duplicateBreak:lexilla/lexers/LexModula.cxx
 variableScope:lexilla/lexers/LexModula.cxx
 constParameterReference:lexilla/lexers/LexMPT.cxx
 variableScope:lexilla/lexers/LexMSSQL.cxx
@@ -140,6 +143,7 @@ constVariableReference:lexilla/lexers/LexPerl.cxx
 knownConditionTrueFalse:lexilla/lexers/LexPerl.cxx
 constParameterReference:lexilla/lexers/LexPLM.cxx
 constParameterReference:lexilla/lexers/LexPO.cxx
+constVariablePointer:lexilla/lexers/LexPOV.cxx
 constParameterReference:lexilla/lexers/LexPython.cxx
 shadowVariable:lexilla/lexers/LexPowerPro.cxx
 knownConditionTrueFalse:lexilla/lexers/LexPowerPro.cxx
@@ -188,7 +192,6 @@ constVariableReference:lexilla/lexers/LexX12.cxx
 constParameterPointer:lexilla/lexers/LexX12.cxx
 uselessCallsSubstr:lexilla/lexers/LexX12.cxx
 constParameterReference:lexilla/lexers/LexYAML.cxx
-constParameterPointer:lexilla/lexers/LexYAML.cxx
 knownConditionTrueFalse:lexilla/lexers/LexYAML.cxx
 
 // These are due to Accessor::IndentAmount not declaring the callback as taking a const.

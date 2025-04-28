@@ -45,9 +45,34 @@ class GeneralSubDlg : public StaticDialog
 {
 public :
 	GeneralSubDlg() = default;
-	void setTabbarAlternateIcons(bool enable = false);
 
 private :
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+};
+
+class ToolbarSubDlg : public StaticDialog
+{
+friend class PreferenceDlg;
+public:
+	ToolbarSubDlg() = default;
+
+private:
+	HWND _accentTip = nullptr;
+	ColourPicker* _pIconColorPicker = nullptr;
+
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
+	UINT getToolbarIconSetMsg(int* idxIconSet);
+	void move2CtrlLeft(int ctrlID, HWND handle2Move, int handle2MoveWidth, int handle2MoveHeight);
+	void enableIconColorPicker(bool enable, bool useDark);
+};
+
+class TabbarSubDlg : public StaticDialog
+{
+public:
+	TabbarSubDlg() = default;
+	void setTabbarAlternateIcons(bool enable = false);
+
+private:
 	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 };
 
@@ -109,9 +134,9 @@ public:
 
 private:
 	ColourPicker* _pBackgroundColorPicker = nullptr;
-	ColourPicker* _pSofterBackgroundColorPicker = nullptr;
+	ColourPicker* _pCtrlBackgroundColorPicker = nullptr;
 	ColourPicker* _pHotBackgroundColorPicker = nullptr;
-	ColourPicker* _pPureBackgroundColorPicker = nullptr;
+	ColourPicker* _pDlgBackgroundColorPicker = nullptr;
 	ColourPicker* _pErrorBackgroundColorPicker = nullptr;
 	ColourPicker* _pTextColorPicker = nullptr;
 	ColourPicker* _pDarkerTextColorPicker = nullptr;
@@ -386,6 +411,8 @@ private :
 	void showDialogByIndex(size_t index) const;
 	WindowVector _wVector;
 	GeneralSubDlg _generalSubDlg;
+	ToolbarSubDlg _toolbarSubDlg;
+	TabbarSubDlg _tabbarSubDlg;
 	EditingSubDlg _editingSubDlg;
 	Editing2SubDlg _editing2SubDlg;
 	DarkModeSubDlg _darkModeSubDlg;

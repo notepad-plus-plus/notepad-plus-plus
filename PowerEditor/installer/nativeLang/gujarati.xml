@@ -565,13 +565,11 @@
 			<Preference title="Preferences">
 				<Item id="6001" name="બંધ કરો"/>
 				<Global title="General">
-					<Item id="6101" name="ટૂલબાર"/>
 					<Item id="6102" name="છુપાવો"/>
 					<Item id="6103" name="નાના આઇકોન્સ"/>
 					<Item id="6104" name="મોટા આઇકોન્સ"/>
 					<Item id="6105" name="સ્ટાનડર્દ આઇકોન્સ"/>
 
-					<Item id="6106" name="ટેબ બાર"/>
 					<Item id="6107" name="ઘટાડો"/>
 					<Item id="6108" name="લોક ( ડ્રેગ અને ડ્રોપ નહિ)"/>
 					<Item id="6109" name="નિષ્ક્રિય ટેબ્સ ને ડાર્ક કરો"/>
@@ -597,7 +595,6 @@
 					<Item id="6221" name="એફ(F)"/>
 					<Item id="6222" name="એસ(S)"/>
 					<Item id="6224" name="મલ્ટી-એડીટીંગ સેટીંગઝ"/>
-					<Item id="6225" name="સક્રિય કરો (Ctrl+માઉસ ક્લીક/સિલેકશન)"/>
 					<Item id="6201" name="ફોલ્ડર માર્જિન સ્ટાઈલ"/>
 					<Item id="6202" name="સિમ્પલ"/>
 					<Item id="6203" name="એરો"/>

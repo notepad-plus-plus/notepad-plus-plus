@@ -567,13 +567,11 @@
 			<Preference title="Preferences">
 				<Item id="6001" name="নিকট"/>
 				<Global title="General">
-					<Item id="6101" name="টুলবার"/>
 					<Item id="6102" name="লুকান"/>
 					<Item id="6103" name="ছোট আইকন"/>
 					<Item id="6104" name="বড় আইকন"/>
 					<Item id="6105" name="মান আইকন"/>
 
-					<Item id="6106" name="ট্যাব বার"/>
 					<Item id="6107" name="কমানো"/>
 					<Item id="6108" name="(ড্র্যাগ এবং ড্রপ না) লক করুন"/>
 					<Item id="6109" name="ডার্ক ট্যাব নিষ্ক্রিয় করার জন্য"/>
@@ -599,7 +597,6 @@
 					<Item id="6221" name="ফল(F)"/>
 					<Item id="6222" name="এস(S)"/>
 					<Item id="6224" name="মাল্টি সম্পাদনা সেটিংস"/>
-					<Item id="6225" name="সক্রিয় করুন (Ctrl + মাউস ক্লিক / নির্বাচন)"/>
 					<Item id="6201" name="শৈলী ফোল্ডার মার্জিন"/>
 					<Item id="6202" name="সহজ"/>
 					<Item id="6203" name="তীর"/>

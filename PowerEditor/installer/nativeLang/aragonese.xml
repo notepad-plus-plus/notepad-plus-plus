@@ -555,13 +555,11 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 			<Preference title="Preferencias">
 				<Item id="6001" name="Zarrar"/>
 				<Global title="Cheneral">
-					<Item id="6101" name="Barra de ferramientas"/>
 					<Item id="6102" name="Amagar-la"/>
 					<Item id="6103" name="Iconos chicotz"/>
 					<Item id="6104" name="Iconos grans"/>
 					<Item id="6105" name="Iconos estandar"/>
 
-					<Item id="6106" name="Barra de pestanyas"/>
 					<Item id="6107" name="Reducir"/>
 					<Item id="6108" name="Blocar (no se podrÃƒÂ¡ arrocegar)"/>
 					<Item id="6109" name="Enfoscar as pestanyas inactivas"/>
@@ -587,7 +585,6 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 					<Item id="6221" name="R"/><!--rapedo-->
 					<Item id="6222" name="P"/><!--pando-->
 					<Item id="6224" name="Multi-ediciÃƒÂ³n"/>
-					<Item id="6225" name="Habilitar (Ctrl+zorz)"/>
 					<Item id="6201" name="Estilo de agrupaciÃƒÂ³n"/>
 					<Item id="6202" name="Simple"/>
 					<Item id="6203" name="Trianglo"/>

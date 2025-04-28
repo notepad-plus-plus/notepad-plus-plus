@@ -133,6 +133,9 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 
 		case WM_RBUTTONDOWN:
 		{
+			if (_disableRightClick)
+				return FALSE;
+
 			_isEnabled = !_isEnabled;
 			redraw();
 			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURPICKED), reinterpret_cast<LPARAM>(_hSelf));
@@ -178,7 +181,7 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 		{
 			if ((BOOL)wParam == FALSE)
 			{
-				_currentColour = NppDarkMode::isEnabled() ? NppDarkMode::getDarkerBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
+				_currentColour = NppDarkMode::isEnabled() ? NppDarkMode::getDlgBackgroundColor() : ::GetSysColor(COLOR_3DFACE);
 				redraw();
 			}
 			return TRUE;

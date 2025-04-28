@@ -558,13 +558,11 @@
 			<Preference title="Preferencias">
 				<Item id="6001" name="Cerrar"/>
 				<Global title="Generales">
-					<Item id="6101" name="Barra de herramientas"/>
 					<Item id="6102" name="Ocultar"/>
 					<Item id="6103" name="Iconos pequeños"/>
 					<Item id="6104" name="Iconos grandes"/>
 					<Item id="6105" name="Iconos predeterminados"/>
 
-					<Item id="6106" name="Barra de pestañas"/>
 					<Item id="6107" name="Reducir texto"/>
 					<Item id="6108" name="Bloquear (impedir arrastrar y soltar)"/>
 					<Item id="6109" name="Mostrar ventanas inactivas"/>
@@ -590,7 +588,6 @@
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="L"/>
 					<Item id="6224" name="Multiedición"/>
-					<Item id="6225" name="Habilita (Ctrl+Ratón)"/>
 					<Item id="6201" name="Estilo visual de los niveles"/>
 					<Item id="6202" name="Simple"/>
 					<Item id="6203" name="Flechas"/>

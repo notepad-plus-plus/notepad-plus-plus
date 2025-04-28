@@ -764,13 +764,63 @@ public:
 	bool _doDoubleQuotes = false;
 };
 
+constexpr COLORREF g_cDefaultMainDark = RGB(0xDE, 0xDE, 0xDE);
+constexpr COLORREF g_cDefaultSecondaryDark = RGB(0x4C, 0xC2, 0xFF);
+constexpr COLORREF g_cDefaultMainLight = RGB(0x21, 0x21, 0x21);
+constexpr COLORREF g_cDefaultSecondaryLight = RGB(0x00, 0x78, 0xD4);
+
+enum class FluentColor
+{
+	defaultColor =  0,
+	red =           1,
+	green =         2,
+	blue =          3,
+	purple =        4,
+	cyan =          5,
+	olive =         6,
+	yellow =        7,
+	accent =        8,
+	custom =        9,
+	maxValue =     10
+};
+
+struct TbIconInfo
+{
+	toolBarStatusType _tbIconSet = TB_STANDARD;
+
+	// fluent icon color
+	FluentColor _tbColor = FluentColor::defaultColor;
+
+	// fluent icon custom color, used when _tbColor == FluentColor::custom
+	COLORREF _tbCustomColor = 0;
+
+	// does fluent icon use monochrome colorization
+	bool _tbUseMono = false;
+};
+
+struct AdvOptDefaults final
+{
+	std::wstring _xmlFileName;
+	TbIconInfo _tbIconInfo{};
+	int _tabIconSet = -1;
+	bool _tabUseTheme = false;
+};
+
+struct AdvancedOptions final
+{
+	AdvOptDefaults _darkDefaults{ L"DarkModeDefault.xml", {TB_SMALL, FluentColor::defaultColor, 0, false}, 2, false };
+	AdvOptDefaults _lightDefaults{ L"", { TB_STANDARD, FluentColor::defaultColor, 0, false }, 0, true };
+
+	bool _enableWindowsMode = false;
+};
+
 struct DarkModeConf final
 {
 	bool _isEnabled = false;
 	bool _isEnabledPlugin = true;
 	NppDarkMode::ColorTone _colorTone = NppDarkMode::blackTone;
 	NppDarkMode::Colors _customColors = NppDarkMode::getDarkModeDefaultColors();
-	NppDarkMode::AdvancedOptions _advOptions{};
+	AdvancedOptions _advOptions{};
 };
 
 
@@ -791,7 +841,7 @@ struct LargeFileRestriction final
 
 struct NppGUI final
 {
-	toolBarStatusType _toolBarStatus = TB_STANDARD;
+	TbIconInfo _tbIconInfo{ TB_STANDARD, FluentColor::defaultColor, 0, false };
 	bool _toolbarShow = true;
 	bool _statusBarShow = true;
 	bool _menuBarShow = true;
@@ -994,6 +1044,7 @@ struct ScintillaViewParams
 	bool _virtualSpace = false;
 	bool _scrollBeyondLastLine = true;
 	bool _rightClickKeepsSelection = false;
+	bool _selectedTextForegroundSingleColor = false;
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;
 	bool _showBorderEdge = true;
@@ -1631,7 +1682,6 @@ public:
 
 	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
 
-	TiXmlDocument* getCustomizedToolIcons() const {return _pXmlToolIconsDoc;};
 	TiXmlDocument* getCustomizedToolButtons() const {return _pXmlToolButtonsConfDoc;};
 
 	bool isTransparentAvailable() const {
@@ -1876,7 +1926,6 @@ private:
 	TiXmlDocument *_pXmlUserStylerDoc = nullptr; // stylers.xml
 	TiXmlDocument *_pXmlUserLangDoc = nullptr; // userDefineLang.xml
 	std::vector<UdlXmlFileState> _pXmlUserLangsDoc; // userDefineLang customized XMLs
-	TiXmlDocument *_pXmlToolIconsDoc = nullptr; // toolbarIcons.xml
 	TiXmlDocument * _pXmlToolButtonsConfDoc = nullptr; // toolbarButtonsConf.xml
 
 	TiXmlDocumentA *_pXmlShortcutDocA = nullptr; // shortcuts.xml
@@ -1941,7 +1990,6 @@ public:
 	void setAdminMode(bool isAdmin) { _isAdminMode = isAdmin; }
 	bool isAdmin() const { return _isAdminMode; }
 	bool regexBackward4PowerUser() const { return _findHistory._regexBackward4PowerUser; }
-	bool isSelectFgColorEnabled() const { return _isSelectFgColorEnabled; };
 	bool isRegForOSAppRestartDisabled() const { return _isRegForOSAppRestartDisabled; };
 
 private:
@@ -2008,7 +2056,6 @@ private:
 	bool _isElevationRequired = false;
 	bool _isAdminMode = false;
 
-	bool _isSelectFgColorEnabled = false;
 	bool _isRegForOSAppRestartDisabled = false;
 
 	bool _doNppLogNetworkDriveIssue = false;

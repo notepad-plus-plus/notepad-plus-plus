@@ -398,12 +398,10 @@
 			<Preference title="Preferense">
 				<Item id="6001" name="Særa"/>
 				<Global title="Generale">
-					<Item id="6101" name="Bara di strumenti"/>
 					<Item id="6102" name="Ascondi"/>
 					<Item id="6103" name="Figue picinn-e"/>
 					<Item id="6104" name="Figue grende"/>
 					<Item id="6105" name="Figue standard"/>
-					<Item id="6106" name="Bara de schede"/>
 					<Item id="6107" name="Mostra schede picinn-e"/>
 					<Item id="6108" name="Blòcca (dizabilitou o rebelâ)"/>
 					<Item id="6109" name="Ascuisci e schede inative"/>
@@ -442,7 +440,6 @@
 					<Item id="6213" name="Modalitæ &apos;sfondo&apos;"/>
 					<Item id="6214" name="Evidensia a riga atoale"/>
 					<Item id="6224" name="Inpostaçioin seleçion multipla"/>
-					<Item id="6225" name="Abilita (Ctrl+Click/seleçion)"/>
 					<Item id="6226" name="Nisciun"/>
 					<Item id="6227" name="A cappo outomatico"/>
 					<Item id="6228" name="Predefinio"/>

@@ -955,7 +955,6 @@
 			<Preference title="Postavke">
 				<Item id="6001" name="Zatvori"/>
 				<Global title="Općenito">
-					<Item id="6101" name="Alatna vrpca"/>
 					<Item id="6102" name="Sakrij"/>
 					<Item id="6103" name="Fluent UI ikone: male"/>
 					<Item id="6104" name="Fluent UI ikone: velike"/>
@@ -963,7 +962,6 @@
 					<Item id="6130" name="Fluent UI ikone: ispunjene velike"/>
 					<Item id="6105" name="Klasične ikone: male"/>
 
-					<Item id="6106" name="Vrpca s kartičnim jezičcima"/>
 					<Item id="6107" name="Smanji"/>
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
 					<Item id="6109" name="Promijeni boju neaktivnih jezičaka"/>

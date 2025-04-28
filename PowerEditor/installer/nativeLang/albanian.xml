@@ -595,13 +595,11 @@
 			<Preference title="Preferencat">
 				<Item id="6001" name="Mbyll"/>
 				<Global title="E përgjithshme">
-					<Item id="6101" name="Linja e mjeteve"/>
 					<Item id="6102" name="Fsheh"/>
 					<Item id="6103" name="Ikona të vogla"/>
 					<Item id="6104" name="Ikona të mëdha"/>
 					<Item id="6105" name="Ikona standarde"/>
                     
-					<Item id="6106" name="Linja Tab"/>
 					<Item id="6107" name="Zvogëlo"/>
 					<Item id="6108" name="Kyë (jo tërhiq dhe lësho)"/>
 					<Item id="6109" name="Errëso tabelorët inaktivë"/>
@@ -627,7 +625,6 @@
 					<Item id="6221" name="F"/>
 					<Item id="6222" name="S"/>
 					<Item id="6224" name="Rregullimet Multi-korrigjim"/>
-					<Item id="6225" name="Aftëso (Ctrl+klikim miu/zgjedhje)"/>
 					<Item id="6201" name="Stili i margjinës së dosjes"/>
 					<Item id="6202" name="Thjeshtë"/>
 					<Item id="6203" name="Shigjetë"/>

@@ -33,7 +33,7 @@ SortLocale::Result SortLocale::sort(ScintillaEditView* sci, bool descending) {
     if (ignoreDiacritics) options |= LINGUISTIC_IGNOREDIACRITIC;
     if (ignoreSymbols) options |= NORM_IGNORESYMBOLS;
 
-    LPCWSTR locale = localeName.data();
+    LPCWSTR locale = localeName.empty() ? LOCALE_NAME_USER_DEFAULT : localeName.data();
     UINT codepage = static_cast<UINT>(sci->execute(SCI_GETCODEPAGE));
 
     intptr_t lines, startPos, topLine, endPos, bottomLine;

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="8.7.9">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="8.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -947,15 +947,38 @@ Translation note:
 			<Preference title="Inställningar">
 				<Item id="6001" name="Stäng"/>
 				<Global title="Allmänt">
-					<Item id="6101" name="Verktygsfält"/>
+					<Item id="6123" name="Gränssnittsspråk"/>
+					<Item id="6131" name="Meny"/>
+					<Item id="6122" name="Dölj (använd Alt eller F10 för att visa)"/>
+					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan"/>
+					<Item id="6133" name="Statusfält"/>
+					<Item id="6134" name="Dölj"/>
+				</Global>
+
+				<Toolbar title="Verktygsfält">
 					<Item id="6102" name="Dölj"/>
 					<Item id="6103" name="Fluent: Små"/>
 					<Item id="6104" name="Fluent: Stora"/>
 					<Item id="6129" name="Fluent (ifyllda): Små"/>
 					<Item id="6130" name="Fluent (ifyllda): Stora"/>
 					<Item id="6105" name="Standardikoner: Små"/>
+					<Item id="6011" name="Färgläggning"/>
+					<Item id="6012" name="Fullständig"/>
+					<Item id="6013" name="Delvis"/>
+					<Item id="6014" name="Färgval"/>
+					<Item id="6015" name="Standard"/>
+					<Item id="6016" name="Röd"/>
+					<Item id="6017" name="Grön"/>
+					<Item id="6018" name="Blå"/>
+					<Item id="6019" name="Lila"/>
+					<Item id="6020" name="Turkos"/>
+					<Item id="6021" name="Olivgrön"/>
+					<Item id="6022" name="Gul"/>
+					<Item id="6023" name="Systemaccent"/>
+					<Item id="6024" name="Anpassad"/>
+				</Toolbar>
 
-					<Item id="6106" name="Flikfält"/>
+				<Tabbar title="Flikfält">
 					<Item id="6107" name="Förminska"/>
 					<Item id="6108" name="Lås flikar (inget drag-och-släpp)"/>
 					<Item id="6109" name="Gör inaktiva flikar mörkare"/>
@@ -970,16 +993,7 @@ Translation note:
 					<Item id="6120" name="Vertikalt"/>
 					<Item id="6121" name="Avsluta när sista fliken stängs"/>
 					<Item id="6128" name="Alternativa ikoner"/>
-					
-					<Item id="6133" name="Statusfält"/>
-					<Item id="6134" name="Dölj"/>
-
-					<Item id="6131" name="Menyrad"/>
-					<Item id="6122" name="Dölj (använd Alt eller F10 för att visa)"/>
-					<Item id="6132" name="Dölj knapparna ＋ ▼ ✕ på högersidan"/>
-
-					<Item id="6123" name="Gränssnittsspråk"/>
-				</Global>
+				</Tabbar>
 
 				<Scintillas title="Redigering 1">
 					<Item id="6216" name="Inställningar för textmarkör"/>
@@ -1035,18 +1049,18 @@ Translation note:
 					<Item id="7108" name="Turkos"/>
 					<Item id="7109" name="Olivgrön"/>
 					<Item id="7115" name="Anpassad"/>
-					<Item id="7116" name="Primär fönsterbakgrund"/>
-					<Item id="7117" name="Hovringsfärg"/>
-					<Item id="7118" name="Aktiva element"/>
-					<Item id="7119" name="Sekundär fönsterbakgrund"/>
+					<Item id="7116" name="Bakgrund för innehåll"/>
+					<Item id="7117" name="Hovringsfärg för menyraden"/>
+					<Item id="7118" name="Bakgrund för kontrollelement"/>
+					<Item id="7119" name="Bakgrund för dialogfönster"/>
 					<Item id="7120" name="Felmeddelanden"/>
 					<Item id="7121" name="Primär text"/>
 					<Item id="7122" name="Sekundär text"/>
-					<Item id="7123" name="Inaktiverade element"/>
-					<Item id="7124" name="Kantlinjer"/>
+					<Item id="7123" name="Inaktiverad text"/>
+					<Item id="7124" name="Elementkonturer"/>
 					<Item id="7125" name="Länktext"/>
-					<Item id="7126" name="Kantmarkering"/>
-					<Item id="7127" name="Inaktiverade kantlinjer"/>
+					<Item id="7126" name="Markerade elementkonturer"/>
+					<Item id="7127" name="Inaktiva elementkonturer"/>
 					<Item id="7130" name="Återställ"/>
 					<Item id="7135" name="Toner"/>
 				</DarkMode>
@@ -1861,6 +1875,7 @@ Om du väljer avancerat läge men inte redigerar filer i de omfattande språken 
 			<statusbar-Pos value="Pos: "/>
 			<statusbar-Sel value="Mrk: "/>
 			<statusbar-Sel-number value="Mrk"/>
+			<toolbar-accent-tip value="Detta alternativ får ikonerna i ditt verktygsfält att följa systemets accentfärg i Windows. Accentfärgen är den färgmarkering som används för knappar, kantlinjer och startmenyns paneler i Windows. Gå till Inställningar &gt; Anpassning &gt; Färger och välj sedan en önskad accentfärg."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

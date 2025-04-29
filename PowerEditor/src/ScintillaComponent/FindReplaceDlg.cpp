@@ -1228,7 +1228,7 @@ void FindReplaceDlg::resizeDialogElements()
 	const auto moveBtnIDs = {
 		IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDCANCEL,
-		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_FINDINFILES_SETDIRFROMDOC_BUTTON,
+		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_FINDINFILES_SETDIRFROMDOC_BUTTON
 	};
 
 	const auto moveOtherCtrlsIDs = {
@@ -1331,6 +1331,11 @@ void FindReplaceDlg::resizeDialogElements()
 	HWND hFPrevBtn = ::GetDlgItem(_hSelf, IDC_FINDPREV);
 	getMappedChildRect(hFPrevBtn, rcFPrevBtn);
 	hdwp = setOrDeferWindowPos(hdwp, ::GetDlgItem(_hSelf, IDC_FINDNEXT), nullptr, rcFPrevBtn.right + gap, rcOkBtn.top, 0, 0, SWP_NOSIZE | flags);
+
+	RECT rcFilterTipStatic{};
+	HWND FilterTipStatic = ::GetDlgItem(_hSelf, IDC_FIF_FILTER_TIP_STATIC);
+	getMappedChildRect(FilterTipStatic, rcFilterTipStatic);
+	hdwp = setOrDeferWindowPos(hdwp, FilterTipStatic, nullptr, rcSwapBtn.left + 4, rcFilterTipStatic.top, 0, 0, SWP_NOSIZE | flags);
 
 	RECT rcBrowseBtn{};
 	HWND hBrowseBtn = ::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON);

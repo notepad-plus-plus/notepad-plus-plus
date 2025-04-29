@@ -952,6 +952,7 @@
 				</Global>
 
 				<Toolbar title="Panel nástrojov">
+					<Item id="6102" name="Skryť"/>
 					<Item id="6103" name="Fluent UI: malé"/>
 					<Item id="6104" name="Fluent UI: veľké"/>
 					<Item id="6129" name="Vyplnené Fluent UI: malé"/>

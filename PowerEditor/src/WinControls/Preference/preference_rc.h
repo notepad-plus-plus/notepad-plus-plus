@@ -16,6 +16,9 @@
 
 #pragma once
 
+// Keep the value unicity of each control ID so the controls could be moved among the different dialogs if needs.
+// Take the unused value as new control ID, and keep the value in order.
+
 #define IDD_PREFERENCE_BOX                             6000
 #define IDC_BUTTON_CLOSE                               6001
 #define IDC_LIST_DLGTITLE                              6002
@@ -40,13 +43,12 @@
 #define IDD_PREFERENCE_SUB_TABBAR                      6040
 
 #define IDD_PREFERENCE_SUB_GENRAL                      6100
-//#define IDC_TOOLBAR_GB_STATIC                        6101
+
 #define IDC_CHECK_HIDE                                 6102
 #define IDC_RADIO_SMALLICON                            6103
 #define IDC_RADIO_BIGICON                              6104
 #define IDC_RADIO_STANDARD                             6105
 
-//#define IDC_TABBAR_GB_STATIC                         6106
 #define IDC_CHECK_REDUCE                               6107
 #define IDC_CHECK_LOCK                                 6108
 #define IDC_CHECK_DRAWINACTIVE                         6109
@@ -65,6 +67,8 @@
 #define IDC_CHECK_HIDEMENUBAR                          6122
 #define IDC_LOCALIZATION_GB_STATIC                     6123
 #define IDC_COMBO_LOCALIZATION                         6124
+
+
 #define IDC_CHECK_TAB_ALTICONS                         6128
 #define IDC_RADIO_SMALLICON2                           6129
 #define IDC_RADIO_BIGICON2                             6130
@@ -82,7 +86,6 @@
 #define IDD_STATIC_RESTARTNOTE                         6155
 
 
-//#define IDD_PREFERENCE_WORDCHARLIST_BOX              6160
 #define IDC_WORDCHARLIST_GB_STATIC                     6161
 #define IDC_RADIO_WORDCHAR_DEFAULT                     6162
 #define IDC_RADIO_WORDCHAR_CUSTOM                      6163
@@ -91,14 +94,13 @@
 #define IDD_STATIC_WORDCHAR_WARNING                    6166
 
 
-//#define IDD_PREFERENCE_SUB_DATETIMEFORMAT            6170
 #define IDC_DATETIMEFORMAT_GB_STATIC                   6171
 #define IDD_DATETIMEFORMAT_STATIC                      6172
 #define IDC_DATETIMEFORMAT_EDIT                        6173
 #define IDD_DATETIMEFORMAT_RESULT_STATIC               6174
 #define IDD_DATETIMEFORMAT_REVERSEORDER_CHECK          6175
 
-//#define IDD_PREFERENCE_SUB_PANELIGNORESESSION        6180
+
 #define IDC_PANEL_IGNORESESSION_GB_STATIC              6181
 #define IDD_STATIC_PANELSTATE_DESCRIPTION              6182
 #define IDC_CHECK_CLIPBOARDHISTORY                     6183
@@ -200,7 +202,7 @@
 #define IDC_NOCLOUD_RADIO                              6263
 #define IDC_URISCHEMES_STATIC                          6264
 #define IDC_URISCHEMES_EDIT                            6265
-//#define IDC_GOOGLEDRIVE_RADIO                        6266
+
 #define IDC_WITHCLOUD_RADIO                            6267
 #define IDC_CLOUDPATH_EDIT                             6268
 #define IDD_CLOUDPATH_BROWSE_BUTTON                    6269
@@ -209,7 +211,7 @@
 #define IDC_SEARCHENGINES_GB_STATIC                    6271
 #define IDC_SEARCHENGINE_DUCKDUCKGO_RADIO              6272
 #define IDC_SEARCHENGINE_GOOGLE_RADIO                  6273
-//#define IDC_SEARCHENGINE_BING_RADIO                  6274
+
 #define IDC_SEARCHENGINE_YAHOO_RADIO                   6275
 #define IDC_SEARCHENGINE_CUSTOM_RADIO                  6276
 #define IDC_SEARCHENGINE_EDIT                          6277
@@ -265,9 +267,6 @@
 #define IDC_CHECK_SMARTHILITEUSEFINDSETTINGS           6339
 #define IDC_CHECK_SMARTHILITEANOTHERRVIEW              6340
 
-//#define IDC_CHECK_REMEMBEREDITVIEWPERFILE            6341
-//#define IDC_REMEMBEREDITVIEWPERFILE_STATIC           6342
-//#define IDC_EDIT_REMEMBEREDITVIEWPERFILE             6343
 
 #define IDC_DOCUMENTPEEK_STATIC                        6344
 #define IDC_CHECK_ENABLEDOCPEEKER                      6345
@@ -313,7 +312,7 @@
 #define IDC_RADIO_ONLYFILENAME                         6425
 #define IDC_RADIO_FULLFILENAMEPATH                     6426
 #define IDC_RADIO_CUSTOMIZELENTH                       6427
-//#define IDC_CUSTOMIZELENGTHVAL_STATIC                6428
+
 #define IDC_DISPLAY_STATIC                             6429
 #define IDC_OPENSAVEDIR_CHECK_DROPFOLDEROPENFILES      6431
 #define IDC_CHECK_ADDNEWDOCONSTARTUP                   6432
@@ -364,7 +363,6 @@
 #define IDC_MR_STATIC                                  6614
 #define IDC_MB_STATIC                                  6615
 
-//#define IDD_PREFERENCE_SUB_EXT                       6650
 #define IDC_CURRENTLINEMARK_STATIC                     6651
 #define IDC_RADIO_CLM_NONE                             6652
 #define IDC_RADIO_CLM_HILITE                           6653
@@ -373,7 +371,7 @@
 #define IDC_CARETLINEFRAME_WIDTH_SLIDER                6656
 #define IDC_CARETLINEFRAME_WIDTH_DISPLAY               6657
 
-//#define IDD_PREFERENCE_PRINT2_BOX                    6700
+
 #define IDC_EDIT_HLEFT                                 6701
 #define IDC_EDIT_HMIDDLE                               6702
 #define IDC_EDIT_HRIGHT                                6703
@@ -403,7 +401,7 @@
 #define IDC_WHICHPART_STATIC                           6727
 #define IDC_HEADERFPPTER_GR_STATIC                     6728
 
-#define IDD_PREFERENCE_SUB_BACKUP 6800
+#define IDD_PREFERENCE_SUB_BACKUP                      6800
 #define IDC_BACKUPDIR_GRP_STATIC                       6801
 #define IDC_BACKUPDIR_USERCUSTOMDIR_GRPSTATIC          6802
 #define IDD_BACKUPDIR_STATIC                           6803
@@ -417,7 +415,7 @@
 #define IDD_AUTOC_STATIC_FROM                          6811
 #define IDD_AUTOC_STATIC_N                             6812
 #define IDD_AUTOC_STATIC_CHAR                          6813
-//#define IDD_AUTOC_STATIC_NOTE                        6814
+
 #define IDD_FUNC_CHECK                                 6815
 #define IDD_AUTOC_BOTHRADIO                            6816
 #define IDC_BACKUPDIR_RESTORESESSION_GRP_STATIC        6817
@@ -458,7 +456,7 @@
 #define IDD_AUTOC_SLIDER_MAX_STATIC                    6875
 
 #define IDD_PREFERENCE_SUB_SEARCHING                   6900
-//#define IDC_CHECK_STOPFILLINGFINDFIELD               6901
+
 #define IDC_CHECK_MONOSPACEDFONT_FINDDLG               6902
 #define IDC_CHECK_FINDDLG_ALWAYS_VISIBLE               6903
 #define IDC_CHECK_CONFIRMREPLOPENDOCS                  6904
@@ -473,15 +471,17 @@
 #define IDC_CHECK_FILL_DIR_FIELD_FROM_ACTIVE_DOC       6913
 
 #define IDD_PREFERENCE_SUB_DARKMODE                    7100
-//#define IDC_CHECK_DARKMODE_ENABLE                    7101
+
 #define IDC_RADIO_DARKMODE_BLACK                       7102
 #define IDC_RADIO_DARKMODE_RED                         7103
 #define IDC_RADIO_DARKMODE_GREEN                       7104
 #define IDC_RADIO_DARKMODE_BLUE                        7105
-//#define IDC_STATIC_DARKMODE_WARNING                  7106
+
 #define IDC_RADIO_DARKMODE_PURPLE                      7107
 #define IDC_RADIO_DARKMODE_CYAN                        7108
 #define IDC_RADIO_DARKMODE_OLIVE                       7109
+
+
 #define IDC_RADIO_DARKMODE_CUSTOMIZED                  7115
 #define IDD_CUSTOMIZED_COLOR1_STATIC                   7116
 #define IDD_CUSTOMIZED_COLOR2_STATIC                   7117
@@ -495,10 +495,12 @@
 #define IDD_CUSTOMIZED_COLOR10_STATIC                  7125
 #define IDD_CUSTOMIZED_COLOR11_STATIC                  7126
 #define IDD_CUSTOMIZED_COLOR12_STATIC                  7127
+
 #define IDD_CUSTOMIZED_RESET_BUTTON                    7130
 #define IDC_RADIO_DARKMODE_LIGHTMODE                   7131
 #define IDC_RADIO_DARKMODE_DARKMODE                    7132
 #define IDC_RADIO_DARKMODE_FOLLOWWINDOWS               7133
+
 #define IDC_DARKMODE_TONES_GB_STATIC                   7135
 #define IDD_DROPDOWN_RESET_RED                         7136
 #define IDD_DROPDOWN_RESET_GREEN                       7137

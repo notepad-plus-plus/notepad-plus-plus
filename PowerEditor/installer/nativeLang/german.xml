@@ -1883,7 +1883,7 @@ Wenn diese 'Intelligente Einrückung' gewählt wird, aber keine Dateien in den o
 			<statusbar-Pos value="Pos: "/>
 			<statusbar-Sel value="Gew: "/>
 			<statusbar-Sel-number value="Gew"/>
-			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Optionen &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
+			<toolbar-accent-tip value="Mit dieser Option werden die Symbolleistensymbole der Akzentfarbe des Windows-Systems angepasst. Die Akzentfarbe ist die Farbe, mit der Schaltflächen, Rahmen und Startmenükacheln in Windows hervorgehoben werden. Um sie zu ändern, gehen Sie zu Einstellungen &gt; Personalisierung &gt; Farben und wählen Sie dann Ihre bevorzugte Akzentfarbe."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

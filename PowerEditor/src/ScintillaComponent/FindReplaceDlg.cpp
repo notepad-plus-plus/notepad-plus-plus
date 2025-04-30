@@ -1343,7 +1343,7 @@ void FindReplaceDlg::resizeDialogElements()
 	hdwp = setOrDeferWindowPos(hdwp, hBrowseBtn, nullptr, rcSwapBtn.left, rcBrowseBtn.top, 0, 0, SWP_NOSIZE | flags);
 
 	HWND hSetDirBtn = ::GetDlgItem(_hSelf, IDD_FINDINFILES_SETDIRFROMDOC_BUTTON);
-	hdwp = setOrDeferWindowPos(hdwp, hSetDirBtn, nullptr, rcSwapBtn.left + getRcWidth(rcBrowseBtn), rcBrowseBtn.top, 0, 0, SWP_NOSIZE | flags);
+	hdwp = setOrDeferWindowPos(hdwp, hSetDirBtn, nullptr, rcSwapBtn.left + getRcWidth(rcBrowseBtn) + gap, rcBrowseBtn.top, 0, 0, SWP_NOSIZE | flags);
 
 	if (!isLessModeOn)
 	{

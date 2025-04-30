@@ -1220,26 +1220,26 @@ void FindReplaceDlg::resizeDialogElements()
 	const size_t nComboboxes = resizeWindowIDs.size();
 
 	//elements that need to be moved
-	const auto moveCheckIds = {
+	constexpr std::array moveCheckIds{
 		IDD_FINDINFILES_RECURSIVE_CHECK, IDD_FINDINFILES_INHIDDENDIR_CHECK,
 		IDD_FINDINFILES_PROJECT1_CHECK, IDD_FINDINFILES_PROJECT2_CHECK, IDD_FINDINFILES_PROJECT3_CHECK,
 	};
 
-	const auto moveBtnIDs = {
+	constexpr std::array moveBtnIDs{
 		IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL, IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDCANCEL,
-		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS, IDD_FINDINFILES_SETDIRFROMDOC_BUTTON,
+		IDC_FINDPREV, IDC_COPY_MARKED_TEXT, IDD_FINDINFILES_REPLACEINPROJECTS
 	};
 
-	const auto moveOtherCtrlsIDs = {
+	constexpr std::array moveOtherCtrlsIDs{
 		IDC_REPLACEINSELECTION, IDD_RESIZE_TOGGLE_BUTTON, IDD_FINDREPLACE_SWAP_BUTTON
 	};
 
-	const auto moveLaterIDs = {
-		IDC_FINDPREV, IDD_FINDINFILES_BROWSE_BUTTON
+	constexpr std::array moveLaterIDs{
+		IDC_FINDPREV, IDD_FINDINFILES_BROWSE_BUTTON, IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, IDC_FIF_FILTER_TIP_STATIC
 	};
 
-	const auto moveTransIDs = {
+	constexpr std::array moveTransIDs{
 		IDC_TRANSPARENT_CHECK, IDC_TRANSPARENT_LOSSFOCUS_RADIO, IDC_TRANSPARENT_ALWAYS_RADIO, IDC_PERCENTAGE_SLIDER
 	};
 
@@ -1332,10 +1332,18 @@ void FindReplaceDlg::resizeDialogElements()
 	getMappedChildRect(hFPrevBtn, rcFPrevBtn);
 	hdwp = setOrDeferWindowPos(hdwp, ::GetDlgItem(_hSelf, IDC_FINDNEXT), nullptr, rcFPrevBtn.right + gap, rcOkBtn.top, 0, 0, SWP_NOSIZE | flags);
 
+	RECT rcFilterTipStatic{};
+	HWND FilterTipStatic = ::GetDlgItem(_hSelf, IDC_FIF_FILTER_TIP_STATIC);
+	getMappedChildRect(FilterTipStatic, rcFilterTipStatic);
+	hdwp = setOrDeferWindowPos(hdwp, FilterTipStatic, nullptr, rcSwapBtn.left + (gap / 2), rcFilterTipStatic.top, 0, 0, SWP_NOSIZE | flags);
+
 	RECT rcBrowseBtn{};
 	HWND hBrowseBtn = ::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON);
 	getMappedChildRect(hBrowseBtn, rcBrowseBtn);
 	hdwp = setOrDeferWindowPos(hdwp, hBrowseBtn, nullptr, rcSwapBtn.left, rcBrowseBtn.top, 0, 0, SWP_NOSIZE | flags);
+
+	HWND hSetDirBtn = ::GetDlgItem(_hSelf, IDD_FINDINFILES_SETDIRFROMDOC_BUTTON);
+	hdwp = setOrDeferWindowPos(hdwp, hSetDirBtn, nullptr, rcSwapBtn.left + getRcWidth(rcBrowseBtn) + gap, rcBrowseBtn.top, 0, 0, SWP_NOSIZE | flags);
 
 	if (!isLessModeOn)
 	{
@@ -1476,8 +1484,19 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 		}
 
 		case WM_CTLCOLORDLG:
+		{
+			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+		}
+
 		case WM_CTLCOLORSTATIC:
 		{
+			auto hdc = reinterpret_cast<HDC>(wParam);
+			const int dlgCtrlID = ::GetDlgCtrlID(reinterpret_cast<HWND>(lParam));
+			if (dlgCtrlID == IDC_FIF_FILTER_TIP_STATIC)
+			{
+				return NppDarkMode::onCtlColorDlgLinkText(hdc, true);
+			}
+
 			return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
 		}
 
@@ -1592,7 +1611,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			 _2ButtonsTip = CreateToolTip(IDC_2_BUTTONS_MODE, _hSelf, _hInst, const_cast<PTSTR>(checkboxTip.c_str()), _isRTL);
 
 			 wstring findInFilesFilterTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-filter-tip", L"Find in cpp, cxx, h, hxx && hpp:\r*.cpp *.cxx *.h *.hxx *.hpp\r\rFind in all files except exe, obj && log:\r*.* !*.exe !*.obj !*.log\r\rFind in all files but exclude folders tests, bin && bin64:\r*.* !\\tests !\\bin*\r\rFind in all files but exclude all folders log or logs recursively:\r*.* !+\\log*");
-			 _filterTip = CreateToolTip(IDD_FINDINFILES_FILTERS_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()), _isRTL);
+			 _filterTip = CreateToolTip(IDC_FIF_FILTER_TIP_STATIC, _hSelf, _hInst, const_cast<PTSTR>(findInFilesFilterTip.c_str()), _isRTL);
 
 			 wstring dirFromActiveDocTip = pNativeSpeaker->getLocalizedStrFromID("find-in-files-dir-from-active-doc-tip", L"Fill directory field based on active document");
 			 _dirFromActiveDocTip = CreateToolTip(IDD_FINDINFILES_SETDIRFROMDOC_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(dirFromActiveDocTip.c_str()), _isRTL);
@@ -3383,19 +3402,22 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				wchar_t lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
+				{
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+					nbChar = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+				}
 
 				intptr_t start_mark = targetStart - lstart;
 				intptr_t end_mark = targetEnd - lstart;
 
-				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark, &nbChar);
 
-				wstring line = lineBuf;
-				line += L"\r\n";
+				lineBuf[nbChar++] = '\r';
+				lineBuf[nbChar++] = '\n';
 
 				SearchResultMarkingLine srml;
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
-				text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
+				text2AddUtf8->append(_pFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, lineBuf, nbChar, totalLineNumber));
 
 				if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 				{
@@ -3424,15 +3446,19 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				wchar_t lineBuf[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH]{};
 
 				if (nbChar > SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 3)
+				{
 					lend = lstart + SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+					nbChar = SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - 4;
+				}
 
 				intptr_t start_mark = targetStart - lstart;
 				intptr_t end_mark = targetEnd - lstart;
 
-				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH, lstart, lend, &start_mark, &end_mark, &nbChar);
 
-				wstring line = lineBuf;
-				line += L"\r\n";
+				lineBuf[nbChar++] = '\r';
+				lineBuf[nbChar++] = '\n';
+
 				SearchResultMarkingLine srml;
 				srml._segmentPostions.push_back(std::pair<intptr_t, intptr_t>(start_mark, end_mark));
 
@@ -3444,7 +3470,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 						pFindersInfo->_pDestFinder->addFileNameTitle(pFileName);
 						findAllFileNameAdded = true;
 					}
-					text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, line.c_str(), totalLineNumber));
+					text2AddUtf8->append(pFindersInfo->_pDestFinder->foundLine(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srml, lineBuf, nbChar, totalLineNumber));
 
 					if (text2AddUtf8->length() > FINDTEMPSTRING_MAXSIZE)
 					{
@@ -4070,6 +4096,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable, bool projectPanels
 	showFindDlgItem(IDD_FINDINFILES_REPLACEINPROJECTS, isEnable && projectPanels);
 	showFindDlgItem(IDD_FINDINFILES_FILTERS_STATIC, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_FILTERS_COMBO, isEnable);
+	showFindDlgItem(IDC_FIF_FILTER_TIP_STATIC, isEnable);
 	showFindDlgItem(IDD_FINDINFILES_DIR_STATIC, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_DIR_COMBO, isEnable && (!projectPanels));
 	showFindDlgItem(IDD_FINDINFILES_BROWSE_BUTTON, isEnable && (!projectPanels));
@@ -5355,7 +5382,7 @@ void Finder::addSearchResultInfo(int count, int countSearched, bool searchedEnti
 	setFinderReadOnly(true);
 }
 
-const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, const wchar_t* foundline, size_t totalLineNumber)
+string Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, const wchar_t* foundline, size_t foundLineLen, size_t totalLineNumber)
 {
 	bool isRepeatedLine = false;
 
@@ -5393,10 +5420,13 @@ const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, cons
 
 	miLine._segmentPostions[0].first += headerStr.length();
 	miLine._segmentPostions[0].second += headerStr.length();
-	headerStr += foundline;
+
+	headerStr += wstring(foundline, foundLineLen);
+	
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
-	const char* text2AddUtf8 = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8, &miLine._segmentPostions[0].first, &miLine._segmentPostions[0].second); // certainly utf8 here
-	size_t text2AddUtf8Len = strlen(text2AddUtf8);
+	int text2AddUtf8Len = 0;
+	const char* text2AddUtf8 = wmc.wchar2char(headerStr.c_str(), SC_CP_UTF8, &miLine._segmentPostions[0].first, &miLine._segmentPostions[0].second, static_cast<int>(headerStr.length()), &text2AddUtf8Len); // certainly utf8 here
+	
 
 	// if current line is the repeated line of previous one, and settings make per found line show ONCE in the result even there are several found occurences in the same line, for:
 	if ((isRepeatedLine && 
@@ -5424,12 +5454,12 @@ const char* Finder::foundLine(FoundInfo fi, SearchResultMarkingLine miLine, cons
 				cut--;
 
 			memcpy((void*)&text2AddUtf8[cut], endOfLongLine, lenEndOfLongLine + 1);
-			text2AddUtf8Len = cut + lenEndOfLongLine;
+			text2AddUtf8Len = static_cast<int>(cut + lenEndOfLongLine);
 		}
 
 		_pMainMarkings->push_back(miLine);
 
-		return text2AddUtf8;
+		return string(text2AddUtf8, text2AddUtf8Len);
 	}
 }
 

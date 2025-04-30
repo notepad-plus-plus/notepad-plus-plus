@@ -553,6 +553,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 			// while buiding the IDC_KEY_COMBO keys, update the map to which VirtualKey is used for each index
 			int iFound = -1;
+			oemVkUsedIDs.clear();	// the logic below (always pushing onto the vector) requires that it starts fresh every time, otherwise it will grow every time the dialog is launched
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
 				const char* nameStr = namedKeyArray[i].name;
@@ -571,7 +572,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				}
 
 				if (_keyCombo._key == namedKeyArray[i].id)
-					iFound = static_cast<int32_t>(oemVkUsedIDs.size());
+					iFound = static_cast<int32_t>(oemVkUsedIDs.size())-1;	// -1 because it's already been added, so the most recent index of oemVkUsedIDs is 1 less than the length
 			}
 
 			if (iFound != -1)
@@ -1243,6 +1244,7 @@ intptr_t CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, string2wstring(_name, CP_UTF8).c_str());
 			_keyCombo = _keyCombos[0];
+			oemVkUsedIDs.clear();	// the logic below (always pushing onto the vector) requires that it starts fresh every time, otherwise it will grow every time the dialog is launched
 
 			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{

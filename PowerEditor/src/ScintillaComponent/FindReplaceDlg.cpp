@@ -1304,7 +1304,8 @@ void FindReplaceDlg::resizeDialogElements()
 	RECT rcSwapBtn{};
 	HWND hSwapBtn = ::GetDlgItem(_hSelf, IDD_FINDREPLACE_SWAP_BUTTON);
 	getMappedChildRect(hSwapBtn, rcSwapBtn);
-	hdwp = setOrDeferWindowPos(hdwp, hSwapBtn, nullptr, rcOkBtn.left - getRcWidth(rcSwapBtn) - gap, rcSwapBtn.top, 0, 0, SWP_NOSIZE | flags);
+	const int moreRoom = 60;
+	hdwp = setOrDeferWindowPos(hdwp, hSwapBtn, nullptr, rcOkBtn.left - getRcWidth(rcSwapBtn) - gap - moreRoom, rcSwapBtn.top, 0, 0, SWP_NOSIZE | flags);
 
 	if (hdwp)
 		::EndDeferWindowPos(hdwp);

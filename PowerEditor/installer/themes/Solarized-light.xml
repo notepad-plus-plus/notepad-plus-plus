@@ -376,7 +376,7 @@ Installation:
             <WordsStyle name="ADDED" styleID="6" fgColor="268BD2" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
         <LexerType name="errorlist" desc="ErrorList" ext="">
-            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="000000" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="PYTHON Error" styleID="1" fgColor="FF0000" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="GCC Error" styleID="2" fgColor="FF0000" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="MS Error" styleID="3" fgColor="FF0000" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />

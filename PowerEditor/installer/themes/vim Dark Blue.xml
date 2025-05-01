@@ -273,7 +273,7 @@
             <WordsStyle name="DEFAULT" styleID="32" fgColor="FFFFFF" bgColor="000040" />
         </LexerType>
         <LexerType name="errorlist" desc="ErrorList" ext="">
-            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="000000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="FFFFBF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="PYTHON Error" styleID="1" fgColor="FF0000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="GCC Error" styleID="2" fgColor="FF0000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="MS Error" styleID="3" fgColor="FF0000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

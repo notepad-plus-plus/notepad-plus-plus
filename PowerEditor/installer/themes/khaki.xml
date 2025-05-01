@@ -382,7 +382,7 @@ Installation:
             <WordsStyle name="CONTINUATION" styleID="14" fgColor="d700d7" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="errorlist" desc="ErrorList" ext="">
-            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="000000" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="5F5F00" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="PYTHON Error" styleID="1" fgColor="FF0000" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="GCC Error" styleID="2" fgColor="FF0000" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="MS Error" styleID="3" fgColor="FF0000" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />

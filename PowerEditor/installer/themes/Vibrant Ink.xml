@@ -151,7 +151,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="errorlist" desc="ErrorList" ext="">
-            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="000000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT STYLE" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="PYTHON Error" styleID="1" fgColor="FF0000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="GCC Error" styleID="2" fgColor="FF0000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="MS Error" styleID="3" fgColor="FF0000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

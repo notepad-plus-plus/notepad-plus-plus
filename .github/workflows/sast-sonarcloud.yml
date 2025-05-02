@@ -1,0 +1,27 @@
+name: SAST - SonarCloud C++
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  sonarcloud:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Install SonarScanner
+        run: |
+          choco install sonar-scanner -y
+        shell: powershell
+
+      - name: Run SonarCloud Analysis
+        run: |
+          sonar-scanner.bat -Dproject.settings=sonar-project.properties
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

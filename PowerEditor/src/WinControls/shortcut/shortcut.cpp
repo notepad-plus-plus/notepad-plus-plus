@@ -572,7 +572,7 @@ intptr_t CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				}
 
 				if (_keyCombo._key == namedKeyArray[i].id)
-					iFound = static_cast<int32_t>(oemVkUsedIDs.size()-1);	// -1 because it's already been added, so the most recent index of oemVkUsedIDs is 1 less than the length
+					iFound = static_cast<int32_t>(oemVkUsedIDs.size())-1;	// -1 because it's already been added, so the most recent index of oemVkUsedIDs is 1 less than the length
 			}
 
 			if (iFound != -1)

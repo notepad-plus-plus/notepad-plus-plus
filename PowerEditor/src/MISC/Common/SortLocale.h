@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2025 Don HO <don.h@free.fr>
+// Copyright (C)2025 Randall Joseph Fellmy <software@coises.com>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,17 +21,19 @@
 #include <vector>
 #include <../ScintillaComponent/ScintillaEditView.h>
 
-class SortLocale {
+class SortLocale
+{
 public:
-    struct Result {
-        UINT status;           // Will be 0 (successful sort), MB_ICONWARNING or MB_ICONERROR
-        std::string tagName;   // The tag name for translation
-        std::wstring message;  // A message describing the status, if it isn't 0
-    };
-    std::wstring localeName;
-    bool caseSensitive = false;
-    bool digitsAsNumbers = true;
-    bool ignoreDiacritics = false;
-    bool ignoreSymbols = false;
-    Result sort(ScintillaEditView* sci, bool descending);
+	struct Result
+	{
+		UINT status = 0;       // Will be 0 (successful sort), MB_ICONWARNING or MB_ICONERROR
+		std::string tagName;   // The tag name for translation
+		std::wstring message;  // A message describing the status, if it isn't 0
+	};
+	std::wstring localeName;
+	bool caseSensitive = false;
+	bool digitsAsNumbers = true;
+	bool ignoreDiacritics = false;
+	bool ignoreSymbols = false;
+	Result sort(ScintillaEditView* sci, bool descending) const;
 };

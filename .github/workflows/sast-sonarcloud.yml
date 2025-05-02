@@ -27,6 +27,6 @@ jobs:
         shell: powershell
 
       - name: Run SonarCloud Analysis
-        run: sonar-scanner.bat -Dproject.settings=sonar-project.properties
+        run: sonar-scanner.bat
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

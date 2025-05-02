@@ -138,8 +138,8 @@
                     <Item id="42060" name="Sortează liniile lexicografic descendent"/>
                     <Item id="42080" name="Sortează liniile în ordine lexicografică ascendentă ignorând majusculele"/>
                     <Item id="42081" name="Sortează liniile în ordine lexicografică descendentă ignorând majusculele"/>
- 					<Item id="42100" name="Sortează liniile în ordinea crescătoare a limbii (a setărilor regionale)"/>
- 					<Item id="42101" name="Sortează liniile în ordinea descrescătoare a limbii (a setărilor regionale)"/>
+ 					<Item id="42100" name="Sortează liniile în ordinea crescătoare a limbii (a setărilor regionale sau a localizării)"/>
+ 					<Item id="42101" name="Sortează liniile în ordinea descrescătoare a limbii (a setărilor regionale sau a localizării)"/>
                     <Item id="42061" name="Sortează liniile ca numere întregi crescător"/>
                     <Item id="42062" name="Sortează liniile ca numere întregi descrescător"/>
                     <Item id="42063" name="Sortează liniile ca zecimale (virgulă) ascendent"/>

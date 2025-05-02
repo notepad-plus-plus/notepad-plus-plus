@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 8.8.0  20/Apr/2025  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 8.8.1  3/May/2025  by Ondřej Müller (mullero@email.cz)
 	- N++ Community QA:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz), Martin Darebný (darBis)
 	- the most recent version of this file can be downloaded from the project master-branch here: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/czech.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.0">
+	<Native-Langue name="Čeština" filename="czech.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -212,6 +212,8 @@
 					<Item id="42097" name="Rozlišovat VELKÁ/malá &amp;&amp; Celá slova"/>
 					<Item id="42098" name="Vrátit naposledy přidaný vícenásobný výběr"/>
 					<Item id="42099" name="Přeskočit aktuální &amp;&amp; přejít na další vícenásobný výběr"/>
+					<Item id="42100" name="Setřídit řádky s přihlédnutím k národnímu prostředí vzestupně"/>
+					<Item id="42101" name="Setřídit řádky s přihlédnutím k národnímu prostředí sestupně"/>
 					<Item id="43001" name="&amp;Najít..."/>
 					<Item id="43002" name="Najít &amp;další"/>
 					<Item id="43003" name="Nah&amp;radit..."/>
@@ -1483,6 +1485,9 @@ Potvrzovací dialog můžete kdykoliv reaktivovat v &quot;Nastavení&quot;."/>
 			<SessionFileInvalidError title="Relace nemohla být zavedena" message="Soubor relace je buďto poškozen nebo je neplatný."/>
 			<DroppingFolderAsProjectModeWarning title="Neplatná akce" message="Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit &quot;Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)&quot;."/>
 			<SortingError title="Chyba třídění" message="Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
+			<SortLocaleMultiple title="Třídění nebylo provedeno" message="Setřídění více výběrů najednou není podporováno."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Třídění selhalo" message="Důvod selhání setřídění nelze určit."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Třídění selhalo" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tip pro Sloupcový režim" message="
 Existují 3 způsoby přepnutí do režimu výběru sloupce:
 

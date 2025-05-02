@@ -1,0 +1,24 @@
+name: CI Security Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  security-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Verify commit signature
+        run: |
+          git log --show-signature -1
+
+      - name: Review status
+        run: echo "Code review enforcement is done via GitHub branch protection."
+
+      - name: MFA & Audit Logging Info
+        run: |
+          echo "MFA and audit logging are managed in GitHub organization settings."

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
--    Traducerea în română pentru Notepad++ 8.8
--    Ultima modificare a fost făcută 21 aprilie 2025 de către Miloiu Andrei-Valentin
+-    Traducerea în română pentru Notepad++ 8.8.1
+-    Ultima modificare a fost făcută 3 mai 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
-    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8">
+    <Native-Langue name="Romanian" filename="romanian.xml" version="8.8.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -138,6 +138,8 @@
                     <Item id="42060" name="Sortează liniile lexicografic descendent"/>
                     <Item id="42080" name="Sortează liniile în ordine lexicografică ascendentă ignorând majusculele"/>
                     <Item id="42081" name="Sortează liniile în ordine lexicografică descendentă ignorând majusculele"/>
+ 					<Item id="42100" name="Sortează liniile în ordinea crescătoare a limbii (a setărilor regionale/locale sau a localizării)"/>
+ 					<Item id="42101" name="Sortează liniile în ordinea descrescătoare a limbii (a setărilor regionale/locale sau a localizării)"/>
                     <Item id="42061" name="Sortează liniile ca numere întregi crescător"/>
                     <Item id="42062" name="Sortează liniile ca numere întregi descrescător"/>
                     <Item id="42063" name="Sortează liniile ca zecimale (virgulă) ascendent"/>
@@ -1498,7 +1500,10 @@ Setările pentru cloud vor fi anulate. Reintrodu o cale validă în panoul [Pref
              <SessionFileInvalidError title="Nu s-a putut încărca sesiunea" message="Sesiunea fișierului este fie coruptă, fie nevalidă."/>
             <DroppingFolderAsProjectModeWarning title="Acțiune nevalidă" message="Poți plasa doar fișiere sau doar foldere, dar nu ambele deodată, deoarece ești în modul „Folder ca proiect”.
 Pentru a putea efectua această operație, trebuie să activezi opțiunea „La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru” din secțiunea „Folder implicit” din panoul [Preferințe]."/>
-            <SortingError title="Eroare de sortare" message="Nu se poate executa sortarea numerică datorită liniei $INT_REPLACE$."/>
+            <SortingError title="Eroare de sortare" message="Nu se poate executa sortarea numerică datorită liniei $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sortarea nu a fost efectuată" message="Sortarea selecțiilor multiple nu este acceptată."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+ 			<SortLocaleUnknown title="Sortarea a eșuat" message="Motivul pentru care sortarea a eșuat nu poate fi determinat."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+ 			<SortLocaleExcept title="Sortarea a eșuat" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
             <ColumnModeTip title="Pont mod coloană" message="
 Sunt trei moduri de a comuta în modul de selectare a coloanei:
 

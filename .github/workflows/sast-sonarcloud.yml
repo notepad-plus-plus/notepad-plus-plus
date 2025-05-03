@@ -1,4 +1,5 @@
-name: SAST – SonarCloud (Linux)
+# .github/workflows/sast-sonarcloud.yml
+name: SAST – SonarCloud (C++)
 
 on:
   push:
@@ -9,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Run SonarCloud analysis
+      - name: Run SonarCloud analysis (v2)
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          organization: meeesumpique661          # your SonarCloud org  
-          projectKey: Meesum3595_notepad-plus-plus  # your project key  
-          token: ${{ secrets.SONAR_TOKEN }}      # the secret you added  
+          entryPoint: sonar-scanner
+          args: >
+            -Dsonar.organization=meeesumpique661
+            -Dsonar.projectKey=Meesum3595_notepad-plus-plus
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}

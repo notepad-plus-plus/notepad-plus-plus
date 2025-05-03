@@ -1,4 +1,4 @@
-name: SAST - SonarCloud C++
+name: SAST – SonarCloud (Linux)
 
 on:
   push:
@@ -6,27 +6,15 @@ on:
 
 jobs:
   sonarcloud:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up MSBuild
-        uses: microsoft/setup-msbuild@v1.1
-
-      - name: Download and extract SonarScanner
-        run: |
-          Invoke-WebRequest -Uri https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-windows.zip -OutFile sonar-scanner.zip
-          Expand-Archive sonar-scanner.zip -DestinationPath $env:USERPROFILE\sonarscanner
-        shell: powershell
-
-      - name: Add SonarScanner to PATH
-        run: |
-          echo "$env:USERPROFILE\sonarscanner\sonar-scanner-5.0.1.3006-windows\bin" | Out-File -Append $env:GITHUB_PATH
-        shell: powershell
-
-      - name: Run SonarCloud Analysis
-        run: sonar-scanner.bat
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run SonarCloud analysis
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          organization: meeesumpique661          # your SonarCloud org  
+          projectKey: Meesum3595_notepad-plus-plus  # your project key  
+          token: ${{ secrets.SONAR_TOKEN }}      # the secret you added  

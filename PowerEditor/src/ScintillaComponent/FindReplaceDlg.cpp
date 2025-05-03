@@ -6630,7 +6630,9 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 				::FillRect(reinterpret_cast<HDC>(wparam), &rc, NppDarkMode::getDlgBackgroundBrush());
 				return TRUE;
 			}
-			break;
+			// With "break;" here it will cause the visual regression: https://community.notepad-plus-plus.org/topic/26815/notepad-v8-8-release/4?_=1746285454720
+			// Use "return TRUE;" instead.
+			return TRUE;
 		}
 
 		case WM_SETFOCUS:

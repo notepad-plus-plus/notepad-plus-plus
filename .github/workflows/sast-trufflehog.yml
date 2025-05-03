@@ -9,14 +9,14 @@ on:
 jobs:
   trufflehog:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          # Fetch full history to scan old commits too
           fetch-depth: 0
 
       - name: Run TruffleHog to find secrets
-        uses: trufflesecurity/trufflehog@v3
+        uses: trufflesecurity/trufflehog@main
         with:
           directory: .

@@ -137,6 +137,8 @@ Translation note:
 					<Item id="42060" name="選択行を　辞書順で降順ソート"/>
 					<Item id="42080" name="選択行を　辞書順で昇順ソート(大文字小文字を無視)"/>
 					<Item id="42081" name="選択行を　辞書順で降順ソート(大文字小文字を無視)"/>
+					<Item id="42100" name="選択行を　ロケールを考慮して昇順ソート"/>
+					<Item id="42101" name="選択行を　ロケールを考慮して降順ソート"/>
 					<Item id="42061" name="選択行を　整数として昇順ソート"/>
 					<Item id="42062" name="選択行を　整数として降順ソート"/>
 					<Item id="42063" name="選択行を　実数(コンマが小数点)として昇順ソート"/>
@@ -1473,7 +1475,9 @@ Translation note:
 			<DroppingFolderAsProjectModeWarning title="無効な操作です" message="「フォルダーをプロジェクトとして開く」設定になっているため、ファイルとフォルダーを同時にドロップして開くことはできません。
 この操作を使いたい場合、「環境設定」を開き、「既定のディレクトリ」の「フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く」を有効にして下さい。"/>
 			<SortingError title="ソートエラー" message="行番号 $INT_REPLACE$ が原因でソートを実行できませんでした。"/>
-
+			<SortLocaleMultiple title="ソートを行えません" message="複数選択時はソートを行えません。"/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="ソートに失敗しました" message="不明な理由でソートに失敗しました。"/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="ソートに失敗しました" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、次の3つの方法があります：
 1.（キーボードとマウス）Altキーを押しながら左ボタンでドラッグ
 2.（キーボード）Alt＋Shiftキーを押しながら矢印キーを押す

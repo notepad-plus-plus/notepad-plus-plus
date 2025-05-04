@@ -3,7 +3,7 @@
 	Slovak localization for Notepad++
 -->
 <NotepadPlus>
-	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8">
+	<Native-Langue name="Slovenčina" filename="slovak.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -135,6 +135,8 @@
 					<Item id="42060" name="Usporiadať riadky zostupne"/>
 					<Item id="42080" name="Usporiadať riadky vzostupne (nerozlišovať veľkosť písma)"/>
 					<Item id="42081" name="Usporiadať riadky zostupne (nerozlišovať veľkosť písma)"/>
+					<Item id="42100" name="Usporiadať riadky vzostupne podľa abecedy"/>
+					<Item id="42101" name="Usporiadať riadky zostupne podľa abecedy"/>
 					<Item id="42061" name="Usporiadať riadky ako celé čísla vzostupne"/>
 					<Item id="42062" name="Usporiadať riadky ako celé čísla zostupne"/>
 					<Item id="42063" name="Usporiadať riadky ako desatinné čísla (s čiarkou) vzostupne"/>
@@ -989,6 +991,8 @@
 					<Item id="6120" name="Vertikálny"/>
 					<Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 					<Item id="6128" name="Alternatívne ikony"/>
+					<Item id="6125" name="Správanie"/>
+					<Item id="6126" name="Vzhľad a správanie"/>
 				</Tabbar>
 				
 				<Scintillas title="Úprava 1">
@@ -1101,6 +1105,7 @@
 					<Item id="6419" name="Nový dokument"/>
 					<Item id="6420" name="Použiť pri otváraní ANSI súborov"/>
 					<Item id="6432" name="Pri spustení vždy otvoriť nový dokument"/>
+					<Item id="6433" name="Použiť prvý riadok dokumentu ako názov karty bez názvu"/>
 				</NewDoc>
 
 				<DefaultDir title="Predvolený priečinok">
@@ -1465,6 +1470,9 @@ Uloženie vašich nastavení bude zrušené. Znovu, prosím, nastavte zodpovedaj
 			<DroppingFolderAsProjectModeWarning title="Neplatná operácia" message="Preťahovať môžete buď len súbory, alebo len adresáre. Nie oboje súčasne, pretože máte aktivovaný režim otvárania priečinka ako pracovného priestoru.
 Aby táto operácia fungovala, musíte povoliť položku &quot;Pri pretiahnutí priečinka myšou otvoriť súbory v priečinku, nie panel prac. priestoru&quot; v ponuke &quot;Nastavenia -> Predvoľby… -> Predvolený priečinok&quot;."/>
 			<SortingError title="Chyba usporiadania" message="Nie je možné vykonať číselné usporiadanie kvôli riadku $INT_REPLACE$."/>
+			<SortLocaleMultiple title="Usporiadanie sa nevykonalo" message="Usporiadanie viacerých výberov nie je podporované."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+ 			<SortLocaleUnknown title="Usporiadanie zlyhalo" message="Dôvod zlyhania sa nepodarilo zistiť."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+ 			<SortLocaleExcept title="Usporiadanie zlyhalo" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tip pre stĺpcový režim" message="
 Existujú 3 spôsoby prepnutia do režimu výberu stĺpca:
 

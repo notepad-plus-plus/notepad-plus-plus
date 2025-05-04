@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-04-20"><!-- basiert auf english.xml 8.8 vom 19.04.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="8.8.1"><!-- Datum: 16.06.2025, basiert auf english.xml 8.8.1 vom 04.06.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -102,7 +102,7 @@ Translation note:
 					<Item id="41003" name="S&amp;chließen"/>
 					<Item id="41004" name="All&amp;e schließen"/>
 					<Item id="41005" name="&amp;Alle Dateien bis auf die aktuelle schließen"/>
-					<Item id="41026" name="Alle Dateien bis auf &amp;fixierte schließen"/>
+					<Item id="41026" name="Alle Dateien bis auf &amp;angeheftete schließen"/>
 					<Item id="41009" name="Dateien &amp;links von aktueller Datei schließen"/>
 					<Item id="41018" name="Dateien &amp;rechts von aktueller Datei schließen"/>
 					<Item id="41024" name="Alle unveränderten Dateien schließen"/>
@@ -146,6 +146,8 @@ Translation note:
 					<Item id="42060" name="Zeilen alphabetisch a&amp;bsteigend sortieren"/>
 					<Item id="42080" name="Zeilen alph. aufsteigend sortieren, Schreibung ignorieren"/>
 					<Item id="42081" name="Zeilen alph. absteigend sortieren, Schreibung ignorieren"/>
+					<Item id="42100" name="Zeilen in lokaler Reihenfolge aufsteigend sortieren"/>
+					<Item id="42101" name="Zeilen in lokaler Reihenfolge absteigend sortieren"/>
 					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
 					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
@@ -429,11 +431,11 @@ Translation note:
 				<Item CMDID="41003" name="S&amp;chließen"/>
 				<Item CMDID="0" name="Mehrere Tabs schließen"/>
 				<Item CMDID="41005" name="&amp;Alle Dateien bis auf die aktuelle schließen"/>
-				<Item CMDID="41026" name="Alle Dateien bis auf &amp;fixierte schließen"/>
+				<Item CMDID="41026" name="Alle Dateien bis auf &amp;angeheftete schließen"/>
 				<Item CMDID="41009" name="Dateien links von aktueller Datei schlie&amp;ßen"/>
 				<Item CMDID="41018" name="Dateien rech&amp;ts von aktueller Datei schließen"/>
 				<Item CMDID="41024" name="Alle unveränderten Dateien schließen"/>
-				<Item CMDID="44048" name="Tab fixieren" alternativeName="Tab lösen"/>
+				<Item CMDID="44048" name="Tab anheften" alternativeName="Tab loslösen"/>
 				<Item CMDID="41006" name="&amp;Speichern"/>
 				<Item CMDID="41008" name="Speichern &amp;unter …"/>
 				<Item CMDID="1" name="Öffne in"/>
@@ -994,13 +996,15 @@ Translation note:
 					<Item id="6111" name="Tasten auf inaktiven Tabs anzeigen"/>
 					<Item id="6112" name="Schließen-Kreuz anzeigen"/>
 					<Item id="6113" name="Tabs per Doppelklick schließen"/>
-					<Item id="6115" name="Pin-Tab-Funktion aktivieren (fixieren/lösen)"/>
+					<Item id="6115" name="Pin-Tab-Funktion aktivieren (anheften/loslösen)"/>
 					<Item id="6135" name="Nur angeheftete Schaltfläche anzeigen"/>
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 					<Item id="6128" name="Alternative Symbole"/>
+					<Item id="6125" name="Verhalten"/>
+					<Item id="6126" name="Aussehen &amp;&amp; Wirkung (Look &amp;&amp; feel)"/>
 				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">
@@ -1113,6 +1117,7 @@ Translation note:
 					<Item id="6419" name="Neues Dokument"/>
 					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
 					<Item id="6432" name="Öffne beim Starten immer zusätzlich ein neues Dokument"/>
+					<Item id="6433" name="Die erste Zeile des Dokuments als Tab-Name verwenden"/>
 				</NewDoc>
 
 				<DefaultDir title="Standardverzeichnis">
@@ -1477,6 +1482,9 @@ Ihre Einstellungen konnten nicht gespeichert werden. Bitte passen Sie die Einste
 			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse abgelegt werden, aber nicht beides zugleich, da das Programm im 'Verzeichnis als Projekt'-Modus ist.
 Um dies zu ändern aktivieren Sie die Option &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs."/>
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
+			<SortLocaleMultiple title="Sortierung nicht durchgeführt" message="Sortierung bei Mehrfachauswahl wird nicht unterstützt."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Sortier-Fehler" message="Der Grund für das Fehlschlagen der Sortierung kann nicht festgestellt werden."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Sortier-Fehler" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tipp zum Spalten-Modus" message="
 Es gibt 3 Möglichkeiten um in den Spaltenmodus zu wechseln:
 

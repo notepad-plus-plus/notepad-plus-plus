@@ -97,7 +97,7 @@ To customize your toolbar icons:
 
 Note: If the "icoFolderName" value is an empty string, the icons will be located in "[toolbarButtonsConf.xml's folder]\toolbarIcons\default\".
 
-Replacing icons: Each icon (45 in total) has a fixed and specific name. Please ignore the unusued numbers - they are the separators.
+Replacing icons: Each icon (45 in total) has a fixed and specific name. Please ignore the unused numbers - they are the separators.
 Naming convention:
 
  0    new.ico

@@ -137,6 +137,8 @@
 					<Item id="42060" name="Sorok rendezése &amp;fordított betűrendben"/>
 					<Item id="42080" name="Sorok rendezése &amp;betűrendben, kis- és nagybetűtől függetlenül"/>
 					<Item id="42081" name="Sorok rendezése &amp;fordított betűrendben, kis- és nagybetűtől függetlenül"/>
+					<Item id="42100" name="Sorok rendezése ter&amp;ületi beállítások szerint"/>
+					<Item id="42101" name="Sorok rendezése ter&amp;ületi beállítások szerinti fordított sorrendben"/>
 					<Item id="42061" name="Sorok rendezése e&amp;gész számok szerint növekvően"/>
 					<Item id="42062" name="Sorok rendezése egés&amp;z számok szerint csökkenően"/>
 					<Item id="42063" name="Sorok rendezése &amp;tizedes számok szerint növekvően (tizedesvessző alapján)"/>
@@ -1468,6 +1470,9 @@ A felhőben tárolandó beállításai törlődnek. Kérjük, állítson be megf
 			<DroppingFolderAsProjectModeWarning title="Érvénytelen művelet" message="A Notepad++-ra vagy csak fájlokat, vagy csak mappákat ejthet (mindkettőt nem), mivel a „fogd és vidd” műveletre projektmód van beállítva.
 A művelet végrehajtásához a „Gépház” párbeszédpanel „Alapértelmezett mappa” szakaszában az „Egy mappa »fogd és vidd« ejtésekor a fájlok megnyitása…” lehetőség engedélyezése szükséges"/>
 			<SortingError title="Rendezési hiba" message="Nem hajtható végre számszerű rendezés a(z) $INT_REPLACE$. sor miatt"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Nem történt rendezés" message="Nem támogatott a többszörös kijelöléssel történő rendezés"/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Sikertelen rendezés" message="Sajnos nem sikerült megállapítani a rendezés sikertelenségének okát"/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Sikertelen rendezés" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Javaslatok az oszlopos kijelöléshez" message="Háromféle módon használhatja az oszlopos kijelölést:
 
 1. Billentyűzettel és egérrel: tartsa nyomva az Altot, majd az egér bal gombját lenyomva indítson kijelölést

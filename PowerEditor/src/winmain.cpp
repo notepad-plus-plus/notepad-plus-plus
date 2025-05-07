@@ -559,7 +559,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
-		for (int i = 0 ;!hNotepad_plus && i < 5 ; ++i)
+		for (int i = 0; !hNotepad_plus && i < 5 ; ++i)
 		{
 			Sleep(100);
 			hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);

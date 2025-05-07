@@ -29,7 +29,7 @@ Translation note:
 					<Item subMenuId="file-closeMore" name="关闭多个文档(&amp;M)"/>
 					<Item subMenuId="file-recentFiles" name="近期文件(&amp;R)"/>
 					<Item subMenuId="edit-insert" name="插入"/>
-					<Item subMenuId="edit-copyToClipboard" name="复制到剪切板(&amp;Y)"/>
+					<Item subMenuId="edit-copyToClipboard" name="复制到剪贴板(&amp;Y)"/>
 					<Item subMenuId="edit-indent" name="缩进(&amp;I)"/>
 					<Item subMenuId="edit-convertCaseTo" name="转换大小写(&amp;V)"/>
 					<Item subMenuId="edit-lineOperations" name="行操作(&amp;L)"/>

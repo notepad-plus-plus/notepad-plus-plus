@@ -2793,7 +2793,6 @@ wchar_t * ScintillaEditView::getGenericSelectedText(wchar_t * txt, int size, boo
 intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const
 {
 	execute(SCI_SETTARGETRANGE, fromPos, toPos);
-
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
 	const char *text2FindA = wmc.wchar2char(text2Find, cp);
@@ -2801,6 +2800,48 @@ intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t len
    	size_t len = (lenOfText2Find > text2FindALen) ? lenOfText2Find : text2FindALen;
 	return execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA));
 }
+
+intptr_t ScintillaEditView::searchInHtml(const wchar_t* text2Find,size_t fromPos,size_t toPos,bool reverse) const
+{
+	// Convert types for efficient runtime
+	std::wstring wstr = text2Find;
+	int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
+	std::string utf8Str(size_needed, 0);
+	WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, &utf8Str[0], size_needed, nullptr, nullptr);
+	if (!utf8Str.c_str())
+	{
+		return -1;
+	}
+	// Do a search for the pattern
+	Sci_TextToFind ttf;
+	ttf.chrg.cpMin = static_cast<Sci_PositionCR>(fromPos);
+	ttf.chrg.cpMax = static_cast<Sci_PositionCR>(toPos);
+	ttf.lpstrText = const_cast<char*>(utf8Str.c_str()); 
+	intptr_t result = -1;
+	if (!reverse) {
+		result = execute(SCI_FINDTEXT, 0, reinterpret_cast<LPARAM>(&ttf));
+	}
+	else {
+		intptr_t lastMatch = -1;
+		size_t curEnd = toPos;
+		while (curEnd > fromPos)
+		{
+			ttf.chrg.cpMin = static_cast<Sci_PositionCR>(fromPos);
+			ttf.chrg.cpMax = static_cast<Sci_PositionCR>(curEnd);
+			intptr_t foundPos = execute(SCI_FINDTEXT, 0, reinterpret_cast<LPARAM>(&ttf));
+			intptr_t curr = curEnd;
+			if (foundPos == -1 || foundPos >= curr)
+			{
+				break;
+			}
+			lastMatch = foundPos;
+			fromPos = lastMatch+1;
+		}
+		result = lastMatch;
+	}
+	return result;
+}
+
 
 void ScintillaEditView::appandGenericText(const wchar_t * text2Append) const
 {

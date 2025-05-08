@@ -28,7 +28,6 @@
 #include "dpiManager.h"
 #include "NppDarkMode.h"
 #include <assert.h>
-#include <tchar.h>
 #include <map>
 #include <array>
 #include <shlwapi.h>

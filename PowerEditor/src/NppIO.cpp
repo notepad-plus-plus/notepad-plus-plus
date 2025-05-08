@@ -26,7 +26,6 @@
 #include "ReadDirectoryChanges.h"
 #include "ReadFileChanges.h"
 #include "fileBrowser.h"
-#include <tchar.h>
 #include <unordered_set>
 #include "Common.h"
 

@@ -58,7 +58,6 @@ distribution.
 
 #include <assert.h>
 
-#include <tchar.h>
 #include <string>
 
 #include "Common.h"

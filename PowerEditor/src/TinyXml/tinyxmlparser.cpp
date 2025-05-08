@@ -24,7 +24,6 @@ distribution.
 
 
 #include <sstream>
-#include <tchar.h>
 #include "tinyxml.h"
 
 //#define DEBUG_PARSER

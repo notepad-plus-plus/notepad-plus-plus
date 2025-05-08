@@ -59,7 +59,6 @@ distribution.
 #include <stdio.h>
 #include <assert.h>
 #include <string>
-#include <tchar.h>
 #include "Common.h"
 
 class TiXmlDocumentA;

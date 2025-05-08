@@ -19,7 +19,6 @@
 
 #include <windows.h>
 #include <string>
-#include <tchar.h>
 #include <cstdint>
 
 

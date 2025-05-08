@@ -1310,7 +1310,7 @@ Translation note:
 				</Performance>
 
 				<Cloud title="Moln och länkar">
-					<Item id="6262" name="Inställning för moln"/>
+					<Item id="6262" name="Inställningar för moln"/>
 					<Item id="6263" name="Inget moln"/>
 					<Item id="6267" name="Ange sökvägen till din molnmapp här:"/>
 					<Item id="6318" name="Inställningar för klickbara länkar"/>
@@ -1351,7 +1351,7 @@ Translation note:
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="systemfältet"/>
-					<Item id="6363" name="renderingsläge"/>
+					<Item id="6363" name="som renderingsläge"/>
 					<Item id="6312" name="Identifiera filstatus automatiskt"/>
 					<Item id="6313" name="Tyst uppdatering"/>
 					<Item id="6325" name="Gå till sista raden efter uppdatering"/>
@@ -1471,7 +1471,7 @@ Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inst�
 			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan endast släppa filer eller mappar men inte båda eftersom du är i läget för att släppa mappar som projekt.
 Du måste aktivera &quot;Öppna alla filer inuti mappar som släpps i stället för att öppna dem som arbetsytor&quot; via avsnittet &quot;Standardmapp&quot; i inställningarna för att denna åtgärd ska fungera."/>
 			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<SortLocaleMultiple title="Sorteringen har inte utförts" message="Stöd saknas för att sortera flera markeringar."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleMultiple title="Sorteringen genomfördes inte" message="Stöd saknas för att sortera flera markeringar."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<SortLocaleUnknown title="Sorteringen misslyckades" message="Anledningen till att sorteringen misslyckades är okänd."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
 			<SortLocaleExcept title="Sorteringen misslyckades" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Tips för kolumnläge" message="

@@ -211,7 +211,7 @@
                     <Item id="42056" name="Elimină liniile goale (ce conțin caractere goale)"/>
                     <Item id="42057" name="Inserează o linie goală deasupra actualei linii"/>
                     <Item id="42058" name="Inserează o linie goală dedesubtul actualei linii"/>
-                    <Item id="43001" name="&Găsire (Căutare)..."/>
+                    <Item id="43001" name="&amp;Găsire (Căutare)..."/>
                     <Item id="43002" name="Găsește rezultatul &amp;următor"/>
                     <Item id="43003" name="Î&amp;nlocuire..."/>
                     <Item id="43004" name="&amp;Mergi la..."/>

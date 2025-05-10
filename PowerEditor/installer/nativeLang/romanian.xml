@@ -394,7 +394,7 @@
 					<Item id="48510" name="Generare..."/>
 					<Item id="48511" name="Generează din fișiere..."/>
 					<Item id="48512" name="Generează din selecție în clipboard"/>
-                    <Item id="49000" name="&amp;Executare (&amp;Rulare)..."/>
+                    <Item id="49000" name="&amp;Executare (Rulare)..."/>
 
                     <Item id="50000" name="Completează funcțiile"/>
                     <Item id="50001" name="Completează cuvintele"/>

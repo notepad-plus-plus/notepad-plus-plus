@@ -1481,7 +1481,7 @@ Este ficheiro foi modificado por outro programa.
 Deseja recarregá-lo e perder as alterações feitas no Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema pré-histórico detetado" message="Parece que ainda se utiliza um sistema pré-histórico. Esta recurso funciona apenas num sistema moderno, desculpe."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Atualizador do Notepad++" message="O atualizador do Notepad++ não é compatível com XP devido à segurança obsoleta no XP.
-Deseja ir à página Notepad++ para descarregar a versão mais recente?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+Deseja ir à página Notepad++ para transferir a versão mais recente?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="Definições Proxy" message="iniciar novamente o notepad++ no modo Admin para configurar o proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitorização" message="O documento está corrompido. Guarde a modificação antes de a monitorizar."/>
 			<DocNoExistToMonitor title="Problema de monitorização" message="O ficheiro deve existir para ser monitorizado."/>

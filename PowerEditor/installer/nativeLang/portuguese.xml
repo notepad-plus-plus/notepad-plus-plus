@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.9">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1862,10 +1862,10 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
+07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8)
 
 Filipe Mota <blackspirits@gmail.com>
-27/03/2023 (version 8.5.1, 8.6.3, 8.7)
+27/03/2023 (version 8.5.1, 8.6.3, 8.7, 8.8)
 
 Last modified: 10 May 2025 by Hugo Carvalho and Filipe Mota (BlackSpirits)
 

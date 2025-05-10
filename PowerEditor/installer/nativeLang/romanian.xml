@@ -1600,10 +1600,10 @@ Vrei să continui?"/>
 			<LanguageMenuCompactWarning title="Meniul de limbi compact" message="Această opțiune va fi schimbată la următoarea lansare."/><!-- HowToReproduce: toggle "Make language menu compact" via Preferences dialog "Language/Language Menu. -->
 			<SwitchUnsavedThemeWarning title="$STR_REPLACE$" message="Schimbările nesalvate urmează să fie anulate!
 Vrei să salvezi schimbările înainte de a schimba tema?"/><!-- HowToReproduce: In the Style Configurator dialog change some theme and switch to other theme without saving. -->
-			<MacroAndRunCmdlWarning title="Compatibilitatea comenzilor Macrocomenzi (Macro-uri) și Executare (Rulare)" message="Comenzile tale Macrocomenzi (Macro-uri) și Executare (Rulare salvate în Notepad++ v.8.5.2 (sau mai vechi) pot să nu fie compatibilie cu versiunea curentă de Notepad++.
+			<MacroAndRunCmdlWarning title="Compatibilitatea comenzilor Macrocomenzi (Macro-uri) și Executare (Rulare)" message="Comenzile tale Macrocomenzi (Macro-uri) și Executare (Rulare) salvate în Notepad++ v.8.5.2 (sau mai vechi) pot să nu fie compatibilie cu versiunea curentă de Notepad++.
 Te rugăm să testezi comenzile și dacă e nevoie, să le reeditezi.
 
-Alternativ, poți să revii la Notepad++ v8.5.2 și poți restaura datele anterioare.
+În mod alternativ, poți să revii la Notepad++ v8.5.2 și poți restaura datele anterioare.
 Notepad++ îți va restaura vechiul „shortcuts.xml” și îl va salva ca „shortcuts.xml.v8.5.2.backup”.
 Redenumind „shortcuts.xml.v8.5.2.backup” -&gt; „shortcuts.xml”, comenzile tale ar trebui restaurate și să lucreze perfect."/><!-- HowToReproduce: Close Notepad++, remove shortcuts.xml.v8.5.2.backup & v852ShortcutsCompatibilityWarning.xml if present, relaunch Notepad++, delete or modify a shortcuts via Shortcut Mapper, close Notepad++, then the message will show up -->
 			<NbFileToOpenImportantWarning title="Numărul de fișiere ce urmează să fie deschise este prea mare" message="Fișierele $INT_REPLACE$ urmează să fie deschise.

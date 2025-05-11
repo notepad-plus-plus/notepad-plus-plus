@@ -7,16 +7,16 @@ Translation note:
 <!--
 	History of Polish translation for Notepad++:
 
-	- Translated by Patryk Skorupa (ppskorupa@outlook.com) and up-to-date as of version 7.7.2 (29/07/2019)
+	- Updated by Patryk Skorupa (ppskorupa@outlook.com) to version 7.7.2 (29/07/2019)
 	- Updated by Cezariusz Marek to version 7.8.3 (11.01.2020)
-	- Translated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) and up-to-date as of version 8.7.2 (27.11.2024)
-	- Updated by Arkadiusz Michalski (webref.pl) to version 8.6.9 (05.07.2024)
+	- Updated by Piotr Kostrzewski (piotrkostrzewski2@@outlook.com) to version 8.7.2 (27.11.2024)
+	- Updated by Arkadiusz Michalski (webref.pl) to version 8.8.1 (16.06.2025)
 
 	The most recent version of this file can usually be downloaded from:
 		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/polish.xml
 -->
 <NotepadPlus>
-	<Native-Langue name="polski" filename="polish.xml" version="8.7.2">
+	<Native-Langue name="polski" filename="polish.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Główne menu -->
@@ -108,7 +108,6 @@ Translation note:
 					<Item id="41009" name="Zamknij wszystko na lewo od bieżącego pliku"/>
 					<Item id="41018" name="Zamknij wszystko na prawo od bieżącego pliku"/>
 					<Item id="41024" name="Zamknij wszystko, gdzie nie dokonano zmian"/>
-					<Item id="44048" name="Przypnij kartę" alternativeName="Odepnij kartę"/>
 					<Item id="41006" name="&amp;Zapisz"/>
 					<Item id="41007" name="Zapisz w&amp;szystko"/>
 					<Item id="41008" name="Z&amp;apisz jako..."/>
@@ -149,6 +148,8 @@ Translation note:
 					<Item id="42060" name="Sortuj linie malejąco"/>
 					<Item id="42080" name="Sortuj rosnąco, ignorując wielkość znaków"/>
 					<Item id="42081" name="Sortuj malejąco, ignorując wielkość znaków"/>
+					<Item id="42100" name="Sortuj rosnąco, w kolejności regionalnej"/>
+					<Item id="42101" name="Sortuj malejąco, w kolejności regionalnej"/>
 					<Item id="42061" name="Sortuj rosnąco jako liczby całkowite"/>
 					<Item id="42062" name="Sortuj malejąco jako liczby całkowite"/>
 					<Item id="42063" name="Sortuj rosnąco jako liczby dziesiętne z przecinkiem"/>
@@ -206,13 +207,14 @@ Translation note:
 					<Item id="42025" name="&amp;Zapisz bieżące makro..."/>
 					<Item id="42026" name="Kierunek tekstu od prawej do lewej"/>
 					<Item id="42027" name="Kierunek tekstu od lewej do prawej"/>
-					<Item id="42028" name="Zablokuj edycję"/>
+					<Item id="42028" name="Tylko do odczytu w Notepad++"/>
 					<Item id="42029" name="Kopiuj ścieżkę bieżącego pliku"/>
 					<Item id="42030" name="Kopiuj nazwę bieżącego pliku"/>
 					<Item id="42031" name="Kopiuj ścieżkę katalogu bieżącego pliku"/>
 					<Item id="42087" name="Kopiuj nazwy wszystkich plików"/>
 					<Item id="42088" name="Kopiuj ścieżki wszystkich plików"/>
 					<Item id="42032" name="&amp;Uruchom makro wielokrotnie..."/>
+					<Item id="42033" name="Atrybut tylko do odczytu w Windows"/>
 					<Item id="42035" name="Wstaw komentarz liniowy"/>
 					<Item id="42036" name="Usuń komentarz liniowy"/>
 					<Item id="42055" name="Usuń puste linie"/>
@@ -234,7 +236,7 @@ Translation note:
 					<Item id="43051" name="Usuń linie bez zakładek"/>
 					<Item id="43050" name="Odwróć przydzielenie zakładek"/>
 					<Item id="43052" name="Szukaj znaków z zakresu..."/>
-					<Item id="43053" name="Zaznacz wszystko pomiędzy odpowiadającymi nawiasami"/>
+					<Item id="43053" name="Zaznacz wszystko pomiędzy {}, [] lub ()"/>
 					<Item id="43009" name="Przejdź do odpowiadającego nawiasu"/>
 					<Item id="43010" name="&amp;Poprzednie wystąpienie"/>
 					<Item id="43011" name="Wyszukiwanie przy&amp;rostowe"/>
@@ -423,8 +425,8 @@ Translation note:
 					<Item id="11005" name="Ścieżki od Z do A"/>
 					<Item id="11006" name="Typu od A do Z"/>
 					<Item id="11007" name="Typu od Z do A"/>
-					<Item id="11008" name="Rozmiaru od najmniejszego do największego"/>
-					<Item id="11009" name="Rozmiaru od największego do najmniejszego"/>
+					<Item id="11008" name="Rozmiaru rosnąco"/>
+					<Item id="11009" name="Rozmiaru malejąco"/>
 				</Commands>
 			</Main>
 			<TabBar>
@@ -447,7 +449,8 @@ Translation note:
 				<Item CMDID="41016" name="Przenieś do kosza"/>
 				<Item CMDID="41014" name="Odśwież"/>
 				<Item CMDID="41010" name="Drukuj..."/>
-				<Item CMDID="42028" name="Zablokuj edycję"/>
+				<Item CMDID="42028" name="Tylko do odczytu w Notepad++"/>
+				<Item CMDID="42033" name="Atrybut tylko do odczytu w Windows"/>
 				<Item CMDID="2" name="Kopiuj do schowka"/>
 				<Item CMDID="42029" name="Kopiuj ścieżkę pliku"/>
 				<Item CMDID="42030" name="Kopiuj nazwę pliku"/>
@@ -832,6 +835,7 @@ Translation note:
 				<Folder title="Zawijanie kodu i wart. dom.">
 					<Item id="21101" name="Domyślny styl"/>
 					<Item id="21102" name="Stylizuj"/>
+					<Item id="21103" name="Języki zdefiniowane przez użytkownika (pomoc online)"/>
 					<Item id="21105" name="Dokumentacja"/>
 					<Item id="21106" name="Zawijaj &amp;zwięźle (również puste linie)"/>
 					<Item id="21220" name="Styl zawijania kodu nr 1"/>
@@ -955,35 +959,55 @@ Translation note:
 			<Preference title="Ustawienia">
 				<Item id="6001" name="Zamknij"/>
 				<Global title="Ogólne">
+					<Item id="6123" name="Język interfejsu"/>
+					<Item id="6131" name="Pasek menu"/>
+					<Item id="6122" name="Ukryj pasek menu (Alt lub F10 przełączają)"/>
+					<Item id="6132" name="Ukryj przyciski ＋ ▼ ✕ widoczne z prawej strony"/>
+					<Item id="6133" name="Pasek stanu"/>
+					<Item id="6134" name="Ukryj"/>
+				</Global>
+
+				<Toolbar title="Pasek narzędzi">
 					<Item id="6102" name="Ukryj"/>
 					<Item id="6103" name="Fluent UI: małe ikony"/>
 					<Item id="6104" name="Fluent UI: duże ikony"/>
 					<Item id="6129" name="Filled Fluent UI: małe ikony"/>
 					<Item id="6130" name="Filled Fluent UI: duże ikony"/>
 					<Item id="6105" name="Klasyczny wygląd: małe ikony"/>
+					<Item id="6011" name="Kolorowanie (tylko dla Fluent UI)"/>
+					<Item id="6012" name="Kompletne"/>
+					<Item id="6013" name="Częściowe"/>
+					<Item id="6014" name="Wybór koloru"/>
+					<Item id="6015" name="Domyślny"/>
+					<Item id="6016" name="Czerwony"/>
+					<Item id="6017" name="Zielony"/>
+					<Item id="6018" name="Niebieski"/>
+					<Item id="6019" name="Purpurowy"/>
+					<Item id="6020" name="Cyjanowy"/>
+					<Item id="6021" name="Oliwkowy"/>
+					<Item id="6022" name="Żółty"/>
+					<Item id="6023" name="Systemowy kolor wiodący"/>
+					<Item id="6024" name="Własny"/>
+				</Toolbar>
 
+				<Tabbar title="Pasek kart">
 					<Item id="6107" name="Mały"/>
 					<Item id="6108" name="Zablokowany (bez przeciągania)"/>
 					<Item id="6109" name="Zmień kolor nieaktywnej karty"/>
 					<Item id="6110" name="Pokazuj kolorową belkę na aktywnej karcie"/>
+					<Item id="6111" name="Pokazuj przyciski na nieaktywnych kartach"/>
 					<Item id="6112" name="Pokazuj przycisk zamknięcia na kartach"/>
 					<Item id="6113" name="Podwójne kliknięcie zamyka kartę"/>
 					<Item id="6115" name="Włącz funkcję przypinania kart"/>
+					<Item id="6135" name="Pokazuj jedynie przycisk pzypiętej karty"/>
 					<Item id="6118" name="Ukryty"/>
 					<Item id="6119" name="Wieloliniowy"/>
 					<Item id="6120" name="Pionowy"/>
 					<Item id="6121" name="Zamknięcie ostatniej karty zamyka Notepad++"/>
 					<Item id="6128" name="Alternatywne ikony"/>
-
-					<Item id="6133" name="Pasek stanu"/>
-					<Item id="6134" name="Ukryj"/>
-
-					<Item id="6131" name="Pasek menu"/>
-					<Item id="6122" name="Ukryj pasek menu (Alt lub F10 przełączają)"/>
-					<Item id="6132" name="Ukryj przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu (wymagany restart Notepad++)"/>
-
-					<Item id="6123" name="Język interfejsu"/>
-				</Global>
+					<Item id="6125" name="Zachowanie"/>
+					<Item id="6126" name="Wygląd"/>
+				</Tabbar>
 
 				<Scintillas title="Edycja 1">
 					<Item id="6216" name="Kursor"/>
@@ -1002,6 +1026,7 @@ Translation note:
 					<Item id="6239" name="Zachowaj zaznaczenie po kliku prawym przyciskiem myszy poza zaznaczeniem"/>
 					<Item id="6245" name="Włącz wirtualny odstęp"/>
 					<Item id="6214" name="Włącz kopiowanie/wycinanie linii bez jej zaznaczania"/>
+					<Item id="6225" name="Zastosuj własny kolor tekstu w zaznaczeniach"/>
 					<Item id="6651" name="Wskaźnik bieżącej linii"/>
 					<Item id="6652" name="Brak"/>
 					<Item id="6653" name="Podświetlane tło"/>
@@ -1094,6 +1119,7 @@ Translation note:
 					<Item id="6419" name="Nowy dokument"/>
 					<Item id="6420" name="Stosuj do otwartych plików ANSI"/>
 					<Item id="6432" name="Zawsze otwieraj dodatkowy nowy dokument podczas uruchamiania"/>
+					<Item id="6433" name="Użyj pierwszego wiersza dokumentu jako nazwy dla karty bez tytułu"/>
 				</NewDoc>
 
 				<DefaultDir title="Domyślna ścieżka">
@@ -1108,6 +1134,7 @@ Translation note:
 					<Item id="4009" name="Wspierane rozszerzenia:"/>
 					<Item id="4010" name="Zarejestrowane rozszerzenia:"/>
 				</FileAssoc>
+
 
 				<Language title="Języki">
 					<Item id="6505" name="Dostępne"/>
@@ -1197,6 +1224,7 @@ Translation note:
 					<Item id="6908" name="Wprowadź zaznaczony tekst do pola wyszukiwania"/>
 					<Item id="6909" name="Jeśli nie zaznaczono tekstu to zaznacz słowo spod bieżącej pozycji kursora"/>
 					<Item id="6910" name="Minimalna liczba znaków dla auto-wybrania opcji „W zaznaczeniu”:"/>
+					<Item id="6913" name="W oknie „Szukaj w plikach” wypełniaj pole „Ścieżka:” w oparciu o aktywny dokument"/>
 				</Searching>
 
 				<RecentFilesHistory title="Historia ostatnich plików">
@@ -1213,7 +1241,7 @@ Translation note:
 				<Backup title="Kopia zapasowa">
 					<Item id="6817" name="Zapamiętywanie sesji i cykliczne kopie zapasowe"/>
 					<Item id="6818" name="Włącz zapamiętywanie sesji i cykliczne kopie zapasowe"/>
-					<Item id="6819" name="Rób kopię co"/>
+					<Item id="6819" name="Rób kopię zapasową przy każdej modyfikacji co"/>
 					<Item id="6821" name="sek."/>
 					<Item id="6822" name="Ścieżka kopii:"/>
 					<Item id="6309" name="Pamiętaj bieżącą sesję do następnego uruchomienia"/>
@@ -1328,7 +1356,15 @@ Translation note:
 						<Element name="Zamykaj do"/>
 						<Element name="Minimalizuj / Zamykaj do"/>
 					</ComboBox>
+					<ComboBox id="6362">
+						<Element name="GDI (najbardziej kompatybilny)"/>
+						<Element name="DirectWrite (domyślny)"/>
+						<Element name="DirectWrite (zachowaj ramki)"/>
+						<Element name="DirectWrite (rysuj do GDI DC)"/>
+						<Element name="DirectWrite (DirectX 11)"/>
+					</ComboBox>
 					<Item id="6308" name="zasobnika systemowego"/>
+					<Item id="6363" name="tryb renderowania"/>
 					<Item id="6312" name="Autowykrywanie stanu pliku"/>
 					<Item id="6313" name="Uaktualniaj po cichu"/>
 					<Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
@@ -1448,6 +1484,9 @@ Ustawienia chmury zostaną wycofane. Nową ścieżkę można podać w oknie usta
 			<DroppingFolderAsProjectModeWarning title="Nieprawidłowe działanie" message="Pliki i foldery muszą być przenoszone do programu osobno, ponieważ aktywny jest tryb obszaru roboczego.
 Żeby to zmienić, należy włączyć opcję „Nie traktuj przenoszonego folderu jako obszaru roboczego, tylko ładuj wszystkie jego pliki” w zakładce „Domyślna ścieżka” w oknie ustawień."/>
 			<SortingError title="Błąd sortowania" message="Nie można wykonać sortowania przez linię numer $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Nieobsługiwane sortowanie" message="Sortowanie regionalne dla wielu zaznaczeń nie jest obsługiwane."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Błąd sortowania" message="Nie można ustalić przyczyny niepowodzenia sortowania regionalnego."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Błąd sortowania" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Wskazówka dla kolumnowego trybu zaznaczania" message="
 Istnieją 3 sposoby przejścia do kolumnowego trybu zaznaczania:
 
@@ -1518,8 +1557,13 @@ Kontynuować?"/>
 			<UDLNewNameError title="Błąd języka" message="Wybrana nazwa pojawia się w innym języku.
 Proszę wybrać inną."/>
 			<UDLRemoveCurrentLang title="Usuwanie bieżącego języka" message="Na pewno chcesz kontynuować?"/>
+			<UDL_importSuccessful title="Język zdefiniowany przez użytkownika" message="Import zakończony sukcesem."/>
+			<UDL_importFails title="Język zdefiniowany przez użytkownika" message="Import zakończony niepowodzeniem."/>
+			<UDL_saveBeforeImport title="Język zdefiniowany przez użytkownika" message="Przed eksportem zapisz definicję języka klikając przycisk „Zapisz jako...”."/> <!-- HowToReproduce: Choose "User Defined Language" in User Language combobox, then click on "Export... button". -->
+			<UDL_exportSuccessful title="Język zdefiniowany przez użytkownika" message="Eksport zakończony sukcesem."/>
+			<UDL_exportFails title="Język zdefiniowany przez użytkownika" message="Eksport zakończony niepowodzeniem."/>
 			<SCMapperDoDeleteOrNot title="Na pewno?" message="Czy na pewno chcesz usunąć ten skrót?"/>
-			<FindCharRangeValueError title="Błąd zakresu wartości" message="Wartość musi się mieścić w przedziale liczbowym między 0 i 255."/>
+			<FindCharRangeValueError title="Błąd zakresu wartości" message="Wartość musi się mieścić w przedziale liczbowym między 0 i 255."/> <!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Błąd zapisywania" message="Nie udało się zapisać pliku, ponieważ ten może być chroniony.
 Czy chcesz uruchomić Notepad++ jako administrator?"/>
 			<OpenInAdminModeWithoutCloseCurrent title="Błąd zapisywania" message="Nie udało się zapisać pliku, ponieważ ten może być chroniony.
@@ -1559,6 +1603,10 @@ UWAGI: Jeśli zdecydujesz się nie tworzyć obiektów zastępczych lub zamkniesz
 Naciśnij przycisk OK, aby otworzyć okno „Szukaj” lub ustawić na nim fokus.
 
 Jeśli potrzebujesz funkcji wstecznego wyszukiwania wyrażeń regularnych to zapoznaj się z instrukcją obsługi, gdzie znajduje się opis jej włączenia."/>
+			<PrintError title="0" message="Nie można uruchomić drukarki dokumentu."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
+			<FindAutoChangeOfInSelectionWarning title="Ostrzeżenie dotyczące wyszukiwania" message="Stan pola „W zaznaczeniu” został automatycznie zmodyfikowany.
+Przed wykonaniem czynności sprawdź warunki wyszukiwania."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ wymaga ponownego uruchomienia" message="Notepad++ wymaga ponownego uruchomienia, aby wyświetlić przyciski ＋ ▼ ✕ widoczne z prawej strony paska menu."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historia schowka"/>
@@ -1694,6 +1742,7 @@ Szukaj wśród wszystkich plików z wyjątkiem folderów tests, bin i bin64:
 Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folderów log i logs:
 *.* !+\log*"/><!-- HowToReproduce: Tip of mouse hovered on "Filters" label in "Find in Files" section of Find dialog. -->
 			<find-in-files-select-folder value="Wybierz folder, który ma zostać przeszukany przez Notepad++"/><!-- HowToReproduce: Search > Find in Files > [...] -->
+			<find-in-files-dir-from-active-doc-tip value="Wypełniaj pole „Ścieżka:” w oparciu o aktywny dokument"/><!-- HowToReproduce: Search > Find in Files > [<<] -->
 			<find-status-top-reached value="Szukanie: Osiągnięto początek dokumentu, znaleziono 1. wystąpienie od dołu."/>
 			<find-status-end-reached value="Szukanie: Osiągnięto koniec dokumentu, znaleziono 1. wystąpienie od góry."/>
 			<find-status-replaceinfiles-1-replaced value="Zamienianie w plikach: Zamieniono 1 wystąpienie"/>
@@ -1727,7 +1776,9 @@ Szukaj wśród wszystkich plików z wyjątkiem wszystkich zagnieżdżonych folde
 			<finder-collapse-all value="Zwiń wszystko"/>
 			<finder-uncollapse-all value="Rozwiń wszystko"/>
 			<finder-copy value="Kopiuj zaznaczone linie"/>
+			<finder-copy-selected-paths value="Kopiuj zaznaczone ścieżki"/>
 			<finder-clear-all value="Wyczyść wszystko"/>
+			<finder-open-selected-paths value="Otwórz zaznaczone ścieżki"/>
 			<finder-purge-for-every-search value="Opróżnij przed każdym wyszukiwaniem"/>
 			<finder-wrap-long-lines value="Zawijaj długie wiersze"/>
 			<common-ok value="OK"/>
@@ -1823,12 +1874,26 @@ Kliknij na przycisk „?” po prawej aby otworzyć stronę z dokumentacją."/>
 			<verticalEdge-tip value="Dodaj znacznik kolumny, wskazując jej pozycję liczbą dziesiętną. Można zdefiniować kilka znaczników kolumn rozdzielając różne liczby znakami spacji."/>
 			<fileSaveAsCopySaveButton-tip value="Przytrzymaj Shift klikając Zapisz, aby otworzyć kopię po zapisaniu."/>
 			<autoIndentBasic-tip value="Automatycznie wcięcie podczas wprowadzania nowej linii. Wcięcie nowej linii jest takie samo jak w poprzedniej linii."/>
-			<autoIndentAdvanced-tip value="Inteligentne wcięcie dla języków &quot;C-podobnych&quot; i Python. Języki &quot;C-podobne&quot; obejmują:
+			<autoIndentAdvanced-tip value="Inteligentne wcięcie dla języków „C-podobnych” i Python. Języki „C-podobne” obejmują:
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell i JSON.
 
 Jeśli wybierzesz tryb zaawansowany, ale nie edytujesz plików w wymienionych językach, wcięcie pozostanie w trybie podstawowym."/>
+
 			<!-- Don't translate "Global override" and "Default Style" -->
-			<global-override-tip value="Włączenie opcji w &quot;Global override&quot; spowoduje nadpisanie tego parametru we wszystkich stylach językowych. Prawdopodobnie chcesz użyć ustawień &quot;Default Style&quot; zamiast tego"/>
+			<global-override-tip value="Włączenie opcji w „Global override” spowoduje nadpisanie tego parametru we wszystkich stylach językowych. Prawdopodobnie chcesz użyć ustawień „Default Style” zamiast tego."/>
+			<scintillaRenderingTechnology-tip value="Może poprawić renderowanie znaków specjalnych lub rozwiązać niektóre problemy graficzne. Aby zastosować zmiany, należy ponownie uruchomić program Notepad++."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="Długość: $STR_REPLACE1$    Linie: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Linia: $STR_REPLACE1$    Kolumna: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Pozycja: "/>
+			<statusbar-Sel value="Selekcja: "/>
+			<statusbar-Sel-number value="Selekcje"/>
+			<toolbar-accent-tip value="Ta opcja sprawia, że ​​ikony paska narzędzi są zgodne z wiodącym kolorem systemu Windows. Kolor wiodący to kolor wyróżnienia używany w przyciskach, obramowaniach i kafelkach menu Start w systemie Windows. Aby go zmienić, przejdź kolejno do Ustawienia &gt; Personalizacja &gt; Kolory, a następnie wybierz preferowany kolor wiodący."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

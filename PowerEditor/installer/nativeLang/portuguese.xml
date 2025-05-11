@@ -898,7 +898,7 @@ Translation note:
 					<Item id="23246" name="Vírgula"/>
 					<Item id="23247" name="Ambos"/>
 				</Comment>
-				<Operator title="Operadores e delimitadores"/>
+				<Operator title="Operadores e delimitadores">
 					<Item id="24101" name="Operadores ativados:"/>
 					<Item id="24113" name="Estilizar"/>
 					<Item id="24116" name="Operadores 1"/>
@@ -956,7 +956,7 @@ Translation note:
 				    <Item id="6134" name="Ocultar"/>
 				</Global>
 				
-				<Toolbar title="Barra de ferramentas"/>	
+				<Toolbar title="Barra de ferramentas">	
 					<Item id="6102" name="Ocultar"/>
 					<Item id="6103" name="Ícones sem preenchimento: pequenos"/>
 					<Item id="6104" name="Ícones sem preenchimento: grandes"/>
@@ -979,7 +979,7 @@ Translation note:
 					<Item id="6024" name="Personalizada"/>
 				</Toolbar>
 					
-				<Tabbar title="Barra de separadores"/>
+				<Tabbar title="Barra de separadores">
 					<Item id="6107" name="Reduzir"/>
 					<Item id="6108" name="Bloquear (sem arrastar e largar)"/>
 					<Item id="6109" name="Escurecer separadores inativos"/>

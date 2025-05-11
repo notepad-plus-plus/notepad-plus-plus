@@ -620,7 +620,7 @@ namespace NppDarkMode
 	{
 		NppDarkMode::setToolbarFluentMonochrome(setMonochrome, NppDarkMode::isEnabled());
 	}
-	
+
 	void setToolbarFluentCustomColor(COLORREF color, bool useDark)
 	{
 		if (useDark)
@@ -638,7 +638,7 @@ namespace NppDarkMode
 	{
 		if (useDark)
 			g_advOptions._darkDefaults._tabIconSet = useAltIcons ? 1 : 2;
-		else	
+		else
 			g_advOptions._lightDefaults._tabIconSet = useAltIcons ? 1 : 0;
 	}
 
@@ -1835,7 +1835,7 @@ namespace NppDarkMode
 					::InflateRect(&rcItem, -1, -1);
 					rcItem.right += 1;
 
-					// for consistency getBackgroundBrush() 
+					// for consistency getBackgroundBrush()
 					// would be better, than getCtrlBackgroundBrush(),
 					// however default getBackgroundBrush() has same color
 					// as getDlgBackgroundBrush()
@@ -2715,8 +2715,20 @@ namespace NppDarkMode
 				return TRUE;
 			}
 
+			// For plugins: Prep SysLink so that colors can be set later in WM_CTLCOLORSTATIC
+			if (wcscmp(className, L"SysLink") == 0)
+			{
+				LITEM item = { 0 };
+				item.iLink = 0;
+				item.mask = LIF_ITEMINDEX | LIF_STATE;
+				item.state = LIS_DEFAULTCOLORS;
+				item.stateMask = LIS_DEFAULTCOLORS;
+				::SendMessage(hwnd, LM_SETITEM, 0, (LPARAM)&item);
+				return TRUE;
+			}
+
 			/*
-			// for debugging 
+			// for debugging
 			if (wcscmp(className, L"#32770") == 0)
 			{
 				return TRUE;
@@ -3371,17 +3383,34 @@ namespace NppDarkMode
 
 			case WM_CTLCOLORSTATIC:
 			{
+				constexpr size_t classNameLen = 16;
+				wchar_t className[classNameLen]{};
+				GetClassName(reinterpret_cast<HWND>(lParam), className, classNameLen);
+
+				auto hdc = reinterpret_cast<HDC>(wParam);
+
 				if (NppDarkMode::isEnabled())
 				{
-					constexpr size_t classNameLen = 16;
-					wchar_t className[classNameLen]{};
-					auto hwndEdit = reinterpret_cast<HWND>(lParam);
-					GetClassName(hwndEdit, className, classNameLen);
 					if (wcscmp(className, WC_EDIT) == 0)
 					{
-						return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+						return NppDarkMode::onCtlColor(hdc);
 					}
-					return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+					else if (wcscmp(className, L"SysLink") == 0)
+					{
+						return NppDarkMode::onCtlColorDlgLinkText(hdc);
+					}
+					else
+					{
+						return NppDarkMode::onCtlColorDlg(hdc);
+					}
+				}
+				else
+				{
+					if (wcscmp(className, L"SysLink") == 0)
+					{
+						::SetTextColor(hdc, ::GetSysColor(COLOR_HIGHLIGHT));
+						return FALSE;
+					}
 				}
 				break;
 			}
@@ -3481,7 +3510,7 @@ namespace NppDarkMode
 
 		constexpr ULONG dmfRequiredMask =       dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
 		//constexpr ULONG dmfAllMask =          dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
-		
+
 		if (hwnd == nullptr || (dmFlags & dmfRequiredMask) == 0)
 		{
 			return 0;
@@ -4006,7 +4035,7 @@ namespace NppDarkMode
 		::SetBkColor(hdc, NppDarkMode::getErrorBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getErrorBackgroundBrush());
 	}
-	
+
 	LRESULT onCtlColorDlgStaticText(HDC hdc, bool isTextEnabled)
 	{
 		if (!NppDarkMode::isEnabled())

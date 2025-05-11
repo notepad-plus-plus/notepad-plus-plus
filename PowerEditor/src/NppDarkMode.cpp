@@ -620,7 +620,7 @@ namespace NppDarkMode
 	{
 		NppDarkMode::setToolbarFluentMonochrome(setMonochrome, NppDarkMode::isEnabled());
 	}
-	
+
 	void setToolbarFluentCustomColor(COLORREF color, bool useDark)
 	{
 		if (useDark)
@@ -638,7 +638,7 @@ namespace NppDarkMode
 	{
 		if (useDark)
 			g_advOptions._darkDefaults._tabIconSet = useAltIcons ? 1 : 2;
-		else	
+		else
 			g_advOptions._lightDefaults._tabIconSet = useAltIcons ? 1 : 0;
 	}
 
@@ -1835,7 +1835,7 @@ namespace NppDarkMode
 					::InflateRect(&rcItem, -1, -1);
 					rcItem.right += 1;
 
-					// for consistency getBackgroundBrush() 
+					// for consistency getBackgroundBrush()
 					// would be better, than getCtrlBackgroundBrush(),
 					// however default getBackgroundBrush() has same color
 					// as getDlgBackgroundBrush()
@@ -2637,6 +2637,19 @@ namespace NppDarkMode
 		return false;
 	}
 
+	static void setUrlLinkControlColor(HWND hWnd, NppDarkModeParams p)
+	{
+		if (p._theme)
+		{
+			LITEM item{};
+			item.iLink = 0; // for now colorize only 1st item
+			item.mask = LIF_ITEMINDEX | LIF_STATE;
+			item.state = NppDarkMode::isEnabled() ? LIS_DEFAULTCOLORS : 0;
+			item.stateMask = LIS_DEFAULTCOLORS;
+			::SendMessage(hWnd, LM_SETITEM, 0, reinterpret_cast<LPARAM>(&item));
+		}
+	}
+
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
 		NppDarkModeParams p{
@@ -2715,8 +2728,15 @@ namespace NppDarkMode
 				return TRUE;
 			}
 
+			// For plugins: Prep SysLink so that colors can be set later in WM_CTLCOLORSTATIC
+			if (wcscmp(className, WC_LINK) == 0)
+			{
+				NppDarkMode::setUrlLinkControlColor(hwnd, p);
+				return TRUE;
+			}
+
 			/*
-			// for debugging 
+			// for debugging
 			if (wcscmp(className, L"#32770") == 0)
 			{
 				return TRUE;
@@ -3373,15 +3393,27 @@ namespace NppDarkMode
 			{
 				if (NppDarkMode::isEnabled())
 				{
-					constexpr size_t classNameLen = 16;
-					wchar_t className[classNameLen]{};
-					auto hwndEdit = reinterpret_cast<HWND>(lParam);
-					GetClassName(hwndEdit, className, classNameLen);
-					if (wcscmp(className, WC_EDIT) == 0)
+					auto hChild = reinterpret_cast<HWND>(lParam);
+					const bool isChildEnabled = ::IsWindowEnabled(hChild) == TRUE;
+					std::wstring className = getWndClassName(hChild);
+
+					auto hdc = reinterpret_cast<HDC>(wParam);
+
+					if (className == WC_EDIT)
 					{
-						return NppDarkMode::onCtlColor(reinterpret_cast<HDC>(wParam));
+						if (isChildEnabled)
+						{
+							return NppDarkMode::onCtlColor(hdc);
+						}
+						return NppDarkMode::onCtlColorDlg(hdc);
 					}
-					return NppDarkMode::onCtlColorDlg(reinterpret_cast<HDC>(wParam));
+
+					if (className == WC_LINK)
+					{
+						return NppDarkMode::onCtlColorDlgLinkText(hdc, isChildEnabled);
+					}
+
+					return NppDarkMode::onCtlColorDlg(hdc);
 				}
 				break;
 			}
@@ -3481,7 +3513,7 @@ namespace NppDarkMode
 
 		constexpr ULONG dmfRequiredMask =       dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
 		//constexpr ULONG dmfAllMask =          dmfSubclassParent | dmfSubclassChildren | dmfSetThemeChildren | dmfSetTitleBar | dmfSetThemeDirectly;
-		
+
 		if (hwnd == nullptr || (dmFlags & dmfRequiredMask) == 0)
 		{
 			return 0;
@@ -4006,7 +4038,7 @@ namespace NppDarkMode
 		::SetBkColor(hdc, NppDarkMode::getErrorBackgroundColor());
 		return reinterpret_cast<LRESULT>(NppDarkMode::getErrorBackgroundBrush());
 	}
-	
+
 	LRESULT onCtlColorDlgStaticText(HDC hdc, bool isTextEnabled)
 	{
 		if (!NppDarkMode::isEnabled())

@@ -3389,28 +3389,19 @@ namespace NppDarkMode
 
 				auto hdc = reinterpret_cast<HDC>(wParam);
 
+				if (wcscmp(className, L"SysLink") == 0)
+				{
+					// Both Dark & Light modes are handled within onCtlColorDlgLinkText
+					return NppDarkMode::onCtlColorDlgLinkText(hdc);
+				}
+
 				if (NppDarkMode::isEnabled())
 				{
 					if (wcscmp(className, WC_EDIT) == 0)
 					{
 						return NppDarkMode::onCtlColor(hdc);
 					}
-					else if (wcscmp(className, L"SysLink") == 0)
-					{
-						return NppDarkMode::onCtlColorDlgLinkText(hdc);
-					}
-					else
-					{
-						return NppDarkMode::onCtlColorDlg(hdc);
-					}
-				}
-				else
-				{
-					if (wcscmp(className, L"SysLink") == 0)
-					{
-						::SetTextColor(hdc, ::GetSysColor(COLOR_HIGHLIGHT));
-						return FALSE;
-					}
+					return NppDarkMode::onCtlColorDlg(hdc);
 				}
 				break;
 			}

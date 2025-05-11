@@ -1873,10 +1873,10 @@ Se selecionar o modo avançado mas não editar ficheiros nas linguagens acima me
 			<statusbar-length-lines value="comprimento: $STR_REPLACE1$    linhas: $STR_REPLACE2$"/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
-			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>
+			<statusbar-Ln-Col value="Linha: $STR_REPLACE1$    Coluna: $STR_REPLACE2$"/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
-			<statusbar-Pos value="Pos: "/>
+			<statusbar-Pos value="Posição: "/>
 			<statusbar-Sel value="Sel: "/>
 			<statusbar-Sel-number value="Sel"/>
 			<toolbar-accent-tip value="Esta opção faz com que os ícones da barra de ferramentas sigam a cor de realce do sistema do Windows. A cor de realce é a cor utilizada para destacar os botões, bordas e os blocos do menu Iniciar no Windows. Para alterá-la, aceda a Definições &gt; Personalização &gt; Cores e selecione a cor de realce desejada."/>

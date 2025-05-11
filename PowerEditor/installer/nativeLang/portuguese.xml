@@ -1130,7 +1130,7 @@ Translation note:
 					<Item id="6335" name="Tratar a barra invertida como caráter escape para SQL"/>
 				</Language>
 
-				<Indentation title="Identação"/>
+				<Indentation title="Identação">
 					<Item id="7161" name="Identação automática"/>
 					<Item id="7162" name="Nenhuma"/>
 					<Item id="7163" name="Básica"/>

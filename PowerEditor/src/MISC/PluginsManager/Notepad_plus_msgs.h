@@ -1017,6 +1017,13 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	//  	...
 	//  }
 
+	#define NPPM_GETTOOLBARICONSETMODE (NPPMSG + 118)
+	// BOOL NPPM_GETTOOLBARICONSETMODE(0, 0)
+	// Get Notepad++ Toobar Icon Set mode (ENUM Range: 0 to 4).
+	// wParam: 0 (not used)
+	// lParam: 0 (not used)
+	// Return Toolbar Icon Set mode as an integer value [ENUM range: 0 (TB_SMALL - Fluent UI: small) to 4 (TB_STANDARD - Standard icons: small)].
+
 
 	// For RUNCOMMAND_USER
 	#define VAR_NOT_RECOGNIZED 0

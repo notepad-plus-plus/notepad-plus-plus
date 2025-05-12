@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+#include <format>
 #include "AboutDlg.h"
 #include "Parameters.h"
 #include "localization.h"

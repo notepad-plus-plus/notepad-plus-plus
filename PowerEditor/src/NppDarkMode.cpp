@@ -3391,8 +3391,15 @@ namespace NppDarkMode
 
 				if (wcscmp(className, L"SysLink") == 0)
 				{
-					// Both Dark & Light modes are handled within onCtlColorDlgLinkText
-					return NppDarkMode::onCtlColorDlgLinkText(hdc);
+					if (NppDarkMode::isEnabled())
+					{
+						return NppDarkMode::onCtlColorDlgLinkText(hdc);
+					}
+					else
+					{
+						::SetTextColor(hdc, ::GetSysColor(COLOR_HOTLIGHT));
+						break;
+					}
 				}
 
 				if (NppDarkMode::isEnabled())

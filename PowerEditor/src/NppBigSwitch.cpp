@@ -3107,6 +3107,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETTOOLBARICONSETCHOICE:
+		{
+			return _toolBar.getState();
+		}
+
 		case NPPM_SETMENUITEMCHECK:
 		{
 			::CheckMenuItem(_mainMenuHandle, static_cast<UINT>(wParam), MF_BYCOMMAND | (static_cast<BOOL>(lParam) ? MF_CHECKED : MF_UNCHECKED));

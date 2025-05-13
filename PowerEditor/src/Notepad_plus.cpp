@@ -3880,6 +3880,9 @@ void Notepad_plus::setLanguage(LangType langType)
 	{
 		(_pEditView->getCurrentBuffer())->setLangType(langType);
 	}
+
+
+	_pEditView->restoreHiddenLines();
 }
 
 LangType Notepad_plus::menuID2LangType(int cmdID)

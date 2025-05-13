@@ -638,6 +638,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	if (doUpdatePluginList)
 	{
 		// TODO: detect update frequency
+		// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
 	}
 
 	// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
@@ -699,7 +700,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 			updater.run();
 
 			// TODO: Update next update date
-
+			// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
 		}
 	}
 
@@ -745,7 +746,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	}
 	catch (const Win32Exception & ex)
 	{
-		wchar_t message[1024];	//TODO: sane number
+		wchar_t message[1024];
 		wsprintf(message, L"An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
 			L"Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%p", ex.code(), ex.what(), ex.where());
 		::MessageBox(Notepad_plus_Window::gNppHWND, message, L"Win32Exception", MB_OK | MB_ICONERROR);

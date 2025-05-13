@@ -4235,10 +4235,8 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 	{
 		TiXmlElement *element = styleNode->ToElement();
 
-		// TODO: translate to English
-		// Pour _fgColor, _bgColor :
-		// RGB() | (result & 0xFF000000) c'est pour le cas de -1 (0xFFFFFFFF)
-		// retourné par hexStrVal(str)
+		// For _fgColor & _bgColor :
+		// RGB() | (result & 0xFF000000): it's for the case of -1 (0xFFFFFFFF) returned by "hexStrVal(str)"
 		const wchar_t *str = element->Attribute(L"name");
 		if (str)
 		{
@@ -5553,90 +5551,37 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 		else if (!lstrcmp(nm, L"langsExcluded"))
 		{
-			// TODO
-			int g0 = 0; // up to 8
-			int g1 = 0; // up to 16
-			int g2 = 0; // up to 24
-			int g3 = 0; // up to 32
-			int g4 = 0; // up to 40
-			int g5 = 0; // up to 48
-			int g6 = 0; // up to 56
-			int g7 = 0; // up to 64
-			int g8 = 0; // up to 72
-			int g9 = 0; // up to 80
-			int g10= 0; // up to 88
-			int g11= 0; // up to 96
-			int g12= 0; // up to 104
+			int g[13] {}; // Make all elements of array to hold g0 to g12 to zero
+			const wchar_t* attributeNames[] = {
+				L"gr0", L"gr1", L"gr2", L"gr3", L"gr4", L"gr5", L"gr6",
+				L"gr7", L"gr8", L"gr9", L"gr10", L"gr11", L"gr12"
+			};
 
-			// TODO some refactoring needed here....
+			for (int j = 0; j < 13; ++j)
 			{
 				int i;
-				if (element->Attribute(L"gr0", &i))
+				if (element->Attribute(attributeNames[j], &i))
 				{
 					if (i <= 255)
-						g0 = i;
-				}
-				if (element->Attribute(L"gr1", &i))
-				{
-					if (i <= 255)
-						g1 = i;
-				}
-				if (element->Attribute(L"gr2", &i))
-				{
-					if (i <= 255)
-						g2 = i;
-				}
-				if (element->Attribute(L"gr3", &i))
-				{
-					if (i <= 255)
-						g3 = i;
-				}
-				if (element->Attribute(L"gr4", &i))
-				{
-					if (i <= 255)
-						g4 = i;
-				}
-				if (element->Attribute(L"gr5", &i))
-				{
-					if (i <= 255)
-						g5 = i;
-				}
-				if (element->Attribute(L"gr6", &i))
-				{
-					if (i <= 255)
-						g6 = i;
-				}
-				if (element->Attribute(L"gr7", &i))
-				{
-					if (i <= 255)
-						g7 = i;
-				}
-				if (element->Attribute(L"gr8", &i))
-				{
-					if (i <= 255)
-						g8 = i;
-				}
-				if (element->Attribute(L"gr9", &i))
-				{
-					if (i <= 255)
-						g9 = i;
-				}
-				if (element->Attribute(L"gr10", &i))
-				{
-					if (i <= 255)
-						g10 = i;
-				}
-				if (element->Attribute(L"gr11", &i))
-				{
-					if (i <= 255)
-						g11 = i;
-				}
-				if (element->Attribute(L"gr12", &i))
-				{
-					if (i <= 255)
-						g12 = i;
+					{
+						g[j] = i;
+					}
 				}
 			}
+
+			int g0  = g[0];  // up to 8
+			int g1  = g[1];  // up to 16
+			int g2  = g[2];  // up to 24
+			int g3  = g[3];  // up to 32
+			int g4  = g[4];  // up to 40
+			int g5  = g[5];  // up to 48
+			int g6  = g[6];  // up to 56
+			int g7  = g[7];  // up to 64
+			int g8  = g[8];  // up to 72
+			int g9  = g[9];  // up to 80
+			int g10 = g[10]; // up to 88
+			int g11 = g[11]; // up to 96
+			int g12 = g[12]; // up to 104
 
 			UCHAR mask = 1;
 			for (int i = 0 ; i < 8 ; ++i)

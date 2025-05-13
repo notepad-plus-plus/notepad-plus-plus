@@ -184,8 +184,8 @@ bool resolveLinkFile(std::wstring& linkFilePath)
 
 BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool isReadOnly, int encoding, const wchar_t *backupFileName, FILETIME fileNameTimestamp)
 {
-	const rsize_t longFileNameBufferSize = MAX_PATH; // TODO stop using fixed-size buffer
-	if (fileName.size() >= longFileNameBufferSize - 1) // issue with all other sub-routines
+	const rsize_t longFileNameBufferSize = MAX_PATH;
+	if (fileName.size() >= longFileNameBufferSize - 1)
 		return BUFFER_INVALID;
 
 	wstring targetFileName = fileName;

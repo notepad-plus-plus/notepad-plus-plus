@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2024 Don HO <don.h@free.fr>
+// Copyright (C)2025 Don HO <don.h@free.fr>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -471,7 +471,6 @@
     #define    IDM_FORMAT_KOI8R_CYRILLIC    (IDM_FORMAT_ENCODE + 48)
     #define    IDM_FORMAT_ENCODE_END        IDM_FORMAT_KOI8R_CYRILLIC
     
-    //#define    IDM_FORMAT_CONVERT           200
 
 #define    IDM_LANG    (IDM + 6000)
     #define    IDM_LANGSTYLE_CONFIG_DLG    (IDM_LANG + 1)

@@ -2637,6 +2637,19 @@ namespace NppDarkMode
 		return false;
 	}
 
+	static void setSysLinkCtrlCtlColor(HWND hWnd, NppDarkModeParams p)
+	{
+		if (p._theme)
+		{
+			LITEM item{};
+			item.iLink = 0; // for now colorize only 1st item
+			item.mask = LIF_ITEMINDEX | LIF_STATE;
+			item.state = NppDarkMode::isEnabled() ? LIS_DEFAULTCOLORS : 0;
+			item.stateMask = LIS_DEFAULTCOLORS;
+			::SendMessage(hWnd, LM_SETITEM, 0, reinterpret_cast<LPARAM>(&item));
+		}
+	}
+
 	void autoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme)
 	{
 		NppDarkModeParams p{
@@ -2716,14 +2729,9 @@ namespace NppDarkMode
 			}
 
 			// For plugins: Prep SysLink so that colors can be set later in WM_CTLCOLORSTATIC
-			if (wcscmp(className, L"SysLink") == 0)
+			if (wcscmp(className, WC_LINK) == 0)
 			{
-				LITEM item = { 0 };
-				item.iLink = 0;
-				item.mask = LIF_ITEMINDEX | LIF_STATE;
-				item.state = LIS_DEFAULTCOLORS;
-				item.stateMask = LIS_DEFAULTCOLORS;
-				::SendMessage(hwnd, LM_SETITEM, 0, (LPARAM)&item);
+				NppDarkMode::setSysLinkCtrlCtlColor(hwnd, p);
 				return TRUE;
 			}
 
@@ -3383,31 +3391,28 @@ namespace NppDarkMode
 
 			case WM_CTLCOLORSTATIC:
 			{
-				constexpr size_t classNameLen = 16;
-				wchar_t className[classNameLen]{};
-				GetClassName(reinterpret_cast<HWND>(lParam), className, classNameLen);
-
-				auto hdc = reinterpret_cast<HDC>(wParam);
-
-				if (wcscmp(className, L"SysLink") == 0)
-				{
-					if (NppDarkMode::isEnabled())
-					{
-						return NppDarkMode::onCtlColorDlgLinkText(hdc);
-					}
-					else
-					{
-						::SetTextColor(hdc, ::GetSysColor(COLOR_HOTLIGHT));
-						break;
-					}
-				}
-
 				if (NppDarkMode::isEnabled())
 				{
-					if (wcscmp(className, WC_EDIT) == 0)
+					auto hChild = reinterpret_cast<HWND>(lParam);
+					const bool isChildEnabled = ::IsWindowEnabled(hChild) == TRUE;
+					std::wstring className = getWndClassName(hChild);
+
+					auto hdc = reinterpret_cast<HDC>(wParam);
+
+					if (className == WC_EDIT)
 					{
-						return NppDarkMode::onCtlColor(hdc);
+						if (isChildEnabled)
+						{
+							return NppDarkMode::onCtlColor(hdc);
+						}
+						return NppDarkMode::onCtlColorDlg(hdc);
 					}
+
+					if (className == WC_LINK)
+					{
+						return NppDarkMode::onCtlColorDlgLinkText(hdc, isChildEnabled);
+					}
+
 					return NppDarkMode::onCtlColorDlg(hdc);
 				}
 				break;

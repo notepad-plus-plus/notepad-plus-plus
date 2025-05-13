@@ -1170,6 +1170,11 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView* pTab)
 
 			wstring strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName(), !isDropListMenu));
 			std::vector<wchar_t> vBuffer(strBuffer.begin(), strBuffer.end());
+			if (buf->isDirty()) 
+			{
+				// add a '*' after the modified tab name (like Visual Studio)
+				vBuffer.push_back('*');
+			}
 			vBuffer.push_back('\0');
 			mii.dwTypeData = (&vBuffer[0]);
 

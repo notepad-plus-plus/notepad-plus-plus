@@ -7188,6 +7188,10 @@ bool Notepad_plus::reloadLang()
 	{
 		_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
 	}
+	if (_tabBarPopupMenu.isCreated())
+	{
+		_nativeLangSpeaker.changeLangTabContextMenu(_tabBarPopupMenu.getMenuHandle());
+	}
 	if (_tabPopupDropMenu.isCreated())
 	{
 		_nativeLangSpeaker.changeLangTabDropContextMenu(_tabPopupDropMenu.getMenuHandle());
@@ -9217,4 +9221,57 @@ BOOL Notepad_plus::notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, 
 		return TRUE;
 	}
 	return FALSE;
+}
+
+// Display tab bar popup menu
+void Notepad_plus::dispTabBarPopupMenu(void)
+{
+	// Create the menu
+	if (!_tabBarPopupMenu.isCreated())
+	{
+		vector<MenuItemUnit> itemUnitArray;
+		{
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL, L"Close All"));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RESTORELASTCLOSEDFILE, L"Restore Recent Closed File"));
+			itemUnitArray.push_back(MenuItemUnit(0, NULL));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEALL, L"Save All"));
+			itemUnitArray.push_back(MenuItemUnit(0, NULL));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_DRAWTABBAR_VERTICAL, L"Show Tabs in Vertical Orientation"));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_DRAWTABBAR_MULTILINE, L"Show Tabs in Multi-line"));
+			itemUnitArray.push_back(MenuItemUnit(IDM_MOUSEWHEEL_TABBAR_MULTILINE, L"Toggle Multi-line with Mouse Wheel"));
+		}
+
+		_tabBarPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray, _mainMenuHandle);
+		_nativeLangSpeaker.changeLangTabContextMenu(_tabBarPopupMenu.getMenuHandle());
+	}
+
+	// Modify the menu
+	{
+		// we'll only enable/disable the "Restore Recent Closed File" item instead of removing it, like Visual Studio
+		_tabBarPopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, _lastRecentFileList.hasSeparators());
+
+		bool isSeveralDirty = false;
+		for (size_t i = 0; i < MainFileManager.getNbBuffers(); ++i)
+		{
+			if (MainFileManager.getBufferByIndex(i)->isDirty())
+			{
+				isSeveralDirty = true;
+				break;
+			}
+		}
+		_tabBarPopupMenu.enableItem(IDM_FILE_SAVEALL, isSeveralDirty);
+
+		NppParameters& nppParam = NppParameters::getInstance();
+		NppGUI& nppGUI = nppParam.getNppGUI();
+
+		_tabBarPopupMenu.checkItem(IDM_VIEW_DRAWTABBAR_VERTICAL, (nppGUI._tabStatus & TAB_VERTICAL));
+		_tabBarPopupMenu.checkItem(IDM_VIEW_DRAWTABBAR_MULTILINE, (nppGUI._tabStatus & TAB_MULTILINE));
+		_tabBarPopupMenu.checkItem(IDM_MOUSEWHEEL_TABBAR_MULTILINE, (nppGUI._tabMouseWheelToggleMultiLine));
+	}
+
+	POINT p;
+	GetCursorPos(&p);
+
+	// Display the menu
+	_tabBarPopupMenu.display(p);
 }

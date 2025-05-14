@@ -320,6 +320,19 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			return TRUE;
 		}
 
+		case WM_RBUTTONUP:
+		{
+			HWND parent = ::GetParent(getHSelf());
+
+			NMHDR nhmdr;
+			nhmdr.hwndFrom = getHSelf();
+			nhmdr.code = NM_RCLICK;
+
+			::SendMessage(parent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nhmdr));
+
+			return TRUE;
+		}
+
 		default:
 			return ::DefWindowProc(_hSelf, message, wParam, lParam);
 	}

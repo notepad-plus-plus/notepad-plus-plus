@@ -2278,7 +2278,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					default:
 						break;
 				}
-}
+			}
+			else if ((_pMainSplitter && lpnmhdr->hwndFrom == _pMainSplitter->getHSelf())
+				|| lpnmhdr->hwndFrom == _subSplitter.getHSelf())
+			{
+				dispTabBarPopupMenu();
+				return TRUE;
+			}
 
 			SCNotification *notification = reinterpret_cast<SCNotification *>(lParam);
 
@@ -3016,6 +3022,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			DocTabView* curTabView = (currentView() == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
 			::SendMessage(curTabView->getHSelf(), WM_LBUTTONDBLCLK, wParam, lParam);
 
+			return TRUE;
+		}
+
+		case WM_RBUTTONUP:
+		{
+			dispTabBarPopupMenu();
 			return TRUE;
 		}
 
@@ -3799,6 +3811,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_RECENTFILELIST_UPDATE:
 		{
 			_lastRecentFileList.updateMenu();
+			if (_tabBarPopupMenu.isCreated())
+			{
+				// we'll only enable/disable the "Restore Recent Closed File", make it look like Visual Studio
+				_tabBarPopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, _lastRecentFileList.hasSeparators());
+			}
 			break;
 		}
 
@@ -3806,6 +3823,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		{
 			_lastRecentFileList.switchMode();
 			_lastRecentFileList.updateMenu();
+			if (_tabBarPopupMenu.isCreated())
+			{
+				// we'll only enable/disable the "Restore Recent Closed File", make it look like Visual Studio
+				_tabBarPopupMenu.enableItem(IDM_FILE_RESTORELASTCLOSEDFILE, _lastRecentFileList.hasSeparators());
+			}
 			break;
 		}
 

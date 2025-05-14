@@ -69,6 +69,7 @@
 #define IDC_COMBO_LOCALIZATION                         6124
 #define IDC_GB_BEHAVIOR                                6125
 #define IDC_GB_LOOKFEEL                                6126
+#define IDC_CHECK_TAB_MOUSEWHEELTOGGLEMULTILINE        6127
 
 
 #define IDC_CHECK_TAB_ALTICONS                         6128

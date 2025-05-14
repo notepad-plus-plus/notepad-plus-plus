@@ -2637,7 +2637,7 @@ namespace NppDarkMode
 		return false;
 	}
 
-	static void setSysLinkCtrlCtlColor(HWND hWnd, NppDarkModeParams p)
+	static void setUrlLinkControlColor(HWND hWnd, NppDarkModeParams p)
 	{
 		if (p._theme)
 		{
@@ -2731,7 +2731,7 @@ namespace NppDarkMode
 			// For plugins: Prep SysLink so that colors can be set later in WM_CTLCOLORSTATIC
 			if (wcscmp(className, WC_LINK) == 0)
 			{
-				NppDarkMode::setSysLinkCtrlCtlColor(hwnd, p);
+				NppDarkMode::setUrlLinkControlColor(hwnd, p);
 				return TRUE;
 			}
 

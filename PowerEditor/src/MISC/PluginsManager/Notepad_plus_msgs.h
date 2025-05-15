@@ -1019,7 +1019,7 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 
 	#define NPPM_GETTOOLBARICONSETCHOICE (NPPMSG + 118)
 	// BOOL NPPM_GETTOOLBARICONSETCHOICE(0, 0)
-	// Get Notepad++ Toobar Icon Set mode (ENUM Range: 0 to 4).
+	// Get Notepad++ toobar icon set choice (Fluent UI: small, Fluent UI: large, Filled Fluent UI: small, Filled Fluent UI: large and Standard icons: small.
 	// wParam: 0 (not used)
 	// lParam: 0 (not used)
 	// Return toolbar icon set choice as an integer value. Here are 5 possible values:

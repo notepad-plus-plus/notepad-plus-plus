@@ -8606,14 +8606,16 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 			NppDarkMode::setDarkTitleBar(_pPublicInterface->getHSelf());
 			::SetWindowPos(_pPublicInterface->getHSelf(), nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 
-			for (auto& docCont : _dockingManager.getContainerInfo())
+			for (const auto& docCont : _dockingManager.getContainerInfo())
 			{
+				NppDarkMode::autoThemeChildControls(docCont->getTabWnd()); // for updown child
+
 				auto hwndDocCont = docCont->getCaptionWnd();
 				NppDarkMode::setDarkTitleBar(hwndDocCont);
 				::SetWindowPos(hwndDocCont, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 			}
 
-			for (auto& hwndDlg : _hModelessDlgs)
+			for (const auto& hwndDlg : _hModelessDlgs)
 			{
 				NppDarkMode::setDarkTitleBar(hwndDlg);
 				::SendMessage(hwndDlg, NPPM_INTERNAL_REFRESHDARKMODE, 0, 0);

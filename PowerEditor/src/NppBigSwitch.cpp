@@ -3107,7 +3107,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_GETTOOLBARICONSETMODE:
+		case NPPM_GETTOOLBARICONSETCHOICE:
 		{
 			return _toolBar.getState();
 		}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Russian translation for Notepad++
-Updated to v8.8.1:
+Updated to v8.8.2:
 - added new lines
 - little fixes
 -->
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="8.8.1">
+	<Native-Langue name="Русский" filename="russian.xml" version="8.8.2">
 		<Menu>
 			<Main>
 				<!-- Главное Меню -->
@@ -1491,7 +1491,6 @@ Updated to v8.8.1:
 			<FileLockedWarning title="Сохранение не удалось" message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
 			<FileAlreadyOpenedInNpp title="" message="Файл уже открыт в Notepad++."/>
 			<DeleteFileFailed title="Удаление Файла" message="Не удалось удалить файл"/>
-
 			<RenameTabTemporaryNameAlreadyInUse title="Не удалось переименовать" message="Указанное имя уже используется другой вкладкой."/>
 			<RenameTabTemporaryNameIsEmpty title="Не удалось переименовать" message="Имя не может быть пустым и не может содержать только пробелы или табуляции."/>
 			<GUpConfNeedAdminMode title="Настройки Прокси" message="Пожалуйста, перезапустите Notepad++ в режиме администратора для настройки прокси."/>
@@ -1504,8 +1503,6 @@ Updated to v8.8.1:
 			<SortLocaleMultiple title="Сортировка не выполнена" message="Сортировка при мультивыборе не поддерживается."/>
  			<SortLocaleUnknown title="Сортировка не удалась" message="Невозможно определить причину неудачной сортировки."/>
  			<SortLocaleExcept title="Сортировка не удалась" message="$STR_REPLACE$"/>
-
-
 			<ColumnModeTip title="Режим выделения Столбца" message="
 Существует 3 способа выделения в режиме выбора столбцом:
 

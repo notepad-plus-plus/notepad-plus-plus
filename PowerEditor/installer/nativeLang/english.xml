@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" version="8.8">
+	<Native-Langue name="English" filename="english.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -994,6 +994,8 @@ Translation note:
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Exit on close the last tab"/>
 					<Item id="6128" name="Alternate icons"/>
+					<Item id="6125" name="Behavior"/>
+					<Item id="6126" name="Look &amp;&amp; feel"/>
 				</Tabbar>
 
 				<Scintillas title="Editing 1">

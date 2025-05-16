@@ -56,6 +56,4 @@
 	#define DMN_SWITCHIN                (DMN_FIRST + 4)
 	#define DMN_SWITCHOFF               (DMN_FIRST + 5)
 	#define DMN_FLOATDROPPED            (DMN_FIRST + 6)
-	//nmhdr.code = DWORD(DMN_XXX, 0);
-	//nmhdr.hwndFrom = DockingCont::_hself;
-	//nmhdr.idFrom = 0;
+

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.8">
+	<Native-Langue name="台灣繁體" filename="taiwaneseMandarin.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -952,6 +952,8 @@
 					<Item id="6119" name="多行"/>
 					<Item id="6120" name="直式"/>
 					<Item id="6121" name="關閉最後一個文件時關閉程式"/>
+					<Item id="6125" name="功能表現"/>
+					<Item id="6126" name="外觀與體驗"/>
 				</Tabbar>
 
 				<Scintillas title="編輯一">

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" version="8.8">
+	<Native-Langue name="Français" filename="french.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -993,6 +993,8 @@ Translation note:
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Quitter lors de la fermeture du dernier onglet"/>
 					<Item id="6128" name="Icônes alternatives"/>
+					<Item id="6125" name="Comportement"/>
+					<Item id="6126" name="Aspect visuel"/>
 				</Tabbar>
 
 				<Scintillas title="Zones d’édition 1">

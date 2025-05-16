@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: April 24, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: May 3, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.0">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -127,16 +127,18 @@
 					<Item id="42008" name="&amp;Povećaj uvlaku retka"/>
 					<Item id="42009" name="&amp;Smanji uvlaku retka"/>
 					<Item id="42010" name="Udvostruči &amp;trenutni redak"/>
-					<Item id="42079" name="Izbriši s&amp;ve dvostruke retke"/>
+					<Item id="42079" name="Izbri&amp;ši sve dvostruke retke"/>
 					<Item id="42077" name="Izbriši &amp;uzastopne dvostruke retke"/>
 					<Item id="42012" name="&amp;Prelomi retke"/>
 					<Item id="42013" name="&amp;Spoji retke"/>
 					<Item id="42014" name="Trenutni redak pomakni &amp;gore"/>
 					<Item id="42015" name="Trenutni redak pomakni &amp;dolje"/>
-					<Item id="42059" name="S&amp;ortiraj retke rastuće (velika slova prije malih, 10 prije 2)"/>
-					<Item id="42060" name="Sortiraj retke padaju&amp;će (mala slova prije velikih, 2 prije 10)"/>
+					<Item id="42059" name="Sortiraj retke rastuće (&amp;velika slova prije malih, 10 prije 2)"/>
+					<Item id="42060" name="Sortiraj retke padajuće (mala slova prije veliki&amp;h, 2 prije 10)"/>
 					<Item id="42080" name="Sort&amp;iraj retke rastuće ignorirajući velika i mala slova"/>
 					<Item id="42081" name="Sortiraj retke padajuće ig&amp;norirajući velika i mala slova"/>
+					<Item id="42100" name="Sortiraj retke rastuće prema l&amp;okalnom jeziku"/>
+					<Item id="42101" name="Sortiraj retke padaju&amp;će prema lokalnom jeziku"/>
 					<Item id="42061" name="Sortira&amp;j retke s cijelim brojevima rastuće (2 prije 10)"/>
 					<Item id="42062" name="Sortiraj retke s cije&amp;lim brojevima padajuće (10 prije 2)"/>
 					<Item id="42063" name="Sortiraj r&amp;etke s decimalnim brojevima (zarez) rastuće"/>
@@ -991,11 +993,11 @@
 					<Item id="6108" name="Zaključaj (bez premještanja kartica)"/>
 					<Item id="6109" name="Promijeni boju neaktivnih jezičaka"/>
 					<Item id="6110" name="Vrh aktivnog jezička u boji"/>
-					<Item id="6111" name="Sakrij gumbe neaktivnih jezičaka"/>
+					<Item id="6111" name="Prikaži gumbe neaktivnih jezičaka"/>
 					<Item id="6112" name="Prikaži gumb za zatvaranje"/>
 					<Item id="6113" name="Zatvori karticu dvoklikom"/>
 					<Item id="6115" name="Omogući prikvačivanje kartica"/>
-					<Item id="6135" name="Prikaži pribadaču samo na prikvačenim karticama"/>
+					<Item id="6135" name="Prikaži pribadaču samo prikvačenih kartica"/>
 					<Item id="6118" name="Sakrij"/>
 					<Item id="6119" name="U više redaka"/>
 					<Item id="6120" name="Okomito"/>
@@ -1482,6 +1484,9 @@ Vaše postavke oblaka će biti poništene. Molim, resetirajte odgovarajuću vrij
 			<DroppingFolderAsProjectModeWarning title="Pogrešna akcija" message="Možete ispustiti samo datoteke ili mape, ali ne oboje, jer ispuštate Mape u Projektnom načinu.
 Morate omogućiti &quot;Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radni prostor' pri prenošenju mape&quot; u odjeljku &quot;Zadana mapa&quot; dijaloga Postavki kako bi ova operacija radila."/>
 			<SortingError title="Greška sortiranja" message="Nije moguće izvesti numeričko sortiranje zbog retka $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sortiranje nije provedeno" message="Sortiranje višestrukih odabira nije podržano."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Neuspjelo sortiranje" message="Ne može se odrediti razlog zašto sortiranje nije uspjelo."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Neuspjelo sortiranje" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Savjet za Rad u stupcima" message="
 Postoje 3 načina za prijelaz na Rad u stupcima
 

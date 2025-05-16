@@ -696,6 +696,7 @@ void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 			{
 				const wchar_t *nameW = wmc.char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
+				resizeCheckboxRadioBtn(hItem);
 			}
 		}
 	}

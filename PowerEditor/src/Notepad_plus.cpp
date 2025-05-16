@@ -7285,20 +7285,13 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data{};
-		_pClipboardHistoryPanel->create(&data, isRTL);
+		_pClipboardHistoryPanel->create(&data, { IDR_CLIPBOARDPANEL_ICO, IDR_CLIPBOARDPANEL_ICO_DM, IDR_CLIPBOARDPANEL_ICO2 }, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pClipboardHistoryPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_CLIPBOARDPANEL_ICO2;
-		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDR_CLIPBOARDPANEL_ICO;
-		else if (NppDarkMode::isEnabled())
-			icoID = IDR_CLIPBOARDPANEL_ICO_DM;
-
-		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pClipboardHistoryPanel->getHSelf());
-		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		loadPanelIcon(_pPublicInterface->getHinst(), _pClipboardHistoryPanel, &data.hIconTab);
 
 		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
@@ -7349,20 +7342,13 @@ void Notepad_plus::launchDocumentListPanel(bool changeFromBtnCmd)
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data{};
-		_pDocumentListPanel->create(&data, isRTL);
+		_pDocumentListPanel->create(&data, { IDR_DOCLIST_ICO, IDR_DOCLIST_ICO_DM, IDR_DOCLIST_ICO2 }, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocumentListPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_DOCLIST_ICO2;
-		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDR_DOCLIST_ICO;
-		else if (NppDarkMode::isEnabled())
-			icoID = IDR_DOCLIST_ICO_DM;
-
-		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pDocumentListPanel->getHSelf());
-		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		loadPanelIcon(_pPublicInterface->getHinst(), _pDocumentListPanel, &data.hIconTab);
 
 		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
@@ -7437,20 +7423,13 @@ void Notepad_plus::launchAnsiCharPanel()
 		NativeLangSpeaker *pNativeSpeaker = nppParams.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data{};
-		_pAnsiCharPanel->create(&data, isRTL);
+		_pAnsiCharPanel->create(&data, { IDR_ASCIIPANEL_ICO, IDR_ASCIIPANEL_ICO_DM, IDR_ASCIIPANEL_ICO2 }, isRTL);
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pAnsiCharPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_ASCIIPANEL_ICO2;
-		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDR_ASCIIPANEL_ICO;
-		else if (NppDarkMode::isEnabled())
-			icoID = IDR_ASCIIPANEL_ICO_DM;
-
-		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pAnsiCharPanel->getHSelf());
-		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		loadPanelIcon(_pPublicInterface->getHinst(), _pAnsiCharPanel, &data.hIconTab);
 
 		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
@@ -7486,7 +7465,7 @@ void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstr
 		_pFileBrowser->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
 
 		tTbData	data{};
-		_pFileBrowser->create(&data, _nativeLangSpeaker.isRTL());
+		_pFileBrowser->create(&data, { IDR_FILEBROWSER_ICO, IDR_FILEBROWSER_ICO_DM, IDR_FILEBROWSER_ICO2 }, _nativeLangSpeaker.isRTL());
 		data.pszName = L"ST";
 
 		NppParameters& nppParams = NppParameters::getInstance();
@@ -7495,14 +7474,7 @@ void Notepad_plus::launchFileBrowser(const vector<wstring> & folders, const wstr
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 		
-		int icoID = IDR_FILEBROWSER_ICO2;
-		if (nppParams.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDR_FILEBROWSER_ICO;
-		else if (NppDarkMode::isEnabled())
-			icoID = IDR_FILEBROWSER_ICO_DM;
-
-		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFileBrowser->getHSelf());
-		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		loadPanelIcon(_pPublicInterface->getHinst(), _pFileBrowser, &data.hIconTab);
 
 		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
@@ -7598,21 +7570,14 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
 		bool isRTL = pNativeSpeaker->isRTL();
 		tTbData	data{};
-		(*pProjPanel)->create(&data, isRTL);
+		(*pProjPanel)->create(&data, { IDR_PROJECTPANEL_ICO, IDR_PROJECTPANEL_ICO_DM, IDR_PROJECTPANEL_ICO2 }, isRTL);
 		data.pszName = L"ST";
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>((*pProjPanel)->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_PROJECTPANEL_ICO2;
-		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDR_PROJECTPANEL_ICO;
-		else if (NppDarkMode::isEnabled())
-			icoID = IDR_PROJECTPANEL_ICO_DM;
-
-		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, (*pProjPanel)->getHSelf());
-		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		loadPanelIcon(_pPublicInterface->getHinst(), (*pProjPanel), &data.hIconTab);
 
 		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
@@ -7665,20 +7630,13 @@ void Notepad_plus::launchDocMap()
 		_pDocMap->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
 		tTbData	data{};
-		_pDocMap->create(&data);
+		_pDocMap->create(&data, { IDR_DOCMAP_ICO, IDR_DOCMAP_ICO_DM, IDR_DOCMAP_ICO2 });
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocMap->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_DOCMAP_ICO2;
-		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDR_DOCMAP_ICO;
-		else if (NppDarkMode::isEnabled())
-			icoID = IDR_DOCMAP_ICO_DM;
-
-		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pDocMap->getHSelf());
-		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		loadPanelIcon(_pPublicInterface->getHinst(), _pDocMap, &data.hIconTab);
 
 		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
@@ -7714,7 +7672,7 @@ void Notepad_plus::launchFunctionList()
 		_pFuncList->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 
 		tTbData	data{};
-		_pFuncList->create(&data);
+		_pFuncList->create(&data, { IDR_FUNC_LIST_ICO, IDR_FUNC_LIST_ICO_DM, IDR_FUNC_LIST_ICO2 });
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFuncList->getHSelf()));
 		// define the default docking behaviour
@@ -7722,14 +7680,7 @@ void Notepad_plus::launchFunctionList()
 		
 		NppParameters& nppParam = NppParameters::getInstance();
 
-		int icoID = IDR_FUNC_LIST_ICO2;
-		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDR_FUNC_LIST_ICO;
-		else if (NppDarkMode::isEnabled())
-			icoID = IDR_FUNC_LIST_ICO_DM;
-
-		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFuncList->getHSelf());
-		DPIManagerV2::loadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		loadPanelIcon(_pPublicInterface->getHinst(), _pFuncList, &data.hIconTab);
 
 		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
@@ -8638,6 +8589,81 @@ void Notepad_plus::refreshDarkMode(bool resetStyle)
 
 		::RedrawWindow(_findInFinderDlg.getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
 		::RedrawWindow(_pPublicInterface->getHSelf(), nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+	}
+}
+
+int Notepad_plus::getIcoID(DockingDlgInterface* panel)
+{
+	if (_toolBar.getState() == TB_STANDARD)
+		return panel->getIconIDs().at(0);
+	if (NppDarkMode::isEnabled())
+		return panel->getIconIDs().at(1);
+	return panel->getIconIDs().at(2);
+}
+
+void Notepad_plus::loadPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel, HICON* phIcon)
+{
+	const int icoID = getIcoID(panel);
+	const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, panel->getHSelf());
+	DPIManagerV2::loadIcon(hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, phIcon, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+}
+
+void Notepad_plus::refreshPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel)
+{
+	HWND hWnd = panel->getHSelf();
+	for (const auto& docCont : _dockingManager.getContainerInfo())
+	{
+		auto data = docCont->findToolbarByWnd(hWnd);
+		if (data != nullptr)
+		{
+			if (data->hIconTab != nullptr)
+			{
+				::DestroyIcon(data->hIconTab);
+				data->hIconTab = nullptr;
+			}
+
+			loadPanelIcon(hInst, panel, &data->hIconTab);
+			break;
+		}
+	}
+}
+
+void Notepad_plus::refreshInternalPanelIcons()
+{
+	std::array<DockingDlgInterface*, 9> internalPanels = { _pProjectPanel_1, _pProjectPanel_2, _pProjectPanel_3,
+		_pFuncList, _pDocMap, _pFileBrowser,
+		_pAnsiCharPanel, _pDocumentListPanel, _pClipboardHistoryPanel };
+
+	for (const auto& panel : internalPanels)
+	{
+		if (panel != nullptr)
+		{
+			refreshPanelIcon(_pPublicInterface->getHinst(), panel);
+		}
+	}
+
+	const auto mainFinder = _findReplaceDlg.getMainFinder();
+	if (mainFinder != nullptr)
+	{
+		refreshPanelIcon(_pPublicInterface->getHinst(), mainFinder);
+
+		const auto& finders = _findReplaceDlg.getFindersOfFinder();
+		if (!finders.empty())
+		{
+			for (const auto& finder : finders)
+			{
+				if (finder != nullptr)
+				{
+					refreshPanelIcon(_pPublicInterface->getHinst(), finder);
+				}
+			}
+		}
+	}
+
+	for (const auto& docCont : _dockingManager.getContainerInfo())
+	{
+		auto hTab = docCont->getTabWnd();
+		::RedrawWindow(hTab, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE);
 	}
 }
 

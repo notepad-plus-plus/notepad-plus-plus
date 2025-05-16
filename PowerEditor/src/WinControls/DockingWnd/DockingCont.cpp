@@ -156,20 +156,15 @@ void DockingCont::removeToolbar(const tTbData& data)
 	}
 }
 
-
 tTbData* DockingCont::findToolbarByWnd(HWND hClient)
 {
-	tTbData*	pTbData		= NULL;
+	auto matchesWnd = [hClient](const tTbData* pTb) -> bool {
+			return pTb->hClient == hClient;
+		};
 
-	// find entry by handle
-	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
-	{
-		if (hClient == _vTbData[iTb]->hClient)
-		{
-			pTbData = _vTbData[iTb];
-		}
-	}
-	return pTbData;
+	auto it = std::find_if(_vTbData.begin(), _vTbData.end(), matchesWnd);
+
+	return (it != _vTbData.end()) ? *it : nullptr;
 }
 
 tTbData* DockingCont::findToolbarByName(wchar_t* pszName)

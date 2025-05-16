@@ -1172,7 +1172,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager.getBufferByID(id);
-					lstrcpy(fileNames[j++], buf->getFullPathName());
+					LPWSTR res = lstrcpyW(fileNames[j++], buf->getFullPathName());
+					if (!res)
+					{
+						throw std::exception("Exception: NPPM_GETOPENFILENAMES/NPPM_GETOPENFILENAMESPRIMARY - The buffer you provide may not be large enough to contain the path you want to copy.");
+					}
 				}
 			}
 
@@ -1182,7 +1186,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager.getBufferByID(id);
-					lstrcpy(fileNames[j++], buf->getFullPathName());
+					LPWSTR res = lstrcpyW(fileNames[j++], buf->getFullPathName());
+					if (!res)
+					{
+						throw std::exception("Exception: NPPM_GETOPENFILENAMES/NPPM_GETOPENFILENAMESSECOND - The buffer you provide may not be large enough to contain the path you want to copy.");
+					}
 				}
 			}
 			return j;

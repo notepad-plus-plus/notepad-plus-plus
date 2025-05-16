@@ -163,10 +163,7 @@ private :
 	};
 
 	void reset(bool create = false);
-	void setState(toolBarStatusType state) {
-		_state = state;
-	}
-	
+	void setState(toolBarStatusType state);
 };
 
 class ReBar : public Window

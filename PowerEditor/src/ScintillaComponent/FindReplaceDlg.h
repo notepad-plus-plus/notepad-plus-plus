@@ -403,6 +403,14 @@ public :
 		}
 	};
 
+	Finder* getMainFinder() {
+		return _pFinder;
+	}
+
+	std::vector<Finder*> getFindersOfFinder() {
+		return _findersOfFinder;
+	}
+
 	void execSavedCommand(int cmd, uptr_t intValue, const std::wstring& stringValue);
 	void clearMarks(const FindOption& opt);
 	void setStatusbarMessage(const std::wstring & msg, FindStatus status, const std::wstring& tooltipMsg = L"");

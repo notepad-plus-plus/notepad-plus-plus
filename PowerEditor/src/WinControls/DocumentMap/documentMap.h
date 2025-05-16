@@ -44,7 +44,7 @@ enum moveMode {
 class ViewZoneDlg : public StaticDialog
 {
 public :
-	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(NULL), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
+	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(nullptr), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
 
 	enum class ViewZoneColorIndex {
 		focus,
@@ -53,13 +53,13 @@ public :
 
 	void doDialog();
 
-    virtual void destroy() {};
+	void destroy() override {};
 
 	void drawZone(long hY, long lY) {
 		_higherY = hY;
 		_lowerY = lY;
-		if (NULL != _viewZoneCanvas)
-			::InvalidateRect(_viewZoneCanvas, NULL, TRUE);
+		if (nullptr != _viewZoneCanvas)
+			::InvalidateRect(_viewZoneCanvas, nullptr, TRUE);
 	};
 
 	int getViewerHeight() const {
@@ -73,7 +73,7 @@ public :
 	static void setColour(COLORREF colour2Set, ViewZoneColorIndex i);
 
 protected :
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 	static LRESULT CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -101,21 +101,26 @@ public:
 		data->pszAddInfo = id4dockingCont.c_str();
 	};
 
+	void create(tTbData* data, std::array<int, 3> iconIDs, bool isRTL = false) {
+		DockingDlgInterface::create(data, iconIDs, isRTL);
+		data->pszAddInfo = id4dockingCont.c_str();
+	};
+
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
 	};
 
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
+	void display(bool toShow = true) const override {
+		DockingDlgInterface::display(toShow);
 		_vzDlg.display();
-    };
+	};
 
-	virtual void redraw(bool forceUpdate = false) const;
+	void redraw(bool forceUpdate = false) const override;
 
-    void setParent(HWND parent2set){
-        _hParent = parent2set;
-    };
+	void setParent(HWND parent2set){
+		_hParent = parent2set;
+	};
 
 	void vzDlgDisplay(bool toShow = true) {
 		_vzDlg.display(toShow);
@@ -137,7 +142,7 @@ public:
 	void setTemporarilyShowing(bool tempShowing) { _isTemporarilyShowing = tempShowing; }
 
 protected:
-	virtual intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
 
 private:

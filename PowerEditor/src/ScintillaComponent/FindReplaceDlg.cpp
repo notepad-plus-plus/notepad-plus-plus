@@ -3632,16 +3632,16 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->setVolatiled(false);
 
 		tTbData	data{};
-		_pFinder->create(&data);
+		_pFinder->create(&data, { IDI_FIND_RESULT_ICON, IDR_FIND_RESULT_ICO_DM, IDR_FIND_RESULT_ICO2 });
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-		int icoID = IDR_FIND_RESULT_ICO2;
+		int icoID = _pFinder->getIconIDs().at(2);
 		if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-			icoID = IDI_FIND_RESULT_ICON;
+			icoID = _pFinder->getIconIDs().at(0);
 		else if (NppDarkMode::isEnabled())
-			icoID = IDR_FIND_RESULT_ICO_DM;
+			icoID = _pFinder->getIconIDs().at(1);
 
 		const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 		DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -3780,16 +3780,16 @@ Finder* FindReplaceDlg::createFinder()
 
 	tTbData	data{};
 	bool isRTL = _pFinder->_scintView.isTextDirectionRTL();
-	pFinder->create(&data, isRTL);
+	pFinder->create(&data, { IDI_FIND_RESULT_ICON, IDR_FIND_RESULT_ICO_DM, IDR_FIND_RESULT_ICO2 }, isRTL);
 	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<WPARAM>(pFinder->getHSelf()));
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO | DWS_USEOWNDARKMODE;
 
-	int icoID = IDR_FIND_RESULT_ICO2;
+	int icoID = pFinder->getIconIDs().at(2);
 	if (nppParam.getNppGUI()._tbIconInfo._tbIconSet == TB_STANDARD)
-		icoID = IDI_FIND_RESULT_ICON;
+		icoID = pFinder->getIconIDs().at(0);
 	else if (NppDarkMode::isEnabled())
-		icoID = IDR_FIND_RESULT_ICO_DM;
+		icoID = pFinder->getIconIDs().at(1);
 
 	const int iconSize = DPIManagerV2::scale(g_dockingContTabIconSize, _pFinder->getHSelf());
 	DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(icoID), iconSize, iconSize, &data.hIconTab, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);

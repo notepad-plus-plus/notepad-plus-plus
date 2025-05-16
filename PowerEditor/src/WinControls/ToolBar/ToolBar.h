@@ -64,13 +64,13 @@ public :
 
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, ToolBarButtonUnit* buttonUnitArray, int arraySize);
 
-	virtual void destroy();
+	void destroy() override;
 	void enable(int cmdID, bool doEnable) const {
 		::SendMessage(_hSelf, TB_ENABLEBUTTON, cmdID, static_cast<LPARAM>(doEnable));
 	};
 
-	int getWidth() const;
-	int getHeight() const;
+	int getWidth() const override;
+	int getHeight() const override;
 
 	void reduce();
 	void enlarge();
@@ -163,10 +163,7 @@ private :
 	};
 
 	void reset(bool create = false);
-	void setState(toolBarStatusType state) {
-		_state = state;
-	}
-	
+	void setState(toolBarStatusType state);
 };
 
 class ReBar : public Window
@@ -174,13 +171,13 @@ class ReBar : public Window
 public :
 	ReBar():Window() { usedIDs.clear(); };
 
-	virtual void destroy() {
+	void destroy() override {
 		::DestroyWindow(_hSelf);
-		_hSelf = NULL;
+		_hSelf = nullptr;
 		usedIDs.clear();
 	};
 
-	void init(HINSTANCE hInst, HWND hPere);
+	void init(HINSTANCE hInst, HWND hPere) override;
 	bool addBand(REBARBANDINFO * rBand, bool useID);	//useID true if ID from info should be used (false for plugins). wID in bandinfo will be set to used ID
 	void reNew(int id, REBARBANDINFO * rBand);					//wID from bandinfo is used for update
 	void removeBand(int id);

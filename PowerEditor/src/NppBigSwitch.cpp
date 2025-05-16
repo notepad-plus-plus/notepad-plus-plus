@@ -374,6 +374,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_TOOLBARICONSCHANGED:
+		{
+			refreshInternalPanelIcons();
+			// Notify plugins that toolbar icons have changed TODO
+			//SCNotification scnN{};
+			//scnN.nmhdr.code = ;
+			//scnN.nmhdr.hwndFrom = hwnd;
+			//scnN.nmhdr.idFrom = 0;
+			//_pluginsManager.notify(&scnN);
+			return TRUE;
+		}
+
 		case WM_DRAWITEM:
 		{
 			DRAWITEMSTRUCT *dis = reinterpret_cast<DRAWITEMSTRUCT *>(lParam);

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 02 May 2025, for Notepad++ 8.8.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 17 May 2025, for Notepad++ 8.8.2
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.1">
+	<Native-Langue name="Brazilian Portuguese" filename="brazilian_portuguese.xml" version="8.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -994,6 +994,8 @@ Translation note:
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Sair ao fechar a última aba"/>
 					<Item id="6128" name="Ícones alternativos"/>
+					<Item id="6125" name="Comportamento"/>
+					<Item id="6126" name="Olhar &amp;&amp; sentir"/>
 				</Tabbar>
 				
 				<Scintillas title="Edição 1">

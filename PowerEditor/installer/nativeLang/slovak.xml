@@ -991,6 +991,8 @@
 					<Item id="6120" name="Vertikálny"/>
 					<Item id="6121" name="Ukončiť pri zatvorení poslednej karty"/>
 					<Item id="6128" name="Alternatívne ikony"/>
+					<Item id="6125" name="Správanie"/>
+					<Item id="6126" name="Vzhľad a správanie"/>
 				</Tabbar>
 				
 				<Scintillas title="Úprava 1">

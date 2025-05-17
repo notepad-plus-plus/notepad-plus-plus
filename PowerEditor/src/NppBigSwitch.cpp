@@ -1175,7 +1175,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					LPWSTR res = lstrcpyW(fileNames[j++], buf->getFullPathName());
 					if (!res)
 					{
-						throw std::exception("Exception: NPPM_GETOPENFILENAMES/NPPM_GETOPENFILENAMESPRIMARY - The buffer you provide may not be large enough to contain the path you want to copy.");
+						struct lstrcpyException : std::exception
+						{
+							const char* what() const noexcept override { return "NPPM_GETOPENFILENAMES/NPPM_GETOPENFILENAMESPRIMARY - The buffer you provide may not be large enough to contain the path you want to copy."; }
+						};
+						throw lstrcpyException();
 					}
 				}
 			}
@@ -1189,7 +1193,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					LPWSTR res = lstrcpyW(fileNames[j++], buf->getFullPathName());
 					if (!res)
 					{
-						throw std::exception("Exception: NPPM_GETOPENFILENAMES/NPPM_GETOPENFILENAMESSECOND - The buffer you provide may not be large enough to contain the path you want to copy.");
+						struct lstrcpyException : std::exception
+						{
+							const char* what() const noexcept override { return "NPPM_GETOPENFILENAMES/NPPM_GETOPENFILENAMESSECOND - The buffer you provide may not be large enough to contain the path you want to copy."; }
+						};
+						throw lstrcpyException();
 					}
 				}
 			}
@@ -1300,17 +1308,30 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			Session session2Load;
 			if (nppParam.loadSession(session2Load, sessionFileName, true))
 			{
+				struct lstrcpyException : std::exception
+				{
+					const char* what() const noexcept override { return "NPPM_GETSESSIONFILES - The buffer you provide may not be large enough to contain the path you want to copy."; }
+				};
+
 				size_t i = 0;
 				for ( ; i < session2Load.nbMainFiles() ; )
 				{
 					const wchar_t *pFn = session2Load._mainViewFiles[i]._fileName.c_str();
-					lstrcpy(sessionFileArray[i++], pFn);
+					LPWSTR res = lstrcpyW(sessionFileArray[i++], pFn);
+					if (!res)
+					{
+						throw lstrcpyException();
+					}
 				}
 
 				for (size_t j = 0, len = session2Load.nbSubFiles(); j < len ; ++j)
 				{
 					const wchar_t *pFn = session2Load._subViewFiles[j]._fileName.c_str();
-					lstrcpy(sessionFileArray[i++], pFn);
+					LPWSTR res = lstrcpyW(sessionFileArray[i++], pFn);
+					if (!res)
+					{
+						throw lstrcpyException();
+					}
 				}
 				return TRUE;
 			}

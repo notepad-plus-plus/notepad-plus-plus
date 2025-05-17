@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 02 May 2025, for Notepad++ 8.8.1
+<!-- Brazilian Portuguese by Hélio de Souza and Luxy, updated: Jul 2021, for Notepad++ 8.1.2; last update by Marcello, 15 Jun 2025, for Notepad++ 8.8.1
 Translation note:
 1. Please install XML Tools plugin for formatting your XML translation. Via menu "Plugins -> XML Tools-> Pretty Print - indent only" command.
 2. All the comments are for explanation, they are not for translation.
@@ -994,6 +994,8 @@ Translation note:
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Sair ao fechar a última aba"/>
 					<Item id="6128" name="Ícones alternativos"/>
+					<Item id="6125" name="Comportamento"/>
+					<Item id="6126" name="Olhar &amp;&amp; sentir"/>
 				</Tabbar>
 				
 				<Scintillas title="Edição 1">
@@ -1106,6 +1108,7 @@ Translation note:
 					<Item id="6419" name="Novo documento"/>
 					<Item id="6420" name="Aplicar ao abrir arquivos ANSI"/>
 					<Item id="6432" name="Sempre abrir um novo documento ao iniciar"/>
+					<Item id="6433" name="Usar a primeira linha do documento como nome da aba sem título"/>
 				</NewDoc>
 
 				<DefaultDir title="Diretório padrão">

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 8.8.0
-    Last modified Sun, Apr 21st, 2025.
+    Italian translation for Notepad++ 8.8.2
+    Last modified Sun, May 18nd, 2025.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <!--
@@ -10,7 +10,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Italiano" filename="italian.xml" version="8.8.0">
+	<Native-Langue name="Italiano" filename="italian.xml" version="8.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -142,6 +142,8 @@ Translation note:
 					<Item id="42060" name="Ordina le righe decrescente"/>
 					<Item id="42080" name="Ordina le righe crescente ignorando maiuscole/minuscole"/>
 					<Item id="42081" name="Ordina le righe decrescente ignorando maiuscole/minuscole"/>
+					<Item id="42100" name="Ordina le righe crescente (codifica del sistema)"/>
+					<Item id="42101" name="Ordina le righe decrescente(codifica del sistema)"/>
 					<Item id="42061" name="Ordina le righe come interi crescenti"/>
 					<Item id="42062" name="Ordina le righe come interi decrescenti"/>
 					<Item id="42063" name="Ordina le righe come valori decimali (virgola) crescenti"/>
@@ -959,7 +961,7 @@ Translation note:
 					<Item id="6134" name="Nascondi"/>
 				</Global>
 
-				<Toolbar title="Toolbar">
+				<Toolbar title="Barra degli strumenti">
 					<Item id="6102" name="Nascondi"/>
 					<Item id="6103" name="Icone contornate (piccole)"/>
 					<Item id="6104" name="Icone contornate (grandi)"/>
@@ -976,7 +978,7 @@ Translation note:
 					<Item id="6018" name="Blù"/>
 					<Item id="6019" name="Viola"/>
 					<Item id="6020" name="Ciano"/>
-					<Item id="6021" name="Olive"/>
+					<Item id="6021" name="Oliva"/>
 					<Item id="6022" name="Giallo"/>
 					<Item id="6023" name="Principale di sistema"/>
 					<Item id="6024" name="Personalizzata"/>
@@ -991,12 +993,14 @@ Translation note:
 					<Item id="6112" name="Visualizza pulsante di chiusura"/>
 					<Item id="6113" name="Il Doppio clic Chiude la scheda"/>
 					<Item id="6115" name="Abilita il fissaggio delle schede"/>
-					<Item id="6135" name="Show only pinned button"/>
+					<Item id="6135" name="Visualizza solo i bottoni bloccati"/>
 					<Item id="6118" name="Nascondi"/>
 					<Item id="6119" name="Utilizza più righe"/>
 					<Item id="6120" name="Verticale"/>
 					<Item id="6121" name="Esci alla chiusura dell&apos;ultima scheda"/>
 					<Item id="6128" name="Icone alternative"/>
+					<Item id="6125" name="Comportamento"/>
+					<Item id="6126" name="Aspetto visivo"/>
 				</Tabbar>
 
 				<Scintillas title="Modifica 1">
@@ -1473,6 +1477,9 @@ Le impostazioni del Cloud saranno annullate. Reimposta un valore coerente dalle 
 			<DroppingFolderAsProjectModeWarning title="Azione non valida" message="Puoi trascinare file o cartelle, ma non entrambi, perché sei in modalità Trascina Cartella come Progetto.
 Devi abilitare &quot;Apri tutti i file della cartella invece di avviare Cartella come Area di Lavoro al trascinamento&quot; nella sezione &quot;Cartella predefinita&quot; delle preferenze per attivare questa funzionalità."/>
 			<SortingError title="Errore ordinamento" message="Impossibile effettuare un ordinamento numerico a causa della riga $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Sort not performedOrdinamento non eseguito" message="Ordinamento con selezione multipla non supportata."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Ordinamento non andato a buon fine" message="La causa del mancato ordinamento non può essere determinata."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Ordinamento non andato a buon fine" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Selezione in Modalità Colonna" message="
 Esistono 3 modi per passare alla modalità Selezione-Colonna:
 
@@ -1870,7 +1877,7 @@ Se viene selezionata la modalità avanzata, ma non vengono modificati i file nei
 			<scintillaRenderingTechnology-tip value="Potrebbe migliorare il rendering dei caratteri speciali o risolvere alcuni problemi grafici, riavviare Notepad++ per applicare le modifiche."/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
-			<statusbar-length-lines value="lungh.: $STR_REPLACE1$    linee: $STR_REPLACE2$"/>
+			<statusbar-length-lines value="lungh: $STR_REPLACE1$    linee: $STR_REPLACE2$"/>
 
 			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
 			<statusbar-Ln-Col value="Ln: $STR_REPLACE1$    Col: $STR_REPLACE2$"/>

@@ -238,10 +238,14 @@ void AutoComplete::Move(int delta) {
 	const int count = lb->Length();
 	int current = lb->GetSelection();
 	current += delta;
-	if (current >= count)
-		current = count - 1;
-	if (current < 0)
+	if (current >= count) {
+		// back to the first selection
 		current = 0;
+	}
+	if (current < 0) {
+		// go to the last one
+		current = count - 1;
+	}
 	lb->Select(current);
 }
 

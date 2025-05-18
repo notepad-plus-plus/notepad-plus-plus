@@ -83,8 +83,8 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// lParam[in]: iViewType - could be PRIMARY_VIEW (value 1), SECOND_VIEW (value 2) or ALL_OPEN_FILES (value 0)
 	// return the number of opened files
 
-	#define NPPM_GETOPENFILENAMES  (NPPMSG + 8)
-	// BOOL NPPM_GETOPENFILENAMES(wchar_t** fileNames, int nbFileNames)
+	#define NPPM_GETOPENFILENAMES_DEPRECATED  (NPPMSG + 8)
+	// BOOL NPPM_GETOPENFILENAMES_DEPRECATED(wchar_t** fileNames, int nbFileNames) - DEPRECATED: It is kept for the compatibility. Use NPPM_GETBUFFERIDFROMPOS & NPPM_GETFULLPATHFROMBUFFERID instead.
 	// Get the open files full paths of both views. User is responsible to allocate an big enough fileNames array by using NPPM_GETNBOPENFILES.
 	// wParam[out]: fileNames - array of file path
 	// lParam[in]: nbFileNames is the number of file path.
@@ -137,15 +137,15 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64, PF_ARM64 };
 	// Returns sessionFileName on success, NULL otherwise
 
 
-	#define NPPM_GETOPENFILENAMESPRIMARY (NPPMSG + 17)
-	// BOOL NPPM_GETOPENFILENAMESPRIMARY(wchar_t** fileNames, int nbFileNames)
+	#define NPPM_GETOPENFILENAMESPRIMARY_DEPRECATED (NPPMSG + 17)
+	// BOOL NPPM_GETOPENFILENAMESPRIMARY_DEPRECATED(wchar_t** fileNames, int nbFileNames) - DEPRECATED: It is kept for the compatibility. Use NPPM_GETBUFFERIDFROMPOS & NPPM_GETFULLPATHFROMBUFFERID instead.
 	// Get the open files full paths of main view. User is responsible to allocate an big enough fileNames array by using NPPM_GETNBOPENFILES.
 	// wParam[out]: fileNames - array of file path
 	// lParam[in]: nbFileNames is the number of file path.
 	// return value: The number of files copied into fileNames array
 
-	#define NPPM_GETOPENFILENAMESSECOND (NPPMSG + 18)
-	// BOOL NPPM_GETOPENFILENAMESSECOND(wchar_t** fileNames, int nbFileNames)
+	#define NPPM_GETOPENFILENAMESSECOND_DEPRECATED (NPPMSG + 18)
+	// BOOL NPPM_GETOPENFILENAMESSECOND_DEPRECATED(wchar_t** fileNames, int nbFileNames) - DEPRECATED: It is kept for the compatibility. Use NPPM_GETBUFFERIDFROMPOS & NPPM_GETFULLPATHFROMBUFFERID instead.
 	// Get the open files full paths of sub-view. User is responsible to allocate an big enough fileNames array by using NPPM_GETNBOPENFILES.
 	// wParam[out]: fileNames - array of file path
 	// lParam[in]: nbFileNames is the number of file path.

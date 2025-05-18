@@ -1155,9 +1155,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return 0;
 		}
 
-		case NPPM_GETOPENFILENAMESPRIMARY:
-		case NPPM_GETOPENFILENAMESSECOND:
-		case NPPM_GETOPENFILENAMES:
+		case NPPM_GETOPENFILENAMESPRIMARY_DEPRECATED:
+		case NPPM_GETOPENFILENAMESSECOND_DEPRECATED:
+		case NPPM_GETOPENFILENAMES_DEPRECATED:
 		{
 			if (!wParam)
 				return 0;
@@ -1166,7 +1166,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			size_t nbFileNames = static_cast<size_t>(lParam);
 
 			size_t j = 0;
-			if (message != NPPM_GETOPENFILENAMESSECOND)
+			if (message != NPPM_GETOPENFILENAMESSECOND_DEPRECATED)
 			{
 				for (size_t i = 0; i < _mainDocTab.nbItem() && j < nbFileNames; ++i)
 				{
@@ -1176,7 +1176,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			if (message != NPPM_GETOPENFILENAMESPRIMARY)
+			if (message != NPPM_GETOPENFILENAMESPRIMARY_DEPRECATED)
 			{
 				for (size_t i = 0; i < _subDocTab.nbItem() && j < nbFileNames; ++i)
 				{

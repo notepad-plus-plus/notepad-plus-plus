@@ -1535,7 +1535,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT* pDrawItemStruct, bool isDarkMode)
 			brushColour = colorActiveBg;
 		}
 		
-		if (_currentHoverTabItem == nTab && brushColour != colorActiveBg) // hover on a "darker" inactive tab
+		if (_currentHoverTabItem == nTab && brushColour != colorActiveBg && !_isDragging) // hover on a "darker" inactive tab
 		{
 			HLSColour hls(brushColour);
 			brushColour = hls.toRGB4DarkModeWithTuning(15, 0); // make it lighter slightly

@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Japanese" filename="japanese.xml" version="8.8">
+	<Native-Langue name="Japanese" filename="japanese.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -999,6 +999,8 @@ Translation note:
 					<Item id="6120" name="縦に表示する"/>
 					<Item id="6121" name="最後のタブを閉じると終了する"/>
 					<Item id="6128" name="別デザインのアイコンを使用する"/>
+					<Item id="6125" name="挙動の設定"/>
+					<Item id="6126" name="見た目の設定"/>
 				</Tabbar>
 
 				<Scintillas title="編集画面 1">
@@ -1111,6 +1113,7 @@ Translation note:
 					<Item id="6419" name="新規文書"/>
 					<Item id="6420" name="開いているANSIファイルに適用"/>
 					<Item id="6432" name="起動時に新規文書を開く"/>
+					<Item id="6433" name="文書の最初の行を、名前がつけられていないタブの名前として利用する"/>
 				</NewDoc>
 
 				<DefaultDir title="既定のディレクトリ">

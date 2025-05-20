@@ -42,6 +42,9 @@ using namespace std;
 #define WD_MENUCOPYNAME				"MenuCopyName"
 #define WD_MENUCOPYPATH				"MenuCopyPath"
 
+// WM_CHAR replacement
+#define WM_CHAR_REPLACEMENT			(WM_USER + WM_CHAR)
+
 static const wchar_t *readonlyString = L" [Read Only]";
 const UINT WDN_NOTIFY = RegisterWindowMessage(L"WDN_NOTIFY");
 /*
@@ -240,6 +243,8 @@ BEGIN_WINDOW_MAP(WindowsDlgMap)
 END_WINDOW_MAP()
 
 RECT WindowsDlg::_lastKnownLocation;
+HHOOK WindowsDlg::_hMsgHook = nullptr;
+HWND WindowsDlg::_hThisDlg = nullptr;
 
 WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap)
 {
@@ -258,6 +263,26 @@ void WindowsDlg::init(HINSTANCE hInst, HWND parent)
 	_pTab = NULL;
 }
 
+LRESULT CALLBACK WindowsDlg::getMsgProc(int code, WPARAM wParam, LPARAM lParam) 
+{
+	if (code >= 0 && wParam == PM_REMOVE) 
+	{
+		MSG* pMsg = reinterpret_cast<MSG*>(lParam);
+		if (pMsg->message == WM_CHAR) 
+		{
+			// forward a WM_CHAR replacement message to the dialog
+			::PostMessage(_hThisDlg, WM_CHAR_REPLACEMENT, pMsg->wParam, pMsg->lParam);
+
+			// suppress the original one 
+			// to prevent it from reaching the list view
+			pMsg->message = WM_NULL;
+			return 0;
+		}
+	}
+
+	return CallNextHookEx(_hMsgHook, code, wParam, lParam);
+}
+
 intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -269,6 +294,10 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 			NppDarkMode::autoSubclassAndThemeChildControls(_hSelf);
 			NppDarkMode::autoSubclassAndThemeWindowNotify(_hSelf);
+
+			// install message hook to intercept WM_CHAR
+			_hThisDlg = _hSelf;
+			initMessageHook();
 
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
 		}
@@ -360,6 +389,9 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case WM_DESTROY:
 		{
+			// uninstall WM_CHAR message hook
+			removeMessageHook();
+
 			//destroy();
 			return TRUE;
 		}
@@ -482,6 +514,102 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 			}
 			break;
+		}
+
+		case WM_CHAR_REPLACEMENT:
+		{
+			if (!_hList)
+				return TRUE;
+
+			wchar_t ch = static_cast<wchar_t>(wParam);
+			int itemCount = ListView_GetItemCount(_hList);
+
+			// backup current state
+			vector<int> stateMap;
+			stateMap.reserve(itemCount);
+			for (int index = 0; index < itemCount; index++)
+				stateMap.push_back(ListView_GetItemState(_hList, index, LVIS_SELECTED | LVIS_FOCUSED));
+
+			// temporarily clear existing selection
+			ListView_SetItemState(_hList, -1, 0, LVIS_SELECTED | LVIS_FOCUSED);
+
+			LVITEM lvItem {};
+			wchar_t buffer[MAX_PATH] = L"\0";
+
+			int firstMatchFound = -1;
+			int lastMatchSel = -1;
+			int targetedIndex = -1;
+
+			// find items whose first character matches the typed character
+			for (int index = 0; index < itemCount; ++index)
+			{
+				lvItem.iItem = index;
+				lvItem.mask = LVIF_TEXT;
+				lvItem.pszText = buffer;
+				lvItem.cchTextMax = MAX_PATH;
+
+				if (ListView_GetItem(_hList, &lvItem))
+				{
+					if (towlower(buffer[0]) == towlower(ch))
+					{
+						// mark the first matching item index found
+						if (firstMatchFound == -1)
+							firstMatchFound = index;
+
+						// if the item is currenly selected, skip and find the next item
+						if (stateMap.at(index) & LVIS_SELECTED) 
+						{
+							lastMatchSel = index;
+							continue;
+						}
+
+						// stop at the next matching item 
+						// after the last selected matching one
+						if (lastMatchSel != -1) 
+						{
+							targetedIndex = index;
+							break;
+						}
+					}
+				}
+			}
+
+			// targeted item is found
+			if (targetedIndex != -1)
+			{
+				ListView_SetItemState(_hList, targetedIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+				ListView_EnsureVisible(_hList, targetedIndex, FALSE);
+			}
+
+			// otherwise, that means either of these cases: 
+			//  1. no matching item is currently selected
+			//	2. the last matching item is currently selected
+			//	3. all matching items are currently selected
+			//	4. no matching item is found
+			else
+			{
+				// case 1 -> 3: select the first matching item
+				if (firstMatchFound != -1)
+				{
+					ListView_SetItemState(_hList, firstMatchFound, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+					ListView_EnsureVisible(_hList, firstMatchFound, FALSE);
+				}
+
+				// case 4:
+				else
+				{
+					// restore previous state
+					for (int index = 0; index < itemCount; index++)
+						ListView_SetItemState(_hList, index, stateMap.at(index), LVIS_SELECTED | LVIS_FOCUSED);
+
+					// make a beep sound
+					const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+					if (!nppGUI._muteSounds)
+						MessageBeep(0xFFFFFFFF);
+				}
+			}
+
+			return TRUE;
 		}
 
 		case WM_CONTEXTMENU:

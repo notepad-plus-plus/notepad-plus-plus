@@ -2565,8 +2565,8 @@ namespace NppDarkMode
 		upDownData._wasHotNext = !isHotPrev && (::PtInRect(&upDownData._rcClient, ptCursor) == TRUE);
 
 		auto paintUpDownBtn = [&](const RECT& rect, bool isHot) -> void {
-			const HBRUSH hBrush = isDisabled ? NppDarkMode::getDlgBackgroundBrush() : (isHot ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getBackgroundBrush());
-			const HPEN hPen = isDisabled ? NppDarkMode::getDisabledEdgePen() : (isHot ? NppDarkMode::getHotEdgePen() : NppDarkMode::getEdgePen());
+			HBRUSH hBrush = isDisabled ? NppDarkMode::getDlgBackgroundBrush() : (isHot ? NppDarkMode::getHotBackgroundBrush() : NppDarkMode::getCtrlBackgroundBrush());
+			HPEN hPen = isDisabled ? NppDarkMode::getDisabledEdgePen() : (isHot ? NppDarkMode::getHotEdgePen() : NppDarkMode::getEdgePen());
 
 			NppDarkMode::paintRoundRect(hdc, rect, hPen, hBrush, roundness, roundness);
 			};

@@ -73,7 +73,7 @@ struct NppCurrentStatus
 	std::wstring _nppInstallPath;
 	std::wstring _appdataPath;
 
-	// it should determinate :
+	// it should determine :
 	// 1. deployment location : %ProgramFile%   %appdata%   %other%
 	// 2. gitup launch mode:    ADM             ADM         NOMAL
 	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };

@@ -102,7 +102,7 @@ KeyIDNAME namedKeyArray[] = {
 {"Numpad 9", VK_NUMPAD9},
 {"Num *", VK_MULTIPLY},
 {"Num +", VK_ADD},
-// {"Num Enter"), VK_SEPARATOR},	//this one doesnt seem to work: see below
+// {"Num Enter"), VK_SEPARATOR},	//this one doesn't seem to work: see below
 {"Num -", VK_SUBTRACT},
 {"Num .", VK_DECIMAL},
 {"Num /", VK_DIVIDE},
@@ -1142,7 +1142,7 @@ void ScintillaAccelerator::updateKeys()
 			{
 				updateMenuItemByID(skm, skm.getMenuCmdID());
 			}
-			if (j == 0)	//j is unsigned, so default method doesnt work
+			if (j == 0)	//j is unsigned, so default method doesn't work
 				break;
 		}
 	}

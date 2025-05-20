@@ -1208,7 +1208,7 @@ bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 {
 	CustomFileDialog fDlg(_hSelf);
 	setFileExtFilter(fDlg);
-	fDlg.setExtIndex(0);		// 0 index for "custom extention" type if any else for "All types *.*"
+	fDlg.setExtIndex(0);		// 0 index for "custom extension" type if any else for "All types *.*"
 	fDlg.setFolder(getWorkSpaceFilePath());
 
 	const wstring fn = fDlg.doSaveDlg();

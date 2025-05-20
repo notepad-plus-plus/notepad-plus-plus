@@ -908,32 +908,32 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 				if (titre1 && titre1[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre1, _nativeLangEncoding);
-					nppParam.getFindDlgTabTitiles()._find = nameW;
-					findReplaceDlg.changeTabName(FIND_DLG, nppParam.getFindDlgTabTitiles()._find.c_str());
+					nppParam.getFindDlgTabTitles()._find = nameW;
+					findReplaceDlg.changeTabName(FIND_DLG, nppParam.getFindDlgTabTitles()._find.c_str());
 				}
 				if (titre2  && titre2[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre2, _nativeLangEncoding);
-					nppParam.getFindDlgTabTitiles()._replace = nameW;
-					findReplaceDlg.changeTabName(REPLACE_DLG, nppParam.getFindDlgTabTitiles()._replace.c_str());
+					nppParam.getFindDlgTabTitles()._replace = nameW;
+					findReplaceDlg.changeTabName(REPLACE_DLG, nppParam.getFindDlgTabTitles()._replace.c_str());
 				}
 				if (titre3 && titre3[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre3, _nativeLangEncoding);
-					nppParam.getFindDlgTabTitiles()._findInFiles = nameW;
-					findReplaceDlg.changeTabName(FINDINFILES_DLG, nppParam.getFindDlgTabTitiles()._findInFiles.c_str());
+					nppParam.getFindDlgTabTitles()._findInFiles = nameW;
+					findReplaceDlg.changeTabName(FINDINFILES_DLG, nppParam.getFindDlgTabTitles()._findInFiles.c_str());
 				}
 				if (titre4 && titre4[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre4, _nativeLangEncoding);
-					nppParam.getFindDlgTabTitiles()._findInProjects = nameW;
-					findReplaceDlg.changeTabName(FINDINPROJECTS_DLG, nppParam.getFindDlgTabTitiles()._findInProjects.c_str());
+					nppParam.getFindDlgTabTitles()._findInProjects = nameW;
+					findReplaceDlg.changeTabName(FINDINPROJECTS_DLG, nppParam.getFindDlgTabTitles()._findInProjects.c_str());
 				}
 				if (titre5 && titre5[0])
 				{
 					basic_string<wchar_t> nameW = wmc.char2wchar(titre5, _nativeLangEncoding);
-					nppParam.getFindDlgTabTitiles()._mark = nameW;
-					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitiles()._mark.c_str());
+					nppParam.getFindDlgTabTitles()._mark = nameW;
+					findReplaceDlg.changeTabName(MARK_DLG, nppParam.getFindDlgTabTitles()._mark.c_str());
 				}
 			}
 		}
@@ -1007,7 +1007,7 @@ void NativeLangSpeaker::changePluginsAdminDlgLang(PluginsAdminDlg & pluginsAdmin
 	}
 }
 
-void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference) 
+void NativeLangSpeaker::changePreferenceDlgLang(PreferenceDlg & preference) 
 {
 	auto currentSel = preference.getListSelectedIndex();
 	changeDlgLang(preference.getHSelf(), "Preference");

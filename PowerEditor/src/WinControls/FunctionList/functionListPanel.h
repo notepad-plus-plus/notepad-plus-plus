@@ -22,7 +22,7 @@
 #include "TreeView.h"
 
 #define FL_PANELTITLE     L"Function List"
-#define FL_FUCTIONLISTROOTNODE "FunctionList"
+#define FL_FUNCTIONLISTROOTNODE "FunctionList"
 
 #define FL_SORTLOCALNODENAME        "SortTip"
 #define FL_RELOADLOCALNODENAME      "ReloadTip"

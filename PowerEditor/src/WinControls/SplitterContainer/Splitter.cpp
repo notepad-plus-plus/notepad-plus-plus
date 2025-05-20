@@ -198,7 +198,7 @@ void Splitter::destroy()
 
 int Splitter::getClickZone(WH which)
 {
-	// determinated by (_dwFlags & SV_VERTICAL) && _splitterSize
+	// determined by (_dwFlags & SV_VERTICAL) && _splitterSize
 	if (_splitterSize <= 8)
 	{
 		return isVertical()

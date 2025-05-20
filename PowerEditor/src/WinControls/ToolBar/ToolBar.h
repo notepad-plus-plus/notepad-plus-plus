@@ -105,7 +105,7 @@ public :
 	void registerDynBtn(UINT message, toolbarIcons* iconHandles, HICON absentIco);
 	void registerDynBtnDM(UINT message, toolbarIconsWithDarkMode* iconHandles);
 
-	void doPopop(POINT chevPoint);	//show the popup if buttons are hidden
+	void doPopup(POINT chevPoint);	//show the popup if buttons are hidden
 
 	void addToRebar(ReBar * rebar);
 

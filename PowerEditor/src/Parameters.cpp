@@ -62,7 +62,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FILE_OPEN_FOLDER,                         false, false, false, L"Open containing folder in Explorer" },
 	{ VK_NULL,    IDM_FILE_OPEN_CMD,                            false, false, false, L"Open containing folder in Command Prompt" },
 	{ VK_NULL,    IDM_FILE_OPEN_DEFAULT_VIEWER,                 false, false, false, nullptr },
-	{ VK_NULL,    IDM_FILE_OPENFOLDERASWORSPACE,                false, false, false, nullptr },
+	{ VK_NULL,    IDM_FILE_OPENFOLDERASWORKSPACE,                false, false, false, nullptr },
 	{ VK_R,       IDM_FILE_RELOAD,                              true,  false, false, nullptr },
 	{ VK_S,       IDM_FILE_SAVE,                                true,  false, false, nullptr },
 	{ VK_S,       IDM_FILE_SAVEAS,                              true,  true,  false, nullptr },
@@ -470,7 +470,7 @@ struct ScintillaKeyDefinition
 	bool isAlt = false;
 	bool isShift = false;
 	int vKey = 0;
-	int redirFunctionId = 0; // this gets set when a function is being redirected through Notepad++ if Scintilla doesnt do it properly :)
+	int redirFunctionId = 0; // this gets set when a function is being redirected through Notepad++ if Scintilla doesn't do it properly :)
 };
 
 /*!
@@ -781,7 +781,7 @@ int DynamicMenu::getTopLevelItemNumber() const
 				}
 				else if (previousFolderName == i._parentFolderName)
 				{
-					// maintain the number and do nothinh
+					// maintain the number and do nothing
 				}
 				else
 				{
@@ -1152,7 +1152,7 @@ bool NppParameters::load()
 	std::wstring localConfPath(_nppPath);
 	pathAppend(localConfPath, localConfFile);
 
-	// Test if localConf.xml exist
+	// Test if doLocalConf.xml exists
 	_isLocal = (doesFileExist(localConfPath.c_str()) == TRUE);
 
 	// Under vista and windows 7, the usage of doLocalConf.xml is not allowed
@@ -1215,14 +1215,14 @@ bool NppParameters::load()
 	if (!doesDirectoryExist(_pluginRootDir.c_str()))
 		::CreateDirectory(_pluginRootDir.c_str(), NULL);
 
-	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
+	_sessionPath = _userPath; // Session stores the absolute file path, it should never be on cloud
 
 	// Detection cloud settings
 	std::wstring cloudChoicePath{_userPath};
 	cloudChoicePath += L"\\cloud\\choice";
 
 	//
-	// the 2nd priority: cloud Choice Path
+	// the 2nd priority: Cloud Choice Path
 	//
 	_isCloud = doesFileExist(cloudChoicePath.c_str());
 	if (_isCloud)
@@ -1252,7 +1252,7 @@ bool NppParameters::load()
 		if (!doesDirectoryExist(_cmdSettingsDir.c_str()))
 		{
 			// The following text is not translatable.
-			// _pNativeLangSpeaker is initialized AFTER _userPath being dterminated because nativeLang.xml is from from _userPath.
+			// _pNativeLangSpeaker is initialized AFTER _userPath being determined because nativeLang.xml is from _userPath.
 			std::wstring errMsg = L"The given path\r";
 			errMsg += _cmdSettingsDir;
 			errMsg += L"\nvia command line \"-settingsDir=\" is not a valid directory.\rThis argument will be ignored.";
@@ -1266,7 +1266,7 @@ bool NppParameters::load()
 	}
 
 	//--------------------------//
-	// langs.xml : for per user //
+	// langs.xml : for per-user //
 	//--------------------------//
 	std::wstring langs_xml_path(_userPath);
 	pathAppend(langs_xml_path, L"langs.xml");
@@ -1332,7 +1332,7 @@ bool NppParameters::load()
 		getLangKeywordsFromXmlTree();
 
 	//---------------------------//
-	// config.xml : for per user //
+	// config.xml : for per-user //
 	//---------------------------//
 	std::wstring configPath(_userPath);
 	pathAppend(configPath, L"config.xml");
@@ -1357,7 +1357,7 @@ bool NppParameters::load()
 	}
 
 	//----------------------------//
-	// stylers.xml : for per user //
+	// stylers.xml : for per-user //
 	//----------------------------//
 
 	_stylerPath = _userPath;
@@ -1405,7 +1405,7 @@ bool NppParameters::load()
 	_themeSwitcher.addDefaultThemeFromXml(_stylerPath);
 
 	//-----------------------------------//
-	// userDefineLang.xml : for per user //
+	// userDefineLang.xml : for per-user //
 	//-----------------------------------//
 	_userDefineLangsFolderPath = _userDefineLangPath = _userPath;
 	pathAppend(_userDefineLangPath, L"userDefineLang.xml");
@@ -1446,7 +1446,7 @@ bool NppParameters::load()
 	}
 
 	//----------------------------------------------//
-	// nativeLang.xml : for per user				//
+	// nativeLang.xml : for per-user				//
 	// In case of absence of user's nativeLang.xml, //
 	// We'll look in the Notepad++ Dir.			 //
 	//----------------------------------------------//
@@ -1486,7 +1486,7 @@ bool NppParameters::load()
 	}
 
 	//---------------------------------------//
-	// toolbarButtonsConf.xml : for per user //
+	// toolbarButtonsConf.xml : for per-user //
 	//---------------------------------------//
 	std::wstring toolbarButtonsConfXmlPath(_userPath);
 	pathAppend(toolbarButtonsConfXmlPath, L"toolbarButtonsConf.xml");
@@ -1501,7 +1501,7 @@ bool NppParameters::load()
 	}
 
 	//------------------------------//
-	// shortcuts.xml : for per user //
+	// shortcuts.xml : for per-user //
 	//------------------------------//
 	wstring v852NoNeedShortcutsBackup;
 	_shortcutsPath = v852NoNeedShortcutsBackup = _userPath;
@@ -1515,7 +1515,7 @@ bool NppParameters::load()
 
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
 
-		// Creat empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
+		// Create empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
 		HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		::FlushFileBuffers(hFile);
 		::CloseHandle(hFile);
@@ -1536,12 +1536,12 @@ bool NppParameters::load()
 		getUserCmdsFromXmlTree();
 
 		// fill out _scintillaModifiedKeys :
-		// those user defined Scintilla key will be used remap Scintilla Key Array
+		// those user-defined Scintilla keys will be used to remap the Scintilla Key Array
 		getScintKeysFromXmlTree();
 	}
 
 	//---------------------------------//
-	// contextMenu.xml : for per user //
+	// contextMenu.xml : for per-user //
 	//---------------------------------//
 	_contextMenuPath = _userPath;
 	pathAppend(_contextMenuPath, L"contextMenu.xml");
@@ -1564,7 +1564,7 @@ bool NppParameters::load()
 	}
 
 	//---------------------------------------------//
-	// tabContextMenu.xml : for per user, optional //
+	// tabContextMenu.xml : for per-user, optional //
 	//---------------------------------------------//
 	_tabContextMenuPath = _userPath;
 	pathAppend(_tabContextMenuPath, L"tabContextMenu.xml");
@@ -1578,7 +1578,7 @@ bool NppParameters::load()
 	}
 
 	//----------------------------//
-	// session.xml : for per user //
+	// session.xml : for per-user //
 	//----------------------------//
 
 	pathAppend(_sessionPath, L"session.xml");
@@ -1730,7 +1730,7 @@ void NppParameters::setWorkSpaceFilePath(int i, const wchar_t* wsFile)
 {
 	if (i < 0 || i > 2 || !wsFile)
 		return;
-	_workSpaceFilePathes[i] = wsFile;
+	_workSpaceFilePaths[i] = wsFile;
 }
 
 
@@ -2101,23 +2101,23 @@ void NppParameters::initScintillaKeys()
 	}
 }
 
-bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu)
+bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU pluginsMenu)
 {
 	_contextMenuItems.clear();
-	return getContextMenuFromXmlTree(mainMenuHadle, pluginsMenu);
+	return getContextMenuFromXmlTree(mainMenuHandle, pluginsMenu);
 }
 
-int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, const std::wstring& menuEntryName, const std::wstring& menuItemName)
+int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHandle, const std::wstring& menuEntryName, const std::wstring& menuItemName)
 {
-	int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
+	int nbMenuEntry = ::GetMenuItemCount(mainMenuHandle);
 	for (int i = 0; i < nbMenuEntry; ++i)
 	{
 		wchar_t menuEntryString[menuItemStrLenMax];
-		::GetMenuString(mainMenuHadle, i, menuEntryString, menuItemStrLenMax, MF_BYPOSITION);
+		::GetMenuString(mainMenuHandle, i, menuEntryString, menuItemStrLenMax, MF_BYPOSITION);
 		if (wcsicmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 		{
 			vector< pair<HMENU, int> > parentMenuPos;
-			HMENU topMenu = ::GetSubMenu(mainMenuHadle, i);
+			HMENU topMenu = ::GetSubMenu(mainMenuHandle, i);
 			int maxTopMenuPos = ::GetMenuItemCount(topMenu);
 			HMENU currMenu = topMenu;
 			int currMaxMenuPos = maxTopMenuPos;
@@ -2192,7 +2192,7 @@ int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, const 
 	return -1;
 }
 
-bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu, bool isEditCM)
+bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHandle, HMENU pluginsMenu, bool isEditCM)
 {
 	TiXmlDocumentA* pXmlContextMenuDocA = isEditCM ? _pXmlContextMenuDocA : _pXmlTabContextMenuDocA;
 	std::string cmName = isEditCM ? "ScintillaContextMenu" : "TabContextMenu";
@@ -2247,7 +2247,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 				if (!menuEntryName.empty() && !menuItemName.empty())
 				{
-					int cmd = getCmdIdFromMenuEntryItemName(mainMenuHadle, menuEntryName, menuItemName);
+					int cmd = getCmdIdFromMenuEntryItemName(mainMenuHandle, menuEntryName, menuItemName);
 					if (cmd != -1)
 						contextMenuItems.push_back(MenuItemUnit(cmd, displayAs.c_str(), folderName.c_str()));
 				}
@@ -2261,7 +2261,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 					pluginName = pluginNameA ? wmc.char2wchar(pluginNameA, SC_CP_UTF8) : L"";
 					pluginCmdName = pluginCmdNameA ? wmc.char2wchar(pluginCmdNameA, SC_CP_UTF8) : L"";
 
-					// if plugin menu existing plls the value of PluginEntryName and PluginCommandItemName are valid
+					// if plugin menu exists, also the value of PluginEntryName and PluginCommandItemName are valid
 					if (pluginsMenu && !pluginName.empty() && !pluginCmdName.empty())
 					{
 						int pluginCmdId = getPluginCmdIdFromMenuEntryItemName(pluginsMenu, pluginName, pluginCmdName);
@@ -2592,7 +2592,7 @@ void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
 			const wchar_t *filePath = (childNode->ToElement())->Attribute(L"workSpaceFile");
 			if (filePath)
 			{
-				_workSpaceFilePathes[index] = filePath;
+				_workSpaceFilePaths[index] = filePath;
 			}
 		}
 	}
@@ -2763,7 +2763,7 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 
 	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifRecuisive");
 	if (boolStr)
-		_findHistory._isFifRecuisive = (lstrcmp(L"yes", boolStr) == 0);
+		_findHistory._isFifRecursive = (lstrcmp(L"yes", boolStr) == 0);
 
 	boolStr = (findHistoryRoot->ToElement())->Attribute(L"fifInHiddenFolder");
 	if (boolStr)
@@ -3791,7 +3791,7 @@ void NppParameters::writeShortcuts()
 
 		if (!doesFileExist(v852NoNeedShortcutsBackup))
 		{
-			// Creat empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
+			// Create empty file v852NoNeedShortcutsBackup.xml for not giving warning, neither doing backup, in future use.
 			HANDLE hFile = ::CreateFile(v852NoNeedShortcutsBackup, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 			::FlushFileBuffers(hFile);
 			::CloseHandle(hFile);
@@ -4403,7 +4403,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	{
 		TiXmlElement projPanelNode{L"ProjectPanel"};
 		(projPanelNode.ToElement())->SetAttribute(L"id", i);
-		(projPanelNode.ToElement())->SetAttribute(L"workSpaceFile", _workSpaceFilePathes[i]);
+		(projPanelNode.ToElement())->SetAttribute(L"workSpaceFile", _workSpaceFilePaths[i]);
 
 		(projPanelRootNode.ToElement())->InsertEndChild(projPanelNode);
 	}
@@ -4474,18 +4474,18 @@ bool NppParameters::writeHistory(const wchar_t *fullpath)
 	return true;
 }
 
-TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const wchar_t *childName,\
-			const wchar_t *attributName, const wchar_t *attributVal) const
+TiXmlNode * NppParameters::getChildElementByAttribute(TiXmlNode *pere, const wchar_t *childName,\
+			const wchar_t *attributeName, const wchar_t *attributeVal) const
 {
 	for (TiXmlNode *childNode = pere->FirstChildElement(childName);
 		childNode ;
 		childNode = childNode->NextSibling(childName))
 	{
 		TiXmlElement *element = childNode->ToElement();
-		const wchar_t *val = element->Attribute(attributName);
+		const wchar_t *val = element->Attribute(attributeName);
 		if (val)
 		{
-			if (!lstrcmp(val, attributVal))
+			if (!lstrcmp(val, attributeVal))
 				return childNode;
 		}
 	}
@@ -5347,7 +5347,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					if (!lstrcmp(val, L"vertical"))
 						_nppGUI._splitterPos = POS_VERTICAL;
 					else if (!lstrcmp(val, L"horizontal"))
-						_nppGUI._splitterPos = POS_HORIZOTAL;
+						_nppGUI._splitterPos = POS_HORIZONTAL;
 				}
 			}
 		}
@@ -7119,7 +7119,7 @@ bool NppParameters::writeScintillaParams()
 		configsRoot = nppRoot->InsertEndChild(TiXmlElement(L"GUIConfigs"));
 	}
 
-	TiXmlNode *scintNode = getChildElementByAttribut(configsRoot, L"GUIConfig", L"name", pViewName);
+	TiXmlNode *scintNode = getChildElementByAttribute(configsRoot, L"GUIConfig", L"name", pViewName);
 	if (!scintNode)
 	{
 		scintNode = configsRoot->InsertEndChild(TiXmlElement(L"GUIConfig"));
@@ -7925,7 +7925,7 @@ bool NppParameters::writeFindHistory()
 	(findHistoryRoot->ToElement())->SetAttribute(L"wrap",					_findHistory._isWrap?L"yes" : L"no");
 	(findHistoryRoot->ToElement())->SetAttribute(L"directionDown",			_findHistory._isDirectionDown ? L"yes" : L"no");
 
-	(findHistoryRoot->ToElement())->SetAttribute(L"fifRecuisive",			_findHistory._isFifRecuisive ? L"yes" : L"no");
+	(findHistoryRoot->ToElement())->SetAttribute(L"fifRecuisive",			_findHistory._isFifRecursive ? L"yes" : L"no");
 	(findHistoryRoot->ToElement())->SetAttribute(L"fifInHiddenFolder",		_findHistory._isFifInHiddenFolder ? L"yes" : L"no");
 	(findHistoryRoot->ToElement())->SetAttribute(L"fifProjectPanel1",	    	_findHistory._isFifProjectPanel_1 ? L"yes" : L"no");
 	(findHistoryRoot->ToElement())->SetAttribute(L"fifProjectPanel2",	      	_findHistory._isFifProjectPanel_2 ? L"yes" : L"no");

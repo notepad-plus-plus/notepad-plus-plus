@@ -115,7 +115,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const wchar_t *bodyOpenS
 		{
 			targetEnd = (*_ppEditView)->execute(SCI_GETTARGETEND);
 
-			// Now we determinate the symbol (open or close)
+			// Now we determine the symbol (open or close)
 			intptr_t tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
 			if (tmpStart >= 0) // open symbol found
 			{
@@ -441,7 +441,7 @@ void FunctionListPanel::initPreferencesMenu()
 	NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 	const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
 
-	wstring shouldSortFunctionListStr = pNativeSpeaker->getAttrNameStr(L"Sort functions (A to Z) by default", FL_FUCTIONLISTROOTNODE, FL_PREFERENCE_INITIALSORT);
+	wstring shouldSortFunctionListStr = pNativeSpeaker->getAttrNameStr(L"Sort functions (A to Z) by default", FL_FUNCTIONLISTROOTNODE, FL_PREFERENCE_INITIALSORT);
 
 	_hPreferencesMenu = ::CreatePopupMenu();
 	::InsertMenu(_hPreferencesMenu, 0, MF_BYCOMMAND, FL_PREFERENCES_INITIALSORT_ID, shouldSortFunctionListStr.c_str());
@@ -921,9 +921,9 @@ intptr_t CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			// tips text for toolbar buttons
 			NativeLangSpeaker *pNativeSpeaker = nppParam.getNativeLangSpeaker();
-			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
-			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
-			_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
+			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
+			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
+			_preferenceTipStr = pNativeSpeaker->getAttrNameStr(_preferenceTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_PREFERENCESLOCALNODENAME);
 
 			_hSearchEdit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, NULL,
 								WS_CHILD | WS_VISIBLE | ES_AUTOVSCROLL,

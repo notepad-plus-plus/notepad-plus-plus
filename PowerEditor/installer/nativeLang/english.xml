@@ -1447,11 +1447,11 @@ You can re-activate this dialog in Preferences later."/>
 			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
 You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
 			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
-All the saved modifications can not be undone.
+All the saved modifications cannot be undone.
 
 Continue?"/><!-- HowToReproduce: when you openned file is modified but unsaved yet, and you are changing file encoding. -->
 			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
-All the saved modifications can not be undone.
+All the saved modifications cannot be undone.
 
 Continue?"/><!-- HowToReproduce: when you openned file is modified and saved, then you are changing file encoding. -->
 			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/><!-- HowToReproduce: From your Notepad++ drag & drop a clean (not dirty) file to outside of Notepad++, another instance of Notepad++ will be created. Then from your first Notepad++ drag & drop an unsaved file to the new instance. -->
@@ -1516,12 +1516,12 @@ Do you want to go to Notepad++ page to download the latest version?"/><!-- HowTo
 Do you want to open it?"/>
 			<CreateNewFileOrNot title="Create new file" message="&quot;$STR_REPLACE$&quot; doesn't exist. Create it?"/>
 			<CreateNewFileError title="Create new file" message="Cannot create the file &quot;$STR_REPLACE$&quot;."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
-			<OpenFileError title="ERROR" message="Can not open file &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileError title="ERROR" message="Cannot open file &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileNoFolderError title="Cannot open file" message="&quot;$STR_REPLACE1$&quot; cannot be opened:
 Folder &quot;$STR_REPLACE2$&quot; doesn't exist."/>
 			<FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$STR_REPLACE$&quot;.
 
-Do you want to save the current file anyways?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Do you want to save the current file anyway?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
 			<LoadLangsFailed title="Configurator" message="Load langs.xml failed!
 Do you want to recover your langs.xml?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->
@@ -1594,7 +1594,7 @@ If you require the backward regex searching feature, consult the user manual for
 			<PrintError title="0" message="Cannot start printer document."/><!-- Use title="0" to use Windows OS default translated "Error" title. -->
 			<FindAutoChangeOfInSelectionWarning title="Search warning" message="The &quot;In selection&quot; checkbox state has been automatically modified.
 Please verify the search condition before performing the action."/> <!-- HowToReproduce: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/14897#issuecomment-2564316224 -->
-			<Need2Restart2ShowMenuShortcuts title="Notepad++ needs to be restarted" message="Notepad++ needs to be restarted to show right menu shorcuts."/>
+			<Need2Restart2ShowMenuShortcuts title="Notepad++ needs to be restarted" message="Notepad++ needs to be restarted to show right menu shortcuts."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Clipboard History"/>

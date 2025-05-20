@@ -43,7 +43,7 @@
     #define    IDM_FILE_OPEN_FOLDER                      (IDM_FILE + 19)
     #define    IDM_FILE_OPEN_CMD                         (IDM_FILE + 20)
     #define    IDM_FILE_RESTORELASTCLOSEDFILE            (IDM_FILE + 21)
-    #define    IDM_FILE_OPENFOLDERASWORSPACE             (IDM_FILE + 22)
+    #define    IDM_FILE_OPENFOLDERASWORKSPACE            (IDM_FILE + 22)
     #define    IDM_FILE_OPEN_DEFAULT_VIEWER              (IDM_FILE + 23)
     #define    IDM_FILE_CLOSEALL_UNCHANGED               (IDM_FILE + 24)
     #define    IDM_FILE_CONTAININGFOLDERASWORKSPACE      (IDM_FILE + 25)
@@ -283,17 +283,17 @@
     //#define    IDM_VIEW_REDUCETABBAR              (IDM_VIEW + 5)
     //#define    IDM_VIEW_LOCKTABBAR                (IDM_VIEW + 6) 
     //#define    IDM_VIEW_DRAWTABBAR_TOPBAR         (IDM_VIEW + 7)
-    //#define    IDM_VIEW_DRAWTABBAR_INACIVETAB     (IDM_VIEW + 8) 
+    //#define    IDM_VIEW_DRAWTABBAR_INACTIVETAB    (IDM_VIEW + 8) 
     #define    IDM_VIEW_POSTIT                    (IDM_VIEW + 9)
     #define    IDM_VIEW_FOLDALL                   (IDM_VIEW + 10)
     #define    IDM_VIEW_DISTRACTIONFREE           (IDM_VIEW + 11)
     //#define    IDM_VIEW_LINENUMBER                (IDM_VIEW + 12)
     //#define    IDM_VIEW_SYMBOLMARGIN              (IDM_VIEW + 13)
-    //#define    IDM_VIEW_FOLDERMAGIN               (IDM_VIEW + 14)
-    //#define    IDM_VIEW_FOLDERMAGIN_SIMPLE        (IDM_VIEW + 15)
-    //#define    IDM_VIEW_FOLDERMAGIN_ARROW         (IDM_VIEW + 16)
-    //#define    IDM_VIEW_FOLDERMAGIN_CIRCLE        (IDM_VIEW + 17)
-    //#define    IDM_VIEW_FOLDERMAGIN_BOX           (IDM_VIEW + 18)
+    //#define    IDM_VIEW_FOLDERMARGIN              (IDM_VIEW + 14)
+    //#define    IDM_VIEW_FOLDERMARGIN_SIMPLE       (IDM_VIEW + 15)
+    //#define    IDM_VIEW_FOLDERMARGIN_ARROW        (IDM_VIEW + 16)
+    //#define    IDM_VIEW_FOLDERMARGIN_CIRCLE       (IDM_VIEW + 17)
+    //#define    IDM_VIEW_FOLDERMARGIN_BOX          (IDM_VIEW + 18)
     #define    IDM_VIEW_ALL_CHARACTERS            (IDM_VIEW + 19)
     #define    IDM_VIEW_INDENT_GUIDE              (IDM_VIEW + 20)
     //#define    IDM_VIEW_CURLINE_HILITING          (IDM_VIEW + 21)
@@ -571,7 +571,7 @@
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)
 
     #define    IDM_LANG_USER               (IDM_LANG + 180)     //46180: Used for translation
-    #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 210)     //46210: Ajust with IDM_LANG_USER
+    #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 210)     //46210: Adjust with IDM_LANG_USER
     #define    IDM_LANG_USER_DLG           (IDM_LANG + 250)     //46250: Used for translation
     #define    IDM_LANG_OPENUDLDIR         (IDM_LANG + 300)
     #define    IDM_LANG_UDLCOLLECTION_PROJECT_SITE   (IDM_LANG + 301)
@@ -595,7 +595,7 @@
 
 #define    IDM_SETTING    (IDM + 8000)
 //    #define    IDM_SETTING_TAB_SIZE                 (IDM_SETTING + 1)
-//    #define    IDM_SETTING_TAB_REPLCESPACE          (IDM_SETTING + 2)
+//    #define    IDM_SETTING_TAB_REPLACESPACE         (IDM_SETTING + 2)
 //    #define    IDM_SETTING_HISTORY_SIZE             (IDM_SETTING + 3)
 //    #define    IDM_SETTING_EDGE_SIZE                (IDM_SETTING + 4)
     #define    IDM_SETTING_IMPORTPLUGIN             (IDM_SETTING + 5)

@@ -26,7 +26,7 @@ public:
 	explicit FunctionCallTip(ScintillaEditView * pEditView) : _pEditView(pEditView) {};
 	~FunctionCallTip() {/* cleanup(); */};
 	void setLanguageXML(TiXmlElement * pXmlKeyword);	//set calltip keyword node
-	bool updateCalltip(int ch, bool needShown = false);	//Ch is character typed, or 0 if another event occured. NeedShown is true if calltip should be attempted to displayed. Return true if calltip was made visible
+	bool updateCalltip(int ch, bool needShown = false);	//Ch is character typed, or 0 if another event occurred. NeedShown is true if calltip should be attempted to displayed. Return true if calltip was made visible
 	void showNextOverload();							//show next overloaded parameters
 	void showPrevOverload();							//show prev overloaded parameters
 	bool isVisible() { return _pEditView?_pEditView->execute(SCI_CALLTIPACTIVE) == TRUE:false; };	//true if calltip visible

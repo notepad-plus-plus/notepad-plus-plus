@@ -2130,7 +2130,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	{
 		const auto currentIndentMode = execute(SCI_GETINDENTATIONGUIDES);
 		// Python like indentation, excludes lexers (Nim, VB, YAML, etc.)
-		// that includes tailing empty or whitespace only lines in folding block.
+		// that includes trailing empty or whitespace only lines in folding block.
 		const int docIndentMode = isPythonStyleIndentation(typeDoc) ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
 		if (currentIndentMode != docIndentMode)
 			execute(SCI_SETINDENTATIONGUIDES, docIndentMode);
@@ -2191,7 +2191,7 @@ void ScintillaEditView::restoreCurrentPosPreStep()
 	execute(SCI_SETANCHOR, pos._startPos);
 	execute(SCI_SETCURRENTPOS, pos._endPos);
 	execute(SCI_CANCEL);							//disable
-	if (!isWrap()) //only offset if not wrapping, otherwise the offset isnt needed at all
+	if (!isWrap()) //only offset if not wrapping, otherwise the offset isn't needed at all
 	{
 		execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
 		execute(SCI_SETXOFFSET, pos._xOffset);
@@ -4120,7 +4120,7 @@ bool ScintillaEditView::hidelineMarkerClicked(intptr_t lineNumber)
 
 void ScintillaEditView::notifyHidelineMarkers(Buffer * buf, bool isHide, size_t location, bool del)
 {
-	if (buf != _currentBuffer)	//if not visible buffer dont do a thing
+	if (buf != _currentBuffer)	//if not visible buffer, don't do anything
 		return;
 
 	if (isHide)
@@ -4250,7 +4250,7 @@ void ScintillaEditView::showHiddenLines(size_t searchStart, bool toEndOfDoc, boo
 
 		auto levelLine = execute(SCI_GETFOLDLEVEL, i, 0);
 		if (levelLine & SC_FOLDLEVELHEADERFLAG)
-		{	//fold section. Dont show lines if fold is closed
+		{	//fold section. Don't show lines if fold is closed
 			if (isInSection && !isFolded(i))
 			{
 				execute(SCI_SHOWLINES, startShowing, i);

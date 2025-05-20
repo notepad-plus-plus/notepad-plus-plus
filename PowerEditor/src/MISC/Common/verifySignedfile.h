@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-//#define VerifySignedLibrary_DISABLE_REVOCATION_CHECK "Dont check certificat revocation"
+//#define VerifySignedLibrary_DISABLE_REVOCATION_CHECK "Don't check certificat revocation"
 
 /*
 * Verifies an Authenticde DLL signature and ownership

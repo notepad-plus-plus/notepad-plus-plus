@@ -99,7 +99,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 		_className,
 		L"Notepad++",
 		(WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN),
-		// CreateWindowEx bug : set all 0 to walk around the pb
+		// CreateWindowEx bug : set all 0 to walk around the problem
 		0, 0, 0, 0,
 		_hParent, nullptr, _hInst,
 		(LPVOID) this); // pass the ptr of this instantiated object
@@ -361,7 +361,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 
 			_notepad_plus_plus_core.showQuote(&_quoteParams);
 		}
-		else if (cmdLineParams->_quoteType == 2) // content drom file
+		else if (cmdLineParams->_quoteType == 2) // content from file
 		{
 			if (doesFileExist(cmdLineParams->_easterEggName.c_str()))
 			{
@@ -404,7 +404,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdL
 	if (isSnapshotMode)
 	{
 		_notepad_plus_plus_core.checkModifiedDocument(false);
-		// Lauch backup task
+		// Launch backup task
 		_notepad_plus_plus_core.launchDocumentBackupTask();
 	}
 

@@ -385,7 +385,7 @@ void FindReplaceDlg::fillFindHistory()
 	::SendDlgItemMessage(_hSelf, IDC_BACKWARDDIRECTION, BM_SETCHECK, !findHistory._isDirectionDown, 0);
 
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK, BM_SETCHECK, findHistory._isFifInHiddenFolder, 0);
-	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecursive, 0);
 
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT1_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_1, 0);
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_PROJECT2_CHECK, BM_SETCHECK, findHistory._isFifProjectPanel_2, 0);
@@ -438,7 +438,7 @@ void FindReplaceDlg::fillFindHistory()
 			::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_CHECK, BM_SETCHECK, TRUE, 0);
 
 			int id;
-			if (findHistory._transparencyMode == FindHistory::onLossingFocus)
+			if (findHistory._transparencyMode == FindHistory::onLosingFocus)
 			{
 				id = IDC_TRANSPARENT_LOSSFOCUS_RADIO;
 			}
@@ -927,7 +927,7 @@ void Finder::gotoNextFoundResult(int direction)
 	const SearchResultMarkingLine& markingLine = *(_pMainMarkings->begin() + lno);
 
 	//
-	// Determinate currentPosInLine status among pos_infront, pose_between, pos_inside and pos_behind
+	// Determine currentPosInLine status among pos_infront, pose_between, pos_inside and pos_behind
 	//
 	CurrentPosInLineInfo cpili  = getCurrentPosInLineInfo(currentPosInLine, markingLine);
 
@@ -2669,7 +2669,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					if (isChecked)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO, BM_SETCHECK, BST_CHECKED, 0);
-						findHistory._transparencyMode = FindHistory::onLossingFocus;
+						findHistory._transparencyMode = FindHistory::onLosingFocus;
 					}
 					else
 					{
@@ -2686,14 +2686,14 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				{
 					int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
 					(NppParameters::getInstance()).SetTransparent(_hSelf, percent);
-					findHistory._transparencyMode = FindHistory::persistant;
+					findHistory._transparencyMode = FindHistory::persistent;
 				}
 				return TRUE;
 
 				case IDC_TRANSPARENT_LOSSFOCUS_RADIO :
 				{
 					(NppParameters::getInstance()).removeTransparent(_hSelf);
-					findHistory._transparencyMode = FindHistory::onLossingFocus;
+					findHistory._transparencyMode = FindHistory::onLosingFocus;
 				}
 				return TRUE;
 
@@ -2703,7 +2703,7 @@ intptr_t CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDD_FINDINFILES_RECURSIVE_CHECK :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						findHistory._isFifRecuisive = _options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
+						findHistory._isFifRecursive = _options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 
 				}
 				return TRUE;
@@ -2926,7 +2926,7 @@ bool FindReplaceDlg::processFindNext(const wchar_t *txt2find, const FindOption *
 			if (oFindStatus)
 				*oFindStatus = FSNotFound;
 			//failed, or failed twice with wrap
-			if (pOptions->_incrementalType == NotIncremental) //incremental search doesnt trigger messages
+			if (pOptions->_incrementalType == NotIncremental) //incremental search doesn't trigger messages
 			{
 				NativeLangSpeaker* pNativeSpeaker = (NppParameters::getInstance()).getNativeLangSpeaker();
 				wstring warningMsg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", L"Find: Can't find the text \"$STR_REPLACE$\"");
@@ -3648,7 +3648,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		data.pszAddInfo = _findAllResultStr;
 
-		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
+		data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
@@ -3674,7 +3674,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, SC_POPUP_NEVER);
 		_pFinder->_scintView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
-		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
+		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//don't store any undo information
 		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 1);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
@@ -3796,7 +3796,7 @@ Finder* FindReplaceDlg::createFinder()
 
 	data.pszAddInfo = _findAllResultStr;
 
-	data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
+	data.pszModuleName = NPP_INTERNAL_FUNCTION_STR;
 
 	// the dlgDlg should be the index of funcItem where the current function pointer is
 	// in this case is DOCKABLE_DEMO_INDEX
@@ -3823,7 +3823,7 @@ Finder* FindReplaceDlg::createFinder()
 	pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 	pFinder->_scintView.execute(SCI_USEPOPUP, SC_POPUP_NEVER);
 	pFinder->_scintView.execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF); // Turn off the modification event
-	pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
+	pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//don't store any undo information
 	pFinder->_scintView.execute(SCI_SETCARETWIDTH, 1);
 	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
@@ -6139,7 +6139,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	//Get selection
 	Sci_CharacterRangeFull range = (*(_pFRDlg->_ppEditView))->getSelection();
 
-	//If nothing selected, dont mark anything
+	//If nothing selected, don't mark anything
 	if (range.cpMin == range.cpMax)
 		return;
 

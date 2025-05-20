@@ -313,7 +313,7 @@ T* variedFormatNumber2String(T* str, size_t strLen, size_t number, size_t base, 
 	T noUsedSymbol = ' ';
 
 	//
-	// Determinate leading zero/space or none
+	// Determine leading zero/space or none
 	//
 	if (lead == ColumnEditorParam::spaceLeading)
 	{

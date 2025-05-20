@@ -530,7 +530,7 @@ BufferID Notepad_plus::doOpen(const wstring& fileName, bool isRecursive, bool is
         {
 			_nativeLangSpeaker.messageBox("OpenFileError",
 				_pPublicInterface->getHSelf(),
-				L"Can not open file \"$STR_REPLACE$\".",
+				L"Cannot open file \"$STR_REPLACE$\".",
 				L"ERROR",
 				MB_OK,
 				0,
@@ -890,7 +890,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		scnN.nmhdr.code = NPPN_FILECLOSED;
 		_pluginsManager.notify(&scnN);
 
-		// The document could be clonned.
+		// The document could be cloned.
 		// if the same buffer ID is not found then remove the entry from File Switcher Panel
 		if (_pDocumentListPanel)
 		{
@@ -1101,7 +1101,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	if (curView != -1)
 		viewToClose = curView;
 
-	// Determinate if it's a cloned buffer
+	// Determine if it's a cloned buffer
 	DocTabView* nonCurrentTab = (viewToClose == MAIN_VIEW) ? &_subDocTab : &_mainDocTab;
 	bool isCloned = nonCurrentTab->getIndexByBuffer(bufferID) != -1;
 
@@ -1171,7 +1171,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager.getBufferByID(id);
 
-		// Put all the BufferID from main vaiew to hash table
+		// Put all the BufferID from main view to hash table
 		// hash table is used for fast searching
 		uniqueBuffers.insert(id);
 
@@ -1399,7 +1399,7 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<BufferViewInfo>& fileInfo
 			*	IDRETRY		: Yes to All
 			*	IDNO		: No
 			*	IDIGNORE	: No To All
-			*	IDCANCEL	: Cancel Opration
+			*	IDCANCEL	: Cancel Operation
 			*/			
 
 			int res = saveToAll ? IDYES : doSaveOrNot(buf->getFullPathName(), nbDirtyFiles > 1);
@@ -1698,7 +1698,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	size_t nbItems = _pDocTab->nbItem();
 	activateBuffer(_pDocTab->getBufferByIndex(0), viewNo);
 	
-	// After activateBuffer() call, if file is deleteed, user will decide to keep or not the tab
+	// After activateBuffer() call, if file is deleted, user will decide to keep or not the tab
 	// So here we check if the 1st tab is closed or not
 	size_t newNbItems = _pDocTab->nbItem();
 
@@ -1710,7 +1710,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 	for (int32_t i = static_cast<int32_t>(newNbItems) - 1; i >= 0; i--)	//close all from right to left
 	{
-		if (i == active)	//dont close active index
+		if (i == active)	//don't close active index
 		{
 			continue;
 		}
@@ -1805,7 +1805,7 @@ bool Notepad_plus::fileSave(BufferID id)
 			{
 				int res = _nativeLangSpeaker.messageBox("FileBackupFailed",
 					_pPublicInterface->getHSelf(),
-					L"The previous version of the file could not be saved into the backup directory at \"$STR_REPLACE$\".\r\rDo you want to save the current file anyways?",
+					L"The previous version of the file could not be saved into the backup directory at \"$STR_REPLACE$\".\r\rDo you want to save the current file anyway?",
 					L"File Backup Failed",
 					MB_YESNO | MB_ICONERROR,
 					0,
@@ -2086,7 +2086,7 @@ bool Notepad_plus::fileRename(BufferID id)
 		if (tabNewName)
 		{
 			wstring tabNewNameStr = tabNewName;
-			trim(tabNewNameStr); // No leading and tailing space allowed
+			trim(tabNewNameStr); // No leading and trailing space allowed
 
 			BufferID sameNamedBufferId = _pDocTab->findBufferByName(tabNewNameStr.c_str());
 			if (sameNamedBufferId == BUFFER_INVALID)
@@ -2165,7 +2165,7 @@ bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNe
 
 	std::wstring tabNewNameStr = tabNewName;
 
-	trim(tabNewNameStr); // No leading and tailing space allowed
+	trim(tabNewNameStr); // No leading and trailing space allowed
 
 	if (tabNewNameStr.empty()) return false;
 
@@ -2230,7 +2230,7 @@ bool Notepad_plus::fileDelete(BufferID id)
 	bool goAhead = true;
 	if (winVersion >= WV_WIN8 || winVersion == WV_UNKNOWN)
 	{
-		// Windows 8 (and version afer?) has no system alert, so we ask user's confirmation
+		// Windows 8 (and version after?) has no system alert, so we ask user's confirmation
 		goAhead = (doDeleteOrNot(fileNamePath) == IDOK);
 	}
 
@@ -2473,7 +2473,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (session._mainViewFiles[i]._foldStates.size() > 0)
 			{
 				if (buf == _mainEditView.getCurrentBuffer()) // current document
-					// Set floding state in the current doccument
+					// Set folding state in the current document
 					mainIndex2Update = static_cast<int32_t>(i);
 				else
 					// Set fold states in the buffer
@@ -2602,7 +2602,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			if (session._subViewFiles[k]._foldStates.size() > 0)
 			{
 				if (buf == _subEditView.getCurrentBuffer()) // current document
-					// Set floding state in the current doccument
+					// Set folding state in the current document
 					subIndex2Update = static_cast<int32_t>(k);
 				else
 					// Set fold states in the buffer

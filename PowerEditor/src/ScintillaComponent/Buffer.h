@@ -137,7 +137,7 @@ private:
 
 	int detectCodepage(char* buf, size_t len);
 	bool loadFileData(Document doc, int64_t fileSize, const wchar_t* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LoadedFileFormat& fileFormat);
-	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
+	LangType detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen);
 
 	Notepad_plus* _pNotepadPlus = nullptr;
 	ScintillaEditView* _pscratchTilla = nullptr;
@@ -162,7 +162,7 @@ public:
 	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const wchar_t *fileName, bool isLargeFile);
 
 	// this method 1. copies the file name
-	//             2. determinates the language from the ext of file name
+	//             2. determines the language from the ext of file name
 	//             3. gets the last modified time
 	void setFileName(const wchar_t *fn);
 
@@ -425,8 +425,8 @@ private:
 	bool _isModified = false;
 	bool _isLoadedDirty = false; // it's the indicator for finding buffer's initial state
 
-	bool _isUnsync = false; // Buffer should be always dirty (with any undo/redo operation) if the editing buffer is unsyncronized with file on disk.
-	                        // By "unsyncronized" it means :
+	bool _isUnsync = false; // Buffer should be always dirty (with any undo/redo operation) if the editing buffer is unsynchronized with file on disk.
+	                        // By "unsynchronized" it means :
 	                        // 1. the file is deleted outside but the buffer in Notepad++ is kept.
 	                        // 2. the file is modified by another app but the buffer is not reloaded in Notepad++.
 	                        // Note that if the buffer is untitled, there's no correspondent file on the disk so the buffer is considered as independent therefore synchronized.

@@ -85,7 +85,7 @@ public:
 	virtual ~TabBar() = default;
 	void destroy() override;
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
-	void reSizeTo(RECT& rc2Ajust) override;
+	void reSizeTo(RECT& rc2Adjust) override;
 	int insertAtEnd(const wchar_t *subTabName);
 	void activateAt(int index) const;
 	void getCurrentTitle(wchar_t *title, int titleLen);

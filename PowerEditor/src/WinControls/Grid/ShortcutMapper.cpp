@@ -888,7 +888,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							shortcut._isShift = FALSE;
 							shortcut._key = '\0';
 
-							::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, reinterpret_cast<LPARAM>(&shortcut));
+							::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMODIFIED, cmdID, reinterpret_cast<LPARAM>(&shortcut));
 							nppParam.setShortcutDirty();
 						}
 						break;
@@ -1025,7 +1025,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								shortcut._isShift = pcsc.getKeyCombo()._isShift;
 								shortcut._key = pcsc.getKeyCombo()._key;
 
-								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, reinterpret_cast<LPARAM>(&shortcut));
+								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMODIFIED, cmdID, reinterpret_cast<LPARAM>(&shortcut));
 								nppParam.setShortcutDirty();
 							}
 						}
@@ -1122,7 +1122,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 									ms.setID(ms.getID() - 1);	//shift all IDs
 									theMacros[i] = ms;
 
-									// Ajust menu items
+									// Adjust menu items
 									MenuItemUnit& miu = macroMenu.getItemFromIndex(i);
 									miu._cmdID -= 1;	//shift all IDs
 								}
@@ -1178,7 +1178,7 @@ intptr_t CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARA
 									uc.setID(uc.getID() - 1);	//shift all IDs
 									theUserCmds[i] = uc;
 
-									// Ajust menu items
+									// Adjust menu items
 									MenuItemUnit& miu = runMenu.getItemFromIndex(i);
 									miu._cmdID -= 1;	//shift all IDs
 								}

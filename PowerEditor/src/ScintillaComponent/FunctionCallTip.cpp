@@ -155,7 +155,7 @@ bool FunctionCallTip::getCursorFunction()
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
 
-	for (int i = 0; i < offset; ++i) 	//we dont care about stuff after the offset
+	for (int i = 0; i < offset; ++i) 	//we don't care about stuff after the offset
     {
 		//tokenVector.push_back(pair(lineData+i, len));
 		wchar_t ch = lineData[i];
@@ -206,7 +206,7 @@ bool FunctionCallTip::getCursorFunction()
 			{
 				++scopeLevel;
 				newValue = curValue;
-				valueVec.push_back(newValue);	//store the current settings, so when this new function doesnt happen to be the 'real' one, we can restore everything
+				valueVec.push_back(newValue);	//store the current settings, so when this new function doesn't happen to be the 'real' one, we can restore everything
 				
 				curValue.scopeLevel = scopeLevel;
 				if (i > 0 && curValue.lastIdentifier == static_cast<int32_t>(i) - 1)
@@ -308,7 +308,7 @@ bool FunctionCallTip::loadFunction()
 			continue;
 		int compVal = 0;
 		if (_ignoreCase)
-			compVal = testNameNoCase(name, _funcName);	//lstrcmpi doesnt work in this case
+			compVal = testNameNoCase(name, _funcName);	//lstrcmpi doesn't work in this case
 		else
 			compVal = lstrcmp(name, _funcName);
 		if (!compVal) 	//found it!

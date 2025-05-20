@@ -191,7 +191,7 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_FILE_OPENFOLDERASWORSPACE:
+		case IDM_FILE_OPENFOLDERASWORKSPACE:
 		{
 			const NativeLangSpeaker* pNativeSpeaker = NppParameters::getInstance().getNativeLangSpeaker();
 			wstring openWorkspaceStr = pNativeSpeaker->getAttrNameStr(L"Select a folder to add in Folder as Workspace panel",
@@ -581,8 +581,8 @@ void Notepad_plus::command(int id)
 				return;
 
 			HWND hwnd = _pPublicInterface->getHSelf();
-			wchar_t curentWord[CURRENTWORD_MAXLENGTH] = { '\0' };
-			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
+			wchar_t currentWord[CURRENTWORD_MAXLENGTH] = { '\0' };
+			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentWord));
 			
 			wchar_t cmd2Exec[CURRENTWORD_MAXLENGTH] = { '\0' };
 			if (id == IDM_EDIT_OPENINFOLDER)
@@ -595,15 +595,15 @@ void Notepad_plus::command(int id)
 			}
 
 			// Full file path: could be a folder or a file
-			if (doesPathExist(curentWord))
+			if (doesPathExist(currentWord))
 			{
 				wstring fullFilePath = id == IDM_EDIT_OPENINFOLDER ? L"/select," : L"";
 				fullFilePath += L"\"";
-				fullFilePath += curentWord;
+				fullFilePath += currentWord;
 				fullFilePath += L"\"";
 
 				if (id == IDM_EDIT_OPENINFOLDER ||
-					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(curentWord)))
+					(id == IDM_EDIT_OPENASFILE && !doesDirectoryExist(currentWord)))
 					::ShellExecute(hwnd, L"open", cmd2Exec, fullFilePath.c_str(), L".", SW_SHOW);
 			}
 			else // Relative file path - need concatenate with current full file path
@@ -615,7 +615,7 @@ void Notepad_plus::command(int id)
 				fullFilePath += L"\"";
 				fullFilePath += currentDir;
 				fullFilePath += L"\\";
-				fullFilePath += curentWord;
+				fullFilePath += currentWord;
 
 				if ((id == IDM_EDIT_OPENASFILE && 
 					(!doesFileExist(fullFilePath.c_str() + 1)))) // + 1 for skipping the 1st char '"'
@@ -1299,17 +1299,17 @@ void Notepad_plus::command(int id)
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			if (id == IDM_EDIT_FULLPATHTOCLIP)
 			{
-				str2Cliboard(buf->getFullPathName());
+				str2Clipboard(buf->getFullPathName(), _pPublicInterface->getHSelf());
 			}
 			else if (id == IDM_EDIT_CURRENTDIRTOCLIP)
 			{
 				wstring dir(buf->getFullPathName());
 				pathRemoveFileSpec(dir);
-				str2Cliboard(dir);
+				str2Clipboard(dir, _pPublicInterface->getHSelf());
 			}
 			else if (id == IDM_EDIT_FILENAMETOCLIP)
 			{
-				str2Cliboard(buf->getFileName());
+				str2Clipboard(buf->getFileName(), _pPublicInterface->getHSelf());
 			}
 		}
 		break;
@@ -2333,7 +2333,7 @@ void Notepad_plus::command(int id)
 				{
 					// Try the Legacy version
 
-					// Don't put the quots for Edge, otherwise it doesn't work
+					// Don't put the quotes for Edge, otherwise it doesn't work
 					//fullCurrentPath = L"\"";
 					fullCurrentPath = currentBuf->getFullPathName();
 					//fullCurrentPath += L"\"";
@@ -2496,22 +2496,22 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_WRAP:
 		{
-			bool isWraped = !_pEditView->isWrap();
+			bool isWrapped = !_pEditView->isWrap();
 			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
-			if (!isWraped)
+			if (!isWrapped)
 			{
 				_mainEditView.saveCurrentPos();
 				_mainEditView.setWrapRestoreNeeded(true);
 				_subEditView.saveCurrentPos();
 				_subEditView.setWrapRestoreNeeded(true);
 			}
-			_mainEditView.wrap(isWraped);
-			_subEditView.wrap(isWraped);
-			_toolBar.setCheck(IDM_VIEW_WRAP, isWraped);
-			checkMenuItem(IDM_VIEW_WRAP, isWraped);
+			_mainEditView.wrap(isWrapped);
+			_subEditView.wrap(isWrapped);
+			_toolBar.setCheck(IDM_VIEW_WRAP, isWrapped);
+			checkMenuItem(IDM_VIEW_WRAP, isWrapped);
 
 			ScintillaViewParams & svp1 = (ScintillaViewParams &)(NppParameters::getInstance()).getSVP();
-			svp1._doWrap = isWraped;
+			svp1._doWrap = isWrapped;
 
 			if (_pDocMap)
 			{
@@ -2553,13 +2553,13 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_SYNSCROLLV:
 		{
-            bool isSynScollV = !_syncInfo._isSynScollV;
+            bool isSynScrollV = !_syncInfo._isSynScrollV;
 
-			checkMenuItem(IDM_VIEW_SYNSCROLLV, isSynScollV);
-			_toolBar.setCheck(IDM_VIEW_SYNSCROLLV, isSynScollV);
+			checkMenuItem(IDM_VIEW_SYNSCROLLV, isSynScrollV);
+			_toolBar.setCheck(IDM_VIEW_SYNSCROLLV, isSynScrollV);
 
-            _syncInfo._isSynScollV = isSynScollV;
-			if (_syncInfo._isSynScollV)
+            _syncInfo._isSynScrollV = isSynScrollV;
+			if (_syncInfo._isSynScrollV)
 			{
 				intptr_t mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
 				intptr_t subCurrentLine = _subEditView.execute(SCI_GETFIRSTVISIBLELINE);
@@ -2571,12 +2571,12 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_SYNSCROLLH:
 		{
-            bool isSynScollH = !_syncInfo._isSynScollH;
-			checkMenuItem(IDM_VIEW_SYNSCROLLH, isSynScollH);
-			_toolBar.setCheck(IDM_VIEW_SYNSCROLLH, isSynScollH);
+            bool isSynScrollH = !_syncInfo._isSynScrollH;
+			checkMenuItem(IDM_VIEW_SYNSCROLLH, isSynScrollH);
+			_toolBar.setCheck(IDM_VIEW_SYNSCROLLH, isSynScrollH);
 
-            _syncInfo._isSynScollH = isSynScollH;
-			if (_syncInfo._isSynScollH)
+            _syncInfo._isSynScrollH = isSynScrollH;
+			if (_syncInfo._isSynScrollH)
 			{
 				intptr_t mxoffset = _mainEditView.execute(SCI_GETXOFFSET);
 				intptr_t pixel = _mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P"));
@@ -2746,11 +2746,11 @@ void Notepad_plus::command(int id)
 			Buffer * buf = _pEditView->getCurrentBuffer();
 
 			UniMode um;
-			bool shoulBeDirty = true;
+			bool shouldBeDirty = true;
 			switch (id)
 			{
 				case IDM_FORMAT_AS_UTF_8:
-					shoulBeDirty = buf->getUnicodeMode() != uni8Bit;
+					shouldBeDirty = buf->getUnicodeMode() != uni8Bit;
 					um = uniCookie;
 					break;
 
@@ -2767,7 +2767,7 @@ void Notepad_plus::command(int id)
 					break;
 
 				default : // IDM_FORMAT_ANSI
-					shoulBeDirty = buf->getUnicodeMode() != uniCookie;
+					shouldBeDirty = buf->getUnicodeMode() != uniCookie;
 					um = uni8Bit;
 			}
 
@@ -2777,7 +2777,7 @@ void Notepad_plus::command(int id)
 				{
 					int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWarning",
 						_pPublicInterface->getHSelf(),
-						L"You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?",
+						L"You should save the current modification.\rAll the saved modifications cannot be undone.\r\rContinue?",
 						L"Save Current Modification",
 						MB_YESNO);
 
@@ -2794,8 +2794,8 @@ void Notepad_plus::command(int id)
 				{
 					int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
 						_pPublicInterface->getHSelf(),
-						L"You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?",
-						L"Lose Undo Ability Waning",
+						L"You should save the current modification.\rAll the saved modifications cannot be undone.\r\rContinue?",
+						L"Lose Undo Ability Warning",
 						MB_YESNO);
 					if (answer == IDYES)
 					{
@@ -2818,7 +2818,7 @@ void Notepad_plus::command(int id)
 				if (buf->getUnicodeMode() != um)
 				{
 					buf->setUnicodeMode(um);
-					if (shoulBeDirty)
+					if (shouldBeDirty)
 						buf->setDirty(true);
 				}
 			}
@@ -2887,7 +2887,7 @@ void Notepad_plus::command(int id)
             {
 				int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWarning",
 					_pPublicInterface->getHSelf(),
-					L"You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?",
+					L"You should save the current modification.\rAll the saved modifications cannot be undone.\r\rContinue?",
 					L"Save Current Modification",
 					MB_YESNO);
 
@@ -2904,8 +2904,8 @@ void Notepad_plus::command(int id)
             {
 				int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
 					_pPublicInterface->getHSelf(),
-					L"You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?",
-					L"Lose Undo Ability Waning",
+					L"You should save the current modification.\rAll the saved modifications cannot be undone.\r\rContinue?",
+					L"Lose Undo Ability Warning",
 					MB_YESNO);
 
                 if (answer != IDYES)
@@ -3232,7 +3232,7 @@ void Notepad_plus::command(int id)
 
 			if (isFirstTime)
 			{
-				_nativeLangSpeaker.changePrefereceDlgLang(_preference);
+				_nativeLangSpeaker.changePreferenceDlgLang(_preference);
 			}
 			break;
 		}
@@ -3540,7 +3540,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_CMDLINEARGUMENTS:
 		{
-			// No translattable
+			// Not translatable
 			::MessageBox(_pPublicInterface->getHSelf(), COMMAND_ARG_HELP, L"Notepad++ Command Argument Help", MB_OK | MB_APPLMODAL);
 			break;
 		}
@@ -3554,7 +3554,7 @@ void Notepad_plus::command(int id)
 		case IDM_UPDATE_NPP :
 		case IDM_CONFUPDATERPROXY :
 		{
-			// wingup doesn't work with the obsolete security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
+			// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
 			winVer ver = NppParameters::getInstance().getWinVersion();
 			if (ver <= WV_XP)
 			{
@@ -3856,9 +3856,9 @@ void Notepad_plus::command(int id)
 			_pEditView->changeTextDirection(toRTL);
 
 			// Wrap then !wrap to fix problem of mirror characters
-			bool isWraped = _pEditView->isWrap();
-			_pEditView->wrap(!isWraped);
-			_pEditView->wrap(isWraped);
+			bool isWrapped = _pEditView->isWrap();
+			_pEditView->wrap(!isWrapped);
+			_pEditView->wrap(isWrapped);
 
 			if (_pDocMap)
 			{

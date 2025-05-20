@@ -180,8 +180,8 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message,
 	{
 		case WM_NCCREATE:
 		{
-			// First message we get the ptr of instantiated object
-			// then stock it into GWLP_USERDATA index in order to retrieve afterward
+			// First message we get the pointer of instantiated object
+			// then store it into GWLP_USERDATA index in order to retrieve afterward
 			Notepad_plus_Window *pM30ide = static_cast<Notepad_plus_Window *>((reinterpret_cast<LPCREATESTRUCT>(lParam))->lpCreateParams);
 			pM30ide->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pM30ide));
@@ -936,7 +936,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED:
+		case NPPM_INTERNAL_PLUGINSHORTCUTMODIFIED:
 		{
 			SCNotification scnN{};
 			scnN.nmhdr.code = NPPN_SHORTCUTREMAPPED;
@@ -983,7 +983,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else if (message == NPPM_GETEXTPART)
 				fileStr = PathFindExtension(str);
 
-			// For the compability reason, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
+			// For the compatibility reasons, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
 			// otherwise we check if the wstring buffer size is enough for the wstring to copy.
 			if (wParam != 0)
 			{
@@ -1009,7 +1009,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else if (message == NPPM_GETCURRENTLINESTR)
 				_pEditView->getLine(_pEditView->getCurrentLineNumber(), str, strSize);
 
-			// For the compability reason, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
+			// For the compatibility reason, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
 			// otherwise we check if the wstring buffer size is enough for the wstring to copy.
 			if (wParam != 0)
 			{
@@ -1093,7 +1093,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (message == NPPM_GETNPPDIRECTORY)
 				PathRemoveFileSpec(str);
 
-			// For the compability reason, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
+			// For the compatibility reason, if wParam is 0, then we assume the size of wstring buffer (lParam) is large enough.
 			// otherwise we check if the wstring buffer size is enough for the wstring to copy.
 			if (wParam != 0)
 			{
@@ -1378,7 +1378,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// clean buffer
 			delete [] buffer;
 
-			// set new encoding if BOM was changed by other programms
+			// set new encoding if BOM was changed by other programs
 			UniMode um = UnicodeConvertor.getEncoding();
 			(pSci->getCurrentBuffer())->setUnicodeMode(um);
 			(pSci->getCurrentBuffer())->setDirty(true);
@@ -1644,7 +1644,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			// The deallocated scintilla view in _referees is used in Buffer::nextUntitledNewNumber().
 
 			// So we do nothing here and let Notepad++ destroy allocated Scintilla while it exits
-			// and we keep this message for the sake of compability withe the existing plugins.
+			// and we keep this message for the sake of compatibility with the existing plugins.
 			return true;
 		}
 
@@ -2797,7 +2797,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 				if (nppgui._rememberLastSession)
 				{
-					//Lock the recent file list so it isnt populated with opened files
+					//Lock the recent file list so it isn't populated with opened files
 					//Causing them to show on restart even though they are loaded by session
 					_lastRecentFileList.setLock(true);	//only lock when the session is remembered
 				}
@@ -3700,7 +3700,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			size_t nbColAdded = 0;
 			for (auto i : svp._edgeMultiColumnPos)
 			{
-				// it's absurd to set columns beyon 8000, even it's a long line.
+				// it's absurd to set columns beyond 8000, even it's a long line.
 				// So let's ignore all the number greater than 2^13
 				if (i > twoPower13)
 					continue;
@@ -4047,7 +4047,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
-		case NPPM_INTERNAL_DRAWINACIVETAB:
+		case NPPM_INTERNAL_DRAWINACTIVETAB:
 		case NPPM_INTERNAL_DRAWTABTOPBAR:
 		{
 			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
@@ -4071,7 +4071,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_REDUCETABBAR:
 		{
 			TabBarPlus::triggerOwnerDrawTabbar(&(_mainDocTab.dpiManager()));
-			bool isReduceed = nppParam.getNppGUI()._tabStatus & TAB_REDUCE;
+			bool isReduced = nppParam.getNppGUI()._tabStatus & TAB_REDUCE;
 
 			//Resize the tab height
 			NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
@@ -4079,13 +4079,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			bool drawTabPinButton = nppGUI._tabStatus & TAB_PINBUTTON;
 
 			int tabDpiDynamicalWidth = _mainDocTab.dpiManager().scale((drawTabCloseButton || drawTabPinButton) ? g_TabWidthButton : g_TabWidth);
-			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduceed ? g_TabHeight : g_TabHeightLarge);
+			int tabDpiDynamicalHeight = _mainDocTab.dpiManager().scale(isReduced ? g_TabHeight : g_TabHeightLarge);
 
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 
 			//change the font
-			const auto& hf = _mainDocTab.getFont(isReduceed);
+			const auto& hf = _mainDocTab.getFont(isReduced);
 			if (hf)
 			{
 				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));

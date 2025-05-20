@@ -342,7 +342,7 @@ void Window::SetPositionRelative(PRectangle rc, const Window *relativeTo) {
 		const RECT rcMonitor = RectFromPRectangle(rc);
 
 		HMONITOR hMonitor = MonitorFromRect(&rcMonitor, MONITOR_DEFAULTTONEAREST);
-		// If hMonitor is NULL, that's just the main screen anyways.
+		// If hMonitor is NULL, that's just the main screen anyway.
 		const RECT rcWork = RectFromMonitor(hMonitor);
 
 		if (rcWork.left < rcWork.right) {

@@ -1187,7 +1187,7 @@
 			<OpenFileError title="ERROR" message="Δεν μπορεί να ανοίξει το αρχείο &quot;$STR_REPLACE$&quot;."/>
 			<FileBackupFailed title="Αποτυχία δημιουργίας αντιγράφου αρχείου" message="Η προηγούμενη έκδοση του αρχείου δεν μπόρεσε να αποθηκευτεί στον κατάλογο αντιγράφων ασφαλείας στο &quot;$STR_REPLACE$&quot;.
 
-Do you want to save the current file anyways?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+Do you want to save the current file anyway?"/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
 			<LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$STR_REPLACE$&quot; failed!"/>
 			<LoadLangsFailed title="Configurator" message="Load langs.xml failed!
 Do you want to recover your langs.xml?"/><!-- HowToReproduce: Close Notepad++. Use another editor to remove all content of "langs.xml" (0 length) then save it. Open Notepad++. -->

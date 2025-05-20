@@ -204,7 +204,7 @@ void TabBar::setImageList(HIMAGELIST himl)
 }
 
 
-void TabBar::reSizeTo(RECT & rc2Ajust)
+void TabBar::reSizeTo(RECT & rc2Adjust)
 {
 	RECT rowRect{};
 	int rowCount = 0, tabsHight = 0;
@@ -212,8 +212,8 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	// Important to do that!
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
 	// We don't need to resize the contained windows if they are even invisible anyway
-	display(rc2Ajust.right > 10);
-	RECT rc = rc2Ajust;
+	display(rc2Adjust.right > 10);
+	RECT rc = rc2Adjust;
 	Window::reSizeTo(rc);
 
 	// Do our own calculations because TabCtrl_AdjustRect doesn't work
@@ -245,13 +245,13 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 
 	if (isVertical)
 	{
-		rc2Ajust.left += tabsHight;
-		rc2Ajust.right -= tabsHight;
+		rc2Adjust.left += tabsHight;
+		rc2Adjust.right -= tabsHight;
 	}
 	else
 	{
-		rc2Ajust.top += tabsHight;
-		rc2Ajust.bottom -= tabsHight;
+		rc2Adjust.top += tabsHight;
+		rc2Adjust.bottom -= tabsHight;
 	}
 }
 

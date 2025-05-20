@@ -583,7 +583,7 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 			itemName += pcs.toString();
 		}
 		else
-		{	//no ShortcutKey is provided, add an disabled shortcut (so it can still be mapped, Paramaters class can still index any changes and the toolbar wont funk out
+		{	//no ShortcutKey is provided, add an disabled shortcut (so it can still be mapped, Paramaters class can still index any changes and the toolbar won't funk out
             Shortcut sc(itemName.c_str(), false, false, false, 0x00);
             PluginCmdShortcut pcs(sc, cmdID, wstring2string(_pluginInfos[i]->_moduleName, CP_UTF8).c_str(), j);	//VK_NULL and everything disabled, the menu name is left alone
 			pluginCmdSCList.push_back(pcs);

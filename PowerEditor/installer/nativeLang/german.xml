@@ -14,7 +14,7 @@ Translation note:
 	or a copy at: http://www.should.keepfree.de/N++/german.xml.txt (rename to german.xml)
 -->
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="2025-05-06"><!-- basiert auf english.xml 8.8 vom 03.05.2025 -->
+	<Native-Langue name="Deutsch" filename="german.xml" version="2025-05-20"><!-- basiert auf english.xml 8.8.1 vom 17.05.2025 -->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1003,6 +1003,8 @@ Translation note:
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 					<Item id="6128" name="Alternative Symbole"/>
+					<Item id="6125" name="Verhalten"/>
+					<Item id="6126" name="Aussehen &amp;&amp; Wirkung (Look &amp;&amp; feel)"/>
 				</Tabbar>
 
 				<Scintillas title="Bearbeiten 1">

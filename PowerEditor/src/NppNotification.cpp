@@ -114,7 +114,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					isDirty = true;
 			}
 
-			if (buf->isUnsync()) // buffer in Notepad++ is not syncronized with the file on disk - in this case the buffer is always dirty 
+			if (buf->isUnsync()) // buffer in Notepad++ is not synchronized with the file on disk - in this case the buffer is always dirty 
 				isDirty = true;
 
 			if (buf->isSavePointDirty())
@@ -404,7 +404,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (nppParam._isFindReplacing)
 				break;
 
-			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf() && currentBuf->allowSmartHilite()) // notification come from unfocus view - both views ae visible
+			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf() && currentBuf->allowSmartHilite()) // notification come from unfocus view - both views are visible
 			{
 				if (nppGui._smartHiliteOnAnotherView)
 				{
@@ -429,8 +429,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					nppGui._disableSmartHiliteTmp = false;
 				else
 				{
-					ScintillaEditView* anbotherView = isFromPrimary ? &_subEditView : &_mainEditView;
-					_smartHighlighter.highlightView(notifyView, anbotherView);
+					ScintillaEditView* anotherView = isFromPrimary ? &_subEditView : &_mainEditView;
+					_smartHighlighter.highlightView(notifyView, anotherView);
 				}
 			}
 
@@ -497,7 +497,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			notifyView->updateLineNumberWidth();
 
 			if (_syncInfo.doSync())
-				doSynScorll(HWND(notification->nmhdr.hwndFrom));
+				doSynScroll(HWND(notification->nmhdr.hwndFrom));
 
 			const NppParameters& nppParam = NppParameters::getInstance();
 
@@ -777,7 +777,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			BufferID bufferToClose2ndCheck = notifyDocTab->getBufferByIndex(index);
 
 			if ((bufferToClose == bufferToClose2ndCheck) // Here we make sure the buffer is the same to prevent from the situation that the buffer to be close was already closed,
-			                                             // because the precedent call "activateBuffer(bufferToClose, iView)" could finally lead "doClose" call as well (in case of file non-existent).
+			                                             // because the preceding call "activateBuffer(bufferToClose, iView)" could finally lead "doClose" call as well (in case of file non-existent).
 				&& fileClose(bufferToClose, iView))
 				checkDocState();
 
@@ -1229,7 +1229,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				pt.x = lpnm->rc.left;
 				pt.y = lpnm->rc.bottom;
 				ClientToScreen(notifRebar->getHSelf(), &pt);
-				_toolBar.doPopop(pt);
+				_toolBar.doPopup(pt);
 				return TRUE;
 			}
 

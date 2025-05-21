@@ -160,7 +160,7 @@ void TiXmlStringA::append( const char* str, int len )
             // strcpy (new_string, cstring);
             memcpy (new_string, cstring, length ());
 
-        // append the suffix. It does exist, otherwize we wouldn't be expanding 
+        // append the suffix. It does exist, otherwise we wouldn't be expanding 
         // strncat (new_string, str, len);
         memcpy (new_string + length (), 
                 str,
@@ -209,7 +209,7 @@ void TiXmlStringA::append( const char * suffix )
             memcpy (new_string, cstring, 1 + length ());
             // strcpy (new_string, cstring);
 
-        // append the suffix. It does exist, otherwize we wouldn't be expanding 
+        // append the suffix. It does exist, otherwise we wouldn't be expanding 
         memcpy (new_string + length (), 
                 suffix,
                 strlen (suffix) + 1);

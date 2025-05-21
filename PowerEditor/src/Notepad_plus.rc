@@ -451,7 +451,7 @@ BEGIN
             MENUITEM "Folder as Workspace", IDM_FILE_CONTAININGFOLDERASWORKSPACE
         END
         MENUITEM "Open in &Default Viewer",          IDM_FILE_OPEN_DEFAULT_VIEWER
-        MENUITEM "Open Folder as &Workspace...",     IDM_FILE_OPENFOLDERASWORSPACE
+        MENUITEM "Open Folder as &Workspace...",     IDM_FILE_OPENFOLDERASWORKSPACE
         MENUITEM "Re&load from Disk",                IDM_FILE_RELOAD
         MENUITEM "&Save",                            IDM_FILE_SAVE
         MENUITEM "Save &As...",                      IDM_FILE_SAVEAS

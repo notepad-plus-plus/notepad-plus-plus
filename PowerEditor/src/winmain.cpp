@@ -75,9 +75,9 @@ void allowPrivilegeMessages(const Notepad_plus_Window& notepad_plus_plus, winVer
 	}
 }
 
-// parseCommandLine() takes command line arguments part string, cuts arguments by using white space as separater.
+// parseCommandLine() takes command line arguments part string, cuts arguments by using white space as separator.
 // Only white space in double quotes will be kept, such as file path argument or '-settingsDir=' argument (ex.: -settingsDir="c:\my settings\my folder\")
-// if '-z' is present, the 3rd argument after -z wont be cut - ie. all the space will also be kept
+// if '-z' is present, the 3rd argument after -z won't be cut - ie. all the space will also be kept
 // ex.: '-notepadStyleCmdline -z "C:\WINDOWS\system32\NOTEPAD.EXE" C:\my folder\my file with whitespace.txt' will be separated to: 
 // 1. "-notepadStyleCmdline"
 // 2. "-z"
@@ -134,7 +134,7 @@ void parseCommandLine(const wchar_t* commandLine, ParamVector& paramVector)
 				else //if (isBetweenFileNameQuotes)
 				{
 					isBetweenFileNameQuotes = false;
-					//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
+					//because we don't want to leave in any quotes in the filename, remove them now (with zero terminator)
 					cmdLinePtr[i] = 0;
 				}
 				isInWhiteSpace = false;
@@ -335,8 +335,8 @@ const wchar_t FLAG_MONITOR_FILES[] = L"-monitor";
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
-	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
-	::MessageBox(Notepad_plus_Window::gNppHWND, L"Notepad++ will attempt to save any unsaved data. However, dataloss is very likely.", L"Recovery initiating", MB_OK | MB_ICONINFORMATION);
+	Win32Exception::removeHandler();	//disable exception handler after exception, we don't want corrupt data structures to crash the exception handler
+	::MessageBox(Notepad_plus_Window::gNppHWND, L"Notepad++ will attempt to save any unsaved data. However, data loss is very likely.", L"Recovery initiating", MB_OK | MB_ICONINFORMATION);
 
 	wchar_t tmpDir[1024];
 	GetTempPath(1024, tmpDir);
@@ -351,7 +351,7 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 		::MessageBox(Notepad_plus_Window::gNppHWND, displayText.c_str(), L"Recovery success", MB_OK | MB_ICONINFORMATION);
 	}
 	else
-		::MessageBox(Notepad_plus_Window::gNppHWND, L"Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data.", L"Recovery failure", MB_OK | MB_ICONERROR);
+		::MessageBox(Notepad_plus_Window::gNppHWND, L"Unfortunately, Notepad++ was not able to save your work. We are sorry for any lost data.", L"Recovery failure", MB_OK | MB_ICONERROR);
 }
 
 // Looks for -z arguments and strips command line arguments following those, if any
@@ -508,7 +508,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	bool doUpdateNpp = nppGui._autoUpdateOpt._doAutoUpdate;
 	bool doUpdatePluginList = nppGui._autoUpdateOpt._doAutoUpdate;
 
-	if (doFunctionListExport || doPrintAndQuit) // export functionlist feature will serialize fuctionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
+	if (doFunctionListExport || doPrintAndQuit) // export functionlist feature will serialize functionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
 	{
 		isMultiInst = true;
 		doUpdateNpp = doUpdatePluginList = false;
@@ -526,7 +526,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		cmdLineParams._isNoSession = true;
 	}
 
-	// override the settings if multiInst is choosen by user in the preference dialog
+	// override the settings if multiInst is chosen by user in the preference dialog
 	const NppGUI & nppGUI = nppParameters.getNppGUI();
 	if (nppGUI._multiInstSetting == multiInst)
 	{
@@ -545,7 +545,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		const wchar_t * currentFile = params.at(i).c_str();
 		if (currentFile[0])
 		{
-			//check if relative or full path. Relative paths dont have a colon for driveletter
+			//check if relative or full path. Relative paths don't have a colon for driveletter
 
 			quotFileName += L"\"";
 			quotFileName += relativeFilePathToFullFilePath(currentFile);
@@ -641,7 +641,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		// Due to the code signing problem, the Plugin List cannot be updated independently of Notepad++ for now.
 	}
 
-	// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
+	// wingup doesn't work with the obsolete security layer (API) under xp since downloads are secured with SSL on notepad_plus_plus.org
 	winVer ver = nppParameters.getWinVersion();
 	bool isGtXP = ver > WV_XP;
 
@@ -690,7 +690,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 
 			upPlParams += L" -upZip";
 
-			// overrided "InfoUrl" in gup.xml
+			// override "InfoUrl" in gup.xml
 			upPlParams += L" https://notepad-plus-plus.org/update/pluginListDownloadUrl.php";
 
 			// indicate the pluginList installation location
@@ -747,7 +747,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 	catch (const Win32Exception & ex)
 	{
 		wchar_t message[1024];
-		wsprintf(message, L"An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
+		wsprintf(message, L"An exception occurred. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
 			L"Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%p", ex.code(), ex.what(), ex.where());
 		::MessageBox(Notepad_plus_Window::gNppHWND, message, L"Win32Exception", MB_OK | MB_ICONERROR);
 		mdump.writeDump(ex.info());
@@ -758,7 +758,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "General Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
-	catch (...) // this shouldnt ever have to happen
+	catch (...) // this shouldn't ever have to happen
 	{
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, "An exception that we did not yet found its name is just caught", "Unknown Exception", MB_OK);
 		doException(notepad_plus_plus);

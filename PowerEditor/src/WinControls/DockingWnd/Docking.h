@@ -55,7 +55,7 @@ struct tTbData {
 	// user modifications
 	UINT uMask = 0;                          // mask params: look to above defines
 	HICON hIconTab = nullptr;                // icon for tabs
-	const wchar_t* pszAddInfo = nullptr;     // for plugin to display additional informations
+	const wchar_t* pszAddInfo = nullptr;     // for plugin to display additional information
 
 	// internal data, do not use !!!
 	RECT rcFloat = {};                       // floating position

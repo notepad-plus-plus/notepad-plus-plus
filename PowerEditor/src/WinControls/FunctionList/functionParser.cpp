@@ -539,7 +539,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const wchar_t *bodyOpen
 			// Treat it only if it's NOT in the comment zone
 			if (!isInZones(targetStart, commentZones))
 			{
-				// Now we determinate the symbol (open or close)
+				// Now we determine the symbol (open or close)
 				intptr_t tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
 				if (tmpStart >= 0) // open symbol found 
 				{

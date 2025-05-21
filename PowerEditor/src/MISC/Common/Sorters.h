@@ -275,7 +275,7 @@ public:
 							else
 							{
 								// the lengths of the numbers are equal
-								// compare the two number. However, we can not use std::stoll
+								// compare the two number. However, we cannot use std::stoll
 								// because the number strings can be every large, well over the maximum long long value
 								// thus, we compare each digit one by one
 								while (compareResult == 0
@@ -444,7 +444,7 @@ public:
 							else
 							{
 								// the lengths of the numbers are equal
-								// compare the two number. However, we can not use std::stoll
+								// compare the two number. However, we cannot use std::stoll
 								// because the number strings can be every large, well over the maximum long long value
 								// thus, we compare each digit one by one
 								while (compareResult == 0

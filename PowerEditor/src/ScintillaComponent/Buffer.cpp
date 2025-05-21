@@ -235,7 +235,7 @@ void Buffer::updateTimeStamp()
 
 
 // Set full path file name in buffer object,
-// and determinate its language by its extension.
+// and determine its language by its extension.
 void Buffer::setFileName(const wchar_t *fn)
 {
 	NppParameters& nppParamInst = NppParameters::getInstance();
@@ -251,7 +251,7 @@ void Buffer::setFileName(const wchar_t *fn)
 	_isFromNetwork = PathIsNetworkPath(fn);
 
 	// for _lang
-	LangType determinatedLang = L_TEXT;
+	LangType determinedLang = L_TEXT;
 	wchar_t *ext = PathFindExtension(_fullPathName.c_str());
 	if (*ext == '.') // extension found
 	{
@@ -261,34 +261,34 @@ void Buffer::setFileName(const wchar_t *fn)
 		const wchar_t* langName = nppParamInst.getUserDefinedLangNameFromExt(ext, _fileName);
 		if (langName)
 		{
-			determinatedLang = L_USER;
+			determinedLang = L_USER;
 			_userLangExt = langName;
 		}
 		else // if it's not user lang, then check if it's supported lang
 		{
 			_userLangExt.clear();
-			determinatedLang = nppParamInst.getLangFromExt(ext);
+			determinedLang = nppParamInst.getLangFromExt(ext);
 		}
 	}
 
-	if (determinatedLang == L_TEXT)	// language can probably be refined
+	if (determinedLang == L_TEXT)	// language can probably be refined
 	{
 		if ((wcsicmp(_fileName, L"makefile") == 0) || (wcsicmp(_fileName, L"GNUmakefile") == 0))
-			determinatedLang = L_MAKEFILE;
+			determinedLang = L_MAKEFILE;
 		else if (wcsicmp(_fileName, L"CmakeLists.txt") == 0)
-			determinatedLang = L_CMAKE;
+			determinedLang = L_CMAKE;
 		else if ((wcsicmp(_fileName, L"SConstruct") == 0) || (wcsicmp(_fileName, L"SConscript") == 0) || (wcsicmp(_fileName, L"wscript") == 0))
-			determinatedLang = L_PYTHON;
+			determinedLang = L_PYTHON;
 		else if ((wcsicmp(_fileName, L"Rakefile") == 0) || (wcsicmp(_fileName, L"Vagrantfile") == 0))
-			determinatedLang = L_RUBY;
+			determinedLang = L_RUBY;
 		else if ((wcsicmp(_fileName, L"crontab") == 0) || (wcsicmp(_fileName, L"PKGBUILD") == 0) || (wcsicmp(_fileName, L"APKBUILD") == 0))
-			determinatedLang = L_BASH;
+			determinedLang = L_BASH;
 	}
 
 	updateTimeStamp();
 
 	BufferStatusInfo lang2Change = BufferChangeNone;
-	if (!_hasLangBeenSetFromMenu && (determinatedLang != _lang || _lang == L_USER))
+	if (!_hasLangBeenSetFromMenu && (determinedLang != _lang || _lang == L_USER))
 	{
 		if (_isLargeFile)
 		{
@@ -296,7 +296,7 @@ void Buffer::setFileName(const wchar_t *fn)
 		}
 		else
 		{
-			_lang = determinatedLang;
+			_lang = determinedLang;
 			lang2Change = BufferChangeLanguage;
 		}
 	}
@@ -705,7 +705,7 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 {
 	_pNotepadPlus = pNotepadPlus;
 	_pscratchTilla = pscratchTilla;
-	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
+	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, false);	//don't store any undo information
 	_scratchDocDefault = (Document)_pscratchTilla->execute(SCI_GETDOCPOINTER);
 	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
 }
@@ -1313,7 +1313,7 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 			freeBytesForUser.QuadPart += fileSize;
 		}
 
-		// determinate if free space is enough
+		// determine if free space is enough
 		if (freeBytesForUser.QuadPart < buffer->docLength())
 			return SavingStatus::NotEnoughRoom;
 	}
@@ -1400,10 +1400,10 @@ SavingStatus FileManager::saveBuffer(BufferID id, const wchar_t* filename, bool 
 		buffer->setFileName(fullpath);
 
 		// if not a large file and language is normal text (not defined)
-		// we may try determinate its language from its content 
+		// we may try determine its language from its content 
 		if (!buffer->isLargeFile() && buffer->_lang == L_TEXT)
 		{
-			LangType detectedLang = detectLanguageFromTextBegining((unsigned char*)buf, lengthDoc);
+			LangType detectedLang = detectLanguageFromTextBeginning((unsigned char*)buf, lengthDoc);
 
 			// if a language is detected from the content
 			if (detectedLang != L_TEXT)
@@ -1591,7 +1591,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	return codepage;
 }
 
-LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen)
+LangType FileManager::detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen)
 {
 	struct FirstLineLanguages
 	{
@@ -1831,7 +1831,7 @@ bool FileManager::loadFileData(Document doc, int64_t fileSize, const wchar_t * f
 				if (!isLargeFile && fileFormat._language == L_TEXT)
 				{
 					// check the language du fichier
-					fileFormat._language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);
+					fileFormat._language = detectLanguageFromTextBeginning((unsigned char *)data, lenFile);
 				}
 
                 isFirstTime = false;

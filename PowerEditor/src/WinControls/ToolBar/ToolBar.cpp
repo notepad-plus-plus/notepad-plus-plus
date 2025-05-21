@@ -565,7 +565,7 @@ void ToolBar::registerDynBtnDM(UINT messageID, toolbarIconsWithDarkMode* iconHan
 	}
 }
 
-void ToolBar::doPopop(POINT chevPoint)
+void ToolBar::doPopup(POINT chevPoint)
 {
 	//first find hidden buttons
 	int width = Window::getWidth();

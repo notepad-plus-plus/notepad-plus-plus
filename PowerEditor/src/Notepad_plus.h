@@ -165,16 +165,15 @@ public:
 	void setTitle();
 	void getTaskListInfo(TaskListInfo *tli);
 	size_t getNbDirtyBuffer(int view);
-	// For filtering the modeless Dialog message
 
-	//! \name File Operations
-	//@{
-	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
+
+	// The following functions apply to a single buffer and don't need to worry about views, with the exception of doClose,
+	// since closing one view doesn't have to mean the document is gone
 	BufferID doOpen(const std::wstring& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const wchar_t *backupFileName = NULL, FILETIME fileNameTimestamp = {});
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const wchar_t * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
-	//bool doDelete(const wchar_t *fileName) const {return ::DeleteFile(fileName) != 0;};
+
 
 	void fileOpen();
 	void fileNew();
@@ -216,7 +215,7 @@ public:
 	void saveCurrentSession();
 	void saveFindHistory();
 
-	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
+	void getCurrentOpenedFiles(Session& session, bool includeUntitledDoc = false);
 
 	bool fileLoadSession(const wchar_t* fn = nullptr);
 	const wchar_t * fileSaveSession(size_t nbFile, wchar_t ** fileNames, const wchar_t *sessionFile2save, bool includeFileBrowser = false);
@@ -370,15 +369,15 @@ private:
 	//For Dynamic selection highlight
 	Sci_CharacterRangeFull _prevSelectedRange;
 
-	//Synchronized Scolling
+	//Synchronized Scrolling
 	struct SyncInfo final
 	{
 		intptr_t _line = 0;
 		intptr_t _column = 0;
-		bool _isSynScollV = false;
-		bool _isSynScollH = false;
+		bool _isSynScrollV = false;
+		bool _isSynScrollH = false;
 
-		bool doSync() const {return (_isSynScollV || _isSynScollH); }
+		bool doSync() const {return (_isSynScrollV || _isSynScrollH); }
 	}
 	_syncInfo;
 
@@ -424,7 +423,7 @@ private:
 	UCHAR _mainWindowStatus = 0; //For 2 views and user dialog if docked
 	int _activeView = MAIN_VIEW;
 
-	int _multiSelectFlag = 0; // For sktpping current Multi-select comment 
+	int _multiSelectFlag = 0; // For skipping current Multi-select comment 
 
 	//User dialog docking
 	void dockUserDlg();
@@ -460,7 +459,7 @@ private:
 	void docGotoAnotherEditView(FileTransferMode mode);	//TransferMode
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
-	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesnt _activate_ the buffer
+	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesn't _activate_ the buffer
 	bool removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
 
 	bool activateBuffer(BufferID id, int whichOne, bool forceApplyHilite = false);			//activate buffer in that view if found
@@ -587,9 +586,8 @@ private:
 	bool findInCurrentFile(bool isEntireDoc);
 
 	void getMatchedFileNames(const wchar_t *dir, size_t level, const std::vector<std::wstring> & patterns, std::vector<std::wstring> & fileNames, bool isRecursive, bool isInHiddenDir);
-	void doSynScorll(HWND hW);
+	void doSynScroll(HWND hW);
 	void setWorkingDir(const wchar_t *dir);
-	bool str2Cliboard(const std::wstring & str2cpy);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	int getLangFromMenuName(const wchar_t * langName);

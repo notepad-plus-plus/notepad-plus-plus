@@ -48,7 +48,7 @@ const bool dirDown = false;
 #endif
 
 
-#define NPP_INTERNAL_FUCTION_STR L"Notepad++::InternalFunction"
+#define NPP_INTERNAL_FUNCTION_STR L"Notepad++::InternalFunction"
 
 
 std::wstring folderBrowser(HWND parent, const std::wstring & title = L"", int outputCtrlID = 0, const wchar_t *defaultStr = NULL);

@@ -243,7 +243,7 @@ void Gripper::create()
 	// calculate the mouse pt within dialog
 	::GetCursorPos(&pt);
 
-	// get tab informations
+	// get tab information
 	initTabInformation();
 
 	if (_pCont->isFloating() == true)

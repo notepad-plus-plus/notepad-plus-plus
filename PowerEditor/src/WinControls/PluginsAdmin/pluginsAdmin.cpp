@@ -89,7 +89,7 @@ bool PluginsAdminDlg::isFoundInListFromIndex(const PluginViewList& inWhichList, 
 
 long PluginsAdminDlg::searchFromCurrentSel(const PluginViewList& inWhichList, const wstring& str2search, bool inWhichPart, bool isNextMode) const
 {
-	// search from curent selected item or from the beginning
+	// search from current selected item or from the beginning
 	long currentIndex = inWhichList.getSelectedIndex();
 	int nbItem = static_cast<int>(inWhichList.nbItem());
 	if (currentIndex == -1)
@@ -110,7 +110,7 @@ long PluginsAdminDlg::searchFromCurrentSel(const PluginViewList& inWhichList, co
 				return i;
 		}
 
-		// from to begining to current position
+		// from to beginning to current position
 		for (int i = 0; i < currentIndex + (isNextMode ? 1 : 0); ++i)
 		{
 			if (isFoundInListFromIndex(inWhichList, i, str2search, inWhichPart))
@@ -1079,7 +1079,7 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 		}
 		break;
 
-		case 3: // incompability plugins
+		case 3: // incompatible plugins
 		{
 			showAvailable = false;
 			showUpdate = false;

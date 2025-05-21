@@ -35,14 +35,14 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-udl=\"My UDL Name\"] 
 -y : Move Notepad++ to indicated top position on the screen\r\
 -monitor: Open file with file monitoring enabled\r\
 -nosession : Launch Notepad++ without previous session\r\
--notabbar : Launch Notepad++ without tabbar\r\
+-notabbar : Launch Notepad++ without tab bar\r\
 -ro : Make the filePath read only\r\
 -systemtray : Launch Notepad++ directly in system tray\r\
 -loadingTime : Display Notepad++ loading time\r\
 -alwaysOnTop : Make Notepad++ always on top\r\
 -openSession : Open a session. filePath must be a session file\r\
 -r : Open files recursively. This argument will be ignored\r\
-     if filePath contain no wildcard character\r\
+     if filePath contains no wildcard character\r\
 -qn=\"Easter egg name\": Ghost type easter egg via its name\r\
 -qt=\"text to display.\": Ghost type the given text\r\
 -qf=\"D:\\my quote.txt\": Ghost type a file content via the file path\r\
@@ -96,7 +96,7 @@ public:
 		return _hIconAbsent;
 	};
 
-	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
+	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existent
 
 	void setStartupBgColor(COLORREF BgColor);
 

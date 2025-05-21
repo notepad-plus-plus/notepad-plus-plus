@@ -965,7 +965,7 @@ License:             GPL2
             <WordsStyle name="FUNCTION DEFINITIONS" styleID="17" fgColor="EFEF8F" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT" styleID="18" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
         </LexerType>
-        <LexerType name="nimrod" desc="Nimrod" ext="">
+        <LexerType name="nim" desc="Nim" ext="">
             <WordsStyle name="WHITE SPACE" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />

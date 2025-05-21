@@ -1003,6 +1003,8 @@ Translation note:
 					<Item id="6120" name="Pionowy"/>
 					<Item id="6121" name="Zamknięcie ostatniej karty zamyka Notepad++"/>
 					<Item id="6128" name="Alternatywne ikony"/>
+					<Item id="6125" name="Zachowanie"/>
+					<Item id="6126" name="Wygląd"/>
 				</Tabbar>
 
 				<Scintillas title="Edycja 1">

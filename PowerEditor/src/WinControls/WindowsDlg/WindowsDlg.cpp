@@ -43,7 +43,7 @@ using namespace std;
 #define WD_MENUCOPYPATH				"MenuCopyPath"
 
 // WM_CHAR replacement
-#define WM_CHAR_REPLACEMENT			(WM_USER+WM_CHAR)
+#define WM_CHAR_REPLACEMENT			(WM_USER + WM_CHAR)
 
 static const wchar_t *readonlyString = L" [Read Only]";
 const UINT WDN_NOTIFY = RegisterWindowMessage(L"WDN_NOTIFY");
@@ -518,91 +518,94 @@ intptr_t CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case WM_CHAR_REPLACEMENT:
 		{
-			if (_hList != NULL)
+			if (!_hList)
+				return TRUE;
+
+			wchar_t ch = static_cast<wchar_t>(wParam);
+			int itemCount = ListView_GetItemCount(_hList);
+
+			// backup current state
+			vector<int> stateMap;
+			stateMap.reserve(itemCount);
+			for (int index = 0; index < itemCount; index++)
+				stateMap.push_back(ListView_GetItemState(_hList, index, LVIS_SELECTED | LVIS_FOCUSED));
+
+			// temporarily clear existing selection
+			ListView_SetItemState(_hList, -1, 0, LVIS_SELECTED | LVIS_FOCUSED);
+
+			LVITEM lvItem {};
+			wchar_t buffer[MAX_PATH] = L"\0";
+
+			int firstMatchFound = -1;
+			int lastMatchSel = -1;
+			int targetedIndex = -1;
+
+			// find items whose first character matches the typed character
+			for (int index = 0; index < itemCount; ++index)
 			{
-				wchar_t ch = (wchar_t)wParam;
-				int itemCount = ListView_GetItemCount(_hList);
+				lvItem.iItem = index;
+				lvItem.mask = LVIF_TEXT;
+				lvItem.pszText = buffer;
+				lvItem.cchTextMax = MAX_PATH;
 
-				// backup current state
-				vector<int> stateMap;
-				stateMap.reserve(itemCount);
-				for (int index = 0; index < itemCount; index++)
-					stateMap.push_back(ListView_GetItemState(_hList, index, LVIS_SELECTED | LVIS_FOCUSED));
-
-				// temporarily clear existing selection
-				ListView_SetItemState(_hList, -1, 0, LVIS_SELECTED | LVIS_FOCUSED);
-
-				LVITEM lvItem = { 0 };
-				wchar_t buffer[MAX_PATH];
-
-				int firstMatchFound = -1;
-				int lastMatchSel = -1;
-				int targetedIndex = -1;
-
-				// find items whose first character matches the typed character
-				for (int index = 0; index < itemCount; ++index)
+				if (ListView_GetItem(_hList, &lvItem))
 				{
-					lvItem.iItem = index;
-					lvItem.mask = LVIF_TEXT;
-					lvItem.pszText = buffer;
-					lvItem.cchTextMax = MAX_PATH;
-
-					if (ListView_GetItem(_hList, &lvItem))
+					if (towlower(buffer[0]) == towlower(ch))
 					{
-						if (towlower(buffer[0]) == towlower(ch))
+						// mark the first matching item index found
+						if (firstMatchFound == -1)
+							firstMatchFound = index;
+
+						// if the item is currenly selected, skip and find the next item
+						if (stateMap.at(index) & LVIS_SELECTED) 
 						{
-							// mark the first matching item index found
-							if (firstMatchFound == -1)
-								firstMatchFound = index;
+							lastMatchSel = index;
+							continue;
+						}
 
-							// if the item is currenly selected, skip and find the next item
-							if (stateMap.at(index) & LVIS_SELECTED) 
-							{
-								lastMatchSel = index;
-								continue;
-							}
-
-							// stop at the next matching item 
-							// after the last selected matching one
-							if (lastMatchSel != -1) 
-							{
-								targetedIndex = index;
-								break;
-							}
+						// stop at the next matching item 
+						// after the last selected matching one
+						if (lastMatchSel != -1) 
+						{
+							targetedIndex = index;
+							break;
 						}
 					}
 				}
+			}
 
-				// targeted item is found
-				if (targetedIndex != -1)
+			// targeted item is found
+			if (targetedIndex != -1)
+			{
+				ListView_SetItemState(_hList, targetedIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+				ListView_EnsureVisible(_hList, targetedIndex, FALSE);
+			}
+
+			// otherwise, that means either of these cases: 
+			//  1. no matching item is currently selected
+			//	2. the last matching item is currently selected
+			//	3. all matching items are currently selected
+			//	4. no matching item is found
+			else
+			{
+				// case 1 -> 3: select the first matching item
+				if (firstMatchFound != -1)
 				{
-					ListView_SetItemState(_hList, targetedIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
-					ListView_EnsureVisible(_hList, targetedIndex, FALSE);
+					ListView_SetItemState(_hList, firstMatchFound, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+					ListView_EnsureVisible(_hList, firstMatchFound, FALSE);
 				}
 
-				// otherwise, that means either of these cases: 
-				//	1. the last matching item is currently selected
-				//	2. all matching items are currently selected
-				//	3. no matching item is found
+				// case 4:
 				else
 				{
-					// case 1 & 2: select the first matching item
-					if (firstMatchFound != -1)
-					{
-						ListView_SetItemState(_hList, firstMatchFound, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
-						ListView_EnsureVisible(_hList, firstMatchFound, FALSE);
-					}
+					// restore previous state
+					for (int index = 0; index < itemCount; index++)
+						ListView_SetItemState(_hList, index, stateMap.at(index), LVIS_SELECTED | LVIS_FOCUSED);
 
-					// case 3:
-					else
-					{
-						// restore previous state
-						for (int index = 0; index < itemCount; index++)
-							ListView_SetItemState(_hList, index, stateMap.at(index), LVIS_SELECTED | LVIS_FOCUSED);
-
-						// make a beep sound
+					// make a beep sound
+					const NppGUI& nppGUI = NppParameters::getInstance().getNppGUI();
+					if (!nppGUI._muteSounds)
 						MessageBeep(0xFFFFFFFF);
-					}
 				}
 			}
 

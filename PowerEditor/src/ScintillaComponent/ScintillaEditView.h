@@ -212,7 +212,7 @@ const std::vector<std::vector<const char*>> g_nonPrintingChars =
 	{"\xE2\x80\x85", "4/MSP", "U+2005"},     // U+2005 : four-per-em space
 	{"\xE2\x80\x86", "6/MSP", "U+2006"},     // U+2006 : six-per-em space
 	{"\xE2\x80\x87", "FSP", "U+2007"},       // U+2007 : figure space
-	{"\xE2\x80\x88", "PSP", "U+2008"},       // U+2008 : punctation space
+	{"\xE2\x80\x88", "PSP", "U+2008"},       // U+2008 : punctuation space
 	{"\xE2\x80\x89", "THSP", "U+2009"},      // U+2009 : thin space
 	{"\xE2\x80\x8A", "HSP", "U+200A"},       // U+200A : hair space
 	{"\xE2\x80\x8B", "ZWSP", "U+200B"},      // U+200B : zero-width space
@@ -472,12 +472,12 @@ public:
     wchar_t * getGenericWordOnCaretPos(wchar_t * txt, int size);
 	wchar_t * getGenericSelectedText(wchar_t * txt, int size, bool expand = true);
 	intptr_t searchInTarget(const wchar_t * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
-	void appandGenericText(const wchar_t * text2Append) const;
+	void appendGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append) const;
 	void addGenericText(const wchar_t * text2Append, intptr_t* mstart, intptr_t* mend) const;
 	intptr_t replaceTarget(const wchar_t * str2replace, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
 	intptr_t replaceTargetRegExMode(const wchar_t * re, intptr_t fromTargetPos = -1, intptr_t toTargetPos = -1) const;
-	void showAutoComletion(size_t lenEntered, const wchar_t * list);
+	void showAutoCompletion(size_t lenEntered, const wchar_t * list);
 	void showCallTip(size_t startPos, const wchar_t * def);
 	std::wstring getLine(size_t lineNumber) const;
 	void getLine(size_t lineNumber, wchar_t * line, size_t lineBufferLen) const;
@@ -531,10 +531,10 @@ public:
     static const int _SC_MARGE_FOLDER;
     static const int _SC_MARGE_CHANGEHISTORY;
 
-    void showMargin(int whichMarge, bool willBeShowed = true);
-    void showChangeHistoryMargin(bool willBeShowed = true);
+    void showMargin(int whichMarge, bool willBeShown = true);
+    void showChangeHistoryMargin(bool willBeShown = true);
 
-    bool hasMarginShowed(int witchMarge) {
+    bool hasMarginShown(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
     };
 
@@ -586,7 +586,7 @@ public:
 		return (execute(SCI_GETVIEWEOL) != 0);
 	};
 
-	void showNpc(bool willBeShowed = true, bool isSearchResult = false);
+	void showNpc(bool willBeShown = true, bool isSearchResult = false);
 
 	bool isShownNpc() {
 		const auto& svp = NppParameters::getInstance().getSVP();
@@ -618,25 +618,21 @@ public:
 		}
 	}
 
-	void showCcUniEol(bool willBeShowed = true, bool isSearchResult = false);
+	void showCcUniEol(bool willBeShown = true, bool isSearchResult = false);
 
 	bool isShownCcUniEol() {
 		const auto& svp = NppParameters::getInstance().getSVP();
 		return svp._ccUniEolShow;
 	};
 
-	void showInvisibleChars(bool willBeShowed = true) {
-		showNpc(willBeShowed);
-		showCcUniEol(willBeShowed);
-		showWSAndTab(willBeShowed);
-		showEOL(willBeShowed);
+	void showInvisibleChars(bool willBeShown = true) {
+		showNpc(willBeShown);
+		showCcUniEol(willBeShown);
+		showWSAndTab(willBeShown);
+		showEOL(willBeShown);
 	};
 
-	//bool isShownInvisibleChars() {
-	//	return isShownSpaceTab() && isShownEol() && isShownNpc();
-	//};
-
-	void showIndentGuideLine(bool willBeShowed = true);
+	void showIndentGuideLine(bool willBeShown = true);
 
 	bool isShownIndentGuide() const {
 		return (execute(SCI_GETINDENTATIONGUIDES) != 0);
@@ -838,7 +834,7 @@ public:
 	void setHotspotStyle(const Style& styleToSet);
     void setTabSettings(Lang *lang);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
-	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
+	void setWrapRestoreNeeded(bool isWrapRestoreNeeded) {_wrapRestoreNeeded = isWrapRestoreNeeded;};
 
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
@@ -1001,7 +997,7 @@ protected:
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(L""));
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
 		setLexer(L_TEX, LIST_NONE);
 	};
 
@@ -1248,9 +1244,9 @@ protected:
 
 	void setErrorListLexer() {
 		setLexer(L_ERRORLIST, LIST_NONE);
-		bool do_show_escape_chars = isShownCcUniEol();	// decide based on the ControlCharacter+UnicodeEOL flag
-		execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(do_show_escape_chars));
-		execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(do_show_escape_chars));
+		bool doShowEscapeChars = isShownCcUniEol();	// decide based on the ControlCharacter+UnicodeEOL flag
+		execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ), static_cast<LPARAM>(doShowEscapeChars));
+		execute(SCI_STYLESETVISIBLE, static_cast<WPARAM>(SCE_ERR_ESCSEQ_UNKNOWN), static_cast<LPARAM>(doShowEscapeChars));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.errorlist.value.separate"), reinterpret_cast<LPARAM>("0"));
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.errorlist.escape.sequences"), reinterpret_cast<LPARAM>("1"));
 	}
@@ -1268,7 +1264,7 @@ protected:
 		setLexer(L_SEARCHRESULT, LIST_NONE);
 	};
 
-	bool isNeededFolderMarge(LangType typeDoc) const {
+	bool isNeededFolderMargin(LangType typeDoc) const {
 		switch (typeDoc)
 		{
 			case L_ASCII:

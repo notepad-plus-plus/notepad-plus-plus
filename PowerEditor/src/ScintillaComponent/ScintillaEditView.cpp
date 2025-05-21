@@ -280,7 +280,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_SETSCROLLWIDTHTRACKING, true);
 	execute(SCI_SETSCROLLWIDTH, 1);	//default empty document: override default width of 2000
 
-	// smart hilighting
+	// smart highlighting
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_SMART, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_INC, INDIC_ROUNDBOX);
@@ -378,10 +378,10 @@ LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message
 		//Hack for Synaptics TouchPad Driver
 		char synapticsHack[26]{};
 		GetClassNameA(hwndOnMouse, (LPSTR)&synapticsHack, 26);
-		bool isSynpnatic = std::string(synapticsHack) == "SynTrackCursorWindowClass";
-		bool makeTouchPadCompetible = ((NppParameters::getInstance()).getSVP())._disableAdvancedScrolling;
+		bool isSynaptics = std::string(synapticsHack) == "SynTrackCursorWindowClass";
+		bool makeTouchPadCompatible = ((NppParameters::getInstance()).getSVP())._disableAdvancedScrolling;
 
-		if (pScint && (isSynpnatic || makeTouchPadCompetible))
+		if (pScint && (isSynaptics || makeTouchPadCompatible))
 			return (pScint->scintillaNew_Proc(hwnd, Message, wParam, lParam));
 
 		const ScintillaEditView* pScintillaOnMouse = reinterpret_cast<const ScintillaEditView *>(::GetWindowLongPtr(hwndOnMouse, GWLP_USERDATA));
@@ -428,7 +428,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				return TRUE;
 			}
 
-			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
+			//Have to perform the scroll first, because the first/last line do not get updated until after the scroll has been parsed
 			LRESULT scrollResult = ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 			return scrollResult;
 		}
@@ -562,7 +562,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 					size_t nbSelections = execute(SCI_GETSELECTIONS);
 					if (nbSelections > 1) // Multi-edit
 					{
-						vector<MultiCaretInfo> edgeOfEol; // parir <start, end>, pair <len2remove, selN>
+						vector<MultiCaretInfo> edgeOfEol; // pair <start, end>, pair <len2remove, selN>
 						int nbCaseForScint = 0;
 
 						for (size_t i = 0; i < nbSelections; ++i)
@@ -834,7 +834,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 		setLexerFromLangID(L_XML);
 		
 		for (int i = 0 ; i < 4 ; ++i)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(L""));
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
 
         makeStyle(type, pKwArray);
 
@@ -1800,7 +1800,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 	ScintillaViewParams & svp = (ScintillaViewParams &)NppParameters::getInstance().getSVP();
 	if (svp._folderStyle != FOLDER_STYLE_NONE)
-		showMargin(_SC_MARGE_FOLDER, isNeededFolderMarge(typeDoc));
+		showMargin(_SC_MARGE_FOLDER, isNeededFolderMargin(typeDoc));
 
 	switch (typeDoc)
 	{
@@ -2181,7 +2181,7 @@ void ScintillaEditView::saveCurrentPos()
 // restore current position is executed in two steps.
 // The detection wrap state done in the pre step function:
 // if wrap is enabled, then _positionRestoreNeeded is activated
-// so post step function will be cakked in the next SCN_PAINTED message
+// so post step function will be called in the next SCN_PAINTED message
 void ScintillaEditView::restoreCurrentPosPreStep()
 {
 	Buffer * buf = MainFileManager.getBufferByID(_currentBufferID);
@@ -2310,7 +2310,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer, bool force)
 
 	// change the doc, this operation will decrease
 	// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
-	// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
+	// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if necessary
 	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_OFF);
 	execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
 	execute(SCI_SETMODEVENTMASK, MODEVENTMASK_ON);
@@ -2410,7 +2410,7 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 		{
 			if (buffer->getNeedsLexing())
 			{
-				restyleBuffer();	//sets to false, this will apply to any other view aswell
+				restyleBuffer();	//sets to false, this will apply to any other view as well
 			}	//else nothing, otherwise infinite loop
 		}
 
@@ -2802,7 +2802,7 @@ intptr_t ScintillaEditView::searchInTarget(const wchar_t * text2Find, size_t len
 	return execute(SCI_SEARCHINTARGET, len, reinterpret_cast<LPARAM>(text2FindA));
 }
 
-void ScintillaEditView::appandGenericText(const wchar_t * text2Append) const
+void ScintillaEditView::appendGenericText(const wchar_t * text2Append) const
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2850,7 +2850,7 @@ intptr_t ScintillaEditView::replaceTargetRegExMode(const wchar_t * re, intptr_t 
 	return execute(SCI_REPLACETARGETRE, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(reA));
 }
 
-void ScintillaEditView::showAutoComletion(size_t lenEntered, const wchar_t* list)
+void ScintillaEditView::showAutoCompletion(size_t lenEntered, const wchar_t* list)
 {
 	WcharMbcsConvertor& wmc = WcharMbcsConvertor::getInstance();
 	size_t cp = execute(SCI_GETCODEPAGE);
@@ -2916,11 +2916,11 @@ void ScintillaEditView::beginOrEndSelect(bool isColumnMode)
 	}
 }
 
-void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
+void ScintillaEditView::showMargin(int whichMarge, bool willBeShown)
 {
 	if (whichMarge == _SC_MARGE_LINENUMBER)
 	{
-		bool forcedToHide = !willBeShowed;
+		bool forcedToHide = !willBeShown;
 		updateLineNumbersMargin(forcedToHide);
 	}
 	else
@@ -2932,15 +2932,15 @@ void ScintillaEditView::showMargin(int whichMarge, bool willBeShowed)
 		else if (whichMarge == _SC_MARGE_FOLDER)
 			width = dpiManager.scaleX(14);
 
-		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
+		execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShown ? width : 0);
 	}
 }
 
-void ScintillaEditView::showChangeHistoryMargin(bool willBeShowed)
+void ScintillaEditView::showChangeHistoryMargin(bool willBeShown)
 {
 	DPIManager& dpiManager = NppParameters::getInstance()._dpiManager;
 	int	width = dpiManager.scaleX(9);
-	execute(SCI_SETMARGINWIDTHN, _SC_MARGE_CHANGEHISTORY, willBeShowed ? width : 0);
+	execute(SCI_SETMARGINWIDTHN, _SC_MARGE_CHANGEHISTORY, willBeShown ? width : 0);
 }
 
 void ScintillaEditView::updateBeginEndSelectPosition(bool is_insert, size_t position, size_t length)
@@ -3258,11 +3258,11 @@ void ScintillaEditView::performGlobalStyles()
 	setNpcAndCcUniEOL(npcCustomColor);
 }
 
-void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
+void ScintillaEditView::showNpc(bool willBeShown, bool isSearchResult)
 {
 	const auto& svp = NppParameters::getInstance().getSVP();
 
-	if (willBeShowed)
+	if (willBeShown)
 	{
 		const auto& mode = static_cast<size_t>(svp._npcMode);
 		for (const auto& invChar : g_nonPrintingChars)
@@ -3293,11 +3293,11 @@ void ScintillaEditView::showNpc(bool willBeShowed, bool isSearchResult)
 	}
 }
 
-void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
+void ScintillaEditView::showCcUniEol(bool willBeShown, bool isSearchResult)
 {
 	const auto& svp = NppParameters::getInstance().getSVP();
 
-	if (willBeShowed)
+	if (willBeShown)
 	{
 		const auto& mode = static_cast<size_t>(svp._npcIncludeCcUniEol ? svp._npcMode : ScintillaViewParams::npcMode::abbreviation);
 		for (const auto& invChar : g_ccUniEolChars)
@@ -3338,11 +3338,11 @@ void ScintillaEditView::showCcUniEol(bool willBeShowed, bool isSearchResult)
 	showEOL(isShownEol());
 }
 
-void ScintillaEditView::showIndentGuideLine(bool willBeShowed)
+void ScintillaEditView::showIndentGuideLine(bool willBeShown)
 {
 	auto typeDoc = _currentBuffer->getLangType();
 	const int docIndentMode = isPythonStyleIndentation(typeDoc) ? SC_IV_LOOKFORWARD : SC_IV_LOOKBOTH;
-	execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? docIndentMode : SC_IV_NONE);
+	execute(SCI_SETINDENTATIONGUIDES, willBeShown ? docIndentMode : SC_IV_NONE);
 }
 
 void ScintillaEditView::setLineIndent(size_t line, size_t indent) const
@@ -3860,7 +3860,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, size_t initial, siz
 
 	// If there is no column mode info available, no need to do anything
 	// If required a message can be shown to user, that select column properly or something similar
-	// It is just a double check as taken in callee method (in case this method is called from multiple places)
+	// It is just a double check as taken in called method (in case this method is called from multiple places)
 	if (cmi.size() <= 0)
 		return;
 	// 0000 00 00 : Dec BASE_10
@@ -4088,7 +4088,7 @@ bool ScintillaEditView::hidelineMarkerClicked(intptr_t lineNumber)
 	if (!openPresent && !closePresent)
 		return false;
 		
-	//Special func on buffer. First call show with location of opening marker. Then remove the marker manually
+	//Special function on buffer. First call show with location of opening marker. Then remove the marker manually
 	if (openPresent)
 	{
 		closePresent = false; // when there are two overlapping markers, always open the lower section
@@ -4109,7 +4109,7 @@ bool ScintillaEditView::hidelineMarkerClicked(intptr_t lineNumber)
 		{
 			_currentBuffer->setHideLineChanged(false, i + 1);
 		}
-		else // problem -> only close but no open: let's remove the errno close marker
+		else // problem -> only close but no open: let's remove the erroneous close marker
 		{
 			execute(SCI_MARKERDELETE, lineNumber, MARK_HIDELINESEND);
 		}
@@ -4226,7 +4226,7 @@ void ScintillaEditView::showHiddenLines(size_t searchStart, bool toEndOfDoc, boo
 			else if (isInSection)
 			{
 				if (startShowing >= i)
-				{	//because of fold skipping, we passed the close tag. In that case we cant do anything
+				{	//because of fold skipping, we passed the close tag. In that case we can't do anything
 					if (!toEndOfDoc)
 					{
 						return;
@@ -4352,7 +4352,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	if (current_line == line_count - 1)
 	{
 		// Special handling if caret is at last line.
-		appandGenericText(newline.c_str());
+		appendGenericText(newline.c_str());
 	}
 	else
 	{

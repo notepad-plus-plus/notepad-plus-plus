@@ -544,7 +544,7 @@ intptr_t CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 		case WM_MOUSEWHEEL :
 		{
-			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
+			//Have to perform the scroll first, because the first/last line do not get updated until after the scroll has been parsed
 			::SendMessage(_hParent, DOCUMENTMAP_MOUSEWHEEL, wParam, lParam);
 			return TRUE;
 		}

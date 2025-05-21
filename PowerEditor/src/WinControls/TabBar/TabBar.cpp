@@ -852,7 +852,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
-		case WM_RBUTTONDOWN :	//rightclick selects tab aswell
+		case WM_RBUTTONDOWN :	//rightclick selects tab as well
 		{
 			// TCS_BUTTONS doesn't select the tab
 			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)

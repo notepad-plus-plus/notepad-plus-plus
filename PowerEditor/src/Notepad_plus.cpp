@@ -346,7 +346,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETZOOM, svp._zoom);
 	_subEditView.execute(SCI_SETZOOM, svp._zoom2);
 
-	::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
+	::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELECTION, 0, 0);
 
 	// Make backspace or delete work with multiple selections
 	_mainEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
@@ -5934,7 +5934,7 @@ void Notepad_plus::fullScreenToggle()
 			}
 		}
 
-		//Set fullscreen window, highest non-top z-order, show the window and redraw it (refreshing the windowmanager cache aswell)
+		//Set fullscreen window, highest non-top z-order, show the window and redraw it (refreshing the windowmanager cache as well)
 		::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
 		::SetWindowPos(_pPublicInterface->getHSelf(), HWND_TOP, fullscreenArea.left, fullscreenArea.top, fullscreenArea.right, fullscreenArea.bottom, SWP_NOZORDER|SWP_DRAWFRAME|SWP_FRAMECHANGED);
 		::SetForegroundWindow(_pPublicInterface->getHSelf());

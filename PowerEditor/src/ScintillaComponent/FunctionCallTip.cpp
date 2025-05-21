@@ -250,7 +250,7 @@ bool FunctionCallTip::getCursorFunction()
 	bool res = false;
 
 	if (curValue.lastFunctionIdentifier == -1)
-	{	//not in direct function. Start popping the stack untill we empty it, or a func IS found
+	{	//not in direct function. Start popping the stack until we empty it, or a func IS found
 		while (curValue.lastFunctionIdentifier == -1 && valueVec.size() > 0)
 		{
 			curValue = valueVec.back();
@@ -295,7 +295,7 @@ Find function in XML structure and parse it
 bool FunctionCallTip::loadFunction()
 {
 	reset();	//set everything back to 0
-	//The functions should be ordered, but linear search because we cant access like array
+	//The functions should be ordered, but linear search because we can't access like array
 	_curFunction = NULL;
 	//Iterate through all keywords and find the correct function keyword
 	TiXmlElement *funcNode = _pXmlKeyword;

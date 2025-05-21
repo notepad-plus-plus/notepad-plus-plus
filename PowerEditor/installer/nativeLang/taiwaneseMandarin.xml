@@ -905,7 +905,6 @@
 			<Preference title="偏好設定">
 				<Item id="6001" name="儲存並關閉"/>
 				<Global title="一般">
-					<Item id="6125" name="文件切換器"/>
 					<Item id="6131" name="選單"/>
 					<Item id="6122" name="隱藏（用 Alt 或 F10 切換）"/>
 					<Item id="6132" name="隱藏選單中右邊的 ＋ ▼ ✕ 捷徑"/>

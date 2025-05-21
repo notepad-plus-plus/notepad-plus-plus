@@ -28,16 +28,19 @@ trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hic
   wcscpy_s(_nid.szTip, tip);
   
   ::RegisterWindowMessage(L"TaskbarCreated");
-  _isIconShowed = false;
+  _isIconShown = false;
 }
 
 int trayIconControler::doTrayIcon(DWORD op)
 {
-  if ((op != ADD)&&(op != REMOVE)) return INCORRECT_OPERATION;
-  if (((_isIconShowed)&&(op == ADD))||((!_isIconShowed)&&(op == REMOVE)))
+  if (op != ADD && op != REMOVE)
+      return INCORRECT_OPERATION;
+
+  if ((_isIconShown && op == ADD) || (!_isIconShown && op == REMOVE))
     return OPERATION_INCOHERENT;
+
   ::Shell_NotifyIcon(op, &_nid);
-  _isIconShowed = !_isIconShowed;
+  _isIconShown = !_isIconShown;
 
   return 0;
 }

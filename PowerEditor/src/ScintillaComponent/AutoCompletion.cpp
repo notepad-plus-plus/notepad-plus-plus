@@ -434,9 +434,9 @@ bool AutoCompletion::showAutoComplete(AutocompleteType autocType, bool autoInser
 	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, _ignoreCase);
 
 	if (autocType == autocFunc)
-		_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
+		_pEditView->showAutoCompletion(curPos - startPos, _keyWords.c_str());
 	else
-		_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+		_pEditView->showAutoCompletion(curPos - startPos, words.c_str());
 
 	return true;
 }
@@ -657,7 +657,7 @@ void AutoCompletion::showPathCompletion()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, true);
 	_pEditView->execute(SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, true);
-	_pEditView->showAutoComletion(rawPath.length(), autoCompleteEntries.c_str());
+	_pEditView->showAutoCompletion(rawPath.length(), autoCompleteEntries.c_str());
 	return;
 }
 

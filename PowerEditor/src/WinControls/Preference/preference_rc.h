@@ -42,7 +42,7 @@
 
 #define IDD_PREFERENCE_SUB_TABBAR                      6040
 
-#define IDD_PREFERENCE_SUB_GENRAL                      6100
+#define IDD_PREFERENCE_SUB_GENERAL                     6100
 
 #define IDC_CHECK_HIDE                                 6102
 #define IDC_RADIO_SMALLICON                            6103
@@ -174,7 +174,7 @@
 
 #define IDC_GB_STATIC_CRLF                             6247
 #define IDC_RADIO_ROUNDCORNER_CRLF                     6248
-#define IDC_RADIO_PLEINTEXT_CRLF                       6249
+#define IDC_RADIO_PLAINTEXT_CRLF                       6249
 #define IDC_CHECK_WITHCUSTOMCOLOR_CRLF                 6250
 #define IDC_BUTTON_LAUNCHSTYLECONF_CRLF                6251
 

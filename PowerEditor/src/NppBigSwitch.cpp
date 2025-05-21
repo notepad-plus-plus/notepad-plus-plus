@@ -1911,7 +1911,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SETMULTISELCTION:
+		case NPPM_INTERNAL_SETMULTISELECTION:
 		{
 			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
 			_mainEditView.execute(SCI_SETMULTIPLESELECTION, svp._multiSelection);
@@ -3951,7 +3951,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			else //if (message == IDM_VIEW_SYMBOLMARGIN)
 				margin = ScintillaEditView::_SC_MARGE_SYMBOL;
 
-			if (_mainEditView.hasMarginShowed(margin))
+			if (_mainEditView.hasMarginShown(margin))
 			{
 				_mainEditView.showMargin(margin, false);
 				_subEditView.showMargin(margin, false);

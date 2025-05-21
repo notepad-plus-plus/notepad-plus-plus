@@ -323,7 +323,7 @@ size_t Printer::doPrint(bool justDoIt)
 	}
 
 	
-	bool isShown = _pSEView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER);
+	bool isShown = _pSEView->hasMarginShown(ScintillaEditView::_SC_MARGE_LINENUMBER);
 	if (!nppGUI._printSettings._printLineNumber)
 		_pSEView->showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, false);
 

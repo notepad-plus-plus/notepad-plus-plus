@@ -57,7 +57,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 	{
 		if (iSplitRatio >= 100)
 		{
-			//cant be 100 % or more
+			//can't be 100 % or more
 			throw std::runtime_error("Splitter::init : Parameter iSplitRatio shoulds be 0 < ratio < 100");
 		}
 	}

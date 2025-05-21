@@ -121,7 +121,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		case WM_INITDIALOG :
 		{
 			_generalSubDlg.init(_hInst, _hSelf);
-			_generalSubDlg.create(IDD_PREFERENCE_SUB_GENRAL, false, false);
+			_generalSubDlg.create(IDD_PREFERENCE_SUB_GENERAL, false, false);
 			_generalSubDlg.display();
 			
 			_toolbarSubDlg.init(_hInst, _hSelf);
@@ -301,7 +301,7 @@ intptr_t CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SETTOOLICONSSET: // Set icons set only option (checkbox) on general sub-dialog, the remained real operations will be done in NppDarkMode::refreshDarkMode
+		case NPPM_INTERNAL_SETTOOLICONSSET: // Set icons set only option (checkbox) on general sub-dialog, the remaining real operations will be done in NppDarkMode::refreshDarkMode
 		{
 			NppParameters& nppParams = NppParameters::getInstance();
 			NppGUI& nppGUI = nppParams.getNppGUI();
@@ -642,7 +642,7 @@ intptr_t CALLBACK GeneralSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				pair<wstring, wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(localizationInfo.first.c_str()));
 			}
-			wstring lang = L"English"; // Set default language as Englishs
+			wstring lang = L"English"; // Set default language as English
 			if (nppParam.getNativeLangA()) // if nativeLangA is not NULL, then we can be sure the default language (English) is not used
 			{
 				string fn = localizationSwitcher.getFileName();
@@ -1326,8 +1326,8 @@ intptr_t CALLBACK TabbarSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 				case IDC_CHECK_LOCK:
 				{
-					bool islocked = isCheckedOrNot(IDC_CHECK_LOCK);
-					if (islocked)
+					bool isLocked = isCheckedOrNot(IDC_CHECK_LOCK);
+					if (isLocked)
 						nppGUI._tabStatus &= ~TAB_DRAGNDROP;
 					else
 						nppGUI._tabStatus |= TAB_DRAGNDROP;
@@ -1542,12 +1542,12 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 			bool shift = GetKeyState(VK_SHIFT) & 0x8000;
 
 			bool ctrl_V = (!shift && ctrl && !alt && wParam == 'V');
-			bool shif_INS = (shift && !ctrl && !alt && wParam == VK_INSERT);
-			if ( ctrl_V || shif_INS)
+			bool shift_INS = (shift && !ctrl && !alt && wParam == VK_INSERT);
+			if ( ctrl_V || shift_INS)
 			{
 				canPaste = hasOnlyNumSpaceInClipboard();
 
-				if (shif_INS && !canPaste) // Shift-INS is different from Ctrl-V, it doesn't pass by WM_CHAR afterward, so we stop here
+				if (shift_INS && !canPaste) // Shift-INS is different from Ctrl-V, it doesn't pass by WM_CHAR afterward, so we stop here
 					return TRUE;
 			}
 		}
@@ -1568,7 +1568,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 
 			if (ctrl_V_in_WM_CHAR)
 			{
-				if (!canPaste) // it's come from ctl_v of WM_KEYDOWN: the format is not correct or nothing to paste, so stop here
+				if (!canPaste) // it comes from Ctrl-V of WM_KEYDOWN: the format is not correct or nothing to paste, so stop here
 				{
 					return TRUE;
 				}
@@ -1583,7 +1583,7 @@ static LRESULT CALLBACK editNumSpaceProc(HWND hwnd, UINT message, WPARAM wParam,
 			}
 			else
 			{
-				if (wParam != VK_BACK && wParam != ' ' && (wParam < '0' || wParam > '9')) // If input char is not number either white space, stop here
+				if (wParam != VK_BACK && wParam != ' ' && (wParam < '0' || wParam > '9')) // If input char is not number or white space, stop here
 				{
 					return TRUE;
 				}
@@ -1800,7 +1800,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			NppParameters& nppParam = NppParameters::getInstance();
 			ScintillaViewParams& svp = const_cast<ScintillaViewParams&>(nppParam.getSVP());
 
-			// defaul =>  (svp._eolMode == svp.roundedRectangleText)
+			// default =>  (svp._eolMode == svp.roundedRectangleText)
 			bool checkDefaultCRLF = true;
 			bool checkPlainTextCRLF = false;
 			bool checkWithColorCRLF = false;
@@ -1824,7 +1824,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				checkWithColorCRLF = true;
 			}
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_ROUNDCORNER_CRLF, BM_SETCHECK, checkDefaultCRLF, 0);
-			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLEINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_PLAINTEXT_CRLF, BM_SETCHECK, checkPlainTextCRLF, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_WITHCUSTOMCOLOR_CRLF, BM_SETCHECK, checkWithColorCRLF, 0);
 
 			
@@ -1938,7 +1938,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					}
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_COLUMN2MULTIEDITING), svp._multiSelection);
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELECTION, 0, 0);
 				}
 				return TRUE;
 
@@ -1949,7 +1949,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				return TRUE;
 
 				case IDC_RADIO_ROUNDCORNER_CRLF:
-				case IDC_RADIO_PLEINTEXT_CRLF:
+				case IDC_RADIO_PLAINTEXT_CRLF:
 				case IDC_CHECK_WITHCUSTOMCOLOR_CRLF:
 				{
 					bool doCustomColor = isCheckedOrNot(IDC_CHECK_WITHCUSTOMCOLOR_CRLF);
@@ -1958,7 +1958,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					{
 						svp._eolMode = doCustomColor ? svp.roundedRectangleTextCustomColor : svp.roundedRectangleText;
 					}
-					else if (wParam == IDC_RADIO_PLEINTEXT_CRLF)
+					else if (wParam == IDC_RADIO_PLAINTEXT_CRLF)
 					{
 						svp._eolMode = doCustomColor ? svp.plainTextCustomColor : svp.plainText;
 					}
@@ -1968,7 +1968,7 @@ intptr_t CALLBACK Editing2SubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						{
 							svp._eolMode = doCustomColor ? svp.roundedRectangleTextCustomColor : svp.roundedRectangleText;
 						}
-						else // IDC_RADIO_PLEINTEXT_CRLF
+						else // IDC_RADIO_PLAINTEXT_CRLF
 						{
 							svp._eolMode = doCustomColor ? svp.plainTextCustomColor : svp.plainText;
 						}
@@ -2398,7 +2398,7 @@ intptr_t CALLBACK DarkModeSubDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 					doEnableCustomizedColorCtrls = enableDarkMode && nppGUI._darkmode._colorTone == NppDarkMode::customizedTone;
 					enableCustomizedColorCtrls(doEnableCustomizedColorCtrls);
 
-					::SendMessage(_hParent, NPPM_INTERNAL_SETTOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0); // Set icons set only option (checkbox) on general sub-dialog, the remained real operations will be done in NppDarkMode::refreshDarkMode
+					::SendMessage(_hParent, NPPM_INTERNAL_SETTOOLICONSSET, static_cast<WPARAM>(enableDarkMode), 0); // Set icons set only option (checkbox) on general sub-dialog, the remaining real operations will be done in NppDarkMode::refreshDarkMode
 
 					changed = true;
 				}

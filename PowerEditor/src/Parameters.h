@@ -1051,7 +1051,7 @@ struct ScintillaViewParams
 	unsigned char _paddingLeft = 0;  // 0-9 pixel
 	unsigned char _paddingRight = 0; // 0-9 pixel
 
-	// distractionFreeDivPart is used for divising the fullscreen pixel width.
+	// distractionFreeDivPart is used for dividing the fullscreen pixel width.
 	// the result of division will be the left & right padding in Distraction Free mode
 	unsigned char _distractionFreeDivPart = 4;     // 3-9 parts
 

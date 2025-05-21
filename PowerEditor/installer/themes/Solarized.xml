@@ -954,7 +954,7 @@ Installation:
             <WordsStyle name="FUNCTION DEFINITIONS" styleID="17" fgColor="859900" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="18" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
-        <LexerType name="nimrod" desc="Nimrod" ext="">
+        <LexerType name="nim" desc="Nim" ext="">
             <WordsStyle name="WHITE SPACE" styleID="0" fgColor="2AA198" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="586E75" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="D33682" bgColor="002B36" fontName="" fontStyle="0" fontSize="" />

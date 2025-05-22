@@ -301,6 +301,7 @@ private:
 
     ContextMenu _tabPopupMenu;
 	ContextMenu _tabPopupDropMenu;
+	ContextMenu _tabBarPopupMenu;
 	ContextMenu _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
@@ -662,4 +663,6 @@ private:
 	HMENU createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds);
 	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId);
 	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, const std::vector<int>& cmdIDs);
+
+	void dispTabBarPopupMenu(void);
 };

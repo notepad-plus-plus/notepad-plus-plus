@@ -679,6 +679,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			// MOUSEWHEEL:
 			// will scroll the tab bar area (similar to Firefox's tab scrolling),
 			// it only happens if not in multi-line mode and at least one tab is hidden
+			// and the "Toggle Multiple-line with Mouse Wheel" option is not enabled.
 			// ..............................................................................
 			// CTRL + MOUSEWHEEL:
 			// will do previous/next tab WITH scroll wrapping (endless loop)
@@ -701,6 +702,18 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			bool doDragNDrop = nppGUI._tabStatus & TAB_DRAGNDROP;
 			bool isMultiLine = nppGUI._tabStatus & TAB_MULTILINE;
 			bool isVertical = nppGUI._tabStatus & TAB_VERTICAL;
+
+			if (nppGUI._tabMouseWheelToggleMultiLine)
+			{
+				// Forward means "scroll down" and vice versa
+				if (isForward)
+					nppGUI._tabStatus |= TAB_MULTILINE;
+				else
+					nppGUI._tabStatus &= ~TAB_MULTILINE;
+
+				::SendMessage(_hParent, NPPM_INTERNAL_MULTILINETABBAR, 0, 0);
+				return TRUE;
+			}
 			
 			if ((wParam & MK_CONTROL) && (wParam & MK_SHIFT))
 			{

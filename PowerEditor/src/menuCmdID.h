@@ -318,8 +318,8 @@
     //#define    IDM_VIEW_REFRESHTABAR              (IDM_VIEW + 40)
     #define    IDM_VIEW_WRAP_SYMBOL               (IDM_VIEW + 41)
     #define    IDM_VIEW_HIDELINES                 (IDM_VIEW + 42)
-    //#define    IDM_VIEW_DRAWTABBAR_VERTICAL       (IDM_VIEW + 43)
-    //#define    IDM_VIEW_DRAWTABBAR_MULTILINE      (IDM_VIEW + 44)
+    #define    IDM_VIEW_DRAWTABBAR_VERTICAL       (IDM_VIEW + 43)
+    #define    IDM_VIEW_DRAWTABBAR_MULTILINE      (IDM_VIEW + 44)
     //#define    IDM_VIEW_DOCCHANGEMARGIN           (IDM_VIEW + 45)
     //#define    IDM_VIEW_LWDEF                     (IDM_VIEW + 46)
     //#define    IDM_VIEW_LWALIGN                   (IDM_VIEW + 47)
@@ -396,6 +396,8 @@
 
     #define    IDM_VIEW_NPC                       (IDM_VIEW + 130)
     #define    IDM_VIEW_NPC_CCUNIEOL              (IDM_VIEW + 131)
+
+    #define    IDM_MOUSEWHEEL_TABBAR_MULTILINE    (IDM_VIEW + 132)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002

@@ -4189,31 +4189,18 @@ void FindReplaceDlg::setStatusbarMessage(const wstring & msg, FindStatus status,
 
 	_statusbarTooltipMsg = tooltipMsg;
 
-	if (status == FSNotFound)
+	if (status == FSNotFound || status == FSTopReached || status == FSEndReached)
 	{
 		if (!NppParameters::getInstance().getNppGUI()._muteSounds)
 			::MessageBeep(0xFFFFFFFF);
 
 		FLASHWINFO flashInfo{};
 		flashInfo.cbSize = sizeof(FLASHWINFO);
-		flashInfo.hwnd = isVisible()?_hSelf:GetParent(_hSelf);
+		flashInfo.hwnd = isVisible() ? _hSelf : GetParent(_hSelf);
 		flashInfo.uCount = 3;
 		flashInfo.dwTimeout = 100;
 		flashInfo.dwFlags = FLASHW_ALL;
 		FlashWindowEx(&flashInfo);
-	}
-	else if (status == FSTopReached || status == FSEndReached)
-	{
-		if (!isVisible())
-		{
-			FLASHWINFO flashInfo{};
-			flashInfo.cbSize = sizeof(FLASHWINFO);
-			flashInfo.hwnd = GetParent(_hSelf);
-			flashInfo.uCount = 2;
-			flashInfo.dwTimeout = 100;
-			flashInfo.dwFlags = FLASHW_ALL;
-			FlashWindowEx(&flashInfo);
-		}
 	}
 
 	if (isVisible())

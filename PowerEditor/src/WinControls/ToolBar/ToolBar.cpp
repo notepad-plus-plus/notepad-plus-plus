@@ -509,6 +509,13 @@ void ToolBar::reset(bool create)
 	}
 }
 
+void ToolBar::setState(toolBarStatusType state)
+{
+	_state = state;
+	HWND hRoot = ::GetAncestor(_hSelf, GA_ROOTOWNER);
+	::SendMessage(hRoot, NPPM_INTERNAL_TOOLBARICONSCHANGED, 0, 0);
+}
+
 void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* iconHandles, HICON absentIco)
 {
 	// Note: Register of buttons only possible before init!

@@ -273,6 +273,8 @@ public:
 
 	void refreshDarkMode(bool resetStyle = false);
 
+	void refreshInternalPanelIcons();
+
 private:
 	Notepad_plus_Window* _pPublicInterface = nullptr;
     Window* _pMainWindow = nullptr;
@@ -662,4 +664,8 @@ private:
 	HMENU createMenuFromMenu(HMENU hSourceMenu, const std::vector<int>& commandIds);
 	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId);
 	BOOL notifyTBShowMenu(LPNMTOOLBARW lpnmtb, const char* menuPosId, const std::vector<int>& cmdIDs);
+
+	int getIcoID(DockingDlgInterface* panel);
+	void loadPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel, HICON* phIcon);
+	void refreshPanelIcon(HINSTANCE hInst, DockingDlgInterface* panel);
 };

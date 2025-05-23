@@ -609,6 +609,7 @@ struct NewDocDefaultSettings final
 	LangType _lang = L_TEXT;
 	int _codepage = -1; // -1 when not using
 	bool _addNewDocumentOnStartup = false;
+	bool _autoMakeTempName = false;
 };
 
 

@@ -2069,6 +2069,8 @@ bool Notepad_plus::fileRename(BufferID id)
 			success = MainFileManager.moveFile(bufferID, fn.c_str());
 			scnN.nmhdr.code = success ? NPPN_FILERENAMED : NPPN_FILERENAMECANCEL;
 			_pluginsManager.notify(&scnN);
+
+			buf->setRenamedStatus(true);
 		}
 	}
 	else
@@ -2118,6 +2120,7 @@ bool Notepad_plus::fileRename(BufferID id)
 				_pluginsManager.notify(&scnN);
 
 				success = true;
+				buf->setRenamedStatus(true);
 
 				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
@@ -2193,6 +2196,8 @@ bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNe
 
 	scnN.nmhdr.code = NPPN_FILERENAMED;
 	_pluginsManager.notify(&scnN);
+
+	buf->setRenamedStatus(true);
 
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 	if (isSnapshotMode)

@@ -59,6 +59,63 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				// for the backup system
 				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
+
+				// auto make temporary name for untitled documents
+				Buffer* buffer = notifyView->getCurrentBuffer();
+				const NewDocDefaultSettings& ndds = NppParameters::getInstance().getNppGUI().getNewDocDefaultSettings();
+				intptr_t curLineIndex = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
+				if (curLineIndex == 0 && ndds._autoMakeTempName && buffer->isUntitled() && !buffer->isRenamed())
+				{
+					// make a temporary file name from first line
+					wstring tempFileName = _pEditView->getLine(0);
+					buffer->normalizeFileName(tempFileName);
+					if (tempFileName.empty())
+						tempFileName = buffer->getOriginalFileName();
+
+					// check whether there is any buffer with the same name
+					// skip this check when restoring original file name
+					BufferID sameNamedBufferId = BUFFER_INVALID;
+					if (tempFileName != buffer->getOriginalFileName())
+					{
+						sameNamedBufferId = _pDocTab->findBufferByName(tempFileName.c_str());
+						if (sameNamedBufferId == BUFFER_INVALID)
+							sameNamedBufferId = _pNonDocTab->findBufferByName(tempFileName.c_str());
+					}
+
+					if (!tempFileName.empty() && tempFileName != buffer->getFileName() && sameNamedBufferId == BUFFER_INVALID)
+					{
+						// notify name changing
+						SCNotification scnNotif{};
+						scnNotif.nmhdr.code = NPPN_FILEBEFORERENAME;
+						scnNotif.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+						scnNotif.nmhdr.idFrom = (uptr_t)buffer->getID();
+
+						// backup old file path
+						wstring oldFileNamePath = buffer->getFullPathName();
+
+						// set temporary name
+						_pluginsManager.notify(&scnNotif);
+						buffer->setFileName(tempFileName.c_str());
+						scnNotif.nmhdr.code = NPPN_FILERENAMED;
+						_pluginsManager.notify(&scnNotif);
+
+						// for the backup system
+						wstring oldBackUpFileName = buffer->getBackupFileName();
+						bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
+						if (isSnapshotMode && !oldBackUpFileName.empty())
+						{
+							wstring newBackUpFileName = oldBackUpFileName;
+							newBackUpFileName.replace(newBackUpFileName.rfind(oldFileNamePath), oldFileNamePath.length(), tempFileName);
+
+							if (doesFileExist(newBackUpFileName.c_str()))
+								::ReplaceFile(newBackUpFileName.c_str(), oldBackUpFileName.c_str(), nullptr, REPLACEFILE_IGNORE_MERGE_ERRORS | REPLACEFILE_IGNORE_ACL_ERRORS, 0, 0);
+							else
+								::MoveFileEx(oldBackUpFileName.c_str(), newBackUpFileName.c_str(), MOVEFILE_REPLACE_EXISTING);
+
+							buffer->setBackupFileName(newBackUpFileName);
+						}
+					}
+				}
 			}
 
 			if (notification->modificationType & SC_MOD_CHANGEINDICATOR)

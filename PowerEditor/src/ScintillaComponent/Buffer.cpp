@@ -37,6 +37,10 @@ static const int LF = 0x0A;
 
 long Buffer::_recentTagCtr = 0;
 
+// Invalid characters for a file name
+// Refer: https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
+// Including 'tab' and 'return/new line' characters
+const wchar_t* fileNameInvalidChars = L"\\/:*?\"<>|\t\r\n";
 
 namespace // anonymous
 {
@@ -89,6 +93,9 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 
 	if (nppParamInst.getNativeLangSpeaker()->isRTL() && nppParamInst.getNativeLangSpeaker()->isEditZoneRTL())
 		_isRTL = true;
+
+	// backup original file name
+	_orgFileName = fileName;
 }
 
 
@@ -302,6 +309,39 @@ void Buffer::setFileName(const wchar_t *fn)
 	}
 
 	doNotify(BufferChangeFilename | BufferChangeTimestamp | lang2Change);
+}
+
+void Buffer::normalizeFileName(wstring& fileName)
+{
+	if (!fileName.empty())
+	{
+		// remove leading/trailing spaces
+		trim(fileName);
+
+		// remove invalid characters
+		wstring tempStr;
+		for (wchar_t ch : fileName)
+		{
+			bool isInvalid = false;
+			for (const wchar_t* p = fileNameInvalidChars; *p != L'\0'; ++p)
+				if (ch == *p) 
+				{
+					isInvalid = true;
+					break;
+				}
+
+			if (!isInvalid)
+				tempStr += ch;
+		}
+		fileName = tempStr;
+
+		// restrict length
+		if (fileName.length() >= langNameLenMax - 1)
+		{
+			tempStr = fileName.substr(0, langNameLenMax - 1);
+			fileName = tempStr;
+		}
+	}
 }
 
 

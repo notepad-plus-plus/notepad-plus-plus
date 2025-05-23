@@ -5547,6 +5547,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(L"addNewDocumentOnStartup");
 			if (val)
 				_nppGUI._newDocDefaultSettings._addNewDocumentOnStartup = (lstrcmp(val, L"yes") == 0);
+
+			val = element->Attribute(L"autoMakeTempName");
+			if (val)
+				_nppGUI._newDocDefaultSettings._autoMakeTempName = (lstrcmp(val, L"yes") == 0);
 		}
 
 		else if (!lstrcmp(nm, L"langsExcluded"))
@@ -7517,7 +7521,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		insertGUIConfigBoolNode(newGUIRoot, L"SaveAllConfirm", _nppGUI._saveAllConfirm);
 	}
 
-	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" / >
+	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" autoMakeTempName = "no" / >
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"NewDocDefaultSettings");
@@ -7527,6 +7531,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"codepage", _nppGUI._newDocDefaultSettings._codepage);
 		GUIConfigElement->SetAttribute(L"openAnsiAsUTF8", _nppGUI._newDocDefaultSettings._openAnsiAsUtf8 ? L"yes" : L"no");
 		GUIConfigElement->SetAttribute(L"addNewDocumentOnStartup", _nppGUI._newDocDefaultSettings._addNewDocumentOnStartup ? L"yes" : L"no");
+		GUIConfigElement->SetAttribute(L"autoMakeTempName", _nppGUI._newDocDefaultSettings._autoMakeTempName ? L"yes" : L"no");
 	}
 
 	// <GUIConfig name = "langsExcluded" gr0 = "0" gr1 = "0" gr2 = "0" gr3 = "0" gr4 = "0" gr5 = "0" gr6 = "0" gr7 = "0" langMenuCompact = "yes" / >

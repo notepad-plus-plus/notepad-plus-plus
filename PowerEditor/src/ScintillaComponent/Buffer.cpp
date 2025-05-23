@@ -37,6 +37,10 @@ static const int LF = 0x0A;
 
 long Buffer::_recentTagCtr = 0;
 
+// Invalid characters for a file name
+// Refer: https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file
+// Including 'tab' and 'return/new line' characters
+const wchar_t* fileNameInvalidChars = L"\\/:*?\"<>|\t\r\n";
 
 namespace // anonymous
 {
@@ -302,6 +306,44 @@ void Buffer::setFileName(const wchar_t *fn)
 	}
 
 	doNotify(BufferChangeFilename | BufferChangeTimestamp | lang2Change);
+}
+
+void Buffer::normalizeTabName(wstring& tabName)
+{
+	if (!tabName.empty())
+	{
+		// remove leading/trailing spaces
+		trim(tabName);
+
+		// remove invalid characters
+		wstring tempStr;
+		for (wchar_t ch : tabName)
+		{
+			bool isInvalid = false;
+			for (const wchar_t* p = fileNameInvalidChars; *p != L'\0'; ++p)
+			{
+				if (ch == *p)
+				{
+					isInvalid = true;
+					break;
+				}
+			}
+
+			if (!isInvalid)
+				tempStr += ch;
+		}
+		tabName = tempStr;
+
+		// restrict length
+		if (tabName.length() >= langNameLenMax - 1)
+		{
+			tempStr = tabName.substr(0, langNameLenMax - 1);
+			tabName = tempStr;
+		}
+
+		// remove leading/trailing spaces again
+		trim(tabName);
+	}
 }
 
 

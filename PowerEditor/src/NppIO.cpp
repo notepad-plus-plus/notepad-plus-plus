@@ -2118,6 +2118,7 @@ bool Notepad_plus::fileRename(BufferID id)
 				_pluginsManager.notify(&scnN);
 
 				success = true;
+				buf->setUntitledTabRenamedStatus(true);
 
 				bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
@@ -2193,6 +2194,8 @@ bool Notepad_plus::fileRenameUntitledPluginAPI(BufferID id, const wchar_t* tabNe
 
 	scnN.nmhdr.code = NPPN_FILERENAMED;
 	_pluginsManager.notify(&scnN);
+
+	buf->setUntitledTabRenamedStatus(true);
 
 	bool isSnapshotMode = NppParameters::getInstance().getNppGUI().isSnapshotMode();
 	if (isSnapshotMode)
@@ -2489,6 +2492,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			buf->setUserReadOnly(session._mainViewFiles[i]._isUserReadOnly);
 			buf->setPinned(session._mainViewFiles[i]._isPinned);
 
+			buf->setUntitledTabRenamedStatus(session._mainViewFiles[i]._isUntitledTabRenamed);
+
 			if (isSnapshotMode && !session._mainViewFiles[i]._backupFilePath.empty() && doesFileExist(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
@@ -2623,6 +2628,8 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 			buf->setUserReadOnly(session._subViewFiles[k]._isUserReadOnly);
 			buf->setPinned(session._subViewFiles[k]._isPinned);
+
+			buf->setUntitledTabRenamedStatus(session._subViewFiles[k]._isUntitledTabRenamed);
 
 			if (isSnapshotMode && !session._subViewFiles[k]._backupFilePath.empty() && doesFileExist(session._subViewFiles[k]._backupFilePath.c_str()))
 				buf->setDirty(true);

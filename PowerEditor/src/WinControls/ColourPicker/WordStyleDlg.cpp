@@ -1068,6 +1068,8 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 
 	enum preferencesSectionPage {
 		general = 0,
+		toolbar,
+		tabbar,
 		edit1,
 		edit2,
 		darkMode,
@@ -1164,7 +1166,7 @@ std::pair<intptr_t, intptr_t> WordStyleDlg::goToPreferencesSettings()
 	}
 	else if (style._styleDesc == L"Inactive tabs")
 	{
-		result.first = general;
+		result.first = tabbar;
 		result.second = IDC_CHECK_DRAWINACTIVE;
 	}
 	else if (style._styleDesc == g_npcStyleName)

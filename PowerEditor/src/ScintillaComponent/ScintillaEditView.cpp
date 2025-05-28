@@ -2592,6 +2592,27 @@ bool ScintillaEditView::isCurrentLineFolded() const
 
 void ScintillaEditView::fold(size_t line, bool mode, bool shouldBeNotified/* = true*/)
 {
+	auto endStyled = execute(SCI_GETENDSTYLED);
+	auto len = execute(SCI_GETTEXTLENGTH);
+
+	if (endStyled < len)
+		execute(SCI_COLOURISE, 0, -1);
+/*
+The method ScintillaEditView::fold() is called not only on manual folding by the users, but also on:
+
+1. startup's loading session to restore the folding state programmatically.
+2. after startup, switching among the documents to restore the folding state programmatically.
+
+The above lines are important for the case 1.
+
+However, these lines are necessary only on the first load of each file after the startup of Notepad++.
+"execute(SCI_COLOURISE, 0, -1);" needs to be run for once (the case 1), not twice or more (the case 2).
+
+So if there's a way to detect if a document has been run "execute(SCI_COLOURISE, 0, -1);" once (in the case 1),
+and don't run it again (the case 2), it will save the time to switch among the document.
+*/
+
+
 	intptr_t headerLine;
 	auto level = execute(SCI_GETFOLDLEVEL, line);
 

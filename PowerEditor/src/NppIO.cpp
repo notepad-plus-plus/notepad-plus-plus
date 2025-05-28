@@ -2521,6 +2521,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode, const wch
 			allSessionFilesLoaded = false;
 		}
 	}
+
 	if (mainIndex2Update != -1)
 	{
 		_isFolding = true;

@@ -1036,7 +1036,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, L"Reload"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, L"Print"));
 					itemUnitArray.push_back(MenuItemUnit(0, NULL));
-					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, L"Read-Only"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, L"Read-Only (Editor)"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY_SYS, L"Read-Only (System)"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, L"Clear Read-Only Flag"));
 					itemUnitArray.push_back(MenuItemUnit(0, NULL));
 					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP, L"Copy Full File Path", L"Copy to Clipboard"));
@@ -1076,13 +1077,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			Buffer* buf = _pEditView->getCurrentBuffer();
 			bool isUserReadOnly = buf->getUserReadOnly();
 			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
+			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY_SYS, isUserReadOnly);
 
 			bool isSysReadOnly = buf->getFileReadOnly();
 			bool isInaccessible = buf->isInaccessible();
 			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly && !buf->isMonitoringOn());
-			_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
-			if (isInaccessible)
-				_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, false);
+			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY_SYS, !isSysReadOnly && !buf->isMonitoringOn());
+
+			_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, !isInaccessible && isSysReadOnly);
 
 			bool isFileExisting = doesFileExist(buf->getFullPathName());
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);

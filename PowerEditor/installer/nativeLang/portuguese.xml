@@ -5,7 +5,7 @@ Translation note:
 2. All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.7.9">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="8.8.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -133,16 +133,18 @@ Translation note:
 					<Item id="42013" name="Unir linhas"/>
 					<Item id="42014" name="Mover a linha atual para cima"/>
 					<Item id="42015" name="Mover a linha atual para baixo"/>
-					<Item id="42059" name="Ordenar linhas pela ordem ascendente"/>
-					<Item id="42060" name="Ordenar linhas pela ordem descendente"/>
-					<Item id="42080" name="Ordenar linhas pela ordem asc. ignorando M/m"/>
-					<Item id="42081" name="Ordenar linhas pela ordem des. ignorando M/m"/>
-					<Item id="42061" name="Ordenar linhas como inteiras ascendente"/>
-					<Item id="42062" name="Ordenar linhas como inteiras descendente"/>
-					<Item id="42063" name="Ordenar linhas como decimais (vírgula) ascendente"/>
-					<Item id="42064" name="Ordenar linhas como decimais (vírgula) descendente"/>
-					<Item id="42065" name="Ordenar linhas como decimais (ponto) ascendente"/>
-					<Item id="42066" name="Ordenar linhas como decimais (ponto) descendente"/>
+					<Item id="42059" name="Ordenar linhas por ordem lexicográfica ascendente"/>
+					<Item id="42060" name="Ordenar linhas por ordem lexicográfica descendente"/>
+					<Item id="42080" name="Ordenar linhas por ordem lexicográfica ascendente (ignorar maiúsculas/minúsculas)"/>
+					<Item id="42081" name="Ordenar linhas por ordem lexicográfica descendente (ignorar maiúsculas/minúsculas)"/>
+					<Item id="42100" name="Ordenar linhas por ordem local ascendente"/>
+					<Item id="42101" name="Ordenar linhas por ordem local descendente"/>
+					<Item id="42061" name="Ordenar linhas por ordem numérica inteira ascendente"/>
+					<Item id="42062" name="Ordenar linhas por ordem numérica inteira descendente"/>
+					<Item id="42063" name="Ordenar linhas por ordem decimal (vírgula) ascendente"/>
+					<Item id="42064" name="Ordenar linhas por ordem decimal (vírgula) descendente"/>
+					<Item id="42065" name="Ordenar linhas por ordem decimal (ponto) ascendente"/>
+					<Item id="42066" name="Ordenar linhas por ordem decimal (ponto) descendente"/>
 					<Item id="42083" name="Reverter ordem das linhas"/>
 					<Item id="42078" name="Aleatorizar ordem das linhas"/>
 					<Item id="42016" name="MAIÚSCULA"/>
@@ -822,7 +824,7 @@ Translation note:
 				<Folder title="Pasta &amp;predefinida">
 					<Item id="21101" name="Estilo predefinido"/>
 					<Item id="21102" name="Estilizar"/>
-					<Item id="21103" name="Ajuda online para Linguagens definidas pelo utilizador"/>
+					<Item id="21103" name="Ajuda online para linguagens definidas pelo utilizador"/>
 					<Item id="21105" name="Documentação:"/>
 					<Item id="21106" name="Dobrar compacto (também dobrar linhas sem dados)"/>
 					<Item id="21220" name="Dobrar no código estilo 1:"/>
@@ -896,7 +898,7 @@ Translation note:
 					<Item id="23246" name="Vírgula"/>
 					<Item id="23247" name="Ambos"/>
 				</Comment>
-				<Operator title="Operadores">
+				<Operator title="Operadores e delimitadores">
 					<Item id="24101" name="Operadores ativados:"/>
 					<Item id="24113" name="Estilizar"/>
 					<Item id="24116" name="Operadores 1"/>
@@ -946,37 +948,54 @@ Translation note:
 			<Preference title="Preferências">
 				<Item id="6001" name="Fechar"/>
 				<Global title="Geral">
+				    <Item id="6123" name="Idioma"/>
+				    <Item id="6131" name="Menu"/>
+				    <Item id="6122" name="Ocultar menu (Alt ou F10 para alternar)"/>
+				    <Item id="6132" name="Ocultar atalhos ＋ ▼ ✕ (necessário reiniciar)"/>
+				    <Item id="6133" name="Barra de estado"/>
+				    <Item id="6134" name="Ocultar"/>
+				</Global>
+				
+				<Toolbar title="Barra de ferramentas">	
 					<Item id="6102" name="Ocultar"/>
 					<Item id="6103" name="Ícones sem preenchimento: pequenos"/>
 					<Item id="6104" name="Ícones sem preenchimento: grandes"/>
 					<Item id="6129" name="Ícones com preenchimento: pequenos"/>
 					<Item id="6130" name="Ícones com preenchimento: grandes"/>
 					<Item id="6105" name="Ícones predefinidos: pequenos"/>
-
+					<Item id="6011" name="Coloração"/>
+					<Item id="6012" name="Completa"/>
+					<Item id="6013" name="Parcial"/>
+					<Item id="6014" name="Escolha de cor"/>
+					<Item id="6015" name="Predefinida"/>
+					<Item id="6016" name="Vermelho"/>
+					<Item id="6017" name="Verde"/>
+					<Item id="6018" name="Azul"/>
+					<Item id="6019" name="Roxo"/>
+					<Item id="6020" name="Ciano"/>
+					<Item id="6021" name="Azeitona"/>
+					<Item id="6022" name="Amarelo"/>
+					<Item id="6023" name="Realce do sistema"/>
+					<Item id="6024" name="Personalizada"/>
+				</Toolbar>
+					
+				<Tabbar title="Barra de separadores">
 					<Item id="6107" name="Reduzir"/>
 					<Item id="6108" name="Bloquear (sem arrastar e largar)"/>
 					<Item id="6109" name="Escurecer separadores inativos"/>
 					<Item id="6110" name="Barra colorida no separador ativo"/>
-					<Item id="6111" name="Mostrar botões nos separadores inactivos"/>
+					<Item id="6111" name="Mostrar botões nos separadores inativos"/>
 					<Item id="6112" name="Mostrar o botão de fechar"/>
 					<Item id="6113" name="Clique duplo para fechar documento"/>
 					<Item id="6115" name="Ativar a funcionalidade de fixar separador"/>
+					<Item id="6135" name="Mostrar apenas o botão afixado"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Múltiplas linhas"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6121" name="Sair ao fechar o último separador"/>
 					<Item id="6128" name="Ícones alternativos"/>
-
-					<Item id="6133" name="Barra de estado"/>
-					<Item id="6134" name="Ocultar"/>
-
-					<Item id="6131" name="Menu"/>
-					<Item id="6122" name="Ocultar barra de menu (utilizar Alt ou F10 para alternar)"/>
-					<Item id="6132" name="Ocultar atalhos ＋ ▼ ✕ da barra de menu (é necessário reiniciar)"/>
-
-					<Item id="6123" name="Idioma"/>
-				</Global>
-
+				</Tabbar>
+					
 				<Scintillas title="Edição 1">
 					<Item id="6216" name="Definições do cursor"/>
 					<Item id="6217" name="Largura:"/>
@@ -994,6 +1013,7 @@ Translation note:
 					<Item id="6239" name="Manter seleção quando clicar com o botão direito do rato fora da seleção"/>
 					<Item id="6245" name="Ativar o espaço virtual"/>
 					<Item id="6214" name="Ativar Copiar/Cortar linha sem seleção"/>
+					<Item id="6225" name="Aplicar cor personalizada ao primeiro plano do texto selecionado"/>
 					<Item id="6651" name="Indicador da linha atual"/>
 					<Item id="6652" name="Nenhum"/>
 					<Item id="6653" name="Realçar fundo"/>
@@ -1015,10 +1035,10 @@ Translation note:
 					<Item id="6255" name="Ponto de código"/>
 					<Item id="6256" name="Cor personalizada"/>
 					<Item id="6258" name="Aplicar definições de Aspeto a carateres C0, C1 &amp;e Fim de linha do Unicode"/>
-					<Item id="6259" name="Impedir a introdução de caracteres de controlo (código C0) no documento"/>
+					<Item id="6259" name="Impedir a introdução de carateres de controlo (código C0) no documento"/>
 				</Scintillas2>
 
-				<DarkMode title="Modo Escuro">
+				<DarkMode title="Modo escuro">
 					<Item id="7131" name="Modo claro"/>
 					<Item id="7132" name="Modo escuro"/>
 					<Item id="7133" name="Igual ao Windows"/>
@@ -1088,7 +1108,7 @@ Translation note:
 					<Item id="6432" name="Abrir sempre um novo documento adicionalmente ao arranque"/>
 				</NewDoc>
 
-				<DefaultDir title="Pasta Predefinida">
+				<DefaultDir title="Pasta predefinida">
 					<Item id="6413" name="Pasta Predefinida (Abrir/Guardar)"/>
 					<Item id="6414" name="Acompanhar o documento atual"/>
 					<Item id="6415" name="Lembrar a última pasta utilizada"/>
@@ -1100,7 +1120,7 @@ Translation note:
 					<Item id="4009" name="Extensões suportadas:"/>
 					<Item id="4010" name="Extensões registadas:"/>
 				</FileAssoc>
-
+				
 
 				<Language title="Linguagem">
 					<Item id="6505" name="Itens disponíveis"/>
@@ -1110,8 +1130,8 @@ Translation note:
 					<Item id="6335" name="Tratar a barra invertida como caráter escape para SQL"/>
 				</Language>
 
-				<Indentation title="Indentation">
-					<Item id="7161" name="Autoindentar"/>
+				<Indentation title="Identação">
+					<Item id="7161" name="Identação automática"/>
 					<Item id="7162" name="Nenhuma"/>
 					<Item id="7163" name="Básica"/>
 					<Item id="7164" name="Avançada"/>
@@ -1119,8 +1139,8 @@ Translation note:
 					<Item id="6302" name="Caráter(es) de espaço"/>
 					<Item id="6303" name="Tamanho de indentação:"/>
 					<Item id="6310" name="Indentar utilizando:"/>
-					<Item id="6311" name="Caráter de TAB"/>
-					<Item id="6510" name="Usar valor predefinido"/>
+					<Item id="6311" name="Caráter de tabulação"/>
+					<Item id="6510" name="Utilizar valor predefinido"/>
 					<Item id="6512" name="A tecla Backspace remove a identação em vez do espaço"/>
 				</Indentation>
 
@@ -1133,7 +1153,7 @@ Translation note:
 					<Item id="6354" name="Correspondente"/>
 					<Item id="6332" name="Corresponder a maiúsculas/minúsculas"/>
 					<Item id="6338" name="Corresponder apenas a palavra inteira"/>
-					<Item id="6339" name="Usar as definições da janela Localizar"/>
+					<Item id="6339" name="Utilizar as definições da janela Localizar"/>
 					<Item id="6340" name="Destacar outra vista"/>
 					<Item id="6329" name="Etiquetas de correspondência em destaque"/>
 					<Item id="6327" name="Ativar"/>
@@ -1243,17 +1263,17 @@ Translation note:
 					<Item id="6866" name="Par correspondente 3:"/>
 				</AutoCompletion>
 
-				<MultiInstance title="Multi-instância e Data">
-					<Item id="6151" name="Definições de multi-instância *"/>
+				<MultiInstance title="Múltiplas instâncias e data">
+					<Item id="6151" name="Definições de múltiplas instâncias *"/>
 					<Item id="6152" name="Abrir sessão numa nova instância (e guardar sessão automaticamente ao sair)"/>
-					<Item id="6153" name="Sempre no modo de multi-instância"/>
+					<Item id="6153" name="Sempre no modo de múltiplas instâncias"/>
 					<Item id="6154" name="Predefinição (instância única) ()"/>
 					<Item id="6155" name="* Deve reiniciar o Notepad++ depois de modificar estas definições"/>
 					<Item id="6171" name="Personalizar inserção de Data e Hora"/>
 					<Item id="6175" name="Inverter ordem predefinida de data e hora (formatos curto e longo)"/>
 					<Item id="6172" name="Formato personalizado:"/>
 					<Item id="6181" name="Estado do painel e [-nosession] *"/>
-					<Item id="6182" name="Lembrar o estado do painel (o painel está aberto) noutras instâncias (modo multi-instância) ou quando se usa o parâmetro de linha de comandos [-nosession]"/>
+					<Item id="6182" name="Lembrar o estado do painel (o painel está aberto) noutras instâncias (modo múltiplas instâncias) ou quando se usa o parâmetro de linha de comandos [-nosession]"/>
 					<Item id="6183" name="Histórico de área de transferência"/>
 					<Item id="6184" name="Lista de documentos"/>
 					<Item id="6185" name="Painel de carateres"/>
@@ -1270,7 +1290,7 @@ Translation note:
 					<Item id="6255" name="Fechar"/>
 					<Item id="6256" name="Permitir em várias linhas"/>
 					<Item id="6161" name="Lista de carateres de palavras"/>
-					<Item id="6162" name="Usar a lista de carateres de palavra predefinida como está"/>
+					<Item id="6162" name="Utilizar a lista de carateres de palavra predefinida como está"/>
 					<Item id="6163" name="Adicione o seu caráter como parte da palavra
 (não o escolha a menos que saiba o que está a fazer)"/>
 				</Delimiter>
@@ -1288,7 +1308,7 @@ Translation note:
 					<Item id="7152" name="Suprimir o aviso ao abrir ficheiros com mais de 2GB"/>
 				</Performance>
 
-				<Cloud title="Nuvem e Ligação">
+				<Cloud title="Nuvem e ligação">
 					<Item id="6262" name="Definições na nuvem"/>
 					<Item id="6263" name="Sem nuvem"/>
 					<Item id="6267" name="Selecione a localização da sua pasta na nuvem:"/>
@@ -1324,9 +1344,9 @@ Translation note:
 					</ComboBox>
 					<ComboBox id="6362">
 						<Element name="GDI (mais compatível)"/>
-						<Element name="DirectWrite (padrão)"/>
-						<Element name="DirectWrite (mantém estrutura)"/>
-						<Element name="DirectWrite (estender a GDI DC)"/>
+						<Element name="DirectWrite (predefinição)"/>
+						<Element name="DirectWrite (manter frames)"/>
+						<Element name="DirectWrite (desenhar para DC GDI)"/>
 						<Element name="DirectWrite (DirectX 11)"/>
 					</ComboBox>
 					<Item id="6308" name="área de notificação"/>
@@ -1450,6 +1470,9 @@ As suas definições na nuvem serão canceladas. Por favor, reponha um valor coe
 			<DroppingFolderAsProjectModeWarning title="Ação inválida" message="Só pode largar ficheiros ou pastas, mas não ambos, porque está a largar a pasta como Modo projeto.
 Tem de ativar a opção &quot;Abrir todos os ficheiros da pasta em vez de abrir a Pasta como área de trabalho ao largar a pasta&quot; na secção &quot;Pasta predefinida&quot; da caixa de diálogo de Preferências para que esta operação funcione."/>
 			<SortingError title="Erro de Ordenação" message="Incapaz de efectuar a triagem numérica devido à linha $INT_REPLACE$."/><!-- HowToReproduce: this message prevents from system failure. It's hard to reproduce. -->
+			<SortLocaleMultiple title="Ordenação não realizada" message="A ordenação de seleções múltiplas não é suportada."/><!-- HowToReproduce: Make a multiple selection and choose Edit | Line Operations | Sort Lines In Locale Order. -->
+			<SortLocaleUnknown title="Falha na ordenação" message="Não é possível determinar a razão pela qual a ordenação falhou."/><!-- HowToReproduce: This condition is theoretical; it is unknown what could cause it. -->
+			<SortLocaleExcept title="Falha na ordenação" message="$STR_REPLACE$"/><!-- HowToReproduce: Open a large file, e.g. 500MB / 90k lines, in 32-bit Notepad++ and choose Edit | Line Operations | Sort Lines In Locale Order. -->
 			<ColumnModeTip title="Dica de Modo Coluna" message="
 Existem 3 maneiras de mudar para o modo de selecção de coluna:
 
@@ -1481,7 +1504,7 @@ Este ficheiro foi modificado por outro programa.
 Deseja recarregá-lo e perder as alterações feitas no Notepad++?"/>
 			<PrehistoricSystemDetected title="Sistema pré-histórico detetado" message="Parece que ainda se utiliza um sistema pré-histórico. Esta recurso funciona apenas num sistema moderno, desculpe."/><!-- HowToReproduce: Launch "Document Map" under Windows XP. -->
 			<XpUpdaterProblem title="Atualizador do Notepad++" message="O atualizador do Notepad++ não é compatível com XP devido à segurança obsoleta no XP.
-Deseja ir à página Notepad++ para descarregar a versão mais recente?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
+Deseja ir à página Notepad++ para transferir a versão mais recente?"/><!-- HowToReproduce: Run menu "? -> Update Notepad++" under Windows XP. -->
 			<GUpProxyConfNeedAdminMode title="Definições Proxy" message="iniciar novamente o notepad++ no modo Admin para configurar o proxy."/>
 			<DocTooDirtyToMonitor title="Problema de monitorização" message="O documento está corrompido. Guarde a modificação antes de a monitorizar."/>
 			<DocNoExistToMonitor title="Problema de monitorização" message="O ficheiro deve existir para ser monitorizado."/>
@@ -1520,6 +1543,11 @@ Deseja continuar?"/>
 			<UDLNewNameError title="Erro UDL" message="Este nome é usado por outra linguagem,
 por favor dê outra."/>
 			<UDLRemoveCurrentLang title="Remover a linguagem atual" message="Tem a certeza?"/>
+			<UDL_importSuccessful title="Linguagem definida pelo utilizador" message="Importação concluída com sucesso."/>
+			<UDL_importFails title="Linguagem definida pelo utilizador" message="Falha na importação."/>
+			<UDL_saveBeforeImport title="Linguagem definida pelo utilizador" message="Antes de exportar, guarde a definição de linguagem clicando no botão &quot;Guardar como...&quot;."/>
+			<UDL_exportSuccessful title="Linguagem definida pelo utilizador" message="Exportação concluída com sucesso."/>
+			<UDL_exportFails title="Linguagem definida pelo utilizador" message="Falha na exportação."/>
 			<SCMapperDoDeleteOrNot title="Tem a certeza?" message="Tem a certeza que deseja eliminar este atalho?"/>
 			<FindCharRangeValueError title="Problema de valor" message="Deve introduzir entre 0 e 255."/><!-- HowToReproduce: Search menu, then Find characters in range, select Custom range, enter 999 in either edit box, press Find. -->
 			<OpenInAdminMode title="Ocorreu um erro ao guardar" message="O ficheiro não pode ser guardado e pode estar protegido.
@@ -1836,9 +1864,22 @@ Clique no botão &quot;?&quot; à direita para abrir o site com o Manual do Util
 C, C++, Java, C#, Objective-C, PHP, JavaScript, JSP, CSS, Perl, Rust, PowerShell e JSON.
 
 Se selecionar o modo avançado mas não editar ficheiros nas linguagens acima mencionadas, a indentação manter-se-á no modo básico."/>
+			
 			<!-- Don't translate "&quot;Global override&quot; and &quot;Default Style&quot; -->
 			<global-override-tip value="Ativar o &quot;Global override&quot; aqui irá substituir esse parâmetro em todos os estilos de linguagem. O que provavelmente pretende é usar as definições de &quot;Default Style&quot; em vez disso"/>
 			<scintillaRenderingTechnology-tip value="Pode melhorar a renderização de carateres especiais ou resolver alguns problemas gráficos, reinicie o Notepad++ para aplicar as alterações."/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'length' & 'lines' are much longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-length-lines value="comprimento: $STR_REPLACE1$    linhas: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Ln' & 'Col' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Ln-Col value="Linha: $STR_REPLACE1$    Coluna: $STR_REPLACE2$"/>
+
+			<!-- Due to the limited space on the status bar, if the translations for 'Pos' & 'Sel' are longer than the English words, please leave them in English instead of translating them. -->
+			<statusbar-Pos value="Posição: "/>
+			<statusbar-Sel value="Sel: "/>
+			<statusbar-Sel-number value="Sel"/>
+			<toolbar-accent-tip value="Esta opção faz com que os ícones da barra de ferramentas sigam a cor de realce do sistema do Windows. A cor de realce é a cor utilizada para destacar os botões, bordas e os blocos do menu Iniciar no Windows. Para alterá-la, aceda a Definições &gt; Personalização &gt; Cores e selecione a cor de realce desejada."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>
@@ -1862,14 +1903,14 @@ João Pereira <joaopereira@openmailbox.org>
 29/07/2015
 
 Hugo Carvalho <hugokarvalho@hotmail.com>
-07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
+07/04/2021 (version 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8)
 
 Filipe Mota <blackspirits@gmail.com>
-27/03/2023 (version 8.5.1, 8.6.3, 8.7)
+27/03/2023 (version 8.5.1, 8.6.3, 8.7, 8.8)
 
-Last modified: 24 March 2025 by Hugo Carvalho
+Last modified: 10 May 2025 by Hugo Carvalho and Filipe Mota (BlackSpirits)
 
 TRADUÇÃO DE ACORDO COM O NOVO ACORDO ORTOGRÁFICO
-POR FAVOR, NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN
-SE PRETENDE TRADUZIR ESTE FICHEIRO, PRIMEIRO ENTRE EM CONTACTO COM O ÚLTIMO TRADUTOR VIA E-MAIL
+POR FAVOR, NÃO ALTERE A ORDEM, POIS ISSO TORNA MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN
+SE TIVER A INTENÇÃO DE TRADUZIR ESTE FICHEIRO, PRIMEIRO ENTRE EM CONTACTO COM O ÚLTIMO TRADUTOR VIA E-MAIL
 -->

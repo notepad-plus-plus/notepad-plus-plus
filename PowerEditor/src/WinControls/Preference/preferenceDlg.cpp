@@ -3419,7 +3419,7 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ADDNEWDOCONSTARTUP, BM_SETCHECK, ndds._addNewDocumentOnStartup, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOMAKETEMPNAME, BM_SETCHECK, ndds._autoMakeTempName, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_USECONTENTASTABNAME, BM_SETCHECK, ndds._useContentAsTabName, 0);
 
 			return TRUE;
 		}
@@ -3518,9 +3518,9 @@ intptr_t CALLBACK NewDocumentSubDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					return TRUE;
 				}
 
-				case IDC_CHECK_AUTOMAKETEMPNAME:
+				case IDC_CHECK_USECONTENTASTABNAME:
 				{
-					ndds._autoMakeTempName = isCheckedOrNot(IDC_CHECK_AUTOMAKETEMPNAME);
+					ndds._useContentAsTabName = isCheckedOrNot(IDC_CHECK_USECONTENTASTABNAME);
 					return TRUE;
 				}
 

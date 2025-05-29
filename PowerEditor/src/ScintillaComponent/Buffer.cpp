@@ -94,8 +94,8 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	if (nppParamInst.getNativeLangSpeaker()->isRTL() && nppParamInst.getNativeLangSpeaker()->isEditZoneRTL())
 		_isRTL = true;
 
-	// backup original file name
-	_orgFileName = fileName;
+	// backup original tab name
+	_originalTabName = fileName;
 }
 
 
@@ -311,36 +311,41 @@ void Buffer::setFileName(const wchar_t *fn)
 	doNotify(BufferChangeFilename | BufferChangeTimestamp | lang2Change);
 }
 
-void Buffer::normalizeFileName(wstring& fileName)
+void Buffer::normalizeTabName(wstring& tabName)
 {
-	if (!fileName.empty())
+	if (!tabName.empty())
 	{
 		// remove leading/trailing spaces
-		trim(fileName);
+		trim(tabName);
 
 		// remove invalid characters
 		wstring tempStr;
-		for (wchar_t ch : fileName)
+		for (wchar_t ch : tabName)
 		{
 			bool isInvalid = false;
 			for (const wchar_t* p = fileNameInvalidChars; *p != L'\0'; ++p)
-				if (ch == *p) 
+			{
+				if (ch == *p)
 				{
 					isInvalid = true;
 					break;
 				}
+			}
 
 			if (!isInvalid)
 				tempStr += ch;
 		}
-		fileName = tempStr;
+		tabName = tempStr;
 
 		// restrict length
-		if (fileName.length() >= langNameLenMax - 1)
+		if (tabName.length() >= langNameLenMax - 1)
 		{
-			tempStr = fileName.substr(0, langNameLenMax - 1);
-			fileName = tempStr;
+			tempStr = tabName.substr(0, langNameLenMax - 1);
+			tabName = tempStr;
 		}
+
+		// remove leading/trailing spaces again
+		trim(tabName);
 	}
 }
 

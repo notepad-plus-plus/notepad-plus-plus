@@ -2593,9 +2593,8 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_EDIT_SETREADONLY, doEnable, MENU);
 	enableCommand(IDM_EDIT_SETREADONLY_SYS, doEnable, MENU);
 
-	bool isUserReadOnly = curBuf->getUserReadOnly();
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY_SYS, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (curBuf->getUserReadOnly() ? MF_CHECKED : MF_UNCHECKED));
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY_SYS, MF_BYCOMMAND | (isSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);

@@ -629,7 +629,7 @@ BEGIN
         MENUITEM "Clipboard &History",       IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
         MENUITEM "&Set Read-Only (Editor)",  IDM_EDIT_SETREADONLY
-        MENUITEM "S&et Read-Only (System)",  IDM_EDIT_SETREADONLY_SYS
+        MENUITEM "Set Read&-Only (System)",  IDM_EDIT_SETREADONLY_SYS
         MENUITEM "Clear Read-Only Flag",     IDM_EDIT_CLEARREADONLY
     END
 

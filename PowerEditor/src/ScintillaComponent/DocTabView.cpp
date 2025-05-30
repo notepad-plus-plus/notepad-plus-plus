@@ -23,9 +23,9 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-int docTabIconIDs[] = { IDI_SAVED_ICON,  IDI_UNSAVED_ICON,  IDI_READONLY_ICON,  IDI_MONITORING_ICON };
-int docTabIconIDs_darkMode[] = { IDI_SAVED_DM_ICON,  IDI_UNSAVED_DM_ICON,  IDI_READONLY_DM_ICON,  IDI_MONITORING_DM_ICON };
-int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READONLY_ALT_ICON, IDI_MONITORING_ICON };
+int docTabIconIDs[] = { IDI_SAVED_ICON,  IDI_UNSAVED_ICON,  IDI_READONLY_ICON,  IDI_MONITORING_ICON, IDI_READONLY_SYS_ICON };
+int docTabIconIDs_darkMode[] = { IDI_SAVED_DM_ICON,  IDI_UNSAVED_DM_ICON,  IDI_READONLY_DM_ICON,  IDI_MONITORING_DM_ICON,  IDI_READONLY_SYS_DM_ICON };
+int docTabIconIDs_alt[] = { IDI_SAVED_ALT_ICON, IDI_UNSAVED_ALT_ICON, IDI_READONLY_ALT_ICON, IDI_MONITORING_ICON, IDI_READONLY_SYS_ALT_ICON };
 
 
 
@@ -178,14 +178,18 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	if (mask & BufferChangeReadonly || mask & BufferChangeDirty)
 	{
 		tie.mask |= TCIF_IMAGE;
-		tie.iImage = buffer->isDirty()?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX;
+
 		if (buffer->isMonitoringOn())
 		{
 			tie.iImage = MONITORING_IMG_INDEX;
 		}
 		else if (buffer->isReadOnly())
 		{
-			tie.iImage = REDONLY_IMG_INDEX;
+			tie.iImage = buffer->getFileReadOnly() ? READONLY_SYS_IMG_INDEX : REDONLY_IMG_INDEX;
+		}
+		else
+		{
+			tie.iImage = buffer->isDirty() ? UNSAVED_IMG_INDEX : SAVED_IMG_INDEX;
 		}
 	}
 

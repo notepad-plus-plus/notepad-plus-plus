@@ -284,6 +284,9 @@ IDI_UNSAVED_ALT_ICON            ICON      "icons/standard/tabbar/unsaved_alt.ico
 IDI_READONLY_ICON               ICON      "icons/standard/tabbar/readonly.ico"
 IDI_READONLY_DM_ICON            ICON      "icons/dark/tabbar/readonly.ico"
 IDI_READONLY_ALT_ICON           ICON      "icons/standard/tabbar/readonly_alt.ico"
+IDI_READONLY_SYS_ICON           ICON      "icons/standard/tabbar/readonly_sys.ico"
+IDI_READONLY_SYS_DM_ICON        ICON      "icons/dark/tabbar/readonly_sys.ico"
+IDI_READONLY_SYS_ALT_ICON       ICON      "icons/standard/tabbar/readonly_sys_alt.ico"
 IDI_MONITORING_ICON             ICON      "icons/standard/tabbar/monitoring.ico"
 IDI_MONITORING_DM_ICON          ICON      "icons/dark/tabbar/monitoring.ico"
 

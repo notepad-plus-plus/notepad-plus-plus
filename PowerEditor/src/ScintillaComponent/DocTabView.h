@@ -23,6 +23,7 @@ const int SAVED_IMG_INDEX = 0;
 const int UNSAVED_IMG_INDEX = 1;
 const int REDONLY_IMG_INDEX = 2;
 const int MONITORING_IMG_INDEX = 3;
+const int READONLY_SYS_IMG_INDEX = 4;
 
 
 class DocTabView : public TabBarPlus

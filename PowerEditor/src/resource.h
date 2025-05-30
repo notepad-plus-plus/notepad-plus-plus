@@ -255,18 +255,21 @@
 
 
 
-#define IDI_SAVED_ICON           501
-#define IDI_UNSAVED_ICON         502
-#define IDI_READONLY_ICON        503
-#define IDI_FIND_RESULT_ICON     504
-#define IDI_MONITORING_ICON      505
-#define IDI_SAVED_ALT_ICON       506
-#define IDI_UNSAVED_ALT_ICON     507
-#define IDI_READONLY_ALT_ICON    508
-#define IDI_SAVED_DM_ICON        509
-#define IDI_UNSAVED_DM_ICON      510
-#define IDI_MONITORING_DM_ICON   511
-#define IDI_READONLY_DM_ICON     512
+#define IDI_SAVED_ICON                 501
+#define IDI_UNSAVED_ICON               502
+#define IDI_READONLY_ICON              503
+#define IDI_FIND_RESULT_ICON           504
+#define IDI_MONITORING_ICON            505
+#define IDI_SAVED_ALT_ICON             506
+#define IDI_UNSAVED_ALT_ICON           507
+#define IDI_READONLY_ALT_ICON          508
+#define IDI_SAVED_DM_ICON              509
+#define IDI_UNSAVED_DM_ICON            510
+#define IDI_MONITORING_DM_ICON         511
+#define IDI_READONLY_DM_ICON           512
+#define IDI_READONLY_SYS_ICON          513
+#define IDI_READONLY_SYS_DM_ICON       514
+#define IDI_READONLY_SYS_ALT_ICON      515
 
 
 #define IDI_PROJECT_WORKSPACE          601

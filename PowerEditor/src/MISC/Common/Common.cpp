@@ -1517,6 +1517,17 @@ bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
 	return (::SetFileAttributes(fileFullPath, dwFileAttribs) != FALSE);
 }
 
+bool setReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath)
+{
+	DWORD dwFileAttribs = ::GetFileAttributes(fileFullPath);
+
+	if (dwFileAttribs == INVALID_FILE_ATTRIBUTES || (dwFileAttribs & FILE_ATTRIBUTE_DIRECTORY))
+		return false;
+
+	dwFileAttribs |= FILE_ATTRIBUTE_READONLY;
+	return (::SetFileAttributes(fileFullPath, dwFileAttribs) != FALSE);
+}
+
 // "For file I/O, the "\\?\" prefix to a path string tells the Windows APIs to disable all string parsing
 // and to send the string that follows it straight to the file system..."
 // Ref: https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#win32-file-namespaces

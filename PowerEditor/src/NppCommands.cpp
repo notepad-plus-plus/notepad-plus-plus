@@ -2105,10 +2105,18 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_SETREADONLY_SYS:
+		{
+			Buffer * buf = _pEditView->getCurrentBuffer();
+			(void)setReadOnlyFlagFromFileAttributes(buf->getFullPathName());
+			buf->setFileReadOnly(true);
+		}
+		break;
+
 		case IDM_EDIT_CLEARREADONLY:
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
-			removeReadOnlyFlagFromFileAttributes(buf->getFullPathName());
+			(void)removeReadOnlyFlagFromFileAttributes(buf->getFullPathName());
 			buf->setFileReadOnly(false);
 		}
 		break;
@@ -4162,6 +4170,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_SW2TAB_ALL:
 			case IDM_EDIT_SW2TAB_LEADING:
 			case IDM_EDIT_SETREADONLY :
+			case IDM_EDIT_SETREADONLY_SYS :
 			case IDM_EDIT_FULLPATHTOCLIP :
 			case IDM_EDIT_FILENAMETOCLIP :
 			case IDM_EDIT_CURRENTDIRTOCLIP :

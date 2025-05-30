@@ -219,6 +219,7 @@ int nbDigitsFromNbLines(size_t nbLines);
 std::wstring getDateTimeStrFrom(const std::wstring& dateTimeFormat, const SYSTEMTIME& st);
 
 HFONT createFont(const wchar_t* fontName, int fontSize, bool isBold, HWND hDestParent);
+bool setReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath);
 bool removeReadOnlyFlagFromFileAttributes(const wchar_t* fileFullPath);
 
 bool isWin32NamespacePrefixedFileName(const std::wstring& fileName);

@@ -190,6 +190,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_EDIT_CHAR_PANEL,                          false, false, false, L"Toggle Character Panel" },
 	{ VK_NULL,    IDM_EDIT_CLIPBOARDHISTORY_PANEL,              false, false, false, L"Toggle Clipboard History" },
 	{ VK_NULL,    IDM_EDIT_SETREADONLY,                         false, false, false, nullptr },
+	{ VK_NULL,    IDM_EDIT_SETREADONLY_SYS,                     false, false, false, nullptr },
 	{ VK_NULL,    IDM_EDIT_CLEARREADONLY,                       false, false, false, nullptr },
 	{ VK_F,       IDM_SEARCH_FIND,                              true,  false, false, nullptr },
 	{ VK_F,       IDM_SEARCH_FINDINFILES,                       true,  false, true,  nullptr },

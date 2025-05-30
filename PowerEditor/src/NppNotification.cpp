@@ -1077,12 +1077,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			Buffer* buf = _pEditView->getCurrentBuffer();
 			bool isUserReadOnly = buf->getUserReadOnly();
 			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
-			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY_SYS, isUserReadOnly);
 
 			bool isSysReadOnly = buf->getFileReadOnly();
+			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY_SYS, isSysReadOnly);
+
 			bool isInaccessible = buf->isInaccessible();
-			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly && !buf->isMonitoringOn());
-			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY_SYS, !isSysReadOnly && !buf->isMonitoringOn());
+			bool isMonitoringOn = buf->isMonitoringOn();
+			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly && !isMonitoringOn);
+			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY_SYS, !isSysReadOnly && !isMonitoringOn);
 
 			_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, !isInaccessible && isSysReadOnly);
 

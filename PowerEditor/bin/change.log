@@ -19,7 +19,7 @@ Notepad++ v8.8 new features, regression-fixes & bug-fixes:
  2. Fix a hanging issue on regexp regression.
  3. Fix vertical tab bar messed up regression.
  4. Add option to apply different color to fluent toolbar icons.
- 5. Add "Show only pinned button" option to prevent from inacurate click.	
+ 5. Add "Show only pinned button" option to prevent from inaccurate click.	
  6. Fix broken cloned file state after Notepad++ restart.    
  7. Fix inactive buffer reloading problem.
  8. Dark mode enhancements: combobox, slider, treeview edit, inactive menu bar & toolbar chevron.

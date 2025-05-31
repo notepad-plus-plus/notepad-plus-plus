@@ -172,6 +172,8 @@ public:
 
 	const wchar_t * getOriginalTabName() const { return _originalTabName.c_str(); }
 
+	void setOriginalTabName(const wchar_t* tabName) { _originalTabName.assign(tabName); }
+
 	void normalizeTabName(std::wstring& tabName);
 
 	BufferID getID() const { return _id; }

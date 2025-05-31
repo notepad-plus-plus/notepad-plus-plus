@@ -2451,6 +2451,16 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 
 					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, isPinned, position, pBackupFilePath, fileModifiedTimestamp, mapPosition);
 
+					const wchar_t* originalTabName = (childNode->ToElement())->Attribute(L"originalTabName");
+					if (originalTabName)
+						sfi._originalTabName.assign(originalTabName);
+
+					bool isUntitleTabRenamed = false;
+					const wchar_t* boolStrTabRenamed = (childNode->ToElement())->Attribute(L"untitleTabRenamed");
+					if (boolStrTabRenamed)
+						isUntitleTabRenamed = _wcsicmp(L"yes", boolStrTabRenamed) == 0;
+					sfi._isUntitledTabRenamed = isUntitleTabRenamed;
+
 					const wchar_t* intStrTabColour = (childNode->ToElement())->Attribute(L"tabColourId");
 					if (intStrTabColour)
 					{
@@ -3674,6 +3684,8 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 				(fileNameNode->ToElement())->SetAttribute(L"tabColourId", static_cast<int32_t>(viewSessionFiles[i]._individualTabColour));
 				(fileNameNode->ToElement())->SetAttribute(L"RTL", viewSessionFiles[i]._isRTL ? L"yes" : L"no");
 				(fileNameNode->ToElement())->SetAttribute(L"tabPinned", viewSessionFiles[i]._isPinned ? L"yes" : L"no");
+				(fileNameNode->ToElement())->SetAttribute(L"originalTabName", viewSessionFiles[i]._originalTabName.c_str());
+				(fileNameNode->ToElement())->SetAttribute(L"untitleTabRenamed", viewSessionFiles[i]._isUntitledTabRenamed ? L"yes" : L"no");
 
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(L"mapFirstVisibleDisplayLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));

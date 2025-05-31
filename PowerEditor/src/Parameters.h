@@ -239,6 +239,8 @@ struct sessionFileInfo : public Position
 	int _individualTabColour = -1;
 	bool _isRTL = false;
 	bool _isPinned = false;
+	std::wstring _originalTabName;
+	bool _isUntitledTabRenamed = false;
 	std::wstring _backupFilePath;
 	FILETIME _originalFileLastModifTimestamp {};
 

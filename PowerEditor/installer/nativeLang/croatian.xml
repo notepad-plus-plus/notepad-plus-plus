@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Croatian localization for Notepad++
-	Updated: May 3, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
+	Updated: May 30, 2025 by Elvis Gambiraža (el.gambo@gmail.com)
 	All the comments are for explanation, they are not for translation.
 -->
 <NotepadPlus>
-	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.1">
+	<Native-Langue name="Hrvatski" filename="croatian.xml" version="8.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1003,6 +1003,8 @@
 					<Item id="6120" name="Okomito"/>
 					<Item id="6121" name="Izlaz iz programa pri zatvaranju zadnje kartice"/>
 					<Item id="6128" name="Alternativne ikone"/>
+					<Item id="6125" name="Ponašanje"/>
+					<Item id="6126" name="Izgled i dojam"/>
 				</Tabbar>
 
 				<Scintillas title="Uređivanje 1">

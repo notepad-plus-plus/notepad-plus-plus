@@ -2451,6 +2451,16 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session& s
 
 					sessionFileInfo sfi(fileName, langName, encStr ? encoding : -1, isUserReadOnly, isPinned, position, pBackupFilePath, fileModifiedTimestamp, mapPosition);
 
+					const wchar_t* originalTabName = (childNode->ToElement())->Attribute(L"originalTabName");
+					if (originalTabName)
+						sfi._originalTabName.assign(originalTabName);
+
+					bool isUntitleTabRenamed = false;
+					const wchar_t* boolStrTabRenamed = (childNode->ToElement())->Attribute(L"untitleTabRenamed");
+					if (boolStrTabRenamed)
+						isUntitleTabRenamed = _wcsicmp(L"yes", boolStrTabRenamed) == 0;
+					sfi._isUntitledTabRenamed = isUntitleTabRenamed;
+
 					const wchar_t* intStrTabColour = (childNode->ToElement())->Attribute(L"tabColourId");
 					if (intStrTabColour)
 					{
@@ -3674,6 +3684,8 @@ void NppParameters::writeSession(const Session & session, const wchar_t *fileNam
 				(fileNameNode->ToElement())->SetAttribute(L"tabColourId", static_cast<int32_t>(viewSessionFiles[i]._individualTabColour));
 				(fileNameNode->ToElement())->SetAttribute(L"RTL", viewSessionFiles[i]._isRTL ? L"yes" : L"no");
 				(fileNameNode->ToElement())->SetAttribute(L"tabPinned", viewSessionFiles[i]._isPinned ? L"yes" : L"no");
+				(fileNameNode->ToElement())->SetAttribute(L"originalTabName", viewSessionFiles[i]._originalTabName.c_str());
+				(fileNameNode->ToElement())->SetAttribute(L"untitleTabRenamed", viewSessionFiles[i]._isUntitledTabRenamed ? L"yes" : L"no");
 
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(L"mapFirstVisibleDisplayLine", _i64tot(static_cast<LONGLONG>(viewSessionFiles[i]._mapPos._firstVisibleDisplayLine), szInt64, 10));
@@ -5547,6 +5559,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			val = element->Attribute(L"addNewDocumentOnStartup");
 			if (val)
 				_nppGUI._newDocDefaultSettings._addNewDocumentOnStartup = (lstrcmp(val, L"yes") == 0);
+
+			val = element->Attribute(L"useContentAsTabName");
+			if (val)
+				_nppGUI._newDocDefaultSettings._useContentAsTabName = (lstrcmp(val, L"yes") == 0);
 		}
 
 		else if (!lstrcmp(nm, L"langsExcluded"))
@@ -7517,7 +7533,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		insertGUIConfigBoolNode(newGUIRoot, L"SaveAllConfirm", _nppGUI._saveAllConfirm);
 	}
 
-	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" / >
+	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" useContentAsTabName = "no" / >
 	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(L"GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute(L"name", L"NewDocDefaultSettings");
@@ -7527,6 +7543,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(L"codepage", _nppGUI._newDocDefaultSettings._codepage);
 		GUIConfigElement->SetAttribute(L"openAnsiAsUTF8", _nppGUI._newDocDefaultSettings._openAnsiAsUtf8 ? L"yes" : L"no");
 		GUIConfigElement->SetAttribute(L"addNewDocumentOnStartup", _nppGUI._newDocDefaultSettings._addNewDocumentOnStartup ? L"yes" : L"no");
+		GUIConfigElement->SetAttribute(L"useContentAsTabName", _nppGUI._newDocDefaultSettings._useContentAsTabName ? L"yes" : L"no");
 	}
 
 	// <GUIConfig name = "langsExcluded" gr0 = "0" gr1 = "0" gr2 = "0" gr3 = "0" gr4 = "0" gr5 = "0" gr6 = "0" gr7 = "0" langMenuCompact = "yes" / >

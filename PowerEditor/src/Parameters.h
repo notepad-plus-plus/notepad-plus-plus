@@ -239,6 +239,8 @@ struct sessionFileInfo : public Position
 	int _individualTabColour = -1;
 	bool _isRTL = false;
 	bool _isPinned = false;
+	std::wstring _originalTabName;
+	bool _isUntitledTabRenamed = false;
 	std::wstring _backupFilePath;
 	FILETIME _originalFileLastModifTimestamp {};
 
@@ -609,6 +611,7 @@ struct NewDocDefaultSettings final
 	LangType _lang = L_TEXT;
 	int _codepage = -1; // -1 when not using
 	bool _addNewDocumentOnStartup = false;
+	bool _useContentAsTabName = false;
 };
 
 

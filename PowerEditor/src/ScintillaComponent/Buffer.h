@@ -170,6 +170,12 @@ public:
 
 	const wchar_t * getFileName() const { return _fileName; }
 
+	const wchar_t * getOriginalTabName() const { return _originalTabName.c_str(); }
+
+	void setOriginalTabName(const wchar_t* tabName) { _originalTabName.assign(tabName); }
+
+	void normalizeTabName(std::wstring& tabName);
+
 	BufferID getID() const { return _id; }
 
 	void increaseRecentTag() {
@@ -268,6 +274,9 @@ public:
 		_needLexer = lex;
 		doNotify(BufferChangeLexing);
 	}
+
+	bool isUntitledTabRenamed() const { return _isUntitledTabRenamed; }
+	void setUntitledTabRenamedStatus(bool isRenamed) { _isUntitledTabRenamed = isRenamed; }
 
 	//these two return reference count after operation
 	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
@@ -398,6 +407,9 @@ private:
 	bool _isFromNetwork = false;
 	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 	//these properties have to be duplicated because of multiple references
+
+	std::wstring _originalTabName;
+	bool _isUntitledTabRenamed = false;
 
 	//All the vectors must have the same size at all times
 	std::vector<ScintillaEditView *> _referees; // Instances of ScintillaEditView which contain this buffer

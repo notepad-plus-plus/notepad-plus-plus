@@ -1085,6 +1085,7 @@ Translation note:
 					<Item id="6419" name="Tài liệu mới"/>
 					<Item id="6420" name="Áp dụng cho các tệp ANSI đã mở"/>
 					<Item id="6432" name="Luôn mở thêm một tài liệu mới mỗi khi khởi động"/>
+					<Item id="6433" name="Dùng dòng đầu tiên làm tên cho các tài liệu chưa có tiêu đề"/>
 				</NewDoc>
 
 				<DefaultDir title="Thư mục mặc định">

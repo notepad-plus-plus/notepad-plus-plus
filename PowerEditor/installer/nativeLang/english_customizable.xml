@@ -1108,6 +1108,7 @@ Translation note:
 					<Item id="6419" name="New Document"/>
 					<Item id="6420" name="Apply to opened ANSI files"/>
 					<Item id="6432" name="Always open a new document in addition at startup"/>
+					<Item id="6433" name="Use the first line of document as untitled tab name"/>
 				</NewDoc>
 
 				<DefaultDir title="Default Directory">

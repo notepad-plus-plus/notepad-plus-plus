@@ -6,17 +6,17 @@ This file allows you to:
 1. Hide any toolbar buttons you don't need.
 2. Change the appearance of (replace) any or all toolbar icons.
 
-To archieve one or both of above gaols, you need to move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\Notepad++\toolbarButtonsConf.xml" (or place it beside "notepad++.exe" if you're using the portable package).
-Edit the relevant sections, save your change, and relaunch Notepad++ for the modifications to take effect. 
+To achieve one or both of above goals, you need to move and rename the "toolbarButtonsConf_example.xml" to "%APPDATA%\Notepad++\toolbarButtonsConf.xml" (or place it in the same folder as "notepad++.exe" if you're using the portable package).
+Edit the relevant sections, save your changes, then relaunch Notepad++ for the modifications to take effect. 
 -->
 
 	<ToolbarButtons>
 <!--
-The "Standard" section allows your toolbar's standard buttons (come with Notepad++) to be hidden.
+The "Standard" section allows your toolbar's standard buttons (those that come with Notepad++) to be hidden.
 
 Usage: Modify the "hideAll" or "hide" attributes of the items by settings their values to "yes" or "no".
 
-Notice:
+Notes:
 1. The "index" and "id" attributes values must not be modified, as they are used to synchronize with internal data for maintaining the file's coherence.
 2. The "name" attribute is for informational purposes only, so its values can be modified for the user's convenience.
 3. Setting the "hideAll" attribute's value to "yes" will override all "hide" attribute values.
@@ -87,17 +87,17 @@ To override the current toolbar icons, you need 2 things: this file and your ico
 You can get a sample icons set here:
 https://notepad-plus-plus.org/assets/data/nppLegacyIconSet.zip
 
-Instructions to customize your toolbar icons:
+To customize your toolbar icons:
 
-1. Create a new folder named "toolbarIcons" in the directory where "toolbarButtonsConf.xml" file is located.
-2. Edit the "icoFolderName" attribute value of "ToolBarIcons" tag in "toolbarButtonsConf.xml" file. Specify the name of the icon set you want in the "icoFolderName" attribute. For example: <ToolBarIcons icoFolderName="myAwesomeIcons" />.
+1. Create a new folder named "toolbarIcons" in the directory where the "toolbarButtonsConf.xml" file is located.
+2. Edit the "icoFolderName" attribute value of the "ToolBarIcons" tag in the "toolbarButtonsConf.xml" file. Specify the name of the icon set you want in the "icoFolderName" attribute. For example: <ToolBarIcons icoFolderName="myAwesomeIcons" />
 3. Navigate to the "toolbarIcons" folder and create a new folder named exactly as the icon set name you specified in the "icoFolderName" attribute.
-4. Place all your customized icons in the foder "[toolbarButtonsConf.xml's folder]\toolbarIcons\myAwesomeIcons\".
-5. Finally, relaunch Notepad++ to see your icon set replace the default icons.
+4. Place all your customized icons in the folder "[toolbarButtonsConf.xml's folder]\toolbarIcons\[folder created in step #3]\".
+5. Relaunch Notepad++ to see your icon set replace the default icons.
 
-Note: if the "icoFolderName" value is an empty string, the icons will be located in "[toolbarButtonsConf.xml's folder]\toolbarIcons\default\".
+Note: If the "icoFolderName" value is an empty string, the icons will be located in "[toolbarButtonsConf.xml's folder]\toolbarIcons\default\".
 
-Replacing icons: Each icon (45 in total) has a fixed and specific name. Please ignore the empty room - they are the separators.
+Replacing icons: Each icon (45 in total) has a fixed and specific name. Please ignore the unused numbers - they are the separators.
 Naming convention:
 
  0    new.ico
@@ -142,7 +142,7 @@ Naming convention:
 39    playback-multiple.ico       playback-multiple_disabled.ico
 40    save-macro.ico              save-macro_disabled.ico
 
-It's not necessary to have a complete set of icons (45 icons). Any missing icons will simply remain unsubstituted.
+It's not necessary to have a complete set of icons (45 icons). Any missing icons will simply remain unchanged.
 -->
 
 	<ToolBarIcons icoFolderName="" />

@@ -2589,12 +2589,12 @@ void Notepad_plus::checkDocState()
 	bool isSysReadOnly = curBuf->getFileReadOnly();
 	bool isMonitoringOn = curBuf->isMonitoringOn();
 	bool isUserReadOnly = curBuf->getUserReadOnly();
-	enableCommand(IDM_EDIT_SETREADONLY, !isMonitoringOn && !isSysReadOnly, MENU);
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_EDTR, !isMonitoringOn && !isSysReadOnly, MENU);
 
 	bool isDirty = curBuf->isDirty();
 	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isMonitoringOn && !isDirty, MENU);
 
-	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
+	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_EDTR, MF_BYCOMMAND | (isUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_SYS, MF_BYCOMMAND | (isSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);

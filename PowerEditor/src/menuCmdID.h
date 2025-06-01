@@ -110,7 +110,7 @@
     #define    IDM_MACRO_SAVECURRENTMACRO                       (IDM_EDIT + 25)
     #define    IDM_EDIT_RTL                                     (IDM_EDIT + 26)
     #define    IDM_EDIT_LTR                                     (IDM_EDIT + 27)
-    #define    IDM_EDIT_SETREADONLY                             (IDM_EDIT + 28)
+    #define    IDM_EDIT_TOGGLE_READONLY_EDTR                    (IDM_EDIT + 28)
     #define    IDM_EDIT_FULLPATHTOCLIP                          (IDM_EDIT + 29)
     #define    IDM_EDIT_FILENAMETOCLIP                          (IDM_EDIT + 30)
     #define    IDM_EDIT_CURRENTDIRTOCLIP                        (IDM_EDIT + 31)

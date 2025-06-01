@@ -2098,7 +2098,7 @@ void Notepad_plus::command(int id)
 			wsTabConvert(space2TabAll);
 			break;
 
-		case IDM_EDIT_SETREADONLY:
+		case IDM_EDIT_TOGGLE_READONLY_EDTR:
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			buf->setUserReadOnly(!buf->getUserReadOnly());
@@ -4161,7 +4161,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_TAB2SW:
 			case IDM_EDIT_SW2TAB_ALL:
 			case IDM_EDIT_SW2TAB_LEADING:
-			case IDM_EDIT_SETREADONLY :
+			case IDM_EDIT_TOGGLE_READONLY_EDTR :
 			case IDM_EDIT_FULLPATHTOCLIP :
 			case IDM_EDIT_FILENAMETOCLIP :
 			case IDM_EDIT_CURRENTDIRTOCLIP :

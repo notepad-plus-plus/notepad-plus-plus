@@ -631,7 +631,7 @@ BEGIN
         MENUITEM "Character &Panel",         IDM_EDIT_CHAR_PANEL
         MENUITEM "Clipboard &History",       IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
-        MENUITEM "&Set Read-Only (Editor)",  IDM_EDIT_SETREADONLY
+        MENUITEM "&Set Read-Only (Editor)",  IDM_EDIT_TOGGLE_READONLY_EDTR
         MENUITEM "Set Read&-Only (System)",  IDM_EDIT_TOGGLE_READONLY_SYS
     END
 

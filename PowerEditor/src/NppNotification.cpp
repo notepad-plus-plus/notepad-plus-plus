@@ -1036,7 +1036,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, L"Reload"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, L"Print"));
 					itemUnitArray.push_back(MenuItemUnit(0, NULL));
-					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, L"Read-Only (Editor)"));
+					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_TOGGLE_READONLY_EDTR, L"Read-Only (Editor)"));
 					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_TOGGLE_READONLY_SYS, L"Read-Only (System)"));
 					itemUnitArray.push_back(MenuItemUnit(0, NULL));
 					itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP, L"Copy Full File Path", L"Copy to Clipboard"));
@@ -1079,8 +1079,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isMonitoringOn = buf->isMonitoringOn();
 			bool isUserReadOnly = buf->getUserReadOnly();
 
-			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
-			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly && !isMonitoringOn);
+			_tabPopupMenu.checkItem(IDM_EDIT_TOGGLE_READONLY_EDTR, isUserReadOnly);
+			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLE_READONLY_EDTR, !isSysReadOnly && !isMonitoringOn);
 
 			_tabPopupMenu.checkItem(IDM_EDIT_TOGGLE_READONLY_SYS, isSysReadOnly);
 			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLE_READONLY_SYS, !isInaccessible && !isMonitoringOn);

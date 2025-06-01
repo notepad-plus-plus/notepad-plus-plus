@@ -2591,8 +2591,7 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_SAVEALL, isSeveralDirty, MENU | TOOLBAR);
 	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !isCurrentDirty && !isCurrentUntitled, MENU);
 	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !isCurrentDirty && !isCurrentUntitled, MENU);
-	
-	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isCurrentUntitled && !isCurrentMonitoringOn && !isCurrentDirty, MENU);
+
 	enableCommand(IDM_EDIT_TOGGLE_READONLY_EDTR, !isCurrentMonitoringOn && !isCurrentSysReadOnly, MENU);
 
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_SYS, MF_BYCOMMAND | (isCurrentSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
@@ -2618,6 +2617,10 @@ void Notepad_plus::checkDocState()
 	if (_pAnsiCharPanel)
 		_pAnsiCharPanel->switchEncoding();
 
+	isCurrentDirty = curBuf->isDirty();
+	isCurrentUntitled = curBuf->isUntitled();
+	isCurrentMonitoringOn = curBuf->isMonitoringOn();
+
 	enableCommand(IDM_VIEW_MONITORING, !isCurrentUntitled, MENU | TOOLBAR);
 	checkMenuItem(IDM_VIEW_MONITORING, isCurrentMonitoringOn);
 	_toolBar.setCheck(IDM_VIEW_MONITORING, isCurrentMonitoringOn);
@@ -2625,7 +2628,7 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_SAVEAS, !isCurrentInaccessible, MENU);
 	enableCommand(IDM_FILE_RENAME, !isCurrentInaccessible, MENU);
 	enableCommand(IDM_VIEW_GOTO_ANOTHER_VIEW, !isCurrentInaccessible, MENU);
-	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isCurrentInaccessible, MENU);		
+	enableCommand(IDM_EDIT_TOGGLE_READONLY_SYS, !isCurrentInaccessible && isCurrentFileExisting && !isCurrentUntitled && !isCurrentMonitoringOn && !isCurrentDirty, MENU);
 	enableCommand(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, !isCurrentInaccessible, MENU);
 
 	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !isCurrentInaccessible && !isCurrentDirty && !isCurrentUntitled, MENU);

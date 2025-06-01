@@ -102,6 +102,7 @@ Credits:
             <WordsStyle name="PREDECLARED IDENTIFIERS" styleID="19" fgColor="FFAAFF" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FF3A83" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STRING" styleID="6" fgColor="55E439" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="STRING RAW" styleID="20" fgColor="55E439" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="55E439" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFAA00" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="VERBATIM" styleID="13" fgColor="FF3A83" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />

@@ -244,14 +244,6 @@ Credits:
             <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle6" />
             <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle7" />
             <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle8" />
-            <WordsStyle name="USER KEYWORDS 1" styleID="128" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle1" />
-            <WordsStyle name="USER KEYWORDS 2" styleID="129" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle2" />
-            <WordsStyle name="USER KEYWORDS 3" styleID="130" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle3" />
-            <WordsStyle name="USER KEYWORDS 4" styleID="131" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle4" />
-            <WordsStyle name="USER KEYWORDS 5" styleID="132" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle5" />
-            <WordsStyle name="USER KEYWORDS 6" styleID="133" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle6" />
-            <WordsStyle name="USER KEYWORDS 7" styleID="134" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle7" />
-            <WordsStyle name="USER KEYWORDS 8" styleID="135" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="substyle8" />
         </LexerType>
         <LexerType name="tcl" desc="TCL" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
@@ -610,7 +602,6 @@ Credits:
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="8DA6CE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="BUILTINS" styleID="14" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
         </LexerType>
         <LexerType name="batch" desc="Batch" ext="">
@@ -865,8 +856,6 @@ Credits:
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="FF6400" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type4" />

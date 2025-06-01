@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="emptyInt">
+    <!-- custom type: allows integer or empty string -->
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:length value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:integer"/>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:element name="NotepadPlus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="LexerStyles" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LexerType" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="WordsStyle" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="name" use="required"/>
+                            <xs:attribute type="xs:integer" name="styleID" use="required"/>
+                            <xs:attribute type="xs:hexBinary" name="fgColor" use="optional"/>
+                            <xs:attribute type="xs:hexBinary" name="bgColor" use="optional"/>
+                            <xs:attribute type="xs:integer" name="colorStyle" use="optional"/>
+                            <xs:attribute type="xs:string" name="fontName" use="optional"/>
+                            <xs:attribute type="emptyInt" name="fontSize" use="optional"/>
+                            <xs:attribute type="emptyInt" name="fontStyle" use="optional"/>
+                            <xs:attribute name="keywordClass" use="optional">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:enumeration value="instre1"/>
+                                  <xs:enumeration value="instre2"/>
+                                  <xs:enumeration value="type1"/>
+                                  <xs:enumeration value="type2"/>
+                                  <xs:enumeration value="type3"/>
+                                  <xs:enumeration value="type4"/>
+                                  <xs:enumeration value="type5"/>
+                                  <xs:enumeration value="type6"/>
+                                  <xs:enumeration value="type7"/>
+                                  <xs:enumeration value="substyle1"/>
+                                  <xs:enumeration value="substyle2"/>
+                                  <xs:enumeration value="substyle3"/>
+                                  <xs:enumeration value="substyle4"/>
+                                  <xs:enumeration value="substyle5"/>
+                                  <xs:enumeration value="substyle6"/>
+                                  <xs:enumeration value="substyle7"/>
+                                  <xs:enumeration value="substyle8"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:string" name="desc" use="required"/>
+                  <xs:attribute type="xs:string" name="ext" use="required"/>
+                </xs:complexType>
+                <xs:unique name="unique-WordsStyle-styleID">
+                  <xs:selector xpath="WordsStyle"/>
+                  <xs:field xpath="@styleID"/>
+                </xs:unique>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GlobalStyles" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="WidgetStyle" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:integer" name="styleID" use="required"/>
+                  <xs:attribute type="xs:hexBinary" name="fgColor" use="optional"/>
+                  <xs:attribute type="xs:hexBinary" name="bgColor" use="optional"/>
+                  <xs:attribute type="xs:integer" name="colorStyle" use="optional"/>
+                  <xs:attribute type="xs:string" name="fontName" use="optional"/>
+                  <xs:attribute type="emptyInt" name="fontSize" use="optional"/>
+                  <xs:attribute type="emptyInt" name="fontStyle" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:unique name="unique-widgetstyle-name">
+            <xs:selector xpath="WidgetStyle"/>
+            <xs:field xpath="@name"/>
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

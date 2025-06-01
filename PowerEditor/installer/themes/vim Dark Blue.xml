@@ -737,7 +737,6 @@
             <WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="C0C0C0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="008080" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="BUILTINS" styleID="14" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
         </LexerType>
         <LexerType name="raku" desc="Raku" ext="">
@@ -948,8 +947,6 @@
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="0000FF" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="8080FF" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="808000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="000080" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="0080FF" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="800000" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="8000FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="type4" />

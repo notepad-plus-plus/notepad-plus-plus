@@ -243,7 +243,7 @@ Credits:
             <WordsStyle name="FUNCTION"                     styleID="20" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="IDENTIFIER"                   styleID="21" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="1" fontSize="" />
             <!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
-            <WordsStyle name="TYPEDEF"                      styleID="20" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+            <WordsStyle name="TYPEDEF"                      styleID="22" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
             <WordsStyle name="MU"                           styleID="23" fgColor="E6DB74" bgColor="272822" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="POSITIONAL"                   styleID="24" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ASSOCIATIVE"                  styleID="25" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="0" fontSize="" />
@@ -861,8 +861,6 @@ Credits:
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="A6E22E" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="10" keywordClass="type4" />

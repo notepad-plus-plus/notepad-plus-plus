@@ -602,7 +602,6 @@ Credits:
             <WordsStyle name="OPERATOR" styleID="10" fgColor="B3935C" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="D77261" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="679D47" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="STRINGEOL" styleID="12" fgColor="7CA563" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="BUILTINS" styleID="14" fgColor="C3BE98" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
         </LexerType>
         <LexerType name="batch" desc="Batch" ext="">
@@ -857,8 +856,6 @@ Credits:
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="B3935C" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="C3BE98" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="6D4C2F" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="B3935C" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="C3BE98" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="C3BE98" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="C3BE98" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="C3BE98" bgColor="1A0F0B" fontName="" fontStyle="0" fontSize="10" keywordClass="type4" />

@@ -474,13 +474,13 @@ Installation:
             <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="1" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT" styleID="2" fgColor="87875f" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="GLOBAL" styleID="5" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="EVENT" styleID="5" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
-            <WordsStyle name="ATTRIBUTE" styleID="16" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
-            <WordsStyle name="CONTROL" styleID="16" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
-            <WordsStyle name="COMMAND" styleID="16" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
-            <WordsStyle name="STRING" styleID="6" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="OPERATOR" styleID="10" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="GLOBAL" styleID="3" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="EVENT" styleID="4" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="ATTRIBUTE" styleID="5" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+            <WordsStyle name="CONTROL" styleID="6" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
+            <WordsStyle name="COMMAND" styleID="7" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
+            <WordsStyle name="STRING" styleID="8" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="9" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="haskell" desc="Haskell" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
@@ -770,7 +770,7 @@ Installation:
             <WordsStyle name="TRANSLATION" styleID="44" fgColor="5F5F00" bgColor="D7D7AF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEREDOC DELIMITER" styleID="22" fgColor="870000" bgColor="afaf87" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEREDOC SINGLEQUOTE" styleID="23" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HEREDOC DOUBLEQUOTE" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC DOUBLEQUOTE" styleID="24" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEREDOC BACKTICK" styleID="25" fgColor="af0000" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VAR IN STRING" styleID="43" fgColor="5F5F00" bgColor="D7D7AF" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="VAR IN REGEX" styleID="54" fgColor="5F5F00" bgColor="D7D7AF" fontName="" fontStyle="3" fontSize="" />
@@ -1119,8 +1119,6 @@ Installation:
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="87005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="00005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="870000" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="af5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="af5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="5f005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" keywordClass="type4" />

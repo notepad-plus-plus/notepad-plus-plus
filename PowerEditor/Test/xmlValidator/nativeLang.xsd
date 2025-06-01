@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="NotepadPlus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Native-Langue">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Menu">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="Main" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="Splitter" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="TabBar" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="TrayIcon" minOccurs="0" maxOccurs="1"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Dialog" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="MessageBox" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="ClipboardHistory" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="DocList" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="WindowsDlg" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="AsciiInsertion" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="DocumentMap" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="FunctionList" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="FolderAsWorkspace" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="FileBrowser" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="ProjectManager" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="MiscStrings" minOccurs="0" maxOccurs="1"/>
+            </xs:all>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="filename" type="xs:string" use="required"/>
+            <xs:attribute name="version" type="xs:string" use="optional"/>
+            <xs:attribute name="RTL" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="yes"/>
+                  <xs:enumeration value="no"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

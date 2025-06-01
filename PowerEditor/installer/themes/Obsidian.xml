@@ -623,7 +623,6 @@ Notepad++ Custom Style
             <WordsStyle name="HEX NUMBER" styleID="8" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="10" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING EOL" styleID="11" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="CHARACTER" styleID="7" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="13" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ASM" styleID="14" fgColor="D39745" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
@@ -777,7 +776,7 @@ Notepad++ Custom Style
             <WordsStyle name="IDENTIFIER"                   styleID="21" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <!-- TYPEDEF styling applies to type1..type4 lists from langs.xml, but only associated with type1 in stylers/themes -->
             <WordsStyle name="TYPEDEF"                      styleID="22" fgColor="93C763" bgColor="293134" fontName="" fontStyle="" fontSize="" keywordClass="type1" />
-            <WordsStyle name="MU"                           styleID="8" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="" fontSize="" />
+            <WordsStyle name="MU"                           styleID="23" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="POSITIONAL"                   styleID="24" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="ASSOCIATIVE"                  styleID="25" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CALLABLE"                     styleID="26" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
@@ -973,8 +972,6 @@ Notepad++ Custom Style
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" keywordClass="type4" />

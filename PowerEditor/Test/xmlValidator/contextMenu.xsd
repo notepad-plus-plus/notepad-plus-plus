@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="NotepadPlus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ScintillaContextMenu">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Item">
+                <xs:complexType>
+                  <xs:attribute name="MenuEntryName" type="xs:string" use="optional"/>
+                  <xs:attribute name="MenuItemName" type="xs:string" use="optional"/>
+                  <xs:attribute name="id" type="xs:unsignedShort" use="optional"/>
+                  <xs:attribute name="FolderName" type="xs:string" use="optional"/>
+                  <xs:attribute name="TranslateID" type="xs:string" use="optional"/>
+                  <xs:attribute name="PluginEntryName" type="xs:string" use="optional"/>
+                  <xs:attribute name="PluginCommandItemName" type="xs:string" use="optional"/>
+                  <xs:attribute name="ItemNameAs" type="xs:string" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

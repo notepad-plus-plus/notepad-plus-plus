@@ -486,13 +486,13 @@ Installation:
             <WordsStyle name="DEFAULT" styleID="0" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="1" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT" styleID="2" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="2" fontSize="" />
-            <WordsStyle name="GLOBAL" styleID="5" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="EVENT" styleID="5" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
-            <WordsStyle name="ATTRIBUTE" styleID="16" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
-            <WordsStyle name="CONTROL" styleID="16" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
-            <WordsStyle name="COMMAND" styleID="16" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
-            <WordsStyle name="STRING" styleID="6" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="OPERATOR" styleID="10" fgColor="586E75" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="GLOBAL" styleID="3" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="EVENT" styleID="4" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="ATTRIBUTE" styleID="5" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+            <WordsStyle name="CONTROL" styleID="6" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
+            <WordsStyle name="COMMAND" styleID="7" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
+            <WordsStyle name="STRING" styleID="8" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="9" fgColor="586E75" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="haskell" desc="Haskell" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
@@ -782,8 +782,8 @@ Installation:
             <WordsStyle name="TRANSLATION" styleID="44" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEREDOC DELIMITER" styleID="22" fgColor="CB4B16" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEREDOC SINGLEQUOTE" styleID="23" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HEREDOC DOUBLEQUOTE" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="HEREDOC BACKTICK" fgColor="073642" bgColor="6C71C4" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC DOUBLEQUOTE" styleID="24" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="HEREDOC BACKTICK" styleID="25" fgColor="073642" bgColor="6C71C4" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VAR IN STRING" styleID="43" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="VAR IN REGEX" styleID="54" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="VAR IN REGEX SUBSTITUTION" styleID="55" fgColor="657B83" bgColor="FDF6E3" fontName="" fontStyle="3" fontSize="" />
@@ -797,7 +797,7 @@ Installation:
             <WordsStyle name="FORMAT BODY" styleID="42" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DATA SECTION" styleID="21" fgColor="2AA198" bgColor="FDF6E3" fontName="" fontStyle="" fontSize="" />
             <WordsStyle name="POD" styleID="3" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="" fontSize="" />
-            <WordsStyle name="POD VERBATIM" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="POD VERBATIM" styleID="31" fgColor="93A1A1" bgColor="FDF6E3" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="ERROR" styleID="1" fgColor="D33682" bgColor="FDF6E3" fontName="" fontStyle="" fontSize="" />
         </LexerType>
         <LexerType name="php" desc="php" ext="">
@@ -1131,8 +1131,6 @@ Installation:
             <WordsStyle name="INSTRUCTION" styleID="8" fgColor="859900" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="STD OPERATOR" styleID="9" fgColor="CB4B16" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
             <WordsStyle name="ATTRIBUTE" styleID="10" fgColor="6C71C4" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
-            <WordsStyle name="DIRECTIVE" styleID="9" fgColor="DC322F" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="DIRECTIVE OPERAND" styleID="10" fgColor="DC322F" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STD FUNCTION" styleID="11" fgColor="268BD2" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
             <WordsStyle name="STD PACKAGE" styleID="12" fgColor="268BD2" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type3" />
             <WordsStyle name="STD TYPE" styleID="13" fgColor="CB4B16" bgColor="FDF6E3" fontName="" fontStyle="0" fontSize="" keywordClass="type4" />

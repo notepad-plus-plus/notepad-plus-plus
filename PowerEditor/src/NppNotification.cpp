@@ -1074,28 +1074,28 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_tabPopupMenu.enableItem(IDM_FILE_SAVE, isEnable);
 
 			Buffer* buf = _pEditView->getCurrentBuffer();
+			bool isDirty = buf->isDirty();
+			bool isUntitled = buf->isUntitled();
 			bool isSysReadOnly = buf->getFileReadOnly();
 			bool isInaccessible = buf->isInaccessible();
 			bool isMonitoringOn = buf->isMonitoringOn();
 			bool isUserReadOnly = buf->getUserReadOnly();
+			bool isFileExisting = doesFileExist(buf->getFullPathName());
 
 			_tabPopupMenu.checkItem(IDM_EDIT_TOGGLE_READONLY_EDTR, isUserReadOnly);
 			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLE_READONLY_EDTR, !isSysReadOnly && !isMonitoringOn);
 
 			_tabPopupMenu.checkItem(IDM_EDIT_TOGGLE_READONLY_SYS, isSysReadOnly);
-			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLE_READONLY_SYS, !isInaccessible && !isMonitoringOn);
-
-			bool isFileExisting = doesFileExist(buf->getFullPathName());
+			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLE_READONLY_SYS, !isInaccessible && isFileExisting && !isUntitled && !isMonitoringOn && !isDirty);
+			
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_RELOAD, isFileExisting);
-			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_CMD, isFileExisting);
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_FOLDER, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_CONTAININGFOLDERASWORKSPACE, isFileExisting);
 
 			_tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(buf->getFullPathName()));
-
-			bool isDirty = buf->isDirty();
-			bool isUntitled = buf->isUntitled();
+				
 			_tabPopupMenu.enableItem(IDM_VIEW_GOTO_ANOTHER_VIEW, !isInaccessible);
 			_tabPopupMenu.enableItem(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, !isInaccessible);
 			_tabPopupMenu.enableItem(IDM_VIEW_GOTO_NEW_INSTANCE, !isInaccessible && !isDirty && !isUntitled);

@@ -2571,8 +2571,8 @@ void Notepad_plus::checkDocState()
 	bool isCurrentMonitoringOn = curBuf->isMonitoringOn();
 	bool isCurrentUserReadOnly = curBuf->getUserReadOnly();
 
-	bool isNetworkProblem;
-	bool isFileExisting = doesFileExist(curBuf->getFullPathName(), 1000, &isNetworkProblem);
+	bool isCurrentNetworkProblem;
+	bool isCurrentFileExisting = doesFileExist(curBuf->getFullPathName(), 1000, &isCurrentNetworkProblem);
 
 	bool isSeveralDirty = isCurrentDirty;
 	if (!isCurrentDirty)
@@ -2598,18 +2598,18 @@ void Notepad_plus::checkDocState()
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_SYS, MF_BYCOMMAND | (isCurrentSysReadOnly ? MF_CHECKED : MF_UNCHECKED));
 	::CheckMenuItem(_mainMenuHandle, IDM_EDIT_TOGGLE_READONLY_EDTR, MF_BYCOMMAND | (isCurrentUserReadOnly ? MF_CHECKED : MF_UNCHECKED));
 
-	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
-	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
-	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
-	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
-	enableCommand(IDM_FILE_CONTAININGFOLDERASWORKSPACE, isFileExisting, MENU);
+	enableCommand(IDM_FILE_RELOAD, isCurrentFileExisting, MENU);
+	enableCommand(IDM_FILE_DELETE, isCurrentFileExisting, MENU);
+	enableCommand(IDM_FILE_OPEN_CMD, isCurrentFileExisting, MENU);
+	enableCommand(IDM_FILE_OPEN_FOLDER, isCurrentFileExisting, MENU);
+	enableCommand(IDM_FILE_CONTAININGFOLDERASWORKSPACE, isCurrentFileExisting, MENU);
 
-	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isFileExisting ? isAssoCommandExisting(curBuf->getFullPathName()) : false, MENU);
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isCurrentFileExisting ? isAssoCommandExisting(curBuf->getFullPathName()) : false, MENU);
 
-	enableCommand(IDM_VIEW_IN_IE, isFileExisting, MENU);
-	enableCommand(IDM_VIEW_IN_EDGE, isFileExisting, MENU);
-	enableCommand(IDM_VIEW_IN_CHROME, isFileExisting, MENU);
-	enableCommand(IDM_VIEW_IN_FIREFOX, isFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_IE, isCurrentFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_EDGE, isCurrentFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_CHROME, isCurrentFileExisting, MENU);
+	enableCommand(IDM_VIEW_IN_FIREFOX, isCurrentFileExisting, MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();

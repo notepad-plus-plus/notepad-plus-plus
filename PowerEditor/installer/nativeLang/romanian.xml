@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
  <!--
 -    Traducerea în română pentru Notepad++ 8.8.1
--    Ultima modificare a fost făcută 3 mai 2025 de către Miloiu Andrei-Valentin
+-    Ultima modificare a fost făcută 16 iunie 2025 de către Miloiu Andrei-Valentin
 	 Modificările din 30 ianuarie 2019 au fost făcute de către Barna Cosmin Marian
      Pentru actualizări vizitați: https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang -->
 <NotepadPlus>
@@ -18,7 +18,7 @@
                     <Item menuId="language" name="&amp;Limbaj"/>
                     <Item menuId="settings" name="Se&amp;tări"/>
                     <Item menuId="tools" name="&amp;Unelte"/>
-                    <Item menuId="macro" name="&amp;Macrocomenzi"/>
+                    <Item menuId="macro" name="&amp;Macrocomenzi (Macro-uri)"/>
                     <Item menuId="run" name="E&amp;xecutare"/>
                     <Item menuId="Plugins" name="Mo&amp;dule (Plugin-uri)"/>
                     <Item menuId="Window" name="Fe&amp;restre"/>
@@ -70,7 +70,7 @@
                     <Item subMenuId="encoding-japanese"  name="Japonez"/>
                     <Item subMenuId="encoding-korean" name="Corean"/>
                     <Item subMenuId="encoding-northEuropean" name="Nord-european"/>
-                    <Item subMenuId="encoding-thai" name="Tailandez"/>
+                    <Item subMenuId="encoding-thai" name="Thailandez"/>
                     <Item subMenuId="encoding-turkish" name="Turc"/>
                     <Item subMenuId="encoding-westernEuropean" name="Vest-european"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamez"/>
@@ -108,7 +108,7 @@
                     <Item id="41013" name="Salvează sesiunea..."/>
                     <Item id="41014" name="&amp;Reîncarcă-l de pe disc"/>
                     <Item id="41015" name="Salvează o copie ca..."/>
-                    <Item id="41016" name="Mută în Coșul de gunoi (Coșul de reciclare)"/>
+                    <Item id="41016" name="Mută-l în Coșul de gunoi (Coșul de reciclare)"/>
                     <Item id="41017" name="Redenumește-l..."/>
                     <Item id="41021" name="Restaurează fișierele închise recent"/>
                     <Item id="41022" name="Deschide un folder ca spațiu de lucru"/>
@@ -122,9 +122,9 @@
                     <Item id="42007" name="Selectează t&amp;ot"/>
                     <Item id="42020" name="Selectează începutul/sfârșitul"/>
                     <Item id="42089" name="Începe/Termină selecția în modul coloană"/>
-                    <Item id="42084" name="Dată și oră (forma scurtă)"/>
-                    <Item id="42085" name="Dată și oră (forma lungă)"/>
-                    <Item id="42086" name="Dată și oră (format personalizat)"/>
+                    <Item id="42084" name="Data și ora (forma scurtă)"/>
+                    <Item id="42085" name="Data și ora (forma lungă)"/>
+                    <Item id="42086" name="Data și ora (format personalizat)"/>
                     <Item id="42008" name="Mărește indentarea liniei"/>
                     <Item id="42009" name="Redu indentarea liniei"/>
                     <Item id="42010" name="Dublează linia curentă"/>
@@ -225,14 +225,14 @@
                     <Item id="43021" name="Elimină liniile cu semne de carte"/> 
                     <Item id="43051" name="Elimină liniile fără semne de carte"/>
                     <Item id="43050" name="Inversează semnele de carte"/>
-                    <Item id="43052" name="Găsește caracterele în intervalul..."/>
-                    <Item id="43053" name="Selectează-le pe toate între cele 2 {} [] or ()"/>
-                    <Item id="43009" name="Salt la acolada pereche"/>
-                    <Item id="43010" name="Găsește &amp;anteriorul"/>
+                    <Item id="43052" name="Găs&amp;ește caracterele în intervalul..."/>
+                    <Item id="43053" name="&amp;Selectează toate caracterele aflate între 2 (două paranteze) {}, [] sau ()"/>
+                    <Item id="43009" name="Salt la acolada perec&amp;he"/>
+                    <Item id="43010" name="Găsește rezultatul &amp;anterior"/>
                     <Item id="43011" name="Căutare &amp;incrementală"/>
-                    <Item id="43013" name="Căutare în fișiere"/>
-                    <Item id="43014" name="Căutare (volatilă) a următorului"/>
-                    <Item id="43015" name="Căutare (volatilă) a anteriorului "/>
+                    <Item id="43013" name="Găsește în fișie&amp;re"/>
+                    <Item id="43014" name="Găsește re&amp;zultatul volatil următor"/>
+                    <Item id="43015" name="Găsește rezultatul &amp;volatil anterior"/>
                     <Item id="43022" name="Folosește stilul 1"/>
                     <Item id="43023" name="Elimină stilul 1"/>
                     <Item id="43024" name="Folosește stilul 2"/>
@@ -262,7 +262,7 @@
                     <Item id="43058" name="Stilul 4"/>
                     <Item id="43059" name="Stilul 5"/>
                     <Item id="43060" name="Toate stilurile"/>
-                    <Item id="43061" name="Căută stilul marcajului"/>
+                    <Item id="43061" name="Caută stilul marcajului"/>
                     <Item id="43062" name="Folosește stilul 1"/>
                     <Item id="43063" name="Folosește stilul 2"/>
                     <Item id="43064" name="Folosește stilul 3"/>
@@ -281,7 +281,7 @@
                     <Item id="43502" name="Închide-le pe celelalte"/>
                     <Item id="43503" name="Copiază numele selectate"/>
                     <Item id="43504" name="Copiază căile selectate"/>
-                    <Item id="44009" name="&amp;Modul post-it (Numai documentul curent vizibil)"/>					 
+                    <Item id="44009" name="&amp;Modul postează-l (post-it) (Numai pentru documentul actual vizibil)"/>		 
                     <Item id="44010" name="Restrânge-le pe toate"/>
                     <Item id="44011" name="Modul fără distracție"/>
                     <Item id="44019" name="Afișează toate caracterele"/>
@@ -383,16 +383,16 @@
                     <Item id="48015" name="Administrează modulele (plugin-urile)..."/>            		
                     <Item id="48501" name="Generare..."/>
                     <Item id="48502" name="Generează din fișiere..."/>
-                    <Item id="48503" name="Generează din selecție în memorie"/>
+                    <Item id="48503" name="Generează din selecție în clipboard"/>
                     <Item id="48504" name="Generare..."/>
                     <Item id="48505" name="Generează din fișiere..."/>
-                    <Item id="48506" name="Generează din selecție în memorie"/>        
+                    <Item id="48506" name="Generează din selecție în clipboard"/>        
 					<Item id="48507" name="Generare..."/>
 					<Item id="48508" name="Generează din fișiere..."/>
-                    <Item id="48509" name="Generează din selecție în memorie"/>
+                    <Item id="48509" name="Generează din selecție în clipboard"/>
 					<Item id="48510" name="Generare..."/>
 					<Item id="48511" name="Generează din fișiere..."/>
-					<Item id="48512" name="Generează din selecție în memorie"/>
+					<Item id="48512" name="Generează din selecție în clipboard"/>
                     <Item id="49000" name="&amp;Executare..."/>
 
                     <Item id="50000" name="Completează funcțiile"/>
@@ -805,7 +805,7 @@
 					<Item id="25032" name="Mărime:"/>
 					<Item id="25001" name="Îngroșat"/>
 					<Item id="25002" name="Înclinat"/>
-					<Item id="25003" name="Subliniere"/>
+					<Item id="25003" name="Subliniat"/>
 					<Item id="25029" name="Stiluri integrate:"/>
 					<Item id="25008" name="Delimitatorul 1"/>
 					<Item id="25009" name="Delimitatorul 2"/>
@@ -824,7 +824,7 @@
 					<Item id="25024" name="Cuvântul-cheie 7"/>
 					<Item id="25025" name="Cuvântul-cheie 8"/>
 					<Item id="25016" name="Comentariu"/>
-					<Item id="25017" name="Comentariu linie"/>
+					<Item id="25017" name="Comentariu de linie"/>
 					<Item id="25026" name="Operatorul 1"/>
 					<Item id="25027" name="Operatorul 2"/>
 					<Item id="25028" name="Numere"/>
@@ -996,16 +996,18 @@
 					<Item id="6108" name="Blocată (filele nu se pot muta)"/>
 					<Item id="6109" name="Schimbă culoarea filei inactive"/>
 					<Item id="6110" name="Desenează o linie colorată pe fila activă"/>
-					<Item id="6111" name="Afișează butoanele pe filele ianctive"/>
+					<Item id="6111" name="Afișează butoanele pe filele inactive"/>
 					<Item id="6112" name="Afișează butonul de închidere"/>
 					<Item id="6113" name="Închide documentele cu dublu clic"/>
 					<Item id="6115" name="Activează caracteristica de fixare a filei"/>
 					<Item id="6135" name="Afișează numai butonul fixat"/>
 					<Item id="6118" name="Ascunde-o"/>
 					<Item id="6119" name="Linii multiple"/>
-					<Item id="6120" name="Vertical"/>
+					<Item id="6120" name="Verticală"/>
 					<Item id="6121" name="Ieși la închiderea ultimei file"/>
-					<Item id="6128" name="Iconițe alternative"/>
+					<Item id="6128" name="Pictograme alternative (Iconițe alternative)"/>
+					<Item id="6125" name="Comportament"/>
+					<Item id="6126" name="Aspectul vizual"/>
 				</Tabbar>
 				
                 <Scintillas title="Editare 1">
@@ -1222,7 +1224,7 @@
                         <Element name="Formatul de dată lungă"/>
                         <Element name="Timp"/>
                     </ComboBox>
-                    <Item id="6725" name="Variabilă:"/>
+                    <Item id="6725" name="&amp;Variabilă:"/>
 					<Item id="6727" name="Aici se afișează setările variabilelor"/>
                     <Item id="6728" name="Antet și subsol"/>
                 </Print>

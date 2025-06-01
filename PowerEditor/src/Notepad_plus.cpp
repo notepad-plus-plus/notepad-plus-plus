@@ -2620,6 +2620,7 @@ void Notepad_plus::checkDocState()
 	isCurrentDirty = curBuf->isDirty();
 	isCurrentUntitled = curBuf->isUntitled();
 	isCurrentMonitoringOn = curBuf->isMonitoringOn();
+	isCurrentInaccessible = curBuf->isInaccessible();
 
 	enableCommand(IDM_VIEW_MONITORING, !isCurrentUntitled, MENU | TOOLBAR);
 	checkMenuItem(IDM_VIEW_MONITORING, isCurrentMonitoringOn);
